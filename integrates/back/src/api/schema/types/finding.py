@@ -34,6 +34,7 @@ from api.resolvers.finding_new import (
     current_state_new,
     cwe_url_new,
     evidence_new,
+    group_name_new,
     historic_state_new,
     inputs_vulns_new,
     is_exploitable_new,
@@ -43,7 +44,6 @@ from api.resolvers.finding_new import (
     open_age_new,
     open_vulnerabilities_new,
     ports_vulns_new,
-    project_name_new,
     records_new,
     release_date_new,
     remediated_new,
@@ -86,7 +86,7 @@ if FI_API_STATUS == "migration":
     FINDING.set_field("openAge", open_age_new.resolve)
     FINDING.set_field("openVulnerabilities", open_vulnerabilities_new.resolve)
     FINDING.set_field("portsVulns", ports_vulns_new.resolve)
-    FINDING.set_field("projectName", project_name_new.resolve)
+    FINDING.set_field("projectName", group_name_new.resolve)
     FINDING.set_field("records", records_new.resolve)
     FINDING.set_field("releaseDate", release_date_new.resolve)
     FINDING.set_field("remediated", remediated_new.resolve)
@@ -100,7 +100,7 @@ if FI_API_STATUS == "migration":
     FINDING.set_field("vulnerabilities", vulnerabilities_new.resolve)
     FINDING.set_field("zeroRisk", zero_risk_new.resolve)
     # Standardization field
-    FINDING.set_field("groupName", project_name_new.resolve)
+    FINDING.set_field("groupName", group_name_new.resolve)
 else:
     FINDING.set_field("age", age.resolve)
     FINDING.set_field("analyst", analyst.resolve)

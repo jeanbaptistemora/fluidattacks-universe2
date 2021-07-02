@@ -101,7 +101,12 @@ ENUMS: Tuple[EnumType, ...] = (
     ),
     EnumType(
         "Entity",
-        {"ORGANIZATION": "ORGANIZATION", "PROJECT": "PROJECT", "USER": "USER"},
+        {
+            "GROUP": "GROUP",
+            "ORGANIZATION": "ORGANIZATION",
+            "PROJECT": "PROJECT",
+            "USER": "USER",
+        },
     ),
     EnumType(
         "EventAccessibility",

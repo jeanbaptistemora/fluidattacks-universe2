@@ -49,13 +49,13 @@ async def validate_fluidattacks_staff_on_group(
 async def validate_handle_comment_scope(
     content: str,
     user_email: str,
-    project_name: str,
+    group_name: str,
     parent: str,
     context_store: DefaultDict[Any, Any] = DefaultDict(str),
 ) -> None:
     enforcer = await get_group_level_enforcer(user_email, context_store)
     if content.strip() in {"#external", "#internal"}:
-        if not enforcer(project_name, "handle_comment_scope"):
+        if not enforcer(group_name, "handle_comment_scope"):
             raise PermissionDenied()
         if parent == "0":
             raise InvalidCommentParent()

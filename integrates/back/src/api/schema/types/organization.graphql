@@ -9,6 +9,6 @@ type Organization {
   maxNumberAcceptations: Int
   minAcceptanceSeverity: Float!
   name: String!
-  projects: [Group]
+  projects: [Group] @deprecated(reason: "Use `groups` instead.")
   stakeholders: [Stakeholder]
 }

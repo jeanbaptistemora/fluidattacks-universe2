@@ -28,6 +28,9 @@ from graphql.type.definition import (
 from group_comments import (
     dal as group_comments_dal,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from typing import (
     Dict,
     List,
@@ -111,7 +114,7 @@ async def mask_comments(group_name: str) -> bool:
     are_comments_masked = all(
         await collect(
             [
-                delete_comment(comment["project_name"], comment["user_id"])
+                delete_comment(resolve_kwargs(comment), comment["user_id"])
                 for comment in comments
             ]
         )
