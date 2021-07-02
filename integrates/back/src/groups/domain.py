@@ -1269,28 +1269,17 @@ async def get_group_digest_stats(
         "findings": list(),
     }
 
-    # Get valid findings for the group
     group_findings_loader = context.group_findings
     findings = await group_findings_loader.load(group_name)
-    are_findings_valid = await collect(
-        findings_domain.validate_finding(str(finding["finding_id"]))
-        for finding in findings
-    )
-    valid_findings = [
-        finding
-        for finding, is_finding_valid in zip(findings, are_findings_valid)
-        if is_finding_valid
-    ]
 
-    # Get stats
     last_day = datetime_utils.get_now_minus_delta(hours=24)
     content[
         "findings"
     ] = await findings_domain.get_oldest_no_treatment_findings(
-        context, valid_findings
+        context, findings
     )
     treatments = await findings_domain.get_total_treatment_date(
-        context, valid_findings, last_day
+        context, findings, last_day
     )
     content["treatments"]["temporary_applied"] = treatments.get("accepted", 0)
     content["treatments"]["eternal_requested"] = treatments.get(
@@ -1300,7 +1289,7 @@ async def get_group_digest_stats(
         "accepted_undefined_approved", 0
     )
     reattacks = await findings_domain.get_total_reattacks_stats(
-        context, valid_findings, last_day
+        context, findings, last_day
     )
     content["reattacks"]["effective_reattacks"] = reattacks.get(
         "effective_reattacks", 0
@@ -1321,7 +1310,7 @@ async def get_group_digest_stats(
         "pending_attacks", 0
     )
     content["main"]["comments"] = await get_total_comments_date(
-        valid_findings, group_name, last_day
+        findings, group_name, last_day
     )
     content["main"]["remediation_time"] = int(
         await get_mean_remediate(context, group_name)
@@ -1392,10 +1381,7 @@ def process_user_digest_stats(
     for stat in groups_stats:
         findings_extended = [
             {
-                # Finding name is trimmed due to unwanted html generation
-                # in the email client
-                "finding_name": finding["finding_name"][:60],
-                "finding_age": finding["finding_age"],
+                **finding,
                 "finding_group": stat["group"],
             }
             for finding in stat["findings"]

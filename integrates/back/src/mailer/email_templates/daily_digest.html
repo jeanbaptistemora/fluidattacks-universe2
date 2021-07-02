@@ -194,11 +194,11 @@
         </div>
         <div>
           <h3>{{ remediation_time['max'] }}</h3>
-          <p><strong>{{ remediation_time['max_group'] }}</strong> has the <strong>maximum</strong> Mean Time To Remediate</p>
+          <p><strong>{{ remediation_time['max_group'] }}</strong> has the <strong>maximum</strong> mean time to remediate</p>
         </div>
         <div>
           <h3>{{ remediation_time['min'] }}</h3>
-          <p><strong>{{ remediation_time['min_group'] }}</strong> has the <strong>minimum</strong> Mean Time To Remediate</p>
+          <p><strong>{{ remediation_time['min_group'] }}</strong> has the <strong>minimum</strong> mean time to remediate</p>
         </div>
       {%- else %}
         <div>
@@ -207,7 +207,7 @@
         </div>
         <div>
           <h3>{{ remediation_time['max'] }}</h3>
-          <p>Mean Time To Remediate at <strong>{{ remediation_time['max_group'] }}</strong></p>
+          <p>Mean time to remediate at <strong>{{ remediation_time['max_group'] }}</strong></p>
         </div>
       {%- endif %}
       <div>
@@ -434,7 +434,8 @@
                       overflow: hidden !important;
                       text-overflow: ellipsis !important;
                       font-size: 14px;">
-                {{ finding['finding_name'] }}
+                {# Truncated due to unwanted html generation in the email client #}
+                {{ finding['finding_name']|truncate(60, True, '...', 3) }}
                 <span style="display: none;">{{ hash }}</span>
               </div>
             </td>
