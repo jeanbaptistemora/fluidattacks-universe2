@@ -6,7 +6,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Inyección SQL
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -35,7 +35,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Denegación de servicio asimétrico
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -64,7 +64,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Denegación de servicio simetrico
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -93,7 +93,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Ejecución remota de comandos
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -122,7 +122,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Escalada de privilegios
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -151,7 +151,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Ausencia ó evasión del mecanismo de autenticación
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -180,7 +180,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Falsificación de petición en sitios cruzados (CSRF)
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -209,7 +209,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Cross site scripting reflejado
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -238,7 +238,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Información sensible almacenada en el código fuente
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -267,7 +267,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Cross site scripting almacenado
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -296,7 +296,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Uso de componentes con vulnerabilidades conocidas
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -325,7 +325,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Spring Data Java Persistence API
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -354,7 +354,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Referencia insegura de objetos
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -383,7 +383,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Funcionalidad insegura
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -412,7 +412,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Método de autenticación inseguro - Basic
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -441,7 +441,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: AWS iam:PassRole
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -470,7 +470,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Información sensible eviada de manera insegura
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -499,7 +499,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Autenticación inadecuada para carpetas compartidas
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -528,7 +528,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Credenciales administrativas almacenadas en memoria cache
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -557,7 +557,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Ausencia de cifrado de información confidencial
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -586,7 +586,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Inyección de XPath
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -615,7 +615,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Uso de canal inseguro
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -644,7 +644,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Redirección a sitios externos no controlada - cabecera Host
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -673,7 +673,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Acceso no restringido entre segmentos de red - AWS
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -702,7 +702,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Interceptación de llamadas
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -731,7 +731,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Enumeración de usuarios
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -760,7 +760,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Carga de archivos insegura
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -789,7 +789,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Archivos temporales inseguros
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -818,7 +818,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Control inadecuado del tamaño de archivo
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -847,7 +847,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Información sensible enviada mediante parámetros URL
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -876,7 +876,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Permisos excesivos
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -905,7 +905,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Suplantación
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -934,7 +934,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Cambio de contraseña sin validación de identidad
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -963,7 +963,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Generación de números aleatorios inseguros
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -992,7 +992,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Política de credenciales débil
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1021,7 +1021,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: ViewState no cifrado
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1050,7 +1050,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Fuga de información técnica
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1079,7 +1079,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Fuga de información de negocio
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1108,7 +1108,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Control de autorización inadecuado para servicios web
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1137,7 +1137,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Services web expuestos
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1166,7 +1166,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Credenciales for defecto habilitadas
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1195,7 +1195,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Cookies generadas de forma insegura
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1224,7 +1224,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Cabeceras de seguridad HTTP no establecidas - Strict-Transport-Security
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1253,7 +1253,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Métodos HTTP inseguros habilitados
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1282,7 +1282,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Inyección de código HTML
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1311,7 +1311,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Ausencia de ofuscación segura - APK
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1340,7 +1340,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Enumeración automática de información
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1369,7 +1369,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Falta de detección de sistemas rooteados
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1398,7 +1398,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Certificados digitales inseguros
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1427,7 +1427,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Credenciales débiles adivinadas
     description: __empty__
     impact: __empty__
     recommendation: __empty__
