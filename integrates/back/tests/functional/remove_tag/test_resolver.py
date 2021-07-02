@@ -38,6 +38,7 @@ async def test_remove_tag(populate: bool, email: str, tag_name: str) -> None:
         ["analyst@gmail.com"],
         ["closer@gmail.com"],
         ["resourcer@gmail.com"],
+        ["reviewer@gmail.com"],
     ],
 )
 async def test_remove_tag_fail(populate: bool, email: str) -> None:

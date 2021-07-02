@@ -35,8 +35,10 @@ async def test_admin(populate: bool, email: str) -> None:
     ["email"],
     [
         ["closer@gmail.com"],
+        ["customeradmin@gmail.com"],
         ["resourcer@gmail.com"],
         ["executive@gmail.com"],
+        ["reviewer@gmail.com"],
     ],
 )
 async def test_closer(populate: bool, email: str) -> None:
