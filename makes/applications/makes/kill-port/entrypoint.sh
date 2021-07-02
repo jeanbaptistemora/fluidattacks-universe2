@@ -11,9 +11,13 @@ function kill_one {
     fi \
     && while read -r pid; do
       if kill -9 "${pid}"; then
-        echo "[INFO] Killed pid: ${pid}, listening on port: ${port}"
+        if timeout 5 tail --pid="${pid}" -f /dev/null; then
+          echo "[INFO] Killed pid: ${pid}, listening on port: ${port}"
+        else
+          echo "[WARNING] kill timeout pid: ${pid}, listening on port: ${port}"
+        fi
       else
-        echo "[ERROR] Killing pid: ${pid}, listening on port: ${port}"
+        echo "[ERROR] Unable to kill pid: ${pid}, listening on port: ${port}"
       fi
     done < "${pids}"
 }
