@@ -42,4 +42,16 @@ const getRequestedZeroRiskVulns: (
     []
   );
 
-export { getVulnsPendingOfAcceptation, getRequestedZeroRiskVulns };
+function isPendingToAcceptation(
+  vulnerabilities: IVulnerabilitiesAttr[]
+): boolean {
+  return (
+    getVulnsPendingOfAcceptation(vulnerabilities).length > 0 ||
+    getRequestedZeroRiskVulns(vulnerabilities).length > 0
+  );
+}
+export {
+  getVulnsPendingOfAcceptation,
+  getRequestedZeroRiskVulns,
+  isPendingToAcceptation,
+};

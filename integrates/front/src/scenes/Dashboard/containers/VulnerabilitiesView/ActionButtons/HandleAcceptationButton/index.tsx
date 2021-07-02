@@ -11,6 +11,7 @@ import { TooltipWrapper } from "components/TooltipWrapper";
 import { authzPermissionsContext } from "utils/authz/config";
 
 const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
+  areVulnerabilitiesPendingToAcceptation,
   isEditing,
   isRequestingReattack,
   isVerifying,
@@ -33,7 +34,8 @@ const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
     (canHandleVulnsAcceptation ||
       canConfirmZeroRiskVuln ||
       canRejectZeroRiskVuln) &&
-    !(isEditing || isRequestingReattack || isVerifying);
+    !(isEditing || isRequestingReattack || isVerifying) &&
+    areVulnerabilitiesPendingToAcceptation;
 
   return (
     <React.StrictMode>

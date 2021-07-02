@@ -25,6 +25,7 @@ describe("HandleAcceptationButtons", (): void => {
     ]);
     const wrapper: ReactWrapper = mount(
       <HandleAcceptationButton
+        areVulnerabilitiesPendingToAcceptation={true}
         isEditing={true}
         isRequestingReattack={false}
         isVerifying={false}
@@ -42,7 +43,15 @@ describe("HandleAcceptationButtons", (): void => {
         expect(wrapper).toHaveLength(1);
         expect(wrapper.find("Button")).toHaveLength(0);
 
-        wrapper.setProps({ isEditing: false });
+        wrapper.setProps({
+          areVulnerabilitiesPendingToAcceptation: false,
+          isEditing: false,
+        });
+        wrapper.update();
+
+        expect(wrapper.find("Button")).toHaveLength(0);
+
+        wrapper.setProps({ areVulnerabilitiesPendingToAcceptation: true });
         wrapper.update();
         const buttons: ReactWrapper = wrapper.find("Button");
 

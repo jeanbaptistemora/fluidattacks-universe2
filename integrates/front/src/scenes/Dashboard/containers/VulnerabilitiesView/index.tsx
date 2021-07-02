@@ -42,6 +42,7 @@ import { ActionButtons } from "scenes/Dashboard/containers/VulnerabilitiesView/A
 import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import type { IGetFindingVulnInfoAttr } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
+import { isPendingToAcceptation } from "scenes/Dashboard/containers/VulnerabilitiesView/utils";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -338,6 +339,9 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 </SelectContainer>
               </Filters>
               <ActionButtons
+                areVulnerabilitiesPendingToAcceptation={isPendingToAcceptation(
+                  vulnerabilities
+                )}
                 areVulnsSelected={
                   remediationModalConfig.vulnerabilities.length > 0
                 }
