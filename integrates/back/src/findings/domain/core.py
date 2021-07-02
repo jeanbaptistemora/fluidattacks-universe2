@@ -1120,38 +1120,6 @@ async def get_total_treatment_date(
     }
 
 
-async def get_oldest_open_findings(
-    context: Any,
-    findings: List[Dict[str, FindingType]],
-    count: int,
-) -> list:
-    """Get the n oldest open findings and their age"""
-    total_vulns = list(
-        await collect(
-            total_vulnerabilities(context, finding["finding_id"])
-            for finding in findings
-        )
-    )
-    findings_age = list(
-        await collect(
-            get_finding_open_age(context, finding["finding_id"])
-            for finding in findings
-        )
-    )
-    open_findings = [
-        {
-            "finding_name": finding["title"],
-            "finding_age": age,
-        }
-        for finding, total, age in zip(findings, total_vulns, findings_age)
-        if total["openVulnerabilities"]
-    ]
-    oldest = sorted(
-        open_findings, key=itemgetter("finding_age"), reverse=True
-    )[:count]
-    return oldest
-
-
 async def get_oldest_no_treatment_findings(
     context: Any,
     findings: List[Dict[str, FindingType]],

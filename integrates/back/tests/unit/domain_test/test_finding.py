@@ -20,7 +20,6 @@ from findings.domain import (
     add_comment,
     approve_draft,
     get_oldest_no_treatment_findings,
-    get_oldest_open_findings,
     get_total_reattacks_stats,
     get_total_treatment_date,
     get_tracking_vulnerabilities,
@@ -419,25 +418,6 @@ async def test_list_drafts_deleted() -> None:
     test_data = await list_drafts(groups_name, include_deleted=True)
     expected_output = ["818828206", "836530833", "475041524", "991607942"]
     assert sorted(expected_output) == sorted(test_data[0])
-
-
-@freeze_time("2019-01-26")
-async def test_get_oldest_open_findings() -> None:
-    group_name = "unittesting"
-    oldest_requested = 1
-    context = get_new_context()
-    group_findings_loader = context.group_findings
-    findings = await group_findings_loader.load(group_name)
-    oldest_findings = await get_oldest_open_findings(
-        context, findings, oldest_requested
-    )
-    expected_output = [
-        {
-            "finding_name": "F007. Cross site request forgery",
-            "finding_age": 10,
-        }
-    ]
-    assert expected_output == oldest_findings
 
 
 @freeze_time("2021-05-27")
