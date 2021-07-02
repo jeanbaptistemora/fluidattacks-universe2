@@ -84,9 +84,33 @@ class StreamEncoder(Immutable):
 
     def encode_job_stream(self, obj: JobStream) -> JSON:
         return {
-            "type": "MrStream",
+            "type": "JobStream",
             "obj": {
                 "project": obj.project.proj_id,
                 "scopes": (scope.value for scope in obj.scopes),
             },
         }
+
+
+class DecodeError(Exception):
+    pass
+
+
+@dataclass
+class StreamDecoder(Immutable):
+    # pylint: disable=no-self-use
+
+    def decode_mr_stream(self, raw: JSON) -> MrStream:
+        if raw.get("type") == "MrStream":
+            proj = ProjectId.from_name(raw["obj"]["project"])
+            scope = MrScope(raw["obj"]["scope"])
+            mr_state = MrState(raw["obj"]["mr_state"])
+            return MrStream(proj, scope, mr_state)
+        raise DecodeError("MrStream")
+
+    def decode_job_stream(self, raw: JSON) -> JobStream:
+        if raw.get("type") == "JobStream":
+            proj = ProjectId.from_name(raw["obj"]["project"])
+            scopes = tuple(JobScope(item) for item in raw["obj"]["scopes"])
+            return JobStream(proj, scopes)
+        raise DecodeError("MrStream")

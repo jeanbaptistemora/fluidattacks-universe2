@@ -25,6 +25,7 @@ from tap_gitlab.intervals.progress import (
 from tap_gitlab.streams import (
     JobStream,
     MrStream,
+    StreamDecoder,
     StreamEncoder,
 )
 from typing import (
@@ -127,7 +128,7 @@ class DecodeError(Exception):
 
 @dataclass(frozen=True)
 class StateDecoder:
-    # pylint: disable=no-self-use
+    s_decoder: StreamDecoder
     i_decoder: IntervalDecoder[datetime]
     i_decoder_2: IntervalDecoder[Tuple[int, PageId[int]]]
 
@@ -144,3 +145,37 @@ class StateDecoder:
                 self.i_decoder_2.decode_f_progress(raw_state)
             )
         raise DecodeError("JobStreamState")
+
+    def decode_jobstate_map(self, raw: JSON) -> JobStateMap:
+        if raw.get("type") == "JobStateMap":
+            raw_items = raw["obj"]["items"]
+            dict_map = {
+                self.s_decoder.decode_job_stream(
+                    raw_stm
+                ): self.decode_jsonstm_state(raw_state)
+                for raw_stm, raw_state in raw_items
+            }
+            return JobStateMap(dict_map)
+        raise DecodeError("JobStreamState")
+
+    def decode_mrstate_map(self, raw: JSON) -> MrStateMap:
+        if raw.get("type") == "MrStateMap":
+            raw_items = raw["obj"]["items"]
+            dict_map = {
+                self.s_decoder.decode_mr_stream(
+                    raw_stm
+                ): self.decode_mrstm_state(raw_state)
+                for raw_stm, raw_state in raw_items
+            }
+            return MrStateMap(dict_map)
+        raise DecodeError("MrStateMap")
+
+    def decode_etl_state(self, raw: JSON) -> EtlState:
+        if raw.get("type") == "EtlState":
+            raw_jobs = raw["obj"]["jobs"]
+            raw_mrs = raw["obj"]["mrs"]
+            return EtlState(
+                self.decode_jobstate_map(raw_jobs),
+                self.decode_mrstate_map(raw_mrs),
+            )
+        raise DecodeError("EtlState")
