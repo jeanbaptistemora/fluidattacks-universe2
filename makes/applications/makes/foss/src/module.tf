@@ -5,10 +5,10 @@ module "github_makes" {
   homepage    = null
   name        = "makes"
   token       = var.GITHUB_API_TOKEN
-  topics      = ["build", "devops", "nix"]
+  topics      = ["build", "cd", "ci", "devops", "nix"]
 
-  secrets_dev = {}
-  secrets_prod = {
-    API_TOKEN_GITHUB = var.GITHUB_API_TOKEN
+  secrets = {
+    GITLAB_TOKEN = var.PRODUCT_API_TOKEN
+    GITLAB_USER  = var.PRODUCT_API_USER
   }
 }

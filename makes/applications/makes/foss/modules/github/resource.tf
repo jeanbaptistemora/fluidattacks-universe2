@@ -1,15 +1,6 @@
-resource "github_actions_environment_secret" "dev" {
-  for_each        = var.secrets_dev
+resource "github_actions_secret" "secrets" {
+  for_each        = var.secrets
   repository      = github_repository.repo.name
-  environment     = github_repository_environment.dev.environment
-  secret_name     = each.key
-  plaintext_value = each.value
-}
-
-resource "github_actions_environment_secret" "prod" {
-  for_each        = var.secrets_prod
-  repository      = github_repository.repo.name
-  environment     = github_repository_environment.prod.environment
   secret_name     = each.key
   plaintext_value = each.value
 }
@@ -50,37 +41,4 @@ resource "github_repository" "repo" {
   topics                 = var.topics
   vulnerability_alerts   = false
   visibility             = "public"
-}
-
-resource "github_repository_environment" "dev" {
-  environment = "dev"
-  repository  = github_repository.repo.name
-
-  deployment_branch_policy {
-    custom_branch_policies = false
-    protected_branches     = true
-  }
-
-  reviewers {
-    teams = [github_team.approvers.id]
-  }
-}
-
-resource "github_repository_environment" "prod" {
-  environment = "prod"
-  repository  = github_repository.repo.name
-
-  deployment_branch_policy {
-    custom_branch_policies = false
-    protected_branches     = true
-  }
-  reviewers {
-    teams = [github_team.approvers.id]
-  }
-}
-
-resource "github_team" "approvers" {
-  name        = "approvers"
-  description = "Approvers team"
-  privacy     = "closed"
 }
