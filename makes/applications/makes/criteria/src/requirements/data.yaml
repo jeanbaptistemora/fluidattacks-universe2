@@ -1368,7 +1368,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Implementar un componente de verificacion biometrica
     summary: __empty__
     description: __empty__
   references: []
@@ -1379,7 +1379,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Exigir la identidad del equipo
     summary: __empty__
     description: __empty__
   references: []
@@ -1390,7 +1390,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Definir interfaz de credenciales
     summary: __empty__
     description: __empty__
   references: []
@@ -1401,7 +1401,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Establecer tiempo de autenticacion
     summary: __empty__
     description: __empty__
   references: []
@@ -1412,7 +1412,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Comprobar interaccion humana
     summary: __empty__
     description: __empty__
   references: []
@@ -1423,7 +1423,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Establecer recuperacion segura
     summary: __empty__
     description: __empty__
   references: []
@@ -1434,7 +1434,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Ocultar SSID en redes privadas
     summary: __empty__
     description: __empty__
   references: []
@@ -1445,7 +1445,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: SSID sin palabras de diccionario
     summary: __empty__
     description: __empty__
   references: []
@@ -1456,7 +1456,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Localizar puntos de acceso
     summary: __empty__
     description: __empty__
   references: []
@@ -1467,7 +1467,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Gestionar puntos de acceso
     summary: __empty__
     description: __empty__
   references: []
@@ -1478,7 +1478,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Modificar IP del punto de acceso
     summary: __empty__
     description: __empty__
   references: []
@@ -1489,7 +1489,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Configurar llave de cifrado
     summary: __empty__
     description: __empty__
   references: []
@@ -1500,7 +1500,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Restringir acceso a la red
     summary: __empty__
     description: __empty__
   references: []
@@ -1511,7 +1511,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Modificar el nombre del SSID
     summary: __empty__
     description: __empty__
   references: []
@@ -1522,7 +1522,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Permitir acceso solo a puertos necesarios
     summary: __empty__
     description: __empty__
   references: []
@@ -1533,7 +1533,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Acceso basado en credenciales de usuario
     summary: __empty__
     description: __empty__
   references: []
@@ -1544,7 +1544,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Filtrar contenido de pagina web
     summary: __empty__
     description: __empty__
   references: []
@@ -1555,7 +1555,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Segmentar la red de la organizacion
     summary: __empty__
     description: __empty__
   references: []
@@ -1566,7 +1566,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Utilizar correos electronicos alternativos
     summary: __empty__
     description: __empty__
   references: []
@@ -1577,7 +1577,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Evitar exposicion de informacion sensible
     summary: __empty__
     description: __empty__
   references: []
@@ -1588,7 +1588,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Verificar componentes de terceros
     summary: __empty__
     description: __empty__
   references: []
@@ -1599,7 +1599,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Solicitar autenticacion
     summary: __empty__
     description: __empty__
   references: []
@@ -1610,7 +1610,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Restringir acceso a procesos criticos
     summary: __empty__
     description: __empty__
   references: []
@@ -1621,7 +1621,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Deshabilitar funcionalidades inseguras
     summary: __empty__
     description: __empty__
   references: []
@@ -1632,7 +1632,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Definir una suite de seguridad fija
     summary: __empty__
     description: __empty__
   references: []
@@ -1643,7 +1643,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Restringir servicio al directorio raiz
     summary: __empty__
     description: __empty__
   references: []
@@ -1654,7 +1654,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Definir un maximo numero de conexiones
     summary: __empty__
     description: __empty__
   references: []
