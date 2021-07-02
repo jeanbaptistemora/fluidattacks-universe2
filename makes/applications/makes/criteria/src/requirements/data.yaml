@@ -4,7 +4,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Finalizar sesiones de usuario inactivas
     summary: __empty__
     description: __empty__
   references: []
@@ -15,7 +15,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Transferir informacion usando objetos de sesion
     summary: __empty__
     description: __empty__
   references: []
@@ -26,7 +26,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Gestionar sesiones concurrentes
     summary: __empty__
     description: __empty__
   references: []
@@ -37,7 +37,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Cifrar informacion de sesion del lado del cliente
     summary: __empty__
     description: __empty__
   references: []
@@ -48,7 +48,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Permitir bloqueo de sesion
     summary: __empty__
     description: __empty__
   references: []
@@ -59,7 +59,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Permitir a usuarios el cierre de sesion
     summary: __empty__
     description: __empty__
   references: []
@@ -70,7 +70,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Cookies con atributos de seguridad
     summary: __empty__
     description: __empty__
   references: []
@@ -81,7 +81,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Evitar reutilizacion de objetos
     summary: __empty__
     description: __empty__
   references: []
@@ -92,7 +92,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Descartar datos de sesion del usuario
     summary: __empty__
     description: __empty__
   references: []
@@ -103,7 +103,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Evitar fugas del ID de sesion 
     summary: __empty__
     description: __empty__
   references: []
@@ -114,7 +114,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Restringir acceso administrativo
     summary: __empty__
     description: __empty__
   references: []
@@ -125,7 +125,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Gestionar cuentas de usuario
     summary: __empty__
     description: __empty__
   references: []
@@ -136,7 +136,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Gestionar modificaciones en privilegios
     summary: __empty__
     description: __empty__
   references: []
@@ -147,7 +147,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: No desplegar archivos temporales
     summary: __empty__
     description: __empty__
   references: []
@@ -158,7 +158,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Parametros sin datos sensibles
     summary: __empty__
     description: __empty__
   references: []
@@ -169,7 +169,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Definir un tamano maximo de archivo
     summary: __empty__
     description: __empty__
   references: []
@@ -180,7 +180,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Comparar formato y extension del archivo
     summary: __empty__
     description: __empty__
   references: []
@@ -191,7 +191,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Escanear archivos para detectar codigo malicioso
     summary: __empty__
     description: __empty__
   references: []
@@ -202,7 +202,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Validar formato del archivo
     summary: __empty__
     description: __empty__
   references: []
@@ -213,7 +213,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Definir un tipo de contenido explicito
     summary: __empty__
     description: __empty__
   references: []
@@ -224,7 +224,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Definir un juego de caracteres explicito
     summary: __empty__
     description: __empty__
   references: []
@@ -235,7 +235,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Eliminar metadatos al compartir archivos
     summary: __empty__
     description: __empty__
   references: []
@@ -246,7 +246,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Gestionar la integridad de archivos criticos
     summary: __empty__
     description: __empty__
   references: []
@@ -257,7 +257,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Componentes con dependencias minimas
     summary: __empty__
     description: __empty__
   references: []
@@ -268,7 +268,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Controlar llamadas a codigo interpretado
     summary: __empty__
     description: __empty__
   references: []
@@ -279,7 +279,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Almacenar codigo fuente en un repositorio
     summary: __empty__
     description: __empty__
   references: []
