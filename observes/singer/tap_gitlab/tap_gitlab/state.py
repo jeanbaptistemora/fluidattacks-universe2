@@ -1,3 +1,6 @@
+from dataclasses import (
+    dataclass,
+)
 from datetime import (
     datetime,
 )
@@ -19,6 +22,7 @@ from tap_gitlab.streams import (
 )
 from typing import (
     Dict,
+    final,
     NamedTuple,
     Tuple,
 )
@@ -34,64 +38,72 @@ i_encoder_2: IntervalEncoder[Tuple[int, PageId[int]]] = IntervalEncoder(
 class MrStreamState(NamedTuple):
     state: FragmentedProgressInterval[datetime]
 
-    def to_json(self) -> JSON:
-        return {
-            "type": "MrStreamState",
-            "obj": {
-                "state": i_encoder.encode_f_progress(self.state),
-            },
-        }
-
 
 class JobStreamState(NamedTuple):
     state: FragmentedProgressInterval[Tuple[int, PageId[int]]]
 
-    def to_json(self) -> JSON:
-        return {
-            "type": "JobStreamState",
-            "obj": {
-                "state": i_encoder_2.encode_f_progress(self.state),
-            },
-        }
-
 
 class MrStateMap(NamedTuple):
-    states: Dict[MrStream, MrStreamState]
-
-    def to_json(self) -> JSON:
-        return {
-            "type": "MrStateMap",
-            "obj": [
-                (stream.to_json(), interval.to_json())
-                for stream, interval in self.states.items()
-            ],
-        }
+    items: Dict[MrStream, MrStreamState]
 
 
 class JobStateMap(NamedTuple):
     items: Dict[JobStream, JobStreamState]
-
-    def to_json(self) -> JSON:
-        return {
-            "type": "JobStateMap",
-            "obj": {
-                "items": [
-                    (proj.to_json(), item.to_json())
-                    for proj, item in self.items.items()
-                ],
-            },
-        }
 
 
 class EtlState(NamedTuple):
     jobs: JobStateMap
     mrs: MrStateMap
 
-    def to_json(self) -> JSON:
+
+@final
+@dataclass(frozen=True)
+class StateEncoder:
+    # pylint: disable=no-self-use
+
+    def encode_mrstm_state(self, state: MrStreamState) -> JSON:
+        return {
+            "type": "MrStreamState",
+            "obj": {
+                "state": i_encoder.encode_f_progress(state.state),
+            },
+        }
+
+    def encode_jsonstm_state(self, state: JobStreamState) -> JSON:
+        return {
+            "type": "JobStreamState",
+            "obj": {
+                "state": i_encoder_2.encode_f_progress(state.state),
+            },
+        }
+
+    def encode_jobstate_map(self, state: JobStateMap) -> JSON:
+        return {
+            "type": "JobStateMap",
+            "obj": {
+                "items": [
+                    (proj.to_json(), self.encode_jsonstm_state(item))
+                    for proj, item in state.items.items()
+                ],
+            },
+        }
+
+    def encode_mrstate_map(self, state: MrStateMap) -> JSON:
+        return {
+            "type": "MrStateMap",
+            "obj": {
+                "items": [
+                    (proj.to_json(), self.encode_mrstm_state(item))
+                    for proj, item in state.items.items()
+                ],
+            },
+        }
+
+    def encode_etl_state(self, state: EtlState) -> JSON:
         return {
             "type": "EtlState",
             "obj": {
-                "jobs": self.jobs.to_json(),
-                "mrs": self.mrs.to_json(),
+                "jobs": self.encode_jobstate_map(state.jobs),
+                "mrs": self.encode_mrstate_map(state.mrs),
             },
         }

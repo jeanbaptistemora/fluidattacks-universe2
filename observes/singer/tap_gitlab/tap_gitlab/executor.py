@@ -68,7 +68,6 @@ def defautl_stream(
         for stream in streams:
             result = emitter.emit_mrs(stream, default_state())
             LOG.debug("new status: %s", result)
-            LOG.debug("new status json: %s", result.to_json())
 
     else:
         raise NotImplementedError(f"for {_target_stream}")
