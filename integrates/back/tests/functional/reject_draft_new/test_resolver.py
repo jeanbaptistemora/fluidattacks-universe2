@@ -14,7 +14,6 @@ from typing import (
     ["email", "finding_id"],
     [
         ["admin@gmail.com", "475041513"],
-        ["analyst@gmail.com", "475041520"],
     ],
 )
 async def test_reject_draft(
@@ -34,6 +33,7 @@ async def test_reject_draft(
 @pytest.mark.parametrize(
     ["email", "finding_id"],
     [
+        ["analyst@gmail.com", "475041520"],
         ["customer@gmail.com", "475041513"],
         ["executive@gmail.com", "475041520"],
     ],
