@@ -10,6 +10,10 @@ from .historics.verification import (
     format_verification_item,
     VulnerabilityVerification,
 )
+from .historics.zero_risk import (
+    format_zero_risk_item,
+    VulnerabilityZeroRisk,
+)
 from boto3.dynamodb.conditions import (
     Attr,
 )
@@ -108,6 +112,37 @@ async def update_verification(
     await operations.put_item(
         condition_expression=condition_expression,
         facet=TABLE.facets["vulnerability_verification"],
+        item=latest,
+        table=TABLE,
+    )
+    items.append(historic)
+    await operations.batch_write_item(items=tuple(items), table=TABLE)
+
+
+async def update_zero_risk(
+    *,
+    finding_id: str,
+    uuid: str,
+    zero_risk: VulnerabilityZeroRisk,
+) -> None:
+    items = []
+    key_structure = TABLE.primary_key
+    zero_risk_item = format_zero_risk_item(zero_risk)
+    latest, historic = historics.build_historic(
+        attributes=zero_risk_item,
+        historic_facet=TABLE.facets["vulnerability_historic_zero_risk"],
+        key_structure=key_structure,
+        key_values={
+            "finding_id": finding_id,
+            "iso8601utc": zero_risk.modified_date,
+            "uuid": uuid,
+        },
+        latest_facet=TABLE.facets["vulnerability_zero_risk"],
+    )
+    condition_expression = Attr(key_structure.partition_key).exists()
+    await operations.put_item(
+        condition_expression=condition_expression,
+        facet=TABLE.facets["vulnerability_zero_risk"],
         item=latest,
         table=TABLE,
     )
