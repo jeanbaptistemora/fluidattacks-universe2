@@ -6,6 +6,10 @@ from .historics.treatment import (
     format_treatment_item,
     VulnerabilityTreatment,
 )
+from .historics.verification import (
+    format_verification_item,
+    VulnerabilityVerification,
+)
 from boto3.dynamodb.conditions import (
     Attr,
 )
@@ -73,6 +77,37 @@ async def update_treatment(
     await operations.put_item(
         condition_expression=condition_expression,
         facet=TABLE.facets["vulnerability_treatment"],
+        item=latest,
+        table=TABLE,
+    )
+    items.append(historic)
+    await operations.batch_write_item(items=tuple(items), table=TABLE)
+
+
+async def update_verification(
+    *,
+    finding_id: str,
+    uuid: str,
+    verification: VulnerabilityVerification,
+) -> None:
+    items = []
+    key_structure = TABLE.primary_key
+    verification_item = format_verification_item(verification)
+    latest, historic = historics.build_historic(
+        attributes=verification_item,
+        historic_facet=TABLE.facets["vulnerability_historic_verification"],
+        key_structure=key_structure,
+        key_values={
+            "finding_id": finding_id,
+            "iso8601utc": verification.modified_date,
+            "uuid": uuid,
+        },
+        latest_facet=TABLE.facets["vulnerability_verification"],
+    )
+    condition_expression = Attr(key_structure.partition_key).exists()
+    await operations.put_item(
+        condition_expression=condition_expression,
+        facet=TABLE.facets["vulnerability_verification"],
         item=latest,
         table=TABLE,
     )
