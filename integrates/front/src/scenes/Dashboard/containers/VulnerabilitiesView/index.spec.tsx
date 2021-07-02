@@ -5,6 +5,7 @@ import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
+import { useTranslation } from "react-i18next";
 import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
 import waitForExpect from "wait-for-expect";
@@ -20,7 +21,7 @@ describe("VulnerabilitiesView", (): void => {
       query: GET_FINDING_VULN_INFO,
       variables: {
         canRetrieveAnalyst: true,
-        canRetrieveZeroRisk: false,
+        canRetrieveZeroRisk: true,
         findingId: "422286126",
         groupName: "testgroup",
       },
@@ -31,7 +32,7 @@ describe("VulnerabilitiesView", (): void => {
           __typename: "Finding",
           id: "422286126",
           releaseDate: "2019-07-05 08:56:40",
-          remediated: true,
+          remediated: false,
           state: "open",
           verified: false,
           vulnerabilities: [
@@ -69,13 +70,51 @@ describe("VulnerabilitiesView", (): void => {
               verification: "Requested",
               vulnType: "inputs",
               where: "https://example.com/inputs",
-              zeroRisk: "Requested",
+              zeroRisk: "",
             },
             {
               __typename: "Vulnerability",
               analyst: "useranalyst@test.test",
               commitHash: "",
-              currentState: "closed",
+              currentState: "open",
+              cycles: "",
+              efficacy: "",
+              externalBts: "",
+              findingId: "422286126",
+              historicTreatment: [
+                {
+                  acceptanceDate: "",
+                  acceptanceStatus: "",
+                  date: "2020-07-05 09:56:40",
+                  justification: "test progress justification",
+                  treatment: "IN PROGRESS",
+                  treatmentManager: "treatment-manager-4@test.test",
+                  user: "usertreatment4@test.test",
+                },
+              ],
+              id: "6903f3e4-a8ee-4a5d-ac38-fb738ec7e540",
+              lastReattackDate: "",
+              lastReattackRequester: "",
+              lastRequestedReattackDate: "",
+              remediated: false,
+              reportDate: "2020-07-05 09:56:40",
+              severity: "",
+              specific: "specific-3",
+              stream: "",
+              tag: "tag-3",
+              treatmentDate: "2020-07-05 09:56:40",
+              verification: "",
+              vulnType: "lines",
+              where: "https://example.com/tests",
+              zeroRisk: "",
+            },
+          ],
+          zeroRisk: [
+            {
+              __typename: "Vulnerability",
+              analyst: "useranalyst@test.test",
+              commitHash: "",
+              currentState: "open",
               cycles: "",
               efficacy: "",
               externalBts: "",
@@ -105,7 +144,7 @@ describe("VulnerabilitiesView", (): void => {
               verification: "Verified",
               vulnType: "lines",
               where: "https://example.com/lines",
-              zeroRisk: "",
+              zeroRisk: "Requested",
             },
           ],
         },
@@ -127,6 +166,12 @@ describe("VulnerabilitiesView", (): void => {
   it("should render container", async (): Promise<void> => {
     expect.hasAssertions();
 
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "api_mutations_confirm_zero_risk_vuln_mutate" },
+      { action: "api_resolvers_vulnerability_analyst_resolve" },
+      { action: "api_resolvers_finding_zero_risk_resolve" },
+    ]);
+
     const wrapper: ReactWrapper = mount(
       <MemoryRouter
         initialEntries={[
@@ -135,15 +180,7 @@ describe("VulnerabilitiesView", (): void => {
       >
         <Provider store={store}>
           <MockedProvider addTypename={true} mocks={[mocksQuery]}>
-            <authzPermissionsContext.Provider
-              value={
-                new PureAbility([
-                  {
-                    action: "api_resolvers_vulnerability_analyst_resolve",
-                  },
-                ])
-              }
-            >
+            <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={VulnsView}
                 path={
@@ -156,6 +193,8 @@ describe("VulnerabilitiesView", (): void => {
       </MemoryRouter>
     );
 
+    wrapper.update();
+
     await act(async (): Promise<void> => {
       await waitForExpect((): void => {
         wrapper.update();
@@ -163,17 +202,18 @@ describe("VulnerabilitiesView", (): void => {
         expect(wrapper).toHaveLength(1);
         expect(
           wrapper.find("BootstrapTable").find("RowPureContent")
-        ).toHaveLength(1);
+        ).toHaveLength(2);
       });
     });
   });
 
-  it("should render conatainer with additional permissions", async (): Promise<void> => {
+  it("should render container with additional permissions", async (): Promise<void> => {
     expect.hasAssertions();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_confirm_zero_risk_vuln_mutate" },
       { action: "api_resolvers_vulnerability_analyst_resolve" },
+      { action: "api_resolvers_finding_zero_risk_resolve" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter
@@ -210,6 +250,82 @@ describe("VulnerabilitiesView", (): void => {
             .find("BootstrapTable")
             .find("RowPureContent")
         ).toHaveLength(1);
+      });
+    });
+  });
+
+  it("should render container and test actions_buttons flows", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const { t } = useTranslation();
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "api_resolvers_vulnerability_analyst_resolve" },
+      { action: "api_mutations_request_verification_vulnerability_mutate" },
+      { action: "api_resolvers_finding_zero_risk_resolve" },
+      { action: "api_mutations_update_vulns_treatment_mutate" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter
+        initialEntries={[
+          "/orgs/testorg/groups/testgroup/vulns/422286126/locations",
+        ]}
+      >
+        <Provider store={store}>
+          <MockedProvider addTypename={true} mocks={[mocksQuery]}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
+              <Route
+                component={VulnsView}
+                path={
+                  "/orgs/:organizationName/groups/:groupName/vulns/:findingId/locations"
+                }
+              />
+            </authzPermissionsContext.Provider>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>
+    );
+
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(wrapper).toHaveLength(1);
+
+        expect(wrapper.find("Button")).toHaveLength(2);
+      });
+    });
+
+    const tableVulns: ReactWrapper = wrapper
+      .find({ id: "vulnerabilitiesTable" })
+      .at(0);
+    const selectionCell: ReactWrapper = tableVulns.find("SelectionCell");
+    selectionCell.last().simulate("click");
+
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+        const buttons: ReactWrapper = wrapper.find("Button");
+        const requestButton: ReactWrapper = buttons.filterWhere(
+          (button: ReactWrapper): boolean =>
+            button
+              .text()
+              .includes(t("searchFindings.tabDescription.requestVerify.tex"))
+        );
+
+        expect(requestButton).toHaveLength(1);
+        expect(wrapper.find("UpdateVerificationModal")).toHaveLength(0);
+
+        requestButton.simulate("click");
+        wrapper.update();
+
+        expect(
+          wrapper
+            .find("Button")
+            .filterWhere((button: ReactWrapper): boolean =>
+              button.text().includes(t("searchFindings.tabVuln.buttons.edit"))
+            )
+        ).toHaveLength(0);
+        expect(wrapper.find("UpdateVerificationModal")).toHaveLength(1);
       });
     });
   });
