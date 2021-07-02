@@ -118,7 +118,7 @@ def insert(table: str, item: Dict[str, Any]) -> None:
         )
 
 
-def reset(model_name: str = "") -> None:
+def reset(model_name: str) -> None:
     """
     First deletes all info in our training table and
     then we iterate each training .csv to refill it.
@@ -169,9 +169,14 @@ def init_db() -> None:
     initialize()
 
 
-@cli.command(help="Delete and create again Redshift schema & Sorts tables")
-def reset_db() -> None:
-    reset()
+@cli.command(help="Reset Redshift's Sorts training table with latest info")
+@click.option(
+    "--model",
+    help="Resets just provided model training results",
+    type=str,
+)
+def reset_db(model: str = "") -> None:
+    reset(model)
 
 
 if __name__ == "__main__":
