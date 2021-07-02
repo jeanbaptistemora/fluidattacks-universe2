@@ -46,7 +46,9 @@ const DropDownCard: React.FC<IProps> = ({
         {haveTitle ? (
           <React.Fragment>
             <br />
-            <h4>{title}</h4>
+            <div className={"mb5"}>
+              <h4>{title}</h4>
+            </div>
           </React.Fragment>
         ) : undefined}
         <CardReadMore>
@@ -61,9 +63,11 @@ const DropDownCard: React.FC<IProps> = ({
       <CardBody
         style={{
           height: isTouch ? "30rem" : "0",
+          marginTop: isTouch ? "-3rem" : "0",
         }}
       >
         <div
+          className={"down-cards"}
           dangerouslySetInnerHTML={{
             __html: htmlData,
           }}

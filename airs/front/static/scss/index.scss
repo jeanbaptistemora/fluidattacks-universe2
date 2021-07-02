@@ -408,7 +408,7 @@ $gray-244: rgba(244, 244, 246, 1);
 
 .cardgrid {
   .accordion {
-    min-height: 350px;
+    min-height: 390px;
 
     img {
       max-height: 150px;
@@ -534,6 +534,12 @@ $gray-244: rgba(244, 244, 246, 1);
   font-family: 'Roboto', sans-serif;
   padding-bottom: 0;
   padding-top: 0;
+}
+
+.down-cards > div > p,
+.down-cards > div > p > code,
+.down-cards > div + div > ul > li > p {
+  font-size: 1rem !important;
 }
 
 // stylelint-disable-next-line selector-class-pattern
