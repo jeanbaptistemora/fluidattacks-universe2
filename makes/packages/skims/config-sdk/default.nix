@@ -5,9 +5,7 @@
 }:
 makeTemplate {
   arguments = {
-    envManifestFindingsDev = path "/skims/manifests/findings.dev.json";
-    envManifestFindingsProd = path "/skims/manifests/findings.prod.json";
-    envManifestFindingsStaging = path "/skims/manifests/findings.staging.json";
+    envManifestFindings = path "/skims/manifests/findings.json";
     envSkimsBin = applications.skims;
   };
   name = "skims-config-sdk";
@@ -17,9 +15,7 @@ makeTemplate {
     ];
   };
   template = ''
-    export SKIMS_FINDINGS_DEV='__envManifestFindingsDev__'
-    export SKIMS_FINDINGS_PROD='__envManifestFindingsProd__'
-    export SKIMS_FINDINGS_STAGING='__envManifestFindingsStaging__'
     export SKIMS_BIN='__envSkimsBin__'
+    export SKIMS_FINDINGS='__envManifestFindings__'
   '';
 }

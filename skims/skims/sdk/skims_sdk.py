@@ -17,10 +17,7 @@ def _json_load(path: str) -> Any:
         return json.load(file)
 
 
-FINDINGS_DEV: List[str] = _json_load(environ["SKIMS_FINDINGS_DEV"])
-FINDINGS_PROD: List[str] = _json_load(environ["SKIMS_FINDINGS_PROD"])
-FINDINGS_STAGING: List[str] = _json_load(environ["SKIMS_FINDINGS_STAGING"])
-FINDINGS: List[str] = sorted(FINDINGS_DEV + FINDINGS_PROD + FINDINGS_STAGING)
+FINDINGS: List[str] = _json_load(environ["SKIMS_FINDINGS"])
 
 
 async def _run(

@@ -1,8 +1,0 @@
-[
-  "F011_SSLV3",
-  "F011_TLS",
-  "F042_HTTPONLY",
-  "F042_SAMESITE",
-  "F042_SECURE",
-  "F052_PFS"
-]

@@ -21,12 +21,12 @@ async def main() -> None:
     out = out_.decode()
 
     assert code == 0, out
-    assert "Running on AWS" in out
-    assert "Job Queue: skims_prod_later" in out
+    assert "Running on AWS" in out, out
+    assert "Job Queue: skims_f117_later" in out, out
     assert (
         f"process-{group}-F117-test has been successfully sent" in out
         or f"process-{group}-F117-test is already in queue" in out
-    )
+    ), out
 
 
 if __name__ == "__main__":

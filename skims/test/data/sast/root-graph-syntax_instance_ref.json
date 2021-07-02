@@ -72,10 +72,6 @@
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
-  "F020": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
   "F021": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
       "187": {},
@@ -2980,15 +2976,7 @@
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
-  "F055_CORS": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
   "F058_APK": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
-  "F059": {
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
