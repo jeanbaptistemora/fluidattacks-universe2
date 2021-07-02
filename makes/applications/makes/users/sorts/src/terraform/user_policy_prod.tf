@@ -176,6 +176,18 @@ data "aws_iam_policy_document" "sorts_prod_policy_data" {
       "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/sorts*"
     ]
   }
+
+  # Cost Management
+  statement {
+    effect = "Allow"
+    actions = [
+      "aws-portal:View*",
+      "ce:Describe*",
+      "ce:ListCostCategoryDefinitions",
+      "cur:DescribeReportDefinitions",
+    ]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "sorts_prod_policy" {
