@@ -136,24 +136,8 @@ locals {
   }
   compute_environments_spot = {
     for name, instances in {
-      observes        = 3
-      skims_aws       = 2
-      skims_control   = 2
-      skims_cookie    = 2
-      skims_crypto    = 2
-      skims_exception = 2
-      skims_f011      = 2
-      skims_f022      = 2
-      skims_f070      = 2
-      skims_f073      = 2
-      skims_f117      = 2
-      skims_http      = 2
-      skims_injection = 2
-      skims_leak      = 2
-      skims_sql       = 2
-      skims_ssl       = 2
-      skims_xss       = 2
-      spot            = 1
+      observes = 3
+      spot     = 1
       } : name => {
       bid_percentage      = 100
       instances           = instances
@@ -161,9 +145,19 @@ locals {
       type                = "SPOT"
     }
   }
+  compute_environments_spot_skims = {
+    for name in jsondecode(data.local_file.skims_queue.content)
+    : name => {
+      bid_percentage      = 100
+      instances           = 2
+      spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
+      type                = "SPOT"
+    }
+  }
   compute_environments = merge(
-    local.compute_environments_spot,
     local.compute_environments_ec2,
+    local.compute_environments_spot,
+    local.compute_environments_spot_skims,
   )
 
   queues = [
