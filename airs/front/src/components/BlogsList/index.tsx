@@ -36,6 +36,7 @@ export const BlogsList: React.FC = (): JSX.Element => {
               tags
               description
               image
+              spanish
               subtitle
             }
           }
@@ -74,35 +75,34 @@ export const BlogsList: React.FC = (): JSX.Element => {
     <div>
       <PageArticle>
         <BlogMainDiv>
-          {(postsToShow as INodes[]).map(
-            (post): JSX.Element => {
-              const {
-                alt,
-                author,
-                category,
-                description,
-                image,
-                slug,
-                subtitle,
-                tags,
-              } = post.node.pageAttributes;
+          {(postsToShow as INodes[]).map((post): JSX.Element | unknown => {
+            const {
+              alt,
+              author,
+              category,
+              description,
+              image,
+              slug,
+              spanish,
+              subtitle,
+              tags,
+            } = post.node.pageAttributes;
 
-              return (
-                <BlogCard
-                  alt={alt}
-                  author={author}
-                  blogLink={slug}
-                  category={category}
-                  description={description}
-                  image={image}
-                  key={post.node.document.title}
-                  subtitle={subtitle}
-                  tags={tags}
-                  title={post.node.document.title}
-                />
-              );
-            }
-          )}
+            return spanish === "yes" ? undefined : (
+              <BlogCard
+                alt={alt}
+                author={author}
+                blogLink={slug}
+                category={category}
+                description={description}
+                image={image}
+                key={post.node.document.title}
+                subtitle={subtitle}
+                tags={tags}
+                title={post.node.document.title}
+              />
+            );
+          })}
         </BlogMainDiv>
         {/* eslint-disable-next-line react/jsx-no-bind */}
         <LoadMoreButton onClick={handleShowMorePosts}>
