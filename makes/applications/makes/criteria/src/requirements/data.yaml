@@ -1038,7 +1038,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Eliminar codigo comentado
     summary: __empty__
     description: __empty__
   references: []
@@ -1049,7 +1049,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Cifrar strings de conexion
     summary: __empty__
     description: __empty__
   references: []
@@ -1060,7 +1060,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Descartar entradas inseguras
     summary: __empty__
     description: __empty__
   references: []
@@ -1071,7 +1071,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Transacciones sin un patron distinguible
     summary: __empty__
     description: __empty__
   references: []
@@ -1082,7 +1082,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Proteger paginas de clickjacking
     summary: __empty__
     description: __empty__
   references: []
@@ -1093,7 +1093,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Restringir objetos del sistema
     summary: __empty__
     description: __empty__
   references: []
@@ -1104,7 +1104,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Evitar almacenamiento en cache y archivos temporales
     summary: __empty__
     description: __empty__
   references: []
@@ -1115,7 +1115,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Utilizar firmas digitales
     summary: __empty__
     description: __empty__
   references: []
@@ -1126,7 +1126,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Utilizar datos simulados
     summary: __empty__
     description: __empty__
   references: []
@@ -1137,7 +1137,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Transmitir datos utilizando protocolos seguros
     summary: __empty__
     description: __empty__
   references: []
@@ -1148,7 +1148,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Eliminar datos sensibles de manera segura
     summary: __empty__
     description: __empty__
   references: []
@@ -1159,7 +1159,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Ofuscar datos de aplicacion
     summary: __empty__
     description: __empty__
   references: []
@@ -1170,7 +1170,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Cifrar informacion sensible
     summary: __empty__
     description: __empty__
   references: []
@@ -1181,7 +1181,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Utilizar el principio de privilegios minimos
     summary: __empty__
     description: __empty__
   references: []
@@ -1192,7 +1192,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Especificar el proposito de recoleccion de datos
     summary: __empty__
     description: __empty__
   references: []
@@ -1203,7 +1203,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Configurar PIN
     summary: __empty__
     description: __empty__
   references: []
@@ -1214,7 +1214,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Configurar protocolos de comunicacion
     summary: __empty__
     description: __empty__
   references: []
@@ -1225,7 +1225,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Gestionar contrasenas en cache
     summary: __empty__
     description: __empty__
   references: []
@@ -1236,7 +1236,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Eliminar informacion de dispositivos moviles
     summary: __empty__
     description: __empty__
   references: []
@@ -1247,7 +1247,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Permitir localizacion geografica
     summary: __empty__
     description: __empty__
   references: []
@@ -1258,7 +1258,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Permitir destruccion de datos
     summary: __empty__
     description: __empty__
   references: []
@@ -1269,7 +1269,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Desconectar dispositivos de entrada innecesarios
     summary: __empty__
     description: __empty__
   references: []
@@ -1280,7 +1280,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Denegar acceso a la maquina anfitriona
     summary: __empty__
     description: __empty__
   references: []
@@ -1291,7 +1291,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Distribucion uniforme en numeros aleatorios
     summary: __empty__
     description: __empty__
   references: []
@@ -1302,7 +1302,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Utilizar mecanismos criptograficos seguros
     summary: __empty__
     description: __empty__
   references: []
@@ -1313,18 +1313,18 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Respuestas de autenticacion adecuadas
     summary: __empty__
     description: __empty__
   references: []
   metadata: {}
 226:
   en:
-    title: Proper authentication responses
+    title: Avoid account lockouts
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Evitar bloqueos de cuentas
     summary: __empty__
     description: __empty__
   references: []
@@ -1335,7 +1335,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Desplegar notificacion de acceso
     summary: __empty__
     description: __empty__
   references: []
@@ -1346,7 +1346,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Autenticar usando protocolos estandar
     summary: __empty__
     description: __empty__
   references: []
@@ -1357,7 +1357,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Solicitar credenciales de acceso
     summary: __empty__
     description: __empty__
   references: []
