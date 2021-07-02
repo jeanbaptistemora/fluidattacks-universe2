@@ -9,9 +9,120 @@
     "^[0-9]+$": {
       "type": "object",
       "additionalProperties": false,
-      "required": [ "title" ],
+      "required": [ "en", "es", "score", "requirements", "references", "metadata" ],
       "properties": {
-        "title": { "type": "string" }
+        "en": { "$ref": "#/definitions/language" },
+        "es": { "$ref": "#/definitions/language" },
+        "score": { "$ref": "#/definitions/cvss" },
+        "requirements": {
+          "uniqueItems": true,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9]+$"
+          }
+        },
+        "references": {
+          "uniqueItems": true,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          }
+        },
+        "metadata": { "type": "object" }
+      }
+    }
+  },
+  "definitions": {
+    "language": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [ "title", "description", "impact", "recommendation", "threat" ],
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "impact": { "type": "string" },
+        "recommendation": { "type": "string" },
+        "threat": { "type": "string" }
+      }
+    },
+    "cvss": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [ "base", "temporal" ],
+      "properties": {
+        "base": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "attack_vector",
+            "attack_complexity",
+            "privileges_required",
+            "user_interaction",
+            "scope",
+            "confidentiality",
+            "integrity",
+            "availability"
+          ],
+          "properties": {
+            "attack_vector": {
+              "type": "string",
+              "pattern": "^[N|A|L|P]$"
+            },
+            "attack_complexity": {
+              "type": "string",
+              "pattern": "^[L|H]$"
+            },
+            "privileges_required": {
+              "type": "string",
+              "pattern": "^[N|L|H]$"
+            },
+            "user_interaction": {
+              "type": "string",
+              "pattern": "^[N|R]$"
+            },
+            "scope": {
+              "type": "string",
+              "pattern": "^[U|C]$"
+            },
+            "confidentiality": {
+              "type": "string",
+              "pattern": "^[N|L|H]$"
+            },
+            "integrity": {
+              "type": "string",
+              "pattern": "^[N|L|H]$"
+            },
+            "availability": {
+              "type": "string",
+              "pattern": "^[N|L|H]$"
+            }
+          }
+        },
+        "temporal": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "exploit_code_maturity",
+            "remediation_level",
+            "report_confidence"
+          ],
+          "properties": {
+            "exploit_code_maturity": {
+              "type": "string",
+              "pattern": "^[X|U|P|F|H]$"
+            },
+            "remediation_level": {
+              "type": "string",
+              "pattern": "^[X|O|T|W|U]$"
+            },
+            "report_confidence": {
+              "type": "string",
+              "pattern": "^[X|U|R|C]$"
+            }
+          }
+        }
       }
     }
   }

@@ -1,280 +1,4200 @@
 001:
-  title: SQL Injection
+  en:
+    title: SQL Injection
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 002:
-  title: Asymmetric denial of service
+  en:
+    title: Asymmetric denial of service
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 003:
-  title: Symmetric denial of service
+  en:
+    title: Symmetric denial of service
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 004:
-  title: Remote command execution
+  en:
+    title: Remote command execution
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 005:
-  title: Privilege escalation
+  en:
+    title: Privilege escalation
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 006:
-  title: Authentication mechanism absence or evasion
+  en:
+    title: Authentication mechanism absence or evasion
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 007:
-  title: Cross-site request forgery
+  en:
+    title: Cross-site request forgery
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 008:
-  title: Reflected cross-site scripting (XSS)
+  en:
+    title: Reflected cross-site scripting (XSS)
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 009:
-  title: Source code with sensitive information
+  en:
+    title: Source code with sensitive information
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 010:
-  title: Stored cross-site scripting (XSS)
+  en:
+    title: Stored cross-site scripting (XSS)
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 011:
-  title: Use of software with known vulnerabilities
+  en:
+    title: Use of software with known vulnerabilities
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 012:
-  title: Spring Data Java Persistence API
+  en:
+    title: Spring Data Java Persistence API
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 013:
-  title: Insecure object reference
+  en:
+    title: Insecure object reference
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 014:
-  title: Insecure functionality
+  en:
+    title: Insecure functionality
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 015:
-  title: Insecure authentication method
+  en:
+    title: Insecure authentication method
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 016:
-  title: AWS iam:PassRole
+  en:
+    title: AWS iam:PassRole
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 017:
-  title: Sensitive information sent insecurely
+  en:
+    title: Sensitive information sent insecurely
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 018:
-  title: Improper authentication for shared folders
+  en:
+    title: Improper authentication for shared folders
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 019:
-  title: Administrative credentials stored in cache memory
+  en:
+    title: Administrative credentials stored in cache memory
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 020:
-  title: Non-encrypted confidential information
+  en:
+    title: Non-encrypted confidential information
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 021:
-  title: XPath Injection
+  en:
+    title: XPath Injection
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 022:
-  title: Use of an insecure channel
+  en:
+    title: Use of an insecure channel
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 023:
-  title: Uncontrolled external site redirect
+  en:
+    title: Uncontrolled external site redirect
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 024:
-  title: Unrestricted access between network segments
+  en:
+    title: Unrestricted access between network segments
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 025:
-  title: Call interception
+  en:
+    title: Call interception
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 026:
-  title: User enumeration
+  en:
+    title: User enumeration
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 027:
-  title: Insecure file upload
+  en:
+    title: Insecure file upload
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 028:
-  title: Insecure temporary files
+  en:
+    title: Insecure temporary files
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 029:
-  title: Inadequate file size control
+  en:
+    title: Inadequate file size control
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 030:
-  title: Sensitive information sent via URL parameters
+  en:
+    title: Sensitive information sent via URL parameters
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 031:
-  title: Excessive Privileges
+  en:
+    title: Excessive Privileges
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 032:
-  title: Spoofing
+  en:
+    title: Spoofing
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 033:
-  title: Password change without identity check
+  en:
+    title: Password change without identity check
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 034:
-  title: Insecure generation of random numbers
+  en:
+    title: Insecure generation of random numbers
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 035:
-  title: Weak credential policy
+  en:
+    title: Weak credential policy
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 036:
-  title: ViewState not encrypted
+  en:
+    title: ViewState not encrypted
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 037:
-  title: Technical information leak
+  en:
+    title: Technical information leak
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 038:
-  title: Business information leak
+  en:
+    title: Business information leak
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 039:
-  title: Improper authorization control for web services
+  en:
+    title: Improper authorization control for web services
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 040:
-  title: Exposed web services
+  en:
+    title: Exposed web services
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 041:
-  title: Enabled default credentials
+  en:
+    title: Enabled default credentials
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 042:
-  title: Insecurely generated cookies
+  en:
+    title: Insecurely generated cookies
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 043:
-  title: Improper set HTTP headers
+  en:
+    title: Improper set HTTP headers
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 044:
-  title: Insecure HTTP methods enabled
+  en:
+    title: Insecure HTTP methods enabled
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 045:
-  title: HTML code injection
+  en:
+    title: HTML code injection
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 046:
-  title: Missing secure obfuscation
+  en:
+    title: Missing secure obfuscation
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 047:
-  title: Automatic information enumeration
+  en:
+    title: Automatic information enumeration
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 048:
-  title: Lack of root detection
+  en:
+    title: Lack of root detection
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 049:
-  title: Insecure digital certificates
+  en:
+    title: Insecure digital certificates
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 050:
-  title: Guessed weak credentials
+  en:
+    title: Guessed weak credentials
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 051:
-  title: Cracked weak credentials
+  en:
+    title: Cracked weak credentials
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 052:
-  title: Insecure encryption algorithm
+  en:
+    title: Insecure encryption algorithm
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 053:
-  title: Lack of protection against brute force attacks
+  en:
+    title: Lack of protection against brute force attacks
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 054:
-  title: Exposed administrative services
+  en:
+    title: Exposed administrative services
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 055:
-  title: Insecure service configuration
+  en:
+    title: Insecure service configuration
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 056:
-  title: Anonymous connection
+  en:
+    title: Anonymous connection
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 057:
-  title: java.io.File.createTempFile
+  en:
+    title: java.io.File.createTempFile
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 058:
-  title: Debugging enabled in production
+  en:
+    title: Debugging enabled in production
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 059:
-  title: Sensitive information stored in logs
+  en:
+    title: Sensitive information stored in logs
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 060:
-  title: Insecure exceptions
+  en:
+    title: Insecure exceptions
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 061:
-  title: Errors without traceability
+  en:
+    title: Errors without traceability
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 062:
-  title: Concurrent sessions
+  en:
+    title: Concurrent sessions
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 063:
-  title: Lack of data validation
+  en:
+    title: Lack of data validation
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 064:
-  title: Traceability loss
+  en:
+    title: Traceability loss
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 065:
-  title: Cached form fields
+  en:
+    title: Cached form fields
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 066:
-  title: JavaScript Console
+  en:
+    title: JavaScript Console
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 067:
-  title: Improper resource allocation
+  en:
+    title: Improper resource allocation
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 068:
-  title: Insecure session expiration time
+  en:
+    title: Insecure session expiration time
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 069:
-  title: Weak CAPTCHA
+  en:
+    title: Weak CAPTCHA
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 070:
-  title: Inappropriate coding practices
+  en:
+    title: Inappropriate coding practices
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 071:
-  title: Strict Transport Security
+  en:
+    title: Strict Transport Security
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 072:
-  title: Duplicate code
+  en:
+    title: Duplicate code
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 073:
-  title: Conditional statement without a default option
+  en:
+    title: Conditional statement without a default option
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 074:
-  title: Commented-out code
+  en:
+    title: Commented-out code
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 075:
-  title: Unauthorized access to files
+  en:
+    title: Unauthorized access to files
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 076:
-  title: Insecure session management
+  en:
+    title: Insecure session management
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 077:
-  title: ARP spoofing
+  en:
+    title: ARP spoofing
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 078:
-  title: Insecurely generated token
+  en:
+    title: Insecurely generated token
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 079:
-  title: Non-upgradable dependencies
+  en:
+    title: Non-upgradable dependencies
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 081:
-  title: Lack of multi-factor authentication
+  en:
+    title: Lack of multi-factor authentication
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 082:
-  title: Insecurely deleted files
+  en:
+    title: Insecurely deleted files
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 083:
-  title: XML Injection (XXE)
+  en:
+    title: XML Injection (XXE)
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 084:
-  title: MDNS spoofing
+  en:
+    title: MDNS spoofing
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 085:
-  title: Sensitive data stored in client-side storage
+  en:
+    title: Sensitive data stored in client-side storage
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 086:
-  title: Missing subresource integrity check
+  en:
+    title: Missing subresource integrity check
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 087:
-  title: Account lockout
+  en:
+    title: Account lockout
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 088:
-  title: Privacy violation
+  en:
+    title: Privacy violation
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 090:
-  title: Code injection (CSV)
+  en:
+    title: Code injection (CSV)
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 091:
-  title: Log injection
+  en:
+    title: Log injection
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 092:
-  title: Cipher Suites
+  en:
+    title: Cipher Suites
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 093:
-  title: Hidden fields manipulation
+  en:
+    title: Hidden fields manipulation
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 094:
-  title: SSL
+  en:
+    title: SSL
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 095:
-  title: AWS EBS Encryption
+  en:
+    title: AWS EBS Encryption
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 096:
-  title: Insecure deserialization
+  en:
+    title: Insecure deserialization
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 097:
-  title: Reverse tabnabbing
+  en:
+    title: Reverse tabnabbing
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 098:
-  title: External control of file name or path
+  en:
+    title: External control of file name or path
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 099:
-  title: AWS S3 Server Side Encryption
+  en:
+    title: AWS S3 Server Side Encryption
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 100:
-  title: Server-side request forgery (SSRF)
+  en:
+    title: Server-side request forgery (SSRF)
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 101:
-  title: Lack of protection against deletion
+  en:
+    title: Lack of protection against deletion
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 102:
-  title: Email uniqueness not properly verified
+  en:
+    title: Email uniqueness not properly verified
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 103:
-  title: Insufficient data authenticity validation
+  en:
+    title: Insufficient data authenticity validation
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 104:
-  title: USB flash drive attacks
+  en:
+    title: USB flash drive attacks
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 105:
-  title: Apache Lucene query injection
+  en:
+    title: Apache Lucene query injection
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 106:
-  title: NoSQL injection
+  en:
+    title: NoSQL injection
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 107:
-  title: LDAP injection
+  en:
+    title: LDAP injection
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 108:
-  title: Improper control of interaction frequency
+  en:
+    title: Improper control of interaction frequency
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 109:
-  title: SQL injection - C Sharp SQL API
+  en:
+    title: SQL injection - C Sharp SQL API
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 110:
-  title: HTTP request smuggling
+  en:
+    title: HTTP request smuggling
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 111:
-  title: Out-of-bounds read
+  en:
+    title: Out-of-bounds read
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 112:
-  title: SQL injection - Java SQL API
+  en:
+    title: SQL injection - Java SQL API
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 113:
-  title: Improper type assignation
+  en:
+    title: Improper type assignation
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 114:
-  title: Phishing
+  en:
+    title: Phishing
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 115:
-  title: Security controls bypass
+  en:
+    title: Security controls bypass
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 116:
-  title: XS-Leaks
+  en:
+    title: XS-Leaks
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 117:
-  title: Unverifiable files
+  en:
+    title: Unverifiable files
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 118:
-  title: Regulation infringement
+  en:
+    title: Regulation infringement
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 119:
-  title: Metadata with sensitive information
+  en:
+    title: Metadata with sensitive information
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 120:
-  title: Improper dependency pinning
+  en:
+    title: Improper dependency pinning
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 121:
-  title: HTTP Parameter Pollution
+  en:
+    title: HTTP Parameter Pollution
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 122:
-  title: Email Flooding
+  en:
+    title: Email Flooding
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 123:
-  title: Local File Inclusion
+  en:
+    title: Local File Inclusion
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 124:
-  title: Race condition
+  en:
+    title: Race condition
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 125:
-  title: Directory Listing
+  en:
+    title: Directory Listing
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 126:
-  title: Lack of isolation methods
+  en:
+    title: Lack of isolation methods
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 127:
-  title: Use of software with known vulnerabilities - SSLv3
+  en:
+    title: Use of software with known vulnerabilities - SSLv3
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 128:
-  title: Uncontrolled external site redirect - Host header
+  en:
+    title: Uncontrolled external site redirect - Host header
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 129:
-  title: Insecurely generated cookies - SameSite
+  en:
+    title: Insecurely generated cookies - SameSite
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 130:
-  title: Insecurely generated cookies - Secure
+  en:
+    title: Insecurely generated cookies - Secure
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 131:
-  title: Missing HTTP security headers - Content-Security-Policy
+  en:
+    title: Missing HTTP security headers - Content-Security-Policy
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 132:
-  title: Missing HTTP security headers - Referrer-Policy
+  en:
+    title: Missing HTTP security headers - Referrer-Policy
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 133:
-  title: Missing HTTP security headers - X-Content-Type-Options
+  en:
+    title: Missing HTTP security headers - X-Content-Type-Options
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 134:
-  title: Insecure encryption algorithm - Perfect Forward Secrecy
+  en:
+    title: Insecure encryption algorithm - Perfect Forward Secrecy
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 135:
-  title: Insecure Service Configuration - ADB Backups
+  en:
+    title: Insecure Service Configuration - ADB Backups
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 136:
-  title: Insecure service configuration - CORS
+  en:
+    title: Insecure service configuration - CORS
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 137:
-  title: Lack of data validation - Path Traversal
+  en:
+    title: Lack of data validation - Path Traversal
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 138:
-  title: Lack of data validation - Trust boundary violation
+  en:
+    title: Lack of data validation - Trust boundary violation
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 139:
-  title: Traceability loss - Server's clock
+  en:
+    title: Traceability loss - Server's clock
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 140:
-  title: Inappropriate coding practices - Wildcard import
+  en:
+    title: Inappropriate coding practices - Wildcard import
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 141:
-  title: Unauthorized access to files - APK Content Provider
+  en:
+    title: Unauthorized access to files - APK Content Provider
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
 142:
-  title: Insufficient data authenticity validation - APK signing
+  en:
+    title: Insufficient data authenticity validation - APK signing
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: __empty
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  references: []
+  metadata: {}
