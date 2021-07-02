@@ -1,11 +1,11 @@
 :page-slug: ewptv1-certification/
 :page-date: 2021-07-01
-:page-subtitle: Interview with Andrés Roldan on his eWPTv1 certification
+:page-subtitle: Interview with Andres Roldan on his eWPTv1 certification
 :page-category: interview
 :page-tags: cybersecurity, red-team, interview, training, software, exploit
 :page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1625143339/blog/ewptv1-certification/cover_ewptv1-certification_nielhm.webp
 :page-alt: Photo by Honey Yanibel Minaya Cruz on Unsplash
-:page-description: Andres Roldan obtained theeLearnSecurity Web application Penetration Tester (eWPTv1) certification. Here we talk to him about this achievement.
+:page-description: Andres Roldan obtained the eLearnSecurity Web application Penetration Tester (eWPTv1) certification. Here we talk to him about this achievement.
 :page-keywords: EWPT, Exam, Security, Certification, Cybersecurity, Ethical Hacking, Report, Pentesting
 :page-author: Felipe Zárate
 :page-writer: fzarate
