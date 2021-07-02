@@ -4,6 +4,7 @@ let securityHeaders = {
   "X-Xss-Protection" : "1; mode=block",
   "X-Frame-Options" : "DENY",
   "X-Content-Type-Options" : "nosniff",
+  "X-Permitted-Cross-Domain-Policies": "none",
   "Referrer-Policy" : "strict-origin-when-cross-origin",
   "Permissions-Policy" : "geolocation=(self), \
                           midi=(self), \
