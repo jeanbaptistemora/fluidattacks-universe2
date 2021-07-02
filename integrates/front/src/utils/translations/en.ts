@@ -2112,7 +2112,7 @@ export const enTranslations: ResourceKey = {
         },
       },
       buttons: {
-        edit: "Bulk edit",
+        edit: "Edit",
         handleAcceptation: "Treatment Acceptation",
         reattack: "Reattack",
       },
@@ -2133,6 +2133,10 @@ export const enTranslations: ResourceKey = {
           title: "Treatments",
           tooltip: "Modify the treatment of the vulnerability",
         },
+      },
+      errors: {
+        selectedVulnerabilities:
+          "There were selected vulnerabilities that do not apply",
       },
       exceptions: {
         sameValues: "Same values",

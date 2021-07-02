@@ -146,11 +146,11 @@ describe("VulnComponent", (): void => {
   it("should render in vulnerabilities", (): void => {
     expect.hasAssertions();
 
-    const { t } = useTranslation();
     const wrapper: ReactWrapper = mount(
       <VulnComponent
         canDisplayAnalyst={false}
         findingId={"480857698"}
+        findingState={"open"}
         groupName={"test"}
         isEditing={true}
         isFindingReleased={true}
@@ -172,13 +172,7 @@ describe("VulnComponent", (): void => {
       .find({ id: "vulnerabilitiesTable" })
       .at(0);
     const selectionCell: ReactWrapper = tableVulns.find("SelectionCell");
-    const buttons: ReactWrapper = wrapper
-      .find("Button")
-      .filterWhere((button: ReactWrapper): boolean =>
-        button.text().includes(t("searchFindings.tabDescription.editVuln"))
-      );
 
-    expect(buttons).toHaveLength(1);
     expect(selectionCell.at(0).find("input").prop("disabled")).toBe(false);
     expect(selectionCell.at(1).find("input").prop("disabled")).toBe(true);
 
@@ -209,6 +203,7 @@ describe("VulnComponent", (): void => {
       <VulnComponent
         canDisplayAnalyst={false}
         findingId={"480857698"}
+        findingState={"open"}
         groupName={"test"}
         isEditing={true}
         isFindingReleased={false}

@@ -69,6 +69,7 @@ interface IVulnDataTypeAttr {
 interface IVulnComponentProps {
   canDisplayAnalyst: boolean;
   findingId: string;
+  findingState: "closed" | "open";
   groupName: string;
   isFindingReleased: boolean;
   isEditing: boolean;
@@ -76,7 +77,7 @@ interface IVulnComponentProps {
   isVerifyingRequest: boolean;
   vulnerabilities: IVulnRowAttr[];
   onVulnSelect: (
-    vulnerabilities: IVulnDataTypeAttr[],
+    vulnerabilities: IVulnRowAttr[],
     clearSelected: () => void
   ) => void;
 }

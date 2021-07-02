@@ -9,14 +9,18 @@ import { TooltipWrapper } from "components/TooltipWrapper";
 import { authzPermissionsContext } from "utils/authz/config";
 
 interface IEditButtonProps {
+  isDisabled: boolean;
   isEditing: boolean;
+  isFindingReleased: boolean;
   isRequestingReattack: boolean;
   isVerifying: boolean;
   onEdit: () => void;
 }
 
 const EditButton: React.FC<IEditButtonProps> = ({
+  isDisabled,
   isEditing,
+  isFindingReleased,
   isRequestingReattack,
   isVerifying,
   onEdit,
@@ -34,6 +38,7 @@ const EditButton: React.FC<IEditButtonProps> = ({
     "api_mutations_update_vulns_treatment_mutate"
   );
   const shouldRenderEditBtn: boolean =
+    isFindingReleased &&
     !(isRequestingReattack || isVerifying) &&
     (canRequestZeroRiskVuln || canUpdateVulnsTreatment || canUploadVulns);
 
@@ -50,7 +55,7 @@ const EditButton: React.FC<IEditButtonProps> = ({
           }
         >
           <Button
-            disabled={isRequestingReattack || isVerifying}
+            disabled={isRequestingReattack || isVerifying || isDisabled}
             id={"vulnerabilities-edit"}
             onClick={onEdit}
           >

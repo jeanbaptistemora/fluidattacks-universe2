@@ -209,17 +209,65 @@ function filterText(
   );
 }
 
+function getNonSelectableVulnerabilitiesOnReattackIds(
+  vulnerabilities: IVulnRowAttr[]
+): string[] {
+  return vulnerabilities.reduce(
+    (
+      nonSelectableVulnerabilities: string[],
+      vulnerability: IVulnRowAttr
+    ): string[] =>
+      vulnerability.remediated || vulnerability.currentState === "closed"
+        ? [...nonSelectableVulnerabilities, vulnerability.id]
+        : nonSelectableVulnerabilities,
+    []
+  );
+}
+
+function getNonSelectableVulnerabilitiesOnVerifyIds(
+  vulnerabilities: IVulnRowAttr[]
+): string[] {
+  return vulnerabilities.reduce(
+    (
+      nonSelectableVulnerabilities: string[],
+      vulnerability: IVulnRowAttr
+    ): string[] =>
+      vulnerability.remediated && vulnerability.currentState === "open"
+        ? nonSelectableVulnerabilities
+        : [...nonSelectableVulnerabilities, vulnerability.id],
+    []
+  );
+}
+
+function filterOutVulnerabilities(
+  selectedVulnerabilities: IVulnRowAttr[],
+  allVulnerabilities: IVulnRowAttr[],
+  filter: (vulnerabilities: IVulnRowAttr[]) => string[]
+): IVulnRowAttr[] {
+  return Array.from(
+    new Set(
+      selectedVulnerabilities.filter(
+        (selectedVulnerability: IVulnRowAttr): boolean =>
+          !filter(allVulnerabilities).includes(selectedVulnerability.id)
+      )
+    )
+  );
+}
+
 export {
   filterVerification,
   filterText,
   filterTreatment,
   filterCurrentStatus,
+  filterOutVulnerabilities,
   filterTreatmentCurrentStatus,
   filterZeroRisk,
   formatVulnerabilities,
   getNonSelectableVulnerabilitiesOnEdit,
   getNonSelectableVulnerabilitiesOnReattack,
+  getNonSelectableVulnerabilitiesOnReattackIds,
   getNonSelectableVulnerabilitiesOnVerify,
+  getNonSelectableVulnerabilitiesOnVerifyIds,
   getVulnerabilitiesIds,
   getVulnerabilitiesIndex,
 };

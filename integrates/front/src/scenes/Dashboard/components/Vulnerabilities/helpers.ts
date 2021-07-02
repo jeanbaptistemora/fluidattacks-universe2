@@ -73,19 +73,23 @@ const errorMessageHelper = (message: string): void => {
 
 function setNonSelectable(
   vulns: IVulnRowAttr[],
-  editing: boolean,
   requestingReattack: boolean,
   verifyingRequest: boolean
-): number[] | undefined {
-  if (editing) {
-    return getNonSelectableVulnerabilitiesOnEdit(vulns);
-  } else if (requestingReattack) {
-    return getNonSelectableVulnerabilitiesOnReattack(vulns);
+): number[] {
+  const nonSelectable: number[] = getNonSelectableVulnerabilitiesOnEdit(vulns);
+  if (requestingReattack) {
+    return [
+      ...getNonSelectableVulnerabilitiesOnReattack(vulns),
+      ...nonSelectable,
+    ];
   } else if (verifyingRequest) {
-    return getNonSelectableVulnerabilitiesOnVerify(vulns);
+    return [
+      ...getNonSelectableVulnerabilitiesOnVerify(vulns),
+      ...nonSelectable,
+    ];
   }
 
-  return undefined;
+  return nonSelectable;
 }
 
 const onDeleteVulnResultHelper = (

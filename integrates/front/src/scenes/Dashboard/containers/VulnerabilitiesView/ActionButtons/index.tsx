@@ -13,6 +13,7 @@ interface IActionButtonsProps {
   areVulnsSelected: boolean;
   isEditing: boolean;
   isFindingReleased: boolean;
+  isOpen: boolean;
   isReattackRequestedInAllVuln: boolean;
   isRequestingReattack: boolean;
   isVerified: boolean;
@@ -30,6 +31,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   areVulnsSelected,
   isEditing,
   isFindingReleased,
+  isOpen,
   isReattackRequestedInAllVuln,
   isRequestingReattack,
   isVerified,
@@ -46,10 +48,10 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
     msgInfo(
       translate.t("searchFindings.tabVuln.info.text"),
       translate.t("searchFindings.tabVuln.info.title"),
-      !isRequestingReattack
+      !isRequestingReattack || isOpen
     );
   };
-  useEffect(displayMessage, [isRequestingReattack]);
+  useEffect(displayMessage, [isRequestingReattack, isOpen]);
 
   return (
     <ButtonToolbarRow>
@@ -81,7 +83,9 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
         subscription={subscription}
       />
       <EditButton
+        isDisabled={!areVulnsSelected}
         isEditing={isEditing}
+        isFindingReleased={isFindingReleased}
         isRequestingReattack={isRequestingReattack}
         isVerifying={isVerifying}
         onEdit={onEdit}

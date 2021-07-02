@@ -22,6 +22,7 @@ describe("ActionButtons", (): void => {
         areVulnsSelected={false}
         isEditing={false}
         isFindingReleased={true}
+        isOpen={false}
         isReattackRequestedInAllVuln={false}
         isRequestingReattack={false}
         isVerified={false}
@@ -57,6 +58,7 @@ describe("ActionButtons", (): void => {
         areVulnsSelected={false}
         isEditing={false}
         isFindingReleased={true}
+        isOpen={false}
         isReattackRequestedInAllVuln={false}
         isRequestingReattack={false}
         isVerified={false}
@@ -99,6 +101,7 @@ describe("ActionButtons", (): void => {
         areVulnsSelected={false}
         isEditing={false}
         isFindingReleased={true}
+        isOpen={false}
         isReattackRequestedInAllVuln={false}
         isRequestingReattack={false}
         isVerified={false}
@@ -138,7 +141,7 @@ describe("ActionButtons", (): void => {
     requestButton.simulate("click");
 
     act((): void => {
-      wrapper.setProps({ isRequestingReattack: true });
+      wrapper.setProps({ isOpen: true, isRequestingReattack: true });
       wrapper.update();
     });
 

@@ -21,20 +21,22 @@ import {
   SelectContainer,
 } from "./styles";
 
+import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
-import type {
-  IVulnDataTypeAttr,
-  IVulnRowAttr,
-} from "scenes/Dashboard/components/Vulnerabilities/types";
+import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
+import { UpdateTreatmentModal } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription";
 import {
   filterCurrentStatus,
+  filterOutVulnerabilities,
   filterText,
   filterTreatment,
   filterTreatmentCurrentStatus,
   filterVerification,
   filterZeroRisk,
+  getNonSelectableVulnerabilitiesOnReattackIds,
+  getNonSelectableVulnerabilitiesOnVerifyIds,
 } from "scenes/Dashboard/components/Vulnerabilities/utils";
 import { ActionButtons } from "scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons";
 import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal";
@@ -66,9 +68,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
   const [verificationFilter, setVerificationFilter] = useState("");
   const [textFilter, setTextFilter] = useState("");
   const [isOpen, setOpen] = useState(false);
-  function toggleModal(): void {
-    setOpen(true);
-  }
 
   const [isHandleAcceptationModalOpen, setHandleAcceptationModalOpen] =
     useState(false);
@@ -77,17 +76,17 @@ export const VulnsView: React.FC = (): JSX.Element => {
   }
 
   const [remediationModalConfig, setRemediationModalConfig] = useState<{
-    vulnerabilities: IVulnDataTypeAttr[];
+    vulnerabilities: IVulnRowAttr[];
     clearSelected: () => void;
   }>({
     clearSelected: (): void => undefined,
     vulnerabilities: [],
   });
   const openRemediationModal: (
-    vulnerabilities: IVulnDataTypeAttr[],
+    vulnerabilities: IVulnRowAttr[],
     clearSelected: () => void
   ) => void = useCallback(
-    (vulnerabilities: IVulnDataTypeAttr[], clearSelected: () => void): void => {
+    (vulnerabilities: IVulnRowAttr[], clearSelected: () => void): void => {
       setRemediationModalConfig({ clearSelected, vulnerabilities });
     },
     []
@@ -100,14 +99,11 @@ export const VulnsView: React.FC = (): JSX.Element => {
   function toggleEdit(): void {
     setEditing(!isEditing);
   }
+  function handleCloseUpdateModal(): void {
+    setEditing(false);
+  }
   const [isRequestingVerify, setRequestingVerify] = useState(false);
-  function toggleRequestVerify(): void {
-    setRequestingVerify(!isRequestingVerify);
-  }
   const [isVerifying, setVerifying] = useState(false);
-  function toggleVerify(): void {
-    setVerifying(!isVerifying);
-  }
 
   const { data, refetch } = useQuery<IGetFindingVulnInfoAttr>(
     GET_FINDING_VULN_INFO,
@@ -185,6 +181,54 @@ export const VulnsView: React.FC = (): JSX.Element => {
     filterTextVulnerabilities
   );
   const isFindingReleased: boolean = !_.isEmpty(data.finding.releaseDate);
+  function toggleModal(): void {
+    setOpen(true);
+  }
+  function toggleRequestVerify(): void {
+    if (isRequestingVerify) {
+      setRequestingVerify(!isRequestingVerify);
+    } else {
+      const selectedVulnerabilities: IVulnRowAttr[] =
+        remediationModalConfig.vulnerabilities;
+      const newVulnerabilities: IVulnRowAttr[] = filterOutVulnerabilities(
+        selectedVulnerabilities,
+        filterZeroRisk(vulnerabilities),
+        getNonSelectableVulnerabilitiesOnReattackIds
+      );
+      if (selectedVulnerabilities.length > newVulnerabilities.length) {
+        setRequestingVerify(!isRequestingVerify);
+        msgError(t("searchFindings.tabVuln.errors.selectedVulnerabilities"));
+      } else if (selectedVulnerabilities.length > 0) {
+        setOpen(true);
+        setRequestingVerify(!isRequestingVerify);
+      } else {
+        setRequestingVerify(!isRequestingVerify);
+      }
+    }
+  }
+
+  function toggleVerify(): void {
+    if (isVerifying) {
+      setVerifying(!isVerifying);
+    } else {
+      const selectedVulnerabilities: IVulnRowAttr[] =
+        remediationModalConfig.vulnerabilities;
+      const newVulnerabilities: IVulnRowAttr[] = filterOutVulnerabilities(
+        selectedVulnerabilities,
+        filterZeroRisk(vulnerabilities),
+        getNonSelectableVulnerabilitiesOnVerifyIds
+      );
+      if (selectedVulnerabilities.length > newVulnerabilities.length) {
+        setVerifying(!isVerifying);
+        msgError(t("searchFindings.tabVuln.errors.selectedVulnerabilities"));
+      } else if (selectedVulnerabilities.length > 0) {
+        setOpen(true);
+        setVerifying(!isVerifying);
+      } else {
+        setVerifying(!isVerifying);
+      }
+    }
+  }
 
   return (
     <React.StrictMode>
@@ -299,6 +343,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 }
                 isEditing={isEditing}
                 isFindingReleased={isFindingReleased}
+                isOpen={isOpen}
                 isReattackRequestedInAllVuln={data.finding.remediated}
                 isRequestingReattack={isRequestingVerify}
                 isVerified={data.finding.verified}
@@ -316,6 +361,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
               <VulnComponent
                 canDisplayAnalyst={canRetrieveAnalyst}
                 findingId={findingId}
+                findingState={data.finding.state}
                 groupName={groupName}
                 isEditing={isEditing}
                 isFindingReleased={isFindingReleased}
@@ -355,6 +401,24 @@ export const VulnsView: React.FC = (): JSX.Element => {
             refetchData={refetch}
             vulns={vulnerabilities}
           />
+        ) : undefined}
+        {isEditing ? (
+          <Modal
+            headerTitle={t("searchFindings.tabDescription.editVuln")}
+            open={isEditing}
+            size={"largeModal"}
+          >
+            <UpdateTreatmentModal
+              findingId={findingId}
+              groupName={groupName}
+              handleClearSelected={_.get(
+                remediationModalConfig,
+                "clearSelected"
+              )}
+              handleCloseModal={handleCloseUpdateModal}
+              vulnerabilities={remediationModalConfig.vulnerabilities}
+            />
+          </Modal>
         ) : undefined}
       </React.Fragment>
     </React.StrictMode>
