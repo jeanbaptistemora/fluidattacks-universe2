@@ -45,6 +45,7 @@ async def test_edit_stakeholder(populate: bool, email: str) -> None:
         ["customer@gmail.com"],
         ["executive@gmail.com"],
         ["resourcer@gmail.com"],
+        ["reviewer@gmail.com"],
     ],
 )
 async def test_edit_stakeholder_fail(populate: bool, email: str) -> None:
