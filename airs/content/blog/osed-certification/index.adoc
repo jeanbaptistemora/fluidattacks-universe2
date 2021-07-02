@@ -43,17 +43,17 @@ image::https://res.cloudinary.com/fluid-attacks/image/upload/v1624543102/blog/os
 
 == Interview
 
+[role="fluid-question"]
 *On the Offensive Security page,
 they recommend taking the EXP-301 course.
 Did you take it to prepare yourself for the exam?*
-[role="fluid-qanda"]
-
+[role="fluid-answer"]
   . Yes, it is necessary to take the course
   in order to obtain the certification.
 
+[role="fluid-question"]
 *Did you think the EXP-301 course was enough as a preparation course?*
-[role="fluid-qanda"]
-
+[role="fluid-answer"]
   . The course met my expectations.
   All the issues are explained in great detail.
   The course begins by explaining basic topics and as it progresses,
@@ -64,10 +64,10 @@ Did you take it to prepare yourself for the exam?*
   you can put into practice and reinforce
   the knowledge that you have obtained.
 
+[role="fluid-question"]
 *What does the Windows User Mode Exploit Development course consist of?
 Why did you decide to take it?*
-[role="fluid-qanda"]
-
+[role="fluid-answer"]
   . The course is aimed at exploiting vulnerabilities
   in Windows operating systems.
   It focuses, mainly, on memory corruption vulnerabilities
@@ -80,11 +80,11 @@ Why did you decide to take it?*
   I want to understand how a program works
   and how it can be abused by an attacker to compromise a system.
 
+[role="fluid-question"]
 *The exam takes 47 hours and 45 minutes plus 24
 hours to submit the documentation.* +
 *How to be prepared for such a long exam?*
-[role="fluid-qanda"]
-
+[role="fluid-answer"]
   . Usually, Offensive Security certifications are very long.
   That means you always must be prepared for a long day.
   Hence it is important to take breaks from time
@@ -94,9 +94,9 @@ hours to submit the documentation.* +
   I had long study days trying to simulate how the exam would be.
   This helped me to be prepared.
 
+[role="fluid-question"]
 *How did you manage the time they gave you?*
-[role="fluid-qanda"]
-
+[role="fluid-answer"]
   . I divided the 48 hours into equal parts.
   This is the time I set out to use at most for each exercise.
   And I established that I would move on to the next exercise
@@ -115,6 +115,7 @@ hours to submit the documentation.* +
   is very long and the time you have scheduled
   is enough to perform the exercises and get rest.
 
+[role="fluid-question"]
 *The exam
 link:https://www.offensive-security.com/exp301-osed/[asks you to be familiar]
 with debuggers (ImmunityDBG, link:../../reversing-mortals/[OllyDBG]),
@@ -122,8 +123,7 @@ basic 32-bit exploitation concepts and to be comfortable with
 link:../../road-to-functional-python/[Python] 3.
 Do you think they are sufficient requirements,
 or would you add some other skills to be prepared for the exam?*
-[role="fluid-qanda"]
-
+[role="fluid-answer"]
   . The course begins by explaining the 32-bit architecture.
   Then Offensive Security explains how WinDbg, the used debugger, works.
   If you're familiar with these concepts,
@@ -134,9 +134,10 @@ or would you add some other skills to be prepared for the exam?*
   And finally, it would be nice to have a basic knowledge of
   link:../../reverse-engineering/[Reverse Engineering].
 
+[role="fluid-question"]
 *Tell us a bit about your experience at the time of the exam.* +
 *How did you feel before and during the exam?*
-[role="fluid-qanda"]
+[role="fluid-answer"]
 
   . Before the exam,
   I was a little nervous because
@@ -153,9 +154,9 @@ or would you add some other skills to be prepared for the exam?*
   When that happens, you get a boost of encouragement
   and confidence to continue with the exam.
 
+[role="fluid-question"]
 *How were your preparation days?*
-[role="fluid-qanda"]
-
+[role="fluid-answer"]
   . The course lasted two months in which
   I had access to the laboratory.
   During this period, I studied every day from 2 to 4 hours after work.
@@ -171,9 +172,9 @@ of this exam compared to others you've taken?*
   has been during the pandemic, so there is no change.
   On the contrary, I think the pandemic gave me more time to study.
 
+[role="fluid-question"]
 *What was the hardest part of the exam? And how did you respond to that?*
-[role="fluid-qanda"]
-
+[role="fluid-answer"]
   . For me, the most challenging thing
   about the exam was the part of finding the vulnerabilities
   using Reverse Engineering.
@@ -181,24 +182,24 @@ of this exam compared to others you've taken?*
   I practiced a lot of how to reverse applications
   with already known vulnerabilities.
 
+[role="fluid-question"]
 *Will you have to take any certificate renewal exams?*
-[role="fluid-qanda"]
-
+[role="fluid-answer"]
   . No, none of the Offensive Security certifications expire.
   It is enough to get them once.
 
+[role="fluid-question"]
 *Any tips for preparing for this particular exam?*
-[role="fluid-qanda"]
-
+[role="fluid-answer"]
   . I would recommend that before starting the course,
   you should study Reverse Engineering,
   Buffer Overflows and techniques to exploit them.
   Because the better these topics are understood,
   the better your performance will be during the exam and the course.
 
+[role="fluid-question"]
 *What's next after this certification?*
-[role="fluid-qanda"]
-
+[role="fluid-answer"]
   . After this certification,
   I want to present the *OSEP*.
   Suppose someone obtains the

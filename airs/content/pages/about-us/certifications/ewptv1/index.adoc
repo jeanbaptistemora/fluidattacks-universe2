@@ -7,14 +7,15 @@
 
 = eLearnSecurity Web Application Penetration Tester (eWPTv1)
 
-`eWPTv1` is an exploit development certification
+`eWPTv1` is a certification
 created by `eLearnSecurity`.
-eWPTv1 is the only certification for
+Is the only certification for
 Web Application Penetration testers
 that evaluates the ability to attack a target.
+It assesses a cyber security professional’s web
+application penetration testing skills.
 The `eWPTv1` certification assesses the expertise
-of a person in three main aspects.
+of a person in two main aspects.
 
 - Penetration testing processes and methodologies.
 - Web application analysis and inspection.
-- Exploit development for web environments.

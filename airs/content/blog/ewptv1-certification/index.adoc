@@ -53,9 +53,9 @@ that anyone interested in doing this exam should consider.
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1625143338/blog/ewptv1-certification/eWPTv1-certification_w3lxyf.webp[eWPTv1 Certification]
 
 == Interview
+[role="fluid-question"]
 *What is the exam about, and why did you decide to take it?*
-[role="fluid-qanda"]
-
+[role="fluid-answer"]
   . The exam is one hundred percent practical.
   The goal is to find all vulnerabilities (focused on web ones)
   in a scope delivered in a letter of engagement.
@@ -78,44 +78,44 @@ image::https://res.cloudinary.com/fluid-attacks/image/upload/v1625143338/blog/ew
   in a defined target, though we usually support
   that searching with different types of tools.
 
+[role="fluid-question"]
 *Since this test is not multiple-choice questions but involves
 "link:https://cutt.ly/dmfsphm[to perform an actual penetration test],"*
 *was the exam preparation different from other exams you have taken?*
-[role="fluid-qanda"]
-
+[role="fluid-answer"]
   . My best preparation was my experience doing pentesting in `Fluid Attacks`.
 
+[role="fluid-question"]
 *That means you did not prepare yourself with the course given by INE?*
 *(Considering that INE
 link:https://ine.com/pages/about-us[“is the premier provider of Technical Training
 for the IT industry]” and owner of eLearn Security.)*
-[role="fluid-qanda"]
-
+[role="fluid-answer"]
   . I didn't prepare with the INE.
 
+[role="fluid-question"]
 *How did you know you were ready to take the exam?*
-[role="fluid-qanda"]
-
+[role="fluid-answer"]
   . I did not know that.
   I took the eWPT test to learn about the type of eLearnSecurity exams,
   and it was a pleasant surprise to find that
   the experience gained at `Fluid Attacks`
   was enough to earn the certification.
 
+[role="fluid-question"]
 *What should we expect from the report
 that needs to be done as part of the test?* +
 *How did you approach it?*
-[role="fluid-qanda"]
-
+[role="fluid-answer"]
   . The report must be of the best quality.
   There it would help if you described
   every vulnerability found in the evaluation target.
   You must include screenshots and evidence
   of exploitation of vulnerabilities and impacts obtained.
 
+[role="fluid-question"]
 *Tell us a little about your experience at the time of the exam.*
-[role="fluid-qanda"]
-
+[role="fluid-answer"]
   . The scan started on May 31, 2021,
   and *I found all vulnerabilities on the same day*.
   June 1, I prepared the report and presented it on June 2 in the morning.
@@ -126,23 +126,23 @@ that needs to be done as part of the test?* +
   to our advantage and not delegate one hundred percent
   of the responsibility to them.
 
+[role="fluid-question"]
 *Will you have to take any certificate renewal exams?*
-[role="fluid-qanda"]
-
+[role="fluid-answer"]
   . No, this certification has no expiration.
 
+[role="fluid-question"]
 *Any tips for preparing for this particular exam?*
-[role="fluid-qanda"]
-
+[role="fluid-answer"]
   . If you have more than three years of experience in pentesting,
   the exam will be a "familiar experience."
   If you do not have that experience,
   I recommend doing the training in INE to find the vulnerabilities
   and generate a quality report.
 
+[role="fluid-question"]
 *What's next after this certification?*
-[role="fluid-qanda"]
-
+[role="fluid-answer"]
   . After this, I will keep preparing for other certifications,
   including *eWPTX*, an advanced version of eWPT.
 
