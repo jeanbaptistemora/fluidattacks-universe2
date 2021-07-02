@@ -1,20 +1,20 @@
 {% extends "layouts/common.html" %}
-{% from 'layouts/components/forms.html' import banner_project, go_to_button %}
+{% from 'layouts/components/forms.html' import banner_group, go_to_button %}
 
 {% block layout %}
 <div class="container">
   {% include 'layouts/components/logo_header.html' %}
-  {{ banner_project('Access Granted') }}
+  {{ banner_group('Access Granted') }}
 
   <div class="main-content">
     <p>Good news!</p>
     <p>You have been invited to access our <strong>Attack Surface Manager</strong>.</p>
     <p>
-      Please confirm your access and check vulnerabilities related to the group <strong>"{{ project }}
-      - {{ project_description }}"</strong>, by clicking the following button:
+      Please confirm your access and check vulnerabilities related to the group <strong>"{{ group }}
+      - {{ group_description }}"</strong>, by clicking the following button:
     </p>
     <br />
-    {{ go_to_button('Confirm access', project_url) }}
+    {{ go_to_button('Confirm access', group_url) }}
     <br />
     <p></p>
     <p>

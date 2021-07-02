@@ -11,6 +11,9 @@ from custom_types import (
 from group_access import (
     domain as group_access_domain,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from typing import (
     Any,
     Dict,
@@ -24,7 +27,7 @@ async def send_mail_updated_treatment(
     vulnerabilities: str,
 ) -> None:
     finding_id = str(finding["finding_id"])
-    group_name = str(finding["project_name"])
+    group_name = str(resolve_kwargs(finding))
 
     group_loader = context.group
     group = await group_loader.load(group_name)
@@ -36,7 +39,7 @@ async def send_mail_updated_treatment(
 
     managers = await group_access_domain.get_managers(group_name)
     email_context = {
-        "project": group_name,
+        "group": group_name,
         "treatment": treatment,
         "finding": finding["title"],
         "vulnerabilities": vulnerabilities.splitlines(),
@@ -51,7 +54,7 @@ async def send_mail_updated_treatment(
         GENERAL_TAG,
         (
             f"A vulnerability treatment has changed to "
-            f'{email_context["treatment"]} in [{email_context["project"]}]'
+            f'{email_context["treatment"]} in [{email_context["group"]}]'
         ),
         "updated_treatment",
     )

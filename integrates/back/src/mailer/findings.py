@@ -23,6 +23,9 @@ from group_access import (
 from newutils import (
     findings as findings_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from typing import (
     Any,
     Dict,
@@ -46,7 +49,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
     user_mail: str,
     finding: Dict[str, FindingType],
 ) -> None:
-    group_name = finding["project_name"]
+    group_name = resolve_kwargs(finding)
     org_name = await _get_organization_name(context, group_name)
     type_ = comment_data["comment_type"]
     is_finding_released = findings_utils.is_released(finding)
@@ -61,7 +64,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
         "finding_id": str(finding["id"]),
         "finding_name": finding["title"],
         "parent": str(comment_data["parent"]),
-        "project": group_name,
+        "group": group_name,
         "user_email": user_mail,
     }
 
@@ -98,7 +101,7 @@ async def send_mail_delete_finding(
         "finding_name": finding_name,
         "finding_id": finding_id,
         "justification": justification_dict[justification],
-        "project": group_name,
+        "group": group_name,
     }
     await send_mails_async_new(
         recipients,
@@ -126,7 +129,7 @@ async def send_mail_new_draft(
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}"
             f"/drafts/{finding_id}/description"
         ),
-        "project": group_name,
+        "group": group_name,
         "organization": org_name,
     }
     await send_mails_async_new(
@@ -170,7 +173,7 @@ async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
         ),
         "finding_id": draft_id,
         "finding_name": finding_name,
-        "project": group_name,
+        "group": group_name,
         "organization": org_name,
     }
     await send_mails_async_new(
@@ -193,7 +196,7 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
     org_name = await _get_organization_name(context, group_name)
     recipients = await group_access_domain.get_closers(group_name)
     mail_context = {
-        "project": group_name.lower(),
+        "group": group_name.lower(),
         "organization": org_name,
         "finding_name": finding_name,
         "finding_url": (

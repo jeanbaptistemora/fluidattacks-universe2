@@ -24,6 +24,9 @@ from mailer import (
 from newutils import (
     datetime as datetime_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from notifications import (
     dal as notifications_dal,
 )
@@ -192,14 +195,14 @@ async def new_group(
 
 async def new_password_protected_report(
     user_email: str,
-    project_name: str,
+    group_name: str,
     passphrase: str,
     file_type: str,
     file_link: str = "",
 ) -> None:
     today = datetime_utils.get_now()
     fname = await _get_recipient_first_name_async(user_email)
-    subject = f"{file_type} Report for [{project_name}]"
+    subject = f"{file_type} Report for [{group_name}]"
     await collect(
         (
             send_push_notification(
@@ -213,7 +216,7 @@ async def new_password_protected_report(
                     "date": datetime_utils.get_as_str(today, "%Y-%m-%d"),
                     "year": datetime_utils.get_as_str(today, "%Y"),
                     "time": datetime_utils.get_as_str(today, "%H:%M"),
-                    "projectname": project_name,
+                    "groupname": group_name,
                     "subject": subject,
                     "filelink": file_link,
                 },
@@ -251,7 +254,7 @@ async def request_zero_risk_vuln(
 ) -> bool:
     finding_loader: DataLoader = info.context.loaders.finding
     finding: Dict[str, FindingType] = await finding_loader.load(finding_id)
-    group_name = cast(str, finding.get("project_name", ""))
+    group_name = cast(str, resolve_kwargs(finding, fallback=""))
     org_id = await orgs_domain.get_id_for_group(group_name)
     org_name = await orgs_domain.get_name_by_id(org_id)
     finding_title = cast(str, finding.get("title", ""))

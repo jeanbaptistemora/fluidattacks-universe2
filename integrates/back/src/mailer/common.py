@@ -142,6 +142,6 @@ async def send_mails_async_new(
         [
             send_mail_async_new(email, context, tags, subject, template_name)
             for email in email_to
-            if context.get("project", "").lower() not in test_group_list
+            if context.get("group", "").lower() not in test_group_list
         ]
     )

@@ -10,6 +10,9 @@ from custom_types import (
     Comment as CommentType,
     MailContent as MailContentType,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from typing import (
     Any,
 )
@@ -20,7 +23,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
 ) -> None:
     event_loader = context.loaders.event
     event = await event_loader.load(event_id)
-    group_name = event["project_name"]
+    group_name = resolve_kwargs(event)
 
     group_loader = context.loaders.group
     group = await group_loader.load(group_name)
@@ -40,7 +43,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
         "finding_id": event_id,
         "finding_name": f"Event #{event_id}",
         "parent": str(comment_data["parent"]),
-        "project": group_name,
+        "group": group_name,
         "user_email": user_mail,
     }
     recipients = await get_comment_recipients(group_name, "comment")

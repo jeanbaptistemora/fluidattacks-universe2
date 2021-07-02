@@ -25,6 +25,9 @@ import logging.config
 from mailer import (
     findings as findings_mail,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from settings import (
     LOGGING,
 )
@@ -42,16 +45,16 @@ LOGGER = logging.getLogger(__name__)
 
 async def get_remediated_findings() -> None:
     """Summary mail send with findings that have not been verified yet."""
-    active_projects = await groups_domain.get_active_groups()
+    active_groups = await groups_domain.get_active_groups()
     findings = []
     pending_verification_findings = await collect(
         findings_domain.get_pending_verification_findings(
-            get_new_context(), project
+            get_new_context(), group
         )
-        for project in active_projects
+        for group in active_groups
     )
-    for project_findings in pending_verification_findings:
-        findings += project_findings
+    for group_findings in pending_verification_findings:
+        findings += group_findings
 
     if findings:
         try:
@@ -63,10 +66,10 @@ async def get_remediated_findings() -> None:
                         "finding_name": finding["finding"],
                         "finding_url": (
                             f"{BASE_URL}/groups/"
-                            f'{str.lower(str(finding["project_name"]))}/'
+                            f"{str.lower(str(resolve_kwargs(finding)))}/"
                             f'{finding["finding_id"]}/description'
                         ),
-                        "project": str.upper(str(finding["project_name"])),
+                        "group": str.upper(str(resolve_kwargs(finding))),
                     }
                 )
             context["total"] = len(findings)

@@ -986,9 +986,9 @@ async def invite_to_group(
         mail_to = [email]
         email_context: MailContentType = {
             "admin": email,
-            "project": group_name,
-            "project_description": description,
-            "project_url": group_url,
+            "group": group_name,
+            "group_description": description,
+            "group_url": group_url,
         }
         schedule(groups_mail.send_mail_access_granted(mail_to, email_context))
     return success

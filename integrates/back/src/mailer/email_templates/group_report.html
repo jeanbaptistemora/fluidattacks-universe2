@@ -1,15 +1,15 @@
 {% extends "layouts/common.html" %}
-{% from 'layouts/components/forms.html' import banner_project, go_to_button %}
+{% from 'layouts/components/forms.html' import banner_group, go_to_button %}
 
 {% block layout %}
 <div class="container">
   {% include 'layouts/components/logo_header.html' %}
-  {{ banner_project('Report Available') }}
+  {{ banner_group('Report Available') }}
 
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      You can download your {{ filetype }} report requested on group <strong>{{ projectname }}</strong>
+      You can download your {{ filetype }} report requested on group <strong>{{ groupname }}</strong>
       on {{ date }} at {{ time }} by clicking the following button:
     </p>
     {{ go_to_button('Go to report', filelink) }}

@@ -28,7 +28,7 @@ async def send_mail_access_granted(
         email_to,
         context,
         GENERAL_TAG,
-        f'Access granted to [{context["project"]}] in ASM by Fluid Attacks',
+        f'Access granted to [{context["group"]}] in ASM by Fluid Attacks',
         "access_granted",
     )
 
@@ -56,8 +56,8 @@ async def send_mail_group_report(
         email_to,
         context,
         GENERAL_TAG,
-        f'{context["filetype"]} report for [{context["projectname"]}]',
-        "project_report",
+        f'{context["filetype"]} report for [{context["groupname"]}]',
+        "group_report",
     )
 
 
@@ -77,12 +77,12 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
 
     email_context: MailContentType = {
         "comment": comment_data["content"].splitlines(),
-        "comment_type": "project",
+        "comment_type": "group",
         "comment_url": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/consulting"
         ),
         "parent": str(comment_data["parent"]),
-        "project": group_name,
+        "group": group_name,
         "user_email": user_mail,
     }
     recipients = await get_comment_recipients(group_name, "comment")
