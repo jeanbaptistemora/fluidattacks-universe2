@@ -121,6 +121,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             "reject_draft_new",
             "submit_draft_new",
             "update_evidence_new",
+            "update_evidence_description_new",
             "update_finding_description_new",
             "update_severity_new",
         },

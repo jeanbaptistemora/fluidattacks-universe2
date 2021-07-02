@@ -134,6 +134,10 @@ def test_model_integrity_migrated_finding_permissions(
         "reject_draft_new_mutate",
         "api_mutations_submit_draft_mutate": "api_mutations_"
         "submit_draft_new_mutate",
+        "api_mutations_update_evidence_mutate": "api_mutations_"
+        "update_evidence_new_mutate",
+        "api_mutations_update_evidence_description_mutate": "api_mutations_"
+        "update_evidence_description_new_mutate",
         "api_mutations_update_finding_description_mutate": "api_mutations_"
         "update_finding_description_new_mutate",
         "api_mutations_update_severity_mutate": "api_mutations_"
