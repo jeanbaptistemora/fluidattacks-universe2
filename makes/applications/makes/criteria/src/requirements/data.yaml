@@ -1665,7 +1665,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Enmascarar datos sensibles
     summary: __empty__
     description: __empty__
   references: []
@@ -1676,7 +1676,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Notificar cambios en la configuracion
     summary: __empty__
     description: __empty__
   references: []
@@ -1687,7 +1687,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Declarar dependencias explicitamente
     summary: __empty__
     description: __empty__
   references: []
@@ -1698,7 +1698,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Priorizar el uso de token
     summary: __empty__
     description: __empty__
   references: []
@@ -1709,7 +1709,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Solicitar consentimiento al usuario
     summary: __empty__
     description: __empty__
   references: []
@@ -1720,7 +1720,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Demostrar el consentimiento del usuario
     summary: __empty__
     description: __empty__
   references: []
@@ -1731,7 +1731,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Permitir la anulacion del consentimiento del usuario
     summary: __empty__
     description: __empty__
   references: []
@@ -1742,7 +1742,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Informar la inhabilidad para identificar usuarios
     summary: __empty__
     description: __empty__
   references: []
@@ -1753,7 +1753,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Proveer confirmacion de procesamiento
     summary: __empty__
     description: __empty__
   references: []
@@ -1764,7 +1764,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Proveer informacion de datos procesados
     summary: __empty__
     description: __empty__
   references: []
@@ -1775,7 +1775,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Permitir solicitudes de rectificacion
     summary: __empty__
     description: __empty__
   references: []
@@ -1786,7 +1786,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Permitir solicitudes de borrado
     summary: __empty__
     description: __empty__
   references: []
@@ -1797,7 +1797,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Notificar cambios a terceros
     summary: __empty__
     description: __empty__
   references: []
@@ -1808,7 +1808,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Hacer que las opciones de autenticacion sean igualmente seguras
     summary: __empty__
     description: __empty__
   references: []
@@ -1819,7 +1819,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Evitar la aplicacion de control del lado del cliente
     summary: __empty__
     description: __empty__
   references: []
@@ -1830,7 +1830,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Evitar la deserializacion de los datos no confiables
     summary: __empty__
     description: __empty__
   references: []
@@ -1841,7 +1841,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Evitar almacenamiento de logs excesivo
     summary: __empty__
     description: __empty__
   references: []
@@ -1852,7 +1852,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Excluir archivos no verificables
     summary: __empty__
     description: __empty__
   references: []
@@ -1863,7 +1863,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Controlar redireccionamientos
     summary: __empty__
     description: __empty__
   references: []
@@ -1874,7 +1874,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Proteger archivos WSDL
     summary: __empty__
     description: __empty__
   references: []
@@ -1885,7 +1885,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Detectar dispositivos con root
     summary: __empty__
     description: __empty__
   references: []
@@ -1896,7 +1896,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Establecer una limite de velocidad
     summary: __empty__
     description: __empty__
   references: []
@@ -1907,7 +1907,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Solicitar MFA para sistemas criticos
     summary: __empty__
     description: __empty__
   references: []
@@ -1918,7 +1918,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Mantener el almacenamiento del lado del cliente sin datos sensibles
     summary: __empty__
     description: __empty__
   references: []
@@ -1929,7 +1929,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Verificar Subresource Integrity (SRI)
     summary: __empty__
     description: __empty__
   references: []
@@ -1940,7 +1940,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Garantizar el cumplimiento legal
     summary: __empty__
     description: __empty__
   references: []
@@ -1951,7 +1951,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Prevenir el uso de contrasenas vulneradas
     summary: __empty__
     description: __empty__
   references: []
@@ -1962,7 +1962,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Almacenar valores salt en forma separada
     summary: __empty__
     description: __empty__
   references: []
@@ -1973,7 +1973,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Evitar autenticacion basada en conocimiento
     summary: __empty__
     description: __empty__
   references: []
@@ -1984,7 +1984,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Definir el tiempo de duracion del token fuera de banda
     summary: __empty__
     description: __empty__
   references: []
@@ -1995,7 +1995,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Deshabilitar versiones inseguras de TLS
     summary: __empty__
     description: __empty__
   references: []
@@ -2006,7 +2006,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Hacer que los flujos logicos criticos se unan de manera segura
     summary: __empty__
     description: __empty__
   references: []
@@ -2017,7 +2017,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Implementar secreto perfecto hacia adelante
     summary: __empty__
     description: __empty__
   references: []
@@ -2028,7 +2028,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: __empty__
+    title: Evitar el almacenamiento de archivos sensibles en la raiz web
     summary: __empty__
     description: __empty__
   references: []
