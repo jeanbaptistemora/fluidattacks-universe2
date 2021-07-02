@@ -1,5 +1,11 @@
+from dataclasses import (
+    dataclass,
+)
 from enum import (
     Enum,
+)
+from returns.primitives.types import (
+    Immutable,
 )
 from singer_io import (
     JSON,
@@ -36,29 +42,10 @@ class MrStream(NamedTuple):
     scope: MrScope
     mr_state: MrState
 
-    def to_json(self) -> JSON:
-        return {
-            "type": "MrStream",
-            "obj": {
-                "project": self.project.proj_id,
-                "scope": self.scope.value,
-                "mr_state": self.mr_state.value,
-            },
-        }
-
 
 class JobStream(NamedTuple):
     project: ProjectId
     scopes: Tuple[JobScope, ...]
-
-    def to_json(self) -> JSON:
-        return {
-            "type": "MrStream",
-            "obj": {
-                "project": self.project.proj_id,
-                "scopes": (scope.value for scope in self.scopes),
-            },
-        }
 
 
 def default_mr_streams(proj_name: str) -> Tuple[MrStream, ...]:
@@ -79,3 +66,27 @@ def default_job_stream(proj_name: str) -> JobStream:
         JobScope.manual,
     )
     return JobStream(proj, scopes)
+
+
+@dataclass
+class StreamEncoder(Immutable):
+    # pylint: disable=no-self-use
+
+    def encode_mr_stream(self, obj: MrStream) -> JSON:
+        return {
+            "type": "MrStream",
+            "obj": {
+                "project": obj.project.proj_id,
+                "scope": obj.scope.value,
+                "mr_state": obj.mr_state.value,
+            },
+        }
+
+    def encode_job_stream(self, obj: JobStream) -> JSON:
+        return {
+            "type": "MrStream",
+            "obj": {
+                "project": obj.project.proj_id,
+                "scopes": (scope.value for scope in obj.scopes),
+            },
+        }

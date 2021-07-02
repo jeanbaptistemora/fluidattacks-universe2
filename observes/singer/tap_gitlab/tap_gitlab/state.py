@@ -7,8 +7,14 @@ from datetime import (
 from paginator.pages import (
     PageId,
 )
+from returns.primitives.types import (
+    Immutable,
+)
 from singer_io import (
     JSON,
+)
+from tap_gitlab.intervals.decode import (
+    IntervalDecoder,
 )
 from tap_gitlab.intervals.encoder import (
     IntervalEncoder,
@@ -19,10 +25,10 @@ from tap_gitlab.intervals.progress import (
 from tap_gitlab.streams import (
     JobStream,
     MrStream,
+    StreamEncoder,
 )
 from typing import (
     Dict,
-    final,
     NamedTuple,
     Tuple,
 )
@@ -56,10 +62,10 @@ class EtlState(NamedTuple):
     mrs: MrStateMap
 
 
-@final
-@dataclass(frozen=True)
-class StateEncoder:
+@dataclass
+class StateEncoder(Immutable):
     # pylint: disable=no-self-use
+    stream_encoder: StreamEncoder
 
     def encode_mrstm_state(self, state: MrStreamState) -> JSON:
         return {
@@ -82,8 +88,11 @@ class StateEncoder:
             "type": "JobStateMap",
             "obj": {
                 "items": [
-                    (proj.to_json(), self.encode_jsonstm_state(item))
-                    for proj, item in state.items.items()
+                    (
+                        self.stream_encoder.encode_job_stream(stm),
+                        self.encode_jsonstm_state(item),
+                    )
+                    for stm, item in state.items.items()
                 ],
             },
         }
@@ -93,8 +102,11 @@ class StateEncoder:
             "type": "MrStateMap",
             "obj": {
                 "items": [
-                    (proj.to_json(), self.encode_mrstm_state(item))
-                    for proj, item in state.items.items()
+                    (
+                        self.stream_encoder.encode_mr_stream(stm),
+                        self.encode_mrstm_state(item),
+                    )
+                    for stm, item in state.items.items()
                 ],
             },
         }
@@ -107,3 +119,28 @@ class StateEncoder:
                 "mrs": self.encode_mrstate_map(state.mrs),
             },
         }
+
+
+class DecodeError(Exception):
+    pass
+
+
+@dataclass(frozen=True)
+class StateDecoder:
+    # pylint: disable=no-self-use
+    i_decoder: IntervalDecoder[datetime]
+    i_decoder_2: IntervalDecoder[Tuple[int, PageId[int]]]
+
+    def decode_mrstm_state(self, raw: JSON) -> MrStreamState:
+        if raw.get("type") == "MrStreamState":
+            raw_state = raw["obj"]["state"]
+            return MrStreamState(self.i_decoder.decode_f_progress(raw_state))
+        raise DecodeError("MrStreamState")
+
+    def decode_jsonstm_state(self, raw: JSON) -> JobStreamState:
+        if raw.get("type") == "JobStreamState":
+            raw_state = raw["obj"]["state"]
+            return JobStreamState(
+                self.i_decoder_2.decode_f_progress(raw_state)
+            )
+        raise DecodeError("JobStreamState")
