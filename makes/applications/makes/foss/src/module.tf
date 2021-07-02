@@ -8,7 +8,9 @@ module "github_makes" {
   topics      = ["build", "cd", "ci", "devops", "nix"]
 
   secrets = {
-    GITLAB_TOKEN = var.PRODUCT_API_TOKEN
-    GITLAB_USER  = var.PRODUCT_API_USER
+    GITLAB_TOKEN  = var.PRODUCT_API_TOKEN
+    GITLAB_USER   = var.PRODUCT_API_USER
+    _GITHUB_TOKEN = var.GITHUB_API_TOKEN
+    _GITHUB_USER  = var.GITHUB_API_USER
   }
 }
