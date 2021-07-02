@@ -22,6 +22,7 @@ from typing import (
         ["customeradmin@gmail.com"],
         ["executive@gmail.com"],
         ["resourcer@gmail.com"],
+        ["reviewer@gmail.com"],
     ],
 )
 async def test_resources(populate: bool, email: str) -> None:

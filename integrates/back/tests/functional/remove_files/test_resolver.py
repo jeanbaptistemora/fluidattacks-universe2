@@ -54,6 +54,7 @@ async def test_remove_files_fail_1(populate: bool, email: str) -> None:
         ["analyst@gmail.com"],
         ["closer@gmail.com"],
         ["resourcer@gmail.com"],
+        ["reviewer@gmail.com"],
     ],
 )
 async def test_remove_files_fail_2(populate: bool, email: str) -> None:
