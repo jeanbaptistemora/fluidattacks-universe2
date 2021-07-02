@@ -10,14 +10,14 @@ F042_SECURE.description:
     sensibles, lo que podría hacer que se envíen por un canal no cifrado.
 F042_SECURE.impact:
   en: Obtain sensitive information by performing a MiTM attack.
-  es: Obtener informacion sensible realizando un ataque de hombre en el medio.
+  es: Obtener información sensible realizando un ataque de hombre en el medio.
 F042_SECURE.recommendation:
   en: >
     The application must set the Secure attribute in the cookies with sensitive
     information.
   es: >
     La aplicación debe establecer el atributo Secure en la cookies con
-    informacion sensible.
+    información sensible.
 F042_SECURE.threat:
   en: Unauthorized attacker from adjacent network performing a MITM.
   es: Atacante sin autorización desde red adyacente ejecutando un MITM.

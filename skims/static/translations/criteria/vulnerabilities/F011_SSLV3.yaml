@@ -7,10 +7,10 @@ F011_SSLV3.description:
 F011_SSLV3.impact:
   en: >
     Obtain sensitive information by performing a well known attack like POODLE.
-  es: Obtener informacion sensible haciendo un ataque como POODLE.
+  es: Obtener información sensible haciendo un ataque como POODLE.
 F011_SSLV3.recommendation:
   en: Update SSLv3 protocol to a version with known fix.
-  es: Actualizar el protocolo SSLv3 a una version corregida.
+  es: Actualizar el protocolo SSLv3 a una versión corregida.
 F011_SSLV3.requirements:
   en: R262. Verify third-party components.
   es: >

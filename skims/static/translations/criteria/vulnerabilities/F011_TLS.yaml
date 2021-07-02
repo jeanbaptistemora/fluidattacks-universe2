@@ -4,10 +4,11 @@ F011_TLS.description:
 F011_TLS.impact:
   en: >
     Obtain sensitive information by performing an attack like BEAST or similar.
-  es: Obtener informacion sensible realizando un ataque como BEAST o similar.
+  es: Obtener información sensible realizando un ataque como BEAST o similar.
 F011_TLS.recommendation:
-  en: Update TLS protocol to TLSv1.2 or TLSv1.3 if possible.
-  es: Actualizar el protocolo TLS a la version TLSv1.2 o TLSv1.3 de ser posible.
+  en: Update TLS protocol to version TLSv1.2 or TLSv1.3 if possible.
+  es: >
+    Actualizar el protocolo TLS a la versión TLSv1.2 o TLSv1.3 de ser posible.
 F011_TLS.requirements:
   en: R262. Verify third-party components.
   es: >
@@ -16,7 +17,7 @@ F011_TLS.requirements:
 F011_TLS.threat:
   en: >
     Unauthorized attacker from internet network exploiting a vulnerability
-    related  to the cipher block chaining process (CBC).
+    related to the cipher block chaining process (CBC).
   es: >
     Atacante sin autorización desde internet explotando una vulnerabilidad
     relacionada al CBC.

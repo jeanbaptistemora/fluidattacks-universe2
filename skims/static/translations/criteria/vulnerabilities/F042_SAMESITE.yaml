@@ -10,14 +10,14 @@ F042_SAMESITE.description:
     SameSite.
 F042_SAMESITE.impact:
   en: Perform a malicious request via a CSRF attack.
-  es: Realizar una peticion maliciosa con un ataque CSRF.
+  es: Realizar una petición maliciosa con un ataque CSRF.
 F042_SAMESITE.recommendation:
   en: >
     The application must set the SameSite attribute in the cookies with
     sensitive information.
   es: >
     La aplicación debe establecer el atributo SameSite en la cookies con
-    informacion sensible.
+    información sensible.
 F042_SAMESITE.threat:
   en: Attacker from internet network performing a CSRF attack.
   es: Atacante desde internet ejecutando un ataque CSRF.

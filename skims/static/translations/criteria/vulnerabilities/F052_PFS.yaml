@@ -2,12 +2,14 @@ F052_PFS.description:
   en: The application uses insecure encryption algorithms.
   es: La aplicación usa algoritmos de cifrado inseguros.
 F052_PFS.impact:
-  en: Obtain sensitive information that is being transmitted or has been stored.
-  es: Obtener informacion sensible que se esta transmitiendo o ha sido guardada.
+  en: >
+    Obtain sensitive information that is being transmitted or has been stored.
+  es: >
+    Obtener información sensible que se esta transmitiendo o ha sido guardada.
 F052_PFS.recommendation:
   en: Use encyption algorithms like dhe_rsa, ecdhe_rsa, ecdh_anon or dh_anon.
   es: >
-    Usar algoritmos de encriptacion tales como dhe_rsa, ecdhe_rsa, ecdh_anon or
+    Usar algoritmos de encriptación tales como dhe_rsa, ecdhe_rsa, ecdh_anon or
     dh_anon.
 F052_PFS.threat:
   en: Unauthorized attacker from internet network exploiting a vulnerability.

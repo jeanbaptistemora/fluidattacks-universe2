@@ -10,14 +10,14 @@ F042_HTTPONLY.description:
     HttpOnly.
 F042_HTTPONLY.impact:
   en: Obtain sensitive information by performing a XSS attack.
-  es: Obtener informacion sensible realizando un ataque XSS.
+  es: Obtener información sensible realizando un ataque XSS.
 F042_HTTPONLY.recommendation:
   en: >
     The application must set the HttpOnly attribute in the cookies with
     sensitive information.
   es: >
     La aplicación debe establecer el atributo HttpOnly en la cookies con
-    informacion sensible.
+    información sensible.
 F042_HTTPONLY.threat:
   en: Authorized attacker from internet network performing a XSS attack.
   es: Atacante con autorización desde internet ejecutando un ataque XSS.
