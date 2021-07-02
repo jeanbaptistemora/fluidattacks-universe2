@@ -19,11 +19,13 @@ from utils.sockets import (
 )
 
 
+# pylint: disable=too-many-arguments
 @contextlib.contextmanager
 def connect(
     hostname: str,
     port: int,
     ssl_settings: SSLSettings,
+    anonymous: bool = False,
     intention: str = "establish ssl connection",
     expected_exceptions: Tuple[tlslite.errors.BaseTLSException, ...] = (),
 ) -> Generator[Optional[tlslite.TLSConnection], None, None]:
@@ -42,7 +44,10 @@ def connect(
             settings.cipherNames = ssl_settings.cipher_names
             settings.keyExchangeNames = ssl_settings.key_exchange_names
 
-            connection.handshakeClientCert(settings=settings)
+            if anonymous:
+                connection.handshakeClientAnonymous(settings=settings)
+            else:
+                connection.handshakeClientCert(settings=settings)
             yield connection
     except tlslite.errors.BaseTLSException as error:
         if isinstance(error, expected_exceptions):

@@ -1,3 +1,6 @@
+lib_ssl.analyze_protocol.pfs_disabled:
+  en: "pfs is not enabled"
+  es: "pfs no esta habilitado"
 F052_PFS.description:
   en: The application uses insecure encryption algorithms.
   es: La aplicación usa algoritmos de cifrado inseguros.

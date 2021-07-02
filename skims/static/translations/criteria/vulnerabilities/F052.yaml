@@ -1,6 +1,3 @@
-lib_ssl.analyze_protocol.pfs_disabled:
-  en: "pfs is not enabled"
-  es: "pfs no esta habilitado"
 src.lib_path.f052.java_properties_missing_ssl:
   en: Missing SSL in {path}
   es: Ausencia de SSL en {path}
