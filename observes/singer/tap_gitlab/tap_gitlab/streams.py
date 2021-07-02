@@ -4,9 +4,6 @@ from dataclasses import (
 from enum import (
     Enum,
 )
-from returns.primitives.types import (
-    Immutable,
-)
 from singer_io import (
     JSON,
 )
@@ -68,8 +65,8 @@ def default_job_stream(proj_name: str) -> JobStream:
     return JobStream(proj, scopes)
 
 
-@dataclass
-class StreamEncoder(Immutable):
+@dataclass(frozen=True)
+class StreamEncoder:
     # pylint: disable=no-self-use
 
     def encode_mr_stream(self, obj: MrStream) -> JSON:
@@ -96,8 +93,8 @@ class DecodeError(Exception):
     pass
 
 
-@dataclass
-class StreamDecoder(Immutable):
+@dataclass(frozen=True)
+class StreamDecoder:
     # pylint: disable=no-self-use
 
     def decode_mr_stream(self, raw: JSON) -> MrStream:

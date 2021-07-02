@@ -9,7 +9,7 @@ from typing import (
 _Point = TypeVar("_Point")
 
 
-@dataclass
+@dataclass(frozen=True)
 class Patch(Generic[_Point]):
     # patch for https://github.com/python/mypy/issues/5485
     # upgrading mypy where the fix is included will deprecate this

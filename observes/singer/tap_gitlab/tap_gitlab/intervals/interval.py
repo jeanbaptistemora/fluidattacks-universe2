@@ -100,9 +100,8 @@ def _common_builder(
     }
 
 
-@dataclass
+@dataclass(frozen=True)
 class ClosedInterval(
-    Immutable,
     SupportsKind1["ClosedInterval", _Point],
 ):
     greater: Comparison[IntervalPoint[_Point]]
@@ -120,9 +119,8 @@ class ClosedInterval(
             object.__setattr__(self, key, value)
 
 
-@dataclass
+@dataclass(frozen=True)
 class OpenInterval(
-    Immutable,
     SupportsKind1["OpenInterval", _Point],
 ):
     greater: Comparison[IntervalPoint[_Point]]
@@ -140,9 +138,8 @@ class OpenInterval(
             object.__setattr__(self, key, value)
 
 
-@dataclass
+@dataclass(frozen=True)
 class OpenLeftInterval(
-    Immutable,
     SupportsKind1["OpenLeftInterval", _Point],
 ):
     greater: Comparison[IntervalPoint[_Point]]
@@ -160,9 +157,8 @@ class OpenLeftInterval(
             object.__setattr__(self, key, value)
 
 
-@dataclass
+@dataclass(frozen=True)
 class OpenRightInterval(
-    Immutable,
     SupportsKind1["OpenRightInterval", _Point],
 ):
     greater: Comparison[IntervalPoint[_Point]]
@@ -188,9 +184,8 @@ Interval = Union[
 ]
 
 
-@dataclass
+@dataclass(frozen=True)
 class IntervalFactory(
-    Immutable,
     SupportsKind1["IntervalFactory", _Point],
 ):
     _type: Type[_Point]

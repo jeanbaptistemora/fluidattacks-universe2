@@ -31,6 +31,7 @@ from tap_gitlab.streams import (
 from typing import (
     Dict,
     NamedTuple,
+    Optional,
     Tuple,
 )
 
@@ -59,11 +60,11 @@ class JobStateMap(NamedTuple):
 
 
 class EtlState(NamedTuple):
-    jobs: JobStateMap
+    jobs: Optional[JobStateMap]
     mrs: MrStateMap
 
 
-@dataclass
+@dataclass(frozen=True)
 class StateEncoder(Immutable):
     # pylint: disable=no-self-use
     stream_encoder: StreamEncoder
@@ -116,7 +117,9 @@ class StateEncoder(Immutable):
         return {
             "type": "EtlState",
             "obj": {
-                "jobs": self.encode_jobstate_map(state.jobs),
+                "jobs": self.encode_jobstate_map(state.jobs)
+                if state.jobs
+                else "",
                 "mrs": self.encode_mrstate_map(state.mrs),
             },
         }
@@ -175,7 +178,7 @@ class StateDecoder:
             raw_jobs = raw["obj"]["jobs"]
             raw_mrs = raw["obj"]["mrs"]
             return EtlState(
-                self.decode_jobstate_map(raw_jobs),
+                self.decode_jobstate_map(raw_jobs) if raw_jobs else None,
                 self.decode_mrstate_map(raw_mrs),
             )
         raise DecodeError("EtlState")

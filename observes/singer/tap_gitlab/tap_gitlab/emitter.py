@@ -128,7 +128,6 @@ def _stream_data(
     return Success(count)
 
 
-@final
 @dataclass(frozen=True)
 class Emitter:
     api: ApiClient

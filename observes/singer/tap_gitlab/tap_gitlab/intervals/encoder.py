@@ -4,9 +4,6 @@ from dataclasses import (
 from returns.primitives.hkt import (
     SupportsKind1,
 )
-from returns.primitives.types import (
-    Immutable,
-)
 from singer_io import (
     JSON,
 )
@@ -32,9 +29,8 @@ from typing import (
 _Point = TypeVar("_Point")
 
 
-@dataclass
+@dataclass(frozen=True)
 class IntervalEncoder(
-    Immutable,
     SupportsKind1["IntervalEncoder", _Point],
 ):
     _encode_point: Patch[Callable[[_Point], JSON]]

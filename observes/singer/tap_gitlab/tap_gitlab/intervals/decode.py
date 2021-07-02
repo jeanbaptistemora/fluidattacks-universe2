@@ -4,9 +4,6 @@ from dataclasses import (
 from returns.primitives.hkt import (
     SupportsKind1,
 )
-from returns.primitives.types import (
-    Immutable,
-)
 from singer_io import (
     JSON,
 )
@@ -42,9 +39,8 @@ class DecodeError(Exception):
     pass
 
 
-@dataclass
+@dataclass(frozen=True)
 class IntervalDecoder(
-    Immutable,
     SupportsKind1["IntervalDecoder", _Point],
 ):
     factory: FIntervalFactory[_Point]

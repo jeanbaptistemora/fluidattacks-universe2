@@ -9,9 +9,6 @@ from returns.primitives.hkt import (
     SupportsKind1,
     SupportsKind2,
 )
-from returns.primitives.types import (
-    Immutable,
-)
 from tap_gitlab.intervals.alias import (
     NTuple,
 )
@@ -33,9 +30,8 @@ from typing import (
 _DataType = TypeVar("_DataType")
 
 
-@dataclass
+@dataclass(frozen=True)
 class ProgressInterval(
-    Immutable,
     SupportsKind1["ProgressInterval", _DataType],
 ):
     interval: Interval[_DataType]
@@ -45,9 +41,8 @@ class ProgressInterval(
 _State = TypeVar("_State")
 
 
-@dataclass
+@dataclass(frozen=True)
 class ProcessStatus(
-    Immutable,
     SupportsKind2["ProcessStatus", _DataType, _State],
 ):
     p_intervals: NTuple[ProgressInterval[_DataType]]
@@ -55,18 +50,16 @@ class ProcessStatus(
     function_state: _State
 
 
-@dataclass
+@dataclass(frozen=True)
 class _FragmentedProgressInterval(
-    Immutable,
     SupportsKind1["_FragmentedProgressInterval", _DataType],
 ):
     f_interval: FragmentedInterval[_DataType]
     completeness: NTuple[bool]
 
 
-@dataclass
+@dataclass(frozen=True)
 class FragmentedProgressInterval(
-    Immutable,
     SupportsKind1["FragmentedProgressInterval", _DataType],
 ):
     f_interval: FragmentedInterval[_DataType]
@@ -123,9 +116,8 @@ class CannotBuild(Exception):
     pass
 
 
-@dataclass
+@dataclass(frozen=True)
 class FProgressFactory(
-    Immutable,
     SupportsKind1["FProgressFactory", _DataType],
 ):
     factory: FIntervalFactory[_DataType]

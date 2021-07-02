@@ -20,6 +20,8 @@ from tap_gitlab.intervals.progress import (
     FProgressFactory,
 )
 from tap_gitlab.state import (
+    EtlState,
+    MrStateMap,
     MrStreamState,
 )
 from tap_gitlab.streams import (
@@ -28,13 +30,14 @@ from tap_gitlab.streams import (
     SupportedStreams,
 )
 from typing import (
+    Optional,
     Union,
 )
 
 LOG = logging.getLogger(__name__)
 
 
-def default_state() -> MrStreamState:
+def default_mr_state() -> MrStreamState:
     factory = IntervalFactory(datetime)
     f_factory = FIntervalFactory(factory)
     fp_factory = FProgressFactory(f_factory)
@@ -45,12 +48,22 @@ def default_state() -> MrStreamState:
     )
 
 
+def default_etl_state(
+    project: str,
+) -> EtlState:
+    streams = default_mr_streams(project)
+    mrs_map = MrStateMap({stream: default_mr_state() for stream in streams})
+    return EtlState(None, mrs_map)
+
+
 def defautl_stream(
     creds: Credentials,
     target_stream: Union[str, SupportedStreams],
     project: str,
     max_pages: int,
+    state: Optional[EtlState] = None,
 ) -> None:
+    _state = state if state else default_etl_state(project)
     _target_stream = (
         SupportedStreams(target_stream)
         if isinstance(target_stream, str)
@@ -66,7 +79,7 @@ def defautl_stream(
         streams = default_mr_streams(project)
 
         for stream in streams:
-            result = emitter.emit_mrs(stream, default_state())
+            result = emitter.emit_mrs(stream, _state.mrs.items[stream])
             LOG.debug("new status: %s", result)
 
     else:
