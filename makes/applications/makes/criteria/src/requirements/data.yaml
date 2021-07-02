@@ -103,7 +103,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Evitar fugas del ID de sesion 
+    title: Evitar fugas del ID de sesion
     summary: __empty__
     description: __empty__
   references: []
@@ -796,7 +796,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Proteger llaves criptograficas del sistema 
+    title: Proteger llaves criptograficas del sistema
     summary: __empty__
     description: __empty__
   references: []
@@ -1602,7 +1602,8 @@
     title: Solicitar autenticacion
     summary: __empty__
     description: __empty__
-  references: []
+  references:
+    - capec.definitions.1
   metadata: {}
 265:
   en:

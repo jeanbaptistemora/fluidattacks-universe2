@@ -26,7 +26,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 002:
   en:
@@ -56,7 +55,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 003:
   en:
@@ -86,7 +84,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 004:
   en:
@@ -116,7 +113,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 005:
   en:
@@ -146,7 +142,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 006:
   en:
@@ -176,7 +171,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 007:
   en:
@@ -206,7 +200,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 008:
   en:
@@ -236,7 +229,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 009:
   en:
@@ -266,7 +258,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 010:
   en:
@@ -296,7 +287,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 011:
   en:
@@ -326,7 +316,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 012:
   en:
@@ -356,7 +345,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 013:
   en:
@@ -386,7 +374,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 014:
   en:
@@ -416,7 +403,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 015:
   en:
@@ -446,7 +432,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 016:
   en:
@@ -476,7 +461,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 017:
   en:
@@ -506,7 +490,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 018:
   en:
@@ -536,7 +519,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 019:
   en:
@@ -566,7 +548,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 020:
   en:
@@ -596,7 +577,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 021:
   en:
@@ -626,7 +606,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 022:
   en:
@@ -656,7 +635,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 023:
   en:
@@ -686,7 +664,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 024:
   en:
@@ -716,7 +693,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 025:
   en:
@@ -746,7 +722,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 026:
   en:
@@ -776,7 +751,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 027:
   en:
@@ -806,7 +780,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 028:
   en:
@@ -836,7 +809,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 029:
   en:
@@ -866,7 +838,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 030:
   en:
@@ -896,7 +867,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 031:
   en:
@@ -926,7 +896,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 032:
   en:
@@ -956,7 +925,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 033:
   en:
@@ -986,7 +954,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 034:
   en:
@@ -1016,7 +983,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 035:
   en:
@@ -1046,7 +1012,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 036:
   en:
@@ -1076,7 +1041,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 037:
   en:
@@ -1106,7 +1070,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 038:
   en:
@@ -1136,7 +1099,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 039:
   en:
@@ -1166,7 +1128,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 040:
   en:
@@ -1196,7 +1157,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 041:
   en:
@@ -1226,7 +1186,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 042:
   en:
@@ -1256,7 +1215,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 043:
   en:
@@ -1286,7 +1244,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 044:
   en:
@@ -1316,7 +1273,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 045:
   en:
@@ -1346,7 +1302,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 046:
   en:
@@ -1376,7 +1331,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 047:
   en:
@@ -1406,7 +1360,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 048:
   en:
@@ -1436,7 +1389,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 049:
   en:
@@ -1466,7 +1418,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 050:
   en:
@@ -1496,7 +1447,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 051:
   en:
@@ -1526,7 +1476,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 052:
   en:
@@ -1556,7 +1505,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 053:
   en:
@@ -1586,7 +1534,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 054:
   en:
@@ -1616,7 +1563,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 055:
   en:
@@ -1646,7 +1592,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 056:
   en:
@@ -1676,7 +1621,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 057:
   en:
@@ -1706,7 +1650,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 058:
   en:
@@ -1736,7 +1679,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 059:
   en:
@@ -1766,7 +1708,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 060:
   en:
@@ -1796,7 +1737,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 061:
   en:
@@ -1826,7 +1766,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 062:
   en:
@@ -1856,7 +1795,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 063:
   en:
@@ -1886,7 +1824,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 064:
   en:
@@ -1916,7 +1853,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 065:
   en:
@@ -1946,7 +1882,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 066:
   en:
@@ -1976,7 +1911,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 067:
   en:
@@ -2006,7 +1940,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 068:
   en:
@@ -2036,7 +1969,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 069:
   en:
@@ -2066,7 +1998,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 070:
   en:
@@ -2096,7 +2027,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 071:
   en:
@@ -2126,7 +2056,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 072:
   en:
@@ -2156,7 +2085,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 073:
   en:
@@ -2186,7 +2114,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 074:
   en:
@@ -2216,7 +2143,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 075:
   en:
@@ -2246,7 +2172,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 076:
   en:
@@ -2276,7 +2201,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 077:
   en:
@@ -2306,7 +2230,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 078:
   en:
@@ -2336,7 +2259,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 079:
   en:
@@ -2366,7 +2288,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 081:
   en:
@@ -2395,8 +2316,8 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
-  references: []
+  requirements:
+    - "264"
   metadata: {}
 082:
   en:
@@ -2426,7 +2347,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 083:
   en:
@@ -2456,7 +2376,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 084:
   en:
@@ -2486,7 +2405,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 085:
   en:
@@ -2516,7 +2434,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 086:
   en:
@@ -2546,7 +2463,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 087:
   en:
@@ -2576,7 +2492,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 088:
   en:
@@ -2606,7 +2521,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 090:
   en:
@@ -2636,7 +2550,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 091:
   en:
@@ -2666,7 +2579,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 092:
   en:
@@ -2696,7 +2608,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 093:
   en:
@@ -2726,7 +2637,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 094:
   en:
@@ -2756,7 +2666,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 095:
   en:
@@ -2786,7 +2695,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 096:
   en:
@@ -2816,7 +2724,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 097:
   en:
@@ -2846,7 +2753,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 098:
   en:
@@ -2876,7 +2782,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 099:
   en:
@@ -2906,7 +2811,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 100:
   en:
@@ -2936,7 +2840,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 101:
   en:
@@ -2966,7 +2869,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 102:
   en:
@@ -2996,7 +2898,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 103:
   en:
@@ -3026,7 +2927,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 104:
   en:
@@ -3056,7 +2956,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 105:
   en:
@@ -3086,7 +2985,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 106:
   en:
@@ -3116,7 +3014,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 107:
   en:
@@ -3146,7 +3043,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 108:
   en:
@@ -3176,7 +3072,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 109:
   en:
@@ -3206,7 +3101,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 110:
   en:
@@ -3236,7 +3130,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 111:
   en:
@@ -3266,7 +3159,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 112:
   en:
@@ -3296,7 +3188,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 113:
   en:
@@ -3326,7 +3217,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 114:
   en:
@@ -3356,7 +3246,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 115:
   en:
@@ -3386,7 +3275,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 116:
   en:
@@ -3416,7 +3304,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 117:
   en:
@@ -3446,7 +3333,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 118:
   en:
@@ -3476,7 +3362,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 119:
   en:
@@ -3506,7 +3391,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 120:
   en:
@@ -3536,7 +3420,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 121:
   en:
@@ -3566,7 +3449,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 122:
   en:
@@ -3596,7 +3478,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 123:
   en:
@@ -3626,7 +3507,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 124:
   en:
@@ -3656,7 +3536,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 125:
   en:
@@ -3686,7 +3565,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 126:
   en:
@@ -3716,7 +3594,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 127:
   en:
@@ -3746,7 +3623,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 128:
   en:
@@ -3776,7 +3652,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 129:
   en:
@@ -3806,7 +3681,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 130:
   en:
@@ -3836,7 +3710,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 131:
   en:
@@ -3866,7 +3739,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 132:
   en:
@@ -3896,7 +3768,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 133:
   en:
@@ -3926,7 +3797,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 134:
   en:
@@ -3956,7 +3826,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 135:
   en:
@@ -3986,7 +3855,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 136:
   en:
@@ -4016,7 +3884,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 137:
   en:
@@ -4046,7 +3913,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 138:
   en:
@@ -4076,7 +3942,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 139:
   en:
@@ -4106,7 +3971,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 140:
   en:
@@ -4136,7 +4000,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 141:
   en:
@@ -4166,7 +4029,6 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
 142:
   en:
@@ -4196,5 +4058,4 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  references: []
   metadata: {}
