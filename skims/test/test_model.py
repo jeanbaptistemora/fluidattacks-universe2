@@ -21,11 +21,39 @@ from zone import (
 
 
 @pytest.mark.skims_test_group("unittesting")
-def test_model_core_model_manifest() -> None:
+def test_model_core_model_manifest_findings() -> None:
     path: str = "skims/manifests/findings.json"
     expected: str = (
         json.dumps(
-            sorted(finding.name for finding in core_model.FindingEnum),
+            sorted(
+                finding.name
+                for finding in core_model.FindingEnum
+                if finding.value.execution_queue
+                != core_model.ExecutionQueue.none
+            ),
+            indent=2,
+        )
+        + "\n"
+    )
+
+    if SHOULD_UPDATE_TESTS:
+        with open(path, "w") as handle_w:
+            handle_w.write(expected)
+
+    with open(path) as handle_r:
+        assert handle_r.read() == expected
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_model_core_model_manifest_queues() -> None:
+    path: str = "skims/manifests/queues.json"
+    expected: str = (
+        json.dumps(
+            sorted(
+                f"skims_{queue.name}"
+                for queue in core_model.ExecutionQueue
+                if queue != core_model.ExecutionQueue.none
+            ),
             indent=2,
         )
         + "\n"
