@@ -5,11 +5,12 @@ import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { faFile, faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
-import type { InjectedFormProps, Validator } from "redux-form";
+import type { Validator } from "redux-form";
 
 import {
   checkNotEmptyOrEditing,
@@ -23,7 +24,6 @@ import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
 import { EvidenceLightbox } from "scenes/Dashboard/components/EvidenceLightbox";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   DOWNLOAD_FILE_MUTATION,
   GET_EVENT_EVIDENCES,
@@ -38,6 +38,7 @@ import { msgError } from "utils/notifications";
 import { openUrl } from "utils/resourceHelpers";
 import { translate } from "utils/translations/translate";
 import {
+  composeValidators,
   isValidFileSize,
   validEventFile,
   validEvidenceImage,
@@ -169,9 +170,14 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
             <p>{translate.t("group.events.evidence.noData")}</p>
           </div>
         ) : undefined}
-        <GenericForm name={"editEvidences"} onSubmit={handleUpdate}>
-          {({ pristine }: InjectedFormProps): JSX.Element => (
-            <React.Fragment>
+        <Formik
+          enableReinitialize={true}
+          initialValues={data.event}
+          name={"editEvidences"}
+          onSubmit={handleUpdate}
+        >
+          {({ dirty }): JSX.Element => (
+            <Form id={"editEvidences"}>
               {isEditing ? (
                 <ButtonToolbarRow>
                   <TooltipWrapper
@@ -182,7 +188,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                       "searchFindings.tabEvidence.updateTooltip"
                     )}
                   >
-                    <Button disabled={pristine} type={"submit"}>
+                    <Button disabled={!dirty} type={"submit"}>
                       <FluidIcon icon={"loading"} />
                       &nbsp;{translate.t("searchFindings.tabEvidence.update")}
                     </Button>
@@ -201,7 +207,10 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                   name={"image"}
                   onClick={openImage}
                   onDelete={removeImage}
-                  validate={[validEvidenceImage, maxFileSize]}
+                  validate={composeValidators([
+                    validEvidenceImage,
+                    maxFileSize,
+                  ])}
                 />
               ) : undefined}
               {checkNotEmptyOrEditing(data.event.evidenceFile, isEditing) ? (
@@ -222,12 +231,12 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                   name={"file"}
                   onClick={handleDownload} // eslint-disable-line react/jsx-no-bind -- Needed due to a memory leakage
                   onDelete={removeFile}
-                  validate={[validEventFile, maxFileSize]}
+                  validate={composeValidators([validEventFile, maxFileSize])}
                 />
               ) : undefined}
-            </React.Fragment>
+            </Form>
           )}
-        </GenericForm>
+        </Formik>
         <EvidenceLightbox
           evidenceImages={[{ url: data.event.evidence }]}
           index={lightboxIndex}
