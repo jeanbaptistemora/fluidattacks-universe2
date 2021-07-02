@@ -56,6 +56,18 @@
       margin: 0 auto;
     }
 
+    .pa1 {
+      padding: 5px;
+    }
+
+    .w-70 {
+      width: 70%;
+    }
+
+    .w-100 {
+      width: 100%;
+    }
+
     .container {
       padding: 0 2rem;
       margin: 0 auto;
@@ -117,19 +129,6 @@
       color: #ff3435;
       font-weight: bold;
       float: right;
-      padding-left: 1rem;
-    }
-
-    .pa1 {
-      padding: 5px;
-    }
-
-    .w-70 {
-      width: 70%;
-    }
-
-    .w-100 {
-      width: 100%;
     }
 
     @media only screen and (min-width: 320px) {
@@ -426,23 +425,29 @@
       </div>
       <div class="content">
         {%- for finding in findings %}
+        <span><strong>{{ finding['finding_group'] }}</strong></span>
         <table aria-hidden="true"
-          style="border-collapse: collapse; border-spacing: 0; margin-bottom: 1rem; padding: 0; width: 100%;">
+          style="border-collapse: collapse; border-spacing: 0; padding: 0; width: 100%; table-layout: fixed;">
           <tr>
-            <td style="text-align: left;">
-              <span><strong>[{{ finding['finding_group'] }}] </strong>{{ finding['finding_name'] }}</span>
-              <span style="display: none;">{{ hash }}</span>
+            <td>
+              <div style="white-space: nowrap !important;
+                      overflow: hidden !important;
+                      text-overflow: ellipsis !important;
+                      font-size: 14px;">
+                {{ finding['finding_name'] }}
+                <span style="display: none;">{{ hash }}</span>
+              </div>
             </td>
-            <td style="text-align: right; width: 85px; vertical-align: bottom;">
-              <span class="content-number">
+            <td style="text-align: right; width: 75px; font-size: 14px;">
+              <div class="content-number">
                 {%- if finding['finding_age'] == 0 %}
-                  today
+                today
                 {%- elif finding['finding_age'] == 1 %}
-                  1 day
+                1 day
                 {%- else %}
-                  {{ finding['finding_age'] }} days
+                {{ finding['finding_age'] }} days
                 {%- endif %}
-              </span>
+              </div>
             </td>
           </tr>
         </table>

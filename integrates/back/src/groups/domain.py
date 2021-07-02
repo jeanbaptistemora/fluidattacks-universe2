@@ -1407,7 +1407,10 @@ def process_user_digest_stats(
     for stat in groups_stats:
         findings_extended = [
             {
-                **finding,
+                # Finding name is trimmed due to unwanted html generation
+                # in the email client
+                "finding_name": finding["finding_name"][:60],
+                "finding_age": finding["finding_age"],
                 "finding_group": stat["group"],
             }
             for finding in stat["findings"]
