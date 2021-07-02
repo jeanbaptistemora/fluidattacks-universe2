@@ -8,6 +8,12 @@ from dataclasses import (
 from more_itertools import (
     windowed,
 )
+from returns.primitives.hkt import (
+    SupportsKind1,
+)
+from returns.primitives.types import (
+    Immutable,
+)
 from tap_gitlab.intervals.alias import (
     NTuple,
 )
@@ -20,8 +26,6 @@ from tap_gitlab.intervals.interval import (
     OpenLeftInterval,
 )
 from typing import (
-    final,
-    Generic,
     Optional,
     TypeVar,
 )
@@ -73,15 +77,20 @@ def _to_intervals(
     )
 
 
-@dataclass(frozen=True)
-class _FragmentedInterval(Generic[_Point]):
+@dataclass
+class _FragmentedInterval(
+    Immutable,
+    SupportsKind1["_FragmentedInterval", _Point],
+):
     endpoints: NTuple[IntervalPoint[_Point]]
     intervals: NTuple[OpenLeftInterval[_Point]]
 
 
-@final
-@dataclass(frozen=True)
-class FragmentedInterval(Generic[_Point]):
+@dataclass
+class FragmentedInterval(
+    Immutable,
+    SupportsKind1["FragmentedInterval", _Point],
+):
     endpoints: NTuple[IntervalPoint[_Point]]
     intervals: NTuple[OpenLeftInterval[_Point]]
 
@@ -90,9 +99,11 @@ class FragmentedInterval(Generic[_Point]):
             object.__setattr__(self, key, value)
 
 
-@final
-@dataclass(frozen=True)
-class FIntervalFactory(Generic[_Point]):
+@dataclass
+class FIntervalFactory(
+    Immutable,
+    SupportsKind1["FIntervalFactory", _Point],
+):
     factory: IntervalFactory[_Point]
 
     def from_endpoints(

@@ -1,6 +1,12 @@
 from dataclasses import (
     dataclass,
 )
+from returns.primitives.hkt import (
+    SupportsKind1,
+)
+from returns.primitives.types import (
+    Immutable,
+)
 from singer_io import (
     JSON,
 )
@@ -16,14 +22,15 @@ from tap_gitlab.intervals.interval import (
     MAX,
     MIN,
 )
+from tap_gitlab.intervals.patch import (
+    Patch,
+)
 from tap_gitlab.intervals.progress import (
     FProgressFactory,
     FragmentedProgressInterval,
 )
 from typing import (
     Callable,
-    final,
-    Generic,
     List,
     TypeVar,
 )
@@ -36,19 +43,10 @@ class DecodeError(Exception):
 
 
 @dataclass
-class Patch(Generic[_Point]):
-    # patch for https://github.com/python/mypy/issues/5485
-    # upgrading mypy where the fix is included will deprecate this
-    inner: _Point
-
-    @property
-    def unwrap(self) -> _Point:
-        return self.inner
-
-
-@final
-@dataclass
-class IntervalDecoder(Generic[_Point]):
+class IntervalDecoder(
+    Immutable,
+    SupportsKind1["IntervalDecoder", _Point],
+):
     factory: FIntervalFactory[_Point]
     p_factory: FProgressFactory[_Point]
     decode_point: Patch[Callable[[JSON], _Point]]

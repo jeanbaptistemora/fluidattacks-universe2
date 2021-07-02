@@ -5,6 +5,13 @@ from __future__ import (
 from dataclasses import (
     dataclass,
 )
+from returns.primitives.hkt import (
+    SupportsKind1,
+    SupportsKind2,
+)
+from returns.primitives.types import (
+    Immutable,
+)
 from tap_gitlab.intervals.alias import (
     NTuple,
 )
@@ -18,8 +25,6 @@ from tap_gitlab.intervals.interval import (
 )
 from typing import (
     Callable,
-    final,
-    Generic,
     List,
     Tuple,
     TypeVar,
@@ -28,9 +33,11 @@ from typing import (
 _DataType = TypeVar("_DataType")
 
 
-@final
-@dataclass(frozen=True)
-class ProgressInterval(Generic[_DataType]):
+@dataclass
+class ProgressInterval(
+    Immutable,
+    SupportsKind1["ProgressInterval", _DataType],
+):
     interval: Interval[_DataType]
     completed: bool
 
@@ -38,24 +45,30 @@ class ProgressInterval(Generic[_DataType]):
 _State = TypeVar("_State")
 
 
-@final
-@dataclass(frozen=True)
-class ProcessStatus(Generic[_DataType, _State]):
+@dataclass
+class ProcessStatus(
+    Immutable,
+    SupportsKind2["ProcessStatus", _DataType, _State],
+):
     p_intervals: NTuple[ProgressInterval[_DataType]]
     incomplete_is_present: bool
     function_state: _State
 
 
-@final
-@dataclass(frozen=True)
-class _FragmentedProgressInterval(Generic[_DataType]):
+@dataclass
+class _FragmentedProgressInterval(
+    Immutable,
+    SupportsKind1["_FragmentedProgressInterval", _DataType],
+):
     f_interval: FragmentedInterval[_DataType]
     completeness: NTuple[bool]
 
 
-@final
-@dataclass(frozen=True)
-class FragmentedProgressInterval(Generic[_DataType]):
+@dataclass
+class FragmentedProgressInterval(
+    Immutable,
+    SupportsKind1["FragmentedProgressInterval", _DataType],
+):
     f_interval: FragmentedInterval[_DataType]
     completeness: NTuple[bool]
 
@@ -110,9 +123,11 @@ class CannotBuild(Exception):
     pass
 
 
-@final
-@dataclass(frozen=True)
-class FProgressFactory(Generic[_DataType]):
+@dataclass
+class FProgressFactory(
+    Immutable,
+    SupportsKind1["FProgressFactory", _DataType],
+):
     factory: FIntervalFactory[_DataType]
 
     # pylint: disable=no-self-use

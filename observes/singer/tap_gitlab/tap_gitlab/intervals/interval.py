@@ -2,11 +2,11 @@ from __future__ import (
     annotations,
 )
 
+from dataclasses import (
+    dataclass,
+)
 from datetime import (
     datetime,
-)
-from returns.primitives.container import (
-    BaseContainer,
 )
 from returns.primitives.hkt import (
     SupportsKind1,
@@ -14,11 +14,13 @@ from returns.primitives.hkt import (
 from returns.primitives.types import (
     Immutable,
 )
+from tap_gitlab.intervals.patch import (
+    Patch,
+)
 from typing import (
     Any,
     Callable,
     cast,
-    final,
     Optional,
     Type,
     TypeVar,
@@ -98,92 +100,84 @@ def _common_builder(
     }
 
 
-@final
+@dataclass
 class ClosedInterval(
-    BaseContainer,
+    Immutable,
     SupportsKind1["ClosedInterval", _Point],
 ):
+    greater: Comparison[IntervalPoint[_Point]]
+    lower: _Point
+    upper: _Point
+
     def __init__(
         self,
         greater_than: Comparison[IntervalPoint[_Point]],
         lower: _Point,
         upper: _Point,
     ) -> None:
-        super().__init__(_common_builder(lower, upper, greater_than))
-
-    @property
-    def lower(self) -> _Point:
-        return self._inner_value["lower"]
-
-    @property
-    def upper(self) -> _Point:
-        return self._inner_value["upper"]
+        raw = _common_builder(lower, upper, greater_than)
+        for key, value in raw.items():
+            object.__setattr__(self, key, value)
 
 
-@final
+@dataclass
 class OpenInterval(
-    BaseContainer,
+    Immutable,
     SupportsKind1["OpenInterval", _Point],
 ):
+    greater: Comparison[IntervalPoint[_Point]]
+    lower: Union[_Point, MIN]
+    upper: Union[_Point, MAX]
+
     def __init__(
         self,
         greater_than: Comparison[IntervalPoint[_Point]],
         lower: Union[_Point, MIN],
         upper: Union[_Point, MAX],
     ) -> None:
-        super().__init__(_common_builder(lower, upper, greater_than))
-
-    @property
-    def lower(self) -> Union[_Point, MIN]:
-        return self._inner_value["lower"]
-
-    @property
-    def upper(self) -> Union[_Point, MAX]:
-        return self._inner_value["upper"]
+        raw = _common_builder(lower, upper, greater_than)
+        for key, value in raw.items():
+            object.__setattr__(self, key, value)
 
 
-@final
+@dataclass
 class OpenLeftInterval(
-    BaseContainer,
+    Immutable,
     SupportsKind1["OpenLeftInterval", _Point],
 ):
+    greater: Comparison[IntervalPoint[_Point]]
+    lower: Union[_Point, MIN]
+    upper: _Point
+
     def __init__(
         self,
         greater_than: Comparison[IntervalPoint[_Point]],
         lower: Union[_Point, MIN],
         upper: _Point,
     ) -> None:
-        super().__init__(_common_builder(lower, upper, greater_than))
-
-    @property
-    def lower(self) -> Union[_Point, MIN]:
-        return self._inner_value["lower"]
-
-    @property
-    def upper(self) -> _Point:
-        return self._inner_value["upper"]
+        raw = _common_builder(lower, upper, greater_than)
+        for key, value in raw.items():
+            object.__setattr__(self, key, value)
 
 
-@final
+@dataclass
 class OpenRightInterval(
-    BaseContainer,
+    Immutable,
     SupportsKind1["OpenRightInterval", _Point],
 ):
+    greater: Comparison[IntervalPoint[_Point]]
+    lower: _Point
+    upper: Union[_Point, MAX]
+
     def __init__(
         self,
         greater_than: Comparison[IntervalPoint[_Point]],
         lower: _Point,
         upper: Union[_Point, MAX],
     ) -> None:
-        super().__init__(_common_builder(lower, upper, greater_than))
-
-    @property
-    def lower(self) -> _Point:
-        return self._inner_value["lower"]
-
-    @property
-    def upper(self) -> Union[_Point, MAX]:
-        return self._inner_value["upper"]
+        raw = _common_builder(lower, upper, greater_than)
+        for key, value in raw.items():
+            object.__setattr__(self, key, value)
 
 
 Interval = Union[
@@ -194,11 +188,14 @@ Interval = Union[
 ]
 
 
-@final
+@dataclass
 class IntervalFactory(
-    BaseContainer,
+    Immutable,
     SupportsKind1["IntervalFactory", _Point],
 ):
+    _type: Type[_Point]
+    greater: Patch[Comparison[IntervalPoint[_Point]]]
+
     def __init__(
         self,
         _type: Type[_Point],
@@ -207,32 +204,25 @@ class IntervalFactory(
         _greater_than: Comparison[IntervalPoint[_Point]] = build_greater(
             greater_than if greater_than else default_greater(_type)
         )
-        super().__init__({"greater_than": _greater_than})
-
-    @property
-    def _type(self) -> Type[_Point]:
-        return self._inner_value["_type"]
-
-    @property
-    def greater_than(self) -> Comparison[IntervalPoint[_Point]]:
-        return self._inner_value["greater_than"]
+        object.__setattr__(self, "_type", _type)
+        object.__setattr__(self, "greater", Patch(_greater_than))
 
     def new_closed(
         self, lower: _Point, upper: _Point
     ) -> ClosedInterval[_Point]:
-        return ClosedInterval(self.greater_than, lower, upper)
+        return ClosedInterval(self.greater.unwrap, lower, upper)
 
     def new_open(
         self, lower: Union[_Point, MIN], upper: Union[_Point, MAX]
     ) -> OpenInterval[_Point]:
-        return OpenInterval(self.greater_than, lower, upper)
+        return OpenInterval(self.greater.unwrap, lower, upper)
 
     def new_ropen(
         self, lower: _Point, upper: Union[_Point, MAX]
     ) -> OpenRightInterval[_Point]:
-        return OpenRightInterval(self.greater_than, lower, upper)
+        return OpenRightInterval(self.greater.unwrap, lower, upper)
 
     def new_lopen(
         self, lower: Union[_Point, MIN], upper: _Point
     ) -> OpenLeftInterval[_Point]:
-        return OpenLeftInterval(self.greater_than, lower, upper)
+        return OpenLeftInterval(self.greater.unwrap, lower, upper)

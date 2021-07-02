@@ -1,8 +1,11 @@
-from returns.primitives.container import (
-    BaseContainer,
+from dataclasses import (
+    dataclass,
 )
 from returns.primitives.hkt import (
     SupportsKind1,
+)
+from returns.primitives.types import (
+    Immutable,
 )
 from singer_io import (
     JSON,
@@ -15,35 +18,35 @@ from tap_gitlab.intervals.interval import (
     MAX,
     MIN,
 )
+from tap_gitlab.intervals.patch import (
+    Patch,
+)
 from tap_gitlab.intervals.progress import (
     FragmentedProgressInterval,
 )
 from typing import (
     Callable,
-    final,
     TypeVar,
 )
 
 _Point = TypeVar("_Point")
 
 
-@final
+@dataclass
 class IntervalEncoder(
-    BaseContainer,
+    Immutable,
     SupportsKind1["IntervalEncoder", _Point],
 ):
+    _encode_point: Patch[Callable[[_Point], JSON]]
+
     def __init__(
         self,
         encode_point: Callable[[_Point], JSON],
     ) -> None:
-        super().__init__(
-            {
-                "encode_point": encode_point,
-            }
-        )
+        object.__setattr__(self, "_encode_point", Patch(encode_point))
 
     def encode_point(self, point: _Point) -> JSON:
-        return self._inner_value["encode_point"](point)
+        return self._encode_point.unwrap(point)
 
     def encode_ipoint(self, point: IntervalPoint[_Point]) -> JSON:
         encoded = (
