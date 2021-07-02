@@ -76,20 +76,33 @@ slug: /development/writing/blog/main
   for each blog post
   (it *must* have a size of **900 × 600 px** and less than **800 KB**).
 
-* **BI02:** We *can* use images from different websites and other sources
+* **BI02:** We *must* give the name *cover_[main keyword of the post]*
+  to the cover image
+  (e.g., cover_pentesting; both words in lowercase).
+
+* **BI03:** We *can* use images from different websites and other sources
   within the bodies of the blog posts.
 
-* **BI03:** We *should* put a brief description
+* **BI04:** We *must* name each image
+  with a corresponding keyword in lower case.
+  (We *can* repeat the name with an initial capital letter
+  between the brackets after the link of the image
+  and even accompany it with other keywords.)
+  Example:
+
+  ![BI04](https://res.cloudinary.com/fluid-attacks/image/upload/v1625267521/docs/development/writing/bib_qq6euu.webp)
+
+* **BI05:** We *should* put a brief description
   under each image we use
   (it must be no longer than **80 characters**).
 
-* **BI04:** We *must* include the reference as a hyperlink
+* **BI06:** We *must* include the reference as a hyperlink
   in the description of each image that does not belong to us.
   Example:
 
-  ![BI04](https://res.cloudinary.com/fluid-attacks/image/upload/v1624049949/docs/development/writing/bia_xv4isk.webp)
+  ![BI06](https://res.cloudinary.com/fluid-attacks/image/upload/v1624049949/docs/development/writing/bia_xv4isk.webp)
 
-* **BI05:** We *must* always upload the images to [Cloudinary](https://cloudinary.com/)
+* **BI07:** We *must* always upload the images to [Cloudinary](https://cloudinary.com/)
   and then use their links,
   changing their filename extensions to *.webp*
   (unless they are gifs)
@@ -99,11 +112,13 @@ slug: /development/writing/blog/main
 ## Others
 
 * **BO01:** Whenever we create a post with an interview,
-  we *must* use the `[role="fluid-qanda"]` command
-  to display each question and answer in a specific way.
+  we *must* use
+  the `[role="fluid-question"]` and `[role="fluid-answer"]` commands
+  to display each question and answer (this one indented by two spaces)
+  in a specific way.
   Example:
 
-  ![BO01](https://res.cloudinary.com/fluid-attacks/image/upload/v1624999457/docs/development/writing/boa_a2rjeq.webp)
+  ![BO01](https://res.cloudinary.com/fluid-attacks/image/upload/v1625258536/docs/development/writing/boa_jlahex.webp)
 
 > **NOTE:**
 > This section of our documentation is under construction.
