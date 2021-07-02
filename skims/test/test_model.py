@@ -20,7 +20,7 @@ from zone import (
 )
 
 
-@pytest.mark.skims_test_group("_")
+@pytest.mark.skims_test_group("unittesting")
 def test_model_core_model_manifest() -> None:
     for queue in core_model.ExecutionQueue:
         path: str = f"skims/manifests/findings.{queue.name}.json"
