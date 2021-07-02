@@ -273,7 +273,7 @@ $gray-244: rgba(244, 244, 246, 1);
 }
 
 @media screen and (min-width: 1200px) {
-  .db-xl { display: block; }
+  .db-xl { display: block !important; }
   .dib-xl { display: inline-block !important; }
   .df-l { display: flex; }
   .fl-xl { float: left; }

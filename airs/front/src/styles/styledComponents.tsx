@@ -104,7 +104,6 @@ const NavbarContactButton: StyledComponent<
 
 const NavbarItem = styled.li.attrs<{ className: string }>({
   className: `
-    display-none
     mr3
     pr2
     pv4

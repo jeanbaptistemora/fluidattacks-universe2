@@ -32,7 +32,7 @@ const NavbarItems: React.FC = (): JSX.Element => (
       </li>
     </div>
     <div className={"w-auto dn flex-l center"}>
-      <NavbarItem className={"db-l services-index"}>
+      <NavbarItem className={"db-l dn services-index"}>
         <Link className={"no-underline"} to={"/services/continuous-hacking/"}>
           <NavbarRegularButton>
             {"Services"}
@@ -57,7 +57,7 @@ const NavbarItems: React.FC = (): JSX.Element => (
         </NavbarSubcategory>
       </NavbarItem>
 
-      <NavbarItem className={"db-l solutions-index"}>
+      <NavbarItem className={"db-l dn solutions-index"}>
         <Link className={"no-underline"} to={"/solutions/"}>
           <NavbarRegularButton>
             {"Solutions"}
@@ -104,22 +104,22 @@ const NavbarItems: React.FC = (): JSX.Element => (
           </Link>
         </NavbarSubcategory>
       </NavbarItem>
-      <NavbarItem className={"db-xl"}>
+      <NavbarItem className={"db-xl display-none"}>
         <Link className={"no-underline"} to={"/resources/"}>
           <NavbarRegularButton>{"Resources"}</NavbarRegularButton>
         </Link>
       </NavbarItem>
-      <NavbarItem className={"db-xl"}>
+      <NavbarItem className={"db-xl display-none"}>
         <Link className={"no-underline"} to={"/plans/"}>
           <NavbarRegularButton>{"Plans"}</NavbarRegularButton>
         </Link>
       </NavbarItem>
-      <NavbarItem className={"db-xl"}>
+      <NavbarItem className={"db-xl display-none"}>
         <Link className={"no-underline"} to={"/advisories/"}>
           <NavbarRegularButton>{"Advisories"}</NavbarRegularButton>
         </Link>
       </NavbarItem>
-      <NavbarItem className={"db-xl"}>
+      <NavbarItem className={"db-xl display-none"}>
         <Link className={"no-underline"} to={"/blog/"}>
           <NavbarRegularButton>{"Blog"}</NavbarRegularButton>
         </Link>
