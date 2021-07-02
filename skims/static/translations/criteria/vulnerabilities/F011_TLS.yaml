@@ -1,3 +1,9 @@
+lib_ssl.analyze_protocol.tlsv1_enabled:
+  en: "supports TLS v1"
+  es: "soporta TLS v1"
+lib_ssl.analyze_protocol.tlsv1_1_enabled:
+  en: "supports TLS v1.1"
+  es: "soporta TLS v1.1"
 F011_TLS.description:
   en: The server allows the usage of old TLS protocol versions.
   es: El servidor permite utilizar versiones viejas del protocolo TLS.
