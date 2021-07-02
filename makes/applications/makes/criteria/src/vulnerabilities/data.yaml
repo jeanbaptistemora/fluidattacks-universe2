@@ -1224,7 +1224,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Cabeceras de seguridad HTTP no establecidas - Strict-Transport-Security
+    title: Cabeceras de seguridad HTTP no establecidas
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1456,7 +1456,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Credenciales débiles vulneradas
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1485,7 +1485,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Algoritmo de cifrado inseguro
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1514,7 +1514,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Ausencia de protección contra ataques de fuerza bruta
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1543,7 +1543,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Servicios administrativos expuestos
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1572,7 +1572,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Configuración insegura de servicio
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1601,7 +1601,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Conexión anónima
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1623,14 +1623,14 @@
   requirements: []
   metadata: {}
 057:
-  en:
-    title: java.io.File.createTempFile
+  en: 
+    title: Excessive privileges - Temporary Files
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Permisos excesivos - Archivos temporales
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1659,7 +1659,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Depuración habilitada en producción
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1688,7 +1688,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Información sensible almacenada en logs
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1717,7 +1717,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Excepciones inseguras
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1746,7 +1746,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Errores sin trazabilidad
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1775,7 +1775,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Sesiones concurrentes
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1804,7 +1804,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Ausencia de validación de datos
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1833,7 +1833,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Pérdida de trazabilidad
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1862,7 +1862,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Campos de formulatio en cache
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1891,7 +1891,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Consola JavaScript
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1920,7 +1920,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Asignación inadecuada de recursos
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1949,7 +1949,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Tiemnpo de caducidad de sesión inseguro
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1978,7 +1978,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: CAPTCHA débil
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2007,7 +2007,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Prácticas inadecuadas de programación
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2036,7 +2036,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Cabeceras de seguridad HTTP no establecidas - Strict-Transport-Security
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2065,7 +2065,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Código duplicado
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2094,7 +2094,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Declaración condicional sin una opción predeterminada
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2123,7 +2123,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Código comentado
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2152,7 +2152,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Acceso no autorizado a archivos
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2181,7 +2181,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Gestión inseguro de sesión
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2210,7 +2210,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Suplantación ARP
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2239,7 +2239,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Token generado de forma insegura
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2268,7 +2268,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Dependencias no actualizables
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2297,7 +2297,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Ausencia de autenticación de doble factor
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2327,7 +2327,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Archivos borrados de forma insegura
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2356,7 +2356,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Inyección XML
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2385,7 +2385,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Suplantación MDNS
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2414,7 +2414,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Almacenamiento inseguro de información sensible en el client-side storage
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2443,7 +2443,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Falta de validación de integridad de los subrecursos
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2472,7 +2472,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Bloqueo de cuenta
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2501,7 +2501,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Violación de privacidad
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2530,7 +2530,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Inyección de código
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2559,7 +2559,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Inyección de log
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2588,7 +2588,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Suites de cifrado
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2617,7 +2617,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Manipulación de campos ocultos
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2646,7 +2646,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: SSL
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2675,7 +2675,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: AWS cifrado EBS
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2704,7 +2704,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Deserialización insegura
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2733,7 +2733,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Tabnabbing inverso
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2762,7 +2762,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Control externo del nombre del archivo o ruta
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2791,7 +2791,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: AWS Cifrado del lado servidor S3
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2820,7 +2820,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Falsificación de solicitud del lado servidor (SSRF)
     description: __empty__
     impact: __empty__
     recommendation: __empty__
