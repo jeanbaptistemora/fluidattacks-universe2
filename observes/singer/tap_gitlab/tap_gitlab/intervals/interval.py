@@ -21,7 +21,6 @@ from typing import (
     Any,
     Callable,
     cast,
-    Optional,
     Type,
     TypeVar,
     Union,
@@ -188,19 +187,17 @@ Interval = Union[
 class IntervalFactory(
     SupportsKind1["IntervalFactory", _Point],
 ):
-    _type: Type[_Point]
     greater: Patch[Comparison[IntervalPoint[_Point]]]
 
     def __init__(
         self,
-        _type: Type[_Point],
-        greater_than: Optional[Comparison[_Point]] = None,
+        greater_than: Comparison[_Point],
     ) -> None:
-        _greater_than: Comparison[IntervalPoint[_Point]] = build_greater(
-            greater_than if greater_than else default_greater(_type)
-        )
-        object.__setattr__(self, "_type", _type)
-        object.__setattr__(self, "greater", Patch(_greater_than))
+        object.__setattr__(self, "greater", Patch(build_greater(greater_than)))
+
+    @classmethod
+    def from_default(cls, data_type: Type[_Point]) -> IntervalFactory[_Point]:
+        return IntervalFactory(default_greater(data_type))
 
     def new_closed(
         self, lower: _Point, upper: _Point

@@ -4,6 +4,9 @@ from dataclasses import (
 from datetime import (
     datetime,
 )
+from dateutil import (
+    parser,
+)
 import json
 from paginator.pages import (
     PageId,
@@ -20,7 +23,17 @@ from tap_gitlab.intervals.decode import (
 from tap_gitlab.intervals.encoder import (
     IntervalEncoder,
 )
+from tap_gitlab.intervals.fragmented import (
+    FIntervalFactory,
+)
+from tap_gitlab.intervals.interval import (
+    IntervalFactory,
+)
+from tap_gitlab.intervals.patch import (
+    Patch,
+)
 from tap_gitlab.intervals.progress import (
+    FProgressFactory,
     FragmentedProgressInterval,
 )
 from tap_gitlab.streams import (
@@ -36,13 +49,6 @@ from typing import (
     NamedTuple,
     Optional,
     Tuple,
-)
-
-i_encoder: IntervalEncoder[datetime] = IntervalEncoder(
-    lambda time: {"datetime": time.isoformat()}
-)
-i_encoder_2: IntervalEncoder[Tuple[int, PageId[int]]] = IntervalEncoder(
-    lambda item: {"id-page": (item[0], item[1].page, item[1].per_page)}
 )
 
 
@@ -69,14 +75,15 @@ class EtlState(NamedTuple):
 
 @dataclass(frozen=True)
 class StateEncoder(Immutable):
-    # pylint: disable=no-self-use
+    i_encoder: IntervalEncoder[datetime]
+    i_encoder_2: IntervalEncoder[Tuple[int, PageId[int]]]
     stream_encoder: StreamEncoder
 
     def encode_mrstm_state(self, state: MrStreamState) -> JSON:
         return {
             "type": "MrStreamState",
             "obj": {
-                "state": i_encoder.encode_f_progress(state.state),
+                "state": self.i_encoder.encode_f_progress(state.state),
             },
         }
 
@@ -84,7 +91,7 @@ class StateEncoder(Immutable):
         return {
             "type": "JobStreamState",
             "obj": {
-                "state": i_encoder_2.encode_f_progress(state.state),
+                "state": self.i_encoder_2.encode_f_progress(state.state),
             },
         }
 
@@ -198,3 +205,46 @@ class StateGetter:
             temp.seek(0)
             raw = json.load(temp)
             return self.decoder.decode_etl_state(raw)
+
+
+factory = IntervalFactory.from_default(datetime)
+f_factory = FIntervalFactory(factory)
+fp_factory = FProgressFactory(f_factory)
+i_encoder: IntervalEncoder[datetime] = IntervalEncoder(
+    lambda time: {"datetime": time.isoformat()}
+)
+i_encoder_2: IntervalEncoder[Tuple[int, PageId[int]]] = IntervalEncoder(
+    lambda item: {"id-page": (item[0], item[1].page, item[1].per_page)}
+)
+
+
+def decode_datetime(raw: JSON) -> datetime:
+    return parser.parse(raw["datetime"])
+
+
+i_decoder: IntervalDecoder[datetime] = IntervalDecoder(
+    f_factory, fp_factory, Patch(decode_datetime)
+)
+
+
+def decode_page_mark(raw: JSON) -> Tuple[int, PageId[int]]:
+    obj = raw["id-page"]
+    page = PageId(int(obj[1]), int(obj[2]))
+    return (obj[0], page)
+
+
+def greatter(
+    p_1: Tuple[int, PageId[int]], p_2: Tuple[int, PageId[int]]
+) -> bool:
+    return p_1[0] > p_2[0]
+
+
+factory_2 = IntervalFactory(greatter)
+f_factory_2 = FIntervalFactory(factory_2)
+fp_factory_2 = FProgressFactory(f_factory_2)
+
+i_decoder_2: IntervalDecoder[Tuple[int, PageId[int]]] = IntervalDecoder(
+    f_factory_2, fp_factory_2, Patch(decode_page_mark)
+)
+s_decoder = StreamDecoder()
+state_decoder = StateDecoder(s_decoder, i_decoder, i_decoder_2)

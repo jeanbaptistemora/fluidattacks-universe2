@@ -1,3 +1,4 @@
+import boto3
 from datetime import (
     datetime,
 )
@@ -9,20 +10,18 @@ from tap_gitlab.api.auth import (
 from tap_gitlab.emitter import (
     Emitter,
 )
-from tap_gitlab.intervals.fragmented import (
-    FIntervalFactory,
-)
 from tap_gitlab.intervals.interval import (
     IntervalFactory,
     MIN,
 )
-from tap_gitlab.intervals.progress import (
-    FProgressFactory,
-)
 from tap_gitlab.state import (
     EtlState,
+    f_factory,
+    fp_factory,
     MrStateMap,
     MrStreamState,
+    state_decoder,
+    StateGetter,
 )
 from tap_gitlab.streams import (
     default_job_stream,
@@ -31,16 +30,16 @@ from tap_gitlab.streams import (
 )
 from typing import (
     Optional,
+    Tuple,
     Union,
 )
 
 LOG = logging.getLogger(__name__)
 
+state_getter = StateGetter(boto3.client("s3"), state_decoder)
+
 
 def default_mr_state() -> MrStreamState:
-    factory = IntervalFactory(datetime)
-    f_factory = FIntervalFactory(factory)
-    fp_factory = FProgressFactory(f_factory)
     return MrStreamState(
         fp_factory.new_fprogress(
             f_factory.from_endpoints((MIN(), datetime.now(pytz.utc))), (False,)
@@ -61,15 +60,19 @@ def defautl_stream(
     target_stream: Union[str, SupportedStreams],
     project: str,
     max_pages: int,
-    state: Optional[EtlState] = None,
+    state_id: Optional[Tuple[str, str]] = None,
 ) -> None:
-    _state = state if state else default_etl_state(project)
+    _state = (
+        state_getter.get(state_id[0], state_id[1])
+        if state_id
+        else default_etl_state(project)
+    )
     _target_stream = (
         SupportedStreams(target_stream)
         if isinstance(target_stream, str)
         else target_stream
     )
-    factory: IntervalFactory[datetime] = IntervalFactory(datetime)
+    factory: IntervalFactory[datetime] = IntervalFactory.from_default(datetime)
     emitter = Emitter(creds, factory, max_pages)
     if _target_stream == SupportedStreams.JOBS:
         LOG.info("Executing stream: %s", _target_stream)
