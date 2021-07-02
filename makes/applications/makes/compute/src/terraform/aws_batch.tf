@@ -124,44 +124,48 @@ resource "aws_launch_template" "batch_instance" {
 }
 
 locals {
-  compute_environments = {
-    dedicated = {
+  compute_environments_ec2 = {
+    for name, instances in {
+      dedicated = 1
+      } : name => {
       bid_percentage      = null
-      instances           = 1
+      instances           = instances
       spot_iam_fleet_role = null
       type                = "EC2"
-    },
-    observes = {
-      bid_percentage      = 100
-      instances           = 3
-      spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
-      type                = "SPOT"
-    },
-    skims_prod = {
-      bid_percentage      = 100
-      instances           = 10
-      spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
-      type                = "SPOT"
-    },
-    skims_staging = {
-      bid_percentage      = 100
-      instances           = 2
-      spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
-      type                = "SPOT"
-    },
-    skims_dev = {
-      bid_percentage      = 100
-      instances           = 1
-      spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
-      type                = "SPOT"
-    },
-    spot = {
-      bid_percentage      = 100
-      instances           = 2
-      spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
-      type                = "SPOT"
-    },
+    }
   }
+  compute_environments_spot = {
+    for name, instances in {
+      observes        = 3
+      skims_aws       = 2
+      skims_control   = 2
+      skims_cookie    = 2
+      skims_crypto    = 2
+      skims_exception = 2
+      skims_f011      = 2
+      skims_f022      = 2
+      skims_f070      = 2
+      skims_f073      = 2
+      skims_f117      = 2
+      skims_http      = 2
+      skims_injection = 2
+      skims_leak      = 2
+      skims_sql       = 2
+      skims_ssl       = 2
+      skims_xss       = 2
+      spot            = 1
+      } : name => {
+      bid_percentage      = 100
+      instances           = instances
+      spot_iam_fleet_role = aws_iam_role.aws_ecs_instance_role.arn
+      type                = "SPOT"
+    }
+  }
+  compute_environments = merge(
+    local.compute_environments_spot,
+    local.compute_environments_ec2,
+  )
+
   queues = [
     {
       name     = "soon"
