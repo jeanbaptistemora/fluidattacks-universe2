@@ -2,8 +2,8 @@
 """
 This migration enables the devsecops agent to all active groups
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-07-02 at 18:27:51 UTC-05
+Finalization Time: 2021-07-02 at 18:29:21 UTC-05
 """
 
 from aioextensions import (
