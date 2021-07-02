@@ -290,7 +290,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Definir configuraciones estandar
     summary: __empty__
     description: __empty__
   references: []
@@ -301,7 +301,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Establecer un tiempo de respuesta minimo
     summary: __empty__
     description: __empty__
   references: []
@@ -312,7 +312,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Registrar eventos excepcionales en logs
     summary: __empty__
     description: __empty__
   references: []
@@ -323,7 +323,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Evitar la exposicion de informacion tecnica
     summary: __empty__
     description: __empty__
   references: []
@@ -334,7 +334,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Deshabilitar eventos de depuracion
     summary: __empty__
     description: __empty__
   references: []
@@ -345,7 +345,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Registrar el tiempo exacto de ocurrencia de un evento
     summary: __empty__
     description: __empty__
   references: []
@@ -356,7 +356,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Prevenir la modificacion de logs
     summary: __empty__
     description: __empty__
   references: []
@@ -367,7 +367,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Evitar el registro de datos sensibles en logs
     summary: __empty__
     description: __empty__
   references: []
@@ -378,7 +378,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Permitir consultas al historial de transacciones
     summary: __empty__
     description: __empty__
   references: []
@@ -389,7 +389,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Permitir consultas al historial de sesiones
     summary: __empty__
     description: __empty__
   references: []
@@ -400,7 +400,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Solicitar certificados del cliente
     summary: __empty__
     description: __empty__
   references: []
@@ -411,7 +411,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Limitar validez de certificados
     summary: __empty__
     description: __empty__
   references: []
@@ -422,7 +422,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Utilizar certificados validos
     summary: __empty__
     description: __empty__
   references: []
@@ -433,7 +433,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Utilizar certificados firmados internamente
     summary: __empty__
     description: __empty__
   references: []
@@ -444,7 +444,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Utilizar certificados firmados externamente
     summary: __empty__
     description: __empty__
   references: []
@@ -455,7 +455,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Utilizar certificados consistentes
     summary: __empty__
     description: __empty__
   references: []
@@ -466,7 +466,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Definir usuarios con privilegios
     summary: __empty__
     description: __empty__
   references: []
@@ -477,7 +477,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: __empty__
+    title: Establecer privilegios requeridos por el usuario
     summary: __empty__
     description: __empty__
   references: []
