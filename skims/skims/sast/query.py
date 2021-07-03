@@ -188,6 +188,10 @@ def query_f063_tb(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
     return query(graph_db, core_model.FindingEnum.F063_TRUSTBOUND)
 
 
+def query_f063_tc(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
+    return query(graph_db, core_model.FindingEnum.F063_TYPE_CONFUSION)
+
+
 def query_f107(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
     return query(graph_db, core_model.FindingEnum.F107)
 
@@ -203,5 +207,6 @@ QUERIES: graph_model.Queries = (
     (core_model.FindingEnum.F052, query_f052),
     (core_model.FindingEnum.F063_PATH_TRAVERSAL, query_f063_pt),
     (core_model.FindingEnum.F063_TRUSTBOUND, query_f063_tb),
+    (core_model.FindingEnum.F063_TYPE_CONFUSION, query_f063_tc),
     (core_model.FindingEnum.F107, query_f107),
 )

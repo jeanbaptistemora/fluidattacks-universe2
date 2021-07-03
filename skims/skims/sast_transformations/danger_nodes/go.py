@@ -3,6 +3,7 @@ from model import (
     graph_model,
 )
 from sast_transformations.danger_nodes.utils import (
+    _append_label_input,
     mark_function_arg,
     mark_methods_sink,
 )
@@ -15,13 +16,22 @@ def mark_inputs(
     graph: graph_model.Graph,
     syntax: graph_model.GraphSyntax,
 ) -> None:
-    findings = core_model.FindingEnum
-
-    for finding in (findings.F063_TRUSTBOUND,):
+    for finding in (core_model.FindingEnum.F063_TRUSTBOUND,):
         danger_args = {
             *build_attr_paths("*http", "Request"),
         }
         mark_function_arg(finding, graph, syntax, danger_args)
+
+    for syntax_steps in syntax.values():
+        for syntax_step in syntax_steps:
+            if isinstance(syntax_step, graph_model.SyntaxStepLiteral) and (
+                syntax_step.value_type == "struct[connect2V2.PSETransaction]"
+            ):
+                _append_label_input(
+                    graph,
+                    syntax_step.meta.n_id,
+                    core_model.FindingEnum.F063_TYPE_CONFUSION,
+                )
 
 
 def mark_sinks(

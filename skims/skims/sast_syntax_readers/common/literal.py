@@ -5,11 +5,13 @@ from sast_syntax_readers.types import (
     MissingCaseHandling,
     SyntaxReaderArgs,
 )
+from utils import (
+    graph as g,
+)
 
 
 def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     n_attrs = args.graph.nodes[args.n_id]
-    n_attrs_label_text = n_attrs["label_text"]
     n_attrs_label_type = n_attrs["label_type"]
 
     if n_attrs_label_type in {
@@ -20,25 +22,28 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     }:
         yield graph_model.SyntaxStepLiteral(
             meta=graph_model.SyntaxStepMeta.default(args.n_id),
-            value=n_attrs_label_text,
+            value=n_attrs["label_text"],
             value_type="number",
         )
     elif n_attrs_label_type in {"composite_literal"}:
+        value_type: str = g.concatenate_label_text(
+            args.graph, g.adj_ast(args.graph, n_attrs["label_field_type"])
+        )
         yield graph_model.SyntaxStepLiteral(
             meta=graph_model.SyntaxStepMeta.default(args.n_id),
             value={},
-            value_type=f"struct[{n_attrs_label_text}]",
+            value_type=f"struct[{value_type}]",
         )
     elif n_attrs_label_type in {"false", "true", "boolean_literal"}:
         yield graph_model.SyntaxStepLiteral(
             meta=graph_model.SyntaxStepMeta.default(args.n_id),
-            value=n_attrs_label_text,
+            value=n_attrs["label_text"],
             value_type="boolean",
         )
     elif n_attrs_label_type in {"nil", "null_literal"}:
         yield graph_model.SyntaxStepLiteral(
             meta=graph_model.SyntaxStepMeta.default(args.n_id),
-            value=n_attrs_label_text,
+            value=n_attrs["label_text"],
             value_type="null",
         )
     elif n_attrs_label_type in {
@@ -50,7 +55,7 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     }:
         yield graph_model.SyntaxStepLiteral(
             meta=graph_model.SyntaxStepMeta.default(args.n_id),
-            value=n_attrs_label_text[1:-1],
+            value=n_attrs["label_text"][1:-1],
             value_type="string",
         )
     else:
