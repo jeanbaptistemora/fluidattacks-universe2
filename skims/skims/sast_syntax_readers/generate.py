@@ -496,6 +496,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         applicable_node_label_types={
             "boolean_literal",
             "character_literal",
+            "composite_literal",
             "decimal_integer_literal",
             "false",
             "int_literal",

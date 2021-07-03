@@ -22,6 +22,12 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
             value=n_attrs["label_text"],
             value_type="number",
         )
+    elif n_attrs_label_type in {"composite_literal"}:
+        yield graph_model.SyntaxStepLiteral(
+            meta=graph_model.SyntaxStepMeta.default(args.n_id),
+            value={},
+            value_type="struct",
+        )
     elif n_attrs_label_type in {"false", "true", "boolean_literal"}:
         yield graph_model.SyntaxStepLiteral(
             meta=graph_model.SyntaxStepMeta.default(args.n_id),
