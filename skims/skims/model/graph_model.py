@@ -63,6 +63,13 @@ class SyntaxStepMeta:
         return isinstance(self.dependencies, int)
 
 
+class SyntaxStepAttributeAccess(NamedTuple):
+    attribute: str
+    meta: SyntaxStepMeta
+
+    type: str = "SyntaxStepAttributeAccess"
+
+
 class SyntaxStepAssignment(NamedTuple):
     meta: SyntaxStepMeta
     var: str

@@ -37027,6 +37027,7 @@
             "label_field_arguments": "1456",
             "label_field_function": "1452",
             "label_l": 181,
+            "label_sink_type": "F063_TRUSTBOUND",
             "label_type": "call_expression"
           },
           "1452": {
@@ -46797,6 +46798,122 @@
             "var_type": "*sql.DB"
           }
         ],
+        "1372": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1384",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "%s:%s@tcp(%s:%s)/",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1387",
+              "value": null
+            },
+            "symbol": "config",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "User",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1386",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1392",
+              "value": null
+            },
+            "symbol": "config",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "Password",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1391",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1397",
+              "value": null
+            },
+            "symbol": "config",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "Sqlhost",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1396",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1402",
+              "value": null
+            },
+            "symbol": "config",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "Sqlport",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1401",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -5,
+              "n_id": "1377",
+              "value": null
+            },
+            "method": "fmt.Sprintf",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1374",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "dsn"
+          }
+        ],
         "1408": [
           {
             "meta": {
@@ -46967,6 +47084,136 @@
             "type": "SyntaxStepReturn"
           }
         ],
+        "1444": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1462",
+              "value": null
+            },
+            "symbol": "config",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "Dbname",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1461",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1459",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "CREATE DATABASE IF NOT EXISTS ",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "1458",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1451",
+              "value": null
+            },
+            "method": "db.Exec",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1446",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "_"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1462",
+              "value": null
+            },
+            "symbol": "config",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "Dbname",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1461",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1459",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "CREATE DATABASE IF NOT EXISTS ",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "1458",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1451",
+              "value": null
+            },
+            "method": "db.Exec",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1448",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "err"
+          }
+        ],
         "1468": [
           {
             "meta": {
@@ -47041,6 +47288,142 @@
               "value": null
             },
             "type": "SyntaxStepReturn"
+          }
+        ],
+        "1487": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1499",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "%s:%s@tcp(%s:%s)/%s",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1502",
+              "value": null
+            },
+            "symbol": "config",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "User",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1501",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1507",
+              "value": null
+            },
+            "symbol": "config",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "Password",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1506",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1512",
+              "value": null
+            },
+            "symbol": "config",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "Sqlhost",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1511",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1517",
+              "value": null
+            },
+            "symbol": "config",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "Sqlport",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1516",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1522",
+              "value": null
+            },
+            "symbol": "config",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "Dbname",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1521",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -6,
+              "n_id": "1492",
+              "value": null
+            },
+            "method": "fmt.Sprintf",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1489",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "dsn"
           }
         ],
         "149": [
@@ -47327,6 +47710,64 @@
               "value": null
             },
             "method": "http.SetCookie",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "166": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "173",
+              "value": null
+            },
+            "symbol": "w",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "175",
+              "value": null
+            },
+            "method": "err.Error",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "185",
+              "value": null
+            },
+            "symbol": "http",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "StatusInternalServerError",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "184",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "166",
+              "value": null
+            },
+            "method": "http.Error",
             "type": "SyntaxStepMethodInvocation"
           }
         ],

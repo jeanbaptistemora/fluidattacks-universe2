@@ -25,6 +25,7 @@ from sast_syntax_readers.c_sharp import (
     while_statement as c_sharp_while_statement,
 )
 from sast_syntax_readers.common import (
+    attribute_access as common_attribute_access,
     binary_expression as common_binary_expression,
     cast_expression as common_cast_expression,
     identifier as common_identifier,
@@ -273,6 +274,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "catch_clause",
         },
         syntax_readers=(java_catch_clause.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.GO,
+        },
+        applicable_node_label_types={
+            "selector_expression",
+        },
+        syntax_readers=(common_attribute_access.reader,),
     ),
     Dispatcher(
         applicable_languages={
