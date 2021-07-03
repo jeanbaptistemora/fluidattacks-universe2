@@ -4,6 +4,7 @@ from model import (
 )
 from sast_transformations.danger_nodes.utils import (
     _append_label_input,
+    _append_label_sink,
     mark_function_arg,
     mark_methods_sink,
 )
@@ -53,3 +54,13 @@ def mark_sinks(
             "QueryRowContext",
         },
     )
+
+    for syntax_steps in syntax.values():
+        for syntax_step in syntax_steps:
+            if isinstance(syntax_step, graph_model.SyntaxStepMethodInvocation):
+                if syntax_step.method == "connect2V2.InsertPSETransaction":
+                    _append_label_sink(
+                        graph,
+                        syntax_step.meta.n_id,
+                        core_model.FindingEnum.F063_TYPE_CONFUSION,
+                    )
