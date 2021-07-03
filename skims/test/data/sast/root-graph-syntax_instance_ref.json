@@ -5797,6 +5797,10 @@
     },
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
+  "F063_TYPE_CONFUSION": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
   "F064_SERVER_CLOCK": {
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
