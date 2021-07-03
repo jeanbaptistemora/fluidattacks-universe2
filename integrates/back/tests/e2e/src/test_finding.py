@@ -70,6 +70,34 @@ def test_finding_comments(
         timeout,
     )
 
+    # Enter finding consulting not access
+    driver.get(f"{integrates_endpoint}/orgs/okada/groups/oneshottest/vulns")
+    assert utils.wait_for_text(
+        driver,
+        "F037. Fuga de información técnica",
+        timeout,
+    )
+    driver.get(
+        f"{integrates_endpoint}/orgs/okada/groups/oneshottest/"
+        "vulns/457497318/consulting"
+    )
+    assert utils.wait_for_text(
+        driver,
+        "Access denied",
+        timeout,
+    )
+
+    # Enter finding observation
+    driver.get(
+        f"{integrates_endpoint}/orgs/okada/groups/oneshottest/"
+        "vulns/457497318/observations"
+    )
+    assert utils.wait_for_text(
+        driver,
+        "No comments",
+        timeout,
+    )
+
 
 def test_finding_evidence(
     driver: WebDriver,

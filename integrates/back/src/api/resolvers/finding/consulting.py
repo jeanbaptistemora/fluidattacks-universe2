@@ -5,6 +5,12 @@ from custom_types import (
     Comment,
     Finding,
 )
+from decorators import (
+    concurrent_decorators,
+    enforce_group_level_auth_async,
+    require_integrates,
+    require_squad,
+)
 from functools import (
     partial,
 )
@@ -27,6 +33,9 @@ from typing import (
 )
 
 
+@concurrent_decorators(
+    enforce_group_level_auth_async, require_integrates, require_squad
+)
 async def resolve(
     parent: Dict[str, Finding],
     info: GraphQLResolveInfo,

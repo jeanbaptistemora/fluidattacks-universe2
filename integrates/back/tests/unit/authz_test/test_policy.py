@@ -28,6 +28,7 @@ async def test_get_cached_group_service_attributes_policies() -> None:
         "drills_white",
         "forces",
         "integrates",
+        "squad",
     ]
 
 

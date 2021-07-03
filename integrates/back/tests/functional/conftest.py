@@ -387,6 +387,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "groups": [
                         "group1",
                         "group2",
+                        "group3",
                     ],
                     "policy": {},
                 },
@@ -415,6 +416,21 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                         {
                             "date": "2020-05-20 17:00:00",
                             "has_drills": True,
+                            "has_forces": True,
+                            "requester": "unknown",
+                            "type": "oneshot",
+                        }
+                    ],
+                    "project_status": "ACTIVE",
+                },
+                {
+                    "project_name": "group3",
+                    "description": "-",
+                    "language": "en",
+                    "historic_configuration": [
+                        {
+                            "date": "2020-05-20 17:00:00",
+                            "has_drills": False,
                             "has_forces": True,
                             "requester": "unknown",
                             "type": "oneshot",
@@ -552,6 +568,12 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                 },
                 {
                     "level": "group",
+                    "subject": analyst_email,
+                    "object": "group3",
+                    "role": "analyst",
+                },
+                {
+                    "level": "group",
                     "subject": analyst_fluid_email,
                     "object": "group1",
                     "role": "analyst",
@@ -561,6 +583,12 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "subject": closer_email,
                     "object": "group1",
                     "role": "closer",
+                },
+                {
+                    "level": "group",
+                    "subject": reviewer_email,
+                    "object": "group3",
+                    "role": "reviewer",
                 },
                 {
                     "level": "group",

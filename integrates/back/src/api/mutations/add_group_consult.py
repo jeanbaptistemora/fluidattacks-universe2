@@ -12,6 +12,7 @@ from decorators import (
     enforce_group_level_auth_async,
     require_integrates,
     require_login,
+    require_squad,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -41,7 +42,10 @@ from typing import (
 
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
-    require_login, enforce_group_level_auth_async, require_integrates
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+    require_squad,
 )
 async def mutate(  # pylint: disable=too-many-arguments
     _: Any, info: GraphQLResolveInfo, **parameters: Any

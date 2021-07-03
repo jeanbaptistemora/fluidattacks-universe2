@@ -248,6 +248,7 @@ async def test_group() -> None:  # pylint: disable=too-many-statements
         "has_drills_white",
         "has_forces",
         "has_integrates",
+        "has_squad",
         "is_continuous",
         "is_fluidattacks_customer",
         "must_only_have_fluidattacks_hackers",

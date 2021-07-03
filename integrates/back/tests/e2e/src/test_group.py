@@ -26,6 +26,16 @@ def test_group_consulting(
         timeout,
     )
 
+    # Enter group consulting not access
+    driver.get(
+        f"{integrates_endpoint}/orgs/okada/groups/oneshottest/consulting"
+    )
+    assert utils.wait_for_text(
+        driver,
+        "Access denied",
+        timeout,
+    )
+
 
 def test_group_reports(
     driver: WebDriver,

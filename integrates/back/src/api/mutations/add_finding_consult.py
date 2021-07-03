@@ -15,9 +15,13 @@ from decorators import (
     enforce_group_level_auth_async,
     require_integrates,
     require_login,
+    require_squad,
 )
 from findings import (
     domain as findings_domain,
+)
+from graphql import (
+    GraphQLError,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -41,19 +45,13 @@ from time import (
 )
 from typing import (
     Any,
+    Tuple,
 )
 
 
-@convert_kwargs_to_snake_case
-@concurrent_decorators(
-    require_login,
-    enforce_group_level_auth_async,
-    require_integrates,
-)
-async def mutate(
-    _: Any, info: GraphQLResolveInfo, **parameters: Any
-) -> AddConsultPayloadType:
-    success = False
+async def _add_finding_consult(
+    info: GraphQLResolveInfo, **parameters: Any
+) -> Tuple[bool, int]:
     param_type = parameters.get("type", "").lower()
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
@@ -86,6 +84,7 @@ async def mutate(
             info.context,
             "Security: Unauthorized role attempted to add observation",
         )
+        raise GraphQLError("Access denied")
 
     if success:
         redis_del_by_deps_soon("add_finding_consult", finding_id=finding_id)
@@ -105,5 +104,35 @@ async def mutate(
             info.context,
             f"Security: Attempted to add comment in finding {finding_id}",
         )
+    return success, comment_id
+
+
+@require_squad
+async def add_finding_consult(
+    info: GraphQLResolveInfo, **parameters: Any
+) -> Tuple[bool, int]:
+    return await _add_finding_consult(info, **parameters)
+
+
+async def add_finding_observation(
+    info: GraphQLResolveInfo, **parameters: Any
+) -> Tuple[bool, int]:
+    return await _add_finding_consult(info, **parameters)
+
+
+@convert_kwargs_to_snake_case
+@concurrent_decorators(
+    require_login,
+    enforce_group_level_auth_async,
+    require_integrates,
+)
+async def mutate(
+    _: Any, info: GraphQLResolveInfo, **parameters: Any
+) -> AddConsultPayloadType:
+    success = False
+    if parameters.get("type", "").lower() == "observation":
+        success, comment_id = await add_finding_observation(info, **parameters)
+    else:
+        success, comment_id = await add_finding_consult(info, **parameters)
 
     return AddConsultPayloadType(success=success, comment_id=str(comment_id))

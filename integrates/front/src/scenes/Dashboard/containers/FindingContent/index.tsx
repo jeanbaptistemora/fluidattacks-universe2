@@ -57,6 +57,7 @@ import {
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
+import { Have } from "utils/authz/Have";
 import { Dropdown } from "utils/forms/fields";
 import { useTabTracking } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -294,13 +295,21 @@ const findingContent: React.FC = (): JSX.Element => {
                     title={translate.t("searchFindings.tabRecords.tabTitle")}
                     tooltip={translate.t("searchFindings.tabRecords.tooltip")}
                   />
-                  <ContentTab
-                    icon={"icon pe-7s-comment"}
-                    id={"commentItem"}
-                    link={`${url}/consulting`}
-                    title={translate.t("searchFindings.tabComments.tabTitle")}
-                    tooltip={translate.t("searchFindings.tabComments.tooltip")}
-                  />
+                  <Have I={"has_squad"}>
+                    <Can do={"api_resolvers_finding_consulting_resolve"}>
+                      <ContentTab
+                        icon={"icon pe-7s-comment"}
+                        id={"commentItem"}
+                        link={`${url}/consulting`}
+                        title={translate.t(
+                          "searchFindings.tabComments.tabTitle"
+                        )}
+                        tooltip={translate.t(
+                          "searchFindings.tabComments.tooltip"
+                        )}
+                      />
+                    </Can>
+                  </Have>
                   <Can do={"api_resolvers_finding_observations_resolve"}>
                     <ContentTab
                       icon={"icon pe-7s-note"}

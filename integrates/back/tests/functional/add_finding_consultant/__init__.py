@@ -15,13 +15,14 @@ async def get_result(
     user: str,
     content: str,
     finding: str,
+    mutation_type: str,
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
             addFindingConsult(
                 content: "{content}",
                 findingId: "{finding}",
-                type: CONSULT,
+                type: {mutation_type},
                 parent: "0"
             ) {{
                 success

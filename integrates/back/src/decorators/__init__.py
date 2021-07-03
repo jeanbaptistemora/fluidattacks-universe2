@@ -370,6 +370,7 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
 
 # Factory functions
 REQUIRE_CONTINUOUS = require_attribute("is_continuous")
+REQUIRE_SQUAD = require_attribute("has_squad")
 REQUIRE_INTEGRATES = require_attribute("has_integrates")
 REQUIRE_FORCES = require_attribute("has_forces")
 REQUIRE_DRILLS_BLACK = require_attribute("has_drills_black")
@@ -431,6 +432,10 @@ def require_forces(func: TVar) -> TVar:
 
 def require_integrates(func: TVar) -> TVar:
     return REQUIRE_INTEGRATES(func)
+
+
+def require_squad(func: TVar) -> TVar:
+    return REQUIRE_SQUAD(func)
 
 
 def require_login(func: TVar) -> TVar:

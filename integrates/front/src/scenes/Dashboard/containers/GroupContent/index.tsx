@@ -92,13 +92,17 @@ const GroupContent: React.FC = (): JSX.Element => {
                     title={translate.t("group.tabs.events.text")}
                     tooltip={translate.t("group.tabs.events.tooltip")}
                   />
-                  <ContentTab
-                    icon={"icon pe-7s-comment"}
-                    id={"commentsTab"}
-                    link={`${url}/consulting`}
-                    title={translate.t("group.tabs.comments.text")}
-                    tooltip={translate.t("group.tabs.comments.tooltip")}
-                  />
+                  <Have I={"has_squad"}>
+                    <Can do={"api_resolvers_group_consulting_resolve"}>
+                      <ContentTab
+                        icon={"icon pe-7s-comment"}
+                        id={"commentsTab"}
+                        link={`${url}/consulting`}
+                        title={translate.t("group.tabs.comments.text")}
+                        tooltip={translate.t("group.tabs.comments.tooltip")}
+                      />
+                    </Can>
+                  </Have>
                   <Can
                     do={"api_resolvers_query_stakeholder__resolve_for_group"}
                   >

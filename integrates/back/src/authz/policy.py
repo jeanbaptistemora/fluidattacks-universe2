@@ -150,6 +150,7 @@ async def _get_service_policies(group: str) -> List[ServicePolicy]:
                 policies.append(
                     ServicePolicy(group=group, service="drills_white")
                 )
+                policies.append(ServicePolicy(group=group, service="squad"))
                 if has_forces:
                     policies.append(
                         ServicePolicy(group=group, service="forces")
@@ -158,6 +159,8 @@ async def _get_service_policies(group: str) -> List[ServicePolicy]:
         if has_integrates:
             policies.append(ServicePolicy(group=group, service="integrates"))
             policies.append(ServicePolicy(group=group, service="drills_black"))
+            if has_drills:
+                policies.append(ServicePolicy(group=group, service="squad"))
     else:
         LOGGER.critical(
             "Group has invalid type attribute",

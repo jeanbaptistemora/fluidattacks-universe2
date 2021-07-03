@@ -58,6 +58,7 @@ async def test_get_group(populate: bool, email: str) -> None:
         "has_drills_white",
         "has_forces",
         "has_integrates",
+        "has_squad",
         "is_continuous",
         "is_fluidattacks_customer",
         "must_only_have_fluidattacks_hackers",

@@ -69,6 +69,7 @@ pytestmark = [
                 "drills_white",
                 "forces",
                 "integrates",
+                "squad",
             ],
         ),
     ],
