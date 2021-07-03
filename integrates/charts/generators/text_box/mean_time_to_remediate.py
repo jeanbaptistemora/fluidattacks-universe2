@@ -16,6 +16,7 @@ from datetime import (
 )
 from decimal import (
     Decimal,
+    ROUND_CEILING,
 )
 from groups.domain import (
     get_mean_remediate,
@@ -49,7 +50,7 @@ async def get_many_groups(
     )
 
     return (
-        Decimal(mean(groups_data)).quantize(Decimal("0.1"))
+        Decimal(mean(groups_data)).to_integral_exact(rounding=ROUND_CEILING)
         if groups_data
         else Decimal("Infinity")
     )

@@ -21,6 +21,7 @@ from datetime import (
 )
 from decimal import (
     Decimal,
+    ROUND_CEILING,
 )
 import html
 import itertools
@@ -243,7 +244,8 @@ async def get_mean_remediate_vulnerabilities(
         ).quantize(Decimal("0.1"))
     else:
         mean_vulnerabilities = Decimal(0).quantize(Decimal("0.1"))
-    return mean_vulnerabilities
+
+    return mean_vulnerabilities.to_integral_exact(rounding=ROUND_CEILING)
 
 
 async def get_open_findings(
