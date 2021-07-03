@@ -32,6 +32,7 @@ from sast_syntax_readers.common import (
     if_statement as common_if_statement,
     literal as common_literal,
     object_creation_expression as common_object_creation_expression,
+    parenthesized_expression as common_parenthesized_expression,
     return_statement as common_return_statement,
 )
 from sast_syntax_readers.go import (
@@ -55,7 +56,6 @@ from sast_syntax_readers.java import (
     local_variable_declaration as java_local_variable_declaration,
     method_declaration as java_method_declaration,
     method_invocation as java_method_invocation,
-    parenthesized_expression as java_parenthesized_expression,
     resource as java_resource,
     switch_label as java_switch_label,
     switch_statement as java_switch_statement,
@@ -240,12 +240,13 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     ),
     Dispatcher(
         applicable_languages={
+            graph_model.GraphShardMetadataLanguage.GO,
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
             "parenthesized_expression",
         },
-        syntax_readers=(java_parenthesized_expression.reader,),
+        syntax_readers=(common_parenthesized_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
