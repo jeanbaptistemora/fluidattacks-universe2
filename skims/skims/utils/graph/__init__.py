@@ -505,25 +505,46 @@ def branches_cfg(
     c_ids = adj_cfg(graph, n_id, depth=-1)
 
     # Filter the ones that are connected to a sink via the AST
-    target_ids = tuple(
-        c_id
-        for c_id in chain([n_id], c_ids)
-        if (
-            # The node's sink match the finding name
-            finding.name in graph.nodes[c_id].get("label_sink_type", {})
-            # The node has an AST child that is a sink of the finding
-            or any(
-                finding.name in graph.nodes[c_c_id].get("label_sink_type", {})
-                for c_c_id in adj_ast(graph, c_id, depth=-1)
-            )
-            # The node is and leaf node
-            or (not only_sinks and not adj_cfg(graph, c_id))
+    target_ids: Tuple[str, ...] = tuple(
+        sorted(
+            {
+                c_id
+                for c_id in chain([n_id], c_ids)
+                if (
+                    # The node's sink match the finding name
+                    finding.name
+                    in graph.nodes[c_id].get("label_sink_type", {})
+                    # The node has an AST child that is a sink of the finding
+                    or any(
+                        finding.name
+                        in graph.nodes[c_c_id].get("label_sink_type", {})
+                        for c_c_id in adj_ast(graph, c_id, depth=-1)
+                    )
+                    # The node is and leaf node
+                    or (not only_sinks and not adj_cfg(graph, c_id))
+                )
+            },
+            key=int,
         )
     )
 
+    # If a target_id is CFG-reachable from another target_id, remove it
+    # because its information is already contained within the path of the other
+    target_ids = tuple(
+        {
+            target_id
+            for index, target_id in enumerate(target_ids)
+            if all(
+                target_id_leaf != other_target_id
+                for target_id_leaf in adj_cfg_lazy(graph, target_id, depth=-1)
+                for other_target_id in target_ids[index + 1 :]
+                if target_id != other_target_id
+            )
+        }
+    )
     # All branches, may be duplicated, some branches may be prefix of others
-    branches = set(
-        (path, "-".join(path))
+    branches: Set[Tuple[str, ...]] = set(
+        path
         for leaf_id in target_ids
         for path in (
             [(n_id,)]
@@ -533,17 +554,9 @@ def branches_cfg(
     )
 
     # Deduplicate, merge prefixes and return branches
-    return tuple(
-        sorted(
-            path
-            for path, path_str in branches
-            if not any(
-                p_str.startswith(path_str)
-                for _, p_str in branches
-                if p_str != path_str
-            )
-        )
-    )
+    result: Tuple[Tuple[str, ...], ...] = tuple(sorted(branches))
+
+    return result
 
 
 def import_graph_from_json(model: Any) -> Graph:
