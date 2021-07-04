@@ -271,7 +271,10 @@ def get_possible_syntax_steps_from_path(
             )
         except ImpossiblePath:
             return []
-        except StopEvaluation as exc:
+        except (
+            NotImplementedError,
+            StopEvaluation,
+        ) as exc:
             log_blocking("debug", str(exc))
             return syntax_steps
 
