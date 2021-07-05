@@ -11,6 +11,7 @@ def evaluate(args: EvaluatorArgs) -> None:
     }:
         args.syntax_step.meta.value = {
             "false": False,
+            "nil": None,
             "null": None,
             "true": True,
         }[args.syntax_step.value]
