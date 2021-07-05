@@ -46002,6 +46002,17 @@
       },
       "path": "skims/test/data/sast/test_cfg.go",
       "syntax": {
+        "100": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "100",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "1007": [
           {
             "meta": {
@@ -46095,6 +46106,17 @@
             "type": "SyntaxStepDeclaration",
             "var": "data",
             "var_type": "map[string]string"
+          }
+        ],
+        "1052": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1052",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "1054": [
@@ -46235,6 +46257,17 @@
             "type": "SyntaxStepIf"
           }
         ],
+        "1079": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1079",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "1081": [
           {
             "current_instance": {
@@ -46309,6 +46342,28 @@
             "type": "SyntaxStepIf"
           }
         ],
+        "1158": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1158",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1170": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1170",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "1173": [],
         "1192": [
           {
@@ -46353,6 +46408,17 @@
             },
             "type": "SyntaxStepAssignment",
             "var": "err"
+          }
+        ],
+        "120": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "120",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "121": [
@@ -46421,6 +46487,17 @@
             "type": "SyntaxStepIf"
           }
         ],
+        "1216": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1216",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "1218": [
           {
             "current_instance": {
@@ -46461,6 +46538,17 @@
             "type": "SyntaxStepDeclaration",
             "var": "r",
             "var_type": "*http.Request"
+          }
+        ],
+        "1254": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1254",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "1256": [
@@ -46596,6 +46684,17 @@
             "type": "SyntaxStepIf"
           }
         ],
+        "1282": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1282",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "1284": [
           {
             "meta": {
@@ -46662,6 +46761,17 @@
             "type": "SyntaxStepIf"
           }
         ],
+        "1298": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1298",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "1300": [
           {
             "meta": {
@@ -46682,6 +46792,28 @@
               "value": null
             },
             "type": "SyntaxStepReturn"
+          }
+        ],
+        "1308": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1308",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "131": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "131",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "1310": [
@@ -46743,6 +46875,17 @@
           }
         ],
         "1320": [],
+        "1339": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1339",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "1341": [
           {
             "current_instance": {
@@ -47052,6 +47195,17 @@
             "type": "SyntaxStepIf"
           }
         ],
+        "1433": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1433",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "1435": [
           {
             "meta": {
@@ -47258,6 +47412,17 @@
             "type": "SyntaxStepIf"
           }
         ],
+        "1474": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1474",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "1476": [
           {
             "meta": {
@@ -47288,6 +47453,17 @@
               "value": null
             },
             "type": "SyntaxStepReturn"
+          }
+        ],
+        "1485": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1485",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "1487": [
@@ -47588,6 +47764,17 @@
             "type": "SyntaxStepIf"
           }
         ],
+        "1553": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1553",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "1555": [
           {
             "meta": {
@@ -47676,6 +47863,28 @@
             "type": "SyntaxStepDeclaration",
             "var": "cookies",
             "var_type": "[]string"
+          }
+        ],
+        "1594": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1594",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1606": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1606",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "1651": [
@@ -47772,6 +47981,28 @@
           }
         ],
         "1667": [],
+        "1674": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1674",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1696": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1696",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "1697": [
           {
             "meta": {
@@ -47794,6 +48025,17 @@
             "type": "SyntaxStepReturn"
           }
         ],
+        "1707": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1707",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "1708": [
           {
             "meta": {
@@ -47814,6 +48056,17 @@
               "value": null
             },
             "type": "SyntaxStepReturn"
+          }
+        ],
+        "1716": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1716",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "1717": [
@@ -47875,6 +48128,17 @@
           }
         ],
         "1738": [],
+        "1744": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1744",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "1746": [
           {
             "meta": {
@@ -48095,6 +48359,17 @@
           }
         ],
         "1804": [],
+        "1810": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1810",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "1812": [
           {
             "meta": {
@@ -48121,6 +48396,17 @@
             "var_type": "int"
           }
         ],
+        "1839": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1839",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "1842": [
           {
             "meta": {
@@ -48145,6 +48431,17 @@
             },
             "method": "fmt.Println",
             "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "1872": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1872",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "1875": [
@@ -48218,6 +48515,17 @@
             "var": "sum"
           }
         ],
+        "1910": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1910",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "1913": [
           {
             "meta": {
@@ -48289,6 +48597,17 @@
             "var": "sum"
           }
         ],
+        "1945": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1945",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "1948": [
           {
             "meta": {
@@ -48351,6 +48670,17 @@
             "type": "SyntaxStepMethodInvocation"
           }
         ],
+        "1969": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1969",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "1972": [
           {
             "meta": {
@@ -48375,6 +48705,17 @@
             },
             "method": "fmt.Println",
             "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "219": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "219",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "360": [
@@ -48403,6 +48744,17 @@
             "type": "SyntaxStepDeclaration",
             "var": "h",
             "var_type": "httprouter.Handle"
+          }
+        ],
+        "384": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "384",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "386": [
@@ -48444,6 +48796,17 @@
             "type": "SyntaxStepDeclaration",
             "var": "uid",
             "var_type": "string"
+          }
+        ],
+        "539": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "539",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "542": [
@@ -48540,6 +48903,17 @@
             "type": "SyntaxStepDeclaration",
             "var": "getProfileSql",
             "var_type": ""
+          }
+        ],
+        "57": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "57",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "576": [
@@ -48672,6 +49046,17 @@
             "type": "SyntaxStepIf"
           }
         ],
+        "599": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "599",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "601": [
           {
             "meta": {
@@ -48691,6 +49076,17 @@
               "value": null
             },
             "type": "SyntaxStepReturn"
+          }
+        ],
+        "632": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "632",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "65": [
@@ -48762,6 +49158,17 @@
             "n_id_false": "713",
             "n_id_true": "683",
             "type": "SyntaxStepIf"
+          }
+        ],
+        "683": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "683",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "685": [
@@ -48858,6 +49265,17 @@
             "type": "SyntaxStepDeclaration",
             "var": "uid",
             "var_type": "string"
+          }
+        ],
+        "738": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "738",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "741": [
@@ -49093,6 +49511,17 @@
             "type": "SyntaxStepIf"
           }
         ],
+        "792": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "792",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "794": [
           {
             "meta": {
@@ -49112,6 +49541,17 @@
               "value": null
             },
             "type": "SyntaxStepReturn"
+          }
+        ],
+        "82": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "82",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "863": [
@@ -49156,6 +49596,17 @@
             "n_id_false": "878",
             "n_id_true": "869",
             "type": "SyntaxStepIf"
+          }
+        ],
+        "869": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "869",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "871": [
@@ -49213,6 +49664,17 @@
             "type": "SyntaxStepDeclaration",
             "var": "r",
             "var_type": "*http.Request"
+          }
+        ],
+        "918": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "918",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ],
         "920": [
@@ -49353,6 +49815,17 @@
             "type": "SyntaxStepIf"
           }
         ],
+        "945": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "945",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "947": [
           {
             "current_instance": {
@@ -49379,6 +49852,17 @@
             },
             "method": "log.Println",
             "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "988": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "988",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
           }
         ]
       }

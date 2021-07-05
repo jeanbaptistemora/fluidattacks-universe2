@@ -582,8 +582,9 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     *[
         Dispatcher(
             applicable_languages={
-                graph_model.GraphShardMetadataLanguage.JAVA,
                 graph_model.GraphShardMetadataLanguage.CSHARP,
+                graph_model.GraphShardMetadataLanguage.GO,
+                graph_model.GraphShardMetadataLanguage.JAVA,
             },
             applicable_node_label_types={applicable_node_label_type},
             syntax_readers=(noop,),
