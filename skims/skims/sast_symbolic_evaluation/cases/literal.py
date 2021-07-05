@@ -18,5 +18,7 @@ def evaluate(args: EvaluatorArgs) -> None:
         args.syntax_step.meta.value = float(args.syntax_step.value)
     elif args.syntax_step.value_type == "string":
         args.syntax_step.meta.value = args.syntax_step.value
+    elif args.syntax_step.value_type.startswith("struct["):
+        args.syntax_step.meta.value = args.syntax_step.value
     else:
         raise StopEvaluation.from_args(args)
