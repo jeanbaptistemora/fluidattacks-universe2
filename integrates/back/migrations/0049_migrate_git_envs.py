@@ -111,7 +111,7 @@ async def get_oldest_active_repo(group_name: str) -> Tuple[str, str]:
 
 
 def format_old_url(url: str) -> str:
-    """ Transforms the url in an effort to increase the matches """
+    """Transforms the url in an effort to increase the matches"""
     unquoted: str = unquote(unquote(url)).rstrip("/")
     without_git: str = unquoted.replace(".git", "").replace("_git/", "")
     # Discard protocols as most old urls don't have it

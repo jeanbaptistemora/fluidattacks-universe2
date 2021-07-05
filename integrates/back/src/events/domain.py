@@ -194,7 +194,7 @@ async def get_evidence_link(event_id: str, file_name: str) -> str:
 
 
 async def has_access_to_event(email: str, event_id: str) -> bool:
-    """ Verify if the user has access to a event submission. """
+    """Verify if the user has access to a event submission."""
     event = await get_event(event_id)
     group = cast(str, resolve_kwargs(event, fallback=""))
     return bool(await authz.has_access_to_group(email, group))

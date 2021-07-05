@@ -74,7 +74,7 @@ async def reset_group_expired_accepted_findings(
 
 
 async def reset_expired_accepted_findings() -> None:
-    """ Update treatment if acceptance date expires """
+    """Update treatment if acceptance date expires"""
     today = datetime_utils.get_now_as_str()
     context = get_new_context()
     groups = await groups_domain.get_active_groups()

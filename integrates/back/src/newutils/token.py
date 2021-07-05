@@ -191,7 +191,7 @@ async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
 
 
 def get_request_store(context: Any) -> collections.defaultdict:
-    """ Returns customized store attribute of a Django/Starlette request"""
+    """Returns customized store attribute of a Django/Starlette request"""
     return context.store if hasattr(context, "store") else context.state.store
 
 

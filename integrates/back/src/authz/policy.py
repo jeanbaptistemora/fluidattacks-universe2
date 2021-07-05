@@ -364,7 +364,7 @@ async def grant_user_level_role(email: str, role: str) -> bool:
 
 
 async def has_access_to_group(email: str, group: str) -> bool:
-    """ Verify if the user has access to a project. """
+    """Verify if the user has access to a project."""
     return bool(await get_group_level_role(email, group.lower()))
 
 

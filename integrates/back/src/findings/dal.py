@@ -43,7 +43,7 @@ TABLE_NAME: str = "FI_findings"
 
 
 def _escape_alnum(string: str) -> str:
-    """ Removes non-alphanumeric characters from a string """
+    """Removes non-alphanumeric characters from a string"""
     return "".join([char for char in string if char.isalnum()])
 
 
@@ -75,7 +75,7 @@ async def get(
 async def get_attributes(
     finding_id: str, attributes: List[str]
 ) -> Dict[str, FindingType]:
-    """ Get a group of attributes of a finding. """
+    """Get a group of attributes of a finding."""
     finding_attrs: Dict[str, FindingType] = {}
     item_attrs = {"KeyConditionExpression": Key("finding_id").eq(finding_id)}
     if attributes:
@@ -91,7 +91,7 @@ async def get_attributes(
 
 
 async def get_finding(finding_id: str) -> Dict[str, FindingType]:
-    """ Retrieve all attributes from a finding """
+    """Retrieve all attributes from a finding"""
     response = {}
     query_attrs = {
         "KeyConditionExpression": Key("finding_id").eq(finding_id),

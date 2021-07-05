@@ -25,7 +25,7 @@ def lognormal_event_result(lower, upper):
 
 
 def simulate_scenario(events):
-    """ If an event from the input list happens, add the losses due to it """
+    """If an event from the input list happens, add the losses due to it"""
     total_loss = 0
     for _, event in events.iterrows():
         if event_happens(event["Probability"]):
@@ -41,7 +41,7 @@ simulate_scenario(events_basic)
 
 
 def monte_carlo(events, rounds):
-    """ Simulate many scenarios, returns the results as simple List """
+    """Simulate many scenarios, returns the results as simple List"""
     list_losses = []
     for i in range(rounds):
         loss_result = simulate_scenario(events)
@@ -115,14 +115,14 @@ plt.legend()
 
 
 def get_vars(array):
-    """ Computes the 5% VaR and tVar from an nparray of Monte Carlo results """
+    """Computes the 5% VaR and tVar from an nparray of Monte Carlo results"""
     var = np.percentile(array, 95)
     tvar = np.average(array[array >= var])
     return var, tvar
 
 
 def gen_random_events():
-    """ Simulates read input data """
+    """Simulates read input data"""
     probability_column = np.random.random_sample(30) * 0.1
     lower_ci_column = np.random.random_sample(30) * (1e6)
     upper_ci_column = np.random.random_sample(30) * (9e6) + 1e6
@@ -136,7 +136,7 @@ def gen_random_events():
 
 
 def simulate_daily_vars(num_days):
-    """ Runs Monte-Carlo over a number of days with simulated inputs """
+    """Runs Monte-Carlo over a number of days with simulated inputs"""
     vars, tvars = [], []
     for i in range(num_days):
         events = gen_random_events()

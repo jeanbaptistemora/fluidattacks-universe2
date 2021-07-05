@@ -61,12 +61,12 @@ from users import (
 
 
 async def acknowledge_concurrent_session(email: str) -> bool:
-    """ Acknowledge termination of concurrent session """
+    """Acknowledge termination of concurrent session"""
     return await users_dal.update(email, {"is_concurrent_session": False})
 
 
 async def add_phone_to_user(email: str, phone: str) -> bool:
-    """ Update user phone number. """
+    """Update user phone number."""
     return await users_dal.update(email, {"phone": phone})
 
 
@@ -218,7 +218,7 @@ async def get(email: str) -> UserType:
 
 
 async def get_attributes(email: str, data: List[str]) -> UserType:
-    """ Get attributes of a user. """
+    """Get attributes of a user."""
     return await users_dal.get_attributes(email, data)
 
 
@@ -298,7 +298,7 @@ async def get_user_name(mail: str) -> Dict[str, UserType]:
 async def has_valid_access_token(
     email: str, context: Dict[str, str], jti: str
 ) -> bool:
-    """ Verify if has active access token and match. """
+    """Verify if has active access token and match."""
     access_token = cast(Dict[str, str], await get_data(email, "access_token"))
     resp = False
     if context and access_token:
@@ -327,7 +327,7 @@ async def register(email: str) -> bool:
 
 
 async def remove_access_token(email: str) -> bool:
-    """ Remove access token attribute """
+    """Remove access token attribute"""
     return await users_dal.update(email, {"access_token": None})
 
 
@@ -345,7 +345,7 @@ async def remove_push_token(user_email: str, push_token: str) -> bool:
 async def update_access_token(
     email: str, expiration_time: int, **kwargs_token: Any
 ) -> UpdateAccessTokenPayloadType:
-    """ Update access token """
+    """Update access token"""
     token_data = token_utils.calculate_hash_token()
     session_jwt = ""
     success = False
@@ -378,7 +378,7 @@ async def update_access_token(
 
 
 async def update_legal_remember(email: str, remember: bool) -> bool:
-    """ Remember legal notice acceptance """
+    """Remember legal notice acceptance"""
     return await users_dal.update(email, {"legal_remember": remember})
 
 

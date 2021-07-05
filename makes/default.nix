@@ -100,7 +100,6 @@ let
     makeTemplate = importUtility "make-template";
     nix = importUtility "nix";
     ociDeploy = importUtility "oci-deploy";
-    pythonFormat = importUtility "python-format";
     sslCerts = importUtility "ssl-certs";
     terraformApply = importUtility "terraform-apply";
     terraformTest = importUtility "terraform-test";

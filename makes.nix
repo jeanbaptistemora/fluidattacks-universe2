@@ -5,4 +5,8 @@
     enable = true;
     targets = [ "/" ];
   };
+  formatPython = {
+    enable = true;
+    targets = [ "/" ];
+  };
 }

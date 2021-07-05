@@ -113,7 +113,7 @@ def ls_remote(url: str) -> Dict[str, Any]:
 
 
 def cmd_execute(cmnd: List[str], folder: str = ".") -> List[str]:
-    """ Execute a cmd command in the folder """
+    """Execute a cmd command in the folder"""
     env_vars: Dict[str, str] = {
         "GIT_SSL_NO_VERIFY": "1",
         "GIT_SSH_COMMAND": (
@@ -139,7 +139,7 @@ def print_problems(
     problems: List[Dict[str, str]],
     branches: List[str],
 ) -> None:
-    """ print problems in the repos"""
+    """print problems in the repos"""
     LOGGER.info(
         "Problems with the following repositories: [%i/%i]\n\n",
         len(problems),
@@ -151,7 +151,7 @@ def print_problems(
 
 
 def has_vpn(code: Dict[str, str], subs: str) -> None:
-    """ check if the group has a vpn """
+    """check if the group has a vpn"""
     does_have_vpn = code.get("vpn")
     if does_have_vpn:
         LOGGER.info("%s needs VPN. ", subs)
@@ -185,7 +185,7 @@ def setup_ssh_key() -> Iterator[str]:
 
 
 def repo_url(baseurl: str) -> str:
-    """ return the repo url """
+    """return the repo url"""
     error = ""
     for user, passw in ["repo_user", "repo_pass"], [
         "repo_user_2",
@@ -222,7 +222,7 @@ def _ssh_repo_cloning(
     group_name: str,
     git_root: Dict[str, str],
 ) -> Optional[Dict[str, str]]:
-    """ cloning or updated a repository ssh """
+    """cloning or updated a repository ssh"""
     baseurl = git_root["url"]
     if "source.developers.google" not in baseurl:
         baseurl = baseurl.replace("ssh://", "")
@@ -297,7 +297,7 @@ def _http_repo_cloning(
     group_name: str,
     git_root: Dict[str, str],
 ) -> Optional[Dict[str, str]]:
-    """ cloning or updated a repository https """
+    """cloning or updated a repository https"""
     # Needed to avoid SSL certificate problem
     os.environ["GIT_SSL_NO_VERIFY"] = "False"
     # script does not support vpns atm
@@ -352,7 +352,7 @@ def _http_repo_cloning(
 
 
 def repo_cloning(subs: str) -> bool:
-    """ cloning or updated a repository"""
+    """cloning or updated a repository"""
 
     success = True
     problems: list = []

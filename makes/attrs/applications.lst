@@ -72,7 +72,6 @@ makes.deploy.oci
 makes.dns.apply
 makes.dns.test
 makes.done
-makes.format.python
 makes.foss.apply
 makes.foss.test
 makes.k8s.apply

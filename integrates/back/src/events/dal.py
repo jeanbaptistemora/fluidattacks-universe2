@@ -48,7 +48,7 @@ async def create(
 
 
 async def get_event(event_id: str) -> EventType:
-    """ Retrieve all attributes from an event """
+    """Retrieve all attributes from an event"""
     response = {}
     query_attrs = {
         "KeyConditionExpression": Key("event_id").eq(event_id),

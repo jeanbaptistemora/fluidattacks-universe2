@@ -51,7 +51,7 @@ def get_access_point(auth):
 
 
 def close_access_point(db_connection, db_cursor):
-    """ safely close the access points """
+    """safely close the access points"""
     db_cursor.close()
     db_connection.close()
 

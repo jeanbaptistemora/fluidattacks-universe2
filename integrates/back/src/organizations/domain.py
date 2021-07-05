@@ -390,7 +390,7 @@ async def update_pending_deletion_date(
     organization_name: str,
     pending_deletion_date: Optional[str],
 ) -> bool:
-    """ Update pending deletion date """
+    """Update pending deletion date"""
     values: OrganizationType = {"pending_deletion_date": pending_deletion_date}
     success = await orgs_dal.update(organization_id, organization_name, values)
     return success

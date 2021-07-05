@@ -87,7 +87,7 @@ def do_apply_config(file_path: str) -> None:
 
 
 def parse_path(path: str) -> Tuple[str, str]:
-    """Get the repo path and the file path """
+    """Get the repo path and the file path"""
     path_to_list = path.split("/")
     file_path = ""
     for i in range(1, len(path_to_list)):

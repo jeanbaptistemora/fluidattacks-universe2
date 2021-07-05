@@ -94,7 +94,7 @@ from users import (
 
 @authenticate_session
 async def app(request: Request) -> HTMLResponse:
-    """ View for authenticated users"""
+    """View for authenticated users"""
     email = request.session.get("username")
     try:
         if email:

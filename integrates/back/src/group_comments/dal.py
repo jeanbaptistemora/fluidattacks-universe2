@@ -32,7 +32,7 @@ TABLE_NAME: str = "fi_project_comments"
 async def add_comment(
     group_name: str, email: str, comment_data: CommentType
 ) -> bool:
-    """ Add a comment in a group. """
+    """Add a comment in a group."""
     resp = False
     try:
         payload = {"project_name": group_name, "email": email}
@@ -56,7 +56,7 @@ async def delete_comment(group_name: str, user_id: str) -> bool:
 
 
 async def get_comments(group_name: str) -> List[Dict[str, str]]:
-    """ Get comments of a group. """
+    """Get comments of a group."""
     key_expression = Key("project_name").eq(group_name)
     query_attrs = {"KeyConditionExpression": key_expression}
     items = await dynamodb_ops.query(TABLE_NAME, query_attrs)

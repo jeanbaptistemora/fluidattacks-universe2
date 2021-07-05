@@ -45,7 +45,7 @@ workflow:
 
 .makes4: &makes4
   tags: [autoscaling]
-  image: "${CI_REGISTRY_IMAGE}/makes:foss"
+  image: ghcr.io/fluidattacks/makes:21.07
   needs: []
   interruptible: true
   script:
@@ -102,8 +102,8 @@ formatBash:
   <<: *common_in_dev_branch
   stage: lint-code
 
-makes.format.python:
-  <<: *makes
+formatPython:
+  <<: *makes4
   <<: *common_in_dev_branch
   stage: lint-code
 

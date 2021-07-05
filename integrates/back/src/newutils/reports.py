@@ -54,7 +54,7 @@ async def expose_bytes_as_url(
 def ord_asc_by_criticality(
     data: List[Dict[str, FindingType]]
 ) -> List[Dict[str, FindingType]]:
-    """ Sort the findings by criticality """
+    """Sort the findings by criticality"""
     for i in range(0, len(data) - 1):
         for j in range(i + 1, len(data)):
             firstc = float(cast(float, data[i]["severityCvss"]))

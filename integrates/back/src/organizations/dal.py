@@ -341,7 +341,7 @@ async def has_user_access(organization_id: str, email: str) -> bool:
 
 
 async def iterate_organizations() -> AsyncIterator[Tuple[str, str]]:
-    """Yield (org_id, org_name) non-concurrently generated. """
+    """Yield (org_id, org_name) non-concurrently generated."""
     async with dynamodb_client() as client:
         async for response in client.get_paginator("scan").paginate(
             ExpressionAttributeNames={

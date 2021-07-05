@@ -19,7 +19,7 @@ from typing import (
 
 
 async def delete_obsolete_orgs() -> None:
-    """ Delete obsolete organizations """
+    """Delete obsolete organizations"""
     today = datetime_utils.get_now().date()
     email = "integrates@fluidattacks.com"
     async for org_id, org_name in orgs_domain.iterate_organizations():

@@ -62,7 +62,7 @@ async def reject_vulnerabilities(group: str) -> None:
 async def reject_vulnerability(
     finding_id: str, historic_state: List[Dict[str, str]], vuln_id: str
 ) -> bool:
-    """ old reject_vulnerability function"""
+    """old reject_vulnerability function"""
     historic_state.pop()
     response = False
     if historic_state:

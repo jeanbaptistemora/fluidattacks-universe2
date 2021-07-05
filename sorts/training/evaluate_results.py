@@ -34,7 +34,7 @@ def get_best_model_name(model_name_file: str) -> str:
 
 
 def get_model_item(best_model_name: str) -> Dict[str, Any]:
-    """ Returns a dict containing model info ready to be sent to Redshift"""
+    """Returns a dict containing model info ready to be sent to Redshift"""
     item: Dict[str, Any] = {}
     model_info = best_model_name.split("-")
     item["model"] = model_info[0]

@@ -54,7 +54,7 @@ async def get_filtered_elements(
 def list_to_dict(
     keys: List[object], values: List[object]
 ) -> Dict[object, object]:
-    """ Merge two lists into a {key: value} dictionary """
+    """Merge two lists into a {key: value} dictionary"""
     dct: Dict[object, object] = collections.OrderedDict()
     index = 0
 

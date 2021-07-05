@@ -120,7 +120,7 @@ Context = TypedDict(  # pylint: disable=invalid-name
 
 
 def get_access_vector(finding: Dict[str, FindingType]) -> Optional[str]:
-    """ Get metrics based on cvss version. """
+    """Get metrics based on cvss version."""
     if finding.get("cvssVersion") == "3.1":
         severity = get_severity("attackVector", finding["attackVector"])
     else:
@@ -305,7 +305,7 @@ class CreatorPDF:
         self.lang_support()
 
     def create_command(self, tpl_name: str) -> None:
-        """ Create the SO command to create the PDF with asciidoctor. """
+        """Create the SO command to create the PDF with asciidoctor."""
         self.command = (
             "asciidoctor-pdf "
             f"-a pdf-stylesdir={self.style_dir} "
@@ -324,7 +324,7 @@ class CreatorPDF:
         user: str,
         context: Any,
     ) -> None:
-        """ Add group information. """
+        """Add group information."""
         words = self.wordlist[self.lang]
         doctype = words[self.doctype]
         full_group = f"{description} [{group}]"
@@ -426,18 +426,18 @@ class CreatorPDF:
         }
 
     def lang_support(self) -> None:
-        """ Define the dictionaries of accepted languages. """
+        """Define the dictionaries of accepted languages."""
         self.wordlist = dict()
         self.lang_support_en()
 
     def lang_support_en(self) -> None:
-        """ Add the English dictionary.  """
+        """Add the English dictionary."""
         self.wordlist["en"] = dict(
             zip(PDFWordlistEn.keys(), PDFWordlistEn.labels())
         )
 
     def make_content(self, words: Dict[str, str]) -> Dict[str, str]:
-        """ Create context with the titles of the document. """
+        """Create context with the titles of the document."""
         base_img = "image::../templates/pdf/{name}_{lang}.png[]"
         base_adoc = "include::../templates/pdf/{name}_{lang}.adoc[]"
         return {
@@ -459,7 +459,7 @@ class CreatorPDF:
         group: str,
         words: Dict[str, str],
     ) -> str:
-        """ Create the findings graph. """
+        """Create the findings graph."""
         figure(1, figsize=(6, 6))
         finding_state_pie = [0, 0, 0, 0]  # A, PC, C
         finding_state_pielabels = [
@@ -506,7 +506,7 @@ class CreatorPDF:
         user: str,
         context: Any,
     ) -> None:
-        """ Create the template to render and apply the context. """
+        """Create the template to render and apply the context."""
         await self.fill_group(data, group, description, user, context)
         self.out_name = f"{str(uuid.uuid4())}.pdf"
         searchpath = self.path

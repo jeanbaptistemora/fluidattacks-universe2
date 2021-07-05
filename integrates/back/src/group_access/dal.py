@@ -97,7 +97,7 @@ async def get_user_access(
 
 @apm.trace()
 async def get_user_groups(user_email: str, active: bool) -> List[str]:
-    """ Get groups of a user """
+    """Get groups of a user"""
     filtering_exp = Key("user_email").eq(user_email.lower())
     query_attrs = {"KeyConditionExpression": filtering_exp}
     groups = await dynamodb_ops.query(TABLE_NAME, query_attrs)

@@ -31,7 +31,7 @@ class PDF(FPDF):
 
 
 class SecurePDF:
-    """ Add basic security to PDF. """
+    """Add basic security to PDF."""
 
     # pylint: disable=too-many-instance-attributes
     # eight arguments are reasonable (pylnt limit -> 7)
@@ -58,7 +58,7 @@ class SecurePDF:
     async def create_full(
         self, usermail: str, basic_pdf_name: str, group: str
     ) -> str:
-        """ Execute the security process in a PDF. """
+        """Execute the security process in a PDF."""
         self.secure_pdf_usermail = usermail
         self.secure_pdf_username = usermail.split("@")[0]
         group_info = await groups_dal.get_attributes(
@@ -76,7 +76,7 @@ class SecurePDF:
         return os.path.join(self.result_dir, self.secure_pdf_filename)
 
     def lock(self, in_filename: str) -> str:
-        """  Add a passphrase to a PDF. """
+        """Add a passphrase to a PDF."""
         pdf_foutname = f"{self.secure_pdf_username}_{in_filename}"
         output = PdfFileWriter()
         input = PdfFileReader(  # noqa
@@ -91,7 +91,7 @@ class SecurePDF:
         return pdf_foutname
 
     def overlays(self, in_filename: str) -> str:
-        """ Add watermark and footer to all pages of a PDF. """
+        """Add watermark and footer to all pages of a PDF."""
         pdf_foutname = f"water_{in_filename}"
 
         footer_pdf = PDF()

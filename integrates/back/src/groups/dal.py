@@ -138,7 +138,7 @@ async def get_attributes(
 
 
 async def get_description(group_name: str) -> str:
-    """ Get the description of a project. """
+    """Get the description of a project."""
     description = await get_attributes(group_name, ["description"])
     group_description = (
         str(description.get("description", "")) if description else ""
