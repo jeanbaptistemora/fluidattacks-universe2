@@ -1,5 +1,6 @@
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
+    StopEvaluation,
 )
 
 
@@ -18,4 +19,4 @@ def evaluate(args: EvaluatorArgs) -> None:
     elif args.syntax_step.value_type == "string":
         args.syntax_step.meta.value = args.syntax_step.value
     else:
-        raise NotImplementedError()
+        raise StopEvaluation.from_args(args)

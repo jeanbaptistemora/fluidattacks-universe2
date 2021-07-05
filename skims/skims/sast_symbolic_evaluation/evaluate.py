@@ -62,6 +62,7 @@ from utils.encodings import (
 )
 from utils.logs import (
     log_blocking,
+    log_exception_blocking,
 )
 from utils.string import (
     get_debug_path,
@@ -271,11 +272,8 @@ def get_possible_syntax_steps_from_path(
             )
         except ImpossiblePath:
             return []
-        except (
-            NotImplementedError,
-            StopEvaluation,
-        ) as exc:
-            log_blocking("debug", str(exc))
+        except StopEvaluation as exc:
+            log_exception_blocking("debug", exc)
             return syntax_steps
 
     return syntax_steps

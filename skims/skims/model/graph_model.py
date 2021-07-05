@@ -428,6 +428,15 @@ GRAPH_VULNERABILITY_PARAMETERS: Dict[
             desc_params={},
         )
     ),
+    core_model.FindingEnum.F063_TYPE_CONFUSION: (
+        GraphVulnerabilityParameters(
+            cwe=(core_model.FindingEnum.F063_TYPE_CONFUSION.value.cwe,),
+            desc_key=(
+                core_model.FindingEnum.F063_TYPE_CONFUSION.value.description
+            ),
+            desc_params={},
+        )
+    ),
     core_model.FindingEnum.F107: (
         GraphVulnerabilityParameters(
             cwe=(90,),

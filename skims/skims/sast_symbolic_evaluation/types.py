@@ -1,3 +1,7 @@
+from __future__ import (
+    annotations,
+)
+
 from model import (
     core_model,
     graph_model,
@@ -15,7 +19,11 @@ from typing import (
 
 
 class StopEvaluation(Exception):
-    pass
+    @classmethod
+    def from_args(cls, args: EvaluatorArgs) -> StopEvaluation:
+        path: str = args.shard.path
+        n_id: graph_model.NId = args.syntax_step.meta.n_id
+        return StopEvaluation(f"Incomplete Syntax Reader, {path} @ {n_id}")
 
 
 class ImpossiblePath(StopEvaluation):

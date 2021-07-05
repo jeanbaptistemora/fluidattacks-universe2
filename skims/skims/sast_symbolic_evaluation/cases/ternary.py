@@ -1,5 +1,6 @@
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
+    StopEvaluation,
 )
 
 
@@ -15,4 +16,4 @@ def evaluate(args: EvaluatorArgs) -> None:
     elif predicate.meta.value is None:
         args.syntax_step.meta.danger = left.meta.danger or right.meta.danger
     else:
-        raise NotImplementedError(predicate.meta.value)
+        raise StopEvaluation.from_args(args)
