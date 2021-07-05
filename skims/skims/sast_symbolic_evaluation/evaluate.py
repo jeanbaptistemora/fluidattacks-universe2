@@ -296,6 +296,14 @@ def get_possible_syntax_steps_for_n_id(
     current_instance: Optional[graph_model.CurrentInstance] = None,
     only_sinks: bool = False,
 ) -> PossibleSyntaxStepsForUntrustedNId:
+    log_blocking(
+        "info",
+        "Evaluating %s, shard %s, node %s",
+        finding.name,
+        shard.path,
+        n_id,
+    )
+
     syntax_steps_map: PossibleSyntaxStepsForUntrustedNId = {
         # Path identifier -> syntax_steps
         "-".join(path): get_possible_syntax_steps_from_path(
@@ -346,15 +354,7 @@ def get_possible_syntax_steps(
     finding: core_model.FindingEnum,
 ) -> PossibleSyntaxSteps:
     syntax_steps_map: PossibleSyntaxSteps = {}
-    for shard_index, shard in enumerate(graph_db.shards):
-        log_blocking(
-            "info",
-            "Evaluating %s, shard %s: %s",
-            finding.name,
-            shard_index,
-            shard.path,
-        )
-
+    for shard in graph_db.shards:
         syntax_steps_map[shard.path] = get_possible_syntax_steps_for_finding(
             graph_db=graph_db,
             finding=finding,

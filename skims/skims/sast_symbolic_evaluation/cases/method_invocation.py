@@ -389,6 +389,16 @@ WEAK_CIPHERS: Set[str] = {
 
 
 def evaluate(args: EvaluatorArgs) -> None:
+    language = args.shard.metadata.language
+
+    if language in (
+        graph_model.GraphShardMetadataLanguage.JAVA,
+        graph_model.GraphShardMetadataLanguage.CSHARP,
+    ):
+        evaluate_many(args)
+
+
+def evaluate_many(args: EvaluatorArgs) -> None:
     # pylint: disable=expression-not-assigned
     (
         attempt_java_util_properties_methods(args)
