@@ -121,6 +121,30 @@ async def remove_evidence(evidence_name: str, finding_id: str) -> bool:
     return success
 
 
+async def remove_evidence_new(
+    context: Any, evidence_id: str, finding_id: str
+) -> None:
+    finding_loader = context.loaders.finding_new
+    finding: Finding = await finding_loader.load(finding_id)
+    evidence: Optional[FindingEvidence] = getattr(
+        finding.evidences, EVIDENCE_NAMES[evidence_id]
+    )
+    if not evidence:
+        raise EvidenceNotFound()
+
+    full_name = f"{finding.group_name}/{finding.id}/{evidence.url}"
+    await findings_dal.remove_evidence(full_name)
+    evidences = finding.evidences._replace(
+        **{EVIDENCE_NAMES[evidence_id]: None}
+    )
+    metadata = FindingMetadataToUpdate(evidences=evidences)
+    await findings_model.update_medatada(
+        group_name=finding.group_name,
+        finding_id=finding.id,
+        metadata=metadata,
+    )
+
+
 async def update_evidence(
     finding_id: str, evidence_type: str, file: UploadFile
 ) -> bool:
