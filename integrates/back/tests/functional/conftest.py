@@ -49,6 +49,7 @@ TEST_GROUPS: Set[str] = {
     "reject_draft_new",
     "remove_event_evidence",
     "remove_evidence",
+    "remove_evidence_new",
     "remove_files",
     "remove_group",
     "remove_stakeholder_access",
