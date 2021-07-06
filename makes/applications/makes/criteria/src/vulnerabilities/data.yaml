@@ -435,13 +435,13 @@
   metadata: {}
 016:
   en:
-    title: Use of software with known vulnerabilities - old version of TLS
+    title: Insecure encryption algorithm - Transport Layer Security
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Uso de componentes con vulnerabilidades conocidas - versión desactualizada de TLS
+    title: Algoritmo de cifrado inseguro - Transport Layer Security
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3655,13 +3655,13 @@
   metadata: {}
 127:
   en:
-    title: Use of software with known vulnerabilities - insecure SSLv3
+    title: Insecure cipher algorithm - Secure Socket Layer v3
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Uso de componentes con vulnerabilidades conocidas - SSLv3 inseguro
+    title: Algoritmo de cifrado inseguro - Secure Socket Layer v3
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3952,6 +3952,35 @@
     threat: __empty__
   es:
     title: Algoritmo de cifrado inseguro - Cifrados anónimos
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  metadata: {}
+138:
+  en:
+    title: Insecure encryption algorithm - Cipher Block Chaining
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: Algoritmo de cifrado inseguro - Cipher Block Chaining
     description: __empty__
     impact: __empty__
     recommendation: __empty__
