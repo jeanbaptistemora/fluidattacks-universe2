@@ -236,6 +236,27 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "where": "192.168.1.20",
                 "specific": "9999",
             },
+            {
+                "finding_id": "475041513",
+                "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce15",
+                "historic_state": [
+                    {
+                        "date": "2018-04-07 19:45:11",
+                        "analyst": "analyst@gmail.com",
+                        "source": "integrates",
+                        "state": "open",
+                    },
+                ],
+                "historic_treatment": [
+                    {
+                        "date": "2018-04-07 19:45:11",
+                        "treatment": "NEW",
+                    },
+                ],
+                "vuln_type": "ports",
+                "where": "192.168.1.20",
+                "specific": "9999",
+            },
         ],
     }
     return await db.populate({**generic_data["db_data"], **data})
