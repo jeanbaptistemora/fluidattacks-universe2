@@ -1218,7 +1218,7 @@
   metadata: {}
 043:
   en:
-    title: Improper set HTTP headers - Content-Security-Policy
+    title: Missing HTTP security headers - Content-Security-Policy
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2030,13 +2030,13 @@
   metadata: {}
 071:
   en:
-    title: Missing HTTP security headers - Strict Transport Security
+    title: Missing HTTP security headers - Referrer-Policy
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Cabeceras de seguridad HTTP no establecidas - Strict-Transport-Security
+    title: Cabeceras de seguridad HTTP no establecidas - Referrer-Policy
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2531,6 +2531,35 @@
     threat: __empty__
   es:
     title: Violación de privacidad
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  metadata: {}
+089:
+  en:
+    title: Lack of data validation - Trust boundary violation
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: Falta de validación de datos - Trust boundary violation
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3742,13 +3771,13 @@
   metadata: {}
 131:
   en:
-    title: Missing HTTP security headers - Referrer-Policy
+    title: Missing HTTP security headers - Strict Transport Security
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Ausencia de encabezados de seguridad HTTP - Referrer-Policy
+    title: Cabeceras de seguridad HTTP no establecidas - Strict-Transport-Security
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3771,13 +3800,13 @@
   metadata: {}
 132:
   en:
-    title: Missing HTTP security headers - Referrer-Policy
+    title: Missing HTTP security headers - X-Content-Type-Options
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Cabeceras de seguridad HTTP no establecidas - X-Content-Type-Options
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3799,35 +3828,6 @@
   requirements: []
   metadata: {}
 133:
-  en:
-    title: Missing HTTP security headers - X-Content-Type-Options
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
-  es:
-    title: Ausencia de encabezados de seguridad HTTP - X-Content-Type-Options
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
-  score:
-    base:
-      attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
-    temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: []
-  metadata: {}
-134:
   en:
     title: Insecure encryption algorithm - Perfect Forward Secrecy
     description: __empty__
@@ -3856,7 +3856,7 @@
       report_confidence: "X"
   requirements: []
   metadata: {}
-135:
+134:
   en:
     title: Insecure Service Configuration - ADB Backups
     description: __empty__
@@ -3885,7 +3885,7 @@
       report_confidence: "X"
   requirements: []
   metadata: {}
-136:
+135:
   en:
     title: Insecure service configuration - CORS
     description: __empty__
@@ -3914,160 +3914,44 @@
       report_confidence: "X"
   requirements: []
   metadata: {}
+136:
+  en:
+    title: Lack of data validation - Type confusion
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: Falta de validación de datos - Type confusion
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  metadata: {}
 137:
   en:
-    title: Lack of data validation - Path Traversal
+    title: Insecure encryption algorithm - Anonymous ciphers
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Falta de validación de datos - Path Traversal
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
-  score:
-    base:
-      attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
-    temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: []
-  metadata: {}
-138:
-  en:
-    title: Lack of data validation - Trust boundary violation
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
-  es:
-    title: Falta de validación de datos - Trust boundary violation
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
-  score:
-    base:
-      attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
-    temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: []
-  metadata: {}
-139:
-  en:
-    title: Traceability loss - Server's clock
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
-  es:
-    title: Pérdida de trazabilidad - Reloj del servidor
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
-  score:
-    base:
-      attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
-    temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: []
-  metadata: {}
-140:
-  en:
-    title: Inappropriate coding practices - Wildcard import
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
-  es:
-    title: Prácticas inadecuadas de programación - Import con comodín
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
-  score:
-    base:
-      attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
-    temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: []
-  metadata: {}
-141:
-  en:
-    title: Unauthorized access to files - APK Content Provider
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
-  es:
-    title: Acceso no autorizado a archivos - APK Content Provider
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
-  score:
-    base:
-      attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
-    temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: []
-  metadata: {}
-142:
-  en:
-    title: Insufficient data authenticity validation - APK signing
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
-  es:
-    title: Verificación de autenticidad de datos insuficiente - Firmado del APK
+    title: Algoritmo de cifrado inseguro - Cifrados anónimos
     description: __empty__
     impact: __empty__
     recommendation: __empty__
