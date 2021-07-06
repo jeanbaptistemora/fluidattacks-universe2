@@ -56,9 +56,9 @@ async def test_get_group(populate: bool, email: str) -> None:
     assert result["data"]["group"]["tags"] == ["testing"]
     assert result["data"]["group"]["description"] == "this is group1"
     assert result["data"]["group"]["serviceAttributes"] == [
-        "has_drills_white",
+        "has_asm",
         "has_forces",
-        "has_integrates",
+        "has_service_white",
         "has_squad",
         "is_continuous",
         "is_fluidattacks_customer",

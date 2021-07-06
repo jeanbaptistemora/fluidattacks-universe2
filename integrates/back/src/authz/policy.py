@@ -137,18 +137,18 @@ async def _get_service_policies(group: str) -> List[ServicePolicy]:
 
     group_attributes = response_items[0]
     historic_config = group_attributes["historic_configuration"]
-    has_drills: bool = historic_config[-1]["has_drills"]
+    has_squad: bool = historic_config[-1]["has_drills"]
     has_forces: bool = historic_config[-1]["has_forces"]
-    has_integrates: bool = group_attributes["project_status"] == "ACTIVE"
+    has_asm: bool = group_attributes["project_status"] == "ACTIVE"
     type_: str = historic_config[-1]["type"]
 
     if type_ == "continuous":
         policies.append(ServicePolicy(group=group, service="continuous"))
-        if has_integrates:
-            policies.append(ServicePolicy(group=group, service="integrates"))
-            if has_drills:
+        if has_asm:
+            policies.append(ServicePolicy(group=group, service="asm"))
+            if has_squad:
                 policies.append(
-                    ServicePolicy(group=group, service="drills_white")
+                    ServicePolicy(group=group, service="service_white")
                 )
                 policies.append(ServicePolicy(group=group, service="squad"))
                 if has_forces:
@@ -156,10 +156,12 @@ async def _get_service_policies(group: str) -> List[ServicePolicy]:
                         ServicePolicy(group=group, service="forces")
                     )
     elif type_ == "oneshot":
-        if has_integrates:
-            policies.append(ServicePolicy(group=group, service="integrates"))
-            policies.append(ServicePolicy(group=group, service="drills_black"))
-            if has_drills:
+        if has_asm:
+            policies.append(ServicePolicy(group=group, service="asm"))
+            policies.append(
+                ServicePolicy(group=group, service="service_black")
+            )
+            if has_squad:
                 policies.append(ServicePolicy(group=group, service="squad"))
     else:
         LOGGER.critical(

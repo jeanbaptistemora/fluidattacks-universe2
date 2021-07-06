@@ -40,11 +40,11 @@ describe("Authorization", (): void => {
   it("should render Have", (): void => {
     expect.hasAssertions();
 
-    groupAttributes.update([{ action: "has_integrates" }]);
+    groupAttributes.update([{ action: "has_asm" }]);
 
     const wrapper: ReactWrapper = mount(
-      <Have I={"has_integrates"}>
-        <p>{"I have Integrates"}</p>
+      <Have I={"has_asm"}>
+        <p>{"I have ASM"}</p>
       </Have>,
       {
         wrappingComponent: authzGroupContext.Provider,
@@ -53,7 +53,7 @@ describe("Authorization", (): void => {
     );
 
     expect(wrapper).toHaveLength(1);
-    expect(wrapper.text()).toContain("I have Integrates");
+    expect(wrapper.text()).toContain("I have ASM");
   });
 
   it("should not render", (): void => {
@@ -80,8 +80,8 @@ describe("Authorization", (): void => {
     groupAttributes.update([]);
 
     const wrapper: ReactWrapper = mount(
-      <Have I={"has_integrates"}>
-        <p>{"I have Integrates"}</p>
+      <Have I={"has_asm"}>
+        <p>{"I have ASM"}</p>
       </Have>,
       {
         wrappingComponent: authzGroupContext.Provider,
@@ -90,6 +90,6 @@ describe("Authorization", (): void => {
     );
 
     expect(wrapper).toHaveLength(1);
-    expect(wrapper.text()).not.toContain("I have Integrates");
+    expect(wrapper.text()).not.toContain("I have ASM");
   });
 });

@@ -243,9 +243,9 @@ async def test_group() -> None:  # pylint: disable=too-many-statements
         "role": "service_forces",
     } in result["data"]["group"]["stakeholders"]
     assert result["data"]["group"]["serviceAttributes"] == [
-        "has_drills_white",
+        "has_asm",
         "has_forces",
-        "has_integrates",
+        "has_service_white",
         "has_squad",
         "is_continuous",
         "is_fluidattacks_customer",

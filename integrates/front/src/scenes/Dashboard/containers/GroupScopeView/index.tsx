@@ -39,14 +39,14 @@ export const GroupScopeView: React.FC = (): JSX.Element => {
 
   return (
     <React.Fragment>
-      <Have I={"has_drills_white"}>
+      <Have I={"has_service_white"}>
         <GitRoots
           groupName={groupName}
           onUpdate={refetch}
           roots={roots.filter(isGitRoot)}
         />
       </Have>
-      <Have I={"has_drills_black"}>
+      <Have I={"has_service_black"}>
         <IPRoots roots={roots.filter(isIPRoot)} />
         <hr />
         <URLRoots roots={roots.filter(isURLRoot)} />

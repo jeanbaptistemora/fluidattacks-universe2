@@ -64,11 +64,11 @@ pytestmark = [
         (
             authz.SERVICE_ATTRIBUTES,
             [
+                "asm",
                 "continuous",
-                "drills_black",
-                "drills_white",
                 "forces",
-                "integrates",
+                "service_black",
+                "service_white",
                 "squad",
             ],
         ),

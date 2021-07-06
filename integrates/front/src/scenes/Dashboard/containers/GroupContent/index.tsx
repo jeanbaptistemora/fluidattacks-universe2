@@ -114,7 +114,7 @@ const GroupContent: React.FC = (): JSX.Element => {
                       tooltip={translate.t("group.tabs.users.tooltip")}
                     />
                   </Can>
-                  <Have I={"has_drills_white"}>
+                  <Have I={"has_service_white"}>
                     <Can do={"api_resolvers_group_bill_resolve"}>
                       <ContentTab
                         icon={"icon pe-7s-users"}

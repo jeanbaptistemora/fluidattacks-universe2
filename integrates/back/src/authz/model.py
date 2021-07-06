@@ -886,13 +886,13 @@ SERVICE_ATTRIBUTES: Dict[str, Set[str]] = dict(
     continuous={
         "is_continuous",
     },
-    drills_black={
-        "has_drills_black",
+    service_black={
+        "has_service_black",
         "is_fluidattacks_customer",
         "must_only_have_fluidattacks_hackers",
     },
-    drills_white={
-        "has_drills_white",
+    service_white={
+        "has_service_white",
         "is_fluidattacks_customer",
         "must_only_have_fluidattacks_hackers",
     },
@@ -901,8 +901,8 @@ SERVICE_ATTRIBUTES: Dict[str, Set[str]] = dict(
         "is_fluidattacks_customer",
         "must_only_have_fluidattacks_hackers",
     },
-    integrates={
-        "has_integrates",
+    asm={
+        "has_asm",
     },
     squad={
         "has_squad",

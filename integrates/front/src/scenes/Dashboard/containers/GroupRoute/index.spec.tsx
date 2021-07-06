@@ -27,7 +27,7 @@ describe("GroupRoute", (): void => {
         group: {
           deletionDate: "",
           name: "TEST",
-          serviceAttributes: ["has_integrates"],
+          serviceAttributes: ["has_asm"],
           userDeletion: "",
         },
       },
