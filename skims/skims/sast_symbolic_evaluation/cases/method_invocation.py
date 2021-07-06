@@ -9,6 +9,7 @@ from sast_symbolic_evaluation.lookup import (
 )
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
+    GoParsedFloat,
     JavaClassInstance,
     LookedUpClass,
 )
@@ -391,11 +392,18 @@ WEAK_CIPHERS: Set[str] = {
 def evaluate(args: EvaluatorArgs) -> None:
     language = args.shard.metadata.language
 
+    if language == graph_model.GraphShardMetadataLanguage.GO:
+        evaluate_go(args)
+
     if language in (
         graph_model.GraphShardMetadataLanguage.JAVA,
         graph_model.GraphShardMetadataLanguage.CSHARP,
     ):
         evaluate_many(args)
+
+
+def evaluate_go(args: EvaluatorArgs) -> None:
+    attempt_go_parse_float(args)
 
 
 def evaluate_many(args: EvaluatorArgs) -> None:
@@ -406,6 +414,15 @@ def evaluate_many(args: EvaluatorArgs) -> None:
         or attempt_the_old_way(args)
         or attempt_java_looked_up_class(args)
     )
+
+
+def attempt_go_parse_float(args: EvaluatorArgs) -> bool:
+    if args.syntax_step.method == "strconv.ParseFloat":
+        arg0, *_ = args.dependencies
+        args.syntax_step.meta.value = GoParsedFloat(value=arg0.meta.value)
+        return True
+
+    return False
 
 
 def attempt_java_util_properties_methods(args: EvaluatorArgs) -> bool:

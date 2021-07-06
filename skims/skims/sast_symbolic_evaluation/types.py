@@ -2,6 +2,9 @@ from __future__ import (
     annotations,
 )
 
+from dataclasses import (
+    dataclass,
+)
 from model import (
     core_model,
     graph_model,
@@ -63,6 +66,16 @@ class EvaluatorArgs(NamedTuple):
 
 
 Evaluator = Callable[[EvaluatorArgs], None]
+
+# Go
+
+
+@dataclass
+class GoParsedFloat:
+    value: Optional[float]
+    is_inf: bool = True
+    is_nan: bool = True
+
 
 # Java
 
