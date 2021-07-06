@@ -14,7 +14,6 @@ import logging
 from paginator.pages import (
     PageId,
 )
-import pytz
 from returns.curry import (
     partial,
 )
@@ -77,7 +76,6 @@ from tap_gitlab.streams import (
     SupportedStreams,
 )
 from typing import (
-    final,
     Iterator,
     Optional,
     Tuple,

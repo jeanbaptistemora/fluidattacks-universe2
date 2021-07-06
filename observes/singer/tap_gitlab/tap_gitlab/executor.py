@@ -41,7 +41,6 @@ from tap_gitlab.streams import (
     SupportedStreams,
 )
 from typing import (
-    Optional,
     Tuple,
     Union,
 )
@@ -74,7 +73,7 @@ def defautl_stream(
     max_pages: int,
     state_id: Maybe[Tuple[str, str]],
 ) -> None:
-    _state = state_id.map(
+    _state = state_id.bind(
         lambda sid: state_getter.get(sid[0], sid[1])
     ).value_or(default_etl_state(project))
 
