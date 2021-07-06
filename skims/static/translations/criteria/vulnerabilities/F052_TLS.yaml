@@ -1,37 +1,34 @@
 lib_ssl.analyze_protocol.tlsv1_enabled:
-  en: "supports TLS v1"
-  es: "soporta TLS v1"
+  en: supports TLS v1
+  es: soporta TLS v1
 lib_ssl.analyze_protocol.tlsv1_1_enabled:
-  en: "supports TLS v1.1"
-  es: "soporta TLS v1.1"
+  en: supports TLS v1.1
+  es: soporta TLS v1.1
 lib_ssl.analyze_protocol.tlsv1_3_disabled:
-  en: "no support for TLS v1.3"
-  es: "no soporta TLS v1.3"
-F011_TLS.description:
+  en: no support for TLS v1.3
+  es: no soporta TLS v1.3
+F052_TLS.description:
   en: The server allows the usage of old TLS protocol versions.
   es: El servidor permite utilizar versiones viejas del protocolo TLS.
-F011_TLS.impact:
-  en: >
-    Obtain sensitive information by performing an attack like BEAST or similar.
-  es: Obtener información sensible realizando un ataque como BEAST o similar.
-F011_TLS.recommendation:
+F052_TLS.impact:
+  en: Compromize sensitive information that travels between client and server.
+  es: Comprometer la información sensible que viaja entre cliente y servidor.
+F052_TLS.recommendation:
   en: Update TLS protocol to version TLSv1.2 or TLSv1.3 if possible.
   es: >
     Actualizar el protocolo TLS a la versión TLSv1.2 o TLSv1.3 de ser posible.
-F011_TLS.requirements:
+F052_TLS.requirements:
   en: R262. Verify third-party components.
   es: >
     R262. Los componentes provistos por terceros deben corresponder a versiones
     estables, probadas y actualizadas.
-F011_TLS.threat:
+F052_TLS.threat:
   en: >
     Unauthorized attacker from internet network exploiting a vulnerability
     related to the cipher block chaining process (CBC).
   es: >
     Atacante sin autorización desde internet explotando una vulnerabilidad
     relacionada al CBC.
-F011_TLS.title:
-  en: F011. Use of software with known vulnerabilities - old version of TLS
-  es: >
-    F011. Uso de componentes con vulnerabilidades conocidas - versión
-    desactualizada de TLS
+F052_TLS.title:
+  en: F052. Insecure cipher algorithm - Transport Layer Security
+  es: F052. Algoritmo de cifrado inseguro - Transport Layer Security

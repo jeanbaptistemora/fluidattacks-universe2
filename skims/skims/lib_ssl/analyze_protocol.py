@@ -138,7 +138,7 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F011_SSLV3,
+        finding=core_model.FindingEnum.F052_SSLV3,
         ctx=ctx,
         conn_established=conn_established,
         line=SSLSnippetLine.max_version,
@@ -168,7 +168,7 @@ def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F011_TLS,
+        finding=core_model.FindingEnum.F052_TLS,
         ctx=ctx,
         conn_established=conn_established,
         line=SSLSnippetLine.max_version,
@@ -198,7 +198,7 @@ def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F011_TLS,
+        finding=core_model.FindingEnum.F052_TLS,
         ctx=ctx,
         conn_established=conn_established,
         line=SSLSnippetLine.max_version,
@@ -228,7 +228,7 @@ def _tlsv1_3_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F011_TLS,
+        finding=core_model.FindingEnum.F052_TLS,
         ctx=ctx,
         conn_established=conn_established,
         line=SSLSnippetLine.max_version,
@@ -305,13 +305,13 @@ CHECKS: Dict[
     core_model.FindingEnum,
     List[Callable[[SSLContext], core_model.Vulnerabilities]],
 ] = {
-    core_model.FindingEnum.F011_SSLV3: [_sslv3_enabled],
-    core_model.FindingEnum.F011_TLS: [
+    core_model.FindingEnum.F052: [_weak_ciphers_allowed],
+    core_model.FindingEnum.F052_ANON: [_anonymous_ciphers_allowed],
+    core_model.FindingEnum.F052_PFS: [_pfs_disabled],
+    core_model.FindingEnum.F052_SSLV3: [_sslv3_enabled],
+    core_model.FindingEnum.F052_TLS: [
         _tlsv1_enabled,
         _tlsv1_1_enabled,
         _tlsv1_3_disabled,
     ],
-    core_model.FindingEnum.F052: [_weak_ciphers_allowed],
-    core_model.FindingEnum.F052_ANON: [_anonymous_ciphers_allowed],
-    core_model.FindingEnum.F052_PFS: [_pfs_disabled],
 }

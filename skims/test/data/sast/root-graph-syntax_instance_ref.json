@@ -60,14 +60,6 @@
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
-  "F011_SSLV3": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
-  "F011_TLS": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
   "F015_DAST_BASIC": {
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
@@ -2969,6 +2961,14 @@
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
   "F052_PFS": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
+  "F052_SSLV3": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
+  "F052_TLS": {
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },

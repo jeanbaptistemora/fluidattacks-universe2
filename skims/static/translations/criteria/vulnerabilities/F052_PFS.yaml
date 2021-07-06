@@ -1,19 +1,26 @@
 lib_ssl.analyze_protocol.pfs_disabled:
-  en: "pfs is not enabled"
-  es: "pfs no esta habilitado"
+  en: pfs is not enabled
+  es: pfs no esta habilitado
 F052_PFS.description:
-  en: The application uses insecure encryption algorithms.
-  es: La aplicación usa algoritmos de cifrado inseguros.
+  en: >
+    The application uses encryption algorithms that expose all messages
+    made during the communication if the current private key is compromised.
+  es: >
+    La aplicacion utiliza algoritmos de encripcion que exponen todos los
+    mensajes realizados durante la comunicacion si la llave privada actual es
+    comprometida.
 F052_PFS.impact:
   en: >
     Obtain sensitive information that is being transmitted or has been stored.
   es: >
     Obtener información sensible que se esta transmitiendo o ha sido guardada.
 F052_PFS.recommendation:
-  en: Use encyption algorithms like dhe_rsa, ecdhe_rsa, ecdh_anon or dh_anon.
+  en: > 
+    Use encyption algorithms that do not expose previous communications in case
+    a private key is compromised.
   es: >
-    Usar algoritmos de encriptación tales como dhe_rsa, ecdhe_rsa, ecdh_anon or
-    dh_anon.
+    Usar algoritmos de encripción que no expongan las comunicaciones previas en
+    caso de que la llave privada sea comprometida.
 F052_PFS.threat:
   en: Unauthorized attacker from internet network exploiting a vulnerability.
   es: Atacante sin autorización desde internet explotando la vulnerabilidad.

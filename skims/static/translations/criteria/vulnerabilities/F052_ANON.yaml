@@ -1,6 +1,6 @@
 lib_ssl.analyze_protocol.anonymous_ciphers_allowed:
-  en: "anonymous ciphers allowed"
-  es: "permite métodos de cifrado ananimos"
+  en: anonymous ciphers allowed
+  es: permite métodos de cifrado ananimos
 F052_ANON.description:
   en: The application allows anonymous encryption algorithms.
   es: La aplicación permite utilizar algoritmos de cifrado anonimos.
