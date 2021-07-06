@@ -13,11 +13,11 @@
       in group <strong>{{ group }}</strong> has been changed to <strong>{{ treatment }}</strong>:
     </p>
     {{ text_area(vulnerabilities) }}
-    <br />
-    {{ go_to_button('Go to finding', finding_link) }}
     <p></p>
     <p>Regards,<br>
       Fluid Attacks Team</p>
+    {{ go_to_button('Go to finding', finding_link) }}
+    <br />
   </div>
 
   {% include 'layouts/components/footer.html' %}

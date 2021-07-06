@@ -18,11 +18,10 @@
     <div class="w-80 text-area" style="text-align: center;">
       <div><strong>{{ finding_name }}</strong> in group <strong>{{ group }}</strong></div>
     </div>
-    <p></p>
-    {{ go_to_button('Go to draft', finding_url) }}
-    <p></p>
     <p>Regards,<br>
       Fluid Attacks Team</p>
+    {{ go_to_button('Go to draft', finding_url) }}
+    <br />
   </div>
 
   {% include 'layouts/components/footer.html' %}
