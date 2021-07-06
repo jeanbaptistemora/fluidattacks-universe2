@@ -89,7 +89,7 @@ const NavbarContactButton: StyledComponent<
     f-18
     br2
     bw1
-    ph2
+    ph3
     pv2
     bg-fluid-red
     bc-hovered-red
@@ -120,7 +120,7 @@ const NavbarLoginButton: StyledComponent<
     f-18
     br2
     bw1
-    ph2
+    ph3
     pv2
     bg-gray-233
     bc-gray-233
