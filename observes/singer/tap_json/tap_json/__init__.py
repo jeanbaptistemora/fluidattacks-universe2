@@ -35,7 +35,7 @@ FIELD_SEP: str = "__"
 TABLE_SEP: str = "____"
 SCHEMAS_DIR: str = "____schemas"
 RECORDS_DIR: str = "____records"
-
+STATE_DIR: str = "____state"
 ENABLE_TIMESTAMPS: bool = False
 
 DATE_FORMATS: List[str] = [
@@ -145,7 +145,7 @@ def pt2st(ptype: str) -> JSON:
 
 def prepare_env() -> None:
     """Create/reset the staging area."""
-    for _dir in (RECORDS_DIR, SCHEMAS_DIR):
+    for _dir in (RECORDS_DIR, SCHEMAS_DIR, STATE_DIR):
         if not os.path.exists(_dir):
             os.makedirs(_dir)
         else:
@@ -155,7 +155,7 @@ def prepare_env() -> None:
 
 def release_env() -> None:
     """Clean the staging area on exit."""
-    for _dir in (SCHEMAS_DIR, RECORDS_DIR):
+    for _dir in (SCHEMAS_DIR, RECORDS_DIR, STATE_DIR):
         for file in os.listdir(_dir):
             os.remove(f"{_dir}/{file}")
         os.removedirs(f"{_dir}")
@@ -344,13 +344,20 @@ def main() -> None:
     for stream in io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8"):
         with contextlib.suppress(JSONDecodeError):
             stream_stru = loads(stream)
-            linearize(stream_stru["stream"], stream_stru["record"])
-
+            if stream_stru["type"] == "RECORD":
+                linearize(stream_stru["stream"], stream_stru["record"])
+            elif stream_stru["type"] == "STATE":
+                write(STATE_DIR, "states", stream)
     catalog()
 
     # Parse everything to singer
     for schema in os.listdir(SCHEMAS_DIR):
         dump_schema(schema)
+    try:
+        for state in read(STATE_DIR, "states"):
+            print(state)
+    except FileNotFoundError:
+        pass
 
     release_env()
 

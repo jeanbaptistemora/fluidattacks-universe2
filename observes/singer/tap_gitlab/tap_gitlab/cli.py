@@ -40,7 +40,7 @@ def _extract_s3_ids(url: str) -> Tuple[str, str]:
     "--state",
     type=str,
     default=None,
-    help="json file S3 bucket URL; i.e. s3://mybucket/folder/state.json",
+    help="json file S3 bucket URL; e.g. s3://mybucket/folder/state.json",
 )
 @click.option("--max-pages", type=int, default=1000)
 @click.option("--all-streams", is_flag=True)
