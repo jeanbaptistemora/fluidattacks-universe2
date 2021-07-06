@@ -9,6 +9,7 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
+import waitForExpect from "wait-for-expect";
 
 import { Portfolio } from "scenes/Dashboard/containers/GroupSettingsView/Portfolio";
 import type { IPortfolioProps } from "scenes/Dashboard/containers/GroupSettingsView/Portfolio";
@@ -22,12 +23,11 @@ import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
 jest.mock("../../../../../utils/notifications", (): Dictionary => {
-  const mockedNotifications: Dictionary = jest.requireActual(
+  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
     "../../../../../utils/notifications"
   );
-
-  mockedNotifications.msgError = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
-  mockedNotifications.msgSuccess = jest.fn(); // eslint-disable-line fp/no-mutation, jest/prefer-spy-on
+  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
   return mockedNotifications;
 });
@@ -127,12 +127,13 @@ describe("Portfolio", (): void => {
     const form: ReactWrapper = addTagsModal().find("Formik").at(0);
     form.simulate("submit");
     await act(async (): Promise<void> => {
-      const delay = 100;
-      await wait(delay);
-      wrapper.update();
-    });
+      await waitForExpect((): void => {
+        wrapper.update();
 
-    expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+        expect(wrapper).toHaveLength(1);
+        expect(msgSuccess).toHaveBeenCalledTimes(1);
+      });
+    });
 
     jest.clearAllMocks();
   });

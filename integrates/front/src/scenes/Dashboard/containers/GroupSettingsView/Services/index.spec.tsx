@@ -10,8 +10,9 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
-import wait from "waait";
+import waitForExpect from "wait-for-expect";
 
+import { GET_GROUP_DATA as GET_GROUP_SERVICES } from "scenes/Dashboard/containers/GroupRoute/queries";
 import {
   EDIT_GROUP_DATA,
   GET_GROUP_DATA,
@@ -109,6 +110,26 @@ describe("Services", (): void => {
         },
       },
     },
+    {
+      request: {
+        query: GET_GROUP_SERVICES,
+        variables: {
+          groupName: "unittesting",
+        },
+      },
+      result: {
+        data: {
+          group: {
+            hasForces: false,
+            hasMachine: false,
+            hasSquad: false,
+            language: "EN",
+            name: "unittesting",
+            subscription: "CONTINUOUS",
+          },
+        },
+      },
+    },
   ];
 
   const mockedPermissions: PureAbility<string> = new PureAbility([
@@ -140,8 +161,11 @@ describe("Services", (): void => {
         </Provider>
       );
       await act(async (): Promise<void> => {
-        await wait(1);
-        wrapper.update();
+        await waitForExpect((): void => {
+          wrapper.update();
+
+          expect(wrapper).toHaveLength(1);
+        });
       });
 
       const table: ReactWrapper = wrapper.find("table");
@@ -169,8 +193,11 @@ describe("Services", (): void => {
       </Provider>
     );
     await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(wrapper).toHaveLength(1);
+      });
     });
 
     const formValues: () => IFormValues = (): IFormValues =>

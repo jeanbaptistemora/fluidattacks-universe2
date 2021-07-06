@@ -26,6 +26,7 @@ import { DataTableNext } from "components/DataTableNext";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
+import { GET_GROUP_DATA as GET_GROUP_SERVICES } from "scenes/Dashboard/containers/GroupRoute/queries";
 import {
   EDIT_GROUP_DATA,
   GET_GROUP_DATA,
@@ -155,6 +156,14 @@ const Services: React.FC<IServicesProps> = (
       onError: (error: ApolloError): void => {
         handleEditGroupDataError(error);
       },
+      refetchQueries: [
+        {
+          query: GET_GROUP_SERVICES,
+          variables: {
+            groupName,
+          },
+        },
+      ],
       variables: {
         comments: formValues.comments,
         groupName,
