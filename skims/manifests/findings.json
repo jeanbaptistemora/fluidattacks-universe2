@@ -25,6 +25,7 @@
   "F043_DAST_XCTO",
   "F052",
   "F052_ANON",
+  "F052_CBC",
   "F052_PFS",
   "F052_SSLV3",
   "F052_TLS",
