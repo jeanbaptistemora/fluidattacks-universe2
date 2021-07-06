@@ -232,7 +232,7 @@ type Mutation {
     hasMachine: Boolean
     hasDrills: Boolean
     hasSquad: Boolean
-    hasForces: Boolean!
+    hasForces: Boolean
     hasIntegrates: Boolean
     hasAsm: Boolean
     reason: EditGroupReason!

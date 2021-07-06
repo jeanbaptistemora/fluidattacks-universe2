@@ -47,7 +47,6 @@ import {
  * Business rules to create a group:
  *   - ASM must enabled, because we are using ASM right now, right?
  *   - Squad <--needs-- ASM
- *   - Forces <--needs-- Squad
  *
  * Business rules after creating the group:
  *   - If ASM is turned off, the group will be immediately deleted
@@ -103,7 +102,6 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
       organization: string;
       type: string;
       squad: boolean;
-      forces: boolean;
       machine: boolean;
     }): void => {
       track("AddGroup");
@@ -111,7 +109,6 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
         variables: {
           description: values.description,
           groupName: values.name,
-          hasForces: values.forces,
           hasMachine: values.machine,
           hasSquad: values.squad,
           language: values.language,
@@ -146,7 +143,6 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
           enableReinitialize={true}
           initialValues={{
             description: "",
-            forces: true,
             language: "EN",
             machine: true,
             name: groupName.toUpperCase(),

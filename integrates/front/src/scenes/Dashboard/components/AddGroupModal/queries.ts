@@ -14,7 +14,6 @@ const CREATE_GROUP_MUTATION: DocumentNode = gql`
     $description: String!
     $hasMachine: Boolean
     $hasSquad: Boolean
-    $hasForces: Boolean
     $language: Language
     $organization: String!
     $groupName: String!
@@ -24,7 +23,6 @@ const CREATE_GROUP_MUTATION: DocumentNode = gql`
       description: $description
       hasMachine: $hasMachine
       hasSquad: $hasSquad
-      hasForces: $hasForces
       language: $language
       organization: $organization
       groupName: $groupName

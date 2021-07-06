@@ -29,7 +29,6 @@ const EDIT_GROUP_DATA: DocumentNode = gql`
       comments: $comments
       groupName: $groupName
       hasSquad: $hasSquad
-      hasForces: $hasForces
       hasAsm: $hasASM
       hasMachine: $hasMachine
       reason: $reason

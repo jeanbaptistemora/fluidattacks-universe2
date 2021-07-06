@@ -50,7 +50,6 @@ async def create_group() -> str:
                 subscription: CONTINUOUS,
                 hasMachine: true,
                 hasSquad: true,
-                hasForces: true
             ) {{
             success
             }}

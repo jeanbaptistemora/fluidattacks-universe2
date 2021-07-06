@@ -25,7 +25,6 @@ async def get_result(
                 subscription: CONTINUOUS,
                 hasMachine: true,
                 hasSquad: true,
-                hasForces: true
             ) {{
             success
             }}

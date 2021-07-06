@@ -22,7 +22,6 @@ async def get_result(
                 groupName: "{group}",
                 subscription: ONESHOT,
                 hasSquad: false,
-                hasForces: false,
                 hasAsm: false,
                 hasMachine: false,
                 reason: NONE,

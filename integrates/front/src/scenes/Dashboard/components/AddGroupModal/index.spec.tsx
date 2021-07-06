@@ -99,7 +99,7 @@ describe("AddGroupModal component", (): void => {
     expect(submitButton).toHaveLength(1);
   });
 
-  it("should remove Forces and Squad switches", (): void => {
+  it("should remove Squad switch", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(

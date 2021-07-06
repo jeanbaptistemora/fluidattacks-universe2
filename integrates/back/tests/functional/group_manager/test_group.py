@@ -29,7 +29,6 @@ async def test_group() -> None:  # pylint: disable=too-many-statements
                 subscription: CONTINUOUS,
                 hasMachine: true,
                 hasSquad: true,
-                hasForces: true
             ) {{
             success
             }}
@@ -51,7 +50,6 @@ async def test_group() -> None:  # pylint: disable=too-many-statements
                 subscription: CONTINUOUS,
                 hasMachine: true,
                 hasSquad: true,
-                hasForces: true
             ) {{
             success
             }}
@@ -370,7 +368,6 @@ async def test_group() -> None:  # pylint: disable=too-many-statements
                 groupName: "{group_name}",
                 subscription: ONESHOT,
                 hasSquad: false,
-                hasForces: false,
                 hasAsm: false,
                 hasMachine: false,
                 reason: NONE,

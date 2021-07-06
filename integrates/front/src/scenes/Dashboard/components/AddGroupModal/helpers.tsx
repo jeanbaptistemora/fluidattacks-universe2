@@ -43,7 +43,6 @@ const getSwitchButtonHandlers = (
   values: {
     type: string;
     squad: boolean;
-    forces: boolean;
     machine: boolean;
   },
   setFieldValue: (
@@ -51,12 +50,11 @@ const getSwitchButtonHandlers = (
     value: unknown,
     shouldValidate?: boolean | undefined
   ) => void,
-  scope: "forces" | "machine" | "squad" | "subscription"
+  scope: "machine" | "squad" | "subscription"
 ): ((checked: boolean) => void) => {
   function handleSubscriptionTypeChange(): void {
     setFieldValue("machine", values.type !== "CONTINUOUS");
     setFieldValue("squad", true);
-    setFieldValue("forces", values.type !== "CONTINUOUS");
   }
 
   function handleMachineBtnChange(): void {
@@ -64,7 +62,6 @@ const getSwitchButtonHandlers = (
 
     if (values.machine) {
       setFieldValue("squad", false);
-      setFieldValue("forces", false);
     }
   }
 
@@ -76,23 +73,13 @@ const getSwitchButtonHandlers = (
     }
   }
 
-  function handleForcesBtnChange(): void {
-    if (values.machine) {
-      setFieldValue("forces", !values.forces);
-    } else {
-      setFieldValue("forces", false);
-    }
-  }
-
   if (scope === "subscription") {
     return handleSubscriptionTypeChange;
   } else if (scope === "machine") {
     return handleMachineBtnChange;
-  } else if (scope === "squad") {
-    return handleSquadBtnChange;
   }
 
-  return handleForcesBtnChange;
+  return handleSquadBtnChange;
 };
 
 export {
