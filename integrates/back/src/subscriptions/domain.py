@@ -260,14 +260,15 @@ async def send_digest_report(
         f"- groups for the user {user_email}: {str(groups)}", **NOEXTRA
     )
 
-    # Exception: WF(Cannot assign to accepted value)
-    mail_contents = list()  # NOSONAR
+    mail_contents: Union[Tuple[MailContent], Tuple] = tuple()
     if digest_stats:
-        mail_contents = [
-            group_stats
-            for group_stats in digest_stats
-            if group_stats["group"] in groups
-        ]
+        mail_contents = tuple(
+            [
+                group_stats
+                for group_stats in digest_stats
+                if group_stats["group"] in groups
+            ]
+        )
     elif loaders:
         mail_contents = await collect(
             groups_domain.get_group_digest_stats(loaders, group)
@@ -278,8 +279,13 @@ async def send_digest_report(
         return
 
     user_stats = groups_domain.process_user_digest_stats(groups, mail_contents)
+
+    if not user_stats["groups_len"]:
+        LOGGER_CONSOLE.warning("- NO available info for user", **NOEXTRA)
+        return
+
     await groups_mail.send_mail_daily_digest([user_email], user_stats)
-    LOGGER_CONSOLE.info("- digest emails sent", **NOEXTRA)
+    LOGGER_CONSOLE.info("- digest email sent", **NOEXTRA)
 
 
 async def send_user_to_entity_report(

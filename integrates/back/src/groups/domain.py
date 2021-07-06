@@ -118,6 +118,7 @@ from typing import (
     NamedTuple,
     Optional,
     Set,
+    Tuple,
     Union,
 )
 from users import (
@@ -134,7 +135,7 @@ LOGGER = logging.getLogger(__name__)
 
 
 def _process_digest_reattacks_requested(
-    reattacks_requested: int, groups_stats: List[MailContentType]
+    reattacks_requested: int, groups_stats: Tuple[MailContentType]
 ) -> MailContentType:
     """Process digest reattacks requested sub-section"""
     requested: MailContentType = {
@@ -191,7 +192,7 @@ def _process_digest_reattacks_requested(
 def _process_digest_reattacks_executed(
     reattacks_executed: int,
     effective_reattacks: int,
-    groups_stats: List[MailContentType],
+    groups_stats: Tuple[MailContentType],
 ) -> MailContentType:
     """Process digest reattacks executed sub-section"""
     executed: MailContentType = {
@@ -245,7 +246,7 @@ def _process_digest_reattacks_executed(
 
 
 def _process_digest_reattacks_pending(
-    groups_stats: List[MailContentType],
+    groups_stats: Tuple[MailContentType],
 ) -> MailContentType:
     """Process digest pending reattacks sub-section"""
     pending: MailContentType = {
@@ -268,7 +269,7 @@ def _process_digest_reattacks_pending(
 
 
 def _process_digest_reattacks(
-    groups_stats: List[MailContentType],
+    groups_stats: Tuple[MailContentType],
 ) -> MailContentType:
     """Process digest reattacks section"""
     reattacks_count: Counter = Counter()
@@ -301,7 +302,7 @@ def _process_digest_reattacks(
 
 
 def _process_digest_treatments(
-    groups_stats: List[MailContentType],
+    groups_stats: Tuple[MailContentType],
 ) -> MailContentType:
     """Process digest treatments section"""
     treatments_count: Counter = Counter()
@@ -1328,7 +1329,7 @@ async def get_group_digest_stats(
 
 def process_user_digest_stats(
     groups: List[str],
-    groups_stats: List[MailContentType],
+    groups_stats: Tuple[MailContentType],
 ) -> MailContentType:
     """Consolidate several groups stats with precalculated data"""
     total: MailContentType = {
