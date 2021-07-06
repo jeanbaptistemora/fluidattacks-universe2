@@ -71,6 +71,7 @@ const CardTitle: StyledComponent<
     lh2
     pb3
     h-resources-card-title
+    roboto
   `,
 })``;
 

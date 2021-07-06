@@ -546,13 +546,13 @@ $gray-244: rgba(244, 244, 246, 1);
 .breadcrumb__list {
   font-size: 0.75rem;
   margin: 0 auto !important;
-  max-width: 1366px;
-  padding: 15px 1.875rem !important;
+  max-width: 1570px;
+  padding: 15px 1.75rem !important;
   text-align: left;
 
   @media screen and (min-width: 60em) {
     font-size: 0.875rem;
-    padding: 15px 3.75rem !important;
+    padding: 15px 1.75rem !important;
   }
 }
 
