@@ -1268,11 +1268,22 @@ async def get_group_digest_stats(
             "new": 0,
         },
         "findings": list(),
+        "vulns_len": 0,
     }
 
     group_findings_loader = context.group_findings
     findings = await group_findings_loader.load(group_name)
 
+    finding_vulns_loader = context.finding_vulns_nzr
+    vulns = await finding_vulns_loader.load_many_chained(
+        [str(finding["finding_id"]) for finding in findings]
+    )
+
+    if len(vulns) == 0:
+        print(f"=== NO vulns for {group_name}")
+        return content
+
+    content["vulns_len"] = len(vulns)
     last_day = datetime_utils.get_now_minus_delta(hours=24)
     content[
         "findings"
@@ -1328,12 +1339,22 @@ async def get_group_digest_stats(
 
 
 def process_user_digest_stats(
-    groups: List[str],
-    groups_stats: Tuple[MailContentType],
+    group_stats_all: Tuple[MailContentType],
 ) -> MailContentType:
     """Consolidate several groups stats with precalculated data"""
+    # Filter out those groups with no vulns
+    groups_stats: Tuple[MailContentType] = cast(
+        Tuple[MailContentType],
+        tuple([group for group in group_stats_all if group["vulns_len"] > 0]),
+    )
+
+    if len(groups_stats) == 0:
+        return {
+            "groups_len": 0,
+        }
+
     total: MailContentType = {
-        "groups_len": len(groups),
+        "groups_len": len(groups_stats),
         "remediation_rate": {
             "max": 0,
             "max_group": groups_stats[0]["group"],
@@ -1343,7 +1364,7 @@ def process_user_digest_stats(
         "remediation_time": {
             "max": 0,
             "max_group": groups_stats[0]["group"],
-            "min": groups_stats[0]["main"]["remediation_rate"],
+            "min": groups_stats[0]["main"]["remediation_time"],
             "min_group": groups_stats[0]["group"],
         },
         "findings": list(),

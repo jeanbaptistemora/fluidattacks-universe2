@@ -552,5 +552,6 @@ async def test_get_group_digest_stats() -> None:
                 "finding_age": 603,
             }
         ],
+        "vulns_len": 36,
     }
     assert expected_output == total_stats

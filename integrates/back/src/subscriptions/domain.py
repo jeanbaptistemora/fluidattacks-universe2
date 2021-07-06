@@ -278,9 +278,9 @@ async def send_digest_report(
         LOGGER_CONSOLE.warning("- digest email NOT sent", **NOEXTRA)
         return
 
-    user_stats = groups_domain.process_user_digest_stats(groups, mail_contents)
+    user_stats = groups_domain.process_user_digest_stats(mail_contents)
 
-    if not user_stats["groups_len"]:
+    if user_stats["groups_len"] == 0:
         LOGGER_CONSOLE.warning("- NO available info for user", **NOEXTRA)
         return
 
