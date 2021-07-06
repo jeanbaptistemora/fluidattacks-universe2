@@ -21,8 +21,8 @@ is capable of encrypting some of your important files,
 denying you access to them,
 or blocking your operating system completely.
 At the end of the day,
-we know that paying the ransom finances criminal groups,
-with no guarantee that they will give you
+we know that paying the ransom to the criminal groups
+does not guarantee that they will give you
 the decryption key to unlock
 link:https://cutt.ly/snkgWa8[your data].
 Ransomware attacks are increasing year after year.
