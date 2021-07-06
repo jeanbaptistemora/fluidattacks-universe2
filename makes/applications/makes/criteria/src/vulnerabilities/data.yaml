@@ -3626,13 +3626,13 @@
   metadata: {}
 127:
   en:
-    title: Use of software with known vulnerabilities - SSLv3
+    title: Use of software with known vulnerabilities - insecure SSLv3
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Uso de componentes con vulnerabilidades conocidas - SSLv3
+    title: Uso de componentes con vulnerabilidades conocidas - SSLv3 inseguro
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3655,13 +3655,13 @@
   metadata: {}
 128:
   en:
-    title: Uncontrolled external site redirect - Host header
+    title: Insecurely generated cookies - missing HttpOnly
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Redirección a sitio externo no controlada - Encabezado Host
+    title: Cookies generadas de forma insegura - HttpOnly faltante
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3684,13 +3684,13 @@
   metadata: {}
 129:
   en:
-    title: Insecurely generated cookies - SameSite
+    title: Insecurely generated cookies - SameSite protection
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Cookies generadas de forma insegura - SameSite
+    title: Cookies generadas de forma insegura - protección SameSite
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3713,13 +3713,13 @@
   metadata: {}
 130:
   en:
-    title: Insecurely generated cookies - Secure
+    title: Insecurely generated cookies - Secure attribute
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Cookies generadas de forma insegura - Secure
+    title: Cookies generadas de forma insegura - atributo Secure
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3742,13 +3742,13 @@
   metadata: {}
 131:
   en:
-    title: Missing HTTP security headers - Content-Security-Policy
+    title: Missing HTTP security headers - Referrer-Policy
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Ausencia de encabezados de seguridad HTTP - Content-Security-Policy
+    title: Ausencia de encabezados de seguridad HTTP - Referrer-Policy
     description: __empty__
     impact: __empty__
     recommendation: __empty__
