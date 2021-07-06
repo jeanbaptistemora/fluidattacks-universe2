@@ -2849,7 +2849,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Ausencia de protección contra borrado
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2878,7 +2878,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Unicidad de correos electronicos no verificada adecuadamente
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2907,7 +2907,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Verificación de autenticidad de datos insuficiente
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2936,7 +2936,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Ataques con unidad USB
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2965,7 +2965,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Inyección de consulta Apache Lucene
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2994,7 +2994,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Inyección NoSQL
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3023,7 +3023,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Inyección de LDAP
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3052,7 +3052,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Control inadecuado de la frecuenica de interacción
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3081,7 +3081,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Inyección SQL - C Sharp SQL API
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3110,7 +3110,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Contrabando de solicitud HTTP
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3139,7 +3139,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Lectura fuera de los límites
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3168,7 +3168,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Inyección SQL - Java SQL API
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3197,7 +3197,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Asignación de tipo incorrecta
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3226,7 +3226,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Phishing
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3255,7 +3255,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Evasión de controles de seguridad
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3284,7 +3284,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Fugas XS
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3313,7 +3313,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Archivos no auditables
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3342,7 +3342,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Infracción de regulación
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3371,7 +3371,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Metadatos con información sensible
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3400,7 +3400,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Fijación de dependencia inadecuada
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3429,7 +3429,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Contaminación de parámetros HTTP
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3458,7 +3458,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Inundación de correo electronico
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3487,7 +3487,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Inclusión de archivo local - LFI
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3516,7 +3516,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Condición de carrera
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3545,7 +3545,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Listado de directorio
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3574,7 +3574,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Ausencia de métodos de aislamiento
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3603,7 +3603,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Uso de componentes con vulnerabilidades conocidas - SSLv3
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3632,7 +3632,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Redirección a sitio externo no controlada - Encabezado Host
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3661,7 +3661,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Cookies generadas de forma insegura - SameSite
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3690,7 +3690,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Cookies generadas de forma insegura - Secure
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3719,7 +3719,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Ausencia de encabezados de seguridad HTTP - Content-Security-Policy
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3777,7 +3777,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Ausencia de encabezados de seguridad HTTP - X-Content-Type-Options
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3806,7 +3806,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Algoritmo de cifrado inseguro - Perfect Forward Secrecy
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3835,7 +3835,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Configuración insegura del servicio - ADB Backups
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3864,7 +3864,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Configuración insegura del servicio - CORS
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3893,7 +3893,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Falta de validación de datos - Path Traversal
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3922,7 +3922,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Falta de validación de datos - Trust boundary violation
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3951,7 +3951,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Pérdida de trazabilidad - Reloj del servidor
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3980,7 +3980,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Prácticas inadecuadas de programación - Import con comodín
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -4009,7 +4009,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Acceso no autorizado a archivos - APK Content Provider
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -4038,7 +4038,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: __empty
+    title: Verificación de autenticidad de datos insuficiente - Firmado del APK
     description: __empty__
     impact: __empty__
     recommendation: __empty__
