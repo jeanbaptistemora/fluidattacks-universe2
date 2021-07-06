@@ -2289,6 +2289,35 @@
       report_confidence: "X"
   requirements: []
   metadata: {}
+080:
+  en:
+    title: Insecure service configuration - AWS Missing encryption
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  es:
+    title: Configuración insegura del servicio - AWS ausencia de cifrado
+    description: __empty__
+    impact: __empty__
+    recommendation: __empty__
+    threat: __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: []
+  metadata: {}
 081:
   en:
     title: Lack of multi-factor authentication
@@ -2443,7 +2472,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Falta de validación de integridad de los subrecursos
+    title: Falta de verificación de subresource integrity
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2582,13 +2611,13 @@
   metadata: {}
 092:
   en:
-    title: Cipher Suites
+    title: Insecure encryption algorithm - Cipher Suites
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Suites de cifrado
+    title: Configuración insegura del servicio - Cipher Suites
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2640,13 +2669,13 @@
   metadata: {}
 094:
   en:
-    title: SSL
+    title: Insecure encryption algorithm - SSL
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: SSL
+    title: Configuración insegura del servicio - SSL
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2901,13 +2930,13 @@
   metadata: {}
 103:
   en:
-    title: Insufficient data authenticity validation
+    title: Insufficient data authenticity validation - APK signing
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Verificación de autenticidad de datos insuficiente
+    title: Verificación de autenticidad de datos insuficiente - Firmado del APK
     description: __empty__
     impact: __empty__
     recommendation: __empty__
