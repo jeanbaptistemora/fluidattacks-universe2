@@ -99,7 +99,7 @@ async def confirm_zero_risk_vulnerabilities(
     justification: str,
     vuln_ids: List[str],
 ) -> bool:
-    validate_justificaiton_length(justification)
+    validate_justification_length(justification)
     vulnerabilities = await get_by_finding_and_uuids(finding_id, set(vuln_ids))
     vulnerabilities = [
         validate_requested_zero_risk_vuln(vuln) for vuln in vulnerabilities
@@ -520,7 +520,7 @@ async def reject_zero_risk_vulnerabilities(
     justification: str,
     vuln_ids: List[str],
 ) -> bool:
-    validate_justificaiton_length(justification)
+    validate_justification_length(justification)
     vulnerabilities = await get_by_finding_and_uuids(finding_id, set(vuln_ids))
     vulnerabilities = [
         validate_requested_zero_risk_vuln(vuln) for vuln in vulnerabilities
@@ -564,7 +564,7 @@ async def request_zero_risk_vulnerabilities(
     justification: str,
     vuln_ids: List[str],
 ) -> bool:
-    validate_justificaiton_length(justification)
+    validate_justification_length(justification)
     vulnerabilities = await get_by_finding_and_uuids(finding_id, set(vuln_ids))
     vulnerabilities = [
         validate_not_requested_zero_risk_vuln(vuln) for vuln in vulnerabilities
@@ -805,9 +805,9 @@ async def update_vuln_state(
     return True
 
 
-def validate_justificaiton_length(justification: str) -> None:
+def validate_justification_length(justification: str) -> None:
     """Validate justification length"""
-    max_justification_length = 2000
+    max_justification_length = 5000
     if len(justification) > max_justification_length:
         raise InvalidJustificationMaxLength(max_justification_length)
 

@@ -206,6 +206,11 @@ const handleRequestZeroRiskError = (
       "Exception - Zero risk vulnerability is already requested"
     ) {
       msgError(translate.t("groupAlerts.zeroRiskAlreadyRequested"));
+    } else if (
+      error.message ===
+      "Exception - Justification must have a maximum of 5000 characters"
+    ) {
+      msgError(translate.t("validations.invalidFieldLength"));
     } else {
       msgError(translate.t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred requesting zero risk vuln", error);

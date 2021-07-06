@@ -328,6 +328,9 @@ describe("Update Description component", (): void => {
             new GraphQLError(
               "Exception - Zero risk vulnerability is already requested"
             ),
+            new GraphQLError(
+              "Exception - Justification must have a maximum of 5000 characters"
+            ),
           ],
         },
       },
@@ -380,8 +383,13 @@ describe("Update Description component", (): void => {
     expect(wrapperRequest).toHaveLength(1);
     expect(handleClearSelected).not.toHaveBeenCalled();
     expect(handleOnClose).not.toHaveBeenCalled();
-    expect(msgError).toHaveBeenCalledWith(
-      "Zero risk vulnerability already requested"
+    expect(msgError).toHaveBeenNthCalledWith(
+      1,
+      translate.t("groupAlerts.zeroRiskAlreadyRequested")
+    );
+    expect(msgError).toHaveBeenNthCalledWith(
+      2,
+      translate.t("validations.invalidFieldLength")
     );
   });
 
