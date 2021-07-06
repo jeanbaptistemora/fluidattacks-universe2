@@ -430,7 +430,7 @@ def require_forces(func: TVar) -> TVar:
     return REQUIRE_FORCES(func)
 
 
-def require_integrates(func: TVar) -> TVar:
+def require_asm(func: TVar) -> TVar:
     return REQUIRE_INTEGRATES(func)
 
 

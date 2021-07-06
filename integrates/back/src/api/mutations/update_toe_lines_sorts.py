@@ -15,7 +15,7 @@ from data_containers.toe_lines import (
 )
 from decorators import (
     concurrent_decorators,
-    require_integrates,
+    require_asm,
     require_login,
 )
 from graphql.type.definition import (
@@ -38,7 +38,7 @@ from typing import (
 
 
 @convert_kwargs_to_snake_case
-@concurrent_decorators(require_login, require_integrates)
+@concurrent_decorators(require_login, require_asm)
 async def mutate(
     _: Any,
     info: GraphQLResolveInfo,

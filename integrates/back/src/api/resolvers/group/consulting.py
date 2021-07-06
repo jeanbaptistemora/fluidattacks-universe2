@@ -5,7 +5,7 @@ from custom_types import (
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
-    require_integrates,
+    require_asm,
     require_squad,
 )
 from functools import (
@@ -31,7 +31,7 @@ from typing import (
 
 
 @concurrent_decorators(
-    enforce_group_level_auth_async, require_integrates, require_squad
+    enforce_group_level_auth_async, require_asm, require_squad
 )
 async def resolve(
     parent: Group, info: GraphQLResolveInfo, **kwargs: None

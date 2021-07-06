@@ -7,7 +7,7 @@ from custom_types import (
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
-    require_integrates,
+    require_asm,
     require_login,
 )
 from findings import (
@@ -28,7 +28,7 @@ from redis_cluster.operations import (
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,
-    require_integrates,
+    require_asm,
 )
 async def mutate(
     _parent: None, info: GraphQLResolveInfo, evidence_id: str, finding_id: str

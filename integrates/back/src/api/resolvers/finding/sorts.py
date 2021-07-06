@@ -4,7 +4,7 @@ from custom_types import (
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
-    require_integrates,
+    require_asm,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -17,7 +17,7 @@ from typing import (
 
 @concurrent_decorators(
     enforce_group_level_auth_async,
-    require_integrates,
+    require_asm,
 )
 async def resolve(
     parent: Finding, info: GraphQLResolveInfo, **_kwargs: None

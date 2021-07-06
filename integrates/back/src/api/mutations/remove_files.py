@@ -7,7 +7,7 @@ from custom_types import (
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
-    require_integrates,
+    require_asm,
     require_login,
 )
 from graphql.type.definition import (
@@ -37,7 +37,7 @@ LOGGER = logging.getLogger(__name__)
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,
-    require_integrates,
+    require_asm,
 )
 async def mutate(
     _: Any,

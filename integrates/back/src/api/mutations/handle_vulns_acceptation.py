@@ -7,7 +7,7 @@ from custom_types import (
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
-    require_integrates,
+    require_asm,
     require_login,
 )
 from graphql.type.definition import (
@@ -31,7 +31,7 @@ from vulnerabilities.domain import (
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,
-    require_integrates,
+    require_asm,
 )
 async def mutate(
     _parent: None,

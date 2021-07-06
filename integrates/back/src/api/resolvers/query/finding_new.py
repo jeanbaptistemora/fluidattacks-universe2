@@ -11,7 +11,7 @@ from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     rename_kwargs,
-    require_integrates,
+    require_asm,
     require_login,
 )
 from graphql.type.definition import (
@@ -27,7 +27,7 @@ async def _get_draft(finding: Finding, _info: GraphQLResolveInfo) -> Finding:
 @convert_kwargs_to_snake_case
 @rename_kwargs({"identifier": "finding_id"})
 @concurrent_decorators(
-    require_login, enforce_group_level_auth_async, require_integrates
+    require_login, enforce_group_level_auth_async, require_asm
 )
 @require_login
 async def resolve(

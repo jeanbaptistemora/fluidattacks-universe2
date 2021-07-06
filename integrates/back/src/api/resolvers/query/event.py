@@ -11,7 +11,7 @@ from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     rename_kwargs,
-    require_integrates,
+    require_asm,
     require_login,
 )
 from graphql.type.definition import (
@@ -23,7 +23,7 @@ from graphql.type.definition import (
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,
-    require_integrates,
+    require_asm,
 )
 @rename_kwargs({"event_id": "identifier"})
 async def resolve(

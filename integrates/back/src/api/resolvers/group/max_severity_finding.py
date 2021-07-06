@@ -6,7 +6,7 @@ from custom_types import (
     Group,
 )
 from decorators import (
-    require_integrates,
+    require_asm,
 )
 from functools import (
     partial,
@@ -24,7 +24,7 @@ from typing import (
 )
 
 
-@require_integrates
+@require_asm
 async def resolve(
     parent: Group, info: GraphQLResolveInfo, **kwargs: None
 ) -> Optional[Finding]:

@@ -7,7 +7,7 @@ from custom_types import (
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
-    require_integrates,
+    require_asm,
     require_login,
 )
 from findings import (
@@ -34,7 +34,7 @@ LOGGER = logging.getLogger(__name__)
 
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
-    require_login, enforce_group_level_auth_async, require_integrates
+    require_login, enforce_group_level_auth_async, require_asm
 )
 async def mutate(
     _parent: None,

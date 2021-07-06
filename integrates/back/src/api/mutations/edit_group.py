@@ -11,7 +11,7 @@ from custom_types import (
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
-    require_integrates,
+    require_asm,
     require_login,
     turn_args_into_kwargs,
 )
@@ -40,7 +40,7 @@ from typing import (
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,
-    require_integrates,
+    require_asm,
 )
 @turn_args_into_kwargs
 async def mutate(  # pylint: disable=too-many-arguments

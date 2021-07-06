@@ -5,7 +5,7 @@ from custom_types import (
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
-    require_integrates,
+    require_asm,
 )
 from functools import (
     partial,
@@ -31,7 +31,7 @@ from users import (
 
 @concurrent_decorators(
     enforce_group_level_auth_async,
-    require_integrates,
+    require_asm,
 )
 async def resolve(
     parent: GroupType, info: GraphQLResolveInfo, **kwargs: None

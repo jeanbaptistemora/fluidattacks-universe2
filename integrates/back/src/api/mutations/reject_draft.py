@@ -11,8 +11,8 @@ from decorators import (
     concurrent_decorators,
     delete_kwargs,
     enforce_group_level_auth_async,
+    require_asm,
     require_finding_access,
-    require_integrates,
     require_login,
 )
 from findings import (
@@ -45,7 +45,7 @@ from typing import (
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,
-    require_integrates,
+    require_asm,
     require_finding_access,
 )
 async def mutate(

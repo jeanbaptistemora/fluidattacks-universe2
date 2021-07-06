@@ -12,7 +12,7 @@ from custom_types import (
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
-    require_integrates,
+    require_asm,
     require_login,
 )
 from graphql.type.definition import (
@@ -89,7 +89,7 @@ async def _update_stakeholder(
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,
-    require_integrates,
+    require_asm,
 )
 async def mutate(
     _: Any, info: GraphQLResolveInfo, **updated_data: str
