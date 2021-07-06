@@ -1,9 +1,20 @@
+# pylint: skip-file
+
 import boto3
 from datetime import (
     datetime,
 )
 import logging
 import pytz
+from returns.maybe import (
+    Maybe,
+)
+from singer_io.factory import (
+    emit,
+)
+from singer_io.singer import (
+    SingerState,
+)
 from tap_gitlab.api.auth import (
     Credentials,
 )
@@ -21,6 +32,7 @@ from tap_gitlab.state import (
     MrStateMap,
     MrStreamState,
     state_decoder,
+    state_encoder,
     StateGetter,
 )
 from tap_gitlab.streams import (
@@ -60,13 +72,12 @@ def defautl_stream(
     target_stream: Union[str, SupportedStreams],
     project: str,
     max_pages: int,
-    state_id: Optional[Tuple[str, str]] = None,
+    state_id: Maybe[Tuple[str, str]],
 ) -> None:
-    _state = (
-        state_getter.get(state_id[0], state_id[1])
-        if state_id
-        else default_etl_state(project)
-    )
+    _state = state_id.map(
+        lambda sid: state_getter.get(sid[0], sid[1])
+    ).value_or(default_etl_state(project))
+
     _target_stream = (
         SupportedStreams(target_stream)
         if isinstance(target_stream, str)
@@ -80,10 +91,12 @@ def defautl_stream(
     elif _target_stream == SupportedStreams.MERGE_REQUESTS:
         LOG.info("Executing stream: %s", _target_stream)
         streams = default_mr_streams(project)
-
         for stream in streams:
             result = emitter.emit_mrs(stream, _state.mrs.items[stream])
+            _state.mrs.items[stream] = result
             LOG.debug("new status: %s", result)
+        json_state = state_encoder.encode_etl_state(_state)
+        emit(SingerState(json_state))
 
     else:
         raise NotImplementedError(f"for {_target_stream}")

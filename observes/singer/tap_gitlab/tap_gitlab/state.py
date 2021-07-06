@@ -216,6 +216,8 @@ i_encoder: IntervalEncoder[datetime] = IntervalEncoder(
 i_encoder_2: IntervalEncoder[Tuple[int, PageId[int]]] = IntervalEncoder(
     lambda item: {"id-page": (item[0], item[1].page, item[1].per_page)}
 )
+stm_encoder = StreamEncoder()
+state_encoder = StateEncoder(i_encoder, i_encoder_2, stm_encoder)
 
 
 def decode_datetime(raw: JSON) -> datetime:
