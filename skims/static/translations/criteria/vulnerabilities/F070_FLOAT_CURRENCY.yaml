@@ -1,0 +1,25 @@
+F070_FLOAT_CURRENCY.description:
+  en: >
+    Representing currency using data types like float or double may result
+    in accuracy issues the more operations are performed using inexact
+    representations of a value
+  es: >
+    Representar moneda utilizando tipos de dato como float o double puede
+    resultar en problemas de precisión a medida que se hacen más y más
+    operaciones sobre representaciones inexactas de un valor
+F070_FLOAT_CURRENCY.impact:
+  en: Money operations may have incorrect results
+  es: Operaciones sobre moneda pueden tener resultados incorrectos
+F070_FLOAT_CURRENCY.recommendation:
+  en: |
+    - Use integer to represent currency and count in cents
+    - Use data types specially made to represent currency
+  es: |
+    - Usar enteros para representar moneda y contar en centavos
+    - Usar tipos de datos hechos específicamente para representar moneda
+F070_FLOAT_CURRENCY.threat:
+  en: Authenticated attacker from the Internet.
+  es: Atacante autenticado desde Internet.
+F070_FLOAT_CURRENCY.title:
+  en: F070. Inappropriate coding practices - Float currency
+  es: F070. Prácticas inadecuadas de programación - Moneda expresada con floats

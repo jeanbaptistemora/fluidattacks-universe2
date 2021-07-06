@@ -1236,6 +1236,11 @@
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
   },
+  "F070_FLOAT_CURRENCY": {
+    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
+    "skims/test/data/benchmark/nist/HouseController.cs": {},
+    "skims/test/data/benchmark/nist/StudentController.cs": {}
+  },
   "F070_WILDCARD_IMPORT": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
