@@ -11,7 +11,7 @@ from datetime import (
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
-    require_drills_white,
+    require_service_white,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -27,7 +27,7 @@ from typing import (
 
 @concurrent_decorators(
     enforce_group_level_auth_async,
-    require_drills_white,
+    require_service_white,
 )
 async def resolve(
     parent: Group, _info: GraphQLResolveInfo, **kwargs: datetime

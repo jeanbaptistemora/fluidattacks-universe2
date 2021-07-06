@@ -7,9 +7,9 @@ from custom_types import (
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
-    require_drills_black,
-    require_drills_white,
     require_login,
+    require_service_black,
+    require_service_white,
 )
 from dynamodb.types import (
     GitRootItem,
@@ -31,7 +31,7 @@ from typing import (
 )
 
 
-@require_drills_white
+@require_service_white
 async def deactivate_git_root(
     _info: GraphQLResolveInfo,
     root: GitRootItem,
@@ -47,7 +47,7 @@ async def deactivate_git_root(
     )
 
 
-@require_drills_black
+@require_service_black
 async def deactivate_ip_root(
     _info: GraphQLResolveInfo,
     root: IPRootItem,
@@ -63,7 +63,7 @@ async def deactivate_ip_root(
     )
 
 
-@require_drills_black
+@require_service_black
 async def deactivate_url_root(
     _info: GraphQLResolveInfo,
     root: URLRootItem,

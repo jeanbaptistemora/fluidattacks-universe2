@@ -371,22 +371,22 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
 # Factory functions
 REQUIRE_CONTINUOUS = require_attribute("is_continuous")
 REQUIRE_SQUAD = require_attribute("has_squad")
-REQUIRE_INTEGRATES = require_attribute("has_integrates")
+REQUIRE_ASM = require_attribute("has_integrates")
 REQUIRE_FORCES = require_attribute("has_forces")
-REQUIRE_DRILLS_BLACK = require_attribute("has_drills_black")
-REQUIRE_DRILLS_WHITE = require_attribute("has_drills_white")
+REQUIRE_SERVICE_BLACK = require_attribute("has_drills_black")
+REQUIRE_SERVICE_WHITE = require_attribute("has_drills_white")
 
 
 def require_continuous(func: TVar) -> TVar:
     return REQUIRE_CONTINUOUS(func)
 
 
-def require_drills_black(func: TVar) -> TVar:
-    return REQUIRE_DRILLS_BLACK(func)
+def require_service_black(func: TVar) -> TVar:
+    return REQUIRE_SERVICE_BLACK(func)
 
 
-def require_drills_white(func: TVar) -> TVar:
-    return REQUIRE_DRILLS_WHITE(func)
+def require_service_white(func: TVar) -> TVar:
+    return REQUIRE_SERVICE_WHITE(func)
 
 
 def require_finding_access(func: TVar) -> TVar:
@@ -431,7 +431,7 @@ def require_forces(func: TVar) -> TVar:
 
 
 def require_asm(func: TVar) -> TVar:
-    return REQUIRE_INTEGRATES(func)
+    return REQUIRE_ASM(func)
 
 
 def require_squad(func: TVar) -> TVar:
