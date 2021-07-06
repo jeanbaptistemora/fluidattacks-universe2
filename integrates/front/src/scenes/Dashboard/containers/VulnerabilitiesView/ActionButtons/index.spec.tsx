@@ -7,6 +7,17 @@ import { useTranslation } from "react-i18next";
 
 import { ActionButtons } from "scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons";
 import { authzPermissionsContext } from "utils/authz/config";
+import { msgInfo } from "utils/notifications";
+import { translate } from "utils/translations/translate";
+
+jest.mock("../../../../../utils/notifications", (): Dictionary => {
+  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
+    "../../../../../utils/notifications"
+  );
+  jest.spyOn(mockedNotifications, "msgInfo").mockImplementation();
+
+  return mockedNotifications;
+});
 
 describe("ActionButtons", (): void => {
   it("should return a function", (): void => {
@@ -144,11 +155,16 @@ describe("ActionButtons", (): void => {
     requestButton.simulate("click");
 
     act((): void => {
-      wrapper.setProps({ isOpen: true, isRequestingReattack: true });
+      wrapper.setProps({ isOpen: false, isRequestingReattack: true });
       wrapper.update();
     });
 
     expect(onRequestReattack).toHaveBeenCalledTimes(1);
+    expect(msgInfo).toHaveBeenCalledWith(
+      translate.t("searchFindings.tabVuln.info.text"),
+      translate.t("searchFindings.tabVuln.info.title"),
+      true
+    );
 
     const cancelRequestButton: ReactWrapper = wrapper
       .find("Button")
@@ -164,5 +180,26 @@ describe("ActionButtons", (): void => {
           button.text().includes(t("searchFindings.tabVuln.buttons.edit"))
         )
     ).toHaveLength(0);
+
+    cancelRequestButton.simulate("click");
+    act((): void => {
+      wrapper.setProps({ isOpen: false, isRequestingReattack: false });
+      wrapper.update();
+    });
+
+    expect(
+      wrapper
+        .find("Button")
+        .filterWhere((button: ReactWrapper): boolean =>
+          button
+            .text()
+            .includes(t("searchFindings.tabDescription.cancelVerify"))
+        )
+    ).toHaveLength(0);
+    expect(msgInfo).toHaveBeenCalledWith(
+      translate.t("searchFindings.tabVuln.info.text"),
+      translate.t("searchFindings.tabVuln.info.title"),
+      false
+    );
   });
 });
