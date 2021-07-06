@@ -57,6 +57,7 @@ def initialize() -> None:
                     f_score FLOAT,
                     overfit FLOAT,
                     tuned_parameters VARCHAR(256),
+                    training_time FLOAT,
 
                     PRIMARY KEY (
                         timestamp
