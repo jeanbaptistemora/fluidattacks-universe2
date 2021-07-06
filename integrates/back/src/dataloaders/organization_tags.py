@@ -10,6 +10,9 @@ from collections import (
 from custom_types import (
     Tag as TagType,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from tags import (
     domain as tags_domain,
 )
@@ -45,8 +48,10 @@ async def _batch_load_fn(organization_names: List[str]) -> List[List[TagType]]:
                     "mean_remediate_medium_severity"
                 ],
                 organization=organization_name,
-                projects=sorted(tag["projects"]),
                 tag=tag["tag"],
+                projects=sorted(resolve_kwargs(tag, "groups", "projects")),
+                # Standardization field
+                groups=sorted(resolve_kwargs(tag, "groups", "projects")),
             )
             for tag in organization_tags
         ]

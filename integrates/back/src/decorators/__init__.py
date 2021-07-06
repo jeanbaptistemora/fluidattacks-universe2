@@ -529,7 +529,7 @@ async def resolve_group_name(  # noqa: MC0001
     args: Any,
     kwargs: Any,
 ) -> str:
-    """Get project name based on args passed."""
+    """Get group name based on args passed."""
     if args and args[0] and "name" in args[0]:
         name = args[0]["name"]
     elif args and args[0] and "project_name" in args[0]:
@@ -553,7 +553,7 @@ async def resolve_group_name(  # noqa: MC0001
     elif "vuln_uuid" in kwargs:
         name = await _resolve_from_vuln_id(context, kwargs["vuln_uuid"])
     elif DEBUG:
-        raise Exception("Unable to identify project")
+        raise Exception("Unable to identify group")
     else:
         name = ""
 

@@ -11,6 +11,9 @@ from custom_types import (
 from findings import (
     domain as findings_domain,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from typing import (
     cast,
     Dict,
@@ -29,8 +32,8 @@ async def _batch_load_fn(
     fins = await findings_domain.get_findings_async(finding_ids)
     for finding in fins:
         # Compatibility with old API
-        group_name: str = finding.get(
-            "groupName", finding.get("projectName", "")
+        group_name: str = resolve_kwargs(
+            finding, "groupName", "projectName", ""
         )
         finding_id: str = cast(str, finding["findingId"])
         findings[finding_id] = dict(

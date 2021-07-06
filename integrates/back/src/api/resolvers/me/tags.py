@@ -44,9 +44,6 @@ async def resolve(
         }
         for tag in org_tags
         if any(
-            [
-                group in user_groups
-                for group in cast(List[str], tag["projects"])
-            ]
+            [group in user_groups for group in cast(List[str], tag["groups"])]
         )
     ]

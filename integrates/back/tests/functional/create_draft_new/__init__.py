@@ -32,7 +32,7 @@ async def get_result(
                 attackVectorDesc: "{attack_vector_desc}",
                 cwe: "{cwe}",
                 description: "{description}",
-                projectName: "{group}",
+                groupName: "{group}",
                 recommendation: "{recommendation}",
                 requirements: "{requirements}",
                 risk: "{risk}",

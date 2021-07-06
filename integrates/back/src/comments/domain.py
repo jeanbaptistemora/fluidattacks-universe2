@@ -49,12 +49,12 @@ def _fill_vuln_info(
 
 
 async def _get_comments(
-    comment_type: str, project_name: str, finding_id: str, user_email: str
+    comment_type: str, group_name: str, finding_id: str, user_email: str
 ) -> List[CommentType]:
     comments = await collect(
         [
             fill_comment_data(
-                project_name, user_email, cast(Dict[str, str], comment)
+                group_name, user_email, cast(Dict[str, str], comment)
             )
             for comment in await comments_dal.get_comments(
                 comment_type, int(finding_id)
@@ -141,7 +141,7 @@ async def get(comment_type: str, element_id: int) -> List[CommentType]:
 
 
 async def get_comments(
-    project_name: str,
+    group_name: str,
     finding_id: str,
     user_email: str,
     info: GraphQLResolveInfo,
@@ -150,7 +150,7 @@ async def get_comments(
     finding_vulns_loader = info.context.loaders.finding_vulns
 
     comments = await _get_comments(
-        "comment", project_name, finding_id, user_email
+        "comment", group_name, finding_id, user_email
     )
     finding = await finding_loader.load(finding_id)
     historic_verification = finding.get("historic_verification", [])
@@ -175,7 +175,7 @@ async def get_comments(
 
     new_comments: List[CommentType] = []
     enforcer = await authz.get_group_level_enforcer(user_email)
-    if enforcer(project_name, "handle_comment_scope"):
+    if enforcer(group_name, "handle_comment_scope"):
         new_comments = comments
     else:
         new_comments = list(filter(_is_scope_comment, comments))
@@ -220,15 +220,13 @@ async def get_comments_new(
 
 
 async def get_event_comments(
-    project_name: str, finding_id: str, user_email: str
+    group_name: str, finding_id: str, user_email: str
 ) -> List[CommentType]:
-    comments = await _get_comments(
-        "event", project_name, finding_id, user_email
-    )
+    comments = await _get_comments("event", group_name, finding_id, user_email)
 
     new_comments: List[CommentType] = []
     enforcer = await authz.get_group_level_enforcer(user_email)
-    if enforcer(project_name, "handle_comment_scope"):
+    if enforcer(group_name, "handle_comment_scope"):
         new_comments = comments
     else:
         new_comments = list(filter(_is_scope_comment, comments))
@@ -236,15 +234,15 @@ async def get_event_comments(
 
 
 async def get_observations(
-    project_name: str, finding_id: str, user_email: str
+    group_name: str, finding_id: str, user_email: str
 ) -> List[CommentType]:
     observations = await _get_comments(
-        "observation", project_name, finding_id, user_email
+        "observation", group_name, finding_id, user_email
     )
 
     new_observations: List[CommentType] = []
     enforcer = await authz.get_group_level_enforcer(user_email)
-    if enforcer(project_name, "handle_comment_scope"):
+    if enforcer(group_name, "handle_comment_scope"):
         new_observations = observations
     else:
         new_observations = list(filter(_is_scope_comment, observations))

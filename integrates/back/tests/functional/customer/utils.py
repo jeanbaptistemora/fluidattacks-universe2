@@ -46,7 +46,7 @@ async def create_group() -> str:
             createGroup(
                 organization: "{org_name}",
                 description: "This is a new group from pytest",
-                projectName: "{group_name}",
+                groupName: "{group_name}",
                 subscription: CONTINUOUS,
                 hasMachine: true,
                 hasSquad: true,
