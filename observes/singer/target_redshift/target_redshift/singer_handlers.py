@@ -1,3 +1,4 @@
+import json
 import jsonschema
 import logging
 from postgres_client.column import (
@@ -9,6 +10,7 @@ from postgres_client.table import (
 from singer_io.singer import (
     SingerRecord,
     SingerSchema,
+    SingerState,
 )
 from target_redshift.batcher import (
     Batcher,
@@ -20,9 +22,14 @@ from target_redshift.utils import (
     escape,
     str_len,
 )
+from tempfile import (
+    TemporaryFile,
+)
 from typing import (
     Any,
     Dict,
+    NamedTuple,
+    Optional,
 )
 
 LOG = logging.getLogger(__name__)
@@ -122,3 +129,24 @@ def schema_handler(
     if not modified_map:
         return schemas
     return schemas_map
+
+
+class StateId(NamedTuple):
+    bucket: str
+    obj_key: str
+
+
+def state_handler(
+    s3_client: Any,
+    state_id: Optional[StateId],
+    s_state: SingerState,
+    schemas: SchemasMap,
+) -> SchemasMap:
+    if state_id:
+        LOG.info("Uploading new state")
+        LOG.debug("Uploading state to %s", state_id)
+        with TemporaryFile() as data:
+            data.write(bytes(json.dumps(s_state.value).encode("UTF-8")))
+            data.seek(0)
+            s3_client.upload_fileobj(data, state_id.bucket, state_id.obj_key)
+    return schemas

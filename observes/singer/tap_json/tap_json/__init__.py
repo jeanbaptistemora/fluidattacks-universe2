@@ -355,7 +355,8 @@ def main() -> None:
         dump_schema(schema)
     try:
         for state in read(STATE_DIR, "states"):
-            print(state)
+            if state.rstrip():
+                print(state.rstrip())
     except FileNotFoundError:
         pass
 
