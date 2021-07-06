@@ -76,9 +76,9 @@ slug: /development/writing/blog/main
   for each blog post
   (it *must* have a size of **900 × 600 px** and less than **800 KB**).
 
-* **BI02:** We *must* give the name *cover_[main keyword of the post]*
-  to the cover image
-  (e.g., cover_pentesting; both words in lowercase).
+* **BI02:** We *must* name the cover image as follows:
+  *cover_[main keyword of the post]*
+  (e.g., cover_pentesting; both words in lower case).
 
 * **BI03:** We *can* use images from different websites and other sources
   within the bodies of the blog posts.
