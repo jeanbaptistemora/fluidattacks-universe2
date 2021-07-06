@@ -254,7 +254,7 @@ describe("VulnerabilitiesView", (): void => {
     });
   });
 
-  it("should render container and test actions_buttons flows", async (): Promise<void> => {
+  it("should render container and test request_button flow", async (): Promise<void> => {
     expect.hasAssertions();
 
     const { t } = useTranslation();
@@ -328,5 +328,99 @@ describe("VulnerabilitiesView", (): void => {
         expect(wrapper.find("UpdateVerificationModal")).toHaveLength(1);
       });
     });
+  });
+
+  it("should render container and test verify_button flow", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const { t } = useTranslation();
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "api_resolvers_vulnerability_analyst_resolve" },
+      { action: "api_resolvers_finding_zero_risk_resolve" },
+      { action: "api_mutations_verify_request_vulnerability_mutate" },
+    ]);
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter
+        initialEntries={[
+          "/orgs/testorg/groups/testgroup/vulns/422286126/locations",
+        ]}
+      >
+        <Provider store={store}>
+          <MockedProvider addTypename={true} mocks={[mocksQuery]}>
+            <authzPermissionsContext.Provider value={mockedPermissions}>
+              <Route
+                component={VulnsView}
+                path={
+                  "/orgs/:organizationName/groups/:groupName/vulns/:findingId/locations"
+                }
+              />
+            </authzPermissionsContext.Provider>
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>
+    );
+
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(wrapper).toHaveLength(1);
+
+        expect(wrapper.find("Button")).toHaveLength(1);
+      });
+    });
+
+    const buttons: ReactWrapper = wrapper.find("Button");
+    const verifyButton: ReactWrapper = buttons.filterWhere(
+      (button: ReactWrapper): boolean =>
+        button
+          .text()
+          .includes(t("searchFindings.tabDescription.markVerified.text"))
+    );
+
+    wrapper.update();
+
+    expect(verifyButton).toHaveLength(1);
+    expect(
+      wrapper
+        .find({ id: "vulnerabilitiesTable" })
+        .at(0)
+        .find("input[disabled=false]")
+    ).toHaveLength(2);
+
+    verifyButton.simulate("click");
+
+    expect(
+      wrapper
+        .find("Button")
+        .filterWhere((button: ReactWrapper): boolean =>
+          button.text().includes(t("searchFindings.tabVuln.buttons.edit"))
+        )
+    ).toHaveLength(0);
+    expect(
+      wrapper
+        .find({ id: "vulnerabilitiesTable" })
+        .at(0)
+        .find("input[disabled=false]")
+    ).toHaveLength(1);
+    expect(wrapper.find("UpdateVerificationModal")).toHaveLength(0);
+
+    const tableVulns: ReactWrapper = wrapper
+      .find({ id: "vulnerabilitiesTable" })
+      .at(0);
+    const selectionCell: ReactWrapper = tableVulns.find("SelectionCell");
+    selectionCell.first().simulate("click");
+    wrapper
+      .find("Button")
+      .filterWhere((button: ReactWrapper): boolean =>
+        button
+          .text()
+          .includes(t("searchFindings.tabDescription.markVerified.text"))
+      )
+      .first()
+      .simulate("click");
+    wrapper.update();
+
+    expect(wrapper.find("UpdateVerificationModal")).toHaveLength(1);
   });
 });
