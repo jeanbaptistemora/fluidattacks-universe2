@@ -73,7 +73,7 @@ class StreamEncoder:
         return {
             "type": "MrStream",
             "obj": {
-                "project": obj.project.proj_id,
+                "project": obj.project.raw,
                 "scope": obj.scope.value,
                 "mr_state": obj.mr_state.value,
             },
@@ -83,7 +83,7 @@ class StreamEncoder:
         return {
             "type": "JobStream",
             "obj": {
-                "project": obj.project.proj_id,
+                "project": obj.project.raw,
                 "scopes": (scope.value for scope in obj.scopes),
             },
         }

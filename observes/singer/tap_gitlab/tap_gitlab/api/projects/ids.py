@@ -11,6 +11,7 @@ from typing import (
 )
 from urllib.parse import (
     quote,
+    unquote,
 )
 
 
@@ -33,3 +34,9 @@ class ProjectId:
     @classmethod
     def from_id(cls, proj_id: int) -> ProjectId:
         return ProjectId(_ProjectId(proj_id))
+
+    @property
+    def raw(self) -> str:
+        if isinstance(self.proj_id, str):
+            return unquote(self.proj_id)
+        raise NotImplementedError()

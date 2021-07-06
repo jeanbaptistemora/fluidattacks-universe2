@@ -27,12 +27,20 @@ from tap_gitlab.intervals.interval import (
 )
 from tap_gitlab.state import (
     EtlState,
-    f_factory,
-    fp_factory,
     MrStateMap,
     MrStreamState,
+)
+from tap_gitlab.state.decoder import (
     state_decoder,
+)
+from tap_gitlab.state.encoder import (
     state_encoder,
+)
+from tap_gitlab.state.factories import (
+    f_factory,
+    fp_factory,
+)
+from tap_gitlab.state.getter import (
     StateGetter,
 )
 from tap_gitlab.streams import (
