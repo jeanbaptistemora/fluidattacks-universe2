@@ -21,6 +21,16 @@ over other alternatives are:
     as we only need to pay
     for the [EC2][EC2] machines
     used to process workloads.
+1. It complies with [several](https://aws.amazon.com/compliance/iso-certified/)
+    certifications from
+    [ISO](https://en.wikipedia.org/wiki/International_Organization_for_Standardization)
+    and
+    [CSA](https://en.wikipedia.org/wiki/Cloud_Security_Alliance).
+    Many of these certifications
+    are focused on granting that the entity
+    follows best practices regarding secure
+    [cloud-based](https://en.wikipedia.org/wiki/Cloud_computing) environments
+    and information security.
 1. Job logs can be [monitored](https://docs.aws.amazon.com/batch/latest/userguide/using_cloudwatch_logs.html)
     using [CloudWatch](/development/stack/aws/cloudwatch/).
 1. Jobs are highly

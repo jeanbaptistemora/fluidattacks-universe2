@@ -19,6 +19,16 @@ over other alternatives are:
     execute tasks without
     having to design
     any infrastructure.
+1. It complies with [several](https://aws.amazon.com/compliance/iso-certified/)
+    certifications from
+    [ISO](https://en.wikipedia.org/wiki/International_Organization_for_Standardization)
+    and
+    [CSA](https://en.wikipedia.org/wiki/Cloud_Security_Alliance).
+    Many of these certifications
+    are focused on granting that the entity
+    follows best practices regarding secure
+    [cloud-based](https://en.wikipedia.org/wiki/Cloud_computing) environments
+    and information security.
 1. It supports
     [many different runtimes](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html),
     allowing to run code

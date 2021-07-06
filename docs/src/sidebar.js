@@ -114,6 +114,7 @@ const About = [
         type: 'category',
         label: 'Integrity',
         items: [
+          'about/security/integrity/certified-cloud-provider',
           'about/security/integrity/certified-hackers',
           'about/security/integrity/hiring-process',
           'about/security/integrity/secure-emails',

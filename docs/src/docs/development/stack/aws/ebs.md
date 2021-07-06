@@ -21,6 +21,16 @@ over other alternatives are:
     [AWS EC2](/development/stack/aws/ec2),
     allowing to connect external hard drives
     to instances.
+1. It complies with [several](https://aws.amazon.com/compliance/iso-certified/)
+    certifications from
+    [ISO](https://en.wikipedia.org/wiki/International_Organization_for_Standardization)
+    and
+    [CSA](https://en.wikipedia.org/wiki/Cloud_Security_Alliance).
+    Many of these certifications
+    are focused on granting that the entity
+    follows best practices regarding secure
+    [cloud-based](https://en.wikipedia.org/wiki/Cloud_computing) environments
+    and information security.
 1. It provides a wide range of
     [disk types](https://aws.amazon.com/ebs/features/#Amazon_EBS_volume_types)
     that goes from

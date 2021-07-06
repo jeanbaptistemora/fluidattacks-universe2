@@ -27,6 +27,16 @@ over other alternatives are:
     Allowing to easily serve
     applications hosted in the
     [cloud](https://en.wikipedia.org/wiki/Cloud_computing).
+1. It complies with [several](https://aws.amazon.com/compliance/iso-certified/)
+    certifications from
+    [ISO](https://en.wikipedia.org/wiki/International_Organization_for_Standardization)
+    and
+    [CSA](https://en.wikipedia.org/wiki/Cloud_Security_Alliance).
+    Many of these certifications
+    are focused on granting that the entity
+    follows best practices regarding secure
+    [cloud-based](https://en.wikipedia.org/wiki/Cloud_computing) environments
+    and information security.
 1. When combined with
     [Kubernetes](/development/stack/kubernetes/),
     it allows to balance application load

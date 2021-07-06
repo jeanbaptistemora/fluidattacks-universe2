@@ -32,6 +32,16 @@ over other alternatives are:
 1. As all its infrastructure is
     [cloud](https://en.wikipedia.org/wiki/Cloud_computing) based,
     administering it becomes a much simpler task.
+1. It complies with [several](https://aws.amazon.com/compliance/iso-certified/)
+    certifications from
+    [ISO](https://en.wikipedia.org/wiki/International_Organization_for_Standardization)
+    and
+    [CSA](https://en.wikipedia.org/wiki/Cloud_Security_Alliance).
+    Many of these certifications
+    are focused on granting that the entity
+    follows best practices regarding secure
+    [cloud-based](https://en.wikipedia.org/wiki/Cloud_computing) environments
+    and information security.
 1. It is supported by almost all
     [Kubernetes SIGs](https://github.com/kubernetes-sigs)
     utilities.

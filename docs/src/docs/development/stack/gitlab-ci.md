@@ -190,6 +190,11 @@ We do not use [GItlab CI][GITLAB-CI] for:
     via [Terraform](/development/stack/terraform),
     visit the
     [Terraform Guidelines](/development/stack/terraform#guidelines).
+1. If a scheduled job
+    takes longer than six hours,
+    it generally should run in [Batch](/development/stack/aws/batch/),
+    otherwise it can use
+    the [Gitlab CI][GITLAB-CI].
 
 [GITLAB]: /development/stack/gitlab
 [GITLAB-CI]: https://docs.gitlab.com/ee/ci/

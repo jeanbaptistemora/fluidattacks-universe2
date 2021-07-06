@@ -46,6 +46,16 @@ over other alternatives are:
     as plaintext keys can only be
     obtained via
     [brute-force attacks](https://en.wikipedia.org/wiki/Brute-force_attack).
+1. It complies with [several](https://aws.amazon.com/compliance/iso-certified/)
+    certifications from
+    [ISO](https://en.wikipedia.org/wiki/International_Organization_for_Standardization)
+    and
+    [CSA](https://en.wikipedia.org/wiki/Cloud_Security_Alliance).
+    Many of these certifications
+    are focused on granting that the entity
+    follows best practices regarding secure
+    [cloud-based](https://en.wikipedia.org/wiki/Cloud_computing) environments
+    and information security.
 1. It uses
     [hardware security modules](https://aws.amazon.com/kms/features/#Secure)
     validated under [FIPS 140-2](https://en.wikipedia.org/wiki/FIPS_140-2)

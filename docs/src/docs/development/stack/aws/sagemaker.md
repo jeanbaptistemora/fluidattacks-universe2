@@ -22,6 +22,16 @@ over other alternatives are:
     Such feature is essential
     in order to have
     [horizontal autoscaling](https://www.section.io/blog/scaling-horizontally-vs-vertically/).
+1. It complies with [several](https://aws.amazon.com/compliance/iso-certified/)
+    certifications from
+    [ISO](https://en.wikipedia.org/wiki/International_Organization_for_Standardization)
+    and
+    [CSA](https://en.wikipedia.org/wiki/Cloud_Security_Alliance).
+    Many of these certifications
+    are focused on granting that the entity
+    follows best practices regarding secure
+    [cloud-based](https://en.wikipedia.org/wiki/Cloud_computing) environments
+    and information security.
 1. It integrates with [S3][S3],
     allowing us easily to store
     raw data,
@@ -114,6 +124,13 @@ over other alternatives are:
     [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/)
     by modifying its
     [estimator configuration](https://gitlab.com/fluidattacks/product/-/blob/f630ceecb7015146118ef8e9aa4f2576a13785e6/sorts/training/sagemaker_provisioner.py#L31).
+1. Keep in mind that
+    [SageMaker][SAGEMAKER] workers
+    do not use [Nix](https://nixos.org/)
+    but a preconfigured environment.
+    You can add dependencies
+    by modifying the
+    [requirements file](https://gitlab.com/fluidattacks/product/-/blob/f630ceecb7015146118ef8e9aa4f2576a13785e6/sorts/training/requirements.txt).
 
 [SAGEMAKER]: https://aws.amazon.com/sagemaker/
 [ML]: https://en.wikipedia.org/wiki/Machine_learning

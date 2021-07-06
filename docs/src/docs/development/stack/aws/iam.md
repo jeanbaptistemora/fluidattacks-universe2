@@ -24,6 +24,16 @@ over other alternatives are:
     which means that in order to be able to
     access other [AWS][AWS] services,
     one must use [IAM][IAM].
+1. It complies with [several](https://aws.amazon.com/compliance/iso-certified/)
+    certifications from
+    [ISO](https://en.wikipedia.org/wiki/International_Organization_for_Standardization)
+    and
+    [CSA](https://en.wikipedia.org/wiki/Cloud_Security_Alliance).
+    Many of these certifications
+    are focused on granting that the entity
+    follows best practices regarding secure
+    [cloud-based](https://en.wikipedia.org/wiki/Cloud_computing) environments
+    and information security.
 1. It supports
     [users](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users.html),
     [groups](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups.html)

@@ -23,6 +23,16 @@ over other alternatives are:
     in order to be able to answer
     all kinds of business-related questions
     based on our data.
+1. It complies with [several](https://aws.amazon.com/compliance/iso-certified/)
+    certifications from
+    [ISO](https://en.wikipedia.org/wiki/International_Organization_for_Standardization)
+    and
+    [CSA](https://en.wikipedia.org/wiki/Cloud_Security_Alliance).
+    Many of these certifications
+    are focused on granting that the entity
+    follows best practices regarding secure
+    [cloud-based](https://en.wikipedia.org/wiki/Cloud_computing) environments
+    and information security.
 1. It supports
     [clustering](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html),
     allowing to

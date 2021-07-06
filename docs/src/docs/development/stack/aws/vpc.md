@@ -34,6 +34,16 @@ over other alternatives are:
     [Elastic Load Balancing](/development/stack/aws/elb/),
     [AWS Redshift](/development/stack/aws/redshift/),
     etc.
+1. It complies with [several](https://aws.amazon.com/compliance/iso-certified/)
+    certifications from
+    [ISO](https://en.wikipedia.org/wiki/International_Organization_for_Standardization)
+    and
+    [CSA](https://en.wikipedia.org/wiki/Cloud_Security_Alliance).
+    Many of these certifications
+    are focused on granting that the entity
+    follows best practices regarding secure
+    [cloud-based](https://en.wikipedia.org/wiki/Cloud_computing) environments
+    and information security.
 1. It supports [Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html#vpc-subnet-basics),
     which allows to have multiple network segments,
     each of them existing in a separate

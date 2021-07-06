@@ -32,6 +32,16 @@ over other alternatives are:
     [networking](https://en.wikipedia.org/wiki/Computer_network)
     or
     [servers](https://en.wikipedia.org/wiki/Server_(computing)).
+1. It complies with [several](https://aws.amazon.com/compliance/iso-certified/)
+    certifications from
+    [ISO](https://en.wikipedia.org/wiki/International_Organization_for_Standardization)
+    and
+    [CSA](https://en.wikipedia.org/wiki/Cloud_Security_Alliance).
+    Many of these certifications
+    are focused on granting that the entity
+    follows best practices regarding secure
+    [cloud-based](https://en.wikipedia.org/wiki/Cloud_computing) environments
+    and information security.
 1. It allows us to retrieve data
     with single-digit millisecond performance
     without having to worry about
