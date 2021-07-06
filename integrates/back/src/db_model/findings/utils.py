@@ -5,6 +5,7 @@ from .enums import (
     FindingVerificationStatus,
 )
 from .types import (
+    Finding,
     FindingEvidences,
     FindingState,
     FindingUnreliableIndicators,
@@ -18,7 +19,17 @@ from dynamodb.types import (
 )
 from typing import (
     Optional,
+    Set,
+    Tuple,
 )
+
+
+def filter_non_state_status_findings(
+    findings: Tuple[Finding, ...], status: Set[FindingStateStatus]
+) -> Tuple[Finding, ...]:
+    return tuple(
+        finding for finding in findings if finding.state.status not in status
+    )
 
 
 def format_evidences_item(evidences: FindingEvidences) -> Item:

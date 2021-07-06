@@ -65,6 +65,7 @@ from db_model.findings.get import (
     FindingHistoricStateNewLoader,
     FindingHistoricVerificationNewLoader,
     FindingNonDeletedNewLoader,
+    GroupFindingsNewLoader,
 )
 from starlette.requests import (
     Request,
@@ -88,6 +89,7 @@ class Dataloaders(NamedTuple):
     group: GroupLoader
     group_drafts: GroupDraftsLoader
     group_findings: GroupFindingsNonDeletedLoader  # Non deleted findings
+    group_findings_new: GroupFindingsNewLoader
     group_findings_all: GroupFindingsLoader  # All findings
     group_roots: GroupRootsLoader
     group_stakeholders: GroupStakeholdersLoader
@@ -112,6 +114,7 @@ def apply_context_attrs(
 
 def get_new_context() -> Dataloaders:
     group_findings_loader = GroupFindingsLoader()
+    group_findings_new_loader = GroupFindingsNewLoader()
     group_stakeholders_loader = GroupStakeholdersLoader()
     finding_vulns_loader = FindingVulnsLoader()
     finding_vulns_non_deleted_loader = FindingVulnsNonDeletedLoader(
@@ -140,6 +143,7 @@ def get_new_context() -> Dataloaders:
         group=GroupLoader(),
         group_drafts=GroupDraftsLoader(),
         group_findings=GroupFindingsNonDeletedLoader(group_findings_loader),
+        group_findings_new=group_findings_new_loader,
         group_findings_all=group_findings_loader,
         group_roots=GroupRootsLoader(),
         group_stakeholders=group_stakeholders_loader,

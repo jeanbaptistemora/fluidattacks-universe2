@@ -12,6 +12,7 @@ from .types import (
     FindingVerification,
 )
 from .utils import (
+    filter_non_state_status_findings,
     format_optional_verification,
     format_state,
     format_unreliable_indicators,
@@ -25,6 +26,9 @@ from aioextensions import (
 )
 from boto3.dynamodb.conditions import (
     Key,
+)
+from collections import (
+    defaultdict,
 )
 from custom_exceptions import (
     FindingNotFound,
@@ -209,6 +213,47 @@ async def _get_finding(*, group_name: str, finding_id: str) -> Finding:
     )
 
 
+async def _get_findings_by_group(*, group_name: str) -> Tuple[Finding, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["finding_metadata"],
+        values={"group_name": group_name},
+    )
+    index = TABLE.indexes["inverted_index"]
+    key_structure = index.primary_key
+    results = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.sort_key)
+            & Key(key_structure.sort_key).begins_with(
+                primary_key.partition_key
+            )
+        ),
+        facets=(
+            TABLE.facets["finding_approval"],
+            TABLE.facets["finding_creation"],
+            TABLE.facets["finding_metadata"],
+            TABLE.facets["finding_state"],
+            TABLE.facets["finding_submission"],
+            TABLE.facets["finding_unreliable_indicators"],
+            TABLE.facets["finding_verification"],
+        ),
+        index=index,
+        table=TABLE,
+    )
+    finding_items = defaultdict(list)
+    for item in results:
+        finding_id = "#".join(item[key_structure.sort_key].split("#")[:2])
+        finding_items[finding_id].append(item)
+
+    return tuple(
+        _build_finding(
+            item_id=finding_id,
+            key_structure=key_structure,
+            raw_items=tuple(items),
+        )
+        for finding_id, items in finding_items.items()
+    )
+
+
 async def _get_group(*, finding_id: str) -> str:
     primary_key = keys.build_key(
         facet=TABLE.facets["finding_metadata"],
@@ -316,4 +361,28 @@ class FindingHistoricStateNewLoader(DataLoader):
         return await collect(
             _get_historic_state(finding_id=finding_id)
             for finding_id in finding_ids
+        )
+
+
+class GroupFindingsNewLoader(DataLoader):
+    """Batches load calls within the same execution fragment."""
+
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, group_names: Tuple[str]
+    ) -> Tuple[Tuple[Finding, ...], ...]:
+        findings_by_group = await collect(
+            _get_findings_by_group(group_name=group_name)
+            for group_name in group_names
+        )
+        return tuple(
+            filter_non_state_status_findings(
+                findings,
+                {
+                    FindingStateStatus.CREATED,
+                    FindingStateStatus.REJECTED,
+                    FindingStateStatus.SUBMITTED,
+                },
+            )
+            for findings in findings_by_group
         )
