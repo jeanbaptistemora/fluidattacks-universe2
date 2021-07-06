@@ -1,0 +1,17 @@
+F052_CBC.description:
+  en: The application uses algorithms with insecure cipher block chaining.
+  es: La aplicación usa algoritmos con CBC inseguros.
+F052_CBC.impact:
+  en: Exploit cipher process vulnerability and collect sensible information.
+  es: >
+    Aprovechar vulnerabilidad en el proceso de cifrado para recolectar
+    información sensible.
+F052_CBC.recommendation:
+  en: Use algorithms considered cryptographically secure.
+  es: Utilizar algoritmos considerados criptográficamente seguros.
+F052_CBC.threat:
+  en: Unauthorized attacker from internet network exploiting vulnerability.
+  es: Atacante sin autorización desde internet explotando la vulnerabilidad.
+F052_CBC.title:
+  en: F052. Insecure encryption algorithm - Cipher Block Chaining
+  es: F052. Algoritmo de cifrado inseguro - Cipher Block Chaining
