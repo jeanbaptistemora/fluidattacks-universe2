@@ -854,7 +854,7 @@ async def get_mean_remediate_non_treated(
 async def get_mean_remediate_severity(  # pylint: disable=too-many-locals
     context: Any, group_name: str, min_severity: float, max_severity: float
 ) -> Decimal:
-    """Get mean time to remediate."""
+    """Get mean time to remediate"""
     total_days = 0
     finding_vulns_loader = context.finding_vulns_nzr
     group_findings_loader = context.group_findings
@@ -1075,7 +1075,7 @@ async def mask_resources(group_name: str) -> NamedTuple:
 
 
 async def remove_all_users(context: Any, group: str) -> bool:
-    """Remove user access to project."""
+    """Remove user access to project"""
     user_active, user_suspended = await collect(
         [
             group_access_domain.get_group_users(group, True),
@@ -1129,7 +1129,7 @@ async def remove_resources(context: Any, group_name: str) -> bool:
 async def remove_user(
     context: Any, group_name: str, email: str, check_org_access: bool = True
 ) -> bool:
-    """Remove user access to group."""
+    """Remove user access to group"""
     success: bool = await group_access_domain.remove_access(email, group_name)
     if success and check_org_access:
         group_loader = context.group
@@ -1195,7 +1195,7 @@ def validate_group_services_config(
 
 
 async def validate_group_tags(group_name: str, tags: List[str]) -> List[str]:
-    """Validate tags array."""
+    """Validate tags array"""
     pattern = re.compile("^[a-z0-9]+(?:-[a-z0-9]+)*$")
     if await _has_repeated_tags(group_name, tags):
         raise RepeatedValues()
@@ -1325,7 +1325,7 @@ async def get_group_digest_stats(
         findings, group_name, last_day
     )
     content["main"]["remediation_time"] = int(
-        await get_mean_remediate(context, group_name)
+        await get_mean_remediate_non_treated(group_name)
     )
     content["main"]["remediation_rate"] = await get_remediation_rate(
         context, group_name
