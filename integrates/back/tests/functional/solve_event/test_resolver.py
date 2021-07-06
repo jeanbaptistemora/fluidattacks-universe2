@@ -17,6 +17,7 @@ from typing import (
         ["analyst@gmail.com", "418900972"],
         ["closer@gmail.com", "418900973"],
         ["resourcer@gmail.com", "418900974"],
+        ["group_manager@gmail.com", "418900975"],
     ],
 )
 async def test_solve_event(populate: bool, email: str, event_id: str) -> None:
@@ -34,11 +35,12 @@ async def test_solve_event(populate: bool, email: str, event_id: str) -> None:
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],
         ["executive@gmail.com"],
+        ["reviewer@gmail.com"],
     ],
 )
 async def test_solve_event_fail(populate: bool, email: str) -> None:
     assert populate
-    event_id: str = "418900975"
+    event_id: str = "418900971"
     result: Dict[str, Any] = await get_result(user=email, event=event_id)
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"

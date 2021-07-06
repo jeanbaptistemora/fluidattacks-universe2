@@ -21,6 +21,7 @@ from typing import (
         ["executive@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
+        ["group_manager@gmail.com"],
     ],
 )
 async def test_add_event_consult(populate: bool, email: str) -> None:

@@ -17,6 +17,7 @@ from typing import (
         ["analyst@gmail.com"],
         ["closer@gmail.com"],
         ["resourcer@gmail.com"],
+        ["group_manager@gmail.com"],
     ],
 )
 async def test_create_event(populate: bool, email: str) -> None:
@@ -38,6 +39,7 @@ async def test_create_event(populate: bool, email: str) -> None:
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],
         ["executive@gmail.com"],
+        ["reviewer@gmail.com"],
     ],
 )
 async def test_create_event_fail(populate: bool, email: str) -> None:
