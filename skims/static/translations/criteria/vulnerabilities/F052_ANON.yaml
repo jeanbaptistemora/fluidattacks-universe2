@@ -1,0 +1,18 @@
+lib_ssl.analyze_protocol.anonymous_ciphers_allowed:
+  en: "anonymous ciphers allowed"
+  es: "permite métodos de cifrado ananimos"
+F052_ANON.description:
+  en: The application allows anonymous encryption algorithms.
+  es: La aplicación permite utilizar algoritmos de cifrado anonimos.
+F052_ANON.impact:
+  en: Obtain sensitive information by performing a MiTM attack.
+  es: Obtener información sensible realizando un ataque de hombre en el medio.
+F052_ANON.recommendation:
+  en: Use algorithms considered cryptographically secure.
+  es: Utilizar algoritmos considerados criptográficamente seguros.
+F052_ANON.threat:
+  en: Unauthorized attacker from adjacent network performing a MITM attack.
+  es: Atacante sin autorización desde red adyacente ejecutando un MITM.
+F052_ANON.title:
+  en: F052. Insecure encryption algorithm - Anonymous ciphers
+  es: F052. Algoritmo de cifrado inseguro - Cifrados anónimos
