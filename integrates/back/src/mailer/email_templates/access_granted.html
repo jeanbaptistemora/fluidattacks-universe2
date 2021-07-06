@@ -11,12 +11,8 @@
     <p>You have been invited to access our <strong>Attack Surface Manager</strong>.</p>
     <p>
       Please confirm your access and check vulnerabilities related to the group <strong>"{{ group }}
-      - {{ group_description }}"</strong>, by clicking the following button:
+      - {{ group_description }}"</strong>, by clicking the button below.
     </p>
-    <br />
-    {{ go_to_button('Confirm access', group_url) }}
-    <br />
-    <p></p>
     <p>
       By confirming access to the Fluid Attacks'
       <strong>Attack Surface Manager</strong>, you agree to our
@@ -24,6 +20,8 @@
     </p>
     <p>Regards,<br>
       Fluid Attacks Team</p>
+    {{ go_to_button('Confirm access', group_url) }}
+    <br />
   </div>
 
   {% include 'layouts/components/footer.html' %}

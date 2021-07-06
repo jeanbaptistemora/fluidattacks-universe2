@@ -10,10 +10,8 @@
     <p>Hello {{ name }},</p>
     <p>
       You can download your {{ filetype }} report requested on group <strong>{{ groupname }}</strong>
-      on {{ date }} at {{ time }} by clicking the following button:
+      on {{ date }} at {{ time }} by clicking the button below.
     </p>
-    {{ go_to_button('Go to report', filelink) }}
-    <p></p>
     <p>
       This link will be available for the next <strong>hour</strong>.
     </p>
@@ -21,9 +19,10 @@
       The passphrase for your {{ filetype }} report will be sent to your mobile device,
       make sure you have enabled the notifications and the background task to get the passphrase.
     </p>
-    <p></p>
     <p>Regards,<br>
       Fluid Attacks Team</p>
+    {{ go_to_button('Go to report', filelink) }}
+    <br />
   </div>
 
   {% include 'layouts/components/footer.html' %}
