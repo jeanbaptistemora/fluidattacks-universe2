@@ -17,14 +17,14 @@ from users import (
     domain as users_domain,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 
 async def main() -> None:
     users = await users_dal.get_all(Attr("legal_remember").eq(True))
 
     for user in users:
-        print(f"Legal terms acceptance will be reset for {user['email']}")
+        print(f"Legal terms acceptance of {user['email']} will be reset")
 
         if PROD:
             await users_domain.update_legal_remember(user["email"], False)
