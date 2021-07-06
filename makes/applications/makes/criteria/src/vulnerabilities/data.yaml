@@ -319,13 +319,13 @@
   metadata: {}
 012:
   en:
-    title: Spring Data Java Persistence API
+    title: SQL injection - Java Persistence API
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Spring Data Java Persistence API
+    title: Inyección SQL - Java Persistence API
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -406,7 +406,7 @@
   metadata: {}
 015:
   en:
-    title: Insecure authentication method
+    title: Insecure authentication method - Basic
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -435,13 +435,13 @@
   metadata: {}
 016:
   en:
-    title: AWS iam:PassRole
+    title: Use of software with known vulnerabilities - old version of TLS
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: AWS iam:PassRole
+    title: Uso de componentes con vulnerabilidades conocidas - versión desactualizada de TLS
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -638,7 +638,7 @@
   metadata: {}
 023:
   en:
-    title: Uncontrolled external site redirect
+    title: Uncontrolled external site redirect - Host header
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -667,7 +667,7 @@
   metadata: {}
 024:
   en:
-    title: Unrestricted access between network segments
+    title: Unrestricted access between network segments - AWS
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -870,13 +870,13 @@
   metadata: {}
 031:
   en:
-    title: Excessive Privileges
+    title: Excessive privileges - AWS
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Permisos excesivos
+    title: Permisos excesivos - AWS
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1218,13 +1218,13 @@
   metadata: {}
 043:
   en:
-    title: Improper set HTTP headers
+    title: Improper set HTTP headers - Content-Security-Policy
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Cabeceras de seguridad HTTP no establecidas
+    title: Cabeceras de seguridad HTTP no establecidas - Content-Security-Policy
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1305,7 +1305,7 @@
   metadata: {}
 046:
   en:
-    title: Missing secure obfuscation
+    title: Missing secure obfuscation - APK
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1392,13 +1392,13 @@
   metadata: {}
 049:
   en:
-    title: Insecure digital certificates
+    title: Insecure digital certificates - APK pinning
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Certificados digitales inseguros
+    title: Certificados digitales inseguros - Pineo en el APK
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1566,13 +1566,13 @@
   metadata: {}
 055:
   en:
-    title: Insecure service configuration
+    title: Insecure service configuration - ADB Backups
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Configuración insegura de servicio
+    title: Configuración insegura de servicio - ADB Backups
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1653,13 +1653,13 @@
   metadata: {}
 058:
   en:
-    title: Debugging enabled in production
+    title: Debugging enabled in production - APK
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Depuración habilitada en producción
+    title: Depuración habilitada en producción - APK
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1688,7 +1688,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Información sensible almacenada en logs
+    title: Información sensible almacenada en bitácoras
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1798,13 +1798,13 @@
   metadata: {}
 063:
   en:
-    title: Lack of data validation
+    title: Lack of data validation - Path Traversal
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Ausencia de validación de datos
+    title: Ausencia de validación de datos - Path Traversal
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1827,13 +1827,13 @@
   metadata: {}
 064:
   en:
-    title: Traceability loss
+    title: Traceability loss - Server's clock
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Pérdida de trazabilidad
+    title: Pérdida de trazabilidad - Reloj del servidor
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2001,13 +2001,13 @@
   metadata: {}
 070:
   en:
-    title: Inappropriate coding practices
+    title: Inappropriate coding practices - Wildcard import
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Prácticas inadecuadas de programación
+    title: Prácticas inadecuadas de programación - Import con comodín
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2030,7 +2030,7 @@
   metadata: {}
 071:
   en:
-    title: Strict Transport Security
+    title: Missing HTTP security headers - Strict Transport Security
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2094,7 +2094,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Declaración condicional sin una opción predeterminada
+    title: Condicionales sin opción por defecto
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2146,13 +2146,13 @@
   metadata: {}
 075:
   en:
-    title: Unauthorized access to files
+    title: Unauthorized access to files - APK Content Provider
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Acceso no autorizado a archivos
+    title: Acceso no autorizado a archivos - APK Content Provider
     description: __empty__
     impact: __empty__
     recommendation: __empty__
