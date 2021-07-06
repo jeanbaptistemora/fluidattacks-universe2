@@ -16,6 +16,9 @@ src.lib_path.f052.insecure_key.description:
 src.lib_path.f052.insecure_pass.description:
   en: Use of insecure password encoder in {path}
   es: Uso de codificador de contraseña inseguro en {path}
+lib_ssl.analyze_protocol.weak_ciphers_allowed:
+  en: weak ciphers allowed
+  es: cifrados débiles habilitados
 F052.description:
   en: >
     The application uses insecure encryption algorithms.
