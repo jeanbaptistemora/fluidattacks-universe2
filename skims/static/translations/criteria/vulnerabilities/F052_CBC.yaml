@@ -1,3 +1,6 @@
+lib_ssl.analyze_protocol.beast_possible:
+  en: BEAST attack is possible
+  es: es posible realizar ataque BEAST
 F052_CBC.description:
   en: The application uses algorithms with insecure cipher block chaining.
   es: La aplicación usa algoritmos con CBC inseguros.
