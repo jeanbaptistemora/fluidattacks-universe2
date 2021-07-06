@@ -51,12 +51,7 @@ class FindingEvidences(NamedTuple):
     evidence4: Optional[FindingEvidence] = None
     evidence5: Optional[FindingEvidence] = None
     exploitation: Optional[FindingEvidence] = None
-
-
-class FindingRecords(NamedTuple):
-    description: str
-    modified_date: str
-    url: str
+    records: Optional[FindingEvidence] = None
 
 
 class Finding20Severity(NamedTuple):
@@ -161,7 +156,6 @@ class Finding(NamedTuple):
     severity: Union[Finding20Severity, Finding31Severity] = Finding31Severity()
     sorts: FindingSorts = FindingSorts.NO
     submission: Optional[FindingState] = None
-    records: Optional[FindingRecords] = None
     recommendation: str = ""
     requirements: str = ""
     risk: str = ""
@@ -183,7 +177,6 @@ class FindingMetadataToUpdate(NamedTuple):
     cwe: Optional[str] = None
     description: Optional[str] = None
     evidences: Optional[FindingEvidences] = None
-    records: Optional[FindingRecords] = None
     recommendation: Optional[str] = None
     requirements: Optional[str] = None
     risk: Optional[str] = None

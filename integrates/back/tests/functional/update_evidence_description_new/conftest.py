@@ -13,7 +13,6 @@ from db_model.findings.types import (
     Finding31Severity,
     FindingEvidence,
     FindingEvidences,
-    FindingRecords,
     FindingState,
     FindingStatus,
     FindingUnreliableIndicatorsToUpdate,
@@ -92,11 +91,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                             url="group1-475041513-evidence1",
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
-                    ),
-                    records=FindingRecords(
-                        description="records",
-                        url="group1-475041513-records",
-                        modified_date="2111-11-19T13:37:10+00:00",
+                        records=FindingEvidence(
+                            description="records",
+                            url="group1-475041513-records",
+                            modified_date="2111-11-19T13:37:10+00:00",
+                        ),
                     ),
                 ),
                 "historic_state": [

@@ -78,8 +78,6 @@ async def create(  # pylint: disable=too-many-locals
         "threat": finding.threat,
         "type": finding.type,
     }
-    if finding.records is not None:
-        finding_metadata["records"] = finding.records._asdict()
     initial_metadata = {
         key_structure.partition_key: metadata_key.partition_key,
         key_structure.sort_key: metadata_key.sort_key,

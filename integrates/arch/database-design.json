@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jun 30, 2021, 12:37 PM",
+    "DateLastModified": "Jul 02, 2021, 03:59 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -344,10 +344,6 @@
         },
         {
           "AttributeName": "severity",
-          "AttributeType": "M"
-        },
-        {
-          "AttributeName": "records",
           "AttributeType": "M"
         },
         {
@@ -1720,19 +1716,6 @@
                   }
                 }
               },
-              "records": {
-                "M": {
-                  "modified_date": {
-                    "S": "2021-02-15T14:01:16Z"
-                  },
-                  "description": {
-                    "S": "Records description"
-                  },
-                  "url": {
-                    "S": "unittesting-463558592-evidence_route_1"
-                  }
-                }
-              },
               "compromised_records": {
                 "N": "2"
               },
@@ -1768,7 +1751,6 @@
             "compromised_attributes",
             "group_name",
             "severity",
-            "records",
             "compromised_records",
             "risk",
             "scenario",

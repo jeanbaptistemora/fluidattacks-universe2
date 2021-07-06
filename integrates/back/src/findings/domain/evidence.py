@@ -16,7 +16,6 @@ from db_model.findings.types import (
     Finding,
     FindingEvidence,
     FindingMetadataToUpdate,
-    FindingRecords,
 )
 from findings import (
     dal as findings_dal,
@@ -61,6 +60,7 @@ EVIDENCE_NAMES = {
     "evidence_route_4": "evidence4",
     "evidence_route_5": "evidence5",
     "exploitation": "exploitation",
+    "fileRecords": "records",
 }
 LOGGER = logging.getLogger(__name__)
 
@@ -187,7 +187,9 @@ async def update_evidence_new(
     filename = f"{finding.group_name}-{finding.id}-{evidence_id}"
     full_name = f"{finding.group_name}/{finding.id}/{filename}"
     if evidence_id == "fileRecords":
-        old_filename = finding.records.url if finding.records else ""
+        old_filename = (
+            finding.evidences.records.url if finding.evidences.records else ""
+        )
         if old_filename != "":
             old_records = await get_records_from_file(
                 finding.group_name, finding.id, old_filename
@@ -196,37 +198,25 @@ async def update_evidence_new(
                 file = await finding_utils.append_records_to_file(
                     cast(List[Dict[str, str]], old_records), file
                 )
-        await findings_dal.save_evidence(file, full_name)
-        if finding.records:
-            updated_records = finding.records._replace(
-                url=filename, modified_date=datetime_utils.get_iso_date()
-            )
-        else:
-            updated_records = FindingRecords(
-                description="",
-                modified_date=datetime_utils.get_iso_date(),
-                url=filename,
-            )
-        metadata = FindingMetadataToUpdate(records=updated_records)
+
+    await findings_dal.save_evidence(file, full_name)
+    evidence: Optional[FindingEvidence] = getattr(
+        finding.evidences, EVIDENCE_NAMES[evidence_id]
+    )
+    if evidence:
+        updated_evidence = evidence._replace(
+            url=filename, modified_date=datetime_utils.get_iso_date()
+        )
     else:
-        await findings_dal.save_evidence(file, full_name)
-        evidence: Optional[FindingEvidence] = getattr(
-            finding.evidences, EVIDENCE_NAMES[evidence_id]
+        updated_evidence = FindingEvidence(
+            description="",
+            modified_date=datetime_utils.get_iso_date(),
+            url=filename,
         )
-        if evidence:
-            updated_evidence = evidence._replace(
-                url=filename, modified_date=datetime_utils.get_iso_date()
-            )
-        else:
-            updated_evidence = FindingEvidence(
-                description="",
-                modified_date=datetime_utils.get_iso_date(),
-                url=filename,
-            )
-        evidences = finding.evidences._replace(
-            **{EVIDENCE_NAMES[evidence_id]: updated_evidence}
-        )
-        metadata = FindingMetadataToUpdate(evidences=evidences)
+    evidences = finding.evidences._replace(
+        **{EVIDENCE_NAMES[evidence_id]: updated_evidence}
+    )
+    metadata = FindingMetadataToUpdate(evidences=evidences)
     await findings_model.update_medatada(
         group_name=finding.group_name,
         finding_id=finding.id,
@@ -261,24 +251,17 @@ async def update_evidence_description_new(
     validations.validate_fields([description])
     finding_loader = context.loaders.finding_new
     finding: Finding = await finding_loader.load(finding_id)
-    if evidence_id == "fileRecords":
-        if not finding.records:
-            raise EvidenceNotFound()
+    evidence: Optional[FindingEvidence] = getattr(
+        finding.evidences, EVIDENCE_NAMES[evidence_id]
+    )
+    if not evidence:
+        raise EvidenceNotFound()
 
-        updated_records = finding.records._replace(description=description)
-        metadata = FindingMetadataToUpdate(records=updated_records)
-    else:
-        evidence: Optional[FindingEvidence] = getattr(
-            finding.evidences, EVIDENCE_NAMES[evidence_id]
-        )
-        if not evidence:
-            raise EvidenceNotFound()
-
-        updated_evidence = evidence._replace(description=description)
-        evidences = finding.evidences._replace(
-            **{EVIDENCE_NAMES[evidence_id]: updated_evidence}
-        )
-        metadata = FindingMetadataToUpdate(evidences=evidences)
+    updated_evidence = evidence._replace(description=description)
+    evidences = finding.evidences._replace(
+        **{EVIDENCE_NAMES[evidence_id]: updated_evidence}
+    )
+    metadata = FindingMetadataToUpdate(evidences=evidences)
     await findings_model.update_medatada(
         group_name=finding.group_name,
         finding_id=finding.id,

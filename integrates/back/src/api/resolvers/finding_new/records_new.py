@@ -35,8 +35,8 @@ async def resolve_no_cache(
     parent: Finding, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> List[Dict[object, object]]:
     records = []
-    if parent.records:
+    if parent.evidences.records:
         records = await findings_domain.get_records_from_file(
-            parent.group_name, parent.id, parent.records.url
+            parent.group_name, parent.id, parent.evidences.records.url
         )
     return records
