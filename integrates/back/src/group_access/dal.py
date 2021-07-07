@@ -19,6 +19,9 @@ from newutils import (
     apm,
     datetime as datetime_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from settings import (
     LOGGING,
 )
@@ -47,7 +50,7 @@ async def get_access_by_url_token(
 
 
 async def get_group_users(group: str, active: bool = True) -> List[str]:
-    """Get users of a project."""
+    """Get users of a group."""
     group_name = group.lower()
     key_condition = Key("project_name").eq(group_name)
     projection_expression = (
@@ -103,13 +106,13 @@ async def get_user_groups(user_email: str, active: bool) -> List[str]:
     groups = await dynamodb_ops.query(TABLE_NAME, query_attrs)
     if active:
         groups_filtered = [
-            group.get("project_name")
+            resolve_kwargs(group)
             for group in groups
             if group.get("has_access", "")
         ]
     else:
         groups_filtered = [
-            group.get("project_name")
+            resolve_kwargs(group)
             for group in groups
             if not group.get("has_access", "")
         ]

@@ -156,7 +156,7 @@ async def yield_executions(
     from_date: datetime,
     to_date: datetime,
 ) -> AsyncIterator[Any]:
-    """Lazy iterator over the executions of a project"""
+    """Lazy iterator over the executions of a group"""
     key_condition_expresion = Key("subscription").eq(group_name)
     filter_expression = Attr("date").gte(from_date.isoformat()) & Attr(
         "date"

@@ -16,6 +16,7 @@ import logging
 import logging.config
 from newutils.utils import (
     duplicate_dict_keys,
+    resolve_kwargs,
 )
 from settings import (
     LOGGING,
@@ -138,7 +139,7 @@ async def get_attributes(
 
 
 async def get_description(group_name: str) -> str:
-    """Get the description of a project."""
+    """Get the description of a group."""
     description = await get_attributes(group_name, ["description"])
     group_description = (
         str(description.get("description", "")) if description else ""
@@ -165,7 +166,7 @@ async def get_groups_with_forces() -> List[str]:
     }
     response = await dynamodb_ops.scan(TABLE_NAME, query_attrs)
     groups: List[str] = [
-        group["project_name"]
+        resolve_kwargs(group)
         for group in response
         if (
             group.get("historic_configuration") is not None

@@ -1,5 +1,5 @@
 from custom_types import (
-    Group as ProjectType,
+    Group as GroupType,
     Historic as HistoricType,
 )
 import logging
@@ -14,7 +14,7 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-def has_integrates_services(group: ProjectType) -> bool:
+def has_integrates_services(group: GroupType) -> bool:
     historic_configuration: HistoricType = group.get(
         "historic_configuration", [{}]
     )

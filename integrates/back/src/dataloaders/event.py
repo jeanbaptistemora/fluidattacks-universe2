@@ -12,6 +12,9 @@ from custom_types import (
 from events import (
     domain as events_domain,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from typing import (
     cast,
     Dict,
@@ -30,9 +33,7 @@ async def _batch_load_fn(event_ids: List[str]) -> List[EventType]:
         client_group: str = event.get(
             "client_group", event.get("client_project", "")
         )
-        group_name: str = event.get(
-            "group_name", event.get("project_name", "")
-        )
+        group_name: str = resolve_kwargs(event, fallback="")
         events[event_id] = dict(
             accessibility=event.get("accessibility", ""),
             affectation=history[-1].get("affectation", ""),

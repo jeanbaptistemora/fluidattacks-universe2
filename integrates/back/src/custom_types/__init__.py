@@ -170,8 +170,8 @@ EditStakeholderPayload = NamedTuple(
         ("modified_stakeholder", Stakeholder),
     ],
 )
-ExecuteSkimsPayload = NamedTuple(
-    "ExecuteSkimsPayload",
+ExecuteMachinePayload = NamedTuple(
+    "ExecuteMachinePayload",
     [
         ("success", bool),
         ("pipeline_url", str),

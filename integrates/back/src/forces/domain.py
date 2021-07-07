@@ -105,7 +105,7 @@ async def create_forces_user(
     )
     if not success:
         LOGGER.error(
-            "Couldn't grant access to project",
+            "Couldn't grant access to group",
             extra={"extra": info.context, "username": group_name},
         )
     return success

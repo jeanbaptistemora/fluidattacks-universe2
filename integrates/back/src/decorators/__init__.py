@@ -31,6 +31,9 @@ from newutils import (
     templates as templates_utils,
     token as token_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from organizations import (
     domain as orgs_domain,
 )
@@ -72,7 +75,7 @@ TFun = TypeVar("TFun", bound=Callable[..., Any])
 async def _resolve_from_event_id(context: Any, identifier: str) -> str:
     event_loader = context.loaders.event
     data = await event_loader.load(identifier)
-    group_name: str = data["project_name"]
+    group_name: str = resolve_kwargs(data)
     return group_name
 
 
@@ -211,7 +214,7 @@ def enforce_group_level_auth_async(func: TVar) -> TVar:
 
         if not object_:
             LOGGER.error(
-                "Unable to identify project name",
+                "Unable to identify group name",
                 extra={
                     "extra": {
                         "action": action,

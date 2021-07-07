@@ -1081,7 +1081,7 @@ async def mask_resources(group_name: str) -> NamedTuple:
 
 
 async def remove_all_users(context: Any, group: str) -> bool:
-    """Remove user access to project"""
+    """Remove user access to group"""
     user_active, user_suspended = await collect(
         [
             group_access_domain.get_group_users(group, True),
