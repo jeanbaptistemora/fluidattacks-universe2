@@ -24,6 +24,10 @@ def go_float_currency(
 
         smells: Set[str] = {
             "amount",
+            "cash",
+            "cost",
+            "orden",
+            "order",
             "precio",
             "price",
             "valor",
