@@ -165,7 +165,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
         rowEvents={rowEvents}
         selectRow={selectionMode as SelectRowProps<unknown>}
         striped={striped}
-        wrapperClasses={`table-responsive mw-100 overflow-x-auto
+        wrapperClasses={`mw-100 overflow-x-auto
           ${style.tableWrapper} ${bordered ? "" : style.borderNone}`}
       />
     </div>
