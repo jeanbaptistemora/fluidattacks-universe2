@@ -359,6 +359,40 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     )
 
 
+def _sweet32_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
+    locations = Locations(locations=[])
+
+    conn_established: bool = False
+    ssl_settings = SSLSettings(
+        min_version=(3, 1),
+        max_version=(3, 3),
+        cipher_names=["3des"],
+    )
+
+    with connect(
+        ctx.target.host,
+        ctx.target.port,
+        ssl_settings,
+        intention="check if sweet32 attack is possible",
+        expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
+    ) as connection:
+        if connection is not None:
+            conn_established = not connection.closed
+            if conn_established:
+                locations.append(
+                    desc="sweet32_possible",
+                )
+
+    return _create_vulns(
+        locations=locations,
+        finding=core_model.FindingEnum.F052_CBC,
+        ctx=ctx,
+        conn_established=conn_established,
+        line=SSLSnippetLine.ciphers,
+        ssl_settings=ssl_settings,
+    )
+
+
 def get_check_ctx(ssl_ctx: SSLContext) -> SSLContext:
     return ssl_ctx
 
@@ -369,7 +403,11 @@ CHECKS: Dict[
 ] = {
     core_model.FindingEnum.F052: [_weak_ciphers_allowed],
     core_model.FindingEnum.F052_ANON: [_anonymous_ciphers_allowed],
-    core_model.FindingEnum.F052_CBC: [_beast_possible, _cbc_enabled],
+    core_model.FindingEnum.F052_CBC: [
+        _beast_possible,
+        _cbc_enabled,
+        _sweet32_possible,
+    ],
     core_model.FindingEnum.F052_PFS: [_pfs_disabled],
     core_model.FindingEnum.F052_SSLV3: [_sslv3_enabled],
     core_model.FindingEnum.F052_TLS: [
