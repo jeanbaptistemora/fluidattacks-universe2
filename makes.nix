@@ -9,5 +9,5 @@
     enable = true;
     targets = [ "/" ];
   };
-  requiredMakesVersion = "21.08-pre3";
+  requiredMakesVersion = "21.08";
 }
