@@ -2,9 +2,15 @@ from aioextensions import (
     collect,
 )
 import collections
+from custom_exceptions import (
+    InvalidFilter,
+)
 from custom_types import (
     Finding as FindingType,
     Group as GroupType,
+)
+from db_model.findings.types import (
+    Finding,
 )
 import re
 from typing import (
@@ -49,6 +55,30 @@ async def get_filtered_elements(
         for element, condition in zip(elements, conditions)
         if condition
     ]
+
+
+async def filter_findings_new(
+    findings: Finding, filters: Dict[str, Any]
+) -> Tuple[Finding, ...]:
+    """Return filtered findings according to filters."""
+
+    def satisfies_filter(finding: Finding) -> bool:
+        filter_finding_value = {
+            "actor": finding.actor,
+            "affectedSystems": finding.affected_systems,
+            "verified": finding.unreliable_indicators.unreliable_is_verified,
+        }
+        hits = 0
+        for attr, value in filters.items():
+            try:
+                result = filter_finding_value[attr]
+            except KeyError:
+                raise InvalidFilter(attr)
+            if str(result) == str(value):
+                hits += 1
+        return hits == len(filters)
+
+    return tuple(finding for finding in findings if satisfies_filter(finding))
 
 
 def list_to_dict(

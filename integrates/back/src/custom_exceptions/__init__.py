@@ -310,6 +310,14 @@ class InvalidChar(CustomBaseException):
         super(InvalidChar, self).__init__(msg)
 
 
+class InvalidFilter(CustomBaseException):
+    """Exception to control the supported filters"""
+
+    def __init__(self, filter_name: str) -> None:
+        msg = f"Exception - The filter is not supported: {filter_name}"
+        super(InvalidFilter, self).__init__(msg)
+
+
 class TrailingWhiteSpace(CustomBaseException):
     """Exception to avoid invalid branch names with trailing spaces"""
 
