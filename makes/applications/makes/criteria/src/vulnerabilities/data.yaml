@@ -1,12 +1,12 @@
 001:
   en:
-    title: SQL Injection
+    title: SQL injection - C Sharp SQL API
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Inyección SQL
+    title: Inyección SQL - C Sharp SQL API
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -3133,13 +3133,13 @@
   metadata: {}
 109:
   en:
-    title: SQL injection - C Sharp SQL API
+    title: Inappropriate coding practices - Float currency
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Inyección SQL - C Sharp SQL API
+    title: Prácticas inadecuadas de programación - Moneda expresada con floats
     description: __empty__
     impact: __empty__
     recommendation: __empty__
