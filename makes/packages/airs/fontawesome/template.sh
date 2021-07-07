@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 
 function install_fontawesome_pro {
+  local options="${1}"
   local deps=(
     @fortawesome/fontawesome-pro@5.15.3
     @fortawesome/pro-duotone-svg-icons@5.15.3
@@ -9,5 +10,5 @@ function install_fontawesome_pro {
     @fortawesome/pro-solid-svg-icons@5.15.3
   )
 
-  npm install "${deps[@]}"
+  npm install "${options}" "${deps[@]}"
 }

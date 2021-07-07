@@ -7,7 +7,7 @@ function main {
       FONTAWESOME_NPM_AUTH_TOKEN \
     && pushd out \
     && copy __envAirsNpm__/node_modules 'node_modules' \
-    && install_fontawesome_pro \
+    && install_fontawesome_pro "" \
     && ./node_modules/.bin/tsc --noEmit -p tsconfig.json \
     && lint_typescript "$(pwd)" "$(pwd)" \
     && popd \

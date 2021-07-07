@@ -99,6 +99,7 @@
   ],
   "scripts": {
     "build": "gatsby build",
+    "build:eph": "gatsby build --prefix-paths",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json}\"",
     "start": "npm run develop",

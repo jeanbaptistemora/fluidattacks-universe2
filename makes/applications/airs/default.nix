@@ -7,7 +7,7 @@
 }:
 makeEntrypoint {
   arguments = {
-    envAirsContent = applications.airs.content;
+    envAirsBuild = applications.airs.build;
   };
   name = "airs";
   searchPaths = {
@@ -15,7 +15,9 @@ makeEntrypoint {
       nixpkgs.findutils
       nixpkgs.gnused
       nixpkgs.gzip
+      nixpkgs.nodejs
       nixpkgs.python37
+      nixpkgs.utillinux
       packages.makes.announce.bugsnag
     ];
     envUtils = [

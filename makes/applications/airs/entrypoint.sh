@@ -107,18 +107,20 @@ function deploy_dev {
 function deploy_eph {
   local src="${1}"
 
-  aws_login_dev airs \
-    && compress_files "${src}" \
-    && sync_files "${src}" "s3://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
+  __envAirsBuild__ \
+    && aws_login_dev airs \
+    && compress_files "${src}/public" \
+    && sync_files "${src}/public" "s3://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
     && announce_to_bugsnag ephemeral
 }
 
 function deploy_prod {
   local src="${1}"
 
-  aws_login_prod airs \
-    && compress_files "${src}" \
-    && sync_files "${src}" 's3://fluidattacks.com' \
+  __envAirsBuild__ \
+    && aws_login_prod airs \
+    && compress_files "${src}/public" \
+    && sync_files "${src}/public" 's3://fluidattacks.com' \
     && announce_to_bugsnag production
 }
 
@@ -130,17 +132,16 @@ function announce_to_bugsnag {
 
 function main {
   local env="${1:-}"
-  local out='airs/front/public'
+  local out='airs/front'
   local url_to_replace='please-replace-this-url-before-deploying'
   local path_to_replace='please-replace-this-path-before-deploying'
 
-  __envAirsContent__ \
-    && case "${env}" in
-      dev) patch_paths_dev "${out}" ;;
-      eph) patch_paths_eph "${out}" ;;
-      prod) patch_paths_prod "${out}" ;;
-      *) abort '[ERROR] Second argument must be one of: dev, eph, prod' ;;
-    esac \
+  case "${env}" in
+    dev) patch_paths_dev "${out}" ;;
+    eph) patch_paths_eph "${out}" ;;
+    prod) patch_paths_prod "${out}" ;;
+    *) abort '[ERROR] Second argument must be one of: dev, eph, prod' ;;
+  esac \
     && case "${env}" in
       dev) deploy_dev "${out}" ;;
       eph) deploy_eph "${out}" ;;

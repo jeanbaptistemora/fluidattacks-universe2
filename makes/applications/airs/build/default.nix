@@ -6,12 +6,11 @@
 }:
 makeEntrypoint {
   arguments = {
-    envAirsContent = path "/airs/front/content";
     envAirsNpm = packages.airs.npm;
     envAirsSecrets = path "/airs/deploy/secret-management";
   };
-  template = path "/makes/applications/airs/content/entrypoint.sh";
-  name = "airs-content";
+  template = path "/makes/applications/airs/build/entrypoint.sh";
+  name = "airs-build";
   searchPaths = {
     envLibraries = [
       nixpkgs.musl

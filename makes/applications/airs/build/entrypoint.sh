@@ -13,17 +13,16 @@ function main {
       GATSBY_ALGOLIA_APP_ID \
       GATSBY_ALGOLIA_SEARCH_KEY \
       ALGOLIA_ADMIN_KEY \
-    && copy __envAirsContent__ content \
     && if test -n "${CI:-}" && test "${CI_COMMIT_REF_NAME}" != "master"; then
       sed -i "s|pathPrefix: '/front'|pathPrefix: '/${CI_COMMIT_REF_NAME}'|g" gatsby-config.js \
         && sed -i "s|https://fluidattacks.com|https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}|g" gatsby-config.js
     fi \
     && copy __envAirsNpm__/node_modules 'node_modules' \
-    && install_fontawesome_pro \
+    && install_fontawesome_pro "" \
     && if test -n "${CI:-}" && test "${CI_COMMIT_REF_NAME}" != "master"; then
-      HOME=. ./node_modules/.bin/gatsby build --prefix-paths
+      npm run build:eph
     else
-      HOME=. ./node_modules/.bin/gatsby build
+      npm run build
     fi \
     && find content/ -name "*.adoc" -type f -delete \
     && find content/ -type d -empty -delete \
