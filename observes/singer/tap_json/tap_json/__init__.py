@@ -344,9 +344,10 @@ def main() -> None:
     for stream in io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8"):
         with contextlib.suppress(JSONDecodeError):
             stream_stru = loads(stream)
-            if stream_stru["type"] == "RECORD":
+            _type = stream_stru.get("type")
+            if _type is None or _type == "RECORD":
                 linearize(stream_stru["stream"], stream_stru["record"])
-            elif stream_stru["type"] == "STATE":
+            elif _type == "STATE":
                 write(STATE_DIR, "states", stream)
     catalog()
 
