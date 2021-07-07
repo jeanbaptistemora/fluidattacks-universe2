@@ -14,8 +14,6 @@ docs.infra.test
 forces
 forces.infra.deploy
 forces.infra.test
-forces.oci-deploy
-forces.oci-deploy-ephemeral
 forces.process-groups
 forces.process-groups-break
 forces.test
