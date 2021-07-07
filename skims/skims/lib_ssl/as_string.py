@@ -24,11 +24,12 @@ ssl_versions: Dict[Tuple[int, int], str] = {
 
 
 class SSLSnippetLine(Enum):
-    min_version: int = 2
-    max_version: int = 3
-    ciphers: int = 4
-    mac: int = 5
-    key_exchange: int = 6
+    fallback_scsv: int = 2
+    min_version: int = 3
+    max_version: int = 4
+    ciphers: int = 5
+    mac: int = 6
+    key_exchange: int = 7
 
 
 # pylint: disable=too-many-arguments
@@ -48,6 +49,7 @@ def snippet(
     key_exchange: str = ", ".join(ssl_settings.key_exchange_names)
 
     content: str = f"SSL connection request to {host}:{port}\n"
+    content += f"fallback scsv: {ssl_settings.scsv}\n"
     content += f"min version: {min_version}\n"
     content += f"max version: {max_version}\n"
     content += f"chiphers: {chiphers}\n"

@@ -7,6 +7,9 @@ lib_ssl.analyze_protocol.tlsv1_1_enabled:
 lib_ssl.analyze_protocol.tlsv1_3_disabled:
   en: no support for TLS v1.3
   es: no soporta TLS v1.3
+lib_ssl.analyze_protocol.fallback_scsv_disabled:
+  en: TLS_FALLBACK_SCSV is disabled
+  es: TLS_FALLBACK_SCSV está deshabilitado
 F052_TLS.description:
   en: The server allows the usage of old TLS protocol versions.
   es: El servidor permite utilizar versiones viejas del protocolo TLS.
@@ -23,12 +26,8 @@ F052_TLS.requirements:
     R262. Los componentes provistos por terceros deben corresponder a versiones
     estables, probadas y actualizadas.
 F052_TLS.threat:
-  en: >
-    Unauthorized attacker from internet network exploiting a vulnerability
-    related to the cipher block chaining process (CBC).
-  es: >
-    Atacante sin autorización desde internet explotando una vulnerabilidad
-    relacionada al CBC.
+  en: Unauthorized attacker from adjacent network exploiting a vulnerability.
+  es: Atacante sin autorización desde red adjacente explotando vulnerabilidad.
 F052_TLS.title:
   en: F052. Insecure cipher algorithm - Transport Layer Security
   es: F052. Algoritmo de cifrado inseguro - Transport Layer Security

@@ -38,6 +38,7 @@ def connect(
             connection = tlslite.TLSConnection(sock)
 
             settings = tlslite.HandshakeSettings()
+            settings.sendFallbackSCSV = ssl_settings.scsv
             settings.minVersion = ssl_settings.min_version
             settings.maxVersion = ssl_settings.max_version
             settings.macNames = ssl_settings.mac_names

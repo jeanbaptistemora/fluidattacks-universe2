@@ -1,5 +1,6 @@
 from lib_ssl.as_string import (
     snippet,
+    ssl_versions,
     SSLSnippetLine,
 )
 from lib_ssl.ssl_connection import (
@@ -19,6 +20,7 @@ from typing import (
     List,
     NamedTuple,
     Optional,
+    Tuple,
 )
 from utils.ctx import (
     CTX,
@@ -393,6 +395,65 @@ def _sweet32_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     )
 
 
+def _server_supports_tls(ctx: SSLContext, version: Tuple[int, int]) -> bool:
+    with connect(
+        ctx.target.host,
+        ctx.target.port,
+        SSLSettings(min_version=version, max_version=version),
+        intention=f"check if server supports {ssl_versions[version]}",
+        expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
+    ) as connection:
+        if connection is not None and not connection.closed:
+            return True
+    return False
+
+
+def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
+    locations = Locations(locations=[])
+
+    min_version_id: int = -1
+
+    for version_id in range(0, 3):
+        if _server_supports_tls(ctx, version=(3, version_id)):
+            min_version_id = version_id
+            break
+
+    if min_version_id == -1:
+        return tuple()
+
+    conn_established: bool = False
+    min_version: Tuple[int, int] = (3, min_version_id)
+
+    ssl_settings = SSLSettings(
+        scsv=True,
+        min_version=min_version,
+        max_version=min_version,
+    )
+
+    with connect(
+        ctx.target.host,
+        ctx.target.port,
+        ssl_settings,
+        intention="check if fallback scsv is disabled",
+        expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
+    ) as connection:
+        if connection is not None:
+            conn_established = not connection.closed
+            if conn_established:
+                locations.append(
+                    desc="fallback_scsv_disabled",
+                )
+
+    return _create_vulns(
+        locations=locations,
+        finding=core_model.FindingEnum.F052_TLS,
+        ctx=ctx,
+        conn_established=conn_established,
+        line=SSLSnippetLine.max_version,
+        ssl_settings=ssl_settings,
+    )
+
+
 def get_check_ctx(ssl_ctx: SSLContext) -> SSLContext:
     return ssl_ctx
 
@@ -414,5 +475,6 @@ CHECKS: Dict[
         _tlsv1_enabled,
         _tlsv1_1_enabled,
         _tlsv1_3_disabled,
+        _fallback_scsv_disabled,
     ],
 }

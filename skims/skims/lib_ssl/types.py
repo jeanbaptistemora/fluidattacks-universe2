@@ -16,6 +16,7 @@ class SSLContext(NamedTuple):
 
 
 class SSLSettings(NamedTuple):
+    scsv: bool = False
     min_version: Tuple[int, int] = (3, 0)
     max_version: Tuple[int, int] = (3, 4)
     mac_names: List[str] = ["sha", "sha256", "sha384", "aead"]
