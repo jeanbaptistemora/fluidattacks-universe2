@@ -15,12 +15,6 @@
     <p></p>
     {{ analytics_image(image_src, 1200) }}
     <br />
-    <p></p>
-    <p></p>
-    {{ go_to_button('Download report', image_src) }}
-    <p></p>
-    {{ go_to_button('Go Live', live_report_url) }}
-    <p></p>
     <p>
       You are receiving this email because you are subscribed to {{ frequency_title }}
       report in {{ report_subject_title }}.
@@ -30,6 +24,10 @@
     <p></p>
     <p>Regards,<br>
       Fluid Attacks Team</p>
+    {{ go_to_button('Download report', image_src) }}
+    <p></p>
+    {{ go_to_button('Go Live', live_report_url) }}
+    <br />
   </div>
 
   {% include 'layouts/components/footer.html' %}
