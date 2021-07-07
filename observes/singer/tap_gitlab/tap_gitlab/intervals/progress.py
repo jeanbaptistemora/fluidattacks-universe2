@@ -6,6 +6,8 @@ from dataclasses import (
     dataclass,
 )
 from returns.primitives.hkt import (
+    Kind1,
+    kinded,
     SupportsKind1,
     SupportsKind2,
 )
@@ -17,8 +19,10 @@ from tap_gitlab.intervals.fragmented import (
     FragmentedInterval,
 )
 from tap_gitlab.intervals.interval import (
-    Interval,
+    ClosedInterval,
+    OpenInterval,
     OpenLeftInterval,
+    OpenRightInterval,
 )
 from typing import (
     Callable,
@@ -28,14 +32,26 @@ from typing import (
 )
 
 _DataType = TypeVar("_DataType")
+_ProgressIntvlType = TypeVar(
+    "_ProgressIntvlType",
+    ClosedInterval,
+    OpenInterval,
+    OpenLeftInterval,
+    OpenRightInterval,
+)
 
 
 @dataclass(frozen=True)
 class ProgressInterval(
-    SupportsKind1["ProgressInterval", _DataType],
+    SupportsKind2["ProgressInterval", _ProgressIntvlType, _DataType],
 ):
-    interval: Interval[_DataType]
+    _interval: Kind1[_ProgressIntvlType, _DataType]
     completed: bool
+
+    # @property do not work here
+    @kinded
+    def interval(self) -> Kind1[_ProgressIntvlType, _DataType]:
+        return self._interval
 
 
 _State = TypeVar("_State")
@@ -45,7 +61,7 @@ _State = TypeVar("_State")
 class ProcessStatus(
     SupportsKind2["ProcessStatus", _DataType, _State],
 ):
-    p_intervals: NTuple[ProgressInterval[_DataType]]
+    p_intervals: NTuple[ProgressInterval[OpenLeftInterval, _DataType]]
     incomplete_is_present: bool
     function_state: _State
 
@@ -72,7 +88,7 @@ class FragmentedProgressInterval(
     @property
     def progress_intervals(
         self,
-    ) -> NTuple[ProgressInterval[_DataType]]:
+    ) -> NTuple[ProgressInterval[OpenLeftInterval, _DataType]]:
         intervals = zip(self.f_interval.intervals, self.completeness)
         return tuple(
             ProgressInterval(item, completed) for item, completed in intervals
@@ -81,14 +97,16 @@ class FragmentedProgressInterval(
     def process_until_incomplete(
         self,
         function: Callable[
-            [_State, ProgressInterval[_DataType]],
-            Tuple[_State, NTuple[ProgressInterval[_DataType]]],
+            [_State, ProgressInterval[OpenLeftInterval, _DataType]],
+            Tuple[
+                _State, NTuple[ProgressInterval[OpenLeftInterval, _DataType]]
+            ],
         ],
         init_state: _State,
-    ) -> NTuple[ProgressInterval[_DataType]]:
+    ) -> NTuple[ProgressInterval[OpenLeftInterval, _DataType]]:
         def _process(
             prev: ProcessStatus[_DataType, _State],
-            interval: ProgressInterval[_DataType],
+            interval: ProgressInterval[OpenLeftInterval, _DataType],
         ) -> ProcessStatus[_DataType, _State]:
             if prev.incomplete_is_present:
                 return ProcessStatus(
@@ -134,7 +152,7 @@ class FProgressFactory(
         raise CannotBuild("FragmentedProgressInterval")
 
     def from_n_progress(
-        self, progress: NTuple[ProgressInterval[_DataType]]
+        self, progress: NTuple[ProgressInterval[OpenLeftInterval, _DataType]]
     ) -> FragmentedProgressInterval[_DataType]:
         _progress: List[Tuple[OpenLeftInterval[_DataType], bool]] = []
         for item in progress:

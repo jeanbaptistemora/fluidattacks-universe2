@@ -146,63 +146,65 @@ class Emitter:
         self,
         stream: MrStream,
         pages_emitted: int,
-        p_interval: ProgressInterval[datetime],
-    ) -> Tuple[int, NTuple[ProgressInterval[datetime]]]:
+        p_interval: ProgressInterval[OpenLeftInterval, datetime],
+    ) -> Tuple[int, NTuple[ProgressInterval[OpenLeftInterval, datetime]]]:
         api: MrApi = self.api.project(stream.project).mrs(
             stream.scope, stream.mr_state
         )
         if not p_interval.completed:
-            interval = p_interval.interval
-            if isinstance(interval, OpenLeftInterval):
-                pages = (
-                    api.list_all_updated_before(PageId(interval.upper, 100))
-                    if isinstance(interval.lower, MIN)
-                    else api.list_all_updated_between(
-                        interval.lower, interval.upper
-                    )
+            interval: OpenLeftInterval[datetime] = p_interval.interval()
+            pages = (
+                api.list_all_updated_before(PageId(interval.upper, 100))
+                if isinstance(interval.lower, MIN)
+                else api.list_all_updated_between(
+                    interval.lower, interval.upper
                 )
-                # temp unsafe_perform_io for fast coupling
-                result = _stream_data(
-                    SupportedStreams.MERGE_REQUESTS,
-                    unsafe_perform_io(pages),
-                    pages_emitted,
-                    self.max_pages,
-                )
-                emitted = result.value_or(self.max_pages)
+            )
+            # temp unsafe_perform_io for fast coupling
+            result = _stream_data(
+                SupportedStreams.MERGE_REQUESTS,
+                unsafe_perform_io(pages),
+                pages_emitted,
+                self.max_pages,
+            )
+            emitted = result.value_or(self.max_pages)
 
-                def _transform_page(
-                    ol_interval: OpenLeftInterval[datetime], page: MrsPage
-                ) -> Result[NTuple[ProgressInterval[datetime]], None]:
-                    data = tuple(
-                        (
-                            ProgressInterval(
-                                self.interval_factory.new_lopen(
-                                    ol_interval.lower, page.max_date
-                                ),
-                                False,
+            def _transform_page(
+                ol_interval: OpenLeftInterval[datetime], page: MrsPage
+            ) -> Result[
+                NTuple[ProgressInterval[OpenLeftInterval, datetime]], None
+            ]:
+                data = tuple(
+                    (
+                        ProgressInterval(
+                            self.interval_factory.new_lopen(
+                                ol_interval.lower, page.max_date
                             ),
-                            ProgressInterval(
-                                self.interval_factory.new_lopen(
-                                    page.max_date, ol_interval.upper
-                                ),
-                                True,
+                            False,
+                        ),
+                        ProgressInterval(
+                            self.interval_factory.new_lopen(
+                                page.max_date, ol_interval.upper
                             ),
-                        )
+                            True,
+                        ),
                     )
-                    return Success(data)
-
-                page_to_pinterval = partial(_transform_page, interval)
-                new_p_interval: NTuple[ProgressInterval[datetime]] = (
-                    result.map(
-                        lambda _: tuple(
-                            (ProgressInterval(p_interval.interval, True),)
-                        )
-                    )
-                    .lash(page_to_pinterval)
-                    .unwrap()
                 )
-                return (emitted, new_p_interval)
-            raise InvalidInterval("Expected OpenLeftInterval")
+                return Success(data)
+
+            page_to_pinterval = partial(_transform_page, interval)
+            new_p_interval: NTuple[
+                ProgressInterval[OpenLeftInterval, datetime]
+            ] = (
+                result.map(
+                    lambda _: tuple(
+                        (ProgressInterval(p_interval.interval(), True),)
+                    )
+                )
+                .lash(page_to_pinterval)
+                .unwrap()
+            )
+            return (emitted, new_p_interval)
         return (pages_emitted, (p_interval,))
 
     def emit_mrs(
