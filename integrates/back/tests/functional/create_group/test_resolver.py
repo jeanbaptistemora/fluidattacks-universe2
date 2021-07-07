@@ -40,6 +40,7 @@ async def test_create_group(populate: bool, email: str) -> None:
         ["executive@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
+        ["group_manager@gmail.com"],
     ],
 )
 async def test_create_group_fail(populate: bool, email: str) -> None:

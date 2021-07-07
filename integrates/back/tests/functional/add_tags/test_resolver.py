@@ -18,6 +18,7 @@ from typing import (
         ("customer@gmail.com", ["testing2"]),
         ("customeradmin@gmail.com", ["testing3"]),
         ("executive@gmail.com", ["testing4"]),
+        ("group_manager@gmail.com", ["testing5"]),
     ),
 )
 async def test_add_tags(

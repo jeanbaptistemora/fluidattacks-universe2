@@ -15,6 +15,7 @@ from typing import (
     [
         ["admin@gmail.com"],
         ["customeradmin@gmail.com"],
+        ["group_manager@gmail.com"],
     ],
 )
 async def test_edit_stakeholder(populate: bool, email: str) -> None:
