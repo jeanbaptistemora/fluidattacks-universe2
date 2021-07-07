@@ -5,6 +5,9 @@ from __future__ import (
 from dataclasses import (
     dataclass,
 )
+from more_itertools import (
+    split_when,
+)
 from returns.primitives.hkt import (
     Kind1,
     kinded,
@@ -26,7 +29,6 @@ from tap_gitlab.intervals.interval import (
 )
 from typing import (
     Callable,
-    List,
     Tuple,
     TypeVar,
 )
@@ -154,13 +156,21 @@ class FProgressFactory(
     def from_n_progress(
         self, progress: NTuple[ProgressInterval[OpenLeftInterval, _DataType]]
     ) -> FragmentedProgressInterval[_DataType]:
-        _progress: List[Tuple[OpenLeftInterval[_DataType], bool]] = []
-        for item in progress:
-            if isinstance(item.interval, OpenLeftInterval):
-                _progress.append((item.interval, item.completed))
-            else:
-                raise CannotBuild("Expected OpenLeftInterval")
-        intervals = tuple(item[0] for item in _progress)
+        grouped = split_when(
+            progress, lambda p1, p2: p1.completed != p2.completed
+        )
+        compressed = tuple(
+            ProgressInterval(
+                self.factory.factory.new_lopen(
+                    group[0].interval().lower, group[-1].interval().upper
+                ),
+                group[0].completed,
+            )
+            for group in grouped
+        )
+        intervals: NTuple[OpenLeftInterval[_DataType]] = tuple(
+            item.interval() for item in compressed
+        )
         f_interval = self.factory.from_intervals(intervals)
-        completeness = tuple(item[1] for item in _progress)
+        completeness = tuple(item.completed for item in compressed)
         return self.new_fprogress(f_interval, completeness)
