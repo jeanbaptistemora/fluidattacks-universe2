@@ -376,8 +376,8 @@ $gray-244: rgba(244, 244, 246, 1);
 .arrow-box {
   background: $white;
   border: 1px solid #b0b0b0;
-  height: 50px;
-  padding-top: 0.6rem !important;
+  min-height: 50px;
+  padding-top: 0.8rem !important;
   position: relative;
 }
 

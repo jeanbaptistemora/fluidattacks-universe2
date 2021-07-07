@@ -75,7 +75,6 @@ const RedButton: StyledComponent<
     hv-bg-fluid-rd
     pointer
     white
-    pv3
     ph5
     fw4
     f5
