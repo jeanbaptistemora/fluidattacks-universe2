@@ -290,6 +290,7 @@ def filter_zero_risk_vulns(
 async def get(
     finding_id: str, table: aioboto3.session.Session.client
 ) -> Dict[str, FindingType]:
+    validations.validate_alphanumeric_field(finding_id)
     finding = await findings_dal.get(finding_id, table)
     if not finding or not await validate_finding(finding=finding):
         raise FindingNotFound()
