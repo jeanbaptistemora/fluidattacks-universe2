@@ -125,8 +125,6 @@ describe("EventDescriptionView", (): void => {
       wrapper.update();
     });
 
-    expect(
-      wrapper.find("genericForm").find({ name: "solveEvent" })
-    ).toHaveLength(1);
+    expect(wrapper.find("Formik").find({ name: "solveEvent" })).toHaveLength(1);
   });
 });

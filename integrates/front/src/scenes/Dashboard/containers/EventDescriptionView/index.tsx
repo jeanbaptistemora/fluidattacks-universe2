@@ -1,17 +1,14 @@
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
-import _ from "lodash";
+import _, { toString } from "lodash";
 import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Field } from "redux-form";
-import type { InjectedFormProps } from "redux-form";
 
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
 import { Modal } from "components/Modal";
-import { EditableField } from "scenes/Dashboard/components/EditableField";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";
 import {
   GET_EVENT_DESCRIPTION,
@@ -26,11 +23,12 @@ import {
   Row,
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
-import { DateTime, Text } from "utils/forms/fields";
+import { EditableField, FormikDateTime, FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import {
+  composeValidators,
   dateTimeBeforeToday,
   numeric,
   required,
@@ -110,7 +108,11 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
 
   const handleSubmit: (values: Record<string, unknown>) => void = useCallback(
     (values: Record<string, unknown>): void => {
-      void solveEvent({ variables: { eventId, ...values } });
+      const castValues = {
+        affectation: toString(values.affectation),
+        date: values.date,
+      };
+      void solveEvent({ variables: { eventId, ...castValues } });
       closeSolvingModal();
     },
     [eventId, closeSolvingModal, solveEvent]
@@ -132,9 +134,14 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
           headerTitle={translate.t("searchFindings.tabSeverity.solve")}
           open={isSolvingModalOpen}
         >
-          <GenericForm name={"solveEvent"} onSubmit={handleSubmit}>
-            {({ pristine }: InjectedFormProps): React.ReactNode => (
-              <React.Fragment>
+          <Formik
+            enableReinitialize={true}
+            initialValues={{}}
+            name={"solveEvent"}
+            onSubmit={handleSubmit}
+          >
+            {({ dirty }): React.ReactNode => (
+              <Form id={"solveEvent"}>
                 <Row>
                   <Col50>
                     <FormGroup>
@@ -142,13 +149,13 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                         {translate.t("group.events.description.solved.date")}
                       </ControlLabel>
                       <Field
-                        component={DateTime}
+                        component={FormikDateTime}
                         name={"date"}
-                        validate={[
+                        validate={composeValidators([
                           required,
                           validDatetime,
                           dateTimeBeforeToday,
-                        ]}
+                        ])}
                       />
                     </FormGroup>
                   </Col50>
@@ -160,10 +167,10 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                         )}
                       </ControlLabel>
                       <Field
-                        component={Text}
+                        component={FormikText}
                         name={"affectation"}
                         type={"number"}
-                        validate={[required, numeric]}
+                        validate={composeValidators([required, numeric])}
                       />
                     </FormGroup>
                   </Col50>
@@ -175,120 +182,126 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                       <Button onClick={closeSolvingModal}>
                         {translate.t("confirmmodal.cancel")}
                       </Button>
-                      <Button disabled={pristine || submitting} type={"submit"}>
+                      <Button disabled={!dirty || submitting} type={"submit"}>
                         {translate.t("confirmmodal.proceed")}
                       </Button>
                     </ButtonToolbar>
                   </Col100>
                 </Row>
-              </React.Fragment>
+              </Form>
             )}
-          </GenericForm>
+          </Formik>
         </Modal>
-        <GenericForm
+        <Formik
           initialValues={data.event}
           name={"editEvent"}
           onSubmit={handleDescriptionSubmit}
         >
-          <div>
+          <Form id={"editEvent"}>
             <div>
-              <Row>
-                <ButtonToolbar>
-                  <Can do={"api_mutations_solve_event_mutate"}>
-                    <Button
-                      disabled={data.event.eventStatus === "SOLVED"}
-                      onClick={openSolvingModal}
-                    >
-                      <FluidIcon icon={"verified"} />
-                      &nbsp;
-                      {translate.t("searchFindings.tabSeverity.solve")}
-                    </Button>
-                  </Can>
-                </ButtonToolbar>
-              </Row>
-              <Row>
-                <Col50>
-                  <EditableField
-                    alignField={"horizontalWide"}
-                    component={Text}
-                    currentValue={data.event.detail}
-                    label={translate.t("searchFindings.tabEvents.description")}
-                    name={"detail"}
-                    renderAsEditable={false}
-                    type={"text"}
-                  />
-                </Col50>
-                <Col50>
-                  <EditableField
-                    alignField={"horizontalWide"}
-                    component={Text}
-                    currentValue={data.event.client}
-                    label={translate.t("searchFindings.tabEvents.client")}
-                    name={"client"}
-                    renderAsEditable={false}
-                    type={"text"}
-                  />
-                </Col50>
-              </Row>
-              <Row>
-                <Col50>
-                  <EditableField
-                    alignField={"horizontalWide"}
-                    component={Text}
-                    currentValue={data.event.analyst}
-                    label={translate.t("searchFindings.tabEvents.analyst")}
-                    name={"analyst"}
-                    renderAsEditable={false}
-                    type={"text"}
-                  />
-                </Col50>
-                <Col50>
-                  <EditableField
-                    alignField={"horizontalWide"}
-                    component={Text}
-                    currentValue={
-                      _.isEmpty(data.event.affectation)
-                        ? "-"
-                        : data.event.affectation
-                    }
-                    label={translate.t("searchFindings.tabEvents.affectation")}
-                    name={"affectation"}
-                    renderAsEditable={false}
-                    type={"text"}
-                  />
-                </Col50>
-              </Row>
-              <Row>
-                {_.isEmpty(data.event.affectedComponents) ? undefined : (
+              <div>
+                <Row>
+                  <ButtonToolbar>
+                    <Can do={"api_mutations_solve_event_mutate"}>
+                      <Button
+                        disabled={data.event.eventStatus === "SOLVED"}
+                        onClick={openSolvingModal}
+                      >
+                        <FluidIcon icon={"verified"} />
+                        &nbsp;
+                        {translate.t("searchFindings.tabSeverity.solve")}
+                      </Button>
+                    </Can>
+                  </ButtonToolbar>
+                </Row>
+                <Row>
                   <Col50>
                     <EditableField
                       alignField={"horizontalWide"}
-                      component={Text}
-                      currentValue={data.event.affectedComponents}
+                      component={FormikText}
+                      currentValue={data.event.detail}
                       label={translate.t(
-                        "searchFindings.tabEvents.affectedComponents"
+                        "searchFindings.tabEvents.description"
                       )}
-                      name={"affectedComponents"}
+                      name={"detail"}
                       renderAsEditable={false}
                       type={"text"}
                     />
                   </Col50>
-                )}
-                <Col50>
-                  <EditableField
-                    alignField={"horizontalWide"}
-                    component={Text}
-                    currentValue={data.event.accessibility}
-                    label={translate.t("searchFindings.tabEvents.eventIn")}
-                    name={"accessibility"}
-                    renderAsEditable={false}
-                    type={"text"}
-                  />
-                </Col50>
-              </Row>
+                  <Col50>
+                    <EditableField
+                      alignField={"horizontalWide"}
+                      component={FormikText}
+                      currentValue={data.event.client}
+                      label={translate.t("searchFindings.tabEvents.client")}
+                      name={"client"}
+                      renderAsEditable={false}
+                      type={"text"}
+                    />
+                  </Col50>
+                </Row>
+                <Row>
+                  <Col50>
+                    <EditableField
+                      alignField={"horizontalWide"}
+                      component={FormikText}
+                      currentValue={data.event.analyst}
+                      label={translate.t("searchFindings.tabEvents.analyst")}
+                      name={"analyst"}
+                      renderAsEditable={false}
+                      type={"text"}
+                    />
+                  </Col50>
+                  <Col50>
+                    <EditableField
+                      alignField={"horizontalWide"}
+                      component={FormikText}
+                      currentValue={
+                        _.isEmpty(data.event.affectation)
+                          ? "-"
+                          : data.event.affectation
+                      }
+                      label={translate.t(
+                        "searchFindings.tabEvents.affectation"
+                      )}
+                      name={"affectation"}
+                      renderAsEditable={false}
+                      type={"text"}
+                    />
+                  </Col50>
+                </Row>
+                <Row>
+                  {_.isEmpty(data.event.affectedComponents) ? undefined : (
+                    <Col50>
+                      <EditableField
+                        alignField={"horizontalWide"}
+                        component={FormikText}
+                        currentValue={data.event.affectedComponents}
+                        label={translate.t(
+                          "searchFindings.tabEvents.affectedComponents"
+                        )}
+                        name={"affectedComponents"}
+                        renderAsEditable={false}
+                        type={"text"}
+                      />
+                    </Col50>
+                  )}
+                  <Col50>
+                    <EditableField
+                      alignField={"horizontalWide"}
+                      component={FormikText}
+                      currentValue={data.event.accessibility}
+                      label={translate.t("searchFindings.tabEvents.eventIn")}
+                      name={"accessibility"}
+                      renderAsEditable={false}
+                      type={"text"}
+                    />
+                  </Col50>
+                </Row>
+              </div>
             </div>
-          </div>
-        </GenericForm>
+          </Form>
+        </Formik>
       </React.Fragment>
     </React.StrictMode>
   );
