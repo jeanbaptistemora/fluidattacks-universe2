@@ -32,7 +32,6 @@ let
     "/observes/singer/tap_toe_files"
     "/observes/singer/tap_zoho_analytics"
     "/observes/singer/target_redshift"
-    "/observes/singer/target_redshift_2"
   ];
   srcs = map path paths;
 in
