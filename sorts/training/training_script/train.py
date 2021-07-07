@@ -158,7 +158,7 @@ def save_best_model_to_s3(
             ).upload_file(local_file)
 
 
-def train_model(
+def train_model(  # pylint: disable=too-many-locals
     model_class: ModelType,
     training_dir: str,
     previous_results: List[List[str]],
@@ -185,7 +185,8 @@ def train_model(
         model = get_model_instance(model_class)
         metrics = get_model_performance_metrics(model, train_x, train_y)
 
-        print(f"Training time: {time.time() - start_time:.2f}")
+        training_time = time.time() - start_time
+        print(f"Training time: {training_time:.2f}")
         print(f"Features: {combination}")
         print(f"Precision: {metrics[0]}%")
         print(f"Recall: {metrics[1]}%")
@@ -201,6 +202,7 @@ def train_model(
             f_score=round(metrics[2], 1),
             overfit=round(metrics[3], 1),
             tuned_parameters="n/a",
+            training_time=training_time,
         )
         training_output.append(list(combination_train_results.values()))
         redshift.insert("training", combination_train_results)
