@@ -45,11 +45,11 @@ workflow:
 
 .makes4: &makes4
   tags: [autoscaling]
-  image: ghcr.io/fluidattacks/makes:21.07
+  image: ghcr.io/fluidattacks/makes:21.08-pre3
   needs: []
   interruptible: true
   script:
-    - m ."${CI_JOB_NAME% *}"
+    - m "${CI_JOB_NAME% *}"
   variables:
     GIT_DEPTH: 5
 
@@ -97,12 +97,12 @@ makes.deploy.oci:
   <<: *common_in_master_branch
   stage: build
 
-formatBash:
+/formatBash:
   <<: *makes4
   <<: *common_in_dev_branch
   stage: lint-code
 
-formatPython:
+/formatPython:
   <<: *makes4
   <<: *common_in_dev_branch
   stage: lint-code
