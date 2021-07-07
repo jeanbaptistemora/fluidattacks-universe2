@@ -6,6 +6,7 @@ from sast_transformations.danger_nodes.utils import (
     _append_label_input,
     _append_label_sink,
     mark_function_arg,
+    mark_methods_input,
     mark_methods_sink,
 )
 from utils.string import (
@@ -22,6 +23,16 @@ def mark_inputs(
             *build_attr_paths("*http", "Request"),
         }
         mark_function_arg(finding, graph, syntax, danger_args)
+
+    for finding in (core_model.FindingEnum.F070_FLOAT_CURRENCY,):
+        mark_methods_input(
+            finding,
+            graph,
+            syntax,
+            {
+                "strconv.ParseFloat",
+            },
+        )
 
     for syntax_steps in syntax.values():
         for syntax_step in syntax_steps:
