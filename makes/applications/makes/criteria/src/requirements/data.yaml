@@ -15,7 +15,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Transferir informacion usando objetos de sesion
+    title: Transferir información usando objetos de sesión
     summary: __empty__
     description: __empty__
   references: []
@@ -37,7 +37,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Cifrar informacion de sesion del lado del cliente
+    title: Cifrar información de sesión del lado del cliente
     summary: __empty__
     description: __empty__
   references: []
@@ -48,7 +48,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Permitir bloqueo de sesion
+    title: Permitir bloqueo de sesión
     summary: __empty__
     description: __empty__
   references: []
@@ -59,7 +59,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Permitir a usuarios el cierre de sesion
+    title: Permitir a usuarios el cierre de sesión
     summary: __empty__
     description: __empty__
   references: []
@@ -81,7 +81,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Evitar reutilizacion de objetos
+    title: Evitar reutilización de objetos
     summary: __empty__
     description: __empty__
   references: []
@@ -92,7 +92,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Descartar datos de sesion del usuario
+    title: Descartar datos de sesión del usuario
     summary: __empty__
     description: __empty__
   references: []
@@ -103,7 +103,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Evitar fugas del ID de sesion
+    title: Evitar fugas del ID de sesión
     summary: __empty__
     description: __empty__
   references: []
@@ -169,7 +169,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Definir un tamano maximo de archivo
+    title: Definir un tamano máximo de archivo
     summary: __empty__
     description: __empty__
   references: []
@@ -180,7 +180,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Comparar formato y extension del archivo
+    title: Comparar formato y extensión del archivo
     summary: __empty__
     description: __empty__
   references: []
@@ -191,7 +191,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Escanear archivos para detectar codigo malicioso
+    title: Escanear archivos para detectar código malicioso
     summary: __empty__
     description: __empty__
   references: []
@@ -213,7 +213,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Definir un tipo de contenido explicito
+    title: Definir un tipo de contenido explícito
     summary: __empty__
     description: __empty__
   references: []
@@ -224,7 +224,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Definir un juego de caracteres explicito
+    title: Definir un juego de caracteres explícito
     summary: __empty__
     description: __empty__
   references: []
@@ -246,7 +246,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Gestionar la integridad de archivos criticos
+    title: Gestionar la integridad de archivos críticos
     summary: __empty__
     description: __empty__
   references: []
@@ -257,7 +257,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Componentes con dependencias minimas
+    title: Componentes con dependencias mínimas
     summary: __empty__
     description: __empty__
   references: []
@@ -268,7 +268,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Controlar llamadas a codigo interpretado
+    title: Controlar llamadas a código interpretado
     summary: __empty__
     description: __empty__
   references: []
@@ -279,7 +279,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Almacenar codigo fuente en un repositorio
+    title: Almacenar código fuente en un repositorio
     summary: __empty__
     description: __empty__
   references: []
@@ -290,7 +290,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Definir configuraciones estandar
+    title: Definir configuraciones estándar
     summary: __empty__
     description: __empty__
   references: []
@@ -301,7 +301,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Establecer un tiempo de respuesta minimo
+    title: Establecer un tiempo de respuesta mínimo
     summary: __empty__
     description: __empty__
   references: []
@@ -312,7 +312,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Registrar eventos excepcionales en logs
+    title: Registrar eventos excepcionales en bitácoras
     summary: __empty__
     description: __empty__
   references: []
@@ -323,7 +323,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Evitar la exposicion de informacion tecnica
+    title: Evitar la exposición de información técnica
     summary: __empty__
     description: __empty__
   references: []
@@ -334,7 +334,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Deshabilitar eventos de depuracion
+    title: Deshabilitar eventos de depuración
     summary: __empty__
     description: __empty__
   references: []
@@ -356,7 +356,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Prevenir la modificacion de logs
+    title: Prevenir la modificación de bitácoras
     summary: __empty__
     description: __empty__
   references: []
@@ -367,7 +367,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Evitar el registro de datos sensibles en logs
+    title: Evitar el registro de datos sensibles en bitácoras
     summary: __empty__
     description: __empty__
   references: []
@@ -422,7 +422,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Utilizar certificados validos
+    title: Utilizar certificados válidos
     summary: __empty__
     description: __empty__
   references: []
@@ -499,7 +499,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Filtrar correos electronicos maliciosos
+    title: Filtrar correos electrónicos maliciosos
     summary: __empty__
     description: __empty__
   references: []
@@ -510,7 +510,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: Deshabilitar imagenes con origen desconocido
+    title: Deshabilitar imágenes con origen desconocido
     summary: __empty__
     description: __empty__
   references: []
@@ -521,7 +521,7 @@
     summary: __empty__
     description: __empty__
   es:
-    title: No interpretar codigo HTML
+    title: No interpretar código HTML
     summary: __empty__
     description: __empty__
   references: []
@@ -554,7 +554,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Garantizar unicidad de los correos electronicos
+    title: Garantizar unicidad de los correos electrónicos
     summary: __empty__
     description: __empty__
   references: []
@@ -576,7 +576,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Restringir la lectura de correos electronicos
+    title: Restringir la lectura de correos electrónicos
     summary: __empty__
     description: __empty__
   references: []
@@ -587,7 +587,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Establecer un mecanismo de regeneracion de contrasenas
+    title: Establecer un mecanismo de regeneración de contraseñas
     summary: __empty__
     description: __empty__
   references: []
@@ -598,7 +598,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Almacenar contrasenas con hash
+    title: Almacenar contraseñas con hash
     summary: __empty__
     description: __empty__
   references: []
@@ -609,7 +609,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Definir una unica fuente de datos
+    title: Definir una única fuente de datos
     summary: __empty__
     description: __empty__
   references: []
@@ -620,7 +620,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Validar contrasenas previas
+    title: Validar contraseñas previas
     summary: __empty__
     description: __empty__
   references: []
@@ -631,7 +631,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Limitar tiempo de duracion de contrasenas
+    title: Limitar tiempo de duración de contraseñas
     summary: __empty__
     description: __empty__
   references: []
@@ -642,7 +642,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Denegar multiples intentos de cambio de contrasena
+    title: Denegar múltiples intentos de cambio de contraseña
     summary: __empty__
     description: __empty__
   references: []
@@ -653,7 +653,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Frase de contrasena con al menos 4 palabras
+    title: Frase de contraseña con al menos 4 palabras
     summary: __empty__
     description: __empty__
   references: []
@@ -664,7 +664,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Contrasenas con al menos 20 caracteres
+    title: Contraseñas con al menos 20 caracteres
     summary: __empty__
     description: __empty__
   references: []
@@ -675,7 +675,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Almacenar contrasenas con salt
+    title: Almacenar contraseñas con salt
     summary: __empty__
     description: __empty__
   references: []
@@ -686,7 +686,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Contrasenas con salt aleatorio
+    title: Contraseñas con salt aleatorio
     summary: __empty__
     description: __empty__
   references: []
@@ -697,7 +697,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Forzar el cambio de contrasenas temporales
+    title: Forzar el cambio de contraseñas temporales
     summary: __empty__
     description: __empty__
   references: []
@@ -708,7 +708,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Modificar contrasenas temporales de terceros
+    title: Modificar contraseñas temporales de terceros
     summary: __empty__
     description: __empty__
   references: []
@@ -719,7 +719,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Definir un tiempo de duracion para contrasenas temporales
+    title: Definir un tiempo de duración para contraseñas temporales
     summary: __empty__
     description: __empty__
   references: []
@@ -730,7 +730,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Establecer longitud minima para OTP
+    title: Establecer longitud mínima para OTP
     summary: __empty__
     description: __empty__
   references: []
@@ -741,7 +741,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Definir tiempo de duracion de OTP
+    title: Definir tiempo de duración de OTP
     summary: __empty__
     description: __empty__
   references: []
@@ -752,7 +752,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Forzar re-autenticacion
+    title: Forzar re-autenticación
     summary: __empty__
     description: __empty__
   references: []
@@ -774,7 +774,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Credenciales de acceso unicas
+    title: Credenciales de acceso únicas
     summary: __empty__
     description: __empty__
   references: []
@@ -785,7 +785,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Eliminar cuentas inactivas periodicamente
+    title: Eliminar cuentas inactivas periódicamente
     summary: __empty__
     description: __empty__
   references: []
@@ -796,7 +796,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Proteger llaves criptograficas del sistema
+    title: Proteger llaves criptográficas del sistema
     summary: __empty__
     description: __empty__
   references: []
@@ -807,7 +807,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Eliminar llaves criptograficas de la memoria RAM
+    title: Eliminar llaves criptográficas de la memoria RAM
     summary: __empty__
     description: __empty__
   references: []
@@ -829,7 +829,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Establecer un tamano minimo de cifrado asimetrico
+    title: Establecer un tamano mínimo de cifrado asimetrico
     summary: __empty__
     description: __empty__
   references: []
@@ -840,7 +840,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Establecer un tamano minimo de cifrado simetrico
+    title: Establecer un tamano mínimo de cifrado simétrico
     summary: __empty__
     description: __empty__
   references: []
@@ -851,7 +851,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Establecer un tamano minimo de funciones hash
+    title: Establecer un tamano mínimo de funciones hash
     summary: __empty__
     description: __empty__
   references: []
@@ -906,7 +906,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Aplicacion libre de codigo malicioso
+    title: Aplicación libre de código malicioso
     summary: __empty__
     description: __empty__
   references: []
@@ -917,7 +917,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Codigo fuente sin informacion sensible
+    title: Código fuente sin información sensible
     summary: __empty__
     description: __empty__
   references: []
@@ -939,7 +939,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Utilizar un lenguaje de programacion seguro
+    title: Utilizar un lenguaje de programación seguro
     summary: __empty__
     description: __empty__
   references: []
@@ -950,7 +950,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Ofuscar codigo
+    title: Ofuscar código
     summary: __empty__
     description: __empty__
   references: []
@@ -983,7 +983,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Evitar codigo duplicado
+    title: Evitar código duplicado
     summary: __empty__
     description: __empty__
   references: []
@@ -1016,7 +1016,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Inicializar variables explicitamente
+    title: Inicializar variables explícitamente
     summary: __empty__
     description: __empty__
   references: []
@@ -1038,7 +1038,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Eliminar codigo comentado
+    title: Eliminar código comentado
     summary: __empty__
     description: __empty__
   references: []
@@ -1049,7 +1049,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Cifrar strings de conexion
+    title: Cifrar strings de conexión
     summary: __empty__
     description: __empty__
   references: []
@@ -1071,7 +1071,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Transacciones sin un patron distinguible
+    title: Transacciones sin un patrón distinguible
     summary: __empty__
     description: __empty__
   references: []
@@ -1082,7 +1082,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Proteger paginas de clickjacking
+    title: Proteger páginas de clickjacking
     summary: __empty__
     description: __empty__
   references: []
@@ -1104,7 +1104,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Evitar almacenamiento en cache y archivos temporales
+    title: Evitar almacenamiento en caché y archivos temporales
     summary: __empty__
     description: __empty__
   references: []
@@ -1159,7 +1159,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Ofuscar datos de aplicacion
+    title: Ofuscar datos de aplicación
     summary: __empty__
     description: __empty__
   references: []
@@ -1170,7 +1170,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Cifrar informacion sensible
+    title: Cifrar información sensible
     summary: __empty__
     description: __empty__
   references: []
@@ -1181,7 +1181,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Utilizar el principio de privilegios minimos
+    title: Utilizar el principio de privilegios mínimos
     summary: __empty__
     description: __empty__
   references: []
@@ -1192,7 +1192,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Especificar el proposito de recoleccion de datos
+    title: Especificar el proposito de recolección de datos
     summary: __empty__
     description: __empty__
   references: []
@@ -1214,7 +1214,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Configurar protocolos de comunicacion
+    title: Configurar protocolos de comunicación
     summary: __empty__
     description: __empty__
   references: []
@@ -1225,7 +1225,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Gestionar contrasenas en cache
+    title: Gestionar contraseñas en caché
     summary: __empty__
     description: __empty__
   references: []
@@ -1236,7 +1236,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Eliminar informacion de dispositivos moviles
+    title: Eliminar información de dispositivos móviles
     summary: __empty__
     description: __empty__
   references: []
@@ -1247,7 +1247,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Permitir localizacion geografica
+    title: Permitir localización geográfica
     summary: __empty__
     description: __empty__
   references: []
@@ -1258,7 +1258,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Permitir destruccion de datos
+    title: Permitir destrucción de datos
     summary: __empty__
     description: __empty__
   references: []
@@ -1280,7 +1280,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Denegar acceso a la maquina anfitriona
+    title: Denegar acceso a la máquina anfitriona
     summary: __empty__
     description: __empty__
   references: []
@@ -1291,7 +1291,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Distribucion uniforme en numeros aleatorios
+    title: Distribución uniforme en numeros aleatorios
     summary: __empty__
     description: __empty__
   references: []
@@ -1302,7 +1302,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Utilizar mecanismos criptograficos seguros
+    title: Utilizar mecanismos criptográficos seguros
     summary: __empty__
     description: __empty__
   references: []
@@ -1313,7 +1313,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Respuestas de autenticacion adecuadas
+    title: Respuestas de autenticación adecuadas
     summary: __empty__
     description: __empty__
   references: []
@@ -1335,7 +1335,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Desplegar notificacion de acceso
+    title: Desplegar notificación de acceso
     summary: __empty__
     description: __empty__
   references: []
@@ -1346,7 +1346,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Autenticar usando protocolos estandar
+    title: Autenticar usando protocolos estándar
     summary: __empty__
     description: __empty__
   references: []
@@ -1368,7 +1368,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Implementar un componente de verificacion biometrica
+    title: Implementar un componente de verificación biométrica
     summary: __empty__
     description: __empty__
   references: []
@@ -1401,7 +1401,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Establecer tiempo de autenticacion
+    title: Establecer tiempo de autenticación
     summary: __empty__
     description: __empty__
   references: []
@@ -1412,7 +1412,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Comprobar interaccion humana
+    title: Comprobar interacción humana
     summary: __empty__
     description: __empty__
   references: []
@@ -1423,7 +1423,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Establecer recuperacion segura
+    title: Establecer recuperación segura
     summary: __empty__
     description: __empty__
   references: []
@@ -1522,7 +1522,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Permitir acceso solo a puertos necesarios
+    title: Permitir acceso sólo a puertos necesarios
     summary: __empty__
     description: __empty__
   references: []
@@ -1544,7 +1544,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Filtrar contenido de pagina web
+    title: Filtrar contenido de página web
     summary: __empty__
     description: __empty__
   references: []
@@ -1555,7 +1555,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Segmentar la red de la organizacion
+    title: Segmentar la red de la organización
     summary: __empty__
     description: __empty__
   references: []
@@ -1566,7 +1566,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Utilizar correos electronicos alternativos
+    title: Utilizar correos electrónicos alternativos
     summary: __empty__
     description: __empty__
   references: []
@@ -1577,7 +1577,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Evitar exposicion de informacion sensible
+    title: Evitar exposición de información sensible
     summary: __empty__
     description: __empty__
   references: []
@@ -1599,7 +1599,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Solicitar autenticacion
+    title: Solicitar autenticación
     summary: __empty__
     description: __empty__
   references:
@@ -1611,7 +1611,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Restringir acceso a procesos criticos
+    title: Restringir acceso a procesos críticos
     summary: __empty__
     description: __empty__
   references: []
@@ -1644,7 +1644,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Restringir servicio al directorio raiz
+    title: Restringir servicio al directorio raíz
     summary: __empty__
     description: __empty__
   references: []
@@ -1655,7 +1655,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Definir un maximo numero de conexiones
+    title: Definir un máximo número de conexiones
     summary: __empty__
     description: __empty__
   references: []
@@ -1677,7 +1677,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Notificar cambios en la configuracion
+    title: Notificar cambios en la configuración
     summary: __empty__
     description: __empty__
   references: []
@@ -1688,7 +1688,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Declarar dependencias explicitamente
+    title: Declarar dependencias explícitamente
     summary: __empty__
     description: __empty__
   references: []
@@ -1732,7 +1732,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Permitir la anulacion del consentimiento del usuario
+    title: Permitir la anulación del consentimiento del usuario
     summary: __empty__
     description: __empty__
   references: []
@@ -1754,7 +1754,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Proveer confirmacion de procesamiento
+    title: Proveer confirmación de procesamiento
     summary: __empty__
     description: __empty__
   references: []
@@ -1765,7 +1765,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Proveer informacion de datos procesados
+    title: Proveer información de datos procesados
     summary: __empty__
     description: __empty__
   references: []
@@ -1776,7 +1776,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Permitir solicitudes de rectificacion
+    title: Permitir solicitudes de rectificación
     summary: __empty__
     description: __empty__
   references: []
@@ -1809,7 +1809,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Hacer que las opciones de autenticacion sean igualmente seguras
+    title: Hacer que las opciones de autenticación sean igualmente seguras
     summary: __empty__
     description: __empty__
   references: []
@@ -1820,7 +1820,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Evitar la aplicacion de control del lado del cliente
+    title: Evitar la aplicación de control del lado del cliente
     summary: __empty__
     description: __empty__
   references: []
@@ -1831,7 +1831,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Evitar la deserializacion de los datos no confiables
+    title: Evitar la deserialización de los datos no confiables
     summary: __empty__
     description: __empty__
   references: []
@@ -1842,7 +1842,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Evitar almacenamiento de logs excesivo
+    title: Evitar almacenamiento de bitácoras excesivo
     summary: __empty__
     description: __empty__
   references: []
@@ -1886,7 +1886,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Detectar dispositivos con root
+    title: Detectar dispositivos rooteados
     summary: __empty__
     description: __empty__
   references: []
@@ -1897,7 +1897,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Establecer una limite de velocidad
+    title: Establecer una límite de velocidad
     summary: __empty__
     description: __empty__
   references: []
@@ -1908,7 +1908,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Solicitar MFA para sistemas criticos
+    title: Solicitar MFA para sistemas críticos
     summary: __empty__
     description: __empty__
   references: []
@@ -1952,7 +1952,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Prevenir el uso de contrasenas vulneradas
+    title: Prevenir el uso de contraseñas vulneradas
     summary: __empty__
     description: __empty__
   references: []
@@ -1974,7 +1974,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Evitar autenticacion basada en conocimiento
+    title: Evitar autenticación basada en conocimiento
     summary: __empty__
     description: __empty__
   references: []
@@ -1985,7 +1985,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Definir el tiempo de duracion del token fuera de banda
+    title: Definir el tiempo de duración del token fuera de banda
     summary: __empty__
     description: __empty__
   references: []
@@ -2007,7 +2007,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Hacer que los flujos logicos criticos se unan de manera segura
+    title: Hacer que los flujos lógicos críticos sean seguros
     summary: __empty__
     description: __empty__
   references: []
@@ -2018,7 +2018,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Implementar secreto perfecto hacia adelante
+    title: Implementar Perfect Forward Secrecy
     summary: __empty__
     description: __empty__
   references: []
@@ -2029,7 +2029,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Evitar el almacenamiento de archivos sensibles en la raiz web
+    title: Evitar el almacenamiento de archivos sensibles en la raíz web
     summary: __empty__
     description: __empty__
   references: []
@@ -2051,7 +2051,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Utiliar el principio de negacion por defecto
+    title: Utiliar el principio de negación por defecto
     summary: __empty__
     description: __empty__
   references: []
@@ -2062,7 +2062,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Validar parametros de solicitud
+    title: Validar parámetros de solicitud
     summary: __empty__
     description: __empty__
   references: []
@@ -2084,7 +2084,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Evitar la ejecucion dinamica de codigo
+    title: Evitar la ejecución dinámica de código
     summary: __empty__
     description: __empty__
   references: []
@@ -2095,7 +2095,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Establecer proteccion con desbordamientos
+    title: Establecer protección con desbordamientos
     summary: __empty__
     description: __empty__
   references: []
@@ -2106,7 +2106,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Utilizar vectores de inicializacion una vez
+    title: Utilizar vectores de inicialización una vez
     summary: __empty__
     description: __empty__
   references: []
@@ -2128,7 +2128,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Utilizar codificacion consistente
+    title: Utilizar codificación consistente
     summary: __empty__
     description: __empty__
   references: []
@@ -2150,7 +2150,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Habilitar mecanismos de proteccion de memoria
+    title: Habilitar mecanismos de protección de memoria
     summary: __empty__
     description: __empty__
   references: []
@@ -2161,7 +2161,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Asignar llaves unicas a cada dispositivo
+    title: Asignar llaves únicas a cada dispositivo
     summary: __empty__
     description: __empty__
   references: []
@@ -2172,7 +2172,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Habilitar ejecucion de confianza
+    title: Habilitar ejecución de confianza
     summary: __empty__
     description: __empty__
   references: []
@@ -2183,7 +2183,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Programar actulizacion de firmware
+    title: Programar actulización de firmware
     summary: __empty__
     description: __empty__
   references: []
@@ -2194,7 +2194,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Prevenir desactualizacion de firmware
+    title: Prevenir desactualización de firmware
     summary: __empty__
     description: __empty__
   references: []
@@ -2205,7 +2205,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Proveer archivos con extensiones especificas
+    title: Proveer archivos con extensiones específicas
     summary: __empty__
     description: __empty__
   references: []
@@ -2227,7 +2227,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Utilizar tokens de sesion sin estado
+    title: Utilizar tokens de sesión sin estado
     summary: __empty__
     description: __empty__
   references: []
@@ -2249,7 +2249,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Evitar el uso de excepciones genericas
+    title: Evitar el uso de excepciones genéricas
     summary: __empty__
     description: __empty__
   references: []
@@ -2260,7 +2260,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Eliminar informacion sensible innecesaria
+    title: Eliminar información sensible innecesaria
     summary: __empty__
     description: __empty__
   references: []
@@ -2271,7 +2271,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Reemplazar llaves criptograficas
+    title: Reemplazar llaves criptográficas
     summary: __empty__
     description: __empty__
   references: []
@@ -2304,7 +2304,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Proveer certificados con validacion extendida
+    title: Proveer certificados con validación extendida
     summary: __empty__
     description: __empty__
   references: []
@@ -2315,7 +2315,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Evitar exposicion de informacion tecnica
+    title: Evitar exposición de información técnica
     summary: __empty__
     description: __empty__
   references: []
@@ -2337,7 +2337,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Generacion adecuada de contrasenas temporales
+    title: Generación adecuada de contraseñas temporales
     summary: __empty__
     description: __empty__
   references: []
@@ -2359,7 +2359,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Establecer un tiempo de duracion maximo en sesiones
+    title: Establecer un tiempo de duración máximo en sesiones
     summary: __empty__
     description: __empty__
   references: []
@@ -2392,7 +2392,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Uso adecuado de vector de initializacion
+    title: Uso adecuado de vector de initialización
     summary: __empty__
     description: __empty__
   references: []
@@ -2403,7 +2403,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Utilizar fijacion de certificados
+    title: Utilizar fijación de certificados
     summary: __empty__
     description: __empty__
   references: []
@@ -2414,7 +2414,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Uso de metodos de aislamiento en aplicaciones en ejecucion
+    title: Uso de métodos de aislamiento en aplicaciones en ejecución
     summary: __empty__
     description: __empty__
   references: []
@@ -2447,7 +2447,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Almacenar logs basado en una regulacion valida
+    title: Almacenar bitácoras basado en una regulación válida
     summary: __empty__
     description: __empty__
   references: []
@@ -2458,7 +2458,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Uso de un sistema de gestion de logs
+    title: Uso de un sistema de gestión de bitácoras
     summary: __empty__
     description: __empty__
   references: []
@@ -2480,7 +2480,7 @@
     summary: __empty_
     description: __empty__
   es:
-    title: Definir una herramienta de gestion de contrasenas
+    title: Definir una herramienta de gestión de contraseñas
     summary: __empty__
     description: __empty__
   references: []

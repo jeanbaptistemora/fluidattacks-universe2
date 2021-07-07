@@ -64,7 +64,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Denegación de servicio simetrico
+    title: Denegación de servicio simétrico
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -470,7 +470,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Información sensible eviada de manera insegura
+    title: Información sensible enviada de forma insegura
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1862,7 +1862,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Campos de formulatio en cache
+    title: Campos de formulario en caché
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -1949,7 +1949,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Tiemnpo de caducidad de sesión inseguro
+    title: Tiempo de caducidad de sesión inseguro
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -2936,7 +2936,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Unicidad de correos electronicos no verificada adecuadamente
+    title: Unicidad de correos electrónicos no verificada adecuadamente
     description: __empty__
     impact: __empty__
     recommendation: __empty__
