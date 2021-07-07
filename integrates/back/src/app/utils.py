@@ -89,7 +89,14 @@ async def get_bitbucket_oauth_userinfo(
 async def get_jwt_userinfo(
     client: OAuth, request: Request, token: str
 ) -> Dict[str, str]:
-    return dict(await client.parse_id_token(request, token))
+    return dict(
+        await client.parse_id_token(
+            request,
+            token,
+            # Workaround to support microsoft multi-tenant
+            claims_options={} if client.name == "azure" else None,
+        )
+    )
 
 
 def get_redirect_url(request: Request, pattern: str) -> Any:
