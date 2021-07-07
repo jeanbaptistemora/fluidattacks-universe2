@@ -92,8 +92,8 @@ workflow:
       when: never
     - when: always
 
-makes.deploy.oci:
-  <<: *makes
+/deployContainerImage/makesProd:
+  <<: *makes4
   <<: *common_in_master_branch
   stage: build
 
