@@ -16,6 +16,7 @@ from typing import (
         ["admin@gmail.com"],
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],
+        ["group_manager@gmail.com"],
     ],
 )
 async def test_update_forces_access_token(populate: bool, email: str) -> None:
