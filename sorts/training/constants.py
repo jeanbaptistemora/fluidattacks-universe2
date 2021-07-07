@@ -64,6 +64,8 @@ RESULT_HEADERS: List[str] = [
     "Recall",
     "F1",
     "Overfit",
+    "TunedParams",
+    "Time",
 ]
 MODELS: Dict[str, ModelType] = {
     "adaboostclassifier": AdaBoostClassifier,
