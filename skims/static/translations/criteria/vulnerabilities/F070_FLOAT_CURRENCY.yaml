@@ -2,11 +2,14 @@ F070_FLOAT_CURRENCY.description:
   en: >
     Representing currency using data types like float or double may result
     in accuracy issues the more operations are performed using inexact
-    representations of a value
+    representations of a value; besides unexpected behaviors if special
+    values like NaN or Infinite are not taken into account.
   es: >
     Representar moneda utilizando tipos de dato como float o double puede
     resultar en problemas de precisión a medida que se hacen más y más
-    operaciones sobre representaciones inexactas de un valor
+    operaciones sobre representaciones inexactas de un valor; además de
+    comportamientos inesperados si no se tiene en cuenta valores especiales
+    como NaN e infinitos.
 F070_FLOAT_CURRENCY.impact:
   en: Money operations may have incorrect results
   es: Operaciones sobre moneda pueden tener resultados incorrectos
