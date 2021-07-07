@@ -1,5 +1,6 @@
 # pylint: skip-file
 
+import boto3
 import io
 import logging
 from postgres_client.client import (
@@ -30,10 +31,13 @@ from target_redshift.singer_handlers import (
     record_handler,
     schema_handler,
     SchemasMap,
+    state_handler,
+    StateId,
 )
 from typing import (
     Callable,
     IO,
+    Optional,
 )
 
 LOG = logging.getLogger(__name__)
@@ -43,14 +47,16 @@ def persist_messages(
     batcher: Batcher,
     cursor: Cursor,
     schema_name: str,
+    state_id: Optional[StateId] = None,
     update_table: bool = False,
 ) -> None:
     schemas: SchemasMap = {}
     factory = TableFactory(cursor)
+    s3 = boto3.client("s3")
     handler: Callable[[str, SchemasMap], SchemasMap] = singer_handler(
         partial(schema_handler, batcher, factory, update_table, schema_name),
         partial(record_handler, batcher),
-        None,
+        partial(state_handler, s3, state_id),
     )
     for message in io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8"):
         schemas = handler(message, schemas)
@@ -59,7 +65,11 @@ def persist_messages(
 
 
 def load_data(
-    auth_file: IO[str], schema_name: str, drop_schema_flag: bool, old: bool
+    auth_file: IO[str],
+    schema_name: str,
+    drop_schema_flag: bool,
+    old: bool,
+    state_id: Optional[StateId],
 ) -> None:
     """Usual entry point."""
 
@@ -103,7 +113,9 @@ def load_data(
                 # old version support
                 target_redshift.persist_messages(batcher, str(loading_schema))
             else:
-                persist_messages(batcher, client.cursor, str(loading_schema))
+                persist_messages(
+                    batcher, client.cursor, str(loading_schema), state_id
+                )
             #   DROP backup_schema IF EXISTS
             schema_factory.try_retrieve(backup_schema).map(
                 partial(schema_factory.delete, cascade=True)
@@ -123,6 +135,8 @@ def load_data(
             #     - possible un-updated schema
             #     - and dangling/orphan/duplicated records
             batcher = Batcher(dbcur, str(target_schema))
-            persist_messages(batcher, client.cursor, str(target_schema), True)
+            persist_messages(
+                batcher, client.cursor, str(target_schema), state_id, True
+            )
     finally:
         client.close()
