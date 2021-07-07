@@ -22,6 +22,6 @@ docker build --tag "${tag_name}" "${context_path}" \
     --rm \
     --tty \
     --interactive \
-    --publish ${exposed_port}:${exposed_port} \
-    --name ${module}_${context} \
+    --publish "${exposed_port}:${exposed_port}" \
+    --name "${module}_${context}" \
     "${tag_name}"

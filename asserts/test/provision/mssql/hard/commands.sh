@@ -3,7 +3,7 @@
 set -o errexit
 
 execute_query() {
-  /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P $SA_PASSWORD -Q "$1"
+  /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "${SA_PASSWORD}" -Q "$1"
 }
 
 # create database

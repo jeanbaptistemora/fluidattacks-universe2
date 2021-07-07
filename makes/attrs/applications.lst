@@ -78,7 +78,6 @@ makes.k8s.apply
 makes.k8s.test
 makes.kill-port
 makes.kill-tree
-makes.lint
 makes.lint-commit-msg
 makes.okta.apply
 makes.okta.lint

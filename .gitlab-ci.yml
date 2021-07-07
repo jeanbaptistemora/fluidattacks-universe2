@@ -102,13 +102,23 @@ makes.deploy.oci:
   <<: *common_in_dev_branch
   stage: lint-code
 
+/formatNix:
+  <<: *makes4
+  <<: *common_in_dev_branch
+  stage: lint-code
+
 /formatPython:
   <<: *makes4
   <<: *common_in_dev_branch
   stage: lint-code
 
-makes.lint:
-  <<: *makes
+/lintBash:
+  <<: *makes4
+  <<: *common_in_dev_branch
+  stage: lint-code
+
+/lintNix:
+  <<: *makes4
   <<: *common_in_dev_branch
   stage: lint-code
 
