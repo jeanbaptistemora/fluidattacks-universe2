@@ -31,7 +31,6 @@ from typing import (
     Any,
     Callable,
     Dict,
-    List,
     Optional,
     Set,
     Tuple,
@@ -97,20 +96,17 @@ def get_apk_contexts() -> Set[APKContext]:
                     features="html.parser",
                 )
 
-            analysis = Analysis(vm=None)
-            dalviks: List[DalvikVMFormat] = []
-            decompiler = DecompilerDAD(dalviks, analysis)
-            dalviks.extend(
-                DalvikVMFormat(
+            dalviks = []
+            analysis = Analysis()
+            for dex in apk_obj.get_all_dex():
+                dalvik = DalvikVMFormat(
                     dex,
-                    config=None,
-                    decompiler=decompiler,
                     using_api=apk_obj.get_target_sdk_version(),
                 )
-                for dex in apk_obj.get_all_dex()
-            )
-            for dalvik in dalviks:
                 analysis.add(dalvik)
+                dalviks.append(dalvik)
+                dalvik.set_decompiler(DecompilerDAD(dalviks, analysis))
+
             analysis.create_xref()
 
         apk_contexts.add(

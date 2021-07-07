@@ -330,6 +330,7 @@ def _no_root_check(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
                 "checkForSuBinary",
                 "checkSuExists",
                 "isRooted",
+                "isRootedExperimentalAsync",
             }
             for method_name in method_names
         ):
