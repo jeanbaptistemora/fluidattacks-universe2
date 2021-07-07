@@ -107,7 +107,6 @@
         makeSearchPaths = importUtility "make-search-paths";
         makeTemplate = importUtility "make-template";
         nix = importUtility "nix";
-        ociDeploy = importUtility "oci-deploy";
         sslCerts = importUtility "ssl-certs";
         terraformApply = importUtility "terraform-apply";
         terraformTest = importUtility "terraform-test";

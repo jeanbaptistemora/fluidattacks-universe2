@@ -4,6 +4,7 @@
   imports = [
     ./forces/makes.nix
     ./makes/makes.nix
+    ./skims/makes.nix
   ];
   inputs = {
     product = import ./.;
