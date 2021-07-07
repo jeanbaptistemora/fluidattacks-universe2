@@ -33,6 +33,18 @@ from utils import (
 )
 
 
+def _lambda_expression(
+    graph: graph_model.Graph,
+    n_id: str,
+    stack: Stack,
+) -> None:
+    match = g.match_ast(graph, n_id, "block")
+    propagate_next_id_from_parent(stack)
+    if block_id := match["block"]:
+        graph.add_edge(n_id, block_id, **ALWAYS)
+        _generic(graph, block_id, stack, edge_attrs=ALWAYS)
+
+
 def _switch_statement(
     graph: graph_model.Graph,
     n_id: str,
@@ -150,6 +162,12 @@ def _generic(
                 "switch_statement",
             },
             _switch_statement,
+        ),
+        (
+            {
+                "lambda_expression",
+            },
+            _lambda_expression,
         ),
         (
             {

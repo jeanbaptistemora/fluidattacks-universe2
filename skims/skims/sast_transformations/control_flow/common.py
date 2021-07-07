@@ -83,7 +83,8 @@ def step_by_step(
         node
         for node in g.adj_ast(graph, n_id)
         # skip unnecessary node
-        if graph.nodes[node].get("label_type") not in [";", "\n"]
+        if graph.nodes[node].get("label_type")
+        not in [";", "\n", "(", ")", ","]
     )
 
     # Skip { }
@@ -100,6 +101,8 @@ def step_by_step(
     )
 
     if not stmt_ids:
+        if next_id := get_next_id(stack):
+            graph.add_edge(n_id, next_id, **ALWAYS)
         return
     # Link to the first statement in the block
     graph.add_edge(n_id, stmt_ids[0], **ALWAYS)

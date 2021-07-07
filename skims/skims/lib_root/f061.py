@@ -25,7 +25,7 @@ def c_sharp_swallows_exceptions(
                 predicate=g.pred_has_labels(label_type="catch_clause"),
             ):
                 block = g.match_ast(graph, catch_clause, "block")["block"]
-                block_childs = g.adj(graph, block)[1:-1]
+                block_childs = g.adj_ast(graph, block)[1:-1]
                 only_comments = all(
                     graph.nodes[node]["label_type"] == "comment"
                     for node in block_childs
@@ -57,7 +57,7 @@ def java_swallows_exceptions(
                 predicate=g.pred_has_labels(label_type="catch_clause"),
             ):
                 block = g.match_ast(graph, catch_clause, "block")["block"]
-                block_childs = g.adj(graph, block)[1:-1]
+                block_childs = g.adj_ast(graph, block)[1:-1]
                 only_comments = all(
                     graph.nodes[node]["label_type"] == "comment"
                     for node in block_childs
@@ -91,7 +91,7 @@ def javascript_swallows_exceptions(
                 statement_block = g.match_ast(
                     graph, catch_clause, "statement_block"
                 )["statement_block"]
-                block_childs = g.adj(graph, statement_block)[1:-1]
+                block_childs = g.adj_ast(graph, statement_block)[1:-1]
                 only_comments = all(
                     graph.nodes[node]["label_type"] == "comment"
                     for node in block_childs

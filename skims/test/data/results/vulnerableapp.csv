@@ -47,6 +47,30 @@ F001_JAVA_SQL,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlI
    65 |
       ^ Col 0
 "
+F001_JAVA_SQL,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/ErrorBasedSQLInjectionVulnerability.java,67,89,skims,F001. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
+   57 |             descriptionLabel = ""URL_CONTAINING_CAR_ID_PARAMETER"",
+   58 |             htmlTemplate = ""LEVEL_1/SQLInjection_Level1"",
+   59 |             parameterName = Constants.ID,
+   60 |             sampleValues = ""1"")
+   61 |     public ResponseEntity<String> doesCarInformationExistsLevel1(
+   62 |             @RequestParam Map<String, String> queryParams) {
+   63 |         String id = queryParams.get(Constants.ID);
+   64 |         BodyBuilder bodyBuilder = ResponseEntity.status(HttpStatus.OK);
+   65 |         try {
+   66 |             ResponseEntity<String> response =
+>  67 |                     applicationJdbcTemplate.query(
+   68 |                             ""select * from cars where id="" + id,
+   69 |                             (rs) -> {
+   70 |                                 if (rs.next()) {
+   71 |                                     CarInformation carInformation = new CarInformation();
+   72 |                                     carInformation.setId(rs.getInt(1));
+   73 |                                     carInformation.setName(rs.getString(2));
+   74 |                                     carInformation.setImagePath(rs.getString(3));
+   75 |                                     try {
+   76 |                                         return bodyBuilder.body(
+   77 |                                                 CAR_IS_PRESENT_RESPONSE.apply(
+      ^ Col 0
+"
 F001_JAVA_SQL,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,76,89,skims,F001. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
    66 |     @VulnerableAppRequestMapping(
    67 |             value = LevelConstants.LEVEL_2,
@@ -117,5 +141,29 @@ F001_JAVA_SQL,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlI
   109 |                     }
   110 |                     return new ResponseEntity<CarInformation>(carInformation, HttpStatus.OK);
   111 |                 });
+      ^ Col 0
+"
+F001_JAVA_SQL,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/ErrorBasedSQLInjectionVulnerability.java,114,89,skims,F001. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
+  104 |             descriptionLabel = ""URL_CONTAINING_CAR_ID_PARAMETER"",
+  105 |             htmlTemplate = ""LEVEL_1/SQLInjection_Level1"",
+  106 |             parameterName = Constants.ID,
+  107 |             sampleValues = ""1"")
+  108 |     public ResponseEntity<String> doesCarInformationExistsLevel2(
+  109 |             @RequestParam Map<String, String> queryParams) {
+  110 |         String id = queryParams.get(Constants.ID);
+  111 |         BodyBuilder bodyBuilder = ResponseEntity.status(HttpStatus.OK);
+  112 |         try {
+  113 |             ResponseEntity<String> response =
+> 114 |                     applicationJdbcTemplate.query(
+  115 |                             ""select * from cars where id='"" + id + ""'"",
+  116 |                             (rs) -> {
+  117 |                                 if (rs.next()) {
+  118 |                                     CarInformation carInformation = new CarInformation();
+  119 |                                     carInformation.setId(rs.getInt(1));
+  120 |                                     carInformation.setName(rs.getString(2));
+  121 |                                     carInformation.setImagePath(rs.getString(3));
+  122 |                                     try {
+  123 |                                         return bodyBuilder.body(
+  124 |                                                 CAR_IS_PRESENT_RESPONSE.apply(
       ^ Col 0
 "

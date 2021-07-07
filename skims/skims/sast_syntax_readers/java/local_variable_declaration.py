@@ -12,7 +12,11 @@ from utils import (
 
 def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     match = g.match_ast_group(
-        args.graph, args.n_id, "__0__", "variable_declarator"
+        args.graph,
+        args.n_id,
+        "__0__",
+        "variable_declarator",
+        "modifiers",
     )
 
     if (var_type_id := match["__0__"]) and (
