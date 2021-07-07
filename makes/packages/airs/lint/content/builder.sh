@@ -32,12 +32,12 @@ function main {
       && check_adoc_words_case "${path}" \
       || return 1
   done \
-    && find "${envAirs}/content" -type f | sort | while read -r path; do
+    && find "${envAirs}/front/content" -type f | sort | while read -r path; do
       echo "[INFO] Verifying: ${path}" \
       && check_content_file_name "${path}" \
         || return 1
     done \
-    && find_adoc "${envAirs}/content/blog" | while read -r path; do
+    && find_adoc "${envAirs}/front/content/blog" | while read -r path; do
       echo "[INFO] Verifying: ${path}" \
       && check_adoc_blog_categories "${path}" \
         && check_adoc_blog_patterns "${path}" \
