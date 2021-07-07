@@ -466,9 +466,11 @@ async def test_get_total_reattacks_stats() -> None:
     )
     expected_output = {
         "effective_reattacks": 0,
+        "effective_reattacks_total": 0,
         "reattacks_requested": 2,
         "last_requested_date": "2018-12-26 19:00:00",
         "reattacks_executed": 1,
+        "reattacks_executed_total": 1,
         "last_executed_date": "2018-12-26 19:00:00",
         "pending_attacks": 1,
     }

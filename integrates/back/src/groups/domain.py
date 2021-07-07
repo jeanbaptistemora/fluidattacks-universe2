@@ -108,6 +108,7 @@ from redis_cluster.operations import (
 import secrets
 from settings import (
     LOGGING,
+    NOEXTRA,
 )
 from typing import (
     Any,
@@ -191,7 +192,8 @@ def _process_digest_reattacks_requested(
 
 def _process_digest_reattacks_executed(
     reattacks_executed: int,
-    effective_reattacks: int,
+    reattacks_executed_total: int,
+    effective_reattacks_total: int,
     groups_stats: Tuple[MailContentType],
 ) -> MailContentType:
     """Process digest reattacks executed sub-section"""
@@ -226,9 +228,6 @@ def _process_digest_reattacks_executed(
             reverse=True,
         )[:3]
     else:
-        executed["reattack_effectiveness"] = int(
-            100 * effective_reattacks / reattacks_executed
-        )
         # Get groups with most reattacks executed
         groups_executed = [
             {
@@ -241,6 +240,12 @@ def _process_digest_reattacks_executed(
         executed["groups_executed"] = sorted(
             groups_executed, key=itemgetter("reattacks_executed"), reverse=True
         )[:3]
+
+    # Also known as "remediation effectiveness"
+    if reattacks_executed_total:
+        executed["reattack_effectiveness"] = int(
+            100 * effective_reattacks_total / reattacks_executed_total
+        )
 
     return executed
 
@@ -286,8 +291,9 @@ def _process_digest_reattacks(
     reattacks.update(
         _process_digest_reattacks_executed(
             reattacks["reattacks_executed"],
-            reattacks["effective_reattacks"],
-            groups_stats,
+            reattacks["reattacks_executed_total"],
+            reattacks["effective_reattacks_total"],
+            groups_stats=groups_stats,
         )
     )
 
@@ -1252,9 +1258,11 @@ async def get_group_digest_stats(
         },
         "reattacks": {
             "effective_reattacks": 0,
+            "effective_reattacks_total": 0,
             "reattacks_requested": 0,
             "last_requested_date": "",
             "reattacks_executed": 0,
+            "reattacks_executed_total": 0,
             "last_executed_date": "",
             "pending_attacks": 0,
         },
@@ -1280,7 +1288,7 @@ async def get_group_digest_stats(
     )
 
     if len(vulns) == 0:
-        print(f"=== NO vulns for {group_name}")
+        LOGGER.warning(f"NO vulns at {group_name}", **NOEXTRA)
         return content
 
     content["vulns_len"] = len(vulns)
@@ -1300,26 +1308,8 @@ async def get_group_digest_stats(
     content["treatments"]["eternal_approved"] = treatments.get(
         "accepted_undefined_approved", 0
     )
-    reattacks = await findings_domain.get_total_reattacks_stats(
+    content["reattacks"] = await findings_domain.get_total_reattacks_stats(
         context, findings, last_day
-    )
-    content["reattacks"]["effective_reattacks"] = reattacks.get(
-        "effective_reattacks", 0
-    )
-    content["reattacks"]["reattacks_requested"] = reattacks.get(
-        "reattacks_requested", 0
-    )
-    content["reattacks"]["last_requested_date"] = reattacks.get(
-        "last_requested_date", ""
-    )
-    content["reattacks"]["reattacks_executed"] = reattacks.get(
-        "reattacks_executed", 0
-    )
-    content["reattacks"]["last_executed_date"] = reattacks.get(
-        "last_executed_date", ""
-    )
-    content["reattacks"]["pending_attacks"] = reattacks.get(
-        "pending_attacks", 0
     )
     content["main"]["comments"] = await get_total_comments_date(
         findings, group_name, last_day

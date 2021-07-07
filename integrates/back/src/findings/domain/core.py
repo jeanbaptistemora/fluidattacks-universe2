@@ -1033,7 +1033,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     return all(success)
 
 
-async def get_total_reattacks_stats(
+async def get_total_reattacks_stats(  # pylint: disable=too-many-locals
     context: Any,
     findings: List[Dict[str, FindingType]],
     min_date: datetime,
@@ -1041,8 +1041,10 @@ async def get_total_reattacks_stats(
     """Get the total reattacks of all the vulns"""
     reattacks_requested: int = 0
     reattacks_executed: int = 0
+    reattacks_executed_total: int = 0  # No filtered by date
     pending_attacks: int = 0
     effective_reattacks: int = 0
+    effective_reattacks_total: int = 0  # No filtered by date
     min_requested_date: datetime = datetime_utils.get_now()
     min_executed_date: datetime = datetime_utils.get_now()
     finding_vulns_loader = context.finding_vulns_nzr
@@ -1063,10 +1065,14 @@ async def get_total_reattacks_stats(
             if min_date and last_requested_reattack_date >= min_date:
                 reattacks_requested += 1
         if vuln.get("last_reattack_date", ""):
+            # Increment totals, no date filtered
+            reattacks_executed_total += 1
+            if vuln.get("current_state", "") == "closed":
+                effective_reattacks_total += 1
+            # Get oldest executed reattack date
             last_reattack_date = datetime_utils.get_from_str(
                 vuln.get("last_reattack_date", "")
             )
-            # Get oldest executed reattack date
             min_executed_date = min(min_executed_date, last_reattack_date)
             if min_date and last_reattack_date >= min_date:
                 reattacks_executed += 1
@@ -1077,9 +1083,11 @@ async def get_total_reattacks_stats(
 
     return {
         "effective_reattacks": effective_reattacks,
+        "effective_reattacks_total": effective_reattacks_total,
         "reattacks_requested": reattacks_requested,
         "last_requested_date": datetime_utils.get_as_str(min_requested_date),
         "reattacks_executed": reattacks_executed,
+        "reattacks_executed_total": reattacks_executed_total,
         "last_executed_date": datetime_utils.get_as_str(min_executed_date),
         "pending_attacks": pending_attacks,
     }
