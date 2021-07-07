@@ -16,6 +16,7 @@ from typing import (
         ["admin@gmail.com"],
         ["customeradmin@gmail.com"],
         ["reviewer@gmail.com"],
+        ["group_manager@gmail.com"],
     ],
 )
 async def test_get_stakeholder(populate: bool, email: str) -> None:

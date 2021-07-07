@@ -15,6 +15,7 @@ from typing import (
     [
         ["admin@gmail.com"],
         ["customeradmin@gmail.com"],
+        ["group_manager@gmail.com"],
     ],
 )
 async def test_remove_stakeholder_organization_access(

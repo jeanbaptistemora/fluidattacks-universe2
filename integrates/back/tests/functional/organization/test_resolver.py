@@ -28,6 +28,7 @@ async def test_get_organization_ver_1(populate: bool, email: str) -> None:
         "customer@gmail.com",
         "customeradmin@gmail.com",
         "executive@gmail.com",
+        "group_manager@gmail.com",
         "resourcer@gmail.com",
         "reviewer@gmail.com",
     ]
@@ -58,9 +59,10 @@ async def test_get_organization_ver_1(populate: bool, email: str) -> None:
         ["analyst@gmail.com"],
         ["closer@gmail.com"],
         ["customeradmin@gmail.com"],
+        ["group_manager@gmail.com"],
     ],
 )
-async def test_get_organization_ver_e(populate: bool, email: str) -> None:
+async def test_get_organization_ver_2(populate: bool, email: str) -> None:
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
     org_name: str = "orgtest"
