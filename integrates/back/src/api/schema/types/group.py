@@ -8,6 +8,7 @@ from api.resolvers.group import (
     drafts,
     events,
     findings,
+    findings_new,
     forces_token,
     last_closing_vuln_finding,
     max_open_severity_finding,
@@ -25,6 +26,9 @@ from api.resolvers.group import (
 from ariadne import (
     ObjectType,
 )
+from context import (
+    FI_API_STATUS,
+)
 
 GROUP: ObjectType = ObjectType("Group")
 GROUP.set_field("analytics", analytics.resolve)
@@ -32,7 +36,6 @@ GROUP.set_field("bill", bill.resolve)
 GROUP.set_field("consulting", consulting.resolve)
 GROUP.set_field("drafts", drafts.resolve)
 GROUP.set_field("events", events.resolve)
-GROUP.set_field("findings", findings.resolve)
 GROUP.set_field("forcesToken", forces_token.resolve)
 GROUP.set_field("lastClosingVulnFinding", last_closing_vuln_finding.resolve)
 GROUP.set_field("maxOpenSeverityFinding", max_open_severity_finding.resolve)
@@ -46,3 +49,8 @@ GROUP.set_field("toeInputs", toe_inputs.resolve)
 GROUP.set_field("totalFindings", total_findings.resolve)
 GROUP.set_field("totalTreatment", total_treatment.resolve)
 GROUP.set_field("userRole", user_role.resolve)
+
+if FI_API_STATUS == "migration":
+    GROUP.set_field("findings", findings_new.resolve)
+else:
+    GROUP.set_field("findings", findings.resolve)

@@ -332,7 +332,7 @@ async def _get_historic_state(*, finding_id: str) -> Tuple[FindingState, ...]:
 class FindingNonDeletedNewLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, finding_ids: Tuple[str, ...]
+        self, finding_ids: List[str]
     ) -> Tuple[Finding, ...]:
         return await collect(
             _get_non_deleted_finding(finding_id=finding_id)
@@ -343,7 +343,7 @@ class FindingNonDeletedNewLoader(DataLoader):
 class FindingHistoricVerificationNewLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, finding_ids: Tuple[str, ...]
+        self, finding_ids: List[str]
     ) -> Tuple[Tuple[FindingVerification], ...]:
         return await collect(
             _get_historic_verification(finding_id=finding_id)
@@ -354,7 +354,7 @@ class FindingHistoricVerificationNewLoader(DataLoader):
 class FindingHistoricStateNewLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, finding_ids: Tuple[str, ...]
+        self, finding_ids: List[str]
     ) -> Tuple[Tuple[FindingState], ...]:
         return await collect(
             _get_historic_state(finding_id=finding_id)
