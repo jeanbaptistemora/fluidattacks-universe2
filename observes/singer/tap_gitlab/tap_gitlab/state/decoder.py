@@ -13,7 +13,7 @@ from paginator.pages import (
 from singer_io import (
     JSON,
 )
-from tap_gitlab.intervals.decode import (
+from tap_gitlab.intervals.decoder import (
     IntervalDecoder,
 )
 from tap_gitlab.intervals.patch import (
