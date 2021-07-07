@@ -454,6 +454,39 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     )
 
 
+def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
+    locations = Locations(locations=[])
+
+    if not _server_supports_tls(ctx, version=(3, 4)):
+        return tuple()
+
+    for version_id in range(0, 3):
+        version: Tuple[int, int] = (3, version_id)
+        ssl_settings = SSLSettings(min_version=version, max_version=version)
+
+        with connect(
+            ctx.target.host,
+            ctx.target.port,
+            ssl_settings,
+            intention=f"check TLSv1.3 downgraded to {ssl_versions[version]}",
+            expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
+        ) as connection:
+            if connection is not None and not connection.closed:
+                locations.append(
+                    desc="tlsv1_3_downgrade",
+                    desc_kwargs={"version": f"{ssl_versions[version]}"},
+                )
+
+    return _create_vulns(
+        locations=locations,
+        finding=core_model.FindingEnum.F052_TLS,
+        ctx=ctx,
+        conn_established=True,
+        line=SSLSnippetLine.max_version,
+        ssl_settings=ssl_settings,
+    )
+
+
 def get_check_ctx(ssl_ctx: SSLContext) -> SSLContext:
     return ssl_ctx
 
@@ -476,5 +509,6 @@ CHECKS: Dict[
         _tlsv1_1_enabled,
         _tlsv1_3_disabled,
         _fallback_scsv_disabled,
+        _tlsv1_3_downgrade,
     ],
 }

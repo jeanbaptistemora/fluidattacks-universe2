@@ -10,6 +10,9 @@ lib_ssl.analyze_protocol.tlsv1_3_disabled:
 lib_ssl.analyze_protocol.fallback_scsv_disabled:
   en: TLS_FALLBACK_SCSV is disabled
   es: TLS_FALLBACK_SCSV está deshabilitado
+lib_ssl.analyze_protocol.tlsv1_3_downgrade:
+  en: TLSv1.3 can be downgraded to {version}
+  es: TLSv1.3 puede ser degradado a {version}
 F052_TLS.description:
   en: The server allows the usage of old TLS protocol versions.
   es: El servidor permite utilizar versiones viejas del protocolo TLS.
