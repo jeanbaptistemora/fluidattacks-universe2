@@ -54,7 +54,7 @@ async def mutate(
         logs_utils.cloudwatch_log(info.context, msg)
         await analytics.mixpanel_track(
             user_email,
-            "DownloadProjectFile",
+            "DownloadGroupFile",
             Group=group_name.upper(),
             FileName=parameters["files_data"],
         )

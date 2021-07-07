@@ -212,7 +212,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             "session_logout",
         },
     ),
-    projects=dict(
+    groups=dict(
         args=set(),
         attrs={
             "forces",

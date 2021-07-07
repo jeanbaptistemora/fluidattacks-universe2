@@ -32,7 +32,7 @@ async def resolve(
 ) -> List[str]:
     response: List[str] = await redis_get_or_set_entity_attr(
         resolve_no_cache,
-        entity="projects",
+        entity="groups",
         attr="forces",
     )
     return response

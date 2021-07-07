@@ -22,7 +22,7 @@ from typing import (
         ["group_manager@gmail.com"],
     ],
 )
-async def test_add_project_consult(populate: bool, email: str) -> None:
+async def test_add_group_consult(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     result: Dict[str, Any] = await get_result(
@@ -43,7 +43,7 @@ async def test_add_project_consult(populate: bool, email: str) -> None:
         ["resourcer@gmail.com"],
     ],
 )
-async def test_add_project_consult_fail(populate: bool, email: str) -> None:
+async def test_add_group_consult_fail(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     result: Dict[str, Any] = await get_result(

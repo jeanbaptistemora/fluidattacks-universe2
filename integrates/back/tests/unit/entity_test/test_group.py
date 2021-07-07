@@ -499,7 +499,7 @@ async def test_edit_group_bad(  # type: ignore
 async def test_get_roots() -> None:
     query = """
         query {
-          drillsBlackGroup: group(groupName: "oneshottest") {
+          serviceBlackGroup: group(groupName: "oneshottest") {
             roots {
               __typename
               ...on IPRoot {
@@ -517,7 +517,7 @@ async def test_get_roots() -> None:
             }
             subscription
           }
-          drillsWhiteGroup: group(groupName: "unittesting") {
+          serviceWhiteGroup: group(groupName: "unittesting") {
             roots {
               __typename
               ...on GitRoot {
@@ -537,8 +537,8 @@ async def test_get_roots() -> None:
     result = await _get_result_async({"query": query})
 
     assert "errors" not in result
-    assert result["data"]["drillsBlackGroup"]["subscription"] == "oneshot"
-    assert result["data"]["drillsBlackGroup"]["roots"] == [
+    assert result["data"]["serviceBlackGroup"]["subscription"] == "oneshot"
+    assert result["data"]["serviceBlackGroup"]["roots"] == [
         {
             "__typename": "URLRoot",
             "host": "app.fluidattacks.com",
@@ -555,8 +555,8 @@ async def test_get_roots() -> None:
         },
     ]
 
-    assert result["data"]["drillsWhiteGroup"]["subscription"] == "continuous"
-    assert result["data"]["drillsWhiteGroup"]["roots"] == [
+    assert result["data"]["serviceWhiteGroup"]["subscription"] == "continuous"
+    assert result["data"]["serviceWhiteGroup"]["roots"] == [
         {
             "__typename": "GitRoot",
             "branch": "master",

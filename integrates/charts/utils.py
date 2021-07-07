@@ -23,6 +23,9 @@ import json
 from newutils.encodings import (
     safe_encode,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from organizations import (
     domain as orgs_domain,
 )
@@ -117,7 +120,7 @@ async def get_portfolios_groups(org_name: str) -> List[PortfoliosGroups]:
     return [
         PortfoliosGroups(
             portfolio=data.get("tag", "").lower(),
-            groups=data.get("projects", []),
+            groups=resolve_kwargs(data, "groups", "projects", []),
         )
         for data in portfolios
     ]
