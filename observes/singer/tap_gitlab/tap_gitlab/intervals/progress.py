@@ -174,3 +174,15 @@ class FProgressFactory(
         f_interval = self.factory.from_intervals(intervals)
         completeness = tuple(item.completed for item in compressed)
         return self.new_fprogress(f_interval, completeness)
+
+    def append(
+        self,
+        fp_interval: FragmentedProgressInterval[_DataType],
+        point: _DataType,
+    ) -> FragmentedProgressInterval[_DataType]:
+        p_intervals = fp_interval.progress_intervals
+        final: OpenLeftInterval[_DataType] = p_intervals[-1].interval()
+        new_section = ProgressInterval(
+            self.factory.factory.new_lopen(final.upper, point), False
+        )
+        return self.from_n_progress(p_intervals + (new_section,))
