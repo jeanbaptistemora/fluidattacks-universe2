@@ -201,6 +201,10 @@ observes.scheduled.on-aws.dif-gitlab-etl
 observes.scheduled.on-aws.dynamodb-forces-etl
 observes.scheduled.on-aws.dynamodb-integrates-etl
 observes.scheduled.on-aws.formstack-etl
+observes.scheduled.on-aws.gitlab-etl.challenges
+observes.scheduled.on-aws.gitlab-etl.default
+observes.scheduled.on-aws.gitlab-etl.product
+observes.scheduled.on-aws.gitlab-etl.services
 observes.tap-json
 observes.target-redshift
 reviews
