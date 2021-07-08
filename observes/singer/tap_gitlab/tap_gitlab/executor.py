@@ -23,6 +23,9 @@ from tap_gitlab.emitter import (
 from tap_gitlab.intervals.interval import (
     IntervalFactory,
 )
+from tap_gitlab.state import (
+    update_state,
+)
 from tap_gitlab.state.decoder import (
     state_decoder,
 )
@@ -55,10 +58,11 @@ def defautl_stream(
     max_pages: int,
     state_id: Maybe[Tuple[str, str]],
 ) -> None:
-    _state = state_id.bind(
-        lambda sid: state_getter.get(sid[0], sid[1])
-    ).value_or(default_etl_state(project))
-
+    _state = (
+        state_id.bind(lambda sid: state_getter.get(sid[0], sid[1]))
+        .map(update_state)
+        .value_or(default_etl_state(project))
+    )
     _target_stream = (
         SupportedStreams(target_stream)
         if isinstance(target_stream, str)

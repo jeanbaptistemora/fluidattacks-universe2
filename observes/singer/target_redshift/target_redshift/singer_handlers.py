@@ -146,7 +146,9 @@ def state_handler(
         LOG.info("Uploading new state")
         LOG.debug("Uploading state to %s", state_id)
         with TemporaryFile() as data:
-            data.write(bytes(json.dumps(s_state.value).encode("UTF-8")))
+            data.write(
+                bytes(json.dumps(s_state.value, indent=4).encode("UTF-8"))
+            )
             data.seek(0)
             s3_client.upload_fileobj(data, state_id.bucket, state_id.obj_key)
     return schemas
