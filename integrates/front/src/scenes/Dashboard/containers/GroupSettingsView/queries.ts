@@ -19,7 +19,6 @@ const EDIT_GROUP_DATA: DocumentNode = gql`
     $comments: String!
     $groupName: String!
     $hasSquad: Boolean!
-    $hasForces: Boolean!
     $hasASM: Boolean!
     $hasMachine: Boolean!
     $reason: EditGroupReason!
