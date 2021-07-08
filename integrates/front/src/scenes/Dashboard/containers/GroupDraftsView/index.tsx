@@ -2,21 +2,19 @@ import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useEffect, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
-import { Field } from "redux-form";
-import type { InjectedFormProps } from "redux-form";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import type { ISuggestion } from "scenes/Dashboard/containers/GroupDraftsView/findingNames";
 import { getFindingNames } from "scenes/Dashboard/containers/GroupDraftsView/findingNames";
@@ -32,11 +30,15 @@ import {
   Col100,
   Row,
 } from "styles/styledComponents";
-import { AutoCompleteText } from "utils/forms/fields";
+import { FormikAutocompleteText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
-import { required, validDraftTitle } from "utils/validations";
+import {
+  composeValidators,
+  required,
+  validDraftTitle,
+} from "utils/validations";
 
 const GroupDraftsView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
@@ -204,8 +206,8 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
     }
   );
 
-  const handleSubmit: (values: { title: string }) => void = useCallback(
-    (values: { title: string }): void => {
+  const handleSubmit: (values: Record<string, unknown>) => void = useCallback(
+    (values: Record<string, unknown>): void => {
       const [matchingSuggestion] = suggestions.filter(
         (suggestion: ISuggestion): boolean => suggestion.title === values.title
       );
@@ -242,18 +244,23 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
         headerTitle={translate.t("group.drafts.new")}
         open={isDraftModalOpen}
       >
-        <GenericForm name={"newDraft"} onSubmit={handleSubmit}>
-          {({ pristine }: InjectedFormProps): JSX.Element => (
-            <React.Fragment>
+        <Formik
+          enableReinitialize={true}
+          initialValues={{}}
+          name={"newDraft"}
+          onSubmit={handleSubmit}
+        >
+          {({ dirty }): JSX.Element => (
+            <Form>
               <Row>
                 <Col100>
                   <label>{translate.t("group.drafts.title")}</label>
                   <Field
-                    component={AutoCompleteText}
+                    component={FormikAutocompleteText}
                     name={"title"}
                     suggestions={titleSuggestions}
                     type={"text"}
-                    validate={[required, validDraftTitle]}
+                    validate={composeValidators([required, validDraftTitle])}
                   />
                 </Col100>
               </Row>
@@ -264,15 +271,15 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
                     <Button onClick={closeNewDraftModal}>
                       {translate.t("confirmmodal.cancel")}
                     </Button>
-                    <Button disabled={pristine || submitting} type={"submit"}>
+                    <Button disabled={!dirty || submitting} type={"submit"}>
                       {translate.t("confirmmodal.proceed")}
                     </Button>
                   </ButtonToolbar>
                 </Col100>
               </Row>
-            </React.Fragment>
+            </Form>
           )}
-        </GenericForm>
+        </Formik>
       </Modal>
       <p>{translate.t("group.findings.helpLabel")}</p>
       <DataTableNext
