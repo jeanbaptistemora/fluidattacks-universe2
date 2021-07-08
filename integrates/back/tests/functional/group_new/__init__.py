@@ -78,7 +78,7 @@ async def get_result(
                     analyst
                 }}
                 maxSeverityFinding {{
-                    analyst
+                    id
                 }}
                 __typename
             }}
