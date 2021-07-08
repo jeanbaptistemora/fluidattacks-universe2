@@ -44786,6 +44786,7 @@
             "label_field_arguments": "825",
             "label_field_function": "821",
             "label_l": 109,
+            "label_sink_type": "F063_TRUSTBOUND",
             "label_type": "call_expression"
           },
           "821": {
@@ -47887,6 +47888,41 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "1609": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1616",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": {},
+            "value_type": "struct[http.Cookie]"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1614",
+              "value": null
+            },
+            "operator": "&",
+            "type": "SyntaxStepUnaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1611",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "cookie",
+            "var_type": ""
+          }
+        ],
         "1651": [
           {
             "meta": {
@@ -49089,6 +49125,151 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "635": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "650",
+              "value": null
+            },
+            "symbol": "p",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "Uid",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "649",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "647",
+              "value": null
+            },
+            "operator": "&",
+            "type": "SyntaxStepUnaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "657",
+              "value": null
+            },
+            "symbol": "p",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "Name",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "656",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "654",
+              "value": null
+            },
+            "operator": "&",
+            "type": "SyntaxStepUnaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "664",
+              "value": null
+            },
+            "symbol": "p",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "City",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "663",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "661",
+              "value": null
+            },
+            "operator": "&",
+            "type": "SyntaxStepUnaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "671",
+              "value": null
+            },
+            "symbol": "p",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "PhoneNumber",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "670",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "668",
+              "value": null
+            },
+            "operator": "&",
+            "type": "SyntaxStepUnaryExpression"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -4,
+              "n_id": "640",
+              "value": null
+            },
+            "method": "rows.Scan",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "637",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "err"
+          }
+        ],
         "65": [
           {
             "current_instance": {
@@ -49541,6 +49722,174 @@
               "value": null
             },
             "type": "SyntaxStepReturn"
+          }
+        ],
+        "813": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "827",
+              "value": null
+            },
+            "symbol": "uid",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "820",
+              "value": null
+            },
+            "method": "stmt.QueryRow",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "836",
+              "value": null
+            },
+            "symbol": "p",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "Uid",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "835",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "833",
+              "value": null
+            },
+            "operator": "&",
+            "type": "SyntaxStepUnaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "843",
+              "value": null
+            },
+            "symbol": "p",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "Name",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "842",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "840",
+              "value": null
+            },
+            "operator": "&",
+            "type": "SyntaxStepUnaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "850",
+              "value": null
+            },
+            "symbol": "p",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "City",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "849",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "847",
+              "value": null
+            },
+            "operator": "&",
+            "type": "SyntaxStepUnaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "857",
+              "value": null
+            },
+            "symbol": "p",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "PhoneNumber",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "856",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "854",
+              "value": null
+            },
+            "operator": "&",
+            "type": "SyntaxStepUnaryExpression"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -5,
+              "n_id": "818",
+              "value": null
+            },
+            "method": "Scan",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "815",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "err"
           }
         ],
         "82": [

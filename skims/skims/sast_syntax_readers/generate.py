@@ -34,6 +34,7 @@ from sast_syntax_readers.common import (
     object_creation_expression as common_object_creation_expression,
     parenthesized_expression as common_parenthesized_expression,
     return_statement as common_return_statement,
+    unary_expression as common_unary_expression,
 )
 from sast_syntax_readers.go import (
     assignment_statement as go_assignment_statement,
@@ -61,7 +62,6 @@ from sast_syntax_readers.java import (
     switch_statement as java_switch_statement,
     ternary_expression as java_ternary_expression,
     this as java_this,
-    unary_expression as java_unary_expression,
     while_statement as java_while_statement,
 )
 from sast_syntax_readers.types import (
@@ -159,12 +159,13 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     ),
     Dispatcher(
         applicable_languages={
+            graph_model.GraphShardMetadataLanguage.GO,
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
             "unary_expression",
         },
-        syntax_readers=(java_unary_expression.reader,),
+        syntax_readers=(common_unary_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
