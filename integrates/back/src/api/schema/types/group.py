@@ -20,6 +20,7 @@ from api.resolvers.group import (
     stakeholders,
     toe_inputs,
     total_findings,
+    total_findings_new,
     total_treatment,
     user_role,
 )
@@ -46,11 +47,12 @@ GROUP.set_field("roots", roots.resolve)
 GROUP.set_field("serviceAttributes", service_attributes.resolve)
 GROUP.set_field("stakeholders", stakeholders.resolve)
 GROUP.set_field("toeInputs", toe_inputs.resolve)
-GROUP.set_field("totalFindings", total_findings.resolve)
 GROUP.set_field("totalTreatment", total_treatment.resolve)
 GROUP.set_field("userRole", user_role.resolve)
 
 if FI_API_STATUS == "migration":
     GROUP.set_field("findings", findings_new.resolve)
+    GROUP.set_field("totalFindings", total_findings_new.resolve)
 else:
     GROUP.set_field("findings", findings.resolve)
+    GROUP.set_field("totalFindings", total_findings.resolve)

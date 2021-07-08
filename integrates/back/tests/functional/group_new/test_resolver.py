@@ -48,7 +48,7 @@ async def test_get_group(populate: bool, email: str) -> None:
     assert result["data"]["group"]["meanRemediateLowSeverity"] == 3
     assert result["data"]["group"]["meanRemediateMediumSeverity"] == 4
     assert result["data"]["group"]["openFindings"] == 1
-    # assert result["data"]["group"]["totalFindings"] == 1
+    assert result["data"]["group"]["totalFindings"] == 1
     assert result["data"]["group"]["totalTreatment"] == "{}"
     assert result["data"]["group"]["subscription"] == "continuous"
     assert result["data"]["group"]["deletionDate"] == ""

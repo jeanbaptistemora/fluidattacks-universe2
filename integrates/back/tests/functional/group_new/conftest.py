@@ -255,32 +255,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     scenario="UNAUTHORIZED_USER_EXTRANET",
                     actor="SOME_CUSTOMERS",
                 ),
-                "historic_state": [
-                    FindingState(
-                        modified_by="test1@gmail.com",
-                        modified_date="2017-04-08T00:45:12+00:00",
-                        source=Source.INTEGRATES,
-                        status=FindingStateStatus.SUBMITTED,
-                    ),
-                    FindingState(
-                        modified_by="test1@gmail.com",
-                        modified_date="2017-04-08T00:45:13+00:00",
-                        source=Source.INTEGRATES,
-                        status=FindingStateStatus.REJECTED,
-                    ),
-                    FindingState(
-                        modified_by="test1@gmail.com",
-                        modified_date="2017-04-08T00:45:14+00:00",
-                        source=Source.INTEGRATES,
-                        status=FindingStateStatus.SUBMITTED,
-                    ),
-                    FindingState(
-                        modified_by="test1@gmail.com",
-                        modified_date="2018-04-08T00:45:11+00:00",
-                        source=Source.INTEGRATES,
-                        status=FindingStateStatus.APPROVED,
-                    ),
-                ],
+                "historic_state": [],
                 "historic_verification": [
                     FindingVerification(
                         comment_id="42343434",
