@@ -28,7 +28,7 @@ from tap_gitlab.api.projects.jobs.page import (
     Scope,
 )
 from tap_gitlab.api.raw_client import (
-    RawClient,
+    PageClient,
 )
 from typing import (
     Iterator,
@@ -38,7 +38,7 @@ from typing import (
 
 
 class JobApi(NamedTuple):
-    client: RawClient
+    client: PageClient
     proj: ProjectId
     scopes: List[Scope]
 

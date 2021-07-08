@@ -22,7 +22,7 @@ from tap_gitlab.api.projects.merge_requests.data_page import (
     State as MrState,
 )
 from tap_gitlab.api.raw_client import (
-    RawClient,
+    PageClient,
 )
 from typing import (
     List,
@@ -32,16 +32,16 @@ from typing import (
 
 
 class _ProjectApi(NamedTuple):
-    client: RawClient
+    client: PageClient
     proj: ProjectId
 
 
 # pylint: disable=too-few-public-methods
 class ProjectApi(Immutable):
-    client: RawClient
+    client: PageClient
     proj: ProjectId
 
-    def __new__(cls, client: RawClient, proj: ProjectId) -> ProjectApi:
+    def __new__(cls, client: PageClient, proj: ProjectId) -> ProjectApi:
         obj = _ProjectApi(client, proj)
         self = object.__new__(cls)
         for prop, val in obj._asdict().items():

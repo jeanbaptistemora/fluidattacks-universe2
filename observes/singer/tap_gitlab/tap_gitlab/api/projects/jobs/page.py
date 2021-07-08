@@ -26,7 +26,7 @@ from tap_gitlab.api.projects.ids import (
     ProjectId,
 )
 from tap_gitlab.api.raw_client import (
-    RawClient,
+    PageClient,
 )
 from typing import (
     List,
@@ -75,7 +75,7 @@ def _ensure_non_empty_data(page: _JobsPage) -> Maybe[JobsPage]:
 
 
 def list_jobs(
-    client: RawClient,
+    client: PageClient,
     proj: ProjectId,
     page: PageId[int],
     scopes: List[Scope],

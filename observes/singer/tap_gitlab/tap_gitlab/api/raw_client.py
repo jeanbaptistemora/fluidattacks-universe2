@@ -6,7 +6,15 @@ import logging
 from paginator.pages import (
     PageId,
 )
-import requests
+from paginator.raw_client import (
+    RawClient,
+)
+from paginator.raw_client.patch import (
+    Patch,
+)
+from requests.exceptions import (
+    HTTPError,
+)
 from requests.models import (
     Response,
 )
@@ -30,8 +38,25 @@ LOG = logging.getLogger(__name__)
 API_URL_BASE = "https://gitlab.com/api/v4"
 
 
-class RawClient(NamedTuple):
-    creds: Credentials
+def _error_handler(
+    retry_num: int,
+    error: HTTPError,
+) -> HTTPError:
+    response: Response = error.response
+    if response.status_code == 502:
+        LOG.info("Retry #%s", retry_num)
+    else:
+        raise error
+    return error
+
+
+def build_raw_client(creds: Credentials) -> RawClient:
+    headers = {"Private-Token": creds.api_key}
+    return RawClient(API_URL_BASE, headers, 150, Patch(_error_handler))
+
+
+class PageClient(NamedTuple):
+    raw_client: RawClient
 
     def get(
         self,
@@ -46,13 +71,13 @@ class RawClient(NamedTuple):
             _params["page"] = page.page
             _params["per_page"] = page.per_page
         LOG.debug("GET\n\tendpoint: %s\n\tparams: %s", endpoint, _params)
-        response = requests.get(
-            "".join([API_URL_BASE, endpoint]),
-            headers={"Private-Token": self.creds.api_key},
-            params=_params,
-        )
+        response = self.raw_client.get(endpoint, _params)
         LOG.debug(response)
-        response.raise_for_status()
-        if DEBUG and not response.json():
+        if DEBUG and response.map(lambda x: bool(x.json())) != IO(True):
             LOG.debug("Empty json response")
-        return IO(response)
+        return response
+
+
+def build_page_client(creds: Credentials) -> PageClient:
+    client = build_raw_client(creds)
+    return PageClient(client)

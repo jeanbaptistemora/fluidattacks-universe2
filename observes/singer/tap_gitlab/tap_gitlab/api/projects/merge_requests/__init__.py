@@ -35,7 +35,7 @@ from tap_gitlab.api.projects.merge_requests.data_page import (
     State,
 )
 from tap_gitlab.api.raw_client import (
-    RawClient,
+    PageClient,
 )
 from typing import (
     Iterator,
@@ -70,7 +70,7 @@ def _extract_page(
 
 
 class MrApi(NamedTuple):
-    client: RawClient
+    client: PageClient
     proj: ProjectId
     scope: Optional[Scope] = None  # use api default
     state: Optional[State] = None  # use api default
