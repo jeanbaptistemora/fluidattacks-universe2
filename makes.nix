@@ -3,6 +3,7 @@
 {
   imports = [
     ./forces/makes.nix
+    ./integrates/makes.nix
     ./makes/makes.nix
     ./skims/makes.nix
   ];
