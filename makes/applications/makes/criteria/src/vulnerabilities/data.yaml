@@ -1,16 +1,37 @@
 001:
   en:
     title: SQL injection - C Sharp SQL API
-    description: Dynamic SQL statements are generated without the required data validation and without using parameterized statements or stored procedures
-    impact: Inject SQL statements, with the possibility of obtaining information about the database, as well as extract information from it
-    recommendation: Perform queries to the database through sentences or parameterized procedures
-    threat: Autenticated attacker from the Internet
+    description: >
+      Dynamic SQL statements are generated
+      without the required data validation
+      and without using parameterized statements
+      or stored procedures.
+    impact: >
+      Inject SQL statements,
+      with the possibility
+      of obtaining information about the database,
+      as well as extract information from it.
+    recommendation: >
+      Perform queries to the database
+      through sentences or parameterized procedures.
+    threat: Autenticated attacker from the Internet.
   es:
     title: Inyección SQL - C Sharp SQL API
-    description: Se generan sentencias SQL dinámicas sin la validación requerida de datos y sin utilizar sentencias parametrizadas o procedimientos almacenados
-    impact: Inyectar sentencias SQL, con la posibilidad de obtener información sobre la base de datos, así como extraer información de la misma
-    recommendation: Realizar las consultas a la base de datos por medio de sentencias o procedimientos parametrizados
-    threat: Atacante autenticado desde Internet
+    description: >
+      Se generan sentencias SQL dinámicas
+      sin la validación requerida de datos
+      y sin utilizar sentencias parametrizadas
+      o procedimientos almacenados.
+    impact: >
+      Inyectar sentencias SQL,
+      con la posibilidad de obtener información
+      sobre la base de datos,
+      así como extraer información de la misma.
+    recommendation: >
+      Realizar las consultas a la base de datos
+      por medio de sentencias
+      o procedimientos parametrizados.
+    threat: Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -25,21 +46,49 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["169", "173"]
   metadata: {}
 002:
   en:
     title: Asymmetric denial of service
-    description: The server is rendered unresponsive as a result of one of the following. a) An amplification attack, which uses a single request to produce multiple responses. b) A single malicious request that breaks the application or consumes an enormous amount of resources
+    description: >
+      The server is rendered unresponsive
+      as a result of one of the following: 
+      - An amplification attack,
+      which uses a single request
+      to produce multiple responses.
+      - A single malicious request
+      that breaks the application
+      or consumes an enormous amount of resources.
     impact: __empty__
-    recommendation: Define a time-out when a query or a search is taking a lot of time processing the information
-    threat: An authorized user in the application can inject SQL statements, with the possibility of obtaining information about the database, and extract, modify or delete information about it
+    recommendation: >
+      Define a time-out when a query
+      or a search is taking a lot of time
+      processing the information.
+    threat: >
+      An authorized user in the application
+      can inject SQL statements,
+      with the possibility of obtaining information
+      about the database,
+      and extract, modify
+      or delete information about it.
   es:
     title: Denegación de servicio asimétrico
-    description: Se genera la caída del servidor como resultado de ataques de amplificación, en donde una petición genera múltiples respuestas
+    description: >
+      Se genera la caída del servidor
+      como resultado de ataques de amplificación,
+      en donde una petición genera múltiples respuestas.
     impact: __empty__
-    recommendation: Definir un time-out cuando una consulta o una búsqueda se está demorando mucho en procesar la información
-    threat: Un usuario autorizado en la aplicación puede inyectar sentencias SQL, con la posibilidad de obtener información sobre la base de datos, así como extraer, modificar y/o borrar información de la misma
+    recommendation: >
+      Definir un time-out cuando una consulta
+      o una búsqueda se está demorando mucho
+      en procesar la información.
+    threat: >
+      Un usuario autorizado en la aplicación
+      puede inyectar sentencias SQL,
+      con la posibilidad de obtener información
+      sobre la base de datos, así como extraer,
+      modificar y/o borrar información de la misma.
   score:
     base:
       attack_vector: "N"
@@ -54,21 +103,46 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["072"]
   metadata: {}
 003:
   en:
     title: Symmetric denial of service
-    description: The server is rendered unresponsive by successively repeating a request which consumes a lot of resources or takes too long to be processed
+    description: >
+      The server is rendered unresponsive
+      by successively repeating a request
+      which consumes a lot of resources
+      or takes too long to be processed.
     impact: __empty__
-    recommendation: Define a time-out when a query or a search is taking a lot of time processing the information
-    threat: An authorized user in the application can inject SQL statements, with the possibility of obtaining information about the database, and extract, modify or delete information about it
+    recommendation: >
+      Define a time-out when a query
+      or a search is taking a lot of time
+      processing the information
+    threat: >
+      An authorized user in the application
+      can inject SQL statements,
+      with the possibility of obtaining information
+      about the database, and extract,
+      modify or delete information about it.
   es:
     title: Denegación de servicio simétrico
-    description: Se genera la caída del servidor con múltiples peticiones a una funcionalidad específica la cual consume muchos recursos o se demora en procesar la información
+    description: >
+      Se genera la caída del servidor
+      con múltiples peticiones
+      a una funcionalidad específica
+      la cual consume muchos recursos
+      o se demora en procesar la información.
     impact: __empty__
-    recommendation: Definir un time-out cuando una consulta o una búsqueda se está demorando mucho en procesar la información
-    threat: Un usuario puede crear un script que haga la misma tarea N veces y así lograr que el servidor que está procesando la información logrando que el servidor no esté disponible
+    recommendation: >
+      Definir un time-out cuando una consulta
+      o una búsqueda se está demorando mucho
+      en procesar la información.
+    threat: >
+      Un usuario puede crear un script
+      que haga la misma tarea N veces
+      y así lograr que el servidor
+      que está procesando la información
+      logrando que el servidor no esté disponible.
   score:
     base:
       attack_vector: "N"
@@ -83,21 +157,48 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["072", "237", "327"]
   metadata: {}
 004:
   en:
     title: Remote command execution
-    description: The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command
-    impact: Execute Unauthorized Code or Commands
-    recommendation: a) If at all possible, use standard library calls rather than external processes to recreate the desired functionality. b) Keep as much data as possible used to generate command outside of external control. c) Properly escape the arguments used to generate the command and avoid special characters
-    threat: Autenticated attacker from the Internet
+    description: >
+      The system builds OS commands
+      using inputs that can be manipulated externally,
+      it does not correctly neutralize special elements
+      that could modify the OS command.
+    impact: Execute Unauthorized Code or Commands.
+    recommendation: >
+      - If at all possible,
+      use standard library calls rather
+      than external processes
+      to recreate the desired functionality.
+      - Keep as much data as possible used
+      to generate command outside of external control.
+      - Properly escape the arguments used
+      to generate the command
+      and avoid special characters.
+    threat: Autenticated attacker from the Internet.
   es:
     title: Ejecución remota de comandos
-    description: El sistema construye comandos de sistema utilizando entradas que puden ser manipuladas externamente, no neutraliza correctamente elementos especiales que podrían modificar el comando del sistema
+    description: >
+      El sistema construye comandos de sistema
+      utilizando entradas
+      que puden ser manipuladas externamente,
+      no neutraliza correctamente elementos especiales
+      que podrían modificar el comando del sistema
     impact: Ejecutar secuencias de comandos no autorizados
-    recommendation: a) Si es posible, utilizar llamadas a la biblioteca estandar en lugar de procesos externos para recrear la funcionalidad deseada. b) Mantener la mayor cantidad posible de datos usados para generar comando fuera del control externo. c) Escapar correctamente los argumentos usados para generar el comando y evite los caracteres especiales
-    threat: Atacante autenticado desde Internet
+    recommendation: >
+      - Si es posible,
+      utilizar llamadas a la biblioteca estandar
+      en lugar de procesos externos
+      para recrear la funcionalidad deseada.
+      - Mantener la mayor cantidad posible de datos
+      usados para generar comando fuera del control externo.
+      - Escapar correctamente los argumentos
+      usados para generar el comando
+      y evite los caracteres especiales.
+    threat: Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -112,21 +213,43 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["173", "265", "266"]
   metadata: {}
 005:
   en:
     title: Privilege escalation
-    description: Due to an insecure role configuration, it is possible to obtain administrative access or privileges using a standard user account
+    description: >
+      Due to an insecure role configuration,
+      it is possible to obtain administrative access
+      or privileges using a standard user account.
     impact: __empty__
-    recommendation: The roles must be controlled with users' tokens or the exposure of user ID must be avoided 
-    threat: A user with a different role than administrator can elevate privileges due to a bad permission validation of roles or to a failure in functionalities requests
+    recommendation: >
+      The roles must be controlled with users' tokens
+      or the exposure of user ID must be avoided.
+    threat: >
+      A user with a different role than administrator
+      can elevate privileges
+      due to a bad permission validation of roles
+      or to a failure in functionalities requests.
   es:
     title: Escalada de privilegios
-    description: Los roles administrativos son accedidos desde funciones de un usuario estándar debido a una mala configuración de los roles dentro de la aplicación
+    description: >
+      Los roles administrativos son accedidos
+      desde funciones de un usuario estándar
+      debido a una mala configuración de los roles
+      dentro de la aplicación.
     impact: __empty__
-    recommendation: Los roles deben ser controlados con tokens de usuario o se debe evitar la exposición de identificadores de usuario
-    threat: Un usuario con un rol diferente al del administrador puede elevar privilegios debido a una mala validación de los permisos en los roles o a una falla en las peticiones de las funcionalidades
+    recommendation: >
+      Los roles deben ser controlados con tokens de usuario
+      o se debe evitar la exposición
+      de identificadores de usuario.
+    threat: >
+      Un usuario con un rol diferente al del administrador
+      puede elevar privilegios
+      debido a una mala validación
+      de los permisos en los roles
+      o a una falla en las peticiones
+      de las funcionalidades.
   score:
     base:
       attack_vector: "N"
@@ -141,7 +264,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["035"]
   metadata: {}
 006:
   en:
