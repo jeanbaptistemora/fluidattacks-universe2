@@ -112,7 +112,7 @@ class FragmentedProgressInterval(
         ) -> ProcessStatus[_DataType, _State]:
             if prev.incomplete_is_present:
                 return ProcessStatus(
-                    prev.p_intervals + (interval,),
+                    (interval,) + prev.p_intervals,
                     prev.incomplete_is_present,
                     prev.function_state,
                 )
@@ -121,13 +121,13 @@ class FragmentedProgressInterval(
                 filter(lambda p_invl: p_invl.completed is False, results)
             )
             return ProcessStatus(
-                prev.p_intervals + results, bool(incomplete), state
+                results + prev.p_intervals, bool(incomplete), state
             )
 
         status: ProcessStatus[_DataType, _State] = ProcessStatus(
             tuple(), False, init_state
         )
-        for interval in self.progress_intervals:
+        for interval in reversed(self.progress_intervals):
             status = _process(status, interval)
         return status.p_intervals
 
