@@ -1,18 +1,18 @@
 lib_ssl.analyze_protocol.tlsv1_enabled:
-  en: supports TLS v1
-  es: soporta TLS v1
+  en: server accepts connections with TLSv1.0
+  es: el servidor acepta conexiones con TLSv1.0
 lib_ssl.analyze_protocol.tlsv1_1_enabled:
-  en: supports TLS v1.1
-  es: soporta TLS v1.1
+  en: server accepts connections with TLSv1.1
+  es: el servidor acepta conexiones con TLSv1.1
 lib_ssl.analyze_protocol.tlsv1_3_disabled:
-  en: no support for TLS v1.3
-  es: no soporta TLS v1.3
+  en: server refuses connections with TLSv1.3
+  es: el servidor rechaza conexiones con TLSv1.3
 lib_ssl.analyze_protocol.fallback_scsv_disabled:
-  en: TLS_FALLBACK_SCSV is disabled
-  es: TLS_FALLBACK_SCSV está deshabilitado
+  en: server does not handle TLS_FALLBACK_SCSV correctly
+  es: el servidor no maneja de manera correcta TLS_FALLBACK_SCSV
 lib_ssl.analyze_protocol.tlsv1_3_downgrade:
-  en: TLSv1.3 can be downgraded to {version}
-  es: TLSv1.3 puede ser degradado a {version}
+  en: server allows TLSv1.3 downgrade to {version}
+  es: el servidor permite degradar TLSv1.3 a {version}
 F052_TLS.description:
   en: The server allows the usage of old TLS protocol versions.
   es: El servidor permite utilizar versiones viejas del protocolo TLS.

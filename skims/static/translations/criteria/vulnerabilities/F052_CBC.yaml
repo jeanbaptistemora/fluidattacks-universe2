@@ -1,12 +1,12 @@
 lib_ssl.analyze_protocol.beast_possible:
-  en: BEAST attack is possible
-  es: es posible realizar ataque BEAST
+  en: server is vulnerable to BEAST attacks
+  es: el servidor es vulnerable a ataques BEAST
 lib_ssl.analyze_protocol.cbc_enabled:
-  en: CBC is enabled
-  es: CBC habilitado
+  en: server accepts connections with ciphers that supports CBC
+  es: el servidor acepta conexiones con métodos de encriptado que soportan CBC
 lib_ssl.analyze_protocol.sweet32_possible:
-  en: SWEET32 attack is possible
-  es: es posible realizar ataque SWEET32
+  en: server is vulnerable to SWEET32 attacks
+  es: el servidor es vulnerable a ataques SWEET32
 F052_CBC.description:
   en: The application uses algorithms with insecure cipher block chaining.
   es: La aplicación usa algoritmos con CBC inseguros.

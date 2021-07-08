@@ -495,7 +495,12 @@ async def test_should_report_vulns_to_namespace_verify(
         (
             "F052_PFS",
             "SUBMITTED",
-            (("localhost:4446 (namespace)", "pfs is not enabled"),),
+            (
+                (
+                    "localhost:4446 (namespace)",
+                    "server refuses connections with PFS support",
+                ),
+            ),
         ),
         (
             "F117",
@@ -540,7 +545,12 @@ async def test_should_report_vulns_to_namespace2_verify(
         (
             "F052_PFS",
             "SUBMITTED",
-            (("localhost:4446 (namespace2)", "pfs is not enabled"),),
+            (
+                (
+                    "localhost:4446 (namespace2)",
+                    "server refuses connections with PFS support",
+                ),
+            ),
         ),
         (
             "F117",
@@ -587,7 +597,12 @@ async def test_should_close_vulns_to_namespace_verify(
         (
             "F052_PFS",
             "SUBMITTED",
-            (("localhost:4446 (namespace2)", "pfs is not enabled"),),
+            (
+                (
+                    "localhost:4446 (namespace2)",
+                    "server refuses connections with PFS support",
+                ),
+            ),
         ),
         (
             "F117",

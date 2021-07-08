@@ -1,6 +1,6 @@
 lib_ssl.analyze_protocol.sslv3_enabled:
-  en: supports SSL v3
-  es: soporta SSL v3
+  en: server accepts connections with SSLv3
+  es: el servidor acepta conexiones con SSLv3
 F052_SSLV3.description:
   en: The server allows the usage of SSLv3 protocol.
   es: El servidor permite utilizar el protocolo SSLv3.
