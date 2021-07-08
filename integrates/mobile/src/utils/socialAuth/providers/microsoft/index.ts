@@ -4,7 +4,6 @@ import {
   ResponseType,
   exchangeCodeAsync,
   fetchDiscoveryAsync,
-  fetchUserInfoAsync,
   makeRedirectUri,
   revokeAsync,
 } from "expo-auth-session";
@@ -13,6 +12,7 @@ import type {
   DiscoveryDocument,
   TokenResponse,
 } from "expo-auth-session";
+import jwtDecode from "jwt-decode";
 import _ from "lodash";
 
 import type { IAuthResult } from "../..";
@@ -79,30 +79,27 @@ const authWithMicrosoft: () => Promise<IAuthResult> =
       );
 
       if (logInResult.type === "success") {
-        const { accessToken } = await getTokenResponse(
+        const { accessToken, idToken } = await getTokenResponse(
           discovery,
           logInResult.params,
           request
         );
 
         /**
-         * User properties returned by Microsoft's Graph API
-         * @see https://docs.microsoft.com/en-us/graph/api/resources/user?view=graph-rest-1.0#properties
+         * User properties
+         * @see https://docs.microsoft.com/en-us/azure/active-directory/develop/id-tokens#payload-claims
          */
-        const userProps: Record<string, string> = await fetchUserInfoAsync(
-          { accessToken },
-          { userInfoEndpoint: discovery.userInfoEndpoint }
-        );
+        const userProps = jwtDecode<Record<string, string>>(idToken as string);
 
         return {
           authProvider: "MICROSOFT",
           authToken: accessToken,
           type: "success",
           user: {
-            email: _.get(userProps, "upn", userProps.email),
-            firstName: _.capitalize(userProps.given_name),
+            email: _.get(userProps, "email", userProps.upn),
+            firstName: _.capitalize(userProps.name.split(" ")[0]),
             fullName: _.startCase(userProps.name.toLowerCase()),
-            lastName: userProps.family_name,
+            lastName: userProps.name.split(" ").slice(1).join(" "),
           },
         };
       }

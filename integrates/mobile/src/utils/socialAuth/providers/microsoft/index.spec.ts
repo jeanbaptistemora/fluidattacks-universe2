@@ -7,12 +7,8 @@ describe("Microsoft OAuth2 provider", (): void => {
 
     jest.resetModules();
     jest.mock("expo-auth-session");
-    const {
-      AuthRequest,
-      exchangeCodeAsync,
-      fetchDiscoveryAsync,
-      fetchUserInfoAsync,
-    } = require("expo-auth-session") as Record<string, jest.Mock>;
+    const { AuthRequest, exchangeCodeAsync, fetchDiscoveryAsync } =
+      require("expo-auth-session") as Record<string, jest.Mock>;
     AuthRequest.mockImplementation(
       (): Record<string, jest.Mock> => ({
         promptAsync: jest.fn().mockResolvedValue({
@@ -34,10 +30,10 @@ describe("Microsoft OAuth2 provider", (): void => {
         "https://login.microsoftonline.com/common/openid/userinfo",
     });
 
-    fetchUserInfoAsync.mockResolvedValue({
+    jest.mock("jwt-decode");
+    const jwtDecode = require("jwt-decode") as jest.Mock;
+    jwtDecode.mockReturnValue({
       email: "personal@domain.com",
-      family_name: "DOE", // eslint-disable-line camelcase -- Required by auth API
-      given_name: "JOHN", // eslint-disable-line camelcase -- Required by auth API
       name: "JOHN DOE",
     });
 
@@ -57,9 +53,7 @@ describe("Microsoft OAuth2 provider", (): void => {
       },
     });
 
-    fetchUserInfoAsync.mockResolvedValue({
-      family_name: "DOE", // eslint-disable-line camelcase -- Required by auth API
-      given_name: "JOHN", // eslint-disable-line camelcase -- Required by auth API
+    jwtDecode.mockReturnValue({
       name: "JOHN DOE",
       upn: "business@domain.com",
     });
