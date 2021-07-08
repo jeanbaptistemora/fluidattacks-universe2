@@ -992,16 +992,30 @@
 021:
   en:
     title: XPath Injection
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      Dynamic XPath statements are generated
+      without the required data validation.
+    impact: >
+      Inject queries to obtain
+      sensitive information without authorization.
+    recommendation: >
+      Perform input data validations
+      on the server-side
+      to avoid common injection attacks.
+    threat: Autenticated attacker from the Internet.
   es:
     title: Inyección de XPath
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      Se generan sentencias XPath dinámicas
+      sin la validación requerida de datos.
+    impact: >
+      Inyectar queries para obtener información sensible
+      sin autorización.
+    recommendation: >
+      Realizar la validaciones de datos de entrada
+      en el lado del servidor
+      para evitar los ataques mas comunes de inyección.
+    threat: Atacante autenticado desde Internet
   score:
     base:
       attack_vector: "N"
@@ -1016,21 +1030,43 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["173"]
   metadata: {}
 022:
   en:
     title: Use of an insecure channel
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The system transmits information
+      through a channel without encryption.
+    impact: >
+      - Capture confidential information
+        and credentials in plain text.
+      - Intercept the communication
+        and steal/tamper requests and responses.
+    recommendation: >
+      Deploy the application
+      over an encrypted communication channel,
+      for instance, HTTPS with TLS.
+    threat: >
+      Anonymous attacker on adjacent network
+      performing a man-in-the-middle.
   es:
     title: Uso de canal inseguro
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      La información de los clientes
+      es transmitida por un canal que no usa cifrado.
+    impact: >
+      - Capturar información confidencial
+      y credenciales en texto plano.
+      - Interceptar la comunicación y robar
+      o falsificar peticiones y respuestas.
+    recommendation: >
+      Desplegar la aplicación
+      sobre un canal de comunicación cifrado,
+      por ejemplo, HTTPS utilizando TLS.
+    threat: >
+      Atacante anónimo en red adyacente
+      ejecutando un ataque de hombre en el medio.
   score:
     base:
       attack_vector: "N"
@@ -1045,21 +1081,39 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["181"]
   metadata: {}
 023:
   en:
     title: Uncontrolled external site redirect - Host header
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The server processes requests
+      with the Host header set
+      and redirects clients to any destination.
+    impact: > 
+      - Enumerate the internal network
+        via trial and error.
+      - Perform a subset of Server Side
+        Request Forgery attacks.
+    recommendation: >
+      Configure server
+      to prevent third party hosts redirection.
+    threat: Unauthorized attacker from internet network.
   es:
     title: Redirección a sitios externos no controlada - cabecera Host
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      El servidor procesa peticiones
+      con la cabecera Host configurada
+      y redirige clientes a cualquier destino.
+    impact: >
+      - Enumerar la red interna
+        a través de prueba y error.
+      - Realizar un subconjunto de ataques
+        de Server Side Request Forgery.
+    recommendation: >
+      Configurar el servidor
+      para prevenir redirecciones a hosts de terceros.
+    threat: Atacante sin autorización desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -1074,21 +1128,56 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["173", "324"]
   metadata: {}
 024:
   en:
     title: Unrestricted access between network segments - AWS
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The system’s network configuration
+      does not properly limit access
+      between network segments.
+      This allows employees from any office
+      to access administrative services
+      of servers and other offices.
+      Alternatively,
+      servers that are supposed to be accessed
+      only from an internal network
+      are exposed to other network segments,
+      such as the internet.
+    impact: >
+      Expose resources, processes and sensitive information
+      that could be compromised.
+    recommendation: >
+      Limit network segments, ports, IP addresses,
+      network protocols, and administrative services
+      only to the required users.
+    threat: Anonymous attacker from Internet.
   es:
     title: Acceso no restringido entre segmentos de red - AWS
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      La configuración de red del sistema
+      no limita apropiadamente el acceso
+      entre segmentos de red.
+      Esto permite que empleados
+      desde cualquier oficina
+      accedan servicios administrativos
+      de servicios y otras oficinas.
+      Alternativamente,
+      los servidores que se espera sean accedidos
+      solo desde una red interna
+      están expuertos a otros segmentos de red,
+      como Internet.
+    impact: >
+      Exponer recursos,
+      procesos e información sensible
+      que podrían ser comprometidos.
+    recommendation: >
+      Limitar los segmentos de red,
+      puertos, direcciones IP, protocolos de red,
+      y servicios administrativos
+      solamente a los usuarios requeridos.
+    threat: Atacante anónimo desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -1103,20 +1192,32 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["255"]
   metadata: {}
 025:
   en:
     title: Call interception
-    description: __empty__
+    description: >
+      It is possible to intercept calls made
+      using the VoIP platform
+      because the communication is not encrypted.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Configure the channel
+      with TLS or SRTP and TLS,
+      or configure a firewall to cipher calls.
     threat: __empty__
   es:
     title: Interceptación de llamadas
-    description: __empty__
+    description: >
+      Es posible interceptar las llamadas realizadas
+      y recibidas a través de la plataforma VoIP
+      debido a que la comunicación no viaja cifrada.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Configurar el canal con TLS o SRTP
+      y TLS o configurar un firewall
+      para cifrar las llamadas.
     threat: __empty__
   score:
     base:
@@ -1132,7 +1233,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["181"]
   metadata: {}
 026:
   en:
