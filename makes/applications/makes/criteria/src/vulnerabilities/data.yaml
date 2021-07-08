@@ -170,14 +170,14 @@
     impact: Execute Unauthorized Code or Commands.
     recommendation: >
       - If at all possible,
-      use standard library calls rather
-      than external processes
-      to recreate the desired functionality.
+        use standard library calls rather
+        than external processes
+        to recreate the desired functionality.
       - Keep as much data as possible used
-      to generate command outside of external control.
+        to generate command outside of external control.
       - Properly escape the arguments used
-      to generate the command
-      and avoid special characters.
+        to generate the command
+        and avoid special characters.
     threat: Autenticated attacker from the Internet.
   es:
     title: Ejecución remota de comandos
@@ -190,14 +190,14 @@
     impact: Ejecutar secuencias de comandos no autorizados
     recommendation: >
       - Si es posible,
-      utilizar llamadas a la biblioteca estandar
-      en lugar de procesos externos
-      para recrear la funcionalidad deseada.
+        utilizar llamadas a la biblioteca estandar
+        en lugar de procesos externos
+        para recrear la funcionalidad deseada.
       - Mantener la mayor cantidad posible de datos
-      usados para generar comando fuera del control externo.
+        usados para generar comando fuera del control externo.
       - Escapar correctamente los argumentos
-      usados para generar el comando
-      y evite los caracteres especiales.
+        usados para generar el comando
+        y evite los caracteres especiales.
     threat: Atacante autenticado desde Internet.
   score:
     base:
@@ -269,16 +269,46 @@
 006:
   en:
     title: Authentication mechanism absence or evasion
-    description: The system lacks an authentication mechanism or has one that can be bypassed. Therefore, an attacker can access resources that should be protected without having an active session
+    description: >
+      The system lacks an authentication mechanism
+      or has one that can be bypassed.
+      Therefore,
+      an attacker can access resources
+      that should be protected
+      without having an active session.
     impact: __empty__
-    recommendation: Each criticial functionality resource for the organization must have a strong authentication process and assure that each user who is trying to access has an initiliazed session
-    threat: An unathorized user can access to business functionalities without being authenticated o having an activated session on the server of the application
+    recommendation: >
+      Each criticial functionality resource
+      for the organization must have
+      a strong authentication process
+      and it needs to be assured
+      that each user trying to access
+      has an initialized session.
+    threat: >
+      An unathorized user can access
+      to business functionalities
+      without being authenticated
+      or having an activated session
+      on the server of the application.
   es:
     title: Ausencia ó evasión del mecanismo de autenticación
-    description: El sistema carece de un mecanismo de autenticación o tiene uno que puede ser evadido. Por lo tanto, un atacante puede acceder a recursos compartidos sin tener una sesión activa
+    description: >
+      El sistema carece de un mecanismo de autenticación
+      o tiene uno que puede ser evadido.
+      Por lo tanto,
+      un atacante puede acceder a recursos compartidos
+      sin tener una sesión activa.
     impact: __empty__
-    recommendation: Poner para todo recurso con una funcionalidad crítica para el negocio un proceso de autenticación fuerte y asegurarse de que cada usuario que intente acceder tenga una sesión iniciada
-    threat: Un usuario no autorizado puede acceder a funcionalidades del negocio sin estar autenticado o tener una sesión activa en el servidor de la aplicación
+    recommendation: >
+      Poner para todo recurso con una funcionalidad crítica
+      para el negocio un proceso de autenticación fuerte
+      y asegurarse de que cada usuario que intente acceder
+      tenga una sesión iniciada.
+    threat: >
+      Un usuario no autorizado
+      puede acceder a funcionalidades del negocio
+      sin estar autenticado o tener una sesión activa
+      en el servidor de la aplicación.
   score:
     base:
       attack_vector: "N"
@@ -293,21 +323,43 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["227", "228", "229", "231", "235", "264", "319"]
   metadata: {}
 007:
   en:
     title: Cross-site request forgery
-    description: The application's configuration allows an attacker to trick authenticated users into executing actions without their consent
+    description: >
+      The application's configuration
+      allows an attacker to trick authenticated users
+      into executing actions without their consent.
     impact: __empty__
-    recommendation: Use of tokens in forms to verify requests done by legitimate users
-    threat: An unathorized user from Internet can trick an authenticated user on the application using a link modified to execute critical transactions such as transfers or payments
+    recommendation: >
+      Use of tokens in forms to verify requests 
+      done by legitimate users.
+    threat: >
+      An unathorized user from Internet
+      can trick an authenticated user on the application
+      using a link modified
+      to execute critical transactions
+      such as transfers or payments.
   es:
     title: Falsificación de petición en sitios cruzados (CSRF)
-    description: La aplicación permite engañar a un usuario autenticado por medio de links manipulados para ejecutar acciones sobre la aplicación sin su consentimiento
+    description: >
+      La aplicación permite engañar a un usuario autenticado
+      por medio de links manipulados
+      para ejecutar acciones sobre la aplicación
+      sin su consentimiento.
     impact: __empty__
-    recommendation: Hacer uso de tokens en los formularios para la verificación de las peticiones realizadas por usuarios legítimos
-    threat: Un usuario no autorizado desde Internet puede engañar un usuario autenticado en la aplicación por medio de un enlace modificado para ejecutar transacciones críticas como transferencias o pagos
+    recommendation: >
+      Hacer uso de tokens en los formularios
+      para la verificación de las peticiones realizadas
+      por usuarios legítimos.
+    threat: >
+      Un usuario no autorizado desde Internet
+      puede engañar un usuario autenticado en la aplicación
+      por medio de un enlace modificado
+      para ejecutar transacciones críticas
+      como transferencias o pagos.
   score:
     base:
       attack_vector: "N"
@@ -322,21 +374,39 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["029", "174"]
   metadata: {}
 008:
   en:
     title: Reflected cross-site scripting (XSS)
-    description: The web application dynamically generates web content without validating the source of the potentially untrusted data
-    impact: Generate web pages that could contain malicious scripts injected into untrusted data
-    recommendation: Perform input data validations on the server-side to avoid common script injection attacks
-    threat: Authenticated attacker from the Internet
+    description: >
+      The web application
+      dynamically generates web content
+      without validating the source
+      of the potentially untrusted data.
+    impact: >
+      Generate web pages
+      that could contain malicious scripts
+      injected into untrusted data.
+    recommendation: >
+      Perform input data validations on the server-side
+      to avoid common script injection attacks.
+    threat: Authenticated attacker from the Internet.
   es:
     title: Cross site scripting reflejado
-    description: La aplicación web genera contenido web dinámico sin validar el origen de los datos potencialmente maliciosos
-    impact: Generar páginas web que podrían contener scripts maliciosos inyectados en datos que no son de confianza
-    recommendation: Realice la validaciones de datos de entrada en el lado del servidor para evitar los ataques mas comunes de inyección de scripts
-    threat: Atacante autenticado desde Internet
+    description: >
+      La aplicación web genera contenido web dinámico
+      sin validar el origen de los datos
+      potencialmente maliciosos.
+    impact: >
+      Generar páginas web que podrían contener scripts maliciosos
+      inyectados en datos que no son de confianza.
+    recommendation: >
+      Realice la validaciones de datos de entrada
+      en el lado del servidor
+      para evitar los ataques más comunes
+      de inyección de scripts.
+    threat: Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -351,21 +421,56 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["029", "173"]
   metadata: {}
 009:
   en:
     title: Sensitive information in source code
-    description: The source code repository contains sensitive information such as usernames, passwords, email addresses and IP addresses, among others. Alternatively, while values may be "password=123" o "aws.secret_key=test", they reveal the bad practice of storing sensitive information in the repository with no encryption, and sooner or later they can be replaced for real sensitive values
-    impact: Get sensitive information or private secrets
-    recommendation: a) Delete all hardcoded sensitive information. b) Change all afected access credentials. c) Remove sensitive information from git logs. d) Load sensitive data from safe sources such as, key vault services, configuration files properly encrypted or administrative environment variables
-    threat: Attacker with access to the source-code from the Internet
+    description: >
+      The source code repository
+      contains sensitive information
+      such as usernames, passwords, email addresses
+      and IP addresses, among others.
+      Alternatively,
+      while values may be "password=123" o "aws.secret_key=test",
+      they reveal the bad practice
+      of storing sensitive information
+      in the repository with no encryption,
+      and sooner or later they can be replaced
+      for real sensitive values.
+    impact: >
+      Get sensitive information or private secrets.
+    recommendation: >
+      - Delete all hardcoded sensitive information.
+      - Change all afected access credentials.
+      - Remove sensitive information from git logs.
+      - Load sensitive data from safe sources such as,
+        key vault services, configuration files properly encrypted
+        or administrative environment variables.
+    threat: Attacker with access to the source-code from the Internet.
   es:
     title: Información sensible almacenada en el código fuente
-    description: En el repositorio se encuentra almacenada (cin cifrar) informacion sensible como usuarios, contraseñas, correos electronicos, credenciales de API, entre otros. Alternativamente, a pesar de que algunos valores pueden ser "password=123" o "aws.secret_key=prueba", estos revelan la mala práctica de almacenar información sensible en el repositorio sin cifrar, y tarde o temprano pueden ser reemplazados por valores realmente sensibles
-    impact: Obtener información sensible o secretos privados
-    recommendation: a) Delete all hardcoded sensitive information. b) Change all afected access credentials. c) Remove sensitive information from git logs. d) Load sensitive data from safe sources such as, key vault services, configuration files properly encrypted or administrative environment variables
-    threat: Atacante con acceso al código fuente desde Internet
+    description: >
+      En el repositorio
+      se encuentra almacenada (cin cifrar) información sensible
+      como usuarios, contraseñas, correos electronicos,
+      credenciales de API, entre otros.
+      Alternativamente,
+      a pesar de que algunos valores
+      pueden ser "password=123" o "aws.secret_key=prueba",
+      estos revelan la mala práctica de almacenar información sensible
+      en el repositorio sin cifrar,
+      y tarde o temprano pueden ser reemplazados
+      por valores realmente sensibles.
+    impact: >
+      Obtener información sensible o secretos privados.
+    recommendation: >
+      - Eliminar la información sensible quemada en el código fuente.
+      - Cambiar las credenciales de acceso que se vieron comprometidas.
+      - Purgar el historial de git de la información sensible afectada.
+      - Cargar los datos sensibles desde fuentes seguras como:
+        servicios de bóveda de claves, archivos de configuración que estén debidamente cifrados o variables de entorno administrativas.
+    threat: Atacante con acceso al código fuente desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -380,20 +485,34 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["145", "156"]
   metadata: {}
 010:
   en:
     title: Stored cross-site scripting (XSS)
-    description: It is possible to persistently inject JavaScript code into the application fields. This could allow an attacker to compromise the session of any user who enters the platform or to distribute malicious software
+    description: >
+      It is possible to persistently inject JavaScript code
+      into the application fields.
+      This could allow an attacker to compromise the session
+      of any user who enters the platform
+      or to distribute malicious software.
     impact: __empty__
-    recommendation: Filter the information that receives and sends the application using white lists
+    recommendation: >
+      Filter the information that receives
+      and sends the application using white lists.
     threat: __empty__
   es:
     title: Cross site scripting almacenado
-    description: Los campos de la aplicación permiten inyectar código de forma persistente para que posteriormente cualquier usuario que ingrese a la plataforma sea afectado, permitiendo el robo de información o la distribución de software malicioso
+    description: >
+      Los campos de la aplicación permiten inyectar código
+      de forma persistente para que posteriormente
+      cualquier usuario que ingrese a la plataforma sea afectado,
+      permitiendo el robo de información
+      o la distribución de software malicioso.
     impact: __empty__
-    recommendation: Filtrar la información que recibe y envía la aplicación por medio de listas blancas
+    recommendation: >
+      Filtrar la información que recibe
+      y envía la aplicación por medio de listas blancas.
     threat: __empty__
   score:
     base:
@@ -409,7 +528,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["029", "173"]
   metadata: {}
 011:
   en:
