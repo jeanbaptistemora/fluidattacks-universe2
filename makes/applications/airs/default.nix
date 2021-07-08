@@ -8,6 +8,7 @@
 makeEntrypoint {
   arguments = {
     envAirsBuild = applications.airs.build;
+    envAirsDevelopment = applications.airs.development;
   };
   name = "airs";
   searchPaths = {

@@ -1,5 +1,6 @@
 airs
 airs.build
+airs.development
 airs.infra.ephemeral.apply
 airs.infra.ephemeral.test
 airs.infra.production.apply

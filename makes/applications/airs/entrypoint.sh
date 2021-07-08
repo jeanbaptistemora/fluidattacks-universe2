@@ -22,12 +22,6 @@ function patch_paths {
     && replace "${src}" "${path_to_replace}" "${path}"
 }
 
-function patch_paths_dev {
-  local src="${1}"
-
-  patch_paths "${src}" 'http' 'localhost:8000' ''
-}
-
 function patch_paths_eph {
   local src="${1}"
 
@@ -98,9 +92,7 @@ function sync_files {
 function deploy_dev {
   local src="${1}"
 
-  pushd "${src}" \
-    && python3 -m http.server \
-    && popd \
+  __envAirsDevelopment__ "${src}" \
     || return 1
 }
 
@@ -137,7 +129,7 @@ function main {
   local path_to_replace='please-replace-this-path-before-deploying'
 
   case "${env}" in
-    dev) patch_paths_dev "${out}" ;;
+    dev) echo '[INFO] Building local environment' ;;
     eph) patch_paths_eph "${out}" ;;
     prod) patch_paths_prod "${out}" ;;
     *) abort '[ERROR] Second argument must be one of: dev, eph, prod' ;;
