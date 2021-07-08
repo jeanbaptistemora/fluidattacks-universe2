@@ -17,6 +17,7 @@ from typing import (
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],
         ["executive@gmail.com"],
+        ["group_manager@gmail.com"],
     ],
 )
 async def test_delete_tags(populate: bool, email: str) -> None:
