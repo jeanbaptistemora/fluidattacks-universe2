@@ -765,16 +765,32 @@
 016:
   en:
     title: Insecure encryption algorithm - Transport Layer Security
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The server allows
+      the usage of old TLS protocol versions.
+    impact: >
+      Compromize sensitive information
+      that travels between client and server.
+    recommendation: >
+      Update TLS protocol to version
+      TLSv1.2 or TLSv1.3 if possible.
+    threat: >
+      Unauthorized attacker from adjacent network
+      exploiting a vulnerability.
   es:
     title: Algoritmo de cifrado inseguro - Transport Layer Security
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      El servidor permite
+      utilizar versiones viejas del protocolo TLS.
+    impact: >
+      Comprometer la información sensible
+      que viaja entre cliente y servidor.
+    recommendation: >
+      Actualizar el protocolo TLS a la versión
+      TLSv1.2 o TLSv1.3 de ser posible.
+    threat: >
+      Atacante sin autorización desde red adjacente
+      explotando vulnerabilidad.
   score:
     base:
       attack_vector: "N"
@@ -789,21 +805,45 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["148", "149", "150", "181", "336"]
   metadata: {}
 017:
   en:
     title: Sensitive information sent insecurely
-    description: __empty__
+    description: >
+      The system sends sensitive information
+      through a channel or method
+      which does not guarantee its confidentiality
+      or integrity.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Guarantee that credentials be sent
+      through a more secure channel,
+      such as session variables or using HTTP POST method.
+    threat: >
+      An unathorized user
+      with access to the local machine
+      can view the browser's cache
+      and the URLs that contain the session ID
+      to make a succesful user spoofing.
   es:
     title: Información sensible enviada de forma insegura
-    description: __empty__
+    description: >
+      El sistema envía información sensible
+      a través de un canal o método
+      que no garantiza su confidencialidad
+      o integridad.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Garantizar que las credenciales
+      sean enviadas por un canal más seguro
+      como variables de sesión o por el método HTTP POST.
+    threat: >
+      Un usuario no autorizado
+      con acceso al máquina local
+      puede ver la caché del navegador
+      las URL que contiene el ID de sesión
+      para lograr una suplantación de usuarios.
   score:
     base:
       attack_vector: "N"
@@ -818,20 +858,31 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["032", "181"]
   metadata: {}
 018:
   en:
     title: Improper authentication for shared folders
-    description: __empty__
+    description: >
+      The folders that are shared over the network
+      do not require any authentication
+      to be accessed.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Limit the access to shared folders
+      only to authorized users with their credentials.
     threat: __empty__
   es:
     title: Autenticación inadecuada para carpetas compartidas
-    description: __empty__
+    description: >
+      Las carpetas de red pueden ser accedidas
+      sin ningún tipo de credencial
+      permitiendo el acceso a información confidencial.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Limitar el acceso a carpetas compartidas
+      solo a personal autorizado
+      y con las credenciales respectivas.
     threat: __empty__
   score:
     base:
@@ -847,20 +898,28 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["229", "264"]
   metadata: {}
 019:
   en:
     title: Administrative credentials stored in cache memory
-    description: __empty__
+    description: >
+      It is possible to retrieve administrative credentials
+      from the system's cache memory.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Avoid the store of sensitive information
+      in temporary files or cache.
     threat: __empty__
   es:
     title: Credenciales administrativas almacenadas en memoria cache
-    description: __empty__
+    description: >
+      Es posible extraer credenciales administrativas
+      desde la caché de los procesos.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Evitar almacenar información sensible
+      en archivos temporales o en caché.
     threat: __empty__
   score:
     base:
@@ -876,21 +935,44 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["177"]
   metadata: {}
 020:
   en:
     title: Non-encrypted confidential information
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      Confidential information is stored in plain text
+      allowing an attacker to view it
+      without any type of encryption.
+    impact: >
+      Obtain sensitive information
+      that may compromise system resources.
+    recommendation: >
+      Encrypt all sensitive information
+      that is transported or stored
+      within the application
+      according to the organization's policies.
+    threat: >
+      Attacker with access
+      to the source-code from the Internet.
   es:
     title: Ausencia de cifrado de información confidencial
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      La información confidencial
+      es almacenada en texto plano
+      permitiendo a un atacante visualizarla
+      sin ningún tipo de cifrado.
+    impact: >
+      Obtener información sensible
+      que puede comprometer recursos del sistema.
+    recommendation: >
+      Cifrar toda información sensible
+      que se transporte o se guarde
+      dentro la aplicación
+      de acuerdo a las políticas de la organización.
+    threat: >
+      Atacante con acceso al código fuente
+      desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -905,7 +987,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["134", "135", "185"]
   metadata: {}
 021:
   en:
