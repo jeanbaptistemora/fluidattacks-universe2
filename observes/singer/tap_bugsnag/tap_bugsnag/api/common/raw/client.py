@@ -2,40 +2,50 @@ from __future__ import (
     annotations,
 )
 
-import requests
+import logging
+from paginator.raw_client import (
+    RawClient,
+)
+from paginator.raw_client.handlers import (
+    RawResponse,
+)
+from paginator.raw_client.patch import (
+    Patch,
+)
+from requests.exceptions import (
+    HTTPError,
+)
 from requests.models import (
     Response,
-)
-from returns.curry import (
-    partial,
 )
 from tap_bugsnag.api.auth import (
     Credentials,
 )
+import time
 from typing import (
-    Any,
     Callable,
-    Dict,
-    NamedTuple,
 )
 
 API_URL_BASE = "https://api.bugsnag.com"
+LOG = logging.getLogger(__name__)
 
 
-def _get(
-    creds: Credentials, endpoint: str, params: Dict[str, Any]
-) -> Response:
-    response = requests.get(
-        f"{API_URL_BASE}{endpoint}",
-        headers={"Authorization": f"token {creds.api_key}", "X-Version": "2"},
-        params=params,
-    )
-    return response
+def _retry_request(
+    request: Callable[[], RawResponse],
+    retry_num: int,
+    error: HTTPError,
+) -> RawResponse:
+    response: Response = error.response
+    if response.status_code == 429:
+        wait_time = response.headers["Retry-After"]
+        LOG.info("Api rate limit reached. Waiting %ss", wait_time)
+        time.sleep(int(wait_time))
+        LOG.info("Retry #%s", retry_num)
+    else:
+        raise error
+    return request()
 
 
-class Client(NamedTuple):
-    get: Callable[[str, Dict[str, Any]], Response]
-
-    @classmethod
-    def new(cls, creds: Credentials) -> Client:
-        return cls(get=partial(_get, creds))
+def build_raw_client(creds: Credentials) -> RawClient:
+    headers = {"Authorization": f"token {creds.api_key}", "X-Version": "2"}
+    return RawClient(API_URL_BASE, headers, 5, Patch(_retry_request))
