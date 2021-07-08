@@ -6,7 +6,7 @@ computeOnAws {
   command = [ "./m" "observes.job.gitlab-etl.product" ];
   jobname = "gitlab-etl-product";
   jobqueue = "observes_later";
-  name = "batch-gitlab-product";
+  name = "observes-scheduled-on-aws-gitlab-etl-product";
   product = "observes";
   secrets = [
     "PRODUCT_API_TOKEN"

@@ -6,10 +6,11 @@ computeOnAws {
   command = [ "./m" "observes.job.gitlab-etl.default" ];
   jobname = "gitlab-etl-default";
   jobqueue = "observes_later";
-  name = "batch-gitlab-default";
+  name = "observes-scheduled-on-aws-gitlab-etl-default";
   product = "observes";
   secrets = [
     "AUTONOMIC_API_TOKEN"
+    "PRODUCT_API_TOKEN"
   ];
   timeout = 7200;
   vcpus = 1;

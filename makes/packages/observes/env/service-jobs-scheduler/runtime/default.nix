@@ -26,6 +26,10 @@ makeTemplate {
       scheduled.on-aws.dynamodb-forces-etl
       scheduled.on-aws.dynamodb-integrates-etl
       scheduled.on-aws.formstack-etl
+      scheduled.on-aws.gitlab-etl.challenges
+      scheduled.on-aws.gitlab-etl.default
+      scheduled.on-aws.gitlab-etl.product
+      scheduled.on-aws.gitlab-etl.services
     ];
     envPythonPaths = [
       self

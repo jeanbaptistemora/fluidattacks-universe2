@@ -16,7 +16,7 @@ function start_etl {
     && tap-gitlab stream "merge_requests" \
       --project 'fluidattacks/product' \
       --api-key "${token}" \
-      --max-pages 1 \
+      --max-pages 50 \
       --state "${state}" \
     | tap-json > .singer \
     && echo '[INFO] Running target' \
