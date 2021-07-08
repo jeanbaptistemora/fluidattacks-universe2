@@ -13,6 +13,9 @@ src.lib_path.f009.crypto_js_credentials.description:
 src.lib_path.f009.dockerfile_env_secrets.description:
   en: Dockerfile credentials in {path}
   es: Credenciales de Docker en {path}
+src.lib_path.f009.web_config_sensitive_data.description:
+  en: Sensitive information in {path}
+  es: Información sensible en {path}
 F009.description:
   en: >
     The source code repository

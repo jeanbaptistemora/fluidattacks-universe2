@@ -275,6 +275,39 @@ async def java_properties_sensitive_data(
     )
 
 
+def _web_config_sensitive_data(
+    content: str,
+    path: str,
+) -> core_model.Vulnerabilities:
+    grammar = Regex(r'(username|password)=".+?"', flags=re.IGNORECASE)
+
+    return get_vulnerabilities_blocking(
+        content=content,
+        cwe={"798"},
+        description=t(
+            key="src.lib_path.f009.web_config_sensitive_data.description",
+            path=path,
+        ),
+        finding=core_model.FindingEnum.F009,
+        grammar=grammar,
+        path=path,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def web_config_sensitive_data(
+    content: str,
+    path: str,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _web_config_sensitive_data,
+        content=content,
+        path=path,
+    )
+
+
 @SHIELD
 async def analyze(  # pylint: disable=too-many-arguments
     content_generator: Callable[[], Awaitable[str]],
@@ -315,6 +348,13 @@ async def analyze(  # pylint: disable=too-many-arguments
     elif file_extension in EXTENSIONS_JAVA_PROPERTIES:
         coroutines.append(
             java_properties_sensitive_data(
+                content=await content_generator(),
+                path=path,
+            )
+        )
+    elif file_extension in {"config", "httpsF5"}:
+        coroutines.append(
+            web_config_sensitive_data(
                 content=await content_generator(),
                 path=path,
             )

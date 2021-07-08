@@ -1192,7 +1192,7 @@ class VulnerabilitySourceEnum(Enum):
         return (
             VulnerabilitySourceEnum.SKIMS
             if any(
-                historic_state["source"] == VulnerabilitySourceEnum.SKIMS.value
+                historic_state["source"] in {"machine", "skims"}
                 for historic_state in historic_states
             )
             # Let's return the source that first reported the vuln
