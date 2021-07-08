@@ -257,9 +257,9 @@ class FindingEnum(Enum):
     F014_FLOAT_CURRENCY: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F014_FLOAT_CURRENCY",
-        cwe=197,
+        cwe=681,
         execution_queue=ExecutionQueue.f014,
-        requirements=[158, 366],
+        requirements=[266],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
             attack_vector=cvss3_model.AttackVector.network,
