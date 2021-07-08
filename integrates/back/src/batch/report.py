@@ -133,3 +133,10 @@ async def generate_report(*, item: BatchProcessing) -> None:
                 )
             ),
         )
+        await delete_action(
+            action_name=item.action_name,
+            additional_info=item.additional_info,
+            entity=item.entity,
+            subject=item.subject,
+            time=item.time,
+        )
