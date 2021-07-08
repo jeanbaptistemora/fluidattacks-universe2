@@ -1,8 +1,6 @@
-from enum import (
-    Enum,
-)
 from lib_ssl.types import (
     SSLSettings,
+    SSLVulnerability,
 )
 from typing import (
     Dict,
@@ -23,46 +21,35 @@ ssl_versions: Dict[Tuple[int, int], str] = {
 }
 
 
-class SSLSnippetLine(Enum):
-    fallback_scsv: int = 2
-    min_version: int = 3
-    max_version: int = 4
-    ciphers: int = 5
-    mac: int = 6
-    key_exchange: int = 7
-
-
-# pylint: disable=too-many-arguments
 def snippet(
-    host: str,
-    port: int,
-    conn_established: bool,
-    line: SSLSnippetLine,
     ssl_settings: SSLSettings,
+    ssl_vulnerability: SSLVulnerability,
     columns_per_line: int = SNIPPETS_COLUMNS,
 ) -> str:
-
+    host: str = ssl_settings.host
+    port: int = ssl_settings.port
     min_version: str = ssl_versions[ssl_settings.min_version]
     max_version: str = ssl_versions[ssl_settings.max_version]
-    chiphers: str = ", ".join(ssl_settings.cipher_names)
+    ciphers: str = ", ".join(ssl_settings.cipher_names)
     mac: str = ", ".join(ssl_settings.mac_names)
-    key_exchange: str = ", ".join(ssl_settings.key_exchange_names)
+    key_exchange: str = ", ".join(ssl_settings.get_key_exchange_names())
 
-    content: str = f"SSL connection request to {host}:{port}\n"
-    content += f"fallback scsv: {ssl_settings.scsv}\n"
-    content += f"min version: {min_version}\n"
-    content += f"max version: {max_version}\n"
-    content += f"chiphers: {chiphers}\n"
-    content += f"mac: {mac}\n"
-    content += f"key exchange: {key_exchange}\n"
-    content += f"connection established: {conn_established}\n"
+    content: str = f"intention: {ssl_settings.intention}\n"
+    content += f"SSL request made to {host}:{port} with following parameters\n"
+    content += f"   fallback scsv: {ssl_settings.scsv}\n"
+    content += f"   min version: {min_version}\n"
+    content += f"   max version: {max_version}\n"
+    content += f"   ciphers: {ciphers}\n"
+    content += f"   mac: {mac}\n"
+    content += f"   key exchange: {key_exchange}\n"
+    content += f"result: {ssl_vulnerability.description}\n"
 
     return make_snippet(
         content=content,
         viewport=SnippetViewport(
-            columns_per_line=columns_per_line,
             column=0,
-            line=line.value,
             wrap=True,
+            columns_per_line=columns_per_line,
+            line=ssl_vulnerability.get_line(),
         ),
     )

@@ -1,7 +1,6 @@
 from lib_ssl.as_string import (
     snippet,
     ssl_versions,
-    SSLSnippetLine,
 )
 from lib_ssl.ssl_connection import (
     connect,
@@ -9,6 +8,8 @@ from lib_ssl.ssl_connection import (
 from lib_ssl.types import (
     SSLContext,
     SSLSettings,
+    SSLSnippetLine,
+    SSLVulnerability,
 )
 from model import (
     core_model,
@@ -18,7 +19,6 @@ from typing import (
     Callable,
     Dict,
     List,
-    NamedTuple,
     Optional,
     Tuple,
 )
@@ -30,36 +30,10 @@ from zone import (
 )
 
 
-class Location(NamedTuple):
-    description: str
-
-
-class Locations(NamedTuple):
-    locations: List[Location]
-
-    def append(
-        self,
-        desc: str,
-        desc_kwargs: Optional[Dict[str, str]] = None,
-    ) -> None:
-        self.locations.append(
-            Location(
-                description=t(
-                    f"lib_ssl.analyze_protocol.{desc}",
-                    **(desc_kwargs or {}),
-                ),
-            )
-        )
-
-
-# pylint: disable=too-many-arguments
-def _create_vulns(
-    locations: Locations,
-    finding: core_model.FindingEnum,
-    ctx: SSLContext,
-    conn_established: bool,
-    line: SSLSnippetLine,
+def _create_core_vulns(
     ssl_settings: SSLSettings,
+    ssl_vulnerabilities: List[SSLVulnerability],
+    finding: core_model.FindingEnum,
 ) -> core_model.Vulnerabilities:
     return tuple(
         core_model.Vulnerability(
@@ -68,339 +42,345 @@ def _create_vulns(
             namespace=CTX.config.namespace,
             state=core_model.VulnerabilityStateEnum.OPEN,
             stream="home,socket-send,socket-response",
-            what=f"{ctx.target.host}:{ctx.target.port}",
-            where=location.description,
+            what=ssl_settings.get_target(),
+            where=ssl_vulnerability.description,
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=(finding.value.cwe,),
-                description=location.description,
+                description=ssl_vulnerability.description,
                 snippet=snippet(
-                    host=ctx.target.host,
-                    port=ctx.target.port,
-                    conn_established=conn_established,
-                    line=line,
                     ssl_settings=ssl_settings,
+                    ssl_vulnerability=ssl_vulnerability,
                 ),
             ),
         )
-        for location in locations.locations
+        for ssl_vulnerability in ssl_vulnerabilities
+    )
+
+
+def _create_ssl_vuln(
+    check: str,
+    line: SSLSnippetLine,
+    check_kwargs: Optional[Dict[str, str]] = None,
+) -> SSLVulnerability:
+    return SSLVulnerability(
+        line=line,
+        description=t(
+            f"lib_ssl.analyze_protocol.{check}", **(check_kwargs or {})
+        ),
     )
 
 
 def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
-    locations = Locations(locations=[])
+    ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    conn_established: bool = False
     ssl_settings = SSLSettings(
-        key_exchange_names=["dhe_rsa", "ecdhe_rsa", "ecdh_anon", "dh_anon"]
+        host=ctx.target.host,
+        port=ctx.target.port,
+        intention="check if server accepts key_exchange with PFS support",
+        key_exchange_names=["dhe_rsa", "ecdhe_rsa", "ecdh_anon", "dh_anon"],
     )
 
     with connect(
-        ctx.target.host,
-        ctx.target.port,
         ssl_settings,
-        intention="check if pfs is enabled",
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
-        if connection is not None:
-            conn_established = not connection.closed
-            if not conn_established:
-                locations.append(
-                    desc="pfs_disabled",
+        if connection is not None and connection.closed:
+            ssl_vulnerabilities.append(
+                _create_ssl_vuln(
+                    check="pfs_disabled",
+                    line=SSLSnippetLine.key_exchange,
                 )
+            )
 
-    return _create_vulns(
-        locations=locations,
-        finding=core_model.FindingEnum.F052_PFS,
-        ctx=ctx,
-        conn_established=conn_established,
-        line=SSLSnippetLine.key_exchange,
+    return _create_core_vulns(
         ssl_settings=ssl_settings,
+        ssl_vulnerabilities=ssl_vulnerabilities,
+        finding=core_model.FindingEnum.F052_PFS,
     )
 
 
 def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
-    locations = Locations(locations=[])
+    ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    conn_established: bool = False
-    ssl_settings = SSLSettings(max_version=(3, 0))
+    ssl_settings = SSLSettings(
+        host=ctx.target.host,
+        port=ctx.target.port,
+        max_version=(3, 0),
+        intention="check if server supports SSLv3",
+    )
 
     with connect(
-        ctx.target.host,
-        ctx.target.port,
         ssl_settings,
-        intention="check if sslv3 enabled",
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
-        if connection is not None:
-            conn_established = not connection.closed
-            if conn_established:
-                locations.append(
-                    desc="sslv3_enabled",
+        if connection is not None and not connection.closed:
+            ssl_vulnerabilities.append(
+                _create_ssl_vuln(
+                    check="sslv3_enabled",
+                    line=SSLSnippetLine.max_version,
                 )
+            )
 
-    return _create_vulns(
-        locations=locations,
-        finding=core_model.FindingEnum.F052_SSLV3,
-        ctx=ctx,
-        conn_established=conn_established,
-        line=SSLSnippetLine.max_version,
+    return _create_core_vulns(
         ssl_settings=ssl_settings,
+        ssl_vulnerabilities=ssl_vulnerabilities,
+        finding=core_model.FindingEnum.F052_SSLV3,
     )
 
 
 def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
-    locations = Locations(locations=[])
+    ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    conn_established: bool = False
-    ssl_settings = SSLSettings(min_version=(3, 1), max_version=(3, 1))
+    ssl_settings = SSLSettings(
+        host=ctx.target.host,
+        port=ctx.target.port,
+        min_version=(3, 1),
+        max_version=(3, 1),
+        intention="check if server supports TLSv1.0",
+    )
 
     with connect(
-        ctx.target.host,
-        ctx.target.port,
         ssl_settings,
-        intention="check if tlsv1 enabled",
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
-        if connection is not None:
-            conn_established = not connection.closed
-            if conn_established:
-                locations.append(
-                    desc="tlsv1_enabled",
+        if connection is not None and not connection.closed:
+            ssl_vulnerabilities.append(
+                _create_ssl_vuln(
+                    check="tlsv1_enabled",
+                    line=SSLSnippetLine.max_version,
                 )
+            )
 
-    return _create_vulns(
-        locations=locations,
-        finding=core_model.FindingEnum.F052_TLS,
-        ctx=ctx,
-        conn_established=conn_established,
-        line=SSLSnippetLine.max_version,
+    return _create_core_vulns(
         ssl_settings=ssl_settings,
+        ssl_vulnerabilities=ssl_vulnerabilities,
+        finding=core_model.FindingEnum.F052_TLS,
     )
 
 
 def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
-    locations = Locations(locations=[])
+    ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    conn_established: bool = False
-    ssl_settings = SSLSettings(min_version=(3, 2), max_version=(3, 2))
+    ssl_settings = SSLSettings(
+        host=ctx.target.host,
+        port=ctx.target.port,
+        min_version=(3, 2),
+        max_version=(3, 2),
+        intention="check if server supports TLSv1.1",
+    )
 
     with connect(
-        ctx.target.host,
-        ctx.target.port,
         ssl_settings,
-        intention="check if tlsv1.1 enabled",
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
-        if connection is not None:
-            conn_established = not connection.closed
-            if conn_established:
-                locations.append(
-                    desc="tlsv1_1_enabled",
+        if connection is not None and not connection.closed:
+            ssl_vulnerabilities.append(
+                _create_ssl_vuln(
+                    check="tlsv1_1_enabled",
+                    line=SSLSnippetLine.max_version,
                 )
+            )
 
-    return _create_vulns(
-        locations=locations,
-        finding=core_model.FindingEnum.F052_TLS,
-        ctx=ctx,
-        conn_established=conn_established,
-        line=SSLSnippetLine.max_version,
+    return _create_core_vulns(
         ssl_settings=ssl_settings,
+        ssl_vulnerabilities=ssl_vulnerabilities,
+        finding=core_model.FindingEnum.F052_TLS,
     )
 
 
 def _tlsv1_3_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
-    locations = Locations(locations=[])
+    ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    conn_established: bool = False
-    ssl_settings = SSLSettings(min_version=(3, 4), max_version=(3, 4))
-
-    with connect(
+    ssl_settings = SSLSettings(
         ctx.target.host,
         ctx.target.port,
+        min_version=(3, 4),
+        max_version=(3, 4),
+        intention="check if server supports TLSv1.3",
+    )
+
+    with connect(
         ssl_settings,
-        intention="check if tlsv1.3 disabled",
         expected_exceptions=(tlslite.errors.TLSLocalAlert,),
     ) as connection:
-        if connection is not None:
-            conn_established = not connection.closed
-            if connection.closed:
-                locations.append(
-                    desc="tlsv1_3_disabled",
+        if connection is not None and connection.closed:
+            ssl_vulnerabilities.append(
+                _create_ssl_vuln(
+                    check="tlsv1_3_disabled",
+                    line=SSLSnippetLine.max_version,
                 )
+            )
 
-    return _create_vulns(
-        locations=locations,
-        finding=core_model.FindingEnum.F052_TLS,
-        ctx=ctx,
-        conn_established=conn_established,
-        line=SSLSnippetLine.max_version,
+    return _create_core_vulns(
         ssl_settings=ssl_settings,
+        ssl_vulnerabilities=ssl_vulnerabilities,
+        finding=core_model.FindingEnum.F052_TLS,
     )
 
 
-def _anonymous_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
-    locations = Locations(locations=[])
+def _anonymous_suits_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
+    ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    conn_established: bool = False
-    ssl_settings = SSLSettings()
-
-    with connect(
+    ssl_settings = SSLSettings(
         ctx.target.host,
         ctx.target.port,
-        ssl_settings,
         anonymous=True,
-        intention="check if anonymous ciphers allowed",
+        intention="check if server supports anonymous cipher suits",
+    )
+
+    with connect(
+        ssl_settings,
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
-        if connection is not None:
-            conn_established = not connection.closed
-            if conn_established:
-                locations.append(
-                    desc="anonymous_ciphers_allowed",
+        if connection is not None and not connection.closed:
+            ssl_vulnerabilities.append(
+                _create_ssl_vuln(
+                    check="anonymous_suits_allowed",
+                    line=SSLSnippetLine.key_exchange,
                 )
+            )
 
-    return _create_vulns(
-        locations=locations,
-        finding=core_model.FindingEnum.F052_ANON,
-        ctx=ctx,
-        conn_established=conn_established,
-        line=SSLSnippetLine.ciphers,
+    return _create_core_vulns(
         ssl_settings=ssl_settings,
+        ssl_vulnerabilities=ssl_vulnerabilities,
+        finding=core_model.FindingEnum.F052_ANON,
     )
 
 
 def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
-    locations = Locations(locations=[])
+    ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    conn_established: bool = False
-    ssl_settings = SSLSettings(cipher_names=["rc4", "3des", "null"])
-
-    with connect(
+    ssl_settings = SSLSettings(
         ctx.target.host,
         ctx.target.port,
+        cipher_names=["rc4", "3des", "null"],
+        intention="check if server supports weak ciphers",
+    )
+
+    with connect(
         ssl_settings,
-        intention="check if weak ciphers allowed",
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
-        if connection is not None:
-            conn_established = not connection.closed
-            if conn_established:
-                locations.append(
-                    desc="weak_ciphers_allowed",
+        if connection is not None and not connection.closed:
+            ssl_vulnerabilities.append(
+                _create_ssl_vuln(
+                    check="weak_ciphers_allowed",
+                    line=SSLSnippetLine.ciphers,
                 )
+            )
 
-    return _create_vulns(
-        locations=locations,
-        finding=core_model.FindingEnum.F052,
-        ctx=ctx,
-        conn_established=conn_established,
-        line=SSLSnippetLine.ciphers,
+    return _create_core_vulns(
         ssl_settings=ssl_settings,
+        ssl_vulnerabilities=ssl_vulnerabilities,
+        finding=core_model.FindingEnum.F052,
     )
 
 
 def _beast_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
-    locations = Locations(locations=[])
+    ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    conn_established: bool = False
-    ssl_settings = SSLSettings(min_version=(3, 1), max_version=(3, 1))
-
-    with connect(
+    ssl_settings = SSLSettings(
         ctx.target.host,
         ctx.target.port,
+        min_version=(3, 1),
+        max_version=(3, 1),
+        intention="check if server is vulnerable to BEAST attacks",
+    )
+
+    with connect(
         ssl_settings,
-        intention="check if beast attack is possible",
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
-        if connection is not None:
-            conn_established = not connection.closed
+        if connection is not None and not connection.closed:
             # pylint: disable=protected-access
-            if conn_established and connection._recordLayer.isCBCMode():
-                locations.append(
-                    desc="beast_possible",
+            if connection._recordLayer.isCBCMode():
+                ssl_vulnerabilities.append(
+                    _create_ssl_vuln(
+                        check="beast_possible",
+                        line=SSLSnippetLine.max_version,
+                    )
                 )
 
-    return _create_vulns(
-        locations=locations,
-        finding=core_model.FindingEnum.F052_CBC,
-        ctx=ctx,
-        conn_established=conn_established,
-        line=SSLSnippetLine.ciphers,
+    return _create_core_vulns(
         ssl_settings=ssl_settings,
+        ssl_vulnerabilities=ssl_vulnerabilities,
+        finding=core_model.FindingEnum.F052_CBC,
     )
 
 
 def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
-    locations = Locations(locations=[])
+    ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    conn_established: bool = False
-    ssl_settings = SSLSettings(min_version=(3, 2), max_version=(3, 3))
-
-    with connect(
+    ssl_settings = SSLSettings(
         ctx.target.host,
         ctx.target.port,
+        min_version=(3, 2),
+        max_version=(3, 3),
+        intention="check if server supports CBC",
+    )
+
+    with connect(
         ssl_settings,
-        intention="check if cbc is enabled",
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
-        if connection is not None:
-            conn_established = not connection.closed
+        if connection is not None and not connection.closed:
             # pylint: disable=protected-access
-            if conn_established and connection._recordLayer.isCBCMode():
-                locations.append(
-                    desc="cbc_enabled",
+            if connection._recordLayer.isCBCMode():
+                ssl_vulnerabilities.append(
+                    _create_ssl_vuln(
+                        check="cbc_enabled",
+                        line=SSLSnippetLine.ciphers,
+                    )
                 )
 
-    return _create_vulns(
-        locations=locations,
-        finding=core_model.FindingEnum.F052_CBC,
-        ctx=ctx,
-        conn_established=conn_established,
-        line=SSLSnippetLine.ciphers,
+    return _create_core_vulns(
         ssl_settings=ssl_settings,
+        ssl_vulnerabilities=ssl_vulnerabilities,
+        finding=core_model.FindingEnum.F052_CBC,
     )
 
 
 def _sweet32_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
-    locations = Locations(locations=[])
+    ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    conn_established: bool = False
     ssl_settings = SSLSettings(
+        ctx.target.host,
+        ctx.target.port,
         min_version=(3, 1),
         max_version=(3, 3),
         cipher_names=["3des"],
+        intention="check if server is vulnerable to SWEET32 attacks",
     )
 
     with connect(
-        ctx.target.host,
-        ctx.target.port,
         ssl_settings,
-        intention="check if sweet32 attack is possible",
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
-        if connection is not None:
-            conn_established = not connection.closed
-            if conn_established:
-                locations.append(
-                    desc="sweet32_possible",
+        if connection is not None and not connection.closed:
+            ssl_vulnerabilities.append(
+                _create_ssl_vuln(
+                    check="sweet32_possible",
+                    line=SSLSnippetLine.ciphers,
                 )
+            )
 
-    return _create_vulns(
-        locations=locations,
-        finding=core_model.FindingEnum.F052_CBC,
-        ctx=ctx,
-        conn_established=conn_established,
-        line=SSLSnippetLine.ciphers,
+    return _create_core_vulns(
         ssl_settings=ssl_settings,
+        ssl_vulnerabilities=ssl_vulnerabilities,
+        finding=core_model.FindingEnum.F052_CBC,
     )
 
 
 def _server_supports_tls(ctx: SSLContext, version: Tuple[int, int]) -> bool:
-    with connect(
+    ssl_settings = SSLSettings(
         ctx.target.host,
         ctx.target.port,
-        SSLSettings(min_version=version, max_version=version),
+        min_version=version,
+        max_version=version,
         intention=f"check if server supports {ssl_versions[version]}",
+    )
+    with connect(
+        ssl_settings=ssl_settings,
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
         if connection is not None and not connection.closed:
@@ -409,7 +389,7 @@ def _server_supports_tls(ctx: SSLContext, version: Tuple[int, int]) -> bool:
 
 
 def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
-    locations = Locations(locations=[])
+    ssl_vulnerabilities: List[SSLVulnerability] = []
 
     min_version_id: int = -1
 
@@ -421,69 +401,69 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     if min_version_id == -1:
         return tuple()
 
-    conn_established: bool = False
     min_version: Tuple[int, int] = (3, min_version_id)
 
     ssl_settings = SSLSettings(
+        ctx.target.host,
+        ctx.target.port,
         scsv=True,
         min_version=min_version,
         max_version=min_version,
+        intention="check if server supports TLS_FALLBACK_SCSV",
     )
 
     with connect(
-        ctx.target.host,
-        ctx.target.port,
         ssl_settings,
-        intention="check if fallback scsv is disabled",
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
-        if connection is not None:
-            conn_established = not connection.closed
-            if conn_established:
-                locations.append(
-                    desc="fallback_scsv_disabled",
+        if connection is not None and not connection.closed:
+            ssl_vulnerabilities.append(
+                _create_ssl_vuln(
+                    check="fallback_scsv_disabled",
+                    line=SSLSnippetLine.max_version,
                 )
+            )
 
-    return _create_vulns(
-        locations=locations,
-        finding=core_model.FindingEnum.F052_TLS,
-        ctx=ctx,
-        conn_established=conn_established,
-        line=SSLSnippetLine.max_version,
+    return _create_core_vulns(
         ssl_settings=ssl_settings,
+        ssl_vulnerabilities=ssl_vulnerabilities,
+        finding=core_model.FindingEnum.F052_TLS,
     )
 
 
 def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
-    locations = Locations(locations=[])
+    ssl_vulnerabilities: List[SSLVulnerability] = []
 
     if not _server_supports_tls(ctx, version=(3, 4)):
         return tuple()
 
     for version_id in range(0, 3):
         version: Tuple[int, int] = (3, version_id)
-        ssl_settings = SSLSettings(min_version=version, max_version=version)
-
-        with connect(
+        ssl_settings = SSLSettings(
             ctx.target.host,
             ctx.target.port,
+            min_version=version,
+            max_version=version,
+            intention=f"check TLSv1.3 downgrade to {ssl_versions[version]}",
+        )
+
+        with connect(
             ssl_settings,
-            intention=f"check TLSv1.3 downgraded to {ssl_versions[version]}",
             expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
         ) as connection:
             if connection is not None and not connection.closed:
-                locations.append(
-                    desc="tlsv1_3_downgrade",
-                    desc_kwargs={"version": f"{ssl_versions[version]}"},
+                ssl_vulnerabilities.append(
+                    _create_ssl_vuln(
+                        check="tlsv1_3_downgrade",
+                        line=SSLSnippetLine.max_version,
+                        check_kwargs={"version": f"{ssl_versions[version]}"},
+                    )
                 )
 
-    return _create_vulns(
-        locations=locations,
-        finding=core_model.FindingEnum.F052_TLS,
-        ctx=ctx,
-        conn_established=True,
-        line=SSLSnippetLine.max_version,
+    return _create_core_vulns(
         ssl_settings=ssl_settings,
+        ssl_vulnerabilities=ssl_vulnerabilities,
+        finding=core_model.FindingEnum.F052_TLS,
     )
 
 
@@ -496,7 +476,7 @@ CHECKS: Dict[
     List[Callable[[SSLContext], core_model.Vulnerabilities]],
 ] = {
     core_model.FindingEnum.F052: [_weak_ciphers_allowed],
-    core_model.FindingEnum.F052_ANON: [_anonymous_ciphers_allowed],
+    core_model.FindingEnum.F052_ANON: [_anonymous_suits_allowed],
     core_model.FindingEnum.F052_CBC: [
         _beast_possible,
         _cbc_enabled,
