@@ -20,6 +20,7 @@ from api.resolvers.query import (
     tag,
     user_list_groups,
     vulnerability,
+    vulnerability_new,
 )
 from ariadne import (
     QueryType,
@@ -44,7 +45,6 @@ QUERY.set_field("resources", resources.resolve)
 QUERY.set_field("stakeholder", stakeholder.resolve)
 QUERY.set_field("tag", tag.resolve)
 QUERY.set_field("userListProjects", user_list_groups.resolve)
-QUERY.set_field("vulnerability", vulnerability.resolve)
 
 # Standardization Fields
 QUERY.set_field("group", group.resolve)
@@ -52,5 +52,7 @@ QUERY.set_field("userListGroups", user_list_groups.resolve)
 
 if FI_API_STATUS == "migration":
     QUERY.set_field("finding", finding_new.resolve)
+    QUERY.set_field("vulnerability", vulnerability_new.resolve)
 else:
     QUERY.set_field("finding", finding.resolve)
+    QUERY.set_field("vulnerability", vulnerability.resolve)

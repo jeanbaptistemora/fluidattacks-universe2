@@ -68,6 +68,13 @@ from db_model.findings.get import (
     GroupFindingsNewLoader,
     GroupFindingsNonDeletedNewLoader,
 )
+from db_model.vulnerabilities.get import (
+    VulnHistoricStateNewLoader,
+    VulnHistoricTreatmentNewLoader,
+    VulnHistoricVerificationNewLoader,
+    VulnHistoricZeroRiskNewLoader,
+    VulnNewLoader,
+)
 from starlette.requests import (
     Request,
 )
@@ -103,6 +110,11 @@ class Dataloaders(NamedTuple):
     organization_tags: OrganizationTagsLoader
     root_toe_lines: RootToeLinesLoader
     vulnerability: VulnerabilityLoader
+    vuln_historic_state_new: VulnHistoricStateNewLoader
+    vuln_historic_treatment_new: VulnHistoricTreatmentNewLoader
+    vuln_historic_verification_new: VulnHistoricVerificationNewLoader
+    vuln_historic_zero_risk_new: VulnHistoricZeroRiskNewLoader
+    vuln_new: VulnNewLoader
 
 
 def apply_context_attrs(
@@ -162,4 +174,9 @@ def get_new_context() -> Dataloaders:
         organization_tags=OrganizationTagsLoader(),
         root_toe_lines=root_toe_lines_loader,
         vulnerability=VulnerabilityLoader(),
+        vuln_historic_state_new=VulnHistoricStateNewLoader(),
+        vuln_historic_treatment_new=VulnHistoricTreatmentNewLoader(),
+        vuln_historic_verification_new=VulnHistoricVerificationNewLoader(),
+        vuln_historic_zero_risk_new=VulnHistoricZeroRiskNewLoader(),
+        vuln_new=VulnNewLoader(),
     )
