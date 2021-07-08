@@ -29,7 +29,7 @@ async def main() -> None:
                 vuln
                 for vuln in await dataloaders.finding_vulns.load(finding_id)
                 for vuln_hv in [vuln.get("historic_verification", [])]
-                if vuln["source"] == "skims"
+                if vuln["source"] in ["skims", "machine"]
                 if vuln_hv
                 if vuln_hv[-1].get("status") == "REQUESTED"
             ]

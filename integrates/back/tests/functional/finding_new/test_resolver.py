@@ -29,31 +29,31 @@ async def test_get_finding(populate: bool, email: str) -> None:
         {
             "analyst": "test1@gmail.com",
             "date": "2017-04-07 19:45:11",
-            "source": "integrates",
+            "source": "asm",
             "state": "CREATED",
         },
         {
             "analyst": "test1@gmail.com",
             "date": "2017-04-07 19:45:12",
-            "source": "integrates",
+            "source": "asm",
             "state": "SUBMITTED",
         },
         {
             "analyst": "test1@gmail.com",
             "date": "2017-04-07 19:45:13",
-            "source": "integrates",
+            "source": "asm",
             "state": "REJECTED",
         },
         {
             "analyst": "test1@gmail.com",
             "date": "2017-04-07 19:45:14",
-            "source": "integrates",
+            "source": "asm",
             "state": "SUBMITTED",
         },
         {
             "analyst": "test1@gmail.com",
             "date": "2018-04-07 19:45:11",
-            "source": "integrates",
+            "source": "asm",
             "state": "APPROVED",
         },
     ]

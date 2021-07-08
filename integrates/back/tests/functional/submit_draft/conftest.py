@@ -100,7 +100,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         "analyst": generic_data["global_vars"][
                             "analyst_email"
                         ],
-                        "source": "integrates",
+                        "source": "asm",
                         "state": "closed",
                     },
                 ],

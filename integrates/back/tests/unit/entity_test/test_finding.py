@@ -98,7 +98,7 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
         "currentState": "open",
         "currentApprovalStatus": "",
         "analyst": "unittest@fluidattacks.com",
-        "source": "integrates",
+        "source": "asm",
         "vulnType": "lines",
         "zeroRisk": "",
     }
@@ -576,7 +576,7 @@ async def test_delete_finding() -> None:
             "analyst": "integratesmanager@gmail.com",
             "date": "2020-11-30 19:00:00",
             "justification": "NOT_REQUIRED",
-            "source": "integrates",
+            "source": "asm",
             "state": "DELETED",
         },
     ]

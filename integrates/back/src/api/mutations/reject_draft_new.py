@@ -63,7 +63,7 @@ async def mutate(
             "reject_draft_new",
             finding_new_id=finding_id,
         )
-        if requests_utils.get_source_new(info.context) != Source.SKIMS:
+        if requests_utils.get_source_new(info.context) != Source.MACHINE:
             finding: Finding = await finding_loader.load(finding_id)
             schedule(
                 findings_mail.send_mail_reject_draft(

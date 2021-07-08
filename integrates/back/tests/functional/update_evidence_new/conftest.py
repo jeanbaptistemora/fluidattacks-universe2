@@ -41,7 +41,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     state=FindingState(
                         modified_by="test1@gmail.com",
                         modified_date="2017-04-08T00:45:11+00:00",
-                        source=Source.INTEGRATES,
+                        source=Source.ASM,
                         status=FindingStateStatus.CREATED,
                     ),
                     title="F001. Very serious vulnerability",
@@ -97,7 +97,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     FindingState(
                         modified_by="test1@gmail.com",
                         modified_date="2017-04-08T00:45:12+00:00",
-                        source=Source.INTEGRATES,
+                        source=Source.ASM,
                         status=FindingStateStatus.SUBMITTED,
                     ),
                 ],

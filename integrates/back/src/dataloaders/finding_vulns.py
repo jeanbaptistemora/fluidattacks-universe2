@@ -10,6 +10,9 @@ from custom_types import (
     Historic as HistoricType,
     Vulnerability as VulnerabilityType,
 )
+from newutils.requests import (
+    map_source,
+)
 from typing import (
     cast,
     Dict,
@@ -33,6 +36,9 @@ async def batch_load_fn_vulns(
         include_confirmed_zero_risk=True,
     )
     for vuln in vulns:
+        # Compatibility with old API
+        history: HistoricType = cast(HistoricType, vuln["historic_state"])
+        source: str = map_source(history[0]["source"])
         vulnerabilities[cast(str, vuln["finding_id"])].append(
             dict(
                 UUID=cast(str, vuln.get("UUID", "")),
@@ -85,7 +91,7 @@ async def batch_load_fn_vulns(
                     "date"
                 ],
                 severity=cast(str, vuln.get("severity", "")),
-                source=cast(HistoricType, vuln["historic_state"])[0]["source"],
+                source=source,
                 specific=cast(str, vuln.get("specific", "")),
                 stream=str(vuln.get("stream", "")).replace(",", " > "),
                 tag=", ".join(sorted(cast(List[str], vuln.get("tag", [])))),

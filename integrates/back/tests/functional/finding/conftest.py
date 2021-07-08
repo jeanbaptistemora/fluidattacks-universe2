@@ -139,7 +139,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     {
                         "date": "2018-04-07 19:45:11",
                         "analyst": "test1@gmail.com",
-                        "source": "integrates",
+                        "source": "asm",
                         "state": "closed",
                     },
                 ],
@@ -160,7 +160,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     {
                         "date": "2018-04-07 19:45:11",
                         "analyst": "test1@gmail.com",
-                        "source": "integrates",
+                        "source": "asm",
                         "state": "open",
                     },
                 ],

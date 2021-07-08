@@ -4,6 +4,6 @@ from enum import (
 
 
 class Source(Enum):
+    ASM: str = "ASM"
     ESCAPE: str = "ESCAPE"
-    INTEGRATES: str = "INTEGRATES"
-    SKIMS: str = "SKIMS"
+    MACHINE: str = "MACHINE"
