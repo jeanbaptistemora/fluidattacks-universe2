@@ -22,7 +22,12 @@ interface IProps {
 }
 
 const searchIndices = [
-  { name: `fluidattacks_airs`, title: `fluidattacks_airs` },
+  {
+    description: `fluidattacks_airs`,
+    keywords: `fluidattacks_airs`,
+    name: `fluidattacks_airs`,
+    title: `fluidattacks_airs`,
+  },
 ];
 
 const MenuDesktopTopBar: React.FC<IProps> = ({

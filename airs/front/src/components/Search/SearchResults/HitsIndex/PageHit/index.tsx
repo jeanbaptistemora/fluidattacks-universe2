@@ -9,7 +9,7 @@ import { Snippet } from "react-instantsearch-dom";
 export const PageHit = ({
   hit,
 }: {
-  hit: { slug: string; title: string };
+  hit: { description?: string; keywords?: string; slug: string; title: string };
 }): JSX.Element => {
   const { slug, title } = hit;
   const fixedSlug = slug.startsWith("/pages/")

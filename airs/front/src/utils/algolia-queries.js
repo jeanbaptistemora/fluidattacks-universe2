@@ -12,15 +12,19 @@ const pageQuery = `{
           slug
         }
         pageAttributes {
-          slug
+          author
           description
+          keywords
+          slug
         }
       }
     }
   }
-}`
+}`;
 
-function pageToAlgoliaRecord({ node: { id, document, fields, pageAttributes, ...rest } }) {
+function pageToAlgoliaRecord({
+  node: { id, document, fields, pageAttributes, ...rest },
+}) {
   return {
     objectID: id,
     ...document,
@@ -28,10 +32,10 @@ function pageToAlgoliaRecord({ node: { id, document, fields, pageAttributes, ...
     ...fields,
     pageAttributes,
     ...rest,
-  }
+  };
 }
 
-const settings = { attributesToSnippet: [`excerpt:20`] }
+const settings = { attributesToSnippet: [`excerpt:20`] };
 
 const queries = [
   {
@@ -40,6 +44,6 @@ const queries = [
     indexName: `fluidattacks_airs`,
     settings,
   },
-]
+];
 
-module.exports = queries
+module.exports = queries;
