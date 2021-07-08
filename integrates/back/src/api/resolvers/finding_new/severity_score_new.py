@@ -1,6 +1,9 @@
 from db_model.findings.types import (
     Finding,
 )
+from decimal import (
+    Decimal,
+)
 from findings import (
     domain as findings_domain,
 )
@@ -11,5 +14,5 @@ from graphql.type.definition import (
 
 def resolve(
     parent: Finding, _info: GraphQLResolveInfo, **_kwargs: None
-) -> str:
+) -> Decimal:
     return findings_domain.get_severity_score_new(parent.severity)

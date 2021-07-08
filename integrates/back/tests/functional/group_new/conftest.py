@@ -222,7 +222,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     description="I just have updated the description",
                     analyst_email="test1@gmail.com",
                     severity=Finding31Severity(
-                        attack_complexity=Decimal("0.44"),
+                        attack_complexity=Decimal("0.1"),
                         attack_vector=Decimal("0.2"),
                         availability_impact=Decimal("0.22"),
                         availability_requirement=Decimal("1.5"),

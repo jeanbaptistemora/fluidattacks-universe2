@@ -14,6 +14,7 @@ from api.resolvers.group import (
     max_open_severity_finding,
     max_severity,
     max_severity_finding,
+    max_severity_new,
     organization,
     roots,
     service_attributes,
@@ -41,7 +42,6 @@ GROUP.set_field("forcesToken", forces_token.resolve)
 GROUP.set_field("lastClosingVulnFinding", last_closing_vuln_finding.resolve)
 GROUP.set_field("maxOpenSeverityFinding", max_open_severity_finding.resolve)
 GROUP.set_field("maxSeverityFinding", max_severity_finding.resolve)
-GROUP.set_field("maxSeverity", max_severity.resolve)
 GROUP.set_field("organization", organization.resolve)
 GROUP.set_field("roots", roots.resolve)
 GROUP.set_field("serviceAttributes", service_attributes.resolve)
@@ -52,7 +52,9 @@ GROUP.set_field("userRole", user_role.resolve)
 
 if FI_API_STATUS == "migration":
     GROUP.set_field("findings", findings_new.resolve)
+    GROUP.set_field("maxSeverity", max_severity_new.resolve)
     GROUP.set_field("totalFindings", total_findings_new.resolve)
 else:
     GROUP.set_field("findings", findings.resolve)
+    GROUP.set_field("maxSeverity", max_severity.resolve)
     GROUP.set_field("totalFindings", total_findings.resolve)

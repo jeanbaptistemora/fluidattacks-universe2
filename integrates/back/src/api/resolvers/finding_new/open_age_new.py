@@ -8,5 +8,5 @@ from graphql.type.definition import (
 
 def resolve(
     parent: Finding, _info: GraphQLResolveInfo, **_kwargs: None
-) -> str:
+) -> int:
     return parent.unreliable_indicators.unreliable_open_age
