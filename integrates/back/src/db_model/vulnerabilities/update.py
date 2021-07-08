@@ -1,4 +1,5 @@
 from .types import (
+    VulnerabilityMetadataToUpdate,
     VulnerabilityState,
     VulnerabilityTreatment,
     VulnerabilityVerification,
@@ -18,8 +19,37 @@ from db_model import (
 )
 from dynamodb import (
     historics,
+    keys,
     operations,
 )
+from enum import (
+    Enum,
+)
+
+
+async def update_metadata(
+    *,
+    finding_id: str,
+    metadata: VulnerabilityMetadataToUpdate,
+    uuid: str,
+) -> None:
+    key_structure = TABLE.primary_key
+    metadata_key = keys.build_key(
+        facet=TABLE.facets["vulnerability_metadata"],
+        values={"finding_id": finding_id, "uuid": uuid},
+    )
+    metadata_item = {
+        key: value.value if isinstance(value, Enum) else value._asdict()
+        for key, value in metadata._asdict().items()
+        if value is not None
+    }
+    condition_expression = Attr(key_structure.partition_key).exists()
+    await operations.update_item(
+        condition_expression=condition_expression,
+        item=metadata_item,
+        key=metadata_key,
+        table=TABLE,
+    )
 
 
 async def update_state(

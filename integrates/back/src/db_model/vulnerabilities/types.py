@@ -67,3 +67,16 @@ class Vulnerability(NamedTuple):
     verification: Optional[VulnerabilityVerification]
     where: str
     zero_risk: Optional[VulnerabilityZeroRisk]
+
+
+class VulnerabilityMetadataToUpdate(NamedTuple):
+    bts_url: Optional[str]
+    commit: Optional[str]
+    custom_severity: Optional[int]
+    hash: Optional[int]
+    repo: Optional[str]
+    specific: Optional[str]
+    stream: Optional[List[str]]
+    tags: Optional[List[str]]
+    type: Optional[VulnerabilityType]
+    where: Optional[str]
