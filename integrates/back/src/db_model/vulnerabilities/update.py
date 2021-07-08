@@ -1,18 +1,14 @@
-from .historics.state import (
-    format_state_item,
+from .types import (
     VulnerabilityState,
-)
-from .historics.treatment import (
-    format_treatment_item,
     VulnerabilityTreatment,
-)
-from .historics.verification import (
-    format_verification_item,
     VulnerabilityVerification,
-)
-from .historics.zero_risk import (
-    format_zero_risk_item,
     VulnerabilityZeroRisk,
+)
+from .utils import (
+    format_state_item,
+    format_treatment_item,
+    format_verification_item,
+    format_zero_risk_item,
 )
 from boto3.dynamodb.conditions import (
     Attr,

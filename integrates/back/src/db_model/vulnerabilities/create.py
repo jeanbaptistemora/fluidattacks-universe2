@@ -1,4 +1,4 @@
-from .metadata import (
+from .types import (
     Vulnerability,
 )
 from db_model import (

@@ -1,21 +1,15 @@
-from .historics.state import (
-    format_state,
+from .types import (
+    Vulnerability,
     VulnerabilityState,
-)
-from .historics.treatment import (
-    format_treatment,
     VulnerabilityTreatment,
-)
-from .historics.verification import (
-    format_verification,
     VulnerabilityVerification,
-)
-from .historics.zero_risk import (
-    format_zero_risk,
     VulnerabilityZeroRisk,
 )
-from .metadata import (
-    Vulnerability,
+from .utils import (
+    format_state,
+    format_treatment,
+    format_verification,
+    format_zero_risk,
 )
 from aiodataloader import (
     DataLoader,
