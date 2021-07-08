@@ -38,9 +38,13 @@ async def test_get_group(populate: bool, email: str) -> None:
     assert result["data"]["group"]["hasSquad"]
     assert result["data"]["group"]["hasForces"]
     assert result["data"]["group"]["hasAsm"]
-    assert result["data"]["group"]["openVulnerabilities"] == 1
+    assert result["data"]["group"]["openVulnerabilities"] == 2
     assert result["data"]["group"]["closedVulnerabilities"] == 1
     assert result["data"]["group"]["lastClosingVuln"] == 40
+    assert result["data"]["group"]["maxOpenSeverity"] == 4.3
+    assert result["data"]["group"]["maxOpenSeverityFinding"] == {
+        "id": "475041521"
+    }
     assert result["data"]["group"]["maxSeverity"] == 4.1
     assert result["data"]["group"]["maxSeverityFinding"] == {"id": "475041521"}
     assert result["data"]["group"]["meanRemediate"] == 2
@@ -48,8 +52,8 @@ async def test_get_group(populate: bool, email: str) -> None:
     assert result["data"]["group"]["meanRemediateHighSeverity"] == 0
     assert result["data"]["group"]["meanRemediateLowSeverity"] == 3
     assert result["data"]["group"]["meanRemediateMediumSeverity"] == 4
-    assert result["data"]["group"]["openFindings"] == 1
-    assert result["data"]["group"]["totalFindings"] == 1
+    assert result["data"]["group"]["openFindings"] == 2
+    assert result["data"]["group"]["totalFindings"] == 2
     assert result["data"]["group"]["totalTreatment"] == "{}"
     assert result["data"]["group"]["subscription"] == "continuous"
     assert result["data"]["group"]["deletionDate"] == ""
@@ -67,8 +71,6 @@ async def test_get_group(populate: bool, email: str) -> None:
     ]
     assert result["data"]["group"]["organization"] == "orgtest"
     assert result["data"]["group"]["userRole"] == email.split("@")[0]
-    assert result["data"]["group"]["maxOpenSeverity"] == 4.3
-    assert result["data"]["group"]["maxOpenSeverityFinding"] is None
     assert result["data"]["group"]["lastClosingVulnFinding"] is None
     assert consult in [
         consult["content"] for consult in result["data"]["group"]["consulting"]

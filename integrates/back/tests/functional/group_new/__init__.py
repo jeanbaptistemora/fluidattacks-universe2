@@ -45,7 +45,7 @@ async def get_result(
                 userRole
                 maxOpenSeverity
                 maxOpenSeverityFinding {{
-                    analyst
+                    id
                 }}
                 stakeholders{{
                     email
