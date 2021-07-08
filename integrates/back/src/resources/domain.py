@@ -46,11 +46,11 @@ LOGGER = logging.getLogger(__name__)
 async def create_file(
     files_data: List[Dict[str, str]],
     uploaded_file: UploadFile,
-    project_name: str,
+    group_name: str,
     user_email: str,
 ) -> bool:
     success = False
-    project_name = project_name.lower()
+    group_name = group_name.lower()
     json_data: List[ResourceType] = []
     for file_info in files_data:
         description = file_info["description"]
@@ -66,18 +66,18 @@ async def create_file(
                 "uploader": user_email,
             }
         )
-    file_id = f"{project_name}/{uploaded_file.filename}"
+    file_id = f"{group_name}/{uploaded_file.filename}"
     try:
         file_size = 300
         await validate_file_size(uploaded_file, file_size)
     except InvalidFileSize as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
-    files = await groups_domain.get_attributes(project_name, ["files"])
-    project_files = cast(List[ResourceType], files.get("files", []))
-    if project_files:
+    files = await groups_domain.get_attributes(group_name, ["files"])
+    group_files = cast(List[ResourceType], files.get("files", []))
+    if group_files:
         contains_repeated = [
             f.get("fileName")
-            for f in project_files
+            for f in group_files
             if f.get("fileName") == uploaded_file.filename
         ]
         if contains_repeated:
@@ -86,25 +86,23 @@ async def create_file(
         # Group doesn't have files
         pass
     if validations.validate_file_name(uploaded_file.filename):
-        project_files.extend(json_data)
+        group_files.extend(json_data)
         success = all(
             await collect(
                 [
                     resources_utils.save_file(uploaded_file, file_id),
-                    groups_domain.update(
-                        project_name, {"files": project_files}
-                    ),
+                    groups_domain.update(group_name, {"files": group_files}),
                 ]
             )
         )
     return success
 
 
-async def remove_file(file_name: str, project_name: str) -> bool:
+async def remove_file(file_name: str, group_name: str) -> bool:
     success = False
-    project_name = project_name.lower()
-    project = await groups_domain.get_attributes(project_name, ["files"])
-    file_list = cast(List[Dict[str, str]], project.get("files", []))
+    group_name = group_name.lower()
+    group = await groups_domain.get_attributes(group_name, ["files"])
+    file_list = cast(List[Dict[str, str]], group.get("files", []))
     index = -1
     cont = 0
     while index < 0 and len(file_list) > cont:
@@ -114,12 +112,12 @@ async def remove_file(file_name: str, project_name: str) -> bool:
             index = -1
         cont += 1
     if index >= 0:
-        file_url = f"{project_name.lower()}/{file_name}"
+        file_url = f"{group_name.lower()}/{file_name}"
         success = all(
             await collect(
                 [
                     resources_utils.remove_file(file_url),
-                    resources_dal.remove(project_name, "files", index),
+                    resources_dal.remove(group_name, "files", index),
                 ]
             )
         )

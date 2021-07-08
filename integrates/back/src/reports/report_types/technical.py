@@ -13,6 +13,9 @@ from findings import (
 )
 import logging
 import logging.config
+from newutils.utils import (
+    resolve_kwargs,
+)
 import os
 from reports.it_report import (
     ITReport,
@@ -111,7 +114,7 @@ async def download_evidences_for_pdf(
                         extra={
                             "extra": {
                                 "evidence_id": evidence["id"],
-                                "project_name": finding["projectName"],
+                                "group_name": resolve_kwargs(finding),
                             }
                         },
                     )

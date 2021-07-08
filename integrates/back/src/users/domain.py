@@ -146,7 +146,7 @@ async def edit_user_information(
             logs_utils.cloudwatch_log(
                 context,
                 f"Security: {email} Attempted to add responsibility to "
-                f"project{group_name} bypassing validation",
+                f"group {group_name} bypassing validation",
             )
 
     if phone and validate_phone_field(phone):

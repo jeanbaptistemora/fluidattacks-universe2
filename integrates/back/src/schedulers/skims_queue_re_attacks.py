@@ -4,6 +4,9 @@ from dataloaders import (
 from groups.domain import (
     get_active_groups,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from schedulers.common import (
     info,
     skims_queue,
@@ -37,7 +40,7 @@ async def main() -> None:
             if vulns_to_reattack:
                 for root in await get_root_nicknames_for_skims(
                     dataloaders=dataloaders,
-                    group=finding["project_name"],
+                    group=resolve_kwargs(finding),
                     vulnerabilities=vulns_to_reattack,
                 ):
                     await skims_queue(

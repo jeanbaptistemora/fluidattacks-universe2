@@ -30,11 +30,11 @@ LOGGER = logging.getLogger(__name__)
 
 
 def scan_file(
-    target_file: UploadFile, user_email: str, project_name: str
+    target_file: UploadFile, user_email: str, group_name: str
 ) -> None:
     if FI_ENVIRONMENT == "production":
         payload_data = {
-            "project_name": project_name,
+            "group_name": group_name,
             "user_email": user_email,
             "target_file_name": target_file.filename,
         }
