@@ -34,6 +34,11 @@
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {}
   },
+  "F014_FLOAT_CURRENCY": {
+    "skims/test/data/sast/TestCFG.java": {},
+    "skims/test/data/sast/test_cfg.go": {},
+    "skims/test/data/sast/test_cfg.js": {}
+  },
   "F015_DAST_BASIC": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
@@ -209,11 +214,6 @@
     "skims/test/data/sast/test_cfg.js": {}
   },
   "F064_SERVER_CLOCK": {
-    "skims/test/data/sast/TestCFG.java": {},
-    "skims/test/data/sast/test_cfg.go": {},
-    "skims/test/data/sast/test_cfg.js": {}
-  },
-  "F070_FLOAT_CURRENCY": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {}

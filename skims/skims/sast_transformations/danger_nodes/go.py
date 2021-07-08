@@ -24,7 +24,7 @@ def mark_inputs(
         }
         mark_function_arg(finding, graph, syntax, danger_args)
 
-    for finding in (core_model.FindingEnum.F070_FLOAT_CURRENCY,):
+    for finding in (core_model.FindingEnum.F014_FLOAT_CURRENCY,):
         mark_methods_input(
             finding,
             graph,

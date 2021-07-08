@@ -1,4 +1,4 @@
-F070_FLOAT_CURRENCY.description:
+F014_FLOAT_CURRENCY.description:
   en: >
     Representing currency using data types like float or double may result
     in accuracy issues the more operations are performed using inexact
@@ -10,19 +10,19 @@ F070_FLOAT_CURRENCY.description:
     operaciones sobre representaciones inexactas de un valor; además de
     comportamientos inesperados si no se tiene en cuenta valores especiales
     como NaN e infinitos.
-F070_FLOAT_CURRENCY.impact:
+F014_FLOAT_CURRENCY.impact:
   en: Money operations may have incorrect results
   es: Operaciones sobre moneda pueden tener resultados incorrectos
-F070_FLOAT_CURRENCY.recommendation:
+F014_FLOAT_CURRENCY.recommendation:
   en: |
     - Use integer to represent currency and count in cents
     - Use data types specially made to represent currency
   es: |
     - Usar enteros para representar moneda y contar en centavos
     - Usar tipos de datos hechos específicamente para representar moneda
-F070_FLOAT_CURRENCY.threat:
+F014_FLOAT_CURRENCY.threat:
   en: Authenticated attacker from the Internet.
   es: Atacante autenticado desde Internet.
-F070_FLOAT_CURRENCY.title:
-  en: F070. Inappropriate coding practices - Float currency
-  es: F070. Prácticas inadecuadas de programación - Moneda expresada con floats
+F014_FLOAT_CURRENCY.title:
+  en: F014. Insecure functionality - Float currency
+  es: F014. Funcionalidad insegura - Moneda representada con float
