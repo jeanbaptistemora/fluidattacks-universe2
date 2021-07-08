@@ -161,6 +161,7 @@ observes.job.delighted-etl
 observes.job.dynamodb-etl
 observes.job.dynamodb-forces-etl
 observes.job.dynamodb-table-etl
+observes.job.gitlab-etl
 observes.job.infra.apply
 observes.job.infra.test
 observes.job.timedoctor.new-grant-code
