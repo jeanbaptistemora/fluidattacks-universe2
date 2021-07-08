@@ -121,7 +121,7 @@ def get_best_combination(
                     for feature in candidate[1].split(" ")
                 ]
             )
-            best_f1 = f"{float(candidate[4]):.0f}"
+            best_f1 = str(float(candidate[4]))
             min_overfit = overfit
 
     return best_features, best_f1

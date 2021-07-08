@@ -19,7 +19,7 @@ def test_get_best_combination() -> None:
             "num_lines",
             "commit_frequency",
         ),
-        "best_f1": "77",
+        "best_f1": "77.4",
     }
     with open(
         os.path.join(DATA_PATH, "test_model_train_results.csv"), "r"

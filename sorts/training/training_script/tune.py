@@ -102,7 +102,7 @@ def save_model(
     with tempfile.TemporaryDirectory() as tmp_dir:
         model_name_list = [
             type(model).__name__.lower(),
-            f"{f1_score:.0f}",
+            str(f1_score),
             "-".join(
                 [FEATURES_DICTS[feature].lower() for feature in model_features]
             ),
