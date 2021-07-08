@@ -6,16 +6,11 @@ from api.mutations.sign_in import (
 from app import (
     utils,
 )
-from authlib.integrations.starlette_client import (
-    OAuth,
-)
 from sessions import (
     dal as sessions_dal,
 )
 from settings.auth import (
-    AZURE_ARGS,
-    BITBUCKET_ARGS,
-    GOOGLE_ARGS,
+    OAUTH,
 )
 from starlette.requests import (
     Request,
@@ -29,11 +24,6 @@ from typing import (
     Dict,
 )
 import uuid
-
-OAUTH = OAuth()
-OAUTH.register(**AZURE_ARGS)
-OAUTH.register(**GOOGLE_ARGS)
-OAUTH.register(**BITBUCKET_ARGS)
 
 
 async def authz_azure(request: Request) -> HTMLResponse:

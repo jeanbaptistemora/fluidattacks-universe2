@@ -43,7 +43,7 @@ describe("Microsoft OAuth2 provider", (): void => {
 
     expect(await authWithMicrosoft()).toStrictEqual({
       authProvider: "MICROSOFT",
-      authToken: "exchangedAccessToken",
+      authToken: "exchangedIdToken",
       type: "success",
       user: {
         email: "personal@domain.com",
@@ -60,7 +60,7 @@ describe("Microsoft OAuth2 provider", (): void => {
 
     expect(await authWithMicrosoft()).toStrictEqual({
       authProvider: "MICROSOFT",
-      authToken: "exchangedAccessToken",
+      authToken: "exchangedIdToken",
       type: "success",
       user: {
         email: "business@domain.com",

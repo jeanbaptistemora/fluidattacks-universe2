@@ -62,7 +62,8 @@
     },
     "updates": {
       "checkAutomatically": "ON_LOAD",
-      "enabled": true
+      "enabled": true,
+      "fallbackToCacheTimeout": 30000
     },
     "userInterfaceStyle": "automatic",
     "version": "__APP_VERSION__"

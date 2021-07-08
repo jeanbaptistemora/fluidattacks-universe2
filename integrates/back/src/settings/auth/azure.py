@@ -3,8 +3,6 @@ from context import (
     FI_AZUREAD_OAUTH2_SECRET,
 )
 
-API_BASE_URL = "https://graph.microsoft.com/"
-API_USERINFO_BASE_URL = f"{API_BASE_URL}oidc/userinfo"
 BASE_URL = "https://login.microsoftonline.com"
 AZURE_CONF_URL = f"{BASE_URL}/common/v2.0/.well-known/openid-configuration"
 

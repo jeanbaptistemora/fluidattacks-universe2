@@ -37,9 +37,9 @@ from settings import (
     MOBILE_SESSION_AGE,
 )
 from settings.auth import (
-    azure,
     BITBUCKET_ARGS,
     GOOGLE_ARGS,
+    OAUTH,
 )
 from subscriptions import (
     domain as subscriptions_domain,
@@ -96,7 +96,16 @@ async def get_provider_user_info(
             f'{GOOGLE_ARGS["userinfo_endpoint"]}?access_token={token}'
         )
     elif provider == "microsoft":
-        userinfo_endpoint = azure.API_USERINFO_BASE_URL
+        client = OAUTH.azure
+        user = (
+            await client._parse_id_token(  # pylint: disable=protected-access
+                {"access_token": None, "id_token": token},
+                None,
+                claims_options={},
+            )
+        )
+        email = user.get("email", user.get("upn", "")).lower()
+        return {**user, "email": email, "given_name": user["name"]}
 
     async with aiohttp.ClientSession() as session:
         async with session.get(

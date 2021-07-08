@@ -79,7 +79,7 @@ const authWithMicrosoft: () => Promise<IAuthResult> =
       );
 
       if (logInResult.type === "success") {
-        const { accessToken, idToken } = await getTokenResponse(
+        const { idToken } = await getTokenResponse(
           discovery,
           logInResult.params,
           request
@@ -93,7 +93,7 @@ const authWithMicrosoft: () => Promise<IAuthResult> =
 
         return {
           authProvider: "MICROSOFT",
-          authToken: accessToken,
+          authToken: idToken as string,
           type: "success",
           user: {
             email: _.get(userProps, "email", userProps.upn),
