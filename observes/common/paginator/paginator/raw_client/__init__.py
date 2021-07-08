@@ -4,9 +4,9 @@ from dataclasses import (
     dataclass,
 )
 from paginator.raw_client.handlers import (
+    ErrorHandler,
     insistent_call,
     RawResponse,
-    RetryStrategy,
 )
 from paginator.raw_client.patch import (
     Patch,
@@ -56,9 +56,9 @@ class RawClient:
     url_base: str
     headers: Dict[str, Any]
     max_retries: int
-    retry: Patch[RetryStrategy]
+    handler: Patch[ErrorHandler]
 
-    def _get(
+    def try_get(
         self, endpoint: str, params: Dict[str, Any], **kargs: Any
     ) -> RawResponse:
         response = requests.get(
@@ -75,5 +75,5 @@ class RawClient:
     def get(
         self, endpoint: str, params: Dict[str, Any], **kargs: Any
     ) -> IO[Response]:
-        request = lambda: self._get(endpoint, params, **kargs)
-        return insistent_call(request, self.retry.unwrap, self.max_retries)
+        request = lambda: self.try_get(endpoint, params, **kargs)
+        return insistent_call(request, self.handler.unwrap, self.max_retries)

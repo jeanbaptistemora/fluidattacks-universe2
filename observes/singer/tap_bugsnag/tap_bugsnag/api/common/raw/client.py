@@ -6,9 +6,6 @@ import logging
 from paginator.raw_client import (
     RawClient,
 )
-from paginator.raw_client.handlers import (
-    RawResponse,
-)
 from paginator.raw_client.patch import (
     Patch,
 )
@@ -22,19 +19,15 @@ from tap_bugsnag.api.auth import (
     Credentials,
 )
 import time
-from typing import (
-    Callable,
-)
 
 API_URL_BASE = "https://api.bugsnag.com"
 LOG = logging.getLogger(__name__)
 
 
-def _retry_request(
-    request: Callable[[], RawResponse],
+def _error_handler(
     retry_num: int,
     error: HTTPError,
-) -> RawResponse:
+) -> HTTPError:
     response: Response = error.response
     if response.status_code == 429:
         wait_time = response.headers["Retry-After"]
@@ -43,9 +36,9 @@ def _retry_request(
         LOG.info("Retry #%s", retry_num)
     else:
         raise error
-    return request()
+    return error
 
 
 def build_raw_client(creds: Credentials) -> RawClient:
     headers = {"Authorization": f"token {creds.api_key}", "X-Version": "2"}
-    return RawClient(API_URL_BASE, headers, 5, Patch(_retry_request))
+    return RawClient(API_URL_BASE, headers, 5, Patch(_error_handler))

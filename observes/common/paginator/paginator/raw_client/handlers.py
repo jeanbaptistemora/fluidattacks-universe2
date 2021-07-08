@@ -16,7 +16,6 @@ from returns.io import (
 from returns.pipeline import (
     is_successful,
 )
-import time
 from typing import (
     Callable,
 )
@@ -28,18 +27,18 @@ class MaxRetriesReached(Exception):
 
 RawResponse = IOResult[Response, HTTPError]
 RequestCall = Callable[[], RawResponse]
-RetryStrategy = Callable[[RequestCall, int, HTTPError], RawResponse]
+ErrorHandler = Callable[[int, HTTPError], HTTPError]
 
 
 def insistent_call(
     request: RequestCall,
-    retry: RetryStrategy,
+    handler: ErrorHandler,
     max_retries: int,
 ) -> IO[Response]:
     retries = 0
     while retries < max_retries:
         retries = retries + 1
-        result = request().lash(partial(retry, request, retries))
+        result = request().alt(partial(handler, retries))
         if is_successful(result):
             return result.unwrap()
     raise MaxRetriesReached()
