@@ -526,7 +526,10 @@ def attempt_by_obj(args: EvaluatorArgs, method: str) -> bool:
     # pylint: disable=used-before-assignment
     if (
         (method_var_decl := lookup_var_dcl_by_name(args, method_var))
-        and (method_path in BY_OBJ.get(method_var_decl.var_type_base, {}))
+        and (
+            method_var_decl.var_type_base
+            and method_path in BY_OBJ.get(method_var_decl.var_type_base, {})
+        )
         and (method_var_state := lookup_var_state_by_name(args, method_var))
         and (method_var_state.meta.danger)
     ):
@@ -542,7 +545,11 @@ def attempt_by_obj_args(args: EvaluatorArgs, method: str) -> bool:
     # pylint: disable=used-before-assignment
     if (
         (method_var_decl := lookup_var_dcl_by_name(args, method_var))
-        and (method_path in BY_OBJ_ARGS.get(method_var_decl.var_type_base, {}))
+        and (
+            method_var_decl.var_type_base
+            and method_path
+            in BY_OBJ_ARGS.get(method_var_decl.var_type_base, {})
+        )
         and any(dep.meta.danger for dep in args.dependencies)
     ):
         args.syntax_step.meta.danger = True
@@ -558,7 +565,7 @@ def attempt_by_type_args_propagation(args: EvaluatorArgs, method: str) -> bool:
     method_var, method_path = split_on_first_dot(method)
     method_var_decl = lookup_var_dcl_by_name(args, method_var)
 
-    if args_danger and method_var_decl:
+    if args_danger and method_var_decl and method_var_decl.var_type_base:
         if method_path in (
             BY_TYPE_ARGS_PROPAGATION.get(method_var_decl.var_type_base, {})
         ):
@@ -585,10 +592,14 @@ def attempt_by_type_and_value_finding(
     method_var, method_path = split_on_first_dot(method)
     method_var_decl = lookup_var_dcl_by_name(args, method_var)
 
-    if method_var_decl and (
-        methods := (
-            BY_TYPE_AND_VALUE_FINDING.get(args.finding.name, {}).get(
-                method_var_decl.var_type_base
+    if (
+        method_var_decl
+        and method_var_decl.var_type_base
+        and (
+            methods := (
+                BY_TYPE_AND_VALUE_FINDING.get(args.finding.name, {}).get(
+                    method_var_decl.var_type_base
+                )
             )
         )
     ):
@@ -619,8 +630,10 @@ def attempt_by_type(args: EvaluatorArgs, method: str) -> bool:
     method_var, method_path = split_on_first_dot(method)
 
     # pylint: disable=used-before-assignment
-    if (method_var_decl := lookup_var_dcl_by_name(args, method_var)) and (
-        method_path in BY_TYPE.get(method_var_decl.var_type_base, {})
+    if (
+        (method_var_decl := lookup_var_dcl_by_name(args, method_var))
+        and method_var_decl.var_type_base
+        and (method_path in BY_TYPE.get(method_var_decl.var_type_base, {}))
     ):
         args.syntax_step.meta.danger = True
         return True

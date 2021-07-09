@@ -63207,7 +63207,534 @@
         "language": "javascript"
       },
       "path": "skims/test/data/sast/test_cfg.js",
-      "syntax": {}
+      "syntax": {
+        "1": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1005": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1005",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1009": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1009",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1023": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1023",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "143": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "143",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "155": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "155",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "197": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "197",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "201": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "201",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "211": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "211",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "253": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "253",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "284": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "284",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "288": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "288",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "3": [],
+        "302": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "302",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "316": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "316",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "347": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "347",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "353": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "353",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "379": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "379",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "485": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "491",
+              "value": null
+            },
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "url",
+            "var_type": null
+          }
+        ],
+        "52": [],
+        "538": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "538",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "548": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "548",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "565": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "565",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "597": [],
+        "605": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "605",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "61": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "61",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "615": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "615",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "662": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "662",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "702": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "702",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "708": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "708",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "743": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "743",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "757": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "762",
+              "value": null
+            },
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "a",
+            "var_type": null
+          }
+        ],
+        "782": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "782",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "793": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "793",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "805": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "805",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "844": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "844",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "85": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "85",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "855": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "855",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "862": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "862",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "873": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "873",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "880": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "880",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "891": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "891",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "898": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "898",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "909": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "909",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "920": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "920",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "931": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "931",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "955": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "955",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "98": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "98",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "992": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "992",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "997": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "997",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ]
+      }
     }
   ],
   "shards_by_language_class": {

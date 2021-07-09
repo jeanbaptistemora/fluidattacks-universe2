@@ -94,15 +94,17 @@ class SyntaxStepUnaryExpression(NamedTuple):
 class SyntaxStepDeclaration(NamedTuple):
     meta: SyntaxStepMeta
     var: str
-    var_type: str
+    var_type: Optional[str] = None
     modifiers: Optional[Set[str]] = None
 
     type: str = "SyntaxStepDeclaration"
 
     @property
-    def var_type_base(self) -> str:
-        portions = self.var_type.rsplit("[", maxsplit=1)
-        return portions[0]
+    def var_type_base(self) -> Optional[str]:
+        if self.var_type:
+            portions = self.var_type.rsplit("[", maxsplit=1)
+            return portions[0]
+        return None
 
 
 class SyntaxStepIf(NamedTuple):

@@ -52,6 +52,7 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
         "raw_string_literal",
         "string_literal",
         "verbatim_string_literal",
+        "string",
     }:
         yield graph_model.SyntaxStepLiteral(
             meta=graph_model.SyntaxStepMeta.default(args.n_id),

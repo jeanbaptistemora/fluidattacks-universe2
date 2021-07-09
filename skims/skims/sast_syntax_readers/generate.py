@@ -64,6 +64,9 @@ from sast_syntax_readers.java import (
     this as java_this,
     while_statement as java_while_statement,
 )
+from sast_syntax_readers.javascript import (
+    function_declaration as javascript_function_declaration,
+)
 from sast_syntax_readers.types import (
     Dispatcher,
     Dispatchers,
@@ -401,6 +404,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     ),
     Dispatcher(
         applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+        },
+        applicable_node_label_types={
+            "function_declaration",
+        },
+        syntax_readers=(javascript_function_declaration.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
             graph_model.GraphShardMetadataLanguage.GO,
         },
         applicable_node_label_types={
@@ -504,6 +516,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             graph_model.GraphShardMetadataLanguage.GO,
             graph_model.GraphShardMetadataLanguage.JAVA,
             graph_model.GraphShardMetadataLanguage.CSHARP,
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
         },
         applicable_node_label_types={
             "boolean_literal",
@@ -520,6 +533,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "raw_string_literal",
             "real_literal",
             "string_literal",
+            "string",
             "verbatim_string_literal",
             "true",
         },
@@ -586,6 +600,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
                 graph_model.GraphShardMetadataLanguage.CSHARP,
                 graph_model.GraphShardMetadataLanguage.GO,
                 graph_model.GraphShardMetadataLanguage.JAVA,
+                graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
             },
             applicable_node_label_types={applicable_node_label_type},
             syntax_readers=(noop,),
@@ -615,6 +630,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             ".",
             "{",
             "}",
+            "program",
         )
     ],
 )
