@@ -698,7 +698,7 @@ async def edit(
         await notifications_domain.edit_group(
             comments=comments,
             group_name=group_name,
-            had_skims=cast(
+            had_machine=cast(
                 List[Dict[str, bool]], item["historic_configuration"]
             )[-1]["has_skims"],
             had_drills=(
@@ -712,10 +712,10 @@ async def edit(
                 if item["historic_configuration"]
                 else False
             ),
-            had_integrates=True,
-            has_skims=has_machine,
+            had_asm=True,
+            has_machine=has_machine,
             has_drills=has_squad,
-            has_integrates=has_asm,
+            has_asm=has_asm,
             reason=reason,
             requester_email=requester_email,
             subscription=subscription,
@@ -737,7 +737,7 @@ async def get_active_groups() -> List[str]:
 async def get_alive_group_names() -> List[str]:
     attributes = ["project_name"]
     groups = await get_alive_groups(attributes)
-    return [group["project_name"] for group in groups]
+    return [resolve_kwargs(group) for group in groups]
 
 
 async def get_all(attributes: Optional[List[str]] = None) -> List[GroupType]:
@@ -1210,7 +1210,7 @@ async def validate_group_tags(group_name: str, tags: List[str]) -> List[str]:
 
 
 async def after_complete_register(group_access: GroupAccessType) -> None:
-    group_name: str = str(group_access["project_name"])
+    group_name: str = str(resolve_kwargs(group_access))
     user_email: str = str(group_access["user_email"])
     enforcer = await authz.get_user_level_enforcer(user_email)
     if enforcer("self", "keep_default_organization_access"):

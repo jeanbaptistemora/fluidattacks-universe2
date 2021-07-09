@@ -87,7 +87,7 @@ async def _resolve_from_finding_id(context: Any, identifier: str) -> str:
     else:
         finding_loader = context.loaders.finding
         data = await finding_loader.load(identifier)
-        group_name = data["project_name"]
+        group_name = resolve_kwargs(data)
     return group_name
 
 
@@ -541,10 +541,8 @@ async def resolve_group_name(  # noqa: MC0001
         name = getattr(args[0], "group_name")
     elif args and args[0] and "finding_id" in args[0]:
         name = await _resolve_from_finding_id(context, args[0]["finding_id"])
-    elif "group_name" in kwargs:
-        name = kwargs["group_name"]
-    elif "project_name" in kwargs:
-        name = kwargs["project_name"]
+    elif "group_name" in kwargs or "project_name" in kwargs:
+        name = resolve_kwargs(kwargs)
     elif "finding_id" in kwargs:
         name = await _resolve_from_finding_id(context, kwargs["finding_id"])
     elif "draft_id" in kwargs:

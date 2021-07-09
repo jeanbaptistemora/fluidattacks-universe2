@@ -59,10 +59,10 @@ async def cancel_health_check(
 ) -> None:
     await in_thread(
         notifications_dal.create_ticket,
-        subject=f"[Integrates] Health Check canceled: {group_name}",
+        subject=f"[ASM] Health Check canceled: {group_name}",
         description=f"""
             You are receiving this email because you have canceled a health
-            check for a repository through Integrates by Fluid Attacks.
+            check for a repository through ASM by Fluid Attacks.
 
             Here are the details of the repository:
             - URL: {repo_url}
@@ -85,10 +85,10 @@ async def delete_group(
         bool,
         await in_thread(
             notifications_dal.create_ticket,
-            subject=f"[Integrates] Group deleted: {group_name}",
+            subject=f"[ASM] Group deleted: {group_name}",
             description=f"""
                 You are receiving this email because you have deleted a group
-                through Integrates by Fluid Attacks.
+                through ASM by Fluid Attacks.
 
                 Here are the details of the group:
                 - Name: {group_name}
@@ -106,12 +106,12 @@ async def edit_group(
     *,
     comments: str,
     group_name: str,
-    had_skims: bool,
+    had_machine: bool,
     had_drills: bool,
-    had_integrates: bool,
-    has_skims: bool,
+    had_asm: bool,
+    has_machine: bool,
     has_drills: bool,
-    has_integrates: bool,
+    has_asm: bool,
     reason: str,
     requester_email: str,
     subscription: str,
@@ -127,20 +127,20 @@ async def edit_group(
         bool,
         await in_thread(
             notifications_dal.create_ticket,
-            subject=f"[Integrates] Group edited: {group_name}",
+            subject=f"[ASM] Group edited: {group_name}",
             description=f"""
                 You are receiving this email because you have edited a group
-                through Integrates by Fluid Attacks.
+                through ASM by Fluid Attacks.
 
                 Here are the details of the group:
                 - Name: {group_name}
                 - Type: {translations.get(subscription, subscription)}
                 - ASM:
-                    from: {translations[had_integrates]}
-                    to: {translations[has_integrates]}
+                    from: {translations[had_asm]}
+                    to: {translations[has_asm]}
                 - Machine:
-                    from: {translations[had_skims]}
-                    to: {translations[has_skims]}
+                    from: {translations[had_machine]}
+                    to: {translations[has_machine]}
                 - Squad:
                     from: {translations[had_drills]}
                     to: {translations[has_drills]}
@@ -174,10 +174,10 @@ async def new_group(
         bool,
         await in_thread(
             notifications_dal.create_ticket,
-            subject=f"[Integrates] Group created: {group_name}",
+            subject=f"[ASM] Group created: {group_name}",
             description=f"""
                 You are receiving this email because you have created a group
-                through Integrates by Fluid Attacks.
+                through ASM by Fluid Attacks.
 
                 Here are the details of the group:
                 - Name: {group_name}
@@ -230,10 +230,10 @@ async def request_health_check(
 ) -> None:
     await in_thread(
         notifications_dal.create_ticket,
-        subject=f"[Integrates] Health Check requested: {group_name}",
+        subject=f"[ASM] Health Check requested: {group_name}",
         description=f"""
             You are receiving this email because you have requested a health
-            check for a repository through Integrates by Fluid Attacks.
+            check for a repository through ASM by Fluid Attacks.
 
             Here are the details of the repository:
             - URL: {repo_url}
@@ -265,7 +265,7 @@ async def request_zero_risk_vuln(
     )
     description = f"""
         You are receiving this case because a zero risk vulnerability has been
-        requested through Integrates by Fluid Attacks.
+        requested through ASM by Fluid Attacks.
 
         Here are the details of the zero risk vulnerability:
         Group: {group_name}
@@ -284,7 +284,7 @@ async def request_zero_risk_vuln(
         bool,
         await in_thread(
             notifications_dal.create_ticket,
-            subject="[Integrates] Requested zero risk vulnerabilities",
+            subject="[ASM] Requested zero risk vulnerabilities",
             description=description,
             requester_email=requester_email,
         ),

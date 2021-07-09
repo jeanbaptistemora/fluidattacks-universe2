@@ -81,7 +81,7 @@ async def get_active_groups() -> List[str]:
         Attr("project_status").eq("ACTIVE") & Attr("project_status").exists()
     )
     groups = await get_all(filtering_exp, "project_name")
-    return cast(List[str], [group["project_name"] for group in groups])
+    return cast(List[str], [resolve_kwargs(group) for group in groups])
 
 
 async def get_alive_groups(data_attr: str = "") -> List[GroupType]:

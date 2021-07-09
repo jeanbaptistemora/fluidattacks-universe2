@@ -6,6 +6,9 @@ from custom_types import (
     GroupAccess as GroupAccessType,
 )
 import json
+from newutils.utils import (
+    resolve_kwargs,
+)
 from settings import (
     DEBUG,
     STATIC_URL,
@@ -145,7 +148,7 @@ def unauthorized(request: Request) -> HTMLResponse:
 async def valid_invitation(
     request: Request, group_access: GroupAccessType
 ) -> HTMLResponse:
-    group_name = group_access["project_name"]
+    group_name = resolve_kwargs(group_access)
     return TEMPLATING_ENGINE.TemplateResponse(
         name="valid_invitation.html",
         context={

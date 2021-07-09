@@ -76,6 +76,9 @@ from newutils import (
     validations,
     vulnerabilities as vulns_utils,
 )
+from newutils.utils import (
+    resolve_kwargs,
+)
 from operator import (
     itemgetter,
 )
@@ -432,7 +435,7 @@ async def get_last_closing_vuln_info(
 
 async def get_group(finding_id: str) -> str:
     attribute = await get_attributes(finding_id, ["project_name"])
-    return str(attribute.get("project_name"))
+    return str(resolve_kwargs(attribute))
 
 
 async def get_max_open_severity(
