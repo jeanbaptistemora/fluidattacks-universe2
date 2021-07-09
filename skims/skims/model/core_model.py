@@ -1285,7 +1285,6 @@ class SkimsConfig(NamedTuple):
     path: SkimsPathConfig
     ssl: SkimsSslConfig
     start_dir: str
-    timeout: Optional[float]
     working_dir: str
 
 

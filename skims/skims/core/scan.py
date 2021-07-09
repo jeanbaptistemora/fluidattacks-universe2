@@ -1,9 +1,3 @@
-from aioextensions import (
-    collect,
-)
-from asyncio import (
-    wait_for,
-)
 from config import (
     load,
 )
@@ -69,38 +63,16 @@ async def execute_skims(token: Optional[str]) -> bool:
         finding: get_ephemeral_store() for finding in core_model.FindingEnum
     }
 
-    await wait_for(
-        collect(
-            (
-                *(
-                    [analyze_apk(stores=stores)]
-                    if CTX.config.apk.include
-                    else []
-                ),
-                *(
-                    [analyze_http(stores=stores)]
-                    if CTX.config.http.include
-                    else []
-                ),
-                *(
-                    [analyze_paths(stores=stores)]
-                    if CTX.config.path.lib_path and CTX.config.path.include
-                    else []
-                ),
-                *(
-                    [analyze_root(stores=stores)]
-                    if CTX.config.path.lib_root and CTX.config.path.include
-                    else []
-                ),
-                *(
-                    [analyze_ssl(stores=stores)]
-                    if CTX.config.ssl.include
-                    else []
-                ),
-            )
-        ),
-        CTX.config.timeout,
-    )
+    if CTX.config.apk.include:
+        await analyze_apk(stores=stores)
+    if CTX.config.http.include:
+        await analyze_http(stores=stores)
+    if CTX.config.path.lib_path and CTX.config.path.include:
+        await analyze_paths(stores=stores)
+    if CTX.config.path.lib_root and CTX.config.path.include:
+        await analyze_root(stores=stores)
+    if CTX.config.ssl.include:
+        await analyze_ssl(stores=stores)
 
     if CTX.config.output:
         await notify_findings_as_csv(stores, CTX.config.output)
@@ -120,14 +92,10 @@ async def execute_skims(token: Optional[str]) -> bool:
         success = True
         await log(
             "info",
-            " ".join(
-                (
-                    "In case you want to persist results to Integrates",
-                    (
-                        "please make sure you set the --token and --group flag"
-                        " in the CLI"
-                    ),
-                )
+            (
+                "In case you want to persist results to Integrates "
+                "please make sure you set the --token and --group flag "
+                "in the CLI"
             ),
         )
 

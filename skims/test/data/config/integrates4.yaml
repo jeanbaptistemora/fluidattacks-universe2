@@ -4,4 +4,3 @@ checks:
 namespace: namespace2
 output: skims/test/outputs/integrates4.csv
 path: {}
-timeout: 900

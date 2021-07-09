@@ -62,7 +62,6 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
                         ),
                     }
                 ),
-                "timeout": confuse.Number(),
                 "working_dir": confuse.String(),
             }
         ),
@@ -105,7 +104,6 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
                 )
             ),
             start_dir=os.getcwd(),
-            timeout=config.pop("timeout", None),
             working_dir=os.path.abspath(config.pop("working_dir", ".")),
         )
     except KeyError as exc:

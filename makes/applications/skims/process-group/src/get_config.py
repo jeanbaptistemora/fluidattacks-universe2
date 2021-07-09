@@ -137,7 +137,6 @@ async def main() -> None:
                     for host, port in ssl_targets
                 ],
             ),
-            timeout=10800,
             working_dir=f"groups/{args.group}/fusion/{args.namespace}",
         ),
         default_flow_style=False,

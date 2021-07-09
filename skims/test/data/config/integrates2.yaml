@@ -10,4 +10,3 @@ ssl:
   include:
     - host: localhost
       port: 4446
-timeout: 900

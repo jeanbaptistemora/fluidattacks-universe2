@@ -10,4 +10,3 @@ path:
     - integrates/
   exclude:
     - glob(integrates/**/*)
-timeout: 3600

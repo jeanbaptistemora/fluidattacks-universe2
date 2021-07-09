@@ -31,6 +31,5 @@ def create_test_context(debug: bool = True) -> None:
             include=(),
         ),
         start_dir=os.getcwd(),
-        timeout=None,
         working_dir=os.getcwd(),
     )
