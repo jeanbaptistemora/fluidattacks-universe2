@@ -41,6 +41,9 @@ async def test_get_group(populate: bool, email: str) -> None:
     assert result["data"]["group"]["openVulnerabilities"] == 2
     assert result["data"]["group"]["closedVulnerabilities"] == 1
     assert result["data"]["group"]["lastClosingVuln"] == 40
+    assert result["data"]["group"]["lastClosingVulnFinding"] == {
+        "id": "475041521"
+    }
     assert result["data"]["group"]["maxOpenSeverity"] == 4.3
     assert result["data"]["group"]["maxOpenSeverityFinding"] == {
         "id": "475041521"
@@ -71,7 +74,6 @@ async def test_get_group(populate: bool, email: str) -> None:
     ]
     assert result["data"]["group"]["organization"] == "orgtest"
     assert result["data"]["group"]["userRole"] == email.split("@")[0]
-    assert result["data"]["group"]["lastClosingVulnFinding"] is None
     assert consult in [
         consult["content"] for consult in result["data"]["group"]["consulting"]
     ]

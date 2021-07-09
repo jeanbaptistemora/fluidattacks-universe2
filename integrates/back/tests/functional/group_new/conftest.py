@@ -57,6 +57,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "closed_vulnerabilities": 1,
                 "open_vulnerabilities": 2,
                 "last_closing_date": 40,
+                "last_closing_vuln_finding": "475041521",
                 "max_open_severity": 4.3,
                 "max_open_severity_finding": "475041521",
                 "open_findings": 2,

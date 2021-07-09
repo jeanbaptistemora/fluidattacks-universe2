@@ -75,7 +75,7 @@ async def get_result(
                     title
                 }}
                 lastClosingVulnFinding {{
-                    analyst
+                    id
                 }}
                 maxSeverityFinding {{
                     id
