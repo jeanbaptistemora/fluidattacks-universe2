@@ -22,7 +22,7 @@ from newutils import (
     virus_scan,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from resources import (
     domain as resources_domain,
@@ -48,7 +48,7 @@ async def mutate(
     uploaded_file = parameters["file"]
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
-    group_name: str = resolve_kwargs(parameters)
+    group_name: str = get_key_or_fallback(parameters)
 
     virus_scan.scan_file(uploaded_file, user_email, group_name)
 

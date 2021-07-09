@@ -24,8 +24,8 @@ from newutils import (
     datetime as datetime_utils,
 )
 from newutils.utils import (
-    resolve_kwargs,
-    resolve_kwargs_key,
+    get_key_or_fallback,
+    get_present_key,
 )
 from typing import (
     Any,
@@ -43,8 +43,8 @@ async def resolve(
     _parent: None, _info: GraphQLResolveInfo, **kwargs: Any
 ) -> ForcesExecutions:
     # Compatibility with old API
-    group_name: str = resolve_kwargs(kwargs).lower()
-    group_name_key: str = resolve_kwargs_key(kwargs)
+    group_name: str = get_key_or_fallback(kwargs).lower()
+    group_name_key: str = get_present_key(kwargs)
     from_date: datetime = kwargs.get(
         "from_date",
         datetime_utils.get_now_minus_delta(weeks=1, zone="UTC"),

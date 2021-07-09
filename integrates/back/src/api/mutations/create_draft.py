@@ -21,7 +21,7 @@ from newutils import (
 )
 from newutils.utils import (
     clean_up_kwargs,
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from typing import (
     Any,
@@ -41,7 +41,7 @@ async def mutate(
     **kwargs: Any,
 ) -> SimplePayload:
     # Compatibility with old API
-    group_name: str = resolve_kwargs(kwargs)
+    group_name: str = get_key_or_fallback(kwargs)
     kwargs = clean_up_kwargs(kwargs)
 
     success: bool = await findings_domain.create_draft(

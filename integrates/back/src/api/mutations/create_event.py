@@ -22,7 +22,7 @@ from newutils import (
 )
 from newutils.utils import (
     clean_up_kwargs,
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
@@ -50,7 +50,7 @@ async def mutate(
     **kwargs: Any,
 ) -> SimplePayload:
     """Resolve create_event mutation."""
-    group_name: str = resolve_kwargs(kwargs)
+    group_name: str = get_key_or_fallback(kwargs)
     kwargs = clean_up_kwargs(kwargs)
     user_info = await token_utils.get_jwt_content(info.context)
     analyst_email = user_info["user_email"]

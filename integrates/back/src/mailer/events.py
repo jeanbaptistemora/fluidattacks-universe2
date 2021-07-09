@@ -11,7 +11,7 @@ from custom_types import (
     MailContent as MailContentType,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from typing import (
     Any,
@@ -23,7 +23,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
 ) -> None:
     event_loader = context.loaders.event
     event = await event_loader.load(event_id)
-    group_name = resolve_kwargs(event)
+    group_name = get_key_or_fallback(event)
 
     group_loader = context.loaders.group
     group = await group_loader.load(group_name)

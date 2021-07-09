@@ -12,7 +12,7 @@ from findings import (
     domain as findings_domain,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from typing import (
     cast,
@@ -32,7 +32,7 @@ async def _batch_load_fn(
     fins = await findings_domain.get_findings_async(finding_ids)
     for finding in fins:
         # Compatibility with old API
-        group_name: str = resolve_kwargs(
+        group_name: str = get_key_or_fallback(
             finding, "groupName", "projectName", ""
         )
         finding_id: str = cast(str, finding["findingId"])

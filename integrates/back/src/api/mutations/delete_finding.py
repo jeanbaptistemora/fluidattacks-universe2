@@ -33,7 +33,7 @@ from newutils import (
     logs as logs_utils,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
@@ -55,7 +55,7 @@ async def mutate(
 ) -> SimplePayload:
     finding_loader = info.context.loaders.finding
     finding_data = await finding_loader.load(finding_id)
-    group_name = resolve_kwargs(finding_data)
+    group_name = get_key_or_fallback(finding_data)
 
     success = await findings_domain.delete_finding(
         info.context, finding_id, justification

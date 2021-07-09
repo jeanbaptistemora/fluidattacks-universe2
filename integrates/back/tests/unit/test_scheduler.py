@@ -31,7 +31,7 @@ from newutils import (
     git as git_utils,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from organizations.domain import (
     get_id_by_name,
@@ -331,12 +331,14 @@ async def test_delete_obsolete_groups() -> None:
     setpendingdeletion = [
         group
         for group in groups
-        if resolve_kwargs(group) == "setpendingdeletion"
+        if get_key_or_fallback(group) == "setpendingdeletion"
     ][0]
     assert setpendingdeletion["project_status"] == "SUSPENDED"
     assert "pending_deletion_date" in setpendingdeletion
     deletegroup = [
-        group for group in groups if resolve_kwargs(group) == "deletegroup"
+        group
+        for group in groups
+        if get_key_or_fallback(group) == "deletegroup"
     ][0]
     assert deletegroup["project_status"] == "DELETED"
 

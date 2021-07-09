@@ -15,7 +15,7 @@ from newutils import (
     groups as groups_utils,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from organizations import (
     domain as orgs_domain,
@@ -44,7 +44,7 @@ async def _delete_groups(
     ]
     groups_to_delete_org_ids = await collect(
         [
-            orgs_domain.get_id_for_group(resolve_kwargs(group_to_delete))
+            orgs_domain.get_id_for_group(get_key_or_fallback(group_to_delete))
             for group_to_delete in groups_to_delete
         ]
     )
@@ -52,7 +52,7 @@ async def _delete_groups(
         await collect(
             [
                 groups_domain.delete_group(
-                    loaders, resolve_kwargs(group), email, org_id
+                    loaders, get_key_or_fallback(group), email, org_id
                 )
                 for group, org_id in zip(
                     groups_to_delete, groups_to_delete_org_ids
@@ -77,7 +77,7 @@ async def _remove_group_pending_deletion_dates(
         await collect(
             [
                 groups_domain.update_pending_deletion_date(
-                    resolve_kwargs(group), None
+                    get_key_or_fallback(group), None
                 )
                 for group in groups_to_remove_pending_deletion_date
             ]
@@ -93,7 +93,7 @@ async def _set_group_pending_deletion_dates(
         datetime_utils.get_now_plus_delta(weeks=1)
     )
     groups_to_set_pending_deletion_date = [
-        resolve_kwargs(obsolete_group)
+        get_key_or_fallback(obsolete_group)
         for obsolete_group in obsolete_groups
         if not obsolete_group.get("pending_deletion_date")
     ]
@@ -128,7 +128,9 @@ async def delete_obsolete_groups() -> None:
         for group in groups
         if not groups_utils.has_integrates_services(group)
     ]
-    inactive_group_names = [resolve_kwargs(group) for group in inactive_groups]
+    inactive_group_names = [
+        get_key_or_fallback(group) for group in inactive_groups
+    ]
     inactive_groups_findings = await group_findings_loader.load_many(
         inactive_group_names
     )

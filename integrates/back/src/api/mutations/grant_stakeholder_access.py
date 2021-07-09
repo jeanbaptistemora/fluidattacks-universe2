@@ -30,7 +30,7 @@ from newutils import (
     token as token_utils,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from redis_cluster.operations import (
     redis_del_by_deps,
@@ -58,7 +58,7 @@ async def mutate(
     _: Any, info: GraphQLResolveInfo, role: str, **query_args: str
 ) -> GrantStakeholderAccessPayloadType:
     # Compatibility with old API
-    group_name: str = resolve_kwargs(query_args, fallback="").lower()
+    group_name: str = get_key_or_fallback(query_args, fallback="").lower()
     success = False
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]

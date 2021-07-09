@@ -19,8 +19,8 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils.utils import (
-    resolve_kwargs,
-    resolve_kwargs_key,
+    get_key_or_fallback,
+    get_present_key,
 )
 from typing import (
     cast,
@@ -38,8 +38,8 @@ async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Resources:
     group_name: str
-    group_name = resolve_kwargs(kwargs).lower()
-    group_name_key = resolve_kwargs_key(kwargs)
+    group_name = get_key_or_fallback(kwargs).lower()
+    group_name_key = get_present_key(kwargs)
     group_loader: DataLoader = info.context.loaders.group
     group: Group = await group_loader.load(group_name)
 

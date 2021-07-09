@@ -30,7 +30,7 @@ from newutils import (
     token as token_utils,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
@@ -66,7 +66,7 @@ async def mutate(
                     info.context.loaders,
                     finding_id,
                     str(finding.get("title", "")),
-                    str(resolve_kwargs(finding, fallback="")),
+                    str(get_key_or_fallback(finding, fallback="")),
                     str(finding.get("analyst", "")),
                     reviewer_email,
                 )

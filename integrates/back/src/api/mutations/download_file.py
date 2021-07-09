@@ -22,7 +22,7 @@ from newutils import (
     token as token_utils,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from typing import (
     Any,
@@ -42,7 +42,7 @@ async def mutate(
 ) -> DownloadFilePayloadType:
     success = False
     file_info = parameters["files_data"]
-    group_name = resolve_kwargs(parameters).lower()
+    group_name = get_key_or_fallback(parameters).lower()
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
     signed_url = await resources_utils.download_file(file_info, group_name)

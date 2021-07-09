@@ -12,7 +12,7 @@ from group_access import (
     domain as group_access_domain,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from typing import (
     Any,
@@ -27,7 +27,7 @@ async def send_mail_updated_treatment(
     vulnerabilities: str,
 ) -> None:
     finding_id = str(finding["finding_id"])
-    group_name = str(resolve_kwargs(finding))
+    group_name = str(get_key_or_fallback(finding))
 
     group_loader = context.group
     group = await group_loader.load(group_name)

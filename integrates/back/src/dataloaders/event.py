@@ -13,7 +13,7 @@ from events import (
     domain as events_domain,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from typing import (
     cast,
@@ -33,7 +33,7 @@ async def _batch_load_fn(event_ids: List[str]) -> List[EventType]:
         client_group: str = event.get(
             "client_group", event.get("client_project", "")
         )
-        group_name: str = resolve_kwargs(event, fallback="")
+        group_name: str = get_key_or_fallback(event, fallback="")
         events[event_id] = dict(
             accessibility=event.get("accessibility", ""),
             affectation=history[-1].get("affectation", ""),

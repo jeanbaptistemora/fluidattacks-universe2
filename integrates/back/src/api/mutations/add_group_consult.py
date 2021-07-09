@@ -29,7 +29,7 @@ from newutils import (
     token as token_utils,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
@@ -50,7 +50,7 @@ from typing import (
 async def mutate(  # pylint: disable=too-many-arguments
     _: Any, info: GraphQLResolveInfo, **parameters: Any
 ) -> AddConsultPayloadType:
-    group_name: str = resolve_kwargs(parameters, fallback="").lower()
+    group_name: str = get_key_or_fallback(parameters, fallback="").lower()
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
     current_time = datetime_utils.get_as_str(datetime_utils.get_now())

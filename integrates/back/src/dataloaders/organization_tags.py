@@ -11,7 +11,7 @@ from custom_types import (
     Tag as TagType,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from tags import (
     domain as tags_domain,
@@ -49,9 +49,11 @@ async def _batch_load_fn(organization_names: List[str]) -> List[List[TagType]]:
                 ],
                 organization=organization_name,
                 tag=tag["tag"],
-                projects=sorted(resolve_kwargs(tag, "groups", "projects")),
+                projects=sorted(
+                    get_key_or_fallback(tag, "groups", "projects")
+                ),
                 # Standardization field
-                groups=sorted(resolve_kwargs(tag, "groups", "projects")),
+                groups=sorted(get_key_or_fallback(tag, "groups", "projects")),
             )
             for tag in organization_tags
         ]

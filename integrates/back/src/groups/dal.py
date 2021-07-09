@@ -16,7 +16,7 @@ import logging
 import logging.config
 from newutils.utils import (
     duplicate_dict_keys,
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from settings import (
     LOGGING,
@@ -81,7 +81,7 @@ async def get_active_groups() -> List[str]:
         Attr("project_status").eq("ACTIVE") & Attr("project_status").exists()
     )
     groups = await get_all(filtering_exp, "project_name")
-    return cast(List[str], [resolve_kwargs(group) for group in groups])
+    return cast(List[str], [get_key_or_fallback(group) for group in groups])
 
 
 async def get_alive_groups(data_attr: str = "") -> List[GroupType]:
@@ -166,7 +166,7 @@ async def get_groups_with_forces() -> List[str]:
     }
     response = await dynamodb_ops.scan(TABLE_NAME, query_attrs)
     groups: List[str] = [
-        resolve_kwargs(group)
+        get_key_or_fallback(group)
         for group in response
         if (
             group.get("historic_configuration") is not None

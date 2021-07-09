@@ -14,7 +14,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from redis_cluster.operations import (
     redis_del_by_deps,
@@ -41,7 +41,7 @@ async def mutate(
     vuln_data = await info.context.loaders.vulnerability.load(vuln_id)
     finding_id: str = vuln_data["finding_id"]
     finding_data = await info.context.loaders.finding.load(finding_id)
-    group_name: str = resolve_kwargs(finding_data)
+    group_name: str = get_key_or_fallback(finding_data)
     vulns_data = await info.context.loaders.finding_vulns_nzr.load(finding_id)
 
     success: bool = await rebase_vuln(

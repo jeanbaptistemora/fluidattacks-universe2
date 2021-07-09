@@ -150,7 +150,7 @@ def duplicate_dict_keys(
     return dictionary
 
 
-def resolve_kwargs(
+def get_key_or_fallback(
     kwargs: Dict,
     current_key: str = "group_name",
     old_key: str = "project_name",
@@ -165,12 +165,12 @@ def resolve_kwargs(
         if fallback is not None:
             return fallback
         raise KeyError(
-            f"No fallback provided, either {current_key} or {old_key} must be"
+            f"No fallback provided, either {current_key} or {old_key} must be "
             + "included in the dict, check your query/mutation args!"
         )
 
 
-def resolve_kwargs_key(
+def get_present_key(
     kwargs: Dict,
     current_key: str = "group_name",
     old_key: str = "project_name",

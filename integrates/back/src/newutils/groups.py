@@ -5,7 +5,7 @@ from custom_types import (
 import logging
 import logging.config
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from settings import (
     LOGGING,
@@ -23,7 +23,7 @@ def has_integrates_services(group: GroupType) -> bool:
     )
     last_config_info = historic_configuration[-1]
     group_has_integrates_services: bool = (
-        resolve_kwargs(last_config_info, "has_squad", "has_drills")
+        get_key_or_fallback(last_config_info, "has_squad", "has_drills")
         or last_config_info["has_forces"]
     )
 

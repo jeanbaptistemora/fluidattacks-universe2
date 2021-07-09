@@ -8,7 +8,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from typing import (
     cast,
@@ -18,7 +18,7 @@ from typing import (
 async def resolve(
     parent: ForcesExecution, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> str:
-    group_name: str = cast(str, resolve_kwargs(parent))
+    group_name: str = cast(str, get_key_or_fallback(parent))
     execution_id: str = cast(str, parent["execution_id"])
 
     return cast(

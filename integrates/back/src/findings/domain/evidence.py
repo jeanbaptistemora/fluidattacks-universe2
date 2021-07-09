@@ -35,7 +35,7 @@ from newutils import (
     validations,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from settings import (
     LOGGING,
@@ -105,7 +105,7 @@ async def get_records_from_file(
 
 async def remove_evidence(evidence_name: str, finding_id: str) -> bool:
     finding = await get_finding(finding_id)
-    group_name = resolve_kwargs(finding, "groupName", "projectName")
+    group_name = get_key_or_fallback(finding, "groupName", "projectName")
     files = cast(List[Dict[str, str]], finding.get("files", []))
     success = False
 
@@ -153,7 +153,9 @@ async def update_evidence(
 ) -> bool:
     finding = await get_finding(finding_id)
     files = cast(List[Dict[str, str]], finding.get("files", []))
-    group_name = str(resolve_kwargs(finding, "groupName", "projectName", ""))
+    group_name = str(
+        get_key_or_fallback(finding, "groupName", "projectName", "")
+    )
     today = datetime_utils.get_now_as_str()
     success = False
 

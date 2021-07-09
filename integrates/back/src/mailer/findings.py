@@ -24,7 +24,7 @@ from newutils import (
     findings as findings_utils,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from typing import (
     Any,
@@ -49,7 +49,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
     user_mail: str,
     finding: Dict[str, FindingType],
 ) -> None:
-    group_name = resolve_kwargs(finding)
+    group_name = get_key_or_fallback(finding)
     org_name = await _get_organization_name(context, group_name)
     type_ = comment_data["comment_type"]
     is_finding_released = findings_utils.is_released(finding)

@@ -14,7 +14,7 @@ from findings import (
 import logging
 import logging.config
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 import os
 from reports.it_report import (
@@ -114,7 +114,7 @@ async def download_evidences_for_pdf(
                         extra={
                             "extra": {
                                 "evidence_id": evidence["id"],
-                                "group_name": resolve_kwargs(finding),
+                                "group_name": get_key_or_fallback(finding),
                             }
                         },
                     )

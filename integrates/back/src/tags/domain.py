@@ -15,7 +15,7 @@ from groups import (
     domain as groups_domain,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from organizations import (
     domain as orgs_domain,
@@ -98,7 +98,7 @@ async def is_tag_allowed(
 ) -> bool:
     all_groups_tag = await get_attributes(organization, tag, ["projects"])
     user_groups_tag = [
-        str(resolve_kwargs(group, fallback="")).lower()
+        str(get_key_or_fallback(group, fallback="")).lower()
         for group in user_groups
         if tag in [p_tag.lower() for p_tag in group.get("tag", [])]
     ]

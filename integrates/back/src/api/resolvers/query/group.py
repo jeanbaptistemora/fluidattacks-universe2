@@ -22,7 +22,7 @@ from groups import (
     validations as groups_validations,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 
 
@@ -35,7 +35,7 @@ async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Group:
     # Compatibility with the old API
-    group_name: str = resolve_kwargs(kwargs).lower()
+    group_name: str = get_key_or_fallback(kwargs).lower()
     group_loader: DataLoader = info.context.loaders.group
     group: Group = await group_loader.load(group_name.lower())
 

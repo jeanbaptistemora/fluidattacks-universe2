@@ -19,7 +19,7 @@ from newutils import (
     logs as logs_utils,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 import re
 from resources import (
@@ -45,7 +45,7 @@ async def mutate(
     files_data: Dict[str, Any],
     **kwargs: Any,
 ) -> SimplePayloadType:
-    group_name: str = resolve_kwargs(kwargs)
+    group_name: str = get_key_or_fallback(kwargs)
     files_data = {
         re.sub(r"_([a-z])", lambda x: x.group(1).upper(), k): v
         for k, v in files_data.items()

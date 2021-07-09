@@ -20,7 +20,7 @@ from newutils import (
     datetime as datetime_utils,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from settings import (
     LOGGING,
@@ -106,13 +106,13 @@ async def get_user_groups(user_email: str, active: bool) -> List[str]:
     groups = await dynamodb_ops.query(TABLE_NAME, query_attrs)
     if active:
         groups_filtered = [
-            resolve_kwargs(group)
+            get_key_or_fallback(group)
             for group in groups
             if group.get("has_access", "")
         ]
     else:
         groups_filtered = [
-            resolve_kwargs(group)
+            get_key_or_fallback(group)
             for group in groups
             if not group.get("has_access", "")
         ]

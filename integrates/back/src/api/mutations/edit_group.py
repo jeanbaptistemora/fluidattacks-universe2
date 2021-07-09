@@ -26,7 +26,7 @@ from newutils import (
     token as token_utils,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from redis_cluster.operations import (
     redis_del_by_deps,
@@ -59,9 +59,9 @@ async def mutate(  # pylint: disable=too-many-arguments
     success = False
 
     # Compatibility with old API
-    has_asm: bool = resolve_kwargs(kwargs, "has_asm", "has_integrates")
-    has_machine: bool = resolve_kwargs(kwargs, "has_machine", "has_skims")
-    has_squad: bool = resolve_kwargs(kwargs, "has_squad", "has_drills")
+    has_asm: bool = get_key_or_fallback(kwargs, "has_asm", "has_integrates")
+    has_machine: bool = get_key_or_fallback(kwargs, "has_machine", "has_skims")
+    has_squad: bool = get_key_or_fallback(kwargs, "has_squad", "has_drills")
 
     try:
         success = await groups_domain.edit(

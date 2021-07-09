@@ -81,7 +81,7 @@ from newutils import (
     vulnerabilities as vulns_utils,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from newutils.validations import (
     validate_alphanumeric_field,
@@ -397,7 +397,7 @@ async def complete_register_for_group_invitation(
     if invitation["is_used"]:
         bugsnag.notify(Exception("Token already used"), severity="warning")
 
-    group_name = cast(str, resolve_kwargs(group_access))
+    group_name = cast(str, get_key_or_fallback(group_access))
     phone_number = cast(str, invitation["phone_number"])
     responsibility = cast(str, invitation["responsibility"])
     role = cast(str, invitation["role"])
@@ -599,7 +599,10 @@ async def delete_group(
     historic_deletion = cast(
         List[Dict[str, str]], data.get("historic_deletion", [])
     )
-    if resolve_kwargs(data, "group_status", "project_status") != "DELETED":
+    if (
+        get_key_or_fallback(data, "group_status", "project_status")
+        != "DELETED"
+    ):
         all_resources_removed = await remove_resources(context, group_name)
         today = datetime_utils.get_now()
         new_state = {
@@ -661,7 +664,7 @@ async def edit(
     )
     item.setdefault("historic_configuration", [])
 
-    if resolve_kwargs(item):
+    if get_key_or_fallback(item):
         success = await update(
             data={
                 "historic_configuration": cast(
@@ -737,7 +740,7 @@ async def get_active_groups() -> List[str]:
 async def get_alive_group_names() -> List[str]:
     attributes = ["project_name"]
     groups = await get_alive_groups(attributes)
-    return [resolve_kwargs(group) for group in groups]
+    return [get_key_or_fallback(group) for group in groups]
 
 
 async def get_all(attributes: Optional[List[str]] = None) -> List[GroupType]:
@@ -1210,7 +1213,7 @@ async def validate_group_tags(group_name: str, tags: List[str]) -> List[str]:
 
 
 async def after_complete_register(group_access: GroupAccessType) -> None:
-    group_name: str = str(resolve_kwargs(group_access))
+    group_name: str = str(get_key_or_fallback(group_access))
     user_email: str = str(group_access["user_email"])
     enforcer = await authz.get_user_level_enforcer(user_email)
     if enforcer("self", "keep_default_organization_access"):

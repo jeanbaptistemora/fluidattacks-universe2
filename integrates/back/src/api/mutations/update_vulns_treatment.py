@@ -17,7 +17,7 @@ from newutils import (
     token as token_utils,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from redis_cluster.operations import (
     redis_del_by_deps,
@@ -45,7 +45,7 @@ async def mutate(
     finding_loader = info.context.loaders.finding
     group_loader = info.context.loaders.group
     finding_data = await finding_loader.load(finding_id)
-    group_name: str = resolve_kwargs(finding_data)
+    group_name: str = get_key_or_fallback(finding_data)
     group = await group_loader.load(group_name)
     success: bool = await vulns_domain.update_vulns_treatment(
         context=info.context.loaders,

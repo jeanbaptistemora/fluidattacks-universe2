@@ -32,7 +32,7 @@ from newutils import (
     token as token_utils,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from organizations import (
     domain as orgs_domain,
@@ -75,7 +75,7 @@ TFun = TypeVar("TFun", bound=Callable[..., Any])
 async def _resolve_from_event_id(context: Any, identifier: str) -> str:
     event_loader = context.loaders.event
     data = await event_loader.load(identifier)
-    group_name: str = resolve_kwargs(data)
+    group_name: str = get_key_or_fallback(data)
     return group_name
 
 
@@ -87,7 +87,7 @@ async def _resolve_from_finding_id(context: Any, identifier: str) -> str:
     else:
         finding_loader = context.loaders.finding
         data = await finding_loader.load(identifier)
-        group_name = resolve_kwargs(data)
+        group_name = get_key_or_fallback(data)
     return group_name
 
 
@@ -542,7 +542,7 @@ async def resolve_group_name(  # noqa: MC0001
     elif args and args[0] and "finding_id" in args[0]:
         name = await _resolve_from_finding_id(context, args[0]["finding_id"])
     elif "group_name" in kwargs or "project_name" in kwargs:
-        name = resolve_kwargs(kwargs)
+        name = get_key_or_fallback(kwargs)
     elif "finding_id" in kwargs:
         name = await _resolve_from_finding_id(context, kwargs["finding_id"])
     elif "draft_id" in kwargs:

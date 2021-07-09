@@ -25,7 +25,7 @@ from newutils import (
     datetime as datetime_utils,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from notifications import (
     dal as notifications_dal,
@@ -254,7 +254,7 @@ async def request_zero_risk_vuln(
 ) -> bool:
     finding_loader: DataLoader = info.context.loaders.finding
     finding: Dict[str, FindingType] = await finding_loader.load(finding_id)
-    group_name = cast(str, resolve_kwargs(finding, fallback=""))
+    group_name = cast(str, get_key_or_fallback(finding, fallback=""))
     org_id = await orgs_domain.get_id_for_group(group_name)
     org_name = await orgs_domain.get_name_by_id(org_id)
     finding_title = cast(str, finding.get("title", ""))

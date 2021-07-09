@@ -7,7 +7,7 @@ from custom_types import (
 )
 import json
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from settings import (
     DEBUG,
@@ -148,7 +148,7 @@ def unauthorized(request: Request) -> HTMLResponse:
 async def valid_invitation(
     request: Request, group_access: GroupAccessType
 ) -> HTMLResponse:
-    group_name = resolve_kwargs(group_access)
+    group_name = get_key_or_fallback(group_access)
     return TEMPLATING_ENGINE.TemplateResponse(
         name="valid_invitation.html",
         context={

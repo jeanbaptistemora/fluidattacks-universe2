@@ -21,7 +21,7 @@ from group_access import (
     domain as group_access_domain,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from typing import (
     cast,
@@ -87,7 +87,7 @@ async def resolve(
     # Compatibility with old API
     group_name_provided = "group_name" in kwargs or "project_name" in kwargs
     if entity in group_entities and group_name_provided:
-        group_name: str = resolve_kwargs(kwargs)
+        group_name: str = get_key_or_fallback(kwargs)
         return await _resolve_for_group(
             info,
             email,

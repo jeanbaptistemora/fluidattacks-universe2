@@ -20,7 +20,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
@@ -40,7 +40,7 @@ async def resolve(
         partial(resolve_no_cache, _parent, _info, **kwargs),
         entity="forces_execution",
         attr="forces_execution",
-        group=resolve_kwargs(kwargs),
+        group=get_key_or_fallback(kwargs),
         id=kwargs["execution_id"],
     )
     return response
@@ -50,7 +50,7 @@ async def resolve_no_cache(
     _parent: None, _info: GraphQLResolveInfo, **kwargs: str
 ) -> ForcesExecution:
     execution_id: str = kwargs["execution_id"]
-    group_name: str = resolve_kwargs(kwargs)
+    group_name: str = get_key_or_fallback(kwargs)
     return await forces_domain.get_execution(
         execution_id=execution_id, group_name=group_name.lower()
     )

@@ -35,7 +35,7 @@ from newutils import (
     token as token_utils,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
@@ -58,7 +58,7 @@ async def _add_finding_consult(
     finding_id = str(parameters.get("finding_id"))
     finding_loader = info.context.loaders.finding
     finding = await finding_loader.load(finding_id)
-    group = resolve_kwargs(finding)
+    group = get_key_or_fallback(finding)
     content = parameters["content"]
 
     user_email = user_data["user_email"]

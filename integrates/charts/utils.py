@@ -24,7 +24,7 @@ from newutils.encodings import (
     safe_encode,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from organizations import (
     domain as orgs_domain,
@@ -120,7 +120,7 @@ async def get_portfolios_groups(org_name: str) -> List[PortfoliosGroups]:
     return [
         PortfoliosGroups(
             portfolio=data.get("tag", "").lower(),
-            groups=resolve_kwargs(data, "groups", "projects", []),
+            groups=get_key_or_fallback(data, "groups", "projects", []),
         )
         for data in portfolios
     ]

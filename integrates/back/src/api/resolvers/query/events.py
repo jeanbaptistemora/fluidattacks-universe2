@@ -20,7 +20,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from typing import (
     List,
@@ -37,7 +37,7 @@ async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> List[Event]:
     # Compatibility with old API
-    group_name: str = resolve_kwargs(kwargs).lower()
+    group_name: str = get_key_or_fallback(kwargs).lower()
     event_ids = await events_domain.list_group_events(group_name.lower())
     event_loader: DataLoader = info.context.loaders.event
     events: List[Event] = await event_loader.load_many(event_ids)

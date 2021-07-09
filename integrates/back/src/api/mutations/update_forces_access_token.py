@@ -25,7 +25,7 @@ from newutils import (
     token as token_utils,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from typing import (
     Any,
@@ -40,7 +40,7 @@ from users import (
 async def mutate(
     _parent: None, info: GraphQLResolveInfo, **kwargs: Any
 ) -> UpdateAccessTokenPayload:
-    group_name: str = resolve_kwargs(kwargs)
+    group_name: str = get_key_or_fallback(kwargs)
     user_info = await token_utils.get_jwt_content(info.context)
 
     user_email = forces_domain.format_forces_user_email(group_name)

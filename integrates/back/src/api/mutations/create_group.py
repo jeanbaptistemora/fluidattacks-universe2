@@ -24,7 +24,7 @@ from newutils import (
     token as token_utils,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from typing import (
     Any,
@@ -46,11 +46,11 @@ async def mutate(  # pylint: disable=too-many-arguments
     **parameters: Any,
 ) -> SimplePayloadType:
     # Compatibility with old API
-    group_name = resolve_kwargs(parameters)
-    has_squad: bool = resolve_kwargs(
+    group_name = get_key_or_fallback(parameters)
+    has_squad: bool = get_key_or_fallback(
         parameters, "has_squad", "has_drills", False
     )
-    has_machine: bool = resolve_kwargs(
+    has_machine: bool = get_key_or_fallback(
         parameters, "has_machine", "has_skims", False
     )
 

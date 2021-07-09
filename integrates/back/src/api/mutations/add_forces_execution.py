@@ -18,7 +18,7 @@ from newutils import (
 )
 from newutils.utils import (
     clean_up_kwargs,
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from starlette.datastructures import (
     UploadFile,
@@ -38,7 +38,7 @@ async def mutate(
     **parameters: Any,
 ) -> SimplePayload:
     # Compatibility with old API
-    group_name: str = resolve_kwargs(parameters)
+    group_name: str = get_key_or_fallback(parameters)
     parameters = clean_up_kwargs(parameters)
     success = await forces_domain.add_forces_execution(
         group_name=group_name, log=log, **parameters

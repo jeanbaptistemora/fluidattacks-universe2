@@ -26,7 +26,7 @@ from mailer import (
     findings as findings_mail,
 )
 from newutils.utils import (
-    resolve_kwargs,
+    get_key_or_fallback,
 )
 from settings import (
     LOGGING,
@@ -66,10 +66,10 @@ async def get_remediated_findings() -> None:
                         "finding_name": finding["finding"],
                         "finding_url": (
                             f"{BASE_URL}/groups/"
-                            f"{str.lower(str(resolve_kwargs(finding)))}/"
+                            f"{str.lower(str(get_key_or_fallback(finding)))}/"
                             f'{finding["finding_id"]}/description'
                         ),
-                        "group": str.upper(str(resolve_kwargs(finding))),
+                        "group": str.upper(str(get_key_or_fallback(finding))),
                     }
                 )
             context["total"] = len(findings)
