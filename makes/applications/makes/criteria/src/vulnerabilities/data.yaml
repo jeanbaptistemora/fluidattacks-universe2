@@ -1483,16 +1483,38 @@
 031:
   en:
     title: Excessive privileges - AWS
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
+    description: >
+      The application, a user or a role
+      have more privileges than they require.
+      This can be leveraged by an attacker
+      to execute normally restricted actions
+      on a system.
+    impact: >
+      Execute actions that should be restricted
+      to other groups or roles.
+    recommendation: >
+      Explicitly assign permissions
+      to the appropriate groups and roles
+      following the principle of least privilege.
     threat: __empty__
   es:
     title: Permisos excesivos - AWS
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      La aplicación, un usuario o un rol
+      tienen más privilegios/permisos que los que requieren.
+      Esto puede ser aprovechado por un atacante
+      para ejecutar acciones sobre un sistema
+      que normalmente estarían restringidas.
+    impact: >
+      Ejecutar acciones que deberían estar restringidas
+      a otros grupos o roles.
+    recommendation: >
+      Asignar permisos explícitamente
+      a los grupos y roles adecuados
+      siguiendo el principio del mínimo privilegio.
+    threat: >
+      Atacante desde Internet
+      con acceso a cualquiera de los roles mal configurados.
   score:
     base:
       attack_vector: "N"
@@ -1507,21 +1529,42 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["095", "096", "186"]
   metadata: {}
 032:
   en:
     title: Spoofing
-    description: __empty__
+    description: >
+      It is possible to perform actions in the application
+      and make it look as if they were performed
+      by the system or another user.
+      Examples include sending messages
+      that appear to come from the system
+      and modifying data in the name of other users
+      (who may have more privileges).
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
     title: Suplantación
-    description: __empty__
+    description: >
+      Es posible realizar acciones en la aplicación
+      y hacer que parezca que fueron realizadas
+      por el sistema o por otro usuario.
+      Por ejemplo,
+      enviar mensajes que parecen venir del sistema
+      o modificar datos a nombre de otros usuarios
+      (quienes podrían tener más privilegios).
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Usar control de acceso a nivel de sesión
+      para evitar que hayan transacciones
+      que modifiquen información de otros usuarios
+      basado únicamente el el ID.
+    threat: >
+      Un usuario válido de la aplicación
+      puede cambiar información de otros usuarios
+      sin el consentimiento de estos.
   score:
     base:
       attack_vector: "N"
@@ -1536,21 +1579,47 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["035", "096", "173", "176", "265", "320"]
   metadata: {}
 033:
   en:
     title: Password change without identity check
-    description: __empty__
+    description: >
+      The system allows a user to change their password
+      without requesting the previous one
+      or enforcing another identity verification mechanism.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Guarantee that the current password is needed
+      when a password change is requested by users.
+    threat: >
+      A user with access
+      to a careless user's workstation
+      with an open session in the application,
+      can take advantage of that
+      and modify the access credentials
+      to use them later to its own benefit,
+      due to the lack of current password request
+      by system.
   es:
     title: Cambio de contraseña sin validación de identidad
-    description: __empty__
+    description: >
+      Al establecer una nueva contraseña para un usuario,
+      el producto no requiere conocimiento
+      de la contraseña original,
+      o el uso de otro tipo de autenticación.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Garantizar que al hacer el cambio de contraseña
+      se ingrese la contraseña actual.
+    threat: >
+      Un usuario con acceso
+      a la estación de trabajo de otro desapercibido
+      que deja la sesión abierta de la aplicación,
+      puede aprovechar un descuido
+      y modificar las credenciales de acceso
+      para luego utilizarlas en su beneficio,
+      ya que el sistema no valida la clave actual del usuario.
   score:
     base:
       attack_vector: "N"
@@ -1565,21 +1634,54 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["238"]
   metadata: {}
 034:
   en:
     title: Insecure generation of random numbers
-    description: __empty__
+    description: >
+      The system uses insecure functions,
+      insufficient ranges or low-entropy components
+      to generate random numbers.
+      This could allow an attacker
+      to guess the generation sequence after a short time
+      or predict results using probabilistic methods.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Use the most secure mechanisms
+      offered by language
+      to generate random numbers.
+    threat: >
+      An attacker could predict
+      session's id UUID
+      due to predictable methods used
+      to generate random numbers,
+      what can allow to gain unathorized access
+      to the application
+      and make a user spoofing.
   es:
     title: Generación de números aleatorios inseguros
-    description: __empty__
+    description: >
+      El sistema usa funciones inseguras,
+      rangos insuficientes o componentes de baja entropía
+      para generar números aleatorios.
+      Esto podría permitirle a un atacante
+      averiguar la secuencia de generación
+      o predecir resultados
+      usando métodos probabilísticos.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Usar los mecanismos más seguros
+      ofrecidos por el lenguaje
+      para la generación de números aleatorios.
+    threat: >
+      Un atacante podría predecir
+      el identificador de sesión UUID
+      debido a que se usan métodos predecibles
+      para generar números aleatorios,
+      lo que le permitiría ganar acceso no autorizado
+      a la aplicación
+      y generar una suplantación de usuario.
   score:
     base:
       attack_vector: "N"
@@ -1594,21 +1696,44 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["223", "224"]
   metadata: {}
 035:
   en:
     title: Weak credential policy
-    description: __empty__
+    description: >
+      The system's credential policy
+      is not compliant with security regulations.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Establish a policy
+      for creation of credentials
+      that uses phrases,
+      not word based passwords.
+    threat: >
+      A user can modify
+      the password without a policy
+      that validates the strength of it,
+      increasing the probability of success
+      of a brute force attack.
   es:
     title: Política de credenciales débil
-    description: __empty__
+    description: >
+      La política de credenciales
+      presente en el sistema
+      no cuenta con los parámetros recomendados.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Establecer una política
+      para la creación de credenciales
+      que involucre frases
+      y no contraseñas basadas en palabras.
+    threat: >
+      Un usuario puede cambiar su contraseña
+      sin una política de contraseñas
+      que asegure la fortaleza de dicha contraseña,
+      permitiendo así una probabilidad mayor de éxito
+      ante un ataque de fuerza bruta.
   score:
     base:
       attack_vector: "N"
@@ -1623,7 +1748,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["130", "132", "133", "139", "332"]
   metadata: {}
 036:
   en:
