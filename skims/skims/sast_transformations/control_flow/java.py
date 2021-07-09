@@ -1,3 +1,6 @@
+from contextlib import (
+    suppress,
+)
 from functools import (
     partial,
 )
@@ -13,6 +16,7 @@ from sast_transformations import (
 )
 from sast_transformations.control_flow.common import (
     catch_statement,
+    get_next_id,
     if_statement,
     link_to_last_node,
     loop_statement,
@@ -26,11 +30,38 @@ from sast_transformations.control_flow.types import (
     Stack,
 )
 from typing import (
+    List,
     Optional,
 )
 from utils import (
     graph as g,
 )
+
+
+def _nested_method_invocation(
+    graph: graph_model.Graph,
+    n_id: str,
+) -> List[str]:
+    keys: List[str] = [n_id]
+    match = g.match_ast(graph, n_id, "method_invocation")
+    if next_method := match["method_invocation"]:
+        keys.extend(_nested_method_invocation(graph, next_method))
+    return keys
+
+
+def _method_invocation(
+    graph: graph_model.Graph,
+    n_id: str,
+    stack: Stack,
+) -> None:
+    nested_methods = list(reversed(_nested_method_invocation(graph, n_id)))
+    for method_id in nested_methods:
+        match = g.match_ast(graph, method_id, "argument_list")
+        for node in g.adj_ast(graph, match["argument_list"])[1:-1]:
+            _generic(graph, node, stack=[], edge_attrs=ALWAYS)
+    with suppress(IndexError):
+        if next_id := get_next_id(stack):
+            graph.add_edge(n_id, next_id, **ALWAYS)
 
 
 def _lambda_expression(
@@ -39,7 +70,6 @@ def _lambda_expression(
     stack: Stack,
 ) -> None:
     match = g.match_ast(graph, n_id, "block")
-    propagate_next_id_from_parent(stack)
     if block_id := match["block"]:
         graph.add_edge(n_id, block_id, **ALWAYS)
         _generic(graph, block_id, stack, edge_attrs=ALWAYS)
@@ -165,6 +195,12 @@ def _generic(
         ),
         (
             {
+                "method_invocation",
+            },
+            _method_invocation,
+        ),
+        (
+            {
                 "lambda_expression",
             },
             _lambda_expression,
@@ -193,8 +229,9 @@ def _generic(
             walker(graph, n_id, stack)  # type: ignore
             break
     else:
-        if (next_id := stack[-2].pop("next_id", None)) and n_id != next_id:
-            graph.add_edge(n_id, next_id, **edge_attrs)
+        with suppress(IndexError):
+            if (next_id := stack[-2].pop("next_id", None)) and n_id != next_id:
+                graph.add_edge(n_id, next_id, **edge_attrs)
 
     stack.pop()
 
