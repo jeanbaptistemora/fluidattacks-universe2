@@ -275,7 +275,7 @@ async def java_properties_sensitive_data(
     )
 
 
-def _web_config_sensitive_data(
+def _web_config_user_pass(
     content: str,
     path: str,
 ) -> core_model.Vulnerabilities:
@@ -285,7 +285,7 @@ def _web_config_sensitive_data(
         content=content,
         cwe={"798"},
         description=t(
-            key="src.lib_path.f009.web_config_sensitive_data.description",
+            key="src.lib_path.f009.web_config_user_pass.description",
             path=path,
         ),
         finding=core_model.FindingEnum.F009,
@@ -297,12 +297,49 @@ def _web_config_sensitive_data(
 @CACHE_ETERNALLY
 @SHIELD
 @TIMEOUT_1MIN
-async def web_config_sensitive_data(
+async def web_config_user_pass(
     content: str,
     path: str,
 ) -> core_model.Vulnerabilities:
     return await in_process(
-        _web_config_sensitive_data,
+        _web_config_user_pass,
+        content=content,
+        path=path,
+    )
+
+
+def _web_config_db_connection(
+    content: str,
+    path: str,
+) -> core_model.Vulnerabilities:
+    grammar = Regex(r'connectionString=".+?"', flags=re.IGNORECASE)
+    grammar.addCondition(
+        lambda tokens: any("password" in token.lower() for token in tokens)
+    )
+
+    return get_vulnerabilities_blocking(
+        content=content,
+        cwe={"798"},
+        description=t(
+            key="src.lib_path.f009.web_config_db_connection.description",
+            path=path,
+        ),
+        finding=core_model.FindingEnum.F009,
+        grammar=grammar,
+        path=path,
+        wrap=True,
+    )
+
+
+@CACHE_ETERNALLY
+@SHIELD
+@TIMEOUT_1MIN
+async def web_config_db_connection(
+    content: str,
+    path: str,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _web_config_db_connection,
         content=content,
         path=path,
     )
@@ -353,11 +390,8 @@ async def analyze(  # pylint: disable=too-many-arguments
             )
         )
     elif file_extension in {"config", "httpsF5"}:
-        coroutines.append(
-            web_config_sensitive_data(
-                content=await content_generator(),
-                path=path,
-            )
-        )
+        content = await content_generator()
+        coroutines.append(web_config_user_pass(content=content, path=path))
+        coroutines.append(web_config_db_connection(content=content, path=path))
 
     return coroutines

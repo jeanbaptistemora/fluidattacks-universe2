@@ -109,6 +109,7 @@ def get_vulnerabilities_blocking(
     finding: core_model.FindingEnum,
     grammar: ParserElement,
     path: str,
+    wrap: bool = False,
 ) -> core_model.Vulnerabilities:
     results: core_model.Vulnerabilities = tuple(
         core_model.Vulnerability(
@@ -126,6 +127,7 @@ def get_vulnerabilities_blocking(
                     viewport=SnippetViewport(
                         column=match.start_column,
                         line=match.start_line,
+                        wrap=wrap,
                     ),
                 ),
             ),
