@@ -36,8 +36,8 @@ async def resolve(
 ) -> List[Dict[str, str]]:
     response: List[Dict[str, str]] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
-        entity="finding_new",
-        attr="historic_state_new",
+        entity="finding",
+        attr="historic_state",
         id=parent.id,
     )
     return response

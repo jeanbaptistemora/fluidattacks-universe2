@@ -33,8 +33,8 @@ async def resolve(
 ) -> List[Comment]:
     response: List[Comment] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
-        entity="finding_new",
-        attr="observations_new",
+        entity="finding",
+        attr="observations",
         id=parent.id,
     )
     return response

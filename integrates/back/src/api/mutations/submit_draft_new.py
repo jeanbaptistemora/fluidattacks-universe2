@@ -56,8 +56,8 @@ async def mutate(
             info.context, finding_id, user_email
         )
         redis_del_by_deps_soon(
-            "submit_draft_new",
-            finding_new_id=finding_id,
+            "submit_draft",
+            finding_id=finding_id,
         )
         finding: Finding = await finding_loader.load(finding_id)
         schedule(

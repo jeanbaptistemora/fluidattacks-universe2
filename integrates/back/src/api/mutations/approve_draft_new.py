@@ -52,8 +52,8 @@ async def mutate(
             info.context, finding_id, user_email
         )
         redis_del_by_deps_soon(
-            "approve_draft_new",
-            finding_new_id=finding_id,
+            "approve_draft",
+            finding_id=finding_id,
         )
         old_format_approval_date = datetime_utils.get_as_str(
             datetime.fromisoformat(approval_date)

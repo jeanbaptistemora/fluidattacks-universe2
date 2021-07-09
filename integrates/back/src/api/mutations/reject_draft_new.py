@@ -60,8 +60,8 @@ async def mutate(
             info.context, finding_id, user_email
         )
         redis_del_by_deps_soon(
-            "reject_draft_new",
-            finding_new_id=finding_id,
+            "reject_draft",
+            finding_id=finding_id,
         )
         if requests_utils.get_source_new(info.context) != Source.MACHINE:
             finding: Finding = await finding_loader.load(finding_id)

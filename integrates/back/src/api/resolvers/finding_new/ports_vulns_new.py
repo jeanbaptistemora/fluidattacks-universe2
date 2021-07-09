@@ -26,8 +26,8 @@ async def resolve(
 ) -> List[Vulnerability]:
     response: List[Vulnerability] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
-        entity="finding_new",
-        attr="ports_vulns_new",
+        entity="finding",
+        attr="ports_vulns",
         id=parent.id,
     )
     return response

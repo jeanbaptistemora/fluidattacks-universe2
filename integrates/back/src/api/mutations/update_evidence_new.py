@@ -52,8 +52,8 @@ async def mutate(
             info.context, finding_id, evidence_id, file
         )
         redis_del_by_deps_soon(
-            "update_evidence_new",
-            finding_new_id=finding_id,
+            "update_evidence",
+            finding_id=finding_id,
         )
         logs_utils.cloudwatch_log(
             info.context,

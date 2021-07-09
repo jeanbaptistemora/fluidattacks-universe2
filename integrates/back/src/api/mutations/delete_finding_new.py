@@ -67,8 +67,8 @@ async def mutate(
             user_email,
         )
         redis_del_by_deps_soon(
-            "delete_finding_new",
-            finding_new_id=finding_id,
+            "delete_finding",
+            finding_id=finding_id,
         )
         schedule(
             findings_mail.send_mail_delete_finding(

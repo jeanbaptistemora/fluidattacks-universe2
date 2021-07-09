@@ -29,8 +29,8 @@ async def resolve(
 ) -> List[TrackingItem]:
     response: List[TrackingItem] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
-        entity="finding_new",
-        attr="tracking_new",
+        entity="finding",
+        attr="tracking",
         id=parent.id,
     )
     return response
