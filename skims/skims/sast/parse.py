@@ -23,7 +23,6 @@ from sast_syntax_readers import (
 from sast_transformations import (
     control_flow,
     danger_nodes,
-    program_dependencie,
     styles,
 )
 from tree_sitter import (
@@ -56,7 +55,6 @@ from utils.encodings import (
 from utils.graph import (
     copy_ast,
     copy_cfg,
-    copy_pdg,
     to_svg,
 )
 from utils.logs import (
@@ -110,88 +108,80 @@ FIELDS_BY_LANGAUGE: Dict[
 
 
 def hash_node(node: Node) -> int:
-    return hash(
-        (
-            node.end_point,
-            node.start_point,
-            node.type,
-        )
-    )
+    return hash((node.end_point, node.start_point, node.type))
 
 
 def _is_final_node(obj: Any, language: GraphShardMetadataLanguage) -> bool:
-    return any(
+    return (
         (
-            (
-                language == GraphShardMetadataLanguage.JAVA
-                and obj.type
-                in {
-                    "array_type",
-                    "character_literal",
-                    "field_access",
-                    "floating_point_type",
-                    "generic_type",
-                    "integral_type",
-                    "scoped_identifier",
-                    "scoped_type_identifier",
-                    "this",
-                    "type_identifier",
-                }
-            ),
-            (
-                language == GraphShardMetadataLanguage.JAVASCRIPT
-                and obj.type
-                in {
-                    "this",
-                    "super",
-                    "number",
-                    "string",
-                    "template_string",
-                    "regex",
-                    "true",
-                    "false",
-                    "null",
-                    "undefined",
-                }
-            ),
-            (
-                language == GraphShardMetadataLanguage.TSX
-                and obj.type
-                in {
-                    "this",
-                    "super",
-                    "number",
-                    "string",
-                    "template_string",
-                    "regex",
-                    "true",
-                    "false",
-                    "null",
-                    "undefined",
-                }
-            ),
-            (
-                language == GraphShardMetadataLanguage.CSHARP
-                and obj.type
-                in {
-                    "string_literal",
-                    "boolean_literal",
-                    "character_literal",
-                    "integer_literal",
-                    "null_literal",
-                    "real_literal",
-                    "verbatim_string_literal",
-                    "this_expression",
-                    "assignment_operator",
-                }
-            ),
-            (
-                language == GraphShardMetadataLanguage.GO
-                and obj.type
-                in {
-                    "interpreted_string_literal",
-                }
-            ),
+            language == GraphShardMetadataLanguage.CSHARP
+            and obj.type
+            in {
+                "string_literal",
+                "boolean_literal",
+                "character_literal",
+                "integer_literal",
+                "null_literal",
+                "real_literal",
+                "verbatim_string_literal",
+                "this_expression",
+                "assignment_operator",
+            }
+        )
+        or (
+            language == GraphShardMetadataLanguage.GO
+            and obj.type
+            in {
+                "interpreted_string_literal",
+            }
+        )
+        or (
+            language == GraphShardMetadataLanguage.JAVA
+            and obj.type
+            in {
+                "array_type",
+                "character_literal",
+                "field_access",
+                "floating_point_type",
+                "generic_type",
+                "integral_type",
+                "scoped_identifier",
+                "scoped_type_identifier",
+                "this",
+                "type_identifier",
+            }
+        )
+        or (
+            language == GraphShardMetadataLanguage.JAVASCRIPT
+            and obj.type
+            in {
+                "this",
+                "super",
+                "number",
+                "string",
+                "template_string",
+                "regex",
+                "true",
+                "false",
+                "null",
+                "undefined",
+            }
+        )
+        or (
+            language == GraphShardMetadataLanguage.TSX
+            and obj.type
+            in {
+                "this",
+                "super",
+                "number",
+                "string",
+                "template_string",
+                "regex",
+                "true",
+                "false",
+                "null",
+                "undefined",
+            }
         )
     )
 
@@ -300,7 +290,6 @@ def _parse_one_cached(
 
     graph: Graph = _build_ast_graph(content, language, raw_tree)
     control_flow.add(graph, language)
-    program_dependencie.add(graph, language)
     syntax = generate_syntax_readers.read_from_graph(graph, language)
     danger_nodes.mark(graph, language, syntax)
 
@@ -357,7 +346,6 @@ def parse_one(
         to_svg(graph.graph, output)
         to_svg(copy_ast(graph.graph), f"{output}.ast")
         to_svg(copy_cfg(graph.graph), f"{output}.cfg")
-        to_svg(copy_pdg(graph.graph), f"{output}.pdg")
 
     return GraphShard(
         graph=graph.graph,

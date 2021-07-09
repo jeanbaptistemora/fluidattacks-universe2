@@ -187,20 +187,6 @@ def adj_cfg(
     )
 
 
-def adj_pdg(
-    graph: Graph,
-    n_id: str,
-    depth: int = 1,
-    strict: bool = False,
-    **n_attrs: str,
-) -> Tuple[Any, ...]:
-    return tuple(
-        c_id
-        for c_id in adj(graph, n_id, depth, strict=strict, label_pdg="PDG")
-        if has_labels(graph.nodes[c_id], **n_attrs)
-    )
-
-
 def adj_cfg_lazy(
     graph: Graph,
     n_id: str,
@@ -305,15 +291,6 @@ def pred_cfg(
     return tuple(pred_cfg_lazy(graph, n_id, depth, **edge_attrs))
 
 
-def pred_pdg(
-    graph: Graph,
-    n_id: str,
-    depth: int = 1,
-    **edge_attrs: str,
-) -> Tuple[str, ...]:
-    return tuple(pred_pdg_lazy(graph, n_id, depth, **edge_attrs))
-
-
 def pred_cfg_lazy(
     graph: Graph,
     n_id: str,
@@ -326,22 +303,6 @@ def pred_cfg_lazy(
         depth,
         _processed_n_ids=set(),
         label_cfg="CFG",
-        **edge_attrs,
-    )
-
-
-def pred_pdg_lazy(
-    graph: Graph,
-    n_id: str,
-    depth: int = 1,
-    **edge_attrs: str,
-) -> Iterator[str]:
-    yield from pred_lazy(
-        graph,
-        n_id,
-        depth,
-        _processed_n_ids=set(),
-        label_pdg="PDG",
         **edge_attrs,
     )
 
@@ -476,10 +437,6 @@ def get_ast_childs(
 
 def is_connected_to_cfg(graph: Graph, n_id: NId) -> bool:
     return bool(adj_cfg(graph, n_id) or pred_cfg(graph, n_id))
-
-
-def is_connected_to_pdg(graph: Graph, n_id: NId) -> bool:
-    return bool(adj_pdg(graph, n_id) or pred_pdg(graph, n_id))
 
 
 def lookup_first_cfg_parent(
@@ -645,13 +602,6 @@ def copy_cfg(graph: Graph) -> Graph:
     return _get_subgraph(
         graph=graph,
         edge_n_attrs_predicate=pred_has_labels(label_cfg="CFG"),
-    )
-
-
-def copy_pdg(graph: Graph) -> Graph:
-    return _get_subgraph(
-        graph=graph,
-        edge_n_attrs_predicate=pred_has_labels(label_pdg="PDG"),
     )
 
 

@@ -47,8 +47,6 @@ def _add_styles(graph: graph_model.Graph) -> None:
             edge_attrs["color"] = "blue"
         elif "label_cfg" in edge_attrs:
             edge_attrs["color"] = "red"
-        elif "label_pdg" in edge_attrs:
-            edge_attrs["color"] = "green"
 
 
 def _create_label(**attrs: str) -> str:
