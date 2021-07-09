@@ -1753,16 +1753,32 @@
 036:
   en:
     title: ViewState not encrypted
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The state information of application forms
+      that is stored in the ViewState is not encrypted.
+    impact: >
+      Leak app state information
+      through the ViewState value.
+    recommendation: >
+      Encrypt the ViewState
+      in the application configuration.
+    threat: >
+      Unauthenticated attacker
+      with local access to the victim's browser.
   es:
     title: ViewState no cifrado
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      La información de estado de formularios
+      almacenada en el ViewState no se encuentra cifrada.
+    impact: >
+      Fugar información de estado
+      a través del valor del ViewState.
+    recommendation: >
+      Establecer cifrado del ViewState
+      en la configuración de la aplicación.
+    threat: >
+      Atacante no autenticado con acceso local
+      al navegador de la victima.
   score:
     base:
       attack_vector: "N"
@@ -1777,21 +1793,52 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["026"]
   metadata: {}
 037:
   en:
     title: Technical information leak
-    description: __empty__
+    description: >
+      It is possible to obtain
+      technical information such as:
+      - System component versions
+        (HTTP headers, service banner, etc.)
+      - Specific information about the configuration
+        of server components (php.ini, web.config)
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      - Eliminate the services banner
+        with information leakage.
+      - Verify that HTTP headers
+        do not display any name or version.
+    threat: >
+      An unathorized user with access to the system,
+      can identify versions and components
+      that are being used by it
+      through HTTP response headers
+      or in the response to non-customized HTTP errors.
   es:
     title: Fuga de información técnica
-    description: __empty__
+    description: >
+      Se obtiene información técnica del sistema, como:
+      - versión de los componentes que el sistema utiliza
+        (encabezados HTTP, banner del servicio, etc).
+      - información específica
+        sobre la configuración de componentes
+        a nivel del servidor (php.ini, web.config).
+      - Funcionalidades que arrojan información del servidor.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      - Eliminar el banner de los servicios
+        con fuga de información.
+      - Verificar que los encabezados HTTP
+        no expongan ningún nombre o versión.
+    threat: >
+      Un usuario no autorizado con acceso al sistema
+      puede identificar versiones y/o componentes
+      que usa el sistema a través de las cabeceras HTTP
+      que responde el servidor
+      o en la respuesta a los errores HTTP no personalizados.
   score:
     base:
       attack_vector: "N"
@@ -1806,21 +1853,51 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["077", "176"]
   metadata: {}
 038:
   en:
     title: Business information leak
-    description: __empty__
+    description: >
+      It is possible to obtain business information,
+      such as:
+      - Username list
+      - Strategic information
+      - Employees information
+      - Clients information
+      - Providers information
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Based on the classification
+      of the information found,
+      establish the necessary controls
+      to guarantee that information
+      is accesible only to right users.
+    threat: >
+      An unathorized user
+      from local or external network
+      can identify business information
+      without enough protection.
   es:
     title: Fuga de información de negocio
-    description: __empty__
+    description: >
+      Se obtiene información de negocio, como:
+      - Lista de usuarios
+      - Información estratégica
+      - Información de empleados
+      - Información de clientes
+      - Información de proveedores
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      De acuerdo a la clasificación de la información encontrada,
+      establecer los controles necesarios
+      para que la información sea accesible
+      sólo a las personas indicadas.
+    threat: >
+      Un usuario no autorizado
+      desde una red interna o externa
+      puede identificar que hay información de negocio
+      sin la protección suficiente.
   score:
     base:
       attack_vector: "N"
@@ -1835,18 +1912,25 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["123", "176", "177", "261", "300"]
   metadata: {}
 039:
   en:
     title: Improper authorization control for web services
-    description: __empty__
+    description: >
+      The system's web services
+      do not have an authorization control mechanism
+      or the one in place can be bypassed.
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
     title: Control de autorización inadecuado para servicios web
-    description: __empty__
+    description: >
+      Los web services del sistema
+      pueden ser accedidos sin autorización
+      o el mecanismo de control de acceso presente
+      puede ser evitado.
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
@@ -1864,18 +1948,24 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["096", "176", "265", "320"]
   metadata: {}
 040:
   en:
     title: Exposed web services
-    description: __empty__
+    description: >
+      The system's WSDL file
+      contains sensitive information
+      and is exposed to a larger audience than required.
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
     title: Services web expuestos
-    description: __empty__
+    description: >
+      El WSDL del sistema contiene información sensible
+      y se encuentra expuesto
+      para una audiencia mayor que la necesaria.
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
@@ -1893,7 +1983,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["176", "325"]
   metadata: {}
 041:
   en:
