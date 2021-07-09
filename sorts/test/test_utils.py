@@ -70,7 +70,7 @@ def test_get_features_combinations() -> None:
 def test_get_model_item() -> None:
     expected_item = {
         "model": "adaboostclassifier",
-        "f_score": "74",
+        "f_score": 74,
         "features": "AU, LC",
         "tuned_parameters": "algorithm:samme, n_estimators:52",
     }
@@ -79,7 +79,7 @@ def test_get_model_item() -> None:
 
     expected_item = {
         "model": "mlpclassifier",
-        "f_score": "76",
+        "f_score": 76,
         "features": "AU, CF, LC",
         "tuned_parameters": "activation:tanh, solver:sgd",
     }

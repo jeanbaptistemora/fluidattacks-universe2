@@ -38,12 +38,13 @@ def get_model_item(best_model_name: str) -> Dict[str, Any]:
     item: Dict[str, Any] = {}
     model_info = best_model_name.split("-")
     item["model"] = model_info[0]
-    item["f_score"] = model_info[1]
+    item["f_score"] = int(float(model_info[1]))
     item["features"] = ", ".join(
         part
         for part in model_info[2:]
         if len(part) == 2 and not part.isnumeric()
     ).upper()
+    item["tuned_parameters"] = "n/a"
     if "tune" in best_model_name:
         tuned_parameters = MODEL_HYPERPARAMETERS[item["model"]].keys()
         tuned_parameters_values = model_info[item["features"].count(",") + 4 :]
@@ -62,7 +63,7 @@ def main() -> None:
         best_current_model: str = ""
         model_name_file: str = os.path.join(tmp_dir, "best_model.txt")
         best_previous_model: str = get_best_model_name(model_name_file)
-        best_f1: int = int(best_previous_model.split("-")[1])
+        best_f1: float = float(best_previous_model.split("-")[1])
         for obj in S3_BUCKET.objects.filter(Prefix="training-output"):
             if (
                 obj.key.endswith(".joblib")
@@ -70,7 +71,7 @@ def main() -> None:
             ):
                 # Models have the format 'class-f1-feat1-...-featn-.joblib'
                 model_name: str = os.path.basename(obj.key)
-                model_f1: int = int(model_name.split("-")[1])
+                model_f1: float = float(model_name.split("-")[1])
                 if model_f1 > best_f1:
                     best_f1 = model_f1
                     best_current_model = model_name
@@ -88,7 +89,7 @@ def main() -> None:
             S3_RESOURCE.Object(
                 S3_BUCKET_NAME, "training-output/model.joblib"
             ).upload_file(
-                os.path.join(tmp_dir, best_current_model[:-7]),
+                os.path.join(tmp_dir, best_current_model),
                 ExtraArgs={"ACL": "public-read"},
             )
             redshift.insert("models", get_model_item(best_current_model))
