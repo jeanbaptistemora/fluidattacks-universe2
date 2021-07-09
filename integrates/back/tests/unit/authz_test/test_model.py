@@ -155,6 +155,8 @@ def test_model_integrity_migrated_finding_permissions(
         "finding_new_sorts_new_resolve",
         "api_resolvers_finding_zero_risk_resolve": "api_resolvers_"
         "finding_new_zero_risk_new_resolve",
+        "api_resolvers_group_drafts_resolve": "api_resolvers_"
+        "group_drafts_new_resolve",
         "api_resolvers_query_finding_resolve": "api_resolvers_"
         "query_finding_new_resolve",
         "api_resolvers_query_finding__get_draft": "api_resolvers_"

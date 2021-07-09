@@ -6,6 +6,7 @@ from api.resolvers.group import (
     bill,
     consulting,
     drafts,
+    drafts_new,
     events,
     findings,
     findings_new,
@@ -39,7 +40,6 @@ GROUP: ObjectType = ObjectType("Group")
 GROUP.set_field("analytics", analytics.resolve)
 GROUP.set_field("bill", bill.resolve)
 GROUP.set_field("consulting", consulting.resolve)
-GROUP.set_field("drafts", drafts.resolve)
 GROUP.set_field("events", events.resolve)
 GROUP.set_field("forcesToken", forces_token.resolve)
 GROUP.set_field("organization", organization.resolve)
@@ -51,6 +51,7 @@ GROUP.set_field("totalTreatment", total_treatment.resolve)
 GROUP.set_field("userRole", user_role.resolve)
 
 if FI_API_STATUS == "migration":
+    GROUP.set_field("drafts", drafts_new.resolve)
     GROUP.set_field("findings", findings_new.resolve)
     GROUP.set_field(
         "lastClosingVulnFinding", last_closing_vuln_finding_new.resolve
@@ -62,6 +63,7 @@ if FI_API_STATUS == "migration":
     GROUP.set_field("maxSeverityFinding", max_severity_finding_new.resolve)
     GROUP.set_field("totalFindings", total_findings_new.resolve)
 else:
+    GROUP.set_field("drafts", drafts.resolve)
     GROUP.set_field("findings", findings.resolve)
     GROUP.set_field(
         "lastClosingVulnFinding", last_closing_vuln_finding.resolve

@@ -65,6 +65,7 @@ from db_model.findings.get import (
     FindingHistoricStateNewLoader,
     FindingHistoricVerificationNewLoader,
     FindingNonDeletedNewLoader,
+    GroupDraftsNewLoader,
     GroupFindingsNewLoader,
     GroupFindingsNonDeletedNewLoader,
 )
@@ -96,6 +97,7 @@ class Dataloaders(NamedTuple):
     finding_vulns_zr: FindingVulnsOnlyZeroRiskLoader
     group: GroupLoader
     group_drafts: GroupDraftsLoader
+    group_drafts_new: GroupDraftsNewLoader
     group_findings: GroupFindingsNonDeletedLoader  # Non deleted findings
     group_findings_new: GroupFindingsNonDeletedNewLoader
     group_findings_all: GroupFindingsLoader  # All findings
@@ -156,6 +158,7 @@ def get_new_context() -> Dataloaders:
         finding_vulns_zr=finding_vulns_zr_loader,
         group=GroupLoader(),
         group_drafts=GroupDraftsLoader(),
+        group_drafts_new=GroupDraftsNewLoader(),
         group_findings=GroupFindingsNonDeletedLoader(group_findings_loader),
         group_findings_new=GroupFindingsNonDeletedNewLoader(
             group_findings_new_loader
