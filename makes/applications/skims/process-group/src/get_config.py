@@ -112,12 +112,10 @@ async def main() -> None:
                 include=urls,
             ),
             path=dict(
-                include=sorted(["glob(*)"]),
+                include=sorted(["."]),
                 exclude=sorted(
                     [
                         "glob(**/.git)",
-                        "glob(**/*cordova*)",
-                        "glob(**/*dynatrace*)",
                         "glob(**/*ibmmfpf.js*)",
                         "glob(**/cryptojs/components/core.js)",
                         "glob(**/modernizr.js)",
