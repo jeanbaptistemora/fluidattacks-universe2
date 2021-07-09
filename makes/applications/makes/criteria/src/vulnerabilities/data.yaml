@@ -1244,10 +1244,21 @@
     threat: __empty__
   es:
     title: Enumeración de usuarios
-    description: __empty__
+    description: >
+      Debido a una práctica inadecuada en la configuración
+      se pueden enumerar los usuarios
+      válidos en la aplicación.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Implementar mensajes de error genéricos
+      que no le permitan a un atacante
+      discernir la existencia del usuario en el sistema
+      a través de los errores HTTP (500 o 404).
+    threat: >
+      Un usuario no autorizado desde internet
+      puede realizar un ataque de diccionario
+      a la URL objetivo para enumerar usuarios
+      con privilegios de la aplicación.
   score:
     base:
       attack_vector: "N"
@@ -1262,21 +1273,55 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["225"]
   metadata: {}
 027:
   en:
     title: Insecure file upload
-    description: __empty__
+    description: >
+      The system allows the upload of files
+      with two extensions or with unsafe ones,
+      such as .html, .php or .exe.
+      Furthermore,
+      the system does not validate
+      whether or not the file
+      is free from malicious code.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      - Validate with regular expressions
+        that the file has only one extension
+      - Validate with an antivirus software
+        that the file does not contain
+        any type of malicious code.
+      - Validate that Content Type corresponds
+        to the file's extension
+        before upload it to the server
+    threat: >
+      A user within local network
+      with access to the application can upload all 
   es:
     title: Carga de archivos insegura
-    description: __empty__
+    description: >
+      El sistema de carga de archivos
+      permite cargar archivos con doble extensión
+      y extensiones inseguras como (.html, .php, .exe),
+      tampoco se valida si el archivo está libre
+      de código malicioso o no.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      - Validar con expresiones regulares
+        que el archivo corresponda con una sola extensión.
+      - Validar con un antivirus
+        que el archivo no contenga
+        ningún tipo de código malicioso.
+      - Validar que el Content Type
+        corresponda a la extension del archivo
+        antes de subirlo al servidor.
+    threat: >
+      Un usuario en la red interna con acceso a la aplicación
+      en cuenta puede subir todo tipo de archivos
+      al servidor para efectuar ataques del tipo phishing
+      o de distribución de malware.
   score:
     base:
       attack_vector: "N"
@@ -1291,18 +1336,29 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["040", "041"]
   metadata: {}
 028:
   en:
     title: Insecure temporary files
-    description: __empty__
+    description: >
+      The system uses temporary files
+      to store sensitive information.
+      Alternatively,
+      the system deploys sensitive temporary files
+      to the production environment.
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
     title: Archivos temporales inseguros
-    description: __empty__
+    description: >
+      El sistema utiliza archivos temporales
+      para almacenar información sensibles.
+      Alternativamente,
+      el sistema despliega
+      archivos temporales sensibles
+      en ambiente de protección.
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
@@ -1320,20 +1376,31 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["036", "177"]
   metadata: {}
 029:
   en:
     title: Inadequate file size control
-    description: __empty__
+    description: >
+      The system does not perform an adequate control
+      of the size of the files
+      that can be uploaded to the server.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Implement controls
+      to limit the maximum file size
+      that can be uploaded to the server.
     threat: __empty__
   es:
     title: Control inadecuado del tamaño de archivo
-    description: __empty__
+    description: >
+      No existe un control adecuado
+      sobre el tamaño de los archivos
+      que se pueden subir al servidor.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Implementar controles
+      para limitar el máximo tamaño de archivos permitido.
     threat: __empty__
   score:
     base:
@@ -1349,21 +1416,54 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["039"]
   metadata: {}
 030:
   en:
     title: Sensitive information sent via URL parameters
-    description: __empty__
+    description: >
+      The system sends sensitive information
+      via URL parameters using the GET method.
+      These parameters are:
+      - stored in clear text in the browser history.
+      - sent to external sites via the referrer HTTP header.
+      - sent to external sites via the search bar
+        if the browser interprets the URL as a query.
+      - visible to scripts running on the browser
+        that may belong to third-parties.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Guarantee that the session's id
+      are sent through secure methods (POST)
+      or obtain the cookies' session.
+    threat: >
+      A user with access to the application's registry,
+      can view 
   es:
     title: Información sensible enviada mediante parámetros URL
-    description: __empty__
+    description: >
+      La aplicación envía información sensible (Ej: El ID de sesión)
+      como parte de los parámetros en el URL
+      a través del método GET.
+      Estos parámetros:
+      - son almacenados en el historial del navegador
+        permitiendo su visualización.
+      - son enviados en la cabecera HTTP referer a otros sitios.
+      - son enviados como petición a sitios externos
+        al poner la url en la barra del navegador
+        si este lo interpreta como consulta.
+      - son visibles por scripts corriendo en la página
+        los cuales pueden pertenecer a terceros.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Garantizar que los identificadores de sesión
+      se envían por métodos seguros (POST)
+      u obtener la sesión de las cookies.
+    threat: >
+      Un usuario con acceso a los registros de la aplicación,
+      puede ver identificadores de sesión de usuario válidos,
+      lo que le permitiría ganar acceso no autorizado a la aplicación
+      y generar una suplantación de usuario.
   score:
     base:
       attack_vector: "N"
@@ -1378,7 +1478,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["032", "181"]
   metadata: {}
 031:
   en:
