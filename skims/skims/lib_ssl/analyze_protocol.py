@@ -4,6 +4,13 @@ from lib_ssl.as_string import (
 )
 from lib_ssl.ssl_connection import (
     connect,
+    get_client_hello_package,
+    get_ec_point_formats_ext,
+    get_elliptic_curves_ext,
+    get_heartbeat_ext,
+    get_malicious_heartbeat,
+    get_session_ticket_ext,
+    read_ssl_record,
 )
 from lib_ssl.types import (
     SSLContext,
@@ -24,6 +31,9 @@ from typing import (
 )
 from utils.ctx import (
     CTX,
+)
+from utils.sockets import (
+    tcp_connect,
 )
 from zone import (
     t,
@@ -444,6 +454,60 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
+def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
+    ssl_vulnerabilities: List[SSLVulnerability] = []
+
+    for version_id in [3, 2, 1, 0]:
+        version: Tuple[int, int] = (3, version_id)
+        version_name: str = ssl_versions[version]
+        intention: str = f"check heartbleed vulnerablility with {version_name}"
+
+        sock = tcp_connect(ctx.target.host, ctx.target.port, intention)
+
+        if sock is None:
+            break
+
+        extensions: List[int] = get_ec_point_formats_ext()
+        extensions += get_elliptic_curves_ext()
+        extensions += get_session_ticket_ext()
+        extensions += get_heartbeat_ext()
+
+        package = get_client_hello_package(version_id, extensions)
+        sock.send(bytes(package))
+        handshake_record = read_ssl_record(sock)
+
+        if handshake_record is not None:
+            handshake_type, _, _ = handshake_record
+
+            if handshake_type == 22:
+                package = get_malicious_heartbeat(version_id, n_payload=16384)
+                sock.send(bytes(package))
+
+                heartbeat_record = read_ssl_record(sock)
+
+                if heartbeat_record is not None:
+                    heartbeat_type, _, _ = heartbeat_record
+
+                    if heartbeat_type == 24:
+                        ssl_vulnerabilities.append(
+                            _create_ssl_vuln(
+                                check="heartbleed_possible",
+                                line=SSLSnippetLine.max_version,
+                                ssl_settings=SSLSettings(
+                                    ctx.target.host,
+                                    ctx.target.port,
+                                    min_version=version,
+                                    max_version=version,
+                                    intention=intention,
+                                ),
+                                finding=core_model.FindingEnum.F052_TLS,
+                            )
+                        )
+        sock.close()
+
+    return _create_core_vulns(ssl_vulnerabilities)
+
+
 def get_check_ctx(ssl_ctx: SSLContext) -> SSLContext:
     return ssl_ctx
 
@@ -467,5 +531,6 @@ CHECKS: Dict[
         _tlsv1_3_disabled,
         _fallback_scsv_disabled,
         _tlsv1_3_downgrade,
+        _heartbleed_possible,
     ],
 }

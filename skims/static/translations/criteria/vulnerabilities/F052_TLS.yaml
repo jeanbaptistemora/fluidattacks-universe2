@@ -13,6 +13,9 @@ lib_ssl.analyze_protocol.fallback_scsv_disabled:
 lib_ssl.analyze_protocol.tlsv1_3_downgrade:
   en: server allows TLSv1.3 downgrade to {version}
   es: el servidor permite degradar TLSv1.3 a {version}
+lib_ssl.analyze_protocol.heartbleed_possible:
+  en: server is vulnerable to heartbleed attacks
+  es: el servidor es vulnerable a ataques heartbleed
 F052_TLS.description:
   en: The server allows the usage of old TLS protocol versions.
   es: El servidor permite utilizar versiones viejas del protocolo TLS.

@@ -31,3 +31,20 @@ def tcp_connect(
             intention,
         )
         return None
+
+
+def tcp_read(sock: socket.socket, size: int) -> Optional[bytes]:
+    try:
+        return sock.recv(size)
+    except (
+        socket.error,
+        socket.herror,
+        socket.gaierror,
+        socket.timeout,
+    ) as error:
+        log_blocking(
+            "error",
+            "%s occured reading socket",
+            type(error).__name__,
+        )
+        return None
