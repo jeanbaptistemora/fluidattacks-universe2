@@ -4,7 +4,7 @@ interface IOrganizationPortfoliosProps {
 
 interface IPortfolios {
   name: string;
-  projects: { name: string }[];
+  groups: { name: string }[];
 }
 
 interface IPortfoliosTable {

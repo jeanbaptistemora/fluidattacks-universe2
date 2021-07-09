@@ -60,8 +60,8 @@ describe("Portfolio Groups", (): void => {
     result: {
       data: {
         tag: {
+          groups: mockedResult,
           name: "test-projects",
-          projects: mockedResult,
         },
       },
     },

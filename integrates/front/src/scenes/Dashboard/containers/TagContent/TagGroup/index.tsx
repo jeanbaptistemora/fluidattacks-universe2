@@ -16,7 +16,7 @@ import { translate } from "utils/translations/translate";
 interface IPortfolio {
   tag: {
     name: string;
-    projects: { description: string; name: string }[];
+    groups: { description: string; name: string }[];
   };
 }
 
@@ -57,10 +57,10 @@ const TagsGroup: React.FC = (): JSX.Element => {
       <Row>
         <DataTableNext
           bordered={true}
-          dataset={data.tag.projects}
+          dataset={data.tag.groups}
           exportCsv={false}
           headers={tableHeaders}
-          id={"tblProjectsTag"}
+          id={"tblGroupsTag"}
           pageSize={10}
           rowEvents={{ onClick: handleRowTagClick }}
           search={true}

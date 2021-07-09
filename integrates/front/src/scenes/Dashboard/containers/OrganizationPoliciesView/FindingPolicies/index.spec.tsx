@@ -45,9 +45,7 @@ describe("Organization findings policies view", (): void => {
     result: {
       data: {
         organization: {
-          id: organizationId,
-          name: "okada",
-          projects: [
+          groups: [
             {
               findings: [
                 {
@@ -62,6 +60,8 @@ describe("Organization findings policies view", (): void => {
               name: "unitestting",
             },
           ],
+          id: organizationId,
+          name: "okada",
         },
       },
     },

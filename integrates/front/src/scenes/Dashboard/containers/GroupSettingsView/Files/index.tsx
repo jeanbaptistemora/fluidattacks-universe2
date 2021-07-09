@@ -87,7 +87,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
   const [removeFile] = useMutation(REMOVE_FILE_MUTATION, {
     onCompleted: (): void => {
       void refetch();
-      track("RemoveProjectFiles");
+      track("RemoveGroupFiles");
       msgSuccess(
         translate.t("searchFindings.tabResources.successRemove"),
         translate.t("searchFindings.tabUsers.titleSuccess")
@@ -128,7 +128,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       },
       onCompleted: (): void => {
         void refetch();
-        track("AddProjectFiles");
+        track("AddGroupFiles");
         msgSuccess(
           translate.t("searchFindings.tabResources.success"),
           translate.t("searchFindings.tabUsers.titleSuccess")

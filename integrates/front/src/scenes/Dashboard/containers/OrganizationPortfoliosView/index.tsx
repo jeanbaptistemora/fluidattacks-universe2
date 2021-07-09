@@ -47,8 +47,8 @@ const OrganizationPortfolios: React.FC<IOrganizationPortfoliosProps> = (
   ): IPortfoliosTable[] =>
     portfoliosList.map(
       (portfolio: IPortfolios): IPortfoliosTable => ({
-        groups: formatPortfolioDescription(portfolio.projects),
-        nGroups: portfolio.projects.length,
+        groups: formatPortfolioDescription(portfolio.groups),
+        nGroups: portfolio.groups.length,
         portfolio: portfolio.name,
       })
     );

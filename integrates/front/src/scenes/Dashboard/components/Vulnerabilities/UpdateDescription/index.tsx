@@ -152,7 +152,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     });
 
   const { data } = useQuery<IGroupUsersAttr>(GET_GROUP_USERS, {
-    skip: permissions.cannot("api_resolvers_project__get_users"),
+    skip: permissions.cannot("api_resolvers_group_stakeholders_resolve"),
     variables: {
       groupName,
     },

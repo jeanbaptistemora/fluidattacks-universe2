@@ -18,7 +18,7 @@ const GroupSettingsView: React.FC = (): JSX.Element => {
 
   // Side effects
   const onMount: () => void = (): void => {
-    track("ProjectResources");
+    track("GroupResources");
   };
   useEffect(onMount, []);
 

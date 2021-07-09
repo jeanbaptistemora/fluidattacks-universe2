@@ -118,13 +118,13 @@ const FindingPolicies: React.FC<IFindingPolicies> = ({
 
   useEffect((): void => {
     const findingNames: string[] = _.flatten(
-      data?.organization.projects.map(
+      data?.organization.groups.map(
         (
-          group: IOrganizationFindingTitles["organization"]["projects"][0]
+          group: IOrganizationFindingTitles["organization"]["groups"][0]
         ): string[] =>
           group.findings.map(
             (
-              finding: IOrganizationFindingTitles["organization"]["projects"][0]["findings"][0]
+              finding: IOrganizationFindingTitles["organization"]["groups"][0]["findings"][0]
             ): string => _.first(finding.title.split(" -")) as string
           )
       )

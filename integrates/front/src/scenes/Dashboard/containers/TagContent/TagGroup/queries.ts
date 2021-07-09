@@ -5,7 +5,7 @@ export const PORTFOLIO_GROUP_QUERY: DocumentNode = gql`
   query GetPortfoliosGroups($tag: String!) {
     tag(tag: $tag) {
       name
-      projects {
+      groups {
         description
         name
       }

@@ -56,7 +56,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
   const [addTags] = useMutation(ADD_TAGS_MUTATION, {
     onCompleted: (): void => {
       void refetch();
-      track("AddProjectTags");
+      track("AddGroupTags");
       msgSuccess(
         translate.t("searchFindings.tabResources.success"),
         translate.t("searchFindings.tabUsers.titleSuccess")

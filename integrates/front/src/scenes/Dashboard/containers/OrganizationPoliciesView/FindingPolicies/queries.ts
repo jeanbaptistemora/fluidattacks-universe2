@@ -22,7 +22,7 @@ const GET_ORGANIZATION_FINDINGS_TITLES: DocumentNode = gql`
     organization(organizationId: $organizationId) {
       id
       name
-      projects {
+      groups {
         name
         findings {
           id

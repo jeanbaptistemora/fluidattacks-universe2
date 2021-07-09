@@ -17,7 +17,7 @@ interface IFindingPoliciesForm {
 interface IOrganizationFindingTitles {
   organization: {
     id: string;
-    projects: {
+    groups: {
       name: string;
       findings: {
         id: string;

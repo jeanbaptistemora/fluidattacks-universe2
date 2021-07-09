@@ -15,7 +15,7 @@ const GET_USER_PORTFOLIOS: DocumentNode = gql`
     me(callerOrigin: "FRONT") {
       tags(organizationId: $organizationId) {
         name
-        projects {
+        groups {
           name
         }
       }
