@@ -112,10 +112,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
               name={"Mobile Applications"}
             />
             <BodyLink link={"/systems/thick-clients/"} name={"Thick Clients"} />
-            <BodyLink
-              link={"/systems/apis/"}
-              name={"API's and Microservices"}
-            />
+            <BodyLink link={"/systems/apis/"} name={"APIs and Microservices"} />
             <BodyLink
               link={"/systems/cloud-infrastructure/"}
               name={"Cloud Infrastructure"}
