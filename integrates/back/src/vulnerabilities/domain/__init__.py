@@ -41,7 +41,9 @@ from .verification import (
     get_efficacy,
     get_efficacy_new,
     get_last_reattack_date,
+    get_last_reattack_date_new,
     get_last_requested_reattack_date,
+    get_last_requested_reattack_date_new,
     get_reattack_cycles,
     get_reattack_cycles_new,
 )
@@ -88,7 +90,9 @@ __all__ = [
     "get_efficacy",
     "get_efficacy_new",
     "get_last_reattack_date",
+    "get_last_reattack_date_new",
     "get_last_requested_reattack_date",
+    "get_last_requested_reattack_date_new",
     "get_reattack_cycles",
     "get_reattack_cycles_new",
 ]
