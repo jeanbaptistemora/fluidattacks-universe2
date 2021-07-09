@@ -20,9 +20,6 @@ from returns.curry import (
 from returns.io import (
     IO,
 )
-from returns.primitives.types import (
-    Immutable,
-)
 from returns.result import (
     Failure,
     Result,
@@ -57,7 +54,6 @@ from tap_gitlab.intervals.fragmented import (
 )
 from tap_gitlab.intervals.interval import (
     IntervalFactory,
-    InvalidInterval,
     MIN,
     OpenLeftInterval,
 )

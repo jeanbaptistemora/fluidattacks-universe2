@@ -21,6 +21,7 @@ from tap_gitlab.intervals.patch import (
 )
 from tap_gitlab.state import (
     factories,
+    JobStatePoint,
 )
 from tap_gitlab.state._objs import (
     EtlState,
@@ -32,9 +33,6 @@ from tap_gitlab.state._objs import (
 from tap_gitlab.streams import (
     StreamDecoder,
 )
-from typing import (
-    Tuple,
-)
 
 
 class DecodeError(Exception):
@@ -45,7 +43,7 @@ class DecodeError(Exception):
 class StateDecoder:
     s_decoder: StreamDecoder
     i_decoder: IntervalDecoder[datetime]
-    i_decoder_2: IntervalDecoder[Tuple[int, PageId[int]]]
+    i_decoder_2: IntervalDecoder[JobStatePoint]
 
     def decode_mrstm_state(self, raw: JSON) -> MrStreamState:
         if raw.get("type") == "MrStreamState":
@@ -105,13 +103,13 @@ i_decoder: IntervalDecoder[datetime] = IntervalDecoder(
 )
 
 
-def decode_page_mark(raw: JSON) -> Tuple[int, PageId[int]]:
+def decode_page_mark(raw: JSON) -> JobStatePoint:
     obj = raw["id-page"]
     page = PageId(int(obj[1]), int(obj[2]))
-    return (obj[0], page)
+    return JobStatePoint(obj[0], page)
 
 
-i_decoder_2: IntervalDecoder[Tuple[int, PageId[int]]] = IntervalDecoder(
+i_decoder_2: IntervalDecoder[JobStatePoint] = IntervalDecoder(
     factories.f_factory_2, factories.fp_factory_2, Patch(decode_page_mark)
 )
 s_decoder = StreamDecoder()

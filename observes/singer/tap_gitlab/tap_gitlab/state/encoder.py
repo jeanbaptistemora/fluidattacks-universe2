@@ -4,9 +4,6 @@ from dataclasses import (
 from datetime import (
     datetime,
 )
-from paginator.pages import (
-    PageId,
-)
 from singer_io import (
     JSON,
 )
@@ -16,6 +13,7 @@ from tap_gitlab.intervals.encoder import (
 from tap_gitlab.state._objs import (
     EtlState,
     JobStateMap,
+    JobStatePoint,
     JobStreamState,
     MrStateMap,
     MrStreamState,
@@ -23,15 +21,12 @@ from tap_gitlab.state._objs import (
 from tap_gitlab.streams import (
     StreamEncoder,
 )
-from typing import (
-    Tuple,
-)
 
 
 @dataclass(frozen=True)
 class StateEncoder:
     i_encoder: IntervalEncoder[datetime]
-    i_encoder_2: IntervalEncoder[Tuple[int, PageId[int]]]
+    i_encoder_2: IntervalEncoder[JobStatePoint]
     stream_encoder: StreamEncoder
 
     def encode_mrstm_state(self, state: MrStreamState) -> JSON:
@@ -93,7 +88,7 @@ class StateEncoder:
 i_encoder: IntervalEncoder[datetime] = IntervalEncoder(
     lambda time: {"datetime": time.isoformat()}
 )
-i_encoder_2: IntervalEncoder[Tuple[int, PageId[int]]] = IntervalEncoder(
+i_encoder_2: IntervalEncoder[JobStatePoint] = IntervalEncoder(
     lambda item: {"id-page": (item[0], item[1].page, item[1].per_page)}
 )
 _stm_encoder = StreamEncoder()

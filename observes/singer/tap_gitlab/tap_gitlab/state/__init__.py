@@ -5,6 +5,7 @@ import pytz
 from tap_gitlab.state._objs import (
     EtlState,
     JobStateMap,
+    JobStatePoint,
     JobStreamState,
     MrStateMap,
     MrStreamState,
@@ -28,6 +29,7 @@ def update_state(state: EtlState) -> EtlState:
 __all__ = [
     "MrStreamState",
     "JobStreamState",
+    "JobStatePoint",
     "MrStateMap",
     "JobStateMap",
     "EtlState",

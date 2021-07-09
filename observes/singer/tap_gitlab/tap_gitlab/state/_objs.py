@@ -15,8 +15,12 @@ from typing import (
     Dict,
     NamedTuple,
     Optional,
-    Tuple,
 )
+
+
+class JobStatePoint(NamedTuple):
+    item_id: int
+    last_seen: PageId[int]
 
 
 class MrStreamState(NamedTuple):
@@ -24,7 +28,7 @@ class MrStreamState(NamedTuple):
 
 
 class JobStreamState(NamedTuple):
-    state: FragmentedProgressInterval[Tuple[int, PageId[int]]]
+    state: FragmentedProgressInterval[JobStatePoint]
 
 
 class MrStateMap(NamedTuple):
