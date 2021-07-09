@@ -96,7 +96,7 @@ value `0x80070057` is an standardize error code from Microsoft which is
 the parameters passed by the caller code are not valid.
 
 So, what would happen if we modify the `AmsiScanBuffer()` function in memory
-to bypass altogether the anti-malware checking instructions and force it
+to bypass the anti-malware checking instructions altogether and force it
 to always return `0x80070057`? Let's check it!
 
 First, let's check that instructions using WinDBG:
@@ -141,6 +141,14 @@ using `eq amsi!AmsiScanBuffer c380070057b8`.
 Let's check the bypass in action:
 
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1625837525/blog/amsi-bypass/success1_e0ak8t.webp[AMSI Bypass]
+
+But returning `80070057` is not the only way to bypass `AmsiScanBuffer()`.
+In fact, we can make it return `0`, using something like `sub eax,eax | ret`
+and the bypass will be successful as well.
+
+Let's see:
+
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1625854245/blog/amsi-bypass/success2_zrp8re.webp[AMSI Bypass v2]
 
 Success! Now we can use `PowerView`, `Invoke-Mimikatz` or any other
  link:../../solutions/red-teaming[Red Team] tools!
