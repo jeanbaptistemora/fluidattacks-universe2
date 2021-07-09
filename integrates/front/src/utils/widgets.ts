@@ -42,6 +42,9 @@ const hideZendesk = (): void => {
 
 const initializeZendesk = (userEmail: string, userName: string): void => {
   const { zE } = window as IZendesk & typeof window;
+  zE("webWidget", "updateSettings", {
+    webWidget: { navigation: { popoutButton: { enabled: false } } },
+  });
   zE("webWidget", "hide");
   zE("webWidget:on", "open", showZendesk);
   zE("webWidget:on", "close", hideZendesk);

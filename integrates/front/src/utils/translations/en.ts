@@ -821,6 +821,9 @@ export const enTranslations: ResourceKey = {
       text: "Configuration",
       tooltip: "Some additional configurations here",
     },
+    help: {
+      chat: "Live Chat",
+    },
     logout: {
       text: "Log out",
       tooltip: "Log out of ASM",
