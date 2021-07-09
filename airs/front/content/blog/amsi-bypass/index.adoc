@@ -1,7 +1,7 @@
 :page-slug: amsi-bypass/
 :page-date: 2021-07-09
 :page-category: attacks
-:page-subtitle: Bypassing AMSI using memory patching
+:page-subtitle: Dynamic in-memory AMSI bypass
 :page-tags: vulnerability, hacking, exploit, discovery
 :page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1625837523/blog/amsi-bypass/cover-amsi-bypass_sa9bdi.webp
 :page-alt: Photo by Calvin Ma on Unsplash
@@ -21,7 +21,7 @@ whenever we want to load a fancy PowerShell module like
 link:https://github.com/PowerShellMafia/PowerSploit/tree/master/Recon[PowerView]
 or
 link:https://github.com/PowerShellMafia/PowerSploit/tree/master/Exfiltration[Invoke-Mimikatz]
-in the middle of a link:../../pages/solutions/red-teaming[Red Team] engagement.
+in the middle of a link:../../solutions/red-teaming[Red Team] engagement.
 
 Antimalware Scan Interface or `AMSI` is an programmatic resource offered by
 Microsoft to enable an interface to any application for interacting with
@@ -36,7 +36,7 @@ link:https://docs.microsoft.com/en-us/windows/win32/amsi/antimalware-scan-interf
 functions and  the `IAmsiStream` `COM`
 link:https://docs.microsoft.com/en-us/windows/win32/api/amsi/nn-amsi-iamsistream[interface].
 
-Technically, if an application was built with `AMSI`, `amsi.dll` will become
+As result, if an application was built with `AMSI`, `amsi.dll` will become
 part of the runtime modules of the application. Hence, it is seen as a `DLL`
 that is loaded at runtime when the application starts. The basic architecture
 of `AMSI` is the following:
@@ -143,9 +143,10 @@ Let's check the bypass in action:
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1625837525/blog/amsi-bypass/success1_e0ak8t.webp[AMSI Bypass]
 
 Success! Now we can use `PowerView`, `Invoke-Mimikatz` or any other
- link:../../pages/solutions/red-teaming[Red Team] tools!
+ link:../../solutions/red-teaming[Red Team] tools!
 
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1625837515/blog/amsi-bypass/tools1_t2h47m.webp[AMSI Bypass]
+
 
 == Conclusion
 
