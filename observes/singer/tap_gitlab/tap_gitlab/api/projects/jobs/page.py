@@ -31,7 +31,6 @@ from tap_gitlab.api.raw_client import (
 from typing import (
     List,
     NamedTuple,
-    Optional,
 )
 
 
@@ -66,6 +65,14 @@ class JobsPage(Immutable):
         for prop, val in obj._asdict().items():
             object.__setattr__(self, prop, val)
         return self
+
+    @property
+    def min_id(self) -> int:
+        return int(self.data[-1]["id"])
+
+    @property
+    def max_id(self) -> int:
+        return int(self.data[0]["id"])
 
 
 def _ensure_non_empty_data(page: _JobsPage) -> Maybe[JobsPage]:

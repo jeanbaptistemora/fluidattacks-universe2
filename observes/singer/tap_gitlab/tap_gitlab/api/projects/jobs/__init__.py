@@ -37,6 +37,10 @@ from typing import (
 )
 
 
+class NotFound(Exception):
+    pass
+
+
 class JobApi(NamedTuple):
     client: PageClient
     proj: ProjectId
@@ -52,3 +56,14 @@ class JobApi(NamedTuple):
             )
 
         return IO(get_until_end(start, getter, 10))
+
+    def search_item_page(
+        self, item_id: int, start: PageId[int]
+    ) -> IO[Maybe[PageId[int]]]:
+        pages = unsafe_perform_io(self.list_all(start))
+        for page in pages:
+            if page.min_id >= item_id:
+                if page.max_id <= item_id:
+                    return IO(Maybe.from_value(page.page))
+                return IO(Maybe.empty)
+        return IO(Maybe.empty)
