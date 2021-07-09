@@ -1988,16 +1988,35 @@
 041:
   en:
     title: Enabled default credentials
-    description: __empty__
+    description: >
+      It is possible to use low-strength,
+      default credentials to access system resources,
+      such as the database.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Eliminate the credentials
+      from the storage manager
+      to avoid login attempts with those.
+    threat: >
+      An unathorized user
+      can login by guessing default passwords
+      used in the application.
   es:
     title: Credenciales for defecto habilitadas
-    description: __empty__
+    description: >
+      Se encuentran credenciales
+      por defecto de baja fortaleza
+      las cuales aún están presentes
+      en la base de datos de la aplicación.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Eliminar las credenciales del gestor de almacenamiento
+      para evitar inicios de sesión con estas.
+    threat: >
+      Un usuario no autorizado
+      puede iniciar sesión
+      adivinando contraseñas por defecto
+      presentes en los distintos softwares en la aplicación.
   score:
     base:
       attack_vector: "N"
@@ -2017,16 +2036,35 @@
 042:
   en:
     title: Insecurely generated cookies
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The system does not set security attributes
+      for sensitive cookies,
+      which could cause them to be sent in plain text
+      or disclosed by unauthorized users
+      on the client side.
+    impact: >
+      Send plain text session cookies through insecure channels.
+    recommendation: >
+      The application must set
+      the corresponding security attributes
+      when cookies are generated.
+    threat: Unauthenticated attacker from the Internet.
   es:
     title: Cookies generadas de forma insegura
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      El sistema no establece los atributos de seguridad
+      para las cookies sensibles,
+      lo que podría hacer que se envíen en texto plano
+      o sean visualizadas por usuarios no autorizados
+      del lado del cliente.
+    impact: >
+      Enviar cookies de sesión en texto plano
+      a través de canales inseguro.
+    recommendation: >
+      La aplicación debe establecer
+      los correspondientes atributos de seguridad
+      cuando se generan las cookies.
+    threat: Atacante no autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -2041,21 +2079,41 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["029"]
   metadata: {}
 043:
   en:
     title: Missing HTTP security headers - Content-Security-Policy
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The server is missing
+      the Content-Security-Policy HTTP header.
+      Alternatively,
+      the header's configuration is not secure enough.
+    impact: >
+      - Embed content, scripts, blobs
+        or images from potencially malicious sources.
+      - Make possible to carry attacks like
+        Cross-Site Scripting, Cross-Site Leaks, among others.
+    recommendation: >
+      Set the Content-Security-Policy header
+      and configure it in a secure way.
+    threat: Unauthorized attacker from Internet.
   es:
     title: Cabeceras de seguridad HTTP no establecidas - Content-Security-Policy
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      El servidor carece del encabezado
+      HTTP Content-Security-Policy.
+      Alternativamente,
+      el valor del mismo no es suficientemente fuerte.
+    impact: >
+      - Incluir contenido, scripts, binarios
+        o imagenes desde fuentes potencialmente maliciosas.
+      - Aumentar la probabilidad de llevar a cabo ataques como
+        Cross-Site Scripting, Cross-Site Leaks, entre otros.
+    recommendation: >
+      Establecer la cabecera Content-Security-Policy
+      y configurarla de forma segura.
+    threat: Atacante sin autorización desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -2070,21 +2128,46 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["062", "175"]
   metadata: {}
 044:
   en:
     title: Insecure HTTP methods enabled
-    description: __empty__
+    description: >
+      HTTP methods such as TRACE, PUT and DELETE
+      are enabled on the server.
+      These methods may allow an attacker
+      to include and/or delete files,
+      or perform cross-site tracing attacks.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Configure secure methods
+      for server's requests.
+    threat: >
+      An unathorized user
+      from local network can modify
+      requests to the server
+      allowing to delete, include files,
+      view the request's debug,
+      view which methods the server accepts.
   es:
     title: Métodos HTTP inseguros habilitados
-    description: __empty__
+    description: >
+      Métodos como TRACE, PUT, DELETE
+      se encuentran habilitados en el servidor
+      permitiendo al atacante incluir y/o borrar archivos,
+      permite saber cuales otros métodos son permitidos
+      o usar la depuración en las página que lo permiten.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Configurar los métodos seguros
+      para las peticiones en el servidor.
+    threat: >
+      Un usuario no autorizado desde la red interna
+      puede alterar las peticiones al servidor
+      permitiéndole eliminar, incluir archivos,
+      ver la depuración de la petición,
+      ver que métodos acepta el servidor.
   score:
     base:
       attack_vector: "N"
@@ -2099,21 +2182,46 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["266"]
   metadata: {}
 045:
   en:
     title: HTML code injection
-    description: __empty__
+    description: >
+      The application's fields
+      allow the injection of HTML code.
+      This could enable attackers
+      to modify the application's appearance
+      in order to trick its users
+      into performing undesired actions.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Filter the information
+      that comes from text fields
+      with regular expressions
+      or white lists to avoid injections.
+    threat: >
+      A user can inject HTML code on a field
+      that will be executed on the server
+      causing a modification on the web page.
   es:
     title: Inyección de código HTML
-    description: __empty__
+    description: >
+      Los campos de la aplicación
+      permiten inyectar código HTML
+      lo cual posibilita cambiar el aspecto de la página
+      engañando a las víctimas
+      una vez consultada la funcionalidad afectada.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Filtrar la información
+      que venga de los campos de texto
+      con expresiones regulares
+      o listas blancas para evitar inyecciones.
+    threat: >
+      Un usuario puede inyectar código HTML
+      en un campo que se ejecutarán en el navegador
+      causando un cambio de aspecto en la página web.
   score:
     base:
       attack_vector: "N"
@@ -2128,7 +2236,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["173"]
   metadata: {}
 046:
   en:
