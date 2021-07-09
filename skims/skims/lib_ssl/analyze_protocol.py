@@ -31,24 +31,21 @@ from zone import (
 
 
 def _create_core_vulns(
-    ssl_settings: SSLSettings,
     ssl_vulnerabilities: List[SSLVulnerability],
-    finding: core_model.FindingEnum,
 ) -> core_model.Vulnerabilities:
     return tuple(
         core_model.Vulnerability(
-            finding=finding,
+            finding=ssl_vulnerability.finding,
             kind=core_model.VulnerabilityKindEnum.INPUTS,
             namespace=CTX.config.namespace,
             state=core_model.VulnerabilityStateEnum.OPEN,
             stream="home,socket-send,socket-response",
-            what=ssl_settings.get_target(),
+            what=ssl_vulnerability.ssl_settings.get_target(),
             where=ssl_vulnerability.description,
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
-                cwe=(finding.value.cwe,),
+                cwe=(ssl_vulnerability.finding.value.cwe,),
                 description=ssl_vulnerability.description,
                 snippet=snippet(
-                    ssl_settings=ssl_settings,
                     ssl_vulnerability=ssl_vulnerability,
                 ),
             ),
@@ -60,10 +57,14 @@ def _create_core_vulns(
 def _create_ssl_vuln(
     check: str,
     line: SSLSnippetLine,
+    ssl_settings: SSLSettings,
+    finding: core_model.FindingEnum,
     check_kwargs: Optional[Dict[str, str]] = None,
 ) -> SSLVulnerability:
     return SSLVulnerability(
         line=line,
+        finding=finding,
+        ssl_settings=ssl_settings,
         description=t(
             f"lib_ssl.analyze_protocol.{check}", **(check_kwargs or {})
         ),
@@ -88,15 +89,13 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
             ssl_vulnerabilities.append(
                 _create_ssl_vuln(
                     check="pfs_disabled",
+                    ssl_settings=ssl_settings,
                     line=SSLSnippetLine.key_exchange,
+                    finding=core_model.FindingEnum.F052_PFS,
                 )
             )
 
-    return _create_core_vulns(
-        ssl_settings=ssl_settings,
-        ssl_vulnerabilities=ssl_vulnerabilities,
-        finding=core_model.FindingEnum.F052_PFS,
-    )
+    return _create_core_vulns(ssl_vulnerabilities)
 
 
 def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
@@ -117,15 +116,13 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
             ssl_vulnerabilities.append(
                 _create_ssl_vuln(
                     check="sslv3_enabled",
+                    ssl_settings=ssl_settings,
                     line=SSLSnippetLine.max_version,
+                    finding=core_model.FindingEnum.F052_SSLV3,
                 )
             )
 
-    return _create_core_vulns(
-        ssl_settings=ssl_settings,
-        ssl_vulnerabilities=ssl_vulnerabilities,
-        finding=core_model.FindingEnum.F052_SSLV3,
-    )
+    return _create_core_vulns(ssl_vulnerabilities)
 
 
 def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
@@ -147,15 +144,13 @@ def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
             ssl_vulnerabilities.append(
                 _create_ssl_vuln(
                     check="tlsv1_enabled",
+                    ssl_settings=ssl_settings,
                     line=SSLSnippetLine.max_version,
+                    finding=core_model.FindingEnum.F052_TLS,
                 )
             )
 
-    return _create_core_vulns(
-        ssl_settings=ssl_settings,
-        ssl_vulnerabilities=ssl_vulnerabilities,
-        finding=core_model.FindingEnum.F052_TLS,
-    )
+    return _create_core_vulns(ssl_vulnerabilities)
 
 
 def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
@@ -177,15 +172,13 @@ def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
             ssl_vulnerabilities.append(
                 _create_ssl_vuln(
                     check="tlsv1_1_enabled",
+                    ssl_settings=ssl_settings,
                     line=SSLSnippetLine.max_version,
+                    finding=core_model.FindingEnum.F052_TLS,
                 )
             )
 
-    return _create_core_vulns(
-        ssl_settings=ssl_settings,
-        ssl_vulnerabilities=ssl_vulnerabilities,
-        finding=core_model.FindingEnum.F052_TLS,
-    )
+    return _create_core_vulns(ssl_vulnerabilities)
 
 
 def _tlsv1_3_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
@@ -207,15 +200,13 @@ def _tlsv1_3_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
             ssl_vulnerabilities.append(
                 _create_ssl_vuln(
                     check="tlsv1_3_disabled",
+                    ssl_settings=ssl_settings,
                     line=SSLSnippetLine.max_version,
+                    finding=core_model.FindingEnum.F052_TLS,
                 )
             )
 
-    return _create_core_vulns(
-        ssl_settings=ssl_settings,
-        ssl_vulnerabilities=ssl_vulnerabilities,
-        finding=core_model.FindingEnum.F052_TLS,
-    )
+    return _create_core_vulns(ssl_vulnerabilities)
 
 
 def _anonymous_suits_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
@@ -236,15 +227,13 @@ def _anonymous_suits_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
             ssl_vulnerabilities.append(
                 _create_ssl_vuln(
                     check="anonymous_suits_allowed",
+                    ssl_settings=ssl_settings,
                     line=SSLSnippetLine.key_exchange,
+                    finding=core_model.FindingEnum.F052_ANON,
                 )
             )
 
-    return _create_core_vulns(
-        ssl_settings=ssl_settings,
-        ssl_vulnerabilities=ssl_vulnerabilities,
-        finding=core_model.FindingEnum.F052_ANON,
-    )
+    return _create_core_vulns(ssl_vulnerabilities)
 
 
 def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
@@ -265,15 +254,13 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
             ssl_vulnerabilities.append(
                 _create_ssl_vuln(
                     check="weak_ciphers_allowed",
+                    ssl_settings=ssl_settings,
                     line=SSLSnippetLine.ciphers,
+                    finding=core_model.FindingEnum.F052,
                 )
             )
 
-    return _create_core_vulns(
-        ssl_settings=ssl_settings,
-        ssl_vulnerabilities=ssl_vulnerabilities,
-        finding=core_model.FindingEnum.F052,
-    )
+    return _create_core_vulns(ssl_vulnerabilities)
 
 
 def _beast_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
@@ -297,15 +284,13 @@ def _beast_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                 ssl_vulnerabilities.append(
                     _create_ssl_vuln(
                         check="beast_possible",
+                        ssl_settings=ssl_settings,
                         line=SSLSnippetLine.max_version,
+                        finding=core_model.FindingEnum.F052_CBC,
                     )
                 )
 
-    return _create_core_vulns(
-        ssl_settings=ssl_settings,
-        ssl_vulnerabilities=ssl_vulnerabilities,
-        finding=core_model.FindingEnum.F052_CBC,
-    )
+    return _create_core_vulns(ssl_vulnerabilities)
 
 
 def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
@@ -329,15 +314,13 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                 ssl_vulnerabilities.append(
                     _create_ssl_vuln(
                         check="cbc_enabled",
+                        ssl_settings=ssl_settings,
                         line=SSLSnippetLine.ciphers,
+                        finding=core_model.FindingEnum.F052_CBC,
                     )
                 )
 
-    return _create_core_vulns(
-        ssl_settings=ssl_settings,
-        ssl_vulnerabilities=ssl_vulnerabilities,
-        finding=core_model.FindingEnum.F052_CBC,
-    )
+    return _create_core_vulns(ssl_vulnerabilities)
 
 
 def _sweet32_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
@@ -360,15 +343,13 @@ def _sweet32_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
             ssl_vulnerabilities.append(
                 _create_ssl_vuln(
                     check="sweet32_possible",
+                    ssl_settings=ssl_settings,
                     line=SSLSnippetLine.ciphers,
+                    finding=core_model.FindingEnum.F052_CBC,
                 )
             )
 
-    return _create_core_vulns(
-        ssl_settings=ssl_settings,
-        ssl_vulnerabilities=ssl_vulnerabilities,
-        finding=core_model.FindingEnum.F052_CBC,
-    )
+    return _create_core_vulns(ssl_vulnerabilities)
 
 
 def _server_supports_tls(ctx: SSLContext, version: Tuple[int, int]) -> bool:
@@ -420,15 +401,13 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
             ssl_vulnerabilities.append(
                 _create_ssl_vuln(
                     check="fallback_scsv_disabled",
+                    ssl_settings=ssl_settings,
                     line=SSLSnippetLine.max_version,
+                    finding=core_model.FindingEnum.F052_TLS,
                 )
             )
 
-    return _create_core_vulns(
-        ssl_settings=ssl_settings,
-        ssl_vulnerabilities=ssl_vulnerabilities,
-        finding=core_model.FindingEnum.F052_TLS,
-    )
+    return _create_core_vulns(ssl_vulnerabilities)
 
 
 def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
@@ -455,16 +434,14 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
                 ssl_vulnerabilities.append(
                     _create_ssl_vuln(
                         check="tlsv1_3_downgrade",
+                        ssl_settings=ssl_settings,
                         line=SSLSnippetLine.max_version,
+                        finding=core_model.FindingEnum.F052_TLS,
                         check_kwargs={"version": f"{ssl_versions[version]}"},
                     )
                 )
 
-    return _create_core_vulns(
-        ssl_settings=ssl_settings,
-        ssl_vulnerabilities=ssl_vulnerabilities,
-        finding=core_model.FindingEnum.F052_TLS,
-    )
+    return _create_core_vulns(ssl_vulnerabilities)
 
 
 def get_check_ctx(ssl_ctx: SSLContext) -> SSLContext:

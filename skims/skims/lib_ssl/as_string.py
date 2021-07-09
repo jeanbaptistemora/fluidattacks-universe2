@@ -1,5 +1,4 @@
 from lib_ssl.types import (
-    SSLSettings,
     SSLVulnerability,
 )
 from typing import (
@@ -22,10 +21,11 @@ ssl_versions: Dict[Tuple[int, int], str] = {
 
 
 def snippet(
-    ssl_settings: SSLSettings,
     ssl_vulnerability: SSLVulnerability,
     columns_per_line: int = SNIPPETS_COLUMNS,
 ) -> str:
+    ssl_settings = ssl_vulnerability.ssl_settings
+
     host: str = ssl_settings.host
     port: int = ssl_settings.port
     min_version: str = ssl_versions[ssl_settings.min_version]

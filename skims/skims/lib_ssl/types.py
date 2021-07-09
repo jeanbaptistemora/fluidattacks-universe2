@@ -74,6 +74,8 @@ class SSLSnippetLine(Enum):
 class SSLVulnerability(NamedTuple):
     description: str
     line: SSLSnippetLine
+    ssl_settings: SSLSettings
+    finding: core_model.FindingEnum
 
     def get_line(self) -> int:
         return self.line.value
