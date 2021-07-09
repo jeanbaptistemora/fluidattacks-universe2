@@ -32,7 +32,7 @@ def error(*args: Any, extra: Any = None) -> None:
     LOGGER_CONSOLE.error(*args, extra=dict(extra=extra))
 
 
-async def skims_queue(
+async def machine_queue(
     *,
     finding_code: Optional[str] = None,
     finding_title: Optional[str] = None,
@@ -40,7 +40,7 @@ async def skims_queue(
     namespace: str,
     urgent: bool,
 ) -> None:
-    skims_queue_kwargs = dict(
+    machine_queue_kwargs = dict(
         finding_code=finding_code,
         finding_title=finding_title,
         group=group_name,
@@ -49,9 +49,11 @@ async def skims_queue(
         product_api_token=PRODUCT_API_TOKEN,
     )
 
-    info("Queueing Skims", extra=skims_queue_kwargs)
-    if not await skims_sdk.queue(**skims_queue_kwargs):
-        error("Could not queue a skims execution", extra=skims_queue_kwargs)
+    info("Queueing Machine", extra=machine_queue_kwargs)
+    if not await skims_sdk.queue(**machine_queue_kwargs):
+        error(
+            "Could not queue a machine execution", extra=machine_queue_kwargs
+        )
 
 
 def scheduler_send_mail(

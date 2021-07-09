@@ -9,7 +9,7 @@ from newutils.utils import (
 )
 from schedulers.common import (
     info,
-    skims_queue,
+    machine_queue,
 )
 from vulnerabilities.domain.utils import (
     get_root_nicknames_for_skims,
@@ -43,7 +43,7 @@ async def main() -> None:
                     group=get_key_or_fallback(finding),
                     vulnerabilities=vulns_to_reattack,
                 ):
-                    await skims_queue(
+                    await machine_queue(
                         finding_title=finding_title,
                         group_name=group,
                         namespace=root,

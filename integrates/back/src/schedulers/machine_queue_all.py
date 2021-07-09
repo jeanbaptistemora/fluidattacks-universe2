@@ -8,7 +8,7 @@ from groups.domain import (
 import random
 from schedulers.common import (
     info,
-    skims_queue,
+    machine_queue,
 )
 import skims_sdk
 from typing import (
@@ -32,7 +32,7 @@ async def main() -> None:
 
     for group, check, namespace in jobs:
         info("%s-%s-%s", group, check, namespace)
-        await skims_queue(
+        await machine_queue(
             finding_code=check,
             group_name=group,
             namespace=namespace,

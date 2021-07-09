@@ -551,7 +551,7 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
         await notifications_domain.new_group(
             description=description,
             group_name=group_name,
-            has_drills=has_squad,
+            has_squad=has_squad,
             requester_email=user_email,
             subscription=subscription,
         )
@@ -704,7 +704,7 @@ async def edit(
             had_machine=cast(
                 List[Dict[str, bool]], item["historic_configuration"]
             )[-1]["has_skims"],
-            had_drills=(
+            had_squad=(
                 cast(
                     bool,
                     cast(
@@ -717,7 +717,7 @@ async def edit(
             ),
             had_asm=True,
             has_machine=has_machine,
-            has_drills=has_squad,
+            has_squad=has_squad,
             has_asm=has_asm,
             reason=reason,
             requester_email=requester_email,

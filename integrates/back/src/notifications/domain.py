@@ -107,10 +107,10 @@ async def edit_group(
     comments: str,
     group_name: str,
     had_machine: bool,
-    had_drills: bool,
+    had_squad: bool,
     had_asm: bool,
     has_machine: bool,
-    has_drills: bool,
+    has_squad: bool,
     has_asm: bool,
     reason: str,
     requester_email: str,
@@ -142,8 +142,8 @@ async def edit_group(
                     from: {translations[had_machine]}
                     to: {translations[has_machine]}
                 - Squad:
-                    from: {translations[had_drills]}
-                    to: {translations[has_drills]}
+                    from: {translations[had_squad]}
+                    to: {translations[has_squad]}
                 - Comments: {html.escape(comments, quote=True)}
                 - Reason: {reason}
 
@@ -159,7 +159,7 @@ async def new_group(
     *,
     description: str,
     group_name: str,
-    has_drills: bool,
+    has_squad: bool,
     requester_email: str,
     subscription: str,
 ) -> bool:
@@ -183,7 +183,7 @@ async def new_group(
                 - Name: {group_name}
                 - Description: {description}
                 - Type: {translations.get(subscription, subscription)}
-                - Drills: {translations[has_drills]}
+                - Squad: {translations[has_squad]}
 
                 If you require any further information,
                 do not hesitate to contact us.
