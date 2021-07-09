@@ -362,6 +362,27 @@ class FindingHistoricStateNewLoader(DataLoader):
         )
 
 
+class GroupDraftsNewLoader(DataLoader):
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, group_names: List[str]
+    ) -> Tuple[Tuple[Finding, ...], ...]:
+        findings_by_group = await collect(
+            _get_findings_by_group(group_name=group_name)
+            for group_name in group_names
+        )
+        return tuple(
+            filter_non_state_status_findings(
+                findings,
+                {
+                    FindingStateStatus.APPROVED,
+                    FindingStateStatus.DELETED,
+                },
+            )
+            for findings in findings_by_group
+        )
+
+
 class GroupFindingsNewLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
