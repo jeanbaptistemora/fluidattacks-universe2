@@ -1,5 +1,5 @@
 import {
-  faCaretDown,
+  faAngleDown,
   faKey,
   faSignOutAlt,
   faUserCircle,
@@ -85,7 +85,8 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
     <div ref={ref}>
       <NavbarButton onClick={toggleDropdown}>
         <FontAwesomeIcon icon={faUserCircle} />
-        <FontAwesomeIcon icon={faCaretDown} />
+        &nbsp;
+        <FontAwesomeIcon icon={faAngleDown} size={"sm"} />
       </NavbarButton>
       {isDropdownOpen ? (
         <DropdownMenu>

@@ -5,13 +5,11 @@ import preloader from "resources/loading.gif";
 
 const SidebarContainer = styled.aside.attrs({
   className: "flex flex-column overflow-x-hidden",
-})`
+})<{ collapsed: boolean }>`
   transition: all 0.3s ease;
   background-color: #272727;
-  width: ${(props: { collapsed: boolean }): string =>
-    props.collapsed ? "50px" : "210px"};
-  min-width: ${(props: { collapsed: boolean }): string =>
-    props.collapsed ? "50px" : "210px"};
+  width: ${({ collapsed }): string => (collapsed ? "50px" : "210px")};
+  min-width: ${({ collapsed }): string => (collapsed ? "50px" : "210px")};
   @media (max-width: 768px) {
     height: 100%;
     position: fixed;
@@ -32,15 +30,6 @@ const Logo = styled.img.attrs({
   min-width: 116px;
 `;
 
-const SidebarButton = styled.button.attrs({
-  className: "white ph3 pv2 f4 w-100 bn pointer outline-0 tl nowrap",
-})`
-  background: none;
-  & svg {
-    margin-right: 10px;
-  }
-`;
-
 const Preloader = styled.img.attrs({
   alt: "Loading animation",
   className: "ml-auto",
@@ -49,4 +38,4 @@ const Preloader = styled.img.attrs({
   width: 100px;
 `;
 
-export { Logo, Preloader, SidebarButton, SidebarContainer, SidebarMenu };
+export { Logo, Preloader, SidebarContainer, SidebarMenu };

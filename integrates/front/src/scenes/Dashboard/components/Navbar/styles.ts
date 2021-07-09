@@ -23,7 +23,7 @@ const NavbarMenu = styled.ul.attrs({
 `;
 
 const NavbarButton = styled.button.attrs({
-  className: "bn flex gray outline-0 ph3 pv2 pointer",
+  className: "bn flex gray items-center mh1 outline-0 ph2 pv2 pointer",
 })`
   background: none;
 `;
