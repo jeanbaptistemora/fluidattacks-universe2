@@ -1,8 +1,3 @@
-from aioextensions import (
-    CPU_CORES,
-    in_process,
-    resolve,
-)
 from itertools import (
     count,
 )
@@ -39,8 +34,8 @@ from tree_sitter import (
 )
 from typing import (
     Any,
-    AsyncIterable,
     Dict,
+    Iterable,
     Iterator,
     List,
     Optional,
@@ -65,7 +60,6 @@ from utils.graph import (
     to_svg,
 )
 from utils.logs import (
-    log,
     log_blocking,
 )
 from utils.string import (
@@ -373,21 +367,19 @@ def parse_one(
     )
 
 
-async def parse_many(paths: Tuple[str, ...]) -> AsyncIterable[GraphShard]:
-    for graph_lazy in resolve(
-        (
-            in_process(
-                parse_one,
-                language=language,
-                path=path,
-            )
-            for path in paths
-            for language in [decide_language(path)]
-            if language != GraphShardMetadataLanguage.NOT_SUPPORTED
-        ),
-        workers=CPU_CORES,
-    ):
-        if graph_shard := await graph_lazy:
+def parse_many(paths: Tuple[str, ...]) -> Iterable[GraphShard]:
+    paths_and_languages = tuple(
+        (path, language)
+        for path in paths
+        for language in [decide_language(path)]
+        if language != GraphShardMetadataLanguage.NOT_SUPPORTED
+    )
+
+    log_blocking("info", "Total shards: %s", len(paths_and_languages))
+
+    for index, (path, language) in enumerate(paths_and_languages, start=1):
+        log_blocking("info", "Generating shard %s: %s", index, path)
+        if graph_shard := parse_one(language=language, path=path):
             yield graph_shard
 
 
@@ -407,11 +399,7 @@ async def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
         shards_by_path={},
     )
 
-    index = 0
-    async for shard in parse_many(paths):
-        index += 1
-        await log("info", "Generated shard %s: %s", index, shard.path)
-
+    for index, shard in enumerate(parse_many(paths), start=1):
         graph_db.shards.append(shard)
         graph_db.shards_by_path[shard.path] = index - 1
 
