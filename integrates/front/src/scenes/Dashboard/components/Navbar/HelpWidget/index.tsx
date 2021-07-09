@@ -1,10 +1,12 @@
 import {
   faAngleDown,
   faComment,
+  faHeadset,
   faQuestionCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback, useState } from "react";
+import { openPopupWidget } from "react-calendly";
 import { useDetectClickOutside } from "react-detect-click-outside";
 import { useTranslation } from "react-i18next";
 
@@ -24,6 +26,10 @@ export const HelpWidget: React.FC = (): JSX.Element => {
     },
   });
 
+  const openCalendly = useCallback((): void => {
+    openPopupWidget({ url: "https://calendly.com/jrestrepoatfluid/30min" });
+  }, []);
+
   return (
     <div ref={ref}>
       <NavbarButton onClick={toggleDropdown}>
@@ -37,6 +43,12 @@ export const HelpWidget: React.FC = (): JSX.Element => {
             <DropdownButton onClick={toggleZendesk}>
               <FontAwesomeIcon icon={faComment} />
               &nbsp;{t("navbar.help.chat")}
+            </DropdownButton>
+          </li>
+          <li>
+            <DropdownButton onClick={openCalendly}>
+              <FontAwesomeIcon icon={faHeadset} />
+              &nbsp;{t("navbar.help.expert")}
             </DropdownButton>
           </li>
         </DropdownMenu>

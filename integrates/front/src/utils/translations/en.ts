@@ -823,6 +823,7 @@ export const enTranslations: ResourceKey = {
     },
     help: {
       chat: "Live Chat",
+      expert: "Talk to an expert",
     },
     logout: {
       text: "Log out",
