@@ -1,6 +1,9 @@
 from lib_ssl.types import (
     SSLVulnerability,
 )
+from model.core_model import (
+    LocalesEnum,
+)
 from typing import (
     Dict,
     Tuple,
@@ -20,29 +23,58 @@ ssl_versions: Dict[Tuple[int, int], str] = {
 }
 
 
+def get_snippet_skeleton_en() -> str:
+    content: str = "intention: {intention}\n"
+    content += "SSL request made to {host}:{port} with following parameters\n"
+    content += "   fallback scsv: {scsv}\n"
+    content += "   min version: {min_version}\n"
+    content += "   max version: {max_version}\n"
+    content += "   ciphers: {ciphers}\n"
+    content += "   mac: {mac}\n"
+    content += "   key exchange: {key_exchange}\n"
+    content += "result: {result}\n"
+    return content
+
+
+def get_snippet_skeleton_es() -> str:
+    content: str = "intención: {intention}\n"
+    content += "petición SSL hecha a {host}:{port} con los parámetros\n"
+    content += "   fallback scsv: {scsv}\n"
+    content += "   min versión: {min_version}\n"
+    content += "   max versión: {max_version}\n"
+    content += "   cifrados: {ciphers}\n"
+    content += "   mac: {mac}\n"
+    content += "   intercambio de llaves: {key_exchange}\n"
+    content += "resultado: {result}\n"
+    return content
+
+
 def snippet(
+    locale: LocalesEnum,
     ssl_vulnerability: SSLVulnerability,
     columns_per_line: int = SNIPPETS_COLUMNS,
 ) -> str:
+
     ssl_settings = ssl_vulnerability.ssl_settings
+    snippet_skeleton: str = ""
 
-    host: str = ssl_settings.host
-    port: int = ssl_settings.port
-    min_version: str = ssl_versions[ssl_settings.min_version]
-    max_version: str = ssl_versions[ssl_settings.max_version]
-    ciphers: str = ", ".join(ssl_settings.cipher_names)
-    mac: str = ", ".join(ssl_settings.mac_names)
-    key_exchange: str = ", ".join(ssl_settings.get_key_exchange_names())
+    if locale == LocalesEnum.ES:
+        snippet_skeleton = get_snippet_skeleton_es()
+    else:
+        snippet_skeleton = get_snippet_skeleton_en()
 
-    content: str = f"intention: {ssl_settings.intention}\n"
-    content += f"SSL request made to {host}:{port} with following parameters\n"
-    content += f"   fallback scsv: {ssl_settings.scsv}\n"
-    content += f"   min version: {min_version}\n"
-    content += f"   max version: {max_version}\n"
-    content += f"   ciphers: {ciphers}\n"
-    content += f"   mac: {mac}\n"
-    content += f"   key exchange: {key_exchange}\n"
-    content += f"result: {ssl_vulnerability.description}\n"
+    content: str = snippet_skeleton.format(
+        intention=ssl_settings.intention[locale],
+        host=ssl_settings.host,
+        port=ssl_settings.port,
+        scsv=ssl_settings.scsv,
+        min_version=ssl_versions[ssl_settings.min_version],
+        max_version=ssl_versions[ssl_settings.max_version],
+        ciphers=", ".join(ssl_settings.cipher_names),
+        mac=", ".join(ssl_settings.mac_names),
+        key_exchange=", ".join(ssl_settings.get_key_exchange_names()),
+        result=ssl_vulnerability.description,
+    )
 
     return make_snippet(
         content=content,

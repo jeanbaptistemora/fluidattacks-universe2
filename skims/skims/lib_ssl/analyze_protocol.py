@@ -56,6 +56,7 @@ def _create_core_vulns(
                 cwe=(ssl_vulnerability.finding.value.cwe,),
                 description=ssl_vulnerability.description,
                 snippet=snippet(
+                    locale=CTX.config.language,
                     ssl_vulnerability=ssl_vulnerability,
                 ),
             ),
@@ -87,8 +88,16 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_settings = SSLSettings(
         host=ctx.target.host,
         port=ctx.target.port,
-        intention="check if server accepts key_exchange with PFS support",
         key_exchange_names=["dhe_rsa", "ecdhe_rsa", "ecdh_anon", "dh_anon"],
+        intention={
+            core_model.LocalesEnum.EN: (
+                "check if server accepts key exchange with PFS support"
+            ),
+            core_model.LocalesEnum.ES: (
+                "verificar si el servidor acepta intercambio de llaves"
+                "con soporte PFS"
+            ),
+        },
     )
 
     with connect(
@@ -115,7 +124,14 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         host=ctx.target.host,
         port=ctx.target.port,
         max_version=(3, 0),
-        intention="check if server supports SSLv3",
+        intention={
+            core_model.LocalesEnum.EN: (
+                "check if server accepts connections with SSLv3"
+            ),
+            core_model.LocalesEnum.ES: (
+                "verificar si el servidor acepta conexiones con SSLv3"
+            ),
+        },
     )
 
     with connect(
@@ -143,7 +159,14 @@ def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         port=ctx.target.port,
         min_version=(3, 1),
         max_version=(3, 1),
-        intention="check if server supports TLSv1.0",
+        intention={
+            core_model.LocalesEnum.EN: (
+                "check if server accepts connections with TLSv1.0"
+            ),
+            core_model.LocalesEnum.ES: (
+                "verificar si el servidor acepta conexiones con TLSv1.0"
+            ),
+        },
     )
 
     with connect(
@@ -171,7 +194,14 @@ def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         port=ctx.target.port,
         min_version=(3, 2),
         max_version=(3, 2),
-        intention="check if server supports TLSv1.1",
+        intention={
+            core_model.LocalesEnum.EN: (
+                "check if server accepts connections with TLSv1.1"
+            ),
+            core_model.LocalesEnum.ES: (
+                "verificar si el servidor acepta conexiones con TLSv1.1"
+            ),
+        },
     )
 
     with connect(
@@ -199,7 +229,14 @@ def _tlsv1_3_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         ctx.target.port,
         min_version=(3, 4),
         max_version=(3, 4),
-        intention="check if server supports TLSv1.3",
+        intention={
+            core_model.LocalesEnum.EN: (
+                "check if server accepts connections with TLSv1.3"
+            ),
+            core_model.LocalesEnum.ES: (
+                "verificar si el servidor acepta conexiones con TLSv1.3"
+            ),
+        },
     )
 
     with connect(
@@ -226,7 +263,16 @@ def _anonymous_suits_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
         ctx.target.host,
         ctx.target.port,
         anonymous=True,
-        intention="check if server supports anonymous cipher suits",
+        intention={
+            core_model.LocalesEnum.EN: (
+                "check if server accepts connections with anonymous"
+                " cipher suits"
+            ),
+            core_model.LocalesEnum.ES: (
+                "verificar si el servidor acepta conexiones con suites"
+                " de cifrado anónimo"
+            ),
+        },
     )
 
     with connect(
@@ -253,7 +299,14 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
         ctx.target.host,
         ctx.target.port,
         cipher_names=["rc4", "3des", "null"],
-        intention="check if server supports weak ciphers",
+        intention={
+            core_model.LocalesEnum.EN: (
+                "check if server accepts connections with weak ciphers"
+            ),
+            core_model.LocalesEnum.ES: (
+                "verificar si el servidor acepta conexiones con cifrado débil"
+            ),
+        },
     )
 
     with connect(
@@ -281,7 +334,14 @@ def _beast_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         ctx.target.port,
         min_version=(3, 1),
         max_version=(3, 1),
-        intention="check if server is vulnerable to BEAST attacks",
+        intention={
+            core_model.LocalesEnum.EN: (
+                "check if server is vulnerable to BEAST attacks"
+            ),
+            core_model.LocalesEnum.ES: (
+                "verificar si el servidor es vulnerable a ataques BEAST"
+            ),
+        },
     )
 
     with connect(
@@ -311,7 +371,15 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         ctx.target.port,
         min_version=(3, 2),
         max_version=(3, 3),
-        intention="check if server supports CBC",
+        intention={
+            core_model.LocalesEnum.EN: (
+                "check if server accepts connections with ciphers that use CBC"
+            ),
+            core_model.LocalesEnum.ES: (
+                "verificar si el servidor acepta conexiones con cifrado"
+                " que utiliza CBC"
+            ),
+        },
     )
 
     with connect(
@@ -342,7 +410,14 @@ def _sweet32_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         min_version=(3, 1),
         max_version=(3, 3),
         cipher_names=["3des"],
-        intention="check if server is vulnerable to SWEET32 attacks",
+        intention={
+            core_model.LocalesEnum.EN: (
+                "check if server is vulnerable to SWEET32 attacks"
+            ),
+            core_model.LocalesEnum.ES: (
+                "verificar si el servidor es vulnerable a ataques SWEET32"
+            ),
+        },
     )
 
     with connect(
@@ -368,7 +443,18 @@ def _server_supports_tls(ctx: SSLContext, version: Tuple[int, int]) -> bool:
         ctx.target.port,
         min_version=version,
         max_version=version,
-        intention=f"check if server supports {ssl_versions[version]}",
+        intention={
+            core_model.LocalesEnum.EN: (
+                "check if server supports {version}".format(
+                    version=ssl_versions[version],
+                )
+            ),
+            core_model.LocalesEnum.ES: (
+                "verificar si el servidor soporta {version}".format(
+                    version=ssl_versions[version],
+                )
+            ),
+        },
     )
     with connect(
         ssl_settings=ssl_settings,
@@ -400,7 +486,14 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         scsv=True,
         min_version=min_version,
         max_version=min_version,
-        intention="check if server supports TLS_FALLBACK_SCSV",
+        intention={
+            core_model.LocalesEnum.EN: (
+                "check if server supports TLS_FALLBACK_SCSV"
+            ),
+            core_model.LocalesEnum.ES: (
+                "verificar si el servidor soporta TLS_FALLBACK_SCSV"
+            ),
+        },
     )
 
     with connect(
@@ -433,7 +526,18 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
             ctx.target.port,
             min_version=version,
             max_version=version,
-            intention=f"check TLSv1.3 downgrade to {ssl_versions[version]}",
+            intention={
+                core_model.LocalesEnum.EN: (
+                    "check if TLSv1.3 can be downgraded to {version}".format(
+                        version=ssl_versions[version],
+                    )
+                ),
+                core_model.LocalesEnum.ES: (
+                    "verificar si TLSv1.3 puede degradarse a {version}".format(
+                        version=ssl_versions[version],
+                    )
+                ),
+            },
         )
 
         with connect(
@@ -459,10 +563,27 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
 
     for version_id in [3, 2, 1, 0]:
         version: Tuple[int, int] = (3, version_id)
-        version_name: str = ssl_versions[version]
-        intention: str = f"check heartbleed vulnerablility with {version_name}"
 
-        sock = tcp_connect(ctx.target.host, ctx.target.port, intention)
+        intention: Dict[core_model.LocalesEnum, str] = {
+            core_model.LocalesEnum.EN: (
+                "check if server is vulnerable to heartbleed attack with"
+                " {version}".format(
+                    version=ssl_versions[version],
+                )
+            ),
+            core_model.LocalesEnum.ES: (
+                "verificar si el servidor es vulnerable a un ataque heartbleed"
+                "con {version}".format(
+                    version=ssl_versions[version],
+                )
+            ),
+        }
+
+        sock = tcp_connect(
+            ctx.target.host,
+            ctx.target.port,
+            intention[core_model.LocalesEnum.EN],
+        )
 
         if sock is None:
             break

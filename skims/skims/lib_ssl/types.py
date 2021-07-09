@@ -1,10 +1,13 @@
 from enum import (
     Enum,
 )
-from model import (
-    core_model,
+from model.core_model import (
+    FindingEnum,
+    LocalesEnum,
+    SkimsSslTarget,
 )
 from typing import (
+    Dict,
     List,
     NamedTuple,
     Tuple,
@@ -12,7 +15,7 @@ from typing import (
 
 
 class SSLContext(NamedTuple):
-    target: core_model.SkimsSslTarget
+    target: SkimsSslTarget
 
     def __str__(self) -> str:
         return f"{self.target.host}:{self.target.port}"
@@ -56,7 +59,10 @@ class SSLSettings(NamedTuple):
     anonymous: bool = False
     min_version: Tuple[int, int] = (3, 0)
     max_version: Tuple[int, int] = (3, 4)
-    intention: str = "establish SSL connection"
+    intention: Dict[LocalesEnum, str] = {
+        LocalesEnum.EN: "establish SSL connection",
+        LocalesEnum.ES: "establecer conexión SSL",
+    }
     mac_names: List[str] = ["sha", "sha256", "sha384", "aead"]
     cipher_names: List[str] = [
         "chacha20-poly1305",
@@ -163,7 +169,7 @@ class SSLVulnerability(NamedTuple):
     description: str
     line: SSLSnippetLine
     ssl_settings: SSLSettings
-    finding: core_model.FindingEnum
+    finding: FindingEnum
 
     def get_line(self) -> int:
         return self.line.value

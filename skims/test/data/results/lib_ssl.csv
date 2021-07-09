@@ -1,6 +1,6 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
 F052_PFS,inputs,localhost:4446 (namespace),server refuses connections with PFS support,310,"home,socket-send,socket-response",F052. Insecure encryption algorithm - Perfect Forward Secrecy,server refuses connections with PFS support,"
-  1 | intention: check if server accepts key_exchange with PFS support
+  1 | intention: check if server accepts key exchange with PFS support
   2 | SSL request made to localhost:4446 with following parameters
   3 |    fallback scsv: False
   4 |    min version: SSLv3.0
@@ -12,7 +12,7 @@ F052_PFS,inputs,localhost:4446 (namespace),server refuses connections with PFS s
     ^ Col 0
 "
 F052_TLS,inputs,localhost:4446 (namespace),server accepts connections with TLSv1.0,326,"home,socket-send,socket-response",F052. Insecure cipher algorithm - Transport Layer Security,server accepts connections with TLSv1.0,"
-  1 | intention: check if server supports TLSv1.0
+  1 | intention: check if server accepts connections with TLSv1.0
   2 | SSL request made to localhost:4446 with following parameters
   3 |    fallback scsv: False
   4 |    min version: TLSv1.0
@@ -24,7 +24,7 @@ F052_TLS,inputs,localhost:4446 (namespace),server accepts connections with TLSv1
     ^ Col 0
 "
 F052_TLS,inputs,localhost:4446 (namespace),server accepts connections with TLSv1.1,326,"home,socket-send,socket-response",F052. Insecure cipher algorithm - Transport Layer Security,server accepts connections with TLSv1.1,"
-  1 | intention: check if server supports TLSv1.1
+  1 | intention: check if server accepts connections with TLSv1.1
   2 | SSL request made to localhost:4446 with following parameters
   3 |    fallback scsv: False
   4 |    min version: TLSv1.1
@@ -36,7 +36,7 @@ F052_TLS,inputs,localhost:4446 (namespace),server accepts connections with TLSv1
     ^ Col 0
 "
 F052_TLS,inputs,localhost:4446 (namespace),server refuses connections with TLSv1.3,326,"home,socket-send,socket-response",F052. Insecure cipher algorithm - Transport Layer Security,server refuses connections with TLSv1.3,"
-  1 | intention: check if server supports TLSv1.3
+  1 | intention: check if server accepts connections with TLSv1.3
   2 | SSL request made to localhost:4446 with following parameters
   3 |    fallback scsv: False
   4 |    min version: TLSv1.3
@@ -48,7 +48,7 @@ F052_TLS,inputs,localhost:4446 (namespace),server refuses connections with TLSv1
     ^ Col 0
 "
 F052_CBC,inputs,localhost:4446 (namespace),server accepts connections with ciphers that supports CBC,757,"home,socket-send,socket-response",F052. Insecure encryption algorithm - Cipher Block Chaining,server accepts connections with ciphers that supports CBC,"
-  1 | intention: check if server supports CBC
+  1 | intention: check if server accepts connections with ciphers that use CBC
   2 | SSL request made to localhost:4446 with following parameters
   3 |    fallback scsv: False
   4 |    min version: TLSv1.1

@@ -1,6 +1,6 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
 F052_PFS,inputs,localhost:4446 (namespace),server refuses connections with PFS support,310,"home,socket-send,socket-response",F052. Insecure encryption algorithm - Perfect Forward Secrecy,server refuses connections with PFS support,"
-  1 | intention: check if server accepts key_exchange with PFS support
+  1 | intention: check if server accepts key exchange with PFS support
   2 | SSL request made to localhost:4446 with following parameters
   3 |    fallback scsv: False
   4 |    min version: SSLv3.0
