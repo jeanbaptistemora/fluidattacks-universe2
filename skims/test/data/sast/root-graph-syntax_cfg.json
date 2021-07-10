@@ -201,16 +201,16 @@
   },
   "F063_TRUSTBOUND": {
     "skims/test/data/sast/TestCFG.java": {},
+    "skims/test/data/sast/test_cfg.go": {},
+    "skims/test/data/sast/test_cfg.js": {}
+  },
+  "F063_TYPE_CONFUSION": {
+    "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {
       "1034": {},
       "1244": {},
       "908": {}
     },
-    "skims/test/data/sast/test_cfg.js": {}
-  },
-  "F063_TYPE_CONFUSION": {
-    "skims/test/data/sast/TestCFG.java": {},
-    "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {}
   },
   "F064_SERVER_CLOCK": {

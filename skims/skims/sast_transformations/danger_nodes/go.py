@@ -3,8 +3,6 @@ from model import (
     graph_model,
 )
 from sast_transformations.danger_nodes.utils import (
-    _append_label_input,
-    _append_label_sink,
     mark_function_arg,
     mark_methods_input,
     mark_methods_sink,
@@ -18,7 +16,7 @@ def mark_inputs(
     graph: graph_model.Graph,
     syntax: graph_model.GraphSyntax,
 ) -> None:
-    for finding in (core_model.FindingEnum.F063_TRUSTBOUND,):
+    for finding in (core_model.FindingEnum.F063_TYPE_CONFUSION,):
         danger_args = {
             *build_attr_paths("*http", "Request"),
         }
@@ -34,17 +32,6 @@ def mark_inputs(
             },
         )
 
-    for syntax_steps in syntax.values():
-        for syntax_step in syntax_steps:
-            if isinstance(syntax_step, graph_model.SyntaxStepLiteral) and (
-                syntax_step.value_type == "struct[connect2V2.PSETransaction]"
-            ):
-                _append_label_input(
-                    graph,
-                    syntax_step.meta.n_id,
-                    core_model.FindingEnum.F063_TYPE_CONFUSION,
-                )
-
 
 def mark_sinks(
     graph: graph_model.Graph,
@@ -53,7 +40,7 @@ def mark_sinks(
     findings = core_model.FindingEnum
 
     mark_methods_sink(
-        findings.F063_TRUSTBOUND,
+        findings.F063_TYPE_CONFUSION,
         graph,
         syntax,
         {
@@ -65,13 +52,3 @@ def mark_sinks(
             "QueryRowContext",
         },
     )
-
-    for syntax_steps in syntax.values():
-        for syntax_step in syntax_steps:
-            if isinstance(syntax_step, graph_model.SyntaxStepMethodInvocation):
-                if syntax_step.method == "connect2V2.InsertPSETransaction":
-                    _append_label_sink(
-                        graph,
-                        syntax_step.meta.n_id,
-                        core_model.FindingEnum.F063_TYPE_CONFUSION,
-                    )

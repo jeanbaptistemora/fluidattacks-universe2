@@ -35731,7 +35731,7 @@
             "label_c": 53,
             "label_field_name": "1035",
             "label_field_type": "1036",
-            "label_input_type": "F063_TRUSTBOUND",
+            "label_input_type": "F063_TYPE_CONFUSION",
             "label_l": 129,
             "label_type": "parameter_declaration"
           },
@@ -37149,7 +37149,7 @@
             "label_c": 17,
             "label_field_name": "1245",
             "label_field_type": "1246",
-            "label_input_type": "F063_TRUSTBOUND",
+            "label_input_type": "F063_TYPE_CONFUSION",
             "label_l": 158,
             "label_type": "parameter_declaration"
           },
@@ -38537,7 +38537,7 @@
             "label_field_arguments": "1456",
             "label_field_function": "1452",
             "label_l": 181,
-            "label_sink_type": "F063_TRUSTBOUND",
+            "label_sink_type": "F063_TYPE_CONFUSION",
             "label_type": "call_expression"
           },
           "1452": {
@@ -44698,7 +44698,7 @@
             "label_field_arguments": "588",
             "label_field_function": "584",
             "label_l": 75,
-            "label_sink_type": "F063_TRUSTBOUND",
+            "label_sink_type": "F063_TYPE_CONFUSION",
             "label_type": "call_expression"
           },
           "584": {
@@ -46296,7 +46296,7 @@
             "label_field_arguments": "825",
             "label_field_function": "821",
             "label_l": 109,
-            "label_sink_type": "F063_TRUSTBOUND",
+            "label_sink_type": "F063_TYPE_CONFUSION",
             "label_type": "call_expression"
           },
           "821": {
@@ -46884,7 +46884,7 @@
             "label_c": 30,
             "label_field_name": "909",
             "label_field_type": "910",
-            "label_input_type": "F063_TRUSTBOUND",
+            "label_input_type": "F063_TYPE_CONFUSION",
             "label_l": 118,
             "label_type": "parameter_declaration"
           },

@@ -132,6 +132,7 @@ def _is_final_node(obj: Any, language: GraphShardMetadataLanguage) -> bool:
             language == GraphShardMetadataLanguage.GO
             and obj.type
             in {
+                "interface_type",
                 "interpreted_string_literal",
             }
         )
