@@ -37,14 +37,14 @@
     },
     "icon": "./assets/icon.png",
     "ios": {
-      "appStoreUrl": "https://apps.apple.com/us/app/asm/id1470450298",
+      "appStoreUrl": "https://apps.apple.com/us/app/fluid-attacks/id1470450298",
       "bundleIdentifier": "com.fluidattacks.integrates",
       "infoPlist": {
         "NSFaceIDUsageDescription": "Quickly access your session using device biometrics"
       },
       "supportsTablet": true
     },
-    "name": "ASM",
+    "name": "Fluid Attacks",
     "notification": {
       "color": "#FE3435",
       "icon": "./assets/notification.png"
@@ -54,7 +54,7 @@
     "primaryColor": "#000000",
     "privacy": "public",
     "scheme": "com.fluidattacks",
-    "slug": "asm",
+    "slug": "fluidattacks",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "cover",

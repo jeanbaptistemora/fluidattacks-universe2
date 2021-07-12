@@ -23,7 +23,7 @@ const About: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
   const displayDialog: () => void = useCallback((): void => {
     Alert.alert(
-      "ASM",
+      "Fluid Attacks",
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       `${t("about.bin")} ${Constants.nativeAppVersion}` +
         `\n${t("about.deploymentDate")} ${manifestExtra.deploymentDate}` +
