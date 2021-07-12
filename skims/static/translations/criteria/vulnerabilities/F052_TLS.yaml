@@ -33,7 +33,7 @@ F052_TLS.requirements:
     estables, probadas y actualizadas.
 F052_TLS.threat:
   en: Unauthorized attacker from adjacent network exploiting a vulnerability.
-  es: Atacante sin autorización desde red adjacente explotando vulnerabilidad.
+  es: Atacante sin autorización desde red adyacente explotando vulnerabilidad.
 F052_TLS.title:
   en: F052. Insecure cipher algorithm - Transport Layer Security
   es: F052. Algoritmo de cifrado inseguro - Transport Layer Security

@@ -26,7 +26,7 @@ F052_PFS.threat:
     Unauthorized attacker from adjacent network that has compromised a private
     key.
   es: >
-    Atacante sin autorización desde red adjacente que haya comprometido una
+    Atacante sin autorización desde red adyacente que haya comprometido una
     llave privada.
 F052_PFS.title:
   en: F052. Insecure encryption algorithm - Perfect Forward Secrecy
