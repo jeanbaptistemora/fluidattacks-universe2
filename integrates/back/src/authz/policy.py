@@ -27,6 +27,9 @@ import logging.config
 from newutils import (
     function,
 )
+from newutils.utils import (
+    get_key_or_fallback,
+)
 from redis_cluster.operations import (
     redis_del_by_deps,
     redis_get_or_set_entity_attr,
@@ -137,9 +140,14 @@ async def _get_service_policies(group: str) -> List[ServicePolicy]:
 
     group_attributes = response_items[0]
     historic_config = group_attributes["historic_configuration"]
-    has_squad: bool = historic_config[-1]["has_drills"]
+    has_squad: bool = get_key_or_fallback(
+        historic_config[-1], "has_squad", "has_drills"
+    )
     has_forces: bool = historic_config[-1]["has_forces"]
-    has_asm: bool = group_attributes["project_status"] == "ACTIVE"
+    has_asm: bool = (
+        get_key_or_fallback(group_attributes, "group_status", "project_status")
+        == "ACTIVE"
+    )
     type_: str = historic_config[-1]["type"]
 
     if type_ == "continuous":

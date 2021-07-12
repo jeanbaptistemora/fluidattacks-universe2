@@ -186,9 +186,9 @@ async def is_alive(
         group_data = pre_computed_group_data or await get_attributes(
             group_name, ["deletion_date", "project_status"]
         )
-        if group_data.get("project_status") != "ACTIVE" or group_data.get(
-            "deletion_date"
-        ):
+        if get_key_or_fallback(
+            group_data, "group_status", "project_status"
+        ) != "ACTIVE" or group_data.get("deletion_date"):
             is_valid_group = False
     else:
         is_valid_group = False

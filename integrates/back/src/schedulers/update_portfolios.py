@@ -18,6 +18,9 @@ from groups import (
 )
 import logging
 import logging.config
+from newutils.utils import (
+    get_key_or_fallback,
+)
 from organizations import (
     domain as orgs_domain,
 )
@@ -139,7 +142,9 @@ async def update_portfolios() -> None:
         tag_groups: List[str] = [
             str(group["name"])
             for group in org_groups_attrs
-            if group["project_status"] == "ACTIVE" and group["tags"]
+            if get_key_or_fallback(group, "group_status", "project_status")
+            == "ACTIVE"
+            and group["tags"]
         ]
         success, updated_tags = await update_organization_indicators(
             context, org_name, tag_groups

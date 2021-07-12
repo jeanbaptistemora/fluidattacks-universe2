@@ -34,6 +34,9 @@ from newutils import (
     datetime as datetime_utils,
     reports,
 )
+from newutils.utils import (
+    get_key_or_fallback,
+)
 from organizations import (
     domain as orgs_domain,
 )
@@ -331,7 +334,12 @@ async def should_not_send_report(
         if not await groups_domain.is_alive(
             report_subject.lower(), group_data
         ):
-            if group_data.get("project_status") == "FINISHED":
+            if (
+                get_key_or_fallback(
+                    group_data, "group_status", "project_status"
+                )
+                == "FINISHED"
+            ):
                 await unsubscribe_user_to_entity_report(
                     report_entity=report_entity,
                     report_subject=report_subject,

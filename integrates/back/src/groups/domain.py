@@ -717,10 +717,14 @@ async def edit(
             had_squad=(
                 cast(
                     bool,
-                    cast(
-                        List[Dict[str, Union[bool, str]]],
-                        item["historic_configuration"],
-                    )[-1]["has_drills"],
+                    get_key_or_fallback(
+                        cast(
+                            List[Dict[str, Union[bool, str]]],
+                            item["historic_configuration"],
+                        )[-1],
+                        "has_squad",
+                        "has_drills",
+                    ),
                 )
                 if item["historic_configuration"]
                 else False
@@ -1245,7 +1249,10 @@ async def after_complete_register(group_access: GroupAccessType) -> None:
 
 def filter_active_groups(groups: List[GroupType]) -> List[GroupType]:
     return [
-        group for group in groups if group.get("project_status") == "ACTIVE"
+        group
+        for group in groups
+        if get_key_or_fallback(group, "group_status", "project_status")
+        == "ACTIVE"
     ]
 
 

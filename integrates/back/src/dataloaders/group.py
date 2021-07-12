@@ -10,6 +10,9 @@ from custom_types import (
 from groups import (
     domain as groups_domain,
 )
+from newutils.utils import (
+    get_key_or_fallback,
+)
 from organizations import (
     domain as orgs_domain,
 )
@@ -34,13 +37,19 @@ async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
 
     for index, group in enumerate(groups_by_names):
         group_name = group_names[index].lower()
-        status = group.get("project_status", "FINISHED")
+        status = get_key_or_fallback(
+            group, "group_status", "project_status", "FINISHED"
+        )
         historic_configuration: List[Dict[str, str]] = cast(
             List[Dict[str, str]], group.get("historic_configuration", [{}])
         )
         has_asm = status == "ACTIVE"
-        has_machine = historic_configuration[-1].get("has_skims", False)
-        has_squad = historic_configuration[-1].get("has_drills", False)
+        has_machine: bool = get_key_or_fallback(
+            historic_configuration[-1], "has_machine", "has_skims", False
+        )
+        has_squad: bool = get_key_or_fallback(
+            historic_configuration[-1], "has_squad", "has_drills", False
+        )
         subscription = historic_configuration[-1].get("type", None)
 
         historic_deletion: List[Dict[str, str]] = cast(
