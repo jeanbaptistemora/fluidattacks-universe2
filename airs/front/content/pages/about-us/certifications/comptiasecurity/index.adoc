@@ -5,15 +5,16 @@
 :page-alt: Logo comptiasecurity
 :page-certification: yes
 
-= CompTIA Security+ (CompTIA)
+= CompTIA Security+
 
-`CompTIA` is a global certification.
+`CompTIA` is an international certification.
 It was created by
 `Computing Technology Industry Association`.
 It certifies that the candidate has the knowledge
 to install systems to protect applications.
 The candidate can assess the security posture
-of an enterprise environment and can recommend
+of an enterprise environment.
+She can recommend
 and implement appropriate security solutions.
-And can monitor and secure hybrid environments,
+And she can monitor and secure hybrid environments,
 including cloud, mobile, and IoT.
