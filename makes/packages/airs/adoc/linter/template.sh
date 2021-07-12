@@ -176,7 +176,7 @@ function check_adoc_lix {
   local msg="Document Lix must be under ${max_lix}"
   local lix
 
-  lix="$(style "${target}" | grep -oP '(?<=Lix: )[0-9]+')" \
+  lix="$(grep -vhr '\(link:\|image::\|^:\|https://\|http://\|role=\)' "${target}" | style | grep -oP '(?<=Lix: )[0-9]+')" \
     && if test "${lix}" -gt "${max_lix}"; then
       abort "[ERROR] ${msg}, current: ${lix}: ${target}"
     fi
@@ -197,7 +197,7 @@ function check_adoc_max_columns {
   local msg='File must be at most 80 columns'
 
   if grep -v '^:' "${target}" \
-    | grep -v '\(link:\|image::\)' \
+    | grep -v '\(link:\|image::\|https://\|http://\)' \
     | grep -P "^.{81,}"; then
     abort "[ERROR] ${msg}: ${target}"
   fi
@@ -339,8 +339,8 @@ function check_adoc_word_count {
   local msg="Document must have between ${min_words} and ${max_words} words"
   local words
 
-  words="$(style "${target}" | grep -oP '[0-9]+(?= words,)')" \
+  words="$(grep -vhr '\(link:\|image::\|^:\|https://\|http://\|role=\)' "${target}" | wc -w)" \
     && if test "${words}" -lt "${min_words}" || test "${words}" -gt "${max_words}"; then
-      abort "[ERROR] ${msg}: ${target}"
+      abort "[ERROR] ${msg}: ${target} ${words}"
     fi
 }
