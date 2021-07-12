@@ -1,8 +1,7 @@
 import contextlib
 from lib_ssl.types import (
-    SSLEllipticCurves,
+    ssl_suites,
     SSLSettings,
-    SSLSuites,
 )
 from os import (
     urandom,
@@ -98,7 +97,38 @@ def get_ec_point_formats_ext() -> List[int]:
 
 def get_elliptic_curves_ext() -> List[int]:
     extension_id: List[int] = [0, 10]
-    ellip_curves: List[int] = SSLEllipticCurves().get_all()
+
+    cipher_suites: List[str] = [
+        "DH_RSA_EXPORT_WITH_DES40_CBC_SHA",
+        "DH_DSS_WITH_3DES_EDE_CBC_SHA",
+        "DH_anon_EXPORT_WITH_DES40_CBC_SHA",
+        "DH_DSS_EXPORT_WITH_DES40_CBC_SHA",
+        "DH_DSS_WITH_DES_CBC_SHA",
+        "DH_anon_WITH_RC4_128_MD5",
+        "DH_anon_EXPORT_WITH_RC4_40_MD5",
+        "RSA_WITH_DES_CBC_SHA",
+        "RSA_WITH_3DES_EDE_CBC_SHA",
+        "DHE_RSA_WITH_3DES_EDE_CBC_SHA",
+        "RSA_EXPORT_WITH_DES40_CBC_SHA",
+        "RSA_EXPORT_WITH_RC2_CBC_40_MD5",
+        "RSA_WITH_IDEA_CBC_SHA",
+        "DHE_RSA_EXPORT_WITH_DES40_CBC_SHA",
+        "DHE_RSA_WITH_DES_CBC_SHA",
+        "RSA_WITH_RC4_128_MD5",
+        "RSA_WITH_RC4_128_SHA",
+        "DHE_DSS_WITH_DES_CBC_SHA",
+        "DHE_DSS_WITH_3DES_EDE_CBC_SHA",
+        "RSA_WITH_NULL_MD5",
+        "RSA_WITH_NULL_SHA",
+        "RSA_EXPORT_WITH_RC4_40_MD5",
+        "DH_RSA_WITH_DES_CBC_SHA",
+        "DH_RSA_WITH_3DES_EDE_CBC_SHA",
+        "DHE_DSS_EXPORT_WITH_DES40_CBC_SHA",
+    ]
+
+    ellip_curves: List[int] = [
+        byte for suit in cipher_suites for byte in ssl_suites[suit]
+    ]
 
     package: List[int] = num_to_bytes(len(ellip_curves), 2) + ellip_curves
     return extension_id + num_to_bytes(len(package), 2) + package
@@ -152,14 +182,18 @@ def get_client_hello_header(version_id: int, package: List[int]) -> List[int]:
 
 
 def get_client_hello_package(
-    version_id: int, extensions: Optional[List[int]] = None
+    version_id: int,
+    cipher_suites: List[str],
+    extensions: Optional[List[int]] = None,
 ) -> List[int]:
 
     session_id: List[int] = [0]
     no_compression: List[int] = [1, 0]
 
-    cipher_suites: List[int] = SSLSuites().get_all()
-    suites: List[int] = num_to_bytes(len(cipher_suites), 2) + cipher_suites
+    suites: List[int] = [
+        byte for suit in cipher_suites for byte in ssl_suites[suit]
+    ]
+    suites = num_to_bytes(len(suites), 2) + suites
 
     package: List[int] = []
 

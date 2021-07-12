@@ -561,6 +561,65 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
 def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
 
+    suits: List[str] = [
+        "ECDHE_RSA_WITH_AES_256_CBC_SHA",
+        "ECDHE_ECDSA_WITH_AES_256_CBC_SHA",
+        "SRP_SHA_DSS_WITH_AES_256_CBC_SHA",
+        "SRP_SHA_RSA_WITH_AES_256_CBC_SHA",
+        "DHE_RSA_WITH_AES_256_CBC_SHA",
+        "DHE_DSS_WITH_AES_256_CBC_SHA",
+        "DHE_RSA_WITH_CAMELLIA_256_CBC_SHA",
+        "DHE_DSS_WITH_CAMELLIA_256_CBC_SHA",
+        "ECDH_RSA_WITH_AES_256_CBC_SHA",
+        "ECDH_ECDSA_WITH_AES_256_CBC_SHA",
+        "RSA_WITH_AES_256_CBC_SHA",
+        "RSA_WITH_CAMELLIA_256_CBC_SHA",
+        "ECDHE_RSA_WITH_3DES_EDE_CBC_SHA",
+        "ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA",
+        "SRP_SHA_DSS_WITH_3DES_EDE_CBC_SHA",
+        "SRP_SHA_RSA_WITH_3DES_EDE_CBC_SHA",
+        "DHE_RSA_WITH_3DES_EDE_CBC_SHA",
+        "DHE_DSS_WITH_3DES_EDE_CBC_SHA",
+        "ECDH_RSA_WITH_3DES_EDE_CBC_SHA",
+        "ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA",
+        "RSA_WITH_3DES_EDE_CBC_SHA",
+        "ECDHE_RSA_WITH_AES_128_CBC_SHA",
+        "ECDHE_ECDSA_WITH_AES_128_CBC_SHA",
+        "SRP_SHA_DSS_WITH_AES_128_CBC_SHA",
+        "SRP_SHA_RSA_WITH_AES_128_CBC_SHA",
+        "DHE_RSA_WITH_AES_128_CBC_SHA",
+        "DHE_DSS_WITH_AES_128_CBC_SHA",
+        "DHE_RSA_WITH_SEED_CBC_SHA",
+        "DHE_DSS_WITH_SEED_CBC_SHA",
+        "DHE_RSA_WITH_CAMELLIA_128_CBC_SHA",
+        "DHE_DSS_WITH_CAMELLIA_128_CBC_SHA",
+        "ECDH_RSA_WITH_AES_128_CBC_SHA",
+        "ECDH_ECDSA_WITH_AES_128_CBC_SHA",
+        "RSA_WITH_AES_128_CBC_SHA",
+        "RSA_WITH_SEED_CBC_SHA",
+        "RSA_WITH_CAMELLIA_128_CBC_SHA",
+        "ECDHE_RSA_WITH_RC4_128_SHA",
+        "ECDHE_ECDSA_WITH_RC4_128_SHA",
+        "ECDH_RSA_WITH_RC4_128_SHA",
+        "ECDH_ECDSA_WITH_RC4_128_SHA",
+        "RSA_WITH_RC4_128_SHA",
+        "RSA_WITH_RC4_128_MD5",
+        "DHE_RSA_WITH_DES_CBC_SHA",
+        "DHE_DSS_WITH_DES_CBC_SHA",
+        "RSA_WITH_DES_CBC_SHA",
+        "DHE_RSA_EXPORT_WITH_DES40_CBC_SHA",
+        "DHE_DSS_EXPORT_WITH_DES40_CBC_SHA",
+        "RSA_EXPORT_WITH_DES40_CBC_SHA",
+        "RSA_EXPORT_WITH_RC2_CBC_40_MD5",
+        "RSA_EXPORT_WITH_RC4_40_MD5",
+        "EMPTY_RENEGOTIATION_INFO_SCSV",
+    ]
+
+    extensions: List[int] = get_ec_point_formats_ext()
+    extensions += get_elliptic_curves_ext()
+    extensions += get_session_ticket_ext()
+    extensions += get_heartbeat_ext()
+
     for version_id in [3, 2, 1, 0]:
         version: Tuple[int, int] = (3, version_id)
 
@@ -588,12 +647,7 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         if sock is None:
             break
 
-        extensions: List[int] = get_ec_point_formats_ext()
-        extensions += get_elliptic_curves_ext()
-        extensions += get_session_ticket_ext()
-        extensions += get_heartbeat_ext()
-
-        package = get_client_hello_package(version_id, extensions)
+        package = get_client_hello_package(version_id, suits, extensions)
         sock.send(bytes(package))
         handshake_record = read_ssl_record(sock)
 
