@@ -95,15 +95,26 @@ def _common_builder(
     return {
         "lower": lower,
         "upper": upper,
-        "greater": greater_than,
+        "greater": Patch(greater_than),
     }
+
+
+def _contains_point(
+    greater: Comparison[IntervalPoint[_Point]],
+    lower: IntervalPoint[_Point],
+    upper: IntervalPoint[_Point],
+    point: IntervalPoint[_Point],
+) -> bool:
+    return (greater(point, lower) or point == lower) and (
+        greater(upper, point) or point == upper
+    )
 
 
 @dataclass(frozen=True)
 class ClosedInterval(
     SupportsKind1["ClosedInterval", _Point],
 ):
-    greater: Comparison[IntervalPoint[_Point]]
+    greater: Patch[Comparison[IntervalPoint[_Point]]]
     lower: _Point
     upper: _Point
 
@@ -116,13 +127,18 @@ class ClosedInterval(
         raw = _common_builder(lower, upper, greater_than)
         for key, value in raw.items():
             object.__setattr__(self, key, value)
+
+    def __contains__(self, point: IntervalPoint[_Point]) -> bool:
+        return _contains_point(
+            self.greater.unwrap, self.lower, self.upper, point
+        )
 
 
 @dataclass(frozen=True)
 class OpenInterval(
     SupportsKind1["OpenInterval", _Point],
 ):
-    greater: Comparison[IntervalPoint[_Point]]
+    greater: Patch[Comparison[IntervalPoint[_Point]]]
     lower: Union[_Point, MIN]
     upper: Union[_Point, MAX]
 
@@ -136,12 +152,17 @@ class OpenInterval(
         for key, value in raw.items():
             object.__setattr__(self, key, value)
 
+    def __contains__(self, point: IntervalPoint[_Point]) -> bool:
+        return _contains_point(
+            self.greater.unwrap, self.lower, self.upper, point
+        )
+
 
 @dataclass(frozen=True)
 class OpenLeftInterval(
     SupportsKind1["OpenLeftInterval", _Point],
 ):
-    greater: Comparison[IntervalPoint[_Point]]
+    greater: Patch[Comparison[IntervalPoint[_Point]]]
     lower: Union[_Point, MIN]
     upper: _Point
 
@@ -155,12 +176,17 @@ class OpenLeftInterval(
         for key, value in raw.items():
             object.__setattr__(self, key, value)
 
+    def __contains__(self, point: IntervalPoint[_Point]) -> bool:
+        return _contains_point(
+            self.greater.unwrap, self.lower, self.upper, point
+        )
+
 
 @dataclass(frozen=True)
 class OpenRightInterval(
     SupportsKind1["OpenRightInterval", _Point],
 ):
-    greater: Comparison[IntervalPoint[_Point]]
+    greater: Patch[Comparison[IntervalPoint[_Point]]]
     lower: _Point
     upper: Union[_Point, MAX]
 
@@ -173,6 +199,11 @@ class OpenRightInterval(
         raw = _common_builder(lower, upper, greater_than)
         for key, value in raw.items():
             object.__setattr__(self, key, value)
+
+    def __contains__(self, point: IntervalPoint[_Point]) -> bool:
+        return _contains_point(
+            self.greater.unwrap, self.lower, self.upper, point
+        )
 
 
 Interval = Union[
