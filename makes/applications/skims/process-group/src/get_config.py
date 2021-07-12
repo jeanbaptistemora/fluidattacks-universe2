@@ -116,8 +116,6 @@ async def main() -> None:
                 exclude=sorted(
                     [
                         "glob(**/.git)",
-                        "glob(**/*ibmmfpf.js*)",
-                        "glob(**/cryptojs/components/core.js)",
                         "glob(**/modernizr.js)",
                         "glob(**/UI/AutocompleteGenerico)",
                         "glob(**/UI/Tabs)",
