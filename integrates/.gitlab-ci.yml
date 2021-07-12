@@ -314,6 +314,9 @@ integrates.back.test.functional.remove_tag:
 integrates.back.test.functional.request_verification_vuln:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.request_verification_vuln_new:
+  <<: *integrates_back_test_functional_migration
+
 integrates.back.test.functional.request_zero_risk_vuln:
   <<: *integrates_back_test_functional
 
