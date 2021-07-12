@@ -36,6 +36,7 @@ from db_model import (
 from db_model.findings.enums import (
     FindingStateJustification,
     FindingStateStatus,
+    FindingVerificationStatus,
 )
 from db_model.findings.types import (
     Finding,
@@ -44,6 +45,7 @@ from db_model.findings.types import (
     FindingEvidence,
     FindingMetadataToUpdate,
     FindingState,
+    FindingVerification,
 )
 from decimal import (
     Decimal,
@@ -806,6 +808,68 @@ async def request_vulnerability_verification(
     else:
         LOGGER.error("An error occurred remediating", **NOEXTRA)
         raise NotVerificationRequested()
+
+
+async def request_vulnerability_verification_new(
+    context: Any,
+    finding_id: str,
+    user_info: Dict[str, str],
+    justification: str,
+    vuln_uuids: Set[str],
+) -> None:
+    finding_loader = context.loaders.finding_new
+    finding: Finding = await finding_loader.load(finding_id)
+    vulnerabilities = await vulns_domain.get_by_finding_and_uuids(
+        finding_id, vuln_uuids
+    )
+    vulnerabilities = [
+        vulns_utils.validate_requested_verification(vuln)
+        for vuln in vulnerabilities
+    ]
+    vulnerabilities = [
+        vulns_utils.validate_closed(vuln) for vuln in vulnerabilities
+    ]
+    if not vulnerabilities:
+        raise VulnNotFound()
+
+    comment_id = int(round(time() * 1000))
+    user_email: str = user_info["user_email"]
+    verification = FindingVerification(
+        comment_id=str(comment_id),
+        modified_by=user_email,
+        modified_date=datetime_utils.get_iso_date(),
+        status=FindingVerificationStatus.REQUESTED,
+        vuln_uuids=vuln_uuids,
+    )
+    await findings_model.update_verification(
+        group_name=finding.group_name,
+        finding_id=finding.id,
+        verification=verification,
+    )
+    comment_data = {
+        "comment_type": "verification",
+        "content": justification,
+        "parent": 0,
+        "user_id": comment_id,
+    }
+    await comments_domain.create(int(finding_id), comment_data, user_info)
+    update_vulns = await collect(
+        map(vulns_domain.request_verification, vulnerabilities)
+    )
+    if not all(update_vulns):
+        LOGGER.error("An error occurred remediating", **NOEXTRA)
+        raise NotVerificationRequested()
+
+    schedule(
+        findings_mail.send_mail_remediate_finding(
+            context.loaders,
+            user_email,
+            finding.id,
+            finding.title,
+            finding.group_name,
+            justification,
+        )
+    )
 
 
 async def save_severity(finding: Dict[str, FindingType]) -> bool:
