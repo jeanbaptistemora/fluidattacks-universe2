@@ -2836,16 +2836,44 @@
 056:
   en:
     title: Anonymous connection
-    description: __empty__
+    description: >
+      Due to an improper configuration
+      of the server
+      (e.g., an FTP service with username:
+      anonymous and password: guest
+      or an SMTP open relay),
+      it is possible
+      to make anonymous connections to it
+      and access otherwise protected resources.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Configure the services
+      to avoid services' enumeration
+      or to connect to these anonymously.
+    threat: >
+      An unathorized user
+      can enumerate anonymously
+      the active processes
+      on the system.
   es:
     title: Conexión anónima
-    description: __empty__
+    description: >
+      Debido a una configuración inadecuada
+      del servidor (Ej: Servicio FTP usuario:Anonymous
+      y contraseña:guest o servicio SMTP
+      con open relay),
+      es posible conectarse anónimamente
+      y acceder a recursos y funcionalidades
+      que normalmente estarían protegidos.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Configurar los servicios
+      para que no se pueda enumerar los servicios
+      o conectarse a estos de forma anónima.
+    threat: >
+      Un usuario no autorizado
+      puede enumerar los procesos activos
+      en el sistema de forma anónima.
   score:
     base:
       attack_vector: "N"
@@ -2860,21 +2888,53 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["142", "264", "265", "266", "319"]
   metadata: {}
 057:
   en: 
     title: Excessive privileges - Temporary Files
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      Opening temporary files
+      without appropriate measures
+      or controls can leave the file,
+      its contents and any function
+      that consumes it vulnerable
+      to attack.
+    impact: >
+      - Get access to the created
+        temporary files.
+      - Tamper data contained
+        in the created temporary files.
+    recommendation: >
+      Create the temporary files
+      in a different directory
+      than the default
+      provided by the Operative system
+      and ensure it has 0600 permission mask.
+    threat: >
+      Anonymous attacker
+      with local access.
   es:
     title: Permisos excesivos - Archivos temporales
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      Abrir archivos temporales
+      sin las medidas o controles adecuados
+      puede dejar el archivo, su contenido
+      y cualquier función que lo consuma
+      vulnerable a ataques.
+    impact: >
+      - Obtener acceso
+        a los archivos temporales creados.
+      - Manipular los datos contenidos
+        en los archivos temporales.
+    recommendation: >
+      Crear los archivos temporales
+      en un directorio diferente al provisto
+      por defecto en el sistema operativo
+      y asegurar que estos tienen una máscara
+      de permisos 0600.
+    threat: >
+      Atacante anónimo con acceso local.
   score:
     base:
       attack_vector: "N"
@@ -2889,21 +2949,41 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["095", "096", "186"]
   metadata: {}
 058:
   en:
     title: Debugging enabled in production - APK
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The system has debugging enabled
+      in the production environment,
+      which can cause technical information leaks
+      when an error occurs.
+    impact: >
+      Get technical
+      or sensitive information.
+    recommendation: >
+      Configure the attribute: application.android:debuggable
+      to "false" in the file: AndroidManifest.xml.
+    threat: >
+      Unauthorized attacker
+      from internet network.
   es:
     title: Depuración habilitada en producción - APK
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      El sistema tiene el modo depuración habilitado
+      en el ambiente productivo,
+      lo que puede causar fugas de información técnica
+      cuando un error ocurra.
+    impact: >
+      Obtener información técnica
+      o sensible.
+    recommendation: >
+      Configurar el atributo: application.android:debuggable
+      a "false" en el archivo: AndroidManifest.xml.
+    threat: >
+      Atacante sin autorización
+      desde internet.
   score:
     base:
       attack_vector: "N"
@@ -2918,21 +2998,41 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["077", "078"]
   metadata: {}
 059:
   en:
     title: Sensitive information stored in logs
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The system stores
+      sensitive information such as credentials,
+      bank accounts
+      and file paths in log files.
+    impact: >
+      Obtain sensitive information
+      that may compromise system resources.
+    recommendation: >
+      Verify that the information stored
+      in logs is not sensitive.
+    threat: >
+      Authorized local attacker
+      with access to the log files.
   es:
     title: Información sensible almacenada en bitácoras
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      El sistema guarda información sensible
+      como credenciales,
+      cuentas de banco y rutas de archivos
+      en las bitácoras.
+    impact: >
+      Obtener informacion sensible
+      que puede comprometer recursos del sistema.
+    recommendation: >
+      Verificar que la informacion guardada
+      en las bitácoras no es sensible.
+    threat: >
+      Atacante local autorizado
+      con acceso a los logs.
   score:
     base:
       attack_vector: "N"
@@ -2947,21 +3047,57 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["083"]
   metadata: {}
 060:
   en:
     title: Insecure exceptions
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The source code uses generic exceptions
+      to handle unexpected errors.
+      Catching generic exceptions
+      obscures the problem
+      that caused the error
+      and promotes a generic way
+      to handle different categories
+      or sources of error.
+      This may cause security vulnerabilities
+      to materialize, as some special
+      flows go unnoticed.
+    impact: >
+      Lose the traceability necessary
+      to identify and fix unexpected errors.
+    recommendation: >
+      Catch specific exceptions
+      and provide custom treatment
+      to every exceptional event.
+    threat: >
+      Autenticated attacker
+      from the Internet.
   es:
     title: Excepciones inseguras
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      El código fuente usa excepciones genéricas
+      para manejar errores inesperados.
+      La captura de excepciones genéricas
+      oculta el problema que causó el error
+      y promueve una forma genérica
+      de manejar diferentes categorías
+      o fuentes de error.
+      Esto puede hacer
+      que se materialicen vulnerabilidades de seguridad,
+      ya que algunas flujos pasan desapercibidos.
+    impact: >
+      Perder la trazabilidad necesaria
+      para identificar y solucionar
+      los errores inesperados.
+    recommendation: >
+      Capturar excepciones de manera específica
+      y dar un tratamiento especial
+      a cada una de ellas.
+    threat: >
+      Atacante autenticado
+      desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -2976,7 +3112,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["161", "359"]
   metadata: {}
 061:
   en:
