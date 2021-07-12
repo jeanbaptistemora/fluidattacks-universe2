@@ -3,8 +3,8 @@
 This migration adds a service type attribute to groups.
 white for continuous and black for oneshot
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-07-12 at 16:09:31 UTC-05
+Finalization Time: 2021-07-12 at 16:09:44 UTC-05
 """
 
 from aioextensions import (
