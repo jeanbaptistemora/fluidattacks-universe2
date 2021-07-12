@@ -158,8 +158,8 @@ def cli() -> argparse.Namespace:
     parser.add_argument("--solver", type=str, default="")
 
     # XGBoost parameters to tune
-    parser.add_argument("--criterion", type=str, default="")
-    parser.add_argument("--loss", type=str, default="")
+    parser.add_argument("--criterion", type=str, default="friedman_mse")
+    parser.add_argument("--loss", type=str, default="deviance")
     parser.add_argument("--max_depth", type=int, default=3)
     parser.add_argument("--n_estimators", type=int, default=100)
     parser.add_argument("--learning_rate", type=float, default=0.1)
