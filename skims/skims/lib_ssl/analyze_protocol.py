@@ -683,6 +683,81 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
+def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
+    ssl_vulnerabilities: List[SSLVulnerability] = []
+
+    suits: List[str] = [
+        "RESERVED_SUITE_00_62",
+        "RESERVED_SUITE_00_61",
+        "RESERVED_SUITE_00_64",
+        "RESERVED_SUITE_00_60",
+        "DHE_RSA_EXPORT_WITH_DES40_CBC_SHA",
+        "DHE_DSS_EXPORT_WITH_DES40_CBC_SHA",
+        "RSA_EXPORT_WITH_DES40_CBC_SHA",
+        "RSA_EXPORT_WITH_RC2_CBC_40_MD5",
+        "RSA_EXPORT_WITH_RC4_40_MD5",
+        "EMPTY_RENEGOTIATION_INFO_SCSV",
+    ]
+
+    extensions: List[int] = get_ec_point_formats_ext()
+    extensions += get_elliptic_curves_ext()
+    extensions += get_session_ticket_ext()
+    extensions += get_heartbeat_ext()
+
+    for version_id in [3, 2, 1, 0]:
+        version: Tuple[int, int] = (3, version_id)
+
+        intention: Dict[core_model.LocalesEnum, str] = {
+            core_model.LocalesEnum.EN: (
+                "check if server is vulnerable to FREAK attack with"
+                " {version}".format(
+                    version=ssl_versions[version],
+                )
+            ),
+            core_model.LocalesEnum.ES: (
+                "verificar si el servidor es vulnerable a un ataque FREAK"
+                "con {version}".format(
+                    version=ssl_versions[version],
+                )
+            ),
+        }
+
+        sock = tcp_connect(
+            ctx.target.host,
+            ctx.target.port,
+            intention[core_model.LocalesEnum.EN],
+        )
+
+        if sock is None:
+            break
+
+        package = get_client_hello_package(version_id, suits, extensions)
+        sock.send(bytes(package))
+        handshake_record = read_ssl_record(sock)
+
+        if handshake_record is not None:
+            handshake_type, _, _ = handshake_record
+
+            if handshake_type == 22:
+                ssl_vulnerabilities.append(
+                    _create_ssl_vuln(
+                        check="freak_possible",
+                        line=SSLSnippetLine.max_version,
+                        ssl_settings=SSLSettings(
+                            ctx.target.host,
+                            ctx.target.port,
+                            min_version=version,
+                            max_version=version,
+                            intention=intention,
+                        ),
+                        finding=core_model.FindingEnum.F052_TLS,
+                    )
+                )
+        sock.close()
+
+    return _create_core_vulns(ssl_vulnerabilities)
+
+
 def get_check_ctx(ssl_ctx: SSLContext) -> SSLContext:
     return ssl_ctx
 
@@ -707,5 +782,6 @@ CHECKS: Dict[
         _fallback_scsv_disabled,
         _tlsv1_3_downgrade,
         _heartbleed_possible,
+        _freak_possible,
     ],
 }

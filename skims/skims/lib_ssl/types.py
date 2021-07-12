@@ -151,4 +151,8 @@ ssl_suites: Dict["str", List[int]] = {
     "DHE_DSS_WITH_SEED_CBC_SHA": [0x00, 0x99],
     "DHE_RSA_WITH_SEED_CBC_SHA": [0x00, 0x9A],
     "EMPTY_RENEGOTIATION_INFO_SCSV": [0x00, 0xFF],
+    "RESERVED_SUITE_00_60": [0x00, 0x60],
+    "RESERVED_SUITE_00_61": [0x00, 0x61],
+    "RESERVED_SUITE_00_62": [0x00, 0x62],
+    "RESERVED_SUITE_00_64": [0x00, 0x64],
 }
