@@ -34,9 +34,6 @@ from singer_io import (
 from singer_io.singer import (
     SingerRecord,
 )
-from tap_gitlab.api.auth import (
-    Credentials,
-)
 from tap_gitlab.api.client import (
     ApiClient,
 )
@@ -127,18 +124,35 @@ def _stream_data(
 @dataclass(frozen=True)
 class Emitter:
     api: ApiClient
-    interval_factory: IntervalFactory[datetime]
+    i_factory: IntervalFactory[datetime]
     max_pages: int
 
-    def __init__(
-        self,
-        creds: Credentials,
-        factory: IntervalFactory[datetime],
-        max_pages: int = 10,
-    ) -> None:
-        object.__setattr__(self, "api", ApiClient(creds))
-        object.__setattr__(self, "interval_factory", factory)
-        object.__setattr__(self, "max_pages", max_pages)
+    def _split_progress(
+        self, interval: OpenLeftInterval[datetime], page: MrsPage
+    ) -> Result[NTuple[ProgressInterval[OpenLeftInterval, datetime]], None]:
+        data = tuple(
+            (
+                ProgressInterval(
+                    self.i_factory.new_lopen(interval.lower, page.max_date),
+                    False,
+                ),
+                ProgressInterval(
+                    self.i_factory.new_lopen(page.max_date, interval.upper),
+                    True,
+                ),
+            )
+        )
+        return Success(data)
+
+    def list_all_in(
+        self, api: MrApi, interval: OpenLeftInterval[datetime]
+    ) -> IO[Iterator[MrsPage]]:
+        pages = (
+            api.list_all_updated_before(PageId(interval.upper, 100))
+            if isinstance(interval.lower, MIN)
+            else api.list_all_updated_between(interval.lower, interval.upper)
+        )
+        return pages
 
     def emit_mrs_interval(
         self,
@@ -151,46 +165,17 @@ class Emitter:
         )
         if not p_interval.completed:
             interval: OpenLeftInterval[datetime] = p_interval.interval()
-            pages = (
-                api.list_all_updated_before(PageId(interval.upper, 100))
-                if isinstance(interval.lower, MIN)
-                else api.list_all_updated_between(
-                    interval.lower, interval.upper
-                )
-            )
+            pages = unsafe_perform_io(self.list_all_in(api, interval))
             # temp unsafe_perform_io for fast coupling
             result = _stream_data(
                 SupportedStreams.MERGE_REQUESTS,
-                unsafe_perform_io(pages),
+                pages,
                 pages_emitted,
                 self.max_pages,
             )
             emitted = result.value_or(self.max_pages)
 
-            def _transform_page(
-                ol_interval: OpenLeftInterval[datetime], page: MrsPage
-            ) -> Result[
-                NTuple[ProgressInterval[OpenLeftInterval, datetime]], None
-            ]:
-                data = tuple(
-                    (
-                        ProgressInterval(
-                            self.interval_factory.new_lopen(
-                                ol_interval.lower, page.max_date
-                            ),
-                            False,
-                        ),
-                        ProgressInterval(
-                            self.interval_factory.new_lopen(
-                                page.max_date, ol_interval.upper
-                            ),
-                            True,
-                        ),
-                    )
-                )
-                return Success(data)
-
-            page_to_pinterval = partial(_transform_page, interval)
+            split_progress = partial(self._split_progress, interval)
             new_p_interval: NTuple[
                 ProgressInterval[OpenLeftInterval, datetime]
             ] = (
@@ -199,7 +184,7 @@ class Emitter:
                         (ProgressInterval(p_interval.interval(), True),)
                     )
                 )
-                .lash(page_to_pinterval)
+                .lash(split_progress)
                 .unwrap()
             )
             return (emitted, new_p_interval)
@@ -208,7 +193,7 @@ class Emitter:
     def emit_mrs(
         self, stream: MrStream, state: MrStreamState
     ) -> MrStreamState:
-        f_factory = FIntervalFactory(self.interval_factory)
+        f_factory = FIntervalFactory(self.i_factory)
         pf_factory = FProgressFactory(f_factory)
         f_progress = pf_factory.from_n_progress(
             state.state.process_until_incomplete(

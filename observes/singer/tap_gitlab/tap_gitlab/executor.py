@@ -17,6 +17,9 @@ from singer_io.singer import (
 from tap_gitlab.api.auth import (
     Credentials,
 )
+from tap_gitlab.api.client import (
+    ApiClient,
+)
 from tap_gitlab.emitter import (
     Emitter,
 )
@@ -69,7 +72,7 @@ def defautl_stream(
         else target_stream
     )
     factory: IntervalFactory[datetime] = IntervalFactory.from_default(datetime)
-    emitter = Emitter(creds, factory, max_pages)
+    emitter = Emitter(ApiClient(creds), factory, max_pages)
     if _target_stream == SupportedStreams.JOBS:
         LOG.info("Executing stream: %s", _target_stream)
         emitter.emit_jobs(default_job_stream(project))
