@@ -1,13 +1,13 @@
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import { Field } from "formik";
 import React from "react";
-import { Field } from "redux-form";
 
 import type { ITagFieldProps } from "./types";
 
 import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
-import { TagInput } from "utils/forms/fields";
+import { FormikTagInput } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 
 const TagField: React.FC<ITagFieldProps> = (
@@ -39,10 +39,11 @@ const TagField: React.FC<ITagFieldProps> = (
             <b>{translate.t("searchFindings.tabDescription.tag")}</b>
           </ControlLabel>
           <Field
-            component={TagInput}
+            component={FormikTagInput}
+            disabled={!(canUpdateVulnsTreatment && canDeleteVulnsTags)}
             name={"tag"}
             onDeletion={handleDeletion}
-            readOnly={!(canUpdateVulnsTreatment && canDeleteVulnsTags)}
+            placeholder={""}
             type={"text"}
           />
         </FormGroup>

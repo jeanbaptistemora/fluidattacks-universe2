@@ -11,7 +11,10 @@ import type {
 } from "./types";
 import { groupLastHistoricTreatment } from "./utils";
 
-import type { IUpdateTreatmentVulnAttr, IVulnDataTypeAttr } from "../types";
+import type {
+  IUpdateTreatmentVulnerabilityForm,
+  IVulnDataTypeAttr,
+} from "../types";
 import type { IConfirmFn } from "components/ConfirmDialog";
 import { Alert } from "styles/styledComponents";
 import { Logger } from "utils/logger";
@@ -20,7 +23,7 @@ import { translate } from "utils/translations/translate";
 
 const isTheFormPristine = (
   isTreatmentValuesPristine: boolean,
-  formValues: Dictionary<string>,
+  formValues: IUpdateTreatmentVulnerabilityForm,
   vulnerabilities: IVulnDataTypeAttr[]
 ): boolean => {
   return (
@@ -49,7 +52,7 @@ const getResults = async (
     FetchResult<IUpdateVulnDescriptionResultAttr | null | undefined>
   >,
   vulnerabilities: IVulnDataTypeAttr[],
-  dataTreatment: IUpdateTreatmentVulnAttr,
+  dataTreatment: IUpdateTreatmentVulnerabilityForm,
   findingId: string,
   isEditPristine: boolean,
   isTreatmentPristine: boolean
@@ -67,7 +70,7 @@ const getResults = async (
             isVulnInfoChanged: !isEditPristine,
             isVulnTreatmentChanged: !isTreatmentPristine,
             justification: dataTreatment.justification,
-            severity: _.isEmpty(dataTreatment.severity)
+            severity: _.isEmpty(String(dataTreatment.severity))
               ? -1
               : Number(dataTreatment.severity),
             tag: dataTreatment.tag,
@@ -112,7 +115,7 @@ const getAreAllMutationValid = (
 };
 
 const dataTreatmentTrackHelper = (
-  dataTreatment: IUpdateTreatmentVulnAttr
+  dataTreatment: IUpdateTreatmentVulnerabilityForm
 ): void => {
   if (dataTreatment.tag !== undefined) {
     track("AddVulnerabilityTag");
@@ -220,17 +223,21 @@ const handleRequestZeroRiskError = (
 
 const handleSubmitHelper = (
   handleUpdateTreatmentVuln: (
-    dataTreatment: IUpdateTreatmentVulnAttr
+    dataTreatment: IUpdateTreatmentVulnerabilityForm,
+    isEditPristine: boolean,
+    isTreatmentPristine: boolean
   ) => Promise<void>,
   requestZeroRisk: (
     variables: Record<string, unknown>
   ) => Promise<FetchResult<unknown>>,
   confirm: IConfirmFn,
-  values: IUpdateTreatmentVulnAttr,
+  values: IUpdateTreatmentVulnerabilityForm,
   findingId: string,
   vulnerabilities: IVulnDataTypeAttr[],
   changedToRequestZeroRisk: boolean,
-  changedToUndefined: boolean
+  changedToUndefined: boolean,
+  isEditPristine: boolean,
+  isTreatmentPristine: boolean
 ): void => {
   if (changedToRequestZeroRisk) {
     // Exception: FP(void operator is necessary)
@@ -248,12 +255,12 @@ const handleSubmitHelper = (
     confirm((): void => {
       // Exception: FP(void operator is necessary)
       // eslint-disable-next-line
-      void handleUpdateTreatmentVuln(values); //NOSONAR
+      void handleUpdateTreatmentVuln(values, isEditPristine, isTreatmentPristine); //NOSONAR
     });
   } else {
     // Exception: FP(void operator is necessary)
     // eslint-disable-next-line
-    void handleUpdateTreatmentVuln(values); //NOSONAR
+    void handleUpdateTreatmentVuln(values, isEditPristine, isTreatmentPristine); //NOSONAR
   }
 };
 

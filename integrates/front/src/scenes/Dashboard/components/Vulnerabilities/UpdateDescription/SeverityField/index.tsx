@@ -4,12 +4,15 @@ import React from "react";
 
 import type { ISeverityFieldProps } from "./types";
 
-import { EditableField } from "scenes/Dashboard/components/EditableField";
 import { FormGroup } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
-import { Text } from "utils/forms/fields";
+import { EditableField, FormikText } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
-import { isValidVulnSeverity, numeric } from "utils/validations";
+import {
+  composeValidators,
+  isValidVulnSeverity,
+  numeric,
+} from "utils/validations";
 
 const SeverityField: React.FC<ISeverityFieldProps> = (
   props: ISeverityFieldProps
@@ -34,7 +37,7 @@ const SeverityField: React.FC<ISeverityFieldProps> = (
       !hasNewVulnSelected ? (
         <FormGroup>
           <EditableField
-            component={Text}
+            component={FormikText}
             currentValue={level}
             label={translate.t(
               "searchFindings.tabDescription.businessCriticality"
@@ -42,7 +45,7 @@ const SeverityField: React.FC<ISeverityFieldProps> = (
             name={"severity"}
             renderAsEditable={canUpdateVulnsTreatment}
             type={"number"}
-            validate={[isValidVulnSeverity, numeric]}
+            validate={composeValidators([isValidVulnSeverity, numeric])}
           />
         </FormGroup>
       ) : undefined}

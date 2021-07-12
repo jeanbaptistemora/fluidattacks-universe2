@@ -23,7 +23,7 @@ export const FormikDate: React.FC<IDateProps> = (
 ): JSX.Element => {
   const { disabled, id, field } = props;
   const { name, onBlur, onChange } = field;
-  const { value }: { value: string } = field;
+  const { value }: { value: string | undefined } = field;
 
   return (
     <React.Fragment>
@@ -35,7 +35,7 @@ export const FormikDate: React.FC<IDateProps> = (
         onBlur={onBlur}
         onChange={onChange}
         type={"date"}
-        value={value.split(" ")[0]}
+        value={value === undefined ? "" : value.split(" ")[0]}
       />
       <ValidationError>
         <ErrorMessage name={name} />

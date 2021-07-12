@@ -4,10 +4,9 @@ import React from "react";
 
 import type { ITreatmentFieldProps } from "./types";
 
-import { EditableField } from "scenes/Dashboard/components/EditableField";
 import { authzPermissionsContext } from "utils/authz/config";
 import { formatDropdownField } from "utils/formatHelpers";
-import { Dropdown } from "utils/forms/fields";
+import { EditableField, FormikDropdown } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 import { required } from "utils/validations";
 
@@ -35,13 +34,13 @@ const TreatmentField: React.FC<ITreatmentFieldProps> = (
 
   return (
     <EditableField
-      component={Dropdown}
+      component={FormikDropdown}
       currentValue={treatmentLabel}
       label={translate.t("searchFindings.tabDescription.treatment.title")}
       name={"treatment"}
       renderAsEditable={canUpdateVulnsTreatment || canRequestZeroRiskVuln}
       type={"text"}
-      validate={isTreatmentPristine ? [] : required}
+      validate={isTreatmentPristine ? undefined : required}
     >
       <option value={""} />
       {canUpdateVulnsTreatment ? (

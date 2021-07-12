@@ -5,11 +5,15 @@ import type { ConfigurableValidator } from "revalidate";
 
 import type { IJustificationFieldProps } from "./types";
 
-import { EditableField } from "scenes/Dashboard/components/EditableField";
 import { authzPermissionsContext } from "utils/authz/config";
-import { TextArea } from "utils/forms/fields";
+import { EditableField, FormikTextArea } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
-import { maxLength, required, validTextField } from "utils/validations";
+import {
+  composeValidators,
+  maxLength,
+  required,
+  validTextField,
+} from "utils/validations";
 
 const MAX_TREATMENT_JUSTIFICATION_LENGTH: number = 5000;
 const maxTreatmentJustificationLength: ConfigurableValidator = maxLength(
@@ -30,7 +34,7 @@ const JustificationField: React.FC<IJustificationFieldProps> = (
 
   return (
     <EditableField
-      component={TextArea}
+      component={FormikTextArea}
       currentValue={lastTreatment.justification as string}
       label={translate.t("searchFindings.tabDescription.treatmentJust")}
       name={"justification"}
@@ -39,7 +43,11 @@ const JustificationField: React.FC<IJustificationFieldProps> = (
       validate={
         isTreatmentPristine
           ? undefined
-          : [required, validTextField, maxTreatmentJustificationLength]
+          : composeValidators([
+              required,
+              validTextField,
+              maxTreatmentJustificationLength,
+            ])
       }
     />
   );

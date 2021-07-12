@@ -26,7 +26,7 @@ import { TooltipWrapper } from "components/TooltipWrapper";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
-import { UpdateTreatmentModal } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription";
+import { UpdateDescription } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription";
 import {
   filterCurrentStatus,
   filterOutVulnerabilities,
@@ -412,7 +412,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
             open={isEditing}
             size={"largeModal"}
           >
-            <UpdateTreatmentModal
+            <UpdateDescription
               findingId={findingId}
               groupName={groupName}
               handleClearSelected={_.get(

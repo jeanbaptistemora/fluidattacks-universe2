@@ -6,11 +6,10 @@ import type { ConfigurableValidator } from "revalidate";
 import type { IExternalBtsFieldProps } from "./types";
 
 import { groupExternalBts } from "../utils";
-import { EditableField } from "scenes/Dashboard/components/EditableField";
 import { authzPermissionsContext } from "utils/authz/config";
-import { Text } from "utils/forms/fields";
+import { EditableField, FormikText } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
-import { maxLength, validUrlField } from "utils/validations";
+import { composeValidators, maxLength, validUrlField } from "utils/validations";
 
 const MAX_BTS_LENGTH: number = 80;
 const maxBtsLength: ConfigurableValidator = maxLength(MAX_BTS_LENGTH);
@@ -38,7 +37,7 @@ const ExternalBtsField: React.FC<IExternalBtsFieldProps> = (
       isInProgressSelected ||
       !hasNewVulnSelected ? (
         <EditableField
-          component={Text}
+          component={FormikText}
           currentValue={groupExternalBts(vulnerabilities)}
           label={translate.t("searchFindings.tabDescription.bts")}
           name={"externalBts"}
@@ -47,7 +46,7 @@ const ExternalBtsField: React.FC<IExternalBtsFieldProps> = (
           )}
           renderAsEditable={canUpdateVulnsTreatment}
           type={"text"}
-          validate={[maxBtsLength, validUrlField]}
+          validate={composeValidators([maxBtsLength, validUrlField])}
         />
       ) : undefined}
     </React.StrictMode>

@@ -5,11 +5,10 @@ import React from "react";
 
 import type { IAcceptanceDateFieldProps } from "./types";
 
-import { EditableField } from "scenes/Dashboard/components/EditableField";
 import { authzPermissionsContext } from "utils/authz/config";
-import { Date } from "utils/forms/fields";
+import { EditableField, FormikDate } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
-import { isLowerDate, required } from "utils/validations";
+import { composeValidators, isLowerDate, required } from "utils/validations";
 
 const AcceptanceDateField: React.FC<IAcceptanceDateFieldProps> = (
   props: IAcceptanceDateFieldProps
@@ -25,13 +24,13 @@ const AcceptanceDateField: React.FC<IAcceptanceDateFieldProps> = (
     <React.StrictMode>
       {isAcceptedSelected ? (
         <EditableField
-          component={Date}
+          component={FormikDate}
           currentValue={_.get(lastTreatment, "acceptanceDate", "-")}
           label={translate.t("searchFindings.tabDescription.acceptanceDate")}
           name={"acceptanceDate"}
           renderAsEditable={canUpdateVulnsTreatment}
           type={"date"}
-          validate={[required, isLowerDate]}
+          validate={composeValidators([required, isLowerDate])}
         />
       ) : undefined}
     </React.StrictMode>

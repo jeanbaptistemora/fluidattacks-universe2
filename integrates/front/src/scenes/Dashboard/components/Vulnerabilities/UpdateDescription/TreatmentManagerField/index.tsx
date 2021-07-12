@@ -5,9 +5,8 @@ import React from "react";
 
 import type { ITreatmentManagerFieldProps } from "./types";
 
-import { EditableField } from "scenes/Dashboard/components/EditableField";
 import { authzPermissionsContext } from "utils/authz/config";
-import { Dropdown } from "utils/forms/fields";
+import { EditableField, FormikDropdown } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 
 const TreatmentManagerField: React.FC<ITreatmentManagerFieldProps> = (
@@ -24,7 +23,7 @@ const TreatmentManagerField: React.FC<ITreatmentManagerFieldProps> = (
     <React.StrictMode>
       {isInProgressSelected ? (
         <EditableField
-          component={Dropdown}
+          component={FormikDropdown}
           currentValue={_.get(lastTreatment, "treatmentManager", "")}
           label={translate.t("searchFindings.tabDescription.treatmentMgr")}
           name={"treatmentManager"}

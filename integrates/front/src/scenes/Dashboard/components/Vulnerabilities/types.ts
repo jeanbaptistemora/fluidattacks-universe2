@@ -82,11 +82,22 @@ interface IVulnComponentProps {
   ) => void;
 }
 
+interface IUpdateTreatmentVulnerabilityForm {
+  acceptanceDate?: string;
+  externalBts: string;
+  justification?: string;
+  severity?: string;
+  tag?: string;
+  treatment: string;
+  treatmentManager?: string;
+}
+
 export {
   IVulnRowAttr,
   IUploadVulnerabilitiesResultAttr,
   IDownloadVulnerabilitiesResultAttr,
   IUpdateTreatmentVulnAttr,
+  IUpdateTreatmentVulnerabilityForm,
   IVulnDataTypeAttr,
   IVulnComponentProps,
 };

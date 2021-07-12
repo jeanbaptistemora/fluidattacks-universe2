@@ -22,7 +22,8 @@ export const FormikTagInput: React.FC<ITagInputProps> = (
   props: Readonly<ITagInputProps>
 ): JSX.Element => {
   const { disabled, onDeletion = undefined, field, form, placeholder } = props;
-  const { name, value } = field;
+  const { name } = field;
+  const { value }: { value: string | undefined } = field;
   const { errors, touched, setErrors } = form;
   const fieldTouched = Boolean(touched[name]);
   const error = errors[name];
