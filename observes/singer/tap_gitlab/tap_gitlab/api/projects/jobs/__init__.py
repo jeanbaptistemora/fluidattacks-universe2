@@ -35,6 +35,7 @@ from tap_gitlab.api.raw_client import (
     PageClient,
 )
 from tap_gitlab.intervals.interval import (
+    ClosedInterval,
     MIN,
 )
 from tap_gitlab.intervals.interval.factory import (
@@ -97,6 +98,25 @@ class JobApi(NamedTuple):
                         MIN(), item_id
                     ),
                 )
+                if is_successful(filtered):
+                    yield filtered.unwrap()
+
+        return init.bind(self.list_all).map(_filter)
+
+    def list_all_updated_between(
+        self,
+        ids: ClosedInterval[int],
+        start: PageId[int],
+    ) -> IO[Iterator[JobsPage]]:
+        init = self.search_item_page(ids.upper, start).map(
+            lambda item: item.unwrap()
+        )
+
+        def _filter(pages: Iterator[JobsPage]) -> Iterator[JobsPage]:
+            for page in pages:
+                if page.min_id < ids.lower:
+                    break
+                filtered = filter_page(page, ids)
                 if is_successful(filtered):
                     yield filtered.unwrap()
 
