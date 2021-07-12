@@ -406,6 +406,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                             "has_drills": True,
                             "has_forces": True,
                             "requester": "unknown",
+                            "service": "WHITE",
                             "type": "continuous",
                         }
                     ],
@@ -421,6 +422,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                             "has_drills": True,
                             "has_forces": True,
                             "requester": "unknown",
+                            "service": "BLACK",
                             "type": "oneshot",
                         }
                     ],
@@ -436,6 +438,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                             "has_drills": False,
                             "has_forces": True,
                             "requester": "unknown",
+                            "service": "BLACK",
                             "type": "oneshot",
                         }
                     ],

@@ -24,6 +24,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         "has_drills": False,
                         "has_forces": False,
                         "requester": "unknown",
+                        "service": "WHITE",
                         "type": "continuous",
                     }
                 ],
@@ -39,6 +40,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         "has_drills": False,
                         "has_forces": False,
                         "requester": "unknown",
+                        "service": "WHITE",
                         "type": "continuous",
                     }
                 ],

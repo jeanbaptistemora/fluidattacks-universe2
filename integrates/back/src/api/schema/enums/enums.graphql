@@ -201,6 +201,11 @@ enum ResourceState {
   INACTIVE
 }
 
+enum ServiceType {
+  BLACK
+  WHITE
+}
+
 enum Sorts {
   NO
   YES

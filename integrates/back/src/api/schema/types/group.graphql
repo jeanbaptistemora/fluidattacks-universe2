@@ -34,6 +34,7 @@ type Group {
   openVulnerabilities: Int
   organization: String!
   roots: [Root!]
+  service: ServiceType!
   serviceAttributes: [String]
   stakeholders: [Stakeholder!]
   subscription: String

@@ -30,6 +30,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         "has_drills": True,
                         "has_forces": True,
                         "requester": "unknown",
+                        "service": "WHITE",
                         "type": "continuous",
                     }
                 ],
