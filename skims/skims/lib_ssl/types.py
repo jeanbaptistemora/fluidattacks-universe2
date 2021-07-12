@@ -69,6 +69,7 @@ class SSLSettings(NamedTuple):
 
 
 class SSLSnippetLine(Enum):
+    ssl_connection: int = 2
     fallback_scsv: int = 3
     min_version: int = 4
     max_version: int = 5

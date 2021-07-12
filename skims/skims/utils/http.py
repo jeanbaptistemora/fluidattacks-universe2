@@ -2,13 +2,19 @@ import aiohttp
 from contextlib import (
     asynccontextmanager,
 )
+import requests
 from typing import (
     Any,
+    Dict,
     Optional,
+)
+from urllib3.exceptions import (
+    InsecureRequestWarning,
 )
 from utils.function import (
     shield,
 )
+import warnings
 
 RETRY = shield(
     on_error_return=None,
@@ -45,3 +51,24 @@ async def request(
     **kwargs: Any,
 ) -> Optional[aiohttp.ClientResponse]:
     return await session.request(method, url, *args, **kwargs)
+
+
+def request_blocking(
+    url: str,
+    headers: Dict[str, str],
+) -> Optional[requests.Response]:
+    try:
+        warnings.simplefilter("ignore", InsecureRequestWarning)
+        return requests.get(
+            url,
+            verify=False,  # nosec
+            auth=None,
+            headers=headers,
+            stream=False,
+            allow_redirects=True,
+            timeout=10.0,
+        )
+    except requests.exceptions.RequestException:
+        return None
+    finally:
+        warnings.simplefilter("default", InsecureRequestWarning)

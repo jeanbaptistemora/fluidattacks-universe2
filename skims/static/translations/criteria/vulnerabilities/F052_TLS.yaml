@@ -22,6 +22,9 @@ lib_ssl.analyze_protocol.freak_possible:
 lib_ssl.analyze_protocol.raccoon_possible:
   en: server is vulnerable to RACCOON attacks
   es: el servidor es vulnerable a ataques RACCOON
+lib_ssl.analyze_protocol.breach_possible:
+  en: server is vulnerable to BREACH attacks
+  es: el servidor es vulnerable a ataques BREACH
 F052_TLS.description:
   en: The server allows the usage of old TLS protocol versions.
   es: El servidor permite utilizar versiones viejas del protocolo TLS.

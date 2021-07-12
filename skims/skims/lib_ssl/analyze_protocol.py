@@ -32,6 +32,9 @@ from typing import (
 from utils.ctx import (
     CTX,
 )
+from utils.http import (
+    request_blocking,
+)
 from utils.sockets import (
     tcp_connect,
 )
@@ -833,6 +836,66 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
+def _breach_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
+    ssl_vulnerabilities: List[SSLVulnerability] = []
+
+    url: str = f"https://{ctx}"
+    common_compressors: List[str] = [
+        "compress",
+        "exi",
+        "gzip",
+        "identity",
+        "pack200-gzip",
+        "br",
+        "bzip2",
+        "lzma",
+        "peerdist",
+        "sdch",
+        "xpress",
+        "xz",
+    ]
+
+    for compression in common_compressors:
+        response = request_blocking(
+            url=url,
+            headers={"Accept-Encoding": f"{compression},deflate"},
+        )
+
+        if response is None:
+            continue
+
+        if compression in response.headers.get("Content-Encoding", ""):
+            ssl_vulnerabilities.append(
+                _create_ssl_vuln(
+                    check="breach_possible",
+                    line=SSLSnippetLine.ssl_connection,
+                    ssl_settings=SSLSettings(
+                        ctx.target.host,
+                        ctx.target.port,
+                        intention={
+                            core_model.LocalesEnum.EN: (
+                                "check if server is vulnerable to BREACH"
+                                " attack with {compression} as encoding"
+                                " method".format(
+                                    compression=compression,
+                                )
+                            ),
+                            core_model.LocalesEnum.ES: (
+                                "verificar si el servidor es vulnerable a un"
+                                " ataque BREACH al usar {compression} como"
+                                " método de codificación".format(
+                                    compression=compression,
+                                )
+                            ),
+                        },
+                    ),
+                    finding=core_model.FindingEnum.F052_TLS,
+                )
+            )
+
+    return _create_core_vulns(ssl_vulnerabilities)
+
+
 def get_check_ctx(ssl_ctx: SSLContext) -> SSLContext:
     return ssl_ctx
 
@@ -859,5 +922,6 @@ CHECKS: Dict[
         _heartbleed_possible,
         _freak_possible,
         _raccoon_possible,
+        _breach_possible,
     ],
 }
