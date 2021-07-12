@@ -30,7 +30,7 @@ const pageTexts: ResourceKey = {
   },
   blogFooter: {
     authorHeader: "Author",
-    shareHeader: "Share on Social Networks",
+    shareHeader: "Share on social networks",
     subscribeButton: "Subscribe",
     subscribeHeader: "Subscribe to our newsletter",
   },
