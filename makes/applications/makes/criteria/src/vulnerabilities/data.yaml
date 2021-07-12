@@ -2544,16 +2544,42 @@
 051:
   en:
     title: Cracked weak credentials
-    description: __empty__
+    description: >
+      The low complexity
+      of the hashes stored in the database
+      considerably reduces the amount of time
+      required to crack them.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Ensure that functions
+      of password summary
+      have a minimum size of 256 bits.
+    threat: >
+      An unathorized user
+      can execute a process
+      to revert the hashes found
+      in the database,
+      and then could find
+      users' passwords.
   es:
     title: Credenciales débiles vulneradas
-    description: __empty__
+    description: >
+      La falta de complejidad
+      de los hashes almacenados en la base de datos
+      reduce significativamente
+      el tiempo del proceso de reversado.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Asegurarse de que las funciones
+      de resumen de contraseñas
+      tenga un tamaño mínimo de 256 bits.
+    threat: >
+      Un usuario no autorizado
+      puede realizar un proceso
+      para revertir los hash encontrados
+      en la base de datos
+      pudiendo así encontrar
+      las contraseñas de los usuarios.
   score:
     base:
       attack_vector: "N"
@@ -2568,21 +2594,42 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["134", "135", "150"]
   metadata: {}
 052:
   en:
     title: Insecure encryption algorithm
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The application uses
+      insecure encryption algorithms.
+    impact: >
+      - Reverse the ciphertext
+        and collect sensible information.
+      - Tamper protected data
+        by exploiting algorithm collisions.
+    recommendation: >
+      Use algorithms considered
+      cryptographically secure.
+    threat: >
+      Anonymous attacker
+      from adjacent network via MITM.
   es:
     title: Algoritmo de cifrado inseguro
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      La aplicación usa algoritmos
+      de cifrado inseguros.
+    impact: >
+      - Reversar el texto cifrado
+        para encontrar información sensible.
+      - Alterar datos protegidos
+        al aprovechar colisiones
+        de la función resumen.
+    recommendation: >
+      Utilizar algoritmos considerados
+      criptográficamente seguros.
+    threat: >
+      Atacante anónimo desde red interna
+      ejecutando un MITM.
   score:
     base:
       attack_vector: "N"
@@ -2597,21 +2644,54 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["148", "149", "150", "181", "336"]
   metadata: {}
 053:
   en:
     title: Lack of protection against brute force attacks
-    description: __empty__
+    description: >
+      The system does not have
+      appropriate protection mechanisms
+      against automated attacks designed
+      to guess credentials.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Implement a control
+      to avoid this type of attacks
+      and to ensure that access
+      is not made by a robot.
+      E.g. Captcha,
+      failed attempts blockout, etc.
+    threat: >
+      An unathorized user
+      with access to the intranet
+      can enumerate accounts
+      and valid users' passwords
+      through a robot that executes
+      brute foce and wordlists attacks.
   es:
     title: Ausencia de protección contra ataques de fuerza bruta
-    description: __empty__
+    description: >
+      La aplicación no tiene protección
+      contra ataques automatizados
+      para adivinar credenciales válidas.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Implementar un control
+      para evitar este tipo de ataques
+      y que garantice que el acceso
+      no sea de un robot.
+      Ej captcha,
+      bloqueo por retardo en el número
+      de intentos fallidos, etc.
+    threat: >
+      Un usuario no autorizado
+      con acceso a la intranet
+      puede enumerar cuentas
+      y claves de usuarios válidos
+      a través de un robot elaborado
+      que ejecute ataques
+      de fuerza bruta y diccionario.
   score:
     base:
       attack_vector: "N"
@@ -2626,21 +2706,52 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["237", "327"]
   metadata: {}
 054:
   en:
     title: Exposed administrative services
-    description: __empty__
+    description: >
+      One or more of the system's
+      administration consoles are exposed
+      (possibly on the internet),
+      which may lead
+      to unauthorized access attempts.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Restrict the access
+      to the administrative consoles,
+      IP addresses
+      or management's network segments
+      explicitly allowed.
+    threat: >
+      An unathorized user
+      from internet can decrypt
+      the credentials of the administrators
+      to exploit public vulnerabilities
+      of the product
+      due the exposed consoles.
   es:
     title: Servicios administrativos expuestos
-    description: __empty__
+    description: >
+      Consola(s) de administración
+      se encuentran expuestas,
+      lo cual puede permitir
+      intentos de acceso administrativo
+      no autorizados.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Restringir el acceso
+      a las consolas administrativas a direcciones IP
+      o segmentos de red de gestión
+      explícitamente permitidos.
+    threat: >
+      Un usuario no autorizado
+      desde internet puede descifrar
+      las credenciales de los administradores
+      o explotar vulnerabilidades
+      públicas del producto
+      gracias a las consola expuestas.
   score:
     base:
       attack_vector: "N"
@@ -2655,21 +2766,57 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["033"]
   metadata: {}
 055:
   en:
     title: Insecure service configuration - ADB Backups
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The application allows backups via ADB
+      (Android Debug Bridge).
+      The backups performed by this functionality
+      are not encrypted.
+      Sensitive data of authenticated users
+      can be included in the backup,
+      and this data can be extracted
+      by a non-authenticated attacker.
+      Additionally,
+      data can be copied into a USB stick
+      and be moved out of the sphere of control
+      of the application.
+    impact: >
+      Leak sensitive information
+      through backups.
+    recommendation: >
+      Configure the attribute: application.android:allowBackup
+      to "false" in the file: AndroidManifest.xml.
+    threat: >
+      Unauthorized attacker
+      with the APK installed in a device.
   es:
     title: Configuración insegura de servicio - ADB Backups
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      La aplicación permite realizar copias de seguridad
+      a través de ADB (Android Debug Bridge).
+      Las copias de seguridad realizadas
+      por esta funcionalidad no están cifradas.
+      Los datos sensibles de usuarios autenticados
+      se puede incluir en la copia de seguridad,
+      y estos datos se pueden extraer
+      por un atacante no autenticado.
+      Adicionalmente,
+      los datos pueden copiarse en una memoria USB
+      y llevarse fuera de la esfera de control
+      de la aplicación.
+    impact: >
+      Filtrar información confidencial
+      a través de copias de seguridad.
+    recommendation: >
+      Configurar el atributo: application.android:allowBackup
+      a "false" en el archivo: AndroidManifest.xml.
+    threat: >
+      Atacante sin autorización
+      con el APK instalado en un dispositivo.
   score:
     base:
       attack_vector: "N"
@@ -2684,7 +2831,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["119", "266"]
   metadata: {}
 056:
   en:
