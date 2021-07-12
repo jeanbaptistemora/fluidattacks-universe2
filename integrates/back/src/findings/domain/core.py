@@ -10,6 +10,9 @@ import authz
 from comments import (
     domain as comments_domain,
 )
+from context import (
+    FI_API_STATUS,
+)
 from contextlib import (
     AsyncExitStack,
 )
@@ -1033,15 +1036,13 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     # we will just keep them open or close them
     # in either case, their historic_verification is updated to VERIFIED
     finding_vulns_loader = info.context.loaders.finding_vulns_all
-    finding_loader = info.context.loaders.finding
-    finding = await finding_loader.load(finding_id)
-    vuln_ids = cast(List[str], parameters.get("open_vulns", [])) + cast(
+    vuln_uuids = cast(List[str], parameters.get("open_vulns", [])) + cast(
         List[str], parameters.get("closed_vulns", [])
     )
     vulnerabilities = [
         vuln
         for vuln in await finding_vulns_loader.load(finding_id)
-        if vuln["id"] in vuln_ids
+        if vuln["id"] in vuln_uuids
     ]
     vulnerabilities = [
         vulns_utils.validate_verify(vuln) for vuln in vulnerabilities
@@ -1055,24 +1056,43 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     comment_id = int(round(time() * 1000))
     today = datetime_utils.get_now_as_str()
     user_email: str = user_info["user_email"]
-    historic_verification = cast(
-        List[Dict[str, Union[str, int, List[str]]]],
-        finding.get("historic_verification", []),
-    )
 
     # Modify the verification state to mark the finding as verified
-    historic_verification.append(
-        {
-            "comment": comment_id,
-            "date": today,
-            "status": "VERIFIED",
-            "user": user_email,
-            "vulns": vuln_ids,
-        }
-    )
-    update_finding = await findings_dal.update(
-        finding_id, {"historic_verification": historic_verification}
-    )
+    if FI_API_STATUS == "migration":
+        finding_new_loader = info.context.loaders.finding_new
+        finding_new: Finding = await finding_new_loader.load(finding_id)
+        verification = FindingVerification(
+            comment_id=str(comment_id),
+            modified_by=user_email,
+            modified_date=datetime_utils.get_iso_date(),
+            status=FindingVerificationStatus.VERIFIED,
+            vuln_uuids=vuln_uuids,
+        )
+        await findings_model.update_verification(
+            group_name=finding_new.group_name,
+            finding_id=finding_new.id,
+            verification=verification,
+        )
+        update_finding = True
+    else:
+        finding_loader = info.context.loaders.finding
+        finding = await finding_loader.load(finding_id)
+        historic_verification = cast(
+            List[Dict[str, Union[str, int, List[str]]]],
+            finding.get("historic_verification", []),
+        )
+        historic_verification.append(
+            {
+                "comment": comment_id,
+                "date": today,
+                "status": "VERIFIED",
+                "user": user_email,
+                "vulns": vuln_uuids,
+            }
+        )
+        update_finding = await findings_dal.update(
+            finding_id, {"historic_verification": historic_verification}
+        )
     comment_data = {
         "comment_type": "verification",
         "content": parameters.get("justification", ""),
