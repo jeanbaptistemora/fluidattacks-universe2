@@ -3117,16 +3117,50 @@
 061:
   en:
     title: Errors without traceability
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      Application errors are handled
+      neither by throwing an exception
+      nor by triggering a logging event,
+      which causes a loss of traceability.
+    impact: >
+      - Perform malicious actions
+        within the application
+        and leave no trace about it.
+      - Make auditing and debugging difficult,
+        as it is not possible to
+        correctly identify the errors generated.
+    recommendation: >
+      - Use a centralized logging mechanism
+        that supports several levels of detail.
+      - Make sure all events related
+        to successes and failures are recorded.
+    threat: >
+      Autenticated attacker
+      from the Internet.
   es:
     title: Errores sin trazabilidad
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      Los errores generados en la aplicación
+      no lanzan ninguna excepción o
+      guardado en logs
+      para saber donde se generaron.
+    impact: >
+      - Realizar acciones maliciosas
+        en la aplicación
+        sin dejar ningún rastro.
+      - Dificultar las labores de auditoría y debug,
+        ya que no es posible identificar
+        correctamente los errores generados.
+    recommendation: >
+      - Utilizar un mecanismo
+        de registro centralizado
+        que admita varios niveles de detalle.
+      - Asegurarse de que se registren
+        todos los eventos relacionados
+        con éxitos y fracasos.
+    threat: >
+      Atacante autenticado
+      desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -3141,21 +3175,66 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["075", "161"]
   metadata: {}
 062:
   en:
     title: Concurrent sessions
-    description: __empty__
+    description: >
+      The application does not validate
+      the number of active sessions
+      each user has,
+      thus a user can login
+      more than once at the same time.
+      Furthermore,
+      the application does not notify
+      the user when a session
+      has already been initiated
+      nor when a second one commences
+      from a different location.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      The system must restrict
+      the number of concurrent sessions
+      that a user can establish
+      and at the same
+      it must notify the user
+      when a login from a different
+      location occurs.
+    threat: >
+      An unathorized user
+      with access credentials
+      can act as a valid user
+      without creating an alert
+      into the system.
   es:
     title: Sesiones concurrentes
-    description: __empty__
+    description: >
+      La aplicación no valida
+      el número de sesiones por usuario
+      permitiéndole a un usuario
+      iniciar sesión con las mismas credenciales
+      más de una vez en un mismo momento.
+      Además,
+      la aplicación no informa
+      cuando ya existe una sesión
+      ni cuando se inicia sesión
+      desde otra ubicación.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      El sistema debe restringir
+      el número de sesiones concurrentes
+      que puede establecer un usuario
+      y a su vez notificar al usuario
+      cuando se inicie sesión
+      en otra ubicación.
+    threat: >
+      Un usuario no autorizado
+      con credenciales de acceso
+      puede suplantar un usuario
+      sin generar ninguna alerta
+      en el usuario autorizado
+      ni en los administradores de la plataforma.
   score:
     base:
       attack_vector: "N"
@@ -3170,21 +3249,54 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["025"]
   metadata: {}
 063:
   en:
     title: Lack of data validation - Path Traversal
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The software uses external input
+      to construct a pathname that is intended
+      to identify a file or directory
+      but it does not properly neutralize
+      or validate special elements
+      within the pathname.
+    impact: >
+      Make the software
+      resolve the pathname
+      to a location that is outside
+      of the intended target,
+      for instance: /etc/passwd.
+    recommendation: >
+      - Prevent the attacker
+        from constructing the pathname, or
+      - Validate/Neutralize the input
+        for special elements like: .., ~, /.
+    threat: >
+      Autenticated attacker
+      from the Internet.
   es:
     title: Ausencia de validación de datos - Path Traversal
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      El software usa entradas externas
+      para construir rutas que identifican
+      un archivo o directorio pero no se neutraliza
+      o validan apropiadamente
+      los elementos especiales dentro de dicha ruta.
+    impact: >
+      Hacer que el software resuelva la ruta
+      a una ubicación que esta por fuera
+      del objetivo de la aplicación,
+      por ejemplo: /etc/passwd.
+    recommendation: >
+      - Prevenir que el atacante
+        construya la ruta, o
+      - Validar/Neutralizar que las entradas
+        no contengan elementos especiales
+        como: .., ~, /.
+    threat: >
+      Atacante autenticado
+      desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -3199,21 +3311,36 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["173", "320", "342"]
   metadata: {}
 064:
   en:
     title: Traceability loss - Server's clock
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The system's internal clock
+      is not synced with NTP servers.
+    impact: >
+      Write log entries with a wrong date.
+    recommendation: >
+      Sync the server date
+      with a NTP server.
+    threat: >
+      Anonymous attacker
+      from the Internet.
   es:
     title: Pérdida de trazabilidad - Reloj del servidor
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      El reloj interno del sistema
+      no está sincronizado con servidores NTP.
+    impact: >
+      Escribir entradas de logs
+      con una fecha errónea.
+    recommendation: >
+      Sincronizar la fecha del servidor
+      con un servidor NTP.
+    threat: >
+      Atacante anónimo
+      desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -3228,21 +3355,55 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["075", "320"]
   metadata: {}
 065:
   en:
     title: Cached form fields
-    description: __empty__
+    description: >
+      The application
+      does not disable caching of input fields,
+      thus the information will be stored
+      in the browser’s cache.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      The data cache to browser's level
+      must be disabled
+      using some of these methods:
+      - Use HTTP control headers
+        that prevent cache.
+      - Use meta-tags in HTML pages.
+      - Disable the _autocomplete_ field
+        to prevent cache to field's level.
+    threat: >
+      An unathorized user
+      with access to local machine
+      can view the browser's cache memory
+      and discover valid users
+      into the application.
   es:
     title: Campos de formulario en caché
-    description: __empty__
+    description: >
+      El formulario no deshabilita
+      la característica de autocompletado,
+      por lo que la información quedará almacenada
+      en el caché del navegador.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      El caché de datos a nivel de navegador
+      se debe deshabilitar
+      usando alguno de estos métodos:
+      - Usar cabeceras de control HTTP
+        que prevengan caché.
+      - Usar meta-tags en las páginas HTML.
+      - Deshabilitar el campo _autocomplete_
+        para prevenir caché a nivel de campos.
+    threat: >
+      Un usuario no autorizado
+      con acceso a la máquina local
+      puede acceder a la memoria caché del navegador
+      para conocer usuarios válidos
+      para la aplicación.
   score:
     base:
       attack_vector: "N"
@@ -3257,7 +3418,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["177"]
   metadata: {}
 066:
   en:
