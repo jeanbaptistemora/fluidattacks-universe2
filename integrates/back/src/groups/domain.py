@@ -506,6 +506,11 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
                         "has_drills": has_squad,
                         "has_forces": True,
                         "requester": user_email,
+                        "service": (
+                            "WHITE"
+                            if subscription == "continuous"
+                            else "BLACK"
+                        ),
                         "type": subscription,
                     }
                 ],
@@ -682,6 +687,11 @@ async def edit(
                         "has_forces": True,
                         "reason": reason,
                         "requester": requester_email,
+                        "service": (
+                            "WHITE"
+                            if subscription == "continuous"
+                            else "BLACK"
+                        ),
                         "type": subscription,
                     }
                 ],
@@ -1201,6 +1211,11 @@ def validate_group_services_config(
                 raise InvalidGroupServicesConfig(
                     "Squad is only available when Machine is too"
                 )
+    else:
+        if has_machine:
+            raise InvalidGroupServicesConfig(
+                "Machine is only available in groups of type Continuous"
+            )
 
 
 async def validate_group_tags(group_name: str, tags: List[str]) -> List[str]:
