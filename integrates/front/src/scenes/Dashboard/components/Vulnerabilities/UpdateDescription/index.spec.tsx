@@ -6,7 +6,6 @@ import { mount } from "enzyme";
 import { GraphQLError } from "graphql";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
@@ -22,7 +21,6 @@ import {
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 import { EditableField } from "utils/forms/fields";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -184,19 +182,17 @@ describe("Update Description component", (): void => {
     const handleOnClose: jest.Mock = jest.fn();
     const handleClearSelected: jest.Mock = jest.fn();
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={[]}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <UpdateDescription
-              findingId={"1"}
-              groupName={""}
-              handleClearSelected={handleClearSelected}
-              handleCloseModal={handleOnClose}
-              vulnerabilities={vulns}
-            />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={[]}>
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <UpdateDescription
+            findingId={"1"}
+            groupName={""}
+            handleClearSelected={handleClearSelected}
+            handleCloseModal={handleOnClose}
+            vulnerabilities={vulns}
+          />
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
     );
 
     await act(async (): Promise<void> => {
@@ -472,22 +468,20 @@ describe("Update Description component", (): void => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider
-          addTypename={false}
-          mocks={[...mocksMutation, mocksVulns]}
-        >
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <UpdateDescription
-              findingId={"422286126"}
-              groupName={""}
-              handleClearSelected={handleClearSelected}
-              handleCloseModal={handleOnClose}
-              vulnerabilities={vulnsToUpdate}
-            />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider
+        addTypename={false}
+        mocks={[...mocksMutation, mocksVulns]}
+      >
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <UpdateDescription
+            findingId={"422286126"}
+            groupName={""}
+            handleClearSelected={handleClearSelected}
+            handleCloseModal={handleOnClose}
+            vulnerabilities={vulnsToUpdate}
+          />
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
     );
     await act(async (): Promise<void> => {
       await wait(0);

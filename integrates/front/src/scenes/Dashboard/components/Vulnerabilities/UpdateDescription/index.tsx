@@ -124,11 +124,16 @@ export const UpdateDescription: React.FC<IUpdateDescriptionProps> = ({
             <Formik
               enableReinitialize={true}
               initialValues={{
-                ...lastTreatment,
+                acceptanceDate: lastTreatment.acceptanceDate,
+                acceptanceStatus: lastTreatment.acceptanceStatus,
+                date: lastTreatment.date,
                 externalBts: groupExternalBts(vulnerabilities),
+                justification: lastTreatment.justification,
                 severity: groupVulnLevel(vulnerabilities),
                 tag: _.join(_.intersection(...vulnsTags), ","),
                 treatment: lastTreatment.treatment.replace("NEW", ""),
+                treatmentManager: lastTreatment.treatmentManager,
+                user: lastTreatment.user,
               }}
               name={"editTreatmentVulnerability"}
               onSubmit={handleSubmit}

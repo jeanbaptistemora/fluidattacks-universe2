@@ -30,6 +30,7 @@ import { TreatmentField } from "./TreatmentField";
 import { TreatmentManagerField } from "./TreatmentManagerField";
 
 import { GET_FINDING_HEADER } from "../../../containers/FindingContent/queries";
+import { UpdateDescriptionContext } from "../context";
 import { Button } from "components/Button";
 import { GET_GROUP_USERS } from "scenes/Dashboard/components/Vulnerabilities/queries";
 import type {
@@ -91,9 +92,13 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     "api_mutations_update_vulns_treatment_mutate"
   );
   const [isRunning, setRunning] = useState(false);
+  const [treatment, setTreatment] = useContext(UpdateDescriptionContext);
 
-  const { initialValues, values: formValues } =
-    useFormikContext<IUpdateTreatmentVulnerabilityForm>();
+  const {
+    initialValues,
+    values: formValues,
+    setValues,
+  } = useFormikContext<IUpdateTreatmentVulnerabilityForm>();
 
   function getDiff(
     initValues: Dictionary<unknown>,
@@ -211,10 +216,8 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
 
   const { submitForm } = useFormikContext<IUpdateTreatmentVulnerabilityForm>();
 
-  function handleDeletion(tag: string): void {
-    // Exception: FP(void operator is necessary)
-    // eslint-disable-next-line
-    void deleteTagVuln({ //NOSONAR
+  async function handleDeletion(tag: string): Promise<void> {
+    await deleteTagVuln({
       variables: {
         findingId,
         tag,
@@ -280,6 +283,13 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   const isAcceptedUndefinedSelected: boolean =
     formValues.treatment === "ACCEPTED_UNDEFINED";
 
+  function isEmpty(formObject: IUpdateTreatmentVulnerabilityForm): boolean {
+    return _.values(formObject).every(
+      (objectValue: string | undefined): boolean =>
+        objectValue === undefined || objectValue === ""
+    );
+  }
+
   useEffect((): void => {
     setConfigFn(
       requestZeroRisk,
@@ -287,6 +297,19 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       isEditPristine,
       isTreatmentPristine
     );
+    if (isEmpty(treatment) && !_.isEmpty(initialValues)) {
+      setTreatment(initialValues);
+    } else if (
+      (!isEditPristine || !isTreatmentPristine) &&
+      getDiff(
+        treatment as unknown as Dictionary<unknown>,
+        formValues as unknown as Dictionary<unknown>
+      ).length > 0
+    ) {
+      setTreatment(formValues);
+    } else if (isEditPristine && isTreatmentPristine) {
+      setValues(treatment);
+    }
     // Annotation needed as adding the dependencies creates a memory leak
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [

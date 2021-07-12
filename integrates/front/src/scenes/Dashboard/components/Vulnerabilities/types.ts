@@ -92,10 +92,20 @@ interface IUpdateTreatmentVulnerabilityForm {
   treatmentManager?: string;
 }
 
+interface IVulnerabilityModalValues
+  extends Array<
+    | IUpdateTreatmentVulnerabilityForm
+    | React.Dispatch<React.SetStateAction<IUpdateTreatmentVulnerabilityForm>>
+  > {
+  0: IUpdateTreatmentVulnerabilityForm;
+  1: React.Dispatch<React.SetStateAction<IUpdateTreatmentVulnerabilityForm>>;
+}
+
 export {
   IVulnRowAttr,
   IUploadVulnerabilitiesResultAttr,
   IDownloadVulnerabilitiesResultAttr,
+  IVulnerabilityModalValues,
   IUpdateTreatmentVulnAttr,
   IUpdateTreatmentVulnerabilityForm,
   IVulnDataTypeAttr,
