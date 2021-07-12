@@ -147,7 +147,7 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     check="sslv3_enabled",
                     ssl_settings=ssl_settings,
                     line=SSLSnippetLine.max_version,
-                    finding=core_model.FindingEnum.F052_SSLV3,
+                    finding=core_model.FindingEnum.F052_SSL_TLS,
                 )
             )
 
@@ -182,7 +182,7 @@ def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     check="tlsv1_enabled",
                     ssl_settings=ssl_settings,
                     line=SSLSnippetLine.max_version,
-                    finding=core_model.FindingEnum.F052_TLS,
+                    finding=core_model.FindingEnum.F052_SSL_TLS,
                 )
             )
 
@@ -217,7 +217,7 @@ def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     check="tlsv1_1_enabled",
                     ssl_settings=ssl_settings,
                     line=SSLSnippetLine.max_version,
-                    finding=core_model.FindingEnum.F052_TLS,
+                    finding=core_model.FindingEnum.F052_SSL_TLS,
                 )
             )
 
@@ -252,7 +252,7 @@ def _tlsv1_3_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     check="tlsv1_3_disabled",
                     ssl_settings=ssl_settings,
                     line=SSLSnippetLine.max_version,
-                    finding=core_model.FindingEnum.F052_TLS,
+                    finding=core_model.FindingEnum.F052_SSL_TLS,
                 )
             )
 
@@ -509,7 +509,7 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     check="fallback_scsv_disabled",
                     ssl_settings=ssl_settings,
                     line=SSLSnippetLine.max_version,
-                    finding=core_model.FindingEnum.F052_TLS,
+                    finding=core_model.FindingEnum.F052_SSL_TLS,
                 )
             )
 
@@ -553,7 +553,7 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
                         check="tlsv1_3_downgrade",
                         ssl_settings=ssl_settings,
                         line=SSLSnippetLine.max_version,
-                        finding=core_model.FindingEnum.F052_TLS,
+                        finding=core_model.FindingEnum.F052_SSL_TLS,
                         check_kwargs={"version": f"{ssl_versions[version]}"},
                     )
                 )
@@ -678,7 +678,7 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                                     max_version=version,
                                     intention=intention,
                                 ),
-                                finding=core_model.FindingEnum.F052_TLS,
+                                finding=core_model.FindingEnum.F052_SSL_TLS,
                             )
                         )
         sock.close()
@@ -753,7 +753,7 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                             max_version=version,
                             intention=intention,
                         ),
-                        finding=core_model.FindingEnum.F052_TLS,
+                        finding=core_model.FindingEnum.F052_SSL_TLS,
                     )
                 )
         sock.close()
@@ -828,7 +828,7 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                             max_version=version,
                             intention=intention,
                         ),
-                        finding=core_model.FindingEnum.F052_TLS,
+                        finding=core_model.FindingEnum.F052_SSL_TLS,
                     )
                 )
         sock.close()
@@ -889,7 +889,7 @@ def _breach_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                             ),
                         },
                     ),
-                    finding=core_model.FindingEnum.F052_TLS,
+                    finding=core_model.FindingEnum.F052_SSL_TLS,
                 )
             )
 
@@ -912,8 +912,8 @@ CHECKS: Dict[
         _sweet32_possible,
     ],
     core_model.FindingEnum.F052_PFS: [_pfs_disabled],
-    core_model.FindingEnum.F052_SSLV3: [_sslv3_enabled],
-    core_model.FindingEnum.F052_TLS: [
+    core_model.FindingEnum.F052_SSL_TLS: [
+        _sslv3_enabled,
         _tlsv1_enabled,
         _tlsv1_1_enabled,
         _tlsv1_3_disabled,

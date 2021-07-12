@@ -11,7 +11,7 @@ F052_PFS,inputs,localhost:4446 (namespace),server refuses connections with PFS s
   9 | result: server refuses connections with PFS support
     ^ Col 0
 "
-F052_TLS,inputs,localhost:4446 (namespace),server accepts connections with TLSv1.0,326,"home,socket-send,socket-response",F052. Insecure cipher algorithm - Transport Layer Security,server accepts connections with TLSv1.0,"
+F052_SSL_TLS,inputs,localhost:4446 (namespace),server accepts connections with TLSv1.0,326,"home,socket-send,socket-response",F052. Insecure cipher algorithm - SSL/TLS,server accepts connections with TLSv1.0,"
   1 | intention: check if server accepts connections with TLSv1.0
   2 | SSL request made to localhost:4446 with following parameters
   3 |    fallback scsv: False
@@ -23,7 +23,7 @@ F052_TLS,inputs,localhost:4446 (namespace),server accepts connections with TLSv1
   9 | result: server accepts connections with TLSv1.0
     ^ Col 0
 "
-F052_TLS,inputs,localhost:4446 (namespace),server accepts connections with TLSv1.1,326,"home,socket-send,socket-response",F052. Insecure cipher algorithm - Transport Layer Security,server accepts connections with TLSv1.1,"
+F052_SSL_TLS,inputs,localhost:4446 (namespace),server accepts connections with TLSv1.1,326,"home,socket-send,socket-response",F052. Insecure cipher algorithm - SSL/TLS,server accepts connections with TLSv1.1,"
   1 | intention: check if server accepts connections with TLSv1.1
   2 | SSL request made to localhost:4446 with following parameters
   3 |    fallback scsv: False
@@ -35,7 +35,7 @@ F052_TLS,inputs,localhost:4446 (namespace),server accepts connections with TLSv1
   9 | result: server accepts connections with TLSv1.1
     ^ Col 0
 "
-F052_TLS,inputs,localhost:4446 (namespace),server refuses connections with TLSv1.3,326,"home,socket-send,socket-response",F052. Insecure cipher algorithm - Transport Layer Security,server refuses connections with TLSv1.3,"
+F052_SSL_TLS,inputs,localhost:4446 (namespace),server refuses connections with TLSv1.3,326,"home,socket-send,socket-response",F052. Insecure cipher algorithm - SSL/TLS,server refuses connections with TLSv1.3,"
   1 | intention: check if server accepts connections with TLSv1.3
   2 | SSL request made to localhost:4446 with following parameters
   3 |    fallback scsv: False

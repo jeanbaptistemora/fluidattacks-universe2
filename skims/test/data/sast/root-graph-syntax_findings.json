@@ -139,11 +139,7 @@
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
-  "F052_SSLV3": {
-    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
-  },
-  "F052_TLS": {
+  "F052_SSL_TLS": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },

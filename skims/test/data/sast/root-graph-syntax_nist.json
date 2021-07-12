@@ -1171,12 +1171,7 @@
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
   },
-  "F052_SSLV3": {
-    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
-    "skims/test/data/benchmark/nist/HouseController.cs": {},
-    "skims/test/data/benchmark/nist/StudentController.cs": {}
-  },
-  "F052_TLS": {
+  "F052_SSL_TLS": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
