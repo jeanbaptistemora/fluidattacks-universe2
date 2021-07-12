@@ -51,17 +51,6 @@ def _common_builder(
     }
 
 
-def _contains_point(
-    greater: Comparison[IntervalPoint[_Point]],
-    lower: IntervalPoint[_Point],
-    upper: IntervalPoint[_Point],
-    point: IntervalPoint[_Point],
-) -> bool:
-    return (greater(point, lower) or point == lower) and (
-        greater(upper, point) or point == upper
-    )
-
-
 @dataclass(frozen=True)
 class ClosedInterval(
     SupportsKind1["ClosedInterval", _Point],
@@ -81,8 +70,9 @@ class ClosedInterval(
             object.__setattr__(self, key, value)
 
     def __contains__(self, point: IntervalPoint[_Point]) -> bool:
-        return _contains_point(
-            self.greater.unwrap, self.lower, self.upper, point
+        _greater = self.greater.unwrap
+        return (_greater(point, self.lower) or point == self.lower) and (
+            _greater(self.upper, point) or point == self.upper
         )
 
 
@@ -105,9 +95,8 @@ class OpenInterval(
             object.__setattr__(self, key, value)
 
     def __contains__(self, point: IntervalPoint[_Point]) -> bool:
-        return _contains_point(
-            self.greater.unwrap, self.lower, self.upper, point
-        )
+        _greater = self.greater.unwrap
+        return _greater(point, self.lower) and _greater(self.upper, point)
 
 
 @dataclass(frozen=True)
@@ -129,8 +118,9 @@ class OpenLeftInterval(
             object.__setattr__(self, key, value)
 
     def __contains__(self, point: IntervalPoint[_Point]) -> bool:
-        return _contains_point(
-            self.greater.unwrap, self.lower, self.upper, point
+        _greater = self.greater.unwrap
+        return _greater(point, self.lower) and (
+            _greater(self.upper, point) or point == self.upper
         )
 
 
@@ -153,9 +143,10 @@ class OpenRightInterval(
             object.__setattr__(self, key, value)
 
     def __contains__(self, point: IntervalPoint[_Point]) -> bool:
-        return _contains_point(
-            self.greater.unwrap, self.lower, self.upper, point
-        )
+        _greater = self.greater.unwrap
+        return (
+            _greater(point, self.lower) or point == self.lower
+        ) and _greater(self.upper, point)
 
 
 Interval = Union[
