@@ -16,6 +16,9 @@ from returns.io import (
 from returns.maybe import (
     Maybe,
 )
+from returns.pipeline import (
+    is_successful,
+)
 from returns.unsafe import (
     unsafe_perform_io,
 )
@@ -23,12 +26,19 @@ from tap_gitlab.api.projects.ids import (
     ProjectId,
 )
 from tap_gitlab.api.projects.jobs.page import (
+    filter_page,
     JobsPage,
     list_jobs,
     Scope,
 )
 from tap_gitlab.api.raw_client import (
     PageClient,
+)
+from tap_gitlab.intervals.interval import (
+    MIN,
+)
+from tap_gitlab.intervals.interval.factory import (
+    IntervalFactory,
 )
 from typing import (
     Iterator,
@@ -78,4 +88,16 @@ class JobApi(NamedTuple):
         init = self.search_item_page(item_id, start).map(
             lambda item: item.unwrap()
         )
-        return init.bind(self.list_all)
+
+        def _filter(pages: Iterator[JobsPage]) -> Iterator[JobsPage]:
+            for page in pages:
+                filtered = filter_page(
+                    page,
+                    IntervalFactory.from_default(int).new_lopen(
+                        MIN(), item_id
+                    ),
+                )
+                if is_successful(filtered):
+                    yield filtered.unwrap()
+
+        return init.bind(self.list_all).map(_filter)
