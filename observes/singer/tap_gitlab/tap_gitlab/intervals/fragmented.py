@@ -15,12 +15,14 @@ from tap_gitlab.intervals.alias import (
     NTuple,
 )
 from tap_gitlab.intervals.interval import (
-    IntervalFactory,
     IntervalPoint,
     InvalidInterval,
     MAX,
     MIN,
     OpenLeftInterval,
+)
+from tap_gitlab.intervals.interval.factory import (
+    IntervalFactory,
 )
 from typing import (
     Optional,

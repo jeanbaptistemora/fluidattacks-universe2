@@ -4,7 +4,7 @@ from datetime import (
 from tap_gitlab.intervals.fragmented import (
     FIntervalFactory,
 )
-from tap_gitlab.intervals.interval import (
+from tap_gitlab.intervals.interval.factory import (
     IntervalFactory,
 )
 from tap_gitlab.intervals.progress import (

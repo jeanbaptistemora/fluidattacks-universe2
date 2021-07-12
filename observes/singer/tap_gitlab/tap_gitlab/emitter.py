@@ -53,9 +53,11 @@ from tap_gitlab.intervals.fragmented import (
     FIntervalFactory,
 )
 from tap_gitlab.intervals.interval import (
-    IntervalFactory,
     MIN,
     OpenLeftInterval,
+)
+from tap_gitlab.intervals.interval.factory import (
+    IntervalFactory,
 )
 from tap_gitlab.intervals.progress import (
     FProgressFactory,

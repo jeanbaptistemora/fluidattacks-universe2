@@ -20,7 +20,7 @@ from tap_gitlab.api.auth import (
 from tap_gitlab.emitter import (
     Emitter,
 )
-from tap_gitlab.intervals.interval import (
+from tap_gitlab.intervals.interval.factory import (
     IntervalFactory,
 )
 from tap_gitlab.state import (
