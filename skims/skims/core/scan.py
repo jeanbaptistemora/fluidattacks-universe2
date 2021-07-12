@@ -67,10 +67,11 @@ async def execute_skims(token: Optional[str]) -> bool:
         await analyze_apk(stores=stores)
     if CTX.config.http.include:
         await analyze_http(stores=stores)
-    if CTX.config.path.lib_path and CTX.config.path.include:
-        await analyze_paths(stores=stores)
-    if CTX.config.path.lib_root and CTX.config.path.include:
-        await analyze_root(stores=stores)
+    if CTX.config.path.include:
+        if CTX.config.path.lib_path:
+            await analyze_paths(stores=stores)
+        if CTX.config.path.lib_root:
+            await analyze_root(stores=stores)
     if CTX.config.ssl.include:
         await analyze_ssl(stores=stores)
 

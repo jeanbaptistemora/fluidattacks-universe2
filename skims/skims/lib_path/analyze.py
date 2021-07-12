@@ -68,6 +68,7 @@ async def analyze_one_path(
     index: int,
     path: str,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
+    unique_nv_paths: Set[str],
     unique_paths_count: int,
 ) -> None:
     """Execute all findings against the provided file.
@@ -94,6 +95,13 @@ async def analyze_one_path(
         if finding not in CTX.config.checks:
             continue
 
+        if path in unique_nv_paths:
+            if finding is not core_model.FindingEnum.F117:
+                continue
+        else:
+            if finding is core_model.FindingEnum.F117:
+                continue
+
         for vulnerabilities in await analyzer(
             content_generator=file_content_generator,
             file_extension=file_extension,
@@ -113,7 +121,7 @@ async def analyze(
         # No findings will be executed, early abort
         return
 
-    unique_paths: Set[str] = await resolve_paths(
+    unique_paths, unique_nv_paths = await resolve_paths(
         exclude=CTX.config.path.exclude,
         include=CTX.config.path.include,
     )
@@ -125,9 +133,10 @@ async def analyze(
                 index=index,
                 path=path,
                 stores=stores,
+                unique_nv_paths=unique_nv_paths,
                 unique_paths_count=unique_paths_count,
             )
-            for index, path in enumerate(unique_paths)
+            for index, path in enumerate(unique_paths | unique_nv_paths)
         ),
         workers=CPU_CORES,
     )

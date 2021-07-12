@@ -90,6 +90,49 @@ async def get_file_raw_content(path: str, size: int = -1) -> bytes:
         return file_contents
 
 
+def get_non_verifiable_paths(paths: Set[str]) -> Set[str]:
+    nv_paths: Set[str] = set()
+
+    for path in paths:
+        _, file = os.path.split(path)
+        file_name, file_extension = os.path.splitext(file)
+        file_extension = file_extension[1:]
+
+        if (
+            file_extension
+            in {
+                "bin",
+                "class",
+                "dll",
+                "DS_Store",
+                "exec",
+                "hprof",
+                "jar",
+                "jasper",
+                "pdb",
+                "pyc",
+            }
+            or (file_name, file_extension)
+            in {
+                ("debug", "log"),
+                ("org.eclipse.buildship.core.prefs"),
+                (".classpath", ""),
+                (".project", ""),
+                (".vscode", ""),
+            }
+            or any(
+                string in path
+                for string in (
+                    "/.serverless_plugins/",
+                    "/.settings/",
+                )
+            )
+        ):
+            nv_paths.add(path)
+
+    return nv_paths
+
+
 async def mkdir(name: str, mode: int = 0o777, exist_ok: bool = False) -> None:
     return await in_thread(os.makedirs, name, mode=mode, exist_ok=exist_ok)
 
@@ -121,7 +164,7 @@ async def resolve_paths(
     *,
     exclude: Tuple[str, ...],
     include: Tuple[str, ...],
-) -> Set[str]:
+) -> Tuple[Set[str], Set[str]]:
     def normpath(path: str) -> str:
         return os.path.normpath(path)
 
@@ -157,9 +200,13 @@ async def resolve_paths(
                 ),
             )
         )
+
+        # Exclude non-verifiable paths
+        unique_nv_paths: Set[str] = get_non_verifiable_paths(unique_paths)
+        unique_paths.symmetric_difference_update(unique_nv_paths)
     except FileNotFoundError as exc:
         raise SystemExit(f"File does not exist: {exc.filename}")
     else:
         await log("info", "Files to be tested: %s", len(unique_paths))
 
-    return unique_paths
+    return unique_paths, unique_nv_paths

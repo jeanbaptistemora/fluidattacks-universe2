@@ -29,7 +29,6 @@ from state.ephemeral import (
 )
 from typing import (
     Dict,
-    Set,
 )
 from utils.ctx import (
     CTX,
@@ -68,7 +67,7 @@ async def analyze(
         # No findings will be executed, early abort
         return
 
-    unique_paths: Set[str] = await resolve_paths(
+    unique_paths, _ = await resolve_paths(
         exclude=CTX.config.path.exclude,
         include=CTX.config.path.include,
     )
