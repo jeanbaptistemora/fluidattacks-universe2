@@ -4,6 +4,9 @@ from __future__ import (
     annotations,
 )
 
+from dataclasses import (
+    dataclass,
+)
 from enum import (
     Enum,
 )
@@ -27,6 +30,15 @@ from tap_gitlab.api.projects.ids import (
 )
 from tap_gitlab.api.raw_client import (
     PageClient,
+)
+from tap_gitlab.intervals.interval import (
+    Interval,
+)
+from tap_gitlab.intervals.interval.factory import (
+    IntervalFactory,
+)
+from tap_gitlab.intervals.interval.op import (
+    are_disjoin,
 )
 from typing import (
     List,
@@ -54,17 +66,20 @@ class _JobsPage(NamedTuple):
 
 
 # pylint: disable=too-few-public-methods
-class JobsPage(Immutable):
+@dataclass(frozen=True)
+class JobsPage:
     data: List[JSON]
     page: PageId[int]
     proj: ProjectId
     scopes: List[Scope]
 
-    def __new__(cls, obj: _JobsPage) -> JobsPage:
-        self = object.__new__(cls)
+    def __init__(self, obj: _JobsPage) -> None:
         for prop, val in obj._asdict().items():
             object.__setattr__(self, prop, val)
-        return self
+
+    def update_data(self, new_data: List[JSON]) -> Maybe[JobsPage]:
+        draft = _JobsPage(new_data, self.page, self.proj, self.scopes)
+        return _ensure_non_empty_data(draft)
 
     @property
     def min_id(self) -> int:
@@ -95,3 +110,17 @@ def list_jobs(
         .map(lambda data: _JobsPage(data, page, proj, scopes))
         .map(_ensure_non_empty_data)
     )
+
+
+def filter_page(page: JobsPage, interval: Interval[int]) -> Maybe[JobsPage]:
+    page_interval = IntervalFactory.from_default(int).new_closed(
+        page.min_id, page.max_id
+    )
+    if page.min_id in interval and page.max_id in interval:
+        return Maybe.from_value(page)
+    if are_disjoin(page_interval, interval):
+        return Maybe.empty
+    filtered = list(
+        filter(lambda item: int(item["id"]) in interval, page.data)
+    )
+    return page.update_data(filtered)
