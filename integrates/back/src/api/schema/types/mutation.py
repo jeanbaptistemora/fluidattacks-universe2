@@ -55,6 +55,7 @@ from api.mutations import (
     remove_stakeholder_access,
     remove_stakeholder_organization_access,
     request_verification_vulnerability,
+    request_verification_vulnerability_new,
     request_zero_risk_vuln,
     sign_in,
     solve_event,
@@ -180,9 +181,6 @@ MUTATION.set_field("deleteTags", delete_vulnerability_tags.mutate)
 MUTATION.set_field(
     "updateTreatmentVuln", update_treatment_vulnerability.mutate
 )
-MUTATION.set_field(
-    "requestVerificationVuln", request_verification_vulnerability.mutate
-)
 MUTATION.set_field("verifyRequestVuln", verify_request_vulnerability.mutate)
 MUTATION.set_field("downloadVulnFile", download_vulnerability_file.mutate)
 MUTATION.set_field("handleVulnsAcceptation", handle_vulns_acceptation.mutate)
@@ -200,6 +198,10 @@ if FI_API_STATUS == "migration":
     MUTATION.set_field("deleteFinding", delete_finding_new.mutate)
     MUTATION.set_field("rejectDraft", reject_draft_new.mutate)
     MUTATION.set_field("removeEvidence", remove_finding_evidence_new.mutate)
+    MUTATION.set_field(
+        "requestVerificationVuln",
+        request_verification_vulnerability_new.mutate,
+    )
     MUTATION.set_field("submitDraft", submit_draft_new.mutate)
     MUTATION.set_field(
         "updateDescription", update_finding_description_new.mutate
@@ -215,6 +217,9 @@ else:
     MUTATION.set_field("deleteFinding", delete_finding.mutate)
     MUTATION.set_field("rejectDraft", reject_draft.mutate)
     MUTATION.set_field("removeEvidence", remove_finding_evidence.mutate)
+    MUTATION.set_field(
+        "requestVerificationVuln", request_verification_vulnerability.mutate
+    )
     MUTATION.set_field("submitDraft", submit_draft.mutate)
     MUTATION.set_field("updateDescription", update_finding_description.mutate)
     MUTATION.set_field("updateEvidence", update_evidence.mutate)

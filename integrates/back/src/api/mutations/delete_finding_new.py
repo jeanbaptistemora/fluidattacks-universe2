@@ -69,6 +69,7 @@ async def mutate(
         redis_del_by_deps_soon(
             "delete_finding",
             finding_id=finding_id,
+            group_name=finding.group_name,
         )
         schedule(
             findings_mail.send_mail_delete_finding(

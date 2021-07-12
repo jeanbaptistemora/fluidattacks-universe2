@@ -59,6 +59,7 @@ async def mutate(
 ) -> SimplePayload:
     try:
         finding_loader = info.context.loaders.finding_new
+        finding: Finding = await finding_loader.load(finding_id)
         if "cvss_version" not in kwargs["data"]:
             raise NotCvssVersion()
         cvss_version = str(kwargs["data"]["cvss_version"])
@@ -146,6 +147,7 @@ async def mutate(
         redis_del_by_deps_soon(
             "update_severity",
             finding_id=finding_id,
+            group_name=finding.group_name,
         )
         logs_utils.cloudwatch_log(
             info.context,
@@ -159,5 +161,5 @@ async def mutate(
         raise
 
     finding_loader.clear(finding_id)
-    finding: Finding = await finding_loader.load(finding_id)
+    finding = await finding_loader.load(finding_id)
     return SimpleFindingPayload(finding=finding, success=True)
