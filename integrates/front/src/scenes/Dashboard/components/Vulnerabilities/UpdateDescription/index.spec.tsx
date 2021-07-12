@@ -13,9 +13,8 @@ import waitForExpect from "wait-for-expect";
 import { REQUEST_ZERO_RISK_VULN, UPDATE_DESCRIPTION_MUTATION } from "./queries";
 import type { IUpdateVulnDescriptionResultAttr } from "./types";
 
-import { EditableField } from "../../EditableField";
 import type { IVulnDataTypeAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
-import { UpdateTreatmentModal } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription";
+import { UpdateDescription } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription";
 import {
   getLastTreatment,
   groupLastHistoricTreatment,
@@ -25,6 +24,7 @@ import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/q
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
+import { EditableField } from "utils/forms/fields";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
@@ -187,7 +187,7 @@ describe("Update Description component", (): void => {
       <Provider store={store}>
         <MockedProvider addTypename={false} mocks={[]}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <UpdateTreatmentModal
+            <UpdateDescription
               findingId={"1"}
               groupName={""}
               handleClearSelected={handleClearSelected}
@@ -210,7 +210,9 @@ describe("Update Description component", (): void => {
           .find({ name: "treatment" })
           .find("select")
           .at(0);
-        treatment.simulate("change", { target: { value: "IN_PROGRESS" } });
+        treatment.simulate("change", {
+          target: { name: "treatment", value: "IN_PROGRESS" },
+        });
         wrapper.update();
 
         const severityInput: ReactWrapper = wrapper
@@ -252,19 +254,17 @@ describe("Update Description component", (): void => {
       mocksFindingHeader,
     ];
     const wrapperRequest: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mocksMutation}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <UpdateTreatmentModal
-              findingId={"422286126"}
-              groupName={""}
-              handleClearSelected={handleClearSelected}
-              handleCloseModal={handleOnClose}
-              vulnerabilities={vulns}
-            />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={mocksMutation}>
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <UpdateDescription
+            findingId={"422286126"}
+            groupName={""}
+            handleClearSelected={handleClearSelected}
+            handleCloseModal={handleOnClose}
+            vulnerabilities={vulns}
+          />
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
     );
 
     const treatmentFieldSelect: ReactWrapper = wrapperRequest
@@ -272,7 +272,7 @@ describe("Update Description component", (): void => {
       .filter({ name: "treatment" })
       .find("select");
     treatmentFieldSelect.simulate("change", {
-      target: { value: "REQUEST_ZERO_RISK" },
+      target: { name: "treatment", value: "REQUEST_ZERO_RISK" },
     });
 
     const justificationFieldTextArea: ReactWrapper = wrapperRequest
@@ -281,6 +281,7 @@ describe("Update Description component", (): void => {
       .find("textarea");
     justificationFieldTextArea.simulate("change", {
       target: {
+        name: "justification",
         value: "This is a commenting test of a request zero risk in vulns",
       },
     });
@@ -289,20 +290,26 @@ describe("Update Description component", (): void => {
       wrapperRequest.update();
     });
 
-    const form: ReactWrapper = wrapperRequest.find("form");
-    form.at(0).simulate("submit");
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapperRequest.update();
-    });
+    const proceedButton: ReactWrapper = wrapperRequest
+      .find("Button")
+      .filterWhere((element: ReactWrapper): boolean =>
+        element.contains("Proceed")
+      );
+    proceedButton.first().simulate("click");
 
-    expect(wrapperRequest).toHaveLength(1);
-    expect(handleClearSelected).toHaveBeenCalledWith();
-    expect(handleOnClose).toHaveBeenCalledWith();
-    expect(msgSuccess).toHaveBeenCalledWith(
-      "Zero risk vulnerability has been requested",
-      "Correct!"
-    );
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapperRequest.update();
+
+        expect(wrapperRequest).toHaveLength(1);
+        expect(handleClearSelected).toHaveBeenCalledWith();
+        expect(handleOnClose).toHaveBeenCalledWith();
+        expect(msgSuccess).toHaveBeenCalledWith(
+          "Zero risk vulnerability has been requested",
+          "Correct!"
+        );
+      });
+    });
   });
 
   it("should handle request zero risk error", async (): Promise<void> => {
@@ -336,27 +343,33 @@ describe("Update Description component", (): void => {
       },
     ];
     const wrapperRequest: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mocksMutation}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <UpdateTreatmentModal
-              findingId={"422286126"}
-              groupName={""}
-              handleClearSelected={handleClearSelected}
-              handleCloseModal={handleOnClose}
-              vulnerabilities={vulns}
-            />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={mocksMutation}>
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <UpdateDescription
+            findingId={"422286126"}
+            groupName={""}
+            handleClearSelected={handleClearSelected}
+            handleCloseModal={handleOnClose}
+            vulnerabilities={vulns}
+          />
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
     );
+
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapperRequest.update();
+
+        expect(wrapperRequest).toHaveLength(1);
+      });
+    });
 
     const treatmentFieldSelect: ReactWrapper = wrapperRequest
       .find(EditableField)
       .filter({ name: "treatment" })
       .find("select");
     treatmentFieldSelect.simulate("change", {
-      target: { value: "REQUEST_ZERO_RISK" },
+      target: { name: "treatment", value: "REQUEST_ZERO_RISK" },
     });
 
     const justificationFieldTextArea: ReactWrapper = wrapperRequest
@@ -365,32 +378,34 @@ describe("Update Description component", (): void => {
       .find("textarea");
     justificationFieldTextArea.simulate("change", {
       target: {
+        name: "justification",
         value: "This is a commenting test of a request zero risk in vulns",
       },
     });
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapperRequest.update();
-    });
 
-    const form: ReactWrapper = wrapperRequest.find("form");
-    form.at(0).simulate("submit");
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapperRequest.update();
-    });
+    const proceedButton: ReactWrapper = wrapperRequest
+      .find("Button")
+      .filterWhere((element: ReactWrapper): boolean =>
+        element.contains("Proceed")
+      );
+    proceedButton.first().simulate("click");
 
-    expect(wrapperRequest).toHaveLength(1);
-    expect(handleClearSelected).not.toHaveBeenCalled();
-    expect(handleOnClose).not.toHaveBeenCalled();
-    expect(msgError).toHaveBeenNthCalledWith(
-      1,
-      translate.t("groupAlerts.zeroRiskAlreadyRequested")
-    );
-    expect(msgError).toHaveBeenNthCalledWith(
-      2,
-      translate.t("validations.invalidFieldLength")
-    );
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapperRequest.update();
+
+        expect(handleClearSelected).not.toHaveBeenCalled();
+        expect(handleOnClose).not.toHaveBeenCalled();
+        expect(msgError).toHaveBeenNthCalledWith(
+          1,
+          translate.t("groupAlerts.zeroRiskAlreadyRequested")
+        );
+        expect(msgError).toHaveBeenNthCalledWith(
+          2,
+          translate.t("validations.invalidFieldLength")
+        );
+      });
+    });
   });
 
   it("should render update treatment", async (): Promise<void> => {
@@ -463,7 +478,7 @@ describe("Update Description component", (): void => {
           mocks={[...mocksMutation, mocksVulns]}
         >
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <UpdateTreatmentModal
+            <UpdateDescription
               findingId={"422286126"}
               groupName={""}
               handleClearSelected={handleClearSelected}
@@ -483,7 +498,9 @@ describe("Update Description component", (): void => {
       .find({ name: "treatment" })
       .find("select")
       .at(0);
-    treatment.simulate("change", { target: { value: "IN_PROGRESS" } });
+    treatment.simulate("change", {
+      target: { name: "treatment", value: "IN_PROGRESS" },
+    });
 
     await act(async (): Promise<void> => {
       await wait(0);
@@ -494,39 +511,49 @@ describe("Update Description component", (): void => {
       .find("textarea")
       .at(0);
     treatmentJustification.simulate("change", {
-      target: { value: "test justification to treatment" },
+      target: {
+        name: "justification",
+        value: "test justification to treatment",
+      },
     });
     const externalBts: ReactWrapper = wrapper
       .find({ name: "externalBts" })
       .find("input");
-    externalBts
-      .at(0)
-      .simulate("change", { target: { value: "http://test.t" } });
+    externalBts.at(0).simulate("change", {
+      target: { name: "externalBts", value: "http://test.t" },
+    });
     const vulnLevel: ReactWrapper = wrapper
       .find({ name: "severity" })
       .find("input");
-    vulnLevel.at(0).simulate("change", { target: { value: "2" } });
+    vulnLevel
+      .at(0)
+      .simulate("change", { target: { name: "severity", value: "2" } });
     const treatmentManager: ReactWrapper = wrapper
       .find({ name: "treatmentManager" })
       .find("select");
-    treatmentManager
-      .at(0)
-      .simulate("change", { target: { value: "manager_test@test.test" } });
+    treatmentManager.at(0).simulate("change", {
+      target: { name: "treatmentManager", value: "manager_test@test.test" },
+    });
     await act(async (): Promise<void> => {
       await wait(0);
       wrapper.update();
     });
 
-    const form: ReactWrapper = wrapper.find("form");
-    form.at(0).simulate("submit");
+    const proceedButton: ReactWrapper = wrapper
+      .find("Button")
+      .filterWhere((element: ReactWrapper): boolean =>
+        element.contains("Proceed")
+      );
+    proceedButton.first().simulate("click");
     await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
+      await waitForExpect((): void => {
+        wrapper.update();
 
-    expect(wrapper).toHaveLength(1);
-    expect(msgSuccess).toHaveBeenCalledTimes(1);
-    expect(handleOnClose).toHaveBeenCalledTimes(1);
+        expect(wrapper).toHaveLength(1);
+        expect(msgSuccess).toHaveBeenCalledTimes(1);
+        expect(handleOnClose).toHaveBeenCalledTimes(1);
+      });
+    });
   });
 
   it("should render error update treatment", async (): Promise<void> => {
@@ -574,18 +601,16 @@ describe("Update Description component", (): void => {
       },
     ];
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={[mocksError, mocksVulns]}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <UpdateTreatmentModal
-              findingId={"422286126"}
-              handleClearSelected={handleClearSelected}
-              handleCloseModal={handleOnClose}
-              vulnerabilities={vulnsToUpdate}
-            />
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider addTypename={false} mocks={[mocksError, mocksVulns]}>
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <UpdateDescription
+            findingId={"422286126"}
+            handleClearSelected={handleClearSelected}
+            handleCloseModal={handleOnClose}
+            vulnerabilities={vulnsToUpdate}
+          />
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
     );
     await act(async (): Promise<void> => {
       await wait(0);
@@ -602,29 +627,38 @@ describe("Update Description component", (): void => {
       .find({ name: "justification" })
       .find("textarea")
       .at(0);
-    treatment.simulate("change", { target: { value: "ACCEPTED_UNDEFINED" } });
+    treatment.simulate("change", {
+      target: { name: "treatment", value: "ACCEPTED_UNDEFINED" },
+    });
     treatmentJustification.simulate("change", {
-      target: { value: "test justification to treatment" },
+      target: {
+        name: "justification",
+        value: "test justification to treatment",
+      },
     });
     await act(async (): Promise<void> => {
       await wait(0);
       wrapper.update();
     });
-    const form: ReactWrapper = wrapper.find("form");
-    form.at(0).simulate("submit");
-
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
-
     const proceedButton: ReactWrapper = wrapper
-      .find("ConfirmDialog")
       .find("Button")
       .filterWhere((element: ReactWrapper): boolean =>
         element.contains("Proceed")
       );
     proceedButton.first().simulate("click");
+
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
+
+    const confirmProceedButton: ReactWrapper = wrapper
+      .find("ConfirmDialog")
+      .find("Button")
+      .filterWhere((element: ReactWrapper): boolean =>
+        element.contains("Proceed")
+      );
+    confirmProceedButton.first().simulate("click");
 
     await act(async (): Promise<void> => {
       await wait(0);
