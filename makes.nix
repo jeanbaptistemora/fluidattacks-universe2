@@ -10,5 +10,5 @@
   inputs = {
     product = import ./.;
   };
-  requiredMakesVersion = "21.08";
+  requiredMakesVersion = "21.09";
 }
