@@ -60,10 +60,22 @@ class JobApi(NamedTuple):
     def search_item_page(
         self, item_id: int, start: PageId[int]
     ) -> IO[Maybe[PageId[int]]]:
-        pages = unsafe_perform_io(self.list_all(start))
-        for page in pages:
-            if page.min_id >= item_id:
-                if page.max_id <= item_id:
-                    return IO(Maybe.from_value(page.page))
-                return IO(Maybe.empty)
-        return IO(Maybe.empty)
+        def _search(pages: Iterator[JobsPage]) -> Maybe[PageId[int]]:
+            for page in pages:
+                if page.min_id >= item_id:
+                    if page.max_id <= item_id:
+                        return Maybe.from_value(page.page)
+                    return Maybe.empty
+            return Maybe.empty
+
+        return self.list_all(start).map(_search)
+
+    def list_all_updated_before(
+        self,
+        item_id: int,
+        start: PageId[int],
+    ) -> IO[Iterator[JobsPage]]:
+        init = self.search_item_page(item_id, start).map(
+            lambda item: item.unwrap()
+        )
+        return init.bind(self.list_all)
