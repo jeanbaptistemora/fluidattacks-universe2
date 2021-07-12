@@ -63363,6 +63363,31 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "329": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "334",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "331",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "result",
+            "var_type": null
+          }
+        ],
         "347": [
           {
             "meta": {

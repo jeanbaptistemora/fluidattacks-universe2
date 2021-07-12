@@ -66,6 +66,9 @@ from sast_syntax_readers.java import (
 )
 from sast_syntax_readers.javascript import (
     function_declaration as javascript_function_declaration,
+    lexical_expression as javascript_lexical_expression,
+    variable_declaration as javascript_variable_declaration,
+    variable_declarator as javascript_variable_declarator,
 )
 from sast_syntax_readers.types import (
     Dispatcher,
@@ -360,6 +363,33 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "variable_declaration",
         },
         syntax_readers=(c_sharp_variable_declaration.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+        },
+        applicable_node_label_types={
+            "variable_declaration",
+        },
+        syntax_readers=(javascript_variable_declaration.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+        },
+        applicable_node_label_types={
+            "variable_declarator",
+        },
+        syntax_readers=(javascript_variable_declarator.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+        },
+        applicable_node_label_types={
+            "lexical_expression",
+        },
+        syntax_readers=(javascript_lexical_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
