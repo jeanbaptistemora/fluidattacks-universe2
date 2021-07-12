@@ -87,6 +87,13 @@ def rand_bytes(length: int) -> List[int]:
     return list(urandom(length))
 
 
+def get_suites_package(cipher_suites: List[str], n_bytes: int) -> List[int]:
+    package: List[int] = [
+        byte for suit in cipher_suites for byte in ssl_suites[suit]
+    ]
+    return num_to_bytes(len(package), n_bytes) + package
+
+
 def get_ec_point_formats_ext() -> List[int]:
     extension_id: List[int] = [0, 11]
     point_formats: List[int] = [0, 1, 2]
@@ -126,11 +133,7 @@ def get_elliptic_curves_ext() -> List[int]:
         "DHE_DSS_EXPORT_WITH_DES40_CBC_SHA",
     ]
 
-    ellip_curves: List[int] = [
-        byte for suit in cipher_suites for byte in ssl_suites[suit]
-    ]
-
-    package: List[int] = num_to_bytes(len(ellip_curves), 2) + ellip_curves
+    package: List[int] = get_suites_package(cipher_suites, n_bytes=2)
     return extension_id + num_to_bytes(len(package), 2) + package
 
 
@@ -186,20 +189,15 @@ def get_client_hello_package(
     cipher_suites: List[str],
     extensions: Optional[List[int]] = None,
 ) -> List[int]:
-
     session_id: List[int] = [0]
     no_compression: List[int] = [1, 0]
-
-    suites: List[int] = [
-        byte for suit in cipher_suites for byte in ssl_suites[suit]
-    ]
-    suites = num_to_bytes(len(suites), 2) + suites
 
     package: List[int] = []
 
     if extensions is not None:
         package = num_to_bytes(len(extensions), 2) + extensions
 
+    suites = get_suites_package(cipher_suites, n_bytes=2)
     package = rand_bytes(32) + session_id + suites + no_compression + package
     return get_client_hello_header(version_id, package) + package
 

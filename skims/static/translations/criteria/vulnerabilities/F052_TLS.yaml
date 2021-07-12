@@ -19,6 +19,9 @@ lib_ssl.analyze_protocol.heartbleed_possible:
 lib_ssl.analyze_protocol.freak_possible:
   en: server is vulnerable to FREAK attacks
   es: el servidor es vulnerable a ataques FREAK
+lib_ssl.analyze_protocol.raccoon_possible:
+  en: server is vulnerable to RACCOON attacks
+  es: el servidor es vulnerable a ataques RACCOON
 F052_TLS.description:
   en: The server allows the usage of old TLS protocol versions.
   es: El servidor permite utilizar versiones viejas del protocolo TLS.
