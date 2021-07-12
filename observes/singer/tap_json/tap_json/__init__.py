@@ -354,12 +354,10 @@ def main() -> None:
     # Parse everything to singer
     for schema in os.listdir(SCHEMAS_DIR):
         dump_schema(schema)
-    try:
+    if os.path.exists(STATE_DIR):
         for state in read(STATE_DIR, "states"):
             if state.rstrip():
                 print(state.rstrip())
-    except FileNotFoundError:
-        pass
 
     release_env()
 
