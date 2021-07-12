@@ -10,6 +10,16 @@ function check_cli_arg {
   fi
 }
 
+function clean_file_system {
+  local group="${1}"
+  local paths=(
+    ~/.skims
+    "groups/${group}/fusion"
+  )
+
+  rm -rf "${paths[@]}" || true
+}
+
 function get_skims_language {
   local group="${1}"
 
@@ -149,6 +159,7 @@ function main {
     fi \
     && popd \
     && echo "[INFO] Success: ${success}" \
+    && clean_file_system "${group}" \
     && test "${success}" = 'true'
 }
 
