@@ -186,11 +186,11 @@
       utilizando entradas
       que puden ser manipuladas externamente,
       no neutraliza correctamente elementos especiales
-      que podrían modificar el comando del sistema
-    impact: Ejecutar secuencias de comandos no autorizados
+      que podrían modificar el comando del sistema.
+    impact: Ejecutar secuencias de comandos no autorizados.
     recommendation: >
       - Si es posible,
-        utilizar llamadas a la biblioteca estandar
+        utilizar llamadas a la biblioteca estándar
         en lugar de procesos externos
         para recrear la funcionalidad deseada.
       - Mantener la mayor cantidad posible de datos
@@ -442,7 +442,7 @@
       Get sensitive information or private secrets.
     recommendation: >
       - Delete all hardcoded sensitive information.
-      - Change all afected access credentials.
+      - Change all affected access credentials.
       - Remove sensitive information from git logs.
       - Load sensitive data from safe sources such as,
         key vault services, configuration files properly encrypted
@@ -452,8 +452,8 @@
     title: Información sensible almacenada en el código fuente
     description: >
       En el repositorio
-      se encuentra almacenada (cin cifrar) información sensible
-      como usuarios, contraseñas, correos electronicos,
+      se encuentra almacenada (sin cifrar) información sensible
+      como usuarios, contraseñas, correos electrónicos,
       credenciales de API, entre otros.
       Alternativamente,
       a pesar de que algunos valores
@@ -789,7 +789,7 @@
       Actualizar el protocolo TLS a la versión
       TLSv1.2 o TLSv1.3 de ser posible.
     threat: >
-      Atacante sin autorización desde red adjacente
+      Atacante sin autorización desde red adyacente
       explotando vulnerabilidad.
   score:
     base:
@@ -825,7 +825,7 @@
       with access to the local machine
       can view the browser's cache
       and the URLs that contain the session ID
-      to make a succesful user spoofing.
+      to make a successful user spoofing.
   es:
     title: Información sensible enviada de forma insegura
     description: >
@@ -842,7 +842,7 @@
       Un usuario no autorizado
       con acceso al máquina local
       puede ver la caché del navegador
-      las URL que contiene el ID de sesión
+      y las URL que contiene el ID de sesión
       para lograr una suplantación de usuarios.
   score:
     base:
@@ -1166,7 +1166,7 @@
       Alternativamente,
       los servidores que se espera sean accedidos
       solo desde una red interna
-      están expuertos a otros segmentos de red,
+      están expuestos a otros segmentos de red,
       como Internet.
     impact: >
       Exponer recursos,
@@ -1870,9 +1870,9 @@
     recommendation: >
       Based on the classification
       of the information found,
-      establish the necessary controls
+      set the necessary controls
       to guarantee that information
-      is accesible only to right users.
+      is accessible only to right users.
     threat: >
       An unauthorized user
       from local or external network
@@ -2059,7 +2059,7 @@
       del lado del cliente.
     impact: >
       Enviar cookies de sesión en texto plano
-      a través de canales inseguro.
+      a través de canales inseguros.
     recommendation: >
       La aplicación debe establecer
       los correspondientes atributos de seguridad
@@ -2091,7 +2091,7 @@
       the header's configuration is not secure enough.
     impact: >
       - Embed content, scripts, blobs
-        or images from potencially malicious sources.
+        or images from potentially malicious sources.
       - Make possible to carry attacks like
         Cross-Site Scripting, Cross-Site Leaks, among others.
     recommendation: >
@@ -2107,7 +2107,7 @@
       el valor del mismo no es suficientemente fuerte.
     impact: >
       - Incluir contenido, scripts, binarios
-        o imagenes desde fuentes potencialmente maliciosas.
+        o imágenes desde fuentes potencialmente maliciosas.
       - Aumentar la probabilidad de llevar a cabo ataques como
         Cross-Site Scripting, Cross-Site Leaks, entre otros.
     recommendation: >
@@ -2567,7 +2567,7 @@
       La falta de complejidad
       de los hashes almacenados en la base de datos
       reduce significativamente
-      el tiempo del proceso de reversado.
+      el tiempo del proceso para revertirlos.
     impact: __empty__
     recommendation: >
       Asegurarse de que las funciones
@@ -2619,7 +2619,7 @@
       La aplicación usa algoritmos
       de cifrado inseguros.
     impact: >
-      - Reversar el texto cifrado
+      - Revertir el texto cifrado
         para encontrar información sensible.
       - Alterar datos protegidos
         al aprovechar colisiones
@@ -2668,7 +2668,7 @@
       can enumerate accounts
       and valid users' passwords
       through a robot that executes
-      brute foce and wordlists attacks.
+      brute force and wordlists attacks.
   es:
     title: Ausencia de protección contra ataques de fuerza bruta
     description: >
@@ -2751,7 +2751,7 @@
       las credenciales de los administradores
       o explotar vulnerabilidades
       públicas del producto
-      gracias a las consola expuestas.
+      gracias a las consolas expuestas.
   score:
     base:
       attack_vector: "N"
@@ -3025,10 +3025,10 @@
       cuentas de banco y rutas de archivos
       en las bitácoras.
     impact: >
-      Obtener informacion sensible
+      Obtener información sensible
       que puede comprometer recursos del sistema.
     recommendation: >
-      Verificar que la informacion guardada
+      Verificar que la información guardada
       en las bitácoras no es sensible.
     threat: >
       Atacante local autorizado
@@ -3439,7 +3439,7 @@
     threat: >
       An unauthorized user
       with access to the system
-      can identify verisons
+      can identify versions
       or components that the system uses
       through HTTP headers
       used by the server
@@ -3776,7 +3776,7 @@
       Alternativamente,
       la configuración del mismo es insegura.
     impact: >
-      Fugar el dominio del sitio web
+      Filtración del dominio del sitio web
       y su ruta a servicios externos.
     recommendation: >
       Establecer la cabecera
@@ -3826,7 +3826,7 @@
     title: Código duplicado
     description: >
       Se encuentra código
-      que se está repetido
+      que está repetido
       en diferentes archivos del código fuente
       lo que puede generar
       comportamientos inesperados
@@ -3929,7 +3929,7 @@
     recommendation: >
       Delete all lines
       of functional commented code
-      in the source code of th application.
+      in the source code of the application.
     threat: >
       A user in charge
       of maintaining the application
@@ -3959,8 +3959,8 @@
       puede tener inconvenientes en el proceso
       de actualización del código
       o causar comportamientos inesperados
-      en la aplicación al descomentar
-      cualquiera de las porciones de código
+      en la aplicación al eliminar comentarios
+      de cualquiera de las porciones de código
       comentado presente en la aplicación.
   score:
     base:
@@ -4034,7 +4034,7 @@
       android:exported="false"
       y android:grantUriPermissions="false".
       Si se requiere
-      se puede permitir Content Providers especificos
+      se puede permitir Content Providers específicos
       usando <grant-uri-permission>.
     threat: >
       Atacante sin autorización
@@ -4203,7 +4203,7 @@
       projects' construction and packaging.
     threat: >
       If a new vulnerability
-      for a used library (specific verison)
+      for a used library (specific version)
       in the system is published
       and the third-party software used
       is not inventoried,
@@ -4497,7 +4497,7 @@
     description: >
       Es posible interceptar peticiones
       a los servicios de MDNS
-      y obtener informacion de los hosts conectados
+      y obtener información de los hosts conectados
       debido a que no se cuenta
       con medidas de seguridad en la red.
     impact: __empty__
@@ -4913,7 +4913,7 @@
     title: Algoritmo de cifrado inseguro - Suites de cifrado anónimo
     description: >
       La aplicación acepta conexiones
-      con suites de cifrado anonimos.
+      con suites de cifrado anónimos.
     impact: >
       Obtener información sensible
       realizando un ataque
@@ -4959,7 +4959,7 @@
       Force unwanted actions
       in the application
       modifying resources
-      which can not be accesible
+      which can not be accessible
       by user.
   es:
     title: Manipulación de campos ocultos
@@ -5836,7 +5836,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Inundación de correo electronico
+    title: Inundación de correo electrónico
     description: __empty__
     impact: __empty__
     recommendation: __empty__
