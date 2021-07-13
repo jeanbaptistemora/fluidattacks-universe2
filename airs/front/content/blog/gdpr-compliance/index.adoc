@@ -3,7 +3,7 @@
 :page-subtitle: Why must companies comply with GDPR policies?
 :page-category: politics
 :page-tags: policies, company, information, security, software, protect
-:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1625577491/blog/gdpr-complience/cover_gdpr_complience_ohr34a.webp
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1626192622/blog/gdpr-compliance/cover_gdpr_compliance_d1iwbg.webp
 :page-alt: Photo by Tushar Mahajan on Unsplash
 :page-description: In this post, we will learn what GDPR is and why it is essential for your company to comply with its policies.
 :page-keywords: GDPR, Data, Companies, Information, Security, Personal, Ethical Hacking, Pentesting
@@ -26,7 +26,7 @@ to talk about what it has achieved, why it is essential and,
 above all, how it has affected you directly.
 
 .Figure by link:https://www.snel.com/what-is-gpdr/[SNEL]
-image::https://res.cloudinary.com/fluid-attacks/image/upload/v1625577640/blog/gdpr-complience/gdpr-logo_yekig8.webp[gdpr-logo]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1626192619/blog/gdpr-compliance/gdpr-logo_uo24a0.webp[gdpr-logo]
 
 == What is the GDPR?
 
@@ -158,7 +158,7 @@ but we strive to disseminate them and explain them to our customers,
 and to the general public.
 
 .Figure by link:https://searchdatamanagement.techtarget.com/answer/What-is-included-in-the-GDPR-definition-of-personal-data[TechTarget]
-image::https://res.cloudinary.com/fluid-attacks/image/upload/v1625577769/blog/gdpr-complience/gdpr-personal-data_ip4cjn.webp[GDPR personal data]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1626192618/blog/gdpr-compliance/gdpr-personal-data_uiosym.webp[GDPR personal data]
 
 == Problems with GDPR?
 
@@ -203,4 +203,3 @@ At `Fluid Attacks`, we are specialized in cybersecurity through
 link:../../solutions/penetration-testing/[Pentesting]
 and link:../../solutions/ethical-hacking/[Ethical Hacking]. +
 For more information, don't hesitate to link:../../contact-us/[Contact us!]
-
