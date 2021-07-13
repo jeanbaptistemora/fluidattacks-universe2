@@ -87,7 +87,8 @@ async def mutate(
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Tried to update description in finding {finding_id}",
+            f"Security: Attempted to update description in finding "
+            f"{finding_id}",
         )
         raise
 

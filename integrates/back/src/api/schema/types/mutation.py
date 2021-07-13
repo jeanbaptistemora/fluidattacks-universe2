@@ -86,6 +86,7 @@ from api.mutations import (
     update_vulns_treatment,
     upload_file,
     verify_request_vulnerability,
+    verify_request_vulnerability_new,
 )
 from ariadne import (
     MutationType,
@@ -181,7 +182,6 @@ MUTATION.set_field("deleteTags", delete_vulnerability_tags.mutate)
 MUTATION.set_field(
     "updateTreatmentVuln", update_treatment_vulnerability.mutate
 )
-MUTATION.set_field("verifyRequestVuln", verify_request_vulnerability.mutate)
 MUTATION.set_field("downloadVulnFile", download_vulnerability_file.mutate)
 MUTATION.set_field("handleVulnsAcceptation", handle_vulns_acceptation.mutate)
 MUTATION.set_field("updateVulnCommit", update_vuln_commit.mutate)
@@ -211,6 +211,9 @@ if FI_API_STATUS == "migration":
         "updateEvidenceDescription", update_evidence_description_new.mutate
     )
     MUTATION.set_field("updateSeverity", update_severity_new.mutate)
+    MUTATION.set_field(
+        "verifyRequestVuln", verify_request_vulnerability_new.mutate
+    )
 else:
     MUTATION.set_field("approveDraft", approve_draft.mutate)
     MUTATION.set_field("createDraft", create_draft.mutate)
@@ -227,3 +230,6 @@ else:
         "updateEvidenceDescription", update_evidence_description.mutate
     )
     MUTATION.set_field("updateSeverity", update_severity.mutate)
+    MUTATION.set_field(
+        "verifyRequestVuln", verify_request_vulnerability.mutate
+    )
