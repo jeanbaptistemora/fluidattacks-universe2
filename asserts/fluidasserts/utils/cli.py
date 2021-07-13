@@ -573,40 +573,14 @@ def exec_ssl_package(addresses: List[str], enable_multiprocessing: bool):
             "ssl",
             "SSL part 1",
         ): """
-            ssl.allows_anon_ciphers('{ip_address}', {port})
-            ssl.allows_insecure_downgrade('{ip_address}', {port})
             ssl.allows_modified_mac('{ip_address}', {port})
-            ssl.allows_weak_ciphers('{ip_address}', {port})
             """,
         (
             "ssl",
             "SSL part 2",
         ): """
-            ssl.has_beast('{ip_address}', {port})
-            ssl.has_breach('{ip_address}', {port})
-            ssl.has_heartbleed('{ip_address}', {port})
             ssl.has_poodle_sslv3('{ip_address}', {port})
             ssl.has_poodle_tls('{ip_address}', {port})
-            ssl.has_sweet32('{ip_address}', {port})
-            ssl.has_freak('{ip_address}', {port})
-            ssl.has_raccoon('{ip_address}', {port})
-            ssl.has_tls13_downgrade_vuln('{ip_address}', {port})
-            """,
-        (
-            "ssl",
-            "SSL part 3",
-        ): """
-            ssl.is_pfs_disabled('{ip_address}', {port})
-            ssl.is_sslv3_enabled('{ip_address}', {port})
-            ssl.is_tlsv11_enabled('{ip_address}', {port})
-            ssl.is_tlsv1_enabled('{ip_address}', {port})
-            ssl.not_tls13_enabled('{ip_address}', {port})
-            """,
-        (
-            "ssl",
-            "SSL part 4",
-        ): """
-            ssl.tls_uses_cbc('{ip_address}', {port})
             """,
         (
             "x509",
@@ -1375,7 +1349,7 @@ def exec_module(module: List[str], args: List[str]):
     try:
         package, check = module.rsplit(".", maxsplit=1)
     except ValueError:
-        print("Module must in the form package.check. Ejm: ssl.has_heartbleed")
+        print("Module must in the form package.check. Ejm: ssl.has_poodle_tls")
         exit_asserts("config-error")
     try:
         package = "fluidasserts." + package
@@ -1483,7 +1457,7 @@ def get_argparser():
         "--module",
         nargs=1,
         metavar="package.check",
-        help=("module to execute. " "Ex: proto.ssl.has_heartbleed"),
+        help=("module to execute. " "Ex: proto.ssl.has_poodle_tls"),
     )
     argparser.add_argument(
         "--args",

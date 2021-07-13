@@ -414,37 +414,6 @@ def test_rich_exit_codes_non_strict():
         assert exc.value.code == 0
 
 
-def test_cli_module():
-    """Run CLI module option."""
-    os.environ["FA_STRICT"] = "true"
-    os.environ["FA_NOTRACK"] = "true"
-    testargs = [
-        "asserts",
-        "-eec",
-        "-mod",
-        "proto.ssl.has_heartbleed",
-        "--args",
-        "127.0.0.1",
-    ]
-    with patch.object(sys, "argv", testargs):
-        with pytest.raises(SystemExit) as exc:
-            cli.main()
-        assert exc.value.code in (
-            cli.RICH_EXIT_CODES[x] for x in ("open", "closed", "unknown")
-        )
-
-
-def test_cli_module_not_args():
-    """Run CLI module option."""
-    os.environ["FA_STRICT"] = "true"
-    os.environ["FA_NOTRACK"] = "true"
-    testargs = ["asserts", "-eec", "-mod", "proto.ssl.has_heartbleed"]
-    with patch.object(sys, "argv", testargs):
-        with pytest.raises(SystemExit) as exc:
-            cli.main()
-        assert exc.value.code == cli.RICH_EXIT_CODES["config-error"]
-
-
 def test_cli_module_bad_func():
     """Run CLI module option."""
     os.environ["FA_STRICT"] = "true"
@@ -454,24 +423,6 @@ def test_cli_module_bad_func():
         "-eec",
         "-mod",
         "proto.ssl.not_exists",
-        "--args",
-        "127.0.0.1",
-    ]
-    with patch.object(sys, "argv", testargs):
-        with pytest.raises(SystemExit) as exc:
-            cli.main()
-        assert exc.value.code == cli.RICH_EXIT_CODES["config-error"]
-
-
-def test_cli_module_bad_mod():
-    """Run CLI module option."""
-    os.environ["FA_STRICT"] = "true"
-    os.environ["FA_NOTRACK"] = "true"
-    testargs = [
-        "asserts",
-        "-eec",
-        "-mod",
-        "proto.not_exists.has_heartbleed",
         "--args",
         "127.0.0.1",
     ]

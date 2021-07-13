@@ -89,7 +89,7 @@ What kind of vulnerabilities can ``Asserts`` test?
   since most vulnerabilities are network-borne.
   The main network protocols are covered:
 
-  * :mod:`SSL <fluidasserts.proto.ssl>` (:func:`Heartbleed <.has_heartbleed>`, :func:`POODLE <.has_poodle_sslv3>`, :func:`BEAST <.has_beast>`, :func:`BREACH <.has_breach>`)
+  * :mod:`SSL <fluidasserts.proto.ssl>` (:func:`POODLE <.has_poodle_sslv3>`)
   * :mod:`HTTP <fluidasserts.proto.http>` (:func:`Cross-site scripting <.has_xss>`,
     :func:`Parameter Pollution <.has_hpp>`,
     :func:`User enumeration <fluidasserts.proto.http.has_user_enumeration>`,
