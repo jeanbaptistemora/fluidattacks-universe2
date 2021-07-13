@@ -18,6 +18,7 @@ interface IGroupData {
     organization: {
       name: string;
     };
+    service: string;
     subscription: string;
   };
 }

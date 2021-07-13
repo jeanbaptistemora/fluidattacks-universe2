@@ -40,11 +40,11 @@ describe("Services", (): void => {
       result: {
         data: {
           group: {
-            hasForces: true,
             hasMachine: true,
             hasSquad: true,
             language: "EN",
             name: "unittesting",
+            service: "WHITE",
             subscription: "CoNtInUoUs",
           },
         },
@@ -60,11 +60,11 @@ describe("Services", (): void => {
       result: {
         data: {
           group: {
-            hasForces: true,
             hasMachine: true,
             hasSquad: true,
             language: "EN",
             name: "unittesting",
+            service: "WHITE",
             subscription: "CoNtInUoUs",
           },
         },
@@ -80,11 +80,11 @@ describe("Services", (): void => {
       result: {
         data: {
           group: {
-            hasForces: false,
             hasMachine: false,
             hasSquad: false,
             language: "EN",
             name: "unittesting",
+            service: "WHITE",
             subscription: "OnEsHoT",
           },
         },
@@ -95,7 +95,6 @@ describe("Services", (): void => {
         query: EDIT_GROUP_DATA,
         variables: {
           groupName: "unittesting",
-          hasForces: false,
           hasMachine: false,
           hasSquad: false,
           language: "EN",
@@ -120,11 +119,11 @@ describe("Services", (): void => {
       result: {
         data: {
           group: {
-            hasForces: false,
             hasMachine: false,
             hasSquad: false,
             language: "EN",
             name: "unittesting",
+            service: "WHITE",
             subscription: "CONTINUOUS",
           },
         },
@@ -142,8 +141,8 @@ describe("Services", (): void => {
   });
 
   [
-    { group: "unittesting", rows: 3 },
-    { group: "oneshottest", rows: 2 },
+    { group: "unittesting", rows: 4 },
+    { group: "oneshottest", rows: 3 },
     { group: "not-exists", rows: 0 },
   ].forEach((test: { group: string; rows: number }): void => {
     it(`should render services for: ${test.group}`, async (): Promise<void> => {
@@ -210,20 +209,23 @@ describe("Services", (): void => {
     const rows: () => ReactWrapper = (): ReactWrapper => tableBody().find("tr");
 
     const typeRow: () => ReactWrapper = (): ReactWrapper => rows().at(0);
-    const machineRow = (): ReactWrapper => rows().at(1);
-    const squadRowIndex = 2;
+    const serviceRow = rows().at(1);
+    const machineRow = (): ReactWrapper => rows().at(2);
+    const squadRowIndex = 3;
     const squadRow = (): ReactWrapper => rows().at(squadRowIndex);
 
+    const serviceRowLeft = serviceRow.find("td").first();
     const typeRowLeft: () => ReactWrapper = (): ReactWrapper =>
       typeRow().find("td").first();
     const machineRowLeft = (): ReactWrapper => machineRow().find("td").first();
     const squadRowLeft: () => ReactWrapper = (): ReactWrapper =>
       squadRow().find("td").first();
 
-    const totalRows = 3;
+    const totalRows = 4;
 
     expect(rows()).toHaveLength(totalRows);
     expect(typeRowLeft().text()).toStrictEqual("Subscription type");
+    expect(serviceRowLeft.text()).toStrictEqual("Service type");
     expect(machineRowLeft().text()).toStrictEqual("Machine");
     expect(squadRowLeft().text()).toStrictEqual("Squad");
 
@@ -238,6 +240,7 @@ describe("Services", (): void => {
       confirmation: "",
       machine: true,
       reason: "NONE",
+      service: "WHITE",
       squad: true,
       type: "CONTINUOUS",
     });
@@ -250,6 +253,7 @@ describe("Services", (): void => {
       confirmation: "",
       machine: false,
       reason: "NONE",
+      service: "WHITE",
       squad: false,
       type: "CONTINUOUS",
     });
@@ -267,6 +271,7 @@ describe("Services", (): void => {
       confirmation: "",
       machine: true,
       reason: "NONE",
+      service: "WHITE",
       squad: true,
       type: "CONTINUOUS",
     });
@@ -284,6 +289,7 @@ describe("Services", (): void => {
       confirmation: "",
       machine: true,
       reason: "NONE",
+      service: "WHITE",
       squad: false,
       type: "CONTINUOUS",
     });

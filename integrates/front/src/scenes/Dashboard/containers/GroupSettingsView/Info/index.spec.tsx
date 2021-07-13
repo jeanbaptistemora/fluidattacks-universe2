@@ -24,11 +24,11 @@ describe("Info", (): void => {
       result: {
         data: {
           group: {
-            hasForces: true,
             hasMachine: true,
             hasSquad: true,
             language: "EN",
             name: "TEST",
+            service: "WHITE",
             subscription: "TEST",
           },
         },

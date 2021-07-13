@@ -879,6 +879,11 @@ export const enTranslations: ResourceKey = {
             tooltip:
               "Name of the organization that is associated with this group",
           },
+          service: {
+            black: "Black",
+            title: "Service type",
+            white: "White",
+          },
           squad: {
             text: "Include Squad Service?",
             tooltip:

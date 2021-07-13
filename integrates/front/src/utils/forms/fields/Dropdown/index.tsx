@@ -1,23 +1,21 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types, react/forbid-component-props
-  -------
-  Readonly utility type does not work on deeply nested types and we need
-  className to override default styles from react-bootstrap.
-*/
 import _ from "lodash";
+import type { SelectHTMLAttributes } from "react";
 import React from "react";
 import type { WrappedFieldProps } from "redux-form";
 
 import { ValidationError } from "utils/forms/fields/styles";
 import style from "utils/forms/index.css";
 
-interface IDropdownProps extends WrappedFieldProps {
+interface IDropdownProps
+  extends WrappedFieldProps,
+    SelectHTMLAttributes<HTMLSelectElement> {
   children?: React.ReactNode;
 }
 
 const Dropdown: React.FC<IDropdownProps> = (
   props: IDropdownProps
 ): JSX.Element => {
-  const { input, meta, children } = props;
+  const { disabled, input, meta, children } = props;
   const { initial, touched, error } = meta;
   const { name, onChange } = input;
 
@@ -32,6 +30,7 @@ const Dropdown: React.FC<IDropdownProps> = (
       <select
         className={style["form-control"]}
         defaultValue={initial}
+        disabled={disabled}
         name={name}
         onChange={handleDropdownChange}
       >

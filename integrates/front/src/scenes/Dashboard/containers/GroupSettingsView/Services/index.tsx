@@ -234,6 +234,21 @@ const Services: React.FC<IServicesProps> = (
         </Field>
       ),
     },
+    {
+      service: (
+        <p>{translate.t("organization.tabs.groups.newGroup.service.title")}</p>
+      ),
+      status: (
+        <Field component={Dropdown} disabled={true} name={"service"}>
+          <option value={"BLACK"}>
+            {translate.t("organization.tabs.groups.newGroup.service.black")}
+          </option>
+          <option value={"WHITE"}>
+            {translate.t("organization.tabs.groups.newGroup.service.white")}
+          </option>
+        </Field>
+      ),
+    },
   ].concat(
     servicesList.map((element: IServicesDataSet): {
       service: JSX.Element;
@@ -305,6 +320,7 @@ const Services: React.FC<IServicesProps> = (
             confirmation: "",
             machine: data.group.hasMachine,
             reason: "NONE",
+            service: data.group.service,
             squad: data.group.hasSquad,
             type: data.group.subscription.toUpperCase(),
           }}

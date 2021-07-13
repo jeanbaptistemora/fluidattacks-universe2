@@ -310,9 +310,9 @@ const getCache: () => InMemoryCache = (): InMemoryCache =>
       Root: ["GitRoot", "IPRoot", "URLRoot"],
     },
     typePolicies: {
+      Group: { keyFields: ["name"] },
       Me: { keyFields: ["userEmail"] },
       Organization: { keyFields: ["name"] },
-      Project: { keyFields: ["name"] },
     },
   });
 
