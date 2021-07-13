@@ -15,6 +15,9 @@ from custom_exceptions import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from findings import (
     domain as findings_domain,
 )
@@ -92,9 +95,17 @@ async def _resolve_from_finding_id(context: Any, identifier: str) -> str:
 
 
 async def _resolve_from_vuln_id(context: Any, identifier: str) -> str:
-    vuln_loader = context.loaders.vulnerability
-    data = await vuln_loader.load(identifier)
-    return await _resolve_from_finding_id(context, data["finding_id"])
+    if FI_API_STATUS == "migration":
+        vuln_loader = context.loaders.vuln_new
+        vuln: Vulnerability = await vuln_loader.load(identifier)
+        group_name = await _resolve_from_finding_id(context, vuln.finding_id)
+    else:
+        vuln_loader = context.loaders.vulnerability
+        vuln = await vuln_loader.load(identifier)
+        group_name = await _resolve_from_finding_id(
+            context, vuln["finding_id"]
+        )
+    return group_name
 
 
 def authenticate_session(func: TFun) -> TFun:
@@ -541,6 +552,9 @@ async def resolve_group_name(  # noqa: MC0001
         name = getattr(args[0], "group_name")
     elif args and args[0] and "finding_id" in args[0]:
         name = await _resolve_from_finding_id(context, args[0]["finding_id"])
+    elif args and args[0] and isinstance(args[0], Vulnerability):
+        vuln: Vulnerability = args[0]
+        name = await _resolve_from_finding_id(context, vuln.finding_id)
     elif "group_name" in kwargs or "project_name" in kwargs:
         name = get_key_or_fallback(kwargs)
     elif "finding_id" in kwargs:

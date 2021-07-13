@@ -1,3 +1,5 @@
+# pylint: disable=too-many-lines
+
 from typing import (
     Dict,
     Set,
@@ -110,6 +112,10 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_vulnerability_analyst_resolve",
             "api_resolvers_vulnerability_historic_verification_resolve",
             "api_resolvers_vulnerability_historic_zero_risk_resolve",
+            "api_resolvers_query_vulnerability_new_resolve",
+            "api_resolvers_vulnerability_new_analyst_resolve",
+            "api_resolvers_vulnerability_new_historic_verification_resolve",
+            "api_resolvers_vulnerability_new_historic_zero_risk_resolve",
             "grant_group_level_role:analyst",
             "grant_group_level_role:closer",
             "grant_group_level_role:customer",
