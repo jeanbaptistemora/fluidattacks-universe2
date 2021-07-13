@@ -96,28 +96,6 @@ def _generic_check_attribute(
 
 
 @api(risk=MEDIUM, kind=DAST)
-def has_not_httponly_set(cookie_name: str, url: str, *args, **kwargs) -> tuple:
-    r"""
-    Check if the cookie in the **url** has the **HttpOnly** attribute.
-
-    :param cookie_name: Name of the cookie to test.
-    :param url: URL to get cookies.
-    :param \*args: Optional positional arguments for
-                   :class:`~fluidasserts.helper.http.HTTPSession`.
-    :param \*\*kwargs: Optional keyword arguments for
-                       :class:`~fluidasserts.helper.http.HTTPSession`.
-    :returns: - ``OPEN`` if the specified cookie has not the HttpOnly
-                attribute set.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    return _generic_check_attribute(
-        "HttpOnly", cookie_name, url, None, *args, **kwargs
-    )
-
-
-@api(risk=MEDIUM, kind=DAST)
 def has_not_httponly_in_cookiejar(
     cookie_name: str, cookie_jar: RequestsCookieJar
 ) -> tuple:
@@ -138,28 +116,6 @@ def has_not_httponly_in_cookiejar(
 
 
 @api(risk=MEDIUM, kind=DAST)
-def has_not_secure_set(cookie_name: str, url: str, *args, **kwargs) -> tuple:
-    r"""
-    Check if the cookie in the **url** has the **secure** attribute.
-
-    :param cookie_name: Name of the cookie to test.
-    :param url: URL to get cookies.
-    :param \*args: Optional positional arguments for
-                   :class:`~fluidasserts.helper.http.HTTPSession`.
-    :param \*\*kwargs: Optional keyword arguments for
-                       :class:`~fluidasserts.helper.http.HTTPSession`.
-    :returns: - ``OPEN`` if the specified cookie has not the Secure
-                attribute set.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    return _generic_check_attribute(
-        "Secure", cookie_name, url, None, *args, **kwargs
-    )
-
-
-@api(risk=MEDIUM, kind=DAST)
 def has_not_secure_in_cookiejar(
     cookie_name: str, cookie_jar: RequestsCookieJar
 ) -> tuple:
@@ -177,28 +133,6 @@ def has_not_secure_in_cookiejar(
     :rtype: :class:`fluidasserts.Result`
     """
     return _generic_check_attribute("Secure", cookie_name, None, cookie_jar)
-
-
-@api(risk=MEDIUM, kind=DAST)
-def has_not_samesite_set(cookie_name: str, url: str, *args, **kwargs) -> tuple:
-    r"""
-    Check if the cookie in the **url** has the **samesite** attribute.
-
-    :param cookie_name: Name of the cookie to test.
-    :param url: URL to get cookies.
-    :param \*args: Optional positional arguments for
-                   :class:`~fluidasserts.helper.http.HTTPSession`.
-    :param \*\*kwargs: Optional keyword arguments for
-                       :class:`~fluidasserts.helper.http.HTTPSession`.
-    :returns: - ``OPEN`` if the specified cookie has not the SameSite
-                attribute set.
-              - ``UNKNOWN`` on errors.
-              - ``CLOSED`` otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    return _generic_check_attribute(
-        "SameSite", cookie_name, url, None, *args, **kwargs
-    )
 
 
 @api(risk=MEDIUM, kind=DAST)
