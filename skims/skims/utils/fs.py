@@ -3,6 +3,9 @@ from aioextensions import (
     in_thread,
 )
 import aiofiles
+from fnmatch import (
+    fnmatch as matches_glob,
+)
 from glob import (
     iglob as glob,
 )
@@ -90,6 +93,39 @@ async def get_file_raw_content(path: str, size: int = -1) -> bytes:
         return file_contents
 
 
+def get_non_upgradable_paths(paths: Set[str]) -> Set[str]:
+    nu_paths: Set[str] = set()
+
+    intellisense_refs = {
+        os.path.dirname(path)
+        for path in paths
+        if path.endswith("Scripts/_references.js")
+    }
+
+    for path in paths:
+        if any(
+            path.startswith(intellisense_ref)
+            for intellisense_ref in intellisense_refs
+        ) or any(
+            matches_glob(f"/{path}", glob)
+            for glob in (
+                "*/Assets*/vendor/*",
+                "*/Assets*/lib/*",
+                "*/Assets*/js/*",
+                "*/Content*/jquery*",
+                "*/GoogleMapping*.js",
+                "*/Scripts*/bootstrap*",
+                "*/Scripts*/modernizr*",
+                "*/Scripts*/jquery*",
+                "*/Scripts*/popper*",
+                "*/Scripts*/vue*",
+            )
+        ):
+            nu_paths.add(path)
+
+    return nu_paths
+
+
 def get_non_verifiable_paths(paths: Set[str]) -> Set[str]:
     nv_paths: Set[str] = set()
 
@@ -120,6 +156,14 @@ def get_non_verifiable_paths(paths: Set[str]) -> Set[str]:
                 (".project", ""),
                 (".vscode", ""),
             }
+            or any(
+                path.endswith(end)
+                for end in (
+                    ".cs.bak",
+                    ".csproj.bak",
+                    ".min.js",
+                )
+            )
             or any(
                 string in path
                 for string in (
@@ -164,7 +208,7 @@ async def resolve_paths(
     *,
     exclude: Tuple[str, ...],
     include: Tuple[str, ...],
-) -> Tuple[Set[str], Set[str]]:
+) -> Tuple[Set[str], Set[str], Set[str]]:
     def normpath(path: str) -> str:
         return os.path.normpath(path)
 
@@ -201,6 +245,10 @@ async def resolve_paths(
             )
         )
 
+        # Exclude non-upgradable paths
+        unique_nu_paths: Set[str] = get_non_upgradable_paths(unique_paths)
+        unique_paths.symmetric_difference_update(unique_nu_paths)
+
         # Exclude non-verifiable paths
         unique_nv_paths: Set[str] = get_non_verifiable_paths(unique_paths)
         unique_paths.symmetric_difference_update(unique_nv_paths)
@@ -209,4 +257,4 @@ async def resolve_paths(
     else:
         await log("info", "Files to be tested: %s", len(unique_paths))
 
-    return unique_paths, unique_nv_paths
+    return unique_paths, unique_nu_paths, unique_nv_paths

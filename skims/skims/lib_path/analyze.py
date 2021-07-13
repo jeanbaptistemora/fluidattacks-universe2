@@ -63,11 +63,12 @@ CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
 )
 
 
-async def analyze_one_path(
+async def analyze_one_path(  # pylint: disable=too-many-locals
     *,
     index: int,
     path: str,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
+    unique_nu_paths: Set[str],
     unique_nv_paths: Set[str],
     unique_paths_count: int,
 ) -> None:
@@ -98,6 +99,9 @@ async def analyze_one_path(
         if path in unique_nv_paths:
             if finding is not core_model.FindingEnum.F117:
                 continue
+        elif path in unique_nu_paths:
+            # TODO: add a finding to report them as vulnerabilities
+            continue
         else:
             if finding is core_model.FindingEnum.F117:
                 continue
@@ -121,7 +125,7 @@ async def analyze(
         # No findings will be executed, early abort
         return
 
-    unique_paths, unique_nv_paths = await resolve_paths(
+    unique_paths, unique_nu_paths, unique_nv_paths = await resolve_paths(
         exclude=CTX.config.path.exclude,
         include=CTX.config.path.include,
     )
@@ -133,10 +137,13 @@ async def analyze(
                 index=index,
                 path=path,
                 stores=stores,
+                unique_nu_paths=unique_nu_paths,
                 unique_nv_paths=unique_nv_paths,
                 unique_paths_count=unique_paths_count,
             )
-            for index, path in enumerate(unique_paths | unique_nv_paths)
+            for index, path in enumerate(
+                unique_paths | unique_nu_paths | unique_nv_paths
+            )
         ),
         workers=CPU_CORES,
     )
