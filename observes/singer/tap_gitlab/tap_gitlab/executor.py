@@ -71,8 +71,7 @@ def defautl_stream(
         if isinstance(target_stream, str)
         else target_stream
     )
-    factory: IntervalFactory[datetime] = IntervalFactory.from_default(datetime)
-    emitter = Emitter(ApiClient(creds), factory, max_pages)
+    emitter = Emitter(ApiClient(creds), max_pages)
     if _target_stream == SupportedStreams.JOBS:
         LOG.info("Executing stream: %s", _target_stream)
         emitter.emit_jobs(default_job_stream(project))
