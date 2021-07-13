@@ -1,0 +1,48 @@
+F079.description:
+  en: >
+    The application dependencies (vendor and third party)
+    are directly included in the source code repositories.
+  es: >
+    Las dependencies de la aplicación (de proveedores y de terceros)
+    estan incluidas directamente en los repositorios de código fuente.
+F079.impact:
+  en: >
+    - Degrade maintainability
+    because dependencies will be harder to upgrade.
+
+    - Increase MTTR (mean time to recovery)
+    when a third party dependency
+    used in the application
+    is discovered to have a vulnerability.
+  es: >
+    - Degradar la mantenibilidad
+    porque las dependencias seran mas dificiles de actualizar.
+
+    - Incrementar el MTTR (tiempo medio para la recuperación)
+    cuando a una dependencia de terceros
+    usada en la aplicación
+    se le descubran vulnerabilidades.
+F079.recommendation:
+  en: >
+    - Use a build tool for your programming language.
+
+    - Declare third party dependencies explicitly
+    (name and specific version).
+
+    - Fetch dependencies dynamically at the build stage
+    instead of copying them in the repository.
+  es: >
+    - Usar una herramienta de construcción de software
+    para su lenguaje de programación.
+
+    - Declarar dependencias de terceros explicitamente
+    (nombre y versión especifica).
+
+    - Obtenga las dependencias dinamicamente durante la fase de construcción
+    en lugar de copiarlas directamente en el repositorio.
+F079.threat:
+  en: Authorized attacker from Internet.
+  es: Atacante autorizado desde Internet.
+F079.title:
+  en: F079. Non-upgradable dependencies
+  es: F079. Dependencias no actualizables
