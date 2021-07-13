@@ -1,11 +1,9 @@
+import { Field, Form, Formik } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Field } from "redux-form";
-import type { InjectedFormProps } from "redux-form";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   Alert,
   ButtonToolbar,
@@ -14,7 +12,7 @@ import {
   FormGroup,
   Row,
 } from "styles/styledComponents";
-import { Text } from "utils/forms/fields";
+import { FormikText } from "utils/forms/fields";
 import { required } from "utils/validations";
 
 interface IUnsubscribeModalProps {
@@ -49,7 +47,8 @@ const UnsubscribeModal: React.FC<IUnsubscribeModalProps> = (
         headerTitle={t("searchFindings.servicesTable.unsubscribe.title")}
         open={isOpen}
       >
-        <GenericForm
+        <Formik
+          enableReinitialize={true}
           initialValues={{
             confirmation: "",
           }}
@@ -57,8 +56,8 @@ const UnsubscribeModal: React.FC<IUnsubscribeModalProps> = (
           onSubmit={onSubmit}
           validate={formValidations}
         >
-          {({ handleSubmit, valid }: InjectedFormProps): JSX.Element => (
-            <React.Fragment>
+          {({ dirty, isValid, submitForm }): JSX.Element => (
+            <Form id={"unsubscribeFromGroup"}>
               <ControlLabel>
                 {t("searchFindings.servicesTable.unsubscribe.warningTitle")}
               </ControlLabel>
@@ -70,7 +69,7 @@ const UnsubscribeModal: React.FC<IUnsubscribeModalProps> = (
                   {t("searchFindings.servicesTable.unsubscribe.typeGroupName")}
                 </ControlLabel>
                 <Field
-                  component={Text}
+                  component={FormikText}
                   name={"confirmation"}
                   placeholder={groupName.toLowerCase()}
                   type={"text"}
@@ -85,8 +84,8 @@ const UnsubscribeModal: React.FC<IUnsubscribeModalProps> = (
                       {t("confirmmodal.cancel")}
                     </Button>
                     <Button
-                      disabled={!valid}
-                      onClick={handleSubmit}
+                      disabled={!isValid || !dirty}
+                      onClick={submitForm}
                       type={"submit"}
                     >
                       {t("confirmmodal.proceed")}
@@ -94,9 +93,9 @@ const UnsubscribeModal: React.FC<IUnsubscribeModalProps> = (
                   </ButtonToolbar>
                 </Col100>
               </Row>
-            </React.Fragment>
+            </Form>
           )}
-        </GenericForm>
+        </Formik>
       </Modal>
     </React.StrictMode>
   );

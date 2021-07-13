@@ -2,11 +2,11 @@ import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
+import { Field } from "formik";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { MemoryRouter, Route } from "react-router-dom";
-import { Field } from "redux-form";
 import wait from "waait";
 
 import type { IUnsubscribeModalProps } from "./UnsubscribeModal";
@@ -66,7 +66,9 @@ describe("Unsubscribe from group", (): void => {
       .find(Field)
       .filter({ name: "confirmation" })
       .find("input");
-    confirmationField.simulate("change", { target: { value: "test" } });
+    confirmationField.simulate("change", {
+      target: { name: "confirmation", value: "test" },
+    });
 
     const proccedButton: ReactWrapper = wrapper
       .find(Button)
