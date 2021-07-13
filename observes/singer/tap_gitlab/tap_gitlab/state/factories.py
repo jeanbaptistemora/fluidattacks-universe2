@@ -10,7 +10,7 @@ from tap_gitlab.intervals.interval.factory import (
 from tap_gitlab.intervals.progress import (
     FProgressFactory,
 )
-from tap_gitlab.state import (
+from tap_gitlab.state._objs import (
     JobStatePoint,
 )
 
