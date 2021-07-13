@@ -4530,16 +4530,48 @@
 085:
   en:
     title: Sensitive data stored in client-side storage
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The application stores
+      sensitive information
+      in the client-side storage
+      (localStorage or sessionStorage).
+      This exposes the information
+      to unauthorized read and write operations.
+    impact: >
+      Obtain sensitive information
+      through XSS or MitB attacks.
+    recommendation: >
+      Do not use the client side storage
+      to store sensitive information,
+      use cookies instead
+      by defining their respective
+      security attributes.
+    threat: >
+      Attacker with physical
+      or virtual access
+      to the victim's browser.
   es:
     title: Almacenamiento inseguro de información sensible en el client-side storage
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      La aplicación almacena
+      información confidencial
+      en el almacenamiento
+      del lado del cliente
+      (localStorage o sessionStorage).
+      Esto expone la información
+      a operaciones de lectura
+      y escritura no autorizadas.
+    impact: >
+      Obtener información sensible
+      mediante ataques XSS o MitB.
+    recommendation: >
+      No usar el client side storage
+      para almacenar información sensible,
+      usar cookies en su lugar definiendo
+      sus respectivos atributos de seguridad.
+    threat: >
+      Atacante con acceso físico
+      o virtual al navegador de la víctima.
   score:
     base:
       attack_vector: "N"
@@ -4554,21 +4586,40 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["177", "329"]
   metadata: {}
 086:
   en:
     title: Missing subresource integrity check
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The application does not properly check
+      the integrity of resources loaded
+      from third-party servers.
+    impact: >
+      Embed compromised resources
+      from a third party server.
+    recommendation: >
+      Add the integrity attribute
+      to HTML "script" tags.
+    threat: >
+      Unauthorized attacker
+      from internet network.
   es:
     title: Falta de verificación de subresource integrity
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      La aplicación no verifica
+      apropiadamente la integridad
+      de los recursos cargados
+      desde servidores de terceros.
+    impact: >
+      Embeber recursos comprometidos
+      desde un servidor de terceros.
+    recommendation: >
+      Agregar el atributo "integrity"
+      a las tags "script" de HTML.
+    threat: >
+      Atacante sin autorización
+      desde red internet.
   score:
     base:
       attack_vector: "N"
@@ -4583,21 +4634,45 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["178", "262", "330"]
   metadata: {}
 087:
   en:
     title: Account lockout
-    description: __empty__
+    description: >
+      It is possible
+      to cause account lockouts,
+      effectively blocking users
+      from accessing the system.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Avoid blocking users' accounts
+      as a mechanism of protection,
+      make it more restrictive
+      or control it to prevent
+      an exploitation by attackers.
+    threat: >
+      Unauthenticated user
+      from internet.
   es:
     title: Bloqueo de cuenta
-    description: __empty__
+    description: >
+      Es posible bloquear
+      las cuentas de los usuarios,
+      evitando que accedan al sistema.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Evitar bloquear las cuentas
+      de los usuarios
+      como mecanismo de protección,
+      hacerlo menos restrictivo
+      o controlarlo
+      para que no pueda ser explotado
+      por atacantes.
+    threat: >
+      Es posible bloquear
+      las cuentas de los usuarios,
+      evitando que accedan al sistema.
   score:
     base:
       attack_vector: "N"
@@ -4612,21 +4687,33 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["266"]
   metadata: {}
 088:
   en:
     title: Privacy violation
-    description: __empty__
+    description: >
+      The system violates one
+      or more privacy requirements.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Abide by the privacy regulations
+      in force.
+    threat: >
+      Attacker from internet,
+      unauthenticated in the application.
   es:
     title: Violación de privacidad
-    description: __empty__
+    description: >
+      El sistema viola una ó más
+      requisitos de privacidad.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Acatar las regulaciones
+      de privacidad vigentes.
+    threat: >
+      Atacante en internet
+      no autenticado en la aplicación
   score:
     base:
       attack_vector: "N"
@@ -4641,21 +4728,46 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["189", "310", "311", "312", "313", "314", "315", "316", "317", "318", "343"]
   metadata: {}
 089:
   en:
     title: Lack of data validation - Trust boundary violation
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The system mixes trusted
+      and untrusted data
+      in the same data structure
+      or structured message.
+    impact: >
+      Pushing data into critical data structures,
+      which could lead to some types
+      of injections.
+    recommendation: >
+      - Prevent the use of untrusted data
+        in critical data structures
+        or structured messages.
+    threat: >
+      Autenticated attacker
+      from the Internet.
   es:
     title: Falta de validación de datos - Trust boundary violation
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      El sistema mezcla datos confiables
+      y no confiables
+      en la misma estructura de datos
+      o mensaje estructurado.
+    impact: >
+      Introducir datos a estructuras
+      de datos críticas,
+      lo que podría provocar
+      algunos tipos de inyecciones.
+    recommendation: >
+      - Prevenir el uso de datos no confiables
+        en estructuras de datos críticas
+        o mensajes estructurados.
+    threat: >
+      Atacante autenticado
+      desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -4670,7 +4782,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["173", "320", "342"]
   metadata: {}
 090:
   en:
