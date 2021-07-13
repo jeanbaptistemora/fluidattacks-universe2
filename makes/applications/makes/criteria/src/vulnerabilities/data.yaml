@@ -285,7 +285,7 @@
       that each user trying to access
       has an initialized session.
     threat: >
-      An unathorized user can access
+      An unauthorized user can access
       to business functionalities
       without being authenticated
       or having an activated session
@@ -337,7 +337,7 @@
       Use of tokens in forms to verify requests 
       done by legitimate users.
     threat: >
-      An unathorized user from Internet
+      An unauthorized user from Internet
       can trick an authenticated user on the application
       using a link modified
       to execute critical transactions
@@ -821,7 +821,7 @@
       through a more secure channel,
       such as session variables or using HTTP POST method.
     threat: >
-      An unathorized user
+      An unauthorized user
       with access to the local machine
       can view the browser's cache
       and the URLs that contain the session ID
@@ -1656,7 +1656,7 @@
       session's id UUID
       due to predictable methods used
       to generate random numbers,
-      what can allow to gain unathorized access
+      what can allow to gain unauthorized access
       to the application
       and make a user spoofing.
   es:
@@ -1812,7 +1812,7 @@
       - Verify that HTTP headers
         do not display any name or version.
     threat: >
-      An unathorized user with access to the system,
+      An unauthorized user with access to the system,
       can identify versions and components
       that are being used by it
       through HTTP response headers
@@ -1874,7 +1874,7 @@
       to guarantee that information
       is accesible only to right users.
     threat: >
-      An unathorized user
+      An unauthorized user
       from local or external network
       can identify business information
       without enough protection.
@@ -1998,7 +1998,7 @@
       from the storage manager
       to avoid login attempts with those.
     threat: >
-      An unathorized user
+      An unauthorized user
       can login by guessing default passwords
       used in the application.
   es:
@@ -2144,7 +2144,7 @@
       Configure secure methods
       for server's requests.
     threat: >
-      An unathorized user
+      An unauthorized user
       from local network can modify
       requests to the server
       allowing to delete, include files,
@@ -2490,7 +2490,7 @@
       - Avoid usernames in the passwords.
       - Do not reuse passwords.
     threat: >
-      An unathorized user
+      An unauthorized user
       can execute brute force attacks
       with common words
       due to the lack of recommended methods,
@@ -2555,7 +2555,7 @@
       of password summary
       have a minimum size of 256 bits.
     threat: >
-      An unathorized user
+      An unauthorized user
       can execute a process
       to revert the hashes found
       in the database,
@@ -2663,7 +2663,7 @@
       E.g. Captcha,
       failed attempts blockout, etc.
     threat: >
-      An unathorized user
+      An unauthorized user
       with access to the intranet
       can enumerate accounts
       and valid users' passwords
@@ -2725,7 +2725,7 @@
       or management's network segments
       explicitly allowed.
     threat: >
-      An unathorized user
+      An unauthorized user
       from internet can decrypt
       the credentials of the administrators
       to exploit public vulnerabilities
@@ -2851,7 +2851,7 @@
       to avoid services' enumeration
       or to connect to these anonymously.
     threat: >
-      An unathorized user
+      An unauthorized user
       can enumerate anonymously
       the active processes
       on the system.
@@ -3202,7 +3202,7 @@
       when a login from a different
       location occurs.
     threat: >
-      An unathorized user
+      An unauthorized user
       with access credentials
       can act as a valid user
       without creating an alert
@@ -3376,7 +3376,7 @@
       - Disable the _autocomplete_ field
         to prevent cache to field's level.
     threat: >
-      An unathorized user
+      An unauthorized user
       with access to local machine
       can view the browser's cache memory
       and discover valid users
@@ -3423,16 +3423,55 @@
 066:
   en:
     title: JavaScript Console
-    description: __empty__
+    description: >
+      It is possible to obtain technical information such as:
+      - System component versions
+        (HTTP headers, service banner, etc.).
+      - Specific information
+        about the configuration
+        of server components (php.ini, web.config).
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Delete the services' banner
+      information leakage.
+      Verify that HTTP headers
+      do not expose any name or version.
+    threat: >
+      An unauthorized user
+      with access to the system
+      can identify verisons
+      or components that the system uses
+      through HTTP headers
+      used by the server
+      or in the response
+      to non customized HTTP errors.
   es:
     title: Consola JavaScript
-    description: __empty__
+    description: >
+      Se obtiene información técnica del sistema, como:
+      - versión de los componentes
+        que el sistema utiliza
+        (encabezados HTTP, banner del servicio, etc).
+      - información específica sobre la configuración
+        de componentes a nivel del servidor
+        (php.ini, web.config)
+      - Funcionalidades que arrojan
+        información del servidor.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Eliminar el banner de los servicios
+      con fuga de información.
+      Verificar que los encabezados HTTP
+      no expongan ningún nombre o versión.
+    threat: >
+      Un usuario no autorizado
+      con acceso al sistema
+      puede identificar versiones
+      y/o componentes que usa el sistema
+      a través de las cabeceras HTTP
+      que responde el servidor
+      o en la respuesta a los errores HTTP
+      no personalizados.
   score:
     base:
       attack_vector: "N"
@@ -3447,21 +3486,61 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["077", "176"]
   metadata: {}
 067:
   en:
     title: Improper resource allocation
-    description: __empty__
+    description: >
+      The system allocates unnecessary resources
+      due to the use of
+      improper programming practices
+      or inefficient algorithms.
+      Alternatively,
+      the allocation can be controlled
+      by an external source (e.g., user input),
+      and hence,
+      requests that consume
+      an enormous amount of resources
+      are processed without any restriction.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Use stable and optimized libraries
+      to realize functions
+      without a large computational expense.
+    threat: >
+      A user can make multiple requests
+      to the system
+      affecting processes performance
+      and response times,
+      due to the use of non optimized
+      components and libraries.
   es:
     title: Asignación inadecuada de recursos
-    description: __empty__
+    description: >
+      El sistema asigna
+      recursos de máquina innecesarios
+      debido al uso de prácticas de programación inadecuadas
+      o algoritmos ineficientes.
+      Alternativamente,
+      la aisgnación puede ser controlada
+      por una fuente externa (Ej: entrada de usuario),
+      por lo tanto,
+      se procesan solicitudes que consumen
+      una cantidad de recursos enormes
+      sin ninguna restricción.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Utilizar librerías estables
+      y optimizadas para realizar funciones
+      sin mucho gasto computacional.
+    threat: >
+      Un usuario puede realizar múltiples peticiones
+      al sistema afectando el desempeño de procesos
+      y tiempos de respuesta,
+      ya que el sistema
+      no hace uso de los componentes
+      y librerías más óptimos.
   score:
     base:
       attack_vector: "N"
@@ -3476,21 +3555,41 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["072", "158", "164", "173"]
   metadata: {}
 068:
   en:
     title: Insecure session expiration time
-    description: __empty__
+    description: >
+      User sessions do not expire
+      after 5 minutes of inactivity.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Close the sessions
+      when they remain inactive
+      more than 5 minutes.
+    threat: >
+      An unauthorized user
+      can take control
+      of a disregarded machine
+      impersonating the user who
+      left the system opened.
   es:
     title: Tiempo de caducidad de sesión inseguro
-    description: __empty__
+    description: >
+      La sesión de usuario
+      de la aplicación no expira
+      después de 5 minutos de inactividad.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Cerrar las sesiones
+      cuando permanezcan inactivas
+      más de 5 minutos.
+    threat: >
+      Un usuario no autorizado
+      puede tomar control de un equipo desatendido
+      suplantando el usuario
+      que desatendió la máquina.
   score:
     base:
       attack_vector: "N"
@@ -3505,21 +3604,62 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["023"]
   metadata: {}
 069:
   en:
     title: Weak CAPTCHA
-    description: __empty__
+    description: >
+      The system uses
+      an insecure CAPTCHA implementation
+      that allows the usage
+      of optical recognition tools
+      to automatically pass it.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Ensure that captcha's response
+      is at server's level
+      and is not exposed
+      on the HTML web page's code,
+      also,
+      ensure that captcha
+      can not be read by an OCR.
+    threat: >
+      An unauthorized user
+      from internet
+      can create a robot
+      to fill the database
+      with garbage in which
+      the sent data is stored
+      of the contact forms
+      causing an exhaustion of space
+      on the hard drive
+      and a possible denial of service.
   es:
     title: CAPTCHA débil
-    description: __empty__
+    description: >
+      El formulario presenta
+      una función de captcha insegura
+      que permite automatizar la lectura
+      y uso de la información de validación
+      con herramientas de reconocimiento óptico.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Asegurarse que la respuesta del captcha
+      se encuentre a nivel de servidor
+      y no expuesto en el HTML de la web,
+      también asegurarse que el Captcha
+      no sea leído por un OCR.
+    threat: >
+      Un usuario no autorizado
+      desde internet
+      puede generar un robot
+      para llenar de basura la base de datos
+      en la cual se guardan los datos enviados
+      de los formularios de contacto
+      ocasionando un agotamiento de espacio
+      en el disco duro
+      y una posible denegación de servicios.
   score:
     base:
       attack_vector: "N"
@@ -3534,7 +3674,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["237"]
   metadata: {}
 070:
   en:
