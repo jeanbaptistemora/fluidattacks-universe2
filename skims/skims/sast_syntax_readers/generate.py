@@ -68,6 +68,7 @@ from sast_syntax_readers.javascript import (
     call_expression as javascript_call_expression,
     function_declaration as javascript_function_declaration,
     lexical_declaration as javascript_lexical_declaration,
+    new_expression as javascript_new_expression,
     variable_declaration as javascript_variable_declaration,
     variable_declarator as javascript_variable_declarator,
 )
@@ -219,6 +220,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.GO,
             graph_model.GraphShardMetadataLanguage.JAVA,
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
             graph_model.GraphShardMetadataLanguage.CSHARP,
         },
         applicable_node_label_types={
@@ -523,6 +525,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "object_creation_expression",
         },
         syntax_readers=(common_object_creation_expression.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+        },
+        applicable_node_label_types={
+            "new_expression",
+        },
+        syntax_readers=(javascript_new_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
