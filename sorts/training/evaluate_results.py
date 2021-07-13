@@ -70,7 +70,7 @@ def main() -> None:
                 and obj.key != "training-output/model.joblib"
             ):
                 # Models have the format 'class-f1-feat1-...-featn-.joblib'
-                model_name: str = os.path.basename(obj.key)
+                model_name: str = os.path.basename(obj.key).split(".joblib")[0]
                 model_f1: float = float(model_name.split("-")[1])
                 if model_f1 > best_f1:
                     best_f1 = model_f1
