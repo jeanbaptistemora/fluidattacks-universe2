@@ -18,6 +18,7 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
         "decimal_integer_literal",
         "int_literal",
         "integer_literal",
+        "number",
         "real_literal",
     }:
         yield graph_model.SyntaxStepLiteral(

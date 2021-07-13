@@ -65,6 +65,7 @@ from sast_syntax_readers.java import (
     while_statement as java_while_statement,
 )
 from sast_syntax_readers.javascript import (
+    call_expression as javascript_call_expression,
     function_declaration as javascript_function_declaration,
     lexical_expression as javascript_lexical_expression,
     variable_declaration as javascript_variable_declaration,
@@ -461,6 +462,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     ),
     Dispatcher(
         applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+        },
+        applicable_node_label_types={
+            "call_expression",
+        },
+        syntax_readers=(javascript_call_expression.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
             graph_model.GraphShardMetadataLanguage.CSHARP,
         },
         applicable_node_label_types={
@@ -556,6 +566,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "false",
             "int_literal",
             "integer_literal",
+            "number",
             "interpreted_string_literal",
             "floating_point_type",
             "nil",
@@ -590,6 +601,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
             graph_model.GraphShardMetadataLanguage.CSHARP,
         },
         applicable_node_label_types={
@@ -637,6 +649,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         )
         for applicable_node_label_type in (
             "block",
+            "statement_block",
             "break_statement",
             "class_body",
             "constructor_body",
