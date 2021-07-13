@@ -27,6 +27,7 @@ from tap_gitlab.intervals.interval.factory import (
     IntervalFactory,
 )
 from tap_gitlab.state import (
+    EtlState,
     update_state,
 )
 from tap_gitlab.state.decoder import (
@@ -54,6 +55,29 @@ LOG = logging.getLogger(__name__)
 state_getter = StateGetter(boto3.client("s3"), state_decoder)
 
 
+def mr_stream(emitter: Emitter, state: EtlState) -> EtlState:
+    LOG.info("Executing stream: %s", SupportedStreams.MERGE_REQUESTS)
+    for stream in state.mrs.items.keys():
+        result = emitter.emit_mrs(stream, state.mrs.items[stream])
+        state.mrs.items[stream] = result  # state mutation
+        LOG.debug("new status: %s", result)
+    return state
+
+
+def job_stream(emitter: Emitter, state: EtlState) -> EtlState:
+    if state.jobs:
+        LOG.info("Executing stream: %s", SupportedStreams.JOBS)
+        for stream in state.jobs.items.keys():
+            result = emitter.emit_jobs(stream, state.jobs.items[stream])
+            state.jobs.items[stream] = result  # state mutation
+            LOG.debug("new status: %s", result)
+    else:
+        LOG.warning(
+            "Stream %s skipped. Stream state missing", SupportedStreams.JOBS
+        )
+    return state
+
+
 def defautl_stream(
     creds: Credentials,
     target_stream: Union[str, SupportedStreams],
@@ -72,17 +96,13 @@ def defautl_stream(
         else target_stream
     )
     emitter = Emitter(ApiClient(creds), max_pages)
-    if _target_stream == SupportedStreams.JOBS:
-        LOG.info("Executing stream: %s", _target_stream)
-        emitter.emit_jobs(default_job_stream(project))
-    elif _target_stream == SupportedStreams.MERGE_REQUESTS:
-        LOG.info("Executing stream: %s", _target_stream)
-        for stream in _state.mrs.items.keys():
-            result = emitter.emit_mrs(stream, _state.mrs.items[stream])
-            _state.mrs.items[stream] = result
-            LOG.debug("new status: %s", result)
-        json_state = state_encoder.encode_etl_state(_state)
-        emit(SingerState(json_state))
+    if _target_stream in (SupportedStreams.JOBS, SupportedStreams.ALL):
+        _state = job_stream(emitter, _state)
+    if _target_stream in (
+        SupportedStreams.MERGE_REQUESTS,
+        SupportedStreams.ALL,
+    ):
+        _state = mr_stream(emitter, _state)
 
-    else:
-        raise NotImplementedError(f"for {_target_stream}")
+    json_state = state_encoder.encode_etl_state(_state)
+    emit(SingerState(json_state))

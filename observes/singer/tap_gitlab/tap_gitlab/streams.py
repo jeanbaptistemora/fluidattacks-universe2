@@ -29,6 +29,7 @@ from typing import (
 class SupportedStreams(Enum):
     JOBS = "JOBS"
     MERGE_REQUESTS = "MERGE_REQUESTS"
+    ALL = "ALL"
 
 
 ApiPage = Union[MrsPage, JobsPage]
