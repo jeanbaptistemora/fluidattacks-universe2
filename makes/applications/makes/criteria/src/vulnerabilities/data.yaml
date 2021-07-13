@@ -3981,16 +3981,65 @@
 075:
   en:
     title: Unauthorized access to files - APK Content Provider
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The Content Provider API
+      allows third party applications
+      installed in the device
+      to retrieve data stored
+      by the application.
+      Access to this data
+      must not be allowed
+      to all applications by default.
+      Instead,
+      (and only if required)
+      specific allow-lists must be used.
+    impact: >
+      Leak application information
+      to all applications
+      installed in the device
+      through the Content Provider API.
+    recommendation: >
+      Deny access to all Content Providers with:
+      android:exported="false"
+      and android:grantUriPermissions="false".
+      If required
+      you can allow specific Content Providers
+      by using <grant-uri-permission>.
+    threat: >
+      Unauthorized attacker
+      owner of a third party application
+      installed in the device.
   es:
     title: Acceso no autorizado a archivos - APK Content Provider
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      La Content Provider API
+      permite a aplicaciones de terceros
+      instaladas en el dispositivo
+      acceder a información almacenada
+      por la aplicación.
+      El acceso a estos datos
+      no debe ser permitido
+      a todas las aplicaciones por defecto.
+      En su lugar
+      (y solo si se requiere)
+      se debe usar listas de control
+      de acceso específicas.
+    impact: >
+      Filtrar información de la aplicación
+      a todas las aplicaciones
+      instaladas en el dispositivo
+      a través de la Content Provider API.
+    recommendation: >
+      Denegar el acceso a todos los Content Providers con:
+      android:exported="false"
+      y android:grantUriPermissions="false".
+      Si se requiere
+      se puede permitir Content Providers especificos
+      usando <grant-uri-permission>.
+    threat: >
+      Atacante sin autorización
+      propietario de una aplicación de terceros
+      instalada en el dispositivo.
   score:
     base:
       attack_vector: "N"
@@ -4005,21 +4054,41 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["096", "176", "264", "320"]
   metadata: {}
 076:
   en:
     title: Insecure session management
-    description: __empty__
+    description: >
+      The session token does not expire
+      when the user terminates the session
+      and can be used
+      to post requests afterwards.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      The session token does not expire
+      when user closes session
+      and can be reused in future requests.
+    threat: >
+      Unauthorized use of web services
+      due to session's tokens
+      do not expire
+      when a session is closed.
   es:
     title: Gestión inseguro de sesión
-    description: __empty__
+    description: >
+      El token de sesión no caduca
+      una vez que el usuario cierra la sesión
+      y se puede reutilizar
+      en futuras solicitudes.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      El token de sesión debe caducar
+      cuando se cierra una sesión.
+    threat: >
+      Uso no autorizado de servicios web
+      debido a que los tokens de sesión
+      no caducan cuando se cierra una sesión.
   score:
     base:
       attack_vector: "N"
@@ -4034,20 +4103,35 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["030", "031", "141"]
   metadata: {}
 077:
   en:
     title: ARP spoofing
-    description: __empty__
+    description: >
+      It is possible
+      to supersede other MAC addresses
+      in the network
+      because the associated switch
+      lacks protection mechanisms,
+      such as PortSecurity.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Set network controls
+      (PortSecurity) in the affected switches.
     threat: __empty__
   es:
     title: Suplantación ARP
-    description: __empty__
+    description: >
+      Es posible suplantar
+      direcciones MAC en la red,
+      debido a que el suiche asociado
+      no cuenta con protecciones
+      como PortSecurity.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Establecer controles de red
+      (PortSecurity) en los switches afectados.
     threat: __empty__
   score:
     base:
@@ -4063,20 +4147,32 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["062", "273"]
   metadata: {}
 078:
   en:
     title: Insecurely generated token
-    description: __empty__
+    description: >
+      It is possible
+      to crack the token’s hash
+      and obtain the information it is masking
+      because it is not generated
+      using a secure cryptographic mechanism.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Generate a token with random components
+      without sensitive information.
     threat: __empty__
   es:
     title: Token generado de forma insegura
-    description: __empty__
+    description: >
+      Es posible revertir el hash del token
+      y obtener la información que enmascara
+      ya que no se usa un componente aleatorio seguro.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Generar un token con componentes aleatorios
+      sin información sensible.
     threat: __empty__
   score:
     base:
@@ -4092,21 +4188,54 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["224"]
   metadata: {}
 079:
   en:
     title: Non-upgradable dependencies
     description: __empty__
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      All dependencies must be declared
+      and must referenced
+      with a dependency manager (npm, pip, maven).
+      This allows to standardize
+      projects' construction and packaging.
+    threat: >
+      If a new vulnerability
+      for a used library (specific verison)
+      in the system is published
+      and the third-party software used
+      is not inventoried,
+      an attacker could take advantage of this
+      before the maintenance's team
+      updates the library opportunely.
   es:
     title: Dependencias no actualizables
-    description: __empty__
+    description: >
+      Las dependencias
+      no se encuentran explícitamente declaradas
+      (nombre y versión) dentro del código fuente.
+      Se encuentran copiadas directamente
+      en los repositorios.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Todas las dependencias
+      deben estar declaradas
+      y se deben referenciar
+      con un gestor de dependencias (npm, pip, maven).
+      Esto permite estandarizar la construcción
+      y empaquetado de proyectos.
+    threat: >
+      Si se publica una nueva vulnerabilidad
+      para una librería (versión específica)
+      utilizada en el sistema
+      y no se tiene inventario de todo
+      el software de tercero utilizado,
+      un atacante podría utilizar
+      esta vulnerabilidad
+      antes de que el equipo de mantenimiento
+      pueda actualizar la libreria oportunamente.
   score:
     base:
       attack_vector: "N"
@@ -4121,7 +4250,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["302"]
   metadata: {}
 080:
   en:
