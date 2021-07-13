@@ -514,7 +514,9 @@ describe("Update Description component", (): void => {
       .find({ name: "externalBts" })
       .find("input");
     externalBts.at(0).simulate("change", {
-      target: { name: "externalBts", value: "http://test.t" },
+      // FP: local testing
+      // eslint-disable-next-line
+      target: { name: "externalBts", value: "http://test.t" }, // NOSONAR
     });
     const vulnLevel: ReactWrapper = wrapper
       .find({ name: "severity" })
