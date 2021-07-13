@@ -27,7 +27,7 @@ On this occasion, we are talking about the
 *eLearnSecurity Web application Penetration Tester* certification (*eWPT*).
 It assesses a cybersecurity professional's web application
 penetration testing skill.
-The exam is a skills-based test that requires candidates
+The exam is a skill-based test that requires candidates
 to perform a real-world web app pentesting simulation.
 
 link:https://elearnsecurity.com/product/ewpt-certification/[eWPTv1 is different]
