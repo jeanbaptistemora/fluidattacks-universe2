@@ -142,7 +142,10 @@ from which the mail was allegedly sent to rectify the email info.
 If that is not enough,
 criminals can use a forgery SMS (short message service)
 to double-check what was said by mail.
-At the same time, they send a false notification to confirm that the alleged recipient of the transaction received the money or that the supposedly due invoice was paid.
+At the same time,
+they send a false notification to confirm that
+the alleged recipient of the transaction received
+the money or that the supposedly due invoice was paid.
 
 === GPS
 
@@ -179,7 +182,8 @@ link:https://consumercomplaints.fcc.gov/hc/en-us[Federal Communications Commissi
 official website. They can also go to the
 link:https://www.ic3.gov/Home/ComplaintChoice[Crime Complaint Center]
 website or find out more info
-link:https://www.fbi.gov/scams-and-safety/common-scams-and-crime[FBI's page] for this purpose.
+link:https://www.fbi.gov/scams-and-safety/common-scams-and-crime[FBI's page]
+for this purpose.
 
 Now, I bet that you've heard about *Pikachu*, *Ash Ketchum*, or *Pokémon*.
 However, I also bet that you don't know what links one of the

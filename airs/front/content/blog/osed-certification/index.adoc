@@ -165,9 +165,10 @@ or would you add some other skills to be prepared for the exam?*
   After that, I continued with a routine like the previous one:
   two to four hours of work.
 
+[role="fluid-question"]
 *Did the pandemic change anything about your presentation
 of this exam compared to others you've taken?*
-
+[role="fluid-answer"]
   . No. Every certification that I have presented
   has been during the pandemic, so there is no change.
   On the contrary, I think the pandemic gave me more time to study.
