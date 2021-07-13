@@ -21,18 +21,11 @@ from returns.io import (
     IO,
 )
 from returns.result import (
-    Failure,
     Result,
     Success,
 )
 from returns.unsafe import (
     unsafe_perform_io,
-)
-from singer_io import (
-    factory,
-)
-from singer_io.singer import (
-    SingerRecord,
 )
 from tap_gitlab.api.client import (
     ApiClient,
@@ -42,6 +35,10 @@ from tap_gitlab.api.projects.merge_requests import (
 )
 from tap_gitlab.api.projects.merge_requests.data_page import (
     MrsPage,
+)
+from tap_gitlab.emitter.page import (
+    PageEmitter,
+    PagesEmitter,
 )
 from tap_gitlab.intervals.alias import (
     NTuple,
@@ -65,7 +62,6 @@ from tap_gitlab.state import (
     MrStreamState,
 )
 from tap_gitlab.streams import (
-    ApiPage,
     JobStream,
     MrStream,
     SupportedStreams,
@@ -74,51 +70,9 @@ from typing import (
     Iterator,
     Optional,
     Tuple,
-    TypeVar,
 )
 
 LOG = logging.getLogger(__name__)
-_ApiPage = TypeVar("_ApiPage", bound=ApiPage)
-
-
-def _to_singer(
-    stream: SupportedStreams, page: ApiPage
-) -> Iterator[SingerRecord]:
-    return (SingerRecord(stream.value.lower(), item) for item in page.data)
-
-
-def _emit_pages(
-    stream: SupportedStreams, max_pages: int, pages: Iterator[ApiPage]
-) -> None:
-    count = 0
-    for page in pages:
-        if count >= max_pages:
-            break
-        for item in _to_singer(stream, page):
-            factory.emit(item)
-        count = count + 1
-
-
-def _old_stream_data(
-    stream: SupportedStreams, pages: IO[Iterator[ApiPage]], max_pages: int
-) -> None:
-    pages.map(partial(_emit_pages, stream, max_pages))
-
-
-def _stream_data(
-    stream: SupportedStreams,
-    pages: Iterator[_ApiPage],
-    emitted_pages: int,
-    max_pages: int,
-) -> Result[int, _ApiPage]:
-    count = emitted_pages
-    for page in pages:
-        if count >= max_pages:
-            return Failure(page)
-        for item in _to_singer(stream, page):
-            factory.emit(item)
-        count = count + 1
-    return Success(count)
 
 
 @dataclass(frozen=True)
@@ -167,12 +121,11 @@ class Emitter:
             interval: OpenLeftInterval[datetime] = p_interval.interval()
             pages = unsafe_perform_io(self.list_all_in(api, interval))
             # temp unsafe_perform_io for fast coupling
-            result = _stream_data(
-                SupportedStreams.MERGE_REQUESTS,
-                pages,
-                pages_emitted,
-                self.max_pages,
+            p_emitter = PagesEmitter(
+                PageEmitter(SupportedStreams.MERGE_REQUESTS), self.max_pages
             )
+
+            result = p_emitter.emit(pages, pages_emitted)
             emitted = result.value_or(self.max_pages)
 
             split_progress = partial(self._split_progress, interval)
@@ -211,4 +164,7 @@ class Emitter:
             .jobs(list(stream.scopes))
             .list_all(start)
         )
-        _old_stream_data(SupportedStreams.JOBS, pages, self.max_pages)
+        p_emitter = PagesEmitter(
+            PageEmitter(SupportedStreams.JOBS), self.max_pages
+        )
+        p_emitter.old_stream_data(pages)
