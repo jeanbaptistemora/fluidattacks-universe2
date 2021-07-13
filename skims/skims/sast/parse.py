@@ -313,7 +313,7 @@ def parse_one(
     version: int = 20,
 ) -> Optional[GraphShard]:
     with open(os.path.join(CTX.config.working_dir, path), "rb") as handle:
-        content = handle.read()
+        content = handle.read(102400)  # 100KiB
 
     try:
         graph = _parse_one_cached(
