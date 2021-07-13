@@ -13,7 +13,7 @@ from context import (
     FI_REDIS_SERVER,
 )
 import logging
-from redis.exceptions import (
+from redis.exceptions import (  # type: ignore
     RedisError,
 )
 from rediscluster import (

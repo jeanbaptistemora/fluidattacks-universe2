@@ -85,7 +85,7 @@ import uuid
 from vulnerabilities import (
     dal as vulns_dal,
 )
-import yaml
+import yaml  # type: ignore
 
 logging.config.dictConfig(LOGGING)
 

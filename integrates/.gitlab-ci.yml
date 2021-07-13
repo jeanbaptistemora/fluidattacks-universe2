@@ -8,6 +8,16 @@
   variables:
     GIT_DEPTH: 5
 
+.makes4: &makes4
+  tags: [autoscaling]
+  image: ghcr.io/fluidattacks/makes:21.08
+  needs: []
+  interruptible: true
+  script:
+    - m . "${CI_JOB_NAME% *}"
+  variables:
+    GIT_DEPTH: 5
+
 .integrates_commit_pattern: &integrates_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|integrates)/'
 
 .in_master_except_periodic_jobs_integrates: &in_master_except_periodic_jobs_integrates
@@ -73,6 +83,11 @@
   script:
     - ./m integrates.mobile.ota
   stage: pre-build
+
+/lintPython/dirOfModules/integrates:
+  <<: *makes4
+  <<: *in_dev_branch_integrates
+  stage: lint-code
 
 integrates.charts.documents-dev:
   <<: *charts_template
@@ -140,11 +155,6 @@ integrates.back.destroy.eph:
   <<: *makes
   <<: *in_schedule_nightly_build_integrates
   stage: rotation
-
-integrates.back.lint:
-  <<: *makes
-  <<: *in_dev_branch_integrates
-  stage: lint-code
 
 integrates.back.security:
   <<: *makes

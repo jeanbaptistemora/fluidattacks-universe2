@@ -4,7 +4,7 @@ from datetime import (
     timedelta,
     timezone,
 )
-import pytz
+import pytz  # type: ignore
 from settings import (
     TIME_ZONE,
 )

@@ -1,7 +1,7 @@
 from ariadne import (
     ScalarType,
 )
-import dateutil.parser
+import dateutil.parser  # type: ignore
 from typing import (
     Any,
 )

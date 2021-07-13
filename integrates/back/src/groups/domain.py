@@ -1041,7 +1041,7 @@ async def mask_resources(group_name: str) -> NamedTuple:
         group_name, ["environments", "files", "repositories"]
     )
     status: NamedTuple = namedtuple(
-        "Status",
+        "status",
         (
             "are_files_removed files_result "
             "environments_result repositories_result"

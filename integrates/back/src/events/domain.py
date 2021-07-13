@@ -37,7 +37,7 @@ from newutils import (
 from newutils.utils import (
     get_key_or_fallback,
 )
-import pytz
+import pytz  # type: ignore
 import random
 from settings import (
     TIME_ZONE,

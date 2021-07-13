@@ -9,12 +9,6 @@ function main {
     && lint_python_imports \
       "${envIntegratesImportsConfig}" \
       "${envIntegrates}/back/src" \
-    && for module in "${envIntegrates}/back/src"/*; do
-      if test -d "${module}"; then
-        lint_python_package "${module}"
-      fi \
-        || return 1
-    done \
     && touch "${out}"
 }
 

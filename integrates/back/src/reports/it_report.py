@@ -9,7 +9,7 @@ from custom_types import (
 from datetime import (
     datetime,
 )
-from dateutil.parser import (
+from dateutil.parser import (  # type: ignore
     parse,
 )
 from newutils import (

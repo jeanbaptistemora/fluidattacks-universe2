@@ -21,7 +21,7 @@ from settings import (
 from starlette.datastructures import (
     UploadFile,
 )
-from tempfile import (  # type: ignore
+from tempfile import (
     _TemporaryFileWrapper as TemporaryFileWrapper,
 )
 from typing import (

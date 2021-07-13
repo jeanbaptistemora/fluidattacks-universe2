@@ -7,7 +7,7 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-import simplejson as json
+import simplejson as json  # type: ignore
 from typing import (
     cast,
 )

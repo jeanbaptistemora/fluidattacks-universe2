@@ -1,7 +1,7 @@
 from .core import (
     get_finding,
 )
-from backports import (
+from backports import (  # type: ignore
     csv,
 )
 from custom_exceptions import (

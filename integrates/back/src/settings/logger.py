@@ -30,7 +30,7 @@ from logging import (
 )
 import logging.config
 import os
-import requests
+import requests  # type: ignore
 from typing import (
     Any,
 )

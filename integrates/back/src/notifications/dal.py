@@ -14,7 +14,7 @@ from exponent_server_sdk import (
 )
 import logging
 import logging.config
-import requests
+import requests  # type: ignore
 from settings import (
     LOGGING,
 )
