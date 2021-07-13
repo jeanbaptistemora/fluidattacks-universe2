@@ -19,22 +19,22 @@ from typing import (
 
 
 class VulnerabilityState(NamedTuple):
-    approval_status: Optional[VulnerabilityApprovalStatus]
-    justification: Optional[VulnerabilityDeletionJustification]
     modified_by: str
     modified_date: str
     source: Source
     status: VulnerabilityStateStatus
+    approval_status: Optional[VulnerabilityApprovalStatus] = None
+    justification: Optional[VulnerabilityDeletionJustification] = None
 
 
 class VulnerabilityTreatment(NamedTuple):
-    accepted_until: Optional[str]
-    acceptance_status: Optional[VulnerabilityAcceptanceStatus]
-    justification: Optional[str]
-    manager: Optional[str]
     modified_by: str
     modified_date: str
     status: VulnerabilityTreatmentStatus
+    accepted_until: Optional[str] = None
+    acceptance_status: Optional[VulnerabilityAcceptanceStatus] = None
+    justification: Optional[str] = None
+    manager: Optional[str] = None
 
 
 class VulnerabilityVerification(NamedTuple):
@@ -51,22 +51,22 @@ class VulnerabilityZeroRisk(NamedTuple):
 
 
 class Vulnerability(NamedTuple):
-    bts_url: Optional[str]
-    commit: Optional[str]
-    custom_severity: Optional[int]
     finding_id: str
-    hash: Optional[int]
-    repo: Optional[str]
     specific: str
-    state: VulnerabilityState
-    stream: Optional[List[str]]
     uuid: str
-    tags: Optional[List[str]]
-    treatment: Optional[VulnerabilityTreatment]
-    type: VulnerabilityType
-    verification: Optional[VulnerabilityVerification]
     where: str
-    zero_risk: Optional[VulnerabilityZeroRisk]
+    type: VulnerabilityType
+    bts_url: Optional[str] = None
+    commit: Optional[str] = None
+    custom_severity: Optional[int] = None
+    hash: Optional[int] = None
+    repo: Optional[str] = None
+    state: Optional[VulnerabilityState] = None
+    stream: Optional[List[str]] = None
+    tags: Optional[List[str]] = None
+    treatment: Optional[VulnerabilityTreatment] = None
+    verification: Optional[VulnerabilityVerification] = None
+    zero_risk: Optional[VulnerabilityZeroRisk] = None
 
 
 class VulnerabilityMetadataToUpdate(NamedTuple):

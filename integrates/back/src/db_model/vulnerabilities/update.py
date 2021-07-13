@@ -72,9 +72,7 @@ async def update_state(
         },
         latest_facet=TABLE.facets["vulnerability_state"],
     )
-    condition_expression = Attr(key_structure.partition_key).exists()
     await operations.put_item(
-        condition_expression=condition_expression,
         facet=TABLE.facets["vulnerability_state"],
         item=latest,
         table=TABLE,
@@ -103,9 +101,7 @@ async def update_treatment(
         },
         latest_facet=TABLE.facets["vulnerability_treatment"],
     )
-    condition_expression = Attr(key_structure.partition_key).exists()
     await operations.put_item(
-        condition_expression=condition_expression,
         facet=TABLE.facets["vulnerability_treatment"],
         item=latest,
         table=TABLE,
@@ -134,9 +130,7 @@ async def update_verification(
         },
         latest_facet=TABLE.facets["vulnerability_verification"],
     )
-    condition_expression = Attr(key_structure.partition_key).exists()
     await operations.put_item(
-        condition_expression=condition_expression,
         facet=TABLE.facets["vulnerability_verification"],
         item=latest,
         table=TABLE,
@@ -165,9 +159,7 @@ async def update_zero_risk(
         },
         latest_facet=TABLE.facets["vulnerability_zero_risk"],
     )
-    condition_expression = Attr(key_structure.partition_key).exists()
     await operations.put_item(
-        condition_expression=condition_expression,
         facet=TABLE.facets["vulnerability_zero_risk"],
         item=latest,
         table=TABLE,

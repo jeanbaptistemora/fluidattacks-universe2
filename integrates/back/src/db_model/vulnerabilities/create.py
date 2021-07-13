@@ -4,6 +4,9 @@ from .types import (
 from db_model import (
     TABLE,
 )
+from db_model.vulnerabilities.utils import (
+    format_state_item,
+)
 from dynamodb import (
     historics,
     keys,
@@ -42,18 +45,19 @@ async def create(*, vulnerability: Vulnerability) -> None:
     }
     items.append(initial_metadata)
 
-    historic_state = historics.build_historic(
-        attributes=dict(vulnerability.state._asdict()),
-        historic_facet=TABLE.facets["vulnerability_historic_state"],
-        key_structure=key_structure,
-        key_values={
-            "finding_id": vulnerability.finding_id,
-            "iso8601utc": vulnerability.state.modified_date,
-            "uuid": vulnerability.uuid,
-        },
-        latest_facet=TABLE.facets["vulnerability_state"],
-    )
-    items.extend(historic_state)
+    if vulnerability.state:
+        historic_state = historics.build_historic(
+            attributes=format_state_item(vulnerability.state),
+            historic_facet=TABLE.facets["vulnerability_historic_state"],
+            key_structure=key_structure,
+            key_values={
+                "finding_id": vulnerability.finding_id,
+                "iso8601utc": vulnerability.state.modified_date,
+                "uuid": vulnerability.uuid,
+            },
+            latest_facet=TABLE.facets["vulnerability_state"],
+        )
+        items.extend(historic_state)
 
     if vulnerability.treatment:
         historic_treatment = historics.build_historic(

@@ -26,6 +26,9 @@ from custom_exceptions import (
 from db_model import (
     TABLE,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityType,
+)
 from dynamodb import (
     historics,
     keys,
@@ -50,6 +53,13 @@ def _build_vulnerability(
     metadata = historics.get_metadata(
         item_id=item_id, key_structure=key_structure, raw_items=raw_items
     )
+    inverted_index = TABLE.indexes["inverted_index"]
+    inverted_key_structure = inverted_index.primary_key
+    metadata["finding_id"] = metadata[
+        inverted_key_structure.partition_key
+    ].split("#")[1]
+    metadata["uuid"] = metadata[inverted_key_structure.sort_key].split("#")[1]
+
     state: VulnerabilityState = format_state(
         historics.get_latest(
             item_id=item_id,
@@ -110,7 +120,7 @@ def _build_vulnerability(
         uuid=metadata["uuid"],
         tags=metadata.get("tags", None),
         treatment=treatment,
-        type=metadata["type"],
+        type=VulnerabilityType[metadata["type"]],
         verification=verification,
         where=metadata["where"],
         zero_risk=zero_risk,
@@ -147,7 +157,7 @@ async def _get_finding(*, uuid: str) -> str:
 
 
 async def _get_vulnerability(*, uuid: str) -> Vulnerability:
-    finding_id = _get_finding(uuid=uuid)
+    finding_id = await _get_finding(uuid=uuid)
 
     primary_key = keys.build_key(
         facet=TABLE.facets["vulnerability_metadata"],

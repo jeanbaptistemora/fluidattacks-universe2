@@ -24,10 +24,10 @@ from dynamodb.types import (
 def format_state(item: Item) -> VulnerabilityState:
     return VulnerabilityState(
         approval_status=VulnerabilityApprovalStatus[item["approval_status"]]
-        if "approval_status" in item
+        if item.get("approval_status", None)
         else None,
         justification=VulnerabilityDeletionJustification[item["justification"]]
-        if "justification" in item
+        if item.get("justification", None)
         else None,
         modified_by=item["modified_by"],
         modified_date=item["modified_date"],
@@ -74,6 +74,7 @@ def format_treatment_item(state: VulnerabilityTreatment) -> Item:
         if state.acceptance_status
         else None,
         "justification": state.justification,
+        "manager": state.manager,
         "modified_by": state.modified_by,
         "modified_date": state.modified_date,
         "status": state.status.value,
