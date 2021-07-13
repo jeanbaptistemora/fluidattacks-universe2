@@ -39,6 +39,17 @@ data "aws_iam_policy_document" "skims_dev_policy_data" {
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/skims_*",
     ]
   }
+  statement {
+    effect = "Allow"
+    actions = [
+      "batch:ListJobs",
+      "batch:DescribeJobDefinitions",
+      "batch:DescribeJobQueues",
+      "batch:DescribeComputeEnvironments",
+      "batch:DescribeJobs",
+    ]
+    resources = ["*"]
+  }
 
   # EC2
   statement {
