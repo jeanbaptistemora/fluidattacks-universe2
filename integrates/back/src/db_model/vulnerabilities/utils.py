@@ -57,11 +57,11 @@ def format_treatment(item: Item) -> VulnerabilityTreatment:
         acceptance_status=VulnerabilityAcceptanceStatus[
             item["acceptance_status"]
         ]
-        if "acceptance_status" in item
+        if item.get("acceptance_status", None)
         else None,
         justification=item.get("justification", None),
         manager=item.get("manager", None),
-        modified_by=item["modified_by"],
+        modified_by=item.get("modified_by", None),
         modified_date=item["modified_date"],
         status=VulnerabilityTreatmentStatus[item["status"]],
     )
@@ -83,7 +83,7 @@ def format_treatment_item(state: VulnerabilityTreatment) -> Item:
 
 def format_verification(item: Item) -> VulnerabilityVerification:
     return VulnerabilityVerification(
-        modified_by=item["modified_by"],
+        modified_by=item.get("modified_by", None),
         modified_date=item["modified_date"],
         status=VulnerabilityVerificationStatus[item["status"]],
     )
