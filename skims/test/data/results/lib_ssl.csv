@@ -35,16 +35,16 @@ F052_SSL_TLS,inputs,localhost:4446 (namespace),server accepts connections with T
   9 | result: server accepts connections with TLSv1.1
     ^ Col 0
 "
-F052_SSL_TLS,inputs,localhost:4446 (namespace),server refuses connections with TLSv1.3,326,"home,socket-send,socket-response",F052. Insecure cipher algorithm - SSL/TLS,server refuses connections with TLSv1.3,"
-  1 | intention: check if server accepts connections with TLSv1.3
+F052_SSL_TLS,inputs,localhost:4446 (namespace),server refuses connections with TLSv1.2 or TLSv1.3,326,"home,socket-send,socket-response",F052. Insecure cipher algorithm - SSL/TLS,server refuses connections with TLSv1.2 or TLSv1.3,"
+  1 | intention: check if server accepts connections with TLSv1.2 or TLSv1.3
   2 | SSL request made to localhost:4446 with following parameters
   3 |    fallback scsv: False
-  4 |    min version: TLSv1.3
+  4 |    min version: TLSv1.2
 > 5 |    max version: TLSv1.3
   6 |    ciphers: chacha20-poly1305, aes256gcm, aes128gcm, aes256ccm, aes128ccm, aes256, aes128, 3des
   7 |    mac: sha, sha256, sha384, aead
   8 |    key exchange: rsa, dhe_rsa, ecdhe_rsa, srp_sha, srp_sha_rsa, ecdh_anon, dh_anon, ecdhe_ecdsa, dhe_dsa
-  9 | result: server refuses connections with TLSv1.3
+  9 | result: server refuses connections with TLSv1.2 or TLSv1.3
     ^ Col 0
 "
 F052_CBC,inputs,localhost:4446 (namespace),server accepts connections with ciphers that supports CBC,757,"home,socket-send,socket-response",F052. Insecure encryption algorithm - Cipher Block Chaining,server accepts connections with ciphers that supports CBC,"

@@ -224,20 +224,21 @@ def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
-def _tlsv1_3_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
+def _tlsv1_2_or_higher_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
 
     ssl_settings = SSLSettings(
         ctx.target.host,
         ctx.target.port,
-        min_version=(3, 4),
+        min_version=(3, 3),
         max_version=(3, 4),
         intention={
             core_model.LocalesEnum.EN: (
-                "check if server accepts connections with TLSv1.3"
+                "check if server accepts connections with TLSv1.2 or TLSv1.3"
             ),
             core_model.LocalesEnum.ES: (
-                "verificar si el servidor acepta conexiones con TLSv1.3"
+                "verificar si el servidor acepta conexiones con TLSv1.2"
+                " o TLSv1.3"
             ),
         },
     )
@@ -249,7 +250,7 @@ def _tlsv1_3_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         if connection is not None and connection.closed:
             ssl_vulnerabilities.append(
                 _create_ssl_vuln(
-                    check="tlsv1_3_disabled",
+                    check="tlsv1_2_or_higher_disabled",
                     ssl_settings=ssl_settings,
                     line=SSLSnippetLine.max_version,
                     finding=core_model.FindingEnum.F052_SSL_TLS,
@@ -916,7 +917,7 @@ CHECKS: Dict[
         _sslv3_enabled,
         _tlsv1_enabled,
         _tlsv1_1_enabled,
-        _tlsv1_3_disabled,
+        _tlsv1_2_or_higher_disabled,
         _fallback_scsv_disabled,
         _tlsv1_3_downgrade,
         _heartbleed_possible,

@@ -7,9 +7,9 @@ lib_ssl.analyze_protocol.tlsv1_enabled:
 lib_ssl.analyze_protocol.tlsv1_1_enabled:
   en: server accepts connections with TLSv1.1
   es: el servidor acepta conexiones con TLSv1.1
-lib_ssl.analyze_protocol.tlsv1_3_disabled:
-  en: server refuses connections with TLSv1.3
-  es: el servidor rechaza conexiones con TLSv1.3
+lib_ssl.analyze_protocol.tlsv1_2_or_higher_disabled:
+  en: server refuses connections with TLSv1.2 or TLSv1.3
+  es: el servidor rechaza conexiones con TLSv1.2 o TLSv1.3
 lib_ssl.analyze_protocol.fallback_scsv_disabled:
   en: server does not handle TLS_FALLBACK_SCSV correctly
   es: el servidor no maneja de manera correcta TLS_FALLBACK_SCSV
