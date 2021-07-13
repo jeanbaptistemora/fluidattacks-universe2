@@ -30,7 +30,7 @@ import { TreatmentField } from "./TreatmentField";
 import { TreatmentManagerField } from "./TreatmentManagerField";
 
 import { GET_FINDING_HEADER } from "../../../containers/FindingContent/queries";
-import { UpdateDescriptionContext } from "../context";
+import { UpdateDescriptionContext } from "../VulnerabilityModal/context";
 import { Button } from "components/Button";
 import { GET_GROUP_USERS } from "scenes/Dashboard/components/Vulnerabilities/queries";
 import type {

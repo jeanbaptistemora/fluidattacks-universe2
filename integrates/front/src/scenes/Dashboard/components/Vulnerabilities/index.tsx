@@ -6,7 +6,6 @@ import React, { useEffect, useRef, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { useTranslation } from "react-i18next";
 
-import { AdditionalInformation } from "./AdditionalInformation";
 import {
   handleDeleteVulnerabilityHelper,
   onDeleteVulnResultHelper,
@@ -16,6 +15,7 @@ import {
   setNonSelectable,
 } from "./helpers";
 import { UploadVulnerabilities } from "./uploadFile";
+import { AdditionalInformation } from "./VulnerabilityModal";
 
 import type { IDeleteVulnAttr } from "../DeleteVulnerability/types";
 import { DataTableNext } from "components/DataTableNext";

@@ -221,7 +221,7 @@ const handleRequestZeroRiskError = (
   });
 };
 
-const handleSubmitHelper = (
+const handleSubmitHelper = async (
   handleUpdateTreatmentVuln: (
     dataTreatment: IUpdateTreatmentVulnerabilityForm,
     isEditPristine: boolean,
@@ -238,11 +238,9 @@ const handleSubmitHelper = (
   changedToUndefined: boolean,
   isEditPristine: boolean,
   isTreatmentPristine: boolean
-): void => {
+): Promise<void> => {
   if (changedToRequestZeroRisk) {
-    // Exception: FP(void operator is necessary)
-    // eslint-disable-next-line
-    void requestZeroRisk({ //NOSONAR
+    await requestZeroRisk({
       variables: {
         findingId,
         justification: values.justification,
@@ -258,9 +256,11 @@ const handleSubmitHelper = (
       void handleUpdateTreatmentVuln(values, isEditPristine, isTreatmentPristine); //NOSONAR
     });
   } else {
-    // Exception: FP(void operator is necessary)
-    // eslint-disable-next-line
-    void handleUpdateTreatmentVuln(values, isEditPristine, isTreatmentPristine); //NOSONAR
+    await handleUpdateTreatmentVuln(
+      values,
+      isEditPristine,
+      isTreatmentPristine
+    );
   }
 };
 

@@ -97,16 +97,16 @@ export const UpdateDescription: React.FC<IUpdateDescriptionProps> = ({
         title={t("searchFindings.tabDescription.approvalTitle")}
       >
         {(confirm: IConfirmFn): JSX.Element => {
-          function handleSubmit(
+          async function handleSubmit(
             values: IUpdateTreatmentVulnerabilityForm
-          ): void {
+          ): Promise<void> {
             const changedToRequestZeroRisk: boolean =
               values.treatment === "REQUEST_ZERO_RISK";
             const changedToUndefined: boolean =
               values.treatment === "ACCEPTED_UNDEFINED" &&
               lastTreatment.treatment !== "ACCEPTED_UNDEFINED";
 
-            handleSubmitHelper(
+            await handleSubmitHelper(
               fnConfig.updateDescription,
               fnConfig.requestZeroRisk,
               confirm,
