@@ -41,7 +41,7 @@ function check_adoc_blog_patterns {
   declare -A patterns=(
     [source_unsplash]='(?<=^:source: )((?!https://unsplash).*$)'
     [subtitle_length_limit]='(?<=^:subtitle: ).{56,}'
-    [title_length_limit]='^= .{35,}'
+    [title_length_limit]='^= .{36,}'
   )
 
   for test in "${!patterns[@]}"; do
@@ -176,7 +176,16 @@ function check_adoc_lix {
   local msg="Document Lix must be under ${max_lix}"
   local lix
 
-  lix="$(grep -vhr '\(link:\|image::\|^:\|https://\|http://\|role=\)' "${target}" | style | grep -oP '(?<=Lix: )[0-9]+')" \
+  lix="$(
+    sed 's|link:.*\[|[|g' "${target}" \
+      | sed 's|image:.*\[|[|g' \
+      | sed 's|https://.*\[|[|g' \
+      | sed 's|http://.*\[|[|g' \
+      | sed 's|\[role=.*||g' \
+      | grep -vh '^:' \
+      | style \
+      | grep -oP '(?<=Lix: )[0-9]+'
+  )" \
     && if test "${lix}" -gt "${max_lix}"; then
       abort "[ERROR] ${msg}, current: ${lix}: ${target}"
     fi
@@ -339,7 +348,16 @@ function check_adoc_word_count {
   local msg="Document must have between ${min_words} and ${max_words} words"
   local words
 
-  words="$(grep -vhr '\(link:\|image::\|^:\|https://\|http://\|role=\)' "${target}" | wc -w)" \
+  words="$(
+    sed 's|link:.*\[|[|g' "${target}" \
+      | sed 's|image:.*\[|[|g' \
+      | sed 's|https://.*\[|[|g' \
+      | sed 's|http://.*\[|[|g' \
+      | sed 's|\[role=.*||g' \
+      | grep -vh '^:' \
+      | style \
+      | grep -oP '[0-9]+(?= words,)'
+  )" \
     && if test "${words}" -lt "${min_words}" || test "${words}" -gt "${max_words}"; then
       abort "[ERROR] ${msg}: ${target} ${words}"
     fi

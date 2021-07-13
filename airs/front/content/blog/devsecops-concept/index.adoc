@@ -6,7 +6,7 @@
 :page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330852/blog/devsecops-concept/cover_c4reuk.webp
 :page-alt: Photo by Sebastian Pena Lambarri on Unsplash
 :page-description: Through this blog post, you will know what DevSecOps is, how it applies, and why it is recommended for IT companies.
-:page-keywords: Security, DevOps, DevSecOps, SecDevOps, Software, Information, Web, Cloud, Ethical Hacking, Pentesting
+:page-keywords: Security, Devops, Devsecops, Secdevops, Software, Information, Web, Cloud, Ethical Hacking, Pentesting
 :page-author: Felipe Ruiz
 :page-writer: fruiz
 :name: Felipe Ruiz

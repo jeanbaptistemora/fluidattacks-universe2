@@ -42,11 +42,11 @@ function main {
       && check_adoc_blog_categories "${path}" \
         && check_adoc_blog_patterns "${path}" \
         && check_adoc_blog_tags "${path}" \
-        && check_adoc_lix "${path}" '55' \
+        && check_adoc_lix "${path}" '50' \
         && check_adoc_tag_exists "${path}" 'page-alt' \
         && check_adoc_tag_exists "${path}" 'source' \
         && check_adoc_tag_exists "${path}" 'page-subtitle' \
-        && check_adoc_word_count "${path}" '800' '1600' \
+        && check_adoc_word_count "${path}" '800' '1200' \
         || return 1
     done \
     && touch "${out}" \

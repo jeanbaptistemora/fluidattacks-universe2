@@ -6,7 +6,7 @@
 :page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330851/blog/devops-concept/cover_gyaf3f.webp
 :page-alt: Photo by Michael Fenton on Unsplash
 :page-description: Here we introduce DevOps, a working methodology whose principles are communication, collaboration, automation, continuous release, and quick reaction.
-:page-keywords: DevOps, Software, Information, Web, Cloud, Business, Ethical Hacking, Pentesting
+:page-keywords: Devops, Software, Information, Web, Cloud, Business, Ethical Hacking, Pentesting
 :page-author: Felipe Ruiz
 :page-writer: fruiz
 :name: Felipe Ruiz

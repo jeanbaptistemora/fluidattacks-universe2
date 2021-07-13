@@ -13,7 +13,7 @@
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/WAR4DbHdiKA
 
-= State of Cybersecurity 2020-21 (I)
+= State of Cybersecurity 2020-21, I
 
 This year 2020 has not had a similar close precedent,
 with a link:https://www.who.int/emergencies/diseases/novel-coronavirus-2019[COVID-19] spread worldwide affecting millions of people and,

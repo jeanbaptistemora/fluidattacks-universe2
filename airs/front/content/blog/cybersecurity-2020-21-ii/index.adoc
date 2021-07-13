@@ -13,7 +13,7 @@
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/aYJr4MWXBv4
 
-= State of Cybersecurity 2020-21 (II)
+= State of Cybersecurity 2020-21, II
 
 In link:../cybersecurity-2020-21-i/[the previous part],
 we focused our attention mainly on some current trends of cybercriminals.

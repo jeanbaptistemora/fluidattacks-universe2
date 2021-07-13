@@ -13,7 +13,7 @@
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/s4_Rts1SFx0
 
-= State of Cybersecurity 2020-21 (III)
+= State of Cybersecurity 2020-21, III
 
 This post is the third and last part of the link:../cybersecurity-2020-21-i/[State of Cybersecurity 2020-21].
 Of course, to close the subject,
