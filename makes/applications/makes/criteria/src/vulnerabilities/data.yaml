@@ -4787,16 +4787,40 @@
 090:
   en:
     title: Code injection (CSV)
-    description: __empty__
+    description: >
+      It is possible to inject formulas
+      into fields that are later exported
+      as part of CSV files
+      and can be interpreted by Excel.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Sanitize all the fields
+      that will be exported
+      to the server
+      when the exported file
+      is generated.
+    threat: >
+      Inject formulas
+      that are interpreted by Excel
+      causing the risk
+      of commands execution.
   es:
     title: Inyección de código
-    description: __empty__
+    description: >
+      Es posible inyectar
+      fórmulas en los campos
+      que luego son exportados
+      en CSV e interpretados por Excel.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Sanitizar todos los campos
+      a exportar en el servidor
+      al generar el archivo exportado.
+    threat: >
+      Inyectar fórmulas
+      que son interpretadas por excel
+      generando riesgo
+      de ejecución de comandos.
   score:
     base:
       attack_vector: "N"
@@ -4811,21 +4835,48 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["173"]
   metadata: {}
 091:
   en:
     title: Log injection
-    description: __empty__
+    description: >
+      The system logs entries
+      that contain input
+      from untrusted sources
+      without properly validating,
+      sanitizing
+      or escaping their content.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Sanitize inputs before
+      storing them in the log.
+    threat: >
+      Inject code or fake inputs
+      in the system's log,
+      compromising the integrity
+      of logs,
+      or in the worst case,
+      the system of who is viewing the logs.
   es:
     title: Inyección de log
-    description: __empty__
+    description: >
+      Se guardan entradas
+      sin validar en los logs del sistema,
+      permitiendo la inyección
+      de entradas maliciosas.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Sanitizar entradas antes
+      de guardarlas en el log.
+    threat: >
+      Inyectar código o entradas falsas
+      en los logs del sistema,
+      comprometiendo así la integridad
+      de los logs o,
+      en el peor caso,
+      el sistema de quien esté visualizando
+      los logs.
   score:
     base:
       attack_vector: "N"
@@ -4840,21 +4891,39 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["080", "173"]
   metadata: {}
 092:
   en:
-    title: Insecure encryption algorithm - Cipher Suites
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    title: Insecure encryption algorithm - Anonymous cipher suites
+    description: >
+      The application allows connections
+      with anonymous cipher suites.
+    impact: >
+      Obtain sensitive information
+      by performing a MiTM attack.
+    recommendation: >
+      Use algorithms considered
+      cryptographically secure.
+    threat: >
+      Unauthorized attacker
+      from adjacent network
+      performing a MITM attack.
   es:
-    title: Configuración insegura del servicio - Cipher Suites
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    title: Algoritmo de cifrado inseguro - Suites de cifrado anónimo
+    description: >
+      La aplicación acepta conexiones
+      con suites de cifrado anonimos.
+    impact: >
+      Obtener información sensible
+      realizando un ataque
+      de hombre en el medio.
+    recommendation: >
+      Utilizar algoritmos considerados
+      criptográficamente seguros.
+    threat: >
+      Atacante sin autorización
+      desde red adyacente ejecutando un MITM.
   score:
     base:
       attack_vector: "N"
@@ -4869,21 +4938,48 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["148", "149", "150", "181", "336"]
   metadata: {}
 093:
   en:
     title: Hidden fields manipulation
-    description: __empty__
+    description: >
+      It is possible
+      to modify fields
+      that are invisible to the regular user
+      and cause undesired behaviors
+      in the application.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Send only fields that require
+      users' inputs in the requests,
+      and control the rest
+      from the server.
+    threat: >
+      Force unwanted actions
+      in the application
+      modifying resources
+      which can not be accesible
+      by user.
   es:
     title: Manipulación de campos ocultos
-    description: __empty__
+    description: >
+      Es posible modificar
+      campos invisibles al usuario
+      para forzar la aplicación
+      a comportarse de manera inadecuada.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Enviar en las peticiones
+      solo los campos
+      que requieran entradas del usuario
+      y manejar el resto desde el servidor.
+    threat: >
+      Forzar acciones
+      indeseadas en la aplicación
+      modificando recursos
+      a los que el usuario
+      no debería tener acceso.
   score:
     base:
       attack_vector: "N"
@@ -4898,21 +4994,41 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["173", "320"]
   metadata: {}
 094:
   en:
-    title: Insecure encryption algorithm - SSL
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    title: Insecure encryption algorithm - SSL/TLS
+    description: > 
+      The server allows the usage
+      of insecure SSL/TLS protocol versions.
+    impact: >
+      Compromize sensitive information
+      that travels between client and server.
+    recommendation: >
+      Update SSL/TLS protocol
+      to version TLSv1.2 or TLSv1.3 if possible.
+    threat: >
+      Unauthorized attacker
+      from adjacent network
+      exploiting a vulnerability.
   es:
-    title: Configuración insegura del servicio - SSL
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    title: Algoritmo de cifrado inseguro - SSL/TLS
+    description: >
+      El servidor permite utilizar
+      versiones inseguras
+      del protocolo SSL/TLS.
+    impact: >
+      Comprometer la información sensible
+      que viaja entre cliente y servidor.
+    recommendation: >
+      Actualizar el protocolo SSL/TSL
+      a la versión TLSv1.2 o TLSv1.3
+      de ser posible.
+    threat: >
+      Atacante sin autorización
+      desde red adyacente
+      explotando vulnerabilidad.
   score:
     base:
       attack_vector: "N"
@@ -4927,7 +5043,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["148", "149", "150", "181", "336"]
   metadata: {}
 095:
   en:
