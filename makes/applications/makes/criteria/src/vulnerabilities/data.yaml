@@ -3506,7 +3506,7 @@
     impact: __empty__
     recommendation: >
       Use stable and optimized libraries
-      to realize functions
+      to perform functions
       without a large computational expense.
     threat: >
       A user can make multiple requests
@@ -4255,16 +4255,35 @@
 080:
   en:
     title: Insecure service configuration - AWS Missing encryption
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      Infrastructure is not encrypted.
+    impact: >
+      Expose resources, processes
+      and sensitive information
+      that could be compromised.
+    recommendation: >
+      Encrypt infrastructure
+      with server-side encryption
+      or customer-managed keys.
+    threat: >
+      Internal attacker
+      with access to the configuration.
   es:
     title: Configuración insegura del servicio - AWS ausencia de cifrado
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      La infrastructura
+      no se encuentra cifrada.
+    impact: >
+      Exponer recursos, procesos
+      e información sensible
+      que podrían ser comprometidos.
+    recommendation: >
+      Cifrar la infrastructura
+      con cifrado del lado del servidor
+      o llaves administradas por el usuario.
+    threat: >
+      Atacante interno
+      con acceso a la configuración.
   score:
     base:
       attack_vector: "N"
@@ -4279,20 +4298,47 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["119", "266"]
   metadata: {}
 081:
   en:
     title: Lack of multi-factor authentication
-    description: __empty__
+    description: >
+      Critical services of the system,
+      such as databases,
+      shared resources containing sensitive information
+      and web services,
+      are not protected
+      by a multi-factor authentication mechanism.
+      This makes it easier for an attacker
+      who has compromised a user’s account
+      to access those resources.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Implement a double factor authentication
+      by software or hardware
+      to increase the protection level
+      of the resources' authentication.
     threat: __empty__
   es:
     title: Ausencia de autenticación de doble factor
-    description: __empty__
+    description: >
+      Los servicios críticos
+      sobre la red interna
+      como acceso a bases de datos,
+      recursos compartidos con información sensible
+      y/o web services,
+      no cuentan con una autenticación
+      de múltiples factores,
+      lo cual hace más fácil para un atacante
+      con un usuario comprometido acceder a estos.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Implementar un doble factor de autenticación
+      ya sea por software o hardware
+      para incrementar el nivel de protección
+      de la autenticación
+      de los recursos críticos.
     threat: __empty__
   score:
     base:
@@ -4308,22 +4354,46 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements:
-    - "264"
+  requirements: ["229", "231", "264", "319", "328"]
   metadata: {}
 082:
   en:
     title: Insecurely deleted files
-    description: __empty__
+    description: >
+      It is possible to retrieve deleted files
+      with sensitive information
+      because they were merely sent
+      to the Recycle Bin or removed
+      using insecure protocols.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Good practices must be followed
+      to clean, delete,
+      and destruction of sensitive information
+      (Policies).
+    threat: >
+      An attacker can extract
+      sensitive information
+      using the recycle bin
+      as a metadata's source.
   es:
     title: Archivos borrados de forma insegura
-    description: __empty__
+    description: >
+      Es posible recuperar archivos
+      con información sensible
+      de las papeleras de reciclaje,
+      esto porque no se eliminan una vez estan allí
+      o no se hace siguiendo un protocolo seguro.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Se deben seguir las buenas prácticas
+      para la limpieza, eliminación
+      y destrucción de información sensible
+      (Políticas).
+    threat: >
+      Un atacante puede conseguir información sensible
+      usando las papeleras de reciclaje
+      como fuente para obtener metadatos.
   score:
     base:
       attack_vector: "N"
@@ -4338,21 +4408,48 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["183"]
   metadata: {}
 083:
   en:
     title: XML Injection (XXE)
-    description: __empty__
+    description: >
+      It is possible to inject XML code
+      into the application’s requests,
+      which is then interpreted by the server.
+      This could allow an attacker
+      to perform data exfiltration
+      or execute commands remotely.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Filter the information
+      that is received and sent
+      by the application
+      through white lists.
+    threat: >
+      An attacker could generate
+      a service failure
+      by referencing external entities
+      that can require many system's resources.
   es:
     title: Inyección XML
-    description: __empty__
+    description: >
+      La aplicación afectada
+      permite la inyección de código XML
+      que es ejecutado de forma remota
+      y permite la exfiltración de archivos
+      o ejecución remota de comandos.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Filtrar la información que recibe
+      y envía la aplicación
+      por medio de listas blancas.
+    threat: >
+      Un atacante podría generar
+      una caída del servicio
+      al referenciar entidades externas
+      que pudieran requerir demasiados recursos
+      del sistema.
   score:
     base:
       attack_vector: "N"
@@ -4367,21 +4464,53 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["173"]
   metadata: {}
 084:
   en:
     title: MDNS spoofing
-    description: __empty__
+    description: >
+      The configuration of the mDNS services
+      allows an attacker
+      to spoof IP addresses
+      effectively hijacking them
+      or causing a denial-of-service.
+      Alternatively,
+      due to a lack of certain security measures,
+      it is possible to intercept requests
+      to mDNS services
+      and obtain information
+      about the connected devices.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Disable LLMR and NBT-NS.
+      Configure the firewall
+      to filter incoming connections
+      from UDP 5353 port.
+    threat: >
+      An attacker can perform
+      a MDNS spoofing on the network
+      and can obtain domain users,
+      operating systems, among others.
   es:
     title: Suplantación MDNS
-    description: __empty__
+    description: >
+      Es posible interceptar peticiones
+      a los servicios de MDNS
+      y obtener informacion de los hosts conectados
+      debido a que no se cuenta
+      con medidas de seguridad en la red.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Deshabilitar LLMNR y NBT-NS.
+      Configurar el firewall
+      para filtrar conexiones provenientes
+      del puerto UDP 5353.
+    threat: >
+      Un atacante puede realizar
+      un MDNS spoofing en la red
+      y conseguir usuarios de dominio,
+      sistemas operativos, entre otros.
   score:
     base:
       attack_vector: "N"
@@ -4396,7 +4525,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["062", "273"]
   metadata: {}
 085:
   en:
