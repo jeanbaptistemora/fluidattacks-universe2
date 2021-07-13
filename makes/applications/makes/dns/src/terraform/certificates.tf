@@ -2,7 +2,7 @@ resource "cloudflare_certificate_pack" "main" {
   zone_id               = cloudflare_zone.fluidattacks_com.id
   type                  = "advanced"
   validation_method     = "txt"
-  validity_days         = 30
+  validity_days         = 14
   certificate_authority = "digicert"
   cloudflare_branding   = false
 
