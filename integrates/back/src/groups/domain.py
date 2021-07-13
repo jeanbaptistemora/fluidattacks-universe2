@@ -460,6 +460,7 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
     group_name: str,
     organization: str,
     description: str,
+    service: str,
     has_machine: bool = False,
     has_squad: bool = False,
     subscription: str = "continuous",
@@ -506,11 +507,7 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
                         "has_drills": has_squad,
                         "has_forces": True,
                         "requester": user_email,
-                        "service": (
-                            "WHITE"
-                            if subscription == "continuous"
-                            else "BLACK"
-                        ),
+                        "service": service,
                         "type": subscription,
                     }
                 ],
@@ -650,6 +647,7 @@ async def edit(
     has_machine: bool,
     reason: str,
     requester_email: str,
+    service: str,
     subscription: str,
 ) -> bool:
     success: bool = False
@@ -687,11 +685,7 @@ async def edit(
                         "has_forces": True,
                         "reason": reason,
                         "requester": requester_email,
-                        "service": (
-                            "WHITE"
-                            if subscription == "continuous"
-                            else "BLACK"
-                        ),
+                        "service": service,
                         "type": subscription,
                     }
                 ],

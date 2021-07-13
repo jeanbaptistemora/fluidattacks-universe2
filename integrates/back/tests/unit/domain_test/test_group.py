@@ -450,6 +450,7 @@ async def test_create_group_not_user_admin() -> None:
         description="This is a new group",
         has_machine=True,
         has_squad=True,
+        service="WHITE",
         subscription="continuous",
     )
     expected_output = True
@@ -460,6 +461,7 @@ async def test_create_group_not_user_admin() -> None:
 @pytest.mark.parametrize(
     [
         "group_name",
+        "service",
         "subscription",
         "has_machine",
         "has_squad",
@@ -467,14 +469,15 @@ async def test_create_group_not_user_admin() -> None:
         "expected",
     ],
     [
-        ["unittesting", "continuous", True, True, True, True],
-        ["oneshottest", "oneshot", False, False, True, True],
-        ["not-exists", "continuous", True, True, True, False],
-        ["not-exists", "continuous", False, False, False, False],
+        ["unittesting", "WHITE", "continuous", True, True, True, True],
+        ["oneshottest", "BLACK", "oneshot", False, False, True, True],
+        ["not-exists", "WHITE", "continuous", True, True, True, False],
+        ["not-exists", "WHITE", "continuous", False, False, False, False],
     ],  # pylint: disable=too-many-arguments
 )
 async def test_edit(
     group_name: str,
+    service: str,
     subscription: str,
     has_machine: bool,
     has_squad: bool,
@@ -491,6 +494,7 @@ async def test_edit(
         has_asm=has_asm,
         reason="",
         requester_email="test@test.test",
+        service=service,
     )
 
 

@@ -64,6 +64,10 @@ async def mutate(  # pylint: disable=too-many-arguments
         group_name.lower(),
         organization,
         description,
+        parameters.get(
+            "service",
+            ("WHITE" if subscription == "continuous" else "BLACK"),
+        ),
         has_machine,
         has_squad,
         subscription,

@@ -73,6 +73,10 @@ async def mutate(  # pylint: disable=too-many-arguments
             has_machine=has_machine,
             reason=reason,
             requester_email=requester_email,
+            service=kwargs.get(
+                "service",
+                ("WHITE" if subscription == "continuous" else "BLACK"),
+            ),
             subscription=subscription,
         )
     except PermissionDenied:

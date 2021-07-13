@@ -156,13 +156,13 @@ type Mutation {
 
   createGroup(
     description: String!
-    language: Language
-    organization: String
     groupName: String!
-    subscription: SubscriptionType
     hasMachine: Boolean
     hasSquad: Boolean
-    hasForces: Boolean
+    language: Language
+    organization: String
+    service: ServiceType
+    subscription: SubscriptionType
   ): SimplePayload!
 
   createOrganization(name: String!): CreateOrganizationPayload!
@@ -230,14 +230,14 @@ type Mutation {
   editGroup(
     comments: String!
     groupName: String!
-    hasSkims: Boolean
-    hasMachine: Boolean
-    hasDrills: Boolean
-    hasSquad: Boolean
-    hasForces: Boolean
-    hasIntegrates: Boolean
     hasAsm: Boolean
+    hasDrills: Boolean
+    hasIntegrates: Boolean
+    hasMachine: Boolean
+    hasSkims: Boolean
+    hasSquad: Boolean
     reason: EditGroupReason!
+    service: ServiceType
     subscription: SubscriptionType!
   ): SimplePayload!
 
