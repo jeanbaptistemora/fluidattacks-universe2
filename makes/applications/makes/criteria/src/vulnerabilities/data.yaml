@@ -2376,7 +2376,7 @@
       has been rooted.
     impact: >
       Install malicious tools
-      in order to cause unexpected behaviours.
+      in order to cause unexpected behaviors.
     recommendation: >
       Validate that the device
       is not rooted
@@ -3679,16 +3679,60 @@
 070:
   en:
     title: Inappropriate coding practices - Wildcard import
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      When importing libraries
+      the wildcard operator (asterisk) is used
+      which imports
+      all the components of said library.
+      This is a bad practice
+      because components that are loaded
+      will not be used,
+      and you can get into naming conflicts
+      if two packages have components
+      with the same name.
+    impact: >
+      - Load functions and procedures
+        that will not be used.
+      - Cause a suboptimal operation
+        of the application.
+      - Cause naming conflicts in components
+        with the same name.
+    recommendation: >
+      Explicitly import the libraries
+      and necessary packages
+      for the right functioning
+      of the application.
+    threat: >
+      Authorized attacker
+      with access to the application.
   es:
     title: Prácticas inadecuadas de programación - Import con comodín
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      Al importar librerías
+      se hace uso del operador comodín (asterisco)
+      lo cual importa
+      la totalidad de componentes de dicha librería.
+      Esta es una mala práctica
+      debido a que se cargan componentes
+      que no serán utilizados,
+      y se puede entrar en conflictos de nomenclatura
+      si dos paquetes tienen componentes
+      con el mismo nombre.
+    impact: >
+      - Cargar funciones y procedimientos
+        que no serán utilizados.
+      - Ocasionar un funcionamiento subóptimo
+        de la aplicación.
+      - Ocasionar conflictos de nomenclatura
+        en componentes con el mismo nombre.
+    recommendation: >
+      Explicitly import the libraries
+      and necessary packages
+      for the right functioning
+      of the application.
+    threat: >
+      Atacante autorizado
+      con acceso a la aplicación.
   score:
     base:
       attack_vector: "N"
@@ -3703,21 +3747,45 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["158"]
   metadata: {}
 071:
   en:
     title: Missing HTTP security headers - Referrer-Policy
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The server is missing
+      the Referrer-Policy HTTP header.
+      Alternatively,
+      the header's configuration is unsafe.
+    impact: >
+      Leak website domain and path
+      to external services.
+    recommendation: >
+      Set the Referrer-Policy header
+      to "no-referrer", "same-origin",
+      "strict-origin",
+      or "strict-origin-when-cross-origin".
+    threat: >
+      Unauthorized attacker
+      from Internet.
   es:
     title: Cabeceras de seguridad HTTP no establecidas - Referrer-Policy
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      El servidor carece
+      del encabezado HTTP Referrer-Policy.
+      Alternativamente,
+      la configuración del mismo es insegura.
+    impact: >
+      Fugar el dominio del sitio web
+      y su ruta a servicios externos.
+    recommendation: >
+      Establecer la cabecera
+      Referrer-Policy a "no-referrer", "same-origin",
+      "strict-origin",
+      o "strict-origin-when-cross-origin".
+    threat: >
+      Atacante sin autorización
+      desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -3732,21 +3800,50 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["062", "175"]
   metadata: {}
 072:
   en:
     title: Duplicate code
-    description: __empty__
+    description: >
+      The application’s source code
+      has duplicate code,
+      which may cause unexpected behaviors.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Ensure that source code
+      does not have classes,
+      functions or repeated methods.
+    threat: >
+      A developer can cause
+      unexpected behaviors
+      in the application
+      or problems when a class,
+      method or function tries to overlap
+      to other causing errors
+      in source code compilation.
   es:
     title: Código duplicado
-    description: __empty__
+    description: >
+      Se encuentra código
+      que se está repetido
+      en diferentes archivos del código fuente
+      lo que puede generar
+      comportamientos inesperados
+      en la aplicación.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Asegurarse de que el código fuente
+      no tenga clases,
+      funciones o métodos repetidos.
+    threat: >
+      Un desarrollador
+      puede causar comportamientos inesperados
+      en la aplicación
+      o problemas cuando una clase,
+      método o función intenta superponerse
+      a otra generando así errores
+      en la compilación del código fuente.
   score:
     base:
       attack_vector: "N"
@@ -3761,21 +3858,46 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["162"]
   metadata: {}
 073:
   en:
     title: Conditional statement without a default option
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The source code
+      has conditional statements
+      without a default option.
+      E.g. there is a switch statement
+      without a default case.
+    impact: >
+      Drive the application
+      into unexpected behaviors
+      due to the missing default options.
+    recommendation: >
+      Define a default option for statements
+      that do not yet have it.
+    threat: >
+      Autenticated attacker
+      from the Internet.
   es:
     title: Condicionales sin opción por defecto
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      El código presenta condicionales
+      sin ninguna opción por defecto.
+      Ejemplo: se tiene un switch
+      que no contempla un caso por defecto.
+    impact: >
+      Conducir la aplicación
+      a comportamientos inesperados
+      debido a la clausula
+      por defecto faltante.
+    recommendation: >
+      Definir una opción por defecto
+      para las sentencias
+      que aún no cuentan con esta.
+    threat: >
+      Atacante autenticado
+      desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -3790,21 +3912,56 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["161"]
   metadata: {}
 074:
   en:
     title: Commented-out code
-    description: __empty__
+    description: >
+      The application’s production
+      source code contains commented-out code.
+      This increases the chances
+      that it will be uncommented
+      during maintenance,
+      introducing vulnerabilities
+      or causing unexpected behaviors.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Delete all lines
+      of functional commented code
+      in the source code of th application.
+    threat: >
+      A user in charge
+      of maintaining the application
+      can have problems
+      in the code update process
+      or can cause unexpected behaviors
+      in the application when uncommenting
+      any portion of commented code.
   es:
     title: Código comentado
-    description: __empty__
+    description: >
+      Existe código comentado
+      en ambiente de producción,
+      lo que aumenta la probabilidad de que,
+      en ambientes de desarrollo,
+      puedan remover los comentarios
+      de este código
+      y desplegarlo en producción.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Eliminar todas las líneas
+      de código funcional comentado
+      en el código fuente de la aplicación.
+    threat: >
+      Un usuario encargado
+      del mantenimiento de la aplicación
+      puede tener inconvenientes en el proceso
+      de actualización del código
+      o causar comportamientos inesperados
+      en la aplicación al descomentar
+      cualquiera de las porciones de código
+      comentado presente en la aplicación.
   score:
     base:
       attack_vector: "N"
@@ -3819,7 +3976,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["171"]
   metadata: {}
 075:
   en:
