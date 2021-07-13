@@ -354,7 +354,7 @@ def main() -> None:
     # Parse everything to singer
     for schema in os.listdir(SCHEMAS_DIR):
         dump_schema(schema)
-    if os.path.exists(STATE_DIR):
+    if os.path.exists(f"{STATE_DIR}/states"):
         for state in read(STATE_DIR, "states"):
             if state.rstrip():
                 print(state.rstrip())
