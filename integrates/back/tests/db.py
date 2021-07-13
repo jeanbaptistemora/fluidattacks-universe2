@@ -15,6 +15,7 @@ from data_containers.toe_lines import (
 )
 from db_model import (
     findings,
+    vulnerabilities,
 )
 from decimal import (
     Decimal,
@@ -225,6 +226,66 @@ async def populate_findings_new(data: List[Dict[str, Any]]) -> bool:
     await collect(
         [_populate_finding_historic_verification(item) for item in data]
     )
+    return True
+
+
+async def _populate_vuln_historic_state(data: Dict[str, Any]) -> None:
+    if "historic_state" in data:
+        vuln = data["vulnerability"]
+        for state in data["historic_state"]:
+            await vulnerabilities.update_state(
+                finding_id=vuln.finding_id,
+                state=state,
+                uuid=vuln.uuid,
+            )
+
+
+async def _populate_vuln_historic_treatment(data: Dict[str, Any]) -> None:
+    if "historic_treatment" in data:
+        vuln = data["vulnerability"]
+        for treatment in data["historic_treatment"]:
+            await vulnerabilities.update_treatment(
+                finding_id=vuln.finding_id,
+                treatment=treatment,
+                uuid=vuln.uuid,
+            )
+
+
+async def _populate_vuln_historic_verification(data: Dict[str, Any]) -> None:
+    if "historic_verification" in data:
+        vuln = data["vulnerability"]
+        for verification in data["historic_verification"]:
+            await vulnerabilities.update_verification(
+                finding_id=vuln.finding_id,
+                verification=verification,
+                uuid=vuln.uuid,
+            )
+
+
+async def _populate_vuln_historic_zero_risk(data: Dict[str, Any]) -> None:
+    if "historic_zero_risk" in data:
+        vuln = data["vulnerability"]
+        for zero_risk in data["historic_zero_risk"]:
+            await vulnerabilities.update_zero_risk(
+                finding_id=vuln.finding_id,
+                zero_risk=zero_risk,
+                uuid=vuln.uuid,
+            )
+
+
+async def populate_vulnerabilities_new(data: List[Dict[str, Any]]) -> bool:
+    await collect(
+        [
+            vulnerabilities.create(vulnerability=item["vulnerability"])
+            for item in data
+        ]
+    )
+    await collect([_populate_vuln_historic_state(item) for item in data])
+    await collect([_populate_vuln_historic_treatment(item) for item in data])
+    await collect(
+        [_populate_vuln_historic_verification(item) for item in data]
+    )
+    await collect([_populate_vuln_historic_zero_risk(item) for item in data])
     return True
 
 
