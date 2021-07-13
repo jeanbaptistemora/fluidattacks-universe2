@@ -129,7 +129,8 @@ async def analyze(
         exclude=CTX.config.path.exclude,
         include=CTX.config.path.include,
     )
-    unique_paths_count: int = len(unique_paths)
+    paths = unique_paths | unique_nu_paths | unique_nv_paths
+    unique_paths_count: int = len(paths)
 
     await collect(
         (
@@ -141,9 +142,7 @@ async def analyze(
                 unique_nv_paths=unique_nv_paths,
                 unique_paths_count=unique_paths_count,
             )
-            for index, path in enumerate(
-                unique_paths | unique_nu_paths | unique_nv_paths
-            )
+            for index, path in enumerate(paths, start=1)
         ),
         workers=CPU_CORES,
     )
