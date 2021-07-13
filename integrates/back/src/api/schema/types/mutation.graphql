@@ -91,7 +91,8 @@ type Mutation {
     content: String!
     parent: GenericScalar!
     projectName: String!
-  ): AddConsultPayload! @deprecated(reason: "Use `addGroupConsult` instead.")
+  ): AddConsultPayload! @deprecated(reason: """This mutation
+    will be removed after 2021/12/20. Use `addGroupConsult` instead.""")
 
   addPushToken(token: String!): SimplePayload
 
@@ -176,7 +177,8 @@ type Mutation {
     hasDrills: Boolean
     hasForces: Boolean
   ): SimplePayload!
-    @deprecated(reason: "Use `createGroup` instead.")
+    @deprecated(reason: """This mutation  will be removed
+    after 2021/12/20. Use `createGroup` instead.""")
 
   deactivateOrgFindingPolicy(
     "ID of the policy"
@@ -474,7 +476,8 @@ type Mutation {
     "Whether the root is active or not"
     state: ResourceState!
   ): SimplePayload!
-    @deprecated(reason: "Use `activateRoot` or `deactivateRoot` instead.")
+    @deprecated(reason: """This mutation  will be removed
+    after 2021/12/20. Use `activateRoot` or `deactivateRoot` instead.""")
 
   updateSeverity(
     findingId: String!

@@ -44,7 +44,7 @@ type Query {
   "Project entity"
   project(
     projectName: String!
-  ): Group @deprecated(reason: "Use `group` instead.")
+  ): Group @deprecated(reason: "This query  will be removed after 2021/12/20. Use `group` instead.")
 
   "Report entity"
   report(
@@ -75,7 +75,8 @@ type Query {
   "List projects a user is subscribed to"
   userListProjects(
     userEmail: String!
-  ): [Group] @deprecated(reason: "Use `userListGroups` instead.")
+  ): [Group] @deprecated(reason: """This query  will be removed
+    after 2021/12/20. Use `userListGroups` instead.""")
 
   "Vulnerability entity"
   vulnerability(uuid: String!): Vulnerability

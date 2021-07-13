@@ -11,5 +11,6 @@ type Tag {
   meanRemediateMediumSeverity: Float
   name: String
   organization: String
-  projects: [Group] @deprecated(reason: "Use `groups` instead.")
+  projects: [Group] @deprecated(reason: """This field  will
+    be removed after 2021/12/20. Use `groups` instead.""")
 }

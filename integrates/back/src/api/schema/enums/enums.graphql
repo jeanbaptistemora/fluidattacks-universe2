@@ -2,9 +2,11 @@ enum ActionsAfterBlocking {
   EXECUTE_OTHER_GROUP_OTHER_CLIENT
   EXECUTE_OTHER_GROUP_SAME_CLIENT
   EXECUTE_OTHER_PROJECT_OTHER_CLIENT
-    @deprecated(reason: "Use `EXECUTE_OTHER_GROUP_OTHER_CLIENT` instead.")
+    @deprecated(reason: """This enum field  will be removed
+    after 2021/12/20. Use `EXECUTE_OTHER_GROUP_OTHER_CLIENT` instead.""")
   EXECUTE_OTHER_PROJECT_SAME_CLIENT
-    @deprecated(reason: "Use `EXECUTE_OTHER_GROUP_SAME_CLIENT` instead.")
+    @deprecated(reason: """This enum field  will be removed
+    after 2021/12/20. Use `EXECUTE_OTHER_GROUP_SAME_CLIENT` instead.""")
   NONE
   OTHER
   TRAINING
@@ -12,7 +14,8 @@ enum ActionsAfterBlocking {
 
 enum ActionsBeforeBlocking {
   DOCUMENT_GROUP
-  DOCUMENT_PROJECT @deprecated(reason: "Use `DOCUMENT_GROUP` instead.")
+  DOCUMENT_PROJECT @deprecated(reason: """This enum field  will
+    be removed after 2021/12/20. Use `DOCUMENT_GROUP` instead.""")
   NONE
   OTHER
   TEST_OTHER_PART_TOE
@@ -74,14 +77,17 @@ enum EditGroupReason {
   GROUP_SUSPENSION
   NONE
   OTHER
-  PROJECT_FINALIZATION @deprecated(reason: "Use `GROUP_FINALIZATION` instead.")
-  PROJECT_SUSPENSION @deprecated(reason: "Use `GROUP_SUSPENSION` instead.")
+  PROJECT_FINALIZATION @deprecated(reason: """This enum field
+    will be removed after 2021/12/20. Use `GROUP_FINALIZATION` instead.""")
+  PROJECT_SUSPENSION @deprecated(reason: """This enum field
+    will be removed after 2021/12/20. Use `GROUP_SUSPENSION` instead.""")
 }
 
 enum Entity {
   GROUP
   ORGANIZATION
-  PROJECT @deprecated(reason: "Use `GROUP` instead.")
+  PROJECT @deprecated(reason: """This enum field  will be
+    removed after 2021/12/20. Use `GROUP` instead.""")
   USER
 }
 
@@ -214,7 +220,8 @@ enum Sorts {
 enum StakeholderEntity {
   GROUP
   ORGANIZATION
-  PROJECT @deprecated(reason: "Use `GROUP` instead.")
+  PROJECT @deprecated(reason: """This enum field  will be
+    removed after 2021/12/20. Use `GROUP` instead.""")
 }
 
 enum StakeholderRole {

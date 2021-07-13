@@ -11,11 +11,14 @@ type Group {
   findings(filters: GenericScalar): [Finding]
   forcesToken: String
   hasAsm: Boolean
-  hasDrills: Boolean @deprecated(reason: "Use `hasSquad` instead.")
+  hasDrills: Boolean @deprecated(reason: """This field  will
+    be removed after 2021/12/20. Use `hasSquad` instead.""")
   hasForces: Boolean
-  hasIntegrates: Boolean @deprecated(reason: "Use `hasAsm` instead.")
+  hasIntegrates: Boolean @deprecated(reason: """This field
+    will be removed after 2021/12/20. Use `hasAsm` instead.""")
   hasMachine: Boolean
-  hasSkims: Boolean @deprecated(reason: "Use `hasMachine` instead.")
+  hasSkims: Boolean @deprecated(reason: """This field  will
+    be removed after 2021/12/20. Use `hasMachine` instead.""")
   hasSquad: Boolean
   language: Language
   lastClosingVuln: Int
