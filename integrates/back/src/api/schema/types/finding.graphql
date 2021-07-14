@@ -28,7 +28,7 @@ type Finding {
   openAge: Int
   openVulnerabilities: Int
   portsVulns: [Vulnerability]
-  projectName: String @deprecated(reason: """This field  will
+  projectName: String @deprecated(reason: """This field will
     be removed after 2021/12/20. Use `groupName` instead.""")
   recommendation: String
   records: JSONString

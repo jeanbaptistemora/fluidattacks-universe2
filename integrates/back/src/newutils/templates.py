@@ -100,7 +100,9 @@ def invalid_invitation(
     error: str,
     group_access: GroupAccessType = None,
 ) -> HTMLResponse:
-    group_name = group_access.get("project_name", "") if group_access else ""
+    group_name = (
+        get_key_or_fallback(group_access, fallback="") if group_access else ""
+    )
     return TEMPLATING_ENGINE.TemplateResponse(
         name="invalid_invitation.html",
         context={

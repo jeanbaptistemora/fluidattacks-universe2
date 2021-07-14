@@ -16,7 +16,7 @@ async def get_result(
     group: str,
 ) -> Dict[str, Any]:
     query: str = f"""{{
-        events(projectName: "{group}"){{
+        events(groupName: "{group}"){{
             id
             eventStatus
             groupName
