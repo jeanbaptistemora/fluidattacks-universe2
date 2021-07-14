@@ -729,6 +729,7 @@ async def edit(
             has_asm=has_asm,
             reason=reason,
             requester_email=requester_email,
+            service=service,
             subscription=subscription,
         )
     elif success and not has_asm:

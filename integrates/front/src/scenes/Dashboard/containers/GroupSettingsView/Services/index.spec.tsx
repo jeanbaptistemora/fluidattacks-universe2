@@ -98,6 +98,7 @@ describe("Services", (): void => {
           hasMachine: false,
           hasSquad: false,
           language: "EN",
+          service: "WHITE",
           subscription: "CONTINUOUS",
         },
       },
@@ -225,7 +226,7 @@ describe("Services", (): void => {
 
     expect(rows()).toHaveLength(totalRows);
     expect(typeRowLeft().text()).toStrictEqual("Subscription type");
-    expect(serviceRowLeft.text()).toStrictEqual("Service type");
+    expect(serviceRowLeft.text()).toStrictEqual("Service");
     expect(machineRowLeft().text()).toStrictEqual("Machine");
     expect(squadRowLeft().text()).toStrictEqual("Squad");
 

@@ -6,6 +6,7 @@ interface IFormData {
   machine: boolean;
   reason: string;
   organization: string;
+  service: string;
   squad: boolean;
   type: string;
 }

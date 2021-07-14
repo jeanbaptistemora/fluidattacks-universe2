@@ -114,6 +114,7 @@ async def edit_group(
     has_asm: bool,
     reason: str,
     requester_email: str,
+    service: str,
     subscription: str,
 ) -> bool:
     translations: Dict[Union[str, bool], str] = {
@@ -135,6 +136,7 @@ async def edit_group(
                 Here are the details of the group:
                 - Name: {group_name}
                 - Type: {translations.get(subscription, subscription)}
+                - Service: {service.capitalize()}
                 - ASM:
                     from: {translations[had_asm]}
                     to: {translations[has_asm]}

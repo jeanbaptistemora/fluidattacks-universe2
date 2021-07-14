@@ -90,12 +90,13 @@ const Services: React.FC<IServicesProps> = (
     (state: Record<string, unknown>): IFormData =>
       selector(
         state,
+        "asm",
         "comments",
         "confirmation",
-        "squad",
-        "asm",
-        "reason",
         "machine",
+        "reason",
+        "service",
+        "squad",
         "type"
       )
   );
@@ -170,6 +171,7 @@ const Services: React.FC<IServicesProps> = (
         hasMachine: formValues.machine,
         hasSquad: formValues.squad,
         reason: formValues.reason,
+        service: formValues.service,
         subscription: formValues.type,
       },
     }
@@ -235,16 +237,14 @@ const Services: React.FC<IServicesProps> = (
       ),
     },
     {
-      service: (
-        <p>{translate.t("organization.tabs.groups.newGroup.service.title")}</p>
-      ),
+      service: <p>{translate.t("searchFindings.servicesTable.service")}</p>,
       status: (
-        <Field component={Dropdown} disabled={true} name={"service"}>
+        <Field component={Dropdown} name={"service"}>
           <option value={"BLACK"}>
-            {translate.t("organization.tabs.groups.newGroup.service.black")}
+            {translate.t("searchFindings.servicesTable.black")}
           </option>
           <option value={"WHITE"}>
-            {translate.t("organization.tabs.groups.newGroup.service.white")}
+            {translate.t("searchFindings.servicesTable.white")}
           </option>
         </Field>
       ),

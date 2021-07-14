@@ -53,6 +53,11 @@ const computeConfirmationMessage: (
     serviceStateToString(form.type)
   ),
   serviceDiff(
+    "service",
+    serviceStateToString(data.group.service),
+    serviceStateToString(form.service)
+  ),
+  serviceDiff(
     "machine",
     serviceStateToString(data.group.hasMachine),
     serviceStateToString(form.machine)

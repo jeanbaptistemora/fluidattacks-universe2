@@ -1105,6 +1105,7 @@ export const enTranslations: ResourceKey = {
     servicesTable: {
       active: "Active",
       asm: "ASM",
+      black: "Black",
       continuous: "Continuous Hacking",
       deleteGroup: {
         deleteGroup: "Delete this group",
@@ -1179,6 +1180,7 @@ export const enTranslations: ResourceKey = {
           "If you do not have more groups, you will be removed from ASM. ",
         warningTitle: "Warning!",
       },
+      white: "White",
     },
     severityLabel: "Severity",
     status: {
