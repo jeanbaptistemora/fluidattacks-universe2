@@ -78,7 +78,7 @@ STATIC_FINDING: Dict[str, Set[str]] = {
             "java.util.Random.nextGaussian",
         }
     ),
-    core_model.FindingEnum.F001_C_SHARP_SQL.name: complete_attrs_on_set(
+    core_model.FindingEnum.F001.name: complete_attrs_on_set(
         {
             "System.Console.ReadLine",
         }

@@ -10,7 +10,7 @@ from utils.string import (
 )
 
 FINDINGS = {
-    core_model.FindingEnum.F001_C_SHARP_SQL,
+    core_model.FindingEnum.F001,
     core_model.FindingEnum.F004,
     core_model.FindingEnum.F008,
     core_model.FindingEnum.F021,

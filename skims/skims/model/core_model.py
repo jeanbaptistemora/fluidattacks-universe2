@@ -120,11 +120,12 @@ class FindingMetadata(NamedTuple):
 
 
 class FindingEnum(Enum):
-    F001_C_SHARP_SQL: FindingMetadata = FindingMetadata.new(
+    F001: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
-        code="F001_C_SHARP_SQL",
+        code="F001",
         cwe=89,
         execution_queue=ExecutionQueue.sql,
+        migrated=True,
         requirements=[169],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,

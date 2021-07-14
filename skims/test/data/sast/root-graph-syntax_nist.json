@@ -1,5 +1,5 @@
 {
-  "F001_C_SHARP_SQL": {
+  "F001": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {
       "61": {
         "52-69-71-78-79-96-104-106-128-137-146-148-150-168-170-171-179-180-189-212-215-216-237": [

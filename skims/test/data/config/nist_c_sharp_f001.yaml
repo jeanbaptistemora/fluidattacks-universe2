@@ -1,10 +1,9 @@
 checks:
-  - F001_C_SHARP_SQL
+  - F001
 namespace: NIST
 output: skims/test/outputs/nist_c_sharp_f001.csv
 path:
   include:
-    # F001
     - src/testcases/CWE89_SQL_Injection/s01/
   exclude:
     - glob(src/testcases/*/*File*.cs)

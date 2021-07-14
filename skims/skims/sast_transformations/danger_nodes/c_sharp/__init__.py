@@ -24,7 +24,7 @@ def mark_inputs(
     findings = core_model.FindingEnum
 
     for finding in (
-        findings.F001_C_SHARP_SQL,
+        findings.F001,
         findings.F004,
         findings.F008,
         findings.F021,
@@ -80,7 +80,7 @@ def mark_sinks(
     findings = core_model.FindingEnum
 
     mark_methods_sink(
-        findings.F001_C_SHARP_SQL,
+        findings.F001,
         graph,
         syntax,
         {

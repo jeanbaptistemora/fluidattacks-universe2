@@ -25,7 +25,7 @@ def _syntax_step_object_instantiation_danger(args: EvaluatorArgs) -> None:
     args_danger = any(dep.meta.danger for dep in args.dependencies)
 
     _danger_instances_by_finding = {
-        core_model.FindingEnum.F001_C_SHARP_SQL.name: {
+        core_model.FindingEnum.F001.name: {
             "Npgsql.NpgsqlCommand",
             "System.Data.OracleClient.OracleCommand",
             "System.Data.SQLite.SQLite.SQLiteCommand",
@@ -50,7 +50,7 @@ def _syntax_step_object_instantiation_danger(args: EvaluatorArgs) -> None:
                 "System.Net.WebClient",
             }
             for finding in {
-                core_model.FindingEnum.F001_C_SHARP_SQL.name,
+                core_model.FindingEnum.F001.name,
                 core_model.FindingEnum.F107.name,
                 core_model.FindingEnum.F004.name,
                 core_model.FindingEnum.F008.name,

@@ -22,7 +22,7 @@ def _syntax_step_declaration_danger(args: EvaluatorArgs) -> None:
     # Analyze if the binding itself is sensitive
     no_trust_findings = {
         core_model.FindingEnum.F001_JAVA_SQL,
-        core_model.FindingEnum.F001_C_SHARP_SQL,
+        core_model.FindingEnum.F001,
         core_model.FindingEnum.F004,
         core_model.FindingEnum.F008,
         core_model.FindingEnum.F021,
