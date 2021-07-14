@@ -65,6 +65,7 @@ module "eks" {
       kubelet_extra_args      = "--node-labels=node.kubernetes.io/lifecycle=spot"
       kubelet_extra_args      = "--node-labels=worker_group=production"
       public_ip               = true
+      cpu_credits             = "unlimited"
 
       asg_min_size = 1
       asg_max_size = 20
