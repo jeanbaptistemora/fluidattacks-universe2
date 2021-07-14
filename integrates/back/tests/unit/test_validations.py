@@ -87,7 +87,8 @@ def test_is_valid_git_branch() -> None:
 
 
 def test_is_valid_ip() -> None:
-    assert is_valid_ip("8.8.8.8")
+    # FP: local testing
+    assert is_valid_ip("8.8.8.8")  # NOSONAR
     assert not is_valid_ip("randomstring")
 
 
