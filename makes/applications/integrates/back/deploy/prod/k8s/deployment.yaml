@@ -32,10 +32,10 @@ spec:
           resources:
             requests:
               cpu: 1000m
-              memory: 4000Mi
+              memory: 2000Mi
             limits:
               cpu: 2000m
-              memory: 7000Mi
+              memory: 3500Mi
           env:
             - name: INSTANA_AGENT_HOST
               valueFrom:
