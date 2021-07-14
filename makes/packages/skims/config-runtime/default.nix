@@ -106,6 +106,8 @@ makeTemplate {
       packages.makes.python.safe-pickle
       (makeTemplate {
         arguments = {
+          envCriteriaRequirements = path "/makes/applications/makes/criteria/src/requirements/data.yaml";
+          envCriteriaVulnerabilities = path "/makes/applications/makes/criteria/src/vulnerabilities/data.yaml";
           envSkimsProcessGroupOnAws = applications.skims.process-group-on-aws;
           envSrcSkimsStatic = path "/skims/static";
           envSrcSkimsVendor = path "/skims/vendor";
@@ -136,6 +138,8 @@ makeTemplate {
           #   it's intentional so we can monitor Skims stability in remote users
           export BUGSNAG_API_KEY=f990c9a571de4cb44c96050ff0d50ddb
           export SKIMS_CIPHER_SUITES_PATH='__envSrcSkimsStatic__/cryptography/cipher_suites.csv'
+          export SKIMS_CRITERIA_REQUIREMENTS='__envCriteriaRequirements__'
+          export SKIMS_CRITERIA_VULNERABILITIES='__envCriteriaVulnerabilities__'
           export SKIMS_FLUID_WATERMARK='__envSrcSkimsStatic__/img/logo_fluid_attacks_854x329.png'
           export SKIMS_PROCESS_GROUP_ON_AWS='__envSkimsProcessGroupOnAws__'
           export SKIMS_ROBOTO_FONT='__envSrcSkimsVendor__/fonts/roboto_mono_from_google/regular.ttf'
