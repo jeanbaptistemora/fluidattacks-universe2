@@ -17,6 +17,9 @@ from tap_gitlab.api.auth import (
 from tap_gitlab.api.client import (
     ApiClient,
 )
+from tap_gitlab.api.projects.ids import (
+    ProjectId,
+)
 from tap_gitlab.emitter import (
     Emitter,
 )
@@ -82,10 +85,11 @@ def defautl_stream(
 ) -> None:
     client = ApiClient(creds)
     updater = StateUpdater(client)
+    _project = ProjectId.from_name(project)
     _state = (
         state_id.bind(lambda sid: state_getter.get(sid[0], sid[1]))
         .map(updater.update_state)
-        .value_or(default_etl_state(project))
+        .or_else_call(lambda: default_etl_state(client, _project))
     )
     _target_stream = (
         SupportedStreams(target_stream)

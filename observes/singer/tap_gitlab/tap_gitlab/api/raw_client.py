@@ -21,6 +21,9 @@ from requests.models import (
 from returns.io import (
     IO,
 )
+from returns.unsafe import (
+    unsafe_perform_io,
+)
 from tap_gitlab.api.auth import (
     Credentials,
 )
@@ -43,8 +46,12 @@ def _error_handler(
     error: HTTPError,
 ) -> HTTPError:
     response: Response = error.response
-    if response.status_code == 502:
-        LOG.info("Retry #%s", retry_num)
+    if response.status_code in (
+        500,
+        502,
+    ):
+        items = response.json()
+        LOG.info("Retry #%s response: %s", retry_num, items)
     else:
         raise error
     return error
@@ -72,9 +79,14 @@ class PageClient(NamedTuple):
             _params["per_page"] = page.per_page
         LOG.debug("GET\n\tendpoint: %s\n\tparams: %s", endpoint, _params)
         response = self.raw_client.get(endpoint, _params)
-        LOG.debug(response)
-        if DEBUG and response.map(lambda x: bool(x.json())) != IO(True):
-            LOG.debug("Empty json response")
+        if DEBUG:
+            items = unsafe_perform_io(response).json()
+            LOG.debug(
+                "%s, #items=%s, json: %s",
+                response,
+                len(items),
+                str(items)[0:200],
+            )
         return response
 
 
