@@ -119,6 +119,7 @@ def get_non_upgradable_paths(paths: Set[str]) -> Set[str]:
                 "*/Scripts*/jquery*",
                 "*/Scripts*/popper*",
                 "*/Scripts*/vue*",
+                "*/wwwroot/lib*",
             )
         ):
             nu_paths.add(path)
