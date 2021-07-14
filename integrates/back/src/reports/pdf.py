@@ -46,7 +46,8 @@ from typing_extensions import (
 )
 import uuid
 
-logging.config.dictConfig(LOGGING)
+# FP: local testing
+logging.config.dictConfig(LOGGING)  # NOREBASE
 matplotlib.use("Agg")
 
 

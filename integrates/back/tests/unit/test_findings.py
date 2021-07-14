@@ -55,7 +55,8 @@ async def test_download_evidence_file() -> None:
     file_name = "unittesting-422286126-evidence_route_1.png"
     test_data = await download_evidence_file(group_name, finding_id, file_name)
     expected_output = os.path.abspath(
-        "/tmp/unittesting-422286126-evidence_route_1.png"
+        # FP: local testing
+        "/tmp/unittesting-422286126-evidence_route_1.png"  # NOSONAR
     )
     assert test_data == expected_output
 

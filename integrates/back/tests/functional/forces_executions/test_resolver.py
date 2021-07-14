@@ -46,7 +46,8 @@ async def test_get_forces_executions(populate: bool, email: str) -> None:
         executions[0]["gitCommit"]
         == "6e7b34c1358db2ff4123c3c76e7fe3bf9f2838f6"
     )
-    assert executions[0]["gitOrigin"] == "http://test.com"
+    # FP: local testing
+    assert executions[0]["gitOrigin"] == "http://test.com"  # NOSONAR
     assert executions[0]["gitRepo"] == "Repository"
     assert executions[0]["kind"] == "dynamic"
     assert executions[0]["strictness"] == "strict"

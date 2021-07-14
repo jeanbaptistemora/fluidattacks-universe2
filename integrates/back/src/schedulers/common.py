@@ -20,7 +20,8 @@ from typing import (
     Optional,
 )
 
-logging.config.dictConfig(LOGGING)
+# FP: local testing
+logging.config.dictConfig(LOGGING)  # NOSONAR
 LOGGER_CONSOLE = logging.getLogger("console")
 
 

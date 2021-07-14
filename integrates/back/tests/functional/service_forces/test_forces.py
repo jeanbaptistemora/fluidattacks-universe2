@@ -181,7 +181,8 @@ async def test_forces() -> None:  # pylint: disable=too-many-statements
     assert execution["exitCode"] == "1"
     assert execution["gitBranch"] == "master"
     assert execution["gitCommit"] == "2e7b34c1358db2ff4123c3c76e7fe3bf9f2838f2"
-    assert execution["gitOrigin"] == "http://origin-test.com"
+    # FP: local testing
+    assert execution["gitOrigin"] == "http://origin-test.com"  # NOSONAR
     assert execution["gitRepo"] == "Repository"
     assert execution["kind"] == "dynamic"
     assert execution["log"] == textwrap.dedent(
