@@ -59,7 +59,7 @@ describe("GroupToeLinesView", (): void => {
                   {
                     __typename: "ToeLines",
                     comments: "comment test",
-                    filename: "integrates_1/test2/test.sh",
+                    filename: "asm_1/test2/test.sh",
                     loc: 172,
                     modifiedCommit: "273412t",
                     modifiedDate: "2020-11-19T00:00:00-05:00",
@@ -115,7 +115,7 @@ describe("GroupToeLinesView", (): void => {
     );
     expect(firstRow.text()).toStrictEqual(
       [
-        "integrates_1/test2/test.sh",
+        "asm_1/test2/test.sh",
         "Yes",
         "100%",
         "172",

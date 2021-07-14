@@ -18,9 +18,9 @@ import { LoginButton, LoginContainer, LoginGrid } from "./components";
 import logo from "resources/asm.svg";
 import style from "scenes/Login/index.css";
 import {
+  ASM_DEPLOYMENT_DATE,
   CI_COMMIT_SHA,
   CI_COMMIT_SHORT_SHA,
-  INTEGRATES_DEPLOYMENT_DATE,
 } from "utils/ctx";
 
 export const Login: React.FC = (): JSX.Element => {
@@ -87,7 +87,7 @@ export const Login: React.FC = (): JSX.Element => {
         <div className={`mt4 mb0 tc ${style["text-color"]}`}>
           <p className={"mb0"}>
             {t("info.deploymentDate")}&nbsp;
-            {INTEGRATES_DEPLOYMENT_DATE}
+            {ASM_DEPLOYMENT_DATE}
           </p>
           <a
             className={style["link-default"]}

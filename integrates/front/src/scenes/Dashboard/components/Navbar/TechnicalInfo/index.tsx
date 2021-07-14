@@ -6,9 +6,9 @@ import { useTranslation } from "react-i18next";
 
 import { DropdownButton, DropdownMenu, NavbarButton } from "../styles";
 import {
+  ASM_DEPLOYMENT_DATE,
   CI_COMMIT_SHA,
   CI_COMMIT_SHORT_SHA,
-  INTEGRATES_DEPLOYMENT_DATE,
 } from "utils/ctx";
 
 export const TechnicalInfo: React.FC = (): JSX.Element => {
@@ -47,7 +47,7 @@ export const TechnicalInfo: React.FC = (): JSX.Element => {
               </div>
               <small>
                 {t("info.deploymentDate")}&nbsp;
-                {INTEGRATES_DEPLOYMENT_DATE}
+                {ASM_DEPLOYMENT_DATE}
               </small>
             </DropdownButton>
           </li>

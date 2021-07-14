@@ -124,9 +124,7 @@ async def delete_obsolete_groups() -> None:
     }
     groups = await groups_domain.get_alive_groups(group_attributes)
     inactive_groups = [
-        group
-        for group in groups
-        if not groups_utils.has_integrates_services(group)
+        group for group in groups if not groups_utils.has_asm_services(group)
     ]
     inactive_group_names = [
         get_key_or_fallback(group) for group in inactive_groups
