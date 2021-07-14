@@ -1377,6 +1377,13 @@ const ContentList: StyledComponent<
   `,
 })``;
 
+const MenuLinksContainer = styled.div.attrs({
+  className: `
+    flex
+    mh3
+  `,
+})``;
+
 const ListItem: StyledComponent<
   "li",
   Record<string, unknown>
@@ -1611,6 +1618,7 @@ export {
   MenuItem,
   MenuList,
   MobileMenuButton,
+  MenuLinksContainer,
   NavbarSubcategory,
   NavbarContactButton,
   NavbarContainer,
