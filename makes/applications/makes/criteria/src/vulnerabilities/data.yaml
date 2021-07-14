@@ -6769,16 +6769,44 @@
 "130":
   en:
     title: Insecurely generated cookies - Secure attribute
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The system does not set
+      the Secure attribute
+      for sensitive cookies,
+      which could cause them
+      to be sent through
+      an insecure channel.
+    impact: >
+      Obtain sensitive information
+      by performing a MiTM attack.
+    recommendation: >
+      The application must set
+      the Secure attribute in the cookies
+      with sensitive information.
+    threat: >
+      Unauthorized attacker
+      from adjacent network
+      performing a MITM.
   es:
     title: Cookies generadas de forma insegura - atributo Secure
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      El sistema no establece
+      el atributo Secure
+      para las cookies sensibles,
+      lo que podría hacer que se envíen
+      por un canal no cifrado.
+    impact: >
+      Obtener información sensible
+      realizando un ataque
+      de hombre en el medio.
+    recommendation: >
+      La aplicación debe establecer
+      el atributo Secure en la cookies
+      con información sensible.
+    threat: >
+      Atacante sin autorización
+      desde red adyacente
+      ejecutando un MITM.
   score:
     base:
       attack_vector: "N"
@@ -6793,21 +6821,45 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["029"]
   metadata: {}
 "131":
   en:
     title: Missing HTTP security headers - Strict Transport Security
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The server is missing
+      the Strict-Transport-Security HTTP header.
+      Alternatively,
+      the header's max-age is too short.
+    impact: >
+      Visit the website under
+      an insecure channel.
+    recommendation: >
+      Set the Strict-Transport-Security header
+      and a max-age of at least 31536000.
+    threat: >
+      Unauthorized attacker
+      from adjacent network
+      performing a MITM.
   es:
     title: Cabeceras de seguridad HTTP no establecidas - Strict-Transport-Security
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      El servidor carece del encabezado
+      HTTP Strict-Transport-Security.
+      Alternativamente,
+      el valor "max-age" del mismo
+      es muy pequeño.
+    impact: >
+      Visitar el servidor usando
+      un canal inseguro.
+    recommendation: >
+      Establecer la cabecera
+      Strict-Transport-Security
+      y un max-age superior a 31536000.
+    threat: >
+      Atacante sin autorización
+      desde red adyacente
+      ejecutando un MITM.
   score:
     base:
       attack_vector: "N"
@@ -6822,21 +6874,38 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["062", "175"]
   metadata: {}
 "132":
   en:
     title: Missing HTTP security headers - X-Content-Type-Options
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The server is missing
+      the X-Content-Type-Options HTTP header.
+    impact: >
+      Interpret files
+      as a different MIME type
+      to what is expected.
+    recommendation: >
+      Set the X-Content-Type-Options header
+      to nosniff.
+    threat: >
+      Unauthorized attacker
+      from internet network.
   es:
     title: Cabeceras de seguridad HTTP no establecidas - X-Content-Type-Options
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      El servidor carece de la cabecera
+      HTTP X-Content-Type-Options.
+    impact: >
+      Interpretar archivos como un tipo MIME
+      diferente a los esperados.
+    recommendation: >
+      Establecer la cabecera
+      X-Content-Type-Options a nosniff.
+    threat: >
+      Atacante sin autorización
+      desde internet.
   score:
     base:
       attack_vector: "N"
@@ -6851,21 +6920,55 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["062", "175"]
   metadata: {}
 "133":
   en:
     title: Insecure encryption algorithm - Perfect Forward Secrecy
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The application uses cipher algorithms
+      that expose all messages made
+      during the communication
+      if the current private key
+      is compromised.
+    impact: >
+      Obtain sensitive information
+      that is being transmitted
+      or has been stored.
+    recommendation: >
+      Use cipher algorithms
+      that do not expose
+      previous communications in case
+      a private key is compromised.
+    threat: >
+      Unauthorized attacker
+      from adjacent network
+      that has compromised
+      a private key.
   es:
     title: Algoritmo de cifrado inseguro - Perfect Forward Secrecy
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      La aplicación utiliza
+      algoritmos de cifrado
+      que exponen todos los mensajes
+      realizados durante la comunicación
+      si la llave privada actual
+      es comprometida.
+    impact: >
+      Obtener información sensible
+      que se esta transmitiendo
+      o ha sido guardada.
+    recommendation: >
+      Usar algoritmos de cifrado
+      que no expongan
+      las comunicaciones previas
+      en caso de que la llave privada
+      sea comprometida.
+    threat: >
+      Atacante sin autorización
+      desde red adyacente
+      que haya comprometido
+      una llave privada.
   score:
     base:
       attack_vector: "N"
@@ -6880,7 +6983,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["148", "149", "150", "181", "336"]
   metadata: {}
 "134":
   en:
