@@ -6265,16 +6265,51 @@
 120:
   en:
     title: Improper dependency pinning
-    description: __empty__
+    description: >
+      The application
+      does not make explicit
+      the version of the libraries
+      on which it depends.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      All dependencies must be declared
+      with a specific version
+      and must be referenced
+      with a dependency manager
+      (npm, pip, maven).
+      This allows to standardize
+      the projects' construction
+      and packaging.
+    threat: >
+      Accepting a range of versions
+      can cause a version of a dependency
+      that is not supported
+      by the application
+      to be automatically installed.
   es:
     title: Fijación de dependencia inadecuada
-    description: __empty__
+    description: >
+      En el código fuente
+      no se declara la versión específica
+      aceptada de algunas dependencias.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Todas las dependencias
+      deben estar declaradas
+      con una versión específica
+      y se deben referenciar
+      con un gestor de dependencias
+      (npm, pip, maven).
+      Esto permite estandarizar
+      la construcción
+      y empaquetado de proyectos.
+    threat: >
+      Aceptar un rango de versiones
+      puede ocasionar
+      que se instale automáticamente
+      una versión de una dependencia
+      que no es compatible con la aplicación
+      u otras dependencias.
   score:
     base:
       attack_vector: "N"
@@ -6289,21 +6324,46 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["302"]
   metadata: {}
 121:
   en:
     title: HTTP Parameter Pollution
-    description: __empty__
+    description: >
+      The application allows
+      extra parameters injection
+      to HTTP communication protocol,
+      this can cause unexpected behavior
+      on the server.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Make validations to guarantee
+      that the quantity
+      of received parameters
+      is equal to the expected parameters
+      on the server.
+    threat: >
+      Causing unexpected behaviors
+      on the application.
   es:
     title: Contaminación de parámetros HTTP
-    description: __empty__
+    description: >
+      La aplicación permite
+      inyectar parámetros extra
+      al protocolo de comunicación HTTP,
+      lo cual puede provocar
+      comportamientos inesperados
+      en el servidor.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Garantizar mediante validaciones
+      que la cantidad de parámetros recibidos
+      sea igual a la cantidad
+      de parámetros esperados
+      por el servidor.
+    threat: >
+      Causar comportamientos inesperados
+      en la aplicación.
   score:
     base:
       attack_vector: "N"
@@ -6318,21 +6378,48 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["173", "342"]
   metadata: {}
 122:
   en:
     title: Email Flooding
-    description: __empty__
+    description: >
+      It is possible
+      to send emails massively
+      to a victim's inbox,
+      causing its saturation.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Restrict the consecutive send
+      of emails through mechanisms
+      like time delay.
+    threat: >
+      - Flood the victim's inbox.
+      - Cause a denial of service
+        exceding the emails' inbox capacity.
+      - Hide important information
+        of another emails.
   es:
-    title: Inundación de correo electrónico
-    description: __empty__
+    title: Inundación de correo electronico
+    description: >
+      Es posible realizar
+      un envío masivo de correos
+      a la cuenta de una víctima,
+      provocando la saturación
+      de la bandeja de entrada.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Restringir el envío consecutivo
+      de correos mediante mecanismos
+      como retardos de tiempo.
+    threat: >
+      - Inundar la bandeja de entrada
+        de la víctima.
+      - Causar una denegación de servicio
+        al exceder la capacidad
+        de la bandeja de entrada de correos.
+      - Ocultar información importante
+        de otros correos.
   score:
     base:
       attack_vector: "N"
@@ -6347,21 +6434,51 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["115"]
   metadata: {}
 123:
   en:
     title: Local File Inclusion
-    description: __empty__
+    description: >
+      The application allows to read
+      or execute files located
+      on the server
+      through relative paths manipulation
+      in the input fields.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      - Validate that
+        the parameters received
+        by the application
+        do not contain relative paths.
+      - Disable insecure functions
+        that allow reading
+        of arbitrary files on the server.
+    threat: >
+      Visualize the content
+      of sensitive files stored
+      on the server.
   es:
     title: Inclusión de archivo local - LFI
-    description: __empty__
+    description: >
+      La aplicación permite
+      leer o ejecutar archivos alojados
+      en el servidor
+      mediante la manipulación
+      de rutas relativas
+      en los campos de entrada.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      - Validar que los parámetros recibidos
+        por la aplicación
+        no contengan rutas relativas.
+      - Deshabilitar las funciones inseguras
+        que permitan la lectura
+        de archivos arbitrarios en el servidor.  
+    threat: >
+      Visualizar el contenido
+      de archivos sensibles almacenados
+      en el servidor.
   score:
     base:
       attack_vector: "N"
@@ -6376,21 +6493,41 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["173", "176"]
   metadata: {}
 124:
   en:
     title: Race condition
-    description: __empty__
+    description: >
+      The system presents
+      unexpected behavior
+      when the inputs
+      of a specific functionality
+      do not arrive in the expected order.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Ensure that the verification
+      and use of inputs
+      must be realized at the same time
+      or in an atomic way.
     threat: __empty__
   es:
     title: Condición de carrera
-    description: __empty__
+    description: >
+      El sistema presenta
+      comportamientos inesperados
+      cuando las entradas
+      a una funcionalidad específica
+      no llegan en el orden esperado.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Garantizar que la verificacion
+      y el uso de las entradas
+      se realice en un mismo momento
+      o de forma atómica.
+    threat: >
+      Ocasionar comportamientos inesperados
+      en la aplicación.
   score:
     base:
       attack_vector: "N"
@@ -6405,7 +6542,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["337"]
   metadata: {}
 125:
   en:
