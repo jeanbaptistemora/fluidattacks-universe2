@@ -430,12 +430,25 @@ def evaluate_many(args: EvaluatorArgs) -> None:
 def attempt_go_parse_float(args: EvaluatorArgs) -> bool:
     if args.syntax_step.method == "strconv.ParseFloat":
         args.syntax_step.meta.value = GoParsedFloat()
+        args.syntax_step.meta.danger = True
+        return True
 
-    if isinstance(args.syntax_step.meta.value, GoParsedFloat):
-        args.syntax_step.meta.danger = (
-            args.syntax_step.meta.value.is_inf
-            or args.syntax_step.meta.value.is_nan
-        )
+    if args.syntax_step.method == "math.IsNaN":
+        for dep in args.dependencies:
+            if isinstance(dep.meta.value, GoParsedFloat):
+                dep.meta.value.is_nan = False
+                dep.meta.danger = (
+                    dep.meta.value.is_inf or dep.meta.value.is_nan
+                )
+        return True
+
+    if args.syntax_step.method == "math.IsInf":
+        for dep in args.dependencies:
+            if isinstance(dep.meta.value, GoParsedFloat):
+                dep.meta.value.is_inf = False
+                dep.meta.danger = (
+                    dep.meta.value.is_inf or dep.meta.value.is_nan
+                )
         return True
 
     return False
