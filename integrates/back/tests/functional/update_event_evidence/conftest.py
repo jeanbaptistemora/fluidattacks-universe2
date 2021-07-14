@@ -25,7 +25,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "client_project": "group1",
                 "closer": "unittest",
                 "context": "FLUID",
-                "detail": "Integrates unit test",
+                "detail": "ASM unit test",
                 "historic_state": [
                     {
                         "analyst": "unittest@fluidattacks.com",

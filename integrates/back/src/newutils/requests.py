@@ -25,6 +25,7 @@ def get_source_new(context: Any) -> Source:
 
 
 def map_source(source: str) -> str:
+    """Maps old, deprecated sources to their new denomination"""
     if source == "integrates":
         return "asm"
     if source == "skims":

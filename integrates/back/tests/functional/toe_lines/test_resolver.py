@@ -47,7 +47,7 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
             "id": "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
             "toeLines": [
                 {
-                    "filename": "integrates_1/test2/test.sh",
+                    "filename": "asm_1/test2/test.sh",
                     "modifiedDate": "2020-11-19T00:00:00-05:00",
                     "modifiedCommit": "273412t",
                     "loc": 172,
@@ -56,7 +56,7 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
                     "comments": comments,
                 },
                 {
-                    "filename": "integrates_1/test3/test.config",
+                    "filename": "asm_1/test3/test.config",
                     "modifiedDate": "2020-11-19T00:00:00-05:00",
                     "modifiedCommit": "g545435i",
                     "loc": 55,

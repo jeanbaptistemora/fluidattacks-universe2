@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-""" Integrates cvss auxiliar functions. """
+""" ASM cvss auxiliar functions. """
 
 from . import (
     utils,

@@ -60,7 +60,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 metadata=GitRootMetadata(
                     branch="master",
                     type="Git",
-                    url="https://gitlab.com/fluidattacks/integrates_1",
+                    url="https://gitlab.com/fluidattacks/asm_1",
                 ),
                 state=GitRootState(
                     environment_urls=["https://test.com"],
@@ -91,7 +91,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             ),
             GitRootToeLines(
                 comments="comment test",
-                filename="integrates_1/test2/test.sh",
+                filename="asm_1/test2/test.sh",
                 group_name="group1",
                 loc=172,
                 modified_commit="273412t",
@@ -103,7 +103,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             ),
             GitRootToeLines(
                 comments="comment test",
-                filename="integrates_1/test3/test.config",
+                filename="asm_1/test3/test.config",
                 group_name="group1",
                 loc=55,
                 modified_commit="g545435i",
