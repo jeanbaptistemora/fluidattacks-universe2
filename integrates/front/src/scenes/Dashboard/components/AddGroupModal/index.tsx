@@ -4,6 +4,7 @@ import { Field, Form, Formik } from "formik";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
 import {
@@ -69,6 +70,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
   props: IAddGroupModalProps
 ): JSX.Element => {
   const { onClose, organization } = props;
+  const { t } = useTranslation();
 
   const isContinuousType: (subsType: string) => boolean = (
     subsType: string
@@ -101,6 +103,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
       language: string;
       organization: string;
       type: string;
+      service: string;
       squad: boolean;
       machine: boolean;
     }): void => {
@@ -113,6 +116,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
           hasSquad: values.squad,
           language: values.language,
           organization: values.organization,
+          service: values.service,
           subscription: values.type,
         },
       });
@@ -147,6 +151,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
             machine: true,
             name: groupName.toUpperCase(),
             organization: organization.toUpperCase(),
+            service: "WHITE",
             squad: true,
             type: "CONTINUOUS",
           }}
@@ -316,6 +321,19 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                           </Field>
                         </FormGroup>
                       </TooltipWrapper>
+                    </FormGroup>
+                    <FormGroup>
+                      <ControlLabel>
+                        {t("organization.tabs.groups.newGroup.service.title")}
+                      </ControlLabel>
+                      <Field component={FormikDropdown} name={"service"}>
+                        <option value={"BLACK"}>
+                          {t("organization.tabs.groups.newGroup.service.black")}
+                        </option>
+                        <option value={"WHITE"}>
+                          {t("organization.tabs.groups.newGroup.service.white")}
+                        </option>
+                      </Field>
                     </FormGroup>
                   </Col100>
                 </Row>

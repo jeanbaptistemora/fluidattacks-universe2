@@ -83,6 +83,10 @@ describe("AddGroupModal component", (): void => {
       .find({ name: "type" })
       .find("select");
 
+    const serviceField: ReactWrapper = wrapper
+      .find({ name: "service" })
+      .find("select");
+
     const switchButtons: ReactWrapper = wrapper.find({ checked: true });
 
     const submitButton: ReactWrapper = wrapper
@@ -95,6 +99,7 @@ describe("AddGroupModal component", (): void => {
     expect(groupNameField).toHaveLength(1);
     expect(descriptionField).toHaveLength(1);
     expect(typeField).toHaveLength(1);
+    expect(serviceField).toHaveLength(1);
     expect(switchButtons).toHaveLength(2);
     expect(submitButton).toHaveLength(1);
   });

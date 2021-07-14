@@ -555,6 +555,7 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
             group_name=group_name,
             has_squad=has_squad,
             requester_email=user_email,
+            service=service,
             subscription=subscription,
         )
     return success

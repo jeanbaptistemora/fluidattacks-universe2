@@ -12,20 +12,22 @@ const GROUPS_NAME_QUERY: DocumentNode = gql`
 const CREATE_GROUP_MUTATION: DocumentNode = gql`
   mutation CreateGroupMutation(
     $description: String!
-    $hasMachine: Boolean
-    $hasSquad: Boolean
-    $language: Language
-    $organization: String!
     $groupName: String!
-    $subscription: SubscriptionType
+    $hasMachine: Boolean!
+    $hasSquad: Boolean!
+    $language: Language!
+    $organization: String!
+    $service: ServiceType!
+    $subscription: SubscriptionType!
   ) {
     createGroup(
       description: $description
+      groupName: $groupName
       hasMachine: $hasMachine
       hasSquad: $hasSquad
       language: $language
       organization: $organization
-      groupName: $groupName
+      service: $service
       subscription: $subscription
     ) {
       success

@@ -163,6 +163,7 @@ async def new_group(
     group_name: str,
     has_squad: bool,
     requester_email: str,
+    service: str,
     subscription: str,
 ) -> bool:
     translations: Dict[Union[str, bool], str] = {
@@ -185,6 +186,7 @@ async def new_group(
                 - Name: {group_name}
                 - Description: {description}
                 - Type: {translations.get(subscription, subscription)}
+                - Service: {service}
                 - Squad: {translations[has_squad]}
 
                 If you require any further information,
