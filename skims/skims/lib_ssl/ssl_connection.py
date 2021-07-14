@@ -3,6 +3,9 @@ from lib_ssl.types import (
     ssl_suites,
     SSLSettings,
 )
+from model.core_model import (
+    LocalesEnum,
+)
 from os import (
     urandom,
 )
@@ -36,7 +39,9 @@ def connect(
 
     try:
         sock: Optional[socket] = tcp_connect(
-            ssl_settings.host, ssl_settings.port, ssl_settings.intention
+            ssl_settings.host,
+            ssl_settings.port,
+            ssl_settings.intention[LocalesEnum.EN],
         )
 
         if sock is None:
@@ -70,7 +75,7 @@ def connect(
                 error,
                 ssl_settings.host,
                 ssl_settings.port,
-                ssl_settings.intention,
+                ssl_settings.intention[LocalesEnum.EN],
             )
             yield None
     finally:
