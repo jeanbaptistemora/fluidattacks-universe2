@@ -126,7 +126,6 @@ async def _get_group_service_policies(group: str) -> Tuple[str, ...]:
 
 async def _get_service_policies(group: str) -> List[ServicePolicy]:
     """Return a list of policies for the given group."""
-    policies: List[ServicePolicy] = []
     query_attrs = {
         "KeyConditionExpression": Key("project_name").eq(group.lower()),
         "ConsistentRead": True,
@@ -136,7 +135,7 @@ async def _get_service_policies(group: str) -> List[ServicePolicy]:
 
     # There is no such group, let's make an early return
     if not response_items:
-        return policies
+        return []
 
     group_attributes = response_items[0]
     historic_config = group_attributes["historic_configuration"]
@@ -150,33 +149,24 @@ async def _get_service_policies(group: str) -> List[ServicePolicy]:
     )
     type_: str = historic_config[-1]["type"]
 
-    if type_ == "continuous":
-        policies.append(ServicePolicy(group=group, service="continuous"))
-        if has_asm:
-            policies.append(ServicePolicy(group=group, service="asm"))
-            if has_squad:
-                policies.append(
-                    ServicePolicy(group=group, service="service_white")
-                )
-                policies.append(ServicePolicy(group=group, service="squad"))
-                if has_forces:
-                    policies.append(
-                        ServicePolicy(group=group, service="forces")
-                    )
-    elif type_ == "oneshot":
-        if has_asm:
-            policies.append(ServicePolicy(group=group, service="asm"))
-            policies.append(
-                ServicePolicy(group=group, service="service_black")
-            )
-            if has_squad:
-                policies.append(ServicePolicy(group=group, service="squad"))
-    else:
-        LOGGER.critical(
-            "Group has invalid type attribute",
-            extra={"extra": dict(group=group)},
-        )
-    return policies
+    business_rules = (
+        (has_asm, "asm"),
+        (
+            type_ == "continuous" and has_asm and has_squad and has_forces,
+            "forces",
+        ),
+        (type_ == "continuous" and has_asm and has_squad, "service_white"),
+        (type_ == "continuous" and has_asm and has_squad, "squad"),
+        (type_ == "continuous", "continuous"),
+        (type_ == "oneshot" and has_asm and has_squad, "squad"),
+        (type_ == "oneshot" and has_asm, "service_black"),
+    )
+
+    return [
+        ServicePolicy(group=group, service=policy_name)
+        for condition, policy_name in business_rules
+        if condition
+    ]
 
 
 async def _get_subject_policies(subject: str) -> List[SubjectPolicy]:
