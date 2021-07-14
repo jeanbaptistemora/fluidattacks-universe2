@@ -85,6 +85,15 @@ async def autoenroll_user(email: str) -> None:
         user_email=email,
     )
 
+    # Enroll new Fluid users to Comments by default
+    if "@fluidattacks.com" in email:
+        await subscriptions_domain.subscribe_user_to_entity_report(
+            event_frequency="DAILY",
+            report_entity="COMMENTS",
+            report_subject="ALL_GROUPS",
+            user_email=email,
+        )
+
 
 async def get_provider_user_info(
     provider: str, token: str
