@@ -124,9 +124,7 @@ def delete_out_of_scope_files(group: str) -> bool:
     return True
 
 
-def pull_repos_s3_to_fusion(
-    subs: str, local_path: str, repository_name: str = "all"
-) -> bool:
+def pull_repos_s3_to_fusion(subs: str, repository_name: str) -> bool:
     """
     Download repos from s3 to a provided path
 
@@ -134,14 +132,12 @@ def pull_repos_s3_to_fusion(
     param: local_path: Path to store downloads
     """
 
-    if repository_name != "all":
-        local_path = f"{local_path}/{repository_name}"
+    if repository_name == "*":
+        bucket: str = f"s3://continuous-repositories/{subs}"
+        local_path: str = f"groups/{subs}/fusion"
     else:
-        repository_name = ""
-
-    bucket_path: str = (
-        f"s3://continuous-repositories/" f"{subs}/{repository_name}"
-    )
+        bucket = f"s3://continuous-repositories/{subs}/{repository_name}"
+        local_path = f"groups/{subs}/fusion/{repository_name}"
 
     os.makedirs(local_path, exist_ok=True)
 
@@ -153,11 +149,11 @@ def pull_repos_s3_to_fusion(
         "--sse",
         "AES256",
         "--exact-timestamps",
-        bucket_path,
+        bucket,
         local_path,
     ]
 
-    LOGGER.info("Downloading %s repositories", subs)
+    LOGGER.info("Downloading %s from %s to %s", subs, bucket, local_path)
 
     # Passing None to stdout and stderr shows the s3 progress
     # We want the CI to be as quiet as possible to have clean logs
@@ -185,14 +181,14 @@ def pull_repos_s3_to_fusion(
         return False
 
     failed = False
-    for folder in os.listdir(local_path):
-        repo_path = os.path.join(local_path, folder)
+    for folder in os.listdir(f"groups/{subs}/fusion"):
+        repo_path = f"groups/{subs}/fusion/{folder}"
         try:
             repo = Repo(repo_path)
-            repo.head.reset(working_tree=True, index=True)
+            repo.git.reset("--hard", "HEAD")
         except GitError as exc:
             LOGGER.error("Expand repositories has failed:")
-            LOGGER.info("Repository: %s", os.path.basename(repo_path))
+            LOGGER.info("Repository: %s", folder)
             LOGGER.info(exc)
             LOGGER.info("\n")
             failed = True
@@ -200,7 +196,7 @@ def pull_repos_s3_to_fusion(
 
 
 @shield(retries=1)
-def main(subs: str, repository_name: str = "all") -> bool:
+def main(subs: str, repository_name: str) -> bool:
     """
     Clone all repos for a group
 
@@ -209,7 +205,7 @@ def main(subs: str, repository_name: str = "all") -> bool:
     bucket: str = "continuous-repositories"
     passed: bool = True
     if not utils.generic.does_subs_exist(subs):
-        LOGGER.error("group %s does not exist.", subs)
+        LOGGER.error("group %s does not exist on services.", subs)
         passed = False
         return passed
 
@@ -218,8 +214,6 @@ def main(subs: str, repository_name: str = "all") -> bool:
     if not drills_generic.s3_path_exists(bucket, f"{subs}/"):
         LOGGER.info("group %s does not have repos uploaded to s3", subs)
     else:
-        local_path: str = f"groups/{subs}/fusion/"
-
         LOGGER.info("Computing last upload date")
         days: int = drills_generic.calculate_days_ago(
             drills_generic.get_last_upload(bucket, f"{subs}/")
@@ -227,7 +221,7 @@ def main(subs: str, repository_name: str = "all") -> bool:
 
         passed = (
             passed
-            and pull_repos_s3_to_fusion(subs, local_path, repository_name)
+            and pull_repos_s3_to_fusion(subs, repository_name)
             and delete_out_of_scope_files(subs)
         )
 

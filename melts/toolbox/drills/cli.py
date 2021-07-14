@@ -28,7 +28,7 @@ from toolbox.drills import (
     "--name",
     "o_name",
     help="Specific name of repository",
-    default="all",
+    default="*",
     type=str,
 )
 @option(
