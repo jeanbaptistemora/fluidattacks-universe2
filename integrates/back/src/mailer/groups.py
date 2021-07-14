@@ -2,7 +2,6 @@ from .common import (
     COMMENTS_TAG,
     DIGEST_TAG,
     GENERAL_TAG,
-    get_comment_recipients,
     send_mails_async_new,
 )
 from context import (
@@ -64,6 +63,7 @@ async def send_mail_group_report(
 async def send_mail_comment(  # pylint: disable=too-many-locals
     context: Any,
     comment_data: CommentType,
+    recipients: List[str],
     user_mail: str,
     group_name: str = "",
 ) -> None:
@@ -85,7 +85,6 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
         "group": group_name,
         "user_email": user_mail,
     }
-    recipients = await get_comment_recipients(group_name, "comment")
     await send_mails_async_new(
         recipients,
         email_context,
