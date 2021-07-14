@@ -103,6 +103,9 @@ async def main() -> None:
 
     data: str = safe_dump(
         dict(
+            apk=dict(
+                include=sorted(["glob(**/*.apk)"]),
+            ),
             checks=[
                 args.check,
             ],

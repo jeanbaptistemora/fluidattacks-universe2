@@ -38,6 +38,9 @@ from typing import (
 from utils.ctx import (
     CTX,
 )
+from utils.fs import (
+    resolve_paths,
+)
 from utils.function import (
     shield,
 )
@@ -75,10 +78,15 @@ async def analyze_one(
                     await stores[vulnerability.finding].store(vulnerability)
 
 
-def get_apk_contexts() -> Set[APKContext]:
+async def get_apk_contexts() -> Set[APKContext]:
     apk_contexts: Set[APKContext] = set()
 
-    for path in CTX.config.apk.include:
+    unique_paths, unique_nu_paths, unique_nv_paths = await resolve_paths(
+        exclude=CTX.config.apk.exclude,
+        include=CTX.config.apk.include,
+    )
+
+    for path in unique_paths | unique_nu_paths | unique_nv_paths:
 
         apk_obj: Optional[APK] = None
         apk_manifest: Optional[BeautifulSoup] = None
@@ -132,7 +140,7 @@ async def analyze(
     ):
         return
 
-    unique_apk_contexts: Set[APKContext] = get_apk_contexts()
+    unique_apk_contexts: Set[APKContext] = await get_apk_contexts()
     count: int = len(unique_apk_contexts)
 
     for index, apk_ctx in enumerate(unique_apk_contexts):

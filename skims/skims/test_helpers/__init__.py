@@ -11,6 +11,7 @@ def create_test_context(debug: bool = True) -> None:
     CTX.debug = debug
     CTX.config = core_model.SkimsConfig(
         apk=core_model.SkimsAPKConfig(
+            exclude=(),
             include=(),
         ),
         checks=set(core_model.FindingEnum),

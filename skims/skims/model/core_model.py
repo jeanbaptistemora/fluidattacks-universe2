@@ -24,6 +24,7 @@ from typing import (
 
 
 class ExecutionQueue(Enum):
+    apk: str = "apk"  # APK related checks
     aws: str = "aws"  # AWS related checks (cloudformation, terraform, api)
     control: str = "control"  # Sphere of control, we should optimize them
     cookie: str = "cookie"  # Cookies, we should optimize them
@@ -618,7 +619,7 @@ class FindingEnum(Enum):
         auto_approve=False,
         code="F046_APK",
         cwe=1269,
-        execution_queue=ExecutionQueue.none,
+        execution_queue=ExecutionQueue.apk,
         requirements=[159],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -638,7 +639,7 @@ class FindingEnum(Enum):
         auto_approve=False,
         code="F048",
         cwe=250,
-        execution_queue=ExecutionQueue.none,
+        execution_queue=ExecutionQueue.apk,
         requirements=[326],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -658,7 +659,7 @@ class FindingEnum(Enum):
         auto_approve=False,
         code="F049_APK_PIN",
         cwe=295,
-        execution_queue=ExecutionQueue.none,
+        execution_queue=ExecutionQueue.apk,
         requirements=[93],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -778,7 +779,7 @@ class FindingEnum(Enum):
         auto_approve=False,
         code="F055_APK_BACKUPS",
         cwe=530,
-        execution_queue=ExecutionQueue.none,
+        execution_queue=ExecutionQueue.apk,
         requirements=[266],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -818,7 +819,7 @@ class FindingEnum(Enum):
         auto_approve=False,
         code="F058_APK",
         cwe=489,
-        execution_queue=ExecutionQueue.none,
+        execution_queue=ExecutionQueue.apk,
         requirements=[77, 78],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -998,7 +999,7 @@ class FindingEnum(Enum):
         auto_approve=False,
         code="F075_APK_CP",
         cwe=284,
-        execution_queue=ExecutionQueue.none,
+        execution_queue=ExecutionQueue.apk,
         requirements=[176],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -1078,7 +1079,7 @@ class FindingEnum(Enum):
         auto_approve=False,
         code="F103_APK_UNSIGNED",
         cwe=325,
-        execution_queue=ExecutionQueue.none,
+        execution_queue=ExecutionQueue.apk,
         requirements=[178],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -1251,6 +1252,7 @@ class NVDVulnerability(NamedTuple):
 
 
 class SkimsAPKConfig(NamedTuple):
+    exclude: Tuple[str, ...]
     include: Tuple[str, ...]
 
 

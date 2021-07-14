@@ -32,6 +32,7 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
             {
                 "apk": confuse.Template(
                     {
+                        "exclude": confuse.Sequence(confuse.String()),
                         "include": confuse.Sequence(confuse.String()),
                     },
                 ),
@@ -78,6 +79,7 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
 
         skims_config = core_model.SkimsConfig(
             apk=core_model.SkimsAPKConfig(
+                exclude=config_apk.pop("exclude", ()),
                 include=config_apk.pop("include", ()),
             ),
             checks=load_checks(config),
