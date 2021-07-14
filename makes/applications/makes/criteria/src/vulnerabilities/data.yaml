@@ -5556,15 +5556,28 @@
 105:
   en:
     title: Apache Lucene query injection
-    description: __empty__
+    description: >
+      The system generates
+      Apache Lucene queries dynamically,
+      without validating untrusted inputs
+      and without using parameterized statements
+      or stored procedures.
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
     title: Inyección de consulta Apache Lucene
-    description: __empty__
+    description: >
+      Se generan sentencias
+      Apache Lucene Query dinámicas
+      sin la validación requerida de datos
+      y sin utilizar sentencias parametrizadas
+      o procedimientos almacenados.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Realizar las consultas a la base de datos
+      por medio de sentencias
+      o procedimientos parametrizados.
     threat: __empty__
   score:
     base:
@@ -5580,20 +5593,32 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["169", "173"]
   metadata: {}
 106:
   en:
     title: NoSQL injection
-    description: __empty__
+    description: >
+      The system generates
+      NoSQL queries dynamically
+      and without validating
+      untrusted inputs.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Validate and escape data
+      that will be included in sentences
+      generated dinamically.
     threat: __empty__
   es:
     title: Inyección NoSQL
-    description: __empty__
+    description: >
+      Se generan sentencias NoSQL dinámicas
+      sin la validación requerida de datos.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Validar y escapar los datos
+      que serán incluidos en sentencias
+      generadas dinámicamente.
     threat: __empty__
   score:
     base:
@@ -5609,21 +5634,41 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["173"]
   metadata: {}
 107:
   en:
     title: LDAP injection
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The system builds LDAP queries
+      using untrusted data
+      that could modify the query.
+    impact: >
+      Inject LDAP statements
+      to extract sensitive information
+      without authorization.
+    recommendation: >
+      - Avoid using untrusted data
+        to generate dynamic LDAP queries.
+    threat: >
+      Autenticated attacker
+      from the Internet.
   es:
     title: Inyección de LDAP
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      El sistema construye consultas LDAP
+      utilizando datos no confiables
+      que podrían modificar la consulta.
+    impact: >
+      Inyectar sentencias LDAP
+      para extraer información sensible
+      sin autorizacion.
+    recommendation: >
+      - Evitar el uso de datos no confiables
+        para generar consultas LDAP dinámicas.
+    threat: >
+      Atacante autenticado
+      desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -5638,20 +5683,32 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["173"]
   metadata: {}
 108:
   en:
     title: Improper control of interaction frequency
-    description: __empty__
+    description: >
+      The system does not limit
+      the amount of requests (rate limit)
+      that a user can post
+      to the server
+      in a short period of time.
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
     title: Control inadecuado de la frecuenica de interacción
-    description: __empty__
+    description: >
+      La aplicación no limita
+      la cantidad de peticiones
+      (rate limit) que puede realizar un cliente
+      en un intervalo reducido de tiempo.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Limitar la cantidad de peticiones
+      que puede realizar un mismo host
+      en espacios de tiempo definidos.
     threat: __empty__
   score:
     base:
@@ -5667,21 +5724,52 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["327"]
   metadata: {}
 109:
   en:
     title: Inappropriate coding practices - Float currency
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      Representing currency using data types
+      like float or double may result
+      in accuracy issues the more operations
+      are performed
+      using inexact representations of a value;
+      besides unexpected behaviors
+      if special values like NaN
+      or Infinite are not taken into account.
+    impact: >
+      Money operations
+      may have incorrect results.
+    recommendation: >
+      - Use integer to represent currency
+        and count in cents.
+      - Use data types specially made
+        to represent currency.
+    threat: >
+      Authenticated attacker
+      from the Internet.
   es:
     title: Prácticas inadecuadas de programación - Moneda expresada con floats
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      Representar moneda utilizando tipos de dato
+      como float o double puede resultar
+      en problemas de precisión
+      a medida que se hacen más y más operaciones
+      sobre representaciones inexactas de un valor;
+      además de comportamientos inesperados
+      si no se tiene en cuenta valores especiales
+      como NaN e infinitos.
+    impact: >
+      Operaciones sobre moneda pueden tener resultados incorrectos.
+    recommendation: >
+      - Usar enteros para representar moneda
+        y contar en centavos.
+      - Usar tipos de datos hechos específicamente
+        para representar moneda.
+    threat: >
+      Atacante autenticado
+      desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -5696,7 +5784,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["158"]
   metadata: {}
 110:
   en:
