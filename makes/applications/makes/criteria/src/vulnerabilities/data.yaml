@@ -5789,15 +5789,51 @@
 110:
   en:
     title: HTTP request smuggling
-    description: __empty__
+    description: >
+      The system uses one or more entities,
+      such as a proxy or a firewall,
+      to process requests
+      between the client and the server.
+      These entities
+      do not process HTTP requests consistently,
+      thus making it possible
+      to post malformed requests
+      to get one of the entities
+      to process a request
+      without the other ones noticing it.
+      The reason the entities
+      do not process the requests consistently
+      is that the web server software
+      each one uses
+      delimits requests differently.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Use the same web server's software
+      on the front-end and back-end servers,
+      making the delimiters
+      among the requests coincide each other.
     threat: __empty__
   es:
     title: Contrabando de solicitud HTTP
-    description: __empty__
+    description: >
+      Es posible enviar
+      peticiones HTTP malformadas
+      o anormales que son interpretadas
+      por una o más entidades
+      entre el cliente y el servidor,
+      como un proxy o un firewall,
+      que son interpretadas inconsistentemente,
+      permitiendo que un atacante
+      haga llegar una petición
+      a un dispositivo
+      sin que el otro se percate.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Usar el mismo software de web server
+      en los servidores de front-end y back-end,
+      de manera que concidan
+      en los delimitadores
+      entre las peticiones.
     threat: __empty__
   score:
     base:
@@ -5813,18 +5849,25 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["062", "173", "266"]
   metadata: {}
 111:
   en:
     title: Out-of-bounds read
-    description: __empty__
+    description: >
+      It is possible
+      to make the system read data
+      before or beyond the intended buffer.
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
     title: Lectura fuera de los límites
-    description: __empty__
+    description: >
+      El sistema lee datos más allá del final,
+      o antes del comienzo,
+      del buffer o porción
+      de memoria asignado originalmente.
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
@@ -5842,21 +5885,51 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["062", "266"]
   metadata: {}
 112:
   en:
     title: SQL injection - Java SQL API
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      Dynamic SQL statements
+      are generated
+      without the required data validation
+      and without using parameterized statements
+      or stored procedures.
+    impact: >
+      Inject SQL statements,
+      with the possibility of obtaining information
+      about the database,
+      as well as extract information from it.
+    recommendation: >
+      Perform queries to the database
+      through sentences or parameterized procedures.
+      Alternatively,
+      use escape(String) built-in function.
+    threat: >
+      Autenticated attacker
+      from the Internet.
   es:
     title: Inyección SQL - Java SQL API
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      Uso de parametros controlados
+      por el atacante para realizar consultas
+      a la base de datos.
+    impact: >
+      Inyectar sentencias SQL,
+      con la posibilidad de obtener información
+      sobre la base de datos,
+      así como extraer información
+      de la misma.
+    recommendation: >
+      Realizar las consultas a la base de datos
+      por medio de sentencias o
+      procedimientos parametrizados,
+      o alternativamente usar la función escape(String)
+      del framework.
+    threat: >
+      Atacante autenticado
+      desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -5871,18 +5944,31 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["169", "173"]
   metadata: {}
 113:
   en:
     title: Improper type assignation
-    description: __empty__
+    description: >
+      There are variant variables
+      in the source code, i.e.,
+      no specific type is declared for them.
+      This can be inefficient,
+      as it becomes necessary
+      to identify the variable’s data type
+      and cast it every time it is used.
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
     title: Asignación de tipo incorrecta
-    description: __empty__
+    description: >
+      Se usan variables
+      sin declaración de tipo específico,
+      conviertiéndolas en variantes,
+      lo cual hace que se requira identificar
+      y convertir el tipo de dato
+      que será usado en cada interacción.
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
@@ -5900,18 +5986,37 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["164"]
   metadata: {}
 114:
   en:
     title: Phishing
-    description: __empty__
+    description: >
+      The application users
+      are susceptible to phishing,
+      a social engineering technique
+      in which attackers present themselves
+      as a legitimate entity
+      that the victim trusts
+      and request confidential information
+      (usually credentials).
+      These attacks are often possible
+      due to improperly configured
+      corporate email clients.
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
     title: Phishing
-    description: __empty__
+    description: >
+      Los usuarios son vulnerables a phishing,
+      una técnica de ingeniería social
+      donde un atacante se disfraza
+      como una entidad legítima
+      con la que la víctima tiene contacto
+      para solicitarle a la misma
+      que revele información confidencial
+      (frecuentemente credenciales).
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
@@ -5929,7 +6034,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["115", "116", "117", "118", "144"]
   metadata: {}
 115:
   en:
