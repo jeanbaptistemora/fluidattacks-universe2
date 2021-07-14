@@ -1015,7 +1015,7 @@ class FindingEnum(Enum):
         ),
     )
     F079: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F079",
         cwe=829,
         execution_queue=ExecutionQueue.f117,
@@ -1025,7 +1025,7 @@ class FindingEnum(Enum):
             attack_vector=cvss3_model.AttackVector.network,
             availability_impact=cvss3_model.AvailabilityImpact.none,
             confidentiality_impact=cvss3_model.ConfidentialityImpact.none,
-            exploitability=cvss3_model.Exploitability.poc,
+            exploitability=cvss3_model.Exploitability.unproven,
             integrity_impact=cvss3_model.IntegrityImpact.low,
             privileges_required=cvss3_model.PrivilegesRequired.low,
             remediation_level=cvss3_model.RemediationLevel.unavailable,

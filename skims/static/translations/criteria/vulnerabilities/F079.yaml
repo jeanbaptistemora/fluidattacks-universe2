@@ -19,7 +19,7 @@ F079.impact:
     is discovered to have a vulnerability.
   es: >
     - Degradar la mantenibilidad
-    porque las dependencias seran mas dificiles de actualizar.
+    porque las dependencias serán más dificiles de actualizar.
 
     - Incrementar el MTTR (tiempo medio para la recuperación)
     cuando a una dependencia de terceros
@@ -41,8 +41,8 @@ F079.recommendation:
     - Declarar dependencias de terceros explicitamente
     (nombre y versión especifica).
 
-    - Obtenga las dependencias dinamicamente durante la fase de construcción
-    en lugar de copiarlas directamente en el repositorio.
+    - Obtener las dependencias dinamicamente
+    mediante gestores de paquetes (pip, npm, maven, gradle).
 F079.threat:
   en: Authorized attacker from Internet.
   es: Atacante autorizado desde Internet.
