@@ -63,7 +63,7 @@ VulnTable = TypedDict(  # pylint: disable=invalid-name
 Context = TypedDict(  # pylint: disable=invalid-name
     "Context",
     {
-        "full_project": str,
+        "full_group": str,
         "team": str,
         "team_mail": str,
         "customer": str,
@@ -370,7 +370,7 @@ class CreatorPDF:
         fluid_tpl_content = self.make_content(words)
         access_vector = get_access_vector(findings[0]) if findings else ""
         self.context = {
-            "full_project": full_group.upper(),
+            "full_group": full_group.upper(),
             "team": team,
             "team_mail": team_mail,
             "customer": "",

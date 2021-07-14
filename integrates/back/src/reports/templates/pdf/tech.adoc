@@ -1,4 +1,4 @@
-= {{full_project}}
+= {{full_group}}
 :lang:		{{lang}}
 :author:	{{team}}
 :email:		{{team_mail}}
