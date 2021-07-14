@@ -63349,6 +63349,39 @@
             "var_type": null
           }
         ],
+        "120": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "124",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "true",
+            "value_type": "boolean"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "122",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "120",
+              "value": null
+            },
+            "n_id_false": null,
+            "n_id_true": "126",
+            "type": "SyntaxStepIf"
+          }
+        ],
         "126": [
           {
             "meta": {
@@ -64153,6 +64186,51 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "646": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "657",
+              "value": null
+            },
+            "symbol": "prop",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "650",
+              "value": null
+            },
+            "method": "obj.hasOwnProperty",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "648",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "646",
+              "value": null
+            },
+            "n_id_false": null,
+            "n_id_true": "660",
+            "type": "SyntaxStepIf"
           }
         ],
         "660": [

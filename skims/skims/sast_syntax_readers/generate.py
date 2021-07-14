@@ -68,6 +68,7 @@ from sast_syntax_readers.javascript import (
     await_expression as javascript_await_expression,
     call_expression as javascript_call_expression,
     function_declaration as javascript_function_declaration,
+    if_statement as javascript_if_statement,
     lexical_declaration as javascript_lexical_declaration,
     new_expression as javascript_new_expression,
     variable_declaration as javascript_variable_declaration,
@@ -242,6 +243,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     ),
     Dispatcher(
         applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+        },
+        applicable_node_label_types={
+            "if_statement",
+        },
+        syntax_readers=(javascript_if_statement.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
@@ -253,6 +263,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.GO,
             graph_model.GraphShardMetadataLanguage.JAVA,
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
         },
         applicable_node_label_types={
             "parenthesized_expression",
