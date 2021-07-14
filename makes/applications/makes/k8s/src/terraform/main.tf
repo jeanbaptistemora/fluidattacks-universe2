@@ -10,29 +10,21 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "~> 2.20.0"
     }
+    cloudinit = {
+      source  = "hashicorp/cloudinit"
+      version = "~> 2.2.0"
+    }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "~> 1.11.0"
-    }
-    random = {
-      source  = "hashicorp/random"
-      version = "~> 2.1"
+      version = "~> 1.11.1"
     }
     local = {
       source  = "hashicorp/local"
       version = "~> 1.4"
     }
-    null = {
-      source  = "hashicorp/null"
+    random = {
+      source  = "hashicorp/random"
       version = "~> 2.1"
-    }
-    template = {
-      source  = "hashicorp/template"
-      version = "~> 2.1"
-    }
-    tls = {
-      source  = "hashicorp/tls"
-      version = "~> 2.2.0"
     }
     helm = {
       source  = "hashicorp/helm"
@@ -41,6 +33,14 @@ terraform {
     http = {
       source  = "hashicorp/http"
       version = "~> 2.1.0"
+    }
+    null = {
+      source  = "hashicorp/null"
+      version = "~> 2.1"
+    }
+    template = {
+      source  = "hashicorp/template"
+      version = "~> 2.1"
     }
   }
 

@@ -1,6 +1,6 @@
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
-  version         = "~> 15.2.0"
+  version         = "~> 16.2.0"
   cluster_name    = var.cluster_name
   cluster_version = "1.19"
   enable_irsa     = true
