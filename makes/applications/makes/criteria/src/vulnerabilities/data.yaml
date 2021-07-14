@@ -6039,13 +6039,17 @@
 115:
   en:
     title: Security controls bypass
-    description: __empty__
+    description: >
+      The system has security controls
+      that can be bypassed.
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
     title: Evasión de controles de seguridad
-    description: __empty__
+    description: >
+      El sistema tiene controles de seguridad
+      que pueden ser evadidos.
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
@@ -6063,21 +6067,33 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["062", "266", "273"]
   metadata: {}
 116:
   en:
     title: XS-Leaks
-    description: __empty__
+    description: >
+      It is possible
+      to use browser side-channels
+      to obtain sensitive information
+      from the users.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Leak sensitive data
+      of the user without authorization.
     threat: __empty__
   es:
     title: Fugas XS
-    description: __empty__
+    description: >
+      Es posible utilizar canales alternos
+      del navegador
+      para filtrar información sensible
+      sobre el usuario.
     impact: __empty__
     recommendation: __empty__
-    threat: __empty__
+    threat: >
+      Filtrar datos sensibles
+      del usuario sin su autorización.
   score:
     base:
       attack_vector: "N"
@@ -6092,21 +6108,55 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["062", "176", "266"]
   metadata: {}
 117:
   en:
     title: Unverifiable files
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The repository is storing files
+      that either can not be verified
+      nor should be versioned,
+      such as binary files,
+      logs or temporary files.
+    impact: >
+      - Difficult the versioning
+        and security auditing process.
+      - Introduce vulnerabilities
+        of previous versions
+        in the repository.
+    recommendation: >
+      - Remove the files
+        that should not be versioned
+        from the repository.
+      - Include the affected extensions
+        in the .gitignore file.
+    threat: >
+      Autenticated attacker
+      from the Internet.
   es:
     title: Archivos no auditables
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      En el repositorio se almacenan archivos
+      que no son verificables o no
+      deberían ser versionados,
+      como archivos binarios,
+      logs o archivos temporales.
+    impact: >
+      - Dificultar el proceso de versionamiento
+        y auditoría de seguridad.
+      - Introducir vulnerabilidades
+        de versiones pasadas de archivos
+        en el repositorio.
+    recommendation: >
+      - Remover los archivos
+        que no deberían ser versionados
+        en el repositorio de código.
+      - Incluir las extensiones afectadas
+        en el archivo .gitignore.
+    threat: >
+      Atacante autenticado
+      desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -6121,21 +6171,34 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["323"]
   metadata: {}
 118:
   en:
     title: Regulation infringement
-    description: __empty__
+    description: >
+      The system violates regulations
+      of a jurisdiction
+      to which it is subject.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Consider the applicable regulations
+      for the system.
+    threat: >
+      - Incur the fine or some other
+        penalty.
   es:
     title: Infracción de regulación
-    description: __empty__
+    description: >
+      El sistema incumple con regulaciones
+      a las cuales está sujeto.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Tener en cuenta las regulaciones
+      aplicables para el sistema.
+    threat: >
+      - Incurrir en una multa
+        o alguna otra sanción legal.
   score:
     base:
       attack_vector: "N"
@@ -6150,21 +6213,39 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["331"]
   metadata: {}
 119:
   en:
     title: Metadata with sensitive information
-    description: __empty__
+    description: >
+      The system exposes sensitive information
+      through public files' metadata.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Delete files' metadata
+      before sharing or publishing them.
+    threat: >
+      - Obtain sensitive information.
+      - Obtain information
+        that can be used to compromise
+        other systems.
   es:
     title: Metadatos con información sensible
-    description: __empty__
+    description: >
+      El sistema expone información sensible
+      a través de metadatos
+      de archivos públicos.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Eliminar los metadatos de los archivos
+      antes de compartirlos
+      o hacerlos públicos.
+    threat: >
+      - Obtener información sensible.
+      - Obtener información
+        que pueda ser utilizada
+        para comprometer otros sistemas.
   score:
     base:
       attack_vector: "N"
@@ -6179,7 +6260,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["045"]
   metadata: {}
 120:
   en:
