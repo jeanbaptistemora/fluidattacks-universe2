@@ -15,7 +15,11 @@ let securityHeaders = {
                               *.zohopublic.com \
                               *.zohostatic.com \
                               googleads.g.doubleclick.net \
-                              snap.licdn.com",
+                              snap.licdn.com; \
+                              frame-ancestors \
+                              'self'; \
+                              object-src \
+                              'none';",
   "Strict-Transport-Security" : "max-age=31536000",
   "X-Xss-Protection" : "1; mode=block",
   "X-Frame-Options" : "DENY",
