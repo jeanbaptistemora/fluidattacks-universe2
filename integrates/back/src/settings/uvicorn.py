@@ -42,14 +42,30 @@ class IntegratesWorker(  # pylint: disable=too-few-public-methods
             ],
             [
                 "Content-Security-Policy",
-                "script-src 'self' 'unsafe-inline' localhost:* "
-                "cdn.announcekit.app *.amazonaws.com *.cloudfront.net "
-                "*.front.development.fluidattacks.com bam-cell.nr-data.net "
+                "script-src "
+                "'self' "
+                "'unsafe-inline' "
+                "localhost:* "
+                "cdn.announcekit.app "
+                "bam-cell.nr-data.net "
+                "bam.nr-data.net "
+                "cdn.jsdelivr.net/npm/ "
+                "cdn.headwayapp.co "
+                "*.amazonaws.com "
+                "*.cloudfront.net "
+                "*.front.development.fluidattacks.com "
                 "*.front.production.fluidattacks.com "
-                "*.cloudflare.com *.cookiebot.com *.zdassets.com "
-                "*.newrelic.com *.mxpnl.com *.pingdom.net "
-                "bam.nr-data.net cdn.jsdelivr.net/npm/ "
-                "cdn.headwayapp.co *.cloudflareinsights.com;",
+                "*.cloudflare.com "
+                "*.cookiebot.com "
+                "*.zdassets.com "
+                "*.newrelic.com "
+                "*.mxpnl.com "
+                "*.pingdom.net "
+                "*.cloudflareinsights.com; "
+                "frame-ancestors "
+                "'self'; "
+                "object-src "
+                "'none';",
             ],
             [
                 "Permissions-Policy",
