@@ -3,6 +3,7 @@ import type { ApolloError, QueryResult } from "@apollo/client";
 import { useMutation, useQuery } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
@@ -14,7 +15,6 @@ import {
   useParams,
   useRouteMatch,
 } from "react-router-dom";
-import { Field } from "redux-form";
 
 import {
   handleDraftApproval,
@@ -29,7 +29,6 @@ import { Modal } from "components/Modal";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { FindingActions } from "scenes/Dashboard/components/FindingActions";
 import { FindingHeader } from "scenes/Dashboard/components/FindingHeader";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { CommentsView } from "scenes/Dashboard/containers/CommentsView/index";
 import { DescriptionView } from "scenes/Dashboard/containers/DescriptionView/index";
 import { EvidenceView } from "scenes/Dashboard/containers/EvidenceView/index";
@@ -58,12 +57,12 @@ import {
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Have } from "utils/authz/Have";
-import { Dropdown } from "utils/forms/fields";
+import { FormikDropdown } from "utils/forms/fields";
 import { useTabTracking } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
-import { required } from "utils/validations";
+import { composeValidators, required } from "utils/validations";
 
 const findingContent: React.FC = (): JSX.Element => {
   const { findingId, groupName } =
@@ -192,8 +191,8 @@ const findingContent: React.FC = (): JSX.Element => {
     }
   );
 
-  const handleDelete: (values: { justification: string }) => void = useCallback(
-    (values: { justification: string }): void => {
+  const handleDelete: (values: Record<string, unknown>) => void = useCallback(
+    (values: Record<string, unknown>): void => {
       // Exception: FP(void operator is necessary)
       // eslint-disable-next-line
       void deleteFinding({ //NOSONAR
@@ -373,42 +372,49 @@ const findingContent: React.FC = (): JSX.Element => {
         headerTitle={translate.t("searchFindings.delete.title")}
         open={isDeleteModalOpen}
       >
-        <GenericForm name={"deleteFinding"} onSubmit={handleDelete}>
-          <FormGroup>
-            <ControlLabel>
-              {translate.t("searchFindings.delete.justif.label")}
-            </ControlLabel>
-            <Field
-              component={Dropdown}
-              name={"justification"}
-              validate={[required]}
-            >
-              <option value={""} />
-              <option value={"DUPLICATED"}>
-                {translate.t("searchFindings.delete.justif.duplicated")}
-              </option>
-              <option value={"FALSE_POSITIVE"}>
-                {translate.t("searchFindings.delete.justif.falsePositive")}
-              </option>
-              <option value={"NOT_REQUIRED"}>
-                {translate.t("searchFindings.delete.justif.notRequired")}
-              </option>
-            </Field>
-          </FormGroup>
-          <hr />
-          <Row>
-            <Col100>
-              <ButtonToolbar>
-                <Button onClick={closeDeleteModal}>
-                  {translate.t("confirmmodal.cancel")}
-                </Button>
-                <Button type={"submit"}>
-                  {translate.t("confirmmodal.proceed")}
-                </Button>
-              </ButtonToolbar>
-            </Col100>
-          </Row>
-        </GenericForm>
+        <Formik
+          enableReinitialize={true}
+          initialValues={{}}
+          name={"deleteFinding"}
+          onSubmit={handleDelete}
+        >
+          <Form id={"deleteFinding"}>
+            <FormGroup>
+              <ControlLabel>
+                {translate.t("searchFindings.delete.justif.label")}
+              </ControlLabel>
+              <Field
+                component={FormikDropdown}
+                name={"justification"}
+                validate={composeValidators([required])}
+              >
+                <option value={""} />
+                <option value={"DUPLICATED"}>
+                  {translate.t("searchFindings.delete.justif.duplicated")}
+                </option>
+                <option value={"FALSE_POSITIVE"}>
+                  {translate.t("searchFindings.delete.justif.falsePositive")}
+                </option>
+                <option value={"NOT_REQUIRED"}>
+                  {translate.t("searchFindings.delete.justif.notRequired")}
+                </option>
+              </Field>
+            </FormGroup>
+            <hr />
+            <Row>
+              <Col100>
+                <ButtonToolbar>
+                  <Button onClick={closeDeleteModal}>
+                    {translate.t("confirmmodal.cancel")}
+                  </Button>
+                  <Button type={"submit"}>
+                    {translate.t("confirmmodal.proceed")}
+                  </Button>
+                </ButtonToolbar>
+              </Col100>
+            </Row>
+          </Form>
+        </Formik>
       </Modal>
     </React.StrictMode>
   );

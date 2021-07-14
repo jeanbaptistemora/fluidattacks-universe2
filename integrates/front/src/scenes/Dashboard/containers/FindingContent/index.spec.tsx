@@ -790,15 +790,16 @@ describe("FindingContent", (): void => {
       await wait(0);
       wrapper.update();
     });
-    wrapper
-      .find("select")
-      .simulate("change", { target: { value: "DUPLICATED" } });
+    wrapper.find("select").simulate("change", {
+      target: { name: "justification", value: "DUPLICATED" },
+    });
     const justificationForm: ReactWrapper = wrapper
-      .find("genericForm")
+      .find("Formik")
       .find({ name: "deleteFinding" });
     justificationForm.simulate("submit");
     await act(async (): Promise<void> => {
-      await wait(0);
+      const delay = 150;
+      await wait(delay);
       wrapper.update();
     });
 
@@ -856,11 +857,11 @@ describe("FindingContent", (): void => {
       await wait(0);
       wrapper.update();
     });
-    wrapper
-      .find("select")
-      .simulate("change", { target: { value: "DUPLICATED" } });
+    wrapper.find("select").simulate("change", {
+      target: { name: "justification", value: "DUPLICATED" },
+    });
     const justificationForm: ReactWrapper = wrapper
-      .find("genericForm")
+      .find("Formik")
       .find({ name: "deleteFinding" });
     justificationForm.simulate("submit");
     await act(async (): Promise<void> => {
