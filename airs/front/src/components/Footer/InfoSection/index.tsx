@@ -14,7 +14,7 @@ const InfoSection: React.FC = (): JSX.Element => (
   <React.Fragment>
     <CopyrightContainer>
       <CopyrightParagraph>
-        {`Copyright © ${new Date().getFullYear()} Fluid Attacks, We hack
+        {`Copyright © ${new Date().getFullYear()} Fluid Attacks. We hack
               your software. All rights reserved.`}
       </CopyrightParagraph>
     </CopyrightContainer>
