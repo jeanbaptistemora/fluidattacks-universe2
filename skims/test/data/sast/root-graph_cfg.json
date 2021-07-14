@@ -25831,9 +25831,25 @@
               "label_ast": "AST",
               "label_index": "35"
             },
+            "1986": {
+              "label_ast": "AST",
+              "label_index": "36"
+            },
             "2": {
               "label_ast": "AST",
               "label_index": "0"
+            },
+            "2033": {
+              "label_ast": "AST",
+              "label_index": "37"
+            },
+            "2034": {
+              "label_ast": "AST",
+              "label_index": "38"
+            },
+            "2114": {
+              "label_ast": "AST",
+              "label_index": "39"
             },
             "26": {
               "label_ast": "AST",
@@ -31164,6 +31180,40 @@
               "label_index": "2"
             }
           },
+          "1986": {
+            "1987": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1988": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1989": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "2000": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "3"
+            }
+          },
+          "1989": {
+            "1990": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1991": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1999": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
           "199": {
             "200": {
               "label_ast": "AST",
@@ -31172,6 +31222,40 @@
             "201": {
               "label_ast": "AST",
               "label_index": "1"
+            }
+          },
+          "1991": {
+            "1992": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1993": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "1993": {
+            "1994": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1995": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "1995": {
+            "1996": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1997": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1998": {
+              "label_ast": "AST",
+              "label_index": "2"
             }
           },
           "2": {
@@ -31184,6 +31268,88 @@
               "label_index": "1"
             }
           },
+          "2000": {
+            "2001": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2002": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "1"
+            },
+            "2019": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "2020": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "2031": {
+              "label_ast": "AST",
+              "label_index": "4"
+            },
+            "2032": {
+              "label_ast": "AST",
+              "label_index": "5"
+            }
+          },
+          "2002": {
+            "2003": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2005": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2006": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "2020": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "2003": {
+            "2004": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "2006": {
+            "2007": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "2007": {
+            "2008": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2012": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "2008": {
+            "2009": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2010": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2011": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
           "201": {
             "202": {
               "label_ast": "AST",
@@ -31192,6 +31358,238 @@
             "203": {
               "label_ast": "AST",
               "label_index": "1"
+            }
+          },
+          "2012": {
+            "2013": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2014": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2018": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2014": {
+            "2015": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2016": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2017": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2020": {
+            "2021": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2025": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "2021": {
+            "2022": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2023": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2024": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2025": {
+            "2026": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2027": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2028": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "2029": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "2030": {
+              "label_ast": "AST",
+              "label_index": "4"
+            }
+          },
+          "2034": {
+            "2035": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2036": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2037": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "2048": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "3"
+            }
+          },
+          "2037": {
+            "2038": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2039": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2047": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2039": {
+            "2040": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2041": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "2041": {
+            "2042": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2043": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "2043": {
+            "2044": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2045": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2046": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2048": {
+            "2049": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2050": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "1"
+            },
+            "2067": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "2068": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "2100": {
+              "label_ast": "AST",
+              "label_index": "4"
+            },
+            "2101": {
+              "label_ast": "AST",
+              "label_index": "5"
+            },
+            "2112": {
+              "label_ast": "AST",
+              "label_index": "6"
+            },
+            "2113": {
+              "label_ast": "AST",
+              "label_index": "7"
+            }
+          },
+          "2050": {
+            "2051": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2053": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2054": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "2068": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "2051": {
+            "2052": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "2054": {
+            "2055": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "2055": {
+            "2056": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2060": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "2056": {
+            "2057": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2058": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2059": {
+              "label_ast": "AST",
+              "label_index": "2"
             }
           },
           "206": {
@@ -31208,6 +31606,106 @@
               "label_index": "2"
             }
           },
+          "2060": {
+            "2061": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2062": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2066": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2062": {
+            "2063": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2064": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2065": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2068": {
+            "2069": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2070": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2092": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_true": "cfg_true",
+              "label_index": "2"
+            },
+            "2101": {
+              "label_cfg": "CFG",
+              "label_cfg_false": "cfg_false"
+            }
+          },
+          "2070": {
+            "2071": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2080": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2081": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2071": {
+            "2072": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2076": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "2072": {
+            "2073": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2074": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2075": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2076": {
+            "2077": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2078": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2079": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
           "208": {
             "209": {
               "label_ast": "AST",
@@ -31216,6 +31714,92 @@
             "210": {
               "label_ast": "AST",
               "label_index": "1"
+            }
+          },
+          "2081": {
+            "2082": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2086": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "2082": {
+            "2083": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2084": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2085": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2086": {
+            "2087": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2088": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2089": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "2090": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "2091": {
+              "label_ast": "AST",
+              "label_index": "4"
+            }
+          },
+          "2092": {
+            "2093": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2094": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "1"
+            },
+            "2098": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "2099": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "2094": {
+            "2095": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2096": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2101": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "2096": {
+            "2097": {
+              "label_ast": "AST",
+              "label_index": "0"
             }
           },
           "210": {
@@ -31230,6 +31814,52 @@
             "213": {
               "label_ast": "AST",
               "label_index": "2"
+            }
+          },
+          "2101": {
+            "2102": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2106": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "2102": {
+            "2103": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2104": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2105": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2106": {
+            "2107": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2108": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2109": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "2110": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "2111": {
+              "label_ast": "AST",
+              "label_index": "4"
             }
           },
           "215": {
@@ -42109,8 +42739,33 @@
           "1985": {
             "label_c": 2,
             "label_l": 253,
-            "label_text": "\n",
+            "label_text": "\n\n",
             "label_type": "\n"
+          },
+          "1986": {
+            "label_c": 1,
+            "label_field_body": "2000",
+            "label_field_name": "1988",
+            "label_field_parameters": "1989",
+            "label_l": 255,
+            "label_type": "function_declaration"
+          },
+          "1987": {
+            "label_c": 1,
+            "label_l": 255,
+            "label_text": "func",
+            "label_type": "func"
+          },
+          "1988": {
+            "label_c": 6,
+            "label_l": 255,
+            "label_text": "DangerousFloat",
+            "label_type": "identifier"
+          },
+          "1989": {
+            "label_c": 20,
+            "label_l": 255,
+            "label_type": "parameter_list"
           },
           "199": {
             "label_c": 7,
@@ -42118,6 +42773,68 @@
             "label_field_type": "201",
             "label_l": 31,
             "label_type": "parameter_declaration"
+          },
+          "1990": {
+            "label_c": 20,
+            "label_l": 255,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "1991": {
+            "label_c": 21,
+            "label_field_name": "1992",
+            "label_field_type": "1993",
+            "label_input_type": "F063_TYPE_CONFUSION",
+            "label_l": 255,
+            "label_type": "parameter_declaration"
+          },
+          "1992": {
+            "label_c": 21,
+            "label_l": 255,
+            "label_text": "request",
+            "label_type": "identifier"
+          },
+          "1993": {
+            "label_c": 29,
+            "label_l": 255,
+            "label_type": "pointer_type"
+          },
+          "1994": {
+            "label_c": 29,
+            "label_l": 255,
+            "label_text": "*",
+            "label_type": "*"
+          },
+          "1995": {
+            "label_c": 30,
+            "label_field_name": "1998",
+            "label_field_package": "1996",
+            "label_l": 255,
+            "label_type": "qualified_type"
+          },
+          "1996": {
+            "label_c": 30,
+            "label_l": 255,
+            "label_text": "http",
+            "label_type": "package_identifier"
+          },
+          "1997": {
+            "label_c": 34,
+            "label_l": 255,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "1998": {
+            "label_c": 35,
+            "label_l": 255,
+            "label_text": "Request",
+            "label_type": "type_identifier"
+          },
+          "1999": {
+            "label_c": 42,
+            "label_l": 255,
+            "label_text": ")",
+            "label_type": ")"
           },
           "2": {
             "label_c": 1,
@@ -42136,10 +42853,131 @@
             "label_text": "this",
             "label_type": "identifier"
           },
+          "2000": {
+            "label_c": 44,
+            "label_l": 255,
+            "label_type": "block"
+          },
+          "2001": {
+            "label_c": 44,
+            "label_l": 255,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "2002": {
+            "label_c": 2,
+            "label_field_left": "2003",
+            "label_field_right": "2006",
+            "label_l": 256,
+            "label_type": "short_var_declaration"
+          },
+          "2003": {
+            "label_c": 2,
+            "label_l": 256,
+            "label_type": "expression_list"
+          },
+          "2004": {
+            "label_c": 2,
+            "label_l": 256,
+            "label_text": "amount",
+            "label_type": "identifier"
+          },
+          "2005": {
+            "label_c": 9,
+            "label_l": 256,
+            "label_text": ":=",
+            "label_type": ":="
+          },
+          "2006": {
+            "label_c": 12,
+            "label_l": 256,
+            "label_type": "expression_list"
+          },
+          "2007": {
+            "label_c": 12,
+            "label_field_arguments": "2012",
+            "label_field_function": "2008",
+            "label_input_type": "F014_FLOAT_CURRENCY",
+            "label_l": 256,
+            "label_type": "call_expression"
+          },
+          "2008": {
+            "label_c": 12,
+            "label_field_field": "2011",
+            "label_field_operand": "2009",
+            "label_l": 256,
+            "label_type": "selector_expression"
+          },
+          "2009": {
+            "label_c": 12,
+            "label_l": 256,
+            "label_text": "strconv",
+            "label_type": "identifier"
+          },
           "201": {
             "label_c": 12,
             "label_l": 31,
             "label_type": "pointer_type"
+          },
+          "2010": {
+            "label_c": 19,
+            "label_l": 256,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "2011": {
+            "label_c": 20,
+            "label_l": 256,
+            "label_text": "ParseFloat",
+            "label_type": "field_identifier"
+          },
+          "2012": {
+            "label_c": 30,
+            "label_l": 256,
+            "label_type": "argument_list"
+          },
+          "2013": {
+            "label_c": 30,
+            "label_l": 256,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "2014": {
+            "label_c": 31,
+            "label_field_field": "2017",
+            "label_field_operand": "2015",
+            "label_l": 256,
+            "label_type": "selector_expression"
+          },
+          "2015": {
+            "label_c": 31,
+            "label_l": 256,
+            "label_text": "request",
+            "label_type": "identifier"
+          },
+          "2016": {
+            "label_c": 38,
+            "label_l": 256,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "2017": {
+            "label_c": 39,
+            "label_l": 256,
+            "label_text": "Amount",
+            "label_type": "field_identifier"
+          },
+          "2018": {
+            "label_c": 45,
+            "label_l": 256,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "2019": {
+            "label_c": 46,
+            "label_l": 256,
+            "label_text": "\n",
+            "label_type": "\n"
           },
           "202": {
             "label_c": 12,
@@ -42147,11 +42985,136 @@
             "label_text": "*",
             "label_type": "*"
           },
+          "2020": {
+            "label_c": 2,
+            "label_field_arguments": "2025",
+            "label_field_function": "2021",
+            "label_l": 257,
+            "label_sink_type": "F063_TYPE_CONFUSION",
+            "label_type": "call_expression"
+          },
+          "2021": {
+            "label_c": 2,
+            "label_field_field": "2024",
+            "label_field_operand": "2022",
+            "label_l": 257,
+            "label_type": "selector_expression"
+          },
+          "2022": {
+            "label_c": 2,
+            "label_l": 257,
+            "label_text": "sql",
+            "label_type": "identifier"
+          },
+          "2023": {
+            "label_c": 5,
+            "label_l": 257,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "2024": {
+            "label_c": 6,
+            "label_l": 257,
+            "label_text": "QueryRow",
+            "label_type": "field_identifier"
+          },
+          "2025": {
+            "label_c": 14,
+            "label_l": 257,
+            "label_type": "argument_list"
+          },
+          "2026": {
+            "label_c": 14,
+            "label_l": 257,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "2027": {
+            "label_c": 15,
+            "label_l": 257,
+            "label_text": "`INSERT INTO tbl $1`",
+            "label_type": "raw_string_literal"
+          },
+          "2028": {
+            "label_c": 35,
+            "label_l": 257,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "2029": {
+            "label_c": 37,
+            "label_l": 257,
+            "label_text": "amount",
+            "label_type": "identifier"
+          },
           "203": {
             "label_c": 13,
             "label_l": 31,
             "label_text": "Class",
             "label_type": "type_identifier"
+          },
+          "2030": {
+            "label_c": 43,
+            "label_l": 257,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "2031": {
+            "label_c": 44,
+            "label_l": 257,
+            "label_text": "\n",
+            "label_type": "\n"
+          },
+          "2032": {
+            "label_c": 1,
+            "label_l": 258,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "2033": {
+            "label_c": 2,
+            "label_l": 258,
+            "label_text": "\n\n",
+            "label_type": "\n"
+          },
+          "2034": {
+            "label_c": 1,
+            "label_field_body": "2048",
+            "label_field_name": "2036",
+            "label_field_parameters": "2037",
+            "label_l": 260,
+            "label_type": "function_declaration"
+          },
+          "2035": {
+            "label_c": 1,
+            "label_l": 260,
+            "label_text": "func",
+            "label_type": "func"
+          },
+          "2036": {
+            "label_c": 6,
+            "label_l": 260,
+            "label_text": "SafeFloat",
+            "label_type": "identifier"
+          },
+          "2037": {
+            "label_c": 15,
+            "label_l": 260,
+            "label_type": "parameter_list"
+          },
+          "2038": {
+            "label_c": 15,
+            "label_l": 260,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "2039": {
+            "label_c": 16,
+            "label_field_name": "2040",
+            "label_field_type": "2041",
+            "label_input_type": "F063_TYPE_CONFUSION",
+            "label_l": 260,
+            "label_type": "parameter_declaration"
           },
           "204": {
             "label_c": 18,
@@ -42159,10 +43122,131 @@
             "label_text": ")",
             "label_type": ")"
           },
+          "2040": {
+            "label_c": 16,
+            "label_l": 260,
+            "label_text": "request",
+            "label_type": "identifier"
+          },
+          "2041": {
+            "label_c": 24,
+            "label_l": 260,
+            "label_type": "pointer_type"
+          },
+          "2042": {
+            "label_c": 24,
+            "label_l": 260,
+            "label_text": "*",
+            "label_type": "*"
+          },
+          "2043": {
+            "label_c": 25,
+            "label_field_name": "2046",
+            "label_field_package": "2044",
+            "label_l": 260,
+            "label_type": "qualified_type"
+          },
+          "2044": {
+            "label_c": 25,
+            "label_l": 260,
+            "label_text": "http",
+            "label_type": "package_identifier"
+          },
+          "2045": {
+            "label_c": 29,
+            "label_l": 260,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "2046": {
+            "label_c": 30,
+            "label_l": 260,
+            "label_text": "Request",
+            "label_type": "type_identifier"
+          },
+          "2047": {
+            "label_c": 37,
+            "label_l": 260,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "2048": {
+            "label_c": 39,
+            "label_l": 260,
+            "label_type": "block"
+          },
+          "2049": {
+            "label_c": 39,
+            "label_l": 260,
+            "label_text": "{",
+            "label_type": "{"
+          },
           "205": {
             "label_c": 20,
             "label_l": 31,
             "label_text": "DetectSQLMap",
+            "label_type": "field_identifier"
+          },
+          "2050": {
+            "label_c": 2,
+            "label_field_left": "2051",
+            "label_field_right": "2054",
+            "label_l": 261,
+            "label_type": "short_var_declaration"
+          },
+          "2051": {
+            "label_c": 2,
+            "label_l": 261,
+            "label_type": "expression_list"
+          },
+          "2052": {
+            "label_c": 2,
+            "label_l": 261,
+            "label_text": "amount",
+            "label_type": "identifier"
+          },
+          "2053": {
+            "label_c": 9,
+            "label_l": 261,
+            "label_text": ":=",
+            "label_type": ":="
+          },
+          "2054": {
+            "label_c": 12,
+            "label_l": 261,
+            "label_type": "expression_list"
+          },
+          "2055": {
+            "label_c": 12,
+            "label_field_arguments": "2060",
+            "label_field_function": "2056",
+            "label_input_type": "F014_FLOAT_CURRENCY",
+            "label_l": 261,
+            "label_type": "call_expression"
+          },
+          "2056": {
+            "label_c": 12,
+            "label_field_field": "2059",
+            "label_field_operand": "2057",
+            "label_l": 261,
+            "label_type": "selector_expression"
+          },
+          "2057": {
+            "label_c": 12,
+            "label_l": 261,
+            "label_text": "strconv",
+            "label_type": "identifier"
+          },
+          "2058": {
+            "label_c": 19,
+            "label_l": 261,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "2059": {
+            "label_c": 20,
+            "label_l": 261,
+            "label_text": "ParseFloat",
             "label_type": "field_identifier"
           },
           "206": {
@@ -42170,11 +43254,135 @@
             "label_l": 31,
             "label_type": "parameter_list"
           },
+          "2060": {
+            "label_c": 30,
+            "label_l": 261,
+            "label_type": "argument_list"
+          },
+          "2061": {
+            "label_c": 30,
+            "label_l": 261,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "2062": {
+            "label_c": 31,
+            "label_field_field": "2065",
+            "label_field_operand": "2063",
+            "label_l": 261,
+            "label_type": "selector_expression"
+          },
+          "2063": {
+            "label_c": 31,
+            "label_l": 261,
+            "label_text": "request",
+            "label_type": "identifier"
+          },
+          "2064": {
+            "label_c": 38,
+            "label_l": 261,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "2065": {
+            "label_c": 39,
+            "label_l": 261,
+            "label_text": "Amount",
+            "label_type": "field_identifier"
+          },
+          "2066": {
+            "label_c": 45,
+            "label_l": 261,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "2067": {
+            "label_c": 46,
+            "label_l": 261,
+            "label_text": "\n",
+            "label_type": "\n"
+          },
+          "2068": {
+            "label_c": 2,
+            "label_field_condition": "2070",
+            "label_field_consequence": "2092",
+            "label_l": 262,
+            "label_type": "if_statement"
+          },
+          "2069": {
+            "label_c": 2,
+            "label_l": 262,
+            "label_text": "if",
+            "label_type": "if"
+          },
           "207": {
             "label_c": 32,
             "label_l": 31,
             "label_text": "(",
             "label_type": "("
+          },
+          "2070": {
+            "label_c": 5,
+            "label_field_left": "2071",
+            "label_field_operator": "2080",
+            "label_field_right": "2081",
+            "label_l": 262,
+            "label_type": "binary_expression"
+          },
+          "2071": {
+            "label_c": 5,
+            "label_field_arguments": "2076",
+            "label_field_function": "2072",
+            "label_l": 262,
+            "label_type": "call_expression"
+          },
+          "2072": {
+            "label_c": 5,
+            "label_field_field": "2075",
+            "label_field_operand": "2073",
+            "label_l": 262,
+            "label_type": "selector_expression"
+          },
+          "2073": {
+            "label_c": 5,
+            "label_l": 262,
+            "label_text": "math",
+            "label_type": "identifier"
+          },
+          "2074": {
+            "label_c": 9,
+            "label_l": 262,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "2075": {
+            "label_c": 10,
+            "label_l": 262,
+            "label_text": "IsNaN",
+            "label_type": "field_identifier"
+          },
+          "2076": {
+            "label_c": 15,
+            "label_l": 262,
+            "label_type": "argument_list"
+          },
+          "2077": {
+            "label_c": 15,
+            "label_l": 262,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "2078": {
+            "label_c": 16,
+            "label_l": 262,
+            "label_text": "amount",
+            "label_type": "identifier"
+          },
+          "2079": {
+            "label_c": 22,
+            "label_l": 262,
+            "label_text": ")",
+            "label_type": ")"
           },
           "208": {
             "label_c": 33,
@@ -42183,11 +43391,129 @@
             "label_l": 31,
             "label_type": "parameter_declaration"
           },
+          "2080": {
+            "label_c": 24,
+            "label_l": 262,
+            "label_text": "||",
+            "label_type": "||"
+          },
+          "2081": {
+            "label_c": 27,
+            "label_field_arguments": "2086",
+            "label_field_function": "2082",
+            "label_l": 262,
+            "label_type": "call_expression"
+          },
+          "2082": {
+            "label_c": 27,
+            "label_field_field": "2085",
+            "label_field_operand": "2083",
+            "label_l": 262,
+            "label_type": "selector_expression"
+          },
+          "2083": {
+            "label_c": 27,
+            "label_l": 262,
+            "label_text": "math",
+            "label_type": "identifier"
+          },
+          "2084": {
+            "label_c": 31,
+            "label_l": 262,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "2085": {
+            "label_c": 32,
+            "label_l": 262,
+            "label_text": "IsInf",
+            "label_type": "field_identifier"
+          },
+          "2086": {
+            "label_c": 37,
+            "label_l": 262,
+            "label_type": "argument_list"
+          },
+          "2087": {
+            "label_c": 37,
+            "label_l": 262,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "2088": {
+            "label_c": 38,
+            "label_l": 262,
+            "label_text": "amount",
+            "label_type": "identifier"
+          },
+          "2089": {
+            "label_c": 44,
+            "label_l": 262,
+            "label_text": ",",
+            "label_type": ","
+          },
           "209": {
             "label_c": 33,
             "label_l": 31,
             "label_text": "h",
             "label_type": "identifier"
+          },
+          "2090": {
+            "label_c": 46,
+            "label_l": 262,
+            "label_text": "0",
+            "label_type": "int_literal"
+          },
+          "2091": {
+            "label_c": 47,
+            "label_l": 262,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "2092": {
+            "label_c": 49,
+            "label_l": 262,
+            "label_type": "block"
+          },
+          "2093": {
+            "label_c": 49,
+            "label_l": 262,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "2094": {
+            "label_c": 3,
+            "label_l": 263,
+            "label_type": "return_statement"
+          },
+          "2095": {
+            "label_c": 3,
+            "label_l": 263,
+            "label_text": "return",
+            "label_type": "return"
+          },
+          "2096": {
+            "label_c": 10,
+            "label_l": 263,
+            "label_type": "expression_list"
+          },
+          "2097": {
+            "label_c": 10,
+            "label_l": 263,
+            "label_text": "\"Not a valid value\"",
+            "label_type": "interpreted_string_literal"
+          },
+          "2098": {
+            "label_c": 29,
+            "label_l": 263,
+            "label_text": "\n",
+            "label_type": "\n"
+          },
+          "2099": {
+            "label_c": 2,
+            "label_l": 264,
+            "label_text": "}",
+            "label_type": "}"
           },
           "21": {
             "label_c": 12,
@@ -42202,11 +43528,103 @@
             "label_l": 31,
             "label_type": "qualified_type"
           },
+          "2100": {
+            "label_c": 3,
+            "label_l": 264,
+            "label_text": "\n",
+            "label_type": "\n"
+          },
+          "2101": {
+            "label_c": 2,
+            "label_field_arguments": "2106",
+            "label_field_function": "2102",
+            "label_l": 265,
+            "label_sink_type": "F063_TYPE_CONFUSION",
+            "label_type": "call_expression"
+          },
+          "2102": {
+            "label_c": 2,
+            "label_field_field": "2105",
+            "label_field_operand": "2103",
+            "label_l": 265,
+            "label_type": "selector_expression"
+          },
+          "2103": {
+            "label_c": 2,
+            "label_l": 265,
+            "label_text": "sql",
+            "label_type": "identifier"
+          },
+          "2104": {
+            "label_c": 5,
+            "label_l": 265,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "2105": {
+            "label_c": 6,
+            "label_l": 265,
+            "label_text": "QueryRow",
+            "label_type": "field_identifier"
+          },
+          "2106": {
+            "label_c": 14,
+            "label_l": 265,
+            "label_type": "argument_list"
+          },
+          "2107": {
+            "label_c": 14,
+            "label_l": 265,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "2108": {
+            "label_c": 15,
+            "label_l": 265,
+            "label_text": "`INSERT INTO tbl $1`",
+            "label_type": "raw_string_literal"
+          },
+          "2109": {
+            "label_c": 35,
+            "label_l": 265,
+            "label_text": ",",
+            "label_type": ","
+          },
           "211": {
             "label_c": 35,
             "label_l": 31,
             "label_text": "httprouter",
             "label_type": "package_identifier"
+          },
+          "2110": {
+            "label_c": 37,
+            "label_l": 265,
+            "label_text": "amount",
+            "label_type": "identifier"
+          },
+          "2111": {
+            "label_c": 43,
+            "label_l": 265,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "2112": {
+            "label_c": 44,
+            "label_l": 265,
+            "label_text": "\n",
+            "label_type": "\n"
+          },
+          "2113": {
+            "label_c": 1,
+            "label_l": 266,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "2114": {
+            "label_c": 2,
+            "label_l": 266,
+            "label_text": "\n",
+            "label_type": "\n"
           },
           "212": {
             "label_c": 45,
@@ -50250,6 +51668,335 @@
               "value": null
             },
             "method": "fmt.Println",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "1986": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1991",
+              "value": null
+            },
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "*http.Request"
+          }
+        ],
+        "2000": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2000",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "2002": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2015",
+              "value": null
+            },
+            "symbol": "request",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "Amount",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2014",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2007",
+              "value": null
+            },
+            "method": "strconv.ParseFloat",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2004",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "amount",
+            "var_type": ""
+          }
+        ],
+        "2020": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2027",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "INSERT INTO tbl $1",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2029",
+              "value": null
+            },
+            "symbol": "amount",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "2020",
+              "value": null
+            },
+            "method": "sql.QueryRow",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "2034": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2039",
+              "value": null
+            },
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "*http.Request"
+          }
+        ],
+        "2048": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2048",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "2050": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2063",
+              "value": null
+            },
+            "symbol": "request",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "Amount",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2062",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2055",
+              "value": null
+            },
+            "method": "strconv.ParseFloat",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2052",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "amount",
+            "var_type": ""
+          }
+        ],
+        "2068": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2088",
+              "value": null
+            },
+            "symbol": "amount",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2090",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "2081",
+              "value": null
+            },
+            "method": "math.IsInf",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2078",
+              "value": null
+            },
+            "symbol": "amount",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2071",
+              "value": null
+            },
+            "method": "math.IsNaN",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "2070",
+              "value": null
+            },
+            "operator": "||",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2068",
+              "value": null
+            },
+            "n_id_false": "2101",
+            "n_id_true": "2092",
+            "type": "SyntaxStepIf"
+          }
+        ],
+        "2092": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2092",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "2094": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2097",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Not a valid value",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2094",
+              "value": null
+            },
+            "type": "SyntaxStepReturn"
+          }
+        ],
+        "2101": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2108",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "INSERT INTO tbl $1",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2110",
+              "value": null
+            },
+            "symbol": "amount",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "2101",
+              "value": null
+            },
+            "method": "sql.QueryRow",
             "type": "SyntaxStepMethodInvocation"
           }
         ],

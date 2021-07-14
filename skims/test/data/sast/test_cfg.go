@@ -251,3 +251,16 @@ func ForLoops() {
 		fmt.Println("Continuous For")
 	}
 }
+
+func DangerousFloat(request *http.Request) {
+	amount := strconv.ParseFloat(request.Amount)
+	sql.QueryRow(`INSERT INTO tbl $1`, amount)
+}
+
+func SafeFloat(request *http.Request) {
+	amount := strconv.ParseFloat(request.Amount)
+	if math.IsNaN(amount) || math.IsInf(amount, 0) {
+		return "Not a valid value"
+	}
+	sql.QueryRow(`INSERT INTO tbl $1`, amount)
+}
