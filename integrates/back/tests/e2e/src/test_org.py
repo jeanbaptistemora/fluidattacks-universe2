@@ -13,14 +13,14 @@ import utils
 def test_org_analytics(
     driver: WebDriver,
     credentials: Credentials,
-    integrates_endpoint: str,
+    asm_endpoint: str,
     timeout: int,
 ) -> None:
     # Login
-    utils.login(driver, integrates_endpoint, credentials)
+    utils.login(driver, asm_endpoint, credentials)
 
     # Enter Analytics
-    driver.get(f"{integrates_endpoint}/orgs/okada/analytics")
+    driver.get(f"{asm_endpoint}/orgs/okada/analytics")
     assert utils.wait_for_text(
         driver,
         "Vulnerabilities over time",
@@ -31,15 +31,15 @@ def test_org_analytics(
 def test_org_groups(
     driver: WebDriver,
     credentials: Credentials,
-    integrates_endpoint: str,
+    asm_endpoint: str,
     timeout: int,
 ) -> None:
     # Login
-    utils.login(driver, integrates_endpoint, credentials)
+    utils.login(driver, asm_endpoint, credentials)
 
     # Add group
     group_description: str = "test-group-description"
-    driver.get(f"{integrates_endpoint}/orgs/okada/groups")
+    driver.get(f"{asm_endpoint}/orgs/okada/groups")
     add_group = utils.wait_for_id(
         driver,
         "add-group",
@@ -64,7 +64,7 @@ def test_org_groups(
 def test_org_portfolios(
     driver: WebDriver,
     credentials: Credentials,
-    integrates_endpoint: str,
+    asm_endpoint: str,
     timeout: int,
 ) -> None:
     expected_charts: List[str] = [
@@ -86,10 +86,10 @@ def test_org_portfolios(
         "Mean time to remediate (non treated vulnerabilities)",
     ]
     # Login
-    utils.login(driver, integrates_endpoint, credentials)
+    utils.login(driver, asm_endpoint, credentials)
 
     # Enter portfolio
-    driver.get(f"{integrates_endpoint}/orgs/okada/portfolios")
+    driver.get(f"{asm_endpoint}/orgs/okada/portfolios")
     test_groups = utils.wait_for_text(
         driver,
         "test-projects",

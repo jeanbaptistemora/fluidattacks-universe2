@@ -109,9 +109,9 @@ def rand_name(prefix: str) -> str:
 
 
 def login(
-    driver: WebDriver, integrates_endpoint: str, credentials: Credentials
+    driver: WebDriver, asm_endpoint: str, credentials: Credentials
 ) -> None:
-    driver.get(integrates_endpoint)
+    driver.get(asm_endpoint)
     signer = TimestampSigner(credentials.key)
 
     session_cookie = signer.sign(

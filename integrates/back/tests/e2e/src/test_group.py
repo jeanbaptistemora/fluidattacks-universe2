@@ -10,16 +10,14 @@ import utils
 def test_group_consulting(
     driver: WebDriver,
     credentials: Credentials,
-    integrates_endpoint: str,
+    asm_endpoint: str,
     timeout: int,
 ) -> None:
     # Login
-    utils.login(driver, integrates_endpoint, credentials)
+    utils.login(driver, asm_endpoint, credentials)
 
     # Enter group consulting
-    driver.get(
-        f"{integrates_endpoint}/orgs/okada/groups/unittesting/consulting"
-    )
+    driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/consulting")
     assert utils.wait_for_text(
         driver,
         "Now we can post comments on projects",
@@ -27,9 +25,7 @@ def test_group_consulting(
     )
 
     # Enter group consulting not access
-    driver.get(
-        f"{integrates_endpoint}/orgs/okada/groups/oneshottest/consulting"
-    )
+    driver.get(f"{asm_endpoint}/orgs/okada/groups/oneshottest/consulting")
     assert utils.wait_for_text(
         driver,
         "Access denied",
@@ -40,14 +36,14 @@ def test_group_consulting(
 def test_group_reports(
     driver: WebDriver,
     credentials: Credentials,
-    integrates_endpoint: str,
+    asm_endpoint: str,
     timeout: int,
 ) -> None:
     # Login
-    utils.login(driver, integrates_endpoint, credentials)
+    utils.login(driver, asm_endpoint, credentials)
 
     # Enter reports
-    driver.get(f"{integrates_endpoint}/orgs/okada/groups/unittesting/vulns")
+    driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/vulns")
     reports = utils.wait_for_id(
         driver,
         "reports",
@@ -64,14 +60,14 @@ def test_group_reports(
 def test_group_events(
     driver: WebDriver,
     credentials: Credentials,
-    integrates_endpoint: str,
+    asm_endpoint: str,
     timeout: int,
 ) -> None:
     # Login
-    utils.login(driver, integrates_endpoint, credentials)
+    utils.login(driver, asm_endpoint, credentials)
 
     # Enter event
-    driver.get(f"{integrates_endpoint}/orgs/okada/groups/unittesting/events")
+    driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/events")
     event = utils.wait_for_text(
         driver,
         "This is an eventuality with evidence",
@@ -88,16 +84,14 @@ def test_group_events(
 def test_group_analytics(
     driver: WebDriver,
     credentials: Credentials,
-    integrates_endpoint: str,
+    asm_endpoint: str,
     timeout: int,
 ) -> None:
     # Login
-    utils.login(driver, integrates_endpoint, credentials)
+    utils.login(driver, asm_endpoint, credentials)
 
     # Enter Analytics
-    driver.get(
-        f"{integrates_endpoint}/orgs/okada/groups/unittesting/analytics"
-    )
+    driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/analytics")
     assert utils.wait_for_text(
         driver,
         "Vulnerabilities over time",
@@ -108,16 +102,14 @@ def test_group_analytics(
 def test_group_forces(
     driver: WebDriver,
     credentials: Credentials,
-    integrates_endpoint: str,
+    asm_endpoint: str,
     timeout: int,
 ) -> None:
     # Login
-    utils.login(driver, integrates_endpoint, credentials)
+    utils.login(driver, asm_endpoint, credentials)
 
     # Enter execution summary
-    driver.get(
-        f"{integrates_endpoint}/orgs/okada/groups/unittesting/devsecops"
-    )
+    driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/devsecops")
     execution = utils.wait_for_text(
         driver,
         "08c1e735a73243f2ab1ee0757041f80e",
@@ -154,15 +146,15 @@ def test_group_forces(
 def test_group_scope_repositories(
     driver: WebDriver,
     credentials: Credentials,
-    integrates_endpoint: str,
+    asm_endpoint: str,
     timeout: int,
 ) -> None:
     # Login
-    utils.login(driver, integrates_endpoint, credentials)
+    utils.login(driver, asm_endpoint, credentials)
 
     # Add repo
     repo_url: str = utils.rand_name("https://gitlab.com/fluidattacks/test")
-    driver.get(f"{integrates_endpoint}/orgs/okada/groups/unittesting/scope")
+    driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/scope")
     add_repo = utils.wait_for_id(
         driver,
         "git-root-add",
@@ -199,15 +191,15 @@ def test_group_scope_repositories(
 def test_group_scope_environments(
     driver: WebDriver,
     credentials: Credentials,
-    integrates_endpoint: str,
+    asm_endpoint: str,
     timeout: int,
 ) -> None:
     # Login
-    utils.login(driver, integrates_endpoint, credentials)
+    utils.login(driver, asm_endpoint, credentials)
 
     # Show all columns
     driver.execute_script('localStorage.setItem("rootTableSet", "{}")')
-    driver.get(f"{integrates_endpoint}/orgs/okada/groups/unittesting/scope")
+    driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/scope")
 
     # Add environment
     table_row = utils.wait_for_text(
@@ -247,14 +239,14 @@ def test_group_scope_environments(
 def test_group_scope_files(
     driver: WebDriver,
     credentials: Credentials,
-    integrates_endpoint: str,
+    asm_endpoint: str,
     timeout: int,
 ) -> None:
     # Login
-    utils.login(driver, integrates_endpoint, credentials)
+    utils.login(driver, asm_endpoint, credentials)
 
     # Enter Scope
-    driver.get(f"{integrates_endpoint}/orgs/okada/groups/unittesting/scope")
+    driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/scope")
     assert utils.wait_for_text(
         driver,
         "test.zip",
@@ -265,15 +257,15 @@ def test_group_scope_files(
 def test_group_scope_portfolio(
     driver: WebDriver,
     credentials: Credentials,
-    integrates_endpoint: str,
+    asm_endpoint: str,
     timeout: int,
 ) -> None:
     # Login
-    utils.login(driver, integrates_endpoint, credentials)
+    utils.login(driver, asm_endpoint, credentials)
 
     # Add tag
     tag_name: str = utils.rand_name("test-portfolio")
-    driver.get(f"{integrates_endpoint}/orgs/okada/groups/unittesting/scope")
+    driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/scope")
     add_tag = utils.wait_for_id(
         driver,
         "portfolio-add",

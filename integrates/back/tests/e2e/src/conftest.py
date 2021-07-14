@@ -58,7 +58,7 @@ def credentials() -> Credentials:
 
 
 @pytest.fixture(autouse=True, scope="session")
-def integrates_endpoint(
+def asm_endpoint(
     branch: str,  # pylint: disable=redefined-outer-name
     is_ci: bool,  # pylint: disable=redefined-outer-name
 ) -> str:

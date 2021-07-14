@@ -10,14 +10,14 @@ import utils
 def test_finding_description(
     driver: WebDriver,
     credentials: Credentials,
-    integrates_endpoint: str,
+    asm_endpoint: str,
     timeout: int,
 ) -> None:
     # Login
-    utils.login(driver, integrates_endpoint, credentials)
+    utils.login(driver, asm_endpoint, credentials)
 
     # Enter finding
-    driver.get(f"{integrates_endpoint}/orgs/okada/groups/unittesting/vulns")
+    driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(
         driver,
         "F060. Insecure exceptions",
@@ -42,14 +42,14 @@ def test_finding_description(
 def test_finding_comments(
     driver: WebDriver,
     credentials: Credentials,
-    integrates_endpoint: str,
+    asm_endpoint: str,
     timeout: int,
 ) -> None:
     # Login
-    utils.login(driver, integrates_endpoint, credentials)
+    utils.login(driver, asm_endpoint, credentials)
 
     # Enter finding
-    driver.get(f"{integrates_endpoint}/orgs/okada/groups/unittesting/vulns")
+    driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(
         driver,
         "F060. Insecure exceptions",
@@ -71,14 +71,14 @@ def test_finding_comments(
     )
 
     # Enter finding consulting not access
-    driver.get(f"{integrates_endpoint}/orgs/okada/groups/oneshottest/vulns")
+    driver.get(f"{asm_endpoint}/orgs/okada/groups/oneshottest/vulns")
     assert utils.wait_for_text(
         driver,
         "F037. Fuga de información técnica",
         timeout,
     )
     driver.get(
-        f"{integrates_endpoint}/orgs/okada/groups/oneshottest/"
+        f"{asm_endpoint}/orgs/okada/groups/oneshottest/"
         "vulns/457497318/consulting"
     )
     assert utils.wait_for_text(
@@ -89,7 +89,7 @@ def test_finding_comments(
 
     # Enter finding observation
     driver.get(
-        f"{integrates_endpoint}/orgs/okada/groups/oneshottest/"
+        f"{asm_endpoint}/orgs/okada/groups/oneshottest/"
         "vulns/457497318/observations"
     )
     assert utils.wait_for_text(
@@ -102,14 +102,14 @@ def test_finding_comments(
 def test_finding_evidence(
     driver: WebDriver,
     credentials: Credentials,
-    integrates_endpoint: str,
+    asm_endpoint: str,
     timeout: int,
 ) -> None:
     # Login
-    utils.login(driver, integrates_endpoint, credentials)
+    utils.login(driver, asm_endpoint, credentials)
 
     # Enter finding
-    driver.get(f"{integrates_endpoint}/orgs/okada/groups/unittesting/vulns")
+    driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(
         driver,
         "F060. Insecure exceptions",
@@ -134,14 +134,14 @@ def test_finding_evidence(
 def test_finding_severity(
     driver: WebDriver,
     credentials: Credentials,
-    integrates_endpoint: str,
+    asm_endpoint: str,
     timeout: int,
 ) -> None:
     # Login
-    utils.login(driver, integrates_endpoint, credentials)
+    utils.login(driver, asm_endpoint, credentials)
 
     # Enter finding
-    driver.get(f"{integrates_endpoint}/orgs/okada/groups/unittesting/vulns")
+    driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(
         driver,
         "F060. Insecure exceptions",
@@ -166,14 +166,14 @@ def test_finding_severity(
 def test_finding_tracking(
     driver: WebDriver,
     credentials: Credentials,
-    integrates_endpoint: str,
+    asm_endpoint: str,
     timeout: int,
 ) -> None:
     # Login
-    utils.login(driver, integrates_endpoint, credentials)
+    utils.login(driver, asm_endpoint, credentials)
 
     # Enter finding
-    driver.get(f"{integrates_endpoint}/orgs/okada/groups/unittesting/vulns")
+    driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(
         driver,
         "F060. Insecure exceptions",
@@ -198,14 +198,14 @@ def test_finding_tracking(
 def test_finding_reattack(
     driver: WebDriver,
     credentials: Credentials,
-    integrates_endpoint: str,
+    asm_endpoint: str,
     timeout: int,
 ) -> None:
     # Login
-    utils.login(driver, integrates_endpoint, credentials)
+    utils.login(driver, asm_endpoint, credentials)
 
     # Enter finding
-    driver.get(f"{integrates_endpoint}/orgs/okada/groups/unittesting/vulns")
+    driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(
         driver,
         "F014. Funcionalidad insegura",
@@ -294,14 +294,14 @@ def test_finding_reattack(
 def test_finding_vulnerabilities(
     driver: WebDriver,
     credentials: Credentials,
-    integrates_endpoint: str,
+    asm_endpoint: str,
     timeout: int,
 ) -> None:
     # Login
-    utils.login(driver, integrates_endpoint, credentials)
+    utils.login(driver, asm_endpoint, credentials)
 
     # Enter finding
-    driver.get(f"{integrates_endpoint}/orgs/okada/groups/unittesting/vulns")
+    driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(
         driver,
         "F060. Insecure exceptions",

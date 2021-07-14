@@ -8,10 +8,10 @@ import utils
 
 
 def test_others_login_screen(
-    driver: WebDriver, integrates_endpoint: str, timeout: int
+    driver: WebDriver, asm_endpoint: str, timeout: int
 ) -> None:
     # Enter login screen
-    driver.get(integrates_endpoint)
+    driver.get(asm_endpoint)
     assert utils.wait_for_text(
         driver,
         "please authenticate to proceed.",
@@ -22,14 +22,14 @@ def test_others_login_screen(
 def test_others_dashboard(
     driver: WebDriver,
     credentials: Credentials,
-    integrates_endpoint: str,
+    asm_endpoint: str,
     timeout: int,
 ) -> None:
     # Login
-    utils.login(driver, integrates_endpoint, credentials)
+    utils.login(driver, asm_endpoint, credentials)
 
     # Enter dashboard
-    driver.get(f"{integrates_endpoint}/orgs/okada/analytics")
+    driver.get(f"{asm_endpoint}/orgs/okada/analytics")
     assert utils.wait_for_text(
         driver,
         "Vulnerabilities over time",
