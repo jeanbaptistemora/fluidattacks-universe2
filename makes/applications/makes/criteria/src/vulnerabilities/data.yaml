@@ -764,7 +764,7 @@
   metadata: {}
 016:
   en:
-    title: Insecure encryption algorithm - Transport Layer Security
+    title: Insecure encryption algorithm - SSL/TLS
     description: >
       The server allows
       the usage of old TLS protocol versions.
@@ -778,7 +778,7 @@
       Unauthorized attacker from adjacent network
       exploiting a vulnerability.
   es:
-    title: Algoritmo de cifrado inseguro - Transport Layer Security
+    title: Algoritmo de cifrado inseguro - SSL/TLS
     description: >
       El servidor permite
       utilizar versiones viejas del protocolo TLS.
@@ -789,7 +789,7 @@
       Actualizar el protocolo TLS a la versión
       TLSv1.2 o TLSv1.3 de ser posible.
     threat: >
-      Atacante sin autorización desde red adyacente
+      Atacante sin autorización desde red adjacente
       explotando vulnerabilidad.
   score:
     base:
@@ -4998,33 +4998,32 @@
   metadata: {}
 094:
   en:
-    title: Insecure encryption algorithm - SSL/TLS
-    description: > 
-      The server allows the usage
-      of insecure SSL/TLS protocol versions.
+    title: Insecure encryption algorithm - Cipher Block Chaining
+    description: >
+      The application uses algorithms
+      with insecure cipher block chaining.
     impact: >
-      Compromize sensitive information
-      that travels between client and server.
+      Exploit cipher process vulnerability
+      and collect sensible information.
     recommendation: >
-      Update SSL/TLS protocol
-      to version TLSv1.2 or TLSv1.3 if possible.
+      Use algorithms considered
+      cryptographically secure.
     threat: >
       Unauthorized attacker
       from adjacent network
-      exploiting a vulnerability.
+      exploiting vulnerability.
   es:
-    title: Algoritmo de cifrado inseguro - SSL/TLS
+    title: Algoritmo de cifrado inseguro - Cipher Block Chaining
     description: >
-      El servidor permite utilizar
-      versiones inseguras
-      del protocolo SSL/TLS.
+      La aplicación usa
+      algoritmos con CBC inseguros.
     impact: >
-      Comprometer la información sensible
-      que viaja entre cliente y servidor.
+      Aprovechar vulnerabilidad
+      en el proceso de cifrado
+      para recolectar información sensible.
     recommendation: >
-      Actualizar el protocolo SSL/TSL
-      a la versión TLSv1.2 o TLSv1.3
-      de ser posible.
+      Utilizar algoritmos considerados
+      criptográficamente seguros.
     threat: >
       Atacante sin autorización
       desde red adyacente
@@ -6604,13 +6603,13 @@
   metadata: {}
 127:
   en:
-    title: Insecure cipher algorithm - Secure Socket Layer v3
+    title: Lack of data validation - Type confusion
     description: __empty__
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Algoritmo de cifrado inseguro - Secure Socket Layer v3
+    title: Falta de validación de datos - Type confusion
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -6807,35 +6806,6 @@
   metadata: {}
 134:
   en:
-    title: Insecure Service Configuration - ADB Backups
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
-  es:
-    title: Configuración insegura del servicio - ADB Backups
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
-  score:
-    base:
-      attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
-    temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: []
-  metadata: {}
-135:
-  en:
     title: Insecure service configuration - CORS
     description: __empty__
     impact: __empty__
@@ -6843,93 +6813,6 @@
     threat: __empty__
   es:
     title: Configuración insegura del servicio - CORS
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
-  score:
-    base:
-      attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
-    temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: []
-  metadata: {}
-136:
-  en:
-    title: Lack of data validation - Type confusion
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
-  es:
-    title: Falta de validación de datos - Type confusion
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
-  score:
-    base:
-      attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
-    temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: []
-  metadata: {}
-137:
-  en:
-    title: Insecure encryption algorithm - Anonymous ciphers
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
-  es:
-    title: Algoritmo de cifrado inseguro - Cifrados anónimos
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
-  score:
-    base:
-      attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
-    temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: []
-  metadata: {}
-138:
-  en:
-    title: Insecure encryption algorithm - Cipher Block Chaining
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
-  es:
-    title: Algoritmo de cifrado inseguro - Cipher Block Chaining
     description: __empty__
     impact: __empty__
     recommendation: __empty__
