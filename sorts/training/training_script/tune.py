@@ -48,7 +48,7 @@ def get_model_features() -> Tuple[str, ...]:
         }
         return tuple(
             inv_features_dict[key.upper()]
-            for key in best_model.split(".joblib")[0].split("-")[2:]
+            for key in best_model.split("-")[2:]
             if len(key) == 2
         )
 
