@@ -75,11 +75,6 @@ def match_file(patterns: List[GitWildMatchPattern], file: str) -> bool:
 
 
 def delete_out_of_scope_files(group: str) -> bool:
-    # This entire function should be rewritten:
-    #   https://gitlab.com/fluidattacks/product/-/issues/2617#note_474753627
-    # I'm patching it for now (2020-12-28) so it survives a few days
-    # The business logic is going to change when we all get to an agreement
-
     expected_repositories: Set[str] = set()
     path_to_fusion: str = os.path.join("groups", group, "fusion")
 

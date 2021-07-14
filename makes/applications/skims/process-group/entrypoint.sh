@@ -41,14 +41,14 @@ function clone_group {
   export SERVICES_PROD_AWS_ACCESS_KEY_ID
   export SERVICES_PROD_AWS_SECRET_ACCESS_KEY
   local group="${1}"
-  local namespace
+  local namespace="${2}"
 
   echo '[INFO] Cloning repositories' \
     && CI='true' \
       CI_COMMIT_REF_NAME='master' \
       PROD_AWS_ACCESS_KEY_ID="${SERVICES_PROD_AWS_ACCESS_KEY_ID}" \
       PROD_AWS_SECRET_ACCESS_KEY="${SERVICES_PROD_AWS_SECRET_ACCESS_KEY}" \
-      melts drills --pull-repos "${group}" \
+      melts drills --pull-repos "${group}" --name "${namespace}" \
     && echo "[INFO] Repositories cloned:" \
     && for namespace in "groups/${group}/fusion/"*; do
       echo "        - ${namespace}"
@@ -140,7 +140,7 @@ function main {
       SERVICES_PROD_AWS_SECRET_ACCESS_KEY \
     && config="$(mktemp)" \
     && use_git_repo_services \
-    && clone_group "${group}" \
+    && clone_group "${group}" "${namespace}" \
     && if test -e "groups/${group}/fusion/${namespace}"; then
       aws_login_prod 'skims' \
         && skims_cache pull "${group}" "${check}" "${namespace}" \
