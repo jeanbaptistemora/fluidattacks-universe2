@@ -5308,15 +5308,39 @@
 100:
   en:
     title: Server-side request forgery (SSRF)
-    description: __empty__
+    description: >
+      It is possible
+      to induce the application’s server
+      into making requests
+      to an arbitrary domain.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      The system must avoid
+      that the information query
+      from the server be controlled
+      by users.
+      If this is necessary,
+      the system must restrict
+      the endpoints accepted for query.
     threat: __empty__
   es:
     title: Falsificación de solicitud del lado servidor (SSRF)
-    description: __empty__
+    description: >
+      El servidor recibe un URL
+      o un request similar
+      a través de entrada de datos
+      y consulta el contenido de este URL,
+      pero no garantiza que la petición
+      se realice al destino esperado.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      El sistema debe impedir
+      que la consulta de información
+      de parte del servidor sea controlada
+      por los usuarios.
+      Si esto es necesario,
+      el sistema debe restringir los endpoints
+      aceptados para consulta.
     threat: __empty__
   score:
     base:
@@ -5332,18 +5356,23 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["173", "324"]
   metadata: {}
 101:
   en:
     title: Lack of protection against deletion
-    description: __empty__
+    description: >
+      The system does not prevent critical objects
+      from being deleted accidentally.
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
     title: Ausencia de protección contra borrado
-    description: __empty__
+    description: >
+      El sistema no tiene protecciones
+      que impidan que recursos críticos
+      sean borrados accidentalmente.
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
@@ -5361,20 +5390,59 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["186", "266"]
   metadata: {}
 102:
   en:
     title: Email uniqueness not properly verified
-    description: __empty__
+    description: >
+      The system performs
+      a partial check on the uniqueness
+      of email addresses,
+      as it does not properly filter
+      the "+" character.
+      As a result, "user@exam.com",
+      "user+1@exam.com" and "user+100@exam.com"
+      are considered independent
+      despite the fact
+      that they all represent the "user@exam.com"
+      email account.
+      This lack of validation could cause
+      two independent accounts
+      to be linked
+      to the same email address.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      The system must validate
+      emails in such way
+      that an inbox only can be
+      associated or represent an account.
     threat: __empty__
   es:
     title: Unicidad de correos electrónicos no verificada adecuadamente
-    description: __empty__
+    description: >
+      Se está haciendo una verificación
+      parcial de unicidad de correos electrónicos,
+      ya que el caracter (signo más)
+      en la parte del usuario del correo
+      no se filtra adecuadamente.
+      Esto hace que usuario@ejemplo.com,
+      usuario(signo más)1@ejemplo.com
+      y usuario(signo más)2000@ejemplo.com
+      se tomen como diferentes personas/cuentas
+      cuando en realidad todas esas direcciones
+      llegan al mismo buzón
+      de correo usuario@ejemplo.com.
+      Esta falta de verificación
+      podría llevar a que existan
+      dos cuentas independientes
+      con la misma dirección de correo.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      El sistema debe validar los correos
+      de manera que un mismo buzón
+      solo pueda estar asociado
+      y/o representar una cuenta.
     threat: __empty__
   score:
     base:
@@ -5390,21 +5458,34 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["121"]
   metadata: {}
 103:
   en:
     title: Insufficient data authenticity validation - APK signing
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The APK is not digitally signed.
+    impact: >
+      Mischief users into installing an APK
+      that is not owned by the original author.
+    recommendation: >
+      Digitally sign the APK.
+    threat: >
+      Non-autenticated attacker
+      from the Internet.
   es:
     title: Verificación de autenticidad de datos insuficiente - Firmado del APK
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      El APK no está firmado digitalmente.
+    impact: >
+      Engañar a los usuarios
+      para que instalen un APK
+      que no es propiedad del autor original.
+    recommendation: >
+      Firmar digitalmente el APK.
+    threat: >
+      Atacante no autenticado
+      desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -5419,20 +5500,42 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["122", "173", "178", "320"]
   metadata: {}
 104:
   en:
     title: USB flash drive attacks
-    description: __empty__
+    description: >
+      It is possible
+      to connect USB flash drives
+      containing viruses
+      to a corporate machine.
+      This could allow an attacker
+      to infect it with malicious software.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      - Set physical access controls
+        to avoid the connection
+        of unauthorized peripheral devices.
+      - Install the proper security suite
+        on the workstations that mitigates
+        the risk of malicious code infection.
     threat: __empty__
   es:
     title: Ataques con unidad USB
-    description: __empty__
+    description: >
+      Es posible conectar dispositivos USB
+      al equipo que permiten infectarlo
+      con software malicioso.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      - Establecer controles de acceso físico
+        que impidan la conexión
+        de dispositivos periféricos no autorizados.
+      - Instalar una suite de seguridad
+        apropiada en las estaciones de trabajo
+        que mitigue el riesgo de infección
+        con software malicioso.
     threat: __empty__
   score:
     base:
@@ -5448,7 +5551,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["273"]
   metadata: {}
 105:
   en:
