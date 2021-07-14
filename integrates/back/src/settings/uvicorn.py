@@ -29,10 +29,6 @@ class IntegratesWorker(  # pylint: disable=too-few-public-methods
                 'OAuth realm="Access to FLUIDIntegrates" charset="UTF-8"',
             ],
             [
-                "X-XSS-Protection",
-                "1; mode=block",
-            ],
-            [
                 "X-Permitted-Cross-Domain-Policies",
                 "master-only",
             ],
@@ -50,15 +46,13 @@ class IntegratesWorker(  # pylint: disable=too-few-public-methods
                 "bam-cell.nr-data.net "
                 "bam.nr-data.net "
                 "cdn.jsdelivr.net/npm/ "
-                "cdn.headwayapp.co "
-                "*.amazonaws.com "
-                "*.cloudfront.net "
+                "d2yyd1h5u9mauk.cloudfront.net "
+                "cdnjs.cloudflare.com/ajax/libs/d3/ "
+                "js-agent.newrelic.com "
                 "*.front.development.fluidattacks.com "
                 "*.front.production.fluidattacks.com "
-                "*.cloudflare.com "
                 "*.cookiebot.com "
                 "*.zdassets.com "
-                "*.newrelic.com "
                 "*.mxpnl.com "
                 "*.pingdom.net "
                 "*.cloudflareinsights.com; "
