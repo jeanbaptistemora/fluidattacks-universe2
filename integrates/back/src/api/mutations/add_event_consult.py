@@ -4,6 +4,9 @@ from aioextensions import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from context import (
+    FI_MAIL_REVIEWERS,
+)
 from custom_types import (
     AddConsultPayload,
 )
@@ -19,6 +22,9 @@ from events import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from group_access import (
+    domain as group_access_domain,
+)
 from mailer import (
     events as events_mail,
 )
@@ -26,8 +32,14 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
+from newutils.utils import (
+    get_key_or_fallback,
+)
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
+)
+from subscriptions import (
+    domain as subs_domain,
 )
 from time import (
     time,
@@ -65,9 +77,26 @@ async def mutate(
     if success:
         redis_del_by_deps_soon("add_event_consult", event_id=event_id)
         if content.strip() not in {"#external", "#internal"}:
+            event_loader = info.context.loaders.event
+            event = await event_loader.load(event_id)
+            group_name = get_key_or_fallback(event)
+            users = await group_access_domain.get_users_to_notify(group_name)
+            users.extend(FI_MAIL_REVIEWERS.split(","))
+            subscribed = [
+                user
+                for user in users
+                if await subs_domain.is_user_subscribed_to_comments(
+                    user_email=user
+                )
+            ]
             schedule(
                 events_mail.send_mail_comment(
-                    info.context, comment_data, user_email, event_id
+                    info.context,
+                    comment_data,
+                    event_id,
+                    group_name,
+                    subscribed,
+                    user_email,
                 )
             )
 

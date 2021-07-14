@@ -1,6 +1,5 @@
 from .common import (
     COMMENTS_TAG,
-    get_comment_recipients,
     send_mails_async_new,
 )
 from context import (
@@ -10,21 +9,20 @@ from custom_types import (
     Comment as CommentType,
     MailContent as MailContentType,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from typing import (
     Any,
+    List,
 )
 
 
-async def send_mail_comment(  # pylint: disable=too-many-locals
-    context: Any, comment_data: CommentType, user_mail: str, event_id: str
+async def send_mail_comment(  # pylint: disable=too-many-locals,too-many-statements # noqa: MC0001
+    context: Any,
+    comment_data: CommentType,
+    event_id: str,
+    group_name: str,
+    recipients: List[str],
+    user_mail: str,
 ) -> None:
-    event_loader = context.loaders.event
-    event = await event_loader.load(event_id)
-    group_name = get_key_or_fallback(event)
-
     group_loader = context.loaders.group
     group = await group_loader.load(group_name)
     org_id = group["organization"]
@@ -46,7 +44,6 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
         "group": group_name,
         "user_email": user_mail,
     }
-    recipients = await get_comment_recipients(group_name, "comment")
     await send_mails_async_new(
         recipients,
         email_context,
