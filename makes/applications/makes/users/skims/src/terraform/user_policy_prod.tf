@@ -69,7 +69,7 @@ data "aws_iam_policy_document" "skims_prod_policy_data" {
     resources = ["*"]
   }
 
-  # CloudWathc
+  # CloudWatch
   statement {
     effect = "Allow"
     actions = [
