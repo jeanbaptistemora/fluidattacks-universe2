@@ -5048,13 +5048,38 @@
 095:
   en:
     title: AWS EBS Encryption
-    description: __empty__
+    description: >
+      When dealing with sensitive data
+      that is crucial to your business,
+      it is required by regulations
+      to implement encryption
+      in order to protect it
+      from attackers or unauthorized personnel.
+      Using EBS Encryption will enable Amazon
+      to encrypt your data at rest,
+      volume snapshots and disk I/O.
+      Data protected is encrypted
+      with 256-bit Advanced Encryption Standard
+      (AES-256).
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
     title: AWS cifrado EBS
-    description: __empty__
+    description: >
+      Al tratar con datos sensibles
+      que son críticos para el negocio,
+      las regulaciones requieren
+      para implementar el cifrado
+      para protegerlo de atacantes
+      ó personal no autorizado.
+      El uso de cifrado EBS
+      permitirá a Amazon cifrar tus datos
+      en reposo, copias de volúmenes
+      y disco E/S.
+      La información está cifrada
+      con 256-bit Advanced Encryption Standard
+      (AES-256).
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
@@ -5072,21 +5097,40 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["119", "266"]
   metadata: {}
 096:
   en:
     title: Insecure deserialization
-    description: __empty__
+    description: >
+      The system deserializes objects
+      without first validating their content
+      nor casting them to a specific type.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Validate the incoming serialized objects
+      and only deserialize them
+      if they meet expected properties.
+    threat: >
+      Send a constructed object
+      specially to exploit
+      an insecure deserialization
+      and execute code on the server.
   es:
     title: Deserialización insegura
-    description: __empty__
+    description: >
+      Se deserializan objetos
+      sin validar su contenido
+      ni forzar su tipo.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Validar los objetos serializados entrantes
+      y solo deserializarlos si cumplen
+      con las propiedades esperadas.
+    threat: >
+      Enviar un objeto construido especialmente
+      para explotar la deserializacion insegura
+      y lograr ejecucion de codigo en el servidor.
   score:
     base:
       attack_vector: "N"
@@ -5101,21 +5145,53 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["173", "321"]
   metadata: {}
 097:
   en:
     title: Reverse tabnabbing
-    description: __empty__
+    description: >
+      The system allows
+      the introduction of a link
+      to an external site controlled
+      by a malicious actor.
+      This site can then redirect the user
+      to a different site in the original tab,
+      making it look like
+      a legitimate redirect performed
+      by the system.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Set the attribute _rel_
+      with the _noopener_ value
+      in each external link.
+    threat: >
+      Redirect to the user
+      to an external site controlled
+      by a malicious actor
+      in the tab where original site was,
+      leading to a phishing attack.
   es:
     title: Tabnabbing inverso
-    description: __empty__
+    description: >
+      Es posible crear
+      un link a un sitio externo
+      controlado por un actor malicioso.
+      Este sitio redirige al usuario
+      a otro sitio en la pestaña original,
+      haciendo que parezca
+      una redirección legítima de la aplicación.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Establecer el atributo _rel_
+      con el valor _noopener_
+      en cada link externo.
+    threat: >
+      Redireccionar al usuario
+      a un sitio externo controlado
+      por un actor malicioso en la pestaña
+      donde tenía antes el sitio original,
+      dando paso a ataques tipo Phishing.
   score:
     base:
       attack_vector: "N"
@@ -5130,21 +5206,35 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["173", "324"]
   metadata: {}
 098:
   en:
     title: External control of file name or path
-    description: __empty__
+    description: >
+      It is possible to modify the path
+      to which an uploaded file will be saved.
     impact: __empty__
-    recommendation: __empty__
+    recommendation: >
+      Validate uploaded files names
+      on the system and restrict
+      the storage to destined folders only.
     threat: __empty__
   es:
     title: Control externo del nombre del archivo o ruta
-    description: __empty__
+    description: >
+      Se puede modificar la ruta
+      donde se almacenará un archivo cargado
+      en el sistema.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      Validar el nombre de los archivos cargados
+      en el sistema y restringir
+      el almacenamiento solo a las carpetas destinadas.
+    threat: >
+      Sobreescribir archivos importantes
+      dentro del sistema tomando como referencia
+      la ruta donde se realiza la carga.
   score:
     base:
       attack_vector: "N"
@@ -5159,18 +5249,43 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["037", "320"]
   metadata: {}
 099:
   en:
     title: AWS S3 Server Side Encryption
-    description: __empty__
+    description: >
+      When dealing with sensitive data
+      that is crucial to your business,
+      it is required by regulations
+      to implement encryption in order
+      to protect it
+      from attackers or unauthorized personnel.
+      Using S3 Server-Side Encryption (SSE)
+      will enable Amazon
+      to encrypt your data at rest.
+      Data protected by Server-Side Encryption
+      is encrypted with 256-bit
+      Advanced Encryption Standard (AES-256).
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
     title: AWS Cifrado del lado servidor S3
-    description: __empty__
+    description: >
+      Al tratar con datos sensibles
+      que son críticos para el negocio,
+      las regulaciones requieren
+      para implementar el cifrado
+      para protegerlo de atacantes
+      ó personal no autorizado.
+      El uso de S3 Server-Side Encryption (SSE)
+      permitirá a Amazon cifrar tus datos
+      en reposo.
+      La información protegida con
+      Server-Side Encryption está cifrada
+      con 256-bit Advanced Encryption Standard
+      (AES-256).
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
@@ -5188,7 +5303,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["119", "266"]
   metadata: {}
 100:
   en:
