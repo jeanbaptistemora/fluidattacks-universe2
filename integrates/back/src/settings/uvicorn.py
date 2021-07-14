@@ -11,10 +11,6 @@ class IntegratesWorker(  # pylint: disable=too-few-public-methods
     CONFIG_KWARGS = {
         "interface": "asgi3",
         "headers": [
-            [
-                "X-Frame-Options",
-                "SAMEORIGIN",
-            ],
             ["server", "None"],
             [
                 "Accept-Encoding",
