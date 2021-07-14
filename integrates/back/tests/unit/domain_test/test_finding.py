@@ -34,9 +34,6 @@ from freezegun import (
 from graphql.type import (
     GraphQLResolveInfo,
 )
-from mailer import (
-    common as mailer_utils,
-)
 from newutils import (
     datetime as datetime_utils,
 )
@@ -54,17 +51,6 @@ from vulnerabilities.domain import (
 pytestmark = [
     pytest.mark.asyncio,
 ]
-
-
-async def test_get_comment_recipients() -> None:
-    group_name = "unittesting"
-    comment_type = "comment"
-
-    test_data = await mailer_utils.get_comment_recipients(
-        group_name, comment_type
-    )
-    assert isinstance(test_data, list)
-    assert isinstance(test_data[0], str)
 
 
 async def test_get_tracking_vulnerabilities() -> None:

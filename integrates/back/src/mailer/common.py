@@ -2,18 +2,13 @@ from aioextensions import (
     collect,
     in_thread,
 )
-import authz
 from context import (
     FI_EMAIL_TEMPLATES,
-    FI_MAIL_REVIEWERS,
     FI_MANDRILL_API_KEY,
     FI_TEST_PROJECTS,
 )
 from custom_types import (
     MailContent as MailContentType,
-)
-from group_access import (
-    domain as group_access_domain,
 )
 from jinja2 import (
     Environment,
@@ -32,7 +27,6 @@ from settings import (
 from typing import (
     Any,
     List,
-    Union,
 )
 from users import (
     domain as users_domain,
@@ -55,32 +49,6 @@ VERIFY_TAG: List[str] = ["verify"]
 def get_content(template_name: str, context: MailContentType) -> str:
     template = TEMPLATES.get_template(f"{template_name}.html")
     return template.render(context)
-
-
-async def get_comment_recipients(
-    group: str, comment_type: Union[str, bool]
-) -> List[str]:
-    recipients: List[str] = []
-    group_users = await group_access_domain.get_users_to_notify(group)
-    approvers = FI_MAIL_REVIEWERS.split(",")
-    recipients.extend(approvers)
-
-    if comment_type == "observation":
-        analysts = [
-            email
-            for email in group_users
-            if await authz.get_group_level_role(email, group) == "analyst"
-        ]
-        recipients.extend(analysts)
-    else:
-        recipients.extend(group_users)
-
-    # Only Fluid Attacks staff
-    return [
-        recipient
-        for recipient in recipients
-        if "@fluidattacks.com" in recipient
-    ]
 
 
 async def get_recipient_first_name(email: str) -> str:

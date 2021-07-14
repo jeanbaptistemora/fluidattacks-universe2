@@ -78,20 +78,29 @@ async def autoenroll_user(email: str) -> None:
         )
 
     # Enroll new users to Daily Digest by default
-    await subscriptions_domain.subscribe_user_to_entity_report(
+    if await subscriptions_domain.subscribe_user_to_entity_report(
         event_frequency="DAILY",
         report_entity="DIGEST",
         report_subject="ALL_GROUPS",
         user_email=email,
-    )
+    ):
+        LOGGER.info(
+            "New user subscribed to Daily Digest", extra={"extra": email}
+        )
 
     # Enroll new Fluid users to Comments by default
-    if "@fluidattacks.com" in email:
-        await subscriptions_domain.subscribe_user_to_entity_report(
+    if (
+        "@fluidattacks.com" in email
+        and await subscriptions_domain.subscribe_user_to_entity_report(
             event_frequency="DAILY",
             report_entity="COMMENTS",
             report_subject="ALL_GROUPS",
             user_email=email,
+        )
+    ):
+        LOGGER.info(
+            "New user subscribed to comments in all groups",
+            extra={"extra": email},
         )
 
 

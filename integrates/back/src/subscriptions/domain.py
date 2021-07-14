@@ -277,7 +277,7 @@ async def send_digest_report(
         f"- groups for the user {user_email}: {str(groups)}", **NOEXTRA
     )
 
-    mail_contents: Union[Tuple[MailContent], Tuple] = tuple()
+    mail_contents: Union[Tuple[MailContent], Tuple]
     if digest_stats:
         mail_contents = tuple(
             [
@@ -457,6 +457,15 @@ async def subscribe_user_to_entity_report(
                 user_email=user_email,
                 digest_stats=tuple(),
                 loaders=loaders,
+            )
+            LOGGER_CONSOLE.info(
+                "User subscribed correctly",
+                extra={
+                    "frequency": event_frequency,
+                    "entity": report_entity,
+                    "subject": report_subject,
+                    "user": user_email,
+                },
             )
 
     return success
