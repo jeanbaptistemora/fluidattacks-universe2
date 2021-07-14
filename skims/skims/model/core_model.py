@@ -96,6 +96,7 @@ class FindingMetadata(NamedTuple):
         cwe: int,
         auto_approve: bool,
         execution_queue: ExecutionQueue,
+        migrated: bool = False,
         requirements: List[int],
         score: cvss3_model.Score,
     ) -> FindingMetadata:
@@ -109,7 +110,11 @@ class FindingMetadata(NamedTuple):
             requirements=requirements,
             score=score,
             threat=f"{code}.threat",
-            title=f"{code}.title",
+            title=(
+                f"criteria.vulns.{code[1:]}.title"
+                if migrated
+                else f"{code}.title"
+            ),
             type=FindingTypeEnum.SECURITY,
         )
 
