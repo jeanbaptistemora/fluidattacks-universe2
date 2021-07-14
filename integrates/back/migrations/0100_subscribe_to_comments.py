@@ -1,9 +1,10 @@
 # pylint: disable=invalid-name
 """
-Subscribe Fluid Attacks staff to "COMMENTS"
+Subscribe Fluid Attacks staff to "COMMENTS":
+    https://gitlab.com/fluidattacks/product/-/issues/4972
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-07-14 at 12:05:28 UTC-05
+Finalization Time: 2021-07-14 at 12:07:36 UTC-05
 """
 
 from aioextensions import (
@@ -24,7 +25,7 @@ from subscriptions import (
 )
 import time
 
-PROD: bool = False
+PROD: bool = True
 
 
 async def _get_subscriptions_to_comments() -> int:
