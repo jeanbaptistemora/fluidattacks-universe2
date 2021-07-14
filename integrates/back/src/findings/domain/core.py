@@ -483,6 +483,15 @@ async def get_max_open_severity(
     return max_severity, max_severity_finding
 
 
+async def get_open_vulnerabilities(loaders: Any, finding_id: str) -> int:
+    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr
+    vulns: List[VulnerabilityType] = await finding_vulns_loader.load(
+        finding_id
+    )
+    vulns = vulns_domain.filter_open_vulnerabilities(vulns)
+    return len(vulns)
+
+
 async def get_pending_closing_check(context: Any, group: str) -> int:
     """Check for pending closing checks."""
     pending_closing = len(
