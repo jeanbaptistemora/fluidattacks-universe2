@@ -131,6 +131,16 @@ BY_OBJ_NO_TYPE_ARGS_PROPAG: Dict[str, Set[str]] = {
             "org.owasp.esapi.ESAPI.encoder.encodeForHTML",
         }
     ),
+    core_model.FindingEnum.F063_TYPE_CONFUSION.name: complete_attrs_on_set(
+        {
+            "Exec",
+            "ExecContext",
+            "Query",
+            "QueryContext",
+            "QueryRow",
+            "QueryRowContext",
+        }
+    ),
 }
 BY_OBJ: Dict[str, Set[str]] = complete_attrs_on_dict(
     {
@@ -403,7 +413,8 @@ def evaluate(args: EvaluatorArgs) -> None:
 
 
 def evaluate_go(args: EvaluatorArgs) -> None:
-    attempt_go_parse_float(args)
+    # pylint: disable=expression-not-assigned
+    (attempt_go_parse_float(args) or attempt_the_old_way(args))
 
 
 def evaluate_many(args: EvaluatorArgs) -> None:
@@ -418,8 +429,13 @@ def evaluate_many(args: EvaluatorArgs) -> None:
 
 def attempt_go_parse_float(args: EvaluatorArgs) -> bool:
     if args.syntax_step.method == "strconv.ParseFloat":
-        arg0, *_ = args.dependencies
-        args.syntax_step.meta.value = GoParsedFloat(value=arg0.meta.value)
+        args.syntax_step.meta.value = GoParsedFloat()
+
+    if isinstance(args.syntax_step.meta.value, GoParsedFloat):
+        args.syntax_step.meta.danger = (
+            args.syntax_step.meta.value.is_inf
+            or args.syntax_step.meta.value.is_nan
+        )
         return True
 
     return False

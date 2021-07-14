@@ -72,7 +72,6 @@ Evaluator = Callable[[EvaluatorArgs], None]
 
 @dataclass
 class GoParsedFloat:
-    value: Optional[float]
     is_inf: bool = True
     is_nan: bool = True
 
