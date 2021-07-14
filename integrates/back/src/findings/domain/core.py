@@ -1,6 +1,9 @@
 # pylint: disable=too-many-lines
 
 import aioboto3
+from aiodataloader import (
+    DataLoader,
+)
 from aioextensions import (
     collect,
     in_process,
@@ -314,6 +317,15 @@ async def get_attributes(
     if not response:
         raise FindingNotFound()
     return response
+
+
+async def get_closed_vulnerabilities(loaders: Any, finding_id: str) -> int:
+    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr
+    vulns: List[VulnerabilityType] = await finding_vulns_loader.load(
+        finding_id
+    )
+    vulns = vulns_domain.filter_closed_vulnerabilities(vulns)
+    return len(vulns)
 
 
 async def get_finding(finding_id: str) -> Dict[str, FindingType]:
