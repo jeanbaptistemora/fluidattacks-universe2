@@ -147,19 +147,20 @@ async def _get_service_policies(group: str) -> List[ServicePolicy]:
         get_key_or_fallback(group_attributes, "group_status", "project_status")
         == "ACTIVE"
     )
+    service = historic_config[-1]["service"]
     type_: str = historic_config[-1]["type"]
 
     business_rules = (
         (has_asm, "asm"),
+        (service == "BLACK" and has_asm, "service_black"),
+        (service == "WHITE" and has_asm, "service_white"),
         (
             type_ == "continuous" and has_asm and has_squad and has_forces,
             "forces",
         ),
-        (type_ == "continuous" and has_asm and has_squad, "service_white"),
         (type_ == "continuous" and has_asm and has_squad, "squad"),
         (type_ == "continuous", "continuous"),
         (type_ == "oneshot" and has_asm and has_squad, "squad"),
-        (type_ == "oneshot" and has_asm, "service_black"),
     )
 
     return [
