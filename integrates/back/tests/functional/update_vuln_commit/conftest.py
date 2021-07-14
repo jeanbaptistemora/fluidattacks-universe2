@@ -42,7 +42,8 @@ async def populate(generic_data: Dict[str, Any]) -> None:
                     ],
                     "UUID": "77b88be2-37c8-429b-a519-029b1c32fdcd",
                     "vuln_type": "ports",
-                    "where": "192.168.1.20",
+                    # FP: local testing
+                    "where": "192.168.1.20",  # NOSONAR
                     "specific": "9999",
                 },
                 {

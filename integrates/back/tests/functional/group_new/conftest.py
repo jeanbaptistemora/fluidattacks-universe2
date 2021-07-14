@@ -392,7 +392,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     },
                 ],
                 "vuln_type": "ports",
-                "where": "192.168.1.20",
+                # FP: local testing
+                "where": "192.168.1.20",  # NOSONAR
                 "specific": "9999",
             },
             {
@@ -447,7 +448,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     },
                 ],
                 "vuln_type": "ports",
-                "where": "192.168.1.1",
+                # FP: local testing
+                "where": "192.168.1.1",  # NOSONAR
                 "specific": "2321",
             },
             {
@@ -474,7 +476,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     },
                 ],
                 "vuln_type": "ports",
-                "where": "192.168.1.1",
+                # FP: local testing
+                "where": "192.168.1.1",  # NOSONAR
                 "specific": "2321",
             },
         ],
