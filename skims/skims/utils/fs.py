@@ -138,6 +138,8 @@ def get_non_verifiable_paths(paths: Set[str]) -> Set[str]:
         if (
             file_extension
             in {
+                "aar",
+                "apk",
                 "bin",
                 "class",
                 "dll",
