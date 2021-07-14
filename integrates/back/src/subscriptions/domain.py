@@ -100,6 +100,8 @@ async def can_subscribe_user_to_entity_report(
         and report_subject.lower() == "all_groups"
     ):
         success = len(await groups_domain.get_groups_by_user(user_email)) > 0
+    elif report_entity.lower() == "comments":
+        success = True
     else:
         raise ValueError("Invalid report_entity or report_subject")
 
@@ -152,6 +154,18 @@ async def get_user_subscriptions_to_entity_report(
         )
         if subscription["sk"]["meta"] == "entity_report"
     ]
+
+
+async def is_user_subscribed_to_comments(
+    *,
+    user_email: str,
+) -> bool:
+    sub_to_comments = [
+        subscription
+        for subscription in await get_user_subscriptions(user_email=user_email)
+        if str(subscription["sk"]["entity"]).lower() == "comments"
+    ]
+    return len(sub_to_comments) > 0
 
 
 def is_subscription_active_right_now(
@@ -306,6 +320,8 @@ async def send_user_to_entity_report(
             digest_stats=digest_stats,
             loaders=loaders,
         )
+    elif report_entity.lower() == "comments":
+        LOGGER_CONSOLE.info("- no action for comments entity", **NOEXTRA)
     else:
         await send_analytics_report(
             event_frequency=event_frequency,

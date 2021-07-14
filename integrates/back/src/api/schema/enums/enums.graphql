@@ -239,6 +239,7 @@ enum StakeholderRole {
 }
 
 enum SubscriptionReportEntity {
+  COMMENTS
   DIGEST
   GROUP
   ORGANIZATION
