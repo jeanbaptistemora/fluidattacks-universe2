@@ -215,3 +215,6 @@ try {
     // statements to handle any exceptions
     logMyErrors(e); // pass exception object to error handler
 }
+
+// multiple assignments in the same statement
+var x, y, z = 1;
