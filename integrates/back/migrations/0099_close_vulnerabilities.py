@@ -1,5 +1,8 @@
 # pylint: disable=invalid-name
 # This migration aims to close related vulnerabilities
+#
+# Execution time: 2021-07-14 00:06:30-05:00
+# Finalization time: 2021-07-14 00:08:34-05:00
 
 from aioextensions import (
     collect,
@@ -51,7 +54,7 @@ from vulnerabilities.dal import (
 )
 
 # Constants
-PROD: bool = False
+PROD: bool = True
 
 
 # Types
