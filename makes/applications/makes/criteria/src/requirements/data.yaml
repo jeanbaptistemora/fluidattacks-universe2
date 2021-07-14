@@ -1,4 +1,4 @@
-023:
+"023":
   en:
     title: Terminate inactive user sessions
     summary: __empty__
@@ -9,7 +9,7 @@
     description: __empty__
   references: []
   metadata: {}
-024:
+"024":
   en:
     title: Transfer information using session objects
     summary: __empty__
@@ -20,7 +20,7 @@
     description: __empty__
   references: []
   metadata: {}
-025:
+"025":
   en:
     title: Manage concurrent sessions
     summary: __empty__
@@ -31,7 +31,7 @@
     description: __empty__
   references: []
   metadata: {}
-026:
+"026":
   en:
     title: Encrypt client-side session information
     summary: __empty__
@@ -42,7 +42,7 @@
     description: __empty__
   references: []
   metadata: {}
-027:
+"027":
   en:
     title: Allow session lockout
     summary: __empty__
@@ -53,7 +53,7 @@
     description: __empty__
   references: []
   metadata: {}
-028:
+"028":
   en:
     title: Allow users to log out
     summary: __empty__
@@ -64,7 +64,7 @@
     description: __empty__
   references: []
   metadata: {}
-029:
+"029":
   en:
     title: Cookies with security attributes
     summary: __empty__
@@ -75,7 +75,7 @@
     description: __empty__
   references: []
   metadata: {}
-030:
+"030":
   en:
     title: Avoid object reutilization
     summary: __empty__
@@ -86,7 +86,7 @@
     description: __empty__
   references: []
   metadata: {}
-031:
+"031":
   en:
     title: Discard user session data
     summary: __empty__
@@ -97,7 +97,7 @@
     description: __empty__
   references: []
   metadata: {}
-032:
+"032":
   en:
     title: Avoid session ID leakages
     summary: __empty__
@@ -108,7 +108,7 @@
     description: __empty__
   references: []
   metadata: {}
-033:
+"033":
   en:
     title: Restrict administrative access
     summary: __empty__
@@ -119,7 +119,7 @@
     description: __empty__
   references: []
   metadata: {}
-034:
+"034":
   en:
     title: Manage user accounts
     summary: __empty__
@@ -130,7 +130,7 @@
     description: __empty__
   references: []
   metadata: {}
-035:
+"035":
   en:
     title: Manage privilege modifications
     summary: __empty__
@@ -141,7 +141,7 @@
     description: __empty__
   references: []
   metadata: {}
-036:
+"036":
   en:
     title: Do not deploy temporary files
     summary: __empty__
@@ -152,7 +152,7 @@
     description: __empty__
   references: []
   metadata: {}
-037:
+"037":
   en:
     title: Parameters without sensitive data
     summary: __empty__
@@ -163,7 +163,7 @@
     description: __empty__
   references: []
   metadata: {}
-039:
+"039":
   en:
     title: Define maximum file size
     summary: __empty__
@@ -174,7 +174,7 @@
     description: __empty__
   references: []
   metadata: {}
-040:
+"040":
   en:
     title: Compare file format and extension
     summary: __empty__
@@ -185,7 +185,7 @@
     description: __empty__
   references: []
   metadata: {}
-041:
+"041":
   en:
     title: Scan files for malicious code
     summary: __empty__
@@ -196,7 +196,7 @@
     description: __empty__
   references: []
   metadata: {}
-042:
+"042":
   en:
     title: Validate file format
     summary: __empty__
@@ -207,7 +207,7 @@
     description: __empty__
   references: []
   metadata: {}
-043:
+"043":
   en:
     title: Define an explicit content type
     summary: __empty__
@@ -218,7 +218,7 @@
     description: __empty__
   references: []
   metadata: {}
-044:
+"044":
   en:
     title: Define an explicit charset
     summary: __empty__
@@ -229,7 +229,7 @@
     description: __empty__
   references: []
   metadata: {}
-045:
+"045":
   en:
     title: Remove metadata when sharing files
     summary: __empty__
@@ -240,7 +240,7 @@
     description: __empty__
   references: []
   metadata: {}
-046:
+"046":
   en:
     title: Manage the integrity of critical files
     summary: __empty__
@@ -251,7 +251,7 @@
     description: __empty__
   references: []
   metadata: {}
-048:
+"048":
   en:
     title: Components with minimal dependencies
     summary: __empty__
@@ -262,7 +262,7 @@
     description: __empty__
   references: []
   metadata: {}
-050:
+"050":
   en:
     title: Control calls to interpreted code
     summary: __empty__
@@ -273,7 +273,7 @@
     description: __empty__
   references: []
   metadata: {}
-051:
+"051":
   en:
     title: Store source code in a repository
     summary: __empty__
@@ -284,7 +284,7 @@
     description: __empty__
   references: []
   metadata: {}
-062:
+"062":
   en:
     title: Define standard configurations
     summary: __empty__
@@ -295,7 +295,7 @@
     description: __empty__
   references: []
   metadata: {}
-072:
+"072":
   en:
     title: Set maximum response time
     summary: __empty__
@@ -306,7 +306,7 @@
     description: __empty__
   references: []
   metadata: {}
-075:
+"075":
   en:
     title: Record exceptional events in logs
     summary: __empty__
@@ -317,7 +317,7 @@
     description: __empty__
   references: []
   metadata: {}
-077:
+"077":
   en:
     title: Avoid disclosing technical information
     summary: __empty__
@@ -328,7 +328,7 @@
     description: __empty__
   references: []
   metadata: {}
-078:
+"078":
   en:
     title: Disable debugging events
     summary: __empty__
@@ -339,7 +339,7 @@
     description: __empty__
   references: []
   metadata: {}
-079:
+"079":
   en:
     title: Record exact occurrence time of events
     summary: __empty__
@@ -350,7 +350,7 @@
     description: __empty__
   references: []
   metadata: {}
-080:
+"080":
   en:
     title: Prevent log modification
     summary: __empty__
@@ -361,7 +361,7 @@
     description: __empty__
   references: []
   metadata: {}
-083:
+"083":
   en:
     title: Avoid logging sensitive data
     summary: __empty__
@@ -372,7 +372,7 @@
     description: __empty__
   references: []
   metadata: {}
-084:
+"084":
   en:
     title: Allow transaction history queries
     summary: __empty__
@@ -383,7 +383,7 @@
     description: __empty__
   references: []
   metadata: {}
-085:
+"085":
   en:
     title: Allow session history queries
     summary: __empty__
@@ -394,7 +394,7 @@
     description: __empty__
   references: []
   metadata: {}
-088:
+"088":
   en:
     title: Request client certificates
     summary: __empty__
@@ -405,7 +405,7 @@
     description: __empty__
   references: []
   metadata: {}
-089:
+"089":
   en:
     title: Limit validity of certificates
     summary: __empty__
@@ -416,7 +416,7 @@
     description: __empty__
   references: []
   metadata: {}
-090:
+"090":
   en:
     title: Use valid certificates
     summary: __empty__
@@ -427,7 +427,7 @@
     description: __empty__
   references: []
   metadata: {}
-091:
+"091":
   en:
     title: Use internally signed certificates
     summary: __empty__
@@ -438,7 +438,7 @@
     description: __empty__
   references: []
   metadata: {}
-092:
+"092":
   en:
     title: Use externally signed certificates
     summary: __empty__
@@ -449,7 +449,7 @@
     description: __empty__
   references: []
   metadata: {}
-093:
+"093":
   en:
     title: Use consistent certificates
     summary: __empty__
@@ -460,7 +460,7 @@
     description: __empty__
   references: []
   metadata: {}
-095:
+"095":
   en:
     title: Define users with privileges
     summary: __empty__
@@ -471,7 +471,7 @@
     description: __empty__
   references: []
   metadata: {}
-096:
+"096":
   en:
     title: Set users' required privileges
     summary: __empty__
@@ -482,7 +482,7 @@
     description: __empty__
   references: []
   metadata: {}
-114:
+"114":
   en:
     title: Deny access with inactive credentials
     summary: __empty__
@@ -493,7 +493,7 @@
     description: __empty__
   references: []
   metadata: {}
-115:
+"115":
   en:
     title: Filter malicious emails
     summary: __empty__
@@ -504,7 +504,7 @@
     description: __empty__
   references: []
   metadata: {}
-116:
+"116":
   en:
     title: Disable images of unknown origin
     summary: __empty__
@@ -515,7 +515,7 @@
     description: __empty__
   references: []
   metadata: {}
-117:
+"117":
   en:
     title: Do not interpret HTML code
     summary: __empty__
@@ -526,7 +526,7 @@
     description: __empty__
   references: []
   metadata: {}
-118:
+"118":
   en:
     title: Inspect attachments
     summary: __empty__
@@ -537,7 +537,7 @@
     description: __empty__
   references: []
   metadata: {}
-119:
+"119":
   en:
     title: Hide recipients
     summary: __empty_
@@ -548,7 +548,7 @@
     description: __empty__
   references: []
   metadata: {}
-121:
+"121":
   en:
     title: Guarantee uniqueness of emails
     summary: __empty_
@@ -559,7 +559,7 @@
     description: __empty__
   references: []
   metadata: {}
-122:
+"122":
   en:
     title: Validate credential ownership
     summary: __empty_
@@ -570,7 +570,7 @@
     description: __empty__
   references: []
   metadata: {}
-123:
+"123":
   en:
     title: Restrict the reading of emails
     summary: __empty_
@@ -581,7 +581,7 @@
     description: __empty__
   references: []
   metadata: {}
-126:
+"126":
   en:
     title: Set a password regeneration mechanism
     summary: __empty_
@@ -592,7 +592,7 @@
     description: __empty__
   references: []
   metadata: {}
-127:
+"127":
   en:
     title: Store hashed passwords
     summary: __empty_
@@ -603,7 +603,7 @@
     description: __empty__
   references: []
   metadata: {}
-128:
+"128":
   en:
     title: Define unique data source
     summary: __empty_
@@ -614,7 +614,7 @@
     description: __empty__
   references: []
   metadata: {}
-129:
+"129":
   en:
     title: Validate previous passwords
     summary: __empty_
@@ -625,7 +625,7 @@
     description: __empty__
   references: []
   metadata: {}
-130:
+"130":
   en:
     title: Limit password lifespan
     summary: __empty_
@@ -636,7 +636,7 @@
     description: __empty__
   references: []
   metadata: {}
-131:
+"131":
   en:
     title: Deny multiple password changing attempts
     summary: __empty_
@@ -647,7 +647,7 @@
     description: __empty__
   references: []
   metadata: {}
-132:
+"132":
   en:
     title: Passphrases with at least 4 words
     summary: __empty_
@@ -658,7 +658,7 @@
     description: __empty__
   references: []
   metadata: {}
-133:
+"133":
   en:
     title: Passwords with at least 20 characters
     summary: __empty_
@@ -669,7 +669,7 @@
     description: __empty__
   references: []
   metadata: {}
-134:
+"134":
   en:
     title: Store passwords with salt
     summary: __empty_
@@ -680,7 +680,7 @@
     description: __empty__
   references: []
   metadata: {}
-135:
+"135":
   en:
     title: Passwords with random salt
     summary: __empty_
@@ -691,7 +691,7 @@
     description: __empty__
   references: []
   metadata: {}
-136:
+"136":
   en:
     title: Force temporary password change
     summary: __empty_
@@ -702,7 +702,7 @@
     description: __empty__
   references: []
   metadata: {}
-137:
+"137":
   en:
     title: Change temporary passwords of third parties
     summary: __empty_
@@ -713,7 +713,7 @@
     description: __empty__
   references: []
   metadata: {}
-138:
+"138":
   en:
     title: Define lifespan for temporary passwords
     summary: __empty_
@@ -724,7 +724,7 @@
     description: __empty__
   references: []
   metadata: {}
-139:
+"139":
   en:
     title: Set minimum OTP length
     summary: __empty_
@@ -735,7 +735,7 @@
     description: __empty__
   references: []
   metadata: {}
-140:
+"140":
   en:
     title: Define OTP lifespan
     summary: __empty_
@@ -746,7 +746,7 @@
     description: __empty__
   references: []
   metadata: {}
-141:
+"141":
   en:
     title: Force re-authentication
     summary: __empty_
@@ -757,7 +757,7 @@
     description: __empty__
   references: []
   metadata: {}
-142:
+"142":
   en:
     title: Change system default credentials
     summary: __empty_
@@ -768,7 +768,7 @@
     description: __empty__
   references: []
   metadata: {}
-143:
+"143":
   en:
     title: Unique access credentials
     summary: __empty_
@@ -779,7 +779,7 @@
     description: __empty__
   references: []
   metadata: {}
-144:
+"144":
   en:
     title: Remove inactive accounts periodically
     summary: __empty_
@@ -790,7 +790,7 @@
     description: __empty__
   references: []
   metadata: {}
-145:
+"145":
   en:
     title: Protect system cryptographic keys
     summary: __empty_
@@ -801,7 +801,7 @@
     description: __empty__
   references: []
   metadata: {}
-146:
+"146":
   en:
     title: Remove cryptographic keys from RAM
     summary: __empty_
@@ -812,7 +812,7 @@
     description: __empty__
   references: []
   metadata: {}
-147:
+"147":
   en:
     title: Use pre-existent mechanisms
     summary: __empty_
@@ -823,7 +823,7 @@
     description: __empty__
   references: []
   metadata: {}
-148:
+"148":
   en:
     title: Set minimum size of asymmetric encryption
     summary: __empty_
@@ -834,7 +834,7 @@
     description: __empty__
   references: []
   metadata: {}
-149:
+"149":
   en:
     title: Set minimum size of symmetric encryption
     summary: __empty_
@@ -845,7 +845,7 @@
     description: __empty__
   references: []
   metadata: {}
-150:
+"150":
   en:
     title: Set minimum size for hash functions
     summary: __empty_
@@ -856,7 +856,7 @@
     description: __empty__
   references: []
   metadata: {}
-151:
+"151":
   en:
     title: Separate keys for encryption and signatures
     summary: __empty_
@@ -867,7 +867,7 @@
     description: __empty__
   references: []
   metadata: {}
-152:
+"152":
   en:
     title: Reuse database connections
     summary: __empty_
@@ -878,7 +878,7 @@
     description: __empty__
   references: []
   metadata: {}
-153:
+"153":
   en:
     title: Out of band transactions
     summary: __empty_
@@ -889,7 +889,7 @@
     description: __empty__
   references: []
   metadata: {}
-154:
+"154":
   en:
     title: Eliminate backdoors
     summary: __empty_
@@ -900,7 +900,7 @@
     description: __empty__
   references: []
   metadata: {}
-155:
+"155":
   en:
     title: Application free of malicious code
     summary: __empty_
@@ -911,7 +911,7 @@
     description: __empty__
   references: []
   metadata: {}
-156:
+"156":
   en:
     title: Source code without sensitive information
     summary: __empty_
@@ -922,7 +922,7 @@
     description: __empty__
   references: []
   metadata: {}
-157:
+"157":
   en:
     title: Use the strict mode
     summary: __empty_
@@ -933,7 +933,7 @@
     description: __empty__
   references: []
   metadata: {}
-158:
+"158":
   en:
     title: Use a secure programming language
     summary: __empty_
@@ -944,7 +944,7 @@
     description: __empty__
   references: []
   metadata: {}
-159:
+"159":
   en:
     title: Obfuscate code
     summary: __empty_
@@ -955,7 +955,7 @@
     description: __empty__
   references: []
   metadata: {}
-160:
+"160":
   en:
     title: Encode system outputs
     summary: __empty_
@@ -966,7 +966,7 @@
     description: __empty__
   references: []
   metadata: {}
-161:
+"161":
   en:
     title: Define secure default options
     summary: __empty_
@@ -977,7 +977,7 @@
     description: __empty__
   references: []
   metadata: {}
-162:
+"162":
   en:
     title: Avoid duplicate code
     summary: __empty_
@@ -988,7 +988,7 @@
     description: __empty__
   references: []
   metadata: {}
-164:
+"164":
   en:
     title: Use optimized structures
     summary: __empty_
@@ -999,7 +999,7 @@
     description: __empty__
   references: []
   metadata: {}
-167:
+"167":
   en:
     title: Close unused resources
     summary: __empty_
@@ -1010,7 +1010,7 @@
     description: __empty__
   references: []
   metadata: {}
-168:
+"168":
   en:
     title: Initialize variables explicitly
     summary: __empty_
@@ -1021,7 +1021,7 @@
     description: __empty__
   references: []
   metadata: {}
-169:
+"169":
   en:
     title: Use parameterized queries
     summary: __empty_
@@ -1032,7 +1032,7 @@
     description: __empty__
   references: []
   metadata: {}
-171:
+"171":
   en:
     title: Remove commented-out code
     summary: __empty_
@@ -1043,7 +1043,7 @@
     description: __empty__
   references: []
   metadata: {}
-172:
+"172":
   en:
     title: Encrypt connection strings
     summary: __empty_
@@ -1054,7 +1054,7 @@
     description: __empty__
   references: []
   metadata: {}
-173:
+"173":
   en:
     title: Discard unsafe inputs
     summary: __empty_
@@ -1065,7 +1065,7 @@
     description: __empty__
   references: []
   metadata: {}
-174:
+"174":
   en:
     title: Transactions without a distinguishable pattern
     summary: __empty_
@@ -1076,7 +1076,7 @@
     description: __empty__
   references: []
   metadata: {}
-175:
+"175":
   en:
     title: Protect pages from clickjacking
     summary: __empty_
@@ -1087,7 +1087,7 @@
     description: __empty__
   references: []
   metadata: {}
-176:
+"176":
   en:
     title: Restrict system objects
     summary: __empty_
@@ -1098,7 +1098,7 @@
     description: __empty__
   references: []
   metadata: {}
-177:
+"177":
   en:
     title: Avoid caching and temporary files
     summary: __empty_
@@ -1109,7 +1109,7 @@
     description: __empty__
   references: []
   metadata: {}
-178:
+"178":
   en:
     title: Use digital signatures
     summary: __empty_
@@ -1120,7 +1120,7 @@
     description: __empty__
   references: []
   metadata: {}
-180:
+"180":
   en:
     title: Use mock data
     summary: __empty_
@@ -1131,7 +1131,7 @@
     description: __empty__
   references: []
   metadata: {}
-181:
+"181":
   en:
     title: Transmit data using secure protocols
     summary: __empty_
@@ -1142,7 +1142,7 @@
     description: __empty__
   references: []
   metadata: {}
-183:
+"183":
   en:
     title: Delete sensitive data securely
     summary: __empty_
@@ -1153,7 +1153,7 @@
     description: __empty__
   references: []
   metadata: {}
-184:
+"184":
   en:
     title: Obfuscate application data
     summary: __empty_
@@ -1164,7 +1164,7 @@
     description: __empty__
   references: []
   metadata: {}
-185:
+"185":
   en:
     title: Encrypt sensitive information
     summary: __empty_
@@ -1175,7 +1175,7 @@
     description: __empty__
   references: []
   metadata: {}
-186:
+"186":
   en:
     title: Use the principle of least privilege
     summary: __empty_
@@ -1186,7 +1186,7 @@
     description: __empty__
   references: []
   metadata: {}
-189:
+"189":
   en:
     title: Specify the purpose of data collection
     summary: __empty_
@@ -1197,7 +1197,7 @@
     description: __empty__
   references: []
   metadata: {}
-205:
+"205":
   en:
     title: Configure PIN
     summary: __empty_
@@ -1208,7 +1208,7 @@
     description: __empty__
   references: []
   metadata: {}
-206:
+"206":
   en:
     title: Configure communication protocols
     summary: __empty_
@@ -1219,7 +1219,7 @@
     description: __empty__
   references: []
   metadata: {}
-209:
+"209":
   en:
     title: Manage passwords in cache
     summary: __empty_
@@ -1230,7 +1230,7 @@
     description: __empty__
   references: []
   metadata: {}
-210:
+"210":
   en:
     title: Delete information from mobile devices
     summary: __empty_
@@ -1241,7 +1241,7 @@
     description: __empty__
   references: []
   metadata: {}
-213:
+"213":
   en:
     title: Allow geographic location
     summary: __empty_
@@ -1252,7 +1252,7 @@
     description: __empty__
   references: []
   metadata: {}
-214:
+"214":
   en:
     title: Allow data destruction
     summary: __empty_
@@ -1263,7 +1263,7 @@
     description: __empty__
   references: []
   metadata: {}
-221:
+"221":
   en:
     title: Disconnect unnecessary input devices
     summary: __empty_
@@ -1274,7 +1274,7 @@
     description: __empty__
   references: []
   metadata: {}
-222:
+"222":
   en:
     title: Deny access to the host machine
     summary: __empty_
@@ -1285,7 +1285,7 @@
     description: __empty__
   references: []
   metadata: {}
-223:
+"223":
   en:
     title: Uniform distribution in random numbers
     summary: __empty_
@@ -1296,7 +1296,7 @@
     description: __empty__
   references: []
   metadata: {}
-224:
+"224":
   en:
     title: Use secure cryptographic mechanisms
     summary: __empty_
@@ -1307,7 +1307,7 @@
     description: __empty__
   references: []
   metadata: {}
-225:
+"225":
   en:
     title: Proper authentication responses
     summary: __empty_
@@ -1318,7 +1318,7 @@
     description: __empty__
   references: []
   metadata: {}
-226:
+"226":
   en:
     title: Avoid account lockouts
     summary: __empty_
@@ -1329,7 +1329,7 @@
     description: __empty__
   references: []
   metadata: {}
-227:
+"227":
   en:
     title: Display access notification
     summary: __empty_
@@ -1340,7 +1340,7 @@
     description: __empty__
   references: []
   metadata: {}
-228:
+"228":
   en:
     title: Authenticate using standard protocols
     summary: __empty_
@@ -1351,7 +1351,7 @@
     description: __empty__
   references: []
   metadata: {}
-229:
+"229":
   en:
     title: Request access credentials
     summary: __empty_
@@ -1362,7 +1362,7 @@
     description: __empty__
   references: []
   metadata: {}
-231:
+"231":
   en:
     title: Implement a biometric verification component
     summary: __empty_
@@ -1373,7 +1373,7 @@
     description: __empty__
   references: []
   metadata: {}
-232:
+"232":
   en:
     title: Require equipment identity
     summary: __empty_
@@ -1384,7 +1384,7 @@
     description: __empty__
   references: []
   metadata: {}
-235:
+"235":
   en:
     title: Define credential interface
     summary: __empty_
@@ -1395,7 +1395,7 @@
     description: __empty__
   references: []
   metadata: {}
-236:
+"236":
   en:
     title: Establish authentication time
     summary: __empty_
@@ -1406,7 +1406,7 @@
     description: __empty__
   references: []
   metadata: {}
-237:
+"237":
   en:
     title: Ascertain human interaction
     summary: __empty_
@@ -1417,7 +1417,7 @@
     description: __empty__
   references: []
   metadata: {}
-238:
+"238":
   en:
     title: Establish safe recovery
     summary: __empty_
@@ -1428,7 +1428,7 @@
     description: __empty__
   references: []
   metadata: {}
-247:
+"247":
   en:
     title: Hide SSID on private networks
     summary: __empty_
@@ -1439,7 +1439,7 @@
     description: __empty__
   references: []
   metadata: {}
-248:
+"248":
   en:
     title: SSID without dictionary words
     summary: __empty_
@@ -1450,7 +1450,7 @@
     description: __empty__
   references: []
   metadata: {}
-249:
+"249":
   en:
     title: Locate access points
     summary: __empty_
@@ -1461,7 +1461,7 @@
     description: __empty__
   references: []
   metadata: {}
-250:
+"250":
   en:
     title: Manage access points
     summary: __empty_
@@ -1472,7 +1472,7 @@
     description: __empty__
   references: []
   metadata: {}
-251:
+"251":
   en:
     title: Change access point IP
     summary: __empty_
@@ -1483,7 +1483,7 @@
     description: __empty__
   references: []
   metadata: {}
-252:
+"252":
   en:
     title: Configure key encryption
     summary: __empty_
@@ -1494,7 +1494,7 @@
     description: __empty__
   references: []
   metadata: {}
-253:
+"253":
   en:
     title: Restrict network access
     summary: __empty_
@@ -1505,7 +1505,7 @@
     description: __empty__
   references: []
   metadata: {}
-254:
+"254":
   en:
     title: Change SSID name
     summary: __empty_
@@ -1516,7 +1516,7 @@
     description: __empty__
   references: []
   metadata: {}
-255:
+"255":
   en:
     title: Allow access only to the necessary ports
     summary: __empty_
@@ -1527,7 +1527,7 @@
     description: __empty__
   references: []
   metadata: {}
-257:
+"257":
   en:
     title: Access based on user credentials
     summary: __empty_
@@ -1538,7 +1538,7 @@
     description: __empty__
   references: []
   metadata: {}
-258:
+"258":
   en:
     title: Filter website content
     summary: __empty_
@@ -1549,7 +1549,7 @@
     description: __empty__
   references: []
   metadata: {}
-259:
+"259":
   en:
     title: Segment the organization network
     summary: __empty_
@@ -1560,7 +1560,7 @@
     description: __empty__
   references: []
   metadata: {}
-260:
+"260":
   en:
     title: Use alternative emails
     summary: __empty_
@@ -1571,7 +1571,7 @@
     description: __empty__
   references: []
   metadata: {}
-261:
+"261":
   en:
     title: Avoid exposing sensitive information
     summary: __empty_
@@ -1582,7 +1582,7 @@
     description: __empty__
   references: []
   metadata: {}
-262:
+"262":
   en:
     title: Verify third-party components
     summary: __empty_
@@ -1593,7 +1593,7 @@
     description: __empty__
   references: []
   metadata: {}
-264:
+"264":
   en:
     title: Request authentication
     summary: __empty_
@@ -1605,7 +1605,7 @@
   references:
     - capec.definitions.1
   metadata: {}
-265:
+"265":
   en:
     title: Restrict access to critical processes
     summary: __empty_
@@ -1616,7 +1616,7 @@
     description: __empty__
   references: []
   metadata: {}
-266:
+"266":
   en:
     title: Disable insecure functionalities
     summary: __empty_
@@ -1627,7 +1627,7 @@
     description: __empty__
   references: []
   metadata: {}
-273:
+"273":
   en:
     title: Define a fixed security suite
     summary: __empty_
@@ -1638,7 +1638,7 @@
     description: __empty__
   references: []
   metadata: {}
-280:
+"280":
   en:
     title: Restrict service root directory
     summary: __empty_
@@ -1649,7 +1649,7 @@
     description: __empty__
   references: []
   metadata: {}
-284:
+"284":
   en:
     title: Define maximum number of connections
     summary: __empty_
@@ -1660,7 +1660,7 @@
     description: __empty__
   references: []
   metadata: {}
-300:
+"300":
   en:
     title: Mask sensitive data
     summary: __empty_
@@ -1671,7 +1671,7 @@
     description: __empty__
   references: []
   metadata: {}
-301:
+"301":
   en:
     title: Notify configuration changes
     summary: __empty_
@@ -1682,7 +1682,7 @@
     description: __empty__
   references: []
   metadata: {}
-302:
+"302":
   en:
     title: Declare dependencies explicitly
     summary: __empty_
@@ -1693,7 +1693,7 @@
     description: __empty__
   references: []
   metadata: {}
-305:
+"305":
   en:
     title: Prioritize token usage
     summary: __empty_
@@ -1704,7 +1704,7 @@
     description: __empty__
   references: []
   metadata: {}
-310:
+"310":
   en:
     title: Request user consent
     summary: __empty_
@@ -1715,7 +1715,7 @@
     description: __empty__
   references: []
   metadata: {}
-311:
+"311":
   en:
     title: Demonstrate user consent
     summary: __empty_
@@ -1726,7 +1726,7 @@
     description: __empty__
   references: []
   metadata: {}
-312:
+"312":
   en:
     title: Allow user consent revocation
     summary: __empty_
@@ -1737,7 +1737,7 @@
     description: __empty__
   references: []
   metadata: {}
-313:
+"313":
   en:
     title: Inform inability to identify users
     summary: __empty_
@@ -1748,7 +1748,7 @@
     description: __empty__
   references: []
   metadata: {}
-314:
+"314":
   en:
     title: Provide processing confirmation
     summary: __empty_
@@ -1759,7 +1759,7 @@
     description: __empty__
   references: []
   metadata: {}
-315:
+"315":
   en:
     title: Provide processed data information
     summary: __empty_
@@ -1770,7 +1770,7 @@
     description: __empty__
   references: []
   metadata: {}
-316:
+"316":
   en:
     title: Allow rectification requests
     summary: __empty_
@@ -1781,7 +1781,7 @@
     description: __empty__
   references: []
   metadata: {}
-317:
+"317":
   en:
     title: Allow erasure requests
     summary: __empty_
@@ -1792,7 +1792,7 @@
     description: __empty__
   references: []
   metadata: {}
-318:
+"318":
   en:
     title: Notify third parties of changes
     summary: __empty_
@@ -1803,7 +1803,7 @@
     description: __empty__
   references: []
   metadata: {}
-319:
+"319":
   en:
     title: Make authentication options equally secure
     summary: __empty_
@@ -1814,7 +1814,7 @@
     description: __empty__
   references: []
   metadata: {}
-320:
+"320":
   en:
     title: Avoid client-side control enforcement
     summary: __empty_
@@ -1825,7 +1825,7 @@
     description: __empty__
   references: []
   metadata: {}
-321:
+"321":
   en:
     title: Avoid deserializing untrusted data
     summary: __empty_
@@ -1836,7 +1836,7 @@
     description: __empty__
   references: []
   metadata: {}
-322:
+"322":
   en:
     title: Avoid excessive logging
     summary: __empty_
@@ -1847,7 +1847,7 @@
     description: __empty__
   references: []
   metadata: {}
-323:
+"323":
   en:
     title: Exclude unverifiable files
     summary: __empty_
@@ -1858,7 +1858,7 @@
     description: __empty__
   references: []
   metadata: {}
-324:
+"324":
   en:
     title: Control redirects
     summary: __empty_
@@ -1869,7 +1869,7 @@
     description: __empty__
   references: []
   metadata: {}
-325:
+"325":
   en:
     title: Protect WSDL files
     summary: __empty_
@@ -1880,7 +1880,7 @@
     description: __empty__
   references: []
   metadata: {}
-326:
+"326":
   en:
     title: Detect rooted devices
     summary: __empty_
@@ -1891,7 +1891,7 @@
     description: __empty__
   references: []
   metadata: {}
-327:
+"327":
   en:
     title: Set a rate limit
     summary: __empty_
@@ -1902,7 +1902,7 @@
     description: __empty__
   references: []
   metadata: {}
-328:
+"328":
   en:
     title: Request MFA for critical systems
     summary: __empty_
@@ -1913,7 +1913,7 @@
     description: __empty__
   references: []
   metadata: {}
-329:
+"329":
   en:
     title: Keep client-side storage without sensitive data
     summary: __empty_
@@ -1924,7 +1924,7 @@
     description: __empty__
   references: []
   metadata: {}
-330:
+"330":
   en:
     title: Verify Subresource Integrity
     summary: __empty_
@@ -1935,7 +1935,7 @@
     description: __empty__
   references: []
   metadata: {}
-331:
+"331":
   en:
     title: Guarantee legal compliance
     summary: __empty_
@@ -1946,7 +1946,7 @@
     description: __empty__
   references: []
   metadata: {}
-332:
+"332":
   en:
     title: Prevent the use of breached passwords
     summary: __empty_
@@ -1957,7 +1957,7 @@
     description: __empty__
   references: []
   metadata: {}
-333:
+"333":
   en:
     title: Store salt values separately
     summary: __empty_
@@ -1968,7 +1968,7 @@
     description: __empty__
   references: []
   metadata: {}
-334:
+"334":
   en:
     title: Avoid knowledge-based authentication
     summary: __empty_
@@ -1979,7 +1979,7 @@
     description: __empty__
   references: []
   metadata: {}
-335:
+"335":
   en:
     title: Define out of band token lifespan
     summary: __empty_
@@ -1990,7 +1990,7 @@
     description: __empty__
   references: []
   metadata: {}
-336:
+"336":
   en:
     title: Disable insecure TLS versions
     summary: __empty_
@@ -2001,7 +2001,7 @@
     description: __empty__
   references: []
   metadata: {}
-337:
+"337":
   en:
     title: Make critical logic flows thread safe
     summary: __empty_
@@ -2012,7 +2012,7 @@
     description: __empty__
   references: []
   metadata: {}
-338:
+"338":
   en:
     title: Implement perfect forward secrecy
     summary: __empty_
@@ -2023,7 +2023,7 @@
     description: __empty__
   references: []
   metadata: {}
-339:
+"339":
   en:
     title: Avoid storing sensitive files in the web root
     summary: __empty_
@@ -2034,7 +2034,7 @@
     description: __empty__
   references: []
   metadata: {}
-340:
+"340":
   en:
     title: Use octet stream downloads
     summary: __empty_
@@ -2045,7 +2045,7 @@
     description: __empty__
   references: []
   metadata: {}
-341:
+"341":
   en:
     title: Use the principle of deny by default
     summary: __empty_
@@ -2056,7 +2056,7 @@
     description: __empty__
   references: []
   metadata: {}
-342:
+"342":
   en:
     title: Validate request parameters
     summary: __empty_
@@ -2067,7 +2067,7 @@
     description: __empty__
   references: []
   metadata: {}
-343:
+"343":
   en:
     title: Respect the Do Not Track header
     summary: __empty_
@@ -2078,7 +2078,7 @@
     description: __empty__
   references: []
   metadata: {}
-344:
+"344":
   en:
     title: Avoid dynamic code execution
     summary: __empty_
@@ -2089,7 +2089,7 @@
     description: __empty__
   references: []
   metadata: {}
-345:
+"345":
   en:
     title: Establish protections against overflows
     summary: __empty_
@@ -2100,7 +2100,7 @@
     description: __empty__
   references: []
   metadata: {}
-346:
+"346":
   en:
     title: Use initialization vectors once
     summary: __empty_
@@ -2111,7 +2111,7 @@
     description: __empty__
   references: []
   metadata: {}
-347:
+"347":
   en:
     title: Invalidate previous OTPs
     summary: __empty_
@@ -2122,7 +2122,7 @@
     description: __empty__
   references: []
   metadata: {}
-348:
+"348":
   en:
     title: Use consistent encoding
     summary: __empty_
@@ -2133,7 +2133,7 @@
     description: __empty__
   references: []
   metadata: {}
-349:
+"349":
   en:
     title: Include HTTP security headers
     summary: __empty_
@@ -2144,7 +2144,7 @@
     description: __empty__
   references: []
   metadata: {}
-350:
+"350":
   en:
     title: Enable memory protection mechanisms
     summary: __empty_
@@ -2155,7 +2155,7 @@
     description: __empty__
   references: []
   metadata: {}
-351:
+"351":
   en:
     title: Assign unique keys to each device
     summary: __empty_
@@ -2166,7 +2166,7 @@
     description: __empty__
   references: []
   metadata: {}
-352:
+"352":
   en:
     title: Enable trusted execution
     summary: __empty_
@@ -2177,7 +2177,7 @@
     description: __empty__
   references: []
   metadata: {}
-353:
+"353":
   en:
     title: Schedule firmware updates
     summary: __empty_
@@ -2188,7 +2188,7 @@
     description: __empty__
   references: []
   metadata: {}
-354:
+"354":
   en:
     title: Prevent firmware downgrades
     summary: __empty_
@@ -2199,7 +2199,7 @@
     description: __empty__
   references: []
   metadata: {}
-355:
+"355":
   en:
     title: Serve files with specific extensions
     summary: __empty_
@@ -2210,7 +2210,7 @@
     description: __empty__
   references: []
   metadata: {}
-356:
+"356":
   en:
     title: Verify sub-domain names
     summary: __empty_
@@ -2221,7 +2221,7 @@
     description: __empty__
   references: []
   metadata: {}
-357:
+"357":
   en:
     title: Use stateless session tokens
     summary: __empty_
@@ -2232,7 +2232,7 @@
     description: __empty__
   references: []
   metadata: {}
-358:
+"358":
   en:
     title: Notify upcoming expiration dates
     summary: __empty_
@@ -2243,7 +2243,7 @@
     description: __empty__
   references: []
   metadata: {}
-359:
+"359":
   en:
     title: Avoid using generic exceptions
     summary: __empty_
@@ -2254,7 +2254,7 @@
     description: __empty__
   references: []
   metadata: {}
-360:
+"360":
   en:
     title: Remove unnecessary sensitive information
     summary: __empty_
@@ -2265,7 +2265,7 @@
     description: __empty__
   references: []
   metadata: {}
-361:
+"361":
   en:
     title: Replace cryptographic keys
     summary: __empty_
@@ -2276,7 +2276,7 @@
     description: __empty__
   references: []
   metadata: {}
-362:
+"362":
   en:
     title: Assign MFA mechanisms to a single account
     summary: __empty_
@@ -2287,7 +2287,7 @@
     description: __empty__
   references: []
   metadata: {}
-363:
+"363":
   en:
     title: Synchronize system clocks
     summary: __empty_
@@ -2298,7 +2298,7 @@
     description: __empty__
   references: []
   metadata: {}
-364:
+"364":
   en:
     title: Provide extended validation (EV) certificates
     summary: __empty_
@@ -2309,7 +2309,7 @@
     description: __empty__
   references: []
   metadata: {}
-365:
+"365":
   en:
     title: Avoid exposing technical information
     summary: __empty_
@@ -2320,7 +2320,7 @@
     description: __empty__
   references: []
   metadata: {}
-366:
+"366":
   en:
     title: Associate type to variables
     summary: __empty_
@@ -2331,7 +2331,7 @@
     description: __empty__
   references: []
   metadata: {}
-367:
+"367":
   en:
     title: Proper generation of temporary passwords
     summary: __empty_
@@ -2342,7 +2342,7 @@
     description: __empty__
   references: []
   metadata: {}
-368:
+"368":
   en:
     title: Use of indistinguishable response time
     summary: __empty_
@@ -2353,7 +2353,7 @@
     description: __empty__
   references: []
   metadata: {}
-369:
+"369":
   en:
     title: Set a maximum lifetime in sessions
     summary: __empty_
@@ -2364,18 +2364,18 @@
     description: __empty__
   references: []
   metadata: {}
-370:
+"370":
   en:
     title: Use OAEP padding with RSA
     summary: __empty_
     description: __empty__
   es:
-    title: Use de relleno OAEP con RSA 
+    title: Use de relleno OAEP con RSA
     summary: __empty__
     description: __empty__
   references: []
   metadata: {}
-371:
+"371":
   en:
     title: Use GCM Padding with AES
     summary: __empty_
@@ -2386,7 +2386,7 @@
     description: __empty__
   references: []
   metadata: {}
-372:
+"372":
   en:
     title: Proper Use of Initialization Vector (IV)
     summary: __empty_
@@ -2397,7 +2397,7 @@
     description: __empty__
   references: []
   metadata: {}
-373:
+"373":
   en:
     title: Use certificate pinning
     summary: __empty_
@@ -2408,7 +2408,7 @@
     description: __empty__
   references: []
   metadata: {}
-374:
+"374":
   en:
     title: Use of isolation methods in running applications
     summary: __empty_
@@ -2419,7 +2419,7 @@
     description: __empty__
   references: []
   metadata: {}
-375:
+"375":
   en:
     title: Remove sensitive data from client-side applications
     summary: __empty_
@@ -2430,7 +2430,7 @@
     description: __empty__
   references: []
   metadata: {}
-376:
+"376":
   en:
     title: Register severity level
     summary: __empty_
@@ -2441,7 +2441,7 @@
     description: __empty__
   references: []
   metadata: {}
-377:
+"377":
   en:
     title: Store logs based on valid regulation
     summary: __empty_
@@ -2452,7 +2452,7 @@
     description: __empty__
   references: []
   metadata: {}
-378:
+"378":
   en:
     title: Use of log management system
     summary: __empty_
@@ -2463,7 +2463,7 @@
     description: __empty__
   references: []
   metadata: {}
-379:
+"379":
   en:
     title: Keep low McCabe ciclomatic complexity
     summary: __empty_
@@ -2474,7 +2474,7 @@
     description: __empty__
   references: []
   metadata: {}
-380:
+"380":
   en:
     title: Define a password management tool
     summary: __empty_
@@ -2485,7 +2485,7 @@
     description: __empty__
   references: []
   metadata: {}
-381:
+"381":
   en:
     title: Use of absolute paths
     summary: __empty_
