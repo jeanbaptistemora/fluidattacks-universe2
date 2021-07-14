@@ -35,6 +35,7 @@ from sast_syntax_readers.common import (
     parenthesized_expression as common_parenthesized_expression,
     return_statement as common_return_statement,
     unary_expression as common_unary_expression,
+    while_statement as common_while_statement,
 )
 from sast_syntax_readers.go import (
     assignment_statement as go_assignment_statement,
@@ -62,7 +63,6 @@ from sast_syntax_readers.java import (
     switch_statement as java_switch_statement,
     ternary_expression as java_ternary_expression,
     this as java_this,
-    while_statement as java_while_statement,
 )
 from sast_syntax_readers.javascript import (
     await_expression as javascript_await_expression,
@@ -160,6 +160,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.GO,
             graph_model.GraphShardMetadataLanguage.JAVA,
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
             graph_model.GraphShardMetadataLanguage.CSHARP,
         },
         applicable_node_label_types={
@@ -189,11 +190,12 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
         },
         applicable_node_label_types={
             "while_statement",
         },
-        syntax_readers=(java_while_statement.reader,),
+        syntax_readers=(common_while_statement.reader,),
     ),
     Dispatcher(
         applicable_languages={

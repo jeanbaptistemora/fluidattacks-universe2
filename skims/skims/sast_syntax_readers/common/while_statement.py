@@ -21,7 +21,7 @@ def reader(
         args.n_id,
         "while",
         "parenthesized_expression",
-        "block",
+        "__0__",
     )
     if len(match) == 3 and (expression := match["parenthesized_expression"]):
         yield graph_model.SyntaxStepParenthesizedExpression(

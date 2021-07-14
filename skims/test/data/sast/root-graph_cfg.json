@@ -63540,6 +63540,48 @@
             "var_type": null
           }
         ],
+        "175": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "182",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "6",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "180",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "179",
+              "value": null
+            },
+            "operator": "<",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "175",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression"
+          }
+        ],
         "184": [
           {
             "meta": {
@@ -63549,6 +63591,59 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "186": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "193",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "3",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "191",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "190",
+              "value": null
+            },
+            "operator": "===",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "188",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "186",
+              "value": null
+            },
+            "n_id_false": null,
+            "n_id_true": "195",
+            "type": "SyntaxStepIf"
           }
         ],
         "195": [
@@ -64426,6 +64521,59 @@
             "var_type": null
           }
         ],
+        "771": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "778",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "776",
+              "value": null
+            },
+            "symbol": "a",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "775",
+              "value": null
+            },
+            "operator": ">",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "773",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "771",
+              "value": null
+            },
+            "n_id_false": "789",
+            "n_id_true": "780",
+            "type": "SyntaxStepIf"
+          }
+        ],
         "780": [
           {
             "meta": {
@@ -64910,6 +65058,48 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "981": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "988",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "3",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "986",
+              "value": null
+            },
+            "symbol": "n",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "985",
+              "value": null
+            },
+            "operator": "<",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "981",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression"
           }
         ],
         "99": [
