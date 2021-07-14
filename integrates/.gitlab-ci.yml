@@ -637,13 +637,13 @@ integrates.scheduler.requeue_actions:
     refs: [schedules]
     variables: [$integrates_scheduler_requeue_actions]
 
-integrates.scheduler.skims_queue_all:
+integrates.scheduler.machine_queue_all:
   <<: *integrates_schedulers
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_skims_queue_all]
 
-integrates.scheduler.skims_queue_re_attacks:
+integrates.scheduler.machine_queue_re_attacks:
   <<: *integrates_schedulers
   only:
     refs: [schedules]
