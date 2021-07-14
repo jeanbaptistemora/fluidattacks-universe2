@@ -1,5 +1,21 @@
 let securityHeaders = {
-  "Content-Security-Policy" : "upgrade-insecure-requests",
+  "Content-Security-Policy" : "script-src \
+                              'self' \
+                              'unsafe-inline' \
+                              *.cloudflare.com \
+                              *.cloudflareinsights.com \
+                              *.cookiebot.com \
+                              *.google-analytics.com \
+                              *.googleadservices.com \
+                              *.googletagmanager.com \
+                              *.hotjar.com \
+                              *.typekit.net \
+                              *.zoho.com \
+                              *.zohocdn.com \
+                              *.zohopublic.com \
+                              *.zohostatic.com \
+                              googleads.g.doubleclick.net \
+                              snap.licdn.com",
   "Strict-Transport-Security" : "max-age=31536000",
   "X-Xss-Protection" : "1; mode=block",
   "X-Frame-Options" : "DENY",
