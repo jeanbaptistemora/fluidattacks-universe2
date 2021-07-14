@@ -296,7 +296,8 @@ async def test_forces() -> None:  # pylint: disable=too-many-statements
     )
     assert (
         result["data"]["forcesExecution"]["gitOrigin"]
-        == "http://origin-test.com"
+        # FP: local testing
+        == "http://origin-test.com"  # NOSONAR
     )
     assert result["data"]["forcesExecution"]["gitRepo"] == "Repository"
     assert result["data"]["forcesExecution"]["kind"] == "dynamic"

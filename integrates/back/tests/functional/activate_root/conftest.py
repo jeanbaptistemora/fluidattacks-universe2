@@ -117,7 +117,10 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group1",
                 id="44db9bee-c97d-4161-98c6-f124d7dc9a41",
                 metadata=IPRootMetadata(
-                    address="192.168.1.2", port="8080", type="IP"
+                    # FP: local testing
+                    address="192.168.1.2",  # NOSONAR
+                    port="8080",
+                    type="IP",
                 ),
                 state=IPRootState(
                     modified_by=test_email,
