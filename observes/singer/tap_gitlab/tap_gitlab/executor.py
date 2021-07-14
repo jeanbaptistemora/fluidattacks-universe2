@@ -1,9 +1,6 @@
 # pylint: skip-file
 
 import boto3
-from datetime import (
-    datetime,
-)
 import logging
 from returns.maybe import (
     Maybe,
@@ -23,12 +20,8 @@ from tap_gitlab.api.client import (
 from tap_gitlab.emitter import (
     Emitter,
 )
-from tap_gitlab.intervals.interval.factory import (
-    IntervalFactory,
-)
 from tap_gitlab.state import (
     EtlState,
-    update_state,
 )
 from tap_gitlab.state.decoder import (
     state_decoder,
@@ -42,8 +35,10 @@ from tap_gitlab.state.encoder import (
 from tap_gitlab.state.getter import (
     StateGetter,
 )
+from tap_gitlab.state.update import (
+    StateUpdater,
+)
 from tap_gitlab.streams import (
-    default_job_stream,
     SupportedStreams,
 )
 from typing import (
@@ -85,9 +80,11 @@ def defautl_stream(
     max_pages: int,
     state_id: Maybe[Tuple[str, str]],
 ) -> None:
+    client = ApiClient(creds)
+    updater = StateUpdater(client)
     _state = (
         state_id.bind(lambda sid: state_getter.get(sid[0], sid[1]))
-        .map(update_state)
+        .map(updater.update_state)
         .value_or(default_etl_state(project))
     )
     _target_stream = (
@@ -95,7 +92,7 @@ def defautl_stream(
         if isinstance(target_stream, str)
         else target_stream
     )
-    emitter = Emitter(ApiClient(creds), max_pages)
+    emitter = Emitter(client, max_pages)
     if _target_stream in (SupportedStreams.JOBS, SupportedStreams.ALL):
         _state = job_stream(emitter, _state)
     if _target_stream in (
