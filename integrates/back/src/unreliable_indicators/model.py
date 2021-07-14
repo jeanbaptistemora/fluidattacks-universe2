@@ -16,7 +16,6 @@ ENTITIES = {
     EntityName.finding: dict(
         args={
             EntityIdName.id,
-            EntityIdName.group,
         },
         attrs={
             EntityAttrName.unreliable_age: dict(dependencies=set()),

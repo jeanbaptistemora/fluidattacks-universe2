@@ -9,7 +9,6 @@ class EntityName(Enum):
 
 class EntityIdName(Enum):
     id: str = "id"
-    group: str = "group"
 
 
 class EntityAttrName(Enum):
