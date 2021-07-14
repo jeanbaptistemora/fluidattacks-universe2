@@ -1,7 +1,6 @@
 from .common import (
     COMMENTS_TAG,
     GENERAL_TAG,
-    get_comment_recipients,
     send_mails_async_new,
     VERIFY_TAG,
 )
@@ -23,9 +22,6 @@ from group_access import (
 from newutils import (
     findings as findings_utils,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from typing import (
     Any,
     Dict,
@@ -43,13 +39,14 @@ async def _get_organization_name(context: Any, group_name: str) -> str:
     return organization["name"]
 
 
-async def send_mail_comment(  # pylint: disable=too-many-locals
+async def send_mail_comment(  # pylint: disable=too-many-locals,too-many-statements # noqa: MC0001
     context: Any,
     comment_data: CommentType,
     user_mail: str,
     finding: Dict[str, FindingType],
+    recipients: List[str],
+    group_name: str,
 ) -> None:
-    group_name = get_key_or_fallback(finding)
     org_name = await _get_organization_name(context, group_name)
     type_ = comment_data["comment_type"]
     is_finding_released = findings_utils.is_released(finding)
@@ -68,7 +65,6 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
         "user_email": user_mail,
     }
 
-    recipients = await get_comment_recipients(group_name, type_)
     await send_mails_async_new(
         recipients,
         email_context,
