@@ -236,7 +236,7 @@ def _date(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F064_SERVER_CLOCK,
+        finding=core_model.FindingEnum.F064,
         header=header,
         ctx=ctx,
     )
@@ -426,7 +426,7 @@ def _www_authenticate(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F015_DAST_BASIC,
+        finding=core_model.FindingEnum.F015,
         header=header,
         ctx=ctx,
     )
@@ -481,7 +481,7 @@ CHECKS: Dict[
     core_model.FindingEnum,
     Callable[[HeaderCheckCtx], core_model.Vulnerabilities],
 ] = {
-    core_model.FindingEnum.F015_DAST_BASIC: _www_authenticate,
+    core_model.FindingEnum.F015: _www_authenticate,
     core_model.FindingEnum.F023: _location,
     core_model.FindingEnum.F042_HTTPONLY: _set_cookie_httponly,
     core_model.FindingEnum.F042_SAMESITE: _set_cookie_samesite,
@@ -490,5 +490,5 @@ CHECKS: Dict[
     core_model.FindingEnum.F043_DAST_RP: _referrer_policy,
     core_model.FindingEnum.F043_DAST_STS: _strict_transport_security,
     core_model.FindingEnum.F043_DAST_XCTO: _x_content_type_options,
-    core_model.FindingEnum.F064_SERVER_CLOCK: _date,
+    core_model.FindingEnum.F064: _date,
 }

@@ -1,7 +1,7 @@
 lib_apk.analyze_bytecodes.no_obfuscation:
   en: '{desc_class_name} is not obfuscated'
   es: '{desc_class_name} no esta ofuscado'
-F046_APK.description:
+F046.description:
   en: >
     It is possible
     to obtain source code
@@ -24,7 +24,7 @@ F046_APK.description:
     de la aplicación
     o obtener información técnica
     o sensible.
-F046_APK.impact:
+F046.impact:
   en: >
     Get technical
     or sensitive information
@@ -33,7 +33,7 @@ F046_APK.impact:
     Obtener información técnica
     o sensible
     a partir del código fuente de la aplicación.
-F046_APK.recommendation:
+F046.recommendation:
   en: >
     Obfuscate the application's source code
     at deploy time
@@ -46,7 +46,7 @@ F046_APK.recommendation:
     con herramientas como:
     https://github.com/ClaudiuGeorgiu/Obfuscapk
     en su configuración más fuerte.
-F046_APK.threat:
+F046.threat:
   en: >
     Unauthorized attacker
     from internet network
@@ -55,6 +55,3 @@ F046_APK.threat:
     Atacante sin autorización
     desde internet
     con acceso a el APK.
-F046_APK.title:
-  en: F046. Missing secure obfuscation - APK
-  es: F046. Ausencia de ofuscación segura - APK

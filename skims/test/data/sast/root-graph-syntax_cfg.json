@@ -42,7 +42,7 @@
     },
     "skims/test/data/sast/test_cfg.js": {}
   },
-  "F015_DAST_BASIC": {
+  "F015": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {}
@@ -127,7 +127,7 @@
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {}
   },
-  "F046_APK": {
+  "F046": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {}
@@ -137,7 +137,7 @@
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {}
   },
-  "F049_APK_PIN": {
+  "F049": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {}
@@ -745,7 +745,7 @@
     },
     "skims/test/data/sast/test_cfg.js": {}
   },
-  "F064_SERVER_CLOCK": {
+  "F064": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {}
@@ -760,7 +760,7 @@
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {}
   },
-  "F075_APK_CP": {
+  "F075": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {}
@@ -780,7 +780,7 @@
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {}
   },
-  "F103_APK_UNSIGNED": {
+  "F103": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {}

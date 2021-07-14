@@ -246,6 +246,7 @@ class FindingEnum(Enum):
         code="F011",
         cwe=937,
         execution_queue=ExecutionQueue.f011,
+        migrated=True,
         requirements=[262],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -281,11 +282,12 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.none,
         ),
     )
-    F015_DAST_BASIC: FindingMetadata = FindingMetadata.new(
+    F015: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
-        code="F015_DAST_BASIC",
+        code="F015",
         cwe=287,
         execution_queue=ExecutionQueue.http,
+        migrated=True,
         requirements=[228, 319],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -346,6 +348,7 @@ class FindingEnum(Enum):
         code="F023",
         cwe=601,
         execution_queue=ExecutionQueue.http,
+        migrated=True,
         requirements=[173, 324],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -621,11 +624,12 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.required,
         ),
     )
-    F046_APK: FindingMetadata = FindingMetadata.new(
+    F046: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
-        code="F046_APK",
+        code="F046",
         cwe=1269,
         execution_queue=ExecutionQueue.apk,
+        migrated=True,
         requirements=[159],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -661,11 +665,12 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.none,
         ),
     )
-    F049_APK_PIN: FindingMetadata = FindingMetadata.new(
+    F049: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
-        code="F049_APK_PIN",
+        code="F049",
         cwe=295,
         execution_queue=ExecutionQueue.apk,
+        migrated=True,
         requirements=[93],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -941,11 +946,12 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.none,
         ),
     )
-    F064_SERVER_CLOCK: FindingMetadata = FindingMetadata.new(
+    F064: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
-        code="F064_SERVER_CLOCK",
+        code="F064",
         cwe=778,
         execution_queue=ExecutionQueue.http,
+        migrated=True,
         requirements=[75],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -1001,11 +1007,12 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.none,
         ),
     )
-    F075_APK_CP: FindingMetadata = FindingMetadata.new(
+    F075: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
-        code="F075_APK_CP",
+        code="F075",
         cwe=284,
         execution_queue=ExecutionQueue.apk,
+        migrated=True,
         requirements=[176],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -1081,11 +1088,12 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.required,
         ),
     )
-    F103_APK_UNSIGNED: FindingMetadata = FindingMetadata.new(
+    F103: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
-        code="F103_APK_UNSIGNED",
+        code="F103",
         cwe=325,
         execution_queue=ExecutionQueue.apk,
+        migrated=True,
         requirements=[178],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,

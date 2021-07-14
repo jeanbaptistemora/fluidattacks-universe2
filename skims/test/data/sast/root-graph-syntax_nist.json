@@ -1036,7 +1036,7 @@
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
   },
-  "F015_DAST_BASIC": {
+  "F015": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
@@ -1136,7 +1136,7 @@
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
   },
-  "F046_APK": {
+  "F046": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
@@ -1146,7 +1146,7 @@
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
   },
-  "F049_APK_PIN": {
+  "F049": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
@@ -1231,7 +1231,7 @@
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
   },
-  "F064_SERVER_CLOCK": {
+  "F064": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
@@ -1246,7 +1246,7 @@
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
   },
-  "F075_APK_CP": {
+  "F075": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
@@ -1266,7 +1266,7 @@
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
   },
-  "F103_APK_UNSIGNED": {
+  "F103": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}

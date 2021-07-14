@@ -4,7 +4,7 @@ lib_apk.analyze_bytecodes.no_certs_pinning_config:
 lib_apk.analyze_bytecodes.no_certs_pinning:
   en: Missing pin-set(s)
   es: pin-set(s) faltantes
-F049_APK_PIN.description:
+F049.description:
   en: >
     The application does not pin certificates
     and therefore trusts
@@ -15,17 +15,17 @@ F049_APK_PIN.description:
     y por lo tanto confia
     en todos los que estan instalados
     en el dispositivo.
-F049_APK_PIN.impact:
+F049.impact:
   en: >
     Accept fraudulent certificates
     from a compromised Certificate Authority (CA).
   es: >
     Aceptar certificados fraudulentos
     provenientes de una Certificate Authority (CA) comprometida.
-F049_APK_PIN.recommendation:
+F049.recommendation:
   en: Configure the pin-set in res/xml/network_security_config.xml.
   es: Configurar el pin-set en res/xml/network_security_config.xml.
-F049_APK_PIN.threat:
+F049.threat:
   en: >
     Unauthorized attacker
     from adjacent network
@@ -34,6 +34,3 @@ F049_APK_PIN.threat:
     Atacante sin autorización
     desde red adyacente
     ejecutando un MITM.
-F049_APK_PIN.title:
-  en: F049. Insecure digital certificates - APK pinning
-  es: F049. Certificados digitales inseguros - Pineo en el APK

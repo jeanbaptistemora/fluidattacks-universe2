@@ -21,6 +21,3 @@ F023.recommendation:
 F023.threat:
   en: Unauthorized attacker from internet network.
   es: Atacante sin autorización desde Internet.
-F023.title:
-  en: F023. Uncontrolled external site redirect - Host header
-  es: F023. Redirección a sitios externos no controlada - cabecera Host

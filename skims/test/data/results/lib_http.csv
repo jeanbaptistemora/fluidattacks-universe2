@@ -473,7 +473,7 @@ F042_HTTPONLY,inputs,http://localhost:48000/f042_secure_6 (namespace),session2 i
   12 | * EOF
      ^ Col 0
 "
-F015_DAST_BASIC,inputs,http://localhost:48000/f015_dast_basic_2 (namespace),The application uses Basic authentication over HTTP,287,"home,response,headers",F015. Insecure authentication method - Basic,The application uses Basic authentication over HTTP,"
+F015,inputs,http://localhost:48000/f015_dast_basic_2 (namespace),The application uses Basic authentication over HTTP,287,"home,response,headers",F015. Insecure authentication method - Basic,The application uses Basic authentication over HTTP,"
    1 | > GET http://localhost:48000/f015_dast_basic_2
    2 | > ...
    3 |
@@ -486,7 +486,7 @@ F015_DAST_BASIC,inputs,http://localhost:48000/f015_dast_basic_2 (namespace),The 
 > 10 | * EOF
      ^ Col 0
 "
-F015_DAST_BASIC,inputs,http://localhost:48000/f015_dast_basic_3 (namespace),The application uses Basic authentication over HTTP,287,"home,response,headers",F015. Insecure authentication method - Basic,The application uses Basic authentication over HTTP,"
+F015,inputs,http://localhost:48000/f015_dast_basic_3 (namespace),The application uses Basic authentication over HTTP,287,"home,response,headers",F015. Insecure authentication method - Basic,The application uses Basic authentication over HTTP,"
    1 | > GET http://localhost:48000/f015_dast_basic_3
    2 | > ...
    3 |
@@ -3597,7 +3597,7 @@ F043_DAST_CSP,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),script-s
   10 | * EOF
      ^ Col 0
 "
-F064_SERVER_CLOCK,inputs,http://localhost:48000/f064_server_clock_1 (namespace),Server clock is out of time 60 minutes,778,"home,response,headers",F064. Traceability loss - Server's clock,Server clock is out of time 60 minutes,"
+F064,inputs,http://localhost:48000/f064_server_clock_1 (namespace),Server clock is out of time 60 minutes,778,"home,response,headers",F064. Traceability loss - Server's clock,Server clock is out of time 60 minutes,"
   1 | > GET http://localhost:48000/f064_server_clock_1
   2 | > ...
   3 |

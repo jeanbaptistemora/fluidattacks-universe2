@@ -4,7 +4,7 @@ lib_apk.analyze_bytecodes.exported:
 lib_apk.analyze_bytecodes.grants_uri_permissions:
   en: provider/{desc_authority}/android:grantUriPermissions enabled
   es: provider/{desc_authority}/android:grantUriPermissions habilitado
-F075_APK_CP.description:
+F075.description:
   en: >
     The Content Provider API
     allows third party applications installed in the device
@@ -25,7 +25,7 @@ F075_APK_CP.description:
     En su lugar
     (y solo si se requiere)
     se debe usar listas de control de acceso especificas.
-F075_APK_CP.impact:
+F075.impact:
   en: >
     Leak application information
     to all applications
@@ -36,7 +36,7 @@ F075_APK_CP.impact:
     a todas las aplicaciones
     instaladas en el dispositivo
     a través de la Content Provider API.
-F075_APK_CP.recommendation:
+F075.recommendation:
   en: >
     Deny access to all Content Providers with:
     android:exported="false"
@@ -51,7 +51,7 @@ F075_APK_CP.recommendation:
     Si se requiere
     se puede permitir Content Providers especificos
     usando <grant-uri-permission>
-F075_APK_CP.threat:
+F075.threat:
   en: >
     Unauthorized attacker
     owner of a third party application
@@ -60,6 +60,3 @@ F075_APK_CP.threat:
     Atacante sin autorización
     propietario de una aplicación de terceros
     instalada en el dispositivo.
-F075_APK_CP.title:
-  en: F075. Unauthorized access to files - APK Content Provider
-  es: F075. Acceso no autorizado a archivos - APK Content Provider

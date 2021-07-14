@@ -1,18 +1,15 @@
 lib_http.analyze_headers.www_authenticate.basic:
   en: The application uses Basic authentication over HTTP
   es: La aplicación usa autenticación de tipo Basic sobre HTTP
-F015_DAST_BASIC.description:
+F015.description:
   en: The server uses Basic authentication over an insecure channel.
   es: El servidor usa autenticación de tipo Basic sobre un canal inseguro.
-F015_DAST_BASIC.impact:
+F015.impact:
   en: Gather plain text credentials.
   es: Obtener credenciales en texto plano.
-F015_DAST_BASIC.recommendation:
+F015.recommendation:
   en: Use stronger authentication mechanisms like Bearer and OAuth.
   es: Usar mecanismos de autenticación fuertes como Bearer y OAuth.
-F015_DAST_BASIC.threat:
+F015.threat:
   en: Unauthorized attacker from adjacent network performing a MITM.
   es: Atacante sin autorización desde red adyacente ejecutando un MITM.
-F015_DAST_BASIC.title:
-  en: F015. Insecure authentication method - Basic
-  es: F015. Método de autenticación inseguro - Basic

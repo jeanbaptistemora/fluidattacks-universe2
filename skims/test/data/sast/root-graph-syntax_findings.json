@@ -37,7 +37,7 @@
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
-  "F015_DAST_BASIC": {
+  "F015": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
@@ -111,7 +111,7 @@
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
-  "F046_APK": {
+  "F046": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
@@ -119,7 +119,7 @@
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
-  "F049_APK_PIN": {
+  "F049": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
@@ -406,7 +406,7 @@
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
-  "F064_SERVER_CLOCK": {
+  "F064": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
@@ -418,7 +418,7 @@
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
-  "F075_APK_CP": {
+  "F075": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
@@ -434,7 +434,7 @@
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
-  "F103_APK_UNSIGNED": {
+  "F103": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
