@@ -6988,16 +6988,37 @@
 "134":
   en:
     title: Insecure service configuration - CORS
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The cross-domain policy
+      includes wildcards,'
+      accepting any domain
+      as valid for sharing resources.
+    impact: >
+      Include resources
+      from untrusted origins.
+    recommendation: >
+      Define explicitly the trusted origins
+      for the application resources.
+    threat: >
+      Unauthorized attacker
+      from the Internet.
   es:
     title: Configuración insegura del servicio - CORS
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      La política entre dominios
+      incluye comodines,
+      aceptando cualquier dominio
+      como válido para compartir recursos.
+    impact: >
+      Incluir recursos
+      de orígenes maliciosos.
+    recommendation: >
+      Definir explícitamente
+      los orígenes permitidos
+      para los recursos de la aplicación.
+    threat: >
+      Atacante sin autorización
+      desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -7012,5 +7033,5 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["119", "266"]
   metadata: {}
