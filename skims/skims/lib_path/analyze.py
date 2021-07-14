@@ -12,6 +12,7 @@ from lib_path import (
     f055_aws_missing_encryption,
     f060,
     f061,
+    f079,
     f117,
 )
 from model import (
@@ -59,6 +60,7 @@ CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
     ),
     (core_model.FindingEnum.F060, f060.analyze),
     (core_model.FindingEnum.F061, f061.analyze),
+    (core_model.FindingEnum.F079, f079.analyze),
     (core_model.FindingEnum.F117, f117.analyze),
 )
 
@@ -100,10 +102,13 @@ async def analyze_one_path(  # pylint: disable=too-many-locals
             if finding is not core_model.FindingEnum.F117:
                 continue
         elif path in unique_nu_paths:
-            # TODO: add a finding to report them as vulnerabilities
-            continue
+            if finding is not core_model.FindingEnum.F079:
+                continue
         else:
-            if finding is core_model.FindingEnum.F117:
+            if finding in {
+                core_model.FindingEnum.F079,
+                core_model.FindingEnum.F117,
+            }:
                 continue
 
         for vulnerabilities in await analyzer(
