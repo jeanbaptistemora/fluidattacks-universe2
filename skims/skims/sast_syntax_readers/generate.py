@@ -65,6 +65,7 @@ from sast_syntax_readers.java import (
     while_statement as java_while_statement,
 )
 from sast_syntax_readers.javascript import (
+    await_expression as javascript_await_expression,
     call_expression as javascript_call_expression,
     function_declaration as javascript_function_declaration,
     lexical_declaration as javascript_lexical_declaration,
@@ -646,6 +647,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "parameter",
         },
         syntax_readers=(c_sharp_parameter.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+        },
+        applicable_node_label_types={
+            "await_expression",
+        },
+        syntax_readers=(javascript_await_expression.reader,),
     ),
     *[
         Dispatcher(

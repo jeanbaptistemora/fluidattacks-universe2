@@ -63884,6 +63884,43 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "495": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "506",
+              "value": null
+            },
+            "symbol": "url",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "502",
+              "value": null
+            },
+            "method": "fetch",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "497",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "response",
+            "var_type": null
+          }
+        ],
         "510": [
           {
             "meta": {
@@ -64196,6 +64233,33 @@
             },
             "method": "console.log",
             "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "72": [
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "79",
+              "value": null
+            },
+            "method": "resolveAfter2Seconds",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "74",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "result",
+            "var_type": null
           }
         ],
         "741": [
