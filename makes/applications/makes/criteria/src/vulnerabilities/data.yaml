@@ -6546,16 +6546,45 @@
 125:
   en:
     title: Directory Listing
-    description: __empty__
+    description: >
+      The system displays
+      the application's directories,
+      allowing an attacker
+      to know the content of the files stored
+      on the server.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      - Disable the configurations
+        of the server that allow
+        to execute directory listing.
+      - Establish index files
+        that will be shown
+        when the directories are loaded.
+    threat: >
+      Obtain technical
+      or sensitive information
+      of the files stored
+      in the application's directory.
   es:
     title: Listado de directorio
-    description: __empty__
+    description: >
+      El sistema permite visualizar
+      los archivos almacenados
+      en los directorios de la aplicación
+      permitiendo a un atacante
+      conocer su contenido.
     impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    recommendation: >
+      - Deshabilitar las configuraciones
+        del servidor que permitan
+        ejecutar el listado de directorios.
+      - Establecer archivos index
+        que se muestren
+        al cargar los directorios.
+    threat: >
+      Obtener información técnica
+      o sensible de los archivos almacenados
+      en el directorio de la aplicación.
   score:
     base:
       attack_vector: "N"
@@ -6570,18 +6599,25 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["176", "266"]
   metadata: {}
 126:
   en:
     title: Lack of isolation methods
-    description: __empty__
+    description: >
+      The system do not use
+      isolation methods
+      for running applications.
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
   es:
     title: Ausencia de métodos de aislamiento
-    description: __empty__
+    description: >
+      El sistema no utiliza
+      métodos de aislamiento 
+      para las aplicaciones
+      que están siendo ejecutadas.
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
@@ -6599,7 +6635,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["374"]
   metadata: {}
 127:
   en:
@@ -6633,16 +6669,38 @@
 128:
   en:
     title: Insecurely generated cookies - missing HttpOnly
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The application's cookies
+      are generated without properly setting
+      the HttpOnly attribute.
+    impact: >
+      Obtain sensitive information
+      by performing a XSS attack.
+    recommendation: >
+      The application must set
+      the HttpOnly attribute in the cookies
+      with sensitive information.
+    threat: >
+      Authorized attacker
+      from internet network
+      performing a XSS attack.
   es:
     title: Cookies generadas de forma insegura - HttpOnly faltante
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      La aplicación genera cookies
+      sin establecer correctamente
+      el atributo HttpOnly.
+    impact: >
+      Obtener información sensible
+      realizando un ataque XSS.
+    recommendation: >
+      La aplicación debe establecer
+      el atributo HttpOnly en la cookies
+      con información sensible.
+    threat: >
+      Atacante con autorización
+      desde internet
+      ejecutando un ataque XSS.
   score:
     base:
       attack_vector: "N"
@@ -6657,21 +6715,41 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["029"]
   metadata: {}
 129:
   en:
     title: Insecurely generated cookies - SameSite protection
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The application's cookies
+      are generated without properly
+      setting the SameSite attribute.
+    impact: >
+      Perform a malicious request
+      via a CSRF attack.
+    recommendation: >
+      The application must set
+      the SameSite attribute in the cookies
+      with sensitive information.
+    threat: >
+      Attacker from internet network
+      performing a CSRF attack.
   es:
     title: Cookies generadas de forma insegura - protección SameSite
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      La aplicación genera cookies
+      sin establecer correctamente
+      el atributo SameSite.
+    impact: >
+      Realizar una petición maliciosa
+      con un ataque CSRF.
+    recommendation: >
+      La aplicación debe establecer
+      el atributo SameSite en la cookies
+      con información sensible.
+    threat: >
+      Atacante desde internet
+      ejecutando un ataque CSRF.
   score:
     base:
       attack_vector: "N"
@@ -6686,7 +6764,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["029"]
   metadata: {}
 130:
   en:
