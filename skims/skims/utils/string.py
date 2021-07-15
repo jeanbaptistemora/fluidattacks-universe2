@@ -28,6 +28,7 @@ from typing import (
     Tuple,
 )
 from utils.ctx import (
+    FINDINGS_TITLE_SIMILARITY,
     FLUID_WATERMARK,
     ROBOTO_FONT,
     STATE_FOLDER_DEBUG,
@@ -58,8 +59,11 @@ def similar_ratio(string_a: str, string_b: str) -> float:
     return SequenceMatcher(None, string_a, string_b).ratio()
 
 
-def are_similar(string_a: str, string_b: str, threshold: float = 0.85) -> bool:
-    return similar_ratio(string_a, string_b) >= threshold
+def are_findings_title_similar(
+    string_a: str,
+    string_b: str,
+) -> bool:
+    return similar_ratio(string_a, string_b) >= FINDINGS_TITLE_SIMILARITY
 
 
 def to_in_memory_file(string: str) -> BytesIO:

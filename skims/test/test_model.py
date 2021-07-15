@@ -10,6 +10,7 @@ from typing import (
     List,
 )
 from utils.ctx import (
+    FINDINGS_TITLE_SIMILARITY,
     SHOULD_UPDATE_TESTS,
 )
 from utils.string import (
@@ -104,7 +105,7 @@ def _get_findings_title(locale: core_model.LocalesEnum) -> List[str]:
 
 @pytest.mark.skims_test_group("unittesting")
 def test_different_findings_name() -> None:
-    threshold: float = 0.90
+    threshold: float = FINDINGS_TITLE_SIMILARITY
     for locale in core_model.LocalesEnum:
         for title_a, title_b in combinations(_get_findings_title(locale), 2):
             assert similar_ratio(title_a, title_b) < threshold

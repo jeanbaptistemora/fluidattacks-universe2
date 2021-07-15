@@ -36,7 +36,7 @@ from utils.repositories import (
     get_repo_head_hash,
 )
 from utils.string import (
-    are_similar,
+    are_findings_title_similar,
 )
 from zone import (
     t,
@@ -106,7 +106,7 @@ async def get_closest_finding_ids(
     return tuple(
         existing_finding.identifier
         for existing_finding in existing_findings
-        if are_similar(
+        if are_findings_title_similar(
             t(finding.value.title, locale=locale),
             existing_finding.title,
         )
@@ -281,5 +281,7 @@ def title_to_finding(title: str) -> Set[core_model.FindingEnum]:
         finding
         for finding in core_model.FindingEnum
         for locale in core_model.LocalesEnum
-        if are_similar(t(finding.value.title, locale=locale), title)
+        if are_findings_title_similar(
+            t(finding.value.title, locale=locale), title
+        )
     )
