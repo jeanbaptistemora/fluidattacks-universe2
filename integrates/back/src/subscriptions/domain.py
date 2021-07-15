@@ -461,10 +461,12 @@ async def subscribe_user_to_entity_report(
             LOGGER_CONSOLE.info(
                 "User subscribed correctly",
                 extra={
-                    "frequency": event_frequency,
-                    "entity": report_entity,
-                    "subject": report_subject,
-                    "user": user_email,
+                    "extra": {
+                        "frequency": event_frequency,
+                        "entity": report_entity,
+                        "subject": report_subject,
+                        "user": user_email,
+                    }
                 },
             )
 
