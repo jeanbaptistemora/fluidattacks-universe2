@@ -13,6 +13,7 @@ let
     requirements = {
       direct = [
         "boto3==1.16.29"
+        "lightgbm==3.2.1"
         "numpy==1.19.2"
         "pandas==1.1.2"
         "psycopg2==2.8.4"
@@ -29,6 +30,7 @@ let
         "importlib-metadata==3.4.0"
         "iniconfig==1.1.1"
         "jmespath==0.10.0"
+        "joblib==1.0.1"
         "packaging==20.8"
         "pluggy==0.13.1"
         "protobuf3-to-dict==0.1.5"
@@ -38,8 +40,11 @@ let
         "python-dateutil==2.8.1"
         "pytz==2020.5"
         "s3transfer==0.3.4"
+        "scikit-learn==0.23.2"
+        "scipy==1.7.0"
         "six==1.15.0"
         "smdebug-rulesconfig==0.1.5"
+        "threadpoolctl==2.2.0"
         "toml==0.10.2"
         "urllib3==1.26.4"
         "zipp==3.4.0"
