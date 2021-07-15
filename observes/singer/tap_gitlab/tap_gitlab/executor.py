@@ -84,8 +84,8 @@ def defautl_stream(
     state_id: Maybe[Tuple[str, str]],
 ) -> None:
     client = ApiClient(creds)
-    updater = StateUpdater(client)
     _project = ProjectId.from_name(project)
+    updater = StateUpdater(client.project(_project))
     _state = (
         state_id.bind(lambda sid: state_getter.get(sid[0], sid[1]))
         .map(updater.update_state)

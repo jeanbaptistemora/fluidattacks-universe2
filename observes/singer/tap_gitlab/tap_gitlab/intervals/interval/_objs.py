@@ -43,7 +43,7 @@ def _common_builder(
     greater_than: Comparison[IntervalPoint[_Point]],
 ) -> Any:
     if not greater_than(upper, lower):
-        raise InvalidInterval()
+        raise InvalidInterval(f"{upper} <= {lower}")
     return {
         "lower": lower,
         "upper": upper,

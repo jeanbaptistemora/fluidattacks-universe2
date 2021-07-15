@@ -38,13 +38,11 @@ def default_mr_state(updater: StateUpdater) -> MrStreamState:
     )
 
 
-def default_job_state(
-    updater: StateUpdater, proj: ProjectId
-) -> JobStreamState:
+def default_job_state(updater: StateUpdater) -> JobStreamState:
     return JobStreamState(
         fp_factory_2.new_fprogress(
             f_factory_2.from_endpoints(
-                (MIN(), updater.most_recent_job_point(proj))
+                (MIN(), updater.most_recent_job_point())
             ),
             (False,),
         )
@@ -57,9 +55,9 @@ def default_etl_state(
 ) -> EtlState:
     mr_streams = default_mr_streams(project)
     job_stream = default_job_stream(project)
-    updater = StateUpdater(client)
+    updater = StateUpdater(client.project(project))
     mrs_map = MrStateMap(
         {stream: default_mr_state(updater) for stream in mr_streams}
     )
-    jobs_map = JobStateMap({job_stream: default_job_state(updater, project)})
+    jobs_map = JobStateMap({job_stream: default_job_state(updater)})
     return EtlState(jobs_map, mrs_map)
