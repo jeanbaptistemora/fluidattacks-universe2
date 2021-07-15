@@ -2128,7 +2128,7 @@
   metadata: {}
 "043":
   en:
-    title: Missing HTTP security headers - Content-Security-Policy
+    title: Insecure or Unset HTTP Headers - Content-Security-Policy
     description: >
       The server is missing
       the Content-Security-Policy HTTP header.
@@ -2145,7 +2145,7 @@
       and configure it in a secure way.
     threat: Unauthorized attacker from Internet.
   es:
-    title: Cabeceras de seguridad HTTP no establecidas - Content-Security-Policy
+    title: Cabeceras HTTP inseguras o no establecidas - Content-Security-Policy
     description: >
       El servidor carece del encabezado
       HTTP Content-Security-Policy.
@@ -3831,7 +3831,7 @@
   metadata: {}
 "071":
   en:
-    title: Missing HTTP security headers - Referrer-Policy
+    title: Insecure or Unset HTTP Headers - Referrer-Policy
     description: >
       The server is missing
       the Referrer-Policy HTTP header.
@@ -3849,7 +3849,7 @@
       Unauthorized attacker
       from Internet.
   es:
-    title: Cabeceras de seguridad HTTP no establecidas - Referrer-Policy
+    title: Cabeceras HTTP inseguras o no establecidas - Referrer-Policy
     description: >
       El servidor carece
       del encabezado HTTP Referrer-Policy.
@@ -6923,7 +6923,7 @@
   metadata: {}
 "131":
   en:
-    title: Missing HTTP security headers - Strict Transport Security
+    title: Insecure or Unset HTTP Headers - Strict Transport Security
     description: >
       The server is missing
       the Strict-Transport-Security HTTP header.
@@ -6940,7 +6940,7 @@
       from adjacent network
       performing a MITM.
   es:
-    title: Cabeceras de seguridad HTTP no establecidas - Strict-Transport-Security
+    title: Cabeceras HTTP inseguras o no establecidas - Strict-Transport-Security
     description: >
       El servidor carece del encabezado
       HTTP Strict-Transport-Security.
@@ -6976,7 +6976,7 @@
   metadata: {}
 "132":
   en:
-    title: Missing HTTP security headers - X-Content-Type-Options
+    title: Insecure or Unset HTTP Headers - X-Content-Type-Options
     description: >
       The server is missing
       the X-Content-Type-Options HTTP header.
@@ -6991,7 +6991,7 @@
       Unauthorized attacker
       from internet network.
   es:
-    title: Cabeceras de seguridad HTTP no establecidas - X-Content-Type-Options
+    title: Cabeceras HTTP inseguras o no establecidas - X-Content-Type-Options
     description: >
       El servidor carece de la cabecera
       HTTP X-Content-Type-Options.
