@@ -12,6 +12,7 @@ from api.mutations import (
     add_finding_consult,
     add_forces_execution,
     add_git_root,
+    add_group,
     add_group_consult,
     add_group_tags,
     add_ip_root,
@@ -23,7 +24,6 @@ from api.mutations import (
     approve_draft_new,
     confirm_zero_risk_vuln,
     create_event,
-    create_group,
     create_organization,
     deactivate_finding_policy,
     deactivate_root,
@@ -170,7 +170,7 @@ MUTATION.set_field("editStakeholder", edit_stakeholder.mutate)
 MUTATION.set_field("addFiles", add_files.mutate)
 MUTATION.set_field("downloadFile", download_file.mutate)
 MUTATION.set_field("removeFiles", remove_files.mutate)
-MUTATION.set_field("createProject", create_group.mutate)
+MUTATION.set_field("createProject", add_group.mutate)
 MUTATION.set_field("editGroup", edit_group.mutate)
 MUTATION.set_field("removeGroup", remove_group.mutate)
 MUTATION.set_field("addProjectConsult", add_group_consult.mutate)
@@ -189,7 +189,8 @@ MUTATION.set_field("updateVulnsTreatment", update_vulns_treatment.mutate)
 MUTATION.set_field("updateToeLinesSorts", update_toe_lines_sorts.mutate)
 
 # Standardization Fields
-MUTATION.set_field("createGroup", create_group.mutate)
+MUTATION.set_field("addGroup", add_group.mutate)
+MUTATION.set_field("createGroup", add_group.mutate)
 MUTATION.set_field("addGroupConsult", add_group_consult.mutate)
 
 if FI_API_STATUS == "migration":

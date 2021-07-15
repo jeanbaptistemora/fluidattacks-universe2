@@ -18,7 +18,7 @@ import { Modal } from "components/Modal";
 import { SwitchButton } from "components/SwitchButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
-  CREATE_GROUP_MUTATION,
+  ADD_GROUP_MUTATION,
   GROUPS_NAME_QUERY,
 } from "scenes/Dashboard/components/AddGroupModal/queries";
 import type {
@@ -77,9 +77,9 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
   ): boolean => subsType === "CONTINUOUS";
 
   const handleMutationResult = (result: {
-    createGroup: { success: boolean };
+    addGroup: { success: boolean };
   }): void => {
-    if (result.createGroup.success) {
+    if (result.addGroup.success) {
       onClose();
       msgSuccess(
         translate.t("organization.tabs.groups.newGroup.success"),
@@ -88,13 +88,10 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
     }
   };
 
-  const [createGroup, { loading: submitting }] = useMutation(
-    CREATE_GROUP_MUTATION,
-    {
-      onCompleted: handleMutationResult,
-      onError: handleCreateError,
-    }
-  );
+  const [addGroup, { loading: submitting }] = useMutation(ADD_GROUP_MUTATION, {
+    onCompleted: handleMutationResult,
+    onError: handleCreateError,
+  });
 
   const handleSubmit = useCallback(
     (values: {
@@ -108,7 +105,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
       machine: boolean;
     }): void => {
       track("AddGroup");
-      void createGroup({
+      void addGroup({
         variables: {
           description: values.description,
           groupName: values.name,
@@ -121,7 +118,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
         },
       });
     },
-    [createGroup]
+    [addGroup]
   );
 
   function handleGroupNameError({ graphQLErrors }: ApolloError): void {

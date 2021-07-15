@@ -736,6 +736,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
 ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
+            "api_mutations_add_group_mutate",
             "api_mutations_create_group_mutate",
             "api_mutations_edit_stakeholder_organization_mutate",
             "api_mutations_grant_stakeholder_organization_access_mutate",
@@ -808,6 +809,7 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
     customer=dict(
         actions={
             *ORGANIZATION_LEVEL_ROLES["customer"]["actions"],
+            "api_mutations_add_group_mutate",
             "api_mutations_create_group_mutate",
         },
         tags={
@@ -817,6 +819,7 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
     customeradmin=dict(
         actions={
             *ORGANIZATION_LEVEL_ROLES["customeradmin"]["actions"],
+            "api_mutations_add_group_mutate",
             "api_mutations_create_group_mutate",
             "grant_organization_level_role:group_manager",
         },
@@ -827,6 +830,7 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
     group_manager=dict(
         actions={
             *ORGANIZATION_LEVEL_ROLES["group_manager"]["actions"],
+            "api_mutations_add_group_mutate",
             "api_mutations_create_group_mutate",
             "grant_organization_level_role:group_manager",
         },
@@ -841,6 +845,7 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
 USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
+            "api_mutations_add_group_mutate",
             "api_mutations_add_stakeholder_mutate",
             "api_mutations_create_group_mutate",
             "api_mutations_create_organization_mutate",
@@ -886,6 +891,7 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     analyst=dict(
         actions={
             *USER_LEVEL_ROLES["analyst"]["actions"],
+            "api_mutations_add_group_mutate",
             "api_mutations_create_group_mutate",
             "api_mutations_create_organization_mutate",
             "api_resolvers_query_user_list_groups_resolve",
@@ -899,6 +905,7 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     customer=dict(
         actions={
             *USER_LEVEL_ROLES["customer"]["actions"],
+            "api_mutations_add_group_mutate",
             "api_mutations_create_group_mutate",
             "api_mutations_create_organization_mutate",
             "front_can_use_groups_searchbar",

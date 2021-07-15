@@ -9,8 +9,8 @@ const GROUPS_NAME_QUERY: DocumentNode = gql`
   }
 `;
 
-const CREATE_GROUP_MUTATION: DocumentNode = gql`
-  mutation CreateGroupMutation(
+const ADD_GROUP_MUTATION: DocumentNode = gql`
+  mutation AddGroupMutation(
     $description: String!
     $groupName: String!
     $hasMachine: Boolean!
@@ -20,7 +20,7 @@ const CREATE_GROUP_MUTATION: DocumentNode = gql`
     $service: ServiceType!
     $subscription: SubscriptionType!
   ) {
-    createGroup(
+    addGroup(
       description: $description
       groupName: $groupName
       hasMachine: $hasMachine
@@ -35,4 +35,4 @@ const CREATE_GROUP_MUTATION: DocumentNode = gql`
   }
 `;
 
-export { CREATE_GROUP_MUTATION, GROUPS_NAME_QUERY };
+export { ADD_GROUP_MUTATION, GROUPS_NAME_QUERY };

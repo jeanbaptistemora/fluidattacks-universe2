@@ -15,7 +15,7 @@ import waitForExpect from "wait-for-expect";
 
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
 import {
-  CREATE_GROUP_MUTATION,
+  ADD_GROUP_MUTATION,
   GROUPS_NAME_QUERY,
 } from "scenes/Dashboard/components/AddGroupModal/queries";
 import { OrganizationGroups } from "scenes/Dashboard/containers/OrganizationGroupsView";
@@ -109,7 +109,7 @@ describe("Organization groups view", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_mutations_create_group_mutate" },
+      { action: "api_mutations_add_group_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/groups"]}>
@@ -287,7 +287,7 @@ describe("Organization groups view", (): void => {
       },
       {
         request: {
-          query: CREATE_GROUP_MUTATION,
+          query: ADD_GROUP_MUTATION,
           variables: {
             description: "Test group",
             groupName: "AKAME",
@@ -351,7 +351,7 @@ describe("Organization groups view", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_mutations_create_group_mutate" },
+      { action: "api_mutations_add_group_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/groups"]}>
