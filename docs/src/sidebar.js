@@ -367,7 +367,7 @@ const Criteria = [
           'criteria/vulnerabilities/f015',
           {
               type: 'category',
-              label: 'Improperly set HTTP headers',
+              label: 'Insecure or Unset HTTP Headers',
               items: [
               'criteria/vulnerabilities/043/description',
               {
