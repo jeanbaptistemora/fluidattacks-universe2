@@ -154,6 +154,10 @@ def get_as_epoch(date: datetime) -> int:
     return epoch
 
 
+def get_as_utc_iso_format(date: datetime) -> str:
+    return date.astimezone(tz=timezone.utc).isoformat()
+
+
 def get_iso_date() -> str:
     return datetime.now(tz=timezone.utc).isoformat()
 
