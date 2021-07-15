@@ -15,7 +15,7 @@ from utils import (
     graph as g,
 )
 from utils.graph.transformation import (
-    build_js_member_expression,
+    build_js_member_expression_key,
 )
 
 
@@ -31,7 +31,7 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
     if identifier_id := match["identifier"]:
         type_name = args.graph.nodes[identifier_id]["label_text"]
     elif member_id := match["member_expression"]:
-        type_name = build_js_member_expression(args.graph, member_id)
+        type_name = build_js_member_expression_key(args.graph, member_id)
     else:
         raise MissingCaseHandling(args)
 

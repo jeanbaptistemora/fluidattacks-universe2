@@ -9,7 +9,7 @@ from utils import (
     graph as g,
 )
 from utils.graph.transformation import (
-    build_js_member_expression,
+    build_js_member_expression_key,
 )
 from utils.string import (
     complete_attrs_on_set,
@@ -46,7 +46,7 @@ def javascript_crypto_js_credentials(
                     "arguments",
                 )
                 if member_expression_id := match["member_expression"]:
-                    method_name = build_js_member_expression(
+                    method_name = build_js_member_expression_key(
                         graph,
                         member_expression_id,
                     )

@@ -65922,6 +65922,17 @@
             "type": "SyntaxStepMethodInvocation"
           }
         ],
+        "224": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "224",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "253": [
           {
             "meta": {
@@ -65931,6 +65942,53 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "254": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "267",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "4",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "269",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "3",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "262",
+              "value": null
+            },
+            "object_type": "Polygon",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "254",
+              "value": null
+            },
+            "method": "console.log",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "277": [
@@ -66450,7 +66508,7 @@
               "value": null
             },
             "type": "SyntaxStepAssignment",
-            "var": "color"
+            "var": "color.this"
           }
         ],
         "61": [

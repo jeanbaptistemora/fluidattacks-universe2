@@ -15,7 +15,7 @@ from utils import (
     graph as g,
 )
 from utils.graph.transformation import (
-    build_js_member_expression,
+    build_js_member_expression_key,
 )
 
 
@@ -25,7 +25,7 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
     )
     arguments_id = match["arguments"]
     if member_id := match["member_expression"]:
-        method_name = build_js_member_expression(args.graph, member_id)
+        method_name = build_js_member_expression_key(args.graph, member_id)
     elif identifier_id := match["identifier"]:
         method_name = args.graph.nodes[identifier_id]["label_text"]
     else:

@@ -2,6 +2,7 @@ from model import (
     graph_model,
 )
 from typing import (
+    cast,
     List,
     Optional,
 )
@@ -55,7 +56,7 @@ def _build_nested_identifier_ids_js(
         n_id,
         "identifier",
         nested_key,
-        "this_expression",
+        "this",
         "property_identifier",
         "call_expression",
         ".",
@@ -74,7 +75,9 @@ def _build_nested_identifier_ids_js(
 
     if identifiers := match_access["identifier"]:
         keys = [*identifiers, *keys]
-    if this := match_access["this_expression"]:
+    if element := match_access.get("__0__"):
+        keys = [*keys, cast(str, element)]
+    if this := match_access["this"]:
         keys.append(this.pop())
 
     return keys
@@ -106,14 +109,26 @@ def build_qualified_name(graph: graph_model.Graph, qualified_id: str) -> str:
     return ".".join(identifiers)
 
 
-def build_js_member_expression(
+def build_js_member_expression_key(
     graph: graph_model.Graph, qualified_id: str
 ) -> str:
-    keys = _build_nested_identifier_ids_js(
-        graph, qualified_id, "member_expression"
+    keys = build_js_member_expression_ids(graph, qualified_id)
+    identifiers = tuple(
+        graph.nodes[key]["label_text"]
+        for key in keys
+        if "label_text" in graph.nodes[key]
     )
-    identifiers = tuple(graph.nodes[key]["label_text"] for key in keys)
     return ".".join(identifiers)
+
+
+def build_js_member_expression_ids(
+    graph: graph_model.Graph, qualified_id: str
+) -> List[str]:
+    return _build_nested_identifier_ids_js(
+        graph,
+        qualified_id,
+        "member_expression",
+    )
 
 
 def build_type_name(

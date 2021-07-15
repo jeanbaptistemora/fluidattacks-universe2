@@ -13,7 +13,7 @@ from utils import (
     graph as g,
 )
 from utils.graph.transformation import (
-    build_js_member_expression,
+    build_js_member_expression_key,
 )
 
 
@@ -67,7 +67,7 @@ def _expression(
     if left_type == "identifier":
         identifier_name = args.graph.nodes[left_id]["label_text"]
     elif left_type == "member_expression":
-        identifier_name = build_js_member_expression(args.graph, left_id)
+        identifier_name = build_js_member_expression_key(args.graph, left_id)
     else:
         raise MissingCaseHandling(args)
 

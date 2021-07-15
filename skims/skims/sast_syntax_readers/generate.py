@@ -71,6 +71,7 @@ from sast_syntax_readers.javascript import (
     function_declaration as javascript_function_declaration,
     if_statement as javascript_if_statement,
     lexical_declaration as javascript_lexical_declaration,
+    member_expression as javascript_member_expression,
     new_expression as javascript_new_expression,
     variable_declaration as javascript_variable_declaration,
     variable_declarator as javascript_variable_declarator,
@@ -680,6 +681,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         },
         syntax_readers=(javascript_await_expression.reader,),
     ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+        },
+        applicable_node_label_types={
+            "member_expression",
+        },
+        syntax_readers=(javascript_member_expression.reader,),
+    ),
     *[
         Dispatcher(
             applicable_languages={
@@ -696,6 +706,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "statement_block",
             "break_statement",
             "class_body",
+            "class_declaration",
             "constructor_body",
             "continue_statement",
             "comment",
