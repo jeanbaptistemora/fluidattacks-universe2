@@ -45,12 +45,12 @@ What has proved problematic
 is the collection of more data than is strictly necessary
 or the unauthorized use of such data.
 —Immediately comes to (my) mind the incident with link:https://en.wikipedia.org/wiki/Cambridge_Analytica[Cambridge Analytica]
-(you can watch on Netflix a link:https://www.netflix.com/co/title/80117542[documentary about this incident]).
+(watch a documentary about it link:https://www.netflix.com/co/title/80117542[here]).
 
-.Schrems's photo taken from link:https://www.handelsblatt.com/images/max-schrems-/20878360/4-formatOriginal.jpg[Handelsblatt]
+.Schrems's photo taken from link:https://www.handelsblatt.com/images/max-schrems-/20878360/4-formatOriginal.jpg[Handelsblatt].
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331071/blog/schrems-shield/schrems_l67vce.webp[Max Schrems]
 
-It was back in *2013* when our main character
+It was in *2013* when our main character
 (although I said this is not a movie)
 appeared with a legal case associated with inappropriate use of data.
 We're talking about Max Schrems, an Austrian privacy rights campaigner,
@@ -76,7 +76,7 @@ It was built to fulfill what the Safe Harbor Agreement did not.
 Specifically, this new agreement was intended to ensure consistency
 with EU laws for the use of information that was to come
 from the EU citizens to the US.
-However, this 'shield,' according to link:https://verfassungsblog.de/schrems-ii-a-brief-history-an-analysis-and-the-way-forward/[Shreya Tewari],
+However, this 'shield,' according to link:https://verfassungsblog.de/schrems-ii-a-brief-history-an-analysis-and-the-way-forward/[Tewari],
 "was heavily criticised by activists and data protection experts alike
 for not providing any concrete protection against indiscriminate access
 to personal data for national security purposes."
@@ -124,7 +124,7 @@ shared the link:https://www.globallegalpost.com/commentary/uncertain-future-for-
 However, the impact goes further,
 and "the decision affects many EU businesses which relied on it
 to legalise EU-US data transfers, especially to US service providers."
-In line with the statements by link:https://www.esrb.org/privacy-certified-blog/schrems-ii-3-key-takeaways-for-all-companies-transferring-personal-data-outside-the-eu/[John Falzone on ESRB],
+In line with the statements by link:https://www.esrb.org/privacy-certified-blog/schrems-ii-3-key-takeaways-for-all-companies-transferring-personal-data-outside-the-eu/[Falzone on ESRB],
 many of those companies that have invested time and money
 to certifying compliance with the Privacy Shield "did nothing wrong"
 but "exactly what they were asked to do."
@@ -146,7 +146,7 @@ Either way, those involved will look for an early solution.
 Currently, the exception is supposed to be that
 only crucially 'necessary' transfers will be kept.
 What does that mean? I don't know.
-What I'm clear about is what link:https://iapp.org/news/a/the-show-must-go-on/[Omer Tene] said:
+What I'm clear about is what link:https://iapp.org/news/a/the-show-must-go-on/[Tene] said:
 "data will continue to flow across borders."
 
 Nevertheless, Max Schrems has achieved it again.
