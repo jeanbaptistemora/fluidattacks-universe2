@@ -334,6 +334,7 @@ def csharp_insecure_cipher(
         "DESCryptoServiceProvider",
         "TripleDES",
         "TripleDESCng",
+        "DesEdeEngine",
         "TripleDESCryptoServiceProvider",
         "RC2",
         "RC2CryptoServiceProvider",
