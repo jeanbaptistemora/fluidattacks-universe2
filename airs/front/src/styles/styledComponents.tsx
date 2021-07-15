@@ -61,21 +61,8 @@ const MenuButton: StyledComponent<
     fl
     pv4
     mv1
-    db-l
+    db
     dn
-  `,
-})``;
-
-const MobileMenuButton: StyledComponent<
-  "li",
-  Record<string, unknown>
-> = styled.li.attrs({
-  className: `
-    relative
-    fl
-    pv4
-    mv1
-    dn-l
   `,
 })``;
 
@@ -99,6 +86,35 @@ const NavbarContactButton: StyledComponent<
     t-all-3-eio
     white
     pointer
+  `,
+})``;
+
+const MobileContactButton: StyledComponent<
+  "button",
+  Record<string, unknown>
+> = styled.button.attrs({
+  className: `
+    outline-transparent
+    fw5
+    f4
+    br2
+    bw1
+    ph3
+    bg-fluid-red
+    bc-hovered-red
+    ba
+    hv-bg-fluid-dkred
+    hv-bd-fluid-dkred
+    t-all-3-eio
+    white
+    pointer
+    mb3
+    w-90
+    pv3
+    justify-center
+    flex
+    center
+    mh3
   `,
 })``;
 
@@ -810,8 +826,7 @@ const SocialMediaLink: StyledComponent<
   Record<string, unknown>
 > = styled.button.attrs({
   className: `
-    pa2-l
-    pa1
+    pa2
     ba
     br3
     bg-transparent
@@ -1328,9 +1343,8 @@ const SidebarContainer: StyledComponent<
 > = styled.div.attrs({
   className: `
     w-100
-    bg-white
+    bg-whitergray
     overflow-y-auto
-    mw5
     nowrap
   `,
 })``;
@@ -1340,7 +1354,7 @@ const HeaderContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    min-h-25
+    flex
   `,
 })``;
 
@@ -1350,7 +1364,8 @@ const LogoContainer: StyledComponent<
 > = styled.div.attrs({
   className: `
     tl
-    pa3
+    pa4
+    w-50
   `,
 })``;
 
@@ -1359,9 +1374,9 @@ const ContentContainer: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    pl4
     overflow-y-auto
-    h-50
+    w-60-m
+    center
   `,
 })``;
 
@@ -1391,7 +1406,9 @@ const ListItem: StyledComponent<
   className: `
     db
     pb3
-    pr3
+    mh3
+    mobileMenuItem
+    mb3
   `,
 })``;
 
@@ -1412,8 +1429,8 @@ const ListItemLabel: StyledComponent<
   className: `
     pointer
     hv-fluid-rd
-    f5
-    c-fluid-bk
+    f3
+    c-black46
     fw4
     t-color-2
     roboto
@@ -1450,14 +1467,15 @@ const InnerListItem: StyledComponent<
   `,
 })``;
 
-const FooterContainer: StyledComponent<
+const MobileFooterContainer: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    justify-center
-    items-center
-    flex
+    tc-m
+    db
+    mh3
+    mt4
     min-h-25
   `,
 })``;
@@ -1584,7 +1602,6 @@ export {
   Flex,
   FlexCenterItemsContainer,
   FontAwesomeContainerSmall,
-  FooterContainer,
   FooterInfoLinksContainer,
   FooterInfoLink,
   FullWidthContainer,
@@ -1617,7 +1634,8 @@ export {
   MenuButton,
   MenuItem,
   MenuList,
-  MobileMenuButton,
+  MobileContactButton,
+  MobileFooterContainer,
   MenuLinksContainer,
   NavbarSubcategory,
   NavbarContactButton,

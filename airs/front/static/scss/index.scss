@@ -21,8 +21,10 @@ $soft-gray: rgba(211, 211, 211, 1);
 $white: rgba(255, 255, 255, 1);
 $white-gray: rgba(230, 228, 228, 1);
 $whiter-gray: rgba(241, 241, 241, 1);
+$black-46: rgba(46, 46, 56, 1);
 $gray-233: rgba(233, 233, 237, 1);
 $gray-244: rgba(244, 244, 246, 1);
+$gray-176: rgba(176, 176, 191, 1);
 
 // Rules
 @keyframes fadein {
@@ -42,6 +44,7 @@ $gray-244: rgba(244, 244, 246, 1);
 .bg-lightgray { background-color: $light-gray; }
 .bg-gray-233 { background-color: $gray-233; }
 .bg-gray-244 { background-color: $gray-244; }
+.bg-whitergray { background-color: $whiter-gray; }
 
 // Background Images
 .bg-continuous { background-image: url('https://res.cloudinary.com/fluid-attacks/image/upload/v1619629767/airs/services/main-continuous-hacking_fhlonl.webp'); }
@@ -141,11 +144,13 @@ $gray-244: rgba(244, 244, 246, 1);
 .bc-fluid-gray { border-color: $fluid-gray; }
 .bc-hovered-red { border-color: $hovered-red; }
 .bc-gray-233 { border-color: $gray-233; }
+.c-black46 { color: $black-46; }
 .c-black-gray { color: $black-gray; }
 .c-blue-gray { color: $blue-gray; }
 .c-dkred { color: $button-red; }
 .c-fluid-bk { color: $fluid-black; }
 .c-fluid-gray { color: $fluid-gray; }
+.c-gray-176 { color: $gray-176; }
 .c-gray-64 { color: $gray-64; }
 .c-hovered-red { color: $hovered-red; }
 .bc-darker-blue { border-color: $darker-blue; }
@@ -350,6 +355,10 @@ $gray-244: rgba(244, 244, 246, 1);
 }
 
 // Custom elements
+
+.mobileMenuItem {
+  border-bottom: solid 1px $gray-176;
+}
 
 .bl-red {
   border-left: 7px solid $hovered-red;
@@ -795,6 +804,21 @@ $gray-244: rgba(244, 244, 246, 1);
 }
 
 .aboutus-title:checked~.aboutus-list {
+  animation: fadein 0.5s;
+  display: block;
+}
+
+.systems-title:checked~.systems-list {
+  animation: fadein 0.5s;
+  display: block;
+}
+
+.categories-title:checked~.categories-list {
+  animation: fadein 0.5s;
+  display: block;
+}
+
+.resources-title:checked~.resources-list {
   animation: fadein 0.5s;
   display: block;
 }

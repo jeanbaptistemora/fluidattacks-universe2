@@ -7,7 +7,7 @@ const MenuDesktopInnerContainer: StyledComponent<
 > = styled.div.attrs({
   className: `
     sidenav
-    bg-white
+    bg-whitergray
     fixed
     h-100
     w-100
@@ -232,29 +232,6 @@ const MenuMobileInnerContainer: StyledComponent<
   `,
 })``;
 
-const CloseMenuMobileContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    w-80-m
-    w-50
-    h-100
-  `,
-})``;
-
-const CloseMenuMobile: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    w-100
-    h-100
-    bg-gray-black
-    o-50
-  `,
-})``;
-
 const DesktopTopbarItemsContainer = styled.div.attrs({
   className: `
     w-50
@@ -275,8 +252,6 @@ export {
   BlackWeightedParagraph,
   CloseMenuButton,
   CloseMenuButtonContainer,
-  CloseMenuMobile,
-  CloseMenuMobileContainer,
   DesktopTopbarItem,
   DesktopTopbarItemsContainer,
   FlexMenuItems,

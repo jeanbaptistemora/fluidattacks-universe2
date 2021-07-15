@@ -12,7 +12,6 @@ import {
   ContentContainer,
   ContentList,
   FontAwesomeContainerSmall,
-  FooterContainer,
   HeaderContainer,
   InnerContentList,
   InnerListContainer,
@@ -21,6 +20,7 @@ import {
   ListItemCheckbox,
   ListItemLabel,
   LogoContainer,
+  MobileFooterContainer,
   SidebarContainer,
 } from "../../../../styles/styledComponents";
 import { CloudImage } from "../../../CloudImage";
@@ -357,7 +357,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
         </ListItem>
       </ContentList>
     </ContentContainer>
-    <FooterContainer>
+    <MobileFooterContainer>
       <div>
         <ContactButtonContainer>
           <Link
@@ -372,7 +372,7 @@ const MenuMobile: React.FC = (): JSX.Element => (
 
         <SocialMedia />
       </div>
-    </FooterContainer>
+    </MobileFooterContainer>
   </SidebarContainer>
 );
 

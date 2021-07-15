@@ -9,16 +9,13 @@ import React, { useState } from "react";
 
 import { MenuDesktop } from "./MenuDesktop";
 import { MenuDesktopTopBar } from "./MenuDesktopTopBar";
-import { MenuMobile } from "./MenuMobile";
+import { MenuMobile } from "./MenuMobile/newIndex";
 
 import {
   CenteredMaxWidthContainer,
   MenuButton,
-  MobileMenuButton,
 } from "../../../styles/styledComponents";
 import {
-  CloseMenuMobile,
-  CloseMenuMobileContainer,
   MenuDesktopContainer,
   MenuDesktopInnerContainer,
   MenuMobileContainer,
@@ -36,10 +33,6 @@ const Menu: React.FC = (): JSX.Element => {
     }
   }
 
-  function mobileToggle(): void {
-    setIsOpen(!isOpen);
-  }
-
   return (
     <React.Fragment>
       <MenuButton onClick={toggle}>
@@ -49,13 +42,6 @@ const Menu: React.FC = (): JSX.Element => {
           </span>
         </div>
       </MenuButton>
-      <MobileMenuButton onClick={mobileToggle}>
-        <div className={"lower"}>
-          <span className={"pointer dib h2-l"} id={"openbtn"}>
-            <FontAwesomeIcon className={"f2 c-fluid-bk"} icon={faBars} />
-          </span>
-        </div>
-      </MobileMenuButton>
       <MenuDesktopContainer>
         <MenuDesktopInnerContainer
           className={isOpen ? "" : "dn"}
@@ -69,10 +55,7 @@ const Menu: React.FC = (): JSX.Element => {
       </MenuDesktopContainer>
       <MenuMobileContainer>
         <MenuMobileInnerContainer style={{ width: isOpen ? "100%" : "0" }}>
-          <MenuMobile />
-          <CloseMenuMobileContainer>
-            <CloseMenuMobile onClick={mobileToggle} />
-          </CloseMenuMobileContainer>
+          <MenuMobile close={toggle} />
         </MenuMobileInnerContainer>
       </MenuMobileContainer>
     </React.Fragment>

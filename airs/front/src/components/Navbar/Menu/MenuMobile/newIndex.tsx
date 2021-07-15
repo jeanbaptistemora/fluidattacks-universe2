@@ -17,10 +17,10 @@ import { SystemsList } from "./SystemsList";
 import {
   ContentContainer,
   ContentList,
-  FooterContainer,
   HeaderContainer,
   LogoContainer,
-  NavbarContactButton,
+  MobileContactButton,
+  MobileFooterContainer,
   SidebarContainer,
 } from "../../../../styles/styledComponents";
 import { SocialMedia } from "../../../SocialMedia";
@@ -53,15 +53,12 @@ const MenuMobile: React.FC<IProps> = ({ close }: IProps): JSX.Element => (
         <ServicesList />
         <SolutionsList />
         <SystemsList />
-        <div>
-          <NavbarContactButton
-            className={"mb3 w-90 pv3 justify-center flex center mh3"}
-            onClick={close}
-          >
-            <Link className={"no-underline white f4"} to={"/contact-us/"}>
+        <div className={"mv4"}>
+          <Link className={"no-underline"} to={"/contact-us/"}>
+            <MobileContactButton onClick={close}>
               {"Contact Now"}
-            </Link>
-          </NavbarContactButton>
+            </MobileContactButton>
+          </Link>
         </div>
         <AboutUsList />
         <CategoriesList />
@@ -69,10 +66,10 @@ const MenuMobile: React.FC<IProps> = ({ close }: IProps): JSX.Element => (
       </ContentList>
       <LinksSection />
     </ContentContainer>
-    <FooterContainer>
+    <MobileFooterContainer>
       <p className={"c-fluid-gray"}>{"FOLLOW US"}</p>
       <SocialMedia />
-    </FooterContainer>
+    </MobileFooterContainer>
   </SidebarContainer>
 );
 
