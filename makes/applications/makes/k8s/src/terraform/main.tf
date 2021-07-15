@@ -18,14 +18,6 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "~> 1.11.1"
     }
-    local = {
-      source  = "hashicorp/local"
-      version = "~> 1.4"
-    }
-    random = {
-      source  = "hashicorp/random"
-      version = "~> 2.1"
-    }
     helm = {
       source  = "hashicorp/helm"
       version = "~> 2.2.0"
@@ -33,14 +25,6 @@ terraform {
     http = {
       source  = "hashicorp/http"
       version = "~> 2.1.0"
-    }
-    null = {
-      source  = "hashicorp/null"
-      version = "~> 2.1"
-    }
-    template = {
-      source  = "hashicorp/template"
-      version = "~> 2.1"
     }
   }
 
