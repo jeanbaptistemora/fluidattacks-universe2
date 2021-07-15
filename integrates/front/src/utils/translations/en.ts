@@ -251,7 +251,7 @@ export const enTranslations: ResourceKey = {
   configuration: {
     close: "Close",
     comments: {
-      label: "Comments notifications:",
+      label: "Consulting notifications:",
       subscribed: "Yes",
       tooltip:
         "Receive notifications by email for comments posted on your subscribed groups",
