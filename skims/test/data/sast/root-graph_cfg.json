@@ -65528,6 +65528,45 @@
             "var_type": null
           }
         ],
+        "11": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "23",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "18",
+              "value": null
+            },
+            "type": "SyntaxStepLambdaExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "13",
+              "value": null
+            },
+            "object_type": "Promise",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "11",
+              "value": null
+            },
+            "type": "SyntaxStepReturn"
+          }
+        ],
         "113": [
           {
             "meta": {
@@ -66308,6 +66347,29 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "348": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "351",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "1",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "348",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "i"
+          }
+        ],
         "353": [
           {
             "meta": {
@@ -66317,6 +66379,49 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "354": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "360",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": " ",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "358",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "357",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "354",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "result"
           }
         ],
         "379": [
@@ -66353,6 +66458,20 @@
             },
             "method": "console.log",
             "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "391": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "398",
+              "value": null
+            },
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "stream",
+            "var_type": null
           }
         ],
         "485": [
@@ -66783,6 +66902,29 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "703": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "706",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "1",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "703",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "value"
           }
         ],
         "708": [
@@ -67607,6 +67749,28 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "998": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1001",
+              "value": null
+            },
+            "symbol": "n",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "998",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "x"
           }
         ]
       }
