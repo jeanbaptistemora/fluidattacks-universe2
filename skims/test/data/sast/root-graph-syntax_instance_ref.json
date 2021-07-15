@@ -3,25 +3,6 @@
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
-  "F001_JAVA_SQL": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {
-      "187": {},
-      "282": {},
-      "365": {},
-      "460": {},
-      "524": {},
-      "615": {},
-      "710": {},
-      "77": {},
-      "793": {},
-      "869": {}
-    },
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
-  "F001_JPA": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
   "F004": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
       "187": {},
@@ -60,11 +41,15 @@
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
-  "F014_FLOAT_CURRENCY": {
+  "F012": {
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
   "F015": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
+  "F016": {
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
@@ -91,15 +76,11 @@
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
-  "F024_AWS": {
+  "F024": {
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
-  "F031_AWS": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
-  "F031_CWE378": {
+  "F031": {
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
@@ -2916,31 +2897,7 @@
     },
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
-  "F042_HTTPONLY": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
-  "F042_SAMESITE": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
-  "F042_SECURE": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
-  "F043_DAST_CSP": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
-  "F043_DAST_RP": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
-  "F043_DAST_STS": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
-  "F043_DAST_XCTO": {
+  "F043": {
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
@@ -2960,31 +2917,15 @@
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
-  "F052_ANON": {
+  "F055": {
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
-  "F052_CBC": {
+  "F057": {
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
-  "F052_PFS": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
-  "F052_SSL_TLS": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
-  "F055_APK_BACKUPS": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
-  "F055_AWS_MISSING_ENCRYPTION": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
-  "F058_APK": {
+  "F058": {
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
@@ -2996,7 +2937,7 @@
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
-  "F063_PATH_TRAVERSAL": {
+  "F063": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
       "187": {},
       "282": {},
@@ -3011,7 +2952,43 @@
     },
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
-  "F063_TRUSTBOUND": {
+  "F064": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
+  "F070": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
+  "F071": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
+  "F073": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
+  "F075": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
+  "F079": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
+  "F080": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
+  "F085": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
+  "F086": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
+  "F089": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
       "187": {
         "187-199-217-224-246-253-254": [
@@ -5805,35 +5782,11 @@
     },
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
-  "F063_TYPE_CONFUSION": {
+  "F092": {
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
-  "F064": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
-  "F070_WILDCARD_IMPORT": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
-  "F073": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
-  "F075": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
-  "F079": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
-  "F085": {
-    "skims/test/data/benchmark/instance_references/src/App.java": {},
-    "skims/test/data/benchmark/instance_references/src/User.java": {}
-  },
-  "F086": {
+  "F094": {
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
@@ -5856,7 +5809,54 @@
     },
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
+  "F109": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
+  "F112": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {
+      "187": {},
+      "282": {},
+      "365": {},
+      "460": {},
+      "524": {},
+      "615": {},
+      "710": {},
+      "77": {},
+      "793": {},
+      "869": {}
+    },
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
   "F117": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
+  "F127": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
+  "F128": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
+  "F129": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
+  "F130": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
+  "F131": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
+  "F132": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
+  "F133": {
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   }

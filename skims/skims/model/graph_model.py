@@ -379,10 +379,10 @@ GRAPH_VULNERABILITY_PARAMETERS: Dict[
             desc_params={},
         )
     ),
-    core_model.FindingEnum.F001_JAVA_SQL: (
+    core_model.FindingEnum.F112: (
         GraphVulnerabilityParameters(
             cwe=(89,),
-            desc_key="src.lib_path.F001_JAVA_SQL.user_controled_param",
+            desc_key="src.lib_path.F112.user_controled_param",
             desc_params={},
         )
     ),
@@ -416,26 +416,24 @@ GRAPH_VULNERABILITY_PARAMETERS: Dict[
         desc_key="F052.description",
         desc_params={},
     ),
-    core_model.FindingEnum.F063_PATH_TRAVERSAL: (
+    core_model.FindingEnum.F063: (
         GraphVulnerabilityParameters(
             cwe=(22,),
             desc_key="src.lib_path.f063_path_traversal.description",
             desc_params={},
         )
     ),
-    core_model.FindingEnum.F063_TRUSTBOUND: (
+    core_model.FindingEnum.F089: (
         GraphVulnerabilityParameters(
             cwe=(501,),
-            desc_key="F063_TRUSTBOUND.description",
+            desc_key="F089.description",
             desc_params={},
         )
     ),
-    core_model.FindingEnum.F063_TYPE_CONFUSION: (
+    core_model.FindingEnum.F127: (
         GraphVulnerabilityParameters(
-            cwe=(core_model.FindingEnum.F063_TYPE_CONFUSION.value.cwe,),
-            desc_key=(
-                core_model.FindingEnum.F063_TYPE_CONFUSION.value.description
-            ),
+            cwe=(core_model.FindingEnum.F127.value.cwe,),
+            desc_key=(core_model.FindingEnum.F127.value.description),
             desc_params={},
         )
     ),

@@ -1,26 +1,20 @@
 lib_http.analyze_headers.set_cookie_httponly.missing_httponly:
   en: "{cookie_name} is missing HttpOnly"
   es: "{cookie_name} sin HttpOnly"
-F042_HTTPONLY.description:
+F128.description:
   en: >
     The application's cookies are generated without properly setting the
     HttpOnly attribute.
   es: >
     La aplicación genera cookies sin establecer correctamente el atributo
     HttpOnly.
-F042_HTTPONLY.impact:
+F128.impact:
   en: Obtain sensitive information by performing a XSS attack.
   es: Obtener información sensible realizando un ataque XSS.
-F042_HTTPONLY.recommendation:
+F128.recommendation:
   en: >
     The application must set the HttpOnly attribute in the cookies with
     sensitive information.
   es: >
     La aplicación debe establecer el atributo HttpOnly en la cookies con
     información sensible.
-F042_HTTPONLY.threat:
-  en: Authorized attacker from internet network performing a XSS attack.
-  es: Atacante con autorización desde internet ejecutando un ataque XSS.
-F042_HTTPONLY.title:
-  en: F042. Insecurely generated cookies - missing HttpOnly
-  es: F042. Cookies generadas de forma insegura - HttpOnly faltante

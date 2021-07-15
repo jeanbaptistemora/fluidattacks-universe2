@@ -4996,7 +4996,7 @@
             "label_field_name": "168",
             "label_field_object": "160",
             "label_l": 22,
-            "label_sink_type": "F034,F063_TRUSTBOUND",
+            "label_sink_type": "F034,F089",
             "label_type": "method_invocation"
           },
           "16": {
@@ -5182,7 +5182,7 @@
             "label_c": 9,
             "label_field_declarator": "189",
             "label_field_type": "188",
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F034,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
+            "label_input_type": "F004,F008,F021,F034,F042,F063,F089,F107,F112",
             "label_l": 26,
             "label_type": "local_variable_declaration"
           },
@@ -5646,7 +5646,7 @@
             "label_field_name": "263",
             "label_field_object": "255",
             "label_l": 34,
-            "label_sink_type": "F034,F063_TRUSTBOUND",
+            "label_sink_type": "F034,F089",
             "label_type": "method_invocation"
           },
           "255": {
@@ -5835,7 +5835,7 @@
             "label_c": 9,
             "label_field_declarator": "284",
             "label_field_type": "283",
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F034,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
+            "label_input_type": "F004,F008,F021,F034,F042,F063,F089,F107,F112",
             "label_l": 38,
             "label_type": "local_variable_declaration"
           },
@@ -6211,7 +6211,7 @@
             "label_field_name": "346",
             "label_field_object": "338",
             "label_l": 44,
-            "label_sink_type": "F034,F063_TRUSTBOUND",
+            "label_sink_type": "F034,F089",
             "label_type": "method_invocation"
           },
           "338": {
@@ -6398,7 +6398,7 @@
             "label_c": 9,
             "label_field_declarator": "367",
             "label_field_type": "366",
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F034,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
+            "label_input_type": "F004,F008,F021,F034,F042,F063,F089,F107,F112",
             "label_l": 48,
             "label_type": "local_variable_declaration"
           },
@@ -6815,7 +6815,7 @@
             "label_field_name": "435",
             "label_field_object": "427",
             "label_l": 55,
-            "label_sink_type": "F034,F063_TRUSTBOUND",
+            "label_sink_type": "F034,F089",
             "label_type": "method_invocation"
           },
           "427": {
@@ -7049,7 +7049,7 @@
             "label_c": 9,
             "label_field_declarator": "462",
             "label_field_type": "461",
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F034,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
+            "label_input_type": "F004,F008,F021,F034,F042,F063,F089,F107,F112",
             "label_l": 59,
             "label_type": "local_variable_declaration"
           },
@@ -7289,7 +7289,7 @@
             "label_field_name": "505",
             "label_field_object": "497",
             "label_l": 63,
-            "label_sink_type": "F034,F063_TRUSTBOUND",
+            "label_sink_type": "F034,F089",
             "label_type": "method_invocation"
           },
           "497": {
@@ -7482,7 +7482,7 @@
             "label_c": 9,
             "label_field_declarator": "526",
             "label_field_type": "525",
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F034,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
+            "label_input_type": "F004,F008,F021,F034,F042,F063,F089,F107,F112",
             "label_l": 67,
             "label_type": "local_variable_declaration"
           },
@@ -7907,7 +7907,7 @@
             "label_field_name": "596",
             "label_field_object": "588",
             "label_l": 76,
-            "label_sink_type": "F034,F063_TRUSTBOUND",
+            "label_sink_type": "F034,F089",
             "label_type": "method_invocation"
           },
           "588": {
@@ -8103,7 +8103,7 @@
             "label_c": 9,
             "label_field_declarator": "617",
             "label_field_type": "616",
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F034,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
+            "label_input_type": "F004,F008,F021,F034,F042,F063,F089,F107,F112",
             "label_l": 80,
             "label_type": "local_variable_declaration"
           },
@@ -8561,7 +8561,7 @@
             "label_field_name": "691",
             "label_field_object": "683",
             "label_l": 88,
-            "label_sink_type": "F034,F063_TRUSTBOUND",
+            "label_sink_type": "F034,F089",
             "label_type": "method_invocation"
           },
           "683": {
@@ -8753,7 +8753,7 @@
             "label_c": 9,
             "label_field_declarator": "712",
             "label_field_type": "711",
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F034,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
+            "label_input_type": "F004,F008,F021,F034,F042,F063,F089,F107,F112",
             "label_l": 92,
             "label_type": "local_variable_declaration"
           },
@@ -9121,7 +9121,7 @@
             "label_field_name": "774",
             "label_field_object": "766",
             "label_l": 98,
-            "label_sink_type": "F034,F063_TRUSTBOUND",
+            "label_sink_type": "F034,F089",
             "label_type": "method_invocation"
           },
           "766": {
@@ -9154,7 +9154,7 @@
             "label_c": 9,
             "label_field_declarator": "79",
             "label_field_type": "78",
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F034,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
+            "label_input_type": "F004,F008,F021,F034,F042,F063,F089,F107,F112",
             "label_l": 10,
             "label_type": "local_variable_declaration"
           },
@@ -9311,7 +9311,7 @@
             "label_c": 9,
             "label_field_declarator": "795",
             "label_field_type": "794",
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F034,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
+            "label_input_type": "F004,F008,F021,F034,F042,F063,F089,F107,F112",
             "label_l": 102,
             "label_type": "local_variable_declaration"
           },
@@ -9602,7 +9602,7 @@
             "label_field_name": "844",
             "label_field_object": "836",
             "label_l": 107,
-            "label_sink_type": "F034,F063_TRUSTBOUND",
+            "label_sink_type": "F034,F089",
             "label_type": "method_invocation"
           },
           "836": {
@@ -9825,7 +9825,7 @@
             "label_c": 9,
             "label_field_declarator": "871",
             "label_field_type": "870",
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F034,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
+            "label_input_type": "F004,F008,F021,F034,F042,F063,F089,F107,F112",
             "label_l": 111,
             "label_type": "local_variable_declaration"
           },
@@ -10202,7 +10202,7 @@
             "label_field_name": "932",
             "label_field_object": "924",
             "label_l": 117,
-            "label_sink_type": "F034,F063_TRUSTBOUND",
+            "label_sink_type": "F034,F089",
             "label_type": "method_invocation"
           },
           "924": {

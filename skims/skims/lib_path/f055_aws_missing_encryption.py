@@ -112,7 +112,7 @@ def _cfn_unencrypted_volumes(
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key="src.lib_path.f055_aws.unencrypted_volumes",
-        finding=core_model.FindingEnum.F055_AWS_MISSING_ENCRYPTION,
+        finding=core_model.FindingEnum.F080,
         path=path,
         statements_iterator=_unencrypted_volume_iterate_vulnerabilities(
             volumes_iterator=_iter_ec2_volumes(
@@ -130,7 +130,7 @@ def _cfn_unencrypted_buckets(
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key="src.lib_path.f055_aws.unencrypted_buckets",
-        finding=core_model.FindingEnum.F055_AWS_MISSING_ENCRYPTION,
+        finding=core_model.FindingEnum.F080,
         path=path,
         statements_iterator=(
             bucket
@@ -148,7 +148,7 @@ def _terraform_unencrypted_buckets(
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key="src.lib_path.f055_aws.unencrypted_buckets",
-        finding=core_model.FindingEnum.F055_AWS_MISSING_ENCRYPTION,
+        finding=core_model.FindingEnum.F080,
         path=path,
         statements_iterator=_unencrypted_buckets_iterate_vulnerabilities(
             buckets_iterator=terraform_iter_s3_buckets(model=model)
@@ -164,7 +164,7 @@ def _terraform_public_buckets(
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key="src.lib_path.f055_aws.unencrypted_buckets",
-        finding=core_model.FindingEnum.F055_AWS_MISSING_ENCRYPTION,
+        finding=core_model.FindingEnum.F080,
         path=path,
         statements_iterator=_public_buckets_iterate_vulnerabilities(
             buckets_iterator=terraform_iter_s3_buckets(model=model)

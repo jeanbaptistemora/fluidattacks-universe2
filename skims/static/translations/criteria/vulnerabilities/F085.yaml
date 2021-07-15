@@ -27,6 +27,3 @@ F085.threat:
     Attacker with physical or virtual access to the victim's browser.
   es: >
     Atacante con acceso físico o virtual al navegador de la víctima.
-F085.title:
-  en: F085. Sensitive data stored in the client-side storage
-  es: F085. Almacenamiento inseguro de información sensible en el client-side storage

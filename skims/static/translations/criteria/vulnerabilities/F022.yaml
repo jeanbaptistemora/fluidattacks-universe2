@@ -23,6 +23,3 @@ F022.recommendation:
 F022.threat:
   en: Anonymous attacker on adjacent network performing a man-in-the-middle.
   es: Atacante anónimo en red adyacente ejecutando un ataque de hombre en el medio.
-F022.title:
-  en: F022. Use of an insecure channel
-  es: F022. Uso de canal inseguro

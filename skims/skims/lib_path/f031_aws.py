@@ -195,7 +195,7 @@ def _cfn_negative_statement(
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key="src.lib_path.f031_aws.negative_statement",
-        finding=core_model.FindingEnum.F031_AWS,
+        finding=core_model.FindingEnum.F031,
         path=path,
         statements_iterator=_negative_statement_iterate_vulnerabilities(
             statements_iterator=cfn_iterate_iam_policy_documents(
@@ -237,7 +237,7 @@ def _cfn_permissive_policy(
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key="src.lib_path.f031_aws.permissive_policy",
-        finding=core_model.FindingEnum.F031_AWS,
+        finding=core_model.FindingEnum.F031,
         path=path,
         statements_iterator=_permissive_policy_iterate_vulnerabilities(
             statements_iterator=cfn_iterate_iam_policy_documents(
@@ -280,7 +280,7 @@ def _cfn_open_passrole(
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key="src.lib_path.f031_aws.open_passrole",
-        finding=core_model.FindingEnum.F031_AWS,
+        finding=core_model.FindingEnum.F031,
         path=path,
         statements_iterator=_open_passrole_iterate_vulnerabilities(
             statements_iterator=cfn_iterate_iam_policy_documents(
@@ -298,7 +298,7 @@ def _cfn_admin_policy_attached(
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key="src.lib_path.f031_aws.permissive_policy",
-        finding=core_model.FindingEnum.F031_AWS,
+        finding=core_model.FindingEnum.F031,
         path=path,
         statements_iterator=_admin_policies_attached_iterate_vulnerabilities(
             managed_policies_iterator=cnf_iterate_managed_policy_arns(
@@ -354,7 +354,7 @@ def _terraform_negative_statement(
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key="src.lib_path.f031_aws.negative_statement",
-        finding=core_model.FindingEnum.F031_AWS,
+        finding=core_model.FindingEnum.F031,
         path=path,
         statements_iterator=_negative_statement_iterate_vulnerabilities(
             statements_iterator=terraform_iterate_iam_policy_documents(
@@ -396,7 +396,7 @@ def _terraform_open_passrole(
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key="src.lib_path.f031_aws.open_passrole",
-        finding=core_model.FindingEnum.F031_AWS,
+        finding=core_model.FindingEnum.F031,
         path=path,
         statements_iterator=_open_passrole_iterate_vulnerabilities(
             statements_iterator=terraform_iterate_iam_policy_documents(
@@ -435,7 +435,7 @@ def _terraform_permissive_policy(
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key="src.lib_path.f031_aws.permissive_policy",
-        finding=core_model.FindingEnum.F031_AWS,
+        finding=core_model.FindingEnum.F031,
         path=path,
         statements_iterator=_permissive_policy_iterate_vulnerabilities(
             statements_iterator=terraform_iterate_iam_policy_documents(
@@ -478,7 +478,7 @@ def _terraform_admin_policy_attached(
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key="src.lib_path.f031_aws.permissive_policy",
-        finding=core_model.FindingEnum.F031_AWS,
+        finding=core_model.FindingEnum.F031,
         path=path,
         statements_iterator=_admin_policies_attached_iterate_vulnerabilities(
             managed_policies_iterator=terraform_iterate_managed_policy_arns(

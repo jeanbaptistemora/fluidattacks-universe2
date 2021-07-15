@@ -5727,7 +5727,7 @@
   metadata: {}
 "109":
   en:
-    title: Inappropriate coding practices - Float currency
+    title: Insecure functionality - Float currency
     description: >
       Representing currency using data types
       like float or double may result
@@ -5749,7 +5749,7 @@
       Authenticated attacker
       from the Internet.
   es:
-    title: Prácticas inadecuadas de programación - Moneda expresada con floats
+    title: Funcionalidad insegura - Moneda representada con float
     description: >
       Representar moneda utilizando tipos de dato
       como float o double puede resultar

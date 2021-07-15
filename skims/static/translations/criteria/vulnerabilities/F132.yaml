@@ -4,18 +4,15 @@ lib_http.analyze_headers.x_content_type_options.insecure:
 lib_http.analyze_headers.x_content_type_options.missing:
   en: Missing X-Content-Type-Options
   es: X-Content-Type-Options ausente
-F043_DAST_XCTO.description:
+F132.description:
   en: The server is missing the X-Content-Type-Options HTTP header.
   es: El servidor carece de la cabecera HTTP X-Content-Type-Options.
-F043_DAST_XCTO.impact:
+F132.impact:
   en: Interpret files as a different MIME type to what is expected.
   es: Interpretar archivos como un tipo MIME diferente a los esperados.
-F043_DAST_XCTO.recommendation:
+F132.recommendation:
   en: Set the X-Content-Type-Options header to nosniff.
   es: Establecer la cabecera X-Content-Type-Options a nosniff.
-F043_DAST_XCTO.threat:
+F132.threat:
   en: Unauthorized attacker from internet network.
   es: Atacante sin autorización desde internet.
-F043_DAST_XCTO.title:
-  en: F043. Missing HTTP security headers - X-Content-Type-Options
-  es: F043. Cabeceras de seguridad HTTP no establecidas - X-Content-Type-Options

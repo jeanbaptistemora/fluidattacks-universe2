@@ -22,6 +22,3 @@ F008.recommendation:
 F008.threat:
   en: Authenticated attacker from the Internet.
   es: Atacante autenticado desde Internet.
-F008.title:
-  en: F008. Reflected cross-site scripting
-  es: F008. Cross site scripting reflejado

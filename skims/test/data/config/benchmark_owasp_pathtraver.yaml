@@ -1,5 +1,5 @@
 checks:
-- F063_PATH_TRAVERSAL
+- F063
 namespace: OWASP
 output: skims/test/outputs/benchmark_owasp_pathtraver.csv
 path:

@@ -1422,7 +1422,7 @@
             "label_field_arguments": "103",
             "label_field_type": "102",
             "label_l": 13,
-            "label_sink_type": "F063_PATH_TRAVERSAL",
+            "label_sink_type": "F063",
             "label_type": "object_creation_expression"
           },
           "101": {
@@ -1453,7 +1453,7 @@
             "label_field_arguments": "108",
             "label_field_type": "107",
             "label_l": 13,
-            "label_sink_type": "F063_PATH_TRAVERSAL",
+            "label_sink_type": "F063",
             "label_type": "object_creation_expression"
           },
           "106": {
@@ -1596,7 +1596,7 @@
             "label_c": 22,
             "label_field_name": "25",
             "label_field_type": "24",
-            "label_input_type": "F001_JAVA_SQL,F004,F008,F021,F034,F042,F063_PATH_TRAVERSAL,F063_TRUSTBOUND,F107",
+            "label_input_type": "F004,F008,F021,F034,F042,F063,F089,F107,F112",
             "label_l": 5,
             "label_type": "formal_parameter"
           },

@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
-F001_JAVA_SQL,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,49,89,skims,F001. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
+F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,49,89,skims,F112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
    39 |             description = ""UNION_SQL_INJECTION_URL_PARAM_APPENDED_DIRECTLY_TO_QUERY"")
    40 |     @VulnerableAppRequestMapping(
    41 |             value = LevelConstants.LEVEL_1,
@@ -23,7 +23,7 @@ F001_JAVA_SQL,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlI
    59 |                 });
       ^ Col 0
 "
-F001_JAVA_SQL,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/BlindSQLInjectionVulnerability.java,55,89,skims,F001. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
+F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/BlindSQLInjectionVulnerability.java,55,89,skims,F112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
    45 |     @VulnerableAppRequestMapping(
    46 |             value = LevelConstants.LEVEL_1,
    47 |             descriptionLabel = ""URL_CONTAINING_CAR_ID_PARAMETER"",
@@ -47,7 +47,7 @@ F001_JAVA_SQL,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlI
    65 |
       ^ Col 0
 "
-F001_JAVA_SQL,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/ErrorBasedSQLInjectionVulnerability.java,67,89,skims,F001. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
+F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/ErrorBasedSQLInjectionVulnerability.java,67,89,skims,F112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
    57 |             descriptionLabel = ""URL_CONTAINING_CAR_ID_PARAMETER"",
    58 |             htmlTemplate = ""LEVEL_1/SQLInjection_Level1"",
    59 |             parameterName = Constants.ID,
@@ -71,7 +71,7 @@ F001_JAVA_SQL,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlI
    77 |                                                 CAR_IS_PRESENT_RESPONSE.apply(
       ^ Col 0
 "
-F001_JAVA_SQL,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,76,89,skims,F001. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
+F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,76,89,skims,F112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
    66 |     @VulnerableAppRequestMapping(
    67 |             value = LevelConstants.LEVEL_2,
    68 |             descriptionLabel = ""URL_CONTAINING_CAR_ID_PARAMETER"",
@@ -95,7 +95,7 @@ F001_JAVA_SQL,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlI
    86 |     }
       ^ Col 0
 "
-F001_JAVA_SQL,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/BlindSQLInjectionVulnerability.java,81,89,skims,F001. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
+F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/BlindSQLInjectionVulnerability.java,81,89,skims,F112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
    71 |             value = LevelConstants.LEVEL_2,
    72 |             descriptionLabel = ""URL_CONTAINING_CAR_ID_PARAMETER"",
    73 |             htmlTemplate = ""LEVEL_1/SQLInjection_Level1"",
@@ -119,7 +119,7 @@ F001_JAVA_SQL,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlI
    91 |
       ^ Col 0
 "
-F001_JAVA_SQL,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,101,89,skims,F001. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
+F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,101,89,skims,F112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
    91 |                     ""UNION_SQL_INJECTION_URL_PARAM_REMOVES_SINGLE_QUOTE_WITH_SINGLE_QUOTE_APPENDED_TO_QUERY"")
    92 |     @VulnerableAppRequestMapping(
    93 |             value = LevelConstants.LEVEL_3,
@@ -143,7 +143,7 @@ F001_JAVA_SQL,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlI
   111 |                 });
       ^ Col 0
 "
-F001_JAVA_SQL,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/ErrorBasedSQLInjectionVulnerability.java,114,89,skims,F001. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
+F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/ErrorBasedSQLInjectionVulnerability.java,114,89,skims,F112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base,"
   104 |             descriptionLabel = ""URL_CONTAINING_CAR_ID_PARAMETER"",
   105 |             htmlTemplate = ""LEVEL_1/SQLInjection_Level1"",
   106 |             parameterName = Constants.ID,

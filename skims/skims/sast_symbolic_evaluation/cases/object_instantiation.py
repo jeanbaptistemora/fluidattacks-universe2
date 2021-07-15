@@ -31,7 +31,7 @@ def _syntax_step_object_instantiation_danger(args: EvaluatorArgs) -> None:
             "System.Data.SQLite.SQLite.SQLiteCommand",
             "MySql.Data.MySqlClient.MySqlCommand",
         },
-        core_model.FindingEnum.F063_PATH_TRAVERSAL.name: {
+        core_model.FindingEnum.F063.name: {
             "java.io.File",
             "java.io.FileInputStream",
             "java.io.FileOutputStream",
@@ -55,7 +55,7 @@ def _syntax_step_object_instantiation_danger(args: EvaluatorArgs) -> None:
                 core_model.FindingEnum.F004.name,
                 core_model.FindingEnum.F008.name,
                 core_model.FindingEnum.F021.name,
-                core_model.FindingEnum.F063_PATH_TRAVERSAL.name,
+                core_model.FindingEnum.F063.name,
             }
         },
     }

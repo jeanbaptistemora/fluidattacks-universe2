@@ -41,6 +41,3 @@ F052.threat:
     Anonymous attacker from adjacent network via MITM.
   es: >
     Atacante anónimo desde red interna ejecutando un MITM.
-F052.title:
-  en: F052. Insecure encryption algorithm
-  es: F052. Algoritmo de cifrado inseguro

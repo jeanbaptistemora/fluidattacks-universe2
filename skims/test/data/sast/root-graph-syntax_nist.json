@@ -971,16 +971,6 @@
       "475": {}
     }
   },
-  "F001_JAVA_SQL": {
-    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
-    "skims/test/data/benchmark/nist/HouseController.cs": {},
-    "skims/test/data/benchmark/nist/StudentController.cs": {}
-  },
-  "F001_JPA": {
-    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
-    "skims/test/data/benchmark/nist/HouseController.cs": {},
-    "skims/test/data/benchmark/nist/StudentController.cs": {}
-  },
   "F004": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {
       "61": {}
@@ -1031,12 +1021,17 @@
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
   },
-  "F014_FLOAT_CURRENCY": {
+  "F012": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
   },
   "F015": {
+    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
+    "skims/test/data/benchmark/nist/HouseController.cs": {},
+    "skims/test/data/benchmark/nist/StudentController.cs": {}
+  },
+  "F016": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
@@ -1071,17 +1066,12 @@
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
   },
-  "F024_AWS": {
+  "F024": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
   },
-  "F031_AWS": {
-    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
-    "skims/test/data/benchmark/nist/HouseController.cs": {},
-    "skims/test/data/benchmark/nist/StudentController.cs": {}
-  },
-  "F031_CWE378": {
+  "F031": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
@@ -1101,37 +1091,7 @@
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
   },
-  "F042_HTTPONLY": {
-    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
-    "skims/test/data/benchmark/nist/HouseController.cs": {},
-    "skims/test/data/benchmark/nist/StudentController.cs": {}
-  },
-  "F042_SAMESITE": {
-    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
-    "skims/test/data/benchmark/nist/HouseController.cs": {},
-    "skims/test/data/benchmark/nist/StudentController.cs": {}
-  },
-  "F042_SECURE": {
-    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
-    "skims/test/data/benchmark/nist/HouseController.cs": {},
-    "skims/test/data/benchmark/nist/StudentController.cs": {}
-  },
-  "F043_DAST_CSP": {
-    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
-    "skims/test/data/benchmark/nist/HouseController.cs": {},
-    "skims/test/data/benchmark/nist/StudentController.cs": {}
-  },
-  "F043_DAST_RP": {
-    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
-    "skims/test/data/benchmark/nist/HouseController.cs": {},
-    "skims/test/data/benchmark/nist/StudentController.cs": {}
-  },
-  "F043_DAST_STS": {
-    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
-    "skims/test/data/benchmark/nist/HouseController.cs": {},
-    "skims/test/data/benchmark/nist/StudentController.cs": {}
-  },
-  "F043_DAST_XCTO": {
+  "F043": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
@@ -1156,37 +1116,17 @@
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
   },
-  "F052_ANON": {
+  "F055": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
   },
-  "F052_CBC": {
+  "F057": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
   },
-  "F052_PFS": {
-    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
-    "skims/test/data/benchmark/nist/HouseController.cs": {},
-    "skims/test/data/benchmark/nist/StudentController.cs": {}
-  },
-  "F052_SSL_TLS": {
-    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
-    "skims/test/data/benchmark/nist/HouseController.cs": {},
-    "skims/test/data/benchmark/nist/StudentController.cs": {}
-  },
-  "F055_APK_BACKUPS": {
-    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
-    "skims/test/data/benchmark/nist/HouseController.cs": {},
-    "skims/test/data/benchmark/nist/StudentController.cs": {}
-  },
-  "F055_AWS_MISSING_ENCRYPTION": {
-    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
-    "skims/test/data/benchmark/nist/HouseController.cs": {},
-    "skims/test/data/benchmark/nist/StudentController.cs": {}
-  },
-  "F058_APK": {
+  "F058": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
@@ -1201,7 +1141,7 @@
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
   },
-  "F063_PATH_TRAVERSAL": {
+  "F063": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {
       "61": {}
     },
@@ -1221,22 +1161,17 @@
       "475": {}
     }
   },
-  "F063_TRUSTBOUND": {
-    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
-    "skims/test/data/benchmark/nist/HouseController.cs": {},
-    "skims/test/data/benchmark/nist/StudentController.cs": {}
-  },
-  "F063_TYPE_CONFUSION": {
-    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
-    "skims/test/data/benchmark/nist/HouseController.cs": {},
-    "skims/test/data/benchmark/nist/StudentController.cs": {}
-  },
   "F064": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
   },
-  "F070_WILDCARD_IMPORT": {
+  "F070": {
+    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
+    "skims/test/data/benchmark/nist/HouseController.cs": {},
+    "skims/test/data/benchmark/nist/StudentController.cs": {}
+  },
+  "F071": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
@@ -1256,12 +1191,32 @@
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
   },
+  "F080": {
+    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
+    "skims/test/data/benchmark/nist/HouseController.cs": {},
+    "skims/test/data/benchmark/nist/StudentController.cs": {}
+  },
   "F085": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
   },
   "F086": {
+    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
+    "skims/test/data/benchmark/nist/HouseController.cs": {},
+    "skims/test/data/benchmark/nist/StudentController.cs": {}
+  },
+  "F089": {
+    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
+    "skims/test/data/benchmark/nist/HouseController.cs": {},
+    "skims/test/data/benchmark/nist/StudentController.cs": {}
+  },
+  "F092": {
+    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
+    "skims/test/data/benchmark/nist/HouseController.cs": {},
+    "skims/test/data/benchmark/nist/StudentController.cs": {}
+  },
+  "F094": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
@@ -1291,7 +1246,52 @@
       "475": {}
     }
   },
+  "F109": {
+    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
+    "skims/test/data/benchmark/nist/HouseController.cs": {},
+    "skims/test/data/benchmark/nist/StudentController.cs": {}
+  },
+  "F112": {
+    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
+    "skims/test/data/benchmark/nist/HouseController.cs": {},
+    "skims/test/data/benchmark/nist/StudentController.cs": {}
+  },
   "F117": {
+    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
+    "skims/test/data/benchmark/nist/HouseController.cs": {},
+    "skims/test/data/benchmark/nist/StudentController.cs": {}
+  },
+  "F127": {
+    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
+    "skims/test/data/benchmark/nist/HouseController.cs": {},
+    "skims/test/data/benchmark/nist/StudentController.cs": {}
+  },
+  "F128": {
+    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
+    "skims/test/data/benchmark/nist/HouseController.cs": {},
+    "skims/test/data/benchmark/nist/StudentController.cs": {}
+  },
+  "F129": {
+    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
+    "skims/test/data/benchmark/nist/HouseController.cs": {},
+    "skims/test/data/benchmark/nist/StudentController.cs": {}
+  },
+  "F130": {
+    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
+    "skims/test/data/benchmark/nist/HouseController.cs": {},
+    "skims/test/data/benchmark/nist/StudentController.cs": {}
+  },
+  "F131": {
+    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
+    "skims/test/data/benchmark/nist/HouseController.cs": {},
+    "skims/test/data/benchmark/nist/StudentController.cs": {}
+  },
+  "F132": {
+    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
+    "skims/test/data/benchmark/nist/HouseController.cs": {},
+    "skims/test/data/benchmark/nist/StudentController.cs": {}
+  },
+  "F133": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}

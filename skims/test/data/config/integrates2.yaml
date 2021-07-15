@@ -1,5 +1,5 @@
 checks:
-- F052_PFS
+- F133
 - F117
 namespace: namespace2
 output: skims/test/outputs/integrates2.csv

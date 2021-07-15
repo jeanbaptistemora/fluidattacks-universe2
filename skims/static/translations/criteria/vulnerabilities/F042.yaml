@@ -22,6 +22,3 @@ F042.recommendation:
 F042.threat:
   en: Unauthenticated attacker from the Internet.
   es: Atacante no autenticado desde Internet.
-F042.title:
-  en: F042. Insecurely generated cookies
-  es: F042. Cookies generadas de forma insegura

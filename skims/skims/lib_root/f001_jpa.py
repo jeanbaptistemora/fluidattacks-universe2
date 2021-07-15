@@ -103,5 +103,5 @@ def java_jpa_like(
     )
 
 
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F001_JPA
+FINDING: core_model.FindingEnum = core_model.FindingEnum.F012
 QUERIES: graph_model.Queries = ((FINDING, java_jpa_like),)

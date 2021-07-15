@@ -208,7 +208,7 @@ def _content_security_policy(
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F043_DAST_CSP,
+        finding=core_model.FindingEnum.F043,
         header=header,
         ctx=ctx,
     )
@@ -302,7 +302,7 @@ def _referrer_policy(
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F043_DAST_RP,
+        finding=core_model.FindingEnum.F071,
         header=header,
         ctx=ctx,
     )
@@ -333,7 +333,7 @@ def _set_cookie_httponly(
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F042_HTTPONLY,
+        finding=core_model.FindingEnum.F128,
         header=None if not headers else headers[0],
         ctx=ctx,
     )
@@ -359,7 +359,7 @@ def _set_cookie_samesite(
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F042_HTTPONLY,
+        finding=core_model.FindingEnum.F128,
         header=None if not headers else headers[0],
         ctx=ctx,
     )
@@ -385,7 +385,7 @@ def _set_cookie_secure(
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F042_SECURE,
+        finding=core_model.FindingEnum.F130,
         header=None if not headers else headers[0],
         ctx=ctx,
     )
@@ -405,7 +405,7 @@ def _strict_transport_security(
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F043_DAST_STS,
+        finding=core_model.FindingEnum.F131,
         header=header,
         ctx=ctx,
     )
@@ -444,7 +444,7 @@ def _x_content_type_options(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         locations=locations,
-        finding=core_model.FindingEnum.F043_DAST_XCTO,
+        finding=core_model.FindingEnum.F132,
         header=header,
         ctx=ctx,
     )
@@ -483,12 +483,12 @@ CHECKS: Dict[
 ] = {
     core_model.FindingEnum.F015: _www_authenticate,
     core_model.FindingEnum.F023: _location,
-    core_model.FindingEnum.F042_HTTPONLY: _set_cookie_httponly,
-    core_model.FindingEnum.F042_SAMESITE: _set_cookie_samesite,
-    core_model.FindingEnum.F042_SECURE: _set_cookie_secure,
-    core_model.FindingEnum.F043_DAST_CSP: _content_security_policy,
-    core_model.FindingEnum.F043_DAST_RP: _referrer_policy,
-    core_model.FindingEnum.F043_DAST_STS: _strict_transport_security,
-    core_model.FindingEnum.F043_DAST_XCTO: _x_content_type_options,
+    core_model.FindingEnum.F128: _set_cookie_httponly,
+    core_model.FindingEnum.F129: _set_cookie_samesite,
+    core_model.FindingEnum.F130: _set_cookie_secure,
+    core_model.FindingEnum.F043: _content_security_policy,
+    core_model.FindingEnum.F071: _referrer_policy,
+    core_model.FindingEnum.F131: _strict_transport_security,
+    core_model.FindingEnum.F132: _x_content_type_options,
     core_model.FindingEnum.F064: _date,
 }

@@ -98,7 +98,7 @@ STATIC_FINDING: Dict[str, Set[str]] = {
             "Environment.GetEnvironmentVariable",
         }
     ),
-    core_model.FindingEnum.F063_PATH_TRAVERSAL.name: complete_attrs_on_set(
+    core_model.FindingEnum.F063.name: complete_attrs_on_set(
         {
             "Environment.GetEnvironmentVariable",
         }
@@ -124,14 +124,14 @@ BY_OBJ_NO_TYPE_ARGS_PROPAG: Dict[str, Set[str]] = {
             "Split",
         }
     ),
-    core_model.FindingEnum.F063_TRUSTBOUND.name: complete_attrs_on_set(
+    core_model.FindingEnum.F089.name: complete_attrs_on_set(
         {
             "org.apache.commons.lang.StringEscapeUtils.escapeHtml",
             "org.springframework.web.util.HtmlUtils.htmlEscape",
             "org.owasp.esapi.ESAPI.encoder.encodeForHTML",
         }
     ),
-    core_model.FindingEnum.F063_TYPE_CONFUSION.name: complete_attrs_on_set(
+    core_model.FindingEnum.F127.name: complete_attrs_on_set(
         {
             "Exec",
             "ExecContext",
@@ -374,7 +374,7 @@ BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
             },
         }
     ),
-    core_model.FindingEnum.F063_TRUSTBOUND.name: complete_attrs_on_dict(
+    core_model.FindingEnum.F089.name: complete_attrs_on_dict(
         {
             "javax.servlet.http.HttpServletRequest": {
                 "getSession.putValue",

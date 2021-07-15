@@ -1,10 +1,10 @@
 checks:
-  - F063_PATH_TRAVERSAL
+  - F063
 namespace: NIST
 output: skims/test/outputs/nist_c_sharp_f063.csv
 path:
   include:
-    # F063_PATH_TRAVERSAL
+    # F063
     - src/testcases/CWE23_Relative_Path_Traversal/
     - src/testcases/CWE36_Absolute_Path_Traversal/
   exclude:

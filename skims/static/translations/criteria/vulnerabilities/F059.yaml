@@ -20,6 +20,3 @@ F059.threat:
     Authorized local attacker with access to the log files.
   es: >
     Atacante local autorizado con acceso a los logs.
-F059.title:
-  en: F059. Sensitive information stored in logs
-  es: F059. Información sensible almacenada en bitácoras

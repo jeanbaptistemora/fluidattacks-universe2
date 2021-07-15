@@ -493,7 +493,7 @@ async def test_should_report_vulns_to_namespace_verify(
     assert await get_group_data(test_group) == {
         # Finding, status, open vulnerabilities
         (
-            "F052_PFS",
+            "F133",
             "SUBMITTED",
             (
                 (
@@ -543,7 +543,7 @@ async def test_should_report_vulns_to_namespace2_verify(
     assert await get_group_data(test_group) == {
         # Finding, status, open vulnerabilities
         (
-            "F052_PFS",
+            "F133",
             "SUBMITTED",
             (
                 (
@@ -595,7 +595,7 @@ async def test_should_close_vulns_to_namespace_verify(
     assert await get_group_data(test_group) == {
         # Finding, status, open vulnerabilities
         (
-            "F052_PFS",
+            "F133",
             "SUBMITTED",
             (
                 (
@@ -643,6 +643,6 @@ async def test_should_close_vulns_on_namespace2_verify(
     # Skims should persist the null state, closing everything on Integrates
     assert await get_group_data(test_group) == {
         # Finding, status, open vulnerabilities
-        ("F052_PFS", "SUBMITTED", ()),
+        ("F133", "SUBMITTED", ()),
         ("F117", "APPROVED", ()),
     }

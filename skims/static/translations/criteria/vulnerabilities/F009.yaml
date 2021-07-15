@@ -69,6 +69,3 @@ F009.threat:
     Attacker with access to the source-code from the Internet.
   es: >
     Atacante con acceso al código fuente desde Internet.
-F009.title:
-  en: F009. Sensitive information in source code
-  es: F009. Información sensible almacenada en el código fuente

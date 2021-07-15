@@ -1,26 +1,23 @@
 lib_http.analyze_headers.set_cookie_secure.missing_secure:
   en: "{cookie_name} is missing Secure"
   es: "{cookie_name} sin Secure"
-F042_SECURE.description:
+F130.description:
   en: >
     The system does not set the Secure attribute for sensitive cookies,
     which could cause them to be sent through an insecure channel.
   es: >
     El sistema no establece el atributo Secure para las cookies
     sensibles, lo que podría hacer que se envíen por un canal no cifrado.
-F042_SECURE.impact:
+F130.impact:
   en: Obtain sensitive information by performing a MiTM attack.
   es: Obtener información sensible realizando un ataque de hombre en el medio.
-F042_SECURE.recommendation:
+F130.recommendation:
   en: >
     The application must set the Secure attribute in the cookies with sensitive
     information.
   es: >
     La aplicación debe establecer el atributo Secure en la cookies con
     información sensible.
-F042_SECURE.threat:
+F130.threat:
   en: Unauthorized attacker from adjacent network performing a MITM.
   es: Atacante sin autorización desde red adyacente ejecutando un MITM.
-F042_SECURE.title:
-  en: F042. Insecurely generated cookies - Secure attribute
-  es: F042. Cookies generadas de forma insegura - atributo Secure

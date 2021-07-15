@@ -4111,7 +4111,7 @@
             "label_c": 30,
             "label_field_name": "63",
             "label_field_type": "62",
-            "label_input_type": "F001,F004,F008,F021,F063_PATH_TRAVERSAL,F107",
+            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 30,
             "label_type": "parameter"
           },
@@ -11273,7 +11273,7 @@
             "label_c": 41,
             "label_field_name": "1039",
             "label_field_type": "1038",
-            "label_input_type": "F001,F004,F008,F021,F063_PATH_TRAVERSAL,F107",
+            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 152,
             "label_type": "parameter"
           },
@@ -12356,7 +12356,7 @@
             "label_c": 38,
             "label_field_name": "209",
             "label_field_type": "208",
-            "label_input_type": "F001,F004,F008,F021,F063_PATH_TRAVERSAL,F107",
+            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 30,
             "label_type": "parameter"
           },
@@ -12404,7 +12404,7 @@
             "label_c": 52,
             "label_field_name": "216",
             "label_field_type": "215",
-            "label_input_type": "F001,F004,F008,F021,F063_PATH_TRAVERSAL,F107",
+            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 30,
             "label_type": "parameter"
           },
@@ -13807,7 +13807,7 @@
             "label_c": 44,
             "label_field_name": "430",
             "label_field_type": "429",
-            "label_input_type": "F001,F004,F008,F021,F063_PATH_TRAVERSAL,F107",
+            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 58,
             "label_type": "parameter"
           },
@@ -14366,7 +14366,7 @@
             "label_c": 41,
             "label_field_name": "520",
             "label_field_type": "519",
-            "label_input_type": "F001,F004,F008,F021,F063_PATH_TRAVERSAL,F107",
+            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 72,
             "label_type": "parameter"
           },
@@ -15285,7 +15285,7 @@
             "label_c": 41,
             "label_field_name": "656",
             "label_field_type": "655",
-            "label_input_type": "F001,F004,F008,F021,F063_PATH_TRAVERSAL,F107",
+            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 93,
             "label_type": "parameter"
           },
@@ -15311,7 +15311,7 @@
             "label_c": 49,
             "label_field_name": "665",
             "label_field_type": "664",
-            "label_input_type": "F001,F004,F008,F021,F063_PATH_TRAVERSAL,F107",
+            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 93,
             "label_type": "parameter"
           },
@@ -23499,7 +23499,7 @@
             "label_c": 45,
             "label_field_name": "194",
             "label_field_type": "193",
-            "label_input_type": "F001,F004,F008,F021,F063_PATH_TRAVERSAL,F107",
+            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 31,
             "label_type": "parameter"
           },
@@ -24152,7 +24152,7 @@
             "label_c": 45,
             "label_field_name": "31",
             "label_field_type": "30",
-            "label_input_type": "F001,F004,F008,F021,F063_PATH_TRAVERSAL,F107",
+            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 7,
             "label_type": "parameter"
           },
@@ -24297,7 +24297,7 @@
             "label_c": 34,
             "label_field_name": "312",
             "label_field_type": "311",
-            "label_input_type": "F001,F004,F008,F021,F063_PATH_TRAVERSAL,F107",
+            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 51,
             "label_type": "parameter"
           },
@@ -25386,7 +25386,7 @@
             "label_c": 37,
             "label_field_name": "477",
             "label_field_type": "476",
-            "label_input_type": "F001,F004,F008,F021,F063_PATH_TRAVERSAL,F107",
+            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 77,
             "label_type": "parameter"
           },

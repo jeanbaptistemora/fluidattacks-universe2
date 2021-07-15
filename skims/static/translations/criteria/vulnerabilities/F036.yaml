@@ -17,6 +17,3 @@ F036.recommendation:
 F036.threat:
   en: Unauthenticated attacker with local access to the victim's browser.
   es: Atacante no autenticado con acceso local al navegador de la victima.
-F036.title:
-  en: F036. ViewState not encrypted
-  es: F036. ViewState no cifrado

@@ -113,7 +113,7 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     check="pfs_disabled",
                     ssl_settings=ssl_settings,
                     line=SSLSnippetLine.key_exchange,
-                    finding=core_model.FindingEnum.F052_PFS,
+                    finding=core_model.FindingEnum.F133,
                 )
             )
 
@@ -147,7 +147,7 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     check="sslv3_enabled",
                     ssl_settings=ssl_settings,
                     line=SSLSnippetLine.max_version,
-                    finding=core_model.FindingEnum.F052_SSL_TLS,
+                    finding=core_model.FindingEnum.F016,
                 )
             )
 
@@ -182,7 +182,7 @@ def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     check="tlsv1_enabled",
                     ssl_settings=ssl_settings,
                     line=SSLSnippetLine.max_version,
-                    finding=core_model.FindingEnum.F052_SSL_TLS,
+                    finding=core_model.FindingEnum.F016,
                 )
             )
 
@@ -217,7 +217,7 @@ def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     check="tlsv1_1_enabled",
                     ssl_settings=ssl_settings,
                     line=SSLSnippetLine.max_version,
-                    finding=core_model.FindingEnum.F052_SSL_TLS,
+                    finding=core_model.FindingEnum.F016,
                 )
             )
 
@@ -253,7 +253,7 @@ def _tlsv1_2_or_higher_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     check="tlsv1_2_or_higher_disabled",
                     ssl_settings=ssl_settings,
                     line=SSLSnippetLine.max_version,
-                    finding=core_model.FindingEnum.F052_SSL_TLS,
+                    finding=core_model.FindingEnum.F016,
                 )
             )
 
@@ -289,7 +289,7 @@ def _anonymous_suits_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
                     check="anonymous_suits_allowed",
                     ssl_settings=ssl_settings,
                     line=SSLSnippetLine.key_exchange,
-                    finding=core_model.FindingEnum.F052_ANON,
+                    finding=core_model.FindingEnum.F092,
                 )
             )
 
@@ -360,7 +360,7 @@ def _beast_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                         check="beast_possible",
                         ssl_settings=ssl_settings,
                         line=SSLSnippetLine.max_version,
-                        finding=core_model.FindingEnum.F052_CBC,
+                        finding=core_model.FindingEnum.F094,
                     )
                 )
 
@@ -398,7 +398,7 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                         check="cbc_enabled",
                         ssl_settings=ssl_settings,
                         line=SSLSnippetLine.ciphers,
-                        finding=core_model.FindingEnum.F052_CBC,
+                        finding=core_model.FindingEnum.F094,
                     )
                 )
 
@@ -434,7 +434,7 @@ def _sweet32_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                     check="sweet32_possible",
                     ssl_settings=ssl_settings,
                     line=SSLSnippetLine.ciphers,
-                    finding=core_model.FindingEnum.F052_CBC,
+                    finding=core_model.FindingEnum.F094,
                 )
             )
 
@@ -510,7 +510,7 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     check="fallback_scsv_disabled",
                     ssl_settings=ssl_settings,
                     line=SSLSnippetLine.max_version,
-                    finding=core_model.FindingEnum.F052_SSL_TLS,
+                    finding=core_model.FindingEnum.F016,
                 )
             )
 
@@ -554,7 +554,7 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
                         check="tlsv1_3_downgrade",
                         ssl_settings=ssl_settings,
                         line=SSLSnippetLine.max_version,
-                        finding=core_model.FindingEnum.F052_SSL_TLS,
+                        finding=core_model.FindingEnum.F016,
                         check_kwargs={"version": f"{ssl_versions[version]}"},
                     )
                 )
@@ -679,7 +679,7 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                                     max_version=version,
                                     intention=intention,
                                 ),
-                                finding=core_model.FindingEnum.F052_SSL_TLS,
+                                finding=core_model.FindingEnum.F016,
                             )
                         )
         sock.close()
@@ -754,7 +754,7 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                             max_version=version,
                             intention=intention,
                         ),
-                        finding=core_model.FindingEnum.F052_SSL_TLS,
+                        finding=core_model.FindingEnum.F016,
                     )
                 )
         sock.close()
@@ -829,7 +829,7 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                             max_version=version,
                             intention=intention,
                         ),
-                        finding=core_model.FindingEnum.F052_SSL_TLS,
+                        finding=core_model.FindingEnum.F016,
                     )
                 )
         sock.close()
@@ -890,7 +890,7 @@ def _breach_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                             ),
                         },
                     ),
-                    finding=core_model.FindingEnum.F052_SSL_TLS,
+                    finding=core_model.FindingEnum.F016,
                 )
             )
 
@@ -906,14 +906,14 @@ CHECKS: Dict[
     List[Callable[[SSLContext], core_model.Vulnerabilities]],
 ] = {
     core_model.FindingEnum.F052: [_weak_ciphers_allowed],
-    core_model.FindingEnum.F052_ANON: [_anonymous_suits_allowed],
-    core_model.FindingEnum.F052_CBC: [
+    core_model.FindingEnum.F092: [_anonymous_suits_allowed],
+    core_model.FindingEnum.F094: [
         _beast_possible,
         _cbc_enabled,
         _sweet32_possible,
     ],
-    core_model.FindingEnum.F052_PFS: [_pfs_disabled],
-    core_model.FindingEnum.F052_SSL_TLS: [
+    core_model.FindingEnum.F133: [_pfs_disabled],
+    core_model.FindingEnum.F016: [
         _sslv3_enabled,
         _tlsv1_enabled,
         _tlsv1_1_enabled,

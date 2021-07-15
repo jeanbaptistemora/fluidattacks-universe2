@@ -16,13 +16,13 @@ def mark_inputs(
     graph: graph_model.Graph,
     syntax: graph_model.GraphSyntax,
 ) -> None:
-    for finding in (core_model.FindingEnum.F063_TYPE_CONFUSION,):
+    for finding in (core_model.FindingEnum.F127,):
         danger_args = {
             *build_attr_paths("*http", "Request"),
         }
         mark_function_arg(finding, graph, syntax, danger_args)
 
-    for finding in (core_model.FindingEnum.F014_FLOAT_CURRENCY,):
+    for finding in (core_model.FindingEnum.F109,):
         mark_methods_input(
             finding,
             graph,
@@ -40,7 +40,7 @@ def mark_sinks(
     findings = core_model.FindingEnum
 
     mark_methods_sink(
-        findings.F063_TYPE_CONFUSION,
+        findings.F127,
         graph,
         syntax,
         {

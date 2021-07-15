@@ -1,18 +1,15 @@
 lib_ssl.analyze_protocol.anonymous_suits_allowed:
   en: server accepts connections with anonymous cipher suites
   es: el servidor acepta conexiones con suites de cifrado ananimos
-F052_ANON.description:
+F092.description:
   en: The application allows connections with anonymous cipher suites.
   es: La aplicación acepta conexiones con suites de cifrado anonimos.
-F052_ANON.impact:
+F092.impact:
   en: Obtain sensitive information by performing a MiTM attack.
   es: Obtener información sensible realizando un ataque de hombre en el medio.
-F052_ANON.recommendation:
+F092.recommendation:
   en: Use algorithms considered cryptographically secure.
   es: Utilizar algoritmos considerados criptográficamente seguros.
-F052_ANON.threat:
+F092.threat:
   en: Unauthorized attacker from adjacent network performing a MITM attack.
   es: Atacante sin autorización desde red adyacente ejecutando un MITM.
-F052_ANON.title:
-  en: F052. Insecure encryption algorithm - Anonymous cipher suites
-  es: F052. Algoritmo de cifrado inseguro - Suites de cifrado anónimo

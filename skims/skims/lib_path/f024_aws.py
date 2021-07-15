@@ -123,7 +123,7 @@ def _cfn_instances_without_profile(
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key="src.lib_path.f024_aws.instances_without_profile",
-        finding=core_model.FindingEnum.F024_AWS,
+        finding=core_model.FindingEnum.F024,
         path=path,
         statements_iterator=_instances_without_role_iter_vulns(
             instaces_iterator=iter_ec2_instances(template=template)
@@ -139,7 +139,7 @@ def _cfn_public_buckets(
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key="src.lib_path.f024_aws.public_buckets",
-        finding=core_model.FindingEnum.F024_AWS,
+        finding=core_model.FindingEnum.F024,
         path=path,
         statements_iterator=_public_buckets_iterate_vulnerabilities(
             buckets_iterator=iter_s3_buckets(template=template)
@@ -155,7 +155,7 @@ def _cfn_groups_without_egress(
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key="src.lib_path.f024_aws.security_group_without_egress",
-        finding=core_model.FindingEnum.F024_AWS,
+        finding=core_model.FindingEnum.F024,
         path=path,
         statements_iterator=_groups_without_egress_iter_vulnerabilities(
             groups_iterators=iter_ec2_security_groups(template=template)
@@ -171,7 +171,7 @@ def _cnf_unrestricted_cidrs(
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key="src.lib_path.f024_aws.unrestricted_cidrs",
-        finding=core_model.FindingEnum.F024_AWS,
+        finding=core_model.FindingEnum.F024,
         path=path,
         statements_iterator=_cidr_iter_vulnerabilities(
             rules_iterator=iter_ec2_ingress_egress(
@@ -272,7 +272,7 @@ def _cnf_unrestricted_ports(
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key="src.lib_path.f024_aws.unrestricted_ports",
-        finding=core_model.FindingEnum.F024_AWS,
+        finding=core_model.FindingEnum.F024,
         path=path,
         statements_iterator=_range_port_iter_vulnerabilities(
             rules_iterator=iter_ec2_ingress_egress(
@@ -292,7 +292,7 @@ def _cfn_unrestricted_ip_protocols(
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key="src.lib_path.f024_aws.unrestricted_protocols",
-        finding=core_model.FindingEnum.F024_AWS,
+        finding=core_model.FindingEnum.F024,
         path=path,
         statements_iterator=_protocol_iter_vulnerabilities(
             rules_iterator=iter_ec2_ingress_egress(
@@ -312,7 +312,7 @@ def _cfn_allows_anyone_to_admin_ports(
     return get_vulnerabilities_from_aws_iterator_blocking(
         content=content,
         description_key="src.lib_path.f024_aws.allows_anyone_to_admin_ports",
-        finding=core_model.FindingEnum.F024_AWS,
+        finding=core_model.FindingEnum.F024,
         path=path,
         statements_iterator=_cfn_iter_vulnerable_admin_ports(
             rules_iterator=iter_ec2_ingress_egress(

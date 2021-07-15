@@ -1,27 +1,24 @@
-F063_TRUSTBOUND.description:
+F089.description:
   en: >
     The system mixes trusted and untrusted data in the same data structure or
     structured message.
   es: >
     El sistema mezcla datos confiables y no confiables en la misma estructura de
     datos o mensaje estructurado.
-F063_TRUSTBOUND.impact:
+F089.impact:
   en: >
     Pushing data into critical data structures, which could lead to some types
     of injections.
   es: >
     Introducir datos a estructuras de datos críticas, lo que podría provocar
     algunos tipos de inyecciones.
-F063_TRUSTBOUND.recommendation:
+F089.recommendation:
   en: >
     - Prevent the use of untrusted data in critical data structures or
       structured messages.
   es: >
     - Prevenir el uso de datos no confiables en estructuras de datos críticas o
       mensajes estructurados.
-F063_TRUSTBOUND.threat:
+F089.threat:
   en: Autenticated attacker from the Internet.
   es: Atacante autenticado desde Internet.
-F063_TRUSTBOUND.title:
-  en: F063. Lack of data validation - Trust boundary violation
-  es: F063. Falta de validación de datos - Trust boundary violation

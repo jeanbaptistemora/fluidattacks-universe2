@@ -1,7 +1,7 @@
 src.lib_path.f063_path_traversal.description:
   en: Path traversal in {path}
   es: Path traversal en {path}
-F063_PATH_TRAVERSAL.description:
+F063.description:
   en: >
     The software uses external input to construct a pathname that is intended
     to identify a file or directory but it does not properly neutralize
@@ -10,23 +10,20 @@ F063_PATH_TRAVERSAL.description:
     El software usa entradas externas para construir rutas que identifican
     un archivo o directorio pero no se neutraliza o validan apropiadamente
     los elementos especiales dentro de dicha ruta.
-F063_PATH_TRAVERSAL.impact:
+F063.impact:
   en: >
     Make the software resolve the pathname to a location that is outside of
     the intended target, for instance: /etc/passwd.
   es: >
     Hacer que el software resuelva la ruta a una ubicación que esta por fuera
     del objetivo de la aplicación, por ejemplo: /etc/passwd.
-F063_PATH_TRAVERSAL.recommendation:
+F063.recommendation:
   en: |
     - Prevent the attacker from constructing the pathname, or
     - Validate/Neutralize the input for special elements like: .., ~, /.
   es: |
     - Prevenir que el atacante construya la ruta, o
     - Validar/Neutralizar que las entradas no contengan elementos especiales como: .., ~, /.
-F063_PATH_TRAVERSAL.threat:
+F063.threat:
   en: Autenticated attacker from the Internet.
   es: Atacante autenticado desde Internet.
-F063_PATH_TRAVERSAL.title:
-  en: F063. Lack of data validation - Path Traversal
-  es: F063. Falta de validación de datos - Path Traversal

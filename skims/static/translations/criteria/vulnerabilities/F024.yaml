@@ -29,7 +29,7 @@ src.lib_path.f024_aws.instances_without_profile:
 src.lib_path.f024_aws.public_buckets:
   en: S3 buckets are publicly accessible for read or write operations.
   es: Los buckets S3 son accesibles públicamente para operaciones de lectura o escritura.
-F024_AWS.description:
+F024.description:
   en: >
     The system’s network configuration does not properly limit access between
     network segments. This allows employees from any office to access
@@ -43,19 +43,16 @@ F024_AWS.description:
     accesen servicios administrativos de servicios y otras oficinas.
     Alternativamente, los servidores que se espera sean accedidos solo desde
     una red interna estan expuertos a otros segmentos de red, como Internet.
-F024_AWS.impact:
+F024.impact:
   en: Expose resources, processes and sensitive information that could be compromised.
   es: Exponer recursos, procesos e información sensible que podrían ser comprometidos.
-F024_AWS.recommendation:
+F024.recommendation:
   en: >
     Limit network segments, ports, IP addresses, network protocols, and
     administrative services only to the required users.
   es: >
     Limitar los segmentos de red, puertos, direcciones IP, protocolos de red,
     y servicios administrativos solamente a los usuarios requeridos.
-F024_AWS.threat:
+F024.threat:
   en: Anonymous attacker from Internet.
   es: Atacante anónimo desde Internet.
-F024_AWS.title:
-  en: F024. Unrestricted access between network segments - AWS
-  es: F024. Acceso no restringido entre segmentos de red - AWS

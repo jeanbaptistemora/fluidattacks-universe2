@@ -3,16 +3,6 @@
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
-  "F001_JAVA_SQL": {
-    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {
-      "23": {}
-    }
-  },
-  "F001_JPA": {
-    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
-  },
   "F004": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {
@@ -33,11 +23,15 @@
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
-  "F014_FLOAT_CURRENCY": {
+  "F012": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
   "F015": {
+    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
+    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
+  },
+  "F016": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
@@ -55,15 +49,11 @@
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
-  "F024_AWS": {
+  "F024": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
-  "F031_AWS": {
-    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
-  },
-  "F031_CWE378": {
+  "F031": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
@@ -83,31 +73,7 @@
       "23": {}
     }
   },
-  "F042_HTTPONLY": {
-    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
-  },
-  "F042_SAMESITE": {
-    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
-  },
-  "F042_SECURE": {
-    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
-  },
-  "F043_DAST_CSP": {
-    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
-  },
-  "F043_DAST_RP": {
-    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
-  },
-  "F043_DAST_STS": {
-    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
-  },
-  "F043_DAST_XCTO": {
+  "F043": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
@@ -127,31 +93,15 @@
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
-  "F052_ANON": {
+  "F055": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
-  "F052_CBC": {
+  "F057": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
-  "F052_PFS": {
-    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
-  },
-  "F052_SSL_TLS": {
-    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
-  },
-  "F055_APK_BACKUPS": {
-    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
-  },
-  "F055_AWS_MISSING_ENCRYPTION": {
-    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
-  },
-  "F058_APK": {
+  "F058": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
@@ -163,7 +113,7 @@
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
-  "F063_PATH_TRAVERSAL": {
+  "F063": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {
       "23": {
@@ -396,21 +346,15 @@
       }
     }
   },
-  "F063_TRUSTBOUND": {
-    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {
-      "23": {}
-    }
-  },
-  "F063_TYPE_CONFUSION": {
-    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
-  },
   "F064": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
-  "F070_WILDCARD_IMPORT": {
+  "F070": {
+    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
+    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
+  },
+  "F071": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
@@ -426,11 +370,29 @@
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
+  "F080": {
+    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
+    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
+  },
   "F085": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
   "F086": {
+    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
+    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
+  },
+  "F089": {
+    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
+    "skims/test/data/lib_path/f063_path_traversal/Test.java": {
+      "23": {}
+    }
+  },
+  "F092": {
+    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
+    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
+  },
+  "F094": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   },
@@ -444,7 +406,45 @@
       "23": {}
     }
   },
+  "F109": {
+    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
+    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
+  },
+  "F112": {
+    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
+    "skims/test/data/lib_path/f063_path_traversal/Test.java": {
+      "23": {}
+    }
+  },
   "F117": {
+    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
+    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
+  },
+  "F127": {
+    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
+    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
+  },
+  "F128": {
+    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
+    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
+  },
+  "F129": {
+    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
+    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
+  },
+  "F130": {
+    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
+    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
+  },
+  "F131": {
+    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
+    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
+  },
+  "F132": {
+    "skims/test/data/lib_path/f031_cwe378/Test.java": {},
+    "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
+  },
+  "F133": {
     "skims/test/data/lib_path/f031_cwe378/Test.java": {},
     "skims/test/data/lib_path/f063_path_traversal/Test.java": {}
   }

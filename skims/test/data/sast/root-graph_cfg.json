@@ -36361,7 +36361,7 @@
             "label_c": 53,
             "label_field_name": "1035",
             "label_field_type": "1036",
-            "label_input_type": "F063_TYPE_CONFUSION",
+            "label_input_type": "F127",
             "label_l": 129,
             "label_type": "parameter_declaration"
           },
@@ -37779,7 +37779,7 @@
             "label_c": 17,
             "label_field_name": "1245",
             "label_field_type": "1246",
-            "label_input_type": "F063_TYPE_CONFUSION",
+            "label_input_type": "F127",
             "label_l": 158,
             "label_type": "parameter_declaration"
           },
@@ -39167,7 +39167,7 @@
             "label_field_arguments": "1456",
             "label_field_function": "1452",
             "label_l": 181,
-            "label_sink_type": "F063_TYPE_CONFUSION",
+            "label_sink_type": "F127",
             "label_type": "call_expression"
           },
           "1452": {
@@ -42784,7 +42784,7 @@
             "label_c": 21,
             "label_field_name": "1992",
             "label_field_type": "1993",
-            "label_input_type": "F063_TYPE_CONFUSION",
+            "label_input_type": "F127",
             "label_l": 255,
             "label_type": "parameter_declaration"
           },
@@ -42897,7 +42897,7 @@
             "label_c": 12,
             "label_field_arguments": "2012",
             "label_field_function": "2008",
-            "label_input_type": "F014_FLOAT_CURRENCY",
+            "label_input_type": "F109",
             "label_l": 256,
             "label_type": "call_expression"
           },
@@ -42990,7 +42990,7 @@
             "label_field_arguments": "2025",
             "label_field_function": "2021",
             "label_l": 257,
-            "label_sink_type": "F063_TYPE_CONFUSION",
+            "label_sink_type": "F127",
             "label_type": "call_expression"
           },
           "2021": {
@@ -43112,7 +43112,7 @@
             "label_c": 16,
             "label_field_name": "2040",
             "label_field_type": "2041",
-            "label_input_type": "F063_TYPE_CONFUSION",
+            "label_input_type": "F127",
             "label_l": 260,
             "label_type": "parameter_declaration"
           },
@@ -43220,7 +43220,7 @@
             "label_c": 12,
             "label_field_arguments": "2060",
             "label_field_function": "2056",
-            "label_input_type": "F014_FLOAT_CURRENCY",
+            "label_input_type": "F109",
             "label_l": 261,
             "label_type": "call_expression"
           },
@@ -43539,7 +43539,7 @@
             "label_field_arguments": "2106",
             "label_field_function": "2102",
             "label_l": 265,
-            "label_sink_type": "F063_TYPE_CONFUSION",
+            "label_sink_type": "F127",
             "label_type": "call_expression"
           },
           "2102": {
@@ -46116,7 +46116,7 @@
             "label_field_arguments": "588",
             "label_field_function": "584",
             "label_l": 75,
-            "label_sink_type": "F063_TYPE_CONFUSION",
+            "label_sink_type": "F127",
             "label_type": "call_expression"
           },
           "584": {
@@ -47714,7 +47714,7 @@
             "label_field_arguments": "825",
             "label_field_function": "821",
             "label_l": 109,
-            "label_sink_type": "F063_TYPE_CONFUSION",
+            "label_sink_type": "F127",
             "label_type": "call_expression"
           },
           "821": {
@@ -48302,7 +48302,7 @@
             "label_c": 30,
             "label_field_name": "909",
             "label_field_type": "910",
-            "label_input_type": "F063_TYPE_CONFUSION",
+            "label_input_type": "F127",
             "label_l": 118,
             "label_type": "parameter_declaration"
           },

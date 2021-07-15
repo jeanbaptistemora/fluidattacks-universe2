@@ -21,14 +21,14 @@ def mark_inputs(
     findings = core_model.FindingEnum
 
     for finding in (
-        findings.F001_JAVA_SQL,
+        findings.F112,
         findings.F004,
         findings.F008,
         findings.F021,
         findings.F034,
         findings.F042,
-        findings.F063_PATH_TRAVERSAL,
-        findings.F063_TRUSTBOUND,
+        findings.F063,
+        findings.F089,
         findings.F107,
     ):
         danger_args = {
@@ -74,7 +74,7 @@ def mark_sinks(
     findings = core_model.FindingEnum
 
     mark_methods_sink(
-        findings.F001_JAVA_SQL,
+        findings.F112,
         graph,
         syntax,
         {
@@ -154,7 +154,7 @@ def mark_sinks(
         },
     )
     mark_methods_sink(
-        findings.F063_PATH_TRAVERSAL,
+        findings.F063,
         graph,
         syntax,
         {
@@ -163,7 +163,7 @@ def mark_sinks(
         },
     )
     mark_methods_sink(
-        findings.F063_TRUSTBOUND,
+        findings.F089,
         graph,
         syntax,
         {
@@ -188,7 +188,7 @@ def mark_sinks(
         },
     )
     mark_obj_inst_sink(
-        findings.F063_PATH_TRAVERSAL,
+        findings.F063,
         graph,
         syntax,
         {

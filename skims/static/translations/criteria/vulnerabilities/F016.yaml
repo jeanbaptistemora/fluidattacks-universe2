@@ -28,25 +28,22 @@ lib_ssl.analyze_protocol.raccoon_possible:
 lib_ssl.analyze_protocol.breach_possible:
   en: server is vulnerable to BREACH attacks
   es: el servidor es vulnerable a ataques BREACH
-F052_SSL_TLS.description:
+F016.description:
   en: The server allows the usage of insecure SSL/TLS protocol versions.
   es: El servidor permite utilizar versiones inseguras del protocolo SSL/TLS.
-F052_SSL_TLS.impact:
+F016.impact:
   en: Compromize sensitive information that travels between client and server.
   es: Comprometer la información sensible que viaja entre cliente y servidor.
-F052_SSL_TLS.recommendation:
+F016.recommendation:
   en: Update SSL/TLS protocol to version TLSv1.2 or TLSv1.3 if possible.
   es: >
     Actualizar el protocolo SSL/TSL a la versión TLSv1.2 o TLSv1.3 de ser
     posible.
-F052_SSL_TLS.requirements:
+F016.requirements:
   en: R262. Verify third-party components.
   es: >
     R262. Los componentes provistos por terceros deben corresponder a versiones
     estables, probadas y actualizadas.
-F052_SSL_TLS.threat:
+F016.threat:
   en: Unauthorized attacker from adjacent network exploiting a vulnerability.
   es: Atacante sin autorización desde red adyacente explotando vulnerabilidad.
-F052_SSL_TLS.title:
-  en: F052. Insecure cipher algorithm - SSL/TLS
-  es: F052. Algoritmo de cifrado inseguro - SSL/TLS

@@ -198,7 +198,7 @@ def _backups_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         ctx=ctx,
-        finding=core_model.FindingEnum.F055_APK_BACKUPS,
+        finding=core_model.FindingEnum.F055,
         locations=locations,
     )
 
@@ -228,7 +228,7 @@ def _debugging_enabled(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 
     return _create_vulns(
         ctx=ctx,
-        finding=core_model.FindingEnum.F058_APK,
+        finding=core_model.FindingEnum.F058,
         locations=locations,
     )
 
@@ -517,8 +517,8 @@ CHECKS: Dict[
     core_model.FindingEnum.F046: _no_obfuscation,
     core_model.FindingEnum.F048: _no_root_check,
     core_model.FindingEnum.F049: _no_certs_pinning,
-    core_model.FindingEnum.F055_APK_BACKUPS: _backups_enabled,
-    core_model.FindingEnum.F058_APK: _debugging_enabled,
+    core_model.FindingEnum.F055: _backups_enabled,
+    core_model.FindingEnum.F058: _debugging_enabled,
     core_model.FindingEnum.F075: _exported_cp,
     core_model.FindingEnum.F103: _apk_unsigned,
 }

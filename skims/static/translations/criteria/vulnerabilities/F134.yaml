@@ -1,21 +1,18 @@
-F055_CORS.description:
+F134.description:
   en: >
     The cross-domain policy includes wildcards, accepting any domain as valid
     for sharing resources.
   es: >
     La política entre dominios incluye comodines, aceptando cualquier dominio
     como válido para compartir recursos.
-F055_CORS.impact:
+F134.impact:
   en: Include resources from untrusted origins.
   es: Incluir recursos de orígenes maliciosos.
-F055_CORS.recommendation:
+F134.recommendation:
   en: Define explicitly the trusted origins for the application resources.
   es: >
     Definir explícitamente los orígenes permitidos para los recursos de la
     aplicación.
-F055_CORS.threat:
+F134.threat:
   en: Unauthorized attacker from the Internet.
   es: Atacante sin autorización desde Internet.
-F055_CORS.title:
-  en: F055. Insecure service configuration - CORS
-  es: F055. Configuración insegura del servicio - CORS

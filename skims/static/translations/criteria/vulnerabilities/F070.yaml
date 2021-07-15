@@ -1,7 +1,7 @@
 src.lib_path.f070_wildcard_import.wildcard_import:
   en: Use of wildcard import
   es: Uso del operator comodín para importar librerías
-F070_WILDCARD_IMPORT.description:
+F070.description:
   en: >
     When importing libraries
     the wildcard operator (asterisk) is used
@@ -22,7 +22,7 @@ F070_WILDCARD_IMPORT.description:
     que no serán utilizados,
     y se puede entrar en conflictos de nomenclatura
     si dos paquetes tienen componentes con el mismo nombre.
-F070_WILDCARD_IMPORT.impact:
+F070.impact:
   en: |
     - Load functions and procedures that will not be used.
     - Cause a suboptimal operation of the application.
@@ -31,7 +31,7 @@ F070_WILDCARD_IMPORT.impact:
     - Cargar funciones y procedimientos que no serán utilizados.
     - Ocasionar un funcionamiento subóptimo de la aplicación.
     - Ocasionar conflictos de nomenclatura en componentes con el mismo nombre.
-F070_WILDCARD_IMPORT.recommendation:
+F070.recommendation:
   en: >
     Explicitly import the libraries
     and necessary packages
@@ -42,9 +42,6 @@ F070_WILDCARD_IMPORT.recommendation:
     y paquetes necesarios
     para el correcto funcionamiento
     de la aplicación.
-F070_WILDCARD_IMPORT.threat:
+F070.threat:
   en: Authorized attacker with access to the application.
   es: Atacante autorizado con acceso a la aplicación.
-F070_WILDCARD_IMPORT.title:
-  en: F070. Inappropriate coding practices - Wildcard import
-  es: F070. Prácticas inadecuadas de programación - Import con comodín

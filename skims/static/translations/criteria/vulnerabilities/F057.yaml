@@ -1,7 +1,7 @@
 src.lib_path.f031_cwe378.java_file_create_temp_file.description:
   en: Use of Java File.createTempFile in {path}
   es: Uso de Java File.createTempFile en {path}
-F031_CWE378.description:
+F057.description:
   en: >
     Opening temporary files without appropriate measures or controls can leave
     the file, its contents and any function that consumes it vulnerable to
@@ -10,14 +10,14 @@ F031_CWE378.description:
     Abrir archivos temporales sin las medidas o controles adecuados puede dejar
     el archivo, su contenido y cualquier función que lo consuma vulnerable a
     ataques.
-F031_CWE378.impact:
+F057.impact:
   en: |
     - Get access to the created temporary files.
     - Tamper data contained in the created temporary files.
   es: |
     - Obtener acceso a los archivos temporales creados.
     - Manipular los datos contenidos en los archivos temporales.
-F031_CWE378.recommendation:
+F057.recommendation:
   en: >
     Create the temporary files in a different directory than the default
     provided by the Operative system and ensure it has 0600 permission mask.
@@ -25,11 +25,8 @@ F031_CWE378.recommendation:
     Crear los archivos temporales en un directorio diferente al provisto por
     defecto en el sistema operativo y asegurar que estos tienen una mascara
     de permisos 0600.
-F031_CWE378.threat:
+F057.threat:
   en: >
     Anonymous attacker with local access.
   es: >
     Atacante anónimo con acceso local.
-F031_CWE378.title:
-  en: F031. Excessive privileges - Temporary files
-  es: F031. Permisos excesivos - Archivos temporales

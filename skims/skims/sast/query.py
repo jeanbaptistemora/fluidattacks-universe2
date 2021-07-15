@@ -147,7 +147,7 @@ def query(
 def query_f001_java_sql(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
-    return query(graph_db, core_model.FindingEnum.F001_JAVA_SQL)
+    return query(graph_db, core_model.FindingEnum.F112)
 
 
 def query_f001_c_sharp_sql(
@@ -181,15 +181,15 @@ def query_f052(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
 
 
 def query_f063_pt(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
-    return query(graph_db, core_model.FindingEnum.F063_PATH_TRAVERSAL)
+    return query(graph_db, core_model.FindingEnum.F063)
 
 
 def query_f063_tb(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
-    return query(graph_db, core_model.FindingEnum.F063_TRUSTBOUND)
+    return query(graph_db, core_model.FindingEnum.F089)
 
 
 def query_f063_tc(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
-    return query(graph_db, core_model.FindingEnum.F063_TYPE_CONFUSION)
+    return query(graph_db, core_model.FindingEnum.F127)
 
 
 def query_f107(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
@@ -197,7 +197,7 @@ def query_f107(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
 
 
 QUERIES: graph_model.Queries = (
-    (core_model.FindingEnum.F001_JAVA_SQL, query_f001_java_sql),
+    (core_model.FindingEnum.F112, query_f001_java_sql),
     (core_model.FindingEnum.F001, query_f001_c_sharp_sql),
     (core_model.FindingEnum.F004, query_f004),
     (core_model.FindingEnum.F008, query_f008),
@@ -205,8 +205,8 @@ QUERIES: graph_model.Queries = (
     (core_model.FindingEnum.F034, query_f034),
     (core_model.FindingEnum.F042, query_f042),
     (core_model.FindingEnum.F052, query_f052),
-    (core_model.FindingEnum.F063_PATH_TRAVERSAL, query_f063_pt),
-    (core_model.FindingEnum.F063_TRUSTBOUND, query_f063_tb),
-    (core_model.FindingEnum.F063_TYPE_CONFUSION, query_f063_tc),
+    (core_model.FindingEnum.F063, query_f063_pt),
+    (core_model.FindingEnum.F089, query_f063_tb),
+    (core_model.FindingEnum.F127, query_f063_tc),
     (core_model.FindingEnum.F107, query_f107),
 )

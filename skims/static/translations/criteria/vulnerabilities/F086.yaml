@@ -17,6 +17,3 @@ F086.recommendation:
 F086.threat:
   en: Unauthorized attacker from internet network.
   es: Atacante sin autorización desde red internet.
-F086.title:
-  en: F086. Missing subresource integrity check
-  es: F086. Falta de verificación de subresource integrity

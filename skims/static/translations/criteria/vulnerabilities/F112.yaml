@@ -1,16 +1,16 @@
-src.lib_path.F001_JAVA_SQL.user_controled_param:
+src.lib_path.F112.user_controled_param:
   en: Use of attacker controlled parameters for querying the data base
   es: >
     Uso de parametros controlados por el atacante para realizar consultas a
     la base de datos
-F001_JAVA_SQL.description:
+F112.description:
   en: >
     Dynamic SQL statements are generated without the required data validation
     and without using parameterized statements or stored procedures.
   es: >
     Se generan sentencias SQL dinámicas sin la validación requerida de datos
     y sin utilizar sentencias parametrizadas o procedimientos almacenados.
-F001_JAVA_SQL.impact:
+F112.impact:
   en: >
     Inject SQL statements,
     with the possibility of obtaining information about the database,
@@ -19,7 +19,7 @@ F001_JAVA_SQL.impact:
     Inyectar sentencias SQL,
     con la posibilidad de obtener información sobre la base de datos,
     así como extraer información de la misma.
-F001_JAVA_SQL.recommendation:
+F112.recommendation:
   en: >
     Perform queries to the database through sentences or parameterized procedures.
     Alternatively use escape(String) built-in function.
@@ -27,9 +27,6 @@ F001_JAVA_SQL.recommendation:
     Realizar las consultas a la base de datos por medio de sentencias o
     procedimientos parametrizados, o alternativamente usar la función escape(String)
     del framework.
-F001_JAVA_SQL.threat:
+F112.threat:
   en: Autenticated attacker from the Internet.
   es: Atacante autenticado desde Internet.
-F001_JAVA_SQL.title:
-  en: F001. SQL injection - Java SQL API
-  es: F001. Inyección SQL - Java SQL API

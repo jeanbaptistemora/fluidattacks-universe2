@@ -71,7 +71,7 @@ def go_wildcard_import(
 
 
 # Constants
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F070_WILDCARD_IMPORT
+FINDING: core_model.FindingEnum = core_model.FindingEnum.F070
 QUERIES: graph_model.Queries = (
     (FINDING, java_wildcard_import),
     (FINDING, go_wildcard_import),

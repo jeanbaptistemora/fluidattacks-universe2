@@ -96,7 +96,6 @@ class FindingMetadata(NamedTuple):
         cwe: int,
         auto_approve: bool,
         execution_queue: ExecutionQueue,
-        migrated: bool = False,
         requirements: List[int],
         score: cvss3_model.Score,
     ) -> FindingMetadata:
@@ -110,11 +109,7 @@ class FindingMetadata(NamedTuple):
             requirements=requirements,
             score=score,
             threat=f"{code}.threat",
-            title=(
-                f"criteria.vulns.{code[1:]}.title"
-                if migrated
-                else f"{code}.title"
-            ),
+            title=f"criteria.vulns.{code[1:]}.title",
             type=FindingTypeEnum.SECURITY,
         )
 
@@ -125,7 +120,6 @@ class FindingEnum(Enum):
         code="F001",
         cwe=89,
         execution_queue=ExecutionQueue.sql,
-        migrated=True,
         requirements=[169],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -141,9 +135,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.none,
         ),
     )
-    F001_JAVA_SQL: FindingMetadata = FindingMetadata.new(
+    F112: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
-        code="F001_JAVA_SQL",
+        code="F112",
         execution_queue=ExecutionQueue.sql,
         cwe=89,
         requirements=[169],
@@ -161,9 +155,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.none,
         ),
     )
-    F001_JPA: FindingMetadata = FindingMetadata.new(
+    F012: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
-        code="F001_JPA",
+        code="F012",
         cwe=89,
         execution_queue=ExecutionQueue.sql,
         requirements=[169],
@@ -246,7 +240,6 @@ class FindingEnum(Enum):
         code="F011",
         cwe=937,
         execution_queue=ExecutionQueue.f011,
-        migrated=True,
         requirements=[262],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -262,9 +255,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.none,
         ),
     )
-    F014_FLOAT_CURRENCY: FindingMetadata = FindingMetadata.new(
+    F109: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
-        code="F014_FLOAT_CURRENCY",
+        code="F109",
         cwe=681,
         execution_queue=ExecutionQueue.f014,
         requirements=[266],
@@ -287,7 +280,6 @@ class FindingEnum(Enum):
         code="F015",
         cwe=287,
         execution_queue=ExecutionQueue.http,
-        migrated=True,
         requirements=[228, 319],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -348,7 +340,6 @@ class FindingEnum(Enum):
         code="F023",
         cwe=601,
         execution_queue=ExecutionQueue.http,
-        migrated=True,
         requirements=[173, 324],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -364,9 +355,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.required,
         ),
     )
-    F024_AWS: FindingMetadata = FindingMetadata.new(
+    F024: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
-        code="F024_AWS",
+        code="F024",
         cwe=16,
         execution_queue=ExecutionQueue.aws,
         requirements=[255, 266],
@@ -384,9 +375,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.none,
         ),
     )
-    F031_AWS: FindingMetadata = FindingMetadata.new(
+    F031: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
-        code="F031_AWS",
+        code="F031",
         cwe=250,
         execution_queue=ExecutionQueue.aws,
         requirements=[186],
@@ -404,9 +395,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.none,
         ),
     )
-    F031_CWE378: FindingMetadata = FindingMetadata.new(
+    F057: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
-        code="F031_CWE378",
+        code="F057",
         cwe=378,
         execution_queue=ExecutionQueue.control,
         requirements=[186],
@@ -484,9 +475,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.required,
         ),
     )
-    F042_HTTPONLY: FindingMetadata = FindingMetadata.new(
+    F128: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
-        code="F042_HTTPONLY",
+        code="F128",
         cwe=1004,
         execution_queue=ExecutionQueue.http,
         requirements=[29],
@@ -504,9 +495,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.required,
         ),
     )
-    F042_SAMESITE: FindingMetadata = FindingMetadata.new(
+    F129: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
-        code="F042_SAMESITE",
+        code="F129",
         cwe=1275,
         execution_queue=ExecutionQueue.http,
         requirements=[29],
@@ -524,9 +515,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.required,
         ),
     )
-    F042_SECURE: FindingMetadata = FindingMetadata.new(
+    F130: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
-        code="F042_SECURE",
+        code="F130",
         cwe=614,
         execution_queue=ExecutionQueue.http,
         requirements=[29],
@@ -544,9 +535,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.required,
         ),
     )
-    F043_DAST_CSP: FindingMetadata = FindingMetadata.new(
+    F043: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
-        code="F043_DAST_CSP",
+        code="F043",
         cwe=644,
         execution_queue=ExecutionQueue.http,
         requirements=[62],
@@ -564,9 +555,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.required,
         ),
     )
-    F043_DAST_RP: FindingMetadata = FindingMetadata.new(
+    F071: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
-        code="F043_DAST_RP",
+        code="F071",
         cwe=644,
         execution_queue=ExecutionQueue.http,
         requirements=[62],
@@ -584,9 +575,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.required,
         ),
     )
-    F043_DAST_STS: FindingMetadata = FindingMetadata.new(
+    F131: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
-        code="F043_DAST_STS",
+        code="F131",
         cwe=644,
         execution_queue=ExecutionQueue.http,
         requirements=[62, 181],
@@ -604,9 +595,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.required,
         ),
     )
-    F043_DAST_XCTO: FindingMetadata = FindingMetadata.new(
+    F132: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
-        code="F043_DAST_XCTO",
+        code="F132",
         cwe=644,
         execution_queue=ExecutionQueue.http,
         requirements=[62],
@@ -629,7 +620,6 @@ class FindingEnum(Enum):
         code="F046",
         cwe=1269,
         execution_queue=ExecutionQueue.apk,
-        migrated=True,
         requirements=[159],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -670,7 +660,6 @@ class FindingEnum(Enum):
         code="F049",
         cwe=295,
         execution_queue=ExecutionQueue.apk,
-        migrated=True,
         requirements=[93],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -706,9 +695,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.required,
         ),
     )
-    F052_ANON: FindingMetadata = FindingMetadata.new(
+    F092: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
-        code="F052_ANON",
+        code="F092",
         cwe=757,
         execution_queue=ExecutionQueue.ssl,
         requirements=[148, 149, 150, 181, 336],
@@ -726,9 +715,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.required,
         ),
     )
-    F052_CBC: FindingMetadata = FindingMetadata.new(
+    F094: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
-        code="F052_CBC",
+        code="F094",
         cwe=757,
         execution_queue=ExecutionQueue.ssl,
         requirements=[148, 149, 150, 181, 336],
@@ -746,9 +735,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.required,
         ),
     )
-    F052_PFS: FindingMetadata = FindingMetadata.new(
+    F133: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
-        code="F052_PFS",
+        code="F133",
         cwe=310,
         execution_queue=ExecutionQueue.ssl,
         requirements=[148, 149, 150, 181],
@@ -766,9 +755,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.required,
         ),
     )
-    F052_SSL_TLS: FindingMetadata = FindingMetadata.new(
+    F016: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
-        code="F052_SSL_TLS",
+        code="F016",
         cwe=326,
         execution_queue=ExecutionQueue.ssl,
         requirements=[148, 149, 150, 181, 336],
@@ -786,9 +775,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.required,
         ),
     )
-    F055_APK_BACKUPS: FindingMetadata = FindingMetadata.new(
+    F055: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
-        code="F055_APK_BACKUPS",
+        code="F055",
         cwe=530,
         execution_queue=ExecutionQueue.apk,
         requirements=[266],
@@ -806,9 +795,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.none,
         ),
     )
-    F055_AWS_MISSING_ENCRYPTION: FindingMetadata = FindingMetadata.new(
+    F080: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
-        code="F055_AWS_MISSING_ENCRYPTION",
+        code="F080",
         cwe=311,
         execution_queue=ExecutionQueue.aws,
         requirements=[185],
@@ -826,9 +815,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.none,
         ),
     )
-    F058_APK: FindingMetadata = FindingMetadata.new(
+    F058: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
-        code="F058_APK",
+        code="F058",
         cwe=489,
         execution_queue=ExecutionQueue.apk,
         requirements=[77, 78],
@@ -886,9 +875,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.none,
         ),
     )
-    F063_PATH_TRAVERSAL: FindingMetadata = FindingMetadata.new(
+    F063: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
-        code="F063_PATH_TRAVERSAL",
+        code="F063",
         cwe=22,
         execution_queue=ExecutionQueue.injection,
         requirements=[173],
@@ -906,9 +895,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.none,
         ),
     )
-    F063_TRUSTBOUND: FindingMetadata = FindingMetadata.new(
+    F089: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
-        code="F063_TRUSTBOUND",
+        code="F089",
         cwe=501,
         execution_queue=ExecutionQueue.control,
         requirements=[173],
@@ -926,9 +915,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.none,
         ),
     )
-    F063_TYPE_CONFUSION: FindingMetadata = FindingMetadata.new(
+    F127: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
-        code="F063_TYPE_CONFUSION",
+        code="F127",
         cwe=843,
         execution_queue=ExecutionQueue.control,
         requirements=[342],
@@ -951,7 +940,6 @@ class FindingEnum(Enum):
         code="F064",
         cwe=778,
         execution_queue=ExecutionQueue.http,
-        migrated=True,
         requirements=[75],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.low,
@@ -967,9 +955,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.none,
         ),
     )
-    F070_WILDCARD_IMPORT: FindingMetadata = FindingMetadata.new(
+    F070: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
-        code="F070_WILDCARD_IMPORT",
+        code="F070",
         cwe=155,
         execution_queue=ExecutionQueue.f070,
         requirements=[158, 302],
@@ -1012,7 +1000,6 @@ class FindingEnum(Enum):
         code="F075",
         cwe=284,
         execution_queue=ExecutionQueue.apk,
-        migrated=True,
         requirements=[176],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,
@@ -1093,7 +1080,6 @@ class FindingEnum(Enum):
         code="F103",
         cwe=325,
         execution_queue=ExecutionQueue.apk,
-        migrated=True,
         requirements=[178],
         score=cvss3_model.Score(
             attack_complexity=cvss3_model.AttackComplexity.high,

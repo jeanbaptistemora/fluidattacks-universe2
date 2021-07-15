@@ -37,5 +37,5 @@ def java_file_create_temp_file(
 
 
 # Constants
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F031_CWE378
+FINDING: core_model.FindingEnum = core_model.FindingEnum.F057
 QUERIES: graph_model.Queries = ((FINDING, java_file_create_temp_file),)

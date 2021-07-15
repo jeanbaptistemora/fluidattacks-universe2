@@ -28,7 +28,7 @@ def mark_inputs(
         findings.F004,
         findings.F008,
         findings.F021,
-        findings.F063_PATH_TRAVERSAL,
+        findings.F063,
         findings.F107,
     ):
         danger_args = {
@@ -42,7 +42,7 @@ def mark_inputs(
     for finding in (
         findings.F004,
         findings.F021,
-        findings.F063_PATH_TRAVERSAL,
+        findings.F063,
         findings.F107,
     ):
         mark_obj_inst_input(
@@ -60,7 +60,7 @@ def mark_inputs(
     for finding in {
         findings.F004,
         findings.F021,
-        findings.F063_PATH_TRAVERSAL,
+        findings.F063,
         findings.F107,
     }:
         mark_methods_input(
@@ -130,7 +130,7 @@ def mark_sinks(
         },
     )
     mark_methods_sink(
-        findings.F063_PATH_TRAVERSAL,
+        findings.F063,
         graph,
         syntax,
         {

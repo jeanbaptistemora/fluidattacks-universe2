@@ -14,7 +14,7 @@ FINDINGS = {
     core_model.FindingEnum.F004,
     core_model.FindingEnum.F008,
     core_model.FindingEnum.F021,
-    core_model.FindingEnum.F063_PATH_TRAVERSAL,
+    core_model.FindingEnum.F063,
     core_model.FindingEnum.F107,
 }
 

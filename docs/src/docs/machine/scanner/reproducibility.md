@@ -49,16 +49,16 @@ we'll need to:
 
     ```yaml title="config.yaml"
     checks:
-    - F001_JAVA_SQL
     - F004
     - F008
     - F021
     - F034
     - F042
     - F052
-    - F063_PATH_TRAVERSAL
-    - F063_TRUSTBOUND
+    - F063
+    - F089
     - F107
+    - F112
     namespace: OWASP
     output: results/Benchmark_1.2-Fluid-Attacks-v2021.csv
     path:
