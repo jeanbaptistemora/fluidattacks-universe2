@@ -10,10 +10,6 @@ from model.graph_model import (
 from more_itertools import (
     pairwise,
 )
-from sast_transformations import (
-    ALWAYS,
-    MAYBE,
-)
 from sast_transformations.control_flow.common import (
     catch_statement,
     if_statement,
@@ -60,17 +56,17 @@ def switch_statement(
 
     for stmt_ids in switch_flows:
         # Link to the first statement in the block
-        graph.add_edge(n_id, stmt_ids[0], **MAYBE)
+        graph.add_edge(n_id, stmt_ids[0], **g.MAYBE)
 
         # Walk pairs of elements
         for stmt_a_id, stmt_b_id in pairwise(stmt_ids):
             # Mark as next_id the next statement in chain
             set_next_id(stack, stmt_b_id)
-            _generic(graph, stmt_a_id, stack, edge_attrs=ALWAYS)
+            _generic(graph, stmt_a_id, stack, edge_attrs=g.ALWAYS)
 
         # Link recursively the last statement in the block
         propagate_next_id_from_parent(stack)
-        _generic(graph, stmt_ids[-1], stack, edge_attrs=ALWAYS)
+        _generic(graph, stmt_ids[-1], stack, edge_attrs=g.ALWAYS)
 
 
 def using_statement(
@@ -80,8 +76,8 @@ def using_statement(
 ) -> None:
     match = g.match_ast(graph, n_id, "block")
     if block_id := match["block"]:
-        graph.add_edge(n_id, block_id, **ALWAYS)
-        _generic(graph, block_id, stack, edge_attrs=ALWAYS)
+        graph.add_edge(n_id, block_id, **g.ALWAYS)
+        _generic(graph, block_id, stack, edge_attrs=g.ALWAYS)
     propagate_next_id_from_parent(stack)
     link_to_last_node(graph, n_id, stack, _generic=_generic)
 
@@ -185,4 +181,4 @@ def add(graph: Graph) -> None:
         graph.nodes,
         predicate=_predicate,
     ):
-        _generic(graph, n_id, stack=[], edge_attrs=ALWAYS)
+        _generic(graph, n_id, stack=[], edge_attrs=g.ALWAYS)

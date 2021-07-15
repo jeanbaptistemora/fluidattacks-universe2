@@ -11,12 +11,6 @@ from more_itertools import (
 from mypy_extensions import (
     NamedArg,
 )
-from sast_transformations import (
-    ALWAYS,
-    FALSE,
-    MAYBE,
-    TRUE,
-)
 from sast_transformations.control_flow.types import (
     EdgeAttrs,
     Stack,
@@ -102,21 +96,21 @@ def step_by_step(
 
     if not stmt_ids:
         if next_id := get_next_id(stack):
-            graph.add_edge(n_id, next_id, **ALWAYS)
+            graph.add_edge(n_id, next_id, **g.ALWAYS)
         return
     # Link to the first statement in the block
-    graph.add_edge(n_id, stmt_ids[0], **ALWAYS)
+    graph.add_edge(n_id, stmt_ids[0], **g.ALWAYS)
 
     # Walk pairs of elements
     for stmt_a_id, stmt_b_id in pairwise(stmt_ids):
         # Mark as next_id the next statement in chain
         set_next_id(stack, stmt_b_id)
-        _generic(graph, stmt_a_id, stack, edge_attrs=ALWAYS)
+        _generic(graph, stmt_a_id, stack, edge_attrs=g.ALWAYS)
 
     # Link recursively the last statement in the block
     with suppress(IndexError):
         propagate_next_id_from_parent(stack)
-    _generic(graph, stmt_ids[-1], stack, edge_attrs=ALWAYS)
+    _generic(graph, stmt_ids[-1], stack, edge_attrs=g.ALWAYS)
 
 
 def link_to_last_node(
@@ -128,10 +122,10 @@ def link_to_last_node(
 ) -> None:
     # Link directly to the child statements
     c_id = g.adj_ast(graph, n_id)[-1]
-    graph.add_edge(n_id, c_id, **ALWAYS)
+    graph.add_edge(n_id, c_id, **g.ALWAYS)
 
     # Recurse
-    _generic(graph, c_id, stack, edge_attrs=ALWAYS)
+    _generic(graph, c_id, stack, edge_attrs=g.ALWAYS)
 
 
 def if_statement(
@@ -156,19 +150,19 @@ def if_statement(
 
     if then_id := match["__1__"]:
         # Link `if` to `then` statement
-        graph.add_edge(n_id, then_id, **TRUE)
+        graph.add_edge(n_id, then_id, **g.TRUE)
 
         # Link whatever is inside the `then` to the next statement in chain
         propagate_next_id_from_parent(stack)
-        _generic(graph, then_id, stack, edge_attrs=ALWAYS)
+        _generic(graph, then_id, stack, edge_attrs=g.ALWAYS)
 
     if match["else"] and (else_id := match["__2__"]):
         # Link `if` to `else` statement
-        graph.add_edge(n_id, else_id, **FALSE)
+        graph.add_edge(n_id, else_id, **g.FALSE)
 
         # Link whatever is inside the `then` to the next statement in chain
         propagate_next_id_from_parent(stack)
-        _generic(graph, else_id, stack, edge_attrs=ALWAYS)
+        _generic(graph, else_id, stack, edge_attrs=g.ALWAYS)
 
     # Link whatever is inside the `then` to the next statement in chain
     elif (
@@ -180,7 +174,7 @@ def if_statement(
             if statement == next_id:
                 break
         else:
-            graph.add_edge(n_id, next_id, **FALSE)
+            graph.add_edge(n_id, next_id, **g.FALSE)
 
 
 def try_statement(
@@ -201,21 +195,21 @@ def try_statement(
 
     if _block_id := match[block_name]:
         block_id = _block_id.pop()
-        graph.add_edge(last_node, block_id, **ALWAYS)
+        graph.add_edge(last_node, block_id, **g.ALWAYS)
         propagate_next_id_from_parent(stack)
-        _generic(graph, block_id, stack, edge_attrs=ALWAYS)
+        _generic(graph, block_id, stack, edge_attrs=g.ALWAYS)
 
     if _catch_ids := match.get("catch_clause", set()):
         for catch_id in _catch_ids:
-            graph.add_edge(last_node, catch_id, **MAYBE)
+            graph.add_edge(last_node, catch_id, **g.MAYBE)
             propagate_next_id_from_parent(stack)
-            _generic(graph, catch_id, stack, edge_attrs=ALWAYS)
+            _generic(graph, catch_id, stack, edge_attrs=g.ALWAYS)
 
     if _finally_id := match["finally_clause"]:
         finally_id = _finally_id.pop()
-        graph.add_edge(last_node, finally_id, **ALWAYS)
+        graph.add_edge(last_node, finally_id, **g.ALWAYS)
         propagate_next_id_from_parent(stack)
-        _generic(graph, finally_id, stack, edge_attrs=ALWAYS)
+        _generic(graph, finally_id, stack, edge_attrs=g.ALWAYS)
 
 
 def catch_statement(
@@ -237,20 +231,20 @@ def loop_statement(
     _generic: GenericType,
     language: Optional[GraphShardMetadataLanguage] = None,
 ) -> None:
-    # If there is a next node, link it as `false`, this means
+    # If there is a next node, link it as `g.FALSE`, this means
     # the predicate of the for did not hold
     if (next_id := get_next_id(stack)) and graph.nodes[n_id][
         "label_type"
     ] not in {
         "do_statement",
     }:
-        graph.add_edge(n_id, next_id, **FALSE)
+        graph.add_edge(n_id, next_id, **g.FALSE)
 
-    # If the predicate holds as `true` then enter into the block
+    # If the predicate holds as `g.TRUE` then enter into the block
     block_name = BLOCK_NAME.get(language) or "block"
     c_id = g.adj_ast(graph, n_id, label_type=block_name)[-1]
-    graph.add_edge(n_id, c_id, **TRUE)
+    graph.add_edge(n_id, c_id, **g.TRUE)
 
     # Recurse into the for block
     propagate_next_id_from_parent(stack)
-    _generic(graph, c_id, stack, edge_attrs=ALWAYS)
+    _generic(graph, c_id, stack, edge_attrs=g.ALWAYS)

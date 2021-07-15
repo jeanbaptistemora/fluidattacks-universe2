@@ -7,10 +7,6 @@ from model.graph_model import (
 from more_itertools import (
     pairwise,
 )
-from sast_transformations import (
-    ALWAYS,
-    MAYBE,
-)
 from sast_transformations.control_flow.common import (
     if_statement,
     link_to_last_node,
@@ -87,7 +83,7 @@ def _switch_statement(graph: Graph, n_id: str, stack: Stack) -> None:
             switch_cases_ids.append(c_id)
 
     for case_id in switch_cases_ids:
-        graph.add_edge(n_id, case_id, **MAYBE)
+        graph.add_edge(n_id, case_id, **g.MAYBE)
         case_steps = tuple(
             node
             for node in g.adj_ast(graph, case_id)
@@ -101,10 +97,10 @@ def _switch_statement(graph: Graph, n_id: str, stack: Stack) -> None:
         )
         for step_a_id, step_b_id in pairwise((case_id, *case_steps)):
             set_next_id(stack, step_b_id)
-            _generic(graph, step_a_id, stack, edge_attrs=ALWAYS)
+            _generic(graph, step_a_id, stack, edge_attrs=g.ALWAYS)
 
         propagate_next_id_from_parent(stack)
-        _generic(graph, case_steps[-1], stack, edge_attrs=ALWAYS)
+        _generic(graph, case_steps[-1], stack, edge_attrs=g.ALWAYS)
 
 
 def add(graph: Graph) -> None:
@@ -118,4 +114,4 @@ def add(graph: Graph) -> None:
         graph.nodes,
         predicate=_predicate,
     ):
-        _generic(graph, n_id, stack=[], edge_attrs=ALWAYS)
+        _generic(graph, n_id, stack=[], edge_attrs=g.ALWAYS)

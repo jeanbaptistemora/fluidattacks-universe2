@@ -11,12 +11,6 @@ from model.graph_model import (
 from more_itertools import (
     pairwise,
 )
-from sast_transformations import (
-    ALWAYS,
-    FALSE,
-    MAYBE,
-    TRUE,
-)
 from sast_transformations.control_flow.common import (
     catch_statement,
     get_next_id,
@@ -68,10 +62,10 @@ def function_declaration(
     )
     if block := match.get("statement_block"):
         for pred_id in g.pred_cfg(graph, n_id):
-            graph.add_edge(pred_id, n_id, **ALWAYS)
-            graph.add_edge(n_id, block, **ALWAYS)
-            _generic(graph, block, stack=[], edge_attrs=ALWAYS)
-            _next_declaration(graph, n_id, stack, edge_attrs=ALWAYS)
+            graph.add_edge(pred_id, n_id, **g.ALWAYS)
+            graph.add_edge(n_id, block, **g.ALWAYS)
+            _generic(graph, block, stack=[], edge_attrs=g.ALWAYS)
+            _next_declaration(graph, n_id, stack, edge_attrs=g.ALWAYS)
 
 
 def if_statement(
@@ -93,21 +87,21 @@ def if_statement(
 
     if then_id := match["__1__"]:
         # Link `if` to `then` statement
-        graph.add_edge(n_id, then_id, **TRUE)
+        graph.add_edge(n_id, then_id, **g.TRUE)
 
         # Link whatever is inside the `then` to the next statement in chain
         propagate_next_id_from_parent(stack)
-        _generic(graph, then_id, stack, edge_attrs=ALWAYS)
+        _generic(graph, then_id, stack, edge_attrs=g.ALWAYS)
 
     if else_id := match["else_clause"]:
-        graph.add_edge(n_id, else_id, **FALSE)
+        graph.add_edge(n_id, else_id, **g.FALSE)
         match_else = g.match_ast(graph, else_id, "else", "__0__")
         # Link `if` to `else` statement
-        graph.add_edge(else_id, match_else["__0__"], **ALWAYS)
+        graph.add_edge(else_id, match_else["__0__"], **g.ALWAYS)
 
         # Link whatever is inside the `then` to the next statement in chain
         propagate_next_id_from_parent(stack)
-        _generic(graph, match_else["__0__"], stack, edge_attrs=ALWAYS)
+        _generic(graph, match_else["__0__"], stack, edge_attrs=g.ALWAYS)
 
     # Link whatever is inside the `then` to the next statement in chain
     elif (
@@ -119,7 +113,7 @@ def if_statement(
             if statement == next_id:
                 break
         else:
-            graph.add_edge(n_id, next_id, **FALSE)
+            graph.add_edge(n_id, next_id, **g.FALSE)
 
 
 def switch_statement(
@@ -139,21 +133,21 @@ def switch_statement(
         *switch_cases["switch_case"],
         *switch_cases["switch_default"],
     ]:
-        graph.add_edge(n_id, switch_case, **MAYBE)
+        graph.add_edge(n_id, switch_case, **g.MAYBE)
         match_case = g.adj_ast(graph, switch_case)[3:]
         if not match_case:
             continue
         # Link to the first statement in the block
-        graph.add_edge(switch_case, match_case[0], **ALWAYS)
+        graph.add_edge(switch_case, match_case[0], **g.ALWAYS)
 
         for stmt_a_id, stmt_b_id in pairwise(match_case):
             # Mark as next_id the next statement in chain
             set_next_id(stack, stmt_b_id)
-            _generic(graph, stmt_a_id, stack, edge_attrs=ALWAYS)
+            _generic(graph, stmt_a_id, stack, edge_attrs=g.ALWAYS)
 
         # Link recursively the last statement in the block
         propagate_next_id_from_parent(stack)
-        _generic(graph, match_case[-1], stack, edge_attrs=ALWAYS)
+        _generic(graph, match_case[-1], stack, edge_attrs=g.ALWAYS)
 
 
 def _generic(
@@ -235,4 +229,4 @@ def _generic(
 
 
 def add(graph: Graph) -> None:
-    _generic(graph, g.ROOT_NODE, stack=[], edge_attrs=ALWAYS)
+    _generic(graph, g.ROOT_NODE, stack=[], edge_attrs=g.ALWAYS)

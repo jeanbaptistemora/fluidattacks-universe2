@@ -36,6 +36,13 @@ from utils.system import (
 )
 
 # Constants
+CFG = dict(label_cfg="CFG")
+ALWAYS = dict(**CFG, label_cfg_always="cfg_always")
+BREAK = dict(**CFG, label_cfg_break="cfg_break")
+CONTINUE = dict(**CFG, label_cfg_continue="cfg_continue")
+FALSE = dict(**CFG, label_cfg_false="cfg_false")
+MAYBE = dict(**CFG, label_cfg_maybe="cfg_maybe")
+TRUE = dict(**CFG, label_cfg_true="cfg_true")
 GRAPH_STYLE_ATTRS = {"arrowhead", "color", "fillcolor", "label", "style"}
 ROOT_NODE: str = "1"
 
@@ -452,17 +459,14 @@ def lookup_first_cfg_parent(
     return cast(str, n_id)
 
 
-def branches_cfg(
-    graph: Graph,
-    n_id: NId,
-    finding: core_model.FindingEnum,
-    only_sinks: bool = False,
-) -> Tuple[Tuple[str, ...], ...]:
+def ast_filter_sink_connected_n_ids(
+    graph: Graph, n_id: NId, finding: core_model.FindingEnum, only_sinks: bool
+) -> Tuple[str, ...]:
     # Compute all childs reachable from CFG edges
     c_ids = adj_cfg(graph, n_id, depth=-1)
 
-    # Filter the ones that are connected to a sink via the AST
-    target_ids: Tuple[str, ...] = tuple(
+    # Filter nodes that are connected to a sink via the AST
+    return tuple(
         sorted(
             {
                 c_id
@@ -484,6 +488,44 @@ def branches_cfg(
             key=int,
         )
     )
+
+
+def branches_cfg(
+    graph: Graph,
+    n_id: NId,
+    finding: core_model.FindingEnum,
+    only_sinks: bool = False,
+) -> Tuple[Tuple[str, ...], ...]:
+    target_ids = ast_filter_sink_connected_n_ids(
+        graph, n_id, finding, only_sinks
+    )
+
+    call_dcl_map = {}
+    if not target_ids:
+        # Temporarily connect function call nodes with function declaration
+        # nodes if a sink is present inside the function.
+        call_dcl_map = {
+            call_id: dcl_id
+            for call_id in adj_cfg(graph, n_id, depth=-1)
+            if (
+                (
+                    dcl_id := graph.nodes[call_id].get(
+                        "label_function_declaration"
+                    )
+                )
+                and any(
+                    finding.name
+                    in graph.nodes[dcl_c_id].get("label_sink_type", {})
+                    for dcl_c_id in adj_ast(graph, dcl_id, depth=-1)
+                )
+            )
+        }
+        for s_id, e_id in call_dcl_map.items():
+            graph.add_edge(s_id, e_id, **ALWAYS)
+            graph.add_edge(s_id, e_id, label_ast="AST")
+        target_ids = ast_filter_sink_connected_n_ids(
+            graph, n_id, finding, only_sinks
+        )
 
     # If a target_id is CFG-reachable from another target_id, remove it
     # because its information is already contained within the path of the other
@@ -513,6 +555,8 @@ def branches_cfg(
     # Deduplicate, merge prefixes and return branches
     result: Tuple[Tuple[str, ...], ...] = tuple(sorted(branches))
 
+    for s_id, e_id in call_dcl_map.items():
+        graph.remove_edge(s_id, e_id)
     return result
 
 
