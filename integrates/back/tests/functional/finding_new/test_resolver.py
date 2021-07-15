@@ -282,6 +282,7 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     severity_score: float = 4.1
     report_date: str = "2018-04-01 00:45:00"
     current_state: str = "APPROVED"
+    new_remediated: bool = False
     verified: bool = False
     ports_vulns: List[Any] = [
         {"specific": "2321"},
@@ -382,6 +383,7 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["isExploitable"] == is_exploitable
     assert result["data"]["finding"]["lastVulnerability"] == last_vuln
     assert result["data"]["finding"]["linesVulns"] == lines_vulns
+    assert result["data"]["finding"]["newRemediated"] == new_remediated
     assert result["data"]["finding"]["openAge"] == open_age
     assert result["data"]["finding"]["openVulnerabilities"] == 5
     assert result["data"]["finding"]["portsVulns"] == ports_vulns
