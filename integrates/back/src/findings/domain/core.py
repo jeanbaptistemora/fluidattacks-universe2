@@ -338,7 +338,7 @@ async def get_finding(finding_id: str) -> Dict[str, FindingType]:
 
 async def get_finding_age(context: Any, finding_id: str) -> int:
     age = 0
-    finding_vulns_loader = context.finding_vulns_nzr
+    finding_vulns_loader: DataLoader = context.finding_vulns_nzr
     vulns = await finding_vulns_loader.load(finding_id)
     report_dates = vulns_utils.get_report_dates(vulns)
     if report_dates:
@@ -535,6 +535,13 @@ def get_severity_score_new(
         base_score = cvss_new.get_cvss2_basescore(severity)
         cvss_temporal = cvss_new.get_cvss2_temporal(severity, base_score)
     return cvss_temporal
+
+
+async def get_status(loaders: Any, finding_id: str) -> str:
+    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr
+    vulns = await finding_vulns_loader.load(finding_id)
+    open_vulns = vulns_domain.filter_open_vulnerabilities(vulns)
+    return "open" if open_vulns else "closed"
 
 
 async def get_total_treatment(

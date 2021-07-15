@@ -1,9 +1,8 @@
-from aiodataloader import (
-    DataLoader,
-)
 from custom_types import (
     Finding,
-    Vulnerability,
+)
+from findings import (
+    domain as findings_domain,
 )
 from functools import (
     partial,
@@ -17,10 +16,6 @@ from redis_cluster.operations import (
 from typing import (
     cast,
     Dict,
-    List,
-)
-from vulnerabilities import (
-    domain as vulns_domain,
 )
 
 
@@ -41,10 +36,6 @@ async def resolve(
 async def resolve_no_cache(
     parent: Finding, info: GraphQLResolveInfo, **_kwargs: None
 ) -> str:
-    finding_vulns_loader: DataLoader = info.context.loaders.finding_vulns
     finding_id: str = cast(Dict[str, str], parent)["id"]
-
-    vulns: List[Vulnerability] = await finding_vulns_loader.load(finding_id)
-    vulns = vulns_domain.filter_zero_risk(vulns)
-    open_vulns = vulns_domain.filter_open_vulnerabilities(vulns)
-    return "open" if open_vulns else "closed"
+    status = await findings_domain.get_status(info.context.loaders, finding_id)
+    return status
