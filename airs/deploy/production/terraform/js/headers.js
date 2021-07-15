@@ -19,7 +19,8 @@ let securityHeaders = {
                               frame-ancestors \
                               'self'; \
                               object-src \
-                              'none';",
+                              'none'; \
+                              upgrade-insecure-requests;",
   "Strict-Transport-Security" : "max-age=31536000",
   "X-Xss-Protection" : "1; mode=block",
   "X-Frame-Options" : "DENY",
