@@ -91,14 +91,11 @@ LOGGING = {
         },
     },
     "loggers": {
-        "app": {"handlers": ["bugsnag", "console"], "level": "INFO"},
-        "backend": {"handlers": ["bugsnag", "console"], "level": "INFO"},
+        "": {"handlers": ["bugsnag"], "level": "INFO"},
         "console": {
             "handlers": ["console"],
             "level": "INFO",
         },
-        "schedulers": {"handlers": ["bugsnag", "console"], "level": "INFO"},
-        "toe": {"handlers": ["bugsnag", "console"], "level": "INFO"},
         "transactional": {
             "handlers": ["console", "watchtower"],
             "level": "INFO",

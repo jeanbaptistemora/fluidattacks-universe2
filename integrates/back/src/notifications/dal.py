@@ -14,7 +14,6 @@ from exponent_server_sdk import (
 )
 import logging
 import logging.config
-import requests  # type: ignore
 from settings import (
     LOGGING,
 )
@@ -89,32 +88,25 @@ def send_push_notification(
                 to=token,
             )
         )
-        try:
-            response.validate_response()
-            LOGGER_TRANSACTIONAL.info(
-                ": ".join(
-                    (
-                        user_email,
-                        "[notifier]: push notification sent successfully",
-                    )
-                ),
-                extra={
-                    "extra": {
-                        "email": user_email,
-                        "title": title,
-                    }
-                },
-            )
-        except DeviceNotRegisteredError:
-            raise
-        except PushResponseError as ex:
-            LOGGER.exception(ex)
-    except (
-        requests.exceptions.ConnectionError,
-        requests.exceptions.HTTPError,
-        PushServerError,
-    ) as ex:
-        LOGGER.exception(ex)
+        response.validate_response()
+        LOGGER_TRANSACTIONAL.info(
+            ": ".join(
+                (
+                    user_email,
+                    "[notifier]: push notification sent successfully",
+                )
+            ),
+            extra={
+                "extra": {
+                    "email": user_email,
+                    "title": title,
+                }
+            },
+        )
+    except DeviceNotRegisteredError:
+        raise
+    except (PushResponseError, PushServerError) as ex:
+        LOGGER.exception(ex, extra={"extra": locals()})
 
 
 @contextlib.contextmanager
