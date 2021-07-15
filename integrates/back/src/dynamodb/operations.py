@@ -52,7 +52,10 @@ def _get_resource_options() -> Dict[str, Optional[str]]:
     if FI_ENVIRONMENT == "development" and FI_DYNAMODB_HOST:
         return {
             **basic_options,
-            "endpoint_url": f"http://{FI_DYNAMODB_HOST}:{FI_DYNAMODB_PORT}",
+            # FP: the endpoint is hosted in a local environment
+            "endpoint_url": (
+                f"http://{FI_DYNAMODB_HOST}:{FI_DYNAMODB_PORT}"  # NOSONAR
+            ),
         }
     return basic_options
 
