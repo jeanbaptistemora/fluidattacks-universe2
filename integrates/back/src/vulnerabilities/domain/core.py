@@ -419,7 +419,10 @@ async def get_vulnerabilities_file(
     context: Any, finding_id: str, group_name: str
 ) -> str:
     vulnerabilities = await get_vulnerabilities_by_type(context, finding_id)
-    file_name = f"/tmp/{group_name}-{finding_id}_{str(uuid.uuid4())}.yaml"
+    # FP: local testing
+    file_name = (
+        f"/tmp/{group_name}-{finding_id}_{str(uuid.uuid4())}.yaml"  # NOSONAR
+    )
     with open(file_name, "w") as stream:
         yaml.safe_dump(vulnerabilities, stream, default_flow_style=False)
 
