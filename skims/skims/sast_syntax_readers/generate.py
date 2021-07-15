@@ -68,6 +68,7 @@ from sast_syntax_readers.javascript import (
     assignment_expression as javascript_assignment_expression,
     await_expression as javascript_await_expression,
     call_expression as javascript_call_expression,
+    catch_clause as javascript_catch_clause,
     function_declaration as javascript_function_declaration,
     if_statement as javascript_if_statement,
     lexical_declaration as javascript_lexical_declaration,
@@ -310,6 +311,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "catch_clause",
         },
         syntax_readers=(java_catch_clause.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+        },
+        applicable_node_label_types={
+            "catch_clause",
+        },
+        syntax_readers=(javascript_catch_clause.reader,),
     ),
     Dispatcher(
         applicable_languages={

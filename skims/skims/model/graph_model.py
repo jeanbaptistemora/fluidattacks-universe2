@@ -156,8 +156,8 @@ class SyntaxStepInstanceofExpression(NamedTuple):
 class SyntaxStepCatchClause(NamedTuple):
     meta: SyntaxStepMeta
 
-    catch_type: str
     var: str
+    catch_type: Optional[str] = None
 
     type: str = "SyntaxStepParenthesizedExpression"
 

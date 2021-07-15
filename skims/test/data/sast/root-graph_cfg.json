@@ -65291,6 +65291,46 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "1015": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1022",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1023",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1031",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "catch_type": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "1015",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "e"
+          }
+        ],
         "1020": [
           {
             "meta": {
@@ -66070,6 +66110,46 @@
             },
             "type": "SyntaxStepAssignment",
             "var": "number"
+          }
+        ],
+        "295": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "302",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "313",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "314",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "catch_type": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "295",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression",
+            "var": "err"
           }
         ],
         "3": [],
