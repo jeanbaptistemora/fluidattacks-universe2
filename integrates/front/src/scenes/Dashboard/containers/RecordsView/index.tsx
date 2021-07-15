@@ -2,19 +2,17 @@ import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { faCloudUploadAlt, faList } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Field } from "redux-form";
-import type { InjectedFormProps } from "redux-form";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   REMOVE_EVIDENCE_MUTATION,
   UPDATE_EVIDENCE_MUTATION,
@@ -28,11 +26,15 @@ import {
   RowCenter,
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
-import { FileInput } from "utils/forms/fields";
+import { FormikFileInput } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
-import { required, validRecordsFile } from "utils/validations";
+import {
+  composeValidators,
+  required,
+  validRecordsFile,
+} from "utils/validations";
 
 const RecordsView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();
@@ -93,8 +95,8 @@ const RecordsView: React.FC = (): JSX.Element => {
     onError: handleUpdateError,
   });
 
-  const handleSubmit: (values: { filename: FileList }) => void = useCallback(
-    (values: { filename: FileList }): void => {
+  const handleSubmit: (values: Record<string, FileList>) => void = useCallback(
+    (values: Record<string, FileList>): void => {
       setEditing(false);
       void updateRecords({
         variables: {
@@ -150,31 +152,38 @@ const RecordsView: React.FC = (): JSX.Element => {
         </Can>
         <br />
         {isEditing ? (
-          <GenericForm name={"records"} onSubmit={handleSubmit}>
-            {({ pristine }: InjectedFormProps): React.ReactNode => (
-              // eslint-disable-next-line react/forbid-component-props
-              <ButtonToolbarRow className={"mb3"}>
-                <Field
-                  accept={".csv"}
-                  // eslint-disable-next-line react/forbid-component-props
-                  className={"fr"}
-                  component={FileInput}
-                  id={"recordsFile"}
-                  name={"filename"}
-                  validate={[required, validRecordsFile]}
-                />
-                <Button
-                  // eslint-disable-next-line react/forbid-component-props
-                  className={"h-25"}
-                  disabled={pristine || updateRes.loading}
-                  type={"submit"}
-                >
-                  <FontAwesomeIcon icon={faCloudUploadAlt} />
-                  &nbsp;{translate.t("searchFindings.tabEvidence.update")}
-                </Button>
-              </ButtonToolbarRow>
+          <Formik
+            enableReinitialize={true}
+            initialValues={{}}
+            name={"records"}
+            onSubmit={handleSubmit}
+          >
+            {({ dirty }): React.ReactNode => (
+              <Form id={"records"}>
+                {/* eslint-disable-next-line react/forbid-component-props */}
+                <ButtonToolbarRow className={"mb3"}>
+                  <Field
+                    accept={".csv"}
+                    // eslint-disable-next-line react/forbid-component-props
+                    className={"fr"}
+                    component={FormikFileInput}
+                    id={"recordsFile"}
+                    name={"filename"}
+                    validate={composeValidators([required, validRecordsFile])}
+                  />
+                  <Button
+                    // eslint-disable-next-line react/forbid-component-props
+                    className={"h-25"}
+                    disabled={!dirty || updateRes.loading}
+                    type={"submit"}
+                  >
+                    <FontAwesomeIcon icon={faCloudUploadAlt} />
+                    &nbsp;{translate.t("searchFindings.tabEvidence.update")}
+                  </Button>
+                </ButtonToolbarRow>
+              </Form>
             )}
-          </GenericForm>
+          </Formik>
         ) : undefined}
         {/* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */}
         {isEditing && !_.isEmpty(JSON.parse(data.finding.records)) ? (
