@@ -33,7 +33,10 @@ const ResourcesList: React.FC = (): JSX.Element => (
       <InnerListContainer className={"resources-list"}>
         <InnerContentList>
           <InnerListItem>
-            <BodyLink link={"/resources/criteria/"} name={"Criteria"} />
+            <BodyLink
+              link={"https://docs.fluidattacks.com/criteria/"}
+              name={"Criteria"}
+            />
           </InnerListItem>
         </InnerContentList>
       </InnerListContainer>
