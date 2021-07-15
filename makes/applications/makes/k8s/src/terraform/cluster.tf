@@ -61,11 +61,10 @@ module "eks" {
     },
     {
       name                    = "production"
-      override_instance_types = ["t3.medium", "t3a.medium"]
+      override_instance_types = ["c5.large", "c5a.large", "c5d.large", "c5ad.large"]
       kubelet_extra_args      = "--node-labels=node.kubernetes.io/lifecycle=spot"
       kubelet_extra_args      = "--node-labels=worker_group=production"
       public_ip               = true
-      cpu_credits             = "unlimited"
 
       asg_min_size = 1
       asg_max_size = 20
