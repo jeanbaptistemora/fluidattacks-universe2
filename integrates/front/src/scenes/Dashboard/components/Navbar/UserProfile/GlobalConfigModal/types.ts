@@ -1,12 +1,6 @@
 declare type EntityType = "digest";
 declare type FrequencyType = "daily" | "never";
 
-interface IDailyDigestProps {
-  entity: EntityType;
-  reportMode: boolean;
-  subject: string;
-}
-
 interface ISubscriptionToEntityReport {
   entity: EntityType;
   frequency: FrequencyType;
@@ -22,7 +16,6 @@ interface ISubscriptionsToEntityReport {
 export {
   EntityType,
   FrequencyType,
-  IDailyDigestProps,
   ISubscriptionToEntityReport,
   ISubscriptionsToEntityReport,
 };

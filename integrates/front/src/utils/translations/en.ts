@@ -250,6 +250,13 @@ export const enTranslations: ResourceKey = {
   },
   configuration: {
     close: "Close",
+    comments: {
+      label: "Comments notifications:",
+      subscribed: "Yes",
+      tooltip:
+        "Receive notifications by email for comments posted on your subscribed groups",
+      unsubscribed: "No",
+    },
     confirm: "Save",
     digest: {
       label: "Daily digest (all your groups):",

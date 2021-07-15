@@ -36,6 +36,7 @@ const GlobalConfigModal: React.FC<IGlobalConfigModalProps> = (
 ): JSX.Element => {
   const { onClose, open } = props;
   const [isDigestEnabled, setDigestSubscription] = useState(false);
+  const [isCommentsEnabled, setCommentsSubscription] = useState(false);
 
   const { data: dataSubscriptions } = useQuery<ISubscriptionsToEntityReport>(
     SUBSCRIPTIONS_TO_ENTITY_REPORT,
@@ -45,6 +46,13 @@ const GlobalConfigModal: React.FC<IGlobalConfigModalProps> = (
           _.size(
             _.filter(result.me.subscriptionsToEntityReport, {
               entity: "DIGEST",
+            })
+          ) > 0
+        );
+        setCommentsSubscription(
+          _.size(
+            _.filter(result.me.subscriptionsToEntityReport, {
+              entity: "COMMENTS",
             })
           ) > 0
         );
@@ -74,22 +82,34 @@ const GlobalConfigModal: React.FC<IGlobalConfigModalProps> = (
   });
 
   const onSubmitChange = useCallback(
-    (values: { digest: boolean }): void => {
-      void subscribe({
-        variables: {
-          frequency: values.digest ? "DAILY" : "NEVER",
-          reportEntity: "DIGEST",
-          reportSubject: "ALL_GROUPS",
-        },
-      });
-      setDigestSubscription(values.digest);
-      if (values.digest) {
-        track("DailyDigestSubscribe");
-      } else {
-        track("DailyDigestUnsubscribe");
+    (values: { digest: boolean; comments: boolean }): void => {
+      if (values.digest !== isDigestEnabled) {
+        void subscribe({
+          variables: {
+            frequency: values.digest ? "DAILY" : "NEVER",
+            reportEntity: "DIGEST",
+            reportSubject: "ALL_GROUPS",
+          },
+        });
+        setDigestSubscription(values.digest);
+        if (values.digest) {
+          track("DailyDigestSubscribe");
+        } else {
+          track("DailyDigestUnsubscribe");
+        }
+      }
+      if (values.comments !== isCommentsEnabled) {
+        void subscribe({
+          variables: {
+            frequency: values.comments ? "DAILY" : "NEVER",
+            reportEntity: "COMMENTS",
+            reportSubject: "ALL_GROUPS",
+          },
+        });
+        setCommentsSubscription(values.comments);
       }
     },
-    [subscribe, setDigestSubscription]
+    [isDigestEnabled, isCommentsEnabled, subscribe]
   );
 
   if (_.isUndefined(dataSubscriptions) || _.isEmpty(dataSubscriptions)) {
@@ -102,6 +122,7 @@ const GlobalConfigModal: React.FC<IGlobalConfigModalProps> = (
         <Formik
           enableReinitialize={true}
           initialValues={{
+            comments: isCommentsEnabled,
             digest: isDigestEnabled,
           }}
           name={"config"}
@@ -111,17 +132,20 @@ const GlobalConfigModal: React.FC<IGlobalConfigModalProps> = (
             function onHandleDigestChange(): void {
               setFieldValue("digest", !values.digest);
             }
+            function onHandleCommentsChange(): void {
+              setFieldValue("comments", !values.comments);
+            }
 
             return (
               <Form>
                 <Row>
                   <Col100>
-                    <TooltipWrapper
-                      id={"config.digest"}
-                      message={translate.t("configuration.digest.tooltip")}
-                      placement={"top"}
-                    >
-                      <FormGroup>
+                    <FormGroup>
+                      <TooltipWrapper
+                        id={"config.digest"}
+                        message={translate.t("configuration.digest.tooltip")}
+                        placement={"top"}
+                      >
                         <div
                           className={"flex justify-between w-100 items-center"}
                         >
@@ -143,8 +167,36 @@ const GlobalConfigModal: React.FC<IGlobalConfigModalProps> = (
                             />
                           </span>
                         </div>
-                      </FormGroup>
-                    </TooltipWrapper>
+                      </TooltipWrapper>
+                      <br />
+                      <TooltipWrapper
+                        id={"config.comments"}
+                        message={translate.t("configuration.comments.tooltip")}
+                        placement={"top"}
+                      >
+                        <div
+                          className={"flex justify-between w-100 items-center"}
+                        >
+                          <ControlLabel>
+                            {translate.t("configuration.comments.label")}
+                          </ControlLabel>
+                          <span className={"fr w-40"}>
+                            <SwitchButton
+                              checked={values.comments}
+                              disabled={false}
+                              name={"config-comments-switch"}
+                              offlabel={translate.t(
+                                "configuration.comments.unsubscribed"
+                              )}
+                              onChange={onHandleCommentsChange}
+                              onlabel={translate.t(
+                                "configuration.comments.subscribed"
+                              )}
+                            />
+                          </span>
+                        </div>
+                      </TooltipWrapper>
+                    </FormGroup>
                   </Col100>
                 </Row>
                 <hr />
