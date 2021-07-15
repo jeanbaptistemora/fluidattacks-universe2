@@ -5,6 +5,8 @@ from api.mutations import (
     accept_legal,
     acknowledge_concurrent_session,
     activate_root,
+    add_draft,
+    add_draft_new,
     add_event_consult,
     add_files,
     add_finding_consult,
@@ -20,8 +22,6 @@ from api.mutations import (
     approve_draft,
     approve_draft_new,
     confirm_zero_risk_vuln,
-    create_draft,
-    create_draft_new,
     create_event,
     create_group,
     create_organization,
@@ -193,8 +193,9 @@ MUTATION.set_field("createGroup", create_group.mutate)
 MUTATION.set_field("addGroupConsult", add_group_consult.mutate)
 
 if FI_API_STATUS == "migration":
+    MUTATION.set_field("addDraft", add_draft_new.mutate)
     MUTATION.set_field("approveDraft", approve_draft_new.mutate)
-    MUTATION.set_field("createDraft", create_draft_new.mutate)
+    MUTATION.set_field("createDraft", add_draft_new.mutate)
     MUTATION.set_field("deleteFinding", delete_finding_new.mutate)
     MUTATION.set_field("rejectDraft", reject_draft_new.mutate)
     MUTATION.set_field("removeEvidence", remove_finding_evidence_new.mutate)
@@ -215,8 +216,9 @@ if FI_API_STATUS == "migration":
         "verifyRequestVuln", verify_request_vulnerability_new.mutate
     )
 else:
+    MUTATION.set_field("addDraft", add_draft.mutate)
     MUTATION.set_field("approveDraft", approve_draft.mutate)
-    MUTATION.set_field("createDraft", create_draft.mutate)
+    MUTATION.set_field("createDraft", add_draft.mutate)
     MUTATION.set_field("deleteFinding", delete_finding.mutate)
     MUTATION.set_field("rejectDraft", reject_draft.mutate)
     MUTATION.set_field("removeEvidence", remove_finding_evidence.mutate)

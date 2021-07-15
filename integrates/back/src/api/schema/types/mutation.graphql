@@ -10,6 +10,20 @@ type Mutation {
     id: ID!
   ): SimplePayload!
 
+    addDraft(
+    affectedSystems: String
+    attackVectorDesc: String
+    cwe: String
+    description: String
+    groupName: String!
+    recommendation: String
+    requirements: String
+    risk: String
+    threat: String
+    title: String!
+    type: FindingType
+  ): SimplePayload!
+
   addEventConsult(
     content: String!
     eventId: String!
@@ -136,7 +150,8 @@ type Mutation {
     threat: String
     title: String!
     type: FindingType
-  ): SimplePayload!
+  ): SimplePayload! @deprecated(reason: """This mutation will be removed
+      after 2021/12/31. Use `addDraft` instead.""")
 
   createEvent(
     actionAfterBlocking: ActionsAfterBlocking!

@@ -20,8 +20,8 @@ const GET_DRAFTS: DocumentNode = gql`
   }
 `;
 
-const CREATE_DRAFT_MUTATION: DocumentNode = gql`
-  mutation CreateDraftMutation(
+const ADD_DRAFT_MUTATION: DocumentNode = gql`
+  mutation AddDraftMutation(
     $cwe: String
     $description: String
     $groupName: String!
@@ -32,7 +32,7 @@ const CREATE_DRAFT_MUTATION: DocumentNode = gql`
     $title: String!
     $type: FindingType
   ) {
-    createDraft(
+    addDraft(
       cwe: $cwe
       description: $description
       groupName: $groupName
@@ -48,4 +48,4 @@ const CREATE_DRAFT_MUTATION: DocumentNode = gql`
   }
 `;
 
-export { CREATE_DRAFT_MUTATION, GET_DRAFTS };
+export { ADD_DRAFT_MUTATION, GET_DRAFTS };

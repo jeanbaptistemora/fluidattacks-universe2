@@ -19,7 +19,7 @@ import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilitie
 import type { ISuggestion } from "scenes/Dashboard/containers/GroupDraftsView/findingNames";
 import { getFindingNames } from "scenes/Dashboard/containers/GroupDraftsView/findingNames";
 import {
-  CREATE_DRAFT_MUTATION,
+  ADD_DRAFT_MUTATION,
   GET_DRAFTS,
 } from "scenes/Dashboard/containers/GroupDraftsView/queries";
 import type { IGroupDraftsAttr } from "scenes/Dashboard/containers/GroupDraftsView/types";
@@ -171,9 +171,9 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
   });
 
   const handleMutationResult: (result: {
-    createDraft: { success: boolean };
-  }) => void = (result: { createDraft: { success: boolean } }): void => {
-    if (result.createDraft.success) {
+    addDraft: { success: boolean };
+  }) => void = (result: { addDraft: { success: boolean } }): void => {
+    if (result.addDraft.success) {
       closeNewDraftModal();
       msgSuccess(
         translate.t("group.drafts.successCreate"),
@@ -198,13 +198,10 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
     });
   };
 
-  const [createDraft, { loading: submitting }] = useMutation(
-    CREATE_DRAFT_MUTATION,
-    {
-      onCompleted: handleMutationResult,
-      onError: handleMutationError,
-    }
-  );
+  const [addDraft, { loading: submitting }] = useMutation(ADD_DRAFT_MUTATION, {
+    onCompleted: handleMutationResult,
+    onError: handleMutationError,
+  });
 
   const handleSubmit: (values: Record<string, unknown>) => void = useCallback(
     (values: Record<string, unknown>): void => {
@@ -212,11 +209,11 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
         (suggestion: ISuggestion): boolean => suggestion.title === values.title
       );
 
-      void createDraft({
+      void addDraft({
         variables: { ...matchingSuggestion, groupName, title: values.title },
       });
     },
-    [createDraft, groupName, suggestions]
+    [addDraft, groupName, suggestions]
   );
 
   if (_.isUndefined(data) || _.isEmpty(data)) {

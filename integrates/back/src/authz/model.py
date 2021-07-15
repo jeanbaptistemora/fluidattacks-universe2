@@ -15,6 +15,8 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             "api_mutations_activate_root_mutate",
             "api_mutations_add_event_consult_mutate",
+            "api_mutations_add_draft_mutate",
+            "api_mutations_add_draft_new_mutate",
             "api_mutations_add_files_mutate",
             "api_mutations_add_finding_consult_mutate",
             "api_mutations_add_git_root_mutate",
@@ -132,6 +134,8 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     analyst=dict(
         actions={
+            "api_mutations_add_draft_mutate",
+            "api_mutations_add_draft_new_mutate",
             "api_mutations_add_event_consult_mutate",
             "api_mutations_add_finding_consult_mutate",
             "api_mutations_add_group_consult_mutate",
@@ -208,6 +212,8 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     closer=dict(
         actions={
+            "api_mutations_add_draft_mutate",
+            "api_mutations_add_draft_new_mutate",
             "api_mutations_add_event_consult_mutate",
             "api_mutations_add_finding_consult_mutate",
             "api_mutations_create_draft_mutate",
