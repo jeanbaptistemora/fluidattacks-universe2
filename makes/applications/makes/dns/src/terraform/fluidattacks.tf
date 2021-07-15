@@ -30,7 +30,7 @@ resource "cloudflare_zone_settings_override" "fluidattacks_com" {
     opportunistic_encryption    = "on"
     opportunistic_onion         = "on"
     origin_error_page_pass_thru = "off"
-    polish                      = "lossy"
+    polish                      = "off"
     pseudo_ipv4                 = "off"
     prefetch_preload            = "off"
     privacy_pass                = "on"
@@ -45,7 +45,7 @@ resource "cloudflare_zone_settings_override" "fluidattacks_com" {
     true_client_ip_header       = "off"
     universal_ssl               = "on"
     waf                         = "on"
-    webp                        = "on"
+    webp                        = "off"
     websockets                  = "on"
     zero_rtt                    = "on"
 
