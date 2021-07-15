@@ -70,7 +70,7 @@ LOGGING = {
         "bugsnag": {
             "extra_fields": {"extra": ["extra"]},
             "class": "bugsnag.handlers.BugsnagHandler",
-            "level": "INFO",
+            "level": "WARNING",
         },
         "console": {
             "class": "logging.StreamHandler",
