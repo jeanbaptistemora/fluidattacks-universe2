@@ -2,11 +2,9 @@ let securityHeaders = {
   "Content-Security-Policy" : "script-src \
                               'self' \
                               'unsafe-inline' \
-                              *.cloudflare.com \
                               *.cloudflareinsights.com \
                               *.cookiebot.com \
                               *.google-analytics.com \
-                              *.googleadservices.com \
                               *.googletagmanager.com \
                               *.hotjar.com \
                               *.typekit.net \
@@ -14,8 +12,10 @@ let securityHeaders = {
                               *.zohocdn.com \
                               *.zohopublic.com \
                               *.zohostatic.com \
-                              googleads.g.doubleclick.net \
-                              snap.licdn.com; \
+                              cdnjs.cloudflare.com/ajax/libs/highlight.js/ \
+                              googleads.g.doubleclick.net/pagead/viewthroughconversion/ \
+                              snap.licdn.com \
+                              www.googleadservices.com/pagead/; \
                               frame-ancestors \
                               'self'; \
                               object-src \
