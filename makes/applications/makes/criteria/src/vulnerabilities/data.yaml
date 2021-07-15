@@ -54,9 +54,11 @@
     description: >
       The server is rendered unresponsive
       as a result of one of the following:
+
       - An amplification attack,
       which uses a single request
       to produce multiple responses.
+
       - A single malicious request
       that breaks the application
       or consumes an enormous amount of resources.
@@ -170,14 +172,16 @@
     impact: Execute Unauthorized Code or Commands.
     recommendation: >
       - If at all possible,
-        use standard library calls rather
-        than external processes
-        to recreate the desired functionality.
+      use standard library calls rather
+      than external processes
+      to recreate the desired functionality.
+
       - Keep as much data as possible used
-        to generate command outside of external control.
+      to generate command outside of external control.
+
       - Properly escape the arguments used
-        to generate the command
-        and avoid special characters.
+      to generate the command
+      and avoid special characters.
     threat: Autenticated attacker from the Internet.
   es:
     title: Ejecución remota de comandos
@@ -190,14 +194,16 @@
     impact: Ejecutar secuencias de comandos no autorizados.
     recommendation: >
       - Si es posible,
-        utilizar llamadas a la biblioteca estándar
-        en lugar de procesos externos
-        para recrear la funcionalidad deseada.
+      utilizar llamadas a la biblioteca estándar
+      en lugar de procesos externos
+      para recrear la funcionalidad deseada.
+
       - Mantener la mayor cantidad posible de datos
-        usados para generar comando fuera del control externo.
+      usados para generar comando fuera del control externo.
+
       - Escapar correctamente los argumentos
-        usados para generar el comando
-        y evite los caracteres especiales.
+      usados para generar el comando
+      y evite los caracteres especiales.
     threat: Atacante autenticado desde Internet.
   score:
     base:
@@ -442,11 +448,14 @@
       Get sensitive information or private secrets.
     recommendation: >
       - Delete all hardcoded sensitive information.
+
       - Change all affected access credentials.
+
       - Remove sensitive information from git logs.
+
       - Load sensitive data from safe sources such as,
-        key vault services, configuration files properly encrypted
-        or administrative environment variables.
+      key vault services, configuration files properly encrypted
+      or administrative environment variables.
     threat: Attacker with access to the source-code from the Internet.
   es:
     title: Información sensible almacenada en el código fuente
@@ -466,10 +475,13 @@
       Obtener información sensible o secretos privados.
     recommendation: >
       - Eliminar la información sensible quemada en el código fuente.
+
       - Cambiar las credenciales de acceso que se vieron comprometidas.
+
       - Purgar el historial de git de la información sensible afectada.
+
       - Cargar los datos sensibles desde fuentes seguras como:
-        servicios de bóveda de claves, archivos de configuración que estén debidamente cifrados o variables de entorno administrativas.
+      servicios de bóveda de claves, archivos de configuración que estén debidamente cifrados o variables de entorno administrativas.
     threat: Atacante con acceso al código fuente desde Internet.
   score:
     base:
@@ -1040,9 +1052,10 @@
       through a channel without encryption.
     impact: >
       - Capture confidential information
-        and credentials in plain text.
+      and credentials in plain text.
+
       - Intercept the communication
-        and steal/tamper requests and responses.
+      and steal/tamper requests and responses.
     recommendation: >
       Deploy the application
       over an encrypted communication channel,
@@ -1058,6 +1071,7 @@
     impact: >
       - Capturar información confidencial
       y credenciales en texto plano.
+
       - Interceptar la comunicación y robar
       o falsificar peticiones y respuestas.
     recommendation: >
@@ -1092,9 +1106,10 @@
       and redirects clients to any destination.
     impact: >
       - Enumerate the internal network
-        via trial and error.
+      via trial and error.
+
       - Perform a subset of Server Side
-        Request Forgery attacks.
+      Request Forgery attacks.
     recommendation: >
       Configure server
       to prevent third party hosts redirection.
@@ -1107,9 +1122,10 @@
       y redirige clientes a cualquier destino.
     impact: >
       - Enumerar la red interna
-        a través de prueba y error.
+      a través de prueba y error.
+
       - Realizar un subconjunto de ataques
-        de Server Side Request Forgery.
+      de Server Side Request Forgery.
     recommendation: >
       Configurar el servidor
       para prevenir redirecciones a hosts de terceros.
@@ -1289,13 +1305,15 @@
     impact: __empty__
     recommendation: >
       - Validate with regular expressions
-        that the file has only one extension
+      that the file has only one extension
+
       - Validate with an antivirus software
-        that the file does not contain
-        any type of malicious code.
+      that the file does not contain
+      any type of malicious code.
+
       - Validate that Content Type corresponds
-        to the file's extension
-        before upload it to the server
+      to the file's extension
+      before upload it to the server
     threat: >
       A user within local network
       with access to the application can upload all
@@ -1310,13 +1328,15 @@
     impact: __empty__
     recommendation: >
       - Validar con expresiones regulares
-        que el archivo corresponda con una sola extensión.
+      que el archivo corresponda con una sola extensión.
+
       - Validar con un antivirus
-        que el archivo no contenga
-        ningún tipo de código malicioso.
+      que el archivo no contenga
+      ningún tipo de código malicioso.
+
       - Validar que el Content Type
-        corresponda a la extension del archivo
-        antes de subirlo al servidor.
+      corresponda a la extension del archivo
+      antes de subirlo al servidor.
     threat: >
       Un usuario en la red interna con acceso a la aplicación
       en cuenta puede subir todo tipo de archivos
@@ -1425,12 +1445,16 @@
       The system sends sensitive information
       via URL parameters using the GET method.
       These parameters are:
+
       - stored in clear text in the browser history.
+
       - sent to external sites via the referrer HTTP header.
+
       - sent to external sites via the search bar
-        if the browser interprets the URL as a query.
+      if the browser interprets the URL as a query.
+
       - visible to scripts running on the browser
-        that may belong to third-parties.
+      that may belong to third-parties.
     impact: __empty__
     recommendation: >
       Guarantee that the session's id
@@ -1446,14 +1470,18 @@
       como parte de los parámetros en el URL
       a través del método GET.
       Estos parámetros:
+
       - son almacenados en el historial del navegador
-        permitiendo su visualización.
+      permitiendo su visualización.
+
       - son enviados en la cabecera HTTP referer a otros sitios.
+
       - son enviados como petición a sitios externos
-        al poner la url en la barra del navegador
-        si este lo interpreta como consulta.
+      al poner la url en la barra del navegador
+      si este lo interpreta como consulta.
+
       - son visibles por scripts corriendo en la página
-        los cuales pueden pertenecer a terceros.
+      los cuales pueden pertenecer a terceros.
     impact: __empty__
     recommendation: >
       Garantizar que los identificadores de sesión
@@ -1801,16 +1829,19 @@
     description: >
       It is possible to obtain
       technical information such as:
+
       - System component versions
-        (HTTP headers, service banner, etc.)
+      (HTTP headers, service banner, etc.)
+
       - Specific information about the configuration
-        of server components (php.ini, web.config)
+      of server components (php.ini, web.config)
     impact: __empty__
     recommendation: >
       - Eliminate the services banner
-        with information leakage.
+      with information leakage.
+
       - Verify that HTTP headers
-        do not display any name or version.
+      do not display any name or version.
     threat: >
       An unauthorized user with access to the system,
       can identify versions and components
@@ -1821,18 +1852,22 @@
     title: Fuga de información técnica
     description: >
       Se obtiene información técnica del sistema, como:
+
       - versión de los componentes que el sistema utiliza
-        (encabezados HTTP, banner del servicio, etc).
+      (encabezados HTTP, banner del servicio, etc).
+
       - información específica
-        sobre la configuración de componentes
-        a nivel del servidor (php.ini, web.config).
+      sobre la configuración de componentes
+      a nivel del servidor (php.ini, web.config).
+
       - Funcionalidades que arrojan información del servidor.
     impact: __empty__
     recommendation: >
       - Eliminar el banner de los servicios
-        con fuga de información.
+      con fuga de información.
+
       - Verificar que los encabezados HTTP
-        no expongan ningún nombre o versión.
+      no expongan ningún nombre o versión.
     threat: >
       Un usuario no autorizado con acceso al sistema
       puede identificar versiones y/o componentes
@@ -1861,10 +1896,15 @@
     description: >
       It is possible to obtain business information,
       such as:
+
       - Username list
+
       - Strategic information
+
       - Employees information
+
       - Clients information
+
       - Providers information
     impact: __empty__
     recommendation: >
@@ -1882,10 +1922,15 @@
     title: Fuga de información de negocio
     description: >
       Se obtiene información de negocio, como:
+
       - Lista de usuarios
+
       - Información estratégica
+
       - Información de empleados
+
       - Información de clientes
+
       - Información de proveedores
     impact: __empty__
     recommendation: >
@@ -2091,9 +2136,10 @@
       the header's configuration is not secure enough.
     impact: >
       - Embed content, scripts, blobs
-        or images from potentially malicious sources.
+      or images from potentially malicious sources.
+
       - Make possible to carry attacks like
-        Cross-Site Scripting, Cross-Site Leaks, among others.
+      Cross-Site Scripting, Cross-Site Leaks, among others.
     recommendation: >
       Set the Content-Security-Policy header
       and configure it in a secure way.
@@ -2107,9 +2153,10 @@
       el valor del mismo no es suficientemente fuerte.
     impact: >
       - Incluir contenido, scripts, binarios
-        o imágenes desde fuentes potencialmente maliciosas.
+      o imágenes desde fuentes potencialmente maliciosas.
+
       - Aumentar la probabilidad de llevar a cabo ataques como
-        Cross-Site Scripting, Cross-Site Leaks, entre otros.
+      Cross-Site Scripting, Cross-Site Leaks, entre otros.
     recommendation: >
       Establecer la cabecera Content-Security-Policy
       y configurarla de forma segura.
@@ -2485,9 +2532,13 @@
       Enforce strong password policy.
       A password security policy
       must contain the following attributes:
+
       - Configure a minimum and maximum length.
+
       - Do not use word based passwords.
+
       - Avoid usernames in the passwords.
+
       - Do not reuse passwords.
     threat: >
       An unauthorized user
@@ -2513,9 +2564,13 @@
       Hacer cumplir el uso de contraseñas seguras.
       Una política de seguridad de la contraseña
       debe contener los siguientes atributos:
+
       - Configurar una longitud mínima y máxima.
+
       - No contraseñas basadas en palabras.
+
       - No contener nombres de usuario.
+
       - No reutilizar contraseñas.
     threat: >
       Un usuario no autorizado
@@ -2604,9 +2659,10 @@
       insecure encryption algorithms.
     impact: >
       - Reverse the ciphertext
-        and collect sensible information.
+      and collect sensible information.
+
       - Tamper protected data
-        by exploiting algorithm collisions.
+      by exploiting algorithm collisions.
     recommendation: >
       Use algorithms considered
       cryptographically secure.
@@ -2620,10 +2676,11 @@
       de cifrado inseguros.
     impact: >
       - Revertir el texto cifrado
-        para encontrar información sensible.
+      para encontrar información sensible.
+
       - Alterar datos protegidos
-        al aprovechar colisiones
-        de la función resumen.
+      al aprovechar colisiones
+      de la función resumen.
     recommendation: >
       Utilizar algoritmos considerados
       criptográficamente seguros.
@@ -2902,9 +2959,10 @@
       to attack.
     impact: >
       - Get access to the created
-        temporary files.
+      temporary files.
+
       - Tamper data contained
-        in the created temporary files.
+      in the created temporary files.
     recommendation: >
       Create the temporary files
       in a different directory
@@ -2924,9 +2982,10 @@
       vulnerable a ataques.
     impact: >
       - Obtener acceso
-        a los archivos temporales creados.
+      a los archivos temporales creados.
+
       - Manipular los datos contenidos
-        en los archivos temporales.
+      en los archivos temporales.
     recommendation: >
       Crear los archivos temporales
       en un directorio diferente al provisto
@@ -3124,16 +3183,18 @@
       which causes a loss of traceability.
     impact: >
       - Perform malicious actions
-        within the application
-        and leave no trace about it.
+      within the application
+      and leave no trace about it.
+
       - Make auditing and debugging difficult,
-        as it is not possible to
-        correctly identify the errors generated.
+      as it is not possible to
+      correctly identify the errors generated.
     recommendation: >
       - Use a centralized logging mechanism
-        that supports several levels of detail.
+      that supports several levels of detail.
+
       - Make sure all events related
-        to successes and failures are recorded.
+      to successes and failures are recorded.
     threat: >
       Autenticated attacker
       from the Internet.
@@ -3146,18 +3207,20 @@
       para saber donde se generaron.
     impact: >
       - Realizar acciones maliciosas
-        en la aplicación
-        sin dejar ningún rastro.
+      en la aplicación
+      sin dejar ningún rastro.
+
       - Dificultar las labores de auditoría y debug,
-        ya que no es posible identificar
-        correctamente los errores generados.
+      ya que no es posible identificar
+      correctamente los errores generados.
     recommendation: >
       - Utilizar un mecanismo
-        de registro centralizado
-        que admita varios niveles de detalle.
+      de registro centralizado
+      que admita varios niveles de detalle.
+
       - Asegurarse de que se registren
-        todos los eventos relacionados
-        con éxitos y fracasos.
+      todos los eventos relacionados
+      con éxitos y fracasos.
     threat: >
       Atacante autenticado
       desde Internet.
@@ -3269,9 +3332,10 @@
       for instance: /etc/passwd.
     recommendation: >
       - Prevent the attacker
-        from constructing the pathname, or
+      from constructing the pathname, or
+
       - Validate/Neutralize the input
-        for special elements like: .., ~, /.
+      for special elements like: .., ~, /.
     threat: >
       Autenticated attacker
       from the Internet.
@@ -3290,10 +3354,11 @@
       por ejemplo: /etc/passwd.
     recommendation: >
       - Prevenir que el atacante
-        construya la ruta, o
+      construya la ruta, o
+
       - Validar/Neutralizar que las entradas
-        no contengan elementos especiales
-        como: .., ~, /.
+      no contengan elementos especiales
+      como: .., ~, /.
     threat: >
       Atacante autenticado
       desde Internet.
@@ -3370,11 +3435,14 @@
       The data cache to browser's level
       must be disabled
       using some of these methods:
+
       - Use HTTP control headers
-        that prevent cache.
+      that prevent cache.
+
       - Use meta-tags in HTML pages.
+
       - Disable the _autocomplete_ field
-        to prevent cache to field's level.
+      to prevent cache to field's level.
     threat: >
       An unauthorized user
       with access to local machine
@@ -3393,11 +3461,14 @@
       El caché de datos a nivel de navegador
       se debe deshabilitar
       usando alguno de estos métodos:
+
       - Usar cabeceras de control HTTP
         que prevengan caché.
+
       - Usar meta-tags en las páginas HTML.
+
       - Deshabilitar el campo _autocomplete_
-        para prevenir caché a nivel de campos.
+      para prevenir caché a nivel de campos.
     threat: >
       Un usuario no autorizado
       con acceso a la máquina local
@@ -3425,11 +3496,13 @@
     title: JavaScript Console
     description: >
       It is possible to obtain technical information such as:
+
       - System component versions
-        (HTTP headers, service banner, etc.).
+      (HTTP headers, service banner, etc.).
+
       - Specific information
-        about the configuration
-        of server components (php.ini, web.config).
+      about the configuration
+      of server components (php.ini, web.config).
     impact: __empty__
     recommendation: >
       Delete the services' banner
@@ -3449,14 +3522,17 @@
     title: Consola JavaScript
     description: >
       Se obtiene información técnica del sistema, como:
+
       - versión de los componentes
-        que el sistema utiliza
-        (encabezados HTTP, banner del servicio, etc).
+      que el sistema utiliza
+      (encabezados HTTP, banner del servicio, etc).
+
       - información específica sobre la configuración
-        de componentes a nivel del servidor
-        (php.ini, web.config)
+      de componentes a nivel del servidor
+      (php.ini, web.config)
+
       - Funcionalidades que arrojan
-        información del servidor.
+      información del servidor.
     impact: __empty__
     recommendation: >
       Eliminar el banner de los servicios
@@ -3692,11 +3768,13 @@
       with the same name.
     impact: >
       - Load functions and procedures
-        that will not be used.
+      that will not be used.
+
       - Cause a suboptimal operation
-        of the application.
+      of the application.
+
       - Cause naming conflicts in components
-        with the same name.
+      with the same name.
     recommendation: >
       Explicitly import the libraries
       and necessary packages
@@ -3720,11 +3798,13 @@
       con el mismo nombre.
     impact: >
       - Cargar funciones y procedimientos
-        que no serán utilizados.
+      que no serán utilizados.
+
       - Ocasionar un funcionamiento subóptimo
-        de la aplicación.
+      de la aplicación.
+
       - Ocasionar conflictos de nomenclatura
-        en componentes con el mismo nombre.
+      en componentes con el mismo nombre.
     recommendation: >
       Explicitly import the libraries
       and necessary packages
@@ -4744,8 +4824,8 @@
       of injections.
     recommendation: >
       - Prevent the use of untrusted data
-        in critical data structures
-        or structured messages.
+      in critical data structures
+      or structured messages.
     threat: >
       Autenticated attacker
       from the Internet.
@@ -4763,8 +4843,8 @@
       algunos tipos de inyecciones.
     recommendation: >
       - Prevenir el uso de datos no confiables
-        en estructuras de datos críticas
-        o mensajes estructurados.
+      en estructuras de datos críticas
+      o mensajes estructurados.
     threat: >
       Atacante autenticado
       desde Internet.
@@ -5514,11 +5594,12 @@
     impact: __empty__
     recommendation: >
       - Set physical access controls
-        to avoid the connection
-        of unauthorized peripheral devices.
+      to avoid the connection
+      of unauthorized peripheral devices.
+
       - Install the proper security suite
-        on the workstations that mitigates
-        the risk of malicious code infection.
+      on the workstations that mitigates
+      the risk of malicious code infection.
     threat: __empty__
   es:
     title: Ataques con unidad USB
@@ -5529,12 +5610,13 @@
     impact: __empty__
     recommendation: >
       - Establecer controles de acceso físico
-        que impidan la conexión
-        de dispositivos periféricos no autorizados.
+      que impidan la conexión
+      de dispositivos periféricos no autorizados.
+
       - Instalar una suite de seguridad
-        apropiada en las estaciones de trabajo
-        que mitigue el riesgo de infección
-        con software malicioso.
+      apropiada en las estaciones de trabajo
+      que mitigue el riesgo de infección
+      con software malicioso.
     threat: __empty__
   score:
     base:
@@ -5648,7 +5730,7 @@
       without authorization.
     recommendation: >
       - Avoid using untrusted data
-        to generate dynamic LDAP queries.
+      to generate dynamic LDAP queries.
     threat: >
       Autenticated attacker
       from the Internet.
@@ -5664,7 +5746,7 @@
       sin autorizacion.
     recommendation: >
       - Evitar el uso de datos no confiables
-        para generar consultas LDAP dinámicas.
+      para generar consultas LDAP dinámicas.
     threat: >
       Atacante autenticado
       desde Internet.
@@ -5742,9 +5824,10 @@
       may have incorrect results.
     recommendation: >
       - Use integer to represent currency
-        and count in cents.
+      and count in cents.
+
       - Use data types specially made
-        to represent currency.
+      to represent currency.
     threat: >
       Authenticated attacker
       from the Internet.
@@ -5763,9 +5846,10 @@
       Operaciones sobre moneda pueden tener resultados incorrectos.
     recommendation: >
       - Usar enteros para representar moneda
-        y contar en centavos.
+      y contar en centavos.
+
       - Usar tipos de datos hechos específicamente
-        para representar moneda.
+      para representar moneda.
     threat: >
       Atacante autenticado
       desde Internet.
@@ -6120,16 +6204,18 @@
       logs or temporary files.
     impact: >
       - Difficult the versioning
-        and security auditing process.
+      and security auditing process.
+
       - Introduce vulnerabilities
-        of previous versions
-        in the repository.
+      of previous versions
+      in the repository.
     recommendation: >
       - Remove the files
-        that should not be versioned
-        from the repository.
+      that should not be versioned
+      from the repository.
+
       - Include the affected extensions
-        in the .gitignore file.
+      in the .gitignore file.
     threat: >
       Autenticated attacker
       from the Internet.
@@ -6143,16 +6229,18 @@
       logs o archivos temporales.
     impact: >
       - Dificultar el proceso de versionamiento
-        y auditoría de seguridad.
+      y auditoría de seguridad.
+
       - Introducir vulnerabilidades
-        de versiones pasadas de archivos
-        en el repositorio.
+      de versiones pasadas de archivos
+      en el repositorio.
     recommendation: >
       - Remover los archivos
-        que no deberían ser versionados
-        en el repositorio de código.
+      que no deberían ser versionados
+      en el repositorio de código.
+
       - Incluir las extensiones afectadas
-        en el archivo .gitignore.
+      en el archivo .gitignore.
     threat: >
       Atacante autenticado
       desde Internet.
@@ -6185,7 +6273,7 @@
       for the system.
     threat: >
       - Incur the fine or some other
-        penalty.
+      penalty.
   es:
     title: Infracción de regulación
     description: >
@@ -6197,7 +6285,7 @@
       aplicables para el sistema.
     threat: >
       - Incurrir en una multa
-        o alguna otra sanción legal.
+      o alguna otra sanción legal.
   score:
     base:
       attack_vector: "N"
@@ -6226,9 +6314,10 @@
       before sharing or publishing them.
     threat: >
       - Obtain sensitive information.
+
       - Obtain information
-        that can be used to compromise
-        other systems.
+      that can be used to compromise
+      other systems.
   es:
     title: Metadatos con información sensible
     description: >
@@ -6242,9 +6331,10 @@
       o hacerlos públicos.
     threat: >
       - Obtener información sensible.
+
       - Obtener información
-        que pueda ser utilizada
-        para comprometer otros sistemas.
+      que pueda ser utilizada
+      para comprometer otros sistemas.
   score:
     base:
       attack_vector: "N"
@@ -6394,10 +6484,12 @@
       like time delay.
     threat: >
       - Flood the victim's inbox.
+
       - Cause a denial of service
-        exceding the emails' inbox capacity.
+      exceding the emails' inbox capacity.
+
       - Hide important information
-        of another emails.
+      of another emails.
   es:
     title: Inundación de correo electronico
     description: >
@@ -6413,12 +6505,14 @@
       como retardos de tiempo.
     threat: >
       - Inundar la bandeja de entrada
-        de la víctima.
+      de la víctima.
+
       - Causar una denegación de servicio
-        al exceder la capacidad
-        de la bandeja de entrada de correos.
+      al exceder la capacidad
+      de la bandeja de entrada de correos.
+
       - Ocultar información importante
-        de otros correos.
+      de otros correos.
   score:
     base:
       attack_vector: "N"
@@ -6447,12 +6541,13 @@
     impact: __empty__
     recommendation: >
       - Validate that
-        the parameters received
-        by the application
-        do not contain relative paths.
+      the parameters received
+      by the application
+      do not contain relative paths.
+
       - Disable insecure functions
-        that allow reading
-        of arbitrary files on the server.
+      that allow reading
+      of arbitrary files on the server.
     threat: >
       Visualize the content
       of sensitive files stored
@@ -6469,11 +6564,12 @@
     impact: __empty__
     recommendation: >
       - Validar que los parámetros recibidos
-        por la aplicación
-        no contengan rutas relativas.
+      por la aplicación
+      no contengan rutas relativas.
+
       - Deshabilitar las funciones inseguras
-        que permitan la lectura
-        de archivos arbitrarios en el servidor.
+      que permitan la lectura
+      de archivos arbitrarios en el servidor.
     threat: >
       Visualizar el contenido
       de archivos sensibles almacenados
@@ -6555,11 +6651,12 @@
     impact: __empty__
     recommendation: >
       - Disable the configurations
-        of the server that allow
-        to execute directory listing.
+      of the server that allow
+      to execute directory listing.
+
       - Establish index files
-        that will be shown
-        when the directories are loaded.
+      that will be shown
+      when the directories are loaded.
     threat: >
       Obtain technical
       or sensitive information
@@ -6576,11 +6673,12 @@
     impact: __empty__
     recommendation: >
       - Deshabilitar las configuraciones
-        del servidor que permitan
-        ejecutar el listado de directorios.
+      del servidor que permitan
+      ejecutar el listado de directorios.
+
       - Establecer archivos index
-        que se muestren
-        al cargar los directorios.
+      que se muestren
+      al cargar los directorios.
     threat: >
       Obtener información técnica
       o sensible de los archivos almacenados
