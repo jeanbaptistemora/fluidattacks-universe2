@@ -455,6 +455,16 @@ async def get_group(finding_id: str) -> str:
     return str(get_key_or_fallback(attribute))
 
 
+async def get_is_verified(loaders: Any, finding_id: str) -> bool:
+    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr
+    vulns: List[VulnerabilityType] = await finding_vulns_loader.load(
+        finding_id
+    )
+    vulns = vulns_domain.filter_open_vulnerabilities(vulns)
+    remediated_vulns = vulns_domain.filter_remediated(vulns)
+    return len(remediated_vulns) == 0
+
+
 async def get_max_open_severity(
     context: Any, findings: List[Dict[str, FindingType]]
 ) -> Tuple[Decimal, Dict[str, FindingType]]:

@@ -1,9 +1,8 @@
-from aiodataloader import (
-    DataLoader,
-)
 from custom_types import (
     Finding,
-    Vulnerability,
+)
+from findings import (
+    domain as findings_domain,
 )
 from functools import (
     partial,
@@ -17,10 +16,6 @@ from redis_cluster.operations import (
 from typing import (
     cast,
     Dict,
-    List,
-)
-from vulnerabilities import (
-    domain as vulns_domain,
 )
 
 
@@ -41,11 +36,8 @@ async def resolve(
 async def resolve_no_cache(
     parent: Finding, info: GraphQLResolveInfo, **_kwargs: None
 ) -> bool:
-    finding_vulns_loader: DataLoader = info.context.loaders.finding_vulns
     finding_id: str = cast(Dict[str, str], parent)["id"]
-    vulns: List[Vulnerability] = await finding_vulns_loader.load(finding_id)
-    vulns = vulns_domain.filter_zero_risk(vulns)
-    vulns = vulns_domain.filter_open_vulnerabilities(vulns)
-    remediated_vulns = vulns_domain.filter_remediated(vulns)
-
-    return len(remediated_vulns) == 0
+    is_verified = await findings_domain.get_is_verified(
+        info.context.loaders, finding_id
+    )
+    return is_verified
