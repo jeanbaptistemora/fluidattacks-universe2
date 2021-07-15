@@ -91,7 +91,7 @@ LOGGING = {
         },
     },
     "loggers": {
-        "": {"handlers": ["bugsnag"], "level": "INFO"},
+        "": {"handlers": ["bugsnag"], "level": "WARNING"},
         "console": {
             "handlers": ["console"],
             "level": "INFO",
