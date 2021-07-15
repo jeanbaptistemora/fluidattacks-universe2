@@ -53493,6 +53493,10 @@
               "label_ast": "AST",
               "label_index": "65"
             },
+            "1047": {
+              "label_ast": "AST",
+              "label_index": "66"
+            },
             "105": {
               "label_ast": "AST",
               "label_index": "4"
@@ -53926,6 +53930,10 @@
             "1046": {
               "label_ast": "AST",
               "label_index": "6"
+            },
+            "1047": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             }
           },
           "1036": {
@@ -53950,6 +53958,60 @@
               "label_index": "1"
             },
             "1045": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "1047": {
+            "1048": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "0"
+            },
+            "1058": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "1048": {
+            "1049": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1050": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1051": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "1051": {
+            "1052": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1053": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1054": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "1054": {
+            "1055": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1056": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1057": {
               "label_ast": "AST",
               "label_index": "2"
             }
@@ -59135,11 +59197,85 @@
             "label_text": ";",
             "label_type": ";"
           },
+          "1047": {
+            "label_c": 1,
+            "label_l": 221,
+            "label_type": "expression_statement"
+          },
+          "1048": {
+            "label_c": 1,
+            "label_field_left": "1049",
+            "label_field_right": "1051",
+            "label_l": 221,
+            "label_type": "assignment_expression"
+          },
+          "1049": {
+            "label_c": 1,
+            "label_l": 221,
+            "label_text": "x",
+            "label_type": "identifier"
+          },
           "105": {
             "label_c": 1,
             "label_l": 20,
             "label_text": "// block",
             "label_type": "comment"
+          },
+          "1050": {
+            "label_c": 3,
+            "label_l": 221,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "1051": {
+            "label_c": 5,
+            "label_field_left": "1052",
+            "label_field_right": "1054",
+            "label_l": 221,
+            "label_type": "assignment_expression"
+          },
+          "1052": {
+            "label_c": 5,
+            "label_l": 221,
+            "label_text": "y",
+            "label_type": "identifier"
+          },
+          "1053": {
+            "label_c": 7,
+            "label_l": 221,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "1054": {
+            "label_c": 9,
+            "label_field_left": "1055",
+            "label_field_right": "1057",
+            "label_l": 221,
+            "label_type": "assignment_expression"
+          },
+          "1055": {
+            "label_c": 9,
+            "label_l": 221,
+            "label_text": "z",
+            "label_type": "identifier"
+          },
+          "1056": {
+            "label_c": 11,
+            "label_l": 221,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "1057": {
+            "label_c": 13,
+            "label_l": 221,
+            "label_text": "2",
+            "label_type": "number"
+          },
+          "1058": {
+            "label_c": 14,
+            "label_l": 221,
+            "label_text": ";",
+            "label_type": ";"
           },
           "106": {
             "label_c": 1,
@@ -65273,6 +65409,60 @@
             "var_type": null
           }
         ],
+        "1047": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1047",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1048": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1057",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "2",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1048",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "x"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1048",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "y"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1048",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "z"
+          }
+        ],
         "106": [
           {
             "meta": {
@@ -65653,6 +65843,49 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "202": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "208",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "1",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "206",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "205",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "202",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "i"
+          }
+        ],
         "211": [
           {
             "meta": {
@@ -65756,6 +65989,29 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "289": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "292",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "99",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "289",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "number"
           }
         ],
         "3": [],
@@ -66174,6 +66430,29 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "606": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "612",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "red",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "606",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "color"
+          }
+        ],
         "61": [
           {
             "meta": {
@@ -66194,6 +66473,28 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "616": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "622",
+              "value": null
+            },
+            "symbol": "triangle",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "616",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "ColoredTriangle.prototype"
           }
         ],
         "62": [
@@ -66570,6 +66871,29 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "783": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "786",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "positive",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "783",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "result"
+          }
+        ],
         "791": [
           {
             "meta": {
@@ -66590,6 +66914,29 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "794": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "797",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "NOT positive",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "794",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "result"
           }
         ],
         "800": [

@@ -218,3 +218,4 @@ try {
 
 // multiple assignments in the same statement
 var x, y, z = 1;
+x = y = z = 2;
