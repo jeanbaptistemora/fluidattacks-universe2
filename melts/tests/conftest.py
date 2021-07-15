@@ -64,7 +64,8 @@ def prepare_s3_continuous_repositories(request: Any) -> None:
     localstack_endpoint: str = (
         "localstack" if generic.is_env_ci() else "localhost"
     )
-    endpoint_url: str = f"http://{localstack_endpoint}:4566"
+    # FP: the endpoint is hosted in a local environment
+    endpoint_url: str = f"http://{localstack_endpoint}:4566"  # NOSONAR
     bucket_name: str = "continuous-repositories"
     s3_client = boto3.client("s3", endpoint_url=endpoint_url)
     s3_client.create_bucket(Bucket=bucket_name)

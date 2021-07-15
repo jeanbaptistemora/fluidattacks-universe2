@@ -24,7 +24,8 @@ AWS_LOGIN: bool = False
 SUBS_PATH: str = f"groups/{SUBS}"
 SUBS_FUSION: str = f"{SUBS_PATH}/fusion"
 LOCALSTACK_ENDPOINT: str = "localstack" if generic.is_env_ci() else "localhost"
-ENDPOINT_URL: str = f"http://{LOCALSTACK_ENDPOINT}:4566"
+# FP: the endpoint is hosted in a local environment
+ENDPOINT_URL: str = f"http://{LOCALSTACK_ENDPOINT}:4566"  # NOSONAR
 
 EXPECTED_REPOS: List[str] = [f"{SUBS}/services/"]
 
