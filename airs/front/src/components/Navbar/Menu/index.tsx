@@ -9,7 +9,7 @@ import React, { useState } from "react";
 
 import { MenuDesktop } from "./MenuDesktop";
 import { MenuDesktopTopBar } from "./MenuDesktopTopBar";
-import { MenuMobile } from "./MenuMobile/newIndex";
+import { MenuMobile } from "./MenuMobile";
 
 import {
   CenteredMaxWidthContainer,
