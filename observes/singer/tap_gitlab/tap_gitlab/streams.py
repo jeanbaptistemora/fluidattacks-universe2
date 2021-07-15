@@ -83,7 +83,7 @@ class StreamEncoder:
             "type": "JobStream",
             "obj": {
                 "project": obj.project.raw,
-                "scopes": (scope.value for scope in obj.scopes),
+                "scopes": tuple(scope.value for scope in obj.scopes),
             },
         }
 

@@ -45,11 +45,16 @@ from typing import (
     Iterator,
     List,
     NamedTuple,
+    NoReturn,
 )
 
 
 class NotFound(Exception):
     pass
+
+
+def _raise(error: Exception) -> NoReturn:
+    raise error
 
 
 class JobApi(NamedTuple):
@@ -87,7 +92,9 @@ class JobApi(NamedTuple):
         start: PageId[int],
     ) -> IO[Iterator[JobsPage]]:
         init = self.search_item_page(item_id, start).map(
-            lambda item: item.unwrap()
+            lambda item: item.or_else_call(
+                lambda: _raise(NotFound(f"id: {item_id}"))  # type: ignore
+            )
         )
 
         def _filter(pages: Iterator[JobsPage]) -> Iterator[JobsPage]:
@@ -109,7 +116,9 @@ class JobApi(NamedTuple):
         start: PageId[int],
     ) -> IO[Iterator[JobsPage]]:
         init = self.search_item_page(ids.upper, start).map(
-            lambda item: item.unwrap()
+            lambda item: item.or_else_call(
+                lambda: _raise(NotFound(f"id: {ids.upper}"))  # type: ignore
+            )
         )
 
         def _filter(pages: Iterator[JobsPage]) -> Iterator[JobsPage]:

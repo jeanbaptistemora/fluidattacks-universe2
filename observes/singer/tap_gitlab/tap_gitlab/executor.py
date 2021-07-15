@@ -2,6 +2,9 @@
 
 import boto3
 import logging
+from returns.curry import (
+    partial,
+)
 from returns.maybe import (
     Maybe,
 )
@@ -37,6 +40,9 @@ from tap_gitlab.state.encoder import (
 )
 from tap_gitlab.state.getter import (
     StateGetter,
+)
+from tap_gitlab.state.migration import (
+    state_migration_01,
 )
 from tap_gitlab.state.update import (
     StateUpdater,
@@ -88,6 +94,7 @@ def defautl_stream(
     updater = StateUpdater(client.project(_project))
     _state = (
         state_id.bind(lambda sid: state_getter.get(sid[0], sid[1]))
+        .map(partial(state_migration_01, client.project(_project)))
         .map(updater.update_state)
         .or_else_call(lambda: default_etl_state(client, _project))
     )

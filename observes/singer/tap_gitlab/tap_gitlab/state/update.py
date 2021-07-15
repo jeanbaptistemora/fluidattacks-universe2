@@ -72,14 +72,18 @@ class StateUpdater:
         return JobStatePoint(last.min_id - 1, last.page)
 
     def update_mr_state(self, state: MrStreamState) -> MrStreamState:
-        return MrStreamState(
-            fp_factory.append(state.state, self.most_recent_mr_point())
-        )
+        point = self.most_recent_mr_point()
+        if state.state.f_interval.endpoints[-1] != point:
+            return MrStreamState(
+                fp_factory.append(state.state, self.most_recent_mr_point())
+            )
+        return state
 
     def update_job_state(self, state: JobStreamState) -> JobStreamState:
-        return JobStreamState(
-            fp_factory_2.append(state.state, self.most_recent_job_point())
-        )
+        point = self.most_recent_job_point()
+        if state.state.f_interval.endpoints[-1] != point:
+            return JobStreamState(fp_factory_2.append(state.state, point))
+        return state
 
     def update_state(self, state: EtlState) -> EtlState:
         mrs = {

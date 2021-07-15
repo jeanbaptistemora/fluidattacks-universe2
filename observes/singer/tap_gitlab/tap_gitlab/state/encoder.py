@@ -89,7 +89,9 @@ i_encoder: IntervalEncoder[datetime] = IntervalEncoder(
     lambda time: {"datetime": time.isoformat()}
 )
 i_encoder_2: IntervalEncoder[JobStatePoint] = IntervalEncoder(
-    lambda item: {"id-page": (item[0], item[1].page, item[1].per_page)}
+    lambda item: {
+        "id-page": (item.item_id, item.last_seen.page, item.last_seen.per_page)
+    }
 )
 _stm_encoder = StreamEncoder()
 state_encoder = StateEncoder(i_encoder, i_encoder_2, _stm_encoder)
