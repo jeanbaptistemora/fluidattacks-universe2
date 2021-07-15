@@ -55,7 +55,8 @@ class IntegratesWorker(  # pylint: disable=too-few-public-methods
                 "frame-ancestors "
                 "'self'; "
                 "object-src "
-                "'none';",
+                "'none'; "
+                "upgrade-insecure-requests;",
             ],
             [
                 "Permissions-Policy",
