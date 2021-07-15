@@ -141,7 +141,7 @@ to generate a key pair:
         args+=("--no-aws-cache") # If env is PROD cache is not used
       fi \
         && eval $(aws-okta-processor "${args[@]}") \
-        && export "${role_uppercase}_AWS_ACCESS_KEY_ID"="${AWS_SECRET_ACCESS_KEY}" \
+        && export "${role_uppercase}_AWS_ACCESS_KEY_ID"="${AWS_ACCESS_KEY_ID}" \
         && export "${role_uppercase}_AWS_SECRET_ACCESS_KEY"="${AWS_SECRET_ACCESS_KEY}" \
         && export "${env}_AWS_ACCESS_KEY_ID"="${AWS_ACCESS_KEY_ID}" \
         && export "${env}_AWS_SECRET_ACCESS_KEY"="${AWS_SECRET_ACCESS_KEY}"
