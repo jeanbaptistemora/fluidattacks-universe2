@@ -185,15 +185,15 @@ async def close_vulnerability(
             vulnerability["repo_nickname"],
             data_to_update,
         )
-        await update(
-            finding_id, str(vulnerability.get("UUID")), data_to_update
-        )
+        await update(finding_id, str(vulnerability["UUID"]), data_to_update)
 
 
 def get_nicknames(
     *,
     roots: List[RootItem],
     groups_roots: Dict[str, Set[str]],
+    groups_nicknames: Dict[str, Set[str]],
+    groups_names: Set[str],
 ) -> Set[NickName]:
 
     return {
@@ -204,6 +204,8 @@ def get_nicknames(
         )
         for root in roots
         if isinstance(root, GitRootItem)
+        and root.group_name.lower() in groups_names
+        and root.state.nickname in groups_nicknames[root.group_name.lower()]
         and format_root_url(root_url=root.metadata.url)
         in format_roots_url(roots_url=groups_roots[root.group_name.lower()])
     }
@@ -231,12 +233,14 @@ async def main() -> None:
     groups_name: List[str] = []
     roots_url: List[str] = []
     groups_roots: Dict[str, Set[str]] = defaultdict(set)
+    groups_nicknames: Dict[str, Set[str]] = defaultdict(set)
     with open("roots.csv", newline="") as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             groups_name.append(row["Grupo"].lower())
             roots_url.append(unquote(row["GIT"]))
             groups_roots[row["Grupo"].lower()].add(unquote(row["GIT"]))
+            groups_nicknames[row["Grupo"].lower()].add(row["Nickname"])
 
     current_day = datetime_utils.get_now_as_str()
     organizations_ids: Set[str] = await get_organizations_id(
@@ -252,7 +256,10 @@ async def main() -> None:
     )
 
     nicknames: Set[NickName] = get_nicknames(
-        roots=roots, groups_roots=groups_roots
+        roots=roots,
+        groups_roots=groups_roots,
+        groups_names=set(groups_name),
+        groups_nicknames=groups_nicknames,
     )
 
     vulnerabilities: List[Dict[str, Any]] = await get_vulnerabilities(
