@@ -45,8 +45,8 @@ RESOURCE_OPTIONS: Dict[str, Optional[str]] = {
 
 if FI_ENVIRONMENT == "development" and FI_DYNAMODB_HOST:
     # FP: the endpoint is hosted in a local environment
-    ENDPOINT_URL = "http://{}:{}".format(
-        FI_DYNAMODB_HOST, FI_DYNAMODB_PORT  # NOSONAR
+    ENDPOINT_URL = "http://{}:{}".format(  # NOSONAR
+        FI_DYNAMODB_HOST, FI_DYNAMODB_PORT
     )
     RESOURCE_OPTIONS["endpoint_url"] = ENDPOINT_URL
 
