@@ -389,6 +389,7 @@ const Criteria = [
       label: 'Requirements',
       items: [
       'criteria/requirements/introduction',
+      'criteria/requirements/index',
       {
           type: 'category',
           label: 'Credentials',
