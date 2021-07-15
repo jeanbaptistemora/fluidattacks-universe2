@@ -1,4 +1,7 @@
 import boto3
+from lightgbm import (
+    LGBMClassifier,
+)
 from sagemaker.tuner import (
     CategoricalParameter,
     ContinuousParameter,
@@ -75,6 +78,7 @@ MODELS: Dict[str, ModelType] = {
     "linearsvc": LinearSVC,
     "mlpclassifier": MLPClassifier,
     "randomforestclassifier": RandomForestClassifier,
+    "lgbmclassifier": LGBMClassifier,
 }
 
 # Hyperparameters
