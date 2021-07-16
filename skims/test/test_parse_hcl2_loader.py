@@ -41,28 +41,28 @@ def test_load_1() -> None:
                 "body",
                 [
                     Block(
-                        namespace=[
-                            "module",
-                            "iam_user",
-                        ],
+                        namespace=["module", "iam_user"],
                         body=[
                             Attribute(
                                 column=2,
                                 key="source",
                                 line=4,
-                                val="modules\\/iam-user",
+                                val="modules/iam-user",
                             ),
                             Attribute(
                                 column=2,
                                 key="name",
                                 line=6,
-                                val="${var.iamuser}",
+                                val=Tree(
+                                    "get_attr_expr_term",
+                                    [
+                                        Tree("identifier", ["var"]),
+                                        Tree("identifier", ["iamuser"]),
+                                    ],
+                                ),
                             ),
                             Attribute(
-                                column=2,
-                                key="force_destroy",
-                                line=7,
-                                val=True,
+                                column=2, key="force_destroy", line=7, val=True
                             ),
                             Attribute(
                                 column=2,
@@ -76,7 +76,7 @@ def test_load_1() -> None:
                         ],
                         column=0,
                         line=3,
-                    ),
+                    )
                 ],
             )
         ],
@@ -156,7 +156,24 @@ def test_load_2() -> None:
                                 column=2,
                                 key="topic_arn",
                                 line=9,
-                                val="${aws_sns_topic.app_topic.arn}",
+                                val=Tree(
+                                    "get_attr_expr_term",
+                                    [
+                                        Tree(
+                                            "get_attr_expr_term",
+                                            [
+                                                Tree(
+                                                    "identifier",
+                                                    ["aws_sns_topic"],
+                                                ),
+                                                Tree(
+                                                    "identifier", ["app_topic"]
+                                                ),
+                                            ],
+                                        ),
+                                        Tree("identifier", ["arn"]),
+                                    ],
+                                ),
                             ),
                             Attribute(
                                 column=2, key="protocol", line=10, val="sqs"
@@ -165,21 +182,15 @@ def test_load_2() -> None:
                                 column=2,
                                 key="endpoint",
                                 line=11,
-                                val=(
-                                    "arn:aws:sqs:${var.zone}:"
-                                    "${var.aws_account}:xxxx"
-                                    "-${var.environment_prefix}"
-                                ),
+                                val="arn:aws:sqs:${var.zone}:"
+                                "${var.aws_account}:"
+                                "xxxx-${var.environment_prefix}",
                             ),
                             Attribute(
                                 column=2,
                                 key="filter_policy",
                                 line=12,
-                                val=(
-                                    '{ \\"scope\\":'
-                                    ' [ \\"SEND_TO_UI\\", '
-                                    '\\"SEND_TO_ALL\\" ] }'
-                                ),
+                                val='{ \\"scope\\": [ \\"SEND_TO_UI\\", \\"SEND_TO_ALL\\" ] }',
                             ),
                             Attribute(
                                 column=2,
@@ -199,10 +210,7 @@ def test_load_2() -> None:
                         ],
                         body=[
                             Attribute(
-                                column=2,
-                                key="name",
-                                line=17,
-                                val="sns_policy",
+                                column=2, key="name", line=17, val="sns_policy"
                             ),
                             Attribute(
                                 column=2,
@@ -229,15 +237,15 @@ def test_load_2() -> None:
                                                 "Sid": "rule1",
                                                 "Effect": "Allow",
                                                 "Action": [
-                                                    "sns:ListSubscriptions"
-                                                    "ByTopic",
+                                                    "sns:List"
+                                                    "SubscriptionsByTopic",
                                                     "sns:Publish",
                                                 ],
                                                 "Resource": [
-                                                    "${aws_sns_topic"
-                                                    ".test.arn}",
-                                                    "${aws_sns_topic"
-                                                    ".test2.arn}",
+                                                    "${aws_sns_topic."
+                                                    "test.arn}",
+                                                    "${aws_sns_topic."
+                                                    "test2.arn}",
                                                 ],
                                             },
                                             {
@@ -256,7 +264,7 @@ def test_load_2() -> None:
                         line=16,
                     ),
                 ],
-            ),
+            )
         ],
     )
 
