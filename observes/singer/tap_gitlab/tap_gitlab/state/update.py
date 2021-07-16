@@ -81,8 +81,10 @@ class StateUpdater:
 
     def update_job_state(self, state: JobStreamState) -> JobStreamState:
         point = self.most_recent_job_point()
-        if state.state.f_interval.endpoints[-1] != point:
-            return JobStreamState(fp_factory_2.append(state.state, point))
+        last = state.state.f_interval.endpoints[-1]
+        if isinstance(last, int):
+            if last != point.item_id:
+                return JobStreamState(fp_factory_2.append(state.state, point))
         return state
 
     def update_state(self, state: EtlState) -> EtlState:
