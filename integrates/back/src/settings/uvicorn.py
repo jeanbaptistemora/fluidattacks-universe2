@@ -33,6 +33,10 @@ class IntegratesWorker(  # pylint: disable=too-few-public-methods
                 "nosniff",
             ],
             [
+                "X-XSS-Protection",
+                "0",
+            ],
+            [
                 "Content-Security-Policy",
                 "script-src "
                 "'self' "
