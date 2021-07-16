@@ -2,6 +2,7 @@ import "./static/scss/index.scss";
 import "gatsby-plugin-breadcrumb/gatsby-plugin-breadcrumb.css";
 import "animate.css/animate.min.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import "tachyons/css/tachyons.min.css";
 import Bugsnag from "@bugsnag/js";
 import BugsnagPluginReact from "@bugsnag/plugin-react";
 import _ from "lodash";

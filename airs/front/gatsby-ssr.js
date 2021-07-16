@@ -1,4 +1,5 @@
 import React from "react";
+
 export const onRenderBody = (
   { setHeadComponents, setPostBodyComponents },
   pluginOptions
@@ -15,46 +16,32 @@ export const onRenderBody = (
     <script
       defer
       src={"https://static.cloudflareinsights.com/beacon.min.js"}
-      integrity={"sha384-OkvTy+NUkZMJbbmFEAPbDMq3Q9yJVfdMxHLBqwXd7W5c256/DtRrbfLEg5NgPlD+"}
+      integrity={
+        "sha384-OkvTy+NUkZMJbbmFEAPbDMq3Q9yJVfdMxHLBqwXd7W5c256/DtRrbfLEg5NgPlD+"
+      }
       crossorigin={"anonymous"}
       data-cf-beacon={'{"token": "f4f99c985c414a5591e8077bf301b39b"}'}
     />,
-    // Tachyons stylesheet, this preload is necessary
-    <link
-      rel="preload"
-      as="style"
-      onload="this.rel = 'stylesheet'"
-      href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"
-    />,
-    // this is an alternative to old browsers
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"
-    />,
     // Highlight.js syntax highlighter
     <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/foundation.min.css"
+      rel={"stylesheet"}
+      href={"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/foundation.min.css"}
     />,
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" />,
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/x86asm.min.js" />,
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/gherkin.min.js" />,
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/powershell.min.js" />,
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/xml.min.js" />,
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/shell.min.js" />,
-    <script>hljs.initHighlightingOnLoad();</script>,
+    <script src={"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"} />,
+    <script src={"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/x86asm.min.js"} />,
+    <script src={"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/gherkin.min.js"} />,
+    <script src={"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/powershell.min.js"} />,
+    <script src={"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/xml.min.js"} />,
+    <script src={"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/shell.min.js"} />,
+    <script src={"highlightjs.js"}/>,
     // End Highlight.js
   ]);
   setPostBodyComponents([
     // Zoho CRM Live Chat
     <script
       id={"zsiqchat"}
+      src={"zohoLiveChat.js"}
       type="text/javascript"
-      dangerouslySetInnerHTML={{
-        __html: `
-        var $zoho=$zoho || {};$zoho.salesiq = $zoho.salesiq || {widgetcode: "50094df2b302da078befa3cee2e8de00943ab0089a71d1aa34f6df9b6cb54ae5feb79731b60e202192c2895c9acefb61", values:{},ready:function(){}};var d=document;s=d.createElement("script");s.type="text/javascript";s.id="zsiqscript";s.defer=true;s.src="https://salesiq.zoho.com/widget";t=d.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);
-      `,
-      }}
     />,
   ]);
 };
