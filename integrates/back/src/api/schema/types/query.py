@@ -21,6 +21,7 @@ from api.resolvers.query import (
     user_list_groups,
     vulnerability,
     vulnerability_new,
+    vulns_to_reattack,
 )
 from ariadne import (
     QueryType,
@@ -45,6 +46,7 @@ QUERY.set_field("resources", resources.resolve)
 QUERY.set_field("stakeholder", stakeholder.resolve)
 QUERY.set_field("tag", tag.resolve)
 QUERY.set_field("userListProjects", user_list_groups.resolve)
+QUERY.set_field("vulnsToReattack", vulns_to_reattack.resolve)
 
 # Standardization Fields
 QUERY.set_field("group", group.resolve)

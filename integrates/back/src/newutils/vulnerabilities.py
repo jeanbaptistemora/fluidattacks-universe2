@@ -103,6 +103,14 @@ def filter_non_requested_zero_risk(
     ]
 
 
+def filter_last_reattack_requested(vuln: Dict[str, FindingType]) -> bool:
+    historic_verification: HistoricType = vuln.get("historic_verification")
+    if historic_verification:
+        last_historic = historic_verification[-1]
+        return last_historic.get("status") == "REQUESTED"
+    return False
+
+
 def filter_open_vulns(
     vulnerabilities: List[Dict[str, FindingType]],
 ) -> List[Dict[str, FindingType]]:

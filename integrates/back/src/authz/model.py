@@ -853,6 +853,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_query_groups_resolve",
             "api_resolvers_query_internal_names_resolve",
             "api_resolvers_query_user_list_groups_resolve",
+            "api_resolvers_query_vulns_to_reattack_resolve",
             "api_resolvers_query_groups_with_forces_resolve",
             "front_can_use_groups_searchbar",
             "grant_user_level_role:admin",

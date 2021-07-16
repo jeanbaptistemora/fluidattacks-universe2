@@ -80,4 +80,7 @@ type Query {
 
   "Vulnerability entity"
   vulnerability(uuid: String!): Vulnerability
+
+  "Vulnerabilities pending to reattack"
+  vulnsToReattack(group: String): [Vulnerability]
 }
