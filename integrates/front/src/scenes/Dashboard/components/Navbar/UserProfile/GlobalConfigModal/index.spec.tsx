@@ -39,6 +39,7 @@ describe("Global configuration modal", (): void => {
         me: {
           subscriptionsToEntityReport: [
             { entity: "DIGEST", frequency: "DAILY", subject: "ALL_GROUPS" },
+            { entity: "COMMENTS", frequency: "DAILY", subject: "ALL_GROUPS" },
           ],
           userEmail: "test@fluidattacks.com",
         },
@@ -46,12 +47,30 @@ describe("Global configuration modal", (): void => {
     },
   };
 
-  const mockMutation: MockedResponse = {
+  const mockMutationDigest: MockedResponse = {
     request: {
       query: SUBSCRIBE_TO_ENTITY_REPORT,
       variables: {
         frequency: "DAILY",
         reportEntity: "DIGEST",
+        reportSubject: "ALL_GROUPS",
+      },
+    },
+    result: {
+      data: {
+        subscribeToEntityReport: {
+          success: true,
+        },
+      },
+    },
+  };
+
+  const mockMutationComments: MockedResponse = {
+    request: {
+      query: SUBSCRIBE_TO_ENTITY_REPORT,
+      variables: {
+        frequency: "DAILY",
+        reportEntity: "COMMENTS",
         reportSubject: "ALL_GROUPS",
       },
     },
@@ -106,7 +125,7 @@ describe("Global configuration modal", (): void => {
       <Provider store={store}>
         <MockedProvider
           addTypename={false}
-          mocks={[mockQueryTrue, mockMutation]}
+          mocks={[mockQueryTrue, mockMutationDigest]}
         >
           <GlobalConfigModal onClose={handleOnClose} open={true} />
         </MockedProvider>
@@ -118,18 +137,68 @@ describe("Global configuration modal", (): void => {
       wrapper.update();
     });
 
-    const digestLabel: ReactWrapper = wrapper.find("label").first();
-    const digestSwitch: ReactWrapper = wrapper.find({
+    const configLabel: ReactWrapper = wrapper
+      .find({
+        id: "config-digest-label",
+      })
+      .first();
+    const configSwitch: ReactWrapper = wrapper.find({
       name: "config-digest-switch",
     });
     const confirmButton: ReactWrapper = wrapper.find("#config-confirm").first();
 
     expect(wrapper).toHaveLength(1);
-    expect(digestLabel).toHaveLength(1);
-    expect(digestSwitch.prop("checked")).toBe(true);
+    expect(configLabel).toHaveLength(1);
+    expect(configSwitch.prop("checked")).toBe(true);
     expect(confirmButton.prop("disabled")).toBe(true);
 
-    digestSwitch.simulate("click");
+    configSwitch.simulate("click");
+    confirmButton.simulate("click");
+    wrapper.find("form").simulate("submit");
+
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
+
+    expect(confirmButton.prop("disabled")).toBe(true);
+  });
+
+  it("should render comments subscription option", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[mockQueryTrue, mockMutationComments]}
+        >
+          <GlobalConfigModal onClose={handleOnClose} open={true} />
+        </MockedProvider>
+      </Provider>
+    );
+
+    await act(async (): Promise<void> => {
+      await wait(0);
+      wrapper.update();
+    });
+
+    const configLabel: ReactWrapper = wrapper
+      .find({
+        id: "config-comments-label",
+      })
+      .first();
+    const configSwitch: ReactWrapper = wrapper.find({
+      name: "config-comments-switch",
+    });
+    const confirmButton: ReactWrapper = wrapper.find("#config-confirm").first();
+
+    expect(wrapper).toHaveLength(1);
+    expect(configLabel).toHaveLength(1);
+    expect(configSwitch.prop("checked")).toBe(true);
+    expect(confirmButton.prop("disabled")).toBe(true);
+
+    configSwitch.simulate("click");
     confirmButton.simulate("click");
     wrapper.find("form").simulate("submit");
 

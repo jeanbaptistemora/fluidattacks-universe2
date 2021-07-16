@@ -142,14 +142,14 @@ const GlobalConfigModal: React.FC<IGlobalConfigModalProps> = (
                   <Col100>
                     <FormGroup>
                       <TooltipWrapper
-                        id={"config.digest"}
+                        id={"config.digest.tooltip"}
                         message={translate.t("configuration.digest.tooltip")}
                         placement={"top"}
                       >
                         <div
                           className={"flex justify-between w-100 items-center"}
                         >
-                          <ControlLabel>
+                          <ControlLabel id={"config-digest-label"}>
                             {translate.t("configuration.digest.label")}
                           </ControlLabel>
                           <span className={"fr w-40"}>
@@ -170,14 +170,14 @@ const GlobalConfigModal: React.FC<IGlobalConfigModalProps> = (
                       </TooltipWrapper>
                       <br />
                       <TooltipWrapper
-                        id={"config.comments"}
+                        id={"config.comments.tooltip"}
                         message={translate.t("configuration.comments.tooltip")}
                         placement={"top"}
                       >
                         <div
                           className={"flex justify-between w-100 items-center"}
                         >
-                          <ControlLabel>
+                          <ControlLabel id={"config-comments-label"}>
                             {translate.t("configuration.comments.label")}
                           </ControlLabel>
                           <span className={"fr w-40"}>
