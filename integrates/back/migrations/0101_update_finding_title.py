@@ -1,6 +1,9 @@
 # pylint: disable=invalid-name
 """
 This migration aims to update finding title
+
+Execution Time:    2021-07-16 at 18:14:13 UTC-05
+Finalization Time: 2021-07-16 at 18:15:01 UTC-05
 """
 
 from aioextensions import (
@@ -33,7 +36,7 @@ from typing import (
 )
 
 # Constants
-PROD: bool = False
+PROD: bool = True
 OLD_FINDING_TITLE_EN: str = "Missing HTTP security headers"
 FINDING_TITLE_EN: str = "Insecure or Unset HTTP Headers"
 OLD_FINDING_TITLE_ES: str = "Cabeceras de seguridad HTTP no establecidas"
