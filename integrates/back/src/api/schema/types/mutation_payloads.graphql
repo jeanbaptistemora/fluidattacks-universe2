@@ -6,7 +6,7 @@ type SimplePayload implements Payload {
   success: Boolean!
 }
 
-type CreateOrganizationPayload implements Payload {
+type AddOrganizationPayload implements Payload {
   organization: Organization
   success: Boolean!
 }

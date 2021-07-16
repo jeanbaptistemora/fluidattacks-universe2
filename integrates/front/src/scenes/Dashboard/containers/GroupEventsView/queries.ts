@@ -18,8 +18,8 @@ const GET_EVENTS: DocumentNode = gql`
   }
 `;
 
-const CREATE_EVENT_MUTATION: DocumentNode = gql`
-  mutation CreateEventMutation(
+const ADD_EVENT_MUTATION: DocumentNode = gql`
+  mutation AddEventMutation(
     $accessibility: [EventAccessibility]!
     $actionAfterBlocking: ActionsAfterBlocking!
     $actionBeforeBlocking: ActionsBeforeBlocking!
@@ -33,7 +33,7 @@ const CREATE_EVENT_MUTATION: DocumentNode = gql`
     $image: Upload
     $groupName: String!
   ) {
-    createEvent(
+    addEvent(
       accessibility: $accessibility
       actionAfterBlocking: $actionAfterBlocking
       actionBeforeBlocking: $actionBeforeBlocking
@@ -52,4 +52,4 @@ const CREATE_EVENT_MUTATION: DocumentNode = gql`
   }
 `;
 
-export { CREATE_EVENT_MUTATION, GET_EVENTS };
+export { ADD_EVENT_MUTATION, GET_EVENTS };

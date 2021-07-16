@@ -8,7 +8,7 @@ import waitForExpect from "wait-for-expect";
 
 import { AddOrganizationModal } from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal";
 import {
-  CREATE_NEW_ORGANIZATION,
+  ADD_NEW_ORGANIZATION,
   GET_AVAILABLE_ORGANIZATION_NAME,
 } from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal/queries";
 
@@ -101,14 +101,14 @@ describe("Add organization modal", (): void => {
       },
       {
         request: {
-          query: CREATE_NEW_ORGANIZATION,
+          query: ADD_NEW_ORGANIZATION,
           variables: {
             name: "ESDEATH",
           },
         },
         result: {
           data: {
-            createOrganization: {
+            addOrganization: {
               organization: {
                 id: "ORG#eb50af04-4d50-4e40-bab1-a3fe9f672f9d",
                 name: "esdeath",

@@ -1,5 +1,5 @@
 from custom_types import (
-    CreateOrganizationPayload,
+    AddOrganizationPayload,
     Organization,
 )
 from decorators import (
@@ -27,7 +27,7 @@ TRANSACTIONS_LOGGER: logging.Logger = logging.getLogger("transactional")
 @require_login
 async def mutate(
     _parent: None, info: GraphQLResolveInfo, name: str
-) -> CreateOrganizationPayload:
+) -> AddOrganizationPayload:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
 
@@ -46,4 +46,4 @@ async def mutate(
         user_email,
     )
 
-    return CreateOrganizationPayload(success=True, organization=organization)
+    return AddOrganizationPayload(success=True, organization=organization)

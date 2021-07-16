@@ -25,6 +25,21 @@ type Mutation {
     type: FindingType
   ): SimplePayload!
 
+  addEvent(
+    actionAfterBlocking: ActionsAfterBlocking!
+    actionBeforeBlocking: ActionsBeforeBlocking!
+    accessibility: [EventAccessibility]!
+    affectedComponents: [AffectedComponents]
+    blockingHours: String
+    context: EventContext!
+    detail: String!
+    eventDate: DateTime!
+    eventType: EventType!
+    file: Upload
+    groupName: String!
+    image: Upload
+  ): SimplePayload!
+
   addEventConsult(
     content: String!
     eventId: String!
@@ -113,6 +128,8 @@ type Mutation {
     tags: [String]
   ): SimplePayload!
 
+  addOrganization(name: String!): AddOrganizationPayload!
+
   addProjectConsult(
     content: String!
     parent: GenericScalar!
@@ -179,7 +196,8 @@ type Mutation {
     groupName: String
     image: Upload
     projectName: String
-  ): SimplePayload!
+  ): SimplePayload! @deprecated(reason: """This mutation will be removed
+      after 2021/12/31. Use `addEvent` instead.""")
 
   createGroup(
     description: String!
@@ -193,7 +211,9 @@ type Mutation {
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
       after 2021/12/31. Use `addGroup` instead.""")
 
-  createOrganization(name: String!): CreateOrganizationPayload!
+  createOrganization(name: String!): AddOrganizationPayload!
+    @deprecated(reason: """This mutation will be removed after 2021/12/31.
+    Use `addOrganization` instead.""")
 
   createProject(
     description: String!

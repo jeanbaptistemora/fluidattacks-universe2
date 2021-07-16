@@ -10,7 +10,7 @@ interface IAddOrganizationQryProps {
 }
 
 interface IAddOrganizationMtProps {
-  createOrganization: {
+  addOrganization: {
     organization: {
       id: string;
       name: string;

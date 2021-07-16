@@ -11,7 +11,7 @@ import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
 import {
-  CREATE_NEW_ORGANIZATION,
+  ADD_NEW_ORGANIZATION,
   GET_AVAILABLE_ORGANIZATION_NAME,
 } from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal/queries";
 import type {
@@ -63,24 +63,24 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
     }
   );
 
-  const [createOrganization, { loading: submitting }] = useMutation(
-    CREATE_NEW_ORGANIZATION,
+  const [addOrganization, { loading: submitting }] = useMutation(
+    ADD_NEW_ORGANIZATION,
     {
       onCompleted: (result: IAddOrganizationMtProps): void => {
-        if (result.createOrganization.success) {
+        if (result.addOrganization.success) {
           onClose();
           track("NewOrganization", {
-            OrganizationId: result.createOrganization.organization.id,
-            OrganizationName: result.createOrganization.organization.name,
+            OrganizationId: result.addOrganization.organization.id,
+            OrganizationName: result.addOrganization.organization.name,
           });
           msgSuccess(
             translate.t("sidebar.newOrganization.modal.success", {
-              name: result.createOrganization.organization.name,
+              name: result.addOrganization.organization.name,
             }),
             translate.t("sidebar.newOrganization.modal.successTitle")
           );
           push(
-            `/orgs/${result.createOrganization.organization.name.toLowerCase()}/`
+            `/orgs/${result.addOrganization.organization.name.toLowerCase()}/`
           );
         }
       },
@@ -107,7 +107,7 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
 
   function handleSubmit(values: { name: string }): void {
     track("AddOrganization");
-    void createOrganization({ variables: { name: values.name } });
+    void addOrganization({ variables: { name: values.name } });
   }
 
   const organizationName: string =

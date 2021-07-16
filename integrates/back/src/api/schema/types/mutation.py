@@ -189,9 +189,11 @@ MUTATION.set_field("updateVulnsTreatment", update_vulns_treatment.mutate)
 MUTATION.set_field("updateToeLinesSorts", update_toe_lines_sorts.mutate)
 
 # Standardization Fields
+MUTATION.set_field("addEvent", create_event.mutate)
 MUTATION.set_field("addGroup", add_group.mutate)
-MUTATION.set_field("createGroup", add_group.mutate)
 MUTATION.set_field("addGroupConsult", add_group_consult.mutate)
+MUTATION.set_field("addOrganization", create_organization.mutate)
+MUTATION.set_field("createGroup", add_group.mutate)
 
 if FI_API_STATUS == "migration":
     MUTATION.set_field("addDraft", add_draft_new.mutate)

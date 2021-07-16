@@ -151,8 +151,8 @@ ApproveDraftPayload = NamedTuple(
         ("release_date", str),
     ],
 )
-CreateOrganizationPayload = NamedTuple(
-    "CreateOrganizationPayload",
+AddOrganizationPayload = NamedTuple(
+    "AddOrganizationPayload",
     [("success", bool), ("organization", Organization)],
 )
 DownloadFilePayload = NamedTuple(

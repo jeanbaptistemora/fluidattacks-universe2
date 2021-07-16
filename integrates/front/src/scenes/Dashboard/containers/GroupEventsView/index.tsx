@@ -25,7 +25,7 @@ import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import {
-  CREATE_EVENT_MUTATION,
+  ADD_EVENT_MUTATION,
   GET_EVENTS,
 } from "scenes/Dashboard/containers/GroupEventsView/queries";
 import { formatEvents } from "scenes/Dashboard/containers/GroupEventsView/utils";
@@ -272,9 +272,9 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   });
 
   const handleCreationResult: (result: {
-    createEvent: { success: boolean };
-  }) => void = (result: { createEvent: { success: boolean } }): void => {
-    if (result.createEvent.success) {
+    addEvent: { success: boolean };
+  }) => void = (result: { addEvent: { success: boolean } }): void => {
+    if (result.addEvent.success) {
       closeNewEventModal();
       msgSuccess(
         translate.t("group.events.successCreate"),
@@ -284,7 +284,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     }
   };
 
-  const [createEvent, mtResult] = useMutation(CREATE_EVENT_MUTATION, {
+  const [addEvent, mtResult] = useMutation(ADD_EVENT_MUTATION, {
     onCompleted: handleCreationResult,
     onError: handleCreationError,
   });
@@ -303,7 +303,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
             component.toUpperCase()
           );
 
-      void createEvent({
+      void addEvent({
         variables: {
           groupName,
           ...values,
@@ -315,7 +315,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
         },
       });
     },
-    [createEvent, groupName]
+    [addEvent, groupName]
   );
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
