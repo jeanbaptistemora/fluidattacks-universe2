@@ -703,6 +703,10 @@
           "classes": {},
           "package": ""
         },
+        "go": {
+          "package": "",
+          "sink_functions": {}
+        },
         "java": {
           "classes": {
             ".Test": {
@@ -2116,6 +2120,10 @@
         "c_sharp": {
           "classes": {},
           "package": ""
+        },
+        "go": {
+          "package": "",
+          "sink_functions": {}
         },
         "java": {
           "classes": {

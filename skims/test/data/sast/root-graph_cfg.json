@@ -19089,6 +19089,10 @@
           "classes": {},
           "package": ""
         },
+        "go": {
+          "package": "",
+          "sink_functions": {}
+        },
         "java": {
           "classes": {
             ".InnerTest": {
@@ -50712,6 +50716,33 @@
           "classes": {},
           "package": ""
         },
+        "go": {
+          "package": "main",
+          "sink_functions": {
+            "F127": [
+              {
+                "n_id": "1320",
+                "name": "Connect",
+                "s_id": "1451"
+              },
+              {
+                "n_id": "1986",
+                "name": "DangerousFloat",
+                "s_id": "2020"
+              },
+              {
+                "n_id": "2081",
+                "name": "SafeFloat",
+                "s_id": "2148"
+              },
+              {
+                "n_id": "2242",
+                "name": "DBQuery",
+                "s_id": "2261"
+              }
+            ]
+          }
+        },
         "java": {
           "classes": {},
           "package": ""
@@ -67483,6 +67514,10 @@
         "c_sharp": {
           "classes": {},
           "package": ""
+        },
+        "go": {
+          "package": "",
+          "sink_functions": {}
         },
         "java": {
           "classes": {},

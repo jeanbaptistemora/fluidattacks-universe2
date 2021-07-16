@@ -10364,6 +10364,10 @@
           "classes": {},
           "package": ""
         },
+        "go": {
+          "package": "",
+          "sink_functions": {}
+        },
         "java": {
           "classes": {
             ".App": {
@@ -15346,6 +15350,10 @@
         "c_sharp": {
           "classes": {},
           "package": ""
+        },
+        "go": {
+          "package": "",
+          "sink_functions": {}
         },
         "java": {
           "classes": {

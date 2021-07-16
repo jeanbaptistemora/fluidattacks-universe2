@@ -318,6 +318,12 @@ class GraphShardMetadataClass(NamedTuple):
     inherit: Optional[Set[str]] = None
 
 
+class SinkFunctions(NamedTuple):
+    name: str
+    n_id: NId
+    s_id: NId
+
+
 class GraphShardMetadataJava(NamedTuple):
     classes: Dict[str, GraphShardMetadataClass]
     package: str
@@ -325,6 +331,11 @@ class GraphShardMetadataJava(NamedTuple):
 
 class GraphShardMetadataCSharp(NamedTuple):
     classes: Dict[str, GraphShardMetadataClass]
+    package: str
+
+
+class GraphShardMetadataGo(NamedTuple):
+    sink_functions: Dict[str, List[SinkFunctions]]
     package: str
 
 
@@ -339,11 +350,15 @@ class GraphShardMetadataLanguage(Enum):
 
 class GraphShardMetadata(NamedTuple):
     language: GraphShardMetadataLanguage
-    java: Optional[GraphShardMetadataJava] = GraphShardMetadataJava(
+    c_sharp: Optional[GraphShardMetadataCSharp] = GraphShardMetadataCSharp(
         classes={},
         package="",
     )
-    c_sharp: Optional[GraphShardMetadataCSharp] = GraphShardMetadataCSharp(
+    go: Optional[GraphShardMetadataGo] = GraphShardMetadataGo(
+        sink_functions={},
+        package="",
+    )
+    java: Optional[GraphShardMetadataJava] = GraphShardMetadataJava(
         classes={},
         package="",
     )

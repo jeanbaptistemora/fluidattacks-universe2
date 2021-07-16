@@ -4428,6 +4428,10 @@
           },
           "package": "testcases.CWE89_SQL_Injection"
         },
+        "go": {
+          "package": "",
+          "sink_functions": {}
+        },
         "java": {
           "classes": {},
           "package": ""
@@ -17912,6 +17916,10 @@
           },
           "package": "SampleWebApi.Controllers"
         },
+        "go": {
+          "package": "",
+          "sink_functions": {}
+        },
         "java": {
           "classes": {},
           "package": ""
@@ -26608,6 +26616,10 @@
             }
           },
           "package": ""
+        },
+        "go": {
+          "package": "",
+          "sink_functions": {}
         },
         "java": {
           "classes": {},

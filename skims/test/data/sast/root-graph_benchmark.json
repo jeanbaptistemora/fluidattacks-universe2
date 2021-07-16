@@ -6581,6 +6581,10 @@
           "classes": {},
           "package": ""
         },
+        "go": {
+          "package": "",
+          "sink_functions": {}
+        },
         "java": {
           "classes": {
             ".BenchmarkTest00001": {
@@ -11731,6 +11735,10 @@
         "c_sharp": {
           "classes": {},
           "package": ""
+        },
+        "go": {
+          "package": "",
+          "sink_functions": {}
         },
         "java": {
           "classes": {
@@ -19834,6 +19842,10 @@
         "c_sharp": {
           "classes": {},
           "package": ""
+        },
+        "go": {
+          "package": "",
+          "sink_functions": {}
         },
         "java": {
           "classes": {
