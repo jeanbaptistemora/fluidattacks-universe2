@@ -791,38 +791,6 @@ $gray-176: rgba(176, 176, 191, 1);
   width: 18.125rem;
 }
 
-.services-features { .sect2 { min-height: 720px !important; } }
-
-.services-title:checked~.services-list {
-  animation: fadein 0.5s;
-  display: block;
-}
-
-.solutions-title:checked~.solutions-list {
-  animation: fadein 0.5s;
-  display: block;
-}
-
-.aboutus-title:checked~.aboutus-list {
-  animation: fadein 0.5s;
-  display: block;
-}
-
-.systems-title:checked~.systems-list {
-  animation: fadein 0.5s;
-  display: block;
-}
-
-.categories-title:checked~.categories-list {
-  animation: fadein 0.5s;
-  display: block;
-}
-
-.resources-title:checked~.resources-list {
-  animation: fadein 0.5s;
-  display: block;
-}
-
 .demo-button {
   &:hover {
     p {

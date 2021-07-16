@@ -1412,20 +1412,10 @@ const ListItem: StyledComponent<
   `,
 })``;
 
-const ListItemCheckbox: StyledComponent<
-  "input",
-  Record<string, unknown>
-> = styled.input.attrs({
-  className: `
-    dn
-  `,
-  type: "checkbox",
-})``;
-
 const ListItemLabel: StyledComponent<
-  "label",
+  "div",
   Record<string, unknown>
-> = styled.label.attrs({
+> = styled.div.attrs({
   className: `
     pointer
     hv-fluid-rd
@@ -1616,7 +1606,6 @@ export {
   InnerListContainer,
   InnerListItem,
   ListItem,
-  ListItemCheckbox,
   ListItemLabel,
   LittleBannerContainer,
   LittleBannerTitle,
