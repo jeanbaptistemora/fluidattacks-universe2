@@ -34,9 +34,9 @@ import { DescriptionView } from "scenes/Dashboard/containers/DescriptionView/ind
 import { EvidenceView } from "scenes/Dashboard/containers/EvidenceView/index";
 import {
   APPROVE_DRAFT_MUTATION,
-  DELETE_FINDING_MUTATION,
   GET_FINDING_HEADER,
   REJECT_DRAFT_MUTATION,
+  REMOVE_FINDING_MUTATION,
   SUBMIT_DRAFT_MUTATION,
 } from "scenes/Dashboard/containers/FindingContent/queries";
 import type { IHeaderQueryResult } from "scenes/Dashboard/containers/FindingContent/types";
@@ -170,11 +170,11 @@ const findingContent: React.FC = (): JSX.Element => {
     }
   );
 
-  const [deleteFinding, { loading: deleting }] = useMutation(
-    DELETE_FINDING_MUTATION,
+  const [removeFinding, { loading: deleting }] = useMutation(
+    REMOVE_FINDING_MUTATION,
     {
-      onCompleted: (result: { deleteFinding: { success: boolean } }): void => {
-        if (result.deleteFinding.success) {
+      onCompleted: (result: { removeFinding: { success: boolean } }): void => {
+        if (result.removeFinding.success) {
           msgSuccess(
             translate.t("searchFindings.findingDeleted", { findingId }),
             translate.t("group.drafts.titleSuccess")
@@ -195,11 +195,11 @@ const findingContent: React.FC = (): JSX.Element => {
     (values: Record<string, unknown>): void => {
       // Exception: FP(void operator is necessary)
       // eslint-disable-next-line
-      void deleteFinding({ //NOSONAR
+      void removeFinding({ //NOSONAR
         variables: { findingId, justification: values.justification },
       });
     },
-    [deleteFinding, findingId]
+    [removeFinding, findingId]
   );
 
   if (_.isUndefined(headerData) || _.isEmpty(headerData)) {
@@ -375,10 +375,10 @@ const findingContent: React.FC = (): JSX.Element => {
         <Formik
           enableReinitialize={true}
           initialValues={{}}
-          name={"deleteFinding"}
+          name={"removeFinding"}
           onSubmit={handleDelete}
         >
-          <Form id={"deleteFinding"}>
+          <Form id={"removeFinding"}>
             <FormGroup>
               <ControlLabel>
                 {translate.t("searchFindings.delete.justif.label")}

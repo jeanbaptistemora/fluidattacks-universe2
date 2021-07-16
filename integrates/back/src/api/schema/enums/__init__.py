@@ -72,7 +72,7 @@ ENUMS: Tuple[EnumType, ...] = (
     ),
     EnumType("CallerOrigin", {"API": "API", "FRONT": "FRONT"}),
     EnumType(
-        "DeleteFindingJustification",
+        "RemoveFindingJustification",
         {
             "DUPLICATED": "DUPLICATED",
             "FALSE_POSITIVE": "FALSE_POSITIVE",

@@ -37,7 +37,7 @@ describe("FindingActions", (): void => {
     expect.hasAssertions();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_mutations_delete_finding_mutate" },
+      { action: "api_mutations_remove_finding_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <FindingActions
@@ -66,7 +66,7 @@ describe("FindingActions", (): void => {
     expect.hasAssertions();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_mutations_delete_finding_mutate" },
+      { action: "api_mutations_remove_finding_mutate" },
       { action: "api_mutations_submit_draft_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
@@ -98,7 +98,7 @@ describe("FindingActions", (): void => {
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_approve_draft_mutate" },
-      { action: "api_mutations_delete_finding_mutate" },
+      { action: "api_mutations_remove_finding_mutate" },
       { action: "api_mutations_reject_draft_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(

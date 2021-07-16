@@ -27,8 +27,6 @@ from api.mutations import (
     confirm_zero_risk_vuln,
     deactivate_finding_policy,
     deactivate_root,
-    delete_finding,
-    delete_finding_new,
     delete_vulnerability,
     delete_vulnerability_tags,
     download_event_file,
@@ -48,8 +46,10 @@ from api.mutations import (
     reject_zero_risk_vuln,
     remove_event_evidence,
     remove_files,
+    remove_finding,
     remove_finding_evidence,
     remove_finding_evidence_new,
+    remove_finding_new,
     remove_group,
     remove_group_tag,
     remove_stakeholder_access,
@@ -199,7 +199,8 @@ if FI_API_STATUS == "migration":
     MUTATION.set_field("addDraft", add_draft_new.mutate)
     MUTATION.set_field("approveDraft", approve_draft_new.mutate)
     MUTATION.set_field("createDraft", add_draft_new.mutate)
-    MUTATION.set_field("deleteFinding", delete_finding_new.mutate)
+    MUTATION.set_field("deleteFinding", remove_finding_new.mutate)
+    MUTATION.set_field("removeFinding", remove_finding_new.mutate)
     MUTATION.set_field("rejectDraft", reject_draft_new.mutate)
     MUTATION.set_field("removeEvidence", remove_finding_evidence_new.mutate)
     MUTATION.set_field(
@@ -222,7 +223,8 @@ else:
     MUTATION.set_field("addDraft", add_draft.mutate)
     MUTATION.set_field("approveDraft", approve_draft.mutate)
     MUTATION.set_field("createDraft", add_draft.mutate)
-    MUTATION.set_field("deleteFinding", delete_finding.mutate)
+    MUTATION.set_field("deleteFinding", remove_finding.mutate)
+    MUTATION.set_field("removeFinding", remove_finding.mutate)
     MUTATION.set_field("rejectDraft", reject_draft.mutate)
     MUTATION.set_field("removeEvidence", remove_finding_evidence.mutate)
     MUTATION.set_field(

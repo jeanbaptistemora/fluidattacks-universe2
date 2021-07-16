@@ -14,9 +14,9 @@ import waitForExpect from "wait-for-expect";
 import { FindingContent } from "scenes/Dashboard/containers/FindingContent";
 import {
   APPROVE_DRAFT_MUTATION,
-  DELETE_FINDING_MUTATION,
   GET_FINDING_HEADER,
   REJECT_DRAFT_MUTATION,
+  REMOVE_FINDING_MUTATION,
   SUBMIT_DRAFT_MUTATION,
 } from "scenes/Dashboard/containers/FindingContent/queries";
 import store from "store";
@@ -249,7 +249,7 @@ describe("FindingContent", (): void => {
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_resolvers_finding_historic_state_resolve" },
-      { action: "api_mutations_delete_finding_mutate" },
+      { action: "api_mutations_remove_finding_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
@@ -741,7 +741,7 @@ describe("FindingContent", (): void => {
 
     const deleteMutationMock: Readonly<MockedResponse> = {
       request: {
-        query: DELETE_FINDING_MUTATION,
+        query: REMOVE_FINDING_MUTATION,
         variables: {
           findingId: "438679960",
           justification: "DUPLICATED",
@@ -749,7 +749,7 @@ describe("FindingContent", (): void => {
       },
       result: {
         data: {
-          deleteFinding: {
+          removeFinding: {
             success: true,
           },
         },
@@ -758,7 +758,7 @@ describe("FindingContent", (): void => {
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_resolvers_finding_historic_state_resolve" },
-      { action: "api_mutations_delete_finding_mutate" },
+      { action: "api_mutations_remove_finding_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
@@ -795,7 +795,7 @@ describe("FindingContent", (): void => {
     });
     const justificationForm: ReactWrapper = wrapper
       .find("Formik")
-      .find({ name: "deleteFinding" });
+      .find({ name: "removeFinding" });
     justificationForm.simulate("submit");
     await act(async (): Promise<void> => {
       const delay = 150;
@@ -812,7 +812,7 @@ describe("FindingContent", (): void => {
 
     const deleteMutationMock: Readonly<MockedResponse> = {
       request: {
-        query: DELETE_FINDING_MUTATION,
+        query: REMOVE_FINDING_MUTATION,
         variables: {
           findingId: "438679960",
           justification: "DUPLICATED",
@@ -825,7 +825,7 @@ describe("FindingContent", (): void => {
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_resolvers_finding_historic_state_resolve" },
-      { action: "api_mutations_delete_finding_mutate" },
+      { action: "api_mutations_remove_finding_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/438679960/description"]}>
@@ -862,7 +862,7 @@ describe("FindingContent", (): void => {
     });
     const justificationForm: ReactWrapper = wrapper
       .find("Formik")
-      .find({ name: "deleteFinding" });
+      .find({ name: "removeFinding" });
     justificationForm.simulate("submit");
     await act(async (): Promise<void> => {
       await wait(0);

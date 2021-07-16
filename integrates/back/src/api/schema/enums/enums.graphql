@@ -59,7 +59,7 @@ enum CloningStatus {
   UNKNOWN
 }
 
-enum DeleteFindingJustification {
+enum RemoveFindingJustification {
   DUPLICATED
   FALSE_POSITIVE
   NOT_REQUIRED

@@ -110,7 +110,7 @@ const findingActions: React.FC<IFindingActionsProps> = (
           </Can>
         </React.Fragment>
       ) : undefined}
-      <Can do={"api_mutations_delete_finding_mutate"}>
+      <Can do={"api_mutations_remove_finding_mutate"}>
         <TooltipWrapper
           displayClass={"dib"}
           id={"searchFindings.delete.btn.tooltip"}

@@ -40,12 +40,12 @@ const REJECT_DRAFT_MUTATION: DocumentNode = gql`
   }
 `;
 
-const DELETE_FINDING_MUTATION: DocumentNode = gql`
-  mutation DeleteFindingMutation(
+const REMOVE_FINDING_MUTATION: DocumentNode = gql`
+  mutation RemoveFindingMutation(
     $findingId: String!
-    $justification: DeleteFindingJustification!
+    $justification: RemoveFindingJustification!
   ) {
-    deleteFinding(findingId: $findingId, justification: $justification) {
+    removeFinding(findingId: $findingId, justification: $justification) {
       success
     }
   }
@@ -56,5 +56,5 @@ export {
   SUBMIT_DRAFT_MUTATION,
   APPROVE_DRAFT_MUTATION,
   REJECT_DRAFT_MUTATION,
-  DELETE_FINDING_MUTATION,
+  REMOVE_FINDING_MUTATION,
 };
