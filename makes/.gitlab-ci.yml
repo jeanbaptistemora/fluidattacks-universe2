@@ -8,6 +8,12 @@
   variables:
     GIT_DEPTH: 5
 
+.makes4: &makes4
+  <<: *makes
+  image: ghcr.io/fluidattacks/makes:21.08
+  script:
+    - m . "${CI_JOB_NAME% *}"
+
 .makes_commit_pattern: &makes_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|makes)/'
 
 .makes_in_dev_branch: &makes_in_dev_branch
@@ -63,6 +69,15 @@ makes.ci.test:
   <<: *makes
   <<: *makes_in_dev_branch
   stage: test-infra
+
+/lintTerraform/makesCi:
+  <<: *makes4
+  <<: *makes_in_dev_branch
+  script:
+    - AWS_ACCESS_KEY_ID=$MAKES_DEV_AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY=$MAKES_DEV_AWS_SECRET_ACCESS_KEY
+      m . /lintTerraform/makesCi
+  stage: lint-code
 
 makes.compute.apply:
   <<: *makes

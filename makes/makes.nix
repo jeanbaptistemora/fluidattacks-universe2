@@ -37,4 +37,33 @@
     enable = true;
     targets = [ "/" ];
   };
+  lintTerraform = {
+    enable = true;
+    config = ''
+      config {
+        module = true
+      }
+      plugin "aws" {
+        enabled = true
+        deep_check = true
+      }
+      rule "aws_resource_missing_tags" {
+        enabled = true
+        tags = [
+          "Name",
+          "management:type",
+          "management:product",
+        ]
+        exclude = [
+          "aws_iam_policy",
+        ]
+      }
+    '';
+    modules = {
+      makesCi = {
+        src = "/makes/applications/makes/ci/src/terraform";
+        version = "0.13";
+      };
+    };
+  };
 }
