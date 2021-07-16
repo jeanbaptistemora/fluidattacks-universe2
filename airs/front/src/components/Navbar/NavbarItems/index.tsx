@@ -25,7 +25,7 @@ const NavbarItems: React.FC = (): JSX.Element => (
         <Link className={"db tc pa1 no-underline"} to={"/"}>
           <CloudImage
             alt={"Fluid Attacks logo navbar"}
-            src={"logo-fluid-attacks-light"}
+            src={"logo_fluid_attacks_2021"}
             styles={"h-5 ml3 pv2"}
           />
         </Link>
