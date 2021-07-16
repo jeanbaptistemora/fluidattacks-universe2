@@ -23,6 +23,13 @@
         python = "3.8";
         src = "/makes/applications/skims/test/sdk/src";
       };
+      skimsProcessGroup = {
+        extraSources = [
+          inputs.product.skims-config-runtime
+        ];
+        python = "3.8";
+        src = "/makes/applications/skims/process-group/src";
+      };
     };
   };
 }

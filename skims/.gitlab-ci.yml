@@ -82,6 +82,11 @@ skims.lint:
   <<: *skims_in_dev_branch
   stage: lint-code
 
+/lintPython/module/skimsProcessGroup:
+  <<: *makes4
+  <<: *skims_in_dev_branch
+  stage: lint-code
+
 skims.security:
   <<: *makes
   <<: *skims_in_dev_branch
