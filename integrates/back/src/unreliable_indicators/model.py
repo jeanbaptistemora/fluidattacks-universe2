@@ -18,7 +18,7 @@ ENTITIES = {
             EntityIdName.id,
         },
         attrs={
-            EntityAttrName.unreliable_age: dict(
+            EntityAttrName.age: dict(
                 dependencies={
                     "confirm_zero_risk_vuln",
                     "delete_vulnerability",
@@ -27,12 +27,12 @@ ENTITIES = {
                     "upload_file",
                 }
             ),
-            EntityAttrName.unreliable_closed_vulnerabilities: dict(
+            EntityAttrName.closed_vulnerabilities: dict(
                 dependencies={
                     "upload_file",
                 }
             ),
-            EntityAttrName.unreliable_is_verified: dict(
+            EntityAttrName.is_verified: dict(
                 dependencies={
                     "confirm_zero_risk_vuln",
                     "delete_vulnerability",
@@ -43,7 +43,7 @@ ENTITIES = {
                     "verify_request_vulnerability",
                 }
             ),
-            EntityAttrName.unreliable_last_vulnerability: dict(
+            EntityAttrName.last_vulnerability: dict(
                 dependencies={
                     "delete_vulnerability",
                     "reject_zero_risk_vuln",
@@ -51,16 +51,7 @@ ENTITIES = {
                     "upload_file",
                 }
             ),
-            EntityAttrName.unreliable_open_age: dict(
-                dependencies={
-                    "confirm_zero_risk_vuln",
-                    "delete_vulnerability",
-                    "reject_zero_risk_vuln",
-                    "request_zero_risk_vuln",
-                    "upload_file",
-                }
-            ),
-            EntityAttrName.unreliable_open_vulnerabilities: dict(
+            EntityAttrName.open_age: dict(
                 dependencies={
                     "confirm_zero_risk_vuln",
                     "delete_vulnerability",
@@ -69,7 +60,7 @@ ENTITIES = {
                     "upload_file",
                 }
             ),
-            EntityAttrName.unreliable_report_date: dict(
+            EntityAttrName.open_vulnerabilities: dict(
                 dependencies={
                     "confirm_zero_risk_vuln",
                     "delete_vulnerability",
@@ -78,7 +69,16 @@ ENTITIES = {
                     "upload_file",
                 }
             ),
-            EntityAttrName.unreliable_status: dict(
+            EntityAttrName.report_date: dict(
+                dependencies={
+                    "confirm_zero_risk_vuln",
+                    "delete_vulnerability",
+                    "reject_zero_risk_vuln",
+                    "request_zero_risk_vuln",
+                    "upload_file",
+                }
+            ),
+            EntityAttrName.status: dict(
                 dependencies={
                     "confirm_zero_risk_vuln",
                     "delete_vulnerability",
