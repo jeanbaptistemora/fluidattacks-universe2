@@ -46,6 +46,7 @@ def scan_file(
             api_response = API_CLIENT.scan_file_advanced(
                 tmp_file.name,
                 allow_executables=True,
+                allow_macros=True,
                 allow_scripts=True,
                 allow_invalid_files=True,
             )
