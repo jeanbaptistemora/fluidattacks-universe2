@@ -575,8 +575,8 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
           <RowCenter>
             <Col100>
               <Graphic
-                bsHeight={160}
-                className={"g2"}
+                bsHeight={240}
+                className={"g4"}
                 documentName={"meanTimeToRemediate"}
                 documentType={"barChart"}
                 entity={entity}

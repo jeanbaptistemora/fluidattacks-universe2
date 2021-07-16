@@ -324,6 +324,22 @@ label {
   display: block;
 }
 
+:global .g4 {
+  background-color: #fff;
+  border: 1px solid transparent;
+  border-color: #ddd;
+  height: 322px;
+}
+
+:global .g4:hover {
+  height: auto;
+}
+
+:global .g4:hover .panel-cf {
+  height: auto;
+  display: block;
+}
+
 :global .suscribeDropdownBtn {
   width: 260px;
 }
