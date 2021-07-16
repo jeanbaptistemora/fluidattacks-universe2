@@ -1,5 +1,6 @@
 import type { FieldProps } from "formik";
 import { useField } from "formik";
+import _ from "lodash";
 import type { InputHTMLAttributes } from "react";
 import React from "react";
 
@@ -28,6 +29,7 @@ export const FormikAutocompleteText: React.FC<IAutocompleteTextProps> = ({
 
   const matches = suggestions.filter(
     (suggestion: string): boolean =>
+      !_.isNil(value) &&
       value.trim() !== "" &&
       suggestion.toLowerCase().includes(value.toLowerCase())
   );

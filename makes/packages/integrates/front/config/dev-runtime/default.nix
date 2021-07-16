@@ -638,7 +638,6 @@ buildNodeRequirements {
       "jest-watcher@27.0.6"
       "jest-worker@26.6.2"
       "js-tokens@4.0.0"
-      "js-yaml@3.14.1"
       "jsesc@2.5.2"
       "json-parse-better-errors@1.0.2"
       "json-parse-even-better-errors@2.3.1"

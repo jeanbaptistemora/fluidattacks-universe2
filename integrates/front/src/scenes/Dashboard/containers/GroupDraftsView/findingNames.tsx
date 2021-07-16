@@ -1,14 +1,6 @@
-interface IResponseStructure {
-  feed: { entry: IRowStructure[] };
-}
-interface IRowStructure {
-  gsx$cwe: { $t: string };
-  gsx$descripcion: { $t: string };
-  gsx$fin: { $t: string };
-  gsx$recomendacion: { $t: string };
-  gsx$requisito: { $t: string };
-  gsx$tipo: { $t: string };
-}
+/* eslint-disable camelcase */
+import yaml from "js-yaml";
+
 interface ISuggestion {
   cwe: string;
   description: string;
@@ -17,32 +9,70 @@ interface ISuggestion {
   title: string;
   type: string;
 }
+
+interface IVulnLanguage {
+  title: string;
+  description: string;
+  impact: string;
+  recommendation: string;
+  threat: string;
+}
+
+interface IVulnScore {
+  base: {
+    attack_vector: string;
+    attack_complexity: string;
+    privileges_required: string;
+    user_interaction: string;
+    scope: string;
+    confidentiality: string;
+    integrity: string;
+    availability: string;
+  };
+  temporal: {
+    exploit_code_maturity: string;
+    remediation_level: string;
+    report_confidence: string;
+  };
+}
+
+interface IVulnData {
+  en: IVulnLanguage;
+  es: IVulnLanguage;
+  score: IVulnScore;
+  requirements: string[];
+  metadata: Record<string, unknown>;
+}
+
 async function getFindingNames(): Promise<ISuggestion[]> {
-  const baseUrl: string = "https://spreadsheets.google.com/feeds/list";
-  const spreadsheetId: string = "1L37WnF6enoC8Ws8vs9sr0G29qBLwbe-3ztbuopu1nvc";
-  const rowOffset: number = 2;
-  const extraParams: string = `&min-row=${rowOffset}`;
+  const baseUrl: string =
+    "https://gitlab.com/api/v4/projects/20741933/repository/files";
+  const fileId: string =
+    "makes%2Fapplications%2Fmakes%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml";
+  const branchRef: string = "master";
   const response: Response = await fetch(
-    `${baseUrl}/${spreadsheetId}/1/public/values?alt=json${extraParams}`
+    `${baseUrl}/${fileId}/raw?ref=${branchRef}`
   );
-  const body: IResponseStructure | undefined = await response.json();
+  const yamlFile: string = await response.text();
+  if (yamlFile) {
+    const vulnsData = yaml.load(yamlFile) as Record<string, IVulnData>;
+    const suggestions: ISuggestion[] = Object.keys(vulnsData).map(
+      (key: string): ISuggestion => {
+        return {
+          cwe: key,
+          description: vulnsData[key].en.description,
+          recommendation: vulnsData[key].en.recommendation,
+          requirements: vulnsData[key].requirements.toString(),
+          title: vulnsData[key].en.title,
+          type: "",
+        };
+      }
+    );
 
-  if (body?.feed.entry) {
-    return body.feed.entry.map((row: IRowStructure): ISuggestion => {
-      const cwe: RegExpMatchArray | null = row.gsx$cwe.$t.match(/\d+/gu);
-
-      return {
-        cwe: cwe === null ? "" : cwe[0],
-        description: row.gsx$descripcion.$t,
-        recommendation: row.gsx$recomendacion.$t,
-        requirements: row.gsx$requisito.$t,
-        title: row.gsx$fin.$t,
-        type: row.gsx$tipo.$t === "Seguridad" ? "SECURITY" : "HYGIENE",
-      };
-    });
+    return suggestions;
   }
 
   return [];
 }
 
-export { IResponseStructure, IRowStructure, ISuggestion, getFindingNames };
+export { ISuggestion, getFindingNames };

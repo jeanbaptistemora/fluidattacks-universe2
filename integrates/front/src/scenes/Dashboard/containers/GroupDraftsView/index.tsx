@@ -139,7 +139,8 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
 
   const [suggestions, setSuggestions] = useState<ISuggestion[]>([]);
   const titleSuggestions: string[] = suggestions.map(
-    (suggestion: ISuggestion): string => suggestion.title
+    (suggestion: ISuggestion): string =>
+      `F${suggestion.cwe}. ${suggestion.title}`
   );
 
   useEffect((): void => {
