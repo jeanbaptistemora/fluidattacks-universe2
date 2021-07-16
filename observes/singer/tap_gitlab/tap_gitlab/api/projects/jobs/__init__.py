@@ -4,6 +4,7 @@ from __future__ import (
     annotations,
 )
 
+import logging
 from paginator.int_index_2 import (
     get_until_end,
 )
@@ -57,6 +58,9 @@ def _raise(error: Exception) -> NoReturn:
     raise error
 
 
+LOG = logging.getLogger(__name__)
+
+
 class JobApi(NamedTuple):
     client: PageClient
     proj: ProjectId
@@ -73,15 +77,19 @@ class JobApi(NamedTuple):
 
         return IO(get_until_end(start, getter, 10))
 
-    def search_item_page(
+    def search_possible_item_page(
         self, item_id: int, start: PageId[int]
     ) -> IO[Maybe[PageId[int]]]:
         def _search(pages: Iterator[JobsPage]) -> Maybe[PageId[int]]:
             for page in pages:
-                if page.min_id >= item_id:
-                    if page.max_id <= item_id:
+                LOG.debug(f"Searching item_id: {item_id}")
+                if page.min_id <= item_id:
+                    if page.max_id >= item_id:
                         return Maybe.from_value(page.page)
-                    return Maybe.empty
+                    n = page.page.page - 1
+                    return Maybe.from_value(
+                        PageId(n if n > 0 else 1, page.page.per_page)
+                    )
             return Maybe.empty
 
         return self.list_all(start).map(_search)
@@ -91,7 +99,7 @@ class JobApi(NamedTuple):
         item_id: int,
         start: PageId[int],
     ) -> IO[Iterator[JobsPage]]:
-        init = self.search_item_page(item_id, start).map(
+        init = self.search_possible_item_page(item_id, start).map(
             lambda item: item.or_else_call(
                 lambda: _raise(NotFound(f"id: {item_id}"))  # type: ignore
             )
@@ -115,7 +123,7 @@ class JobApi(NamedTuple):
         ids: ClosedInterval[int],
         start: PageId[int],
     ) -> IO[Iterator[JobsPage]]:
-        init = self.search_item_page(ids.upper, start).map(
+        init = self.search_possible_item_page(ids.upper, start).map(
             lambda item: item.or_else_call(
                 lambda: _raise(NotFound(f"id: {ids.upper}"))  # type: ignore
             )
