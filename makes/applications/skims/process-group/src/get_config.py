@@ -68,7 +68,11 @@ def get_urls_from_scopes(scopes: Set[str], components: List[str]) -> List[str]:
                 urls.add(f"{scope_c.scheme}://{component}")
 
     for scope in scopes:
-        for from_, to_ in (("http://", "https://"), ("https://", "http://")):
+        # FP: switch the type of protocol
+        for from_, to_ in (
+            ("http://", "https://"),  # NOSONAR
+            ("https://", "http://"),  # NOSONAR
+        ):
             if scope.startswith(from_):
                 urls.add(scope.replace(from_, to_, 1))
 
