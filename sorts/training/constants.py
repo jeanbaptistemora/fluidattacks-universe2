@@ -83,11 +83,9 @@ MODELS: Dict[str, ModelType] = {
 
 # Hyperparameters
 MODEL_HYPERPARAMETERS = {
-    "mlpclassifier": {
-        "activation": CategoricalParameter(
-            ["relu", "tanh", "identity", "logistic"]
-        ),
-        "solver": CategoricalParameter(["lbfgs", "sgd", "adam"]),
+    "adaboostclassifier": {
+        "algorithm": CategoricalParameter(["SAMME", "SAMME.R"]),
+        "n_estimators": IntegerParameter(40, 60),
     },
     "gradientboostingclassifier": {
         "max_depth": IntegerParameter(3, 5),
@@ -96,8 +94,16 @@ MODEL_HYPERPARAMETERS = {
             0.01, 0.1, scaling_type="Logarithmic"
         ),
     },
-    "adaboostclassifier": {
-        "algorithm": CategoricalParameter(["SAMME", "SAMME.R"]),
-        "n_estimators": IntegerParameter(40, 60),
+    "lgbmclassifier": {
+        "max_depth": IntegerParameter(3, 6),
+        "learning_rate": ContinuousParameter(
+            0.01, 0.08, scaling_type="Logarithmic"
+        ),
+    },
+    "mlpclassifier": {
+        "activation": CategoricalParameter(
+            ["relu", "tanh", "identity", "logistic"]
+        ),
+        "solver": CategoricalParameter(["lbfgs", "sgd", "adam"]),
     },
 }
