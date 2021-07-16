@@ -71,6 +71,7 @@ if __name__ == "__main__":
         "GradientBoostingClassifier",
         "HistGradientBoostingClassifier",
         "KNeighborsClassifier",
+        "LGBMClassifier",
         "LinearSVC",
         "MLPClassifier",
         "RandomForestClassifier",
