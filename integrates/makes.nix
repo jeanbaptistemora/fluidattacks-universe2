@@ -13,7 +13,7 @@
           config.inputs.product.skims-config-sdk
         ];
         python = "3.7";
-        src = "/integrates/back/src/";
+        src = "/integrates/back/src";
       };
     };
   };
