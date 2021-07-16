@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import yaml from "js-yaml";
+import _ from "lodash";
 
 interface ISuggestion {
   cwe: string;
@@ -43,7 +44,9 @@ interface IVulnData {
   metadata: Record<string, unknown>;
 }
 
-async function getFindingNames(): Promise<ISuggestion[]> {
+async function getFindingNames(
+  language: string | undefined
+): Promise<ISuggestion[]> {
   const baseUrl: string =
     "https://gitlab.com/api/v4/projects/20741933/repository/files";
   const fileId: string =
@@ -57,6 +60,16 @@ async function getFindingNames(): Promise<ISuggestion[]> {
     const vulnsData = yaml.load(yamlFile) as Record<string, IVulnData>;
     const suggestions: ISuggestion[] = Object.keys(vulnsData).map(
       (key: string): ISuggestion => {
+        if (!_.isNil(language) && language === "ES") {
+          return {
+            cwe: key,
+            description: vulnsData[key].es.description,
+            recommendation: vulnsData[key].es.recommendation,
+            requirements: vulnsData[key].requirements.toString(),
+            title: vulnsData[key].es.title,
+          };
+        }
+
         return {
           cwe: key,
           description: vulnsData[key].en.description,

@@ -143,20 +143,6 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
       `F${suggestion.cwe}. ${suggestion.title}`
   );
 
-  useEffect((): void => {
-    async function fetchData(): Promise<void> {
-      const findingNames: ISuggestion[] = await getFindingNames().catch(
-        (error: Error): ISuggestion[] => {
-          Logger.error("An error occurred getting draft suggestions", error);
-
-          return [];
-        }
-      );
-      setSuggestions(findingNames);
-    }
-    void fetchData();
-  }, []);
-
   const handleQryError: (error: ApolloError) => void = ({
     graphQLErrors,
   }: ApolloError): void => {
@@ -170,6 +156,20 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
     onError: handleQryError,
     variables: { groupName },
   });
+
+  useEffect((): void => {
+    async function fetchData(): Promise<void> {
+      const findingNames: ISuggestion[] = await getFindingNames(
+        data?.group.language
+      ).catch((error: Error): ISuggestion[] => {
+        Logger.error("An error occurred getting draft suggestions", error);
+
+        return [];
+      });
+      setSuggestions(findingNames);
+    }
+    void fetchData();
+  }, [data?.group.language]);
 
   const handleMutationResult: (result: {
     addDraft: { success: boolean };

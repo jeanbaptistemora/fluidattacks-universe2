@@ -12,5 +12,7 @@ export interface IGroupDraftsAttr {
       title: string;
       type: string;
     }[];
+    language: string;
+    name: string;
   };
 }
