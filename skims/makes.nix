@@ -16,6 +16,14 @@
   lintPython = {
     enable = true;
     modules = {
+      skimsTest = {
+        extraSources = [
+          inputs.product.skims-config-development
+          inputs.product.skims-config-runtime
+        ];
+        python = "3.8";
+        src = "/skims/test";
+      };
       skimsTestMocksHttp = {
         extraSources = [
           inputs.product.skims-test-mocks-http-env

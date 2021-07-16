@@ -4467,7 +4467,7 @@ F060,lines,namespace/skims/test/data/lib_path/f060/java.java,6,396,skims,F060. I
   10 |
      ^ Col 7
 "
-F060,lines,namespace/skims/test/data/lib_path/f060/python.py,10,396,skims,F060. Insecure exceptions,Insecure Python exception in skims/test/data/lib_path/f060/python.py,"
+F060,lines,namespace/skims/test/data/lib_path/f060/python060.py,10,396,skims,F060. Insecure exceptions,Insecure Python exception in skims/test/data/lib_path/f060/python060.py,"
    1 | # flake8: noqa
    2 | try:
    3 |     raise KeyError()
@@ -4481,7 +4481,7 @@ F060,lines,namespace/skims/test/data/lib_path/f060/python.py,10,396,skims,F060. 
   11 |     raise
      ^ Col 0
 "
-F060,lines,namespace/skims/test/data/lib_path/f060/python.py,8,396,skims,F060. Insecure exceptions,Insecure Python exception in skims/test/data/lib_path/f060/python.py,"
+F060,lines,namespace/skims/test/data/lib_path/f060/python060.py,8,396,skims,F060. Insecure exceptions,Insecure Python exception in skims/test/data/lib_path/f060/python060.py,"
    1 | # flake8: noqa
    2 | try:
    3 |     raise KeyError()
@@ -4495,7 +4495,7 @@ F060,lines,namespace/skims/test/data/lib_path/f060/python.py,8,396,skims,F060. I
   11 |     raise
      ^ Col 0
 "
-F060,lines,namespace/skims/test/data/lib_path/f060/python.py,4,396,skims,F060. Insecure exceptions,Insecure Python exception in skims/test/data/lib_path/f060/python.py,"
+F060,lines,namespace/skims/test/data/lib_path/f060/python060.py,4,396,skims,F060. Insecure exceptions,Insecure Python exception in skims/test/data/lib_path/f060/python060.py,"
    1 | # flake8: noqa
    2 | try:
    3 |     raise KeyError()
