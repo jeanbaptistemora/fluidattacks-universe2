@@ -7,6 +7,7 @@ from api.mutations import (
     activate_root,
     add_draft,
     add_draft_new,
+    add_event,
     add_event_consult,
     add_files,
     add_finding_consult,
@@ -17,14 +18,13 @@ from api.mutations import (
     add_group_tags,
     add_ip_root,
     add_org_finding_policy,
+    add_organization,
     add_push_token,
     add_stakeholder,
     add_url_root,
     approve_draft,
     approve_draft_new,
     confirm_zero_risk_vuln,
-    create_event,
-    create_organization,
     deactivate_finding_policy,
     deactivate_root,
     delete_finding,
@@ -105,8 +105,8 @@ MUTATION.set_field("addOrgFindingPolicy", add_org_finding_policy.mutate)
 MUTATION.set_field("addUrlRoot", add_url_root.mutate)
 MUTATION.set_field("addStakeholder", add_stakeholder.mutate)
 MUTATION.set_field("confirmZeroRiskVuln", confirm_zero_risk_vuln.mutate)
-MUTATION.set_field("createEvent", create_event.mutate)
-MUTATION.set_field("createOrganization", create_organization.mutate)
+MUTATION.set_field("createEvent", add_event.mutate)
+MUTATION.set_field("createOrganization", add_organization.mutate)
 MUTATION.set_field(
     "deactivateOrgFindingPolicy", deactivate_finding_policy.mutate
 )
@@ -189,10 +189,10 @@ MUTATION.set_field("updateVulnsTreatment", update_vulns_treatment.mutate)
 MUTATION.set_field("updateToeLinesSorts", update_toe_lines_sorts.mutate)
 
 # Standardization Fields
-MUTATION.set_field("addEvent", create_event.mutate)
+MUTATION.set_field("addEvent", add_event.mutate)
 MUTATION.set_field("addGroup", add_group.mutate)
 MUTATION.set_field("addGroupConsult", add_group_consult.mutate)
-MUTATION.set_field("addOrganization", create_organization.mutate)
+MUTATION.set_field("addOrganization", add_organization.mutate)
 MUTATION.set_field("createGroup", add_group.mutate)
 
 if FI_API_STATUS == "migration":

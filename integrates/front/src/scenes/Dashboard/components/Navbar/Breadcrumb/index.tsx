@@ -130,7 +130,7 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
           <SplitButton
             content={
               <div className={"splitItems"}>
-                <Can do={"api_mutations_create_organization_mutate"}>
+                <Can do={"api_mutations_add_organization_mutate"}>
                   <MenuItem
                     eventKey={""}
                     itemContent={t("sidebar.newOrganization.text")}

@@ -341,7 +341,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       <Row>
         <Col100>
           <ButtonToolbarCenter>
-            <Can do={"api_mutations_create_event_mutate"}>
+            <Can do={"api_mutations_add_event_mutate"}>
               <TooltipWrapper
                 id={"group.events.btn.tooltip.id"}
                 message={translate.t("group.events.btn.tooltip")}

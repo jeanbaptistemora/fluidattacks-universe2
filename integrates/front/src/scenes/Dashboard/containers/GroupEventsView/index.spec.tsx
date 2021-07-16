@@ -150,7 +150,7 @@ describe("EventsView", (): void => {
     expect.hasAssertions();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_mutations_create_event_mutate" },
+      { action: "api_mutations_add_event_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/unittesting/events"]}>

@@ -17,6 +17,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_add_event_consult_mutate",
             "api_mutations_add_draft_mutate",
             "api_mutations_add_draft_new_mutate",
+            "api_mutations_add_event_mutate",
             "api_mutations_add_files_mutate",
             "api_mutations_add_finding_consult_mutate",
             "api_mutations_add_git_root_mutate",
@@ -136,6 +137,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             "api_mutations_add_draft_mutate",
             "api_mutations_add_draft_new_mutate",
+            "api_mutations_add_event_mutate",
             "api_mutations_add_event_consult_mutate",
             "api_mutations_add_finding_consult_mutate",
             "api_mutations_add_group_consult_mutate",
@@ -214,6 +216,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             "api_mutations_add_draft_mutate",
             "api_mutations_add_draft_new_mutate",
+            "api_mutations_add_event_mutate",
             "api_mutations_add_event_consult_mutate",
             "api_mutations_add_finding_consult_mutate",
             "api_mutations_create_draft_mutate",
@@ -447,6 +450,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_add_git_root_mutate",
             "api_mutations_add_group_consult_mutate",
             "api_mutations_add_group_tags_mutate",
+            "api_mutations_add_event_mutate",
             "api_mutations_add_ip_root_mutate",
             "api_mutations_add_url_root_mutate",
             "api_mutations_create_event_mutate",
@@ -522,6 +526,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     resourcer=dict(
         actions={
+            "api_mutations_add_event_mutate",
             "api_mutations_add_event_consult_mutate",
             "api_mutations_add_git_root_mutate",
             "api_mutations_create_event_mutate",
@@ -846,6 +851,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
             "api_mutations_add_group_mutate",
+            "api_mutations_add_organization_mutate",
             "api_mutations_add_stakeholder_mutate",
             "api_mutations_create_group_mutate",
             "api_mutations_create_organization_mutate",
@@ -893,6 +899,7 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *USER_LEVEL_ROLES["analyst"]["actions"],
             "api_mutations_add_group_mutate",
+            "api_mutations_add_organization_mutate",
             "api_mutations_create_group_mutate",
             "api_mutations_create_organization_mutate",
             "api_resolvers_query_user_list_groups_resolve",
@@ -907,6 +914,7 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         actions={
             *USER_LEVEL_ROLES["customer"]["actions"],
             "api_mutations_add_group_mutate",
+            "api_mutations_add_organization_mutate",
             "api_mutations_create_group_mutate",
             "api_mutations_create_organization_mutate",
             "front_can_use_groups_searchbar",
