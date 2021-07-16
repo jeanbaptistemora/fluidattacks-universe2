@@ -28,6 +28,7 @@ from api.resolvers.group import (
     total_findings_new,
     total_treatment,
     user_role,
+    vulns_to_reattack,
 )
 from ariadne import (
     ObjectType,
@@ -49,6 +50,7 @@ GROUP.set_field("stakeholders", stakeholders.resolve)
 GROUP.set_field("toeInputs", toe_inputs.resolve)
 GROUP.set_field("totalTreatment", total_treatment.resolve)
 GROUP.set_field("userRole", user_role.resolve)
+GROUP.set_field("vulnsToReattack", vulns_to_reattack.resolve)
 
 if FI_API_STATUS == "migration":
     GROUP.set_field("drafts", drafts_new.resolve)

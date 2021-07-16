@@ -47,4 +47,5 @@ type Group {
   totalTreatment: GenericScalar
   userDeletion: String
   userRole: String
+  vulnsToReattack: [Vulnerability]
 }
