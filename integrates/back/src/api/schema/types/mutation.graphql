@@ -18,9 +18,11 @@ type Mutation {
     cwe: String
     description: String
     groupName: String!
+    privilegesRequired: String
     recommendation: String
     requirements: String
     risk: String
+    severityScope: String
     threat: String
     title: String!
     type: FindingType

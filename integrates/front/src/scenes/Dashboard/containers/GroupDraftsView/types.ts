@@ -23,8 +23,10 @@ interface ISuggestion {
   attackVector: string;
   cwe: string;
   description: string;
+  privilegesRequired: string;
   recommendation: string;
   requirements: string;
+  severityScope: string;
   threat: string;
   title: string;
 }

@@ -28,9 +28,11 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
     $cwe: String
     $description: String
     $groupName: String!
+    $privilegesRequired: String
     $recommendation: String
     $requirements: String
     $risk: String
+    $severityScope: String
     $threat: String
     $title: String!
   ) {
@@ -40,9 +42,11 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
       cwe: $cwe
       description: $description
       groupName: $groupName
+      privilegesRequired: $privilegesRequired
       recommendation: $recommendation
       requirements: $requirements
       risk: $risk
+      severityScope: $severityScope
       threat: $threat
       title: $title
     ) {

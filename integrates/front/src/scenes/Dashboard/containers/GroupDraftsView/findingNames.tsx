@@ -20,6 +20,34 @@ const attackVectorOptions: Record<string, string> = {
   P: "0.2",
 };
 
+const severityScopeOptions: Record<string, string> = {
+  C: "1",
+  U: "0",
+};
+
+const privilegesRequiredScope: Record<string, string> = {
+  H: "0.5",
+  L: "0.68",
+  N: "0.85",
+};
+
+const privilegesRequiredNoScope: Record<string, string> = {
+  H: "0.27",
+  L: "0.62",
+  N: "0.85",
+};
+
+function getPrivilegesRequired(
+  severityScope: string,
+  privilegesRequired: string
+): string {
+  if (severityScope === severityScopeOptions.C) {
+    return privilegesRequiredScope[privilegesRequired];
+  }
+
+  return privilegesRequiredNoScope[privilegesRequired];
+}
+
 async function getFindingNames(
   language: string | undefined
 ): Promise<ISuggestion[]> {
@@ -47,6 +75,17 @@ async function getFindingNames(
           attackComplexityRaw in attackComplexityOptions
             ? attackComplexityOptions[attackComplexityRaw]
             : "";
+        const scopeRaw = vulnsData[key].score.base.scope;
+        const severityScope =
+          scopeRaw in severityScopeOptions
+            ? severityScopeOptions[scopeRaw]
+            : "";
+        const privilegesRequiredRaw =
+          vulnsData[key].score.base.privileges_required;
+        const privilegesRequired =
+          privilegesRequiredRaw in privilegesRequiredScope
+            ? getPrivilegesRequired(severityScope, privilegesRequiredRaw)
+            : "";
 
         if (!_.isNil(language) && language === "ES") {
           return {
@@ -54,10 +93,12 @@ async function getFindingNames(
             attackVector,
             cwe,
             description: validateNotEmpty(vulnsData[key].es.description),
+            privilegesRequired,
             recommendation: validateNotEmpty(vulnsData[key].es.recommendation),
             requirements: validateNotEmpty(
               vulnsData[key].requirements.toString()
             ),
+            severityScope,
             threat: validateNotEmpty(vulnsData[key].es.threat),
             title: validateNotEmpty(vulnsData[key].es.title),
           };
@@ -68,10 +109,12 @@ async function getFindingNames(
           attackVector,
           cwe,
           description: validateNotEmpty(vulnsData[key].en.description),
+          privilegesRequired,
           recommendation: validateNotEmpty(vulnsData[key].en.recommendation),
           requirements: validateNotEmpty(
             vulnsData[key].requirements.toString()
           ),
+          severityScope,
           threat: validateNotEmpty(vulnsData[key].en.threat),
           title: validateNotEmpty(vulnsData[key].en.title),
         };
