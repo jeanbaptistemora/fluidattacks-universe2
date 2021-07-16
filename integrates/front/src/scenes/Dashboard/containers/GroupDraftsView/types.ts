@@ -19,6 +19,7 @@ interface IGroupDraftsAttr {
 }
 
 interface ISuggestion {
+  attackComplexity: string;
   attackVector: string;
   cwe: string;
   description: string;

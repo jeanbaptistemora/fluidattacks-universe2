@@ -11,6 +11,7 @@ type Mutation {
   ): SimplePayload!
 
   addDraft(
+    attackComplexity: String
     attackVector: String
     affectedSystems: String
     attackVectorDesc: String

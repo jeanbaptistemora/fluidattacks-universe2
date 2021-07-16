@@ -8,6 +8,11 @@ import type {
 } from "scenes/Dashboard/containers/GroupDraftsView/types";
 import { validateNotEmpty } from "scenes/Dashboard/containers/GroupDraftsView/utils";
 
+const attackComplexityOptions: Record<string, string> = {
+  H: "0.44",
+  L: "0.77",
+};
+
 const attackVectorOptions: Record<string, string> = {
   A: "0.62",
   L: "0.55",
@@ -37,9 +42,15 @@ async function getFindingNames(
           attackVectorRaw in attackVectorOptions
             ? attackVectorOptions[attackVectorRaw]
             : "";
+        const attackComplexityRaw = vulnsData[key].score.base.attack_complexity;
+        const attackComplexity =
+          attackComplexityRaw in attackComplexityOptions
+            ? attackComplexityOptions[attackComplexityRaw]
+            : "";
 
         if (!_.isNil(language) && language === "ES") {
           return {
+            attackComplexity,
             attackVector,
             cwe,
             description: validateNotEmpty(vulnsData[key].es.description),
@@ -53,6 +64,7 @@ async function getFindingNames(
         }
 
         return {
+          attackComplexity,
           attackVector,
           cwe,
           description: validateNotEmpty(vulnsData[key].en.description),
