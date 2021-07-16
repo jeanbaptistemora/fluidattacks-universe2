@@ -207,7 +207,8 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
   const handleSubmit: (values: Record<string, unknown>) => void = useCallback(
     (values: Record<string, unknown>): void => {
       const [matchingSuggestion] = suggestions.filter(
-        (suggestion: ISuggestion): boolean => suggestion.title === values.title
+        (suggestion: ISuggestion): boolean =>
+          `F${suggestion.cwe}. ${suggestion.title}` === values.title
       );
 
       void addDraft({

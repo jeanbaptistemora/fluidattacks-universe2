@@ -7,7 +7,6 @@ interface ISuggestion {
   recommendation: string;
   requirements: string;
   title: string;
-  type: string;
 }
 
 interface IVulnLanguage {
@@ -64,7 +63,6 @@ async function getFindingNames(): Promise<ISuggestion[]> {
           recommendation: vulnsData[key].en.recommendation,
           requirements: vulnsData[key].requirements.toString(),
           title: vulnsData[key].en.title,
-          type: "",
         };
       }
     );

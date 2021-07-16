@@ -30,7 +30,6 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
     $risk: String
     $threat: String
     $title: String!
-    $type: FindingType
   ) {
     addDraft(
       cwe: $cwe
@@ -41,7 +40,6 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
       risk: $risk
       threat: $threat
       title: $title
-      type: $type
     ) {
       success
     }
