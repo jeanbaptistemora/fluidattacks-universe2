@@ -3,9 +3,10 @@ from typing import (
     Dict,
 )
 from unreliable_indicators.enums import (
-    EntityAttrName,
-    EntityIdName,
-    EntityName,
+    Entity,
+    EntityAttr,
+    EntityDependency,
+    EntityId,
 )
 from unreliable_indicators.types import (
     EntityToUpdate,
@@ -13,78 +14,72 @@ from unreliable_indicators.types import (
 
 # Constants
 ENTITIES = {
-    EntityName.finding: dict(
+    Entity.finding: dict(
         args={
-            EntityIdName.id,
+            EntityId.id,
         },
         attrs={
-            EntityAttrName.age: dict(
+            EntityAttr.age: dict(
                 dependencies={
-                    "confirm_zero_risk_vuln",
-                    "delete_vulnerability",
-                    "reject_zero_risk_vuln",
-                    "request_zero_risk_vuln",
-                    "upload_file",
+                    EntityDependency.delete_vulnerability,
+                    EntityDependency.reject_zero_risk_vuln,
+                    EntityDependency.request_zero_risk_vuln,
+                    EntityDependency.upload_file,
                 }
             ),
-            EntityAttrName.closed_vulnerabilities: dict(
+            EntityAttr.closed_vulnerabilities: dict(
                 dependencies={
-                    "upload_file",
+                    EntityDependency.upload_file,
                 }
             ),
-            EntityAttrName.is_verified: dict(
+            EntityAttr.is_verified: dict(
                 dependencies={
-                    "confirm_zero_risk_vuln",
-                    "delete_vulnerability",
-                    "reject_zero_risk_vuln",
-                    "request_verification_vulnerability",
-                    "request_zero_risk_vuln",
-                    "upload_file",
-                    "verify_request_vulnerability",
+                    EntityDependency.delete_vulnerability,
+                    EntityDependency.reject_zero_risk_vuln,
+                    EntityDependency.request_verification_vulnerability,
+                    EntityDependency.request_zero_risk_vuln,
+                    EntityDependency.upload_file,
+                    EntityDependency.verify_request_vulnerability,
                 }
             ),
-            EntityAttrName.last_vulnerability: dict(
+            EntityAttr.last_vulnerability: dict(
                 dependencies={
-                    "delete_vulnerability",
-                    "reject_zero_risk_vuln",
-                    "request_zero_risk_vuln",
-                    "upload_file",
+                    EntityDependency.delete_vulnerability,
+                    EntityDependency.reject_zero_risk_vuln,
+                    EntityDependency.request_zero_risk_vuln,
+                    EntityDependency.upload_file,
                 }
             ),
-            EntityAttrName.open_age: dict(
+            EntityAttr.open_age: dict(
                 dependencies={
-                    "confirm_zero_risk_vuln",
-                    "delete_vulnerability",
-                    "reject_zero_risk_vuln",
-                    "request_zero_risk_vuln",
-                    "upload_file",
+                    EntityDependency.delete_vulnerability,
+                    EntityDependency.reject_zero_risk_vuln,
+                    EntityDependency.request_zero_risk_vuln,
+                    EntityDependency.upload_file,
                 }
             ),
-            EntityAttrName.open_vulnerabilities: dict(
+            EntityAttr.open_vulnerabilities: dict(
                 dependencies={
-                    "confirm_zero_risk_vuln",
-                    "delete_vulnerability",
-                    "reject_zero_risk_vuln",
-                    "request_zero_risk_vuln",
-                    "upload_file",
+                    EntityDependency.delete_vulnerability,
+                    EntityDependency.reject_zero_risk_vuln,
+                    EntityDependency.request_zero_risk_vuln,
+                    EntityDependency.upload_file,
                 }
             ),
-            EntityAttrName.report_date: dict(
+            EntityAttr.report_date: dict(
                 dependencies={
-                    "confirm_zero_risk_vuln",
-                    "delete_vulnerability",
-                    "reject_zero_risk_vuln",
-                    "request_zero_risk_vuln",
-                    "upload_file",
+                    EntityDependency.delete_vulnerability,
+                    EntityDependency.reject_zero_risk_vuln,
+                    EntityDependency.request_zero_risk_vuln,
+                    EntityDependency.upload_file,
                 }
             ),
-            EntityAttrName.status: dict(
+            EntityAttr.status: dict(
                 dependencies={
-                    "confirm_zero_risk_vuln",
-                    "delete_vulnerability",
-                    "reject_zero_risk_vuln",
-                    "request_zero_risk_vuln",
-                    "upload_file",
+                    EntityDependency.delete_vulnerability,
+                    EntityDependency.reject_zero_risk_vuln,
+                    EntityDependency.request_zero_risk_vuln,
+                    EntityDependency.upload_file,
                 }
             ),
         },
@@ -93,8 +88,8 @@ ENTITIES = {
 
 
 def get_entities_to_update_by_dependency(
-    dependency: str, **args: str
-) -> Dict[EntityName, EntityToUpdate]:
+    dependency: EntityDependency, **args: str
+) -> Dict[Entity, EntityToUpdate]:
     entities_to_update = dict()
     for entity_name in ENTITIES:
         attributes_to_update = set()

@@ -3,15 +3,15 @@ from enum import (
 )
 
 
-class EntityName(Enum):
+class Entity(Enum):
     finding: str = "finding"
 
 
-class EntityIdName(Enum):
+class EntityId(Enum):
     id: str = "id"
 
 
-class EntityAttrName(Enum):
+class EntityAttr(Enum):
     age: str = "age"
     closed_vulnerabilities: str = "closed_vulnerabilities"
     is_verified: str = "is_verified"
@@ -20,3 +20,14 @@ class EntityAttrName(Enum):
     open_vulnerabilities: str = "open_vulnerabilities"
     report_date: str = "report_date"
     status: str = "status"
+
+
+class EntityDependency(Enum):
+    delete_vulnerability: str = "delete_vulnerability"
+    reject_zero_risk_vuln: str = "reject_zero_risk_vuln"
+    request_verification_vulnerability: str = (
+        "request_verification_vulnerability"
+    )
+    request_zero_risk_vuln: str = "request_zero_risk_vuln"
+    upload_file: str = "upload_file"
+    verify_request_vulnerability: str = "verify_request_vulnerability"

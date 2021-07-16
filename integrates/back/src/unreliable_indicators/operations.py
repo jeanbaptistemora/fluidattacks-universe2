@@ -6,6 +6,7 @@ from aioextensions import (
 )
 from dataloaders import (
     Dataloaders,
+    get_new_context,
 )
 from db_model import (
     findings as findings_model,
@@ -25,79 +26,80 @@ from typing import (
     Set,
 )
 from unreliable_indicators.enums import (
-    EntityAttrName,
-    EntityIdName,
-    EntityName,
+    Entity,
+    EntityAttr,
+    EntityDependency,
+    EntityId,
 )
 
 
 async def update_finding_unreliable_indicators(
     loaders: Dataloaders,
     finding_id: str,
-    attrs_to_update: Set[EntityAttrName],
+    attrs_to_update: Set[EntityAttr],
 ) -> None:
     finding: Finding = await loaders.finding_new.load(finding_id)
     indicators = dict()
 
-    if EntityAttrName.age in attrs_to_update:
-        indicators[EntityAttrName.age] = findings_domain.get_finding_age(
+    if EntityAttr.age in attrs_to_update:
+        indicators[EntityAttr.age] = findings_domain.get_finding_age(
             loaders, finding.id
         )
 
-    if EntityAttrName.closed_vulnerabilities in attrs_to_update:
+    if EntityAttr.closed_vulnerabilities in attrs_to_update:
         indicators[
-            EntityAttrName.closed_vulnerabilities
+            EntityAttr.closed_vulnerabilities
         ] = findings_domain.get_closed_vulnerabilities(loaders, finding.id)
 
-    if EntityAttrName.is_verified in attrs_to_update:
-        indicators[
-            EntityAttrName.is_verified
-        ] = findings_domain.get_is_verified(loaders, finding.id)
+    if EntityAttr.is_verified in attrs_to_update:
+        indicators[EntityAttr.is_verified] = findings_domain.get_is_verified(
+            loaders, finding.id
+        )
 
-    if EntityAttrName.last_vulnerability in attrs_to_update:
+    if EntityAttr.last_vulnerability in attrs_to_update:
         indicators[
-            EntityAttrName.last_vulnerability
+            EntityAttr.last_vulnerability
         ] = findings_domain.get_finding_last_vuln_report(loaders, finding.id)
 
-    if EntityAttrName.open_age in attrs_to_update:
-        indicators[
-            EntityAttrName.open_age
-        ] = findings_domain.get_finding_open_age(loaders, finding.id)
+    if EntityAttr.open_age in attrs_to_update:
+        indicators[EntityAttr.open_age] = findings_domain.get_finding_open_age(
+            loaders, finding.id
+        )
 
-    if EntityAttrName.open_vulnerabilities in attrs_to_update:
+    if EntityAttr.open_vulnerabilities in attrs_to_update:
         indicators[
-            EntityAttrName.open_vulnerabilities
+            EntityAttr.open_vulnerabilities
         ] = findings_domain.get_open_vulnerabilities(loaders, finding.id)
 
-    if EntityAttrName.report_date in attrs_to_update:
+    if EntityAttr.report_date in attrs_to_update:
         indicators[
-            EntityAttrName.report_date
+            EntityAttr.report_date
         ] = findings_domain.get_report_date_new(loaders, finding.id)
 
-    if EntityAttrName.status in attrs_to_update:
-        indicators[EntityAttrName.status] = findings_domain.get_status(
+    if EntityAttr.status in attrs_to_update:
+        indicators[EntityAttr.status] = findings_domain.get_status(
             loaders, finding.id
         )
 
     result = dict(zip(indicators.keys(), await collect(indicators.values())))
     indicators = FindingUnreliableIndicatorsToUpdate(
-        unreliable_age=result.get(EntityAttrName.age),
+        unreliable_age=result.get(EntityAttr.age),
         unreliable_closed_vulnerabilities=result.get(
-            EntityAttrName.closed_vulnerabilities
+            EntityAttr.closed_vulnerabilities
         ),
-        unreliable_is_verified=result.get(EntityAttrName.is_verified),
+        unreliable_is_verified=result.get(EntityAttr.is_verified),
         unreliable_last_vulnerability=result.get(
-            EntityAttrName.last_vulnerability
+            EntityAttr.last_vulnerability
         ),
-        unreliable_open_age=result.get(EntityAttrName.open_age),
+        unreliable_open_age=result.get(EntityAttr.open_age),
         unreliable_open_vulnerabilities=result.get(
-            EntityAttrName.open_vulnerabilities
+            EntityAttr.open_vulnerabilities
         ),
-        unreliable_report_date=result.get(EntityAttrName.report_date),
+        unreliable_report_date=result.get(EntityAttr.report_date),
         unreliable_status=FindingStatus[
-            cast(str, result[EntityAttrName.status]).upper()
+            cast(str, result[EntityAttr.status]).upper()
         ]
-        if result.get(EntityAttrName.status)
+        if result.get(EntityAttr.status)
         else None,
     )
     await findings_model.update_unreliable_indicators(
@@ -108,8 +110,9 @@ async def update_finding_unreliable_indicators(
 
 
 async def update_unreliable_indicators_by_deps(
-    loaders: Dataloaders, dependency: str, **args: str
+    dependency: EntityDependency, **args: str
 ) -> None:
+    loaders: Dataloaders = get_new_context()
     entities_to_update = (
         unreliable_indicators_model.get_entities_to_update_by_dependency(
             dependency, **args
@@ -117,14 +120,12 @@ async def update_unreliable_indicators_by_deps(
     )
     updations = []
 
-    if EntityName.finding in entities_to_update:
+    if Entity.finding in entities_to_update:
         updations.append(
             update_finding_unreliable_indicators(
                 loaders,
-                entities_to_update[EntityName.finding].entity_ids[
-                    EntityIdName.id
-                ],
-                entities_to_update[EntityName.finding].attributes_to_update,
+                entities_to_update[Entity.finding].entity_ids[EntityId.id],
+                entities_to_update[Entity.finding].attributes_to_update,
             )
         )
 

@@ -4,11 +4,11 @@ from typing import (
     Set,
 )
 from unreliable_indicators.enums import (
-    EntityAttrName,
-    EntityIdName,
+    EntityAttr,
+    EntityId,
 )
 
 
 class EntityToUpdate(NamedTuple):
-    entity_ids: Dict[EntityIdName, str]
-    attributes_to_update: Set[EntityAttrName]
+    entity_ids: Dict[EntityId, str]
+    attributes_to_update: Set[EntityAttr]
