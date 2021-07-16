@@ -25,8 +25,12 @@ def evaluate(args: EvaluatorArgs) -> None:
 
 
 def _syntax_step_declaration_danger(args: EvaluatorArgs) -> None:
-    # Analyze the arguments involved in the assignment
-    args_danger = any(dep.meta.danger for dep in args.dependencies)
+    # Analyze the arguments involved in the assignment or the current danger
+    # in case it was set in previous steps (when declaring a called function)
+    args_danger = (
+        any(dep.meta.danger for dep in args.dependencies)
+        or args.syntax_step.meta.danger
+    )
 
     # Analyze if the binding itself is sensitive
     no_trust_findings = {
@@ -72,12 +76,15 @@ def _syntax_step_declaration_danger(args: EvaluatorArgs) -> None:
         )
         not in g.adj_cfg(args.shard.graph, prev_step.meta.n_id)
     ):
-        args_danger = any(
-            dep.meta.danger
-            for dep in get_dependencies(
-                args.syntax_step_index - 1, args.syntax_steps
-            )
+        # Propagate danger from all the arguments of the called function to
+        # the new declarations
+        prev_step_deps = get_dependencies(
+            args.syntax_step_index - 1, args.syntax_steps
         )
+        for idx, dep in enumerate(reversed(prev_step_deps)):
+            args.syntax_steps[
+                args.syntax_step_index + idx
+            ].meta.danger = dep.meta.danger
 
     args.syntax_step.meta.danger = bind_danger or args_danger
 
@@ -110,6 +117,12 @@ def _syntax_step_declaration_values(args: EvaluatorArgs) -> None:
         )
         not in g.adj_cfg(args.shard.graph, prev_step.meta.n_id)
     ):
-        args.syntax_step.meta.value = get_dependencies(
+        # Propagate value from all the arguments of the called function to
+        # the new declarations
+        prev_step_deps = get_dependencies(
             args.syntax_step_index - 1, args.syntax_steps
-        )[0].meta.value
+        )
+        for idx, dep in enumerate(reversed(prev_step_deps)):
+            args.syntax_steps[
+                args.syntax_step_index + idx
+            ].meta.value = dep.meta.value
