@@ -106,6 +106,11 @@ const GlobalConfigModal: React.FC<IGlobalConfigModalProps> = (
             reportSubject: "ALL_GROUPS",
           },
         });
+        if (values.comments) {
+          track("ConfigCommentsSubscribe");
+        } else {
+          track("ConfigCommentsUnsubscribe");
+        }
         setCommentsSubscription(values.comments);
       }
     },
