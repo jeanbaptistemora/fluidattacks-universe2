@@ -54,7 +54,6 @@ airs/front/content/blog/intercepting-android/index.adoc
 airs/front/content/blog/interview-safety-detectives/index.adoc
 airs/front/content/blog/is-csv-secure/index.adoc
 airs/front/content/blog/iso-iec-30111/index.adoc
-airs/front/content/blog/lazarus-malware-cyberattack/index.adoc
 airs/front/content/blog/learning-code/index.adoc
 airs/front/content/blog/libssh-bypass-cve/index.adoc
 airs/front/content/blog/look-inside-oss/index.adoc
@@ -68,7 +67,6 @@ airs/front/content/blog/new-red-team-expert/index.adoc
 airs/front/content/blog/online-voting/index.adoc
 airs/front/content/blog/optimism-bias/index.adoc
 airs/front/content/blog/oracle-code/index.adoc
-airs/front/content/blog/osce-journey/index.adoc
 airs/front/content/blog/oscp-journey/index.adoc
 airs/front/content/blog/oss-security/index.adoc
 airs/front/content/blog/para-bellum/index.adoc
@@ -240,7 +238,6 @@ airs/front/content/pages/plans/index.adoc
 airs/front/content/pages/resources/index.adoc
 airs/front/content/pages/partners/cidenet/index.adoc
 airs/front/content/blog/amsi-bypass/index.adoc
-airs/front/content/blog/bypassing-dep/index.adoc
 airs/front/content/blog/choosing-pentesting-team/index.adoc
 airs/front/content/blog/relleno-credenciales/index.adoc
 airs/front/content/blog/secdevops-security-champions-spa/index.adoc

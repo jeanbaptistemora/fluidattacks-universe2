@@ -20,12 +20,13 @@ In the link:../understanding-dep/[last blog entry],
 we made an introduction to what `DEP` (Data Execution Protection) is
 and how it affected common buffer overflow exploits.
 
-In this post, we will show a way to bypass `DEP` using Return-Oriented
-Programming or `ROP`.
+In this post,
+we'll show a way to bypass `DEP`
+using Return-Oriented Programming (`ROP`).
 
-== Return-Oriented Programming (ROP)
+== ROP
 
-When we are writing an exploit to a buffer overflow vulnerability on an
+When we're writing an exploit to a buffer overflow vulnerability on an
 application without `DEP`, we overwrite the saved instruction pointer on the
 stack frame of the affected function with a pointer to something like
 `JMP ESP` (or any other register pointing to our shellcode).
@@ -37,7 +38,7 @@ the program expects to find *instructions* in the address pointed to `ESP`.
 With `DEP`, we can't execute instructions on the stack,
 but we still control the execution flow.
 
-But what would happen if, instead of overwriting the `Saved EIP` with
+What would happen if, instead of overwriting the `Saved EIP` with
 a pointer to `JMP ESP`, we overwrite it with a pointer to a `RETN`
 instruction? The `RETN` instruction is commonly used in the function epilogues
 and will make one thing: Pop the value pointed by `ESP` and use it as the
@@ -45,8 +46,9 @@ next instruction pointer or `EIP`. In other words, `RETN` expects to find
 in the address pointed to `ESP`, a *pointer to an instruction*,
 not an *instruction* itself.
 
-As we control the execution flow and also can write on the stack, we can
-do whatever we want. Let's find a `RETN` instruction first:
+As we control the execution flow and write on the stack,
+we can do whatever we want.
+Let's find a `RETN` instruction:
 
 [source,bash]
 ----
@@ -58,8 +60,8 @@ This will tell `mona` to find up to 10 `RETN` instructions. The result is:
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330678/blog/bypassing-dep/retn1_gtil26.webp[RETN instructions]
 
 Let's take the first one at `62501022` and update the exploit of the
-link:../understanding-dep/[previous post]. This time we want to make `EAX`
-have the value `0xdeadbeef`:
+link:../understanding-dep/[previous post].
+This time we want to make `EAX` have the value `0xdeadbeef`:
 
 [source,python]
 ----
@@ -92,12 +94,12 @@ And see what happens:
 
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330677/blog/bypassing-dep/rop1_z13yrk.gif[RETN]
 
-Here's a detail of what happened:
+Here's what happened:
 
 . We put a breakpoint at the address of the `RETN` instruction.
 . We executed the exploit.
 . The breakpoint was hit.
-. When it hits, look carefully at the value pointed by `ESP`: `EE05C031`.
+. When it hits, look at the value pointed by `ESP`: `EE05C031`.
 . That value is part of the shellcode injected:
 .. `xor eax,eax` -> `\x31\xc0`
 .. `add eax,0xdeadbeee` -> `\x05\xee\xbe\xad\xde` (the first two bytes)
@@ -115,8 +117,8 @@ first (`xor eax,eax`) operation:
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330677/blog/bypassing-dep/find1_it5idv.gif[RETN]
 
 We could find one at `62501162` that points to a `xor eax,eax`.
-Let's update our exploit and place that address instead of
-the `xor eax,eax` instruction:
+Let's update our exploit
+and place that address instead of the `xor eax,eax` instruction:
 
 [source,python]
 ----
@@ -146,7 +148,7 @@ with socket.create_connection((HOST, PORT)) as fd:
     fd.sendall(PAYLOAD)
 ----
 
-And run it:
+Run it:
 
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330677/blog/bypassing-dep/rop2_aacijn.gif[ROP]
 
@@ -158,29 +160,36 @@ Wonderful! Here's what happened:
 . In our case, that value was a pointer to a `xor eax,eax` instruction.
 . With that, the `xor eax,eax` was successfully executed! We bypassed DEP!
 
-However, there's a problem with that. If you look again at the animation,
-the execution flow was diverted to the location on where the `xor eax,eax`
-instruction was placed, but then we lost control.
+However, there's a problem.
+If you look at the animation,
+the execution flow was diverted
+to where the `xor eax,eax` instruction was placed,
+but then we lost control.
 
-We need to make `EAX = 0xdeadbeee`. There are several ways to do that. We
-tried with `xor eax,eax -> add eax,0xdeadbeee` but another way to do it
-is to place the value `0xdeadbeee` on top of the stack and then perform a
-`pop eax`. We also need to regain control of the execution flow. This can be
-done by returning to the stack, so we can execute the last
-instruction on our shellcode `inc eax` and make `EAX = 0xdeadbeef`.
+We need to make `EAX = 0xdeadbeee`.
+There're several ways to do that.
+We tried with `xor eax,eax -> add eax,0xdeadbeee`
+but another way to do it
+is to place the value `0xdeadbeee` on top of the stack
+and then perform a `pop eax`.
+We also need to regain control of the execution flow.
+This can be done by returning to the stack,
+so we can execute the last instruction on our shellcode `inc eax`
+and make `EAX = 0xdeadbeef`.
 That means that we need to find an address to a `pop eax` instruction
 followed by a `retn`.
 
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330677/blog/bypassing-dep/popeax1_ikidee.gif[POP EAX]
 
-Bingo! We found it at `625011B4`. Now, do you see why this is called
-Return-Oriented Programming? It is because we always need to return back to
-the stack to fetch the next pointer to our next desired instruction.
+We found it at `625011B4`!
+Now, do you see why this is called `ROP`?
+It's because we always need to return back to the stack
+to fetch the next pointer to our next desired instruction.
 For the record, any instruction or set of instructions
 followed by a `retn` is called a *Gadget* in `ROP` terms.
 
 Our `pop eax # retn` gadget relies on the stack having the value `0xdeadbeee`
-on the top. Let's update our exploit with that:
+on the top. Let's update our exploit:
 
 [source,python]
 ----
@@ -212,11 +221,11 @@ with socket.create_connection((HOST, PORT)) as fd:
     fd.sendall(PAYLOAD)
 ----
 
-And check it:
+Check it:
 
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330678/blog/bypassing-dep/popeax2_has6yi.gif[POP EAX]
 
-Beautiful! We were able to make `EAX = 0xdeadbeee` using `ROP`. Now, the final
+We were able to make `EAX = 0xdeadbeee` using `ROP`. Now, the final
 step is to find an `inc eax` pointer to make `EAX = 0xdeadbeef`.
 
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330678/blog/bypassing-dep/inceax_zeq83l.webp[INC EAX]
@@ -255,12 +264,13 @@ with socket.create_connection((HOST, PORT)) as fd:
     fd.sendall(PAYLOAD)
 ----
 
-And check it:
+Check it:
 
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620330680/blog/bypassing-dep/rop3_gkn3oz.gif[ROP]
 
-Success! We were able to make `EAX = 0xdeadbeef` without executing a single
-instruction on the stack! We have bypassed `DEP`!
+We were able to make `EAX = 0xdeadbeef`
+without executing a single instruction on the stack!
+We've bypassed `DEP`!
 
 == Using mona to find gadgets
 
@@ -281,14 +291,16 @@ With that, `mona` will find usable gadgets on the execution environment.
 A file called `rop.txt` is placed on the `mona` directory of the debuggee
 application containing all the gadgets found. `mona` also generates
 a proposal of something called `ROP chains`, which is nothing but a set of
-ROP gadgets chained together to perform something more complex. I won't spoil
-the next blog entry, but ROP chains will be used later in a more
-link:../vulnserver-trun-rop/[serious exploitation].
+ROP gadgets chained together to perform something more complex.
+I won't spoil the next post,
+but ROP chains will be used later
+in a more link:../vulnserver-trun-rop/[serious exploitation].
 
 == Conclusions
 
-In this article, we could see a way to bypass the Data Execution Protection
-on a modern Windows system. However, the shellcode used here was very basic
-and was only for demonstrating the fact that `DEP` can be bypassed.
-We will use ROP to create something more complex in the
+Here we could see a way to bypass the Data Execution Protection
+on a modern Windows system.
+However, the shellcode used was very basic
+and only demonstrated that `DEP` could be bypassed.
+We'll use ROP to create something more complex in the
 link:../vulnserver-trun-rop/[next post].

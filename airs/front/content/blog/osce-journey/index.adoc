@@ -16,11 +16,15 @@
 
 = A Journey to OSCE
 
-Several days ago, I took the `OSCE` exam and passed it. It was the first time
-that I've tried it, and I completed all the exam tasks in 11 hours.
+Several days ago,
+I took the `OSCE` exam and passed.
+It was the first time I tried it,
+and I completed all the tasks in 11 hours.
 
-In this article, I will describe my experience and the methodology
-that I used, which finally led me to achieve the `OSCE` certification.
+In this article,
+I'll describe my experience
+and the methodology that I used,
+which finally led me to achieve the `OSCE` certification.
 
 == Background
 
@@ -31,13 +35,13 @@ a good 20+ years ago.
 The first article I read on exploitation was Aleph One's mythical
 *Smashing The Stack For Fun And Profit*. It was around 1999 and by that time
 I knew nothing about computers. The introduction of that article mentioned
-unknown things like *Linux*, *C*, *Stack*, etc., and it was the very first
-trigger for me to get deep into the security world.
+unknown things like *Linux*, *C*, *Stack*, etc.,
+and it was the first trigger for me to get deep into the security world.
 As you may guess, it took me several years to fully understand that article,
 but I learned a *LOT* during the process. In fact, I wrote several tools
 at that time to debug and reverse `ELF` files.
 
-I also started making contributions to the Debian project, beginning in 2003,
+I also started making contributions to the Debian project in 2003,
 maintaining a core package for Linux at that time:
 link:https://salsa.debian.org/joowie-guest/maintain_lilo/-/blob/master/debian/changelog[LILO]
 (the ancestor of Grub).
@@ -56,24 +60,27 @@ I've also been working full time in security-related tasks for over 18 years,
 mostly focused on offensive security.
 
 I've earned the `CEH` certification several times; the last one expired in 2012.
-The same year, I made the PWK course (although at that time Kali was known as
-Backtrack) and earned the `OSCP` certification.
+The same year, I took the PWK course
+(although at that time Kali was known as Backtrack)
+and earned the `OSCP` certification.
 
 The `OSCE` was the next step.
 
 == CTP course
 
-In May of 2020, during the `COVID-19` pandemic, I started the Cracking
+In May 2020, during the `COVID-19` pandemic, I started the Cracking
 The Perimeter (`CTP`) course. You can see the public course syllabus
 link:https://www.offensive-security.com/documentation/cracking-the-perimeter-syllabus.pdf[here].
 I made no previous special preparation for the course, other than my
 work experience.
 
-The course modules are very well structured. Mati's clear explainations of
-each technical detail show his mastery of the topic.
+The course modules are very well structured.
+Mati's clear explanations of each technical detail
+show his mastery of the topic.
 
-While you are in the course, you have one-month access to an Offsec lab
-where you can follow along with the content of the modules.
+While you're in the course,
+you have one month of access to an Offsec lab
+to follow the modules' content.
 
 The way I approached the course was to watch the videos following the
 written material. Then, at the end of each module, I replicated the whole
@@ -82,30 +89,32 @@ and tried to come up with the same result.
 Also, I developed and solved the extra mile exercises.
 
 It took me around one and a half weeks to complete the course.
-However, I wanted to be able to understand and replicate the vulnerabilities
+However, I wanted to understand and replicate the vulnerabilities
 presented on the modules, all by myself.
 I re-did all the course modules from scratch
-in the remaining lab time at least 3 times.
+in the remaining lab time at least three times.
 Every failure in getting the module objectives
-was an oportunity to learn new things.
+was an opportunity to learn new things.
 
 When the lab time was about to expire, I was able to set up my own test lab.
 It consisted of Windows XP SP3 and Windows Vista Business machines.
 
 == Self-study
 
-My lab time was scheduled to end the 8th of June,
+My lab time was scheduled to end on the 8th of June,
 and the `OSCE` exam was scheduled for the 13th of July.
 
 During that month, I needed to practice what was learned during the course.
 So I used the following to sharpen the skills:
 
 * In my local lab, I ran
-link:https://github.com/stephenbradshaw/vulnserver[Vulnserver]. It is a
-`TCP` server with several mock commands, some of them vulnerable on purpose,
-and each vulnerability has its quirk. To be able to fully understand the
-exploitation process of each affected command, I produced a series of
-articles:
+link:https://github.com/stephenbradshaw/vulnserver[Vulnserver].
+It's a `TCP` server with several mock commands,
+some of them vulnerable on purpose,
+and each vulnerability has its quirk.
+To be able to fully understand the exploitation process
+of each affected command,
+I produced a series of articles:
 ** link:../vulnserver-trun/[TRUN command exploitation]
 ** link:../vulnserver-gmon/[GMON command exploitation]
 ** link:../vulnserver-gter/[GTER command exploitation]
@@ -118,7 +127,7 @@ articles:
 of articles with some tricky exploitations:
 ** link:../quickzip-exploit/[QuickZip exploitation]
 ** link:../netscan-exploit/[MiTec Net Scanner exploitation]
-* And finally I wrote an article about backdooring and avoiding antivirus:
+* Finally, I wrote an article about backdooring and avoiding antivirus:
 ** link:../backdooring-putty/[Backdooring PuTTY]
 
 Writing those articles helped me a lot to fully put together
@@ -142,24 +151,35 @@ My exam was scheduled to start on the 13th of July at 2 PM COT. I was pretty
 anxious about what was going to be presented in the exam. I read a lot of
 reviews, and almost everyone mentioned that the exam was "brutal," "made
 by the devil," and the "hardest thing ever tried."
-When I checked the exam objectives, I then realized that the course was
-indeed a starting point and that further study of what was taught in the
-`CTP` modules is extremely important in order to complete the exam.
+When I checked the objectives,
+I realized that the course was indeed a starting point
+and that further study of what was taught in the `CTP` modules
+is extremely important to complete the exam.
 
 With that in place, I decided to start with the lower points tasks. After
-around 4 hours, I had them resolved. It was about 6 PM and I decided to take a
-short rest to eat. After approximately 30 minutes, I started with one of the
-higher points tasks and fully completed it after around 3 hours.
-It was almost 10 PM and I was a bit exhausted. I was trying to figure out
-the other higher point task, but I couldn't find a way even to start. I then
-took a rest and watched the TV to switch the context of the brain.
-At around 11 PM I got an idea of how to approach the final task.
-I started working on my idea, not believing that it would work, but it did.
-At around 1 AM the final task was completed.
+around 4 hours, I had them resolved.
+It was about 6 PM,
+and I decided to take a short rest to eat.
+After approximately 30 minutes,
+I started with one of the higher points tasks
+and fully completed it after around 3 hours.
+It was almost 10 PM,
+and I was a bit exhausted.
+I was trying to figure out the other higher point task,
+but I couldn't find a way even to start.
+I then took a rest and watched the TV to switch the context of the brain.
+At around 11 PM,
+I got an idea of how to approach the final task.
+I started working on my idea,
+not believing that it would work, but it did.
+At around 1 AM,
+I had completed the final task.
 
-I couldn't almost sleep that night because of the joy of having achieved all
-the exam points. The next morning I started writing the exam report. As I
-had plenty of time, I could get additional screenshots for the report.
+I couldn't almost sleep that night
+because of the joy of having achieved all the exam points.
+The next morning I started writing the exam report.
+As I had plenty of time,
+I could get additional screenshots.
 At around 5 PM on that day, I had it completed. It was a 79-page report.
 I re-checked it several times, following the
 link:https://support.offensive-security.com/osce-exam-guide/[exam guide],
