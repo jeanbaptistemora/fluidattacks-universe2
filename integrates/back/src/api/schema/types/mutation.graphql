@@ -10,7 +10,8 @@ type Mutation {
     id: ID!
   ): SimplePayload!
 
-    addDraft(
+  addDraft(
+    attackVector: String
     affectedSystems: String
     attackVectorDesc: String
     cwe: String

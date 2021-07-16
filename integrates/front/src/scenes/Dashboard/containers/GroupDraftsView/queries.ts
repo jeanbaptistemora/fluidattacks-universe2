@@ -23,6 +23,7 @@ const GET_DRAFTS: DocumentNode = gql`
 
 const ADD_DRAFT_MUTATION: DocumentNode = gql`
   mutation AddDraftMutation(
+    $attackVector: String
     $cwe: String
     $description: String
     $groupName: String!
@@ -33,6 +34,7 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
     $title: String!
   ) {
     addDraft(
+      attackVector: $attackVector
       cwe: $cwe
       description: $description
       groupName: $groupName

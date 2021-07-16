@@ -2,47 +2,18 @@
 import yaml from "js-yaml";
 import _ from "lodash";
 
-interface ISuggestion {
-  cwe: string;
-  description: string;
-  recommendation: string;
-  requirements: string;
-  title: string;
-}
+import type {
+  ISuggestion,
+  IVulnData,
+} from "scenes/Dashboard/containers/GroupDraftsView/types";
+import { validateNotEmpty } from "scenes/Dashboard/containers/GroupDraftsView/utils";
 
-interface IVulnLanguage {
-  title: string;
-  description: string;
-  impact: string;
-  recommendation: string;
-  threat: string;
-}
-
-interface IVulnScore {
-  base: {
-    attack_vector: string;
-    attack_complexity: string;
-    privileges_required: string;
-    user_interaction: string;
-    scope: string;
-    confidentiality: string;
-    integrity: string;
-    availability: string;
-  };
-  temporal: {
-    exploit_code_maturity: string;
-    remediation_level: string;
-    report_confidence: string;
-  };
-}
-
-interface IVulnData {
-  en: IVulnLanguage;
-  es: IVulnLanguage;
-  score: IVulnScore;
-  requirements: string[];
-  metadata: Record<string, unknown>;
-}
+const attackVectorOptions: Record<string, string> = {
+  A: "0.62",
+  L: "0.55",
+  N: "0.85",
+  P: "0.2",
+};
 
 async function getFindingNames(
   language: string | undefined
@@ -60,22 +31,37 @@ async function getFindingNames(
     const vulnsData = yaml.load(yamlFile) as Record<string, IVulnData>;
     const suggestions: ISuggestion[] = Object.keys(vulnsData).map(
       (key: string): ISuggestion => {
+        const cwe: string = key;
+        const attackVectorRaw = vulnsData[key].score.base.attack_vector;
+        const attackVector =
+          attackVectorRaw in attackVectorOptions
+            ? attackVectorOptions[attackVectorRaw]
+            : "";
+
         if (!_.isNil(language) && language === "ES") {
           return {
-            cwe: key,
-            description: vulnsData[key].es.description,
-            recommendation: vulnsData[key].es.recommendation,
-            requirements: vulnsData[key].requirements.toString(),
-            title: vulnsData[key].es.title,
+            attackVector,
+            cwe,
+            description: validateNotEmpty(vulnsData[key].es.description),
+            recommendation: validateNotEmpty(vulnsData[key].es.recommendation),
+            requirements: validateNotEmpty(
+              vulnsData[key].requirements.toString()
+            ),
+            threat: validateNotEmpty(vulnsData[key].es.threat),
+            title: validateNotEmpty(vulnsData[key].es.title),
           };
         }
 
         return {
-          cwe: key,
-          description: vulnsData[key].en.description,
-          recommendation: vulnsData[key].en.recommendation,
-          requirements: vulnsData[key].requirements.toString(),
-          title: vulnsData[key].en.title,
+          attackVector,
+          cwe,
+          description: validateNotEmpty(vulnsData[key].en.description),
+          recommendation: validateNotEmpty(vulnsData[key].en.recommendation),
+          requirements: validateNotEmpty(
+            vulnsData[key].requirements.toString()
+          ),
+          threat: validateNotEmpty(vulnsData[key].en.threat),
+          title: validateNotEmpty(vulnsData[key].en.title),
         };
       }
     );
@@ -86,4 +72,4 @@ async function getFindingNames(
   return [];
 }
 
-export { ISuggestion, getFindingNames };
+export { getFindingNames };

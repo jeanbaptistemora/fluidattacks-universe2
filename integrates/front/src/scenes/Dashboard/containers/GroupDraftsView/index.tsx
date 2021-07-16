@@ -16,13 +16,15 @@ import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
-import type { ISuggestion } from "scenes/Dashboard/containers/GroupDraftsView/findingNames";
 import { getFindingNames } from "scenes/Dashboard/containers/GroupDraftsView/findingNames";
 import {
   ADD_DRAFT_MUTATION,
   GET_DRAFTS,
 } from "scenes/Dashboard/containers/GroupDraftsView/queries";
-import type { IGroupDraftsAttr } from "scenes/Dashboard/containers/GroupDraftsView/types";
+import type {
+  IGroupDraftsAttr,
+  ISuggestion,
+} from "scenes/Dashboard/containers/GroupDraftsView/types";
 import { formatDrafts } from "scenes/Dashboard/containers/GroupDraftsView/utils";
 import {
   ButtonToolbar,

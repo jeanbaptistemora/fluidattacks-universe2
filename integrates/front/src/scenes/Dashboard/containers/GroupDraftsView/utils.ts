@@ -1,9 +1,11 @@
+import _ from "lodash";
+
 import type { IGroupDraftsAttr } from "scenes/Dashboard/containers/GroupDraftsView/types";
 import { translate } from "utils/translations/translate";
 
 type Draft = IGroupDraftsAttr["group"]["drafts"][0];
 
-export const formatDrafts: (dataset: Draft[]) => Draft[] = (
+const formatDrafts: (dataset: Draft[]) => Draft[] = (
   dataset: Draft[]
 ): Draft[] =>
   dataset.map((draft: Draft): Draft => {
@@ -27,3 +29,14 @@ export const formatDrafts: (dataset: Draft[]) => Draft[] = (
 
     return { ...draft, currentState, isExploitable, reportDate, type };
   });
+
+// Empty field in criteria's data.yaml are filled with "__empty__"
+function validateNotEmpty(field: string | undefined): string {
+  if (!_.isNil(field) && field !== "__empty__") {
+    return field;
+  }
+
+  return "";
+}
+
+export { validateNotEmpty, formatDrafts };
