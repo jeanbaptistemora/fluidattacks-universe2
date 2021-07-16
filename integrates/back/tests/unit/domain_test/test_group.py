@@ -13,6 +13,7 @@ from dataloaders import (
 )
 from datetime import (
     datetime,
+    timedelta,
 )
 from decimal import (
     Decimal,
@@ -83,6 +84,9 @@ from settings import (
     TIME_ZONE,
 )
 import time
+from typing import (
+    Optional,
+)
 from vulnerabilities import (
     dal as vulns_dal,
 )
@@ -417,23 +421,59 @@ async def test_get_closers() -> None:
     assert closers == ["integratesanalyst@fluidattacks.com"]
 
 
-@freeze_time("2020-04-12")
-async def test_get_mean_remediate_severity() -> None:
+@freeze_time("2019-10-01")
+@pytest.mark.parametrize(
+    ("min_days", "expected_output"),
+    (
+        (None, Decimal("12")),
+        (30, Decimal("11")),
+        (90, Decimal("12")),
+    ),
+)
+async def test_get_mean_remediate_severity_low(
+    min_days: Optional[int], expected_output: Decimal
+) -> None:
     context = get_new_context()
     group_name = "unittesting"
     min_severity = 0.1
     max_severity = 3.9
     mean_remediate_low_severity = await get_mean_remediate_severity(
-        context, group_name, min_severity, max_severity
+        context,
+        group_name,
+        min_severity,
+        max_severity,
+        (datetime.now() - timedelta(days=min_days)).date()
+        if min_days
+        else None,
     )
-    expected_output = 181.0
     assert mean_remediate_low_severity == expected_output
+
+
+@freeze_time("2019-11-01")
+@pytest.mark.parametrize(
+    ("min_days", "expected_output"),
+    (
+        (None, Decimal("154")),
+        (30, Decimal("0")),
+        (90, Decimal("0")),
+    ),
+)
+async def test_get_mean_remediate_severity_medium(
+    min_days: Optional[int], expected_output: Decimal
+) -> None:
+    context = get_new_context()
+    group_name = "unittesting"
     min_severity = 4
     max_severity = 6.9
     mean_remediate_medium_severity = await get_mean_remediate_severity(
-        context, group_name, min_severity, max_severity
+        context,
+        group_name,
+        min_severity,
+        max_severity,
+        (datetime.now() - timedelta(days=min_days)).date()
+        if min_days
+        else None,
     )
-    expected_output = 236
     assert mean_remediate_medium_severity == expected_output
 
 

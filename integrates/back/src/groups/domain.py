@@ -870,11 +870,14 @@ async def get_mean_remediate_non_treated(
     )
 
 
-async def get_mean_remediate_severity(  # pylint: disable=too-many-locals
-    context: Any, group_name: str, min_severity: float, max_severity: float
+async def get_mean_remediate_severity(
+    context: Any,
+    group_name: str,
+    min_severity: float,
+    max_severity: float,
+    min_date: Optional[date] = None,
 ) -> Decimal:
     """Get mean time to remediate"""
-    total_days = 0
     finding_vulns_loader = context.finding_vulns_nzr
     group_findings_loader = context.group_findings
 
@@ -891,39 +894,9 @@ async def get_mean_remediate_severity(  # pylint: disable=too-many-locals
     findings_vulns = await finding_vulns_loader.load_many_chained(
         group_findings_ids
     )
-    open_vuln_dates = await collect(
-        [
-            in_process(vulns_utils.get_open_vulnerability_date, vuln)
-            for vuln in findings_vulns
-        ]
+    return await vulns_utils.get_mean_remediate_vulnerabilities(
+        findings_vulns, min_date
     )
-    filtered_open_vuln_dates = [vuln for vuln in open_vuln_dates if vuln]
-    closed_vuln_dates = await collect(
-        [
-            in_process(vulns_utils.get_last_closing_date, vuln)
-            for vuln, open_vuln_date in zip(findings_vulns, open_vuln_dates)
-            if open_vuln_date
-        ]
-    )
-    for index, closed_vuln_date in enumerate(closed_vuln_dates):
-        if closed_vuln_date:
-            total_days += int(
-                (closed_vuln_date - filtered_open_vuln_dates[index]).days
-            )
-        else:
-            current_day = datetime_utils.get_now().date()
-            total_days += int(
-                (current_day - filtered_open_vuln_dates[index]).days
-            )
-
-    total_vuln = len(filtered_open_vuln_dates)
-    if total_vuln:
-        mean_vulnerabilities = Decimal(
-            round(total_days / float(total_vuln))
-        ).quantize(Decimal("0.1"))
-    else:
-        mean_vulnerabilities = Decimal(0).quantize(Decimal("0.1"))
-    return mean_vulnerabilities
 
 
 async def get_open_finding(context: Any, group_name: str) -> int:
