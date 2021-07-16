@@ -257,10 +257,27 @@ func DangerousFloat(request *http.Request) {
 	sql.QueryRow(`INSERT INTO tbl $1`, amount)
 }
 
+func DangerousFloat2(request *http.Request) {
+	amount := strconv.ParseFloat(request.Amount)
+	DBQuery(amount)
+}
+
 func SafeFloat(request *http.Request) {
 	amount := strconv.ParseFloat(request.Amount)
 	if math.IsNaN(amount) || math.IsInf(amount, 0) {
 		return "Not a valid value"
 	}
 	sql.QueryRow(`INSERT INTO tbl $1`, amount)
+}
+
+func SafeFloat2(request *http.Request) {
+	amount := strconv.ParseFloat(request.Amount)
+	if math.IsNaN(amount) || math.IsInf(amount, 0) {
+		return "Not a valid value"
+	}
+	DBQuery(amount)
+}
+
+func DBQuery(price float) {
+	sql.Exec(`INSERT INTO tbl $1`, amount)
 }

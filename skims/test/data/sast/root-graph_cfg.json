@@ -25847,9 +25847,33 @@
               "label_ast": "AST",
               "label_index": "38"
             },
-            "2114": {
+            "2076": {
               "label_ast": "AST",
               "label_index": "39"
+            },
+            "2077": {
+              "label_ast": "AST",
+              "label_index": "40"
+            },
+            "2157": {
+              "label_ast": "AST",
+              "label_index": "41"
+            },
+            "2158": {
+              "label_ast": "AST",
+              "label_index": "42"
+            },
+            "2233": {
+              "label_ast": "AST",
+              "label_index": "43"
+            },
+            "2234": {
+              "label_ast": "AST",
+              "label_index": "44"
+            },
+            "2258": {
+              "label_ast": "AST",
+              "label_index": "45"
             },
             "26": {
               "label_ast": "AST",
@@ -31521,21 +31545,13 @@
               "label_ast": "AST",
               "label_index": "3"
             },
-            "2100": {
+            "2074": {
               "label_ast": "AST",
               "label_index": "4"
             },
-            "2101": {
+            "2075": {
               "label_ast": "AST",
               "label_index": "5"
-            },
-            "2112": {
-              "label_ast": "AST",
-              "label_index": "6"
-            },
-            "2113": {
-              "label_ast": "AST",
-              "label_index": "7"
             }
           },
           "2050": {
@@ -31642,16 +31658,6 @@
             "2070": {
               "label_ast": "AST",
               "label_index": "1"
-            },
-            "2092": {
-              "label_ast": "AST",
-              "label_cfg": "CFG",
-              "label_cfg_true": "cfg_true",
-              "label_index": "2"
-            },
-            "2101": {
-              "label_cfg": "CFG",
-              "label_cfg_false": "cfg_false"
             }
           },
           "2070": {
@@ -31659,51 +31665,33 @@
               "label_ast": "AST",
               "label_index": "0"
             },
-            "2080": {
-              "label_ast": "AST",
-              "label_index": "1"
-            },
-            "2081": {
-              "label_ast": "AST",
-              "label_index": "2"
-            }
-          },
-          "2071": {
             "2072": {
               "label_ast": "AST",
-              "label_index": "0"
-            },
-            "2076": {
-              "label_ast": "AST",
               "label_index": "1"
-            }
-          },
-          "2072": {
+            },
             "2073": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "2074": {
-              "label_ast": "AST",
-              "label_index": "1"
-            },
-            "2075": {
               "label_ast": "AST",
               "label_index": "2"
             }
           },
-          "2076": {
-            "2077": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
+          "2077": {
             "2078": {
               "label_ast": "AST",
-              "label_index": "1"
+              "label_index": "0"
             },
             "2079": {
               "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2080": {
+              "label_ast": "AST",
               "label_index": "2"
+            },
+            "2091": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "3"
             }
           },
           "208": {
@@ -31716,14 +31704,18 @@
               "label_index": "1"
             }
           },
-          "2081": {
-            "2082": {
+          "2080": {
+            "2081": {
               "label_ast": "AST",
               "label_index": "0"
             },
-            "2086": {
+            "2082": {
               "label_ast": "AST",
               "label_index": "1"
+            },
+            "2090": {
+              "label_ast": "AST",
+              "label_index": "2"
             }
           },
           "2082": {
@@ -31734,10 +31726,16 @@
             "2084": {
               "label_ast": "AST",
               "label_index": "1"
-            },
+            }
+          },
+          "2084": {
             "2085": {
               "label_ast": "AST",
-              "label_index": "2"
+              "label_index": "0"
+            },
+            "2086": {
+              "label_ast": "AST",
+              "label_index": "1"
             }
           },
           "2086": {
@@ -31752,38 +31750,46 @@
             "2089": {
               "label_ast": "AST",
               "label_index": "2"
-            },
-            "2090": {
-              "label_ast": "AST",
-              "label_index": "3"
-            },
-            "2091": {
-              "label_ast": "AST",
-              "label_index": "4"
             }
           },
-          "2092": {
-            "2093": {
+          "2091": {
+            "2092": {
               "label_ast": "AST",
               "label_index": "0"
             },
-            "2094": {
+            "2093": {
               "label_ast": "AST",
               "label_cfg": "CFG",
               "label_cfg_always": "cfg_always",
               "label_index": "1"
             },
-            "2098": {
+            "2110": {
               "label_ast": "AST",
               "label_index": "2"
             },
-            "2099": {
+            "2111": {
               "label_ast": "AST",
               "label_index": "3"
+            },
+            "2143": {
+              "label_ast": "AST",
+              "label_index": "4"
+            },
+            "2144": {
+              "label_ast": "AST",
+              "label_index": "5"
+            },
+            "2155": {
+              "label_ast": "AST",
+              "label_index": "6"
+            },
+            "2156": {
+              "label_ast": "AST",
+              "label_index": "7"
             }
           },
-          "2094": {
-            "2095": {
+          "2093": {
+            "2094": {
               "label_ast": "AST",
               "label_index": "0"
             },
@@ -31791,15 +31797,49 @@
               "label_ast": "AST",
               "label_index": "1"
             },
-            "2101": {
+            "2097": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "2111": {
               "label_cfg": "CFG",
               "label_cfg_always": "cfg_always"
             }
           },
-          "2096": {
-            "2097": {
+          "2094": {
+            "2095": {
               "label_ast": "AST",
               "label_index": "0"
+            }
+          },
+          "2097": {
+            "2098": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "2098": {
+            "2099": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2103": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "2099": {
+            "2100": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2101": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2102": {
+              "label_ast": "AST",
+              "label_index": "2"
             }
           },
           "210": {
@@ -31816,48 +31856,234 @@
               "label_index": "2"
             }
           },
-          "2101": {
-            "2102": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "2106": {
-              "label_ast": "AST",
-              "label_index": "1"
-            }
-          },
-          "2102": {
-            "2103": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
+          "2103": {
             "2104": {
               "label_ast": "AST",
-              "label_index": "1"
-            },
-            "2105": {
-              "label_ast": "AST",
-              "label_index": "2"
-            }
-          },
-          "2106": {
-            "2107": {
-              "label_ast": "AST",
               "label_index": "0"
             },
-            "2108": {
+            "2105": {
               "label_ast": "AST",
               "label_index": "1"
             },
             "2109": {
               "label_ast": "AST",
               "label_index": "2"
+            }
+          },
+          "2105": {
+            "2106": {
+              "label_ast": "AST",
+              "label_index": "0"
             },
-            "2110": {
+            "2107": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2108": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2111": {
+            "2112": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2113": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2135": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_true": "cfg_true",
+              "label_index": "2"
+            },
+            "2144": {
+              "label_cfg": "CFG",
+              "label_cfg_false": "cfg_false"
+            }
+          },
+          "2113": {
+            "2114": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2123": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2124": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2114": {
+            "2115": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2119": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "2115": {
+            "2116": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2117": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2118": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2119": {
+            "2120": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2121": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2122": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2124": {
+            "2125": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2129": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "2125": {
+            "2126": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2127": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2128": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2129": {
+            "2130": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2131": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2132": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "2133": {
               "label_ast": "AST",
               "label_index": "3"
             },
-            "2111": {
+            "2134": {
+              "label_ast": "AST",
+              "label_index": "4"
+            }
+          },
+          "2135": {
+            "2136": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2137": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "1"
+            },
+            "2141": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "2142": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "2137": {
+            "2138": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2139": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2144": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "2139": {
+            "2140": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "2144": {
+            "2145": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2149": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "2145": {
+            "2146": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2147": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2148": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2149": {
+            "2150": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2151": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2152": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "2153": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "2154": {
               "label_ast": "AST",
               "label_index": "4"
             }
@@ -31872,6 +32098,192 @@
               "label_index": "1"
             },
             "218": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2158": {
+            "2159": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2160": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2161": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "2172": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "3"
+            }
+          },
+          "2161": {
+            "2162": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2163": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2171": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2163": {
+            "2164": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2165": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "2165": {
+            "2166": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2167": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "2167": {
+            "2168": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2169": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2170": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2172": {
+            "2173": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2174": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "1"
+            },
+            "2191": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "2192": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "2224": {
+              "label_ast": "AST",
+              "label_index": "4"
+            },
+            "2225": {
+              "label_ast": "AST",
+              "label_index": "5"
+            },
+            "2231": {
+              "label_ast": "AST",
+              "label_index": "6"
+            },
+            "2232": {
+              "label_ast": "AST",
+              "label_index": "7"
+            }
+          },
+          "2174": {
+            "2175": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2177": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2178": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "2192": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "2175": {
+            "2176": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "2178": {
+            "2179": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "2179": {
+            "2180": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2184": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "2180": {
+            "2181": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2182": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2183": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2184": {
+            "2185": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2186": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2190": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2186": {
+            "2187": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2188": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2189": {
               "label_ast": "AST",
               "label_index": "2"
             }
@@ -31896,10 +32308,106 @@
               "label_index": "3"
             }
           },
+          "2192": {
+            "2193": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2194": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2216": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_true": "cfg_true",
+              "label_index": "2"
+            },
+            "2225": {
+              "label_cfg": "CFG",
+              "label_cfg_false": "cfg_false"
+            }
+          },
+          "2194": {
+            "2195": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2204": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2205": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2195": {
+            "2196": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2200": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "2196": {
+            "2197": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2198": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2199": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
           "22": {
             "23": {
               "label_ast": "AST",
               "label_index": "0"
+            }
+          },
+          "2200": {
+            "2201": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2202": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2203": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2205": {
+            "2206": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2210": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "2206": {
+            "2207": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2208": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2209": {
+              "label_ast": "AST",
+              "label_index": "2"
             }
           },
           "221": {
@@ -31912,10 +32420,140 @@
               "label_index": "1"
             }
           },
+          "2210": {
+            "2211": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2212": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2213": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "2214": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "2215": {
+              "label_ast": "AST",
+              "label_index": "4"
+            }
+          },
+          "2216": {
+            "2217": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2218": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "1"
+            },
+            "2222": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "2223": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "2218": {
+            "2219": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2220": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2225": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "2220": {
+            "2221": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "2225": {
+            "2226": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2227": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "2227": {
+            "2228": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2229": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2230": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
           "223": {
             "224": {
               "label_ast": "AST",
               "label_index": "0"
+            }
+          },
+          "2234": {
+            "2235": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2236": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2237": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "2243": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "3"
+            }
+          },
+          "2237": {
+            "2238": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2239": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2242": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2239": {
+            "2240": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2241": {
+              "label_ast": "AST",
+              "label_index": "1"
             }
           },
           "224": {
@@ -31930,6 +32568,72 @@
             "251": {
               "label_ast": "AST",
               "label_index": "2"
+            }
+          },
+          "2243": {
+            "2244": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2245": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "1"
+            },
+            "2256": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "2257": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "2245": {
+            "2246": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2250": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "2246": {
+            "2247": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2248": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2249": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2250": {
+            "2251": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "2252": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "2253": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "2254": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "2255": {
+              "label_ast": "AST",
+              "label_index": "4"
             }
           },
           "226": {
@@ -43094,22 +43798,22 @@
           "2036": {
             "label_c": 6,
             "label_l": 260,
-            "label_text": "SafeFloat",
+            "label_text": "DangerousFloat2",
             "label_type": "identifier"
           },
           "2037": {
-            "label_c": 15,
+            "label_c": 21,
             "label_l": 260,
             "label_type": "parameter_list"
           },
           "2038": {
-            "label_c": 15,
+            "label_c": 21,
             "label_l": 260,
             "label_text": "(",
             "label_type": "("
           },
           "2039": {
-            "label_c": 16,
+            "label_c": 22,
             "label_field_name": "2040",
             "label_field_type": "2041",
             "label_input_type": "F127",
@@ -43123,60 +43827,60 @@
             "label_type": ")"
           },
           "2040": {
-            "label_c": 16,
+            "label_c": 22,
             "label_l": 260,
             "label_text": "request",
             "label_type": "identifier"
           },
           "2041": {
-            "label_c": 24,
+            "label_c": 30,
             "label_l": 260,
             "label_type": "pointer_type"
           },
           "2042": {
-            "label_c": 24,
+            "label_c": 30,
             "label_l": 260,
             "label_text": "*",
             "label_type": "*"
           },
           "2043": {
-            "label_c": 25,
+            "label_c": 31,
             "label_field_name": "2046",
             "label_field_package": "2044",
             "label_l": 260,
             "label_type": "qualified_type"
           },
           "2044": {
-            "label_c": 25,
+            "label_c": 31,
             "label_l": 260,
             "label_text": "http",
             "label_type": "package_identifier"
           },
           "2045": {
-            "label_c": 29,
+            "label_c": 35,
             "label_l": 260,
             "label_text": ".",
             "label_type": "."
           },
           "2046": {
-            "label_c": 30,
+            "label_c": 36,
             "label_l": 260,
             "label_text": "Request",
             "label_type": "type_identifier"
           },
           "2047": {
-            "label_c": 37,
+            "label_c": 43,
             "label_l": 260,
             "label_text": ")",
             "label_type": ")"
           },
           "2048": {
-            "label_c": 39,
+            "label_c": 45,
             "label_l": 260,
             "label_type": "block"
           },
           "2049": {
-            "label_c": 39,
+            "label_c": 45,
             "label_l": 260,
             "label_text": "{",
             "label_type": "{"
@@ -43304,16 +44008,17 @@
           },
           "2068": {
             "label_c": 2,
-            "label_field_condition": "2070",
-            "label_field_consequence": "2092",
+            "label_field_arguments": "2070",
+            "label_field_function": "2069",
+            "label_function_declaration": "2234",
             "label_l": 262,
-            "label_type": "if_statement"
+            "label_type": "call_expression"
           },
           "2069": {
             "label_c": 2,
             "label_l": 262,
-            "label_text": "if",
-            "label_type": "if"
+            "label_text": "DBQuery",
+            "label_type": "identifier"
           },
           "207": {
             "label_c": 32,
@@ -43322,67 +44027,65 @@
             "label_type": "("
           },
           "2070": {
-            "label_c": 5,
-            "label_field_left": "2071",
-            "label_field_operator": "2080",
-            "label_field_right": "2081",
-            "label_l": 262,
-            "label_type": "binary_expression"
-          },
-          "2071": {
-            "label_c": 5,
-            "label_field_arguments": "2076",
-            "label_field_function": "2072",
-            "label_l": 262,
-            "label_type": "call_expression"
-          },
-          "2072": {
-            "label_c": 5,
-            "label_field_field": "2075",
-            "label_field_operand": "2073",
-            "label_l": 262,
-            "label_type": "selector_expression"
-          },
-          "2073": {
-            "label_c": 5,
-            "label_l": 262,
-            "label_text": "math",
-            "label_type": "identifier"
-          },
-          "2074": {
             "label_c": 9,
-            "label_l": 262,
-            "label_text": ".",
-            "label_type": "."
-          },
-          "2075": {
-            "label_c": 10,
-            "label_l": 262,
-            "label_text": "IsNaN",
-            "label_type": "field_identifier"
-          },
-          "2076": {
-            "label_c": 15,
             "label_l": 262,
             "label_type": "argument_list"
           },
-          "2077": {
-            "label_c": 15,
+          "2071": {
+            "label_c": 9,
             "label_l": 262,
             "label_text": "(",
             "label_type": "("
           },
-          "2078": {
-            "label_c": 16,
+          "2072": {
+            "label_c": 10,
             "label_l": 262,
             "label_text": "amount",
             "label_type": "identifier"
           },
-          "2079": {
-            "label_c": 22,
+          "2073": {
+            "label_c": 16,
             "label_l": 262,
             "label_text": ")",
             "label_type": ")"
+          },
+          "2074": {
+            "label_c": 17,
+            "label_l": 262,
+            "label_text": "\n",
+            "label_type": "\n"
+          },
+          "2075": {
+            "label_c": 1,
+            "label_l": 263,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "2076": {
+            "label_c": 2,
+            "label_l": 263,
+            "label_text": "\n\n",
+            "label_type": "\n"
+          },
+          "2077": {
+            "label_c": 1,
+            "label_field_body": "2091",
+            "label_field_name": "2079",
+            "label_field_parameters": "2080",
+            "label_l": 265,
+            "label_type": "function_declaration"
+          },
+          "2078": {
+            "label_c": 1,
+            "label_l": 265,
+            "label_text": "func",
+            "label_type": "func"
+          },
+          "2079": {
+            "label_c": 6,
+            "label_l": 265,
+            "label_text": "SafeFloat",
+            "label_type": "identifier"
           },
           "208": {
             "label_c": 33,
@@ -43392,65 +44095,65 @@
             "label_type": "parameter_declaration"
           },
           "2080": {
-            "label_c": 24,
-            "label_l": 262,
-            "label_text": "||",
-            "label_type": "||"
+            "label_c": 15,
+            "label_l": 265,
+            "label_type": "parameter_list"
           },
           "2081": {
-            "label_c": 27,
-            "label_field_arguments": "2086",
-            "label_field_function": "2082",
-            "label_l": 262,
-            "label_type": "call_expression"
-          },
-          "2082": {
-            "label_c": 27,
-            "label_field_field": "2085",
-            "label_field_operand": "2083",
-            "label_l": 262,
-            "label_type": "selector_expression"
-          },
-          "2083": {
-            "label_c": 27,
-            "label_l": 262,
-            "label_text": "math",
-            "label_type": "identifier"
-          },
-          "2084": {
-            "label_c": 31,
-            "label_l": 262,
-            "label_text": ".",
-            "label_type": "."
-          },
-          "2085": {
-            "label_c": 32,
-            "label_l": 262,
-            "label_text": "IsInf",
-            "label_type": "field_identifier"
-          },
-          "2086": {
-            "label_c": 37,
-            "label_l": 262,
-            "label_type": "argument_list"
-          },
-          "2087": {
-            "label_c": 37,
-            "label_l": 262,
+            "label_c": 15,
+            "label_l": 265,
             "label_text": "(",
             "label_type": "("
           },
-          "2088": {
-            "label_c": 38,
-            "label_l": 262,
-            "label_text": "amount",
+          "2082": {
+            "label_c": 16,
+            "label_field_name": "2083",
+            "label_field_type": "2084",
+            "label_input_type": "F127",
+            "label_l": 265,
+            "label_type": "parameter_declaration"
+          },
+          "2083": {
+            "label_c": 16,
+            "label_l": 265,
+            "label_text": "request",
             "label_type": "identifier"
           },
+          "2084": {
+            "label_c": 24,
+            "label_l": 265,
+            "label_type": "pointer_type"
+          },
+          "2085": {
+            "label_c": 24,
+            "label_l": 265,
+            "label_text": "*",
+            "label_type": "*"
+          },
+          "2086": {
+            "label_c": 25,
+            "label_field_name": "2089",
+            "label_field_package": "2087",
+            "label_l": 265,
+            "label_type": "qualified_type"
+          },
+          "2087": {
+            "label_c": 25,
+            "label_l": 265,
+            "label_text": "http",
+            "label_type": "package_identifier"
+          },
+          "2088": {
+            "label_c": 29,
+            "label_l": 265,
+            "label_text": ".",
+            "label_type": "."
+          },
           "2089": {
-            "label_c": 44,
-            "label_l": 262,
-            "label_text": ",",
-            "label_type": ","
+            "label_c": 30,
+            "label_l": 265,
+            "label_text": "Request",
+            "label_type": "type_identifier"
           },
           "209": {
             "label_c": 33,
@@ -43459,61 +44162,65 @@
             "label_type": "identifier"
           },
           "2090": {
-            "label_c": 46,
-            "label_l": 262,
-            "label_text": "0",
-            "label_type": "int_literal"
-          },
-          "2091": {
-            "label_c": 47,
-            "label_l": 262,
+            "label_c": 37,
+            "label_l": 265,
             "label_text": ")",
             "label_type": ")"
           },
-          "2092": {
-            "label_c": 49,
-            "label_l": 262,
+          "2091": {
+            "label_c": 39,
+            "label_l": 265,
             "label_type": "block"
           },
-          "2093": {
-            "label_c": 49,
-            "label_l": 262,
+          "2092": {
+            "label_c": 39,
+            "label_l": 265,
             "label_text": "{",
             "label_type": "{"
           },
+          "2093": {
+            "label_c": 2,
+            "label_field_left": "2094",
+            "label_field_right": "2097",
+            "label_l": 266,
+            "label_type": "short_var_declaration"
+          },
           "2094": {
-            "label_c": 3,
-            "label_l": 263,
-            "label_type": "return_statement"
-          },
-          "2095": {
-            "label_c": 3,
-            "label_l": 263,
-            "label_text": "return",
-            "label_type": "return"
-          },
-          "2096": {
-            "label_c": 10,
-            "label_l": 263,
+            "label_c": 2,
+            "label_l": 266,
             "label_type": "expression_list"
           },
+          "2095": {
+            "label_c": 2,
+            "label_l": 266,
+            "label_text": "amount",
+            "label_type": "identifier"
+          },
+          "2096": {
+            "label_c": 9,
+            "label_l": 266,
+            "label_text": ":=",
+            "label_type": ":="
+          },
           "2097": {
-            "label_c": 10,
-            "label_l": 263,
-            "label_text": "\"Not a valid value\"",
-            "label_type": "interpreted_string_literal"
+            "label_c": 12,
+            "label_l": 266,
+            "label_type": "expression_list"
           },
           "2098": {
-            "label_c": 29,
-            "label_l": 263,
-            "label_text": "\n",
-            "label_type": "\n"
+            "label_c": 12,
+            "label_field_arguments": "2103",
+            "label_field_function": "2099",
+            "label_input_type": "F109",
+            "label_l": 266,
+            "label_type": "call_expression"
           },
           "2099": {
-            "label_c": 2,
-            "label_l": 264,
-            "label_text": "}",
-            "label_type": "}"
+            "label_c": 12,
+            "label_field_field": "2102",
+            "label_field_operand": "2100",
+            "label_l": 266,
+            "label_type": "selector_expression"
           },
           "21": {
             "label_c": 12,
@@ -43529,66 +44236,64 @@
             "label_type": "qualified_type"
           },
           "2100": {
-            "label_c": 3,
-            "label_l": 264,
-            "label_text": "\n",
-            "label_type": "\n"
-          },
-          "2101": {
-            "label_c": 2,
-            "label_field_arguments": "2106",
-            "label_field_function": "2102",
-            "label_l": 265,
-            "label_sink_type": "F127",
-            "label_type": "call_expression"
-          },
-          "2102": {
-            "label_c": 2,
-            "label_field_field": "2105",
-            "label_field_operand": "2103",
-            "label_l": 265,
-            "label_type": "selector_expression"
-          },
-          "2103": {
-            "label_c": 2,
-            "label_l": 265,
-            "label_text": "sql",
+            "label_c": 12,
+            "label_l": 266,
+            "label_text": "strconv",
             "label_type": "identifier"
           },
-          "2104": {
-            "label_c": 5,
-            "label_l": 265,
+          "2101": {
+            "label_c": 19,
+            "label_l": 266,
             "label_text": ".",
             "label_type": "."
           },
-          "2105": {
-            "label_c": 6,
-            "label_l": 265,
-            "label_text": "QueryRow",
+          "2102": {
+            "label_c": 20,
+            "label_l": 266,
+            "label_text": "ParseFloat",
             "label_type": "field_identifier"
           },
-          "2106": {
-            "label_c": 14,
-            "label_l": 265,
+          "2103": {
+            "label_c": 30,
+            "label_l": 266,
             "label_type": "argument_list"
           },
-          "2107": {
-            "label_c": 14,
-            "label_l": 265,
+          "2104": {
+            "label_c": 30,
+            "label_l": 266,
             "label_text": "(",
             "label_type": "("
           },
+          "2105": {
+            "label_c": 31,
+            "label_field_field": "2108",
+            "label_field_operand": "2106",
+            "label_l": 266,
+            "label_type": "selector_expression"
+          },
+          "2106": {
+            "label_c": 31,
+            "label_l": 266,
+            "label_text": "request",
+            "label_type": "identifier"
+          },
+          "2107": {
+            "label_c": 38,
+            "label_l": 266,
+            "label_text": ".",
+            "label_type": "."
+          },
           "2108": {
-            "label_c": 15,
-            "label_l": 265,
-            "label_text": "`INSERT INTO tbl $1`",
-            "label_type": "raw_string_literal"
+            "label_c": 39,
+            "label_l": 266,
+            "label_text": "Amount",
+            "label_type": "field_identifier"
           },
           "2109": {
-            "label_c": 35,
-            "label_l": 265,
-            "label_text": ",",
-            "label_type": ","
+            "label_c": 45,
+            "label_l": 266,
+            "label_text": ")",
+            "label_type": ")"
           },
           "211": {
             "label_c": 35,
@@ -43597,34 +44302,68 @@
             "label_type": "package_identifier"
           },
           "2110": {
-            "label_c": 37,
-            "label_l": 265,
-            "label_text": "amount",
-            "label_type": "identifier"
+            "label_c": 46,
+            "label_l": 266,
+            "label_text": "\n",
+            "label_type": "\n"
           },
           "2111": {
-            "label_c": 43,
-            "label_l": 265,
-            "label_text": ")",
-            "label_type": ")"
+            "label_c": 2,
+            "label_field_condition": "2113",
+            "label_field_consequence": "2135",
+            "label_l": 267,
+            "label_type": "if_statement"
           },
           "2112": {
-            "label_c": 44,
-            "label_l": 265,
-            "label_text": "\n",
-            "label_type": "\n"
+            "label_c": 2,
+            "label_l": 267,
+            "label_text": "if",
+            "label_type": "if"
           },
           "2113": {
-            "label_c": 1,
-            "label_l": 266,
-            "label_text": "}",
-            "label_type": "}"
+            "label_c": 5,
+            "label_field_left": "2114",
+            "label_field_operator": "2123",
+            "label_field_right": "2124",
+            "label_l": 267,
+            "label_type": "binary_expression"
           },
           "2114": {
-            "label_c": 2,
-            "label_l": 266,
-            "label_text": "\n",
-            "label_type": "\n"
+            "label_c": 5,
+            "label_field_arguments": "2119",
+            "label_field_function": "2115",
+            "label_l": 267,
+            "label_type": "call_expression"
+          },
+          "2115": {
+            "label_c": 5,
+            "label_field_field": "2118",
+            "label_field_operand": "2116",
+            "label_l": 267,
+            "label_type": "selector_expression"
+          },
+          "2116": {
+            "label_c": 5,
+            "label_l": 267,
+            "label_text": "math",
+            "label_type": "identifier"
+          },
+          "2117": {
+            "label_c": 9,
+            "label_l": 267,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "2118": {
+            "label_c": 10,
+            "label_l": 267,
+            "label_text": "IsNaN",
+            "label_type": "field_identifier"
+          },
+          "2119": {
+            "label_c": 15,
+            "label_l": 267,
+            "label_type": "argument_list"
           },
           "212": {
             "label_c": 45,
@@ -43632,17 +44371,197 @@
             "label_text": ".",
             "label_type": "."
           },
+          "2120": {
+            "label_c": 15,
+            "label_l": 267,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "2121": {
+            "label_c": 16,
+            "label_l": 267,
+            "label_text": "amount",
+            "label_type": "identifier"
+          },
+          "2122": {
+            "label_c": 22,
+            "label_l": 267,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "2123": {
+            "label_c": 24,
+            "label_l": 267,
+            "label_text": "||",
+            "label_type": "||"
+          },
+          "2124": {
+            "label_c": 27,
+            "label_field_arguments": "2129",
+            "label_field_function": "2125",
+            "label_l": 267,
+            "label_type": "call_expression"
+          },
+          "2125": {
+            "label_c": 27,
+            "label_field_field": "2128",
+            "label_field_operand": "2126",
+            "label_l": 267,
+            "label_type": "selector_expression"
+          },
+          "2126": {
+            "label_c": 27,
+            "label_l": 267,
+            "label_text": "math",
+            "label_type": "identifier"
+          },
+          "2127": {
+            "label_c": 31,
+            "label_l": 267,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "2128": {
+            "label_c": 32,
+            "label_l": 267,
+            "label_text": "IsInf",
+            "label_type": "field_identifier"
+          },
+          "2129": {
+            "label_c": 37,
+            "label_l": 267,
+            "label_type": "argument_list"
+          },
           "213": {
             "label_c": 46,
             "label_l": 31,
             "label_text": "Handle",
             "label_type": "type_identifier"
           },
+          "2130": {
+            "label_c": 37,
+            "label_l": 267,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "2131": {
+            "label_c": 38,
+            "label_l": 267,
+            "label_text": "amount",
+            "label_type": "identifier"
+          },
+          "2132": {
+            "label_c": 44,
+            "label_l": 267,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "2133": {
+            "label_c": 46,
+            "label_l": 267,
+            "label_text": "0",
+            "label_type": "int_literal"
+          },
+          "2134": {
+            "label_c": 47,
+            "label_l": 267,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "2135": {
+            "label_c": 49,
+            "label_l": 267,
+            "label_type": "block"
+          },
+          "2136": {
+            "label_c": 49,
+            "label_l": 267,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "2137": {
+            "label_c": 3,
+            "label_l": 268,
+            "label_type": "return_statement"
+          },
+          "2138": {
+            "label_c": 3,
+            "label_l": 268,
+            "label_text": "return",
+            "label_type": "return"
+          },
+          "2139": {
+            "label_c": 10,
+            "label_l": 268,
+            "label_type": "expression_list"
+          },
           "214": {
             "label_c": 52,
             "label_l": 31,
             "label_text": ")",
             "label_type": ")"
+          },
+          "2140": {
+            "label_c": 10,
+            "label_l": 268,
+            "label_text": "\"Not a valid value\"",
+            "label_type": "interpreted_string_literal"
+          },
+          "2141": {
+            "label_c": 29,
+            "label_l": 268,
+            "label_text": "\n",
+            "label_type": "\n"
+          },
+          "2142": {
+            "label_c": 2,
+            "label_l": 269,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "2143": {
+            "label_c": 3,
+            "label_l": 269,
+            "label_text": "\n",
+            "label_type": "\n"
+          },
+          "2144": {
+            "label_c": 2,
+            "label_field_arguments": "2149",
+            "label_field_function": "2145",
+            "label_l": 270,
+            "label_sink_type": "F127",
+            "label_type": "call_expression"
+          },
+          "2145": {
+            "label_c": 2,
+            "label_field_field": "2148",
+            "label_field_operand": "2146",
+            "label_l": 270,
+            "label_type": "selector_expression"
+          },
+          "2146": {
+            "label_c": 2,
+            "label_l": 270,
+            "label_text": "sql",
+            "label_type": "identifier"
+          },
+          "2147": {
+            "label_c": 5,
+            "label_l": 270,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "2148": {
+            "label_c": 6,
+            "label_l": 270,
+            "label_text": "QueryRow",
+            "label_type": "field_identifier"
+          },
+          "2149": {
+            "label_c": 14,
+            "label_l": 270,
+            "label_type": "argument_list"
           },
           "215": {
             "label_c": 54,
@@ -43651,11 +44570,134 @@
             "label_l": 31,
             "label_type": "qualified_type"
           },
+          "2150": {
+            "label_c": 14,
+            "label_l": 270,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "2151": {
+            "label_c": 15,
+            "label_l": 270,
+            "label_text": "`INSERT INTO tbl $1`",
+            "label_type": "raw_string_literal"
+          },
+          "2152": {
+            "label_c": 35,
+            "label_l": 270,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "2153": {
+            "label_c": 37,
+            "label_l": 270,
+            "label_text": "amount",
+            "label_type": "identifier"
+          },
+          "2154": {
+            "label_c": 43,
+            "label_l": 270,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "2155": {
+            "label_c": 44,
+            "label_l": 270,
+            "label_text": "\n",
+            "label_type": "\n"
+          },
+          "2156": {
+            "label_c": 1,
+            "label_l": 271,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "2157": {
+            "label_c": 2,
+            "label_l": 271,
+            "label_text": "\n\n",
+            "label_type": "\n"
+          },
+          "2158": {
+            "label_c": 1,
+            "label_field_body": "2172",
+            "label_field_name": "2160",
+            "label_field_parameters": "2161",
+            "label_l": 273,
+            "label_type": "function_declaration"
+          },
+          "2159": {
+            "label_c": 1,
+            "label_l": 273,
+            "label_text": "func",
+            "label_type": "func"
+          },
           "216": {
             "label_c": 54,
             "label_l": 31,
             "label_text": "httprouter",
             "label_type": "package_identifier"
+          },
+          "2160": {
+            "label_c": 6,
+            "label_l": 273,
+            "label_text": "SafeFloat2",
+            "label_type": "identifier"
+          },
+          "2161": {
+            "label_c": 16,
+            "label_l": 273,
+            "label_type": "parameter_list"
+          },
+          "2162": {
+            "label_c": 16,
+            "label_l": 273,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "2163": {
+            "label_c": 17,
+            "label_field_name": "2164",
+            "label_field_type": "2165",
+            "label_input_type": "F127",
+            "label_l": 273,
+            "label_type": "parameter_declaration"
+          },
+          "2164": {
+            "label_c": 17,
+            "label_l": 273,
+            "label_text": "request",
+            "label_type": "identifier"
+          },
+          "2165": {
+            "label_c": 25,
+            "label_l": 273,
+            "label_type": "pointer_type"
+          },
+          "2166": {
+            "label_c": 25,
+            "label_l": 273,
+            "label_text": "*",
+            "label_type": "*"
+          },
+          "2167": {
+            "label_c": 26,
+            "label_field_name": "2170",
+            "label_field_package": "2168",
+            "label_l": 273,
+            "label_type": "qualified_type"
+          },
+          "2168": {
+            "label_c": 26,
+            "label_l": 273,
+            "label_text": "http",
+            "label_type": "package_identifier"
+          },
+          "2169": {
+            "label_c": 30,
+            "label_l": 273,
+            "label_text": ".",
+            "label_type": "."
           },
           "217": {
             "label_c": 64,
@@ -43663,16 +44705,202 @@
             "label_text": ".",
             "label_type": "."
           },
+          "2170": {
+            "label_c": 31,
+            "label_l": 273,
+            "label_text": "Request",
+            "label_type": "type_identifier"
+          },
+          "2171": {
+            "label_c": 38,
+            "label_l": 273,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "2172": {
+            "label_c": 40,
+            "label_l": 273,
+            "label_type": "block"
+          },
+          "2173": {
+            "label_c": 40,
+            "label_l": 273,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "2174": {
+            "label_c": 2,
+            "label_field_left": "2175",
+            "label_field_right": "2178",
+            "label_l": 274,
+            "label_type": "short_var_declaration"
+          },
+          "2175": {
+            "label_c": 2,
+            "label_l": 274,
+            "label_type": "expression_list"
+          },
+          "2176": {
+            "label_c": 2,
+            "label_l": 274,
+            "label_text": "amount",
+            "label_type": "identifier"
+          },
+          "2177": {
+            "label_c": 9,
+            "label_l": 274,
+            "label_text": ":=",
+            "label_type": ":="
+          },
+          "2178": {
+            "label_c": 12,
+            "label_l": 274,
+            "label_type": "expression_list"
+          },
+          "2179": {
+            "label_c": 12,
+            "label_field_arguments": "2184",
+            "label_field_function": "2180",
+            "label_input_type": "F109",
+            "label_l": 274,
+            "label_type": "call_expression"
+          },
           "218": {
             "label_c": 65,
             "label_l": 31,
             "label_text": "Handle",
             "label_type": "type_identifier"
           },
+          "2180": {
+            "label_c": 12,
+            "label_field_field": "2183",
+            "label_field_operand": "2181",
+            "label_l": 274,
+            "label_type": "selector_expression"
+          },
+          "2181": {
+            "label_c": 12,
+            "label_l": 274,
+            "label_text": "strconv",
+            "label_type": "identifier"
+          },
+          "2182": {
+            "label_c": 19,
+            "label_l": 274,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "2183": {
+            "label_c": 20,
+            "label_l": 274,
+            "label_text": "ParseFloat",
+            "label_type": "field_identifier"
+          },
+          "2184": {
+            "label_c": 30,
+            "label_l": 274,
+            "label_type": "argument_list"
+          },
+          "2185": {
+            "label_c": 30,
+            "label_l": 274,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "2186": {
+            "label_c": 31,
+            "label_field_field": "2189",
+            "label_field_operand": "2187",
+            "label_l": 274,
+            "label_type": "selector_expression"
+          },
+          "2187": {
+            "label_c": 31,
+            "label_l": 274,
+            "label_text": "request",
+            "label_type": "identifier"
+          },
+          "2188": {
+            "label_c": 38,
+            "label_l": 274,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "2189": {
+            "label_c": 39,
+            "label_l": 274,
+            "label_text": "Amount",
+            "label_type": "field_identifier"
+          },
           "219": {
             "label_c": 72,
             "label_l": 31,
             "label_type": "block"
+          },
+          "2190": {
+            "label_c": 45,
+            "label_l": 274,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "2191": {
+            "label_c": 46,
+            "label_l": 274,
+            "label_text": "\n",
+            "label_type": "\n"
+          },
+          "2192": {
+            "label_c": 2,
+            "label_field_condition": "2194",
+            "label_field_consequence": "2216",
+            "label_l": 275,
+            "label_type": "if_statement"
+          },
+          "2193": {
+            "label_c": 2,
+            "label_l": 275,
+            "label_text": "if",
+            "label_type": "if"
+          },
+          "2194": {
+            "label_c": 5,
+            "label_field_left": "2195",
+            "label_field_operator": "2204",
+            "label_field_right": "2205",
+            "label_l": 275,
+            "label_type": "binary_expression"
+          },
+          "2195": {
+            "label_c": 5,
+            "label_field_arguments": "2200",
+            "label_field_function": "2196",
+            "label_l": 275,
+            "label_type": "call_expression"
+          },
+          "2196": {
+            "label_c": 5,
+            "label_field_field": "2199",
+            "label_field_operand": "2197",
+            "label_l": 275,
+            "label_type": "selector_expression"
+          },
+          "2197": {
+            "label_c": 5,
+            "label_l": 275,
+            "label_text": "math",
+            "label_type": "identifier"
+          },
+          "2198": {
+            "label_c": 9,
+            "label_l": 275,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "2199": {
+            "label_c": 10,
+            "label_l": 275,
+            "label_text": "IsNaN",
+            "label_type": "field_identifier"
           },
           "22": {
             "label_c": 2,
@@ -43686,10 +44914,128 @@
             "label_text": "{",
             "label_type": "{"
           },
+          "2200": {
+            "label_c": 15,
+            "label_l": 275,
+            "label_type": "argument_list"
+          },
+          "2201": {
+            "label_c": 15,
+            "label_l": 275,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "2202": {
+            "label_c": 16,
+            "label_l": 275,
+            "label_text": "amount",
+            "label_type": "identifier"
+          },
+          "2203": {
+            "label_c": 22,
+            "label_l": 275,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "2204": {
+            "label_c": 24,
+            "label_l": 275,
+            "label_text": "||",
+            "label_type": "||"
+          },
+          "2205": {
+            "label_c": 27,
+            "label_field_arguments": "2210",
+            "label_field_function": "2206",
+            "label_l": 275,
+            "label_type": "call_expression"
+          },
+          "2206": {
+            "label_c": 27,
+            "label_field_field": "2209",
+            "label_field_operand": "2207",
+            "label_l": 275,
+            "label_type": "selector_expression"
+          },
+          "2207": {
+            "label_c": 27,
+            "label_l": 275,
+            "label_text": "math",
+            "label_type": "identifier"
+          },
+          "2208": {
+            "label_c": 31,
+            "label_l": 275,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "2209": {
+            "label_c": 32,
+            "label_l": 275,
+            "label_text": "IsInf",
+            "label_type": "field_identifier"
+          },
           "221": {
             "label_c": 2,
             "label_l": 32,
             "label_type": "return_statement"
+          },
+          "2210": {
+            "label_c": 37,
+            "label_l": 275,
+            "label_type": "argument_list"
+          },
+          "2211": {
+            "label_c": 37,
+            "label_l": 275,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "2212": {
+            "label_c": 38,
+            "label_l": 275,
+            "label_text": "amount",
+            "label_type": "identifier"
+          },
+          "2213": {
+            "label_c": 44,
+            "label_l": 275,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "2214": {
+            "label_c": 46,
+            "label_l": 275,
+            "label_text": "0",
+            "label_type": "int_literal"
+          },
+          "2215": {
+            "label_c": 47,
+            "label_l": 275,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "2216": {
+            "label_c": 49,
+            "label_l": 275,
+            "label_type": "block"
+          },
+          "2217": {
+            "label_c": 49,
+            "label_l": 275,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "2218": {
+            "label_c": 3,
+            "label_l": 276,
+            "label_type": "return_statement"
+          },
+          "2219": {
+            "label_c": 3,
+            "label_l": 276,
+            "label_text": "return",
+            "label_type": "return"
           },
           "222": {
             "label_c": 2,
@@ -43697,10 +45043,132 @@
             "label_text": "return",
             "label_type": "return"
           },
+          "2220": {
+            "label_c": 10,
+            "label_l": 276,
+            "label_type": "expression_list"
+          },
+          "2221": {
+            "label_c": 10,
+            "label_l": 276,
+            "label_text": "\"Not a valid value\"",
+            "label_type": "interpreted_string_literal"
+          },
+          "2222": {
+            "label_c": 29,
+            "label_l": 276,
+            "label_text": "\n",
+            "label_type": "\n"
+          },
+          "2223": {
+            "label_c": 2,
+            "label_l": 277,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "2224": {
+            "label_c": 3,
+            "label_l": 277,
+            "label_text": "\n",
+            "label_type": "\n"
+          },
+          "2225": {
+            "label_c": 2,
+            "label_field_arguments": "2227",
+            "label_field_function": "2226",
+            "label_function_declaration": "2234",
+            "label_l": 278,
+            "label_type": "call_expression"
+          },
+          "2226": {
+            "label_c": 2,
+            "label_l": 278,
+            "label_text": "DBQuery",
+            "label_type": "identifier"
+          },
+          "2227": {
+            "label_c": 9,
+            "label_l": 278,
+            "label_type": "argument_list"
+          },
+          "2228": {
+            "label_c": 9,
+            "label_l": 278,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "2229": {
+            "label_c": 10,
+            "label_l": 278,
+            "label_text": "amount",
+            "label_type": "identifier"
+          },
           "223": {
             "label_c": 9,
             "label_l": 32,
             "label_type": "expression_list"
+          },
+          "2230": {
+            "label_c": 16,
+            "label_l": 278,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "2231": {
+            "label_c": 17,
+            "label_l": 278,
+            "label_text": "\n",
+            "label_type": "\n"
+          },
+          "2232": {
+            "label_c": 1,
+            "label_l": 279,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "2233": {
+            "label_c": 2,
+            "label_l": 279,
+            "label_text": "\n\n",
+            "label_type": "\n"
+          },
+          "2234": {
+            "label_c": 1,
+            "label_field_body": "2243",
+            "label_field_name": "2236",
+            "label_field_parameters": "2237",
+            "label_l": 281,
+            "label_type": "function_declaration"
+          },
+          "2235": {
+            "label_c": 1,
+            "label_l": 281,
+            "label_text": "func",
+            "label_type": "func"
+          },
+          "2236": {
+            "label_c": 6,
+            "label_l": 281,
+            "label_text": "DBQuery",
+            "label_type": "identifier"
+          },
+          "2237": {
+            "label_c": 13,
+            "label_l": 281,
+            "label_type": "parameter_list"
+          },
+          "2238": {
+            "label_c": 13,
+            "label_l": 281,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "2239": {
+            "label_c": 14,
+            "label_field_name": "2240",
+            "label_field_type": "2241",
+            "label_l": 281,
+            "label_type": "parameter_declaration"
           },
           "224": {
             "label_c": 9,
@@ -43709,11 +45177,126 @@
             "label_l": 32,
             "label_type": "func_literal"
           },
+          "2240": {
+            "label_c": 14,
+            "label_l": 281,
+            "label_text": "price",
+            "label_type": "identifier"
+          },
+          "2241": {
+            "label_c": 20,
+            "label_l": 281,
+            "label_text": "float",
+            "label_type": "type_identifier"
+          },
+          "2242": {
+            "label_c": 25,
+            "label_l": 281,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "2243": {
+            "label_c": 27,
+            "label_l": 281,
+            "label_type": "block"
+          },
+          "2244": {
+            "label_c": 27,
+            "label_l": 281,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "2245": {
+            "label_c": 2,
+            "label_field_arguments": "2250",
+            "label_field_function": "2246",
+            "label_l": 282,
+            "label_sink_type": "F127",
+            "label_type": "call_expression"
+          },
+          "2246": {
+            "label_c": 2,
+            "label_field_field": "2249",
+            "label_field_operand": "2247",
+            "label_l": 282,
+            "label_type": "selector_expression"
+          },
+          "2247": {
+            "label_c": 2,
+            "label_l": 282,
+            "label_text": "sql",
+            "label_type": "identifier"
+          },
+          "2248": {
+            "label_c": 5,
+            "label_l": 282,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "2249": {
+            "label_c": 6,
+            "label_l": 282,
+            "label_text": "Exec",
+            "label_type": "field_identifier"
+          },
           "225": {
             "label_c": 9,
             "label_l": 32,
             "label_text": "func",
             "label_type": "func"
+          },
+          "2250": {
+            "label_c": 10,
+            "label_l": 282,
+            "label_type": "argument_list"
+          },
+          "2251": {
+            "label_c": 10,
+            "label_l": 282,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "2252": {
+            "label_c": 11,
+            "label_l": 282,
+            "label_text": "`INSERT INTO tbl $1`",
+            "label_type": "raw_string_literal"
+          },
+          "2253": {
+            "label_c": 31,
+            "label_l": 282,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "2254": {
+            "label_c": 33,
+            "label_l": 282,
+            "label_text": "amount",
+            "label_type": "identifier"
+          },
+          "2255": {
+            "label_c": 39,
+            "label_l": 282,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "2256": {
+            "label_c": 40,
+            "label_l": 282,
+            "label_text": "\n",
+            "label_type": "\n"
+          },
+          "2257": {
+            "label_c": 1,
+            "label_l": 283,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "2258": {
+            "label_c": 2,
+            "label_l": 283,
+            "label_text": "\n",
+            "label_type": "\n"
           },
           "226": {
             "label_c": 13,
@@ -51856,7 +53439,104 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "2088",
+              "n_id": "2072",
+              "value": null
+            },
+            "symbol": "amount",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2068",
+              "value": null
+            },
+            "method": "DBQuery",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "2077": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2082",
+              "value": null
+            },
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "*http.Request"
+          }
+        ],
+        "2091": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2091",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "2093": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2106",
+              "value": null
+            },
+            "symbol": "request",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "Amount",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2105",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2098",
+              "value": null
+            },
+            "method": "strconv.ParseFloat",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2095",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "amount",
+            "var_type": ""
+          }
+        ],
+        "2111": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2131",
               "value": null
             },
             "symbol": "amount",
@@ -51866,7 +53546,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "2090",
+              "n_id": "2133",
               "value": null
             },
             "type": "SyntaxStepLiteral",
@@ -51880,7 +53560,7 @@
             "meta": {
               "danger": false,
               "dependencies": -2,
-              "n_id": "2081",
+              "n_id": "2124",
               "value": null
             },
             "method": "math.IsInf",
@@ -51890,7 +53570,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "2078",
+              "n_id": "2121",
               "value": null
             },
             "symbol": "amount",
@@ -51903,7 +53583,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "2071",
+              "n_id": "2114",
               "value": null
             },
             "method": "math.IsNaN",
@@ -51913,7 +53593,7 @@
             "meta": {
               "danger": false,
               "dependencies": -2,
-              "n_id": "2070",
+              "n_id": "2113",
               "value": null
             },
             "operator": "||",
@@ -51923,31 +53603,31 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "2068",
+              "n_id": "2111",
               "value": null
             },
-            "n_id_false": "2101",
-            "n_id_true": "2092",
+            "n_id_false": "2144",
+            "n_id_true": "2135",
             "type": "SyntaxStepIf"
           }
         ],
-        "2092": [
+        "2135": [
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "2092",
+              "n_id": "2135",
               "value": null
             },
             "type": "SyntaxStepNoOp"
           }
         ],
-        "2094": [
+        "2137": [
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "2097",
+              "n_id": "2140",
               "value": null
             },
             "type": "SyntaxStepLiteral",
@@ -51958,18 +53638,18 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "2094",
+              "n_id": "2137",
               "value": null
             },
             "type": "SyntaxStepReturn"
           }
         ],
-        "2101": [
+        "2144": [
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "2108",
+              "n_id": "2151",
               "value": null
             },
             "type": "SyntaxStepLiteral",
@@ -51980,7 +53660,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "2110",
+              "n_id": "2153",
               "value": null
             },
             "symbol": "amount",
@@ -51993,11 +53673,83 @@
             "meta": {
               "danger": false,
               "dependencies": -2,
-              "n_id": "2101",
+              "n_id": "2144",
               "value": null
             },
             "method": "sql.QueryRow",
             "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "2158": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2163",
+              "value": null
+            },
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "*http.Request"
+          }
+        ],
+        "2172": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2172",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "2174": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2187",
+              "value": null
+            },
+            "symbol": "request",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "Amount",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2186",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2179",
+              "value": null
+            },
+            "method": "strconv.ParseFloat",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2176",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "amount",
+            "var_type": ""
           }
         ],
         "219": [
@@ -52009,6 +53761,205 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "2192": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2212",
+              "value": null
+            },
+            "symbol": "amount",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2214",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "2205",
+              "value": null
+            },
+            "method": "math.IsInf",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2202",
+              "value": null
+            },
+            "symbol": "amount",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2195",
+              "value": null
+            },
+            "method": "math.IsNaN",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "2194",
+              "value": null
+            },
+            "operator": "||",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2192",
+              "value": null
+            },
+            "n_id_false": "2225",
+            "n_id_true": "2216",
+            "type": "SyntaxStepIf"
+          }
+        ],
+        "2216": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2216",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "2218": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2221",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Not a valid value",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2218",
+              "value": null
+            },
+            "type": "SyntaxStepReturn"
+          }
+        ],
+        "2225": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2229",
+              "value": null
+            },
+            "symbol": "amount",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2225",
+              "value": null
+            },
+            "method": "DBQuery",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "2234": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2239",
+              "value": null
+            },
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "price",
+            "var_type": "float"
+          }
+        ],
+        "2243": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2243",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "2245": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2252",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "INSERT INTO tbl $1",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2254",
+              "value": null
+            },
+            "symbol": "amount",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "2245",
+              "value": null
+            },
+            "method": "sql.Exec",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "360": [

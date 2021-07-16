@@ -1,9 +1,18 @@
 from model import (
     core_model,
 )
+from model.graph_model import (
+    SyntaxStepMethodInvocation,
+)
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
     JavaClassInstance,
+)
+from sast_syntax_readers.utils_generic import (
+    get_dependencies,
+)
+from utils import (
+    graph as g,
 )
 from utils.string import (
     complete_attrs_on_set,
@@ -50,6 +59,26 @@ def _syntax_step_declaration_danger(args: EvaluatorArgs) -> None:
         )
     )
 
+    # Analyze if the case is a declaration of a previously called function
+    prev_step = args.syntax_steps[args.syntax_step_index - 1]
+    if (
+        isinstance(prev_step, SyntaxStepMethodInvocation)
+        and g.is_connected_to_cfg(args.shard.graph, prev_step.meta.n_id)
+        and not g.is_connected_to_cfg(
+            args.shard.graph, args.syntax_step.meta.n_id
+        )
+        and g.lookup_first_cfg_parent(
+            args.shard.graph, args.syntax_step.meta.n_id
+        )
+        not in g.adj_cfg(args.shard.graph, prev_step.meta.n_id)
+    ):
+        args_danger = any(
+            dep.meta.danger
+            for dep in get_dependencies(
+                args.syntax_step_index - 1, args.syntax_steps
+            )
+        )
+
     args.syntax_step.meta.danger = bind_danger or args_danger
 
 
@@ -66,3 +95,21 @@ def _syntax_step_declaration_values(args: EvaluatorArgs) -> None:
             args.syntax_steps[args.syntax_step_index] = new_step
             step = new_step
         step.meta.value = args.dependencies[0].meta.value
+
+    # Analyze if the case is a declaration of a previously called function
+    prev_step = args.syntax_steps[args.syntax_step_index - 1]
+
+    if (
+        isinstance(prev_step, SyntaxStepMethodInvocation)
+        and g.is_connected_to_cfg(args.shard.graph, prev_step.meta.n_id)
+        and not g.is_connected_to_cfg(
+            args.shard.graph, args.syntax_step.meta.n_id
+        )
+        and g.lookup_first_cfg_parent(
+            args.shard.graph, args.syntax_step.meta.n_id
+        )
+        not in g.adj_cfg(args.shard.graph, prev_step.meta.n_id)
+    ):
+        args.syntax_step.meta.value = get_dependencies(
+            args.syntax_step_index - 1, args.syntax_steps
+        )[0].meta.value

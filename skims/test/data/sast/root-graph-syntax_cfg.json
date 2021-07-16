@@ -208,7 +208,9 @@
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {
       "2007": {},
-      "2055": {}
+      "2055": {},
+      "2098": {},
+      "2179": {}
     },
     "skims/test/data/sast/test_cfg.js": {}
   },
@@ -341,7 +343,7 @@
         ]
       },
       "2039": {
-        "2034-2048-2050-2068-2092-2094-2101": [
+        "2034-2048-2050-2068-2234-2243-2245": [
           {
             "meta": {
               "danger": false,
@@ -392,6 +394,169 @@
               "dependencies": -1,
               "n_id": "2055",
               "value": {
+                "is_inf": true,
+                "is_nan": true
+              }
+            },
+            "method": "strconv.ParseFloat",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "2052",
+              "value": {
+                "is_inf": true,
+                "is_nan": true
+              }
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "amount",
+            "var_type": ""
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "2072",
+              "value": {
+                "is_inf": true,
+                "is_nan": true
+              }
+            },
+            "symbol": "amount",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2068",
+              "value": null
+            },
+            "method": "DBQuery",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "2239",
+              "value": {
+                "is_inf": true,
+                "is_nan": true
+              }
+            },
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "price",
+            "var_type": "float"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2243",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2252",
+              "value": "INSERT INTO tbl $1"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "INSERT INTO tbl $1",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "2254",
+              "value": {
+                "is_inf": true,
+                "is_nan": true
+              }
+            },
+            "symbol": "amount",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": true,
+              "dependencies": -2,
+              "n_id": "2245",
+              "value": null
+            },
+            "method": "sql.Exec",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ]
+      },
+      "2082": {
+        "2077-2091-2093-2111-2135-2137-2144": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2082",
+              "value": null
+            },
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "*http.Request"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2091",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2106",
+              "value": null
+            },
+            "symbol": "request",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "Amount",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2105",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "2098",
+              "value": {
                 "is_inf": false,
                 "is_nan": false
               }
@@ -403,7 +568,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "2052",
+              "n_id": "2095",
               "value": {
                 "is_inf": false,
                 "is_nan": false
@@ -418,7 +583,7 @@
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "2088",
+              "n_id": "2131",
               "value": {
                 "is_inf": false,
                 "is_nan": false
@@ -431,7 +596,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "2090",
+              "n_id": "2133",
               "value": 0.0
             },
             "type": "SyntaxStepLiteral",
@@ -445,7 +610,7 @@
             "meta": {
               "danger": false,
               "dependencies": -2,
-              "n_id": "2081",
+              "n_id": "2124",
               "value": null
             },
             "method": "math.IsInf",
@@ -455,7 +620,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "2078",
+              "n_id": "2121",
               "value": {
                 "is_inf": false,
                 "is_nan": false
@@ -471,7 +636,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "2071",
+              "n_id": "2114",
               "value": null
             },
             "method": "math.IsNaN",
@@ -481,7 +646,7 @@
             "meta": {
               "danger": false,
               "dependencies": -2,
-              "n_id": "2070",
+              "n_id": "2113",
               "value": null
             },
             "operator": "||",
@@ -491,18 +656,18 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "2068",
+              "n_id": "2111",
               "value": null
             },
-            "n_id_false": "2101",
-            "n_id_true": "2092",
+            "n_id_false": "2144",
+            "n_id_true": "2135",
             "type": "SyntaxStepIf"
           },
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "2092",
+              "n_id": "2135",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -511,7 +676,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "2097",
+              "n_id": "2140",
               "value": "Not a valid value"
             },
             "type": "SyntaxStepLiteral",
@@ -522,7 +687,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "2094",
+              "n_id": "2137",
               "value": "Not a valid value"
             },
             "type": "SyntaxStepReturn"
@@ -531,7 +696,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "2108",
+              "n_id": "2151",
               "value": "INSERT INTO tbl $1"
             },
             "type": "SyntaxStepLiteral",
@@ -542,7 +707,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "2110",
+              "n_id": "2153",
               "value": {
                 "is_inf": false,
                 "is_nan": false
@@ -558,19 +723,19 @@
             "meta": {
               "danger": false,
               "dependencies": -2,
-              "n_id": "2101",
+              "n_id": "2144",
               "value": null
             },
             "method": "sql.QueryRow",
             "type": "SyntaxStepMethodInvocation"
           }
         ],
-        "2034-2048-2050-2068-2101": [
+        "2077-2091-2093-2111-2144": [
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "2039",
+              "n_id": "2082",
               "value": null
             },
             "modifiers": [],
@@ -582,7 +747,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "2048",
+              "n_id": "2091",
               "value": null
             },
             "type": "SyntaxStepNoOp"
@@ -591,7 +756,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "2063",
+              "n_id": "2106",
               "value": null
             },
             "symbol": "request",
@@ -602,7 +767,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "2062",
+              "n_id": "2105",
               "value": null
             },
             "type": "SyntaxStepAttributeAccess"
@@ -614,7 +779,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "2055",
+              "n_id": "2098",
               "value": {
                 "is_inf": false,
                 "is_nan": false
@@ -627,7 +792,7 @@
             "meta": {
               "danger": true,
               "dependencies": -1,
-              "n_id": "2052",
+              "n_id": "2095",
               "value": {
                 "is_inf": false,
                 "is_nan": false
@@ -642,7 +807,7 @@
             "meta": {
               "danger": true,
               "dependencies": 0,
-              "n_id": "2088",
+              "n_id": "2131",
               "value": {
                 "is_inf": false,
                 "is_nan": false
@@ -655,7 +820,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "2090",
+              "n_id": "2133",
               "value": 0.0
             },
             "type": "SyntaxStepLiteral",
@@ -669,7 +834,7 @@
             "meta": {
               "danger": false,
               "dependencies": -2,
-              "n_id": "2081",
+              "n_id": "2124",
               "value": null
             },
             "method": "math.IsInf",
@@ -679,7 +844,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "2078",
+              "n_id": "2121",
               "value": {
                 "is_inf": false,
                 "is_nan": false
@@ -695,7 +860,7 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "2071",
+              "n_id": "2114",
               "value": null
             },
             "method": "math.IsNaN",
@@ -705,7 +870,7 @@
             "meta": {
               "danger": false,
               "dependencies": -2,
-              "n_id": "2070",
+              "n_id": "2113",
               "value": null
             },
             "operator": "||",
@@ -715,18 +880,18 @@
             "meta": {
               "danger": false,
               "dependencies": -1,
-              "n_id": "2068",
+              "n_id": "2111",
               "value": null
             },
-            "n_id_false": "2101",
-            "n_id_true": "2092",
+            "n_id_false": "2144",
+            "n_id_true": "2135",
             "type": "SyntaxStepIf"
           },
           {
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "2108",
+              "n_id": "2151",
               "value": "INSERT INTO tbl $1"
             },
             "type": "SyntaxStepLiteral",
@@ -737,7 +902,7 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "2110",
+              "n_id": "2153",
               "value": {
                 "is_inf": false,
                 "is_nan": false
@@ -753,10 +918,531 @@
             "meta": {
               "danger": false,
               "dependencies": -2,
-              "n_id": "2101",
+              "n_id": "2144",
               "value": null
             },
             "method": "sql.QueryRow",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ]
+      },
+      "2163": {
+        "2158-2172-2174-2192-2216-2218-2225-2234-2243-2245": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2163",
+              "value": null
+            },
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "*http.Request"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2172",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2187",
+              "value": null
+            },
+            "symbol": "request",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "Amount",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2186",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "2179",
+              "value": {
+                "is_inf": false,
+                "is_nan": false
+              }
+            },
+            "method": "strconv.ParseFloat",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "2176",
+              "value": {
+                "is_inf": false,
+                "is_nan": false
+              }
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "amount",
+            "var_type": ""
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "2212",
+              "value": {
+                "is_inf": false,
+                "is_nan": false
+              }
+            },
+            "symbol": "amount",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2214",
+              "value": 0.0
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "2205",
+              "value": null
+            },
+            "method": "math.IsInf",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2202",
+              "value": {
+                "is_inf": false,
+                "is_nan": false
+              }
+            },
+            "symbol": "amount",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2195",
+              "value": null
+            },
+            "method": "math.IsNaN",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "2194",
+              "value": null
+            },
+            "operator": "||",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2192",
+              "value": null
+            },
+            "n_id_false": "2225",
+            "n_id_true": "2216",
+            "type": "SyntaxStepIf"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2216",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2221",
+              "value": "Not a valid value"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Not a valid value",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2218",
+              "value": "Not a valid value"
+            },
+            "type": "SyntaxStepReturn"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2229",
+              "value": {
+                "is_inf": false,
+                "is_nan": false
+              }
+            },
+            "symbol": "amount",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2225",
+              "value": null
+            },
+            "method": "DBQuery",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2239",
+              "value": {
+                "is_inf": false,
+                "is_nan": false
+              }
+            },
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "price",
+            "var_type": "float"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2243",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2252",
+              "value": "INSERT INTO tbl $1"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "INSERT INTO tbl $1",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2254",
+              "value": {
+                "is_inf": false,
+                "is_nan": false
+              }
+            },
+            "symbol": "amount",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "2245",
+              "value": null
+            },
+            "method": "sql.Exec",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "2158-2172-2174-2192-2225-2234-2243-2245": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2163",
+              "value": null
+            },
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "request",
+            "var_type": "*http.Request"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2172",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2187",
+              "value": null
+            },
+            "symbol": "request",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "attribute": "Amount",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2186",
+              "value": null
+            },
+            "type": "SyntaxStepAttributeAccess"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "2179",
+              "value": {
+                "is_inf": false,
+                "is_nan": false
+              }
+            },
+            "method": "strconv.ParseFloat",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -1,
+              "n_id": "2176",
+              "value": {
+                "is_inf": false,
+                "is_nan": false
+              }
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "amount",
+            "var_type": ""
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "2212",
+              "value": {
+                "is_inf": false,
+                "is_nan": false
+              }
+            },
+            "symbol": "amount",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2214",
+              "value": 0.0
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "2205",
+              "value": null
+            },
+            "method": "math.IsInf",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2202",
+              "value": {
+                "is_inf": false,
+                "is_nan": false
+              }
+            },
+            "symbol": "amount",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2195",
+              "value": null
+            },
+            "method": "math.IsNaN",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "2194",
+              "value": null
+            },
+            "operator": "||",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2192",
+              "value": null
+            },
+            "n_id_false": "2225",
+            "n_id_true": "2216",
+            "type": "SyntaxStepIf"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2229",
+              "value": {
+                "is_inf": false,
+                "is_nan": false
+              }
+            },
+            "symbol": "amount",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "2225",
+              "value": null
+            },
+            "method": "DBQuery",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2239",
+              "value": {
+                "is_inf": false,
+                "is_nan": false
+              }
+            },
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "price",
+            "var_type": "float"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2243",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2252",
+              "value": "INSERT INTO tbl $1"
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "INSERT INTO tbl $1",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "2254",
+              "value": {
+                "is_inf": false,
+                "is_nan": false
+              }
+            },
+            "symbol": "amount",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "2245",
+              "value": null
+            },
+            "method": "sql.Exec",
             "type": "SyntaxStepMethodInvocation"
           }
         ]
