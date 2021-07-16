@@ -13,7 +13,7 @@ function start_etl {
 
   echo "[INFO] Gitlab ETL for ${project}" \
     && echo '[INFO] Running tap' \
-    && tap-gitlab stream "merge_requests" \
+    && tap-gitlab stream "all" \
       --project 'fluidattacks/product' \
       --api-key "${token}" \
       --max-pages 250 \
