@@ -3,7 +3,7 @@
 /* eslint import/no-unresolved:0 */
 import { faAngleDown } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useCallback, useState } from "react";
 
 import {
   FontAwesomeContainerSmall,
@@ -11,37 +11,43 @@ import {
   InnerListContainer,
   InnerListItem,
   ListItem,
-  ListItemCheckbox,
   ListItemLabel,
 } from "../../../../../styles/styledComponents";
 import { BodyLink } from "../BodyLink";
 
-const ResourcesList: React.FC = (): JSX.Element => (
-  <div>
-    <ListItem>
-      <ListItemCheckbox
-        className={"resources-title"}
-        id={"resources-title"}
-        name={"resources"}
-      />
-      <ListItemLabel htmlFor={"resources-title"}>
-        {"Resources"}
-        <FontAwesomeContainerSmall>
-          <FontAwesomeIcon className={"c-gray-176"} icon={faAngleDown} />
-        </FontAwesomeContainerSmall>
-      </ListItemLabel>
-      <InnerListContainer className={"resources-list"}>
-        <InnerContentList>
-          <InnerListItem>
-            <BodyLink
-              link={"https://docs.fluidattacks.com/criteria/"}
-              name={"Criteria"}
-            />
-          </InnerListItem>
-        </InnerContentList>
-      </InnerListContainer>
-    </ListItem>
-  </div>
-);
+const ResourcesList: React.FC = (): JSX.Element => {
+  const [isTouch, setIsTouch] = useState(false);
+  const handleOpenClose = useCallback((): void => {
+    setIsTouch(!isTouch);
+  }, [isTouch]);
+
+  return (
+    <div>
+      <ListItem>
+        <ListItemLabel onClick={handleOpenClose}>
+          {"Resources"}
+          <FontAwesomeContainerSmall>
+            <FontAwesomeIcon className={"c-gray-176"} icon={faAngleDown} />
+          </FontAwesomeContainerSmall>
+        </ListItemLabel>
+        <InnerListContainer
+          style={{
+            animation: "fadein 0.5s",
+            display: isTouch ? "block" : "none",
+          }}
+        >
+          <InnerContentList>
+            <InnerListItem>
+              <BodyLink
+                link={"https://docs.fluidattacks.com/criteria/"}
+                name={"Criteria"}
+              />
+            </InnerListItem>
+          </InnerContentList>
+        </InnerListContainer>
+      </ListItem>
+    </div>
+  );
+};
 
 export { ResourcesList };
