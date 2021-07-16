@@ -3,6 +3,7 @@ import React from "react";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   Alert,
   ButtonToolbar,
@@ -11,7 +12,7 @@ import {
   FormGroup,
   Row,
 } from "styles/styledComponents";
-import { FormikText } from "utils/forms/fields";
+import { FormikDropdown, FormikText } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 import { required } from "utils/validations";
 
@@ -81,6 +82,50 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
                   type={"text"}
                   validate={required}
                 />
+              </FormGroup>
+              <FormGroup>
+                <ControlLabel>
+                  {translate.t(
+                    "searchFindings.servicesTable.deleteGroup.reason.title"
+                  )}
+                </ControlLabel>
+                <TooltipWrapper
+                  id={"searchFindings.servicesTable.deleteGroup.reason.tooltip"}
+                  message={translate.t(
+                    "searchFindings.servicesTable.deleteGroup.reason.tooltip"
+                  )}
+                  placement={"top"}
+                >
+                  <FormGroup>
+                    <Field component={FormikDropdown} name={"reason"}>
+                      <option value={"NO_SYSTEM"}>
+                        {translate.t(
+                          "searchFindings.servicesTable.deleteGroup.reason.noSystem"
+                        )}
+                      </option>
+                      <option value={"NO_SECTST"}>
+                        {translate.t(
+                          "searchFindings.servicesTable.deleteGroup.reason.noSectst"
+                        )}
+                      </option>
+                      <option value={"DIFF_SECTST"}>
+                        {translate.t(
+                          "searchFindings.servicesTable.deleteGroup.reason.diffSectst"
+                        )}
+                      </option>
+                      <option value={"MIGRATION"}>
+                        {translate.t(
+                          "searchFindings.servicesTable.deleteGroup.reason.migration"
+                        )}
+                      </option>
+                      <option value={"OTHER"}>
+                        {translate.t(
+                          "searchFindings.servicesTable.deleteGroup.reason.other"
+                        )}
+                      </option>
+                    </Field>
+                  </FormGroup>
+                </TooltipWrapper>
               </FormGroup>
               <hr />
               <Row>

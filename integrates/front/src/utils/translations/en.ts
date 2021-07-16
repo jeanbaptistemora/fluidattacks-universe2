@@ -1116,6 +1116,15 @@ export const enTranslations: ResourceKey = {
       continuous: "Continuous Hacking",
       deleteGroup: {
         deleteGroup: "Delete this group",
+        reason: {
+          diffSectst: "Different security testing strategy",
+          migration: "Information will be moved to a different group",
+          noSectst: "No more security testing",
+          noSystem: "System will be deprecated",
+          other: "Other reason not mentioned here",
+          title: "Please select the reason why you want to delete this group.",
+          tooltip: "Reason of group deletion",
+        },
         typeGroupName: "Please type the group name to proceed.",
         warning: "Group deletion is a destructive action and cannot be undone.",
         warningBody:
