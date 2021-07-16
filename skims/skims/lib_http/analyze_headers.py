@@ -412,7 +412,8 @@ def _strict_transport_security(
 
 
 def _www_authenticate(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
-    if not ctx.url_ctx.url.startswith("http://"):
+    # FP: analize if the url starts with http
+    if not ctx.url_ctx.url.startswith("http://"):  # NOSONAR
         # You can only see plain-text credentials over http
         return ()
 
