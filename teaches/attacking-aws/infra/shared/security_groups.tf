@@ -72,9 +72,9 @@ resource "aws_security_group" "intranet" {
 }
 
 output "security_group_secure_app" {
-	value = aws_security_group.secure-app.id
+  value = aws_security_group.secure-app.id
 }
 
 output "security_group_intranet" {
-	value = aws_security_group.intranet.id
+  value = aws_security_group.intranet.id
 }

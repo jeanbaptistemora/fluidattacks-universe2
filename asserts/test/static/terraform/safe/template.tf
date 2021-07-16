@@ -19,7 +19,7 @@ resource "aws_instance" "i-0d1583d0c02a9bb47" {
     volume_type           = "gp2"
     volume_size           = 20
     delete_on_termination = true
-    encrypted = true
+    encrypted             = true
   }
 
   ebs_block_device {
@@ -27,12 +27,12 @@ resource "aws_instance" "i-0d1583d0c02a9bb47" {
     volume_type           = "gp2"
     volume_size           = 20
     delete_on_termination = true
-    encrypted = true
+    encrypted             = true
   }
 
   tags = {
-    method  = "aws.terraform.ec2.has_unencrypted_volumes"
-    Name    = "aws.ec2_unencrypted"
+    method = "aws.terraform.ec2.has_unencrypted_volumes"
+    Name   = "aws.ec2_unencrypted"
   }
 }
 
@@ -47,12 +47,12 @@ resource "aws_security_group" "allow_tls" {
 
   ingress {
     # TLS (change to whatever ports you need)
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
+    from_port = 443
+    to_port   = 443
+    protocol  = "tcp"
     # Please restrict your ingress to only necessary IPs and ports.
     # Opening to 0.0.0.0/0 can lead to security vulnerabilities.
-    cidr_blocks = "127.0.0.1/32"# add a CIDR block here
+    cidr_blocks = "127.0.0.1/32" # add a CIDR block here
   }
 
   egress {
@@ -64,19 +64,19 @@ resource "aws_security_group" "allow_tls" {
   }
 
   tags = {
-    method  = "aws.terraform.ec2.allows_all_outbound_traffic"
-    Name    = "aws.terraform.allows_all_outbound_traffic"
+    method = "aws.terraform.ec2.allows_all_outbound_traffic"
+    Name   = "aws.terraform.allows_all_outbound_traffic"
   }
 }
 
 resource "aws_security_group_rule" "allow_all" {
   security_group_id = "sg-123456"
-  type            = "ingress"
-  from_port       = 443
-  to_port         = 443
-  protocol        = "tcp"
-  cidr_blocks = "127.0.0.1/32"
-  prefix_list_ids = ["pl-12c4e678"]
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  cidr_blocks       = "127.0.0.1/32"
+  prefix_list_ids   = ["pl-12c4e678"]
 
 }
 
@@ -127,7 +127,7 @@ resource "aws_iam_role_policy" "policy2" {
   name        = "test_policy_2"
   path        = "/"
   description = "Another test policy"
-  role = aws_iam_role.test_role.id
+  role        = aws_iam_role.test_role.id
 
   policy = <<EOF
 {
@@ -158,8 +158,8 @@ resource "aws_db_instance" "default" {
   password             = "foobarbaz"
   parameter_group_name = "default.mysql5.7"
   deletion_protection  = "true"
-  storage_encrypted =  true
-  db_subnet_group_name = 'db_subnet'
+  storage_encrypted    = true
+  db_subnet_group_name = "db_subnet"
 }
 
 resource "aws_s3_bucket" "b" {
@@ -174,8 +174,8 @@ resource "aws_s3_bucket" "b" {
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name = "${aws_s3_bucket.b.bucket_regional_domain_name}"
-    origin_id   = "${local.s3_origin_id}"
+    domain_name = aws_s3_bucket.b.bucket_regional_domain_name
+    origin_id   = local.s3_origin_id
 
     custom_origin_config {
       origin_protocol_policy = "http-only"
@@ -201,7 +201,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "${local.s3_origin_id}"
+    target_origin_id = local.s3_origin_id
 
     forwarded_values {
       query_string = false
@@ -222,7 +222,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     path_pattern     = "/content/immutable/*"
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD", "OPTIONS"]
-    target_origin_id = "${local.s3_origin_id}"
+    target_origin_id = local.s3_origin_id
 
     forwarded_values {
       query_string = false
@@ -245,7 +245,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     path_pattern     = "/content/*"
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "${local.s3_origin_id}"
+    target_origin_id = local.s3_origin_id
 
     forwarded_values {
       query_string = false
@@ -291,9 +291,9 @@ resource "aws_rds_cluster" "default" {
   master_password         = "bar"
   backup_retention_period = 5
   preferred_backup_window = "07:00-09:00"
-  deletion_protection  = "true"
-  storage_encrypted =  true
-  db_subnet_group_name = 'db_subnet'
+  deletion_protection     = "true"
+  storage_encrypted       = true
+  db_subnet_group_name    = "db_subnet"
 }
 
 resource "aws_iam_instance_profile" "test_profile" {
@@ -484,14 +484,14 @@ resource "aws_fsx_windows_file_system" "example" {
 resource "aws_kms_key" "a" {
   description             = "KMS key 1"
   deletion_window_in_days = 30
-  enable_key_rotation = true
+  enable_key_rotation     = true
 }
 
 resource "aws_lb_target_group" "test" {
   name     = "tf-example-lb-tg"
   port     = 443
   protocol = "HTTPS"
-  vpc_id   = "${aws_vpc.main.id}"
+  vpc_id   = aws_vpc.main.id
 }
 
 resource "aws_vpc" "main" {

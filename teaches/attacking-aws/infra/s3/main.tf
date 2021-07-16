@@ -1,9 +1,9 @@
 resource "aws_s3_bucket" "ultra-secure-app-backup" {
-  bucket = "ultra-secure-app-backup" 
+  bucket = "ultra-secure-app-backup"
   acl    = "private"
 
   versioning {
-    enabled = false 
+    enabled = false
   }
 
   server_side_encryption_configuration {

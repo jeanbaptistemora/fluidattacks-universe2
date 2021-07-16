@@ -112,6 +112,11 @@ workflow:
   <<: *common_in_dev_branch
   stage: lint-code
 
+/formatTerraform:
+  <<: *makes4
+  <<: *common_in_dev_branch
+  stage: lint-code
+
 /lintBash:
   <<: *makes4
   <<: *common_in_dev_branch

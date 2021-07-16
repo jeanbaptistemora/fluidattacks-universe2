@@ -16,7 +16,7 @@ import pytest
 def test_bad() -> None:
     expected = "ERROR"
 
-    with open("skims/test/data/parse_hcl2/bad.tf") as file:
+    with open("skims/test/data/parse_hcl2/bad.tf.") as file:
         template = load_blocking(file.read(), default=expected)
 
     assert template == expected

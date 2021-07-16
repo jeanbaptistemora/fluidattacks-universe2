@@ -1,9 +1,9 @@
 # Comment
 
 module "iam_user" {
-  source = "modules\/iam-user"
+  source = "modules/iam-user"
 
-  name = "${var.iamuser}"
+  name          = var.iamuser
   force_destroy = true
 
   tags = {

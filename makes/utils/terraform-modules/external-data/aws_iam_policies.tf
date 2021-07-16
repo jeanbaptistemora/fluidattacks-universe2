@@ -2,7 +2,7 @@ variable "aws_iam_policies" {
   type    = map(tuple([string, string]))
   default = {}
   validation {
-    condition     = ! contains([for k, v in var.aws_iam_policies : contains(["aws", "us"], v[0])], false)
+    condition     = !contains([for k, v in var.aws_iam_policies : contains(["aws", "us"], v[0])], false)
     error_message = "Type must be one of: aws, us."
   }
 }

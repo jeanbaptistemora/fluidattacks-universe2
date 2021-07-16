@@ -92,8 +92,8 @@ resource "aws_dynamodb_table" "FI_findings" {
     ]
     projection_type = "INCLUDE"
   }
-  hash_key  = "finding_id"
-  name      = "FI_findings"
+  hash_key = "finding_id"
+  name     = "FI_findings"
 }
 
 resource "aws_dynamodb_table" "FI_forces" {
@@ -343,7 +343,7 @@ resource "aws_dynamodb_table" "integrates_vms" {
     range_key       = "pk"
     projection_type = "ALL"
   }
-  hash_key     = "pk"
-  name         = "integrates_vms"
-  range_key    = "sk"
+  hash_key  = "pk"
+  name      = "integrates_vms"
+  range_key = "sk"
 }

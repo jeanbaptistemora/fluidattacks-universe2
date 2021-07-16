@@ -16,9 +16,9 @@ module "users" {
 }
 
 module "instances" {
-  source = "./instances"
+  source                    = "./instances"
   security_group_secure_app = module.shared.security_group_secure_app
-  security_group_intranet = module.shared.security_group_intranet
+  security_group_intranet   = module.shared.security_group_intranet
 }
 
 module "shared" {
@@ -26,6 +26,6 @@ module "shared" {
 }
 
 module "lambda" {
-  source = "./lambda"
+  source                  = "./lambda"
   lambda_execution_policy = module.users.lambda_execution_policy
 }

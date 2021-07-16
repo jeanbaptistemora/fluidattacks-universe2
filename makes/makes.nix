@@ -25,6 +25,10 @@
     enable = true;
     targets = [ "/" ];
   };
+  formatTerraform = {
+    enable = true;
+    targets = [ "/" ];
+  };
   lintBash = {
     enable = true;
     targets = [ "/" ];

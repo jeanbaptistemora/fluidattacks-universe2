@@ -3,7 +3,7 @@ resource "aws_iam_user" "backup-user" {
 }
 
 resource "aws_iam_access_key" "backup-user-access-key" {
-  user = aws_iam_user.backup-user.name 
+  user = aws_iam_user.backup-user.name
 }
 
 resource "aws_iam_user" "pibe-valderrama" {
@@ -22,5 +22,5 @@ resource "aws_iam_user_policy_attachment" "backuser-attach" {
 
 resource "aws_iam_user_policy_attachment" "pibe-attach" {
   user       = "PibeValderrama"
-  policy_arn = aws_iam_policy.lambda_user_policy.arn 
+  policy_arn = aws_iam_policy.lambda_user_policy.arn
 }

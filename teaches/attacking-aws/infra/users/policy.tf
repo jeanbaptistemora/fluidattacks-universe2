@@ -1,6 +1,6 @@
 data "aws_iam_policy_document" "lambda-execution-policy-document" {
   statement {
-    sid = "LambdaExecutionPolicy"
+    sid    = "LambdaExecutionPolicy"
     effect = "Allow"
     actions = [
       "iam:*User*"
@@ -22,7 +22,7 @@ resource "aws_iam_policy" "lambda_execution_policy" {
 
 data "aws_iam_policy_document" "lambda-user-policy-document" {
   statement {
-    sid = "LambdaUserPolicy"
+    sid    = "LambdaUserPolicy"
     effect = "Allow"
     actions = [
       "iam:PassRole",
