@@ -635,6 +635,16 @@ label {
   border-color: #3faf3f;
 }
 
+:global .red-switch {
+  background-color: #d9534f;
+  border-color: #d9534f;
+}
+
+:global .red-switch:hover {
+  background-color: #c9302c;
+  border-color: #c9302c;
+}
+
 :global .cr-switch {
   font-size: 10px;
 }

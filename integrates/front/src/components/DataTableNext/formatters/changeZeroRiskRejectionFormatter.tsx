@@ -28,7 +28,7 @@ export const changeZeroRiskRejectionFormatter: (
       offlabel={"NON REJECTED"}
       onChange={handleOnChange}
       onlabel={"REJECTED"}
-      switchColor={"green-switch"}
+      switchColor={"red-switch"}
     />
   );
 };
