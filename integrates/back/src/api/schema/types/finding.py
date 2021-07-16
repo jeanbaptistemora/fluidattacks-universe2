@@ -24,6 +24,7 @@ from api.resolvers.finding import (
     tracking,
     verified,
     vulnerabilities,
+    vulns_to_reattack,
     zero_risk,
 )
 from api.resolvers.finding_new import (
@@ -55,6 +56,7 @@ from api.resolvers.finding_new import (
     tracking_new,
     verified_new,
     vulnerabilities_new,
+    vulns_to_reattack_new,
     zero_risk_new,
 )
 from ariadne import (
@@ -100,6 +102,7 @@ if FI_API_STATUS == "migration":
     FINDING.set_field("verified", verified_new.resolve)
     FINDING.set_field("vulnerabilities", vulnerabilities_new.resolve)
     FINDING.set_field("zeroRisk", zero_risk_new.resolve)
+    FINDING.set_field("vulnsToReattack", vulns_to_reattack_new.resolve)
     # Standardization field
     FINDING.set_field("groupName", group_name_new.resolve)
 else:
@@ -126,3 +129,4 @@ else:
     FINDING.set_field("verified", verified.resolve)
     FINDING.set_field("vulnerabilities", vulnerabilities.resolve)
     FINDING.set_field("zeroRisk", zero_risk.resolve)
+    FINDING.set_field("vulnsToReattack", vulns_to_reattack.resolve)

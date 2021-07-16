@@ -49,5 +49,6 @@ type Finding {
   type: String
   verified: Boolean
   vulnerabilities(state: String): [Vulnerability]
+  vulnsToReattack: [Vulnerability]
   zeroRisk(state: String): [Vulnerability]
 }
