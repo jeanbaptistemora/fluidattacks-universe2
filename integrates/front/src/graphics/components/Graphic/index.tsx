@@ -55,7 +55,11 @@ const allowedDocumentNames: string[] = [
   "meanTimeToRemediateNonTreated",
   "riskOverTime",
 ];
-const allowedDocumentTypes: string[] = ["stackedBarChart", "textBox"];
+const allowedDocumentTypes: string[] = [
+  "barChart",
+  "stackedBarChart",
+  "textBox",
+];
 
 interface IComponentSizeProps {
   readonly height: number;
