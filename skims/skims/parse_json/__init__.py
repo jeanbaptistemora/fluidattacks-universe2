@@ -2,7 +2,7 @@ from aioextensions import (
     in_process,
 )
 import ast
-from frozendict import (
+from frozendict import (  # type: ignore
     frozendict,
 )
 import lark

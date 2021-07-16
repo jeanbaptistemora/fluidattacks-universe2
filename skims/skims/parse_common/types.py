@@ -29,7 +29,7 @@ class FloatToken(float):
         column: int,  # pylint: disable=unused-argument
         line: int,  # pylint: disable=unused-argument
     ) -> float:
-        return float.__new__(cls, value)  # type: ignore
+        return float.__new__(cls, value)
 
     def __init__(
         self,
@@ -49,7 +49,7 @@ class IntToken(int):
         column: int,  # pylint: disable=unused-argument
         line: int,  # pylint: disable=unused-argument
     ) -> int:
-        return int.__new__(cls, value)  # type: ignore
+        return int.__new__(cls, value)
 
     def __init__(
         self,

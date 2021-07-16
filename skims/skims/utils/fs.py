@@ -2,7 +2,7 @@ from aioextensions import (
     collect,
     in_thread,
 )
-import aiofiles
+import aiofiles  # type: ignore
 from fnmatch import (
     fnmatch as matches_glob,
 )
@@ -73,7 +73,7 @@ async def get_file_content(
     encoding: str = "latin-1",
     size: int = -1,
 ) -> str:
-    async with aiofiles.open(  # type: ignore
+    async with aiofiles.open(
         path,
         mode="r",
         encoding=encoding,
@@ -84,7 +84,7 @@ async def get_file_content(
 
 
 async def get_file_raw_content(path: str, size: int = -1) -> bytes:
-    async with aiofiles.open(  # type: ignore
+    async with aiofiles.open(
         path,
         mode="rb",
     ) as file_handle:

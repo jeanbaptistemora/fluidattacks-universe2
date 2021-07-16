@@ -15,6 +15,16 @@
   };
   lintPython = {
     enable = true;
+    dirsOfModules = {
+      skims = {
+        extraSources = [
+          inputs.product.skims-config-development
+          inputs.product.skims-config-runtime
+        ];
+        python = "3.8";
+        src = "/skims/skims";
+      };
+    };
     modules = {
       skimsTest = {
         extraSources = [

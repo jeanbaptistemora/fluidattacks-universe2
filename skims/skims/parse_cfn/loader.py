@@ -6,7 +6,7 @@ from cfn_tools.yaml_loader import (
     multi_constructor,
     TAG_MAP,
 )
-from frozendict import (
+from frozendict import (  # type: ignore
     frozendict,
 )
 from metaloaders.cloudformation import (
@@ -34,7 +34,7 @@ from typing import (
 from utils.logs import (
     log_exception,
 )
-import yaml
+import yaml  # type: ignore
 
 
 class BasicLoader(  # pylint: disable=too-many-ancestors

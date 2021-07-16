@@ -7,11 +7,6 @@ makeEntrypoint {
   arguments = {
     envImportLinterConfig = path "/skims/setup.imports.cfg";
     envSrcSkimsSkims = path "/skims/skims";
-    envSrcSkimsTest = path "/skims/test";
-
-    envSrcProcessGroup = path "/makes/applications/skims/process-group/src";
-    envSrcTestMocksHttp = path "/makes/applications/skims/test/mocks/http/src";
-    envSrcSkimsTestSdk = path "/makes/applications/skims/test/sdk/src";
   };
   name = "skims-lint";
   searchPaths = {

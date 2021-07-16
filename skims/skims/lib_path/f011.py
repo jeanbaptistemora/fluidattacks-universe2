@@ -1,7 +1,7 @@
 from aioextensions import (
     in_process,
 )
-from frozendict import (
+from frozendict import (  # type: ignore
     frozendict,
 )
 from lib_path.common import (

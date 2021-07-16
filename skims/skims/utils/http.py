@@ -2,7 +2,7 @@ import aiohttp
 from contextlib import (
     asynccontextmanager,
 )
-import requests
+import requests  # type: ignore
 from typing import (
     Any,
     Dict,

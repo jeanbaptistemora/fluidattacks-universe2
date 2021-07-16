@@ -77,6 +77,11 @@ skims.lint:
   <<: *skims_in_master_branch
   stage: deploy-app
 
+/lintPython/dirOfModules/skims:
+  <<: *makes4
+  <<: *skims_in_dev_branch
+  stage: lint-code
+
 /lintPython/module/skimsTest:
   <<: *makes4
   <<: *skims_in_dev_branch
