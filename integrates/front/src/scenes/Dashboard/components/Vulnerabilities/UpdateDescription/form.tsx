@@ -38,14 +38,14 @@ import type {
   IVulnDataTypeAttr,
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import {
-  DELETE_TAGS_MUTATION,
+  REMOVE_TAGS_MUTATION,
   REQUEST_ZERO_RISK_VULN,
   UPDATE_DESCRIPTION_MUTATION,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/queries";
 import type {
-  IDeleteTagAttr,
-  IDeleteTagResultAttr,
   IGroupUsersAttr,
+  IRemoveTagAttr,
+  IRemoveTagResultAttr,
   IRequestZeroRiskVulnResultAttr,
   IStakeholderAttr,
   IUpdateTreatmentModalProps,
@@ -154,10 +154,10 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   });
 
   const [deleteTagVuln, { loading: deletingTag }] = useMutation<
-    IDeleteTagResultAttr,
-    IDeleteTagAttr
-  >(DELETE_TAGS_MUTATION, {
-    onCompleted: (result: IDeleteTagResultAttr): void => {
+    IRemoveTagResultAttr,
+    IRemoveTagAttr
+  >(REMOVE_TAGS_MUTATION, {
+    onCompleted: (result: IRemoveTagResultAttr): void => {
       deleteTagVulnHelper(result);
     },
     onError: (updateError: ApolloError): void => {

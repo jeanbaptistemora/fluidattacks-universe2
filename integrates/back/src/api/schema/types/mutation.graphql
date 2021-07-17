@@ -261,7 +261,8 @@ type Mutation {
     findingId: String!
     vulnerabilities: [String]!
     tag: String
-  ): SimplePayload!
+  ): SimplePayload! @deprecated(reason: """This mutation will be removed
+    after 2021/12/31. Use `removeTags` instead.""")
 
   deleteVulnerability(
     id: String!
@@ -394,6 +395,12 @@ type Mutation {
     groupName: String,
     tag: String!
   ): SimpleGroupPayload!
+
+  removeTags(
+    findingId: String!
+    vulnerabilities: [String]!
+    tag: String
+  ): SimplePayload!
 
   requestVerificationVuln(
     findingId: String!

@@ -5,7 +5,7 @@ import { track } from "mixpanel-browser";
 import React from "react";
 
 import type {
-  IDeleteTagResultAttr,
+  IRemoveTagResultAttr,
   IRequestZeroRiskVulnResultAttr,
   IUpdateVulnDescriptionResultAttr,
 } from "./types";
@@ -34,9 +34,9 @@ const isTheFormPristine = (
   );
 };
 
-const deleteTagVulnHelper = (result: IDeleteTagResultAttr): void => {
+const deleteTagVulnHelper = (result: IRemoveTagResultAttr): void => {
   if (!_.isUndefined(result)) {
-    if (result.deleteTags.success) {
+    if (result.removeTags.success) {
       msgSuccess(
         translate.t("searchFindings.tabDescription.updateVulnerabilities"),
         translate.t("groupAlerts.titleSuccess")

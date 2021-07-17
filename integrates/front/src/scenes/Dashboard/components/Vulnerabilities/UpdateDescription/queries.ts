@@ -37,13 +37,13 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
   }
 `;
 
-const DELETE_TAGS_MUTATION: DocumentNode = gql`
-  mutation DeleteTagsVuln(
+const REMOVE_TAGS_MUTATION: DocumentNode = gql`
+  mutation RemoveTagsVuln(
     $findingId: String!
     $tag: String
     $vulnerabilities: [String]!
   ) {
-    deleteTags(
+    removeTags(
       findingId: $findingId
       tag: $tag
       vulnerabilities: $vulnerabilities
@@ -70,7 +70,7 @@ const REQUEST_ZERO_RISK_VULN: DocumentNode = gql`
 `;
 
 export {
-  DELETE_TAGS_MUTATION,
+  REMOVE_TAGS_MUTATION,
   REQUEST_ZERO_RISK_VULN,
   UPDATE_DESCRIPTION_MUTATION,
 };

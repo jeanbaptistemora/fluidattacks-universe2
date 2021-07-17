@@ -28,14 +28,14 @@ interface IUpdateTreatmentModalProps extends IUpdateDescriptionProps {
   ) => void;
 }
 
-interface IDeleteTagAttr {
+interface IRemoveTagAttr {
   findingId: string;
   tag?: string;
   vulnerabilities: string[];
 }
 
-interface IDeleteTagResultAttr {
-  deleteTags: {
+interface IRemoveTagResultAttr {
+  removeTags: {
     success: boolean;
   };
 }
@@ -72,8 +72,8 @@ interface IUpdateVulnDescriptionResultAttr {
 }
 
 export {
-  IDeleteTagAttr,
-  IDeleteTagResultAttr,
+  IRemoveTagAttr,
+  IRemoveTagResultAttr,
   IGroupUsersAttr,
   IRequestZeroRiskVulnResultAttr,
   IStakeholderAttr,
