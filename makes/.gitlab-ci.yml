@@ -73,10 +73,6 @@ makes.ci.test:
 /lintTerraform/makesCi:
   <<: *makes4
   <<: *makes_in_dev_branch
-  script:
-    - AWS_ACCESS_KEY_ID=$MAKES_DEV_AWS_ACCESS_KEY_ID
-      AWS_SECRET_ACCESS_KEY=$MAKES_DEV_AWS_SECRET_ACCESS_KEY
-      m . /lintTerraform/makesCi
   stage: lint-code
 
 makes.compute.apply:

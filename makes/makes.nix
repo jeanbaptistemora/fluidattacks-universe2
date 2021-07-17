@@ -1,5 +1,6 @@
 # https://github.com/fluidattacks/makes
 { config
+, outputs
 , ...
 }:
 {
@@ -39,9 +40,20 @@
   lintTerraform = {
     modules = {
       makesCi = {
+        authentication = [ outputs."/secretsForAwsFromEnv/makesDev" ];
         src = "/makes/applications/makes/ci/src/terraform";
         version = "0.13";
       };
+    };
+  };
+  secretsForAwsFromEnv = {
+    makesDev = {
+      accessKeyId = "MAKES_DEV_AWS_ACCESS_KEY_ID";
+      secretAccessKey = "MAKES_DEV_AWS_SECRET_ACCESS_KEY";
+    };
+    makesProd = {
+      accessKeyId = "MAKES_PROD_AWS_ACCESS_KEY_ID";
+      secretAccessKey = "MAKES_PROD_AWS_SECRET_ACCESS_KEY";
     };
   };
 }
