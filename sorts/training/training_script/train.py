@@ -8,6 +8,9 @@ from itertools import (
 from joblib import (
     dump,
 )
+from lightgbm import (
+    LGBMClassifier,
+)
 import os
 from pandas import (
     DataFrame,
@@ -41,6 +44,7 @@ from training.training_script.utils import (
     update_results_csv,
 )
 from typing import (
+    Any,
     Dict,
     List,
     Tuple,
@@ -55,11 +59,13 @@ def get_features_combinations(features: List[str]) -> List[Tuple[str, ...]]:
 
 
 def get_model_instance(model_class: ModelType) -> ModelType:
-    default_args: Dict[str, int] = {}
+    default_args: Dict[str, Any] = {}
     if model_class != KNeighborsClassifier:
         default_args = {"random_state": 42}
         if model_class == MLPClassifier:
             default_args.update({"max_iter": 500})
+        elif model_class == LGBMClassifier:
+            default_args.update({"learning_rate": 0.05, "max_depth": 5})
     return model_class(**default_args)
 
 
