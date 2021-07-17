@@ -4,7 +4,6 @@
 }:
 {
   deployContainerImage = {
-    enable = true;
     images = {
       forcesDev = {
         src = config.inputs.product.forces-oci-build;

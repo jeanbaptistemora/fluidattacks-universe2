@@ -4,7 +4,6 @@
 }:
 {
   lintPython = {
-    enable = true;
     dirsOfModules = {
       integrates = {
         extraSources = [

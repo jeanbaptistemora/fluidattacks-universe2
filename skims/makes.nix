@@ -4,7 +4,6 @@
 }:
 {
   deployContainerImage = {
-    enable = true;
     images = {
       skimsProd = {
         src = inputs.product.skims-oci-build;
@@ -14,7 +13,6 @@
     };
   };
   lintPython = {
-    enable = true;
     dirsOfModules = {
       skims = {
         extraSources = [

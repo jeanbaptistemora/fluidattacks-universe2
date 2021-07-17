@@ -4,7 +4,6 @@
 }:
 {
   deployContainerImage = {
-    enable = true;
     images = {
       makesProd = {
         src = config.inputs.product.makes-oci;
