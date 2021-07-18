@@ -1,5 +1,8 @@
 # For more information visit:
 # https://github.com/fluidattacks/makes
+{ path
+, ...
+}:
 {
   imports = [
     ./forces/makes.nix
@@ -8,7 +11,7 @@
     ./skims/makes.nix
   ];
   inputs = {
-    product = import ./.;
+    product = import (path "/");
   };
   cache = {
     enable = true;
