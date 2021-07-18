@@ -55,8 +55,8 @@
       when: never
     - when: always
 
-makes.ci.apply:
-  <<: *makes
+/deployTerraform/makesCi:
+  <<: *makes4
   <<: *makes_in_master_branch
   stage: deploy-infra
 
@@ -65,15 +65,15 @@ makes.ci.config:
   <<: *makes_in_master_branch
   stage: deploy-infra
 
-makes.ci.test:
-  <<: *makes
-  <<: *makes_in_dev_branch
-  stage: test-infra
-
 /lintTerraform/makesCi:
   <<: *makes4
   <<: *makes_in_dev_branch
   stage: lint-code
+
+/testTerraform/makesCi:
+  <<: *makes4
+  <<: *makes_in_dev_branch
+  stage: test-infra
 
 makes.compute.apply:
   <<: *makes

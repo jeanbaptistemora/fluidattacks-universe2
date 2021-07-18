@@ -62,9 +62,7 @@ integrates.subscriptions.user-to-entity-on-aws
 integrates.web.e2e
 makes.announce.bugsnag
 makes.attrs
-makes.ci.apply
 makes.ci.config
-makes.ci.test
 makes.compute.apply
 makes.compute.test
 makes.dns.apply

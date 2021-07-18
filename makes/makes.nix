@@ -13,6 +13,15 @@
       };
     };
   };
+  deployTerraform = {
+    modules = {
+      makesCi = {
+        authentication = [ outputs."/secretsForAwsFromEnv/makesProd" ];
+        src = "/makes/applications/makes/ci/src/terraform";
+        version = "0.13";
+      };
+    };
+  };
   formatBash = {
     enable = true;
     targets = [ "/" ];
@@ -54,6 +63,15 @@
     makesProd = {
       accessKeyId = "MAKES_PROD_AWS_ACCESS_KEY_ID";
       secretAccessKey = "MAKES_PROD_AWS_SECRET_ACCESS_KEY";
+    };
+  };
+  testTerraform = {
+    modules = {
+      makesCi = {
+        authentication = [ outputs."/secretsForAwsFromEnv/makesDev" ];
+        src = "/makes/applications/makes/ci/src/terraform";
+        version = "0.13";
+      };
     };
   };
 }
