@@ -36,7 +36,7 @@ interface IUploadVulnerabilitiesResultAttr {
 }
 
 interface IDownloadVulnerabilitiesResultAttr {
-  downloadVulnFile: {
+  downloadVulnerabilityFile: {
     success: boolean;
     url: string;
   };

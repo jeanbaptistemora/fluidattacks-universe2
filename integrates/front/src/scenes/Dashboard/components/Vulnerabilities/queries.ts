@@ -21,8 +21,8 @@ const GET_GROUP_USERS: DocumentNode = gql`
 `;
 
 const DOWNLOAD_VULNERABILITIES: DocumentNode = gql`
-  mutation downloadVulnFile($findingId: String!) {
-    downloadVulnFile(findingId: $findingId) {
+  mutation downloadVulnerabilityFile($findingId: String!) {
+    downloadVulnerabilityFile(findingId: $findingId) {
       success
       url
     }

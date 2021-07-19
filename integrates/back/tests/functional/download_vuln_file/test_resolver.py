@@ -24,9 +24,9 @@ async def test_download_vuln_file(populate: bool, email: str) -> None:
     finding_id: str = "475041513"
     result: Dict[str, Any] = await get_result(user=email, finding=finding_id)
     assert "errors" not in result
-    assert result["data"]["downloadVulnFile"]["success"]
-    assert "url" in result["data"]["downloadVulnFile"]
+    assert result["data"]["downloadVulnerabilityFile"]["success"]
+    assert "url" in result["data"]["downloadVulnerabilityFile"]
     assert (
         f"localhost:9000/fluidintegrates.reports/{group}-{finding_id}"
-        in result["data"]["downloadVulnFile"]["url"]
+        in result["data"]["downloadVulnerabilityFile"]["url"]
     )

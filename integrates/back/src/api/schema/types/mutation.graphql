@@ -287,6 +287,10 @@ type Mutation {
   ): DownloadFilePayload!
 
   downloadVulnFile(findingId: String!): DownloadFilePayload!
+    @deprecated(reason: """This mutation will be removed
+    after 2021/12/31. Use `downloadVulnerabilityFile` instead.""")
+
+  downloadVulnerabilityFile(findingId: String!): DownloadFilePayload!
 
   editGroup(
     comments: String!
@@ -554,7 +558,7 @@ type Mutation {
     "Whether the root is active or not"
     state: ResourceState!
   ): SimplePayload!
-    @deprecated(reason: """This mutation  will be removed
+    @deprecated(reason: """This mutation will be removed
     after 2021/12/20. Use `activateRoot` or `deactivateRoot` instead.""")
 
   updateSeverity(

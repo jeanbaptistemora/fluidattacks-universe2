@@ -17,7 +17,7 @@ async def get_result(
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
-            downloadVulnFile (findingId: "{finding}") {{
+            downloadVulnerabilityFile (findingId: "{finding}") {{
                 url
                 success
             }}

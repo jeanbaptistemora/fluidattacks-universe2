@@ -196,6 +196,9 @@ MUTATION.set_field("addOrganization", add_organization.mutate)
 MUTATION.set_field("createGroup", add_group.mutate)
 MUTATION.set_field("removeTags", remove_vulnerability_tags.mutate)
 MUTATION.set_field("removeVulnerability", remove_vulnerability.mutate)
+MUTATION.set_field(
+    "downloadVulnerabilityFile", download_vulnerability_file.mutate
+)
 
 if FI_API_STATUS == "migration":
     MUTATION.set_field("addDraft", add_draft_new.mutate)

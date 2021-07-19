@@ -143,10 +143,10 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
       onCompleted: (result: IDownloadVulnerabilitiesResultAttr): void => {
         if (!_.isUndefined(result)) {
           if (
-            result.downloadVulnFile.success &&
-            result.downloadVulnFile.url !== ""
+            result.downloadVulnerabilityFile.success &&
+            result.downloadVulnerabilityFile.url !== ""
           ) {
-            openUrl(result.downloadVulnFile.url);
+            openUrl(result.downloadVulnerabilityFile.url);
           }
         }
       },
