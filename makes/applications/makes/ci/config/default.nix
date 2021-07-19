@@ -1,15 +1,13 @@
-{ nixpkgs
+{ makeEntrypoint
+, nixpkgs
 , path
 , ...
 }:
-let
-  makeEntrypoint = import (path "/makes/utils/make-entrypoint") path nixpkgs;
-in
 makeEntrypoint {
   name = "makes-ci-config";
   arguments = {
-    envConfig = path "/makes/applications/makes/ci/src/config.toml";
-    envInit = path "/makes/applications/makes/ci/src/init.sh";
+    envConfig = path "/makes/makes/ci/config.toml";
+    envInit = path "/makes/makes/ci/init.sh";
   };
   searchPaths = {
     envPaths = [

@@ -13,7 +13,7 @@
     };
   };
   imports = [
-    ./makesCi/makes.nix
+    ./ci/makes.nix
   ];
   secretsForAwsFromEnv = {
     makesDev = {

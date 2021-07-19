@@ -5,27 +5,27 @@
 {
   deployTerraform = {
     modules = {
-      makesCi = {
+      ci = {
         authentication = [ outputs."/secretsForAwsFromEnv/makesProd" ];
-        src = "/makes/applications/makes/ci/src/terraform";
+        src = "/makes/makes/ci/infra";
         version = "0.13";
       };
     };
   };
   lintTerraform = {
     modules = {
-      makesCi = {
+      ci = {
         authentication = [ outputs."/secretsForAwsFromEnv/makesDev" ];
-        src = "/makes/applications/makes/ci/src/terraform";
+        src = "/makes/makes/ci/infra";
         version = "0.13";
       };
     };
   };
   testTerraform = {
     modules = {
-      makesCi = {
+      ci = {
         authentication = [ outputs."/secretsForAwsFromEnv/makesDev" ];
-        src = "/makes/applications/makes/ci/src/terraform";
+        src = "/makes/makes/ci/infra";
         version = "0.13";
       };
     };

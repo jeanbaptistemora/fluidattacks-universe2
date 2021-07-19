@@ -10,11 +10,11 @@
     pubKey = "fluidattacks.cachix.org-1:upiUCP8kWnr7NxVSJtTOM+SBqL0pZhZnUoqPG04sBv0=";
   };
   imports = [
-    ./makes/config/forces/makes.nix
-    ./makes/config/integrates/makes.nix
-    ./makes/config/makes/makes.nix
-    ./makes/config/skims/makes.nix
-    ./makes/config/all/makes.nix
+    ./makes/forces/makes.nix
+    ./makes/integrates/makes.nix
+    ./makes/makes/makes.nix
+    ./makes/skims/makes.nix
+    ./makes/all/makes.nix
   ];
   inputs = {
     product = import (path "/");

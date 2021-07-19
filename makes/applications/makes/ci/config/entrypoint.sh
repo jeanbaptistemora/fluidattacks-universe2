@@ -20,7 +20,7 @@ function main {
     && sops_export_vars \
       makes/applications/makes/secrets/src/production.yaml \
       "${secrets_to_replace[@]}" \
-    && pushd makes/applications/makes/ci/src \
+    && pushd makes/makes/ci \
     && echo '[INFO] Creating temporary files' \
     && tmp_file_1="$(mktemp)" \
     && tmp_file_2="$(mktemp)" \
