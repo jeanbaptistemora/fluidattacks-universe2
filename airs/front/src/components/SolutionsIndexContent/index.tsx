@@ -50,7 +50,9 @@ const SolutionsIndexContent: React.FC<IProps> = ({
                 }
                 to={link}
               >
-                {`Go to ${subtitle} >`}
+                <button className={"button-white mt3"}>
+                  {`Go to ${subtitle}`}
+                </button>
               </Link>
             </SolutionsParagraph>
           </BlackListItemSpaced>

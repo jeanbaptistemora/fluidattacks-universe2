@@ -612,7 +612,7 @@ const PageContainer: StyledComponent<
     ph-body
     center
     c-lightblack
-    pv5-l
+    pv4-l
   `,
 })``;
 
@@ -689,6 +689,7 @@ const SolutionsSubtitle: StyledComponent<
   Record<string, unknown>
 > = styled.h3.attrs({
   className: `
+    c-black-46
     f3
     fw6
     mv0
@@ -701,8 +702,9 @@ const SolutionsParagraph: StyledComponent<
   Record<string, unknown>
 > = styled.p.attrs({
   className: `
+    c-blue-gray
     f5
-    lh-2
+    lh-copy
     fw3
     mv0
   `,

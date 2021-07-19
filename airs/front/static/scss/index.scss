@@ -4,11 +4,8 @@ $blue-gray: rgba(92, 92, 112, 1);
 $blue-gray-shadow: rgba(92, 92, 112, 0.3);
 $gray-64: rgba(64, 64, 79, 1);
 $button-red: rgba(191, 38, 38, 1);
-$hovered-red: rgba(255, 52, 53, 1);
 $darker-blue: rgba(28, 28, 34, 1);
 $dark-shadow: rgba(176, 176, 176, 0.3);
-$fluid-black: rgba(39, 39, 39, 1);
-$fluid-red: rgba(255, 52, 53, 1);
 $fluid-gray: rgba(176, 176, 176, 1);
 $fluid-dark-red: rgba(203, 50, 51, 1);
 $gray-black: rgba(0, 0, 0, 0.8);
@@ -16,6 +13,8 @@ $light-gray: rgba(249, 249, 249, 1);
 $lighter-gray: rgba(238, 238, 238, 1);
 $near-white: rgba(246, 246, 246, 1);
 $shadow-gray: rgba(176, 176, 176, 0.1);
+$fluid-black: rgba(39, 39, 39, 1);
+$red-255: rgba(255, 52, 53, 1);
 $soft-black: rgba(0, 0, 0, 0.1);
 $soft-gray: rgba(211, 211, 211, 1);
 $white: rgba(255, 255, 255, 1);
@@ -40,7 +39,7 @@ $gray-176: rgba(176, 176, 191, 1);
 // Background Colors
 .bg-button-red { background-color: $button-red; }
 .bg-darker-blue { background-color: $darker-blue; }
-.bg-fluid-red { background-color: $fluid-red; }
+.bg-fluid-red { background-color: $red-255; }
 .bg-gray-black { background-color: $gray-black; }
 .bg-lightgray { background-color: $light-gray; }
 .bg-gray-233 { background-color: $gray-233; }
@@ -142,7 +141,7 @@ $gray-176: rgba(176, 176, 191, 1);
 .bc-black-gray { border-color: $black-gray; }
 .bc-fluid-red { border-color: $button-red; }
 .bc-fluid-gray { border-color: $fluid-gray; }
-.bc-hovered-red { border-color: $hovered-red; }
+.bc-hovered-red { border-color: $red-255; }
 .bc-gray-233 { border-color: $gray-233; }
 .c-black-46 { color: $black-46; }
 .c-black-gray { color: $black-gray; }
@@ -152,7 +151,7 @@ $gray-176: rgba(176, 176, 191, 1);
 .c-fluid-gray { color: $fluid-gray; }
 .c-gray-176 { color: $gray-176; }
 .c-gray-64 { color: $gray-64; }
-.c-hovered-red { color: $hovered-red; }
+.c-hovered-red { color: $red-255; }
 .bc-darker-blue { border-color: $darker-blue; }
 
 // Columns classes
@@ -197,9 +196,9 @@ $gray-176: rgba(176, 176, 191, 1);
 .hv-bg-soft-gray { &:hover { background-color: $soft-gray; } }
 .hv-bd-fluid-dkred { &:hover { border-color: $fluid-dark-red; } }
 .hv-bd-soft-gray { &:hover { border-color: $soft-gray; } }
-.hv-bd-fluid-red { &:hover { border-color: $hovered-red;} }
-.hv-bg-fluid-rd { &:hover { background-color: $hovered-red; } }
-.hv-fluid-rd { &:hover { color: $hovered-red; } }
+.hv-bd-fluid-red { &:hover { border-color: $red-255;} }
+.hv-bg-fluid-rd { &:hover { background-color: $red-255; } }
+.hv-fluid-rd { &:hover { color: $red-255; } }
 .hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
 .hv-grow { &:hover { transform: scale(1.05); } }
 .hv-rotate-360 { &:hover { transform: rotate(360deg); } }
@@ -335,7 +334,7 @@ $gray-176: rgba(176, 176, 191, 1);
 }
 
 .underlined-animated::after {
-  border-bottom: 4px solid $hovered-red;
+  border-bottom: 4px solid $red-255;
   content: '';
   display: block;
   transition: width 0.5s;
@@ -362,7 +361,7 @@ $gray-176: rgba(176, 176, 191, 1);
 }
 
 .bl-red {
-  border-left: 9px solid $hovered-red;
+  border-left: 9px solid $red-255;
   content: '';
   display: block;
   width: 100%;
@@ -473,7 +472,7 @@ $gray-176: rgba(176, 176, 191, 1);
     h4 { font-size: 1.5rem; }
 
     h4::after {
-      border-bottom: 4px solid $fluid-red;
+      border-bottom: 4px solid $red-255;
       content: '';
       display: block;
       width: 30%;
@@ -534,7 +533,7 @@ $gray-176: rgba(176, 176, 191, 1);
 
     &:hover {
       background-color: $lighter-gray;
-      border-color: $fluid-red;
+      border-color: $red-255;
     }
   }
 }
@@ -661,7 +660,7 @@ $gray-176: rgba(176, 176, 191, 1);
     transition: all 0.3s ease;
 
     &:hover {
-      background-color: $hovered-red;
+      background-color: $red-255;
       color: #fff;
     }
   }
@@ -907,23 +906,23 @@ $gray-176: rgba(176, 176, 191, 1);
 }
 
 .button-white {
-  background-color: #fff;
-  border: solid 1px;
-  border-color: $button-red;
+  background-color: transparent;
+  border: solid 2px;
+  border-color: $red-255;
   border-radius: 0.25rem;
-  color: $button-red;
+  color: $red-255;
   cursor: pointer;
-  font-weight: 800;
-  padding-bottom: 0.5rem;
+  font-weight: 400;
+  padding-bottom: 0.7rem;
   padding-left: 2rem;
   padding-right: 2rem;
-  padding-top: 0.5rem;
+  padding-top: 0.7rem;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease-in-out;
 
   &:hover {
-    border-color: $fluid-red;
-    color: $fluid-red;
+    background-color: $red-255;
+    color: $white;
   }
 }
 
@@ -934,7 +933,7 @@ $gray-176: rgba(176, 176, 191, 1);
 
   &:hover {
     h4 {
-      color: $fluid-red;
+      color: $red-255;
     }
 
     svg {
@@ -944,7 +943,7 @@ $gray-176: rgba(176, 176, 191, 1);
 }
 
 .fluid-question p strong {
-  border-bottom: 1px solid $hovered-red;
+  border-bottom: 1px solid $red-255;
   font-weight: 400;
 }
 
