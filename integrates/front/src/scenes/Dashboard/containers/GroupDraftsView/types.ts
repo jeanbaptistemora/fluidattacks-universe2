@@ -21,6 +21,7 @@ interface IGroupDraftsAttr {
 interface ISuggestion {
   attackComplexity: string;
   attackVector: string;
+  confidentialityImpact: string;
   cwe: string;
   description: string;
   privilegesRequired: string;
@@ -29,6 +30,7 @@ interface ISuggestion {
   severityScope: string;
   threat: string;
   title: string;
+  userInteraction: string;
 }
 
 interface IVulnLanguage {

@@ -25,6 +25,7 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
   mutation AddDraftMutation(
     $attackComplexity: String
     $attackVector: String
+    $confidentialityImpact: String
     $cwe: String
     $description: String
     $groupName: String!
@@ -35,10 +36,12 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
     $severityScope: String
     $threat: String
     $title: String!
+    $userInteraction: String
   ) {
     addDraft(
       attackComplexity: $attackComplexity
       attackVector: $attackVector
+      confidentialityImpact: $confidentialityImpact
       cwe: $cwe
       description: $description
       groupName: $groupName
@@ -49,6 +52,7 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
       severityScope: $severityScope
       threat: $threat
       title: $title
+      userInteraction: $userInteraction
     ) {
       success
     }

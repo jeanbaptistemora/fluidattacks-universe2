@@ -20,6 +20,12 @@ const attackVectorOptions: Record<string, string> = {
   P: "0.2",
 };
 
+const confidentialityImpactOptions: Record<string, string> = {
+  H: "0.56",
+  L: "0.22",
+  N: "0",
+};
+
 const severityScopeOptions: Record<string, string> = {
   C: "1",
   U: "0",
@@ -35,6 +41,11 @@ const privilegesRequiredNoScope: Record<string, string> = {
   H: "0.27",
   L: "0.62",
   N: "0.85",
+};
+
+const userInteractionOptions: Record<string, string> = {
+  N: "0.85",
+  R: "0.62",
 };
 
 function getPrivilegesRequired(
@@ -75,6 +86,11 @@ async function getFindingNames(
           attackComplexityRaw in attackComplexityOptions
             ? attackComplexityOptions[attackComplexityRaw]
             : "";
+        const confidentialityRaw = vulnsData[key].score.base.confidentiality;
+        const confidentialityImpact =
+          confidentialityRaw in confidentialityImpactOptions
+            ? confidentialityImpactOptions[confidentialityRaw]
+            : "";
         const scopeRaw = vulnsData[key].score.base.scope;
         const severityScope =
           scopeRaw in severityScopeOptions
@@ -86,11 +102,17 @@ async function getFindingNames(
           privilegesRequiredRaw in privilegesRequiredScope
             ? getPrivilegesRequired(severityScope, privilegesRequiredRaw)
             : "";
+        const userInteractionRaw = vulnsData[key].score.base.user_interaction;
+        const userInteraction =
+          userInteractionRaw in userInteractionOptions
+            ? userInteractionOptions[userInteractionRaw]
+            : "";
 
         if (!_.isNil(language) && language === "ES") {
           return {
             attackComplexity,
             attackVector,
+            confidentialityImpact,
             cwe,
             description: validateNotEmpty(vulnsData[key].es.description),
             privilegesRequired,
@@ -101,12 +123,14 @@ async function getFindingNames(
             severityScope,
             threat: validateNotEmpty(vulnsData[key].es.threat),
             title: validateNotEmpty(vulnsData[key].es.title),
+            userInteraction,
           };
         }
 
         return {
           attackComplexity,
           attackVector,
+          confidentialityImpact,
           cwe,
           description: validateNotEmpty(vulnsData[key].en.description),
           privilegesRequired,
@@ -117,6 +141,7 @@ async function getFindingNames(
           severityScope,
           threat: validateNotEmpty(vulnsData[key].en.threat),
           title: validateNotEmpty(vulnsData[key].en.title),
+          userInteraction,
         };
       }
     );

@@ -15,6 +15,7 @@ type Mutation {
     attackVector: String
     affectedSystems: String
     attackVectorDesc: String
+    confidentialityImpact: String
     cwe: String
     description: String
     groupName: String!
@@ -26,6 +27,7 @@ type Mutation {
     threat: String
     title: String!
     type: FindingType
+    userInteraction: String
   ): SimplePayload!
 
   addEvent(
