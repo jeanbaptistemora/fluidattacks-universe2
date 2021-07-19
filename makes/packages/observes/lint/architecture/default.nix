@@ -10,7 +10,6 @@ let
     "/observes/common/singer_io"
     "/observes/common/utils_logger"
     "/observes/common/postgres_client"
-    "/observes/etl/dif_gitlab_etl"
     "/observes/services/batch_stability"
     "/observes/services/job_last_success"
     "/observes/services/jobs_scheduler"

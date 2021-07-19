@@ -1,6 +1,6 @@
 { makeEntrypoint
-, path
 , packages
+, path
 , ...
 }:
 makeEntrypoint {

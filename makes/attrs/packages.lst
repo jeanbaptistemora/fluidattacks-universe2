@@ -148,7 +148,6 @@ observes.generic.runner
 observes.generic.tester
 observes.lint.architecture
 observes.lint.code-etl
-observes.lint.dif-gitlab-etl
 observes.lint.job-last-success
 observes.lint.paginator
 observes.lint.postgres-client
@@ -170,7 +169,6 @@ observes.lint.tap-mixpanel
 observes.lint.tap-timedoctor
 observes.lint.target-redshift
 observes.test.code-etl
-observes.test.dif-gitlab-etl
 observes.test.postgres-client
 observes.test.singer-io
 observes.test.streamer-zoho-crm

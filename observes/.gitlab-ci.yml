@@ -58,11 +58,6 @@ observes.lint.code-etl:
   <<: *observes_in_dev_branch
   stage: lint-code
 
-observes.lint.dif-gitlab-etl:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
-
 observes.lint.job-last-success:
   <<: *makes
   <<: *observes_in_dev_branch
@@ -307,11 +302,6 @@ observes.scheduled.on-aws.code-etl-upload:
   interruptible: false
 
 observes.test.code-etl:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: test-code
-
-observes.test.dif-gitlab-etl:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-code

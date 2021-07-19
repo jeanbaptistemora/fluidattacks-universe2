@@ -133,7 +133,6 @@ melts
 melts.test
 melts.vpn
 observes.bin.code-etl
-observes.bin.dif-gitlab-etl
 observes.bin.service.batch-stability
 observes.bin.service.job-last-success
 observes.bin.service.jobs-scheduler
@@ -175,7 +174,6 @@ observes.scheduled.job.code-etl-amend
 observes.scheduled.job.code-etl-compute-bills
 observes.scheduled.job.code-etl-mirror
 observes.scheduled.job.code-etl-upload
-observes.scheduled.job.dif-gitlab-etl
 observes.scheduled.job.dynamodb-centralize
 observes.scheduled.job.dynamodb-integrates-etl-vulns
 observes.scheduled.job.formstack-etl
@@ -195,7 +193,6 @@ observes.scheduled.on-aws.code-etl-amend
 observes.scheduled.on-aws.code-etl-mirror
 observes.scheduled.on-aws.code-etl-upload
 observes.scheduled.on-aws.delighted-etl
-observes.scheduled.on-aws.dif-gitlab-etl
 observes.scheduled.on-aws.dynamodb-forces-etl
 observes.scheduled.on-aws.dynamodb-integrates-etl
 observes.scheduled.on-aws.formstack-etl
