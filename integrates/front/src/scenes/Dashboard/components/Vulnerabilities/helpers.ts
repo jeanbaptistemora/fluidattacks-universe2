@@ -3,7 +3,7 @@ import type { UseTranslationResponse } from "react-i18next";
 
 import type { IErrorInfoAttr } from "./uploadFile";
 
-import type { IDeleteVulnAttr } from "../DeleteVulnerability/types";
+import type { IRemoveVulnAttr } from "../RemoveVulnerability/types";
 import type {
   IVulnDataTypeAttr,
   IVulnRowAttr,
@@ -92,11 +92,11 @@ function setNonSelectable(
   return nonSelectable;
 }
 
-const onDeleteVulnResultHelper = (
-  deleteVulnResult: IDeleteVulnAttr,
+const onRemoveVulnResultHelper = (
+  removeVulnResult: IRemoveVulnAttr,
   t: UseTranslationResponse["t"]
 ): void => {
-  if (deleteVulnResult.deleteVulnerability.success) {
+  if (removeVulnResult.removeVulnerability.success) {
     msgSuccess(
       t("searchFindings.tabDescription.vulnDeleted"),
       t("groupAlerts.titleSuccess")
@@ -190,7 +190,7 @@ const setColumnHelper = (
 export {
   errorMessageHelper,
   handleDeleteVulnerabilityHelper,
-  onDeleteVulnResultHelper,
+  onRemoveVulnResultHelper,
   onSelectOneVulnerabilityHelper,
   onSelectVariousVulnerabilitiesHelper,
   setColumnHelper,

@@ -65,7 +65,7 @@ enum RemoveFindingJustification {
   NOT_REQUIRED
 }
 
-enum DeleteVulnerabilityJustification {
+enum RemoveVulnerabilityJustification {
   DUPLICATED
   FALSE_POSITIVE
   REPORTING_ERROR

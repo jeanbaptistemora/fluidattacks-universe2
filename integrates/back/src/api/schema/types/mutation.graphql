@@ -274,8 +274,9 @@ type Mutation {
   deleteVulnerability(
     id: String!
     findingId: String!
-    justification: DeleteVulnerabilityJustification!
-  ): SimplePayload!
+    justification: RemoveVulnerabilityJustification!
+  ): SimplePayload! @deprecated(reason: """This mutation will be removed
+    after 2021/12/31. Use `removeVulnerability` instead.""")
 
   downloadEventFile(eventId: String!, fileName: String!): DownloadFilePayload!
 
@@ -407,6 +408,12 @@ type Mutation {
     findingId: String!
     vulnerabilities: [String]!
     tag: String
+  ): SimplePayload!
+
+  removeVulnerability(
+    id: String!
+    findingId: String!
+    justification: RemoveVulnerabilityJustification!
   ): SimplePayload!
 
   requestVerificationVuln(

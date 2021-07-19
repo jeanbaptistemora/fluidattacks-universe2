@@ -80,7 +80,7 @@ ENUMS: Tuple[EnumType, ...] = (
         },
     ),
     EnumType(
-        "DeleteVulnerabilityJustification",
+        "RemoveVulnerabilityJustification",
         {
             "DUPLICATED": "DUPLICATED",
             "FALSE_POSITIVE": "FALSE_POSITIVE",

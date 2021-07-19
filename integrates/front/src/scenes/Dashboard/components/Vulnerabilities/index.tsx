@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 
 import {
   handleDeleteVulnerabilityHelper,
-  onDeleteVulnResultHelper,
+  onRemoveVulnResultHelper,
   onSelectOneVulnerabilityHelper,
   onSelectVariousVulnerabilitiesHelper,
   setColumnHelper,
@@ -17,7 +17,7 @@ import {
 import { UploadVulnerabilities } from "./uploadFile";
 import { AdditionalInformation } from "./VulnerabilityModal";
 
-import type { IDeleteVulnAttr } from "../DeleteVulnerability/types";
+import type { IRemoveVulnAttr } from "../RemoveVulnerability/types";
 import { DataTableNext } from "components/DataTableNext";
 import { deleteFormatter } from "components/DataTableNext/formatters";
 import { filterFormatter } from "components/DataTableNext/headerFormatters/filterFormatter";
@@ -25,7 +25,7 @@ import type {
   IHeaderConfig,
   ISelectRowProps,
 } from "components/DataTableNext/types";
-import { DeleteVulnerabilityModal } from "scenes/Dashboard/components/DeleteVulnerability/index";
+import { DeleteVulnerabilityModal } from "scenes/Dashboard/components/RemoveVulnerability/index";
 import type {
   IVulnComponentProps,
   IVulnRowAttr,
@@ -75,8 +75,8 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   const canUpdateVulnsTreatment: boolean = permissions.can(
     "api_mutations_update_vulns_treatment_mutate"
   );
-  const canDeleteVulns: boolean = permissions.can(
-    "api_mutations_delete_vulnerability_mutate"
+  const canRemoveVulns: boolean = permissions.can(
+    "api_mutations_remove_vulnerability_mutate"
   );
 
   const [selectedVulnerabilities, setSelectedVulnerabilities] = useState<
@@ -104,8 +104,8 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   function handleCloseDeleteModal(): void {
     setDeleteVulnOpen(false);
   }
-  function onDeleteVulnResult(deleteVulnResult: IDeleteVulnAttr): void {
-    onDeleteVulnResultHelper(deleteVulnResult, t);
+  function onDeleteVulnResult(removeVulnResult: IRemoveVulnAttr): void {
+    onRemoveVulnResultHelper(removeVulnResult, t);
     setDeleteVulnOpen(false);
   }
   function handleDeleteVulnerability(
@@ -242,7 +242,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       deleteFunction: handleDeleteVulnerability,
       formatter: deleteFormatter,
       header: t("searchFindings.tabDescription.action"),
-      visible: canDeleteVulns,
+      visible: canRemoveVulns,
       width: "60px",
     },
   ];
@@ -270,7 +270,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
           _.get(sessionStorage, "vulnerabilitiesSort", "{}") as string
         )}
         exportCsv={false}
-        headers={[...headers, ...(canDeleteVulns ? deleteHeader : [])]}
+        headers={[...headers, ...(canRemoveVulns ? deleteHeader : [])]}
         id={"vulnerabilitiesTable"}
         pageSize={10}
         rowEvents={{ onClick: openAdditionalInfoModal }}
@@ -283,7 +283,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
         groupName={groupName}
         id={vulnerabilityId}
         onClose={handleCloseDeleteModal}
-        onDeleteVulnRes={onDeleteVulnResult}
+        onRemoveVulnRes={onDeleteVulnResult}
         open={isDeleteVulnOpen}
       />
       {setColumn()}
