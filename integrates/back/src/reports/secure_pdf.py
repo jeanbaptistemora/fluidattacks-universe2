@@ -79,11 +79,11 @@ class SecurePDF:
         """Add a passphrase to a PDF."""
         pdf_foutname = f"{self.secure_pdf_username}_{in_filename}"
         output = PdfFileWriter()
-        input = PdfFileReader(  # noqa
+        input_file = PdfFileReader(  # noqa
             open(os.path.join(self.result_dir, in_filename), "rb")
         )
-        for i in range(0, input.getNumPages()):
-            output.addPage(input.getPage(i))
+        for i in range(0, input_file.getNumPages()):
+            output.addPage(input_file.getPage(i))
         output_stream = open(os.path.join(self.result_dir, pdf_foutname), "wb")
         output.encrypt(self.passphrase, use_128bit=True)
         output.write(output_stream)
@@ -97,10 +97,10 @@ class SecurePDF:
         footer_pdf = PDF()
         footer_pdf.set_user(self.secure_pdf_usermail)
         footer_pdf.alias_nb_pages()
-        input = PdfFileReader(  # noqa
+        input_file = PdfFileReader(  # noqa
             open(self.result_dir + in_filename, "rb")
         )
-        for i in range(1, input.getNumPages()):
+        for i in range(1, input_file.getNumPages()):
             footer_pdf.add_page()
         footer_pdf.add_page()
         footer_pdf.output(self.footer_tpl)
@@ -109,8 +109,8 @@ class SecurePDF:
         output = PdfFileWriter()
         overlay_watermark = PdfFileReader(open(self.watermark_tpl, "rb"))
         overlay_footer = PdfFileReader(open(self.footer_tpl, "rb"))
-        for i in range(0, input.getNumPages()):
-            page = input.getPage(i)
+        for i in range(0, input_file.getNumPages()):
+            page = input_file.getPage(i)
             page.mergePage(overlay_watermark.getPage(0))
             if i != 0:
                 page.mergePage(overlay_footer.getPage(i))
