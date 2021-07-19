@@ -733,55 +733,100 @@
 "045":
   en:
     title: Remove metadata when sharing files
-    summary: __empty__
+    summary: >
+      The organization must remove
+      file metadata before sharing it
+      or making it public.
     description: __empty__
   es:
     title: Eliminar metadatos al compartir archivos
-    summary: __empty__
+    summary: >
+      La organización debe eliminar
+      los metadatos antes de compartir
+      un archivo o de hacerlo público.
     description: __empty__
   references: []
   metadata: {}
 "046":
   en:
     title: Manage the integrity of critical files
-    summary: __empty__
+    summary: >
+      The system must verify
+      and log changes in the integrity
+      of critical system files.
     description: __empty__
   es:
     title: Gestionar la integridad de archivos críticos
-    summary: __empty__
+    summary: >
+      El sistema debe verificar
+      y registrar los cambios
+      en la integridad de archivos críticos
+      del sistema.
     description: __empty__
   references: []
   metadata: {}
 "048":
   en:
     title: Components with minimal dependencies
-    summary: __empty__
+    summary: >
+      The components in the source code
+      must have as few dependencies as possible.
     description: __empty__
   es:
     title: Componentes con dependencias mínimas
-    summary: __empty__
+    summary: >
+      Los componentes en el código fuente
+      deben tener tan pocas dependencias
+      como sea posible. 
     description: __empty__
   references: []
   metadata: {}
 "050":
   en:
     title: Control calls to interpreted code
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Interpreted code (e.g., Javascript, CSS)
+      must be loaded from domains
+      controlled by the organization.
+    description: >
+      Applications often use resources
+      or have dependencies
+      that are hosted on other servers.
+      These resources should be hosted
+      on domains controlled
+      by the organization in order
+      to prevent several types
+      of injection attacks.
   es:
     title: Controlar llamadas a código interpretado
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El código interpretado
+      (ej., Javascript, CSS)
+      debe ser cargado desde dominios
+      controlados por la organización.
+    description: >
+      Las aplicaciones suelen utilizar recursos
+      o tener dependencias
+      que están alojados en otros servidores.
+      Estos recursos deben estar alojados
+      en dominios controlados por la organización
+      con el fin para prevenir
+      varios tipos de ataques por inyección.
   references: []
   metadata: {}
 "051":
   en:
     title: Store source code in a repository
-    summary: __empty__
+    summary: >
+      The organization must store
+      the source code in a central repository.
     description: __empty__
   es:
     title: Almacenar código fuente en un repositorio
-    summary: __empty__
+    summary: >
+      La organización debe almacener
+      el código fuente
+      en un repositorio centrl.
     description: __empty__
   references: []
   metadata: {}
