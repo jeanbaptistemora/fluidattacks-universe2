@@ -3651,7 +3651,7 @@
       impersonating the user who
       left the system opened.
   es:
-    title: Tiempo de caducidad de sesión inseguro
+    title: Tiempo límite de inactividad inseguro
     description: >
       La sesión de usuario
       de la aplicación no expira
@@ -4155,7 +4155,7 @@
       do not expire
       when a session is closed.
   es:
-    title: Gestión inseguro de sesión
+    title: Manejo inseguro de sesión
     description: >
       El token de sesión no caduca
       una vez que el usuario cierra la sesión
