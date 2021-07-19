@@ -15,6 +15,7 @@
   imports = [
     ./ci/makes.nix
     ./compute/makes.nix
+    ./foss/makes.nix
   ];
   secretsForAwsFromEnv = {
     makesDev = {

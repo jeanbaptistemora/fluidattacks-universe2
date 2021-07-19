@@ -66,8 +66,6 @@ makes.ci.config
 makes.dns.apply
 makes.dns.test
 makes.done
-makes.foss.apply
-makes.foss.test
 makes.k8s.apply
 makes.k8s.test
 makes.kill-port

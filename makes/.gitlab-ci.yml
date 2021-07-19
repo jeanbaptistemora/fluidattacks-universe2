@@ -55,12 +55,17 @@
       when: never
     - when: always
 
-/deployTerraform/ci:
+/deployTerraform/makesCi:
   <<: *makes4
   <<: *makes_in_master_branch
   stage: deploy-infra
 
-/deployTerraform/compute:
+/deployTerraform/makesCompute:
+  <<: *makes4
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
+/deployTerraform/makesFoss:
   <<: *makes4
   <<: *makes_in_master_branch
   stage: deploy-infra
@@ -70,22 +75,32 @@ makes.ci.config:
   <<: *makes_in_master_branch
   stage: deploy-infra
 
-/lintTerraform/ci:
+/lintTerraform/makesCi:
   <<: *makes4
   <<: *makes_in_dev_branch
   stage: lint-code
 
-/lintTerraform/compute:
+/lintTerraform/makesCompute:
   <<: *makes4
   <<: *makes_in_dev_branch
   stage: lint-code
 
-/testTerraform/ci:
+/lintTerraform/makesFoss:
+  <<: *makes4
+  <<: *makes_in_dev_branch
+  stage: lint-code
+
+/testTerraform/makesCi:
   <<: *makes4
   <<: *makes_in_dev_branch
   stage: test-infra
 
-/testTerraform/compute:
+/testTerraform/makesCompute:
+  <<: *makes4
+  <<: *makes_in_dev_branch
+  stage: test-infra
+
+/testTerraform/makesFoss:
   <<: *makes4
   <<: *makes_in_dev_branch
   stage: test-infra
@@ -96,16 +111,6 @@ makes.dns.apply:
   stage: deploy-infra
 
 makes.dns.test:
-  <<: *makes
-  <<: *makes_in_dev_branch
-  stage: test-infra
-
-makes.foss.apply:
-  <<: *makes
-  <<: *makes_in_master_branch
-  stage: deploy-infra
-
-makes.foss.test:
   <<: *makes
   <<: *makes_in_dev_branch
   stage: test-infra

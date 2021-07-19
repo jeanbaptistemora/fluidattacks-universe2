@@ -1,46 +1,45 @@
 # https://github.com/fluidattacks/makes
 { outputs
-, path
 , ...
 }:
 {
   deployTerraform = {
     modules = {
-      makesCompute = {
+      makesFoss = {
         setup = [
-          outputs."/envVarsForTerraform/makesCompute"
+          outputs."/secretsForTerraformFromEnv/makesFoss"
           outputs."/secretsForAwsFromEnv/makesDev"
         ];
-        src = "/makes/makes/compute/infra";
+        src = "/makes/makes/foss/infra";
         version = "0.13";
       };
     };
   };
   lintTerraform = {
     modules = {
-      makesCompute = {
+      makesFoss = {
         setup = [
-          outputs."/envVarsForTerraform/makesCompute"
+          outputs."/secretsForTerraformFromEnv/makesFoss"
           outputs."/secretsForAwsFromEnv/makesDev"
         ];
-        src = "/makes/makes/compute/infra";
+        src = "/makes/makes/foss/infra";
         version = "0.13";
       };
     };
   };
-  envVarsForTerraform = {
-    makesCompute = {
-      skimsQueues = path "/skims/manifests/queues.json";
+  secretsForTerraformFromEnv = {
+    makesFoss = {
+      githubToken = "GITHUB_API_TOKEN";
     };
   };
   testTerraform = {
     modules = {
-      makesCompute = {
+      makesFoss = {
         setup = [
-          outputs."/envVarsForTerraform/makesCompute"
+          outputs."/secretsForTerraformFromEnv/makesFoss"
           outputs."/secretsForAwsFromEnv/makesDev"
         ];
-        src = "/makes/makes/compute/infra";
+        src = "/makes/makes/foss/infra";
         version = "0.13";
       };
     };
