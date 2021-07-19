@@ -283,29 +283,11 @@ label {
   height: 402px;
 }
 
-:global .g1:hover {
-  height: auto;
-}
-
-:global .g1:hover .panel-cf {
-  height: auto;
-  display: block;
-}
-
 :global .g2 {
   background-color: #fff;
   border: 1px solid transparent;
   border-color: #ddd;
   height: 242px;
-}
-
-:global .g2:hover {
-  height: auto;
-}
-
-:global .g2:hover .panel-cf {
-  height: auto;
-  display: block;
 }
 
 :global .g3 {
@@ -315,29 +297,11 @@ label {
   height: 162px;
 }
 
-:global .g3:hover {
-  height: auto;
-}
-
-:global .g3:hover .panel-cf {
-  height: auto;
-  display: block;
-}
-
 :global .g4 {
   background-color: #fff;
   border: 1px solid transparent;
   border-color: #ddd;
   height: 322px;
-}
-
-:global .g4:hover {
-  height: auto;
-}
-
-:global .g4:hover .panel-cf {
-  height: auto;
-  display: block;
 }
 
 :global .suscribeDropdownBtn {
