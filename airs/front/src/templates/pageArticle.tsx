@@ -11,6 +11,7 @@
 /* eslint react/forbid-component-props: 0 */
 import { graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
+import { decode } from "he";
 import React from "react";
 
 import { Layout } from "../components/Layout";
@@ -53,7 +54,7 @@ const DefaultPage: React.FC<IQueryData> = ({
           "https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_1200/v1622583388/airs/logo_fluid_attacks_2021_eqop3k.png"
         }
         keywords={keywords}
-        title={`${title} | Fluid Attacks`}
+        title={decode(`${title} | Fluid Attacks`)}
         url={slug}
       />
 
@@ -61,7 +62,7 @@ const DefaultPage: React.FC<IQueryData> = ({
         <div>
           <NavbarComponent />
           <Breadcrumb
-            crumbLabel={capitalizePlainString(title)}
+            crumbLabel={decode(capitalizePlainString(title))}
             crumbSeparator={" / "}
             crumbs={capitalizeObject(crumbs)}
           />
@@ -73,9 +74,11 @@ const DefaultPage: React.FC<IQueryData> = ({
               slug={slug}
               subtext={subtext}
               subtitle={subtitle}
-              title={title}
+              title={decode(title)}
             />
-            {isCareers ? <ArticleTitle>{title}</ArticleTitle> : undefined}
+            {isCareers ? (
+              <ArticleTitle>{decode(title)}</ArticleTitle>
+            ) : undefined}
             <ArticleContainer
               className={"internal"}
               dangerouslySetInnerHTML={{
