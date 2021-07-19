@@ -278,7 +278,7 @@ async def test_validate_evidence_records_invalid_type() -> None:
     mime_type = "image/gif"
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(test_file.name, test_file, mime_type)
-        with pytest.raises(InvalidFileType) as context:  # NOQA
+        with pytest.raises(InvalidFileType):
             await validate_evidence(evidence_id, uploaded_file)
 
 
