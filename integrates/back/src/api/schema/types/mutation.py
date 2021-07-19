@@ -41,7 +41,7 @@ from api.mutations import (
     invalidate_cache,
     reject_draft,
     reject_draft_new,
-    reject_zero_risk_vuln,
+    reject_zero_risk_vulnerabilities,
     remove_event_evidence,
     remove_files,
     remove_finding,
@@ -125,7 +125,9 @@ MUTATION.set_field(
     handle_finding_policy_acceptation.mutate,
 )
 MUTATION.set_field("invalidateCache", invalidate_cache.mutate)
-MUTATION.set_field("rejectZeroRiskVuln", reject_zero_risk_vuln.mutate)
+MUTATION.set_field(
+    "rejectZeroRiskVuln", reject_zero_risk_vulnerabilities.mutate
+)
 MUTATION.set_field("removeEventEvidence", remove_event_evidence.mutate)
 MUTATION.set_field(
     "removeStakeholderOrganizationAccess",
@@ -204,6 +206,9 @@ MUTATION.set_field(
 MUTATION.set_field(
     "handleVulnerabilitiesAcceptation",
     handle_vulnerabilities_acceptation.mutate,
+)
+MUTATION.set_field(
+    "rejectZeroRiskVulnerabilities", reject_zero_risk_vulnerabilities.mutate
 )
 
 if FI_API_STATUS == "migration":

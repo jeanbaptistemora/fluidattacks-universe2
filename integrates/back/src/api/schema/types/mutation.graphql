@@ -374,6 +374,13 @@ type Mutation {
     findingId: String!
     justification: String!
     vulnerabilities: [String]!
+  ): SimplePayload! @deprecated(reason: """This mutation will be removed
+    after 2021/12/31. Use `rejectZeroRiskVulnerabilities` instead.""")
+
+  rejectZeroRiskVulnerabilities(
+    findingId: String!
+    justification: String!
+    vulnerabilities: [String]!
   ): SimplePayload!
 
   removeEventEvidence(

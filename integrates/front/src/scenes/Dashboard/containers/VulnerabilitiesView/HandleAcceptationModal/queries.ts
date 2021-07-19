@@ -35,13 +35,13 @@ const CONFIRM_ZERO_RISK_VULN: DocumentNode = gql`
   }
 `;
 
-const REJECT_ZERO_RISK_VULN: DocumentNode = gql`
-  mutation RejectZeroRiskVuln(
+const REJECT_ZERO_RISK_VULNERABILITIES: DocumentNode = gql`
+  mutation RejectZeroRiskVulnerabilities(
     $findingId: String!
     $justification: String!
     $vulnerabilities: [String]!
   ) {
-    rejectZeroRiskVuln(
+    rejectZeroRiskVulnerabilities(
       findingId: $findingId
       justification: $justification
       vulnerabilities: $vulnerabilities
@@ -54,5 +54,5 @@ const REJECT_ZERO_RISK_VULN: DocumentNode = gql`
 export {
   CONFIRM_ZERO_RISK_VULN,
   HANDLE_VULNS_ACCEPTATION,
-  REJECT_ZERO_RISK_VULN,
+  REJECT_ZERO_RISK_VULNERABILITIES,
 };

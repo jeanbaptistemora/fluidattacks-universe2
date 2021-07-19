@@ -28,7 +28,7 @@ import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
   CONFIRM_ZERO_RISK_VULN,
   HANDLE_VULNS_ACCEPTATION,
-  REJECT_ZERO_RISK_VULN,
+  REJECT_ZERO_RISK_VULNERABILITIES,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/queries";
 import type {
   IHandleVulnerabilitiesAcceptationModalProps,
@@ -146,7 +146,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptationModalPro
       )
     );
     const [rejectZeroRisk, { loading: rejectingZeroRisk }] = useMutation(
-      REJECT_ZERO_RISK_VULN,
+      REJECT_ZERO_RISK_VULNERABILITIES,
       rejectZeroRiskProps(
         refetchData,
         handleCloseModal,

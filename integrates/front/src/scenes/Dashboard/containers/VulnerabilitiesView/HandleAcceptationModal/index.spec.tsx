@@ -26,7 +26,7 @@ import { HandleAcceptationModal } from "scenes/Dashboard/containers/Vulnerabilit
 import {
   CONFIRM_ZERO_RISK_VULN,
   HANDLE_VULNS_ACCEPTATION,
-  REJECT_ZERO_RISK_VULN,
+  REJECT_ZERO_RISK_VULNERABILITIES,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/queries";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import store from "store";
@@ -583,13 +583,13 @@ describe("handle vulns acceptation modal", (): void => {
     const handleCloseModal: jest.Mock = jest.fn();
     const mockedPermissions: PureAbility<string> = new PureAbility([
       {
-        action: "api_mutations_reject_zero_risk_vuln_mutate",
+        action: "api_mutations_reject_zero_risk_vulnerabilities_mutate",
       },
     ]);
     const mocksMutation: MockedResponse[] = [
       {
         request: {
-          query: REJECT_ZERO_RISK_VULN,
+          query: REJECT_ZERO_RISK_VULNERABILITIES,
           variables: {
             findingId: "422286126",
             justification: "This is a test of rejecting zero risk vulns",
@@ -740,13 +740,13 @@ describe("handle vulns acceptation modal", (): void => {
     const handleCloseModal: jest.Mock = jest.fn();
     const mockedPermissions: PureAbility<string> = new PureAbility([
       {
-        action: "api_mutations_reject_zero_risk_vuln_mutate",
+        action: "api_mutations_reject_zero_risk_vulnerabilities_mutate",
       },
     ]);
     const mocksMutation: MockedResponse[] = [
       {
         request: {
-          query: REJECT_ZERO_RISK_VULN,
+          query: REJECT_ZERO_RISK_VULNERABILITIES,
           variables: {
             findingId: "422286126",
             justification: "This is a test of rejecting zero risk vulns",
@@ -988,7 +988,7 @@ describe("handle vulns acceptation modal", (): void => {
     const handleCloseModal: jest.Mock = jest.fn();
     const mockedPermissions: PureAbility<string> = new PureAbility([
       {
-        action: "api_mutations_reject_zero_risk_vuln_mutate",
+        action: "api_mutations_reject_zero_risk_vulnerabilities_mutate",
       },
       {
         action: "see_dropdown_to_reject_zero_risk",
