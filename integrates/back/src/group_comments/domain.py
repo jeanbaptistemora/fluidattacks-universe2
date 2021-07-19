@@ -96,7 +96,7 @@ async def list_comments(group_name: str, user_email: str) -> List[CommentType]:
     enforcer = await authz.get_group_level_enforcer(user_email)
     comments = await collect(
         [
-            fill_comment_data(group_name, user_email, comment)
+            fill_comment_data(comment)
             for comment in await group_comments_dal.get_comments(group_name)
         ]
     )

@@ -34,7 +34,7 @@ async def test_list_comments() -> None:
             "modified": "2019/08/20 16:35:16",
             "content": "This is a comenting test",
             "email": "unittest@fluidattacks.com",
-            "fullname": "unit test",
+            "fullname": "unit test at Fluid Attacks",
             "id": 1566336916294,
         }
     ]
@@ -54,14 +54,12 @@ async def test_fill_comment_data() -> None:
         "modified": "2020-02-25 11:05:35",
         "parent": Decimal("0"),
     }
-    res_data_no_fullname = await comments_domain.fill_comment_data(
-        "unittesting", "customer", test_data
-    )
+    res_data_no_fullname = await comments_domain.fill_comment_data(test_data)
     assert res_data_no_fullname["fullname"] == "unittesting@test.com"
 
     test_data["fullname"] = ""
     res_data_empty_fullname = await comments_domain.fill_comment_data(
-        "unittesting", "customer", test_data
+        test_data
     )
 
     assert res_data_empty_fullname["fullname"] == "unittesting@test.com"

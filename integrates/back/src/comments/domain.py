@@ -49,13 +49,12 @@ def _fill_vuln_info(
 
 
 async def _get_comments(
-    comment_type: str, group_name: str, finding_id: str, user_email: str
+    comment_type: str,
+    finding_id: str,
 ) -> List[CommentType]:
     comments = await collect(
         [
-            fill_comment_data(
-                group_name, user_email, cast(Dict[str, str], comment)
-            )
+            fill_comment_data(cast(Dict[str, str], comment))
             for comment in await comments_dal.get_comments(
                 comment_type, int(finding_id)
             )
@@ -64,28 +63,15 @@ async def _get_comments(
     return list(comments)
 
 
-async def _get_fullname(
-    group_name: str, requester_email: str, objective_data: Dict[str, str]
-) -> str:
+async def _get_fullname(objective_data: Dict[str, str]) -> str:
     objective_email = objective_data["email"]
     objective_possible_fullname = objective_data.get("fullname", "")
     real_name = objective_possible_fullname or objective_email
-    is_requester_at_fluid: bool = "@fluidattacks.com" in requester_email
-    is_objective_at_fluid: bool = "@fluidattacks.com" in objective_email
 
-    # Only Fluid Attacks' staff is masked
-    if is_requester_at_fluid or not is_objective_at_fluid:
-        name_to_show = real_name
-    else:
-        objective_role = await authz.get_group_level_role(
-            objective_email, group_name
-        )
-        name_to_show = {
-            "analyst": "Hacker at Fluid Attacks",
-            "admin": "Hacker at Fluid Attacks",
-            "customeradmin": real_name,
-        }.get(objective_role, "Someone at Fluid Attacks")
-    return name_to_show
+    if "@fluidattacks.com" in objective_email:
+        return f"{real_name} at Fluid Attacks"
+
+    return real_name
 
 
 def _is_scope_comment(comment: CommentType) -> bool:
@@ -117,14 +103,8 @@ async def delete(finding_id: int, user_id: int) -> bool:
     return await comments_dal.delete(finding_id, user_id)
 
 
-async def fill_comment_data(
-    group_name: str, requester_email: str, data: Dict[str, str]
-) -> CommentType:
-    fullname = await _get_fullname(
-        group_name=group_name,
-        requester_email=requester_email,
-        objective_data=data,
-    )
+async def fill_comment_data(data: Dict[str, str]) -> CommentType:
+    fullname = await _get_fullname(objective_data=data)
     return {
         "content": data["content"],
         "created": datetime_utils.format_comment_date(data["created"]),
@@ -149,9 +129,7 @@ async def get_comments(
     finding_loader = info.context.loaders.finding
     finding_vulns_loader = info.context.loaders.finding_vulns
 
-    comments = await _get_comments(
-        "comment", group_name, finding_id, user_email
-    )
+    comments = await _get_comments("comment", finding_id)
     finding = await finding_loader.load(finding_id)
     historic_verification = finding.get("historic_verification", [])
     verified = [
@@ -189,9 +167,7 @@ async def get_comments_new(
         info.context.loaders.finding_historic_verification_new
     )
     finding_vulns_loader = info.context.loaders.finding_vulns
-    comments = await _get_comments(
-        "comment", group_name, finding_id, user_email
-    )
+    comments = await _get_comments("comment", finding_id)
     historic_verification: Tuple[
         FindingVerification, ...
     ] = await historic_verification_loader.load(finding_id)
@@ -222,7 +198,7 @@ async def get_comments_new(
 async def get_event_comments(
     group_name: str, finding_id: str, user_email: str
 ) -> List[CommentType]:
-    comments = await _get_comments("event", group_name, finding_id, user_email)
+    comments = await _get_comments("event", finding_id)
 
     new_comments: List[CommentType] = []
     enforcer = await authz.get_group_level_enforcer(user_email)
@@ -236,9 +212,7 @@ async def get_event_comments(
 async def get_observations(
     group_name: str, finding_id: str, user_email: str
 ) -> List[CommentType]:
-    observations = await _get_comments(
-        "observation", group_name, finding_id, user_email
-    )
+    observations = await _get_comments("observation", finding_id)
 
     new_observations: List[CommentType] = []
     enforcer = await authz.get_group_level_enforcer(user_email)
