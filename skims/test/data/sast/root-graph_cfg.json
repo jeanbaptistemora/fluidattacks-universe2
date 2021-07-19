@@ -68823,7 +68823,19 @@
           {
             "meta": {
               "danger": false,
-              "dependencies": -1,
+              "dependencies": 0,
+              "n_id": "1078",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "resolve",
+            "var_type": null
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "1073",
               "value": null
             },
@@ -68844,6 +68856,18 @@
           }
         ],
         "1078": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1078",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "resolve",
+            "var_type": null
+          },
           {
             "meta": {
               "danger": false,
@@ -68890,6 +68914,15 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "1095",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "n_id": "1088",
               "value": null
             },
@@ -68925,6 +68958,15 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "1095",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "n_id": "1088",
               "value": null
             },
@@ -69001,7 +69043,19 @@
           {
             "meta": {
               "danger": false,
-              "dependencies": -1,
+              "dependencies": 0,
+              "n_id": "18",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "resolve",
+            "var_type": null
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "13",
               "value": null
             },
@@ -69058,8 +69112,10 @@
               "n_id": "1120",
               "value": null
             },
-            "symbol": "a",
-            "type": "SyntaxStepSymbolLookup"
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "a",
+            "var_type": null
           },
           {
             "meta": {
@@ -69068,8 +69124,92 @@
               "n_id": "1122",
               "value": null
             },
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "b",
+            "var_type": null
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1132",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "42",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1129",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "chuck",
+            "var_type": null
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1142",
+              "value": null
+            },
+            "symbol": "chuck",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1140",
+              "value": null
+            },
             "symbol": "b",
             "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1138",
+              "value": null
+            },
+            "symbol": "a",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "1137",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "1136",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1134",
+              "value": null
+            },
+            "type": "SyntaxStepReturn"
           },
           {
             "meta": {
@@ -69441,6 +69581,18 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "18",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "resolve",
+            "var_type": null
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
               "n_id": "23",
               "value": null
             },
@@ -69670,6 +69822,15 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "35",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "n_id": "28",
               "value": null
             },
@@ -69788,6 +69949,15 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
+              "n_id": "35",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
               "n_id": "28",
               "value": null
             },

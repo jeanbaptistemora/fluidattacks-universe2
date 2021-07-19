@@ -70,6 +70,7 @@ from sast_syntax_readers.javascript import (
     await_expression as javascript_await_expression,
     call_expression as javascript_call_expression,
     catch_clause as javascript_catch_clause,
+    formal_parameters as javascript_formal_parameters,
     function_declaration as javascript_function_declaration,
     if_statement as javascript_if_statement,
     lexical_declaration as javascript_lexical_declaration,
@@ -711,6 +712,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "member_expression",
         },
         syntax_readers=(javascript_member_expression.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+        },
+        applicable_node_label_types={
+            "formal_parameters",
+        },
+        syntax_readers=(javascript_formal_parameters.reader,),
     ),
     *[
         Dispatcher(
