@@ -60,6 +60,11 @@
   <<: *makes_in_master_branch
   stage: deploy-infra
 
+/deployTerraform/compute:
+  <<: *makes4
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
 makes.ci.config:
   <<: *makes
   <<: *makes_in_master_branch
@@ -70,18 +75,18 @@ makes.ci.config:
   <<: *makes_in_dev_branch
   stage: lint-code
 
+/lintTerraform/compute:
+  <<: *makes4
+  <<: *makes_in_dev_branch
+  stage: lint-code
+
 /testTerraform/ci:
   <<: *makes4
   <<: *makes_in_dev_branch
   stage: test-infra
 
-makes.compute.apply:
-  <<: *makes
-  <<: *makes_in_master_branch
-  stage: deploy-infra
-
-makes.compute.test:
-  <<: *makes
+/testTerraform/compute:
+  <<: *makes4
   <<: *makes_in_dev_branch
   stage: test-infra
 

@@ -41,6 +41,7 @@
           "management:product",
         ]
         exclude = [
+          "aws_iam_instance_profile",
           "aws_iam_policy",
         ]
       }
