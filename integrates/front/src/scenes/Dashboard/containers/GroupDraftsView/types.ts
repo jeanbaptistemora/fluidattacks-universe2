@@ -21,9 +21,11 @@ interface IGroupDraftsAttr {
 interface ISuggestion {
   attackComplexity: string;
   attackVector: string;
+  availabilityImpact: string;
   confidentialityImpact: string;
   cwe: string;
   description: string;
+  integrityImpact: string;
   privilegesRequired: string;
   recommendation: string;
   requirements: string;

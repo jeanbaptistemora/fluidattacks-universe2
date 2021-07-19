@@ -25,10 +25,12 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
   mutation AddDraftMutation(
     $attackComplexity: String
     $attackVector: String
+    $availabilityImpact: String
     $confidentialityImpact: String
     $cwe: String
     $description: String
     $groupName: String!
+    $integrityImpact: String
     $privilegesRequired: String
     $recommendation: String
     $requirements: String
@@ -41,10 +43,12 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
     addDraft(
       attackComplexity: $attackComplexity
       attackVector: $attackVector
+      availabilityImpact: $availabilityImpact
       confidentialityImpact: $confidentialityImpact
       cwe: $cwe
       description: $description
       groupName: $groupName
+      integrityImpact: $integrityImpact
       privilegesRequired: $privilegesRequired
       recommendation: $recommendation
       requirements: $requirements

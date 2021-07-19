@@ -1,4 +1,5 @@
-/* eslint-disable camelcase */
+// eslint-disable camelcase
+// Needed exception as the yaml file uses camelcase for its keys
 import yaml from "js-yaml";
 import _ from "lodash";
 
@@ -20,7 +21,19 @@ const attackVectorOptions: Record<string, string> = {
   P: "0.2",
 };
 
+const availabilityImpactOptions: Record<string, string> = {
+  H: "0.56",
+  L: "0.22",
+  N: "0",
+};
+
 const confidentialityImpactOptions: Record<string, string> = {
+  H: "0.56",
+  L: "0.22",
+  N: "0",
+};
+
+const integrityImpactOptions: Record<string, string> = {
   H: "0.56",
   L: "0.22",
   N: "0",
@@ -86,10 +99,20 @@ async function getFindingNames(
           attackComplexityRaw in attackComplexityOptions
             ? attackComplexityOptions[attackComplexityRaw]
             : "";
+        const availabilityRaw = vulnsData[key].score.base.availability;
+        const availabilityImpact =
+          availabilityRaw in availabilityImpactOptions
+            ? availabilityImpactOptions[availabilityRaw]
+            : "";
         const confidentialityRaw = vulnsData[key].score.base.confidentiality;
         const confidentialityImpact =
           confidentialityRaw in confidentialityImpactOptions
             ? confidentialityImpactOptions[confidentialityRaw]
+            : "";
+        const integrityRaw = vulnsData[key].score.base.integrity;
+        const integrityImpact =
+          integrityRaw in integrityImpactOptions
+            ? integrityImpactOptions[integrityRaw]
             : "";
         const scopeRaw = vulnsData[key].score.base.scope;
         const severityScope =
@@ -112,9 +135,11 @@ async function getFindingNames(
           return {
             attackComplexity,
             attackVector,
+            availabilityImpact,
             confidentialityImpact,
             cwe,
             description: validateNotEmpty(vulnsData[key].es.description),
+            integrityImpact,
             privilegesRequired,
             recommendation: validateNotEmpty(vulnsData[key].es.recommendation),
             requirements: validateNotEmpty(
@@ -130,9 +155,11 @@ async function getFindingNames(
         return {
           attackComplexity,
           attackVector,
+          availabilityImpact,
           confidentialityImpact,
           cwe,
           description: validateNotEmpty(vulnsData[key].en.description),
+          integrityImpact,
           privilegesRequired,
           recommendation: validateNotEmpty(vulnsData[key].en.recommendation),
           requirements: validateNotEmpty(

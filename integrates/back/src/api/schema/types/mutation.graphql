@@ -15,10 +15,12 @@ type Mutation {
     attackVector: String
     affectedSystems: String
     attackVectorDesc: String
+    availabilityImpact: String
     confidentialityImpact: String
     cwe: String
     description: String
     groupName: String!
+    integrityImpact: String
     privilegesRequired: String
     recommendation: String
     requirements: String
