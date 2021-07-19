@@ -1026,56 +1026,170 @@
 "078":
   en:
     title: Disable debugging events
-    summary: __empty__
+    summary: >
+      The organization must disable
+      debugging events in production.
     description: __empty__
   es:
     title: Deshabilitar eventos de depuración
-    summary: __empty__
+    summary: >
+      Los eventos con severidad de depuración
+      no deben estar habilitados en producción.
     description: __empty__
   references: []
   metadata: {}
 "079":
   en:
     title: Record exact occurrence time of events
-    summary: __empty__
-    description: __empty__
+    summary: >
+      The system must log
+      the exact occurrence time
+      (date, hour, seconds, milliseconds
+      and time zone) for each exceptional
+      and security event.
+    description: >
+      Event logs must contain
+      the exact time of occurrence
+      in order to allow backtracking
+      in an investigation.
   es:
     title: Registrar el tiempo exacto de ocurrencia de un evento
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe registrar
+      el tiempo exacto de ocurrencia
+      (fecha, hora, segundos, milisegundos
+      y zona horaria) para cada evento
+      excepcional y de seguridad.
+    description: >
+      Los registros de eventos
+      deben contener el tiempo exacto
+      de ocurrencia para permitir
+      el seguimiento en una investigación.
   references: []
   metadata: {}
 "080":
   en:
     title: Prevent log modification
-    summary: __empty__
-    description: __empty__
+    summary: >
+      System logs must not allow
+      modifications or alterations.
+    description: >
+      Logs are used to analyze
+      a system’s behavior.
+      They help detect errors
+      and suspicious activity,
+      and often hold very sensitive information.
+      Therefore,
+      they should be protected
+      so that no unauthorized actor
+      can modify them,
+      since this could prevent
+      a vulnerability or a breach
+      from being noticed in a timely manner.
   es:
     title: Prevenir la modificación de bitácoras
-    summary: __empty__
-    description: __empty__
+    summary: >
+       El sistema no debe permitir
+       modificaciones o alteraciones
+       en los logs del sistema.
+    description: >
+      Los registros son usados
+      para analizar el comportamiento
+      de un sistema.
+      Ellos ayudan a detectar errores
+      y actividad sospechosa,
+      y a menudo mantienen información sensible.
+      Por lo tanto,
+      ellos deberían estar protegidos,
+      así ningún actor no autorizado
+      puede modificarlos,
+      ya que esto podría prevenir
+      que una vulnerabilidad o brecha
+      se note de manera oportuna.
   references: []
   metadata: {}
 "083":
   en:
     title: Avoid logging sensitive data
-    summary: __empty__
-    description: __empty__
+    summary: >
+      The system must not register
+      sensitive information
+      when logging exceptional events.
+    description: >
+      While event logging
+      is generally a good security practice,
+      the organization must consider
+      that using high logging levels
+      is only appropriate
+      for development environments,
+      since having too much log information
+      in production stages may hinder
+      the performance of a system administrator
+      in detecting abnormal conditions.
+      Furthermore,
+      if sensitive information
+      is recorded in the logs,
+      an attacker that gets access
+      to these can also obtain the information.
   es:
     title: Evitar el registro de datos sensibles en bitácoras
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema no debe registrar
+      información sensible
+      en un evento excepcional de una bitácora.
+    description: >
+      Si bien el registro de eventos
+      es generalmente una buena práctica de seguridad,
+      la organización debe considerar
+      que el uso de niveles altos de registro
+      solo es apropiado
+      para entornos de desarrollo,
+      ya que tener demasiada información
+      de registro en las etapas de producción
+      puede dificultar el desempeño
+      de un administrador del sistema
+      en la detección de condiciones anormales.
+      Además,
+      si se registra información confidencial
+      en los registros,
+      un atacante que tenga acceso a estos
+      también puede obtener la información. 
   references: []
   metadata: {}
 "084":
   en:
     title: Allow transaction history queries
-    summary: __empty__
-    description: __empty__
+    summary: >
+      The system must allow
+      authorized users
+      to inspect their own transaction history.
+    description: >
+      Systems usually collect personal
+      and transactional data from their users.
+      Users should have control
+      of their own data and,
+      as such, should be allowed to query
+      and inspect whatever information
+      the system has collected from them,
+      including their transactional records.
   es:
     title: Permitir consultas al historial de transacciones
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe permitir
+      a los usuarios autorizados
+      inspeccionar el historial de sus
+      propias transacciones.
+    description: >
+      Los sistemas suelen
+      recopilar datos personales
+      y transaccionales de sus usuarios.
+      Los usuarios deben tener
+      el control de sus propios datos
+      y, como tales, deben poder consultar
+      e inspeccionar cualquier información
+      que el sistema haya recopilado de ellos,
+      incluidos sus registros
+      de transacciones.
   references: []
   metadata: {}
 "085":
