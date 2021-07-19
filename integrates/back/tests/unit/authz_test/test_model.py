@@ -149,8 +149,6 @@ def test_model_integrity_migrated_finding_permissions(
         "update_severity_new_mutate",
         "api_mutations_verify_request_vulnerability_mutate": "api_mutations_"
         "verify_request_vulnerability_new_mutate",
-        "api_mutations_request_zero_risk_vuln_mutate": "api_mutations_"
-        "request_zero_risk_vuln_new_mutate",
         "api_resolvers_finding_analyst_resolve": "api_resolvers_"
         "finding_new_analyst_new_resolve",
         "api_resolvers_finding_historic_state_resolve": "api_resolvers_"

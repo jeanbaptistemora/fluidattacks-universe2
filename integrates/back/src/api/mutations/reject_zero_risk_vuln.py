@@ -1,6 +1,9 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from context import (
+    FI_API_STATUS,
+)
 from custom_types import (
     SimplePayload as SimplePayloadType,
 )
@@ -21,6 +24,12 @@ from redis_cluster.operations import (
 )
 from typing import (
     List,
+)
+from unreliable_indicators.enums import (
+    EntityDependency,
+)
+from unreliable_indicators.operations import (
+    update_unreliable_indicators_by_deps,
 )
 from vulnerabilities import (
     domain as vulns_domain,
@@ -46,6 +55,11 @@ async def mutate(
     )
     if success:
         redis_del_by_deps_soon("reject_zero_risk_vuln", finding_id=finding_id)
+        if FI_API_STATUS == "migration":
+            await update_unreliable_indicators_by_deps(
+                EntityDependency.reject_zero_risk_vuln,
+                finding_id=finding_id,
+            )
         logs_utils.cloudwatch_log(
             info.context,
             (
