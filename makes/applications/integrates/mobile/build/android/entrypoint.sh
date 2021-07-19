@@ -55,6 +55,9 @@ function main {
         __envAndroidSdk__/libexec/android-sdk/* \
         "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk" \
       && touch "${TURTLE_ANDROID_DEPENDENCIES_DIR}/sdk/.ready" \
+      && echo '[INFO] Downloading shell app...' \
+      && npx --no-install turtle setup:android \
+        --sdk-version 41.0.0 \
       && echo '[INFO] Building Android app...' \
       && npx --no-install turtle build:android \
         --username "${EXPO_USER}" \
