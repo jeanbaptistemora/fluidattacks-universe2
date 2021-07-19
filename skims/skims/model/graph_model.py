@@ -335,6 +335,7 @@ class GraphShardMetadataCSharp(NamedTuple):
 
 
 class GraphShardMetadataGo(NamedTuple):
+    imports: List[str]
     sink_functions: Dict[str, List[SinkFunctions]]
     package: str
 
@@ -355,6 +356,7 @@ class GraphShardMetadata(NamedTuple):
         package="",
     )
     go: Optional[GraphShardMetadataGo] = GraphShardMetadataGo(
+        imports=[],
         sink_functions={},
         package="",
     )

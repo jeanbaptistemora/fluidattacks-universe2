@@ -4429,6 +4429,7 @@
           "package": "testcases.CWE89_SQL_Injection"
         },
         "go": {
+          "imports": [],
           "package": "",
           "sink_functions": {}
         },
@@ -17917,6 +17918,7 @@
           "package": "SampleWebApi.Controllers"
         },
         "go": {
+          "imports": [],
           "package": "",
           "sink_functions": {}
         },
@@ -26618,6 +26620,7 @@
           "package": ""
         },
         "go": {
+          "imports": [],
           "package": "",
           "sink_functions": {}
         },

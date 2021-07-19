@@ -704,6 +704,7 @@
           "package": ""
         },
         "go": {
+          "imports": [],
           "package": "",
           "sink_functions": {}
         },
@@ -2122,6 +2123,7 @@
           "package": ""
         },
         "go": {
+          "imports": [],
           "package": "",
           "sink_functions": {}
         },

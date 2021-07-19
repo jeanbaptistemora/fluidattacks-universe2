@@ -19090,6 +19090,7 @@
           "package": ""
         },
         "go": {
+          "imports": [],
           "package": "",
           "sink_functions": {}
         },
@@ -50717,6 +50718,13 @@
           "package": ""
         },
         "go": {
+          "imports": [
+            "errors",
+            "fmt",
+            "log",
+            "net/http",
+            "github.com/julienschmidt/httprouter"
+          ],
           "package": "main",
           "sink_functions": {
             "F127": [
@@ -68497,6 +68505,7 @@
           "package": ""
         },
         "go": {
+          "imports": [],
           "package": "",
           "sink_functions": {}
         },

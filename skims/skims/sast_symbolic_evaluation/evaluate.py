@@ -48,6 +48,7 @@ from sast_syntax_readers.utils_generic import (
 from typing import (
     Dict,
     Iterator,
+    List,
     NamedTuple,
     Optional,
     Tuple,
@@ -286,6 +287,75 @@ PossibleSyntaxStepsForFinding = Dict[str, PossibleSyntaxStepsForUntrustedNId]
 PossibleSyntaxSteps = Dict[str, PossibleSyntaxStepsForFinding]
 
 
+def get_possible_syntax_steps_from_multiple_go_files(
+    graph_db: graph_model.GraphDB,
+    shard: graph_model.GraphShard,
+    n_id: graph_model.NId,
+    finding: core_model.FindingEnum,
+) -> PossibleSyntaxStepsForUntrustedNId:
+    # We want to analyze shards that belong to the same package or packages
+    # that it imports
+    current_package = shard.metadata.go.package
+    packages_of_interest = shard.metadata.go.imports + [current_package]
+
+    # Filter packages that have sink functions of the finding in question,
+    # keeping information about the shard they belong to
+    functions_of_interest: Dict[
+        str, Tuple[int, List[graph_model.SinkFunctions]]
+    ] = {
+        _shard.metadata.go.package: (
+            idx,
+            _shard.metadata.go.sink_functions[finding.name],
+        )
+        for idx, _shard in enumerate(graph_db.shards)
+        if (
+            _shard != shard
+            and _shard.metadata.go.package in packages_of_interest
+            and finding.name in _shard.metadata.go.sink_functions
+        )
+    }
+    # Build the way the functions are called in the analyzed code
+    calls_of_interest: Dict[str, Tuple[int, graph_model.SinkFunctions]] = {
+        f"{pkg}.{fn.name}" if pkg != current_package else fn.name: (_shard, fn)
+        for pkg, (_shard, fns) in functions_of_interest.items()
+        for fn in fns
+    }
+
+    graph = shard.graph
+    syntax = shard.syntax
+    cfg_p_id = g.lookup_first_cfg_parent(graph, n_id)
+    fn_calls_n_ids = g.filter_nodes(
+        graph,
+        (cfg_p_id,) + g.adj_cfg(graph, cfg_p_id, depth=-1),
+        g.pred_has_labels(label_type="call_expression"),
+    )
+    # Link the node where the function is called with the shard and information
+    # where the function is declared
+    methods_called: Dict[str, Tuple[int, graph_model.SinkFunctions]] = {
+        fn_call_n_id: calls_of_interest[syntax_step.method]
+        for fn_call_n_id in fn_calls_n_ids
+        for syntax_step in syntax[fn_call_n_id]
+        if (
+            syntax_step.type == "SyntaxStepMethodInvocation"
+            and syntax_step.method in calls_of_interest
+        )
+    }
+
+    # Calculate the paths that the CFG follows
+    branches = {
+        "-".join(path + (f"-{graph_db.shards[shard_idx].path}-",) + ext_path)
+        for c_id, (shard_idx, fn) in methods_called.items()
+        for path in g.paths(graph, cfg_p_id, c_id, label_cfg="CFG")
+        for ext_path in g.paths(
+            graph_db.shards[shard_idx].graph,
+            fn.n_id,
+            fn.s_id,
+            label_cfg="CFG",
+        )
+    }
+    return {branch: [] for branch in branches}
+
+
 def get_possible_syntax_steps_for_n_id(
     graph_db: graph_model.GraphDB,
     *,
@@ -321,6 +391,13 @@ def get_possible_syntax_steps_for_n_id(
             finding=finding,
         )
     }
+
+    if shard.metadata.language == graph_model.GraphShardMetadataLanguage.GO:
+        syntax_steps_map.update(
+            get_possible_syntax_steps_from_multiple_go_files(
+                graph_db=graph_db, shard=shard, n_id=n_id, finding=finding
+            )
+        )
 
     return syntax_steps_map
 
