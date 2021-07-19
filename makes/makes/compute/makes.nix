@@ -7,7 +7,7 @@
   deployTerraform = {
     modules = {
       compute = {
-        authentication = [
+        setup = [
           outputs."/envVarsForTerraform/makesCompute"
           outputs."/secretsForAwsFromEnv/makesDev"
         ];
@@ -19,7 +19,7 @@
   lintTerraform = {
     modules = {
       compute = {
-        authentication = [
+        setup = [
           outputs."/envVarsForTerraform/makesCompute"
           outputs."/secretsForAwsFromEnv/makesDev"
         ];
@@ -36,7 +36,7 @@
   testTerraform = {
     modules = {
       compute = {
-        authentication = [
+        setup = [
           outputs."/envVarsForTerraform/makesCompute"
           outputs."/secretsForAwsFromEnv/makesDev"
         ];
