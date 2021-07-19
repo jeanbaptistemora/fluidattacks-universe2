@@ -144,7 +144,7 @@ $gray-176: rgba(176, 176, 191, 1);
 .bc-fluid-gray { border-color: $fluid-gray; }
 .bc-hovered-red { border-color: $hovered-red; }
 .bc-gray-233 { border-color: $gray-233; }
-.c-black46 { color: $black-46; }
+.c-black-46 { color: $black-46; }
 .c-black-gray { color: $black-gray; }
 .c-blue-gray { color: $blue-gray; }
 .c-dkred { color: $button-red; }
@@ -525,7 +525,7 @@ $gray-176: rgba(176, 176, 191, 1);
 
   a {
     border: 1px solid $lighter-gray;
-    color: $fluid-black;
+    color: $black-46;
     display: block;
     float: none;
     padding: 16px 20px;

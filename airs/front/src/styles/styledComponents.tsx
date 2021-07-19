@@ -165,6 +165,7 @@ const NavbarRegularButton: StyledComponent<
     hv-fluid-rd
     bg-transparent
     pointer
+    c-black-46
   `,
 })``;
 
@@ -1420,7 +1421,7 @@ const ListItemLabel: StyledComponent<
     pointer
     hv-fluid-rd
     f3
-    c-black46
+    c-black-46
     fw4
     t-color-2
     roboto
