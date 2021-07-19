@@ -57,6 +57,7 @@ from api.mutations import (
     request_verification_vulnerability,
     request_verification_vulnerability_new,
     request_zero_risk_vuln,
+    request_zero_risk_vuln_new,
     sign_in,
     solve_event,
     submit_draft,
@@ -131,7 +132,6 @@ MUTATION.set_field(
     "removeStakeholderOrganizationAccess",
     remove_stakeholder_organization_access.mutate,
 )
-MUTATION.set_field("requestZeroRiskVuln", request_zero_risk_vuln.mutate)
 MUTATION.set_field("solveEvent", solve_event.mutate)
 MUTATION.set_field(
     "submitOrganizationFindingPolicy",
@@ -208,6 +208,9 @@ if FI_API_STATUS == "migration":
         "requestVerificationVuln",
         request_verification_vulnerability_new.mutate,
     )
+    MUTATION.set_field(
+        "requestZeroRiskVuln", request_zero_risk_vuln_new.mutate
+    )
     MUTATION.set_field("submitDraft", submit_draft_new.mutate)
     MUTATION.set_field(
         "updateDescription", update_finding_description_new.mutate
@@ -231,6 +234,7 @@ else:
     MUTATION.set_field(
         "requestVerificationVuln", request_verification_vulnerability.mutate
     )
+    MUTATION.set_field("requestZeroRiskVuln", request_zero_risk_vuln.mutate)
     MUTATION.set_field("submitDraft", submit_draft.mutate)
     MUTATION.set_field("updateDescription", update_finding_description.mutate)
     MUTATION.set_field("updateEvidence", update_evidence.mutate)
