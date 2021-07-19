@@ -833,45 +833,194 @@
 "062":
   en:
     title: Define standard configurations
-    summary: __empty__
-    description: __empty__
+    summary: >
+      The organization must define
+      standard configurations
+      that correct all known vulnerabilities.
+      These configurations
+      must also be consistent
+      with industry standards.
+    description: >
+      System configuration is essential
+      when it comes to security issues.
+      The system must follow
+      the industry’s standard configurations
+      that prevent all known vulnerabilities.
+      These settings also contribute
+      to ensuring the ongoing
+      confidentiality, integrity, availability
+      and resilience of systems and services.
   es:
     title: Definir configuraciones estándar
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Deben definirse
+      configuraciones estándar
+      que corrijan todas
+      las vulnerabilidades conocidas
+      y que sean consistentes con estándares
+      de la industria (ej: líneas base).
+    description: >
+      La configuración del sistema
+      es esencial cuando se trata de
+      cuestiones de seguridad.
+      El sistema debe seguir
+      las configuraciones estándar
+      de la industria que previenen
+      todas las vulnerabilidades conocidas.
+      Estos ajustes también contribuyen
+      a garantizar la confidencialidad,
+      integridad, disponibilidad
+      y resiliencia contínuas de los sistemas
+      y servicios.
   references: []
   metadata: {}
 "072":
   en:
     title: Set maximum response time
-    summary: __empty__
-    description: __empty__
+    summary: >
+      The response time
+      with the maximum expected concurrence
+      must be no more than 5 seconds.
+    description: >
+      Response time
+      is a relevant measure
+      of a system’s availability
+      and adaptability to stress.
+      It is also important
+      when it comes to usability
+      and reliance.
+      For these reasons,
+      the response time must not surpass
+      5 seconds when the number
+      of concurrent users reaches its peak.
   es:
     title: Establecer un tiempo de respuesta mínimo
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El tiempo de respuesta
+      con la concurrencia máxima esperada
+      debe ser de no más de 5 segundos.
+    description: >
+      El tiempo de respuesta
+      es una medida relevante 
   references: []
   metadata: {}
 "075":
   en:
     title: Record exceptional events in logs
-    summary: __empty__
-    description: __empty__
+    summary: >
+      The system must register
+      all exceptional and security events
+      in logs.
+    description: >
+      The organization
+      must properly record
+      the exceptional and security events
+      in duly protected logs (confidentiality),
+      considering that an event of this type
+      should not show confidential
+      or detailed information of the problem
+      in error messages to prevent
+      the use of that information
+      by an attacker or malicious user.
+
+      Recorded events allow error pages
+      to display simple generic messages,
+      alerting end users
+      that an error has occurred,
+      with some option to contact support.
+
+      The details of how to address
+      these problems should be kept
+      securely stored in a previously
+      defined log storage.
+      When an event of this type
+      is not properly recorded,
+      a malicious behavior
+      can be proven difficult to detect
+      or a forensic analysis
+      can be obstructed in case
+      an attack is successful.
   es:
     title: Registrar eventos excepcionales en bitácoras
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe registrar
+      todos los eventos excepcionales
+      y de seguridad en bitácoras.
+    description: >
+      La organización
+      debe registrar apropiadamente
+      los eventos excepcionales y de seguridad
+      en registros debidamente protegidos
+      (confidencialidad),
+      considerando que un evento de este tipo
+      no debe mostrarse información confidencial
+      o detallada del problema
+      en mensajes de error para evitar
+      el uso de esa información
+      por un atacante o usuario malintencionado.
+
+      Los eventos registrados
+      permiten que las páginas de error
+      muestren mensajes genéricos simples,
+      que alertan a los usuarios finales
+      de que se ha producido un error,
+      con alguna opción para ponerse
+      en contacto con soporte.
+
+      Los detalles de cómo abordar
+      estos problemas deben mantenerse almacenados
+      de forma segura en un almacenamiento
+      de registros previamente definido.
+      Cuando un evento de este tipo
+      no se registra correctamente,
+      se puede demostrar que es difícil de detectar
+      un comportamiento malicioso
+      o se puede obstruir un análisis forense
+      en caso de que un ataque sea exitoso. 
   references: []
   metadata: {}
 "077":
   en:
     title: Avoid disclosing technical information
-    summary: __empty__
-    description: __empty__
+    summary: >
+      The application must not disclose
+      internal system information
+      such as stack traces,
+      SQL sentence fragments,
+      database names or table names.
+    description: >
+      Applications should fail safely
+      whenever an unexpected event occurs.
+      Error message presentation
+      is part of this safe management.
+      Therefore,
+      specific technical information
+      should not be presented
+      to unauthorized users,
+      as this could be leveraged
+      by attackers to further exploit
+      other vulnerabilities.
   es:
     title: Evitar la exposición de información técnica
-    summary: __empty__
-    description: __empty__
+    summary: >
+      La aplicación no debe revelar
+      detalles del sistema interno
+      como stack traces,
+      fragmentos de sentencias SQL
+      y nombres de base de datos o tablas.
+    description: >
+      Las aplicaciones deben fallar
+      de forma segura cuando
+      un error inesperado ocurra.
+      La presentación del mensaje de error
+      es parte de la gestión segura.
+      Por lo tanto,
+      la información técnica específica
+      no debería ser presentada
+      a usuarios no autorizados,
+      ya que esto podría ser aprovechado
+      por atacantes para explotar
+      otras vulnerabilidades más adelante.
   references: []
   metadata: {}
 "078":
