@@ -643,55 +643,90 @@
 "040":
   en:
     title: Compare file format and extension
-    summary: __empty__
+    summary: >
+      The system must validate
+      that the format (structure) of the files
+      corresponds to their extension.
     description: __empty__
   es:
     title: Comparar formato y extensión del archivo
-    summary: __empty__
+    summary: >
+      El sistema debe validar
+      que el formato (estructura)
+      de los archivos
+      corresponde a su extensión.
     description: __empty__
   references: []
   metadata: {}
 "041":
   en:
     title: Scan files for malicious code
-    summary: __empty__
+    summary: >
+      The system must validate
+      that the content
+      of the files transferred to it is free
+      of malicious code.
     description: __empty__
   es:
     title: Escanear archivos para detectar código malicioso
-    summary: __empty__
+    summary: >
+      El sistema debe validar
+      que el contenido de los archivos transferidos
+      hacia el mismo sistema
+      esté libre de código malicioso.
     description: __empty__
   references: []
   metadata: {}
 "042":
   en:
     title: Validate file format
-    summary: __empty__
+    summary: >
+      The system must only accept files
+      whose format (structure) is required
+      by the business operation.
     description: __empty__
   es:
     title: Validar formato del archivo
-    summary: __empty__
+    summary: >
+      El sistema debe aceptar solamente
+      archivos cuyo formato (estructura)
+      es requerido por la operación del negocio.
     description: __empty__
   references: []
   metadata: {}
 "043":
   en:
     title: Define an explicit content type
-    summary: __empty__
+    summary: >
+      All system files generated dynamically
+      must have an explicitly defined content type.
     description: __empty__
   es:
     title: Definir un tipo de contenido explícito
-    summary: __empty__
+    summary: >
+      Todos los archivos de sistema
+      generados dinámicamente
+      deben tener un tipo de contenido
+      definido explícitamente.
     description: __empty__
   references: []
   metadata: {}
 "044":
   en:
     title: Define an explicit charset
-    summary: __empty__
+    summary: >
+      All system files
+      generated dynamically must have
+      an explicitly defined
+      character set (charset).
     description: __empty__
   es:
     title: Definir un juego de caracteres explícito
-    summary: __empty__
+    summary: >
+      Todos los archivos del sistema
+      generados dinámicamente deben tener
+      un conjunto de caracteres (charset)
+      definido explícitamente.
     description: __empty__
   references: []
   metadata: {}
