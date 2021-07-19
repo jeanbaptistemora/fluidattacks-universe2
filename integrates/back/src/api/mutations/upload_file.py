@@ -1,9 +1,6 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from context import (
-    FI_API_STATUS,
-)
 from custom_exceptions import (
     ErrorUploadingFileS3,
     InvalidFileType,
@@ -35,12 +32,6 @@ from redis_cluster.operations import (
 )
 from typing import (
     Any,
-)
-from unreliable_indicators.enums import (
-    EntityDependency,
-)
-from unreliable_indicators.operations import (
-    update_unreliable_indicators_by_deps,
 )
 from vulnerability_files import (
     domain as vuln_files_domain,
@@ -77,8 +68,9 @@ async def mutate(
         success = await vuln_files_domain.upload_file(
             info,
             file_input,
-            finding_data,
+            finding_id,
             finding_policy,
+            group_name=group_name,
             support_roots=group["subscription"] == "continuous",
         )
     else:
@@ -93,11 +85,6 @@ async def mutate(
             finding_id=finding_id,
             group_name=group_name,
         )
-        if FI_API_STATUS == "migration":
-            await update_unreliable_indicators_by_deps(
-                EntityDependency.upload_file,
-                finding_id=finding_id,
-            )
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Uploaded file in {group_name} group successfully",
