@@ -1,67 +1,215 @@
 "023":
   en:
     title: Terminate inactive user sessions
-    summary: __empty__
-    description: __empty__
+    summary: >
+      The system must
+      terminate a session
+      if there is a period of inactivity
+      on the user side
+      of 5 minutes or more.
+    description: >
+      A system can leave a session
+      indefinitely active
+      if it does not have
+      an automatic termination mechanism
+      based on timeout
+      and the user does not close it manually.
+
+      Failure to control timeouts
+      may allow an attacker
+      to take advantage of unattended sessions
+      and execute actions
+      on behalf of the authenticated user
+      without their authorization.
+      This risk can notably increase
+      its criticality if this is also the behavior
+      of high-privileged administrator accounts,
+      since it would affect the integrity,
+      confidentiality and availability
+      of the system,
+      its users and the information it contains.
   es:
     title: Finalizar sesiones de usuario inactivas
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe cerrar una sesión
+      si se presenta un tiempo de inactividad
+      por parte del usuario,
+      superior o igual a 5 minutos.
+    description: >
+      Un sistema puede dejar una sesión
+      activada indefinidamente
+      si no tiene un mecanismo automático
+      de terminación basado en timeout
+      y el usuario no lo cierra manualmente.
+
+      La falla en el control de timeouts
+      puede permitirle a un atacante
+      aprovechar un sesión desatendida
+      y ejecutar acciones suplantando
+      al usuario autenticado
+      sin su autorización.
+      Este riesgo puede incrementar
+      notablemente su criticidad
+      si este es el comportamiento
+      de las cuentas de administrador
+      con privilegios elevados,
+      ya que así se afectarían
+      la confidencialidad e integridad
+      del sistema, sus usuarios
+      y la información que contiene.
   references: []
   metadata: {}
 "024":
   en:
     title: Transfer information using session objects
-    summary: __empty__
+    summary: >
+      The system must use
+      session objects
+      to transfer information
+      between pages when needed.
     description: __empty__
   es:
     title: Transferir información usando objetos de sesión
-    summary: __empty__
+    summary: >
+      El sistema debe utilizar
+      objetos de sesión
+      para transferir información
+      entre páginas cuando sea necesario.
     description: __empty__
   references: []
   metadata: {}
 "025":
   en:
     title: Manage concurrent sessions
-    summary: __empty__
-    description: __empty__
+    summary: >
+      The concurrent sessions
+      of a system must be informed
+      or controlled.
+    description: >
+      A system that uses
+      authenticated access sessions
+      associated with unique users
+      may allow simultaneous access
+      with the same credentials.
+      This can pose a risk for the service,
+      the information and the system users,
+      by allowing malicious users
+      to interact simultaneously
+      with the system using a valid user,
+      thus leading to undetected identity thefts,
+      unauthorized actions
+      in name of the user (impersonation)
+      and a loss of traceability
+      of the impersonated user's actions
+      <<r1, ^[1]^>> <<r2, ^[2]^>>.
   es:
     title: Gestionar sesiones concurrentes
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Las sesiones concurrentes de un sistema
+      se deben controlar o informar.
+    description: >
+      Un sistema que utiliza
+      sesiones de acceso autenticados
+      asociados con usuarios únicos
+      puede permitir acceso simultáneo
+      con las mismas credenciales.
+      Esto puede significar un riesgo
+      para el servicio, la información
+      y usuarios del sistema,
+      permitiéndole a usuarios maliciosos
+      interactuar simultáneamente
+      con el sistema utilizando un usuario válido,
+      lo que conduce a robos de identidad,
+      acciones no autorizadas
+      en nombre del usuario (suplantación)
+      y pérdida de trazabilidad de acciones
+      hechas por el usuario suplantado
+      <<r1, ^[1]^>> <<r2, ^[2]^>>.
   references: []
   metadata: {}
 "026":
   en:
     title: Encrypt client-side session information
-    summary: __empty__
+    summary: >
+      The system must encrypt
+      and verify client-side
+      session information (ViewState).
     description: __empty__
   es:
     title: Cifrar información de sesión del lado del cliente
-    summary: __empty__
+    summary: >
+      El sistema debe verificar la integridad
+      y cifrar los estados de sesión
+      que están al lado del cliente.
     description: __empty__
   references: []
   metadata: {}
 "027":
   en:
     title: Allow session lockout
-    summary: __empty__
+    summary: >
+      The system must provide users
+      the option to manually lock their session
+      from any resource protected
+      by authentication.
     description: __empty__
   es:
     title: Permitir bloqueo de sesión
-    summary: __empty__
+    summary: >
+      El sistema debe proveer
+      a los usuarios, la opción
+      de bloquear manualmente
+      de cada recurso protegido
+      por autenticación.
     description: __empty__
   references: []
   metadata: {}
 "028":
   en:
     title: Allow users to log out
-    summary: __empty__
-    description: __empty__
+    summary: >
+      The system must allow users
+      to view and manually log out
+      of any or all active sessions
+      and devices.
+    description: >
+      Session tokens
+      have associated permissions
+      that allow any actor
+      who possesses them to perform
+      actions in a system.
+      If a user leaves a session open
+      and loses access to the device
+      on which it resides,
+      anyone with access
+      to the device will be able
+      to use that session.
+      Therefore,
+      the system should allow users
+      to view and log out
+      of any active session.
   es:
     title: Permitir a usuarios el cierre de sesión
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe permitir
+      a los usuarios ver y cerrar manualmente
+      algunas o todas las sesiones
+      activas y dispositivos.
+    description: >
+      Los tokens de sesión
+      han asociado permisos
+      que permiten a cada actor
+      que los posea realizar acciones
+      en un sistema.
+      Si un usuario deja
+      una sesión abierta y
+      pierde acceso al dispositivo
+      donde reside,
+      cualquiera con acceso al dispositivo
+      será capaz de usar la sesión.
+      Por lo tanto,
+      el sistema permitiría a los usuarios
+      ver y cerrar cualquier sesión activa.
   references: []
   metadata: {}
 "029":
