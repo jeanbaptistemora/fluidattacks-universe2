@@ -39,6 +39,7 @@ def test_get_tried_combinations() -> None:
         ("seldom_contributors", "num_lines", "commit_frequency"),
         ("seldom_contributors", "num_lines", "commit_frequency"),
         ("seldom_contributors", "num_lines", "commit_frequency"),
+        ("seldom_contributors", "num_lines", "commit_frequency"),
         ("num_lines", "commit_frequency"),
         ("seldom_contributors", "num_lines"),
     ]
