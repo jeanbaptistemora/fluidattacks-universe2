@@ -25,9 +25,12 @@ interface ISuggestion {
   confidentialityImpact: string;
   cwe: string;
   description: string;
+  exploitability: string;
   integrityImpact: string;
   privilegesRequired: string;
   recommendation: string;
+  remediationLevel: string;
+  reportConfidence: string;
   requirements: string;
   severityScope: string;
   threat: string;

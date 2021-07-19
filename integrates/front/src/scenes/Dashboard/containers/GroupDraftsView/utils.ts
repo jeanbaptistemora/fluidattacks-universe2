@@ -30,9 +30,9 @@ const formatDrafts: (dataset: Draft[]) => Draft[] = (
     return { ...draft, currentState, isExploitable, reportDate, type };
   });
 
-// Empty field in criteria's data.yaml are filled with "__empty__"
+// Empty fields in criteria's data.yaml are filled with "__empty__" or "X"
 function validateNotEmpty(field: string | undefined): string {
-  if (!_.isNil(field) && field !== "__empty__") {
+  if (!_.isNil(field) && field !== "__empty__" && field !== "X") {
     return field;
   }
 

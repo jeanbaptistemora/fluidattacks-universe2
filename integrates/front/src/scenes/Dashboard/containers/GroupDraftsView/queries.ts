@@ -29,10 +29,13 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
     $confidentialityImpact: String
     $cwe: String
     $description: String
+    $exploitability: String
     $groupName: String!
     $integrityImpact: String
     $privilegesRequired: String
     $recommendation: String
+    $remediationLevel: String
+    $reportConfidence: String
     $requirements: String
     $risk: String
     $severityScope: String
@@ -47,10 +50,13 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
       confidentialityImpact: $confidentialityImpact
       cwe: $cwe
       description: $description
+      exploitability: $exploitability
       groupName: $groupName
       integrityImpact: $integrityImpact
       privilegesRequired: $privilegesRequired
       recommendation: $recommendation
+      remediationLevel: $remediationLevel
+      reportConfidence: $reportConfidence
       requirements: $requirements
       risk: $risk
       severityScope: $severityScope
