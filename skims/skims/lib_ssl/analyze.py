@@ -99,7 +99,7 @@ async def analyze(
                 stores=stores,
                 count=count,
             )
-            for index, ssl_ctx in enumerate(unique_ssl_contexts)
+            for index, ssl_ctx in enumerate(unique_ssl_contexts, start=1)
         ),
         workers=CPU_CORES,
     )
