@@ -41,7 +41,7 @@ export const onRenderBody = (
     <script
       id={"zsiqchat"}
       src={"zohoLiveChat.js"}
-      type="text/javascript"
+      type={"text/javascript"}
     />,
   ]);
 };

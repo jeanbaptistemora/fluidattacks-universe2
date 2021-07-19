@@ -19,12 +19,11 @@ import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import { SolutionsIndexContent } from "../components/SolutionsIndexContent";
 import {
-  ArticleContainer,
-  BannerContainer,
-  BannerTitle,
-  FullWidthContainer,
+  MarkedTitle,
+  MarkedTitleContainer,
   PageArticle,
   PageContainer,
+  RedMark,
 } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
@@ -55,7 +54,7 @@ const SolutionsIndex: React.FC<IQueryData> = ({
   } = pageContext;
 
   const { title } = data.asciidoc.document;
-  const { banner, description, keywords, slug } = data.asciidoc.pageAttributes;
+  const { description, keywords, slug } = data.asciidoc.pageAttributes;
 
   return (
     <React.Fragment>
@@ -79,12 +78,12 @@ const SolutionsIndex: React.FC<IQueryData> = ({
           />
 
           <PageArticle>
-            <BannerContainer className={banner}>
-              <FullWidthContainer>
-                <BannerTitle>{title}</BannerTitle>
-              </FullWidthContainer>
-            </BannerContainer>
-            <ArticleContainer>
+            <MarkedTitleContainer>
+              <div className={"ph-body"}>
+                <RedMark>
+                  <MarkedTitle>{title}</MarkedTitle>
+                </RedMark>
+              </div>
               <PageContainer className={"flex flex-wrap"}>
                 <SolutionsIndexContent
                   animation={"animate__slideInLeft"}
@@ -160,7 +159,7 @@ const SolutionsIndex: React.FC<IQueryData> = ({
                   )}
                 />
               </PageContainer>
-            </ArticleContainer>
+            </MarkedTitleContainer>
           </PageArticle>
         </div>
       </Layout>

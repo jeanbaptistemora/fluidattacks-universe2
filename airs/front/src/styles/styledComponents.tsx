@@ -612,7 +612,7 @@ const PageContainer: StyledComponent<
     ph-body
     center
     c-lightblack
-    pv5
+    pv5-l
   `,
 })``;
 
@@ -680,7 +680,7 @@ const SolutionCardContainer: StyledComponent<
     flex
     w-100
     w-50-l
-    ph3
+    pr4-l
   `,
 })``;
 
