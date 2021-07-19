@@ -19,6 +19,7 @@ $shadow-gray: rgba(176, 176, 176, 0.1);
 $soft-black: rgba(0, 0, 0, 0.1);
 $soft-gray: rgba(211, 211, 211, 1);
 $white: rgba(255, 255, 255, 1);
+$white-244: rgb(244, 244, 246, 1);
 $white-gray: rgba(230, 228, 228, 1);
 $whiter-gray: rgba(241, 241, 241, 1);
 $black-46: rgba(46, 46, 56, 1);
@@ -540,7 +541,7 @@ $gray-176: rgba(176, 176, 191, 1);
 }
 
 .breadcrumb {
-  background-color: $fluid-black;
+  background-color: $black-46;
   font-family: 'Roboto', sans-serif;
   padding-bottom: 0;
   padding-top: 0;
@@ -568,8 +569,8 @@ $gray-176: rgba(176, 176, 191, 1);
 
 // stylelint-disable-next-line selector-class-pattern
 .breadcrumb__link {
-  color: $fluid-gray;
-  &:hover { color: $white; }
+  color: $gray-176;
+  &:hover { color: $white-244; }
 }
 
 // stylelint-disable-next-line selector-class-pattern
