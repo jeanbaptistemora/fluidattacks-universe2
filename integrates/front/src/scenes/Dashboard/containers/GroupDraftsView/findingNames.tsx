@@ -213,6 +213,7 @@ async function getFindingNames(
           return {
             attackComplexity,
             attackVector,
+            attackVectorDesc: validateNotEmpty(vulnsData[key].es.impact),
             availabilityImpact,
             confidentialityImpact,
             cwe,
@@ -236,6 +237,7 @@ async function getFindingNames(
         return {
           attackComplexity,
           attackVector,
+          attackVectorDesc: validateNotEmpty(vulnsData[key].en.impact),
           availabilityImpact,
           confidentialityImpact,
           cwe,
