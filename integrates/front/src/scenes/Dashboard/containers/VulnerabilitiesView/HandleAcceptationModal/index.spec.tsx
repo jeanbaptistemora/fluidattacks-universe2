@@ -53,7 +53,7 @@ describe("handle vulns acceptation modal", (): void => {
     const handleRefetchData: jest.Mock = jest.fn();
     const mockedPermissions: PureAbility<string> = new PureAbility([
       {
-        action: "api_mutations_handle_vulns_acceptation_mutate",
+        action: "api_mutations_handle_vulnerabilities_acceptation_mutate",
       },
     ]);
     const mocksMutation: MockedResponse[] = [
@@ -67,7 +67,9 @@ describe("handle vulns acceptation modal", (): void => {
             rejectedVulns: ["test"],
           },
         },
-        result: { data: { handleVulnsAcceptation: { success: true } } },
+        result: {
+          data: { handleVulnerabilitiesAcceptation: { success: true } },
+        },
       },
       {
         request: {
@@ -168,7 +170,7 @@ describe("handle vulns acceptation modal", (): void => {
     const handleRefetchData: jest.Mock = jest.fn();
     const mockedPermissions: PureAbility<string> = new PureAbility([
       {
-        action: "api_mutations_handle_vulns_acceptation_mutate",
+        action: "api_mutations_handle_vulnerabilities_acceptation_mutate",
       },
     ]);
     const mocksMutation: MockedResponse[] = [

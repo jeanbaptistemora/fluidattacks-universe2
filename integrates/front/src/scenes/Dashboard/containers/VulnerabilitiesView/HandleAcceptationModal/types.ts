@@ -7,7 +7,7 @@ interface IVulnDataAttr {
   where: string;
 }
 
-interface IHandleVulnsAcceptationModalProps {
+interface IHandleVulnerabilitiesAcceptationModalProps {
   findingId: string;
   groupName: string;
   vulns: IVulnerabilitiesAttr[];
@@ -15,8 +15,8 @@ interface IHandleVulnsAcceptationModalProps {
   refetchData: () => void;
 }
 
-interface IHandleVulnsAcceptationResultAttr {
-  handleVulnsAcceptation: {
+interface IHandleVulnerabilitiesAcceptationResultAttr {
+  handleVulnerabilitiesAcceptation: {
     success: boolean;
   };
 }
@@ -35,8 +35,8 @@ interface IRejectZeroRiskVulnResultAttr {
 
 export {
   IConfirmZeroRiskVulnResultAttr,
-  IHandleVulnsAcceptationModalProps,
-  IHandleVulnsAcceptationResultAttr,
+  IHandleVulnerabilitiesAcceptationModalProps,
+  IHandleVulnerabilitiesAcceptationResultAttr,
   IRejectZeroRiskVulnResultAttr,
   IVulnDataAttr,
 };

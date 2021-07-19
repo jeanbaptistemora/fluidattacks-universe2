@@ -349,12 +349,20 @@ type Mutation {
     status: OrganizationFindindPolicy!
   ): SimplePayload!
 
-  handleVulnsAcceptation(
+   handleVulnerabilitiesAcceptation(
     acceptedVulns: [String]!
     findingId: String!
     justification: String!
     rejectedVulns: [String]!
   ): SimplePayload!
+
+  handleVulnsAcceptation(
+    acceptedVulns: [String]!
+    findingId: String!
+    justification: String!
+    rejectedVulns: [String]!
+  ): SimplePayload! @deprecated(reason: """This mutation will be removed
+    after 2021/12/31. Use `handleVulnerabilitiesAcceptation` instead.""")
 
   invalidateAccessToken: SimplePayload!
 

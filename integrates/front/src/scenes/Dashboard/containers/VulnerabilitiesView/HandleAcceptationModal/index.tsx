@@ -31,262 +31,266 @@ import {
   REJECT_ZERO_RISK_VULN,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/queries";
 import type {
-  IHandleVulnsAcceptationModalProps,
+  IHandleVulnerabilitiesAcceptationModalProps,
   IVulnDataAttr,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/types";
 import { ButtonToolbar, Col100, Col50, Row } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
 import { translate } from "utils/translations/translate";
 
-const HandleAcceptationModal: React.FC<IHandleVulnsAcceptationModalProps> = (
-  props: IHandleVulnsAcceptationModalProps
-): JSX.Element => {
-  const { findingId, groupName, vulns, handleCloseModal, refetchData } = props;
+const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptationModalProps> =
+  (props: IHandleVulnerabilitiesAcceptationModalProps): JSX.Element => {
+    const { findingId, groupName, vulns, handleCloseModal, refetchData } =
+      props;
 
-  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const canGetHistoricState: boolean = permissions.can(
-    "api_resolvers_finding_historic_state_resolve"
-  );
-  const canRetrieveAnalyst: boolean = permissions.can(
-    "api_resolvers_vulnerability_analyst_resolve"
-  );
-  const canRetrieveZeroRisk: boolean = permissions.can(
-    "api_resolvers_finding_zero_risk_resolve"
-  );
-  const canHandleVulnsAcceptation: boolean = permissions.can(
-    "api_mutations_handle_vulns_acceptation_mutate"
-  );
-  const canConfirmZeroRiskVuln: boolean = permissions.can(
-    "api_mutations_confirm_zero_risk_vuln_mutate"
-  );
+    const permissions: PureAbility<string> = useAbility(
+      authzPermissionsContext
+    );
+    const canGetHistoricState: boolean = permissions.can(
+      "api_resolvers_finding_historic_state_resolve"
+    );
+    const canRetrieveAnalyst: boolean = permissions.can(
+      "api_resolvers_vulnerability_analyst_resolve"
+    );
+    const canRetrieveZeroRisk: boolean = permissions.can(
+      "api_resolvers_finding_zero_risk_resolve"
+    );
+    const canHandleVulnsAcceptation: boolean = permissions.can(
+      "api_mutations_handle_vulnerabilities_acceptation_mutate"
+    );
+    const canConfirmZeroRiskVuln: boolean = permissions.can(
+      "api_mutations_confirm_zero_risk_vuln_mutate"
+    );
 
-  const dispatch: Dispatch = useDispatch();
+    const dispatch: Dispatch = useDispatch();
 
-  const [acceptationVulns, setAcceptationVulns] = useState<IVulnDataAttr[]>([]);
-  const [acceptedVulns, setAcceptedVulns] = useState<IVulnDataAttr[]>([]);
-  const [rejectedVulns, setRejectedVulns] = useState<IVulnDataAttr[]>([]);
-  const [hasAcceptedVulns, setHasAcceptedVulns] = useState<boolean>(false);
-  const [hasRejectedVulns, setHasRejectedVulns] = useState<boolean>(false);
+    const [acceptationVulns, setAcceptationVulns] = useState<IVulnDataAttr[]>(
+      []
+    );
+    const [acceptedVulns, setAcceptedVulns] = useState<IVulnDataAttr[]>([]);
+    const [rejectedVulns, setRejectedVulns] = useState<IVulnDataAttr[]>([]);
+    const [hasAcceptedVulns, setHasAcceptedVulns] = useState<boolean>(false);
+    const [hasRejectedVulns, setHasRejectedVulns] = useState<boolean>(false);
 
-  const formValues: Dictionary<string> = useSelector(
-    (state: Record<string, unknown>): Dictionary<string> =>
-      // It is necessary since formValueSelector returns an any type
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      formValueSelector("updateTreatmentAcceptation")(state, "treatment", "")
-  );
+    const formValues: Dictionary<string> = useSelector(
+      (state: Record<string, unknown>): Dictionary<string> =>
+        // It is necessary since formValueSelector returns an any type
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        formValueSelector("updateTreatmentAcceptation")(state, "treatment", "")
+    );
 
-  const isAcceptedUndefinedSelected: boolean =
-    formValues.treatment === "ACCEPTED_UNDEFINED";
-  const isConfirmZeroRiskSelected: boolean =
-    formValues.treatment === "CONFIRM_ZERO_RISK";
-  const isRejectZeroRiskSelected: boolean =
-    formValues.treatment === "REJECT_ZERO_RISK";
+    const isAcceptedUndefinedSelected: boolean =
+      formValues.treatment === "ACCEPTED_UNDEFINED";
+    const isConfirmZeroRiskSelected: boolean =
+      formValues.treatment === "CONFIRM_ZERO_RISK";
+    const isRejectZeroRiskSelected: boolean =
+      formValues.treatment === "REJECT_ZERO_RISK";
 
-  // Side effects
-  const onTreatmentChange: () => void = (): void => {
-    onTreatmentChangeHelper(
+    // Side effects
+    const onTreatmentChange: () => void = (): void => {
+      onTreatmentChangeHelper(
+        isAcceptedUndefinedSelected,
+        vulns,
+        setAcceptationVulns,
+        isConfirmZeroRiskSelected,
+        isRejectZeroRiskSelected
+      );
+    };
+    useEffect(onTreatmentChange, [
       isAcceptedUndefinedSelected,
-      vulns,
-      setAcceptationVulns,
       isConfirmZeroRiskSelected,
-      isRejectZeroRiskSelected
+      isRejectZeroRiskSelected,
+      vulns,
+    ]);
+
+    const onAcceptationVulnsChange: () => void = (): void => {
+      const newAcceptedVulns: IVulnDataAttr[] = acceptationVulns.reduce(
+        (acc: IVulnDataAttr[], vuln: IVulnDataAttr): IVulnDataAttr[] =>
+          vuln.acceptation === "APPROVED" ? [...acc, vuln] : acc,
+        []
+      );
+      const newRejectedVulns: IVulnDataAttr[] = acceptationVulns.reduce(
+        (acc: IVulnDataAttr[], vuln: IVulnDataAttr): IVulnDataAttr[] =>
+          vuln.acceptation === "REJECTED" ? [...acc, vuln] : acc,
+        []
+      );
+      setAcceptedVulns(newAcceptedVulns);
+      setRejectedVulns(newRejectedVulns);
+      setHasAcceptedVulns(newAcceptedVulns.length !== 0);
+      setHasRejectedVulns(newRejectedVulns.length !== 0);
+    };
+    useEffect(onAcceptationVulnsChange, [acceptationVulns]);
+
+    // GraphQL operations
+    const [handleAcceptation, { loading: handlingAcceptation }] = useMutation(
+      HANDLE_VULNS_ACCEPTATION,
+      acceptationProps(
+        refetchData,
+        handleCloseModal,
+        canRetrieveAnalyst,
+        canRetrieveZeroRisk,
+        findingId,
+        groupName
+      )
     );
-  };
-  useEffect(onTreatmentChange, [
-    isAcceptedUndefinedSelected,
-    isConfirmZeroRiskSelected,
-    isRejectZeroRiskSelected,
-    vulns,
-  ]);
-
-  const onAcceptationVulnsChange: () => void = (): void => {
-    const newAcceptedVulns: IVulnDataAttr[] = acceptationVulns.reduce(
-      (acc: IVulnDataAttr[], vuln: IVulnDataAttr): IVulnDataAttr[] =>
-        vuln.acceptation === "APPROVED" ? [...acc, vuln] : acc,
-      []
+    const [confirmZeroRisk, { loading: confirmingZeroRisk }] = useMutation(
+      CONFIRM_ZERO_RISK_VULN,
+      confirmZeroRiskProps(
+        refetchData,
+        handleCloseModal,
+        canRetrieveAnalyst,
+        canRetrieveZeroRisk,
+        findingId,
+        groupName,
+        canGetHistoricState
+      )
     );
-    const newRejectedVulns: IVulnDataAttr[] = acceptationVulns.reduce(
-      (acc: IVulnDataAttr[], vuln: IVulnDataAttr): IVulnDataAttr[] =>
-        vuln.acceptation === "REJECTED" ? [...acc, vuln] : acc,
-      []
+    const [rejectZeroRisk, { loading: rejectingZeroRisk }] = useMutation(
+      REJECT_ZERO_RISK_VULN,
+      rejectZeroRiskProps(
+        refetchData,
+        handleCloseModal,
+        canRetrieveAnalyst,
+        canRetrieveZeroRisk,
+        findingId,
+        groupName,
+        canGetHistoricState
+      )
     );
-    setAcceptedVulns(newAcceptedVulns);
-    setRejectedVulns(newRejectedVulns);
-    setHasAcceptedVulns(newAcceptedVulns.length !== 0);
-    setHasRejectedVulns(newRejectedVulns.length !== 0);
-  };
-  useEffect(onAcceptationVulnsChange, [acceptationVulns]);
 
-  // GraphQL operations
-  const [handleAcceptation, { loading: handlingAcceptation }] = useMutation(
-    HANDLE_VULNS_ACCEPTATION,
-    acceptationProps(
-      refetchData,
-      handleCloseModal,
-      canRetrieveAnalyst,
-      canRetrieveZeroRisk,
-      findingId,
-      groupName
-    )
-  );
-  const [confirmZeroRisk, { loading: confirmingZeroRisk }] = useMutation(
-    CONFIRM_ZERO_RISK_VULN,
-    confirmZeroRiskProps(
-      refetchData,
-      handleCloseModal,
-      canRetrieveAnalyst,
-      canRetrieveZeroRisk,
-      findingId,
-      groupName,
-      canGetHistoricState
-    )
-  );
-  const [rejectZeroRisk, { loading: rejectingZeroRisk }] = useMutation(
-    REJECT_ZERO_RISK_VULN,
-    rejectZeroRiskProps(
-      refetchData,
-      handleCloseModal,
-      canRetrieveAnalyst,
-      canRetrieveZeroRisk,
-      findingId,
-      groupName,
-      canGetHistoricState
-    )
-  );
-
-  function handleUpdateTreatmentAcceptation(): void {
-    dispatch(submit("updateTreatmentAcceptation"));
-  }
-
-  function getInitialTreatment(
-    canHandleVulnsAccept: boolean,
-    canConfirmZeroRisk: boolean
-  ): string {
-    if (canHandleVulnsAccept) {
-      return "ACCEPTED_UNDEFINED";
+    function handleUpdateTreatmentAcceptation(): void {
+      dispatch(submit("updateTreatmentAcceptation"));
     }
 
-    return canConfirmZeroRisk ? "CONFIRM_ZERO_RISK" : "";
-  }
+    function getInitialTreatment(
+      canHandleVulnsAccept: boolean,
+      canConfirmZeroRisk: boolean
+    ): string {
+      if (canHandleVulnsAccept) {
+        return "ACCEPTED_UNDEFINED";
+      }
 
-  function handleSubmit(values: { justification: string }): void {
-    const acceptedVulnIds: string[] = acceptedVulns.map(
-      (vuln: IVulnDataAttr): string => vuln.id
-    );
-    const rejectedVulnIds: string[] = rejectedVulns.map(
-      (vuln: IVulnDataAttr): string => vuln.id
-    );
-    isAcceptedUndefinedSelectedHelper(
-      isAcceptedUndefinedSelected,
-      handleAcceptation,
-      acceptedVulnIds,
-      findingId,
-      values,
-      rejectedVulnIds
-    );
-    isConfirmZeroRiskSelectedHelper(
-      isConfirmZeroRiskSelected,
-      confirmZeroRisk,
-      acceptedVulnIds,
-      findingId,
-      values
-    );
-    isRejectZeroRiskSelectedHelper(
-      isRejectZeroRiskSelected,
-      rejectZeroRisk,
-      findingId,
-      values,
-      rejectedVulnIds
-    );
-  }
+      return canConfirmZeroRisk ? "CONFIRM_ZERO_RISK" : "";
+    }
 
-  const initialTreatment: string = getInitialTreatment(
-    canHandleVulnsAcceptation,
-    canConfirmZeroRiskVuln
-  );
+    function handleSubmit(values: { justification: string }): void {
+      const acceptedVulnIds: string[] = acceptedVulns.map(
+        (vuln: IVulnDataAttr): string => vuln.id
+      );
+      const rejectedVulnIds: string[] = rejectedVulns.map(
+        (vuln: IVulnDataAttr): string => vuln.id
+      );
+      isAcceptedUndefinedSelectedHelper(
+        isAcceptedUndefinedSelected,
+        handleAcceptation,
+        acceptedVulnIds,
+        findingId,
+        values,
+        rejectedVulnIds
+      );
+      isConfirmZeroRiskSelectedHelper(
+        isConfirmZeroRiskSelected,
+        confirmZeroRisk,
+        acceptedVulnIds,
+        findingId,
+        values
+      );
+      isRejectZeroRiskSelectedHelper(
+        isRejectZeroRiskSelected,
+        rejectZeroRisk,
+        findingId,
+        values,
+        rejectedVulnIds
+      );
+    }
 
-  return (
-    <React.StrictMode>
-      <Modal
-        headerTitle={translate.t(
-          "searchFindings.tabDescription.handleAcceptationModal.title"
-        )}
-        open={true}
-      >
-        <GenericForm
-          initialValues={{
-            treatment: _.isEmpty(formValues.treatment)
-              ? initialTreatment
-              : formValues.treatment,
-          }}
-          name={"updateTreatmentAcceptation"}
-          onSubmit={handleSubmit}
+    const initialTreatment: string = getInitialTreatment(
+      canHandleVulnsAcceptation,
+      canConfirmZeroRiskVuln
+    );
+
+    return (
+      <React.StrictMode>
+        <Modal
+          headerTitle={translate.t(
+            "searchFindings.tabDescription.handleAcceptationModal.title"
+          )}
+          open={true}
         >
-          <Row>
-            <Col50>
-              <TreatmentField />
-            </Col50>
-          </Row>
-          <Row>
-            <Col100>
-              <AcceptedUndefinedTable
-                acceptationVulns={acceptationVulns}
-                isAcceptedUndefinedSelected={isAcceptedUndefinedSelected}
-                setAcceptationVulns={setAcceptationVulns}
-              />
-            </Col100>
-          </Row>
-          <Row>
-            <Col100>
-              <ZeroRiskConfirmationTable
-                acceptationVulns={acceptationVulns}
-                isConfirmZeroRiskSelected={isConfirmZeroRiskSelected}
-                setAcceptationVulns={setAcceptationVulns}
-              />
-            </Col100>
-          </Row>
-          <Row>
-            <Col100>
-              <ZeroRiskRejectionTable
-                acceptationVulns={acceptationVulns}
-                isRejectZeroRiskSelected={isRejectZeroRiskSelected}
-                setAcceptationVulns={setAcceptationVulns}
-              />
-            </Col100>
-          </Row>
-          <Row>
-            <Col100>
-              <JustificationField
-                isConfirmZeroRiskSelected={isConfirmZeroRiskSelected}
-                isRejectZeroRiskSelected={isRejectZeroRiskSelected}
-              />
-            </Col100>
-          </Row>
-          <hr />
-          <Row>
-            <Col100>
-              <ButtonToolbar>
-                <Button onClick={handleCloseModal}>
-                  {translate.t("group.findings.report.modalClose")}
-                </Button>
-                <Button
-                  disabled={
-                    !(hasAcceptedVulns || hasRejectedVulns) ||
-                    handlingAcceptation ||
-                    confirmingZeroRisk ||
-                    rejectingZeroRisk
-                  }
-                  onClick={handleUpdateTreatmentAcceptation}
-                >
-                  {translate.t("confirmmodal.proceed")}
-                </Button>
-              </ButtonToolbar>
-            </Col100>
-          </Row>
-        </GenericForm>
-      </Modal>
-    </React.StrictMode>
-  );
-};
+          <GenericForm
+            initialValues={{
+              treatment: _.isEmpty(formValues.treatment)
+                ? initialTreatment
+                : formValues.treatment,
+            }}
+            name={"updateTreatmentAcceptation"}
+            onSubmit={handleSubmit}
+          >
+            <Row>
+              <Col50>
+                <TreatmentField />
+              </Col50>
+            </Row>
+            <Row>
+              <Col100>
+                <AcceptedUndefinedTable
+                  acceptationVulns={acceptationVulns}
+                  isAcceptedUndefinedSelected={isAcceptedUndefinedSelected}
+                  setAcceptationVulns={setAcceptationVulns}
+                />
+              </Col100>
+            </Row>
+            <Row>
+              <Col100>
+                <ZeroRiskConfirmationTable
+                  acceptationVulns={acceptationVulns}
+                  isConfirmZeroRiskSelected={isConfirmZeroRiskSelected}
+                  setAcceptationVulns={setAcceptationVulns}
+                />
+              </Col100>
+            </Row>
+            <Row>
+              <Col100>
+                <ZeroRiskRejectionTable
+                  acceptationVulns={acceptationVulns}
+                  isRejectZeroRiskSelected={isRejectZeroRiskSelected}
+                  setAcceptationVulns={setAcceptationVulns}
+                />
+              </Col100>
+            </Row>
+            <Row>
+              <Col100>
+                <JustificationField
+                  isConfirmZeroRiskSelected={isConfirmZeroRiskSelected}
+                  isRejectZeroRiskSelected={isRejectZeroRiskSelected}
+                />
+              </Col100>
+            </Row>
+            <hr />
+            <Row>
+              <Col100>
+                <ButtonToolbar>
+                  <Button onClick={handleCloseModal}>
+                    {translate.t("group.findings.report.modalClose")}
+                  </Button>
+                  <Button
+                    disabled={
+                      !(hasAcceptedVulns || hasRejectedVulns) ||
+                      handlingAcceptation ||
+                      confirmingZeroRisk ||
+                      rejectingZeroRisk
+                    }
+                    onClick={handleUpdateTreatmentAcceptation}
+                  >
+                    {translate.t("confirmmodal.proceed")}
+                  </Button>
+                </ButtonToolbar>
+              </Col100>
+            </Row>
+          </GenericForm>
+        </Modal>
+      </React.StrictMode>
+    );
+  };
 
 export { HandleAcceptationModal };

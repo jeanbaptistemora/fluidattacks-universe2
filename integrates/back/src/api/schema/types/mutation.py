@@ -36,7 +36,7 @@ from api.mutations import (
     grant_stakeholder_access,
     grant_stakeholder_organization_access,
     handle_finding_policy_acceptation,
-    handle_vulns_acceptation,
+    handle_vulnerabilities_acceptation,
     invalidate_access_token,
     invalidate_cache,
     reject_draft,
@@ -183,7 +183,9 @@ MUTATION.set_field(
     "updateTreatmentVuln", update_treatment_vulnerability.mutate
 )
 MUTATION.set_field("downloadVulnFile", download_vulnerability_file.mutate)
-MUTATION.set_field("handleVulnsAcceptation", handle_vulns_acceptation.mutate)
+MUTATION.set_field(
+    "handleVulnsAcceptation", handle_vulnerabilities_acceptation.mutate
+)
 MUTATION.set_field("updateVulnCommit", update_vuln_commit.mutate)
 MUTATION.set_field("updateVulnsTreatment", update_vulns_treatment.mutate)
 MUTATION.set_field("updateToeLinesSorts", update_toe_lines_sorts.mutate)
@@ -198,6 +200,10 @@ MUTATION.set_field("removeTags", remove_vulnerability_tags.mutate)
 MUTATION.set_field("removeVulnerability", remove_vulnerability.mutate)
 MUTATION.set_field(
     "downloadVulnerabilityFile", download_vulnerability_file.mutate
+)
+MUTATION.set_field(
+    "handleVulnerabilitiesAcceptation",
+    handle_vulnerabilities_acceptation.mutate,
 )
 
 if FI_API_STATUS == "migration":

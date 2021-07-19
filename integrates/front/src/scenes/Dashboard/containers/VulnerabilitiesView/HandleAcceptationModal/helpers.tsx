@@ -18,7 +18,7 @@ import {
 } from "../utils";
 import type {
   IConfirmZeroRiskVulnResultAttr,
-  IHandleVulnsAcceptationResultAttr,
+  IHandleVulnerabilitiesAcceptationResultAttr,
   IRejectZeroRiskVulnResultAttr,
   IVulnDataAttr,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/types";
@@ -58,8 +58,8 @@ const acceptationProps = (
   groupName: string
 ): MutationHookOptions => {
   return {
-    onCompleted: (data: IHandleVulnsAcceptationResultAttr): void => {
-      if (data.handleVulnsAcceptation.success) {
+    onCompleted: (data: IHandleVulnerabilitiesAcceptationResultAttr): void => {
+      if (data.handleVulnerabilitiesAcceptation.success) {
         msgSuccess(
           translate.t("searchFindings.tabVuln.alerts.acceptationSuccess"),
           translate.t("groupAlerts.updatedTitle")
