@@ -66,8 +66,8 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
 }: IVulnComponentProps): JSX.Element => {
   const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const canDeleteVulnsTags: boolean = permissions.can(
-    "api_mutations_delete_vulnerability_tags_mutate"
+  const canRemoveVulnsTags: boolean = permissions.can(
+    "api_mutations_remove_vulnerability_tags_mutate"
   );
   const canRequestZeroRiskVuln: boolean = permissions.can(
     "api_mutations_request_zero_risk_vuln_mutate"
@@ -288,8 +288,8 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       />
       {setColumn()}
       <AdditionalInformation
-        canDeleteVulnsTags={canDeleteVulnsTags}
         canDisplayAnalyst={canDisplayAnalyst}
+        canRemoveVulnsTags={canRemoveVulnsTags}
         canRequestZeroRiskVuln={canRequestZeroRiskVuln}
         canUpdateVulnsTreatment={canUpdateVulnsTreatment}
         clearSelectedVulns={clearSelectedVulns}

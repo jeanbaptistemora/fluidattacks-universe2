@@ -25,7 +25,7 @@ const TagField: React.FC<ITagFieldProps> = (
     "api_mutations_update_vulns_treatment_mutate"
   );
   const canDeleteVulnsTags: boolean = permissions.can(
-    "api_mutations_delete_vulnerability_tags_mutate"
+    "api_mutations_remove_vulnerability_tags_mutate"
   );
 
   return (

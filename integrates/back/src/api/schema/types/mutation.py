@@ -28,7 +28,6 @@ from api.mutations import (
     deactivate_finding_policy,
     deactivate_root,
     delete_vulnerability,
-    delete_vulnerability_tags,
     download_event_file,
     download_file,
     download_vulnerability_file,
@@ -54,6 +53,7 @@ from api.mutations import (
     remove_group_tag,
     remove_stakeholder_access,
     remove_stakeholder_organization_access,
+    remove_vulnerability_tags,
     request_verification_vulnerability,
     request_verification_vulnerability_new,
     request_zero_risk_vuln,
@@ -178,7 +178,7 @@ MUTATION.set_field("addTags", add_group_tags.mutate)
 MUTATION.set_field("removeTag", remove_group_tag.mutate)
 MUTATION.set_field("addFindingConsult", add_finding_consult.mutate)
 MUTATION.set_field("unsubscribeFromGroup", unsubscribe_from_group.mutate)
-MUTATION.set_field("deleteTags", delete_vulnerability_tags.mutate)
+MUTATION.set_field("deleteTags", remove_vulnerability_tags.mutate)
 MUTATION.set_field(
     "updateTreatmentVuln", update_treatment_vulnerability.mutate
 )
@@ -194,7 +194,7 @@ MUTATION.set_field("addGroup", add_group.mutate)
 MUTATION.set_field("addGroupConsult", add_group_consult.mutate)
 MUTATION.set_field("addOrganization", add_organization.mutate)
 MUTATION.set_field("createGroup", add_group.mutate)
-MUTATION.set_field("removeTags", delete_vulnerability_tags.mutate)
+MUTATION.set_field("removeTags", remove_vulnerability_tags.mutate)
 
 if FI_API_STATUS == "migration":
     MUTATION.set_field("addDraft", add_draft_new.mutate)
