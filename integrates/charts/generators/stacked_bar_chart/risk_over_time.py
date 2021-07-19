@@ -211,6 +211,12 @@ def format_document(document: Dict[str, Dict[datetime, float]]) -> dict:
                 ),
                 type="category",
             ),
+            y=dict(
+                min=0,
+                padding=dict(
+                    bottom=0,
+                ),
+            ),
         ),
         grid=dict(
             x=dict(
