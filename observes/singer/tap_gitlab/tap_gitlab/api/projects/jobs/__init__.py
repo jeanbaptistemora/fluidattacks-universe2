@@ -4,12 +4,21 @@ from __future__ import (
     annotations,
 )
 
+from itertools import (
+    chain,
+)
 import logging
+from more_itertools import (
+    windowed,
+)
 from paginator.int_index_2 import (
     get_until_end,
 )
 from paginator.pages import (
     PageId,
+)
+from returns.curry import (
+    partial,
 )
 from returns.io import (
     IO,
@@ -47,6 +56,8 @@ from typing import (
     List,
     NamedTuple,
     NoReturn,
+    Optional,
+    Tuple,
 )
 
 
@@ -105,18 +116,42 @@ class JobApi(NamedTuple):
             )
         )
 
-        def _filter(pages: Iterator[JobsPage]) -> Iterator[JobsPage]:
-            for page in pages:
-                filtered = filter_page(
-                    page,
-                    IntervalFactory.from_default(int).new_lopen(
-                        MIN(), item_id
-                    ),
-                )
-                if is_successful(filtered):
-                    yield filtered.unwrap()
+        def _pair_page_filter(
+            prev: Maybe[JobsPage], page: JobsPage
+        ) -> Maybe[JobsPage]:
+            i_factory = IntervalFactory.from_default(int)
+            max_id = prev.map(lambda item: item.min_id - 1).value_or(item_id)
+            filter_interval = i_factory.new_lopen(MIN(), max_id)
+            filtered = filter_page(page, filter_interval)
+            LOG.debug("_pair_page_filter(%s, %s) = %s", prev, page, filtered)
+            return filtered
 
-        return init.bind(self.list_all).map(_filter)
+        def _adapter(
+            pair: Tuple[Optional[JobsPage], ...]
+        ) -> Tuple[Maybe[JobsPage], JobsPage]:
+            return (
+                Maybe.from_optional(pair[0]),
+                Maybe.from_optional(pair[1]).unwrap(),
+            )
+
+        def _filter(
+            pages: Iterator[Tuple[Optional[JobsPage], ...]]
+        ) -> Iterator[Maybe[JobsPage]]:
+            for page in pages:
+                prev, current = _adapter(page)
+                yield _pair_page_filter(prev, current)
+
+        def _empty_filter(
+            pages: Iterator[Maybe[JobsPage]],
+        ) -> Iterator[JobsPage]:
+            items = iter(filter(lambda item: is_successful(item), pages))
+            for item in items:
+                yield item.unwrap()
+
+        pairs = init.bind(self.list_all).map(
+            lambda pages: windowed(chain((None,), pages), 2)
+        )
+        return pairs.map(_filter).map(_empty_filter)
 
     def list_all_updated_between(
         self,
@@ -131,10 +166,12 @@ class JobApi(NamedTuple):
 
         def _filter(pages: Iterator[JobsPage]) -> Iterator[JobsPage]:
             for page in pages:
-                if page.min_id < ids.lower:
+                if page.max_id < ids.lower:
                     break
                 filtered = filter_page(page, ids)
                 if is_successful(filtered):
                     yield filtered.unwrap()
 
-        return init.bind(self.list_all).map(_filter)
+        return init.bind(partial(self.list_all_updated_before, ids.upper)).map(
+            _filter
+        )

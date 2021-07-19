@@ -5,6 +5,7 @@ from __future__ import (
 )
 
 from dataclasses import (
+    asdict,
     dataclass,
 )
 from enum import (
@@ -88,6 +89,14 @@ class JobsPage:
     @property
     def max_id(self) -> int:
         return int(self.data[0]["id"])
+
+    def __str__(self) -> str:
+        props = asdict(self)
+        props.pop("data")
+        props["min_id"] = self.min_id
+        props["max_id"] = self.max_id
+        items = (f"{key}={value}" for key, value in props.items())
+        return "JobsPage({})".format(",".join(items))
 
 
 def _ensure_non_empty_data(page: _JobsPage) -> Maybe[JobsPage]:
