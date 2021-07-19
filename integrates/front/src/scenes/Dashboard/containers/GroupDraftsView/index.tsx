@@ -32,7 +32,7 @@ import {
   Col100,
   Row,
 } from "styles/styledComponents";
-import { FormikAutocompleteText } from "utils/forms/fields";
+import { FormikDropdown } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -140,9 +140,11 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
   ];
 
   const [suggestions, setSuggestions] = useState<ISuggestion[]>([]);
-  const titleSuggestions: string[] = suggestions.map(
-    (suggestion: ISuggestion): string =>
-      `F${suggestion.cwe}. ${suggestion.title}`
+  const titleSuggestions: string[] = _.sortBy(
+    suggestions.map(
+      (suggestion: ISuggestion): string =>
+        `F${suggestion.cwe}. ${suggestion.title}`
+    )
   );
 
   const handleQryError: (error: ApolloError) => void = ({
@@ -214,7 +216,11 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
       );
 
       void addDraft({
-        variables: { ...matchingSuggestion, groupName, title: values.title },
+        variables: {
+          ...matchingSuggestion,
+          groupName,
+          title: values.title,
+        },
       });
     },
     [addDraft, groupName, suggestions]
@@ -247,7 +253,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
       >
         <Formik
           enableReinitialize={true}
-          initialValues={{}}
+          initialValues={{ title: "" }}
           name={"newDraft"}
           onSubmit={handleSubmit}
         >
@@ -255,14 +261,22 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
             <Form>
               <Row>
                 <Col100>
-                  <label>{translate.t("group.drafts.title")}</label>
                   <Field
-                    component={FormikAutocompleteText}
+                    alignField={"horizontal"}
+                    component={FormikDropdown}
+                    id={"title"}
                     name={"title"}
-                    suggestions={titleSuggestions}
-                    type={"text"}
+                    renderAsEditable={true}
                     validate={composeValidators([required, validDraftTitle])}
-                  />
+                  >
+                    <option value={""} />
+                    {_.map(
+                      titleSuggestions,
+                      (value: string): JSX.Element => (
+                        <option>{`${value}`}</option>
+                      )
+                    )}
+                  </Field>
                 </Col100>
               </Row>
               <hr />
