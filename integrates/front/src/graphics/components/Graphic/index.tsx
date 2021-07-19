@@ -230,6 +230,28 @@ export const Graphic: React.FC<IGraphicProps> = (
             <div className={styles.titleBar}>
               {title}
               <ButtonToolbar className={"f5"}>
+                {isDocumentAllowed(documentName, documentType) ? (
+                  <React.Fragment>
+                    <GraphicButton onClick={changeToAll}>
+                      <DaysLabel
+                        days={"allTime"}
+                        isEqual={subjectName === subject}
+                      />
+                    </GraphicButton>
+                    <GraphicButton onClick={changeTothirtyDays}>
+                      <DaysLabel
+                        days={"30"}
+                        isEqual={subjectName === `${subject}_30`}
+                      />
+                    </GraphicButton>
+                    <GraphicButton onClick={changeToNinety}>
+                      <DaysLabel
+                        days={"90"}
+                        isEqual={subjectName === `${subject}_90`}
+                      />
+                    </GraphicButton>
+                  </React.Fragment>
+                ) : undefined}
                 {!_.isUndefined(infoLink) && (
                   <GraphicButton>
                     <a
