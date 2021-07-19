@@ -219,3 +219,18 @@ try {
 // multiple assignments in the same statement
 var x, y, z = 1;
 x = y = z = 2;
+
+// arrow functions
+function resolveAfter3Seconds() {
+    var a = new Promise(resolve => {
+        setTimeout(() => {
+            resolve('resolved');
+        }, 3000);
+    });
+    return a;
+}
+
+(a, b) => {
+    let chuck = 42;
+    return a + b + chuck;
+  }

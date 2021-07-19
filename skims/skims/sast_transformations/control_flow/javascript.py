@@ -24,6 +24,9 @@ from sast_transformations.control_flow.types import (
     EdgeAttrs,
     Stack,
 )
+from typing import (
+    Optional,
+)
 from utils import (
     graph as g,
 )
@@ -228,5 +231,52 @@ def _generic(
     stack.pop()
 
 
+def arrow_function(graph: Graph, n_id: str, stack: Stack) -> None:
+    current_node_adj = g.adj_cfg(graph, n_id)
+    for pred_id in g.pred_ast_lazy(graph, n_id, depth=-1):
+        adj_ids = g.adj_cfg(graph, pred_id)
+        if not (adj_ids or g.pred_cfg(graph, n_id)):
+            continue
+
+        last_statement: Optional[str] = None
+        if len(adj_ids) == 1 and adj_ids[0] != n_id:
+            last_statement = adj_ids[0]
+
+        # remove cfg attrs
+        for adj_id in adj_ids:
+            g.remove_cfg(graph, pred_id, adj_id)
+        for adj_id in current_node_adj:
+            # remove cfg attrs
+            g.remove_cfg(graph, n_id, adj_id)
+
+        # add edge with first cfp parent
+        graph.add_edge(pred_id, n_id, **g.ALWAYS)
+
+        match = g.match_ast(
+            graph,
+            n_id,
+            "identifier",
+            "formal_parameters",
+            "=>",
+            "__0__",
+        )
+        graph.add_edge(n_id, match["__0__"], **g.ALWAYS)
+        _generic(graph, match["__0__"], stack=stack, edge_attrs=g.ALWAYS)
+
+        # get last statement in edge block statements
+        function_statements = g.adj_cfg(graph, match["__0__"], depth=-1)
+        for adj in current_node_adj:
+            graph.add_edge(function_statements[-1], adj, **g.ALWAYS)
+        if last_statement:
+            graph.add_edge(function_statements[-1], last_statement, **g.ALWAYS)
+
+        break
+
+
 def add(graph: Graph) -> None:
     _generic(graph, g.ROOT_NODE, stack=[], edge_attrs=g.ALWAYS)
+
+    # some nodes must be post-processed
+    for n_id, node in graph.nodes.items():
+        if g.pred_has_labels(label_type="arrow_function")(node):
+            arrow_function(graph, n_id, [])

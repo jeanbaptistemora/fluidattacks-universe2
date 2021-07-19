@@ -794,3 +794,20 @@ def yield_dicts(model: Any) -> Iterator[Dict[str, Any]]:
     elif isinstance(model, list):
         for sub_model in model:
             yield from yield_dicts(sub_model)
+
+
+def remove_cfg(graph: Graph, out_edge: str, in_edge: str) -> None:
+    current_edge = {
+        key: value
+        for key, value in graph.edges[out_edge, in_edge].items()
+        if not key.startswith("label_cfg")
+    }
+    graph.remove_edge(out_edge, in_edge)
+    graph.add_edge(out_edge, in_edge, **current_edge)
+
+    only_cfg = all(
+        key.startswith("label_cfg") or key == "label_index"
+        for key in graph.edges[out_edge, in_edge].keys()
+    )
+    if only_cfg:
+        graph.remove_edge(out_edge, in_edge)

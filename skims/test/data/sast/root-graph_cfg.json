@@ -55777,9 +55777,21 @@
               "label_ast": "AST",
               "label_index": "4"
             },
+            "1059": {
+              "label_ast": "AST",
+              "label_index": "67"
+            },
             "106": {
               "label_ast": "AST",
               "label_index": "5"
+            },
+            "1060": {
+              "label_ast": "AST",
+              "label_index": "68"
+            },
+            "1116": {
+              "label_ast": "AST",
+              "label_index": "69"
             },
             "113": {
               "label_ast": "AST",
@@ -56262,6 +56274,10 @@
             "1051": {
               "label_ast": "AST",
               "label_index": "2"
+            },
+            "1060": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             }
           },
           "1051": {
@@ -56310,6 +56326,136 @@
               "label_cfg_always": "cfg_always"
             }
           },
+          "1060": {
+            "1061": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1062": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1063": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "1066": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "3"
+            },
+            "1116": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "1063": {
+            "1064": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1065": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "1066": {
+            "1067": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1068": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "1"
+            },
+            "1111": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "1115": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "1068": {
+            "1069": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1070": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1078": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            },
+            "1110": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "1070": {
+            "1071": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1072": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1073": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "1073": {
+            "1074": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1075": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1076": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "1076": {
+            "1077": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1078": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1109": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "1078": {
+            "1079": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1080": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1081": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "2"
+            }
+          },
           "108": {
             "109": {
               "label_ast": "AST",
@@ -56324,6 +56470,152 @@
               "label_index": "2"
             }
           },
+          "1081": {
+            "1082": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1083": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "1"
+            },
+            "1108": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "1083": {
+            "1084": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "0"
+            },
+            "1107": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "1084": {
+            "1085": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1086": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1088": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "1086": {
+            "1087": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1088": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1104": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "1105": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "1106": {
+              "label_ast": "AST",
+              "label_index": "4"
+            }
+          },
+          "1088": {
+            "1089": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1092": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1093": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "2"
+            }
+          },
+          "1089": {
+            "1090": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1091": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "1093": {
+            "1094": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1095": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "1"
+            },
+            "1103": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "1095": {
+            "1096": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "0"
+            },
+            "1102": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "1096": {
+            "1097": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1098": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1111": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "1098": {
+            "1099": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1100": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1101": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
           "11": {
             "12": {
               "label_ast": "AST",
@@ -56334,6 +56626,118 @@
               "label_index": "1"
             },
             "50": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "1111": {
+            "1112": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1113": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1114": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "1116": {
+            "1117": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "0"
+            }
+          },
+          "1117": {
+            "1118": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1124": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1125": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "2"
+            }
+          },
+          "1118": {
+            "1119": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1120": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1121": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "1122": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "1123": {
+              "label_ast": "AST",
+              "label_index": "4"
+            }
+          },
+          "1125": {
+            "1126": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1127": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "1"
+            },
+            "1134": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "1144": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "1127": {
+            "1128": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1129": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1133": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "1134": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "1129": {
+            "1130": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1131": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1132": {
               "label_ast": "AST",
               "label_index": "2"
             }
@@ -56354,6 +56758,48 @@
             "120": {
               "label_cfg": "CFG",
               "label_cfg_always": "cfg_always"
+            }
+          },
+          "1134": {
+            "1135": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1136": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1143": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "1136": {
+            "1137": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1141": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1142": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "1137": {
+            "1138": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1139": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1140": {
+              "label_ast": "AST",
+              "label_index": "2"
             }
           },
           "115": {
@@ -56715,6 +57161,8 @@
             },
             "21": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "2"
             }
           },
@@ -56867,6 +57315,8 @@
             },
             "23": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "1"
             },
             "48": {
@@ -56977,6 +57427,8 @@
           "23": {
             "24": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "0"
             },
             "47": {
@@ -57038,6 +57490,10 @@
             "26": {
               "label_ast": "AST",
               "label_index": "1"
+            },
+            "28": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             }
           },
           "240": {
@@ -57251,6 +57707,8 @@
             },
             "33": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "2"
             }
           },
@@ -57533,6 +57991,8 @@
             },
             "35": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "1"
             },
             "43": {
@@ -57663,6 +58123,8 @@
           "35": {
             "36": {
               "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
               "label_index": "0"
             },
             "42": {
@@ -57715,6 +58177,10 @@
             }
           },
           "36": {
+            "11": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            },
             "37": {
               "label_ast": "AST",
               "label_index": "0"
@@ -60622,9 +61088,11 @@
             },
             "11": {
               "label_ast": "AST",
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always",
               "label_index": "1"
+            },
+            "18": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             },
             "51": {
               "label_ast": "AST",
@@ -61553,16 +62021,143 @@
             "label_text": ";",
             "label_type": ";"
           },
+          "1059": {
+            "label_c": 1,
+            "label_l": 223,
+            "label_text": "// arrow functions",
+            "label_type": "comment"
+          },
           "106": {
             "label_c": 1,
             "label_l": 21,
             "label_type": "variable_declaration"
+          },
+          "1060": {
+            "label_c": 1,
+            "label_field_body": "1066",
+            "label_field_name": "1062",
+            "label_field_parameters": "1063",
+            "label_l": 224,
+            "label_type": "function_declaration"
+          },
+          "1061": {
+            "label_c": 1,
+            "label_l": 224,
+            "label_text": "function",
+            "label_type": "function"
+          },
+          "1062": {
+            "label_c": 10,
+            "label_l": 224,
+            "label_text": "resolveAfter3Seconds",
+            "label_type": "identifier"
+          },
+          "1063": {
+            "label_c": 30,
+            "label_l": 224,
+            "label_type": "formal_parameters"
+          },
+          "1064": {
+            "label_c": 30,
+            "label_l": 224,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "1065": {
+            "label_c": 31,
+            "label_l": 224,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "1066": {
+            "label_c": 33,
+            "label_l": 224,
+            "label_type": "statement_block"
+          },
+          "1067": {
+            "label_c": 33,
+            "label_l": 224,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "1068": {
+            "label_c": 5,
+            "label_l": 225,
+            "label_type": "variable_declaration"
+          },
+          "1069": {
+            "label_c": 5,
+            "label_l": 225,
+            "label_text": "var",
+            "label_type": "var"
           },
           "107": {
             "label_c": 1,
             "label_l": 21,
             "label_text": "var",
             "label_type": "var"
+          },
+          "1070": {
+            "label_c": 9,
+            "label_field_name": "1071",
+            "label_field_value": "1073",
+            "label_l": 225,
+            "label_type": "variable_declarator"
+          },
+          "1071": {
+            "label_c": 9,
+            "label_l": 225,
+            "label_text": "a",
+            "label_type": "identifier"
+          },
+          "1072": {
+            "label_c": 11,
+            "label_l": 225,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "1073": {
+            "label_c": 13,
+            "label_field_arguments": "1076",
+            "label_field_constructor": "1075",
+            "label_l": 225,
+            "label_type": "new_expression"
+          },
+          "1074": {
+            "label_c": 13,
+            "label_l": 225,
+            "label_text": "new",
+            "label_type": "new"
+          },
+          "1075": {
+            "label_c": 17,
+            "label_l": 225,
+            "label_text": "Promise",
+            "label_type": "identifier"
+          },
+          "1076": {
+            "label_c": 24,
+            "label_l": 225,
+            "label_type": "arguments"
+          },
+          "1077": {
+            "label_c": 24,
+            "label_l": 225,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "1078": {
+            "label_c": 25,
+            "label_field_body": "1081",
+            "label_field_parameter": "1079",
+            "label_l": 225,
+            "label_type": "arrow_function"
+          },
+          "1079": {
+            "label_c": 25,
+            "label_l": 225,
+            "label_text": "resolve",
+            "label_type": "identifier"
           },
           "108": {
             "label_c": 5,
@@ -61571,11 +62166,127 @@
             "label_l": 21,
             "label_type": "variable_declarator"
           },
+          "1080": {
+            "label_c": 33,
+            "label_l": 225,
+            "label_text": "=>",
+            "label_type": "=>"
+          },
+          "1081": {
+            "label_c": 36,
+            "label_l": 225,
+            "label_type": "statement_block"
+          },
+          "1082": {
+            "label_c": 36,
+            "label_l": 225,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "1083": {
+            "label_c": 9,
+            "label_l": 226,
+            "label_type": "expression_statement"
+          },
+          "1084": {
+            "label_c": 9,
+            "label_field_arguments": "1086",
+            "label_field_function": "1085",
+            "label_l": 226,
+            "label_type": "call_expression"
+          },
+          "1085": {
+            "label_c": 9,
+            "label_l": 226,
+            "label_text": "setTimeout",
+            "label_type": "identifier"
+          },
+          "1086": {
+            "label_c": 19,
+            "label_l": 226,
+            "label_type": "arguments"
+          },
+          "1087": {
+            "label_c": 19,
+            "label_l": 226,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "1088": {
+            "label_c": 20,
+            "label_field_body": "1093",
+            "label_field_parameters": "1089",
+            "label_l": 226,
+            "label_type": "arrow_function"
+          },
+          "1089": {
+            "label_c": 20,
+            "label_l": 226,
+            "label_type": "formal_parameters"
+          },
           "109": {
             "label_c": 5,
             "label_l": 21,
             "label_text": "x",
             "label_type": "identifier"
+          },
+          "1090": {
+            "label_c": 20,
+            "label_l": 226,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "1091": {
+            "label_c": 21,
+            "label_l": 226,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "1092": {
+            "label_c": 23,
+            "label_l": 226,
+            "label_text": "=>",
+            "label_type": "=>"
+          },
+          "1093": {
+            "label_c": 26,
+            "label_l": 226,
+            "label_type": "statement_block"
+          },
+          "1094": {
+            "label_c": 26,
+            "label_l": 226,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "1095": {
+            "label_c": 13,
+            "label_l": 227,
+            "label_type": "expression_statement"
+          },
+          "1096": {
+            "label_c": 13,
+            "label_field_arguments": "1098",
+            "label_field_function": "1097",
+            "label_l": 227,
+            "label_type": "call_expression"
+          },
+          "1097": {
+            "label_c": 13,
+            "label_l": 227,
+            "label_text": "resolve",
+            "label_type": "identifier"
+          },
+          "1098": {
+            "label_c": 20,
+            "label_l": 227,
+            "label_type": "arguments"
+          },
+          "1099": {
+            "label_c": 20,
+            "label_l": 227,
+            "label_text": "(",
+            "label_type": "("
           },
           "11": {
             "label_c": 5,
@@ -61588,11 +62299,129 @@
             "label_text": "=",
             "label_type": "="
           },
+          "1100": {
+            "label_c": 21,
+            "label_l": 227,
+            "label_text": "'resolved'",
+            "label_type": "string"
+          },
+          "1101": {
+            "label_c": 31,
+            "label_l": 227,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "1102": {
+            "label_c": 32,
+            "label_l": 227,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "1103": {
+            "label_c": 9,
+            "label_l": 228,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "1104": {
+            "label_c": 10,
+            "label_l": 228,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "1105": {
+            "label_c": 12,
+            "label_l": 228,
+            "label_text": "3000",
+            "label_type": "number"
+          },
+          "1106": {
+            "label_c": 16,
+            "label_l": 228,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "1107": {
+            "label_c": 17,
+            "label_l": 228,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "1108": {
+            "label_c": 5,
+            "label_l": 229,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "1109": {
+            "label_c": 6,
+            "label_l": 229,
+            "label_text": ")",
+            "label_type": ")"
+          },
           "111": {
             "label_c": 9,
             "label_l": 21,
             "label_text": "1",
             "label_type": "number"
+          },
+          "1110": {
+            "label_c": 7,
+            "label_l": 229,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "1111": {
+            "label_c": 5,
+            "label_l": 230,
+            "label_type": "return_statement"
+          },
+          "1112": {
+            "label_c": 5,
+            "label_l": 230,
+            "label_text": "return",
+            "label_type": "return"
+          },
+          "1113": {
+            "label_c": 12,
+            "label_l": 230,
+            "label_text": "a",
+            "label_type": "identifier"
+          },
+          "1114": {
+            "label_c": 13,
+            "label_l": 230,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "1115": {
+            "label_c": 1,
+            "label_l": 231,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "1116": {
+            "label_c": 1,
+            "label_l": 233,
+            "label_type": "expression_statement"
+          },
+          "1117": {
+            "label_c": 1,
+            "label_field_body": "1125",
+            "label_field_parameters": "1118",
+            "label_l": 233,
+            "label_type": "arrow_function"
+          },
+          "1118": {
+            "label_c": 1,
+            "label_l": 233,
+            "label_type": "formal_parameters"
+          },
+          "1119": {
+            "label_c": 1,
+            "label_l": 233,
+            "label_text": "(",
+            "label_type": "("
           },
           "112": {
             "label_c": 10,
@@ -61600,16 +62429,168 @@
             "label_text": ";",
             "label_type": ";"
           },
+          "1120": {
+            "label_c": 2,
+            "label_l": 233,
+            "label_text": "a",
+            "label_type": "identifier"
+          },
+          "1121": {
+            "label_c": 3,
+            "label_l": 233,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "1122": {
+            "label_c": 5,
+            "label_l": 233,
+            "label_text": "b",
+            "label_type": "identifier"
+          },
+          "1123": {
+            "label_c": 6,
+            "label_l": 233,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "1124": {
+            "label_c": 8,
+            "label_l": 233,
+            "label_text": "=>",
+            "label_type": "=>"
+          },
+          "1125": {
+            "label_c": 11,
+            "label_l": 233,
+            "label_type": "statement_block"
+          },
+          "1126": {
+            "label_c": 11,
+            "label_l": 233,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "1127": {
+            "label_c": 5,
+            "label_l": 234,
+            "label_type": "lexical_declaration"
+          },
+          "1128": {
+            "label_c": 5,
+            "label_l": 234,
+            "label_text": "let",
+            "label_type": "let"
+          },
+          "1129": {
+            "label_c": 9,
+            "label_field_name": "1130",
+            "label_field_value": "1132",
+            "label_l": 234,
+            "label_type": "variable_declarator"
+          },
           "113": {
             "label_c": 1,
             "label_l": 22,
             "label_type": "lexical_declaration"
+          },
+          "1130": {
+            "label_c": 9,
+            "label_l": 234,
+            "label_text": "chuck",
+            "label_type": "identifier"
+          },
+          "1131": {
+            "label_c": 15,
+            "label_l": 234,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "1132": {
+            "label_c": 17,
+            "label_l": 234,
+            "label_text": "42",
+            "label_type": "number"
+          },
+          "1133": {
+            "label_c": 19,
+            "label_l": 234,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "1134": {
+            "label_c": 5,
+            "label_l": 235,
+            "label_type": "return_statement"
+          },
+          "1135": {
+            "label_c": 5,
+            "label_l": 235,
+            "label_text": "return",
+            "label_type": "return"
+          },
+          "1136": {
+            "label_c": 12,
+            "label_field_left": "1137",
+            "label_field_operator": "1141",
+            "label_field_right": "1142",
+            "label_l": 235,
+            "label_type": "binary_expression"
+          },
+          "1137": {
+            "label_c": 12,
+            "label_field_left": "1138",
+            "label_field_operator": "1139",
+            "label_field_right": "1140",
+            "label_l": 235,
+            "label_type": "binary_expression"
+          },
+          "1138": {
+            "label_c": 12,
+            "label_l": 235,
+            "label_text": "a",
+            "label_type": "identifier"
+          },
+          "1139": {
+            "label_c": 14,
+            "label_l": 235,
+            "label_text": "+",
+            "label_type": "+"
           },
           "114": {
             "label_c": 1,
             "label_l": 22,
             "label_text": "let",
             "label_type": "let"
+          },
+          "1140": {
+            "label_c": 16,
+            "label_l": 235,
+            "label_text": "b",
+            "label_type": "identifier"
+          },
+          "1141": {
+            "label_c": 18,
+            "label_l": 235,
+            "label_text": "+",
+            "label_type": "+"
+          },
+          "1142": {
+            "label_c": 20,
+            "label_l": 235,
+            "label_text": "chuck",
+            "label_type": "identifier"
+          },
+          "1143": {
+            "label_c": 25,
+            "label_l": 235,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "1144": {
+            "label_c": 3,
+            "label_l": 236,
+            "label_text": "}",
+            "label_type": "}"
           },
           "115": {
             "label_c": 5,
@@ -67808,6 +68789,196 @@
             "var_type": null
           }
         ],
+        "1060": [],
+        "1066": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1066",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1068": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1083",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1078",
+              "value": null
+            },
+            "type": "SyntaxStepLambdaExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1073",
+              "value": null
+            },
+            "object_type": "Promise",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1070",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "a",
+            "var_type": null
+          }
+        ],
+        "1078": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1083",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1078",
+              "value": null
+            },
+            "type": "SyntaxStepLambdaExpression"
+          }
+        ],
+        "1081": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1081",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1083": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1083",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1084": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1088",
+              "value": null
+            },
+            "type": "SyntaxStepLambdaExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1105",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "3000",
+            "value_type": "number"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "1084",
+              "value": null
+            },
+            "method": "setTimeout",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "1088": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1088",
+              "value": null
+            },
+            "type": "SyntaxStepLambdaExpression"
+          }
+        ],
+        "1093": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1093",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1095": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1095",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1096": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1100",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "resolved",
+            "value_type": "string"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1096",
+              "value": null
+            },
+            "method": "resolve",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "11": [
           {
             "meta": {
@@ -67847,6 +69018,105 @@
             "type": "SyntaxStepReturn"
           }
         ],
+        "1111": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1113",
+              "value": null
+            },
+            "symbol": "a",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1111",
+              "value": null
+            },
+            "type": "SyntaxStepReturn"
+          }
+        ],
+        "1116": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1116",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1117": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1120",
+              "value": null
+            },
+            "symbol": "a",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1122",
+              "value": null
+            },
+            "symbol": "b",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "1117",
+              "value": null
+            },
+            "type": "SyntaxStepLambdaExpression"
+          }
+        ],
+        "1125": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1125",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1127": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1132",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "42",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1129",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "chuck",
+            "var_type": null
+          }
+        ],
         "113": [
           {
             "meta": {
@@ -67870,6 +69140,67 @@
             "type": "SyntaxStepDeclaration",
             "var": "y",
             "var_type": null
+          }
+        ],
+        "1134": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1142",
+              "value": null
+            },
+            "symbol": "chuck",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1140",
+              "value": null
+            },
+            "symbol": "b",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1138",
+              "value": null
+            },
+            "symbol": "a",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "1137",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "1136",
+              "value": null
+            },
+            "operator": "+",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1134",
+              "value": null
+            },
+            "type": "SyntaxStepReturn"
           }
         ],
         "120": [
@@ -68105,6 +69436,26 @@
             "type": "SyntaxStepParenthesizedExpression"
           }
         ],
+        "18": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "23",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "18",
+              "value": null
+            },
+            "type": "SyntaxStepLambdaExpression"
+          }
+        ],
         "184": [
           {
             "meta": {
@@ -68245,6 +69596,17 @@
             "var": "i"
           }
         ],
+        "21": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "21",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "211": [
           {
             "meta": {
@@ -68290,6 +69652,52 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "23": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "23",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "24": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "28",
+              "value": null
+            },
+            "type": "SyntaxStepLambdaExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "45",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "2000",
+            "value_type": "number"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "24",
+              "value": null
+            },
+            "method": "setTimeout",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "253": [
@@ -68373,6 +69781,17 @@
             "type": "SyntaxStepDeclaration",
             "var": "number",
             "var_type": null
+          }
+        ],
+        "28": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "28",
+              "value": null
+            },
+            "type": "SyntaxStepLambdaExpression"
           }
         ],
         "284": [
@@ -68580,6 +69999,17 @@
             "var_type": null
           }
         ],
+        "33": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "33",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "336": [
           {
             "meta": {
@@ -68650,6 +70080,17 @@
             "var": "i"
           }
         ],
+        "35": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "35",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
         "353": [
           {
             "meta": {
@@ -68702,6 +70143,32 @@
             },
             "type": "SyntaxStepAssignment",
             "var": "result"
+          }
+        ],
+        "36": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "40",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "resolved",
+            "value_type": "string"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "36",
+              "value": null
+            },
+            "method": "resolve",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "379": [
