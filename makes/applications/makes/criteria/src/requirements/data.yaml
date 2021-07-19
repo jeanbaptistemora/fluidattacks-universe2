@@ -215,56 +215,280 @@
 "029":
   en:
     title: Cookies with security attributes
-    summary: __empty__
-    description: __empty__
+    summary: >
+      The session cookies
+      of web applications must have
+      security attributes
+      (HttpOnly, Secure, SameSite)
+      and prefixes (e.g., __Host-).
+    description: >
+      When you have web applications
+      that handle sessions,
+      you can use different attributes
+      to improve the security related
+      to the cookies
+      that handle these sessions.
+      The attributes HttpOnly
+      and Secure prevent the theft
+      of the session cookie
+      by denying the browser visibility
+      and access to it
+      (even when Cross Site Scripting [XSS]
+      attacks are used)
+      and allow the cookie to be sent
+      only when the request
+      is encrypted (using HTTPS).
+      In this manner,
+      session theft is greatly mitigated.
   es:
     title: Cookies con atributos de seguridad
-    summary: __empty__
-    description: __empty__
+    summary: >
+       Las cookies de sesión de aplicaciones Web
+       deben tener atributos de seguridad
+       (HttpOnly, Secure).
+    description: >
+      Cuando se tienen aplicaciones web
+      que manejan sesiones,
+      se pueden utilizar atributos diferentes
+      para mejorar la seguridad
+      relacionada con las cookies
+      encargadas de estas sesiones.
+      Los atributos HttpOnly y
+      Secure previenen el robo
+      de la cookie de sesión
+      negándole la visibilidad del navegador
+      y el acceso a este
+      (aún cuando un ataque tipo 
+      Cross Site Scripting [XSS] sea lanzado)
+      y permitir que la cookie sea enviada
+      sólo cuando la petición esté cifrada
+      (con el uso de HTTPS).
+      De esta manera,
+      el robo de sesión se mitiga drásticamente.
   references: []
   metadata: {}
 "030":
   en:
     title: Avoid object reutilization
-    summary: __empty__
-    description: __empty__
+    summary: >
+      The system must guarantee
+      that objects (session id, cookies, etc.) used
+      in the authentication process
+      cannot be reused (replay resistance).
+    description: >
+      In a system,
+      it is necessary
+      to prevent transmitted information
+      from being reused
+      by an attacker to impersonate
+      an authorized user
+      or server responses.
+      Therefore,
+      it is essential
+      to verify the communications
+      between the users and the system,
+      thus avoiding a replay of any request
+      that could affect the confidentiality,
+      integrity and/or availability
+      of the system.
   es:
     title: Evitar reutilización de objetos
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Se debe controlar que un objeto
+      (id de sesión, cookie, etc)
+      que participe en el proceso de autenticación
+      no pueda ser reutilizado.
+    description: >
+      En un sistema,
+      es necesario impedir
+      que la información transmitida
+      sea reutilizada por un atacante
+      para suplantar a un usuario autorizado
+      o respuestas del servidor.
+      Por lo tanto,
+      es esencial verificar
+      las comunicaciones entre los usuarios
+      y el sistema,
+      evitando así la repetición
+      de cualquier solicitud que podría
+      afectar la confidencialidad,
+      integridad y disponibilidad del sistema.
   references: []
   metadata: {}
 "031":
   en:
     title: Discard user session data
-    summary: __empty__
-    description: __empty__
+    summary: > 
+      When a session is terminated,
+      either manually or automatically,
+      the system must discard all related data
+      and the session tokens
+      must lose their validity.
+    description: >
+      Session tokens
+      have associated permissions
+      that allow any actor
+      who possesses them
+      to perform actions in a system.
+      If session tokens are not removed
+      from the client-side storage
+      nor from the server,
+      it increases the chances
+      that they will be compromised.
+      Furthermore,
+      if they are not invalidated
+      once a session is closed,
+      the time during which
+      a compromised session can be used
+      maliciously is increased.
   es:
     title: Descartar datos de sesión del usuario
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Al cerrarse la sesión de un usuario
+      (automática o manual) se deben descartar
+      los datos relacionados
+      con la sesión del usuario.
+    description: >
+      Los toknes de sesión
+      tienen permisos asociados
+      que permiten a cualquier actor
+      que los posea
+      realizar acciones en un sistema.
+      Si los toknes de sesión
+      no son removidos del almacenamiento
+      del lado del cliente o del servidor,
+      se incrementan las posibilidades
+      de que sea comprometido.
+      Además,
+      si no son invalidados
+      una vez que la sesión es cerrada,
+      el tiempo durante el cual una sesión
+      puede ser usada maliciosamente
+      se incrementa.
   references: []
   metadata: {}
 "032":
   en:
     title: Avoid session ID leakages
-    summary: __empty__
-    description: __empty__
+    summary: >
+      The system must not expose
+      session IDs in URLs
+      and messages presented to the user.
+    description: >
+      Session IDs are sensitive information
+      that may allow an attacker to steal,
+      modify and/or destroy information
+      once they obtain one.
+
+      Information sent via URL parameters is:
+
+      - stored in clear text in the browser history.
+      sent to external sites via the referrer HTTP header.
+
+      - sent to external sites via the search bar
+      if the browser interprets the URL as a query.
+
+      - visible to scripts running
+      on the browser that may belong to third-parties.
+
+      Therefore,
+      session IDs should
+      not be sent via URL parameters,
+      nor be displayed as messages
+      presented to the user, nor stored in logs.
   es:
     title: Evitar fugas del ID de sesión
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema no debe exponer identificadores
+      de sesión en URLs
+      y mensajes presentados al usuario.
+    description: >
+      Los IDs de sesión
+      son datos sensibles
+      que puede permitir a un atacante robar,
+      modificar y destuir información
+      una vez se obtenga alguno.
+
+      La información enviada
+      mediante parámetros URL es:
+
+      - almacenada en texto claro
+      en la historia del navegador.
+
+      - enviada a sitios externos
+      mediante la cabecera HTTP referrer.
+
+      - enviada a sitios externos
+      mediante la barra de búsqueda
+      si el navegador interpreta la URL
+      como un query.
+
+      - visible a scripts corriendo
+      en el navegador que pueden pertenecer
+      a terceros.
+
+      Por lo tanto,
+      los IDs de sesión no deberían
+      ser enviados mediante parámetros URL
+      ni ser desplegados como mensajes
+      presentados al usuario,
+      ni almacenados en logs.
   references: []
   metadata: {}
 "033":
   en:
     title: Restrict administrative access
-    summary: __empty__
-    description: __empty__
+    summary: >
+      If the system
+      has an administration mechanism,
+      it must only be accessible
+      from administrative network segments.
+    description: >
+      Network access to modules
+      or system management mechanisms
+      must be limited to the parties
+      that require access to them
+      (administrators).
+      Personnel that does not have
+      administrative needs, tasks
+      or obligations should not have access
+      to these mechanisms.
+      Following this recommendation
+      helps to fulfill the objective
+      of reducing the attack surface
+      of the above mentioned systems
+      (since malicious third parties
+      cannot attempt to directly access
+      the system administration settings),
+      and increases the level of confidentiality
+      and availability of the system.
   es:
     title: Restringir acceso administrativo
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Si el sistema posee
+      un mecanismo de administración,
+      este debe ser accesible
+      sólo desde segmentos de red de gestión
+      o administrativos.
+    description: >
+      El acceso de red a módulos
+      o mecanismos del sistema de gestión
+      debe estar limitado a las partes
+      que requieran acceso a ellos
+      (administradores).
+      Personal que no tiene
+      necesidades administrativas,
+      tareas u obligaciones no deberían
+      tener acceso a estos mecanismos.
+      Seguir esta recomendación
+      ayuda a cumplir el objetivo
+      de reducir la superficie de ataque
+      de los sistemas mencionados anteriormente
+      (lya que terceros malintencionados
+      no puede intentar acceder directamente
+      la configuración de administración del sistema),
+      e incrementa el nivel de confidencialidad
+      y dispnibilidad del sistema.
   references: []
   metadata: {}
 "034":
