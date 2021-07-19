@@ -1,18 +1,16 @@
 /* eslint import/no-namespace:0 */
 /* eslint react/forbid-component-props: 0 */
 /* eslint import/no-unresolved:0 */
-import { faAngleDown } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback, useState } from "react";
 
 import {
-  FontAwesomeContainerSmall,
   InnerContentList,
   InnerListContainer,
   InnerListItem,
   ListItem,
   ListItemLabel,
 } from "../../../../../styles/styledComponents";
+import { RotatingArrow } from "../../../../RotatingArrow";
 import { BodyLink } from "../BodyLink";
 
 const ServicesList: React.FC = (): JSX.Element => {
@@ -26,9 +24,7 @@ const ServicesList: React.FC = (): JSX.Element => {
       <ListItem>
         <ListItemLabel onClick={handleOpenClose}>
           {"Services"}
-          <FontAwesomeContainerSmall>
-            <FontAwesomeIcon className={"c-gray-176"} icon={faAngleDown} />
-          </FontAwesomeContainerSmall>
+          <RotatingArrow isTouch={isTouch} />
         </ListItemLabel>
         <InnerListContainer
           style={{

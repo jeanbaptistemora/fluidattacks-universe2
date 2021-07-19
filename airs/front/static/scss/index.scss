@@ -232,6 +232,7 @@ $gray-176: rgba(176, 176, 191, 1);
 // Transitions
 .t-all-5 { transition: all 0.5s; }
 .t-all-3-eio { transition: all 0.3s ease-in-out;}
+.t-all-linear-3 { transition: all linear 0.3s; }
 .t-tf-6-eio { transition: transform 0.6s ease-in-out; }
 .t-color-2 { transition: color 0.2s; }
 .t-height-3 { transition: max-height 1s;}
