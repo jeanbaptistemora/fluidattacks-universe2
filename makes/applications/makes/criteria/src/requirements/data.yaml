@@ -494,56 +494,150 @@
 "034":
   en:
     title: Manage user accounts
-    summary: __empty__
+    summary: >
+      The system must allow superusers
+      or system administrators
+      to disable user accounts.
     description: __empty__
   es:
     title: Gestionar cuentas de usuario
-    summary: __empty__
+    summary: >
+      El sistema debe permitir
+      a los superusuarios o administradores
+      del sistema deshabilitar
+      cuentas de usuario.
     description: __empty__
   references: []
   metadata: {}
 "035":
   en:
     title: Manage privilege modifications
-    summary: __empty__
-    description: __empty__
+    summary: >
+      The system
+      must not allow system actors
+      to modify privileges
+      for themselves.
+    description: >
+      Systems should have a set of roles
+      with different levels of privilege
+      to access resources.
+      The privileges of each role
+      must be clearly defined
+      and the role of each user
+      should also be clearly stated.
+      Furthermore,
+      users should not be allowed
+      to modify their own privileges,
+      as this could be leveraged
+      to access otherwise restricted
+      functionalities and resources.
   es:
     title: Gestionar modificaciones en privilegios
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema no debe permitir
+      que los actores del sistema
+      modifquen privilegios ellos mismos.
+    description: >
+      Los sistemas podrían tener
+      un conjunto de roles con diferentes
+      niveles de privilegio para acceder
+      a los recursos.
+      Los privilegios de cada rol
+      deben estar claramente definidos
+      y el rol de cada usuario
+      debería estar también
+      claramente declarado.
+      Además,
+      los usuarios no se les debería
+      permitir modificar sus propios privilegios,
+      esto podría aprovecharse
+      para acceder a funcionalidades
+      y recursos restringidos.
   references: []
   metadata: {}
 "036":
   en:
     title: Do not deploy temporary files
-    summary: __empty__
+    summary: >
+      The system must not deploy temporary files
+      to production environments.
     description: __empty__
   es:
     title: No desplegar archivos temporales
-    summary: __empty__
+    summary: >
+      El sistema no debe desplegar
+      archivos temporales
+      en ambientes de producción.
     description: __empty__
   references: []
   metadata: {}
 "037":
   en:
     title: Parameters without sensitive data
-    summary: __empty__
-    description: __empty__
+    summary: >
+      The system must
+      not allow parameter inclusion
+      in directory names or file paths.
+    description: >
+      A system must not allow
+      the inclusion of directory names
+      or files paths in its parameters.
+      By tampering the fields associated
+      with these parameters,
+      an attacker may access those paths
+      and compromise sensitive information.
   es:
     title: Parametros sin datos sensibles
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema no debe permitir
+      la inclusión de parámetros
+      en nombres de directorio
+      o rutas de archivo.
+    description: >
+      Un sistema no debe permitir
+      la inclusión de nombres de directorios
+      o rutas de archivo en sus parámetros.
+      Al manipular los campos asociados
+      con estos parámetros,
+      un atacante puede acceder a estas rutas
+      y comprometer información sensible.
   references: []
   metadata: {}
 "039":
   en:
     title: Define maximum file size
-    summary: __empty__
-    description: __empty__
+    summary: >
+      The files manipulated by the system
+      and the users must have
+      a defined maximum file size (5MB recommended).
+    description: >
+      When a system allows users
+      to upload or attach files for storage,
+      the maximum file size limit
+      must be defined for these files,
+      in order to avoid issues involving
+      the availability of the service
+      and to reduce the chance
+      of an attacker uploading
+      a file containing malicious software.
   es:
     title: Definir un tamano máximo de archivo
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Los archivos manipulados
+      por el sistema y los usuarios
+      deben tener un tamaño máximo
+      de archivo definido (5MB recomendado).
+    description: >
+      Cuando un sistema permite
+      a los usuarios cargar o adjuntar
+      archivos para almacenamiento,
+      el límite del tamaño máximo
+      debe ser definido para estos archivos,
+      para evitar problemas que involucren
+      la disponibilidad del servicio
+      y reducir la posibilidad
+      de que un atacante cargue un archivo
+      que contiene software malicioso.
   references: []
   metadata: {}
 "040":
