@@ -7,9 +7,13 @@ from aioextensions import (
 )
 from context import (
     BASE_URL,
+    FI_API_STATUS,
 )
 from custom_types import (
     Finding as FindingType,
+)
+from db_model.findings.types import (
+    Finding,
 )
 from exponent_server_sdk import (
     DeviceNotRegisteredError,
@@ -256,13 +260,21 @@ async def request_zero_risk_vuln(
     justification: str,
     requester_email: str,
 ) -> bool:
-    finding_loader: DataLoader = info.context.loaders.finding
-    finding: Dict[str, FindingType] = await finding_loader.load(finding_id)
-    group_name = cast(str, get_key_or_fallback(finding, fallback=""))
+    if FI_API_STATUS == "migration":
+        finding_new_loader: DataLoader = info.context.loaders.finding_new
+        finding_new: Finding = await finding_new_loader.load(finding_id)
+        finding_title = finding_new.title
+        finding_type = finding_new.type
+        group_name = finding_new.group_name
+    else:
+        finding_loader: DataLoader = info.context.loaders.finding
+        finding: Dict[str, FindingType] = await finding_loader.load(finding_id)
+        finding_title = cast(str, finding.get("title", ""))
+        finding_type = cast(str, finding.get("type", ""))
+        group_name = cast(str, get_key_or_fallback(finding, fallback=""))
+
     org_id = await orgs_domain.get_id_for_group(group_name)
     org_name = await orgs_domain.get_name_by_id(org_id)
-    finding_title = cast(str, finding.get("title", ""))
-    finding_type = cast(str, finding.get("type", ""))
     finding_url = (
         f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/vulns/"
         f"{finding_id}/locations"
