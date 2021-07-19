@@ -6,8 +6,8 @@ import ScrollAnimation from "react-animate-on-scroll";
 import {
   BlackListItemSpaced,
   FullWidthContainer,
+  FullWidthContainerPlain,
   HalfScreenContainer,
-  HalfScreenContainerSpaced,
   SolutionCardContainer,
   SolutionsParagraph,
   SolutionsSectionDescription,
@@ -38,7 +38,7 @@ const SolutionsIndexContent: React.FC<IProps> = ({
           </Link>
         </HalfScreenContainer>
       </ScrollAnimation>
-      <HalfScreenContainerSpaced>
+      <FullWidthContainerPlain>
         <SolutionsSectionDescription>
           <BlackListItemSpaced>
             <SolutionsSubtitle>{subtitle}</SolutionsSubtitle>
@@ -57,7 +57,7 @@ const SolutionsIndexContent: React.FC<IProps> = ({
             </SolutionsParagraph>
           </BlackListItemSpaced>
         </SolutionsSectionDescription>
-      </HalfScreenContainerSpaced>
+      </FullWidthContainerPlain>
     </FullWidthContainer>
   </SolutionCardContainer>
 );

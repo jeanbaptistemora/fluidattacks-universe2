@@ -639,12 +639,11 @@ const HalfScreenContainer: StyledComponent<
   `,
 })``;
 
-const HalfScreenContainerSpaced: StyledComponent<
+const FullWidthContainerPlain: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    w-70-m
     w-100
   `,
 })``;
@@ -1598,11 +1597,11 @@ export {
   FooterInfoLinksContainer,
   FooterInfoLink,
   FullWidthContainer,
+  FullWidthContainerPlain,
   GetDemoContainer,
   GrayBigParagraph,
   GrayDash,
   HalfScreenContainer,
-  HalfScreenContainerSpaced,
   HeaderContainer,
   IframeContainer,
   InnerContentList,
