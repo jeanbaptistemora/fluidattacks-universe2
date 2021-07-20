@@ -86,13 +86,11 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
     updateError: ApolloError
   ): void => {
     updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-      switch (message) {
-        case "Exception - The event has already been closed":
-          msgError(translate.t("group.events.alreadyClosed"));
-          break;
-        default:
-          msgError(translate.t("groupAlerts.errorTextsad"));
-          Logger.warning("An error occurred updating event", updateError);
+      if (message === "Exception - The event has already been closed") {
+        msgError(translate.t("group.events.alreadyClosed"));
+      } else {
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        Logger.warning("An error occurred updating event", updateError);
       }
     });
   };

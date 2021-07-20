@@ -192,13 +192,11 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
     graphQLErrors,
   }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
-      switch (error.message) {
-        case "Exception - The inserted title is invalid":
-          msgError(translate.t("validations.draftTitle"));
-          break;
-        default:
-          msgError(translate.t("groupAlerts.errorTextsad"));
-          Logger.warning("An error occurred getting group drafts", error);
+      if (error.message === "Exception - The inserted title is invalid") {
+        msgError(translate.t("validations.draftTitle"));
+      } else {
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        Logger.warning("An error occurred getting group drafts", error);
       }
     });
   };
