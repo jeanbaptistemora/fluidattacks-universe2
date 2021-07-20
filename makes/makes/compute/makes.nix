@@ -9,7 +9,7 @@
       makesCompute = {
         setup = [
           outputs."/envVarsForTerraform/makesCompute"
-          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForAwsFromEnv/makesProd"
         ];
         src = "/makes/makes/compute/infra";
         version = "0.13";
