@@ -27,7 +27,7 @@ let
         "botocore==1.16.26"
         "bugsnag==4.0.1"
         "channels==3.0.0"
-        "cloudmersive-virus-api-client==2.0.6"
+        "cloudmersive-virus-api-client==3.0.5"
         "cryptography==3.2.1"
         "exponent-server-sdk==0.3.1"
         "fpdf==1.7.2"
