@@ -1195,66 +1195,128 @@
 "085":
   en:
     title: Allow session history queries
-    summary: __empty__
-    description: __empty__
+    summary: >
+      The system must allow
+      authorized users to inspect
+      their own session history.
+    description: >
+      Systems usually collect
+      personal and transactional data
+      from their users.
+      Users should have control
+      of their own data and,
+      as such, should be allowed to query
+      and inspect whatever information
+      the system has collected from them,
+      including their session history.
   es:
     title: Permitir consultas al historial de sesiones
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe permitir
+      a los usuarios autorizados
+      inspeccionar el historial de sus
+      propias transacciones.
+    description: >
+      Los sistemas suelen
+      recopilar datos personales
+      y transaccionales de sus usuarios.
+      Los usuarios deben tener
+      el control de sus propios datos
+      y, como tales, deben poder consultar
+      e inspeccionar cualquier información
+      que el sistema haya recopilado de ellos,
+      incluido su historial de sesión.
   references: []
   metadata: {}
 "088":
   en:
     title: Request client certificates
-    summary: __empty__
+    summary: >
+      Systems that manages
+      business-critical information
+      must require digital certificates
+      from the client.
+      This must be done especially
+      during the authentication process.
     description: __empty__
   es:
     title: Solicitar certificados del cliente
-    summary: __empty__
+    summary: >
+      Un sistema con información crítica
+      para el negocio debe requerir
+      certificados digitales de cliente
+      en el proceso de autenticación.
     description: __empty__
   references: []
   metadata: {}
 "089":
   en:
     title: Limit validity of certificates
-    summary: __empty__
+    summary: >
+      The organization
+      must not use digital certificates
+      with a validity of more than two years.
     description: __empty__
   es:
     title: Limitar validez de certificados
-    summary: __empty__
+    summary: >
+      La organización no debe utilizar
+      certificados digitales
+      con una vigencia superior a dos años.
     description: __empty__
   references: []
   metadata: {}
 "090":
   en:
     title: Use valid certificates
-    summary: __empty__
+    summary: >
+      The system must not use expired
+      digital certificates.
     description: __empty__
   es:
     title: Utilizar certificados válidos
-    summary: __empty__
+    summary: >
+      El sistema debe utilizar
+      certificados digitales
+      que no se encuentren vencidos.
     description: __empty__
   references: []
   metadata: {}
 "091":
   en:
     title: Use internally signed certificates
-    summary: __empty__
+    summary: >
+      The organization
+      must use certificates signed
+      by valid internal certification authorities
+      when these are for internal applications.
     description: __empty__
   es:
     title: Utilizar certificados firmados internamente
-    summary: __empty__
+    summary: >
+      Debe utilizarse certificados firmados
+      por entidades certificadoras internas
+      válidas cuando estos sean
+      para aplicaciones internas.
     description: __empty__
   references: []
   metadata: {}
 "092":
   en:
     title: Use externally signed certificates
-    summary: __empty__
+    summary: >
+      The organization
+      must use certificates signed
+      by valid external certification authorities
+      when these are for external applications.
     description: __empty__
   es:
     title: Utilizar certificados firmados externamente
-    summary: __empty__
+    summary: >
+      Debe utilizarse certificados firmados
+      por entidades certificadoras
+      externas válidas cuando estos
+      sean para aplicaciones externas.
     description: __empty__
   references: []
   metadata: {}
