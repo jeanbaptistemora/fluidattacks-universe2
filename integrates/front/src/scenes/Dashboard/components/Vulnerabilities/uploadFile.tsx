@@ -154,18 +154,16 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
         downloadError.graphQLErrors.forEach(
           ({ message }: GraphQLError): void => {
             msgError(translate.t("groupAlerts.errorTextsad"));
-            switch (message) {
-              case "Exception - Error Uploading File to S3":
-                Logger.warning(
-                  "An error occurred downloading vuln file while uploading file to S3",
-                  downloadError
-                );
-                break;
-              default:
-                Logger.warning(
-                  "An error occurred downloading vuln file",
-                  downloadError
-                );
+            if (message === "Exception - Error Uploading File to S3") {
+              Logger.warning(
+                "An error occurred downloading vuln file while uploading file to S3",
+                downloadError
+              );
+            } else {
+              Logger.warning(
+                "An error occurred downloading vuln file",
+                downloadError
+              );
             }
           }
         );

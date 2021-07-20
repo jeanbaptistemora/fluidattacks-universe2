@@ -45,18 +45,19 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
       onError: (error: ApolloError): void => {
         onClose();
         error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-          switch (message) {
-            case "Exception - There are no organization names available at the moment":
-              msgError(
-                translate.t("sidebar.newOrganization.modal.namesUnavailable")
-              );
-              break;
-            default:
-              msgError(translate.t("groupAlerts.errorTextsad"));
-              Logger.warning(
-                "An error occurred creating an organization",
-                message
-              );
+          if (
+            message ===
+            "Exception - There are no organization names available at the moment"
+          ) {
+            msgError(
+              translate.t("sidebar.newOrganization.modal.namesUnavailable")
+            );
+          } else {
+            msgError(translate.t("groupAlerts.errorTextsad"));
+            Logger.warning(
+              "An error occurred creating an organization",
+              message
+            );
           }
         });
       },
@@ -87,18 +88,14 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
       onError: (error: ApolloError): void => {
         onClose();
         error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-          switch (message) {
-            case "Access denied":
-              msgError(
-                translate.t("sidebar.newOrganization.modal.invalidName")
-              );
-              break;
-            default:
-              msgError(translate.t("groupAlerts.errorTextsad"));
-              Logger.warning(
-                "An error occurred creating new organization",
-                message
-              );
+          if (message === "Access denied") {
+            msgError(translate.t("sidebar.newOrganization.modal.invalidName"));
+          } else {
+            msgError(translate.t("groupAlerts.errorTextsad"));
+            Logger.warning(
+              "An error occurred creating new organization",
+              message
+            );
           }
         });
       },
