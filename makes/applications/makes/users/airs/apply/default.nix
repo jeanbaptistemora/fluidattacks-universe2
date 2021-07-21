@@ -9,5 +9,5 @@ terraformApply {
   name = "makes-users-airs-apply";
   product = "makes";
   target = "makes/applications/makes/users/airs/src/terraform";
-  secretsPath = "makes/applications/makes/secrets/src/production.yaml";
+  secretsPath = "makes/makes/secrets/prod.yaml";
 }

@@ -75,6 +75,11 @@
   <<: *makes_in_master_branch
   stage: deploy-infra
 
+/deployTerraform/makesSecrets:
+  <<: *makes4
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
 makes.ci.config:
   <<: *makes
   <<: *makes_in_master_branch
@@ -100,6 +105,11 @@ makes.ci.config:
   <<: *makes_in_dev_branch
   stage: lint-code
 
+/lintTerraform/makesSecrets:
+  <<: *makes4
+  <<: *makes_in_dev_branch
+  stage: lint-code
+
 /testTerraform/makesCi:
   <<: *makes4
   <<: *makes_in_dev_branch
@@ -116,6 +126,11 @@ makes.ci.config:
   stage: test-infra
 
 /testTerraform/makesFoss:
+  <<: *makes4
+  <<: *makes_in_dev_branch
+  stage: test-infra
+
+/testTerraform/makesSecrets:
   <<: *makes4
   <<: *makes_in_dev_branch
   stage: test-infra
@@ -146,16 +161,6 @@ makes.okta.lint:
   stage: lint-code
 
 makes.okta.test:
-  <<: *makes
-  <<: *makes_in_dev_branch
-  stage: test-infra
-
-makes.secrets.apply:
-  <<: *makes
-  <<: *makes_in_master_branch
-  stage: deploy-infra
-
-makes.secrets.test:
   <<: *makes
   <<: *makes_in_dev_branch
   stage: test-infra

@@ -9,7 +9,7 @@ userRotateKeys {
   name = "makes-users-docs-rotate-even";
   product = "makes";
   target = "makes/applications/makes/users/docs/src/terraform";
-  secretsPath = "makes/applications/makes/secrets/src/production.yaml";
+  secretsPath = "makes/makes/secrets/prod.yaml";
   keys = {
     "aws_iam_access_key.prod_2" = {
       id = {

@@ -17,6 +17,7 @@
     ./compute/makes.nix
     ./dns/makes.nix
     ./foss/makes.nix
+    ./secrets/makes.nix
   ];
   secretsForAwsFromEnv = {
     makesDev = {

@@ -74,8 +74,6 @@ makes.okta.lint
 makes.okta.test
 makes.profiles
 makes.review-mr
-makes.secrets.apply
-makes.secrets.test
 makes.users.airs.apply
 makes.users.airs.rotate.even
 makes.users.airs.rotate.odd

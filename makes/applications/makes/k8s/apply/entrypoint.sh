@@ -7,7 +7,7 @@ function main {
     && if aws eks list-clusters | grep -q "${cluster_name}"; then
       aws_eks_update_kubeconfig 'makes-k8s' 'us-east-1'
     fi \
-    && sops_export_vars 'makes/applications/makes/secrets/src/production.yaml' \
+    && sops_export_vars 'makes/makes/secrets/prod.yaml' \
       CLOUDFLARE_EMAIL \
       CLOUDFLARE_API_KEY \
       NEW_RELIC_LICENSE_KEY \
