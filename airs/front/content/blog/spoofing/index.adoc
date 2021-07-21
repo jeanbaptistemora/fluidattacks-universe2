@@ -5,7 +5,7 @@
 :page-tags: cybersecurity, social-engineering, mistake, risk, technology, software
 :page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620857985/blog/spoofing/cover_tpi466.webp
 :page-alt: Photo by Lia Panidara on Unsplash
-:page-description: Last April, if you googled for "spoofing," you could find the word Pokémon in the first two trends related to it. Here's why and what it has to do with your company's vulnerabilities.
+:page-description: Last April, if you googled for "spoofing," you could find the word Pokémon in the top trends. Here's what that has to do with your company's vulnerabilities.
 :page-keywords: Spoofing, Vulnerability, Software, Cybersecurity, Social Engineering, Ethical Hacking, GPS, Pentesting
 :page-author: Felipe Zárate
 :page-writer: fzarate
@@ -13,7 +13,7 @@
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/xKRv2abDDeg
 
-= Spoofing, Pokémon & Vulnerabilities
+= Spoofing, Pokémon & Vulnerability
 
 link:https://docs.fluidattacks.com/criteria/vulnerabilities/032[Spoofing]
 is not the name of any Pokémon
@@ -25,6 +25,9 @@ link:https://www.ic3.gov/Media/PDF/AnnualReport/2020_IC3Report.pdf[FBI report]).
 Through an email, phone call, or text message,
 criminals pretend to be a reliable source
 to deceive their victims (see Figure 1).
+
+.link:https://www.ic3.gov/Media/PDF/AnnualReport/2020_IC3Report.pdf[2020 Crime Types by Victim Loss]
+image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620857980/blog/spoofing/image1_fz39dc.webp[Figure 1]
 
 *Spoofing* has almost a ninth of the victims that
 link:../smishing/[phishing/vishing/smishing/pharming] have (see Figure 2).
@@ -41,9 +44,6 @@ the finance department of a clinical trial software firm
 link:https://www.forbes.com/sites/tmobile/2021/04/26/what-your-business-should-know-about-email-spoofing/?sh=68afa5e844ed[transferred to a criminal account $4.8M]
 due to a spoofed email.
 
-.link:https://www.ic3.gov/Media/PDF/AnnualReport/2020_IC3Report.pdf[2020 Crime Types by Victim Loss]
-image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620857980/blog/spoofing/image1_fz39dc.webp[Figure 1]
-
 A criminal link:https://www.investopedia.com/terms/s/spoofing.asp[could imitate an email]
 with the sender's name from a forged IP address.
 Thanks to it, criminals can send a link
@@ -55,30 +55,6 @@ using phone calls or SMSs
 addressed to the company's financial teams.
 Financial institutions, banks, commercial companies, and government entities
 are the main targets of this type of deception.
-In fact, the
-link:https://www.westyorkshire.police.uk/news-appeals/warning-issued-scammers-spoof-police-numbers[West Yorkshire Police Department issued]
-on 19th April a statement
-that alerts: "be aware of scammers
-who are using police numbers in their efforts to defraud people."
-In such scams, criminals convince victims to be the police.
-After that, they asked them for money
-to pay some alleged fine
-or bail out some friend or relative
-who is supposedly detained.
-According to the same police department:
-"two people transferred thousands of pounds"
-during that month.
-Spoofing affects not only humans but also companies.
-The link:https://navcen.uscg.gov/?Do=GPSReportStatus[Coast Guard of the U.S. Department of Homeland Security]
-said that criminals have increasingly spoof GPS systems.
-This attack has
-link:https://www.newscientist.com/article/2143499-ships-fooled-in-gps-spoofing-attack-suggest-russian-cyberweapon/[affected ransportation]
-and link:https://www.eetindia.co.in/addressing-gnss-jamming-and-spoofing/[automotive sectors]
-during the last months.
-This is why the link:https://www.nepia.com/u-s-maritime-advisory-2020-016_1/[U.S. Department of Transportation's Maritime Administration]
-has alerted that spoofing has become
-a dangerous social engineering cybercrime
-that we need to look at.
 
 .link:https://www.ic3.gov/Media/PDF/AnnualReport/2020_IC3Report.pdf[2020 Crime Types by Victim Count]
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620857980/blog/spoofing/image2_vrkc3e.webp[Figure 2]
@@ -130,10 +106,10 @@ making it challenging to identify the farce.
 
 === Email-Phone-SMS combo
 
-This combo may be the one that requires minor work from the criminals’ side.
+This combo may be the one that requires minor work from the criminals' side.
 First, they imitate a mail header
 by changing the mail sender
-to look like a legitimate source from the victims’ perspective.
+to look like a legitimate source from the victims' perspective.
 Then they send an email with the appearance of being official.
 In it, they require victims to make a payment or transaction to an account.
 Next, a caller identification is forged
@@ -142,16 +118,10 @@ from which the mail was allegedly sent to rectify the email info.
 If that is not enough,
 criminals can use a forgery SMS (short message service)
 to double-check what was said by mail.
-<<<<<<< HEAD
 At the same time,
 they send a false notification to confirm that
 the alleged recipient of the transaction received
 the money or that the supposedly due invoice was paid.
-=======
-At the same time, they send a false notification to confirm that the alleged
-recipient of the transaction received the money or that the supposedly due
-invoice was paid.
->>>>>>> airs\refac(job): #4941.2 more precission
 
 === GPS
 
@@ -221,7 +191,8 @@ making companies more vulnerable to being attacked.
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620857979/blog/spoofing/google_ztrfjg.webp[Figure 3]
 
 
-At `Fluid Attacks` we are specialized in
-cybersecurity through link:../../solutions/penetration-testing/[Pentesting]
-and link:../../solutions/ethical-hacking/[ethical hacking].
-For more information, don't hesitate to link:../../contact-us/[contact us!]
+At `Fluid Attacks`
+we are specialized in cybersecurity
+through link:../../solutions/penetration-testing/[Pentesting] and link:../../solutions/ethical-hacking/[ethical hacking].
+For more information,
+don't hesitate to link:../../contact-us/[contact us!]
