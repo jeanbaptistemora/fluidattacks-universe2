@@ -1,7 +1,7 @@
 :page-slug: certificates-comparison-i/
 :page-date: 2021-07-19
 :page-subtitle: Brief reviews on essential cybersecurity certifications, part I
-:page-category: interview
+:page-category: opinions
 :page-tags: cybersecurity, red-team, interview, training, software, exploit
 :page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1626702387/blog/certificates-comparison-i/cover-certificates-comparison-i_iknp8l.webp
 :page-alt: Photo by Liam Truong Cruz on Unsplash
