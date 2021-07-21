@@ -70646,6 +70646,40 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "549": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "556",
+              "value": null
+            },
+            "symbol": "responseSize",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "556",
+              "value": null
+            },
+            "type": "SyntaxStepTemplateString"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "549",
+              "value": null
+            },
+            "method": "console.log",
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
         "560": [
           {
             "meta": {
@@ -70931,6 +70965,50 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "663": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "670",
+              "value": null
+            },
+            "symbol": "obj[prop]",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "670",
+              "value": null
+            },
+            "symbol": "prop",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "670",
+              "value": null
+            },
+            "type": "SyntaxStepTemplateString"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "663",
+              "value": null
+            },
+            "method": "console.log",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "700": [

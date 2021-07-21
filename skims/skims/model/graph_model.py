@@ -265,6 +265,12 @@ class SyntaxStepMemberAccessExpression(NamedTuple):
     type: str = "SyntaxStepMemberAccessExpression"
 
 
+class SyntaxStepTemplateString(NamedTuple):
+    meta: SyntaxStepMeta
+
+    type: str = "SyntaxStepTemplateString"
+
+
 class Graph(nx.DiGraph):
     pass
 

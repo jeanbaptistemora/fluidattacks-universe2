@@ -77,6 +77,7 @@ from sast_syntax_readers.javascript import (
     lexical_declaration as javascript_lexical_declaration,
     member_expression as javascript_member_expression,
     new_expression as javascript_new_expression,
+    template_string as javascript_template_string,
     variable_declaration as javascript_variable_declaration,
     variable_declarator as javascript_variable_declarator,
 )
@@ -731,6 +732,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "do_statement",
         },
         syntax_readers=(javascript_do_statement.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+        },
+        applicable_node_label_types={
+            "template_string",
+        },
+        syntax_readers=(javascript_template_string.reader,),
     ),
     *[
         Dispatcher(

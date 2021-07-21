@@ -35,6 +35,7 @@ from sast_symbolic_evaluation.cases import (
     switch_label,
     switch_label_case,
     symbol_lookup,
+    template_string,
     ternary,
     unary_expression,
 )
@@ -186,6 +187,7 @@ EVALUATORS: Dict[object, Evaluator] = {
     graph_model.SyntaxStepTernary: ternary.evaluate,
     graph_model.SyntaxStepThis: no_op.evaluate,
     graph_model.SyntaxStepLambdaExpression: lambda_expression.evaluate,
+    graph_model.SyntaxStepTemplateString: template_string.evaluate,
 }
 
 
