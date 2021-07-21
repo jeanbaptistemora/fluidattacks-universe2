@@ -12,7 +12,7 @@ interface IProps {
 const RotatingArrow: React.FC<IProps> = ({ isTouch }: IProps): JSX.Element => (
   <FontAwesomeContainerSmall>
     <FontAwesomeIcon
-      className={"c-gray-176 t-all-linear-3"}
+      className={"c-c-fluid-gray t-all-linear-3"}
       icon={faAngleDown}
       style={
         isTouch

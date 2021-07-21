@@ -6,7 +6,7 @@ $gray-64: rgba(64, 64, 79, 1);
 $button-red: rgba(191, 38, 38, 1);
 $darker-blue: rgba(28, 28, 34, 1);
 $dark-shadow: rgba(176, 176, 176, 0.3);
-$fluid-gray: rgba(176, 176, 176, 1);
+$fluid-gray: rgba(176, 176, 191, 1);
 $fluid-dark-red: rgba(203, 50, 51, 1);
 $gray-black: rgba(0, 0, 0, 0.8);
 $light-gray: rgba(249, 249, 249, 1);
@@ -23,7 +23,6 @@ $white-gray: rgba(230, 228, 228, 1);
 $whiter-gray: rgba(241, 241, 241, 1);
 $gray-233: rgba(233, 233, 237, 1);
 $gray-244: rgba(244, 244, 246, 1);
-$gray-176: rgba(176, 176, 191, 1);
 
 // Rules
 @keyframes fadein {
@@ -147,7 +146,6 @@ $gray-176: rgba(176, 176, 191, 1);
 .c-dkred { color: $button-red; }
 .c-fluid-bk { color: $fluid-black; }
 .c-fluid-gray { color: $fluid-gray; }
-.c-gray-176 { color: $gray-176; }
 .c-gray-64 { color: $gray-64; }
 .c-hovered-red { color: $red-255; }
 .bc-darker-blue { border-color: $darker-blue; }
@@ -355,7 +353,7 @@ $gray-176: rgba(176, 176, 191, 1);
 // Custom elements
 
 .mobileMenuItem {
-  border-bottom: solid 1px $gray-176;
+  border-bottom: solid 1px $fluid-gray;
 }
 
 .bl-red {
@@ -565,7 +563,7 @@ $gray-176: rgba(176, 176, 191, 1);
 
 // stylelint-disable-next-line selector-class-pattern
 .breadcrumb__link {
-  color: $gray-176;
+  color: $fluid-gray;
   &:hover { color: $white-244; }
 }
 
