@@ -75,7 +75,7 @@
       and extract, modify
       or delete information about it.
   es:
-    title: Denegación de servicio asimétrico
+    title: Denegación de servicio asimétrica
     description: >
       Se genera la caída del servidor
       como resultado de ataques de amplificación,
@@ -127,7 +127,7 @@
       about the database, and extract,
       modify or delete information about it.
   es:
-    title: Denegación de servicio simétrico
+    title: Denegación de servicio simétrica
     description: >
       Se genera la caída del servidor
       con múltiples peticiones
@@ -238,7 +238,7 @@
       due to a bad permission validation of roles
       or to a failure in functionalities requests.
   es:
-    title: Escalada de privilegios
+    title: Elevación de privilegios
     description: >
       Los roles administrativos son accedidos
       desde funciones de un usuario estándar
@@ -297,7 +297,7 @@
       or having an activated session
       on the server of the application.
   es:
-    title: Ausencia ó evasión del mecanismo de autenticación
+    title: Ausencia o evasión de autenticación
     description: >
       El sistema carece de un mecanismo de autenticación
       o tiene uno que puede ser evadido.
@@ -349,7 +349,7 @@
       to execute critical transactions
       such as transfers or payments.
   es:
-    title: Falsificación de petición en sitios cruzados (CSRF)
+    title: Cross-site request forgery
     description: >
       La aplicación permite engañar a un usuario autenticado
       por medio de links manipulados
@@ -668,7 +668,7 @@
       because the application does not validate
       the necessary permissions to access.
   es:
-    title: Referencia insegura de objetos
+    title: Referencia insegura a objetos
     description: __empty__
     impact: __empty__
     recommendation: >
@@ -885,7 +885,7 @@
       only to authorized users with their credentials.
     threat: __empty__
   es:
-    title: Autenticación inadecuada para carpetas compartidas
+    title: Carpetas compartidas sin control
     description: >
       Las carpetas de red pueden ser accedidas
       sin ningún tipo de credencial
@@ -924,7 +924,7 @@
       in temporary files or cache.
     threat: __empty__
   es:
-    title: Credenciales administrativas almacenadas en memoria cache
+    title: Credenciales de administrador guardadas en caché de procesos
     description: >
       Es posible extraer credenciales administrativas
       desde la caché de los procesos.
@@ -1016,7 +1016,7 @@
       to avoid common injection attacks.
     threat: Autenticated attacker from the Internet.
   es:
-    title: Inyección de XPath
+    title: Inyección XPath
     description: >
       Se generan sentencias XPath dinámicas
       sin la validación requerida de datos.
@@ -1099,7 +1099,7 @@
   metadata: {}
 "023":
   en:
-    title: Uncontrolled external site redirect - Host header
+    title: Uncontrolled external site redirect - Host Header Injection
     description: >
       The server processes requests
       with the Host header set
@@ -1115,7 +1115,7 @@
       to prevent third party hosts redirection.
     threat: Unauthorized attacker from internet network.
   es:
-    title: Redirección a sitios externos no controlada - cabecera Host
+    title: Redirección a sitios externos no controlada - Host Header Injection
     description: >
       El servidor procesa peticiones
       con la cabecera Host configurada
@@ -1318,7 +1318,7 @@
       A user within local network
       with access to the application can upload all
   es:
-    title: Carga de archivos insegura
+    title: Carga insegura de archivos
     description: >
       El sistema de carga de archivos
       permite cargar archivos con doble extensión
@@ -1464,7 +1464,7 @@
       A user with access to the application's registry,
       can view
   es:
-    title: Información sensible enviada mediante parámetros URL
+    title: Parámetros enviados por URL
     description: >
       La aplicación envía información sensible (Ej: El ID de sesión)
       como parte de los parámetros en el URL
@@ -1574,7 +1574,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Suplantación
+    title: Suplantación de Identidad (Spoofing)
     description: >
       Es posible realizar acciones en la aplicación
       y hacer que parezca que fueron realizadas
@@ -1745,7 +1745,7 @@
       increasing the probability of success
       of a brute force attack.
   es:
-    title: Política de credenciales débil
+    title: Política de credenciales débiles
     description: >
       La política de credenciales
       presente en el sistema
@@ -1970,7 +1970,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Control de autorización inadecuado para servicios web
+    title: Uso de web services sin autorización
     description: >
       Los web services del sistema
       pueden ser accedidos sin autorización
@@ -2047,7 +2047,7 @@
       can login by guessing default passwords
       used in the application.
   es:
-    title: Credenciales for defecto habilitadas
+    title: Credenciales for defecto activadas
     description: >
       Se encuentran credenciales
       por defecto de baja fortaleza
@@ -2468,7 +2468,7 @@
   metadata: {}
 "049":
   en:
-    title: Insecure digital certificates - APK pinning
+    title: Insecure digital certificates - APK Pinning
     description: >
       The application does not pin certificates
       and therefore trusts
@@ -2485,7 +2485,7 @@
       from adjacent network
       performing a MITM.
   es:
-    title: Certificados digitales inseguros - Pineo en el APK
+    title: Certificados digitales inseguros - APK Pinning
     description: >
       La aplicación no pinea los certificados
       y por lo tanto confia
@@ -2617,7 +2617,7 @@
       and then could find
       users' passwords.
   es:
-    title: Credenciales débiles vulneradas
+    title: Credenciales débiles reversadas
     description: >
       La falta de complejidad
       de los hashes almacenados en la base de datos
@@ -3450,7 +3450,7 @@
       and discover valid users
       into the application.
   es:
-    title: Campos de formulario en caché
+    title: Caché en formulario
     description: >
       El formulario no deshabilita
       la característica de autocompletado,
@@ -3493,7 +3493,7 @@
   metadata: {}
 "066":
   en:
-    title: JavaScript Console
+    title: Technical information leak - Console functions
     description: >
       It is possible to obtain technical information such as:
 
@@ -3519,7 +3519,7 @@
       or in the response
       to non customized HTTP errors.
   es:
-    title: Consola JavaScript
+    title: Fuga de información técnica - Funciones Console
     description: >
       Se obtiene información técnica del sistema, como:
 
@@ -4019,7 +4019,7 @@
       in the application when uncommenting
       any portion of commented code.
   es:
-    title: Código comentado
+    title: Código funcional comentado
     description: >
       Existe código comentado
       en ambiente de producción,
@@ -4187,7 +4187,7 @@
   metadata: {}
 "077":
   en:
-    title: ARP spoofing
+    title: ARP Spoofing
     description: >
       It is possible
       to supersede other MAC addresses
@@ -4201,7 +4201,7 @@
       (PortSecurity) in the affected switches.
     threat: __empty__
   es:
-    title: Suplantación ARP
+    title: ARP Spoofing
     description: >
       Es posible suplantar
       direcciones MAC en la red,
@@ -4334,7 +4334,7 @@
   metadata: {}
 "080":
   en:
-    title: Insecure service configuration - AWS Missing encryption
+    title: Ausencia de cifrado de Información confidencial - AWS
     description: >
       Infrastructure is not encrypted.
     impact: >
@@ -4349,7 +4349,7 @@
       Internal attacker
       with access to the configuration.
   es:
-    title: Configuración insegura del servicio - AWS ausencia de cifrado
+    title: Non-encrypted confidential information - AWS
     description: >
       La infrastructura
       no se encuentra cifrada.
@@ -4401,7 +4401,7 @@
       of the resources' authentication.
     threat: __empty__
   es:
-    title: Ausencia de autenticación de doble factor
+    title: Ausencia de autenticación de múltiples factores
     description: >
       Los servicios críticos
       sobre la red interna
@@ -4457,7 +4457,7 @@
       using the recycle bin
       as a metadata's source.
   es:
-    title: Archivos borrados de forma insegura
+    title: Archivos eliminados de forma insegura
     description: >
       Es posible recuperar archivos
       con información sensible
@@ -4512,7 +4512,7 @@
       by referencing external entities
       that can require many system's resources.
   es:
-    title: Inyección XML
+    title: Inyección XML (XXE)
     description: >
       La aplicación afectada
       permite la inyección de código XML
@@ -4548,9 +4548,9 @@
   metadata: {}
 "084":
   en:
-    title: MDNS spoofing
+    title: MDNS Spoofing
     description: >
-      The configuration of the mDNS services
+      The configuration of the MDNS services
       allows an attacker
       to spoof IP addresses
       effectively hijacking them
@@ -4573,7 +4573,7 @@
       and can obtain domain users,
       operating systems, among others.
   es:
-    title: Suplantación MDNS
+    title: MDNS Spoofing
     description: >
       Es posible interceptar peticiones
       a los servicios de MDNS
@@ -4735,7 +4735,7 @@
       Unauthenticated user
       from internet.
   es:
-    title: Bloqueo de cuenta
+    title: Bloqueo de cuentas
     description: >
       Es posible bloquear
       las cuentas de los usuarios,
@@ -4783,7 +4783,7 @@
       Attacker from internet,
       unauthenticated in the application.
   es:
-    title: Violación de privacidad
+    title: Infracción de privacidad
     description: >
       El sistema viola una ó más
       requisitos de privacidad.
@@ -4866,7 +4866,7 @@
   metadata: {}
 "090":
   en:
-    title: Code injection (CSV)
+    title: CSV Injection
     description: >
       It is possible to inject formulas
       into fields that are later exported
@@ -4885,7 +4885,7 @@
       causing the risk
       of commands execution.
   es:
-    title: Inyección de código
+    title: Inyección CSV
     description: >
       Es posible inyectar
       fórmulas en los campos
@@ -4939,7 +4939,7 @@
       or in the worst case,
       the system of who is viewing the logs.
   es:
-    title: Inyección de log
+    title: Inyección en logs
     description: >
       Se guardan entradas
       sin validar en los logs del sistema,
@@ -5042,7 +5042,7 @@
       which can not be accessible
       by user.
   es:
-    title: Manipulación de campos ocultos
+    title: Manipulación de campos invisibles
     description: >
       Es posible modificar
       campos invisibles al usuario
@@ -5126,7 +5126,7 @@
   metadata: {}
 "095":
   en:
-    title: AWS EBS Encryption
+    title: Non-encrypted confidential information - AWS EBS
     description: >
       When dealing with sensitive data
       that is crucial to your business,
@@ -5144,7 +5144,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: AWS cifrado EBS
+    title: Ausencia de cifrado de información confidencial - AWS EBS
     description: >
       Al tratar con datos sensibles
       que son críticos para el negocio,
@@ -5251,7 +5251,7 @@
       in the tab where original site was,
       leading to a phishing attack.
   es:
-    title: Tabnabbing inverso
+    title: Reverse tabnabbing
     description: >
       Es posible crear
       un link a un sitio externo
@@ -5300,7 +5300,7 @@
       the storage to destined folders only.
     threat: __empty__
   es:
-    title: Control externo del nombre del archivo o ruta
+    title: Control externo de ruta en guardado de archivo
     description: >
       Se puede modificar la ruta
       donde se almacenará un archivo cargado
@@ -5332,7 +5332,7 @@
   metadata: {}
 "099":
   en:
-    title: AWS S3 Server Side Encryption
+    title: Non-encrypted confidential information - S3 Server Side Encryption
     description: >
       When dealing with sensitive data
       that is crucial to your business,
@@ -5350,7 +5350,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: AWS Cifrado del lado servidor S3
+    title: Ausencia de cifrado de información confidencial - S3 Server Side Encryption
     description: >
       Al tratar con datos sensibles
       que son críticos para el negocio,
@@ -5403,7 +5403,7 @@
       the endpoints accepted for query.
     threat: __empty__
   es:
-    title: Falsificación de solicitud del lado servidor (SSRF)
+    title: Server-side request forgery (SSRF)
     description: >
       El servidor recibe un URL
       o un request similar
@@ -5498,7 +5498,7 @@
       associated or represent an account.
     threat: __empty__
   es:
-    title: Unicidad de correos electrónicos no verificada adecuadamente
+    title: Ausencia de validación de unicidad de correos
     description: >
       Se está haciendo una verificación
       parcial de unicidad de correos electrónicos,
@@ -5602,7 +5602,7 @@
       the risk of malicious code infection.
     threat: __empty__
   es:
-    title: Ataques con unidad USB
+    title: Ataques con memorias USB
     description: >
       Es posible conectar dispositivos USB
       al equipo que permiten infectarlo
@@ -5647,7 +5647,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Inyección de consulta Apache Lucene
+    title: Inyección Apache Lucene query
     description: >
       Se generan sentencias
       Apache Lucene Query dinámicas
@@ -5735,7 +5735,7 @@
       Autenticated attacker
       from the Internet.
   es:
-    title: Inyección de LDAP
+    title: Inyección LDAP
     description: >
       El sistema construye consultas LDAP
       utilizando datos no confiables
@@ -5779,7 +5779,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Control inadecuado de la frecuenica de interacción
+    title: Control inadecuado de frecuenica de interacción
     description: >
       La aplicación no limita
       la cantidad de peticiones
@@ -5897,7 +5897,7 @@
       among the requests coincide each other.
     threat: __empty__
   es:
-    title: Contrabando de solicitud HTTP
+    title: HTTP request smuggling
     description: >
       Es posible enviar
       peticiones HTTP malformadas
@@ -6121,7 +6121,7 @@
   metadata: {}
 "115":
   en:
-    title: Security controls bypass
+    title: Security controls bypass or absence
     description: >
       The system has security controls
       that can be bypassed.
@@ -6129,7 +6129,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Evasión de controles de seguridad
+    title: Ausencia o evasión de controles de seguridad
     description: >
       El sistema tiene controles de seguridad
       que pueden ser evadidos.
@@ -6435,7 +6435,7 @@
       Causing unexpected behaviors
       on the application.
   es:
-    title: Contaminación de parámetros HTTP
+    title: HTTP Parameter Pollution
     description: >
       La aplicación permite
       inyectar parámetros extra
@@ -6491,7 +6491,7 @@
       - Hide important information
       of another emails.
   es:
-    title: Inundación de correo electronico
+    title: Email Flooding
     description: >
       Es posible realizar
       un envío masivo de correos
@@ -6553,7 +6553,7 @@
       of sensitive files stored
       on the server.
   es:
-    title: Inclusión de archivo local - LFI
+    title: Local File Inclusion
     description: >
       La aplicación permite
       leer o ejecutar archivos alojados
@@ -6663,7 +6663,7 @@
       of the files stored
       in the application's directory.
   es:
-    title: Listado de directorio
+    title: Listado de directorios
     description: >
       El sistema permite visualizar
       los archivos almacenados
@@ -6766,7 +6766,7 @@
   metadata: {}
 "128":
   en:
-    title: Insecurely generated cookies - missing HttpOnly
+    title: Insecurely generated cookies - HttpOnly
     description: >
       The application's cookies
       are generated without properly setting
@@ -6783,7 +6783,7 @@
       from internet network
       performing a XSS attack.
   es:
-    title: Cookies generadas de forma insegura - HttpOnly faltante
+    title: Cookies generadas de forma insegura - HttpOnly
     description: >
       La aplicación genera cookies
       sin establecer correctamente
@@ -6817,7 +6817,7 @@
   metadata: {}
 "129":
   en:
-    title: Insecurely generated cookies - SameSite protection
+    title: Insecurely generated cookies - SameSite
     description: >
       The application's cookies
       are generated without properly
@@ -6833,7 +6833,7 @@
       Attacker from internet network
       performing a CSRF attack.
   es:
-    title: Cookies generadas de forma insegura - protección SameSite
+    title: Cookies generadas de forma insegura - SameSite
     description: >
       La aplicación genera cookies
       sin establecer correctamente
@@ -6866,7 +6866,7 @@
   metadata: {}
 "130":
   en:
-    title: Insecurely generated cookies - Secure attribute
+    title: Insecurely generated cookies - Secure
     description: >
       The system does not set
       the Secure attribute
@@ -6886,7 +6886,7 @@
       from adjacent network
       performing a MITM.
   es:
-    title: Cookies generadas de forma insegura - atributo Secure
+    title: Cookies generadas de forma insegura - Secure
     description: >
       El sistema no establece
       el atributo Secure
@@ -7085,7 +7085,7 @@
   metadata: {}
 "134":
   en:
-    title: Insecure service configuration - CORS
+    title: Insecure or Unset HTTP Headers - CORS
     description: >
       The cross-domain policy
       includes wildcards,'
@@ -7101,7 +7101,7 @@
       Unauthorized attacker
       from the Internet.
   es:
-    title: Configuración insegura del servicio - CORS
+    title: Cabeceras HTTP inseguras o no establecidas - CORS
     description: >
       La política entre dominios
       incluye comodines,
