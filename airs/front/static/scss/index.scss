@@ -13,7 +13,7 @@ $light-gray: rgba(249, 249, 249, 1);
 $lighter-gray: rgba(238, 238, 238, 1);
 $near-white: rgba(246, 246, 246, 1);
 $shadow-gray: rgba(176, 176, 176, 0.1);
-$fluid-black: rgba(39, 39, 39, 1);
+$fluid-black: rgba(46, 46, 56, 1);
 $red-255: rgba(255, 52, 53, 1);
 $soft-black: rgba(0, 0, 0, 0.1);
 $soft-gray: rgba(211, 211, 211, 1);
@@ -21,7 +21,6 @@ $white: rgba(255, 255, 255, 1);
 $white-244: rgb(244, 244, 246, 1);
 $white-gray: rgba(230, 228, 228, 1);
 $whiter-gray: rgba(241, 241, 241, 1);
-$black-46: rgba(46, 46, 56, 1);
 $gray-233: rgba(233, 233, 237, 1);
 $gray-244: rgba(244, 244, 246, 1);
 $gray-176: rgba(176, 176, 191, 1);
@@ -143,7 +142,6 @@ $gray-176: rgba(176, 176, 191, 1);
 .bc-fluid-gray { border-color: $fluid-gray; }
 .bc-hovered-red { border-color: $red-255; }
 .bc-gray-233 { border-color: $gray-233; }
-.c-black-46 { color: $black-46; }
 .c-black-gray { color: $black-gray; }
 .c-blue-gray { color: $blue-gray; }
 .c-dkred { color: $button-red; }
@@ -524,7 +522,7 @@ $gray-176: rgba(176, 176, 191, 1);
 
   a {
     border: 1px solid $lighter-gray;
-    color: $black-46;
+    color: $fluid-black;
     display: block;
     float: none;
     padding: 16px 20px;
@@ -539,7 +537,7 @@ $gray-176: rgba(176, 176, 191, 1);
 }
 
 .breadcrumb {
-  background-color: $black-46;
+  background-color: $fluid-black;
   font-family: 'Roboto', sans-serif;
   padding-bottom: 0;
   padding-top: 0;

@@ -165,7 +165,7 @@ const NavbarRegularButton: StyledComponent<
     hv-fluid-rd
     bg-transparent
     pointer
-    c-black-46
+    c-fluid-bk
   `,
 })``;
 
@@ -688,7 +688,7 @@ const SolutionsSubtitle: StyledComponent<
   Record<string, unknown>
 > = styled.h3.attrs({
   className: `
-    c-black-46
+    c-fluid-bk
     f3
     fw6
     mv0
@@ -1422,7 +1422,7 @@ const ListItemLabel: StyledComponent<
     pointer
     hv-fluid-rd
     f3
-    c-black-46
+    c-fluid-bk
     fw4
     t-color-2
     roboto

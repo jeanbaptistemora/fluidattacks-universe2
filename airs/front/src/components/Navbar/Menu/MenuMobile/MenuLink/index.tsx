@@ -11,7 +11,7 @@ const MenuLinkStyles: string = `
   hv-fluid-rd
   db
   f4
-  c-black-46
+  c-fluid-bk
   mv2
   fw4
   no-underline

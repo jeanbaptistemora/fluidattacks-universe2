@@ -38,7 +38,7 @@ const Menu: React.FC = (): JSX.Element => {
       <MenuButton onClick={toggle}>
         <div className={"lower"}>
           <span className={"pointer dib h2-l"} id={"openbtn"}>
-            <FontAwesomeIcon className={"f2 c-black-46"} icon={faBars} />
+            <FontAwesomeIcon className={"f2 c-fluid-bk"} icon={faBars} />
           </span>
         </div>
       </MenuButton>
