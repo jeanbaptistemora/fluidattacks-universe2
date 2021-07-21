@@ -1849,56 +1849,175 @@
 "135":
   en:
     title: Passwords with random salt
-    summary: __empty_
+    summary: >
+      Salt values in passwords
+      must be random
+      and have a minimum length of 48 bits.
     description: __empty__
   es:
     title: Contraseñas con salt aleatorio
-    summary: __empty__
+    summary: >
+      Las derivaciones de clave (Salt),
+      deben ser aleatorias
+      y de mínimo 48 bits.
     description: __empty__
   references: []
   metadata: {}
 "136":
   en:
     title: Force temporary password change
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must force
+      the change of automatically
+      generated temporary passwords
+      after their first use.
+    description: >
+      Temporary passwords
+      are often harder to remember
+      and shared over systems
+      whose future integrity
+      may not be guaranteed
+      by the system that created them.
+      Therefore,
+      users should be forced
+      to change them
+      after their first use.
   es:
     title: Forzar el cambio de contraseñas temporales
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe forzar
+      el cambio de las contraseñas
+      temporales generadas automáticamente
+      después del primer uso.
+    description: >
+      Las contraseñas temporales
+      usualmente son más difíciles
+      de recordar y compartir
+      sobre sistemas cuya futura integridad
+      puede no ser garantizado
+      por el sistema que las creó.
+      Por lo tanto,
+      los usuarios deberían ser forzados
+      a cambiarlas después del primer uso.
   references: []
   metadata: {}
 "137":
   en:
     title: Change temporary passwords of third parties
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must force the change
+      of temporary passwords,
+      which are generated
+      by a third party,
+      after their first use.
+    description: >
+      Temporary passwords
+      are often harder to remember
+      and shared over systems
+      whose future integrity
+      may not be guaranteed
+      by the system that created them.
+      Furthermore,
+      there is no control over
+      who has access to the secret
+      besides the third party.
+      Therefore,
+      the passwords should be changed
+      after their first use.
   es:
     title: Modificar contraseñas temporales de terceros
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe forzar
+      el cambio de contraseñas temporales,
+      las cuales son generadas
+      por un tercero,
+      después del primer uso.
+    description: >
+      Las contraseñas temporales
+      usualmente son más difíciles
+      de recordar y compartir
+      sobre sistemas cuya futura integridad
+      puede no ser garantizado
+      por el sistema que las creó.
+      Además,
+      no hay control sobre
+      quién tiene acceso al secreto
+      aparte del tercero.
+      Por lo tanto,
+      las contraseñas deberían
+      ser cambiadas después
+      del primer uso.
   references: []
   metadata: {}
 "138":
   en:
     title: Define lifespan for temporary passwords
-    summary: __empty_
-    description: __empty__
+    summary: >
+      Temporary passwords
+      for first system login
+      must have a maximum lifespan
+      of 120 minutes.
+    description: >
+      Temporary passwords
+      are often harder to remember
+      and shared over systems
+      whose future integrity
+      may not be guaranteed
+      by the system that created them.
+      Therefore,
+      the system must discard them
+      or make them unusable
+      after 120 minutes.
   es:
     title: Definir un tiempo de duración para contraseñas temporales
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Las contraseñas temporales
+      para el primer acceso
+      deben tener una duración
+      de 120 minutos.
+    description: >
+      Las contraseñas temporales
+      usualmente son más difíciles
+      de recordar y compartir
+      sobre sistemas cuya futura integridad
+      puede no ser garantizado
+      por el sistema que las creó.
+      Por lot
   references: []
   metadata: {}
 "139":
   en:
     title: Set minimum OTP length
-    summary: __empty_
-    description: __empty__
+    summary: >
+      One-time passwords must be
+      at least 6 characters long.
+    description: >
+      One-time passwords (OTP)
+      are secrets used during operations
+      that need added security
+      or as part of user enrollment processes.
+      Despite their short lifespan,
+      they should have a minimum length
+      of 6 characters
+      as a protection against
+      brute force attacks.
   es:
     title: Establecer longitud mínima para OTP
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Las contraseñas de un solo
+      uso deben tener al menos
+      6 caracteres de longitud.
+    description: >
+      Las contraseñas de un solo uso
+      (OTP) son secretas
+      usadas durante operaciones
+      que necesitan seguridad añadida
+      o como parte de procesos de inscripción
+      de usuarios.
+      A pesar de su corta duración,
+      deberían tener una longitud mínima
+      de 6 caracteres como protección
+      contra ataques de fuerza bruta.
   references: []
   metadata: {}
 "140":
