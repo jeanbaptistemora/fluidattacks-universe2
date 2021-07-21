@@ -84,6 +84,12 @@
       secretAccessKey = "SKIMS_PROD_AWS_SECRET_ACCESS_KEY";
     };
   };
+  securePythonWithBandit = {
+    skims = {
+      python = "3.8";
+      target = "/skims/skims";
+    };
+  };
   testTerraform = {
     modules = {
       skims = {

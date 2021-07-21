@@ -183,7 +183,6 @@ skims.config-development
 skims.config-runtime
 skims.config-sdk
 skims.oci-build
-skims.security
 skims.structure
 sorts.bundle
 sorts.config-development

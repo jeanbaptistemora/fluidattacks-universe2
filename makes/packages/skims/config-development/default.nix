@@ -40,7 +40,6 @@ makeTemplate {
   name = "skims-config-development";
   searchPaths = {
     envPaths = [
-      nixpkgs.python38Packages.bandit
       pythonRequirements
     ];
     envPython38Paths = [ pythonRequirements ];

@@ -84,6 +84,11 @@
   <<: *skims_in_dev_branch
   stage: test-infra
 
+/securePythonWithBandit/skims:
+  <<: *makes4
+  <<: *skims_in_dev_branch
+  stage: test-security
+
 /testTerraform/skims:
   <<: *makes4
   <<: *skims_in_dev_branch
@@ -106,11 +111,6 @@ skims.lint:
   <<: *makes
   <<: *skims_in_dev_branch
   stage: lint-code
-
-skims.security:
-  <<: *makes
-  <<: *skims_in_dev_branch
-  stage: test-security
 
 skims.structure:
   <<: *makes
