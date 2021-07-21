@@ -86,7 +86,8 @@ def get_pages(
     async def pages() -> AsyncGenerator[_Data, None]:
         jobs = map(get_page, page_range.pages())
         for item in resolve(jobs, worker_greediness=limits.greediness):
-            yield await item
+            # Exception: WF(AsyncGenerator is subtype of iterator)
+            yield await item  # NOSONAR
 
     loop = asyncio.get_event_loop()
     return _iter_over_async(pages(), loop)

@@ -66,7 +66,8 @@ async def scan_table(
                 result = await table.scan(**scan_params)
                 retries = 0
                 for item in result.get("Items", []):
-                    yield item
+                    # Exception: WF(AsyncGenerator is subtype of iterator)
+                    yield item  # NOSONAR
             except botocore.exceptions.ClientError as exc:
                 if (
                     exc.response["Error"]["Code"]
