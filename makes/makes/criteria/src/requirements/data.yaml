@@ -2465,61 +2465,179 @@
       (puertas traseras).
     description: >
       A veces,
-
+      durante el desarrollo
+      se incluyen funcionalidades
+      distintas de aquellas
+      para las que se diseñó un sistema
+      para ayudar en los procesos
+      de desarrollo y prueba.
+      Estas funciones a menudo
+      representan puertas traseras
+      porque dejan los puertos expuestos
+      o ayudan a eludir los mecanismos
+      de autenticación o autorización.
+      Por lo tanto,
+      no deberían formar parte
+      del entorno de producción,
+      ya que podría convertirse
+      en graves vulnerabilidades
+      de seguridad.
   references: []
   metadata: {}
 "155":
   en:
     title: Application free of malicious code
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The application code
+      must be free of malicious code.
+    description: >
+      There are several ways
+      in which malicious code
+      may be included in an application.
+      It can be imported
+      as part of third party libraries,
+      which may be intentionally
+      malicious or have exploitable
+      vulnerabilities,
+      or it can come as a backdoor
+      left by one of the developers.
+      Therefore,
+      the source code
+      should be audited to guarantee
+      it does not have any backdoors,
+      rootkits, time bombs,
+      logic bombs, etc.
   es:
     title: Aplicación libre de código malicioso
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El código de la aplicación
+      debe estar libre
+      de código malicioso.
+    description: >
+      Hay diferentes maneras
+      en las que el código malicioso
+      puede ser incluido en una aplicación.
+      Puede ser importado como parte
+      de librerías de terceros,
+      las cuales pueden ser intencionalmente
+      maliciosas o tener vulnerabilidades
+      explotables,
+      o puede venir como una puerta trasera
+      dejada por alguno
+      de los desarrolladores.
+      Por lo tanto,
+      el código fuente debería
+      ser auditado para garantizar
+      que no tiene puertas traseras,
+      rootkits, bombas de tiempo,
+      bombas lógicas, etc.
   references: []
   metadata: {}
 "156":
   en:
     title: Source code without sensitive information
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The source code must not contain
+      sensitive information.
+    description: >
+      Sensitive data is often included
+      in the source code
+      during early development stages
+      for practicality
+      or due to a lack
+      of early architecture.
+      This data includes credentials,
+      secrets, cryptographic keys,
+      personal identification numbers
+      and other personal information.
+      Following secure
+      programming practices,
+      none of this information
+      should be present
+      in the source code,
+      as a leak could put
+      critical systems in jeopardy.
   es:
     title: Código fuente sin información sensible
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El código fuente no debe
+      contener información sensible.
+    description: >
+      Datos sensibles a menudo
+      son incluidos en el código fuente
+      durante las etapas tempranas
+      de desarrollo por practicidad
+      o debido a una falta
+      de arquitectura inicial.
+      Estos datos incluyen credenciales,
+      secretos, llaves criptográficas,
+      números de identificación personal,
+      y otra información personal.
+      Siguiendo prácticas de programación
+      seguras, esta información
+      debe estar presente en el código fuente,
+      ya que una fuga podría poner
+      en peligro los sistemas críticos.
   references: []
   metadata: {}
 "157":
   en:
     title: Use the strict mode
-    summary: __empty_
+    summary: >
+      The organization
+      should set its parsers,
+      linters, compilers
+      and interpreters
+      to run in strict mode.
     description: __empty__
   es:
     title: Utilizar el modo estricto
-    summary: __empty__
+    summary: >
+      La organización
+      debería establecer sus parsers,
+      linters, compiladores
+      e intérpretes para ejecutar
+      en modo estricto.
     description: __empty__
   references: []
   metadata: {}
 "158":
   en:
     title: Use a secure programming language
-    summary: __empty_
+    summary: >
+      System source code
+      must be implemented
+      in a stable, updated,
+      tested and free of known
+      vulnerabilities version
+      of the chosen programming language.
     description: __empty__
   es:
     title: Utilizar un lenguaje de programación seguro
-    summary: __empty__
+    summary: >
+      La codificación del sistema
+      debe estar implementada
+      en una versión de un lenguaje
+      de programación estable,
+      actualizada, probada
+      y libre de vulnerabilidades conocidas.
     description: __empty__
   references: []
   metadata: {}
 "159":
   en:
     title: Obfuscate code
-    summary: __empty_
+    summary: >
+      The source code
+      must be obfuscated
+      in production environments.
     description: __empty__
   es:
     title: Ofuscar código
-    summary: __empty__
+    summary: >
+      El código fuente
+      debe estar ofuscado
+      en ambiente de producción.
     description: __empty__
   references: []
   metadata: {}
