@@ -1177,14 +1177,17 @@ async def get_total_reattacks_stats(  # pylint: disable=too-many-locals
     min_date: datetime,
 ) -> Dict[str, int]:
     """Get the total reattacks of all the vulns"""
+    default_date: datetime = datetime_utils.get_from_str(
+        datetime_utils.DEFAULT_STR
+    )
     reattacks_requested: int = 0
     reattacks_executed: int = 0
     reattacks_executed_total: int = 0  # No filtered by date
     pending_attacks: int = 0
     effective_reattacks: int = 0
     effective_reattacks_total: int = 0  # No filtered by date
-    min_requested_date: datetime = datetime_utils.get_now()
-    min_executed_date: datetime = datetime_utils.get_now()
+    min_requested_date: datetime = default_date
+    min_executed_date: datetime = default_date
     finding_vulns_loader = context.finding_vulns_nzr
 
     vulns = await finding_vulns_loader.load_many_chained(
@@ -1197,7 +1200,7 @@ async def get_total_reattacks_stats(  # pylint: disable=too-many-locals
                 vuln.get("last_requested_reattack_date", "")
             )
             # Get oldest reattack request date
-            min_requested_date = min(
+            min_requested_date = max(
                 min_requested_date, last_requested_reattack_date
             )
             if min_date and last_requested_reattack_date >= min_date:
@@ -1211,7 +1214,7 @@ async def get_total_reattacks_stats(  # pylint: disable=too-many-locals
             last_reattack_date = datetime_utils.get_from_str(
                 vuln.get("last_reattack_date", "")
             )
-            min_executed_date = min(min_executed_date, last_reattack_date)
+            min_executed_date = max(min_executed_date, last_reattack_date)
             if min_date and last_reattack_date >= min_date:
                 reattacks_executed += 1
                 if vuln.get("current_state", "") == "closed":
@@ -1223,10 +1226,14 @@ async def get_total_reattacks_stats(  # pylint: disable=too-many-locals
         "effective_reattacks": effective_reattacks,
         "effective_reattacks_total": effective_reattacks_total,
         "reattacks_requested": reattacks_requested,
-        "last_requested_date": datetime_utils.get_as_str(min_requested_date),
+        "last_requested_date": datetime_utils.get_as_str(min_requested_date)
+        if min_requested_date != default_date
+        else "",
         "reattacks_executed": reattacks_executed,
         "reattacks_executed_total": reattacks_executed_total,
-        "last_executed_date": datetime_utils.get_as_str(min_executed_date),
+        "last_executed_date": datetime_utils.get_as_str(min_executed_date)
+        if min_executed_date != default_date
+        else "",
         "pending_attacks": pending_attacks,
     }
 
@@ -1289,7 +1296,7 @@ async def get_oldest_no_treatment_findings(
 
     if new_vulns:
         oldest_new_vuln = sorted(
-            new_vulns, key=itemgetter("new_treatment_date"), reverse=True
+            new_vulns, key=itemgetter("new_treatment_date"), reverse=False
         )[0]
         oldest_finding = next(
             finding
