@@ -67,14 +67,12 @@ def _syntax_step_declaration_danger(args: EvaluatorArgs) -> None:
     prev_step = args.syntax_steps[args.syntax_step_index - 1]
     if (
         isinstance(prev_step, SyntaxStepMethodInvocation)
-        and g.is_connected_to_cfg(args.shard.graph, prev_step.meta.n_id)
-        and not g.is_connected_to_cfg(
-            args.shard.graph, args.syntax_step.meta.n_id
-        )
-        and g.lookup_first_cfg_parent(
-            args.shard.graph, args.syntax_step.meta.n_id
-        )
-        not in g.adj_cfg(args.shard.graph, prev_step.meta.n_id)
+        and args.shard.graph.nodes[
+            g.lookup_first_cfg_parent(
+                args.shard.graph, args.syntax_step.meta.n_id
+            )
+        ]["label_type"]
+        == "function_declaration"
     ):
         # Propagate danger from all the arguments of the called function to
         # the new declarations
@@ -108,14 +106,12 @@ def _syntax_step_declaration_values(args: EvaluatorArgs) -> None:
 
     if (
         isinstance(prev_step, SyntaxStepMethodInvocation)
-        and g.is_connected_to_cfg(args.shard.graph, prev_step.meta.n_id)
-        and not g.is_connected_to_cfg(
-            args.shard.graph, args.syntax_step.meta.n_id
-        )
-        and g.lookup_first_cfg_parent(
-            args.shard.graph, args.syntax_step.meta.n_id
-        )
-        not in g.adj_cfg(args.shard.graph, prev_step.meta.n_id)
+        and args.shard.graph.nodes[
+            g.lookup_first_cfg_parent(
+                args.shard.graph, args.syntax_step.meta.n_id
+            )
+        ]["label_type"]
+        == "function_declaration"
     ):
         # Propagate value from all the arguments of the called function to
         # the new declarations

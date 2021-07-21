@@ -433,23 +433,18 @@ def attempt_go_parse_float(args: EvaluatorArgs) -> bool:
         args.syntax_step.meta.danger = True
         return True
 
-    if args.syntax_step.method == "math.IsNaN":
-        for dep in args.dependencies:
-            if isinstance(dep.meta.value, GoParsedFloat):
-                dep.meta.value.is_nan = False
-                dep.meta.danger = (
-                    dep.meta.value.is_inf or dep.meta.value.is_nan
-                )
-        return True
-
-    if args.syntax_step.method == "math.IsInf":
-        for dep in args.dependencies:
-            if isinstance(dep.meta.value, GoParsedFloat):
-                dep.meta.value.is_inf = False
-                dep.meta.danger = (
-                    dep.meta.value.is_inf or dep.meta.value.is_nan
-                )
-        return True
+    for method, attr in {
+        "math.IsNaN": "is_nan",
+        "math.IsInf": "is_inf",
+    }.items():
+        if args.syntax_step.method == method:
+            for dep in args.dependencies:
+                if isinstance(dep.meta.value, GoParsedFloat):
+                    setattr(dep.meta.value, attr, False)
+                    dep.meta.danger = (
+                        dep.meta.value.is_inf or dep.meta.value.is_nan
+                    )
+            return True
 
     return False
 

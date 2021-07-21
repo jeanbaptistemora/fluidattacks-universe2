@@ -1,6 +1,9 @@
 from copy import (
     deepcopy,
 )
+from itertools import (
+    chain,
+)
 from model import (
     core_model,
     graph_model,
@@ -282,6 +285,58 @@ def get_possible_syntax_steps_from_path(
     return syntax_steps
 
 
+def get_possible_syntax_steps_from_path_str_multiple_files(
+    graph_db: graph_model.GraphDB,
+    finding: core_model.FindingEnum,
+    shard: graph_model.GraphShard,
+    path_str: str,
+) -> graph_model.SyntaxSteps:
+    syntax_steps: graph_model.SyntaxSteps = []
+
+    path_split: List[str] = path_str.split("--")
+    switch_shard_map: Dict[int, str] = {}
+    if len(path_split) > 1:
+        switch_shard_map = {
+            len(path_split[idx - 1].split("-")): val
+            for idx, val in enumerate(path_split)
+            if idx % 2 != 0
+        }
+    path: Tuple[str, ...] = tuple(
+        chain.from_iterable(
+            [
+                val.split("-")
+                for idx, val in enumerate(path_split)
+                if idx % 2 == 0
+            ]
+        )
+    )
+    path_next = padnone(path)
+    next(path_next)
+
+    for idx, (n_id, n_id_next) in enumerate(zip(path, path_next)):
+        if idx in switch_shard_map:
+            shard_idx = graph_db.shards_by_path[switch_shard_map[idx]]
+            shard = graph_db.shards[shard_idx]
+        try:
+            eval_syntax_steps(
+                graph_db=graph_db,
+                finding=finding,
+                overriden_syntax_steps=[],
+                shard=shard,
+                syntax_steps=syntax_steps,
+                n_id=n_id,
+                n_id_next=n_id_next,
+                current_instance=None,
+            )
+        except ImpossiblePath:
+            return []
+        except StopEvaluation as exc:
+            log_exception_blocking("debug", exc)
+            return syntax_steps
+
+    return syntax_steps
+
+
 PossibleSyntaxStepsForUntrustedNId = Dict[str, graph_model.SyntaxSteps]
 PossibleSyntaxStepsForFinding = Dict[str, PossibleSyntaxStepsForUntrustedNId]
 PossibleSyntaxSteps = Dict[str, PossibleSyntaxStepsForFinding]
@@ -342,7 +397,7 @@ def get_possible_syntax_steps_from_multiple_go_files(
     }
 
     # Calculate the paths that the CFG follows
-    branches = {
+    paths = tuple(
         "-".join(path + (f"-{graph_db.shards[shard_idx].path}-",) + ext_path)
         for c_id, (shard_idx, fn) in methods_called.items()
         for path in g.paths(graph, cfg_p_id, c_id, label_cfg="CFG")
@@ -352,8 +407,16 @@ def get_possible_syntax_steps_from_multiple_go_files(
             fn.s_id,
             label_cfg="CFG",
         )
+    )
+    return {
+        path: get_possible_syntax_steps_from_path_str_multiple_files(
+            graph_db,
+            finding=finding,
+            shard=shard,
+            path_str=path,
+        )
+        for path in paths
     }
-    return {branch: [] for branch in branches}
 
 
 def get_possible_syntax_steps_for_n_id(
