@@ -282,7 +282,9 @@
               "n_id": "2007",
               "value": {
                 "is_inf": true,
-                "is_nan": true
+                "is_nan": true,
+                "method_n_id": "2007",
+                "shard_idx": 1
               }
             },
             "method": "strconv.ParseFloat",
@@ -295,7 +297,9 @@
               "n_id": "2004",
               "value": {
                 "is_inf": true,
-                "is_nan": true
+                "is_nan": true,
+                "method_n_id": "2007",
+                "shard_idx": 1
               }
             },
             "modifiers": null,
@@ -316,12 +320,14 @@
           },
           {
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": 0,
               "n_id": "2029",
               "value": {
                 "is_inf": true,
-                "is_nan": true
+                "is_nan": true,
+                "method_n_id": "2007",
+                "shard_idx": 1
               }
             },
             "symbol": "amount",
@@ -332,7 +338,7 @@
               "fields": {}
             },
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -2,
               "n_id": "2020",
               "value": null
@@ -395,7 +401,9 @@
               "n_id": "2055",
               "value": {
                 "is_inf": true,
-                "is_nan": true
+                "is_nan": true,
+                "method_n_id": "2055",
+                "shard_idx": 1
               }
             },
             "method": "strconv.ParseFloat",
@@ -408,7 +416,9 @@
               "n_id": "2052",
               "value": {
                 "is_inf": true,
-                "is_nan": true
+                "is_nan": true,
+                "method_n_id": "2055",
+                "shard_idx": 1
               }
             },
             "modifiers": null,
@@ -434,7 +444,9 @@
               "n_id": "2074",
               "value": {
                 "is_inf": true,
-                "is_nan": true
+                "is_nan": true,
+                "method_n_id": "2055",
+                "shard_idx": 1
               }
             },
             "symbol": "amount",
@@ -483,7 +495,9 @@
               "n_id": "2251",
               "value": {
                 "is_inf": true,
-                "is_nan": true
+                "is_nan": true,
+                "method_n_id": "2055",
+                "shard_idx": 1
               }
             },
             "modifiers": [],
@@ -535,12 +549,14 @@
           },
           {
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": 0,
               "n_id": "2272",
               "value": {
                 "is_inf": true,
-                "is_nan": true
+                "is_nan": true,
+                "method_n_id": "2055",
+                "shard_idx": 1
               }
             },
             "symbol": "amount",
@@ -561,7 +577,7 @@
               "fields": {}
             },
             "meta": {
-              "danger": true,
+              "danger": false,
               "dependencies": -4,
               "n_id": "2261",
               "value": null
@@ -624,7 +640,9 @@
               "n_id": "2102",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2102",
+                "shard_idx": 1
               }
             },
             "method": "strconv.ParseFloat",
@@ -637,7 +655,9 @@
               "n_id": "2099",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2102",
+                "shard_idx": 1
               }
             },
             "modifiers": null,
@@ -652,7 +672,9 @@
               "n_id": "2135",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2102",
+                "shard_idx": 1
               }
             },
             "symbol": "amount",
@@ -689,7 +711,9 @@
               "n_id": "2125",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2102",
+                "shard_idx": 1
               }
             },
             "symbol": "amount",
@@ -776,7 +800,9 @@
               "n_id": "2157",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2102",
+                "shard_idx": 1
               }
             },
             "symbol": "amount",
@@ -848,7 +874,9 @@
               "n_id": "2102",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2102",
+                "shard_idx": 1
               }
             },
             "method": "strconv.ParseFloat",
@@ -861,7 +889,9 @@
               "n_id": "2099",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2102",
+                "shard_idx": 1
               }
             },
             "modifiers": null,
@@ -876,7 +906,9 @@
               "n_id": "2135",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2102",
+                "shard_idx": 1
               }
             },
             "symbol": "amount",
@@ -913,7 +945,9 @@
               "n_id": "2125",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2102",
+                "shard_idx": 1
               }
             },
             "symbol": "amount",
@@ -971,7 +1005,9 @@
               "n_id": "2157",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2102",
+                "shard_idx": 1
               }
             },
             "symbol": "amount",
@@ -1045,7 +1081,9 @@
               "n_id": "2183",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2183",
+                "shard_idx": 1
               }
             },
             "method": "strconv.ParseFloat",
@@ -1058,7 +1096,9 @@
               "n_id": "2180",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2183",
+                "shard_idx": 1
               }
             },
             "modifiers": null,
@@ -1073,7 +1113,9 @@
               "n_id": "2216",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2183",
+                "shard_idx": 1
               }
             },
             "symbol": "amount",
@@ -1110,7 +1152,9 @@
               "n_id": "2206",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2183",
+                "shard_idx": 1
               }
             },
             "symbol": "amount",
@@ -1197,7 +1241,9 @@
               "n_id": "2235",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2183",
+                "shard_idx": 1
               }
             },
             "symbol": "amount",
@@ -1246,7 +1292,9 @@
               "n_id": "2251",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2183",
+                "shard_idx": 1
               }
             },
             "modifiers": [],
@@ -1303,7 +1351,9 @@
               "n_id": "2272",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2183",
+                "shard_idx": 1
               }
             },
             "symbol": "amount",
@@ -1385,7 +1435,9 @@
               "n_id": "2183",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2183",
+                "shard_idx": 1
               }
             },
             "method": "strconv.ParseFloat",
@@ -1398,7 +1450,9 @@
               "n_id": "2180",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2183",
+                "shard_idx": 1
               }
             },
             "modifiers": null,
@@ -1413,7 +1467,9 @@
               "n_id": "2216",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2183",
+                "shard_idx": 1
               }
             },
             "symbol": "amount",
@@ -1450,7 +1506,9 @@
               "n_id": "2206",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2183",
+                "shard_idx": 1
               }
             },
             "symbol": "amount",
@@ -1508,7 +1566,9 @@
               "n_id": "2235",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2183",
+                "shard_idx": 1
               }
             },
             "symbol": "amount",
@@ -1557,7 +1617,9 @@
               "n_id": "2251",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2183",
+                "shard_idx": 1
               }
             },
             "modifiers": [],
@@ -1614,7 +1676,9 @@
               "n_id": "2272",
               "value": {
                 "is_inf": false,
-                "is_nan": false
+                "is_nan": false,
+                "method_n_id": "2183",
+                "shard_idx": 1
               }
             },
             "symbol": "amount",

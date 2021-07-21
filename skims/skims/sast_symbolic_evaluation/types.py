@@ -74,6 +74,8 @@ Evaluator = Callable[[EvaluatorArgs], None]
 class GoParsedFloat:
     is_inf: bool = True
     is_nan: bool = True
+    method_n_id: str = ""
+    shard_idx: Optional[int] = None
 
 
 # Java

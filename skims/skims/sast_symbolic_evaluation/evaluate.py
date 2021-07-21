@@ -293,6 +293,9 @@ def get_possible_syntax_steps_from_path_str_multiple_files(
 ) -> graph_model.SyntaxSteps:
     syntax_steps: graph_model.SyntaxSteps = []
 
+    # The paths have syntax 'node-node-node--shard--node-node...'
+    # Split the syntax to know which nodes and which shard we are currently
+    # interested in
     path_split: List[str] = path_str.split("--")
     switch_shard_map: Dict[int, str] = {}
     if len(path_split) > 1:
