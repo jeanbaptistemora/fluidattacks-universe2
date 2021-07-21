@@ -1769,44 +1769,80 @@
 "131":
   en:
     title: Deny multiple password changing attempts
-    summary: __empty_
+    summary: >
+      Passwords are not allowed
+      to be changed more than once
+      in the same day.
     description: __empty__
   es:
     title: Denegar múltiples intentos de cambio de contraseña
-    summary: __empty__
+    summary: >
+      No debe ser permitido
+      que las contraseñas
+      sean modificadas más de una vez
+      el mismo día.
     description: __empty__
   references: []
   metadata: {}
 "132":
   en:
     title: Passphrases with at least 4 words
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must require passphrases
+      to be at least 4 words long
+      and allow them to have
+      64 characters or more.
+    description: >
+      Passwords are identity
+      assertion elements
+      that can be easily forgotten.
+      Passphrases are sequences of words
+      that are longer than passwords
+      but are also easier to remember.
+      Thus,
+      systems should enforce
+      the use of passphrases
+      at least 4 words long
+      and allow them to have
+      64 characters or more.
   es:
     title: Frase de contraseña con al menos 4 palabras
-    summary: __empty__
+    summary: > 
+      Las contraseñas (tipo frase)
+      deben tener al menos 3 palabras
+      de longitud.
     description: __empty__
   references: []
   metadata: {}
 "133":
   en:
     title: Passwords with at least 20 characters
-    summary: __empty_
+    summary: >
+      System passwords must be at least
+      20 characters long.
     description: __empty__
   es:
     title: Contraseñas con al menos 20 caracteres
-    summary: __empty__
+    summary: >
+      Las contraseñas del sistema
+      deben tener al menos 20 caracteres.
     description: __empty__
   references: []
   metadata: {}
 "134":
   en:
     title: Store passwords with salt
-    summary: __empty_
+    summary: >
+      The system must store
+      passwords with different
+      key derivations (Salt).
     description: __empty__
   es:
     title: Almacenar contraseñas con salt
-    summary: __empty__
+    summary: >
+      El sistema debe almacenar
+      las contraseñas con diferentes
+      derivaciones de clave (Salt).
     description: __empty__
   references: []
   metadata: {}
