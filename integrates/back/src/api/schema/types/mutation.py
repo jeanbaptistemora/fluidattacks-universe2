@@ -42,6 +42,7 @@ from api.mutations import (
     reject_draft,
     reject_draft_new,
     reject_zero_risk_vulnerabilities,
+    reject_zero_risk_vulnerabilities_new,
     remove_event_evidence,
     remove_files,
     remove_finding,
@@ -128,9 +129,6 @@ MUTATION.set_field(
     handle_finding_policy_acceptation.mutate,
 )
 MUTATION.set_field("invalidateCache", invalidate_cache.mutate)
-MUTATION.set_field(
-    "rejectZeroRiskVuln", reject_zero_risk_vulnerabilities.mutate
-)
 MUTATION.set_field("removeEventEvidence", remove_event_evidence.mutate)
 MUTATION.set_field(
     "removeStakeholderOrganizationAccess",
@@ -223,6 +221,9 @@ if FI_API_STATUS == "migration":
     MUTATION.set_field("deleteFinding", remove_finding_new.mutate)
     MUTATION.set_field("removeFinding", remove_finding_new.mutate)
     MUTATION.set_field("rejectDraft", reject_draft_new.mutate)
+    MUTATION.set_field(
+        "rejectZeroRiskVuln", reject_zero_risk_vulnerabilities_new.mutate
+    )
     MUTATION.set_field("removeEvidence", remove_finding_evidence_new.mutate)
     MUTATION.set_field(
         "requestVerificationVuln",
@@ -248,6 +249,9 @@ else:
     MUTATION.set_field("deleteFinding", remove_finding.mutate)
     MUTATION.set_field("removeFinding", remove_finding.mutate)
     MUTATION.set_field("rejectDraft", reject_draft.mutate)
+    MUTATION.set_field(
+        "rejectZeroRiskVuln", reject_zero_risk_vulnerabilities.mutate
+    )
     MUTATION.set_field("removeEvidence", remove_finding_evidence.mutate)
     MUTATION.set_field(
         "requestVerificationVuln", request_verification_vulnerability.mutate
