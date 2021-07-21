@@ -12,7 +12,7 @@ function start_etl {
     && echo "${analytics_auth_redshift}" > "${db_creds}" \
     && gitlab-etl \
       'gitlab-ci' \
-      'autonomicmind/challenges' \
+      'autonomicjump/challenges' \
       's3://observes.state/gitlab_etl/challenges_state.json' \
       "${AUTONOMIC_API_TOKEN}" \
       "${db_creds}"
