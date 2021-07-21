@@ -185,12 +185,12 @@
     <div class="numbers">
       {%- if groups_len > 1 %}
         <div>
-          <h3>{{ remediation_rate['max'] }}%</h3>
-          <p><strong>{{ remediation_rate['max_group'] }}</strong> has the <strong>maximum</strong> remediation rate</p>
-        </div>
-        <div>
           <h3>{{ remediation_rate['min'] }}%</h3>
           <p><strong>{{ remediation_rate['min_group'] }}</strong> has the <strong>minimum</strong> remediation rate</p>
+        </div>
+        <div>
+          <h3>{{ remediation_rate['max'] }}%</h3>
+          <p><strong>{{ remediation_rate['max_group'] }}</strong> has the <strong>maximum</strong> remediation rate</p>
         </div>
         <div>
           <h3>{{ remediation_time['max'] }}</h3>
