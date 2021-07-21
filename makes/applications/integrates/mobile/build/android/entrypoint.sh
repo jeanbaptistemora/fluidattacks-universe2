@@ -12,6 +12,7 @@ function main {
     -XX:+UseG1GC
   "
   export TURTLE_ANDROID_DEPENDENCIES_DIR="${HOME}/.turtle/androidDependencies"
+  export TURTLE_WORKING_DIR_PATH="${HOME}/.turtle/workingdir"
   export GRADLE_OPTS="
     -Dorg.gradle.configureondemand=true
     -Dorg.gradle.daemon=false
@@ -25,6 +26,8 @@ function main {
     EXPO_USER
     GOOGLE_SERVICES_APP
   )
+  local linked_deps=()
+  local shell_app_path="${TURTLE_WORKING_DIR_PATH}/android/sdk41/"
 
   if has_any_file_changed \
     'integrates/mobile/app.json' \
@@ -58,6 +61,19 @@ function main {
       && echo '[INFO] Downloading shell app...' \
       && npx --no-install turtle setup:android \
         --sdk-version 41.0.0 \
+      && echo '[INFO] Linking native deps...' \
+      && cp ./shell/react-native.config.js "${shell_app_path}" \
+      && pushd "${shell_app_path}" \
+      && npm install --save-exact \
+        yarn@1.22.10 \
+        @react-native-community/cli@5.0.1 \
+        "${linked_deps[@]}" \
+      && npm install \
+      && for dep in "${linked_deps[@]}"; do
+        npx react-native link "${dep}" \
+          || return 1
+      done \
+      && popd \
       && echo '[INFO] Building Android app...' \
       && npx --no-install turtle build:android \
         --username "${EXPO_USER}" \
