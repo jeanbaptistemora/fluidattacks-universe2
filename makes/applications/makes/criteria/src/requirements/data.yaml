@@ -2186,55 +2186,143 @@
 "145":
   en:
     title: Protect system cryptographic keys
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system's private asymmetric
+      or symmetric keys
+      must be protected
+      and should not be exposed.
+    description: >
+      The system's cryptographic keys
+      are essential for maintaining
+      the confidentiality
+      and integrity of transactions
+      and communications.
+      Their exposure may cause
+      business information leakages,
+      loss of data integrity
+      and loss of trust
+      due to the inability
+      to differentiate server
+      traffic from malicious traffic.
+      Therefore,
+      these keys must be protected
+      and managed following
+      industry-verified standards.
   es:
     title: Proteger llaves criptográficas del sistema
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Las llaves asimétricas privadas
+      o simétricas del sistema
+      deben estar protegidas
+      y no deben ser expuestas.
+    description: >
+      Las claves criptográficas
+      del sistema son esenciales
+      para mantener la confidencialidad
+      e integridad de las transacciones
+      y comunicaciones.
+      Su exposición puede provocar
+      fugas de información empresarial,
+      pérdida de la integridad de las datos
+      y pérdida de confianza debido
+      a la incapacidad de diferenciar
+      el tráfico del servidor
+      del tráfico malicioso.
+      Por lo tanto,
+      estas claves deben protegerse
+      y administrarse siguiendo estándares
+      verificados por la industria.
   references: []
   metadata: {}
 "146":
   en:
     title: Remove cryptographic keys from RAM
-    summary: __empty_
+    summary: >
+      Cryptographic keys
+      should not remain in RAM
+      for more than 5 seconds.
     description: __empty__
   es:
     title: Eliminar llaves criptográficas de la memoria RAM
-    summary: __empty__
+    summary: >
+      Las llaves criptográficas
+      no deberían permanecer
+      en la memoria RAM por más
+      de 5 segundos. 
     description: __empty__
   references: []
   metadata: {}
 "147":
   en:
     title: Use pre-existent mechanisms
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system's cryptographic functions
+      must be implemented
+      with pre-existing
+      and up-to-date cryptographic mechanisms.
+    description: >
+      The system's cryptographic functions
+      are essential for maintaining
+      the confidentiality
+      and integrity of transactions
+      and communications.
+      Therefore,
+      these functions must be based on
+      pre-existent, tested, approved
+      and secure mechanisms.
   es:
     title: Utilizar mecanismos pre-existentes
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Las funciones criptográficas
+      del sistema debe ser implementado
+      con mecanismos criptográficos
+      pre-existentes y actualizados.
+    description: >
+      Las funciones criptográficos
+      del sistema son esenciales
+      para mantener la confidencialidad
+      y la integridad de las transacciones
+      y comunicaciones.
+      Por lo tanto,
+      estas funciones deben estar
+      basados en mecanismos seguros
+      pre-existentes, probados,
+      y aprovados.
   references: []
   metadata: {}
 "148":
   en:
     title: Set minimum size of asymmetric encryption
-    summary: __empty_
+    summary: >
+      The asymmetric encryption mechanism
+      must use a minimum key size
+      of 2048 bits.
     description: __empty__
   es:
     title: Establecer un tamano mínimo de cifrado asimetrico
-    summary: __empty__
+    summary: >
+      Debe utilizarse
+      como mecanismo de cifrado asimétrico
+      un tamaño de clave mínimo
+      de 2048 bits.
     description: __empty__
   references: []
   metadata: {}
 "149":
   en:
     title: Set minimum size of symmetric encryption
-    summary: __empty_
+    summary: >
+      The symmetric encryption mechanism
+      must use a minimum key size
+      of 128 bits.
     description: __empty__
   es:
     title: Establecer un tamano mínimo de cifrado simétrico
-    summary: __empty__
+    summary: >
+      Debe utilizarse como mecanismo
+      de cifrado simétrico
+      un tamaño de clave mínimo
+      de 128 bits.
     description: __empty__
   references: []
   metadata: {}
