@@ -102,14 +102,14 @@ async def mutate(
         else:
             logs_utils.cloudwatch_log(
                 info.context,
-                f"Security: Attempted to delete file from {finding.group_name}"
+                f"Security: Attempted to upload file in {finding.group_name}"
                 " group",
             )
             raise ErrorUploadingFileS3()
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Attempted to delete file from {finding.group_name} "
+            f"Security: Attempted to upload file in {finding.group_name} "
             "group",
         )
         raise
