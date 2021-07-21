@@ -15,6 +15,7 @@
   imports = [
     ./ci/makes.nix
     ./compute/makes.nix
+    ./criteria/makes.nix
     ./dns/makes.nix
     ./foss/makes.nix
     ./secrets/makes.nix

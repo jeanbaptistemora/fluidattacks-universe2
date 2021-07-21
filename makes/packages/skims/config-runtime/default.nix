@@ -106,8 +106,8 @@ makeTemplate {
       packages.makes.python.safe-pickle
       (makeTemplate {
         arguments = {
-          envCriteriaRequirements = path "/makes/applications/makes/criteria/src/requirements/data.yaml";
-          envCriteriaVulnerabilities = path "/makes/applications/makes/criteria/src/vulnerabilities/data.yaml";
+          envCriteriaRequirements = path "/makes/makes/criteria/src/requirements/data.yaml";
+          envCriteriaVulnerabilities = path "/makes/makes/criteria/src/vulnerabilities/data.yaml";
           envSkimsProcessGroupOnAws = applications.skims.process-group-on-aws;
           envSrcSkimsStatic = path "/skims/static";
           envSrcSkimsVendor = path "/skims/vendor";

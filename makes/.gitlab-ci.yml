@@ -110,6 +110,21 @@ makes.ci.config:
   <<: *makes_in_dev_branch
   stage: lint-code
 
+/lintWithAjv/makes/criteria/compliance:
+  <<: *makes4
+  <<: *makes_in_dev_branch
+  stage: lint-code
+
+/lintWithAjv/makes/criteria/requirements:
+  <<: *makes4
+  <<: *makes_in_dev_branch
+  stage: lint-code
+
+/lintWithAjv/makes/criteria/vulnerabilities:
+  <<: *makes4
+  <<: *makes_in_dev_branch
+  stage: lint-code
+
 /testTerraform/makesCi:
   <<: *makes4
   <<: *makes_in_dev_branch
@@ -144,11 +159,6 @@ makes.k8s.test:
   <<: *makes
   <<: *makes_in_dev_branch
   stage: test-infra
-
-makes.lint.criteria:
-  <<: *makes
-  <<: *makes_in_dev_branch
-  stage: lint-code
 
 makes.okta.apply:
   <<: *makes
