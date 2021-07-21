@@ -1323,66 +1323,153 @@
 "093":
   en:
     title: Use consistent certificates
-    summary: __empty__
+    summary: >
+      The system must use
+      digital certificates
+      with a consistent identification
+      of the associated organization
+      (service, server, etc.).
     description: __empty__
   es:
     title: Utilizar certificados consistentes
-    summary: __empty__
+    summary: >
+      Debe utilizarse certificados
+      con una identificación coherente
+      con la organización (servicio, servidor,
+      entre otros) a la cual
+      se encuentra asociado.
     description: __empty__
   references: []
   metadata: {}
 "095":
   en:
     title: Define users with privileges
-    summary: __empty__
-    description: __empty__
+    summary: >
+      The users that will access
+      the system with administrator
+      or root privileges
+      must be defined.
+    description: >
+      Systems should have
+      a set of roles with
+      different levels of privilege
+      to access resources.
+      The privileges of each role
+      must be clearly defined
+      and the role of each user
+      should also be clearly stated.
+      That includes the set
+      of users that will have
+      administrator or root privileges,
+      as this should not be
+      a default role.
   es:
     title: Definir usuarios con privilegios
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe definir
+      los usuarios que tendrán acceso
+      con privilegios root
+      o de administrador.
+    description: >
+      Los sistemas deberían tener
+      un conjunto de roles con
+      diferentes niveles de privilegio
+      para acceder a los recursos.
+      Los privilegios de cada rol
+      deben ser claramente definidos
+      y el rol de cada usuario
+      debería estar claramente establecido.
+      Eso incluye el conjunto de usuarios
+      que tendrán privilegios de root
+      o administrador,
+      ya que este no debería ser
+      un rol predeterminado.
   references: []
   metadata: {}
 "096":
   en:
     title: Set users' required privileges
-    summary: __empty__
-    description: __empty__
+    summary: >
+      The privileges required
+      by the users who will access
+      the system must be defined.
+    description: >
+      Systems should have
+      a set of roles
+      with different levels of privilege
+      to access resources.
+      The privileges of each role
+      must be clearly defined
+      and the role of each user
+      should also be clearly stated.
   es:
     title: Establecer privilegios requeridos por el usuario
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe definir
+      los permisos requeridos
+      por los usuarios.
+    description: >
+      Los sistemas deberían tener
+      un conjunto de roles
+      con diferentes niveles de privilegio
+      para acceder a los recursos.
+      Los privilegios de cada rol
+      debe estar claramente definido
+      y el rol de cada usuario
+      debería también estar
+      claramente establecido.
   references: []
   metadata: {}
 "114":
   en:
     title: Deny access with inactive credentials
-    summary: __empty__
+    summary: >
+      The system must not allow users
+      to authenticate with expired,
+      revoked or blocked credentials.
     description: __empty__
   es:
     title: Denegar acceso con credenciales inactivas
-    summary: __empty__
+    summary: >
+      El sistema no debe permitir
+      a los usuarios autenticarse
+      con credenciales caducadas,
+      revocadas o bloqueadas.
     description: __empty__
   references: []
   metadata: {}
 "115":
   en:
     title: Filter malicious emails
-    summary: __empty__
+    summary: >
+      All incoming and outgoing emails
+      must be checked
+      with an anti-spam filter.
     description: __empty__
   es:
     title: Filtrar correos electrónicos maliciosos
-    summary: __empty__
+    summary: >
+      Todos los correos entrantes
+      y salientes deben pasar
+      por un filtro anti-spam.
     description: __empty__
   references: []
   metadata: {}
 "116":
   en:
     title: Disable images of unknown origin
-    summary: __empty__
+    summary: >
+      The corporate email client
+      must not display,
+      by default,
+      images whose origin is unknown.
     description: __empty__
   es:
     title: Deshabilitar imágenes con origen desconocido
-    summary: __empty__
+    summary: >
+      El cliente del correo empresarial
+      no debe mostrar por defecto imágenes
+      cuyo origen sea desconocido.
     description: __empty__
   references: []
   metadata: {}
