@@ -2,6 +2,7 @@ from dal.model import (
     PullRequest,
     TestData,
 )
+import os
 from pygit2 import (
     GitError,
     Repository,
@@ -106,7 +107,13 @@ def pr_message_syntax(*, data: TestData) -> bool:
     pr_commit_msg: str = (
         f"{data.pull_request.title}\n\n{data.pull_request.description}"
     )
-    command: List[str] = ["commitlint"]
+    command: List[str] = [
+        "commitlint",
+        "--parser-preset",
+        os.path.abspath(data.config["parser"]),
+        "--config",
+        os.path.abspath(data.config["config"]),
+    ]
     proc: Any = subprocess.run(
         command, input=pr_commit_msg, encoding="ascii", check=False
     )
