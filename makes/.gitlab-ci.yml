@@ -65,6 +65,11 @@
   <<: *makes_in_master_branch
   stage: deploy-infra
 
+/deployTerraform/makesDns:
+  <<: *makes4
+  <<: *makes_in_master_branch
+  stage: deploy-infra
+
 /deployTerraform/makesFoss:
   <<: *makes4
   <<: *makes_in_master_branch
@@ -85,6 +90,11 @@ makes.ci.config:
   <<: *makes_in_dev_branch
   stage: lint-code
 
+/lintTerraform/makesDns:
+  <<: *makes4
+  <<: *makes_in_dev_branch
+  stage: lint-code
+
 /lintTerraform/makesFoss:
   <<: *makes4
   <<: *makes_in_dev_branch
@@ -100,18 +110,13 @@ makes.ci.config:
   <<: *makes_in_dev_branch
   stage: test-infra
 
-/testTerraform/makesFoss:
+/testTerraform/makesDns:
   <<: *makes4
   <<: *makes_in_dev_branch
   stage: test-infra
 
-makes.dns.apply:
-  <<: *makes
-  <<: *makes_in_master_branch
-  stage: deploy-infra
-
-makes.dns.test:
-  <<: *makes
+/testTerraform/makesFoss:
+  <<: *makes4
   <<: *makes_in_dev_branch
   stage: test-infra
 

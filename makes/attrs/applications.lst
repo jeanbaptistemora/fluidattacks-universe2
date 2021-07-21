@@ -63,8 +63,6 @@ integrates.web.e2e
 makes.announce.bugsnag
 makes.attrs
 makes.ci.config
-makes.dns.apply
-makes.dns.test
 makes.done
 makes.k8s.apply
 makes.k8s.test
