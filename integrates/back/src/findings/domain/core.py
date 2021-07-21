@@ -1070,8 +1070,8 @@ async def validate_finding(
 ) -> bool:
     """Validate if a finding is not deleted."""
     if not finding:
-        finding = await findings_dal.get_finding(str(finding_id))
-    return not is_deleted(finding)
+        non_optional_finding = await findings_dal.get_finding(str(finding_id))
+    return not is_deleted(finding if finding else non_optional_finding)
 
 
 async def verify_vulnerabilities(  # pylint: disable=too-many-locals

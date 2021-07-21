@@ -426,7 +426,8 @@ export const enTranslations: ResourceKey = {
         reattack: "Pending reattack:",
         title: "Description",
         value: "{{count}} day ago",
-        valuePlural: "{{count}} days ago",
+        // eslint-disable-next-line camelcase -- It is required for react-i18next
+        value_plural: "{{count}} days ago",
       },
       evidence: {
         edit: "Edit",
@@ -2083,19 +2084,11 @@ export const enTranslations: ResourceKey = {
         text: "Add",
         tooltip: "Add a user to this group",
       },
-      daysAgo: "{{count}} day ago",
-      daysAgoPlural: "{{count}} days ago",
       editButton: {
         text: "Edit",
         tooltip: "Select a user and edit their information",
       },
       editStakeholderTitle: "Edit stakeholder information",
-      hoursAgo: "{{count}} hour ago",
-      hoursAgoPlural: "{{count}} hours ago",
-      minutesAgo: "{{count}} minute ago",
-      minutesAgoPlural: "{{count}} minutes ago",
-      monthsAgo: "{{count}} month ago",
-      monthsAgoPlural: "{{count}} months ago",
       noSelection: "You must select an email from the table.",
       removeUserButton: {
         text: "Remove",
@@ -2116,7 +2109,8 @@ export const enTranslations: ResourceKey = {
         acceptationSuccess: "Indefinite acceptation has been handled",
         hasNewVulns:
           "The treatment is set as new, please select a treatment for the vulnerability.",
-        hasNewVulnsPlural:
+        // eslint-disable-next-line camelcase -- It is required for react-i18next
+        hasNewVulns_plural:
           "The treatment on one or more vulnerabilities is set as new, please select a treatment for the vulnerabilities.",
         maximumNumberOfAcceptations:
           "Vulnerability has been accepted the maximum number of times allowed by the organization",

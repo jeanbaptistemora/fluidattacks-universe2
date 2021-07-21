@@ -1,10 +1,10 @@
 # Starlette charts views
-
-
 from analytics import (
     domain as analytics_domain,
 )
-import app.utils as utils
+from app import (
+    utils,
+)
 from newutils import (
     token as token_utils,
 )
