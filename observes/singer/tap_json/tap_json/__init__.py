@@ -52,16 +52,6 @@ def emit(msg: str) -> None:
     print(msg)
 
 
-def is_list(stru: STRU) -> bool:
-    """Return True if stru is list."""
-    return isinstance(stru, list)
-
-
-def is_dict(stru: STRU) -> bool:
-    """Return True if stru is dict."""
-    return isinstance(stru, dict)
-
-
 def is_base(stru: STRU) -> bool:
     primitives = (
         str,
@@ -74,7 +64,7 @@ def is_base(stru: STRU) -> bool:
 
 def is_stru(stru: STRU) -> bool:
     """Return True if stru is a Structura."""
-    return any((f(stru) for f in (is_base, is_list, is_dict)))
+    return is_base(stru) or isinstance(stru, (list, dict))
 
 
 def is_timestamp(stru: STRU) -> bool:
@@ -180,12 +170,12 @@ def linearize__simplify(stru: STRU) -> STRU:
     """
     if is_base(stru):
         return stru
-    if is_list(stru):
+    if isinstance(stru, list):
         return list(map(linearize__simplify, list(filter(is_stru, stru))))
-    if is_dict(stru):
+    if isinstance(stru, dict):
         new_stru = dict()
         for key, val in stru.items():
-            if is_dict(val):
+            if isinstance(val, dict):
                 for nkey, nval in val.items():
                     if is_stru(nval):
                         nkey_name = (
@@ -204,21 +194,21 @@ def linearize__deconstruct(table: str, stru: STRU, ids: Any) -> STRU:
     if is_base(stru):
         ids = [] if ids is None else ids
         linearize__deconstruct(table=table, stru=[stru], ids=ids)
-    elif is_list(stru):
+    elif isinstance(stru, list):
         len_stru = len(stru)
         for index, nstru in enumerate(stru):
-            mstru = nstru if is_dict(nstru) else {"val": nstru}
+            mstru = nstru if isinstance(nstru, dict) else {"val": nstru}
             for lvl, this_id in enumerate(ids):
                 mstru[f"sid{lvl}"] = this_id
                 mstru["forward_index"] = index
                 mstru["backward_index"] = len_stru - 1 - index
             linearize__deconstruct(table=table, ids=ids, stru=mstru)
-    elif is_dict(stru):
+    elif isinstance(stru, dict):
         record = {}
         for nkey, nstru in stru.items():
             if is_base(nstru):
                 record[nkey] = nstru
-            elif is_list(nstru):
+            elif isinstance(nstru, list):
                 nid = os.urandom(256).hex()
                 ntable = f"{table}{TABLE_SEP}{nkey}"
                 ntable_ids = [nid] if ids is None else ids + [nid]
