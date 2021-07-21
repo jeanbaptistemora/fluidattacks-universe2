@@ -190,7 +190,7 @@ const requestZeroRiskHelper = (
   handleCloseModal: () => void,
   requestZeroRiskVulnResult: IRequestZeroRiskVulnResultAttr
 ): void => {
-  if (requestZeroRiskVulnResult.requestZeroRiskVuln.success) {
+  if (requestZeroRiskVulnResult.requestZeroRiskVulnerabilities.success) {
     msgSuccess(
       translate.t("groupAlerts.requestedZeroRiskSuccess"),
       translate.t("groupAlerts.updatedTitle")

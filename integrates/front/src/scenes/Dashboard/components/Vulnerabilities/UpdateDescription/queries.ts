@@ -54,12 +54,12 @@ const REMOVE_TAGS_MUTATION: DocumentNode = gql`
 `;
 
 const REQUEST_ZERO_RISK_VULN: DocumentNode = gql`
-  mutation RequestZeroRiskVuln(
+  mutation RequestZeroRiskVulnerabilities(
     $findingId: String!
     $justification: String!
     $vulnerabilities: [String]!
   ) {
-    requestZeroRiskVuln(
+    requestZeroRiskVulnerabilities(
       findingId: $findingId
       justification: $justification
       vulnerabilities: $vulnerabilities

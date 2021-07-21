@@ -128,7 +128,7 @@ describe("Update Description component", (): void => {
   };
   const mockedPermissions: PureAbility<string> = new PureAbility([
     { action: "api_mutations_remove_vulnerability_tags_mutate" },
-    { action: "api_mutations_request_zero_risk_vuln_mutate" },
+    { action: "api_mutations_request_zero_risk_vulnerabilities_mutate" },
     { action: "api_mutations_update_treatment_vulnerability_mutate" },
     { action: "api_mutations_update_vulns_treatment_mutate" },
   ]);
@@ -244,7 +244,7 @@ describe("Update Description component", (): void => {
             vulnerabilities: ["ab25380d-dfe1-4cde-aefd-acca6990d6aa"],
           },
         },
-        result: { data: { requestZeroRiskVuln: { success: true } } },
+        result: { data: { requestZeroRiskVulnerabilities: { success: true } } },
       },
       mocksVulns,
       mocksFindingHeader,

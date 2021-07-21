@@ -47,13 +47,7 @@ interface IGroupUsersAttr {
 }
 
 interface IRequestZeroRiskVulnResultAttr {
-  requestZeroRiskVuln: {
-    success: boolean;
-  };
-}
-
-interface IRequestZeroRiskVulnResultAttr {
-  requestZeroRiskVuln: {
+  requestZeroRiskVulnerabilities: {
     success: boolean;
   };
 }

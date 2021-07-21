@@ -57,8 +57,8 @@ from api.mutations import (
     remove_vulnerability_tags,
     request_verification_vulnerability,
     request_verification_vulnerability_new,
-    request_zero_risk_vuln,
     request_zero_risk_vuln_new,
+    request_zero_risk_vulnerabilities,
     sign_in,
     solve_event,
     submit_draft,
@@ -236,6 +236,9 @@ if FI_API_STATUS == "migration":
     MUTATION.set_field(
         "requestZeroRiskVuln", request_zero_risk_vuln_new.mutate
     )
+    MUTATION.set_field(
+        "requestZeroRiskVulnerabilities", request_zero_risk_vuln_new.mutate
+    )
     MUTATION.set_field("submitDraft", submit_draft_new.mutate)
     MUTATION.set_field(
         "updateDescription", update_finding_description_new.mutate
@@ -267,7 +270,13 @@ else:
     MUTATION.set_field(
         "requestVerificationVuln", request_verification_vulnerability.mutate
     )
-    MUTATION.set_field("requestZeroRiskVuln", request_zero_risk_vuln.mutate)
+    MUTATION.set_field(
+        "requestZeroRiskVuln", request_zero_risk_vulnerabilities.mutate
+    )
+    MUTATION.set_field(
+        "requestZeroRiskVulnerabilities",
+        request_zero_risk_vulnerabilities.mutate,
+    )
     MUTATION.set_field("submitDraft", submit_draft.mutate)
     MUTATION.set_field("updateDescription", update_finding_description.mutate)
     MUTATION.set_field("updateEvidence", update_evidence.mutate)

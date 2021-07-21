@@ -86,7 +86,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     "api_resolvers_finding_historic_state_resolve"
   );
   const canRequestZeroRiskVuln: boolean = permissions.can(
-    "api_mutations_request_zero_risk_vuln_mutate"
+    "api_mutations_request_zero_risk_vulnerabilities_mutate"
   );
   const canUpdateVulnsTreatment: boolean = permissions.can(
     "api_mutations_update_vulns_treatment_mutate"
