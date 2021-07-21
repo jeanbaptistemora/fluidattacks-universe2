@@ -270,10 +270,18 @@ describe("Organization policies view", (): void => {
 
     expect(saveButton1).toHaveLength(0);
 
-    maxAcceptanceDays.simulate("change", { target: { value: "2" } });
-    maxAcceptanceSeverity.simulate("change", { target: { value: "8.9" } });
-    maxNumberAcceptations.simulate("change", { target: { value: "1" } });
-    minAcceptanceSeverity.simulate("change", { target: { value: "0" } });
+    maxAcceptanceDays.simulate("change", {
+      target: { name: "maxAcceptanceDays", value: "2" },
+    });
+    maxAcceptanceSeverity.simulate("change", {
+      target: { name: "maxAcceptanceSeverity", value: "8.9" },
+    });
+    maxNumberAcceptations.simulate("change", {
+      target: { name: "maxNumberAcceptations", value: "1" },
+    });
+    minAcceptanceSeverity.simulate("change", {
+      target: { name: "minAcceptanceSeverity", value: "0" },
+    });
 
     await act(async (): Promise<void> => {
       expect.hasAssertions();
@@ -292,7 +300,8 @@ describe("Organization policies view", (): void => {
       });
     });
 
-    const form: ReactWrapper = wrapper.find("genericForm");
+    const form: ReactWrapper = wrapper.find({ name: "orgPolicies" });
+
     form.simulate("submit");
 
     await act(async (): Promise<void> => {
@@ -541,12 +550,14 @@ describe("Organization policies view", (): void => {
       });
     });
 
-    const form: ReactWrapper = wrapper.find("genericForm");
+    const form: ReactWrapper = wrapper.find({ name: "orgPolicies" });
     const maxAcceptanceDays: ReactWrapper = wrapper
       .find({ name: "maxAcceptanceDays" })
       .find("input");
 
-    maxAcceptanceDays.simulate("change", { target: { value: "1" } });
+    maxAcceptanceDays.simulate("change", {
+      target: { name: "maxAcceptanceDays", value: "1" },
+    });
     form.simulate("submit");
 
     await act(async (): Promise<void> => {

@@ -1,18 +1,15 @@
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback } from "react";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Field, formValueSelector } from "redux-form";
-import type { InjectedFormProps } from "redux-form";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import type { IHeaderConfig } from "components/DataTableNext/types";
-import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { FindingPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/index";
 import style from "scenes/Dashboard/containers/OrganizationPoliciesView/index.css";
 import {
@@ -26,7 +23,7 @@ import type {
 } from "scenes/Dashboard/containers/OrganizationPoliciesView/types";
 import { ButtonToolbar, Col33L, RowCenter } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
-import { Text } from "utils/forms/fields";
+import { FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -37,21 +34,6 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
   // State management
   const { organizationId } = props;
   const { organizationName } = useParams<{ organizationName: string }>();
-  const selector: (
-    state: unknown,
-    // eslint-disable-next-line fp/no-rest-parameters
-    ...fields: string[]
-  ) => IPoliciesFormData = formValueSelector("orgPolicies");
-  const formValues: IPoliciesFormData = useSelector(
-    (state: unknown): IPoliciesFormData =>
-      selector(
-        state,
-        "maxAcceptanceDays",
-        "maxAcceptanceSeverity",
-        "maxNumberAcceptations",
-        "minAcceptanceSeverity"
-      )
-  );
 
   // GraphQL Operations
   const {
@@ -75,7 +57,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
     UPDATE_ORGANIZATION_POLICIES,
     {
       onCompleted: (): void => {
-        track("UpdateOrganizationPolicies", formValues);
+        track("UpdateOrganizationPolicies");
         msgSuccess(
           translate.t("organization.tabs.policies.success"),
           translate.t("organization.tabs.policies.successTitle")
@@ -123,14 +105,6 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
           }
         });
       },
-      variables: {
-        maxAcceptanceDays: parseInt(formValues.maxAcceptanceDays, 10),
-        maxAcceptanceSeverity: parseFloat(formValues.maxAcceptanceSeverity),
-        maxNumberAcceptations: parseInt(formValues.maxNumberAcceptations, 10),
-        minAcceptanceSeverity: parseFloat(formValues.minAcceptanceSeverity),
-        organizationId,
-        organizationName: organizationName.toLowerCase(),
-      },
     }
   );
 
@@ -168,7 +142,11 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
         </p>
       ),
       value: (
-        <Field component={Text} name={"maxAcceptanceDays"} type={"text"} />
+        <Field
+          component={FormikText}
+          name={"maxAcceptanceDays"}
+          type={"text"}
+        />
       ),
     },
     {
@@ -191,7 +169,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
           <RowCenter>
             <Col33L>
               <Field
-                component={Text}
+                component={FormikText}
                 name={"minAcceptanceSeverity"}
                 type={"text"}
               />
@@ -202,7 +180,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
             </Col33L>
             <Col33L>
               <Field
-                component={Text}
+                component={FormikText}
                 name={"maxAcceptanceSeverity"}
                 type={"text"}
               />
@@ -227,14 +205,30 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
         </p>
       ),
       value: (
-        <Field component={Text} name={"maxNumberAcceptations"} type={"text"} />
+        <Field
+          component={FormikText}
+          name={"maxNumberAcceptations"}
+          type={"text"}
+        />
       ),
     },
   ];
 
-  const handleFormSubmit: () => void = useCallback((): void => {
-    void savePolicies();
-  }, [savePolicies]);
+  const handleFormSubmit = useCallback(
+    (values: IPoliciesFormData): void => {
+      void savePolicies({
+        variables: {
+          maxAcceptanceDays: parseInt(values.maxAcceptanceDays, 10),
+          maxAcceptanceSeverity: parseFloat(values.maxAcceptanceSeverity),
+          maxNumberAcceptations: parseInt(values.maxNumberAcceptations, 10),
+          minAcceptanceSeverity: parseFloat(values.minAcceptanceSeverity),
+          organizationId,
+          organizationName: organizationName.toLowerCase(),
+        },
+      });
+    },
+    [organizationId, organizationName, savePolicies]
+  );
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -242,7 +236,8 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
 
   return (
     <React.StrictMode>
-      <GenericForm
+      <Formik
+        enableReinitialize={true}
         initialValues={{
           maxAcceptanceDays: _.isNull(data.organization.maxAcceptanceDays)
             ? ""
@@ -266,8 +261,8 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
         name={"orgPolicies"}
         onSubmit={handleFormSubmit}
       >
-        {({ handleSubmit, pristine }: InjectedFormProps): JSX.Element => (
-          <React.Fragment>
+        {({ dirty, submitForm }): JSX.Element => (
+          <Form id={"orgPolicies"}>
             <DataTableNext
               bordered={true}
               dataset={policiesDataSet}
@@ -279,17 +274,17 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
               striped={true}
             />
             <Can do={"api_mutations_update_organization_policies_mutate"}>
-              {pristine || loadingPolicies || savingPolicies ? undefined : (
+              {!dirty || loadingPolicies || savingPolicies ? undefined : (
                 <ButtonToolbar>
-                  <Button onClick={handleSubmit}>
+                  <Button onClick={submitForm}>
                     {translate.t("organization.tabs.policies.save")}
                   </Button>
                 </ButtonToolbar>
               )}
             </Can>
-          </React.Fragment>
+          </Form>
         )}
-      </GenericForm>
+      </Formik>
       <br />
       <p className={"mb0 f4 tc"}>
         <b>{translate.t("organization.tabs.policies.findings.title")}</b>
