@@ -20,6 +20,13 @@ from json.decoder import (
 import os
 import re
 import sys
+from tap_json.env import (
+    prepare_env,
+    RECORDS_DIR,
+    release_env,
+    SCHEMAS_DIR,
+    STATE_DIR,
+)
 from typing import (
     Any,
     Callable,
@@ -33,9 +40,6 @@ STRU = Any
 # Module control pannel
 FIELD_SEP: str = "__"
 TABLE_SEP: str = "____"
-SCHEMAS_DIR: str = "____schemas"
-RECORDS_DIR: str = "____records"
-STATE_DIR: str = "____state"
 ENABLE_TIMESTAMPS: bool = False
 
 DATE_FORMATS: List[str] = [
@@ -126,24 +130,6 @@ def pt2st(ptype: str) -> JSON:
         return {"type": "string", "format": "date-time"}
 
     raise Exception(f"pt2st(ptype): ptype={ptype} not matched")
-
-
-def prepare_env() -> None:
-    """Create/reset the staging area."""
-    for _dir in (RECORDS_DIR, SCHEMAS_DIR, STATE_DIR):
-        if not os.path.exists(_dir):
-            os.makedirs(_dir)
-        else:
-            for file in os.listdir(_dir):
-                os.remove(f"{_dir}/{file}")
-
-
-def release_env() -> None:
-    """Clean the staging area on exit."""
-    for _dir in (SCHEMAS_DIR, RECORDS_DIR, STATE_DIR):
-        for file in os.listdir(_dir):
-            os.remove(f"{_dir}/{file}")
-        os.removedirs(f"{_dir}")
 
 
 def write(
