@@ -28,7 +28,7 @@ const RedParagraph: StyledComponent<
 > = styled.p.attrs({
   className: `
     tc
-    c-hovered-red
+    c-dkred
     f-375
     mb4
     fw7
