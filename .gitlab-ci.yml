@@ -122,6 +122,11 @@ workflow:
   <<: *common_in_dev_branch
   stage: lint-code
 
+/lintGitMailMap:
+  <<: *makes4
+  <<: *common_in_dev_branch
+  stage: lint-code
+
 /lintNix:
   <<: *makes4
   <<: *common_in_dev_branch
@@ -167,20 +172,6 @@ makes.test.profiles:
         exit 1;
       done
   stage: test-code
-
-makes.lint.mailmap:
-  <<: *common_in_dev_branch
-  tags: [autoscaling]
-  needs: []
-  interruptible: true
-  image: nixos/nix:2.3
-  stage: lint-code
-  before_script:
-    - nix-env -i -f https://github.com/kamadorueda/mailmap-linter/archive/master.tar.gz
-  script:
-    - mailmap-linter
-  variables:
-    GIT_DEPTH: 5
 
 common_forces:
   <<: *common_in_master_branch

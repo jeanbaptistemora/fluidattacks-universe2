@@ -20,6 +20,9 @@
     enable = true;
     targets = [ "/" ];
   };
+  lintGitMailMap = {
+    enable = true;
+  };
   lintNix = {
     enable = true;
     targets = [ "/" ];
