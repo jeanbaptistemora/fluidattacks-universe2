@@ -678,6 +678,7 @@ async def update_treatment_vuln(
         validations.validate_fields(tags)
         for tag in tags:
             if tag.strip():
+                validations.validate_field_length(tag.strip(), 30)
                 cast(List[str], new_info["tag"]).append(tag.strip())
         new_info["tag"] = cast(
             List[str],
