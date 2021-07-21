@@ -2329,56 +2329,143 @@
 "150":
   en:
     title: Set minimum size for hash functions
-    summary: __empty_
+    summary: >
+      Use hash functions
+      with a minimum size of 256 bits.
     description: __empty__
   es:
     title: Establecer un tamano mínimo de funciones hash
-    summary: __empty__
+    summary: >
+      Deben utilizarse funciones resumen
+      con un tamaño mínimo de 256 bits.
     description: __empty__
   references: []
   metadata: {}
 "151":
   en:
     title: Separate keys for encryption and signatures
-    summary: __empty_
+    summary: >
+      The system must use asymmetric cryptography
+      with separated keys
+      for encryption and signatures.
     description: __empty__
   es:
     title: Separar llaves para cifrado y firmas
-    summary: __empty__
+    summary: >
+      El sistema debe utilizar
+      criptografía asimétricas
+      con llaves separadas
+      para el cifrado y las firmas.
     description: __empty__
   references: []
   metadata: {}
 "152":
   en:
     title: Reuse database connections
-    summary: __empty_
+    summary: >
+      The system must reuse
+      the database connections.
     description: __empty__
   es:
     title: Reutilizar conexiones de bases de datos
-    summary: __empty__
+    summary: >
+      El sistema debe reutilizar
+      las conexiones de la base de datos.
     description: __empty__
   references: []
   metadata: {}
 "153":
   en:
     title: Out of band transactions
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must offer
+      secure out of band authenticators,
+      such as push notifications.
+      Clear text options such as SMS,
+      mailing or PSTN may be offered
+      but should not be
+      the default option.
+    description: >
+      Secure out of band authenticators
+      are physical devices
+      that can communicate
+      with an authentication verifier
+      over a secure secondary channel.
+      They serve as
+      an additional security measure
+      for identity assertion
+      during authentication processes
+      or sensitive transactions.
+      Systems should offer
+      at least one out of band authenticator
+      and the default option
+      should not be a clear text one.
   es:
     title: Transacciones fuera de banda
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe ofrecer
+      autenticadores seguros
+      fuera de banda,
+      como notificaciones automáticas.
+      Se pueden ofrecer opciones
+      de texto claro como SMS,
+      correo o PSTN, pero no deberían
+      ser la opción predeterminada.
+    description: >
+      Los autenticadores seguros fuera de banda
+      son dispositivos físicos
+      que pueden comunicarse con un
+      verificador de autenticación
+      a través de un canal secundario seguro.
+      Sirven como una medida de seguridad
+      adicional para la afirmación
+      de la identidad durante los procesos
+      de autenticación
+      o transacciones sensibles.
+      Los sistemas deben ofrecer
+      al menos un autenticador fuera de banda
+      y la opción predeterminada
+      no debe ser de texto claro.
   references: []
   metadata: {}
 "154":
   en:
     title: Eliminate backdoors
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The source code of a system
+      must not perform functions
+      other than those specified
+      in the functional requirements
+      (backdoors).
+    description: >
+      Sometimes,
+      functionalities other than the ones
+      for which a system was designed
+      are included during development
+      to aid the development
+      and testing processes.
+      These functions often
+      represent backdoors
+      because they leave ports exposed
+      or help in bypassing
+      the authentication
+      and/or authorization mechanisms.
+      Therefore,
+      they should not be part
+      of the production environment,
+      as they could become serious
+      security vulnerabilities.
   es:
     title: Eliminar puertas traseras
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El código fuente de un sistema
+      no debe realizar funciones
+      diferentes a aquellas especificadas
+      en los requisitos funcionales
+      (puertas traseras).
+    description: >
+      A veces,
+
   references: []
   metadata: {}
 "155":
