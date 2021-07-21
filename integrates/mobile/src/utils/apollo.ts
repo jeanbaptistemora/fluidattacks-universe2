@@ -22,7 +22,9 @@ import type { ExecutionResult, GraphQLError } from "graphql";
 import _ from "lodash";
 import { createElement, useMemo } from "react";
 import type React from "react";
-import { Alert } from "react-native";
+import { Alert, NativeModules } from "react-native";
+import type { ReactNativeSSLPinning } from "react-native-ssl-pinning";
+import { fetch as sslPinningFetch } from "react-native-ssl-pinning";
 import { useHistory } from "react-router-native";
 
 import { getEnvironment } from "./environment";
@@ -210,7 +212,35 @@ const authLink: ApolloLink = setContext(
   }
 );
 
+interface ISecureFetchOptions extends RequestInit {
+  pkPinning: ReactNativeSSLPinning.Options["pkPinning"];
+  sslPinning: ReactNativeSSLPinning.Options["sslPinning"];
+}
+
+const extendedFetch = async (
+  input: string,
+  init?: RequestInit | undefined
+): Promise<Response> => {
+  if (NativeModules.RNSslPinning !== null) {
+    const secureFetch = sslPinningFetch as unknown as (
+      url: string,
+      options: ISecureFetchOptions
+    ) => Promise<Response>;
+
+    return secureFetch(input, {
+      ...init,
+      pkPinning: true,
+      sslPinning: {
+        certs: ["sha256/__PINNED_PK__"],
+      },
+    });
+  }
+
+  return fetch(input, init);
+};
+
 const apiLink: ApolloLink = createHttpLink({
+  fetch: extendedFetch,
   uri: `${apiHost}/api`,
 });
 

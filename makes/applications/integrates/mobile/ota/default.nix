@@ -16,6 +16,7 @@ makeEntrypoint {
       nixpkgs.findutils
       nixpkgs.gnused
       nixpkgs.nodejs-12_x
+      nixpkgs.openssl
       packages.makes.announce.bugsnag
     ];
     envUtils = [

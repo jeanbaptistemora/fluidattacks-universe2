@@ -26,7 +26,9 @@ function main {
     EXPO_USER
     GOOGLE_SERVICES_APP
   )
-  local linked_deps=()
+  local linked_deps=(
+    "react-native-ssl-pinning@1.5.4"
+  )
   local shell_app_path="${TURTLE_WORKING_DIR_PATH}/android/sdk41/"
 
   if has_any_file_changed \

@@ -19,6 +19,17 @@ function get_mobile_version {
     fi
 }
 
+function get_fluidattacks_pk {
+  local domain="fluidattacks.com"
+
+  echo "Q" \
+    | openssl s_client -servername "${domain}" -connect "${domain}":443 \
+    | openssl x509 -pubkey -noout \
+    | openssl pkey -pubin -outform der \
+    | openssl dgst -sha256 -binary \
+    | openssl enc -base64
+}
+
 function main {
   export CI_COMMIT_AUTHOR
   export CI_COMMIT_REF_NAME
@@ -33,6 +44,7 @@ function main {
     GOOGLE_SERVICES_APP
   )
   local version_code
+  local pinned_pk
 
   true \
     && if [ -n "${CI}" ] && [ "${CI_COMMIT_REF_NAME}" == "master" ]; then
@@ -46,6 +58,7 @@ function main {
     && app_version="$(get_mobile_version basic)" \
     && version_code="$(get_mobile_version code)" \
     && INTEGRATES_DEPLOYMENT_DATE="$(date -u '+%FT%H:%M:%SZ')" \
+    && pinned_pk="$(get_fluidattacks_pk)" \
     && pushd integrates/mobile \
     && echo '[INFO] Copying dependencies...' \
     && copy "__envSetupIntegratesMobileDevRuntime__/node_modules" node_modules \
@@ -60,6 +73,7 @@ function main {
     && sed -i "s/__INTEGRATES_DEPLOYMENT_DATE__/${INTEGRATES_DEPLOYMENT_DATE}/g" ./app.json \
     && sed -i "s/__APP_VERSION__/${app_version}/g" ./app.json \
     && sed -i "s/\"versionCode\": 0/\"versionCode\": ${version_code}/g" ./app.json \
+    && sed -i "s|__PINNED_PK__|${pinned_pk}|g" ./src/utils/apollo.ts \
     && echo '[INFO] Publishing update' \
     && npx --no-install expo publish \
       --non-interactive \
