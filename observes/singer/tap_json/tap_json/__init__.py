@@ -1,6 +1,5 @@
 """Singer tap for a generic JSON stream."""
 
-import argparse
 import contextlib
 from dateutil.parser import (
     parse as date_parser,
@@ -268,36 +267,11 @@ def dump_schema(table: str) -> None:
         )
 
 
-def main() -> None:
+def main(date_formats: List[str]) -> None:
     """Usual entry point."""
-    parser = argparse.ArgumentParser(
-        description="Dump a JSON stream to a Singer stream."
-    )
-    parser.add_argument(
-        "--enable-timestamps",
-        help="Flag to indicate if timestamps should be casted to dates",
-        action="store_true",
-        default=False,
-        dest="enable_timestamps",
-    )
-    parser.add_argument(
-        "--date-formats",
-        help="A string of formats separated by comma, extends RFC3339",
-        default="",
-        dest="date_formats",
-    )
-    args = parser.parse_args()
-
-    # some dates may come in the form of a timestamp
-    # if --enable-timestamps is passed as arguments
-    #   anything that complies with is_timestamp() will be casted to date
-
-    # pylint: disable=global-statement
-    global ENABLE_TIMESTAMPS
-    ENABLE_TIMESTAMPS = args.enable_timestamps
 
     # add the user date formats, filter empty strings
-    DATE_FORMATS.extend(f for f in args.date_formats.split(",") if f)
+    DATE_FORMATS.extend(date_formats)
 
     # Do the heavy lifting (structura)
     prepare_env()
@@ -321,7 +295,3 @@ def main() -> None:
                 print(state.rstrip())
 
     release_env()
-
-
-if __name__ == "__main__":
-    main()

@@ -5,7 +5,7 @@
 }:
 makeEntrypoint {
   arguments = {
-    envEntrypoint = "from tap_json import main";
+    envEntrypoint = "from tap_json.cli import main";
   };
   searchPaths = {
     envSources = [
