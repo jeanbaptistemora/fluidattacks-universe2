@@ -123,7 +123,6 @@ makes.vpc.test
 makes.wait
 melts
 melts.test
-melts.vpn
 observes.bin.code-etl
 observes.bin.service.batch-stability
 observes.bin.service.job-last-success

@@ -21,7 +21,7 @@ makeEntrypoint {
       envIntegratesDb = [ "integrates-db" ];
       envIntegratesStorage = [ "integrates-storage" ];
       envForces = [ "forces" ];
-      envHacker = [ "melts-vpn" "melts" "sorts" "skims" ];
+      envHacker = [ "melts" "sorts" "skims" ];
       envMelts = [ "melts" ];
       envReviews = [ "reviews" ];
       envSkims = [ "skims" ];

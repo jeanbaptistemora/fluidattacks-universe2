@@ -1,9 +1,9 @@
 #! /bin/sh
 
 nix-env \
-  --uninstall melts-vpn melts sorts skims \
+  --uninstall melts sorts skims \
   && nix-env \
-    --install melts-vpn melts sorts skims \
+    --install melts sorts skims \
     --file "https://gitlab.com/fluidattacks/product/-/archive/${1:-master}.tar.gz" \
     --option narinfo-cache-negative-ttl 1 \
     --option narinfo-cache-positive-ttl 1 \
