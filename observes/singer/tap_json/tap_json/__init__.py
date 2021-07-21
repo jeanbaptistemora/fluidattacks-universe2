@@ -99,10 +99,9 @@ def stru_type(stru: STRU) -> str:
     return "datetime" if to_date(stru) else type(stru).__name__
 
 
-def stru_cast(stru: STRU) -> STRU:
+def stru_cast(stru: STRU, type_ref: str) -> STRU:
     """Cast a Structura."""
-    cast_date = to_date(stru)
-    return cast_date if cast_date else stru
+    return to_date(stru) if type_ref == "datetime" else stru
 
 
 def pt2st(ptype: str) -> JSON:
@@ -233,6 +232,17 @@ def catalog() -> None:
         write(SCHEMAS_DIR, table_name, schema, dumps)
 
 
+def choose_type(types: List[str]) -> str:
+    priority = [
+        "datetime",
+        "bool",
+        "int",
+        "float",
+        "str",
+    ]
+    return priority[max(map(priority.index, types))]
+
+
 def dump_schema(table: str) -> None:
     pschema = json_from_file(f"{SCHEMAS_DIR}/{table}")
     emit(
@@ -259,7 +269,9 @@ def dump_schema(table: str) -> None:
                     "type": "RECORD",
                     "stream": table,
                     "record": {
-                        f"{f}_{stru_type(v)}": stru_cast(v)
+                        f"{f}_{choose_type(pschema[f])}": stru_cast(
+                            v, choose_type(pschema[f])
+                        )
                         for f, v in precord.items()
                     },
                 }
