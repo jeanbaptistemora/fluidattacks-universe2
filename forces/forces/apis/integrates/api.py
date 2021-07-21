@@ -169,7 +169,8 @@ async def vulns_generator(
     vulns_futures = [get_vulnerabilities(fin, **kwargs) for fin in findings]
     for vulnerabilities in asyncio.as_completed(vulns_futures):
         for vuln in await vulnerabilities:
-            yield vuln
+            # Exception: WF(AsyncGenerator is subtype of iterator)
+            yield vuln  # NOSONAR
 
 
 @SHIELD
