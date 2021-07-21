@@ -69915,6 +69915,16 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "member": "area",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "261",
+              "value": null
+            },
+            "type": "SyntaxStepMemberAccessExpression"
+          },
+          {
             "current_instance": {
               "fields": {}
             },
@@ -70591,6 +70601,38 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "539": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "543",
+              "value": null
+            },
+            "symbol": "chunk",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "member": "length",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "542",
+              "value": null
+            },
+            "type": "SyntaxStepMemberAccessExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "539",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "responseSize"
           }
         ],
         "548": [
