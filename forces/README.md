@@ -17,12 +17,11 @@ You can also integrate forces into your `CI/CD` to ensure that your software is 
 # Options
 
 - `--token`: Your token for integrates API [required]
-- `--verbose <number>`: Declare the level of detail of the report (default 3)
+- `-v`, `-vv`, `-vvv`, `-vvvv`: Declare the level of detail of the report (default 3)
   - 1: It only shows the number of open, closed and accepted vulnerabilities
   - 2: Only show open vulnerabilities
   - 3: Show open and closed vulnerabilities
   - 4: Show open, closed and accepted vulnerabilities
-  - You can use `-v`, `-vv`, `-vvv`, `-vvvv` instead of `--verbose`
 - `--strict / --lax`: Run forces in strict mode (default `--lax`)
 - `--repo-path`: Git repository path (optional)
 - `--repo-name`: Name of the repository in which it is running (optional)
@@ -33,7 +32,7 @@ You can also integrate forces into your `CI/CD` to ensure that your software is 
 # Examples
 
 How to use the docker image:
-`docker run --rm -v "$PWD:/src" fluidattacks/forces:new forces --token <your-token> --repo-name <repository name>`
+`docker run --rm -ti -v "$PWD:/src" fluidattacks/forces:new forces --token <your-token> --repo-name <repository name>`
 
 _Note_: To run the container you must pass the working repository as a volume to the `/src` directory (`--volume "<path to repo>:/src"`)
 
