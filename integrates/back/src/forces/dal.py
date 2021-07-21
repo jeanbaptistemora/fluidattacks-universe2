@@ -179,7 +179,8 @@ async def yield_executions(
                 if "closed" not in result["vulnerabilities"]:
                     result["vulnerabilities"]["closed"] = []
                 result[f"{group_name_key}"] = result.get("subscription")
-                yield result
+                # Exception: WF(AsyncIterator is subtype of iterator)
+                yield result  # NOSONAR
             if results.get("LastEvaluatedKey", None):
                 query_params["ExclusiveStartKey"] = results.get(
                     "LastEvaluatedKey"

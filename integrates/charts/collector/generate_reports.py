@@ -60,7 +60,8 @@ async def selenium_web_driver() -> AsyncIterator[webdriver.Firefox]:
 
         return driver
 
-    yield await in_thread(create)
+    # Exception: WF(AsyncIterator is subtype of iterator)
+    yield await in_thread(create)  # NOSONAR
 
 
 @contextlib.asynccontextmanager
@@ -83,7 +84,8 @@ async def http_session() -> AsyncIterator[aiohttp.ClientSession]:
         cookie_jar=cookie_jar,
         timeout=timeout,
     ) as session:
-        yield session
+        # Exception: WF(AsyncIterator is subtype of iterator)
+        yield session  # NOSONAR
 
 
 @utils.retry_on_exceptions(

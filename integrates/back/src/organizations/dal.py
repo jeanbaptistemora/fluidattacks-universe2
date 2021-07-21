@@ -358,7 +358,10 @@ async def iterate_organizations() -> AsyncIterator[Tuple[str, str]]:
             TableName=TABLE_NAME,
         ):
             for item in response["Items"]:
-                yield item["pk"]["S"], item["sk"]["S"].lstrip("INFO#")
+                # Exception: WF(AsyncIterator is subtype of iterator)
+                yield item["pk"]["S"], item["sk"]["S"].lstrip(
+                    "INFO#"
+                )  # NOSONAR
 
 
 async def remove_group(organization_id: str, group_name: str) -> bool:
