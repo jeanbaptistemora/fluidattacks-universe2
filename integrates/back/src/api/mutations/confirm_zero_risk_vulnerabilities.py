@@ -39,7 +39,7 @@ async def mutate(
     justification: str,
     vulnerabilities: List[str],
 ) -> SimplePayloadType:
-    """Resolve confim_zero_risk_vuln mutation."""
+    """Resolve confim_zero_risk_vulnerabilities mutation."""
     user_info = await token_utils.get_jwt_content(info.context)
     success = await vulns_domain.confirm_zero_risk_vulnerabilities(
         finding_id, user_info, justification, vulnerabilities
@@ -52,7 +52,7 @@ async def mutate(
         logs_utils.cloudwatch_log(
             info.context,
             (
-                "Security: Confirmed a zero risk vuln  "
+                "Security: Confirmed zero risk vulns "
                 f"in finding_id: {finding_id}"
             ),  # pragma: no cover
         )

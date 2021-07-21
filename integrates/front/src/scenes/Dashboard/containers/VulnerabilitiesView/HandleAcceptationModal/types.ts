@@ -22,7 +22,7 @@ interface IHandleVulnerabilitiesAcceptationResultAttr {
 }
 
 interface IConfirmZeroRiskVulnResultAttr {
-  confirmZeroRiskVuln: {
+  confirmZeroRiskVulnerabilities: {
     success: boolean;
   };
 }

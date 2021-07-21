@@ -115,7 +115,7 @@ const confirmZeroRiskProps = (
 ): MutationHookOptions => {
   return {
     onCompleted: (data: IConfirmZeroRiskVulnResultAttr): void => {
-      if (data.confirmZeroRiskVuln.success) {
+      if (data.confirmZeroRiskVulnerabilities.success) {
         msgSuccess(
           translate.t("groupAlerts.confirmedZeroRiskSuccess"),
           translate.t("groupAlerts.updatedTitle")
