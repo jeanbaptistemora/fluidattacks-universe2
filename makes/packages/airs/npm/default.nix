@@ -818,7 +818,6 @@ buildNodeRequirements {
       "hasha@5.2.2"
       "hex-color-regex@1.1.0"
       "hicat@0.8.0"
-      "highlight.js@10.7.3"
       "hoist-non-react-statics@3.3.2"
       "hosted-git-info@2.8.9"
       "hpack.js@2.1.6"
