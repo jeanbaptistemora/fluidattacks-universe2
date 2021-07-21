@@ -1,3 +1,4 @@
+import androguard.core.analysis.analysis
 from androguard.core.bytecodes.dvm import (
     ClassDefItem,
     DalvikVMFormat,
@@ -314,13 +315,31 @@ def _add_no_root_check_location(
     )
 
 
+def _get_method_names(
+    analysis: androguard.core.analysis.analysis.Analysis,
+) -> List[str]:
+    names: List[str] = sorted(
+        set(map(attrgetter("name"), analysis.get_methods()))
+    )
+
+    return names
+
+
+def _get_class_names(
+    analysis: androguard.core.analysis.analysis.Analysis,
+) -> List[str]:
+    names: List[str] = sorted(
+        set(map(attrgetter("name"), analysis.get_classes()))
+    )
+
+    return names
+
+
 def _no_root_check(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
     if ctx.apk_ctx.analysis is not None:
-        method_names: List[str] = sorted(
-            set(map(attrgetter("name"), ctx.apk_ctx.analysis.get_methods()))
-        )
+        method_names: List[str] = _get_method_names(ctx.apk_ctx.analysis)
 
         if not any(
             method_name
@@ -404,7 +423,14 @@ def _add_no_certs_pinning_2_location(
 def _no_certs_pinning(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
-    if ctx.apk_ctx.apk_obj is not None:
+    if (
+        ctx.apk_ctx.apk_obj is not None
+        and ctx.apk_ctx.analysis is not None
+        and (
+            "Lcom/toyberman/RNSslPinningModule;"
+            not in _get_class_names(ctx.apk_ctx.analysis)
+        )
+    ):
         try:
             nsc: str = "res/xml/network_security_config.xml"
             nsc_content: bytes = ctx.apk_ctx.apk_obj.zip.read(nsc)

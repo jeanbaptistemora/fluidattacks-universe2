@@ -4334,7 +4334,7 @@
   metadata: {}
 "080":
   en:
-    title: Ausencia de cifrado de Información confidencial - AWS
+    title: Non-encrypted confidential information - AWS
     description: >
       Infrastructure is not encrypted.
     impact: >
@@ -4349,7 +4349,7 @@
       Internal attacker
       with access to the configuration.
   es:
-    title: Non-encrypted confidential information - AWS
+    title: Ausencia de cifrado de información confidencial - AWS
     description: >
       La infrastructura
       no se encuentra cifrada.
