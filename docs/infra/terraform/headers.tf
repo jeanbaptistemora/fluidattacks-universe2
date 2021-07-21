@@ -6,7 +6,6 @@ resource "cloudflare_worker_script" "headers" {
 
 # Production
 
-
 resource "cloudflare_worker_route" "headers_prod" {
   zone_id     = lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "id")
   pattern     = "docs.${lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "name")}/*"
