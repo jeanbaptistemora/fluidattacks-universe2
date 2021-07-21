@@ -24,21 +24,21 @@ const InfoSection: React.FC = (): JSX.Element => (
       </FooterInfoLink>
       <GrayDash>{" - "}</GrayDash>
       <Link
-        className={"c-blue-gray f6 fw2 mt2 roboto no-underline hv-fluid-dkred"}
+        className={"c-black-gray f6 fw2 mt2 roboto no-underline hv-fluid-dkred"}
         to={"/terms-use/"}
       >
         {"Terms of Use"}
       </Link>
       <GrayDash>{" - "}</GrayDash>
       <Link
-        className={"c-blue-gray f6 fw2 mt2 roboto no-underline hv-fluid-dkred"}
+        className={"c-black-gray f6 fw2 mt2 roboto no-underline hv-fluid-dkred"}
         to={"/privacy/"}
       >
         {"Privacy Policy"}
       </Link>
       <GrayDash>{" - "}</GrayDash>
       <Link
-        className={"c-blue-gray f6 fw2 mt2 roboto no-underline hv-fluid-dkred"}
+        className={"c-black-gray f6 fw2 mt2 roboto no-underline hv-fluid-dkred"}
         to={"/cookie"}
       >
         {"Cookie Policy"}

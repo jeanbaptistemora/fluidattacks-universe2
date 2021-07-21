@@ -8,7 +8,7 @@ interface IProps {
 }
 
 const bodyLinkStyles: string = `
-  c-blue-gray
+  c-black-gray
   hv-fluid-rd
   no-underline
   nowrap

@@ -1,6 +1,5 @@
 // Color Variables
-$black-gray: rgba(92, 92, 92, 1);
-$blue-gray: rgba(92, 92, 112, 1);
+$black-gray: rgba(92, 92, 112, 1);
 $blue-gray-shadow: rgba(92, 92, 112, 0.3);
 $gray-64: rgba(64, 64, 79, 1);
 $button-red: rgba(191, 38, 38, 1);
@@ -142,7 +141,6 @@ $gray-244: rgba(244, 244, 246, 1);
 .bc-hovered-red { border-color: $red-255; }
 .bc-gray-233 { border-color: $gray-233; }
 .c-black-gray { color: $black-gray; }
-.c-blue-gray { color: $blue-gray; }
 .c-dkred { color: $red-255; }
 .c-fluid-bk { color: $fluid-black; }
 .c-fluid-gray { color: $fluid-gray; }
@@ -943,7 +941,7 @@ $gray-244: rgba(244, 244, 246, 1);
 }
 
 .fluid-answer ol li {
-  color: $blue-gray;
+  color: $black-gray;
   font-style: normal;
   list-style-type: none;
 }

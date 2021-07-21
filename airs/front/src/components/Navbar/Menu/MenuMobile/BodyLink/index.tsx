@@ -10,7 +10,7 @@ interface IProps {
 const bodyLinkStyles: string = `
   hv-fluid-rd
   f5
-  c-blue-gray
+  c-black-gray
   fw4
   no-underline
   menu-txt-trans

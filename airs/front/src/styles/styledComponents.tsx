@@ -144,7 +144,7 @@ const NavbarLoginButton: StyledComponent<
     hv-bg-soft-gray
     hv-bd-soft-gray
     t-all-3-eio
-    c-blue-gray
+    c-black-gray
     pointer
   `,
 })``;
@@ -259,7 +259,7 @@ const FooterInfoLink: StyledComponent<
   Record<string, unknown>
 > = styled.a.attrs({
   className: `
-    c-blue-gray
+    c-black-gray
     f6
     fw2
     mt2
@@ -274,7 +274,7 @@ const GrayDash: StyledComponent<
   Record<string, unknown>
 > = styled.span.attrs({
   className: `
-    c-blue-gray
+    c-black-gray
     f6
   `,
 })``;
@@ -701,7 +701,7 @@ const SolutionsParagraph: StyledComponent<
   Record<string, unknown>
 > = styled.p.attrs({
   className: `
-    c-blue-gray
+    c-black-gray
     f5
     lh-copy
     fw3

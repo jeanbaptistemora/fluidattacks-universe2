@@ -8,7 +8,7 @@ interface IProps {
 }
 
 const bodyLinkStyles: string = `
-  c-blue-gray
+  c-black-gray
   roboto
   f6
   fw4
