@@ -158,16 +158,11 @@ def get_key_or_fallback(
 ) -> Any:
     """Tries to get current_key's value from kwargs, with a (lazy) old_key as a
     second option. If none of the keys can be found it returns a fallback value
-    if specified or raises an exception"""
-    try:
-        return kwargs.get(current_key, kwargs.get(old_key))
-    except KeyError:
-        if fallback is not None:
-            return fallback
-        raise KeyError(
-            f"No fallback provided, either {current_key} or {old_key} must be "
-            + "included in the dict, check your query/mutation args!"
-        )
+    if specified, returns None otherwise"""
+    value = kwargs.get(current_key, kwargs.get(old_key))
+    if value is not None:
+        return value
+    return fallback
 
 
 def get_present_key(
