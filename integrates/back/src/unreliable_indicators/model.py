@@ -21,8 +21,8 @@ ENTITIES = {
         attrs={
             EntityAttr.age: dict(
                 dependencies={
-                    EntityDependency.delete_vulnerability,
                     EntityDependency.reject_zero_risk_vuln,
+                    EntityDependency.remove_vulnerability,
                     EntityDependency.request_zero_risk_vuln,
                     EntityDependency.upload_file,
                 }
@@ -34,8 +34,8 @@ ENTITIES = {
             ),
             EntityAttr.is_verified: dict(
                 dependencies={
-                    EntityDependency.delete_vulnerability,
                     EntityDependency.reject_zero_risk_vuln,
+                    EntityDependency.remove_vulnerability,
                     EntityDependency.request_verification_vulnerability,
                     EntityDependency.request_zero_risk_vuln,
                     EntityDependency.upload_file,
@@ -44,40 +44,40 @@ ENTITIES = {
             ),
             EntityAttr.last_vulnerability: dict(
                 dependencies={
-                    EntityDependency.delete_vulnerability,
                     EntityDependency.reject_zero_risk_vuln,
+                    EntityDependency.remove_vulnerability,
                     EntityDependency.request_zero_risk_vuln,
                     EntityDependency.upload_file,
                 }
             ),
             EntityAttr.open_age: dict(
                 dependencies={
-                    EntityDependency.delete_vulnerability,
                     EntityDependency.reject_zero_risk_vuln,
+                    EntityDependency.remove_vulnerability,
                     EntityDependency.request_zero_risk_vuln,
                     EntityDependency.upload_file,
                 }
             ),
             EntityAttr.open_vulnerabilities: dict(
                 dependencies={
-                    EntityDependency.delete_vulnerability,
                     EntityDependency.reject_zero_risk_vuln,
+                    EntityDependency.remove_vulnerability,
                     EntityDependency.request_zero_risk_vuln,
                     EntityDependency.upload_file,
                 }
             ),
             EntityAttr.report_date: dict(
                 dependencies={
-                    EntityDependency.delete_vulnerability,
                     EntityDependency.reject_zero_risk_vuln,
+                    EntityDependency.remove_vulnerability,
                     EntityDependency.request_zero_risk_vuln,
                     EntityDependency.upload_file,
                 }
             ),
             EntityAttr.status: dict(
                 dependencies={
-                    EntityDependency.delete_vulnerability,
                     EntityDependency.reject_zero_risk_vuln,
+                    EntityDependency.remove_vulnerability,
                     EntityDependency.request_zero_risk_vuln,
                     EntityDependency.upload_file,
                 }

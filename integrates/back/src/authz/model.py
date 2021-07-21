@@ -57,6 +57,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_remove_group_tag_mutate",
             "api_mutations_remove_stakeholder_access_mutate",
             "api_mutations_remove_vulnerability_mutate",
+            "api_mutations_remove_vulnerability_new_mutate",
             "api_mutations_request_verification_vulnerability_mutate",
             "api_mutations_request_verification_vulnerability_new_mutate",
             "api_mutations_request_zero_risk_vuln_mutate",
@@ -166,6 +167,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_remove_finding_evidence_mutate",
             "api_mutations_remove_finding_evidence_new_mutate",
             "api_mutations_remove_vulnerability_mutate",
+            "api_mutations_remove_vulnerability_new_mutate",
             "api_mutations_remove_vulnerability_tags_mutate",
             "api_mutations_request_verification_vulnerability_mutate",
             "api_mutations_request_verification_vulnerability_new_mutate",
@@ -751,7 +753,6 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     reviewer=dict(
         actions={
             *GROUP_LEVEL_ROLES["reviewer"]["actions"],
-            "api_resolvers_finding_new_analyst_new_resolve",
             "api_resolvers_git_root_toe_lines_resolve",
             "api_resolvers_group_toe_inputs_resolve",
         },

@@ -54,6 +54,7 @@ from api.mutations import (
     remove_stakeholder_access,
     remove_stakeholder_organization_access,
     remove_vulnerability,
+    remove_vulnerability_new,
     remove_vulnerability_tags,
     request_verification_vulnerability,
     request_verification_vulnerability_new,
@@ -116,7 +117,6 @@ MUTATION.set_field(
     "deactivateOrgFindingPolicy", deactivate_finding_policy.mutate
 )
 MUTATION.set_field("deactivateRoot", deactivate_root.mutate)
-MUTATION.set_field("deleteVulnerability", remove_vulnerability.mutate)
 MUTATION.set_field("downloadEventFile", download_event_file.mutate)
 MUTATION.set_field(
     "editStakeholderOrganization", edit_stakeholder_organization.mutate
@@ -202,7 +202,6 @@ MUTATION.set_field(
     "confirmZeroRiskVulnerabilities", confirm_zero_risk_vulnerabilities.mutate
 )
 MUTATION.set_field("removeTags", remove_vulnerability_tags.mutate)
-MUTATION.set_field("removeVulnerability", remove_vulnerability.mutate)
 MUTATION.set_field(
     "downloadVulnerabilityFile", download_vulnerability_file.mutate
 )
@@ -210,9 +209,7 @@ MUTATION.set_field(
     "handleVulnerabilitiesAcceptation",
     handle_vulnerabilities_acceptation.mutate,
 )
-MUTATION.set_field(
-    "rejectZeroRiskVulnerabilities", reject_zero_risk_vulnerabilities.mutate
-)
+
 
 if FI_API_STATUS == "migration":
     MUTATION.set_field("addDraft", add_draft_new.mutate)
@@ -220,6 +217,8 @@ if FI_API_STATUS == "migration":
     MUTATION.set_field("createDraft", add_draft_new.mutate)
     MUTATION.set_field("deleteFinding", remove_finding_new.mutate)
     MUTATION.set_field("removeFinding", remove_finding_new.mutate)
+    MUTATION.set_field("deleteVulnerability", remove_vulnerability_new.mutate)
+    MUTATION.set_field("removeVulnerability", remove_vulnerability_new.mutate)
     MUTATION.set_field("rejectDraft", reject_draft_new.mutate)
     MUTATION.set_field(
         "rejectZeroRiskVuln", reject_zero_risk_vulnerabilities_new.mutate
@@ -258,6 +257,8 @@ else:
     MUTATION.set_field("createDraft", add_draft.mutate)
     MUTATION.set_field("deleteFinding", remove_finding.mutate)
     MUTATION.set_field("removeFinding", remove_finding.mutate)
+    MUTATION.set_field("deleteVulnerability", remove_vulnerability.mutate)
+    MUTATION.set_field("removeVulnerability", remove_vulnerability.mutate)
     MUTATION.set_field("rejectDraft", reject_draft.mutate)
     MUTATION.set_field(
         "rejectZeroRiskVuln", reject_zero_risk_vulnerabilities.mutate

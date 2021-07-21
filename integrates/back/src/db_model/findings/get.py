@@ -272,6 +272,8 @@ async def _get_group(*, finding_id: str) -> str:
         facets=(TABLE.facets["finding_metadata"],),
         table=TABLE,
     )
+    if not results:
+        raise FindingNotFound()
     inverted_index = TABLE.indexes["inverted_index"]
     inverted_key_structure = inverted_index.primary_key
     metadata = historics.get_metadata(
@@ -279,8 +281,6 @@ async def _get_group(*, finding_id: str) -> str:
         key_structure=inverted_key_structure,
         raw_items=results,
     )
-    if not results:
-        raise FindingNotFound()
 
     return metadata["group_name"]
 

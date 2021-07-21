@@ -23,8 +23,8 @@ class EntityAttr(Enum):
 
 
 class EntityDependency(Enum):
-    delete_vulnerability: str = "delete_vulnerability"
     reject_zero_risk_vuln: str = "reject_zero_risk_vuln"
+    remove_vulnerability: str = "remove_vulnerability"
     request_verification_vulnerability: str = (
         "request_verification_vulnerability"
     )
