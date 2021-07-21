@@ -48,26 +48,6 @@ def emit(msg: str) -> None:
     print(msg)
 
 
-def is_str(stru: STRU) -> bool:
-    """Return True if stru is str."""
-    return isinstance(stru, str)
-
-
-def is_int(stru: STRU) -> bool:
-    """Return True if stru is int."""
-    return isinstance(stru, int)
-
-
-def is_bool(stru: STRU) -> bool:
-    """Return True if stru is bool."""
-    return isinstance(stru, bool)
-
-
-def is_float(stru: STRU) -> bool:
-    """Return True if stru is float."""
-    return isinstance(stru, float)
-
-
 def is_list(stru: STRU) -> bool:
     """Return True if stru is list."""
     return isinstance(stru, list)
@@ -79,8 +59,13 @@ def is_dict(stru: STRU) -> bool:
 
 
 def is_base(stru: STRU) -> bool:
-    """Return True if stru is a primitive type."""
-    return any((f(stru) for f in (is_str, is_int, is_bool, is_float)))
+    primitives = (
+        str,
+        int,
+        bool,
+        float,
+    )
+    return isinstance(stru, primitives)
 
 
 def is_stru(stru: STRU) -> bool:
@@ -92,7 +77,7 @@ def is_timestamp(stru: STRU) -> bool:
     """Return True if stru is a valid timestamp."""
     #  946684800 = 2000-01-01T00:00:00Z
     # 2147483647 = 2038-01-19T03:14:07Z
-    return (is_int(stru) or is_float(stru)) and 946684800 < stru < 2147483647
+    return isinstance(stru, (int, float)) and 946684800 < stru < 2147483647
 
 
 def clean_str(stru: str) -> str:
@@ -106,7 +91,7 @@ def to_date(date_time: Any) -> Any:
         with contextlib.suppress(OverflowError, ParserError, TypeError):
             return date_parser(str(date_time)).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-    if is_str(date_time):
+    if isinstance(date_time, str):
         with contextlib.suppress(OverflowError, ParserError, TypeError):
             try:
                 float(date_time)
