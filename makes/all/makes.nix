@@ -20,6 +20,12 @@
     enable = true;
     targets = [ "/" ];
   };
+  lintGitCommitMsg = {
+    branch = "master";
+    enable = true;
+    config = ./lint-git-commit-msg-config.js;
+    parser = ./lint-git-commit-msg-parser.js;
+  };
   lintGitMailMap = {
     enable = true;
   };

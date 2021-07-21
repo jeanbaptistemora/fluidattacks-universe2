@@ -122,6 +122,13 @@ workflow:
   <<: *common_in_dev_branch
   stage: lint-code
 
+/lintGitCommitMsg:
+  <<: *makes4
+  <<: *common_in_dev_branch
+  stage: lint-code
+  variables:
+    GIT_DEPTH: 0
+
 /lintGitMailMap:
   <<: *makes4
   <<: *common_in_dev_branch
@@ -129,11 +136,6 @@ workflow:
 
 /lintNix:
   <<: *makes4
-  <<: *common_in_dev_branch
-  stage: lint-code
-
-makes.lint-commit-msg:
-  <<: *makes
   <<: *common_in_dev_branch
   stage: lint-code
 
