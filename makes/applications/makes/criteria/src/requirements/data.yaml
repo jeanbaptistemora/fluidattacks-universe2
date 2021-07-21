@@ -2023,55 +2023,163 @@
 "140":
   en:
     title: Define OTP lifespan
-    summary: __empty_
-    description: __empty__
+    summary: >
+      One-time passwords (OTP)
+      must have a maximum lifespan
+      of 60 seconds.
+    description: >
+      OTPs are tokens
+      that help hinder phishing
+      (impersonation) attacks.
+      They should be generated
+      using secure cryptographic algorithms,
+      be sent over a protected channel
+      and have a short lifespan
+      that considers network delay
+      and entry time.
+      Furthermore,
+      it should only be possible
+      to use them once within
+      their validity period.
   es:
     title: Definir tiempo de duración de OTP
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Las contraseñas de un solo uso
+      (OTP) deben tener una duración
+      máxima de 60 segundos.
+    description: >
+      Los OTPs son contraseñas
+      que ayudan a obstaculizar ataques
+      tipo phishing (suplantación).
+      Deberían ser generadas
+      usando algoritmos criptográficos
+      seguros,
+      ser enviados sobre un canal protegido
+      y tener una duración corta
+      que considera el retardo de la red
+      y el tiempo de entrada.
+      Además,
+      debería ser posible
+      solamente usarlas una vez
+      dentro del periodo de validez.
   references: []
   metadata: {}
 "141":
   en:
     title: Force re-authentication
-    summary: __empty_
+    summary: >
+      The system must force users
+      to re-authenticate or invalidate
+      their session if the state
+      of their account changes
+      (e.g., password change/recovery,
+      lockouts, user deletion, etc.).
     description: __empty__
   es:
     title: Forzar re-autenticación
-    summary: __empty__
+    summary: >
+      El sistema debe forzar
+      a un usuario a realizar nuevamente
+      el proceso de autenticación
+      o invalidar la sesión en el sistema
+      una vez que haya ocurrido un cambio
+      en el estado del usuario
+      (cambio o restauración de su contraseña,
+      bloqueo, borrado del usuario,
+      deshabilitación del usuario, etc).
     description: __empty__
   references: []
   metadata: {}
 "142":
   en:
     title: Change system default credentials
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The organization must modify
+      all default access credentials
+      of embedded systems.
+    description: >
+      Organizations usually keep
+      default configurations
+      of third-party products,
+      since these may adapt
+      to most environments
+      where they are installed
+      and facilitate the deployment
+      to production.
+      However,
+      this practice may leave
+      a default open gate
+      for products and,
+      in most cases,
+      credentials within provider documentation,
+      which can be easily found
+      on the Internet.
+      For this reason it is important
+      to check all configurations
+      before deployment
+      and remove all default credentials.
   es:
     title: Modificar las credenciales por defecto del sistema
-    summary: __empty__
-    description: __empty__
+    summary: >
+      La organización debe modificar
+      todas las credenciales de acceso
+      por defecto de sistemas empaquetados.
+    description: >
+      Las organizaciones suelen mantener
+      configuraciones predeterminadas
+      de productos de terceros,
+      ya que pueden adaptarse
+      a la mayoría de los entornos
+      donde están instalados
+      y facilitar la implementación
+      en producción.
+      Sin embargo,
+      esta práctica puede dejar
+      una puerta abierta predeterminada
+      para los productos y,
+      en la mayoría de los casos,
+      las credenciales dentro
+      de la documentación del proveedor,
+      que se puede encontrar
+      fácilmente en Internet.
+      Por esta razón,
+      es importante verificar
+      todas las configuraciones
+      antes de la implementación
+      y eliminar todas las credenciales
+      predeterminadas. 
   references: []
   metadata: {}
 "143":
   en:
     title: Unique access credentials
-    summary: __empty_
+    summary: >
+      System access credentials
+      must be unique for each actor.
     description: __empty__
   es:
     title: Credenciales de acceso únicas
-    summary: __empty__
+    summary: >
+      Las credenciales de acceso
+      al sistema deben ser únicas
+      para cada actor.
     description: __empty__
   references: []
   metadata: {}
 "144":
   en:
     title: Remove inactive accounts periodically
-    summary: __empty_
+    summary: >
+      The organization
+      must remove inactive user
+      accounts periodically (purging).
     description: __empty__
   es:
     title: Eliminar cuentas inactivas periódicamente
-    summary: __empty__
+    summary: >
+      La organización
+      debe purgar las cuentas de usuario
+      periódicamente.
     description: __empty__
   references: []
   metadata: {}
