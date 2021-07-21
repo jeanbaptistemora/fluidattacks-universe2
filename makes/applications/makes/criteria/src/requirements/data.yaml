@@ -1624,55 +1624,145 @@
 "126":
   en:
     title: Set a password regeneration mechanism
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must provide
+      a secure mechanism
+      to regenerate a user's password.
+    description: >
+      Passwords are identity
+      assertion elements
+      that can be easily lost
+      or forgotten.
+      Additionally,
+      they can be leaked
+      as a result of a user's actions
+      or a breach in the system.
+      Thus,
+      systems should have
+      a secure mechanism
+      that allows users
+      to generate a new password
+      in either of these scenarios.
+      Furthermore,
+      none of these mechanisms
+      should send a recovery secret
+      in plain text nor should they reveal
+      the current password.
   es:
     title: Establecer un mecanismo de regeneración de contraseñas
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe proveer
+      un mecanismo seguro para regenerar
+      la contraseña de un usuario. 
+    description: >
+      Las contraseñas son
+      elementos de afirmación
+      de identidad que pueden ser
+      perdidos u olvidados fácilmente.
+      Adicionalmente,
+      se pueden fugar como resultado
+      de acciones del usuario o
+      una brecha en el sistema.
+      Por lo tanto,
+      los sistemas deberían tener
+      un mecanismo seguro
+      que permita a los usuarios
+      generar una nueva contraseña
+      en cualquiera de estos escenarios.
   references: []
   metadata: {}
 "127":
   en:
     title: Store hashed passwords
-    summary: __empty_
-    description: __empty__
+    summary: >
+      Passwords must be hashed
+      before being stored
+      using secure hash algorithms
+      such as PBKDF2 and bcrypt.
+    description: >
+      A hash function maps data
+      of arbitrary size to fixed-size values.
+      It conceals sensitive information
+      as it is often not possible
+      to reverse hashed texts.
+      Hashing passwords helps
+      to prevent unauthorized actors
+      that may have accessed
+      the storage system from obtaining them.
   es:
     title: Almacenar contraseñas con hash
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Las contraseñas 
+      deben tener un hash
+      antes de ser almacenadas
+      usando algoritmos de hash seguros
+      tales como PBKDF2 y bcrypt.
+    description: >
+      Una función hash mapea los datos
+      de tamaño arbitrario
+      a datos de tamaño fijo.
+      Oculta información confidencial,
+      ya que a menudo no es posible
+      revertir el texto hash.
+      El hash de contraseñas
+      ayuda a prevenir que actores
+      no autorizados hayan accedido
+      al sistema de almacenamiento
+      para obtenerlas.
   references: []
   metadata: {}
 "128":
   en:
     title: Define unique data source
-    summary: __empty_
+    summary: >
+      All system passwords
+      must be stored in a unique
+      data source.
     description: __empty__
   es:
     title: Definir una única fuente de datos
-    summary: __empty__
+    summary: >
+      Todas las contraseñas
+      deben estar almacenadas en una
+      única fuente de datos.
     description: __empty__
   references: []
   metadata: {}
 "129":
   en:
     title: Validate previous passwords
-    summary: __empty_
+    summary: >
+      The system must not allow
+      password changes
+      for a user if the new password
+      matches one of the previous
+      5 passwords for the same user.
     description: __empty__
   es:
     title: Validar contraseñas previas
-    summary: __empty__
+    summary: >
+      El sistema no debe permitir
+      cambios de contraseñas
+      para un usuario
+      si la nueva contraseña
+      concuerda con alguna
+      de las 5 contraseñas previas
+      para el mismo usuario.
     description: __empty__
   references: []
   metadata: {}
 "130":
   en:
     title: Limit password lifespan
-    summary: __empty_
+    summary: >
+      Passwords must be valid
+      for a maximum of 30 days.
     description: __empty__
   es:
     title: Limitar tiempo de duración de contraseñas
-    summary: __empty__
+    summary: >
+      Las contraseñas deben ser validas
+      por un maximo de 30 dias.
     description: __empty__
   references: []
   metadata: {}
