@@ -1476,67 +1476,149 @@
 "117":
   en:
     title: Do not interpret HTML code
-    summary: __empty__
+    summary: >
+      The client of business emails
+      must not display HTML code
+      by default.
     description: __empty__
   es:
     title: No interpretar código HTML
-    summary: __empty__
+    summary: >
+      El cliente del correo empresarial
+      no debe renderizar código HTML
+      por defecto.
     description: __empty__
   references: []
   metadata: {}
 "118":
   en:
     title: Inspect attachments
-    summary: __empty__
+    summary: >
+      An anti-malware tool
+      must scan files that
+      are attached to an email.
     description: __empty__
   es:
     title: Inspeccionar archivos adjuntos
-    summary: __empty__
+    summary: >
+      Se deben escanear
+      los archivos adjuntos
+      en un correo con herramientas
+      anti-malware.
     description: __empty__
   references: []
   metadata: {}
 "119":
   en:
     title: Hide recipients
-    summary: __empty_
+    summary: >
+      The BCC field must be used
+      instead of the TO field
+      when sending bulk emails.
     description: __empty__
   es:
     title: Ocultar destinatarios
-    summary: __empty__
+    summary: >
+      El campo BBC debe ser usado
+      en vez del campo TO al enviar
+      correos electrónicos masivos.
     description: __empty__
   references: []
   metadata: {}
 "121":
   en:
     title: Guarantee uniqueness of emails
-    summary: __empty_
+    summary: >
+      Systems using email accounts
+      for user registration
+      must guarantee the uniqueness
+      of the emails.
+      This is indicated in the RFC822
+      email address structure standard.
     description: __empty__
   es:
     title: Garantizar unicidad de los correos electrónicos
-    summary: __empty__
+    summary: >
+      Sistemas que empleen
+      cuentas de correo
+      para el registro de usuarios
+      deben garantizar la unicidad
+      de los correos,
+      siguiendo el estándar
+      de la estructura de dirección
+      de correo RFC822.
     description: __empty__
   references: []
   metadata: {}
 "122":
   en:
     title: Validate credential ownership
-    summary: __empty_
+    summary: >
+      The system must validate
+      that the given credentials
+      (email, phone number, etc.)
+      actually belong to the user
+      that claimed ownership of them.
     description: __empty__
   es:
     title: Validar propiedad de las credenciales
-    summary: __empty__
+    summary: >
+      El sistema debe validar
+      que las credenciales entregadas
+      (correo electronico, número de teléfono, etc)
+      realmente pertenecen
+      al usuario que reclama
+      propiedad sobre ellos.
     description: __empty__
   references: []
   metadata: {}
 "123":
   en:
     title: Restrict the reading of emails
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must guarantee
+      that exposed email addresses
+      can only be read by humans.
+    description: >
+      Sometimes,
+      corporate email addresses
+      are exposed on the company’s website
+      or another overly public medium.
+      These emails
+      should only be visible
+      to human beings,
+      which can be accomplished by,
+      for instance,
+      publishing them as images
+      instead of as plain text.
+      This prevents
+      automatic tools
+      from collecting them
+      and adding them
+      to bulk email distribution lists.
   es:
     title: Restringir la lectura de correos electrónicos
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe garantizar
+      que las direcciones
+      de correo electrónico expuestas
+      solo pueden ser leidas por humanos.
+    description: >
+      A veces,
+      los correos electrónicos
+      corporativos están expuestos
+      en el sitio web de la compañía
+      u otro medio demasiado público.
+      Estos correos deberían
+      ser visibles a los seres humanos,
+      lo cual puede lograrse,
+      por ejemplo,
+      publicándolos como imagen
+      y no como texto plano.
+      Esto evita que las herramientas
+      automáticas los recolecten
+      o añadan a listas de distribución
+      de correos masivos.
   references: []
   metadata: {}
 "126":
