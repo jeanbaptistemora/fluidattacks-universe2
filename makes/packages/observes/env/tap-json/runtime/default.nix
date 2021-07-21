@@ -22,5 +22,9 @@ makeTemplate {
     envPython38Paths = [
       tap-json.runtime.python
     ];
+    envSources = [
+      singer-io.runtime
+      utils-logger.runtime
+    ];
   };
 }
