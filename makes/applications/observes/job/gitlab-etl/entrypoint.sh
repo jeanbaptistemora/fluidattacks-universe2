@@ -14,7 +14,7 @@ function start_etl {
   echo "[INFO] Gitlab ETL for ${project}" \
     && echo '[INFO] Running tap' \
     && tap-gitlab stream "all" \
-      --project 'fluidattacks/product' \
+      --project "${project}" \
       --api-key "${token}" \
       --max-pages 250 \
       --state "${state}" \

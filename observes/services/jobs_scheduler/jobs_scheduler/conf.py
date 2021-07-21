@@ -24,17 +24,13 @@ SCHEDULE: Dict[PartialCron, List[str]] = {
     PartialCron.new(6, AnyTime(), work_days): [
         "observes.scheduled.on-aws.code-etl-upload",
     ],
-    PartialCron.new(16, AnyTime(), work_days): [
-        "observes.scheduled.on-aws.gitlab-etl.services",
-    ],
     PartialCron.new(range(0, 24, 2), AnyTime(), AnyTime()): [
         "observes.scheduled.on-aws.gitlab-etl.product",
     ],
-    PartialCron.new(20, AnyTime(), work_days): [
+    PartialCron.new(range(1, 24, 2), AnyTime(), AnyTime()): [
         "observes.scheduled.on-aws.gitlab-etl.challenges",
-    ],
-    PartialCron.new(22, AnyTime(), work_days): [
         "observes.scheduled.on-aws.gitlab-etl.default",
+        "observes.scheduled.on-aws.gitlab-etl.services",
     ],
     PartialCron.new((11, 18), AnyTime(), work_days): [
         "observes.scheduled.on-aws.formstack-etl",
