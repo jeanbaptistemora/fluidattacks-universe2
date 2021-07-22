@@ -26,13 +26,19 @@ def test_model_core_model_manifest_findings() -> None:
     path: str = "skims/manifests/findings.json"
     expected: str = (
         json.dumps(
-            sorted(
-                finding.name
+            {
+                finding.name: {
+                    locale.name: dict(
+                        title=t(finding.value.title, locale=locale),
+                    )
+                    for locale in core_model.LocalesEnum
+                }
                 for finding in core_model.FindingEnum
                 if finding.value.execution_queue
                 != core_model.ExecutionQueue.none
-            ),
+            },
             indent=2,
+            sort_keys=True,
         )
         + "\n"
     )
@@ -60,6 +66,7 @@ def test_model_core_model_manifest_queues() -> None:
                 if queue != core_model.ExecutionQueue.none
             },
             indent=2,
+            sort_keys=True,
         )
         + "\n"
     )

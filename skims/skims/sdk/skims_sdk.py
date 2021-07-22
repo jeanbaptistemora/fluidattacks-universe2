@@ -18,7 +18,9 @@ def _json_load(path: str) -> Any:
         return json.load(file)
 
 
-FINDINGS: List[str] = _json_load(environ["SKIMS_FINDINGS"])
+FINDINGS: Dict[str, Dict[str, Dict[str, str]]] = _json_load(
+    environ["SKIMS_FINDINGS"]
+)
 QUEUES: Dict[str, List[str]] = _json_load(environ["SKIMS_QUEUES"])
 
 
