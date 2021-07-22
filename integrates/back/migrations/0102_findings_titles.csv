@@ -1,0 +1,2084 @@
+Old typology,New typology
+CAPEC-93: Log Injection-Tampering-Forging,091. Log injection
+CAPEC.0242. Code Injection,045. HTML code injection
+CAPEC.130. Excessive Allocation,067. Improper resource allocation
+CAPEC.223. Employ Probabilistic Techniques,034. Insecure generation of random numbers
+CAPEC.242. Code Injection,045. HTML code injection
+CAPEC.457. Ataques con memorias USB,104. USB flash drive attacks
+CAPEC.509. Kerberoasting,014. Insecure functionality
+CAPEC.644. Use of Captured Hashes (Pass The Hash),051. Cracked weak credentials
+CAPEC.93. Log Injection-Tampering-Forging,091. Log injection
+CWE.0073. External Control of File Name or Path,098. External control of file name or path
+CWE.0074. Improper Neutralization of Special Elements in Output Used by a Downstream Component,089. Lack of data validation - Trust boundary violation
+CWE.1176. Inefficient CPU Computation,067. Improper resource allocation
+CWE.704. Incorrect Type Conversion or Cast,113. Improper type assignation
+CWE.863. Incorrect Authorization,006. Authentication mechanism absence or evasion
+CWE.90. LDAP injection,107. LDAP injection
+CWE.S.0073. External control of file name or path,098. External control of file name or path
+CWE.S.444. Inconsistent Interpretation of HTTP Requests ('HTTP Request Smuggling'),110. HTTP request smuggling
+F001. Inyección,001. SQL injection - C Sharp SQL API
+F001. Inyección Apache Lucene Query,105. Apache lucene query injection
+F001. Inyección SQL,001. SQL injection - C Sharp SQL API
+F001. Inyección SQL - Auditorias,001. SQL injection - C Sharp SQL API
+F001. Inyección SQL - Cabeceras,001. SQL injection - C Sharp SQL API
+F001. Inyección SQL - Contáctanos,001. SQL injection - C Sharp SQL API
+F001. Inyección SQL - Java Persistence API,001. SQL injection - C Sharp SQL API
+F001. Inyección SQL - Vinculación Digital Valores.,001. SQL injection - C Sharp SQL API
+F001. SQL Injection,001. SQL injection - C Sharp SQL API
+F001. SQL injection,001. SQL injection - C Sharp SQL API
+F001. SQL injection - Java Persistence API,001. SQL injection - C Sharp SQL API
+F001. SQL injection - Java SQL API,001. SQL injection - C Sharp SQL API
+F001. Time-based SQL Injection,001. SQL injection - C Sharp SQL API
+F002. Asymmetric denial of service,002. Asymmetric denial of service
+F002. Asymmetric Denial of Service,002. Asymmetric denial of service
+F002. Asymmetric denial of service - revoke group access,002. Asymmetric denial of service
+F002. Denegación de servicio asimétrica,002. Asymmetric denial of service
+F002. Denegación de servicio asimétrica - Acceso fisico,002. Asymmetric denial of service
+F002. Denegación de servicio asimétrica - Cerrar sesión,002. Asymmetric denial of service
+F002. Denegación de servicio asimétrica - Consulta de registros,002. Asymmetric denial of service
+F002. Denegación de servicio asimétrica - Consultas,002. Asymmetric denial of service
+F002. Denegación de servicio asimétrica - Content-Length,002. Asymmetric denial of service
+F002. Denegación de servicio asimétrica - Etiquetas,002. Asymmetric denial of service
+F002. Denegación de servicio asimétrica - Inhabilitación de Endpoints,002. Asymmetric denial of service
+F002. Denegación de servicio asimétrica - Login,002. Asymmetric denial of service
+F002. Denegación de servicio asimétrica - Server XSS,002. Asymmetric denial of service
+F002. Denegación de servicio asimétrica - Tablas maestras,002. Asymmetric denial of service
+F002. Denegación de servicio asimétrica - Tiempo de Respuesta,002. Asymmetric denial of service
+F002. Denegación de servicio asimétrica - Time Line,002. Asymmetric denial of service
+F002. Denegación de servicio asimétrica - XML Malformado,002. Asymmetric denial of service
+F002. Denegación de servicio asimétrica: Validación de datos,002. Asymmetric denial of service
+F002. Denegación de servicio asimétrico,002. Asymmetric denial of service
+F002. Denegación de servicio simétrica,002. Asymmetric denial of service
+F003. Denegación de servicio simétrica,003. Symmetric denial of service
+F003. Denegación de servicio simétrica - Cerrar sesión,003. Symmetric denial of service
+F003. Denegación de servicio simétrica - GuardarLogs.,003. Symmetric denial of service
+F003. Denegación de servicio simétrica - iOS,003. Symmetric denial of service
+F003. Denegación de servicio simétrica - Servicio SMTP,003. Symmetric denial of service
+F003. Denegación de servicio simétrica - Slowloris,003. Symmetric denial of service
+F003. Denegación de servicio simétrica - Tamaño del archivo-  Apolo,003. Symmetric denial of service
+F003. Denegación de servicio simétrica - Transferencia de archivos por SFTP (SSH),003. Symmetric denial of service
+F003. Denegación de servicio simétrica - XML Bomb,003. Symmetric denial of service
+F004. Ejecución remota de comandos,004. Remote command execution
+F004. Ejecución remota de comandos - Axis2,004. Remote command execution
+F004. Ejecución remota de comandos - JBOSS,004. Remote command execution
+F004. Ejecución remota de comandos - MSSQL,004. Remote command execution
+F004. Ejecución remota de comandos - Oracle,004. Remote command execution
+F004. Ejecución remota de comandos - XOWIKI,004. Remote command execution
+F004. Remote command execution,004. Remote command execution
+F004. Remote Command Execution,004. Remote command execution
+F005. Elevación de privilegios,005. Privilege escalation
+F005. Elevación de privilegios - Docker escape,005. Privilege escalation
+F005. Elevación de privilegios - Módulo reportes,005. Privilege escalation
+F005. Privilege escalation,005. Privilege escalation
+F006. Ausencia o evasión de autenticación,006. Authentication mechanism absence or evasion
+F006. Ausencia o evasión de autenticación - Clave Dinámica,006. Authentication mechanism absence or evasion
+F006. Ausencia o evasión de autenticación - Login con código de seguridad,006. Authentication mechanism absence or evasion
+F006. Ausencia o evasión de autenticación - Protección de booteo y BIOS,006. Authentication mechanism absence or evasion
+F006. Ausencia o evasión de autenticación - Segunda Clave,006. Authentication mechanism absence or evasion
+F006. Ausencia o evasión de autenticación - SifBranch,006. Authentication mechanism absence or evasion
+F006. Ausencia o evasión de autenticación =<h1>asd</h1>,006. Authentication mechanism absence or evasion
+F007. Cross site request forgery,007. Cross-site request forgery
+F007. Cross site request forgery - Logout,007. Cross-site request forgery
+F008. Cross site scripting DOM auto reflejado,008. Reflected cross-site scripting (XSS)
+F008. Cross site scripting reflejado,008. Reflected cross-site scripting (XSS)
+F008. Cross site scripting reflejado - Eval,008. Reflected cross-site scripting (XSS)
+F008. Cross site scripting reflejado - Oracle ERP,008. Reflected cross-site scripting (XSS)
+F008. Cross site scripting reflejado - Web,008. Reflected cross-site scripting (XSS)
+F008. Reflected Cross Site Scripting,008. Reflected cross-site scripting (XSS)
+F008. Reflected cross-site scripting,008. Reflected cross-site scripting (XSS)
+F008. Reflected cross-site scripting (XSS),008. Reflected cross-site scripting (XSS)
+F008. Reflected cross-site scripting (XSS) - Self XSS,008. Reflected cross-site scripting (XSS)
+F009. Informacion sensible almacenada en el código fuente,009. Sensitive information in source code
+F009. Información sensible almacenada en el código fuente,009. Sensitive information in source code
+F009. Información sensible almacenada en el código fuente  - AWS,009. Sensitive information in source code
+F009. Información sensible almacenada en el código fuente - Android,009. Sensitive information in source code
+F009. Información sensible almacenada en el código fuente - Archivos de Pruebas,009. Sensitive information in source code
+F009. Información sensible almacenada en el código fuente - Archivos Prueba,009. Sensitive information in source code
+F009. Información sensible almacenada en el código fuente - Código fuente,009. Sensitive information in source code
+F009. Información sensible almacenada en el código fuente - credenciales AWS,009. Sensitive information in source code
+F009. Información sensible almacenada en el código fuente - Credenciales AWS,009. Sensitive information in source code
+F009. Información sensible almacenada en el código fuente - Jfrog,009. Sensitive information in source code
+F009. Información sensible almacenada en el código fuente - Llave Repo,009. Sensitive information in source code
+F009. Información sensible almacenada en el código fuente - Llaves de firmado,009. Sensitive information in source code
+F009. Información sensible almacenada en el código fuente - Llaves Privadas,009. Sensitive information in source code
+F009. Información sensible almacenada en el código fuente - OAuth,009. Sensitive information in source code
+F009. Información sensible almacenada en el código fuente - PostgreSQL,009. Sensitive information in source code
+F009. Información sensible almacenada en el código fuente -artifactory,009. Sensitive information in source code
+F009. Información sensible almacenado en el código fuente - Llave privada,009. Sensitive information in source code
+F009. Sensitive information in source code,009. Sensitive information in source code
+F009. Source code with sensitive information,009. Sensitive information in source code
+F009. Source code with sensitive information - AWS credentials,009. Sensitive information in source code
+F010. Cross site scripting almacenado,010. Stored cross-site scripting (XSS)
+F010. Stored cross site scripting,010. Stored cross-site scripting (XSS)
+F010. Stored Cross site scripting,010. Stored cross-site scripting (XSS)
+F010. Stored Cross Site Scripting,010. Stored cross-site scripting (XSS)
+F010. Stored cross-site scripting (XSS),010. Stored cross-site scripting (XSS)
+F011. Outdated Vulnerable Software,011. Use of software with known vulnerabilities
+F011. Software desactualizado con vulnerabilidades,011. Use of software with known vulnerabilities
+F011. Use of software with known vulnerabilities,011. Use of software with known vulnerabilities
+F011. Use of software with known vulnerabilities - old version of TLS,011. Use of software with known vulnerabilities
+F011. Uso de componentes con vulnerabilidades conocidas,011. Use of software with known vulnerabilities
+F011. Uso de componentes con vulnerabilidades conocidas - Aplicación Web,011. Use of software with known vulnerabilities
+F011. Uso de componentes con vulnerabilidades conocidas - Código fuente,011. Use of software with known vulnerabilities
+F011. Uso de componentes con vulnerabilidades conocidas - Flash player,011. Use of software with known vulnerabilities
+F011. Uso de componentes con vulnerabilidades conocidas - Ghostcat,011. Use of software with known vulnerabilities
+F011. Uso de componentes con vulnerabilidades conocidas - GlassFish Directory Traversal,011. Use of software with known vulnerabilities
+F011. Uso de componentes con vulnerabilidades conocidas - Máquinas sin actualizaciones,011. Use of software with known vulnerabilities
+F011. Uso de componentes con vulnerabilidades conocidas - TinyMCE,011. Use of software with known vulnerabilities
+F011. Uso de componentes con vulnerabilidades conocidas - versión desactualizada de TLS,011. Use of software with known vulnerabilities
+F011. Uso de componentes con vulnerabilidades conocidas - Web,011. Use of software with known vulnerabilities
+F011. Uso de componentes con vulnerabilidades conocidas.,011. Use of software with known vulnerabilities
+F011. Uso de software con vulnerabilidades conocidas,011. Use of software with known vulnerabilities
+F012. Acceso a recursos protegidos sin autenticación,006. Authentication mechanism absence or evasion
+F012. Acceso a recursos protegidos sin autenticación - Búsqueda de archivos.,006. Authentication mechanism absence or evasion
+F012. Acceso a recursos protegidos sin autenticación - Consultas Recepción,006. Authentication mechanism absence or evasion
+F012. Acceso a recursos protegidos sin autenticación - Jfrog,006. Authentication mechanism absence or evasion
+F012. Acceso a recursos protegidos sin autenticación - Logs,006. Authentication mechanism absence or evasion
+F012. Acceso a recursos protegidos sin autenticación - Mensajes de Error,006. Authentication mechanism absence or evasion
+F012. Acceso a recursos protegidos sin autenticación - Sif Management Console,006. Authentication mechanism absence or evasion
+F012. Acceso a recursos protegidos sin autorización,006. Authentication mechanism absence or evasion
+F012. Access to protected resources without authentication,006. Authentication mechanism absence or evasion
+F013. Direct Insecure Object Reference,013. Insecure object reference
+F013. Insecure direct object reference,013. Insecure object reference
+F013. Insecure direct object reference - UserId,013. Insecure object reference
+F013. Insecure object reference,013. Insecure object reference
+F013. Insecure object reference - [salesPersonId],013. Insecure object reference
+F013. Insecure object reference - Drafts access,013. Insecure object reference
+F013. Referencia insegura a objetos,013. Insecure object reference
+F013. Referencia insegura a objetos - Acceso a módulos,013. Insecure object reference
+F013. Referencia insegura a objetos - Agentes,013. Insecure object reference
+F013. Referencia insegura a objetos - Agregar contacto,013. Insecure object reference
+F013. Referencia insegura a objetos - Alicia,013. Insecure object reference
+F013. Referencia insegura a objetos - Aumento Cupo Otro Cliente,013. Insecure object reference
+F013. Referencia insegura a objetos - Broken Object Level Authorization,013. Insecure object reference
+F013. Referencia insegura a objetos - Cambio de contraseña,013. Insecure object reference
+F013. Referencia insegura a objetos - Cambio plan,013. Insecure object reference
+F013. Referencia insegura a objetos - Comprobantes de pago,013. Insecure object reference
+F013. Referencia insegura a objetos - Contacto de emergencia,013. Insecure object reference
+F013. Referencia insegura a objetos - Contactos,013. Insecure object reference
+F013. Referencia insegura a objetos - Descarga de archivos,013. Insecure object reference
+F013. Referencia insegura a objetos - Empresas,013. Insecure object reference
+F013. Referencia insegura a objetos - Gastos y movimientos,013. Insecure object reference
+F013. Referencia insegura a objetos - Generación QR,013. Insecure object reference
+F013. Referencia insegura a objetos - Gestiones,013. Insecure object reference
+F013. Referencia insegura a objetos - Informes,013. Insecure object reference
+F013. Referencia insegura a objetos - Liquidación de nómina,013. Insecure object reference
+F013. Referencia insegura a objetos - Planilla cotizantes,013. Insecure object reference
+F013. Referencia insegura a objetos - Planillas pagadas,013. Insecure object reference
+F013. Referencia insegura a objetos - Transferir chats,013. Insecure object reference
+F013. Referencia insegura a objetos - Ubicaciones,013. Insecure object reference
+F013. Referencia insegura a objetos - UUID,013. Insecure object reference
+F013. Referencia insegura a objetos (Login),013. Insecure object reference
+F013. Referencia insegura a objetos-documentId-customerId,013. Insecure object reference
+F013. Referencia insegura a objetos: Carga de facturas,013. Insecure object reference
+F013. Referencia insegura a objetos: Consulta de facturas,013. Insecure object reference
+F013. Referencia insegura a objetos: QR Nueva App,013. Insecure object reference
+F013. Referencia insegura a objetos: Vinculación de proveedores,013. Insecure object reference
+F014. Funcionalidad insegura,014. Insecure functionality
+F014. Funcionalidad insegura -  Carga adicional de archivos,014. Insecure functionality
+F014. Funcionalidad insegura - Activar/Desactivar cuenta,014. Insecure functionality
+F014. Funcionalidad insegura - Actualización QR,014. Insecure functionality
+F014. Funcionalidad insegura - Adjunto de archivos,014. Insecure functionality
+F014. Funcionalidad insegura - Agregar ubicaciones,014. Insecure functionality
+F014. Funcionalidad insegura - Alertas cerradas,014. Insecure functionality
+F014. Funcionalidad insegura - Asignación de contraseña,014. Insecure functionality
+F014. Funcionalidad insegura - Bucle de redirección,014. Insecure functionality
+F014. Funcionalidad insegura - Bypass de validación certificación,014. Insecure functionality
+F014. Funcionalidad insegura - Bypass detección root,014. Insecure functionality
+F014. Funcionalidad insegura - Bypass Historia clínica,014. Insecure functionality
+F014. Funcionalidad insegura - Bypass políticas de sesión,014. Insecure functionality
+F014. Funcionalidad insegura - Bypass sesiones concurrentes,014. Insecure functionality
+F014. Funcionalidad insegura - Cabecera X-XSS-Protection,135. Insecure or unset HTTP headers - X-XSS Protection
+F014. Funcionalidad insegura - Cambio contraseña,014. Insecure functionality
+F014. Funcionalidad insegura - Cambio de clave,014. Insecure functionality
+F014. Funcionalidad insegura - Cambio de contraseña sin token,014. Insecure functionality
+F014. Funcionalidad insegura - Cambio de información no permitida,014. Insecure functionality
+F014. Funcionalidad insegura - Cambio de Productos,014. Insecure functionality
+F014. Funcionalidad insegura - Código de recuperación,014. Insecure functionality
+F014. Funcionalidad insegura - Código de verificación,014. Insecure functionality
+F014. Funcionalidad insegura - Correo externo,014. Insecure functionality
+F014. Funcionalidad insegura - Creación de archivos,014. Insecure functionality
+F014. Funcionalidad insegura - Credenciales en headers,014. Insecure functionality
+F014. Funcionalidad insegura - Débito Automático,014. Insecure functionality
+F014. Funcionalidad insegura - Diario SifBranch,014. Insecure functionality
+F014. Funcionalidad insegura - Doble uso de código de seguridad,014. Insecure functionality
+F014. Funcionalidad insegura - Ejecución dinámica de código,014. Insecure functionality
+F014. Funcionalidad insegura - email flooding,122. Email flooding
+F014. Funcionalidad insegura - Email Flooding,122. Email flooding
+F014. Funcionalidad insegura - Email flooding,122. Email flooding
+F014. Funcionalidad insegura - Enmascaramiento,014. Insecure functionality
+F014. Funcionalidad insegura - Envío de Correos,014. Insecure functionality
+F014. Funcionalidad insegura - Envío de OTP,014. Insecure functionality
+F014. Funcionalidad insegura - Envío de URLS,014. Insecure functionality
+F014. Funcionalidad insegura - Envío de URLs,014. Insecure functionality
+F014. Funcionalidad insegura - envío masivo de mensajes de contacto,014. Insecure functionality
+F014. Funcionalidad insegura - Exportar a excel,014. Insecure functionality
+F014. Funcionalidad insegura - Forzar Asesoría,014. Insecure functionality
+F014. Funcionalidad insegura - Generar archivo,014. Insecure functionality
+F014. Funcionalidad insegura - Generar OTP,014. Insecure functionality
+F014. Funcionalidad insegura - Header X-XSS-Protection,135. Insecure or unset HTTP headers - X-XSS Protection
+F014. Funcionalidad insegura - Hostid,014. Insecure functionality
+F014. Funcionalidad insegura - Huella,014. Insecure functionality
+F014. Funcionalidad insegura - Huellas Digitales,014. Insecure functionality
+F014. Funcionalidad insegura - Imagen de seguridad,014. Insecure functionality
+F014. Funcionalidad insegura - Inscripciones sin restricción,014. Insecure functionality
+F014. Funcionalidad insegura - Integridad de IP,014. Insecure functionality
+F014. Funcionalidad insegura - Inyección CSV,090. CSV injection
+F014. Funcionalidad insegura - Inyección de Headers,121. HTTP parameter pollution
+F014. Funcionalidad insegura - Inyección de parámetros,121. HTTP parameter pollution
+F014. Funcionalidad insegura - Life Coach,014. Insecure functionality
+F014. Funcionalidad insegura - Mensaje de error,014. Insecure functionality
+F014. Funcionalidad insegura - Modificación de monto de pagos,014. Insecure functionality
+F014. Funcionalidad insegura - Modificar información no permitida,014. Insecure functionality
+F014. Funcionalidad insegura - Moneda representada con float,014. Insecure functionality
+F014. Funcionalidad insegura - Múltiples Usuarios,014. Insecure functionality
+F014. Funcionalidad insegura - otp transferencia,014. Insecure functionality
+F014. Funcionalidad insegura - Path Traversal,063. Lack of data validation - Path Traversal
+F014. Funcionalidad insegura - Recursos no liberados,067. Improper resource allocation
+F014. Funcionalidad insegura - Redireccion,023. Uncontrolled external site redirect - Host Header Injection
+F014. Funcionalidad insegura - RegEX,014. Insecure functionality
+F014. Funcionalidad insegura - Registro Drupal,014. Insecure functionality
+F014. Funcionalidad insegura - Reutilización de cupones,014. Insecure functionality
+F014. Funcionalidad insegura - Reverso a otras cuentas,014. Insecure functionality
+F014. Funcionalidad insegura - Reverso de dinero,014. Insecure functionality
+F014. Funcionalidad insegura - Salida del Sistema,014. Insecure functionality
+"F014. Funcionalidad insegura - SMS, Whatsapp flooding",122. Email flooding
+F014. Funcionalidad insegura - Subida de archivos,014. Insecure functionality
+F014. Funcionalidad insegura - Token de sesión en JS,014. Insecure functionality
+F014. Funcionalidad insegura - Transferencia,014. Insecure functionality
+F014. Funcionalidad insegura - Transferencias,014. Insecure functionality
+F014. Funcionalidad insegura - URL Shortener,014. Insecure functionality
+F014. Funcionalidad insegura - Uso de Eval sin validar,014. Insecure functionality
+F014. Funcionalidad insegura - Uso de eval(),014. Insecure functionality
+F014. Funcionalidad insegura - Zip slip,014. Insecure functionality
+"F014. Funcionalidad insegura ""Entrega credenciales SFTP""",014. Insecure functionality
+F014. Funcionalidad insegura (Validación Código Seguridad),014. Insecure functionality
+F014. Funcionalidad insegura: Bolsillos,014. Insecure functionality
+F014. Funcionalidad insegura: credenciales de acceso estampadas,014. Insecure functionality
+F014. Funcionalidad insegura: CSV Injection,090. CSV injection
+F014. Funcionalidad insegura: Deserialización de objetos,096. Insecure deserialization
+F014. Funcionalidad insegura: Envío de documentos,014. Insecure functionality
+F014. Funcionalidad insegura: Generación secuencial de IDs,014. Insecure functionality
+F014. Funcionalidad insegura: Guardado de Token,014. Insecure functionality
+F014. Funcionalidad insegura: ignoring jwt signature,014. Insecure functionality
+F014. Funcionalidad insegura: Informacion de transferencias,014. Insecure functionality
+F014. Funcionalidad insegura: Inyección CSV,090. CSV injection
+F014. Funcionalidad insegura: Inyeccion en logs,091. Log injection
+F014. Funcionalidad insegura: inyección en logs,091. Log injection
+F014. Funcionalidad insegura: login con logica de depuracion,058. Debugging enabled in production - APK
+F014. Funcionalidad insegura: Neutralizacion impropia,014. Insecure functionality
+F014. Funcionalidad insegura: parámetros de conexión de base de datos,014. Insecure functionality
+F014. Funcionalidad insegura: Productos bloqueados,014. Insecure functionality
+F014. Funcionalidad insegura: Validar respuestas,014. Insecure functionality
+F014. Funcionalidad insegura(Acceso no autorizado),014. Insecure functionality
+F014. Funcionalidad insegura(Envío de URLs),014. Insecure functionality
+F014. Funcionalidad insegura(Forzar Asesoría),014. Insecure functionality
+F014. Funcionalidad insegura(Inyección de Parámetros),014. Insecure functionality
+F014. Funcionalidad insegura(JWT Expiration),014. Insecure functionality
+F014. Insecure funcionality,014. Insecure functionality
+F014. Insecure function - CSV injection,090. CSV injection
+F014. Insecure functionality,014. Insecure functionality
+F014. Insecure functionality -  Access consent,014. Insecure functionality
+F014. Insecure functionality - Float currency,014. Insecure functionality
+F014. Insecure functionality - Parameter injection,121. HTTP parameter pollution
+F014. Insecure functionality - treatment managers,014. Insecure functionality
+F014. Insecure functionality - X-XSS-Protection Header,135. Insecure or unset HTTP headers - X-XSS Protection
+F014. Insecure service configuration,014. Insecure functionality
+F014. Unsafe functionality,014. Insecure functionality
+F014. Unsafe Functionality,014. Insecure functionality
+F014. Unsafe functionality - Admin role,014. Insecure functionality
+F014. Unsafe functionality - Random entropy,034. Insecure generation of random numbers
+F014. Unsafe functionality - Reverse Tabnabbing,097. Reverse tabnabbing
+F015. Insecure authentication method - Basic,015. Insecure authentication method - Basic
+F015. Método de autenticación inseguro,015. Insecure authentication method - Basic
+F015. Método de autenticación inseguro - Basic,015. Insecure authentication method - Basic
+F016. Algoritmo de cifrado inseguro - SSL/TLS,016. Insecure encryption algorithm - SSL/TLS
+F016. Insecure encryption algorithm - SSL/TLS,016. Insecure encryption algorithm - SSL/TLS
+F016. Llave de cifrado no parametrizable,016. Insecure encryption algorithm - SSL/TLS
+F016. Llave de cifrado no parametrizable - Keystore,016. Insecure encryption algorithm - SSL/TLS
+F016. Non-parameterizable encryption key,016. Insecure encryption algorithm - SSL/TLS
+F017. Información sensible enviada de forma insegura,017. Sensitive information sent insecurely
+F017. LDAP injection,017. Sensitive information sent insecurely
+F017. Sensitive information sent in an insecure way,017. Sensitive information sent insecurely
+F017. Sensitive information sent insecurely,017. Sensitive information sent insecurely
+F018. Carpetas compartidas sin control,018. Improper authentication for shared folders
+F019. Credenciales de administrador guardadas en caché de procesos,019. Administrative credentials stored in cache memory
+F019. Credenciales guardadas en caché de procesos,019. Administrative credentials stored in cache memory
+F020. Absence of encryption of confidential information,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial -  AWS,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial -  DynamoDB,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Almacenamiento Local,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - API Keys,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - APK,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - AWS,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Base de Datos,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - base de datos,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Base de datos,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Base64,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - BD de la App,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Botón de pago,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Bucket,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Contraseña sin enmascarar,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Credenciales API,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Credenciales AWS,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Credenciales KeyStore,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Credenciales locales,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Debug,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - DockerFile,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Enmascaramiento,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Firebase,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Jfrog,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Keystore,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - LDAP,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Life Coach,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Llaves de cifrado,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - MongoDB,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - MySQL,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Nexus,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Oracle DB,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - PHP files,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - RDS,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Sendgrid,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Shared Preferences,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - SQL Server Reporting Services,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - SQLite,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Tarjetas,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Tarjetas de crédito,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Token de Forces,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - Usuarios,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial - X-API-Token,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial S3,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial- Token invitado,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial: Base de datos,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial: Base64,020. Non-encrypted confidential information
+F020. Ausencia de cifrado de información confidencial: Bases de datos,020. Non-encrypted confidential information
+F020. Non-encrypted confidential information,020. Non-encrypted confidential information
+F020. Non-encrypted confidential information - local data,020. Non-encrypted confidential information
+F021. Inyección de XPath,021. XPath injection
+F021. Inyección XPath,021. XPath injection
+F021. XPath Injection,021. XPath injection
+F022. Use of an insecure channel,022. Use of an insecure channel
+F022. Uso de canal inseguro,022. Use of an insecure channel
+F022. Uso de canal inseguro -  SSLContext,022. Use of an insecure channel
+F022. Uso de canal inseguro - Código fuente,022. Use of an insecure channel
+F022. Uso de canal inseguro - FTP,022. Use of an insecure channel
+F022. Uso de canal inseguro - SecureProtocol,022. Use of an insecure channel
+F022. Uso de canal inseguro - SecurityProtocolType,022. Use of an insecure channel
+F022. Uso de canal inseguro - SMTP,022. Use of an insecure channel
+F022. Uso de canal inseguro - SSL,022. Use of an insecure channel
+F022. Uso de canal inseguro - SSL Context,022. Use of an insecure channel
+F022. Uso de canal inseguro - SSLContext,022. Use of an insecure channel
+F022. Uso de canal inseguro - Telnet,022. Use of an insecure channel
+F022. Uso de canal inseguro - useSslProtocol(),022. Use of an insecure channel
+F023. Non-controlled external site redirection,023. Uncontrolled external site redirect - Host Header Injection
+F023. Redirección a sitios externos no controlada,023. Uncontrolled external site redirect - Host Header Injection
+F023. Redirección a sitios externos no controlada - Host Header Injection,023. Uncontrolled external site redirect - Host Header Injection
+F023. Redirección a sitios externos no controlada - Logout,023. Uncontrolled external site redirect - Host Header Injection
+F023. Redirección a sitios externos no controlada - Parámetro URL,023. Uncontrolled external site redirect - Host Header Injection
+F023. Uncontrolled external site redirect,023. Uncontrolled external site redirect - Host Header Injection
+F024. Acceso no restringido entre segmentos de red,024. Unrestricted access between network segments - AWS
+F024. Acceso no restringido entre segmentos de red -  JSch,024. Unrestricted access between network segments - AWS
+F024. Acceso no restringido entre segmentos de red - Ausencia de DBSubnetGroup,024. Unrestricted access between network segments - AWS
+F024. Acceso no restringido entre segmentos de red - AWS,024. Unrestricted access between network segments - AWS
+F024. Acceso no restringido entre segmentos de red - Azure AD,024. Unrestricted access between network segments - AWS
+F024. Acceso no restringido entre segmentos de red - EC2 IPs públicas,024. Unrestricted access between network segments - AWS
+F024. Acceso no restringido entre segmentos de red - Socket TCP,024. Unrestricted access between network segments - AWS
+F024. Unrestricted access between network segments,024. Unrestricted access between network segments - AWS
+F024. Unrestricted access between network segments - AWS,024. Unrestricted access between network segments - AWS
+F025. Interceptación de llamadas,025. Call interception
+F026. Enumeración automática de información - MdmKey,026. User enumeration
+F026. Enumeración de usuarios,026. User enumeration
+F026. Enumeración de usuarios - App Móvil,026. User enumeration
+F026. Enumeración de usuarios - Botón Bancolombia,026. User enumeration
+F026. Enumeración de usuarios - Código de Usuario,026. User enumeration
+FIN.S.0056. Conexión anónima,056. Anonymous connection
+F026. Enumeración de usuarios - Evil Twin,026. User enumeration
+F026. Enumeración de usuarios - Midasoft,026. User enumeration
+F026. Enumeración de usuarios - obtenerProyectos,026. User enumeration
+F026. Enumeración de usuarios - SifBranch,026. User enumeration
+F026. Enumeración de usuarios - SSH,026. User enumeration
+F026. Enumeración de usuarios - Usuarios banco,026. User enumeration
+F026. Enumeración de usuarios: Nueva App,026. User enumeration
+F026. Enumeración de usuarios: SVP,026. User enumeration
+F026. User enumeration,026. User enumeration
+F026. User enumeration - SSH,026. User enumeration
+F026. Users enumeration,026. User enumeration
+F027.  Insecure file upload,027. Insecure file upload
+F027. Carga de archivos insegura,027. Insecure file upload
+F027. Carga insegura de archivo - Reemplazo de archivos,027. Insecure file upload
+F027. Carga insegura de archivos,027. Insecure file upload
+F027. Carga insegura de archivos - Bucket S3,027. Insecure file upload
+F027. Carga insegura de archivos - Cantidad de archivos,027. Insecure file upload
+F027. Carga insegura de archivos - codificación Base64,027. Insecure file upload
+F027. Carga insegura de archivos - Codificación Base64,027. Insecure file upload
+F027. Carga insegura de archivos - S3 Bucket,027. Insecure file upload
+F027. Insecure file upload,027. Insecure file upload
+F027. Unsafe file upload,027. Insecure file upload
+F028. Archivos temporales inseguros,028. Insecure temporary files
+F028. Archivos temporales inseguros - Secretos en archivos,028. Insecure temporary files
+F028. Insecure temporary files,028. Insecure temporary files
+F029. Control inadecuado de tamaño de archivos,029. Inadequate file size control
+F029. Inadequate file size control,029. Inadequate file size control
+F030. Información sensible enviada mediante parámetros URL,030. Sensitive information sent via URL parameters
+F030. Parameters sent by URL,030. Sensitive information sent via URL parameters
+F030. Parámetros enviados por URL,030. Sensitive information sent via URL parameters
+F030. Parámetros enviados por URL -  PowerBI,030. Sensitive information sent via URL parameters
+F030. Parámetros enviados por URL - Apikey,030. Sensitive information sent via URL parameters
+F030. Parámetros enviados por URL - Checksum,030. Sensitive information sent via URL parameters
+F030. Sensitive information sent via URL parameters,030. Sensitive information sent via URL parameters
+F031. Excessive privileges,031. Excessive privileges - AWS
+F031. Excessive privileges - AWS,031. Excessive privileges - AWS
+F031. Excessive privileges - Modify content as Reviewer,031. Excessive privileges - AWS
+F031. Excessive privileges - Reject findings,031. Excessive privileges - AWS
+F031. Excessive privileges - Temporary files,031. Excessive privileges - AWS
+F031. Permisos de aplicación innecesarios,031. Excessive privileges - AWS
+F031. Permisos excesivos,031. Excessive privileges - AWS
+F031. Permisos excesivos  - AWS,031. Excessive privileges - AWS
+F031. Permisos excesivos - Archivos temporales,031. Excessive privileges - AWS
+F031. Permisos excesivos - AWS,031. Excessive privileges - AWS
+F031. Permisos excesivos - AWS IAM,031. Excessive privileges - AWS
+F031. Permisos excesivos - Mesa de ayuda,031. Excessive privileges - AWS
+F031. Permisos excesivos - Token de Sesión,031. Excessive privileges - AWS
+FIN.S.0055. Configuración insegura del servicio,055. Insecure service configuration - ADB Backups
+F031. Permisos excesivos - Uso no autorizado de recursos,031. Excessive privileges - AWS
+F031. Permisos excesivos - Usuario inicial,031. Excessive privileges - AWS
+F031. Permisos excesivos - Usuario root,031. Excessive privileges - AWS
+F031. Permisos excesivos - Usuarios,031. Excessive privileges - AWS
+F032. Spoofing - Email Spoofing,032. Spoofing
+F032. Suplantación de identidad,032. Spoofing
+F032. Suplantación de identidad (spoofing),032. Spoofing
+F032. Suplantación de identidad (spoofing) - Chat,032. Spoofing
+F032. Suplantación de usuario,032. Spoofing
+F032. User impersonation,032. Spoofing
+F033. Cambio de contraseña sin verificar,033. Password change without identity check
+F033. Cambio de contraseña sin verificar - mismo-usuario,033. Password change without identity check
+F033. Password change without identity check,033. Password change without identity check
+F033. Unchecked Password Changing,033. Password change without identity check
+F034. Generación de números aleatorios inseguros,034. Insecure generation of random numbers
+F034. Generación de números aleatorios inseguros - Encripción,034. Insecure generation of random numbers
+F034. Generación de números aleatorios inseguros - iv -AES,034. Insecure generation of random numbers
+F034. Generación de números aleatorios inseguros - Vector de inicialización,034. Insecure generation of random numbers
+F034. Generación de números aleatorios inseguros- IV-AES,034. Insecure generation of random numbers
+F034. Insecure generation of random numbers,034. Insecure generation of random numbers
+F034. Insecure random number generation,034. Insecure generation of random numbers
+F034. Insecure Random Number Generator,034. Insecure generation of random numbers
+F035. Política de credenciales débil,035. Weak credential policy
+F035. Política de credenciales débiles,035. Weak credential policy
+F035. Política de credenciales débiles - Cambio Contraseña,035. Weak credential policy
+F035. Política de credenciales débiles - Código de seguridad reusable,035. Weak credential policy
+F035. Política de credenciales débiles - Código de verificación,035. Weak credential policy
+F035. Política de credenciales débiles - Código fuente,035. Weak credential policy
+F035. Política de credenciales débiles - Código OTP,035. Weak credential policy
+F035. Política de credenciales débiles - Disk encryption,035. Weak credential policy
+F035. Política de credenciales débiles - Frecuencia de cambio,035. Weak credential policy
+F035. Política de credenciales débiles - IAM,035. Weak credential policy
+F035. Política de credenciales débiles - Longitud OTP,035. Weak credential policy
+F035. Política de credenciales débiles - OracleDB,035. Weak credential policy
+F035. Política de credenciales débiles -Información permitida en contraseña,035. Weak credential policy
+F035. Weak credential policy,035. Weak credential policy
+F035. Weak credentials policy,035. Weak credential policy
+F035. Weak password policy,035. Weak credential policy
+F036. ViewState no cifrado,036. ViewState not encrypted
+F037. Fuga de información técnica,037. Technical information leak
+F037. Fuga de información técnica  - Angular,037. Technical information leak
+F037. Fuga de información técnica  - Console.log,037. Technical information leak
+F037. Fuga de información técnica  - Console.log(),037. Technical information leak
+F037. Fuga de información técnica  - Función Print,037. Technical information leak
+F037. Fuga de información técnica  - Funciones Print,037. Technical information leak
+F037. Fuga de información técnica  - PrintStackTrace,037. Technical information leak
+F037. Fuga de información técnica  - PrintStacktrace,037. Technical information leak
+F037. Fuga de información técnica  - Server,037. Technical information leak
+F037. Fuga de información técnica  - SourceMap,037. Technical information leak
+F037. Fuga de información técnica -  Angular,037. Technical information leak
+F037. Fuga de información técnica -  chat-control.js,037. Technical information leak
+F037. Fuga de información técnica -  Console.log,037. Technical information leak
+F037. Fuga de información técnica -  Documentación API,037. Technical information leak
+F037. Fuga de información técnica -  Listado de Directorios,037. Technical information leak
+F037. Fuga de información técnica -  printStackTrace(),037. Technical information leak
+F037. Fuga de información técnica -  Sourcemap,037. Technical information leak
+F037. Fuga de información técnica - ALB,037. Technical information leak
+F037. Fuga de información técnica - alert,037. Technical information leak
+F037. Fuga de información técnica - Android,037. Technical information leak
+F037. Fuga de información técnica - Angular,037. Technical information leak
+F037. Fuga de información técnica - Apache Tomcat,037. Technical information leak
+F037. Fuga de información técnica - Apps,037. Technical information leak
+F037. Fuga de información técnica - Archivos,037. Technical information leak
+F037. Fuga de información técnica - Archivos PHP,037. Technical information leak
+F037. Fuga de información técnica - Cabeceras,037. Technical information leak
+F037. Fuga de información técnica - cabeceras,037. Technical information leak
+F037. Fuga de información técnica - Código,037. Technical information leak
+F037. Fuga de información técnica - Código fuente,037. Technical information leak
+F037. Fuga de información técnica - Console,037. Technical information leak
+F037. Fuga de información técnica - console - print,037. Technical information leak
+F037. Fuga de información técnica - console.err,037. Technical information leak
+F037. Fuga de información técnica - console.error,037. Technical information leak
+"F037. Fuga de información técnica - Console.error, prinStackTrace",037. Technical information leak
+F037. Fuga de información técnica - Console.log,037. Technical information leak
+F037. Fuga de información técnica - console.log,037. Technical information leak
+F037. Fuga de información técnica - Console.log(),037. Technical information leak
+F037. Fuga de información técnica - console.log(),037. Technical information leak
+F037. Fuga de información técnica - console.log() -printstacktrace,037. Technical information leak
+F037. Fuga de información técnica - console.log() y alert(),037. Technical information leak
+F037. Fuga de información técnica - Console.trace,037. Technical information leak
+F037. Fuga de información técnica - Console.WriteLine,037. Technical information leak
+F037. Fuga de información técnica - Console.WriteLine(),037. Technical information leak
+F037. Fuga de información técnica - credenciales,037. Technical information leak
+F037. Fuga de información técnica - Datos DB,037. Technical information leak
+F037. Fuga de información técnica - Debug.WriteLine,037. Technical information leak
+F037. Fuga de información técnica - Documentación,037. Technical information leak
+F037. Fuga de información técnica - Documentación API,037. Technical information leak
+F037. Fuga de información técnica - Endpoints,037. Technical information leak
+F037. Fuga de información técnica - Errores,037. Technical information leak
+F037. Fuga de información técnica - Estructura de tablas,037. Technical information leak
+F037. Fuga de información técnica - Fase Interna,037. Technical information leak
+F037. Fuga de información técnica - Funcion Print,037. Technical information leak
+F037. Fuga de información técnica - Función Print,037. Technical information leak
+F037. Fuga de información técnica - Funciones Console,037. Technical information leak
+F037. Fuga de información técnica - Funciones console,037. Technical information leak
+F037. Fuga de información técnica - Funciones Print,037. Technical information leak
+F037. Fuga de información técnica - GIT,037. Technical information leak
+F037. Fuga de información técnica - Header Server,037. Technical information leak
+F037. Fuga de información técnica - Información de despliegue,037. Technical information leak
+F037. Fuga de información técnica - IP,037. Technical information leak
+F037. Fuga de información técnica - IP red adyacente,037. Technical information leak
+F037. Fuga de información técnica - JWT,037. Technical information leak
+F037. Fuga de información técnica - Life Coach,037. Technical information leak
+F037. Fuga de información técnica - Listado de directorios,037. Technical information leak
+F037. Fuga de información técnica - Llave de cifrado,037. Technical information leak
+F037. Fuga de información técnica - Mensajes de error,037. Technical information leak
+F037. Fuga de información técnica - Paths,037. Technical information leak
+F037. Fuga de información técnica - Peticiones,037. Technical information leak
+F037. Fuga de información técnica - Print Stack Trace - Console log,037. Technical information leak
+F037. Fuga de información técnica - printstacktrace,037. Technical information leak
+F037. Fuga de información técnica - PrintStackTrace,037. Technical information leak
+F037. Fuga de información técnica - PrintStacktrace,037. Technical information leak
+F037. Fuga de información técnica - PrintstackTrace,037. Technical information leak
+F037. Fuga de información técnica - printStackTrace,037. Technical information leak
+F037. Fuga de información técnica - printStackTrace - console.log(),037. Technical information leak
+F037. Fuga de información técnica - printStackTrace(),037. Technical information leak
+F037. Fuga de información técnica - PrintStaktrace,037. Technical information leak
+F037. Fuga de información técnica - recuperando usuario o contraseña,037. Technical information leak
+F037. Fuga de información técnica - Repositorio público,037. Technical information leak
+F037. Fuga de información técnica - Risk Key Flow,037. Technical information leak
+F037. Fuga de información técnica - Sentencias SQL,037. Technical information leak
+F037. Fuga de información técnica - Server,037. Technical information leak
+F037. Fuga de información técnica - Server - APOLO,037. Technical information leak
+F037. Fuga de información técnica - Server header,037. Technical information leak
+F037. Fuga de información técnica - Servlet,037. Technical information leak
+F037. Fuga de información técnica - Source map,037. Technical information leak
+F037. Fuga de información técnica - Sourcemap,037. Technical information leak
+F037. Fuga de información técnica - SourceMap,037. Technical information leak
+F037. Fuga de información técnica - SQL,037. Technical information leak
+F037. Fuga de información técnica - StackTrace,037. Technical information leak
+F037. Fuga de información técnica - System.out.print,037. Technical information leak
+F037. Fuga de información técnica - System.out.println,037. Technical information leak
+F037. Fuga de información técnica - Tax objects,037. Technical information leak
+F037. Fuga de información técnica - Versión y nombre del servidor,037. Technical information leak
+F037. Fuga de información técnica - Visor Interactivo,037. Technical information leak
+F037. Fuga de información técnica - Web,037. Technical information leak
+F037. Fuga de información técnica - WriteLine,037. Technical information leak
+F037. Fuga de información técnica -printStackTrace,037. Technical information leak
+F037. Fuga de información técnica : console.log,037. Technical information leak
+F037. Fuga de información técnica-console log,037. Technical information leak
+F037. Fuga de información técnica: Console.log,037. Technical information leak
+F037. Fuga de información técnica: Nueva App,037. Technical information leak
+F037. Fuga de información técnica: Parámetros Endpoint,037. Technical information leak
+F037. Fuga de información técnica: printStackTrace,037. Technical information leak
+"F037. Fuga de información técnica: printStackTrace, console.log",037. Technical information leak
+F037. Fuga de información técnica: Stack trace,037. Technical information leak
+F037. Technical information - SourceMap,037. Technical information leak
+F037. Technical information leak,037. Technical information leak
+F037. Technical Information Leak,037. Technical information leak
+F037. Technical information leak - console.log,037. Technical information leak
+F037. Technical Information Leak - Web Server,037. Technical information leak
+F037. Technical Information Leak: GraphQL API,037. Technical information leak
+F038. Business information leak,038. Business information leak
+F038. Business information leak - Assigned groups,038. Business information leak
+F038. Business information leak - JWT,038. Business information leak
+F038. Business Information Leak - Labor Rate Files,038. Business information leak
+F038. Business information leak - Token,038. Business information leak
+F038. Business Information Leak: Cross-Site Leak - Frame Counting,038. Business information leak
+F038. Business information leak: Evidence cache,038. Business information leak
+F038. Fuga de información de negocio,038. Business information leak
+F038. Fuga de información de negocio -  Consulta masiva,038. Business information leak
+F038. Fuga de información de negocio - Azure AD,038. Business information leak
+F038. Fuga de información de negocio - Citas,038. Business information leak
+F038. Fuga de información de negocio - Cloudant DB,038. Business information leak
+F038. Fuga de información de negocio - Código fuente,038. Business information leak
+F038. Fuga de información de negocio - Código QR,038. Business information leak
+F038. Fuga de información de negocio - Console.log,037. Technical information leak
+F038. Fuga de información de negocio - Contraseña en HTML,038. Business information leak
+F038. Fuga de información de negocio - Cookie,038. Business information leak
+F038. Fuga de información de negocio - correos,038. Business information leak
+F038. Fuga de información de negocio - Datos de usuarios,038. Business information leak
+F038. Fuga de información de negocio - Datos empleados,038. Business information leak
+F038. Fuga de información de negocio - DBA Oracle,038. Business information leak
+F038. Fuga de información de negocio - Ecopetrol,038. Business information leak
+F038. Fuga de información de negocio - Facturas,038. Business information leak
+F038. Fuga de información de negocio - Firestore,038. Business information leak
+F038. Fuga de información de negocio - Git hub,038. Business information leak
+F038. Fuga de información de negocio - Git público,038. Business information leak
+F038. Fuga de información de negocio - GLIA,038. Business information leak
+F038. Fuga de información de negocio - info usuario,038. Business information leak
+F038. Fuga de información de negocio - Inversión,038. Business information leak
+F038. Fuga de información de negocio - JFROG,038. Business information leak
+F038. Fuga de información de negocio - JWT,038. Business information leak
+F038. Fuga de información de negocio - mobile-analytics,038. Business information leak
+F038. Fuga de información de negocio - MongoDB,038. Business information leak
+F038. Fuga de información de negocio - Número Celular,038. Business information leak
+F038. Fuga de información de negocio - PowerBI,038. Business information leak
+F038. Fuga de información de negocio - Proveedores,038. Business information leak
+F038. Fuga de información de negocio - Repositorio,038. Business information leak
+F038. Fuga de información de negocio - Risk Key Flow,038. Business information leak
+F038. Fuga de información de negocio - Saldo insuficiente,038. Business information leak
+F038. Fuga de información de negocio - Servicio Redis,038. Business information leak
+F038. Fuga de información de negocio - Shared Preferences,038. Business information leak
+F038. Fuga de información de negocio - Sharepoint,038. Business information leak
+F038. Fuga de información de negocio - Tarjetas,038. Business information leak
+F038. Fuga de información de negocio - Token,038. Business information leak
+F038. Fuga de información de negocio - Token de sesión,038. Business information leak
+F038. Fuga de información de negocio - UserId,038. Business information leak
+F038. Fuga de información de negocio - Usernames,038. Business information leak
+F038. Fuga de información de negocio - Usuarios,038. Business information leak
+F038. Fuga de información de negocio - Usuarios Dominio,038. Business information leak
+F038. Fuga de información de negocio - Vehículos,038. Business information leak
+F038. Fuga de información de negocio - Vulnerabilidades,038. Business information leak
+F038. Fuga de información de negocio -aws,038. Business information leak
+F038. Fuga de información de negocio-info creditcards nube,038. Business information leak
+F038. Fuga de información de negocio: Cross-Site Leak - Frame Counting,038. Business information leak
+F038. Fuga de información de negocio: Usuarios de dominio,038. Business information leak
+F039. Improper authorization control,039. Improper authorization control for web services
+F039. Improper authorization control for web service -S3 Buckets,039. Improper authorization control for web services
+F039. Improper authorization control for web services,039. Improper authorization control for web services
+F039. Unauthorized use of webservices - User Edition,039. Improper authorization control for web services
+F039. Use of web services without authorization,039. Improper authorization control for web services
+F039. Uso de web services sin autenticación,039. Improper authorization control for web services
+F039. Uso de web services sin autorización,039. Improper authorization control for web services
+F039. Uso de web services sin autorización - Adaptadores,039. Improper authorization control for web services
+F039. Uso de web services sin autorización - Crear usuarios,039. Improper authorization control for web services
+F039. Uso de web services sin autorización - Life Coach,039. Improper authorization control for web services
+F039. Uso de web services sin autorización - Liquidación de nómina,039. Improper authorization control for web services
+F039. Uso de web services sin autorización - Logs,039. Improper authorization control for web services
+F039. Uso de web services sin autorización - Risk Key Flow,039. Improper authorization control for web services
+F040. Exposed Web Services,040. Exposed web services
+F040. Web Services expuestos,040. Exposed web services
+F040. Web Services expuestos - Postman collection,040. Exposed web services
+F041.  Enabled default credentials,041. Enabled default credentials
+FIN.S.0003. Denegación de servicio simétrica,003. Symmetric denial of service
+F041. Credenciales por defecto activadas,041. Enabled default credentials
+F041. Credenciales por defecto activadas - Keystore,041. Enabled default credentials
+F042. Cookies generadas de forma insegura,042. Insecurely generated cookies
+F042. Cookies generadas de forma insegura - APOLO,042. Insecurely generated cookies
+F042. Cookies generadas de forma insegura - Session Fixation,042. Insecurely generated cookies
+F042. Cookies generadas de forma insegura - Valor Aleatorio,042. Insecurely generated cookies
+F042. Cookies generated in an insecure way,042. Insecurely generated cookies
+F042. Insecure cookies configuration,042. Insecurely generated cookies
+F042. Insecurely generated cookies,042. Insecurely generated cookies
+F042. Insecurely generated cookies - Secure,042. Insecurely generated cookies
+F042. Insecurely generated cookies - Session fixation,042. Insecurely generated cookies
+F043.  HTTP security headers not implemented,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Cabeceras de seguridad HTTP no establecidas,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Cabeceras de seguridad HTTP no establecidas - Content-Security-Policy,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Cabeceras de seguridad HTTP no establecidas - Referrer-Policy,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Cabeceras de seguridad HTTP no establecidas - Risk Key Flow,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Cabeceras de seguridad HTTP no establecidas - Strict-Transport-Security,131. Insecure or unset HTTP headers - Strict Transport Security
+F043. Cabeceras de seguridad HTTP no establecidas - X-Content-Type-Options,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Cabeceras de seguridad HTTP no establecidas - X-Frame-Options,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Cabeceras de seguridad HTTP no establecidas - X-XSS-Protection,135. Insecure or unset HTTP headers - X-XSS Protection
+F043. Cabeceras de seguridad HTTP no establecidas: SOAP svc,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Cabeceras de Seguridad no Establecidas - Access Control Allow Origin,134. Insecure or unset HTTP headers - CORS
+F043. Cabeceras HTTP inseguras o no establecidas,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Cabeceras HTTP inseguras o no establecidas - X-XSS Protection,135. Insecure or unset HTTP headers - X-XSS Protection
+F043. Cabeceras HTTP inseguras o no establecidas  - X-XSS-Protection,135. Insecure or unset HTTP headers - X-XSS Protection
+F043. Cabeceras HTTP inseguras o no establecidas - APOLO,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Cabeceras HTTP inseguras o no establecidas - Cabecera X-XSS,135. Insecure or unset HTTP headers - X-XSS Protection
+F043. Cabeceras HTTP inseguras o no establecidas - Cabeceras obsoletas,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Cabeceras HTTP inseguras o no establecidas - Content-Security-Policy,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Cabeceras HTTP inseguras o no establecidas - CORS,134. Insecure or unset HTTP headers - CORS
+F043. Cabeceras HTTP inseguras o no establecidas - Header Accept,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Cabeceras HTTP inseguras o no establecidas - Referrer-Policy,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Cabeceras HTTP inseguras o no establecidas - Strict-Transport-Security,131. Insecure or unset HTTP headers - Strict Transport Security
+F043. Cabeceras HTTP inseguras o no establecidas - Web,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Cabeceras HTTP inseguras o no establecidas - X-Content-Type-Options,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Cabeceras HTTP inseguras o no establecidas - X-XSS-Protection,135. Insecure or unset HTTP headers - X-XSS Protection
+F043. HTTP headers not established,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Improperly set HTTP headers,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Insecure or Unset HTTP Headers - Content-Security-Policy,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Insecure or Unset HTTP Headers - Referrer-Policy,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Insecure or Unset HTTP Headers - Strict-Transport-Security,131. Insecure or unset HTTP headers - Strict Transport Security
+F043. Insecure or Unset HTTP Headers - X-Content-Type-Options,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Missing HTTP security headers - Content-Security-Policy,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Missing HTTP security headers - Referrer-Policy,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Missing HTTP security headers - Strict-Transport-Security,131. Insecure or unset HTTP headers - Strict Transport Security
+F043. Missing HTTP security headers - X-Content-Type-Options,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Missing HTTP security headers - X-Frame-Options,043. Insecure or unset HTTP headers - Content-Security-Policy
+F043. Missing HTTP security headers - X-XSS-Protection,135. Insecure or unset HTTP headers - X-XSS Protection
+F043. Not established HTTP security headers.,043. Insecure or unset HTTP headers - Content-Security-Policy
+F044. Métodos HTTP Inseguros Habilitados,044. Insecure HTTP methods enabled
+F044. Unsafe HTTP Methods Enabled,044. Insecure HTTP methods enabled
+F045. Code Injection (HTML),045. HTML code injection
+F045. HTML code injection,045. HTML code injection
+F045. HTML Code Injection,045. HTML code injection
+F045. Inyección de código (HTML),045. HTML code injection
+F045. Inyección de código (HTML) - API Búsqueda vuelos,045. HTML code injection
+F045. Inyección de código (HTML) - email,045. HTML code injection
+F045. Inyección de código (HTML) - Email,045. HTML code injection
+F046. Ausencia de ofuscación segura,046. Missing secure obfuscation - APK
+F046. Ausencia de ofuscación segura - APK,046. Missing secure obfuscation - APK
+F046. Ausencia de ofuscación segura - Apolo,046. Missing secure obfuscation - APK
+F046. Ausencia de ofuscación segura - Backoffice,046. Missing secure obfuscation - APK
+F046. Ausencia de ofuscación segura - Código fuente,046. Missing secure obfuscation - APK
+F046. Ausencia de ofuscación segura - Tarjetas,046. Missing secure obfuscation - APK
+F046. Ausencia de ofuscación segura - Telemedicina,046. Missing secure obfuscation - APK
+F046. Binarios no ofuscados,046. Missing secure obfuscation - APK
+F046. Missing secure obfuscation,046. Missing secure obfuscation - APK
+F046. Missing secure obfuscation - APK,046. Missing secure obfuscation - APK
+F047. Automatic information enumeration,047. Automatic information enumeration
+F047. Automatic information enumeration - finding ids,047. Automatic information enumeration
+F047. Automatic information enumeration - Open ports,047. Automatic information enumeration
+F047. Enumeración automática de información,047. Automatic information enumeration
+F047. Enumeración automática de información - AWS,047. Automatic information enumeration
+F047. Enumeración automática de información - Codigos de descuento,047. Automatic information enumeration
+F047. Enumeración automática de información - Datos de Cliente,047. Automatic information enumeration
+F047. Enumeración automática de información - datos de usuarios,047. Automatic information enumeration
+F047. Enumeración automática de información - Directorios,047. Automatic information enumeration
+F047. Enumeración automática de información - Documentos,047. Automatic information enumeration
+F047. Enumeración automática de información - Información de Cuentas,047. Automatic information enumeration
+F047. Enumeración automática de información - Puertos abiertos,047. Automatic information enumeration
+F047. Enumeración automática de información - Servicios,047. Automatic information enumeration
+F047. Enumeración automática de información - Sesiones,047. Automatic information enumeration
+F047. Enumeración automática de información - Tarjetas de crédito,047. Automatic information enumeration
+F047. Enumeración automática de información - Usuarios del sistema.,047. Automatic information enumeration
+F047. Enumeración automática de información-Información empleados,047. Automatic information enumeration
+F047. Enumeración de información,047. Automatic information enumeration
+F048. Falta de detección de sistemas rooteados,048. Lack of root detection
+F048. Falta de detección de sistemas rooteados: Nueva App,048. Lack of root detection
+F048. Lack of root detection,048. Lack of root detection
+F049. Certificados Digitales Inseguros,049. Insecure digital certificates - APK Pinning
+F049. Certificados Digitales Inseguros - APK,049. Insecure digital certificates - APK Pinning
+F049. Certificados digitales inseguros - Pineo en el APK,049. Insecure digital certificates - APK Pinning
+F049. Certificados Digitales Inseguros - Wildcard,049. Insecure digital certificates - APK Pinning
+F049. Insecure Digital Certificates,049. Insecure digital certificates - APK Pinning
+F049. Insecure digital certificates - APK pinning,049. Insecure digital certificates - APK Pinning
+F049. Insecure SSL Certificate,049. Insecure digital certificates - APK Pinning
+F050. Claves débiles adivinadas,050. Guessed weak credentials
+F050. Claves débiles adivinadas - SSH,050. Guessed weak credentials
+F050. Guessed weak credentials,050. Guessed weak credentials
+F050. Weak passwords discovered,050. Guessed weak credentials
+F051. Claves debiles reversadas,051. Cracked weak credentials
+F051. Claves débiles reversadas,051. Cracked weak credentials
+F051. Reversed weak passwords,051. Cracked weak credentials
+F051. Weak passwords reversed,051. Cracked weak credentials
+F052.  Insecure encryption algorithm,052. Insecure encryption algorithm
+F052.  Insecure encryption algorithm - SHA1,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro  -  AES/CBC,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro  - AES,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro  - AES/CBC,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro  - AES/CBC - SHA1 - DSA,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro  - AES/CBC - TripleDES,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro  - AES/ECB,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro  - CBC,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro  - DES,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro  - DES - MD5,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro  - DSA,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro  - Rijndael/ECB,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro  - SHA1,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro  AES/CBC - SHA1,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro -  AES/CBC,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro -  AES/CBC - APOLO,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro -  AES/CBC - SHA1,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro -  CBC not random IV,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro -  TripleDES - MD5,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - AES,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - AES/CBC,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - AES/CBC -  DSA - SHA1,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - AES/CBC - CAMELIA,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - AES/CBC - DES,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - AES/CBC - DSA  - SHA1,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - AES/CBC - DSA - SHA1,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - AES/CBC - DSA -SHA1,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - AES/CBC - SHA1,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - AES/CBC - TripleDES,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - AES/ECB,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - Apps,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - Blowfish,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - CBC,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - Cipher Block Chaining,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - Código fuente,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - contraseñas y tokens,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - DES,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - DES-AES/CBC,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - DSA,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - Firma aplicación,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - Llave estática,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - MD5,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - Perfect Forward Secrecy,133. Insecure encryption algorithm - Perfect Forward Secrecy
+F052. Algoritmo de cifrado inseguro - Rijndael/CBC - AES/CBC,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - Risk Key Flow,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - RSA Key,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - Salt e IV estático,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - Servicios SSL,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - SHA1,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - SHA1 - AES/CBC - DSA,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - SHA1 - DSA,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - SHA1/TLS1.1,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - SSL,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - SSL/TLS,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - Tamaño de llave,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - TLS,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - Transport Layer Security,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - TripleDES,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - TripleDeS,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - TRIPLEDES/ECB - MD5,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro - Web,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro -AES/CBC - AES/ECB,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro -credenciales,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro -SHA1,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro AES/CBC,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro- AES/CBC,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro: Blowfish,052. Insecure encryption algorithm
+F052. Algoritmo de cifrado inseguro: CBC not random IV,052. Insecure encryption algorithm
+F052. Insecure encryption algorithm,052. Insecure encryption algorithm
+F052. Insecure encryption algorithm - AES,052. Insecure encryption algorithm
+F052. Insecure encryption algorithm - AES/CBC,052. Insecure encryption algorithm
+F052. Insecure encryption algorithm - AES/CBC - CAMELIA,052. Insecure encryption algorithm
+F052. Insecure encryption algorithm - AES/CBC - SHA1 - DSA,052. Insecure encryption algorithm
+F052. Insecure encryption algorithm - Cipher Block Chaining,052. Insecure encryption algorithm
+F052. Insecure encryption algorithm - Perfect Forward Secrecy,133. Insecure encryption algorithm - Perfect Forward Secrecy
+F052. Unsafe Encryption Algorithm,052. Insecure encryption algorithm
+F053. Ausencia de protección contra ataques de fuerza bruta,053. Lack of protection against brute force attacks
+F053. Ausencia de protección contra ataques de fuerza bruta - Cupones,053. Lack of protection against brute force attacks
+F053. Ausencia de protección contra ataques de fuerza bruta - Gestión de reserva,053. Lack of protection against brute force attacks
+F053. Ausencia de protección contra ataques de fuerza bruta - Historia clínica,053. Lack of protection against brute force attacks
+"F053. Ausencia de protección contra ataques de fuerza bruta - Pines de seguridad,  recuperación contraseña",053. Lack of protection against brute force attacks
+F053. Ausencia de protección contra ataques de fuerza bruta - Risk Key Flow,053. Lack of protection against brute force attacks
+F053. Ausencia de protección contra ataques de fuerza bruta - Secuestro de cuentas,053. Lack of protection against brute force attacks
+F053. Ausencia de protección contra ataques de fuerza bruta - Viajes Comfama,053. Lack of protection against brute force attacks
+F053. Ausencia de protección contra ataques de fuerza bruta Nueva App,053. Lack of protection against brute force attacks
+F053. Brute force attacks protection absence,053. Lack of protection against brute force attacks
+FIN.S.0055. Configuración insegura del servicio - keystore,009. Sensitive information in source code
+F053. Lack of protection against brute force attacks,053. Lack of protection against brute force attacks
+F054. Servicios Administrativos Expuestos,054. Exposed administrative services
+F054. Servicios administrativos expuestos,054. Exposed administrative services
+F054. Servicios administrativos expuestos - Impresora,054. Exposed administrative services
+F054. Servicios administrativos expuestos - Oracle ERP,054. Exposed administrative services
+F054. Servicios administrativos expuestos - Teléfonos,054. Exposed administrative services
+F055.  Insecure service configuration - ECR,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura - Import con Comodín,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio  -  SecurityProtocolType,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio  - Certificados,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio  - CORS,134. Insecure or unset HTTP headers - CORS
+F055. Configuración insegura del servicio  - p7s,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio -  Notificaciones,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio -  Salt estático,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio -  Validación de certificados,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Acceso físico inadecuados,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - ADB Backups,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Agregar campos,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Antivirus,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - APK Signature Scheme v1,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - App Backup,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - App Backup - Código Fuente,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - AppArmor,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Archivos con información sensible,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Ausencia de Antivirus,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - AWS,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - AWS API Termination,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - AWS ausencia de cifrado,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - AWS IamInstanceProfile,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - AWS S3,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - AWS Security groups - CIDRs,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - AWS termination protection,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - AWS Versioning Configuration,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Backup,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Broadcast,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Buckets S3 sin cifrar,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Cabecera CSP,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Cabeceras de Seguridad,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Cambio de contraseña,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Cambio de token,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Cantidad de documentos,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - CAPTCHA,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Captcha,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Carga de información empleados,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Cerrar sesión,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Certificados,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - checkServerTrusted,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Cloud,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Cloudant DB,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Código fuente,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Consola h2,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Consulta de Instrucciones,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Contraseña sin enmascarar,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Control de tráfico,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Correos de Notificación,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - CORS,134. Insecure or unset HTTP headers - CORS
+F055. Configuración insegura del servicio - CSP,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Cuentas,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Cuentas inscritas,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Default Security Group,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Directorio Transversal,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - DNS,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Doble Autorización,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - DocumentBuilderFactory,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - eeex QR,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Email Flooding,122. Email flooding
+F055. Configuración insegura del servicio - Evil Twin Wifi Attack,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Exportación de servicios,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Falta de atributo en Httpverb,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Generación QR,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Google Api Key,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Header Accept,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Header Accept - Apps,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Host Header Injection,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - HttpVerb,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - IamInstanceProfile no establecido,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - IdSesion,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Inicio de sesión AWS Cognito,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Insecure Whitelist,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Kerberoast,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - KeyStore,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Keystore,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - keystore,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - KMS key rotation,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - LaunchMode,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - LDAP,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - LFI,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Listado de directorios,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Llave de Cifrado,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Llave de cifrado débil,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Llave de cifrado en librerías,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Llave estática,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Llaves,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Llaves privadas,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Local File Inclusion,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Manipulación de recursos,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Memcached,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Method interchangeability,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Nexus,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - OTP,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - p7s,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - permisos,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Point In Time Recovery,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Protección CSRF,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Protocolos Security Groups,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Public access,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Puertos abiertos,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Rate Limit,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - RDP RC4 habilitado,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Recovery contraseña,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Recuperación de contraseña,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Redirection loop,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - ReDos,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Reemplazo de documentos,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Repositorio de código público,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Request Validation,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Reverse Tabnabbing,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - roles,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Rotación de clave KMS,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Salt estático,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - SAXParser,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - SAXReader,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Secretos y llaves sin rotación,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Secure boot deshabilitado,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - SecurityProtocolType,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Serializable,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - sessionStorage,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - SharePoint,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Signature,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Token JWT,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Tráfico al exterior sin restricción,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Trafico saliente,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Tráfico saliente Security Groups,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Tráfico saliente Security Groups AWS:EC2,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Tráfico saliente Security Groups.,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Transferencias,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Unconstrained Delegation,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Validación de certificados,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Validación de certificados - Código Fuente,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Visor interactivo,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - VPC,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - WebPack,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - Webpack,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - x QR,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - x QRfadsfdsa,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - x QRXXX,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - X-Forwarded-Host,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - X-Frame-Options,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - XMLParsers,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio - xxx QR,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio -CORS,134. Insecure or unset HTTP headers - CORS
+F055. Configuración insegura del servicio -Request Validation,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio- SSH,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio: App Transport Security (ATS),055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio: AuthTokenService,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio: Código asesoría,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio: DB,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio: Envío de Token Nueva App,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio: Keystore,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio: LFI,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio: Listado de Directorios,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio: Llave de cifrado en librerías,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio: Mobile Analytics,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio: Open Proxy,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio: paginas de error no personalizadas,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio: Retiros,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio:Roles,055. Insecure service configuration - ADB Backups
+F055. Configuración insegura del servicio(Cambio Funcionalidad),055. Insecure service configuration - ADB Backups
+F055. Insecure service configuration,055. Insecure service configuration - ADB Backups
+F055. Insecure service configuration  - Cloud service,055. Insecure service configuration - ADB Backups
+F055. Insecure Service Configuration - ADB Backups,055. Insecure service configuration - ADB Backups
+F055. Insecure service configuration - AWS,055. Insecure service configuration - ADB Backups
+F055. Insecure service configuration - AWS Missing encryption,055. Insecure service configuration - ADB Backups
+F055. Insecure service configuration - Backdoor,055. Insecure service configuration - ADB Backups
+F055. Insecure service configuration - Certificate validation,055. Insecure service configuration - ADB Backups
+F055. Insecure service configuration - Change of price,055. Insecure service configuration - ADB Backups
+F055. Insecure service configuration - CORS,134. Insecure or unset HTTP headers - CORS
+F055. Insecure service configuration - Local File Inclusion,055. Insecure service configuration - ADB Backups
+F055. Insecure service configuration - Masking bypass,055. Insecure service configuration - ADB Backups
+F055. Insecure service configuration - Open ports,055. Insecure service configuration - ADB Backups
+F055. Insecure service configuration - Private keys,055. Insecure service configuration - ADB Backups
+F055. Insecure service configuration - SMTP Relay,055. Insecure service configuration - ADB Backups
+F055. Insecure service configuration -Key rotation,055. Insecure service configuration - ADB Backups
+F055. Missing in-app updates,055. Insecure service configuration - ADB Backups
+F055. UNIT TESTS,055. Insecure service configuration - ADB Backups
+F056. Anonymous connection,056. Anonymous connection
+F056. Conexión anónima,056. Anonymous connection
+F057. Email sent without authorization,057. Excessive privileges - Temporary Files
+F057. Envío de correo electrónico sin autorización,057. Excessive privileges - Temporary Files
+F057. Permisos excesivos - Archivos temporales,057. Excessive privileges - Temporary Files
+F058. Debugging enabled in production,058. Debugging enabled in production - APK
+F058. Debugging in production enabled,058. Debugging enabled in production - APK
+F058. Depuración habilitada en producción,058. Debugging enabled in production - APK
+F059. Información sensible almacenada en bitácoras,059. Sensitive information stored in logs
+F059. Información sensible almacenada en bitácoras - Bearer token,059. Sensitive information stored in logs
+F059. Información sensible almacenada en bitácoras - Crypto.ts,059. Sensitive information stored in logs
+"F059. Información sensible almacenada en bitácoras - IDSesión, Pools",059. Sensitive information stored in logs
+F059. Información sensible almacenada en bitácoras - PAN,059. Sensitive information stored in logs
+F059. Sensitive information stored in logs,059. Sensitive information stored in logs
+F059. Sensitive information stored in logs - Metadata,059. Sensitive information stored in logs
+F060. Excepciones inseguras,060. Insecure exceptions
+F060. Excepciones inseguras - Código fuente,060. Insecure exceptions
+F060. Excepciones inseguras - NullPointerException,060. Insecure exceptions
+F060. Excepciones inseguras - NullpointerException,060. Insecure exceptions
+F060. Excepciones inseguras: captura de excepcion generica,060. Insecure exceptions
+F060. Insecure Exceptions,060. Insecure exceptions
+F060. Insecure exceptions,060. Insecure exceptions
+F061. Errores sin trazabilidad,061. Errors without traceability
+F061. Errores sin trazabilidad y uso de printStackTrace(),061. Errors without traceability
+F061. Errors without traceability,061. Errors without traceability
+F061. Untracked Errors,061. Errors without traceability
+F062. Concurrent sessions,062. Concurrent sessions
+F062. Multiple sessions,062. Concurrent sessions
+F062. Sesiones concurrentes,062. Concurrent sessions
+F062. Sesiones concurrentes - APOLO,062. Concurrent sessions
+F062. Sesiones concurrentes: Nueva App,062. Concurrent sessions
+F062. Simultaneous Sessions,062. Concurrent sessions
+F063. Ausencia de validación de datos,063. Lack of data validation - Path Traversal
+F063. Ausencia de validación de datos - Path Traversal,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos  - Rango de transferencias Transfiya,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Ambiente,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Apps,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Asignación de usuario,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Beneficiarios,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Cabecera x-amzn-RequestId,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Cabeceras,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Cabeceras del request,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Cambio de contraseña,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Campos Insertados en Email,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Captcha,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Caracteres,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Código,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Codigo fuente,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Contáctanos,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Content Spoofing,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Cookie de sesión,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Correos,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - desbordamiento,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Descripción Compañias,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Dirección IP origen,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Fecha de habilitación servicios,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Fecha descargar reporte,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Fecha generar reporte,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Fechas,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Feetable,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Host Header Injection,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - HTTP Parameter Pollution,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Income movement,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Inyección CSV,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Inyección de cabeceras,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - limite de caracteres,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Longitud de campos,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Nombres,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Número de cuenta,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Pago planilla proveedores,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Parámetros reflejados,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - QR Shipping,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Rango de fechas,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - recuperando usuario o contraseña,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Referencia Bancaria,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Responses,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Salto de restricción por país,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Simulador,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - SOAP,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - SOAP ESB,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Survey,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Tiempo solicitud OTP,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Token,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Transacciones,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Validación de Documento,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Web,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - WebService,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - WSDL,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos - Zip Slip,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos: Longitud,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos: Modificación de datos no permitidos,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos: Nueva App,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos: TokenCode,063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos(Código Fuente),063. Lack of data validation - Path Traversal
+F063. Falta de validación de datos(Código),063. Lack of data validation - Path Traversal
+F063. Lack of data validation,063. Lack of data validation - Path Traversal
+F063. Lack of data validation - CLI,063. Lack of data validation - Path Traversal
+F063. Lack of data validation - Path Traversal,063. Lack of data validation - Path Traversal
+F063. Lack of data validation - Resource requested,063. Lack of data validation - Path Traversal
+F063. Lack of data validation - Timestamp,063. Lack of data validation - Path Traversal
+F063. Lack of data validation - Token,063. Lack of data validation - Path Traversal
+F063. Lack of Input Validation,063. Lack of data validation - Path Traversal
+F063. Lack of Input Validation - Negative numbers,063. Lack of data validation - Path Traversal
+F063. Missing Data Validation,063. Lack of data validation - Path Traversal
+F064. Pérdida de trazabilidad,064. Traceability loss - Server's clock
+F064. Pérdida de trazabilidad - AWS Cloudfront,064. Traceability loss - Server's clock
+F064. Pérdida de trazabilidad - Reloj del servidor,064. Traceability loss - Server's clock
+F064. Traceability loss - Server's clock,064. Traceability loss - Server's clock
+F064. Traceability loss - VPCs without flowlog,064. Traceability loss - Server's clock
+F065. Caché en formulario,065. Cached form fields
+F065. Cache in forms,065. Cached form fields
+F065. Cached form fields,065. Cached form fields
+F066. Código JavaScript sin ofuscar,066. Technical information leak - Console functions
+F066. Not obfuscated Javascript Code,066. Technical information leak - Console functions
+F067. Asignación inadecuada de recursos,067. Improper resource allocation
+F067. Asignación inadecuada de recursos - Recursos no liberados,067. Improper resource allocation
+F067. Asignación inadecuada de recursos - ReDoS,067. Improper resource allocation
+F067. Asignación inadecuada de recursos - ReDos,067. Improper resource allocation
+F067. Pérdida de rendimiento de la aplicación,067. Improper resource allocation
+F068. Insecure session expiration time,068. Insecure session expiration time
+F068. Tiempo límite de inactividad inseguro,068. Insecure session expiration time
+F068. Tiempo límite de inactividad inseguro - Token,068. Insecure session expiration time
+F068. Unsafe inactivity time limit,068. Insecure session expiration time
+F069. Captcha débil,069. Weak CAPTCHA
+F069. CAPTCHA débil,069. Weak CAPTCHA
+F069. Weak CAPTCHA,069. Weak CAPTCHA
+F070. inadequate programming practices,070. Inappropriate coding practices - Wildcard import
+F070. Inappropriate coding practices - Wildcard import,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - apikey,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - APK,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - Atributos públicos,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - Buffer,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - complejidad ciclomatica,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - dependencias obsoletas,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - Dependencias Obsoletas,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - ePrintStackTrace,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - Import con comodín,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - Importación con comodín,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - Imports innecesarios,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - Integridad referencial,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - Inyección SQL,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - IPs,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - LDAP,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - localStorage,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - Manejo de Recursos,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - Políticas para usuarios,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - Propiedades de visibilidad,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - Static Import,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - StringBuffer,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - Tiempo de vida de objetos con información sensible,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación - Try sin Catch,070. Inappropriate coding practices - Wildcard import
+"F070. Prácticas inadecuadas de programación ""Declaración insuficiente de StringBuffer""",070. Inappropriate coding practices - Wildcard import
+"F070. Prácticas inadecuadas de programación ""Protocolo inseguro""",070. Inappropriate coding practices - Wildcard import
+"F070. Prácticas inadecuadas de programación ""Uso clase sincronizada""",070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación Clases sincronizadas,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación transformadores sin proteccion,070. Inappropriate coding practices - Wildcard import
+F070. Prácticas inadecuadas de programación: Información confidencial en código,070. Inappropriate coding practices - Wildcard import
+F071. Cabeceras HTTP inseguras o no establecidas - Referrer-Policy,071. Insecure or unset HTTP headers - Referrer-Policy
+F071. Código ofuscado de forma insegura,071. Insecure or unset HTTP headers - Referrer-Policy
+F072. Código repetido,072. Duplicate code
+F072. Repeated code,072. Duplicate code
+F073. Condicionales sin opción por defecto,073. Conditional statement without a default option
+F073. Condicionales sin ópcion por defecto,073. Conditional statement without a default option
+F073. Condicionales sin opción por defecto - Código fuente,073. Conditional statement without a default option
+F073. Conditional statement without a default option,073. Conditional statement without a default option
+F073. Conditionals without default option,073. Conditional statement without a default option
+F074. Código comentado,074. Commented-out code
+F074. Código funcional comentado,074. Commented-out code
+F074. Código funcional comentado - Código fuente,074. Commented-out code
+F074. Código funcional comentado - Test,074. Commented-out code
+F074. Commented-out code,074. Commented-out code
+F074. Functional code commented,074. Commented-out code
+F075. Acceso no autorizado a archivos,075. Unauthorized access to files - APK Content Provider
+F075. Acceso no autorizado a archivos -  Directorios Web,075. Unauthorized access to files - APK Content Provider
+F075. Acceso no autorizado a archivos - APK Content Provider,075. Unauthorized access to files - APK Content Provider
+F075. Acceso no autorizado a archivos - FirebaseStorage,075. Unauthorized access to files - APK Content Provider
+F075. Acceso no autorizado a archivos - Listado de directorios,075. Unauthorized access to files - APK Content Provider
+F075. Acceso no autorizado a archivos - SVN Expuesto,075. Unauthorized access to files - APK Content Provider
+F075. Acceso no autorizado a archivos: Debug APK,075. Unauthorized access to files - APK Content Provider
+F075. Unauthorized access to files - APK Content Provider,075. Unauthorized access to files - APK Content Provider
+F075. Unauthorized access to files - Evidences,075. Unauthorized access to files - APK Content Provider
+F075. Unauthorized access to files - LFI,075. Unauthorized access to files - APK Content Provider
+F075. Unauthorized access to files -LFI,075. Unauthorized access to files - APK Content Provider
+F076. Insecure session handling,076. Insecure session management
+F076. Insecure session management,076. Insecure session management
+F076. Insecure session management - No reauthetication after password change,076. Insecure session management
+F076. Insufficient Session Expiration,076. Insecure session management
+F076. Manejo inseguro de sesión,076. Insecure session management
+F076. Manejo inseguro de sesión - APOLO,076. Insecure session management
+F076. Manejo inseguro de sesión - Cabeceras,076. Insecure session management
+F076. Manejo inseguro de sesión - Cambio de contraseña,076. Insecure session management
+F076. Manejo inseguro de sesión - campos de sesión,076. Insecure session management
+F076. Manejo inseguro de sesión - Cierre de sesión,076. Insecure session management
+F076. Manejo inseguro de sesión - cierre de sesión,076. Insecure session management
+F076. Manejo inseguro de sesión - Huella,076. Insecure session management
+F076. Manejo inseguro de sesión - JWT,076. Insecure session management
+F076. Manejo inseguro de sesión - Reactivación de token,076. Insecure session management
+F076. Manejo inseguro de sesión - Reautenticación después de cambio de contraseña,076. Insecure session management
+F076. Manejo inseguro de sesión - Refresh Token,076. Insecure session management
+F076. Manejo inseguro de sesión - Reutilización de token,076. Insecure session management
+F076. Manejo inseguro de sesión - Session Fixation,076. Insecure session management
+F076. Manejo inseguro de sesión - SifBranch,076. Insecure session management
+F076. Manejo inseguro de sesión - SVE,076. Insecure session management
+F076. Manejo inseguro de sesión - token jwt,076. Insecure session management
+F076. Manejo inseguro de sesión - Token servicio chat,076. Insecure session management
+F076. Manejo inseguro de sesión - Transferencias Internacionales,076. Insecure session management
+F076. Manejo inseguro de sesión - Validación JWT,076. Insecure session management
+F076. Manejo inseguro de sesión: Nueva App,076. Insecure session management
+F077. ARP Spoofing,077. ARP spoofing
+F077. ARP Spoofing 2,077. ARP spoofing
+F078. Insecure token generation,078. Insecurely generated token
+F078. Insecurely generated token,078. Insecurely generated token
+F078. Token generado de forma insegura,078. Insecurely generated token
+F078. Token generado de forma insegura - Cambio de contraseña,078. Insecurely generated token
+F078. Token generado de forma insegura - JWT,078. Insecurely generated token
+F078. Token generado de forma insegura - OTP quemado en código,078. Insecurely generated token
+F078. Token generado de forma insegura - Refresh Token,078. Insecurely generated token
+F078. Token generado de forma insegura - Refresh-token,078. Insecurely generated token
+F078. Token generado de forma insegura - Roles,078. Insecurely generated token
+F078. Token generado de forma insegura - Signature,078. Insecurely generated token
+F078. Token generado de forma insegura - Tiempo de vida,078. Insecurely generated token
+F079. Dependencias no actualizables,079. Non-upgradable dependencies
+F079. Dependencias no actualizables - Dynatrace,079. Non-upgradable dependencies
+F079. Non-upgradable dependencies,079. Non-upgradable dependencies
+F079. Non-upgradeable dependencies,079. Non-upgradable dependencies
+F080. Controles de acceso físico inadecuados,080. Non-encrypted confidential information - AWS
+F081. Ausencia de autenticación de múltiples factores,081. Lack of multi-factor authentication
+F081. Ausencia de doble factor de autenticación,081. Lack of multi-factor authentication
+F083. Inyección XML,083. XML injection (XXE)
+F083. Inyección XML (XXE),083. XML injection (XXE)
+F083. Inyección XML (XXE) - JAXB Unmarshaller,083. XML injection (XXE)
+F083. Inyección XML (XXE) - OLBServlet,083. XML injection (XXE)
+F083. Inyección XML- Interacción DNS,083. XML injection (XXE)
+F083. XML Injection (XXE),083. XML injection (XXE)
+F084. MDNS Spoofing,084. MDNS spoofing
+F085. Almacenamiento inseguro de información sensible en el client-side storage,085. Sensitive data stored in client-side storage
+F085. Almacenamiento inseguro de información sensible en el local storage,085. Sensitive data stored in client-side storage
+F085. Almacenamiento inseguro de información sensible en el session storage,085. Sensitive data stored in client-side storage
+F085. Sensitive data stored in client-side storage,085. Sensitive data stored in client-side storage
+F085. Sensitive data stored in the client-side storage,085. Sensitive data stored in client-side storage
+F086. Falta de verificación de HTML Subresource Integrity,086. Missing subresource integrity check
+F086. Falta de verificación de subresource integrity,086. Missing subresource integrity check
+F086. Lack of verification of subresource integrity,086. Missing subresource integrity check
+F086. Missing subresource integrity check,086. Missing subresource integrity check
+F087. Account lockout,087. Account lockout
+F087. Bloqueo de cuentas,087. Account lockout
+F087. Bloqueo de cuentas - ADMIN,087. Account lockout
+F087. Bloqueo de cuentas - Cambio de contraseña,087. Account lockout
+F088. Infracción de privacidad,088. Privacy violation
+F088. Privacy violation,088. Privacy violation
+F089. Control Inadecuado de la frecuencia de interaccion - Encuesta,089. Lack of data validation - Trust boundary violation
+F089. Falta de validación de datos,089. Lack of data validation - Trust boundary violation
+F089. Falta de validación de datos - Trust boundary violation,089. Lack of data validation - Trust boundary violation
+F090. Code injection (CSV),090. CSV injection
+F090. Código funcional incompleto,090. CSV injection
+F090. CSV Injection,090. CSV injection
+F090. Inyección CSV,090. CSV injection
+F090. Inyección de Código (CSV),090. CSV injection
+F091. Inyección en Logs,091. Log injection
+F092. Algoritmo de cifrado inseguro - Suites de cifrado anónimo,092. Insecure encryption algorithm - Anonymous cipher suites
+F093. Manipulación de campos invisibles,093. Hidden fields manipulation
+F093. Manipulación de campos ocultos,093. Hidden fields manipulation
+F094. Algoritmo de cifrado inseguro - AES/CBC,094. Insecure encryption algorithm - Cipher Block Chaining
+F094. Algoritmo de cifrado inseguro - Cipher Block Chaining,094. Insecure encryption algorithm - Cipher Block Chaining
+F094. Suplantación de identidad,094. Insecure encryption algorithm - Cipher Block Chaining
+F096. Deserialización Insegura,096. Insecure deserialization
+F097. Reverse Tabnabbing,097. Reverse tabnabbing
+F097. Reverse tabnabbing,097. Reverse tabnabbing
+F098. Control externo de ruta en guardado de archivo,098. External control of file name or path
+F099. Exceso de privilegios,099. Non-encrypted confidential information - S3 Server Side Encryption
+F100. Server-Side Request Forgery (SSRF),100. Server-side request forgery (SSRF)
+F100. Server-Side Request Forgery (SSRF) - SQL,100. Server-side request forgery (SSRF)
+F101.  Lack of deletion protection - EC2,101. Lack of protection against deletion
+F101. Ausencia de protección contra borrado,101. Lack of protection against deletion
+F101. Ausencia de protección contra borrado - AWS EC2,101. Lack of protection against deletion
+F101. Ausencia de protección contra borrado - AWS ELB,101. Lack of protection against deletion
+F101. Ausencia de protección contra borrado - AWS RDS,101. Lack of protection against deletion
+F101. Ausencia de protección contra borrado - DynamoDB,101. Lack of protection against deletion
+F101. Ausencia de protección contra borrado - EC2,101. Lack of protection against deletion
+F101. Ausencia de protección contra borrado - ELB,101. Lack of protection against deletion
+F101. Ausencia de protección contra borrado - RDS,101. Lack of protection against deletion
+F101. Ausencia de puntos de recuperación - DynamoDB,101. Lack of protection against deletion
+F101. Binarios compilados de forma insegura,101. Lack of protection against deletion
+F102. Ausencia de validación de unicidad de correos,102. Email uniqueness not properly verified
+F102. Ausencia de validación de unicidad de correos - RequireUniqueEmail,102. Email uniqueness not properly verified
+F102. Email uniqueness not properly verified,102. Email uniqueness not properly verified
+F103. Insufficient data authenticity validation - APK signing,103. Insufficient data authenticity validation - APK signing
+F103. Verificación de autenticidad de datos insuficiente,103. Insufficient data authenticity validation - APK signing
+F103. Verificación de autenticidad de datos insuficiente - Cambio datos afiliado,103. Insufficient data authenticity validation - APK signing
+F103. Verificación de autenticidad de datos insuficiente - Crédito en mora,103. Insufficient data authenticity validation - APK signing
+F103. Verificación de autenticidad de datos insuficiente - DeviceCheck,103. Insufficient data authenticity validation - APK signing
+F103. Verificación de autenticidad de datos insuficiente - Pago ATTT,103. Insufficient data authenticity validation - APK signing
+F103. Verificación de autenticidad de datos insuficiente - Prórroga,103. Insufficient data authenticity validation - APK signing
+F103. Verificación de autenticidad de datos insuficiente - Redireccionamiento,103. Insufficient data authenticity validation - APK signing
+F103. Verificación de autenticidad de datos insuficiente - Registro de usuarios,103. Insufficient data authenticity validation - APK signing
+F103. Verificación de autenticidad de datos insuficiente - Registro usuarios,103. Insufficient data authenticity validation - APK signing
+F104. Ataques con memorias - Unidad CD,104. USB flash drive attacks
+F104. Ataques con memorias USB,104. USB flash drive attacks
+F104. Ataques con memorias USB - MicrosD portatil,104. USB flash drive attacks
+F106. Inyección NoSQL,106. NoSQL injection
+F107. Inyección LDAP,107. LDAP injection
+F107. LDAP injection,107. LDAP injection
+F108. Control inadecuado de frecuencia de interacción,108. Improper control of interaction frequency
+F108. Control inadecuado de frecuencia de interacción - Envío de Token,108. Improper control of interaction frequency
+F108. Control inadecuado de la frecuenica de interacción,108. Improper control of interaction frequency
+F108. Improper control of interaction frequency,108. Improper control of interaction frequency
+F111. Out-of-bounds Read,111. Out-of-bounds read
+F111. Out-of-bounds Read - Buffer Overflow,111. Out-of-bounds read
+F114. Phishing,114. Phishing
+F114. Phishing - Evil Twin Wifi Attack,114. Phishing
+F115. Ausencia o Evasión de controles de seguridad,115. Security controls bypass or absence
+F115. Ausencia o Evasión de controles de seguridad  - Instalación de software,115. Security controls bypass or absence
+F115. Ausencia o Evasión de controles de seguridad - Anti hooking,115. Security controls bypass or absence
+F115. Ausencia o Evasión de controles de seguridad - Detección de root,115. Security controls bypass or absence
+F115. Ausencia o Evasión de controles de seguridad - Emulador,115. Security controls bypass or absence
+F115. Ausencia o Evasión de controles de seguridad - reCaptcha,115. Security controls bypass or absence
+F115. Ausencia o Evasión de controles de seguridad - SSL pinning,115. Security controls bypass or absence
+F115. Ausencia o Evasión de controles de seguridad - Web,115. Security controls bypass or absence
+F115. Evasión de controles de seguridad,115. Security controls bypass or absence
+F115. Evasión de controles de seguridad  - Límite de citas,115. Security controls bypass or absence
+F115. Evasión de controles de seguridad - Antivirus y DLP,115. Security controls bypass or absence
+F115. Evasión de controles de seguridad - Cloudflare,115. Security controls bypass or absence
+F115. Evasión de controles de seguridad - Interceptación de tráfico,115. Security controls bypass or absence
+F115. Evasión de controles de seguridad - Límites transaccionales,115. Security controls bypass or absence
+F115. Evasión de controles de seguridad - OTP,115. Security controls bypass or absence
+F115. Evasión de controles de seguridad - Preguntas de seguridad,115. Security controls bypass or absence
+F115. Evasión de controles de seguridad - Reconocimiento facial,115. Security controls bypass or absence
+F115. Evasión de controles de seguridad - Reuso de cuentas,115. Security controls bypass or absence
+F115. Evasión de controles de seguridad - Root Detection,115. Security controls bypass or absence
+F115. Evasión de controles de seguridad - Solicitud póliza,115. Security controls bypass or absence
+F115. Evasión de controles de seguridad - SSLPinning,115. Security controls bypass or absence
+F115. Security controls bypass,115. Security controls bypass or absence
+F116. XS-Leaks,116. XS-Leaks
+F116. XS-Leaks - Frame counting,116. XS-Leaks
+F116. XS-Leaks - Frame Counting,116. XS-Leaks
+F117. Archivos no auditables,117. Unverifiable files
+F117. Archivos no auditables - (.project y .classpath),117. Unverifiable files
+F117. Archivos no auditables - Código fuente,117. Unverifiable files
+F117. Unverifiable files,117. Unverifiable files
+F118. Infracción de regulación,118. Regulation infringement
+F119. Metadata with sensitive information,119. Metadata with sensitive information
+F119. Metadatos con información sensible,119. Metadata with sensitive information
+F121. HTTP Parameter Pollution,121. HTTP parameter pollution
+F122. Email Flooding,122. Email flooding
+F123. Local File Inclusion,123. Local file inclusion
+F125. Listado de Directorios,125. Directory listing
+F127. Falta de validación de datos,127. Lack of data validation - Type confusion
+F127. Falta de validación de datos - Type confusion,127. Lack of data validation - Type confusion
+F131. Cabeceras HTTP inseguras o no establecidas - Cabeceras obsoletas,131. Insecure or unset HTTP headers - Strict Transport Security
+F131. Cabeceras HTTP inseguras o no establecidas - Strict-Transport-Security,131. Insecure or unset HTTP headers - Strict Transport Security
+F133. Algoritmo de cifrado inseguro - Perfect Forward Secrecy,133. Insecure encryption algorithm - Perfect Forward Secrecy
+F133. Insecure encryption algorithm - Perfect Forward Secrecy,133. Insecure encryption algorithm - Perfect Forward Secrecy
+FIN.0011. Software desactualizado con vulnerabilidades,011. Use of software with known vulnerabilities
+FIN.0016. Llave de cifrado no parametrizable,009. Sensitive information in source code
+FIN.0020. Ausencia de cifrado de información confidencial,020. Non-encrypted confidential information
+FIN.0022. Uso de canal inseguro,022. Use of an insecure channel
+FIN.0027. Carga insegura de archivos,027. Insecure file upload
+FIN.0027. Carga insegura de archivos - Backend,027. Insecure file upload
+FIN.0035. Política de credenciales débiles,035. Weak credential policy
+FIN.0037. Fuga de información técnica,037. Technical information leak
+FIN.0037. Fuga de información técnica - - console.log() y alert(),037. Technical information leak
+FIN.0037. Fuga de información técnica - console.log() -printstacktrace,037. Technical information leak
+"FIN.0037. Fuga de información técnica - console.log(), alert(), stackTrace",037. Technical information leak
+FIN.0037. Fuga de información técnica - IPs,037. Technical information leak
+FIN.0038. Fuga de información de negocio,038. Business information leak
+FIN.0038. Fuga de información de negocio - credenciales,038. Business information leak
+FIN.0039. Uso de web services sin autorización,039. Improper authorization control for web services
+FIN.0040. Web Services expuestos,040. Exposed web services
+FIN.0042. Cookies generadas de forma insegura,042. Insecurely generated cookies
+FIN.0043. Cabeceras de seguridad HTTP no establecidas,043. Insecure or unset HTTP headers - Content-Security-Policy
+FIN.0050. Configuración insegura del servicio - tiempo de vida de código,014. Insecure functionality
+FIN.0052. Algoritmo de cifrado inseguro,052. Insecure encryption algorithm
+FIN.0053. Ausencia de protección contra ataques de fuerza bruta,053. Lack of protection against brute force attacks
+FIN.0060. Excepciones inseguras,060. Insecure exceptions
+FIN.0061. Errores sin trazabilidad,061. Errors without traceability
+FIN.0062. Sesiones concurrentes,062. Concurrent sessions
+FIN.0063. Falta de validación de datos,063. Lack of data validation - Path Traversal
+FIN.0066. Código JavaScript sin ofuscar,066. Technical information leak - Console functions
+FIN.0068. Tiempo límite de inactividad inseguro,068. Insecure session expiration time
+FIN.0070. Prácticas inadecuadas de programación,070. Inappropriate coding practices - Wildcard import
+FIN.0073. Condicionales sin opción por defecto,073. Conditional statement without a default option
+FIN.0074. Código funcional comentado,074. Commented-out code
+FIN.0079. Dependencias no actualizables,079. Non-upgradable dependencies
+FIN.H.0014. Funcionalidad insegura: Control de contraseña,014. Insecure functionality
+FIN.H.0027. Carga insegura de archivos,027. Insecure file upload
+FIN.H.0037. Fuga de información técnica,037. Technical information leak
+FIN.H.0037. Fuga de información técnica -,037. Technical information leak
+FIN.H.0037. Fuga de información técnica - Angular,037. Technical information leak
+FIN.H.0037. Fuga de información técnica - Código fuente,037. Technical information leak
+FIN.H.0037. Fuga de información técnica - Console.error,037. Technical information leak
+FIN.H.0037. Fuga de información técnica - Console.log,037. Technical information leak
+FIN.H.0037. Fuga de información técnica - console.log,037. Technical information leak
+FIN.H.0037. Fuga de información técnica - console.log(),037. Technical information leak
+"FIN.H.0037. Fuga de información técnica - Console.WriteLine(), Console.log()",037. Technical information leak
+FIN.H.0037. Fuga de información técnica - Consultas,037. Technical information leak
+FIN.H.0037. Fuga de información técnica - Parámetros,037. Technical information leak
+FIN.H.0037. Fuga de información técnica - PrintStackTrace,037. Technical information leak
+FIN.H.0037. Fuga de información técnica - PrintStacktrace,037. Technical information leak
+FIN.H.0037. Fuga de información técnica - printStackTrace,037. Technical information leak
+FIN.H.0037. Fuga de información técnica - Server,037. Technical information leak
+FIN.H.0037. Fuga de información técnica - Server-header,037. Technical information leak
+FIN.H.0037. Fuga de información técnica - Servlet,037. Technical information leak
+FIN.H.0037. Fuga de información técnica - StackTrace,037. Technical information leak
+FIN.H.0037. Fuga de información técnica - StakTrace,037. Technical information leak
+FIN.H.0037. Fuga de información técnica - X-Powered-By,037. Technical information leak
+FIN.H.0037. Fuga de información técnica : console.log,037. Technical information leak
+FIN.H.0037. Fuga de información técnica: Console.log,037. Technical information leak
+FIN.H.0037. Fuga de información técnica: Murex,037. Technical information leak
+FIN.H.0037. Fuga de información técnica: Parámetros Endpoint,037. Technical information leak
+FIN.H.0037. Fuga de información técnica: Server version,037. Technical information leak
+FIN.H.0037. Fuga de información técnica(console.log-printstacktrace),037. Technical information leak
+FIN.H.0037. Leakage of technical information,037. Technical information leak
+FIN.H.0037. Technical information Leak,037. Technical information leak
+FIN.H.0037. Technical information leak,037. Technical information leak
+FIN.H.0040. Web Services expuestos,040. Exposed web services
+FIN.H.0043. Cabecera de seguridad HTTP vencida,043. Insecure or unset HTTP headers - Content-Security-Policy
+FIN.H.0043. Cabeceras de seguridad HTTP mal establecidas,043. Insecure or unset HTTP headers - Content-Security-Policy
+FIN.H.0043. Cabeceras de seguridad HTTP no establecidas,043. Insecure or unset HTTP headers - Content-Security-Policy
+FIN.H.0043. Cabeceras de seguridad HTTP no establecidas: Clickjacking,043. Insecure or unset HTTP headers - Content-Security-Policy
+FIN.H.0043. Cabeceras de seguridad HTTP no establecidas: SOAP svc,043. Insecure or unset HTTP headers - Content-Security-Policy
+FIN.H.0043. HTTP Security Headers not established,043. Insecure or unset HTTP headers - Content-Security-Policy
+FIN.H.0043. HTTP security headers not implemented,043. Insecure or unset HTTP headers - Content-Security-Policy
+FIN.H.0043. HTTP security headers not properly set,043. Insecure or unset HTTP headers - Content-Security-Policy
+FIN.H.0044. Métodos HTTP Inseguros Habilitados,044. Insecure HTTP methods enabled
+FIN.H.0044. Métodos HTTP Inseguros Habilitados - Logout,044. Insecure HTTP methods enabled
+FIN.H.0046. Ausencia de ofuscación segura,046. Missing secure obfuscation - APK
+FIN.H.0046. Binarios no ofuscados,046. Missing secure obfuscation - APK
+FIN.H.0052. Algoritmo de cifrado inseguro,052. Insecure encryption algorithm
+FIN.H.0055. Configuración insegura del servicio,055. Insecure service configuration - ADB Backups
+FIN.H.0055. Configuración insegura del servicio - Certificate pinning,055. Insecure service configuration - ADB Backups
+FIN.H.0055. Configuración insegura del servicio: Listado de directorios,055. Insecure service configuration - ADB Backups
+FIN.H.0058. Depuración habilitada,058. Debugging enabled in production - APK
+FIN.H.0058. Depuración habilitada en producción,058. Debugging enabled in production - APK
+FIN.H.0060. Excepciones inseguras,060. Insecure exceptions
+FIN.H.0060. Excepciones inseguras -  printStackTrace,060. Insecure exceptions
+FIN.H.0060. Insecure exceptions,060. Insecure exceptions
+FIN.H.0060. Unsafe Exceptions,060. Insecure exceptions
+FIN.H.0061. Errores sin trazabilidad,061. Errors without traceability
+FIN.H.0061. Errors without traceability,061. Errors without traceability
+FIN.H.0062. Concurrent Sessions,062. Concurrent sessions
+FIN.H.0062. Concurrent sessions,062. Concurrent sessions
+FIN.H.0062. Sesiones concurrentes,062. Concurrent sessions
+FIN.H.0064. Pérdida de trazabilidad,064. Traceability loss - Server's clock
+FIN.H.0064. Pérdida de trazabilidad - AWS ALB log deshabilitado,064. Traceability loss - Server's clock
+FIN.H.0064. Pérdida de trazabilidad - CloudWatch Alarms,064. Traceability loss - Server's clock
+FIN.H.0066. Código JavaScript sin ofuscar,066. Technical information leak - Console functions
+FIN.H.0068. Tiempo límite de inactividad inseguro,068. Insecure session expiration time
+FIN.H.0068. Tiempo límite de inactividad inseguro - OTP,068. Insecure session expiration time
+FIN.H.0068. Unsafe downtime,068. Insecure session expiration time
+FIN.H.0070. Prácticas inadecuadas de programación,070. Inappropriate coding practices - Wildcard import
+FIN.H.0070. Prácticas inadecuadas de programación - Excepciones,070. Inappropriate coding practices - Wildcard import
+FIN.H.0070. Prácticas inadecuadas de programación - Excepciones con log y rethrow,070. Inappropriate coding practices - Wildcard import
+FIN.H.0070. Prácticas inadecuadas de programación - Limite de tiempo de vida de variables sensibles,070. Inappropriate coding practices - Wildcard import
+FIN.H.0070. Prácticas inadecuadas de programación - localstorage,070. Inappropriate coding practices - Wildcard import
+FIN.H.0070. Prácticas inadecuadas de programación - printStackTrace(),070. Inappropriate coding practices - Wildcard import
+FIN.H.0070. Prácticas inadecuadas de programación - Variables Sin Inicializar,070. Inappropriate coding practices - Wildcard import
+"FIN.H.0070. Prácticas inadecuadas de programación ""Declaración insuficiente de StringBuffer""",070. Inappropriate coding practices - Wildcard import
+"FIN.H.0070. Prácticas inadecuadas de programación ""Uso clase sincronizada""",070. Inappropriate coding practices - Wildcard import
+"FIN.H.0070. Prácticas inadecuadas de programación ""Uso de funcion eval""",070. Inappropriate coding practices - Wildcard import
+FIN.H.0070. Prácticas inadecuadas de programación (Try sin Catch),070. Inappropriate coding practices - Wildcard import
+FIN.H.0070. Prácticas inadecuadas de programación: Tiempo de vida de variables en memoria,070. Inappropriate coding practices - Wildcard import
+FIN.H.0070. Prácticas inadecuadas de programación(PrintStackTrace),070. Inappropriate coding practices - Wildcard import
+FIN.H.0071. Código ofuscado de forma insegura,071. Insecure or unset HTTP headers - Referrer-Policy
+FIN.H.0072. Código repetido,072. Duplicate code
+FIN.H.0073. Condicionales sin opción por defecto,073. Conditional statement without a default option
+FIN.H.0073. Condicionales sin opción por defecto - RPG,073. Conditional statement without a default option
+FIN.H.0073. Conditionals without default option,073. Conditional statement without a default option
+FIN.H.0074. Código funcional comentado,074. Commented-out code
+FIN.H.0074. Código funcional comentado -  RFC-1918 CIDRs,074. Commented-out code
+FIN.H.0074. Commented functional code,074. Commented-out code
+FIN.H.0074. Commented funtional code,074. Commented-out code
+FIN.H.0079. Dependencias no actualizables,079. Non-upgradable dependencies
+FIN.H.0079. Non-upgradable dependencies,079. Non-upgradable dependencies
+FIN.H.0112. Uso ineficiente de CPU,067. Improper resource allocation
+FIN.H.0117. Archivos no auditables,117. Unverifiable files
+FIN.H.0118. Incumplimiento legal,118. Regulation infringement
+FIN.H.0119. Metadatos con información sensible,119. Metadata with sensitive information
+FIN.H.037. Fuga de información técnica,037. Technical information leak
+FIN.H.037. Technical information leak,037. Technical information leak
+FIN.H.047. Automatic information enumeration - AWS,047. Automatic information enumeration
+FIN.H.047. Enumeración automática de información - AWS,047. Automatic information enumeration
+FIN.H.055. Insecure service configuration - AWS,055. Insecure service configuration - ADB Backups
+FIN.H.060. Excepciones inseguras,060. Insecure exceptions
+FIN.H.060. Insecure exceptions,060. Insecure exceptions
+FIN.H.061. Errores sin trazabilidad,061. Errors without traceability
+FIN.H.061. Errors without traceability,061. Errors without traceability
+FIN.H.073. Condicionales sin opción por defecto,073. Conditional statement without a default option
+FIN.H.073. Conditional statement without a default option,073. Conditional statement without a default option
+FIN.S.0001. Inyección Apache Lucene Query.,001. SQL injection - C Sharp SQL API
+FIN.S.0001. Inyección NoSQL,001. SQL injection - C Sharp SQL API
+FIN.S.0001. Inyección SQL,001. SQL injection - C Sharp SQL API
+FIN.S.0001. Inyección SQL - Vinculación Digital Valores.,001. SQL injection - C Sharp SQL API
+FIN.S.0001. Inyección SQL - Web App,001. SQL injection - C Sharp SQL API
+FIN.S.0001. SQL injection,001. SQL injection - C Sharp SQL API
+FIN.S.0002. Asymmetric Denial of Service,002. Asymmetric denial of service
+FIN.S.0002. Denegación de servicio asimétrica,002. Asymmetric denial of service
+FIN.S.0002. Denegación de servicio asimétrica - Bloqueo de cuentas,002. Asymmetric denial of service
+FIN.S.0002. Denegación de servicio asimétrica - Cambio de contrasena,002. Asymmetric denial of service
+FIN.S.0002. Denegación de servicio asimétrica - Login,002. Asymmetric denial of service
+FIN.S.0002. Denegación de servicio asimétrica - Prometeo,002. Asymmetric denial of service
+FIN.S.0002. Denegación de servicio asimétrica - XML Bomb,002. Asymmetric denial of service
+FIN.S.0002. Denegación de servicio asimétrica: RPG,002. Asymmetric denial of service
+FIN.S.0002. Denegación de servicio asimétrica(Bloqueo Usuarios),002. Asymmetric denial of service
+FIN.S.0002. Denegación de servicio asimétrica(etiquetas),002. Asymmetric denial of service
+FIN.S.0002. Denegación de servicio asimétrica(XMLBomb),002. Asymmetric denial of service
+FIN.S.0003. Denegación de servicio simétrica,003. Symmetric denial of service
+FIN.S.0003. PLEASE DO NOT EDIT THIS FINDING I USE THIS IN UNIT TESTS - DRAFT,003. Symmetric denial of service
+FIN.S.0004. Ejecución remota de comandos,004. Remote command execution
+FIN.S.0004. Ejecución remota de comandos - DB,004. Remote command execution
+FIN.S.0004. Ejecución remota de comandos - WebLogic,004. Remote command execution
+FIN.S.0004. Ejecución remota de comandos: JBoss jmx-console,004. Remote command execution
+FIN.S.0004. Ejecución remota de comandos: Jboss JMXInvokerServlet,004. Remote command execution
+FIN.S.0004. Ejecución remota de comandos: Tomcat WAR deployment,004. Remote command execution
+FIN.S.0005. Elevación de privilegios,005. Privilege escalation
+FIN.S.0005. Elevación de privilegios - DBA,005. Privilege escalation
+FIN.S.0005. Elevación de privilegios - prometeo,005. Privilege escalation
+FIN.S.0005. Elevación de privilegios - root,005. Privilege escalation
+FIN.S.0006. Ausencia o evasión de autenticación,006. Authentication mechanism absence or evasion
+FIN.S.0006. Ausencia o evasión de autenticación - Prometeo,006. Authentication mechanism absence or evasion
+FIN.S.0006. Ausencia o evasión de autenticación - Segunda Clave,006. Authentication mechanism absence or evasion
+FIN.S.0006. Ausencia o evasión de autenticación: Red WiFi,006. Authentication mechanism absence or evasion
+FIN.S.0006. Ausencia o evasión de autenticación(Token),006. Authentication mechanism absence or evasion
+FIN.S.0006. Authentication evasible or missing.,006. Authentication mechanism absence or evasion
+FIN.S.0007. Cross site request forgery,007. Cross-site request forgery
+FIN.S.0008. Cross site scripting reflejado,008. Reflected cross-site scripting (XSS)
+FIN.S.0008. Stored Cross Site Scripting,008. Reflected cross-site scripting (XSS)
+FIN.S.0009. Informacion sensible almacenada en el código fuente,009. Sensitive information in source code
+FIN.S.0009. Información sensible almacenada en el código fuente,009. Sensitive information in source code
+FIN.S.0009. Información sensible almacenada en el código fuente - Credenciales,009. Sensitive information in source code
+FIN.S.0009. Información sensible almacenada en el código fuente: JWT Keys,009. Sensitive information in source code
+FIN.S.0009. Información sensible almacenada en el código fuente.,009. Sensitive information in source code
+FIN.S.001. Inyección SQL - Java Persistence API,001. SQL injection - C Sharp SQL API
+FIN.S.001. SQL injection - Java Persistence API,001. SQL injection - C Sharp SQL API
+FIN.S.0010. Cross site scripting almacenado,010. Stored cross-site scripting (XSS)
+FIN.S.0011. Software desactualizado con vulnerabilidades,011. Use of software with known vulnerabilities
+FIN.S.0011. Software desactualizado con vulnerabilidades - Actualiaciones del Kernel y S.O,011. Use of software with known vulnerabilities
+FIN.S.0011. Software desactualizado con vulnerabilidades - Kernel y S.O,011. Use of software with known vulnerabilities
+FIN.S.0011. Software desactualizado con vulnerabilidades: MS17-010 Eternalblue,011. Use of software with known vulnerabilities
+FIN.S.0011. Software desactualizado con vulnerabilidades: TNS Listener,011. Use of software with known vulnerabilities
+FIN.S.0011. test,011. Use of software with known vulnerabilities
+FIN.S.0011. Use of components with known vulnerabilities,011. Use of software with known vulnerabilities
+FIN.S.0011. Uso de componentes con vulnerabilidades conocidas,011. Use of software with known vulnerabilities
+FIN.S.0011. Uso de componentes con vulnerabilidades conocidas - cloud,011. Use of software with known vulnerabilities
+FIN.S.0011. Uso de componentes con vulnerabilidades conocidas - Jquery 1.11.3,011. Use of software with known vulnerabilities
+FIN.S.0011. Uso de componentes con vulnerabilidades conocidas - Postgres,011. Use of software with known vulnerabilities
+FIN.S.0011. Uso de componentes con vulnerabilidades conocidas: Citrix,011. Use of software with known vulnerabilities
+FIN.S.0011. Uso de componentes con vulnerabilidades conocidas: Oracle TNS Listener Poisoning,011. Use of software with known vulnerabilities
+FIN.S.0011. Uso de componentes con vulnerabilidades conocidas: SAP Scheduler Directory Traversal,011. Use of software with known vulnerabilities
+FIN.S.0011. Uso de componentes con vulnerabilidades conocidas: Sin soporte Oficial,011. Use of software with known vulnerabilities
+FIN.S.0012. Acceso a recursos protegidos sin autenticación,006. Authentication mechanism absence or evasion
+FIN.S.0012. Acceso a recursos protegidos sin autenticación - Gestor de Notificaciones Tabot,006. Authentication mechanism absence or evasion
+FIN.S.0012. Acceso a recursos protegidos sin autenticación - Messenger - saldo,006. Authentication mechanism absence or evasion
+FIN.S.0012. Acceso a recursos protegidos sin autenticación - Prometeo,006. Authentication mechanism absence or evasion
+FIN.S.0012. Acceso a recursos protegidos sin autenticación - S3 Public Bucket,006. Authentication mechanism absence or evasion
+FIN.S.0012. Acceso a recursos protegidos sin autorización,006. Authentication mechanism absence or evasion
+FIN.S.0012. Acceso a registros protegidos sin autenticación,006. Authentication mechanism absence or evasion
+FIN.S.0012. Access to protected resources without authentication,006. Authentication mechanism absence or evasion
+FIN.S.0013. Funcionalidad Insegura - Keystore en repo,009. Sensitive information in source code
+FIN.S.0013. Insecure Direct Object References,013. Insecure object reference
+FIN.S.0013. Insecure Object Reference,013. Insecure object reference
+FIN.S.0013. Referencia insegura - Movimientos,013. Insecure object reference
+FIN.S.0013. Referencia insegura a objetos,013. Insecure object reference
+FIN.S.0013. Referencia insegura a objetos - Alicia,013. Insecure object reference
+FIN.S.0013. Referencia insegura a objetos - Aumento Cupo Otro Cliente,013. Insecure object reference
+FIN.S.0013. Referencia insegura a objetos - Consulta de saldo,013. Insecure object reference
+FIN.S.0013. Referencia insegura a objetos - Generación de planilla,013. Insecure object reference
+FIN.S.0013. Referencia insegura a objetos - Life Coach,013. Insecure object reference
+FIN.S.0013. Referencia insegura a objetos - NIT,013. Insecure object reference
+FIN.S.0013. Referencia insegura a objetos - Prometeo,013. Insecure object reference
+FIN.S.0013. Referencia insegura a objetos - Prometeo - Asignar usuarios,013. Insecure object reference
+FIN.S.0013. Referencia insegura a objetos - Prometeo - Crear proyecto - Cambio gerente,013. Insecure object reference
+FIN.S.0013. Referencia insegura a objetos - Prometeo - Editar,013. Insecure object reference
+FIN.S.0013. Referencia insegura a objetos - Prometeo - Usuario de consulta,013. Insecure object reference
+FIN.S.0013. Referencia insegura a objetos Proveedores,013. Insecure object reference
+FIN.S.0014. Funcionalidad insegura,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura  - Untrusted AWS (Amazon Machine Image),014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - Acceso a funcionalidades restringidas en el menu,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - Actualización QR,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - Administrar respuestas,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - Bloqueo de sim,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - Carga de archivos,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - Descarga de reportes,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - Eliminar de evidencias,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - Enmascaramiento,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - Enumeración de roles,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - Factor doble autenticación,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - Imagen de Seguridad,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - Inicio de sesión,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - LFI,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - limite peticiones api,108. Improper control of interaction frequency
+FIN.S.0014. Funcionalidad insegura - Listado de directorios,125. Directory listing
+FIN.S.0014. Funcionalidad insegura - LocalStorage,085. Sensitive data stored in client-side storage
+FIN.S.0014. Funcionalidad insegura - Monto de pago,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - OTP,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - Pago de facturas ajenas,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - Pass the Hash,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - Preguntas de seguridad,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - Prometeo - Creación de ulc,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - Prometeo - Eliminación de personas,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - Recuperación de Contraseña,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - Reporte Máquinas,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - resources,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - restablecimiento de contraseña,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - solicitar retiro & obtener radicado,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura - Usuario como contraseña,014. Insecure functionality
+"FIN.S.0014. Funcionalidad insegura ""Evasión control de usuarios registrados""",014. Insecure functionality
+"FIN.S.0014. Funcionalidad insegura ""GET Modificable""",014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura (Evasión OTP),014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura (Local Storage),085. Sensitive data stored in client-side storage
+FIN.S.0014. Funcionalidad insegura Evasión tiempo de inactividad,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura:  wdbrpc,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura: Acceso completo a árbol LDAP de DA,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura: Aumento de cupo,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura: Bitácoras modificables,091. Log injection
+FIN.S.0014. Funcionalidad insegura: Bypass de autenticacion,006. Authentication mechanism absence or evasion
+FIN.S.0014. Funcionalidad insegura: Cierre sesión,076. Insecure session management
+FIN.S.0014. Funcionalidad insegura: Consulta de sesión,076. Insecure session management
+FIN.S.0014. Funcionalidad insegura: Control antirobot no funcional,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura: Envío de OTP,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura: Envío OTP,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura: Falta de protección de integridad de reportes,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura: Hora legal no usada,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura: Inicio inseguro de sistema,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura: Kerberoast,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura: Límite aprobado,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura: Listado de directorios,125. Directory listing
+FIN.S.0014. Funcionalidad insegura: Listar información confidencial de clientes desde cualquier rol.,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura: Local Storage,085. Sensitive data stored in client-side storage
+FIN.S.0014. Funcionalidad insegura: LocalStorage,085. Sensitive data stored in client-side storage
+FIN.S.0014. Funcionalidad insegura: Manipulación de comunicación serial,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura: ModBus,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura: MS-RPRN printer bug,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura: Pago sin OTP,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura: Protección física insegura,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura: Recuperar contraseña,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura: Secuestro de conversaciones,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura: TNS Listener Poison Attack,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura: Validación inadecuada de la autenticidad del mensaje,014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura(Formula Injection),014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura(LocalStorage),085. Sensitive data stored in client-side storage
+FIN.S.0014. Funcionalidad insegura(Parameter Injection),014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura(perfd),014. Insecure functionality
+FIN.S.0014. Funcionalidad insegura(SessionStorage),085. Sensitive data stored in client-side storage
+FIN.S.0014. Funciones inseguras,014. Insecure functionality
+FIN.S.0014. Insecure Functionality - Password Recovery,033. Password change without identity check
+FIN.S.0015. Insecure authentication method,015. Insecure authentication method - Basic
+FIN.S.0015. Método de autenticación inseguro,015. Insecure authentication method - Basic
+FIN.S.0016. Llave de cifrado no parametrizable,009. Sensitive information in source code
+FIN.S.0016. Llave de cifrado no parametrizable - Secret key,009. Sensitive information in source code
+FIN.S.0016. Llave de cifrado no parametrizable - SNS,009. Sensitive information in source code
+FIN.S.0017. Información sensible enviada de forma insegura,017. Sensitive information sent insecurely
+FIN.S.0017. Información sensible enviada de forma insegura - Contraseña,017. Sensitive information sent insecurely
+FIN.S.0018. Carpetas compartidas sin control,018. Improper authentication for shared folders
+FIN.S.0019. Credenciales de administrador guardadas en caché de procesos,019. Administrative credentials stored in cache memory
+FIN.S.0019. Credenciales guardadas en caché de procesos,019. Administrative credentials stored in cache memory
+FIN.S.0019. Credenciales guardadas en caché de procesos - Cookie,019. Administrative credentials stored in cache memory
+FIN.S.0020. Absence of encryption of confidential information,020. Non-encrypted confidential information
+FIN.S.0020. Absence of encryption of confidential information.,020. Non-encrypted confidential information
+FIN.S.0020. Ausencia de cifrado de información confidencial,020. Non-encrypted confidential information
+FIN.S.0020. Ausencia de cifrado de información confidencial - Código fuente,020. Non-encrypted confidential information
+FIN.S.0020. Ausencia de cifrado de información confidencial - Contraseñas planas almacenadas,020. Non-encrypted confidential information
+FIN.S.0020. Ausencia de cifrado de información confidencial - Discos,020. Non-encrypted confidential information
+FIN.S.0020. Ausencia de cifrado de información confidencial - SNS Topics,020. Non-encrypted confidential information
+FIN.S.0020. Ausencia de cifrado de información confidencial - SQS Queues,020. Non-encrypted confidential information
+FIN.S.0020. Ausencia de cifrado de información confidencial - Tarjetas de Crédito,020. Non-encrypted confidential information
+FIN.S.0020. Ausencia de cifrado de información confidencial: Bases de datos,020. Non-encrypted confidential information
+FIN.S.0020. Ausencia de cifrado de información confidencial: Tarjetas,020. Non-encrypted confidential information
+FIN.S.0020. Ausencia de cifrado de información confidencial: Tarjetas de credito,020. Non-encrypted confidential information
+FIN.S.0020. Lack of encryption of confidential information,020. Non-encrypted confidential information
+FIN.S.0020. Non-ciphered confidential information,020. Non-encrypted confidential information
+FIN.S.0020. Non-encrypted confidential information,020. Non-encrypted confidential information
+FIN.S.0021. Inyección XPath,021. XPath injection
+FIN.S.0022. Use of insecure channel,022. Use of an insecure channel
+FIN.S.0022. Uso de canal inseguro,022. Use of an insecure channel
+FIN.S.0022. Uso de canal inseguro - AWS ELB2,022. Use of an insecure channel
+FIN.S.0022. Uso de canal inseguro - dtd,022. Use of an insecure channel
+FIN.S.0022. Uso de canal inseguro - vsftpd,022. Use of an insecure channel
+FIN.S.0023. Redirección a sitios externos no controlada,023. Uncontrolled external site redirect - Host Header Injection
+FIN.S.0023. Redirección a sitios externos no controlada - Messenger,023. Uncontrolled external site redirect - Host Header Injection
+FIN.S.0024. Acceso no restringido entre segmentos de red,024. Unrestricted access between network segments - AWS
+FIN.S.0024. Acceso no restringido entre segmentos de red - EC2 IPs públicas,024. Unrestricted access between network segments - AWS
+FIN.S.0024. Unrestricted access between network segments,024. Unrestricted access between network segments - AWS
+FIN.S.0025. Interceptación de llamadas,025. Call interception
+FIN.S.0026. Enumeración de usuarios,026. User enumeration
+FIN.S.0026. Enumeración de usuarios - Administrador,026. User enumeration
+FIN.S.0026. Enumeración de usuarios - Búsquedas,026. User enumeration
+FIN.S.0026. Enumeración de usuarios - Prometeo,026. User enumeration
+FIN.S.0026. Enumeración de usuarios - SSH,026. User enumeration
+FIN.S.0026. Enumeración de usuarios - Verificación de usuarios,026. User enumeration
+FIN.S.0026. Enumeración de usuarios-documentId-customerId,026. User enumeration
+FIN.S.0026. Enumeración de usuarios: GLPI,026. User enumeration
+FIN.S.0026. Enumeración de usuarios: OpenSSH,026. User enumeration
+FIN.S.0026. Enumeración de usuarios: SMTP,026. User enumeration
+FIN.S.0026. Enumeración de usuarios: SMTP Sendmail,026. User enumeration
+FIN.S.0026. Enumeración de usuarios(SSH),026. User enumeration
+FIN.S.0026. User Enumeration,026. User enumeration
+FIN.S.0026. User enumeration,026. User enumeration
+FIN.S.0026. Users Enumeration,026. User enumeration
+FIN.S.0027. Carga insegura de archivos,027. Insecure file upload
+FIN.S.0027. Carga insegura de archivos - Prometeo,027. Insecure file upload
+FIN.S.0027. Insecure file upload,027. Insecure file upload
+FIN.S.0028. Archivos temporales inseguros,028. Insecure temporary files
+FIN.S.0029. Control inadecuado de tamaño de archivos,029. Inadequate file size control
+FIN.S.0030. Parámetros enviados por URL,030. Sensitive information sent via URL parameters
+FIN.S.0031. Permisos de aplicación innecesarios,031. Excessive privileges - AWS
+FIN.S.0031. Permisos de aplicación innecesarios - SES,031. Excessive privileges - AWS
+FIN.S.0031. Permisos excesivos,031. Excessive privileges - AWS
+FIN.S.0031. Permisos excesivos - JWT,031. Excessive privileges - AWS
+FIN.S.0031. Permisos locales innecesarios,031. Excessive privileges - AWS
+FIN.S.0031. Unnecessary application permissions,031. Excessive privileges - AWS
+FIN.S.0032. Suplantación de identidad (spoofing),032. Spoofing
+FIN.S.0032. Suplantación de identidad (spoofing) - Campos Insertados en Email,032. Spoofing
+FIN.S.0032. Suplantación de identidad (spoofing) - correo,032. Spoofing
+FIN.S.0032. Suplantación de usuario,032. Spoofing
+FIN.S.0033. Cambio de contraseña sin verificar,033. Password change without identity check
+FIN.S.0034. Generación de números aleatorios inseguros,034. Insecure generation of random numbers
+FIN.S.0034. Insecure random number generation,034. Insecure generation of random numbers
+FIN.S.0034. Insecure random numbers generation,034. Insecure generation of random numbers
+FIN.S.0035. Política de credenciales débiles,035. Weak credential policy
+FIN.S.0035. Política de credenciales débiles - Cambio de contraseña,035. Weak credential policy
+FIN.S.0036. ViewState no cifrado,036. ViewState not encrypted
+FIN.S.0037. Fuga de información técnica,037. Technical information leak
+FIN.S.0038. Business Information Leak: Cross-Site-Leak History Length,038. Business information leak
+FIN.S.0038. Fuga de información de negocio,038. Business information leak
+FIN.S.0038. Fuga de información de negocio - AZLogica,038. Business information leak
+FIN.S.0038. Fuga de información de negocio - código fuente,038. Business information leak
+FIN.S.0038. Fuga de información de negocio - Datos sensibles almacenados en texto plano,038. Business information leak
+FIN.S.0038. Fuga de información de negocio - LifeMiles,038. Business information leak
+FIN.S.0038. Fuga de información de negocio - Reportes,038. Business information leak
+FIN.S.0038. Fuga de información de negocio - Tarjetas,038. Business information leak
+FIN.S.0038. Fuga de información de negocio - Tarjetas de Credito,038. Business information leak
+FIN.S.0038. Fuga de información de negocio - Transacciones,038. Business information leak
+FIN.S.0038. Fuga de información de negocio: Inteligencia y NAC,038. Business information leak
+FIN.S.0038. Fuga de información de negocio: Mal uso de los recursos de la organizacion,038. Business information leak
+FIN.S.0038. Fuga de información de negocio: Mal uso de los recursos de la organización.,038. Business information leak
+FIN.S.0038. Fuga de información de negocio: Token JWT,038. Business information leak
+FIN.S.0038. Fuga de información de negocio: Unidades de red con acceso restringido,038. Business information leak
+FIN.S.0038. Fuga de información de negocio: Usuarios de conexión,038. Business information leak
+FIN.S.0038. Leakage of business information,038. Business information leak
+FIN.S.0039. Uso de web services sin autorización,039. Improper authorization control for web services
+FIN.S.0039. Uso de web services sin autorización - Life Coach,039. Improper authorization control for web services
+FIN.S.0039. Uso de web services sin autorización - Prometeo.,039. Improper authorization control for web services
+FIN.S.0039. Uso de web services sin autorización - validación de roles,039. Improper authorization control for web services
+FIN.S.0040. Web Services expuestos,040. Exposed web services
+FIN.S.0041. Credenciales por defecto activadas,041. Enabled default credentials
+FIN.S.0042.  Insecurely generated cookies,042. Insecurely generated cookies
+FIN.S.0042. Cookies generadas de forma insegura,042. Insecurely generated cookies
+FIN.S.0043. Cabeceras de seguridad HTTP no establecidas,043. Insecure or unset HTTP headers - Content-Security-Policy
+FIN.S.0045. Code Injection (HTML),045. HTML code injection
+FIN.S.0045. Inyección de código (HTML),045. HTML code injection
+FIN.S.0045. Inyección de código (HTML) - Correo,045. HTML code injection
+FIN.S.0046. Ausencia de ofuscación segura,046. Missing secure obfuscation - APK
+FIN.S.0046. Binarios no ofuscados,046. Missing secure obfuscation - APK
+FIN.S.0047. Automatic Enumeration of information,047. Automatic information enumeration
+FIN.S.0047. Enumeración automática de información,047. Automatic information enumeration
+FIN.S.0047. Enumeración automática de información - Estado de transacciones,047. Automatic information enumeration
+FIN.S.0047. Enumeración automática de información - Prometeo,047. Automatic information enumeration
+FIN.S.0047. Enumeración automática de información - Puertos abiertos,047. Automatic information enumeration
+FIN.S.0047. Enumeración automática de información: Enumeración de Balance,047. Automatic information enumeration
+FIN.S.0047. Enumeración automática de información: Enumeración de Líneas móviles activas,047. Automatic information enumeration
+FIN.S.0047. Enumeración automática de información: Enumeración de últimas recargas,047. Automatic information enumeration
+FIN.S.0047. Enumeración automática de información: Perfd,047. Automatic information enumeration
+FIN.S.0047. Enumeración automática de información: SVV,047. Automatic information enumeration
+FIN.S.0048. Falta de detección de sistemas rooteados,048. Lack of root detection
+FIN.S.0049. Certificados Digitales Inseguros,049. Insecure digital certificates - APK Pinning
+FIN.S.0049. Insecure Digital Certificates.,049. Insecure digital certificates - APK Pinning
+FIN.S.0050. Claves débiles adivinadas,050. Guessed weak credentials
+FIN.S.0050. Claves débiles adivinadas - Gateways,050. Guessed weak credentials
+FIN.S.0050. Weak passwords compromised,050. Guessed weak credentials
+FIN.S.0051. Claves debiles reversadas,051. Cracked weak credentials
+FIN.S.0051. Claves débiles reversadas,051. Cracked weak credentials
+FIN.S.0051. Claves debiles reversadas - Cuentas de dominio,051. Cracked weak credentials
+FIN.S.0051. Claves debiles reversadas: Kerberoast,051. Cracked weak credentials
+FIN.S.0051. Claves debiles reversadas: shadow hashes,051. Cracked weak credentials
+FIN.S.0051. Weak passwords reversed,051. Cracked weak credentials
+FIN.S.0052. Algoritmo de cifrado inseguro,052. Insecure encryption algorithm
+FIN.S.0052. Algoritmo de cifrado inseguro  - DSA,052. Insecure encryption algorithm
+FIN.S.0052. Algoritmo de cifrado inseguro  - SHA1,052. Insecure encryption algorithm
+FIN.S.0052. Algoritmo de cifrado inseguro - AES,052. Insecure encryption algorithm
+FIN.S.0052. Algoritmo de cifrado inseguro - AES/CBC,052. Insecure encryption algorithm
+FIN.S.0052. Algoritmo de cifrado inseguro - AES/CBC -SHA1,052. Insecure encryption algorithm
+FIN.S.0052. Algoritmo de cifrado inseguro - DSA,052. Insecure encryption algorithm
+FIN.S.0052. Algoritmo de cifrado inseguro - Protocolo SSL,052. Insecure encryption algorithm
+FIN.S.0052. Algoritmo de cifrado inseguro - RC4,052. Insecure encryption algorithm
+FIN.S.0052. Algoritmo de cifrado inseguro - SHA1,052. Insecure encryption algorithm
+FIN.S.0052. Algoritmo de cifrado inseguro - SHA1 - CBC,052. Insecure encryption algorithm
+FIN.S.0052. Algoritmo de cifrado inseguro - TripleDES,052. Insecure encryption algorithm
+FIN.S.0052. Algoritmo de cifrado inseguro - TripleDeS,052. Insecure encryption algorithm
+FIN.S.0052. Algoritmo de cifrado inseguro -AES/CBC,052. Insecure encryption algorithm
+FIN.S.0052. Algoritmo de cifrado inseguro: CBC not random IV,052. Insecure encryption algorithm
+FIN.S.0052. Algoritmo de cifrado inseguro(SHA1),052. Insecure encryption algorithm
+FIN.S.0052. Algoritmo de cifrado inseguro(SSH),052. Insecure encryption algorithm
+FIN.S.0052. Algoritmo de cifrado inseguro(SSL),052. Insecure encryption algorithm
+FIN.S.0052. Insecure cipher algorithm,052. Insecure encryption algorithm
+FIN.S.0053. Ausencia de protección contra ataques de fuerza bruta,053. Lack of protection against brute force attacks
+FIN.S.0053. Ausencia de protección contra ataques de fuerza bruta - Cambio de clave - Prometeo,053. Lack of protection against brute force attacks
+FIN.S.0053. Ausencia de protección contra ataques de fuerza bruta - cuentas bancarias,053. Lack of protection against brute force attacks
+FIN.S.0053. Ausencia de protección contra ataques de fuerza bruta: OpenSSH,053. Lack of protection against brute force attacks
+FIN.S.0053. Lack of brute force attacks protection,053. Lack of protection against brute force attacks
+FIN.S.0054. Exposed administrative services,054. Exposed administrative services
+FIN.S.0054. Servicios administrativos expuestos,054. Exposed administrative services
+FIN.S.0054. Servicios administrativos expuestos: FortiGate,054. Exposed administrative services
+FIN.S.0055. Configuración insegura del servicio,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio  - CORS,134. Insecure or unset HTTP headers - CORS
+FIN.S.0055. Configuración insegura del servicio - Acceso remoto como administrador,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - acceso remoto inseguro,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Ausencia de Certificados,049. Insecure digital certificates - APK Pinning
+FIN.S.0055. Configuración insegura del servicio - Azure Storage SAS Tokens,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - bypassSecurityTrust,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Cambio de cuenta,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Cambio de rol,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Captcha Login - Prometeo,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Certificado Wireless,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Cognito Advanced Services,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - comandos locales,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - consolas locales,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Consulta de Instrucciones,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - CORS,134. Insecure or unset HTTP headers - CORS
+FIN.S.0055. Configuración insegura del servicio - Cuentas inscritas,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Directorio git,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Directorio transversal,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - DNS cache snoop,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - DynamoDB,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - firewall y antivirus,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Google API Key,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - IamInstanceProfile no establecido,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - keystore,009. Sensitive information in source code
+FIN.S.0055. Configuración insegura del servicio - Keystore,009. Sensitive information in source code
+FIN.S.0055. Configuración insegura del servicio - Kubelet,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - LDAP,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - LFI,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Listado de directorios,125. Directory listing
+FIN.S.0055. Configuración insegura del servicio - Llave certificados,009. Sensitive information in source code
+FIN.S.0055. Configuración insegura del servicio - Llave de cifrado débil,035. Weak credential policy
+FIN.S.0055. Configuración insegura del servicio - Local File Inclusion,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - localStorage,085. Sensitive data stored in client-side storage
+FIN.S.0055. Configuración insegura del servicio - Manejo de Roles,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - MFA Root,081. Lack of multi-factor authentication
+FIN.S.0055. Configuración insegura del servicio - Pass-the-hash,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Prometeo,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Protección CSRF,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Protocolos Security Groups,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Puertos abiertos,047. Automatic information enumeration
+FIN.S.0055. Configuración insegura del servicio - Rate Limit,108. Improper control of interaction frequency
+FIN.S.0055. Configuración insegura del servicio - Rate limit,108. Improper control of interaction frequency
+FIN.S.0055. Configuración insegura del servicio - RDP,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - resetPasswordToken sin caducidad,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Roles,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - roles,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Security Group por Defecto,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Session Storage,085. Sensitive data stored in client-side storage
+FIN.S.0055. Configuración insegura del servicio - sessionStorage,085. Sensitive data stored in client-side storage
+FIN.S.0055. Configuración insegura del servicio - SMB,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Solicitud documental,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - SQS público,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - SSL Server,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Subdomain takeover,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Telefonos,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Terminate como comportamiento de Shutdown,101. Lack of protection against deletion
+FIN.S.0055. Configuración insegura del servicio - Tráfico saliente Security Groups.,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Transferencia de Zona,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Transferencias,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Wp-json,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - X-Permitted-Cross-Domain-Policies,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio - Xmlrpc,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio -CORS,134. Insecure or unset HTTP headers - CORS
+"FIN.S.0055. Configuración insegura del servicio ""Claves de cuenta de servicio administradas por usuarios""",055. Insecure service configuration - ADB Backups
+"FIN.S.0055. Configuración insegura del servicio ""Consola de Log expuesta""",055. Insecure service configuration - ADB Backups
+"FIN.S.0055. Configuración insegura del servicio ""Doble factor de autenticación deshabilitado""",081. Lack of multi-factor authentication
+"FIN.S.0055. Configuración insegura del servicio ""Uso credenciales de Gmail""",055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio (Open Relay),055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio RDP,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio- AutoScalingGroup,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: Acceso a información financiera,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: Acceso remoto,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: Antivirus,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: atributo userPassword en Directorio Activo,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: BIOS,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: Bypass del proxy,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: Certificado Wireless,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: Citrix XenDesktop,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: Controlador de dominio,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: CORS,134. Insecure or unset HTTP headers - CORS
+FIN.S.0055. Configuración insegura del servicio: Credenciales en archivo GPP,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: Credenciales en texto plano en campo userPassword Directorio,020. Non-encrypted confidential information
+FIN.S.0055. Configuración insegura del servicio: Credenciales en texto plano en campo userPassword Directorio Activo,020. Non-encrypted confidential information
+FIN.S.0055. Configuración insegura del servicio: DNS cache snooping,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: DNS recursivo,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: Evasión de Antivirus,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: Evasión del antivirus,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: Firewall,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: Jboss,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: Kerberoast,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: Keystore,009. Sensitive information in source code
+FIN.S.0055. Configuración insegura del servicio: LFI,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: Listado de directorios,125. Directory listing
+FIN.S.0055. Configuración insegura del servicio: Mensaje de seguridad,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: Permisos de red,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: Permisos innecesarios,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: Roles,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: Servidor SSL,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: Sudoers,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: Unconstrained Delegation,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio: Wireless,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio(DTSPC),055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio(RDP),055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio(RPC),055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio(sessionStorage),085. Sensitive data stored in client-side storage
+FIN.S.0055. Configuración insegura del servicio(SIGNING),055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio(SMB),055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio(SMBv1),055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio(SMTP),055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio(SSHv1),055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio(TNS Listener),055. Insecure service configuration - ADB Backups
+FIN.S.0055. Configuración insegura del servicio(TNS Poison),055. Insecure service configuration - ADB Backups
+FIN.S.0055. Insecure service configuration,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Insecure service configuration - SSH,055. Insecure service configuration - ADB Backups
+FIN.S.0055. Unsafe service configuration: Database,055. Insecure service configuration - ADB Backups
+FIN.S.0056. Conexión anónima,056. Anonymous connection
+FIN.S.0057. Envío de correo electrónico sin autorización,057. Excessive privileges - Temporary Files
+FIN.S.0058. Depuración habilitada en producción,058. Debugging enabled in production - APK
+FIN.S.0059. Información sensible almacenada en bitácoras,059. Sensitive information stored in logs
+FIN.S.0059. Información sensible almacenada en bitácoras: bash_history,059. Sensitive information stored in logs
+FIN.S.0059. Sensitive Information stored in logs,059. Sensitive information stored in logs
+FIN.S.0062. Sesiones concurrentes,062. Concurrent sessions
+FIN.S.0063. Falta de validación de datos,063. Lack of data validation - Path Traversal
+FIN.S.0063. Falta de validación de datos - Captcha,063. Lack of data validation - Path Traversal
+FIN.S.0063. Falta de validación de datos - caracteres inválidos,063. Lack of data validation - Path Traversal
+FIN.S.0063. Falta de validación de datos - Categorías,063. Lack of data validation - Path Traversal
+FIN.S.0063. Falta de validación de datos - chat bot,063. Lack of data validation - Path Traversal
+FIN.S.0063. Falta de validación de datos - Content Spoofing,063. Lack of data validation - Path Traversal
+FIN.S.0063. Falta de validación de datos - Modificación de datos no permitidos,063. Lack of data validation - Path Traversal
+FIN.S.0063. Falta de validación de datos - Modificar elementos del DOM,063. Lack of data validation - Path Traversal
+FIN.S.0063. Falta de validación de datos - Montos solicitados,063. Lack of data validation - Path Traversal
+FIN.S.0063. Falta de validación de datos - pregunta titulo,063. Lack of data validation - Path Traversal
+FIN.S.0063. Falta de validación de datos - Prometeo - Asignación de usuarios,063. Lack of data validation - Path Traversal
+FIN.S.0063. Falta de validación de datos - Prometeo - Modificación de fases/etapas,063. Lack of data validation - Path Traversal
+FIN.S.0063. Falta de validación de datos - Rango de ingresos,063. Lack of data validation - Path Traversal
+FIN.S.0063. Falta de validación de datos - Reportes,063. Lack of data validation - Path Traversal
+FIN.S.0063. Falta de validación de datos: Modificación de datos no permitidos,063. Lack of data validation - Path Traversal
+FIN.S.0063. Falta de validación de datos: SOAP svc,063. Lack of data validation - Path Traversal
+FIN.S.0063. Falta de validación de datos. Cantidad de registros solicitados,063. Lack of data validation - Path Traversal
+FIN.S.0063. Improper data validation,063. Lack of data validation - Path Traversal
+FIN.S.0063. Lack of data validation,063. Lack of data validation - Path Traversal
+FIN.S.0065. Caché en formulario,065. Cached form fields
+FIN.S.0065. Form cache enabled,065. Cached form fields
+FIN.S.0067. Asignación inadecuada de recursos,067. Improper resource allocation
+FIN.S.0067. Pérdida de rendimiento de la aplicación,067. Improper resource allocation
+FIN.S.0068. Insecure session timeout,068. Insecure session expiration time
+FIN.S.0068. Tiempo límite de inactividad inseguro,068. Insecure session expiration time
+FIN.S.0068. Tiempo límite de inactividad inseguro - autenticación,068. Insecure session expiration time
+FIN.S.0069. Captcha débil,069. Weak CAPTCHA
+FIN.S.0070. Prácticas inadecuadas de programación - localStorage,085. Sensitive data stored in client-side storage
+FIN.S.0075. Acceso no autorizado a archivos,075. Unauthorized access to files - APK Content Provider
+FIN.S.0075. Acceso no autorizado a archivos - .htaccess,075. Unauthorized access to files - APK Content Provider
+FIN.S.0075. Acceso no autorizado a archivos - Listado de Directorios,075. Unauthorized access to files - APK Content Provider
+FIN.S.0075. Acceso no autorizado a archivos - s3 bucket,075. Unauthorized access to files - APK Content Provider
+FIN.S.0076.  Unsafe session handling,076. Insecure session management
+FIN.S.0076. Manejo inseguro de sesión,076. Insecure session management
+FIN.S.0076. Manejo inseguro de sesión - Acceso por url,076. Insecure session management
+FIN.S.0076. Manejo inseguro de sesión - Authorization token,076. Insecure session management
+FIN.S.0076. Manejo inseguro de sesión - campos de sesión,076. Insecure session management
+FIN.S.0076. Manejo inseguro de sesión - Cerrar sesión,076. Insecure session management
+FIN.S.0076. Manejo inseguro de sesión - Cierre de sesión,076. Insecure session management
+FIN.S.0076. Manejo inseguro de sesión - ESTSAUTH cookie,076. Insecure session management
+FIN.S.0076. Manejo inseguro de sesión - Huella,076. Insecure session management
+FIN.S.0076. Manejo inseguro de sesión - Prometeo,076. Insecure session management
+FIN.S.0076. Manejo inseguro de sesión - Session Fixation,076. Insecure session management
+FIN.S.0076. Manejo inseguro de sesión - SVE,076. Insecure session management
+FIN.S.0076. Manejo inseguro de sesión - userId,076. Insecure session management
+FIN.S.0076. Manejo inseguro de sesión - Validación JWT,076. Insecure session management
+FIN.S.0077. ARP Spoofing,077. ARP spoofing
+FIN.S.0078. Insecurely generated token,078. Insecurely generated token
+FIN.S.0078. Token generado de forma insegura,078. Insecurely generated token
+FIN.S.0078. Token generado de forma insegura - Renovar token - Prometeo,078. Insecurely generated token
+FIN.S.0078. Token generado de forma insegura - Roles,078. Insecurely generated token
+FIN.S.0080. Controles de acceso físico inadecuados,014. Insecure functionality
+FIN.S.0081. Ausencia de autenticación de múltiples factores,081. Lack of multi-factor authentication
+FIN.S.0081. Ausencia de autenticación de múltiples factores - Cognito,081. Lack of multi-factor authentication
+FIN.S.0081. Ausencia de doble factor de autenticación,081. Lack of multi-factor authentication
+FIN.S.0082. Archivos eliminados de forma insegura,082. Insecurely deleted files
+FIN.S.0082. datos eliminados de forma insegura,082. Insecurely deleted files
+FIN.S.0083. Inyeccion  (XXE),083. XML injection (XXE)
+FIN.S.0083. Inyección XML (XXE),083. XML injection (XXE)
+FIN.S.0084. MDNS Spoofing,084. MDNS spoofing
+FIN.S.0085. Almacenamiento inseguro de información sensible en el client-side storage,085. Sensitive data stored in client-side storage
+FIN.S.0085. Almacenamiento inseguro de información sensible en el local storage,085. Sensitive data stored in client-side storage
+FIN.S.0085. Almacenamiento inseguro de información sensible en el session storage,085. Sensitive data stored in client-side storage
+FIN.S.0085. Sensitive information stored in the local storage,085. Sensitive data stored in client-side storage
+FIN.S.0086. Falta de verificación de HTML Subresource Integrity,086. Missing subresource integrity check
+FIN.S.0087. Bloqueo de cuentas,087. Account lockout
+FIN.S.009. Información sensible almacenada en el código fuente,009. Sensitive information in source code
+FIN.S.009. Sensitive information in source code,009. Sensitive information in source code
+FIN.S.0090. Inyección de Código (CSV),090. CSV injection
+FIN.S.0091. Inyección en Logs,091. Log injection
+FIN.S.0093. Manipulación de campos invisibles,093. Hidden fields manipulation
+FIN.S.0094. Suplantación de identidad,094. Insecure encryption algorithm - Cipher Block Chaining
+FIN.S.0095. Entropía insuficiente,034. Insecure generation of random numbers
+FIN.S.0096. Deserialización Insegura,096. Insecure deserialization
+FIN.S.0097. Reverse Tabnabbing,097. Reverse tabnabbing
+FIN.S.0099. Exceso de privilegios,031. Excessive privileges - AWS
+FIN.S.0100. Server-Side Request Forgery (SSRF),100. Server-side request forgery (SSRF)
+FIN.S.0101. Ausencia de protección contra borrado,101. Lack of protection against deletion
+FIN.S.0101. Ausencia de protección contra borrado - EC2,101. Lack of protection against deletion
+FIN.S.0101. Ausencia de protección contra borrado - ELB,101. Lack of protection against deletion
+FIN.S.0101. Ausencia de protección contra borrado - RDS,101. Lack of protection against deletion
+FIN.S.0101. Ausencia de protección contra borrado - Usuarios y roles,101. Lack of protection against deletion
+FIN.S.0101. Ausencia de puntos de recuperación - DynamoDB,101. Lack of protection against deletion
+FIN.S.0102. Ausencia de validación de unicidad de correos,102. Email uniqueness not properly verified
+FIN.S.0102. Email uniqueness not properly verified,102. Email uniqueness not properly verified
+FIN.S.0103. Verificación de autenticidad de datos insuficiente,103. Insufficient data authenticity validation - APK signing
+FIN.S.0103. Verificación de autenticidad de datos insuficiente - Modificación de pagos,103. Insufficient data authenticity validation - APK signing
+FIN.S.0108. Control inadecuado de frecuencia de interacción,108. Improper control of interaction frequency
+FIN.S.011. Use of software with known vulnerabilities,011. Use of software with known vulnerabilities
+FIN.S.011. Uso de componentes con vulnerabilidades conocidas,011. Use of software with known vulnerabilities
+FIN.S.0115. Evasión de controles de seguridad - Cambio de respuestas,115. Security controls bypass or absence
+FIN.S.0115. Evasión de controles de seguridad - Token,115. Security controls bypass or absence
+FIN.S.0116. XS-Leaks,116. XS-Leaks
+FIN.S.022. Use of an insecure channel,022. Use of an insecure channel
+FIN.S.031. Excessive privileges - AWS,031. Excessive privileges - AWS
+FIN.S.031. Excessive privileges - Temporary files,057. Excessive privileges - Temporary Files
+FIN.S.031. Permisos excesivos - Archivos temporales,057. Excessive privileges - Temporary Files
+FIN.S.031. Permisos excesivos - AWS,031. Excessive privileges - AWS
+FIN.S.034. Generación de números aleatorios inseguros,034. Insecure generation of random numbers
+FIN.S.034. Insecure random number generation,034. Insecure generation of random numbers
+FIN.S.052. Algoritmo de cifrado inseguro,052. Insecure encryption algorithm
+FIN.S.052. Insecure encryption algorithm,052. Insecure encryption algorithm
+FIN.S.055. Configuración insegura del servicio - AWS,031. Excessive privileges - AWS
+FIN.S.055. Insecure service configuration - AWS,031. Excessive privileges - AWS
+FIN.S.085. Almacenamiento inseguro de información sensible en el client-side storage,085. Sensitive data stored in client-side storage
+FIN.S.085. Sensitive data stored in the client-side storage,085. Sensitive data stored in client-side storage
+FIN.S.117. Archivos no auditables,117. Unverifiable files
+FIN.S.117. Unverifiable files,117. Unverifiable files
+FINS.0063. Falta de validación de datos,063. Lack of data validation - Path Traversal
+WASC.0038. URL Redirector Abuse - Reverse Tabnabbing,097. Reverse tabnabbing
