@@ -16,7 +16,7 @@
       through sentences or parameterized procedures.
     threat: Autenticated attacker from the Internet.
   es:
-    title: Inyección SQL - C Sharp SQL API
+    title: SQL injection - C Sharp SQL API
     description: >
       Se generan sentencias SQL dinámicas
       sin la validación requerida de datos
@@ -75,7 +75,7 @@
       and extract, modify
       or delete information about it.
   es:
-    title: Denegación de servicio asimétrica
+    title: Asymmetric denial of service
     description: >
       Se genera la caída del servidor
       como resultado de ataques de amplificación,
@@ -127,7 +127,7 @@
       about the database, and extract,
       modify or delete information about it.
   es:
-    title: Denegación de servicio simétrica
+    title: Symmetric denial of service
     description: >
       Se genera la caída del servidor
       con múltiples peticiones
@@ -184,7 +184,7 @@
       and avoid special characters.
     threat: Autenticated attacker from the Internet.
   es:
-    title: Ejecución remota de comandos
+    title: Remote command execution
     description: >
       El sistema construye comandos de sistema
       utilizando entradas
@@ -238,7 +238,7 @@
       due to a bad permission validation of roles
       or to a failure in functionalities requests.
   es:
-    title: Elevación de privilegios
+    title: Privilege escalation
     description: >
       Los roles administrativos son accedidos
       desde funciones de un usuario estándar
@@ -297,7 +297,7 @@
       or having an activated session
       on the server of the application.
   es:
-    title: Ausencia o evasión de autenticación
+    title: Authentication mechanism absence or evasion
     description: >
       El sistema carece de un mecanismo de autenticación
       o tiene uno que puede ser evadido.
@@ -399,7 +399,7 @@
       to avoid common script injection attacks.
     threat: Authenticated attacker from the Internet.
   es:
-    title: Cross site scripting reflejado
+    title: Reflected cross-site scripting (XSS)
     description: >
       La aplicación web genera contenido web dinámico
       sin validar el origen de los datos
@@ -458,7 +458,7 @@
       or administrative environment variables.
     threat: Attacker with access to the source-code from the Internet.
   es:
-    title: Información sensible almacenada en el código fuente
+    title: Sensitive information in source code
     description: >
       En el repositorio
       se encuentra almacenada (sin cifrar) información sensible
@@ -514,7 +514,7 @@
       and sends the application using white lists.
     threat: __empty__
   es:
-    title: Cross site scripting almacenado
+    title: Stored cross-site scripting (XSS)
     description: >
       Los campos de la aplicación permiten inyectar código
       de forma persistente para que posteriormente
@@ -556,7 +556,7 @@
       to the versions recommended by the vendor.
     threat: Autenticated attacker from the Internet.
   es:
-    title: Uso de componentes con vulnerabilidades conocidas
+    title: Use of software with known vulnerabilities
     description: >
       El sistema usa la version de un software
       o dependencia con vulnerabilidades conocidas.
@@ -612,7 +612,7 @@
       Alternatively use escape(String) built-in function.
     threat: Autenticated attacker from the Internet.
   es:
-    title: Inyección SQL - Java Persistence API
+    title: SQL injection - Java Persistence API
     description: >
       Se generan sentencias SQL dinámicas
       sin la validación requerida de datos
@@ -668,7 +668,7 @@
       because the application does not validate
       the necessary permissions to access.
   es:
-    title: Referencia insegura a objetos
+    title: Insecure object reference
     description: __empty__
     impact: __empty__
     recommendation: >
@@ -709,7 +709,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Funcionalidad insegura
+    title: Insecure functionality
     description: >
       Una funcionalidad que es parte del sistema
       puede ser ejecutada por un atacante
@@ -747,7 +747,7 @@
       Unauthorized attacker from adjacent network
       performing a MITM.
   es:
-    title: Método de autenticación inseguro - Basic
+    title: Insecure authentication method - Basic
     description: >
       El servidor usa autenticación de tipo Basic
       sobre un canal inseguro.
@@ -790,7 +790,7 @@
       Unauthorized attacker from adjacent network
       exploiting a vulnerability.
   es:
-    title: Algoritmo de cifrado inseguro - SSL/TLS
+    title: Insecure encryption algorithm - SSL/TLS
     description: >
       El servidor permite
       utilizar versiones viejas del protocolo TLS.
@@ -839,7 +839,7 @@
       and the URLs that contain the session ID
       to make a successful user spoofing.
   es:
-    title: Información sensible enviada de forma insegura
+    title: Sensitive information sent insecurely
     description: >
       El sistema envía información sensible
       a través de un canal o método
@@ -885,7 +885,7 @@
       only to authorized users with their credentials.
     threat: __empty__
   es:
-    title: Carpetas compartidas sin control
+    title: Improper authentication for shared folders
     description: >
       Las carpetas de red pueden ser accedidas
       sin ningún tipo de credencial
@@ -924,7 +924,7 @@
       in temporary files or cache.
     threat: __empty__
   es:
-    title: Credenciales de administrador guardadas en caché de procesos
+    title: Administrative credentials stored in cache memory
     description: >
       Es posible extraer credenciales administrativas
       desde la caché de los procesos.
@@ -968,7 +968,7 @@
       Attacker with access
       to the source-code from the Internet.
   es:
-    title: Ausencia de cifrado de información confidencial
+    title: Non-encrypted confidential information
     description: >
       La información confidencial
       es almacenada en texto plano
@@ -1016,7 +1016,7 @@
       to avoid common injection attacks.
     threat: Autenticated attacker from the Internet.
   es:
-    title: Inyección XPath
+    title: XPath Injection
     description: >
       Se generan sentencias XPath dinámicas
       sin la validación requerida de datos.
@@ -1064,7 +1064,7 @@
       Anonymous attacker on adjacent network
       performing a man-in-the-middle.
   es:
-    title: Uso de canal inseguro
+    title: Use of an insecure channel
     description: >
       La información de los clientes
       es transmitida por un canal que no usa cifrado.
@@ -1115,7 +1115,7 @@
       to prevent third party hosts redirection.
     threat: Unauthorized attacker from internet network.
   es:
-    title: Redirección a sitios externos no controlada - Host Header Injection
+    title: Uncontrolled external site redirect - Host Header Injection
     description: >
       El servidor procesa peticiones
       con la cabecera Host configurada
@@ -1170,7 +1170,7 @@
       only to the required users.
     threat: Anonymous attacker from Internet.
   es:
-    title: Acceso no restringido entre segmentos de red - AWS
+    title: Unrestricted access between network segments - AWS
     description: >
       La configuración de red del sistema
       no limita apropiadamente el acceso
@@ -1224,7 +1224,7 @@
       or configure a firewall to cipher calls.
     threat: __empty__
   es:
-    title: Interceptación de llamadas
+    title: Call interception
     description: >
       Es posible interceptar las llamadas realizadas
       y recibidas a través de la plataforma VoIP
@@ -1259,7 +1259,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Enumeración de usuarios
+    title: User enumeration
     description: >
       Debido a una práctica inadecuada en la configuración
       se pueden enumerar los usuarios
@@ -1318,7 +1318,7 @@
       A user within local network
       with access to the application can upload all
   es:
-    title: Carga insegura de archivos
+    title: Insecure file upload
     description: >
       El sistema de carga de archivos
       permite cargar archivos con doble extensión
@@ -1371,7 +1371,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Archivos temporales inseguros
+    title: Insecure temporary files
     description: >
       El sistema utiliza archivos temporales
       para almacenar información sensibles.
@@ -1412,7 +1412,7 @@
       that can be uploaded to the server.
     threat: __empty__
   es:
-    title: Control inadecuado del tamaño de archivo
+    title: Inadequate file size control
     description: >
       No existe un control adecuado
       sobre el tamaño de los archivos
@@ -1464,7 +1464,7 @@
       A user with access to the application's registry,
       can view
   es:
-    title: Parámetros enviados por URL
+    title: Sensitive information sent via URL parameters
     description: >
       La aplicación envía información sensible (Ej: El ID de sesión)
       como parte de los parámetros en el URL
@@ -1526,7 +1526,7 @@
       following the principle of least privilege.
     threat: __empty__
   es:
-    title: Permisos excesivos - AWS
+    title: Excessive privileges - AWS
     description: >
       La aplicación, un usuario o un rol
       tienen más privilegios/permisos que los que requieren.
@@ -1574,7 +1574,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Suplantación de Identidad (Spoofing)
+    title: Spoofing
     description: >
       Es posible realizar acciones en la aplicación
       y hacer que parezca que fueron realizadas
@@ -1630,7 +1630,7 @@
       due to the lack of current password request
       by system.
   es:
-    title: Cambio de contraseña sin validación de identidad
+    title: Password change without identity check
     description: >
       Al establecer una nueva contraseña para un usuario,
       el producto no requiere conocimiento
@@ -1688,7 +1688,7 @@
       to the application
       and make a user spoofing.
   es:
-    title: Generación de números aleatorios inseguros
+    title: Insecure generation of random numbers
     description: >
       El sistema usa funciones inseguras,
       rangos insuficientes o componentes de baja entropía
@@ -1745,7 +1745,7 @@
       increasing the probability of success
       of a brute force attack.
   es:
-    title: Política de credenciales débiles
+    title: Weak credential policy
     description: >
       La política de credenciales
       presente en el sistema
@@ -1794,7 +1794,7 @@
       Unauthenticated attacker
       with local access to the victim's browser.
   es:
-    title: ViewState no cifrado
+    title: ViewState not encrypted
     description: >
       La información de estado de formularios
       almacenada en el ViewState no se encuentra cifrada.
@@ -1849,7 +1849,7 @@
       through HTTP response headers
       or in the response to non-customized HTTP errors.
   es:
-    title: Fuga de información técnica
+    title: Technical information leak
     description: >
       Se obtiene información técnica del sistema, como:
 
@@ -1919,7 +1919,7 @@
       can identify business information
       without enough protection.
   es:
-    title: Fuga de información de negocio
+    title: Business information leak
     description: >
       Se obtiene información de negocio, como:
 
@@ -1970,7 +1970,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Uso de web services sin autorización
+    title: Improper authorization control for web services
     description: >
       Los web services del sistema
       pueden ser accedidos sin autorización
@@ -2006,7 +2006,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Services web expuestos
+    title: Exposed web services
     description: >
       El WSDL del sistema contiene información sensible
       y se encuentra expuesto
@@ -2047,7 +2047,7 @@
       can login by guessing default passwords
       used in the application.
   es:
-    title: Credenciales for defecto activadas
+    title: Enabled default credentials
     description: >
       Se encuentran credenciales
       por defecto de baja fortaleza
@@ -2095,7 +2095,7 @@
       when cookies are generated.
     threat: Unauthenticated attacker from the Internet.
   es:
-    title: Cookies generadas de forma insegura
+    title: Insecurely generated cookies
     description: >
       El sistema no establece los atributos de seguridad
       para las cookies sensibles,
@@ -2145,7 +2145,7 @@
       and configure it in a secure way.
     threat: Unauthorized attacker from Internet.
   es:
-    title: Cabeceras HTTP inseguras o no establecidas - Content-Security-Policy
+    title: Insecure or Unset HTTP Headers - Content-Security-Policy
     description: >
       El servidor carece del encabezado
       HTTP Content-Security-Policy.
@@ -2198,7 +2198,7 @@
       view the request's debug,
       view which methods the server accepts.
   es:
-    title: Métodos HTTP inseguros habilitados
+    title: Insecure HTTP methods enabled
     description: >
       Métodos como TRACE, PUT, DELETE
       se encuentran habilitados en el servidor
@@ -2252,7 +2252,7 @@
       that will be executed on the server
       causing a modification on the web page.
   es:
-    title: Inyección de código HTML
+    title: HTML code injection
     description: >
       Los campos de la aplicación
       permiten inyectar código HTML
@@ -2314,7 +2314,7 @@
       from internet network
       with access to the APK.
   es:
-    title: Ausencia de ofuscación segura - APK
+    title: Missing secure obfuscation - APK
     description: >
       Es posible
       obtener el código fuente
@@ -2377,7 +2377,7 @@
       by scanning the network,
       then an attack could be released.
   es:
-    title: Enumeración automática de información
+    title: Automatic information enumeration
     description: >
       Es posible enumerar información del sistema
       como servicios disponibles
@@ -2433,7 +2433,7 @@
       with a rooted device
       and the APK installed.
   es:
-    title: Falta de detección de sistemas rooteados
+    title: Lack of root detection
     description: >
       No se está detectando
       si el sistema Android
@@ -2485,7 +2485,7 @@
       from adjacent network
       performing a MITM.
   es:
-    title: Certificados digitales inseguros - APK Pinning
+    title: Insecure digital certificates - APK Pinning
     description: >
       La aplicación no pinea los certificados
       y por lo tanto confia
@@ -2549,7 +2549,7 @@
       a valid password can be found
       in a short period of time.
   es:
-    title: Credenciales débiles adivinadas
+    title: Guessed weak credentials
     description: >
       La falta de complejidad de las contraseñas
       reduce significativamente
@@ -2617,7 +2617,7 @@
       and then could find
       users' passwords.
   es:
-    title: Credenciales débiles reversadas
+    title: Cracked weak credentials
     description: >
       La falta de complejidad
       de los hashes almacenados en la base de datos
@@ -2670,7 +2670,7 @@
       Anonymous attacker
       from adjacent network via MITM.
   es:
-    title: Algoritmo de cifrado inseguro
+    title: Insecure encryption algorithm
     description: >
       La aplicación usa algoritmos
       de cifrado inseguros.
@@ -2727,7 +2727,7 @@
       through a robot that executes
       brute force and wordlists attacks.
   es:
-    title: Ausencia de protección contra ataques de fuerza bruta
+    title: Lack of protection against brute force attacks
     description: >
       La aplicación no tiene protección
       contra ataques automatizados
@@ -2789,7 +2789,7 @@
       of the product
       due the exposed consoles.
   es:
-    title: Servicios administrativos expuestos
+    title: Exposed administrative services
     description: >
       Consola(s) de administración
       se encuentran expuestas,
@@ -2851,7 +2851,7 @@
       Unauthorized attacker
       with the APK installed in a device.
   es:
-    title: Configuración insegura de servicio - ADB Backups
+    title: Insecure service configuration - ADB Backups
     description: >
       La aplicación permite realizar copias de seguridad
       a través de ADB (Android Debug Bridge).
@@ -2913,7 +2913,7 @@
       the active processes
       on the system.
   es:
-    title: Conexión anónima
+    title: Anonymous connection
     description: >
       Debido a una configuración inadecuada
       del servidor (Ej: Servicio FTP usuario:Anonymous
@@ -2973,7 +2973,7 @@
       Anonymous attacker
       with local access.
   es:
-    title: Permisos excesivos - Archivos temporales
+    title: Excessive privileges - Temporary Files
     description: >
       Abrir archivos temporales
       sin las medidas o controles adecuados
@@ -3028,7 +3028,7 @@
       Unauthorized attacker
       from internet network.
   es:
-    title: Depuración habilitada en producción - APK
+    title: Debugging enabled in production - APK
     description: >
       El sistema tiene el modo depuración habilitado
       en el ambiente productivo,
@@ -3077,7 +3077,7 @@
       Authorized local attacker
       with access to the log files.
   es:
-    title: Información sensible almacenada en bitácoras
+    title: Sensitive information stored in logs
     description: >
       El sistema guarda información sensible
       como credenciales,
@@ -3134,7 +3134,7 @@
       Autenticated attacker
       from the Internet.
   es:
-    title: Excepciones inseguras
+    title: Insecure exceptions
     description: >
       El código fuente usa excepciones genéricas
       para manejar errores inesperados.
@@ -3199,7 +3199,7 @@
       Autenticated attacker
       from the Internet.
   es:
-    title: Errores sin trazabilidad
+    title: Errors without traceability
     description: >
       Los errores generados en la aplicación
       no lanzan ninguna excepción o
@@ -3271,7 +3271,7 @@
       without creating an alert
       into the system.
   es:
-    title: Sesiones concurrentes
+    title: Concurrent sessions
     description: >
       La aplicación no valida
       el número de sesiones por usuario
@@ -3340,7 +3340,7 @@
       Autenticated attacker
       from the Internet.
   es:
-    title: Ausencia de validación de datos - Path Traversal
+    title: Lack of data validation - Path Traversal
     description: >
       El software usa entradas externas
       para construir rutas que identifican
@@ -3393,7 +3393,7 @@
       Anonymous attacker
       from the Internet.
   es:
-    title: Pérdida de trazabilidad - Reloj del servidor
+    title: Traceability loss - Server's clock
     description: >
       El reloj interno del sistema
       no está sincronizado con servidores NTP.
@@ -3450,7 +3450,7 @@
       and discover valid users
       into the application.
   es:
-    title: Caché en formulario
+    title: Cached form fields
     description: >
       El formulario no deshabilita
       la característica de autocompletado,
@@ -3519,7 +3519,7 @@
       or in the response
       to non customized HTTP errors.
   es:
-    title: Fuga de información técnica - Funciones Console
+    title: Technical information leak - Console functions
     description: >
       Se obtiene información técnica del sistema, como:
 
@@ -3592,7 +3592,7 @@
       due to the use of non optimized
       components and libraries.
   es:
-    title: Asignación inadecuada de recursos
+    title: Improper resource allocation
     description: >
       El sistema asigna
       recursos de máquina innecesarios
@@ -3651,7 +3651,7 @@
       impersonating the user who
       left the system opened.
   es:
-    title: Tiempo límite de inactividad inseguro
+    title: Insecure session expiration time
     description: >
       La sesión de usuario
       de la aplicación no expira
@@ -3712,7 +3712,7 @@
       on the hard drive
       and a possible denial of service.
   es:
-    title: CAPTCHA débil
+    title: Weak CAPTCHA
     description: >
       El formulario presenta
       una función de captcha insegura
@@ -3784,7 +3784,7 @@
       Authorized attacker
       with access to the application.
   es:
-    title: Prácticas inadecuadas de programación - Import con comodín
+    title: Inappropriate coding practices - Wildcard import
     description: >
       Al importar librerías
       se hace uso del operador comodín (asterisco)
@@ -3849,7 +3849,7 @@
       Unauthorized attacker
       from Internet.
   es:
-    title: Cabeceras HTTP inseguras o no establecidas - Referrer-Policy
+    title: Insecure or Unset HTTP Headers - Referrer-Policy
     description: >
       El servidor carece
       del encabezado HTTP Referrer-Policy.
@@ -3903,7 +3903,7 @@
       to other causing errors
       in source code compilation.
   es:
-    title: Código duplicado
+    title: Duplicate code
     description: >
       Se encuentra código
       que está repetido
@@ -3960,7 +3960,7 @@
       Autenticated attacker
       from the Internet.
   es:
-    title: Condicionales sin opción por defecto
+    title: Conditional statement without a default option
     description: >
       El código presenta condicionales
       sin ninguna opción por defecto.
@@ -4019,7 +4019,7 @@
       in the application when uncommenting
       any portion of commented code.
   es:
-    title: Código funcional comentado
+    title: Commented-out code
     description: >
       Existe código comentado
       en ambiente de producción,
@@ -4090,7 +4090,7 @@
       owner of a third party application
       installed in the device.
   es:
-    title: Acceso no autorizado a archivos - APK Content Provider
+    title: Unauthorized access to files - APK Content Provider
     description: >
       La Content Provider API
       permite a aplicaciones de terceros
@@ -4155,7 +4155,7 @@
       do not expire
       when a session is closed.
   es:
-    title: Manejo inseguro de sesión
+    title: Insecure session management
     description: >
       El token de sesión no caduca
       una vez que el usuario cierra la sesión
@@ -4244,7 +4244,7 @@
       without sensitive information.
     threat: __empty__
   es:
-    title: Token generado de forma insegura
+    title: Insecurely generated token
     description: >
       Es posible revertir el hash del token
       y obtener la información que enmascara
@@ -4291,7 +4291,7 @@
       before the maintenance's team
       updates the library opportunely.
   es:
-    title: Dependencias no actualizables
+    title: Non-upgradable dependencies
     description: >
       Las dependencias
       no se encuentran explícitamente declaradas
@@ -4349,7 +4349,7 @@
       Internal attacker
       with access to the configuration.
   es:
-    title: Ausencia de cifrado de información confidencial - AWS
+    title: Non-encrypted confidential information - AWS
     description: >
       La infrastructura
       no se encuentra cifrada.
@@ -4401,7 +4401,7 @@
       of the resources' authentication.
     threat: __empty__
   es:
-    title: Ausencia de autenticación de múltiples factores
+    title: Lack of multi-factor authentication
     description: >
       Los servicios críticos
       sobre la red interna
@@ -4457,7 +4457,7 @@
       using the recycle bin
       as a metadata's source.
   es:
-    title: Archivos eliminados de forma insegura
+    title: Insecurely deleted files
     description: >
       Es posible recuperar archivos
       con información sensible
@@ -4512,7 +4512,7 @@
       by referencing external entities
       that can require many system's resources.
   es:
-    title: Inyección XML (XXE)
+    title: XML Injection (XXE)
     description: >
       La aplicación afectada
       permite la inyección de código XML
@@ -4631,7 +4631,7 @@
       or virtual access
       to the victim's browser.
   es:
-    title: Almacenamiento inseguro de información sensible en el client-side storage
+    title: Sensitive data stored in client-side storage
     description: >
       La aplicación almacena
       información confidencial
@@ -4685,7 +4685,7 @@
       Unauthorized attacker
       from internet network.
   es:
-    title: Falta de verificación de subresource integrity
+    title: Missing subresource integrity check
     description: >
       La aplicación no verifica
       apropiadamente la integridad
@@ -4735,7 +4735,7 @@
       Unauthenticated user
       from internet.
   es:
-    title: Bloqueo de cuentas
+    title: Account lockout
     description: >
       Es posible bloquear
       las cuentas de los usuarios,
@@ -4783,7 +4783,7 @@
       Attacker from internet,
       unauthenticated in the application.
   es:
-    title: Infracción de privacidad
+    title: Privacy violation
     description: >
       El sistema viola una ó más
       requisitos de privacidad.
@@ -4830,7 +4830,7 @@
       Autenticated attacker
       from the Internet.
   es:
-    title: Falta de validación de datos - Trust boundary violation
+    title: Lack of data validation - Trust boundary violation
     description: >
       El sistema mezcla datos confiables
       y no confiables
@@ -4885,7 +4885,7 @@
       causing the risk
       of commands execution.
   es:
-    title: Inyección CSV
+    title: CSV Injection
     description: >
       Es posible inyectar
       fórmulas en los campos
@@ -4939,7 +4939,7 @@
       or in the worst case,
       the system of who is viewing the logs.
   es:
-    title: Inyección en logs
+    title: Log injection
     description: >
       Se guardan entradas
       sin validar en los logs del sistema,
@@ -4990,7 +4990,7 @@
       from adjacent network
       performing a MITM attack.
   es:
-    title: Algoritmo de cifrado inseguro - Suites de cifrado anónimo
+    title: Insecure encryption algorithm - Anonymous cipher suites
     description: >
       La aplicación acepta conexiones
       con suites de cifrado anónimos.
@@ -5042,7 +5042,7 @@
       which can not be accessible
       by user.
   es:
-    title: Manipulación de campos invisibles
+    title: Hidden fields manipulation
     description: >
       Es posible modificar
       campos invisibles al usuario
@@ -5093,7 +5093,7 @@
       from adjacent network
       exploiting vulnerability.
   es:
-    title: Algoritmo de cifrado inseguro - Cipher Block Chaining
+    title: Insecure encryption algorithm - Cipher Block Chaining
     description: >
       La aplicación usa
       algoritmos con CBC inseguros.
@@ -5144,7 +5144,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Ausencia de cifrado de información confidencial - AWS EBS
+    title: Non-encrypted confidential information - AWS EBS
     description: >
       Al tratar con datos sensibles
       que son críticos para el negocio,
@@ -5196,7 +5196,7 @@
       an insecure deserialization
       and execute code on the server.
   es:
-    title: Deserialización insegura
+    title: Insecure deserialization
     description: >
       Se deserializan objetos
       sin validar su contenido
@@ -5300,7 +5300,7 @@
       the storage to destined folders only.
     threat: __empty__
   es:
-    title: Control externo de ruta en guardado de archivo
+    title: External control of file name or path
     description: >
       Se puede modificar la ruta
       donde se almacenará un archivo cargado
@@ -5350,7 +5350,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Ausencia de cifrado de información confidencial - S3 Server Side Encryption
+    title: Non-encrypted confidential information - S3 Server Side Encryption
     description: >
       Al tratar con datos sensibles
       que son críticos para el negocio,
@@ -5447,7 +5447,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Ausencia de protección contra borrado
+    title: Lack of protection against deletion
     description: >
       El sistema no tiene protecciones
       que impidan que recursos críticos
@@ -5498,7 +5498,7 @@
       associated or represent an account.
     threat: __empty__
   es:
-    title: Ausencia de validación de unicidad de correos
+    title: Email uniqueness not properly verified
     description: >
       Se está haciendo una verificación
       parcial de unicidad de correos electrónicos,
@@ -5553,7 +5553,7 @@
       Non-autenticated attacker
       from the Internet.
   es:
-    title: Verificación de autenticidad de datos insuficiente - Firmado del APK
+    title: Insufficient data authenticity validation - APK signing
     description: >
       El APK no está firmado digitalmente.
     impact: >
@@ -5602,7 +5602,7 @@
       the risk of malicious code infection.
     threat: __empty__
   es:
-    title: Ataques con memorias USB
+    title: USB flash drive attacks
     description: >
       Es posible conectar dispositivos USB
       al equipo que permiten infectarlo
@@ -5647,7 +5647,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Inyección Apache Lucene query
+    title: Apache Lucene query injection
     description: >
       Se generan sentencias
       Apache Lucene Query dinámicas
@@ -5691,7 +5691,7 @@
       generated dinamically.
     threat: __empty__
   es:
-    title: Inyección NoSQL
+    title: NoSQL injection
     description: >
       Se generan sentencias NoSQL dinámicas
       sin la validación requerida de datos.
@@ -5735,7 +5735,7 @@
       Autenticated attacker
       from the Internet.
   es:
-    title: Inyección LDAP
+    title: LDAP injection
     description: >
       El sistema construye consultas LDAP
       utilizando datos no confiables
@@ -5779,7 +5779,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Control inadecuado de frecuenica de interacción
+    title: Improper control of interaction frequency
     description: >
       La aplicación no limita
       la cantidad de peticiones
@@ -5832,7 +5832,7 @@
       Authenticated attacker
       from the Internet.
   es:
-    title: Funcionalidad insegura - Moneda representada con float
+    title: Insecure functionality - Float currency
     description: >
       Representar moneda utilizando tipos de dato
       como float o double puede resultar
@@ -5945,7 +5945,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Lectura fuera de los límites
+    title: Out-of-bounds read
     description: >
       El sistema lee datos más allá del final,
       o antes del comienzo,
@@ -5993,7 +5993,7 @@
       Autenticated attacker
       from the Internet.
   es:
-    title: Inyección SQL - Java SQL API
+    title: SQL injection - Java SQL API
     description: >
       Uso de parametros controlados
       por el atacante para realizar consultas
@@ -6044,7 +6044,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Asignación de tipo incorrecta
+    title: Improper type assignation
     description: >
       Se usan variables
       sin declaración de tipo específico,
@@ -6129,7 +6129,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Ausencia o evasión de controles de seguridad
+    title: Security controls bypass or absence
     description: >
       El sistema tiene controles de seguridad
       que pueden ser evadidos.
@@ -6166,7 +6166,7 @@
       of the user without authorization.
     threat: __empty__
   es:
-    title: Fugas XS
+    title: XS-Leaks
     description: >
       Es posible utilizar canales alternos
       del navegador
@@ -6220,7 +6220,7 @@
       Autenticated attacker
       from the Internet.
   es:
-    title: Archivos no auditables
+    title: Unverifiable files
     description: >
       En el repositorio se almacenan archivos
       que no son verificables o no
@@ -6275,7 +6275,7 @@
       - Incur the fine or some other
       penalty.
   es:
-    title: Infracción de regulación
+    title: Regulation infringement
     description: >
       El sistema incumple con regulaciones
       a las cuales está sujeto.
@@ -6319,7 +6319,7 @@
       that can be used to compromise
       other systems.
   es:
-    title: Metadatos con información sensible
+    title: Metadata with sensitive information
     description: >
       El sistema expone información sensible
       a través de metadatos
@@ -6376,7 +6376,7 @@
       by the application
       to be automatically installed.
   es:
-    title: Fijación de dependencia inadecuada
+    title: Improper dependency pinning
     description: >
       En el código fuente
       no se declara la versión específica
@@ -6607,7 +6607,7 @@
       or in an atomic way.
     threat: __empty__
   es:
-    title: Condición de carrera
+    title: Race condition
     description: >
       El sistema presenta
       comportamientos inesperados
@@ -6663,7 +6663,7 @@
       of the files stored
       in the application's directory.
   es:
-    title: Listado de directorios
+    title: Directory Listing
     description: >
       El sistema permite visualizar
       los archivos almacenados
@@ -6710,7 +6710,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Ausencia de métodos de aislamiento
+    title: Lack of isolation methods
     description: >
       El sistema no utiliza
       métodos de aislamiento
@@ -6743,7 +6743,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Falta de validación de datos - Type confusion
+    title: Lack of data validation - Type confusion
     description: __empty__
     impact: __empty__
     recommendation: __empty__
@@ -6783,7 +6783,7 @@
       from internet network
       performing a XSS attack.
   es:
-    title: Cookies generadas de forma insegura - HttpOnly
+    title: Insecurely generated cookies - HttpOnly
     description: >
       La aplicación genera cookies
       sin establecer correctamente
@@ -6833,7 +6833,7 @@
       Attacker from internet network
       performing a CSRF attack.
   es:
-    title: Cookies generadas de forma insegura - SameSite
+    title: Insecurely generated cookies - SameSite
     description: >
       La aplicación genera cookies
       sin establecer correctamente
@@ -6886,7 +6886,7 @@
       from adjacent network
       performing a MITM.
   es:
-    title: Cookies generadas de forma insegura - Secure
+    title: Insecurely generated cookies - Secure
     description: >
       El sistema no establece
       el atributo Secure
@@ -6940,7 +6940,7 @@
       from adjacent network
       performing a MITM.
   es:
-    title: Cabeceras HTTP inseguras o no establecidas - Strict-Transport-Security
+    title: Insecure or Unset HTTP Headers - Strict Transport Security
     description: >
       El servidor carece del encabezado
       HTTP Strict-Transport-Security.
@@ -6991,7 +6991,7 @@
       Unauthorized attacker
       from internet network.
   es:
-    title: Cabeceras HTTP inseguras o no establecidas - X-Content-Type-Options
+    title: Insecure or Unset HTTP Headers - X-Content-Type-Options
     description: >
       El servidor carece de la cabecera
       HTTP X-Content-Type-Options.
@@ -7044,7 +7044,7 @@
       that has compromised
       a private key.
   es:
-    title: Algoritmo de cifrado inseguro - Perfect Forward Secrecy
+    title: Insecure encryption algorithm - Perfect Forward Secrecy
     description: >
       La aplicación utiliza
       algoritmos de cifrado
@@ -7101,7 +7101,7 @@
       Unauthorized attacker
       from the Internet.
   es:
-    title: Cabeceras HTTP inseguras o no establecidas - CORS
+    title: Insecure or Unset HTTP Headers - CORS
     description: >
       La política entre dominios
       incluye comodines,
