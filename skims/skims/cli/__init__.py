@@ -155,35 +155,6 @@ def cli_language(
     sys.exit(0 if success else 1)
 
 
-@cli.command(help="Queue a Skims execution on AWS Batch.", name="queue")
-@FINDING_CODE()
-@FINDING_TITLE()
-@GROUP(required=True)
-@NAMESPACE(required=True)
-@click.option(
-    "--urgent",
-    help="Queue the job with the highest priority.",
-    is_flag=True,
-)
-def cli_queue(
-    finding_code: Optional[str],
-    finding_title: Optional[str],
-    group: str,
-    namespace: str,
-    urgent: bool,
-) -> None:
-    success: bool = run(
-        cli_queue_wrapped(
-            finding_code=finding_code,
-            finding_title=finding_title,
-            group=group,
-            namespace=namespace,
-            urgent=urgent,
-        )
-    )
-    sys.exit(0 if success else 1)
-
-
 @cli.command(help="Update vulnerability locations.", name="rebase")
 @GROUP(required=True)
 @NAMESPACE(required=True)
@@ -280,35 +251,6 @@ async def cli_language_wrapped(
         group=group,
         token=token,
     )
-
-
-@shield(on_error_return=False)
-async def cli_queue_wrapped(
-    finding_code: Optional[str],
-    finding_title: Optional[str],
-    group: str,
-    namespace: str,
-    urgent: bool,
-) -> bool:
-    import core.queue
-
-    initialize_bugsnag()
-    add_bugsnag_data(
-        finding_code=str(finding_code),
-        finding_title=str(finding_title),
-        group=group,
-        namespace=namespace,
-        urgent=str(urgent),
-    )
-    success: bool = await core.queue.main(
-        finding_code=finding_code,
-        finding_title=finding_title,
-        group=group,
-        namespace=namespace,
-        urgent=urgent,
-    )
-
-    return success
 
 
 @shield(on_error_return=False)
