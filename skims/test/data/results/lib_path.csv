@@ -1809,6 +1809,156 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.ya
   80 |     Type: AWS::EC2::SecurityGroupIngress
      ^ Col 0
 "
+F109,lines,namespace/skims/test/data/lib_root/f124/test.go,11,197,skims,F109. Insecure functionality - Float currency,"Representing currency using data types like float or double may result in accuracy issues the more operations are performed using inexact representations of a value; besides unexpected behaviors if special values like NaN or Infinite are not taken into account.
+","
+   1 | package f124
+   2 |
+   3 | import (
+   4 |  ""dabatase/sql""
+   5 |  ""db""
+   6 |  ""math""
+   7 |  ""strconv""
+   8 | )
+   9 |
+  10 | func DangerousFloat(request *http.Request) {
+> 11 |  amount := strconv.ParseFloat(request.Amount)
+  12 |  sql.QueryRow(`INSERT INTO tbl $1`, amount)
+  13 | }
+  14 |
+  15 | func DangerousFloat2(request *http.Request) {
+  16 |  amount := strconv.ParseFloat(request.Amount)
+  17 |  DBQuerySameFile(""Message"", amount, 0)
+  18 | }
+  19 |
+  20 | func DangerousFloat3(request *http.Request) {
+  21 |  amount := strconv.ParseFloat(request.Amount)
+     ^ Col 0
+"
+F109,lines,namespace/skims/test/data/lib_root/f124/test.go,16,197,skims,F109. Insecure functionality - Float currency,"Representing currency using data types like float or double may result in accuracy issues the more operations are performed using inexact representations of a value; besides unexpected behaviors if special values like NaN or Infinite are not taken into account.
+","
+   6 |  ""math""
+   7 |  ""strconv""
+   8 | )
+   9 |
+  10 | func DangerousFloat(request *http.Request) {
+  11 |  amount := strconv.ParseFloat(request.Amount)
+  12 |  sql.QueryRow(`INSERT INTO tbl $1`, amount)
+  13 | }
+  14 |
+  15 | func DangerousFloat2(request *http.Request) {
+> 16 |  amount := strconv.ParseFloat(request.Amount)
+  17 |  DBQuerySameFile(""Message"", amount, 0)
+  18 | }
+  19 |
+  20 | func DangerousFloat3(request *http.Request) {
+  21 |  amount := strconv.ParseFloat(request.Amount)
+  22 |  db.DBQuery(""Message"", amount, 0)
+  23 | }
+  24 |
+  25 | func SafeFloat(request *http.Request) {
+  26 |  amount := strconv.ParseFloat(request.Amount)
+     ^ Col 0
+"
+F109,lines,namespace/skims/test/data/lib_root/f124/test.go,21,197,skims,F109. Insecure functionality - Float currency,"Representing currency using data types like float or double may result in accuracy issues the more operations are performed using inexact representations of a value; besides unexpected behaviors if special values like NaN or Infinite are not taken into account.
+","
+  11 |  amount := strconv.ParseFloat(request.Amount)
+  12 |  sql.QueryRow(`INSERT INTO tbl $1`, amount)
+  13 | }
+  14 |
+  15 | func DangerousFloat2(request *http.Request) {
+  16 |  amount := strconv.ParseFloat(request.Amount)
+  17 |  DBQuerySameFile(""Message"", amount, 0)
+  18 | }
+  19 |
+  20 | func DangerousFloat3(request *http.Request) {
+> 21 |  amount := strconv.ParseFloat(request.Amount)
+  22 |  db.DBQuery(""Message"", amount, 0)
+  23 | }
+  24 |
+  25 | func SafeFloat(request *http.Request) {
+  26 |  amount := strconv.ParseFloat(request.Amount)
+  27 |  if math.IsNaN(amount) || math.IsInf(amount, 0) {
+  28 |   return ""Not a valid value""
+  29 |  }
+  30 |  sql.QueryRow(`INSERT INTO tbl $1`, amount)
+  31 | }
+     ^ Col 0
+"
+F109,lines,namespace/skims/test/data/lib_root/f124/test.go,26,197,skims,F109. Insecure functionality - Float currency,"Representing currency using data types like float or double may result in accuracy issues the more operations are performed using inexact representations of a value; besides unexpected behaviors if special values like NaN or Infinite are not taken into account.
+","
+  16 |  amount := strconv.ParseFloat(request.Amount)
+  17 |  DBQuerySameFile(""Message"", amount, 0)
+  18 | }
+  19 |
+  20 | func DangerousFloat3(request *http.Request) {
+  21 |  amount := strconv.ParseFloat(request.Amount)
+  22 |  db.DBQuery(""Message"", amount, 0)
+  23 | }
+  24 |
+  25 | func SafeFloat(request *http.Request) {
+> 26 |  amount := strconv.ParseFloat(request.Amount)
+  27 |  if math.IsNaN(amount) || math.IsInf(amount, 0) {
+  28 |   return ""Not a valid value""
+  29 |  }
+  30 |  sql.QueryRow(`INSERT INTO tbl $1`, amount)
+  31 | }
+  32 |
+  33 | func SafeFloat2(request *http.Request) {
+  34 |  amount := strconv.ParseFloat(request.Amount)
+  35 |  if math.IsNaN(amount) || math.IsInf(amount, 0) {
+  36 |   return ""Not a valid value""
+     ^ Col 0
+"
+F109,lines,namespace/skims/test/data/lib_root/f124/test.go,34,197,skims,F109. Insecure functionality - Float currency,"Representing currency using data types like float or double may result in accuracy issues the more operations are performed using inexact representations of a value; besides unexpected behaviors if special values like NaN or Infinite are not taken into account.
+","
+  24 |
+  25 | func SafeFloat(request *http.Request) {
+  26 |  amount := strconv.ParseFloat(request.Amount)
+  27 |  if math.IsNaN(amount) || math.IsInf(amount, 0) {
+  28 |   return ""Not a valid value""
+  29 |  }
+  30 |  sql.QueryRow(`INSERT INTO tbl $1`, amount)
+  31 | }
+  32 |
+  33 | func SafeFloat2(request *http.Request) {
+> 34 |  amount := strconv.ParseFloat(request.Amount)
+  35 |  if math.IsNaN(amount) || math.IsInf(amount, 0) {
+  36 |   return ""Not a valid value""
+  37 |  }
+  38 |  DBQuerySameFile(""Message"", amount, 0)
+  39 | }
+  40 |
+  41 | func SafeFloat3(request *http.Request) {
+  42 |  amount := strconv.ParseFloat(request.Amount)
+  43 |  if math.IsNaN(amount) || math.IsInf(amount, 0) {
+  44 |   return ""Not a valid value""
+     ^ Col 0
+"
+F109,lines,namespace/skims/test/data/lib_root/f124/test.go,42,197,skims,F109. Insecure functionality - Float currency,"Representing currency using data types like float or double may result in accuracy issues the more operations are performed using inexact representations of a value; besides unexpected behaviors if special values like NaN or Infinite are not taken into account.
+","
+  31 | }
+  32 |
+  33 | func SafeFloat2(request *http.Request) {
+  34 |  amount := strconv.ParseFloat(request.Amount)
+  35 |  if math.IsNaN(amount) || math.IsInf(amount, 0) {
+  36 |   return ""Not a valid value""
+  37 |  }
+  38 |  DBQuerySameFile(""Message"", amount, 0)
+  39 | }
+  40 |
+  41 | func SafeFloat3(request *http.Request) {
+> 42 |  amount := strconv.ParseFloat(request.Amount)
+  43 |  if math.IsNaN(amount) || math.IsInf(amount, 0) {
+  44 |   return ""Not a valid value""
+  45 |  }
+  46 |  db.DBQuery(""Message"", amount, 0)
+  47 | }
+  48 |
+  49 | func DBQuerySameFile(message string, price float, qty int) {
+  50 |  sql.Exec(`INSERT INTO tbl $1, $2, $3`, message, amount, qty)
+  51 | }
+     ^ Col 0
+"
 F063,lines,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,22,skims,F063. Lack of data validation - Path Traversal,Path traversal in skims/test/data/lib_path/f063_path_traversal/Test.java,"
    1 | t java.io.File;
    2 |
@@ -5166,6 +5316,78 @@ F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,2,798,skims,F
   17 | jwt_token = asdfasfa.sfasdf.asdfasdf
   18 | jwt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIy
   19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
+     ^ Col 0
+"
+F127,lines,namespace/skims/test/data/lib_root/f124/test.go,11,843,skims,F127. Lack of data validation - Type confusion,.,"
+   1 | package f124
+   2 |
+   3 | import (
+   4 |  ""dabatase/sql""
+   5 |  ""db""
+   6 |  ""math""
+   7 |  ""strconv""
+   8 | )
+   9 |
+  10 | func DangerousFloat(request *http.Request) {
+> 11 |  amount := strconv.ParseFloat(request.Amount)
+  12 |  sql.QueryRow(`INSERT INTO tbl $1`, amount)
+  13 | }
+  14 |
+  15 | func DangerousFloat2(request *http.Request) {
+  16 |  amount := strconv.ParseFloat(request.Amount)
+  17 |  DBQuerySameFile(""Message"", amount, 0)
+  18 | }
+  19 |
+  20 | func DangerousFloat3(request *http.Request) {
+  21 |  amount := strconv.ParseFloat(request.Amount)
+     ^ Col 0
+"
+F127,lines,namespace/skims/test/data/lib_root/f124/test.go,16,843,skims,F127. Lack of data validation - Type confusion,.,"
+   6 |  ""math""
+   7 |  ""strconv""
+   8 | )
+   9 |
+  10 | func DangerousFloat(request *http.Request) {
+  11 |  amount := strconv.ParseFloat(request.Amount)
+  12 |  sql.QueryRow(`INSERT INTO tbl $1`, amount)
+  13 | }
+  14 |
+  15 | func DangerousFloat2(request *http.Request) {
+> 16 |  amount := strconv.ParseFloat(request.Amount)
+  17 |  DBQuerySameFile(""Message"", amount, 0)
+  18 | }
+  19 |
+  20 | func DangerousFloat3(request *http.Request) {
+  21 |  amount := strconv.ParseFloat(request.Amount)
+  22 |  db.DBQuery(""Message"", amount, 0)
+  23 | }
+  24 |
+  25 | func SafeFloat(request *http.Request) {
+  26 |  amount := strconv.ParseFloat(request.Amount)
+     ^ Col 0
+"
+F127,lines,namespace/skims/test/data/lib_root/f124/test.go,21,843,skims,F127. Lack of data validation - Type confusion,.,"
+  11 |  amount := strconv.ParseFloat(request.Amount)
+  12 |  sql.QueryRow(`INSERT INTO tbl $1`, amount)
+  13 | }
+  14 |
+  15 | func DangerousFloat2(request *http.Request) {
+  16 |  amount := strconv.ParseFloat(request.Amount)
+  17 |  DBQuerySameFile(""Message"", amount, 0)
+  18 | }
+  19 |
+  20 | func DangerousFloat3(request *http.Request) {
+> 21 |  amount := strconv.ParseFloat(request.Amount)
+  22 |  db.DBQuery(""Message"", amount, 0)
+  23 | }
+  24 |
+  25 | func SafeFloat(request *http.Request) {
+  26 |  amount := strconv.ParseFloat(request.Amount)
+  27 |  if math.IsNaN(amount) || math.IsInf(amount, 0) {
+  28 |   return ""Not a valid value""
+  29 |  }
+  30 |  sql.QueryRow(`INSERT INTO tbl $1`, amount)
+  31 | }
      ^ Col 0
 "
 F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,23,89,skims,F012. SQL injection - Java Persistence API,LIKE statement without escape in skims/test/data/lib_path/f001_jpa/java.java,"
