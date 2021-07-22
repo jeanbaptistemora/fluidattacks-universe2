@@ -15,19 +15,17 @@
 
 = I Saw Your Data on the Dark Web
 
-In September, link:../credential-stuffing/[I wrote a post about credential stuffing],
+In September,
+link:../credential-stuffing/[I wrote about credential stuffing],
 the kind of attack that depends on the collection of huge amounts of data
-(lists of user/password pairs), which usually are sold on the Dark Web.
-In May this year, for example, link:https://www.welivesecurity.com/2020/05/11/160million-user-records-sale-dark-web/[it was reported] that
-around *164 million* user records stolen from *11* companies,
-mainly from Asia and the US, had been put up for sale
-by the cybercriminal group ShinyHunters
-for several thousand dollars on the Dark Web.
+(lists of user/password pairs),
+which usually are sold on the Dark Web.
 But, what is the Dark Web? How could we have access to it?
-Perhaps many of us immediately associate the term
-Dark Web with criminal activity.
-But, is that a place intended only for criminals?
-If you don't know what the Dark Web is or want to learn more about it,
+Perhaps many of us immediately associate the term _Dark Web_
+with criminal activity.
+But is that a place intended only for criminals?
+If you don't know what the Dark Web is
+or want to learn more about it,
 this post can give you useful information.
 
 == Definitions: Deep Web and Dark Web
@@ -38,8 +36,9 @@ Yes, even if you don't know it by this name,
 it is the part of the internet that we handle daily
 and that we can find as public content
 in the usual search engines such as Google.
-However, and to the surprise of some people,
-link:https://www.csoonline.com/article/3249765/what-is-the-dark-web-how-to-access-it-and-what-youll-find.html[it is estimated that] more than *90%* of the internet's total content
+However,
+and to some people's surprise,
+link:https://www.csoonline.com/article/3249765/what-is-the-dark-web-how-to-access-it-and-what-youll-find.html[it's estimated that] more than *90%* of the internet's total content
 is not part of the Clear Web but the Deep Web.
 The latter includes all websites protected by a paywall
 or requiring sign-in credentials.
