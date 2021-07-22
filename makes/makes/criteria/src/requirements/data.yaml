@@ -2813,56 +2813,188 @@
 "168":
   en:
     title: Initialize variables explicitly
-    summary: __empty_
+    summary: >
+      All the variables
+      in the source code
+      must be explicitly initialized.
     description: __empty__
   es:
     title: Inicializar variables explícitamente
-    summary: __empty__
+    summary: >
+      Todas las variables
+      en el código fuente deben
+      estar explícitamente inicializadas.
     description: __empty__
   references: []
   metadata: {}
 "169":
   en:
     title: Use parameterized queries
-    summary: __empty_
+    summary: >
+      The system must use
+      parameterized queries
+      or stored procedures to create
+      dynamic sentences
+      (e.g., java.sql.PreparedStatement).
     description: __empty__
   es:
     title: Utilizar consultas parametrizadas
-    summary: __empty__
+    summary: >
+      Debe usarse
+      construcciones parametrizadas
+      o procedimientos almacenados
+      parametrizados para la creación
+      dinámica de sentencias
+      (ej: java.sql.PreparedStatement).
     description: __empty__
   references: []
   metadata: {}
 "171":
   en:
     title: Remove commented-out code
-    summary: __empty_
+    summary: >
+      The source code must not contain
+      commented-out code
+      when it is deployed
+      to the production environment.
     description: __empty__
   es:
     title: Eliminar código comentado
-    summary: __empty__
+    summary: >
+      Los comentarios del código fuente
+      en ambiente de producción
+      deben ser removidos.
     description: __empty__
   references: []
   metadata: {}
 "172":
   en:
     title: Encrypt connection strings
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system should load
+      encrypted database connection strings
+      from a protected configuration file
+      that resides separately
+      from the source code.
+    description: >
+      Database connection strings
+      are very sensitive information
+      because they contain credentials
+      that often have high privileges
+      over the system's database.
+      Thus,
+      these strings should not be part
+      of the system's source code
+      and should not be stored in plain text.
+      They should be encrypted
+      using a secure cryptographic algorithm
+      and the encryption key should
+      also be protected.
   es:
     title: Cifrar strings de conexión
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debería cargar
+      los strings cifrados
+      para la conexión a la base de datos
+      desde un archivo
+      de configuración protegido
+      sobre la base de datos del sistema.
+    description: >
+      Los strings de conexión de base de datos
+      son información muy sensible
+      porque contienen credenciales
+      que a menudo tienen altos privilegios
+      sobre la base de datos del sistema.
+      Por lo tanto,
+      estos strings no deben ser parte
+      del código fuente del sistema
+      y no debe almacenarse en texto plano.
+      Deben estar encriptados
+      usando un algoritmo criptográfico seguro
+      y la clave de cifrado debe
+      también estar protegido. 
   references: []
   metadata: {}
 "173":
   en:
     title: Discard unsafe inputs
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must discard
+      all potentially harmful information
+      received via data inputs.
+    description: >
+      Technological devices and,
+      in particular,
+      applications must be able to notice
+      if the received information
+      does not correspond
+      to its operational purposes,
+      in order to treat it properly
+      (for example, rejecting and/or
+      generating timely alerts)
+      and ensure that it does not impact
+      the operation negatively.
+      Typical examples of this are:
+      SQL queries, JavaScript code,
+      OS commands or LDAP queries
+      in fields and application parameters;
+      text with undesired special characters
+      and their possible combinations
+      in fields and parameters;
+      files manipulated in structure
+      and extension to be loaded
+      in an application or technology artifact;
+      and in general any type of information
+      that does not correspond
+      to the requested format.
+      A large amount of the incoming traffic
+      (which does not correspond
+      to operational purposes)
+      of a technological artifact
+      must also be considered,
+      and controls and proper treatment
+      must be applied.
   es:
     title: Descartar entradas inseguras
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe descartar
+      toda la información
+      potencialmente insegura
+      que sea recibida
+      por entradas de datos.
+    description: >
+      Los dispositivos tecnológicos y,
+      en particular,
+      las aplicaciones deben poder advertir
+      si la información recibida
+      no se corresponde
+      con sus fines operativos,
+      con el fin de tratarla adecuadamente
+      (por ejemplo, rechazar
+      o generar alertas oportunas)
+      y asegurar que no impacte
+      la operación negativamente.
+      Ejemplos típicos de esto son:
+      consultas SQL, código JavaScript,
+      comandos del sistema operativo
+      o consultas LDAP en campos
+      y parámetros de aplicación;
+      texto con caracteres especiales
+      no deseados y sus posibles combinaciones
+      en campos y parámetros;
+      archivos manipulados en estructura
+      y extensión para ser cargados
+      en una aplicación
+      o artefacto tecnológico;
+      y en general cualquier tipo
+      de información que no se corresponda
+      con el formato solicitado.
+      También se debe considerar
+      una gran cantidad del tráfico entrante
+      (que no corresponde a fines operativos)
+      de un artefacto tecnológico,
+      y se deben aplicar controles
+      y un tratamiento adecuado. 
   references: []
   metadata: {}
 "174":
