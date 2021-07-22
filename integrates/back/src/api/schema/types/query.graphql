@@ -33,6 +33,9 @@ type Query {
   "InternalNames entity"
   internalNames(entity: NameEntity!): InternalName
 
+  "List groups a user is subscribed to"
+  listUserGroups(userEmail: String!): [Group]
+
   "Me entity"
   me(callerOrigin: String): Me
 
@@ -44,7 +47,8 @@ type Query {
   "Project entity"
   project(
     projectName: String!
-  ): Group @deprecated(reason: "This query  will be removed after 2021/12/20. Use `group` instead.")
+  ): Group @deprecated(reason: """This query will be removed after 2021/12/20.
+    Use `group` instead.""")
 
   "Report entity"
   report(
@@ -71,12 +75,14 @@ type Query {
 
   "List groups a user is subscribed to"
   userListGroups(userEmail: String!): [Group]
+    @deprecated(reason: """This query will be removed after 2021/12/31.
+    Use `listUserGroups` instead.""")
 
   "List projects a user is subscribed to"
   userListProjects(
     userEmail: String!
-  ): [Group] @deprecated(reason: """This query  will be removed
-    after 2021/12/20. Use `userListGroups` instead.""")
+  ): [Group] @deprecated(reason: """This query will be removed
+    after 2021/12/31. Use `listUserGroups` instead.""")
 
   "Vulnerability entity"
   vulnerability(uuid: String!): Vulnerability

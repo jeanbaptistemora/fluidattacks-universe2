@@ -8,6 +8,8 @@ from typing import (
 # Constants
 TEST_GROUPS: Set[str] = {
     "activate_root",
+    "add_draft",
+    "add_draft_new",
     "add_event_consult",
     "add_files",
     "add_finding_consult",
@@ -16,8 +18,6 @@ TEST_GROUPS: Set[str] = {
     "add_tags",
     "approve_draft",
     "approve_draft_new",
-    "create_draft",
-    "create_draft_new",
     "create_event",
     "create_organization",
     "create_group",

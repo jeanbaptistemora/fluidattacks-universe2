@@ -11,6 +11,7 @@ from api.resolvers.query import (
     group,
     groups_with_forces,
     internal_names,
+    list_user_groups,
     me,
     organization,
     organization_id,
@@ -18,7 +19,6 @@ from api.resolvers.query import (
     resources,
     stakeholder,
     tag,
-    user_list_groups,
     vulnerability,
     vulnerability_new,
     vulns_to_reattack,
@@ -45,12 +45,13 @@ QUERY.set_field("report", report.resolve)
 QUERY.set_field("resources", resources.resolve)
 QUERY.set_field("stakeholder", stakeholder.resolve)
 QUERY.set_field("tag", tag.resolve)
-QUERY.set_field("userListProjects", user_list_groups.resolve)
+QUERY.set_field("userListProjects", list_user_groups.resolve)
 QUERY.set_field("vulnsToReattack", vulns_to_reattack.resolve)
 
 # Standardization Fields
 QUERY.set_field("group", group.resolve)
-QUERY.set_field("userListGroups", user_list_groups.resolve)
+QUERY.set_field("userListGroups", list_user_groups.resolve)
+QUERY.set_field("listUserGroups", list_user_groups.resolve)
 
 if FI_API_STATUS == "migration":
     QUERY.set_field("finding", finding_new.resolve)

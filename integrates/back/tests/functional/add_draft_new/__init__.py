@@ -14,6 +14,8 @@ async def get_result(
     *,
     user: str,
 ) -> Dict[str, Any]:
+    affected_systems: str = "Server bWAPP"
+    attack_vector_desc: str = "This is an attack vector"
     cwe: str = "200"
     description: str = "This is pytest created draft"
     group: str = "group1"
@@ -25,7 +27,9 @@ async def get_result(
     draft_type: str = "SECURITY"
     query: str = f"""
         mutation {{
-            createDraft(
+            addDraft(
+                affectedSystems: "{affected_systems}",
+                attackVectorDesc: "{attack_vector_desc}",
                 cwe: "{cwe}",
                 description: "{description}",
                 groupName: "{group}",
@@ -34,7 +38,7 @@ async def get_result(
                 risk: "{risk}",
                 threat: "{threat}",
                 title: "{title}",
-                type: {draft_type}
+                type: {draft_type},
             ) {{
                 success
             }}

@@ -9,38 +9,34 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("create_draft")
+@pytest.mark.resolver_test_group("add_draft_new")
 @pytest.mark.parametrize(
     ["email"],
     [
         ["admin@gmail.com"],
         ["analyst@gmail.com"],
-        ["closer@gmail.com"],
     ],
 )
-async def test_create_draft(populate: bool, email: str) -> None:
+async def test_add_draft(populate: bool, email: str) -> None:
     assert populate
     result: Dict[str, Any] = await get_result(
         user=email,
     )
     assert "errors" not in result
-    assert "success" in result["data"]["createDraft"]
-    assert result["data"]["createDraft"]["success"]
+    assert "success" in result["data"]["addDraft"]
+    assert result["data"]["addDraft"]["success"]
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("create_draft")
+@pytest.mark.resolver_test_group("add_draft_new")
 @pytest.mark.parametrize(
     ["email"],
     [
         ["customer@gmail.com"],
-        ["customeradmin@gmail.com"],
         ["executive@gmail.com"],
-        ["resourcer@gmail.com"],
-        ["reviewer@gmail.com"],
     ],
 )
-async def test_create_draft_fail(populate: bool, email: str) -> None:
+async def test_add_draft_fail(populate: bool, email: str) -> None:
     assert populate
     result: Dict[str, Any] = await get_result(
         user=email,

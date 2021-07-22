@@ -183,6 +183,12 @@ integrates.back.test.functional.activate_root:
 integrates.back.test.functional.add_event_consult:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.add_draft:
+  <<: *integrates_back_test_functional
+
+integrates.back.test.functional.add_draft_new:
+  <<: *integrates_back_test_functional_migration
+
 integrates.back.test.functional.add_files:
   <<: *integrates_back_test_functional
 
@@ -202,12 +208,6 @@ integrates.back.test.functional.approve_draft:
   <<: *integrates_back_test_functional
 
 integrates.back.test.functional.approve_draft_new:
-  <<: *integrates_back_test_functional_migration
-
-integrates.back.test.functional.create_draft:
-  <<: *integrates_back_test_functional
-
-integrates.back.test.functional.create_draft_new:
   <<: *integrates_back_test_functional_migration
 
 integrates.back.test.functional.create_event:
