@@ -19,5 +19,5 @@
   inputs = {
     product = import (path "/");
   };
-  requiredMakesVersion = "21.08";
+  makesCommit = "0dae5699b8d806e33e18122311c8af9510e18048";
 }
