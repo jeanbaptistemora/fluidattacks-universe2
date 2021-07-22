@@ -3651,55 +3651,194 @@
 "222":
   en:
     title: Deny access to the host machine
-    summary: __empty__
+    summary: >
+      A virtual machine
+      must not have access
+      to information of the host machine.
     description: __empty__
   es:
     title: Denegar acceso a la máquina anfitriona
-    summary: __empty__
+    summary: >
+      Una máquina virtual
+      no debe tener acceso
+      a información de la máquina
+      anfitriona.
     description: __empty__
   references: []
   metadata: {}
 "223":
   en:
     title: Uniform distribution in random numbers
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system’s random numbers
+      must be generated
+      using a uniform distribution.
+    description: >
+      The system’s cryptographic keys
+      are essential for maintaining
+      the confidentiality
+      and integrity of transactions
+      and communications.
+      Some of these keys
+      and other critical elements
+      are generated using random numbers.
+      In these cases,
+      the random numbers themselves
+      must be generated
+      using secure mechanisms
+      that guarantee a random
+      distribution.
   es:
     title: Distribución uniforme en numeros aleatorios
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Los números aleatorios
+      generados deben seguir
+      una distribución uniforme.
+    description: >
+      Las claves criptográficas del sistema
+      son esenciales para mantener
+      la confidencialidad e integridad
+      de las transacciones y comunicaciones.
+      Algunas de estas claves
+      y otros elementos críticos
+      se generan mediante números aleatorios.
+      En estos casos,
+      los propios números aleatorios
+      deben generarse
+      mediante mecanismos seguros
+      que garanticen una distribución
+      aleatoria.
   references: []
   metadata: {}
 "224":
   en:
     title: Use secure cryptographic mechanisms
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must use
+      the most secure cryptographic
+      mechanism provided by the platform
+      (e.g., java.security.SecureRandom)
+      for random number generation
+      used in critical processes
+      (e.g., ID generation, code mapping,
+      cryptographic keys).
+    description: >
+      The system’s cryptographic keys
+      are essential for maintaining
+      the confidentiality and integrity
+      of transactions and communications.
+      Some of these keys
+      and other critical elements
+      are generated using random numbers.
+      In these cases,
+      the random numbers themselves
+      must be generated
+      using secure mechanisms,
+      which have often already been
+      implemented by the platform.
   es:
     title: Utilizar mecanismos criptográficos seguros
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Debe usarse el mecanismo criptográfico
+      más seguro ofrecido
+      por la plataforma
+      (ej: java.security.SecureRandom)
+      para la generación
+      de números aleatorios usados
+      en procesos críticos
+      (ej: generación de ID,
+      mapeo de códigos, llaves).
+    description: >
+      Las llaves criptográficas
+      del sistema son esenciales
+      para mantener la confidencialidad
+      e integridad de transacciones
+      y comunicaciones.
+      Algunas de estas llaves
+      y otros elementos críticos
+      son generados utilizando
+      números aleatorios.
+      En estos casos,
+      los mismos números aleatorios
+      deben ser generados utilizando
+      mecanismos seguros,
+      que a menudo ya ha sido
+      implementado por la plataforma. 
   references: []
   metadata: {}
 "225":
   en:
     title: Proper authentication responses
-    summary: __empty_
-    description: __empty__
+    summary: >
+      System responses
+      to authentication failures
+      must not indicate
+      which part of the authentication
+      was incorrect.
+    description: >
+      Authentication forms
+      are one of the most publicly
+      accessible parts of an application,
+      which makes them
+      more susceptible to be attacked.
+      Most authentication mechanisms
+      require only a username
+      and a password.
+      If the responses
+      to authentication attempts
+      indicate which authentication
+      parameter was incorrect,
+      attackers may be able
+      to obtain a list
+      of valid usernames (user enumeration)
+      that they can use
+      in brute force attacks.
   es:
     title: Respuestas de autenticación adecuadas
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Las respuestas del sistema
+      a los fallos de autenticación
+      no deben indicar cual parte
+      de la autenticación fue incorrecta.
+    description: >
+      Los formularios de autenticación
+      son una de las partes
+      de una aplicaición
+      más accesibles al público,
+      lo que los hace más
+      susceptibles a ser atacados.
+      La mayoría de los mecanismos
+      de autenticación solo requieren
+      un nombre de usuario
+      y una contraseña.
+      Si las respuestas
+      a los intentos de autenticación
+      indican qué parámetro
+      de autenticación era incorrecto,
+      los atacantes pueden obtener
+      una lista de nombres de usuario
+      válidos (enumeración de usuarios)
+      que pueden usar en ataques
+      de fuerza bruta.
   references: []
   metadata: {}
 "226":
   en:
     title: Avoid account lockouts
-    summary: __empty_
+    summary: >
+      The system must never block
+      a user account after
+      one or several failed
+      authentication attempts.
     description: __empty__
   es:
     title: Evitar bloqueos de cuentas
-    summary: __empty__
+    summary: >
+      El sistema no debe bloquear
+      una cuenta de usuario
+      cuando ocurran uno
+      o varios intentos de autenticación
+      fallidos.
     description: __empty__
   references: []
   metadata: {}
