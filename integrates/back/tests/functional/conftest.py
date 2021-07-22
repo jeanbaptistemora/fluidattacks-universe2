@@ -26,6 +26,7 @@ TEST_GROUPS: Set[str] = {
     "delete_finding_new",
     "delete_tags",
     "delete_vulnerability",
+    "delete_vulnerability_new",
     "download_event_file",
     "download_vuln_file",
     "download_file",
