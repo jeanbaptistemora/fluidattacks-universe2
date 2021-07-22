@@ -46,6 +46,6 @@ func SafeFloat3(request *http.Request) {
 	db.DBQuery("Message", amount, 0)
 }
 
-func DBQuerySameFile(message string, price float, qty int) {
-	sql.Exec(`INSERT INTO tbl $1, $2, $3`, message, amount, qty)
+func DBQuerySameFile(message string, price float64, qty int) {
+	sql.Exec(`INSERT INTO tbl $1, $2, $3`, message, price, qty)
 }

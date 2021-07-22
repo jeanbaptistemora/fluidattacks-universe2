@@ -1954,8 +1954,8 @@ F109,lines,namespace/skims/test/data/lib_root/f124/test.go,42,197,skims,F109. In
   46 |  db.DBQuery(""Message"", amount, 0)
   47 | }
   48 |
-  49 | func DBQuerySameFile(message string, price float, qty int) {
-  50 |  sql.Exec(`INSERT INTO tbl $1, $2, $3`, message, amount, qty)
+  49 | func DBQuerySameFile(message string, price float64, qty int) {
+  50 |  sql.Exec(`INSERT INTO tbl $1, $2, $3`, message, price, qty)
   51 | }
      ^ Col 0
 "

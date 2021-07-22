@@ -427,28 +427,13 @@ def evaluate_many(args: EvaluatorArgs) -> None:
     )
 
 
-def attempt_go_parse_float(args: EvaluatorArgs) -> bool:  # noqa: MC0001
+def attempt_go_parse_float(args: EvaluatorArgs) -> bool:
     if args.syntax_step.method == "strconv.ParseFloat":
         args.syntax_step.meta.value = GoParsedFloat(
             method_n_id=args.syntax_step.meta.n_id,
             shard_idx=args.graph_db.shards.index(args.shard),
         )
         args.syntax_step.meta.danger = True
-
-        # Add a sink label to the method's node so the report is made on the
-        # line the danger is inserted instead of the line where the dangerous
-        # value is used
-        if (
-            "label_sink_type"
-            in args.shard.graph.nodes[args.syntax_step.meta.n_id]
-        ):
-            args.shard.graph.nodes[args.syntax_step.meta.n_id][
-                "label_sink_type"
-            ].add(args.finding.name)
-        else:
-            args.shard.graph.nodes[args.syntax_step.meta.n_id][
-                "label_sink_type"
-            ] = {args.finding.name}
         return True
 
     for method, attr in {
@@ -462,18 +447,6 @@ def attempt_go_parse_float(args: EvaluatorArgs) -> bool:  # noqa: MC0001
                     dep.meta.danger = (
                         dep.meta.value.is_inf or dep.meta.value.is_nan
                     )
-
-                    # If the value is sanitized, remove the sink label from the
-                    # method, since it was marked dangerous at the time it was
-                    # evaluated
-                    if dep.meta.danger is False:
-                        args.graph_db.shards[
-                            dep.meta.value.shard_idx
-                        ].graph.nodes[dep.meta.value.method_n_id][
-                            "label_sink_type"
-                        ].discard(
-                            args.finding.name
-                        )
             return True
 
     # Avoids reporting the vulnerability in the line where the dangerous value
@@ -485,6 +458,17 @@ def attempt_go_parse_float(args: EvaluatorArgs) -> bool:  # noqa: MC0001
         for dep in args.dependencies:
             if isinstance(dep.meta.value, GoParsedFloat) and dep.meta.danger:
                 dep.meta.danger = False
+
+                # Add a sink label to the method's node so the report is made
+                # on the line the danger is inserted instead of the line where
+                # the dangerous value is used
+                shard_idx = dep.meta.value.shard_idx
+                n_id = dep.meta.value.method_n_id
+                graph = args.graph_db.shards[shard_idx].graph
+                if "label_sink_type" in graph.nodes[n_id]:
+                    graph.nodes[n_id]["label_sink_type"].add(args.finding.name)
+                else:
+                    graph.nodes[n_id]["label_sink_type"] = {args.finding.name}
     return False
 
 

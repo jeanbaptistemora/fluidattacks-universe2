@@ -80,9 +80,12 @@ def _syntax_step_declaration_danger(args: EvaluatorArgs) -> None:
             args.syntax_step_index - 1, args.syntax_steps
         )
         for idx, dep in enumerate(reversed(prev_step_deps)):
-            args.syntax_steps[
-                args.syntax_step_index + idx
-            ].meta.danger = dep.meta.danger
+            if not idx:
+                args_danger = dep.meta.danger
+            else:
+                args.syntax_steps[
+                    args.syntax_step_index + idx
+                ].meta.danger = dep.meta.danger
 
     args.syntax_step.meta.danger = bind_danger or args_danger
 
