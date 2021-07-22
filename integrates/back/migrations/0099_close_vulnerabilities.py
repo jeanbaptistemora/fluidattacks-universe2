@@ -271,10 +271,9 @@ async def main() -> None:
         nicknames=nicknames
     )
 
-    findings_ids = get_findings_ids(vulnerabilities=vulnerabilities)
     loaders: Dataloaders = get_new_context()
     findings: List[Dict[str, Finding]] = await loaders.finding.load_many(
-        findings_ids
+        get_findings_ids(vulnerabilities=vulnerabilities)
     )
 
     finding_ids_of_vulnerabilities_to_close: Set[

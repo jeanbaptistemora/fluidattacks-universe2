@@ -24,11 +24,16 @@ from subscriptions import (
     domain as subs_domain,
 )
 import time
+from typing import (
+    Any,
+    Dict,
+    List,
+)
 
 PROD: bool = True
 
 
-async def _get_subscriptions_to_comments() -> int:
+async def _get_subscriptions_to_comments() -> List[Dict[Any, Any]]:
     subs = await subs_domain.get_subscriptions_to_entity_report(
         audience="user",
     )
