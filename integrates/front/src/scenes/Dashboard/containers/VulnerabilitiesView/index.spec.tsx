@@ -262,7 +262,7 @@ describe("VulnerabilitiesView", (): void => {
       { action: "api_resolvers_vulnerability_analyst_resolve" },
       { action: "api_mutations_request_verification_vulnerability_mutate" },
       { action: "api_resolvers_finding_zero_risk_resolve" },
-      { action: "api_mutations_update_vulns_treatment_mutate" },
+      { action: "api_mutations_update_vulnerabilities_treatment_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter

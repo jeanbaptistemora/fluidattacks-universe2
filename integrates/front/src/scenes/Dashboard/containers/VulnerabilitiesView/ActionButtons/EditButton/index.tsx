@@ -35,7 +35,7 @@ const EditButton: React.FC<IEditButtonProps> = ({
     "api_mutations_request_zero_risk_vulnerabilities_mutate"
   );
   const canUpdateVulnsTreatment: boolean = permissions.can(
-    "api_mutations_update_vulns_treatment_mutate"
+    "api_mutations_update_vulnerabilities_treatment_mutate"
   );
   const shouldRenderEditBtn: boolean =
     isFindingReleased &&

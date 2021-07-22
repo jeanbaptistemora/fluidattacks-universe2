@@ -60,7 +60,7 @@ interface IUpdateVulnDescriptionResultAttr {
   updateTreatmentVuln?: {
     success: boolean;
   };
-  updateVulnsTreatment?: {
+  updateVulnerabilitiesTreatment?: {
     success: boolean;
   };
 }

@@ -63,7 +63,7 @@ describe("ActionButtons", (): void => {
 
     const { t } = useTranslation();
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_mutations_update_vulns_treatment_mutate" },
+      { action: "api_mutations_update_vulnerabilities_treatment_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <ActionButtons
@@ -107,7 +107,7 @@ describe("ActionButtons", (): void => {
     const onRequestReattack: jest.Mock = jest.fn();
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_request_verification_vulnerability_mutate" },
-      { action: "api_mutations_update_vulns_treatment_mutate" },
+      { action: "api_mutations_update_vulnerabilities_treatment_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <ActionButtons

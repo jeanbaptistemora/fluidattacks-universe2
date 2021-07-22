@@ -101,10 +101,10 @@ const getAreAllMutationValid = (
           ? true
           : result.data.updateTreatmentVuln.success;
         const updateTreatmentSuccess: boolean = _.isUndefined(
-          result.data.updateVulnsTreatment
+          result.data.updateVulnerabilitiesTreatment
         )
           ? true
-          : result.data.updateVulnsTreatment.success;
+          : result.data.updateVulnerabilitiesTreatment.success;
 
         return updateInfoSuccess && updateTreatmentSuccess;
       }

@@ -27,7 +27,7 @@ const ExternalBtsField: React.FC<IExternalBtsFieldProps> = (
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canUpdateVulnsTreatment: boolean = permissions.can(
-    "api_mutations_update_vulns_treatment_mutate"
+    "api_mutations_update_vulnerabilities_treatment_mutate"
   );
 
   return (

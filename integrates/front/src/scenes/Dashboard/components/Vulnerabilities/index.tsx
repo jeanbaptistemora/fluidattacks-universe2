@@ -73,7 +73,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     "api_mutations_request_zero_risk_vulnerabilities_mutate"
   );
   const canUpdateVulnsTreatment: boolean = permissions.can(
-    "api_mutations_update_vulns_treatment_mutate"
+    "api_mutations_update_vulnerabilities_treatment_mutate"
   );
   const canRemoveVulns: boolean = permissions.can(
     "api_mutations_remove_vulnerability_mutate"

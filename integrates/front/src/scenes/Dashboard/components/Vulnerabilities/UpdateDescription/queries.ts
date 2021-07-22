@@ -24,7 +24,7 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
     ) @include(if: $isVulnInfoChanged) {
       success
     }
-    updateVulnsTreatment(
+    updateVulnerabilitiesTreatment(
       acceptanceDate: $acceptanceDate
       findingId: $findingId
       justification: $justification

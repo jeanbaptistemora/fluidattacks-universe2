@@ -130,7 +130,7 @@ describe("Update Description component", (): void => {
     { action: "api_mutations_remove_vulnerability_tags_mutate" },
     { action: "api_mutations_request_zero_risk_vulnerabilities_mutate" },
     { action: "api_mutations_update_treatment_vulnerability_mutate" },
-    { action: "api_mutations_update_vulns_treatment_mutate" },
+    { action: "api_mutations_update_vulnerabilities_treatment_mutate" },
   ]);
 
   it("should group last treatment", (): void => {
@@ -413,7 +413,7 @@ describe("Update Description component", (): void => {
     const handleOnClose: jest.Mock = jest.fn();
     const updateTreatment: IUpdateVulnDescriptionResultAttr = {
       updateTreatmentVuln: { success: true },
-      updateVulnsTreatment: { success: true },
+      updateVulnerabilitiesTreatment: { success: true },
     };
     const mutationVariables: Dictionary<boolean | number | string> = {
       acceptanceDate: "",

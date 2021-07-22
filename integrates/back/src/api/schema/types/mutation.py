@@ -86,7 +86,7 @@ from api.mutations import (
     update_toe_lines_sorts,
     update_treatment_vulnerability,
     update_vuln_commit,
-    update_vulns_treatment,
+    update_vulnerabilities_treatment,
     upload_file,
     upload_file_new,
     verify_request_vulnerabilities,
@@ -189,7 +189,12 @@ MUTATION.set_field(
     "handleVulnsAcceptation", handle_vulnerabilities_acceptation.mutate
 )
 MUTATION.set_field("updateVulnCommit", update_vuln_commit.mutate)
-MUTATION.set_field("updateVulnsTreatment", update_vulns_treatment.mutate)
+MUTATION.set_field(
+    "updateVulnsTreatment", update_vulnerabilities_treatment.mutate
+)
+MUTATION.set_field(
+    "updateVulnerabilitiesTreatment", update_vulnerabilities_treatment.mutate
+)
 MUTATION.set_field("updateToeLinesSorts", update_toe_lines_sorts.mutate)
 
 # Standardization Fields
