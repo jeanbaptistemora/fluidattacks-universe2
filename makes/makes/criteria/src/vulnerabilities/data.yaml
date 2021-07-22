@@ -1003,7 +1003,7 @@
   metadata: {}
 "021":
   en:
-    title: XPath Injection
+    title: XPath injection
     description: >
       Dynamic XPath statements are generated
       without the required data validation.
@@ -1016,7 +1016,7 @@
       to avoid common injection attacks.
     threat: Autenticated attacker from the Internet.
   es:
-    title: XPath Injection
+    title: XPath injection
     description: >
       Se generan sentencias XPath dinámicas
       sin la validación requerida de datos.
@@ -2128,7 +2128,7 @@
   metadata: {}
 "043":
   en:
-    title: Insecure or Unset HTTP Headers - Content-Security-Policy
+    title: Insecure or unset HTTP headers - Content-Security-Policy
     description: >
       The server is missing
       the Content-Security-Policy HTTP header.
@@ -2145,7 +2145,7 @@
       and configure it in a secure way.
     threat: Unauthorized attacker from Internet.
   es:
-    title: Insecure or Unset HTTP Headers - Content-Security-Policy
+    title: Insecure or unset HTTP headers - Content-Security-Policy
     description: >
       El servidor carece del encabezado
       HTTP Content-Security-Policy.
@@ -3831,7 +3831,7 @@
   metadata: {}
 "071":
   en:
-    title: Insecure or Unset HTTP Headers - Referrer-Policy
+    title: Insecure or unset HTTP headers - Referrer-Policy
     description: >
       The server is missing
       the Referrer-Policy HTTP header.
@@ -3849,7 +3849,7 @@
       Unauthorized attacker
       from Internet.
   es:
-    title: Insecure or Unset HTTP Headers - Referrer-Policy
+    title: Insecure or unset HTTP headers - Referrer-Policy
     description: >
       El servidor carece
       del encabezado HTTP Referrer-Policy.
@@ -4187,7 +4187,7 @@
   metadata: {}
 "077":
   en:
-    title: ARP Spoofing
+    title: ARP spoofing
     description: >
       It is possible
       to supersede other MAC addresses
@@ -4201,7 +4201,7 @@
       (PortSecurity) in the affected switches.
     threat: __empty__
   es:
-    title: ARP Spoofing
+    title: ARP spoofing
     description: >
       Es posible suplantar
       direcciones MAC en la red,
@@ -4492,7 +4492,7 @@
   metadata: {}
 "083":
   en:
-    title: XML Injection (XXE)
+    title: XML injection (XXE)
     description: >
       It is possible to inject XML code
       into the application’s requests,
@@ -4512,7 +4512,7 @@
       by referencing external entities
       that can require many system's resources.
   es:
-    title: XML Injection (XXE)
+    title: XML injection (XXE)
     description: >
       La aplicación afectada
       permite la inyección de código XML
@@ -4548,7 +4548,7 @@
   metadata: {}
 "084":
   en:
-    title: MDNS Spoofing
+    title: MDNS spoofing
     description: >
       The configuration of the MDNS services
       allows an attacker
@@ -4573,7 +4573,7 @@
       and can obtain domain users,
       operating systems, among others.
   es:
-    title: MDNS Spoofing
+    title: MDNS spoofing
     description: >
       Es posible interceptar peticiones
       a los servicios de MDNS
@@ -4866,7 +4866,7 @@
   metadata: {}
 "090":
   en:
-    title: CSV Injection
+    title: CSV injection
     description: >
       It is possible to inject formulas
       into fields that are later exported
@@ -4885,7 +4885,7 @@
       causing the risk
       of commands execution.
   es:
-    title: CSV Injection
+    title: CSV injection
     description: >
       Es posible inyectar
       fórmulas en los campos
@@ -5636,7 +5636,7 @@
   metadata: {}
 "105":
   en:
-    title: Apache Lucene query injection
+    title: Apache lucene query injection
     description: >
       The system generates
       Apache Lucene queries dynamically,
@@ -5647,7 +5647,7 @@
     recommendation: __empty__
     threat: __empty__
   es:
-    title: Apache Lucene query injection
+    title: Apache lucene query injection
     description: >
       Se generan sentencias
       Apache Lucene Query dinámicas
@@ -6417,7 +6417,7 @@
   metadata: {}
 "121":
   en:
-    title: HTTP Parameter Pollution
+    title: HTTP parameter pollution
     description: >
       The application allows
       extra parameters injection
@@ -6435,7 +6435,7 @@
       Causing unexpected behaviors
       on the application.
   es:
-    title: HTTP Parameter Pollution
+    title: HTTP parameter pollution
     description: >
       La aplicación permite
       inyectar parámetros extra
@@ -6471,7 +6471,7 @@
   metadata: {}
 "122":
   en:
-    title: Email Flooding
+    title: Email flooding
     description: >
       It is possible
       to send emails massively
@@ -6491,7 +6491,7 @@
       - Hide important information
       of another emails.
   es:
-    title: Email Flooding
+    title: Email flooding
     description: >
       Es posible realizar
       un envío masivo de correos
@@ -6531,7 +6531,7 @@
   metadata: {}
 "123":
   en:
-    title: Local File Inclusion
+    title: Local file inclusion
     description: >
       The application allows to read
       or execute files located
@@ -6553,7 +6553,7 @@
       of sensitive files stored
       on the server.
   es:
-    title: Local File Inclusion
+    title: Local file inclusion
     description: >
       La aplicación permite
       leer o ejecutar archivos alojados
@@ -6641,7 +6641,7 @@
   metadata: {}
 "125":
   en:
-    title: Directory Listing
+    title: Directory listing
     description: >
       The system displays
       the application's directories,
@@ -6663,7 +6663,7 @@
       of the files stored
       in the application's directory.
   es:
-    title: Directory Listing
+    title: Directory listing
     description: >
       El sistema permite visualizar
       los archivos almacenados
@@ -6923,7 +6923,7 @@
   metadata: {}
 "131":
   en:
-    title: Insecure or Unset HTTP Headers - Strict Transport Security
+    title: Insecure or unset HTTP headers - Strict Transport Security
     description: >
       The server is missing
       the Strict-Transport-Security HTTP header.
@@ -6940,7 +6940,7 @@
       from adjacent network
       performing a MITM.
   es:
-    title: Insecure or Unset HTTP Headers - Strict Transport Security
+    title: Insecure or unset HTTP headers - Strict Transport Security
     description: >
       El servidor carece del encabezado
       HTTP Strict-Transport-Security.
@@ -6976,7 +6976,7 @@
   metadata: {}
 "132":
   en:
-    title: Insecure or Unset HTTP Headers - X-Content-Type-Options
+    title: Insecure or unset HTTP headers - X-Content-Type-Options
     description: >
       The server is missing
       the X-Content-Type-Options HTTP header.
@@ -6991,7 +6991,7 @@
       Unauthorized attacker
       from internet network.
   es:
-    title: Insecure or Unset HTTP Headers - X-Content-Type-Options
+    title: Insecure or unset HTTP headers - X-Content-Type-Options
     description: >
       El servidor carece de la cabecera
       HTTP X-Content-Type-Options.
@@ -7085,7 +7085,7 @@
   metadata: {}
 "134":
   en:
-    title: Insecure or Unset HTTP Headers - CORS
+    title: Insecure or unset HTTP headers - CORS
     description: >
       The cross-domain policy
       includes wildcards,'
@@ -7101,7 +7101,7 @@
       Unauthorized attacker
       from the Internet.
   es:
-    title: Insecure or Unset HTTP Headers - CORS
+    title: Insecure or unset HTTP headers - CORS
     description: >
       La política entre dominios
       incluye comodines,
@@ -7135,7 +7135,7 @@
   metadata: {}
 "135":
   en:
-    title: Insecure or Unset HTTP Headers - X-XSS Protection
+    title: Insecure or unset HTTP headers - X-XSS Protection
     description: >
       The application uses the X-XSS Protection header
       considered deprecated. The use of this header
@@ -7149,7 +7149,7 @@
       Unauthorized attacker
       from the Internet.
   es:
-    title: Cabeceras HTTP inseguras o no establecidas - X-XSS Protection
+    title: Insecure or unset HTTP headers - X-XSS Protection
     description: >
       La aplicación utiliza el header X-XSS Protection
       considerado obsoleto. El uso de este header
