@@ -3,6 +3,7 @@ variable "aws_secret_key" {}
 variable "cloudflare_account_id" {}
 variable "cloudflare_api_token" {}
 
+data "aws_caller_identity" "current" {}
 data "cloudflare_ip_ranges" "cloudflare" {}
 data "cloudflare_zones" "fluidattacks_com" {
   filter {

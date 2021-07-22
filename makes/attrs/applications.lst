@@ -3,8 +3,6 @@ airs.build
 airs.development
 airs.infra.production.apply
 airs.infra.production.test
-airs.infra.secrets.apply
-airs.infra.secrets.test
 airs.lint.code
 docs
 docs.deploy
