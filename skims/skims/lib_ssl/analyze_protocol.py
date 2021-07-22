@@ -352,17 +352,20 @@ def _beast_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         ssl_settings,
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
-        if connection is not None and not connection.closed:
-            # pylint: disable=protected-access
-            if connection._recordLayer.isCBCMode():
-                ssl_vulnerabilities.append(
-                    _create_ssl_vuln(
-                        check="beast_possible",
-                        ssl_settings=ssl_settings,
-                        line=SSLSnippetLine.max_version,
-                        finding=core_model.FindingEnum.F094,
-                    )
+        # pylint: disable=protected-access
+        if (
+            connection is not None
+            and not connection.closed
+            and connection._recordLayer.isCBCMode()
+        ):
+            ssl_vulnerabilities.append(
+                _create_ssl_vuln(
+                    check="beast_possible",
+                    ssl_settings=ssl_settings,
+                    line=SSLSnippetLine.max_version,
+                    finding=core_model.FindingEnum.F094,
                 )
+            )
 
     return _create_core_vulns(ssl_vulnerabilities)
 
@@ -390,17 +393,20 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         ssl_settings,
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
-        if connection is not None and not connection.closed:
-            # pylint: disable=protected-access
-            if connection._recordLayer.isCBCMode():
-                ssl_vulnerabilities.append(
-                    _create_ssl_vuln(
-                        check="cbc_enabled",
-                        ssl_settings=ssl_settings,
-                        line=SSLSnippetLine.ciphers,
-                        finding=core_model.FindingEnum.F094,
-                    )
+        # pylint: disable=protected-access
+        if (
+            connection is not None
+            and not connection.closed
+            and connection._recordLayer.isCBCMode()
+        ):
+            ssl_vulnerabilities.append(
+                _create_ssl_vuln(
+                    check="cbc_enabled",
+                    ssl_settings=ssl_settings,
+                    line=SSLSnippetLine.ciphers,
+                    finding=core_model.FindingEnum.F094,
                 )
+            )
 
     return _create_core_vulns(ssl_vulnerabilities)
 

@@ -194,9 +194,8 @@ def get_argument(
     for item in body:
         if isinstance(item, Attribute):
             continue
-        if isinstance(item, Block):
-            if key in item.namespace:
-                return item
+        if isinstance(item, Block) and key in item.namespace:
+            return item
     return default
 
 
@@ -206,9 +205,8 @@ def get_attribute(
     for item in body:
         if isinstance(item, Block):
             continue
-        if isinstance(item, Attribute):
-            if item.key == key:
-                return item
+        if isinstance(item, Attribute) and item.key == key:
+            return item
     return default
 
 

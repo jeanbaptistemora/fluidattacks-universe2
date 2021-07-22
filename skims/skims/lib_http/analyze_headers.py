@@ -323,13 +323,12 @@ def _set_cookie_httponly(
     )
 
     for header in headers:
-        if _is_sensitive_cookie(header.cookie_name):
-            if not header.httponly:
-                locations.append(
-                    desc="set_cookie_httponly.missing_httponly",
-                    desc_kwargs={"cookie_name": header.cookie_name},
-                    identifier=header.raw_content,
-                )
+        if _is_sensitive_cookie(header.cookie_name) and not header.httponly:
+            locations.append(
+                desc="set_cookie_httponly.missing_httponly",
+                desc_kwargs={"cookie_name": header.cookie_name},
+                identifier=header.raw_content,
+            )
 
     return _create_vulns(
         locations=locations,
@@ -349,13 +348,15 @@ def _set_cookie_samesite(
     )
 
     for header in headers:
-        if _is_sensitive_cookie(header.cookie_name):
-            if header.samesite.lower() != "strict":
-                locations.append(
-                    desc="set_cookie_samesite.bad_samesite",
-                    desc_kwargs={"cookie_name": header.cookie_name},
-                    identifier=header.raw_content,
-                )
+        if (
+            _is_sensitive_cookie(header.cookie_name)
+            and header.samesite.lower() != "strict"
+        ):
+            locations.append(
+                desc="set_cookie_samesite.bad_samesite",
+                desc_kwargs={"cookie_name": header.cookie_name},
+                identifier=header.raw_content,
+            )
 
     return _create_vulns(
         locations=locations,
@@ -375,13 +376,12 @@ def _set_cookie_secure(
     )
 
     for header in headers:
-        if _is_sensitive_cookie(header.cookie_name):
-            if not header.secure:
-                locations.append(
-                    desc="set_cookie_secure.missing_secure",
-                    desc_kwargs={"cookie_name": header.cookie_name},
-                    identifier=header.raw_content,
-                )
+        if _is_sensitive_cookie(header.cookie_name) and not header.secure:
+            locations.append(
+                desc="set_cookie_secure.missing_secure",
+                desc_kwargs={"cookie_name": header.cookie_name},
+                identifier=header.raw_content,
+            )
 
     return _create_vulns(
         locations=locations,

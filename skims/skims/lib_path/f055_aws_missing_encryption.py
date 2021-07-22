@@ -96,12 +96,11 @@ def _unencrypted_buckets_iterate_vulnerabilities(
         if isinstance(bucket, Node):
             if not bucket.raw.get("BucketEncryption", None):
                 yield bucket
-        elif isinstance(bucket, AWSS3Bucket):
-            if not get_argument(
-                key="server_side_encryption_configuration",
-                body=bucket.data,
-            ):
-                yield bucket
+        elif isinstance(bucket, AWSS3Bucket) and not get_argument(
+            key="server_side_encryption_configuration",
+            body=bucket.data,
+        ):
+            yield bucket
 
 
 def _cfn_unencrypted_volumes(
