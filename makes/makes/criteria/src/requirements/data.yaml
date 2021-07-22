@@ -3000,56 +3000,215 @@
 "174":
   en:
     title: Transactions without a distinguishable pattern
-    summary: __empty_
+    summary: >
+      Requests that execute transactions
+      must not follow any
+      distinguishable pattern.
     description: __empty__
   es:
     title: Transacciones sin un patrón distinguible
-    summary: __empty__
+    summary: >
+      La aplicación debe garantizar
+      que las peticiones que ejecuten
+      transacciones no sigan
+      un patrón discernible.
     description: __empty__
   references: []
   metadata: {}
 "175":
   en:
     title: Protect pages from clickjacking
-    summary: __empty_
-    description: __empty__
+    summary: >
+      Web pages must be protected
+      from being embedded
+      in malicious sites (clickjacking).
+    description: >
+      Clickjacking is a malicious technique
+      often used in phishing attacks.
+      By using it,
+      attackers may deceive users
+      and make them perform actions
+      other than the ones they perceive,
+      which may cause them to reveal
+      confidential information.
+      Web servers can protect pages
+      they host to a great extent
+      by including headers
+      in their responses that prevent
+      the pages from being embedded
+      in malicious sites (e.g., "X-Frame-Options").
   es:
     title: Proteger páginas de clickjacking
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Las páginas web deben ser protegidas
+      para que no sean embebidas
+      en sitios maliciosos (clickjacking).
+    description: >
+      Clickjacking es una técnica maliciosa
+      que se utiliza a menudo
+      en los ataques de phishing.
+      Al usarla,
+      los atacantes pueden engañar
+      a los usuarios y hacer que
+      realicen acciones distintas
+      a las que perciben,
+      lo que puede hacer que revelen
+      información confidencial.
+      Los servidores web pueden proteger
+      las páginas que alojan en gran medida
+      al incluir encabezados
+      en sus respuestas que evitan
+      que las páginas se incrusten
+      en sitios maliciosos
+      (por ejemplo, "X-Frame-Options"). 
   references: []
   metadata: {}
 "176":
   en:
     title: Restrict system objects
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must restrict access
+      to system objects
+      that have sensitive content.
+      It should only allow access
+      to authorized users.
+    description: >
+      Applications usually handle
+      personal and confidential information,
+      such as personal identifications,
+      social security numbers,
+      credentials and health histories.
+      This data should be protected
+      as a fundamental right,
+      and therefore be stored
+      and transmitted using secure mechanisms
+      that prevent access to it
+      by unauthorized actors.
+      Furthermore,
+      the access control model
+      and role assignment policy
+      must be implemented
+      taking these restrictions
+      into consideration.
   es:
     title: Restringir objetos del sistema
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe restringir
+      el acceso a objetos del sistema
+      que tengan contenido sensible.
+      Sólo permitirá su acceso
+      a usuarios autorizados.
+    description: >
+      Las aplicaciones generalmente
+      manejan información personal
+      y confidencial,
+      como identificaciones personales,
+      números de seguro social,
+      credenciales e historias médicas.
+      Estos datos deben protegerse
+      como derecho fundamental y,
+      por tanto,
+      almacenarse y transmitirse
+      mediante mecanismos seguros
+      que impidan el acceso a ellos
+      por parte de agentes no autorizados.
+      Además,
+      el modelo de control de acceso
+      y la política de asignación de roles
+      deben implementarse
+      teniendo en cuenta estas restricciones. 
   references: []
   metadata: {}
 "177":
   en:
     title: Avoid caching and temporary files
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must not store
+      sensitive information
+      in temporary files or cache memory.
+    description: >
+      Applications sometimes
+      reside in or get consumed
+      by environments in which
+      caching is possible.
+      Caching helps performance
+      or makes certain actions
+      more comfortable
+      for the application users.
+      However,
+      cached information is often
+      more susceptible to being exposed
+      or corrupted.
+      Thus,
+      avoiding cache memory
+      and temporary files helps
+      protect sensitive information.
   es:
     title: Evitar almacenamiento en caché y archivos temporales
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema no debe almacenar
+      información sensible
+      en archivos temporales
+      o en memoria caché.
+    description: >
+      Las aplicaciones a veces residen
+      en entornos en los que es posible
+      el almacenamiento en caché
+      o son consumidos por ellos.
+      El almacenamiento en caché
+      ayuda al rendimiento
+      o hace que ciertas acciones
+      sean más cómodas para los usuarios
+      de la aplicación.
+      Sin embargo,
+      la información almacenada en caché
+      es a menudo más susceptible
+      a estar expuesta o dañada.
+      Por lo tanto,
+      evitar la memoria caché
+      y los archivos temporales ayuda
+      a proteger la información confidencial. 
   references: []
   metadata: {}
 "178":
   en:
     title: Use digital signatures
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must use
+      digital signatures
+      to ensure the authenticity
+      of sensitive information.
+    description: >
+      A digital signature
+      is a cryptographic mechanism
+      that helps identify
+      the sender of a message,
+      and guarantee its authenticity
+      and integrity.
+      It should be used when dealing
+      with very sensitive information
+      or with data and resources
+      that are susceptible
+      to being affected by third parties.
   es:
     title: Utilizar firmas digitales
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe usar
+      firmas digitales
+      para garantizar la autenticidad
+      de información sensible.
+    description: >
+      Una firma digital
+      es un mecanismo criptográfico
+      que ayuda a identificar
+      al remitente de un mensaje
+      y garantiza su autenticidad
+      e integridad.
+      Debe utilizarse cuando se trate
+      de información muy sensible
+      o con datos y recursos
+      que sean susceptibles
+      de ser afectados por terceros. 
   references: []
   metadata: {}
 "180":
