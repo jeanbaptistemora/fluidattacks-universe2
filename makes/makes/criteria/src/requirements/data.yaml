@@ -3214,44 +3214,142 @@
 "180":
   en:
     title: Use mock data
-    summary: __empty_
-    description: __empty__
+    summary: >
+      Environments other than production
+      should use mock
+      or automatically generated data.
+    description: >
+      Applications usually handle
+      personal and other types
+      of sensitive information.
+      This information should not be used
+      to perform tests or during
+      development processes,
+      as it could lead to unintended exposure.
+      Non-production environments
+      should use mock data
+      or data that has been
+      automatically generated.
   es:
     title: Utilizar datos simulados
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Los ambientes diferentes
+      al de producción deben
+      utilizar datos simulados
+      o generados automáticamente
+    description: >
+      Las aplicaciones generalmente
+      manejan información personal
+      y sensible de otro tipo.
+      Esta información no debe
+      usarse para realizar pruebas
+      o durante los procesos de desarrollo,
+      ya que podría dar lugar
+      a una exposición no intencionada.
+      Los entornos que no son
+      de producción deben utilizar
+      datos simulados
+      o datos que se hayan generado
+      automáticamente. 
   references: []
   metadata: {}
 "181":
   en:
     title: Transmit data using secure protocols
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The transmission
+      of sensitive information
+      and the execution
+      of sensitive functions
+      must be performed
+      through secure protocols.
+    description: >
+      A system can send information
+      through a non-encrypted channel
+      using insecure protocols.
+      The use of these protocols
+      makes it easier to perform
+      a man-in-the-middle attack (MitM)
+      to intercept and modify the information.
+      Examples of such insecure protocols
+      are HTTP, FTP, POP3 and Telnet.
   es:
     title: Transmitir datos utilizando protocolos seguros
-    summary: __empty__
-    description: __empty__
+    summary: >
+      La transmisión
+      de información sensible
+      o la ejecución
+      de funciones sensibles
+      debe hacerse a través
+      de protocolos seguros.
+    description: >
+      Un sistema puede enviar información
+      a través de un canal no cifrado
+      utilizando protocolos inseguros.
+      El uso de estos protocolos
+      facilita la realización
+      de un ataque de hombre en el medio (MitM)
+      para interceptar y modificar
+      la información.
+      Ejemplos de estos protocolos inseguros
+      son HTTP, FTP, POP3 y Telnet. 
   references: []
   metadata: {}
 "183":
   en:
     title: Delete sensitive data securely
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must support
+      the secure removal
+      of sensitive data,
+      guaranteeing that
+      it cannot be recovered.
+    description: >
+      Systems often store
+      and delete sensitive information
+      protected by government regulations.
+      These regulations
+      usually demand that data be removed
+      after it is no longer required
+      and that its deletion
+      follow secure procedures
+      that prevent it
+      from being recovered.
   es:
     title: Eliminar datos sensibles de manera segura
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe soportar
+      la eliminación segura
+      de datos sensibles
+      cuando estos ya no son requeridos,
+      de tal forma que no puedan
+      ser recuperados.
+    description: >
+      Los sistemas a menudo
+      almacenan y eliminan información
+      protegida por regulaciones
+      gubernamentales.
+      Estas regulaciones usualmente
+      demandan que la información
+      sea eliminada después
+      de que no es más requerida
+      y que su eliminación sigue
+      procedimientos seguros
+      que evitan que sean recuperado.
   references: []
   metadata: {}
 "184":
   en:
     title: Obfuscate application data
-    summary: __empty_
+    summary: >
+      The system must obfuscate the data
+      if the application is not in focus.
     description: __empty__
   es:
     title: Ofuscar datos de aplicación
-    summary: __empty__
+    summary: >
+      El sistema debe ofuscar los datos
+      si la aplicación no está enfocada.
     description: __empty__
   references: []
   metadata: {}
