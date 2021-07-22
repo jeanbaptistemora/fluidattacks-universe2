@@ -11,6 +11,9 @@ from .types import (
     FindingUnreliableIndicators,
     FindingVerification,
 )
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     Source,
 )
@@ -138,3 +141,17 @@ def format_optional_verification_item(
     if verification is not None:
         verification_item = format_verification_item(verification)
     return verification_item
+
+
+def get_latest_verification(
+    historic_verification: Tuple[FindingVerification, ...]
+) -> Optional[FindingVerification]:
+    verification = None
+    if historic_verification:
+        verification = max(
+            historic_verification,
+            key=lambda verification: datetime.fromisoformat(
+                verification.modified_date
+            ),
+        )
+    return verification
