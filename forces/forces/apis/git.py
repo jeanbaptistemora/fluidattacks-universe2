@@ -89,7 +89,7 @@ def get_repository_metadata(repo_path: str = ".") -> Dict[str, str]:
 
         git_commit = head_commit.hexsha
         git_commit_author = (
-            f"{head_commit.author.name}" f" <{head_commit.author.email}>"
+            f"{head_commit.author.name} <{head_commit.author.email}>"
         )
         git_commit_authored_date = head_commit.authored_datetime.astimezone(
             pytz.UTC
