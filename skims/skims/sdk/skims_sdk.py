@@ -6,6 +6,7 @@ from os import (
 import subprocess  # nosec
 from typing import (
     Any,
+    Dict,
     List,
     Optional,
     Tuple,
@@ -18,6 +19,7 @@ def _json_load(path: str) -> Any:
 
 
 FINDINGS: List[str] = _json_load(environ["SKIMS_FINDINGS"])
+QUEUES: Dict[str, List[str]] = _json_load(environ["SKIMS_QUEUES"])
 
 
 async def _run(

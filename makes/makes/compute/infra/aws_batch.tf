@@ -146,7 +146,7 @@ locals {
     }
   }
   compute_environments_spot_skims = {
-    for name in jsondecode(data.local_file.skims_queue.content)
+    for name, _ in jsondecode(data.local_file.skims_queues.content)
     : name => {
       bid_percentage      = 100
       instances           = 2
