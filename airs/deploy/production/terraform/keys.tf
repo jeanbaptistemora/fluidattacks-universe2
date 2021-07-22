@@ -1,6 +1,6 @@
 # Production
 
-data "aws_iam_policy_document" "prod" {
+data "aws_iam_policy_document" "key_prod" {
 
   statement {
     sid    = "Enable IAM User Permissions"
@@ -103,7 +103,7 @@ data "aws_iam_policy_document" "prod" {
 
 resource "aws_kms_key" "prod" {
   description             = "production kms key for web."
-  policy                  = data.aws_iam_policy_document.prod.json
+  policy                  = data.aws_iam_policy_document.key_prod.json
   deletion_window_in_days = 30
   is_enabled              = true
   enable_key_rotation     = true
@@ -123,7 +123,7 @@ resource "aws_kms_alias" "prod" {
 
 # Development
 
-data "aws_iam_policy_document" "dev" {
+data "aws_iam_policy_document" "key_dev" {
 
   statement {
     sid    = "Enable IAM User Permissions"
@@ -231,7 +231,7 @@ data "aws_iam_policy_document" "dev" {
 
 resource "aws_kms_key" "dev" {
   description             = "Normal user kms key for web."
-  policy                  = data.aws_iam_policy_document.dev.json
+  policy                  = data.aws_iam_policy_document.key_dev.json
   deletion_window_in_days = 30
   is_enabled              = true
   enable_key_rotation     = true

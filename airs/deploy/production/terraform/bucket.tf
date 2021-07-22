@@ -1,30 +1,3 @@
-# Common
-
-data "aws_iam_policy_document" "main" {
-  statement {
-    sid    = "CloudFlare"
-    effect = "Allow"
-
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-    actions = [
-      "s3:GetObject",
-    ]
-    resources = [
-      "${aws_s3_bucket.prod.arn}/*",
-      "${aws_s3_bucket.dev.arn}/*",
-    ]
-    condition {
-      test     = "IpAddress"
-      variable = "aws:SourceIp"
-      values   = data.cloudflare_ip_ranges.cloudflare.cidr_blocks
-    }
-  }
-}
-
-
 # Production
 
 resource "aws_s3_bucket" "prod" {
@@ -51,9 +24,32 @@ resource "aws_s3_bucket" "prod" {
   }
 }
 
+data "aws_iam_policy_document" "bucket_prod" {
+  statement {
+    sid    = "CloudFlare"
+    effect = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    actions = [
+      "s3:GetObject",
+    ]
+    resources = [
+      "${aws_s3_bucket.prod.arn}/*",
+    ]
+    condition {
+      test     = "IpAddress"
+      variable = "aws:SourceIp"
+      values   = data.cloudflare_ip_ranges.cloudflare.cidr_blocks
+    }
+  }
+}
+
 resource "aws_s3_bucket_policy" "prod" {
   bucket = aws_s3_bucket.prod.id
-  policy = data.aws_iam_policy_document.main.json
+  policy = data.aws_iam_policy_document.bucket_prod.json
 }
 
 
@@ -92,7 +88,30 @@ resource "aws_s3_bucket" "dev" {
   }
 }
 
+data "aws_iam_policy_document" "bucket_dev" {
+  statement {
+    sid    = "CloudFlare"
+    effect = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    actions = [
+      "s3:GetObject",
+    ]
+    resources = [
+      "${aws_s3_bucket.dev.arn}/*",
+    ]
+    condition {
+      test     = "IpAddress"
+      variable = "aws:SourceIp"
+      values   = data.cloudflare_ip_ranges.cloudflare.cidr_blocks
+    }
+  }
+}
+
 resource "aws_s3_bucket_policy" "dev" {
   bucket = aws_s3_bucket.dev.id
-  policy = data.aws_iam_policy_document.main.json
+  policy = data.aws_iam_policy_document.bucket_dev.json
 }
