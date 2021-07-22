@@ -10,6 +10,7 @@
     pubKey = "fluidattacks.cachix.org-1:upiUCP8kWnr7NxVSJtTOM+SBqL0pZhZnUoqPG04sBv0=";
   };
   imports = [
+    ./makes/docs/makes.nix
     ./makes/forces/makes.nix
     ./makes/integrates/makes.nix
     ./makes/makes/makes.nix

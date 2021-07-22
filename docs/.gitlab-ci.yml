@@ -8,6 +8,12 @@
   variables:
     GIT_DEPTH: 5
 
+.makes4: &makes4
+  <<: *makes
+  image: ghcr.io/fluidattacks/makes:21.08
+  script:
+    - m . "${CI_JOB_NAME% *}"
+
 .docs_commit_pattern: &docs_commit_pattern '$CI_COMMIT_TITLE =~ /^(all|docs)/'
 
 .docs_in_dev_branch: &docs_in_dev_branch
@@ -61,7 +67,7 @@ docs.infra.test:
   <<: *docs_in_dev_branch
   stage: test-infra
 
-docs.lint:
-  <<: *makes
+/lintMarkdown/docs:
+  <<: *makes4
   <<: *docs_in_dev_branch
   stage: lint-code
