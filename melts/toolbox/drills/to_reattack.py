@@ -30,7 +30,7 @@ def get_subs_unverified_findings(group: str = "all") -> Response:
         name
         findings(filters: {verified: False}) {
             id
-            vulnerabilities(state: "open") {
+            vulnsToReattack {
                 id
                 historicVerification {
                     status, date
@@ -44,17 +44,19 @@ def get_subs_unverified_findings(group: str = "all") -> Response:
         query = f"""
             query {{
                 me {{
-                    projects {{
-                                {project_info_query}
-                     }}
+                    organizations {{
+                        groups {{
+                            {project_info_query}
+                        }}
+                    }}
                 }}
             }}
         """
     else:
         query = f"""
             query{{
-                project(projectName: "{group}") {{
-                                {project_info_query}
+                group(groupName: "{group}") {{
+                    {project_info_query}
                 }}
             }}
         """
@@ -76,34 +78,40 @@ def to_reattack(group: str = "all") -> Dict[str, Any]:
     graphql_date_format = "%Y-%m-%d %H:%M:%S"
 
     response = get_subs_unverified_findings(group)
-    projects_info = response.data if response.ok else dict()
+    projects_info = response.data if response.status_code == 200 else dict()
 
     if group != "all":
-        projects_info = {"me": {"projects": [projects_info.get("project")]}}
-    projects_info = list(
-        projects_info.get("me", dict()).get("projects", list())
-    )
+        projects_info = {
+            "me": {"organizations": [{"groups": [projects_info.get("group")]}]}
+        }
+    projects_info = [
+        group
+        for org in projects_info.get("me", dict()).get("organizations", dict())
+        for group in org.get("groups", list())
+    ]
+
     # claning empty findigs
-    projects_info = list(filter(lambda info: info["findings"], projects_info))
+    projects_info = list(
+        filter(
+            lambda info: info.get("findings")
+            and [
+                finding.get("vulnsToReattack")
+                for finding in info.get("findings", [{}])
+            ],
+            projects_info,
+        )
+    )
 
     # Filter vulnerabilities and order by date
     for project_info in projects_info:
         for finding in project_info["findings"]:
-            # Filter requested vulnerabilities
-            finding["vulnerabilities"] = list(
-                filter(
-                    lambda vulnerability: vulnerability
-                    and vulnerability["historicVerification"]
-                    and vulnerability["historicVerification"][-1]["status"]
-                    == "REQUESTED",
-                    finding["vulnerabilities"],
-                )
-            )
             # Order vulnerabilities by date
             finding["vulnerabilities"] = list(
                 sorted(
-                    finding["vulnerabilities"],
-                    key=lambda x: x["historicVerification"][-1]["date"],
+                    finding["vulnsToReattack"],
+                    key=lambda x: x["historicVerification"][-1]["date"]
+                    if x["historicVerification"]
+                    else "2000-01-01 00:00:00",
                 )
             )
 
@@ -123,7 +131,9 @@ def to_reattack(group: str = "all") -> Dict[str, Any]:
             oldest_vuln_dif = relativedelta(
                 dt.now(),
                 dt.strptime(
-                    oldest_vulnerability["historicVerification"][-1]["date"],
+                    oldest_vulnerability["historicVerification"][-1]["date"]
+                    if oldest_vulnerability["historicVerification"]
+                    else "2000-01-01 00:00:00",
                     graphql_date_format,
                 ),
             )
@@ -195,11 +205,11 @@ def main(group: str = "all") -> None:
 
     # summary
     summary = (
-        f"TO-DO: FIN: {summary_info['total_findings']}; "
+        f"TO-DO: Findings: {summary_info['total_findings']}; "
         f"Vulns: {summary_info['total_vulnerabilities']}; "
         "Days since oldest request: "
         f"{summary_info['oldest_finding']['date_dif'].days}; "
-        f"Group: {summary_info['oldest_finding']['group']};"
+        f"Group oldest finding: {summary_info['oldest_finding']['group']};"
     )
 
     print(summary)
