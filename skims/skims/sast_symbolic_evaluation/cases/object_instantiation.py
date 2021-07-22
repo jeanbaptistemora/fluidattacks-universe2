@@ -120,7 +120,7 @@ def _syntax_step_object_instantiation_values(args: EvaluatorArgs) -> None:
             constructor_name,
             _type,
         ):
-            if args.shard.path != _method.shard_path:
+            if args.shard.path != _method.shard_path:  # NOSONAR
                 instance = args.eval_constructor(
                     args,
                     _method.metadata.n_id,

@@ -18,10 +18,12 @@ def evaluate(args: EvaluatorArgs) -> None:
 
     # Follow every `case X:` in search of the next_id
     for case in cases:
-        if isinstance(case, graph_model.SyntaxStepSwitchLabelCase):
-            if case.meta.value == pred.meta.value:
-                switch_n_id_next = case.meta.n_id
-                break
+        if (
+            isinstance(case, graph_model.SyntaxStepSwitchLabelCase)
+            and case.meta.value == pred.meta.value
+        ):
+            switch_n_id_next = case.meta.n_id
+            break
 
     # Follow every `default:` in search of the next_id
     if switch_n_id_next is None:
