@@ -23246,6 +23246,7 @@
             "value_type": "string"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -23339,6 +23340,7 @@
             "value_type": "string"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -47595,6 +47597,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -47831,7 +47834,40 @@
             "type": "SyntaxStepMethodInvocation"
           }
         ],
-        "1100": [],
+        "1100": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1110",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": {},
+            "value_type": "struct[sessions.Options]"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1108",
+              "value": null
+            },
+            "operator": "&",
+            "type": "SyntaxStepUnaryExpression"
+          },
+          {
+            "attribute": "Options",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1103",
+              "value": null
+            },
+            "type": "SyntaxStepAssignment",
+            "var": "session"
+          }
+        ],
         "1136": [],
         "1152": [
           {
@@ -47935,6 +47971,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -47968,6 +48005,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -48399,6 +48437,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -48582,6 +48621,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -48829,6 +48869,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -48893,6 +48934,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -49127,6 +49169,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -49201,6 +49244,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -49245,6 +49289,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -50026,6 +50071,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -50075,6 +50121,7 @@
             "value_type": "number"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -50108,6 +50155,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -50157,6 +50205,7 @@
             "value_type": "number"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -50190,6 +50239,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -50394,6 +50444,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -50417,6 +50468,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -50794,6 +50846,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -51008,6 +51061,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -51031,6 +51085,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -51416,6 +51471,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -64736,6 +64792,7 @@
             "value_type": "number"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -64746,6 +64803,7 @@
             "var": "x"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -64756,6 +64814,7 @@
             "var": "y"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -65740,6 +65799,7 @@
             "type": "SyntaxStepBinaryExpression"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -66022,6 +66082,7 @@
             "value_type": "number"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -66335,6 +66396,7 @@
             "value_type": "number"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -66400,6 +66462,7 @@
             "type": "SyntaxStepBinaryExpression"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -66618,6 +66681,7 @@
             "type": "SyntaxStepMemberAccessExpression"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -66778,6 +66842,7 @@
             "value_type": "string"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -66822,6 +66887,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -67039,6 +67105,7 @@
             "value_type": "number"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -67286,6 +67353,7 @@
             "value_type": "string"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -67331,6 +67399,7 @@
             "value_type": "string"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -67885,6 +67954,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,

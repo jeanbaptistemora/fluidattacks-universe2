@@ -90,6 +90,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": true,
               "dependencies": -1,
@@ -320,6 +321,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -484,6 +486,7 @@
             "type": "SyntaxStepBinaryExpression"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": true,
               "dependencies": -1,
@@ -615,6 +618,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": true,
               "dependencies": -1,
@@ -845,6 +849,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,

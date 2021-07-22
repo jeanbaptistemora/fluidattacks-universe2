@@ -73,6 +73,7 @@ class SyntaxStepAttributeAccess(NamedTuple):
 class SyntaxStepAssignment(NamedTuple):
     meta: SyntaxStepMeta
     var: str
+    attribute: str = ""
 
     type: str = "SyntaxStepAssignment"
 

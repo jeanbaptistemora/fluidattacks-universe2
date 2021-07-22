@@ -58,5 +58,18 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
                     meta=SyntaxStepMeta.default(var_id, deps),
                     var=args.graph.nodes[var_id]["label_text"],
                 )
+        if not vars_ids:
+            if s_id := g.get_ast_childs(
+                args.graph, vars_n_id, "selector_expression"
+            ):
+                deps = [
+                    args.generic(args.fork_n_id(val_id)) for val_id in vals_ids
+                ]
+                var_id, _, attr_id = g.adj_ast(args.graph, s_id[0])
+                yield SyntaxStepAssignment(
+                    meta=SyntaxStepMeta.default(var_id, deps),
+                    var=args.graph.nodes[var_id]["label_text"],
+                    attribute=args.graph.nodes[attr_id]["label_text"],
+                )
     else:
         raise MissingCaseHandling(args)

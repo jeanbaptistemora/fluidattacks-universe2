@@ -7349,6 +7349,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -7485,6 +7486,7 @@
             "type": "SyntaxStepBinaryExpression"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -7538,6 +7540,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -8161,6 +8164,7 @@
             "value_type": "null"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -12034,6 +12038,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -12091,6 +12096,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20142,6 +20148,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20199,6 +20206,7 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20351,6 +20359,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20630,6 +20639,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -21039,6 +21049,7 @@
             "value_type": "boolean"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,

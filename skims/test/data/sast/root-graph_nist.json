@@ -4639,6 +4639,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -4815,6 +4816,7 @@
             "type": "SyntaxStepBinaryExpression"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -4883,6 +4885,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -5451,6 +5454,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -18227,6 +18231,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -18260,6 +18265,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -18358,6 +18364,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -19199,6 +19206,7 @@
             "type": "SyntaxStepMemberAccessExpression"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -19242,6 +19250,7 @@
             "type": "SyntaxStepMemberAccessExpression"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -19285,6 +19294,7 @@
             "type": "SyntaxStepMemberAccessExpression"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -27222,6 +27232,7 @@
             "type": "SyntaxStepMemberAccessExpression"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -27265,6 +27276,7 @@
             "type": "SyntaxStepMemberAccessExpression"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -27629,6 +27641,7 @@
             "type": "SyntaxStepMemberAccessExpression"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -27742,6 +27755,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "attribute": "",
             "meta": {
               "danger": false,
               "dependencies": -1,

@@ -1,3 +1,6 @@
+from model.graph_model import (
+    GraphShardMetadataLanguage,
+)
 from sast_symbolic_evaluation.lookup import (
     lookup_field,
 )
@@ -51,11 +54,38 @@ BY_TYPE: Dict[str, Set[str]] = complete_attrs_on_dict(
 )
 
 
+def go_evaluate_assignment(args: EvaluatorArgs) -> None:
+    if args.shard.metadata.language == GraphShardMetadataLanguage.GO:
+        if len(args.dependencies) == 1 and (dep := args.dependencies[0]):
+            # If the variable is a structure
+            if (
+                var_decl := lookup_var_dcl_by_name(args, args.syntax_step.var)
+            ) and args.syntax_step.attribute:
+                var_decl.meta.danger |= any(
+                    dep.meta.danger for dep in args.dependencies
+                )
+                if var_decl.meta.value:
+                    var_decl.meta.value.update(
+                        {args.syntax_step.attribute: dep.meta.value}
+                    )
+                else:
+                    var_decl.meta.value = {
+                        args.syntax_step.attribute: dep.meta.value
+                    }
+                args.syntax_step.meta.value = var_decl.meta.value
+                args.syntax_step.meta.danger = var_decl.meta.danger
+            # Normal variables
+            else:
+                args.syntax_step.meta.value = args.dependencies[0].meta.value
+
+
 def evaluate(args: EvaluatorArgs) -> None:
     var, field = split_on_last_dot(args.syntax_step.var)
     args_danger = any(dep.meta.danger for dep in args.dependencies)
     if not args.syntax_step.meta.danger:
         args.syntax_step.meta.danger = args_danger
+
+    go_evaluate_assignment(args)
 
     # modify the value of a field in an instance
     if var != "this":
