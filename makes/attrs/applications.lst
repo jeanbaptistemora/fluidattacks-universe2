@@ -10,8 +10,6 @@ airs.infra.secrets.test
 airs.lint.code
 docs
 docs.deploy
-docs.infra.apply
-docs.infra.test
 forces
 forces.infra.deploy
 forces.infra.test

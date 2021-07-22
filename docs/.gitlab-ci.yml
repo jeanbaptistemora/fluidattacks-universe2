@@ -39,6 +39,11 @@
       when: never
     - if: *docs_commit_pattern
 
+/deployTerraform/docsInfra:
+  <<: *makes4
+  <<: *docs_in_master_branch
+  stage: deploy-infra
+
 docs.deploy.dev:
   <<: *makes
   <<: *docs_in_dev_branch
@@ -57,17 +62,17 @@ docs.deploy.prod:
     name: docs/${CI_COMMIT_REF_NAME}
     url: https://docs.fluidattacks.com/
 
-docs.infra.apply:
-  <<: *makes
-  <<: *docs_in_master_branch
-  stage: deploy-infra
+/lintMarkdown/docs:
+  <<: *makes4
+  <<: *docs_in_dev_branch
+  stage: lint-code
 
-docs.infra.test:
-  <<: *makes
+/lintTerraform/docsInfra:
+  <<: *makes4
   <<: *docs_in_dev_branch
   stage: test-infra
 
-/lintMarkdown/docs:
+/testTerraform/docsInfra:
   <<: *makes4
   <<: *docs_in_dev_branch
   stage: lint-code
