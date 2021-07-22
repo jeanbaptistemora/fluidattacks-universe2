@@ -132,7 +132,7 @@ or would you add some other skills to be prepared for the exam?*
   . On top of that, it would be valuable
   to understand how a Buffer Overflow works.
   And finally, it would be nice to have a basic knowledge of
-  link:../../reverse-engineering/[Reverse Engineering].
+  link:../reverse-engineering/[Reverse Engineering].
 
 [role="fluid-question"]
 *Tell us a bit about your experience at the time of the exam.* +
@@ -220,7 +220,8 @@ That's why we are constantly facing new challenges
 and strengthening our
 link:../../solutions/ethical-hacking/[Ethical Hacking] skills.
 
-If you want to know more about the certifications
+If you want to
+link:../certificates-comparison-i/[know more about the certifications]
 that the members of our red team have obtained,
 you can follow this
 link:../../about-us/certifications/[link].

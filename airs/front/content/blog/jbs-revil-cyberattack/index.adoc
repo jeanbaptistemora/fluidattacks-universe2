@@ -79,7 +79,7 @@ According to the
 link:https://cutt.ly/0nE9o2c[FBI statement]
 they are the main suspect of the JBS cyberattack.
 
-.https://www.secureworks.com/blog/REvil-the-gandcrab-connection[REvil Timeline]
+.link:https://www.secureworks.com/blog/REvil-the-gandcrab-connection[REvil Timeline]
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1623159152/blog/jbs-revil-cyberattack/figure1_j9ezca.webp[REvil Timeline]
 
 In October 2020, "UNKN",
@@ -118,13 +118,13 @@ for infecting the systems of their victims with the virus that
 infection and discards a ransom request message]."
 
 REvil affiliates often apply
-"link:https://cutt.ly/SnE25kJ[mass-spread attacks
+"link:https://www.infradata.com/resources/what-is-revil-ransomware/[mass-spread attacks
 using exploit-kits and phishing-campaigns]"
 to distribute their malware.
 But the most commonly used attack vector,
 according to UNKN, is link:../pass-cracking/[brute-force]
 Remote Desktop Protocol
-(link:https://cutt.ly/RnEJ6y3[RDP]).
+(link:https://www.paubox.com/blog/what-is-remote-desktop-protocol-attack/[RDP]).
 This is very efficient for criminals, because
 "link:https://cutt.ly/dnE29W2[brute force attacks are usually automated,
 so it doesn't cost the attacker a lot of time or energy]."
@@ -154,7 +154,8 @@ Everything happened precisely
 when the pandemic hit the food sector the hardest.
 The Food and Agriculture Organization of the United Nations (FAO)
 published its
-link:https://cutt.ly/cnEMFd3[report on food prices] on Tuesday, June 1.
+link:http://www.fao.org/news/story/en/item/1403339/icode/[report on food prices]
+on Tuesday, June 1.
 The bottom line is that in May food prices
 have increased so rapidly that they
 have reached their highest peak since September 2011.
@@ -162,7 +163,7 @@ If we add to that a cyberattack
 that paralyzed the meat production company for three days,
 then the outlook doesn't seem very encouraging for June (see Figure 3).
 
-.Graphic by http://www.fao.org/worldfoodsituation/foodpricesindex/en/[FAO]
+.Graphic by link:http://www.fao.org/worldfoodsituation/foodpricesindex/en/[FAO]
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1623159152/blog/jbs-revil-cyberattack/FAO_xitvis.webp[FAO]
 
 The attack was particularly worrying in Australia,
@@ -224,5 +225,5 @@ link:https://www.bbc.com/news/business-51017852[Travelex] case).
 At `Fluid Attacks` we are specialized
 in cybersecurity through
 link:../../solutions/penetration-testing/[Pentesting] and
-link:../../solutions/ethical-hacking/[Ethical Hacking].
+link:../../solutions/ethical-hacking/[Ethical Hacking]. +
 For more information, don't hesitate to link:../../contact-us/[contact us]!

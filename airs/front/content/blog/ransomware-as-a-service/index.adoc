@@ -92,7 +92,7 @@ Here we can see a
 link:https://cutt.ly/wnkUSJ8[workflow diagram]
 that shows how the operation works:
 
-.Diagram by https://cutt.ly/wnkUSJ8[Carnegie Mellon University]
+.Diagram by link:https://cutt.ly/wnkUSJ8[Carnegie Mellon University]
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1622639187/blog/raas/figure2_tzkajt.webp[Workflow Diagram]
 
 We must highlight, together with the
@@ -131,7 +131,7 @@ data is not the only thing compromised, but also equipment,
 time and money paid to third-party remediation services.
 Besides, many companies do not report attacks received to the FBI.
 
-.Graphic by https://cutt.ly/wnkILUW[Coveware]
+.Graphic by link:https://cutt.ly/wnkILUW[Coveware]
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1622639187/blog/raas/figure3_yfqmlw.webp[Top 3 Ransomware Types]
 
 One of the most recent and famous ransomware cases

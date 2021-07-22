@@ -166,7 +166,8 @@ That's why we are constantly facing new challenges
 and strengthening our
 link:../../solutions/ethical-hacking/[Ethical Hacking] skills.
 
-If you want to know more about the certifications
-that the members of our red team have obtained,
-you can follow this
+If you want to
+link:../certificates-comparison-i/[know more about the certifications]
+that the members of our link:../../solutions/red-teaming/[Red Team]
+have obtained, you can follow this
 link:../../about-us/certifications/[link].

@@ -60,7 +60,7 @@ and five military bases]; see Figure 2).
 .link:https://www.reuters.com/business/energy/us-govt-top-fuel-supplier-work-secure-pipelines-closure-enters-4th-day-2021-05-10/[Pipelines flow.]
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1621039652/blog/pipeline-ransomware-darkside/image2_myicaj.webp[Figure 2]
 
-Let's talk about DarkSide.
+Let's talk about *DarkSide*.
 It looks like they became public link:https://www.bleepingcomputer.com/news/security/darkside-new-targeted-ransomware-demands-million-dollar-ransoms/[in August of 2020],
 and they were discovered link:https://heimdalsecurity.com/blog/what-is-darkside-ransomware/[by MalwareHunterTeam] (see Figure 3).
 DarkSide is perhaps link:https://www.digitalshadows.com/blog-and-research/darkside-the-new-ransomware-group-behind-highly-targeted-attacks/[one of the most important exponents
@@ -200,5 +200,5 @@ we invite you to review our page.
 
 At `Fluid Attacks` we are specialized in
 cybersecurity through link:../../solutions/penetration-testing/[Pentesting]
-and link:../../solutions/ethical-hacking/[Ethical Hacking].
+and link:../../solutions/ethical-hacking/[Ethical Hacking]. +
 For more information, don't hesitate to link:../../contact-us/[contact us!]

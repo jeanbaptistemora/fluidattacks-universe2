@@ -180,5 +180,5 @@ If you want to know more about how to *protect yourself from cyberattacks*,
 we invite you to review our page.
 
 At `Fluid Attacks` we are specialized in
-cybersecurity through link:../../solutions/penetration-testing/[Pentesting] and link:../../solutions/ethical-hacking/[ethical hacking].
+cybersecurity through link:../../solutions/penetration-testing/[Pentesting] and link:../../solutions/ethical-hacking/[Ethical Hacking]. +
 For more information, don't hesitate to link:../../contact-us/[contact us!]

@@ -22,7 +22,7 @@ The goal, of course, was to provide basic information,
 advice and recommendations to those who are considering obtaining
 any of these certificates but do not know precisely which one.
 Following that format we will continue *(a)*
-describing the difficulty level of the certificates;
+describing the difficulty level of the certificates,
 *(b)* explaining to whom they are directed, and
 *(c)* illustrating what kind of knowledge, both practical and theoretical,
 must be acquired to be certified.
@@ -101,7 +101,7 @@ had taken pentesting skills to the next level,
 the eWPTv1 demands complete mastery of pentester skills.
 It is considered as one of
 "link:https://thomfre.dev/elearnsecurity-web-application-pentester[the most
-advanced and hands-on training path\[s]
+advanced and hands-on training path[s\]
 on web application penetration testing in the market.]"
 To obtain it, candidates must have had experience working in
 *web application security*.

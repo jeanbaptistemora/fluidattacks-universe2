@@ -158,7 +158,7 @@ link:https://consumercomplaints.fcc.gov/hc/en-us[Federal Communications Commissi
 official website. They can also go to the
 link:https://www.ic3.gov/Home/ComplaintChoice[Crime Complaint Center]
 website or find out more info
-link:https://www.fbi.gov/scams-and-safety/common-scams-and-crime[FBI's page]
+link:https://www.fbi.gov/scams-and-safety/on-the-internet[FBI's page]
 for this purpose.
 
 Now, I bet that you've heard about *Pikachu*, *Ash Ketchum*, or *Pokémon*.
@@ -188,6 +188,7 @@ spoofing has become more popular.
 In turn, this makes more people use this type of cyberattack technique,
 making companies more vulnerable to being attacked.
 
+.Screenshot link:https://trends.google.com/trends/explore?q=spoofing&geo=US[taken in May 12, 2021 ] on Google Trends
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620857979/blog/spoofing/google_ztrfjg.webp[Figure 3]
 
 
