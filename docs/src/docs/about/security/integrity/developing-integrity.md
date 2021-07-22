@@ -163,6 +163,10 @@ and secure before it reaches production environments.
 Once a change reaches production,
 its ephemeral environment
 is destroyed forever.
+Ephemeral environments
+only contain mocked data,
+they do not share
+any data with production.
 
 ## Trunk based development
 

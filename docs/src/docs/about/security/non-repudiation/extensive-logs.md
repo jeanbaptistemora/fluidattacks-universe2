@@ -18,18 +18,19 @@ we store logs for:
   Changes made to these components
   are always tied to a user and a date.
   The historical status never expires.
+  These logs cannot be modified.
 
 - **Attack Surface Manager’s (ASM) error tracking system:**
   It provides real-time logging of errors
   that occur in its production environments.
   It is especially useful for quickly detecting
   new errors and hacking attempts.
-  These logs never expire.
+  These logs never expire and cannot be modified.
 
 - **Redundant data centers:**
   These store comprehensive logs
   of all our infrastructure components.
-  Logs here never expire.
+  Logs here never expire and cannot be modified.
 
 - **DevSecOps execution:**
   Whenever a client’s
@@ -40,13 +41,14 @@ we store logs for:
   and other relevant data are uploaded to our data centers,
   allowing us to always know the current status of
   our client’s DevSecOps service.
-  These logs never expire.
+  These logs never expire and cannot be modified.
 
 - **IAM authentication:**
   Our IAM stores logs of login attempts made by users,
   accessed applications,
   and possible threats.
-  Logs here expire after seven (7) days.
+  Logs here expire after seven (7) days
+  and cannot be modified.
 
 - **Collaboration systems activity:**
   Our collaboration systems such as email, calendar, etc.,
@@ -56,9 +58,10 @@ we store logs for:
   and other potential threats.
   Employee activity logs never expire.
   Other security logs expire after 30 days.
+  These logs cannot be modified.
 
 - **CI job logs:**
   All our [CI pipelines](https://fluidattacks.com/about/security/#CI)
   provide a full record of who triggered them,
   when, and the console output.
-  These logs never expire.
+  These logs never expire and cannot be modified.

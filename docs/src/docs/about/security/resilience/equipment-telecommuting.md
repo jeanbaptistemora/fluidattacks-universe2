@@ -18,3 +18,14 @@ to telework in case they need to.
 In case our offices close (e.g., due to
 [COVID-19](https://en.wikipedia.org/wiki/Coronavirus_disease_2019) pandemic),
 everyone can still do their job seamlessly.
+
+Aditionally,
+all machines are remotely controlled
+using [Windows CSP](https://docs.microsoft.com/en-us/windows/client-management/mdm/configuration-service-provider-reference),
+allowing us to easily implement
+remote actions like
+restrincting administrative privileges,
+updating the operating system in a monthly basis,
+executing code,
+formatting the computer,
+among many others.

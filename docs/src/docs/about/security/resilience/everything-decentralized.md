@@ -8,8 +8,13 @@ slug: /about/security/resilience/everything-decentralized
 All our infrastructure is decentralized,
 meaning that we have independent data centers
 spread across multiple regions.
-No hardware maintenance is needed
-as it is done by a third party.
+No hardware maintenance
+or updates are needed
+as they are done by a third party.
+[Attack Surface Manager (ASM)](https://app.fluidattacks.com/)
+database does not need to be updated
+as new releases are immediatly used
+and are always backward-compatible.
 No local networks are used.
 We only use Wifi connections with
 SSO authentication based on our IAM
