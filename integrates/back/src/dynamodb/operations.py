@@ -66,7 +66,7 @@ RESOURCE_OPTIONS = _get_resource_options()
 def _build_facet_item(*, facet: Facet, item: Item, table: Table) -> Item:
     key_structure = table.primary_key
     attrs = (key_structure.partition_key, key_structure.sort_key, *facet.attrs)
-    return {attr: item[attr] for attr in attrs}
+    return {attr: item[attr] for attr in attrs if item.get(attr) is not None}
 
 
 def _build_query_args(
@@ -170,11 +170,7 @@ async def put_item(
         facet_item = _build_facet_item(facet=facet, item=item, table=table)
         args = {
             "ConditionExpression": condition_expression,
-            "Item": {
-                attr: value
-                for attr, value in facet_item.items()
-                if value is not None
-            },
+            "Item": facet_item,
         }
 
         try:
