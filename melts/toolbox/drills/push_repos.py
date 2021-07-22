@@ -159,10 +159,12 @@ def s3_sync_fusion_to_s3(
         env={},
         **kwargs,  # type:ignore
     )
-    if status:
+    # refer to https://docs.aws.amazon.com/cli/latest/topic/return-codes.html
+    if status not in (0, 2):
+        LOGGER.debug("push status: %s", status)
         LOGGER.error("Sync from bucket has failed:")
-        LOGGER.info(stdout)
-        LOGGER.info(stderr)
+        LOGGER.info("stdout: %s", stdout)
+        LOGGER.info("stderr: %s", stderr)
         return False
     return True
 

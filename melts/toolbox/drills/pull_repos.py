@@ -169,6 +169,7 @@ def pull_repos_s3_to_fusion(subs: str, repository_name: str) -> bool:
     )
 
     if status:
+        LOGGER.debug("pull status: %s", status)
         LOGGER.error("Sync from bucket has failed:")
         LOGGER.info(stdout)
         LOGGER.info(stderr)
