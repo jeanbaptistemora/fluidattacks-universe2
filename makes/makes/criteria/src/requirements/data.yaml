@@ -3554,62 +3554,104 @@
 "209":
   en:
     title: Manage passwords in cache
-    summary: __empty_
+    summary: >
+      Applications that authenticate
+      offline must only store
+      one password in the authentication cache.
     description: __empty__
   es:
     title: Gestionar contraseñas en caché
-    summary: __empty__
+    summary: >
+      Las aplicaciones
+      que autentican fuera de línea
+      solamente deben almacenar
+      una contraseña en el caché
+      de autenticación.
     description: __empty__
   references: []
   metadata: {}
 "210":
   en:
     title: Delete information from mobile devices
-    summary: __empty_
+    summary: >
+      The system must delete
+      the information
+      from mobile devices
+      after 10 failed
+      authentication attempts.
     description: __empty__
   es:
     title: Eliminar información de dispositivos móviles
-    summary: __empty__
+    summary: >
+      El sistema debe eliminar
+      la información de dispositivos
+      móviles después de 10 intentos
+      fallidos de autenticación.
     description: __empty__
   references: []
   metadata: {}
 "213":
   en:
     title: Allow geographic location
-    summary: __empty_
+    summary: >
+      The mobile device must allow
+      remote geographic location
+      in case of loss.
     description: __empty__
   es:
     title: Permitir localización geográfica
-    summary: __empty__
+    summary: >
+      El dispositivo móvil
+      debe permitir la localización
+      geográfica remota en caso
+      de pérdida.
     description: __empty__
   references: []
   metadata: {}
 "214":
   en:
     title: Allow data destruction
-    summary: __empty_
+    summary: >
+      The mobile device must allow
+      remote data destruction
+      in case of loss.
     description: __empty__
   es:
     title: Permitir destrucción de datos
-    summary: __empty__
+    summary: >
+      El dispositivo móvil
+      debe permitir la destrucción
+      remota de los datos
+      en caso de pérdida.
     description: __empty__
   references: []
   metadata: {}
 "221":
   en:
     title: Disconnect unnecessary input devices
-    summary: __empty_
+    summary: >
+      A virtual machine
+      must not have connected devices
+      that are not necessary
+      for its operation
+      (e.g., Floppy, IDE, CD/DVD, USB, Serial).
     description: __empty__
   es:
     title: Desconectar dispositivos de entrada innecesarios
-    summary: __empty__
+    summary: >
+      Una máquina virtual
+      no debe tener dispositivos
+      conectados que no son
+      necesarios para su operación
+      (por ejemplo,
+      Floppy, IDE, CD/DVD, USB, Serial).
     description: __empty__
   references: []
   metadata: {}
 "222":
   en:
     title: Deny access to the host machine
-    summary: __empty_
+    summary: __empty__
     description: __empty__
   es:
     title: Denegar acceso a la máquina anfitriona
