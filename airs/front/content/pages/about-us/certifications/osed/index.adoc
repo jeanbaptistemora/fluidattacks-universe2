@@ -4,6 +4,8 @@
 :page-certificationlogo: logo-osed
 :page-alt: Logo osed
 :page-certification: yes
+:page-certificationid: 002
+
 
 = Offensive Security Exploit Developer (OSED)
 

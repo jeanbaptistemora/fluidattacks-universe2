@@ -8,7 +8,9 @@ import { DropDownCard } from "../DropDownCard";
 const CertificationsPage: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
     query CertificationQuery {
-      allAsciidoc(sort: { fields: [pageAttributes___slug], order: ASC }) {
+      allAsciidoc(
+        sort: { fields: [pageAttributes___certificationid], order: ASC }
+      ) {
         edges {
           node {
             fields {
@@ -23,6 +25,7 @@ const CertificationsPage: React.FC = (): JSX.Element => {
               description
               keywords
               certification
+              certificationid
               certificationlogo
               slug
             }

@@ -20,6 +20,7 @@ interface IQueryData {
         author: string;
         authors: string;
         banner: string;
+        certificationid: string;
         certificationsindex: string;
         clientsindex: string;
         codename: string;

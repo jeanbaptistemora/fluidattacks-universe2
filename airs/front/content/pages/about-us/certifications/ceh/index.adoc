@@ -4,6 +4,7 @@
 :page-certificationlogo: logo-ceh
 :page-alt: Logo CEH
 :page-certification: yes
+:page-certificationid: 011
 
 = Certified Ethical Hacker (CEH)
 

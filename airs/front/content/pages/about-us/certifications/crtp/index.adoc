@@ -4,6 +4,7 @@
 :page-certificationlogo: logo-crtp
 :page-alt: Logo CRTP
 :page-certification: yes
+:page-certificationid: 007
 
 = Certified Red Team Professional (CRTP)
 

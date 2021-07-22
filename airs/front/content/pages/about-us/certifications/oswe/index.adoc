@@ -4,6 +4,7 @@
 :page-certificationlogo: logo-oswe
 :page-alt: Logo OSWE
 :page-certification: yes
+:page-certificationid: 003
 
 = Offensive Security Web Expert (OSWE)
 
