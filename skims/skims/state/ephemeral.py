@@ -75,7 +75,8 @@ def get_ephemeral_store() -> EphemeralStore:
 
     async def iterate() -> AsyncIterator[Any]:
         for object_key in await recurse_dir(folder):
-            yield await in_thread(read_blob, object_key)
+            # Exception: WF(AsyncIterator is subtype of iterator)
+            yield await in_thread(read_blob, object_key)  # NOSONAR
 
     async def get_a_few(count: int) -> Tuple[Any, ...]:
         results = []

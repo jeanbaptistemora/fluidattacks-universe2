@@ -26,7 +26,8 @@ async def client() -> AsyncIterator[GraphQLClient]:
                 "x-integrates-source": "skims",
             },
         ) as session:
-            yield GraphQLClient(
+            # Exception: WF(AsyncIterator is subtype of iterator)
+            yield GraphQLClient(  # NOSONAR
                 endpoint="https://app.fluidattacks.com/api", session=session
             )
     else:

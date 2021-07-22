@@ -55,7 +55,8 @@ async def iterate_vulnerabilities_to_rebase(
                 and vulnerability.integrates_metadata
                 and vulnerability.integrates_metadata.commit_hash
             ):
-                yield vulnerability
+                # Exception: WF(AsyncIterator is subtype of iterator)
+                yield vulnerability  # NOSONAR
 
 
 async def main(
