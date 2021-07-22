@@ -17,7 +17,6 @@ from typing import (
     Any,
     Callable,
     List,
-    Optional,
 )
 
 # FP: local testing
@@ -35,15 +34,13 @@ def error(*args: Any, extra: Any = None) -> None:
 
 async def machine_queue(
     *,
-    finding_code: Optional[str] = None,
-    finding_title: Optional[str] = None,
+    finding_code: str,
     group_name: str,
     namespace: str,
     urgent: bool,
 ) -> None:
     machine_queue_kwargs = dict(
         finding_code=finding_code,
-        finding_title=finding_title,
         group=group_name,
         namespace=namespace,
         urgent=urgent,
@@ -51,7 +48,8 @@ async def machine_queue(
     )
 
     info("Queueing Machine", extra=machine_queue_kwargs)
-    if not await skims_sdk.queue(**machine_queue_kwargs):
+    out, _, _ = await skims_sdk.queue(**machine_queue_kwargs)
+    if out != 0:
         error(
             "Could not queue a machine execution", extra=machine_queue_kwargs
         )

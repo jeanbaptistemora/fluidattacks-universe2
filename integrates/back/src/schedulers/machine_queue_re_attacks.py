@@ -11,6 +11,7 @@ from schedulers.common import (
     info,
     machine_queue,
 )
+import skims_sdk
 from vulnerabilities.domain.utils import (
     get_root_nicknames_for_skims,
 )
@@ -43,9 +44,13 @@ async def main() -> None:
                     group=get_key_or_fallback(finding),
                     vulnerabilities=vulns_to_reattack,
                 ):
-                    await machine_queue(
-                        finding_title=finding_title,
-                        group_name=group,
-                        namespace=root,
-                        urgent=True,
+                    finding_code = skims_sdk.get_finding_code_from_title(
+                        finding_title
                     )
+                    if finding_code is not None:
+                        await machine_queue(
+                            finding_code=finding_code,
+                            group_name=group,
+                            namespace=root,
+                            urgent=True,
+                        )
