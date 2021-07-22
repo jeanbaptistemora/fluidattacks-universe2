@@ -1,6 +1,33 @@
+# Common
+
+data "aws_iam_policy_document" "main" {
+  statement {
+    sid    = "CloudFlare"
+    effect = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    actions = [
+      "s3:GetObject",
+    ]
+    resources = [
+      "${aws_s3_bucket.prod.arn}/*",
+      "${aws_s3_bucket.dev.arn}/*",
+    ]
+    condition {
+      test     = "IpAddress"
+      variable = "aws:SourceIp"
+      values   = data.cloudflare_ip_ranges.cloudflare.cidr_blocks
+    }
+  }
+}
+
+
 # Production
 
-resource "aws_s3_bucket" "bucket" {
+resource "aws_s3_bucket" "prod" {
   bucket = "fluidattacks.com"
   acl    = "private"
 
@@ -24,38 +51,15 @@ resource "aws_s3_bucket" "bucket" {
   }
 }
 
-data "aws_iam_policy_document" "bucket_policy" {
-  statement {
-    sid    = "CloudFlare"
-    effect = "Allow"
-
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-    actions = [
-      "s3:GetObject",
-    ]
-    resources = [
-      "${aws_s3_bucket.bucket.arn}/*",
-    ]
-    condition {
-      test     = "IpAddress"
-      variable = "aws:SourceIp"
-      values   = data.cloudflare_ip_ranges.cloudflare.cidr_blocks
-    }
-  }
-}
-
-resource "aws_s3_bucket_policy" "bucket_policy" {
-  bucket = aws_s3_bucket.bucket.id
-  policy = data.aws_iam_policy_document.bucket_policy.json
+resource "aws_s3_bucket_policy" "prod" {
+  bucket = aws_s3_bucket.prod.id
+  policy = data.aws_iam_policy_document.main.json
 }
 
 
 # Development
 
-resource "aws_s3_bucket" "web-ephemeral-bucket" {
+resource "aws_s3_bucket" "dev" {
   bucket = "web.eph.fluidattacks.com"
   acl    = "private"
 
@@ -88,30 +92,7 @@ resource "aws_s3_bucket" "web-ephemeral-bucket" {
   }
 }
 
-data "aws_iam_policy_document" "web-ephemeral-bucket-policy-data" {
-  statement {
-    sid    = "CloudFlare"
-    effect = "Allow"
-
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-    actions = [
-      "s3:GetObject",
-    ]
-    resources = [
-      "${aws_s3_bucket.web-ephemeral-bucket.arn}/*",
-    ]
-    condition {
-      test     = "IpAddress"
-      variable = "aws:SourceIp"
-      values   = data.cloudflare_ip_ranges.cloudflare.cidr_blocks
-    }
-  }
-}
-
-resource "aws_s3_bucket_policy" "web-bucket-policy" {
-  bucket = aws_s3_bucket.web-ephemeral-bucket.id
-  policy = data.aws_iam_policy_document.web-ephemeral-bucket-policy-data.json
+resource "aws_s3_bucket_policy" "dev" {
+  bucket = aws_s3_bucket.dev.id
+  policy = data.aws_iam_policy_document.main.json
 }

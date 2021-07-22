@@ -1,10 +1,10 @@
 # Production
 
-resource "cloudflare_record" "fluidattacks_com" {
+resource "cloudflare_record" "prod" {
   zone_id = lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "id")
   name    = lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "name")
   type    = "CNAME"
-  value   = aws_s3_bucket.bucket.website_endpoint
+  value   = aws_s3_bucket.prod.website_endpoint
   proxied = true
   ttl     = 1
 }
@@ -12,11 +12,11 @@ resource "cloudflare_record" "fluidattacks_com" {
 
 # Development
 
-resource "cloudflare_record" "web-ephemeral-alias" {
+resource "cloudflare_record" "dev" {
   zone_id = lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "id")
   name    = "web.eph.${lookup(data.cloudflare_zones.fluidattacks_com.zones[0], "name")}"
   type    = "CNAME"
-  value   = aws_s3_bucket.web-ephemeral-bucket.website_endpoint
+  value   = aws_s3_bucket.dev.website_endpoint
   proxied = true
   ttl     = 1
 }

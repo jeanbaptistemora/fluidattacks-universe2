@@ -1,6 +1,6 @@
 # Production
 
-data "aws_iam_policy_document" "key-web-production" {
+data "aws_iam_policy_document" "prod" {
 
   statement {
     sid    = "Enable IAM User Permissions"
@@ -101,9 +101,9 @@ data "aws_iam_policy_document" "key-web-production" {
   }
 }
 
-resource "aws_kms_key" "key-web-prod" {
+resource "aws_kms_key" "prod" {
   description             = "production kms key for web."
-  policy                  = data.aws_iam_policy_document.key-web-production.json
+  policy                  = data.aws_iam_policy_document.prod.json
   deletion_window_in_days = 30
   is_enabled              = true
   enable_key_rotation     = true
@@ -115,15 +115,15 @@ resource "aws_kms_key" "key-web-prod" {
   }
 }
 
-resource "aws_kms_alias" "key-web-prod" {
+resource "aws_kms_alias" "prod" {
   name          = "alias/web-prod"
-  target_key_id = aws_kms_key.key-web-prod.key_id
+  target_key_id = aws_kms_key.prod.key_id
 }
 
 
 # Development
 
-data "aws_iam_policy_document" "key-web-dev" {
+data "aws_iam_policy_document" "dev" {
 
   statement {
     sid    = "Enable IAM User Permissions"
@@ -229,9 +229,9 @@ data "aws_iam_policy_document" "key-web-dev" {
   }
 }
 
-resource "aws_kms_key" "key-web-dev" {
+resource "aws_kms_key" "dev" {
   description             = "Normal user kms key for web."
-  policy                  = data.aws_iam_policy_document.key-web-dev.json
+  policy                  = data.aws_iam_policy_document.dev.json
   deletion_window_in_days = 30
   is_enabled              = true
   enable_key_rotation     = true
@@ -243,7 +243,7 @@ resource "aws_kms_key" "key-web-dev" {
   }
 }
 
-resource "aws_kms_alias" "key-web-dev" {
+resource "aws_kms_alias" "dev" {
   name          = "alias/web-dev"
-  target_key_id = aws_kms_key.key-web-dev.key_id
+  target_key_id = aws_kms_key.dev.key_id
 }
