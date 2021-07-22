@@ -17,7 +17,7 @@ import { changeVulnStateFormatter } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { RemediationModal } from "scenes/Dashboard/components/RemediationModal/index";
 import {
-  REQUEST_VERIFICATION_VULN,
+  REQUEST_VERIFICATION_VULNERABILITIES,
   VERIFY_VULNERABILITIES,
 } from "scenes/Dashboard/components/UpdateVerificationModal/queries";
 import type {
@@ -76,7 +76,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
 
   // GraphQL operations
   const [requestVerification, { loading: submittingRequest }] = useMutation(
-    REQUEST_VERIFICATION_VULN,
+    REQUEST_VERIFICATION_VULNERABILITIES,
     {
       onCompleted: (data: IRequestVerificationVulnResult): void => {
         handleRequestVerification(

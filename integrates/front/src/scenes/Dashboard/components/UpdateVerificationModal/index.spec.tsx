@@ -10,7 +10,7 @@ import wait from "waait";
 
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import {
-  REQUEST_VERIFICATION_VULN,
+  REQUEST_VERIFICATION_VULNERABILITIES,
   VERIFY_VULNERABILITIES,
 } from "scenes/Dashboard/components/UpdateVerificationModal/queries";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
@@ -50,7 +50,7 @@ describe("update verification component", (): void => {
     const mocksMutation: MockedResponse[] = [
       {
         request: {
-          query: REQUEST_VERIFICATION_VULN,
+          query: REQUEST_VERIFICATION_VULNERABILITIES,
           variables: {
             findingId: "",
             justification:
@@ -58,7 +58,9 @@ describe("update verification component", (): void => {
             vulnerabilities: ["test"],
           },
         },
-        result: { data: { requestVerificationVuln: { success: true } } },
+        result: {
+          data: { requestVerificationVulnerabilities: { success: true } },
+        },
       },
       mocksVulns,
     ];
@@ -111,7 +113,7 @@ describe("update verification component", (): void => {
     const mocksMutation: MockedResponse[] = [
       {
         request: {
-          query: REQUEST_VERIFICATION_VULN,
+          query: REQUEST_VERIFICATION_VULNERABILITIES,
           variables: {
             findingId: "",
             justification:

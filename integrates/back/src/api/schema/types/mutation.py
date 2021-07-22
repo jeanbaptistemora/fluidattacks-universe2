@@ -56,8 +56,8 @@ from api.mutations import (
     remove_vulnerability,
     remove_vulnerability_new,
     remove_vulnerability_tags,
-    request_verification_vulnerability,
-    request_verification_vulnerability_new,
+    request_verification_vulnerabilities,
+    request_verification_vulnerabilities_new,
     request_zero_risk_vuln_new,
     request_zero_risk_vulnerabilities,
     sign_in,
@@ -235,7 +235,11 @@ if FI_API_STATUS == "migration":
     MUTATION.set_field("removeEvidence", remove_finding_evidence_new.mutate)
     MUTATION.set_field(
         "requestVerificationVuln",
-        request_verification_vulnerability_new.mutate,
+        request_verification_vulnerabilities_new.mutate,
+    )
+    MUTATION.set_field(
+        "requestVerificationVulnerabilities",
+        request_verification_vulnerabilities_new.mutate,
     )
     MUTATION.set_field(
         "requestZeroRiskVuln", request_zero_risk_vuln_new.mutate
@@ -278,7 +282,11 @@ else:
     )
     MUTATION.set_field("removeEvidence", remove_finding_evidence.mutate)
     MUTATION.set_field(
-        "requestVerificationVuln", request_verification_vulnerability.mutate
+        "requestVerificationVuln", request_verification_vulnerabilities.mutate
+    )
+    MUTATION.set_field(
+        "requestVerificationVulnerabilities",
+        request_verification_vulnerabilities.mutate,
     )
     MUTATION.set_field(
         "requestZeroRiskVuln", request_zero_risk_vulnerabilities.mutate

@@ -1,5 +1,5 @@
 interface IRequestVerificationVulnResult {
-  requestVerificationVuln: {
+  requestVerificationVulnerabilities: {
     success: boolean;
   };
 }

@@ -1086,21 +1086,10 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     # we will just keep them open or close them
     # in either case, their historic_verification is updated to VERIFIED
     finding_vulns_loader = info.context.loaders.finding_vulns_all
-    print(
-        get_key_or_fallback(
-            parameters, "open_vulnerabilities", "open_vulns", []
-        )
-    )
-    vuln_uuids = cast(
-        List[str],
-        get_key_or_fallback(
-            parameters, "open_vulnerabilities", "open_vulns", []
-        ),
-    ) + cast(
-        List[str],
-        get_key_or_fallback(
-            parameters, "closed_vulnerabilities", "closed_vulns", []
-        ),
+    vuln_uuids: List[str] = get_key_or_fallback(
+        parameters, "open_vulnerabilities", "open_vulns", []
+    ) + get_key_or_fallback(
+        parameters, "closed_vulnerabilities", "closed_vulns", []
     )
     vulnerabilities = [
         vuln

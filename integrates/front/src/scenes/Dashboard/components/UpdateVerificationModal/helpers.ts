@@ -18,7 +18,7 @@ const handleRequestVerification = (
   setRequestState: () => void,
   data: IRequestVerificationVulnResult
 ): void => {
-  if (data.requestVerificationVuln.success) {
+  if (data.requestVerificationVulnerabilities.success) {
     msgSuccess(
       translate.t("groupAlerts.requestedReattackSuccess"),
       translate.t("groupAlerts.updatedTitle")
