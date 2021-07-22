@@ -1,3 +1,5 @@
+# pylint: skip-file
+
 from cachetools import (
     cached,
     LRUCache,
@@ -19,6 +21,9 @@ from paginator.pages import (
     PageId,
 )
 import pytz
+from returns.maybe import (
+    Maybe,
+)
 from returns.unsafe import (
     unsafe_perform_io,
 )
@@ -62,14 +67,48 @@ class StateUpdater:
 
     @cached(
         cache=_cache,
-        key=lambda self: hashkey("most_recent_job_point", self.api.proj),
+        key=lambda self: hashkey("_trans_jobs_point", self.api.proj),
     )
-    def most_recent_job_point(self) -> JobStatePoint:
+    def _trans_jobs_point(self) -> Maybe[JobStatePoint]:
         pages = self.api.jobs(
             [Scope.created, Scope.pending, Scope.running]
         ).list_all(PageId(1, 100))
-        last = deque(unsafe_perform_io(pages), maxlen=1).pop()
-        return JobStatePoint(last.min_id - 1, last.page)
+        try:
+            last = deque(unsafe_perform_io(pages), maxlen=1).pop()
+            return Maybe.from_value(JobStatePoint(last.min_id - 1, last.page))
+        except IndexError:
+            return Maybe.empty
+
+    @cached(
+        cache=_cache,
+        key=lambda self: hashkey("_finish_jobs_point", self.api.proj),
+    )
+    def _finish_jobs_point(self) -> Maybe[JobStatePoint]:
+        pages = self.api.jobs(
+            [
+                Scope.failed,
+                Scope.success,
+                Scope.canceled,
+                Scope.skipped,
+                Scope.manual,
+            ]
+        ).list_all(PageId(1, 100))
+        first = next(unsafe_perform_io(pages), None)
+        return Maybe.from_optional(first).map(
+            lambda jpage: JobStatePoint(jpage.max_id, jpage.page)
+        )
+
+    @cached(
+        cache=_cache,
+        key=lambda self: hashkey("most_recent_job_point", self.api.proj),
+    )
+    def most_recent_job_point(self) -> JobStatePoint:
+        point = (
+            self._trans_jobs_point()
+            .lash(lambda _: self._finish_jobs_point())
+            .value_or(JobStatePoint(0, PageId(1, 100)))
+        )
+        return point
 
     def update_mr_state(self, state: MrStreamState) -> MrStreamState:
         point = self.most_recent_mr_point()
