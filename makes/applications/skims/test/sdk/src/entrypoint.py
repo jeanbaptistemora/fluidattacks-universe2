@@ -10,7 +10,7 @@ async def main() -> None:
     group: str = "continuoustest"
     code, out_, _ = await skims_sdk.queue(
         finding_code=skims_sdk.get_finding_code_from_title(
-            "F117. Archivos no auditables 123"
+            "F117. Unverifiable files"
         ),
         group=group,
         namespace="test",
