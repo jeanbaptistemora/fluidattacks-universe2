@@ -14,11 +14,13 @@ async def get_result(
     *,
     user: str,
     group: str,
+    reason: str,
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
             removeGroup(
                 groupName: "{group}"
+                reason: "{reason}"
             ) {{
             success
             }}

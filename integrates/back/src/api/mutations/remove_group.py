@@ -39,7 +39,7 @@ from typing import (
     require_asm,
 )
 async def mutate(
-    _: Any, info: GraphQLResolveInfo, group_name: str
+    _: Any, info: GraphQLResolveInfo, group_name: str, reason: str
 ) -> SimplePayloadType:
     loaders = info.context.loaders
     group_name = group_name.lower()
@@ -55,7 +55,7 @@ async def mutate(
             has_machine=False,
             has_squad=False,
             has_asm=False,
-            reason="",
+            reason=reason,
             requester_email=requester_email,
             service="WHITE",
             subscription="continuous",

@@ -1,3 +1,4 @@
+/* eslint react/jsx-no-bind:0 */
 import { useMutation } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { track } from "mixpanel-browser";
@@ -40,20 +41,21 @@ const DeleteGroup: React.FC = (): JSX.Element => {
         msgError(t("groupAlerts.errorTextsad"));
       });
     },
-    variables: {
-      groupName,
-    },
   });
 
   function handleChange(): void {
     setIsModalOpen(!isModalOpen);
   }
 
-  function handleSubmit(): void {
+  const handleSubmit: (values: {
+    confirmation: string;
+    reason: string;
+  }) => void = (values: { confirmation: string; reason: string }): void => {
+    const { reason } = values;
     track("DeleteGroup");
-    void removeGroupMutation();
+    void removeGroupMutation({ variables: { groupName, reason } });
     setIsModalOpen(!isModalOpen);
-  }
+  };
 
   return (
     <React.StrictMode>

@@ -20,7 +20,7 @@ interface IDeleteGroupModalProps {
   groupName: string;
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (values: { confirmation: string }) => void;
+  onSubmit: (values: { confirmation: string; reason: string }) => void;
 }
 
 const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
@@ -28,8 +28,9 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
 ): JSX.Element => {
   const { groupName, isOpen, onClose, onSubmit } = props;
 
-  function formValidations(values: { confirmation: string }): {
+  function formValidations(values: { confirmation: string; reason: string }): {
     confirmation?: string;
+    reason?: string;
   } {
     return values.confirmation === groupName
       ? {}
@@ -52,6 +53,7 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
         <Formik
           initialValues={{
             confirmation: "",
+            reason: "NO_SYSTEM",
           }}
           name={"removeGroup"}
           onSubmit={onSubmit}

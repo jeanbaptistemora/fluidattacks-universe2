@@ -19,7 +19,9 @@ from typing import (
 async def test_remove_group(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(user=email, group=group_name)
+    result: Dict[str, Any] = await get_result(
+        user=email, group=group_name, reason="NO_SYSTEM"
+    )
     assert "errors" not in result
     assert result["data"]["removeGroup"]["success"]
 
@@ -42,6 +44,8 @@ async def test_remove_group(populate: bool, email: str) -> None:
 async def test_remove_group_fail(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group2"
-    result: Dict[str, Any] = await get_result(user=email, group=group_name)
+    result: Dict[str, Any] = await get_result(
+        user=email, group=group_name, reason="NO_SYSTEM"
+    )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"

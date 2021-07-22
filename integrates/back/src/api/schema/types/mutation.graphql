@@ -411,7 +411,7 @@ type Mutation {
     justification: RemoveFindingJustification!
   ): SimplePayload!
 
-  removeGroup(groupName: String!): SimplePayload!
+  removeGroup(groupName: String!, reason: String): SimplePayload!
 
   removeStakeholderAccess(
     projectName: String
