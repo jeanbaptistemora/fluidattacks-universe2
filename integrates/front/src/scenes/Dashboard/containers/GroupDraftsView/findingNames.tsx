@@ -122,7 +122,7 @@ async function getFindingNames(
   const baseUrl: string =
     "https://gitlab.com/api/v4/projects/20741933/repository/files";
   const fileId: string =
-    "makes%2Fapplications%2Fmakes%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml";
+    "makes%2Fmakes%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml";
   const branchRef: string = "master";
   const response: Response = await fetch(
     `${baseUrl}/${fileId}/raw?ref=${branchRef}`
