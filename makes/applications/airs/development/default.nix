@@ -6,7 +6,7 @@
 }:
 makeEntrypoint {
   arguments = {
-    envAirsSecrets = path "/airs/deploy/secret-management";
+    envAirsSecrets = path "/airs/secrets";
   };
   template = path "/makes/applications/airs/development/entrypoint.sh";
   name = "airs-development";

@@ -7,7 +7,7 @@
 makeEntrypoint {
   arguments = {
     envAirsNpm = packages.airs.npm;
-    envAirsSecrets = path "/airs/deploy/secret-management";
+    envAirsSecrets = path "/airs/secrets";
   };
   template = path "/makes/applications/airs/build/entrypoint.sh";
   name = "airs-build";

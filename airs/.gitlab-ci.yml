@@ -43,20 +43,11 @@
   variables:
     GIT_DEPTH: 5
 
-airs.infra.production.apply:
+.makes4: &makes4
   <<: *makes
-  <<: *in_master_branch_airs
-  stage: deploy-infra
-
-airs.infra.production.test:
-  <<: *makes
-  <<: *in_dev_branch_airs
-  stage: test-infra
-
-makes.test.airs:
-  <<: *makes
-  <<: *in_master_branch_airs
-  stage: test-code
+  image: ghcr.io/fluidattacks/makes:21.08
+  script:
+    - m . "${CI_JOB_NAME% *}"
 
 airs.lint.code:
   <<: *makes
@@ -72,8 +63,6 @@ airs.lint.styles:
   <<: *makes
   <<: *in_dev_branch_airs
   stage: lint-code
-
-# Migrated to makes, but pending to finish gatsby migration
 
 airs.deploy.ephemeral:
   <<: *makes
@@ -95,3 +84,23 @@ airs.deploy.production:
   script:
     - ./m airs prod
   stage: deploy-app
+
+makes.test.airs:
+  <<: *makes
+  <<: *in_master_branch_airs
+  stage: test-code
+
+/deployTerraform/airsInfra:
+  <<: *makes4
+  <<: *in_master_branch_airs
+  stage: deploy-infra
+
+/lintTerraform/airsInfra:
+  <<: *makes4
+  <<: *in_dev_branch_airs
+  stage: lint-code
+
+/testTerraform/airsInfra:
+  <<: *makes4
+  <<: *in_dev_branch_airs
+  stage: test-infra

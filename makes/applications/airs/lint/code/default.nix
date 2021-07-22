@@ -8,7 +8,7 @@ makeEntrypoint {
   arguments = {
     envAirsFront = path "/airs/front";
     envAirsNpm = packages.airs.npm;
-    envAirsSecrets = path "/airs/deploy/secret-management";
+    envAirsSecrets = path "/airs/secrets";
   };
   template = path "/makes/applications/airs/lint/code/entrypoint.sh";
   name = "airs-lint-code";

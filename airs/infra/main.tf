@@ -21,13 +21,9 @@ terraform {
   }
 }
 
-provider "aws" {
-  access_key = var.aws_access_key
-  secret_key = var.aws_secret_key
-  region     = var.region
-}
+provider "aws" {}
 
 provider "cloudflare" {
-  account_id = var.cloudflare_account_id
-  api_token  = var.cloudflare_api_token
+  account_id = var.cloudflareAccountId
+  api_token  = var.cloudflareApiToken
 }
