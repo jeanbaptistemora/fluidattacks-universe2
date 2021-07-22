@@ -577,7 +577,7 @@ OKTA_DATA_RAW:
           preconfigured_app: null
           credentials_scheme: ENC[AES256_GCM,data:P6rfW8XQ8p4JaRTggLtRglMU7ebOokX7RwMoUg==,iv:D54S9+bHDNO8UO9T3XOwogGCR2+NfkAb+OPgFSyhUZo=,tag:FEl6OdPqsT2G48LK8gtVBw==,type:str]
           shared_username: ENC[AES256_GCM,data:1bKjwxo/zB8R/0qgUw==,iv:Tde4JypkT+aF1/VVwiDw2tVfy9vJ5/gxU8HYKWOCjJc=,tag:mIjLkGkkzm/OoIRFCQrsPA==,type:str]
-          shared_password: ENC[AES256_GCM,data:g8qqKVAsGfohxIUgr35WwaU=,iv:rLbPL6ISVu2FzNw253/gkLvGeuM/Z36egJzxQXUvyJw=,tag:ViQKGaqeJS0B5XHRnKadaw==,type:str]
+          shared_password: ENC[AES256_GCM,data:LuIVwkapvdoXAqjKTjrX2g==,iv:Pwv8IvlKgE+XpmxDVXpllj52yAOWrE8tUxNxkXp4aWo=,tag:q8VUjVqcn7RYABF8lbJRcA==,type:str]
           sign_on_url: ENC[AES256_GCM,data:vWW66pslCjy2wh4UsIHq+NMOzkv471GITk4v92PaCSHxB9184wfzHf3jGi2u+Yzx/ebUPK97pgjLWB0kCVR4gVkiwXY9Pjx+6iLFmzXPOZtgFog6Dox7SPKny6zuOICOj45dfcJBbHMDdM1zP1biJvsxcAx2/jPxTIBcI2n74Vej5Lfi0mt3zx+xOA869jvANzH7BsuXSCg=,iv:FmwCFGQRYO5s9i4bH6LjLL2HP8ae8Fm45xD6ZJMTC84=,tag:Oc6h2Ai3Io+/DigEpw94cQ==,type:str]
         - id: ENC[AES256_GCM,data:YIc7f1r5OiUe/8Ir99fjMIE=,iv:aQLtxJGJ5+UhWpsHOGHYqF2YjyrMWUJoEjPZ9AcEARA=,tag:R8rWzpNj58nmCGpulQzxtA==,type:str]
           type: ENC[AES256_GCM,data:j7lE26cso/DwvQ==,iv:zcaqvHx0IIeIZ9DtUP1/Az9eeGIQwl8juUEvaBEhzNI=,tag:vSjM+42ylgQvfJdISMBtmg==,type:str]
@@ -2810,8 +2810,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2021-07-21T16:16:23Z"
-    mac: ENC[AES256_GCM,data:kleOHZDZ/zshTJzArqPCXa+rg57NWUV/OULSuTcTP+FuJ1qBRc14W6lIdOkZnxnMby/hg92nHfrOEuC4vdNDS9CckSWthdUgaTwkBhjvkkp3IOHtnRWVL1Bh665kKFxbcifZh8AnA53Fra3p7mejP97tJDIper+HKnqrUHTmeS0=,iv:LbOLuFDxQqQWE4QPgDmo5vvpMxrIZK68yp2m3IEDjPk=,tag:7kbQrI7n+JSlRQb8D2ARCA==,type:str]
+    lastmodified: "2021-07-22T22:06:41Z"
+    mac: ENC[AES256_GCM,data:WlMc0yqbrRUTV25mILBO09G2wiFvvqykJ/Vakime+F50vpbKBhA90mdhlarf9ZqCq9wi+OLWUnh4OWpbOlgi+R3chEquA0dutUcvR0Tce3ltqvscyG0H3Jq2+tHE/GQOr5+3UecA+jcNSgPexexFKG/mI6FPJD9YH7rufu/TLko=,iv:06R7+ng20nqbx9rlodK8fm0KbbxpCdqhDPEaYwIbvqQ=,tag:3XxTZ86vyqI07/z8ArlF0A==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.1
