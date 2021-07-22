@@ -1,10 +1,12 @@
 import aioboto3
 from aioextensions import (
     collect,
+    in_thread,
 )
 from batch.types import (
     BatchProcessing,
 )
+import boto3
 from boto3.dynamodb.conditions import (
     Key,
 )
@@ -25,6 +27,9 @@ from custom_types import (
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
+from enum import (
+    Enum,
+)
 import logging
 import logging.config
 from newutils.datetime import (
@@ -39,6 +44,7 @@ from settings import (
 )
 from typing import (
     List,
+    NamedTuple,
     Optional,
 )
 
@@ -53,6 +59,58 @@ def mapping_to_key(items: List[str]) -> str:
     return ".".join(
         [safe_encode(attribute_value) for attribute_value in sorted(items)]
     )
+
+
+class JobStatus(Enum):
+    SUBMITTED: str = "SUBMITTED"
+    PENDING: str = "PENDING"
+    RUNNABLE: str = "RUNNABLE"
+    STARTING: str = "STARTING"
+    RUNNING: str = "RUNNING"
+    SUCCEEDED: str = "SUCCEEDED"
+    FAILED: str = "FAILED"
+
+
+class Job(NamedTuple):
+    exit_code: int
+    exit_reason: str
+    id: str
+    name: str
+    started_at: int
+    stopped_at: int
+    status: str
+
+
+async def list_queue_jobs(queue: str, status: JobStatus) -> List[Job]:
+    client = boto3.client("batch")
+    results: List[Job] = []
+
+    async def _request(next_token: Optional[str] = None) -> Optional[str]:
+        response = await in_thread(
+            client.list_jobs,
+            jobQueue=queue,
+            jobStatus=status.name,
+            **(dict(nextToken=next_token) if next_token else dict()),
+        )
+        results.extend(
+            Job(
+                id=job_summary["jobId"],
+                exit_code=job_summary["container"]["exitCode"],
+                exit_reason=job_summary["container"].get("reason", ""),
+                name=job_summary["jobName"],
+                started_at=job_summary["startedAt"],
+                stopped_at=job_summary["stoppedAt"],
+                status=status.name,
+            )
+            for job_summary in response.get("jobSummaryList", [])
+        )
+        return response.get("nextToken")
+
+    next_token = await _request()
+    while next_token:
+        next_token = await _request(next_token)
+
+    return results
 
 
 async def delete_action(
