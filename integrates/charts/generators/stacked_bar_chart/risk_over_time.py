@@ -121,10 +121,8 @@ async def get_group_document(
     return {
         "date": {datum.date: 0 for datum in data},
         "Closed": {datum.date: datum.closed for datum in data},
-        "Closed + Open with accepted treatment": {
-            datum.date: datum.closed + datum.accepted for datum in data
-        },
-        "Closed + Open": {
+        "Accepted": {datum.date: datum.accepted for datum in data},
+        "Found": {
             datum.date: datum.closed + datum.accepted + datum.opened
             for datum in data
         },
@@ -171,8 +169,8 @@ async def get_many_groups_document(
         for name in [
             "date",
             "Closed",
-            "Closed + Open with accepted treatment",
-            "Closed + Open",
+            "Accepted",
+            "Found",
         ]
     }
 
@@ -193,13 +191,13 @@ def format_document(document: Dict[str, Dict[datetime, float]]) -> dict:
             ],
             colors={
                 "Closed": RISK.more_passive,
-                "Closed + Open with accepted treatment": RISK.agressive,
-                "Closed + Open": RISK.more_agressive,
+                "Accepted": RISK.agressive,
+                "Found": RISK.more_agressive,
             },
             types={
                 "Closed": "line",
-                "Closed + Open with accepted treatment": "line",
-                "Closed + Open": "line",
+                "Accepted": "line",
+                "Found": "line",
             },
         ),
         axis=dict(
