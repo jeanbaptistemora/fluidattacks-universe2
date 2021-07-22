@@ -30,6 +30,10 @@ from dynamodb import (
 from enum import (
     Enum,
 )
+from itertools import (
+    chain,
+    product,
+)
 import logging
 import logging.config
 from newutils.datetime import (
@@ -76,9 +80,26 @@ class Job(NamedTuple):
     exit_reason: str
     id: str
     name: str
+    queue: str
     started_at: int
     stopped_at: int
     status: str
+
+
+async def list_queues_jobs(
+    queues: List[str],
+    statuses: List[JobStatus],
+) -> List[Job]:
+    return list(
+        chain.from_iterable(
+            await collect(
+                [
+                    list_queue_jobs(queue, status)
+                    for queue, status in product(queues, statuses)
+                ]
+            )
+        )
+    )
 
 
 async def list_queue_jobs(queue: str, status: JobStatus) -> List[Job]:
@@ -98,6 +119,7 @@ async def list_queue_jobs(queue: str, status: JobStatus) -> List[Job]:
                 exit_code=job_summary["container"]["exitCode"],
                 exit_reason=job_summary["container"].get("reason", ""),
                 name=job_summary["jobName"],
+                queue=queue,
                 started_at=job_summary["startedAt"],
                 stopped_at=job_summary["stoppedAt"],
                 status=status.name,
