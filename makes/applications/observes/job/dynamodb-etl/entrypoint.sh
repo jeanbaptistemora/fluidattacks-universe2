@@ -10,16 +10,13 @@ function dynamodb_etl {
     && dynamo_creds=$(mktemp) \
     && aws_login_prod 'observes' \
     && sops_export_vars 'observes/secrets-prod.yaml' \
-      analytics_aws_access_key \
-      analytics_aws_secret_key \
-      analytics_aws_default_region \
       analytics_auth_redshift \
     && echo '[INFO] Generating secret files' \
     && {
       echo '{'
-      echo "\"AWS_ACCESS_KEY_ID\":\"${analytics_aws_access_key}\","
-      echo "\"AWS_SECRET_ACCESS_KEY\":\"${analytics_aws_secret_key}\","
-      echo "\"AWS_DEFAULT_REGION\":\"${analytics_aws_default_region}\""
+      echo "\"AWS_ACCESS_KEY_ID\":\"${AWS_ACCESS_KEY_ID}\","
+      echo "\"AWS_SECRET_ACCESS_KEY\":\"${AWS_SECRET_ACCESS_KEY}\","
+      echo "\"AWS_DEFAULT_REGION\":\"${AWS_DEFAULT_REGION}\""
       echo '}'
     } > "${dynamo_creds}" \
     && echo "${analytics_auth_redshift}" > "${db_creds}" \
