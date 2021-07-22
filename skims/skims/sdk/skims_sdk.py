@@ -28,14 +28,15 @@ QUEUES: Dict[str, List[str]] = _json_load(environ["SKIMS_QUEUES"])
 
 
 async def _run(
-    *cmd: str,
+    cmd: str,
+    *cmd_args: str,
     stderr: Optional[int] = None,
     stdout: Optional[int] = None,
     **env: str,
 ) -> Tuple[int, Optional[bytes], Optional[bytes]]:
     process: asyncio.subprocess.Process = await asyncio.create_subprocess_exec(
-        environ["SKIMS_BIN"],
-        *cmd,
+        cmd,
+        *cmd_args,
         env=env,
         stderr=stderr,
         stdin=subprocess.DEVNULL,
@@ -56,16 +57,15 @@ def _are_findings_title_similar(string_a: str, string_b: str) -> bool:
     return _similar_ratio(string_a, string_b) >= 0.9
 
 
-def get_finding_code_from_title(finding_title: str) -> List[str]:
-    return [
-        finding_code
-        for finding_code in FINDINGS
-        for locale in FINDINGS[finding_code]
-        if _are_findings_title_similar(
-            finding_title,
-            FINDINGS[finding_code][locale]["title"],
-        )
-    ]
+def get_finding_code_from_title(finding_title: str) -> Optional[str]:
+    for finding_code in FINDINGS:
+        for locale in FINDINGS[finding_code]:
+            if _are_findings_title_similar(
+                finding_title,
+                FINDINGS[finding_code][locale]["title"],
+            ):
+                return finding_code
+    return None
 
 
 def get_priority_suffix(urgent: bool) -> str:
@@ -81,8 +81,7 @@ def get_queue_for_finding(finding_code: str, urgent: bool = False) -> str:
 
 
 async def queue(
-    finding_code: Optional[str],
-    finding_title: Optional[str],
+    finding_code: str,
     group: str,
     namespace: str,
     urgent: bool,
@@ -91,23 +90,16 @@ async def queue(
     stderr: Optional[int] = None,
     stdout: Optional[int] = None,
 ) -> Tuple[int, Optional[bytes], Optional[bytes]]:
-    cmd: List[str] = ["queue"]
-
-    if finding_code:
-        cmd.extend(["--finding-code", finding_code])
-
-    if finding_title:
-        cmd.extend(["--finding-title", finding_title])
-
-    cmd.extend(["--group", group])
-    cmd.extend(["--namespace", namespace])
-
-    if urgent:
-        cmd.extend(["--urgent"])
-
     return await _run(
-        *cmd,
+        environ["SKIMS_PROCESS_GROUP_ON_AWS"],
+        group,
+        finding_code,
+        namespace,
         PRODUCT_API_TOKEN=product_api_token,
         stderr=stderr,
         stdout=stdout,
+        MAKES_COMPUTE_ON_AWS_JOB_QUEUE=get_queue_for_finding(
+            finding_code,
+            urgent=urgent,
+        ),
     )
