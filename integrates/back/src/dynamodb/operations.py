@@ -95,6 +95,32 @@ def _exclude_none(*, args: Dict[str, Any]) -> Dict[str, Any]:
     return {key: value for key, value in args.items() if value is not None}
 
 
+async def batch_delete_item(
+    *, keys: Tuple[PrimaryKey, ...], table: Table
+) -> None:
+    key_structure = table.primary_key
+    async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
+        table_resource: CustomTableResource = await resource.Table(table.name)
+
+        async with table_resource.batch_writer() as batch_writer:
+            try:
+                await aioextensions.collect(
+                    tuple(
+                        batch_writer.delete_item(
+                            Key={
+                                key_structure.partition_key: (
+                                    primary_key.partition_key
+                                ),
+                                key_structure.sort_key: primary_key.sort_key,
+                            }
+                        )
+                        for primary_key in keys
+                    )
+                )
+            except ClientError as error:
+                handle_error(error=error)
+
+
 async def batch_write_item(*, items: Tuple[Item, ...], table: Table) -> None:
     async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
