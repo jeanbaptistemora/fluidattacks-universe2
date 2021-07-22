@@ -3356,55 +3356,198 @@
 "185":
   en:
     title: Encrypt sensitive information
-    summary: __empty_
-    description: __empty__
+    summary: >
+      All stored sensitive information
+      must be encrypted.
+    description: >
+      Systems usually
+      stores personal data, i.e., 
+      Personally Identifiable Information (PII),
+      medical records, credentials
+      and other types of sensitive information.
+      All of these must be encrypted
+      before being stored
+      using safe cryptographic
+      mechanisms.
+      This is also applicable
+      when personal information
+      must be temporarily stored
+      in the client-side storage.
+      The encryption prevents
+      unauthorized actors
+      that may have accessed
+      the storage system
+      from obtaining the information.
   es:
     title: Cifrar información sensible
-    summary: __empty__
-    description: __empty__
+    summary: >
+      La información sensible almacenada
+      debe estar cifrada.
+    description: >
+      Los sistemas generalmente
+      almacenan datos personales,
+      es decir,
+      información de identificación personal (PII),
+      registros médicos, credenciales
+      y otros tipos de información confidencial.
+      Todos estos deben cifrarse
+      antes de almacenarse
+      mediante mecanismos
+      criptográficos seguros.
+      Esto también es aplicable
+      cuando la información personal
+      debe almacenarse temporalmente
+      en el almacenamiento
+      del lado del cliente.
+      El cifrado evita que los actores
+      no autorizados que pueden haber
+      accedido al sistema de almacenamiento
+      obtengan la información.
   references: []
   metadata: {}
 "186":
   en:
     title: Use the principle of least privilege
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The principle of least privilege
+      must be applied when creating
+      new objects and roles,
+      setting access permissions,
+      and accessing other systems.
+    description: >
+      Systems should have a set
+      of roles with different levels
+      of privilege to access resources.
+      Users and applications
+      should always have a role
+      with the minimum level
+      of privilege required
+      to execute their functions.
+      A violation of this may become
+      a new vulnerability or leverage
+      for causing a greater impact
+      when exploiting other vulnerabilities.
   es:
     title: Utilizar el principio de privilegios mínimos
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Se debe aplicar el principio
+      del mínimo privilegio
+      al crear objetos y roles,
+      configurar permisos de acceso
+      y acceder a otros sistemas
+      y bases de datos.
+    description: >
+      Los sistemas deberían tener
+      un conjunto de roles con diferentes
+      niveles de privilegio
+      para acceder a los recursos.
+      Los usuarios y las aplicaciones
+      deberían tener siempre un rol
+      con un mínimo nivel de privilegio
+      requerido para ejecutar sus funciones.
+      Una violación a esto
+      puede convertirse
+      en una nueva vulnerabilidad
+      o apalancamiento para causar
+      mayor impacto al explotar
+      otras vulnerabilidades.
   references: []
   metadata: {}
 "189":
   en:
     title: Specify the purpose of data collection
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must specify
+      the purpose of personal data collection
+      (OECD.9, ISACA.G31.3.),
+      and it must do s before
+      requesting the user's consent
+      for the collection.
+    description: >
+      Applications usually request
+      or collect personal data
+      from their users.
+      Such collection must be
+      properly justified according
+      to the legal requirements
+      of each nation.
+      These reasons must be accessible
+      for the user in a clear manner,
+      using easily understandable language
+      and before requesting their consent
+      for the collection
+      and processing of data.
   es:
     title: Especificar el proposito de recolección de datos
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe especificar
+      el propósito de la recolección
+      de datos (OECD.9, ISACA.G31.3.),
+      y debe informar al usuario
+      antes de pedir su consentimiento
+      para la recolección.
+    description: >
+      Los aplicaciones usualmente
+      solicitan o recolectan
+      información personal de sus usuarios.
+      Esta colección debe ser
+      justificada apropiadamente
+      de acuerdo con los requerimientos
+      legales de cada país.
+      Estas razones deben ser
+      accesibles para el usuario
+      de una manera clara,
+      utilizando lenguaje que sea
+      fácilmente comprensible
+      y antes de solicitar su consentimiento
+      para la recolección
+      y procesamiento de datos.
   references: []
   metadata: {}
 "205":
   en:
     title: Configure PIN
-    summary: __empty_
+    summary: >
+      Devices that connect
+      to the mobile network must have
+      a personal identification number (PIN)
+      configured on the SIM card.
     description: __empty__
   es:
     title: Configurar PIN
-    summary: __empty__
+    summary: >
+      Los dispositivos
+      que se conectan a la red móvil
+      deben tener un número
+      de identificación personal (PIN)
+      configurado en la tarjeta SIM.
     description: __empty__
   references: []
   metadata: {}
 "206":
   en:
     title: Configure communication protocols
-    summary: __empty_
+    summary: >
+      The system must keep
+      mobile devices' communication
+      protocols hidden,
+      protected with credentials
+      or turned off.
+      This refers to protocols
+      that allow data exchange
+      such as Bluetooth, NFC and Tethering.
     description: __empty__
   es:
     title: Configurar protocolos de comunicación
-    summary: __empty__
+    summary: >
+      El sistema debe mantener ocultos
+      los protocolos de comunicación
+      de los dispositivos móviles,
+      protegidos con credenciales
+      o apagados.
+      Esto se refiere a protocolos
+      que permiten el intercambio de datos
+      como Bluetooth, NFC y Tethering.
     description: __empty__
   references: []
   metadata: {}
