@@ -7133,3 +7133,49 @@
       report_confidence: "X"
   requirements: ["119", "266"]
   metadata: {}
+"135":
+  en:
+    title: Insecure or Unset HTTP Headers - X-XSS Protection
+    description: >
+      The application uses the X-XSS Protection header
+      considered deprecated. The use of this header
+      may lead to stored XSS vulnerabilities.
+    impact: >
+      Increase the chance of exploiting a stored XSS
+    recommendation: >
+      Disable the X-XSS Protection filter.
+      Instead, define secuirty policies using CSP Header
+    threat: >
+      Unauthorized attacker
+      from the Internet.
+  es:
+    title: Cabeceras HTTP inseguras o no establecidas - X-XSS Protection
+    description: >
+      La aplicación utiliza el header X-XSS Protection
+      considerado obsoleto. El uso de este header
+      puede conllevar a vulnerabilidades de XSS almacenado.
+    impact: >
+      Incrementar probabilidades de explotar un XSS almacenado
+    recommendation: >
+      Deshabilitar el filtro X-XSS Protection.
+      En su lugar, definir políticas de seguridad utilizando
+      la cabecera CSP.
+    threat: >
+      Atacante sin autorización
+      desde Internet.
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "N"
+      user_interaction: "R"
+      scope: "U"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "R"
+  requirements: ["119", "266"]
+  metadata: {}
