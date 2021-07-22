@@ -2644,55 +2644,169 @@
 "160":
   en:
     title: Encode system outputs
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system output
+      must be encoded in the corresponding
+      language (escaping).
+    description: >
+      System components
+      use structured messages
+      to communicate
+      with other components.
+      When these messages
+      include input from untrusted sources
+      and this input
+      is not properly escaped,
+      they become prone
+      to the insertion
+      of malicious commands.
+      For this reason,
+      encoding or escaping
+      must occur before sending
+      the messages.
   es:
     title: Codificar salidas del sistema
-    summary: __empty__
-    description: __empty__
+    summary: >
+      La salida del sistema
+      debe ser codificada
+      en el lenguaje correspondiente
+      (escaping).
+    description: >
+      Los componentes del sistema
+      usan mensajes estructurados
+      para comunicarse con otros
+      componentes.
+      Cuando estos mensajes
+      incluyen una entrada de fuentes no confiables
+      y esta entrada no está apropiadamente
   references: []
   metadata: {}
 "161":
   en:
     title: Define secure default options
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The source code
+      must have secure default options
+      ensuring secure failures
+      in the application
+      (try, catch/except; default for switches).
+    description: >
+      The organization
+      must ensure that its own systems
+      and those of third parties
+      are safe and fully comply
+      with the functions
+      for which they were implemented.
+      For this,
+      baselines must be implemented
+      from the design
+      and development phase,
+      in order to avoid bad practices
+      in the development cycles,
+      e.g., the use of a conditional
+      without a default option,
+      which can cause unexpected
+      behaviors in the system.
+
+      The system's source code
+      is safer when good programming practices
+      are implemented
+      from the development stage,
+      ensuring the portability
+      and maintenance
+      of the application.
+      If a system is difficult
+      to maintain,
+      vulnerabilities are more prone
+      to arise.
   es:
     title: Definir opciones seguras por defecto
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El código debe definir
+      opciones por defecto
+      seguras que garanticen
+      fallos seguros en la aplicación.
+      (try, catch/except; default en switches).
+    description: >
+      La organización debe asegurarse
+      de que sus propios sistemas
+      y los de terceros sean seguros
+      y cumplan íntegramente
+      con las funciones para las que fueron
+      implementados.
+      Para ello,
+      se deben implementar líneas
+      base desde la fase de diseño
+      y desarrollo,
+      con el fin de evitar malas prácticas
+      en los ciclos de desarrollo,
+      por ejemplo,
+      el uso de un condicional
+      sin una opción por defecto,
+      que puede provocar comportamientos
+      inesperados en el sistema.
+
+      El código fuente del sistema
+      es más seguro cuando se implementan
+      buenas prácticas de programación
+      desde la etapa de desarrollo,
+      asegurando la portabilidad
+      y mantenimiento de la aplicación.
+      Si un sistema es difícil
+      de mantener,
+      es más probable que surjan
+      vulnerabilidades.
   references: []
   metadata: {}
 "162":
   en:
     title: Avoid duplicate code
-    summary: __empty_
+    summary: >
+      The source code
+      must not have repeated functions,
+      methods or classes.
     description: __empty__
   es:
     title: Evitar código duplicado
-    summary: __empty__
+    summary: >
+      El código fuente
+      no debe tener funciones,
+      métodos o clases repetidas.
     description: __empty__
   references: []
   metadata: {}
 "164":
   en:
     title: Use optimized structures
-    summary: __empty_
+    summary: >
+      The code must use optimized
+      data containers or structures.
     description: __empty__
   es:
     title: Utilizar estructuras optimizadas
-    summary: __empty__
+    summary: >
+      El código debe usar contenedores
+      de datos y estructuras optimizadas.
     description: __empty__
   references: []
   metadata: {}
 "167":
   en:
     title: Close unused resources
-    summary: __empty_
+    summary: >
+      The source code
+      must implement mechanisms
+      to ensure the closure of any
+      unused open resources.
     description: __empty__
   es:
     title: Cerrar recursos sin utilizar
-    summary: __empty__
+    summary: >
+      El código fuente
+      debe implementar mecanismos
+      para asegurar el cierre
+      de alguno de los recursos
+      abiertos no utilizados.
     description: __empty__
   references: []
   metadata: {}
