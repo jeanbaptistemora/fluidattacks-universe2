@@ -14,22 +14,22 @@ _SCALE = NamedTuple(
     ],
 )
 
-# https://coolors.co/323031-084c61-177e89-ffc857-db3a34
+# https://coolors.co/009044-084c61-177e89-ffc857-db3a34
 RISK = _SCALE(
-    more_passive="#323031",
+    more_passive="#009044",
     passive="#084c61",
     neutral="#177e89",
     agressive="#ffc857",
     more_agressive="#db3a34",
 )
 
-# https://coolors.co/233d4d-619b8a-a1c181-fcca46-fe7f2d
+# https://coolors.co/fdd25e-f99a30-f8903a-f77d26-f46201
 TREATMENT = _SCALE(
-    more_passive="#233d4d",
-    passive="#619b8a",
-    neutral="#a1c181",
-    agressive="#fcca46",
-    more_agressive="#fe7f2d",
+    more_passive="#fdd25e",
+    passive="#f99a30",
+    neutral="#f8903a",
+    agressive="#f77d26",
+    more_agressive="#f46201",
 )
 
 # https://coolors.co/abb8b6-839794-6f8683-657e7b-5b7572
@@ -40,3 +40,5 @@ OTHER = _SCALE(
     agressive="#657e7b",
     more_agressive="#5b7572",
 )
+
+GRAY_JET: str = "#323031"

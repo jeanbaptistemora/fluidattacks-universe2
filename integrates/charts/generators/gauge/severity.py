@@ -9,6 +9,7 @@ from charts import (
     utils,
 )
 from charts.colors import (
+    GRAY_JET,
     RISK,
 )
 from dataloaders import (
@@ -75,7 +76,7 @@ async def get_data_many_groups(groups: Iterable[str]) -> Severity:
 def format_data(data: Severity) -> dict:
     return {
         "color": {
-            "pattern": [RISK.more_passive, RISK.more_agressive],
+            "pattern": [GRAY_JET, RISK.more_agressive],
         },
         "data": {
             "columns": [

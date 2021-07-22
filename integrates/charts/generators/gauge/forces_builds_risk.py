@@ -5,6 +5,7 @@ from charts import (
     utils,
 )
 from charts.colors import (
+    GRAY_JET,
     RISK,
 )
 
@@ -40,7 +41,7 @@ async def generate_one(group: str) -> dict:
 
     return {
         "color": {
-            "pattern": [RISK.more_passive, RISK.more_agressive],
+            "pattern": [GRAY_JET, RISK.more_agressive],
         },
         "data": {
             "columns": [
