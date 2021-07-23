@@ -6,6 +6,7 @@ import { ReattackVulnButton } from "./ReattackVulnButton";
 import { VerifyVunButton } from "./VerifyVunButton";
 
 import { ButtonToolbarRow } from "styles/styledComponents";
+import { Have } from "utils/authz/Have";
 import { msgInfo } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
@@ -75,18 +76,20 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
         onVerify={onVerify}
         openModal={openModal}
       />
-      <ReattackVulnButton
-        areVulnsSelected={areVulnsSelected}
-        isEditing={isEditing}
-        isFindingReleased={isFindingReleased}
-        isReattackRequestedInAllVuln={isReattackRequestedInAllVuln}
-        isRequestingReattack={isRequestingReattack}
-        isVerifying={isVerifying}
-        onRequestReattack={onRequestReattack}
-        openModal={openModal}
-        state={state}
-        subscription={subscription}
-      />
+      <Have I={"has_service_white"}>
+        <ReattackVulnButton
+          areVulnsSelected={areVulnsSelected}
+          isEditing={isEditing}
+          isFindingReleased={isFindingReleased}
+          isReattackRequestedInAllVuln={isReattackRequestedInAllVuln}
+          isRequestingReattack={isRequestingReattack}
+          isVerifying={isVerifying}
+          onRequestReattack={onRequestReattack}
+          openModal={openModal}
+          state={state}
+          subscription={subscription}
+        />
+      </Have>
       <EditButton
         isDisabled={!areVulnsSelected}
         isEditing={isEditing}

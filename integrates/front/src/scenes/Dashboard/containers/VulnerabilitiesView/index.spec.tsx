@@ -13,7 +13,7 @@ import waitForExpect from "wait-for-expect";
 import { VulnsView } from "scenes/Dashboard/containers/VulnerabilitiesView";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import store from "store";
-import { authzPermissionsContext } from "utils/authz/config";
+import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 
 describe("VulnerabilitiesView", (): void => {
   const mocksQuery: MockedResponse = {
@@ -264,6 +264,9 @@ describe("VulnerabilitiesView", (): void => {
       { action: "api_resolvers_finding_zero_risk_resolve" },
       { action: "api_mutations_update_vulnerabilities_treatment_mutate" },
     ]);
+    const mockedServices: PureAbility<string> = new PureAbility([
+      { action: "has_service_white" },
+    ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter
         initialEntries={[
@@ -273,12 +276,14 @@ describe("VulnerabilitiesView", (): void => {
         <Provider store={store}>
           <MockedProvider addTypename={true} mocks={[mocksQuery]}>
             <authzPermissionsContext.Provider value={mockedPermissions}>
-              <Route
-                component={VulnsView}
-                path={
-                  "/orgs/:organizationName/groups/:groupName/vulns/:findingId/locations"
-                }
-              />
+              <authzGroupContext.Provider value={mockedServices}>
+                <Route
+                  component={VulnsView}
+                  path={
+                    "/orgs/:organizationName/groups/:groupName/vulns/:findingId/locations"
+                  }
+                />
+              </authzGroupContext.Provider>
             </authzPermissionsContext.Provider>
           </MockedProvider>
         </Provider>

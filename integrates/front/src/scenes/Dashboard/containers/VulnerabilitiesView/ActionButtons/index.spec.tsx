@@ -6,7 +6,7 @@ import { act } from "react-dom/test-utils";
 import { useTranslation } from "react-i18next";
 
 import { ActionButtons } from "scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons";
-import { authzPermissionsContext } from "utils/authz/config";
+import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { msgInfo } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
@@ -109,6 +109,16 @@ describe("ActionButtons", (): void => {
       { action: "api_mutations_request_verification_vulnerabilities_mutate" },
       { action: "api_mutations_update_vulnerabilities_treatment_mutate" },
     ]);
+    const mockedServices: PureAbility<string> = new PureAbility([
+      { action: "has_service_white" },
+    ]);
+    const contextWrapper: React.FC = ({ children }): JSX.Element => (
+      <authzPermissionsContext.Provider value={mockedPermissions}>
+        <authzGroupContext.Provider value={mockedServices}>
+          {children}
+        </authzGroupContext.Provider>
+      </authzPermissionsContext.Provider>
+    );
     const wrapper: ReactWrapper = mount(
       <ActionButtons
         areVulnerabilitiesPendingToAcceptation={true}
@@ -128,10 +138,7 @@ describe("ActionButtons", (): void => {
         state={"open"}
         subscription={"continuous"}
       />,
-      {
-        wrappingComponent: authzPermissionsContext.Provider,
-        wrappingComponentProps: { value: mockedPermissions },
-      }
+      { wrappingComponent: contextWrapper }
     );
     const buttons: ReactWrapper = wrapper.find("Button");
 

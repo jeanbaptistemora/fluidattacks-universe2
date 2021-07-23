@@ -10,6 +10,7 @@ from decorators import (
     require_asm,
     require_finding_access,
     require_login,
+    require_service_white,
 )
 from findings import (
     domain as findings_domain,
@@ -34,6 +35,7 @@ from typing import (
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,
+    require_service_white,
     require_asm,
     require_finding_access,
 )
