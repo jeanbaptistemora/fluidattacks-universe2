@@ -640,7 +640,7 @@ async def test_create_draft() -> None:
         "requirements": "REQ.0001. Apply filters",
         "risk": "Losing money",
         "threat": "Attacker",
-        "title": "F001. Very serious vulnerability",
+        "title": "001. Very serious vulnerability",
         "type": "SECURITY",
     }
     data = {"query": query, "variables": variables}

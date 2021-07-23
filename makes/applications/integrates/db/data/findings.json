@@ -100,7 +100,7 @@
             "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos."
           },
           "finding": {
-            "S": "F081. Ausencia de doble factor de autenticación"
+            "S": "081. Ausencia de doble factor de autenticación"
           },
           "attack_vector": {
             "N": "0.2"
@@ -2721,7 +2721,7 @@
             "S": "Descripción de fuga de información técnica"
           },
           "finding": {
-            "S": "F037. Fuga de información técnica"
+            "S": "037. Fuga de información técnica"
           },
           "attack_vector": {
             "N": "0.62"

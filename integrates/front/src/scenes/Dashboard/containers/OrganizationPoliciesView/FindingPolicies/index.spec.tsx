@@ -50,11 +50,11 @@ describe("Organization findings policies view", (): void => {
               findings: [
                 {
                   id: "422286126",
-                  title: "F060. Insecure exceptions",
+                  title: "060. Insecure exceptions",
                 },
                 {
                   id: "836530833",
-                  title: "F004. Ejecución remota de comandos",
+                  title: "004. Ejecución remota de comandos",
                 },
               ],
               name: "unitestting",
@@ -81,7 +81,7 @@ describe("Organization findings policies view", (): void => {
             {
               id: "97ad7167-51aa-4214-a612-16a833df6565",
               lastStatusUpdate: "2021-05-20T15:16:48",
-              name: "F060. Insecure exceptions",
+              name: "060. Insecure exceptions",
               status: "SUBMITTED",
             },
           ],
@@ -110,7 +110,7 @@ describe("Organization findings policies view", (): void => {
       request: {
         query: ADD_ORGANIZATION_FINDING_POLICY,
         variables: {
-          name: "F060. Insecure exceptions",
+          name: "060. Insecure exceptions",
           organizationName: "okada",
         },
       },
@@ -152,7 +152,7 @@ describe("Organization findings policies view", (): void => {
     const name: ReactWrapper = wrapper.find({ name: "name" }).find("input");
 
     name.simulate("change", {
-      target: { name: "name", value: "F060. Insecure exceptions" },
+      target: { name: "name", value: "060. Insecure exceptions" },
     });
 
     wrapper.find("Formik").simulate("submit");
@@ -177,7 +177,7 @@ describe("Organization findings policies view", (): void => {
       request: {
         query: ADD_ORGANIZATION_FINDING_POLICY,
         variables: {
-          name: "F060. Insecure exceptions",
+          name: "060. Insecure exceptions",
           organizationName: "okada",
         },
       },
@@ -203,7 +203,7 @@ describe("Organization findings policies view", (): void => {
                 {
                   id: "97ad7167-51aa-4214-a612-16a833df6565",
                   lastStatusUpdate: "2021-05-21T06:16:48",
-                  name: "F060. Insecure exceptions",
+                  name: "060. Insecure exceptions",
                   status: "APPROVED",
                   tags: [],
                 },
@@ -228,7 +228,7 @@ describe("Organization findings policies view", (): void => {
     const name: ReactWrapper = wrapper.find({ name: "name" }).find("input");
 
     name.simulate("change", {
-      target: { name: "name", value: "F060. Insecure exceptions" },
+      target: { name: "name", value: "060. Insecure exceptions" },
     });
 
     wrapper.find("Formik").simulate("submit");
@@ -263,14 +263,14 @@ describe("Organization findings policies view", (): void => {
                 {
                   id: "fd882d65-1c25-41c5-9bd1-e3ef5200e7cd",
                   lastStatusUpdate: "2021-05-21T06:58:58",
-                  name: "F060. Insecure exceptions",
+                  name: "060. Insecure exceptions",
                   status: "SUBMITTED",
                   tags: [],
                 },
                 {
                   id: "0b61d5bc-abcc-47e1-9293-f2ff76f4fc17",
                   lastStatusUpdate: "2021-05-21T05:58:58",
-                  name: "F004. Ejecución remota de comandos",
+                  name: "004. Ejecución remota de comandos",
                   status: "APPROVED",
                   tags: [],
                 },
@@ -372,14 +372,14 @@ describe("Organization findings policies view", (): void => {
                   {
                     id: "923f081c-eae2-4ab7-9c66-36b12fd554d7",
                     lastStatusUpdate: "2021-05-21T07:16:48",
-                    name: "F060. Insecure exceptions",
+                    name: "060. Insecure exceptions",
                     status: "SUBMITTED",
                     tags: [],
                   },
                   {
                     id: "7960b957-0d57-40fb-8053-24f064d68000",
                     lastStatusUpdate: "2021-05-21T08:58:58",
-                    name: "F004. Ejecución remota de comandos",
+                    name: "004. Ejecución remota de comandos",
                     status: "APPROVED",
                     tags: [],
                   },
@@ -511,14 +511,14 @@ describe("Organization findings policies view", (): void => {
                   {
                     id: "08207180-305f-4f97-b727-ea29d5199590",
                     lastStatusUpdate: "2021-05-21T11:16:48",
-                    name: "F060. Insecure exceptions",
+                    name: "060. Insecure exceptions",
                     status: "SUBMITTED",
                     tags: [],
                   },
                   {
                     id: "0e14b989-407d-4c53-a506-25e784378569",
                     lastStatusUpdate: "2021-05-21T11:58:58",
-                    name: "F004. Ejecución remota de comandos",
+                    name: "004. Ejecución remota de comandos",
                     status: "APPROVED",
                     tags: [],
                   },
@@ -641,7 +641,7 @@ describe("Organization findings policies view", (): void => {
                   {
                     id: "97ad7167-51aa-4214-a612-16a833df6565",
                     lastStatusUpdate: "2021-05-21T06:16:48",
-                    name: "F060. Insecure exceptions",
+                    name: "060. Insecure exceptions",
                     status: "SUBMITTED",
                     tags: [],
                   },
@@ -691,7 +691,7 @@ describe("Organization findings policies view", (): void => {
       request: {
         query: ADD_ORGANIZATION_FINDING_POLICY,
         variables: {
-          name: "F060. Insecure exceptions",
+          name: "060. Insecure exceptions",
           organizationName: "okada",
           tags: ["password", "sessions"],
         },
@@ -758,7 +758,7 @@ describe("Organization findings policies view", (): void => {
 
       tags.simulate("keyDown", { keyCode: ENTER_ARROW_KEY_CODE });
       name.simulate("change", {
-        target: { name: "name", value: "F060. Insecure exceptions" },
+        target: { name: "name", value: "060. Insecure exceptions" },
       });
       wrapper.update();
       await wait(DELAY);

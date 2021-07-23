@@ -23,7 +23,7 @@ async def get_result(
     requirements: str = "REQ.0001. Apply filters"
     risk: str = "This is pytest created draft"
     threat: str = "Attacker"
-    title: str = "F001. Very serious vulnerability"
+    title: str = "001. Very serious vulnerability"
     draft_type: str = "SECURITY"
     query: str = f"""
         mutation {{

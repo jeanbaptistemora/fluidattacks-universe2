@@ -576,4 +576,4 @@ def validate_acceptance_date(values: Dict[str, str]) -> bool:
 
 
 def is_valid_finding_title(title: str) -> bool:
-    return bool(re.match(r"^F[0-9]{3}\. .+", title))
+    return bool(re.match(r"^[0-9]{3}\. .+", title))

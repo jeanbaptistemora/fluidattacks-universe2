@@ -143,7 +143,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
   const titleSuggestions: string[] = _.sortBy(
     suggestions.map(
       (suggestion: ISuggestion): string =>
-        `F${suggestion.cwe}. ${suggestion.title}`
+        `${suggestion.cwe}. ${suggestion.title}`
     )
   );
 
@@ -210,7 +210,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
     (values: Record<string, unknown>): void => {
       const [matchingSuggestion] = suggestions.filter(
         (suggestion: ISuggestion): boolean =>
-          `F${suggestion.cwe}. ${suggestion.title}` === values.title
+          `${suggestion.cwe}. ${suggestion.title}` === values.title
       );
 
       void addDraft({

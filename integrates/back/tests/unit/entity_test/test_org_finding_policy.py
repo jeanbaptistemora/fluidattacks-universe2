@@ -86,7 +86,7 @@ async def _run(
 @pytest.mark.changes_db
 async def test_handle_org_finding_policy_acceptation() -> None:
     org_name = "okada"
-    finding_name = "F037. Fuga de información técnica"
+    finding_name = "037. Fuga de información técnica"
     finding_id = "457497318"
     vulns_query = """
         query GetFindingVulnInfo($findingId: String!) {
@@ -205,7 +205,7 @@ async def test_handle_org_finding_policy_acceptation() -> None:
 @pytest.mark.changes_db
 async def test_deactivate_org_finding_policy() -> None:
     org_name = "okada"
-    finding_name = "F081. Ausencia de doble factor de autenticación"
+    finding_name = "081. Ausencia de doble factor de autenticación"
     finding_id = "475041513"
     vulns_query = """
         query GetFindingVulnInfo($findingId: String!) {
@@ -367,7 +367,7 @@ async def test_deactivate_org_finding_policy() -> None:
 @pytest.mark.changes_db
 async def test_add_org_finding_policy() -> None:
     org_name = "okada"
-    fin_name = "F031. Permisos excesivos"
+    fin_name = "031. Permisos excesivos"
     query = """
         mutation AddOrgFindingPolicy(
             $findingName: String!
@@ -437,7 +437,7 @@ async def test_get_org_finding_policies() -> None:
 @pytest.mark.changes_db
 async def test_submit_organization_finding_policy() -> None:
     organization_name = "okada"
-    finding_name = "F001. Inyeccion SQL"
+    finding_name = "001. Inyeccion SQL"
     query = """
         mutation AddOrgFindingPolicy(
             $findingName: String!
