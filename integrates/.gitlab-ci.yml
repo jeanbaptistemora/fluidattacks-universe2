@@ -197,6 +197,9 @@ integrates.back.test.functional.add_finding_consult:
 
 integrates.back.test.functional.add_git_root:
   <<: *integrates_back_test_functional
+  
+integrates.back.test.functional.add_group:
+  <<: *integrates_back_test_functional
 
 integrates.back.test.functional.add_group_consult:
   <<: *integrates_back_test_functional
@@ -214,9 +217,6 @@ integrates.back.test.functional.create_event:
   <<: *integrates_back_test_functional
 
 integrates.back.test.functional.create_organization:
-  <<: *integrates_back_test_functional
-
-integrates.back.test.functional.create_group:
   <<: *integrates_back_test_functional
 
 integrates.back.test.functional.deactivate_root:

@@ -18,7 +18,7 @@ async def get_result(
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
-            createGroup(
+            addGroup(
                 organization: "{org}",
                 description: "This is a new group from pytest",
                 groupName: "{group}",

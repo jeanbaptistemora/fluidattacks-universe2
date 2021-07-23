@@ -9,14 +9,14 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("create_group")
+@pytest.mark.resolver_test_group("add_group")
 @pytest.mark.parametrize(
     ["email"],
     [
         ["admin@gmail.com"],
     ],
 )
-async def test_create_group(populate: bool, email: str) -> None:
+async def test_add_group(populate: bool, email: str) -> None:
     assert populate
     org_name: str = "orgtest"
     group_name: str = "group1"
@@ -24,12 +24,12 @@ async def test_create_group(populate: bool, email: str) -> None:
         user=email, org=org_name, group=group_name
     )
     assert "errors" not in result
-    assert "success" in result["data"]["createGroup"]
-    assert result["data"]["createGroup"]["success"]
+    assert "success" in result["data"]["addGroup"]
+    assert result["data"]["addGroup"]["success"]
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("create_group")
+@pytest.mark.resolver_test_group("add_group")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -43,7 +43,7 @@ async def test_create_group(populate: bool, email: str) -> None:
         ["group_manager@gmail.com"],
     ],
 )
-async def test_create_group_fail(populate: bool, email: str) -> None:
+async def test_add_group_fail(populate: bool, email: str) -> None:
     assert populate
     org_name: str = "orgtest"
     group_name: str = "group1"

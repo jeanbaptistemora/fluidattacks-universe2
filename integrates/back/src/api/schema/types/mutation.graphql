@@ -495,11 +495,6 @@ type Mutation {
 
   updateAccessToken(expirationTime: Int!): UpdateAccessTokenPayload!
 
-  updateAccessTokenProject(
-    expirationTime: Int!
-    projectName: String!
-  ): UpdateAccessTokenPayload!
-
   updateDescription(
     actor: String!
     affectedSystems: String!
@@ -622,7 +617,8 @@ type Mutation {
     vulnId: String!
     vulnWhere: String!
     vulnSpecific: String!
-  ): SimplePayload!
+  ): SimplePayload! @deprecated(reason: """This mutation will be removed
+    after 2021/12/31. Use `updateVulnerabilityCommit` instead.""")
 
   updateVulnerabilitiesTreatment(
     acceptanceDate: String
@@ -631,6 +627,13 @@ type Mutation {
     treatment: UpdateClientDescriptionTreatment!
     treatmentManager: String
     vulnerabilityId: ID!
+  ): SimplePayload!
+
+  updateVulnerabilityCommit(
+    vulnerabilityCommit: String!
+    vulnerabilityId: String!
+    vulnerabilityWhere: String!
+    vulnerabilitySpecific: String!
   ): SimplePayload!
 
   updateVulnerabilityTreatment(
