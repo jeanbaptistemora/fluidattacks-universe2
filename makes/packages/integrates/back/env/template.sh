@@ -10,14 +10,18 @@ function main {
       dev-mobile) aws_login_dev 'integrates' ;;
       eph) aws_login_dev 'integrates' ;;
       prod) aws_login_prod 'integrates' ;;
-      *) abort '[ERROR] First argument must be one of: dev, dev-mobile, eph, prod' ;;
+      prod-local) aws_login_prod 'integrates' ;;
+      *) abort '[ERROR] First argument must be one of: dev, dev-mobile, eph, prod, prod-local' ;;
     esac \
     && case "${env}" in
       dev) sops_export_vars __envSecretsDev__ "${INTEGRATES_SECRETS_LIST[@]}" ;;
       dev-mobile) sops_export_vars __envSecretsDev__ "${INTEGRATES_SECRETS_LIST[@]}" ;;
       eph) sops_export_vars __envSecretsDev__ "${INTEGRATES_SECRETS_LIST[@]}" ;;
       prod) sops_export_vars __envSecretsProd__ "${INTEGRATES_SECRETS_LIST[@]}" ;;
-      *) abort '[ERROR] First argument must be one of: dev, dev-mobile, eph, prod' ;;
+      prod-local) sops_export_vars __envSecretsProd__ "${INTEGRATES_SECRETS_LIST[@]}" \
+        && export DEBUG=True \
+        && export REDIS_SERVER=localhost ;;
+      *) abort '[ERROR] First argument must be one of: dev, dev-mobile, eph, prod, prod-lcoal' ;;
     esac \
     && if ! { test "${api_status}" == '' || test "${api_status}" == 'migration'; }; then
       echo '[ERROR] Second argument must be one of: , migration' \

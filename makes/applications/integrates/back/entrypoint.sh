@@ -53,8 +53,17 @@ function main {
         # The number of worker processes for handling requests
         --workers 5
       )
+    elif test "${env}" == 'prod-local'; then
+      config+=(
+        # SSL certificate file
+        --certfile='__envCertsDevelopment__/cert.crt'
+        # SSL key file
+        --keyfile='__envCertsDevelopment__/cert.key'
+        # The number of worker processes for handling requests
+        --workers 3
+      )
     else
-      echo '[ERROR] First argument must be one of: dev, dev-mobile, eph, prod' \
+      echo '[ERROR] First argument must be one of: dev, dev-mobile, eph, prod, prod-local' \
         && return 1
     fi \
     && pushd integrates \
