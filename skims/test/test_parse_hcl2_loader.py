@@ -239,7 +239,7 @@ def test_load_2() -> None:
                                                 "Effect": "Allow",
                                                 "Action": [
                                                     "sns:List"
-                                                    "SubscriptionsByTopic",
+                                                    + "SubscriptionsByTopic",
                                                     "sns:Publish",
                                                 ],
                                                 "Resource": [

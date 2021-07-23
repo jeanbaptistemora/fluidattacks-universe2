@@ -45,7 +45,7 @@ def pr_under_max_deltas(*, data: TestData) -> bool:
     except GitError:
         log(
             err_log,
-            "You must be in the repo path in order " "to run this test",
+            "You must be in the repo path in order to run this test",
         )
         raise GitError
     skip_deltas: bool = "- no-deltas-test" in data.pull_request.description

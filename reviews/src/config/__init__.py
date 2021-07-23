@@ -44,7 +44,7 @@ def validate_base(config: Dynaconf) -> None:
             condition=lambda x: dict_has_type_values(x, int),
             messages={
                 "must_exist_true": "{name} is required.",
-                "condition": "{name} invalid. " "All values must be int",
+                "condition": "{name} invalid. All values must be int",
             },
         ),
     )
