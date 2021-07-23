@@ -22,6 +22,7 @@ type Finding {
   isExploitable: Boolean
   lastVulnerability: Int
   linesVulns: [Vulnerability]
+  machineJobs: [MachineJob]
   newRemediated: Boolean @deprecated(reason: """This field
     will be removed after 2021/12/20. Use `remediated` instead.""")
   observations: [Consult]

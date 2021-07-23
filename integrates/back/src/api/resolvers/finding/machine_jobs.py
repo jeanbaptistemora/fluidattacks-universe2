@@ -2,6 +2,9 @@ from batch.dal import (
     Job,
     JobStatus,
 )
+from decorators import (
+    enforce_group_level_auth_async,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -20,6 +23,7 @@ from typing import (
 )
 
 
+@enforce_group_level_auth_async
 async def resolve(
     parent: Dict[str, str],
     info: GraphQLResolveInfo,

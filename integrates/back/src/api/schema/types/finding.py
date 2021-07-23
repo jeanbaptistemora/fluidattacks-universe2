@@ -10,6 +10,7 @@ from api.resolvers.finding import (
     inputs_vulns,
     last_vulnerability,
     lines_vulns,
+    machine_jobs,
     new_remediated,
     observations,
     open_age,
@@ -114,6 +115,7 @@ else:
     FINDING.set_field("inputsVulns", inputs_vulns.resolve)
     FINDING.set_field("lastVulnerability", last_vulnerability.resolve)
     FINDING.set_field("linesVulns", lines_vulns.resolve)
+    FINDING.set_field("machineJobs", machine_jobs.resolve)
     FINDING.set_field("newRemediated", new_remediated.resolve)
     FINDING.set_field("observations", observations.resolve)
     FINDING.set_field("openAge", open_age.resolve)

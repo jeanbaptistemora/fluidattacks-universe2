@@ -707,6 +707,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
             *GROUP_LEVEL_ROLES["admin"]["actions"],
+            "api_resolvers_finding_machine_jobs_resolve",
             "api_resolvers_git_root_toe_lines_resolve",
             "api_resolvers_group_toe_inputs_resolve",
         },
@@ -727,6 +728,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     closer=dict(
         actions={
             *GROUP_LEVEL_ROLES["closer"]["actions"],
+            "api_resolvers_finding_machine_jobs_resolve",
             "api_resolvers_git_root_toe_lines_resolve",
             "api_resolvers_group_toe_inputs_resolve",
         },
@@ -767,6 +769,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     group_manager=dict(
         actions={
             *GROUP_LEVEL_ROLES["group_manager"]["actions"],
+            "api_resolvers_finding_machine_jobs_resolve",
             "api_resolvers_finding_new_analyst_new_resolve",
             "api_resolvers_git_root_toe_lines_resolve",
             "api_resolvers_group_toe_inputs_resolve",

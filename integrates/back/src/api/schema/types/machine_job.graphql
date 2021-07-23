@@ -1,0 +1,12 @@
+"""MachineJob type definition"""
+type MachineJob {
+  createdAt: String
+  exitCode: Int
+  exitReason: String
+  id: String!
+  name: String!
+  queue: String!
+  startedAt: String
+  status: String!
+  stoppedAt: String
+}
