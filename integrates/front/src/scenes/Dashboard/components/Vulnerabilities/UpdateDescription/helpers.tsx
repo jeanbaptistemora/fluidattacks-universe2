@@ -96,10 +96,10 @@ const getAreAllMutationValid = (
     (result: ExecutionResult<IUpdateVulnDescriptionResultAttr>): boolean => {
       if (!_.isUndefined(result.data) && !_.isNull(result.data)) {
         const updateInfoSuccess: boolean = _.isUndefined(
-          result.data.updateTreatmentVuln
+          result.data.updateVulnerabilityTreatment
         )
           ? true
-          : result.data.updateTreatmentVuln.success;
+          : result.data.updateVulnerabilityTreatment.success;
         const updateTreatmentSuccess: boolean = _.isUndefined(
           result.data.updateVulnerabilitiesTreatment
         )
@@ -142,7 +142,7 @@ const validMutationsHelper = (
   }
 };
 
-const handleUpdateTreatmentVulnError = (updateError: unknown): void => {
+const handleUpdateVulnTreatmentError = (updateError: unknown): void => {
   if (_.includes(String(updateError), "Invalid treatment manager")) {
     msgError(translate.t("groupAlerts.invalidTreatmentMgr"));
   } else if (
@@ -222,7 +222,7 @@ const handleRequestZeroRiskError = (
 };
 
 const handleSubmitHelper = async (
-  handleUpdateTreatmentVuln: (
+  handleUpdateVulnTreatment: (
     dataTreatment: IUpdateTreatmentVulnerabilityForm,
     isEditPristine: boolean,
     isTreatmentPristine: boolean
@@ -253,10 +253,10 @@ const handleSubmitHelper = async (
     confirm((): void => {
       // Exception: FP(void operator is necessary)
       // eslint-disable-next-line
-      void handleUpdateTreatmentVuln(values, isEditPristine, isTreatmentPristine); //NOSONAR
+      void handleUpdateVulnTreatment(values, isEditPristine, isTreatmentPristine); //NOSONAR
     });
   } else {
-    await handleUpdateTreatmentVuln(
+    await handleUpdateVulnTreatment(
       values,
       isEditPristine,
       isTreatmentPristine
@@ -306,7 +306,7 @@ export {
   getAreAllMutationValid,
   dataTreatmentTrackHelper,
   validMutationsHelper,
-  handleUpdateTreatmentVulnError,
+  handleUpdateVulnTreatmentError,
   requestZeroRiskHelper,
   handleRequestZeroRiskError,
   handleSubmitHelper,

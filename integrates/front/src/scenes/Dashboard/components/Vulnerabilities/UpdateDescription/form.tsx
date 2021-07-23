@@ -16,7 +16,7 @@ import {
   getAreAllMutationValid,
   getResults,
   handleRequestZeroRiskError,
-  handleUpdateTreatmentVulnError,
+  handleUpdateVulnTreatmentError,
   hasNewVulnsAlert,
   isTheFormPristine,
   requestZeroRiskHelper,
@@ -179,7 +179,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     ],
   });
 
-  const handleUpdateTreatmentVuln = async (
+  const handleUpdateVulnTreatment = async (
     dataTreatment: IUpdateTreatmentVulnerabilityForm,
     isEditPristineP: boolean,
     isTreatmentPristineP: boolean
@@ -207,7 +207,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
           vulnerabilities
         );
       } catch (updateError: unknown) {
-        handleUpdateTreatmentVulnError(updateError);
+        handleUpdateVulnTreatmentError(updateError);
       } finally {
         setRunning(false);
       }
@@ -293,7 +293,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   useEffect((): void => {
     setConfigFn(
       requestZeroRisk,
-      handleUpdateTreatmentVuln,
+      handleUpdateVulnTreatment,
       isEditPristine,
       isTreatmentPristine
     );

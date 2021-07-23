@@ -42,18 +42,6 @@ interface IDownloadVulnerabilitiesResultAttr {
   };
 }
 
-interface IUpdateTreatmentVulnAttr {
-  acceptanceDate: string;
-  externalBts: string;
-  findingId: string;
-  justification: string;
-  severity?: number;
-  tag?: string;
-  treatment: string;
-  treatmentManager: string;
-  vulnerabilities: string[];
-}
-
 interface IVulnDataTypeAttr {
   currentState: "closed" | "open";
   externalBts: string;
@@ -106,7 +94,6 @@ export {
   IUploadVulnerabilitiesResultAttr,
   IDownloadVulnerabilitiesResultAttr,
   IVulnerabilityModalValues,
-  IUpdateTreatmentVulnAttr,
   IUpdateTreatmentVulnerabilityForm,
   IVulnDataTypeAttr,
   IVulnComponentProps,

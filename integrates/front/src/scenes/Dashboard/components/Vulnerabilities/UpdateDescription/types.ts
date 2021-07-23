@@ -57,7 +57,7 @@ interface IStakeholderAttr {
 }
 
 interface IUpdateVulnDescriptionResultAttr {
-  updateTreatmentVuln?: {
+  updateVulnerabilityTreatment?: {
     success: boolean;
   };
   updateVulnerabilitiesTreatment?: {

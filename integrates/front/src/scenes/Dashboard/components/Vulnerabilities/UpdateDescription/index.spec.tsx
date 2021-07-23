@@ -129,7 +129,7 @@ describe("Update Description component", (): void => {
   const mockedPermissions: PureAbility<string> = new PureAbility([
     { action: "api_mutations_remove_vulnerability_tags_mutate" },
     { action: "api_mutations_request_zero_risk_vulnerabilities_mutate" },
-    { action: "api_mutations_update_treatment_vulnerability_mutate" },
+    { action: "api_mutations_update_vulnerability_treatment_mutate" },
     { action: "api_mutations_update_vulnerabilities_treatment_mutate" },
   ]);
 
@@ -412,8 +412,8 @@ describe("Update Description component", (): void => {
     const handleClearSelected: jest.Mock = jest.fn();
     const handleOnClose: jest.Mock = jest.fn();
     const updateTreatment: IUpdateVulnDescriptionResultAttr = {
-      updateTreatmentVuln: { success: true },
       updateVulnerabilitiesTreatment: { success: true },
+      updateVulnerabilityTreatment: { success: true },
     };
     const mutationVariables: Dictionary<boolean | number | string> = {
       acceptanceDate: "",

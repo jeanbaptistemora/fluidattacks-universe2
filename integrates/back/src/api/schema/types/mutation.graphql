@@ -614,7 +614,8 @@ type Mutation {
     severity: Int
     tag: String
     vulnerabilityId: ID!
-  ): SimplePayload!
+  ): SimplePayload! @deprecated(reason: """This mutation will be removed
+    after 2021/12/31. Use `updateVulnerabilityTreatment` instead.""")
 
   updateVulnCommit(
     vulnCommit: String!
@@ -629,6 +630,14 @@ type Mutation {
     justification: String!
     treatment: UpdateClientDescriptionTreatment!
     treatmentManager: String
+    vulnerabilityId: ID!
+  ): SimplePayload!
+
+  updateVulnerabilityTreatment(
+    externalBts: String
+    findingId: String!
+    severity: Int
+    tag: String
     vulnerabilityId: ID!
   ): SimplePayload!
 

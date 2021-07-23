@@ -84,9 +84,9 @@ from api.mutations import (
     update_severity,
     update_severity_new,
     update_toe_lines_sorts,
-    update_treatment_vulnerability,
     update_vuln_commit,
     update_vulnerabilities_treatment,
+    update_vulnerability_treatment,
     upload_file,
     upload_file_new,
     verify_request_vulnerabilities,
@@ -182,7 +182,10 @@ MUTATION.set_field("addFindingConsult", add_finding_consult.mutate)
 MUTATION.set_field("unsubscribeFromGroup", unsubscribe_from_group.mutate)
 MUTATION.set_field("deleteTags", remove_vulnerability_tags.mutate)
 MUTATION.set_field(
-    "updateTreatmentVuln", update_treatment_vulnerability.mutate
+    "updateTreatmentVuln", update_vulnerability_treatment.mutate
+)
+MUTATION.set_field(
+    "updateVulnerabilityTreatment", update_vulnerability_treatment.mutate
 )
 MUTATION.set_field("downloadVulnFile", download_vulnerability_file.mutate)
 MUTATION.set_field(
