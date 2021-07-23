@@ -4190,66 +4190,111 @@
 "248":
   en:
     title: SSID without dictionary words
-    summary: __empty_
+    summary: >
+      The name of the wireless SSID
+      must not contain dictionary words.
     description: __empty__
   es:
     title: SSID sin palabras de diccionario
-    summary: __empty__
+    summary: >
+      El nombre del SSID inalámbrico
+      no debe contener palabras
+      de diccionario.
     description: __empty__
   references: []
   metadata: {}
 "249":
   en:
     title: Locate access points
-    summary: __empty_
+    summary: >
+      The access points
+      must be placed in strategic locations,
+      allowing the network signal
+      to reach only the authorized facilities.
     description: __empty__
   es:
     title: Localizar puntos de acceso
-    summary: __empty__
+    summary: >
+      Los puntos de acceso
+      deben estar ubicados
+      en sitios estratégicos,
+      permitiendo a la señal de red
+      alcanzar solo
+      las instalaciones autorizadas.
     description: __empty__
   references: []
   metadata: {}
 "250":
   en:
     title: Manage access points
-    summary: __empty_
+    summary: >
+      The management
+      of wireless access points
+      must be enabled
+      for only one of the equipment’s
+      physical ports.
     description: __empty__
   es:
     title: Gestionar puntos de acceso
-    summary: __empty__
+    summary: >
+      La gestión de los puntos
+      de acceso debe estar habilitada
+      solo por uno de los puertos físicos
+      del equipo.
     description: __empty__
   references: []
   metadata: {}
 "251":
   en:
     title: Change access point IP
-    summary: __empty_
+    summary: >
+      Access points must not use
+      the factory-set IP address.
     description: __empty__
   es:
     title: Modificar IP del punto de acceso
-    summary: __empty__
+    summary: >
+      Los puntos de acceso
+      no deben utilizar la dirección IP
+      que viene de fábrica.
     description: __empty__
   references: []
   metadata: {}
 "252":
   en:
     title: Configure key encryption
-    summary: __empty_
+    summary: >
+      The organization
+      must prefer the use of WPA2 Personal
+      or WPA2 Enterprise (802.1x)
+      key encryption methods.
     description: __empty__
   es:
     title: Configurar llave de cifrado
-    summary: __empty__
+    summary: >
+      La organización
+      debe preferir el uso de
+      los métodos de cifrado WPA2 Personal
+      o WPA2 Enterprise (802.11x).
     description: __empty__
   references: []
   metadata: {}
 "253":
   en:
     title: Restrict network access
-    summary: __empty_
+    summary: >
+      The access to private
+      wireless networks must be restricted
+      through user credentials
+      and authorized MAC addresses.
     description: __empty__
   es:
     title: Restringir acceso a la red
-    summary: __empty__
+    summary: >
+      El acceso a redes inalámbricas
+      privadas debe ser restringido
+      mediante credenciales de usuario
+      y direcciones MAC autorizadas.
     description: __empty__
   references: []
   metadata: {}
