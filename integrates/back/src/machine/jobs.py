@@ -41,11 +41,17 @@ async def list_(
     if include_urgent:
         queues.append(get_queue_for_finding(finding_code, urgent=True))
 
-    return await list_queues_jobs(
+    jobs = await list_queues_jobs(
         filters=(
             lambda job: parse_name(job.name).finding_code == finding_code,
             lambda job: parse_name(job.name).group_name == group_name,
         ),
         queues=queues,
         statuses=statuses,
+    )
+
+    return sorted(
+        jobs,
+        key=lambda job: job.created_at or 0,
+        reverse=True,
     )
