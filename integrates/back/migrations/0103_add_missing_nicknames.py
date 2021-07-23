@@ -2,8 +2,8 @@
 """
 This migration adds missing nicknames to roots affected by a bug
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-07-23 at 17:47:36 UTC-05
+Finalization Time: 2021-07-23 at 17:47:42 UTC-05
 """
 
 from aioextensions import (
