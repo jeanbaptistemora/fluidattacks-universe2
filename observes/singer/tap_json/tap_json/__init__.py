@@ -45,6 +45,12 @@ DATE_FORMATS: List[str] = [
     "%Y-%m-%dT%H:%M:%S.%f%z",
     "%Y-%m-%dT%H:%M:%S%z",
 ]
+primitives = (
+    str,
+    int,
+    bool,
+    float,
+)
 
 
 def emit(msg: str) -> None:
@@ -52,12 +58,6 @@ def emit(msg: str) -> None:
 
 
 def is_base(stru: STRU) -> bool:
-    primitives = (
-        str,
-        int,
-        bool,
-        float,
-    )
     return isinstance(stru, primitives)
 
 
@@ -96,7 +96,17 @@ def to_date(date_time: Any) -> Any:
 
 def stru_type(stru: STRU) -> str:
     """Return the python type of a Structura."""
-    return "datetime" if to_date(stru) else type(stru).__name__
+    if to_date(stru):
+        return "datetime"
+    if isinstance(stru, bool):
+        return bool.__name__
+    if isinstance(stru, int):
+        return int.__name__
+    if isinstance(stru, float):
+        return float.__name__
+    if isinstance(stru, str):
+        return str.__name__
+    return type(stru).__name__
 
 
 def stru_cast(stru: STRU, type_ref: str) -> STRU:
