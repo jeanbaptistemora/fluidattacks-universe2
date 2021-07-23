@@ -162,7 +162,7 @@ class Wordlist(Enum):
 class PDFWordlistEn(Wordlist):
     FINDING_TITLE: WordlistItem = WordlistItem("finding_title", "Finding")
     FINDING_SECTION_TITLE: WordlistItem = WordlistItem(
-        "finding_section_title", "Resume"
+        "finding_section_title", "Summary"
     )
     COMMIT_HASH: WordlistItem = WordlistItem("commit_hash", "Commit Hash")
     CONTENT_TITLE: WordlistItem = WordlistItem("content_title", "Content")
