@@ -4015,66 +4015,175 @@
 "232":
   en:
     title: Require equipment identity
-    summary: __empty__
+    summary: >
+      A system with critical information
+      must require the identification
+      of the equipment
+      from which a user
+      or system is authenticated.  
     description: __empty__
   es:
     title: Exigir la identidad del equipo
-    summary: __empty__
+    summary: >
+      Un sistema con información crítica
+      debe requerir la identificación
+      del equipo desde el cual un usuario
+      o sistema está autenticado.
     description: __empty__
   references: []
   metadata: {}
 "235":
   en:
     title: Define credential interface
-    summary: __empty_
+    summary: >
+      The authentication must have
+      a separate interface
+      for on-screen credentials input.
     description: __empty__
   es:
     title: Definir interfaz de credenciales
-    summary: __empty__
+    summary: >
+      La autenticación debe tener
+      una interfaz independiente
+      para el ingreso de credenciales.
     description: __empty__
   references: []
   metadata: {}
 "236":
   en:
     title: Establish authentication time
-    summary: __empty_
+    summary: >
+      The authentication process
+      must have a defined time limit
+      of 30 seconds.
     description: __empty__
   es:
     title: Establecer tiempo de autenticación
-    summary: __empty__
+    summary: >
+      El proceso de autenticación
+      debe tener un tiempo límite
+      definido de 30 segundos.
     description: __empty__
   references: []
   metadata: {}
 "237":
   en:
     title: Ascertain human interaction
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must guarantee
+      that user actions
+      are performed by a human
+      (e.g., registration, authentication
+      and password recovery).
+      This can be achieved using CAPTCHA,
+      incremental delays or mechanisms
+      that prevent excessive crawling
+      and indexing.
+    description: >
+      There exist several attacks
+      that have been automated
+      or depend on a robot
+      for their execution.
+      Many of them focus on
+      exploiting vulnerabilities
+      in authentication forms.
+      In order to hinder
+      the effectiveness of these attacks,
+      the system must implement mechanisms
+      that help ensure
+      that the entity with which
+      it is interacting is a human being.
   es:
     title: Comprobar interacción humana
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe garantizar
+      que quien realiza
+      las acciones de usuario
+      (Ej.: registro, autenticación
+      y restablecimiento de contraseña)
+      es un humano.
+      Esto puede realizarse
+      usando CAPTCHA o retrasos incrementales.
+    description: >
+      Existen varios ataques
+      que han sido automatizados
+      o dependen de un robot
+      para su ejecución.
+      Muchos de ellos se centran
+      en aprovechar las vulnerabilidades
+      en los formularios de autenticación.
+      Para obstaculizar la efectividad
+      de estos ataques,
+      el sistema debe implementar
+      mecanismos que ayuden a asegurar
+      que la entidad con la que se está
+      interactuando sea un ser humano.
   references: []
   metadata: {}
 "238":
   en:
     title: Establish safe recovery
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must guarantee
+      that the person performing
+      the password recovery
+      or reset process is actually the owner.
+    description: >
+      Systems must have mechanisms
+      that enable users
+      to update and recover their passwords
+      while guaranteeing
+      the authenticity of the request.
+      In the case of a password update,
+      the system must request
+      both the new and the old passwords.
+      If the user wants to recover
+      a lost or forgotten password,
+      the system must ascertain
+      the user's ownership
+      of the corresponding account.
   es:
     title: Establecer recuperación segura
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe garantizar
+      que la persona que realiza
+      el proceso de restablecimiento
+      de contraseña sea realmente
+      el propietario.
+    description: >
+      Los sistemas deben contar
+      con mecanismos que permitan
+      a los usuarios actualizar
+      y recuperar sus contraseñas
+      garantizando la autenticidad
+      de la solicitud.
+      En el caso de una actualización
+      de contraseña,
+      el sistema debe solicitar
+      tanto la contraseña nueva
+      como la antigua.
+      Si el usuario desea recuperar
+      una contraseña perdida
+      u olvidada,
+      el sistema debe verificar
+      la propiedad del ususario
+      de la cuenta correspondiente.
   references: []
   metadata: {}
 "247":
   en:
     title: Hide SSID on private networks
-    summary: __empty_
+    summary: >
+      The private networks
+      must disable the disclosure
+      of the SSID (Service Set Identifier).
     description: __empty__
   es:
     title: Ocultar SSID en redes privadas
-    summary: __empty__
+    summary: >
+      Las redes privadas
+      deben deshabilitar la publicación
+      del SSID (Service Set Identifier).
     description: __empty__
   references: []
   metadata: {}
