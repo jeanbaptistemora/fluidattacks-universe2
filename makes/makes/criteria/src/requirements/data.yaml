@@ -4301,66 +4301,111 @@
 "254":
   en:
     title: Change SSID name
-    summary: __empty_
+    summary: >
+      The organization must change
+      the factory default name
+      of the wireless network SSID.
     description: __empty__
   es:
     title: Modificar el nombre del SSID
-    summary: __empty__
+    summary: >
+      La organización debe cambiar
+      el nombre de fábrica por defecto
+      del SSID de la red inalámbrica. 
     description: __empty__
   references: []
   metadata: {}
 "255":
   en:
     title: Allow access only to the necessary ports
-    summary: __empty_
+    summary: >
+      Network segments and servers
+      with applications
+      or content must allow access only
+      to the necessary ports.
     description: __empty__
   es:
     title: Permitir acceso sólo a puertos necesarios
-    summary: __empty__
+    summary: >
+      Los segmentos de usuarios y servidores
+      con aplicaciones
+      o contenido deben permitir acceso
+      sólo a los puertos necesarios.
     description: __empty__
   references: []
   metadata: {}
 "257":
   en:
     title: Access based on user credentials
-    summary: __empty_
+    summary: >
+      Physical access to the network
+      for users must be assigned
+      based on organizational
+      user credentials (e.g., NAC 802.1x).
     description: __empty__
   es:
     title: Acceso basado en credenciales de usuario
-    summary: __empty__
+    summary: >
+      El acceso físico a la red
+      para los usuarios debe ser asignado
+      con base a las credenciales
+      organizacionales del usuario
+      (por ejemplo, NAC 802.1x).
     description: __empty__
   references: []
   metadata: {}
 "258":
   en:
     title: Filter website content
-    summary: __empty_
+    summary: >
+      The organization must filter
+      the content of websites accessed
+      from a location belonging
+      to the same entity (Output 'Proxy').
     description: __empty__
   es:
     title: Filtrar contenido de página web
-    summary: __empty__
+    summary: >
+      La organización debe filtrar
+      el contenido de los sitios web
+      a los que se accede
+      desde una ubicación
+      que pertenece a la misma entidad
+      (Output 'Proxy'). 
     description: __empty__
   references: []
   metadata: {}
 "259":
   en:
     title: Segment the organization network
-    summary: __empty_
+    summary: >
+      The organization network
+      must be segmented.
     description: __empty__
   es:
     title: Segmentar la red de la organización
-    summary: __empty__
+    summary: >
+      La red de la organización
+      debe estar segmentada.
     description: __empty__
   references: []
   metadata: {}
 "260":
   en:
     title: Use alternative emails
-    summary: __empty_
+    summary: >
+      The employees must not use
+      corporate emails
+      to register accounts
+      on social networks (even on +LinkedIn+).
     description: __empty__
   es:
     title: Utilizar correos electrónicos alternativos
-    summary: __empty__
+    summary: >
+      Los empleados no deben utilizar
+      los correos corporativos
+      para registrar cuentas
+      en redes sociales (incluido +LinkedIn+).
     description: __empty__
   references: []
   metadata: {}
