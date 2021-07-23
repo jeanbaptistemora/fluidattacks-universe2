@@ -307,7 +307,7 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
 
 
 def _format_root_nickname(nickname: str, url: str) -> str:
-    nick = unquote(url).split("/")[-1]
+    nick = unquote(url).rstrip("/").split("/")[-1]
     if nickname:
         nick = unquote(nickname)
     # Return the repo name as nickname
