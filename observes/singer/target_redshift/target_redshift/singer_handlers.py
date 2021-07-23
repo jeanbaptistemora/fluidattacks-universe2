@@ -54,7 +54,7 @@ def _escape_value(r_type: RedshiftDataType, value: Any) -> str:
         new_value = f"'{escape(value)}'"
     else:
         LOG.warning(
-            ("WARN: Ignoring type %s, " "it's not in the streamed schema."),
+            ("WARN: Ignoring type %s, it's not in the streamed schema."),
             r_type,
         )
     return new_value
