@@ -1166,7 +1166,9 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
             info=info,
             finding_id=finding_id,
             vulnerabilities=vulnerabilities,
-            closed_vulns=cast(List[str], parameters.get("closed_vulns", [])),
+            closed_vulns=get_key_or_fallback(
+                parameters, "closed_vulnerabilities", "closed_vulns", []
+            ),
             date=today,
             vulns_to_close_from_file=vulns_to_close_from_file,
         )
