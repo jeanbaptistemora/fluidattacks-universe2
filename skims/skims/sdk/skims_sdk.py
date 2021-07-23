@@ -1,7 +1,4 @@
 import asyncio
-from difflib import (
-    SequenceMatcher,
-)
 import json
 from os import (
     environ,
@@ -49,21 +46,10 @@ async def _run(
     return code, out, err
 
 
-def _similar_ratio(string_a: str, string_b: str) -> float:
-    return SequenceMatcher(None, string_a, string_b).ratio()
-
-
-def _are_findings_title_similar(string_a: str, string_b: str) -> bool:
-    return _similar_ratio(string_a, string_b) >= 0.9
-
-
 def get_finding_code_from_title(finding_title: str) -> Optional[str]:
     for finding_code in FINDINGS:
         for locale in FINDINGS[finding_code]:
-            if _are_findings_title_similar(
-                finding_title,
-                FINDINGS[finding_code][locale]["title"],
-            ):
+            if finding_title == FINDINGS[finding_code][locale]["title"]:
                 return finding_code
     return None
 

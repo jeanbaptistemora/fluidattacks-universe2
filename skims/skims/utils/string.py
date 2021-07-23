@@ -3,9 +3,6 @@ from PIL import (
     ImageDraw,
     ImageFont,
 )
-from difflib import (
-    SequenceMatcher,
-)
 from io import (
     BytesIO,
 )
@@ -28,7 +25,6 @@ from typing import (
     Tuple,
 )
 from utils.ctx import (
-    FINDINGS_TITLE_SIMILARITY,
     FLUID_WATERMARK,
     ROBOTO_FONT,
     STATE_FOLDER_DEBUG,
@@ -53,17 +49,6 @@ WATERMARK: Image = clarify_blocking(
 )
 SNIPPETS_CONTEXT: int = 10
 SNIPPETS_COLUMNS: int = 12 * SNIPPETS_CONTEXT
-
-
-def similar_ratio(string_a: str, string_b: str) -> float:
-    return SequenceMatcher(None, string_a, string_b).ratio()
-
-
-def are_findings_title_similar(
-    string_a: str,
-    string_b: str,
-) -> bool:
-    return similar_ratio(string_a, string_b) >= FINDINGS_TITLE_SIMILARITY
 
 
 def to_in_memory_file(string: str) -> BytesIO:

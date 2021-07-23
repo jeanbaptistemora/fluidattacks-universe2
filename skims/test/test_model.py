@@ -1,6 +1,3 @@
-from itertools import (
-    combinations,
-)
 import json
 from model import (
     core_model,
@@ -10,11 +7,7 @@ from typing import (
     List,
 )
 from utils.ctx import (
-    FINDINGS_TITLE_SIMILARITY,
     SHOULD_UPDATE_TESTS,
-)
-from utils.string import (
-    similar_ratio,
 )
 from zone import (
     t,
@@ -112,11 +105,3 @@ def _get_findings_title(locale: core_model.LocalesEnum) -> List[str]:
         t(finding.value.title, locale=locale)
         for finding in core_model.FindingEnum
     ]
-
-
-@pytest.mark.skims_test_group("unittesting")
-def test_different_findings_name() -> None:
-    threshold: float = FINDINGS_TITLE_SIMILARITY
-    for locale in core_model.LocalesEnum:
-        for title_a, title_b in combinations(_get_findings_title(locale), 2):
-            assert similar_ratio(title_a, title_b) < threshold

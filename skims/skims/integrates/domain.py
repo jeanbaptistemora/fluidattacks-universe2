@@ -19,7 +19,6 @@ from typing import (
     Dict,
     List,
     Optional,
-    Set,
     Tuple,
     Union,
 )
@@ -34,9 +33,6 @@ from utils.logs import (
 )
 from utils.repositories import (
     get_repo_head_hash,
-)
-from utils.string import (
-    are_findings_title_similar,
 )
 from zone import (
     t,
@@ -106,10 +102,7 @@ async def get_closest_finding_ids(
     return tuple(
         existing_finding.identifier
         for existing_finding in existing_findings
-        if are_findings_title_similar(
-            t(finding.value.title, locale=locale),
-            existing_finding.title,
-        )
+        if t(finding.value.title, locale=locale) == existing_finding.title
     )
 
 
@@ -274,14 +267,3 @@ async def do_release_finding(
             success = success and await do_approve_draft(finding_id=finding_id)
 
     return success
-
-
-def title_to_finding(title: str) -> Set[core_model.FindingEnum]:
-    return set(
-        finding
-        for finding in core_model.FindingEnum
-        for locale in core_model.LocalesEnum
-        if are_findings_title_similar(
-            t(finding.value.title, locale=locale), title
-        )
-    )

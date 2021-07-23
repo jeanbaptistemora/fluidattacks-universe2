@@ -32,7 +32,6 @@ def _get_artifact(env_var: str) -> str:
 
 # Environment vars that change the execution
 SHOULD_UPDATE_TESTS: bool = "SKIMS_SHOULD_UPDATE_TESTS" in os.environ
-FINDINGS_TITLE_SIMILARITY: float = 0.9
 
 # Side effects
 CIPHER_SUITES_PATH: str = _get_artifact("SKIMS_CIPHER_SUITES_PATH")
