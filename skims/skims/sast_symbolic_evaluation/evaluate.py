@@ -12,6 +12,9 @@ from more_itertools import (
     mark_ends,
     padnone,
 )
+from os.path import (
+    dirname,
+)
 from sast_symbolic_evaluation.cases import (
     array_access,
     array_initialization,
@@ -353,13 +356,10 @@ def get_possible_syntax_steps_from_multiple_go_files(
     n_id: graph_model.NId,
     finding: core_model.FindingEnum,
 ) -> PossibleSyntaxStepsForUntrustedNId:
-    # We want to analyze shards that belong to the same package or packages
-    # that it imports
-    current_package = shard.metadata.go.package
-    packages_of_interest = shard.metadata.go.imports + [current_package]
 
-    # Filter packages that have sink functions of the finding in question,
-    # keeping information about the shard they belong to
+    # Filter imported packages or modules from the same package that
+    # have sink functions related to the finding in question
+    imports = shard.metadata.go.imports
     functions_of_interest: Dict[
         str, Tuple[int, List[graph_model.SinkFunctions]]
     ] = {
@@ -370,11 +370,15 @@ def get_possible_syntax_steps_from_multiple_go_files(
         for idx, _shard in enumerate(graph_db.shards)
         if (
             _shard != shard
-            and _shard.metadata.go.package in packages_of_interest
+            and (
+                _shard.metadata.go.package in imports
+                or dirname(shard.path) == dirname(_shard.path)
+            )
             and finding.name in _shard.metadata.go.sink_functions
         )
     }
     # Build the way the functions are called in the analyzed code
+    current_package = shard.metadata.go.package
     calls_of_interest: Dict[str, Tuple[int, graph_model.SinkFunctions]] = {
         f"{pkg}.{fn.name}" if pkg != current_package else fn.name: (_shard, fn)
         for pkg, (_shard, fns) in functions_of_interest.items()
@@ -384,10 +388,15 @@ def get_possible_syntax_steps_from_multiple_go_files(
     graph = shard.graph
     syntax = shard.syntax
     cfg_p_id = g.lookup_first_cfg_parent(graph, n_id)
-    fn_calls_n_ids = g.filter_nodes(
-        graph,
-        (cfg_p_id,) + g.adj_cfg(graph, cfg_p_id, depth=-1),
-        g.pred_has_labels(label_type="call_expression"),
+    fn_calls_n_ids = tuple(
+        c_id
+        for c_id in g.filter_nodes(
+            graph,
+            (cfg_p_id,) + g.adj_cfg(graph, cfg_p_id, depth=-1),
+            g.pred_has_labels(label_type="call_expression"),
+        )
+        # This condition is temporal until all syntax cases are supported
+        if c_id in syntax
     )
     # Link the node where the function is called with the shard and information
     # where the function is declared

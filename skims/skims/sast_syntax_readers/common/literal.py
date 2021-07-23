@@ -27,7 +27,7 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
             value_type="number",
         )
     elif n_attrs_label_type in {"composite_literal"}:
-        value_type: str
+        value_type: str = ""
         if (
             args.graph.nodes[n_attrs["label_field_type"]]["label_type"]
             == "qualified_type"
@@ -35,7 +35,7 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
             value_type = g.concatenate_label_text(
                 args.graph, g.adj_ast(args.graph, n_attrs["label_field_type"])
             )
-        else:
+        elif "label_text" in args.graph.nodes[n_attrs["label_field_type"]]:
             value_type = g.concatenate_label_text(
                 args.graph, (n_attrs["label_field_type"],)
             )
