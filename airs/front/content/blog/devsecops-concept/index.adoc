@@ -73,7 +73,7 @@ Are they investing time and effort in finding and detecting gaps in their code
 _just before_ each deployment?
 
 If they are already within the DevSecOps approach,
-the answer is NO.
+the answer is _no_.
 When we say implementation in the early stages,
 as shown in Figure 2,
 the security element has to cover the cycle
@@ -124,7 +124,7 @@ that current technology is unable to identify.
 (b) *Perform the security checks gradually*,
 starting link:https://medium.com/hackernoon/the-future-of-security-is-devsecops-9166db1d8a03[with high-priority areas],
 trying not to overload the developers with work
-as they are usually responsible for closing the gaps._
+as they are usually responsible for closing the gaps.
 
 === DevSecOps with Fluid Attacks
 
@@ -146,13 +146,13 @@ with every new change being reviewed.
 That work can continue after the application has been deployed to production.
 
 When a vulnerability is detected in the client's code,
-a member of our team can develop a personalized script called 'exploit,'
+a member of our team can develop a personalized script called Exploit,
 associated with the finding.
-That exploit "automatically checks if the analyst's finding persists."
+That Exploit "automatically checks if the analyst's finding persists."
 Therefore, "if the customer wants to make new changes to her product,
 she must fix the finding first,"
 because if she doesn't,
-the exploit will continue reporting the presence of the vulnerability.
+the Exploit will continue reporting the presence of the vulnerability.
 Then, according to a configuration by our team,
 it will break the build,
 and the deployment process will be automatically stopped.
