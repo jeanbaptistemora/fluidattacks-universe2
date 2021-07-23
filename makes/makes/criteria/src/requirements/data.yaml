@@ -4412,46 +4412,176 @@
 "261":
   en:
     title: Avoid exposing sensitive information
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The application must not expose
+      sensitive information in sections
+      that are publicly accessible.
+    description: >
+      Some applications have sections
+      such as web pages
+      and endpoints that are publicly exposed
+      or do not require
+      an initiated session to be accessed.
+      These sections should contain
+      neither sensitive corporate information
+      nor users' or employees' personal data.
+      Furthermore,
+      corporate sensitive information
+      should not be exposed
+      on personal social network accounts either.
   es:
     title: Evitar exposición de información sensible
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema no debe exponer
+      información en secciones
+      que puedan ser accedidas públicamente.
+    description: >
+      Algunas aplicaciones
+      tienen secciones como páginas web
+      y puntos finales que están expuestos
+      públicamente o no requieren
+      una sesión iniciada para acceder.
+      Estas secciones no deben contener
+      información corporativa confidencial
+      ni datos personales
+      de usuarios o empleados.
+      Además,
+      la información confidencial
+      corporativa tampoco debe exponerse
+      en las cuentas de redes sociales personales. 
   references: []
   metadata: {}
 "262":
   en:
     title: Verify third-party components
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must use stable,
+      tested and up-to-date versions
+      of third-party components.
+    description: >
+      - The organization must ensure
+      that the version of all
+      of its products and the products
+      provided by third-parties
+      is up to date, stable and tested.
+      This reduces the risk
+      of including vulnerabilities
+      reported in previous versions.
+
+      - When a product changes its version,
+      the implemented improvements
+      must be checked to verify
+      if there were fixes
+      or new controls related
+      to recently discovered vulnerabilities.
   es:
     title: Verificar componentes de terceros
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Los componentes provistos
+      por terceros deben corresponder
+      a versiones estables, probadas
+      y actualizadas.
+    description: >
+      - La organización debe asegurarse
+      de que la versión de todos sus productos
+      y los productos proporcionados
+      por terceros esté actualizada,
+      estable y probada.
+      Esto reduce el riesgo de incluir
+      vulnerabilidades informadas
+      en versiones anteriores.
+
+      - Cuando un producto cambia de versión,
+      se deben verificar las mejoras
+      implementadas para verificar
+      si hubo correcciones o nuevos controles
+      relacionados con vulnerabilidades
+      descubiertas recientemente. 
   references: []
   metadata: {}
 "264":
   en:
     title: Request authentication
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must require
+      authentication for all resources,
+      except for the consultation
+      or visualization of those specifically
+      classified as public.
+    description: >
+      Sometimes systems
+      have information and other resources
+      that are not considered public.
+      These resources should be protected
+      by a secure authentication mechanism
+      that prevents unauthorized actors
+      from accessing them.
   es:
     title: Solicitar autenticación
-    summary: __empty__
-    description: __empty__
-  references:
-    - capec.definitions.1
+    summary: >
+      El sistema debe requerir
+      autenticación para todos los recursos,
+      excepto para la consulta
+      o visualización de aquellos
+      específicamente clasificados
+      como públicos.
+    description: >
+      A veces,
+      los sistemas tienen información
+      y otros recursos
+      que no se consideran públicos.
+      Estos recursos deben estar
+      protegidos por un mecanismo
+      de autenticación seguro
+      que evite que actores no autorizados
+      accedan a ellos.
+  references: []
   metadata: {}
 "265":
   en:
     title: Restrict access to critical processes
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must restrict access
+      to system functions
+      that execute critical
+      business processes,
+      allowing only authorized users.
+    description: >
+      Systems must enforce
+      access controls
+      on trusted enforcement points.
+      They must also have
+      a clear definition
+      of user privileges and roles.
+      Functions that execute
+      critical business processes
+      should only be available
+      for authenticated users
+      with roles that have
+      the required privileges.
   es:
     title: Restringir acceso a procesos críticos
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe restringir
+      el acceso a funciones del sistema
+      que ejecutan procesos críticos
+      de negocio.
+      Solo permitirá acceso
+      a usuarios autorizados.
+    description: >
+      Los sistemas deben imponer
+      controles de acceso
+      en puntos de ejecución confiables.
+      También deben tener
+      una definición clara
+      de los privilegios y roles
+      de los usuarios.
+      Las funciones que ejecutan
+      procesos comerciales críticos
+      solo deben estar disponibles
+      para usuarios autenticados
+      con roles que tengan
+      los privilegios requeridos.
   references: []
   metadata: {}
 "266":
@@ -4461,7 +4591,7 @@
     description: __empty__
   es:
     title: Deshabilitar funcionalidades inseguras
-    summary: __empty__
+    summary: __empty_
     description: __empty__
   references: []
   metadata: {}
