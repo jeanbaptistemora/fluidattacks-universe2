@@ -76,13 +76,13 @@ class JobStatus(Enum):
 
 
 class Job(NamedTuple):
-    exit_code: int
-    exit_reason: str
+    exit_code: Optional[int]
+    exit_reason: Optional[str]
     id: str
     name: str
     queue: str
-    started_at: int
-    stopped_at: int
+    started_at: Optional[int]
+    stopped_at: Optional[int]
     status: str
 
 
@@ -116,12 +116,12 @@ async def list_queue_jobs(queue: str, status: JobStatus) -> List[Job]:
         results.extend(
             Job(
                 id=job_summary["jobId"],
-                exit_code=job_summary["container"]["exitCode"],
-                exit_reason=job_summary["container"].get("reason", ""),
+                exit_code=job_summary.get("container", {}).get("exitCode"),
+                exit_reason=job_summary.get("container", {}).get("reason"),
                 name=job_summary["jobName"],
                 queue=queue,
-                started_at=job_summary["startedAt"],
-                stopped_at=job_summary["stoppedAt"],
+                started_at=job_summary.get("startedAt"),
+                stopped_at=job_summary.get("stoppedAt"),
                 status=status.name,
             )
             for job_summary in response.get("jobSummaryList", [])
