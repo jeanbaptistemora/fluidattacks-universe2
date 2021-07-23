@@ -21,5 +21,4 @@
   inputs = {
     product = import (path "/");
   };
-  makesCommit = "0dae5699b8d806e33e18122311c8af9510e18048";
 }
