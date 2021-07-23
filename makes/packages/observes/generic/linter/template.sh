@@ -18,8 +18,19 @@ function list_import_confs {
     -printf '%h\n'
 }
 
-function observes_generic_lint {
-  local srcPath="${1}"
+function imports_lint {
+  local pkgs
+
+  pkgs=$(mktemp) \
+    && list_import_confs "${srcPath}" > "${pkgs}" \
+    && while read -r pkg; do
+      echo "[INFO] Lint imports at ${pkg}" \
+        && lint_python_imports "${pkg}/setup.imports.cfg" "${pkg}" \
+        || return 1
+    done < "${pkgs}"
+}
+
+function pkg_lint {
   local pkgs
 
   pkgs=$(mktemp) \
@@ -27,14 +38,14 @@ function observes_generic_lint {
     && while read -r pkg; do
       lint_python_package "${pkg}" \
         || return 1
-    done < "${pkgs}" \
-    && pkgs=$(mktemp) \
-    && list_import_confs "${srcPath}" > "${pkgs}" \
-    && while read -r pkg; do
-      echo "[INFO] Lint imports at ${pkg}" \
-        && lint_python_imports "${pkg}/setup.imports.cfg" "${pkg}" \
-        || return 1
-    done < "${pkgs}" \
+    done < "${pkgs}"
+}
+
+function observes_generic_lint {
+  local srcPath="${1}"
+
+  imports_lint \
+    && pkg_lint \
     && touch "${out}"
 }
 
