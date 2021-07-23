@@ -38,7 +38,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 org_name="orgtest",
                 id="3be367f9-b06c-4f72-ab77-38268045a8ff",
                 metadata=OrgFindingPolicyMetadata(
-                    name="F037. Fuga de información técnica",
+                    name="037. Technical information leak",
                     tags={},
                 ),
                 state=OrgFindingPolicyState(

@@ -415,7 +415,7 @@ async def test_get_oldest_no_treatment_findings() -> None:
     oldest_findings = await get_oldest_no_treatment_findings(context, findings)
     expected_output = [
         {
-            "finding_name": "037. Fuga de información técnica",
+            "finding_name": "037. Technical information leak",
             "finding_age": 256,
         }
     ]

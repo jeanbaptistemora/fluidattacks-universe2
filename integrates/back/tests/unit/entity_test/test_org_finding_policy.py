@@ -86,7 +86,7 @@ async def _run(
 @pytest.mark.changes_db
 async def test_handle_org_finding_policy_acceptation() -> None:
     org_name = "okada"
-    finding_name = "037. Fuga de información técnica"
+    finding_name = "037. Technical information leak"
     finding_id = "457497318"
     vulns_query = """
         query GetFindingVulnInfo($findingId: String!) {

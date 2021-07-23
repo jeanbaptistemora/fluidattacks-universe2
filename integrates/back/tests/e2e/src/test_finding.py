@@ -74,7 +74,7 @@ def test_finding_comments(
     driver.get(f"{asm_endpoint}/orgs/okada/groups/oneshottest/vulns")
     assert utils.wait_for_text(
         driver,
-        "037. Fuga de información técnica",
+        "037. Technical information leak",
         timeout,
     )
     driver.get(

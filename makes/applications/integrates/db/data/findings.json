@@ -2038,7 +2038,7 @@
             "S": "Descripción de fuga de información técnica"
           },
           "finding": {
-            "S": "F037. Fuga de información técnica"
+            "S": "037. Technical information leak"
           },
           "attack_vector": {
             "N": "0.62"
@@ -2721,7 +2721,7 @@
             "S": "Descripción de fuga de información técnica"
           },
           "finding": {
-            "S": "037. Fuga de información técnica"
+            "S": "037. Technical information leak"
           },
           "attack_vector": {
             "N": "0.62"
