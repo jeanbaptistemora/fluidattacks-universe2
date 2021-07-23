@@ -47,9 +47,11 @@ from settings import (
     LOGGING,
 )
 from typing import (
+    Callable,
     List,
     NamedTuple,
     Optional,
+    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -76,6 +78,7 @@ class JobStatus(Enum):
 
 
 class Job(NamedTuple):
+    created_at: Optional[int]
     exit_code: Optional[int]
     exit_reason: Optional[str]
     id: str
@@ -89,12 +92,14 @@ class Job(NamedTuple):
 async def list_queues_jobs(
     queues: List[str],
     statuses: List[JobStatus],
+    *,
+    filters: Tuple[Callable[[Job], bool], ...] = (),
 ) -> List[Job]:
     return list(
         chain.from_iterable(
             await collect(
                 [
-                    list_queue_jobs(queue, status)
+                    _list_queue_jobs(queue, status, filters=filters)
                     for queue, status in product(queues, statuses)
                 ]
             )
@@ -102,7 +107,12 @@ async def list_queues_jobs(
     )
 
 
-async def list_queue_jobs(queue: str, status: JobStatus) -> List[Job]:
+async def _list_queue_jobs(
+    queue: str,
+    status: JobStatus,
+    *,
+    filters: Tuple[Callable[[Job], bool], ...],
+) -> List[Job]:
     client = boto3.client("batch")
     results: List[Job] = []
 
@@ -113,19 +123,22 @@ async def list_queue_jobs(queue: str, status: JobStatus) -> List[Job]:
             jobStatus=status.name,
             **(dict(nextToken=next_token) if next_token else dict()),
         )
-        results.extend(
-            Job(
-                id=job_summary["jobId"],
+
+        for job_summary in response.get("jobSummaryList", []):
+            job = Job(
+                created_at=job_summary.get("createdAt"),
                 exit_code=job_summary.get("container", {}).get("exitCode"),
                 exit_reason=job_summary.get("container", {}).get("reason"),
+                id=job_summary["jobId"],
                 name=job_summary["jobName"],
                 queue=queue,
                 started_at=job_summary.get("startedAt"),
                 stopped_at=job_summary.get("stoppedAt"),
                 status=status.name,
             )
-            for job_summary in response.get("jobSummaryList", [])
-        )
+            if all(filter_(job) for filter_ in filters):
+                results.append(job)
+
         return response.get("nextToken")
 
     next_token = await _request()

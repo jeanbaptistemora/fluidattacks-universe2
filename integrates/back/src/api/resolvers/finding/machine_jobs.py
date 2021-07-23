@@ -1,14 +1,16 @@
 from batch.dal import (
     Job,
     JobStatus,
-    list_queues_jobs,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+import machine.jobs
+from newutils.utils import (
+    get_key_or_fallback,
+)
 from skims_sdk import (
     get_finding_code_from_title,
-    get_queue_for_finding,
 )
 from typing import (
     Any,
@@ -23,6 +25,7 @@ async def resolve(
     info: GraphQLResolveInfo,
     **_: None,
 ) -> List[Dict[str, Any]]:
+    group_name: str = get_key_or_fallback(parent)
     finding = await info.context.loaders.finding.load(parent["id"])
     finding_title: str = finding["title"]
     finding_code: Optional[str] = get_finding_code_from_title(finding_title)
@@ -30,11 +33,11 @@ async def resolve(
     if finding_code is None:
         jobs: List[Job] = []
     else:
-        jobs = await list_queues_jobs(
-            queues=[
-                get_queue_for_finding(finding_code, urgent=True),
-                get_queue_for_finding(finding_code, urgent=False),
-            ],
+        jobs = await machine.jobs.list_(
+            finding_code=finding_code,
+            group_name=group_name,
+            include_non_urgent=True,
+            include_urgent=True,
             statuses=list(JobStatus),
         )
 
