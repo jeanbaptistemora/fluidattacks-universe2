@@ -31,6 +31,7 @@ const About = [
         type: 'category',
         label: 'Transparency',
         items: [
+          'about/security/transparency/information-security-responsibility',
           'about/security/transparency/open-source',
           'about/security/transparency/public-incidents',
           'about/security/transparency/data-leakage-policy',
