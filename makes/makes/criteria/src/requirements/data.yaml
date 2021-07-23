@@ -3845,51 +3845,177 @@
 "227":
   en:
     title: Display access notification
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must notify,
+      upon any access attempt,
+      that access to the system
+      is only available
+      for authorized users.
+    description: >
+      Sometimes systems have
+      information and other resources
+      that are not considered public.
+      These resources
+      should be protected
+      by a secure authentication mechanism
+      that prevents unauthorized actors
+      from accessing them.
+      Whenever a non-authenticated actor
+      attempts to access those resources,
+      the system must notify them
+      that the resources
+      are only available
+      to authorized users.
   es:
     title: Desplegar notificación de acceso
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe notificar
+      a cualquier actor
+      que intenta autenticarse,
+      que el acceso en el mismo sistema
+      sólo está disponible
+      para usuarios autorizados.
+    description: >
+      Algunas veces
+      los sistemas tienen
+      información y otros recursos
+      que no son considerados públicos.
+      Estos recursos
+      deberían estar protegidos
+      por un mecanismo seguro
+      de autenticación que evite
+      que actores no autorizados
+      accedan a ellos.
+      Siempre que un actor
+      no autenticado intente acceder
+      a esos recursos,
+      el sistema debe notificarle
+      que los recursos
+      solo están disponibles
+      para los usuarios autorizados.
   references: []
   metadata: {}
 "228":
   en:
     title: Authenticate using standard protocols
-    summary: __empty_
+    summary: >
+      The organization must implement
+      the Single Sign On (SSO) process
+      using standard protocols (e.g., SAML).
     description: __empty__
   es:
     title: Autenticar usando protocolos estándar
-    summary: __empty__
+    summary: >
+      La autenticación debe realizarse
+      siguiendo protocolos estándar.
     description: __empty__
   references: []
   metadata: {}
 "229":
   en:
     title: Request access credentials
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must request
+      at least one username
+      and password from every actor
+      that tries to authenticate.
+    description: >
+      Sometimes systems
+      have information and other resources
+      that are not considered public.
+      These resources should be protected
+      by a secure authentication mechanism
+      that prevents unauthorized actors
+      from accessing them.
+      The authentication mechanism
+      should request at least a username
+      and a password.
   es:
     title: Solicitar credenciales de acceso
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe solicitar
+      a cualquier actor
+      que intenta autenticarse,
+      como mínimo un nombre de usuario
+      y una contraseña.
+    description: >
+      A veces,
+      los sistemas tienen información
+      y otros recursos
+      que no se consideran públicos.
+      Estos recursos deben estar
+      protegidos por un mecanismo
+      de autenticación seguro
+      que evite que actores
+      no autorizados accedan a ellos.
+      El mecanismo de autenticación
+      debe solicitar al menos
+      un nombre de usuario
+      y una contraseña.
   references: []
   metadata: {}
 "231":
   en:
     title: Implement a biometric verification component
-    summary: __empty_
-    description: __empty__
+    summary: >
+      Systems with critical information
+      must implement a component
+      for biometric verification
+      during the authentication process.
+    description: >
+      Biometric authentication relies
+      on the unique biological characteristics
+      of an individual and serves
+      as an additional security
+      measure for identity assertion.
+      Critical systems
+      must have specially restrictive
+      access controls.
+      Therefore,
+      they should include
+      a biometric verification component
+      to increase the security
+      of the authentication process.
+      This component,
+      however,
+      should not be the only
+      identity assertion mechanism
+      in place,
+      but rather only be a secondary factor.
   es:
     title: Implementar un componente de verificación biométrica
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Los sistemas con información crítica
+      deben definir un componente
+      de verificación biométrica
+      para el proceso de autenticación.
+    description: >
+      La autenticación biométrica
+      se basa en las características
+      biológicas únicas de un individuo
+      y sirve como una medida
+      de seguridad adicional para
+      la afirmación de la identidad.
+      Los sistemas críticos
+      deben tener controles de acceso
+      especialmente restrictivos.
+      Por lo tanto,
+      deben incluir un componente
+      de verificación biométrica
+      para aumentar la seguridad
+      del proceso de autenticación.
+      Este componente,
+      sin embargo,
+      no debería ser el único
+      mecanismo de afirmación
+      de identidad en vigor,
+      sino más bien un factor secundario.
   references: []
   metadata: {}
 "232":
   en:
     title: Require equipment identity
-    summary: __empty_
+    summary: __empty__
     description: __empty__
   es:
     title: Exigir la identidad del equipo
