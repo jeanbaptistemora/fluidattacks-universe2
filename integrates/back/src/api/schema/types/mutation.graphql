@@ -136,9 +136,19 @@ type Mutation {
     organizationName: String!
     "Tags associated with the organization the finding policy"
     tags: [String]
-  ): SimplePayload!
+  ): SimplePayload! @deprecated(reason: """This mutation will be removed after
+  2021/12/20. Use `addOrganizationFindingPolicy` instead.""")
 
   addOrganization(name: String!): AddOrganizationPayload!
+
+  addOrganizationFindingPolicy(
+    "Name of the finding"
+    findingName: String!
+    "Name of the organization the finding policy is associated with"
+    organizationName: String!
+    "Tags associated with the organization the finding policy"
+    tags: [String]
+  ): SimplePayload!
 
   addProjectConsult(
     content: String!

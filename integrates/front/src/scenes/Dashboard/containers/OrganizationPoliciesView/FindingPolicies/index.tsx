@@ -58,13 +58,13 @@ const FindingPolicies: React.FC<IFindingPolicies> = ({
     }
   );
 
-  const [addOrgFindingPolicy, { loading: submitting }] = useMutation(
+  const [addOrganizationFindingPolicy, { loading: submitting }] = useMutation(
     ADD_ORGANIZATION_FINDING_POLICY,
     {
       onCompleted: (result: {
-        addOrgFindingPolicy: { success: boolean };
+        addOrganizationFindingPolicy: { success: boolean };
       }): void => {
-        if (result.addOrgFindingPolicy.success) {
+        if (result.addOrganizationFindingPolicy.success) {
           msgSuccess(
             t("organization.tabs.policies.findings.addPolicies.success"),
             t("sidebar.newOrganization.modal.successTitle")
@@ -106,7 +106,7 @@ const FindingPolicies: React.FC<IFindingPolicies> = ({
     track("addNewOrgFindingPolicies", {
       Organization: organizationName,
     });
-    await addOrgFindingPolicy({
+    await addOrganizationFindingPolicy({
       variables: {
         name: values.name,
         organizationName,

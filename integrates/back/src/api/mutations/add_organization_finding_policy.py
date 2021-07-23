@@ -49,7 +49,7 @@ async def mutate(
     )
     logs_utils.cloudwatch_log(
         info.context,
-        f"Security: Added a org finding policy in {organization_name}",
+        f"Security: Added an org finding policy in {organization_name}",
     )
 
     return SimplePayload(success=True)
