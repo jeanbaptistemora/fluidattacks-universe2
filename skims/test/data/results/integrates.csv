@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
-F133,inputs,localhost:4446 (namespace),server refuses connections with PFS support,310,"home,socket-send,socket-response",F133. Insecure encryption algorithm - Perfect Forward Secrecy,server refuses connections with PFS support,"
+F133,inputs,localhost:4446 (namespace),server refuses connections with PFS support,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,server refuses connections with PFS support,"
   1 | intention: check if server accepts key exchange with PFS support
   2 | SSL request made to localhost:4446 with following parameters
   3 |    fallback scsv: False
@@ -11,10 +11,10 @@ F133,inputs,localhost:4446 (namespace),server refuses connections with PFS suppo
   9 | result: server refuses connections with PFS support
     ^ Col 0
 "
-F117,lines,namespace/skims/test/data/lib_path/f117/.project,1,377,skims,F117. Unverifiable files,Unverifiable file in skims/test/data/lib_path/f117/.project,"
+F117,lines,namespace/skims/test/data/lib_path/f117/.project,1,377,skims,117. Unverifiable files,Unverifiable file in skims/test/data/lib_path/f117/.project,"
 
 "
-F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.class,1,377,skims,F117. Unverifiable files,Unverifiable file in skims/test/data/lib_path/f117/MyJar.class,"
+F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.class,1,377,skims,117. Unverifiable files,Unverifiable file in skims/test/data/lib_path/f117/MyJar.class,"
 > 1 | ����9
   2 | 
   3 | 
@@ -26,7 +26,7 @@ F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.class,1,377,skims,F117.
   9 | 
     ^ Col 0
 "
-F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.jar,1,377,skims,F117. Unverifiable files,Unverifiable file in skims/test/data/lib_path/f117/MyJar.jar,"
+F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.jar,1,377,skims,117. Unverifiable files,Unverifiable file in skims/test/data/lib_path/f117/MyJar.jar,"
 >  1 | PK�[%O META-INF/��PKPK�[%OMETA-INF/MANIFEST.MF�M��LK-.�
    2 | K-*��ϳR0�3��r.JM,IM�u�
    3 | +h�&�敔j�r�rPK�Kx32PK�[%O

@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00005.java,63,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00005.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00005.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00005.java,"
    53 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    54 |
    55 |
@@ -23,7 +23,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00005.j
    73 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00005.java,66,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00005.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00005.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00005.java,"
    56 | byte)0xB2,
    57 | byte)0xC3033
    58 |
@@ -47,7 +47,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00005.j
    76 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00019.java,54,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00019.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00019.java,54,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00019.java,"
    44 | utStream();
    45 |
    46 |
@@ -71,7 +71,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00019.j
    64 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00020.java,59,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00020.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00020.java,59,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00020.java,"
    49 | alization vector
    50 | v = {
    51 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -95,7 +95,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00020.j
    69 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00020.java,61,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00020.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00020.java,61,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00020.java,"
    51 | , (byte)0xB2,
    52 | , (byte)0xC3033
    53 |
@@ -119,7 +119,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00020.j
    71 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00035.java,69,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00035.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00035.java,69,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00035.java,"
    59 |
    60 |
    61 |
@@ -143,7 +143,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00035.j
    79 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00050.java,60,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00050.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00050.java,60,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00050.java,"
    50 | alization vector
    51 | v = {
    52 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -167,7 +167,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00050.j
    70 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00050.java,62,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00050.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00050.java,62,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00050.java,"
    52 | , (byte)0xB2,
    53 | , (byte)0xC3033
    54 |
@@ -191,7 +191,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00050.j
    72 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00053.java,85,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00053.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00053.java,85,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00053.java,"
    75 |         //     byte[] iv = {
    76 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    77 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -215,7 +215,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00053.j
    95 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00053.java,88,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00053.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00053.java,88,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00053.java,"
    78 |
    79 | va.security.SecureRandom();
    80 |  requires 8 byte keys
@@ -239,7 +239,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00053.j
    98 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00055.java,79,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00055.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00055.java,79,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00055.java,"
    69 | alization vector
    70 | v = {
    71 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -263,7 +263,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00055.j
    89 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00055.java,81,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00055.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00055.java,81,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00055.java,"
    71 | , (byte)0xB2,
    72 | , (byte)0xC3033
    73 |
@@ -287,7 +287,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00055.j
    91 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00056.java,89,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00056.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00056.java,89,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00056.java,"
    79 | alization vector
    80 | v = {
    81 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -311,7 +311,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00056.j
    99 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00056.java,91,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00056.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00056.java,91,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00056.java,"
    81 | , (byte)0xB2,
    82 | , (byte)0xC3033
    83 |
@@ -335,7 +335,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00056.j
   101 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00057.java,83,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00057.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00057.java,83,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00057.java,"
    73 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    74 |
    75 |
@@ -359,7 +359,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00057.j
    93 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00057.java,86,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00057.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00057.java,86,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00057.java,"
    76 | byte)0xB2,
    77 | byte)0xC3033
    78 |
@@ -383,7 +383,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00057.j
    96 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00119.java,86,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00119.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00119.java,86,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00119.java,"
    76 |         //     byte[] iv = {
    77 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    78 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -407,7 +407,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00119.j
    96 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00119.java,89,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00119.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00119.java,89,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00119.java,"
    79 |
    80 | va.security.SecureRandom();
    81 |  requires 8 byte keys
@@ -431,7 +431,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00119.j
    99 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00120.java,70,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00120.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00120.java,70,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00120.java,"
    60 |         //     byte[] iv = {
    61 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    62 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -455,7 +455,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00120.j
    80 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00120.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00120.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00120.java,73,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00120.java,"
    63 |
    64 | va.security.SecureRandom();
    65 |  requires 8 byte keys
@@ -479,7 +479,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00120.j
    83 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00123.java,64,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00123.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00123.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00123.java,"
    54 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    55 |
    56 |
@@ -503,7 +503,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00123.j
    74 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00123.java,67,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00123.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00123.java,67,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00123.java,"
    57 | byte)0xB2,
    58 | byte)0xC3033
    59 |
@@ -527,7 +527,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00123.j
    77 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00124.java,69,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00124.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00124.java,69,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00124.java,"
    59 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    60 |
    61 |
@@ -551,7 +551,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00124.j
    79 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00124.java,72,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00124.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00124.java,72,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00124.java,"
    62 | byte)0xB2,
    63 | byte)0xC3033
    64 |
@@ -575,7 +575,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00124.j
    82 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00125.java,64,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00125.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00125.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00125.java,"
    54 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    55 |
    56 |
@@ -599,7 +599,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00125.j
    74 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00125.java,67,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00125.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00125.java,67,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00125.java,"
    57 | byte)0xB2,
    58 | byte)0xC3033
    59 |
@@ -623,7 +623,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00125.j
    77 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00208.java,79,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00208.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00208.java,79,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00208.java,"
    69 | alization vector
    70 | v = {
    71 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -647,7 +647,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00208.j
    89 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00208.java,81,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00208.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00208.java,81,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00208.java,"
    71 | , (byte)0xB2,
    72 | , (byte)0xC3033
    73 |
@@ -671,7 +671,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00208.j
    91 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00210.java,76,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00210.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00210.java,76,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00210.java,"
    66 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    67 |
    68 |
@@ -695,7 +695,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00210.j
    86 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00210.java,79,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00210.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00210.java,79,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00210.java,"
    69 | byte)0xB2,
    70 | byte)0xC3033
    71 |
@@ -719,7 +719,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00210.j
    89 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00254.java,75,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00254.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00254.java,75,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00254.java,"
    65 |         //     byte[] iv = {
    66 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    67 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -743,7 +743,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00254.j
    85 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00254.java,78,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00254.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00254.java,78,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00254.java,"
    68 |
    69 | va.security.SecureRandom();
    70 |  requires 8 byte keys
@@ -767,7 +767,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00254.j
    88 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00256.java,77,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00256.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00256.java,77,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00256.java,"
    67 | alization vector
    68 | v = {
    69 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -791,7 +791,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00256.j
    87 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00256.java,79,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00256.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00256.java,79,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00256.java,"
    69 | , (byte)0xB2,
    70 | , (byte)0xC3033
    71 |
@@ -815,7 +815,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00256.j
    89 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00257.java,68,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00257.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00257.java,68,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00257.java,"
    58 | alization vector
    59 | v = {
    60 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -839,7 +839,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00257.j
    78 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00257.java,70,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00257.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00257.java,70,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00257.java,"
    60 | , (byte)0xB2,
    61 | , (byte)0xC3033
    62 |
@@ -863,7 +863,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00257.j
    80 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00258.java,67,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00258.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00258.java,67,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00258.java,"
    57 | alization vector
    58 | v = {
    59 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -887,7 +887,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00258.j
    77 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00258.java,69,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00258.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00258.java,69,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00258.java,"
    59 | , (byte)0xB2,
    60 | , (byte)0xC3033
    61 |
@@ -911,7 +911,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00258.j
    79 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00354.java,63,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00354.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00354.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00354.java,"
    53 |
    54 |
    55 |
@@ -935,7 +935,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00354.j
    73 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00355.java,76,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00355.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00355.java,76,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00355.java,"
    66 |  reflection
    67 |
    68 |
@@ -959,7 +959,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00355.j
    86 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00356.java,61,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00356.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00356.java,61,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00356.java,"
    51 |
    52 |
    53 |
@@ -983,7 +983,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00356.j
    71 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00445.java,83,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00445.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00445.java,83,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00445.java,"
    73 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    74 |
    75 |
@@ -1007,7 +1007,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00445.j
    93 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00445.java,86,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00445.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00445.java,86,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00445.java,"
    76 | byte)0xB2,
    77 | byte)0xC3033
    78 |
@@ -1031,7 +1031,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00445.j
    96 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00446.java,68,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00446.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00446.java,68,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00446.java,"
    58 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    59 |
    60 |
@@ -1055,7 +1055,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00446.j
    78 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00446.java,71,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00446.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00446.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00446.java,"
    61 | byte)0xB2,
    62 | byte)0xC3033
    63 |
@@ -1079,7 +1079,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00446.j
    81 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00448.java,65,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00448.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00448.java,65,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00448.java,"
    55 |
    56 |
    57 |
@@ -1103,7 +1103,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00448.j
    75 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00449.java,63,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00449.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00449.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00449.java,"
    53 |
    54 |
    55 |
@@ -1127,7 +1127,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00449.j
    73 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00521.java,80,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00521.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00521.java,80,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00521.java,"
    70 |         //     byte[] iv = {
    71 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    72 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -1151,7 +1151,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00521.j
    90 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00521.java,83,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00521.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00521.java,83,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00521.java,"
    73 |
    74 | va.security.SecureRandom();
    75 |  requires 8 byte keys
@@ -1175,7 +1175,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00521.j
    93 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00522.java,79,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00522.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00522.java,79,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00522.java,"
    69 | alization vector
    70 | v = {
    71 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -1199,7 +1199,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00522.j
    89 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00522.java,81,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00522.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00522.java,81,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00522.java,"
    71 | , (byte)0xB2,
    72 | , (byte)0xC3033
    73 |
@@ -1223,7 +1223,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00522.j
    91 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00608.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00608.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00608.java,73,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00608.java,"
    63 |         //     byte[] iv = {
    64 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    65 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -1247,7 +1247,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00608.j
    83 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00608.java,76,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00608.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00608.java,76,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00608.java,"
    66 |
    67 | va.security.SecureRandom();
    68 |  requires 8 byte keys
@@ -1271,7 +1271,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00608.j
    86 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00609.java,65,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00609.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00609.java,65,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00609.java,"
    55 |         //     byte[] iv = {
    56 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    57 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -1295,7 +1295,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00609.j
    75 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00609.java,68,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00609.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00609.java,68,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00609.java,"
    58 |
    59 | va.security.SecureRandom();
    60 |  requires 8 byte keys
@@ -1319,7 +1319,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00609.j
    78 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00610.java,84,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00610.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00610.java,84,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00610.java,"
    74 |         //     byte[] iv = {
    75 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    76 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -1343,7 +1343,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00610.j
    94 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00610.java,87,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00610.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00610.java,87,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00610.java,"
    77 |
    78 | va.security.SecureRandom();
    79 |  requires 8 byte keys
@@ -1367,7 +1367,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00610.j
    97 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00611.java,68,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00611.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00611.java,68,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00611.java,"
    58 |         //     byte[] iv = {
    59 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    60 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -1391,7 +1391,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00611.j
    78 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00611.java,71,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00611.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00611.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00611.java,"
    61 |
    62 | va.security.SecureRandom();
    63 |  requires 8 byte keys
@@ -1415,7 +1415,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00611.j
    81 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00614.java,71,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00614.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00614.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00614.java,"
    61 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    62 |
    63 |
@@ -1439,7 +1439,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00614.j
    81 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00614.java,74,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00614.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00614.java,74,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00614.java,"
    64 | byte)0xB2,
    65 | byte)0xC3033
    66 |
@@ -1463,7 +1463,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00614.j
    84 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00615.java,67,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00615.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00615.java,67,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00615.java,"
    57 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    58 |
    59 |
@@ -1487,7 +1487,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00615.j
    77 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00615.java,70,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00615.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00615.java,70,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00615.java,"
    60 | byte)0xB2,
    61 | byte)0xC3033
    62 |
@@ -1511,7 +1511,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00615.j
    80 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00616.java,58,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00616.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00616.java,58,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00616.java,"
    48 | ().encodeForHTML(param);
    49 |
    50 |
@@ -1535,7 +1535,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00616.j
    68 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00617.java,59,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00617.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00617.java,59,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00617.java,"
    49 | "").toString();
    50 |
    51 |
@@ -1559,7 +1559,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00617.j
    69 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00684.java,63,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00684.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00684.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00684.java,"
    53 |         //     byte[] iv = {
    54 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    55 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -1583,7 +1583,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00684.j
    73 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00684.java,66,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00684.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00684.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00684.java,"
    56 |
    57 | va.security.SecureRandom();
    58 |  requires 8 byte keys
@@ -1607,7 +1607,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00684.j
    76 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00685.java,67,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00685.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00685.java,67,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00685.java,"
    57 |         //     byte[] iv = {
    58 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    59 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -1631,7 +1631,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00685.j
    77 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00685.java,70,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00685.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00685.java,70,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00685.java,"
    60 |
    61 | va.security.SecureRandom();
    62 |  requires 8 byte keys
@@ -1655,7 +1655,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00685.j
    80 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00688.java,69,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00688.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00688.java,69,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00688.java,"
    59 | alization vector
    60 | v = {
    61 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -1679,7 +1679,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00688.j
    79 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00688.java,71,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00688.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00688.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00688.java,"
    61 | , (byte)0xB2,
    62 | , (byte)0xC3033
    63 |
@@ -1703,7 +1703,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00688.j
    81 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00691.java,71,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00691.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00691.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00691.java,"
    61 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    62 |
    63 |
@@ -1727,7 +1727,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00691.j
    81 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00691.java,74,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00691.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00691.java,74,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00691.java,"
    64 | byte)0xB2,
    65 | byte)0xC3033
    66 |
@@ -1751,7 +1751,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00691.j
    84 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00692.java,61,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00692.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00692.java,61,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00692.java,"
    51 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    52 |
    53 |
@@ -1775,7 +1775,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00692.j
    71 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00692.java,64,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00692.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00692.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00692.java,"
    54 | byte)0xB2,
    55 | byte)0xC3033
    56 |
@@ -1799,7 +1799,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00692.j
    74 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00693.java,64,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00693.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00693.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00693.java,"
    54 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    55 |
    56 |
@@ -1823,7 +1823,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00693.j
    74 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00693.java,67,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00693.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00693.java,67,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00693.java,"
    57 | byte)0xB2,
    58 | byte)0xC3033
    59 |
@@ -1847,7 +1847,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00693.j
    77 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00779.java,84,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00779.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00779.java,84,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00779.java,"
    74 | alization vector
    75 | v = {
    76 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -1871,7 +1871,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00779.j
    94 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00779.java,86,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00779.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00779.java,86,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00779.java,"
    76 | , (byte)0xB2,
    77 | , (byte)0xC3033
    78 |
@@ -1895,7 +1895,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00779.j
    96 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00781.java,83,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00781.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00781.java,83,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00781.java,"
    73 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    74 |
    75 |
@@ -1919,7 +1919,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00781.j
    93 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00781.java,86,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00781.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00781.java,86,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00781.java,"
    76 | byte)0xB2,
    77 | byte)0xC3033
    78 |
@@ -1943,7 +1943,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00781.j
    96 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00853.java,63,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00853.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00853.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00853.java,"
    53 |         //     byte[] iv = {
    54 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    55 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -1967,7 +1967,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00853.j
    73 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00853.java,66,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00853.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00853.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00853.java,"
    56 |
    57 | va.security.SecureRandom();
    58 |  requires 8 byte keys
@@ -1991,7 +1991,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00853.j
    76 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00855.java,71,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00855.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00855.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00855.java,"
    61 | alization vector
    62 | v = {
    63 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -2015,7 +2015,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00855.j
    81 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00855.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00855.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00855.java,73,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00855.java,"
    63 | , (byte)0xB2,
    64 | , (byte)0xC3033
    65 |
@@ -2039,7 +2039,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00855.j
    83 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00856.java,80,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00856.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00856.java,80,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00856.java,"
    70 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    71 |
    72 |
@@ -2063,7 +2063,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00856.j
    90 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00856.java,83,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00856.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00856.java,83,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00856.java,"
    73 | byte)0xB2,
    74 | byte)0xC3033
    75 |
@@ -2087,7 +2087,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00856.j
    93 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00857.java,79,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00857.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00857.java,79,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00857.java,"
    69 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    70 |
    71 |
@@ -2111,7 +2111,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00857.j
    89 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00857.java,82,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00857.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00857.java,82,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00857.java,"
    72 | byte)0xB2,
    73 | byte)0xC3033
    74 |
@@ -2135,7 +2135,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00857.j
    92 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00859.java,62,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00859.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00859.java,62,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00859.java,"
    52 |  // get it back out
    53 |
    54 |
@@ -2159,7 +2159,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00859.j
    72 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00945.java,75,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00945.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00945.java,75,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00945.java,"
    65 | t, param);
    66 |
    67 |
@@ -2183,7 +2183,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00945.j
    85 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00946.java,75,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00946.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00946.java,75,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00946.java,"
    65 | t, param);
    66 |
    67 |
@@ -2207,7 +2207,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00946.j
    85 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01015.java,66,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01015.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01015.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01015.java,"
    56 |         //     byte[] iv = {
    57 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    58 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -2231,7 +2231,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01015.j
    76 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01015.java,69,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01015.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01015.java,69,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01015.java,"
    59 |
    60 | va.security.SecureRandom();
    61 |  requires 8 byte keys
@@ -2255,7 +2255,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01015.j
    79 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01016.java,65,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01016.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01016.java,65,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01016.java,"
    55 | alization vector
    56 | v = {
    57 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -2279,7 +2279,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01016.j
    75 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01016.java,67,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01016.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01016.java,67,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01016.java,"
    57 | , (byte)0xB2,
    58 | , (byte)0xC3033
    59 |
@@ -2303,7 +2303,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01016.j
    77 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01017.java,65,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01017.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01017.java,65,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01017.java,"
    55 | alization vector
    56 | v = {
    57 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -2327,7 +2327,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01017.j
    75 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01017.java,67,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01017.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01017.java,67,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01017.java,"
    57 | , (byte)0xB2,
    58 | , (byte)0xC3033
    59 |
@@ -2351,7 +2351,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01017.j
    77 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01018.java,64,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01018.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01018.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01018.java,"
    54 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    55 |
    56 |
@@ -2375,7 +2375,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01018.j
    74 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01018.java,67,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01018.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01018.java,67,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01018.java,"
    57 | byte)0xB2,
    58 | byte)0xC3033
    59 |
@@ -2399,7 +2399,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01018.j
    77 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01020.java,61,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01020.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01020.java,61,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01020.java,"
    51 | t, param);
    52 |
    53 |
@@ -2423,7 +2423,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01020.j
    71 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01099.java,75,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01099.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01099.java,75,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01099.java,"
    65 |         //     byte[] iv = {
    66 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    67 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -2447,7 +2447,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01099.j
    85 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01099.java,78,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01099.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01099.java,78,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01099.java,"
    68 |
    69 | va.security.SecureRandom();
    70 |  requires 8 byte keys
@@ -2471,7 +2471,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01099.j
    88 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01102.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01102.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01102.java,73,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01102.java,"
    63 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    64 |
    65 |
@@ -2495,7 +2495,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01102.j
    83 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01102.java,76,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01102.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01102.java,76,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01102.java,"
    66 | byte)0xB2,
    67 | byte)0xC3033
    68 |
@@ -2519,7 +2519,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01102.j
    86 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01103.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01103.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01103.java,73,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01103.java,"
    63 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    64 |
    65 |
@@ -2543,7 +2543,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01103.j
    83 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01103.java,76,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01103.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01103.java,76,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01103.java,"
    66 | byte)0xB2,
    67 | byte)0xC3033
    68 |
@@ -2567,7 +2567,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01103.j
    86 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01105.java,70,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01105.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01105.java,70,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01105.java,"
    60 | t, param);
    61 |
    62 |
@@ -2591,7 +2591,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01105.j
    80 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01106.java,70,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01106.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01106.java,70,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01106.java,"
    60 | t, param);
    61 |
    62 |
@@ -2615,7 +2615,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01106.j
    80 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01107.java,70,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01107.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01107.java,70,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01107.java,"
    60 | t, param);
    61 |
    62 |
@@ -2639,7 +2639,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01107.j
    80 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01148.java,67,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01148.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01148.java,67,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01148.java,"
    57 | alization vector
    58 | v = {
    59 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -2663,7 +2663,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01148.j
    77 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01148.java,69,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01148.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01148.java,69,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01148.java,"
    59 | , (byte)0xB2,
    60 | , (byte)0xC3033
    61 |
@@ -2687,7 +2687,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01148.j
    79 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01149.java,67,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01149.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01149.java,67,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01149.java,"
    57 | alization vector
    58 | v = {
    59 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -2711,7 +2711,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01149.j
    77 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01149.java,69,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01149.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01149.java,69,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01149.java,"
    59 | , (byte)0xB2,
    60 | , (byte)0xC3033
    61 |
@@ -2735,7 +2735,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01149.j
    79 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01150.java,66,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01150.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01150.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01150.java,"
    56 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    57 |
    58 |
@@ -2759,7 +2759,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01150.j
    76 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01150.java,69,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01150.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01150.java,69,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01150.java,"
    59 | byte)0xB2,
    60 | byte)0xC3033
    61 |
@@ -2783,7 +2783,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01150.j
    79 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01228.java,59,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01228.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01228.java,59,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01228.java,"
    49 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    50 |
    51 |
@@ -2807,7 +2807,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01228.j
    69 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01228.java,62,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01228.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01228.java,62,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01228.java,"
    52 | byte)0xB2,
    53 | byte)0xC3033
    54 |
@@ -2831,7 +2831,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01228.j
    72 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01229.java,59,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01229.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01229.java,59,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01229.java,"
    49 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    50 |
    51 |
@@ -2855,7 +2855,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01229.j
    69 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01229.java,62,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01229.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01229.java,62,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01229.java,"
    52 | byte)0xB2,
    53 | byte)0xC3033
    54 |
@@ -2879,7 +2879,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01229.j
    72 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01230.java,56,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01230.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01230.java,56,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01230.java,"
    46 | t, param);
    47 |
    48 |
@@ -2903,7 +2903,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01230.j
    66 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01317.java,65,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01317.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01317.java,65,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01317.java,"
    55 |         //     byte[] iv = {
    56 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    57 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -2927,7 +2927,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01317.j
    75 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01317.java,68,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01317.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01317.java,68,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01317.java,"
    58 |
    59 | va.security.SecureRandom();
    60 |  requires 8 byte keys
@@ -2951,7 +2951,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01317.j
    78 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01318.java,65,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01318.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01318.java,65,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01318.java,"
    55 |         //     byte[] iv = {
    56 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    57 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -2975,7 +2975,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01318.j
    75 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01318.java,68,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01318.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01318.java,68,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01318.java,"
    58 |
    59 | va.security.SecureRandom();
    60 |  requires 8 byte keys
@@ -2999,7 +2999,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01318.j
    78 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01320.java,64,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01320.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01320.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01320.java,"
    54 | alization vector
    55 | v = {
    56 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -3023,7 +3023,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01320.j
    74 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01320.java,66,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01320.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01320.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01320.java,"
    56 | , (byte)0xB2,
    57 | , (byte)0xC3033
    58 |
@@ -3047,7 +3047,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01320.j
    76 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01322.java,63,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01322.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01322.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01322.java,"
    53 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    54 |
    55 |
@@ -3071,7 +3071,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01322.j
    73 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01322.java,66,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01322.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01322.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01322.java,"
    56 | byte)0xB2,
    57 | byte)0xC3033
    58 |
@@ -3095,7 +3095,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01322.j
    76 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01323.java,63,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01323.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01323.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01323.java,"
    53 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    54 |
    55 |
@@ -3119,7 +3119,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01323.j
    73 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01323.java,66,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01323.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01323.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01323.java,"
    56 | byte)0xB2,
    57 | byte)0xC3033
    58 |
@@ -3143,7 +3143,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01323.j
    76 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01325.java,60,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01325.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01325.java,60,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01325.java,"
    50 | t, param);
    51 |
    52 |
@@ -3167,7 +3167,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01325.j
    70 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01398.java,74,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01398.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01398.java,74,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01398.java,"
    64 | alization vector
    65 | v = {
    66 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -3191,7 +3191,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01398.j
    84 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01398.java,76,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01398.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01398.java,76,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01398.java,"
    66 | , (byte)0xB2,
    67 | , (byte)0xC3033
    68 |
@@ -3215,7 +3215,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01398.j
    86 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01480.java,63,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01480.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01480.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01480.java,"
    53 |         //     byte[] iv = {
    54 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    55 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -3239,7 +3239,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01480.j
    73 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01480.java,66,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01480.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01480.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01480.java,"
    56 |
    57 | va.security.SecureRandom();
    58 |  requires 8 byte keys
@@ -3263,7 +3263,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01480.j
    76 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01483.java,62,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01483.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01483.java,62,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01483.java,"
    52 | alization vector
    53 | v = {
    54 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -3287,7 +3287,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01483.j
    72 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01483.java,64,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01483.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01483.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01483.java,"
    54 | , (byte)0xB2,
    55 | , (byte)0xC3033
    56 |
@@ -3311,7 +3311,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01483.j
    74 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01484.java,62,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01484.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01484.java,62,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01484.java,"
    52 | alization vector
    53 | v = {
    54 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -3335,7 +3335,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01484.j
    72 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01484.java,64,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01484.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01484.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01484.java,"
    54 | , (byte)0xB2,
    55 | , (byte)0xC3033
    56 |
@@ -3359,7 +3359,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01484.j
    74 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01486.java,61,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01486.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01486.java,61,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01486.java,"
    51 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    52 |
    53 |
@@ -3383,7 +3383,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01486.j
    71 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01486.java,64,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01486.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01486.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01486.java,"
    54 | byte)0xB2,
    55 | byte)0xC3033
    56 |
@@ -3407,7 +3407,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01486.j
    74 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01489.java,58,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01489.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01489.java,58,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01489.java,"
    48 | t, param);
    49 |
    50 |
@@ -3431,7 +3431,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01489.j
    68 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01565.java,61,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01565.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01565.java,61,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01565.java,"
    51 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    52 |
    53 |
@@ -3455,7 +3455,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01565.j
    71 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01565.java,64,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01565.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01565.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01565.java,"
    54 | byte)0xB2,
    55 | byte)0xC3033
    56 |
@@ -3479,7 +3479,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01565.j
    74 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01566.java,58,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01566.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01566.java,58,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01566.java,"
    48 | t, param);
    49 |
    50 |
@@ -3503,7 +3503,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01566.j
    68 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01634.java,85,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01634.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01634.java,85,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01634.java,"
    75 |         //     byte[] iv = {
    76 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    77 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -3527,7 +3527,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01634.j
    95 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01634.java,88,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01634.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01634.java,88,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01634.java,"
    78 |
    79 | va.security.SecureRandom();
    80 |  requires 8 byte keys
@@ -3551,7 +3551,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01634.j
    98 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01637.java,84,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01637.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01637.java,84,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01637.java,"
    74 | alization vector
    75 | v = {
    76 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -3575,7 +3575,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01637.j
    94 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01637.java,86,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01637.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01637.java,86,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01637.java,"
    76 | , (byte)0xB2,
    77 | , (byte)0xC3033
    78 |
@@ -3599,7 +3599,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01637.j
    96 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01638.java,83,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01638.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01638.java,83,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01638.java,"
    73 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    74 |
    75 |
@@ -3623,7 +3623,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01638.j
    93 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01638.java,86,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01638.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01638.java,86,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01638.java,"
    76 | byte)0xB2,
    77 | byte)0xC3033
    78 |
@@ -3647,7 +3647,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01638.j
    96 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01639.java,83,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01639.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01639.java,83,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01639.java,"
    73 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    74 |
    75 |
@@ -3671,7 +3671,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01639.j
    93 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01639.java,86,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01639.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01639.java,86,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01639.java,"
    76 | byte)0xB2,
    77 | byte)0xC3033
    78 |
@@ -3695,7 +3695,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01639.j
    96 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01641.java,80,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01641.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01641.java,80,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01641.java,"
    70 | t, param);
    71 |
    72 |
@@ -3719,7 +3719,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01641.j
    90 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01740.java,57,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01740.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01740.java,57,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01740.java,"
    47 | t, param);
    48 |
    49 |
@@ -3743,7 +3743,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01740.j
    67 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01741.java,57,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01741.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01741.java,57,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01741.java,"
    47 | t, param);
    48 |
    49 |
@@ -3767,7 +3767,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01741.j
    67 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01742.java,57,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01742.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01742.java,57,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01742.java,"
    47 | t, param);
    48 |
    49 |
@@ -3791,7 +3791,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01742.j
    67 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01822.java,80,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01822.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01822.java,80,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01822.java,"
    70 |         //     byte[] iv = {
    71 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    72 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -3815,7 +3815,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01822.j
    90 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01822.java,83,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01822.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01822.java,83,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01822.java,"
    73 |
    74 | va.security.SecureRandom();
    75 |  requires 8 byte keys
@@ -3839,7 +3839,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01822.j
    93 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01823.java,80,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01823.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01823.java,80,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01823.java,"
    70 |         //     byte[] iv = {
    71 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    72 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -3863,7 +3863,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01823.j
    90 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01823.java,83,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01823.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01823.java,83,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01823.java,"
    73 |
    74 | va.security.SecureRandom();
    75 |  requires 8 byte keys
@@ -3887,7 +3887,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01823.j
    93 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01829.java,75,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01829.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01829.java,75,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01829.java,"
    65 |
    66 |
    67 |
@@ -3911,7 +3911,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01829.j
    85 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01830.java,75,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01830.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01830.java,75,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01830.java,"
    65 |
    66 |
    67 |
@@ -3935,7 +3935,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01830.j
    85 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01895.java,65,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01895.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01895.java,65,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01895.java,"
    55 | alization vector
    56 | v = {
    57 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -3959,7 +3959,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01895.j
    75 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01895.java,67,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01895.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01895.java,67,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01895.java,"
    57 | , (byte)0xB2,
    58 | , (byte)0xC3033
    59 |
@@ -3983,7 +3983,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01895.j
    77 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01897.java,64,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01897.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01897.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01897.java,"
    54 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    55 |
    56 |
@@ -4007,7 +4007,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01897.j
    74 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01897.java,67,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01897.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01897.java,67,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01897.java,"
    57 | byte)0xB2,
    58 | byte)0xC3033
    59 |
@@ -4031,7 +4031,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01897.j
    77 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01898.java,64,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01898.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01898.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01898.java,"
    54 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    55 |
    56 |
@@ -4055,7 +4055,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01898.j
    74 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01898.java,67,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01898.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01898.java,67,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01898.java,"
    57 | byte)0xB2,
    58 | byte)0xC3033
    59 |
@@ -4079,7 +4079,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01898.j
    77 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01900.java,61,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01900.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01900.java,61,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01900.java,"
    51 |
    52 |
    53 |
@@ -4103,7 +4103,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01900.j
    71 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01978.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01978.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01978.java,73,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01978.java,"
    63 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    64 |
    65 |
@@ -4127,7 +4127,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01978.j
    83 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01978.java,76,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01978.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01978.java,76,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01978.java,"
    66 | byte)0xB2,
    67 | byte)0xC3033
    68 |
@@ -4151,7 +4151,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01978.j
    86 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01980.java,70,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01980.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01980.java,70,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01980.java,"
    60 |
    61 |
    62 |
@@ -4175,7 +4175,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01980.j
    80 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01981.java,70,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01981.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01981.java,70,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01981.java,"
    60 |
    61 |
    62 |
@@ -4199,7 +4199,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01981.j
    80 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02017.java,68,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02017.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02017.java,68,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02017.java,"
    58 |         //     byte[] iv = {
    59 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    60 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -4223,7 +4223,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02017.j
    78 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02017.java,71,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02017.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02017.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02017.java,"
    61 |
    62 | va.security.SecureRandom();
    63 |  requires 8 byte keys
@@ -4247,7 +4247,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02017.j
    81 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02018.java,68,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02018.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02018.java,68,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02018.java,"
    58 |         //     byte[] iv = {
    59 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    60 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -4271,7 +4271,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02018.j
    78 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02018.java,71,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02018.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02018.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02018.java,"
    61 |
    62 | va.security.SecureRandom();
    63 |  requires 8 byte keys
@@ -4295,7 +4295,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02018.j
    81 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02019.java,68,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02019.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02019.java,68,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02019.java,"
    58 |         //     byte[] iv = {
    59 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    60 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -4319,7 +4319,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02019.j
    78 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02019.java,71,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02019.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02019.java,71,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02019.java,"
    61 |
    62 | va.security.SecureRandom();
    63 |  requires 8 byte keys
@@ -4343,7 +4343,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02019.j
    81 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02020.java,67,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02020.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02020.java,67,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02020.java,"
    57 | alization vector
    58 | v = {
    59 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -4367,7 +4367,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02020.j
    77 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02020.java,69,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02020.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02020.java,69,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02020.java,"
    59 | , (byte)0xB2,
    60 | , (byte)0xC3033
    61 |
@@ -4391,7 +4391,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02020.j
    79 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02022.java,63,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02022.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02022.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02022.java,"
    53 |
    54 |
    55 |
@@ -4415,7 +4415,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02022.j
    73 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02023.java,63,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02023.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02023.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02023.java,"
    53 |
    54 |
    55 |
@@ -4439,7 +4439,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02023.j
    73 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02101.java,60,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02101.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02101.java,60,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02101.java,"
    50 | alization vector
    51 | v = {
    52 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -4463,7 +4463,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02101.j
    70 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02101.java,62,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02101.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02101.java,62,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02101.java,"
    52 | , (byte)0xB2,
    53 | , (byte)0xC3033
    54 |
@@ -4487,7 +4487,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02101.j
    72 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02192.java,64,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02192.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02192.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02192.java,"
    54 | alization vector
    55 | v = {
    56 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -4511,7 +4511,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02192.j
    74 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02192.java,66,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02192.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02192.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02192.java,"
    56 | , (byte)0xB2,
    57 | , (byte)0xC3033
    58 |
@@ -4535,7 +4535,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02192.j
    76 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02193.java,64,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02193.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02193.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02193.java,"
    54 | alization vector
    55 | v = {
    56 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -4559,7 +4559,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02193.j
    74 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02193.java,66,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02193.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02193.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02193.java,"
    56 | , (byte)0xB2,
    57 | , (byte)0xC3033
    58 |
@@ -4583,7 +4583,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02193.j
    76 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02194.java,63,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02194.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02194.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02194.java,"
    53 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    54 |
    55 |
@@ -4607,7 +4607,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02194.j
    73 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02194.java,66,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02194.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02194.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02194.java,"
    56 | byte)0xB2,
    57 | byte)0xC3033
    58 |
@@ -4631,7 +4631,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02194.j
    76 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02195.java,63,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02195.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02195.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02195.java,"
    53 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    54 |
    55 |
@@ -4655,7 +4655,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02195.j
    73 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02195.java,66,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02195.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02195.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02195.java,"
    56 | byte)0xB2,
    57 | byte)0xC3033
    58 |
@@ -4679,7 +4679,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02195.j
    76 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02290.java,74,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02290.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02290.java,74,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02290.java,"
    64 | alization vector
    65 | v = {
    66 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -4703,7 +4703,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02290.j
    84 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02290.java,76,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02290.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02290.java,76,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02290.java,"
    66 | , (byte)0xB2,
    67 | , (byte)0xC3033
    68 |
@@ -4727,7 +4727,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02290.j
    86 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02291.java,74,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02291.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02291.java,74,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02291.java,"
    64 | alization vector
    65 | v = {
    66 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -4751,7 +4751,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02291.j
    84 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02291.java,76,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02291.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02291.java,76,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02291.java,"
    66 | , (byte)0xB2,
    67 | , (byte)0xC3033
    68 |
@@ -4775,7 +4775,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02291.j
    86 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02292.java,74,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02292.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02292.java,74,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02292.java,"
    64 | alization vector
    65 | v = {
    66 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -4799,7 +4799,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02292.j
    84 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02292.java,76,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02292.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02292.java,76,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02292.java,"
    66 | , (byte)0xB2,
    67 | , (byte)0xC3033
    68 |
@@ -4823,7 +4823,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02292.j
    86 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02293.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02293.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02293.java,73,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02293.java,"
    63 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    64 |
    65 |
@@ -4847,7 +4847,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02293.j
    83 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02293.java,76,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02293.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02293.java,76,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02293.java,"
    66 | byte)0xB2,
    67 | byte)0xC3033
    68 |
@@ -4871,7 +4871,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02293.j
    86 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02294.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02294.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02294.java,73,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02294.java,"
    63 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    64 |
    65 |
@@ -4895,7 +4895,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02294.j
    83 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02294.java,76,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02294.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02294.java,76,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02294.java,"
    66 | byte)0xB2,
    67 | byte)0xC3033
    68 |
@@ -4919,7 +4919,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02294.j
    86 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02295.java,73,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02295.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02295.java,73,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02295.java,"
    63 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    64 |
    65 |
@@ -4943,7 +4943,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02295.j
    83 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02295.java,76,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02295.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02295.java,76,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02295.java,"
    66 | byte)0xB2,
    67 | byte)0xC3033
    68 |
@@ -4967,7 +4967,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02295.j
    86 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02373.java,61,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02373.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02373.java,61,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02373.java,"
    51 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    52 |
    53 |
@@ -4991,7 +4991,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02373.j
    71 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02373.java,64,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02373.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02373.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02373.java,"
    54 | byte)0xB2,
    55 | byte)0xC3033
    56 |
@@ -5015,7 +5015,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02373.j
    74 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02374.java,61,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02374.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02374.java,61,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02374.java,"
    51 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    52 |
    53 |
@@ -5039,7 +5039,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02374.j
    71 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02374.java,64,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02374.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02374.java,64,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02374.java,"
    54 | byte)0xB2,
    55 | byte)0xC3033
    56 |
@@ -5063,7 +5063,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02374.j
    74 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02375.java,58,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02375.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02375.java,58,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02375.java,"
    48 |
    49 |
    50 |
@@ -5087,7 +5087,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02375.j
    68 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02458.java,63,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02458.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02458.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02458.java,"
    53 |         //     byte[] iv = {
    54 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    55 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -5111,7 +5111,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02458.j
    73 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02458.java,66,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02458.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02458.java,66,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02458.java,"
    56 |
    57 | va.security.SecureRandom();
    58 |  requires 8 byte keys
@@ -5135,7 +5135,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02458.j
    76 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02548.java,84,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02548.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02548.java,84,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02548.java,"
    74 | alization vector
    75 | v = {
    76 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -5159,7 +5159,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02548.j
    94 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02548.java,86,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02548.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02548.java,86,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02548.java,"
    76 | , (byte)0xB2,
    77 | , (byte)0xC3033
    78 |
@@ -5183,7 +5183,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02548.j
    96 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02549.java,84,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02549.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02549.java,84,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02549.java,"
    74 | alization vector
    75 | v = {
    76 | xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
@@ -5207,7 +5207,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02549.j
    94 | ram instanceof String) input = ((String) inputParam).getBytes();
       ^ Col 23
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02549.java,86,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02549.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02549.java,86,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02549.java,"
    76 | , (byte)0xB2,
    77 | , (byte)0xC3033
    78 |
@@ -5231,7 +5231,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02549.j
    96 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02550.java,83,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02550.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02550.java,83,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02550.java,"
    73 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    74 |
    75 |
@@ -5255,7 +5255,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02550.j
    93 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02550.java,86,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02550.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02550.java,86,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02550.java,"
    76 | byte)0xB2,
    77 | byte)0xC3033
    78 |
@@ -5279,7 +5279,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02550.j
    96 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02658.java,62,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02658.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02658.java,62,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02658.java,"
    52 |         //     byte[] iv = {
    53 |         //      (byte)0xB2, (byte)0x12, (byte)0xD5, (byte)0xB2,
    54 |         //      (byte)0x44, (byte)0x21, (byte)0xC3, (byte)0xC3033
@@ -5303,7 +5303,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02658.j
    72 |             Object inputParam = bar;
       ^ Col 0
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02658.java,65,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02658.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02658.java,65,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02658.java,"
    55 |
    56 | va.security.SecureRandom();
    57 |  requires 8 byte keys
@@ -5327,7 +5327,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02658.j
    75 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02660.java,60,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02660.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02660.java,60,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02660.java,"
    50 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    51 |
    52 |
@@ -5351,7 +5351,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02660.j
    70 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02660.java,63,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02660.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02660.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02660.java,"
    53 | byte)0xB2,
    54 | byte)0xC3033
    55 |
@@ -5375,7 +5375,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02660.j
    73 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02661.java,60,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02661.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02661.java,60,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02661.java,"
    50 | s.com/core-java/crypto/encrypt-decrypt-file-stream-with-des/
    51 |
    52 |
@@ -5399,7 +5399,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02661.j
    70 |
       ^ Col 39
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02661.java,63,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02661.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02661.java,63,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02661.java,"
    53 | byte)0xB2,
    54 | byte)0xC3033
    55 |
@@ -5423,7 +5423,7 @@ F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02661.j
    73 |
       ^ Col 50
 "
-F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02663.java,57,310 + 327,skims,F052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02663.java,"
+F052,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02663.java,57,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02663.java,"
    47 |
    48 |
    49 |

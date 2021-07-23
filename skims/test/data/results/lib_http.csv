@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
-F128,inputs,http://localhost:48000/f042_httponly_0 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
+F128,inputs,http://localhost:48000/f042_httponly_0 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
    1 | > GET http://localhost:48000/f042_httponly_0
    2 | > ...
    3 |
@@ -12,7 +12,7 @@ F128,inputs,http://localhost:48000/f042_httponly_0 (namespace),session does not 
   10 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_httponly_2 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
+F128,inputs,http://localhost:48000/f042_httponly_2 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
    1 | > GET http://localhost:48000/f042_httponly_2
    2 | > ...
    3 |
@@ -25,7 +25,7 @@ F128,inputs,http://localhost:48000/f042_httponly_2 (namespace),session does not 
   10 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_httponly_4 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
+F128,inputs,http://localhost:48000/f042_httponly_4 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
    1 | > GET http://localhost:48000/f042_httponly_4
    2 | > ...
    3 |
@@ -38,7 +38,7 @@ F128,inputs,http://localhost:48000/f042_httponly_4 (namespace),session does not 
   10 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_httponly_5 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
+F128,inputs,http://localhost:48000/f042_httponly_5 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
    1 | > GET http://localhost:48000/f042_httponly_5
    2 | > ...
    3 |
@@ -53,7 +53,7 @@ F128,inputs,http://localhost:48000/f042_httponly_5 (namespace),session does not 
   12 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_samesite_1 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
+F128,inputs,http://localhost:48000/f042_samesite_1 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
    1 | > GET http://localhost:48000/f042_samesite_1
    2 | > ...
    3 |
@@ -66,7 +66,7 @@ F128,inputs,http://localhost:48000/f042_samesite_1 (namespace),session does not 
   10 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_samesite_2 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
+F128,inputs,http://localhost:48000/f042_samesite_2 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
    1 | > GET http://localhost:48000/f042_samesite_2
    2 | > ...
    3 |
@@ -79,7 +79,7 @@ F128,inputs,http://localhost:48000/f042_samesite_2 (namespace),session does not 
   10 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_samesite_3 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
+F128,inputs,http://localhost:48000/f042_samesite_3 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
    1 | > GET http://localhost:48000/f042_samesite_3
    2 | > ...
    3 |
@@ -92,7 +92,7 @@ F128,inputs,http://localhost:48000/f042_samesite_3 (namespace),session does not 
   10 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_samesite_5 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
+F128,inputs,http://localhost:48000/f042_samesite_5 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
    1 | > GET http://localhost:48000/f042_samesite_5
    2 | > ...
    3 |
@@ -107,7 +107,7 @@ F128,inputs,http://localhost:48000/f042_samesite_5 (namespace),session does not 
   12 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_secure_0 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
+F128,inputs,http://localhost:48000/f042_secure_0 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
    1 | > GET http://localhost:48000/f042_secure_0
    2 | > ...
    3 |
@@ -120,7 +120,7 @@ F128,inputs,http://localhost:48000/f042_secure_0 (namespace),session does not ha
   10 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_secure_2 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
+F128,inputs,http://localhost:48000/f042_secure_2 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
    1 | > GET http://localhost:48000/f042_secure_2
    2 | > ...
    3 |
@@ -133,7 +133,7 @@ F128,inputs,http://localhost:48000/f042_secure_2 (namespace),session does not ha
   10 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_secure_4 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
+F128,inputs,http://localhost:48000/f042_secure_4 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
    1 | > GET http://localhost:48000/f042_secure_4
    2 | > ...
    3 |
@@ -146,7 +146,7 @@ F128,inputs,http://localhost:48000/f042_secure_4 (namespace),session does not ha
   10 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_secure_5 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
+F128,inputs,http://localhost:48000/f042_secure_5 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
    1 | > GET http://localhost:48000/f042_secure_5
    2 | > ...
    3 |
@@ -161,7 +161,7 @@ F128,inputs,http://localhost:48000/f042_secure_5 (namespace),session does not ha
   12 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_secure_6 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
+F128,inputs,http://localhost:48000/f042_secure_6 (namespace),session does not have SameSite correctly initialized,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session does not have SameSite correctly initialized,"
    1 | > GET http://localhost:48000/f042_secure_6
    2 | > ...
    3 |
@@ -176,7 +176,7 @@ F128,inputs,http://localhost:48000/f042_secure_6 (namespace),session does not ha
   12 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_httponly_2 (namespace),session is missing HttpOnly,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
+F128,inputs,http://localhost:48000/f042_httponly_2 (namespace),session is missing HttpOnly,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
    1 | > GET http://localhost:48000/f042_httponly_2
    2 | > ...
    3 |
@@ -189,7 +189,7 @@ F128,inputs,http://localhost:48000/f042_httponly_2 (namespace),session is missin
   10 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_httponly_4 (namespace),session is missing HttpOnly,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
+F128,inputs,http://localhost:48000/f042_httponly_4 (namespace),session is missing HttpOnly,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
    1 | > GET http://localhost:48000/f042_httponly_4
    2 | > ...
    3 |
@@ -202,7 +202,7 @@ F128,inputs,http://localhost:48000/f042_httponly_4 (namespace),session is missin
   10 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_httponly_5 (namespace),session is missing HttpOnly,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
+F128,inputs,http://localhost:48000/f042_httponly_5 (namespace),session is missing HttpOnly,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
    1 | > GET http://localhost:48000/f042_httponly_5
    2 | > ...
    3 |
@@ -217,7 +217,7 @@ F128,inputs,http://localhost:48000/f042_httponly_5 (namespace),session is missin
   12 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_samesite_0 (namespace),session is missing HttpOnly,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
+F128,inputs,http://localhost:48000/f042_samesite_0 (namespace),session is missing HttpOnly,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
    1 | > GET http://localhost:48000/f042_samesite_0
    2 | > ...
    3 |
@@ -230,7 +230,7 @@ F128,inputs,http://localhost:48000/f042_samesite_0 (namespace),session is missin
   10 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_samesite_1 (namespace),session is missing HttpOnly,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
+F128,inputs,http://localhost:48000/f042_samesite_1 (namespace),session is missing HttpOnly,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
    1 | > GET http://localhost:48000/f042_samesite_1
    2 | > ...
    3 |
@@ -243,7 +243,7 @@ F128,inputs,http://localhost:48000/f042_samesite_1 (namespace),session is missin
   10 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_samesite_2 (namespace),session is missing HttpOnly,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
+F128,inputs,http://localhost:48000/f042_samesite_2 (namespace),session is missing HttpOnly,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
    1 | > GET http://localhost:48000/f042_samesite_2
    2 | > ...
    3 |
@@ -256,7 +256,7 @@ F128,inputs,http://localhost:48000/f042_samesite_2 (namespace),session is missin
   10 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_samesite_3 (namespace),session is missing HttpOnly,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
+F128,inputs,http://localhost:48000/f042_samesite_3 (namespace),session is missing HttpOnly,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
    1 | > GET http://localhost:48000/f042_samesite_3
    2 | > ...
    3 |
@@ -269,7 +269,7 @@ F128,inputs,http://localhost:48000/f042_samesite_3 (namespace),session is missin
   10 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_samesite_5 (namespace),session is missing HttpOnly,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
+F128,inputs,http://localhost:48000/f042_samesite_5 (namespace),session is missing HttpOnly,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
    1 | > GET http://localhost:48000/f042_samesite_5
    2 | > ...
    3 |
@@ -284,7 +284,7 @@ F128,inputs,http://localhost:48000/f042_samesite_5 (namespace),session is missin
   12 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_secure_0 (namespace),session is missing HttpOnly,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
+F128,inputs,http://localhost:48000/f042_secure_0 (namespace),session is missing HttpOnly,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
    1 | > GET http://localhost:48000/f042_secure_0
    2 | > ...
    3 |
@@ -297,7 +297,7 @@ F128,inputs,http://localhost:48000/f042_secure_0 (namespace),session is missing 
   10 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_secure_2 (namespace),session is missing HttpOnly,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
+F128,inputs,http://localhost:48000/f042_secure_2 (namespace),session is missing HttpOnly,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
    1 | > GET http://localhost:48000/f042_secure_2
    2 | > ...
    3 |
@@ -310,7 +310,7 @@ F128,inputs,http://localhost:48000/f042_secure_2 (namespace),session is missing 
   10 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_secure_4 (namespace),session is missing HttpOnly,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
+F128,inputs,http://localhost:48000/f042_secure_4 (namespace),session is missing HttpOnly,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
    1 | > GET http://localhost:48000/f042_secure_4
    2 | > ...
    3 |
@@ -323,7 +323,7 @@ F128,inputs,http://localhost:48000/f042_secure_4 (namespace),session is missing 
   10 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_secure_5 (namespace),session is missing HttpOnly,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
+F128,inputs,http://localhost:48000/f042_secure_5 (namespace),session is missing HttpOnly,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
    1 | > GET http://localhost:48000/f042_secure_5
    2 | > ...
    3 |
@@ -338,7 +338,7 @@ F128,inputs,http://localhost:48000/f042_secure_5 (namespace),session is missing 
   12 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_secure_6 (namespace),session is missing HttpOnly,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
+F128,inputs,http://localhost:48000/f042_secure_6 (namespace),session is missing HttpOnly,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session is missing HttpOnly,"
    1 | > GET http://localhost:48000/f042_secure_6
    2 | > ...
    3 |
@@ -353,7 +353,7 @@ F128,inputs,http://localhost:48000/f042_secure_6 (namespace),session is missing 
   12 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_httponly_5 (namespace),session2 does not have SameSite correctly initialized,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session2 does not have SameSite correctly initialized,"
+F128,inputs,http://localhost:48000/f042_httponly_5 (namespace),session2 does not have SameSite correctly initialized,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session2 does not have SameSite correctly initialized,"
    1 | > GET http://localhost:48000/f042_httponly_5
    2 | > ...
    3 |
@@ -368,7 +368,7 @@ F128,inputs,http://localhost:48000/f042_httponly_5 (namespace),session2 does not
   12 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_samesite_5 (namespace),session2 does not have SameSite correctly initialized,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session2 does not have SameSite correctly initialized,"
+F128,inputs,http://localhost:48000/f042_samesite_5 (namespace),session2 does not have SameSite correctly initialized,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session2 does not have SameSite correctly initialized,"
    1 | > GET http://localhost:48000/f042_samesite_5
    2 | > ...
    3 |
@@ -383,7 +383,7 @@ F128,inputs,http://localhost:48000/f042_samesite_5 (namespace),session2 does not
   12 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_secure_5 (namespace),session2 does not have SameSite correctly initialized,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session2 does not have SameSite correctly initialized,"
+F128,inputs,http://localhost:48000/f042_secure_5 (namespace),session2 does not have SameSite correctly initialized,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session2 does not have SameSite correctly initialized,"
    1 | > GET http://localhost:48000/f042_secure_5
    2 | > ...
    3 |
@@ -398,7 +398,7 @@ F128,inputs,http://localhost:48000/f042_secure_5 (namespace),session2 does not h
   12 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_secure_6 (namespace),session2 does not have SameSite correctly initialized,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session2 does not have SameSite correctly initialized,"
+F128,inputs,http://localhost:48000/f042_secure_6 (namespace),session2 does not have SameSite correctly initialized,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session2 does not have SameSite correctly initialized,"
    1 | > GET http://localhost:48000/f042_secure_6
    2 | > ...
    3 |
@@ -413,7 +413,7 @@ F128,inputs,http://localhost:48000/f042_secure_6 (namespace),session2 does not h
   12 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_httponly_5 (namespace),session2 is missing HttpOnly,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session2 is missing HttpOnly,"
+F128,inputs,http://localhost:48000/f042_httponly_5 (namespace),session2 is missing HttpOnly,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session2 is missing HttpOnly,"
    1 | > GET http://localhost:48000/f042_httponly_5
    2 | > ...
    3 |
@@ -428,7 +428,7 @@ F128,inputs,http://localhost:48000/f042_httponly_5 (namespace),session2 is missi
   12 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_samesite_5 (namespace),session2 is missing HttpOnly,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session2 is missing HttpOnly,"
+F128,inputs,http://localhost:48000/f042_samesite_5 (namespace),session2 is missing HttpOnly,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session2 is missing HttpOnly,"
    1 | > GET http://localhost:48000/f042_samesite_5
    2 | > ...
    3 |
@@ -443,7 +443,7 @@ F128,inputs,http://localhost:48000/f042_samesite_5 (namespace),session2 is missi
   12 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_secure_5 (namespace),session2 is missing HttpOnly,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session2 is missing HttpOnly,"
+F128,inputs,http://localhost:48000/f042_secure_5 (namespace),session2 is missing HttpOnly,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session2 is missing HttpOnly,"
    1 | > GET http://localhost:48000/f042_secure_5
    2 | > ...
    3 |
@@ -458,7 +458,7 @@ F128,inputs,http://localhost:48000/f042_secure_5 (namespace),session2 is missing
   12 | * EOF
      ^ Col 0
 "
-F128,inputs,http://localhost:48000/f042_secure_6 (namespace),session2 is missing HttpOnly,1004,"home,response,headers",F128. Insecurely generated cookies - HttpOnly,session2 is missing HttpOnly,"
+F128,inputs,http://localhost:48000/f042_secure_6 (namespace),session2 is missing HttpOnly,1004,"home,response,headers",128. Insecurely generated cookies - HttpOnly,session2 is missing HttpOnly,"
    1 | > GET http://localhost:48000/f042_secure_6
    2 | > ...
    3 |
@@ -473,7 +473,7 @@ F128,inputs,http://localhost:48000/f042_secure_6 (namespace),session2 is missing
   12 | * EOF
      ^ Col 0
 "
-F015,inputs,http://localhost:48000/f015_dast_basic_2 (namespace),The application uses Basic authentication over HTTP,287,"home,response,headers",F015. Insecure authentication method - Basic,The application uses Basic authentication over HTTP,"
+F015,inputs,http://localhost:48000/f015_dast_basic_2 (namespace),The application uses Basic authentication over HTTP,287,"home,response,headers",015. Insecure authentication method - Basic,The application uses Basic authentication over HTTP,"
    1 | > GET http://localhost:48000/f015_dast_basic_2
    2 | > ...
    3 |
@@ -486,7 +486,7 @@ F015,inputs,http://localhost:48000/f015_dast_basic_2 (namespace),The application
 > 10 | * EOF
      ^ Col 0
 "
-F015,inputs,http://localhost:48000/f015_dast_basic_3 (namespace),The application uses Basic authentication over HTTP,287,"home,response,headers",F015. Insecure authentication method - Basic,The application uses Basic authentication over HTTP,"
+F015,inputs,http://localhost:48000/f015_dast_basic_3 (namespace),The application uses Basic authentication over HTTP,287,"home,response,headers",015. Insecure authentication method - Basic,The application uses Basic authentication over HTTP,"
    1 | > GET http://localhost:48000/f015_dast_basic_3
    2 | > ...
    3 |
@@ -499,7 +499,7 @@ F015,inputs,http://localhost:48000/f015_dast_basic_3 (namespace),The application
 > 10 | * EOF
      ^ Col 0
 "
-F036,inputs,http://localhost:48000/f036_0 (namespace),3,319,"home,response,content",F036. ViewState not encrypted,ViewState not encrypted,"
+F036,inputs,http://localhost:48000/f036_0 (namespace),3,319,"home,response,content",036. ViewState not encrypted,ViewState not encrypted,"
   1 | <html>
   2 |   <body>
 > 3 |     <input type=""hidden"" name=""__VIEWSTATE"" value=""/wEPBQVhYmNkZQ9nAgE="">
@@ -511,7 +511,7 @@ F036,inputs,http://localhost:48000/f036_0 (namespace),3,319,"home,response,conte
   9 | </html>
     ^ Col 0
 "
-F086,inputs,http://localhost:48000/f086_0 (namespace),6,353,"home,response,content",F086. Missing subresource integrity check,Third party resource bam-cell.nr-data.net without sri,"
+F086,inputs,http://localhost:48000/f086_0 (namespace),6,353,"home,response,content",086. Missing subresource integrity check,Third party resource bam-cell.nr-data.net without sri,"
    1 | <html>
    2 |   <head>
    3 |     <script></script>
@@ -527,7 +527,7 @@ F086,inputs,http://localhost:48000/f086_0 (namespace),6,353,"home,response,conte
   13 | </html>
      ^ Col 0
 "
-F086,inputs,http://localhost:48000/f086_0 (namespace),7,353,"home,response,content",F086. Missing subresource integrity check,Third party resource consent.cookiebot.com without sri,"
+F086,inputs,http://localhost:48000/f086_0 (namespace),7,353,"home,response,content",086. Missing subresource integrity check,Third party resource consent.cookiebot.com without sri,"
    1 | <html>
    2 |   <head>
    3 |     <script></script>
@@ -543,7 +543,7 @@ F086,inputs,http://localhost:48000/f086_0 (namespace),7,353,"home,response,conte
   13 | </html>
      ^ Col 0
 "
-F086,inputs,http://localhost:48000/f086_0 (namespace),8,353,"home,response,content",F086. Missing subresource integrity check,Third party resource consentcdn.cookiebot.com without sri,"
+F086,inputs,http://localhost:48000/f086_0 (namespace),8,353,"home,response,content",086. Missing subresource integrity check,Third party resource consentcdn.cookiebot.com without sri,"
    1 | <html>
    2 |   <head>
    3 |     <script></script>
@@ -559,7 +559,7 @@ F086,inputs,http://localhost:48000/f086_0 (namespace),8,353,"home,response,conte
   13 | </html>
      ^ Col 0
 "
-F086,inputs,http://localhost:48000/f086_0 (namespace),9,353,"home,response,content",F086. Missing subresource integrity check,Third party resource js-agent.newrelic.com without sri,"
+F086,inputs,http://localhost:48000/f086_0 (namespace),9,353,"home,response,content",086. Missing subresource integrity check,Third party resource js-agent.newrelic.com without sri,"
    1 | <html>
    2 |   <head>
    3 |     <script></script>
@@ -575,7 +575,7 @@ F086,inputs,http://localhost:48000/f086_0 (namespace),9,353,"home,response,conte
   13 | </html>
      ^ Col 0
 "
-F086,inputs,http://localhost:48000/f086_0 (namespace),11,353,"home,response,content",F086. Missing subresource integrity check,Third party resource static.cloudflareinsights.com without sri,"
+F086,inputs,http://localhost:48000/f086_0 (namespace),11,353,"home,response,content",086. Missing subresource integrity check,Third party resource static.cloudflareinsights.com without sri,"
    1 | <html>
    2 |   <head>
    3 |     <script></script>
@@ -591,7 +591,7 @@ F086,inputs,http://localhost:48000/f086_0 (namespace),11,353,"home,response,cont
   13 | </html>
      ^ Col 0
 "
-F023,inputs,http://localhost:48000/f023_0 (namespace),Redirection due to Host header injection,601,"home,response,headers",F023. Uncontrolled external site redirect - Host Header Injection,Redirection due to Host header injection,"
+F023,inputs,http://localhost:48000/f023_0 (namespace),Redirection due to Host header injection,601,"home,response,headers",023. Uncontrolled external site redirect - Host Header Injection,Redirection due to Host header injection,"
    1 | > GET http://localhost:48000/f023_0
    2 | > ...
    3 |
@@ -604,7 +604,7 @@ F023,inputs,http://localhost:48000/f023_0 (namespace),Redirection due to Host he
 > 10 | * EOF
      ^ Col 0
 "
-F130,inputs,http://localhost:48000/f042_httponly_0 (namespace),session is missing Secure,614,"home,response,headers",F130. Insecurely generated cookies - Secure,session is missing Secure,"
+F130,inputs,http://localhost:48000/f042_httponly_0 (namespace),session is missing Secure,614,"home,response,headers",130. Insecurely generated cookies - Secure,session is missing Secure,"
    1 | > GET http://localhost:48000/f042_httponly_0
    2 | > ...
    3 |
@@ -617,7 +617,7 @@ F130,inputs,http://localhost:48000/f042_httponly_0 (namespace),session is missin
   10 | * EOF
      ^ Col 0
 "
-F130,inputs,http://localhost:48000/f042_httponly_2 (namespace),session is missing Secure,614,"home,response,headers",F130. Insecurely generated cookies - Secure,session is missing Secure,"
+F130,inputs,http://localhost:48000/f042_httponly_2 (namespace),session is missing Secure,614,"home,response,headers",130. Insecurely generated cookies - Secure,session is missing Secure,"
    1 | > GET http://localhost:48000/f042_httponly_2
    2 | > ...
    3 |
@@ -630,7 +630,7 @@ F130,inputs,http://localhost:48000/f042_httponly_2 (namespace),session is missin
   10 | * EOF
      ^ Col 0
 "
-F130,inputs,http://localhost:48000/f042_httponly_4 (namespace),session is missing Secure,614,"home,response,headers",F130. Insecurely generated cookies - Secure,session is missing Secure,"
+F130,inputs,http://localhost:48000/f042_httponly_4 (namespace),session is missing Secure,614,"home,response,headers",130. Insecurely generated cookies - Secure,session is missing Secure,"
    1 | > GET http://localhost:48000/f042_httponly_4
    2 | > ...
    3 |
@@ -643,7 +643,7 @@ F130,inputs,http://localhost:48000/f042_httponly_4 (namespace),session is missin
   10 | * EOF
      ^ Col 0
 "
-F130,inputs,http://localhost:48000/f042_httponly_5 (namespace),session is missing Secure,614,"home,response,headers",F130. Insecurely generated cookies - Secure,session is missing Secure,"
+F130,inputs,http://localhost:48000/f042_httponly_5 (namespace),session is missing Secure,614,"home,response,headers",130. Insecurely generated cookies - Secure,session is missing Secure,"
    1 | > GET http://localhost:48000/f042_httponly_5
    2 | > ...
    3 |
@@ -658,7 +658,7 @@ F130,inputs,http://localhost:48000/f042_httponly_5 (namespace),session is missin
   12 | * EOF
      ^ Col 0
 "
-F130,inputs,http://localhost:48000/f042_samesite_0 (namespace),session is missing Secure,614,"home,response,headers",F130. Insecurely generated cookies - Secure,session is missing Secure,"
+F130,inputs,http://localhost:48000/f042_samesite_0 (namespace),session is missing Secure,614,"home,response,headers",130. Insecurely generated cookies - Secure,session is missing Secure,"
    1 | > GET http://localhost:48000/f042_samesite_0
    2 | > ...
    3 |
@@ -671,7 +671,7 @@ F130,inputs,http://localhost:48000/f042_samesite_0 (namespace),session is missin
   10 | * EOF
      ^ Col 0
 "
-F130,inputs,http://localhost:48000/f042_samesite_1 (namespace),session is missing Secure,614,"home,response,headers",F130. Insecurely generated cookies - Secure,session is missing Secure,"
+F130,inputs,http://localhost:48000/f042_samesite_1 (namespace),session is missing Secure,614,"home,response,headers",130. Insecurely generated cookies - Secure,session is missing Secure,"
    1 | > GET http://localhost:48000/f042_samesite_1
    2 | > ...
    3 |
@@ -684,7 +684,7 @@ F130,inputs,http://localhost:48000/f042_samesite_1 (namespace),session is missin
   10 | * EOF
      ^ Col 0
 "
-F130,inputs,http://localhost:48000/f042_samesite_3 (namespace),session is missing Secure,614,"home,response,headers",F130. Insecurely generated cookies - Secure,session is missing Secure,"
+F130,inputs,http://localhost:48000/f042_samesite_3 (namespace),session is missing Secure,614,"home,response,headers",130. Insecurely generated cookies - Secure,session is missing Secure,"
    1 | > GET http://localhost:48000/f042_samesite_3
    2 | > ...
    3 |
@@ -697,7 +697,7 @@ F130,inputs,http://localhost:48000/f042_samesite_3 (namespace),session is missin
   10 | * EOF
      ^ Col 0
 "
-F130,inputs,http://localhost:48000/f042_samesite_5 (namespace),session is missing Secure,614,"home,response,headers",F130. Insecurely generated cookies - Secure,session is missing Secure,"
+F130,inputs,http://localhost:48000/f042_samesite_5 (namespace),session is missing Secure,614,"home,response,headers",130. Insecurely generated cookies - Secure,session is missing Secure,"
    1 | > GET http://localhost:48000/f042_samesite_5
    2 | > ...
    3 |
@@ -712,7 +712,7 @@ F130,inputs,http://localhost:48000/f042_samesite_5 (namespace),session is missin
   12 | * EOF
      ^ Col 0
 "
-F130,inputs,http://localhost:48000/f042_secure_2 (namespace),session is missing Secure,614,"home,response,headers",F130. Insecurely generated cookies - Secure,session is missing Secure,"
+F130,inputs,http://localhost:48000/f042_secure_2 (namespace),session is missing Secure,614,"home,response,headers",130. Insecurely generated cookies - Secure,session is missing Secure,"
    1 | > GET http://localhost:48000/f042_secure_2
    2 | > ...
    3 |
@@ -725,7 +725,7 @@ F130,inputs,http://localhost:48000/f042_secure_2 (namespace),session is missing 
   10 | * EOF
      ^ Col 0
 "
-F130,inputs,http://localhost:48000/f042_secure_4 (namespace),session is missing Secure,614,"home,response,headers",F130. Insecurely generated cookies - Secure,session is missing Secure,"
+F130,inputs,http://localhost:48000/f042_secure_4 (namespace),session is missing Secure,614,"home,response,headers",130. Insecurely generated cookies - Secure,session is missing Secure,"
    1 | > GET http://localhost:48000/f042_secure_4
    2 | > ...
    3 |
@@ -738,7 +738,7 @@ F130,inputs,http://localhost:48000/f042_secure_4 (namespace),session is missing 
   10 | * EOF
      ^ Col 0
 "
-F130,inputs,http://localhost:48000/f042_secure_5 (namespace),session is missing Secure,614,"home,response,headers",F130. Insecurely generated cookies - Secure,session is missing Secure,"
+F130,inputs,http://localhost:48000/f042_secure_5 (namespace),session is missing Secure,614,"home,response,headers",130. Insecurely generated cookies - Secure,session is missing Secure,"
    1 | > GET http://localhost:48000/f042_secure_5
    2 | > ...
    3 |
@@ -753,7 +753,7 @@ F130,inputs,http://localhost:48000/f042_secure_5 (namespace),session is missing 
   12 | * EOF
      ^ Col 0
 "
-F130,inputs,http://localhost:48000/f042_secure_6 (namespace),session is missing Secure,614,"home,response,headers",F130. Insecurely generated cookies - Secure,session is missing Secure,"
+F130,inputs,http://localhost:48000/f042_secure_6 (namespace),session is missing Secure,614,"home,response,headers",130. Insecurely generated cookies - Secure,session is missing Secure,"
    1 | > GET http://localhost:48000/f042_secure_6
    2 | > ...
    3 |
@@ -768,7 +768,7 @@ F130,inputs,http://localhost:48000/f042_secure_6 (namespace),session is missing 
   12 | * EOF
      ^ Col 0
 "
-F130,inputs,http://localhost:48000/f042_httponly_5 (namespace),session2 is missing Secure,614,"home,response,headers",F130. Insecurely generated cookies - Secure,session2 is missing Secure,"
+F130,inputs,http://localhost:48000/f042_httponly_5 (namespace),session2 is missing Secure,614,"home,response,headers",130. Insecurely generated cookies - Secure,session2 is missing Secure,"
    1 | > GET http://localhost:48000/f042_httponly_5
    2 | > ...
    3 |
@@ -783,7 +783,7 @@ F130,inputs,http://localhost:48000/f042_httponly_5 (namespace),session2 is missi
   12 | * EOF
      ^ Col 0
 "
-F130,inputs,http://localhost:48000/f042_samesite_5 (namespace),session2 is missing Secure,614,"home,response,headers",F130. Insecurely generated cookies - Secure,session2 is missing Secure,"
+F130,inputs,http://localhost:48000/f042_samesite_5 (namespace),session2 is missing Secure,614,"home,response,headers",130. Insecurely generated cookies - Secure,session2 is missing Secure,"
    1 | > GET http://localhost:48000/f042_samesite_5
    2 | > ...
    3 |
@@ -798,7 +798,7 @@ F130,inputs,http://localhost:48000/f042_samesite_5 (namespace),session2 is missi
   12 | * EOF
      ^ Col 0
 "
-F130,inputs,http://localhost:48000/f042_secure_5 (namespace),session2 is missing Secure,614,"home,response,headers",F130. Insecurely generated cookies - Secure,session2 is missing Secure,"
+F130,inputs,http://localhost:48000/f042_secure_5 (namespace),session2 is missing Secure,614,"home,response,headers",130. Insecurely generated cookies - Secure,session2 is missing Secure,"
    1 | > GET http://localhost:48000/f042_secure_5
    2 | > ...
    3 |
@@ -813,7 +813,7 @@ F130,inputs,http://localhost:48000/f042_secure_5 (namespace),session2 is missing
   12 | * EOF
      ^ Col 0
 "
-F130,inputs,http://localhost:48000/f042_secure_6 (namespace),session2 is missing Secure,614,"home,response,headers",F130. Insecurely generated cookies - Secure,session2 is missing Secure,"
+F130,inputs,http://localhost:48000/f042_secure_6 (namespace),session2 is missing Secure,614,"home,response,headers",130. Insecurely generated cookies - Secure,session2 is missing Secure,"
    1 | > GET http://localhost:48000/f042_secure_6
    2 | > ...
    3 |
@@ -828,7 +828,7 @@ F130,inputs,http://localhost:48000/f042_secure_6 (namespace),session2 is missing
   12 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),.yandex.ru hosts JSONP,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,.yandex.ru hosts JSONP,"
+F043,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),.yandex.ru hosts JSONP,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,.yandex.ru hosts JSONP,"
    1 | > GET http://localhost:48000/f043_dast_csp_9
    2 | > ...
    3 |
@@ -841,7 +841,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),.yandex.ru hosts 
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f015_dast_basic_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f015_dast_basic_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f015_dast_basic_0
    2 | > ...
    3 |
@@ -854,7 +854,7 @@ F043,inputs,http://localhost:48000/f015_dast_basic_0 (namespace),Missing Content
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f015_dast_basic_1 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f015_dast_basic_1 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f015_dast_basic_1
    2 | > ...
    3 |
@@ -867,7 +867,7 @@ F043,inputs,http://localhost:48000/f015_dast_basic_1 (namespace),Missing Content
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f015_dast_basic_2 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f015_dast_basic_2 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f015_dast_basic_2
    2 | > ...
    3 |
@@ -880,7 +880,7 @@ F043,inputs,http://localhost:48000/f015_dast_basic_2 (namespace),Missing Content
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f015_dast_basic_3 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f015_dast_basic_3 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f015_dast_basic_3
    2 | > ...
    3 |
@@ -893,7 +893,7 @@ F043,inputs,http://localhost:48000/f015_dast_basic_3 (namespace),Missing Content
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f015_dast_basic_4 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f015_dast_basic_4 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f015_dast_basic_4
    2 | > ...
    3 |
@@ -906,7 +906,7 @@ F043,inputs,http://localhost:48000/f015_dast_basic_4 (namespace),Missing Content
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f023_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f023_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f023_0
    2 | > ...
    3 |
@@ -919,7 +919,7 @@ F043,inputs,http://localhost:48000/f023_0 (namespace),Missing Content-Security-P
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f023_1 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f023_1 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f023_1
    2 | > ...
    3 |
@@ -932,7 +932,7 @@ F043,inputs,http://localhost:48000/f023_1 (namespace),Missing Content-Security-P
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f042_httponly_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f042_httponly_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f042_httponly_0
    2 | > ...
    3 |
@@ -945,7 +945,7 @@ F043,inputs,http://localhost:48000/f042_httponly_0 (namespace),Missing Content-S
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f042_httponly_1 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f042_httponly_1 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f042_httponly_1
    2 | > ...
    3 |
@@ -958,7 +958,7 @@ F043,inputs,http://localhost:48000/f042_httponly_1 (namespace),Missing Content-S
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f042_httponly_2 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f042_httponly_2 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f042_httponly_2
    2 | > ...
    3 |
@@ -971,7 +971,7 @@ F043,inputs,http://localhost:48000/f042_httponly_2 (namespace),Missing Content-S
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f042_httponly_3 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f042_httponly_3 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f042_httponly_3
    2 | > ...
    3 |
@@ -984,7 +984,7 @@ F043,inputs,http://localhost:48000/f042_httponly_3 (namespace),Missing Content-S
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f042_httponly_4 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f042_httponly_4 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f042_httponly_4
    2 | > ...
    3 |
@@ -997,7 +997,7 @@ F043,inputs,http://localhost:48000/f042_httponly_4 (namespace),Missing Content-S
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f042_httponly_5 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f042_httponly_5 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f042_httponly_5
    2 | > ...
    3 |
@@ -1012,7 +1012,7 @@ F043,inputs,http://localhost:48000/f042_httponly_5 (namespace),Missing Content-S
 > 12 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f042_samesite_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f042_samesite_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f042_samesite_0
    2 | > ...
    3 |
@@ -1025,7 +1025,7 @@ F043,inputs,http://localhost:48000/f042_samesite_0 (namespace),Missing Content-S
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f042_samesite_1 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f042_samesite_1 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f042_samesite_1
    2 | > ...
    3 |
@@ -1038,7 +1038,7 @@ F043,inputs,http://localhost:48000/f042_samesite_1 (namespace),Missing Content-S
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f042_samesite_2 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f042_samesite_2 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f042_samesite_2
    2 | > ...
    3 |
@@ -1051,7 +1051,7 @@ F043,inputs,http://localhost:48000/f042_samesite_2 (namespace),Missing Content-S
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f042_samesite_3 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f042_samesite_3 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f042_samesite_3
    2 | > ...
    3 |
@@ -1064,7 +1064,7 @@ F043,inputs,http://localhost:48000/f042_samesite_3 (namespace),Missing Content-S
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f042_samesite_4 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f042_samesite_4 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f042_samesite_4
    2 | > ...
    3 |
@@ -1077,7 +1077,7 @@ F043,inputs,http://localhost:48000/f042_samesite_4 (namespace),Missing Content-S
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f042_samesite_5 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f042_samesite_5 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f042_samesite_5
    2 | > ...
    3 |
@@ -1092,7 +1092,7 @@ F043,inputs,http://localhost:48000/f042_samesite_5 (namespace),Missing Content-S
 > 12 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f042_secure_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f042_secure_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f042_secure_0
    2 | > ...
    3 |
@@ -1105,7 +1105,7 @@ F043,inputs,http://localhost:48000/f042_secure_0 (namespace),Missing Content-Sec
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f042_secure_1 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f042_secure_1 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f042_secure_1
    2 | > ...
    3 |
@@ -1118,7 +1118,7 @@ F043,inputs,http://localhost:48000/f042_secure_1 (namespace),Missing Content-Sec
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f042_secure_2 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f042_secure_2 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f042_secure_2
    2 | > ...
    3 |
@@ -1131,7 +1131,7 @@ F043,inputs,http://localhost:48000/f042_secure_2 (namespace),Missing Content-Sec
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f042_secure_3 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f042_secure_3 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f042_secure_3
    2 | > ...
    3 |
@@ -1144,7 +1144,7 @@ F043,inputs,http://localhost:48000/f042_secure_3 (namespace),Missing Content-Sec
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f042_secure_4 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f042_secure_4 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f042_secure_4
    2 | > ...
    3 |
@@ -1157,7 +1157,7 @@ F043,inputs,http://localhost:48000/f042_secure_4 (namespace),Missing Content-Sec
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f042_secure_5 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f042_secure_5 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f042_secure_5
    2 | > ...
    3 |
@@ -1172,7 +1172,7 @@ F043,inputs,http://localhost:48000/f042_secure_5 (namespace),Missing Content-Sec
 > 12 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f042_secure_6 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f042_secure_6 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f042_secure_6
    2 | > ...
    3 |
@@ -1187,7 +1187,7 @@ F043,inputs,http://localhost:48000/f042_secure_6 (namespace),Missing Content-Sec
 > 12 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_rp_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f043_dast_rp_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f043_dast_rp_0
    2 | > ...
    3 |
@@ -1200,7 +1200,7 @@ F043,inputs,http://localhost:48000/f043_dast_rp_0 (namespace),Missing Content-Se
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_rp_1 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f043_dast_rp_1 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f043_dast_rp_1
    2 | > ...
    3 |
@@ -1213,7 +1213,7 @@ F043,inputs,http://localhost:48000/f043_dast_rp_1 (namespace),Missing Content-Se
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_rp_2 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f043_dast_rp_2 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f043_dast_rp_2
    2 | > ...
    3 |
@@ -1226,7 +1226,7 @@ F043,inputs,http://localhost:48000/f043_dast_rp_2 (namespace),Missing Content-Se
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_rp_3 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f043_dast_rp_3 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f043_dast_rp_3
    2 | > ...
    3 |
@@ -1239,7 +1239,7 @@ F043,inputs,http://localhost:48000/f043_dast_rp_3 (namespace),Missing Content-Se
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_sts_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f043_dast_sts_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f043_dast_sts_0
    2 | > ...
    3 |
@@ -1252,7 +1252,7 @@ F043,inputs,http://localhost:48000/f043_dast_sts_0 (namespace),Missing Content-S
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_sts_1 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f043_dast_sts_1 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f043_dast_sts_1
    2 | > ...
    3 |
@@ -1265,7 +1265,7 @@ F043,inputs,http://localhost:48000/f043_dast_sts_1 (namespace),Missing Content-S
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_sts_2 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f043_dast_sts_2 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f043_dast_sts_2
    2 | > ...
    3 |
@@ -1278,7 +1278,7 @@ F043,inputs,http://localhost:48000/f043_dast_sts_2 (namespace),Missing Content-S
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_xcto_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f043_dast_xcto_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f043_dast_xcto_0
    2 | > ...
    3 |
@@ -1291,7 +1291,7 @@ F043,inputs,http://localhost:48000/f043_dast_xcto_0 (namespace),Missing Content-
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_xcto_1 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f043_dast_xcto_1 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f043_dast_xcto_1
    2 | > ...
    3 |
@@ -1304,7 +1304,7 @@ F043,inputs,http://localhost:48000/f043_dast_xcto_1 (namespace),Missing Content-
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_xfo_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f043_dast_xfo_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f043_dast_xfo_0
    2 | > ...
    3 |
@@ -1317,7 +1317,7 @@ F043,inputs,http://localhost:48000/f043_dast_xfo_0 (namespace),Missing Content-S
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_xfo_1 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f043_dast_xfo_1 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f043_dast_xfo_1
    2 | > ...
    3 |
@@ -1330,7 +1330,7 @@ F043,inputs,http://localhost:48000/f043_dast_xfo_1 (namespace),Missing Content-S
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_xfo_2 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f043_dast_xfo_2 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f043_dast_xfo_2
    2 | > ...
    3 |
@@ -1343,7 +1343,7 @@ F043,inputs,http://localhost:48000/f043_dast_xfo_2 (namespace),Missing Content-S
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_xfo_3 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f043_dast_xfo_3 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
    1 | > GET http://localhost:48000/f043_dast_xfo_3
    2 | > ...
    3 |
@@ -1356,7 +1356,7 @@ F043,inputs,http://localhost:48000/f043_dast_xfo_3 (namespace),Missing Content-S
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/ (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/ (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
   1 | > GET http://localhost:48000/
   2 | > ...
   3 |
@@ -1368,7 +1368,7 @@ F043,inputs,http://localhost:48000/ (namespace),Missing Content-Security-Policy,
 > 9 | * EOF
     ^ Col 0
 "
-F043,inputs,http://localhost:48000/error (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/error (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
   1 | > GET http://localhost:48000/error
   2 | > ...
   3 |
@@ -1380,7 +1380,7 @@ F043,inputs,http://localhost:48000/error (namespace),Missing Content-Security-Po
 > 9 | * EOF
     ^ Col 0
 "
-F043,inputs,http://localhost:48000/f036_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f036_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
   1 | > GET http://localhost:48000/f036_0
   2 | > ...
   3 |
@@ -1392,7 +1392,7 @@ F043,inputs,http://localhost:48000/f036_0 (namespace),Missing Content-Security-P
 > 9 | * EOF
     ^ Col 0
 "
-F043,inputs,http://localhost:48000/f064_server_clock_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f064_server_clock_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
   1 | > GET http://localhost:48000/f064_server_clock_0
   2 | > ...
   3 |
@@ -1404,7 +1404,7 @@ F043,inputs,http://localhost:48000/f064_server_clock_0 (namespace),Missing Conte
 > 9 | * EOF
     ^ Col 0
 "
-F043,inputs,http://localhost:48000/f064_server_clock_1 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f064_server_clock_1 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
   1 | > GET http://localhost:48000/f064_server_clock_1
   2 | > ...
   3 |
@@ -1416,7 +1416,7 @@ F043,inputs,http://localhost:48000/f064_server_clock_1 (namespace),Missing Conte
 > 9 | * EOF
     ^ Col 0
 "
-F043,inputs,http://localhost:48000/f086_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/f086_0 (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
   1 | > GET http://localhost:48000/f086_0
   2 | > ...
   3 |
@@ -1428,7 +1428,7 @@ F043,inputs,http://localhost:48000/f086_0 (namespace),Missing Content-Security-P
 > 9 | * EOF
     ^ Col 0
 "
-F043,inputs,http://localhost:48000/static/%5Bfilename%5D (namespace),Missing Content-Security-Policy,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
+F043,inputs,http://localhost:48000/static/%5Bfilename%5D (namespace),Missing Content-Security-Policy,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing Content-Security-Policy,"
   1 | > GET http://localhost:48000/static/%5Bfilename%5D
   2 | > ...
   3 |
@@ -1440,7 +1440,7 @@ F043,inputs,http://localhost:48000/static/%5Bfilename%5D (namespace),Missing Con
 > 9 | * EOF
     ^ Col 0
 "
-F071,inputs,http://localhost:48000/ (namespace),Missing Referrer-Policy,644,"home,response,headers",F071. Insecure or unset HTTP headers - Referrer-Policy,Missing Referrer-Policy,"
+F071,inputs,http://localhost:48000/ (namespace),Missing Referrer-Policy,644,"home,response,headers",071. Insecure or unset HTTP headers - Referrer-Policy,Missing Referrer-Policy,"
   1 | > GET http://localhost:48000/
   2 | > ...
   3 |
@@ -1452,7 +1452,7 @@ F071,inputs,http://localhost:48000/ (namespace),Missing Referrer-Policy,644,"hom
 > 9 | * EOF
     ^ Col 0
 "
-F071,inputs,http://localhost:48000/f036_0 (namespace),Missing Referrer-Policy,644,"home,response,headers",F071. Insecure or unset HTTP headers - Referrer-Policy,Missing Referrer-Policy,"
+F071,inputs,http://localhost:48000/f036_0 (namespace),Missing Referrer-Policy,644,"home,response,headers",071. Insecure or unset HTTP headers - Referrer-Policy,Missing Referrer-Policy,"
   1 | > GET http://localhost:48000/f036_0
   2 | > ...
   3 |
@@ -1464,7 +1464,7 @@ F071,inputs,http://localhost:48000/f036_0 (namespace),Missing Referrer-Policy,64
 > 9 | * EOF
     ^ Col 0
 "
-F071,inputs,http://localhost:48000/f086_0 (namespace),Missing Referrer-Policy,644,"home,response,headers",F071. Insecure or unset HTTP headers - Referrer-Policy,Missing Referrer-Policy,"
+F071,inputs,http://localhost:48000/f086_0 (namespace),Missing Referrer-Policy,644,"home,response,headers",071. Insecure or unset HTTP headers - Referrer-Policy,Missing Referrer-Policy,"
   1 | > GET http://localhost:48000/f086_0
   2 | > ...
   3 |
@@ -1476,7 +1476,7 @@ F071,inputs,http://localhost:48000/f086_0 (namespace),Missing Referrer-Policy,64
 > 9 | * EOF
     ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_csp_10
    2 | > ...
    3 |
@@ -1489,7 +1489,7 @@ F131,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing Strict-T
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_csp_11
    2 | > ...
    3 |
@@ -1502,7 +1502,7 @@ F131,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing Strict-T
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_csp_2 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_csp_2 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_csp_2
    2 | > ...
    3 |
@@ -1515,7 +1515,7 @@ F131,inputs,http://localhost:48000/f043_dast_csp_2 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_csp_3 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_csp_3 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_csp_3
    2 | > ...
    3 |
@@ -1528,7 +1528,7 @@ F131,inputs,http://localhost:48000/f043_dast_csp_3 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_csp_4
    2 | > ...
    3 |
@@ -1541,7 +1541,7 @@ F131,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_csp_5 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_csp_5 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_csp_5
    2 | > ...
    3 |
@@ -1554,7 +1554,7 @@ F131,inputs,http://localhost:48000/f043_dast_csp_5 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f015_dast_basic_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f015_dast_basic_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f015_dast_basic_0
    2 | > ...
    3 |
@@ -1567,7 +1567,7 @@ F131,inputs,http://localhost:48000/f015_dast_basic_0 (namespace),Missing Strict-
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f015_dast_basic_1 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f015_dast_basic_1 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f015_dast_basic_1
    2 | > ...
    3 |
@@ -1580,7 +1580,7 @@ F131,inputs,http://localhost:48000/f015_dast_basic_1 (namespace),Missing Strict-
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f015_dast_basic_2 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f015_dast_basic_2 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f015_dast_basic_2
    2 | > ...
    3 |
@@ -1593,7 +1593,7 @@ F131,inputs,http://localhost:48000/f015_dast_basic_2 (namespace),Missing Strict-
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f015_dast_basic_3 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f015_dast_basic_3 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f015_dast_basic_3
    2 | > ...
    3 |
@@ -1606,7 +1606,7 @@ F131,inputs,http://localhost:48000/f015_dast_basic_3 (namespace),Missing Strict-
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f015_dast_basic_4 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f015_dast_basic_4 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f015_dast_basic_4
    2 | > ...
    3 |
@@ -1619,7 +1619,7 @@ F131,inputs,http://localhost:48000/f015_dast_basic_4 (namespace),Missing Strict-
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f023_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f023_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f023_0
    2 | > ...
    3 |
@@ -1632,7 +1632,7 @@ F131,inputs,http://localhost:48000/f023_0 (namespace),Missing Strict-Transport-S
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f023_1 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f023_1 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f023_1
    2 | > ...
    3 |
@@ -1645,7 +1645,7 @@ F131,inputs,http://localhost:48000/f023_1 (namespace),Missing Strict-Transport-S
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f042_httponly_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f042_httponly_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f042_httponly_0
    2 | > ...
    3 |
@@ -1658,7 +1658,7 @@ F131,inputs,http://localhost:48000/f042_httponly_0 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f042_httponly_1 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f042_httponly_1 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f042_httponly_1
    2 | > ...
    3 |
@@ -1671,7 +1671,7 @@ F131,inputs,http://localhost:48000/f042_httponly_1 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f042_httponly_2 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f042_httponly_2 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f042_httponly_2
    2 | > ...
    3 |
@@ -1684,7 +1684,7 @@ F131,inputs,http://localhost:48000/f042_httponly_2 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f042_httponly_3 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f042_httponly_3 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f042_httponly_3
    2 | > ...
    3 |
@@ -1697,7 +1697,7 @@ F131,inputs,http://localhost:48000/f042_httponly_3 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f042_httponly_4 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f042_httponly_4 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f042_httponly_4
    2 | > ...
    3 |
@@ -1710,7 +1710,7 @@ F131,inputs,http://localhost:48000/f042_httponly_4 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f042_httponly_5 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f042_httponly_5 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f042_httponly_5
    2 | > ...
    3 |
@@ -1725,7 +1725,7 @@ F131,inputs,http://localhost:48000/f042_httponly_5 (namespace),Missing Strict-Tr
 > 12 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f042_samesite_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f042_samesite_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f042_samesite_0
    2 | > ...
    3 |
@@ -1738,7 +1738,7 @@ F131,inputs,http://localhost:48000/f042_samesite_0 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f042_samesite_1 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f042_samesite_1 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f042_samesite_1
    2 | > ...
    3 |
@@ -1751,7 +1751,7 @@ F131,inputs,http://localhost:48000/f042_samesite_1 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f042_samesite_2 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f042_samesite_2 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f042_samesite_2
    2 | > ...
    3 |
@@ -1764,7 +1764,7 @@ F131,inputs,http://localhost:48000/f042_samesite_2 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f042_samesite_3 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f042_samesite_3 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f042_samesite_3
    2 | > ...
    3 |
@@ -1777,7 +1777,7 @@ F131,inputs,http://localhost:48000/f042_samesite_3 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f042_samesite_4 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f042_samesite_4 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f042_samesite_4
    2 | > ...
    3 |
@@ -1790,7 +1790,7 @@ F131,inputs,http://localhost:48000/f042_samesite_4 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f042_samesite_5 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f042_samesite_5 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f042_samesite_5
    2 | > ...
    3 |
@@ -1805,7 +1805,7 @@ F131,inputs,http://localhost:48000/f042_samesite_5 (namespace),Missing Strict-Tr
 > 12 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f042_secure_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f042_secure_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f042_secure_0
    2 | > ...
    3 |
@@ -1818,7 +1818,7 @@ F131,inputs,http://localhost:48000/f042_secure_0 (namespace),Missing Strict-Tran
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f042_secure_1 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f042_secure_1 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f042_secure_1
    2 | > ...
    3 |
@@ -1831,7 +1831,7 @@ F131,inputs,http://localhost:48000/f042_secure_1 (namespace),Missing Strict-Tran
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f042_secure_2 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f042_secure_2 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f042_secure_2
    2 | > ...
    3 |
@@ -1844,7 +1844,7 @@ F131,inputs,http://localhost:48000/f042_secure_2 (namespace),Missing Strict-Tran
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f042_secure_3 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f042_secure_3 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f042_secure_3
    2 | > ...
    3 |
@@ -1857,7 +1857,7 @@ F131,inputs,http://localhost:48000/f042_secure_3 (namespace),Missing Strict-Tran
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f042_secure_4 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f042_secure_4 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f042_secure_4
    2 | > ...
    3 |
@@ -1870,7 +1870,7 @@ F131,inputs,http://localhost:48000/f042_secure_4 (namespace),Missing Strict-Tran
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f042_secure_5 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f042_secure_5 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f042_secure_5
    2 | > ...
    3 |
@@ -1885,7 +1885,7 @@ F131,inputs,http://localhost:48000/f042_secure_5 (namespace),Missing Strict-Tran
 > 12 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f042_secure_6 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f042_secure_6 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f042_secure_6
    2 | > ...
    3 |
@@ -1900,7 +1900,7 @@ F131,inputs,http://localhost:48000/f042_secure_6 (namespace),Missing Strict-Tran
 > 12 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_csp_0
    2 | > ...
    3 |
@@ -1913,7 +1913,7 @@ F131,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_csp_12
    2 | > ...
    3 |
@@ -1926,7 +1926,7 @@ F131,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing Strict-T
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_csp_13
    2 | > ...
    3 |
@@ -1939,7 +1939,7 @@ F131,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing Strict-T
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_csp_1
    2 | > ...
    3 |
@@ -1952,7 +1952,7 @@ F131,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_csp_6
    2 | > ...
    3 |
@@ -1965,7 +1965,7 @@ F131,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_csp_7
    2 | > ...
    3 |
@@ -1978,7 +1978,7 @@ F131,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_csp_8
    2 | > ...
    3 |
@@ -1991,7 +1991,7 @@ F131,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_csp_9
    2 | > ...
    3 |
@@ -2004,7 +2004,7 @@ F131,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_rp_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_rp_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_rp_0
    2 | > ...
    3 |
@@ -2017,7 +2017,7 @@ F131,inputs,http://localhost:48000/f043_dast_rp_0 (namespace),Missing Strict-Tra
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_rp_1 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_rp_1 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_rp_1
    2 | > ...
    3 |
@@ -2030,7 +2030,7 @@ F131,inputs,http://localhost:48000/f043_dast_rp_1 (namespace),Missing Strict-Tra
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_rp_2 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_rp_2 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_rp_2
    2 | > ...
    3 |
@@ -2043,7 +2043,7 @@ F131,inputs,http://localhost:48000/f043_dast_rp_2 (namespace),Missing Strict-Tra
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_rp_3 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_rp_3 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_rp_3
    2 | > ...
    3 |
@@ -2056,7 +2056,7 @@ F131,inputs,http://localhost:48000/f043_dast_rp_3 (namespace),Missing Strict-Tra
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_sts_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_sts_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_sts_0
    2 | > ...
    3 |
@@ -2069,7 +2069,7 @@ F131,inputs,http://localhost:48000/f043_dast_sts_0 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_xcto_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_xcto_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_xcto_0
    2 | > ...
    3 |
@@ -2082,7 +2082,7 @@ F131,inputs,http://localhost:48000/f043_dast_xcto_0 (namespace),Missing Strict-T
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_xcto_1 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_xcto_1 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_xcto_1
    2 | > ...
    3 |
@@ -2095,7 +2095,7 @@ F131,inputs,http://localhost:48000/f043_dast_xcto_1 (namespace),Missing Strict-T
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_xfo_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_xfo_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_xfo_0
    2 | > ...
    3 |
@@ -2108,7 +2108,7 @@ F131,inputs,http://localhost:48000/f043_dast_xfo_0 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_xfo_1 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_xfo_1 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_xfo_1
    2 | > ...
    3 |
@@ -2121,7 +2121,7 @@ F131,inputs,http://localhost:48000/f043_dast_xfo_1 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_xfo_2 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_xfo_2 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_xfo_2
    2 | > ...
    3 |
@@ -2134,7 +2134,7 @@ F131,inputs,http://localhost:48000/f043_dast_xfo_2 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_xfo_3 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f043_dast_xfo_3 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
    1 | > GET http://localhost:48000/f043_dast_xfo_3
    2 | > ...
    3 |
@@ -2147,7 +2147,7 @@ F131,inputs,http://localhost:48000/f043_dast_xfo_3 (namespace),Missing Strict-Tr
 > 10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/ (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/ (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
   1 | > GET http://localhost:48000/
   2 | > ...
   3 |
@@ -2159,7 +2159,7 @@ F131,inputs,http://localhost:48000/ (namespace),Missing Strict-Transport-Securit
 > 9 | * EOF
     ^ Col 0
 "
-F131,inputs,http://localhost:48000/error (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/error (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
   1 | > GET http://localhost:48000/error
   2 | > ...
   3 |
@@ -2171,7 +2171,7 @@ F131,inputs,http://localhost:48000/error (namespace),Missing Strict-Transport-Se
 > 9 | * EOF
     ^ Col 0
 "
-F131,inputs,http://localhost:48000/f036_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f036_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
   1 | > GET http://localhost:48000/f036_0
   2 | > ...
   3 |
@@ -2183,7 +2183,7 @@ F131,inputs,http://localhost:48000/f036_0 (namespace),Missing Strict-Transport-S
 > 9 | * EOF
     ^ Col 0
 "
-F131,inputs,http://localhost:48000/f064_server_clock_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f064_server_clock_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
   1 | > GET http://localhost:48000/f064_server_clock_0
   2 | > ...
   3 |
@@ -2195,7 +2195,7 @@ F131,inputs,http://localhost:48000/f064_server_clock_0 (namespace),Missing Stric
 > 9 | * EOF
     ^ Col 0
 "
-F131,inputs,http://localhost:48000/f064_server_clock_1 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f064_server_clock_1 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
   1 | > GET http://localhost:48000/f064_server_clock_1
   2 | > ...
   3 |
@@ -2207,7 +2207,7 @@ F131,inputs,http://localhost:48000/f064_server_clock_1 (namespace),Missing Stric
 > 9 | * EOF
     ^ Col 0
 "
-F131,inputs,http://localhost:48000/f086_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/f086_0 (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
   1 | > GET http://localhost:48000/f086_0
   2 | > ...
   3 |
@@ -2219,7 +2219,7 @@ F131,inputs,http://localhost:48000/f086_0 (namespace),Missing Strict-Transport-S
 > 9 | * EOF
     ^ Col 0
 "
-F131,inputs,http://localhost:48000/static/%5Bfilename%5D (namespace),Missing Strict-Transport-Security,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
+F131,inputs,http://localhost:48000/static/%5Bfilename%5D (namespace),Missing Strict-Transport-Security,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,Missing Strict-Transport-Security,"
   1 | > GET http://localhost:48000/static/%5Bfilename%5D
   2 | > ...
   3 |
@@ -2231,7 +2231,7 @@ F131,inputs,http://localhost:48000/static/%5Bfilename%5D (namespace),Missing Str
 > 9 | * EOF
     ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_csp_10
    2 | > ...
    3 |
@@ -2244,7 +2244,7 @@ F132,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing X-Conten
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_csp_11
    2 | > ...
    3 |
@@ -2257,7 +2257,7 @@ F132,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing X-Conten
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_csp_2 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_csp_2 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_csp_2
    2 | > ...
    3 |
@@ -2270,7 +2270,7 @@ F132,inputs,http://localhost:48000/f043_dast_csp_2 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_csp_3 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_csp_3 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_csp_3
    2 | > ...
    3 |
@@ -2283,7 +2283,7 @@ F132,inputs,http://localhost:48000/f043_dast_csp_3 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_csp_4
    2 | > ...
    3 |
@@ -2296,7 +2296,7 @@ F132,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_csp_5 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_csp_5 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_csp_5
    2 | > ...
    3 |
@@ -2309,7 +2309,7 @@ F132,inputs,http://localhost:48000/f043_dast_csp_5 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f015_dast_basic_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f015_dast_basic_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f015_dast_basic_0
    2 | > ...
    3 |
@@ -2322,7 +2322,7 @@ F132,inputs,http://localhost:48000/f015_dast_basic_0 (namespace),Missing X-Conte
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f015_dast_basic_1 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f015_dast_basic_1 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f015_dast_basic_1
    2 | > ...
    3 |
@@ -2335,7 +2335,7 @@ F132,inputs,http://localhost:48000/f015_dast_basic_1 (namespace),Missing X-Conte
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f015_dast_basic_2 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f015_dast_basic_2 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f015_dast_basic_2
    2 | > ...
    3 |
@@ -2348,7 +2348,7 @@ F132,inputs,http://localhost:48000/f015_dast_basic_2 (namespace),Missing X-Conte
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f015_dast_basic_3 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f015_dast_basic_3 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f015_dast_basic_3
    2 | > ...
    3 |
@@ -2361,7 +2361,7 @@ F132,inputs,http://localhost:48000/f015_dast_basic_3 (namespace),Missing X-Conte
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f015_dast_basic_4 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f015_dast_basic_4 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f015_dast_basic_4
    2 | > ...
    3 |
@@ -2374,7 +2374,7 @@ F132,inputs,http://localhost:48000/f015_dast_basic_4 (namespace),Missing X-Conte
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f023_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f023_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f023_0
    2 | > ...
    3 |
@@ -2387,7 +2387,7 @@ F132,inputs,http://localhost:48000/f023_0 (namespace),Missing X-Content-Type-Opt
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f023_1 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f023_1 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f023_1
    2 | > ...
    3 |
@@ -2400,7 +2400,7 @@ F132,inputs,http://localhost:48000/f023_1 (namespace),Missing X-Content-Type-Opt
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f042_httponly_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f042_httponly_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f042_httponly_0
    2 | > ...
    3 |
@@ -2413,7 +2413,7 @@ F132,inputs,http://localhost:48000/f042_httponly_0 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f042_httponly_1 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f042_httponly_1 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f042_httponly_1
    2 | > ...
    3 |
@@ -2426,7 +2426,7 @@ F132,inputs,http://localhost:48000/f042_httponly_1 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f042_httponly_2 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f042_httponly_2 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f042_httponly_2
    2 | > ...
    3 |
@@ -2439,7 +2439,7 @@ F132,inputs,http://localhost:48000/f042_httponly_2 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f042_httponly_3 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f042_httponly_3 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f042_httponly_3
    2 | > ...
    3 |
@@ -2452,7 +2452,7 @@ F132,inputs,http://localhost:48000/f042_httponly_3 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f042_httponly_4 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f042_httponly_4 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f042_httponly_4
    2 | > ...
    3 |
@@ -2465,7 +2465,7 @@ F132,inputs,http://localhost:48000/f042_httponly_4 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f042_httponly_5 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f042_httponly_5 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f042_httponly_5
    2 | > ...
    3 |
@@ -2480,7 +2480,7 @@ F132,inputs,http://localhost:48000/f042_httponly_5 (namespace),Missing X-Content
 > 12 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f042_samesite_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f042_samesite_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f042_samesite_0
    2 | > ...
    3 |
@@ -2493,7 +2493,7 @@ F132,inputs,http://localhost:48000/f042_samesite_0 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f042_samesite_1 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f042_samesite_1 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f042_samesite_1
    2 | > ...
    3 |
@@ -2506,7 +2506,7 @@ F132,inputs,http://localhost:48000/f042_samesite_1 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f042_samesite_2 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f042_samesite_2 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f042_samesite_2
    2 | > ...
    3 |
@@ -2519,7 +2519,7 @@ F132,inputs,http://localhost:48000/f042_samesite_2 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f042_samesite_3 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f042_samesite_3 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f042_samesite_3
    2 | > ...
    3 |
@@ -2532,7 +2532,7 @@ F132,inputs,http://localhost:48000/f042_samesite_3 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f042_samesite_4 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f042_samesite_4 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f042_samesite_4
    2 | > ...
    3 |
@@ -2545,7 +2545,7 @@ F132,inputs,http://localhost:48000/f042_samesite_4 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f042_samesite_5 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f042_samesite_5 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f042_samesite_5
    2 | > ...
    3 |
@@ -2560,7 +2560,7 @@ F132,inputs,http://localhost:48000/f042_samesite_5 (namespace),Missing X-Content
 > 12 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f042_secure_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f042_secure_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f042_secure_0
    2 | > ...
    3 |
@@ -2573,7 +2573,7 @@ F132,inputs,http://localhost:48000/f042_secure_0 (namespace),Missing X-Content-T
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f042_secure_1 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f042_secure_1 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f042_secure_1
    2 | > ...
    3 |
@@ -2586,7 +2586,7 @@ F132,inputs,http://localhost:48000/f042_secure_1 (namespace),Missing X-Content-T
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f042_secure_2 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f042_secure_2 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f042_secure_2
    2 | > ...
    3 |
@@ -2599,7 +2599,7 @@ F132,inputs,http://localhost:48000/f042_secure_2 (namespace),Missing X-Content-T
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f042_secure_3 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f042_secure_3 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f042_secure_3
    2 | > ...
    3 |
@@ -2612,7 +2612,7 @@ F132,inputs,http://localhost:48000/f042_secure_3 (namespace),Missing X-Content-T
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f042_secure_4 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f042_secure_4 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f042_secure_4
    2 | > ...
    3 |
@@ -2625,7 +2625,7 @@ F132,inputs,http://localhost:48000/f042_secure_4 (namespace),Missing X-Content-T
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f042_secure_5 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f042_secure_5 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f042_secure_5
    2 | > ...
    3 |
@@ -2640,7 +2640,7 @@ F132,inputs,http://localhost:48000/f042_secure_5 (namespace),Missing X-Content-T
 > 12 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f042_secure_6 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f042_secure_6 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f042_secure_6
    2 | > ...
    3 |
@@ -2655,7 +2655,7 @@ F132,inputs,http://localhost:48000/f042_secure_6 (namespace),Missing X-Content-T
 > 12 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_csp_0
    2 | > ...
    3 |
@@ -2668,7 +2668,7 @@ F132,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_csp_12
    2 | > ...
    3 |
@@ -2681,7 +2681,7 @@ F132,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing X-Conten
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_csp_13
    2 | > ...
    3 |
@@ -2694,7 +2694,7 @@ F132,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing X-Conten
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_csp_1
    2 | > ...
    3 |
@@ -2707,7 +2707,7 @@ F132,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_csp_6
    2 | > ...
    3 |
@@ -2720,7 +2720,7 @@ F132,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_csp_7
    2 | > ...
    3 |
@@ -2733,7 +2733,7 @@ F132,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_csp_8
    2 | > ...
    3 |
@@ -2746,7 +2746,7 @@ F132,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_csp_9
    2 | > ...
    3 |
@@ -2759,7 +2759,7 @@ F132,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_rp_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_rp_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_rp_0
    2 | > ...
    3 |
@@ -2772,7 +2772,7 @@ F132,inputs,http://localhost:48000/f043_dast_rp_0 (namespace),Missing X-Content-
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_rp_1 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_rp_1 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_rp_1
    2 | > ...
    3 |
@@ -2785,7 +2785,7 @@ F132,inputs,http://localhost:48000/f043_dast_rp_1 (namespace),Missing X-Content-
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_rp_2 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_rp_2 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_rp_2
    2 | > ...
    3 |
@@ -2798,7 +2798,7 @@ F132,inputs,http://localhost:48000/f043_dast_rp_2 (namespace),Missing X-Content-
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_rp_3 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_rp_3 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_rp_3
    2 | > ...
    3 |
@@ -2811,7 +2811,7 @@ F132,inputs,http://localhost:48000/f043_dast_rp_3 (namespace),Missing X-Content-
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_sts_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_sts_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_sts_0
    2 | > ...
    3 |
@@ -2824,7 +2824,7 @@ F132,inputs,http://localhost:48000/f043_dast_sts_0 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_sts_1 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_sts_1 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_sts_1
    2 | > ...
    3 |
@@ -2837,7 +2837,7 @@ F132,inputs,http://localhost:48000/f043_dast_sts_1 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_sts_2 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_sts_2 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_sts_2
    2 | > ...
    3 |
@@ -2850,7 +2850,7 @@ F132,inputs,http://localhost:48000/f043_dast_sts_2 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_xfo_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_xfo_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_xfo_0
    2 | > ...
    3 |
@@ -2863,7 +2863,7 @@ F132,inputs,http://localhost:48000/f043_dast_xfo_0 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_xfo_1 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_xfo_1 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_xfo_1
    2 | > ...
    3 |
@@ -2876,7 +2876,7 @@ F132,inputs,http://localhost:48000/f043_dast_xfo_1 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_xfo_2 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_xfo_2 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_xfo_2
    2 | > ...
    3 |
@@ -2889,7 +2889,7 @@ F132,inputs,http://localhost:48000/f043_dast_xfo_2 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_xfo_3 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f043_dast_xfo_3 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
    1 | > GET http://localhost:48000/f043_dast_xfo_3
    2 | > ...
    3 |
@@ -2902,7 +2902,7 @@ F132,inputs,http://localhost:48000/f043_dast_xfo_3 (namespace),Missing X-Content
 > 10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/ (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/ (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
   1 | > GET http://localhost:48000/
   2 | > ...
   3 |
@@ -2914,7 +2914,7 @@ F132,inputs,http://localhost:48000/ (namespace),Missing X-Content-Type-Options,6
 > 9 | * EOF
     ^ Col 0
 "
-F132,inputs,http://localhost:48000/error (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/error (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
   1 | > GET http://localhost:48000/error
   2 | > ...
   3 |
@@ -2926,7 +2926,7 @@ F132,inputs,http://localhost:48000/error (namespace),Missing X-Content-Type-Opti
 > 9 | * EOF
     ^ Col 0
 "
-F132,inputs,http://localhost:48000/f036_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f036_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
   1 | > GET http://localhost:48000/f036_0
   2 | > ...
   3 |
@@ -2938,7 +2938,7 @@ F132,inputs,http://localhost:48000/f036_0 (namespace),Missing X-Content-Type-Opt
 > 9 | * EOF
     ^ Col 0
 "
-F132,inputs,http://localhost:48000/f064_server_clock_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f064_server_clock_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
   1 | > GET http://localhost:48000/f064_server_clock_0
   2 | > ...
   3 |
@@ -2950,7 +2950,7 @@ F132,inputs,http://localhost:48000/f064_server_clock_0 (namespace),Missing X-Con
 > 9 | * EOF
     ^ Col 0
 "
-F132,inputs,http://localhost:48000/f064_server_clock_1 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f064_server_clock_1 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
   1 | > GET http://localhost:48000/f064_server_clock_1
   2 | > ...
   3 |
@@ -2962,7 +2962,7 @@ F132,inputs,http://localhost:48000/f064_server_clock_1 (namespace),Missing X-Con
 > 9 | * EOF
     ^ Col 0
 "
-F132,inputs,http://localhost:48000/f086_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/f086_0 (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
   1 | > GET http://localhost:48000/f086_0
   2 | > ...
   3 |
@@ -2974,7 +2974,7 @@ F132,inputs,http://localhost:48000/f086_0 (namespace),Missing X-Content-Type-Opt
 > 9 | * EOF
     ^ Col 0
 "
-F132,inputs,http://localhost:48000/static/%5Bfilename%5D (namespace),Missing X-Content-Type-Options,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
+F132,inputs,http://localhost:48000/static/%5Bfilename%5D (namespace),Missing X-Content-Type-Options,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Missing X-Content-Type-Options,"
   1 | > GET http://localhost:48000/static/%5Bfilename%5D
   2 | > ...
   3 |
@@ -2986,7 +2986,7 @@ F132,inputs,http://localhost:48000/static/%5Bfilename%5D (namespace),Missing X-C
 > 9 | * EOF
     ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_2 (namespace),Missing frame-ancestors,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
+F043,inputs,http://localhost:48000/f043_dast_csp_2 (namespace),Missing frame-ancestors,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
    1 | > GET http://localhost:48000/f043_dast_csp_2
    2 | > ...
    3 |
@@ -2999,7 +2999,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_2 (namespace),Missing frame-anc
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_3 (namespace),Missing frame-ancestors,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
+F043,inputs,http://localhost:48000/f043_dast_csp_3 (namespace),Missing frame-ancestors,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
    1 | > GET http://localhost:48000/f043_dast_csp_3
    2 | > ...
    3 |
@@ -3012,7 +3012,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_3 (namespace),Missing frame-anc
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),Missing frame-ancestors,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
+F043,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),Missing frame-ancestors,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
    1 | > GET http://localhost:48000/f043_dast_csp_4
    2 | > ...
    3 |
@@ -3025,7 +3025,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),Missing frame-anc
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_5 (namespace),Missing frame-ancestors,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
+F043,inputs,http://localhost:48000/f043_dast_csp_5 (namespace),Missing frame-ancestors,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
    1 | > GET http://localhost:48000/f043_dast_csp_5
    2 | > ...
    3 |
@@ -3038,7 +3038,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_5 (namespace),Missing frame-anc
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing frame-ancestors,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
+F043,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing frame-ancestors,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
    1 | > GET http://localhost:48000/f043_dast_csp_0
    2 | > ...
    3 |
@@ -3051,7 +3051,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing frame-anc
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing frame-ancestors,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
+F043,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing frame-ancestors,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
    1 | > GET http://localhost:48000/f043_dast_csp_12
    2 | > ...
    3 |
@@ -3064,7 +3064,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing frame-an
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing frame-ancestors,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
+F043,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing frame-ancestors,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
    1 | > GET http://localhost:48000/f043_dast_csp_13
    2 | > ...
    3 |
@@ -3077,7 +3077,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing frame-an
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing frame-ancestors,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
+F043,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing frame-ancestors,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
    1 | > GET http://localhost:48000/f043_dast_csp_1
    2 | > ...
    3 |
@@ -3090,7 +3090,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing frame-anc
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing frame-ancestors,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
+F043,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing frame-ancestors,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
    1 | > GET http://localhost:48000/f043_dast_csp_6
    2 | > ...
    3 |
@@ -3103,7 +3103,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing frame-anc
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing frame-ancestors,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
+F043,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing frame-ancestors,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
    1 | > GET http://localhost:48000/f043_dast_csp_7
    2 | > ...
    3 |
@@ -3116,7 +3116,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing frame-anc
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing frame-ancestors,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
+F043,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing frame-ancestors,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
    1 | > GET http://localhost:48000/f043_dast_csp_8
    2 | > ...
    3 |
@@ -3129,7 +3129,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing frame-anc
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing frame-ancestors,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
+F043,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing frame-ancestors,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing frame-ancestors,"
    1 | > GET http://localhost:48000/f043_dast_csp_9
    2 | > ...
    3 |
@@ -3142,7 +3142,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing frame-anc
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing object-src,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing object-src,"
+F043,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing object-src,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing object-src,"
    1 | > GET http://localhost:48000/f043_dast_csp_10
    2 | > ...
    3 |
@@ -3155,7 +3155,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing object-s
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing object-src,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing object-src,"
+F043,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing object-src,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing object-src,"
    1 | > GET http://localhost:48000/f043_dast_csp_11
    2 | > ...
    3 |
@@ -3168,7 +3168,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing object-s
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing object-src,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing object-src,"
+F043,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing object-src,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing object-src,"
    1 | > GET http://localhost:48000/f043_dast_csp_0
    2 | > ...
    3 |
@@ -3181,7 +3181,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing object-sr
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing object-src,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing object-src,"
+F043,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing object-src,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing object-src,"
    1 | > GET http://localhost:48000/f043_dast_csp_12
    2 | > ...
    3 |
@@ -3194,7 +3194,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing object-s
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing object-src,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing object-src,"
+F043,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing object-src,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing object-src,"
    1 | > GET http://localhost:48000/f043_dast_csp_13
    2 | > ...
    3 |
@@ -3207,7 +3207,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing object-s
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing object-src,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing object-src,"
+F043,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing object-src,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing object-src,"
    1 | > GET http://localhost:48000/f043_dast_csp_1
    2 | > ...
    3 |
@@ -3220,7 +3220,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing object-sr
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing object-src,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing object-src,"
+F043,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing object-src,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing object-src,"
    1 | > GET http://localhost:48000/f043_dast_csp_6
    2 | > ...
    3 |
@@ -3233,7 +3233,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing object-sr
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing object-src,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing object-src,"
+F043,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing object-src,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing object-src,"
    1 | > GET http://localhost:48000/f043_dast_csp_7
    2 | > ...
    3 |
@@ -3246,7 +3246,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing object-sr
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing object-src,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing object-src,"
+F043,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing object-src,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing object-src,"
    1 | > GET http://localhost:48000/f043_dast_csp_8
    2 | > ...
    3 |
@@ -3259,7 +3259,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing object-sr
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing object-src,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing object-src,"
+F043,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing object-src,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing object-src,"
    1 | > GET http://localhost:48000/f043_dast_csp_9
    2 | > ...
    3 |
@@ -3272,7 +3272,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing object-sr
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing script-src,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing script-src,"
+F043,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing script-src,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing script-src,"
    1 | > GET http://localhost:48000/f043_dast_csp_10
    2 | > ...
    3 |
@@ -3285,7 +3285,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing script-s
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing script-src,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing script-src,"
+F043,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing script-src,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing script-src,"
    1 | > GET http://localhost:48000/f043_dast_csp_11
    2 | > ...
    3 |
@@ -3298,7 +3298,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing script-s
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing script-src,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing script-src,"
+F043,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing script-src,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing script-src,"
    1 | > GET http://localhost:48000/f043_dast_csp_0
    2 | > ...
    3 |
@@ -3311,7 +3311,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing script-sr
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing script-src,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing script-src,"
+F043,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing script-src,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing script-src,"
    1 | > GET http://localhost:48000/f043_dast_csp_12
    2 | > ...
    3 |
@@ -3324,7 +3324,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing script-s
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing script-src,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing script-src,"
+F043,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing script-src,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing script-src,"
    1 | > GET http://localhost:48000/f043_dast_csp_13
    2 | > ...
    3 |
@@ -3337,7 +3337,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing script-s
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
+F043,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
    1 | > GET http://localhost:48000/f043_dast_csp_10
    2 | > ...
    3 |
@@ -3350,7 +3350,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing upgrade-
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
+F043,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
    1 | > GET http://localhost:48000/f043_dast_csp_11
    2 | > ...
    3 |
@@ -3363,7 +3363,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing upgrade-
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_2 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
+F043,inputs,http://localhost:48000/f043_dast_csp_2 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
    1 | > GET http://localhost:48000/f043_dast_csp_2
    2 | > ...
    3 |
@@ -3376,7 +3376,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_2 (namespace),Missing upgrade-i
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_3 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
+F043,inputs,http://localhost:48000/f043_dast_csp_3 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
    1 | > GET http://localhost:48000/f043_dast_csp_3
    2 | > ...
    3 |
@@ -3389,7 +3389,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_3 (namespace),Missing upgrade-i
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
+F043,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
    1 | > GET http://localhost:48000/f043_dast_csp_4
    2 | > ...
    3 |
@@ -3402,7 +3402,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),Missing upgrade-i
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_5 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
+F043,inputs,http://localhost:48000/f043_dast_csp_5 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
    1 | > GET http://localhost:48000/f043_dast_csp_5
    2 | > ...
    3 |
@@ -3415,7 +3415,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_5 (namespace),Missing upgrade-i
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
+F043,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
    1 | > GET http://localhost:48000/f043_dast_csp_0
    2 | > ...
    3 |
@@ -3428,7 +3428,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing upgrade-i
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
+F043,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
    1 | > GET http://localhost:48000/f043_dast_csp_13
    2 | > ...
    3 |
@@ -3441,7 +3441,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing upgrade-
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
+F043,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
    1 | > GET http://localhost:48000/f043_dast_csp_1
    2 | > ...
    3 |
@@ -3454,7 +3454,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing upgrade-i
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
+F043,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
    1 | > GET http://localhost:48000/f043_dast_csp_6
    2 | > ...
    3 |
@@ -3467,7 +3467,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing upgrade-i
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
+F043,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
    1 | > GET http://localhost:48000/f043_dast_csp_7
    2 | > ...
    3 |
@@ -3480,7 +3480,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing upgrade-i
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
+F043,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
    1 | > GET http://localhost:48000/f043_dast_csp_8
    2 | > ...
    3 |
@@ -3493,7 +3493,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing upgrade-i
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
+F043,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing upgrade-insecure-requests,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Missing upgrade-insecure-requests,"
    1 | > GET http://localhost:48000/f043_dast_csp_9
    2 | > ...
    3 |
@@ -3506,7 +3506,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing upgrade-i
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Use of data: wildcard,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Use of data: wildcard,"
+F043,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Use of data: wildcard,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Use of data: wildcard,"
    1 | > GET http://localhost:48000/f043_dast_csp_6
    2 | > ...
    3 |
@@ -3519,7 +3519,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Use of data: wild
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Use of http: wildcard,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Use of http: wildcard,"
+F043,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Use of http: wildcard,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Use of http: wildcard,"
    1 | > GET http://localhost:48000/f043_dast_csp_7
    2 | > ...
    3 |
@@ -3532,7 +3532,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Use of http: wild
   10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Use of https: wildcard,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,Use of https: wildcard,"
+F043,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Use of https: wildcard,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,Use of https: wildcard,"
    1 | > GET http://localhost:48000/f043_dast_csp_8
    2 | > ...
    3 |
@@ -3545,7 +3545,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Use of https: wil
   10 | * EOF
      ^ Col 0
 "
-F132,inputs,http://localhost:48000/f043_dast_xcto_0 (namespace),Value is not nosniff,644,"home,response,headers",F132. Insecure or unset HTTP headers - X-Content-Type-Options,Value is not nosniff,"
+F132,inputs,http://localhost:48000/f043_dast_xcto_0 (namespace),Value is not nosniff,644,"home,response,headers",132. Insecure or unset HTTP headers - X-Content-Type-Options,Value is not nosniff,"
    1 | > GET http://localhost:48000/f043_dast_xcto_0
    2 | > ...
    3 |
@@ -3558,7 +3558,7 @@ F132,inputs,http://localhost:48000/f043_dast_xcto_0 (namespace),Value is not nos
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),block-all-mixed-content is deprecated,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,block-all-mixed-content is deprecated,"
+F043,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),block-all-mixed-content is deprecated,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,block-all-mixed-content is deprecated,"
    1 | > GET http://localhost:48000/f043_dast_csp_13
    2 | > ...
    3 |
@@ -3571,7 +3571,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),block-all-mixed-
   10 | * EOF
      ^ Col 0
 "
-F131,inputs,http://localhost:48000/f043_dast_sts_1 (namespace),max-age less than 31536000,644,"home,response,headers",F131. Insecure or unset HTTP headers - Strict Transport Security,max-age less than 31536000,"
+F131,inputs,http://localhost:48000/f043_dast_sts_1 (namespace),max-age less than 31536000,644,"home,response,headers",131. Insecure or unset HTTP headers - Strict Transport Security,max-age less than 31536000,"
    1 | > GET http://localhost:48000/f043_dast_sts_1
    2 | > ...
    3 |
@@ -3584,7 +3584,7 @@ F131,inputs,http://localhost:48000/f043_dast_sts_1 (namespace),max-age less than
 > 10 | * EOF
      ^ Col 0
 "
-F043,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),script-src has unsafe-inline,644,"home,response,headers",F043. Insecure or unset HTTP headers - Content-Security-Policy,script-src has unsafe-inline,"
+F043,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),script-src has unsafe-inline,644,"home,response,headers",043. Insecure or unset HTTP headers - Content-Security-Policy,script-src has unsafe-inline,"
    1 | > GET http://localhost:48000/f043_dast_csp_4
    2 | > ...
    3 |
@@ -3597,7 +3597,7 @@ F043,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),script-src has un
   10 | * EOF
      ^ Col 0
 "
-F064,inputs,http://localhost:48000/f064_server_clock_1 (namespace),Server clock is out of time 60 minutes,778,"home,response,headers",F064. Traceability loss - Server's clock,Server clock is out of time 60 minutes,"
+F064,inputs,http://localhost:48000/f064_server_clock_1 (namespace),Server clock is out of time 60 minutes,778,"home,response,headers",064. Traceability loss - Server's clock,Server clock is out of time 60 minutes,"
   1 | > GET http://localhost:48000/f064_server_clock_1
   2 | > ...
   3 |

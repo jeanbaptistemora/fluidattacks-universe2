@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01243.java,61,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01243.java,61,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    51 |             String base = ""ou=users,ou=system"";
    52 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
@@ -24,7 +24,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01243.j
    71 |                     response.getWriter()
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01568.java,61,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01568.java,61,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    51 |         try {
    52 |             response.setContentType(""text/html;charset=UTF-8"");
@@ -49,7 +49,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01568.j
    71 |                             .println(
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01241.java,62,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01241.java,62,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    52 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
    53 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
@@ -74,7 +74,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01241.j
    72 |                             .println(
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01242.java,62,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01242.java,62,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    52 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
    53 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
@@ -99,7 +99,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01242.j
    72 |                             .println(
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01490.java,62,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01490.java,62,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    52 |             response.setContentType(""text/html;charset=UTF-8"");
    53 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
@@ -124,7 +124,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01490.j
    72 |                             .println(
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01501.java,63,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01501.java,63,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    53 |             String base = ""ou=users,ou=system"";
    54 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
@@ -149,7 +149,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01501.j
    73 |                     response.getWriter()
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02196.java,63,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02196.java,63,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    53 |         try {
    54 |             response.setContentType(""text/html;charset=UTF-8"");
@@ -174,7 +174,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02196.j
    73 |                             .println(
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02472.java,64,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02472.java,64,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    54 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
    55 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
@@ -199,7 +199,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02472.j
    74 |                             .println(
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01326.java,64,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01326.java,64,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    54 |             response.setContentType(""text/html;charset=UTF-8"");
    55 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
@@ -224,7 +224,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01326.j
    74 |                             .println(
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01902.java,64,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01902.java,64,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    54 |         try {
    55 |             response.setContentType(""text/html;charset=UTF-8"");
@@ -249,7 +249,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01902.j
    74 |                             .println(
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01023.java,65,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01023.java,65,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    55 |             response.setContentType(""text/html;charset=UTF-8"");
    56 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
@@ -274,7 +274,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01023.j
    75 |                             .println(
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02208.java,66,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02208.java,66,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    56 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
    57 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
@@ -299,7 +299,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02208.j
    76 |                             .println(
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00695.java,66,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00695.java,66,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    56 |         try {
    57 |             response.setContentType(""text/html;charset=UTF-8"");
@@ -324,7 +324,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00695.j
    76 |                             .println(
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00012.java,68,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00012.java,68,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    58 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
    59 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
@@ -349,7 +349,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00012.j
    78 |                             .println(
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02036.java,69,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02036.java,69,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    59 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
    60 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
@@ -374,7 +374,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02036.j
    79 |                             .println(
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02037.java,69,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02037.java,69,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    59 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
    60 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
@@ -399,7 +399,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02037.j
    79 |                             .println(
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02299.java,73,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02299.java,73,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    63 |         try {
    64 |             response.setContentType(""text/html;charset=UTF-8"");
@@ -424,7 +424,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02299.j
    83 |                             .println(
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02306.java,75,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02306.java,75,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    65 |             String base = ""ou=users,ou=system"";
    66 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
@@ -449,7 +449,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02306.j
    85 |                     response.getWriter()
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02305.java,76,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02305.java,76,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    66 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
    67 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
@@ -474,7 +474,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02305.j
    86 |                             .println(
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00947.java,79,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00947.java,79,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    69 |             response.setContentType(""text/html;charset=UTF-8"");
    70 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
@@ -499,7 +499,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00947.j
    89 |                             .println(
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01831.java,79,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01831.java,79,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    69 |             response.setContentType(""text/html;charset=UTF-8"");
    70 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
@@ -524,7 +524,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01831.j
    89 |                             .println(
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01832.java,79,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01832.java,79,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    69 |             response.setContentType(""text/html;charset=UTF-8"");
    70 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
@@ -549,7 +549,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01832.j
    89 |                             .println(
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00959.java,81,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00959.java,81,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    71 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
    72 |             sc.setSearchScope(javax.naming.directory.SearchControls.SUBTREE_SCOPE);
@@ -574,7 +574,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00959.j
    91 |                             .println(
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00630.java,82,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00630.java,82,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
    72 |             String base = ""ou=users,ou=system"";
    73 |             javax.naming.directory.SearchControls sc = new javax.naming.directory.SearchControls();
@@ -599,7 +599,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00630.j
    92 |                     response.getWriter()
       ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00021.java,59,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00021.java,59,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
   49 |             response.setContentType(""text/html;charset=UTF-8"");
   50 |             javax.naming.directory.DirContext ctx = ads.getDirContext();
@@ -624,7 +624,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00021.j
   69 |                             .println(
      ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00044.java,60,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00044.java,60,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
   50 |         try {
   51 |             response.setContentType(""text/html;charset=UTF-8"");
@@ -649,7 +649,7 @@ F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00044.j
   70 |                             .println(
      ^ Col 0
 "
-F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00694.java,61,90,skims,F107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
+F107,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00694.java,61,90,skims,107. LDAP injection,"The system builds LDAP queries using untrusted data that could modify the query.
 ","
   51 |         try {
   52 |             response.setContentType(""text/html;charset=UTF-8"");

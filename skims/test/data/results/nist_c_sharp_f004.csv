@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_21.cs,52,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_21.cs,52,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    42 |         {
    43 |             /* running on Windows */
@@ -24,7 +24,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    62 |             data = req.Params.Get(""name"");
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_21.cs,52,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_21.cs,52,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    42 |         {
    43 |             /* running on Windows */
@@ -49,7 +49,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    62 |             /* POTENTIAL FLAW: Parse id param out of the URL querystring (without using getParameter()) */
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_21.cs,52,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_21.cs,52,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    42 |         {
    43 |             /* running on Windows */
@@ -74,7 +74,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    62 |             /* Read data from cookies */
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_03.cs,58,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_03.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    48 |         {
    49 |             /* running on Windows */
@@ -99,7 +99,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    68 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_03.cs,58,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_03.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    48 |         {
    49 |             /* running on Windows */
@@ -124,7 +124,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    68 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_13.cs,58,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_13.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    48 |         {
    49 |             /* running on Windows */
@@ -149,7 +149,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    68 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_13.cs,58,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_13.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    48 |         {
    49 |             /* running on Windows */
@@ -174,7 +174,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    68 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_09.cs,58,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_09.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    48 |         {
    49 |             /* running on Windows */
@@ -199,7 +199,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    68 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_09.cs,58,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_09.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    48 |         {
    49 |             /* running on Windows */
@@ -224,7 +224,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    68 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_11.cs,58,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_11.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    48 |         {
    49 |             /* running on Windows */
@@ -249,7 +249,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    68 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_11.cs,58,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_11.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    48 |         {
    49 |             /* running on Windows */
@@ -274,7 +274,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    68 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_14.cs,58,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_14.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    48 |         {
    49 |             /* running on Windows */
@@ -299,7 +299,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    68 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_14.cs,58,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_14.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    48 |         {
    49 |             /* running on Windows */
@@ -324,7 +324,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    68 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_10.cs,58,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_10.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    48 |         {
    49 |             /* running on Windows */
@@ -349,7 +349,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    68 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_10.cs,58,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_10.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    48 |         {
    49 |             /* running on Windows */
@@ -374,7 +374,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    68 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_02.cs,58,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_02.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    48 |         {
    49 |             /* running on Windows */
@@ -399,7 +399,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    68 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_02.cs,58,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_02.cs,58,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    48 |         {
    49 |             /* running on Windows */
@@ -424,7 +424,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    68 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_15.cs,59,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_15.cs,59,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    49 |         {
    50 |             /* running on Windows */
@@ -449,7 +449,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    69 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_15.cs,59,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_15.cs,59,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    49 |         {
    50 |             /* running on Windows */
@@ -474,7 +474,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    69 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_42.cs,61,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_42.cs,61,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    51 |         {
    52 |             /* running on Windows */
@@ -499,7 +499,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    71 |         return data;
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_31.cs,62,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_31.cs,62,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    52 |            {
    53 |                /* running on Windows */
@@ -524,7 +524,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    72 |
       ^ Col 1
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_12.cs,63,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_12.cs,63,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    53 |         {
    54 |             /* running on Windows */
@@ -549,7 +549,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    73 |         if (IO.StaticReturnsTrueOrFalse())
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_42.cs,63,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_42.cs,63,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    53 |         {
    54 |             /* running on Windows */
@@ -574,7 +574,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    73 |         return data;
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_31.cs,64,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_31.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    54 |            {
    55 |                /* running on Windows */
@@ -599,7 +599,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    74 |
       ^ Col 1
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_03.cs,64,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_03.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    54 |         {
    55 |             /* running on Windows */
@@ -624,7 +624,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    74 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_13.cs,64,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_13.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    54 |         {
    55 |             /* running on Windows */
@@ -649,7 +649,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    74 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_09.cs,64,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_09.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    54 |         {
    55 |             /* running on Windows */
@@ -674,7 +674,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    74 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_11.cs,64,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_11.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    54 |         {
    55 |             /* running on Windows */
@@ -699,7 +699,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    74 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_14.cs,64,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_14.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    54 |         {
    55 |             /* running on Windows */
@@ -724,7 +724,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    74 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_10.cs,64,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_10.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    54 |         {
    55 |             /* running on Windows */
@@ -749,7 +749,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    74 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_06.cs,64,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_06.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    54 |         {
    55 |             /* running on Windows */
@@ -774,7 +774,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    74 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_06.cs,64,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_06.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    54 |         {
    55 |             /* running on Windows */
@@ -799,7 +799,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    74 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_07.cs,64,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_07.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    54 |         {
    55 |             /* running on Windows */
@@ -824,7 +824,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    74 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_07.cs,64,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_07.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    54 |         {
    55 |             /* running on Windows */
@@ -849,7 +849,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    74 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_02.cs,64,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_02.cs,64,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    54 |         {
    55 |             /* running on Windows */
@@ -874,7 +874,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    74 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_12.cs,65,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_12.cs,65,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    55 |         {
    56 |             /* running on Windows */
@@ -899,7 +899,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    75 |         if (IO.StaticReturnsTrueOrFalse())
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_04.cs,65,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_04.cs,65,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    55 |         {
    56 |             /* running on Windows */
@@ -924,7 +924,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    75 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_04.cs,65,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_04.cs,65,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    55 |         {
    56 |             /* running on Windows */
@@ -949,7 +949,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    75 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_05.cs,65,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_05.cs,65,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    55 |         {
    56 |             /* running on Windows */
@@ -974,7 +974,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    75 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_05.cs,65,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_05.cs,65,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    55 |         {
    56 |             /* running on Windows */
@@ -999,7 +999,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    75 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_15.cs,65,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_15.cs,65,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    55 |         {
    56 |             /* running on Windows */
@@ -1024,7 +1024,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    75 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_03.cs,66,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_03.cs,66,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    56 |         {
    57 |             /* running on Windows */
@@ -1049,7 +1049,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    76 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_13.cs,66,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_13.cs,66,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    56 |         {
    57 |             /* running on Windows */
@@ -1074,7 +1074,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    76 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_09.cs,66,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_09.cs,66,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    56 |         {
    57 |             /* running on Windows */
@@ -1099,7 +1099,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    76 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_11.cs,66,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_11.cs,66,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    56 |         {
    57 |             /* running on Windows */
@@ -1124,7 +1124,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    76 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_14.cs,66,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_14.cs,66,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    56 |         {
    57 |             /* running on Windows */
@@ -1149,7 +1149,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    76 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_10.cs,66,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_10.cs,66,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    56 |         {
    57 |             /* running on Windows */
@@ -1174,7 +1174,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    76 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_02.cs,66,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_02.cs,66,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    56 |         {
    57 |             /* running on Windows */
@@ -1199,7 +1199,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    76 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_15.cs,67,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_15.cs,67,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    57 |         {
    58 |             /* running on Windows */
@@ -1224,7 +1224,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    77 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_06.cs,70,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_06.cs,70,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    60 |         {
    61 |             /* running on Windows */
@@ -1249,7 +1249,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    80 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_07.cs,70,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_07.cs,70,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    60 |         {
    61 |             /* running on Windows */
@@ -1274,7 +1274,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    80 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_01.cs,70,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_01.cs,70,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    60 |         {
    61 |             /* running on Windows */
@@ -1299,7 +1299,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    80 |     /* goodG2B() - uses goodsource and badsink */
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_01.cs,70,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_01.cs,70,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    60 |         {
    61 |             /* running on Windows */
@@ -1324,7 +1324,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    80 |     /* goodG2B() - uses goodsource and badsink */
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_04.cs,71,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_04.cs,71,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    61 |         {
    62 |             /* running on Windows */
@@ -1349,7 +1349,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    81 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_05.cs,71,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_05.cs,71,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    61 |         {
    62 |             /* running on Windows */
@@ -1374,7 +1374,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    81 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_17.cs,72,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_17.cs,72,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    62 |            {
    63 |                /* running on Windows */
@@ -1399,7 +1399,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    82 |        string data;
       ^ Col 1
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_17.cs,72,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_17.cs,72,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    62 |            {
    63 |                /* running on Windows */
@@ -1424,7 +1424,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    82 |        string data;
       ^ Col 1
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_06.cs,72,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_06.cs,72,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    62 |         {
    63 |             /* running on Windows */
@@ -1449,7 +1449,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    82 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_08.cs,72,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_08.cs,72,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    62 |         {
    63 |             /* running on Windows */
@@ -1474,7 +1474,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    82 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_08.cs,72,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_08.cs,72,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    62 |         {
    63 |             /* running on Windows */
@@ -1499,7 +1499,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    82 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_07.cs,72,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_07.cs,72,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    62 |         {
    63 |             /* running on Windows */
@@ -1524,7 +1524,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    82 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_04.cs,73,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_04.cs,73,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    63 |         {
    64 |             /* running on Windows */
@@ -1549,7 +1549,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    83 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_05.cs,73,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_05.cs,73,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    63 |         {
    64 |             /* running on Windows */
@@ -1574,7 +1574,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    83 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_16.cs,74,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_16.cs,74,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    64 |         {
    65 |             /* running on Windows */
@@ -1599,7 +1599,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    84 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_16.cs,74,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_16.cs,74,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    64 |         {
    65 |             /* running on Windows */
@@ -1624,7 +1624,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    84 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_01.cs,75,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_01.cs,75,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    65 |         {
    66 |             /* running on Windows */
@@ -1649,7 +1649,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    85 |     /* goodG2B() - uses goodsource and badsink */
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_17.cs,77,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_17.cs,77,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    67 |            {
    68 |                /* running on Windows */
@@ -1674,7 +1674,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    87 |        string data;
       ^ Col 1
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_31.cs,77,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_31.cs,77,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    67 |            {
    68 |                /* running on Windows */
@@ -1699,7 +1699,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    87 |
       ^ Col 1
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_31.cs,77,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_31.cs,77,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    67 |            {
    68 |                /* running on Windows */
@@ -1724,7 +1724,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    87 |
       ^ Col 1
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_12.cs,78,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_12.cs,78,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    68 |         {
    69 |             /* running on Windows */
@@ -1749,7 +1749,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    88 |         if (IO.StaticReturnsTrueOrFalse())
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_12.cs,78,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_12.cs,78,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    68 |         {
    69 |             /* running on Windows */
@@ -1774,7 +1774,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    88 |         if (IO.StaticReturnsTrueOrFalse())
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_08.cs,78,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_08.cs,78,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    68 |         {
    69 |             /* running on Windows */
@@ -1799,7 +1799,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    88 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_16.cs,79,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_16.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    69 |         {
    70 |             /* running on Windows */
@@ -1824,7 +1824,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    89 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_03.cs,79,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_03.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    69 |         {
    70 |             /* running on Windows */
@@ -1849,7 +1849,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    89 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_03.cs,79,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_03.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    69 |         {
    70 |             /* running on Windows */
@@ -1874,7 +1874,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    89 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_13.cs,79,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_13.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    69 |         {
    70 |             /* running on Windows */
@@ -1899,7 +1899,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    89 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_13.cs,79,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_13.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    69 |         {
    70 |             /* running on Windows */
@@ -1924,7 +1924,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    89 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_09.cs,79,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_09.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    69 |         {
    70 |             /* running on Windows */
@@ -1949,7 +1949,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    89 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_09.cs,79,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_09.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    69 |         {
    70 |             /* running on Windows */
@@ -1974,7 +1974,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    89 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_11.cs,79,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_11.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    69 |         {
    70 |             /* running on Windows */
@@ -1999,7 +1999,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    89 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_11.cs,79,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_11.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    69 |         {
    70 |             /* running on Windows */
@@ -2024,7 +2024,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    89 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_14.cs,79,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_14.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    69 |         {
    70 |             /* running on Windows */
@@ -2049,7 +2049,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    89 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_14.cs,79,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_14.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    69 |         {
    70 |             /* running on Windows */
@@ -2074,7 +2074,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    89 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_10.cs,79,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_10.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    69 |         {
    70 |             /* running on Windows */
@@ -2099,7 +2099,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    89 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_10.cs,79,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_10.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    69 |         {
    70 |             /* running on Windows */
@@ -2124,7 +2124,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    89 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_02.cs,79,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_02.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    69 |         {
    70 |             /* running on Windows */
@@ -2149,7 +2149,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    89 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_02.cs,79,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_02.cs,79,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    69 |         {
    70 |             /* running on Windows */
@@ -2174,7 +2174,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    89 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_08.cs,80,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_08.cs,80,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    70 |         {
    71 |             /* running on Windows */
@@ -2199,7 +2199,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    90 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_15.cs,80,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_15.cs,80,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    70 |         {
    71 |             /* running on Windows */
@@ -2224,7 +2224,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    90 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_15.cs,80,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_15.cs,80,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    70 |         {
    71 |             /* running on Windows */
@@ -2249,7 +2249,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    90 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_31.cs,82,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_31.cs,82,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    72 |            {
    73 |                /* running on Windows */
@@ -2274,7 +2274,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    92 |
       ^ Col 1
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_12.cs,83,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_12.cs,83,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    73 |         {
    74 |             /* running on Windows */
@@ -2299,7 +2299,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    93 |         if (IO.StaticReturnsTrueOrFalse())
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_03.cs,84,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_03.cs,84,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    74 |         {
    75 |             /* running on Windows */
@@ -2324,7 +2324,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    94 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_13.cs,84,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_13.cs,84,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    74 |         {
    75 |             /* running on Windows */
@@ -2349,7 +2349,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    94 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_09.cs,84,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_09.cs,84,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    74 |         {
    75 |             /* running on Windows */
@@ -2374,7 +2374,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    94 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_11.cs,84,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_11.cs,84,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    74 |         {
    75 |             /* running on Windows */
@@ -2399,7 +2399,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    94 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_14.cs,84,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_14.cs,84,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    74 |         {
    75 |             /* running on Windows */
@@ -2424,7 +2424,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    94 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_10.cs,84,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_10.cs,84,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    74 |         {
    75 |             /* running on Windows */
@@ -2449,7 +2449,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    94 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_02.cs,84,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_02.cs,84,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    74 |         {
    75 |             /* running on Windows */
@@ -2474,7 +2474,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    94 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_06.cs,85,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_06.cs,85,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    75 |         {
    76 |             /* running on Windows */
@@ -2499,7 +2499,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    95 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_06.cs,85,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_06.cs,85,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    75 |         {
    76 |             /* running on Windows */
@@ -2524,7 +2524,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    95 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_07.cs,85,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_07.cs,85,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    75 |         {
    76 |             /* running on Windows */
@@ -2549,7 +2549,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    95 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_07.cs,85,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_07.cs,85,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    75 |         {
    76 |             /* running on Windows */
@@ -2574,7 +2574,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    95 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_15.cs,85,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_15.cs,85,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    75 |         {
    76 |             /* running on Windows */
@@ -2599,7 +2599,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    95 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_04.cs,86,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_04.cs,86,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    76 |         {
    77 |             /* running on Windows */
@@ -2624,7 +2624,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    96 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_04.cs,86,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_04.cs,86,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    76 |         {
    77 |             /* running on Windows */
@@ -2649,7 +2649,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    96 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_05.cs,86,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_05.cs,86,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    76 |         {
    77 |             /* running on Windows */
@@ -2674,7 +2674,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    96 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_05.cs,86,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_05.cs,86,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    76 |         {
    77 |             /* running on Windows */
@@ -2699,7 +2699,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    96 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_01.cs,87,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_01.cs,87,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    77 |         {
    78 |             /* running on Windows */
@@ -2724,7 +2724,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    97 |     /* goodG2B() - uses goodsource and badsink */
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_17.cs,89,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_17.cs,89,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    79 |            {
    80 |                /* running on Windows */
@@ -2749,7 +2749,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
    99 |        string data;
       ^ Col 1
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_06.cs,90,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_06.cs,90,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    80 |         {
    81 |             /* running on Windows */
@@ -2774,7 +2774,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   100 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_07.cs,90,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_07.cs,90,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    80 |         {
    81 |             /* running on Windows */
@@ -2799,7 +2799,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   100 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_16.cs,91,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_16.cs,91,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    81 |         {
    82 |             /* running on Windows */
@@ -2824,7 +2824,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   101 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_04.cs,91,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_04.cs,91,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    81 |         {
    82 |             /* running on Windows */
@@ -2849,7 +2849,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   101 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_05.cs,91,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_05.cs,91,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    81 |         {
    82 |             /* running on Windows */
@@ -2874,7 +2874,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   101 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_08.cs,93,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Connect_tcp_08.cs,93,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    83 |         {
    84 |             /* running on Windows */
@@ -2899,7 +2899,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   103 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_08.cs,93,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__NetClient_08.cs,93,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    83 |         {
    84 |             /* running on Windows */
@@ -2924,7 +2924,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   103 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_31.cs,94,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_31.cs,94,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    84 |            {
    85 |                /* running on Windows */
@@ -2949,7 +2949,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   104 |
       ^ Col 1
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_12.cs,95,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_12.cs,95,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    85 |         {
    86 |             /* running on Windows */
@@ -2974,7 +2974,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   105 |         if (IO.StaticReturnsTrueOrFalse())
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_03.cs,96,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_03.cs,96,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    86 |         {
    87 |             /* running on Windows */
@@ -2999,7 +2999,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   106 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_13.cs,96,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_13.cs,96,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    86 |         {
    87 |             /* running on Windows */
@@ -3024,7 +3024,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   106 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_09.cs,96,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_09.cs,96,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    86 |         {
    87 |             /* running on Windows */
@@ -3049,7 +3049,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   106 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_11.cs,96,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_11.cs,96,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    86 |         {
    87 |             /* running on Windows */
@@ -3074,7 +3074,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   106 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_14.cs,96,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_14.cs,96,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    86 |         {
    87 |             /* running on Windows */
@@ -3099,7 +3099,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   106 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_10.cs,96,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_10.cs,96,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    86 |         {
    87 |             /* running on Windows */
@@ -3124,7 +3124,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   106 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_02.cs,96,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_02.cs,96,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    86 |         {
    87 |             /* running on Windows */
@@ -3149,7 +3149,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   106 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_15.cs,97,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_15.cs,97,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    87 |         {
    88 |             /* running on Windows */
@@ -3174,7 +3174,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   107 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_08.cs,98,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Database_08.cs,98,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    88 |         {
    89 |             /* running on Windows */
@@ -3199,7 +3199,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   108 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_06.cs,102,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_06.cs,102,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    92 |         {
    93 |             /* running on Windows */
@@ -3224,7 +3224,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   112 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_07.cs,102,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_07.cs,102,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    92 |         {
    93 |             /* running on Windows */
@@ -3249,7 +3249,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   112 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_04.cs,103,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_04.cs,103,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    93 |         {
    94 |             /* running on Windows */
@@ -3274,7 +3274,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   113 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_05.cs,103,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_05.cs,103,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    93 |         {
    94 |             /* running on Windows */
@@ -3299,7 +3299,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   113 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_08.cs,110,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Listen_tcp_08.cs,110,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   100 |         {
   101 |             /* running on Windows */
@@ -3324,7 +3324,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   120 |         {
       ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_01.cs,49,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_01.cs,49,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   39 |         {
   40 |             /* running on Windows */
@@ -3349,7 +3349,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   59 |     /* goodG2B() - uses goodsource and badsink */
      ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_01.cs,49,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_01.cs,49,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   39 |         {
   40 |             /* running on Windows */
@@ -3374,7 +3374,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   59 |     /* goodG2B() - uses goodsource and badsink */
      ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_17.cs,51,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_17.cs,51,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   41 |            {
   42 |                /* running on Windows */
@@ -3399,7 +3399,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   61 |        string data;
      ^ Col 1
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_17.cs,51,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_17.cs,51,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   41 |            {
   42 |                /* running on Windows */
@@ -3424,7 +3424,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   61 |        string data;
      ^ Col 1
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_16.cs,53,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_16.cs,53,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   43 |         {
   44 |             /* running on Windows */
@@ -3449,7 +3449,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   63 |         {
      ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_16.cs,53,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_16.cs,53,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   43 |         {
   44 |             /* running on Windows */
@@ -3474,7 +3474,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   63 |         {
      ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_42.cs,55,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_42.cs,55,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   45 |         {
   46 |             /* running on Windows */
@@ -3499,7 +3499,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   65 |         return data;
      ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_01.cs,55,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_01.cs,55,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   45 |         {
   46 |             /* running on Windows */
@@ -3524,7 +3524,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   65 |     /* goodG2B() - uses goodsource and badsink */
      ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_31.cs,56,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_31.cs,56,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   46 |            {
   47 |                /* running on Windows */
@@ -3549,7 +3549,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   66 |
      ^ Col 1
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_31.cs,56,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_31.cs,56,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   46 |            {
   47 |                /* running on Windows */
@@ -3574,7 +3574,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   66 |
      ^ Col 1
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_17.cs,57,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_17.cs,57,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   47 |            {
   48 |                /* running on Windows */
@@ -3599,7 +3599,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   67 |        string data;
      ^ Col 1
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_12.cs,57,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Environment_12.cs,57,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   47 |         {
   48 |             /* running on Windows */
@@ -3624,7 +3624,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   67 |         if (IO.StaticReturnsTrueOrFalse())
      ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_12.cs,57,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Params_Get_Web_12.cs,57,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   47 |         {
   48 |             /* running on Windows */
@@ -3649,7 +3649,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   67 |         if (IO.StaticReturnsTrueOrFalse())
      ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_01.cs,57,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_01.cs,57,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   47 |         {
   48 |             /* running on Windows */
@@ -3674,7 +3674,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   67 |     /* goodG2B() - uses goodsource and badsink */
      ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_17.cs,59,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_17.cs,59,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   49 |            {
   50 |                /* running on Windows */
@@ -3699,7 +3699,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   69 |        string data;
      ^ Col 1
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_16.cs,59,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__QueryString_Web_16.cs,59,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   49 |         {
   50 |             /* running on Windows */
@@ -3724,7 +3724,7 @@ F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Inject
   69 |         {
      ^ Col 0
 "
-F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_16.cs,61,78,skims,F004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,NIST/src/testcases/CWE78_OS_Command_Injection/CWE78_OS_Command_Injection__Get_Cookies_Web_16.cs,61,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   51 |         {
   52 |             /* running on Windows */

@@ -52,8 +52,8 @@ def load_translations() -> Dict[str, Dict[str, str]]:
     with open(CRITERIA_VULNERABILITIES) as handle:
         for code, data in yaml.safe_load(handle).items():
             translations[f"criteria.vulns.{code}.title"] = dict(
-                EN=f"F{code}. {data['en']['title']}",
-                ES=f"F{code}. {data['es']['title']}",
+                EN=f"{code}. {data['en']['title']}",
+                ES=f"{code}. {data['es']['title']}",
             )
 
             for field in ("description", "impact", "recommendation", "threat"):

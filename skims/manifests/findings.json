@@ -1,410 +1,410 @@
 {
   "F001": {
     "EN": {
-      "title": "F001. SQL injection - C Sharp SQL API"
+      "title": "001. SQL injection - C Sharp SQL API"
     },
     "ES": {
-      "title": "F001. SQL injection - C Sharp SQL API"
+      "title": "001. SQL injection - C Sharp SQL API"
     }
   },
   "F004": {
     "EN": {
-      "title": "F004. Remote command execution"
+      "title": "004. Remote command execution"
     },
     "ES": {
-      "title": "F004. Remote command execution"
+      "title": "004. Remote command execution"
     }
   },
   "F008": {
     "EN": {
-      "title": "F008. Reflected cross-site scripting (XSS)"
+      "title": "008. Reflected cross-site scripting (XSS)"
     },
     "ES": {
-      "title": "F008. Reflected cross-site scripting (XSS)"
+      "title": "008. Reflected cross-site scripting (XSS)"
     }
   },
   "F009": {
     "EN": {
-      "title": "F009. Sensitive information in source code"
+      "title": "009. Sensitive information in source code"
     },
     "ES": {
-      "title": "F009. Sensitive information in source code"
+      "title": "009. Sensitive information in source code"
     }
   },
   "F011": {
     "EN": {
-      "title": "F011. Use of software with known vulnerabilities"
+      "title": "011. Use of software with known vulnerabilities"
     },
     "ES": {
-      "title": "F011. Use of software with known vulnerabilities"
+      "title": "011. Use of software with known vulnerabilities"
     }
   },
   "F012": {
     "EN": {
-      "title": "F012. SQL injection - Java Persistence API"
+      "title": "012. SQL injection - Java Persistence API"
     },
     "ES": {
-      "title": "F012. SQL injection - Java Persistence API"
+      "title": "012. SQL injection - Java Persistence API"
     }
   },
   "F015": {
     "EN": {
-      "title": "F015. Insecure authentication method - Basic"
+      "title": "015. Insecure authentication method - Basic"
     },
     "ES": {
-      "title": "F015. Insecure authentication method - Basic"
+      "title": "015. Insecure authentication method - Basic"
     }
   },
   "F016": {
     "EN": {
-      "title": "F016. Insecure encryption algorithm - SSL/TLS"
+      "title": "016. Insecure encryption algorithm - SSL/TLS"
     },
     "ES": {
-      "title": "F016. Insecure encryption algorithm - SSL/TLS"
+      "title": "016. Insecure encryption algorithm - SSL/TLS"
     }
   },
   "F021": {
     "EN": {
-      "title": "F021. XPath injection"
+      "title": "021. XPath injection"
     },
     "ES": {
-      "title": "F021. XPath injection"
+      "title": "021. XPath injection"
     }
   },
   "F022": {
     "EN": {
-      "title": "F022. Use of an insecure channel"
+      "title": "022. Use of an insecure channel"
     },
     "ES": {
-      "title": "F022. Use of an insecure channel"
+      "title": "022. Use of an insecure channel"
     }
   },
   "F023": {
     "EN": {
-      "title": "F023. Uncontrolled external site redirect - Host Header Injection"
+      "title": "023. Uncontrolled external site redirect - Host Header Injection"
     },
     "ES": {
-      "title": "F023. Uncontrolled external site redirect - Host Header Injection"
+      "title": "023. Uncontrolled external site redirect - Host Header Injection"
     }
   },
   "F024": {
     "EN": {
-      "title": "F024. Unrestricted access between network segments - AWS"
+      "title": "024. Unrestricted access between network segments - AWS"
     },
     "ES": {
-      "title": "F024. Unrestricted access between network segments - AWS"
+      "title": "024. Unrestricted access between network segments - AWS"
     }
   },
   "F031": {
     "EN": {
-      "title": "F031. Excessive privileges - AWS"
+      "title": "031. Excessive privileges - AWS"
     },
     "ES": {
-      "title": "F031. Excessive privileges - AWS"
+      "title": "031. Excessive privileges - AWS"
     }
   },
   "F034": {
     "EN": {
-      "title": "F034. Insecure generation of random numbers"
+      "title": "034. Insecure generation of random numbers"
     },
     "ES": {
-      "title": "F034. Insecure generation of random numbers"
+      "title": "034. Insecure generation of random numbers"
     }
   },
   "F036": {
     "EN": {
-      "title": "F036. ViewState not encrypted"
+      "title": "036. ViewState not encrypted"
     },
     "ES": {
-      "title": "F036. ViewState not encrypted"
+      "title": "036. ViewState not encrypted"
     }
   },
   "F042": {
     "EN": {
-      "title": "F042. Insecurely generated cookies"
+      "title": "042. Insecurely generated cookies"
     },
     "ES": {
-      "title": "F042. Insecurely generated cookies"
+      "title": "042. Insecurely generated cookies"
     }
   },
   "F043": {
     "EN": {
-      "title": "F043. Insecure or unset HTTP headers - Content-Security-Policy"
+      "title": "043. Insecure or unset HTTP headers - Content-Security-Policy"
     },
     "ES": {
-      "title": "F043. Insecure or unset HTTP headers - Content-Security-Policy"
+      "title": "043. Insecure or unset HTTP headers - Content-Security-Policy"
     }
   },
   "F046": {
     "EN": {
-      "title": "F046. Missing secure obfuscation - APK"
+      "title": "046. Missing secure obfuscation - APK"
     },
     "ES": {
-      "title": "F046. Missing secure obfuscation - APK"
+      "title": "046. Missing secure obfuscation - APK"
     }
   },
   "F048": {
     "EN": {
-      "title": "F048. Lack of root detection"
+      "title": "048. Lack of root detection"
     },
     "ES": {
-      "title": "F048. Lack of root detection"
+      "title": "048. Lack of root detection"
     }
   },
   "F049": {
     "EN": {
-      "title": "F049. Insecure digital certificates - APK Pinning"
+      "title": "049. Insecure digital certificates - APK Pinning"
     },
     "ES": {
-      "title": "F049. Insecure digital certificates - APK Pinning"
+      "title": "049. Insecure digital certificates - APK Pinning"
     }
   },
   "F052": {
     "EN": {
-      "title": "F052. Insecure encryption algorithm"
+      "title": "052. Insecure encryption algorithm"
     },
     "ES": {
-      "title": "F052. Insecure encryption algorithm"
+      "title": "052. Insecure encryption algorithm"
     }
   },
   "F055": {
     "EN": {
-      "title": "F055. Insecure service configuration - ADB Backups"
+      "title": "055. Insecure service configuration - ADB Backups"
     },
     "ES": {
-      "title": "F055. Insecure service configuration - ADB Backups"
+      "title": "055. Insecure service configuration - ADB Backups"
     }
   },
   "F057": {
     "EN": {
-      "title": "F057. Excessive privileges - Temporary Files"
+      "title": "057. Excessive privileges - Temporary Files"
     },
     "ES": {
-      "title": "F057. Excessive privileges - Temporary Files"
+      "title": "057. Excessive privileges - Temporary Files"
     }
   },
   "F058": {
     "EN": {
-      "title": "F058. Debugging enabled in production - APK"
+      "title": "058. Debugging enabled in production - APK"
     },
     "ES": {
-      "title": "F058. Debugging enabled in production - APK"
+      "title": "058. Debugging enabled in production - APK"
     }
   },
   "F060": {
     "EN": {
-      "title": "F060. Insecure exceptions"
+      "title": "060. Insecure exceptions"
     },
     "ES": {
-      "title": "F060. Insecure exceptions"
+      "title": "060. Insecure exceptions"
     }
   },
   "F061": {
     "EN": {
-      "title": "F061. Errors without traceability"
+      "title": "061. Errors without traceability"
     },
     "ES": {
-      "title": "F061. Errors without traceability"
+      "title": "061. Errors without traceability"
     }
   },
   "F063": {
     "EN": {
-      "title": "F063. Lack of data validation - Path Traversal"
+      "title": "063. Lack of data validation - Path Traversal"
     },
     "ES": {
-      "title": "F063. Lack of data validation - Path Traversal"
+      "title": "063. Lack of data validation - Path Traversal"
     }
   },
   "F064": {
     "EN": {
-      "title": "F064. Traceability loss - Server's clock"
+      "title": "064. Traceability loss - Server's clock"
     },
     "ES": {
-      "title": "F064. Traceability loss - Server's clock"
+      "title": "064. Traceability loss - Server's clock"
     }
   },
   "F070": {
     "EN": {
-      "title": "F070. Inappropriate coding practices - Wildcard import"
+      "title": "070. Inappropriate coding practices - Wildcard import"
     },
     "ES": {
-      "title": "F070. Inappropriate coding practices - Wildcard import"
+      "title": "070. Inappropriate coding practices - Wildcard import"
     }
   },
   "F071": {
     "EN": {
-      "title": "F071. Insecure or unset HTTP headers - Referrer-Policy"
+      "title": "071. Insecure or unset HTTP headers - Referrer-Policy"
     },
     "ES": {
-      "title": "F071. Insecure or unset HTTP headers - Referrer-Policy"
+      "title": "071. Insecure or unset HTTP headers - Referrer-Policy"
     }
   },
   "F073": {
     "EN": {
-      "title": "F073. Conditional statement without a default option"
+      "title": "073. Conditional statement without a default option"
     },
     "ES": {
-      "title": "F073. Conditional statement without a default option"
+      "title": "073. Conditional statement without a default option"
     }
   },
   "F075": {
     "EN": {
-      "title": "F075. Unauthorized access to files - APK Content Provider"
+      "title": "075. Unauthorized access to files - APK Content Provider"
     },
     "ES": {
-      "title": "F075. Unauthorized access to files - APK Content Provider"
+      "title": "075. Unauthorized access to files - APK Content Provider"
     }
   },
   "F079": {
     "EN": {
-      "title": "F079. Non-upgradable dependencies"
+      "title": "079. Non-upgradable dependencies"
     },
     "ES": {
-      "title": "F079. Non-upgradable dependencies"
+      "title": "079. Non-upgradable dependencies"
     }
   },
   "F080": {
     "EN": {
-      "title": "F080. Non-encrypted confidential information - AWS"
+      "title": "080. Non-encrypted confidential information - AWS"
     },
     "ES": {
-      "title": "F080. Non-encrypted confidential information - AWS"
+      "title": "080. Non-encrypted confidential information - AWS"
     }
   },
   "F085": {
     "EN": {
-      "title": "F085. Sensitive data stored in client-side storage"
+      "title": "085. Sensitive data stored in client-side storage"
     },
     "ES": {
-      "title": "F085. Sensitive data stored in client-side storage"
+      "title": "085. Sensitive data stored in client-side storage"
     }
   },
   "F086": {
     "EN": {
-      "title": "F086. Missing subresource integrity check"
+      "title": "086. Missing subresource integrity check"
     },
     "ES": {
-      "title": "F086. Missing subresource integrity check"
+      "title": "086. Missing subresource integrity check"
     }
   },
   "F089": {
     "EN": {
-      "title": "F089. Lack of data validation - Trust boundary violation"
+      "title": "089. Lack of data validation - Trust boundary violation"
     },
     "ES": {
-      "title": "F089. Lack of data validation - Trust boundary violation"
+      "title": "089. Lack of data validation - Trust boundary violation"
     }
   },
   "F092": {
     "EN": {
-      "title": "F092. Insecure encryption algorithm - Anonymous cipher suites"
+      "title": "092. Insecure encryption algorithm - Anonymous cipher suites"
     },
     "ES": {
-      "title": "F092. Insecure encryption algorithm - Anonymous cipher suites"
+      "title": "092. Insecure encryption algorithm - Anonymous cipher suites"
     }
   },
   "F094": {
     "EN": {
-      "title": "F094. Insecure encryption algorithm - Cipher Block Chaining"
+      "title": "094. Insecure encryption algorithm - Cipher Block Chaining"
     },
     "ES": {
-      "title": "F094. Insecure encryption algorithm - Cipher Block Chaining"
+      "title": "094. Insecure encryption algorithm - Cipher Block Chaining"
     }
   },
   "F103": {
     "EN": {
-      "title": "F103. Insufficient data authenticity validation - APK signing"
+      "title": "103. Insufficient data authenticity validation - APK signing"
     },
     "ES": {
-      "title": "F103. Insufficient data authenticity validation - APK signing"
+      "title": "103. Insufficient data authenticity validation - APK signing"
     }
   },
   "F107": {
     "EN": {
-      "title": "F107. LDAP injection"
+      "title": "107. LDAP injection"
     },
     "ES": {
-      "title": "F107. LDAP injection"
+      "title": "107. LDAP injection"
     }
   },
   "F109": {
     "EN": {
-      "title": "F109. Insecure functionality - Float currency"
+      "title": "109. Insecure functionality - Float currency"
     },
     "ES": {
-      "title": "F109. Insecure functionality - Float currency"
+      "title": "109. Insecure functionality - Float currency"
     }
   },
   "F112": {
     "EN": {
-      "title": "F112. SQL injection - Java SQL API"
+      "title": "112. SQL injection - Java SQL API"
     },
     "ES": {
-      "title": "F112. SQL injection - Java SQL API"
+      "title": "112. SQL injection - Java SQL API"
     }
   },
   "F117": {
     "EN": {
-      "title": "F117. Unverifiable files"
+      "title": "117. Unverifiable files"
     },
     "ES": {
-      "title": "F117. Unverifiable files"
+      "title": "117. Unverifiable files"
     }
   },
   "F127": {
     "EN": {
-      "title": "F127. Lack of data validation - Type confusion"
+      "title": "127. Lack of data validation - Type confusion"
     },
     "ES": {
-      "title": "F127. Lack of data validation - Type confusion"
+      "title": "127. Lack of data validation - Type confusion"
     }
   },
   "F128": {
     "EN": {
-      "title": "F128. Insecurely generated cookies - HttpOnly"
+      "title": "128. Insecurely generated cookies - HttpOnly"
     },
     "ES": {
-      "title": "F128. Insecurely generated cookies - HttpOnly"
+      "title": "128. Insecurely generated cookies - HttpOnly"
     }
   },
   "F129": {
     "EN": {
-      "title": "F129. Insecurely generated cookies - SameSite"
+      "title": "129. Insecurely generated cookies - SameSite"
     },
     "ES": {
-      "title": "F129. Insecurely generated cookies - SameSite"
+      "title": "129. Insecurely generated cookies - SameSite"
     }
   },
   "F130": {
     "EN": {
-      "title": "F130. Insecurely generated cookies - Secure"
+      "title": "130. Insecurely generated cookies - Secure"
     },
     "ES": {
-      "title": "F130. Insecurely generated cookies - Secure"
+      "title": "130. Insecurely generated cookies - Secure"
     }
   },
   "F131": {
     "EN": {
-      "title": "F131. Insecure or unset HTTP headers - Strict Transport Security"
+      "title": "131. Insecure or unset HTTP headers - Strict Transport Security"
     },
     "ES": {
-      "title": "F131. Insecure or unset HTTP headers - Strict Transport Security"
+      "title": "131. Insecure or unset HTTP headers - Strict Transport Security"
     }
   },
   "F132": {
     "EN": {
-      "title": "F132. Insecure or unset HTTP headers - X-Content-Type-Options"
+      "title": "132. Insecure or unset HTTP headers - X-Content-Type-Options"
     },
     "ES": {
-      "title": "F132. Insecure or unset HTTP headers - X-Content-Type-Options"
+      "title": "132. Insecure or unset HTTP headers - X-Content-Type-Options"
     }
   },
   "F133": {
     "EN": {
-      "title": "F133. Insecure encryption algorithm - Perfect Forward Secrecy"
+      "title": "133. Insecure encryption algorithm - Perfect Forward Secrecy"
     },
     "ES": {
-      "title": "F133. Insecure encryption algorithm - Perfect Forward Secrecy"
+      "title": "133. Insecure encryption algorithm - Perfect Forward Secrecy"
     }
   }
 }

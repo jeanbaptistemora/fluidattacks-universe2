@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01061.java,74,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01061.java,74,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
    64 |             }
    65 |             str = new String(input, 0, i);
@@ -24,7 +24,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01061.j
    84 |
       ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01185.java,76,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01185.java,76,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
    66 |             }
    67 |             str = new String(input, 0, i);
@@ -49,7 +49,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01185.j
    86 |
       ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01134.java,83,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01134.java,83,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
    73 |             }
    74 |             str = new String(input, 0, i);
@@ -74,7 +74,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01134.j
    93 |
       ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02005.java,83,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02005.java,83,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
    73 |             }
    74 |             str = new String(input, 0, i);
@@ -99,7 +99,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02005.j
    93 |             throws ServletException, IOException {
       ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02339.java,83,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02339.java,83,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
    73 |             }
    74 |             str = new String(input, 0, i);
@@ -124,7 +124,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02339.j
    93 |             throws ServletException, IOException {
       ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00977.java,88,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00977.java,88,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
    78 |             }
    79 |             str = new String(input, 0, i);
@@ -149,7 +149,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00977.j
    98 |
       ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01861.java,88,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01861.java,88,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
    78 |             }
    79 |             str = new String(input, 0, i);
@@ -174,7 +174,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01861.j
    98 |             throws ServletException, IOException {
       ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00820.java,93,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00820.java,93,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
    81 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
    82 |                 return;
@@ -199,7 +199,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00820.j
   101 | }
       ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00821.java,94,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00821.java,94,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
    82 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
    83 |                 return;
@@ -224,7 +224,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00821.j
   102 | }
       ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00087.java,95,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00087.java,95,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
    83 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
    84 |                 return;
@@ -249,7 +249,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00087.j
   103 | }
       ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00170.java,95,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00170.java,95,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
    83 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
    84 |                 return;
@@ -274,7 +274,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00170.j
   103 | }
       ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01682.java,93,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01682.java,93,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
    83 |             }
    84 |             str = new String(input, 0, i);
@@ -299,7 +299,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01682.j
   103 |
       ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01683.java,93,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01683.java,93,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
    83 |             }
    84 |             str = new String(input, 0, i);
@@ -324,7 +324,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01683.j
   103 |
       ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00348.java,68,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00348.java,68,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   56 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
   57 |                 return;
@@ -349,7 +349,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00348.j
   76 | }
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01280.java,69,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01280.java,69,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   59 |             }
   60 |             str = new String(input, 0, i);
@@ -374,7 +374,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01280.j
   79 |
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01281.java,69,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01281.java,69,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   59 |             }
   60 |             str = new String(input, 0, i);
@@ -399,7 +399,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01281.j
   79 |
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01282.java,69,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01282.java,69,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   59 |             }
   60 |             str = new String(input, 0, i);
@@ -424,7 +424,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01282.j
   79 |
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01283.java,69,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01283.java,69,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   59 |             }
   60 |             str = new String(input, 0, i);
@@ -449,7 +449,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01283.j
   79 |
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02142.java,69,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02142.java,69,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   59 |             }
   60 |             str = new String(input, 0, i);
@@ -474,7 +474,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02142.j
   79 |             throws ServletException, IOException {
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01789.java,70,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01789.java,70,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   60 |             }
   61 |             str = new String(input, 0, i);
@@ -499,7 +499,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01789.j
   80 |
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02709.java,70,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02709.java,70,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   60 |             }
   61 |             str = new String(input, 0, i);
@@ -524,7 +524,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02709.j
   80 |             throws ServletException, IOException {
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02710.java,70,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02710.java,70,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   60 |             }
   61 |             str = new String(input, 0, i);
@@ -549,7 +549,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02710.j
   80 |             throws ServletException, IOException {
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01521.java,71,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01521.java,71,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   61 |             }
   62 |             str = new String(input, 0, i);
@@ -574,7 +574,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01521.j
   81 |
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02427.java,71,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02427.java,71,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   61 |             }
   62 |             str = new String(input, 0, i);
@@ -599,7 +599,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02427.j
   81 |             throws ServletException, IOException {
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02507.java,71,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02507.java,71,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   61 |             }
   62 |             str = new String(input, 0, i);
@@ -624,7 +624,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02507.j
   81 |             throws ServletException, IOException {
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00403.java,74,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00403.java,74,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   62 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
   63 |                 return;
@@ -649,7 +649,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00403.j
   82 | }
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00736.java,76,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00736.java,76,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   64 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
   65 |                 return;
@@ -674,7 +674,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00736.j
   84 | }
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00491.java,77,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00491.java,77,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   65 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
   66 |                 return;
@@ -699,7 +699,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00491.j
   85 | }
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01186.java,76,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01186.java,76,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   66 |             }
   67 |             str = new String(input, 0, i);
@@ -724,7 +724,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01186.j
   86 |
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01187.java,76,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01187.java,76,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   66 |             }
   67 |             str = new String(input, 0, i);
@@ -749,7 +749,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01187.j
   86 |
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00300.java,83,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00300.java,83,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   71 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
   72 |                 return;
@@ -774,7 +774,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00300.j
   91 | }
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00565.java,83,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00565.java,83,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   71 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
   72 |                 return;
@@ -799,7 +799,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00565.j
   91 | }
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00169.java,84,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00169.java,84,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   72 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
   73 |                 return;
@@ -824,7 +824,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00169.j
   92 | }
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00566.java,85,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00566.java,85,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   73 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
   74 |                 return;
@@ -849,7 +849,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00566.j
   93 | }
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00241.java,88,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00241.java,88,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   76 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
   77 |                 return;
@@ -874,7 +874,7 @@ F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00241.j
   96 | }
      ^ Col 0
 "
-F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00903.java,89,614,skims,F042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+F042,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00903.java,89,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
   77 |                                 ""This input source requires a POST, not a GET. Incompatible UI for the InputStream source
   78 |                 return;

@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01561.java,67,643,skims,F021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01561.java,67,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
    57 |             // Prevent XXE
    58 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
@@ -24,7 +24,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01561.j
    77 |                 | javax.xml.parsers.ParserConfigurationException
       ^ Col 0
 "
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01974.java,70,643,skims,F021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01974.java,70,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
    60 |             // Prevent XXE
    61 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
@@ -49,7 +49,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01974.j
    80 |                 | javax.xml.parsers.ParserConfigurationException
       ^ Col 0
 "
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01224.java,70,643,skims,F021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01224.java,70,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
    60 |             javax.xml.parsers.DocumentBuilderFactory builderFactory =
    61 |                     javax.xml.parsers.DocumentBuilderFactory.newInstance();
@@ -74,7 +74,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01224.j
    80 |                                     + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar)
       ^ Col 0
 "
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01223.java,72,643,skims,F021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01223.java,72,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
    62 |             // Prevent XXE
    63 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
@@ -99,7 +99,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01223.j
    82 |                 | javax.xml.parsers.ParserConfigurationException
       ^ Col 0
 "
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02100.java,72,643,skims,F021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02100.java,72,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
    62 |             // Prevent XXE
    63 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
@@ -124,7 +124,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02100.j
    82 |                 | javax.xml.parsers.ParserConfigurationException
       ^ Col 0
 "
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01478.java,79,643,skims,F021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01478.java,79,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
    69 |             // Prevent XXE
    70 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
@@ -149,7 +149,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01478.j
    89 |                 | javax.xml.parsers.ParserConfigurationException
       ^ Col 0
 "
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01894.java,82,643,skims,F021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01894.java,82,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
    72 |             javax.xml.parsers.DocumentBuilderFactory builderFactory =
    73 |                     javax.xml.parsers.DocumentBuilderFactory.newInstance();
@@ -174,7 +174,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01894.j
    92 |                                     + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar)
       ^ Col 0
 "
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01892.java,84,643,skims,F021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01892.java,84,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
    74 |             // Prevent XXE
    75 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
@@ -199,7 +199,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01892.j
    94 |                 | javax.xml.parsers.ParserConfigurationException
       ^ Col 0
 "
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01736.java,87,643,skims,F021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01736.java,87,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
    77 |             javax.xml.parsers.DocumentBuilderFactory builderFactory =
    78 |                     javax.xml.parsers.DocumentBuilderFactory.newInstance();
@@ -224,7 +224,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01736.j
    97 |                                     + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar)
       ^ Col 0
 "
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01734.java,89,643,skims,F021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01734.java,89,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
    79 |             // Prevent XXE
    80 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
@@ -249,7 +249,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01734.j
    99 |                 | javax.xml.parsers.ParserConfigurationException
       ^ Col 0
 "
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01316.java,63,643,skims,F021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01316.java,63,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
   53 |             javax.xml.parsers.DocumentBuilderFactory builderFactory =
   54 |                     javax.xml.parsers.DocumentBuilderFactory.newInstance();
@@ -274,7 +274,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01316.j
   73 |                                     + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar)
      ^ Col 0
 "
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02189.java,65,643,skims,F021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02189.java,65,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
   55 |             // Prevent XXE
   56 |             builderFactory.setFeature(""http://apache.org/xml/features/disallow-doctype-decl"", true);
@@ -299,7 +299,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02189.j
   75 |                 | javax.xml.parsers.ParserConfigurationException
      ^ Col 0
 "
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00442.java,68,643,skims,F021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00442.java,68,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
   58 |             javax.xml.parsers.DocumentBuilderFactory builderFactory =
   59 |                     javax.xml.parsers.DocumentBuilderFactory.newInstance();
@@ -324,7 +324,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00442.j
   78 |                                     + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar)
      ^ Col 0
 "
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00207.java,75,643,skims,F021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00207.java,75,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
   65 |             javax.xml.parsers.DocumentBuilderFactory builderFactory =
   66 |                     javax.xml.parsers.DocumentBuilderFactory.newInstance();
@@ -349,7 +349,7 @@ F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00207.j
   85 |                                     + org.owasp.esapi.ESAPI.encoder().encodeForHTML(bar)
      ^ Col 0
 "
-F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00607.java,79,643,skims,F021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
+F021,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00607.java,79,643,skims,021. XPath injection,"Dynamic XPath statements are generated without the required data validation.
 ","
   69 |             javax.xml.parsers.DocumentBuilderFactory builderFactory =
   70 |                     javax.xml.parsers.DocumentBuilderFactory.newInstance();
