@@ -1,0 +1,135 @@
+001. SQL injection - C Sharp SQL API
+002. Asymmetric denial of service
+003. Symmetric denial of service
+004. Remote command execution
+005. Privilege escalation
+006. Authentication mechanism absence or evasion
+007. Cross-site request forgery
+008. Reflected cross-site scripting (XSS)
+009. Sensitive information in source code
+010. Stored cross-site scripting (XSS)
+011. Use of software with known vulnerabilities
+012. SQL injection - Java Persistence API
+013. Insecure object reference
+014. Insecure functionality
+015. Insecure authentication method - Basic
+016. Insecure encryption algorithm - SSL/TLS
+017. Sensitive information sent insecurely
+018. Improper authentication for shared folders
+019. Administrative credentials stored in cache memory
+020. Non-encrypted confidential information
+021. XPath injection
+022. Use of an insecure channel
+023. Uncontrolled external site redirect - Host Header Injection
+024. Unrestricted access between network segments - AWS
+025. Call interception
+026. User enumeration
+027. Insecure file upload
+028. Insecure temporary files
+029. Inadequate file size control
+030. Sensitive information sent via URL parameters
+031. Excessive privileges - AWS
+032. Spoofing
+033. Password change without identity check
+034. Insecure generation of random numbers
+035. Weak credential policy
+036. ViewState not encrypted
+037. Technical information leak
+038. Business information leak
+039. Improper authorization control for web services
+040. Exposed web services
+041. Enabled default credentials
+042. Insecurely generated cookies
+043. Insecure or unset HTTP headers - Content-Security-Policy
+044. Insecure HTTP methods enabled
+045. HTML code injection
+046. Missing secure obfuscation - APK
+047. Automatic information enumeration
+048. Lack of root detection
+049. Insecure digital certificates - APK Pinning
+050. Guessed weak credentials
+051. Cracked weak credentials
+052. Insecure encryption algorithm
+053. Lack of protection against brute force attacks
+054. Exposed administrative services
+055. Insecure service configuration - ADB Backups
+056. Anonymous connection
+057. Excessive privileges - Temporary Files
+058. Debugging enabled in production - APK
+059. Sensitive information stored in logs
+060. Insecure exceptions
+061. Errors without traceability
+062. Concurrent sessions
+063. Lack of data validation - Path Traversal
+064. Traceability loss - Server's clock
+065. Cached form fields
+066. Technical information leak - Console functions
+067. Improper resource allocation
+068. Insecure session expiration time
+069. Weak CAPTCHA
+070. Inappropriate coding practices - Wildcard import
+071. Insecure or unset HTTP headers - Referrer-Policy
+072. Duplicate code
+073. Conditional statement without a default option
+074. Commented-out code
+075. Unauthorized access to files - APK Content Provider
+076. Insecure session management
+077. ARP spoofing
+078. Insecurely generated token
+079. Non-upgradable dependencies
+080. Non-encrypted confidential information - AWS
+081. Lack of multi-factor authentication
+082. Insecurely deleted files
+083. XML injection (XXE)
+084. MDNS spoofing
+085. Sensitive data stored in client-side storage
+086. Missing subresource integrity check
+087. Account lockout
+088. Privacy violation
+089. Lack of data validation - Trust boundary violation
+090. CSV injection
+091. Log injection
+092. Insecure encryption algorithm - Anonymous cipher suites
+093. Hidden fields manipulation
+094. Insecure encryption algorithm - Cipher Block Chaining
+095. Non-encrypted confidential information - AWS EBS
+096. Insecure deserialization
+097. Reverse tabnabbing
+098. External control of file name or path
+099. Non-encrypted confidential information - S3 Server Side Encryption
+100. Server-side request forgery (SSRF)
+101. Lack of protection against deletion
+102. Email uniqueness not properly verified
+103. Insufficient data authenticity validation - APK signing
+104. USB flash drive attacks
+105. Apache lucene query injection
+106. NoSQL injection
+107. LDAP injection
+108. Improper control of interaction frequency
+109. Insecure functionality - Float currency
+110. HTTP request smuggling
+111. Out-of-bounds read
+112. SQL injection - Java SQL API
+113. Improper type assignation
+114. Phishing
+115. Security controls bypass or absence
+116. XS-Leaks
+117. Unverifiable files
+118. Regulation infringement
+119. Metadata with sensitive information
+120. Improper dependency pinning
+121. HTTP parameter pollution
+122. Email flooding
+123. Local file inclusion
+124. Race condition
+125. Directory listing
+126. Lack of isolation methods
+127. Lack of data validation - Type confusion
+128. Insecurely generated cookies - HttpOnly
+129. Insecurely generated cookies - SameSite
+130. Insecurely generated cookies - Secure
+131. Insecure or unset HTTP headers - Strict Transport Security
+132. Insecure or unset HTTP headers - X-Content-Type-Options
+133. Insecure encryption algorithm - Perfect Forward Secrecy
+134. Insecure or unset HTTP headers - CORS
+135. Insecure or unset HTTP headers - X-XSS Protection

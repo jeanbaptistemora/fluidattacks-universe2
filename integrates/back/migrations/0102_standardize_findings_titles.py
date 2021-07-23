@@ -5,8 +5,8 @@ https://gitlab.com/fluidattacks/product/-/blob/master/makes/makes/criteria/src/v
 
 Currently all in english
 
-Execution Time:
-Finalization Time:
+Execution Time:     2021-07-22 at 17:42:27 UTC-05
+Finalization Time:  2021-07-22 at 18:32:18 UTC-05
 """
 
 from aioextensions import (
@@ -29,7 +29,7 @@ from typing import (
     List,
 )
 
-PROD: bool = False
+PROD: bool = True
 TABLE_NAME: str = "FI_findings"
 
 
@@ -48,7 +48,11 @@ async def get_all_findings(
 
 
 async def main() -> None:
-    # Read migration titles
+    # Read new titles alone
+    with open("0102_new_titles_only.txt") as f:
+        new_titles = f.read().splitlines()
+
+    # Read migration matchs
     with open("0102_findings_titles.csv", mode="r") as infile:
         reader = csv.reader(infile)
         typologies_migration = {rows[0]: rows[1] for rows in reader}
@@ -61,15 +65,20 @@ async def main() -> None:
     print(f"    === findings in db: {len(findings)}")
     findings_to_update = list()
     for finding in findings:
-        title = finding.get("finding", "").strip()
-        if not title or title == "WIPED" or title.startswith("SKIMS"):
+        title = str(finding.get("finding", "")).strip()
+        if title in new_titles:
+            # Ignored, already migrated
+            continue
+        if (
+            not title
+            or title == "WIPED"
+            or title.startswith("SKIMS")
+            or "please" in title
+        ):
             # Ignored
             continue
-        if finding.get("finding", "") not in typologies_migration:
-            print(
-                f'ERROR: {finding["finding_id"]}, '
-                f'{finding.get("finding", "")}'
-            )
+        if title not in typologies_migration:
+            print(f'ERROR: {finding["finding_id"]}, {title}')
             # Ignored, title does not match
             continue
         findings_to_update.append(finding)
@@ -82,7 +91,11 @@ async def main() -> None:
             await collect(
                 findings_dal.update(
                     finding["finding_id"],
-                    {"finding": typologies_migration[finding["finding"]]},
+                    {
+                        "finding": typologies_migration[
+                            str(finding["finding"]).strip()
+                        ]
+                    },
                 )
                 for finding in findings_to_update
             )
