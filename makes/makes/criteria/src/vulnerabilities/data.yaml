@@ -2164,17 +2164,17 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
+      confidentiality: "L"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
   requirements: ["062", "175"]
   metadata: {}
 "044":
@@ -3856,7 +3856,7 @@
       Alternativamente,
       la configuración del mismo es insegura.
     impact: >
-      Filtración del dominio del sitio web
+      Filtrar el dominio del sitio web
       y su ruta a servicios externos.
     recommendation: >
       Establecer la cabecera
@@ -3869,17 +3869,17 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
   requirements: ["062", "175"]
   metadata: {}
 "072":
@@ -6960,18 +6960,18 @@
       ejecutando un MITM.
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
   requirements: ["062", "175"]
   metadata: {}
 "132":
@@ -6981,9 +6981,8 @@
       The server is missing
       the X-Content-Type-Options HTTP header.
     impact: >
-      Interpret files
-      as a different MIME type
-      to what is expected.
+      Execute MIME sniffing attacks to obtain technical information
+      and craft new attack vectors
     recommendation: >
       Set the X-Content-Type-Options header
       to nosniff.
@@ -6996,8 +6995,8 @@
       El servidor carece de la cabecera
       HTTP X-Content-Type-Options.
     impact: >
-      Interpretar archivos como un tipo MIME
-      diferente a los esperados.
+      Ejecutar ataques de MIME Sniffing para obtener información
+      y generar nuevos vectores de ataque
     recommendation: >
       Establecer la cabecera
       X-Content-Type-Options a nosniff.
@@ -7007,17 +7006,17 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
   requirements: ["062", "175"]
   metadata: {}
 "133":
@@ -7120,17 +7119,17 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["119", "266"]
   metadata: {}
 "135":
@@ -7171,6 +7170,101 @@
       user_interaction: "R"
       scope: "U"
       confidentiality: "L"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "R"
+  requirements: ["119", "266"]
+  metadata: {}
+"136":
+  en:
+    title: Insecure or unset HTTP headers - Cache Control
+    description: >
+      The application lacks the Cache Control security header
+      or sets the header in a insecure value
+    impact: >
+      - Store sever responses with sensitive information
+      in the browser's cache
+
+      - Produce potentially harmful server responses
+      using Cache Poison attacks
+    recommendation: >
+      Disable the X-XSS Protection filter.
+      Instead, define secuirty policies using CSP Header
+    threat: >
+      Unauthorized attacker
+      from local network.
+  es:
+    title: Insecure or unset HTTP headers - Cache Control
+    description: >
+      La aplicación no define la cabecera de seguridad Caché Control
+      en las repuestas del servidor
+      o la tiene definida en un valor inseguro.
+    impact: >
+      - Almacenar respuestas del servidor con información sensible
+      en el caché del navegador
+      - Generar respuestas potencialmente peligrosas
+      mediante ataques de Cache Poison
+    recommendation: >
+      Establecer la cabecera Caché control con un valor de
+      'no-store' , 'no-cache' y `must-revalidate`
+    threat: >
+      Atacante sin autorización
+      desde red local.
+  score:
+    base:
+      attack_vector: "L"
+      attack_complexity: "H"
+      privileges_required: "N"
+      user_interaction: "R"
+      scope: "U"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "R"
+  requirements: ["119", "266"]
+  metadata: {}
+"137":
+  en:
+    title: Insecure or unset HTTP headers - X-Permitted-Cross-Domain-Policies
+    description: >
+      The application lacks the X-Permitted-Cross-Domain-Policies header
+      or sets the header in a insecure value
+    impact: >
+      Allow harmful requests from Adobe Flash or PDF documents
+    recommendation: >
+      Unless the application requires Adobe products,
+      set the X-Permitted-Cross-Domain-Policies to 'none'
+    threat: >
+      Unauthorized attacker
+      from the Internet.
+  es:
+    title: Insecure or unset HTTP headers - X-Permitted-Cross-Domain-Policies
+    description: >
+      La aplicación no define la cabecera de seguridad
+      X-Permitted-Cross-Domain-Policies,
+      o la tiene establecida en un valor inseguro
+    impact: >
+      Permitir peticiones maliciosas de Adobe Flash o documentos PDFs
+    recommendation: >
+      A menos que se requiera utilizar productos de Adobe
+      establecer X-Permitted-Cross-Domain-Policies con el valor de 'none'
+    threat: >
+      Atacante sin autorización
+      desde Internet.
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
       integrity: "L"
       availability: "N"
     temporal:
