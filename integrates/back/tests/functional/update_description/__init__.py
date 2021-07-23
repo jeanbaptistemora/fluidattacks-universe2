@@ -28,7 +28,7 @@ async def get_result(  # pylint: disable=too-many-locals
     )
     scenario: str = "UNAUTHORIZED_USER_EXTRANET"
     threat: str = "Updated threat"
-    title: str = "F051. Weak passwords reversed"
+    title: str = "051. Weak passwords reversed"
     finding_type: str = "SECURITY"
     query: str = f"""
         mutation {{

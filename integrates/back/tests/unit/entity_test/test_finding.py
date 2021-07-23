@@ -520,7 +520,7 @@ async def test_update_description() -> None:
         "must be at least 3 words long.",
         "scenario": "UNAUTHORIZED_USER_EXTRANET",
         "threat": "Updated threat",
-        "title": "F051. Weak passwords reversed",
+        "title": "051. Weak passwords reversed",
         "type": "SECURITY",
     }
     data = {"query": query, "variables": variables}

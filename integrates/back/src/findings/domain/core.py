@@ -90,7 +90,6 @@ from newutils.utils import (
 from operator import (
     itemgetter,
 )
-import re
 from settings import (
     LOGGING,
     NOEXTRA,
@@ -983,7 +982,9 @@ async def update_description(
         for k in updated_values
     }
 
-    if re.match(r"^F[0-9]{3}\. .+", str(updated_values.get("finding", ""))):
+    if findings_utils.is_valid_finding_title(
+        str(updated_values.get("finding", ""))
+    ):
         return await findings_dal.update(finding_id, updated_values)
     raise InvalidDraftTitle()
 
@@ -994,8 +995,9 @@ async def update_description_new(
     validations.validate_fields(
         list(filter(None, description._asdict().values()))
     )
-    if description.title is not None and not re.match(
-        r"^F[0-9]{3}\. .+", description.title
+    if (
+        description.title is not None
+        and not findings_utils.is_valid_finding_title(description.title)
     ):
         raise InvalidDraftTitle()
 
