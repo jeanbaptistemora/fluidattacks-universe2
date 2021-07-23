@@ -2,10 +2,11 @@ import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import type { FormikTouched } from "formik";
 import { Form, useFormikContext } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 import { AcceptanceDateField } from "./AcceptanceDateField";
 import { AcceptationUserField } from "./AcceptationUserField";
@@ -66,6 +67,16 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
+function usePreviousPristine(value: boolean): boolean {
+  const ref = useRef(false);
+  useEffect((): void => {
+    // eslint-disable-next-line fp/no-mutation
+    ref.current = value;
+  });
+
+  return ref.current;
+}
+
 const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   findingId,
   groupName,
@@ -95,8 +106,11 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   const [treatment, setTreatment] = useContext(UpdateDescriptionContext);
 
   const {
+    dirty,
+    touched,
     initialValues,
     values: formValues,
+    setTouched,
     setValues,
   } = useFormikContext<IUpdateTreatmentVulnerabilityForm>();
 
@@ -130,6 +144,8 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     formValues,
     vulnerabilities
   );
+  const isPreviousEditPristine = usePreviousPristine(isEditPristine);
+  const isPreviousTreatmentPristine = usePreviousPristine(isTreatmentPristine);
 
   const [updateVuln, { loading: updatingVuln }] =
     useMutation<IUpdateVulnDescriptionResultAttr>(UPDATE_DESCRIPTION_MUTATION, {
@@ -297,27 +313,61 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       isEditPristine,
       isTreatmentPristine
     );
+    const valuesDifferences: string[] = getDiff(
+      treatment as unknown as Dictionary<unknown>,
+      formValues as unknown as Dictionary<unknown>
+    );
+    const isTouched: boolean = valuesDifferences.some(
+      (field: string): boolean => Boolean(_.keys(touched).includes(field))
+    );
     if (isEmpty(treatment) && !_.isEmpty(initialValues)) {
       setTreatment(initialValues);
     } else if (
       (!isEditPristine || !isTreatmentPristine) &&
-      getDiff(
-        treatment as unknown as Dictionary<unknown>,
-        formValues as unknown as Dictionary<unknown>
-      ).length > 0
+      valuesDifferences.length > 0
     ) {
       setTreatment(formValues);
     } else if (isEditPristine && isTreatmentPristine) {
-      setValues(treatment);
+      if (isTouched) {
+        setTreatment(initialValues);
+        setValues(initialValues);
+        setTouched({});
+      } else if (
+        !dirty &&
+        isPreviousEditPristine &&
+        isPreviousTreatmentPristine
+      ) {
+        if (valuesDifferences.length > 0) {
+          setValues(treatment);
+          setTouched(
+            (
+              valuesDifferences as (keyof IUpdateTreatmentVulnerabilityForm)[]
+            ).reduce(
+              (
+                previousValue: FormikTouched<IUpdateTreatmentVulnerabilityForm>,
+                currentValue: keyof IUpdateTreatmentVulnerabilityForm
+              ): FormikTouched<IUpdateTreatmentVulnerabilityForm> => (
+                // eslint-disable-next-line fp/no-mutation, no-sequences
+                (previousValue[currentValue] = true), previousValue
+              ),
+              {}
+            )
+          );
+        }
+      }
     }
     // Annotation needed as adding the dependencies creates a memory leak
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     isEditPristine,
     isTreatmentPristine,
+    isPreviousEditPristine,
+    isPreviousTreatmentPristine,
     requestZeroRisk,
     setConfigFn,
     formValues,
+    dirty,
+    touched,
   ]);
 
   return (
