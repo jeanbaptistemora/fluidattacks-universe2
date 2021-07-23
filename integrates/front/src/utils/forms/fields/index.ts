@@ -11,7 +11,6 @@ export { Dropdown } from "utils/forms/fields/Dropdown";
 export { FileInput } from "utils/forms/fields/FileInput";
 export { PhoneNumber } from "utils/forms/fields/PhoneNumber";
 export { FormSwitchButton } from "utils/forms/fields/SwitchButton";
-export { TagInput } from "utils/forms/fields/TagInput";
 export { Text } from "utils/forms/fields/Text";
 export { FormikAutocompleteText } from "utils/forms/fields/AutoCompleteText/FormikAutocompleteText";
 export { FormikTagInput } from "utils/forms/fields/TagInput/FormikTagInput";
