@@ -260,14 +260,16 @@ async def test_get_mean_remediate() -> None:
     context = get_new_context()
     group_name = "unittesting"
     assert await get_mean_remediate(context, group_name) == Decimal("383.0")
-    assert await get_mean_remediate_non_treated(group_name) == Decimal("385.0")
+    assert await get_mean_remediate_non_treated(
+        context, group_name
+    ) == Decimal("385.0")
 
     min_date = datetime_utils.get_now_minus_delta(days=30).date()
     assert await get_mean_remediate(context, group_name, min_date) == Decimal(
         "0.0"
     )
     assert await get_mean_remediate_non_treated(
-        group_name, min_date
+        context, group_name, min_date
     ) == Decimal("0.0")
 
     min_date = datetime_utils.get_now_minus_delta(days=90).date()
@@ -275,7 +277,7 @@ async def test_get_mean_remediate() -> None:
         "82.0"
     )
     assert await get_mean_remediate_non_treated(
-        group_name, min_date
+        context, group_name, min_date
     ) == Decimal("0.0")
 
 

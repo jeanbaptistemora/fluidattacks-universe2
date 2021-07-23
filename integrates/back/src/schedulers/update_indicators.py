@@ -292,7 +292,7 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
             context, group
         ),
         "mean_remediate_non_treated": (
-            await groups_domain.get_mean_remediate_non_treated(group)
+            await groups_domain.get_mean_remediate_non_treated(context, group)
         ),
         "mean_remediate_critical_severity": (
             await groups_domain.get_mean_remediate_severity(

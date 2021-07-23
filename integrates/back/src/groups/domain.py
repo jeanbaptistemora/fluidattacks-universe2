@@ -125,9 +125,6 @@ from typing import (
 from users import (
     domain as users_domain,
 )
-from vulnerabilities import (
-    domain as vulns_domain,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -853,13 +850,16 @@ async def get_mean_remediate(
 
 
 async def get_mean_remediate_non_treated(
-    group_name: str, min_date: Optional[date] = None
+    loaders: Any, group_name: str, min_date: Optional[date] = None
 ) -> Decimal:
-    findings = await findings_domain.get_findings_by_group(group_name)
-    vulnerabilities = await vulns_domain.list_vulnerabilities_async(
-        [str(finding["finding_id"]) for finding in findings],
-        include_requested_zero_risk=True,
+    findings = await loaders.group_findings.load(group_name)
+    all_vulnerabilities = await loaders.finding_vulns.load_many_chained(
+        [str(finding["finding_id"]) for finding in findings]
     )
+    vulnerabilities = vulns_utils.filter_non_confirmed_zero_risk(
+        all_vulnerabilities
+    )
+
     return await vulns_utils.get_mean_remediate_vulnerabilities(
         [
             vuln
@@ -1309,7 +1309,7 @@ async def get_group_digest_stats(
         findings, group_name, last_day
     )
     content["main"]["remediation_time"] = int(
-        await get_mean_remediate_non_treated(group_name)
+        await get_mean_remediate_non_treated(context, group_name)
     )
     content["main"]["remediation_rate"] = await get_remediation_rate(
         context, group_name

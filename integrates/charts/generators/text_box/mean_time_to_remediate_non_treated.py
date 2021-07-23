@@ -8,6 +8,10 @@ from async_lru import (
 from charts import (
     utils,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
 from datetime import (
     date,
 )
@@ -32,15 +36,21 @@ from typing import (
 
 
 @alru_cache(maxsize=None, typed=True)
-async def generate_one(group: str, min_date: Optional[date] = None) -> Decimal:
-    return await get_mean_remediate_non_treated(group.lower(), min_date)
+async def generate_one(
+    group: str, loaders: Dataloaders, min_date: Optional[date] = None
+) -> Decimal:
+    return await get_mean_remediate_non_treated(
+        loaders, group.lower(), min_date
+    )
 
 
 async def get_many_groups(
-    groups: Iterable[str], min_date: Optional[date] = None
+    groups: Iterable[str],
+    loaders: Dataloaders,
+    min_date: Optional[date] = None,
 ) -> Decimal:
     groups_data = await collect(
-        generate_one(group, min_date) for group in list(groups)
+        [generate_one(group, loaders, min_date) for group in list(groups)]
     )
 
     return (
@@ -58,10 +68,11 @@ def format_data(mean_remediate: Decimal) -> dict:
 
 
 async def generate_all() -> None:
+    loaders = get_new_context()
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_data(
-                mean_remediate=await generate_one(group),
+                mean_remediate=await generate_one(group, loaders),
             ),
             entity="group",
             subject=group,
@@ -72,7 +83,7 @@ async def generate_all() -> None:
     ):
         utils.json_dump(
             document=format_data(
-                mean_remediate=await get_many_groups(org_groups),
+                mean_remediate=await get_many_groups(org_groups, loaders),
             ),
             entity="organization",
             subject=org_id,
@@ -82,7 +93,7 @@ async def generate_all() -> None:
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
             utils.json_dump(
                 document=format_data(
-                    mean_remediate=await get_many_groups(groups),
+                    mean_remediate=await get_many_groups(groups, loaders),
                 ),
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
@@ -98,7 +109,9 @@ async def generate_all() -> None:
         async for group in utils.iterate_groups():
             utils.json_dump(
                 document=format_data(
-                    mean_remediate=await generate_one(group, min_date),
+                    mean_remediate=await generate_one(
+                        group, loaders, min_date
+                    ),
                 ),
                 entity="group",
                 subject=f"{group}_{days}",
@@ -109,7 +122,9 @@ async def generate_all() -> None:
         ):
             utils.json_dump(
                 document=format_data(
-                    mean_remediate=await get_many_groups(org_groups, min_date),
+                    mean_remediate=await get_many_groups(
+                        org_groups, loaders, min_date
+                    ),
                 ),
                 entity="organization",
                 subject=f"{org_id}_{days}",
@@ -123,7 +138,9 @@ async def generate_all() -> None:
             ):
                 utils.json_dump(
                     document=format_data(
-                        mean_remediate=await get_many_groups(groups, min_date),
+                        mean_remediate=await get_many_groups(
+                            groups, loaders, min_date
+                        ),
                     ),
                     entity="portfolio",
                     subject=f"{org_id}PORTFOLIO#{portfolio}_{days}",
