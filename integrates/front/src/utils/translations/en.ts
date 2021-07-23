@@ -1536,6 +1536,10 @@ export const enTranslations: ResourceKey = {
           "Number of vulnerabilities that have a default treatment setting",
       },
     },
+    tabMachine: {
+      tabTitle: "Machine",
+      tooltip: "Information about your Machine plan",
+    },
     tabObservations: {
       tabTitle: "Observations",
       tooltip:
