@@ -69,7 +69,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         "state": "APPROVED",
                     },
                 ],
-                "title": "F001. Very serious vulnerability",
+                "title": "001. SQL injection - C Sharp SQL API",
                 "compromised_attributes": "Clave plana",
                 "bts": "",
                 "risk": "This is pytest created draft",
@@ -77,7 +77,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "analyst": "test1@gmail.com",
                 "cvss_version": "3.1",
                 "exploitability": 0.94,
-                "finding": "F001. Very serious vulnerability",
+                "finding": "001. SQL injection - C Sharp SQL API",
                 "cwe": "200",
                 "finding_type": "SECURITY",
                 "requirements": "REQ.0132. Passwords (phrase type) "

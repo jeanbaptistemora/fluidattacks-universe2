@@ -437,7 +437,7 @@ async def test_get_org_finding_policies() -> None:
 @pytest.mark.changes_db
 async def test_submit_organization_finding_policy() -> None:
     organization_name = "okada"
-    finding_name = "001. Inyeccion SQL"
+    finding_name = "001. SQL injection - C Sharp SQL API"
     query = """
         mutation AddOrgFindingPolicy(
             $findingName: String!

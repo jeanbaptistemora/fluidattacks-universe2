@@ -640,7 +640,7 @@ async def test_create_draft() -> None:
         "requirements": "REQ.0001. Apply filters",
         "risk": "Losing money",
         "threat": "Attacker",
-        "title": "001. Very serious vulnerability",
+        "title": "001. SQL injection - C Sharp SQL API",
         "type": "SECURITY",
     }
     data = {"query": query, "variables": variables}

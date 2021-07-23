@@ -259,7 +259,7 @@
             "S": "SECURITY"
           },
           "finding": {
-            "S": "F001. Inyección SQL"
+            "S": "001. SQL injection - C Sharp SQL API"
           },
           "project_name": {
             "S": "continuoustesting"

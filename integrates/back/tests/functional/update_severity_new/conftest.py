@@ -42,7 +42,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         source=Source.ASM,
                         status=FindingStateStatus.CREATED,
                     ),
-                    title="F001. Very serious vulnerability",
+                    title="001. SQL injection - C Sharp SQL API",
                     cvss_version="3.1",
                     compromised_attributes="Clave plana",
                     compromised_records=12,
