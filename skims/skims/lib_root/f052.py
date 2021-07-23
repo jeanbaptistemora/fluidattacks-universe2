@@ -330,6 +330,7 @@ def csharp_insecure_cipher(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     insecure_cyphers = {
+        "AesFastEngine",
         "DES",
         "DESCryptoServiceProvider",
         "TripleDES",
