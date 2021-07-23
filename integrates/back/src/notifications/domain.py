@@ -84,6 +84,7 @@ async def delete_group(
     deletion_date: str,
     group_name: str,
     requester_email: str,
+    reason: str,
 ) -> bool:
     return cast(
         bool,
@@ -97,6 +98,7 @@ async def delete_group(
                 Here are the details of the group:
                 - Name: {group_name}
                 - Deletion date: {deletion_date}
+                - Deletion reason: {reason}
 
                 If you require any further information,
                 do not hesitate to contact us.

@@ -738,6 +738,7 @@ async def edit(
             deletion_date=datetime_utils.get_now_as_str(),
             group_name=group_name,
             requester_email=requester_email,
+            reason=reason,
         )
     return success
 
