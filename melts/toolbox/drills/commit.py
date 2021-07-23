@@ -59,9 +59,7 @@ def is_valid_summary(  # noqa: MC0001
     is_valid: bool = True
 
     # xxx(yyy)
-    base_pattern: str = (
-        r"^" r"(?P<type>[a-z]+)" r"\(" r"(?P<scope>[a-z]+)" r"\)"
-    )
+    base_pattern: str = r"^(?P<type>[a-z]+)\((?P<scope>[a-z]+)\)"
     # drills(lines/inputs/cross): continuoustest - 72.75%, 0 el, 6 ei
     daily_pattern: str = base_pattern + (
         r": "
@@ -86,7 +84,7 @@ def is_valid_summary(  # noqa: MC0001
     )
     # drills(conf): continuoustest - comment, continued
     config_pattern = base_pattern + (
-        ": " r"(?P<group>[a-z0-9]+)" r" - " r"(?P<comment>[a-z, _-]+)" r"$"
+        ": " r"(?P<group>[a-z0-9]+) - (?P<comment>[a-z, _-]+)$"
     )
 
     match: Optional[Match] = re.match(base_pattern, summary)

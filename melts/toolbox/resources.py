@@ -179,7 +179,7 @@ def setup_ssh_key() -> Iterator[str]:
                 "ssh-agent",
                 "sh",
                 "-c",
-                "ssh-add " "-D; " "rm " "-f " f"{shq(keyfile.name)}",
+                f"ssh-add -D; rm -f {shq(keyfile.name)}",
             ]
         )
 

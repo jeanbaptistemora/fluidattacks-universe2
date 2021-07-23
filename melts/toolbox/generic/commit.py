@@ -86,9 +86,7 @@ def is_valid_summary(summary: str) -> bool:
     is_valid: bool = True
 
     # xxx(yyy)
-    base_pattern: str = (
-        r"^" r"(?P<type>[a-z]+)" r"\(" r"(?P<scope>[a-z]+)" r"\)"
-    )
+    base_pattern: str = r"^(?P<type>[a-z]+)\((?P<scope>[a-z]+)\)"
     # fix(back): #123.1 comment, continuted
     generic_pattern = base_pattern + (
         ": "
