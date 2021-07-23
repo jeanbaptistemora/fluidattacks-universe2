@@ -1,5 +1,6 @@
 from model.graph_model import (
     GraphShardMetadataLanguage,
+    SyntaxStepMeta,
 )
 from sast_symbolic_evaluation.lookup import (
     lookup_field,
@@ -61,16 +62,25 @@ def go_evaluate_assignment(args: EvaluatorArgs) -> None:
             if (
                 var_decl := lookup_var_dcl_by_name(args, args.syntax_step.var)
             ) and args.syntax_step.attribute:
-                var_decl.meta.danger |= any(
-                    dep.meta.danger for dep in args.dependencies
-                )
                 if var_decl.meta.value:
                     var_decl.meta.value.update(
-                        {args.syntax_step.attribute: dep.meta.value}
+                        {
+                            args.syntax_step.attribute: SyntaxStepMeta(
+                                danger=dep.meta.danger,
+                                dependencies=[],
+                                n_id=dep.meta.n_id,
+                                value=dep.meta.value,
+                            )
+                        }
                     )
                 else:
                     var_decl.meta.value = {
-                        args.syntax_step.attribute: dep.meta.value
+                        args.syntax_step.attribute: SyntaxStepMeta(
+                            danger=dep.meta.danger,
+                            dependencies=[],
+                            n_id=dep.meta.n_id,
+                            value=dep.meta.value,
+                        )
                     }
                 args.syntax_step.meta.value = var_decl.meta.value
                 args.syntax_step.meta.danger = var_decl.meta.danger

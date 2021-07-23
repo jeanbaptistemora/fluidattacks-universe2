@@ -2,6 +2,9 @@ from model import (
     core_model,
     graph_model,
 )
+from model.graph_model import (
+    SyntaxStepAttributeAccess,
+)
 from sast_symbolic_evaluation.lookup import (
     lookup_class,
     lookup_field,
@@ -17,6 +20,9 @@ from sast_symbolic_evaluation.utils_generic import (
     complete_attrs_on_dict,
     lookup_var_dcl_by_name,
     lookup_var_state_by_name,
+)
+from sast_syntax_readers.utils_generic import (
+    get_dependencies,
 )
 from typing import (
     Any,
@@ -427,15 +433,7 @@ def evaluate_many(args: EvaluatorArgs) -> None:
     )
 
 
-def attempt_go_parse_float(args: EvaluatorArgs) -> bool:
-    if args.syntax_step.method == "strconv.ParseFloat":
-        args.syntax_step.meta.value = GoParsedFloat(
-            method_n_id=args.syntax_step.meta.n_id,
-            shard_idx=args.graph_db.shards.index(args.shard),
-        )
-        args.syntax_step.meta.danger = True
-        return True
-
+def check_go_float_sanitization(args: EvaluatorArgs) -> bool:
     for method, attr in {
         "math.IsNaN": "is_nan",
         "math.IsInf": "is_inf",
@@ -447,7 +445,28 @@ def attempt_go_parse_float(args: EvaluatorArgs) -> bool:
                     dep.meta.danger = (
                         dep.meta.value.is_inf or dep.meta.value.is_nan
                     )
+                    if not dep.meta.danger and isinstance(
+                        dep, SyntaxStepAttributeAccess
+                    ):
+                        parent = get_dependencies(
+                            args.syntax_step_index - 1, args.syntax_steps
+                        )[0]
+                        parent.meta.value[dep.attribute] = dep.meta
             return True
+    return False
+
+
+def attempt_go_parse_float(args: EvaluatorArgs) -> bool:
+    if args.syntax_step.method == "strconv.ParseFloat":
+        args.syntax_step.meta.value = GoParsedFloat(
+            method_n_id=args.syntax_step.meta.n_id,
+            shard_idx=args.graph_db.shards.index(args.shard),
+        )
+        args.syntax_step.meta.danger = True
+        return True
+
+    if check_go_float_sanitization(args):
+        return True
 
     # Avoids reporting the vulnerability in the line where the dangerous value
     # is used, since it can be far from the point where the real danger was

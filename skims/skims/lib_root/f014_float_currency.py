@@ -45,6 +45,7 @@ def go_float_currency(
                 func_id = g.get_ast_childs(graph, c_ids[1], "call_expression")
                 if (
                     func_id
+                    and vars_ids
                     and "F109"
                     in graph.nodes[func_id[0]].get("label_input_type", {})
                     and any(
