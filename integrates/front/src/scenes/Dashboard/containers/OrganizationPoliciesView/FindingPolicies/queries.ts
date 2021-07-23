@@ -34,11 +34,11 @@ const GET_ORGANIZATION_FINDINGS_TITLES: DocumentNode = gql`
 `;
 
 const DEACTIVATE_ORGANIZATION_FINDING_POLICY: DocumentNode = gql`
-  mutation DeactivateOrgFindingPolicy(
+  mutation DeactivateOrganizationFindingPolicy(
     $findingPolicyId: ID!
     $organizationName: String!
   ) {
-    deactivateOrgFindingPolicy(
+    deactivateOrganizationFindingPolicy(
       findingPolicyId: $findingPolicyId
       organizationName: $organizationName
     ) {

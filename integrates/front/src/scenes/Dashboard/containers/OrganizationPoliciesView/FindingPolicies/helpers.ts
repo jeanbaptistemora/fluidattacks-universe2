@@ -62,11 +62,11 @@ const handleOrgFindingPolicyError = (error: ApolloError): void => {
 
 const handleOrgFindingPolicyDeactivation = (
   result: {
-    deactivateOrgFindingPolicy: { success: boolean };
+    deactivateOrganizationFindingPolicy: { success: boolean };
   },
   organizationName: string
 ): void => {
-  if (result.deactivateOrgFindingPolicy.success) {
+  if (result.deactivateOrganizationFindingPolicy.success) {
     track("DeactivateOrganizationFindingPolicy", {
       Organization: organizationName,
     });

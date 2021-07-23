@@ -260,6 +260,14 @@ type Mutation {
     findingPolicyId: ID!
     "Name of the organization the finding policy is associated with"
     organizationName: String!
+  ): SimplePayload!  @deprecated(reason: """This mutation will be removed
+    after 2021/12/31. Use `deactivateOrganizationFindingPolicy` instead.""")
+
+  deactivateOrganizationFindingPolicy(
+    "ID of the policy"
+    findingPolicyId: ID!
+    "Name of the organization the finding policy is associated with"
+    organizationName: String!
   ): SimplePayload!
 
   deactivateRoot(

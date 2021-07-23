@@ -25,7 +25,7 @@ from api.mutations import (
     approve_draft,
     approve_draft_new,
     confirm_zero_risk_vulnerabilities,
-    deactivate_finding_policy,
+    deactivate_organization_finding_policy,
     deactivate_root,
     download_event_file,
     download_file,
@@ -119,7 +119,11 @@ MUTATION.set_field(
 MUTATION.set_field("createEvent", add_event.mutate)
 MUTATION.set_field("createOrganization", add_organization.mutate)
 MUTATION.set_field(
-    "deactivateOrgFindingPolicy", deactivate_finding_policy.mutate
+    "deactivateOrgFindingPolicy", deactivate_organization_finding_policy.mutate
+)
+MUTATION.set_field(
+    "deactivateOrganizationFindingPolicy",
+    deactivate_organization_finding_policy.mutate,
 )
 MUTATION.set_field("deactivateRoot", deactivate_root.mutate)
 MUTATION.set_field("downloadEventFile", download_event_file.mutate)

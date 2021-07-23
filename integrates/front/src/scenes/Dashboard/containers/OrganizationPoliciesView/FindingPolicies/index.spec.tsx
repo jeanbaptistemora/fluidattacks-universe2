@@ -338,7 +338,7 @@ describe("Organization findings policies view", (): void => {
         },
         result: {
           data: {
-            deactivateOrgFindingPolicy: {
+            deactivateOrganizationFindingPolicy: {
               success: true,
             },
           },
@@ -361,7 +361,8 @@ describe("Organization findings policies view", (): void => {
                     "api_mutations_handle_finding_policy_acceptation_mutate",
                 },
                 {
-                  action: "api_mutations_deactivate_finding_policy_mutate",
+                  action:
+                    "api_mutations_deactivate_organization_finding_policy_mutate",
                 },
               ])
             }
@@ -500,7 +501,8 @@ describe("Organization findings policies view", (): void => {
                     "api_mutations_handle_finding_policy_acceptation_mutate",
                 },
                 {
-                  action: "api_mutations_deactivate_finding_policy_mutate",
+                  action:
+                    "api_mutations_deactivate_organization_finding_policy_mutate",
                 },
               ])
             }

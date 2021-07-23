@@ -945,8 +945,8 @@ export const enTranslations: ResourceKey = {
           },
           handlePolicies: {
             success: {
-              approved: "The policy will be apply it within next minutes",
-              rejected: "The policy was rejected successfully",
+              approved: "The policy will be applied within the next minutes",
+              rejected: "The policy was successfully rejected",
             },
           },
           submitPolicies: {

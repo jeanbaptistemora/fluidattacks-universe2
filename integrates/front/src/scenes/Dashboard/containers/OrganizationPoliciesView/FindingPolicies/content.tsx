@@ -57,7 +57,7 @@ const OrganizationFindingPolicy: React.FC<IOrganizationFindingPolicies> = ({
   const { organizationName } = useParams<{ organizationName: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canDeactivateFindingPolicy: boolean = permissions.can(
-    "api_mutations_deactivate_finding_policy_mutate"
+    "api_mutations_deactivate_organization_finding_policy_mutate"
   );
   const canHandleFindingPolicy: boolean = permissions.can(
     "api_mutations_handle_finding_policy_acceptation_mutate"
@@ -94,11 +94,10 @@ const OrganizationFindingPolicy: React.FC<IOrganizationFindingPolicies> = ({
     }
   );
 
-  const [deactivateOrgFindingPolicy, { loading: deactivating }] = useMutation(
-    DEACTIVATE_ORGANIZATION_FINDING_POLICY,
-    {
+  const [deactivateOrganizationFindingPolicy, { loading: deactivating }] =
+    useMutation(DEACTIVATE_ORGANIZATION_FINDING_POLICY, {
       onCompleted: (result: {
-        deactivateOrgFindingPolicy: { success: boolean };
+        deactivateOrganizationFindingPolicy: { success: boolean };
       }): void => {
         handleOrgFindingPolicyDeactivation(result, organizationName);
       },
@@ -113,8 +112,7 @@ const OrganizationFindingPolicy: React.FC<IOrganizationFindingPolicies> = ({
           },
         },
       ],
-    }
-  );
+    });
 
   const [resubmitOrganizationFindingPolicy, { loading: submitting }] =
     useMutation(RESUBMIT_ORGANIZATION_FINDING_POLICY, {
@@ -163,7 +161,7 @@ const OrganizationFindingPolicy: React.FC<IOrganizationFindingPolicies> = ({
     });
   }
   async function handleDeactivateFindingPolicy(): Promise<void> {
-    await deactivateOrgFindingPolicy({
+    await deactivateOrganizationFindingPolicy({
       variables: { findingPolicyId: id, organizationName },
     });
   }
