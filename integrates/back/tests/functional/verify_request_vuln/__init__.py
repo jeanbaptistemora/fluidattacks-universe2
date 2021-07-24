@@ -14,17 +14,51 @@ async def get_result(
     *,
     user: str,
     finding: str,
-    vulnerability: str,
+    open_vulnerabilities: str,
+    closed_vulnerabilities: str,
+) -> Dict[str, Any]:
+    query: str = """
+        mutation VerifyRequestVulnerabilities(
+            $findingId: String!
+            $justification: String!
+            $openVulnerabilities: [String]!
+            $closedVulnerabilities: [String]!
+        ) {
+            verifyRequestVulnerabilities(
+                findingId: $findingId
+                justification: $justification
+                openVulnerabilities: $openVulnerabilities
+                closedVulnerabilities: $closedVulnerabilities
+            ) {
+                success
+            }
+        }
+    """
+    data: Dict[str, Any] = {
+        "query": query,
+        "variables": {
+            "findingId": finding,
+            "justification": "Vulnerabilities verified",
+            "openVulnerabilities": open_vulnerabilities,
+            "closedVulnerabilities": closed_vulnerabilities,
+        },
+    }
+    return await get_graphql_result(
+        data,
+        stakeholder=user,
+        context=get_new_context(),
+    )
+
+
+async def get_vulnerability(
+    *,
+    user: str,
+    vulnerability_id: str,
 ) -> Dict[str, Any]:
     query: str = f"""
-        mutation {{
-            verifyRequestVuln(
-                findingId: "{finding}",
-                justification: "Vuln verified",
-                openVulns: ["{vulnerability}"],
-                closedVulns: []
-            ) {{
-                success
+        {{
+            vulnerability(uuid: "{vulnerability_id}") {{
+                currentState
             }}
         }}
     """
