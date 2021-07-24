@@ -208,7 +208,7 @@ def test_finding_reattack(
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/vulns")
     finding = utils.wait_for_text(
         driver,
-        "F014. Funcionalidad insegura",
+        "014. Insecure functionality",
         timeout,
     )
     finding.click()

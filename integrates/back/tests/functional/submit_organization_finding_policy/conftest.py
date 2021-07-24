@@ -25,7 +25,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 org_name="orgtest",
                 id="dd63f2df-522d-4bfa-ad85-837832c71164",
                 metadata=OrgFindingPolicyMetadata(
-                    name="F031. Permisos excesivos",
+                    name="031. Excessive privileges - AWS",
                     tags={},
                 ),
                 state=OrgFindingPolicyState(
@@ -51,7 +51,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 org_name="orgtest",
                 id="f3f19b09-00e5-4bc7-b9ea-9999c9fe9f87",
                 metadata=OrgFindingPolicyMetadata(
-                    name="F081. Ausencia de doble factor de autenticación",
+                    name="081. Lack of multi-factor authentication",
                     tags={},
                 ),
                 state=OrgFindingPolicyState(

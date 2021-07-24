@@ -3,354 +3,683 @@
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19" },
-          "sk": { "S": "GROUP#unittesting" },
-          "type": { "S": "Git" },
-          "branch": { "S": "master" },
-          "url": { "S": "https://gitlab.com/fluidattacks/product" }
+          "pk": {
+            "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
+          },
+          "sk": {
+            "S": "GROUP#unittesting"
+          },
+          "type": {
+            "S": "Git"
+          },
+          "branch": {
+            "S": "master"
+          },
+          "url": {
+            "S": "https://gitlab.com/fluidattacks/product"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#STATE" },
-          "sk": { "S": "GROUP#unittesting" },
-          "status": { "S": "ACTIVE" },
-          "modified_date": { "S": "2020-11-19T13:37:10+00:00" },
-          "environment": { "S": "production" },
+          "pk": {
+            "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#STATE"
+          },
+          "sk": {
+            "S": "GROUP#unittesting"
+          },
+          "status": {
+            "S": "ACTIVE"
+          },
+          "modified_date": {
+            "S": "2020-11-19T13:37:10+00:00"
+          },
+          "environment": {
+            "S": "production"
+          },
           "environment_urls": {
-            "L": [{ "S": "https://app.fluidattacks.com" }]
+            "L": [
+              {
+                "S": "https://app.fluidattacks.com"
+              }
+            ]
           },
           "gitignore": {
-            "L": [{ "S": "bower_components/*" }, { "S": "node_modules/*" }]
+            "L": [
+              {
+                "S": "bower_components/*"
+              },
+              {
+                "S": "node_modules/*"
+              }
+            ]
           },
-          "includes_health_check": { "BOOL": true },
-          "modified_by": { "S": "jdoe@fluidattacks.com" },
-          "nickname": { "S": "product" }
+          "includes_health_check": {
+            "BOOL": true
+          },
+          "modified_by": {
+            "S": "jdoe@fluidattacks.com"
+          },
+          "nickname": {
+            "S": "product"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19" },
+          "pk": {
+            "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
+          },
           "sk": {
             "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#STATE#2020-11-19T13:37:10+00:00"
           },
-          "status": { "S": "ACTIVE" },
-          "modified_date": { "S": "2020-11-19T13:37:10+00:00" },
-          "environment": { "S": "production" },
+          "status": {
+            "S": "ACTIVE"
+          },
+          "modified_date": {
+            "S": "2020-11-19T13:37:10+00:00"
+          },
+          "environment": {
+            "S": "production"
+          },
           "environment_urls": {
-            "L": [{ "S": "https://app.fluidattacks.com" }]
+            "L": [
+              {
+                "S": "https://app.fluidattacks.com"
+              }
+            ]
           },
           "gitignore": {
-            "L": [{ "S": "bower_components/*" }, { "S": "node_modules/*" }]
+            "L": [
+              {
+                "S": "bower_components/*"
+              },
+              {
+                "S": "node_modules/*"
+              }
+            ]
           },
-          "includes_health_check": { "BOOL": true },
-          "modified_by": { "S": "jdoe@fluidattacks.com" },
-          "nickname": { "S": "product" }
+          "includes_health_check": {
+            "BOOL": true
+          },
+          "modified_by": {
+            "S": "jdoe@fluidattacks.com"
+          },
+          "nickname": {
+            "S": "product"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#CLON" },
-          "sk": { "S": "GROUP#unittesting" },
-          "status": { "S": "UNKNOWN" },
-          "reason": { "S": "root creation" },
-          "modified_date": { "S": "2020-11-19T13:37:10+00:00" }
+          "pk": {
+            "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#CLON"
+          },
+          "sk": {
+            "S": "GROUP#unittesting"
+          },
+          "status": {
+            "S": "UNKNOWN"
+          },
+          "reason": {
+            "S": "root creation"
+          },
+          "modified_date": {
+            "S": "2020-11-19T13:37:10+00:00"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19" },
+          "pk": {
+            "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
+          },
           "sk": {
             "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#CLON#2020-11-19T13:37:10+00:00"
           },
-          "status": { "S": "UNKNOWN" },
-          "reason": { "S": "root creation" },
-          "modified_date": { "S": "2020-11-19T13:37:10+00:00" }
+          "status": {
+            "S": "UNKNOWN"
+          },
+          "reason": {
+            "S": "root creation"
+          },
+          "modified_date": {
+            "S": "2020-11-19T13:37:10+00:00"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a" },
-          "sk": { "S": "GROUP#unittesting" },
-          "type": { "S": "Git" },
-          "branch": { "S": "develop" },
-          "url": { "S": "https://gitlab.com/fluidattacks/integrates" }
+          "pk": {
+            "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
+          },
+          "sk": {
+            "S": "GROUP#unittesting"
+          },
+          "type": {
+            "S": "Git"
+          },
+          "branch": {
+            "S": "develop"
+          },
+          "url": {
+            "S": "https://gitlab.com/fluidattacks/integrates"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#STATE" },
-          "sk": { "S": "GROUP#unittesting" },
-          "status": { "S": "ACTIVE" },
-          "modified_date": { "S": "2020-11-19T13:39:56+00:00" },
-          "environment": { "S": "QA" },
-          "environment_urls": { "L": [] },
-          "gitignore": { "L": [] },
-          "includes_health_check": { "BOOL": false },
-          "modified_by": { "S": "jdoe@fluidattacks.com" },
-          "nickname": { "S": "integrates_1" }
+          "pk": {
+            "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#STATE"
+          },
+          "sk": {
+            "S": "GROUP#unittesting"
+          },
+          "status": {
+            "S": "ACTIVE"
+          },
+          "modified_date": {
+            "S": "2020-11-19T13:39:56+00:00"
+          },
+          "environment": {
+            "S": "QA"
+          },
+          "environment_urls": {
+            "L": []
+          },
+          "gitignore": {
+            "L": []
+          },
+          "includes_health_check": {
+            "BOOL": false
+          },
+          "modified_by": {
+            "S": "jdoe@fluidattacks.com"
+          },
+          "nickname": {
+            "S": "integrates_1"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#CLON" },
-          "sk": { "S": "GROUP#unittesting" },
-          "status": { "S": "UNKNOWN" },
-          "reason": { "S": "root creation" },
-          "modified_date": { "S": "2020-11-19T13:37:10+00:00" }
+          "pk": {
+            "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#CLON"
+          },
+          "sk": {
+            "S": "GROUP#unittesting"
+          },
+          "status": {
+            "S": "UNKNOWN"
+          },
+          "reason": {
+            "S": "root creation"
+          },
+          "modified_date": {
+            "S": "2020-11-19T13:37:10+00:00"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a" },
+          "pk": {
+            "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
+          },
           "sk": {
             "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#CLON#2020-11-19T13:37:10+00:00"
           },
-          "status": { "S": "UNKNOWN" },
-          "reason": { "S": "root creation" },
-          "modified_date": { "S": "2020-11-19T13:37:10+00:00" }
+          "status": {
+            "S": "UNKNOWN"
+          },
+          "reason": {
+            "S": "root creation"
+          },
+          "modified_date": {
+            "S": "2020-11-19T13:37:10+00:00"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a" },
+          "pk": {
+            "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
+          },
           "sk": {
             "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#STATE#2020-11-19T13:39:56+00:00"
           },
-          "status": { "S": "ACTIVE" },
-          "modified_date": { "S": "2020-11-19T13:39:56+00:00" },
-          "environment": { "S": "QA" },
-          "environment_urls": { "L": [] },
-          "gitignore": {
-            "L": [{ "S": "bower_components/*" }, { "S": "node_modules/*" }]
+          "status": {
+            "S": "ACTIVE"
           },
-          "includes_health_check": { "BOOL": false },
-          "modified_by": { "S": "jdoe@fluidattacks.com" },
-          "nickname": { "S": "integrates_1" }
+          "modified_date": {
+            "S": "2020-11-19T13:39:56+00:00"
+          },
+          "environment": {
+            "S": "QA"
+          },
+          "environment_urls": {
+            "L": []
+          },
+          "gitignore": {
+            "L": [
+              {
+                "S": "bower_components/*"
+              },
+              {
+                "S": "node_modules/*"
+              }
+            ]
+          },
+          "includes_health_check": {
+            "BOOL": false
+          },
+          "modified_by": {
+            "S": "jdoe@fluidattacks.com"
+          },
+          "nickname": {
+            "S": "integrates_1"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "ROOT#d312f0b9-da49-4d2b-a881-bed438875e99" },
-          "sk": { "S": "GROUP#oneshottest" },
-          "type": { "S": "IP" },
-          "address": { "S": "127.0.0.1" },
-          "port": { "S": "8080" }
+          "pk": {
+            "S": "ROOT#d312f0b9-da49-4d2b-a881-bed438875e99"
+          },
+          "sk": {
+            "S": "GROUP#oneshottest"
+          },
+          "type": {
+            "S": "IP"
+          },
+          "address": {
+            "S": "127.0.0.1"
+          },
+          "port": {
+            "S": "8080"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#STATE" },
-          "sk": { "S": "GROUP#oneshottest" },
-          "modified_by": { "S": "jdoe@fluidattacks.com" },
-          "modified_date": { "S": "2020-11-19T13:44:37+00:00" },
-          "status": { "S": "ACTIVE" }
+          "pk": {
+            "S": "ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#STATE"
+          },
+          "sk": {
+            "S": "GROUP#oneshottest"
+          },
+          "modified_by": {
+            "S": "jdoe@fluidattacks.com"
+          },
+          "modified_date": {
+            "S": "2020-11-19T13:44:37+00:00"
+          },
+          "status": {
+            "S": "ACTIVE"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "ROOT#d312f0b9-da49-4d2b-a881-bed438875e99" },
+          "pk": {
+            "S": "ROOT#d312f0b9-da49-4d2b-a881-bed438875e99"
+          },
           "sk": {
             "S": "ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#STATE#2020-11-19T13:44:37+00:00"
           },
-          "modified_by": { "S": "jdoe@fluidattacks.com" },
-          "modified_date": { "S": "2020-11-19T13:44:37+00:00" },
-          "status": { "S": "ACTIVE" }
+          "modified_by": {
+            "S": "jdoe@fluidattacks.com"
+          },
+          "modified_date": {
+            "S": "2020-11-19T13:44:37+00:00"
+          },
+          "status": {
+            "S": "ACTIVE"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "ROOT#8493c82f-2860-4902-86fa-75b0fef76034" },
-          "sk": { "S": "GROUP#oneshottest" },
-          "type": { "S": "URL" },
-          "host": { "S": "app.fluidattacks.com" },
-          "path": { "S": "/" },
-          "port": { "S": "443" },
-          "protocol": { "S": "HTTPS" }
+          "pk": {
+            "S": "ROOT#8493c82f-2860-4902-86fa-75b0fef76034"
+          },
+          "sk": {
+            "S": "GROUP#oneshottest"
+          },
+          "type": {
+            "S": "URL"
+          },
+          "host": {
+            "S": "app.fluidattacks.com"
+          },
+          "path": {
+            "S": "/"
+          },
+          "port": {
+            "S": "443"
+          },
+          "protocol": {
+            "S": "HTTPS"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "ROOT#8493c82f-2860-4902-86fa-75b0fef76034#STATE" },
-          "sk": { "S": "GROUP#oneshottest" },
-          "modified_by": { "S": "jdoe@fluidattacks.com" },
-          "modified_date": { "S": "2020-11-19T13:45:55+00:00" },
-          "status": { "S": "ACTIVE" }
+          "pk": {
+            "S": "ROOT#8493c82f-2860-4902-86fa-75b0fef76034#STATE"
+          },
+          "sk": {
+            "S": "GROUP#oneshottest"
+          },
+          "modified_by": {
+            "S": "jdoe@fluidattacks.com"
+          },
+          "modified_date": {
+            "S": "2020-11-19T13:45:55+00:00"
+          },
+          "status": {
+            "S": "ACTIVE"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "ROOT#8493c82f-2860-4902-86fa-75b0fef76034" },
+          "pk": {
+            "S": "ROOT#8493c82f-2860-4902-86fa-75b0fef76034"
+          },
           "sk": {
             "S": "ROOT#8493c82f-2860-4902-86fa-75b0fef76034#STATE#2020-11-19T13:45:55+00:00"
           },
-          "modified_by": { "S": "jdoe@fluidattacks.com" },
-          "modified_date": { "S": "2020-11-19T13:45:55+00:00" },
-          "status": { "S": "ACTIVE" }
+          "modified_by": {
+            "S": "jdoe@fluidattacks.com"
+          },
+          "modified_date": {
+            "S": "2020-11-19T13:45:55+00:00"
+          },
+          "status": {
+            "S": "ACTIVE"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "GROUP#unittesting" },
+          "pk": {
+            "S": "GROUP#unittesting"
+          },
           "sk": {
             "S": "LINES#ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#FILENAME#product/test/test#.config"
           },
-          "modified_date": { "S": "2019-08-01T00:00:00-05:00" },
-          "comments": { "S": "comment test" },
-          "loc": { "N": "8" },
-          "modified_commit": { "S": "983466z" },
-          "tested_date": { "S": "2021-02-28T00:00:00-05:00" },
-          "tested_lines": { "N": "4" },
-          "sorts_risk_level": { "N": "0" }
+          "modified_date": {
+            "S": "2019-08-01T00:00:00-05:00"
+          },
+          "comments": {
+            "S": "comment test"
+          },
+          "loc": {
+            "N": "8"
+          },
+          "modified_commit": {
+            "S": "983466z"
+          },
+          "tested_date": {
+            "S": "2021-02-28T00:00:00-05:00"
+          },
+          "tested_lines": {
+            "N": "4"
+          },
+          "sorts_risk_level": {
+            "N": "0"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "GROUP#unittesting" },
+          "pk": {
+            "S": "GROUP#unittesting"
+          },
           "sk": {
             "S": "LINES#ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#FILENAME#integrates_1/test2/test.sh"
           },
-          "modified_date": { "S": "2020-11-19T00:00:00-05:00" },
-          "comments": { "S": "comment test" },
-          "loc": { "N": "172" },
-          "modified_commit": { "S": "273412t" },
-          "tested_date": { "S": "2021-01-20T00:00:00-05:00" },
-          "tested_lines": { "N": "120" },
-          "sorts_risk_level": { "N": "0" }
+          "modified_date": {
+            "S": "2020-11-19T00:00:00-05:00"
+          },
+          "comments": {
+            "S": "comment test"
+          },
+          "loc": {
+            "N": "172"
+          },
+          "modified_commit": {
+            "S": "273412t"
+          },
+          "tested_date": {
+            "S": "2021-01-20T00:00:00-05:00"
+          },
+          "tested_lines": {
+            "N": "120"
+          },
+          "sorts_risk_level": {
+            "N": "0"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "GROUP#unittesting" },
+          "pk": {
+            "S": "GROUP#unittesting"
+          },
           "sk": {
             "S": "INPUTS#COMPONENT#test.com/api/Test#ENTRYPOINT#idTest"
           },
-          "entry_point": { "S": "idTest" },
-          "created_date": { "S": "2000-01-01T00:00:00-05:00" },
-          "commit": { "S": "hh66uu5" },
-          "component": { "S": "test.com/api/Test" },
-          "seen_first_time_by": { "S": "" },
-          "tested_date": { "S": "2020-01-02T00:00:00-05:00" },
-          "verified": { "S": "Yes" },
-          "vulns": { "S": "FIN.S.0001.Test" }
+          "entry_point": {
+            "S": "idTest"
+          },
+          "created_date": {
+            "S": "2000-01-01T00:00:00-05:00"
+          },
+          "commit": {
+            "S": "hh66uu5"
+          },
+          "component": {
+            "S": "test.com/api/Test"
+          },
+          "seen_first_time_by": {
+            "S": ""
+          },
+          "tested_date": {
+            "S": "2020-01-02T00:00:00-05:00"
+          },
+          "verified": {
+            "S": "Yes"
+          },
+          "vulns": {
+            "S": "FIN.S.0001.Test"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "GROUP#unittesting" },
+          "pk": {
+            "S": "GROUP#unittesting"
+          },
           "sk": {
             "S": "INPUTS#COMPONENT#test.com/test/test.aspx#ENTRYPOINT#btnTest"
           },
-          "entry_point": { "S": "btnTest" },
-          "created_date": { "S": "2020-03-14T00:00:00-05:00" },
-          "commit": { "S": "e91320h" },
-          "component": { "S": "test.com/test/test.aspx" },
-          "seen_first_time_by": { "S": "test@test.com" },
-          "tested_date": { "S": "2021-02-02T00:00:00-05:00" },
-          "verified": { "S": "No" },
-          "vulns": { "S": "" }
+          "entry_point": {
+            "S": "btnTest"
+          },
+          "created_date": {
+            "S": "2020-03-14T00:00:00-05:00"
+          },
+          "commit": {
+            "S": "e91320h"
+          },
+          "component": {
+            "S": "test.com/test/test.aspx"
+          },
+          "seen_first_time_by": {
+            "S": "test@test.com"
+          },
+          "tested_date": {
+            "S": "2021-02-02T00:00:00-05:00"
+          },
+          "verified": {
+            "S": "No"
+          },
+          "vulns": {
+            "S": ""
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "GROUP#unittesting" },
+          "pk": {
+            "S": "GROUP#unittesting"
+          },
           "sk": {
             "S": "INPUTS#COMPONENT#test.com/test2/test.aspx#ENTRYPOINT#-"
           },
-          "entry_point": { "S": "-" },
-          "created_date": { "S": "2020-01-11T00:00:00-05:00" },
-          "commit": { "S": "d83027t" },
-          "component": { "S": "test.com/test2/test.aspx" },
-          "seen_first_time_by": { "S": "test2@test.com" },
-          "tested_date": { "S": "2021-02-11T00:00:00-05:00" },
-          "verified": { "S": "No" },
-          "vulns": { "S": "FIN.S.0003.Test" }
+          "entry_point": {
+            "S": "-"
+          },
+          "created_date": {
+            "S": "2020-01-11T00:00:00-05:00"
+          },
+          "commit": {
+            "S": "d83027t"
+          },
+          "component": {
+            "S": "test.com/test2/test.aspx"
+          },
+          "seen_first_time_by": {
+            "S": "test2@test.com"
+          },
+          "tested_date": {
+            "S": "2021-02-11T00:00:00-05:00"
+          },
+          "verified": {
+            "S": "No"
+          },
+          "vulns": {
+            "S": "FIN.S.0003.Test"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "POLICY#8b35ae2a-56a1-4f64-9da7-6a552683bf46" },
-          "sk": { "S": "ORG#okada" },
-          "name": { "S": "F007. Cross site request forgery" }
+          "pk": {
+            "S": "POLICY#8b35ae2a-56a1-4f64-9da7-6a552683bf46"
+          },
+          "sk": {
+            "S": "ORG#okada"
+          },
+          "name": {
+            "S": "007. Cross-site request forgery"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "POLICY#8b35ae2a-56a1-4f64-9da7-6a552683bf46#STATE" },
-          "sk": { "S": "ORG#okada" },
-          "status": { "S": "APPROVED" },
-          "modified_date": { "S": "2021-04-26T13:37:10+00:00" },
-          "modified_by": { "S": "test2@test.com" }
+          "pk": {
+            "S": "POLICY#8b35ae2a-56a1-4f64-9da7-6a552683bf46#STATE"
+          },
+          "sk": {
+            "S": "ORG#okada"
+          },
+          "status": {
+            "S": "APPROVED"
+          },
+          "modified_date": {
+            "S": "2021-04-26T13:37:10+00:00"
+          },
+          "modified_by": {
+            "S": "test2@test.com"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "POLICY#8b35ae2a-56a1-4f64-9da7-6a552683bf46" },
+          "pk": {
+            "S": "POLICY#8b35ae2a-56a1-4f64-9da7-6a552683bf46"
+          },
           "sk": {
             "S": "POLICY#8b35ae2a-56a1-4f64-9da7-6a552683bf46#STATE#2021-04-25T13:37:10+00:00"
           },
-          "status": { "S": "SUBMITTED" },
-          "modified_date": { "S": "2021-04-25T13:37:10+00:00" },
-          "modified_by": { "S": "test@test.com" }
+          "status": {
+            "S": "SUBMITTED"
+          },
+          "modified_date": {
+            "S": "2021-04-25T13:37:10+00:00"
+          },
+          "modified_by": {
+            "S": "test@test.com"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "pk": { "S": "POLICY#8b35ae2a-56a1-4f64-9da7-6a552683bf46" },
+          "pk": {
+            "S": "POLICY#8b35ae2a-56a1-4f64-9da7-6a552683bf46"
+          },
           "sk": {
             "S": "POLICY#8b35ae2a-56a1-4f64-9da7-6a552683bf46#STATE#2021-04-26T13:37:10+00:00"
           },
-          "status": { "S": "APPROVED" },
-          "modified_date": { "S": "2021-04-26T13:37:10+00:00" },
-          "modified_by": { "S": "test2@test.com" }
+          "status": {
+            "S": "APPROVED"
+          },
+          "modified_date": {
+            "S": "2021-04-26T13:37:10+00:00"
+          },
+          "modified_by": {
+            "S": "test2@test.com"
+          }
         }
       }
     }

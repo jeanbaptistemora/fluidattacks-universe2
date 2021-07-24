@@ -106,7 +106,7 @@ async def test_finding() -> None:
             "exploitation": {"url": "", "description": ""},
         },
         "state": "open",
-        "title": "F007. Cross site request forgery",
+        "title": "007. Cross-site request forgery",
         "scenario": "AUTHORIZED_USER_EXTRANET",
         "actor": "ANY_COSTUMER",
         "description": "La aplicación permite engañar a un usuario "

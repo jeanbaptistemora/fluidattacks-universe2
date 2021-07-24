@@ -205,7 +205,7 @@ async def test_handle_org_finding_policy_acceptation() -> None:
 @pytest.mark.changes_db
 async def test_deactivate_org_finding_policy() -> None:
     org_name = "okada"
-    finding_name = "081. Ausencia de doble factor de autenticación"
+    finding_name = "081. Lack of multi-factor authentication"
     finding_id = "475041513"
     vulns_query = """
         query GetFindingVulnInfo($findingId: String!) {
@@ -367,7 +367,7 @@ async def test_deactivate_org_finding_policy() -> None:
 @pytest.mark.changes_db
 async def test_add_org_finding_policy() -> None:
     org_name = "okada"
-    fin_name = "031. Permisos excesivos"
+    fin_name = "031. Excessive privileges - AWS"
     query = """
         mutation AddOrgFindingPolicy(
             $findingName: String!
@@ -401,7 +401,7 @@ async def test_add_org_finding_policy() -> None:
 
 async def test_get_org_finding_policies() -> None:
     identifier = "8b35ae2a-56a1-4f64-9da7-6a552683bf46"
-    name = "F007. Cross site request forgery"
+    name = "007. Cross-site request forgery"
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     status = "APPROVED"
     query = """

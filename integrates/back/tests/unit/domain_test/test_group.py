@@ -596,7 +596,7 @@ async def test_get_group_digest_stats() -> None:
         },
         "findings": [
             {
-                "finding_name": "F038. Fuga de información de negocio",
+                "finding_name": "038. Business information leak",
                 "finding_age": 620,
             }
         ],
