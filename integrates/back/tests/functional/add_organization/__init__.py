@@ -17,7 +17,7 @@ async def get_result(
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
-            createOrganization(name: "{org}") {{
+            addOrganization(name: "{org}") {{
                 organization {{
                     id
                     name

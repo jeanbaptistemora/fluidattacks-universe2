@@ -189,6 +189,9 @@ integrates.back.test.functional.add_draft:
 integrates.back.test.functional.add_draft_new:
   <<: *integrates_back_test_functional_migration
 
+integrates.back.test.functional.add_event:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.add_files:
   <<: *integrates_back_test_functional
 
@@ -204,6 +207,9 @@ integrates.back.test.functional.add_group:
 integrates.back.test.functional.add_group_consult:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.add_organization:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.add_tags:
   <<: *integrates_back_test_functional
 
@@ -212,12 +218,6 @@ integrates.back.test.functional.approve_draft:
 
 integrates.back.test.functional.approve_draft_new:
   <<: *integrates_back_test_functional_migration
-
-integrates.back.test.functional.create_event:
-  <<: *integrates_back_test_functional
-
-integrates.back.test.functional.create_organization:
-  <<: *integrates_back_test_functional
 
 integrates.back.test.functional.deactivate_root:
   <<: *integrates_back_test_functional

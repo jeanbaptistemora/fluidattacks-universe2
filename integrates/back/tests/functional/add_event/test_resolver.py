@@ -9,7 +9,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("create_event")
+@pytest.mark.resolver_test_group("add_event")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -20,7 +20,7 @@ from typing import (
         ["group_manager@gmail.com"],
     ],
 )
-async def test_create_event(populate: bool, email: str) -> None:
+async def test_add_event(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     result: Dict[str, Any] = await get_result(
@@ -28,11 +28,11 @@ async def test_create_event(populate: bool, email: str) -> None:
         group=group_name,
     )
     assert "errors" not in result
-    assert result["data"]["createEvent"]
+    assert result["data"]["addEvent"]
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("create_event")
+@pytest.mark.resolver_test_group("add_event")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -42,7 +42,7 @@ async def test_create_event(populate: bool, email: str) -> None:
         ["reviewer@gmail.com"],
     ],
 )
-async def test_create_event_fail(populate: bool, email: str) -> None:
+async def test_add_event_fail(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     result: Dict[str, Any] = await get_result(

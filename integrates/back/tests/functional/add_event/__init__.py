@@ -17,7 +17,7 @@ async def get_result(
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
-            createEvent(
+            addEvent(
                 groupName: "{group}",
                 actionAfterBlocking: TRAINING,
                 actionBeforeBlocking: DOCUMENT_GROUP,
