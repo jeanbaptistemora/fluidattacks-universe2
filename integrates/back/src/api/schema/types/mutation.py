@@ -35,7 +35,7 @@ from api.mutations import (
     edit_stakeholder_organization,
     grant_stakeholder_access,
     grant_stakeholder_organization_access,
-    handle_finding_policy_acceptation,
+    handle_organization_finding_policy_acceptation,
     handle_vulnerabilities_acceptation,
     invalidate_access_token,
     invalidate_cache,
@@ -136,7 +136,11 @@ MUTATION.set_field(
 )
 MUTATION.set_field(
     "handleOrgFindingPolicyAcceptation",
-    handle_finding_policy_acceptation.mutate,
+    handle_organization_finding_policy_acceptation.mutate,
+)
+MUTATION.set_field(
+    "handleOrganizationFindingPolicyAcceptation",
+    handle_organization_finding_policy_acceptation.mutate,
 )
 MUTATION.set_field("invalidateCache", invalidate_cache.mutate)
 MUTATION.set_field("removeEventEvidence", remove_event_evidence.mutate)

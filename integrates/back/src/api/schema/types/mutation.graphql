@@ -372,6 +372,16 @@ type Mutation {
     organizationName: String!
     "Whether the finding policy is approved or rejected"
     status: OrganizationFindindPolicy!
+  ): SimplePayload! @deprecated(reason: """This mutation will be removed after
+   2021/12/31. Use `handleOrganizationFindingPolicyAcceptation` instead.""")
+
+  handleOrganizationFindingPolicyAcceptation(
+    "ID of the policy"
+    findingPolicyId: ID!
+    "Name of the organization the finding policy is associated with"
+    organizationName: String!
+    "Whether the finding policy is approved or rejected"
+    status: OrganizationFindindPolicy!
   ): SimplePayload!
 
    handleVulnerabilitiesAcceptation(

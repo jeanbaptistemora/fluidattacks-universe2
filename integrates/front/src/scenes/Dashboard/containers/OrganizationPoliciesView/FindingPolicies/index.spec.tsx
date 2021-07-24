@@ -318,7 +318,7 @@ describe("Organization findings policies view", (): void => {
         },
         result: {
           data: {
-            handleOrgFindingPolicyAcceptation: {
+            handleOrganizationFindingPolicyAcceptation: {
               success: true,
             },
           },
@@ -358,7 +358,7 @@ describe("Organization findings policies view", (): void => {
               new PureAbility([
                 {
                   action:
-                    "api_mutations_handle_finding_policy_acceptation_mutate",
+                    "api_mutations_handle_organization_finding_policy_acceptation_mutate",
                 },
                 {
                   action:
@@ -481,7 +481,7 @@ describe("Organization findings policies view", (): void => {
         },
         result: {
           data: {
-            handleOrgFindingPolicyAcceptation: {
+            handleOrganizationFindingPolicyAcceptation: {
               success: true,
             },
           },
@@ -498,7 +498,7 @@ describe("Organization findings policies view", (): void => {
               new PureAbility([
                 {
                   action:
-                    "api_mutations_handle_finding_policy_acceptation_mutate",
+                    "api_mutations_handle_organization_finding_policy_acceptation_mutate",
                 },
                 {
                   action:
@@ -632,7 +632,8 @@ describe("Organization findings policies view", (): void => {
               new PureAbility([
                 {
                   action:
-                    "api_mutations_handle_finding_policy_acceptation_mutate",
+                    "api_mutations_handle_organization_" +
+                    "finding_policy_acceptation_mutate",
                 },
               ])
             }
