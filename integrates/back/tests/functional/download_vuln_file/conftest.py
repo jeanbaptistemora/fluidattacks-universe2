@@ -36,7 +36,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "analyst": "test1@gmail.com",
                 "cvss_version": "3.1",
                 "exploitability": 0.93,
-                "finding": "FIN.H.060. Insecure exceptions",
+                "finding": "060. Insecure exceptions",
                 "cwe": "396",
                 "finding_type": "SECURITY",
                 "requirements": "R359. Avoid using generic exceptions.",

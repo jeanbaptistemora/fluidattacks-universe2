@@ -42,7 +42,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         source=Source.ASM,
                         status=FindingStateStatus.CREATED,
                     ),
-                    title="FIN.H.060. Insecure exceptions",
+                    title="060. Insecure exceptions",
                     cvss_version="3.1",
                     compromised_attributes="Exception",
                     compromised_records=12,
