@@ -24,7 +24,7 @@ from api.mutations import (
     add_url_root,
     approve_draft,
     approve_draft_new,
-    confirm_zero_risk_vulnerabilities,
+    confirm_vulnerabilities_zero_risk,
     deactivate_organization_finding_policy,
     deactivate_root,
     download_event_file,
@@ -114,7 +114,7 @@ MUTATION.set_field(
 MUTATION.set_field("addUrlRoot", add_url_root.mutate)
 MUTATION.set_field("addStakeholder", add_stakeholder.mutate)
 MUTATION.set_field(
-    "confirmZeroRiskVuln", confirm_zero_risk_vulnerabilities.mutate
+    "confirmZeroRiskVuln", confirm_vulnerabilities_zero_risk.mutate
 )
 MUTATION.set_field("createEvent", add_event.mutate)
 MUTATION.set_field("createOrganization", add_organization.mutate)
@@ -223,7 +223,7 @@ MUTATION.set_field("addGroupConsult", add_group_consult.mutate)
 MUTATION.set_field("addOrganization", add_organization.mutate)
 MUTATION.set_field("createGroup", add_group.mutate)
 MUTATION.set_field(
-    "confirmZeroRiskVulnerabilities", confirm_zero_risk_vulnerabilities.mutate
+    "confirmVulnerabilitiesZeroRisk", confirm_vulnerabilities_zero_risk.mutate
 )
 MUTATION.set_field("removeTags", remove_vulnerability_tags.mutate)
 MUTATION.set_field(

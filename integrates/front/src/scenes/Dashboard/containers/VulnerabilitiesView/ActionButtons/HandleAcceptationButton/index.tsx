@@ -24,7 +24,7 @@ const HandleAcceptationButton: React.FC<IHandleAcceptationButtonProps> = ({
     "api_mutations_handle_vulnerabilities_acceptation_mutate"
   );
   const canConfirmZeroRiskVuln: boolean = permissions.can(
-    "api_mutations_confirm_zero_risk_vulnerabilities_mutate"
+    "api_mutations_confirm_vulnerabilities_zero_risk_mutate"
   );
   const canRejectZeroRiskVuln: boolean = permissions.can(
     "api_mutations_reject_zero_risk_vulnerabilities_mutate"

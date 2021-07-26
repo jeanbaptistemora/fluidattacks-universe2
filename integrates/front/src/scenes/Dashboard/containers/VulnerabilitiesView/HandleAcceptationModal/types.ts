@@ -21,8 +21,8 @@ interface IHandleVulnerabilitiesAcceptationResultAttr {
   };
 }
 
-interface IConfirmZeroRiskVulnResultAttr {
-  confirmZeroRiskVulnerabilities: {
+interface IConfirmVulnZeroRiskResultAttr {
+  confirmVulnerabilitiesZeroRisk: {
     success: boolean;
   };
 }
@@ -34,7 +34,7 @@ interface IRejectZeroRiskVulnResultAttr {
 }
 
 export {
-  IConfirmZeroRiskVulnResultAttr,
+  IConfirmVulnZeroRiskResultAttr,
   IHandleVulnerabilitiesAcceptationModalProps,
   IHandleVulnerabilitiesAcceptationResultAttr,
   IRejectZeroRiskVulnResultAttr,

@@ -167,7 +167,7 @@ describe("VulnerabilitiesView", (): void => {
     expect.hasAssertions();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_mutations_confirm_zero_risk_vulnerabilities_mutate" },
+      { action: "api_mutations_confirm_vulnerabilities_zero_risk_mutate" },
       { action: "api_resolvers_vulnerability_analyst_resolve" },
       { action: "api_resolvers_finding_zero_risk_resolve" },
     ]);
@@ -211,7 +211,7 @@ describe("VulnerabilitiesView", (): void => {
     expect.hasAssertions();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_mutations_confirm_zero_risk_vulnerabilities_mutate" },
+      { action: "api_mutations_confirm_vulnerabilities_zero_risk_mutate" },
       { action: "api_resolvers_vulnerability_analyst_resolve" },
       { action: "api_resolvers_finding_zero_risk_resolve" },
     ]);

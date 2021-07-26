@@ -24,7 +24,7 @@ import { GET_FINDING_HEADER } from "../../FindingContent/queries";
 import type { IVulnerabilitiesAttr } from "../types";
 import { HandleAcceptationModal } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/index";
 import {
-  CONFIRM_ZERO_RISK_VULNERABILITIES,
+  CONFIRM_VULNERABILITIES_ZERO_RISK,
   HANDLE_VULNS_ACCEPTATION,
   REJECT_ZERO_RISK_VULNERABILITIES,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/queries";
@@ -264,20 +264,20 @@ describe("handle vulns acceptation modal", (): void => {
     const handleCloseModal: jest.Mock = jest.fn();
     const mockedPermissions: PureAbility<string> = new PureAbility([
       {
-        action: "api_mutations_confirm_zero_risk_vulnerabilities_mutate",
+        action: "api_mutations_confirm_vulnerabilities_zero_risk_mutate",
       },
     ]);
     const mocksMutation: MockedResponse[] = [
       {
         request: {
-          query: CONFIRM_ZERO_RISK_VULNERABILITIES,
+          query: CONFIRM_VULNERABILITIES_ZERO_RISK,
           variables: {
             findingId: "422286126",
             justification: "This is a test of confirming zero risk vulns",
             vulnerabilities: ["ab25380d-dfe1-4cde-aefd-acca6990d6aa"],
           },
         },
-        result: { data: { confirmZeroRiskVulnerabilities: { success: true } } },
+        result: { data: { confirmVulnerabilitiesZeroRisk: { success: true } } },
       },
     ];
     const mocksFindingHeader: MockedResponse = {
@@ -421,13 +421,13 @@ describe("handle vulns acceptation modal", (): void => {
     const handleCloseModal: jest.Mock = jest.fn();
     const mockedPermissions: PureAbility<string> = new PureAbility([
       {
-        action: "api_mutations_confirm_zero_risk_vulnerabilities_mutate",
+        action: "api_mutations_confirm_vulnerabilities_zero_risk_mutate",
       },
     ]);
     const mocksMutation: MockedResponse[] = [
       {
         request: {
-          query: CONFIRM_ZERO_RISK_VULNERABILITIES,
+          query: CONFIRM_VULNERABILITIES_ZERO_RISK,
           variables: {
             findingId: "422286126",
             justification: "This is a test of confirming zero risk vulns",
@@ -902,7 +902,7 @@ describe("handle vulns acceptation modal", (): void => {
     const handleCloseModal: jest.Mock = jest.fn();
     const mockedPermissions: PureAbility<string> = new PureAbility([
       {
-        action: "api_mutations_confirm_zero_risk_vulnerabilities_mutate",
+        action: "api_mutations_confirm_vulnerabilities_zero_risk_mutate",
       },
       {
         action: "see_dropdown_to_confirm_zero_risk",

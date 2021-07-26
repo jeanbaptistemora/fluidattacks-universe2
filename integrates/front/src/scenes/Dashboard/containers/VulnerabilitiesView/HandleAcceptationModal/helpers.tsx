@@ -17,7 +17,7 @@ import {
   getVulnsPendingOfAcceptation,
 } from "../utils";
 import type {
-  IConfirmZeroRiskVulnResultAttr,
+  IConfirmVulnZeroRiskResultAttr,
   IHandleVulnerabilitiesAcceptationResultAttr,
   IRejectZeroRiskVulnResultAttr,
   IVulnDataAttr,
@@ -114,8 +114,8 @@ const confirmZeroRiskProps = (
   canGetHistoricState: boolean
 ): MutationHookOptions => {
   return {
-    onCompleted: (data: IConfirmZeroRiskVulnResultAttr): void => {
-      if (data.confirmZeroRiskVulnerabilities.success) {
+    onCompleted: (data: IConfirmVulnZeroRiskResultAttr): void => {
+      if (data.confirmVulnerabilitiesZeroRisk.success) {
         msgSuccess(
           translate.t("groupAlerts.confirmedZeroRiskSuccess"),
           translate.t("groupAlerts.updatedTitle")

@@ -26,7 +26,7 @@ import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import {
-  CONFIRM_ZERO_RISK_VULNERABILITIES,
+  CONFIRM_VULNERABILITIES_ZERO_RISK,
   HANDLE_VULNS_ACCEPTATION,
   REJECT_ZERO_RISK_VULNERABILITIES,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptationModal/queries";
@@ -59,7 +59,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptationModalPro
       "api_mutations_handle_vulnerabilities_acceptation_mutate"
     );
     const canConfirmZeroRiskVuln: boolean = permissions.can(
-      "api_mutations_confirm_zero_risk_vulnerabilities_mutate"
+      "api_mutations_confirm_vulnerabilities_zero_risk_mutate"
     );
 
     const dispatch: Dispatch = useDispatch();
@@ -134,7 +134,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptationModalPro
       )
     );
     const [confirmZeroRisk, { loading: confirmingZeroRisk }] = useMutation(
-      CONFIRM_ZERO_RISK_VULNERABILITIES,
+      CONFIRM_VULNERABILITIES_ZERO_RISK,
       confirmZeroRiskProps(
         refetchData,
         handleCloseModal,
