@@ -1,5 +1,3 @@
-"""Singer tap for a generic JSON stream."""
-
 import contextlib
 from dateutil.parser import (
     parse as date_parser,
@@ -31,6 +29,13 @@ from typing import (
     Callable,
     List,
 )
+import utils_logger
+
+utils_logger.configure(
+    app_type="tap",
+    asynchronous=False,
+)
+LOG = utils_logger.main_log(__name__)
 
 # type aliases that improve clarity
 JSON = Any
@@ -105,13 +110,23 @@ def stru_type(stru: STRU) -> str:
     if isinstance(stru, float):
         return float.__name__
     if isinstance(stru, str):
-        return str.__name__
+        return str.__name__ if stru != "" else "EmptyStr"
     return type(stru).__name__
 
 
 def stru_cast(stru: STRU, type_ref: str) -> STRU:
     """Cast a Structura."""
-    return to_date(stru) if type_ref == "datetime" else stru
+    if type_ref == "datetime":
+        return to_date(stru)
+    if type_ref == "bool":
+        return bool(stru)
+    if type_ref == "int":
+        return int(stru)
+    if type_ref == "float":
+        return float(stru)
+    if type_ref == "str":
+        return str(stru)
+    raise Exception("Not supported type")
 
 
 def pt2st(ptype: str) -> JSON:
@@ -122,7 +137,7 @@ def pt2st(ptype: str) -> JSON:
         return {"type": "number"}
     if ptype == "int":
         return {"type": "integer"}
-    if ptype == "str":
+    if ptype in ("EmptyStr", "str"):
         return {"type": "string"}
     if ptype == "datetime":
         return {"type": "string", "format": "date-time"}
@@ -244,6 +259,7 @@ def catalog() -> None:
 
 def choose_type(types: List[str]) -> str:
     priority = [
+        "EmptyStr",
         "datetime",
         "bool",
         "int",
@@ -255,35 +271,41 @@ def choose_type(types: List[str]) -> str:
 
 def dump_schema(table: str) -> None:
     pschema = json_from_file(f"{SCHEMAS_DIR}/{table}")
+    props = {}
+    for key, fts in pschema.items():
+        selected_type = choose_type(fts)
+        LOG.debug("%s[%s]: %s", key, selected_type, fts)
+        props[f"{key}_{selected_type}"] = pt2st(selected_type)
+        if "EmptyStr" in fts:
+            props[f"{key}_str"] = pt2st("str")
     emit(
         dumps(
             {
                 "type": "SCHEMA",
                 "stream": table,
-                "schema": {
-                    "properties": {
-                        f"{f}_{ft}": pt2st(ft)
-                        for f, fts in pschema.items()
-                        for ft in fts
-                    }
-                },
+                "schema": {"properties": props},
                 "key_properties": [],
             }
         )
     )
 
     for precord in read(RECORDS_DIR, table, loads):
+        record = {}
+        for field, value in precord.items():
+            types = pschema[field]
+            selected_type = choose_type(types)
+            if value == "":
+                record[f"{field}_str"] = value
+            else:
+                record[f"{field}_{selected_type}"] = stru_cast(
+                    value, selected_type
+                )
         emit(
             dumps(
                 {
                     "type": "RECORD",
                     "stream": table,
-                    "record": {
-                        f"{f}_{choose_type(pschema[f])}": stru_cast(
-                            v, choose_type(pschema[f])
-                        )
-                        for f, v in precord.items()
-                    },
+                    "record": record,
                 }
             )
         )
