@@ -25,7 +25,7 @@ import time
 
 
 async def update_root(root: RootItem) -> None:
-    print(f"Working on", root.id, root.metadata.url)
+    print("Working on", root.id, root.metadata.url)
     await roots_dal.update_root_state(
         group_name=root.group_name,
         root_id=root.id,
@@ -36,6 +36,7 @@ async def update_root(root: RootItem) -> None:
             includes_health_check=root.state.includes_health_check,
             modified_by=root.state.modified_by,
             modified_date=root.state.modified_date,
+            # pylint: disable=protected-access
             nickname=roots_domain._format_root_nickname("", root.metadata.url),
             other=root.state.other,
             reason=root.state.reason,
