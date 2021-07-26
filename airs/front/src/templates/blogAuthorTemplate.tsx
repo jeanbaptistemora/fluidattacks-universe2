@@ -10,7 +10,7 @@ import { PageArticle } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
 import { capitalizeDashedString, capitalizeObject } from "../utils/utilities";
 
-const blogAuthorIndex: React.FC<IQueryData> = ({
+const blogAuthorTemplate: React.FC<IQueryData> = ({
   pageContext,
 }: IQueryData): JSX.Element => {
   const {
@@ -61,4 +61,4 @@ const blogAuthorIndex: React.FC<IQueryData> = ({
 };
 
 // eslint-disable-next-line import/no-default-export
-export default blogAuthorIndex;
+export default blogAuthorTemplate;

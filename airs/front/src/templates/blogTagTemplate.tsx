@@ -10,7 +10,7 @@ import { PageArticle } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
 import { capitalizeObject } from "../utils/utilities";
 
-const blogTagIndex: React.FC<IQueryData> = ({
+const blogTagTemplate: React.FC<IQueryData> = ({
   pageContext,
 }: IQueryData): JSX.Element => {
   const {
@@ -59,4 +59,4 @@ const blogTagIndex: React.FC<IQueryData> = ({
 };
 
 // eslint-disable-next-line import/no-default-export
-export default blogTagIndex;
+export default blogTagTemplate;

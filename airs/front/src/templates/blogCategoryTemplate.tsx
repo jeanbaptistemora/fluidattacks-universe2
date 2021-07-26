@@ -10,7 +10,7 @@ import { PageArticle } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
-const blogCategoryIndex: React.FC<IQueryData> = ({
+const blogCategoryTemplate: React.FC<IQueryData> = ({
   pageContext,
 }: IQueryData): JSX.Element => {
   const {
@@ -62,4 +62,4 @@ const blogCategoryIndex: React.FC<IQueryData> = ({
 };
 
 // eslint-disable-next-line import/no-default-export
-export default blogCategoryIndex;
+export default blogCategoryTemplate;
