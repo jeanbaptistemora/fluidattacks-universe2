@@ -782,7 +782,9 @@ async def mask_finding(context: Any, finding_id: str) -> bool:
     return all(await collect(mask_finding_coroutines))
 
 
-async def mask_finding_new(context: Any, finding_id: str) -> bool:
+async def mask_finding_new(  # pylint: disable=too-many-locals
+    context: Any, finding_id: str
+) -> bool:
     finding_loader = context.finding_new
     finding: Finding = await finding_loader.load(finding_id)
     mask_finding_coroutines = []
@@ -802,6 +804,25 @@ async def mask_finding_new(context: Any, finding_id: str) -> bool:
             group_name=finding.group_name,
             finding_id=finding.id,
             metadata=metadata,
+        )
+    )
+    finding_historic_verification_loader = (
+        context.finding_historic_verification_new
+    )
+    finding_historic_verification: Tuple[
+        FindingVerification, ...
+    ] = await finding_historic_verification_loader.load(finding_id)
+    new_historic_verification = [
+        verification._replace(
+            status=FindingVerificationStatus.MASKED, modified_by=masked_msg
+        )
+        for verification in finding_historic_verification
+    ]
+    mask_new_finding_coroutines.append(
+        findings_model.update_historic_verification(
+            group_name=finding.group_name,
+            finding_id=finding.id,
+            historic_verification=new_historic_verification,
         )
     )
     list_evidences_files = await findings_dal.search_evidence(

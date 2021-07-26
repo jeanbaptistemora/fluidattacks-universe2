@@ -29,5 +29,6 @@ class FindingStatus(Enum):
 
 
 class FindingVerificationStatus(Enum):
+    MASKED: str = "MASKED"
     REQUESTED: str = "REQUESTED"
     VERIFIED: str = "VERIFIED"
