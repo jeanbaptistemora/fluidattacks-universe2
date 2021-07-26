@@ -1,6 +1,9 @@
 from singer_io.singer2.json import (
     JsonObj,
 )
+from singer_io.singer2.json_schema import (
+    JsonSchema,
+)
 from singer_io.singer2.time import (
     DateTime,
 )
@@ -14,7 +17,7 @@ from typing import (
 
 class SingerSchema(NamedTuple):
     stream: str
-    schema: JsonObj  # should be JsonSchema
+    schema: JsonSchema
     key_properties: FrozenSet[str]
     bookmark_properties: Optional[FrozenSet[str]] = None
 
