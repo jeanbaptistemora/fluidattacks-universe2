@@ -18,13 +18,13 @@ const REQUEST_VERIFICATION_VULNERABILITIES: DocumentNode = gql`
 `;
 
 const VERIFY_VULNERABILITIES: DocumentNode = gql`
-  mutation VerifyRequestVulnerabilities(
+  mutation VerifyVulnerabilitiesRequest(
     $findingId: String!
     $justification: String!
     $openVulns: [String]!
     $closedVulns: [String]!
   ) {
-    verifyRequestVulnerabilities(
+    verifyVulnerabilitiesRequest(
       findingId: $findingId
       justification: $justification
       openVulnerabilities: $openVulns

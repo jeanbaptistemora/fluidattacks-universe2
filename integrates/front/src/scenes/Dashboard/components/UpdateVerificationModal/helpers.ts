@@ -57,7 +57,7 @@ const handleVerifyRequest = (
   data: IVerifyRequestVulnResult,
   numberOfVulneabilities: number
 ): void => {
-  if (data.verifyRequestVulnerabilities.success) {
+  if (data.verifyVulnerabilitiesRequest.success) {
     msgSuccess(
       translate.t(
         `groupAlerts.verifiedSuccess${

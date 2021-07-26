@@ -19,13 +19,13 @@ async def get_result(
     closed_vulnerabilities: List[str],
 ) -> Dict[str, Any]:
     query: str = """
-        mutation VerifyRequestVulnerabilities(
+        mutation VerifyVulnerabilitiesRequest(
             $findingId: String!
             $justification: String!
             $openVulnerabilities: [String]!
             $closedVulnerabilities: [String]!
         ) {
-            verifyRequestVulnerabilities(
+            verifyVulnerabilitiesRequest(
                 findingId: $findingId
                 justification: $justification
                 openVulnerabilities: $openVulnerabilities

@@ -18,11 +18,11 @@ async def get_result(
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
-            verifyRequestVuln(
+            verifyVulnerabilitiesRequest(
                 findingId: "{finding}",
                 justification: "Vuln verified",
-                openVulns: ["{vulnerability}"],
-                closedVulns: []
+                openVulnerabilities: ["{vulnerability}"],
+                closedVulnerabilities: []
             ) {{
                 success
             }}

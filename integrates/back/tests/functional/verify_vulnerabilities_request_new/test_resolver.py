@@ -9,7 +9,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("verify_request_vuln_new")
+@pytest.mark.resolver_test_group("verify_vulnerabilities_request_new")
 @pytest.mark.parametrize(
     ("email", "vuln_id"),
     (
@@ -18,7 +18,7 @@ from typing import (
         ("closer@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
     ),
 )
-async def test_request_verification_vuln(
+async def test_request_vulnerabilities_verification(
     populate: bool, email: str, vuln_id: str
 ) -> None:
     assert populate
@@ -27,4 +27,4 @@ async def test_request_verification_vuln(
         user=email, finding=finding_id, vulnerability=vuln_id
     )
     assert "errors" not in result
-    assert result["data"]["verifyRequestVuln"]["success"]
+    assert result["data"]["verifyVulnerabilitiesRequest"]["success"]

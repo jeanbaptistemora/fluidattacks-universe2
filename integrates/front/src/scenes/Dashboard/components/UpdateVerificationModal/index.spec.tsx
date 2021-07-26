@@ -197,7 +197,7 @@ describe("update verification component", (): void => {
             openVulns: [],
           },
         },
-        result: { data: { verifyRequestVulnerabilities: { success: true } } },
+        result: { data: { verifyVulnerabilitiesRequest: { success: true } } },
       },
       {
         request: {

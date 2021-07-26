@@ -695,9 +695,9 @@ type Mutation {
     openVulns: [String]!
     closedVulns: [String]!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2021/12/20. Use `verifyRequestVulnerabilities` instead.""")
+    after 2021/12/20. Use `verifyVulnerabilitiesRequest` instead.""")
 
-  verifyRequestVulnerabilities(
+  verifyVulnerabilitiesRequest(
     findingId: String!
     justification: String!
     openVulnerabilities: [String]!

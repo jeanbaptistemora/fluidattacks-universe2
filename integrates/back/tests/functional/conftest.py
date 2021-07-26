@@ -89,8 +89,8 @@ TEST_GROUPS: Set[str] = {
     "update_vuln_commit",
     "upload_file",
     "upload_file_new",
-    "verify_request_vuln",
-    "verify_request_vuln_new",
+    "verify_vulnerabilities_request",
+    "verify_vulnerabilities_request_new",
     "vulnerability",
     "vulnerability_new",
 }

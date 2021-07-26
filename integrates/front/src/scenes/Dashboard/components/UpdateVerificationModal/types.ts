@@ -5,7 +5,7 @@ interface IRequestVerificationVulnResult {
 }
 
 interface IVerifyRequestVulnResult {
-  verifyRequestVulnerabilities: {
+  verifyVulnerabilitiesRequest: {
     success: boolean;
   };
 }

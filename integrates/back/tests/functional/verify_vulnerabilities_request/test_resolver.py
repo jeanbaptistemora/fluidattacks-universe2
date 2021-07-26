@@ -10,7 +10,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("verify_request_vuln")
+@pytest.mark.resolver_test_group("verify_vulnerabilities_request")
 @pytest.mark.parametrize(
     ("email", "vuln_id"),
     (
@@ -19,7 +19,7 @@ from typing import (
         ("closer@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
     ),
 )
-async def test_verify_vulnerabilities_open(
+async def test_vulnerabilities_verify_open(
     populate: bool, email: str, vuln_id: str
 ) -> None:
     assert populate
@@ -31,16 +31,16 @@ async def test_verify_vulnerabilities_open(
         closed_vulnerabilities=[],
     )
     assert "errors" not in result
-    assert result["data"]["verifyRequestVulnerabilities"]["success"]
+    assert result["data"]["verifyVulnerabilitiesRequest"]["success"]
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("verify_request_vuln")
+@pytest.mark.resolver_test_group("verify_vulnerabilities_request")
 @pytest.mark.parametrize(
     ("email", "closed_vulnerability"),
     (("analyst@gmail.com", "fa4f847d-f76e-4a70-8942-0ddd183bf1b9"),),
 )
-async def test_verify_vulnerabilities_closed(
+async def test_vulnerabilities_verify_closed(
     populate: bool,
     email: str,
     closed_vulnerability: str,
@@ -61,7 +61,7 @@ async def test_verify_vulnerabilities_closed(
         closed_vulnerabilities=[closed_vulnerability],
     )
     assert "errors" not in result
-    assert result["data"]["verifyRequestVulnerabilities"]["success"]
+    assert result["data"]["verifyVulnerabilitiesRequest"]["success"]
 
     new_vulnerability_result: Dict[str, Any] = await get_vulnerability(
         user=email, vulnerability_id=closed_vulnerability

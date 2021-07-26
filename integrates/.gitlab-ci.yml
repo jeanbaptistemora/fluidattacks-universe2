@@ -420,10 +420,10 @@ integrates.back.test.functional.upload_file:
 integrates.back.test.functional.upload_file_new:
   <<: *integrates_back_test_functional_migration
 
-integrates.back.test.functional.verify_request_vuln:
+integrates.back.test.functional.verify_vulnerabilities_request:
   <<: *integrates_back_test_functional
 
-integrates.back.test.functional.verify_request_vuln_new:
+integrates.back.test.functional.verify_vulnerabilities_request_new:
   <<: *integrates_back_test_functional_migration
 
 integrates.back.test.functional.vulnerability:
