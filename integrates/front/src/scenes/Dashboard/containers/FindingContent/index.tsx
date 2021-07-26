@@ -40,6 +40,7 @@ import {
   SUBMIT_DRAFT_MUTATION,
 } from "scenes/Dashboard/containers/FindingContent/queries";
 import type { IHeaderQueryResult } from "scenes/Dashboard/containers/FindingContent/types";
+import { MachineView } from "scenes/Dashboard/containers/MachineView/index";
 import { RecordsView } from "scenes/Dashboard/containers/RecordsView/index";
 import { SeverityView } from "scenes/Dashboard/containers/SeverityView/index";
 import { TrackingView } from "scenes/Dashboard/containers/TrackingView/index";
@@ -294,6 +295,15 @@ const findingContent: React.FC = (): JSX.Element => {
                     title={translate.t("searchFindings.tabRecords.tabTitle")}
                     tooltip={translate.t("searchFindings.tabRecords.tooltip")}
                   />
+                  <Can do={"api_resolvers_finding_machine_jobs_resolve"}>
+                    <ContentTab
+                      icon={"icon pe-7s-rocket"}
+                      id={"machineItem"}
+                      link={`${url}/machine`}
+                      title={translate.t("searchFindings.tabMachine.tabTitle")}
+                      tooltip={translate.t("searchFindings.tabMachine.tooltip")}
+                    />
+                  </Can>
                   <Have I={"has_squad"}>
                     <Can do={"api_resolvers_finding_consulting_resolve"}>
                       <ContentTab
@@ -345,6 +355,11 @@ const findingContent: React.FC = (): JSX.Element => {
                     component={EvidenceView}
                     exact={true}
                     path={`${path}/evidence`}
+                  />
+                  <Route
+                    component={MachineView}
+                    exact={true}
+                    path={`${path}/machine`}
                   />
                   <Route
                     component={TrackingView}
