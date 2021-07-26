@@ -5,6 +5,7 @@ interface IFindingMachineJob {
   id: string;
   name: string;
   queue: string;
+  rootNickname: string;
   startedAt: string | null;
   stoppedAt: string | null;
   status: string;
@@ -17,7 +18,7 @@ interface IFindingMachineJobs {
 }
 
 interface ITableRow {
-  name: string;
+  rootNickname: string;
   status: string;
 }
 

@@ -46,15 +46,15 @@ const MachineView: React.FC = (): JSX.Element => {
     },
     {
       align: "center",
-      dataField: "name",
-      header: translate.t("searchFindings.tabMachine.headerName"),
+      dataField: "rootNickname",
+      header: translate.t("searchFindings.tabMachine.headerRoot"),
       width: "30%",
     },
   ];
 
   const tableDataset: ITableRow[] = data.finding.machineJobs.map(
     (job: IFindingMachineJob): ITableRow => ({
-      name: job.name,
+      rootNickname: job.rootNickname,
       status: job.status,
     })
   );

@@ -11,6 +11,7 @@ const GET_FINDING_MACHINE_JOBS: DocumentNode = gql`
         id
         name
         queue
+        rootNickname
         startedAt
         stoppedAt
         status

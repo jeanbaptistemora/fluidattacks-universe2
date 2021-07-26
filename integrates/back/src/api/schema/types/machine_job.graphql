@@ -6,6 +6,7 @@ type MachineJob {
   id: String!
   name: String!
   queue: String!
+  rootNickname: String!
   startedAt: String
   status: String!
   stoppedAt: String
