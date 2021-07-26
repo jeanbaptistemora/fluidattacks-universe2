@@ -98,6 +98,7 @@ observes.env.service-timedoctor-tokens.runtime.python
 observes.env.singer-io.development
 observes.env.singer-io.development.python
 observes.env.singer-io.runtime
+observes.env.singer-io.runtime.python
 observes.env.streamer-dynamodb.runtime
 observes.env.streamer-dynamodb.runtime.python
 observes.env.streamer-zoho-crm.development

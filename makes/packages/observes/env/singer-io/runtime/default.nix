@@ -1,7 +1,9 @@
 { makeTemplate
+, packages
 , path
 , ...
 }:
+with packages.observes.env;
 let
   self = path "/observes/common/singer_io";
 in
@@ -11,8 +13,14 @@ makeTemplate {
     envMypyPaths = [
       self
     ];
+    envPaths = [
+      singer-io.runtime.python
+    ];
     envPythonPaths = [
       self
+    ];
+    envPython38Paths = [
+      singer-io.runtime.python
     ];
   };
 }
