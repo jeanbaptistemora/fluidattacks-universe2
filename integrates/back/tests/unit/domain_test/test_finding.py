@@ -413,12 +413,10 @@ async def test_get_oldest_no_treatment_findings() -> None:
     group_findings_loader = context.group_findings
     findings = await group_findings_loader.load(group_name)
     oldest_findings = await get_oldest_no_treatment_findings(context, findings)
-    expected_output = [
-        {
-            "finding_name": "037. Technical information leak",
-            "finding_age": 256,
-        }
-    ]
+    expected_output = {
+        "oldest_name": "037. Technical information leak",
+        "oldest_age": 256,
+    }
     assert expected_output == oldest_findings
 
 

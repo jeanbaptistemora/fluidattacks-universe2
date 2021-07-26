@@ -596,8 +596,10 @@ async def test_get_group_digest_stats() -> None:
         },
         "findings": [
             {
-                "finding_name": "038. Business information leak",
-                "finding_age": 620,
+                "oldest_name": "038. Business information leak",
+                "oldest_age": 620,
+                "severest_name": "014. Insecure functionality",
+                "severity": "6.3",
             }
         ],
         "vulns_len": 36,

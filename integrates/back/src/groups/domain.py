@@ -55,6 +55,9 @@ from events import (
 from findings import (
     domain as findings_domain,
 )
+from findings.domain.core import (
+    get_max_open_severity,
+)
 from group_access import (
     domain as group_access_domain,
 )
@@ -1287,11 +1290,20 @@ async def get_group_digest_stats(
 
     content["vulns_len"] = len(vulns)
     last_day = datetime_utils.get_now_minus_delta(hours=24)
-    content[
-        "findings"
-    ] = await findings_domain.get_oldest_no_treatment_findings(
+    oldest_finding = await findings_domain.get_oldest_no_treatment_findings(
         context, findings
     )
+    if oldest_finding:
+        max_severity, severest_finding = await get_max_open_severity(
+            context, findings
+        )
+        content["findings"] = [
+            {
+                **oldest_finding,
+                "severest_name": severest_finding.get("finding", ""),
+                "severity": str(max_severity),
+            }
+        ]
     treatments = await findings_domain.get_total_treatment_date(
         context, findings, last_day
     )
@@ -1394,7 +1406,7 @@ def process_user_digest_stats(
         ]
         findings.extend(findings_extended)
     total["findings"] = sorted(
-        findings, key=itemgetter("finding_age"), reverse=True
+        findings, key=itemgetter("oldest_age"), reverse=True
     )[:10]
 
     return total

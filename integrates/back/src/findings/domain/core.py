@@ -985,7 +985,7 @@ async def total_vulnerabilities(
     context: Any, finding_id: str
 ) -> Dict[str, int]:
     finding = {"openVulnerabilities": 0, "closedVulnerabilities": 0}
-    finding_vulns_loader = context.finding_vulns
+    finding_vulns_loader = context.finding_vulns_nzr
     if await validate_finding(finding_id):
         vulnerabilities = await finding_vulns_loader.load(finding_id)
         last_approved_status = await collect(
@@ -1330,7 +1330,7 @@ async def get_total_treatment_date(
 async def get_oldest_no_treatment_findings(
     context: Any,
     findings: List[Dict[str, FindingType]],
-) -> list:
+) -> dict:
     """Get the finding with oldest "new treatment" vuln"""
     finding_vulns_loader = context.finding_vulns_nzr
     vulns = await finding_vulns_loader.load_many_chained(
@@ -1358,14 +1358,12 @@ async def get_oldest_no_treatment_findings(
             if finding["finding_id"] == oldest_new_vuln["finding_id"]
         )
 
-        return [
-            {
-                "finding_name": oldest_finding["title"],
-                "finding_age": (
-                    datetime_utils.get_now()
-                    - oldest_new_vuln["new_treatment_date"]
-                ).days,
-            }
-        ]
+        return {
+            "oldest_name": oldest_finding["title"],
+            "oldest_age": (
+                datetime_utils.get_now()
+                - oldest_new_vuln["new_treatment_date"]
+            ).days,
+        }
 
-    return list()
+    return dict()
