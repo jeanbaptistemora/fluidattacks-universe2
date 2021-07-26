@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,11 +7,12 @@ import _ from "lodash";
 import React from "react";
 import { useParams } from "react-router-dom";
 
-import { GET_FINDING_MACHINE_JOBS } from "./queries";
+import { GET_FINDING_MACHINE_JOBS, SUBMIT_MACHINE_JOB } from "./queries";
 import type {
   IFindingMachineJob,
   IFindingMachineJobs,
   IGroupRoot,
+  ISubmitMachineJobResult,
   ITableRow,
 } from "./types";
 
@@ -21,7 +22,7 @@ import type { IHeaderConfig } from "components/DataTableNext/types";
 import { DropdownButton, MenuItem } from "components/DropdownButton";
 import { ButtonToolbarCenter } from "styles/styledComponents";
 import { Logger } from "utils/logger";
-import { msgError } from "utils/notifications";
+import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const formatDuration = (value: number): string => {
@@ -52,12 +53,35 @@ const MachineView: React.FC = (): JSX.Element => {
       variables: { findingId, groupName },
     }
   );
+  const handleOnSuccess = (result: ISubmitMachineJobResult): void => {
+    if (!_.isUndefined(result)) {
+      if (result.submitMachineJob.success) {
+        msgSuccess(
+          translate.t("searchFindings.tabMachine.submitJobSuccess"),
+          translate.t("searchFindings.tabMachine.success")
+        );
+        void refetch();
+      }
+    }
+  };
+  const handleOnError: ({ graphQLErrors }: ApolloError) => void = ({
+    graphQLErrors,
+  }: ApolloError): void => {
+    graphQLErrors.forEach((error: GraphQLError): void => {
+      Logger.warning("An error occurred submitting job", error);
+      msgError(translate.t("groupAlerts.errorTextsad"));
+    });
+  };
+  const [submitMachineJob] = useMutation(SUBMIT_MACHINE_JOB, {
+    onCompleted: handleOnSuccess,
+    onError: handleOnError,
+  });
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
   }
 
-  const rootNickNames: string[] = data.group.roots.map(
+  const rootNicknames: string[] = data.group.roots.map(
     (root: IGroupRoot): string => root.nickname
   );
 
@@ -102,15 +126,17 @@ const MachineView: React.FC = (): JSX.Element => {
         job.startedAt === null || job.stoppedAt === null
           ? -1
           : parseFloat(job.stoppedAt) - parseFloat(job.startedAt),
-      priority: job.queue.endsWith("_soon") ? "high" : "normal",
+      priority: job.queue.endsWith("_soon")
+        ? translate.t("searchFindings.tabMachine.priorityHigh")
+        : translate.t("searchFindings.tabMachine.priorityNormal"),
       rootNickname: job.rootNickname,
       startedAt: job.startedAt === null ? -1 : parseFloat(job.startedAt),
       status: job.status,
     })
   );
 
-  const submitJobOnClick = (): void => {
-    void refetch();
+  const submitJobOnClick = (rootNickname: string): void => {
+    void submitMachineJob({ variables: { findingId, rootNickname } });
   };
 
   return (
@@ -125,7 +151,7 @@ const MachineView: React.FC = (): JSX.Element => {
             </div>
           }
           id={"submitJob"}
-          items={rootNickNames.map(
+          items={rootNicknames.map(
             (nickname: string): JSX.Element => (
               <MenuItem
                 eventKey={nickname}

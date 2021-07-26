@@ -28,4 +28,12 @@ const GET_FINDING_MACHINE_JOBS: DocumentNode = gql`
   }
 `;
 
-export { GET_FINDING_MACHINE_JOBS };
+const SUBMIT_MACHINE_JOB: DocumentNode = gql`
+  mutation SubmitMachineJob($findingId: String!, $rootNickname: String!) {
+    submitMachineJob(findingId: $findingId, rootNickname: $rootNickname) {
+      success
+    }
+  }
+`;
+
+export { GET_FINDING_MACHINE_JOBS, SUBMIT_MACHINE_JOB };

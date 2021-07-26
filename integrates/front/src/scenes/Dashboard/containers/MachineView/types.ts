@@ -24,6 +24,12 @@ interface IFindingMachineJobs {
   };
 }
 
+interface ISubmitMachineJobResult {
+  submitMachineJob: {
+    success: boolean;
+  };
+}
+
 interface ITableRow {
   duration: number;
   priority: string;
@@ -32,4 +38,10 @@ interface ITableRow {
   status: string;
 }
 
-export { IFindingMachineJob, IFindingMachineJobs, IGroupRoot, ITableRow };
+export {
+  IFindingMachineJob,
+  IFindingMachineJobs,
+  IGroupRoot,
+  ISubmitMachineJobResult,
+  ITableRow,
+};
