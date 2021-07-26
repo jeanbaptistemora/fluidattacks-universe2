@@ -61,13 +61,16 @@ class JsonFactory:
             return JsonValue(checked_list)
         raise InvalidType(f"{type(raw)} expected unfold(JsonValue)")
 
-    def build_json(self, raw: Any) -> JsonObj:
-        if not isinstance(raw, dict):
-            raise InvalidType("build_json expects a dict instance")
+    def json_from_dict(self, raw: Dict[str, Any]) -> JsonObj:
         result = self.build_json_val(raw).unfold()
         if isinstance(result, dict):
             return result
         raise UnexpectedResult("build_json not returned a JsonObj")
+
+    def build_json(self, raw: Any) -> JsonObj:
+        if not isinstance(raw, dict):
+            raise InvalidType("build_json expects a dict instance")
+        return self.json_from_dict(raw)
 
     def loads(self, raw_json: str) -> JsonObj:
         raw = json.loads(raw_json)
