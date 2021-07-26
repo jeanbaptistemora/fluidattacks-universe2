@@ -506,6 +506,11 @@ type Mutation {
 
   submitDraft(findingId: String!): SimplePayload!
 
+  submitMachineJob(
+    findingId: String!
+    rootNickname: String!
+  ): SimplePayload!
+
   submitOrganizationFindingPolicy(
     "ID of the policy"
     findingPolicyId: ID!

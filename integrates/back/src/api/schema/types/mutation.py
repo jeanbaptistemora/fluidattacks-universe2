@@ -64,6 +64,7 @@ from api.mutations import (
     solve_event,
     submit_draft,
     submit_draft_new,
+    submit_machine_job,
     submit_organization_finding_policy,
     subscribe_to_entity_report,
     unsubscribe_from_group,
@@ -315,6 +316,7 @@ else:
         request_zero_risk_vulnerabilities.mutate,
     )
     MUTATION.set_field("submitDraft", submit_draft.mutate)
+    MUTATION.set_field("submitMachineJob", submit_machine_job.mutate)
     MUTATION.set_field("updateDescription", update_finding_description.mutate)
     MUTATION.set_field("updateEvidence", update_evidence.mutate)
     MUTATION.set_field(
