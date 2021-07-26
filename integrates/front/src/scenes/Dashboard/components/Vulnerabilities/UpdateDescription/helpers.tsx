@@ -6,7 +6,7 @@ import React from "react";
 
 import type {
   IRemoveTagResultAttr,
-  IRequestZeroRiskVulnResultAttr,
+  IRequestVulnZeroRiskResultAttr,
   IUpdateVulnDescriptionResultAttr,
 } from "./types";
 import { groupLastHistoricTreatment } from "./utils";
@@ -188,9 +188,9 @@ const handleUpdateVulnTreatmentError = (updateError: unknown): void => {
 const requestZeroRiskHelper = (
   handleClearSelected: () => void,
   handleCloseModal: () => void,
-  requestZeroRiskVulnResult: IRequestZeroRiskVulnResultAttr
+  requestZeroRiskVulnResult: IRequestVulnZeroRiskResultAttr
 ): void => {
-  if (requestZeroRiskVulnResult.requestZeroRiskVulnerabilities.success) {
+  if (requestZeroRiskVulnResult.requestVulnerabilitiesZeroRisk.success) {
     msgSuccess(
       translate.t("groupAlerts.requestedZeroRiskSuccess"),
       translate.t("groupAlerts.updatedTitle")

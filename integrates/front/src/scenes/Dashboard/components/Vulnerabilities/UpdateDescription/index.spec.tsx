@@ -9,7 +9,10 @@ import { act } from "react-dom/test-utils";
 import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
-import { REQUEST_ZERO_RISK_VULN, UPDATE_DESCRIPTION_MUTATION } from "./queries";
+import {
+  REQUEST_VULNS_ZERO_RISK,
+  UPDATE_DESCRIPTION_MUTATION,
+} from "./queries";
 import type { IUpdateVulnDescriptionResultAttr } from "./types";
 
 import type { IVulnDataTypeAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
@@ -128,7 +131,7 @@ describe("Update Description component", (): void => {
   };
   const mockedPermissions: PureAbility<string> = new PureAbility([
     { action: "api_mutations_remove_vulnerability_tags_mutate" },
-    { action: "api_mutations_request_zero_risk_vulnerabilities_mutate" },
+    { action: "api_mutations_request_vulnerabilities_zero_risk_mutate" },
     { action: "api_mutations_update_vulnerability_treatment_mutate" },
     { action: "api_mutations_update_vulnerabilities_treatment_mutate" },
   ]);
@@ -236,7 +239,7 @@ describe("Update Description component", (): void => {
     const mocksMutation: MockedResponse[] = [
       {
         request: {
-          query: REQUEST_ZERO_RISK_VULN,
+          query: REQUEST_VULNS_ZERO_RISK,
           variables: {
             findingId: "422286126",
             justification:
@@ -244,7 +247,7 @@ describe("Update Description component", (): void => {
             vulnerabilities: ["ab25380d-dfe1-4cde-aefd-acca6990d6aa"],
           },
         },
-        result: { data: { requestZeroRiskVulnerabilities: { success: true } } },
+        result: { data: { requestVulnerabilitiesZeroRisk: { success: true } } },
       },
       mocksVulns,
       mocksFindingHeader,
@@ -318,7 +321,7 @@ describe("Update Description component", (): void => {
     const mocksMutation: MockedResponse[] = [
       {
         request: {
-          query: REQUEST_ZERO_RISK_VULN,
+          query: REQUEST_VULNS_ZERO_RISK,
           variables: {
             findingId: "422286126",
             justification:

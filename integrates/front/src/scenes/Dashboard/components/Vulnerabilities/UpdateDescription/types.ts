@@ -46,8 +46,8 @@ interface IGroupUsersAttr {
   };
 }
 
-interface IRequestZeroRiskVulnResultAttr {
-  requestZeroRiskVulnerabilities: {
+interface IRequestVulnZeroRiskResultAttr {
+  requestVulnerabilitiesZeroRisk: {
     success: boolean;
   };
 }
@@ -69,7 +69,7 @@ export {
   IRemoveTagAttr,
   IRemoveTagResultAttr,
   IGroupUsersAttr,
-  IRequestZeroRiskVulnResultAttr,
+  IRequestVulnZeroRiskResultAttr,
   IStakeholderAttr,
   IUpdateDescriptionProps,
   IUpdateTreatmentModalProps,

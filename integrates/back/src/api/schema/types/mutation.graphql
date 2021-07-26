@@ -483,18 +483,18 @@ type Mutation {
     vulnerabilities: [String]!
   ): SimplePayload!
 
+  requestVulnerabilitiesZeroRisk(
+    findingId: String!
+    justification: String!
+    vulnerabilities: [String]!
+  ): SimplePayload!
+
   requestZeroRiskVuln(
     findingId: String!
     justification: String!
     vulnerabilities: [String]!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2021/12/31. Use `requestZeroRiskVulnerabilities` instead.""")
-
-  requestZeroRiskVulnerabilities(
-    findingId: String!
-    justification: String!
-    vulnerabilities: [String]!
-  ): SimplePayload!
+    after 2021/12/31. Use `requestVulnerabilitiesZeroRisk` instead.""")
 
   signIn(authToken: String!, provider: AuthProvider!): SignInPayload!
 

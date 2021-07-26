@@ -70,7 +70,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     "api_mutations_remove_vulnerability_tags_mutate"
   );
   const canRequestZeroRiskVuln: boolean = permissions.can(
-    "api_mutations_request_zero_risk_vulnerabilities_mutate"
+    "api_mutations_request_vulnerabilities_zero_risk_mutate"
   );
   const canUpdateVulnsTreatment: boolean = permissions.can(
     "api_mutations_update_vulnerabilities_treatment_mutate"

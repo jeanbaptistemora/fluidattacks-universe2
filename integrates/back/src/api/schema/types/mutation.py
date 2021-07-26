@@ -58,8 +58,8 @@ from api.mutations import (
     remove_vulnerability_tags,
     request_verification_vulnerabilities,
     request_verification_vulnerabilities_new,
-    request_zero_risk_vuln_new,
-    request_zero_risk_vulnerabilities,
+    request_vulnerabilities_zero_risk,
+    request_vulnerabilities_zero_risk_new,
     sign_in,
     solve_event,
     submit_draft,
@@ -262,10 +262,11 @@ if FI_API_STATUS == "migration":
         request_verification_vulnerabilities_new.mutate,
     )
     MUTATION.set_field(
-        "requestZeroRiskVuln", request_zero_risk_vuln_new.mutate
+        "requestZeroRiskVuln", request_vulnerabilities_zero_risk_new.mutate
     )
     MUTATION.set_field(
-        "requestZeroRiskVulnerabilities", request_zero_risk_vuln_new.mutate
+        "requestVulnerabilitiesZeroRisk",
+        request_vulnerabilities_zero_risk_new.mutate,
     )
     MUTATION.set_field("submitDraft", submit_draft_new.mutate)
     MUTATION.set_field(
@@ -309,11 +310,11 @@ else:
         request_verification_vulnerabilities.mutate,
     )
     MUTATION.set_field(
-        "requestZeroRiskVuln", request_zero_risk_vulnerabilities.mutate
+        "requestZeroRiskVuln", request_vulnerabilities_zero_risk.mutate
     )
     MUTATION.set_field(
-        "requestZeroRiskVulnerabilities",
-        request_zero_risk_vulnerabilities.mutate,
+        "requestVulnerabilitiesZeroRisk",
+        request_vulnerabilities_zero_risk.mutate,
     )
     MUTATION.set_field("submitDraft", submit_draft.mutate)
     MUTATION.set_field("submitMachineJob", submit_machine_job.mutate)

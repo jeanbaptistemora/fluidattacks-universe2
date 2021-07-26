@@ -40,14 +40,14 @@ import type {
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import {
   REMOVE_TAGS_MUTATION,
-  REQUEST_ZERO_RISK_VULN,
+  REQUEST_VULNS_ZERO_RISK,
   UPDATE_DESCRIPTION_MUTATION,
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/queries";
 import type {
   IGroupUsersAttr,
   IRemoveTagAttr,
   IRemoveTagResultAttr,
-  IRequestZeroRiskVulnResultAttr,
+  IRequestVulnZeroRiskResultAttr,
   IStakeholderAttr,
   IUpdateTreatmentModalProps,
   IUpdateVulnDescriptionResultAttr,
@@ -97,7 +97,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     "api_resolvers_finding_historic_state_resolve"
   );
   const canRequestZeroRiskVuln: boolean = permissions.can(
-    "api_mutations_request_zero_risk_vulnerabilities_mutate"
+    "api_mutations_request_vulnerabilities_zero_risk_mutate"
   );
   const canUpdateVulnsTreatment: boolean = permissions.can(
     "api_mutations_update_vulnerabilities_treatment_mutate"
@@ -245,10 +245,10 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   }
 
   const [requestZeroRisk, { loading: requestingZeroRisk }] = useMutation(
-    REQUEST_ZERO_RISK_VULN,
+    REQUEST_VULNS_ZERO_RISK,
     {
       onCompleted: (
-        requestZeroRiskVulnResult: IRequestZeroRiskVulnResultAttr
+        requestZeroRiskVulnResult: IRequestVulnZeroRiskResultAttr
       ): void => {
         requestZeroRiskHelper(
           handleClearSelected,

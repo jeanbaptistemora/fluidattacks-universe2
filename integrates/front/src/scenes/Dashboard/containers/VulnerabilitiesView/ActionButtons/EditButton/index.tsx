@@ -32,7 +32,7 @@ const EditButton: React.FC<IEditButtonProps> = ({
     "api_mutations_upload_file_mutate"
   );
   const canRequestZeroRiskVuln: boolean = permissions.can(
-    "api_mutations_request_zero_risk_vulnerabilities_mutate"
+    "api_mutations_request_vulnerabilities_zero_risk_mutate"
   );
   const canUpdateVulnsTreatment: boolean = permissions.can(
     "api_mutations_update_vulnerabilities_treatment_mutate"

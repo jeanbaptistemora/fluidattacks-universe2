@@ -15,7 +15,7 @@ describe("VulnComponent", (): void => {
   const numberOfDaysOldThanAWeek: number = 12;
   const numberOfDays: number = 5;
   const mockedPermissions: PureAbility<string> = new PureAbility([
-    { action: "api_mutations_request_zero_risk_vulnerabilities_mutate" },
+    { action: "api_mutations_request_vulnerabilities_zero_risk_mutate" },
     { action: "api_mutations_update_vulnerability_treatment_mutate" },
     { action: "api_mutations_update_vulnerabilities_treatment_mutate" },
   ]);
