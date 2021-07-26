@@ -17,12 +17,12 @@ const castPrivileges: (scope: string) => Record<string, string> = (
     0.62: "searchFindings.tabSeverity.privilegesRequiredOptions.low.text",
     0.85: "searchFindings.tabSeverity.privilegesRequiredOptions.none.text",
   };
-  const privilegesOptions: Record<string, string> =
-    parseInt(scope, 10) === 1
-      ? privilegesRequiredScope
-      : privilegesRequiredNoScope;
 
-  return privilegesOptions;
+  if (parseInt(scope, 10) === 1) {
+    return privilegesRequiredScope;
+  }
+
+  return privilegesRequiredNoScope;
 };
 
 const attackComplexityBgColor: Record<string, string> = {

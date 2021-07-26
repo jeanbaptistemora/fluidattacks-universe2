@@ -130,136 +130,129 @@ async function getFindingNames(
   const yamlFile: string = await response.text();
   if (yamlFile) {
     const vulnsData = yaml.load(yamlFile) as Record<string, IVulnData>;
-    const suggestions: ISuggestion[] = Object.keys(vulnsData).map(
-      (key: string): ISuggestion => {
-        const cwe: string = key;
-        const attackVectorRaw = validateNotEmpty(
-          vulnsData[key].score.base.attack_vector
-        );
-        const attackVector =
-          attackVectorRaw in attackVectorOptions
-            ? attackVectorOptions[attackVectorRaw]
-            : "0";
-        const attackComplexityRaw = validateNotEmpty(
-          vulnsData[key].score.base.attack_complexity
-        );
-        const attackComplexity =
-          attackComplexityRaw in attackComplexityOptions
-            ? attackComplexityOptions[attackComplexityRaw]
-            : "0";
-        const availabilityRaw = validateNotEmpty(
-          vulnsData[key].score.base.availability
-        );
-        const availabilityImpact =
-          availabilityRaw in availabilityImpactOptions
-            ? availabilityImpactOptions[availabilityRaw]
-            : "0";
-        const confidentialityRaw = validateNotEmpty(
-          vulnsData[key].score.base.confidentiality
-        );
-        const confidentialityImpact =
-          confidentialityRaw in confidentialityImpactOptions
-            ? confidentialityImpactOptions[confidentialityRaw]
-            : "0";
-        const exploitabilityRaw = validateNotEmpty(
-          vulnsData[key].score.temporal.exploit_code_maturity
-        );
-        const exploitability =
-          exploitabilityRaw in exploitabilityOptions
-            ? exploitabilityOptions[exploitabilityRaw]
-            : "0";
-        const integrityRaw = validateNotEmpty(
-          vulnsData[key].score.base.integrity
-        );
-        const integrityImpact =
-          integrityRaw in integrityImpactOptions
-            ? integrityImpactOptions[integrityRaw]
-            : "0";
-        const scopeRaw = validateNotEmpty(vulnsData[key].score.base.scope);
-        const severityScope =
-          scopeRaw in severityScopeOptions
-            ? severityScopeOptions[scopeRaw]
-            : "0";
-        const privilegesRequiredRaw = validateNotEmpty(
-          vulnsData[key].score.base.privileges_required
-        );
-        const privilegesRequired =
-          privilegesRequiredRaw in privilegesRequiredScope
-            ? getPrivilegesRequired(severityScope, privilegesRequiredRaw)
-            : "0";
-        const remediationLevelRaw = validateNotEmpty(
-          vulnsData[key].score.temporal.remediation_level
-        );
-        const remediationLevel =
-          remediationLevelRaw in remediationLevelOptions
-            ? remediationLevelOptions[remediationLevelRaw]
-            : "0";
-        const reportConfidenceRaw = validateNotEmpty(
-          vulnsData[key].score.temporal.report_confidence
-        );
-        const reportConfidence =
-          reportConfidenceRaw in reportConfidenceOptions
-            ? reportConfidenceOptions[reportConfidenceRaw]
-            : "0";
-        const userInteractionRaw = validateNotEmpty(
-          vulnsData[key].score.base.user_interaction
-        );
-        const userInteraction =
-          userInteractionRaw in userInteractionOptions
-            ? userInteractionOptions[userInteractionRaw]
-            : "0";
 
-        if (!_.isNil(language) && language === "ES") {
-          return {
-            attackComplexity,
-            attackVector,
-            attackVectorDesc: validateNotEmpty(vulnsData[key].es.impact),
-            availabilityImpact,
-            confidentialityImpact,
-            cwe,
-            description: validateNotEmpty(vulnsData[key].es.description),
-            exploitability,
-            integrityImpact,
-            privilegesRequired,
-            recommendation: validateNotEmpty(vulnsData[key].es.recommendation),
-            remediationLevel,
-            reportConfidence,
-            requirements: validateNotEmpty(
-              vulnsData[key].requirements.toString()
-            ),
-            severityScope,
-            threat: validateNotEmpty(vulnsData[key].es.threat),
-            title: validateNotEmpty(vulnsData[key].es.title),
-            userInteraction,
-          };
-        }
+    return Object.keys(vulnsData).map((key: string): ISuggestion => {
+      const cwe: string = key;
+      const attackVectorRaw = validateNotEmpty(
+        vulnsData[key].score.base.attack_vector
+      );
+      const attackVector =
+        attackVectorRaw in attackVectorOptions
+          ? attackVectorOptions[attackVectorRaw]
+          : "0";
+      const attackComplexityRaw = validateNotEmpty(
+        vulnsData[key].score.base.attack_complexity
+      );
+      const attackComplexity =
+        attackComplexityRaw in attackComplexityOptions
+          ? attackComplexityOptions[attackComplexityRaw]
+          : "0";
+      const availabilityRaw = validateNotEmpty(
+        vulnsData[key].score.base.availability
+      );
+      const availabilityImpact =
+        availabilityRaw in availabilityImpactOptions
+          ? availabilityImpactOptions[availabilityRaw]
+          : "0";
+      const confidentialityRaw = validateNotEmpty(
+        vulnsData[key].score.base.confidentiality
+      );
+      const confidentialityImpact =
+        confidentialityRaw in confidentialityImpactOptions
+          ? confidentialityImpactOptions[confidentialityRaw]
+          : "0";
+      const exploitabilityRaw = validateNotEmpty(
+        vulnsData[key].score.temporal.exploit_code_maturity
+      );
+      const exploitability =
+        exploitabilityRaw in exploitabilityOptions
+          ? exploitabilityOptions[exploitabilityRaw]
+          : "0";
+      const integrityRaw = validateNotEmpty(
+        vulnsData[key].score.base.integrity
+      );
+      const integrityImpact =
+        integrityRaw in integrityImpactOptions
+          ? integrityImpactOptions[integrityRaw]
+          : "0";
+      const scopeRaw = validateNotEmpty(vulnsData[key].score.base.scope);
+      const severityScope =
+        scopeRaw in severityScopeOptions ? severityScopeOptions[scopeRaw] : "0";
+      const privilegesRequiredRaw = validateNotEmpty(
+        vulnsData[key].score.base.privileges_required
+      );
+      const privilegesRequired =
+        privilegesRequiredRaw in privilegesRequiredScope
+          ? getPrivilegesRequired(severityScope, privilegesRequiredRaw)
+          : "0";
+      const remediationLevelRaw = validateNotEmpty(
+        vulnsData[key].score.temporal.remediation_level
+      );
+      const remediationLevel =
+        remediationLevelRaw in remediationLevelOptions
+          ? remediationLevelOptions[remediationLevelRaw]
+          : "0";
+      const reportConfidenceRaw = validateNotEmpty(
+        vulnsData[key].score.temporal.report_confidence
+      );
+      const reportConfidence =
+        reportConfidenceRaw in reportConfidenceOptions
+          ? reportConfidenceOptions[reportConfidenceRaw]
+          : "0";
+      const userInteractionRaw = validateNotEmpty(
+        vulnsData[key].score.base.user_interaction
+      );
+      const userInteraction =
+        userInteractionRaw in userInteractionOptions
+          ? userInteractionOptions[userInteractionRaw]
+          : "0";
 
+      if (!_.isNil(language) && language === "ES") {
         return {
           attackComplexity,
           attackVector,
-          attackVectorDesc: validateNotEmpty(vulnsData[key].en.impact),
+          attackVectorDesc: validateNotEmpty(vulnsData[key].es.impact),
           availabilityImpact,
           confidentialityImpact,
           cwe,
-          description: validateNotEmpty(vulnsData[key].en.description),
+          description: validateNotEmpty(vulnsData[key].es.description),
           exploitability,
           integrityImpact,
           privilegesRequired,
-          recommendation: validateNotEmpty(vulnsData[key].en.recommendation),
+          recommendation: validateNotEmpty(vulnsData[key].es.recommendation),
           remediationLevel,
           reportConfidence,
           requirements: validateNotEmpty(
             vulnsData[key].requirements.toString()
           ),
           severityScope,
-          threat: validateNotEmpty(vulnsData[key].en.threat),
-          title: validateNotEmpty(vulnsData[key].en.title),
+          threat: validateNotEmpty(vulnsData[key].es.threat),
+          title: validateNotEmpty(vulnsData[key].es.title),
           userInteraction,
         };
       }
-    );
 
-    return suggestions;
+      return {
+        attackComplexity,
+        attackVector,
+        attackVectorDesc: validateNotEmpty(vulnsData[key].en.impact),
+        availabilityImpact,
+        confidentialityImpact,
+        cwe,
+        description: validateNotEmpty(vulnsData[key].en.description),
+        exploitability,
+        integrityImpact,
+        privilegesRequired,
+        recommendation: validateNotEmpty(vulnsData[key].en.recommendation),
+        remediationLevel,
+        reportConfidence,
+        requirements: validateNotEmpty(vulnsData[key].requirements.toString()),
+        severityScope,
+        threat: validateNotEmpty(vulnsData[key].en.threat),
+        title: validateNotEmpty(vulnsData[key].en.title),
+        userInteraction,
+      };
+    });
   }
 
   return [];
