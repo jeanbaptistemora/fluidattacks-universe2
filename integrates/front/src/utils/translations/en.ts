@@ -1537,6 +1537,8 @@ export const enTranslations: ResourceKey = {
       },
     },
     tabMachine: {
+      headerName: "Name",
+      headerStatus: "Status",
       tabTitle: "Machine",
       tooltip: "Information about your Machine plan",
     },
