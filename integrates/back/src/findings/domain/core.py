@@ -790,11 +790,22 @@ async def mask_finding_new(  # pylint: disable=too-many-locals
     mask_finding_coroutines = []
     mask_new_finding_coroutines = []
     masked_msg = "Masked"
+    new_evidences = finding.evidences._replace(
+        **{
+            evidence_name: evidence._replace(
+                description=masked_msg, url=masked_msg
+            )
+            for evidence_name in finding.evidences._fields
+            for evidence in [getattr(finding.evidences, evidence_name)]
+            if evidence
+        }
+    )
     metadata = FindingMetadataToUpdate(
         affected_systems=masked_msg,
         attack_vector_desc=masked_msg,
         compromised_attributes=masked_msg,
         description=masked_msg,
+        evidences=new_evidences,
         recommendation=masked_msg,
         risk=masked_msg,
         threat=masked_msg,
@@ -812,12 +823,12 @@ async def mask_finding_new(  # pylint: disable=too-many-locals
     finding_historic_verification: Tuple[
         FindingVerification, ...
     ] = await finding_historic_verification_loader.load(finding_id)
-    new_historic_verification = [
+    new_historic_verification = tuple(
         verification._replace(
             status=FindingVerificationStatus.MASKED, modified_by=masked_msg
         )
         for verification in finding_historic_verification
-    ]
+    )
     mask_new_finding_coroutines.append(
         findings_model.update_historic_verification(
             group_name=finding.group_name,
