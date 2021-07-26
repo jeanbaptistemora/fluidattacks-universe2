@@ -1,5 +1,5 @@
 # https://github.com/fluidattacks/makes
-{ pathCopy
+{ projectPath
 , ...
 }:
 {
@@ -8,7 +8,7 @@
   ];
   lintMarkdown = {
     docs = {
-      config = pathCopy "/makes/docs/style.rb";
+      config = projectPath "/makes/docs/style.rb";
       targets = [ "/docs/src/docs" ];
     };
   };
