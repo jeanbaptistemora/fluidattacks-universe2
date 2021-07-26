@@ -5,7 +5,7 @@ from jsonschema.exceptions import (
 import os
 import pytest
 from singer_io.singer2.json_schema import (
-    JsonSchema,
+    jschema_from_raw,
 )
 from typing import (
     Any,
@@ -21,9 +21,9 @@ def open_data_file(file_name: str) -> Dict[str, Any]:
 
 
 def test_valid_schema() -> None:
-    JsonSchema(open_data_file("valid_schema.json"))
+    jschema_from_raw(open_data_file("valid_schema.json"))
 
 
 def test_invalid_schema() -> None:
     with pytest.raises(SchemaError):
-        JsonSchema(open_data_file("invalid_schema.json"))
+        jschema_from_raw(open_data_file("invalid_schema.json"))
