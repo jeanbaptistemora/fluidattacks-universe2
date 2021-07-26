@@ -14,9 +14,14 @@ from .utils import (
     format_evidences_item,
     format_optional_verification_item,
     format_state_item,
+    get_latest_verification,
+)
+from aioextensions import (
+    collect,
 )
 from boto3.dynamodb.conditions import (
     Attr,
+    Key,
 )
 from custom_exceptions import (
     FindingNotFound,
@@ -35,6 +40,101 @@ from dynamodb.exceptions import (
 from enum import (
     Enum,
 )
+from typing import (
+    Tuple,
+)
+
+
+async def update_historic_verification(  # pylint: disable=too-many-locals
+    *,
+    group_name: str,
+    finding_id: str,
+    historic_verification: Tuple[FindingVerification, ...],
+) -> None:
+    key_structure = TABLE.primary_key
+    primary_key = keys.build_key(
+        facet=TABLE.facets["finding_historic_verification"],
+        values={"id": finding_id},
+    )
+    results = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["finding_historic_verification"],),
+        table=TABLE,
+    )
+    current_verification_keys = {
+        keys.build_key(
+            facet=TABLE.facets["finding_historic_verification"],
+            values={
+                "iso8601utc": item["modified_date"],
+                "id": finding_id,
+            },
+        )
+        for item in results
+    }
+    verification_items = []
+    verification_keys = set()
+    for verification in historic_verification:
+        optional_verification_item = format_optional_verification_item(
+            verification
+        )
+        verification_key = keys.build_key(
+            facet=TABLE.facets["finding_historic_verification"],
+            values={
+                "iso8601utc": verification.modified_date,
+                "id": finding_id,
+            },
+        )
+        verification_keys.add(verification_key)
+        verification_item = {
+            key_structure.partition_key: verification_key.partition_key,
+            key_structure.sort_key: verification_key.sort_key,
+            **optional_verification_item,
+        }
+        verification_items.append(verification_item)
+    latest_verification = get_latest_verification(historic_verification)
+    latest_key = keys.build_key(
+        facet=TABLE.facets["finding_verification"],
+        values={
+            "group_name": group_name,
+            "id": finding_id,
+        },
+    )
+    latest_optional_item = format_optional_verification_item(
+        latest_verification
+    )
+    latest_item = {
+        key_structure.partition_key: latest_key.partition_key,
+        key_structure.sort_key: latest_key.sort_key,
+        **latest_optional_item,
+    }
+    condition_expression = Attr(key_structure.partition_key).exists()
+    await operations.put_item(
+        condition_expression=condition_expression,
+        facet=TABLE.facets["finding_verification"],
+        item=latest_item,
+        table=TABLE,
+    )
+    operation_coroutines = []
+    operation_coroutines.append(
+        operations.batch_write_item(
+            items=tuple(verification_items), table=TABLE
+        )
+    )
+    verifications_to_delete = [
+        current_verification_key
+        for current_verification_key in current_verification_keys
+        if current_verification_key not in verification_keys
+    ]
+    operation_coroutines.append(
+        operations.batch_delete_item(
+            keys=verifications_to_delete,
+            table=TABLE,
+        )
+    )
+    await collect(operation_coroutines)
 
 
 async def update_medatada(

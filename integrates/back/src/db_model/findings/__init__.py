@@ -2,6 +2,7 @@ from .create import (
     create,
 )
 from .update import (
+    update_historic_verification,
     update_medatada,
     update_state,
     update_unreliable_indicators,
@@ -12,6 +13,7 @@ __all__ = [
     # create
     "create",
     # update
+    "update_historic_verification",
     "update_medatada",
     "update_state",
     "update_unreliable_indicators",
