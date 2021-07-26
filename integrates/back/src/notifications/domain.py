@@ -86,6 +86,8 @@ async def delete_group(
     requester_email: str,
     reason: str,
 ) -> bool:
+    org_id = await orgs_domain.get_id_for_group(group_name)
+    org_name = await orgs_domain.get_name_by_id(org_id)
     return cast(
         bool,
         await in_thread(
@@ -99,6 +101,7 @@ async def delete_group(
                 - Name: {group_name}
                 - Deletion date: {deletion_date}
                 - Deletion reason: {reason}
+                - Organization name : {org_name}
 
                 If you require any further information,
                 do not hesitate to contact us.
