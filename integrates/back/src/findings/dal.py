@@ -10,6 +10,7 @@ from context import (
     FI_AWS_S3_BUCKET,
 )
 from custom_types import (
+    DynamoDelete as DynamoDeleteType,
     Finding as FindingType,
 )
 from dynamodb import (
@@ -187,3 +188,14 @@ async def update(finding_id: str, data: Dict[str, FindingType]) -> bool:
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
     return success
+
+
+async def delete(finding_id: str) -> bool:
+    """Delete a finding"""
+    resp = False
+    try:
+        delete_attrs = DynamoDeleteType(Key={"finding_id": finding_id})
+        resp = await dynamodb_ops.delete_item(TABLE_NAME, delete_attrs)
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={"extra": locals()})
+    return resp
