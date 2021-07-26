@@ -19,6 +19,7 @@ interface IFindingMachineJobs {
 
 interface ITableRow {
   duration: number;
+  queue: string;
   rootNickname: string;
   startedAt: number;
   status: string;

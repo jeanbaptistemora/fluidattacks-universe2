@@ -26,7 +26,7 @@ const formatDuration = (value: number): string => {
 
   const secondsInAnHour: number = 3600;
 
-  return `${value / secondsInAnHour}`;
+  return `${(value / secondsInAnHour).toFixed(2)}`;
 };
 
 const MachineView: React.FC = (): JSX.Element => {
@@ -73,6 +73,12 @@ const MachineView: React.FC = (): JSX.Element => {
       align: "center",
       dataField: "rootNickname",
       header: translate.t("searchFindings.tabMachine.headerRoot"),
+      width: "40%",
+    },
+    {
+      align: "center",
+      dataField: "queue",
+      header: translate.t("searchFindings.tabMachine.headerQueue"),
       width: "30%",
     },
   ];
@@ -83,6 +89,7 @@ const MachineView: React.FC = (): JSX.Element => {
         job.startedAt === null || job.stoppedAt === null
           ? -1
           : parseFloat(job.stoppedAt) - parseFloat(job.startedAt),
+      queue: job.queue,
       rootNickname: job.rootNickname,
       startedAt: job.startedAt === null ? -1 : parseFloat(job.startedAt),
       status: job.status,
@@ -92,13 +99,13 @@ const MachineView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <DataTableNext
-        bordered={true}
+        bordered={false}
         dataset={tableDataset}
-        exportCsv={true}
+        exportCsv={false}
         headers={headers}
         id={"tblMachineJobs"}
-        pageSize={100}
-        search={true}
+        pageSize={1000}
+        search={false}
       />
     </React.StrictMode>
   );
