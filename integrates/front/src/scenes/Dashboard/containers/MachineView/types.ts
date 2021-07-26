@@ -18,7 +18,9 @@ interface IFindingMachineJobs {
 }
 
 interface ITableRow {
+  duration: number;
   rootNickname: string;
+  startedAt: number;
   status: string;
 }
 

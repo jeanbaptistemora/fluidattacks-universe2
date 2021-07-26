@@ -13,10 +13,21 @@ import type {
 } from "./types";
 
 import { DataTableNext } from "components/DataTableNext";
+import { timeFromUnix } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
+
+const formatDuration = (value: number): string => {
+  if (value < 0) {
+    return "-";
+  }
+
+  const secondsInAnHour: number = 3600;
+
+  return `${value / secondsInAnHour}`;
+};
 
 const MachineView: React.FC = (): JSX.Element => {
   const { findingId } = useParams<{ findingId: string }>();
@@ -46,6 +57,20 @@ const MachineView: React.FC = (): JSX.Element => {
     },
     {
       align: "center",
+      dataField: "startedAt",
+      formatter: timeFromUnix,
+      header: translate.t("searchFindings.tabMachine.headerStartedAt"),
+      width: "10%",
+    },
+    {
+      align: "center",
+      dataField: "duration",
+      formatter: formatDuration,
+      header: translate.t("searchFindings.tabMachine.headerDuration"),
+      width: "10%",
+    },
+    {
+      align: "center",
       dataField: "rootNickname",
       header: translate.t("searchFindings.tabMachine.headerRoot"),
       width: "30%",
@@ -54,7 +79,12 @@ const MachineView: React.FC = (): JSX.Element => {
 
   const tableDataset: ITableRow[] = data.finding.machineJobs.map(
     (job: IFindingMachineJob): ITableRow => ({
+      duration:
+        job.startedAt === null || job.stoppedAt === null
+          ? -1
+          : parseFloat(job.stoppedAt) - parseFloat(job.startedAt),
       rootNickname: job.rootNickname,
+      startedAt: job.startedAt === null ? -1 : parseFloat(job.startedAt),
       status: job.status,
     })
   );

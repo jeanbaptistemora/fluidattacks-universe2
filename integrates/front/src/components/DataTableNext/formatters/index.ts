@@ -6,3 +6,4 @@ export { changeFormatter } from "components/DataTableNext/formatters/changeForma
 export { commitFormatter } from "components/DataTableNext/formatters/commitFormatter";
 export { deleteFormatter } from "components/DataTableNext/formatters/deleteFormatter";
 export { timeFromNow } from "components/DataTableNext/formatters/timeFromNow";
+export { timeFromUnix } from "components/DataTableNext/formatters/timeFromUnix";
