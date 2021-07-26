@@ -6,28 +6,20 @@ interface IProps {
 }
 
 const capitalizeObject = (crumbs: IProps[]): IProps[] => {
-  const capitalizedCrumbs = crumbs.map(
+  return crumbs.map(
     (crumb): IProps => {
-      const properties = {
+      return {
         crumbLabel: `${crumb.crumbLabel
           .charAt(0)
           .toUpperCase()}${crumb.crumbLabel.slice(1).replace("-", "")}`,
         pathname: crumb.pathname,
       };
-
-      return properties;
     }
   );
-
-  return capitalizedCrumbs;
 };
 
 const capitalizePlainString = (title: string): string => {
-  const parsedTitle: string = `${title.charAt(0).toUpperCase()}${title
-    .slice(1)
-    .replace("-", "")}`;
-
-  return parsedTitle;
+  return `${title.charAt(0).toUpperCase()}${title.slice(1).replace("-", "")}`;
 };
 
 const capitalizeDashedString: (words: string) => string = (
@@ -44,23 +36,18 @@ const capitalizeDashedString: (words: string) => string = (
 };
 
 const stringToUri = (word: string): string => {
-  const newWord = word
+  return word
     .toLowerCase()
     .replace(" ", "-")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
-
-  return newWord;
 };
 
 const countCoincidences: (word: string, wordList: string[]) => number = (
   word: string,
   wordList: string[]
 ): number => {
-  const tagCount: number = wordList.filter((item): boolean => item === word)
-    .length;
-
-  return tagCount;
+  return wordList.filter((item): boolean => item === word).length;
 };
 
 export {
