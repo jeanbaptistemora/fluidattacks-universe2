@@ -7,6 +7,7 @@ from dataloaders import (
 from typing import (
     Any,
     Dict,
+    List,
 )
 
 
@@ -14,8 +15,8 @@ async def get_result(
     *,
     user: str,
     finding: str,
-    open_vulnerabilities: str,
-    closed_vulnerabilities: str,
+    open_vulnerabilities: List[str],
+    closed_vulnerabilities: List[str],
 ) -> Dict[str, Any]:
     query: str = """
         mutation VerifyRequestVulnerabilities(

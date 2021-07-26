@@ -2,14 +2,10 @@ from . import (
     get_result,
     get_vulnerability,
 )
-from dataloaders import (
-    vulnerability,
-)
 import pytest
 from typing import (
     Any,
     Dict,
-    List,
 )
 
 
@@ -67,11 +63,11 @@ async def test_verify_vulnerabilities_closed(
     assert "errors" not in result
     assert result["data"]["verifyRequestVulnerabilities"]["success"]
 
-    vulnerability_result: Dict[str, Any] = await get_vulnerability(
+    new_vulnerability_result: Dict[str, Any] = await get_vulnerability(
         user=email, vulnerability_id=closed_vulnerability
     )
-    assert "errors" not in vulnerability_result
+    assert "errors" not in new_vulnerability_result
     assert (
-        vulnerability_result["data"]["vulnerability"]["currentState"]
+        new_vulnerability_result["data"]["vulnerability"]["currentState"]
         == "closed"
     )
