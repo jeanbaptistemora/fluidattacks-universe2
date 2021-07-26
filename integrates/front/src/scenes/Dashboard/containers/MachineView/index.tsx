@@ -73,13 +73,13 @@ const MachineView: React.FC = (): JSX.Element => {
       align: "center",
       dataField: "rootNickname",
       header: translate.t("searchFindings.tabMachine.headerRoot"),
-      width: "40%",
+      width: "60%",
     },
     {
       align: "center",
-      dataField: "queue",
-      header: translate.t("searchFindings.tabMachine.headerQueue"),
-      width: "30%",
+      dataField: "priority",
+      header: translate.t("searchFindings.tabMachine.headerPriority"),
+      width: "10%",
     },
   ];
 
@@ -89,7 +89,7 @@ const MachineView: React.FC = (): JSX.Element => {
         job.startedAt === null || job.stoppedAt === null
           ? -1
           : parseFloat(job.stoppedAt) - parseFloat(job.startedAt),
-      queue: job.queue,
+      priority: job.queue.endsWith("_soon") ? "high" : "normal",
       rootNickname: job.rootNickname,
       startedAt: job.startedAt === null ? -1 : parseFloat(job.startedAt),
       status: job.status,

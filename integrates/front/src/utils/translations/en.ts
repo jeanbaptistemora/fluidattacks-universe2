@@ -1538,7 +1538,7 @@ export const enTranslations: ResourceKey = {
     },
     tabMachine: {
       headerDuration: "Duration (hours)",
-      headerQueue: "Queue",
+      headerPriority: "Priority",
       headerRoot: "Root",
       headerStartedAt: "Started At",
       headerStatus: "Status",
