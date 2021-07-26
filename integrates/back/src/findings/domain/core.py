@@ -782,6 +782,54 @@ async def mask_finding(context: Any, finding_id: str) -> bool:
     return all(await collect(mask_finding_coroutines))
 
 
+async def mask_finding_new(context: Any, finding_id: str) -> bool:
+    finding_loader = context.finding_new
+    finding: Finding = await finding_loader.load(finding_id)
+    mask_finding_coroutines = []
+    mask_new_finding_coroutines = []
+    masked_msg = "Masked"
+    metadata = FindingMetadataToUpdate(
+        affected_systems=masked_msg,
+        attack_vector_desc=masked_msg,
+        compromised_attributes=masked_msg,
+        description=masked_msg,
+        recommendation=masked_msg,
+        risk=masked_msg,
+        threat=masked_msg,
+    )
+    mask_new_finding_coroutines.append(
+        findings_model.update_medatada(
+            group_name=finding.group_name,
+            finding_id=finding.id,
+            metadata=metadata,
+        )
+    )
+    list_evidences_files = await findings_dal.search_evidence(
+        f"{finding.group_name}/{finding_id}"
+    )
+    evidence_s3_coroutines = [
+        findings_dal.remove_evidence(file_name)
+        for file_name in list_evidences_files
+    ]
+    mask_finding_coroutines.extend(evidence_s3_coroutines)
+    comments_and_observations = await comments_domain.get(
+        "comment", int(finding_id)
+    ) + await comments_domain.get("observation", int(finding_id))
+    comments_coroutines = [
+        comments_domain.delete(int(finding_id), cast(int, comment["user_id"]))
+        for comment in comments_and_observations
+    ]
+    mask_finding_coroutines.extend(comments_coroutines)
+    finding_all_vulns_loader = context.finding_vulns_all
+    vulns = await finding_all_vulns_loader.load(finding_id)
+    mask_vulns_coroutines = [
+        vulns_domain.mask_vuln(finding_id, str(vuln["UUID"])) for vuln in vulns
+    ]
+    mask_finding_coroutines.extend(mask_vulns_coroutines)
+    await collect(mask_new_finding_coroutines)
+    return all(await collect(mask_finding_coroutines))
+
+
 async def mask_verification(
     finding_id: str, historic_verification: List[Dict[str, str]]
 ) -> bool:
