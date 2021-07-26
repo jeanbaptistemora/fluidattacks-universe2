@@ -17,7 +17,7 @@ async def get_result(
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
-            deleteFinding(
+            removeFinding(
                 findingId: "{finding}",
                 justification: NOT_REQUIRED
             ) {{

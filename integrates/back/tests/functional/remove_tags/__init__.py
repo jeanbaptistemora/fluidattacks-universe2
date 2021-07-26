@@ -18,7 +18,7 @@ async def get_result(
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
-            deleteTags(
+            removeTags(
                 findingId: "{finding}",
                 vulnerabilities: ["{vuln}"]
             ) {{

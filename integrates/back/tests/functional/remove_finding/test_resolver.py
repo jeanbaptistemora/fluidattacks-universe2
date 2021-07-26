@@ -9,14 +9,14 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("delete_finding")
+@pytest.mark.resolver_test_group("remove_finding")
 @pytest.mark.parametrize(
     ["email"],
     [
         ["admin@gmail.com"],
     ],
 )
-async def test_delete_finding(populate: bool, email: str) -> None:
+async def test_remove_finding(populate: bool, email: str) -> None:
     assert populate
     finding_id: str = "475041513"
     result: Dict[str, Any] = await get_result(
@@ -24,12 +24,12 @@ async def test_delete_finding(populate: bool, email: str) -> None:
         finding=finding_id,
     )
     assert "errors" not in result
-    assert "success" in result["data"]["deleteFinding"]
-    assert result["data"]["deleteFinding"]["success"]
+    assert "success" in result["data"]["removeFinding"]
+    assert result["data"]["removeFinding"]["success"]
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("delete_finding")
+@pytest.mark.resolver_test_group("remove_finding")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -42,7 +42,7 @@ async def test_delete_finding(populate: bool, email: str) -> None:
         ["reviewer@gmail.com"],
     ],
 )
-async def test_delete_finding_fail(populate: bool, email: str) -> None:
+async def test_remove_finding_fail(populate: bool, email: str) -> None:
     assert populate
     finding_id: str = "475041513"
     result: Dict[str, Any] = await get_result(

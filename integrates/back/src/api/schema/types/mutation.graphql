@@ -385,10 +385,10 @@ type Mutation {
   ): SimplePayload!
 
    handleVulnerabilitiesAcceptation(
-    acceptedVulns: [String]!
+    acceptedVulnerabilities: [String]!
     findingId: String!
     justification: String!
-    rejectedVulns: [String]!
+    rejectedVulnerabilities: [String]!
   ): SimplePayload!
 
   handleVulnsAcceptation(

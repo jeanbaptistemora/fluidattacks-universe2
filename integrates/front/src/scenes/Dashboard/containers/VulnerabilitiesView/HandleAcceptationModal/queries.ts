@@ -11,8 +11,8 @@ const HANDLE_VULNS_ACCEPTATION: DocumentNode = gql`
     handleVulnerabilitiesAcceptation(
       findingId: $findingId
       justification: $justification
-      acceptedVulns: $acceptedVulns
-      rejectedVulns: $rejectedVulns
+      acceptedVulnerabilities: $acceptedVulns
+      rejectedVulnerabilities: $rejectedVulns
     ) {
       success
     }

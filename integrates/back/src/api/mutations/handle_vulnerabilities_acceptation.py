@@ -16,10 +16,14 @@ from graphql.type.definition import (
 from newutils import (
     token as token_utils,
 )
+from newutils.utils import (
+    get_key_or_fallback,
+)
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
 from typing import (
+    Any,
     List,
 )
 from vulnerabilities.domain import (
@@ -38,17 +42,22 @@ async def mutate(
     info: GraphQLResolveInfo,
     finding_id: str,
     justification: str,
-    accepted_vulns: List[str],
-    rejected_vulns: List[str],
+    **parameters: Any,
 ) -> SimplePayload:
+    accepted_vulnerabilities: List[str] = get_key_or_fallback(
+        parameters, "accepted_vulnerabilities", "accepted_vulns"
+    )
+    rejected_vulnerabilities: List[str] = get_key_or_fallback(
+        parameters, "rejected_vulnerabilities", "rejected_vulns"
+    )
     user_info = await token_utils.get_jwt_content(info.context)
     email: str = user_info["user_email"]
     success: bool = await handle_vulns_acceptation(
         context=info.context.loaders,
-        accepted_vulns=accepted_vulns,
+        accepted_vulns=accepted_vulnerabilities,
         finding_id=finding_id,
         justification=justification,
-        rejected_vulns=rejected_vulns,
+        rejected_vulns=rejected_vulnerabilities,
         user_email=email,
     )
     if success:
