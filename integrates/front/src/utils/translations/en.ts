@@ -1542,6 +1542,7 @@ export const enTranslations: ResourceKey = {
       headerRoot: "Root",
       headerStartedAt: "Started At",
       headerStatus: "Status",
+      submitJob: "Queue a Job",
       tabTitle: "Machine",
       tooltip: "Information about your Machine plan",
     },

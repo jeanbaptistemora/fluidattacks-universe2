@@ -11,9 +11,16 @@ interface IFindingMachineJob {
   status: string;
 }
 
+interface IGroupRoot {
+  nickname: string;
+}
+
 interface IFindingMachineJobs {
   finding: {
     machineJobs: IFindingMachineJob[];
+  };
+  group: {
+    roots: IGroupRoot[];
   };
 }
 
@@ -25,4 +32,4 @@ interface ITableRow {
   status: string;
 }
 
-export { IFindingMachineJob, IFindingMachineJobs, ITableRow };
+export { IFindingMachineJob, IFindingMachineJobs, IGroupRoot, ITableRow };
