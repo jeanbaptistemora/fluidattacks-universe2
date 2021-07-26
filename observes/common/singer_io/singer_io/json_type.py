@@ -5,9 +5,11 @@ from __future__ import (
 from dataclasses import (
     dataclass,
 )
+import json
 from typing import (
     Any,
     Dict,
+    IO as IO_FILE,
     List,
     Union,
 )
@@ -30,20 +32,6 @@ def _is_str(obj: Any) -> str:
 class JsonValue:
     value: Union[Dict[str, JsonValue], List[JsonValue], Primitive]
 
-    @classmethod
-    def from_raw(cls, raw: Any) -> JsonValue:
-        if isinstance(raw, primitives) or raw is None:
-            return JsonValue(raw)
-        if isinstance(raw, dict):
-            json = {
-                _is_str(key): cls.from_raw(val) for key, val in raw.items()
-            }
-            return JsonValue(json)
-        if isinstance(raw, list):
-            checked_list = [cls.from_raw(item) for item in raw]
-            return JsonValue(checked_list)
-        raise InvalidType(f"{type(raw)} expected unfold(JsonValue)")
-
     def unfold(
         self,
     ) -> Union[Dict[str, JsonValue], List[JsonValue], Primitive]:
@@ -51,3 +39,40 @@ class JsonValue:
 
 
 JsonObj = Dict[str, JsonValue]
+
+
+class UnexpectedResult(Exception):
+    pass
+
+
+@dataclass(frozen=True)
+class JsonFactory:
+    def build_json_val(self, raw: Any) -> JsonValue:
+        if isinstance(raw, primitives) or raw is None:
+            return JsonValue(raw)
+        if isinstance(raw, dict):
+            json_dict = {
+                _is_str(key): self.build_json_val(val)
+                for key, val in raw.items()
+            }
+            return JsonValue(json_dict)
+        if isinstance(raw, list):
+            checked_list = [self.build_json_val(item) for item in raw]
+            return JsonValue(checked_list)
+        raise InvalidType(f"{type(raw)} expected unfold(JsonValue)")
+
+    def build_json(self, raw: Any) -> JsonObj:
+        if not isinstance(raw, dict):
+            raise InvalidType("build_json expects a dict instance")
+        result = self.build_json_val(raw).unfold()
+        if isinstance(result, dict):
+            return result
+        raise UnexpectedResult("build_json not returned a JsonObj")
+
+    def loads(self, raw_json: str) -> JsonObj:
+        raw = json.loads(raw_json)
+        return self.build_json(raw)
+
+    def load(self, json_file: IO_FILE[str]) -> JsonObj:
+        raw = json.load(json_file)
+        return self.build_json(raw)
