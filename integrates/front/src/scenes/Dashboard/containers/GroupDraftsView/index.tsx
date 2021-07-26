@@ -32,7 +32,7 @@ import {
   Col100,
   Row,
 } from "styles/styledComponents";
-import { FormikDropdown } from "utils/forms/fields";
+import { FormikAutocompleteText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -224,6 +224,16 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
     [addDraft, groupName, suggestions]
   );
 
+  const validFindingTypology: (title: string) => string | undefined = (
+    title: string
+  ): string | undefined => {
+    if (titleSuggestions.includes(title)) {
+      return undefined;
+    }
+
+    return translate.t("validations.draftTypology");
+  };
+
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
   }
@@ -261,20 +271,18 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
                 <Col100>
                   <Field
                     alignField={"horizontal"}
-                    component={FormikDropdown}
+                    component={FormikAutocompleteText}
                     id={"title"}
                     name={"title"}
                     renderAsEditable={true}
-                    validate={composeValidators([required, validDraftTitle])}
-                  >
-                    <option value={""} />
-                    {_.map(
-                      titleSuggestions,
-                      (value: string): JSX.Element => (
-                        <option>{`${value}`}</option>
-                      )
-                    )}
-                  </Field>
+                    suggestions={titleSuggestions}
+                    type={"text"}
+                    validate={composeValidators([
+                      required,
+                      validDraftTitle,
+                      validFindingTypology,
+                    ])}
+                  />
                 </Col100>
               </Row>
               <hr />

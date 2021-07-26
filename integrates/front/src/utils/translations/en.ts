@@ -2344,6 +2344,7 @@ export const enTranslations: ResourceKey = {
     columns: "At least 1 column must be shown",
     datetime: "The datetime format is not valid",
     draftTitle: "The title format is not valid",
+    draftTypology: "The finding typology is not valid",
     email: "The email format is not valid",
     excludeFormat: "Root name should not be included in the exception pattern",
     fileSize: "The file size must be less than {{count}}MB",
