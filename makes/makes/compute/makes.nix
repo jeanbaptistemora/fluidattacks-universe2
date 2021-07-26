@@ -1,6 +1,6 @@
 # https://github.com/fluidattacks/makes
 { outputs
-, path
+, projectPath
 , ...
 }:
 {
@@ -30,7 +30,7 @@
   };
   envVarsForTerraform = {
     makesCompute = {
-      skimsQueues = path "/skims/manifests/queues.json";
+      skimsQueues = projectPath "/skims/manifests/queues.json";
     };
   };
   testTerraform = {

@@ -1,6 +1,6 @@
 # For more information visit:
 # https://github.com/fluidattacks/makes
-{ path
+{ projectPath
 , ...
 }:
 {
@@ -19,6 +19,6 @@
     ./makes/all/makes.nix
   ];
   inputs = {
-    product = import (path "/");
+    product = import (projectPath "/");
   };
 }

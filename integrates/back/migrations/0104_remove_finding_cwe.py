@@ -50,9 +50,7 @@ async def _update_finding(
         await update(finding_id, data_to_update)
 
 
-async def update_findings(
-    *, groups: List[str], loaders: Dataloaders
-) -> None:
+async def update_findings(*, groups: List[str], loaders: Dataloaders) -> None:
     findings = await loaders.group_findings.load_many(groups)
     drafts = await loaders.group_drafts.load_many(groups)
     groups_findings: List[Dict[str, Finding]] = list(
