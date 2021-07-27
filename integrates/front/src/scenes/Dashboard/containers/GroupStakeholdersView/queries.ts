@@ -58,15 +58,15 @@ const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
   }
 `;
 
-const EDIT_STAKEHOLDER_MUTATION: DocumentNode = gql`
-  mutation EditStakeholderMutation(
+const UPDATE_GROUP_STAKEHOLDER_MUTATION: DocumentNode = gql`
+  mutation UpdateGroupStakeholderMutation(
     $email: String!
     $phoneNumber: String!
     $groupName: String!
     $responsibility: String!
     $role: StakeholderRole!
   ) {
-    editStakeholder(
+    updateGroupStakeholder(
       email: $email
       phoneNumber: $phoneNumber
       groupName: $groupName
@@ -82,5 +82,5 @@ export {
   GET_STAKEHOLDERS,
   REMOVE_STAKEHOLDER_MUTATION,
   ADD_STAKEHOLDER_MUTATION,
-  EDIT_STAKEHOLDER_MUTATION,
+  UPDATE_GROUP_STAKEHOLDER_MUTATION,
 };

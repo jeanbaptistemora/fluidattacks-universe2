@@ -163,8 +163,8 @@ DownloadFilePayload = NamedTuple(
     ],
 )
 DynamoDelete = NamedTuple("DynamoDelete", [("Key", Dict[str, Any])])
-EditStakeholderPayload = NamedTuple(
-    "EditStakeholderPayload",
+UpdateStakeholderPayload = NamedTuple(
+    "UpdateStakeholderPayload",
     [
         ("success", bool),
         ("modified_stakeholder", Stakeholder),

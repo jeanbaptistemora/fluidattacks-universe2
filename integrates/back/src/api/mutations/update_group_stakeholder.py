@@ -6,8 +6,8 @@ from custom_exceptions import (
     StakeholderNotFound,
 )
 from custom_types import (
-    EditStakeholderPayload as EditStakeholderPayloadType,
     Invitation as InvitationType,
+    UpdateStakeholderPayload as UpdateStakeholderPayloadType,
 )
 from decorators import (
     concurrent_decorators,
@@ -93,7 +93,7 @@ async def _update_stakeholder(
 )
 async def mutate(
     _: Any, info: GraphQLResolveInfo, **updated_data: str
-) -> EditStakeholderPayloadType:
+) -> UpdateStakeholderPayloadType:
     group_name: str = get_key_or_fallback(updated_data).lower()
     modified_role: str = updated_data["role"]
     modified_email: str = updated_data["email"]
@@ -142,7 +142,7 @@ async def mutate(
         )
         logs_utils.cloudwatch_log(info.context, msg)
 
-    return EditStakeholderPayloadType(
+    return UpdateStakeholderPayloadType(
         success=success,
         modified_stakeholder=dict(
             group_name=group_name, email=updated_data["email"]

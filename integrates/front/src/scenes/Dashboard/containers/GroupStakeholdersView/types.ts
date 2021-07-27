@@ -37,8 +37,8 @@ interface IStakeholderAttrs {
   role: string;
 }
 
-interface IEditStakeholderAttr {
-  editStakeholder: {
+interface IUpdateGroupStakeholderAttr {
+  updateGroupStakeholder: {
     modifiedStakeholder: {
       email: string;
     };
@@ -51,5 +51,5 @@ export {
   IAddStakeholderAttr,
   IGetStakeholdersAttrs,
   IStakeholderAttrs,
-  IEditStakeholderAttr,
+  IUpdateGroupStakeholderAttr,
 };

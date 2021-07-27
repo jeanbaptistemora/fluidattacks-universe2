@@ -16,9 +16,9 @@ import type { ITableProps } from "components/DataTableNext/types";
 import { GroupStakeholdersView } from "scenes/Dashboard/containers/GroupStakeholdersView";
 import {
   ADD_STAKEHOLDER_MUTATION,
-  EDIT_STAKEHOLDER_MUTATION,
   GET_STAKEHOLDERS,
   REMOVE_STAKEHOLDER_MUTATION,
+  UPDATE_GROUP_STAKEHOLDER_MUTATION,
 } from "scenes/Dashboard/containers/GroupStakeholdersView/queries";
 import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -291,7 +291,7 @@ describe("Group stakeholders view", (): void => {
     expect.hasAssertions();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_mutations_edit_stakeholder_mutate" },
+      { action: "api_mutations_update_group_stakeholder_mutate" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
@@ -531,7 +531,7 @@ describe("Group stakeholders view", (): void => {
     const mocksMutation: readonly MockedResponse[] = [
       {
         request: {
-          query: EDIT_STAKEHOLDER_MUTATION,
+          query: UPDATE_GROUP_STAKEHOLDER_MUTATION,
           variables: {
             email: "user@gmail.com",
             groupName: "TEST",
@@ -542,7 +542,7 @@ describe("Group stakeholders view", (): void => {
         },
         result: {
           data: {
-            editStakeholder: {
+            updateGroupStakeholder: {
               modifiedStakeholder: {
                 email: "user@gmail.com",
               },
@@ -553,7 +553,7 @@ describe("Group stakeholders view", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_mutations_edit_stakeholder_mutate" },
+      { action: "api_mutations_update_group_stakeholder_mutate" },
       { action: "grant_group_level_role:analyst" },
     ]);
     const wrapper: ReactWrapper = mount(
@@ -826,7 +826,7 @@ describe("Group stakeholders view", (): void => {
     const mocksMutation: readonly MockedResponse[] = [
       {
         request: {
-          query: EDIT_STAKEHOLDER_MUTATION,
+          query: UPDATE_GROUP_STAKEHOLDER_MUTATION,
           variables: {
             email: "user@gmail.com",
             groupName: "TEST",
@@ -854,7 +854,7 @@ describe("Group stakeholders view", (): void => {
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_mutations_edit_stakeholder_mutate" },
+      { action: "api_mutations_update_group_stakeholder_mutate" },
       { action: "grant_group_level_role:analyst" },
     ]);
     const wrapper: ReactWrapper = mount(

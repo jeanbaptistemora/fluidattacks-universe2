@@ -36,7 +36,7 @@ type RemoveStakeholderAccessPayload implements Payload {
   success: Boolean!
 }
 
-type EditStakeholderPayload implements Payload {
+type UpdateStakeholderPayload implements Payload {
   modifiedStakeholder: Stakeholder
   success: Boolean!
 }

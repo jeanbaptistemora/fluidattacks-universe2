@@ -21,16 +21,16 @@ import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import {
   ADD_STAKEHOLDER_MUTATION,
-  EDIT_STAKEHOLDER_MUTATION,
   GET_STAKEHOLDERS,
   REMOVE_STAKEHOLDER_MUTATION,
+  UPDATE_GROUP_STAKEHOLDER_MUTATION,
 } from "scenes/Dashboard/containers/GroupStakeholdersView/queries";
 import type {
   IAddStakeholderAttr,
-  IEditStakeholderAttr,
   IGetStakeholdersAttrs,
   IRemoveStakeholderAttr,
   IStakeholderAttrs,
+  IUpdateGroupStakeholderAttr,
 } from "scenes/Dashboard/containers/GroupStakeholdersView/types";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
@@ -128,22 +128,25 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     },
   });
 
-  const [editStakeholder] = useMutation(EDIT_STAKEHOLDER_MUTATION, {
-    onCompleted: (mtResult: IEditStakeholderAttr): void => {
-      if (mtResult.editStakeholder.success) {
-        void refetch();
+  const [updateGroupStakeholder] = useMutation(
+    UPDATE_GROUP_STAKEHOLDER_MUTATION,
+    {
+      onCompleted: (mtResult: IUpdateGroupStakeholderAttr): void => {
+        if (mtResult.updateGroupStakeholder.success) {
+          void refetch();
 
-        track("EditUserAccess");
-        msgSuccess(
-          translate.t("searchFindings.tabUsers.successAdmin"),
-          translate.t("searchFindings.tabUsers.titleSuccess")
-        );
-      }
-    },
-    onError: (editError: ApolloError): void => {
-      handleEditError(editError, refetch);
-    },
-  });
+          track("EditUserAccess");
+          msgSuccess(
+            translate.t("searchFindings.tabUsers.successAdmin"),
+            translate.t("searchFindings.tabUsers.titleSuccess")
+          );
+        }
+      },
+      onError: (editError: ApolloError): void => {
+        handleEditError(editError, refetch);
+      },
+    }
+  );
 
   const [removeStakeholderAccess, { loading: removing }] = useMutation(
     REMOVE_STAKEHOLDER_MUTATION,
@@ -180,7 +183,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
           },
         });
       } else {
-        void editStakeholder({
+        void updateGroupStakeholder({
           variables: {
             ...values,
             groupName,
@@ -190,7 +193,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     },
     [
       closeUserModal,
-      editStakeholder,
+      updateGroupStakeholder,
       grantStakeholderAccess,
       groupName,
       userModalAction,
@@ -235,7 +238,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                       </Button>
                     </TooltipWrapper>
                   </Can>
-                  <Can do={"api_mutations_edit_stakeholder_mutate"}>
+                  <Can do={"api_mutations_update_group_stakeholder_mutate"}>
                     <TooltipWrapper
                       displayClass={"dib"}
                       id={"searchFindings.tabUsers.editButton.tooltip.id"}
@@ -293,7 +296,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                     clickToSelect: true,
                     hideSelectColumn:
                       permissions.cannot(
-                        "api_mutations_edit_stakeholder_mutate"
+                        "api_mutations_update_group_stakeholder_mutate"
                       ) ||
                       permissions.cannot(
                         "api_mutations_remove_stakeholder_access_mutate"

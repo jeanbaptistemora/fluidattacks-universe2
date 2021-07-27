@@ -338,14 +338,15 @@ type Mutation {
     responsibility: String!
     role: StakeholderRole!
     phoneNumber: String!
-  ): EditStakeholderPayload!
+  ): UpdateStakeholderPayload! @deprecated(reason: """This mutation will be
+    removed after 2021/12/31. Use `updateGroupStakeholder` instead.""")
 
   editStakeholderOrganization(
     organizationId: String!
     phoneNumber: String
     role: OrganizationRole!
     userEmail: String!
-  ): EditStakeholderPayload!
+  ): UpdateStakeholderPayload!
 
   executeSkims(groupName: String!): ExecuteSkimsPayload!
 
@@ -593,6 +594,14 @@ type Mutation {
     "Nickname of the repository"
     nickname: String
   ): SimplePayload!
+
+  updateGroupStakeholder(
+    groupName: String!
+    email: String!
+    responsibility: String!
+    role: StakeholderRole!
+    phoneNumber: String!
+  ): UpdateStakeholderPayload!
 
   updateOrganizationPolicies(
     maxAcceptanceDays: Int

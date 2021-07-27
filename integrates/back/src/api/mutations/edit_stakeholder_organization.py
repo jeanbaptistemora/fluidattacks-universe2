@@ -5,7 +5,7 @@ from custom_exceptions import (
     UserNotInOrganization,
 )
 from custom_types import (
-    EditStakeholderPayload,
+    UpdateStakeholderPayload,
 )
 from decorators import (
     concurrent_decorators,
@@ -42,7 +42,7 @@ from users import (
 )
 async def mutate(
     _parent: None, info: GraphQLResolveInfo, **parameters: Any
-) -> EditStakeholderPayload:
+) -> UpdateStakeholderPayload:
     success: bool = False
 
     organization_id: str = str(parameters.get("organization_id"))
@@ -91,6 +91,6 @@ async def mutate(
             f"information from stakeholder {user_email} in organization "
             f"{organization_name}",
         )
-    return EditStakeholderPayload(
+    return UpdateStakeholderPayload(
         success=success, modified_stakeholder=dict(email=user_email)
     )
