@@ -332,31 +332,31 @@ of the severity in each vulnerability:
 
 1. Reduce the severity of vulnerailities:
 
-   a. Low severity
+  a. Little severe
 
-   b. Very frequent
+  b. Very frequent
 
 1. Increases the severity of vulnerabilities:
 
-   a. High severity
+  a. Highly severe
 
-   b. Infrequent
+  b. Infrequent
 
 1. Allows:
 
-   a. Analysis aggregated into a single data set.
+  a. Analysis aggregated into a single data set.
 
-   b. No arbitrary ranges.
+  b. No arbitrary ranges.
 
-   c. Reality alined **priorization**.
+  c. Reality alined **priorization**.
 
 ## Adjustment by Severity: Equivalences
 
 ![cvss-table.png](https://res.cloudinary.com/fluid-attacks/image/upload/v1627330928/docs/about/faq/cvss-table_dzfa1h.png)
 
 1. The table shows that
-   vulnerability 10 (row) equals
-   262,144 vulnerabilities 1 (column).
+  vulnerability 10 (row) equals
+  262,144 vulnerabilities 1 (column).
 1. A vulnerability 5 (row)
-   equals 16 times the severity
-   of a vulnerability 4 (column).
+  equals 16 times the severity
+  of a vulnerability 4 (column).

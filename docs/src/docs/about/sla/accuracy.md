@@ -55,7 +55,7 @@ the following:
 
 1. The severity of vulnerabilities
   are calculated using
-  CVSSF = 4^(CVSS-4),
+  [CVSSF = 4^(CVSS-4)](/about/faq/#adjustment-by-severity),
 1. The accuracy is calculated
   based on the false positives,
   false negatives
