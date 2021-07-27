@@ -87,9 +87,12 @@ const MachineView: React.FC = (): JSX.Element => {
     return <div />;
   }
 
-  const rootNicknames: string[] = data.group.roots.map(
-    (root: IGroupRoot): string => root.nickname
-  );
+  const rootNicknamesSorted: IGroupRoot[] = _.sortBy(data.group.roots, [
+    (root: IGroupRoot): string => root.nickname.toLowerCase(),
+  ]);
+  const rootNicknames: string[] = rootNicknamesSorted
+    .filter((root: IGroupRoot): boolean => root.state === "ACTIVE")
+    .map((root: IGroupRoot): string => root.nickname);
 
   const headers: IHeaderConfig[] = [
     {
@@ -167,7 +170,7 @@ const MachineView: React.FC = (): JSX.Element => {
         ) : (
           <DropdownButton
             content={
-              <div className={"tc"}>
+              <div className={"tc w5"}>
                 <FontAwesomeIcon icon={faRocket} />
                 &nbsp;
                 {translate.t("searchFindings.tabMachine.submitJob")}
@@ -185,7 +188,7 @@ const MachineView: React.FC = (): JSX.Element => {
                 />
               )
             )}
-            scrollInto={false}
+            scrollInto={true}
           />
         )}
       </ButtonToolbarCenter>

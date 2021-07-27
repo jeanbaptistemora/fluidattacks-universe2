@@ -22,6 +22,7 @@ const GET_FINDING_MACHINE_JOBS: DocumentNode = gql`
       roots {
         ... on GitRoot {
           nickname
+          state
         }
       }
     }

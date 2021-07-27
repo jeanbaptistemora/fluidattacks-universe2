@@ -13,6 +13,7 @@ interface IFindingMachineJob {
 
 interface IGroupRoot {
   nickname: string;
+  state: string;
 }
 
 interface IFindingMachineJobs {
