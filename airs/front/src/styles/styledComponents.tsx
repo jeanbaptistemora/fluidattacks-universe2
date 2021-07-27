@@ -383,6 +383,24 @@ const ArticleContainer: StyledComponent<
   `,
 })``;
 
+const FaqContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: `
+    mw-900
+    ph-body
+    center
+    roboto
+    bg-white
+    ph4-l
+    ph3
+    pt5-l
+    pt4
+    pb5
+  `,
+})``;
+
 const FontAwesomeContainerSmall: StyledComponent<
   "div",
   Record<string, unknown>
@@ -1591,6 +1609,7 @@ export {
   ErrorDescription,
   ErrorSection,
   ErrorTitle,
+  FaqContainer,
   Flex,
   FlexCenterItemsContainer,
   FontAwesomeContainerSmall,
