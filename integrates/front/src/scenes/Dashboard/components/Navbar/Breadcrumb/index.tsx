@@ -33,6 +33,14 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
       userEmail: string;
     };
   }
+  const [isOrganizationModalOpen, setOrganizationModalOpen] = useState(false);
+  const openOrganizationModal: () => void = useCallback((): void => {
+    setOrganizationModalOpen(true);
+  }, []);
+  const closeOrganizationModal: () => void = useCallback((): void => {
+    setOrganizationModalOpen(false);
+  }, []);
+
   const { data, refetch } = useQuery<IUserOrgs>(GET_USER_ORGANIZATIONS, {
     onError: ({ graphQLErrors }): void => {
       graphQLErrors.forEach((error): void => {
@@ -78,6 +86,8 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
   };
 
   const showItems: () => void = useCallback((): void => {
+    setOrganizationModalOpen(false);
+
     const element: Element = document.querySelector(".splitItems") as Element;
     const child: HTMLElement = element.firstChild as HTMLElement;
     const elementStyle: CSSStyleDeclaration = window.getComputedStyle(element);
@@ -114,14 +124,6 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
         </li>
       );
     });
-
-  const [isOrganizationModalOpen, setOrganizationModalOpen] = useState(false);
-  const openOrganizationModal: () => void = useCallback((): void => {
-    setOrganizationModalOpen(true);
-  }, []);
-  const closeOrganizationModal: () => void = useCallback((): void => {
-    setOrganizationModalOpen(false);
-  }, []);
 
   return (
     <BreadcrumbContainer>
