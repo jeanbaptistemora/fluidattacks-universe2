@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -35,24 +35,33 @@ const formatDuration = (value: number): string => {
   return `${(value / miliSecondsInAnHour).toFixed(2)}`;
 };
 
+const loadingNetworkStatuses: NetworkStatus[] = [
+  NetworkStatus.loading,
+  NetworkStatus.fetchMore,
+  NetworkStatus.refetch,
+  NetworkStatus.setVariables,
+];
+
 const MachineView: React.FC = (): JSX.Element => {
   const { findingId, groupName } =
     useParams<{ findingId: string; groupName: string }>();
 
   // GraphQL operations
-  const { data, refetch } = useQuery<IFindingMachineJobs>(
-    GET_FINDING_MACHINE_JOBS,
-    {
-      notifyOnNetworkStatusChange: true,
-      onError: ({ graphQLErrors }: ApolloError): void => {
-        graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(translate.t("groupAlerts.errorTextsad"));
-          Logger.warning("An error occurred loading machine jobs", error);
-        });
-      },
-      variables: { findingId, groupName },
-    }
-  );
+  const {
+    data,
+    refetch,
+    networkStatus: dataNS,
+  } = useQuery<IFindingMachineJobs>(GET_FINDING_MACHINE_JOBS, {
+    notifyOnNetworkStatusChange: true,
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        Logger.warning("An error occurred loading machine jobs", error);
+      });
+    },
+    pollInterval: 10000,
+    variables: { findingId, groupName },
+  });
   const handleOnSuccess = (result: ISubmitMachineJobResult): void => {
     if (!_.isUndefined(result)) {
       if (result.submitMachineJob.success) {
@@ -72,10 +81,13 @@ const MachineView: React.FC = (): JSX.Element => {
       msgError(translate.t("groupAlerts.errorTextsad"));
     });
   };
-  const [submitMachineJob] = useMutation(SUBMIT_MACHINE_JOB, {
-    onCompleted: handleOnSuccess,
-    onError: handleOnError,
-  });
+  const [submitMachineJob, { loading: submittingMachineJob }] = useMutation(
+    SUBMIT_MACHINE_JOB,
+    {
+      onCompleted: handleOnSuccess,
+      onError: handleOnError,
+    }
+  );
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -139,31 +151,36 @@ const MachineView: React.FC = (): JSX.Element => {
     void submitMachineJob({ variables: { findingId, rootNickname } });
   };
 
+  const isLoading: boolean =
+    submittingMachineJob || loadingNetworkStatuses.includes(dataNS);
+
   return (
     <React.StrictMode>
       <ButtonToolbarCenter>
-        <DropdownButton
-          content={
-            <div className={"tc"}>
-              <FontAwesomeIcon icon={faRocket} />
-              &nbsp;
-              {translate.t("searchFindings.tabMachine.submitJob")}
-            </div>
-          }
-          id={"submitJob"}
-          items={rootNicknames.map(
-            (nickname: string): JSX.Element => (
-              <MenuItem
-                eventKey={nickname}
-                itemContent={<span>{nickname}</span>}
-                key={nickname}
-                // eslint-disable-next-line react/jsx-no-bind
-                onClick={submitJobOnClick}
-              />
-            )
-          )}
-          scrollInto={false}
-        />
+        {isLoading ? undefined : (
+          <DropdownButton
+            content={
+              <div className={"tc"}>
+                <FontAwesomeIcon icon={faRocket} />
+                &nbsp;
+                {translate.t("searchFindings.tabMachine.submitJob")}
+              </div>
+            }
+            id={"submitJob"}
+            items={rootNicknames.map(
+              (nickname: string): JSX.Element => (
+                <MenuItem
+                  eventKey={nickname}
+                  itemContent={<span>{nickname}</span>}
+                  key={nickname}
+                  // eslint-disable-next-line react/jsx-no-bind
+                  onClick={submitJobOnClick}
+                />
+              )
+            )}
+            scrollInto={false}
+          />
+        )}
       </ButtonToolbarCenter>
 
       <DataTableNext
