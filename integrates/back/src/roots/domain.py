@@ -61,6 +61,7 @@ from urllib3.util.url import (
 )
 from urllib.parse import (
     unquote,
+    urlparse,
 )
 from uuid import (
     uuid4,
@@ -159,20 +160,19 @@ def _format_git_repo_url(raw_url: str) -> str:
         else raw_url
     )
 
-    return unquote(url)
+    return unquote(url).rstrip(" /")
 
 
 async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
     group_loader = context.group
     group_name: str = kwargs["group_name"].lower()
     url: str = _format_git_repo_url(kwargs["url"])
-    branch: str = kwargs["branch"]
+    branch: str = kwargs["branch"].rstrip()
     nickname: str = _format_root_nickname(kwargs.get("nickname", ""), url)
 
     gitignore = kwargs["gitignore"]
     enforcer = await authz.get_group_level_enforcer(user_email)
 
-    validations.validate_git_branch(branch)
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
         nickname, await get_roots(group_name=group_name)
@@ -184,7 +184,7 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
         raise InvalidRootExclusion()
 
     if not (
-        validations.is_valid_url(url)
+        validations.is_valid_repo_url(url)
         and validations.is_valid_git_branch(branch)
     ):
         raise InvalidParameter()
@@ -306,10 +306,14 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
     await roots_dal.create_root(root=root)
 
 
+def _get_nickname_from_url(url: str) -> str:
+    last_path = urlparse(url).path.split("/")[-1]
+
+    return re.sub(r"(?![a-zA-Z_0-9-]).", "_", last_path[:128])
+
+
 def _format_root_nickname(nickname: str, url: str) -> str:
-    nick = unquote(url).rstrip("/").split("/")[-1]
-    if nickname:
-        nick = unquote(nickname)
+    nick = nickname if nickname else _get_nickname_from_url(url)
     # Return the repo name as nickname
     if nick.endswith(".git"):
         return nick[:-4]
@@ -368,7 +372,7 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
         raise InvalidParameter()
 
     nickname = _format_root_nickname(
-        kwargs.get("nickname", ""), root.state.nickname
+        kwargs.get("nickname", ""), root.metadata.url
     )
 
     validations.validate_nickname(nickname)

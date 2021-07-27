@@ -65,6 +65,7 @@ const gitModalSchema = lazy(
             }
           )
       ),
+      nickname: string().matches(/^[a-zA-Z_0-9-]{1,128}$/u),
       url: string().required(translate.t("validations.required")),
     })
 );

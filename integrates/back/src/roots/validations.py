@@ -1,7 +1,6 @@
 from custom_exceptions import (
     InvalidChar,
     RepeatedRootNickname,
-    TrailingWhiteSpace,
 )
 from dynamodb.types import (
     GitRootItem,
@@ -17,6 +16,7 @@ from ipaddress import (
     ip_address,
 )
 import os
+import re
 from typing import (
     List,
     Tuple,
@@ -52,6 +52,16 @@ def is_valid_url(url: str) -> bool:
     url_attributes: ParseResult = urlparse(url)
 
     return bool(url_attributes.netloc and url_attributes.scheme)
+
+
+def is_valid_repo_url(url: str) -> bool:
+    url_attributes: ParseResult = urlparse(url)
+
+    return bool(
+        url_attributes.scheme
+        and url_attributes.netloc
+        and url_attributes.path.rstrip("/")
+    )
 
 
 def is_valid_git_branch(branch_name: str) -> bool:
@@ -113,10 +123,5 @@ def is_url_unique(
 
 
 def validate_nickname(nickname: str) -> None:
-    if "/" in nickname:
+    if not re.match(r"^[a-zA-Z_0-9-]{1,128}$", nickname):
         raise InvalidChar()
-
-
-def validate_git_branch(branch: str) -> None:
-    if branch.strip() != branch:
-        raise TrailingWhiteSpace()
