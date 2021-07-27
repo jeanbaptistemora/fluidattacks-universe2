@@ -6,18 +6,18 @@ let securityHeaders = {
   "X-Content-Type-Options" : "nosniff",
   "X-Permitted-Cross-Domain-Policies": "none",
   "Referrer-Policy" : "strict-origin-when-cross-origin",
-  "Permissions-Policy" : "geolocation=(self), \
-                          midi=(self), \
-                          push=(self), \
-                          sync-xhr=(self), \
-                          microphone=(self), \
-                          camera=(self), \
-                          magnetometer=(self), \
-                          gyroscope=(self), \
-                          speaker=(self), \
-                          vibrate=(self), \
-                          fullscreen=(self), \
-                          payment=(self)",
+  "Permissions-Policy" : "geolocation=(self), "
+                          + "midi=(self), "
+                          + "push=(self), "
+                          + "sync-xhr=(self), "
+                          + "microphone=(self), "
+                          + "camera=(self), "
+                          + "magnetometer=(self), "
+                          + "gyroscope=(self), "
+                          + "speaker=(self), "
+                          + "vibrate=(self), "
+                          + "fullscreen=(self), "
+                          + "payment=(self)",
 }
 
 let sanitiseHeaders = {}
