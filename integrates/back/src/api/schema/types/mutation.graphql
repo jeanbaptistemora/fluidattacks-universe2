@@ -532,7 +532,7 @@ type Mutation {
     actor: String!
     affectedSystems: String!
     attackVectorDesc: String!
-    cwe: String!
+    cwe: String
     description: String!
     findingId: String!
     recommendation: String!
