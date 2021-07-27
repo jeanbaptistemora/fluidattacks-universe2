@@ -52,6 +52,11 @@ class JsonValue:
             return [item.to_primitive(prim_type) for item in self.value]
         raise InvalidType(f"{type(self.value)} expected list")
 
+    def to_json(self) -> Dict[str, JsonValue]:
+        if isinstance(self.value, dict):
+            return self.value
+        raise InvalidType(f"{type(self.value)} expected dict")
+
 
 JsonObj = Dict[str, JsonValue]
 
