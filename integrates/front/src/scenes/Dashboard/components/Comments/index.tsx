@@ -118,8 +118,8 @@ const Comments: React.FC<ICommentsProps> = (
 
   return (
     <React.StrictMode>
-      <CommentEditor onPost={postHandler} />
       <commentContext.Provider value={{ replying, setReplying }}>
+        <CommentEditor id={0} onPost={postHandler} />
         {comments.length > 1 && (
           <div className={"w-25 w-50-m mb3"}>
             <Small>{translate.t("comments.orderBy.label")}</Small>

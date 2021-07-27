@@ -99,7 +99,7 @@ const NestedComment: React.FC<INestedCommentProps> = (
         >
           {replying === rootComment.id && (
             <div className={"pa3"}>
-              <CommentEditor onPost={onPost} />
+              <CommentEditor id={id} onPost={onPost} />
             </div>
           )}
           <hr className={"bt bw1 pa0 mv0"} />

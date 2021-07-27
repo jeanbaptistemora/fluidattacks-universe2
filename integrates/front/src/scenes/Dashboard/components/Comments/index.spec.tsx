@@ -65,7 +65,7 @@ describe("Comments section", (): void => {
     expect.hasAssertions();
 
     const wrapper: ReactWrapper = mount(
-      <CommentEditor onPost={onPostComment} />
+      <CommentEditor id={0} onPost={onPostComment} />
     );
 
     wrapper
