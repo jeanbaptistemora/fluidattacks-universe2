@@ -3,8 +3,8 @@
 This migration formats root nicknames to make them compliant with the new
 validations
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-07-27 at 17:24:58 UTC-05
+Finalization Time: 2021-07-27 at 17:29:07 UTC-05
 """
 
 from aioextensions import (
