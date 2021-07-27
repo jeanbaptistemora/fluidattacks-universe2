@@ -1,7 +1,10 @@
 from jsonschema.exceptions import (
     SchemaError,
 )
-import os
+from os.path import (
+    dirname,
+    join,
+)
 import pytest
 from singer_io.singer2.json import (
     DictFactory,
@@ -14,11 +17,11 @@ from typing import (
     Dict,
 )
 
-self_dir_path = os.path.dirname(__file__)
+data_dir = join(dirname(dirname(__file__)), "mock_data")
 
 
 def open_data_file(file_name: str) -> Dict[str, Any]:
-    with open(os.path.join(self_dir_path, file_name)) as file:
+    with open(join(data_dir, file_name)) as file:
         return DictFactory.load(file)
 
 

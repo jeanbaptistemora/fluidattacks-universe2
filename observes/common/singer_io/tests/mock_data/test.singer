@@ -1,0 +1,3 @@
+{"type": "SCHEMA", "stream": "foo_stream", "schema": {"properties": {"val": {"type": "string"}, "index": {"type": "integer"}}}, "key_properties": ["index"]}
+{"type": "RECORD", "stream": "foo_stream", "record": {"val": "foo", "index": 1}}
+{"type": "STATE", "value": {"foo_stream": 1}}

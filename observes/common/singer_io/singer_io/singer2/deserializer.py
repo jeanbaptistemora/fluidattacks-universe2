@@ -26,6 +26,8 @@ from singer_io.singer2.time import (
 from typing import (
     Any,
     Dict,
+    IO as IO_FILE,
+    Iterator,
 )
 
 
@@ -109,3 +111,10 @@ class SingerDeserializer:
         if parsed_type == "STATE":
             return cls.build_state(raw_json)
         raise InvalidType(f"Unknown type '{parsed_type}'")
+
+    @classmethod
+    def from_file(cls, file: IO_FILE[str]) -> Iterator[SingerMessage]:
+        line = file.readline()
+        while line:
+            yield cls.deserialize(line)
+            line = file.readline()
