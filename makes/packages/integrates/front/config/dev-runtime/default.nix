@@ -515,6 +515,7 @@ buildNodeRequirements {
       "hmac-drbg@1.0.1"
       "hoist-non-react-statics@3.3.2"
       "hosted-git-info@2.8.9"
+      "hotkeys-js@3.8.7"
       "hpack.js@2.1.6"
       "hsl-regex@1.0.0"
       "hsla-regex@1.0.0"
