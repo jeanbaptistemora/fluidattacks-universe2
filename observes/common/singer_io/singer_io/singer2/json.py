@@ -11,6 +11,8 @@ from typing import (
     Dict,
     IO as IO_FILE,
     List,
+    Type,
+    TypeVar,
     Union,
 )
 
@@ -28,6 +30,9 @@ def _is_str(obj: Any) -> str:
     raise InvalidType(f"{type(obj)} expected str")
 
 
+VarType = TypeVar("VarType", str, int, float, bool)
+
+
 @dataclass(frozen=True)
 class JsonValue:
     value: Union[Dict[str, JsonValue], List[JsonValue], Primitive]
@@ -36,6 +41,16 @@ class JsonValue:
         self,
     ) -> Union[Dict[str, JsonValue], List[JsonValue], Primitive]:
         return self.value
+
+    def to_primitive(self, prim_type: Type[VarType]) -> VarType:
+        if isinstance(self.value, prim_type):
+            return self.value
+        raise InvalidType(f"{type(self.value)} expected str")
+
+    def to_list_of(self, prim_type: Type[VarType]) -> List[VarType]:
+        if isinstance(self.value, list):
+            return [item.to_primitive(prim_type) for item in self.value]
+        raise InvalidType(f"{type(self.value)} expected list")
 
 
 JsonObj = Dict[str, JsonValue]
@@ -46,36 +61,53 @@ class UnexpectedResult(Exception):
 
 
 @dataclass(frozen=True)
+class DictFactory:
+    # assumptions
+    @classmethod
+    def loads(cls, raw_json: str) -> Dict[str, Any]:
+        return json.loads(raw_json)
+
+    @classmethod
+    def load(cls, json_file: IO_FILE[str]) -> Dict[str, Any]:
+        return json.load(json_file)
+
+
+@dataclass(frozen=True)
 class JsonFactory:
-    def build_json_val(self, raw: Any) -> JsonValue:
+    @classmethod
+    def build_json_val(cls, raw: Any) -> JsonValue:
         if isinstance(raw, primitives) or raw is None:
             return JsonValue(raw)
         if isinstance(raw, dict):
             json_dict = {
-                _is_str(key): self.build_json_val(val)
+                _is_str(key): cls.build_json_val(val)
                 for key, val in raw.items()
             }
             return JsonValue(json_dict)
         if isinstance(raw, list):
-            checked_list = [self.build_json_val(item) for item in raw]
+            checked_list = [cls.build_json_val(item) for item in raw]
             return JsonValue(checked_list)
         raise InvalidType(f"{type(raw)} expected unfold(JsonValue)")
 
-    def json_from_dict(self, raw: Dict[str, Any]) -> JsonObj:
-        result = self.build_json_val(raw).unfold()
+    @classmethod
+    def from_dict(cls, raw: Dict[str, Any]) -> JsonObj:
+        result = cls.build_json_val(raw).unfold()
         if isinstance(result, dict):
             return result
         raise UnexpectedResult("build_json not returned a JsonObj")
 
-    def build_json(self, raw: Any) -> JsonObj:
+    @classmethod
+    def from_any(cls, raw: Any) -> JsonObj:
         if not isinstance(raw, dict):
             raise InvalidType("build_json expects a dict instance")
-        return self.json_from_dict(raw)
+        return cls.from_dict(raw)
 
-    def loads(self, raw_json: str) -> JsonObj:
-        raw = json.loads(raw_json)
-        return self.build_json(raw)
+    @classmethod
+    def loads(cls, raw_json: str) -> JsonObj:
+        raw = DictFactory.loads(raw_json)
+        return cls.from_dict(raw)
 
-    def load(self, json_file: IO_FILE[str]) -> JsonObj:
-        raw = json.load(json_file)
-        return self.build_json(raw)
+    @classmethod
+    def load(cls, json_file: IO_FILE[str]) -> JsonObj:
+        raw = DictFactory.load(json_file)
+        return cls.from_dict(raw)
