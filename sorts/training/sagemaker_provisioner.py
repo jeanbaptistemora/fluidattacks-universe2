@@ -14,6 +14,7 @@ from sagemaker.sklearn.estimator import (
 import time
 from training.constants import (
     DATASET_PATH,
+    MODELS,
     SAGEMAKER_METRIC_DEFINITIONS,
 )
 from typing import (
@@ -66,17 +67,7 @@ def deploy_training_job(model: str, delay: int) -> None:
 
 
 if __name__ == "__main__":
-    models_to_train: List[str] = [
-        "AdaBoostClassifier",
-        "GradientBoostingClassifier",
-        "HistGradientBoostingClassifier",
-        "KNeighborsClassifier",
-        "LGBMClassifier",
-        "LinearSVC",
-        "LogisticRegression",
-        "MLPClassifier",
-        "RandomForestClassifier",
-    ]
+    models_to_train: List[str] = list(MODELS.keys())
     with ThreadPoolExecutor(max_workers=len(models_to_train)) as executor:
         executor.map(
             lambda x: deploy_training_job(*x),

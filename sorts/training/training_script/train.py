@@ -245,7 +245,7 @@ def cli() -> argparse.Namespace:
 def main() -> None:
     args = cli()
 
-    model_name: str = args.model.lower()
+    model_name: str = args.model
     model_class: ModelType = MODELS[model_name]
 
     # Set necessary env vars that SageMaker environment needs

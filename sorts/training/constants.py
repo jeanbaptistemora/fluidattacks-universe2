@@ -78,11 +78,11 @@ MODELS: Dict[str, ModelType] = {
     "gradientboostingclassifier": GradientBoostingClassifier,
     "histgradientboostingclassifier": HistGradientBoostingClassifier,
     "kneighborsclassifier": KNeighborsClassifier,
+    "lgbmclassifier": LGBMClassifier,
     "linearsvc": LinearSVC,
     "logisticregression": LogisticRegression,
     "mlpclassifier": MLPClassifier,
     "randomforestclassifier": RandomForestClassifier,
-    "lgbmclassifier": LGBMClassifier,
 }
 
 # Hyperparameters
