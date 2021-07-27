@@ -609,6 +609,34 @@ label {
   border-color: #c9302c;
 }
 
+:global .checkbox-mh {
+  min-height: calc(1.5em + 0.75rem + 2px);
+}
+
+:global .fs-checkbox {
+  font-size: 12px;
+}
+
+:global .green-checkbox {
+  background-color: #5cb85c;
+  border-color: #5cb85c;
+}
+
+:global .green-checkbox:hover {
+  background-color: #3faf3f;
+  border-color: #3faf3f;
+}
+
+:global .red-checkbox {
+  background-color: #d9534f;
+  border-color: #d9534f;
+}
+
+:global .red-checkbox:hover {
+  background-color: #c9302c;
+  border-color: #c9302c;
+}
+
 :global .cr-switch {
   font-size: 10px;
 }
