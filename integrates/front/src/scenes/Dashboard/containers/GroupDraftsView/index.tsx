@@ -22,6 +22,9 @@ import {
   GET_DRAFTS,
 } from "scenes/Dashboard/containers/GroupDraftsView/queries";
 import type {
+  IAddDraftMutationResult,
+  IAddDraftMutationVariables,
+  IDraftVariables,
   IGroupDraftsAttr,
   ISuggestion,
 } from "scenes/Dashboard/containers/GroupDraftsView/types";
@@ -143,7 +146,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
   const titleSuggestions: string[] = _.sortBy(
     suggestions.map(
       (suggestion: ISuggestion): string =>
-        `${suggestion.cwe}. ${suggestion.title}`
+        `${suggestion.key}. ${suggestion.title}`
     )
   );
 
@@ -175,18 +178,18 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
     void fetchData();
   }, [data?.group.language]);
 
-  const handleMutationResult: (result: {
-    addDraft: { success: boolean };
-  }) => void = (result: { addDraft: { success: boolean } }): void => {
+  async function handleMutationResult(
+    result: IAddDraftMutationResult
+  ): Promise<void> {
     if (result.addDraft.success) {
       closeNewDraftModal();
       msgSuccess(
         translate.t("group.drafts.successCreate"),
         translate.t("group.drafts.titleSuccess")
       );
-      void refetch();
+      await refetch();
     }
-  };
+  }
 
   const handleMutationError: (error: ApolloError) => void = ({
     graphQLErrors,
@@ -201,23 +204,26 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
     });
   };
 
-  const [addDraft, { loading: submitting }] = useMutation(ADD_DRAFT_MUTATION, {
+  const [addDraft, { loading: submitting }] = useMutation<
+    IAddDraftMutationResult,
+    IAddDraftMutationVariables
+  >(ADD_DRAFT_MUTATION, {
     onCompleted: handleMutationResult,
     onError: handleMutationError,
   });
 
   const handleSubmit: (values: Record<string, unknown>) => void = useCallback(
     (values: Record<string, unknown>): void => {
-      const [matchingSuggestion] = suggestions.filter(
+      const [matchingSuggestion]: IDraftVariables[] = suggestions.filter(
         (suggestion: ISuggestion): boolean =>
-          `${suggestion.cwe}. ${suggestion.title}` === values.title
+          `${suggestion.key}. ${suggestion.title}` === values.title
       );
 
       void addDraft({
         variables: {
           ...matchingSuggestion,
           groupName,
-          title: values.title,
+          title: values.title as string,
         },
       });
     },

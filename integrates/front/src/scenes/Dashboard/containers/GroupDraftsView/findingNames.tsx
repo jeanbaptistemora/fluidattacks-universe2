@@ -132,7 +132,6 @@ async function getFindingNames(
     const vulnsData = yaml.load(yamlFile) as Record<string, IVulnData>;
 
     return Object.keys(vulnsData).map((key: string): ISuggestion => {
-      const cwe: string = key;
       const attackVectorRaw = validateNotEmpty(
         vulnsData[key].score.base.attack_vector
       );
@@ -214,10 +213,10 @@ async function getFindingNames(
           attackVectorDesc: validateNotEmpty(vulnsData[key].es.impact),
           availabilityImpact,
           confidentialityImpact,
-          cwe,
           description: validateNotEmpty(vulnsData[key].es.description),
           exploitability,
           integrityImpact,
+          key,
           privilegesRequired,
           recommendation: validateNotEmpty(vulnsData[key].es.recommendation),
           remediationLevel,
@@ -238,10 +237,10 @@ async function getFindingNames(
         attackVectorDesc: validateNotEmpty(vulnsData[key].en.impact),
         availabilityImpact,
         confidentialityImpact,
-        cwe,
         description: validateNotEmpty(vulnsData[key].en.description),
         exploitability,
         integrityImpact,
+        key,
         privilegesRequired,
         recommendation: validateNotEmpty(vulnsData[key].en.recommendation),
         remediationLevel,

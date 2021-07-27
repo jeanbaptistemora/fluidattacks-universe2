@@ -18,13 +18,12 @@ interface IGroupDraftsAttr {
   };
 }
 
-interface ISuggestion {
+interface IDraftVariables {
   attackComplexity: string;
   attackVector: string;
   attackVectorDesc: string;
   availabilityImpact: string;
   confidentialityImpact: string;
-  cwe: string;
   description: string;
   exploitability: string;
   integrityImpact: string;
@@ -37,6 +36,20 @@ interface ISuggestion {
   threat: string;
   title: string;
   userInteraction: string;
+}
+
+interface IAddDraftMutationVariables extends IDraftVariables {
+  groupName: string;
+}
+
+interface IAddDraftMutationResult {
+  addDraft: {
+    success: boolean;
+  };
+}
+
+interface ISuggestion extends IDraftVariables {
+  key: string;
 }
 
 interface IVulnLanguage {
@@ -73,4 +86,11 @@ interface IVulnData {
   metadata: Record<string, unknown>;
 }
 
-export { IGroupDraftsAttr, ISuggestion, IVulnData };
+export {
+  IDraftVariables,
+  IAddDraftMutationResult,
+  IAddDraftMutationVariables,
+  IGroupDraftsAttr,
+  ISuggestion,
+  IVulnData,
+};

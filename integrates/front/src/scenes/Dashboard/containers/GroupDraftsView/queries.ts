@@ -28,7 +28,6 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
     $attackVectorDesc: String
     $availabilityImpact: String
     $confidentialityImpact: String
-    $cwe: String
     $description: String
     $exploitability: String
     $groupName: String!
@@ -50,7 +49,6 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
       attackVectorDesc: $attackVectorDesc
       availabilityImpact: $availabilityImpact
       confidentialityImpact: $confidentialityImpact
-      cwe: $cwe
       description: $description
       exploitability: $exploitability
       groupName: $groupName
