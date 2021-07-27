@@ -73,6 +73,7 @@ if __name__ == "__main__":
         "KNeighborsClassifier",
         "LGBMClassifier",
         "LinearSVC",
+        "LogisticRegression",
         "MLPClassifier",
         "RandomForestClassifier",
     ]

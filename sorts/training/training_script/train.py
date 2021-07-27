@@ -15,6 +15,9 @@ import os
 from pandas import (
     DataFrame,
 )
+from sklearn.linear_model import (
+    LogisticRegression,
+)
 from sklearn.neighbors import (
     KNeighborsClassifier,
 )
@@ -62,7 +65,7 @@ def get_model_instance(model_class: ModelType) -> ModelType:
     default_args: Dict[str, Any] = {}
     if model_class != KNeighborsClassifier:
         default_args = {"random_state": 42}
-        if model_class == MLPClassifier:
+        if model_class in [MLPClassifier, LogisticRegression]:
             default_args.update({"max_iter": 500})
         elif model_class == LGBMClassifier:
             default_args.update({"learning_rate": 0.05, "max_depth": 5})
