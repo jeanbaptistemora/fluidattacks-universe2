@@ -222,12 +222,6 @@ integrates.back.test.functional.approve_draft_new:
 integrates.back.test.functional.deactivate_root:
   <<: *integrates_back_test_functional
 
-integrates.back.test.functional.delete_vulnerability:
-  <<: *integrates_back_test_functional
-
-integrates.back.test.functional.delete_vulnerability_new:
-  <<: *integrates_back_test_functional_migration
-
 integrates.back.test.functional.download_event_file:
   <<: *integrates_back_test_functional
 
@@ -330,6 +324,12 @@ integrates.back.test.functional.remove_tag:
 integrates.back.test.functional.remove_tags:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.remove_vulnerability:
+  <<: *integrates_back_test_functional
+
+integrates.back.test.functional.remove_vulnerability_new:
+  <<: *integrates_back_test_functional_migration
+
 integrates.back.test.functional.request_verification_vuln:
   <<: *integrates_back_test_functional
 
@@ -414,7 +414,7 @@ integrates.back.test.functional.update_toe_lines_sorts:
 integrates.back.test.functional.update_treatment_vuln:
   <<: *integrates_back_test_functional
 
-integrates.back.test.functional.update_vuln_commit:
+integrates.back.test.functional.update_vulnerability_commit:
   <<: *integrates_back_test_functional
 
 integrates.back.test.functional.upload_file:

@@ -565,8 +565,14 @@ async def resolve_group_name(  # noqa: MC0001
         name = await _resolve_from_event_id(context, kwargs["event_id"])
     elif "vuln_id" in kwargs:
         name = await _resolve_from_vuln_id(context, kwargs["vuln_id"])
+    elif "vulnerability_id" in kwargs:
+        name = await _resolve_from_vuln_id(context, kwargs["vulnerability_id"])
     elif "vuln_uuid" in kwargs:
         name = await _resolve_from_vuln_id(context, kwargs["vuln_uuid"])
+    elif "vulnerability_uuid" in kwargs:
+        name = await _resolve_from_vuln_id(
+            context, kwargs["vulnerability_uuid"]
+        )
     elif DEBUG:
         raise Exception("Unable to identify group")
     else:
