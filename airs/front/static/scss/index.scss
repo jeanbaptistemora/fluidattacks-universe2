@@ -354,6 +354,111 @@ $gray-244: rgba(244, 244, 246, 1);
   border-bottom: solid 1px $fluid-gray;
 }
 
+.faq-page {
+  h2 {
+    margin-bottom: 1rem !important;
+  }
+
+  h4 {
+    border: solid 1px $fluid-gray;
+    padding: 1rem 2.5rem 1rem 1rem;
+    position: relative;
+  }
+
+  .arrow-down::before {
+    border-right: 2px solid;
+    color: $fluid-gray;
+    content: '';
+    display: block;
+    height: 8px;
+    margin-left: 1rem !important;
+    margin-top: -6px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: rotate(-45deg);
+    transition: all linear 0.1s;
+  }
+
+  .arrow-down::after {
+    border-right: 2px solid;
+    color: $fluid-gray;
+    content: '';
+    display: block;
+    height: 8px;
+    margin-left: 1rem !important;
+    margin-top: -6px;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: rotate(45deg);
+    transition: all linear 0.1s;
+  }
+
+  .arrow-up::before {
+    border-right: 2px solid;
+    color: $fluid-gray;
+    content: '';
+    display: block;
+    height: 8px;
+    margin-left: 1rem !important;
+    margin-top: -6px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: rotate(45deg);
+    transition: all linear 0.1s;
+  }
+
+  .arrow-up::after {
+    border-right: 2px solid;
+    color: $fluid-gray;
+    content: '';
+    display: block;
+    height: 8px;
+    margin-left: 1rem !important;
+    margin-top: -6px;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: rotate(-45deg);
+    transition: all linear 0.1s;
+  }
+
+  .sect1 {
+    margin-bottom: 2rem !important;
+  }
+
+  .paragraph {
+    display: none;
+  }
+
+  .olist {
+    display: none;
+  }
+
+  .db {
+    display: block !important;
+    transition: all linear 0.3s;
+  }
+
+  .tc {
+    display: block !important;
+  }
+
+  @media screen and (min-width: 30em) and (max-width: 60em) {
+    h4 {
+      font-size: 1rem !important;
+    }
+  }
+
+  @media screen and (max-width: 30em) {
+    h4 {
+      font-size: 1rem !important;
+    }
+  }
+}
+
 .bl-red {
   border-left: 9px solid $red-255;
   content: '';
