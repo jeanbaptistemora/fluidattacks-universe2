@@ -17,11 +17,11 @@ import { changeVulnStateFormatter } from "components/DataTableNext/formatters";
 import type { IHeaderConfig } from "components/DataTableNext/types";
 import { RemediationModal } from "scenes/Dashboard/components/RemediationModal/index";
 import {
-  REQUEST_VERIFICATION_VULNERABILITIES,
+  REQUEST_VULNERABILITIES_VERIFICATION,
   VERIFY_VULNERABILITIES,
 } from "scenes/Dashboard/components/UpdateVerificationModal/queries";
 import type {
-  IRequestVerificationVulnResult,
+  IRequestVulnVerificationResult,
   IVerifyRequestVulnResult,
 } from "scenes/Dashboard/components/UpdateVerificationModal/types";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
@@ -76,9 +76,9 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
 
   // GraphQL operations
   const [requestVerification, { loading: submittingRequest }] = useMutation(
-    REQUEST_VERIFICATION_VULNERABILITIES,
+    REQUEST_VULNERABILITIES_VERIFICATION,
     {
-      onCompleted: (data: IRequestVerificationVulnResult): void => {
+      onCompleted: (data: IRequestVulnVerificationResult): void => {
         handleRequestVerification(
           refetchData,
           clearSelected,

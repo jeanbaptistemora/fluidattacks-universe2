@@ -48,7 +48,7 @@ const ReattackVulnButton: React.FC<IReattackVulnButtonProps> = ({
     !(isEditing || isVerifying);
 
   return (
-    <Can do={"api_mutations_request_verification_vulnerabilities_mutate"}>
+    <Can do={"api_mutations_request_vulnerabilities_verification_mutate"}>
       {isRequestingReattack ? (
         <Button
           disabled={!areVulnsSelected}

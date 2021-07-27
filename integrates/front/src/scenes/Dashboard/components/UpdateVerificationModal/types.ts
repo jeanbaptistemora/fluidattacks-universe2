@@ -1,5 +1,5 @@
-interface IRequestVerificationVulnResult {
-  requestVerificationVulnerabilities: {
+interface IRequestVulnVerificationResult {
+  requestVulnerabilitiesVerification: {
     success: boolean;
   };
 }
@@ -10,4 +10,4 @@ interface IVerifyRequestVulnResult {
   };
 }
 
-export { IRequestVerificationVulnResult, IVerifyRequestVulnResult };
+export { IRequestVulnVerificationResult, IVerifyRequestVulnResult };

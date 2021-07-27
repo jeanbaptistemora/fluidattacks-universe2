@@ -3,7 +3,7 @@ import type { GraphQLError } from "graphql";
 import { track } from "mixpanel-browser";
 
 import type {
-  IRequestVerificationVulnResult,
+  IRequestVulnVerificationResult,
   IVerifyRequestVulnResult,
 } from "./types";
 
@@ -16,9 +16,9 @@ const handleRequestVerification = (
   refetchData: () => void,
   clearSelected: () => void,
   setRequestState: () => void,
-  data: IRequestVerificationVulnResult
+  data: IRequestVulnVerificationResult
 ): void => {
-  if (data.requestVerificationVulnerabilities.success) {
+  if (data.requestVulnerabilitiesVerification.success) {
     msgSuccess(
       translate.t("groupAlerts.requestedReattackSuccess"),
       translate.t("groupAlerts.updatedTitle")

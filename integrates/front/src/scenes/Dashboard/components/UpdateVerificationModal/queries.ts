@@ -1,13 +1,13 @@
 import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
-const REQUEST_VERIFICATION_VULNERABILITIES: DocumentNode = gql`
-  mutation RequestVerificationVulnerabilities(
+const REQUEST_VULNERABILITIES_VERIFICATION: DocumentNode = gql`
+  mutation requestVulnerabilitiesVerification(
     $findingId: String!
     $justification: String!
     $vulnerabilities: [String]!
   ) {
-    requestVerificationVulnerabilities(
+    requestVulnerabilitiesVerification(
       findingId: $findingId
       justification: $justification
       vulnerabilities: $vulnerabilities
@@ -35,4 +35,4 @@ const VERIFY_VULNERABILITIES: DocumentNode = gql`
   }
 `;
 
-export { REQUEST_VERIFICATION_VULNERABILITIES, VERIFY_VULNERABILITIES };
+export { REQUEST_VULNERABILITIES_VERIFICATION, VERIFY_VULNERABILITIES };
