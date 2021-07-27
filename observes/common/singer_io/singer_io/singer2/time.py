@@ -5,6 +5,7 @@ from datetime import (
     datetime,
 )
 from pyrfc3339 import (
+    generate,
     parse as parse_rfc3339,
 )
 import pytz
@@ -23,6 +24,12 @@ class DateTime(_DateTime):
     def __init__(self, date: _DateTime) -> None:
         for key, val in date.__dict__.items():
             object.__setattr__(self, key, val)
+
+    def to_utc_str(self) -> str:
+        return generate(self.date)
+
+    def to_str(self) -> str:
+        return generate(self.date, utc=False)
 
 
 @dataclass(frozen=True)
