@@ -200,7 +200,7 @@ integrates.back.test.functional.add_finding_consult:
 
 integrates.back.test.functional.add_git_root:
   <<: *integrates_back_test_functional
-  
+
 integrates.back.test.functional.add_group:
   <<: *integrates_back_test_functional
 
@@ -305,15 +305,18 @@ integrates.back.test.functional.remove_evidence_new:
 
 integrates.back.test.functional.remove_files:
   <<: *integrates_back_test_functional
-  
+
 integrates.back.test.functional.remove_finding:
   <<: *integrates_back_test_functional
-  
+
 integrates.back.test.functional.remove_finding_new:
   <<: *integrates_back_test_functional_migration
 
 integrates.back.test.functional.remove_group:
   <<: *integrates_back_test_functional
+
+integrates.back.test.functional.remove_group_new:
+  <<: *integrates_back_test_functional_migration
 
 integrates.back.test.functional.remove_stakeholder_access:
   <<: *integrates_back_test_functional

@@ -54,6 +54,7 @@ TEST_GROUPS: Set[str] = {
     "remove_finding",
     "remove_finding_new",
     "remove_group",
+    "remove_group_new",
     "remove_stakeholder_access",
     "remove_stakeholder_organization_access",
     "remove_tag",

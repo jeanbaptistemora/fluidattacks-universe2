@@ -50,6 +50,7 @@ from api.mutations import (
     remove_finding_evidence_new,
     remove_finding_new,
     remove_group,
+    remove_group_new,
     remove_group_tag,
     remove_stakeholder_access,
     remove_stakeholder_organization_access,
@@ -188,7 +189,6 @@ MUTATION.set_field("downloadFile", download_file.mutate)
 MUTATION.set_field("removeFiles", remove_files.mutate)
 MUTATION.set_field("createProject", add_group.mutate)
 MUTATION.set_field("editGroup", edit_group.mutate)
-MUTATION.set_field("removeGroup", remove_group.mutate)
 MUTATION.set_field("addProjectConsult", add_group_consult.mutate)
 MUTATION.set_field("addTags", add_group_tags.mutate)
 MUTATION.set_field("removeTag", remove_group_tag.mutate)
@@ -253,6 +253,7 @@ if FI_API_STATUS == "migration":
         reject_vulnerabilities_zero_risk_new.mutate,
     )
     MUTATION.set_field("removeEvidence", remove_finding_evidence_new.mutate)
+    MUTATION.set_field("removeGroup", remove_group_new.mutate)
     MUTATION.set_field(
         "requestVerificationVuln",
         request_vulnerabilities_verification_new.mutate,
@@ -302,6 +303,7 @@ else:
         reject_vulnerabilities_zero_risk.mutate,
     )
     MUTATION.set_field("removeEvidence", remove_finding_evidence.mutate)
+    MUTATION.set_field("removeGroup", remove_group.mutate)
     MUTATION.set_field(
         "requestVerificationVuln", request_vulnerabilities_verification.mutate
     )
