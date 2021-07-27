@@ -1,6 +1,6 @@
 import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import { faRocket } from "@fortawesome/free-solid-svg-icons";
+import { faClock, faRocket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -35,13 +35,6 @@ const formatDuration = (value: number): string => {
   return `${(value / miliSecondsInAnHour).toFixed(2)}`;
 };
 
-const loadingNetworkStatuses: NetworkStatus[] = [
-  NetworkStatus.loading,
-  NetworkStatus.fetchMore,
-  NetworkStatus.refetch,
-  NetworkStatus.setVariables,
-];
-
 const MachineView: React.FC = (): JSX.Element => {
   const { findingId, groupName } =
     useParams<{ findingId: string; groupName: string }>();
@@ -59,17 +52,18 @@ const MachineView: React.FC = (): JSX.Element => {
         Logger.warning("An error occurred loading machine jobs", error);
       });
     },
-    pollInterval: 10000,
     variables: { findingId, groupName },
   });
   const handleOnSuccess = (result: ISubmitMachineJobResult): void => {
     if (!_.isUndefined(result)) {
       if (result.submitMachineJob.success) {
+        void refetch();
         msgSuccess(
           translate.t("searchFindings.tabMachine.submitJobSuccess"),
           translate.t("searchFindings.tabMachine.success")
         );
-        void refetch();
+      } else {
+        msgError(translate.t("searchFindings.tabMachine.errorNoCheck"));
       }
     }
   };
@@ -152,12 +146,25 @@ const MachineView: React.FC = (): JSX.Element => {
   };
 
   const isLoading: boolean =
-    submittingMachineJob || loadingNetworkStatuses.includes(dataNS);
+    submittingMachineJob || dataNS === NetworkStatus.refetch;
 
   return (
     <React.StrictMode>
       <ButtonToolbarCenter>
-        {isLoading ? undefined : (
+        {isLoading ? (
+          <DropdownButton
+            content={
+              <div className={"tc"}>
+                <FontAwesomeIcon icon={faClock} />
+                &nbsp;
+                {translate.t("searchFindings.tabMachine.submitting")}
+              </div>
+            }
+            id={"submitJob"}
+            items={[]}
+            scrollInto={true}
+          />
+        ) : (
           <DropdownButton
             content={
               <div className={"tc"}>

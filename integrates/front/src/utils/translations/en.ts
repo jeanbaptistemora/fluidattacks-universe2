@@ -1537,6 +1537,7 @@ export const enTranslations: ResourceKey = {
       },
     },
     tabMachine: {
+      errorNoCheck: "There is no Machine type for this finding",
       headerDuration: "Duration (hours)",
       headerPriority: "Priority",
       headerRoot: "Root",
@@ -1546,6 +1547,7 @@ export const enTranslations: ResourceKey = {
       priorityNormal: "Normal",
       submitJob: "Queue a Job",
       submitJobSuccess: "Successfully queued job",
+      submitting: "Submitting Job, please wait",
       success: "Success",
       tabTitle: "Machine",
       tooltip: "Information about your Machine plan",
