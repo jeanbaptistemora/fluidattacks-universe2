@@ -3,7 +3,7 @@
 :page-subtitle: Why must companies comply with GDPR policies?
 :page-category: politics
 :page-tags: policies, company, information, security, software, protect
-:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1626192622/blog/gdpr-compliance/cover_gdpr_compliance_d1iwbg.webp
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627392094/blog/gdpr-compliance/cover-gdpr-compliance_ak5cfl.webp
 :page-alt: Photo by Tushar Mahajan on Unsplash
 :page-description: In this post, we will learn what GDPR is and why it is essential for your company to comply with its policies.
 :page-keywords: GDPR, Data, Companies, Information, Security, Personal, Ethical Hacking, Pentesting

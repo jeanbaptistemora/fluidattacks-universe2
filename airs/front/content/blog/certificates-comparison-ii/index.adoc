@@ -3,7 +3,7 @@
 :page-subtitle: Brief reviews on advanced certifications
 :page-category: opinions
 :page-tags: cybersecurity, red-team, interview, training, software, exploit
-:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1626707288/blog/certificates-comparison-ii/cover-certificates-comparison-ii_clbcrh.webp
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627392956/blog/certificates-comparison-ii/cover-certificates-comparison-ii_pkyxto.webp
 :page-alt: Photo by Giammarco Cruz on Unsplash
 :page-description: This is the second post reviewing the leading certifications in the red team field. Here, we will look at our intermediate and advanced certificates.
 :page-keywords: Security, Exam, Security, Certification, Cybersecurity, Ethical Hacking, Certificate, Pentesting

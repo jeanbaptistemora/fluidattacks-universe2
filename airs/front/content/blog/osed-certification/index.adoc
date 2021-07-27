@@ -3,7 +3,7 @@
 :page-subtitle: A short interview with Óscar Uribe
 :page-category: interview
 :page-tags: cybersecurity, red-team, interview, training, software, exploit
-:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1624543104/blog/osed-certification/cover_zocrqa.webp
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627390773/blog/osed-certification/cover-osed-certification_hspd3l.webp
 :page-alt: Photo by Austin Park on Unsplash
 :page-description: Óscar Uribe obtained the Offensive Security Exploit Developer (OSED) certification on June 15th. Here we talk to him about this achievement.
 :page-keywords: Osed, Exam, Security, Certification, Cybersecurity, Ethical Hacking, Course, Pentesting

@@ -3,7 +3,7 @@
 :page-subtitle: Tips for understanding the Apple–China controversy
 :page-category: politics
 :page-tags: policies, company, trends, information, technology, cloud
-:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1623357211/blog/apple-data-center-china/cover_glddbx.webp
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627389989/blog/apple-data-center-china/cover-apple-data-center-china_lihdpl.webp
 :page-alt: Photo by Elisabeth Pieringer on Unsplash
 :page-description: In this post, we will understand why the Apple data center inaugurated in Guizhou reopened the controversy over data privacy in China.
 :page-keywords: Data, Information, Vulnerability, Software, Apple, Ethical Hacking, China, Chinese, Pentesting

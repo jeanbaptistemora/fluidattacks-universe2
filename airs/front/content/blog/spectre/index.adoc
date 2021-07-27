@@ -3,7 +3,7 @@
 :page-subtitle: The one that leaves no trace: the Spectre one?
 :page-category: attacks
 :page-tags: cybersecurity, exploit, mistake, risk, technology, software
-:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1622146610/blog/spectre/cover_vioppv.webp
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627388863/blog/spectre/cover-spectre_ldoml1.webp
 :page-alt: Photo by Sammy Williams on Unsplash
 :page-description: Spectre has reappeared! It has returned full of surprises and can transform the way processors are made. Here is what we know about it.
 :page-keywords: Spectre, Vulnerability, Software, Cybersecurity, Speculative Execution, Ethical Hacking, Processor, Pentesting, CPU

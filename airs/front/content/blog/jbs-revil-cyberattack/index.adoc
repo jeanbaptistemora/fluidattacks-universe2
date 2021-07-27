@@ -3,7 +3,7 @@
 :page-subtitle: "A cyberattack on one is an attack on us all"
 :page-category: attacks
 :page-tags: cybersecurity, company, trends, risk, technology, software
-:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1623159154/blog/jbs-revil-cyberattack/cover_ecays7.webp
+:page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627389786/blog/jbs-revil-cyberattack/cover-jbs-revil-cyberattack_t9s8bc.webp
 :page-alt: Photo by NASA on Unsplash
 :page-description: FBI stated REvil as a global threat after confirming their attack on the IT architecture of the world's largest meat-producing company, JBS.
 :page-keywords: Ransomware, Attack, Vulnerability, Software, Cybersecurity, Ethical Hacking, Revil, Pentesting
