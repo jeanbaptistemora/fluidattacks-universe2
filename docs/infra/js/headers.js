@@ -1,33 +1,33 @@
 let securityHeaders = {
-  "Content-Security-Policy" : "script-src \
-                              'self' \
-                              'unsafe-inline' \
-                              'unsafe-eval' \
-                              *.cloudflareinsights.com \
-                              *.google-analytics.com; \
-                              frame-ancestors \
-                              'self'; \
-                              object-src \
-                              'none'; \
-                              upgrade-insecure-requests;",
+  "Content-Security-Policy" : "script-src "
+                              + "'self' "
+                              + "'unsafe-inline' "
+                              + "'unsafe-eval' "
+                              + "*.cloudflareinsights.com "
+                              + "*.google-analytics.com; "
+                              + "frame-ancestors "
+                              + "'self'; "
+                              + "object-src "
+                              + "'none'; "
+                              + "upgrade-insecure-requests;",
   "Strict-Transport-Security" : "max-age=31536000",
   "X-Xss-Protection" : "0",
   "X-Frame-Options" : "DENY",
   "X-Content-Type-Options" : "nosniff",
   "X-Permitted-Cross-Domain-Policies": "none",
   "Referrer-Policy" : "strict-origin-when-cross-origin",
-  "Permissions-Policy" : "geolocation=(self), \
-                          midi=(self), \
-                          push=(self), \
-                          sync-xhr=(self), \
-                          microphone=(self), \
-                          camera=(self), \
-                          magnetometer=(self), \
-                          gyroscope=(self), \
-                          speaker=(self), \
-                          vibrate=(self), \
-                          fullscreen=(self), \
-                          payment=(self)",
+  "Permissions-Policy" : "geolocation=(self), "
+                         + "midi=(self), "
+                         + "push=(self), "
+                         + "sync-xhr=(self), "
+                         + "microphone=(self), "
+                         + "camera=(self), "
+                         + "magnetometer=(self), "
+                         + "gyroscope=(self), "
+                         + "speaker=(self), "
+                         + "vibrate=(self), "
+                         + "fullscreen=(self), "
+                         + "payment=(self)",
 }
 
 let sanitiseHeaders = {}
