@@ -289,3 +289,74 @@ the environment of the reviewed code.
 It is possible to include
 different environments
 for an additional fee.
+
+## Severity vs Vulnerabilities
+
+The analysis grouping
+the amount of vulnerabilities
+has the following problems:
+
+- Not all the vulnerabilities
+  have the same severity (CVSS).
+- A vulnerabilitiy with severity 10
+  is not equal to two vulnerabilities
+  with severity 5.
+
+Grouping vulnerabilities by ranges
+(low, medium, etc) presents the same
+problems by segmemts
+as well as additional ones:
+
+- A vulnerabilitiy of 9.9
+  is not 10% more severe than
+  a 9.0 ("critical").
+- **Arbitrariness** in the segmentation:
+  8.9 is not critical, but 9.0 is?
+- Increases **complexity**:
+  4 sets of data non groupable
+  together instead of 1.
+
+For these reasons,
+the executive analysis
+based on grouping of vulnerabilities
+whether grouped without ranges
+or with them, is not recommended.
+
+## Adjustment by Severity
+
+To allow grouping of vulnerabilities,
+a **`4 ^ (CVSS-4)`** severity adjustment
+is recommended that reflects
+the exponential nature
+of the severity in each vulnerability:
+
+1. Reduce the severity of vulnerailities:
+
+   a. Low severity
+
+   b. Very frequent
+
+1. Increases the severity of vulnerabilities:
+
+   a. High severity
+
+   b. Infrequent
+
+1. Allows:
+
+   a. Analysis aggregated into a single data set.
+
+   b. No arbitrary ranges.
+
+   c. Reality alined **priorization**.
+
+## Adjustment by Severity: Equivalences
+
+![cvss-table.png](https://res.cloudinary.com/fluid-attacks/image/upload/v1627330928/docs/about/faq/cvss-table_dzfa1h.png)
+
+1. The table shows that
+   vulnerability 10 (row) equals
+   262,144 vulnerabilities 1 (column).
+1. A vulnerability 5 (row)
+   equals 16 times the severity
+   of a vulnerability 4 (column).
