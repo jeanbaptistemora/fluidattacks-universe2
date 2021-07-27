@@ -39,7 +39,7 @@ async def mutate(
     justification: str,
     vulnerabilities: List[str],
 ) -> SimplePayloadType:
-    """Resolve reject_zero_risk_vulnerabilities mutation."""
+    """Resolve reject_vulnerabilities_zero_risk mutation."""
     user_info = await token_utils.get_jwt_content(info.context)
     success = await vulns_domain.reject_zero_risk_vulnerabilities(
         finding_id, user_info, justification, vulnerabilities

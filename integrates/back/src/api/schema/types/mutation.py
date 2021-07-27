@@ -41,8 +41,8 @@ from api.mutations import (
     invalidate_cache,
     reject_draft,
     reject_draft_new,
-    reject_zero_risk_vulnerabilities,
-    reject_zero_risk_vulnerabilities_new,
+    reject_vulnerabilities_zero_risk,
+    reject_vulnerabilities_zero_risk_new,
     remove_event_evidence,
     remove_files,
     remove_finding,
@@ -246,11 +246,11 @@ if FI_API_STATUS == "migration":
     MUTATION.set_field("removeVulnerability", remove_vulnerability_new.mutate)
     MUTATION.set_field("rejectDraft", reject_draft_new.mutate)
     MUTATION.set_field(
-        "rejectZeroRiskVuln", reject_zero_risk_vulnerabilities_new.mutate
+        "rejectZeroRiskVuln", reject_vulnerabilities_zero_risk_new.mutate
     )
     MUTATION.set_field(
-        "rejectZeroRiskVulnerabilities",
-        reject_zero_risk_vulnerabilities_new.mutate,
+        "rejectVulnerabilitiesZeroRisk",
+        reject_vulnerabilities_zero_risk_new.mutate,
     )
     MUTATION.set_field("removeEvidence", remove_finding_evidence_new.mutate)
     MUTATION.set_field(
@@ -295,11 +295,11 @@ else:
     MUTATION.set_field("removeVulnerability", remove_vulnerability.mutate)
     MUTATION.set_field("rejectDraft", reject_draft.mutate)
     MUTATION.set_field(
-        "rejectZeroRiskVuln", reject_zero_risk_vulnerabilities.mutate
+        "rejectZeroRiskVuln", reject_vulnerabilities_zero_risk.mutate
     )
     MUTATION.set_field(
-        "rejectZeroRiskVulnerabilities",
-        reject_zero_risk_vulnerabilities.mutate,
+        "rejectVulnerabilitiesZeroRisk",
+        reject_vulnerabilities_zero_risk.mutate,
     )
     MUTATION.set_field("removeEvidence", remove_finding_evidence.mutate)
     MUTATION.set_field(

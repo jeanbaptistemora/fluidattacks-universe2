@@ -405,18 +405,18 @@ type Mutation {
 
   rejectDraft(findingId: String!): SimplePayload!
 
+  rejectVulnerabilitiesZeroRisk(
+    findingId: String!
+    justification: String!
+    vulnerabilities: [String]!
+  ): SimplePayload!
+
   rejectZeroRiskVuln(
     findingId: String!
     justification: String!
     vulnerabilities: [String]!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2021/12/31. Use `rejectZeroRiskVulnerabilities` instead.""")
-
-  rejectZeroRiskVulnerabilities(
-    findingId: String!
-    justification: String!
-    vulnerabilities: [String]!
-  ): SimplePayload!
+    after 2021/12/31. Use `rejectVulnerabilitiesZeroRisk` instead.""")
 
   removeEventEvidence(
     eventId: String!
