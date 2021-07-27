@@ -7,18 +7,25 @@ from returns.maybe import (
     Maybe,
 )
 from singer_io.singer2._objs import (
+    SingerMessage,
     SingerRecord,
     SingerSchema,
+    SingerState,
 )
 from singer_io.singer2.json import (
     DictFactory,
     JsonFactory,
+    JsonObj,
 )
 from singer_io.singer2.json_schema import (
     JsonSchemaFactory,
 )
 from singer_io.singer2.time import (
     TimeFactory,
+)
+from typing import (
+    Any,
+    Dict,
 )
 
 
@@ -33,9 +40,9 @@ class InvalidType(Exception):
 @dataclass(frozen=True)
 class SingerDeserializer:
     @classmethod
-    def build_schema(cls, raw_schema: str) -> SingerSchema:
-        raw_dict = DictFactory.loads(raw_schema)
-        raw_json = JsonFactory.from_dict(raw_dict)
+    def build_schema(
+        cls, raw_dict: Dict[str, Any], raw_json: JsonObj
+    ) -> SingerSchema:
         required_keys = frozenset(
             {"type", "stream", "schema", "key_properties"}
         )
@@ -60,8 +67,7 @@ class SingerDeserializer:
         raise InvalidType(f'Expected "SCHEMA" not "{parsed_type}"')
 
     @classmethod
-    def build_record(cls, raw_record: str) -> SingerRecord:
-        raw_json = JsonFactory.loads(raw_record)
+    def build_record(cls, raw_json: JsonObj) -> SingerRecord:
         required_keys = frozenset({"type", "stream", "record"})
         invalid: bool = any(map(lambda x: x not in raw_json, required_keys))
         if invalid:
@@ -79,3 +85,27 @@ class SingerDeserializer:
                 time_extracted=time_extracted.value_or(None),
             )
         raise InvalidType(f'Expected "RECORD" not "{parsed_type}"')
+
+    @classmethod
+    def build_state(cls, raw_json: JsonObj) -> SingerState:
+        required_keys = frozenset({"type", "value"})
+        invalid: bool = any(map(lambda x: x not in raw_json, required_keys))
+        if invalid:
+            raise MissingKeys("Can not generate `SingerState` object")
+        parsed_type = raw_json["type"].to_primitive(str)
+        if parsed_type == "STATE":
+            return SingerState(value=raw_json["value"].to_json())
+        raise InvalidType(f'Expected "STATE" not "{parsed_type}"')
+
+    @classmethod
+    def deserialize(cls, raw_singer: str) -> SingerMessage:
+        raw_dict = DictFactory.loads(raw_singer)
+        raw_json = JsonFactory.from_dict(raw_dict)
+        parsed_type = raw_json["type"].to_primitive(str)
+        if parsed_type == "RECORD":
+            return cls.build_record(raw_json)
+        if parsed_type == "SCHEMA":
+            return cls.build_schema(raw_dict, raw_json)
+        if parsed_type == "STATE":
+            return cls.build_state(raw_json)
+        raise InvalidType(f"Unknown type '{parsed_type}'")
