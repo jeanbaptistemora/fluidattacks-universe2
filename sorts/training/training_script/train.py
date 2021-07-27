@@ -65,10 +65,12 @@ def get_model_instance(model_class: ModelType) -> ModelType:
     default_args: Dict[str, Any] = {}
     if model_class != KNeighborsClassifier:
         default_args = {"random_state": 42}
-        if model_class in [MLPClassifier, LogisticRegression]:
+        if model_class == MLPClassifier:
             default_args.update({"max_iter": 500})
         elif model_class == LGBMClassifier:
             default_args.update({"learning_rate": 0.05, "max_depth": 5})
+        elif model_class == LogisticRegression:
+            default_args.update({"max_iter": 800})
     return model_class(**default_args)
 
 
