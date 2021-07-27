@@ -783,10 +783,8 @@ async def mask_finding(context: Any, finding_id: str) -> bool:
 
 
 async def mask_finding_new(  # pylint: disable=too-many-locals
-    context: Any, finding_id: str
+    context: Any, finding: Finding
 ) -> bool:
-    finding_loader = context.finding_new
-    finding: Finding = await finding_loader.load(finding_id)
     mask_finding_coroutines = []
     mask_new_finding_coroutines = []
     masked_msg = "Masked"
@@ -822,7 +820,7 @@ async def mask_finding_new(  # pylint: disable=too-many-locals
     )
     finding_historic_verification: Tuple[
         FindingVerification, ...
-    ] = await finding_historic_verification_loader.load(finding_id)
+    ] = await finding_historic_verification_loader.load(finding.id)
     new_historic_verification = tuple(
         verification._replace(
             status=FindingVerificationStatus.MASKED, modified_by=masked_msg
@@ -837,7 +835,7 @@ async def mask_finding_new(  # pylint: disable=too-many-locals
         )
     )
     list_evidences_files = await findings_dal.search_evidence(
-        f"{finding.group_name}/{finding_id}"
+        f"{finding.group_name}/{finding.id}"
     )
     evidence_s3_coroutines = [
         findings_dal.remove_evidence(file_name)
@@ -845,17 +843,17 @@ async def mask_finding_new(  # pylint: disable=too-many-locals
     ]
     mask_finding_coroutines.extend(evidence_s3_coroutines)
     comments_and_observations = await comments_domain.get(
-        "comment", int(finding_id)
-    ) + await comments_domain.get("observation", int(finding_id))
+        "comment", int(finding.id)
+    ) + await comments_domain.get("observation", int(finding.id))
     comments_coroutines = [
-        comments_domain.delete(int(finding_id), cast(int, comment["user_id"]))
+        comments_domain.delete(int(finding.id), cast(int, comment["user_id"]))
         for comment in comments_and_observations
     ]
     mask_finding_coroutines.extend(comments_coroutines)
     finding_all_vulns_loader = context.finding_vulns_all
-    vulns = await finding_all_vulns_loader.load(finding_id)
+    vulns = await finding_all_vulns_loader.load(finding.id)
     mask_vulns_coroutines = [
-        vulns_domain.mask_vuln(finding_id, str(vuln["UUID"])) for vuln in vulns
+        vulns_domain.mask_vuln(finding.id, str(vuln["UUID"])) for vuln in vulns
     ]
     mask_finding_coroutines.extend(mask_vulns_coroutines)
     await collect(mask_new_finding_coroutines)

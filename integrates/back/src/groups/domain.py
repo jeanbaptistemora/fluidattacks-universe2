@@ -1,5 +1,8 @@
 # pylint:disable=too-many-lines
 
+from aiodataloader import (
+    DataLoader,
+)
 from aioextensions import (
     collect,
     in_process,
@@ -14,6 +17,7 @@ from collections import (
 )
 from context import (
     BASE_URL,
+    FI_API_STATUS,
     FI_DEFAULT_ORG,
 )
 from contextlib import (
@@ -36,6 +40,9 @@ from custom_types import (
 )
 from datetime import (
     date,
+)
+from db_model.findings.types import (
+    Finding,
 )
 from decimal import (
     Decimal,
@@ -1087,21 +1094,39 @@ async def remove_all_users(context: Any, group: str) -> bool:
     return are_users_removed
 
 
-async def remove_resources(context: Any, group_name: str) -> bool:
+async def remove_resources(  # pylint: disable=too-many-locals
+    context: Any, group_name: str
+) -> bool:
     are_users_removed = await remove_all_users(context, group_name)
-    group_findings = await findings_domain.list_findings(
-        context, [group_name], include_deleted=True
-    )
-    group_drafts = await findings_domain.list_drafts(
-        [group_name], include_deleted=True
-    )
-    findings_and_drafts = group_findings[0] + group_drafts[0]
-    are_findings_masked = all(
-        await collect(
-            findings_domain.mask_finding(context, finding_id)
-            for finding_id in findings_and_drafts
+    if FI_API_STATUS == "migration":
+        group_drafts_loader: DataLoader = context.group_drafts_new
+        drafts: Tuple[Finding, ...] = await group_drafts_loader.load(
+            group_name
         )
-    )
+        group_all_findings_loader: DataLoader = context.group_findings_all_new
+        all_findings: Tuple[
+            Finding, ...
+        ] = await group_all_findings_loader.load(group_name)
+        are_findings_masked = all(
+            await collect(
+                findings_domain.mask_finding_new(context, finding)
+                for finding in drafts + all_findings
+            )
+        )
+    else:
+        group_findings = await findings_domain.list_findings(
+            context, [group_name], include_deleted=True
+        )
+        group_drafts = await findings_domain.list_drafts(
+            [group_name], include_deleted=True
+        )
+        findings_and_drafts = group_findings[0] + group_drafts[0]
+        are_findings_masked = all(
+            await collect(
+                findings_domain.mask_finding(context, finding_id)
+                for finding_id in findings_and_drafts
+            )
+        )
     events = await events_domain.list_group_events(group_name)
     are_events_masked = all(
         await collect(events_domain.mask(event_id) for event_id in events)
