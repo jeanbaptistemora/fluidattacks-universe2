@@ -1,13 +1,19 @@
 # pylint: disable=invalid-name
-# This migration aims to close related vulnerabilities
-#
-# 1st execution
-# Execution time: 2021-07-14 00:06:30-05:00
-# Finalization time: 2021-07-14 00:08:34-05:00
-#
-# 2nd execution
-# Execution time: 2021-07-14 22:03:20-05:00
-# Finalization time: 2021-07-14 22:05:47-05:00
+"""
+This migration aims to close related vulnerabilities
+
+1st execution
+Execution time: 2021-07-14 00:06:30-05
+Finalization time: 2021-07-14 00:08:34-05
+
+2nd execution
+Execution time: 2021-07-14 22:03:20-05
+Finalization time: 2021-07-14 22:05:47-05
+
+3rd execution
+Execution Time: 2021-07-26 19:50:35-05
+Finalization Time: 2021-07-26 19:50:43-05
+"""
 
 from aioextensions import (
     collect,
@@ -43,6 +49,7 @@ from roots.dal import (
 from roots.domain import (
     get_org_roots,
 )
+import time
 from typing import (
     Any,
     Dict,
@@ -295,4 +302,7 @@ async def main() -> None:
 
 
 if __name__ == "__main__":
+    execution_time = time.strftime("Execution Time: %Y-%m-%d %H:%M:%S%Z")
     run(main())
+    finalization_time = time.strftime("Finalization Time: %Y-%m-%d %H:%M:%S%Z")
+    print(f"{execution_time}\n{finalization_time}")
