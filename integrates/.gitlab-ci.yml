@@ -222,9 +222,6 @@ integrates.back.test.functional.approve_draft_new:
 integrates.back.test.functional.deactivate_root:
   <<: *integrates_back_test_functional
 
-integrates.back.test.functional.delete_finding_new:
-  <<: *integrates_back_test_functional_migration
-
 integrates.back.test.functional.delete_vulnerability:
   <<: *integrates_back_test_functional
 
@@ -311,6 +308,9 @@ integrates.back.test.functional.remove_files:
   
 integrates.back.test.functional.remove_finding:
   <<: *integrates_back_test_functional
+  
+integrates.back.test.functional.remove_finding_new:
+  <<: *integrates_back_test_functional_migration
 
 integrates.back.test.functional.remove_group:
   <<: *integrates_back_test_functional
@@ -333,10 +333,10 @@ integrates.back.test.functional.request_verification_vuln:
 integrates.back.test.functional.request_verification_vuln_new:
   <<: *integrates_back_test_functional_migration
 
-integrates.back.test.functional.request_zero_risk_vuln:
+integrates.back.test.functional.request_vulnerabilities_zero_risk:
   <<: *integrates_back_test_functional
 
-integrates.back.test.functional.request_zero_risk_vuln_new:
+integrates.back.test.functional.request_vulnerabilities_zero_risk_new:
   <<: *integrates_back_test_functional_migration
 
 integrates.back.test.functional.resources:
