@@ -26,6 +26,7 @@ async def main() -> None:
         (group, check, root.nickname)
         for group in groups
         for root in await dataloaders.group_roots.load(group)
+        if root.state == "ACTIVE"
         for check in skims_sdk.FINDINGS
     ]
     random.shuffle(jobs)
