@@ -14,7 +14,6 @@ const GET_FINDING_DESCRIPTION: DocumentNode = gql`
       attackVectorDesc
       compromisedAttributes
       compromisedRecords
-      cweUrl
       description
       id
       openVulnerabilities
@@ -37,7 +36,6 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
     $attackVectorDesc: String!
     $compromisedAttributes: String
     $compromisedRecords: Int!
-    $cweUrl: String!
     $description: String!
     $findingId: String!
     $recommendation: String!
@@ -52,7 +50,6 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
       actor: $actor
       affectedSystems: $affectedSystems
       attackVectorDesc: $attackVectorDesc
-      cwe: $cweUrl
       description: $description
       findingId: $findingId
       records: $compromisedAttributes

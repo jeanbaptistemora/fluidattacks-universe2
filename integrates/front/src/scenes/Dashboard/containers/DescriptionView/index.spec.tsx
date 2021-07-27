@@ -26,7 +26,6 @@ describe("Finding Description", (): void => {
     attackVectorDesc: "Run a reverse shell",
     compromisedAttributes: "Server files",
     compromisedRecords: 204,
-    cweUrl: "94",
     description: "It's possible to execute shell commands from the site",
     id: "413372600",
     openVulnerabilities: 0,
@@ -130,7 +129,7 @@ describe("Finding Description", (): void => {
     const fieldsAsEditable: ReactWrapper = wrapper.find({
       renderAsEditable: true,
     });
-    const EXPECTED_LENGTH: number = 7;
+    const EXPECTED_LENGTH: number = 6;
 
     expect(editingComponents).toHaveLength(2);
     expect(fieldsAsEditable).toHaveLength(EXPECTED_LENGTH);

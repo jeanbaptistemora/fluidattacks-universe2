@@ -15,7 +15,6 @@ interface IFinding {
   attackVectorDesc: string;
   compromisedAttributes: string;
   compromisedRecords: number;
-  cweUrl: string;
   description: string;
   id: string;
   openVulnerabilities: number;

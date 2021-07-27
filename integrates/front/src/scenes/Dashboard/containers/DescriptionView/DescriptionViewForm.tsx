@@ -9,7 +9,6 @@ import type {
   IFinding,
   IFindingDescriptionData,
 } from "scenes/Dashboard/containers/DescriptionView/types";
-import { formatCweUrl } from "scenes/Dashboard/containers/DescriptionView/utils";
 import {
   Col100,
   Col45,
@@ -28,7 +27,6 @@ import { translate } from "utils/translations/translate";
 import {
   composeValidators,
   maxLength,
-  numeric,
   required,
   validDraftTitle,
   validTextField,
@@ -299,31 +297,6 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                       validTextField,
                       maxThreatLength,
                     ])}
-                    visibleWhileEditing={canEdit}
-                  />
-                )}
-              </Can>
-            </Col45>
-            <Col45>
-              <Can
-                do={"api_mutations_update_finding_description_mutate"}
-                passThrough={true}
-              >
-                {(canEdit: boolean): JSX.Element => (
-                  <EditableField
-                    component={FormikTextArea}
-                    currentValue={formatCweUrl(dataset.cweUrl)}
-                    id={"searchFindings.tabDescription.weakness.tooltip"}
-                    label={translate.t(
-                      "searchFindings.tabDescription.weakness.text"
-                    )}
-                    name={"cweUrl"}
-                    renderAsEditable={isEditing}
-                    tooltip={translate.t(
-                      "searchFindings.tabDescription.weakness.tooltip"
-                    )}
-                    type={"number"}
-                    validate={composeValidators([required, numeric])}
                     visibleWhileEditing={canEdit}
                   />
                 )}
