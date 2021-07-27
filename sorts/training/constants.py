@@ -17,6 +17,9 @@ from sklearn.ensemble import (
     HistGradientBoostingClassifier,
     RandomForestClassifier,
 )
+from sklearn.linear_model import (
+    LogisticRegression,
+)
 from sklearn.neighbors import (
     KNeighborsClassifier,
 )
@@ -76,6 +79,7 @@ MODELS: Dict[str, ModelType] = {
     "histgradientboostingclassifier": HistGradientBoostingClassifier,
     "kneighborsclassifier": KNeighborsClassifier,
     "linearsvc": LinearSVC,
+    "logisticregression": LogisticRegression,
     "mlpclassifier": MLPClassifier,
     "randomforestclassifier": RandomForestClassifier,
     "lgbmclassifier": LGBMClassifier,
