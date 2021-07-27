@@ -35,7 +35,7 @@ describe("Finding Description", (): void => {
     sorts: "No",
     state: "open",
     threat: "External attack",
-    title: "FIN.S.0004. Remote command execution",
+    title: "004. Remote command execution",
     type: "SECURITY",
   };
   const findingDescriptionData: IFindingDescriptionData = {

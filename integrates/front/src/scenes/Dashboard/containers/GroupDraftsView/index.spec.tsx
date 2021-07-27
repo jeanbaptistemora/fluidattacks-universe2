@@ -51,7 +51,7 @@ describe("GroupDraftsView", (): void => {
                 releaseDate: "",
                 reportDate: "2019-05-23 21:19:29",
                 severityScore: 7.9,
-                title: "XCROSS SITE SCRIPTING",
+                title: "008. Reflected cross-site scripting (XSS)",
                 type: "HYGIENE",
               },
             ],

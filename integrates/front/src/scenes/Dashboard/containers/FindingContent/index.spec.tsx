@@ -76,7 +76,7 @@ describe("FindingContent", (): void => {
           reportDate: "2017-12-04 09:04:13",
           severityScore: 2.6,
           state: "open",
-          title: "FIN.S.0050. Weak passwords discovered",
+          title: "050. Guessed weak credentials",
           tracking: [
             {
               closed: 0,
@@ -116,7 +116,7 @@ describe("FindingContent", (): void => {
           reportDate: "2017-12-04 09:04:13",
           severityScore: 2.6,
           state: "open",
-          title: "FIN.S.0050. Weak passwords discovered",
+          title: "050. Guessed weak credentials",
           tracking: [
             {
               closed: 0,
@@ -205,7 +205,7 @@ describe("FindingContent", (): void => {
       wrapper.update();
     });
 
-    expect(wrapper.text()).toContain("FIN.S.0050. Weak passwords discovered");
+    expect(wrapper.text()).toContain("050. Guessed weak credentials");
   });
 
   it("should render unsubmitted draft actions", async (): Promise<void> => {

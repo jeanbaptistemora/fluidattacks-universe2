@@ -54,7 +54,7 @@ describe("Organization findings policies view", (): void => {
                 },
                 {
                   id: "836530833",
-                  title: "004. Ejecución remota de comandos",
+                  title: "004. Remote command execution",
                 },
               ],
               name: "unitestting",
@@ -270,7 +270,7 @@ describe("Organization findings policies view", (): void => {
                 {
                   id: "0b61d5bc-abcc-47e1-9293-f2ff76f4fc17",
                   lastStatusUpdate: "2021-05-21T05:58:58",
-                  name: "004. Ejecución remota de comandos",
+                  name: "004. Remote command execution",
                   status: "APPROVED",
                   tags: [],
                 },
@@ -380,7 +380,7 @@ describe("Organization findings policies view", (): void => {
                   {
                     id: "7960b957-0d57-40fb-8053-24f064d68000",
                     lastStatusUpdate: "2021-05-21T08:58:58",
-                    name: "004. Ejecución remota de comandos",
+                    name: "004. Remote command execution",
                     status: "APPROVED",
                     tags: [],
                   },
@@ -520,7 +520,7 @@ describe("Organization findings policies view", (): void => {
                   {
                     id: "0e14b989-407d-4c53-a506-25e784378569",
                     lastStatusUpdate: "2021-05-21T11:58:58",
-                    name: "004. Ejecución remota de comandos",
+                    name: "004. Remote command execution",
                     status: "APPROVED",
                     tags: [],
                   },

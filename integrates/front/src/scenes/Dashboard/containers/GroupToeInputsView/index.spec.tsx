@@ -42,7 +42,7 @@ describe("GroupToeInputsView", (): void => {
                 seenFirstTimeBy: "",
                 testedDate: "2020-01-02T00:00:00-05:00",
                 verified: "Yes",
-                vulns: "FIN.S.0001.Test",
+                vulns: "001. SQL injection - C Sharp SQL API",
               },
               {
                 commit: "e91320h",
@@ -62,7 +62,7 @@ describe("GroupToeInputsView", (): void => {
                 seenFirstTimeBy: "test2@test.com",
                 testedDate: "2021-02-11T00:00:00-05:00",
                 verified: "No",
-                vulns: "FIN.S.0003.Test",
+                vulns: "003. Symmetric denial of service",
               },
             ],
           },
@@ -114,7 +114,7 @@ describe("GroupToeInputsView", (): void => {
         "Yes",
         "hh66uu5",
         "2020-01-02",
-        "FIN.S.0001.Test",
+        "001. SQL injection - C Sharp SQL API",
         "2000-01-01",
         "",
       ].join("")
@@ -138,7 +138,7 @@ describe("GroupToeInputsView", (): void => {
         "No",
         "d83027t",
         "2021-02-11",
-        "FIN.S.0003.Test",
+        "003. Symmetric denial of service",
         "2020-01-11",
         "test2@test.com",
       ].join("")

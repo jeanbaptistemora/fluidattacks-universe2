@@ -44,7 +44,7 @@ describe("GroupFindingsView", (): void => {
                 remediated: false,
                 severityScore: 2.9,
                 state: "open",
-                title: "FIN.S.0038. Fuga de informaci\u00f3n de negocio",
+                title: "038. Business information leak",
                 treatment: ["IN PROGRESS"],
                 type: "SECURITY",
                 verified: false,
@@ -105,7 +105,7 @@ describe("GroupFindingsView", (): void => {
                 remediated: false,
                 severityScore: 2.9,
                 state: "open",
-                title: "FIN.S.0038. Fuga de informaci\u00f3n de negocio",
+                title: "038. Business information leak",
                 treatment: ["IN PROGRESS"],
                 type: "SECURITY",
                 verified: false,
@@ -283,9 +283,7 @@ describe("GroupFindingsView", (): void => {
     const firstRow: ReactWrapper = findingTable.find("Body").find("tr");
 
     expect(firstRow.text()).toContain("252");
-    expect(firstRow.text()).toContain(
-      "FIN.S.0038. Fuga de informaci\u00f3n de negocio"
-    );
+    expect(firstRow.text()).toContain("038. Business information leak");
     expect(firstRow.text()).toContain("2.9");
     expect(firstRow.text()).toContain("Open");
     expect(firstRow.text()).toContain("Pending");
