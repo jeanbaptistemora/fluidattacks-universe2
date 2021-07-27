@@ -4,8 +4,8 @@ This migration removes findings with no vulns after
 migration "0105_delete_duplicated_vulns"
 https://gitlab.com/fluidattacks/product/-/issues/5068
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-07-26 at 19:43:02 UTC-05
+Finalization Time: 2021-07-26 at 19:47:13 UTC-05
 """
 
 from aioextensions import (
@@ -21,7 +21,7 @@ from findings import (
 )
 import time
 
-PROD: bool = False
+PROD: bool = True
 
 
 async def main() -> None:
