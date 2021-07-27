@@ -1,3 +1,4 @@
+# pylint: disable=too-many-lines
 from lib_ssl.as_string import (
     snippet,
     ssl_versions,
@@ -41,6 +42,34 @@ from utils.sockets import (
 from zone import (
     t,
 )
+
+
+def _server_supports_tls(ctx: SSLContext, version: Tuple[int, int]) -> bool:
+    ssl_settings = SSLSettings(
+        ctx.target.host,
+        ctx.target.port,
+        min_version=version,
+        max_version=version,
+        intention={
+            core_model.LocalesEnum.EN: (
+                "check if server supports {version}".format(
+                    version=ssl_versions[version],
+                )
+            ),
+            core_model.LocalesEnum.ES: (
+                "verificar si el servidor soporta {version}".format(
+                    version=ssl_versions[version],
+                )
+            ),
+        },
+    )
+    with connect(
+        ssl_settings=ssl_settings,
+        expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
+    ) as connection:
+        if connection is not None and not connection.closed:
+            return True
+    return False
 
 
 def _create_core_vulns(
@@ -88,34 +117,157 @@ def _create_ssl_vuln(
 def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    ssl_settings = SSLSettings(
-        host=ctx.target.host,
-        port=ctx.target.port,
-        key_exchange_names=["dhe_rsa", "ecdhe_rsa", "ecdh_anon", "dh_anon"],
-        intention={
+    suits: List[str] = [
+        "DHE_DSS_EXPORT_WITH_DES40_CBC_SHA",
+        "DHE_DSS_WITH_DES_CBC_SHA",
+        "DHE_DSS_WITH_3DES_EDE_CBC_SHA",
+        "DHE_RSA_EXPORT_WITH_DES40_CBC_SHA",
+        "DHE_RSA_WITH_DES_CBC_SHA",
+        "DHE_RSA_WITH_3DES_EDE_CBC_SHA",
+        "DHE_DSS_WITH_AES_128_CBC_SHA",
+        "DHE_RSA_WITH_AES_128_CBC_SHA",
+        "DHE_DSS_WITH_AES_256_CBC_SHA",
+        "DHE_RSA_WITH_AES_256_CBC_SHA",
+        "DHE_DSS_WITH_AES_128_CBC_SHA256",
+        "DHE_DSS_WITH_CAMELLIA_128_CBC_SHA",
+        "DHE_RSA_WITH_CAMELLIA_128_CBC_SHA",
+        "DHE_RSA_WITH_AES_128_CBC_SHA256",
+        "DHE_DSS_WITH_AES_256_CBC_SHA256",
+        "DHE_RSA_WITH_AES_256_CBC_SHA256",
+        "DHE_DSS_WITH_CAMELLIA_256_CBC_SHA",
+        "DHE_RSA_WITH_CAMELLIA_256_CBC_SHA",
+        "DHE_DSS_WITH_SEED_CBC_SHA",
+        "DHE_RSA_WITH_SEED_CBC_SHA",
+        "DHE_RSA_WITH_AES_128_GCM_SHA256",
+        "DHE_RSA_WITH_AES_256_GCM_SHA384",
+        "DHE_DSS_WITH_AES_128_GCM_SHA256",
+        "DHE_DSS_WITH_AES_256_GCM_SHA384",
+        "DHE_DSS_WITH_CAMELLIA_128_CBC_SHA256",
+        "DHE_RSA_WITH_CAMELLIA_128_CBC_SHA256",
+        "DHE_DSS_WITH_CAMELLIA_256_CBC_SHA256",
+        "DHE_RSA_WITH_CAMELLIA_256_CBC_SHA256",
+        "ECDHE_ECDSA_WITH_NULL_SHA",
+        "ECDHE_ECDSA_WITH_RC4_128_SHA",
+        "ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA",
+        "ECDHE_ECDSA_WITH_AES_128_CBC_SHA",
+        "ECDHE_ECDSA_WITH_AES_256_CBC_SHA",
+        "ECDHE_RSA_WITH_NULL_SHA",
+        "ECDHE_RSA_WITH_RC4_128_SHA",
+        "ECDHE_RSA_WITH_3DES_EDE_CBC_SHA",
+        "ECDHE_RSA_WITH_AES_128_CBC_SHA",
+        "ECDHE_RSA_WITH_AES_256_CBC_SHA",
+        "ECDHE_ECDSA_WITH_AES_128_CBC_SHA256",
+        "ECDHE_ECDSA_WITH_AES_256_CBC_SHA384",
+        "ECDHE_RSA_WITH_AES_128_CBC_SHA256",
+        "ECDHE_RSA_WITH_AES_256_CBC_SHA384",
+        "ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+        "ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+        "ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+        "ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "DHE_DSS_WITH_ARIA_128_CBC_SHA256",
+        "DHE_DSS_WITH_ARIA_256_CBC_SHA384",
+        "DHE_RSA_WITH_ARIA_128_CBC_SHA256",
+        "DHE_RSA_WITH_ARIA_256_CBC_SHA384",
+        "ECDHE_ECDSA_WITH_ARIA_128_CBC_SHA256",
+        "ECDHE_ECDSA_WITH_ARIA_256_CBC_SHA384",
+        "ECDHE_RSA_WITH_ARIA_128_CBC_SHA256",
+        "ECDHE_RSA_WITH_ARIA_256_CBC_SHA384",
+        "DHE_RSA_WITH_ARIA_128_GCM_SHA256",
+        "DHE_RSA_WITH_ARIA_256_GCM_SHA384",
+        "DHE_DSS_WITH_ARIA_128_GCM_SHA256",
+        "DHE_DSS_WITH_ARIA_256_GCM_SHA384",
+        "ECDHE_ECDSA_WITH_ARIA_128_GCM_SHA256",
+        "ECDHE_ECDSA_WITH_ARIA_256_GCM_SHA384",
+        "ECDHE_RSA_WITH_ARIA_128_GCM_SHA256",
+        "ECDHE_RSA_WITH_ARIA_256_GCM_SHA384",
+        "ECDHE_ECDSA_WITH_CAMELLIA_128_CBC_SHA256",
+        "ECDHE_ECDSA_WITH_CAMELLIA_256_CBC_SHA384",
+        "ECDHE_RSA_WITH_CAMELLIA_128_CBC_SHA256",
+        "ECDHE_RSA_WITH_CAMELLIA_256_CBC_SHA384",
+        "DHE_RSA_WITH_CAMELLIA_128_GCM_SHA256",
+        "DHE_RSA_WITH_CAMELLIA_256_GCM_SHA384",
+        "DHE_DSS_WITH_CAMELLIA_128_GCM_SHA256",
+        "DHE_DSS_WITH_CAMELLIA_256_GCM_SHA384",
+        "ECDHE_ECDSA_WITH_CAMELLIA_128_GCM_SHA256",
+        "ECDHE_ECDSA_WITH_CAMELLIA_256_GCM_SHA384",
+        "ECDHE_RSA_WITH_CAMELLIA_128_GCM_SHA256",
+        "ECDHE_RSA_WITH_CAMELLIA_256_GCM_SHA384",
+        "DHE_RSA_WITH_AES_128_CCM",
+        "DHE_RSA_WITH_AES_256_CCM",
+        "DHE_RSA_WITH_AES_128_CCM_8",
+        "DHE_RSA_WITH_AES_256_CCM_8",
+        "ECDHE_ECDSA_WITH_AES_128_CCM",
+        "ECDHE_ECDSA_WITH_AES_256_CCM",
+        "ECDHE_ECDSA_WITH_AES_128_CCM_8",
+        "ECDHE_ECDSA_WITH_AES_256_CCM_8",
+        "ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+        "ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256",
+        "DHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+    ]
+
+    extensions: List[int] = get_ec_point_formats_ext()
+    extensions += get_elliptic_curves_ext()
+    extensions += get_session_ticket_ext()
+
+    for version_id in [3, 2, 1, 0]:
+        if not _server_supports_tls(ctx, version=(3, version_id)):
+            continue
+
+        version: Tuple[int, int] = (3, version_id)
+
+        intention: Dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
-                "check if server accepts key exchange with PFS support"
+                "check if server accepts key exchange with PFS support in"
+                " {version}".format(
+                    version=ssl_versions[version],
+                )
             ),
             core_model.LocalesEnum.ES: (
-                "verificar si el servidor acepta intercambio de llaves"
-                "con soporte PFS"
-            ),
-        },
-    )
-
-    with connect(
-        ssl_settings,
-        expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
-    ) as connection:
-        if connection is not None and connection.closed:
-            ssl_vulnerabilities.append(
-                _create_ssl_vuln(
-                    check="pfs_disabled",
-                    ssl_settings=ssl_settings,
-                    line=SSLSnippetLine.key_exchange,
-                    finding=core_model.FindingEnum.F133,
+                "verificar si el servidor acepta intercambio de llaves con"
+                "soporte PFS en {version}".format(
+                    version=ssl_versions[version],
                 )
-            )
+            ),
+        }
+
+        sock = tcp_connect(
+            ctx.target.host,
+            ctx.target.port,
+            intention[core_model.LocalesEnum.EN],
+        )
+
+        if sock is None:
+            break
+
+        package = get_client_hello_package(version_id, suits, extensions)
+        sock.send(bytes(package))
+        handshake_record = read_ssl_record(sock)
+
+        if handshake_record is not None:
+            handshake_type, _, _ = handshake_record
+
+            if handshake_type != 22:
+                ssl_vulnerabilities.append(
+                    _create_ssl_vuln(
+                        check="pfs_disabled",
+                        line=SSLSnippetLine.key_exchange,
+                        ssl_settings=SSLSettings(
+                            ctx.target.host,
+                            ctx.target.port,
+                            min_version=version,
+                            max_version=version,
+                            key_exchange_names=[
+                                "dhe_rsa",
+                                "ecdhe_rsa",
+                                "ecdh_anon",
+                                "dh_anon",
+                            ],
+                            intention=intention,
+                        ),
+                        finding=core_model.FindingEnum.F133,
+                    )
+                )
+        sock.close()
 
     return _create_core_vulns(ssl_vulnerabilities)
 
@@ -445,34 +597,6 @@ def _sweet32_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
             )
 
     return _create_core_vulns(ssl_vulnerabilities)
-
-
-def _server_supports_tls(ctx: SSLContext, version: Tuple[int, int]) -> bool:
-    ssl_settings = SSLSettings(
-        ctx.target.host,
-        ctx.target.port,
-        min_version=version,
-        max_version=version,
-        intention={
-            core_model.LocalesEnum.EN: (
-                "check if server supports {version}".format(
-                    version=ssl_versions[version],
-                )
-            ),
-            core_model.LocalesEnum.ES: (
-                "verificar si el servidor soporta {version}".format(
-                    version=ssl_versions[version],
-                )
-            ),
-        },
-    )
-    with connect(
-        ssl_settings=ssl_settings,
-        expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
-    ) as connection:
-        if connection is not None and not connection.closed:
-            return True
-    return False
 
 
 def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
