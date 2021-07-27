@@ -11,6 +11,7 @@ from returns.maybe import (
 )
 from singer_io.singer2._objs import (
     SingerRecord,
+    SingerSchema,
 )
 from singer_io.singer2.json import (
     JsonEmitter,
@@ -35,5 +36,21 @@ class SingerEmitter:
             "stream": JsonValue(record.stream),
             "record": JsonValue(record.record),
             "time_extracted": JsonValue(time_str.value_or(None)),
+        }
+        return self.emitter.emit(json_obj)
+
+    def emit_schema(self, schema: SingerSchema) -> IO[None]:
+        bookmark_properties = Maybe.from_optional(
+            schema.bookmark_properties
+        ).map(lambda fset: [JsonValue(item) for item in fset])
+        json_obj: JsonObj = {
+            "stream": JsonValue(schema.stream),
+            "schema": JsonValue(schema.schema.to_json()),
+            "key_properties": JsonValue(
+                [JsonValue(item) for item in schema.key_properties]
+            ),
+            "bookmark_properties": JsonValue(
+                bookmark_properties.value_or(None)
+            ),
         }
         return self.emitter.emit(json_obj)

@@ -15,6 +15,8 @@ from returns.result import (
 )
 from singer_io.singer2.json import (
     DictFactory,
+    JsonFactory,
+    JsonObj,
 )
 from typing import (
     Any,
@@ -33,6 +35,9 @@ class JsonSchema(_JsonSchema):
     def __init__(self, obj: _JsonSchema) -> None:
         for key, value in obj.__dict__.items():
             object.__setattr__(self, key, value)
+
+    def to_json(self) -> JsonObj:
+        return JsonFactory.from_dict(self.raw_schema)
 
     def validate(
         self, raw_record: Dict[str, Any]
