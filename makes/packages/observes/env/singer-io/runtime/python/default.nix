@@ -7,6 +7,7 @@ buildPythonRequirements {
   requirements = {
     direct = [
       "jsonschema==3.2.0"
+      "pyRFC3339==1.1"
       "pytz==2021.1"
       "returns==0.16.0"
     ];
