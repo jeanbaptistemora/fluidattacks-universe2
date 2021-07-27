@@ -6,6 +6,13 @@ from dataclasses import (
     dataclass,
 )
 import json
+from json.encoder import (
+    JSONEncoder,
+)
+from returns.io import (
+    IO,
+)
+import sys
 from typing import (
     Any,
     Dict,
@@ -116,3 +123,19 @@ class JsonFactory:
     def load(cls, json_file: IO_FILE[str]) -> JsonObj:
         raw = DictFactory.load(json_file)
         return cls.from_dict(raw)
+
+
+class CustomJsonEncoder(JSONEncoder):
+    def default(self: JSONEncoder, o: Any) -> Any:
+        if isinstance(o, JsonValue):
+            return o.unfold()
+        return JSONEncoder.default(self, o)
+
+
+@dataclass(frozen=True)
+class JsonEmitter:
+    target: IO_FILE[str] = sys.stdout
+
+    def emit(self, json_obj: JsonObj) -> IO[None]:
+        json.dump(json_obj, self.target, cls=CustomJsonEncoder)
+        return IO(None)

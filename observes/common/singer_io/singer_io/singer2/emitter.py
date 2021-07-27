@@ -3,9 +3,6 @@ from dataclasses import (
     dataclass,
 )
 import json
-from json.encoder import (
-    JSONEncoder,
-)
 from returns.io import (
     IO,
 )
@@ -16,26 +13,19 @@ from singer_io.singer2._objs import (
     SingerRecord,
 )
 from singer_io.singer2.json import (
+    JsonEmitter,
     JsonObj,
     JsonValue,
 )
 import sys
 from typing import (
-    Any,
     IO as IO_FILE,
 )
 
 
-class CustomJsonEncoder(JSONEncoder):
-    def default(self: JSONEncoder, o: Any) -> Any:
-        if isinstance(o, JsonValue):
-            return o.unfold()
-        return JSONEncoder.default(self, o)
-
-
 @dataclass(frozen=True)
 class SingerEmitter:
-    target: IO_FILE[str] = sys.stdout
+    emitter: JsonEmitter
 
     def emit_record(self, record: SingerRecord) -> IO[None]:
         time_str = Maybe.from_optional(record.time_extracted).map(
@@ -46,5 +36,4 @@ class SingerEmitter:
             "record": JsonValue(record.record),
             "time_extracted": JsonValue(time_str.value_or(None)),
         }
-        json.dump(json_obj, self.target, cls=CustomJsonEncoder)
-        return IO(None)
+        return self.emitter.emit(json_obj)
