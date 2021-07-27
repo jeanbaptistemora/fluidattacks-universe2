@@ -13,6 +13,9 @@ from returns.result import (
     Result,
     Success,
 )
+from singer_io.singer2.json import (
+    DictFactory,
+)
 from typing import (
     Any,
     Dict,
@@ -41,8 +44,16 @@ class JsonSchema(_JsonSchema):
             return Failure(error)
 
 
-def jschema_from_raw(raw_schema: Dict[str, Any]) -> JsonSchema:
-    Draft4Validator.check_schema(raw_schema)
-    validator = Draft4Validator(raw_schema)
-    draft = _JsonSchema(raw_schema, validator)
-    return JsonSchema(draft)
+@dataclass(frozen=True)
+class JsonSchemaFactory:
+    @classmethod
+    def from_dict(cls, raw_dict: Dict[str, Any]) -> JsonSchema:
+        Draft4Validator.check_schema(raw_dict)
+        validator = Draft4Validator(raw_dict)
+        draft = _JsonSchema(raw_dict, validator)
+        return JsonSchema(draft)
+
+    @classmethod
+    def from_raw(cls, raw_schema: str) -> JsonSchema:
+        raw = DictFactory.loads(raw_schema)
+        return cls.from_dict(raw)
