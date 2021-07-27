@@ -3,13 +3,14 @@
 :page-description: Here we present a Frequently Asked Questions (FAQ) section, which intends to guide our candidates through Fluid Attacks' selection process.
 :page-keywords: Fluid Attacks, Careers, Selection, Process, FAQ, Questions, Candidates, Pentesting, Ethical Hacking
 :page-banner: bg-faq
+:page-template: careers/faq
 
 = Frequently Asked Questions (FAQ)
 
+[.tc]
 If you have questions about `Fluid Attacks` products or the selection process,
 please read through the `FAQ` list.
 You might find the answer to your question here:
-
 
 == Before Entering
 
@@ -179,16 +180,7 @@ and notify you of the total work hours
 to be put on your monthly time-worked invoice.
 
 
-== After Entering
-
-=== Applied to Employees
-
-`Fluid Attacks` focuses on and specializes in `Red Team` testing.
-In regard to information security concepts,
-we take an offensive approach.
-We look for all the vulnerabilities and report them as soon as possible.
-Below are some Frequently Asked Questions (`FAQ`)
-new employees ask when they become part of our work team:
+== Applied to Employees
 
 ==== 1. What are the responsibilities of my job?
 
