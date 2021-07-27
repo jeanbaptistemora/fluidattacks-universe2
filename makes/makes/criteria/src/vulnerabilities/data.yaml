@@ -4084,7 +4084,7 @@
       and android:grantUriPermissions="false".
       If required
       you can allow specific Content Providers
-      by using <grant-uri-permission>.
+      by using "grant-uri-permission".
     threat: >
       Unauthorized attacker
       owner of a third party application
@@ -4115,7 +4115,7 @@
       y android:grantUriPermissions="false".
       Si se requiere
       se puede permitir Content Providers específicos
-      usando <grant-uri-permission>.
+      usando "grant-uri-permission".
     threat: >
       Atacante sin autorización
       propietario de una aplicación de terceros
