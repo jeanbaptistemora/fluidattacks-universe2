@@ -69,6 +69,15 @@ async def get_ssl_contexts() -> Set[SSLContext]:
     ssl_contexts: Set[SSLContext] = {
         SSLContext(
             target=target,
+            tls_versions=tuple(
+                v_id
+                for v_id in range(1, 5)
+                if analyze_protocol.supports_tls(
+                    target.host,
+                    target.port,
+                    version=(3, v_id),
+                )
+            ),
         )
         for target in CTX.config.ssl.include
     }

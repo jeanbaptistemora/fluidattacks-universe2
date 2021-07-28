@@ -9,14 +9,14 @@ from model.core_model import (
 from os import (
     urandom,
 )
-from socket import (
-    socket,
-)
+import socket
+import ssl
 from struct import (
     unpack,
 )
 import tlslite
 from typing import (
+    Dict,
     Generator,
     List,
     Optional,
@@ -30,15 +30,64 @@ from utils.sockets import (
     tcp_read,
 )
 
+tls_proto: Dict[Tuple[int, int], ssl.TLSVersion] = {
+    (3, 0): ssl.TLSVersion.SSLv3,
+    (3, 1): ssl.TLSVersion.TLSv1,
+    (3, 2): ssl.TLSVersion.TLSv1_1,
+    (3, 3): ssl.TLSVersion.TLSv1_2,
+    (3, 4): ssl.TLSVersion.TLSv1_3,
+}
+
 
 @contextlib.contextmanager
-def connect(
+def ssl_connect(
+    ssl_settings: SSLSettings,
+) -> Generator[Optional[ssl.SSLSocket], None, None]:
+    host: str = ssl_settings.host
+    port: int = ssl_settings.port
+    intention: str = ssl_settings.intention[LocalesEnum.EN]
+
+    try:
+        sock: Optional[socket.socket] = tcp_connect(host, port, intention)
+
+        if sock is None:
+            yield None
+        else:
+            ssl_context = ssl.SSLContext(protocol=ssl.PROTOCOL_TLS)
+            ssl_context.minimum_version = tls_proto[ssl_settings.min_version]
+            ssl_context.maximum_version = tls_proto[ssl_settings.max_version]
+            ssl_sock = ssl_context.wrap_socket(
+                sock, server_hostname=host, do_handshake_on_connect=False
+            )
+
+            ssl_sock.do_handshake()
+
+            yield ssl_sock
+    except ssl.SSLError as error:
+        log_blocking(
+            "warning",
+            "%s:%s occured with %s:%d while %s",
+            error.library,
+            error.reason,
+            host,
+            port,
+            intention,
+        )
+        yield None
+    finally:
+        if sock is not None:
+            ssl_sock.shutdown(socket.SHUT_RDWR)
+            ssl_sock.close()
+
+
+@contextlib.contextmanager
+def tlslite_connect(
     ssl_settings: SSLSettings,
     expected_exceptions: Tuple[tlslite.errors.BaseTLSException, ...] = (),
 ) -> Generator[Optional[tlslite.TLSConnection], None, None]:
 
     try:
-        sock: Optional[socket] = tcp_connect(
+        sock: Optional[socket.socket] = tcp_connect(
             ssl_settings.host,
             ssl_settings.port,
             ssl_settings.intention[LocalesEnum.EN],
@@ -207,7 +256,7 @@ def get_client_hello_package(
     return get_client_hello_header(version_id, package) + package
 
 
-def read_ssl_record(sock: socket) -> Optional[Tuple[int, int, int]]:
+def read_ssl_record(sock: socket.socket) -> Optional[Tuple[int, int, int]]:
     header = tcp_read(sock, 5)
 
     if header is None or len(header) < 5:

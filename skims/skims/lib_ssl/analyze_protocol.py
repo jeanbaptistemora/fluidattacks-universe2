@@ -4,7 +4,6 @@ from lib_ssl.as_string import (
     ssl_versions,
 )
 from lib_ssl.ssl_connection import (
-    connect,
     get_client_hello_package,
     get_ec_point_formats_ext,
     get_elliptic_curves_ext,
@@ -12,6 +11,8 @@ from lib_ssl.ssl_connection import (
     get_malicious_heartbeat,
     get_session_ticket_ext,
     read_ssl_record,
+    ssl_connect,
+    tlslite_connect,
 )
 from lib_ssl.types import (
     SSLContext,
@@ -44,32 +45,23 @@ from zone import (
 )
 
 
-def _server_supports_tls(ctx: SSLContext, version: Tuple[int, int]) -> bool:
+def supports_tls(
+    host: str, port: int, version: Tuple[int, int]
+) -> Optional[bool]:
+    intention_en = "verify if the server supports " + ssl_versions[version]
     ssl_settings = SSLSettings(
-        ctx.target.host,
-        ctx.target.port,
+        host=host,
+        port=port,
         min_version=version,
         max_version=version,
-        intention={
-            core_model.LocalesEnum.EN: (
-                "check if server supports {version}".format(
-                    version=ssl_versions[version],
-                )
-            ),
-            core_model.LocalesEnum.ES: (
-                "verificar si el servidor soporta {version}".format(
-                    version=ssl_versions[version],
-                )
-            ),
-        },
+        intention={core_model.LocalesEnum.EN: intention_en},
     )
-    with connect(
-        ssl_settings=ssl_settings,
-        expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
-    ) as connection:
-        if connection is not None and not connection.closed:
-            return True
-    return False
+
+    supported: bool = False
+    with ssl_connect(ssl_settings) as ssl_socket:
+        if ssl_socket is not None:
+            supported = True
+    return supported
 
 
 def _create_core_vulns(
@@ -210,7 +202,9 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     extensions += get_session_ticket_ext()
 
     for version_id in [3, 2, 1, 0]:
-        if not _server_supports_tls(ctx, version=(3, version_id)):
+        if not supports_tls(
+            ctx.target.host, ctx.target.port, version=(3, version_id)
+        ):
             continue
 
         version: Tuple[int, int] = (3, version_id)
@@ -289,7 +283,7 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         },
     )
 
-    with connect(
+    with tlslite_connect(
         ssl_settings,
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
@@ -324,7 +318,7 @@ def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         },
     )
 
-    with connect(
+    with tlslite_connect(
         ssl_settings,
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
@@ -359,7 +353,7 @@ def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         },
     )
 
-    with connect(
+    with tlslite_connect(
         ssl_settings,
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
@@ -395,7 +389,7 @@ def _tlsv1_2_or_higher_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         },
     )
 
-    with connect(
+    with tlslite_connect(
         ssl_settings,
         expected_exceptions=(tlslite.errors.TLSLocalAlert,),
     ) as connection:
@@ -431,7 +425,7 @@ def _anonymous_suits_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
         },
     )
 
-    with connect(
+    with tlslite_connect(
         ssl_settings,
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
@@ -465,7 +459,7 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
         },
     )
 
-    with connect(
+    with tlslite_connect(
         ssl_settings,
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
@@ -500,7 +494,7 @@ def _beast_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         },
     )
 
-    with connect(
+    with tlslite_connect(
         ssl_settings,
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
@@ -541,7 +535,7 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         },
     )
 
-    with connect(
+    with tlslite_connect(
         ssl_settings,
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
@@ -582,7 +576,7 @@ def _sweet32_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         },
     )
 
-    with connect(
+    with tlslite_connect(
         ssl_settings,
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
@@ -605,7 +599,9 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     min_version_id: int = -1
 
     for version_id in range(0, 3):
-        if _server_supports_tls(ctx, version=(3, version_id)):
+        if supports_tls(
+            ctx.target.host, ctx.target.port, version=(3, version_id)
+        ):
             min_version_id = version_id
             break
 
@@ -630,7 +626,7 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         },
     )
 
-    with connect(
+    with tlslite_connect(
         ssl_settings,
         expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
     ) as connection:
@@ -650,7 +646,7 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    if not _server_supports_tls(ctx, version=(3, 4)):
+    if not supports_tls(ctx.target.host, ctx.target.port, version=(3, 4)):
         return tuple()
 
     for version_id in range(0, 3):
@@ -674,7 +670,7 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
             },
         )
 
-        with connect(
+        with tlslite_connect(
             ssl_settings,
             expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
         ) as connection:
@@ -902,7 +898,7 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         "DHE_RSA_WITH_AES_256_CCM",
         "DHE_RSA_WITH_AES_128_CCM",
         "DHE_RSA_WITH_AES_256_CBC_SHA256",
-        "TLS_DHE_RSA_WITH_AES_128_CBC_SHA256",
+        "DHE_RSA_WITH_AES_128_CBC_SHA256",
         "DHE_RSA_WITH_AES_256_CBC_SHA",
         "DHE_RSA_WITH_AES_128_CBC_SHA",
         "DHE_RSA_WITH_3DES_EDE_CBC_SHA",

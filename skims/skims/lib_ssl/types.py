@@ -16,6 +16,7 @@ from typing import (
 
 class SSLContext(NamedTuple):
     target: SkimsSslTarget
+    tls_versions: Tuple[int, ...]
 
     def __str__(self) -> str:
         return f"{self.target.host}:{self.target.port}"
