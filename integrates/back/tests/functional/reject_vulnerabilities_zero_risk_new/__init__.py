@@ -18,7 +18,7 @@ async def get_result(
 ) -> Dict[str, Any]:
     query: str = f"""
             mutation {{
-                rejectZeroRiskVuln(
+                rejectVulnerabilitiesZeroRisk(
                     findingId: "{finding}",
                     justification: "reject zero risk vuln",
                     vulnerabilities:

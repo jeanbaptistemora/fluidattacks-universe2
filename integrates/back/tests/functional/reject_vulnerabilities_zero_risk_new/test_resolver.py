@@ -9,7 +9,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("reject_zero_risk_vuln_new")
+@pytest.mark.resolver_test_group("reject_vulnerabilities_zero_risk_new")
 @pytest.mark.parametrize(
     ("email", "vuln_id"),
     (
@@ -17,7 +17,7 @@ from typing import (
         ("reviewer@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce11"),
     ),
 )
-async def test_request_zero_risk_vuln(
+async def test_reject_vulnerabilities_zero_risk(
     populate: bool, email: str, vuln_id: str
 ) -> None:
     assert populate
@@ -26,11 +26,11 @@ async def test_request_zero_risk_vuln(
         user=email, finding=finding_id, vulnerability=vuln_id
     )
     assert "errors" not in result
-    assert result["data"]["rejectZeroRiskVuln"]["success"]
+    assert result["data"]["rejectVulnerabilitiesZeroRisk"]["success"]
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("reject_zero_risk_vuln_new")
+@pytest.mark.resolver_test_group("reject_vulnerabilities_zero_risk_new")
 @pytest.mark.parametrize(
     ("email", "vuln_id"),
     (
