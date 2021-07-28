@@ -2,7 +2,7 @@ module.exports = {
   title: 'Fluid Attacks Documentation',
   tagline: 'Here you can find documentation for all our products',
   url: 'https://docs.fluidattacks.com',
-  baseUrl: process.env.env == 'prod' ? '/' : `/${process.env.CI_COMMIT_REF_NAME}/`,
+  baseUrl: process.env.env == 'prod' ? '/' : `/${process.env.branch}/`,
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'throw',
   favicon: 'https://res.cloudinary.com/fluid-attacks/image/upload/v1622211888/docs/favicon_be6154.ico',

@@ -2,8 +2,6 @@ airs
 airs.build
 airs.development
 airs.lint.code
-docs
-docs.deploy
 forces
 forces.infra.deploy
 forces.infra.test

@@ -3,7 +3,6 @@ airs.fontawesome
 airs.lint.content
 airs.lint.styles
 airs.npm
-docs.runtime
 forces.bundle
 forces.config-development
 forces.config-runtime
