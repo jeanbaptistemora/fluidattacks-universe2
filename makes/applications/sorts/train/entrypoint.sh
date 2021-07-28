@@ -16,7 +16,7 @@ function main {
     && echo "[INFO] Initializing training..." \
     && python3.8 training/sagemaker_provisioner.py \
     && echo "[INFO] Evaluating resulting artifacts..." \
-    && python3.8 training/evaluate_results.py \
+    && python3.8 training/evaluate_results.py train \
     && popd \
     || return 1
 }
