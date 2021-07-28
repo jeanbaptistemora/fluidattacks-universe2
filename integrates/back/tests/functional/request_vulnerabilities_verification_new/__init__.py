@@ -20,7 +20,7 @@ async def get_result(
     "verification in vulns"  # pylint: disable=pointless-string-statement
     query: str = f"""
         mutation {{
-            requestVerificationVuln(
+            requestVulnerabilitiesVerification(
                 findingId: "{finding}",
                 justification: "{justification}",
                 vulnerabilities:

@@ -321,10 +321,10 @@ integrates.back.test.functional.remove_vulnerability:
 integrates.back.test.functional.remove_vulnerability_new:
   <<: *integrates_back_test_functional_migration
 
-integrates.back.test.functional.request_verification_vuln:
+integrates.back.test.functional.request_vulnerabilities_verification:
   <<: *integrates_back_test_functional
 
-integrates.back.test.functional.request_verification_vuln_new:
+integrates.back.test.functional.request_vulnerabilities_verification_new:
   <<: *integrates_back_test_functional_migration
 
 integrates.back.test.functional.request_vulnerabilities_zero_risk:
