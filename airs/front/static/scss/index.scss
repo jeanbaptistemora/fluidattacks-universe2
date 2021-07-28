@@ -429,6 +429,10 @@ $gray-244: rgba(244, 244, 246, 1);
     margin-bottom: 2rem !important;
   }
 
+  .sect3 {
+    cursor: pointer;
+  }
+
   .paragraph {
     display: none;
   }
@@ -446,6 +450,38 @@ $gray-244: rgba(244, 244, 246, 1);
     display: block !important;
   }
 
+  .show-button-1 {
+    background-color: $lighter-gray;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    text-align: center;
+    width: 30%;
+
+    h3 {
+      font-size: 1rem !important;
+    }
+  }
+
+  .show-button-2 {
+    background-color: $lighter-gray;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    text-align: center;
+    width: 30%;
+
+    h3 {
+      font-size: 1rem !important;
+    }
+  }
+
   @media screen and (min-width: 30em) and (max-width: 60em) {
     h4 {
       font-size: 1rem !important;
@@ -455,6 +491,12 @@ $gray-244: rgba(244, 244, 246, 1);
   @media screen and (max-width: 30em) {
     h4 {
       font-size: 1rem !important;
+    }
+
+    .show-button {
+      h3 {
+        font-size: 0.8rem !important;
+      }
     }
   }
 }
