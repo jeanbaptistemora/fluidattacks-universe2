@@ -102,26 +102,30 @@ from context import (
 )
 
 MUTATION = MutationType()
+MUTATION.set_field("acceptLegal", accept_legal.mutate)
+MUTATION.set_field(
+    "acknowledgeConcurrentSession", acknowledge_concurrent_session.mutate
+)
 MUTATION.set_field("activateRoot", activate_root.mutate)
+MUTATION.set_field("addEvent", add_event.mutate)
 MUTATION.set_field("addEventConsult", add_event_consult.mutate)
+MUTATION.set_field("addFiles", add_files.mutate)
+MUTATION.set_field("addFindingConsult", add_finding_consult.mutate)
 MUTATION.set_field("addForcesExecution", add_forces_execution.mutate)
 MUTATION.set_field("addGitRoot", add_git_root.mutate)
+MUTATION.set_field("addGroup", add_group.mutate)
+MUTATION.set_field("addGroupConsult", add_group_consult.mutate)
 MUTATION.set_field("addIpRoot", add_ip_root.mutate)
-MUTATION.set_field(
-    "addOrgFindingPolicy", add_organization_finding_policy.mutate
-)
+MUTATION.set_field("addOrganization", add_organization.mutate)
 MUTATION.set_field(
     "addOrganizationFindingPolicy", add_organization_finding_policy.mutate
 )
-MUTATION.set_field("addUrlRoot", add_url_root.mutate)
+MUTATION.set_field("addPushToken", add_push_token.mutate)
 MUTATION.set_field("addStakeholder", add_stakeholder.mutate)
+MUTATION.set_field("addTags", add_group_tags.mutate)
+MUTATION.set_field("addUrlRoot", add_url_root.mutate)
 MUTATION.set_field(
-    "confirmZeroRiskVuln", confirm_vulnerabilities_zero_risk.mutate
-)
-MUTATION.set_field("createEvent", add_event.mutate)
-MUTATION.set_field("createOrganization", add_organization.mutate)
-MUTATION.set_field(
-    "deactivateOrgFindingPolicy", deactivate_organization_finding_policy.mutate
+    "confirmVulnerabilitiesZeroRisk", confirm_vulnerabilities_zero_risk.mutate
 )
 MUTATION.set_field(
     "deactivateOrganizationFindingPolicy",
@@ -129,146 +133,127 @@ MUTATION.set_field(
 )
 MUTATION.set_field("deactivateRoot", deactivate_root.mutate)
 MUTATION.set_field("downloadEventFile", download_event_file.mutate)
+MUTATION.set_field("downloadFile", download_file.mutate)
 MUTATION.set_field(
-    "editStakeholderOrganization", update_organization_stakeholder.mutate
+    "downloadVulnerabilityFile", download_vulnerability_file.mutate
+)
+MUTATION.set_field("grantStakeholderAccess", grant_stakeholder_access.mutate)
+MUTATION.set_field(
+    "grantStakeholderOrganizationAccess",
+    grant_stakeholder_organization_access.mutate,
+)
+MUTATION.set_field(
+    "handleOrganizationFindingPolicyAcceptation",
+    handle_organization_finding_policy_acceptation.mutate,
+)
+MUTATION.set_field(
+    "handleVulnerabilitiesAcceptation",
+    handle_vulnerabilities_acceptation.mutate,
+)
+MUTATION.set_field("invalidateAccessToken", invalidate_access_token.mutate)
+MUTATION.set_field("invalidateCache", invalidate_cache.mutate)
+MUTATION.set_field("removeEventEvidence", remove_event_evidence.mutate)
+MUTATION.set_field("removeStakeholderAccess", remove_stakeholder_access.mutate)
+MUTATION.set_field(
+    "removeStakeholderOrganizationAccess",
+    remove_stakeholder_organization_access.mutate,
+)
+MUTATION.set_field("removeFiles", remove_files.mutate)
+MUTATION.set_field("removeTag", remove_group_tag.mutate)
+MUTATION.set_field("removeTags", remove_vulnerability_tags.mutate)
+MUTATION.set_field("signIn", sign_in.mutate)
+MUTATION.set_field("solveEvent", solve_event.mutate)
+MUTATION.set_field(
+    "submitOrganizationFindingPolicy",
+    submit_organization_finding_policy.mutate,
+)
+MUTATION.set_field(
+    "subscribeToEntityReport", subscribe_to_entity_report.mutate
+)
+MUTATION.set_field("unsubscribeFromGroup", unsubscribe_from_group.mutate)
+MUTATION.set_field("updateAccessToken", update_access_token.mutate)
+MUTATION.set_field("updateEventEvidence", update_event_evidence.mutate)
+MUTATION.set_field(
+    "updateForcesAccessToken", update_forces_access_token.mutate
+)
+MUTATION.set_field("updateGitEnvironments", update_git_environments.mutate)
+MUTATION.set_field("updateGitRoot", update_git_root.mutate)
+MUTATION.set_field("updateGroup", update_group.mutate)
+MUTATION.set_field("updateGroupStakeholder", update_group_stakeholder.mutate)
+MUTATION.set_field(
+    "updateOrganizationPolicies", update_organization_policies.mutate
 )
 MUTATION.set_field(
     "updateOrganizationStakeholder", update_organization_stakeholder.mutate
 )
 MUTATION.set_field(
-    "grantStakeholderOrganizationAccess",
-    grant_stakeholder_organization_access.mutate,
+    "updateRootCloningStatus", update_root_cloning_status.mutate
+)
+MUTATION.set_field("updateRootState", update_root_state.mutate)
+MUTATION.set_field("updateToeLinesSorts", update_toe_lines_sorts.mutate)
+MUTATION.set_field(
+    "updateVulnerabilityCommit", update_vulnerability_commit.mutate
+)
+MUTATION.set_field(
+    "updateVulnerabilitiesTreatment", update_vulnerabilities_treatment.mutate
+)
+MUTATION.set_field(
+    "updateVulnerabilityTreatment", update_vulnerability_treatment.mutate
+)
+
+# -------------------------Deprecated mutations--------------------------------
+MUTATION.set_field(
+    "addOrgFindingPolicy", add_organization_finding_policy.mutate
+)
+MUTATION.set_field("addProjectConsult", add_group_consult.mutate)
+MUTATION.set_field(
+    "confirmZeroRiskVuln", confirm_vulnerabilities_zero_risk.mutate
+)
+MUTATION.set_field("createEvent", add_event.mutate)
+MUTATION.set_field("createGroup", add_group.mutate)
+MUTATION.set_field("createOrganization", add_organization.mutate)
+MUTATION.set_field("createProject", add_group.mutate)
+MUTATION.set_field("deleteTags", remove_vulnerability_tags.mutate)
+MUTATION.set_field(
+    "deactivateOrgFindingPolicy", deactivate_organization_finding_policy.mutate
+)
+MUTATION.set_field("downloadVulnFile", download_vulnerability_file.mutate)
+MUTATION.set_field("editGroup", update_group.mutate)
+MUTATION.set_field(
+    "editStakeholderOrganization", update_organization_stakeholder.mutate
 )
 MUTATION.set_field(
     "handleOrgFindingPolicyAcceptation",
     handle_organization_finding_policy_acceptation.mutate,
 )
 MUTATION.set_field(
-    "handleOrganizationFindingPolicyAcceptation",
-    handle_organization_finding_policy_acceptation.mutate,
+    "handleVulnsAcceptation", handle_vulnerabilities_acceptation.mutate
 )
-MUTATION.set_field("invalidateCache", invalidate_cache.mutate)
-MUTATION.set_field("removeEventEvidence", remove_event_evidence.mutate)
-MUTATION.set_field(
-    "removeStakeholderOrganizationAccess",
-    remove_stakeholder_organization_access.mutate,
-)
-MUTATION.set_field("solveEvent", solve_event.mutate)
-MUTATION.set_field(
-    "submitOrganizationFindingPolicy",
-    submit_organization_finding_policy.mutate,
-)
-MUTATION.set_field("updateEventEvidence", update_event_evidence.mutate)
-
-MUTATION.set_field(
-    "updateForcesAccessToken", update_forces_access_token.mutate
-)
-MUTATION.set_field("updateGitEnvironments", update_git_environments.mutate)
-MUTATION.set_field("updateGitRoot", update_git_root.mutate)
-MUTATION.set_field(
-    "updateOrganizationPolicies", update_organization_policies.mutate
-)
-MUTATION.set_field("updateRootState", update_root_state.mutate)
-MUTATION.set_field(
-    "updateRootCloningStatus", update_root_cloning_status.mutate
-)
-
-MUTATION.set_field("signIn", sign_in.mutate)
-MUTATION.set_field(
-    "subscribeToEntityReport", subscribe_to_entity_report.mutate
-)
-MUTATION.set_field("updateAccessToken", update_access_token.mutate)
-MUTATION.set_field("invalidateAccessToken", invalidate_access_token.mutate)
-MUTATION.set_field("acceptLegal", accept_legal.mutate)
-MUTATION.set_field(
-    "acknowledgeConcurrentSession", acknowledge_concurrent_session.mutate
-)
-MUTATION.set_field("addPushToken", add_push_token.mutate)
-MUTATION.set_field("grantStakeholderAccess", grant_stakeholder_access.mutate)
-MUTATION.set_field("removeStakeholderAccess", remove_stakeholder_access.mutate)
 MUTATION.set_field("editStakeholder", update_group_stakeholder.mutate)
-MUTATION.set_field("updateGroupStakeholder", update_group_stakeholder.mutate)
-MUTATION.set_field("addFiles", add_files.mutate)
-MUTATION.set_field("downloadFile", download_file.mutate)
-MUTATION.set_field("removeFiles", remove_files.mutate)
-MUTATION.set_field("createProject", add_group.mutate)
-MUTATION.set_field("editGroup", update_group.mutate)
-MUTATION.set_field("updateGroup", update_group.mutate)
-MUTATION.set_field("addProjectConsult", add_group_consult.mutate)
-MUTATION.set_field("addTags", add_group_tags.mutate)
-MUTATION.set_field("removeTag", remove_group_tag.mutate)
-MUTATION.set_field("addFindingConsult", add_finding_consult.mutate)
-MUTATION.set_field("unsubscribeFromGroup", unsubscribe_from_group.mutate)
-MUTATION.set_field("deleteTags", remove_vulnerability_tags.mutate)
 MUTATION.set_field(
     "updateTreatmentVuln", update_vulnerability_treatment.mutate
 )
-MUTATION.set_field(
-    "updateVulnerabilityTreatment", update_vulnerability_treatment.mutate
-)
-MUTATION.set_field("downloadVulnFile", download_vulnerability_file.mutate)
-MUTATION.set_field(
-    "handleVulnsAcceptation", handle_vulnerabilities_acceptation.mutate
-)
 MUTATION.set_field("updateVulnCommit", update_vulnerability_commit.mutate)
-MUTATION.set_field(
-    "updateVulnerabilityCommit", update_vulnerability_commit.mutate
-)
 MUTATION.set_field(
     "updateVulnsTreatment", update_vulnerabilities_treatment.mutate
 )
-MUTATION.set_field(
-    "updateVulnerabilitiesTreatment", update_vulnerabilities_treatment.mutate
-)
-MUTATION.set_field("updateToeLinesSorts", update_toe_lines_sorts.mutate)
-
-# Standardization Fields
-MUTATION.set_field("addEvent", add_event.mutate)
-MUTATION.set_field("addGroup", add_group.mutate)
-MUTATION.set_field("addGroupConsult", add_group_consult.mutate)
-MUTATION.set_field("addOrganization", add_organization.mutate)
-MUTATION.set_field("createGroup", add_group.mutate)
-MUTATION.set_field(
-    "confirmVulnerabilitiesZeroRisk", confirm_vulnerabilities_zero_risk.mutate
-)
-MUTATION.set_field("removeTags", remove_vulnerability_tags.mutate)
-MUTATION.set_field(
-    "downloadVulnerabilityFile", download_vulnerability_file.mutate
-)
-MUTATION.set_field(
-    "handleVulnerabilitiesAcceptation",
-    handle_vulnerabilities_acceptation.mutate,
-)
-
+# -----------------------------------------------------------------------------
 
 if FI_API_STATUS == "migration":
     MUTATION.set_field("addDraft", add_draft_new.mutate)
     MUTATION.set_field("approveDraft", approve_draft_new.mutate)
-    MUTATION.set_field("createDraft", add_draft_new.mutate)
-    MUTATION.set_field("deleteFinding", remove_finding_new.mutate)
-    MUTATION.set_field("removeFinding", remove_finding_new.mutate)
-    MUTATION.set_field("deleteVulnerability", remove_vulnerability_new.mutate)
-    MUTATION.set_field("removeVulnerability", remove_vulnerability_new.mutate)
     MUTATION.set_field("rejectDraft", reject_draft_new.mutate)
-    MUTATION.set_field(
-        "rejectZeroRiskVuln", reject_vulnerabilities_zero_risk_new.mutate
-    )
     MUTATION.set_field(
         "rejectVulnerabilitiesZeroRisk",
         reject_vulnerabilities_zero_risk_new.mutate,
     )
+    MUTATION.set_field("removeFinding", remove_finding_new.mutate)
+    MUTATION.set_field("removeVulnerability", remove_vulnerability_new.mutate)
     MUTATION.set_field("removeEvidence", remove_finding_evidence_new.mutate)
     MUTATION.set_field("removeGroup", remove_group_new.mutate)
     MUTATION.set_field(
-        "requestVerificationVuln",
-        request_vulnerabilities_verification_new.mutate,
-    )
-    MUTATION.set_field(
         "requestVulnerabilitiesVerification",
         request_vulnerabilities_verification_new.mutate,
-    )
-    MUTATION.set_field(
-        "requestZeroRiskVuln", request_vulnerabilities_zero_risk_new.mutate
     )
     MUTATION.set_field(
         "requestVulnerabilitiesZeroRisk",
@@ -285,39 +270,42 @@ if FI_API_STATUS == "migration":
     MUTATION.set_field("updateSeverity", update_severity_new.mutate)
     MUTATION.set_field("uploadFile", upload_file_new.mutate)
     MUTATION.set_field(
-        "verifyRequestVuln", verify_vulnerabilities_request_new.mutate
-    )
-    MUTATION.set_field(
         "verifyVulnerabilitiesRequest",
         verify_vulnerabilities_request_new.mutate,
     )
+    # -----------------------Deprecated mutations------------------------------
+    MUTATION.set_field("createDraft", add_draft_new.mutate)
+    MUTATION.set_field("deleteFinding", remove_finding_new.mutate)
+    MUTATION.set_field("deleteVulnerability", remove_vulnerability_new.mutate)
+    MUTATION.set_field(
+        "rejectZeroRiskVuln", reject_vulnerabilities_zero_risk_new.mutate
+    )
+    MUTATION.set_field(
+        "requestVerificationVuln",
+        request_vulnerabilities_verification_new.mutate,
+    )
+    MUTATION.set_field(
+        "requestZeroRiskVuln", request_vulnerabilities_zero_risk_new.mutate
+    )
+    MUTATION.set_field(
+        "verifyRequestVuln", verify_vulnerabilities_request_new.mutate
+    )
+    # -------------------------------------------------------------------------
 else:
     MUTATION.set_field("addDraft", add_draft.mutate)
     MUTATION.set_field("approveDraft", approve_draft.mutate)
-    MUTATION.set_field("createDraft", add_draft.mutate)
-    MUTATION.set_field("deleteFinding", remove_finding.mutate)
-    MUTATION.set_field("removeFinding", remove_finding.mutate)
-    MUTATION.set_field("deleteVulnerability", remove_vulnerability.mutate)
-    MUTATION.set_field("removeVulnerability", remove_vulnerability.mutate)
     MUTATION.set_field("rejectDraft", reject_draft.mutate)
-    MUTATION.set_field(
-        "rejectZeroRiskVuln", reject_vulnerabilities_zero_risk.mutate
-    )
     MUTATION.set_field(
         "rejectVulnerabilitiesZeroRisk",
         reject_vulnerabilities_zero_risk.mutate,
     )
     MUTATION.set_field("removeEvidence", remove_finding_evidence.mutate)
+    MUTATION.set_field("removeFinding", remove_finding.mutate)
     MUTATION.set_field("removeGroup", remove_group.mutate)
-    MUTATION.set_field(
-        "requestVerificationVuln", request_vulnerabilities_verification.mutate
-    )
+    MUTATION.set_field("removeVulnerability", remove_vulnerability.mutate)
     MUTATION.set_field(
         "requestVulnerabilitiesVerification",
         request_vulnerabilities_verification.mutate,
-    )
-    MUTATION.set_field(
-        "requestZeroRiskVuln", request_vulnerabilities_zero_risk.mutate
     )
     MUTATION.set_field(
         "requestVulnerabilitiesZeroRisk",
@@ -333,8 +321,21 @@ else:
     MUTATION.set_field("updateSeverity", update_severity.mutate)
     MUTATION.set_field("uploadFile", upload_file.mutate)
     MUTATION.set_field(
-        "verifyRequestVuln", verify_vulnerabilities_request.mutate
+        "verifyVulnerabilitiesRequest", verify_vulnerabilities_request.mutate
+    )
+    # -----------------------Deprecated mutations------------------------------
+    MUTATION.set_field("createDraft", add_draft.mutate)
+    MUTATION.set_field("deleteFinding", remove_finding.mutate)
+    MUTATION.set_field("deleteVulnerability", remove_vulnerability.mutate)
+    MUTATION.set_field(
+        "rejectZeroRiskVuln", reject_vulnerabilities_zero_risk.mutate
     )
     MUTATION.set_field(
-        "verifyVulnerabilitiesRequest", verify_vulnerabilities_request.mutate
+        "requestVerificationVuln", request_vulnerabilities_verification.mutate
+    )
+    MUTATION.set_field(
+        "requestZeroRiskVuln", request_vulnerabilities_zero_risk.mutate
+    )
+    MUTATION.set_field(
+        "verifyRequestVuln", verify_vulnerabilities_request.mutate
     )
