@@ -1380,10 +1380,6 @@ export const enTranslations: ResourceKey = {
       vulnApproval: "Vulnerability approval status was changed",
       vulnBatchLimit: "You can update up to {{count}} vulnerabilities at once",
       vulnDeleted: "Vulnerability deleted",
-      weakness: {
-        text: "Weakness",
-        tooltip: "Related Common Weakness Enumeration (CWE) according to MITRE",
-      },
       where: "Where",
       zeroRisk: "Zero risk",
     },
