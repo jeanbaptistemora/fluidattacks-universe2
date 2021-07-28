@@ -1,6 +1,9 @@
 # pylint: disable=invalid-name
 """
 This migration copy the comments table to the finding comments table
+
+Execution Time:    2021-07-28 at 16:50:19 UTC-05
+Finalization Time: 2021-07-28 at 17:18:09 UTC-05
 """
 
 from aioextensions import (
