@@ -2197,7 +2197,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: []
+  requirements: ["142"]
   metadata: {}
 "042":
   en:
