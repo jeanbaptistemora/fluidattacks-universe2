@@ -4,7 +4,7 @@ function main {
   local src='docs/src'
   local to_clean=(
     "${src}/node_modules"
-    "${src}/docs/criteria2"
+    "${src}/docs/criteria2/vulnerabilities"
   )
   export env='prod'
 

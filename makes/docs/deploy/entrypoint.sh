@@ -6,7 +6,7 @@ function main {
     "${src}/node_modules"
     "${src}/build"
     "${src}/.docusaurus"
-    "${src}/docs/criteria2"
+    "${src}/docs/criteria2/vulnerabilities"
   )
   local bucket
   local secrets_aws
