@@ -1,18 +1,25 @@
 # shellcheck shell=bash
 
+function _clean {
+  local src="${1}"
+  local node_modules="${src}/node_modules"
+  local vulns="${src}/docs/criteria2/vulnerabilities"
+  local vulns_regex="[0-9]{3}\.md"
+
+  rm -rf "${node_modules}" \
+    && find "${vulns}" -name "${vulns_regex}" -delete
+}
+
 function main {
   local src='docs/src'
-  local to_clean=(
-    "${src}/node_modules"
-    "${src}/docs/criteria2/vulnerabilities"
-  )
-  export env='prod'
+  local action="${1}"
+  export env="${2:-prod}"
 
-  rm -rf "${to_clean[@]}" \
+  _clean "${src}" \
     && generate-criteria-vulns \
     && pushd "${src}" \
     && copy "__argNodeModules__" node_modules \
-    && npm run "${@}" \
+    && npm run "${action}" \
     && popd \
     || return 1
 }

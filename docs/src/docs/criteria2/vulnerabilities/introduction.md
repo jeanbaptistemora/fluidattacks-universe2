@@ -1,0 +1,15 @@
+---
+id: introduction
+title: Introduction
+sidebar_label: Introduction
+slug: /criteria2/vulnerabilities/
+---
+
+## Vulnerabilities
+
+This is a standardization
+of the set of **vulnerabilities**
+that serve as a basis for the security analysis
+performed by Fluid Attacks.
+This is an ever-evolving effort
+as new types arise every day.

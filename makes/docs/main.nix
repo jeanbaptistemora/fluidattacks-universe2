@@ -12,6 +12,7 @@ makeScript {
   searchPaths = {
     bin = [
       inputs.nixpkgs.bash
+      inputs.nixpkgs.findutils
       inputs.nixpkgs.xdg_utils
       outputs."/docs/generate/criteria/vulns"
       (makeNodeJsVersion "12")
