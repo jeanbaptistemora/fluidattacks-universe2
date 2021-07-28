@@ -5,7 +5,7 @@
 :page-alt: Logo auditor27001
 :page-certification: yes
 
-= Lead auditor ISO27001 (ISO27001)
+= Lead Auditor ISO27001 (ISO27001)
 
 `ISO27001` is an international certification.
 It evaluates the candidate’s expertise to perform an
