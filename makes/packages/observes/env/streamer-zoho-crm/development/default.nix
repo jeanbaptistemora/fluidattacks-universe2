@@ -15,5 +15,8 @@ makeTemplate {
     envSources = [
       streamer-zoho-crm.runtime
     ];
+    envUtils = [
+      "/makes/utils/lint-python"
+    ];
   };
 }
