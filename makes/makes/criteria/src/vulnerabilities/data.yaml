@@ -200,7 +200,8 @@
     description: >
       Se genera la caída del servidor
       como resultado de ataques de amplificación,
-      en donde una petición genera múltiples respuestas.
+      en donde una petición genera
+      múltiples respuestas.
     impact: __empty__
     recommendation: >
       Definir un time-out cuando una consulta
@@ -287,8 +288,10 @@
     title: Remote command execution
     description: >
       The system builds OS commands
-      using inputs that can be manipulated externally,
-      it does not correctly neutralize special elements
+      using inputs that can be
+      manipulated externally,
+      it does not correctly neutralize
+      special elements
       that could modify the OS command.
     impact: Execute Unauthorized Code or Commands.
     recommendation: >
@@ -297,8 +300,9 @@
       than external processes
       to recreate the desired functionality.
 
-      - Keep as much data as possible used
-      to generate command outside of external control.
+      - Keep as much data
+      as possible used to generate
+      command outside of external control.
 
       - Properly escape the arguments used
       to generate the command
@@ -310,8 +314,10 @@
       El sistema construye comandos de sistema
       utilizando entradas
       que puden ser manipuladas externamente,
-      no neutraliza correctamente elementos especiales
-      que podrían modificar el comando del sistema.
+      no neutraliza correctamente
+      elementos especiales
+      que podrían modificar
+      el comando del sistema.
     impact: Ejecutar secuencias de comandos no autorizados.
     recommendation: >
       - Si es posible,
@@ -319,8 +325,10 @@
       en lugar de procesos externos
       para recrear la funcionalidad deseada.
 
-      - Mantener la mayor cantidad posible de datos
-      usados para generar comando fuera del control externo.
+      - Mantener la mayor
+      cantidad posible de datos
+      usados para generar comando
+      fuera del control externo.
 
       - Escapar correctamente los argumentos
       usados para generar el comando
@@ -347,14 +355,19 @@
     title: Privilege escalation
     description: >
       Due to an insecure role configuration,
-      it is possible to obtain administrative access
-      or privileges using a standard user account.
+      it is possible to obtain
+      administrative access
+      or privileges using
+      a standard user account.
     impact: __empty__
     recommendation: >
-      The roles must be controlled with users' tokens
-      or the exposure of user ID must be avoided.
+      The roles must be controlled
+      with users' tokens
+      or the exposure of user ID
+      must be avoided.
     threat: >
-      A user with a different role than administrator
+      A user with a different role
+      than administrator
       can elevate privileges
       due to a bad permission validation of roles
       or to a failure in functionalities requests.
@@ -367,11 +380,13 @@
       dentro de la aplicación.
     impact: __empty__
     recommendation: >
-      Los roles deben ser controlados con tokens de usuario
+      Los roles deben ser controlados
+      con tokens de usuario
       o se debe evitar la exposición
       de identificadores de usuario.
     threat: >
-      Un usuario con un rol diferente al del administrador
+      Un usuario con un rol diferente
+      al del administrador
       puede elevar privilegios
       debido a una mala validación
       de los permisos en los roles
@@ -420,21 +435,27 @@
   es:
     title: Authentication mechanism absence or evasion
     description: >
-      El sistema carece de un mecanismo de autenticación
+      El sistema carece de un mecanismo
+      de autenticación
       o tiene uno que puede ser evadido.
       Por lo tanto,
-      un atacante puede acceder a recursos compartidos
+      un atacante puede acceder
+      a recursos compartidos
       sin tener una sesión activa.
     impact: __empty__
     recommendation: >
-      Poner para todo recurso con una funcionalidad crítica
-      para el negocio un proceso de autenticación fuerte
-      y asegurarse de que cada usuario que intente acceder
+      Poner para todo recurso
+      con una funcionalidad crítica
+      para el negocio un proceso
+      de autenticación fuerte
+      y asegurarse de que cada usuario
+      que intente acceder
       tenga una sesión iniciada.
     threat: >
       Un usuario no autorizado
       puede acceder a funcionalidades del negocio
-      sin estar autenticado o tener una sesión activa
+      sin estar autenticado
+      o tener una sesión activa
       en el servidor de la aplicación.
   score:
     base:
@@ -457,33 +478,39 @@
     title: Cross-site request forgery
     description: >
       The application's configuration
-      allows an attacker to trick authenticated users
-      into executing actions without their consent.
+      allows an attacker
+      to trick authenticated users
+      into executing actions
+      without their consent.
     impact: __empty__
     recommendation: >
       Use of tokens in forms to verify requests
       done by legitimate users.
     threat: >
       An unauthorized user from Internet
-      can trick an authenticated user on the application
+      can trick an authenticated user
+      on the application
       using a link modified
       to execute critical transactions
       such as transfers or payments.
   es:
     title: Cross-site request forgery
     description: >
-      La aplicación permite engañar a un usuario autenticado
+      La aplicación permite engañar
+      a un usuario autenticado
       por medio de links manipulados
       para ejecutar acciones sobre la aplicación
       sin su consentimiento.
     impact: __empty__
     recommendation: >
       Hacer uso de tokens en los formularios
-      para la verificación de las peticiones realizadas
+      para la verificación
+      de las peticiones realizadas
       por usuarios legítimos.
     threat: >
       Un usuario no autorizado desde Internet
-      puede engañar un usuario autenticado en la aplicación
+      puede engañar un usuario autenticado
+      en la aplicación
       por medio de un enlace modificado
       para ejecutar transacciones críticas
       como transferencias o pagos.
@@ -526,10 +553,14 @@
       sin validar el origen de los datos
       potencialmente maliciosos.
     impact: >
-      Generar páginas web que podrían contener scripts maliciosos
-      inyectados en datos que no son de confianza.
+      Generar páginas web
+      que podrían contener
+      scripts maliciosos
+      inyectados en datos que
+      no son de confianza.
     recommendation: >
-      Realice la validaciones de datos de entrada
+      Realice la validaciones
+      de datos de entrada
       en el lado del servidor
       para evitar los ataques más comunes
       de inyección de scripts.
@@ -559,7 +590,8 @@
       such as usernames, passwords, email addresses
       and IP addresses, among others.
       Alternatively,
-      while values may be "password=123" o "aws.secret_key=test",
+      while values may be "password=123"
+      o "aws.secret_key=test",
       they reveal the bad practice
       of storing sensitive information
       in the repository with no encryption,
@@ -574,35 +606,46 @@
 
       - Remove sensitive information from git logs.
 
-      - Load sensitive data from safe sources such as,
-      key vault services, configuration files properly encrypted
+      - Load sensitive data from safe sources
+      such as, key vault services,
+      configuration files properly encrypted
       or administrative environment variables.
     threat: Attacker with access to the source-code from the Internet.
   es:
     title: Sensitive information in source code
     description: >
       En el repositorio
-      se encuentra almacenada (sin cifrar) información sensible
+      se encuentra almacenada (sin cifrar)
+      información sensible
       como usuarios, contraseñas, correos electrónicos,
       credenciales de API, entre otros.
       Alternativamente,
       a pesar de que algunos valores
-      pueden ser "password=123" o "aws.secret_key=prueba",
-      estos revelan la mala práctica de almacenar información sensible
+      pueden ser "password=123"
+      o "aws.secret_key=prueba",
+      estos revelan la mala práctica
+      de almacenar información sensible
       en el repositorio sin cifrar,
       y tarde o temprano pueden ser reemplazados
       por valores realmente sensibles.
     impact: >
       Obtener información sensible o secretos privados.
     recommendation: >
-      - Eliminar la información sensible quemada en el código fuente.
+      - Eliminar la información sensible
+      quemada en el código fuente.
 
-      - Cambiar las credenciales de acceso que se vieron comprometidas.
+      - Cambiar las credenciales de acceso
+      que se vieron comprometidas.
 
-      - Purgar el historial de git de la información sensible afectada.
+      - Purgar el historial de git
+      de la información sensible afectada.
 
-      - Cargar los datos sensibles desde fuentes seguras como:
-      servicios de bóveda de claves, archivos de configuración que estén debidamente cifrados o variables de entorno administrativas.
+      - Cargar los datos sensibles
+      desde fuentes seguras como:
+      servicios de bóveda de claves,
+      archivos de configuración
+      que estén debidamente cifrados
+      o variables de entorno administrativas.
     threat: Atacante con acceso al código fuente desde Internet.
   score:
     base:
@@ -624,9 +667,11 @@
   en:
     title: Stored cross-site scripting (XSS)
     description: >
-      It is possible to persistently inject JavaScript code
+      It is possible to persistently
+      inject JavaScript code
       into the application fields.
-      This could allow an attacker to compromise the session
+      This could allow an attacker
+      to compromise the session
       of any user who enters the platform
       or to distribute malicious software.
     impact: __empty__
@@ -637,15 +682,18 @@
   es:
     title: Stored cross-site scripting (XSS)
     description: >
-      Los campos de la aplicación permiten inyectar código
+      Los campos de la aplicación
+      permiten inyectar código
       de forma persistente para que posteriormente
-      cualquier usuario que ingrese a la plataforma sea afectado,
+      cualquier usuario que ingrese
+      a la plataforma sea afectado,
       permitiendo el robo de información
       o la distribución de software malicioso.
     impact: __empty__
     recommendation: >
       Filtrar la información que recibe
-      y envía la aplicación por medio de listas blancas.
+      y envía la aplicación
+      por medio de listas blancas.
     threat: __empty__
   score:
     base:
@@ -667,26 +715,30 @@
   en:
     title: Use of software with known vulnerabilities
     description: >
-      The system uses the version of a software
-      or dependency with known vulnerabilities.
+      The system uses the version
+      of a software or dependency
+      with known vulnerabilities.
     impact: >
       Exploit found vulnerabilities
       in the affected components.
     recommendation: >
       Update the affected software
-      to the versions recommended by the vendor.
+      to the versions recommended
+      by the vendor.
     threat: Autenticated attacker from the Internet.
   es:
     title: Use of software with known vulnerabilities
     description: >
-      El sistema usa la version de un software
-      o dependencia con vulnerabilidades conocidas.
+      El sistema usa la versión
+      de un software o dependencia
+      con vulnerabilidades conocidas.
     impact: >
       Explotar vulnerabilidades encontradas
       en los componentes afectados.
     recommendation: >
       Actualizar el software afectado
-      a las versiones recomendadas por el fabricante.
+      a las versiones recomendadas
+      por el fabricante.
     threat: Atacante autenticado desde Internet.
   score:
     base:
@@ -720,7 +772,8 @@
       and thereby allow attackers
       to select more data
       than they should be able to.
-      For this purpose the escape(String) method is available.
+      For this purpose
+      the escape(String) method is available.
     impact: >
       An authorized user in the application
       can inject SQL statements,
@@ -728,9 +781,11 @@
       about the database,
       as well as extract information from it.
     recommendation: >
-      Perform queries to the database through sentences
+      Perform queries to the database
+      through sentences
       or parameterized procedures.
-      Alternatively use escape(String) built-in function.
+      Alternatively use escape(String)
+      built-in function.
     threat: Autenticated attacker from the Internet.
   es:
     title: SQL injection - Java Persistence API
@@ -740,11 +795,16 @@
       y sin utilizar sentencias parametrizadas
       o procedimientos almacenados.
       Cuando se utilizan condiciones LIKE
-      con valores que provienen de una fuente no segura
+      con valores que provienen
+      de una fuente no segura
       en la API de persistencia de Java,
       los valores deben sanitizarse
       para que no contengan comodines
-      y, por lo tanto, permitan a los atacantes seleccionar más datos de lo debido. Para este propósito, se puede usar el método escape(String)
+      y, por lo tanto,
+      permitan a los atacantes
+      seleccionar más datos de lo debido.
+      Para este propósito,
+      se puede usar el método escape(String).
     impact: >
       Inyectar sentencias SQL,
       con la posibilidad de obtener información
@@ -754,7 +814,8 @@
       Realizar las consultas a la base de datos
       por medio de sentencias
       o procedimientos parametrizados,
-      o alternativamente usar la función escape(String) del framework.
+      o alternativamente usar
+      la función escape(String) del framework.
     threat: Atacante autenticado desde Internet.
   score:
     base:
@@ -954,20 +1015,20 @@
           can be assured of:
 
           - **Authenticity**,
-            The server presenting the certificate
-            is in possession of the private key
-            that matches the public key
-            in the certificate.
+          The server presenting the certificate
+          is in possession of the private key
+          that matches the public key
+          in the certificate.
 
           - **Integrity**,
-            Documents signed by the certificate
-            (e.g. web pages)
-            have not been altered in transit
-            by a man in the middle.
+          Documents signed by the certificate
+          (e.g. web pages)
+          have not been altered in transit
+          by a man in the middle.
 
           - **Encryption**,
-            Communications between the client
-            and server are encrypted.
+          Communications between the client
+          and server are encrypted.
 
           Because of these properties,
           SSL/TLS and HTTPS allow users
@@ -1000,7 +1061,8 @@
     recommendation: >
       Guarantee that credentials be sent
       through a more secure channel,
-      such as session variables or using HTTP POST method.
+      such as session variables
+      or using HTTP POST method.
     threat: >
       An unauthorized user
       with access to the local machine
@@ -1018,7 +1080,8 @@
     recommendation: >
       Garantizar que las credenciales
       sean enviadas por un canal más seguro
-      como variables de sesión o por el método HTTP POST.
+      como variables de sesión
+      o por el método HTTP POST.
     threat: >
       Un usuario no autorizado
       con acceso al máquina local
@@ -1051,14 +1114,16 @@
     impact: __empty__
     recommendation: >
       Limit the access to shared folders
-      only to authorized users with their credentials.
+      only to authorized users
+      with their credentials.
     threat: __empty__
   es:
     title: Improper authentication for shared folders
     description: >
       Las carpetas de red pueden ser accedidas
       sin ningún tipo de credencial
-      permitiendo el acceso a información confidencial.
+      permitiendo el acceso
+      a información confidencial.
     impact: __empty__
     recommendation: >
       Limitar el acceso a carpetas compartidas
@@ -1085,7 +1150,8 @@
   en:
     title: Administrative credentials stored in cache memory
     description: >
-      It is possible to retrieve administrative credentials
+      It is possible to retrieve
+      administrative credentials
       from the system's cache memory.
     impact: __empty__
     recommendation: >
@@ -1095,7 +1161,8 @@
   es:
     title: Administrative credentials stored in cache memory
     description: >
-      Es posible extraer credenciales administrativas
+      Es posible extraer
+      credenciales administrativas
       desde la caché de los procesos.
     impact: __empty__
     recommendation: >
@@ -1190,12 +1257,15 @@
       Se generan sentencias XPath dinámicas
       sin la validación requerida de datos.
     impact: >
-      Inyectar queries para obtener información sensible
+      Inyectar queries
+      para obtener información sensible
       sin autorización.
     recommendation: >
-      Realizar la validaciones de datos de entrada
+      Realizar la validaciones
+      de datos de entrada
       en el lado del servidor
-      para evitar los ataques mas comunes de inyección.
+      para evitar los ataques
+      mas comunes de inyección.
     threat: Atacante autenticado desde Internet
   score:
     base:
@@ -1272,7 +1342,8 @@
     description: >
       The server processes requests
       with the Host header set
-      and redirects clients to any destination.
+      and redirects clients
+      to any destination.
     impact: >
       - Enumerate the internal network
       via trial and error.
@@ -1281,7 +1352,8 @@
       Request Forgery attacks.
     recommendation: >
       Configure server
-      to prevent third party hosts redirection.
+      to prevent third party
+      hosts redirection.
     threat: Unauthorized attacker from internet network.
   es:
     title: Uncontrolled external site redirect - Host Header Injection
@@ -1430,7 +1502,8 @@
   es:
     title: User enumeration
     description: >
-      Debido a una práctica inadecuada en la configuración
+      Debido a una práctica inadecuada
+      en la configuración
       se pueden enumerar los usuarios
       válidos en la aplicación.
     impact: __empty__
@@ -1491,13 +1564,15 @@
     description: >
       El sistema de carga de archivos
       permite cargar archivos con doble extensión
-      y extensiones inseguras como (.html, .php, .exe),
+      y extensiones inseguras
+      como (.html, .php, .exe),
       tampoco se valida si el archivo está libre
       de código malicioso o no.
     impact: __empty__
     recommendation: >
       - Validar con expresiones regulares
-      que el archivo corresponda con una sola extensión.
+      que el archivo corresponda
+      con una sola extensión.
 
       - Validar con un antivirus
       que el archivo no contenga
@@ -1507,9 +1582,11 @@
       corresponda a la extension del archivo
       antes de subirlo al servidor.
     threat: >
-      Un usuario en la red interna con acceso a la aplicación
+      Un usuario en la red interna
+      con acceso a la aplicación
       en cuenta puede subir todo tipo de archivos
-      al servidor para efectuar ataques del tipo phishing
+      al servidor para efectuar
+      ataques del tipo phishing
       o de distribución de malware.
   score:
     base:
@@ -1571,7 +1648,8 @@
   en:
     title: Inadequate file size control
     description: >
-      The system does not perform an adequate control
+      The system does not perform
+      an adequate control
       of the size of the files
       that can be uploaded to the server.
     impact: __empty__
@@ -1589,7 +1667,8 @@
     impact: __empty__
     recommendation: >
       Implementar controles
-      para limitar el máximo tamaño de archivos permitido.
+      para limitar el máximo tamaño
+      de archivos permitido.
     threat: __empty__
   score:
     base:
@@ -1611,16 +1690,20 @@
   en:
     title: Sensitive information sent via URL parameters
     description: >
-      The system sends sensitive information
+      The system sends
+      sensitive information
       via URL parameters using the GET method.
       These parameters are:
 
-      - stored in clear text in the browser history.
+      - stored in clear text
+      in the browser history.
 
-      - sent to external sites via the referrer HTTP header.
+      - sent to external sites
+      via the referrer HTTP header.
 
-      - sent to external sites via the search bar
-      if the browser interprets the URL as a query.
+      - sent to external sites
+      via the search bar if the browser
+      interprets the URL as a query.
 
       - visible to scripts running on the browser
       that may belong to third-parties.
@@ -1645,11 +1728,13 @@
 
       - son enviados en la cabecera HTTP referer a otros sitios.
 
-      - son enviados como petición a sitios externos
-      al poner la url en la barra del navegador
+      - son enviados como petición
+      a sitios externos al poner la url
+      en la barra del navegador
       si este lo interpreta como consulta.
 
-      - son visibles por scripts corriendo en la página
+      - son visibles por scripts
+      corriendo en la página
       los cuales pueden pertenecer a terceros.
     impact: __empty__
     recommendation: >
@@ -1707,12 +1792,14 @@
       para ejecutar acciones sobre un sistema
       que normalmente estarían restringidas.
     impact: >
-      Ejecutar acciones que deberían estar restringidas
+      Ejecutar acciones que deberían
+      estar restringidas
       a otros grupos o roles.
     recommendation: >
       Asignar permisos explícitamente
       a los grupos y roles adecuados
-      siguiendo el principio del mínimo privilegio.
+      siguiendo el principio
+      del mínimo privilegio.
     threat: >
       Atacante desde Internet
       con acceso a cualquiera
@@ -1784,8 +1871,9 @@
   es:
     title: Spoofing
     description: >
-      Es posible realizar acciones en la aplicación
-      y hacer que parezca que fueron realizadas
+      Es posible realizar acciones
+      en la aplicación y hacer que parezca
+      que fueron realizadas
       por el sistema o por otro usuario.
       Por ejemplo,
       enviar mensajes que parecen venir del sistema
@@ -1821,13 +1909,16 @@
   en:
     title: Password change without identity check
     description: >
-      The system allows a user to change their password
+      The system allows a user
+      to change their password
       without requesting the previous one
-      or enforcing another identity verification mechanism.
+      or enforcing another
+      identity verification mechanism.
     impact: __empty__
     recommendation: >
-      Guarantee that the current password is needed
-      when a password change is requested by users.
+      Guarantee that the current password
+      is needed when a password change
+      is requested by users.
     threat: >
       A user with access
       to a careless user's workstation
@@ -1855,7 +1946,8 @@
       puede aprovechar un descuido
       y modificar las credenciales de acceso
       para luego utilizarlas en su beneficio,
-      ya que el sistema no valida la clave actual del usuario.
+      ya que el sistema no valida
+      la clave actual del usuario.
   score:
     base:
       attack_vector: "N"
@@ -1880,8 +1972,9 @@
       insufficient ranges or low-entropy components
       to generate random numbers.
       This could allow an attacker
-      to guess the generation sequence after a short time
-      or predict results using probabilistic methods.
+      to guess the generation sequence
+      after a short time or predict results
+      using probabilistic methods.
     impact: __empty__
     recommendation: >
       Use the most secure mechanisms
@@ -1899,7 +1992,8 @@
     title: Insecure generation of random numbers
     description: >
       El sistema usa funciones inseguras,
-      rangos insuficientes o componentes de baja entropía
+      rangos insuficientes o componentes
+      de baja entropía
       para generar números aleatorios.
       Esto podría permitirle a un atacante
       averiguar la secuencia de generación
@@ -1990,8 +2084,10 @@
   en:
     title: ViewState not encrypted
     description: >
-      The state information of application forms
-      that is stored in the ViewState is not encrypted.
+      The state information
+      of application forms
+      that is stored in the ViewState
+      is not encrypted.
     impact: >
       Leak app state information
       through the ViewState value.
@@ -2005,7 +2101,8 @@
     title: ViewState not encrypted
     description: >
       La información de estado de formularios
-      almacenada en el ViewState no se encuentra cifrada.
+      almacenada en el ViewState
+      no se encuentra cifrada.
     impact: >
       Fugar información de estado
       a través del valor del ViewState.
@@ -2041,7 +2138,8 @@
       - System component versions
       (HTTP headers, service banner, etc.)
 
-      - Specific information about the configuration
+      - Specific information
+      about the configuration
       of server components (php.ini, web.config)
     impact: __empty__
     recommendation: >
@@ -2051,24 +2149,29 @@
       - Verify that HTTP headers
       do not display any name or version.
     threat: >
-      An unauthorized user with access to the system,
+      An unauthorized user
+      with access to the system,
       can identify versions and components
       that are being used by it
       through HTTP response headers
-      or in the response to non-customized HTTP errors.
+      or in the response
+      to non-customized HTTP errors.
   es:
     title: Technical information leak
     description: >
-      Se obtiene información técnica del sistema, como:
+      Se obtiene información técnica
+      del sistema, como:
 
-      - versión de los componentes que el sistema utiliza
+      - versión de los componentes
+      que el sistema utiliza
       (encabezados HTTP, banner del servicio, etc).
 
       - información específica
       sobre la configuración de componentes
       a nivel del servidor (php.ini, web.config).
 
-      - Funcionalidades que arrojan información del servidor.
+      - Funcionalidades que arrojan
+      información del servidor.
     impact: __empty__
     recommendation: >
       - Eliminar el banner de los servicios
@@ -2077,11 +2180,14 @@
       - Verificar que los encabezados HTTP
       no expongan ningún nombre o versión.
     threat: >
-      Un usuario no autorizado con acceso al sistema
+      Un usuario no autorizado
+      con acceso al sistema
       puede identificar versiones y/o componentes
-      que usa el sistema a través de las cabeceras HTTP
+      que usa el sistema a través
+      de las cabeceras HTTP
       que responde el servidor
-      o en la respuesta a los errores HTTP no personalizados.
+      o en la respuesta a los errores
+      HTTP no personalizados.
   score:
     base:
       attack_vector: "N"
@@ -2142,7 +2248,8 @@
       - Información de proveedores
     impact: __empty__
     recommendation: >
-      De acuerdo a la clasificación de la información encontrada,
+      De acuerdo a la clasificación
+      de la información encontrada,
       establecer los controles necesarios
       para que la información sea accesible
       sólo a las personas indicadas.
@@ -2216,7 +2323,8 @@
   es:
     title: Exposed web services
     description: >
-      El WSDL del sistema contiene información sensible
+      El WSDL del sistema contiene
+      información sensible
       y se encuentra expuesto
       para una audiencia mayor que la necesaria.
     impact: __empty__
@@ -2271,7 +2379,8 @@
       Un usuario no autorizado
       puede iniciar sesión
       adivinando contraseñas por defecto
-      presentes en los distintos softwares en la aplicación.
+      presentes en los distintos softwares
+      en la aplicación.
   score:
     base:
       attack_vector: "N"
@@ -2308,11 +2417,13 @@
   es:
     title: Insecurely generated cookies
     description: >
-      El sistema no establece los atributos de seguridad
+      El sistema no establece
+      los atributos de seguridad
       para las cookies sensibles,
-      lo que podría hacer que se envíen en texto plano
-      o sean visualizadas por usuarios no autorizados
-      del lado del cliente.
+      lo que podría hacer
+      que se envíen en texto plano
+      o sean visualizadas por usuarios
+      no autorizados del lado del cliente.
     impact: >
       Enviar cookies de sesión en texto plano
       a través de canales inseguros.
@@ -2344,13 +2455,16 @@
       The server is missing
       the Content-Security-Policy HTTP header.
       Alternatively,
-      the header's configuration is not secure enough.
+      the header's configuration
+      is not secure enough.
     impact: >
       - Embed content, scripts, blobs
-      or images from potentially malicious sources.
+      or images from potentially
+      malicious sources.
 
       - Make possible to carry attacks like
-      Cross-Site Scripting, Cross-Site Leaks, among others.
+      Cross-Site Scripting,
+      Cross-Site Leaks, among others.
     recommendation: >
       Set the Content-Security-Policy header
       and configure it in a secure way.
@@ -2363,13 +2477,17 @@
       Alternativamente,
       el valor del mismo no es suficientemente fuerte.
     impact: >
-      - Incluir contenido, scripts, binarios
-      o imágenes desde fuentes potencialmente maliciosas.
+      - Incluir contenido, scripts,
+      binarios o imágenes desde fuentes
+      potencialmente maliciosas.
 
-      - Aumentar la probabilidad de llevar a cabo ataques como
-      Cross-Site Scripting, Cross-Site Leaks, entre otros.
+      - Aumentar la probabilidad
+      de llevar a cabo ataques como
+      Cross-Site Scripting, Cross-Site Leaks,
+      entre otros.
     recommendation: >
-      Establecer la cabecera Content-Security-Policy
+      Establecer la cabecera
+      Content-Security-Policy
       y configurarla de forma segura.
     threat: Atacante sin autorización desde Internet.
   score:
@@ -2413,9 +2531,11 @@
     description: >
       Métodos como TRACE, PUT, DELETE
       se encuentran habilitados en el servidor
-      permitiendo al atacante incluir y/o borrar archivos,
-      permite saber cuales otros métodos son permitidos
-      o usar la depuración en las página que lo permiten.
+      permitiendo al atacante
+      incluir y/o borrar archivos,
+      permite saber cuales otros métodos
+      son permitidos o usar la depuración
+      en las página que lo permiten.
     impact: __empty__
     recommendation: >
       Configurar los métodos seguros
@@ -2654,7 +2774,8 @@
       al utilizar la aplicación.
     impact: >
       Instalar herramientas maliciosas
-      con el fin de causar comportamientos inesperados.
+      con el fin de causar
+      comportamientos inesperados.
     recommendation: >
       Validar que el dispositivo
       no se encuentre rooteado
@@ -2706,7 +2827,8 @@
       en el dispositivo.
     impact: >
       Aceptar certificados fraudulentos
-      provenientes de una Certificate Authority (CA) comprometida.
+      provenientes de una
+      Certificate Authority (CA) comprometida.
     recommendation: >
       Configurar el pin-set
       en res/xml/network_security_config.xml.
@@ -2774,9 +2896,11 @@
       y tener éxito más rápido.
     impact: __empty__
     recommendation: >
-      Hacer cumplir el uso de contraseñas seguras.
-      Una política de seguridad de la contraseña
-      debe contener los siguientes atributos:
+      Hacer cumplir el uso
+      de contraseñas seguras.
+      Una política de seguridad
+      de la contraseña debe contener
+      los siguientes atributos:
 
       - Configurar una longitud mínima y máxima.
 
@@ -2790,8 +2914,10 @@
       puede ejecutar ataques de fuerza bruta
       con palabras comunes
       ya que no se sigue la recomendación,
-      así puede lograr encontrar una contraseña válida
-      en poco tiempo a diferencia de claves seguras
+      así puede lograr encontrar
+      una contraseña válida
+      en poco tiempo a diferencia
+      de claves seguras
       que se demoran mucho más.
   score:
     base:
@@ -2833,7 +2959,8 @@
     title: Cracked weak credentials
     description: >
       La falta de complejidad
-      de los hashes almacenados en la base de datos
+      de los hashes almacenados
+      en la base de datos
       reduce significativamente
       el tiempo del proceso para revertirlos.
     impact: __empty__
@@ -3044,7 +3171,8 @@
     description: >
       The application allows backups via ADB
       (Android Debug Bridge).
-      The backups performed by this functionality
+      The backups performed
+      by this functionality
       are not encrypted.
       Sensitive data of authenticated users
       can be included in the backup,
@@ -3058,7 +3186,8 @@
       Leak sensitive information
       through backups.
     recommendation: >
-      Configure the attribute: application.android:allowBackup
+      Configure the attribute:
+      application.android:allowBackup
       to "false" in the file: AndroidManifest.xml.
     threat: >
       Unauthorized attacker
@@ -3066,11 +3195,13 @@
   es:
     title: Insecure service configuration - ADB Backups
     description: >
-      La aplicación permite realizar copias de seguridad
+      La aplicación permite
+      realizar copias de seguridad
       a través de ADB (Android Debug Bridge).
       Las copias de seguridad realizadas
       por esta funcionalidad no están cifradas.
-      Los datos sensibles de usuarios autenticados
+      Los datos sensibles
+      de usuarios autenticados
       se puede incluir en la copia de seguridad,
       y estos datos se pueden extraer
       por un atacante no autenticado.
@@ -3082,7 +3213,8 @@
       Filtrar información confidencial
       a través de copias de seguridad.
     recommendation: >
-      Configurar el atributo: application.android:allowBackup
+      Configurar el atributo:
+      application.android:allowBackup
       a "false" en el archivo: AndroidManifest.xml.
     threat: >
       Atacante sin autorización
@@ -3273,9 +3405,9 @@
         the following situation can happen:
 
         - At moment **A**
-          we `File.createTempFile()` a file.
+        we `File.createTempFile()` a file.
         - At moment **B** we add
-          secure permissions to the file.
+        secure permissions to the file.
 
         After moment **B** the file is secured.
         However,
@@ -3328,7 +3460,8 @@
       Get technical
       or sensitive information.
     recommendation: >
-      Configure the attribute: application.android:debuggable
+      Configure the attribute:
+      application.android:debuggable
       to "false" in the file: AndroidManifest.xml.
     threat: >
       Unauthorized attacker
@@ -3336,15 +3469,18 @@
   es:
     title: Debugging enabled in production - APK
     description: >
-      El sistema tiene el modo depuración habilitado
+      El sistema tiene
+      el modo depuración habilitado
       en el ambiente productivo,
-      lo que puede causar fugas de información técnica
+      lo que puede causar fugas
+      de información técnica
       cuando un error ocurra.
     impact: >
       Obtener información técnica
       o sensible.
     recommendation: >
-      Configurar el atributo: application.android:debuggable
+      Configurar el atributo:
+      application.android:debuggable
       a "false" en el archivo: AndroidManifest.xml.
     threat: >
       Atacante sin autorización
@@ -3450,7 +3586,8 @@
       de manejar diferentes categorías
       o fuentes de error.
       Esto puede hacer
-      que se materialicen vulnerabilidades de seguridad,
+      que se materialicen
+      vulnerabilidades de seguridad,
       ya que algunas flujos pasan desapercibidos.
     impact: >
       Perder la trazabilidad necesaria
@@ -3945,11 +4082,13 @@
     description: >
       El sistema asigna
       recursos de máquina innecesarios
-      debido al uso de prácticas de programación inadecuadas
+      debido al uso de prácticas
+      de programación inadecuadas
       o algoritmos ineficientes.
       Alternativamente,
       la aisgnación puede ser controlada
-      por una fuente externa (Ej: entrada de usuario),
+      por una fuente externa
+      (Ej: entrada de usuario),
       por lo tanto,
       se procesan solicitudes que consumen
       una cantidad de recursos enormes
@@ -4209,8 +4348,8 @@
       y su ruta a servicios externos.
     recommendation: >
       Establecer la cabecera
-      Referrer-Policy a "no-referrer", "same-origin",
-      "strict-origin",
+      Referrer-Policy a "no-referrer",
+      "same-origin", "strict-origin",
       o "strict-origin-when-cross-origin".
     threat: >
       Atacante sin autorización
@@ -4459,7 +4598,8 @@
       instaladas en el dispositivo
       a través de la Content Provider API.
     recommendation: >
-      Denegar el acceso a todos los Content Providers con:
+      Denegar el acceso
+      a todos los Content Providers con:
       android:exported="false"
       y android:grantUriPermissions="false".
       Si se requiere
@@ -4652,7 +4792,8 @@
       Todas las dependencias
       deben estar declaradas
       y se deben referenciar
-      con un gestor de dependencias (npm, pip, maven).
+      con un gestor de dependencias
+      (npm, pip, maven).
       Esto permite estandarizar la construcción
       y empaquetado de proyectos.
     threat: >
@@ -4737,8 +4878,8 @@
       such as databases,
       shared resources containing sensitive information
       and web services,
-      are not protected
-      by a multi-factor authentication mechanism.
+      are not protected by a multi-factor
+      authentication mechanism.
       This makes it easier for an attacker
       who has compromised a user’s account
       to access those resources.
@@ -4877,8 +5018,8 @@
       Un atacante podría generar
       una caída del servicio
       al referenciar entidades externas
-      que pudieran requerir demasiados recursos
-      del sistema.
+      que pudieran requerir
+      demasiados recursos del sistema.
   score:
     base:
       attack_vector: "N"
@@ -4926,7 +5067,8 @@
     description: >
       Es posible interceptar peticiones
       a los servicios de MDNS
-      y obtener información de los hosts conectados
+      y obtener información
+      de los hosts conectados
       debido a que no se cuenta
       con medidas de seguridad en la red.
     impact: __empty__
@@ -5416,26 +5558,26 @@
         ## Weak algorithms
 
         - **RSA with key < 2048 bytes**,
-          can be brute-forced in feasible time
+        can be brute-forced in feasible time
 
         - **OpenSSL Elliptic Curves**, secp112r1,
-          secp112r2, secp128r1, secp128r2,
-          secp160k1, secp160r1, secp160r2,
-          secp192k1, prime192v1, prime192v2,
-          prime192v3, sect113r1, sect113r2, sect131r1,
-          sect131r2, sect163k1, sect163r1,
-          sect163r2, sect193r1, sect193r2, c2pnb163v1,
-          c2pnb163v2, c2pnb163v3,
-          c2pnb176v1, c2tnb191v1, c2tnb191v2,
-          c2tnb191v3, c2pnb208w1,
-          wap-wsg-idm-ecid-wtls1, wap-wsg-idm-ecid-wtls3,
-          wap-wsg-idm-ecid-wtls4, wap-wsg-idm-ecid-wtls5,
-          wap-wsg-idm-ecid-wtls6, wap-wsg-idm-ecid-wtls7,
-          wap-wsg-idm-ecid-wtls8, wap-wsg-idm-ecid-wtls9,
-          wap-wsg-idm-ecid-wtls10, wap-wsg-idm-ecid-wtls11,
-          oakley-ec2n-3, oakley-ec2n-4, brainpoolp160r1,
-          brainpoolp160t1, brainpoolp192r1, brainpoolp192t1,
-          can be brute-forced in feasible time.
+        secp112r2, secp128r1, secp128r2,
+        secp160k1, secp160r1, secp160r2,
+        secp192k1, prime192v1, prime192v2,
+        prime192v3, sect113r1, sect113r2, sect131r1,
+        sect131r2, sect163k1, sect163r1,
+        sect163r2, sect193r1, sect193r2, c2pnb163v1,
+        c2pnb163v2, c2pnb163v3,
+        c2pnb176v1, c2tnb191v1, c2tnb191v2,
+        c2tnb191v3, c2pnb208w1,
+        wap-wsg-idm-ecid-wtls1, wap-wsg-idm-ecid-wtls3,
+        wap-wsg-idm-ecid-wtls4, wap-wsg-idm-ecid-wtls5,
+        wap-wsg-idm-ecid-wtls6, wap-wsg-idm-ecid-wtls7,
+        wap-wsg-idm-ecid-wtls8, wap-wsg-idm-ecid-wtls9,
+        wap-wsg-idm-ecid-wtls10, wap-wsg-idm-ecid-wtls11,
+        oakley-ec2n-3, oakley-ec2n-4, brainpoolp160r1,
+        brainpoolp160t1, brainpoolp192r1, brainpoolp192t1,
+        can be brute-forced in feasible time.
 "093":
   en:
     title: Hidden fields manipulation
@@ -5917,7 +6059,8 @@
     title: Email uniqueness not properly verified
     description: >
       Se está haciendo una verificación
-      parcial de unicidad de correos electrónicos,
+      parcial de unicidad
+      de correos electrónicos,
       ya que el caracter (signo más)
       en la parte del usuario del correo
       no se filtra adecuadamente.
@@ -6227,11 +6370,12 @@
   en:
     title: Insecure functionality - Float currency
     description: >
-      Representing currency using data types
+      Representing currency
+      using data types
       like float or double may result
       in accuracy issues the more operations
-      are performed
-      using inexact representations of a value;
+      are performed using
+      inexact representations of a value;
       besides unexpected behaviors
       if special values like NaN
       or Infinite are not taken into account.
@@ -6250,16 +6394,19 @@
   es:
     title: Insecure functionality - Float currency
     description: >
-      Representar moneda utilizando tipos de dato
+      Representar moneda
+      utilizando tipos de dato
       como float o double puede resultar
       en problemas de precisión
-      a medida que se hacen más y más operaciones
+      a medida que se hacen
+      más y más operaciones
       sobre representaciones inexactas de un valor;
       además de comportamientos inesperados
-      si no se tiene en cuenta valores especiales
-      como NaN e infinitos.
+      si no se tiene en cuenta
+      valores especiales como NaN e infinitos.
     impact: >
-      Operaciones sobre moneda pueden tener resultados incorrectos.
+      Operaciones sobre moneda
+      pueden tener resultados incorrectos.
     recommendation: >
       - Usar enteros para representar moneda
       y contar en centavos.
@@ -7468,8 +7615,9 @@
       The server is missing
       the X-Content-Type-Options HTTP header.
     impact: >
-      Execute MIME sniffing attacks to obtain technical information
-      and craft new attack vectors
+      Execute MIME sniffing attacks
+      to obtain technical information
+      and craft new attack vectors.
     recommendation: >
       Set the X-Content-Type-Options header
       to nosniff.
@@ -7482,8 +7630,9 @@
       El servidor carece de la cabecera
       HTTP X-Content-Type-Options.
     impact: >
-      Ejecutar ataques de MIME Sniffing para obtener información
-      y generar nuevos vectores de ataque
+      Ejecutar ataques de MIME Sniffing
+      para obtener información
+      y generar nuevos vectores de ataque.
     recommendation: >
       Establecer la cabecera
       X-Content-Type-Options a nosniff.
@@ -7623,29 +7772,37 @@
   en:
     title: Insecure or unset HTTP headers - X-XSS Protection
     description: >
-      The application uses the X-XSS Protection header
-      considered deprecated. The use of this header
-      may lead to stored XSS vulnerabilities.
+      The application uses
+      the X-XSS Protection header
+      considered deprecated.
+      The use of this header may lead
+      to stored XSS vulnerabilities.
     impact: >
       Increase the chance of exploiting a stored XSS
     recommendation: >
       Disable the X-XSS Protection filter.
-      Instead, define secuirty policies using CSP Header
+      Instead,
+      define secuirty policies using CSP Header.
     threat: >
       Unauthorized attacker
       from the Internet.
   es:
     title: Insecure or unset HTTP headers - X-XSS Protection
     description: >
-      La aplicación utiliza el header X-XSS Protection
-      considerado obsoleto. El uso de este header
-      puede conllevar a vulnerabilidades de XSS almacenado.
+      La aplicación utiliza
+      el header X-XSS Protection
+      considerado obsoleto.
+      El uso de este header
+      puede conllevar a vulnerabilidades
+      de XSS almacenado.
     impact: >
-      Incrementar probabilidades de explotar un XSS almacenado
+      Incrementar probabilidades
+      de explotar un XSS almacenado.
     recommendation: >
       Deshabilitar el filtro X-XSS Protection.
-      En su lugar, definir políticas de seguridad utilizando
-      la cabecera CSP.
+      En su lugar,
+      definir políticas de seguridad
+      utilizando la cabecera CSP.
     threat: >
       Atacante sin autorización
       desde Internet.
@@ -7669,34 +7826,41 @@
   en:
     title: Insecure or unset HTTP headers - Cache Control
     description: >
-      The application lacks the Cache Control security header
-      or sets the header in a insecure value
+      The application lacks
+      the Cache Control security header
+      or sets the header in a insecure value.
     impact: >
-      - Store sever responses with sensitive information
-      in the browser's cache
+      - Store sever responses
+      with sensitive information
+      in the browser's cache.
 
-      - Produce potentially harmful server responses
-      using Cache Poison attacks
+      - Produce potentially
+      harmful server responses
+      using Cache Poison attacks.
     recommendation: >
       Disable the X-XSS Protection filter.
-      Instead, define secuirty policies using CSP Header
+      Instead, define secuirty policies using CSP Header.
     threat: >
       Unauthorized attacker
       from local network.
   es:
     title: Insecure or unset HTTP headers - Cache Control
     description: >
-      La aplicación no define la cabecera de seguridad Caché Control
+      La aplicación no define
+      la cabecera de seguridad Caché Control
       en las repuestas del servidor
       o la tiene definida en un valor inseguro.
     impact: >
-      - Almacenar respuestas del servidor con información sensible
+      - Almacenar respuestas del servidor
+      con información sensible
       en el caché del navegador
-      - Generar respuestas potencialmente peligrosas
-      mediante ataques de Cache Poison
+      - Generar respuestas
+      potencialmente peligrosas
+      mediante ataques de Cache Poison.
     recommendation: >
-      Establecer la cabecera Caché control con un valor de
-      'no-store' , 'no-cache' y `must-revalidate`
+      Establecer la cabecera Caché control
+      con un valor de 'no-store' , 'no-cache'
+      y `must-revalidate`
     threat: >
       Atacante sin autorización
       desde red local.
@@ -7720,27 +7884,35 @@
   en:
     title: Insecure or unset HTTP headers - X-Permitted-Cross-Domain-Policies
     description: >
-      The application lacks the X-Permitted-Cross-Domain-Policies header
+      The application lacks
+      the X-Permitted-Cross-Domain-Policies header
       or sets the header in a insecure value
     impact: >
-      Allow harmful requests from Adobe Flash or PDF documents
+      Allow harmful requests
+      from Adobe Flash or PDF documents
     recommendation: >
-      Unless the application requires Adobe products,
-      set the X-Permitted-Cross-Domain-Policies to 'none'
+      Unless the application
+      requires Adobe products, 
+      set the X-Permitted-Cross-Domain-Policies to 'none'.
     threat: >
       Unauthorized attacker
       from the Internet.
   es:
     title: Insecure or unset HTTP headers - X-Permitted-Cross-Domain-Policies
     description: >
-      La aplicación no define la cabecera de seguridad
+      La aplicación no define
+      la cabecera de seguridad
       X-Permitted-Cross-Domain-Policies,
-      o la tiene establecida en un valor inseguro
+      o la tiene establecida
+      en un valor inseguro.
     impact: >
-      Permitir peticiones maliciosas de Adobe Flash o documentos PDFs
+      Permitir peticiones maliciosas
+      de Adobe Flash o documentos PDFs
     recommendation: >
-      A menos que se requiera utilizar productos de Adobe
-      establecer X-Permitted-Cross-Domain-Policies con el valor de 'none'
+      A menos que se requiera
+      utilizar productos de Adobe
+      establecer X-Permitted-Cross-Domain-Policies
+      con el valor de 'none'.
     threat: >
       Atacante sin autorización
       desde Internet.
