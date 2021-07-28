@@ -181,7 +181,7 @@ async def get_group_findings(
         ),
     )
 
-    return tuple(
+    findings: List[ResultGetGroupFindings] = [
         ResultGetGroupFindings(
             identifier=finding["id"],
             title=finding["title"],
@@ -190,7 +190,14 @@ async def get_group_findings(
             result["data"]["project"]["findings"]
             + result["data"]["project"]["drafts"]
         )
+    ]
+
+    findings = sorted(
+        findings,
+        key=lambda result: (result.title, result.identifier),
     )
+
+    return tuple(findings)
 
 
 @SHIELD
