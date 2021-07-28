@@ -13,20 +13,23 @@ from typing import (
 async def get_result(
     *,
     user: str,
-    group: str,
+    org: str,
+    email: str,
+    role: str,
+    phone: str,
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
-            editGroup(
-                comments: "",
-                groupName: "{group}",
-                subscription: ONESHOT,
-                hasSquad: false,
-                hasAsm: false,
-                hasMachine: false,
-                reason: NONE,
+            updateOrganizationStakeholder(
+                organizationId: "{org}",
+                userEmail: "{email}",
+                phoneNumber: "{phone}",
+                role: {role}
             ) {{
                 success
+                modifiedStakeholder {{
+                    email
+                }}
             }}
         }}
     """

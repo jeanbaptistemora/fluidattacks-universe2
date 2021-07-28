@@ -9,7 +9,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("edit_stakeholder_organization")
+@pytest.mark.resolver_test_group("update_organization_stakeholder")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -18,7 +18,7 @@ from typing import (
         ["group_manager@gmail.com"],
     ],
 )
-async def test_edit_stakeholder_organization(
+async def test_update_organization_stakeholder(
     populate: bool, email: str
 ) -> None:
     assert populate
@@ -33,9 +33,9 @@ async def test_edit_stakeholder_organization(
         phone=user_phone,
     )
     assert "errors" not in result
-    assert result["data"]["editStakeholderOrganization"]["success"]
+    assert result["data"]["updateOrganizationStakeholder"]["success"]
     assert (
-        result["data"]["editStakeholderOrganization"]["modifiedStakeholder"][
+        result["data"]["updateOrganizationStakeholder"]["modifiedStakeholder"][
             "email"
         ]
         == email
@@ -43,7 +43,7 @@ async def test_edit_stakeholder_organization(
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("edit_stakeholder_organization")
+@pytest.mark.resolver_test_group("update_organization_stakeholder")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -52,7 +52,7 @@ async def test_edit_stakeholder_organization(
         ["customer@gmail.com"],
     ],
 )
-async def test_edit_stakeholder_organization_fail(
+async def test_update_organization_stakeholder_fail(
     populate: bool, email: str
 ) -> None:
     assert populate

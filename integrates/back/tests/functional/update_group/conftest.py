@@ -9,7 +9,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("edit_stakeholder_organization")
+@pytest.mark.resolver_test_group("update_group")
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     return await db.populate(generic_data["db_data"])

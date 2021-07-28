@@ -9,24 +9,24 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("edit_group")
+@pytest.mark.resolver_test_group("update_group")
 @pytest.mark.parametrize(
     ["email"],
     [
         ["admin@gmail.com"],
     ],
 )
-async def test_edit_group(populate: bool, email: str) -> None:
+async def test_update_group(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     result: Dict[str, Any] = await get_result(user=email, group=group_name)
     assert "errors" not in result
-    assert "success" in result["data"]["editGroup"]
-    assert result["data"]["editGroup"]["success"]
+    assert "success" in result["data"]["updateGroup"]
+    assert result["data"]["updateGroup"]["success"]
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("edit_group")
+@pytest.mark.resolver_test_group("update_group")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -40,7 +40,7 @@ async def test_edit_group(populate: bool, email: str) -> None:
         ["group_manager@gmail.com"],
     ],
 )
-async def test_edit_group_fail(populate: bool, email: str) -> None:
+async def test_update_group_fail(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     result: Dict[str, Any] = await get_result(user=email, group=group_name)
