@@ -4,10 +4,6 @@ from aioextensions import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-import authz
-from context import (
-    FI_MAIL_REVIEWERS,
-)
 from custom_exceptions import (
     PermissionDenied,
 )
@@ -30,9 +26,6 @@ from graphql import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from group_access import (
-    domain as group_access_domain,
-)
 from mailer import (
     findings as findings_mail,
 )
@@ -46,9 +39,6 @@ from newutils.utils import (
 )
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
-)
-from subscriptions import (
-    domain as subs_domain,
 )
 from time import (
     time,
@@ -99,35 +89,13 @@ async def _add_finding_consult(  # pylint: disable=too-many-locals
     if success:
         redis_del_by_deps_soon("add_finding_consult", finding_id=finding_id)
         if content.strip() not in {"#external", "#internal"}:
-            recipients = FI_MAIL_REVIEWERS.split(",")
-            users = await group_access_domain.get_users_to_notify(group)
-            if comment_data["comment_type"] == "observation":
-                analysts = [
-                    email
-                    for email in users
-                    if await authz.get_group_level_role(email, group)
-                    == "analyst"
-                ]
-                recipients.extend(analysts)
-            else:
-                recipients.extend(users)
-
-            subscribed = [
-                recipient
-                for recipient in recipients
-                if await subs_domain.is_user_subscribed_to_comments(
-                    user_email=recipient
-                )
-            ]
-
             schedule(
                 findings_mail.send_mail_comment(
-                    info.context.loaders,
-                    comment_data,
-                    user_email,
-                    finding,
-                    subscribed,
-                    group,
+                    context=info.context.loaders,
+                    comment_data=comment_data,
+                    user_mail=user_email,
+                    finding=finding,
+                    group_name=group,
                 )
             )
 

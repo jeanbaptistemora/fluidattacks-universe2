@@ -156,18 +156,6 @@ async def get_user_subscriptions_to_entity_report(
     ]
 
 
-async def is_user_subscribed_to_comments(
-    *,
-    user_email: str,
-) -> bool:
-    sub_to_comments = [
-        subscription
-        for subscription in await get_user_subscriptions(user_email=user_email)
-        if str(subscription["sk"]["entity"]).lower() == "comments"
-    ]
-    return len(sub_to_comments) > 0
-
-
 def is_subscription_active_right_now(
     *,
     bot_period: NumericType,

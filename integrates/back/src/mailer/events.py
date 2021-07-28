@@ -9,27 +9,27 @@ from custom_types import (
     Comment as CommentType,
     MailContent as MailContentType,
 )
+from mailer.utils import (
+    get_consult_users,
+    get_organization_name,
+)
 from typing import (
     Any,
-    List,
 )
 
 
-async def send_mail_comment(  # pylint: disable=too-many-locals,too-many-statements # noqa: MC0001
+async def send_mail_comment(
+    *,
     context: Any,
     comment_data: CommentType,
     event_id: str,
     group_name: str,
-    recipients: List[str],
     user_mail: str,
 ) -> None:
-    group_loader = context.loaders.group
-    group = await group_loader.load(group_name)
-    org_id = group["organization"]
-
-    organization_loader = context.loaders.organization
-    organization = await organization_loader.load(org_id)
-    org_name = organization["name"]
+    org_name = await get_organization_name(context, group_name)
+    recipients = await get_consult_users(
+        group_name=group_name, comment_type=comment_data["comment_type"]
+    )
 
     email_context: MailContentType = {
         "comment": comment_data["content"].splitlines(),

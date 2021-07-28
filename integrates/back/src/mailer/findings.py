@@ -19,6 +19,10 @@ from db_model.findings.enums import (
 from group_access import (
     domain as group_access_domain,
 )
+from mailer.utils import (
+    get_consult_users,
+    get_organization_name,
+)
 from newutils import (
     findings as findings_utils,
 )
@@ -29,26 +33,19 @@ from typing import (
 )
 
 
-async def _get_organization_name(context: Any, group_name: str) -> str:
-    group_loader = context.group
-    group = await group_loader.load(group_name)
-    org_id = group["organization"]
-
-    organization_loader = context.organization
-    organization = await organization_loader.load(org_id)
-    return organization["name"]
-
-
-async def send_mail_comment(  # pylint: disable=too-many-locals,too-many-statements # noqa: MC0001
+async def send_mail_comment(
+    *,
     context: Any,
     comment_data: CommentType,
     user_mail: str,
     finding: Dict[str, FindingType],
-    recipients: List[str],
     group_name: str,
 ) -> None:
-    org_name = await _get_organization_name(context, group_name)
-    type_ = comment_data["comment_type"]
+    org_name = await get_organization_name(context, group_name)
+    type_: str = comment_data["comment_type"]
+    recipients = await get_consult_users(
+        group_name=group_name, comment_type=type_
+    )
     is_finding_released = findings_utils.is_released(finding)
     email_context: MailContentType = {
         "comment": comment_data["content"].splitlines(),
@@ -115,7 +112,7 @@ async def send_mail_new_draft(
     group_name: str,
     analyst_email: str,
 ) -> None:
-    org_name = await _get_organization_name(context, group_name)
+    org_name = await get_organization_name(context, group_name)
     recipients = FI_MAIL_REVIEWERS.split(",")
     email_context: MailContentType = {
         "analyst_email": analyst_email,
@@ -157,7 +154,7 @@ async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
     discoverer_email: str,
     reviewer_email: str,
 ) -> None:
-    org_name = await _get_organization_name(context, group_name)
+    org_name = await get_organization_name(context, group_name)
     recipients = FI_MAIL_REVIEWERS.split(",")
     recipients.append(discoverer_email)
     email_context: MailContentType = {
@@ -189,7 +186,7 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
     group_name: str,
     justification: str,
 ) -> None:
-    org_name = await _get_organization_name(context, group_name)
+    org_name = await get_organization_name(context, group_name)
     recipients = await group_access_domain.get_closers(group_name)
     mail_context = {
         "group": group_name.lower(),
