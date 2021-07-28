@@ -121,16 +121,20 @@ slug: /development/writing/documentation/main
 * **DR01:** We *should* create short titles for the requirements,
   preferably no longer than **32 characters**.
 
-* **DR02:** We *must* make a complete exposition of each requirement
-  (i.e., including main sentence, description,
-  associated vulnerabilities and references).
+* **DR02:** We *must* make a complete exposition of each requirement,
+  including the following segments of information
+  with the corresponding subtitles:
+  requirement (i.e., main sentence), description,
+  associated vulnerabilities, and references.
 
 * **DR03:** We *should* ideally write the main sentence of each requirement
   in **150 characters** or less.
 
 * **DR04:** We *should* write the main sentence of each requirement
   starting with the subject in charge of fulfilling a specific task,
-  accompanied by the modal verb *must*.
+  accompanied by the modal verb *must*
+  (e.g., The system must provide a secure mechanism
+  to regenerate a user's password.).
 
 * **DR05:** In the description of the requirements,
   we *should* complement the information of the main sentence

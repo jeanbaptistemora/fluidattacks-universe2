@@ -27,7 +27,7 @@ slug: /development/writing/general/italics
 * **GI04:** We *must* use italics
   when we want to emphasize a word or expression
   that in itself is not a keyword or a key expression in the text
-  (e.g., "In my words,
+  (e.g., "[In my words](https://fluidattacks.com/blog/cybersecurity-strategy/),
   the paper calls for a shift in how organizations *see* cybersecurity.").
 
 * **GI05:** We *can* italicize terms

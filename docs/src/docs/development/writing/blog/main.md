@@ -77,7 +77,7 @@ slug: /development/writing/blog/main
   (it *must* have a size of **900 × 600 px** and less than **800 KB**).
 
 * **BI02:** We *must* name the cover image as follows:
-  *cover_[main keyword of the post]*
+  cover_[main keyword of the post]
   (e.g., cover_pentesting; both words in lower case).
 
 * **BI03:** We *can* use images from different websites and other sources
@@ -104,9 +104,8 @@ slug: /development/writing/blog/main
 
 * **BI07:** We *must* always upload the images to [Cloudinary](https://cloudinary.com/)
   and then use their links,
-  changing their filename extensions to *.webp*
-  (unless they are gifs)
-  inside the *.adoc* files.
+  changing their filename extensions to `.webp`
+  inside the `.adoc` files.
   (Only for `Fluid Attacks` staff.)
 
 ## Others

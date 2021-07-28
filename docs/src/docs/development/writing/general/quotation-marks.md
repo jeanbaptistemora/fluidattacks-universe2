@@ -35,14 +35,14 @@ slug: /development/writing/general/quotation-marks
 
 * **GQ07:** When we want to remove an unnecessary fragment from a quotation,
   we *must* use ellipsis in square brackets as a substitute
-  (e.g., ["The biggest thing](https://fluidattacks.com/blog/tribe-of-hackers-4/)
+  (e.g., "[The biggest thing](https://fluidattacks.com/blog/tribe-of-hackers-4/)
   is to go through the attack methodology
   and show what worked [...] and what did not work in the attack.").
 
 * **GQ08:** When we need to modify a fragment of a quotation,
   for instance, to adjust the sentence tense,
   we *must* put the new words in square brackets
-  (e.g., ["This [was] very controversial](https://fluidattacks.com/blog/apple-data-center-china/)
+  (e.g., "[This [was] very controversial](https://fluidattacks.com/blog/apple-data-center-china/)
   given the calls of different organizations and human rights defenders.").
 
   > **NOTE:**
