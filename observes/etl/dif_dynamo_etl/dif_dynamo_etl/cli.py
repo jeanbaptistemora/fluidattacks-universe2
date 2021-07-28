@@ -30,7 +30,8 @@ def old_data_etl(auth_file):
 
 
 @click.group()
-def main():
+def main() -> None:
+    # main cli group
     pass
 
 
