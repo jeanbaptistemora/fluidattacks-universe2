@@ -225,16 +225,13 @@ integrates.back.test.functional.deactivate_root:
 integrates.back.test.functional.download_event_file:
   <<: *integrates_back_test_functional
 
-integrates.back.test.functional.download_vuln_file:
+integrates.back.test.functional.download_vulnerability_file:
   <<: *integrates_back_test_functional
 
 integrates.back.test.functional.download_file:
   <<: *integrates_back_test_functional
 
 integrates.back.test.functional.edit_group:
-  <<: *integrates_back_test_functional
-
-integrates.back.test.functional.edit_stakeholder:
   <<: *integrates_back_test_functional
 
 integrates.back.test.functional.edit_stakeholder_organization:
@@ -397,6 +394,9 @@ integrates.back.test.functional.update_finding_description_new:
   <<: *integrates_back_test_functional_migration
 
 integrates.back.test.functional.update_forces_access_token:
+  <<: *integrates_back_test_functional
+
+integrates.back.test.functional.update_group_stakeholder:
   <<: *integrates_back_test_functional
 
 integrates.back.test.functional.update_organization_policies:

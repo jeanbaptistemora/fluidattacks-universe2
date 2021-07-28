@@ -21,7 +21,7 @@ async def get_result(
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
-            editStakeholder (
+            updateGroupStakeholder (
                 email: "{stakeholder}",
                 phoneNumber: "{phone}",
                 groupName: "{group}",

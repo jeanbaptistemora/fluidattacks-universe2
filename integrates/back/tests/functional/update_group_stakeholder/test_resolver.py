@@ -9,7 +9,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("edit_stakeholder")
+@pytest.mark.resolver_test_group("update_group_stakeholder")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -18,7 +18,7 @@ from typing import (
         ["group_manager@gmail.com"],
     ],
 )
-async def test_edit_stakeholder(populate: bool, email: str) -> None:
+async def test_update_group_stakeholder(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     phone_number: str = "123456"
@@ -33,11 +33,11 @@ async def test_edit_stakeholder(populate: bool, email: str) -> None:
         role=stakeholder_role,
     )
     assert "errors" not in result
-    assert "success" in result["data"]["editStakeholder"]
+    assert "success" in result["data"]["updateGroupStakeholder"]
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("edit_stakeholder")
+@pytest.mark.resolver_test_group("update_group_stakeholder")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -49,7 +49,9 @@ async def test_edit_stakeholder(populate: bool, email: str) -> None:
         ["reviewer@gmail.com"],
     ],
 )
-async def test_edit_stakeholder_fail(populate: bool, email: str) -> None:
+async def test_update_group_stakeholder_fail(
+    populate: bool, email: str
+) -> None:
     assert populate
     group_name: str = "group1"
     phone_number: str = "123456"
