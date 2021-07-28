@@ -151,6 +151,7 @@ def reset(model_name: str) -> None:
     help="Redshift integration for Sorts. Handles all Sorts stored data"
 )
 def cli() -> None:
+    # main args
     pass
 
 
