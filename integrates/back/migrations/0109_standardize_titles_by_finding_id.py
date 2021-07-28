@@ -5,8 +5,8 @@ https://gitlab.com/fluidattacks/product/-/blob/master/makes/makes/criteria/src/v
 
 In this case, we take a finding_id and update its title directly from the csv
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-07-28 at 15:26:37 UTC-05
+Finalization Time: 2021-07-28 at 15:26:39 UTC-05
 """
 
 from aioextensions import (
@@ -19,7 +19,7 @@ from findings import (
 )
 import time
 
-PROD: bool = False
+PROD: bool = True
 TABLE_NAME: str = "FI_findings"
 
 
