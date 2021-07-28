@@ -1,14 +1,16 @@
-import json
 import logging
 from ratelimiter import (
     RateLimiter,
 )
 import requests
+from singer_io.singer2.json import (
+    JsonEmitter,
+    JsonFactory,
+)
 from streamer_zoho_crm.api.common import (
     API_URL,
     DataPageInfo,
     PageIndex,
-    UnexpectedResponse,
 )
 from streamer_zoho_crm.api.users.objs import (
     UsersDataPage,
@@ -18,6 +20,7 @@ from streamer_zoho_crm.api.users.objs import (
 API_ENDPOINT = API_URL + "/crm/v2/users"
 LOG = logging.getLogger(__name__)
 rate_limiter = RateLimiter(max_calls=10, period=60)
+json_emitter = JsonEmitter()
 
 
 def get_users(
@@ -32,17 +35,18 @@ def get_users(
         "per_page": page_i.per_page,
     }
     response = requests.get(url=endpoint, headers=headers, params=params)
-    response_json = response.json()
-    users = response_json["users"]
-    LOG.debug("response json: %s", json.dumps(response_json, indent=4))
-    if not isinstance(users, list):
-        raise UnexpectedResponse()
+    response_json = JsonFactory.from_dict(response.json())
+    users = [item.to_json() for item in response_json["users"].to_list()]
+    LOG.debug(
+        "response json: %s", json_emitter.to_str(response_json, indent=4)
+    )
+    response_info = response_json["info"].to_json()
     info = DataPageInfo(
         page=PageIndex(
-            page=response_json["info"]["page"],
-            per_page=response_json["info"]["per_page"],
+            page=response_info["page"].to_primitive(int),
+            per_page=response_info["per_page"].to_primitive(int),
         ),
-        n_items=response_json["info"]["count"],
-        more_records=response_json["info"]["more_records"],
+        n_items=response_info["count"].to_primitive(int),
+        more_records=response_info["more_records"].to_primitive(bool),
     )
     return UsersDataPage(data=users, info=info)

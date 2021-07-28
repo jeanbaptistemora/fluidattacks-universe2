@@ -3,11 +3,16 @@ from postgres_client.connection import (
     Credentials as DbCredentials,
     DatabaseID,
 )
-from singer_io import (
-    factory,
-)
-from singer_io.singer import (
+from singer_io.singer2 import (
     SingerRecord,
+)
+from singer_io.singer2.emitter import (
+    SingerEmitter,
+)
+from singer_io.singer2.json import (
+    JsonEmitter,
+    JsonObj,
+    JsonValue,
 )
 from streamer_zoho_crm import (
     api,
@@ -23,7 +28,6 @@ from streamer_zoho_crm.api.bulk import (
     ModuleName,
 )
 from streamer_zoho_crm.api.common import (
-    JSON,
     PageIndex,
 )
 from streamer_zoho_crm.api.users import (
@@ -50,6 +54,7 @@ from typing import (
 
 ALL_MODULES = frozenset(ModuleName)
 LOG = logging.getLogger(__name__)
+singer_emitter = SingerEmitter(JsonEmitter())
 
 
 class TypeFieldDict(TypedDict):
@@ -115,24 +120,26 @@ def emit_bulk_data(
         record = SingerRecord(
             stream=module_name,
             record={
-                "csv_path": persistent_file.name,
-                "options": {
-                    "quote_nonnum": True,
-                    "add_default_types": True,
-                    "pkeys_present": False,
-                    "only_records": True,
-                },
+                "csv_path": JsonValue(persistent_file.name),
+                "options": JsonValue(
+                    {
+                        "quote_nonnum": JsonValue(True),
+                        "add_default_types": JsonValue(True),
+                        "pkeys_present": JsonValue(False),
+                        "only_records": JsonValue(True),
+                    }
+                ),
             },
         )
-        factory.emit(record)
+        singer_emitter.emit(record)
 
     list(map(emit, data))
 
 
 def emit_user_data(data: UsersDataPage) -> None:
-    def emit(user_data: JSON) -> None:
+    def emit(user_data: JsonObj) -> None:
         record = SingerRecord(stream="users", record=user_data)
-        factory.emit(record)
+        singer_emitter.emit(record)
 
     list(map(emit, data.data))
 

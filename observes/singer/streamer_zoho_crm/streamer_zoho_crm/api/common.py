@@ -1,10 +1,7 @@
 from typing import (
-    Any,
-    Dict,
     NamedTuple,
 )
 
-JSON = Dict[str, Any]
 API_URL = "https://www.zohoapis.com"
 
 
