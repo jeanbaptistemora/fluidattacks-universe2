@@ -2,6 +2,7 @@
 
 
 import os
+import sys
 import tempfile
 from training.constants import (
     MODEL_HYPERPARAMETERS,
@@ -25,19 +26,20 @@ def update_best_model_txt(model_name_file: str, best_model_name: str) -> None:
             file.write(best_model_name)
 
 
-def get_best_model_name(model_name_file: str) -> str:
+def get_best_model_name(model_name_file: str, mode: str = "train") -> str:
     # Since the best model has a generic name for easier download,
     # this TXT keeps track of the model name (class, f1, features)
     # so the final artifact is only replaced if there has been
     # an improvement
     best_model_lines: List[str] = []
+    index: int = {"train": 0, "tune": -1}[mode]
     S3_RESOURCE.Object(
         S3_BUCKET_NAME, "training-output/best_model.txt"
     ).download_file(model_name_file)
     with open(model_name_file) as file:
         best_model_lines = file.read().splitlines()
 
-    return best_model_lines[-1]
+    return best_model_lines[index]
 
 
 def get_model_item(best_model_name: str) -> Dict[str, Any]:
@@ -69,7 +71,10 @@ def main() -> None:
     with tempfile.TemporaryDirectory() as tmp_dir:
         best_current_model: str = ""
         model_name_file: str = os.path.join(tmp_dir, "best_model.txt")
-        best_previous_model: str = get_best_model_name(model_name_file)
+        best_previous_model: str = get_best_model_name(
+            model_name_file,
+            sys.argv[1],
+        )
         best_f1: float = float(best_previous_model.split("-")[1])
         for obj in S3_BUCKET.objects.filter(Prefix="training-output"):
             if (
