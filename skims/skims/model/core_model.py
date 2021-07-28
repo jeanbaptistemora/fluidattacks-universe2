@@ -1197,7 +1197,7 @@ class VulnerabilitySourceEnum(Enum):
                 for historic_state in historic_states
             )
             # Let's return the source that first reported the vuln
-            else VulnerabilitySourceEnum(historic_states[0]["source"])
+            else VulnerabilitySourceEnum.INTEGRATES
         )
 
 
