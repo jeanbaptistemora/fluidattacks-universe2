@@ -25,8 +25,9 @@ from returns.io import (
 from returns.maybe import (
     Maybe,
 )
-from singer_io import (
-    JSON,
+from singer_io.singer2.json import (
+    JsonObj,
+    JsonValue,
 )
 from tap_bugsnag.api.common import (
     extractor,
@@ -54,19 +55,19 @@ class KeyAlreadyExist(Exception):
     pass
 
 
-def _append_proj(project: ProjId, data: List[JSON]) -> List[JSON]:
+def _append_proj(project: ProjId, data: List[JsonObj]) -> List[JsonObj]:
     items = []
     for item in data:
         _item = item.copy()
         if _item.get("project_id"):
             raise KeyAlreadyExist()
-        _item["project_id"] = project.id_str
+        _item["project_id"] = JsonValue(project.id_str)
         items.append(_item)
     return items
 
 
 class ErrorsPage(NamedTuple):
-    data: List[JSON]
+    data: List[JsonObj]
 
     @classmethod
     def new(
@@ -76,7 +77,7 @@ class ErrorsPage(NamedTuple):
 
 
 class EventsPage(NamedTuple):
-    data: List[JSON]
+    data: List[JsonObj]
 
     @classmethod
     def new(
@@ -86,7 +87,7 @@ class EventsPage(NamedTuple):
 
 
 class EventFieldsPage(NamedTuple):
-    data: List[JSON]
+    data: List[JsonObj]
 
     @classmethod
     def new(
@@ -99,7 +100,7 @@ class EventFieldsPage(NamedTuple):
 
 
 class PivotsPage(NamedTuple):
-    data: List[JSON]
+    data: List[JsonObj]
 
     @classmethod
     def new(
@@ -112,7 +113,7 @@ class PivotsPage(NamedTuple):
 
 
 class ReleasesPage(NamedTuple):
-    data: List[JSON]
+    data: List[JsonObj]
 
     @classmethod
     def new(
@@ -124,7 +125,7 @@ class ReleasesPage(NamedTuple):
 
 
 class StabilityTrend(NamedTuple):
-    data: JSON
+    data: JsonObj
 
     @classmethod
     def new(cls, raw: RawApi, project: ProjId) -> IO[StabilityTrend]:

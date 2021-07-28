@@ -18,8 +18,8 @@ from returns.maybe import (
 from returns.unsafe import (
     unsafe_perform_io,
 )
-from singer_io.common import (
-    JSON,
+from singer_io.singer2.json import (
+    JsonObj,
 )
 from tap_bugsnag.api.common import (
     extractor,
@@ -39,7 +39,7 @@ class UnexpectedEmptyData(Exception):
 
 
 def typed_page_builder(
-    response: IO[Response], transform: Callable[[List[JSON]], _Data]
+    response: IO[Response], transform: Callable[[List[JsonObj]], _Data]
 ) -> IO[Maybe[PageResult[str, _Data]]]:
     def _from_response(response: Response) -> Maybe[PageResult[str, _Data]]:
         raw = extractor.from_response(response)

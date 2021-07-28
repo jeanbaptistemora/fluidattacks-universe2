@@ -4,6 +4,9 @@ from __future__ import (
     annotations,
 )
 
+from dataclasses import (
+    dataclass,
+)
 from itertools import (
     chain,
 )
@@ -27,8 +30,8 @@ from returns.io import (
 from returns.maybe import (
     Maybe,
 )
-from singer_io import (
-    JSON,
+from singer_io.singer2.json import (
+    JsonObj,
 )
 from tap_bugsnag.api.common import (
     extractor,
@@ -49,7 +52,7 @@ from typing import (
 
 
 class CollaboratorsPage(NamedTuple):
-    data: List[JSON]
+    data: List[JsonObj]
 
     @classmethod
     def new(
@@ -61,7 +64,7 @@ class CollaboratorsPage(NamedTuple):
 
 
 class ProjectsPage(NamedTuple):
-    data: List[JSON]
+    data: List[JsonObj]
 
     @classmethod
     def new(
@@ -75,7 +78,7 @@ class ProjId(NamedTuple):
 
     @classmethod
     def new(cls, page: ProjectsPage) -> List[ProjId]:
-        data = [cls(item["id"]) for item in page.data]
+        data = [cls(item["id"].to_primitive(str)) for item in page.data]
         return data
 
 

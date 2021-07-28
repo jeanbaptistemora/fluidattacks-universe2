@@ -23,11 +23,11 @@ from returns.io import (
 from returns.maybe import (
     Maybe,
 )
-from singer_io.common import (
-    JSON,
+from singer_io.singer2.json import (
+    JsonFactory,
+    JsonObj,
 )
 from typing import (
-    Any,
     Callable,
     Iterator,
     List,
@@ -37,21 +37,6 @@ import urllib.parse
 
 _Data = TypeVar("_Data")
 LOG = logging.getLogger(__name__)
-
-
-class TypeCheckFail(Exception):
-    pass
-
-
-def _guarantee_list_json_type(raw: Any) -> None:
-    if all(
-        [
-            isinstance(raw, list),
-            all(map(lambda item: isinstance(item, dict), raw)),
-        ]
-    ):
-        return None
-    raise TypeCheckFail(f"raw is not a List[JSON]. raw: {raw}")
 
 
 def _extract_offset(raw_link: str) -> Maybe[str]:
@@ -69,15 +54,14 @@ def _extract_result_data(
     return iter(map(lambda result: result.data, results))
 
 
-def from_response(response: Response) -> Maybe[PageResult[str, List[JSON]]]:
-    data = response.json()
+def from_response(response: Response) -> Maybe[PageResult[str, List[JsonObj]]]:
+    data = JsonFactory.build_json_list(response.json())
     if not data:
         return Maybe.empty
     next_item = _extract_offset(response.headers.get("Link", ""))
     total: Maybe[int] = Maybe.from_optional(
         response.headers.get("X-Total-Count", None)
     ).map(int)
-    _guarantee_list_json_type(data)
     return Maybe.from_value(PageResult(data, next_item, total))
 
 

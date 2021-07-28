@@ -7,11 +7,14 @@ from returns.curry import (
 from returns.io import (
     IO,
 )
-from singer_io import (
-    factory,
-)
-from singer_io.singer import (
+from singer_io.singer2 import (
     SingerRecord,
+)
+from singer_io.singer2.emitter import (
+    SingerEmitter,
+)
+from singer_io.singer2.json import (
+    JsonEmitter,
 )
 from tap_bugsnag.api import (
     ApiClient,
@@ -28,6 +31,8 @@ from typing import (
 
 ALL = AllPages()
 
+singer_emitter = SingerEmitter(JsonEmitter())
+
 
 def _to_singer(
     stream: SupportedStreams, page: ApiData
@@ -40,7 +45,7 @@ def _to_singer(
 def _emit_pages(stream: SupportedStreams, pages: Iterator[ApiData]) -> None:
     for page in pages:
         for item in _to_singer(stream, page):
-            factory.emit(item)
+            singer_emitter.emit(item)
 
 
 def _stream_data(

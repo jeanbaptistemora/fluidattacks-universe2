@@ -24,9 +24,6 @@ from returns.maybe import (
 from returns.pipeline import (
     is_successful,
 )
-from singer_io.common import (
-    JSON,
-)
 from tap_bugsnag.api.auth import (
     Credentials,
 )
@@ -34,6 +31,8 @@ from tap_bugsnag.api.common.raw.client import (
     build_raw_client,
 )
 from typing import (
+    Any,
+    Dict,
     NamedTuple,
 )
 
@@ -41,9 +40,12 @@ LOG = logging.getLogger(__name__)
 
 
 def _get(
-    client: RawClient, endpoint: str, page: Maybe[PageId], params: JSON = {}
+    client: RawClient,
+    endpoint: str,
+    page: Maybe[PageId],
+    params: Dict[str, Any] = {},
 ) -> IO[Response]:
-    _params: JSON = {}
+    _params = {}
     if is_successful(page):
         _page = page.unwrap()
         _params = {"per_page": _page.per_page, **params}

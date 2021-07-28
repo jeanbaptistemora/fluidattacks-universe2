@@ -24,8 +24,8 @@ from returns.io import (
 from returns.maybe import (
     Maybe,
 )
-from singer_io import (
-    JSON,
+from singer_io.singer2.json import (
+    JsonObj,
 )
 from tap_bugsnag.api.common import (
     extractor,
@@ -42,7 +42,7 @@ from typing import (
 
 
 class OrgsPage(NamedTuple):
-    data: List[JSON]
+    data: List[JsonObj]
 
     @classmethod
     def new(
@@ -56,7 +56,7 @@ class OrgId(NamedTuple):
 
     @classmethod
     def new(cls, page: OrgsPage) -> List[OrgId]:
-        data = [cls(item["id"]) for item in page.data]
+        data = [cls(item["id"].to_primitive(str)) for item in page.data]
         return data
 
 
