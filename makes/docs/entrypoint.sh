@@ -14,9 +14,10 @@ function main {
   local src='docs/src'
   local action="${1}"
   export env="${2:-prod}"
+  export branch="${3:-default}"
 
   _clean "${src}" \
-    && generate-criteria-vulns \
+    && generate-criteria \
     && pushd "${src}" \
     && copy "__argNodeModules__" node_modules \
     && npm run "${action}" \

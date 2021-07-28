@@ -22,4 +22,9 @@ yarn-error.log*
 
 # Autogen
 /docs/criteria2/vulnerabilities/*
+/docs/criteria2/requirements/*
+/docs/criteria2/compliance/*
+
 !/docs/criteria2/vulnerabilities/introduction.md
+!/docs/criteria2/requirements/introduction.md
+!/docs/criteria2/compliance/introduction.md

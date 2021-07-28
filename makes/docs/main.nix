@@ -14,7 +14,7 @@ makeScript {
       inputs.nixpkgs.bash
       inputs.nixpkgs.findutils
       inputs.nixpkgs.xdg_utils
-      outputs."/docs/generate/criteria/vulns"
+      outputs."/docs/generate/criteria"
       (makeNodeJsVersion "12")
     ];
   };

@@ -4,8 +4,8 @@ function main {
   local out='docs/src/build'
   local bucket
   local secrets_aws
-  export env="${1}"
-  export branch="${2:-default}"
+  local env="${1}"
+  local branch="${2:-default}"
 
   case "${env}" in
     prod)
@@ -18,7 +18,7 @@ function main {
       ;;
     *) error 'Either "prod" or "dev" must be passed as arg' ;;
   esac \
-    && docs build "${env}" \
+    && docs build "${env}" "${branch}" \
     && source "${secrets_aws}/template" \
     && aws s3 sync "${out}" "${bucket}" --delete
 }
