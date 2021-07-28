@@ -13,10 +13,10 @@ interface ICheckBoxProps {
   fontSize?: string;
   id?: string;
   isSelected?: boolean;
-  nolabel: string;
+  noLabel: string;
   onApprove?: (checked: boolean) => void;
   onDelete?: (checked: boolean) => void;
-  yeslabel: string;
+  yesLabel: string;
   checkBoxColor?: string;
 }
 
@@ -29,10 +29,10 @@ const MixedCheckBoxButton: React.FC<ICheckBoxProps> = (
     fontSize,
     id,
     isSelected = false,
-    yeslabel,
+    yesLabel,
     onApprove = undefined,
     onDelete = undefined,
-    nolabel,
+    noLabel,
   } = props;
 
   function handleClickYes(event: React.MouseEvent<HTMLDivElement>): void {
@@ -56,7 +56,7 @@ const MixedCheckBoxButton: React.FC<ICheckBoxProps> = (
           onClick={handleClickYes}
           theme={{ selected: isSelected, type: "yes" }}
         >
-          {yeslabel}
+          {yesLabel}
         </CheckBoxOption>
       ) : undefined}
       {isNoEnabled ? (
@@ -64,7 +64,7 @@ const MixedCheckBoxButton: React.FC<ICheckBoxProps> = (
           onClick={handleClickNo}
           theme={{ selected: isSelected, type: "no" }}
         >
-          {nolabel}
+          {noLabel}
         </CheckBoxOption>
       ) : undefined}
     </CheckBox>
