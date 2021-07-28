@@ -71,3 +71,24 @@ async def test_vulnerabilities_verify_closed(
         new_vulnerability_result["data"]["vulnerability"]["currentState"]
         == "closed"
     )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("verify_vulnerabilities_request")
+@pytest.mark.parametrize(
+    ("email", "vuln_id"),
+    (("reviewer@gmail.com", "fa4f847d-f76e-4a70-8942-0ddd183bf1b10"),),
+)
+async def test_vulnerabilities_verify_fail(
+    populate: bool, email: str, vuln_id: str
+) -> None:
+    assert populate
+    finding_id: str = "475041513"
+    vulnerability_result: Dict[str, Any] = await get_result(
+        user=email,
+        finding=finding_id,
+        open_vulnerabilities=[vuln_id],
+        closed_vulnerabilities=[],
+    )
+    assert "errors" in vulnerability_result
+    assert vulnerability_result["errors"][0]["message"] == "Access denied"
