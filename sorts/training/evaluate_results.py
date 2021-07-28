@@ -12,7 +12,17 @@ from training.constants import (
 from typing import (
     Any,
     Dict,
+    List,
 )
+
+
+def update_best_model_txt(model_name_file: str, best_model_name: str) -> None:
+    if "tune" in best_model_name:
+        with open(model_name_file, "a") as file:
+            file.write(f"\n{best_model_name}")
+    else:
+        with open(model_name_file, "w") as file:
+            file.write(best_model_name)
 
 
 def get_best_model_name(model_name_file: str) -> str:
@@ -20,14 +30,14 @@ def get_best_model_name(model_name_file: str) -> str:
     # this TXT keeps track of the model name (class, f1, features)
     # so the final artifact is only replaced if there has been
     # an improvement
-    best_model: str = ""
+    best_model_lines: List[str] = []
     S3_RESOURCE.Object(
         S3_BUCKET_NAME, "training-output/best_model.txt"
     ).download_file(model_name_file)
     with open(model_name_file) as file:
-        best_model = file.read()
+        best_model_lines = file.read().splitlines()
 
-    return best_model
+    return best_model_lines[-1]
 
 
 def get_model_item(best_model_name: str) -> Dict[str, Any]:
@@ -78,8 +88,7 @@ def main() -> None:
                 obj.delete()
 
         if best_current_model and best_previous_model != best_current_model:
-            with open(model_name_file, "w") as file:
-                file.write(best_current_model)
+            update_best_model_txt(model_name_file, best_current_model)
             S3_RESOURCE.Object(
                 S3_BUCKET_NAME, "training-output/best_model.txt"
             ).upload_file(model_name_file)
