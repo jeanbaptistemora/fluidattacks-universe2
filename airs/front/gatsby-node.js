@@ -6,7 +6,7 @@ const defaultTemplate = path.resolve(`./src/templates/pageArticle.tsx`);
 const blogsTemplate = path.resolve(`./src/templates/blogsTemplate.tsx`);
 
 const setTemplate = (template) =>
-  (result = path.resolve(`./src/templates/${template}Template.tsx`));
+  path.resolve(`./src/templates/${template}Template.tsx`);
 
 /**
  * @param {*func} createPage
