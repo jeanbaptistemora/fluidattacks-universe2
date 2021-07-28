@@ -107,6 +107,12 @@ class JsonFactory:
         raise InvalidType(f"{type(raw)} expected unfold(JsonValue)")
 
     @classmethod
+    def build_json_list(cls, raw: Any) -> List[JsonObj]:
+        if isinstance(raw, list):
+            return [cls.from_any(item) for item in raw]
+        raise InvalidType(f"{type(raw)} expected list")
+
+    @classmethod
     def from_dict(cls, raw: Dict[str, Any]) -> JsonObj:
         result = cls.build_json_val(raw).unfold()
         if isinstance(result, dict):
