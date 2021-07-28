@@ -3174,7 +3174,100 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["095", "096", "186"]
-  metadata: {}
+  metadata:
+    en:
+      details: >
+        This java method
+        has the following signature:
+
+        ```c
+        public static File createTempFile(
+          // The prefix string defines the files name;
+          // must be at least three characters long
+          String prefix,
+          // The suffix string defines the file's extension;
+          // if null the suffix ".tmp" will be used
+          String suffix,
+          // The directory in which the file is to be created.
+          // For default temporary-file directory null is to passed.
+          File directory,
+        )
+        ```
+
+        The first two arguments
+        do not affect security
+        of the created file.
+
+        In Linux,
+        files and directories
+        are different entities,
+        they have their own permissions
+        and are isolated from other files
+        and directories.
+
+        Protections you apply to the directory
+        do not affect the files inside of it.
+        For example,
+        if I protect the directory
+        I can prevent an attacker
+        from executing the `ls` command,
+        but nothing impedes the attacker
+        from executing `cat directory/file`.
+
+        To prevent access to the file
+        we must protect the file,
+        not the directory.
+
+        Additionally,
+        we make sure that permissions
+        are set atomically.
+        If we do not,
+        the following situation can happen:
+
+        - At moment **A**
+          we `File.createTempFile()` a file.
+        - At moment **B** we add
+          secure permissions to the file.
+
+        After moment **B** the file is secured.
+        However,
+        between moment **A** and moment **B**
+        the file has insecure permissions
+        and an attacker had enough opportunity
+        to get control over it.
+
+        ## Vulnerable implementation
+
+        The `java.io.File.createTempFile` method
+        creates files with write permissions
+        in groups and other:
+
+        ```c {6}
+        
+        import java.io.File;
+
+        public class Test {
+          public static void main(String[] args){
+            try {
+              System.out.println(File.createTempFile("xxx", null));
+            }
+            catch (Exception e) {}
+          }
+        }
+
+        /*
+        * $ ls -al $(javac Test.java && java Test)
+        *
+        * -rw-r--r-- 1 fluid fluid 0 Aug 28 14:44 /tmp/xxx948760279845756007.tmp
+        */
+        ```
+
+        ## Secure implementation
+
+        - Use `java.nio.file.Files.createTempFile`.
+        - Use the `attrs` argument
+          (an optional list of file attributes
+          to set atomically when creating the file).
 "058":
   en:
     title: Debugging enabled in production - APK
