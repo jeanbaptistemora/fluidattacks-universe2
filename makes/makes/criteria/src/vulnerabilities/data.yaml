@@ -1609,9 +1609,12 @@
       se envían por métodos seguros (POST)
       u obtener la sesión de las cookies.
     threat: >
-      Un usuario con acceso a los registros de la aplicación,
-      puede ver identificadores de sesión de usuario válidos,
-      lo que le permitiría ganar acceso no autorizado a la aplicación
+      Un usuario con acceso a los registros
+      de la aplicación,
+      puede ver identificadores
+      de sesión de usuario válidos,
+      lo que le permitiría ganar acceso
+      no autorizado a la aplicación
       y generar una suplantación de usuario.
   score:
     base:
@@ -1650,7 +1653,8 @@
     title: Excessive privileges - AWS
     description: >
       La aplicación, un usuario o un rol
-      tienen más privilegios/permisos que los que requieren.
+      tienen más privilegios/permisos
+      que los que requieren.
       Esto puede ser aprovechado por un atacante
       para ejecutar acciones sobre un sistema
       que normalmente estarían restringidas.
@@ -1663,7 +1667,8 @@
       siguiendo el principio del mínimo privilegio.
     threat: >
       Atacante desde Internet
-      con acceso a cualquiera de los roles mal configurados.
+      con acceso a cualquiera
+      de los roles mal configurados.
   score:
     base:
       attack_vector: "N"
@@ -1679,7 +1684,41 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["095", "096", "186"]
-  metadata: {}
+  metadata:
+    en:
+      details: >
+        To configure many AWS services,
+        you must pass an IAM role to the service.
+        This allows the service to later assume the role
+        and perform actions on your behalf.
+
+        By giving a role or user the `iam:PassRole` permission,
+        you are saying:
+        > this principal is allowed to assign AWS roles to resources
+        and services in this account.
+
+        You can limit which roles a user or service
+        can pass to others by specifying the role ARN(s)
+        in the Resource field of the policy
+        that grants them `iam:PassRole`:
+
+        ```json
+        {
+          "Effect": "Allow",
+          "Action": "iam:PassRole",
+          "Resource": [
+            "arn:aws:::123456789012:role/SomeRole"
+            "arn:aws:::123456789012:role/OtherRole"
+          ]
+        }
+        ```
+
+        As a rule of thumb,
+        you should include **only** the roles
+        required by your application.
+        Wildcards and over-permissive resource grants
+        highly increase the probability of (or completely allow)
+        a privilege escalation.
 "032":
   en:
     title: Spoofing
@@ -2156,7 +2195,8 @@
     title: Enabled default credentials
     description: >
       It is possible to use low-strength,
-      default credentials to access system resources,
+      default credentials
+      to access system resources,
       such as the database.
     impact: __empty__
     recommendation: >
@@ -2176,7 +2216,8 @@
       en la base de datos de la aplicación.
     impact: __empty__
     recommendation: >
-      Eliminar las credenciales del gestor de almacenamiento
+      Eliminar las credenciales
+      del gestor de almacenamiento
       para evitar inicios de sesión con estas.
     threat: >
       Un usuario no autorizado
@@ -2209,7 +2250,8 @@
       or disclosed by unauthorized users
       on the client side.
     impact: >
-      Send plain text session cookies through insecure channels.
+      Send plain text session cookies
+      through insecure channels.
     recommendation: >
       The application must set
       the corresponding security attributes
@@ -2377,9 +2419,11 @@
     description: >
       Los campos de la aplicación
       permiten inyectar código HTML
-      lo cual posibilita cambiar el aspecto de la página
+      lo cual posibilita cambiar
+      el aspecto de la página
       engañando a las víctimas
-      una vez consultada la funcionalidad afectada.
+      una vez consultada
+      la funcionalidad afectada.
     impact: __empty__
     recommendation: >
       Filtrar la información
@@ -3130,9 +3174,7 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["095", "096", "186"]
-  metadata:
-    en:
-      details: {}
+  metadata: {}
 "058":
   en:
     title: Debugging enabled in production - APK
