@@ -20,7 +20,7 @@ interface IRemoveTagsAttr {
 }
 
 interface IAddTagsAttr {
-  addTags: {
+  addGroupTags: {
     group: {
       deletionDate: string;
       name: string;

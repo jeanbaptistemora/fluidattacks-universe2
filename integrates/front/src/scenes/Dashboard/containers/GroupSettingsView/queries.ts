@@ -57,9 +57,9 @@ const GET_TAGS: DocumentNode = gql`
   }
 `;
 
-const ADD_TAGS_MUTATION: DocumentNode = gql`
-  mutation AddTagsMutation($groupName: String!, $tagsData: JSONString!) {
-    addTags(tags: $tagsData, groupName: $groupName) {
+const ADD_GROUP_TAGS_MUTATION: DocumentNode = gql`
+  mutation AddGroupTagsMutation($groupName: String!, $tagsData: JSONString!) {
+    addGroupTags(tags: $tagsData, groupName: $groupName) {
       success
     }
   }
@@ -107,7 +107,7 @@ export {
   UPDATE_GROUP_DATA,
   REMOVE_TAG_MUTATION,
   GET_TAGS,
-  ADD_TAGS_MUTATION,
+  ADD_GROUP_TAGS_MUTATION,
   GET_FILES,
   DOWNLOAD_FILE_MUTATION,
   REMOVE_FILE_MUTATION,

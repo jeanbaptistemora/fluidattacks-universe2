@@ -14,7 +14,7 @@ import waitForExpect from "wait-for-expect";
 import { Portfolio } from "scenes/Dashboard/containers/GroupSettingsView/Portfolio";
 import type { IPortfolioProps } from "scenes/Dashboard/containers/GroupSettingsView/Portfolio";
 import {
-  ADD_TAGS_MUTATION,
+  ADD_GROUP_TAGS_MUTATION,
   GET_TAGS,
   REMOVE_TAG_MUTATION,
 } from "scenes/Dashboard/containers/GroupSettingsView/queries";
@@ -83,13 +83,13 @@ describe("Portfolio", (): void => {
     const mocksMutation: readonly MockedResponse[] = [
       {
         request: {
-          query: ADD_TAGS_MUTATION,
+          query: ADD_GROUP_TAGS_MUTATION,
           variables: {
             groupName: "TEST",
             tagsData: JSON.stringify(["test-new-tag"]),
           },
         },
-        result: { data: { addTags: { success: true } } },
+        result: { data: { addGroupTags: { success: true } } },
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
@@ -236,7 +236,7 @@ describe("Portfolio", (): void => {
     const mocksMutation: readonly MockedResponse[] = [
       {
         request: {
-          query: ADD_TAGS_MUTATION,
+          query: ADD_GROUP_TAGS_MUTATION,
           variables: {
             groupName: "TEST",
             tagsData: JSON.stringify(["test-new-tag"]),

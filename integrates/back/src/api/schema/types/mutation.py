@@ -115,6 +115,7 @@ MUTATION.set_field("addForcesExecution", add_forces_execution.mutate)
 MUTATION.set_field("addGitRoot", add_git_root.mutate)
 MUTATION.set_field("addGroup", add_group.mutate)
 MUTATION.set_field("addGroupConsult", add_group_consult.mutate)
+MUTATION.set_field("addGroupTags", add_group_tags.mutate)
 MUTATION.set_field("addIpRoot", add_ip_root.mutate)
 MUTATION.set_field("addOrganization", add_organization.mutate)
 MUTATION.set_field(
@@ -122,7 +123,6 @@ MUTATION.set_field(
 )
 MUTATION.set_field("addPushToken", add_push_token.mutate)
 MUTATION.set_field("addStakeholder", add_stakeholder.mutate)
-MUTATION.set_field("addTags", add_group_tags.mutate)
 MUTATION.set_field("addUrlRoot", add_url_root.mutate)
 MUTATION.set_field(
     "confirmVulnerabilitiesZeroRisk", confirm_vulnerabilities_zero_risk.mutate
@@ -206,6 +206,7 @@ MUTATION.set_field(
     "addOrgFindingPolicy", add_organization_finding_policy.mutate
 )
 MUTATION.set_field("addProjectConsult", add_group_consult.mutate)
+MUTATION.set_field("addTags", add_group_tags.mutate)
 MUTATION.set_field(
     "confirmZeroRiskVuln", confirm_vulnerabilities_zero_risk.mutate
 )

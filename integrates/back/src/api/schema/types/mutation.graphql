@@ -120,6 +120,11 @@ type Mutation {
     parent: GenericScalar!
   ): AddConsultPayload!
 
+  addGroupTags(
+    groupName: String!
+    tags: JSONString
+  ): SimpleGroupPayload!
+
   addIpRoot(
     "IP address of the environment to test"
     address: String!
@@ -166,10 +171,11 @@ type Mutation {
   ): AddStakeholderPayload!
 
   addTags(
-    projectName: String,
-    groupName: String,
+    projectName: String
+    groupName: String
     tags: JSONString
-  ): SimpleGroupPayload!
+  ): SimpleGroupPayload! @deprecated(reason: """This mutation will be removed
+      after 2021/12/31. Use `addGroupTags` instead.""")
 
   addUrlRoot(
     "URL of the environment to test"

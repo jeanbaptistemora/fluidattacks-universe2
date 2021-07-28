@@ -14,7 +14,7 @@ import type { IHeaderConfig } from "components/DataTableNext/types";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddTagsModal } from "scenes/Dashboard/components/AddTagsModal";
 import {
-  ADD_TAGS_MUTATION,
+  ADD_GROUP_TAGS_MUTATION,
   GET_TAGS,
   REMOVE_TAG_MUTATION,
 } from "scenes/Dashboard/containers/GroupSettingsView/queries";
@@ -53,7 +53,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
     variables: { groupName },
   });
 
-  const [addTags] = useMutation(ADD_TAGS_MUTATION, {
+  const [addGroupTags] = useMutation(ADD_GROUP_TAGS_MUTATION, {
     onCompleted: (): void => {
       void refetch();
       track("AddGroupTags");
@@ -130,7 +130,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
       msgError(translate.t("searchFindings.tabResources.repeatedItem"));
     } else {
       closeAddModal();
-      void addTags({
+      void addGroupTags({
         variables: {
           groupName: props.groupName,
           tagsData: JSON.stringify(values.tags),
