@@ -59,6 +59,11 @@ class JsonValue:
             return [item.to_primitive(prim_type) for item in self.value]
         raise InvalidType(f"{type(self.value)} expected list")
 
+    def to_list(self) -> List[JsonValue]:
+        if isinstance(self.value, list):
+            return self.value
+        raise InvalidType(f"{type(self.value)} expected list")
+
     def to_json(self) -> Dict[str, JsonValue]:
         if isinstance(self.value, dict):
             return self.value
@@ -134,7 +139,11 @@ class CustomJsonEncoder(JSONEncoder):
 
 @dataclass(frozen=True)
 class JsonEmitter:
+    # pylint: disable=no-self-use
     target: IO_FILE[str] = sys.stdout
+
+    def to_str(self, json_obj: JsonObj, **kargs: Any) -> str:
+        return json.dumps(json_obj, cls=CustomJsonEncoder, **kargs)
 
     def emit(self, json_obj: JsonObj) -> IO[None]:
         json.dump(json_obj, self.target, cls=CustomJsonEncoder)
