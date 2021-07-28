@@ -17,16 +17,16 @@ import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import {
   ADD_STAKEHOLDER_MUTATION,
-  EDIT_STAKEHOLDER_MUTATION,
   GET_ORGANIZATION_STAKEHOLDERS,
   REMOVE_STAKEHOLDER_MUTATION,
+  UPDATE_STAKEHOLDER_MUTATION,
 } from "scenes/Dashboard/containers/OrganizationStakeholdersView/queries";
 import type {
   IAddStakeholderAttrs,
-  IEditStakeholderAttrs,
   IOrganizationStakeholders,
   IRemoveStakeholderAttrs,
   IStakeholderAttrs,
+  IUpdateStakeholderAttrs,
 } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { Logger } from "utils/logger";
@@ -158,11 +158,11 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
     onError: handleMtError,
   });
 
-  const [editStakeholder] = useMutation(EDIT_STAKEHOLDER_MUTATION, {
-    onCompleted: (mtResult: IEditStakeholderAttrs): void => {
-      if (mtResult.editStakeholderOrganization.success) {
+  const [updateStakeholder] = useMutation(UPDATE_STAKEHOLDER_MUTATION, {
+    onCompleted: (mtResult: IUpdateStakeholderAttrs): void => {
+      if (mtResult.updateOrganizationStakeholder.success) {
         const { email } =
-          mtResult.editStakeholderOrganization.modifiedStakeholder;
+          mtResult.updateOrganizationStakeholder.modifiedStakeholder;
         void refetchStakeholders();
 
         track("EditUserOrganizationAccess", {
@@ -217,7 +217,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
           },
         });
       } else {
-        void editStakeholder({
+        void updateStakeholder({
           variables: {
             ...values,
             organizationId,
@@ -227,7 +227,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = (
     },
     [
       closeStakeholderModal,
-      editStakeholder,
+      updateStakeholder,
       grantStakeholderAccess,
       organizationId,
       stakeholderModalAction,

@@ -12,8 +12,8 @@ interface IAddStakeholderAttrs {
   };
 }
 
-interface IEditStakeholderAttrs {
-  editStakeholderOrganization: {
+interface IUpdateStakeholderAttrs {
+  updateOrganizationStakeholder: {
     modifiedStakeholder: {
       email: string;
     };
@@ -48,7 +48,7 @@ interface IStakeholderAttrs {
 
 export {
   IAddStakeholderAttrs,
-  IEditStakeholderAttrs,
+  IUpdateStakeholderAttrs,
   IOrganizationStakeholders,
   IRemoveStakeholderAttrs,
   IStakeholderAttrs,

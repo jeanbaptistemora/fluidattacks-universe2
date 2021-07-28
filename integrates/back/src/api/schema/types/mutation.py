@@ -30,7 +30,6 @@ from api.mutations import (
     download_event_file,
     download_file,
     download_vulnerability_file,
-    edit_stakeholder_organization,
     grant_stakeholder_access,
     grant_stakeholder_organization_access,
     handle_organization_finding_policy_acceptation,
@@ -81,6 +80,7 @@ from api.mutations import (
     update_group,
     update_group_stakeholder,
     update_organization_policies,
+    update_organization_stakeholder,
     update_root_cloning_status,
     update_root_state,
     update_severity,
@@ -130,7 +130,10 @@ MUTATION.set_field(
 MUTATION.set_field("deactivateRoot", deactivate_root.mutate)
 MUTATION.set_field("downloadEventFile", download_event_file.mutate)
 MUTATION.set_field(
-    "editStakeholderOrganization", edit_stakeholder_organization.mutate
+    "editStakeholderOrganization", update_organization_stakeholder.mutate
+)
+MUTATION.set_field(
+    "updateOrganizationStakeholder", update_organization_stakeholder.mutate
 )
 MUTATION.set_field(
     "grantStakeholderOrganizationAccess",

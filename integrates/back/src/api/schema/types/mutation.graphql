@@ -347,7 +347,8 @@ type Mutation {
     phoneNumber: String
     role: OrganizationRole!
     userEmail: String!
-  ): UpdateStakeholderPayload!
+  ): UpdateStakeholderPayload! @deprecated(reason: """This mutation will be
+    removed after 2021/12/31. Use `updateOrganizationStakeholder` instead.""")
 
   executeSkims(groupName: String!): ExecuteSkimsPayload!
 
@@ -623,6 +624,13 @@ type Mutation {
     organizationId: String!
     organizationName: String!
   ): SimplePayload!
+
+  updateOrganizationStakeholder(
+    organizationId: String!
+    phoneNumber: String
+    role: OrganizationRole!
+    userEmail: String!
+  ): UpdateStakeholderPayload!
 
   updateRootCloningStatus(
     "Name of the group the root is associated with"

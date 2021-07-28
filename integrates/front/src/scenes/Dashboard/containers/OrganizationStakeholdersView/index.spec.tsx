@@ -1,3 +1,5 @@
+// Needed to lazy test formik components
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
 import type { ReactWrapper } from "enzyme";
@@ -16,9 +18,9 @@ import { GET_USER } from "scenes/Dashboard/components/AddUserModal/queries";
 import { OrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView";
 import {
   ADD_STAKEHOLDER_MUTATION,
-  EDIT_STAKEHOLDER_MUTATION,
   GET_ORGANIZATION_STAKEHOLDERS,
   REMOVE_STAKEHOLDER_MUTATION,
+  UPDATE_STAKEHOLDER_MUTATION,
 } from "scenes/Dashboard/containers/OrganizationStakeholdersView/queries";
 import type { IOrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
 import store from "store";
@@ -274,47 +276,44 @@ describe("Organization users view", (): void => {
     expect(wrapper.find("tr")).toHaveLength(2);
     expect(wrapper.find(AddUserModal).prop("open")).toBe(false);
 
-    const addUserButton: ReactWrapper = wrapper.find("button#addUser").first();
+    const addUserButton = (): ReactWrapper =>
+      wrapper.find("button#addUser").first();
 
-    addUserButton.simulate("click");
+    addUserButton().simulate("click");
 
     expect(wrapper.find(AddUserModal).prop("open")).toBe(true);
 
-    const form: ReactWrapper = wrapper.find(AddUserModal).find("Formik");
-    const emailField: ReactWrapper = wrapper
-      .find(AddUserModal)
-      .find({ name: "email" })
-      .find("input");
-    const roleField: ReactWrapper = wrapper
-      .find(AddUserModal)
-      .find({ name: "role" })
-      .find("select");
+    const form = (): ReactWrapper => wrapper.find(AddUserModal).find("Formik");
+    const emailField = (): ReactWrapper =>
+      wrapper.find(AddUserModal).find({ name: "email" }).find("input");
+    const roleField = (): ReactWrapper =>
+      wrapper.find(AddUserModal).find({ name: "role" }).find("select");
 
-    emailField.simulate("change", {
+    emailField().simulate("change", {
       target: { name: "email", value: "testuser2@gmail.com" },
     });
-    emailField.simulate("blur", {
+    emailField().simulate("blur", {
       target: { name: "email" },
     });
 
     await act(async (): Promise<void> => {
-      await waitForExpect((): void => {
-        wrapper.update();
+      const sleep = 200;
+      await wait(sleep);
+      wrapper.update();
 
-        expect(
-          wrapper
-            .find(AddUserModal)
-            .find({ name: "phoneNumber" })
-            .find("input")
-            .prop("value")
-        ).toBe("+57 (310) 444 8888");
-      });
+      expect(
+        wrapper
+          .find(AddUserModal)
+          .find({ name: "phoneNumber" })
+          .find("input")
+          .prop("value")
+      ).toBe("+57 (310) 444 8888");
     });
 
-    roleField.simulate("change", {
+    roleField().simulate("change", {
       target: { name: "role", value: "CUSTOMER" },
     });
-    form.simulate("submit");
+    form().simulate("submit");
 
     await act(async (): Promise<void> => {
       await waitForExpect((): void => {
@@ -358,7 +357,7 @@ describe("Organization users view", (): void => {
       },
       {
         request: {
-          query: EDIT_STAKEHOLDER_MUTATION,
+          query: UPDATE_STAKEHOLDER_MUTATION,
           variables: {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
@@ -369,7 +368,7 @@ describe("Organization users view", (): void => {
         },
         result: {
           data: {
-            editStakeholderOrganization: {
+            updateOrganizationStakeholder: {
               modifiedStakeholder: {
                 email: "testuser1@gmail.com",
               },
@@ -689,7 +688,7 @@ describe("Organization users view", (): void => {
       },
       {
         request: {
-          query: EDIT_STAKEHOLDER_MUTATION,
+          query: UPDATE_STAKEHOLDER_MUTATION,
           variables: {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
@@ -704,7 +703,7 @@ describe("Organization users view", (): void => {
       },
       {
         request: {
-          query: EDIT_STAKEHOLDER_MUTATION,
+          query: UPDATE_STAKEHOLDER_MUTATION,
           variables: {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
@@ -719,7 +718,7 @@ describe("Organization users view", (): void => {
       },
       {
         request: {
-          query: EDIT_STAKEHOLDER_MUTATION,
+          query: UPDATE_STAKEHOLDER_MUTATION,
           variables: {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
@@ -734,7 +733,7 @@ describe("Organization users view", (): void => {
       },
       {
         request: {
-          query: EDIT_STAKEHOLDER_MUTATION,
+          query: UPDATE_STAKEHOLDER_MUTATION,
           variables: {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
@@ -751,7 +750,7 @@ describe("Organization users view", (): void => {
       },
       {
         request: {
-          query: EDIT_STAKEHOLDER_MUTATION,
+          query: UPDATE_STAKEHOLDER_MUTATION,
           variables: {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
@@ -768,7 +767,7 @@ describe("Organization users view", (): void => {
       },
       {
         request: {
-          query: EDIT_STAKEHOLDER_MUTATION,
+          query: UPDATE_STAKEHOLDER_MUTATION,
           variables: {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
