@@ -64,7 +64,6 @@ def java_swallows_exceptions(
                 )
                 if not block_childs or only_comments:
                     yield shard, block
-                    continue
 
     return get_vulnerabilities_from_n_ids(
         cwe=("390",),
