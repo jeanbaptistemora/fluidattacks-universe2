@@ -28,8 +28,8 @@ import { Modal } from "components/Modal";
 import { GenericForm } from "scenes/Dashboard/components/GenericForm";
 import { GET_GROUP_DATA as GET_GROUP_SERVICES } from "scenes/Dashboard/containers/GroupRoute/queries";
 import {
-  EDIT_GROUP_DATA,
   GET_GROUP_DATA,
+  UPDATE_GROUP_DATA,
 } from "scenes/Dashboard/containers/GroupSettingsView/queries";
 import {
   computeConfirmationMessage,
@@ -142,7 +142,7 @@ const Services: React.FC<IServicesProps> = (
   });
 
   const [editGroupData, { loading: submittingGroupData }] = useMutation(
-    EDIT_GROUP_DATA,
+    UPDATE_GROUP_DATA,
     {
       onCompleted: (): void => {
         track("EditGroupData", formValues);

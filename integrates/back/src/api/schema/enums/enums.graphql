@@ -71,7 +71,7 @@ enum RemoveVulnerabilityJustification {
   REPORTING_ERROR
 }
 
-enum EditGroupReason {
+enum UpdateGroupReason {
   BUDGET
   GROUP_FINALIZATION
   GROUP_SUSPENSION

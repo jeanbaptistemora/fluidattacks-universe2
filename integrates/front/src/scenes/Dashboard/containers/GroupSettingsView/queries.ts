@@ -14,18 +14,18 @@ const GET_GROUP_DATA: DocumentNode = gql`
   }
 `;
 
-const EDIT_GROUP_DATA: DocumentNode = gql`
-  mutation EditGroupData(
+const UPDATE_GROUP_DATA: DocumentNode = gql`
+  mutation UpdateGroupData(
     $comments: String!
     $groupName: String!
     $hasASM: Boolean!
     $hasMachine: Boolean!
     $hasSquad: Boolean!
-    $reason: EditGroupReason!
+    $reason: UpdateGroupReason!
     $service: ServiceType!
     $subscription: SubscriptionType!
   ) {
-    editGroup(
+    updateGroup(
       comments: $comments
       groupName: $groupName
       hasSquad: $hasSquad
@@ -104,7 +104,7 @@ const UPLOAD_FILE_MUTATION: DocumentNode = gql`
 
 export {
   GET_GROUP_DATA,
-  EDIT_GROUP_DATA,
+  UPDATE_GROUP_DATA,
   REMOVE_TAG_MUTATION,
   GET_TAGS,
   ADD_TAGS_MUTATION,

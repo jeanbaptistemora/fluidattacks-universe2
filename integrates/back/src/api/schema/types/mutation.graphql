@@ -326,10 +326,11 @@ type Mutation {
     hasMachine: Boolean
     hasSkims: Boolean
     hasSquad: Boolean
-    reason: EditGroupReason!
+    reason: UpdateGroupReason!
     service: ServiceType
     subscription: SubscriptionType!
-  ): SimplePayload!
+  ): SimplePayload! @deprecated(reason: """This mutation will be
+    removed after 2021/12/31. Use `updateGroup` instead.""")
 
   editStakeholder(
     projectName: String
@@ -593,6 +594,17 @@ type Mutation {
     includesHealthCheck: Boolean!
     "Nickname of the repository"
     nickname: String
+  ): SimplePayload!
+
+  updateGroup(
+    comments: String!
+    groupName: String!
+    hasAsm: Boolean!
+    hasMachine: Boolean!
+    hasSquad: Boolean!
+    reason: UpdateGroupReason!
+    service: ServiceType
+    subscription: SubscriptionType!
   ): SimplePayload!
 
   updateGroupStakeholder(

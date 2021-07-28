@@ -28,7 +28,7 @@ const GroupSettingsView: React.FC = (): JSX.Element => {
         <Files groupName={groupName} />
         <hr />
         <Portfolio groupName={groupName} />
-        <Can do={"api_mutations_edit_group_mutate"}>
+        <Can do={"api_mutations_update_group_mutate"}>
           <React.Fragment>
             <hr />
             <Services groupName={groupName} />

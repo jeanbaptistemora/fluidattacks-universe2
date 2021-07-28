@@ -88,7 +88,7 @@ ENUMS: Tuple[EnumType, ...] = (
         },
     ),
     EnumType(
-        "EditGroupReason",
+        "UpdateGroupReason",
         {
             "BUDGET": "BUDGET",
             "NONE": "NONE",

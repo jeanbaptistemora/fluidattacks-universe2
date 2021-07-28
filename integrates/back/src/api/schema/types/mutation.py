@@ -30,7 +30,6 @@ from api.mutations import (
     download_event_file,
     download_file,
     download_vulnerability_file,
-    edit_group,
     edit_stakeholder_organization,
     grant_stakeholder_access,
     grant_stakeholder_organization_access,
@@ -79,6 +78,7 @@ from api.mutations import (
     update_forces_access_token,
     update_git_environments,
     update_git_root,
+    update_group,
     update_group_stakeholder,
     update_organization_policies,
     update_root_cloning_status,
@@ -189,7 +189,8 @@ MUTATION.set_field("addFiles", add_files.mutate)
 MUTATION.set_field("downloadFile", download_file.mutate)
 MUTATION.set_field("removeFiles", remove_files.mutate)
 MUTATION.set_field("createProject", add_group.mutate)
-MUTATION.set_field("editGroup", edit_group.mutate)
+MUTATION.set_field("editGroup", update_group.mutate)
+MUTATION.set_field("updateGroup", update_group.mutate)
 MUTATION.set_field("addProjectConsult", add_group_consult.mutate)
 MUTATION.set_field("addTags", add_group_tags.mutate)
 MUTATION.set_field("removeTag", remove_group_tag.mutate)

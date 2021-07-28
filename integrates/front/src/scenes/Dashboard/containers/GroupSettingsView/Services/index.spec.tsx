@@ -14,8 +14,8 @@ import waitForExpect from "wait-for-expect";
 
 import { GET_GROUP_DATA as GET_GROUP_SERVICES } from "scenes/Dashboard/containers/GroupRoute/queries";
 import {
-  EDIT_GROUP_DATA,
   GET_GROUP_DATA,
+  UPDATE_GROUP_DATA,
 } from "scenes/Dashboard/containers/GroupSettingsView/queries";
 import { Services } from "scenes/Dashboard/containers/GroupSettingsView/Services";
 import store from "store";
@@ -92,7 +92,7 @@ describe("Services", (): void => {
     },
     {
       request: {
-        query: EDIT_GROUP_DATA,
+        query: UPDATE_GROUP_DATA,
         variables: {
           groupName: "unittesting",
           hasMachine: false,
@@ -133,7 +133,7 @@ describe("Services", (): void => {
   ];
 
   const mockedPermissions: PureAbility<string> = new PureAbility([
-    { action: "api_mutations_edit_group_mutate" },
+    { action: "api_mutations_update_group_mutate" },
   ]);
 
   it("should return a function", (): void => {

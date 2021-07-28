@@ -461,7 +461,7 @@ async def test_edit_group_good(  # type: ignore
             "true",
             "true",
             "ASDF",
-            "Expected type EditGroupReason, found ASDF.",
+            "Expected type UpdateGroupReason, found ASDF.",
         ],
     ],
 )
