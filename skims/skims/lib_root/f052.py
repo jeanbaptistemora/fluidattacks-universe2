@@ -2,6 +2,8 @@ from contextlib import (
     suppress,
 )
 from lib_root import (
+    yield_go_member_access,
+    yield_go_object_creation,
     yield_java_method_invocation,
     yield_java_object_creation,
 )
@@ -354,6 +356,45 @@ def csharp_insecure_cipher(
     )
 
 
+def go_insecure_cipher(
+    graph_db: graph_model.GraphDB,
+) -> core_model.Vulnerabilities:
+    insecure_cyphers = {
+        "des",
+        "NewTripleDESCipher",
+    }
+
+    def n_ids() -> graph_model.GraphShardNodes:
+        yield from yield_go_member_access(graph_db, insecure_cyphers)
+        yield from yield_go_object_creation(graph_db, insecure_cyphers)
+
+    return get_vulnerabilities_from_n_ids(
+        cwe=("310", "327"),
+        desc_key="src.lib_path.f052.insecure_cipher.description",
+        desc_params=dict(lang="Go"),
+        finding=FINDING,
+        graph_shard_nodes=n_ids(),
+    )
+
+
+def go_insecure_hash(
+    graph_db: graph_model.GraphDB,
+) -> core_model.Vulnerabilities:
+
+    insecure_cyphers = {"md4", "md5", "ripemd160", "sha1"}
+
+    def n_ids() -> graph_model.GraphShardNodes:
+        yield from yield_go_object_creation(graph_db, insecure_cyphers)
+
+    return get_vulnerabilities_from_n_ids(
+        cwe=("310", "327"),
+        desc_key="src.lib_path.f052.insecure_hash.description",
+        desc_params=dict(lang="Go"),
+        finding=FINDING,
+        graph_shard_nodes=n_ids(),
+    )
+
+
 def java_insecure_cypher(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
@@ -407,6 +448,8 @@ FINDING: core_model.FindingEnum = core_model.FindingEnum.F052
 QUERIES: graph_model.Queries = (
     (FINDING, csharp_insecure_hash),
     (FINDING, csharp_insecure_cipher),
+    (FINDING, go_insecure_cipher),
+    (FINDING, go_insecure_hash),
     (FINDING, java_insecure_cypher),
     (FINDING, java_insecure_hash),
     (FINDING, java_insecure_key),
