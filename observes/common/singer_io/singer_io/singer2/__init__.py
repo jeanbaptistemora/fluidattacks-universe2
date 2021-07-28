@@ -1,0 +1,13 @@
+from singer_io.singer2._objs import (
+    SingerMessage,
+    SingerRecord,
+    SingerSchema,
+    SingerState,
+)
+
+__all__ = [
+    "SingerMessage",
+    "SingerRecord",
+    "SingerSchema",
+    "SingerState",
+]
