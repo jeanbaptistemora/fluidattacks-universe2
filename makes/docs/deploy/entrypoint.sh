@@ -2,6 +2,12 @@
 
 function main {
   local src='docs/src'
+  local to_clean=(
+    "${src}/node_modules"
+    "${src}/build"
+    "${src}/.docusaurus"
+    "${src}/docs/criteria2"
+  )
   local bucket
   local secrets_aws
   export env="${1}"
@@ -18,9 +24,10 @@ function main {
       ;;
     *) error 'Either "prod" or "dev" must be passed as arg' ;;
   esac \
-    && pushd "${src}" \
+    && rm -rf "${to_clean[@]}" \
+    && generate-criteria-vulns \
     && source "${secrets_aws}/template" \
-    && rm -rf node_modules build .docusaurus \
+    && pushd "${src}" \
     && copy "__argNodeModules__" node_modules \
     && npm run build \
     && aws s3 sync build "${bucket}" --delete \

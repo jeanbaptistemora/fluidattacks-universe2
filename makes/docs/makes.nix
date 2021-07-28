@@ -8,7 +8,7 @@
   ];
   lintMarkdown = {
     docs = {
-      config = projectPath "/makes/docs/style.rb";
+      config = projectPath "/makes/docs/config/markdown.rb";
       targets = [ "/docs/src/docs" ];
     };
   };

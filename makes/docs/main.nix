@@ -13,6 +13,7 @@ makeScript {
     bin = [
       inputs.nixpkgs.bash
       inputs.nixpkgs.xdg_utils
+      outputs."/docs/generate/criteria/vulns"
       (makeNodeJsVersion "12")
     ];
   };

@@ -15,6 +15,7 @@ makeScript {
     bin = [
       inputs.nixpkgs.awscli
       inputs.nixpkgs.bash
+      outputs."/docs/generate/criteria/vulns"
       (makeNodeJsVersion "12")
     ];
   };
