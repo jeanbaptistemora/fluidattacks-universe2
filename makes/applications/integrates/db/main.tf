@@ -96,6 +96,21 @@ resource "aws_dynamodb_table" "FI_findings" {
   name     = "FI_findings"
 }
 
+resource "aws_dynamodb_table" "fi_finding_comments" {
+  attribute {
+    name = "finding_id"
+    type = "S"
+  }
+  attribute {
+    name = "comment_id"
+    type = "S"
+  }
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "finding_id"
+  name         = "fi_finding_comments"
+  range_key    = "comment_id"
+}
+
 resource "aws_dynamodb_table" "FI_forces" {
   attribute {
     name = "subscription"

@@ -337,6 +337,33 @@ resource "aws_dynamodb_table" "findings" {
   }
 }
 
+resource "aws_dynamodb_table" "finding_comments" {
+  name         = "fi_finding_comments"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "finding_id"
+  range_key    = "comment_id"
+
+  attribute {
+    name = "finding_id"
+    type = "S"
+  }
+
+  attribute {
+    name = "comment_id"
+    type = "S"
+  }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+
+  tags = {
+    "Name"               = "fi_finding_comments"
+    "management:type"    = "production"
+    "management:product" = "integrates"
+  }
+}
+
 resource "aws_dynamodb_table" "vulnerabilities" {
   name         = "FI_vulnerabilities"
   billing_mode = "PAY_PER_REQUEST"
