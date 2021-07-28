@@ -1,6 +1,7 @@
 # pylint: skip-file
 from dataclasses import (
     dataclass,
+    field,
 )
 from jsonschema import (
     Draft4Validator,
@@ -27,7 +28,7 @@ from typing import (
 @dataclass(frozen=True)
 class _JsonSchema:
     raw_schema: Dict[str, Any]
-    validator: Draft4Validator
+    validator: Draft4Validator = field(compare=False)
 
 
 @dataclass(frozen=True)

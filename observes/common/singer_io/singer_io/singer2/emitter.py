@@ -9,6 +9,9 @@ from returns.io import (
 from returns.maybe import (
     Maybe,
 )
+from returns.pipeline import (
+    is_successful,
+)
 from singer_io.singer2._objs import (
     SingerMessage,
     SingerRecord,
@@ -38,8 +41,9 @@ class SingerEmitter:
             "type": JsonValue("RECORD"),
             "stream": JsonValue(record.stream),
             "record": JsonValue(record.record),
-            "time_extracted": JsonValue(time_str.value_or(None)),
         }
+        if is_successful(time_str):
+            json_obj["time_extracted"] = JsonValue(time_str.unwrap())
         return self.emitter.emit(json_obj)
 
     def emit_schema(self, schema: SingerSchema) -> IO[None]:
@@ -53,10 +57,11 @@ class SingerEmitter:
             "key_properties": JsonValue(
                 [JsonValue(item) for item in schema.key_properties]
             ),
-            "bookmark_properties": JsonValue(
-                bookmark_properties.value_or(None)
-            ),
         }
+        if is_successful(bookmark_properties):
+            json_obj["bookmark_properties"] = JsonValue(
+                bookmark_properties.unwrap()
+            )
         return self.emitter.emit(json_obj)
 
     def emit_state(self, state: SingerState) -> IO[None]:

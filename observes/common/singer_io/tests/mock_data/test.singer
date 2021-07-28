@@ -1,3 +1,8 @@
 {"type": "SCHEMA", "stream": "foo_stream", "schema": {"properties": {"val": {"type": "string"}, "index": {"type": "integer"}}}, "key_properties": ["index"]}
+{"type": "SCHEMA", "stream": "foo2_stream", "schema": {"properties": {"val": {"type": "string"}}}, "key_properties": ["val"], "bookmark_properties": ["val"]}
+{"type": "SCHEMA", "stream": "foo3_stream", "schema": {"properties": {}}, "key_properties": [], "bookmark_properties": []}
 {"type": "RECORD", "stream": "foo_stream", "record": {"val": "foo", "index": 1}}
+{"type": "RECORD", "stream": "foo2_stream", "record": {"val": "foo"}, "time_extracted": "2021-07-28T14:53:03Z"}
+{"type": "RECORD", "stream": "foo2_stream", "record": {"val": "foo2"}, "time_extracted": "2021-07-28T09:54:53-05:00"}
+{"type": "RECORD", "stream": "foo2_stream", "record": {}}
 {"type": "STATE", "value": {"foo_stream": 1}}

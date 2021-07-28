@@ -2,7 +2,6 @@ from os.path import (
     dirname,
     join,
 )
-import pytest
 from singer_io.singer2.deserializer import (
     SingerDeserializer,
 )
@@ -25,7 +24,6 @@ def open_singer_file(file_name: str) -> List[str]:
         return file.readlines()
 
 
-@pytest.mark.xfail(reason="in development")
 def test_inverse() -> None:
     with open(join(data_dir, "test.singer")) as file:
         singers = list(SingerDeserializer.from_file(file))

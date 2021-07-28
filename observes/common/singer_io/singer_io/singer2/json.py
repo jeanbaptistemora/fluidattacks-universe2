@@ -138,4 +138,5 @@ class JsonEmitter:
 
     def emit(self, json_obj: JsonObj) -> IO[None]:
         json.dump(json_obj, self.target, cls=CustomJsonEncoder)
+        self.target.write("\n")
         return IO(None)

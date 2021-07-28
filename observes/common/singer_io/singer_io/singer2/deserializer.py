@@ -60,7 +60,7 @@ class SingerDeserializer:
             )
             return SingerSchema(
                 stream=raw_json["stream"].to_primitive(str),
-                schema=JsonSchemaFactory.from_dict(raw_dict),
+                schema=JsonSchemaFactory.from_dict(raw_dict["schema"]),
                 key_properties=frozenset(
                     raw_json["key_properties"].to_list_of(str)
                 ),
