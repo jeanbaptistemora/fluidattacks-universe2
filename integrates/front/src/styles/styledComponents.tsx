@@ -55,8 +55,8 @@ const CheckBoxOption: StyledComponent<
 > = styled.div.attrs(
   (props: {
     theme: {
-      type: string;
       selected: boolean;
+      type: string;
     };
   }): {
     className: string;
