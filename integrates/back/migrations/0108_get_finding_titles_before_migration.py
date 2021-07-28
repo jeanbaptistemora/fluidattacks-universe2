@@ -8,8 +8,8 @@ A backup has been restored for table "FI_findings", time Jul 22 2021
 Related issue:
 https://gitlab.com/fluidattacks/product/-/issues/4903
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-07-28 at 10:01:49 UTC-05
+Finalization Time: 2021-07-28 at 10:03:48 UTC-05
 """
 
 from aioextensions import (
