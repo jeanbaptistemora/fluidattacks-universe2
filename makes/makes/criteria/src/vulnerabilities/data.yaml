@@ -5885,7 +5885,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["186", "266"]
+  requirements: ["186", "265"]
   metadata: {}
 "102":
   en:
