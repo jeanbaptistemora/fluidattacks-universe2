@@ -40,9 +40,9 @@ const UPDATE_GROUP_DATA: DocumentNode = gql`
   }
 `;
 
-const REMOVE_TAG_MUTATION: DocumentNode = gql`
-  mutation RemoveTagMutation($tagToRemove: String!, $groupName: String!) {
-    removeTag(tag: $tagToRemove, groupName: $groupName) {
+const REMOVE_GROUP_TAG_MUTATION: DocumentNode = gql`
+  mutation RemoveGroupTagMutation($tagToRemove: String!, $groupName: String!) {
+    removeGroupTag(tag: $tagToRemove, groupName: $groupName) {
       success
     }
   }
@@ -105,7 +105,7 @@ const UPLOAD_FILE_MUTATION: DocumentNode = gql`
 export {
   GET_GROUP_DATA,
   UPDATE_GROUP_DATA,
-  REMOVE_TAG_MUTATION,
+  REMOVE_GROUP_TAG_MUTATION,
   GET_TAGS,
   ADD_GROUP_TAGS_MUTATION,
   GET_FILES,

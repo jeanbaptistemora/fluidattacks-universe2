@@ -16,7 +16,7 @@ import type { IPortfolioProps } from "scenes/Dashboard/containers/GroupSettingsV
 import {
   ADD_GROUP_TAGS_MUTATION,
   GET_TAGS,
-  REMOVE_TAG_MUTATION,
+  REMOVE_GROUP_TAG_MUTATION,
 } from "scenes/Dashboard/containers/GroupSettingsView/queries";
 import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -144,13 +144,13 @@ describe("Portfolio", (): void => {
     const mocksMutation: readonly MockedResponse[] = [
       {
         request: {
-          query: REMOVE_TAG_MUTATION,
+          query: REMOVE_GROUP_TAG_MUTATION,
           variables: {
             groupName: "TEST",
             tagToRemove: "test-tag1",
           },
         },
-        result: { data: { removeTag: { success: true } } },
+        result: { data: { removeGroupTag: { success: true } } },
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
@@ -302,7 +302,7 @@ describe("Portfolio", (): void => {
     const mocksMutation: readonly MockedResponse[] = [
       {
         request: {
-          query: REMOVE_TAG_MUTATION,
+          query: REMOVE_GROUP_TAG_MUTATION,
           variables: {
             groupName: "TEST",
             tagToRemove: "test-tag1",

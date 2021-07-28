@@ -159,7 +159,7 @@ MUTATION.set_field(
     remove_stakeholder_organization_access.mutate,
 )
 MUTATION.set_field("removeFiles", remove_files.mutate)
-MUTATION.set_field("removeTag", remove_group_tag.mutate)
+MUTATION.set_field("removeGroupTag", remove_group_tag.mutate)
 MUTATION.set_field("removeTags", remove_vulnerability_tags.mutate)
 MUTATION.set_field("signIn", sign_in.mutate)
 MUTATION.set_field("solveEvent", solve_event.mutate)
@@ -231,6 +231,7 @@ MUTATION.set_field(
     "handleVulnsAcceptation", handle_vulnerabilities_acceptation.mutate
 )
 MUTATION.set_field("editStakeholder", update_group_stakeholder.mutate)
+MUTATION.set_field("removeTag", remove_group_tag.mutate)
 MUTATION.set_field(
     "updateTreatmentVuln", update_vulnerability_treatment.mutate
 )

@@ -448,6 +448,11 @@ type Mutation {
 
   removeGroup(groupName: String!, reason: String): SimplePayload!
 
+  removeGroupTag(
+    groupName: String!
+    tag: String!
+  ): SimpleGroupPayload!
+
   removeStakeholderAccess(
     projectName: String
     groupName: String
@@ -460,10 +465,11 @@ type Mutation {
   ): SimplePayload!
 
   removeTag(
-    projectName: String,
-    groupName: String,
+    projectName: String
+    groupName: String
     tag: String!
-  ): SimpleGroupPayload!
+  ): SimpleGroupPayload! @deprecated(reason: """This mutation will be removed
+    after 2021/12/31. Use `removeGroupTag` instead.""")
 
   removeTags(
     findingId: String!

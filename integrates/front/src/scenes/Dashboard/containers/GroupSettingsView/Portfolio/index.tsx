@@ -16,7 +16,7 @@ import { AddTagsModal } from "scenes/Dashboard/components/AddTagsModal";
 import {
   ADD_GROUP_TAGS_MUTATION,
   GET_TAGS,
-  REMOVE_TAG_MUTATION,
+  REMOVE_GROUP_TAG_MUTATION,
 } from "scenes/Dashboard/containers/GroupSettingsView/queries";
 import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
@@ -74,25 +74,28 @@ const Portfolio: React.FC<IPortfolioProps> = (
     },
   });
 
-  const [removeTag, { loading: removing }] = useMutation(REMOVE_TAG_MUTATION, {
-    onCompleted: (): void => {
-      void refetch();
-      track("RemoveTag");
-      msgSuccess(
-        translate.t("searchFindings.tabResources.successRemove"),
-        translate.t("searchFindings.tabUsers.titleSuccess")
-      );
-    },
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred removing tags", error);
-      });
-    },
-  });
+  const [removeGroupTag, { loading: removing }] = useMutation(
+    REMOVE_GROUP_TAG_MUTATION,
+    {
+      onCompleted: (): void => {
+        void refetch();
+        track("RemoveTag");
+        msgSuccess(
+          translate.t("searchFindings.tabResources.successRemove"),
+          translate.t("searchFindings.tabUsers.titleSuccess")
+        );
+      },
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          msgError(translate.t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred removing tags", error);
+        });
+      },
+    }
+  );
 
   const handleRemoveTag: () => void = useCallback((): void => {
-    void removeTag({
+    void removeGroupTag({
       variables: {
         groupName: props.groupName,
         tagToRemove: currentRow.tagName,
@@ -100,7 +103,7 @@ const Portfolio: React.FC<IPortfolioProps> = (
     });
     setCurrentRow({});
     // eslint-disable-next-line react/destructuring-assignment -- In conflict with previous declaration
-  }, [currentRow.tagName, props.groupName, removeTag]);
+  }, [currentRow.tagName, props.groupName, removeGroupTag]);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
