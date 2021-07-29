@@ -7,6 +7,9 @@ In this case, we take a finding_id and update its title directly from the csv
 
 Execution Time:    2021-07-28 at 15:26:37 UTC-05
 Finalization Time: 2021-07-28 at 15:26:39 UTC-05
+
+Execution Time:    2021-07-29 at 18:24:08 UTC-05
+Finalization Time: 2021-07-29 at 18:30:17 UTC-05
 """
 
 from aioextensions import (
@@ -25,7 +28,7 @@ TABLE_NAME: str = "FI_findings"
 
 async def main() -> None:
     # Read migration matchs
-    with open("0109_findings_info.csv", mode="r") as infile:
+    with open("0109.csv", mode="r") as infile:
         reader = csv.reader(infile)
         findings = [
             {
