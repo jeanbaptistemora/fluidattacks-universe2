@@ -15,5 +15,8 @@ makeTemplate {
     envSources = [
       tap-csv.runtime
     ];
+    envUtils = [
+      "/makes/utils/lint-python"
+    ];
   };
 }
