@@ -24,22 +24,18 @@ from sklearn.neural_network import (
 from sorts.typings import (
     Model as ModelType,
 )
-import time
 from training.constants import (
     FEATURES_DICTS,
     MODELS,
     RESULT_HEADERS,
 )
-from training.redshift import (
-    db as redshift,
-)
 from training.training_script.utils import (
-    get_model_performance_metrics,
     get_previous_training_results,
     load_training_data,
     save_model_to_s3,
     set_sagemaker_extra_envs,
     split_training_data,
+    train_combination,
     update_results_csv,
 )
 from typing import (
@@ -168,7 +164,7 @@ def train_model(  # pylint: disable=too-many-locals
         previous_results if previous_results else [RESULT_HEADERS]
     )
 
-    # Get previously tried combinations to avoid duplicating work
+    # Get previously tried features combinations for model_class model
     tried_combinations = get_tried_combinations(previous_results)
     valid_combinations: List[Tuple[str, ...]] = [
         combination
@@ -176,35 +172,14 @@ def train_model(  # pylint: disable=too-many-locals
         if combination not in tried_combinations
     ]
 
+    model = get_model_instance(model_class)
+
     # Train the model
     for combination in valid_combinations:
-        start_time: float = time.time()
-        train_x, train_y = split_training_data(training_data, combination)
-
-        model = get_model_instance(model_class)
-        metrics = get_model_performance_metrics(model, train_x, train_y)
-
-        training_time = time.time() - start_time
-        print(f"Training time: {training_time:.2f}")
-        print(f"Features: {combination}")
-        print(f"Precision: {metrics[0]}%")
-        print(f"Recall: {metrics[1]}%")
-        print(f"F1-Score: {metrics[2]}%")
-        print(f"Overfit: {metrics[3]}%")
-        combination_train_results = dict(
-            model=model.__class__.__name__,
-            features=" ".join(
-                FEATURES_DICTS[feature] for feature in combination
-            ),
-            precision=round(metrics[0], 1),
-            recall=round(metrics[1], 1),
-            f_score=round(metrics[2], 1),
-            overfit=round(metrics[3], 1),
-            tuned_parameters="n/a",
-            training_time=training_time,
+        training_combination_output: List[str] = train_combination(
+            model, training_data, combination
         )
-        training_output.append(list(combination_train_results.values()))
-        redshift.insert("training", combination_train_results)
+        training_output.append(training_combination_output)
 
     return training_output
 

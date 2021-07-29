@@ -19,8 +19,13 @@ from sorts.typings import (
     Model as ModelType,
 )
 import tempfile
+import time
 from training.constants import (
+    FEATURES_DICTS,
     S3_BUCKET,
+)
+from training.redshift import (
+    db as redshift,
 )
 from typing import (
     List,
@@ -153,3 +158,40 @@ def save_model_to_s3(model: ModelType, model_name: str) -> None:
         S3_BUCKET.Object(f"training-output/{model_name}.joblib").upload_file(
             local_file
         )
+
+
+def train_combination(
+    model: ModelType,
+    training_data: DataFrame,
+    model_features: Tuple[str, ...],
+    tuned_hyperparameters: str = "n/a",
+) -> List[str]:
+    start_time: float = time.time()
+
+    train_x, train_y = split_training_data(training_data, model_features)
+
+    metrics = get_model_performance_metrics(model, train_x, train_y)
+
+    training_time = time.time() - start_time
+    print(f"Training time: {training_time:.2f}")
+    print(f"Features: {model_features}")
+    print(f"Precision: {metrics[0]}%")
+    print(f"Recall: {metrics[1]}%")
+    print(f"F1-Score: {metrics[2]}%")
+    print(f"Overfit: {metrics[3]}%")
+    combination_train_results = dict(
+        model=model.__class__.__name__,
+        features=" ".join(
+            FEATURES_DICTS[feature] for feature in model_features
+        ),
+        precision=round(metrics[0], 1),
+        recall=round(metrics[1], 1),
+        f_score=round(metrics[2], 1),
+        overfit=round(metrics[3], 1),
+        tuned_parameters=tuned_hyperparameters,
+        training_time=training_time,
+    )
+    training_output = list(combination_train_results.values())
+    redshift.insert("training", combination_train_results)
+
+    return training_output
