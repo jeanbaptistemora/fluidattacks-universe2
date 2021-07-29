@@ -34,15 +34,12 @@ from utils.logs import (
 )
 
 CHECKS: Tuple[
-    Tuple[
-        Callable[[SSLContext], Any],
-        Dict[
-            core_model.FindingEnum,
-            List[Callable[[Any], core_model.Vulnerabilities]],
-        ],
+    Dict[
+        core_model.FindingEnum,
+        List[Callable[[Any], core_model.Vulnerabilities]],
     ],
     ...,
-] = ((analyze_protocol.get_check_ctx, analyze_protocol.CHECKS),)
+] = (analyze_protocol.CHECKS,)
 
 
 @shield(on_error_return=[])
@@ -56,11 +53,11 @@ async def analyze_one(
 
     await log("info", "Analyzing ssl %s of %s: %s", index, count, ssl_ctx)
 
-    for get_check_ctx, checks in CHECKS:
+    for checks in CHECKS:
         for finding, check_list in checks.items():
             if finding in CTX.config.checks:
                 for check in check_list:
-                    for vulnerability in check(get_check_ctx(ssl_ctx)):
+                    for vulnerability in check(ssl_ctx):
                         await stores[vulnerability.finding].store(
                             vulnerability
                         )
@@ -93,9 +90,7 @@ async def analyze(
 ) -> None:
 
     if not any(
-        finding in CTX.config.checks
-        for _, checks in CHECKS
-        for finding in checks
+        finding in CTX.config.checks for checks in CHECKS for finding in checks
     ):
         return
 

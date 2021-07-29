@@ -1102,10 +1102,6 @@ def _breach_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
-def get_check_ctx(ssl_ctx: SSLContext) -> SSLContext:
-    return ssl_ctx
-
-
 CHECKS: Dict[
     core_model.FindingEnum,
     List[Callable[[SSLContext], core_model.Vulnerabilities]],
