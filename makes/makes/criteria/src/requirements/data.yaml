@@ -6377,23 +6377,92 @@
 "342":
   en:
     title: Validate request parameters
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must validate
+      the content and length of all
+      request parameters
+      (GET, POST, cookies, headers, etc.),
+      as well as their amount.
+    description: >
+      Proper data validation
+      prevents a vast majority
+      of injection attacks.
+      Its implementation includes
+      validations of request parameters' content,
+      length and amount.
+      This increases the defenses
+      against HTTP parameter pollution attacks
+      and mass parameter assignment attacks,
+      and provides countermeasures
+      to protect against
+      unsafe parameter assignment.
   es:
     title: Validar parámetros de solicitud
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe validar
+      el contenido y la longitud de todos
+      los parámetros de la petición
+      (GET, POST, cookies, encabezados, etc),
+      así como su cantidad.
+    description: >
+      La validación adecuada
+      de datos previene una gran mayoría
+      de los ataques de inyección.
+      Su implementación incluye
+      las validaciones de contenido,
+      longitud y cantidad de los parámetros
+      de solicitud.
+      Esto aumenta las defensas
+      contra los ataques de contaminación
+      de los parámetros HTTP
+      y los ataques de asignación de parámetros
+      de masa,
+      y proporciona contramedidas para proteger
+      contra la asignación de parámetros inseguros.
   references: []
   metadata: {}
 "343":
   en:
     title: Respect the Do Not Track header
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must respect
+      the user's chosen value
+      for the Do Not Track (DNT) header.
+    description: >
+      Systems usually request
+      information from their users,
+      obtain it from third parties
+      or collect it based on their
+      interactions with the application.
+      The DNT header holds information
+      about a user's preference regarding
+      being tracked by the websites they visit.
+      Websites often ignore this header
+      and proceed to track the user's activities,
+      which could represent a privacy violation
+      if no consent is requested.
   es:
     title: Respetar el encabezado Do Not Track
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe mantener
+      el valor del encabezado
+      Do Not Track (DNT) elegido por el usuario.
+    description: >
+      Los sistemas generalmente
+      solicitan información de sus usuarios,
+      lo obtienen de terceros o recolectan
+      en función de sus interacciones
+      con la solicitud.
+      El encabezado DNT tiene información
+      sobre la preferencia de un usuario
+      con respecto a ser rastreado
+      por los sitios web que visitan.
+      Los sitios web a menudo ignoran
+      este encabezado y continúan con
+      el seguimiento de las actividades del usuario,
+      lo que podría representar
+      una violación de la privacidad
+      si no se solicita ningún consentimiento.
   references: []
   metadata: {}
 "344":
