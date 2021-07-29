@@ -5464,45 +5464,199 @@
 "322":
   en:
     title: Avoid excessive logging
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must not register
+      unnecessary information
+      when logging exceptional events.
+    description: >
+      While event logging is generally
+      a good security practice,
+      the organization must consider
+      that using high logging levels
+      is only appropriate
+      for development environments,
+      since having too much log information
+      in production stages may hinder
+      the performance of a system administrator
+      in detecting abnormal conditions.
+      This may imply that both
+      the attacker and the attack
+      be able to remain hidden while
+      trying to penetrate the system,
+      the audit trail in a
+      forensic analysis be reduced,
+      or the debugging of issues
+      in production environments be hindered.
   es:
     title: Evitar almacenamiento de bitácoras excesivo
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema no debe almacenar
+      información innecesaria
+      al registrar eventos excepcionales. 
+    description: >
+      Si bien el registro de eventos
+      es generalmente una buena práctica
+      de seguridad,
+      la organización debe considerar
+      que el uso de altos niveles
+      de registro solo es apropiado
+      para los entornos de desarrollo,
+      ya que tener demasiada información
+      de registro en las etapas
+      de producción puede dificultar
+      el rendimiento de un administrador
+      del sistema para detectar
+      condiciones anormales.
+      Esto puede implicar
+      que tanto el atacante como el ataque
+      puedan permanecer ocultos
+      mientras intentan penetrar en el sistema,
+      se reduce el rastro de auditoría
+      en un análisis forense,
+      o se obstaculiza la depuración
+      de problemas en los entornos
+      de producción.
   references: []
   metadata: {}
 "323":
   en:
     title: Exclude unverifiable files
-    summary: __empty_
-    description: __empty__
+    summary: >
+      Binary and other types of files,
+      which are often not audited
+      for security purposes,
+      should not be stored
+      in the source code repository.
+    description: >
+      Binary files usually have
+      a file size greater than
+      their source counterpart,
+      which can eventually affect
+      a repository's performance.
+      Changes done to them are often
+      hard to track for versioning tools
+      or make no sense for a reviewer.
+      Furthermore,
+      security audits on binary files
+      are more complicated
+      or simply not performed,
+      and these could contain serious
+      vulnerabilities such as backdoors,
+      rootkits and exposed sensitive information.
   es:
     title: Excluir archivos no verificables
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Los archivos binarios
+      y de otros tipos que a menudo
+      no pueden ser auditados
+      por motivos de seguridad
+      no deberían ser almacenados
+      en el repositorio de código.
+    description: >
+      Los archivos binarios
+      generalmente tienen un tamaño de archivo
+      mayor que su contraparte de origen,
+      que eventualmente puede afectar
+      el rendimiento de un repositorio.
+      Los cambios realizados a ellos
+      son a menudo difíciles de rastrear
+      para las herramientas de versiones
+      o no tienen ningún sentido
+      para un revisor.
+      Además,
+      las auditorías de seguridad
+      en los archivos binarios
+      son más complicados
+      o simplemente no se realizan,
+      y estos podrían contener vulnerabilidades graves,
+      como las puertas traseras,
+      los rootkits e información sensible expuesta.
   references: []
   metadata: {}
 "324":
   en:
     title: Control redirects
-    summary: __empty_
-    description: __empty__
+    summary: >
+      Redirects must be controlled,
+      especially when they depend
+      on external input.
+    description: >
+      Systems must guarantee
+      that all redirects lead to
+      a controlled or trusted site.
+      In general,
+      redirects based on input data
+      should be avoided
+      as they could enable phishing attacks.
+      If they are required,
+      they should be controlled
+      so that users are only redirected
+      to trusted sites.
   es:
     title: Controlar redireccionamientos
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Las redirecciones
+      deben ser controladas,
+      especialmente si dependen de entrada de datos.
+    description: >
+      Los sistemas deben garantizar
+      que todas las redirecciones
+      conduzcan a un sitio controlado
+      o confiable.
+      En general,
+      se deben evitar las redirecciones
+      basadas en los datos de entrada,
+      ya que podrían permitir
+      los ataques de phishing.
+      Si son obligatorios,
+      deben controlarse para que los usuarios
+      solo sean redirigidos
+      a los sitios de confianza.
   references: []
   metadata: {}
 "325":
   en:
     title: Protect WSDL files
-    summary: __empty_
-    description: __empty__
+    summary: >
+      WSDL files containing
+      sensitive information
+      must not be publicly accessible.
+    description: >
+      Some web services architectures
+      require exposing a WSDL file.
+      If this file contains
+      sensitive information,
+      such as deprecated methods
+      or administrative services,
+      it should not be available
+      to a wider audience than it requires.
+      If it must be available
+      on a very public network,
+      like the internet,
+      then it should not contain
+      any sensitive information.
   es:
     title: Proteger archivos WSDL
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Los archivos WSDL que contengan
+      información sensible
+      no deben ser expuestos públicamente.
+    description: >
+      Algunas arquitecturas
+      de servicios web requieren
+      exponer un archivo WSDL.
+      Si este archivo contiene
+      información confidencial,
+      como métodos desaprobados
+      o servicios administrativos,
+      no debe estar disponible
+      para una audiencia más amplia
+      que la que requiere.
+      Si debe estar disponible
+      en una red muy pública,
+      como Internet,
+      entonces no debe contener
+      ninguna información confidencial.
   references: []
   metadata: {}
 "326":
