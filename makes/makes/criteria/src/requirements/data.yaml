@@ -4996,34 +4996,153 @@
 "312":
   en:
     title: Allow user consent revocation
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must enable
+      its users to revoke
+      whatever consent they have granted.
+    description: >
+      Systems usually
+      request information
+      from their users
+      or collect it based on
+      their interactions
+      with the application.
+      Regulations demand
+      that none of these collections
+      occur without the user's consent
+      and that this consent
+      be demonstrable afterwards.
+      Regulations also demand
+      that users be allowed
+      to revoke,
+      at any given time,
+      whatever consent
+      they may have granted
+      regarding the collection
+      and processing of their information.
   es:
     title: Permitir la anulación del consentimiento del usuario
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe habilitar
+      la revocacion del consentimiento
+      por parte del usuario.
+    description: >
+      Los sistemas generalmente
+      solicitan información
+      a sus usuarios o la recopilan
+      en función de sus interacciones
+      con la aplicación.
+      Las regulaciones exigen
+      que ninguna de estas recolecciones
+      ocurra sin el consentimiento
+      sea demostrable posteriormente.
+      La normativa también exige
+      que se permita a los usuarios
+      revocar,
+      en cualquier momento,
+      cualquier consentimiento que
+      hayan otorgado con respecto
+      a la recolección y procesamiento
+      de su información.
   references: []
   metadata: {}
 "313":
   en:
     title: Inform inability to identify users
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must inform
+      its users whenever it can demonstrate
+      its inability to individually
+      identify them using
+      the information it has collected
+      from them.
+    description: >
+      Systems usually
+      request information
+      from their users
+      or collect it based on
+      their interactions
+      with the application.
+      Some regulations related
+      to the collection of personal data
+      are only applicable
+      if users can be identified
+      using this data.
+      Whenever the system
+      is unable to individually
+      identify its users with the data
+      it collects from them,
+      and it can demonstrate this,
+      it must inform them
+      of this situation.
   es:
     title: Informar la inhabilidad para identificar usuarios
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe informar
+      y demostrar a los usuarios
+      su incapacidad para identificarlos
+      individualmente
+      utilizando la informacion
+      que ha recopilado de ellos.
+    description: >
+      Los sistemas generalmente
+      solicitan información
+      a sus usuarios o la recopilan
+      en función de sus interacciones
+      con la aplicación.
+      Las regulaciones exigen
+      que ninguna de estas recolecciones
+      ocurra sin el consentimiento
+      sea demostrable posteriormente.
+      Siempre que el sistema
+      sea incapaz de identificar
+      individualmente a sus usuarios
+      con los datos que de ellos
+      recaba y pueda demostrarlo,
+      deberá informarles de esta situación.
   references: []
   metadata: {}
 "314":
   en:
     title: Provide processing confirmation
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must provide confirmation
+      to its users of whether or not
+      it is storing and/or
+      processing their personal data.
+    description: >
+      Systems usually request information
+      from their users,
+      obtain it from third parties
+      or collect it based on their interactions
+      with the application.
+      They should have a mechanism
+      that allows users to request confirmation
+      of whether or not
+      the system is managing their personal information,
+      even if it was not obtained
+      from the users
+      but from a third party.
   es:
     title: Proveer confirmación de procesamiento
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe proporcionar confirmación
+      a sus usuarios de si o no
+      está almacenando y / o
+      tratamiento de sus datos personales. 
+    description: >
+      Los sistemas suelen solicitar información
+      de sus usuarios,
+      obtenerlo de terceros
+      o recopilarlo en función de sus interacciones
+      con la aplicación.
+      Deberían tener un mecanismo
+      que permite a los usuarios solicitar confirmación
+      de si o no
+      el sistema está gestionando su información personal,
+      incluso si no se obtuvo
+      de los usuarios
+      sino de un tercero. 
   references: []
   metadata: {}
 "315":
