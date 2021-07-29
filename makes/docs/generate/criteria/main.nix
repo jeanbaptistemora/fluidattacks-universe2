@@ -64,6 +64,18 @@ let
       __argDescription__ = src.en.description;
       __argImpact__ = src.en.impact;
       __argRecommendation__ = src.en.recommendation;
+      __argThreat__ = src.en.threat;
+      __argScoreBaseAttackVector__ = src.score.base.attack_vector;
+      __argScoreBaseAttackComplexity__ = src.score.base.attack_complexity;
+      __argScoreBasePrivilegesRequired__ = src.score.base.privileges_required;
+      __argScoreBaseUserInteraction__ = src.score.base.user_interaction;
+      __argScoreBaseScope__ = src.score.base.scope;
+      __argScoreBaseConfidentiality__ = src.score.base.confidentiality;
+      __argScoreBaseIntegrity__ = src.score.base.integrity;
+      __argScoreBaseAvailability__ = src.score.base.availability;
+      __argScoreTemporalExploitCodeMadurity__ = src.score.temporal.exploit_code_maturity;
+      __argScoreTemporalRemediationLevel__ = src.score.temporal.remediation_level;
+      __argScoreTemporalReportConfidence__ = src.score.temporal.report_confidence;
       __argRequirements__ = reqsForVuln src.requirements;
     };
     name = "docs-make-vulnerability-${name}";
