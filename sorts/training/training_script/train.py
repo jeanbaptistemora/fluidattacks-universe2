@@ -5,9 +5,6 @@ import argparse
 from itertools import (
     combinations,
 )
-from joblib import (
-    dump,
-)
 from lightgbm import (
     LGBMClassifier,
 )
@@ -27,13 +24,11 @@ from sklearn.neural_network import (
 from sorts.typings import (
     Model as ModelType,
 )
-import tempfile
 import time
 from training.constants import (
     FEATURES_DICTS,
     MODELS,
     RESULT_HEADERS,
-    S3_BUCKET,
 )
 from training.redshift import (
     db as redshift,
@@ -42,6 +37,7 @@ from training.training_script.utils import (
     get_model_performance_metrics,
     get_previous_training_results,
     load_training_data,
+    save_model_to_s3,
     set_sagemaker_extra_envs,
     split_training_data,
     update_results_csv,
@@ -138,7 +134,7 @@ def get_best_combination(
     return best_features, best_f1
 
 
-def save_best_model_to_s3(
+def save_model(
     model_class: ModelType,
     training_dir: str,
     training_results: List[List[str]],
@@ -154,19 +150,11 @@ def save_best_model_to_s3(
         model.precision = training_results[-1][2]
         model.recall = training_results[-1][3]
 
-        with tempfile.TemporaryDirectory() as tmp_dir:
-            model_name: str = "-".join(
-                [type(model).__name__.lower(), best_f1]
-                + [
-                    FEATURES_DICTS[feature].lower()
-                    for feature in best_features
-                ]
-            )
-            local_file: str = os.path.join(tmp_dir, f"{model_name}.joblib")
-            dump(model, local_file)
-            S3_BUCKET.Object(
-                f"training-output/{model_name}.joblib"
-            ).upload_file(local_file)
+        model_file_name: str = "-".join(
+            [type(model).__name__.lower(), best_f1]
+            + [FEATURES_DICTS[feature].lower() for feature in best_features]
+        )
+        save_model_to_s3(model, model_file_name)
 
 
 def train_model(  # pylint: disable=too-many-locals
@@ -261,7 +249,7 @@ def main() -> None:
             model_class, args.train, previous_results
         )
         update_results_csv(results_filename, training_output)
-        save_best_model_to_s3(model_class, args.train, training_output)
+        save_model(model_class, args.train, training_output)
 
 
 if __name__ == "__main__":

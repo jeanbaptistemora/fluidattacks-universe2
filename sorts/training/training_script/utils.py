@@ -1,4 +1,7 @@
 import csv
+from joblib import (
+    dump,
+)
 import numpy as np
 from numpy import (
     ndarray,
@@ -141,3 +144,12 @@ def set_sagemaker_extra_envs(extra_sm_envs: str) -> None:
     }
     for env_key, value in envs.items():
         os.environ[env_key] = value
+
+
+def save_model_to_s3(model: ModelType, model_name: str) -> None:
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        local_file: str = os.path.join(tmp_dir, f"{model_name}.joblib")
+        dump(model, local_file)
+        S3_BUCKET.Object(f"training-output/{model_name}.joblib").upload_file(
+            local_file
+        )

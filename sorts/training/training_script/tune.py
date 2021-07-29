@@ -1,7 +1,4 @@
 import argparse
-from joblib import (
-    dump,
-)
 import os
 from pandas import (
     DataFrame,
@@ -16,7 +13,6 @@ from training.constants import (
     MODEL_HYPERPARAMETERS,
     MODELS,
     RESULT_HEADERS,
-    S3_BUCKET,
 )
 from training.evaluate_results import (
     get_best_model_name,
@@ -28,6 +24,7 @@ from training.training_script.utils import (
     get_model_performance_metrics,
     get_previous_training_results,
     load_training_data,
+    save_model_to_s3,
     set_sagemaker_extra_envs,
     split_training_data,
     update_results_csv,
@@ -99,8 +96,8 @@ def save_model(
     model_features: Tuple[str, ...],
     tuned_hyperparameters: List[str],
 ) -> None:
-    with tempfile.TemporaryDirectory() as tmp_dir:
-        model_name_list = [
+    model_file_name: str = "-".join(
+        [
             type(model).__name__.lower(),
             str(f1_score),
             "-".join(
@@ -111,12 +108,8 @@ def save_model(
                 list(str(parameter) for parameter in tuned_hyperparameters)
             ),
         ]
-        model_file_name: str = "-".join(model_name_list)
-        local_file: str = os.path.join(tmp_dir, f"{model_file_name}.joblib")
-        dump(model, local_file)
-        S3_BUCKET.Object(
-            f"training-output/{model_file_name}.joblib"
-        ).upload_file(local_file)
+    )
+    save_model_to_s3(model, model_file_name)
 
 
 def get_model_hyperparameters(
