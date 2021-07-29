@@ -40,7 +40,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "cvss_version": "3.1",
                 "exploitability": 0.94,
                 "finding": generic_data["global_vars"]["FIN.H.060"],
-                "cwe": "396",
                 "finding_type": "SECURITY",
                 "requirements": generic_data["global_vars"]["R359"],
                 "threat": "Autenticated attacker from the Internet.",

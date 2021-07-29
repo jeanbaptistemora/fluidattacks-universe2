@@ -211,10 +211,6 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "cwe",
-          "AttributeType": "S"
-        },
-        {
           "AttributeName": "where",
           "AttributeType": "S"
         },
@@ -1502,9 +1498,6 @@
               "threat": {
                 "S": "Updated threat"
               },
-              "cwe": {
-                "S": "200"
-              },
               "affected_systems": {
                 "S": "Server bWAPP"
               },
@@ -1647,7 +1640,6 @@
             "recommendation",
             "requirements",
             "threat",
-            "cwe",
             "affected_systems",
             "analyst_email",
             "cvss_version",

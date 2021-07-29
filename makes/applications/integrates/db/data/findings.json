@@ -210,9 +210,6 @@
           "actor": {
             "S": "SOME_CUSTOMERS"
           },
-          "cwe": {
-            "S": "308"
-          },
           "cvss_version": {
             "S": "3.1"
           },
@@ -263,9 +260,6 @@
           },
           "project_name": {
             "S": "continuoustesting"
-          },
-          "cwe": {
-            "S": "89"
           },
           "cvss_version": {
             "S": "3.1"
@@ -585,9 +579,6 @@
           "actor": {
             "S": "ANYONE_INTERNET"
           },
-          "cwe": {
-            "S": "200"
-          },
           "cvss_version": {
             "S": "3.1"
           },
@@ -731,9 +722,6 @@
           },
           "modified_attack_complexity": {
             "N": "0.77"
-          },
-          "cwe": {
-            "S": "94"
           },
           "cvss_version": {
             "S": "3.1"
@@ -1111,9 +1099,6 @@
           "actor": {
             "S": "ANYONE_INTERNET"
           },
-          "cwe": {
-            "S": "None"
-          },
           "cvss_version": {
             "S": "3.1"
           },
@@ -1384,9 +1369,6 @@
           "actor": {
             "S": "ANY_EMPLOYEE"
           },
-          "cwe": {
-            "S": "200"
-          },
           "cvss_version": {
             "S": "3.1"
           },
@@ -1565,9 +1547,6 @@
           },
           "actor": {
             "S": "ANY_EMPLOYEE"
-          },
-          "cwe": {
-            "S": "200"
           },
           "cvss_version": {
             "S": "3.1"
@@ -1866,9 +1845,6 @@
           "actor": {
             "S": "ANY_COSTUMER"
           },
-          "cwe": {
-            "S": "200"
-          },
           "cvss_version": {
             "S": "3.1"
           },
@@ -1919,9 +1895,6 @@
           },
           "project_name": {
             "S": "continuoustesting"
-          },
-          "cwe": {
-            "S": "400"
           },
           "cvss_version": {
             "S": "3.1"
@@ -2182,9 +2155,6 @@
           "actor": {
             "S": "ANYONE_INTERNET"
           },
-          "cwe": {
-            "S": "None"
-          },
           "cvss_version": {
             "S": "3.1"
           },
@@ -2406,9 +2376,6 @@
           "actor": {
             "S": "SOME_CUSTOMERS"
           },
-          "cwe": {
-            "S": "308"
-          },
           "cvss_version": {
             "S": "3.1"
           },
@@ -2629,9 +2596,6 @@
           },
           "actor": {
             "S": "SOME_CUSTOMERS"
-          },
-          "cwe": {
-            "S": "308"
           },
           "cvss_version": {
             "S": "3.1"
@@ -2878,9 +2842,6 @@
           "actor": {
             "S": "ANYONE_INTERNET"
           },
-          "cwe": {
-            "S": "None"
-          },
           "cvss_version": {
             "S": "3.1"
           },
@@ -3040,9 +3001,6 @@
           },
           "modified_attack_complexity": {
             "N": "0.77"
-          },
-          "cwe": {
-            "S": "749"
           },
           "cvss_version": {
             "S": "3.1"
@@ -3252,9 +3210,6 @@
           },
           "actor": {
             "S": "ANYONE_INTERNET"
-          },
-          "cwe": {
-            "S": "937"
           },
           "cvss_version": {
             "S": "3.1"
@@ -3467,9 +3422,6 @@
           "actor": {
             "S": "ANYONE_INTERNET"
           },
-          "cwe": {
-            "S": "434"
-          },
           "cvss_version": {
             "S": "3.1"
           },
@@ -3680,9 +3632,6 @@
           },
           "actor": {
             "S": "ANYONE_INTERNET"
-          },
-          "cwe": {
-            "S": "1203"
           },
           "cvss_version": {
             "S": "3.1"

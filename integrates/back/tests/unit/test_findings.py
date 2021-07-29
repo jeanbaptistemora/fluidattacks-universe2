@@ -122,7 +122,6 @@ async def test_format_data() -> None:
         "confidentialityImpact",
         "integrityRequirement",
         "remediationLevel",
-        "cwe",
         "leader",
         "modifiedConfidentialityImpact",
         "files",
