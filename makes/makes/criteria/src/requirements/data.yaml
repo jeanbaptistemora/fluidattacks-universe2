@@ -6468,23 +6468,107 @@
 "344":
   en:
     title: Avoid dynamic code execution
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system should not use
+      dynamic code execution features
+      such as eval().
+    description: >
+      Dynamic code execution features,
+      despite the flexibility they provide,
+      should be used carefully
+      and generally avoided.
+      These features often open the door
+      for remote code execution (RCE)
+      and cross-site scripting (XSS) attacks.
+      Therefore,
+      if it is not possible to avoid
+      dynamic code execution,
+      any untrusted input being included
+      (e.g., the one provided by the users)
+      should be properly sanitized.
   es:
     title: Evitar la ejecución dinámica de código
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema no debe usar
+      funciones de ejecución de código dinámico,
+      como eval().
+    description: >
+      Las funciones de ejecución
+      de código dinámico,
+      a pesar de la flexibilidad que proporcionan,
+      deben usarse cuidadosamente
+      y generalmente evitarse.
+      Estas funciones a menudo
+      abren la puerta para los ataques
+      de ejecución remota de ejecución de código (RCE)
+      y Cross-Site Scripting (XSS).
+      Por lo tanto,
+      si no es posible evitar la ejecución
+      del código dinámico,
+      las entradas no confiables
+      (por ejemplo, las que proporciona los usuarios)
+      deben ser filtradas adecuadamente.
   references: []
   metadata: {}
 "345":
   en:
     title: Establish protections against overflows
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must have
+      protection mechanisms against
+      the different types of overflow
+      (stack, buffer, heap, integer, etc.).
+    description: >
+      An overflow occurs
+      when an application receives
+      a value outside of the range
+      that it is prepared to handle.
+      It can happen when a program
+      tries to process an excessively
+      big number or if it attempts
+      to read a memory address outside
+      of its assigned buffer.
+      An overflow can cause
+      a program to stop working,
+      which can lead to a Denial of Service (DoS).
+      Therefore,
+      systems should use data structures
+      and mechanisms that help
+      reduce the chances that an overflow
+      will arise,
+      such as memory-safe strings,
+      safe memory copy and pointer arithmetic.
   es:
     title: Establecer protección con desbordamientos
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe tener
+      mecanismos de protección
+      contra los diferentes tipos
+      de desbordamiento
+      (stack, buffer, heap, integer, etc.).
+    description: >
+      Se produce un desbordamiento
+      cuando una aplicación recibe
+      un valor fuera del rango
+      que está preparado para manejar.
+      Puede suceder cuando un programa
+      intenta procesar un número
+      excesivamente grande o si intenta
+      leer una dirección de memoria
+      fuera de su búfer asignado.
+      Un desbordamiento puede hacer
+      que un programa deje de funcionar,
+      lo que puede llevar a una
+      denegación de servicio (DOS).
+      Por lo tanto,
+      los sistemas deben usar
+      estructuras de datos
+      y mecanismos que ayudan
+      a reducir las posibilidades
+      de que surja un desbordamiento,
+      como cadenas seguras de memoria,
+      copia de memoria segura
+      y puntero aritmético.
   references: []
   metadata: {}
 "346":
