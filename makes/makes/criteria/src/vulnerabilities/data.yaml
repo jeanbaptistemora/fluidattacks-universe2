@@ -2467,6 +2467,7 @@
       Cross-Site Leaks, among others.
     recommendation: >
       Set the Content-Security-Policy header
+      in the server responses
       and configure it in a secure way.
     threat: Unauthorized attacker from Internet.
   es:
@@ -2488,6 +2489,7 @@
     recommendation: >
       Establecer la cabecera
       Content-Security-Policy
+      en las respuestas del servidor
       y configurarla de forma segura.
     threat: Atacante sin autorización desde Internet.
   score:
@@ -4332,7 +4334,8 @@
       Set the Referrer-Policy header
       to "no-referrer", "same-origin",
       "strict-origin",
-      or "strict-origin-when-cross-origin".
+      or "strict-origin-when-cross-origin"
+      in the server responses.
     threat: >
       Unauthorized attacker
       from Internet.
@@ -4350,7 +4353,8 @@
       Establecer la cabecera
       Referrer-Policy a "no-referrer",
       "same-origin", "strict-origin",
-      o "strict-origin-when-cross-origin".
+      o "strict-origin-when-cross-origin"
+      en las respuestas del servidor.
     threat: >
       Atacante sin autorización
       desde Internet.
@@ -7048,9 +7052,6 @@
     threat: >
       - Flood the victim's inbox.
 
-      - Cause a denial of service
-      exceding the emails' inbox capacity.
-
       - Hide important information
       of another emails.
   es:
@@ -7069,10 +7070,6 @@
     threat: >
       - Inundar la bandeja de entrada
       de la víctima.
-
-      - Causar una denegación de servicio
-      al exceder la capacidad
-      de la bandeja de entrada de correos.
 
       - Ocultar información importante
       de otros correos.
@@ -7497,7 +7494,8 @@
       an insecure channel.
     recommendation: >
       Set the Strict-Transport-Security header
-      and a max-age of at least 31536000.
+      and a max-age of at least 31536000
+      in all server responses.
     threat: >
       Unauthorized attacker
       from adjacent network
@@ -7516,7 +7514,8 @@
     recommendation: >
       Establecer la cabecera
       Strict-Transport-Security
-      y un max-age superior a 31536000.
+      y un max-age superior a 31536000
+      en todas las respuestas del servidor.
     threat: >
       Atacante sin autorización
       desde red adyacente
@@ -7620,7 +7619,7 @@
       and craft new attack vectors.
     recommendation: >
       Set the X-Content-Type-Options header
-      to nosniff.
+      to 'nosniff' in the server responses.
     threat: >
       Unauthorized attacker
       from internet network.
@@ -7635,7 +7634,8 @@
       y generar nuevos vectores de ataque.
     recommendation: >
       Establecer la cabecera
-      X-Content-Type-Options a nosniff.
+      X-Content-Type-Options a 'nosniff'
+      en las respuestas del servidor.
     threat: >
       Atacante sin autorización
       desde internet.
@@ -7669,10 +7669,8 @@
       that is being transmitted
       or has been stored.
     recommendation: >
-      Use cipher algorithms
-      that do not expose
-      previous communications in case
-      a private key is compromised.
+      Enable Perfect-Forward-Secrecy in the server side,
+      by allowing Ciphersuites that contain 'DHE' and 'ECDHE' on its names.
     threat: >
       Unauthorized attacker
       from adjacent network
@@ -7692,11 +7690,8 @@
       que se esta transmitiendo
       o ha sido guardada.
     recommendation: >
-      Usar algoritmos de cifrado
-      que no expongan
-      las comunicaciones previas
-      en caso de que la llave privada
-      sea comprometida.
+      Habilitar el Perfect-Forward-Secrecy en el lado del servidor
+      admitiendo algoritmos que contengan 'DHE' o 'ECHDE' en sus nombres.
     threat: >
       Atacante sin autorización
       desde red adyacente
@@ -7730,7 +7725,8 @@
       Include resources
       from untrusted origins.
     recommendation: >
-      Define explicitly the trusted origins
+      Remove the wildcard (*) and
+      define explicitly the trusted origins
       for the application resources.
     threat: >
       Unauthorized attacker
@@ -7746,7 +7742,8 @@
       Incluir recursos
       de orígenes maliciosos.
     recommendation: >
-      Definir explícitamente
+      Remover los comodines (*) y
+      definir explícitamente
       los orígenes permitidos
       para los recursos de la aplicación.
     threat: >
@@ -7780,7 +7777,7 @@
     impact: >
       Increase the chance of exploiting a stored XSS
     recommendation: >
-      Disable the X-XSS Protection filter.
+      Disable the X-XSS Protection filter in the server responses.
       Instead,
       define secuirty policies using CSP Header.
     threat: >
@@ -7799,7 +7796,7 @@
       Incrementar probabilidades
       de explotar un XSS almacenado.
     recommendation: >
-      Deshabilitar el filtro X-XSS Protection.
+      Deshabilitar el filtro X-XSS Protection de las respuestas del servidor.
       En su lugar,
       definir políticas de seguridad
       utilizando la cabecera CSP.
@@ -7838,8 +7835,9 @@
       harmful server responses
       using Cache Poison attacks.
     recommendation: >
-      Disable the X-XSS Protection filter.
-      Instead, define secuirty policies using CSP Header.
+      Set the Cache Control header in the server responses
+      using a secure value such as 'no-store' , 'no-cache'
+      and 'must-revalidate'
     threat: >
       Unauthorized attacker
       from local network.
@@ -7858,8 +7856,8 @@
       potencialmente peligrosas
       mediante ataques de Cache Poison.
     recommendation: >
-      Establecer la cabecera Caché control
-      con un valor de 'no-store' , 'no-cache'
+      Establecer la cabecera Caché control en las respuestas del servidor
+      con un valor seguro como 'no-store' , 'no-cache'
       y `must-revalidate`
     threat: >
       Atacante sin autorización
@@ -7892,8 +7890,9 @@
       from Adobe Flash or PDF documents
     recommendation: >
       Unless the application
-      requires Adobe products, 
-      set the X-Permitted-Cross-Domain-Policies to 'none'.
+      requires Adobe products,
+      set the X-Permitted-Cross-Domain-Policies to 'none'
+      in the server responses.
     threat: >
       Unauthorized attacker
       from the Internet.
@@ -7912,7 +7911,8 @@
       A menos que se requiera
       utilizar productos de Adobe
       establecer X-Permitted-Cross-Domain-Policies
-      con el valor de 'none'.
+      con el valor de 'none'
+      en las respuestas del servidor.
     threat: >
       Atacante sin autorización
       desde Internet.
