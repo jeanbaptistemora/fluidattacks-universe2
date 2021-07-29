@@ -5300,45 +5300,165 @@
 "318":
   en:
     title: Notify third parties of changes
-    summary: __empty_
-    description: __empty__
+    summary: >
+      El sistema debe notificar a terceros
+      cuando rectifica o borra
+      información personal compartida.
+    description: >
+      Systems usually request information
+      from their users,
+      obtain it from third parties
+      or collect it based on their interactions
+      with the application.
+      They sometimes share personal information
+      with third parties
+      after having requested consent from its owner.
+      Whenever this information is rectified
+      or erased upon request from its owner,
+      the system must notify
+      said third parties
+      so that they do the same.
+      This is also the case
+      when the user requests
+      that the system stop processing their data.
   es:
     title: Notificar cambios a terceros
-    summary: __empty__
-    description: __empty__
+    summary: >
+      
+    description: >
+      Los sistemas suelen solicitar información
+      de sus usuarios,
+      obtenerlo de terceros
+      o recopilarlo en función de sus interacciones
+      con la aplicación.
+      A veces comparten información personal
+      con terceros
+      después de haber solicitado
+      el consentimiento de su titular.
+      Siempre que se rectifique esta información
+      o borrado a pedido de su propietario,
+      el sistema debe notificar
+      a dichos terceros
+      para que ellos hagan lo mismo.
+      Este también es el caso
+      cuando el usuario solicita
+      que el sistema deje de procesar sus datos. 
   references: []
   metadata: {}
 "319":
   en:
     title: Make authentication options equally secure
-    summary: __empty_
-    description: __empty__
+    summary: >
+      All of the system's authentication pathways
+      and identity management APIs
+      must be equally secure.
+    description: >
+      Some systems offer more than one option
+      to authenticate their users
+      or verify their identity.
+      All of these options must have
+      the same security control strength,
+      so that there is no weaker alternative.
   es:
     title: Hacer que las opciones de autenticación sean igualmente seguras
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Todas las vías de autenticación del sistema
+      y API de gestión de identidad
+      deben ser igualmente seguros. 
+    description: >
+      Algunos sistemas ofrecen más de una opción
+      para autenticar a sus usuarios
+      o verificar su identidad.
+      Todas estas opciones deben tener
+      la misma fortaleza
+      en el control de seguridad,
+      para que no haya una alternativa más débil. 
   references: []
   metadata: {}
 "320":
   en:
     title: Avoid client-side control enforcement
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must enforce
+      access controls
+      on trusted enforcement points,
+      which are not on the client’s side.
+    description: >
+      Systems must enforce
+      access controls
+      on trusted enforcement points,
+      such as access control gateways,
+      servers and serverless functions.
+      Client-side access control
+      enforcement cannot be trusted
+      because it is prone
+      to being bypassed and/or tampered with.
   es:
     title: Evitar la aplicación de control del lado del cliente
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe aplicar
+      los controles de acceso
+      en puntos de aplicación confiables,
+      nunca del lado del cliente.
+    description: >
+      Los sistemas deben
+      hacer cumplir los controles
+      de acceso en los puntos
+      de cumplimiento de confianza,
+      como las puertas de enlace
+      de control de acceso, los servidores
+      y las funciones sin servidores.
+      No se puede confiar
+      en el cumplimiento del control
+      de acceso del lado del cliente
+      porque es propenso a ser eludido
+      y / o manipulado.
   references: []
   metadata: {}
 "321":
   en:
     title: Avoid deserializing untrusted data
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must not
+      deserialize untrusted data
+      before applying the appropriate
+      integrity checks.
+    description: >
+      Serialization is the process
+      of transforming an object
+      into a stream of bytes
+      to store or transmit it.
+      This allows saving its state,
+      so that it can be recovered
+      later using deserialization.
+      If an object comes
+      from an untrusted source
+      and is not properly validated
+      before being deserialized,
+      it can lead to deserialization attacks
+      such as object injection.
   es:
     title: Evitar la deserialización de los datos no confiables
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema no debe
+      deserializar datos no confiables
+      antes de aplicar las verificationes
+      de integridad apropiadas.
+    description: >
+      La serialización
+      es el proceso de transformar
+      un objeto en un flujo de bytes
+      para almacenarlo o transmitirlo.
+      Esto permite guardar su estado,
+      de modo que se pueda
+      recuperar más tarde
+      usando la deserialización.
+      Si un objeto proviene
+      de una fuente no confiable
+      y no se valida correctamente
+      antes de deserializarse,
+      puede llevar a ataques de deserialización,
+      como inyección de objetos.
   references: []
   metadata: {}
 "322":
