@@ -5662,45 +5662,182 @@
 "326":
   en:
     title: Detect rooted devices
-    summary: __empty_
-    description: __empty__
+    summary: >
+      Mobile applications
+      must check whether the device
+      on which they will run is rooted.
+    description: >
+      Rooting is a process
+      that grants mobile device users
+      privileged control
+      over the device’s system.
+      Applications running
+      on such devices are susceptible
+      to technical information leaks
+      (database connection strings,
+      source code, certificates, etc.).
+      Therefore,
+      applications must check whether
+      the device is rooted and inform
+      the user about the associated risks,
+      or prevent its own execution.
   es:
     title: Detectar dispositivos rooteados
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Las aplicaciones móviles
+      deben verificar si el dispositivo
+      en el que se ejecutan está rooteado.
+    description: >
+      Rooting es un proceso
+      que otorga a los usuarios
+      de dispositivos móviles
+      el control privilegiado
+      sobre el sistema del dispositivo.
+      Las aplicaciones que se ejecutan
+      en dichos dispositivos son susceptibles
+      a fugas de información técnica
+      (cadenas de conexión de base de datos,
+      código fuente, certificados, etc.).
+      Por lo tanto,
+      las aplicaciones deben verificar
+      si el dispositivo está rooteado
+      e informar al usuario
+      sobre los riesgos asociados,
+      o evitar su propia ejecución. 
   references: []
   metadata: {}
 "327":
   en:
     title: Set a rate limit
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The server must have
+      a rate limit to control
+      interaction frequency.
+    description: >
+      Several attacks depend on
+      executing a huge amount of requests
+      from a single host.
+      For instance,
+      it is possible to exhaust
+      a server’s connection pool
+      with a single machine
+      by using asynchronous requests,
+      effectively causing
+      a Denial of Service (DoS).
+      These and other attacks,
+      such as the ones depending
+      on brute force,
+      can be thwarted,
+      or severely hindered,
+      by limiting the number of requests
+      that a single host can send
+      to the server in a short period of time.
+      Therefore,
+      server settings should include
+      a rate limit that considers
+      a regular request flow
+      between a host and the server.
   es:
     title: Establecer una límite de velocidad
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El servidor debe tener
+      un rate limit para controlar
+      la frecuencia de las interacciones.
+    description: >
+      Varios ataques dependen
+      de ejecutar una gran cantidad
+      de solicitudes de un solo host.
+      Por ejemplo,
+      es posible agotar un grupo
+      de conexiones de un servidor
+      con una sola máquina utilizando
+      solicitudes asíncronas,
+      causando efectivamente
+      una denegación de servicio (DOS).
+      Estos y otros ataques,
+      como los que dependen
+      de la fuerza bruta,
+      pueden ser frustrados u obstaculizados,
+      limitando el número de solicitudes
+      que un solo host puede enviar
+      al servidor en un corto período de tiempo.
+      Por lo tanto,
+      la configuración del servidor
+      debe incluir un rate limit
+      que considere un flujo de solicitud
+      regular entre un host y el servidor.
   references: []
   metadata: {}
 "328":
   en:
     title: Request MFA for critical systems
-    summary: __empty_
+    summary: >
+      The system must encrypt
+      and verify client-side session
+      information (ViewState).
     description: __empty__
   es:
     title: Solicitar MFA para sistemas críticos
-    summary: __empty__
+    summary: >
+      El sistema debe cifrar y verficar
+      la información de sesión
+      del lado del cliente (ViewState).
     description: __empty__
   references: []
   metadata: {}
 "329":
   en:
     title: Keep client-side storage without sensitive data
-    summary: __empty_
-    description: __empty__
+    summary: >
+      Personal, sensitive
+      and session data must not be
+      stored in the client-side storage
+      (localStorage, sessionStorage,
+      cookies without security attributes,
+      mobile device unencrypted storage, etc.).
+    description: >
+      Data placed in the localStorage
+      persists after a session
+      is closed and thus,
+      any actor with access to the browser
+      will be able to obtain it.
+      Furthermore,
+      data in the localStorage
+      or in the sessionStorage
+      is visible to scripts
+      that are running on the browser,
+      and these scripts could belong
+      to malicious third-parties.
+      Therefore,
+      no sensitive or session information
+      should be stored
+      in the client-side storage.
   es:
     title: Mantener el almacenamiento del lado del cliente sin datos sensibles
-    summary: __empty__
-    description: __empty__
+    summary: >
+      La información sensible y de sesión
+      no debe ser almacenada
+      en el localStorage ni en el sessionStorage
+      (client-side storage).
+    description: >
+      Los datos ubicados
+      en el almacenamiento local
+      persisten después de que
+      se cierra una sesión y,
+      por lo tanto,
+      cualquier actor con acceso
+      al navegador podrá obtenerlo.
+      Además,
+      los datos en el almacenamiento local
+      o en la sesión de sesiones
+      son visibles para los scripts
+      que se ejecutan en el navegador,
+      y estos scripts podrían pertenecer
+      a terceros maliciosos.
+      Por lo tanto,
+      no se debe almacenar información
+      sensible o de sesión en el almacenamiento
+      del lado del cliente.
   references: []
   metadata: {}
 "330":
