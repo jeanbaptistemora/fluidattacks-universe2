@@ -1,5 +1,6 @@
 { asBashMap
 , fromYaml
+, inputs
 , makeScript
 , makeTemplate
 , projectPath
@@ -56,6 +57,11 @@ makeScript {
     __argCompliance__ = asBashMap (
       builtins.mapAttrs makeCompliance data_compliance
     );
+  };
+  searchPaths = {
+    bin = [
+      inputs.nixpkgs.findutils
+    ];
   };
   entrypoint = ./entrypoint.sh;
 }

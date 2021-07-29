@@ -2,12 +2,13 @@
 
 function _clean {
   local src="${1}"
-  local node_modules="${src}/node_modules"
-  local vulns="${src}/docs/criteria2/vulnerabilities"
-  local vulns_regex="[0-9]{3}\.md"
+  local paths=(
+    "${src}/.docusaurus"
+    "${src}/build"
+    "${src}/node_modules"
+  )
 
-  rm -rf "${node_modules}" \
-    && find "${vulns}" -name "${vulns_regex}" -delete
+  rm -rf "${paths[@]}"
 }
 
 function main {

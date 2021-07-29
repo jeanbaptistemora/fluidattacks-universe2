@@ -1,4 +1,4 @@
-capec:
+"001":
   title: CAPEC™
   en:
     description: >
@@ -21,7 +21,7 @@ capec:
       title: Accessing Functionality Not Properly Constrained by ACLs
       link: https://capec.mitre.org/data/definitions/1.html
   metadata: {}
-hipaa:
+"002":
   title: HIPAA
   en:
     description: >
