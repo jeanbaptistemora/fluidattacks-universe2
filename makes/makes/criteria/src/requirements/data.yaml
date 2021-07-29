@@ -6179,23 +6179,98 @@
 "338":
   en:
     title: Implement perfect forward secrecy
-    summary: __empty_
-    description: __empty__
+    summary: >
+      Critical communications
+      should travel through a secure channel
+      that implements perfect forward secrecy.
+    description: >
+      All communications between
+      the client and the server
+      should take place over channels
+      that are protected and encrypted.
+      Secure channels often use
+      a single secret to encrypt all communications.
+      Therefore,
+      if that secret is breached,
+      all past communications
+      can be decrypted and compromised.
+      Perfect forward secrecy
+      is attained when each message
+      in a conversation is encrypted
+      using a different secret.
+      Thus,
+      if a secret is breached,
+      only a small portion of a conversation
+      can be compromised,
+      which represents an increase
+      in the overall security of the system.
   es:
     title: Implementar Perfect Forward Secrecy
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Las comunicaciones críticas
+      deben viajar a través
+      de un canal seguro que implemente
+      perfect forward secrecy.
+    description: >
+      Todas las comunicaciones
+      entre el cliente y el servidor
+      deben darse sobre los canales
+      que están protegidos y cifrados.
+      Los canales seguros a menudo
+      usan un solo secreto para cifrar
+      todas las comunicaciones.
+      Por lo tanto,
+      si ese secreto se rompe,
+      todas las comunicaciones pasadas
+      pueden ser descifradas y comprometidas.
+      Se logra un perfect forward secrecy
+      cuando cada mensaje en una conversación
+      se cifra utilizando un secreto diferente.
+      Por lo tanto,
+      si se rompe un secreto,
+      solo se puede comprometer
+      una pequeña parte de una conversación,
+      lo que representa un aumento
+      en la seguridad general del sistema.
   references: []
   metadata: {}
 "339":
   en:
     title: Avoid storing sensitive files in the web root
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system should store
+      neither user-uploaded files
+      nor files containing sensitive information
+      in the web root.
+    description: >
+      The web root is the topmost
+      directory on a web server.
+      If there is no sufficient
+      access control,
+      any file in this directory
+      will be publicly available.
+      Therefore,
+      user-uploaded files and files containing
+      sensitive information
+      should not be stored on it.
   es:
     title: Evitar el almacenamiento de archivos sensibles en la raíz web
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema no debe almacenar
+      archivos cargados por el usuario
+      ni archivos que contienen
+      información confidencial en la raíz web. 
+    description: >
+      La raíz web es el directorio
+      superior en un servidor web.
+      Si no hay suficiente control de acceso,
+      cualquier archivo en este directorio
+      estará disponible públicamente.
+      Por lo tanto,
+      los archivos y archivos cargados
+      de usuario que contienen
+      información confidencial
+      no deben almacenarse en ella.
   references: []
   metadata: {}
 "340":
@@ -6216,7 +6291,7 @@
     description: __empty__
   es:
     title: Utiliar el principio de negación por defecto
-    summary: __empty__
+    summary: __empty_
     description: __empty__
   references: []
   metadata: {}
