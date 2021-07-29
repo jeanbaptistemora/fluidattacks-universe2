@@ -207,10 +207,10 @@ integrates.back.test.functional.add_group:
 integrates.back.test.functional.add_group_consult:
   <<: *integrates_back_test_functional
 
-integrates.back.test.functional.add_organization:
+integrates.back.test.functional.add_group_tags:
   <<: *integrates_back_test_functional
 
-integrates.back.test.functional.add_tags:
+integrates.back.test.functional.add_organization:
   <<: *integrates_back_test_functional
 
 integrates.back.test.functional.approve_draft:
@@ -303,13 +303,13 @@ integrates.back.test.functional.remove_group:
 integrates.back.test.functional.remove_group_new:
   <<: *integrates_back_test_functional_migration
 
+integrates.back.test.functional.remove_group_tag:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.remove_stakeholder_access:
   <<: *integrates_back_test_functional
 
 integrates.back.test.functional.remove_stakeholder_organization_access:
-  <<: *integrates_back_test_functional
-
-integrates.back.test.functional.remove_tag:
   <<: *integrates_back_test_functional
 
 integrates.back.test.functional.remove_tags:

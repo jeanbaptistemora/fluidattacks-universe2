@@ -10,7 +10,7 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("add_tags")
+@pytest.mark.resolver_test_group("add_group_tags")
 @pytest.mark.parametrize(
     ("email", "tag_list"),
     (
@@ -21,7 +21,7 @@ from typing import (
         ("group_manager@gmail.com", ["testing5"]),
     ),
 )
-async def test_add_tags(
+async def test_add_group_tags(
     populate: bool, email: str, tag_list: List[str]
 ) -> None:
     assert populate
@@ -32,12 +32,12 @@ async def test_add_tags(
         tags=tag_list,
     )
     assert "errors" not in result
-    assert "success" in result["data"]["addTags"]
-    assert result["data"]["addTags"]["success"]
+    assert "success" in result["data"]["addGroupTags"]
+    assert result["data"]["addGroupTags"]["success"]
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("add_tags")
+@pytest.mark.resolver_test_group("add_group_tags")
 @pytest.mark.parametrize(
     ["email"],
     [
@@ -47,7 +47,7 @@ async def test_add_tags(
         ["reviewer@gmail.com"],
     ],
 )
-async def test_add_tags_fail(populate: bool, email: str) -> None:
+async def test_add_group_tags_fail(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     tag_list: List[str] = ["testing"]

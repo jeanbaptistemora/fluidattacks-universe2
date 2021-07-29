@@ -18,7 +18,7 @@ async def get_result(
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
-            removeTag (
+            removeGroupTag (
             tag: "{tag}",
             groupName: "{group}",
             ) {{
