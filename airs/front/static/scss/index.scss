@@ -22,6 +22,7 @@ $white-gray: rgba(230, 228, 228, 1);
 $whiter-gray: rgba(241, 241, 241, 1);
 $gray-233: rgba(233, 233, 237, 1);
 $gray-244: rgba(244, 244, 246, 1);
+$gray-179: rgba(179, 175, 169, 1);
 
 // Rules
 @keyframes fadein {
@@ -39,6 +40,7 @@ $gray-244: rgba(244, 244, 246, 1);
 .bg-fluid-red { background-color: $red-255; }
 .bg-gray-black { background-color: $gray-black; }
 .bg-lightgray { background-color: $light-gray; }
+.bg-lightergray { background-color: $lighter-gray; }
 .bg-gray-233 { background-color: $gray-233; }
 .bg-gray-244 { background-color: $gray-244; }
 .bg-whitergray { background-color: $whiter-gray; }
@@ -145,6 +147,7 @@ $gray-244: rgba(244, 244, 246, 1);
 .c-dkred { color: $red-255; }
 .c-fluid-bk { color: $fluid-black; }
 .c-fluid-gray { color: $fluid-gray; }
+.c-gray-179 { color: $gray-179; }
 .c-gray-64 { color: $gray-64; }
 .bc-darker-blue { border-color: $darker-blue; }
 

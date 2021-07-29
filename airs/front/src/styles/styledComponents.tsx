@@ -1066,7 +1066,12 @@ const MenuItem: StyledComponent<
 > = styled.li.attrs({
   className: `
     ph2
-    di
+    dib
+    bg-lightergray
+    mh2
+    mt2
+    br2
+    hv-bg-soft-gray
   `,
 })``;
 
@@ -1087,7 +1092,7 @@ const RadioLabel: StyledComponent<
   Record<string, unknown>
 > = styled.label.attrs({
   className: `
-    c-fluid-gray
+    c-gray-179
     f4-ns
     f5
     roboto
@@ -1551,8 +1556,6 @@ const MenuList: StyledComponent<
     ma0
     tc
     pv3
-    overflow-x-auto
-    nowrap
     slide-show
   `,
 })``;

@@ -1,10 +1,5 @@
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint react/forbid-component-props: 0 */
-import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { graphql, useStaticQuery } from "gatsby";
 import React from "react";
 
@@ -48,17 +43,9 @@ const ClientsPage: React.FC = (): JSX.Element => {
   return (
     <React.Fragment>
       <div className={"flex flex-nowrap"}>
-        <FontAwesomeIcon
-          className={"arrow w1 pv3 mv1 mh2"}
-          icon={faChevronLeft}
-        />
         <MenuList>
           <ClientsMenuButtons />
         </MenuList>
-        <FontAwesomeIcon
-          className={"arrow w1 pv3 mv1 mh2"}
-          icon={faChevronRight}
-        />
       </div>
       <CardsContainer>
         {partnerInfo.map(
