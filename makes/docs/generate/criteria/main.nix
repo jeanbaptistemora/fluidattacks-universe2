@@ -42,7 +42,9 @@ let
     "- [${standard.title}-${data.definition_id}: ${definition.title}](${standard_link})";
   refsForReq = refs:
     builtins.concatStringsSep "\n" (
-      builtins.map reqRef (builtins.map reqRefParseData refs)
+      builtins.map reqRef (
+        builtins.map reqRefParseData refs
+      )
     );
 
   # Generate definitions list for a standard

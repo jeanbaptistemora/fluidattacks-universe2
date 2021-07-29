@@ -3425,7 +3425,7 @@
         in groups and other:
 
         ```c {6}
-        
+
         import java.io.File;
 
         public class Test {
