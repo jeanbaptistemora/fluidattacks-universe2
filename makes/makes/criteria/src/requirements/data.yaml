@@ -6574,23 +6574,91 @@
 "346":
   en:
     title: Use initialization vectors once
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system should use
+      initialization vectors,
+      nonces and other single use numbers
+      only once with a given encryption key.
+    description: >
+      The system’s cryptographic keys
+      are essential for maintaining
+      the confidentiality and integrity
+      of transactions and communications.
+      Some encryption mechanisms
+      use initialization vectors
+      to reduce the chances that
+      a message will be decrypted.
+      These vectors should be generated
+      using cryptographically secure
+      random number generators
+      and should only be used once
+      with a given encryption key.
   es:
     title: Utilizar vectores de inicialización una vez
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe usar
+      los vectores de inicialización,
+      las no pérdidas y otros números
+      de uso único solo una vez
+      con una clave de cifrado dada.
+    description: >
+      Las claves criptográficas
+      del sistema son esenciales
+      para mantener la confidencialidad
+      e integridad de las transacciones
+      y las comunicaciones.
+      Algunos mecanismos de cifrado
+      utilizan los vectores de inicialización
+      para reducir las posibilidades
+      de que se descifra un mensaje.
+      Estos vectores deben generarse
+      utilizando generadores
+      de números aleatorios seguros
+      criptográficamente
+      y solo deben usarse una vez
+      con una clave de cifrado dada.
   references: []
   metadata: {}
 "347":
   en:
     title: Invalidate previous OTPs
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must invalidate
+      previously generated OTPs
+      when the generation of a new one
+      is triggered.
+    description: >
+      One-time passwords (OTP)
+      are secrets used during
+      operations that need added security
+      or as part of user enrollment processes.
+      Despite their short lifespan,
+      only one OTP should be
+      valid at any given time,
+      and therefore,
+      all previous OTPs should be
+      invalidated whenever a new one
+      is generated.
   es:
     title: Invalidar OTPs previos
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe invalidar
+      OTPs generados previamente
+      cuando la generación de uno nuevo
+      es activdada.
+    description: >
+      Las contraseñas de un solo uso (OTP)
+      son secretos utilizados durante
+      las operaciones que necesitan
+      seguridad adicional o como parte
+      de los procesos de inscripción del usuario.
+      A pesar de su vida útil corta,
+      solo una OTP debe ser válida
+      en un momento dado,
+      y por lo tanto,
+      todas las OTP anteriores deben
+      invalidarse cada vez que
+      se genere una nueva.
   references: []
   metadata: {}
 "348":
