@@ -219,6 +219,9 @@ integrates.back.test.functional.approve_draft:
 integrates.back.test.functional.approve_draft_new:
   <<: *integrates_back_test_functional_migration
 
+integrates.back.test.functional.confirm_vulnerabilities_zero_risk:
+  <<: *integrates_back_test_functional
+
 integrates.back.test.functional.deactivate_root:
   <<: *integrates_back_test_functional
 
