@@ -8,8 +8,9 @@ from requests.exceptions import (
 from returns.io import (
     IO,
 )
-from singer_io import (
-    JSON,
+from singer_io.singer2.json import (
+    JsonObj,
+    JsonValue,
 )
 from tap_checkly.api.common.raw.client import (
     Client,
@@ -21,23 +22,22 @@ from typing import (
 LOG = logging.getLogger(__name__)
 
 
-def _mask_env_vars(result: List[JSON]) -> None:
+def _mask_env_vars(result: List[JsonObj]) -> None:
     for item in result:
-        env_vars = item["environmentVariables"]
-        vars_list = env_vars if env_vars else []
-        for env_var in vars_list:
-            env_var["value"] = "__masked__"
+        env_vars = item["environmentVariables"].to_list()
+        for env_var in env_vars:
+            env_var.to_json()["value"] = JsonValue("__masked__")
 
 
 def list_reports(
     client: Client,
-) -> IO[List[JSON]]:
+) -> IO[List[JsonObj]]:
     result = client.get("/v1/reporting")
     LOG.debug("reports response: %s", result)
     return IO(result)
 
 
-def list_alerts_channels(client: Client, page: PageId) -> IO[List[JSON]]:
+def list_alerts_channels(client: Client, page: PageId) -> IO[List[JsonObj]]:
     result = client.get(
         "/v1/alert-channels",
         params={"limit": page.per_page, "page": page.page},
@@ -46,7 +46,7 @@ def list_alerts_channels(client: Client, page: PageId) -> IO[List[JSON]]:
     return IO(result)
 
 
-def list_checks(client: Client, page: PageId) -> IO[List[JSON]]:
+def list_checks(client: Client, page: PageId) -> IO[List[JsonObj]]:
     result = client.get(
         "/v1/checks", params={"limit": page.per_page, "page": page.page}
     )
@@ -55,7 +55,7 @@ def list_checks(client: Client, page: PageId) -> IO[List[JSON]]:
     return IO(result)
 
 
-def list_check_groups(client: Client, page: PageId) -> IO[List[JSON]]:
+def list_check_groups(client: Client, page: PageId) -> IO[List[JsonObj]]:
     result = client.get(
         "/v1/check-groups", params={"limit": page.per_page, "page": page.page}
     )
@@ -66,7 +66,7 @@ def list_check_groups(client: Client, page: PageId) -> IO[List[JSON]]:
 
 def list_check_results(
     client: Client, check_id: str, page: PageId
-) -> IO[List[JSON]]:
+) -> IO[List[JsonObj]]:
     result = client.get(
         f"/v1/check-results-rolled-up/{check_id}",
         params={"limit": page.per_page, "page": page.page},
@@ -76,13 +76,13 @@ def list_check_results(
     return IO(result)
 
 
-def list_check_status(client: Client) -> IO[List[JSON]]:
+def list_check_status(client: Client) -> IO[List[JsonObj]]:
     result = client.get("/v1/check-statuses")
     LOG.debug("check-status response: %s", result)
     return IO(result)
 
 
-def list_dashboards(client: Client, page: PageId) -> IO[List[JSON]]:
+def list_dashboards(client: Client, page: PageId) -> IO[List[JsonObj]]:
     result = client.get(
         "/v1/dashboards", params={"limit": page.per_page, "page": page.page}
     )
@@ -90,7 +90,7 @@ def list_dashboards(client: Client, page: PageId) -> IO[List[JSON]]:
     return IO(result)
 
 
-def list_env_vars(client: Client, page: PageId) -> IO[List[JSON]]:
+def list_env_vars(client: Client, page: PageId) -> IO[List[JsonObj]]:
     result = []
     try:
         result = client.get(
@@ -100,12 +100,12 @@ def list_env_vars(client: Client, page: PageId) -> IO[List[JSON]]:
         if error.response.status_code != 500:
             raise error
     for item in result:
-        item["value"] = "__masked__"
+        item["value"] = JsonValue("__masked__")
     LOG.debug("variables response: %s", result)
     return IO(result)
 
 
-def list_mant_windows(client: Client, page: PageId) -> IO[List[JSON]]:
+def list_mant_windows(client: Client, page: PageId) -> IO[List[JsonObj]]:
     result = client.get(
         "/v1/maintenance-windows",
         params={"limit": page.per_page, "page": page.page},
@@ -114,7 +114,7 @@ def list_mant_windows(client: Client, page: PageId) -> IO[List[JSON]]:
     return IO(result)
 
 
-def list_snippets(client: Client, page: PageId) -> IO[List[JSON]]:
+def list_snippets(client: Client, page: PageId) -> IO[List[JsonObj]]:
     result = client.get(
         "/v1/snippets", params={"limit": page.per_page, "page": page.page}
     )

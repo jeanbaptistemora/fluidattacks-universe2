@@ -4,12 +4,15 @@ from returns.curry import (
 from returns.io import (
     IO,
 )
-from singer_io import (
-    factory,
-    JSON,
-)
-from singer_io.singer import (
+from singer_io.singer2 import (
     SingerRecord,
+)
+from singer_io.singer2.emitter import (
+    SingerEmitter,
+)
+from singer_io.singer2.json import (
+    JsonEmitter,
+    JsonObj,
 )
 from tap_checkly.api import (
     ApiPage,
@@ -22,9 +25,11 @@ from typing import (
     List,
 )
 
+emitter = SingerEmitter(JsonEmitter())
+
 
 def _json_list_srecords(
-    stream: SupportedStreams, items: List[JSON]
+    stream: SupportedStreams, items: List[JsonObj]
 ) -> Iterator[SingerRecord]:
     return iter(
         map(
@@ -38,11 +43,11 @@ def _json_list_srecords(
 
 def emit_records(
     stream: SupportedStreams,
-    records: List[JSON],
+    records: List[JsonObj],
 ) -> None:
     s_records = _json_list_srecords(stream, records)
     for record in s_records:
-        factory.emit(record)
+        emitter.emit(record)
 
 
 def emit_page(stream: SupportedStreams, page: ApiPage) -> None:

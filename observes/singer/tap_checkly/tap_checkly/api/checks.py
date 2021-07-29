@@ -14,8 +14,8 @@ from returns.curry import (
 from returns.io import (
     IO,
 )
-from singer_io import (
-    JSON,
+from singer_io.singer2.json import (
+    JsonObj,
 )
 from tap_checkly.api.common import (
     raw,
@@ -37,7 +37,7 @@ from typing import (
 
 
 class CheckGroupsPage(NamedTuple):
-    data: List[JSON]
+    data: List[JsonObj]
 
     @classmethod
     def new(cls, client: Client, page: PageId) -> IO[CheckGroupsPage]:
@@ -46,7 +46,7 @@ class CheckGroupsPage(NamedTuple):
 
 
 class ChecksPage(NamedTuple):
-    data: List[JSON]
+    data: List[JsonObj]
 
     @classmethod
     def new(cls, client: Client, page: PageId) -> IO[ChecksPage]:
@@ -55,7 +55,7 @@ class ChecksPage(NamedTuple):
 
 
 class CheckStatus(NamedTuple):
-    data: List[JSON]
+    data: List[JsonObj]
 
     @classmethod
     def new(cls, client: Client) -> IO[CheckStatus]:
@@ -68,11 +68,13 @@ class CheckId(NamedTuple):
 
     @classmethod
     def new(cls, page: ChecksPage) -> Iterator[CheckId]:
-        return iter(map(lambda item: cls(item["id"]), page.data))
+        return iter(
+            map(lambda item: cls(item["id"].to_primitive(str)), page.data)
+        )
 
 
 class CheckReportsPage(NamedTuple):
-    data: List[JSON]
+    data: List[JsonObj]
 
     @classmethod
     def new(cls, client: Client) -> IO[CheckReportsPage]:
@@ -81,7 +83,7 @@ class CheckReportsPage(NamedTuple):
 
 
 class CheckResultsPage(NamedTuple):
-    data: List[JSON]
+    data: List[JsonObj]
 
     @classmethod
     def new(
