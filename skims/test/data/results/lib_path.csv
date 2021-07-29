@@ -3698,6 +3698,30 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.java,37,310 + 327,skims,
   42 |
      ^ Col 17
 "
+F052,lines,namespace/skims/test/data/lib_root/f052/test.go,22,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_root/f052/test.go,"
+   3 | import (
+   4 |  ""crypto/des""
+   5 |  ""crypto/md4""
+   6 |  ""crypto/md5""
+   7 |  ""golang.org/x/crypto/ripemd160""
+   8 |  ""crypto/sha1""
+   9 |  ""crypto/sha512""
+  10 | )
+  11 |
+  12 | func main() {
+  13 |
+  14 |  Hripemd:= ripemd160.New()
+  15 |  Hmd4 = md4.New()
+  16 |  Hmd5 = md5.New()
+  17 |  Hsha1 := sha1.New()
+  18 |  Hsha512 := sha512.New()
+  19 |
+  20 |  ede2Key := []byte(""example key 1234"")
+  21 |
+> 22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
+  23 | }
+     ^ Col 0
+"
 F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,14,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in skims/test/data/lib_path/f052/csharp.cs,"
    1 | ng System.Security.Cryptography;
    2 |
@@ -3901,6 +3925,102 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.java,5,310 + 327,skims,0
   20 | r.getInstance(""DES/CBC/NoPadding"");
   21 | r.getInstance(""DES/CBC/PKCS5Padding"");
      ^ Col 24
+"
+F052,lines,namespace/skims/test/data/lib_root/f052/test.go,17,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in skims/test/data/lib_root/f052/test.go,"
+   3 | import (
+   4 |  ""crypto/des""
+   5 |  ""crypto/md4""
+   6 |  ""crypto/md5""
+   7 |  ""golang.org/x/crypto/ripemd160""
+   8 |  ""crypto/sha1""
+   9 |  ""crypto/sha512""
+  10 | )
+  11 |
+  12 | func main() {
+  13 |
+  14 |  Hripemd:= ripemd160.New()
+  15 |  Hmd4 = md4.New()
+  16 |  Hmd5 = md5.New()
+> 17 |  Hsha1 := sha1.New()
+  18 |  Hsha512 := sha512.New()
+  19 |
+  20 |  ede2Key := []byte(""example key 1234"")
+  21 |
+  22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
+  23 | }
+     ^ Col 0
+"
+F052,lines,namespace/skims/test/data/lib_root/f052/test.go,16,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in skims/test/data/lib_root/f052/test.go,"
+   3 | import (
+   4 |  ""crypto/des""
+   5 |  ""crypto/md4""
+   6 |  ""crypto/md5""
+   7 |  ""golang.org/x/crypto/ripemd160""
+   8 |  ""crypto/sha1""
+   9 |  ""crypto/sha512""
+  10 | )
+  11 |
+  12 | func main() {
+  13 |
+  14 |  Hripemd:= ripemd160.New()
+  15 |  Hmd4 = md4.New()
+> 16 |  Hmd5 = md5.New()
+  17 |  Hsha1 := sha1.New()
+  18 |  Hsha512 := sha512.New()
+  19 |
+  20 |  ede2Key := []byte(""example key 1234"")
+  21 |
+  22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
+  23 | }
+     ^ Col 0
+"
+F052,lines,namespace/skims/test/data/lib_root/f052/test.go,15,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in skims/test/data/lib_root/f052/test.go,"
+   3 | import (
+   4 |  ""crypto/des""
+   5 |  ""crypto/md4""
+   6 |  ""crypto/md5""
+   7 |  ""golang.org/x/crypto/ripemd160""
+   8 |  ""crypto/sha1""
+   9 |  ""crypto/sha512""
+  10 | )
+  11 |
+  12 | func main() {
+  13 |
+  14 |  Hripemd:= ripemd160.New()
+> 15 |  Hmd4 = md4.New()
+  16 |  Hmd5 = md5.New()
+  17 |  Hsha1 := sha1.New()
+  18 |  Hsha512 := sha512.New()
+  19 |
+  20 |  ede2Key := []byte(""example key 1234"")
+  21 |
+  22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
+  23 | }
+     ^ Col 0
+"
+F052,lines,namespace/skims/test/data/lib_root/f052/test.go,14,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in skims/test/data/lib_root/f052/test.go,"
+   3 | import (
+   4 |  ""crypto/des""
+   5 |  ""crypto/md4""
+   6 |  ""crypto/md5""
+   7 |  ""golang.org/x/crypto/ripemd160""
+   8 |  ""crypto/sha1""
+   9 |  ""crypto/sha512""
+  10 | )
+  11 |
+  12 | func main() {
+  13 |
+> 14 |  Hripemd:= ripemd160.New()
+  15 |  Hmd4 = md4.New()
+  16 |  Hmd5 = md5.New()
+  17 |  Hsha1 := sha1.New()
+  18 |  Hsha512 := sha512.New()
+  19 |
+  20 |  ede2Key := []byte(""example key 1234"")
+  21 |
+  22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
+  23 | }
+     ^ Col 0
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,36,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in skims/test/data/lib_path/f052/java.java,"
   22 |       Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");
