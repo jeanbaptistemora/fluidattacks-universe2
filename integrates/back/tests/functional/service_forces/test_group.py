@@ -51,7 +51,7 @@ async def test_group() -> None:
         result["data"]["group"]["description"]
         == "Integrates unit test project"
     )
-    assert len(result["data"]["group"]["findings"]) == 7
+    assert len(result["data"]["group"]["findings"]) == 6
     assert result["data"]["group"]["hasSquad"]
     assert result["data"]["group"]["hasForces"]
     assert result["data"]["group"]["hasAsm"]
@@ -65,7 +65,7 @@ async def test_group() -> None:
     assert result["data"]["group"]["openVulnerabilities"] == 31
     assert result["data"]["group"]["subscription"] == "continuous"
     assert result["data"]["group"]["tags"] == ["test-projects"]
-    assert result["data"]["group"]["totalFindings"] == 7
+    assert result["data"]["group"]["totalFindings"] == 6
     assert (
         result["data"]["group"]["totalTreatment"]
         == '{"accepted": 1, "inProgress": 4, '
