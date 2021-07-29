@@ -7,6 +7,7 @@
 , ...
 }:
 let
+  # Extract model data
   data_vulnerabilities = fromYaml (
     builtins.readFile (
       projectPath "/makes/makes/criteria/src/vulnerabilities/data.yaml"));
@@ -17,11 +18,33 @@ let
     builtins.readFile (
       projectPath "/makes/makes/criteria/src/compliance/data.yaml"));
 
+  # Generate requirements list for a vulnerability
   vulnReq = id:
-    "- [${data_requirements.${id}.en.title}](/criteria2/requirements/${id})";
+    "- [${id}. ${data_requirements.${id}.en.title}](/criteria2/requirements/${id})";
   reqsForVuln = reqs:
     builtins.concatStringsSep "\n" (builtins.map vulnReq reqs);
 
+  # Generate definitions list for a requirement
+  reqRefParseData = raw:
+    let
+      parsed = inputs.nixpkgs.lib.strings.splitString "." raw;
+    in
+    {
+      standard = (builtins.head parsed);
+      definition = (builtins.head (builtins.tail parsed));
+    };
+  reqRef = data:
+    let
+      standard = data_compliance.${data.standard};
+      definition = standard.definitions.${data.definition};
+    in
+    "- [${standard.title}-${data.definition}: ${definition.title}](${definition.link})";
+  refsForReq = refs:
+    builtins.concatStringsSep "\n" (
+      builtins.map reqRef (builtins.map reqRefParseData refs)
+    );
+
+  # Generate a template for every md
   makeVulnerability = name: src: makeTemplate {
     replace = {
       __argTitle__ = src.en.title;
@@ -38,6 +61,7 @@ let
       __argTitle__ = src.en.title;
       __argSummary__ = src.en.summary;
       __argDescription__ = src.en.description;
+      __argReferences__ = refsForReq src.references;
     };
     name = "docs-make-requirement-${name}";
     template = ./templates/requirement.md;

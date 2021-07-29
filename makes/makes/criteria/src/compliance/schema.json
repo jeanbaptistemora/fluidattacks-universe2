@@ -16,9 +16,9 @@
         "es": { "$ref": "#/definitions/language" },
         "definitions": {
           "type": "object",
-          "propertyNames": { "pattern": "^[a-z0-9_]+$" },
+          "propertyNames": { "pattern": "\"^[a-z0-9_]+\"$" },
           "patternProperties": {
-            "^[a-z0-9_]+$": {
+            "^\"[a-z0-9_]+\"$": {
               "type": "object",
               "additionalProperties": false,
               "required": [ "title", "link" ],

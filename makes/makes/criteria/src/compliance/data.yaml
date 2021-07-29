@@ -17,10 +17,10 @@
   es:
     description: __empty__
   definitions:
-    1:
+    "1":
       title: Accessing Functionality Not Properly Constrained by ACLs
       link: https://capec.mitre.org/data/definitions/1.html
-    227:
+    "227":
       title: Sustained Client Engagement
       link: https://capec.mitre.org/data/definitions/227.html
   metadata: {}
@@ -38,7 +38,7 @@
   es:
     description: __empty__
   definitions:
-    164_308:
+    "164_308":
       title: 45 CFR § 164.308 - Administrative safeguards.
       link: https://www.law.cornell.edu/cfr/text/45/164.308
   metadata: {}
