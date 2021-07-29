@@ -5148,34 +5148,152 @@
 "315":
   en:
     title: Provide processed data information
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must provide information
+      about the personal data that it processes.
+      Additionally,
+      this information should be presented to the user
+      before requesting their consent
+      for its collection or processing.
+    description: >
+      Systems usually request information
+      from their users,
+      obtain it from third parties
+      or collect it based on their interactions
+      with the application.
+      They should have a mechanism
+      that allows users to find out
+      about the following aspects
+      of the personal information
+      that they process:
+
+      - The purpose of the processing of the data.
+      - The categories of processed data.
+      - The actors who will have access to the information.
+      - If possible, the time for which the data
+      will be managed/processed.
+      - The possibility to request erasure or rectification.
+      - If the data was obtained from a third party,
+      information about the third party.
+
+      Furthermore,
+      the data should be presented in a clear manner,
+      in a structured format
+      and using easily understandable language.
   es:
     title: Proveer información de datos procesados
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe proporcionar información
+      sobre los datos personales que procesa.
+      Adicionalmente,
+      esta información debe ser presentada al usuario
+      antes de solicitar su consentimiento
+      para su recolección o procesamiento.
+    description: >
+      Los sistemas suelen solicitar información
+      de sus usuarios,
+      obtenerlo de terceros
+      o recopilarlo en función de sus interacciones
+      con la aplicación.
+      Deberían tener un mecanismo
+      que permite a los usuarios averiguar
+      sobre los siguientes aspectos
+      de la información personal
+      que procesan:
+
+      - La finalidad del tratamiento de los datos.
+      - Las categorías de datos tratados.
+      - Los actores que tendrán acceso a la información.
+      - Si es posible,
+      el tiempo durante el cual los datos
+      será gestionado / procesado.
+      - Posibilidad de solicitar supresión o rectificación.
+      - Si los datos se obtuvieron de un tercero,
+      información sobre el tercero.
+
+      Es más,
+      los datos deben presentarse de manera clara,
+      en un formato estructurado
+      y utilizar un lenguaje fácilmente comprensible. 
   references: []
   metadata: {}
 "316":
   en:
     title: Allow rectification requests
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must allow its users
+      to request rectification
+      of the collected data belonging to them.
+    description: >
+      Systems usually request information
+      from their users,
+      obtain it from third parties
+      or collect it based on their interactions
+      with the application.
+      They should have a mechanism
+      that allows users to find out
+      about this information and request rectification
+      if they consider it necessary.
   es:
     title: Permitir solicitudes de rectificación
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe permitir a sus usuarios
+      para solicitar rectificación
+      de los datos recopilados que les pertenecen. 
+    description: >
+      Los sistemas suelen solicitar información
+      de sus usuarios,
+      obtenerlo de terceros
+      o recopilarlo en función de sus interacciones
+      con la aplicación.
+      Deberían tener un mecanismo
+      que permite a los usuarios averiguar
+      sobre esta información y solicitar su rectificación
+      si lo consideran necesario. 
   references: []
   metadata: {}
 "317":
   en:
     title: Allow erasure requests
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must allow its users
+      to request erasure of collected data
+      belonging to them.
+    description: >
+      Systems usually request information
+      from their users,
+      obtain it from third parties
+      or collect it based on their interactions
+      with the application.
+      They should have a mechanism
+      that allows users to request
+      the erasure of this information
+      and guarantees its complete deletion.
+      Furthermore,
+      the erasure should also occur
+      if the user decides to revoke their consent.
   es:
     title: Permitir solicitudes de borrado
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe permitir
+      a sus usuarios
+      solicitar el borrado
+      de los datos recopilados
+      pertenecientes a ellos. 
+    description: >
+      Los sistemas suelen solicitar información
+      de sus usuarios,
+      obtenerlo de terceros
+      o recopilarlo en función de sus interacciones
+      con la aplicación.
+      Deberían tener un mecanismo
+      que permita a los usuarios solicitar
+      el borrado de esta información
+      y garantizar su completa supresión.
+      Es más,
+      el borrado también debería ocurrir
+      si el usuario decide revocar
+      su consentimiento. 
   references: []
   metadata: {}
 "318":
