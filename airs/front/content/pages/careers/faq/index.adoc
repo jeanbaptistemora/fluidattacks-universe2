@@ -12,6 +12,7 @@ If you have questions about `Fluid Attacks` products or the selection process,
 please read through the `FAQ` list.
 You might find the answer to your question here:
 
+[.b1]
 == Before Entering
 
 ==== 1. I already applied in a job portal.
@@ -179,7 +180,10 @@ Your immersion process ends immediately.
 and notify you of the total work hours
 to be put on your monthly time-worked invoice.
 
+[.show-button-1]
+=== Show More
 
+[.b2]
 == Applied to Employees
 
 ==== 1. What are the responsibilities of my job?
@@ -826,3 +830,6 @@ regarding how to code rather than a philosophical debate about tools.
 In this sense, we prefer static typing over dynamic,
 even if it’s achieved using additional linters.
 The goal is to stick to existing tools instead of reinventing the wheel.
+
+[.show-button-2]
+=== Show More

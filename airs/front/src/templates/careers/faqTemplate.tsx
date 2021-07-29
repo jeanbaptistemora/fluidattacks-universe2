@@ -7,7 +7,7 @@
 import { graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import { decode } from "he";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Layout } from "../../components/Layout";
 import { NavbarComponent } from "../../components/Navbar";
@@ -36,49 +36,108 @@ const FaqIndex: React.FC<IQueryData> = ({
 
   const hasBanner: boolean = typeof banner === "string";
 
+  const itemPerList = 10;
+
+  const [next1, setNext1] = useState(itemPerList);
+  const [next2, setNext2] = useState(itemPerList);
+
   const setArrows = (): void => {
     document.querySelectorAll("h4").forEach((question): void => {
       question.classList.add("arrow-down");
     });
   };
 
-  const setOnclick = (): void => {
+  const hideSection = (): void => {
+    const numToShow = 10;
     document.querySelectorAll(".sect3").forEach((element): void => {
-      (element as HTMLElement).onclick = (): void => {
-        element.querySelectorAll(".paragraph").forEach((paragraph): void => {
-          const isShow = Array.from(paragraph.classList).includes("db");
-          if (isShow) {
-            paragraph.classList.remove("db");
-          } else {
-            paragraph.classList.add("db");
-          }
-        });
-        element.querySelectorAll(".olist").forEach((paragraph): void => {
-          const isShow = Array.from(paragraph.classList).includes("db");
-          if (isShow) {
-            paragraph.classList.remove("db");
-          } else {
-            paragraph.classList.add("db");
-          }
-        });
-        element.querySelectorAll("h4").forEach((question): void => {
-          const isShow = Array.from(question.classList).includes("arrow-up");
-          if (isShow) {
-            question.classList.remove("arrow-up");
-            question.classList.add("arrow-down");
-          } else {
-            question.classList.remove("arrow-down");
-            question.classList.add("arrow-up");
-          }
-        });
-      };
+      const [numbers] = (element
+        .querySelector("h4")
+        ?.innerText.split(".") as unknown) as number[];
+      if (numbers > numToShow) {
+        element.classList.add("dn");
+      }
     });
   };
 
   useEffect((): void => {
-    setArrows();
-    setOnclick();
+    hideSection();
   }, []);
+
+  useEffect((): void => {
+    setArrows();
+
+    const showSection = (showMore: string): void => {
+      document
+        .querySelector(showMore === "1" ? ".b1" : ".b2")
+        ?.querySelectorAll(".sect3")
+        .forEach((element): void => {
+          const [numbers] = (element
+            .querySelector("h4")
+            ?.innerText.split(".") as unknown) as number[];
+          if (
+            showMore === "1" &&
+            numbers > next1 &&
+            numbers <= next1 + itemPerList
+          ) {
+            element.classList.remove("dn");
+          } else if (
+            showMore === "2" &&
+            numbers > next2 &&
+            numbers <= next2 + itemPerList
+          ) {
+            element.classList.remove("dn");
+          }
+        });
+      if (showMore === "1") {
+        setNext1(next1 + itemPerList);
+      } else {
+        setNext2(next2 + itemPerList);
+      }
+    };
+
+    const setOnclick = (): void => {
+      document.querySelectorAll(".sect3").forEach((element): void => {
+        (element as HTMLElement).onclick = (): void => {
+          element.querySelectorAll(".paragraph").forEach((paragraph): void => {
+            const isShow = Array.from(paragraph.classList).includes("db");
+            if (isShow) {
+              paragraph.classList.remove("db");
+            } else {
+              paragraph.classList.add("db");
+            }
+          });
+          element.querySelectorAll(".olist").forEach((paragraph): void => {
+            const isShow = Array.from(paragraph.classList).includes("db");
+            if (isShow) {
+              paragraph.classList.remove("db");
+            } else {
+              paragraph.classList.add("db");
+            }
+          });
+          element.querySelectorAll("h4").forEach((question): void => {
+            const isShow = Array.from(question.classList).includes("arrow-up");
+            if (isShow) {
+              question.classList.remove("arrow-up");
+              question.classList.add("arrow-down");
+            } else {
+              question.classList.remove("arrow-down");
+              question.classList.add("arrow-up");
+            }
+          });
+        };
+      });
+      document.querySelectorAll(".sect2").forEach((button): void => {
+        (button as HTMLElement).onclick = (): void => {
+          const showMore = button.classList.contains("show-button-1")
+            ? "1"
+            : "2";
+          showSection(showMore);
+        };
+      });
+    };
+
+    setOnclick();
+  }, [next1, next2]);
 
   return (
     <React.Fragment>
