@@ -20,6 +20,9 @@
     1:
       title: Accessing Functionality Not Properly Constrained by ACLs
       link: https://capec.mitre.org/data/definitions/1.html
+    227:
+      title: Sustained Client Engagement
+      link: https://capec.mitre.org/data/definitions/227.html
   metadata: {}
 "002":
   title: HIPAA

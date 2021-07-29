@@ -17,12 +17,18 @@ let
     builtins.readFile (
       projectPath "/makes/makes/criteria/src/compliance/data.yaml"));
 
+  vulnReq = id:
+    "- [${data_requirements.${id}.en.title}](/criteria2/requirements/${id})";
+  reqsForVuln = reqs:
+    builtins.concatStringsSep "\n" (builtins.map vulnReq reqs);
+
   makeVulnerability = name: src: makeTemplate {
     replace = {
       __argTitle__ = src.en.title;
       __argDescription__ = src.en.description;
       __argImpact__ = src.en.impact;
       __argRecommendation__ = src.en.recommendation;
+      __argRequirements__ = reqsForVuln src.requirements;
     };
     name = "docs-make-vulnerability-${name}";
     template = ./templates/vulnerability.md;

@@ -57,7 +57,8 @@
       la confidencialidad e integridad
       del sistema, sus usuarios
       y la información que contiene.
-  references: []
+  references:
+    - 001.definitions.227
   metadata: {}
 "024":
   en:
@@ -258,7 +259,7 @@
       de la cookie de sesión
       negándole la visibilidad del navegador
       y el acceso a este
-      (aún cuando un ataque tipo 
+      (aún cuando un ataque tipo
       Cross Site Scripting [XSS] sea lanzado)
       y permitir que la cookie sea enviada
       sólo cuando la petición esté cifrada
@@ -318,7 +319,7 @@
 "031":
   en:
     title: Discard user session data
-    summary: > 
+    summary: >
       When a session is terminated,
       either manually or automatically,
       the system must discard all related data
@@ -777,7 +778,7 @@
     summary: >
       Los componentes en el código fuente
       deben tener tan pocas dependencias
-      como sea posible. 
+      como sea posible.
     description: __empty__
   references: []
   metadata: {}
@@ -901,7 +902,7 @@
       debe ser de no más de 5 segundos.
     description: >
       El tiempo de respuesta
-      es una medida relevante 
+      es una medida relevante
   references: []
   metadata: {}
 "075":
@@ -976,7 +977,7 @@
       se puede demostrar que es difícil de detectar
       un comportamiento malicioso
       o se puede obstruir un análisis forense
-      en caso de que un ataque sea exitoso. 
+      en caso de que un ataque sea exitoso.
   references: []
   metadata: {}
 "077":
@@ -1153,7 +1154,7 @@
       si se registra información confidencial
       en los registros,
       un atacante que tenga acceso a estos
-      también puede obtener la información. 
+      también puede obtener la información.
   references: []
   metadata: {}
 "084":
@@ -1653,7 +1654,7 @@
     summary: >
       El sistema debe proveer
       un mecanismo seguro para regenerar
-      la contraseña de un usuario. 
+      la contraseña de un usuario.
     description: >
       Las contraseñas son
       elementos de afirmación
@@ -1692,7 +1693,7 @@
   es:
     title: Almacenar contraseñas con hash
     summary: >
-      Las contraseñas 
+      Las contraseñas
       deben tener un hash
       antes de ser almacenadas
       usando algoritmos de hash seguros
@@ -1807,7 +1808,7 @@
       64 characters or more.
   es:
     title: Frase de contraseña con al menos 4 palabras
-    summary: > 
+    summary: >
       Las contraseñas (tipo frase)
       deben tener al menos 3 palabras
       de longitud.
@@ -2147,7 +2148,7 @@
       todas las configuraciones
       antes de la implementación
       y eliminar todas las credenciales
-      predeterminadas. 
+      predeterminadas.
   references: []
   metadata: {}
 "143":
@@ -2248,7 +2249,7 @@
       Las llaves criptográficas
       no deberían permanecer
       en la memoria RAM por más
-      de 5 segundos. 
+      de 5 segundos.
     description: __empty__
   references: []
   metadata: {}
@@ -2912,7 +2913,7 @@
       Deben estar encriptados
       usando un algoritmo criptográfico seguro
       y la clave de cifrado debe
-      también estar protegido. 
+      también estar protegido.
   references: []
   metadata: {}
 "173":
@@ -2994,7 +2995,7 @@
       (que no corresponde a fines operativos)
       de un artefacto tecnológico,
       y se deben aplicar controles
-      y un tratamiento adecuado. 
+      y un tratamiento adecuado.
   references: []
   metadata: {}
 "174":
@@ -3060,7 +3061,7 @@
       en sus respuestas que evitan
       que las páginas se incrusten
       en sitios maliciosos
-      (por ejemplo, "X-Frame-Options"). 
+      (por ejemplo, "X-Frame-Options").
   references: []
   metadata: {}
 "176":
@@ -3116,7 +3117,7 @@
       el modelo de control de acceso
       y la política de asignación de roles
       deben implementarse
-      teniendo en cuenta estas restricciones. 
+      teniendo en cuenta estas restricciones.
   references: []
   metadata: {}
 "177":
@@ -3167,7 +3168,7 @@
       Por lo tanto,
       evitar la memoria caché
       y los archivos temporales ayuda
-      a proteger la información confidencial. 
+      a proteger la información confidencial.
   references: []
   metadata: {}
 "178":
@@ -3208,7 +3209,7 @@
       de información muy sensible
       o con datos y recursos
       que sean susceptibles
-      de ser afectados por terceros. 
+      de ser afectados por terceros.
   references: []
   metadata: {}
 "180":
@@ -3250,7 +3251,7 @@
       de producción deben utilizar
       datos simulados
       o datos que se hayan generado
-      automáticamente. 
+      automáticamente.
   references: []
   metadata: {}
 "181":
@@ -3292,7 +3293,7 @@
       para interceptar y modificar
       la información.
       Ejemplos de estos protocolos inseguros
-      son HTTP, FTP, POP3 y Telnet. 
+      son HTTP, FTP, POP3 y Telnet.
   references: []
   metadata: {}
 "183":
@@ -3361,7 +3362,7 @@
       must be encrypted.
     description: >
       Systems usually
-      stores personal data, i.e., 
+      stores personal data, i.e.,
       Personally Identifiable Information (PII),
       medical records, credentials
       and other types of sensitive information.
@@ -3763,7 +3764,7 @@
       deben ser generados utilizando
       mecanismos seguros,
       que a menudo ya ha sido
-      implementado por la plataforma. 
+      implementado por la plataforma.
   references: []
   metadata: {}
 "225":
@@ -4020,7 +4021,7 @@
       must require the identification
       of the equipment
       from which a user
-      or system is authenticated.  
+      or system is authenticated.
     description: __empty__
   es:
     title: Exigir la identidad del equipo
@@ -4311,7 +4312,7 @@
     summary: >
       La organización debe cambiar
       el nombre de fábrica por defecto
-      del SSID de la red inalámbrica. 
+      del SSID de la red inalámbrica.
     description: __empty__
   references: []
   metadata: {}
@@ -4371,7 +4372,7 @@
       a los que se accede
       desde una ubicación
       que pertenece a la misma entidad
-      (Output 'Proxy'). 
+      (Output 'Proxy').
     description: __empty__
   references: []
   metadata: {}
@@ -4448,7 +4449,7 @@
       Además,
       la información confidencial
       corporativa tampoco debe exponerse
-      en las cuentas de redes sociales personales. 
+      en las cuentas de redes sociales personales.
   references: []
   metadata: {}
 "262":
@@ -4496,7 +4497,7 @@
       implementadas para verificar
       si hubo correcciones o nuevos controles
       relacionados con vulnerabilidades
-      descubiertas recientemente. 
+      descubiertas recientemente.
   references: []
   metadata: {}
 "264":
@@ -5129,7 +5130,7 @@
       El sistema debe proporcionar confirmación
       a sus usuarios de si o no
       está almacenando y / o
-      tratamiento de sus datos personales. 
+      tratamiento de sus datos personales.
     description: >
       Los sistemas suelen solicitar información
       de sus usuarios,
@@ -5142,7 +5143,7 @@
       el sistema está gestionando su información personal,
       incluso si no se obtuvo
       de los usuarios
-      sino de un tercero. 
+      sino de un tercero.
   references: []
   metadata: {}
 "315":
@@ -5214,7 +5215,7 @@
       Es más,
       los datos deben presentarse de manera clara,
       en un formato estructurado
-      y utilizar un lenguaje fácilmente comprensible. 
+      y utilizar un lenguaje fácilmente comprensible.
   references: []
   metadata: {}
 "316":
@@ -5239,7 +5240,7 @@
     summary: >
       El sistema debe permitir a sus usuarios
       para solicitar rectificación
-      de los datos recopilados que les pertenecen. 
+      de los datos recopilados que les pertenecen.
     description: >
       Los sistemas suelen solicitar información
       de sus usuarios,
@@ -5249,7 +5250,7 @@
       Deberían tener un mecanismo
       que permite a los usuarios averiguar
       sobre esta información y solicitar su rectificación
-      si lo consideran necesario. 
+      si lo consideran necesario.
   references: []
   metadata: {}
 "317":
@@ -5279,7 +5280,7 @@
       a sus usuarios
       solicitar el borrado
       de los datos recopilados
-      pertenecientes a ellos. 
+      pertenecientes a ellos.
     description: >
       Los sistemas suelen solicitar información
       de sus usuarios,
@@ -5293,7 +5294,7 @@
       Es más,
       el borrado también debería ocurrir
       si el usuario decide revocar
-      su consentimiento. 
+      su consentimiento.
   references: []
   metadata: {}
 "318":

@@ -4,7 +4,7 @@
   "title": "compliance",
   "description": "This is a standardization of the set of compliance that serve as a basis for the security analysis",
   "type": "object",
-  "propertyNames": { "pattern": "^[a-z0-9]+$" },
+  "propertyNames": { "pattern": "^[0-9]+$" },
   "patternProperties": {
     "^\"[0-9]\"+$": {
       "type": "object",
