@@ -193,6 +193,10 @@ def _is_final_node(obj: Any, language: GraphShardMetadataLanguage) -> bool:
                 "undefined",
             }
         )
+        or (
+            language == GraphShardMetadataLanguage.KOTLIN
+            and obj.type in {"line_string_literal"}
+        )
     )
 
 
@@ -275,6 +279,7 @@ def decide_language(path: str) -> GraphShardMetadataLanguage:
         GraphShardMetadataLanguage.GO: [".go"],
         GraphShardMetadataLanguage.JAVA: [".java"],
         GraphShardMetadataLanguage.JAVASCRIPT: [".js", ".jsx"],
+        GraphShardMetadataLanguage.KOTLIN: [".kt", ".ktm", ".kts"],
         GraphShardMetadataLanguage.TSX: [".ts", ".tsx"],
     }
     language = GraphShardMetadataLanguage.NOT_SUPPORTED

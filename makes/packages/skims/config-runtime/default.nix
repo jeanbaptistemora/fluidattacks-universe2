@@ -128,8 +128,8 @@ makeTemplate {
             sha256 = "nU0mVkGG6Sr4OstRFCIrbUGJnAHMZ9+lCDTJAFf392c=";
           };
           envSrcTreeSitterKotlin = fetchzip {
-            url = "https://github.com/fwcd/tree-sitter-kotlin/archive/1e5eb8c2307c262bc33b5ab04f01391f0e3764ae.zip";
-            sha256 = "VbR8okB7A+4ZR+hcjmgU1iLbNfk8PGuMu31vDCBodIQ=";
+            url = "https://github.com/tormodatt/tree-sitter-kotlin/archive/48bfb38abd93f8d617877d7bb7f92a6bb1166285.zip";
+            sha256 = "5thm7nYOZLDUsb/2KGV2fZg35uId8nZEMdyLUsdTPT0=";
           };
           envSrcTreeSitterTsx = fetchzip {
             url = "https://github.com/tree-sitter/tree-sitter-typescript/archive/3e897ea5925f037cfae2e551f8e6b12eec2a201a.tar.gz";
