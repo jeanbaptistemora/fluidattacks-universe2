@@ -6276,23 +6276,102 @@
 "340":
   en:
     title: Use octet stream downloads
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system should download
+      files coming from untrusted sources,
+      such as user-uploaded files,
+      using octet stream downloads.
+    description: >
+      User-uploaded files
+      should generally be considered
+      to be untrusted input.
+      If the appropriate Content Security Policy
+      is not set when opening a file,
+      browsers may render it
+      and interpret potentially malicious code.
+      Therefore,
+      user-uploaded files should be served
+      by either octet stream downloads,
+      or from an unrelated domain,
+      such as a cloud file storage bucket.
+      This reduces the risk
+      of XSS vectors or other attacks
+      from the uploaded file.
   es:
     title: Utilizar descargas de secuencia de objetos
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe descargar
+      los archivos procedentes
+      de fuentes no confiables,
+      como los archivos cargados por el usuario,
+      utilizando descargas octet stream.
+    description: >
+      Los archivos cargados
+      por el usuario generalmente
+      deben considerarse
+      en la entrada no confiada.
+      Si la política de seguridad
+      de contenido apropiada no se establece
+      al abrir un archivo,
+      los navegadores pueden hacerlo
+      e interpretar un código
+      potencialmente malicioso.
+      Por lo tanto,
+      los archivos cargados por el usuario
+      deben ser atendidos por las descargas
+      de flujo de octetos,
+      o de un dominio no relacionado,
+      como un cubo de almacenamiento
+      de archivos de nube.
+      Esto reduce el riesgo
+      de vectores XSS u otros ataques
+      del archivo cargado.
   references: []
   metadata: {}
 "341":
   en:
     title: Use the principle of deny by default
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system should set minimal
+      or no permissions for new users/roles
+      and users/roles should not
+      receive access to new features
+      until it is explicitly granted.
+    description: >
+      Systems should have a set
+      of roles with different levels
+      of privilege to access resources.
+      The privileges of each role
+      must be clearly defined
+      and the role of each user
+      should also be clearly stated.
+      Furthermore,
+      permissions and access should be
+      granted using the principle
+      of deny by default.
   es:
     title: Utiliar el principio de negación por defecto
-    summary: __empty_
-    description: __empty__
+    summary: >
+      El sistema debe establecer
+      un mínimo o ningún permiso
+      para los nuevos usuarios/roles,
+      y los usuarios/roles
+      no deben recibir acceso
+      a nuevas funciones hasta que
+      se conceda explícitamente.
+    description: >
+      Los sistemas deben tener
+      un conjunto de roles con diferentes
+      niveles de privilegio
+      para acceder a los recursos.
+      Los privilegios de cada rol
+      deben estar claramente definidos
+      y el papel de cada usuario
+      también debe indicarse claramente.
+      Además,
+      se deben otorgar permisos
+      y acceso utilizando el principio
+      de negación de forma predeterminada.
   references: []
   metadata: {}
 "342":
