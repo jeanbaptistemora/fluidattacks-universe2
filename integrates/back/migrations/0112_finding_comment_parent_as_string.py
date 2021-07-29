@@ -2,6 +2,9 @@
 """
 This migration set the finding comment parent as string since
 the parent is a comment_id
+
+Execution Time:    2021-07-29 at 14:47:02 UTC-05
+Finalization Time: 2021-07-29 at 15:15:42 UTC-05
 """
 
 from aioextensions import (
