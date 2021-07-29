@@ -6,8 +6,8 @@ July 21st to date.
 All affected findings will be checked: if a finding has no vulns, it will
 be deleted
 
-Execution Time:
-Finalization Time:
+Execution Time:     2021-07-29 at 14:01:08 UTC-05
+Finalization Time:  2021-07-29 at 14:26:43 UTC-05
 """
 
 from aioextensions import (
@@ -31,7 +31,7 @@ from vulnerabilities import (
     dal as vulns_dal,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 
 async def process_finding(context: Any, finding_id: str) -> bool:
@@ -54,13 +54,13 @@ async def process_finding(context: Any, finding_id: str) -> bool:
     if len(vulns_machine):
         print(
             f"   === finding: {finding_id}, "
-            f"vulns by machine (len{vulns_machine}): {vulns_machine}"
+            f"vulns by machine ({len(vulns_machine)}): {vulns_machine}"
         )
     else:
         return True
 
     if len(vulns) == len(vulns_machine):
-        print(f"   === finding to be deleted: {finding_id}")
+        print(f"   >>> finding to be deleted: {finding_id}")
 
     if PROD:
         success = all(
