@@ -56,6 +56,11 @@
     name: docs/${CI_COMMIT_REF_NAME}
     url: https://docs.fluidattacks.com/
 
+/docs/generate/criteria:
+  <<: *makes4
+  <<: *docs_in_dev_branch
+  stage: build
+
 /lintMarkdown/docs:
   <<: *makes4
   <<: *docs_in_dev_branch
