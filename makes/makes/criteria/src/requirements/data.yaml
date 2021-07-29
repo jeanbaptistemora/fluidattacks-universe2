@@ -4587,78 +4587,210 @@
 "266":
   en:
     title: Disable insecure functionalities
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The organization must disable
+      or carefully control
+      the insecure functions
+      of a system (system hardening).
+    description: >
+      Sometimes,
+      platforms include functionalities
+      that are not required
+      or could be harmful
+      for some applications
+      built on top of or residing in them.
+      Other times,
+      applications are developed
+      including functionalities
+      that allow actions
+      that could be considered insecure.
+      All these functionalities
+      should be disabled
+      or otherwise controlled
+      to prevent them from compromising
+      the system’s security.
+      Furthermore,
+      the system must enforce
+      those controls on trusted
+      enforcement points
+      such as access control gateways,
+      severs and serverless functions.
   es:
     title: Deshabilitar funcionalidades inseguras
-    summary: __empty_
-    description: __empty__
+    summary: >
+      La organización debe deshabilitar
+      las funciones inseguras
+      de un sistema (hardening de sistemas).
+    description: >
+      A veces,
+      las plataformas incluyen
+      funcionalidades que no son necesarias
+      o que podrían ser perjudiciales
+      para algunas aplicaciones
+      creadas sobre ellas o que residen
+      en ellas.
+      Otra veces,
+      se desarrollan aplicaciones
+      que incluyen funcionalidades
+      que permiten acciones que podrían
+      considerarse inseguras.
+      Todas estas funcionalidades
+      deben desactivarse o controlarse
+      de otro modo para evitar
+      que pongan en peligro
+      la seguridad del sistema.
+      Además,
+      el sistema debe hacer cumplir
+      esos controles en puntos
+      de cumplimiento confiables,
+      como puertas de enlace
+      de control de acceso, servidores
+      y funciones sin servidor.
   references: []
   metadata: {}
 "273":
   en:
     title: Define a fixed security suite
-    summary: __empty_
+    summary: >
+      All the workstations in production
+      must have an unalterable
+      security suite (Anti-virus, Antispyware,
+      Host Firewall, Host-IDS, Host-IPS).
     description: __empty__
   es:
     title: Definir una suite de seguridad fija
-    summary: __empty__
+    summary: >
+      Todas las estaciones de trabajo
+      en producción deben contar
+      con una suite de seguridad
+      inalterable (Anti-virus, Antispyware,
+      Host Firewall, Host-IDS, Host-IPS).
     description: __empty__
   references: []
   metadata: {}
 "280":
   en:
     title: Restrict service root directory
-    summary: __empty_
+    summary: >
+      The service process must have
+      a root directory with access only
+      to the necessary files.
     description: __empty__
   es:
     title: Restringir servicio al directorio raíz
-    summary: __empty__
+    summary: >
+      El proceso de servicio
+      debe tener un directorio raíz
+      con acceso solo a los archivos
+      necesarios.
     description: __empty__
   references: []
   metadata: {}
 "284":
   en:
     title: Define maximum number of connections
-    summary: __empty_
+    summary: >
+      Each port must have
+      a maximum number of connections
+      defined per source IP.
     description: __empty__
   es:
     title: Definir un máximo número de conexiones
-    summary: __empty__
+    summary: >
+      Cada puerto debe tener
+      un número máximo de conexiones
+      definidas por IP origen.
     description: __empty__
   references: []
   metadata: {}
 "300":
   en:
     title: Mask sensitive data
-    summary: __empty_
-    description: __empty__
+    summary: >
+      Business sensitive data
+      (passwords, credit card numbers,
+      CVV, etc.) must be masked.
+    description: >
+      Applications usually handle
+      personal information,
+      such as credit card numbers,
+      CVV, personal identifications,
+      social security numbers, etc.
+      The exposure of this data
+      could severely affect
+      their owners and so it must be
+      considered sensitive
+      and be specifically protected.
+      Masking is a mechanism
+      that contributes
+      to this protection.
   es:
     title: Enmascarar datos sensibles
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe enmascarar
+      la información de negocio sensible
+      (números de tarjeta de crédito,
+      CVV, etc).
+    description: >
+      Las aplicaciones suelen manejar
+      información personal,
+      como números de tarjetas de crédito,
+      CVV, identificadores personales,
+      números de seguridad social, etc.
+      La exposición de estos datos
+      podría afectar gravemente a sus
+      propietarios por lo que deben
+      considerarse sensibles y estar
+      específicamente protegidos.
+      El enmascaramiento es un
+      mecanismo que contribuye
+      a esta protección.
   references: []
   metadata: {}
 "301":
   en:
     title: Notify configuration changes
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must notify
+      the users whenever
+      their authentication details
+      or other security settings are changed.
+    description: >
+      Most systems allow
+      their users to modify
+      relevant information,
+      such as access credentials
+      and contact data.
+      Users should be notified
+      whenever any of these
+      or other security settings
+      are modified,
+      as it could be a part
+      of several types of attacks,
+      e.g., account takeover attacks.
   es:
     title: Notificar cambios en la configuración
-    summary: __empty__
-    description: __empty__
-  references: []
-  metadata: {}
-"302":
-  en:
-    title: Declare dependencies explicitly
-    summary: __empty_
-    description: __empty__
-  es:
-    title: Declarar dependencias explícitamente
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe notificar
+      a los usuarios
+      cuando sus detalles de autenticación
+      u otras configuraciones de seguridad
+      son modificados.
+    description: >
+      La mayoría de los sistemas
+      permiten a sus usuarios
+      modificar información relevante,
+      como credenciales de acceso
+      y datos de contacto.
+      Se debe notificar a los usuarios
+      cada vez que se modifique
+      cualquiera de estas u otras
+      configuraciones de seguridad,
+      ya que podría ser parte
+      de varios tipos de ataque,
+      por ejemplo,
+      ataques de apropiación
+      de cuentas.
   references: []
   metadata: {}
 "305":
