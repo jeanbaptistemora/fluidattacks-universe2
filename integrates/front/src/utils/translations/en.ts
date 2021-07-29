@@ -1116,6 +1116,8 @@ export const enTranslations: ResourceKey = {
       black: "Black",
       continuous: "Continuous Hacking",
       deleteGroup: {
+        deactivateRoots:
+          "Please deactivate all of the group's roots in order to proceed",
         deleteGroup: "Delete this group",
         reason: {
           diffSectst: "Different security testing strategy",
