@@ -107,6 +107,7 @@ observes.env.streamer-zoho-crm.runtime.python
 observes.env.tap-bugsnag.development
 observes.env.tap-bugsnag.runtime
 observes.env.tap-bugsnag.runtime.python
+observes.env.tap-checkly.development
 observes.env.tap-checkly.runtime
 observes.env.tap-checkly.runtime.python
 observes.env.tap-csv.development
