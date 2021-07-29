@@ -148,7 +148,6 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
           affectedSystems
           compromisedAttributes
           compromisedRecords
-          cweUrl
           btsUrl
           risk
           remediated
@@ -230,7 +229,6 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
     assert "affectedSystems" in result["data"]["finding"]
     assert "compromisedAttributes" in result["data"]["finding"]
     assert "compromisedRecords" in result["data"]["finding"]
-    assert "cweUrl" in result["data"]["finding"]
     assert "btsUrl" in result["data"]["finding"]
     assert "risk" in result["data"]["finding"]
     assert "remediated" in result["data"]["finding"]
@@ -476,7 +474,6 @@ async def test_update_description() -> None:
             $attackVectorDesc: String!,
             $compromisedAttributes: String,
             $compromisedRecords: Int!,
-            $cweUrl: String!,
             $description: String!,
             $findingId: String!,
             $recommendation: String!,
@@ -490,7 +487,6 @@ async def test_update_description() -> None:
             actor: $actor,
             affectedSystems: $affectedSystems,
             attackVectorDesc: $attackVectorDesc,
-            cwe: $cweUrl,
             description: $description,
             findingId: $findingId,
             records: $compromisedAttributes,
@@ -512,7 +508,6 @@ async def test_update_description() -> None:
         "attackVectorDesc": "This is an updated attack vector",
         "compromisedAttributes": "Clave plana",
         "compromisedRecords": 12,
-        "cweUrl": "200",
         "description": "I just have updated the description",
         "findingId": "422286126",
         "recommendation": "Updated recommendation",
@@ -607,7 +602,6 @@ async def test_create_draft() -> None:
     """Check for createDraft mutation."""
     query = """
         mutation CreateDraftMutation(
-            $cwe: String,
             $description: String,
             $groupName: String!,
             $recommendation: String,
@@ -618,7 +612,6 @@ async def test_create_draft() -> None:
             $type: FindingType
             ) {
             createDraft(
-            cwe: $cwe,
             description: $description,
             groupName: $groupName,
             recommendation: $recommendation,
@@ -633,7 +626,6 @@ async def test_create_draft() -> None:
         }
     """
     variables = {
-        "cwe": "200",
         "description": "This is pytest created draft",
         "groupName": "UNITTESTING",
         "recommendation": "Solve this finding",

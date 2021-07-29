@@ -13,7 +13,6 @@ class FindingDescriptionToUpdate(NamedTuple):
     attack_vector_desc: Optional[str] = None
     compromised_attributes: Optional[str] = None
     compromised_records: Optional[int] = None
-    cwe: Optional[str] = None
     description: Optional[str] = None
     recommendation: Optional[str] = None
     requirements: Optional[str] = None

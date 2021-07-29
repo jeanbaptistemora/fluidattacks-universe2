@@ -16,7 +16,6 @@ async def get_result(
 ) -> Dict[str, Any]:
     affected_systems: str = "Server bWAPP"
     attack_vector_desc: str = "This is an attack vector"
-    cwe: str = "200"
     description: str = "This is pytest created draft"
     group: str = "group1"
     recommendation: str = "Solve this finding"
@@ -30,7 +29,6 @@ async def get_result(
             addDraft(
                 affectedSystems: "{affected_systems}",
                 attackVectorDesc: "{attack_vector_desc}",
-                cwe: "{cwe}",
                 description: "{description}",
                 groupName: "{group}",
                 recommendation: "{recommendation}",

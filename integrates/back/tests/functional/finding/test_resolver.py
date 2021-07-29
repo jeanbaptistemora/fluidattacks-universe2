@@ -91,7 +91,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     affected_systems: str = "Server bWAPP"
     records: str = "Clave plana"
     records_number: int = 12
-    cwe: str = "200"
     risk: str = "This is pytest created draft"
     finding_type: str = "SECURITY"
     tracking: Dict[str, Any] = {
@@ -177,7 +176,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["affectedSystems"] == affected_systems
     assert result["data"]["finding"]["compromisedAttributes"] == records
     assert result["data"]["finding"]["compromisedRecords"] == records_number
-    assert result["data"]["finding"]["cweUrl"] == cwe
     assert result["data"]["finding"]["btsUrl"] == ""
     assert result["data"]["finding"]["risk"] == risk
     assert result["data"]["finding"]["type"] == finding_type
@@ -259,7 +257,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     affected_systems: str = "Server bWAPP"
     records: str = "Clave plana"
     records_number: int = 12
-    cwe: str = "200"
     risk: str = "This is pytest created draft"
     finding_type: str = "SECURITY"
     tracking: Dict[str, Any] = {
@@ -343,7 +340,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["affectedSystems"] == affected_systems
     assert result["data"]["finding"]["compromisedAttributes"] == records
     assert result["data"]["finding"]["compromisedRecords"] == records_number
-    assert result["data"]["finding"]["cweUrl"] == cwe
     assert result["data"]["finding"]["btsUrl"] == ""
     assert result["data"]["finding"]["risk"] == risk
     assert result["data"]["finding"]["type"] == finding_type

@@ -144,7 +144,6 @@ class VulnerabilityMetadata(NamedTuple):
     affected_components: str
     attack_vector: str
     cvss: Dict[str, float]
-    cwe: str
     description: str
     evidences: Dict[str, str]
     name: str

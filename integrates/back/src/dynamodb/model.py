@@ -593,7 +593,6 @@ def _build_vuln(
             affected_components=metadata["affected_components"],
             attack_vector=metadata["attack_vector"],
             cvss=metadata["cvss"],
-            cwe=metadata["cwe"],
             description=metadata["description"],
             evidences=metadata["evidences"],
             name=metadata["name"],

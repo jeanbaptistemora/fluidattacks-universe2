@@ -20,7 +20,6 @@ async def get_result(  # pylint: disable=too-many-locals
     attack_vector_desc: str = "This is an updated attack vector"
     records: str = "Clave plana"
     records_number: int = 12
-    cwe: str = "200"
     description: str = "I just have updated the description"
     recommendation: str = "Updated recommendation"
     requirements: str = (
@@ -36,7 +35,6 @@ async def get_result(  # pylint: disable=too-many-locals
                 actor: "{actor}",
                 affectedSystems: "{affected_systems}",
                 attackVectorDesc: "{attack_vector_desc}",
-                cwe: "{cwe}",
                 description: "{description}",
                 findingId: "{finding_id}",
                 records: "{records}",

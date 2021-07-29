@@ -12,7 +12,6 @@ type Finding {
   consulting: [Consult]
   currentState: String
   cvssVersion: String
-  cweUrl: String
   description: String
   evidence: GenericScalar
   groupName: String

@@ -123,7 +123,6 @@ async def test_finding() -> None:
         "affected_systems": "test",
         "compromised_attributes": "",
         "compromised_records": 0,
-        "cwe_url": "200",
         "bts_url": "",
         "risk": "",
         "remediated": False,
@@ -175,7 +174,6 @@ async def test_finding() -> None:
             affectedSystems
             compromisedAttributes
             compromisedRecords
-            cweUrl
             btsUrl
             risk
             remediated
@@ -261,9 +259,6 @@ async def test_finding() -> None:
     assert result["data"]["finding"][
         "compromisedRecords"
     ] == expected_output.get("compromised_records")
-    assert result["data"]["finding"]["cweUrl"] == expected_output.get(
-        "cwe_url"
-    )
     assert result["data"]["finding"]["btsUrl"] == expected_output.get(
         "bts_url"
     )

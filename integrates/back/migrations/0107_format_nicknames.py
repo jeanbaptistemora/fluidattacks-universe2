@@ -33,7 +33,7 @@ from vulnerabilities import (
 )
 
 
-def format_nickname(root: RootItem) -> None:
+def format_nickname(root: RootItem) -> str:
     is_dummy = (
         root.state.nickname.lower() == f"git@gitlab.com:{root.group_name}"
     )

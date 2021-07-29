@@ -17,7 +17,6 @@ type Mutation {
     attackVectorDesc: String
     availabilityImpact: String
     confidentialityImpact: String
-    cwe: String
     description: String
     exploitability: String
     groupName: String!
@@ -202,7 +201,6 @@ type Mutation {
   createDraft(
     affectedSystems: String
     attackVectorDesc: String
-    cwe: String
     description: String
     groupName: String
     projectName: String
@@ -541,7 +539,6 @@ type Mutation {
     actor: String!
     affectedSystems: String!
     attackVectorDesc: String!
-    cwe: String
     description: String!
     findingId: String!
     recommendation: String!

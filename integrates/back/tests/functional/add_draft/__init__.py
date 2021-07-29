@@ -14,7 +14,6 @@ async def get_result(
     *,
     user: str,
 ) -> Dict[str, Any]:
-    cwe: str = "200"
     description: str = "This is pytest created draft"
     group: str = "group1"
     recommendation: str = "Solve this finding"
@@ -26,7 +25,6 @@ async def get_result(
     query: str = f"""
         mutation {{
             addDraft(
-                cwe: "{cwe}",
                 description: "{description}",
                 groupName: "{group}",
                 recommendation: "{recommendation}",

@@ -1087,7 +1087,6 @@ async def update_description_new(
         attack_vector_desc=description.attack_vector_desc,
         compromised_attributes=description.compromised_attributes,
         compromised_records=description.compromised_records,
-        cwe=description.cwe,
         description=description.description,
         recommendation=description.recommendation,
         requirements=description.requirements,

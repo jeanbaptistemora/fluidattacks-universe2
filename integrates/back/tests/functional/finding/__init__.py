@@ -60,7 +60,6 @@ async def get_result(
                 affectedSystems
                 compromisedAttributes
                 compromisedRecords
-                cweUrl
                 btsUrl
                 risk
                 type

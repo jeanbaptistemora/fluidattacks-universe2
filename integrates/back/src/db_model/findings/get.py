@@ -158,7 +158,6 @@ def _build_finding(
         compromised_records=metadata["compromised_records"],
         creation=creation,
         cvss_version=metadata["cvss_version"],
-        cwe=metadata["cwe"],
         description=metadata["description"],
         evidences=evidences,
         group_name=metadata["group_name"],

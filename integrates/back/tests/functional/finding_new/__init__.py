@@ -34,7 +34,6 @@ async def get_result(
                 }}
                 currentState
                 cvssVersion
-                cweUrl
                 description
                 evidence
                 historicState

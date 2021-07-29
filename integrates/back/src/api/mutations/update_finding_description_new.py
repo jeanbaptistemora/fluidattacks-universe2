@@ -59,7 +59,6 @@ async def mutate(
             attack_vector_desc=kwargs["attack_vector_desc"],
             compromised_attributes=kwargs.get("records"),
             compromised_records=kwargs["records_number"],
-            cwe=kwargs["cwe"],
             description=kwargs["description"],
             recommendation=kwargs["recommendation"],
             requirements=kwargs["requirements"],

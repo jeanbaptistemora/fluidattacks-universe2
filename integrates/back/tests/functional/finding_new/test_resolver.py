@@ -117,7 +117,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     affected_systems: str = "Server bWAPP"
     compromised_attributes: str = "Clave plana"
     records_number: int = 12
-    cwe: str = "200"
     risk: str = "This is pytest created draft"
     finding_type: str = "SECURITY"
     tracking: List[Dict[str, Any]] = [
@@ -178,7 +177,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     ]
     assert result["data"]["finding"]["currentState"] == current_state
     assert result["data"]["finding"]["cvssVersion"] == cvss_version
-    assert result["data"]["finding"]["cweUrl"] == cwe
     assert result["data"]["finding"]["description"] == description
     assert len(result["data"]["finding"]["evidence"]) == 7
     assert (
@@ -307,7 +305,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     affected_systems: str = "Server bWAPP"
     compromised_attributes: str = "Clave plana"
     records_number: int = 12
-    cwe: str = "200"
     risk: str = "This is pytest created draft"
     finding_type: str = "SECURITY"
     tracking: List[Dict[str, Any]] = [
@@ -367,7 +364,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     ]
     assert result["data"]["finding"]["currentState"] == current_state
     assert result["data"]["finding"]["cvssVersion"] == cvss_version
-    assert result["data"]["finding"]["cweUrl"] == cwe
     assert result["data"]["finding"]["description"] == description
     assert len(result["data"]["finding"]["evidence"]) == 7
     assert (

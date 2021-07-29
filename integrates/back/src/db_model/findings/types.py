@@ -149,7 +149,6 @@ class Finding(NamedTuple):
     creation: Optional[FindingState] = None
     compromised_records: int = 0
     cvss_version: str = "3.1"
-    cwe: str = ""
     description: str = ""
     evidences: FindingEvidences = FindingEvidences()
     scenario: str = ""
@@ -174,7 +173,6 @@ class FindingMetadataToUpdate(NamedTuple):
     compromised_attributes: Optional[str] = None
     compromised_records: Optional[int] = None
     cvss_version: Optional[str] = None
-    cwe: Optional[str] = None
     description: Optional[str] = None
     evidences: Optional[FindingEvidences] = None
     recommendation: Optional[str] = None

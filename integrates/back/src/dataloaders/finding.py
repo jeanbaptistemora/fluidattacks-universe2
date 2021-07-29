@@ -48,7 +48,6 @@ async def _batch_load_fn(
                 List[Dict[str, str]], finding.get("historicState", [{}])
             )[-1].get("state", ""),
             cvss_version=finding.get("cvssVersion", "3.1"),
-            cwe_url=finding.get("cwe", ""),
             description=finding.get("vulnerability", ""),
             evidence=finding.get("evidence", ""),
             finding_id=finding.get("findingId", ""),

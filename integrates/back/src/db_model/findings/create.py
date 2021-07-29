@@ -63,7 +63,6 @@ async def create(  # pylint: disable=too-many-locals
         "compromised_attributes": finding.compromised_attributes,
         "compromised_records": finding.compromised_records,
         "cvss_version": finding.cvss_version,
-        "cwe": finding.cwe,
         "description": finding.description,
         "evidences": metadata_evidences_item,
         "group_name": finding.group_name,

@@ -37,7 +37,7 @@ async def main() -> None:
     findings_to_delete = [
         finding
         for finding in findings_to_check
-        if not len(await finding_vulns_all_loader.load(finding))
+        if len(await finding_vulns_all_loader.load(finding)) == 0
     ]
     print(f"    === findings to delete: {len(findings_to_delete)}")
 

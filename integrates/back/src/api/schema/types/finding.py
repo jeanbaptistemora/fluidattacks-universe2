@@ -34,7 +34,6 @@ from api.resolvers.finding_new import (
     closed_vulnerabilities_new,
     consulting_new,
     current_state_new,
-    cwe_url_new,
     evidence_new,
     group_name_new,
     historic_state_new,
@@ -78,7 +77,6 @@ if FI_API_STATUS == "migration":
     )
     FINDING.set_field("consulting", consulting_new.resolve)
     FINDING.set_field("currentState", current_state_new.resolve)
-    FINDING.set_field("cweUrl", cwe_url_new.resolve)
     FINDING.set_field("evidence", evidence_new.resolve)
     FINDING.set_field("historicState", historic_state_new.resolve)
     FINDING.set_field("inputsVulns", inputs_vulns_new.resolve)

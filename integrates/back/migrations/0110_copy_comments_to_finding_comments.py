@@ -19,6 +19,10 @@ from dynamodb import (
 from pprint import (
     pprint,
 )
+from typing import (
+    Any,
+    Dict,
+)
 
 TABLE_NAME: str = "FI_comments"
 TABLE_NAME_NEW: str = "fi_finding_comments"
@@ -40,7 +44,7 @@ async def copy_comment(comment: Comment) -> bool:
 
 
 async def main() -> None:
-    scan_attrs = {}
+    scan_attrs: Dict[str, Any] = {}
     comments = await dynamodb_ops.scan(TABLE_NAME, scan_attrs)
     success = all(
         await collect([copy_comment(comment) for comment in comments])

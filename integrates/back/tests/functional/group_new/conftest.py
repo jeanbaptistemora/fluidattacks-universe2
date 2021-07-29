@@ -111,7 +111,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         report_confidence=Decimal("1"),
                         user_interaction=Decimal("0.85"),
                     ),
-                    cwe="200",
                     type="SECURITY",
                     requirements="R359. Avoid using generic exceptions.",
                     threat="Autenticated attacker from the Internet.",
@@ -211,7 +210,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         report_confidence=Decimal("1"),
                         user_interaction=Decimal("0.85"),
                     ),
-                    cwe="200",
                     type="SECURITY",
                     requirements="REQ.0132. Passwords (phrase type) "
                     "must be at least 3 words long.",
@@ -338,7 +336,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         report_confidence=Decimal("1"),
                         user_interaction=Decimal("0.85"),
                     ),
-                    cwe="200",
                     type="SECURITY",
                     requirements="REQ.0132. Passwords (phrase type) "
                     "must be at least 3 words long.",
