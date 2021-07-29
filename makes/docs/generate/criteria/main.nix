@@ -24,24 +24,35 @@ let
   reqsForVuln = reqs:
     builtins.concatStringsSep "\n" (builtins.map vulnReq reqs);
 
-  # Generate definitions list for a requirement
+  # Generate references list for a requirement
   reqRefParseData = raw:
     let
       parsed = inputs.nixpkgs.lib.strings.splitString "." raw;
     in
     {
-      standard = (builtins.head parsed);
-      definition = (builtins.head (builtins.tail parsed));
+      standard_id = (builtins.head parsed);
+      definition_id = (builtins.head (builtins.tail parsed));
     };
   reqRef = data:
     let
-      standard = data_compliance.${data.standard};
-      definition = standard.definitions.${data.definition};
+      standard = data_compliance.${data.standard_id};
+      standard_link = "/criteria2/compliance/${data.standard_id}";
+      definition = standard.definitions.${data.definition_id};
     in
-    "- [${standard.title}-${data.definition}: ${definition.title}](${definition.link})";
+    "- [${standard.title}-${data.definition_id}: ${definition.title}](${standard_link})";
   refsForReq = refs:
     builtins.concatStringsSep "\n" (
       builtins.map reqRef (builtins.map reqRefParseData refs)
+    );
+
+  # Generate definitions list for a standard
+  standardDef = id: def:
+    "- [${id}. ${def.title}](${def.link})";
+  defsForStandard = defs:
+    builtins.concatStringsSep "\n" (
+      builtins.attrValues (
+        builtins.mapAttrs standardDef defs
+      )
     );
 
   # Generate a template for every md
@@ -70,6 +81,7 @@ let
     replace = {
       __argTitle__ = src.title;
       __argDescription__ = src.en.description;
+      __argDefinitions__ = defsForStandard src.definitions;
     };
     name = "docs-make-compliance-${name}";
     template = ./templates/compliance.md;
