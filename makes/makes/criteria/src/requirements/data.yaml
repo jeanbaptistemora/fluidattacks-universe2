@@ -6664,23 +6664,96 @@
 "348":
   en:
     title: Use consistent encoding
-    summary: __empty_
-    description: __empty__
+    summary: >
+      System components must use
+      the same encodings and parsers.
+    description: >
+      System components use
+      structured messages to communicate
+      with other components.
+      When these messages include
+      input from untrusted sources
+      and this input is not properly escaped,
+      they become prone
+      to the insertion of malicious commands.
+      A part of the escaping process
+      can be done by encoding
+      the output messages.
+      However,
+      all components must use
+      consistent encoding in order
+      to prevent attacks that benefit
+      from the presence of different
+      parsing behaviors, e.g.,
+      Server-Side Request Forgery (SSRF)
+      and Remote File Inclusion (RFI) attacks.
   es:
     title: Utilizar codificación consistente
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Los componenetes del sistema
+      deben utilizar la misma codificación
+      y parsers.
+    description: >
+      Los componentes del sistema
+      usan mensajes estructurados
+      para comunicarse con otros componentes.
+      Cuando estos mensajes incluyen
+      la entrada de las fuentes no confiables
+      y esta entrada no se escapa correctamente,
+      se vuelven propensas a la inserción
+      de los comandos maliciosos.
+      Una parte del proceso de escape
+      se puede hacer codificando
+      los mensajes de salida.
+      Sin embargo,
+      todos los componentes deben usar
+      la codificación consistente
+      para evitar ataques que se beneficien
+      de la presencia de diferentes
+      comportamientos de análisis,
+      por ejemplo,
+      Server-Side Request Forgery (SSRF)
+      y los ataques de inclusión
+      de archivos remotos (RFI).
   references: []
   metadata: {}
 "349":
   en:
     title: Include HTTP security headers
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must attach
+      properly-configured HTTP
+      security headers to its requests
+      and responses.
+    description: >
+      HTTP security headers
+      can be used to increase the overall
+      security of an application.
+      They are very effective
+      at preventing the exploitation
+      of several common vulnerabilities.
+      For this reason,
+      they should be configured
+      as strictly as possible and included
+      in all server requests and responses.
   es:
     title: Incluir encabezados de seguridad HTTP
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe adjuntar encabezados
+      de seguridad HTTP configurados
+      correctamente a sus solicitudes
+      y respuestas.
+    description: >
+      Los encabezados de seguridad HTTP
+      se pueden usar para aumentar
+      la seguridad general de una aplicación.
+      Son muy efectivos para prevenir
+      la explotación de varias
+      vulnerabilidades comunes.
+      Por esta razón,
+      deben configurarse lo más estrictamente
+      posible e incluirse en todas
+      las solicitudes de servidores y respuestas.
   references: []
   metadata: {}
 "350":
