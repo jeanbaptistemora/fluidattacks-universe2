@@ -1,8 +1,8 @@
-from singer_io import (
-    factory,
-)
-from singer_io.singer import (
+from singer_io.singer2 import (
     SingerRecord,
+)
+from singer_io.singer2.deserializer import (
+    SingerDeserializer,
 )
 import sys
 from tap_csv import (
@@ -13,8 +13,6 @@ from tap_csv.core import (
     AdjustCsvOptions,
 )
 from typing import (
-    Any,
-    Dict,
     IO,
     NamedTuple,
     Optional,
@@ -29,19 +27,36 @@ class TapCsvInput(NamedTuple):
     options: AdjustCsvOptions
 
 
+def _extract_options(record: SingerRecord) -> AdjustCsvOptions:
+    opt = record.record["options"].to_json()
+    quote_nonnum = opt.get("quote_nonnum")
+    add_default_types = opt.get("add_default_types")
+    pkeys_present = opt.get("pkeys_present")
+    only_records = opt.get("only_records")
+    file_schema = opt.get("file_schema")
+    return AdjustCsvOptions(
+        quote_nonnum.to_primitive(bool) if quote_nonnum else False,
+        add_default_types.to_primitive(bool) if add_default_types else False,
+        pkeys_present.to_primitive(bool) if pkeys_present else False,
+        only_records.to_primitive(bool) if only_records else False,
+        file_schema.to_dict_of(str) if file_schema else {},
+    )
+
+
 def deserialize(tap_input: str) -> Optional[TapCsvInput]:
     """Generate `TapCsvInput` from json string"""
-    singer_msg = factory.deserialize(tap_input)
+    singer_msg = SingerDeserializer.deserialize(tap_input)
     if not isinstance(singer_msg, SingerRecord):
         raise Exception("Expected `SingerRecord`")
     s_record: SingerRecord = singer_msg
-    raw_json: Dict[str, Any] = s_record.record
-    LOG.debug("Recieved %s", raw_json)
-    if "csv_path" not in raw_json:
+    LOG.debug("Recieved %s", s_record.record)
+    if "csv_path" not in s_record.record:
         return None
-    raw_json["stream"] = s_record.stream
-    raw_json["options"] = AdjustCsvOptions(**raw_json["options"])
-    return TapCsvInput(**raw_json)
+    return TapCsvInput(
+        s_record.stream,
+        s_record.record["csv_path"].to_primitive(str),
+        _extract_options(s_record),
+    )
 
 
 def process_stdin(stdin: IO[str]) -> None:
