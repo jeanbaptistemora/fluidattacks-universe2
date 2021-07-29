@@ -44,6 +44,7 @@ async def create(comment_id: int, comment_attributes: CommentType) -> bool:
             {
                 "finding_id": str(comment_attributes.pop("finding_id")),
                 "comment_id": str(comment_attributes.pop("user_id")),
+                "parent": str(comment_attributes.pop("parent")),
             }
         )
         success = success and await dynamodb_ops.put_item(
