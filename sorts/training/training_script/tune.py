@@ -6,17 +6,14 @@ from pandas import (
 from sorts.typings import (
     Model as ModelType,
 )
-import tempfile
 from training.constants import (
     FEATURES_DICTS,
     MODEL_HYPERPARAMETERS,
     MODELS,
     RESULT_HEADERS,
 )
-from training.evaluate_results import (
-    get_best_model_name,
-)
 from training.training_script.utils import (
+    get_current_model_features,
     get_previous_training_results,
     load_training_data,
     save_model_to_s3,
@@ -29,20 +26,6 @@ from typing import (
     List,
     Tuple,
 )
-
-
-def get_current_model_features() -> Tuple[str, ...]:
-    with tempfile.TemporaryDirectory() as tmp_dir:
-        model_name_file: str = os.path.join(tmp_dir, "best_model.txt")
-        best_model: str = get_best_model_name(model_name_file)
-        inv_features_dict: Dict[str, str] = {
-            value: key for key, value in FEATURES_DICTS.items()
-        }
-        return tuple(
-            inv_features_dict[key.upper()]
-            for key in best_model.split("-")[2:]
-            if len(key) == 2
-        )
 
 
 def train_model(

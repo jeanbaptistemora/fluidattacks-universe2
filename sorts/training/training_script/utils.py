@@ -24,10 +24,14 @@ from training.constants import (
     FEATURES_DICTS,
     S3_BUCKET,
 )
+from training.evaluate_results import (
+    get_best_model_name,
+)
 from training.redshift import (
     db as redshift,
 )
 from typing import (
+    Dict,
     List,
     Tuple,
 )
@@ -119,6 +123,21 @@ def get_previous_training_results(results_filename: str) -> List[List[str]]:
             previous_results.extend(csv_reader)
 
     return previous_results
+
+
+def get_current_model_features() -> Tuple[str, ...]:
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        model_name_file: str = os.path.join(tmp_dir, "best_model.txt")
+        best_model: str = get_best_model_name(model_name_file)
+        inv_features_dict: Dict[str, str] = {
+            value: key for key, value in FEATURES_DICTS.items()
+        }
+
+        return tuple(
+            inv_features_dict[key.upper()]
+            for key in best_model.split("-")[2:]
+            if len(key) == 2
+        )
 
 
 def load_training_data(training_dir: str) -> DataFrame:
