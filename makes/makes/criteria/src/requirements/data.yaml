@@ -5843,45 +5843,139 @@
 "330":
   en:
     title: Verify Subresource Integrity
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The application must verify
+      the integrity of all externally
+      hosted resources and dependencies
+      using Subresource Integrity (SRI).
+    description: >
+      Applications often use resources
+      or have dependencies
+      that are hosted on external servers
+      such as a content delivery network (CDN).
+      Applications must validate
+      the integrity of such assets
+      using Subresource Integrity (SRI),
+      in case those systems are compromised.
   es:
     title: Verificar Subresource Integrity (SRI)
-    summary: __empty__
-    description: __empty__
+    summary: >
+      La aplicación debe validar
+      la integridad de todos los recursos
+      y dependencias hosteados externamente
+      usando Subresource Integrity (SRI).
+    description: >
+      Las aplicaciones a menudo
+      utilizan recursos o tienen dependencias
+      que se alojan en servidores externos,
+      como una red de entrega de contenido (CDN).
+      Las solicitudes deben validar
+      la integridad de dichos activos
+      utilizando la integridad de SubreSource (SRI),
+      en caso de que los sistemas
+      estén comprometidos. 
   references: []
   metadata: {}
 "331":
   en:
     title: Guarantee legal compliance
-    summary: __empty_
+    summary: >
+      The system must comply
+      with the legal requirements
+      of the jurisdiction to which it is subject.
     description: __empty__
   es:
     title: Garantizar el cumplimiento legal
-    summary: __empty__
+    summary: >
+      El sistema debe cumplir
+      con los requisitos legales
+      de la jurisdicción a la cual está sujeto.
     description: __empty__
   references: []
   metadata: {}
 "332":
   en:
     title: Prevent the use of breached passwords
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must check
+      new passwords against a list
+      of 1000 to 10000 breached passwords.
+    description: >
+      There are various mechanisms
+      for cracking passwords
+      that use public lists
+      containing breached credentials.
+      Systems must check
+      submitted passwords against
+      some of these lists
+      and prevent account creation
+      and password update operations
+      that use passwords contained in them.
   es:
     title: Prevenir el uso de contraseñas vulneradas
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe comparar
+      las nuevas contrasenas
+      con una lista de 1000 a 10000
+      contrasenas vulneradas.
+    description: >
+      Hay varios mecanismos
+      para descifrar contraseñas
+      que utilizan listas públicas
+      que contienen credenciales vulneradas.
+      Los sistemas deben comparar
+      las contraseñas enviadas
+      contra algunas de estas listas
+      y evitar que las operaciones
+      de la creación de la cuenta
+      y la actualización de contraseña
+      usen contraseñas contenidas en ellas.
   references: []
   metadata: {}
 "333":
   en:
     title: Store salt values separately
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The salt values used during
+      the password hashing process
+      must be stored separately
+      from the hashed passwords.
+    description: >
+      Adding random salt
+      to a password as part
+      of the hashing process drastically
+      increases the time required
+      to crack that password.
+      Salt values should be stored
+      in a system different
+      from the one in which hashed passwords
+      are stored so that
+      if the hashes are breached,
+      an attacker still has to test
+      every possible salt value
+      in order to crack a single password.
   es:
     title: Almacenar valores salt en forma separada
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Los valores de salt
+      utilizados durante el proceso
+      de hashing de contraseña
+      deben almacenarse por separado
+      de las contraseñas con hash.
+    description: >
+      Agregar salt aleatorio
+      a una contraseña como parte
+      del proceso de hash,
+      aumenta drásticamente el tiempo
+      requerido para descifrar esa contraseña.
+      Los valores de salt
+      deben almacenarse en un sistema
+      diferente al de la que se almacenan
+      las contraseñas hash de manera
+      que si se rompen los hashes,
+      un atacante aún tiene que probar
+      cada valor de salt posible
+      para descifrar una sola contraseña.
   references: []
   metadata: {}
 "334":
