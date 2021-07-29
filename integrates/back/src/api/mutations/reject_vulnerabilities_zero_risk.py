@@ -45,7 +45,9 @@ async def mutate(
         finding_id, user_info, justification, vulnerabilities
     )
     if success:
-        redis_del_by_deps_soon("reject_zero_risk_vuln", finding_id=finding_id)
+        redis_del_by_deps_soon(
+            "reject_vulnerabilities_zero_risk", finding_id=finding_id
+        )
         logs_utils.cloudwatch_log(
             info.context,
             (

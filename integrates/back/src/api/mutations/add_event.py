@@ -49,7 +49,7 @@ async def mutate(
     file: Optional[UploadFile] = None,
     **kwargs: Any,
 ) -> SimplePayload:
-    """Resolve create_event mutation."""
+    """Resolve add_event mutation."""
     group_name: str = get_key_or_fallback(kwargs)
     kwargs = clean_up_kwargs(kwargs)
     user_info = await token_utils.get_jwt_content(info.context)
@@ -65,8 +65,8 @@ async def mutate(
     if success:
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Created event in {group_name} group successfully",
+            f"Security: Added a new event in {group_name} group successfully",
         )
-        redis_del_by_deps_soon("create_event", group_name=group_name)
+        redis_del_by_deps_soon("add_event", group_name=group_name)
 
     return SimplePayload(success=success)

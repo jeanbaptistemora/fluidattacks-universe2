@@ -32,7 +32,7 @@ async def mutate(
     user_email: str = user_info["user_email"]
 
     TRANSACTIONS_LOGGER.info(
-        "User %s attempted to create organization with name %s",
+        "User %s attempted to add a new organization with name %s",
         user_email,
         name,
     )
@@ -40,7 +40,7 @@ async def mutate(
         name, user_email
     )
     TRANSACTIONS_LOGGER.info(
-        "Organization %s with ID %s was successfully created by %s",
+        "Organization %s with ID %s was successfully added by %s",
         organization["name"],
         organization["id"],
         user_email,

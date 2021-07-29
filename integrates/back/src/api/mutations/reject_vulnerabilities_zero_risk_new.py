@@ -55,7 +55,7 @@ async def mutate(
         )
         if success:
             redis_del_by_deps_soon(
-                "reject_zero_risk_vuln", finding_id=finding_id
+                "reject_vulnerabilities_zero_risk", finding_id=finding_id
             )
             await update_unreliable_indicators_by_deps(
                 EntityDependency.reject_zero_risk_vuln,

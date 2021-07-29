@@ -67,16 +67,16 @@ async def mutate(
             await authz.revoke_cached_group_service_policies(group_name)
             logs_utils.cloudwatch_log(
                 info.context,
-                f"Security: Deleted group {group_name} successfully",
+                f"Security: Removed group {group_name} successfully",
             )
     except PermissionDenied:
         logs_utils.cloudwatch_log(
             info.context,
-            "Security: Unauthorized role attempted to delete group",
+            "Security: Unauthorized role attempted to remove a group",
         )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
-            info.context, f"Security: Attempted to delete group {group_name}"
+            info.context, f"Security: Attempted to remove group {group_name}"
         )
         raise
     return SimplePayload(success=success)

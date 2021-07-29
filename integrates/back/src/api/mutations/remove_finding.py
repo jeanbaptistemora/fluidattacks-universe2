@@ -65,10 +65,10 @@ async def mutate(
         info.context.loaders.group_findings.clear(group_name)
         info.context.loaders.group_drafts.clear(group_name)
         info.context.loaders.finding.clear(finding_id)
-        redis_del_by_deps_soon("delete_finding", finding_id=finding_id)
+        redis_del_by_deps_soon("remove_finding", finding_id=finding_id)
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Deleted finding: {finding_id} successfully",
+            f"Security: Removed a finding: {finding_id} successfully",
         )
         schedule(
             findings_mail.send_mail_delete_finding(
@@ -82,7 +82,7 @@ async def mutate(
     else:
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Attempted to delete finding: {finding_id}",
+            f"Security: Attempted to remove finding: {finding_id}",
         )
 
     return SimplePayload(success=success)

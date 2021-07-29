@@ -46,13 +46,13 @@ async def mutate(
     )
     if success:
         await redis_del_by_deps(
-            "confirm_zero_risk_vuln",
+            "confim_vulnerabilities_zero_risk",
             finding_id=finding_id,
         )
         logs_utils.cloudwatch_log(
             info.context,
             (
-                "Security: Confirmed zero risk vulns "
+                "Security: Confirmed zero risk vulnerabilties "
                 f"in finding_id: {finding_id}"
             ),  # pragma: no cover
         )

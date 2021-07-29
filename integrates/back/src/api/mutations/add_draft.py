@@ -51,7 +51,7 @@ async def mutate(
     if success:
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Created draft in {group_name} group successfully",
+            f"Security: Added a new draft in {group_name} group successfully",
         )
 
     return SimplePayload(success=success)

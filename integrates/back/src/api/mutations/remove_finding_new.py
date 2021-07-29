@@ -67,7 +67,7 @@ async def mutate(
             user_email,
         )
         redis_del_by_deps_soon(
-            "delete_finding",
+            "remove_finding",
             finding_id=finding_id,
             group_name=finding.group_name,
         )
@@ -82,11 +82,11 @@ async def mutate(
         )
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Deleted finding {finding_id} successfully ",
+            f"Security: Removed finding {finding_id} successfully ",
         )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
-            info.context, f"Security: Attempted to delete finding {finding_id}"
+            info.context, f"Security: Attempted to remove finding {finding_id}"
         )
         raise
     return SimplePayload(success=True)
