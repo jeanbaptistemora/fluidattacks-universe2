@@ -4793,37 +4793,204 @@
       de cuentas.
   references: []
   metadata: {}
+"302":
+  en:
+    title: Declare dependencies explicitly
+    summary: >
+      All dependencies
+      (third-party software/libraries)
+      must be explicitly declared
+      (name and specific version) in a file
+      inside the source code repository.
+      Their source code
+      must not be directly included
+      in the repository.
+    description: >
+      The usage of third-party software
+      and libraries is very common
+      in modern applications,
+      as it greatly reduces the effort
+      required to develop them.
+      Unfortunately,
+      this software may introduce
+      vulnerabilities into the application,
+      which causes it to require
+      frequent updates.
+      In order to ease
+      the constant update process,
+      instead of directly including
+      third-party software source code
+      in application repositories,
+      it should merely be referenced
+      and managed using a package manager.
+  es:
+    title: Declarar dependencias explícitamente
+    summary: >
+      Las dependencias
+      (software de terceros/librerías)
+      deben ser declaradas explícitamente
+      (nombre y versión) en un archivo
+      dentro del respositorio.
+      Su código fuente no debe ser
+      directamente incluido
+      en el respositorio.
+    description: >
+      El uso de software y bibliotecas
+      de terceros es muy común
+      en las aplicaciones modernas,
+      ya que reduce en gran medida
+      el esfuerzo requerido
+      para desarrollarlas.
+      Desafortunadamente,
+      este software puede introducir
+      vulnerabilidades en la aplicación,
+      lo que hace que requiera
+      actualizaciones frecuentes.
+      Para facilitar el proceso
+      de actualización constante,
+      en luger de incluir directamente
+      el código fuente de software
+      de terceros en los repositorios
+      de aplicaciones,
+      simplemente se debe hacer
+      referencia a él
+      y administrarlo mediante
+      un administrador de paquetes.
+  references: []
+  metadata: {}
 "305":
   en:
     title: Prioritize token usage
-    summary: __empty_
+    summary: >
+      All systems related
+      to credit cards must use tokens
+      instead of storing card information.
     description: __empty__
   es:
     title: Priorizar el uso de token
-    summary: __empty__
+    summary: >
+      Todos los sistemas relacionados
+      con tarjetas de crédito
+      deben utilizar tokens
+      en vez de guardar la información
+      de la tarjeta.
     description: __empty__
   references: []
   metadata: {}
 "310":
   en:
     title: Request user consent
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must request
+      the user's consent
+      whenever it will collect
+      any information about them
+      or their actions.
+      This consent should not be
+      requested before informing
+      the user about the types
+      of data that will be collected
+      and the purpose
+      for which they will be processed.
+    description: >
+      Systems usually request
+      information from their users
+      or collect it based on their
+      interactions with the application.
+      Regulations demand
+      that none of these collections
+      occur without the user's consent,
+      that this consent be demonstrable
+      afterwards and that it only be
+      requested after having informed
+      the user of the types
+      and purposes of data collection.
+      Therefore,
+      consent must always be requested
+      in a clear manner and using
+      easily understandable language
+      before collecting any personal
+      information.
   es:
     title: Solicitar consentimiento al usuario
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe solicitar
+      el consentimiento del usuario
+      siempre que se recoja informacion
+      sobre ellos o sus acciones.
+    description: >
+      Los sistemas generalmente
+      solicitan información
+      a sus usuarios o la recopilan
+      en función de sus interacciones
+      con la aplicación.
+      La normativa exige que ninguna
+      de estas recopilaciones
+      se produzca sin el consentimiento
+      del usuario,
+      que este consentimiento sea
+      demostrable posteriormente
+      y que solo se solicite después
+      de haber informado al usuario
+      de los tipos y funcionalidades
+      de la recopilación de datos.
+      Por lo tanto,
+      el consentimiento siempre
+      debe solicitarse de manera clara
+      y utilizando un lenguaje
+      fácilmente comprensible antes de
+      recopilar cualquier información
+      personal.
   references: []
   metadata: {}
 "311":
   en:
     title: Demonstrate user consent
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must set
+      a mechanism which can be used
+      to demonstrate that users
+      have granted their consent
+      to collection of their data.
+    description: >
+      Systems usually request information
+      from their users
+      or collect it based on
+      their interactions
+      with the application.
+      Regulations demand
+      that none of these collections
+      occur without the user's consent
+      and that this consent
+      be demonstrable afterwards.
+      Therefore,
+      the system must have
+      a mechanism that can be used
+      to demonstrate the grant
+      of the consent.
   es:
     title: Demostrar el consentimiento del usuario
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe establecer
+      un mecanismo que pueda ser utilizado
+      para demostrar que los usuarios
+      han concedido el permiso
+      para la recoleccion de sus datos.
+    description: >
+      Los sistemas generalmente
+      solicitan información
+      a sus usuarios o la recopilan
+      en función de sus interacciones
+      con la aplicación.
+      Las regulaciones exigen
+      que ninguna de estas recolecciones
+      ocurra sin el consentimiento
+      sea demostrable posteriormente.
+      Por lo tanto,
+      el sistema debe contar
+      con un mecanismo que pueda
+      utilizarse para demostrar
+      la concesión del consentimiento.
   references: []
   metadata: {}
 "312":
