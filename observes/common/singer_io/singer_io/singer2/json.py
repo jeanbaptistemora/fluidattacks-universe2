@@ -5,6 +5,9 @@ from __future__ import (
 from dataclasses import (
     dataclass,
 )
+from deprecated import (
+    deprecated,
+)
 import json
 from json.encoder import (
     JSONEncoder,
@@ -48,6 +51,14 @@ class JsonValue:
         self,
     ) -> Union[Dict[str, JsonValue], List[JsonValue], Primitive]:
         return self.value
+
+    def to_raw(self) -> Union[Dict[str, Any], List[Any], Primitive]:
+        raw = self.value
+        if isinstance(raw, list):
+            return [item.to_raw() for item in raw]
+        if isinstance(raw, dict):
+            return {key: val.to_raw() for key, val in raw.items()}
+        return raw
 
     def to_primitive(self, prim_type: Type[VarType]) -> VarType:
         if isinstance(self.value, prim_type):
@@ -98,21 +109,36 @@ class DictFactory:
 
 
 @dataclass(frozen=True)
-class JsonFactory:
+class JsonValFactory:
     @classmethod
-    def build_json_val(cls, raw: Any) -> JsonValue:
+    def from_list(cls, raw: List[Primitive]) -> JsonValue:
+        return JsonValue([JsonValue(item) for item in raw])
+
+    @classmethod
+    def from_dict(cls, raw: Dict[str, Primitive]) -> JsonValue:
+        return JsonValue({key: JsonValue(val) for key, val in raw.items()})
+
+    @classmethod
+    def from_any(cls, raw: Any) -> JsonValue:
         if isinstance(raw, primitives) or raw is None:
             return JsonValue(raw)
         if isinstance(raw, dict):
             json_dict = {
-                _is_str(key): cls.build_json_val(val)
-                for key, val in raw.items()
+                _is_str(key): cls.from_any(val) for key, val in raw.items()
             }
             return JsonValue(json_dict)
         if isinstance(raw, list):
-            checked_list = [cls.build_json_val(item) for item in raw]
+            checked_list = [cls.from_any(item) for item in raw]
             return JsonValue(checked_list)
         raise InvalidType(f"{type(raw)} expected unfold(JsonValue)")
+
+
+@dataclass(frozen=True)
+class JsonFactory:
+    @classmethod
+    @deprecated(reason="migrated to JsonValFactory.from_any")
+    def build_json_val(cls, raw: Any) -> JsonValue:
+        return JsonValFactory.from_any(raw)
 
     @classmethod
     def build_json_list(cls, raw: Any) -> List[JsonObj]:
@@ -122,7 +148,7 @@ class JsonFactory:
 
     @classmethod
     def from_dict(cls, raw: Dict[str, Any]) -> JsonObj:
-        result = cls.build_json_val(raw).unfold()
+        result = JsonValFactory.from_any(raw).unfold()
         if isinstance(result, dict):
             return result
         raise UnexpectedResult("build_json not returned a JsonObj")

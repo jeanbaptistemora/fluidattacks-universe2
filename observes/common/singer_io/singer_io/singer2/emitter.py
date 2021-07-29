@@ -33,6 +33,9 @@ from typing import (
 class SingerEmitter:
     emitter: JsonEmitter
 
+    def __init__(self, emitter: JsonEmitter = JsonEmitter()) -> None:
+        object.__setattr__(self, "emitter", emitter)
+
     def emit_record(self, record: SingerRecord) -> IO[None]:
         time_str = Maybe.from_optional(record.time_extracted).map(
             lambda date: date.to_utc_str()
