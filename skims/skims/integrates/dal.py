@@ -426,7 +426,6 @@ async def do_create_draft(
             mutation SkimsDoCreateDraft(
                 $affected_systems: String
                 $impact: String
-                $cwe: String
                 $description: String
                 $group: String!
                 $recommendation: String
@@ -438,7 +437,6 @@ async def do_create_draft(
                 createDraft(
                     affectedSystems: $affected_systems
                     attackVectorDesc: $impact
-                    cwe: $cwe
                     description: $description
                     projectName: $group
                     recommendation: $recommendation
@@ -454,7 +452,6 @@ async def do_create_draft(
         operation="SkimsDoCreateDraft",
         variables=dict(
             affected_systems=affected_systems,
-            cwe=str(finding.value.cwe),
             description=t(finding.value.description),
             impact=t(finding.value.impact),
             group=group,
