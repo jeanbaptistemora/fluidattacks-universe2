@@ -48,13 +48,26 @@ def _fill_vuln_info(
     return cast(CommentType, comment)
 
 
+async def _fill_comment_data(data: Dict[str, str]) -> CommentType:
+    fullname = await _get_fullname(objective_data=data)
+    return {
+        "content": data["content"],
+        "created": datetime_utils.format_comment_date(data["created"]),
+        "email": data["email"],
+        "fullname": fullname if fullname else data["email"],
+        "id": int(data["user_id"]),
+        "modified": datetime_utils.format_comment_date(data["modified"]),
+        "parent": int(data["parent"]),
+    }
+
+
 async def _get_comments(
     comment_type: str,
     finding_id: str,
 ) -> List[CommentType]:
     comments = await collect(
         [
-            fill_comment_data(cast(Dict[str, str], comment))
+            _fill_comment_data(cast(Dict[str, str], comment))
             for comment in await comments_dal.get_comments(
                 comment_type, int(finding_id)
             )
@@ -101,19 +114,6 @@ async def create(
 
 async def delete(finding_id: int, user_id: int) -> bool:
     return await comments_dal.delete(finding_id, user_id)
-
-
-async def fill_comment_data(data: Dict[str, str]) -> CommentType:
-    fullname = await _get_fullname(objective_data=data)
-    return {
-        "content": data["content"],
-        "created": datetime_utils.format_comment_date(data["created"]),
-        "email": data["email"],
-        "fullname": fullname if fullname else data["email"],
-        "id": int(data["user_id"]),
-        "modified": datetime_utils.format_comment_date(data["modified"]),
-        "parent": int(data["parent"]),
-    }
 
 
 async def get(comment_type: str, element_id: int) -> List[CommentType]:

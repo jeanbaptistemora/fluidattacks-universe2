@@ -6,7 +6,6 @@ from comments.dal import (
     get_comments_for_ids,
 )
 from comments.domain import (
-    fill_comment_data,
     filter_comments_date,
 )
 from custom_exceptions import (
@@ -28,6 +27,9 @@ from graphql.type.definition import (
 from group_comments import (
     dal as group_comments_dal,
 )
+from newutils import (
+    datetime as datetime_utils,
+)
 from newutils.utils import (
     get_key_or_fallback,
 )
@@ -38,6 +40,30 @@ from typing import (
 from users import (
     domain as users_domain,
 )
+
+
+async def _get_fullname(objective_data: Dict[str, str]) -> str:
+    objective_email = objective_data["email"]
+    objective_possible_fullname = objective_data.get("fullname", "")
+    real_name = objective_possible_fullname or objective_email
+
+    if "@fluidattacks.com" in objective_email:
+        return f"{real_name} at Fluid Attacks"
+
+    return real_name
+
+
+async def _fill_comment_data(data: Dict[str, str]) -> CommentType:
+    fullname = await _get_fullname(objective_data=data)
+    return {
+        "content": data["content"],
+        "created": datetime_utils.format_comment_date(data["created"]),
+        "email": data["email"],
+        "fullname": fullname if fullname else data["email"],
+        "id": int(data["user_id"]),
+        "modified": datetime_utils.format_comment_date(data["modified"]),
+        "parent": int(data["parent"]),
+    }
 
 
 def _is_scope_comment(comment: CommentType) -> bool:
@@ -96,7 +122,7 @@ async def list_comments(group_name: str, user_email: str) -> List[CommentType]:
     enforcer = await authz.get_group_level_enforcer(user_email)
     comments = await collect(
         [
-            fill_comment_data(comment)
+            _fill_comment_data(comment)
             for comment in await group_comments_dal.get_comments(group_name)
         ]
     )
