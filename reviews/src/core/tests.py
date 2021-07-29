@@ -80,6 +80,7 @@ def all_pipelines_successful(*, data: TestData) -> bool:
         if data.config["job_name"] not in p_jobs_names:
             for p_job in p_jobs:
                 if p_job.status in ("success", "manual"):
+                    # Nothing to assigned
                     pass
                 elif p_job.status in ("pending", "running", "created"):
                     sleep(5)

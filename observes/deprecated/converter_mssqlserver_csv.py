@@ -124,6 +124,7 @@ def write_csv(
                 elif value_type == "datetime":
                     value_ascsv = value.strftime("%Y-%m-%dT%H:%M:%SZ")
                 elif value_type == "NoneType":
+                    # Nothing to assigned
                     pass
                 else:
                     value_ascsv = repr(value)
