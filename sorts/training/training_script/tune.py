@@ -31,7 +31,7 @@ from typing import (
 )
 
 
-def get_model_features() -> Tuple[str, ...]:
+def get_current_model_features() -> Tuple[str, ...]:
     with tempfile.TemporaryDirectory() as tmp_dir:
         model_name_file: str = os.path.join(tmp_dir, "best_model.txt")
         best_model: str = get_best_model_name(model_name_file)
@@ -141,7 +141,7 @@ def main() -> None:
     args = cli()
 
     model_name: str = args.model.split("-")[0]
-    model_features: Tuple[str, ...] = get_model_features()
+    model_features: Tuple[str, ...] = get_current_model_features()
 
     # Set necessary env vars that SageMaker environment needs
     set_sagemaker_extra_envs(args.envs)
