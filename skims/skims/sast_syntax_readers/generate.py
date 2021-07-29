@@ -851,6 +851,7 @@ def read_from_graph(
     # Linearize items so we can evaluate steps in a linear for, no recursion
     for syntax_steps in graph_syntax.values():
         while linearize_syntax_steps(syntax_steps):
+            # Nothing to assigned
             pass
 
     return graph_syntax
