@@ -25,7 +25,7 @@
             "S": "2019-08-20 16:35:16"
           },
           "parent": {
-            "N": "0"
+            "S": "0"
           },
           "comment_id": {
             "S": "1566336916294"
@@ -52,7 +52,7 @@
             "S": "2019-05-16 18:18:47"
           },
           "parent": {
-            "N": "1558036062503"
+            "S": "1558036062503"
           },
           "email": {
             "S": "unittest@fluidattacks.com"
@@ -85,7 +85,7 @@
             "S": "2020-01-19 10:41:04"
           },
           "parent": {
-            "N": "0"
+            "S": "0"
           },
           "email": {
             "S": "integratesuser@gmail.com"
@@ -118,7 +118,7 @@
             "S": "2020-02-19 10:41:04"
           },
           "parent": {
-            "N": "0"
+            "S": "0"
           },
           "email": {
             "S": "integratesuser@gmail.com"
@@ -151,7 +151,7 @@
             "S": "2020-02-21 10:41:04"
           },
           "parent": {
-            "N": "0"
+            "S": "0"
           },
           "email": {
             "S": "integratesanalyst@fluidattacks.com"
