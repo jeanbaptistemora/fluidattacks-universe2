@@ -5981,45 +5981,199 @@
 "334":
   en:
     title: Avoid knowledge-based authentication
-    summary: __empty_
-    description: __empty__
+    summary: >
+      Password hints and knowledge-based
+      authentication,
+      such as secret questions,
+      should not be enabled.
+    description: >
+      Password hints often
+      offer enough information
+      for an attacker to guess
+      a user's password.
+      Answers to secret questions
+      are sometimes information
+      that is publicly available
+      or that can be found on social media.
+      Therefore,
+      these mechanisms should not be part
+      of the authentication process
+      and should not be used
+      in the password recovery process either.
   es:
     title: Evitar autenticación basada en conocimiento
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Las sugerencias de contraseña
+      y la autenticación basada
+      en el conocimiento,
+      como las preguntas secretas,
+      no deben habilitarse. 
+    description: >
+      Las sugerencias de contraseña
+      a menudo ofrecen suficiente
+      información para un atacante
+      para adivinar la contraseña
+      de un usuario.
+      Las respuestas a las preguntas
+      secretas son a veces la información
+      que está disponible públicamente
+      o que se puede encontrar
+      en las redes sociales.
+      Por lo tanto,
+      estos mecanismos no deben ser parte
+      del proceso de autenticación
+      y tampoco deben usarse en el proceso
+      de recuperación de contraseña. 
   references: []
   metadata: {}
 "335":
   en:
     title: Define out of band token lifespan
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must expire
+      out of band authentication requests,
+      codes or tokens after 10 minutes
+      and should only allow them
+      to be used once within this period.
+    description: >
+      Secure out of band authenticators
+      are physical devices
+      that can communicate
+      with an authentication verifier
+      over a secure secondary channel.
+      They serve as an additional
+      security measure
+      for identity assertion during
+      authentication processes
+      or sensitive transactions.
+      Systems should expire
+      out of band tokens after 10 minutes
+      and allow them to be used
+      only once within this period
+      to prevent replay attacks.
   es:
     title: Definir el tiempo de duración del token fuera de banda
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe expirar las solicitudes
+      de autenticación fuera de banda,
+      códigos o tokens después de 10 minutos
+      y solo debe permitir que se usen
+      una vez dentro de este período.
+    description: >
+      Los autenticadores fuera de banda seguros
+      son dispositivos físicos
+      que pueden comunicarse con
+      un verificador de autenticación
+      sobre un canal secundario seguro.
+      Sirven como medida de seguridad
+      adicional para la afirmación
+      de identidad durante los procesos
+      de autenticación o transacciones sensibles.
+      Los sistemas deben expirar
+      los tokens fuera de banda
+      después de 10 minutos y permitir
+      que se usen solo una vez
+      dentro de este período
+      para evitar ataques de repetición.
   references: []
   metadata: {}
 "336":
   en:
     title: Disable insecure TLS versions
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must disable
+      out-of-date or insecure versions
+      of SSL and TLS protocols,
+      algorithms and ciphers.
+    description: >
+      All communications between
+      the client and the server
+      should take place over channels
+      that are protected and encrypted.
+      In order to guarantee this,
+      out-of-date or insecure protocols
+      such as SSLv2, SSLv3, or TLS 1.0
+      and TLS 1.1 should be disabled.
+      The latest version of TLS
+      should be used and communications
+      should not be allowed to fall back
+      on insecure or unencrypted protocols.
   es:
     title: Deshabilitar versiones inseguras de TLS
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe deshabilitar
+      versiones inseguras y desactualizadas
+      de protocolos SSL y TLS,
+      algoritmos y cifrados.
+    description: >
+      Todas las comunicaciones
+      entre el cliente y el servidor
+      deben tener lugar sobre los canales
+      que están protegidos y cifrados.
+      Para garantizar esto,
+      los protocolos desactualizados o inseguros,
+      como SSLV2, SSLV3, o TLS 1.0 y TLS 1.1,
+      deben desactivarse.
+      La última versión de TLS
+      debe utilizarse y no se debe permitir
+      que las comunicaciones
+      recurran a los protocolos inseguros
+      o no cifrados.
   references: []
   metadata: {}
 "337":
   en:
     title: Make critical logic flows thread safe
-    summary: __empty_
-    description: __empty__
+    summary: >
+      Critical and high-value business
+      logic flows must be thread
+      safe and resistant to time-of-check
+      and time-of-use (TOCTOU) race conditions.
+    description: >
+      A race condition occurs
+      when a code sequence requires
+      exclusive access to a resource
+      but another code sequence]
+      can modify the same resource
+      before the first one has released it.
+      This can have security implications
+      if it occurs during high-value
+      business logic flows,
+      such as authentication,
+      authorization and session management.
+      Therefore,
+      threads and concurrent processes
+      must be managed carefully
+      in order to prevent race conditions
+      from arising.
   es:
     title: Hacer que los flujos lógicos críticos sean seguros
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El flujo de la información
+      para procesos críticos
+      y lógica de negocio debe garantizar
+      la seguridad en hilos y ser resistente
+      a condiciones de carrera,
+      time-of-check y time-of-use (TOCTOU).
+    description: >
+      Se produce una condición de carrera
+      cuando una secuencia de código
+      requiere un acceso exclusivo
+      a un recurso,
+      pero otra secuencia de código
+      puede modificar el mismo recurso
+      antes de que el primero se haya lanzado.
+      Esto puede tener implicaciones
+      de seguridad si ocurre durante
+      los flujos de lógica de negocios
+      de alto valor,
+      como la autenticación, la autorización
+      y la gestión de sesiones.
+      Por lo tanto,
+      los hilos y los procesos concurrentes
+      deben gestionarse cuidadosamente
+      para evitar que surjan
+      las condiciones de carrera.
   references: []
   metadata: {}
 "338":
