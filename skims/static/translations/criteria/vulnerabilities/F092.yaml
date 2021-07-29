@@ -1,6 +1,3 @@
-lib_ssl.analyze_protocol.anonymous_suits_allowed:
-  en: server accepts connections with anonymous cipher suites
-  es: el servidor acepta conexiones con suites de cifrado ananimos
 F092.description:
   en: The application allows connections with anonymous cipher suites.
   es: La aplicación acepta conexiones con suites de cifrado anonimos.

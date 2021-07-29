@@ -497,72 +497,336 @@ def _tlsv1_2_or_higher_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
-def _anonymous_suits_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
-    ssl_vulnerabilities: List[SSLVulnerability] = []
-
-    ssl_settings = SSLSettings(
-        ctx.target.host,
-        ctx.target.port,
-        anonymous=True,
-        intention={
-            core_model.LocalesEnum.EN: (
-                "check if server accepts connections with anonymous"
-                " cipher suites"
-            ),
-            core_model.LocalesEnum.ES: (
-                "verificar si el servidor acepta conexiones con suites"
-                " de cifrado anónimo"
-            ),
-        },
-    )
-
-    with tlslite_connect(
-        ssl_settings,
-        expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
-    ) as connection:
-        if connection is not None and not connection.closed:
-            ssl_vulnerabilities.append(
-                _create_ssl_vuln(
-                    check="anonymous_suits_allowed",
-                    ssl_settings=ssl_settings,
-                    line=SSLSnippetLine.key_exchange,
-                    finding=core_model.FindingEnum.F092,
-                )
-            )
-
-    return _create_core_vulns(ssl_vulnerabilities)
-
-
 def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    ssl_settings = SSLSettings(
+    suites: List[str] = [
+        "NULL_WITH_NULL_NULL",
+        "KRB5_EXPORT_WITH_RC4_40_SHA",
+        "DH_anon_WITH_ARIA_128_CBC_SHA256",
+        "DH_anon_WITH_ARIA_256_GCM_SHA384",
+        "DHE_PSK_WITH_NULL_SHA256",
+        "ECDHE_PSK_WITH_RC4_128_SHA",
+        "PSK_WITH_RC4_128_SHA",
+        "RSA_WITH_NULL_SHA256",
+        "RSA_WITH_DES_CBC_SHA",
+        "PSK_WITH_NULL_SHA384",
+        "DH_anon_WITH_AES_256_CBC_SHA256",
+        "ECDHE_PSK_WITH_NULL_SHA",
+        "SM4_GCM_SM3",
+        "DH_RSA_WITH_DES_CBC_SHA",
+        "KRB5_WITH_RC4_128_SHA",
+        "DH_anon_WITH_CAMELLIA_128_CBC_SHA",
+        "DH_DSS_WITH_DES_CBC_SHA",
+        "ECDH_RSA_WITH_RC4_128_SHA",
+        "RSA_WITH_RC4_128_MD5",
+        "DH_anon_EXPORT_WITH_DES40_CBC_SHA",
+        "DH_anon_WITH_CAMELLIA_256_CBC_SHA",
+        "PSK_WITH_NULL_SHA",
+        "RSA_EXPORT_WITH_RC4_40_MD5",
+        "RSA_WITH_NULL_MD5",
+        "KRB5_EXPORT_WITH_DES_CBC_40_SHA",
+        "DH_anon_WITH_AES_128_CBC_SHA",
+        "DHE_PSK_WITH_NULL_SHA",
+        "PSK_WITH_NULL_SHA256",
+        "ECDH_ECDSA_WITH_RC4_128_SHA",
+        "ECDH_anon_WITH_AES_128_CBC_SHA",
+        "DH_anon_WITH_SEED_CBC_SHA",
+        "ECDH_anon_WITH_NULL_SHA",
+        "ECDH_anon_WITH_AES_256_CBC_SHA",
+        "ECDHE_PSK_WITH_NULL_SHA384",
+        "DH_anon_WITH_3DES_EDE_CBC_SHA",
+        "RSA_PSK_WITH_NULL_SHA256",
+        "ECDHE_RSA_WITH_RC4_128_SHA",
+        "RSA_WITH_RC4_128_SHA",
+        "KRB5_EXPORT_WITH_RC2_CBC_40_MD5",
+        "DH_anon_WITH_CAMELLIA_128_GCM_SHA256",
+        "ECDH_ECDSA_WITH_NULL_SHA",
+        "DH_anon_EXPORT_WITH_RC4_40_MD5",
+        "KRB5_WITH_IDEA_CBC_MD5",
+        "RSA_EXPORT_WITH_DES40_CBC_SHA",
+        "KRB5_EXPORT_WITH_DES_CBC_40_MD5",
+        "DHE_PSK_WITH_RC4_128_SHA",
+        "DH_anon_WITH_AES_256_CBC_SHA",
+        "KRB5_EXPORT_WITH_RC2_CBC_40_SHA",
+        "DH_anon_WITH_CAMELLIA_128_CBC_SHA256",
+        "DH_anon_WITH_RC4_128_MD5",
+        "DH_DSS_EXPORT_WITH_DES40_CBC_SHA",
+        "KRB5_WITH_RC4_128_MD5",
+        "DH_anon_WITH_DES_CBC_SHA",
+        "RSA_PSK_WITH_NULL_SHA",
+        "KRB5_WITH_DES_CBC_MD5",
+        "DH_anon_WITH_AES_128_CBC_SHA256",
+        "ECDHE_ECDSA_WITH_RC4_128_SHA",
+        "ECDH_anon_WITH_3DES_EDE_CBC_SHA",
+        "ECDH_anon_WITH_RC4_128_SHA",
+        "DHE_RSA_WITH_DES_CBC_SHA",
+        "RSA_PSK_WITH_NULL_SHA384",
+        "KRB5_WITH_3DES_EDE_CBC_MD5",
+        "DHE_PSK_WITH_NULL_SHA384",
+        "DH_anon_WITH_AES_128_GCM_SHA256",
+        "ECDH_RSA_WITH_NULL_SHA",
+        "SM4_CCM_SM3",
+        "DH_anon_WITH_CAMELLIA_256_GCM_SHA384",
+        "RSA_PSK_WITH_RC4_128_SHA",
+        "KRB5_WITH_DES_CBC_SHA",
+        "DH_anon_WITH_CAMELLIA_256_CBC_SHA256",
+        "ECDHE_ECDSA_WITH_NULL_SHA",
+        "DH_anon_WITH_AES_256_GCM_SHA384",
+        "KRB5_EXPORT_WITH_RC4_40_MD5",
+        "DHE_DSS_EXPORT_WITH_DES40_CBC_SHA",
+        "RSA_WITH_NULL_SHA",
+        "DH_RSA_EXPORT_WITH_DES40_CBC_SHA",
+        "DH_anon_WITH_ARIA_128_GCM_SHA256",
+        "ECDHE_PSK_WITH_NULL_SHA256",
+        "RSA_EXPORT_WITH_RC2_CBC_40_MD5",
+        "DH_anon_WITH_ARIA_256_CBC_SHA384",
+        "DHE_RSA_EXPORT_WITH_DES40_CBC_SHA",
+        "DHE_DSS_WITH_DES_CBC_SHA",
+        "ECDHE_RSA_WITH_NULL_SHA",
+        "RSA_PSK_WITH_CHACHA20_POLY1305_SHA256",
+        "ECDHE_PSK_WITH_ARIA_256_CBC_SHA384",
+        "ECDHE_RSA_WITH_AES_128_CBC_SHA256",
+        "PSK_WITH_CAMELLIA_256_CBC_SHA384",
+        "ECDHE_PSK_WITH_AES_128_CBC_SHA256",
+        "DH_DSS_WITH_AES_128_CBC_SHA",
+        "ECDH_RSA_WITH_CAMELLIA_128_GCM_SHA256",
+        "RSA_PSK_WITH_AES_128_CBC_SHA",
+        "DH_DSS_WITH_AES_128_CBC_SHA256",
+        "RSA_PSK_WITH_AES_256_CBC_SHA384",
+        "ECDH_ECDSA_WITH_AES_128_CBC_SHA256",
+        "DHE_PSK_WITH_ARIA_256_CBC_SHA384",
+        "PSK_WITH_CAMELLIA_128_CBC_SHA256",
+        "ECDHE_RSA_WITH_CAMELLIA_256_CBC_SHA384",
+        "ECDH_ECDSA_WITH_AES_256_CBC_SHA",
+        "ECDH_ECDSA_WITH_AES_256_GCM_SHA384",
+        "DHE_DSS_WITH_AES_128_CBC_SHA",
+        "DHE_DSS_WITH_AES_256_CBC_SHA",
+        "DH_DSS_WITH_ARIA_128_GCM_SHA256",
+        "DH_DSS_WITH_CAMELLIA_128_CBC_SHA256",
+        "RSA_WITH_AES_256_GCM_SHA384",
+        "RSA_WITH_SEED_CBC_SHA",
+        "DH_RSA_WITH_ARIA_128_CBC_SHA256",
+        "ECDH_RSA_WITH_AES_256_GCM_SHA384",
+        "DH_DSS_WITH_ARIA_256_CBC_SHA384",
+        "ECDHE_PSK_WITH_AES_256_CBC_SHA",
+        "DHE_PSK_WITH_ARIA_128_CBC_SHA256",
+        "PSK_WITH_AES_256_CCM_8",
+        "RSA_WITH_AES_128_GCM_SHA256",
+        "ECDH_RSA_WITH_CAMELLIA_256_CBC_SHA384",
+        "DHE_RSA_WITH_ARIA_128_CBC_SHA256",
+        "DH_RSA_WITH_ARIA_128_GCM_SHA256",
+        "KRB5_WITH_IDEA_CBC_SHA",
+        "ECDH_ECDSA_WITH_ARIA_128_CBC_SHA256",
+        "DHE_DSS_WITH_CAMELLIA_128_CBC_SHA256",
+        "DH_RSA_WITH_CAMELLIA_256_CBC_SHA256",
+        "SRP_SHA_RSA_WITH_3DES_EDE_CBC_SHA",
+        "PSK_WITH_AES_128_CCM",
+        "ECDH_ECDSA_WITH_ARIA_256_CBC_SHA384",
+        "RSA_PSK_WITH_ARIA_128_GCM_SHA256",
+        "ECDH_RSA_WITH_CAMELLIA_256_GCM_SHA384",
+        "SRP_SHA_DSS_WITH_AES_256_CBC_SHA",
+        "ECDH_ECDSA_WITH_CAMELLIA_256_CBC_SHA384",
+        "ECDHE_RSA_WITH_AES_256_CBC_SHA",
+        "DH_DSS_WITH_AES_256_GCM_SHA384",
+        "DHE_DSS_WITH_CAMELLIA_256_CBC_SHA",
+        "RSA_WITH_ARIA_256_CBC_SHA384",
+        "RSA_PSK_WITH_AES_128_CBC_SHA256",
+        "DHE_RSA_WITH_ARIA_256_CBC_SHA384",
+        "DH_RSA_WITH_CAMELLIA_128_GCM_SHA256",
+        "DHE_RSA_WITH_AES_128_CBC_SHA256",
+        "RSA_WITH_CAMELLIA_128_GCM_SHA256",
+        "DH_RSA_WITH_ARIA_256_GCM_SHA384",
+        "DHE_RSA_WITH_CAMELLIA_256_CBC_SHA",
+        "ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA",
+        "PSK_DHE_WITH_AES_128_CCM_8",
+        "DHE_RSA_WITH_AES_128_CBC_SHA",
+        "RSA_PSK_WITH_CAMELLIA_128_GCM_SHA256",
+        "ECDH_RSA_WITH_CAMELLIA_128_CBC_SHA256",
+        "ECDHE_RSA_WITH_ARIA_128_CBC_SHA256",
+        "DH_DSS_WITH_ARIA_256_GCM_SHA384",
+        "PSK_WITH_CHACHA20_POLY1305_SHA256",
+        "RSA_PSK_WITH_ARIA_256_GCM_SHA384",
+        "DH_DSS_WITH_CAMELLIA_256_CBC_SHA",
+        "ECDH_RSA_WITH_AES_128_GCM_SHA256",
+        "DHE_PSK_WITH_AES_128_CBC_SHA",
+        "ECDH_RSA_WITH_ARIA_256_GCM_SHA384",
+        "DHE_RSA_WITH_CAMELLIA_128_CBC_SHA",
+        "SRP_SHA_RSA_WITH_AES_256_CBC_SHA",
+        "ECDHE_ECDSA_WITH_CAMELLIA_128_CBC_SHA256",
+        "DH_DSS_WITH_SEED_CBC_SHA",
+        "DH_DSS_WITH_3DES_EDE_CBC_SHA",
+        "ECDHE_RSA_WITH_CAMELLIA_128_CBC_SHA256",
+        "PSK_WITH_AES_256_CCM",
+        "RSA_WITH_CAMELLIA_128_CBC_SHA256",
+        "DHE_DSS_WITH_ARIA_256_CBC_SHA384",
+        "ECDH_RSA_WITH_AES_256_CBC_SHA",
+        "PSK_WITH_AES_256_CBC_SHA384",
+        "PSK_WITH_ARIA_128_GCM_SHA256",
+        "DHE_RSA_WITH_CAMELLIA_256_CBC_SHA256",
+        "DHE_DSS_WITH_SEED_CBC_SHA",
+        "DH_DSS_WITH_ARIA_128_CBC_SHA256",
+        "ECDH_ECDSA_WITH_CAMELLIA_128_CBC_SHA256",
+        "PSK_WITH_CAMELLIA_256_GCM_SHA384",
+        "RSA_WITH_AES_128_CCM",
+        "RSA_WITH_AES_128_CBC_SHA256",
+        "ECDHE_RSA_WITH_AES_128_CBC_SHA",
+        "DHE_DSS_WITH_AES_128_CBC_SHA256",
+        "RSA_PSK_WITH_AES_128_GCM_SHA256",
+        "ECDHE_ECDSA_WITH_AES_128_CBC_SHA",
+        "DH_DSS_WITH_CAMELLIA_128_GCM_SHA256",
+        "ECDHE_ECDSA_WITH_CAMELLIA_256_CBC_SHA384",
+        "SRP_SHA_WITH_AES_256_CBC_SHA",
+        "PSK_WITH_AES_128_CCM_8",
+        "SRP_SHA_DSS_WITH_3DES_EDE_CBC_SHA",
+        "DH_RSA_WITH_SEED_CBC_SHA",
+        "ECDHE_PSK_WITH_CAMELLIA_256_CBC_SHA384",
+        "ECDH_RSA_WITH_ARIA_128_GCM_SHA256",
+        "ECDH_ECDSA_WITH_ARIA_128_GCM_SHA256",
+        "DHE_PSK_WITH_CAMELLIA_128_CBC_SHA256",
+        "RSA_PSK_WITH_3DES_EDE_CBC_SHA",
+        "ECDH_RSA_WITH_AES_128_CBC_SHA",
+        "ECDHE_ECDSA_WITH_ARIA_256_CBC_SHA384",
+        "DH_RSA_WITH_AES_128_GCM_SHA256",
+        "SRP_SHA_WITH_3DES_EDE_CBC_SHA",
+        "ECDH_RSA_WITH_ARIA_256_CBC_SHA384",
+        "DH_RSA_WITH_AES_256_CBC_SHA",
+        "ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA",
+        "RSA_WITH_3DES_EDE_CBC_SHA",
+        "DH_RSA_WITH_CAMELLIA_256_CBC_SHA",
+        "RSA_PSK_WITH_CAMELLIA_256_GCM_SHA384",
+        "ECDH_RSA_WITH_ARIA_128_CBC_SHA256",
+        "DHE_RSA_WITH_CAMELLIA_128_CBC_SHA256",
+        "DHE_DSS_WITH_CAMELLIA_128_CBC_SHA",
+        "PSK_WITH_AES_128_GCM_SHA256",
+        "RSA_WITH_ARIA_256_GCM_SHA384",
+        "PSK_WITH_AES_256_GCM_SHA384",
+        "DH_RSA_WITH_AES_128_CBC_SHA256",
+        "DHE_PSK_WITH_AES_256_CBC_SHA",
+        "RSA_WITH_AES_256_CBC_SHA256",
+        "SRP_SHA_DSS_WITH_AES_128_CBC_SHA",
+        "ECDH_RSA_WITH_AES_256_CBC_SHA384",
+        "DHE_DSS_WITH_CAMELLIA_256_CBC_SHA256",
+        "DH_DSS_WITH_AES_128_GCM_SHA256",
+        "DH_DSS_WITH_CAMELLIA_128_CBC_SHA",
+        "DHE_PSK_WITH_AES_128_CBC_SHA256",
+        "RSA_PSK_WITH_ARIA_256_CBC_SHA384",
+        "DH_RSA_WITH_CAMELLIA_128_CBC_SHA",
+        "PSK_WITH_3DES_EDE_CBC_SHA",
+        "RSA_WITH_ARIA_128_CBC_SHA256",
+        "RSA_PSK_WITH_AES_256_GCM_SHA384",
+        "PSK_WITH_AES_128_CBC_SHA256",
+        "DHE_PSK_WITH_3DES_EDE_CBC_SHA",
+        "DHE_DSS_WITH_ARIA_128_CBC_SHA256",
+        "DH_RSA_WITH_AES_256_CBC_SHA256",
+        "RSA_WITH_ARIA_128_GCM_SHA256",
+        "ECDHE_PSK_WITH_ARIA_128_CBC_SHA256",
+        "ECDHE_RSA_WITH_AES_256_CBC_SHA384",
+        "PSK_WITH_ARIA_128_CBC_SHA256",
+        "ECDHE_ECDSA_WITH_ARIA_128_CBC_SHA256",
+        "ECDHE_PSK_WITH_AES_256_CBC_SHA384",
+        "PSK_WITH_AES_128_CBC_SHA",
+        "DHE_DSS_WITH_AES_256_CBC_SHA256",
+        "PSK_WITH_CAMELLIA_128_GCM_SHA256",
+        "ECDHE_PSK_WITH_3DES_EDE_CBC_SHA",
+        "DH_DSS_WITH_AES_256_CBC_SHA",
+        "DHE_PSK_WITH_CAMELLIA_256_CBC_SHA384",
+        "ECDH_RSA_WITH_AES_128_CBC_SHA256",
+        "DH_RSA_WITH_CAMELLIA_128_CBC_SHA256",
+        "RSA_PSK_WITH_ARIA_128_CBC_SHA256",
+        "KRB5_WITH_3DES_EDE_CBC_SHA",
+        "ECDHE_ECDSA_WITH_AES_256_CBC_SHA384",
+        "ECDHE_PSK_WITH_AES_128_CBC_SHA",
+        "RSA_WITH_AES_128_CCM_8",
+        "ECDHE_PSK_WITH_CAMELLIA_128_CBC_SHA256",
+        "RSA_WITH_AES_256_CBC_SHA",
+        "RSA_WITH_AES_256_CCM_8",
+        "ECDHE_RSA_WITH_ARIA_256_CBC_SHA384",
+        "DHE_PSK_WITH_AES_256_CBC_SHA384",
+        "SRP_SHA_RSA_WITH_AES_128_CBC_SHA",
+        "DHE_RSA_WITH_AES_256_CBC_SHA",
+        "DHE_RSA_WITH_SEED_CBC_SHA",
+        "DH_RSA_WITH_3DES_EDE_CBC_SHA",
+        "ECDH_RSA_WITH_3DES_EDE_CBC_SHA",
+        "ECDH_ECDSA_WITH_AES_128_GCM_SHA256",
+        "RSA_WITH_CAMELLIA_128_CBC_SHA",
+        "DH_RSA_WITH_AES_128_CBC_SHA",
+        "RSA_WITH_IDEA_CBC_SHA",
+        "DH_RSA_WITH_CAMELLIA_256_GCM_SHA384",
+        "DHE_RSA_WITH_AES_256_CBC_SHA256",
+        "RSA_PSK_WITH_AES_256_CBC_SHA",
+        "RSA_WITH_AES_128_CBC_SHA",
+        "SRP_SHA_WITH_AES_128_CBC_SHA",
+        "RSA_WITH_AES_256_CCM",
+        "ECDH_ECDSA_WITH_AES_128_CBC_SHA",
+        "RSA_PSK_WITH_CAMELLIA_128_CBC_SHA256",
+        "PSK_DHE_WITH_AES_256_CCM_8",
+        "ECDHE_ECDSA_WITH_AES_256_CBC_SHA",
+        "ECDHE_RSA_WITH_3DES_EDE_CBC_SHA",
+        "ECDH_ECDSA_WITH_CAMELLIA_128_GCM_SHA256",
+        "DH_DSS_WITH_CAMELLIA_256_GCM_SHA384",
+        "DH_RSA_WITH_AES_256_GCM_SHA384",
+        "RSA_PSK_WITH_CAMELLIA_256_CBC_SHA384",
+        "RSA_WITH_CAMELLIA_256_GCM_SHA384",
+        "DHE_DSS_WITH_3DES_EDE_CBC_SHA",
+        "RSA_WITH_CAMELLIA_256_CBC_SHA",
+        "DH_RSA_WITH_ARIA_256_CBC_SHA384",
+        "PSK_WITH_ARIA_256_CBC_SHA384",
+        "DH_DSS_WITH_CAMELLIA_256_CBC_SHA256",
+        "PSK_WITH_AES_256_CBC_SHA",
+        "DHE_RSA_WITH_3DES_EDE_CBC_SHA",
+        "ECDHE_ECDSA_WITH_AES_128_CBC_SHA256",
+        "ECDH_ECDSA_WITH_AES_256_CBC_SHA384",
+        "DH_DSS_WITH_AES_256_CBC_SHA256",
+        "ECDH_ECDSA_WITH_CAMELLIA_256_GCM_SHA384",
+        "ECDH_ECDSA_WITH_ARIA_256_GCM_SHA384",
+        "PSK_WITH_ARIA_256_GCM_SHA384",
+        "RSA_WITH_CAMELLIA_256_CBC_SHA256",
+    ]
+
+    intention: Dict[core_model.LocalesEnum, str] = {
+        core_model.LocalesEnum.EN: (
+            "check if server accepts connections with weak ciphers"
+        ),
+        core_model.LocalesEnum.ES: (
+            "verificar si el servidor acepta conexiones con cifrado débil"
+        ),
+    }
+
+    sock = tcp_connect(
         ctx.target.host,
         ctx.target.port,
-        cipher_names=["rc4", "3des", "null"],
-        intention={
-            core_model.LocalesEnum.EN: (
-                "check if server accepts connections with weak ciphers"
-            ),
-            core_model.LocalesEnum.ES: (
-                "verificar si el servidor acepta conexiones con cifrado débil"
-            ),
-        },
+        intention[core_model.LocalesEnum.EN],
     )
 
-    with tlslite_connect(
-        ssl_settings,
-        expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
-    ) as connection:
-        if connection is not None and not connection.closed:
-            ssl_vulnerabilities.append(
-                _create_ssl_vuln(
-                    check="weak_ciphers_allowed",
-                    ssl_settings=ssl_settings,
-                    line=SSLSnippetLine.ciphers,
-                    finding=core_model.FindingEnum.F052,
+    if sock is None:
+        return tuple()
+
+    for v_id in ctx.tls_versions:
+        package = get_client_hello_package(v_id, suites)
+        sock.send(bytes(package))
+        handshake_record = read_ssl_record(sock)
+
+        if handshake_record is not None:
+            handshake_type, _, _ = handshake_record
+
+            if handshake_type == 22:
+                ssl_vulnerabilities.append(
+                    _create_ssl_vuln(
+                        check="weak_ciphers_allowed",
+                        line=SSLSnippetLine.ciphers,
+                        ssl_settings=SSLSettings(
+                            host=ctx.target.host,
+                            port=ctx.target.port,
+                            min_version=v_id,
+                            max_version=v_id,
+                            cipher_names=["null", "des", "rc4"],
+                            intention=intention,
+                        ),
+                        finding=core_model.FindingEnum.F052,
+                    )
                 )
-            )
+    sock.close()
 
     return _create_core_vulns(ssl_vulnerabilities)
 
@@ -1107,7 +1371,6 @@ CHECKS: Dict[
     List[Callable[[SSLContext], core_model.Vulnerabilities]],
 ] = {
     core_model.FindingEnum.F052: [_weak_ciphers_allowed],
-    core_model.FindingEnum.F092: [_anonymous_suits_allowed],
     core_model.FindingEnum.F094: [
         _beast_possible,
         _cbc_enabled,
