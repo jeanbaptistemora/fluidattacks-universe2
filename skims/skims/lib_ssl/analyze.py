@@ -7,6 +7,7 @@ from lib_ssl import (
 )
 from lib_ssl.types import (
     SSLContext,
+    SSLVersionId,
 )
 from model import (
     core_model,
@@ -71,11 +72,12 @@ async def get_ssl_contexts() -> Set[SSLContext]:
             target=target,
             tls_versions=tuple(
                 v_id
-                for v_id in range(1, 5)
-                if analyze_protocol.supports_tls(
+                for v_id in SSLVersionId
+                if v_id != SSLVersionId.sslv3_0
+                and analyze_protocol.supports_tls(
                     target.host,
                     target.port,
-                    version=(3, v_id),
+                    v_id,
                 )
             ),
         )

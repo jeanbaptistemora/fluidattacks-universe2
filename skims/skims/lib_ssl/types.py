@@ -1,10 +1,14 @@
 from enum import (
     Enum,
+    IntEnum,
 )
 from model.core_model import (
     FindingEnum,
     LocalesEnum,
     SkimsSslTarget,
+)
+from ssl import (
+    TLSVersion,
 )
 from typing import (
     Dict,
@@ -14,9 +18,25 @@ from typing import (
 )
 
 
+class SSLVersionId(IntEnum):
+    sslv3_0: int = 0
+    tlsv1_0: int = 1
+    tlsv1_1: int = 2
+    tlsv1_2: int = 3
+    tlsv1_3: int = 4
+
+
+class SSLVersionName(Enum):
+    sslv3_0: str = "SSLv3.0"
+    tlsv1_0: str = "TLSv1.0"
+    tlsv1_1: str = "TLSv1.1"
+    tlsv1_2: str = "TLSv1.2"
+    tlsv1_3: str = "TLSv1.3"
+
+
 class SSLContext(NamedTuple):
     target: SkimsSslTarget
-    tls_versions: Tuple[int, ...]
+    tls_versions: Tuple[SSLVersionId, ...]
 
     def __str__(self) -> str:
         return f"{self.target.host}:{self.target.port}"
@@ -27,11 +47,11 @@ class SSLSettings(NamedTuple):
     port: int = 443
     scsv: bool = False
     anonymous: bool = False
-    min_version: Tuple[int, int] = (3, 0)
-    max_version: Tuple[int, int] = (3, 4)
+    min_version: SSLVersionId = SSLVersionId.sslv3_0
+    max_version: SSLVersionId = SSLVersionId.tlsv1_3
     intention: Dict[LocalesEnum, str] = {
-        LocalesEnum.EN: "establish SSL connection",
-        LocalesEnum.ES: "establecer conexión SSL",
+        LocalesEnum.EN: "establish SSL/TLS connection",
+        LocalesEnum.ES: "establecer conexión SSL/TLS",
     }
     mac_names: List[str] = ["sha", "sha256", "sha384", "aead"]
     cipher_names: List[str] = [
@@ -79,6 +99,13 @@ class SSLSnippetLine(Enum):
     key_exchange: int = 8
 
 
+class TLSVersionId(Enum):
+    tlsv1_0: TLSVersion = TLSVersion.TLSv1
+    tlsv1_1: TLSVersion = TLSVersion.TLSv1_1
+    tlsv1_2: TLSVersion = TLSVersion.TLSv1_2
+    tlsv1_3: TLSVersion = TLSVersion.TLSv1_3
+
+
 class SSLVulnerability(NamedTuple):
     description: str
     line: SSLSnippetLine
@@ -89,7 +116,7 @@ class SSLVulnerability(NamedTuple):
         return self.line.value
 
 
-ssl_suites: Dict["str", List[int]] = {
+SSL_SUITES: Dict[str, List[int]] = {
     "NULL_WITH_NULL_NULL": [0x00, 0x00],
     "RSA_WITH_NULL_MD5": [0x00, 0x01],
     "RSA_WITH_NULL_SHA": [0x00, 0x02],

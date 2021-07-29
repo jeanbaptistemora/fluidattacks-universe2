@@ -1,12 +1,10 @@
 from lib_ssl.types import (
+    SSLVersionId,
+    SSLVersionName,
     SSLVulnerability,
 )
 from model.core_model import (
     LocalesEnum,
-)
-from typing import (
-    Dict,
-    Tuple,
 )
 from utils.string import (
     make_snippet,
@@ -14,13 +12,13 @@ from utils.string import (
     SnippetViewport,
 )
 
-ssl_versions: Dict[Tuple[int, int], str] = {
-    (3, 0): "SSLv3.0",
-    (3, 1): "TLSv1.0",
-    (3, 2): "TLSv1.1",
-    (3, 3): "TLSv1.2",
-    (3, 4): "TLSv1.3",
-}
+
+def ssl_name2ssl_id(ssl_name: SSLVersionName) -> SSLVersionId:
+    return getattr(SSLVersionId, ssl_name.name)
+
+
+def ssl_id2ssl_name(ssl_id: SSLVersionId) -> SSLVersionName:
+    return getattr(SSLVersionName, ssl_id.name)
 
 
 def get_snippet_skeleton_en() -> str:
@@ -68,8 +66,8 @@ def snippet(
         host=ssl_settings.host,
         port=ssl_settings.port,
         scsv=ssl_settings.scsv,
-        min_version=ssl_versions[ssl_settings.min_version],
-        max_version=ssl_versions[ssl_settings.max_version],
+        min_version=ssl_id2ssl_name(ssl_settings.min_version).value,
+        max_version=ssl_id2ssl_name(ssl_settings.max_version).value,
         ciphers=", ".join(ssl_settings.cipher_names),
         mac=", ".join(ssl_settings.mac_names),
         key_exchange=", ".join(ssl_settings.get_key_exchange_names()),

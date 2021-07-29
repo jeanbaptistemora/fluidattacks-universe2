@@ -1,7 +1,9 @@
 import contextlib
 from lib_ssl.types import (
-    ssl_suites,
+    SSL_SUITES,
     SSLSettings,
+    SSLVersionId,
+    TLSVersionId,
 )
 from model.core_model import (
     LocalesEnum,
@@ -16,7 +18,6 @@ from struct import (
 )
 import tlslite
 from typing import (
-    Dict,
     Generator,
     List,
     Optional,
@@ -30,13 +31,9 @@ from utils.sockets import (
     tcp_read,
 )
 
-tls_proto: Dict[Tuple[int, int], ssl.TLSVersion] = {
-    (3, 0): ssl.TLSVersion.SSLv3,
-    (3, 1): ssl.TLSVersion.TLSv1,
-    (3, 2): ssl.TLSVersion.TLSv1_1,
-    (3, 3): ssl.TLSVersion.TLSv1_2,
-    (3, 4): ssl.TLSVersion.TLSv1_3,
-}
+
+def ssl_id2tls_id(ssl_id: SSLVersionId) -> TLSVersionId:
+    return getattr(TLSVersionId, ssl_id.name)
 
 
 @contextlib.contextmanager
@@ -54,8 +51,12 @@ def ssl_connect(
             yield None
         else:
             ssl_context = ssl.SSLContext(protocol=ssl.PROTOCOL_TLS)
-            ssl_context.minimum_version = tls_proto[ssl_settings.min_version]
-            ssl_context.maximum_version = tls_proto[ssl_settings.max_version]
+            ssl_context.minimum_version = ssl_id2tls_id(
+                ssl_settings.min_version
+            ).value
+            ssl_context.maximum_version = ssl_id2tls_id(
+                ssl_settings.max_version
+            ).value
             ssl_sock = ssl_context.wrap_socket(
                 sock, server_hostname=host, do_handshake_on_connect=False
             )
@@ -100,8 +101,8 @@ def tlslite_connect(
 
             settings = tlslite.HandshakeSettings()
             settings.sendFallbackSCSV = ssl_settings.scsv
-            settings.minVersion = ssl_settings.min_version
-            settings.maxVersion = ssl_settings.max_version
+            settings.minVersion = (3, ssl_settings.min_version.value)
+            settings.maxVersion = (3, ssl_settings.max_version.value)
             settings.macNames = ssl_settings.mac_names
             settings.cipherNames = ssl_settings.cipher_names
             settings.keyExchangeNames = ssl_settings.key_exchange_names
@@ -143,7 +144,7 @@ def rand_bytes(length: int) -> List[int]:
 
 def get_suites_package(cipher_suites: List[str], n_bytes: int) -> List[int]:
     package: List[int] = [
-        byte for suit in cipher_suites for byte in ssl_suites[suit]
+        byte for suite in cipher_suites for byte in SSL_SUITES[suite]
     ]
     return num_to_bytes(len(package), n_bytes) + package
 

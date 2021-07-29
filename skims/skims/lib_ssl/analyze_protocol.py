@@ -1,7 +1,7 @@
 # pylint: disable=too-many-lines
 from lib_ssl.as_string import (
     snippet,
-    ssl_versions,
+    ssl_id2ssl_name,
 )
 from lib_ssl.ssl_connection import (
     get_client_hello_package,
@@ -18,6 +18,7 @@ from lib_ssl.types import (
     SSLContext,
     SSLSettings,
     SSLSnippetLine,
+    SSLVersionId,
     SSLVulnerability,
 )
 from model import (
@@ -29,7 +30,6 @@ from typing import (
     Dict,
     List,
     Optional,
-    Tuple,
 )
 from utils.ctx import (
     CTX,
@@ -45,15 +45,13 @@ from zone import (
 )
 
 
-def supports_tls(
-    host: str, port: int, version: Tuple[int, int]
-) -> Optional[bool]:
-    intention_en = "verify if the server supports " + ssl_versions[version]
+def supports_tls(host: str, port: int, v_id: SSLVersionId) -> Optional[bool]:
+    intention_en = "verify if server supports " + ssl_id2ssl_name(v_id).value
     ssl_settings = SSLSettings(
         host=host,
         port=port,
-        min_version=version,
-        max_version=version,
+        min_version=v_id,
+        max_version=v_id,
         intention={core_model.LocalesEnum.EN: intention_en},
     )
 
@@ -109,7 +107,7 @@ def _create_ssl_vuln(
 def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    suits: List[str] = [
+    suites: List[str] = [
         "DHE_DSS_EXPORT_WITH_DES40_CBC_SHA",
         "DHE_DSS_WITH_DES_CBC_SHA",
         "DHE_DSS_WITH_3DES_EDE_CBC_SHA",
@@ -201,25 +199,21 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     extensions += get_elliptic_curves_ext()
     extensions += get_session_ticket_ext()
 
-    for version_id in [3, 2, 1, 0]:
-        if not supports_tls(
-            ctx.target.host, ctx.target.port, version=(3, version_id)
-        ):
+    for v_id in ctx.tls_versions:
+        if v_id == SSLVersionId.tlsv1_3:
             continue
-
-        version: Tuple[int, int] = (3, version_id)
 
         intention: Dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
                 "check if server accepts key exchange with PFS support in"
-                " {version}".format(
-                    version=ssl_versions[version],
+                " {v_name}".format(
+                    v_name=ssl_id2ssl_name(v_id).value,
                 )
             ),
             core_model.LocalesEnum.ES: (
                 "verificar si el servidor acepta intercambio de llaves con"
-                "soporte PFS en {version}".format(
-                    version=ssl_versions[version],
+                "soporte PFS en {v_name}".format(
+                    v_name=ssl_id2ssl_name(v_id).value,
                 )
             ),
         }
@@ -233,7 +227,7 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         if sock is None:
             break
 
-        package = get_client_hello_package(version_id, suits, extensions)
+        package = get_client_hello_package(v_id.value, suites, extensions)
         sock.send(bytes(package))
         handshake_record = read_ssl_record(sock)
 
@@ -248,8 +242,8 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                         ssl_settings=SSLSettings(
                             ctx.target.host,
                             ctx.target.port,
-                            min_version=version,
-                            max_version=version,
+                            min_version=v_id,
+                            max_version=v_id,
                             key_exchange_names=[
                                 "dhe_rsa",
                                 "ecdhe_rsa",
@@ -384,7 +378,7 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     if sock is None:
         return tuple()
 
-    package = get_client_hello_package(version_id=0, cipher_suites=suites)
+    package = get_client_hello_package(SSLVersionId.sslv3_0.value, suites)
     sock.send(bytes(package))
     handshake_record = read_ssl_record(sock)
 
@@ -399,7 +393,7 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     ssl_settings=SSLSettings(
                         host=ctx.target.host,
                         port=ctx.target.port,
-                        max_version=(3, 0),
+                        max_version=SSLVersionId.sslv3_0,
                         intention=intention,
                     ),
                     finding=core_model.FindingEnum.F016,
@@ -413,34 +407,28 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    ssl_settings = SSLSettings(
-        host=ctx.target.host,
-        port=ctx.target.port,
-        min_version=(3, 1),
-        max_version=(3, 1),
-        intention={
-            core_model.LocalesEnum.EN: (
-                "check if server accepts connections with TLSv1.0"
-            ),
-            core_model.LocalesEnum.ES: (
-                "verificar si el servidor acepta conexiones con TLSv1.0"
-            ),
-        },
-    )
-
-    with tlslite_connect(
-        ssl_settings,
-        expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
-    ) as connection:
-        if connection is not None and not connection.closed:
-            ssl_vulnerabilities.append(
-                _create_ssl_vuln(
-                    check="tlsv1_enabled",
-                    ssl_settings=ssl_settings,
-                    line=SSLSnippetLine.max_version,
-                    finding=core_model.FindingEnum.F016,
-                )
+    if SSLVersionId.tlsv1_0 in ctx.tls_versions:
+        ssl_vulnerabilities.append(
+            _create_ssl_vuln(
+                check="tlsv1_enabled",
+                ssl_settings=SSLSettings(
+                    host=ctx.target.host,
+                    port=ctx.target.port,
+                    min_version=SSLVersionId.tlsv1_0,
+                    max_version=SSLVersionId.tlsv1_0,
+                    intention={
+                        core_model.LocalesEnum.EN: (
+                            "check if server accepts connections with TLSv1.0"
+                        ),
+                        core_model.LocalesEnum.ES: (
+                            "verificar si el servidor acepta TLSv1.0"
+                        ),
+                    },
+                ),
+                line=SSLSnippetLine.max_version,
+                finding=core_model.FindingEnum.F016,
             )
+        )
 
     return _create_core_vulns(ssl_vulnerabilities)
 
@@ -448,34 +436,28 @@ def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    ssl_settings = SSLSettings(
-        host=ctx.target.host,
-        port=ctx.target.port,
-        min_version=(3, 2),
-        max_version=(3, 2),
-        intention={
-            core_model.LocalesEnum.EN: (
-                "check if server accepts connections with TLSv1.1"
-            ),
-            core_model.LocalesEnum.ES: (
-                "verificar si el servidor acepta conexiones con TLSv1.1"
-            ),
-        },
-    )
-
-    with tlslite_connect(
-        ssl_settings,
-        expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
-    ) as connection:
-        if connection is not None and not connection.closed:
-            ssl_vulnerabilities.append(
-                _create_ssl_vuln(
-                    check="tlsv1_1_enabled",
-                    ssl_settings=ssl_settings,
-                    line=SSLSnippetLine.max_version,
-                    finding=core_model.FindingEnum.F016,
-                )
+    if SSLVersionId.tlsv1_1 in ctx.tls_versions:
+        ssl_vulnerabilities.append(
+            _create_ssl_vuln(
+                check="tlsv1_1_enabled",
+                ssl_settings=SSLSettings(
+                    host=ctx.target.host,
+                    port=ctx.target.port,
+                    min_version=SSLVersionId.tlsv1_1,
+                    max_version=SSLVersionId.tlsv1_1,
+                    intention={
+                        core_model.LocalesEnum.EN: (
+                            "check if server accepts connections with TLSv1.1"
+                        ),
+                        core_model.LocalesEnum.ES: (
+                            "verificar si el servidor acepta TLSv1.1"
+                        ),
+                    },
+                ),
+                line=SSLSnippetLine.max_version,
+                finding=core_model.FindingEnum.F016,
             )
+        )
 
     return _create_core_vulns(ssl_vulnerabilities)
 
@@ -483,35 +465,34 @@ def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 def _tlsv1_2_or_higher_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    ssl_settings = SSLSettings(
-        ctx.target.host,
-        ctx.target.port,
-        min_version=(3, 3),
-        max_version=(3, 4),
-        intention={
-            core_model.LocalesEnum.EN: (
-                "check if server accepts connections with TLSv1.2 or TLSv1.3"
-            ),
-            core_model.LocalesEnum.ES: (
-                "verificar si el servidor acepta conexiones con TLSv1.2"
-                " o TLSv1.3"
-            ),
-        },
-    )
+    if not ctx.tls_versions:
+        return tuple()
 
-    with tlslite_connect(
-        ssl_settings,
-        expected_exceptions=(tlslite.errors.TLSLocalAlert,),
-    ) as connection:
-        if connection is not None and connection.closed:
-            ssl_vulnerabilities.append(
-                _create_ssl_vuln(
-                    check="tlsv1_2_or_higher_disabled",
-                    ssl_settings=ssl_settings,
-                    line=SSLSnippetLine.max_version,
-                    finding=core_model.FindingEnum.F016,
-                )
+    if (
+        SSLVersionId.tlsv1_2 not in ctx.tls_versions
+        and SSLVersionId.tlsv1_3 not in ctx.tls_versions
+    ):
+        ssl_vulnerabilities.append(
+            _create_ssl_vuln(
+                check="tlsv1_2_or_higher_disabled",
+                ssl_settings=SSLSettings(
+                    ctx.target.host,
+                    ctx.target.port,
+                    min_version=SSLVersionId.tlsv1_2,
+                    max_version=SSLVersionId.tlsv1_3,
+                    intention={
+                        core_model.LocalesEnum.EN: (
+                            "check if server accepts TLSv1.2 or TLSv1.3"
+                        ),
+                        core_model.LocalesEnum.ES: (
+                            "verificar si el servidor acepta TLSv1.2 o TLSv1.3"
+                        ),
+                    },
+                ),
+                line=SSLSnippetLine.max_version,
+                finding=core_model.FindingEnum.F016,
             )
+        )
 
     return _create_core_vulns(ssl_vulnerabilities)
 
@@ -526,7 +507,7 @@ def _anonymous_suits_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
         intention={
             core_model.LocalesEnum.EN: (
                 "check if server accepts connections with anonymous"
-                " cipher suits"
+                " cipher suites"
             ),
             core_model.LocalesEnum.ES: (
                 "verificar si el servidor acepta conexiones con suites"
@@ -592,8 +573,8 @@ def _beast_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_settings = SSLSettings(
         ctx.target.host,
         ctx.target.port,
-        min_version=(3, 1),
-        max_version=(3, 1),
+        min_version=SSLVersionId.tlsv1_0,
+        max_version=SSLVersionId.tlsv1_0,
         intention={
             core_model.LocalesEnum.EN: (
                 "check if server is vulnerable to BEAST attacks"
@@ -632,8 +613,8 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_settings = SSLSettings(
         ctx.target.host,
         ctx.target.port,
-        min_version=(3, 2),
-        max_version=(3, 3),
+        min_version=SSLVersionId.tlsv1_1,
+        max_version=SSLVersionId.tlsv1_2,
         intention={
             core_model.LocalesEnum.EN: (
                 "check if server accepts connections with ciphers that use CBC"
@@ -673,8 +654,8 @@ def _sweet32_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_settings = SSLSettings(
         ctx.target.host,
         ctx.target.port,
-        min_version=(3, 1),
-        max_version=(3, 3),
+        min_version=SSLVersionId.tlsv1_0,
+        max_version=SSLVersionId.tlsv1_2,
         cipher_names=["3des"],
         intention={
             core_model.LocalesEnum.EN: (
@@ -706,26 +687,17 @@ def _sweet32_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
 def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    min_version_id: int = -1
-
-    for version_id in range(0, 3):
-        if supports_tls(
-            ctx.target.host, ctx.target.port, version=(3, version_id)
-        ):
-            min_version_id = version_id
-            break
-
-    if min_version_id == -1:
+    if len(ctx.tls_versions) < 2:
         return tuple()
 
-    min_version: Tuple[int, int] = (3, min_version_id)
+    min_version_id: SSLVersionId = min(ctx.tls_versions)
 
     ssl_settings = SSLSettings(
         ctx.target.host,
         ctx.target.port,
         scsv=True,
-        min_version=min_version,
-        max_version=min_version,
+        min_version=min_version_id,
+        max_version=min_version_id,
         intention={
             core_model.LocalesEnum.EN: (
                 "check if server supports TLS_FALLBACK_SCSV"
@@ -756,25 +728,28 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    if not supports_tls(ctx.target.host, ctx.target.port, version=(3, 4)):
+    if SSLVersionId.tlsv1_3 not in ctx.tls_versions:
         return tuple()
 
-    for version_id in range(0, 3):
-        version: Tuple[int, int] = (3, version_id)
+    for v_id in ctx.tls_versions:
+        if v_id == SSLVersionId.tlsv1_3:
+            continue
+
+        v_name: str = ssl_id2ssl_name(v_id).value
         ssl_settings = SSLSettings(
             ctx.target.host,
             ctx.target.port,
-            min_version=version,
-            max_version=version,
+            min_version=v_id,
+            max_version=v_id,
             intention={
                 core_model.LocalesEnum.EN: (
-                    "check if TLSv1.3 can be downgraded to {version}".format(
-                        version=ssl_versions[version],
+                    "check if TLSv1.3 can be downgraded to {v_name}".format(
+                        v_name=v_name
                     )
                 ),
                 core_model.LocalesEnum.ES: (
-                    "verificar si TLSv1.3 puede degradarse a {version}".format(
-                        version=ssl_versions[version],
+                    "verificar si TLSv1.3 puede degradarse a {v_name}".format(
+                        v_name=v_name
                     )
                 ),
             },
@@ -791,7 +766,7 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
                         ssl_settings=ssl_settings,
                         line=SSLSnippetLine.max_version,
                         finding=core_model.FindingEnum.F016,
-                        check_kwargs={"version": f"{ssl_versions[version]}"},
+                        check_kwargs={"version": v_name},
                     )
                 )
 
@@ -801,7 +776,7 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
 def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    suits: List[str] = [
+    suites: List[str] = [
         "ECDHE_RSA_WITH_AES_256_CBC_SHA",
         "ECDHE_ECDSA_WITH_AES_256_CBC_SHA",
         "SRP_SHA_DSS_WITH_AES_256_CBC_SHA",
@@ -860,20 +835,18 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     extensions += get_session_ticket_ext()
     extensions += get_heartbeat_ext()
 
-    for version_id in [3, 2, 1, 0]:
-        version: Tuple[int, int] = (3, version_id)
-
+    for v_id in ctx.tls_versions:
         intention: Dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
                 "check if server is vulnerable to heartbleed attack with"
-                " {version}".format(
-                    version=ssl_versions[version],
+                " {v_name}".format(
+                    v_name=ssl_id2ssl_name(v_id).value,
                 )
             ),
             core_model.LocalesEnum.ES: (
                 "verificar si el servidor es vulnerable a un ataque heartbleed"
-                "con {version}".format(
-                    version=ssl_versions[version],
+                "con {v_name}".format(
+                    v_name=ssl_id2ssl_name(v_id).value,
                 )
             ),
         }
@@ -887,7 +860,7 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         if sock is None:
             break
 
-        package = get_client_hello_package(version_id, suits, extensions)
+        package = get_client_hello_package(v_id.value, suites, extensions)
         sock.send(bytes(package))
         handshake_record = read_ssl_record(sock)
 
@@ -895,7 +868,7 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
             handshake_type, _, _ = handshake_record
 
             if handshake_type == 22:
-                package = get_malicious_heartbeat(version_id, n_payload=16384)
+                package = get_malicious_heartbeat(v_id.value, n_payload=16384)
                 sock.send(bytes(package))
 
                 heartbeat_record = read_ssl_record(sock)
@@ -911,8 +884,8 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                                 ssl_settings=SSLSettings(
                                     ctx.target.host,
                                     ctx.target.port,
-                                    min_version=version,
-                                    max_version=version,
+                                    min_version=v_id,
+                                    max_version=v_id,
                                     intention=intention,
                                 ),
                                 finding=core_model.FindingEnum.F016,
@@ -926,7 +899,7 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
 def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    suits: List[str] = [
+    suites: List[str] = [
         "RESERVED_SUITE_00_62",
         "RESERVED_SUITE_00_61",
         "RESERVED_SUITE_00_64",
@@ -944,20 +917,18 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     extensions += get_session_ticket_ext()
     extensions += get_heartbeat_ext()
 
-    for version_id in [3, 2, 1, 0]:
-        version: Tuple[int, int] = (3, version_id)
-
+    for v_id in ctx.tls_versions:
         intention: Dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
                 "check if server is vulnerable to FREAK attack with"
-                " {version}".format(
-                    version=ssl_versions[version],
+                " {v_name}".format(
+                    v_name=ssl_id2ssl_name(v_id).value,
                 )
             ),
             core_model.LocalesEnum.ES: (
                 "verificar si el servidor es vulnerable a un ataque FREAK"
-                " con {version}".format(
-                    version=ssl_versions[version],
+                " con {v_name}".format(
+                    v_name=ssl_id2ssl_name(v_id).value,
                 )
             ),
         }
@@ -971,7 +942,7 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         if sock is None:
             break
 
-        package = get_client_hello_package(version_id, suits, extensions)
+        package = get_client_hello_package(v_id.value, suites, extensions)
         sock.send(bytes(package))
         handshake_record = read_ssl_record(sock)
 
@@ -986,8 +957,8 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                         ssl_settings=SSLSettings(
                             ctx.target.host,
                             ctx.target.port,
-                            min_version=version,
-                            max_version=version,
+                            min_version=v_id,
+                            max_version=v_id,
                             intention=intention,
                         ),
                         finding=core_model.FindingEnum.F016,
@@ -1001,7 +972,7 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
 def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    suits: List[str] = [
+    suites: List[str] = [
         "DHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
         "DHE_RSA_WITH_AES_256_GCM_SHA384",
         "DHE_RSA_WITH_AES_128_GCM_SHA256",
@@ -1019,20 +990,18 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     extensions += get_session_ticket_ext()
     extensions += get_heartbeat_ext()
 
-    for version_id in [3, 2, 1, 0]:
-        version: Tuple[int, int] = (3, version_id)
-
+    for v_id in ctx.tls_versions:
         intention: Dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
                 "check if server is vulnerable to RACCOON attack with"
-                " {version}".format(
-                    version=ssl_versions[version],
+                " {v_name}".format(
+                    v_name=ssl_id2ssl_name(v_id).value,
                 )
             ),
             core_model.LocalesEnum.ES: (
                 "verificar si el servidor es vulnerable a un ataque RACCOON"
-                " con {version}".format(
-                    version=ssl_versions[version],
+                " con {v_name}".format(
+                    v_name=ssl_id2ssl_name(v_id).value,
                 )
             ),
         }
@@ -1046,7 +1015,7 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         if sock is None:
             break
 
-        package = get_client_hello_package(version_id, suits, extensions)
+        package = get_client_hello_package(v_id.value, suites, extensions)
         sock.send(bytes(package))
         handshake_record = read_ssl_record(sock)
 
@@ -1061,8 +1030,8 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                         ssl_settings=SSLSettings(
                             ctx.target.host,
                             ctx.target.port,
-                            min_version=version,
-                            max_version=version,
+                            min_version=v_id,
+                            max_version=v_id,
                             intention=intention,
                         ),
                         finding=core_model.FindingEnum.F016,
