@@ -1,6 +1,9 @@
 # pylint: disable=invalid-name
 """
 This migration aims to remove cwe field from finding
+
+Execution Time:    2021-07-28 at 22:36:09 UTC-05
+Finalization Time: 2021-07-28 at 23:02:38 UTC-05
 """
 
 from aioextensions import (
