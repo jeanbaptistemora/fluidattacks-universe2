@@ -269,33 +269,143 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    ssl_settings = SSLSettings(
-        host=ctx.target.host,
-        port=ctx.target.port,
-        max_version=(3, 0),
-        intention={
-            core_model.LocalesEnum.EN: (
-                "check if server accepts connections with SSLv3"
-            ),
-            core_model.LocalesEnum.ES: (
-                "verificar si el servidor acepta conexiones con SSLv3"
-            ),
-        },
+    suites: List[str] = [
+        "ECDHE_RSA_WITH_AES_256_CBC_SHA",
+        "ECDHE_ECDSA_WITH_AES_256_CBC_SHA",
+        "DHE_RSA_WITH_AES_256_CBC_SHA",
+        "DHE_DSS_WITH_AES_256_CBC_SHA",
+        "DH_RSA_WITH_AES_256_CBC_SHA",
+        "DH_DSS_WITH_AES_256_CBC_SHA",
+        "DHE_RSA_WITH_CAMELLIA_256_CBC_SHA",
+        "DHE_DSS_WITH_CAMELLIA_256_CBC_SHA",
+        "DH_RSA_WITH_CAMELLIA_256_CBC_SHA",
+        "DH_DSS_WITH_CAMELLIA_256_CBC_SHA",
+        "ECDH_anon_WITH_AES_256_CBC_SHA",
+        "DH_anon_WITH_AES_256_CBC_SHA",
+        "DH_anon_WITH_CAMELLIA_256_CBC_SHA",
+        "ECDH_RSA_WITH_AES_256_CBC_SHA",
+        "ECDH_ECDSA_WITH_AES_256_CBC_SHA",
+        "RSA_WITH_AES_256_CBC_SHA",
+        "RSA_WITH_CAMELLIA_256_CBC_SHA",
+        "RSA_PSK_WITH_AES_256_CBC_SHA",
+        "ECDHE_RSA_WITH_AES_128_CBC_SHA",
+        "ECDHE_ECDSA_WITH_AES_128_CBC_SHA",
+        "DHE_RSA_WITH_AES_128_CBC_SHA",
+        "DHE_DSS_WITH_AES_128_CBC_SHA",
+        "DH_RSA_WITH_AES_128_CBC_SHA",
+        "DH_DSS_WITH_AES_128_CBC_SHA",
+        "DHE_RSA_WITH_SEED_CBC_SHA",
+        "DHE_DSS_WITH_SEED_CBC_SHA",
+        "DH_RSA_WITH_SEED_CBC_SHA",
+        "DH_DSS_WITH_SEED_CBC_SHA",
+        "DHE_RSA_WITH_CAMELLIA_128_CBC_SHA",
+        "DHE_DSS_WITH_CAMELLIA_128_CBC_SHA",
+        "DH_RSA_WITH_CAMELLIA_128_CBC_SHA",
+        "DH_DSS_WITH_CAMELLIA_128_CBC_SHA",
+        "ECDH_anon_WITH_AES_128_CBC_SHA",
+        "DH_anon_WITH_AES_128_CBC_SHA",
+        "DH_anon_WITH_SEED_CBC_SHA",
+        "DH_anon_WITH_CAMELLIA_128_CBC_SHA",
+        "ECDH_RSA_WITH_AES_128_CBC_SHA",
+        "ECDH_ECDSA_WITH_AES_128_CBC_SHA",
+        "RSA_WITH_AES_128_CBC_SHA",
+        "RSA_WITH_SEED_CBC_SHA",
+        "RSA_WITH_CAMELLIA_128_CBC_SHA",
+        "RSA_WITH_IDEA_CBC_SHA",
+        "RSA_PSK_WITH_AES_128_CBC_SHA",
+        "ECDHE_RSA_WITH_RC4_128_SHA",
+        "ECDHE_ECDSA_WITH_RC4_128_SHA",
+        "RESERVED_SUITE_00_66",
+        "ECDH_anon_WITH_RC4_128_SHA",
+        "DH_anon_WITH_RC4_128_MD5",
+        "ECDH_RSA_WITH_RC4_128_SHA",
+        "ECDH_ECDSA_WITH_RC4_128_SHA",
+        "RSA_WITH_RC4_128_SHA",
+        "RSA_WITH_RC4_128_MD5",
+        "RSA_PSK_WITH_RC4_128_SHA",
+        "ECDHE_RSA_WITH_3DES_EDE_CBC_SHA",
+        "ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA",
+        "DHE_RSA_WITH_3DES_EDE_CBC_SHA",
+        "DHE_DSS_WITH_3DES_EDE_CBC_SHA",
+        "DH_RSA_WITH_3DES_EDE_CBC_SHA",
+        "DH_DSS_WITH_3DES_EDE_CBC_SHA",
+        "ECDH_anon_WITH_3DES_EDE_CBC_SHA",
+        "DH_anon_WITH_3DES_EDE_CBC_SHA",
+        "ECDH_RSA_WITH_3DES_EDE_CBC_SHA",
+        "ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA",
+        "RSA_WITH_3DES_EDE_CBC_SHA",
+        "RSA_PSK_WITH_3DES_EDE_CBC_SHA",
+        "RESERVED_SUITE_00_63",
+        "DHE_RSA_WITH_DES_CBC_SHA",
+        "DHE_DSS_WITH_DES_CBC_SHA",
+        "DH_RSA_WITH_DES_CBC_SHA",
+        "DH_DSS_WITH_DES_CBC_SHA",
+        "DH_anon_WITH_DES_CBC_SHA",
+        "RESERVED_SUITE_00_62",
+        "RSA_WITH_DES_CBC_SHA",
+        "RESERVED_SUITE_00_61",
+        "RESERVED_SUITE_00_65",
+        "RESERVED_SUITE_00_64",
+        "RESERVED_SUITE_00_60",
+        "DHE_RSA_EXPORT_WITH_DES40_CBC_SHA",
+        "DHE_DSS_EXPORT_WITH_DES40_CBC_SHA",
+        "DH_RSA_EXPORT_WITH_DES40_CBC_SHA",
+        "DH_DSS_EXPORT_WITH_DES40_CBC_SHA",
+        "DH_anon_EXPORT_WITH_DES40_CBC_SHA",
+        "RSA_EXPORT_WITH_DES40_CBC_SHA",
+        "RSA_EXPORT_WITH_RC2_CBC_40_MD5",
+        "DH_anon_EXPORT_WITH_RC4_40_MD5",
+        "RSA_EXPORT_WITH_RC4_40_MD5",
+        "ECDHE_RSA_WITH_NULL_SHA",
+        "ECDHE_ECDSA_WITH_NULL_SHA",
+        "ECDH_anon_WITH_NULL_SHA",
+        "ECDH_RSA_WITH_NULL_SHA",
+        "ECDH_ECDSA_WITH_NULL_SHA",
+        "RSA_WITH_NULL_SHA",
+        "RSA_WITH_NULL_MD5",
+        "EMPTY_RENEGOTIATION_INFO_SCSV",
+    ]
+
+    intention: Dict[core_model.LocalesEnum, str] = {
+        core_model.LocalesEnum.EN: (
+            "check if server accepts connections with SSLv3"
+        ),
+        core_model.LocalesEnum.ES: (
+            "verificar si el servidor acepta conexiones con SSLv3"
+        ),
+    }
+
+    sock = tcp_connect(
+        ctx.target.host,
+        ctx.target.port,
+        intention[core_model.LocalesEnum.EN],
     )
 
-    with tlslite_connect(
-        ssl_settings,
-        expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
-    ) as connection:
-        if connection is not None and not connection.closed:
+    if sock is None:
+        return tuple()
+
+    package = get_client_hello_package(version_id=0, cipher_suites=suites)
+    sock.send(bytes(package))
+    handshake_record = read_ssl_record(sock)
+
+    if handshake_record is not None:
+        handshake_type, _, _ = handshake_record
+
+        if handshake_type == 22:
             ssl_vulnerabilities.append(
                 _create_ssl_vuln(
                     check="sslv3_enabled",
-                    ssl_settings=ssl_settings,
                     line=SSLSnippetLine.max_version,
+                    ssl_settings=SSLSettings(
+                        host=ctx.target.host,
+                        port=ctx.target.port,
+                        max_version=(3, 0),
+                        intention=intention,
+                    ),
                     finding=core_model.FindingEnum.F016,
                 )
             )
+    sock.close()
 
     return _create_core_vulns(ssl_vulnerabilities)
 
