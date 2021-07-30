@@ -545,10 +545,10 @@ async def test_reject_draft() -> None:
 @pytest.mark.changes_db
 @freeze_time("2020-12-01")
 async def test_delete_finding() -> None:
-    """Check for deleteFinding mutation."""
+    """Check for removeFinding mutation."""
     query = """
       mutation {
-        deleteFinding(findingId: "560175507", justification: NOT_REQUIRED) {
+        removeFinding(findingId: "560175507", justification: NOT_REQUIRED) {
           success
         }
       }
@@ -556,8 +556,8 @@ async def test_delete_finding() -> None:
     data = {"query": query}
     result = await _get_result(data)
     assert "errors" not in result
-    assert "success" in result["data"]["deleteFinding"]
-    assert result["data"]["deleteFinding"]["success"]
+    assert "success" in result["data"]["removeFinding"]
+    assert result["data"]["removeFinding"]["success"]
     finding = await findings_dal.get_finding("560175507")
     historic_state = finding["historic_state"]
     assert historic_state == [
@@ -599,9 +599,9 @@ async def test_approve_draft() -> None:
 
 @pytest.mark.changes_db
 async def test_create_draft() -> None:
-    """Check for createDraft mutation."""
+    """Check for addDraft mutation."""
     query = """
-        mutation CreateDraftMutation(
+        mutation AddDraftMutation(
             $description: String,
             $groupName: String!,
             $recommendation: String,
@@ -611,7 +611,7 @@ async def test_create_draft() -> None:
             $title: String!,
             $type: FindingType
             ) {
-            createDraft(
+            addDraft(
             description: $description,
             groupName: $groupName,
             recommendation: $recommendation,
@@ -638,8 +638,8 @@ async def test_create_draft() -> None:
     data = {"query": query, "variables": variables}
     result = await _get_result(data)
     assert "errors" not in result
-    assert "success" in result["data"]["createDraft"]
-    assert result["data"]["createDraft"]["success"]
+    assert "success" in result["data"]["addDraft"]
+    assert result["data"]["addDraft"]["success"]
 
 
 @pytest.mark.changes_db
@@ -663,10 +663,10 @@ async def test_submit_draft() -> None:
 
 @pytest.mark.changes_db
 async def test_filter_deleted_findings() -> None:
-    """Check if vuln of deleted vulns are filter out."""
+    """Check if vuln of removed vulns are filtered out."""
     mutation = """
       mutation {
-        deleteFinding(findingId: "988493279", justification: NOT_REQUIRED) {
+        removeFinding(findingId: "988493279", justification: NOT_REQUIRED) {
           success
         }
       }
@@ -677,8 +677,8 @@ async def test_filter_deleted_findings() -> None:
     data = {"query": mutation}
     result = await _get_result(data, context=context)
     assert "errors" not in result
-    assert "success" in result["data"]["deleteFinding"]
-    assert result["data"]["deleteFinding"]["success"]
+    assert "success" in result["data"]["removeFinding"]
+    assert result["data"]["removeFinding"]["success"]
     assert await get_open_vulnerabilities(context, "unittesting") < open_vulns
 
 

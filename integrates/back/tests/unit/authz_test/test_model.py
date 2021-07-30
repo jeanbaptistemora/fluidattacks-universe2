@@ -127,24 +127,24 @@ def test_model_integrity_migrated_finding_permissions(
     migrated_permissions = {
         "api_mutations_approve_draft_mutate": "api_mutations_"
         "approve_draft_new_mutate",
-        "api_mutations_create_draft_mutate": "api_mutations_"
-        "create_draft_new_mutate",
-        "api_mutations_delete_finding_mutate": "api_mutations_"
-        "delete_finding_new_mutate",
+        "api_mutations_add_draft_mutate": "api_mutations_"
+        "add_draft_new_mutate",
+        "api_mutations_remove_finding_mutate": "api_mutations_"
+        "remove_finding_new_mutate",
         "api_mutations_reject_draft_mutate": "api_mutations_"
         "reject_draft_new_mutate",
-        "api_mutations_reject_zero_risk_vulnerabilities_mutate": "api_"
-        "mutations_reject_zero_risk_vulnerabilities_new_mutate",
+        "api_mutations_reject_vulnerabilities_zero_risk_mutate": "api_"
+        "mutations_reject_vulnerabilities_zero_risk_new_mutate",
         "api_mutations_remove_finding_evidence_mutate": "api_mutations_"
         "remove_finding_evidence_new_mutate",
         "api_mutations_remove_group_mutate": "api_mutations_"
         "remove_group_new_mutate",
         "api_mutations_remove_vulnerability_mutate": "api_mutations_"
         "remove_vulnerability_new_mutate",
-        "api_mutations_request_verification_vulnerability_mutate": "api_"
-        "mutations_request_verification_vulnerability_new_mutate",
-        "api_mutations_request_zero_risk_vuln_mutate": "api_mutations_"
-        "request_zero_risk_vuln_new_mutate",
+        "api_mutations_request_vulnerabilities_verification_mutate": "api_"
+        "mutations_request_vulnerabilities_verification_new_mutate",
+        "api_mutations_request_vulnerabilities_zero_risk_mutate": "api_"
+        "mutations_request_vulnerabilities_zero_risk_new_mutate",
         "api_mutations_submit_draft_mutate": "api_mutations_"
         "submit_draft_new_mutate",
         "api_mutations_update_evidence_mutate": "api_mutations_"
@@ -157,8 +157,8 @@ def test_model_integrity_migrated_finding_permissions(
         "update_severity_new_mutate",
         "api_mutations_upload_file_mutate": "api_mutations_"
         "upload_file_new_mutate",
-        "api_mutations_verify_request_vulnerability_mutate": "api_mutations_"
-        "verify_request_vulnerability_new_mutate",
+        "api_mutations_verify_vulnerabilities_request_mutate": "api_mutations_"
+        "verify_vulnerabilities_request_new_mutate",
         "api_resolvers_finding_analyst_resolve": "api_resolvers_"
         "finding_new_analyst_new_resolve",
         "api_resolvers_finding_historic_state_resolve": "api_resolvers_"

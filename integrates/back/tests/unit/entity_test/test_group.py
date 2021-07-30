@@ -233,11 +233,11 @@ async def test_group_filter_not_match() -> None:
 
 
 @pytest.mark.changes_db
-async def test_create_group() -> None:
-    """Check for createGroup mutation."""
+async def test_add_group() -> None:
+    """Check for addGroup mutation."""
     query = """
     mutation {
-        createGroup(
+        addGroup(
             organization: "okada",
             description: "This is a new group from pytest",
             groupName: "%(name)s",
@@ -252,19 +252,19 @@ async def test_create_group() -> None:
     data = {"query": query}
     result = await _get_result_async(data)
     assert "errors" not in result
-    assert "success" in result["data"]["createGroup"]
-    assert result["data"]["createGroup"]["success"]
+    assert "success" in result["data"]["addGroup"]
+    assert result["data"]["addGroup"]["success"]
 
 
 @pytest.mark.changes_db
-async def test_add_tags() -> None:
-    """Check for addTags mutation."""
+async def test_add_group_tags() -> None:
+    """Check for addGroupTags mutation."""
     query = """
         mutation AddTagsMutation(
           $groupName: String!,
           $tagsData: JSONString!
         ) {
-            addTags (
+            addGroupTags (
                 tags: $tagsData,
                 groupName: $groupName) {
                 success
@@ -278,19 +278,19 @@ async def test_add_tags() -> None:
     data = {"query": query, "variables": variables}
     result = await _get_result_async(data)
     assert "errors" not in result
-    assert "success" in result["data"]["addTags"]
-    assert result["data"]["addTags"]["success"]
+    assert "success" in result["data"]["addGroupTags"]
+    assert result["data"]["addGroupTags"]["success"]
 
 
 @pytest.mark.changes_db
-async def test_remove_tag() -> None:
-    """Check for removeTag mutation."""
+async def test_remove_group_tag() -> None:
+    """Check for removeGroupTag mutation."""
     query = """
-        mutation RemoveTagMutation(
+        mutation RemoveGroupTagMutation(
           $tagToRemove: String!,
           $groupName: String!
         ) {
-            removeTag (
+            removeGroupTag (
             tag: $tagToRemove,
             groupName: $groupName,
             ) {
@@ -302,8 +302,8 @@ async def test_remove_tag() -> None:
     data = {"query": query, "variables": variables}
     result = await _get_result_async(data)
     assert "errors" not in result
-    assert "success" in result["data"]["removeTag"]
-    assert result["data"]["removeTag"]["success"]
+    assert "success" in result["data"]["removeGroupTag"]
+    assert result["data"]["removeGroupTag"]["success"]
 
 
 @pytest.mark.changes_db
@@ -365,7 +365,7 @@ async def test_add_group_consult_parent_non_zero() -> None:
         ["ONESHOTTEST", "ONESHOT", "false", "true", "false", True],
     ],
 )
-async def test_edit_group_good(  # type: ignore
+async def test_update_group_good(  # type: ignore
     group_name,
     subscription,
     has_squad,
@@ -375,7 +375,7 @@ async def test_edit_group_good(  # type: ignore
 ) -> None:
     query = f"""
         mutation {{
-            editGroup(
+            updateGroup(
                 comments: "",
                 groupName: "{group_name}",
                 subscription: {subscription},
@@ -391,8 +391,8 @@ async def test_edit_group_good(  # type: ignore
     result = await _get_result_async({"query": query})
 
     assert "errors" not in result
-    assert "success" in result["data"]["editGroup"]
-    assert result["data"]["editGroup"]["success"] == expected
+    assert "success" in result["data"]["updateGroup"]
+    assert result["data"]["updateGroup"]["success"] == expected
 
 
 @pytest.mark.changes_db

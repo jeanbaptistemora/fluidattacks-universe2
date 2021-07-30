@@ -75,10 +75,10 @@ async def test_events() -> None:
 
 @pytest.mark.changes_db
 async def test_create_event() -> None:
-    """Check for createEvent mutation."""
+    """Check for addEvent mutation."""
     query = """
         mutation {
-            createEvent(groupName: "unittesting",
+            addEvent(groupName: "unittesting",
                         actionAfterBlocking: TRAINING,
                         actionBeforeBlocking: DOCUMENT_GROUP,
                         accessibility: ENVIRONMENT,
@@ -94,7 +94,7 @@ async def test_create_event() -> None:
     request = await create_dummy_session()
     _, result = await graphql(SCHEMA, data, context_value=request)
     assert "errors" not in result
-    assert "success" in result["data"]["createEvent"]
+    assert "success" in result["data"]["addEvent"]
 
 
 @pytest.mark.changes_db
