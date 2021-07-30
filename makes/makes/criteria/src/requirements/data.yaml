@@ -7413,34 +7413,92 @@
 "377":
   en:
     title: Store logs based on valid regulation
-    summary: __empty_
+    summary: >
+      The organization must store logs,
+      at least,
+      from the ocurrency of the event
+      on the system to the time stipulated
+      by valid regulation
+      for that specific system.
     description: __empty__
   es:
     title: Almacenar bitácoras basado en una regulación válida
-    summary: __empty__
+    summary: >
+      La organización debe almacenar logs,
+      al menos,
+      desde la ocurrencia del evento
+      en el sistema hasta el tiempo
+      estipulado por la normativa vigente
+      para ese sistema específico.
     description: __empty__
   references: []
   metadata: {}
 "378":
   en:
     title: Use of log management system
-    summary: __empty_
+    summary: >
+      The log management must be made
+      by the operating system
+      or by an external system separated
+      from the application.
     description: __empty__
   es:
     title: Uso de un sistema de gestión de bitácoras
-    summary: __empty__
+    summary: >
+      La gestión de logs debe ser
+      realizada por el sistema operativo
+      o por un sistema externo
+      separado de la aplicación.
     description: __empty__
   references: []
   metadata: {}
 "379":
   en:
     title: Keep low McCabe ciclomatic complexity
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The source code must contain functions,
+      methods or fragments of code
+      with a ciclomatic complexity (McCabe)
+      lower than 20.
+    description: >
+      The use of McCabe ciclomatic complexity
+      helps to measure how complex
+      a source code is regardless
+      of the programming language.
+      This software metric
+      is based on graph theory.
+      When the code has
+      a high level of complexity,
+      it will be harder to analyze,
+      understand and maintain,
+      therefore,
+      the time and effort needed to find
+      and fix vulnerabilities
+      will increase substantially.
   es:
     title: Mantener una complejidad McCabe baja
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El código fuente debe
+      contener funciones,
+      métodos o fragmentos de código
+      con una complejidad ciclomática (McCabe)
+      inferior a 20.
+    description: >
+      El uso de la complejidad
+      ciclomática de McCabe ayuda
+      a medir la complejidad de un
+      código fuente independientemente
+      del lenguaje de programación.
+      Esta métrica de software
+      se basa en la teoría de grafos.
+      Cuando el código tiene
+      un alto nivel de complejidad,
+      será más difícil de analizar,
+      comprender y mantener,
+      por lo tanto,
+      el tiempo y el esfuerzo necesarios
+      para encontrar y corregir vulnerabilidades
+      aumentarán sustancialmente.
   references: []
   metadata: {}
 "380":
