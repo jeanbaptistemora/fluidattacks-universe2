@@ -6868,7 +6868,7 @@
   es:
     title: Proveer archivos con extensiones específicas
     summary: >
-      El sistema solo debe
+      El sistema solo debería
       servir archivos con extensiones
       dentro de una lista específica.
     description: >
@@ -6918,22 +6918,39 @@
 "357":
   en:
     title: Use stateless session tokens
-    summary: __empty_
+    summary: >
+      The system should use
+      securely generated,
+      stateless session tokens
+      that are validated using
+      digital signatures instead of
+      static API secrets.
     description: __empty__
   es:
     title: Utilizar tokens de sesión sin estado
-    summary: __empty__
+    summary: >
+      El sistema debe usar
+      tokens de sesión sin estado generados
+      de manera segura,
+      que se validen utilizando firmas digitales
+      en lugar de secretos de la API estática.
     description: __empty__
   references: []
   metadata: {}
 "358":
   en:
     title: Notify upcoming expiration dates
-    summary: __empty_
+    summary: >
+      The system must notify the users
+      when their credentials are
+      about to expire.
     description: __empty__
   es:
     title: Notificar fechas de vencimiento proximos
-    summary: __empty__
+    summary: >
+      El sistema debe notificar a los usuarios
+      cuando sus credenciales
+      están a punto de caducar.
     description: __empty__
   references: []
   metadata: {}
