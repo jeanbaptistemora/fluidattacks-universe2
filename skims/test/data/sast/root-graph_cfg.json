@@ -66636,6 +66636,53 @@
             "var_type": null
           }
         ],
+        "518": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "530",
+              "value": null
+            },
+            "symbol": "response",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "member": "body",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "529",
+              "value": null
+            },
+            "type": "SyntaxStepMemberAccessExpression"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "525",
+              "value": null
+            },
+            "method": "streamAsyncIterable",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "518",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "chunk",
+            "var_type": null
+          }
+        ],
         "52": [],
         "535": [
           {
@@ -67012,6 +67059,30 @@
             "var_type": null
           }
         ],
+        "636": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "642",
+              "value": null
+            },
+            "symbol": "obj",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "636",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "prop",
+            "var_type": null
+          }
+        ],
         "644": [
           {
             "meta": {
@@ -67132,6 +67203,30 @@
             },
             "method": "console.log",
             "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "692": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "698",
+              "value": null
+            },
+            "symbol": "iterable",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "692",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "value",
+            "var_type": null
           }
         ],
         "700": [
