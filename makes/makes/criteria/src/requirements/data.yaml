@@ -7195,33 +7195,49 @@
 "365":
   en:
     title: Avoid exposing technical information
-    summary: __empty_
+    summary: >
+      Technical information
+      (product name, version, configuration)
+      of exposed services should not be accessible.
     description: __empty__
   es:
     title: Evitar exposición de información técnica
-    summary: __empty__
+    summary: >
+      La información técnica
+      (nombre del producto, versión, configuración)
+      de los servicios expuestos
+      no debería ser accesible.
     description: __empty__
   references: []
   metadata: {}
 "366":
   en:
     title: Associate type to variables
-    summary: __empty_
+    summary: >
+      All variables in the source code
+      should have an associated type.
     description: __empty__
   es:
     title: Asociar tipo a las variables
-    summary: __empty__
+    summary: >
+      Todas las variables del código fuente
+      deben tener un tipo asociado.
     description: __empty__
   references: []
   metadata: {}
 "367":
   en:
     title: Proper generation of temporary passwords
-    summary: __empty_
+    summary: >
+      Temporary passwords should be
+      automatically and randomly generated.
     description: __empty__
   es:
     title: Generación adecuada de contraseñas temporales
-    summary: __empty__
+    summary: >
+      Las contraseñas temporales
+      deben generarse de forma automática
+      y aleatoria.
     description: __empty__
   references: []
   metadata: {}
