@@ -372,6 +372,8 @@ async def test_approve_draft() -> None:
     for vuln in all_vulns:
         for state_info in vuln["historic_state"]:
             assert state_info["date"] == release_date
+        for treatment_info in vuln["historic_treatment"]:
+            assert treatment_info["date"] == release_date
 
 
 async def test_list_findings() -> None:

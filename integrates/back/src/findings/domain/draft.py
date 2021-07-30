@@ -94,7 +94,7 @@ async def approve_draft(
                 )
                 all_vulns = await finding_all_vulns_loader.load(draft_id)
                 vuln_update_success = await collect(
-                    vulns_domain.update_historic_state_dates(
+                    vulns_domain.update_historics_dates(
                         draft_id, vuln, release_date
                     )
                     for vuln in all_vulns
@@ -148,7 +148,7 @@ async def approve_draft_new(
         datetime.fromisoformat(approval_date)
     )
     await collect(
-        vulns_domain.update_historic_state_dates(
+        vulns_domain.update_historics_dates(
             finding_id, vuln, old_format_approval_date
         )
         for vuln in all_vulns

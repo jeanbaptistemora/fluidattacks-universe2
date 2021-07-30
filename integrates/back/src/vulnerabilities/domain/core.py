@@ -651,14 +651,23 @@ async def should_send_update_treatment(
         )
 
 
-async def update_historic_state_dates(
+async def update_historics_dates(
     finding_id: str, vuln: Dict[str, FindingType], date: str
 ) -> bool:
+    """Set historic dates to finding's discovery date"""
     historic_state = cast(Historic, vuln["historic_state"])
     for state_info in historic_state:
         state_info["date"] = date
+    historic_treatment = cast(Historic, vuln["historic_treatment"])
+    for treatment_info in historic_treatment:
+        treatment_info["date"] = date
     success = await vulns_dal.update(
-        finding_id, cast(str, vuln["UUID"]), {"historic_state": historic_state}
+        finding_id,
+        cast(str, vuln["UUID"]),
+        {
+            "historic_state": historic_state,
+            "historic_treatment": historic_treatment,
+        },
     )
     return success
 
