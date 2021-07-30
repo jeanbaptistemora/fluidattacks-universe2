@@ -7128,22 +7128,67 @@
 "363":
   en:
     title: Synchronize system clocks
-    summary: __empty_
-    description: __empty__
+    summary: >
+      Critical systems must have
+      synchronized clocks whose configuration
+      is protected and comes
+      from industry-accepted sources.
+    description: >
+      Systems must properly record
+      exceptional and security events
+      in protected logs.
+      This allows administrators
+      to find bugs and makes it easier
+      for forensics teams to determine
+      how a system was compromised.
+      However,
+      if clocks are not properly synchronized,
+      it can be very difficult to compare
+      log files from different systems
+      in order to establish the event sequence
+      that led to the security incident.
   es:
     title: Sincronizar relojes del sistema
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Los sistemas críticos deben tener
+      relojes sincronizados
+      cuya configuración esté protegida
+      y provenga de fuentes aceptadas
+      por la industria.
+    description: >
+      Los sistemas deben registrar
+      adecuadamente los eventos excepcionales
+      y de seguridad en registros protegidos.
+      Esto permite a los administradores
+      encontrar errores
+      y facilita a los equipos forenses
+      determinar cómo se vio comprometido
+      un sistema.
+      Sin embargo,
+      si los relojes no están sincronizados
+      correctamente,
+      puede resultar muy difícil comparar
+      los archivos de registro de diferentes
+      sistemas para establecer la secuencia
+      de eventos que provocó el incidente
+      de seguridad.
   references: []
   metadata: {}
 "364":
   en:
     title: Provide extended validation (EV) certificates
-    summary: __empty_
+    summary: >
+      Public applications
+      with critical content should
+      provide extended validation (EV) certificates.
     description: __empty__
   es:
     title: Proveer certificados con validación extendida
-    summary: __empty__
+    summary: >
+      Las aplicaciones públicas
+      con contenido crítico deben
+      proporcionar certificados de validación
+      extendida (EV).
     description: __empty__
   references: []
   metadata: {}
