@@ -15,8 +15,6 @@ def _is_x_frame_options(name: str) -> bool:
 
 
 def parse(line: str) -> Optional[XFrameOptionsHeader]:
-    # X-Frame-Options: DENY
-    # X-Frame-Options: SAMEORIGIN
     portions: List[str] = line.split(":", maxsplit=1)
     portions = list(map(methodcaller("strip"), portions))
 
