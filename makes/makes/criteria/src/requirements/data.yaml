@@ -7037,23 +7037,92 @@
 "361":
   en:
     title: Replace cryptographic keys
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system’s cryptographic keys
+      must be replaced after
+      a defined period of time,
+      after having produced a certain
+      amount of cipher-text or after
+      its integrity has been weakened,
+      e.g., when an employee
+      with knowledge of a key leaves
+      or when it is believed
+      to have been compromised.
+    description: >
+      The system’s cryptographic keys
+      are essential for maintaining
+      the confidentiality and integrity
+      of transactions and communications.
+      In order to mitigate their
+      decreased effectiveness over time
+      and any possible loss of their integrity,
+      they should be replaced often.
   es:
     title: Reemplazar llaves criptográficas
-    summary: __empty__
-    description: __empty__
+    summary: >
+      Las claves criptográficas
+      del sistema deben reemplazarse
+      después de un período de tiempo definido,
+      después de haber producido
+      una cierta cantidad de texto cifrado
+      o después de que su integridad
+      se haya debilitado,
+      por ejemplo,
+      cuando un empleado con conocimiento
+      de una clave se va o cuando se cree
+      que ha sido comprometido.
+    description: >
+      Las claves criptográficas del sistema
+      son esenciales para mantener
+      la confidencialidad e integridad
+      de las transacciones y las comunicaciones.
+      Para mitigar su efectividad disminuida
+      a lo largo del tiempo
+      y cualquier posible pérdida de su integridad,
+      deben ser reemplazados a menudo.
   references: []
   metadata: {}
 "362":
   en:
     title: Assign MFA mechanisms to a single account
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must associate
+      each secondary authentication
+      mechanism with a single account.
+    description: >
+      Single-factor authentication mechanisms
+      often offer poor security
+      due to the weak,
+      common or easy-to-guess passwords
+      that users tend to set.
+      Secondary authentication mechanisms,
+      such as physical or logical security tokens,
+      smart cards and certificates,
+      help guarantee the identity of actors
+      trying to authenticate.
+      However,
+      their value highly decreases
+      when they are shared by multiple accounts.
   es:
     title: Asignar mecanismos MFA a una sola cuenta
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe asociar
+      cada mecanismo de autenticación
+      secundario con una sola cuenta.
+    description: >
+      Los mecanismos de autenticación
+      de factor único a menudo ofrecen
+      poca seguridad debido a las contraseñas débiles,
+      comunes o fáciles de adivinar
+      que los usuarios tienden a establecer.
+      Los mecanismos de autenticación secundarios,
+      como tokens de seguridad físicos o lógicos,
+      tarjetas inteligentes y certificados,
+      ayudan a garantizar la identidad
+      de los actores que intentan autenticarse.
+      Sin embargo,
+      su valor disminuye considerablemente
+      cuando se comparten entre varias cuentas.
   references: []
   metadata: {}
 "363":
