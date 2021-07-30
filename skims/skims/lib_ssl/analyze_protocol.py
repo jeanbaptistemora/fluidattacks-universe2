@@ -1100,7 +1100,7 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
         return tuple()
 
     for v_id in ctx.tls_versions:
-        if v_id == SSLVersionId.tlsv1_3:
+        if v_id in (SSLVersionId.tlsv1_2, SSLVersionId.tlsv1_3):
             continue
 
         v_name: str = ssl_id2ssl_name(v_id).value
@@ -1123,20 +1123,15 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
             },
         )
 
-        with tlslite_connect(
-            ssl_settings,
-            expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
-        ) as connection:
-            if connection is not None and not connection.closed:
-                ssl_vulnerabilities.append(
-                    _create_ssl_vuln(
-                        check="tlsv1_3_downgrade",
-                        ssl_settings=ssl_settings,
-                        line=SSLSnippetLine.max_version,
-                        finding=core_model.FindingEnum.F016,
-                        check_kwargs={"version": v_name},
-                    )
-                )
+        ssl_vulnerabilities.append(
+            _create_ssl_vuln(
+                check="tlsv1_3_downgrade",
+                ssl_settings=ssl_settings,
+                line=SSLSnippetLine.max_version,
+                finding=core_model.FindingEnum.F016,
+                check_kwargs={"version": v_name},
+            )
+        )
 
     return _create_core_vulns(ssl_vulnerabilities)
 
