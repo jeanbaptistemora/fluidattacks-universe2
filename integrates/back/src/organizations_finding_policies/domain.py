@@ -82,7 +82,9 @@ async def get_finding_policy_by_name(
         (
             fin_policy
             for fin_policy in await get_finding_policies(org_name=org_name)
-            if fin_policy.metadata.name.split(".")[0].lower() == finding_name
+            if fin_policy.metadata.name.split(".")[0]
+            .lower()
+            .endswith(finding_name)
         ),
         None,
     )

@@ -9,7 +9,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
-import type { ConfiguredValidator } from "revalidate";
+import type { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
@@ -235,7 +235,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
   }
-  const validateFindingTypology: ConfiguredValidator =
+  const validateFindingTypology: ConfigurableValidator =
     validFindingTypology(titleSuggestions);
 
   return (

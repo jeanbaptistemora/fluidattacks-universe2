@@ -286,12 +286,12 @@ describe("Portfolio", (): void => {
     const form: ReactWrapper = addTagsModal().find("Formik").at(0);
     form.simulate("submit");
     await act(async (): Promise<void> => {
-      const delay = 100;
-      await wait(delay);
-      wrapper.update();
-    });
+      await waitForExpect((): void => {
+        wrapper.update();
 
-    expect(msgError).toHaveBeenCalledTimes(2);
+        expect(msgError).toHaveBeenCalledTimes(2);
+      });
+    });
 
     jest.clearAllMocks();
   });

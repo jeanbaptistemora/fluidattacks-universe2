@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,20 +10,19 @@ import { track } from "mixpanel-browser";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
+import type { ConfigurableValidator } from "revalidate";
 
+import { getFindingNames } from "../../GroupDraftsView/findingNames";
+import type { ISuggestion } from "../../GroupDraftsView/types";
 import { Button } from "components/Button";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { OrganizationFindingPolicy } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/content";
 import style from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/index.css";
-import {
-  ADD_ORGANIZATION_FINDING_POLICY,
-  GET_ORGANIZATION_FINDINGS_TITLES,
-} from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/queries";
+import { ADD_ORGANIZATION_FINDING_POLICY } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/queries";
 import type {
   IFindingPolicies,
   IFindingPoliciesData,
   IFindingPoliciesForm,
-  IOrganizationFindingTitles,
 } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/types";
 import { GET_ORGANIZATION_POLICIES } from "scenes/Dashboard/containers/OrganizationPoliciesView/queries";
 import { FormikAutocompleteText, FormikTagInput } from "utils/forms/fields";
@@ -33,6 +32,7 @@ import {
   composeValidators,
   required,
   validDraftTitle,
+  validFindingTypology,
 } from "utils/validations";
 
 const FindingPolicies: React.FC<IFindingPolicies> = ({
@@ -42,21 +42,6 @@ const FindingPolicies: React.FC<IFindingPolicies> = ({
   const { organizationName } = useParams<{ organizationName: string }>();
   const { t } = useTranslation();
   const [suggestions, setSuggestions] = useState<string[]>([]);
-
-  const { data } = useQuery<IOrganizationFindingTitles>(
-    GET_ORGANIZATION_FINDINGS_TITLES,
-    {
-      fetchPolicy: "cache-first",
-      onError: (error: ApolloError): void => {
-        error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-          Logger.error("Error loading findings titles", message);
-        });
-      },
-      variables: {
-        organizationId,
-      },
-    }
-  );
 
   const [addOrganizationFindingPolicy, { loading: submitting }] = useMutation(
     ADD_ORGANIZATION_FINDING_POLICY,
@@ -117,20 +102,29 @@ const FindingPolicies: React.FC<IFindingPolicies> = ({
   }
 
   useEffect((): void => {
-    const findingNames: string[] = _.flatten(
-      data?.organization.groups.map(
-        (
-          group: IOrganizationFindingTitles["organization"]["groups"][0]
-        ): string[] =>
-          group.findings.map(
-            (
-              finding: IOrganizationFindingTitles["organization"]["groups"][0]["findings"][0]
-            ): string => _.first(finding.title.split(" -")) as string
+    async function fetchData(): Promise<void> {
+      const findingNames: ISuggestion[] = await getFindingNames("EN").catch(
+        (error: Error): ISuggestion[] => {
+          Logger.error("An error occurred getting title suggestions", error);
+
+          return [];
+        }
+      );
+
+      setSuggestions(
+        _.sortBy(
+          findingNames.map(
+            (findingName: ISuggestion): string =>
+              `${findingName.key}. ${findingName.title}`
           )
-      )
-    );
-    setSuggestions(Array.from(new Set(findingNames)));
-  }, [data, organizationId]);
+        )
+      );
+    }
+    void fetchData();
+  }, []);
+
+  const validateFindingTypology: ConfigurableValidator =
+    validFindingTypology(suggestions);
 
   return (
     <React.StrictMode>
@@ -142,75 +136,73 @@ const FindingPolicies: React.FC<IFindingPolicies> = ({
       >
         <Form>
           <div className={"flex flex-wrap justify-between"}>
-            {_.isUndefined(data) ? undefined : (
-              <React.Fragment>
-                <div className={"w-50-l w-50-m w-100-ns"}>
+            <div className={"w-50-l w-50-m w-100-ns"}>
+              <TooltipWrapper
+                id={"nameInputToolTip"}
+                message={t(
+                  "organization.tabs.policies.findings.tooltip.nameInput"
+                )}
+                placement={"top"}
+              >
+                <label className={"mb1"}>
+                  <b>{t("organization.tabs.policies.findings.form.finding")}</b>
+                </label>
+                <Field
+                  component={FormikAutocompleteText}
+                  name={"name"}
+                  suggestions={suggestions}
+                  validate={composeValidators([
+                    required,
+                    validDraftTitle,
+                    validateFindingTypology,
+                  ])}
+                />
+              </TooltipWrapper>
+            </div>
+            <div className={"pl2-l pl2-m pl0-ns w-50-l w-50-m w-100-ns"}>
+              <div className={"flex items-start"}>
+                <div className={"w-90-ns"}>
                   <TooltipWrapper
-                    id={"nameInputToolTip"}
+                    id={"tagsInputToolTip"}
                     message={t(
-                      "organization.tabs.policies.findings.tooltip.nameInput"
+                      "organization.tabs.policies.findings.tooltip.tagsInput"
                     )}
                     placement={"top"}
                   >
                     <label className={"mb1"}>
                       <b>
-                        {t("organization.tabs.policies.findings.form.finding")}
+                        {t("organization.tabs.policies.findings.form.tags")}
                       </b>
                     </label>
                     <Field
-                      component={FormikAutocompleteText}
-                      name={"name"}
-                      suggestions={suggestions}
-                      validate={composeValidators([required, validDraftTitle])}
+                      component={FormikTagInput}
+                      name={"tags"}
+                      placeholder={""}
+                      type={"text"}
                     />
                   </TooltipWrapper>
                 </div>
-                <div className={"pl2-l pl2-m pl0-ns w-50-l w-50-m w-100-ns"}>
-                  <div className={"flex items-start"}>
-                    <div className={"w-90-ns"}>
-                      <TooltipWrapper
-                        id={"tagsInputToolTip"}
-                        message={t(
-                          "organization.tabs.policies.findings.tooltip.tagsInput"
-                        )}
-                        placement={"top"}
-                      >
-                        <label className={"mb1"}>
-                          <b>
-                            {t("organization.tabs.policies.findings.form.tags")}
-                          </b>
-                        </label>
-                        <Field
-                          component={FormikTagInput}
-                          name={"tags"}
-                          placeholder={""}
-                          type={"text"}
-                        />
-                      </TooltipWrapper>
-                    </div>
-                    <div className={"w-10-ns"}>
-                      <TooltipWrapper
-                        displayClass={"flex justify-end"}
-                        id={"addButtonToolTip"}
-                        message={t(
-                          "organization.tabs.policies.findings.tooltip.addButton"
-                        )}
-                      >
-                        <Button
-                          // Use className to override default styles
-                          // eslint-disable-next-line react/forbid-component-props
-                          className={`${style["button-margin"]} lh-copy`}
-                          disabled={submitting}
-                          type={"submit"}
-                        >
-                          <FontAwesomeIcon icon={faPlus} />
-                        </Button>
-                      </TooltipWrapper>
-                    </div>
-                  </div>
+                <div className={"w-10-ns"}>
+                  <TooltipWrapper
+                    displayClass={"flex justify-end"}
+                    id={"addButtonToolTip"}
+                    message={t(
+                      "organization.tabs.policies.findings.tooltip.addButton"
+                    )}
+                  >
+                    <Button
+                      // Use className to override default styles
+                      // eslint-disable-next-line react/forbid-component-props
+                      className={`${style["button-margin"]} lh-copy`}
+                      disabled={submitting}
+                      type={"submit"}
+                    >
+                      <FontAwesomeIcon icon={faPlus} />
+                    </Button>
+                  </TooltipWrapper>
                 </div>
-              </React.Fragment>
-            )}
+              </div>
+            </div>
           </div>
         </Form>
       </Formik>

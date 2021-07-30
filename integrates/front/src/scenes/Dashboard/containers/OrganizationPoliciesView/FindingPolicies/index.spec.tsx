@@ -1,8 +1,10 @@
+/* eslint-disable camelcase */
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
+import type { FetchMockStatic } from "fetch-mock";
 import { GraphQLError } from "graphql";
 import React from "react";
 import { act } from "react-dom/test-utils";
@@ -15,7 +17,6 @@ import { FindingPolicies } from "scenes/Dashboard/containers/OrganizationPolicie
 import {
   ADD_ORGANIZATION_FINDING_POLICY,
   DEACTIVATE_ORGANIZATION_FINDING_POLICY,
-  GET_ORGANIZATION_FINDINGS_TITLES,
   HANDLE_ORGANIZATION_FINDING_POLICY,
 } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/queries";
 import { GET_ORGANIZATION_POLICIES } from "scenes/Dashboard/containers/OrganizationPoliciesView/queries";
@@ -23,6 +24,45 @@ import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
+const mockedFetch: FetchMockStatic = fetch as FetchMockStatic & typeof fetch;
+const baseUrl: string =
+  "https://gitlab.com/api/v4/projects/20741933/repository/files";
+const fileId: string =
+  "makes%2Fmakes%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml";
+const branchRef: string = "master";
+mockedFetch.mock(`${baseUrl}/${fileId}/raw?ref=${branchRef}`, {
+  body: {
+    "060": {
+      en: {
+        description: "",
+        impact: "",
+        recommendation: "",
+        threat: "",
+        title: "Insecure exceptions",
+      },
+      requirements: [],
+      score: {
+        base: {
+          attack_complexity: "",
+          attack_vector: "",
+          availability: "",
+          confidentiality: "",
+          integrity: "",
+          privileges_required: "",
+          scope: "",
+          user_interaction: "",
+        },
+        temporal: {
+          exploit_code_maturity: "",
+          remediation_level: "",
+          report_confidence: "",
+        },
+      },
+    },
+  },
+
+  status: 200,
+});
 jest.mock("../../../../../utils/notifications", (): Dictionary => {
   const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
     "../../../../../utils/notifications"
@@ -35,37 +75,6 @@ jest.mock("../../../../../utils/notifications", (): Dictionary => {
 
 describe("Organization findings policies view", (): void => {
   const organizationId: string = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3";
-  const mockFindingTitleQuery: MockedResponse = {
-    request: {
-      query: GET_ORGANIZATION_FINDINGS_TITLES,
-      variables: {
-        organizationId,
-      },
-    },
-    result: {
-      data: {
-        organization: {
-          groups: [
-            {
-              findings: [
-                {
-                  id: "422286126",
-                  title: "060. Insecure exceptions",
-                },
-                {
-                  id: "836530833",
-                  title: "004. Remote command execution",
-                },
-              ],
-              name: "unitestting",
-            },
-          ],
-          id: organizationId,
-          name: "okada",
-        },
-      },
-    },
-  };
 
   const mockQuery: MockedResponse = {
     request: {
@@ -125,10 +134,7 @@ describe("Organization findings policies view", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
-        <MockedProvider
-          addTypename={false}
-          mocks={[mockFindingTitleQuery, mockQuery, mockMutation]}
-        >
+        <MockedProvider addTypename={false} mocks={[mockQuery, mockMutation]}>
           <Route path={"/orgs/:organizationName/policies"}>
             <FindingPolicies
               findingPolicies={[]}
@@ -193,10 +199,7 @@ describe("Organization findings policies view", (): void => {
     const { t } = useTranslation();
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
-        <MockedProvider
-          addTypename={false}
-          mocks={[mockFindingTitleQuery, mockQuery, mockMutation]}
-        >
+        <MockedProvider addTypename={false} mocks={[mockQuery, mockMutation]}>
           <Route path={"/orgs/:organizationName/policies"}>
             <FindingPolicies
               findingPolicies={[
@@ -253,10 +256,7 @@ describe("Organization findings policies view", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
-        <MockedProvider
-          addTypename={false}
-          mocks={[mockFindingTitleQuery, mockQuery]}
-        >
+        <MockedProvider addTypename={false} mocks={[mockQuery]}>
           <Route path={"/orgs/:organizationName/policies"}>
             <FindingPolicies
               findingPolicies={[
@@ -710,10 +710,7 @@ describe("Organization findings policies view", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/orgs/okada/policies"]}>
-        <MockedProvider
-          addTypename={false}
-          mocks={[mockFindingTitleQuery, mockQuery, mockMutation]}
-        >
+        <MockedProvider addTypename={false} mocks={[mockQuery, mockMutation]}>
           <Route path={"/orgs/:organizationName/policies"}>
             <FindingPolicies
               findingPolicies={[]}
