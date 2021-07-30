@@ -1,0 +1,3 @@
+big_int,empty_data,foo_float,foo_float2,space_text,text,foo_date,foo_timestamp
+1234567890123456789,,100000000.05,1.000000001,"Foo Name",Non_space_text,2000-01-01,2017-10-17T00:35:32-05:00,
+1234567890123456790,,900000000.99,9.000000009,"Foo,Name",Non_space_text,2000-01-01,2017-10-17T00:35:32Z,
