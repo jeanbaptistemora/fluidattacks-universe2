@@ -6957,23 +6957,81 @@
 "359":
   en:
     title: Avoid using generic exceptions
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system should use
+      typified exceptions instead of
+      generic exceptions.
+    description: >
+      Catching generic exceptions
+      obscures the problem that caused
+      the error and promotes
+      a generic way to handle different
+      categories or sources of error.
+      This may cause security
+      vulnerabilities to materialize,
+      as some special flows go unnoticed.
   es:
     title: Evitar el uso de excepciones genéricas
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe usar
+      excepciones tipificadas
+      en lugar de excepciones genéricas.
+    description: >
+      La captura de excepciones
+      genéricas oscurece el problema
+      que causó el error y promueve
+      una forma genérica de manejar
+      diferentes categorías
+      o fuentes de error.
+      Esto puede causar que
+      las vulnerabilidades de seguridad
+      se materialicen,
+      ya que algunos flujos especiales
+      pasan desapercibidos.
   references: []
   metadata: {}
 "360":
   en:
     title: Remove unnecessary sensitive information
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system must remove
+      sensitive and personal information
+      when it is no longer required.
+    description: >
+      Systems usually request
+      sensitive or personal information
+      from their users or collect it
+      based on their interactions
+      with the application.
+      Regulations demand that none
+      of these collections occur
+      without the user's consent,
+      and that it not be stored
+      for more time than strictly necessary.
+      Therefore,
+      the system should delete
+      this information after
+      it is no longer required.
   es:
     title: Eliminar información sensible innecesaria
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema debe eliminar
+      la información sensible y personal
+      cuando ya no se requiera.
+    description: >
+      Los sistemas generalmente
+      solicitan información confidencial
+      o personal de sus usuarios
+      o recolectan en función
+      de sus interacciones con la aplicación.
+      Las regulaciones exigen
+      que ninguna de estas recolecciones
+      ocurra sin el consentimiento del usuario,
+      y que no se almacene más tiempo
+      del estrictamente necesario.
+      Por lo tanto,
+      el sistema debe eliminar esta información
+      después de que ya no se requiera.
   references: []
   metadata: {}
 "361":
