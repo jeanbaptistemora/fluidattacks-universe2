@@ -67205,6 +67205,70 @@
             "type": "SyntaxStepMethodInvocation"
           }
         ],
+        "678": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "683",
+              "value": [
+                [
+                  {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": [],
+                      "n_id": "685",
+                      "value": null
+                    },
+                    "type": "SyntaxStepLiteral",
+                    "value": "10",
+                    "value_type": "number"
+                  }
+                ],
+                [
+                  {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": [],
+                      "n_id": "687",
+                      "value": null
+                    },
+                    "type": "SyntaxStepLiteral",
+                    "value": "20",
+                    "value_type": "number"
+                  }
+                ],
+                [
+                  {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": [],
+                      "n_id": "689",
+                      "value": null
+                    },
+                    "type": "SyntaxStepLiteral",
+                    "value": "30",
+                    "value_type": "number"
+                  }
+                ]
+              ]
+            },
+            "object_type": "array",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "680",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "iterable",
+            "var_type": null
+          }
+        ],
         "692": [
           {
             "meta": {

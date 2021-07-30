@@ -65,6 +65,7 @@ from sast_syntax_readers.java import (
     this as java_this,
 )
 from sast_syntax_readers.javascript import (
+    array as javascript_array,
     arrow_function as javascript_arrrow_function,
     assignment_expression as javascript_assignment_expression,
     await_expression as javascript_await_expression,
@@ -765,6 +766,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "for_in_statement",
         },
         syntax_readers=(javascript_for_in_statement.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+        },
+        applicable_node_label_types={
+            "array",
+        },
+        syntax_readers=(javascript_array.reader,),
     ),
     *[
         Dispatcher(
