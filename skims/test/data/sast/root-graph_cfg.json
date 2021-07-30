@@ -67402,6 +67402,43 @@
             "var_type": null
           }
         ],
+        "721": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "729",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "0",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "726",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "i",
+            "var_type": null
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "721",
+              "value": null
+            },
+            "n_id_conditional_expression": "731",
+            "n_id_update": "737",
+            "n_id_var_declaration": "724",
+            "type": "SyntaxStepFor"
+          }
+        ],
         "741": [
           {
             "meta": {
@@ -67663,6 +67700,55 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "806": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "819",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "5",
+            "value_type": "number"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "817",
+              "value": null
+            },
+            "operator": "-",
+            "type": "SyntaxStepUnaryExpression"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "813",
+              "value": null
+            },
+            "method": "testNum",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "806",
+              "value": null
+            },
+            "method": "console.log",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "825": [

@@ -73,6 +73,7 @@ from sast_syntax_readers.javascript import (
     catch_clause as javascript_catch_clause,
     do_statement as javascript_do_statement,
     for_in_statement as javascript_for_in_statement,
+    for_statement as javascript_for_statement,
     formal_parameters as javascript_formal_parameters,
     function_declaration as javascript_function_declaration,
     if_statement as javascript_if_statement,
@@ -196,6 +197,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.GO,
             graph_model.GraphShardMetadataLanguage.JAVA,
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
         },
         applicable_node_label_types={
             "unary_expression",
@@ -775,6 +777,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "array",
         },
         syntax_readers=(javascript_array.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+        },
+        applicable_node_label_types={
+            "for_statement",
+        },
+        syntax_readers=(javascript_for_statement.reader,),
     ),
     *[
         Dispatcher(
