@@ -1011,37 +1011,84 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     if len(ctx.tls_versions) < 2:
         return tuple()
 
-    min_version_id: SSLVersionId = min(ctx.tls_versions)
+    suites: List[str] = [
+        "ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+        "ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "DHE_RSA_WITH_AES_256_GCM_SHA384",
+        "ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256",
+        "ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+        "DHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+        "ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+        "ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+        "DHE_RSA_WITH_AES_128_GCM_SHA256",
+        "ECDHE_ECDSA_WITH_AES_256_CBC_SHA384",
+        "ECDHE_RSA_WITH_AES_256_CBC_SHA384",
+        "DHE_RSA_WITH_AES_256_CBC_SHA256",
+        "ECDHE_ECDSA_WITH_AES_128_CBC_SHA256",
+        "ECDHE_RSA_WITH_AES_128_CBC_SHA256",
+        "DHE_RSA_WITH_AES_128_CBC_SHA256",
+        "ECDHE_ECDSA_WITH_AES_256_CBC_SHA",
+        "ECDHE_RSA_WITH_AES_256_CBC_SHA",
+        "DHE_RSA_WITH_AES_256_CBC_SHA",
+        "ECDHE_ECDSA_WITH_AES_128_CBC_SHA",
+        "ECDHE_RSA_WITH_AES_128_CBC_SHA",
+        "DHE_RSA_WITH_AES_128_CBC_SHA",
+        "RSA_WITH_AES_256_GCM_SHA384",
+        "RSA_WITH_AES_128_GCM_SHA256",
+        "RSA_WITH_AES_256_CBC_SHA256",
+        "RSA_WITH_AES_128_CBC_SHA256",
+        "RSA_WITH_AES_256_CBC_SHA",
+        "RSA_WITH_AES_128_CBC_SHA",
+        "FALLBACK_SCSV",
+    ]
 
-    ssl_settings = SSLSettings(
+    min_v_id: SSLVersionId = min(ctx.tls_versions)
+
+    intention: Dict[core_model.LocalesEnum, str] = {
+        core_model.LocalesEnum.EN: (
+            "check if server supports TLS_FALLBACK_SCSV"
+        ),
+        core_model.LocalesEnum.ES: (
+            "verificar si el servidor soporta TLS_FALLBACK_SCSV"
+        ),
+    }
+
+    sock = tcp_connect(
         ctx.target.host,
         ctx.target.port,
-        scsv=True,
-        min_version=min_version_id,
-        max_version=min_version_id,
-        intention={
-            core_model.LocalesEnum.EN: (
-                "check if server supports TLS_FALLBACK_SCSV"
-            ),
-            core_model.LocalesEnum.ES: (
-                "verificar si el servidor soporta TLS_FALLBACK_SCSV"
-            ),
-        },
+        intention[core_model.LocalesEnum.EN],
     )
 
-    with tlslite_connect(
-        ssl_settings,
-        expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
-    ) as connection:
-        if connection is not None and not connection.closed:
+    if sock is None:
+        return tuple()
+
+    extensions: List[int] = get_ec_point_formats_ext()
+    extensions += get_elliptic_curves_ext()
+    extensions += get_session_ticket_ext()
+
+    package = get_client_hello_package(min_v_id, suites, extensions)
+    sock.send(bytes(package))
+    handshake_record = read_ssl_record(sock)
+
+    if handshake_record is not None:
+        handshake_type, _, _ = handshake_record
+
+        if handshake_type == 22:
             ssl_vulnerabilities.append(
                 _create_ssl_vuln(
                     check="fallback_scsv_disabled",
-                    ssl_settings=ssl_settings,
-                    line=SSLSnippetLine.max_version,
+                    line=SSLSnippetLine.min_version,
+                    ssl_settings=SSLSettings(
+                        host=ctx.target.host,
+                        port=ctx.target.port,
+                        min_version=min_v_id,
+                        max_version=min_v_id,
+                        intention=intention,
+                    ),
                     finding=core_model.FindingEnum.F016,
                 )
             )
+    sock.close()
 
     return _create_core_vulns(ssl_vulnerabilities)
 
