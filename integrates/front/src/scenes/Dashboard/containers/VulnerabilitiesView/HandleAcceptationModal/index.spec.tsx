@@ -15,10 +15,8 @@ import waitForExpect from "wait-for-expect";
 import { JustificationField } from "./JustificationField";
 import type { IJustificationFieldProps } from "./JustificationField/types";
 import { TreatmentField } from "./TreatmentField";
-import { ZeroRiskConfirmationTable } from "./ZeroRiskConfirmationTable";
-import type { IZeroRiskConfirmationTableProps } from "./ZeroRiskConfirmationTable/types";
-import { ZeroRiskRejectionTable } from "./ZeroRiskRejectionTable";
-import type { IZeroRiskRejectionTableProps } from "./ZeroRiskRejectionTable/types";
+import { ZeroRiskTable } from "./ZeroRiskTable";
+import type { IZeroRiskTableProps } from "./ZeroRiskTable/types";
 
 import { GET_FINDING_HEADER } from "../../FindingContent/queries";
 import type { IVulnerabilitiesAttr } from "../types";
@@ -378,7 +376,7 @@ describe("handle vulns acceptation modal", (): void => {
       .filter({ name: "treatment" })
       .find("select");
     treatmentFieldSelect.simulate("change", {
-      target: { value: "CONFIRM_ZERO_RISK" },
+      target: { value: "CONFIRM_REJECT_ZERO_RISK" },
     });
     const justificationFieldTextArea: ReactWrapper = wrapper
       .find(Field)
@@ -389,13 +387,12 @@ describe("handle vulns acceptation modal", (): void => {
         value: "This is a test of confirming zero risk vulns",
       },
     });
-    const zeroRiskConfirmationTable: ReactWrapper<
-      PropsWithChildren<IZeroRiskConfirmationTableProps>
-    > = wrapper.find(ZeroRiskConfirmationTable);
-    const requestedZeroRiskSwitch: ReactWrapper = zeroRiskConfirmationTable
-      .find("#zeroRiskConfirmSwitch")
+    const zeroRiskTable: ReactWrapper<PropsWithChildren<IZeroRiskTableProps>> =
+      wrapper.find(ZeroRiskTable);
+    const requestedZeroRiskCheckBox: ReactWrapper = zeroRiskTable
+      .find("#zeroRiskCheckBox_yes")
       .at(0);
-    requestedZeroRiskSwitch.simulate("click");
+    requestedZeroRiskCheckBox.simulate("click");
 
     const form: ReactWrapper = wrapper.find("form");
     form.at(0).simulate("submit");
@@ -541,7 +538,7 @@ describe("handle vulns acceptation modal", (): void => {
       .filter({ name: "treatment" })
       .find("select");
     treatmentFieldSelect.simulate("change", {
-      target: { value: "CONFIRM_ZERO_RISK" },
+      target: { value: "CONFIRM_REJECT_ZERO_RISK" },
     });
     const justificationFieldTextArea: ReactWrapper = wrapper
       .find(Field)
@@ -552,13 +549,12 @@ describe("handle vulns acceptation modal", (): void => {
         value: "This is a test of confirming zero risk vulns",
       },
     });
-    const zeroRiskConfirmationTable: ReactWrapper<
-      PropsWithChildren<IZeroRiskConfirmationTableProps>
-    > = wrapper.find(ZeroRiskConfirmationTable);
-    const requestedZeroRiskSwitch: ReactWrapper = zeroRiskConfirmationTable
-      .find("#zeroRiskConfirmSwitch")
+    const zeroRiskTable: ReactWrapper<PropsWithChildren<IZeroRiskTableProps>> =
+      wrapper.find(ZeroRiskTable);
+    const requestedZeroRiskCheckBox: ReactWrapper = zeroRiskTable
+      .find("#zeroRiskCheckBox_yes")
       .at(0);
-    requestedZeroRiskSwitch.simulate("click");
+    requestedZeroRiskCheckBox.simulate("click");
 
     const form: ReactWrapper = wrapper.find("form");
     form.at(0).simulate("submit");
@@ -596,7 +592,7 @@ describe("handle vulns acceptation modal", (): void => {
             vulnerabilities: ["ab25380d-dfe1-4cde-aefd-acca6990d6aa"],
           },
         },
-        result: { data: { rejectZeroRiskVuln: { success: true } } },
+        result: { data: { rejectVulnerabilitiesZeroRisk: { success: true } } },
       },
     ];
     const mocksFindingHeader: MockedResponse = {
@@ -697,7 +693,7 @@ describe("handle vulns acceptation modal", (): void => {
       .filter({ name: "treatment" })
       .find("select");
     treatmentFieldSelect.simulate("change", {
-      target: { value: "REJECT_ZERO_RISK" },
+      target: { value: "CONFIRM_REJECT_ZERO_RISK" },
     });
     const justificationFieldTextArea: ReactWrapper = wrapper
       .find(Field)
@@ -708,13 +704,12 @@ describe("handle vulns acceptation modal", (): void => {
         value: "This is a test of rejecting zero risk vulns",
       },
     });
-    const zeroRiskRejectionTable: ReactWrapper<
-      PropsWithChildren<IZeroRiskRejectionTableProps>
-    > = wrapper.find(ZeroRiskRejectionTable);
-    const requestedZeroRiskSwitch: ReactWrapper = zeroRiskRejectionTable
-      .find("#zeroRiskRejectionSwitch")
+    const zeroRiskTable: ReactWrapper<PropsWithChildren<IZeroRiskTableProps>> =
+      wrapper.find(ZeroRiskTable);
+    const requestedZeroRiskCheckBox: ReactWrapper = zeroRiskTable
+      .find("#zeroRiskCheckBox_no")
       .at(0);
-    requestedZeroRiskSwitch.simulate("click");
+    requestedZeroRiskCheckBox.simulate("click");
 
     const form: ReactWrapper = wrapper.find("form");
     form.at(0).simulate("submit");
@@ -860,7 +855,7 @@ describe("handle vulns acceptation modal", (): void => {
       .filter({ name: "treatment" })
       .find("select");
     treatmentFieldSelect.simulate("change", {
-      target: { value: "REJECT_ZERO_RISK" },
+      target: { value: "CONFIRM_REJECT_ZERO_RISK" },
     });
     const justificationFieldTextArea: ReactWrapper = wrapper
       .find(Field)
@@ -871,13 +866,12 @@ describe("handle vulns acceptation modal", (): void => {
         value: "This is a test of rejecting zero risk vulns",
       },
     });
-    const zeroRiskRejectionTable: ReactWrapper<
-      PropsWithChildren<IZeroRiskRejectionTableProps>
-    > = wrapper.find(ZeroRiskRejectionTable);
-    const requestedZeroRiskSwitch: ReactWrapper = zeroRiskRejectionTable
-      .find("#zeroRiskRejectionSwitch")
+    const zeroRiskTable: ReactWrapper<PropsWithChildren<IZeroRiskTableProps>> =
+      wrapper.find(ZeroRiskTable);
+    const requestedZeroRiskCheckBox: ReactWrapper = zeroRiskTable
+      .find("#zeroRiskCheckBox_no")
       .at(0);
-    requestedZeroRiskSwitch.simulate("click");
+    requestedZeroRiskCheckBox.simulate("click");
 
     const form: ReactWrapper = wrapper.find("form");
     form.at(0).simulate("submit");
@@ -948,8 +942,16 @@ describe("handle vulns acceptation modal", (): void => {
       .find(TreatmentField)
       .find("select");
     treatmentFieldDropdown.simulate("change", {
-      target: { value: "CONFIRM_ZERO_RISK" },
+      target: { value: "CONFIRM_REJECT_ZERO_RISK" },
     });
+
+    const zeroRiskTable: ReactWrapper<PropsWithChildren<IZeroRiskTableProps>> =
+      wrapper.find(ZeroRiskTable);
+    const requestedZeroRiskCheckBox: ReactWrapper = zeroRiskTable
+      .find("#zeroRiskCheckBox_yes")
+      .at(0);
+    requestedZeroRiskCheckBox.simulate("click");
+
     const justificationField: ReactWrapper<IJustificationFieldProps> =
       wrapper.find(JustificationField);
     const expectedJustificationFieldLength: number = 1;
@@ -1034,8 +1036,16 @@ describe("handle vulns acceptation modal", (): void => {
       .find(TreatmentField)
       .find("select");
     treatmentFieldDropdown.simulate("change", {
-      target: { value: "REJECT_ZERO_RISK" },
+      target: { value: "CONFIRM_REJECT_ZERO_RISK" },
     });
+
+    const zeroRiskTable: ReactWrapper<PropsWithChildren<IZeroRiskTableProps>> =
+      wrapper.find(ZeroRiskTable);
+    const requestedZeroRiskCheckBox: ReactWrapper = zeroRiskTable
+      .find("#zeroRiskCheckBox_no")
+      .at(0);
+    requestedZeroRiskCheckBox.simulate("click");
+
     const justificationField: ReactWrapper<IJustificationFieldProps> =
       wrapper.find(JustificationField);
     const expectedJustificationFieldLength: number = 1;

@@ -11,7 +11,7 @@ interface ICheckBoxProps {
   isYesEnabled?: boolean;
   isNoEnabled?: boolean;
   fontSize?: string;
-  id?: string;
+  id: string;
   isSelected?: boolean;
   noLabel: string;
   onApprove?: (checked: boolean) => void;
@@ -53,6 +53,7 @@ const MixedCheckBoxButton: React.FC<ICheckBoxProps> = (
     <CheckBox className={fontSize} id={id}>
       {isYesEnabled ? (
         <CheckBoxOption
+          id={`${id}_yes`}
           onClick={handleClickYes}
           theme={{ selected: isSelected, type: "yes" }}
         >
@@ -61,6 +62,7 @@ const MixedCheckBoxButton: React.FC<ICheckBoxProps> = (
       ) : undefined}
       {isNoEnabled ? (
         <CheckBoxOption
+          id={`${id}_no`}
           onClick={handleClickNo}
           theme={{ selected: isSelected, type: "no" }}
         >

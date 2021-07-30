@@ -33,14 +33,13 @@ const onTreatmentChangeHelper = (
   setAcceptationVulns: (
     pendingVulnsToHandleAcceptation: IVulnDataAttr[]
   ) => void,
-  isConfirmZeroRiskSelected: boolean,
-  isRejectZeroRiskSelected: boolean
+  isConfirmRejectZeroRiskSelected: boolean
 ): void => {
   if (isAcceptedUndefinedSelected) {
     const pendingVulnsToHandleAcceptation: IVulnDataAttr[] =
       getVulnsPendingOfAcceptation(vulns);
     setAcceptationVulns(pendingVulnsToHandleAcceptation);
-  } else if (isConfirmZeroRiskSelected || isRejectZeroRiskSelected) {
+  } else if (isConfirmRejectZeroRiskSelected) {
     const requestedZeroRiskVulns: IVulnDataAttr[] =
       getRequestedZeroRiskVulns(vulns);
     setAcceptationVulns([...requestedZeroRiskVulns]);
@@ -169,7 +168,7 @@ const rejectZeroRiskProps = (
 ): MutationHookOptions => {
   return {
     onCompleted: (data: IRejectZeroRiskVulnResultAttr): void => {
-      if (data.rejectZeroRiskVuln.success) {
+      if (data.rejectVulnerabilitiesZeroRisk.success) {
         msgSuccess(
           translate.t("groupAlerts.rejectedZeroRiskSuccess"),
           translate.t("groupAlerts.updatedTitle")

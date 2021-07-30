@@ -19,8 +19,7 @@ import {
 } from "./helpers";
 import { JustificationField } from "./JustificationField";
 import { TreatmentField } from "./TreatmentField";
-import { ZeroRiskConfirmationTable } from "./ZeroRiskConfirmationTable";
-import { ZeroRiskRejectionTable } from "./ZeroRiskRejectionTable";
+import { ZeroRiskTable } from "./ZeroRiskTable";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
@@ -81,10 +80,8 @@ const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptationModalPro
 
     const isAcceptedUndefinedSelected: boolean =
       formValues.treatment === "ACCEPTED_UNDEFINED";
-    const isConfirmZeroRiskSelected: boolean =
-      formValues.treatment === "CONFIRM_ZERO_RISK";
-    const isRejectZeroRiskSelected: boolean =
-      formValues.treatment === "REJECT_ZERO_RISK";
+    const isConfirmRejectZeroRiskSelected: boolean =
+      formValues.treatment === "CONFIRM_REJECT_ZERO_RISK";
 
     // Side effects
     const onTreatmentChange: () => void = (): void => {
@@ -92,14 +89,12 @@ const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptationModalPro
         isAcceptedUndefinedSelected,
         vulns,
         setAcceptationVulns,
-        isConfirmZeroRiskSelected,
-        isRejectZeroRiskSelected
+        isConfirmRejectZeroRiskSelected
       );
     };
     useEffect(onTreatmentChange, [
       isAcceptedUndefinedSelected,
-      isConfirmZeroRiskSelected,
-      isRejectZeroRiskSelected,
+      isConfirmRejectZeroRiskSelected,
       vulns,
     ]);
 
@@ -170,7 +165,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptationModalPro
         return "ACCEPTED_UNDEFINED";
       }
 
-      return canConfirmZeroRisk ? "CONFIRM_ZERO_RISK" : "";
+      return canConfirmZeroRisk ? "CONFIRM_REJECT_ZERO_RISK" : "";
     }
 
     function handleSubmit(values: { justification: string }): void {
@@ -189,14 +184,14 @@ const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptationModalPro
         rejectedVulnIds
       );
       isConfirmZeroRiskSelectedHelper(
-        isConfirmZeroRiskSelected,
+        acceptedVulnIds.length !== 0,
         confirmZeroRisk,
         acceptedVulnIds,
         findingId,
         values
       );
       isRejectZeroRiskSelectedHelper(
-        isRejectZeroRiskSelected,
+        rejectedVulnIds.length !== 0,
         rejectZeroRisk,
         findingId,
         values,
@@ -242,18 +237,8 @@ const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptationModalPro
             </Row>
             <Row>
               <Col100>
-                <ZeroRiskConfirmationTable
+                <ZeroRiskTable
                   acceptationVulns={acceptationVulns}
-                  isConfirmZeroRiskSelected={isConfirmZeroRiskSelected}
-                  setAcceptationVulns={setAcceptationVulns}
-                />
-              </Col100>
-            </Row>
-            <Row>
-              <Col100>
-                <ZeroRiskRejectionTable
-                  acceptationVulns={acceptationVulns}
-                  isRejectZeroRiskSelected={isRejectZeroRiskSelected}
                   setAcceptationVulns={setAcceptationVulns}
                 />
               </Col100>
@@ -261,8 +246,8 @@ const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptationModalPro
             <Row>
               <Col100>
                 <JustificationField
-                  isConfirmZeroRiskSelected={isConfirmZeroRiskSelected}
-                  isRejectZeroRiskSelected={isRejectZeroRiskSelected}
+                  isConfirmZeroRiskSelected={acceptedVulns.length !== 0}
+                  isRejectZeroRiskSelected={rejectedVulns.length !== 0}
                 />
               </Col100>
             </Row>

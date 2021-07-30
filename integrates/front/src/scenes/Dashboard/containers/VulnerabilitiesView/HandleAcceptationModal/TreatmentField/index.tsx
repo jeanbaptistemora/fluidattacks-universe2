@@ -40,17 +40,10 @@ const TreatmentField: React.FC = (): JSX.Element => {
             )}
           </option>
         ) : undefined}
-        {canConfirmZeroRiskVuln ? (
-          <option value={"CONFIRM_ZERO_RISK"}>
+        {canConfirmZeroRiskVuln && canRejectZeroRiskVuln ? (
+          <option value={"CONFIRM_REJECT_ZERO_RISK"}>
             {translate.t(
-              "searchFindings.tabDescription.treatment.confirmZeroRisk"
-            )}
-          </option>
-        ) : undefined}
-        {canRejectZeroRiskVuln ? (
-          <option value={"REJECT_ZERO_RISK"}>
-            {translate.t(
-              "searchFindings.tabDescription.treatment.rejectZeroRisk"
+              "searchFindings.tabDescription.treatment.confirmRejectZeroRisk"
             )}
           </option>
         ) : undefined}

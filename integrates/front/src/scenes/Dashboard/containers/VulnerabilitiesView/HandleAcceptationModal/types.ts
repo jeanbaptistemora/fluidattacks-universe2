@@ -28,7 +28,7 @@ interface IConfirmVulnZeroRiskResultAttr {
 }
 
 interface IRejectZeroRiskVulnResultAttr {
-  rejectZeroRiskVuln: {
+  rejectVulnerabilitiesZeroRisk: {
     success: boolean;
   };
 }
