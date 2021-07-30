@@ -763,6 +763,19 @@ const LittleBlackParagraph: StyledComponent<
   `,
 })``;
 
+const BigSolutionParagraph: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: `
+    c-black-gray
+    fw3
+    f-1125
+    lh-2
+    mw-1920
+  `,
+})``;
+
 const CenteredSpacedContainer: StyledComponent<
   "div",
   Record<string, unknown>
@@ -1580,6 +1593,7 @@ export {
   BannerSubtitle,
   BannerTitle,
   BigPageContainer,
+  BigSolutionParagraph,
   BlackBigHeader,
   BlackBigParagraph,
   BlackH2,

@@ -14,23 +14,24 @@ import { Link, graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
+import { CloudImage } from "../components/CloudImage";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import { WhiteShadowedCard } from "../components/WhiteShadowedCard";
 import {
-  BannerContainer,
   BigPageContainer,
+  BigSolutionParagraph,
   BlackH2,
   BlackSolutionParagraph,
   CardsContainer,
   CenteredSpacedContainer,
   FlexCenterItemsContainer,
   FullWidthContainer,
-  LittleBannerTitle,
-  LittleBlackParagraph,
+  MarkedTitle,
   PageArticle,
   PageContainer,
+  RedMark,
   RegularRedButton,
 } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
@@ -47,6 +48,7 @@ const SolutionIndex: React.FC<IQueryData> = ({
   const { title } = data.asciidoc.document;
   const {
     description,
+    image,
     keywords,
     slug,
     solution,
@@ -74,25 +76,22 @@ const SolutionIndex: React.FC<IQueryData> = ({
           />
 
           <PageArticle>
-            <BannerContainer className={"bg-solutions"}>
-              <FullWidthContainer>
-                <LittleBannerTitle>{title}</LittleBannerTitle>
-              </FullWidthContainer>
-            </BannerContainer>
-            <PageContainer>
-              <FullWidthContainer className={"pv4"}>
-                <FlexCenterItemsContainer className={"flex-wrap center"}>
-                  <div>
-                    <div className={"tl"}>
-                      <LittleBlackParagraph className={"tl"}>
-                        {solution}
-                      </LittleBlackParagraph>
-                    </div>
-                  </div>
-                </FlexCenterItemsContainer>
-              </FullWidthContainer>
-            </PageContainer>
             <BigPageContainer>
+              <CloudImage
+                alt={"Solution Image"}
+                src={`/airs/solutions/solution-${image}`}
+                styles={"ml-solution"}
+              />
+              <RedMark className={"ml-solution"}>
+                <MarkedTitle>{title}</MarkedTitle>
+              </RedMark>
+              <FullWidthContainer className={"pv4"}>
+                <div className={"tl  ml-solution"}>
+                  <BigSolutionParagraph className={"tl"}>
+                    {solution}
+                  </BigSolutionParagraph>
+                </div>
+              </FullWidthContainer>
               <FullWidthContainer>
                 <BlackH2>{translate.t("solution.benefits")}</BlackH2>
                 <FlexCenterItemsContainer
@@ -172,6 +171,7 @@ export const query: void = graphql`
         keywords
         slug
         solution
+        image
       }
     }
   }

@@ -23,6 +23,7 @@ $whiter-gray: rgba(241, 241, 241, 1);
 $gray-233: rgba(233, 233, 237, 1);
 $gray-244: rgba(244, 244, 246, 1);
 $gray-179: rgba(179, 175, 169, 1);
+$black-18: rgba(18, 18, 22, 1);
 
 // Rules
 @keyframes fadein {
@@ -36,6 +37,7 @@ $gray-179: rgba(179, 175, 169, 1);
 
 // Background Colors
 .bg-button-red { background-color: $button-red; }
+.bg-black-18 { background-color: $black-18; }
 .bg-darker-blue { background-color: $darker-blue; }
 .bg-fluid-red { background-color: $red-255; }
 .bg-gray-black { background-color: $gray-black; }
@@ -262,6 +264,7 @@ $gray-179: rgba(179, 175, 169, 1);
   .f-375-l { font-size: 3.75rem; }
   .f-error { font-size: 17rem; }
   .bg-banner-sz { background-size: 100% 100%; }
+  .ml-solution { margin-left: 60.656px;}
   .mw-20 { max-width: 20rem; }
   .mw-1366 { max-width: 1570px; }
   .three-columns-l { column-count: 3; }
@@ -355,6 +358,11 @@ $gray-179: rgba(179, 175, 169, 1);
 
 .mobileMenuItem {
   border-bottom: solid 1px $fluid-gray;
+}
+
+.solution-card-icon {
+  height: 31px;
+  width: 31px;
 }
 
 .faq-page {
