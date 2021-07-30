@@ -4933,6 +4933,27 @@ F060,lines,namespace/skims/test/data/lib_path/f060/Test.java,12,397,skims,060. I
   13 |
      ^ Col 13
 "
+F070,lines,namespace/skims/test/data/lib_root/f070_wildcard_import/test.kt,13,398,skims,070. Inappropriate coding practices - Wildcard import,Use of wildcard import,"
+   1 | package f70_wildcard_import
+   2 |
+   3 | import android.content.Context
+   4 | import android.content.Intent
+   5 | import android.database.Cursor
+   6 | import android.os.Bundle
+   7 | import android.support.v7.app.AppCompatActivity
+   8 | import android.util.Log
+   9 | import android.view.Menu
+  10 | import android.view.MenuInflater
+  11 | import android.view.MenuItem
+  12 | import android.view.View
+> 13 | import android.widget.*
+  14 | import android.widget.TextView
+  15 |
+  16 | fun main() {
+  17 |     print(""Kotlint Wildcard Import"")
+  18 | }
+     ^ Col 0
+"
 F070,lines,namespace/skims/test/data/lib_root/f070_wildcard_import/test.go,11,398,skims,070. Inappropriate coding practices - Wildcard import,Use of wildcard import,"
    1 | package main
    2 |
