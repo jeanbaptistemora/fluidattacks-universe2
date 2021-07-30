@@ -7504,22 +7504,37 @@
 "380":
   en:
     title: Define a password management tool
-    summary: __empty_
+    summary: >
+      The passwords of high privileged users,
+      must be guarded and managed
+      by the tool defined in the
+      organization to complete this task.
     description: __empty__
   es:
     title: Definir una herramienta de gestión de contraseñas
-    summary: __empty__
+    summary: >
+      Las contraseñas de usuarios
+      de alto privilegio,
+      deben ser resguardadas y administradas
+      por la herramienta definida
+      en la organización para
+      completar esta tarea.
     description: __empty__
   references: []
   metadata: {}
 "381":
   en:
     title: Use of absolute paths
-    summary: __empty_
+    summary: >
+      The system files must be
+      referenced through absolute paths.
     description: __empty__
   es:
     title: Uso de rutas absolutas
-    summary: __empty__
+    summary: >
+      Se debe hacer referencia
+      a los archivos del sistema
+      mediante rutas absolutas.
     description: __empty__
   references: []
   metadata: {}
