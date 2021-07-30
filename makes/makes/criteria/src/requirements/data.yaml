@@ -7353,33 +7353,60 @@
 "374":
   en:
     title: Use of isolation methods in running applications
-    summary: __empty_
+    summary: >
+      Applications should run
+      isolated from other applications
+      (using sandboxing, jails, containers, etc).
     description: __empty__
   es:
     title: Uso de métodos de aislamiento en aplicaciones en ejecución
-    summary: __empty__
+    summary: >
+      Las aplicaciones deben ejecutarse
+      aisladas de otras aplicaciones
+      (usando sandboxing, cárceles, contenedores, etc.).
     description: __empty__
   references: []
   metadata: {}
 "375":
   en:
     title: Remove sensitive data from client-side applications
-    summary: __empty_
+    summary: >
+      Access codes, tokens or credentials
+      should be removed from client-side
+      applications.
+      If it's needed,
+      the associated service should
+      support Access Control Lists
+      based on the expected origin.
     description: __empty__
   es:
     title: Eliminar datos sensibles de aplicaciones en el lado del cliente
-    summary: __empty__
+    summary: >
+      Los códigos de acceso, tokens
+      o credenciales deben eliminarse
+      de las aplicaciones
+      del lado del cliente.
+      Si es necesario,
+      el servicio asociado debe
+      admitir listas de control de acceso
+      según el origen esperado.
     description: __empty__
   references: []
   metadata: {}
 "376":
   en:
     title: Register severity level
-    summary: __empty_
+    summary: >
+      The system must register
+      the severity level for each
+      exceptional and security event.
     description: __empty__
   es:
     title: Registrar nivel de severidad
-    summary: __empty__
+    summary: >
+      El sistema debe registrar
+      el nivel de gravedad de cada
+      evento excepcional y de seguridad.
     description: __empty__
   references: []
   metadata: {}
