@@ -195,6 +195,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
         ["executive@gmail.com"],
         ["resourcer@gmail.com"],
         ["group_manager@gmail.com"],
+        ["service_forces@gmail.com"],
     ],
 )  # pylint: disable=too-many-statements, too-many-locals
 @freeze_time("2021-03-31")
@@ -343,5 +344,4 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["btsUrl"] == ""
     assert result["data"]["finding"]["risk"] == risk
     assert result["data"]["finding"]["type"] == finding_type
-    assert result["data"]["finding"]["consulting"] == []
     assert result["data"]["finding"]["tracking"] == tracking.get("tracking")
