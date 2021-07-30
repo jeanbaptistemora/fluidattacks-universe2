@@ -144,9 +144,9 @@ async def add_comment(
 
     if parent != "0":
         finding_comments = [
-            str(comment.get("user_id"))
+            comment["comment_id"]
             for comment in await comments_domain.get(
-                str(comment_data.get("comment_type")), int(finding_id)
+                str(comment_data.get("comment_type")), finding_id
             )
         ]
         if parent not in finding_comments:
@@ -765,10 +765,10 @@ async def mask_finding(context: Any, finding_id: str) -> bool:
     mask_finding_coroutines.append(evidence_dynamodb_coroutine)
 
     comments_and_observations = await comments_domain.get(
-        "comment", int(finding_id)
-    ) + await comments_domain.get("observation", int(finding_id))
+        "comment", finding_id
+    ) + await comments_domain.get("observation", finding_id)
     comments_coroutines = [
-        comments_domain.delete(int(finding_id), cast(int, comment["user_id"]))
+        comments_domain.delete(int(finding_id), int(comment["comment_id"]))
         for comment in comments_and_observations
     ]
     mask_finding_coroutines.extend(comments_coroutines)
@@ -843,10 +843,10 @@ async def mask_finding_new(  # pylint: disable=too-many-locals
     ]
     mask_finding_coroutines.extend(evidence_s3_coroutines)
     comments_and_observations = await comments_domain.get(
-        "comment", int(finding.id)
-    ) + await comments_domain.get("observation", int(finding.id))
+        "comment", finding.id
+    ) + await comments_domain.get("observation", finding.id)
     comments_coroutines = [
-        comments_domain.delete(int(finding.id), cast(int, comment["user_id"]))
+        comments_domain.delete(int(finding.id), int(comment["comment_id"]))
         for comment in comments_and_observations
     ]
     mask_finding_coroutines.extend(comments_coroutines)

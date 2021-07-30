@@ -74,7 +74,7 @@ async def delete(finding_id: int, user_id: int) -> bool:
 
 
 async def get_comments(
-    comment_type: str, finding_id: int
+    comment_type: str, finding_id: str
 ) -> List[CommentType]:
     """Get comments of the given finding"""
     key_exp = Key("finding_id").eq(finding_id)
@@ -93,7 +93,7 @@ async def get_comments(
         "KeyConditionExpression": key_exp,
         "FilterExpression": filter_exp,
     }
-    return await dynamodb_ops.query(TABLE_NAME, query_attrs)
+    return await dynamodb_ops.query(TABLE_NAME_NEW, query_attrs)
 
 
 async def get_comments_for_ids(
@@ -104,7 +104,7 @@ async def get_comments_for_ids(
     comments = await collect(
         get_comments(
             comment_type,
-            int(identifier),
+            identifier,
         )
         for identifier in identifiers
     )

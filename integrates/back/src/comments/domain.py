@@ -55,9 +55,9 @@ async def _fill_comment_data(data: Dict[str, str]) -> CommentType:
         "created": datetime_utils.format_comment_date(data["created"]),
         "email": data["email"],
         "fullname": fullname if fullname else data["email"],
-        "id": int(data["user_id"]),
+        "id": data["comment_id"],
         "modified": datetime_utils.format_comment_date(data["modified"]),
-        "parent": int(data["parent"]),
+        "parent": data["parent"],
     }
 
 
@@ -69,7 +69,7 @@ async def _get_comments(
         [
             _fill_comment_data(cast(Dict[str, str], comment))
             for comment in await comments_dal.get_comments(
-                comment_type, int(finding_id)
+                comment_type, finding_id
             )
         ]
     )
@@ -116,7 +116,7 @@ async def delete(finding_id: int, user_id: int) -> bool:
     return await comments_dal.delete(finding_id, user_id)
 
 
-async def get(comment_type: str, element_id: int) -> List[CommentType]:
+async def get(comment_type: str, element_id: str) -> List[CommentType]:
     return await comments_dal.get_comments(comment_type, element_id)
 
 
@@ -145,7 +145,7 @@ async def get_comments(
                 set(cast(List[str], verification.get("vulns", []))),
                 vulns,
             )
-            if comment.get("id") == verification.get("comment")
+            if comment["id"] == str(verification.get("comment", ""))
             else comment
             for comment in comments
             for verification in verified

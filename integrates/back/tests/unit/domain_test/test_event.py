@@ -236,7 +236,7 @@ async def test_mask_event() -> None:
     evidence_prefix = f"unittesting/{event_id}"
 
     assert success
-    assert len(await comments_domain.get("event", int(event_id))) >= 1
+    assert len(await comments_domain.get("event", event_id)) >= 1
     assert len(await events_dal.search_evidence(evidence_prefix)) >= 1
 
     test_data = await events_domain.mask(event_id)
@@ -244,7 +244,7 @@ async def test_mask_event() -> None:
 
     assert isinstance(test_data, bool)
     assert test_data == expected_output
-    assert len(await comments_domain.get("event", int(event_id))) == 0
+    assert len(await comments_domain.get("event", event_id)) == 0
     assert len(await events_dal.search_evidence(evidence_prefix)) == 0
 
     event = await events_domain.get_event(event_id)

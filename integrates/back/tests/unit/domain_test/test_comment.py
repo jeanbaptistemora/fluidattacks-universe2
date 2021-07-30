@@ -29,13 +29,13 @@ async def test_list_comments() -> None:
     )
     expected_output = [
         {
-            "parent": 0,
+            "parent": "0",
             "created": "2019/08/20 16:35:16",
             "modified": "2019/08/20 16:35:16",
             "content": "This is a comenting test",
             "email": "unittest@fluidattacks.com",
             "fullname": "unit test at Fluid Attacks",
-            "id": 1566336916294,
+            "id": "1566336916294",
         }
     ]
     assert isinstance(test_data, list)
@@ -46,12 +46,12 @@ async def test_list_comments() -> None:
 
 async def test_fill_comment_data() -> None:
     test_data = {
+        "comment_id": "1582646735480",
         "content": "test content",
         "created": "2018-12-27 16:30:28",
         "email": "unittesting@test.com",
-        "user_id": Decimal("1582646735480"),
         "modified": "2020-02-25 11:05:35",
-        "parent": Decimal("0"),
+        "parent": "0",
     }
     res_data_no_fullname = await comments_domain._fill_comment_data(test_data)
     assert res_data_no_fullname["fullname"] == "unittesting@test.com"
