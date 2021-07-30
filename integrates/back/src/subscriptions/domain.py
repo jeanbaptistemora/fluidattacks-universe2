@@ -280,7 +280,7 @@ async def send_digest_report(
             for group in groups
         )
     else:
-        LOGGER_CONSOLE.warning("- digest email NOT sent", **NOEXTRA)
+        LOGGER_CONSOLE.info("- digest email NOT sent", **NOEXTRA)
         return
 
     user_stats = groups_domain.process_user_digest_stats(mail_contents)
@@ -490,7 +490,7 @@ async def get_digest_stats(
     )
     digest_groups = set(itertools.chain.from_iterable(digest_groups))
 
-    LOGGER_CONSOLE.warning(
+    LOGGER_CONSOLE.info(
         f"Digest: get stats for groups: {str(digest_groups)}", **NOEXTRA
     )
     return await collect(
@@ -520,7 +520,7 @@ async def trigger_user_to_entity_report() -> None:
     ):
         digest_stats = await get_digest_stats(loaders, subscriptions)
 
-    LOGGER_CONSOLE.warning(f"Subscriptions: {locals()}", **NOEXTRA)
+    LOGGER_CONSOLE.info(f"Subscriptions: {locals()}", **NOEXTRA)
 
     for subscription in subscriptions:
         event_period: Decimal = subscription["period"]

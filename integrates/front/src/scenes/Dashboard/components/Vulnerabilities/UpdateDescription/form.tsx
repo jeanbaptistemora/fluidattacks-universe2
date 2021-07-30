@@ -179,7 +179,10 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach((error: GraphQLError): void => {
         msgError(translate.t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred deleting vulnerabilities", error);
+        Logger.warning(
+          "An error occurred deleting vulnerabilities tags",
+          error
+        );
       });
     },
     refetchQueries: [

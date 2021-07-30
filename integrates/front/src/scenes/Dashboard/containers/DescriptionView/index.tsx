@@ -77,7 +77,10 @@ const DescriptionView: React.FC = (): JSX.Element => {
             break;
           default:
             msgError(translate.t("groupAlerts.errorTextsad"));
-            Logger.warning("An error occurred updating treatment", updateError);
+            Logger.warning(
+              "An error occurred updating finding description",
+              updateError
+            );
         }
       });
     },
