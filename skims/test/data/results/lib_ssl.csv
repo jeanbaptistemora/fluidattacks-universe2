@@ -72,12 +72,24 @@ F016,inputs,localhost:4446 (namespace),server refuses connections with TLSv1.2 o
     ^ Col 0
 "
 F094,inputs,localhost:4446 (namespace),server accepts connections with ciphers that supports CBC,757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,server accepts connections with ciphers that supports CBC,"
-  1 | intention: check if server accepts connections with ciphers that use CBC
+  1 | intention: check if server accepts connections with ciphers that use CBC in TLSv1.0
+  2 | SSL request made to localhost:4446 with following parameters
+  3 |    fallback scsv: False
+  4 |    min version: TLSv1.0
+  5 |    max version: TLSv1.0
+> 6 |    ciphers: 3des, camellia, idea
+  7 |    mac: sha, sha256, sha384, aead
+  8 |    key exchange: rsa, dhe_rsa, ecdhe_rsa, srp_sha, srp_sha_rsa, ecdh_anon, dh_anon, ecdhe_ecdsa, dhe_dsa
+  9 | result: server accepts connections with ciphers that supports CBC
+    ^ Col 0
+"
+F094,inputs,localhost:4446 (namespace),server accepts connections with ciphers that supports CBC,757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,server accepts connections with ciphers that supports CBC,"
+  1 | intention: check if server accepts connections with ciphers that use CBC in TLSv1.1
   2 | SSL request made to localhost:4446 with following parameters
   3 |    fallback scsv: False
   4 |    min version: TLSv1.1
-  5 |    max version: TLSv1.2
-> 6 |    ciphers: chacha20-poly1305, aes256gcm, aes128gcm, aes256ccm, aes128ccm, aes256, aes128, 3des
+  5 |    max version: TLSv1.1
+> 6 |    ciphers: 3des, camellia, idea
   7 |    mac: sha, sha256, sha384, aead
   8 |    key exchange: rsa, dhe_rsa, ecdhe_rsa, srp_sha, srp_sha_rsa, ecdh_anon, dh_anon, ecdhe_ecdsa, dhe_dsa
   9 | result: server accepts connections with ciphers that supports CBC

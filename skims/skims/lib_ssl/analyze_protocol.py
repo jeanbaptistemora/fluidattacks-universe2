@@ -874,40 +874,166 @@ def _beast_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
 def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
 
-    ssl_settings = SSLSettings(
-        ctx.target.host,
-        ctx.target.port,
-        min_version=SSLVersionId.tlsv1_1,
-        max_version=SSLVersionId.tlsv1_2,
-        intention={
+    suites: List[str] = [
+        "RSA_EXPORT_WITH_DES40_CBC_SHA",
+        "RSA_WITH_DES_CBC_SHA",
+        "RSA_WITH_3DES_EDE_CBC_SHA",
+        "DH_DSS_EXPORT_WITH_DES40_CBC_SHA",
+        "DH_DSS_WITH_DES_CBC_SHA",
+        "DH_DSS_WITH_3DES_EDE_CBC_SHA",
+        "DH_RSA_EXPORT_WITH_DES40_CBC_SHA",
+        "DH_RSA_WITH_DES_CBC_SHA",
+        "DH_RSA_WITH_3DES_EDE_CBC_SHA",
+        "DHE_DSS_EXPORT_WITH_DES40_CBC_SHA",
+        "DHE_DSS_WITH_DES_CBC_SHA",
+        "DHE_DSS_WITH_3DES_EDE_CBC_SHA",
+        "DHE_RSA_EXPORT_WITH_DES40_CBC_SHA",
+        "DHE_RSA_WITH_DES_CBC_SHA",
+        "DHE_RSA_WITH_3DES_EDE_CBC_SHA",
+        "DH_anon_EXPORT_WITH_DES40_CBC_SHA",
+        "DH_anon_WITH_DES_CBC_SHA",
+        "DH_anon_WITH_3DES_EDE_CBC_SHA",
+        "KRB5_WITH_DES_CBC_SHA",
+        "KRB5_WITH_3DES_EDE_CBC_SHA",
+        "KRB5_WITH_DES_CBC_MD5",
+        "KRB5_WITH_3DES_EDE_CBC_MD5",
+        "KRB5_EXPORT_WITH_DES_CBC_40_SHA",
+        "KRB5_EXPORT_WITH_DES_CBC_40_MD5",
+        "PSK_WITH_3DES_EDE_CBC_SHA",
+        "DHE_PSK_WITH_3DES_EDE_CBC_SHA",
+        "RSA_PSK_WITH_3DES_EDE_CBC_SHA",
+        "ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA",
+        "ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA",
+        "ECDH_RSA_WITH_3DES_EDE_CBC_SHA",
+        "ECDHE_RSA_WITH_3DES_EDE_CBC_SHA",
+        "ECDH_anon_WITH_3DES_EDE_CBC_SHA",
+        "SRP_SHA_WITH_3DES_EDE_CBC_SHA",
+        "SRP_SHA_RSA_WITH_3DES_EDE_CBC_SHA",
+        "SRP_SHA_DSS_WITH_3DES_EDE_CBC_SHA",
+        "ECDHE_PSK_WITH_3DES_EDE_CBC_SHA",
+        "RSA_WITH_IDEA_CBC_SHA",
+        "KRB5_WITH_IDEA_CBC_SHA",
+        "KRB5_WITH_IDEA_CBC_MD5",
+        "ECDHE_ECDSA_WITH_CAMELLIA_128_CBC_SHA256",
+        "ECDHE_ECDSA_WITH_CAMELLIA_256_CBC_SHA384",
+        "ECDH_ECDSA_WITH_CAMELLIA_128_CBC_SHA256",
+        "ECDH_ECDSA_WITH_CAMELLIA_256_CBC_SHA384",
+        "ECDHE_RSA_WITH_CAMELLIA_128_CBC_SHA256",
+        "ECDHE_RSA_WITH_CAMELLIA_256_CBC_SHA384",
+        "ECDH_RSA_WITH_CAMELLIA_128_CBC_SHA256",
+        "ECDH_RSA_WITH_CAMELLIA_256_CBC_SHA384",
+        "RSA_WITH_CAMELLIA_128_GCM_SHA256",
+        "RSA_WITH_CAMELLIA_256_GCM_SHA384",
+        "DHE_RSA_WITH_CAMELLIA_128_GCM_SHA256",
+        "DHE_RSA_WITH_CAMELLIA_256_GCM_SHA384",
+        "DH_RSA_WITH_CAMELLIA_128_GCM_SHA256",
+        "DH_RSA_WITH_CAMELLIA_256_GCM_SHA384",
+        "DHE_DSS_WITH_CAMELLIA_128_GCM_SHA256",
+        "DHE_DSS_WITH_CAMELLIA_256_GCM_SHA384",
+        "DH_DSS_WITH_CAMELLIA_128_GCM_SHA256",
+        "DH_DSS_WITH_CAMELLIA_256_GCM_SHA384",
+        "DH_anon_WITH_CAMELLIA_128_GCM_SHA256",
+        "DH_anon_WITH_CAMELLIA_256_GCM_SHA384",
+        "ECDHE_ECDSA_WITH_CAMELLIA_128_GCM_SHA256",
+        "ECDHE_ECDSA_WITH_CAMELLIA_256_GCM_SHA384",
+        "ECDH_ECDSA_WITH_CAMELLIA_128_GCM_SHA256",
+        "ECDH_ECDSA_WITH_CAMELLIA_256_GCM_SHA384",
+        "ECDHE_RSA_WITH_CAMELLIA_128_GCM_SHA256",
+        "ECDHE_RSA_WITH_CAMELLIA_256_GCM_SHA384",
+        "ECDH_RSA_WITH_CAMELLIA_128_GCM_SHA256",
+        "ECDH_RSA_WITH_CAMELLIA_256_GCM_SHA384",
+        "PSK_WITH_CAMELLIA_128_GCM_SHA256",
+        "PSK_WITH_CAMELLIA_256_GCM_SHA384",
+        "DHE_PSK_WITH_CAMELLIA_128_GCM_SHA256",
+        "DHE_PSK_WITH_CAMELLIA_256_GCM_SHA384",
+        "RSA_PSK_WITH_CAMELLIA_128_GCM_SHA256",
+        "RSA_PSK_WITH_CAMELLIA_256_GCM_SHA384",
+        "PSK_WITH_CAMELLIA_128_CBC_SHA256",
+        "PSK_WITH_CAMELLIA_256_CBC_SHA384",
+        "DHE_PSK_WITH_CAMELLIA_128_CBC_SHA256",
+        "DHE_PSK_WITH_CAMELLIA_256_CBC_SHA384",
+        "RSA_PSK_WITH_CAMELLIA_128_CBC_SHA256",
+        "RSA_PSK_WITH_CAMELLIA_256_CBC_SHA384",
+        "ECDHE_PSK_WITH_CAMELLIA_128_CBC_SHA256",
+        "ECDHE_PSK_WITH_CAMELLIA_256_CBC_SHA384",
+        "RSA_WITH_CAMELLIA_128_CBC_SHA256",
+        "DH_DSS_WITH_CAMELLIA_128_CBC_SHA256",
+        "DH_RSA_WITH_CAMELLIA_128_CBC_SHA256",
+        "DHE_DSS_WITH_CAMELLIA_128_CBC_SHA256",
+        "DHE_RSA_WITH_CAMELLIA_128_CBC_SHA256",
+        "DH_anon_WITH_CAMELLIA_128_CBC_SHA256",
+        "RSA_WITH_CAMELLIA_256_CBC_SHA256",
+        "DH_DSS_WITH_CAMELLIA_256_CBC_SHA256",
+        "DH_RSA_WITH_CAMELLIA_256_CBC_SHA256",
+        "DHE_DSS_WITH_CAMELLIA_256_CBC_SHA256",
+        "DHE_RSA_WITH_CAMELLIA_256_CBC_SHA256",
+        "DH_anon_WITH_CAMELLIA_256_CBC_SHA256",
+        "RSA_WITH_CAMELLIA_256_CBC_SHA",
+        "DH_DSS_WITH_CAMELLIA_256_CBC_SHA",
+        "DH_RSA_WITH_CAMELLIA_256_CBC_SHA",
+        "DHE_DSS_WITH_CAMELLIA_256_CBC_SHA",
+        "DHE_RSA_WITH_CAMELLIA_256_CBC_SHA",
+        "DH_anon_WITH_CAMELLIA_256_CBC_SHA",
+        "RSA_WITH_CAMELLIA_128_CBC_SHA",
+        "DH_DSS_WITH_CAMELLIA_128_CBC_SHA",
+        "DH_RSA_WITH_CAMELLIA_128_CBC_SHA",
+        "DHE_DSS_WITH_CAMELLIA_128_CBC_SHA",
+        "DHE_RSA_WITH_CAMELLIA_128_CBC_SHA",
+        "DH_anon_WITH_CAMELLIA_128_CBC_SHA",
+    ]
+
+    extensions: List[int] = get_ec_point_formats_ext()
+    extensions += get_elliptic_curves_ext()
+
+    for v_id in ctx.tls_versions:
+        if v_id == SSLVersionId.tlsv1_3:
+            continue
+
+        intention: Dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
-                "check if server accepts connections with ciphers that use CBC"
+                "check if server accepts connections with ciphers that use"
+                " CBC in {v_name}".format(v_name=ssl_id2ssl_name(v_id).value)
             ),
             core_model.LocalesEnum.ES: (
-                "verificar si el servidor acepta conexiones con cifrado"
-                " que utiliza CBC"
+                "verificar si el servidor soporta cifrado con CBC"
+                " en {v_name}".format(v_name=ssl_id2ssl_name(v_id).value)
             ),
-        },
-    )
+        }
 
-    with tlslite_connect(
-        ssl_settings,
-        expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
-    ) as connection:
-        # pylint: disable=protected-access
-        if (
-            connection is not None
-            and not connection.closed
-            and connection._recordLayer.isCBCMode()
-        ):
-            ssl_vulnerabilities.append(
-                _create_ssl_vuln(
-                    check="cbc_enabled",
-                    ssl_settings=ssl_settings,
-                    line=SSLSnippetLine.ciphers,
-                    finding=core_model.FindingEnum.F094,
+        sock = tcp_connect(
+            ctx.target.host,
+            ctx.target.port,
+            intention[core_model.LocalesEnum.EN],
+        )
+
+        if sock is None:
+            return tuple()
+
+        package = get_client_hello_package(v_id, suites, extensions)
+        sock.send(bytes(package))
+        handshake_record = read_ssl_record(sock)
+
+        if handshake_record is not None:
+            handshake_type, _, _ = handshake_record
+
+            if handshake_type == 22:
+                ssl_vulnerabilities.append(
+                    _create_ssl_vuln(
+                        check="cbc_enabled",
+                        line=SSLSnippetLine.ciphers,
+                        ssl_settings=SSLSettings(
+                            host=ctx.target.host,
+                            port=ctx.target.port,
+                            min_version=v_id,
+                            max_version=v_id,
+                            cipher_names=["3des", "camellia", "idea"],
+                            intention=intention,
+                        ),
+                        finding=core_model.FindingEnum.F094,
+                    )
                 )
-            )
+
+        sock.close()
 
     return _create_core_vulns(ssl_vulnerabilities)
 
