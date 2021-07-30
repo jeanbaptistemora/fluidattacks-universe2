@@ -128,7 +128,9 @@ async def mutate(
         )
 
     if success:
-        await redis_del_by_deps("edit_stakeholder", group_name=group_name)
+        await redis_del_by_deps(
+            "update_group_stakeholder", group_name=group_name
+        )
         msg = (
             f"Security: Modified stakeholder data: {modified_email} "
             f"in {group_name} group successfully"

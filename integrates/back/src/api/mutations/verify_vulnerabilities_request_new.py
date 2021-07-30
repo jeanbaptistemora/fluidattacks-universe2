@@ -65,7 +65,7 @@ async def mutate(
         )
         if success:
             redis_del_by_deps_soon(
-                "verify_request_vulnerability",
+                "verify_vulnerabilities_request",
                 finding_id=finding.id,
                 group_name=finding.group_name,
             )

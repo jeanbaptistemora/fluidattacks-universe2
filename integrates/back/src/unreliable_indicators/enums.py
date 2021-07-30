@@ -23,11 +23,11 @@ class EntityAttr(Enum):
 
 
 class EntityDependency(Enum):
-    reject_zero_risk_vuln: str = "reject_zero_risk_vuln"
+    reject_zero_risk_vuln: str = "reject_vulnerabilities_zero_risk"
     remove_vulnerability: str = "remove_vulnerability"
     request_verification_vulnerability: str = (
-        "request_verification_vulnerability"
+        "request_vulnerabilities_verification"
     )
-    request_zero_risk_vuln: str = "request_zero_risk_vuln"
+    request_zero_risk_vuln: str = "request_vulnerabilities_zero_risk"
     upload_file: str = "upload_file"
-    verify_request_vulnerability: str = "verify_request_vulnerability"
+    verify_request_vulnerability: str = "verify_vulnerabilities_request"

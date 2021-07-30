@@ -81,16 +81,17 @@ async def mutate(  # pylint: disable=too-many-arguments
         )
     except PermissionDenied:
         logs_utils.cloudwatch_log(
-            info.context, "Security: Unauthorized role attempted to edit group"
+            info.context,
+            "Security: Unauthorized role attempted to update group",
         )
 
     if success:
         loaders.group.clear(group_name)
-        await redis_del_by_deps("edit_group", group_name=group_name)
+        await redis_del_by_deps("update_group", group_name=group_name)
         await authz.revoke_cached_group_service_policies(group_name)
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Edited group {group_name} successfully",
+            f"Security: Updated group {group_name} successfully",
         )
 
     return SimplePayloadType(success=success)

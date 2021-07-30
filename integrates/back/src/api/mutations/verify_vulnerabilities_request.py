@@ -56,7 +56,7 @@ async def mutate(
         finding_data = await finding_loader.load(finding_id)
         group_name = get_key_or_fallback(finding_data)
         redis_del_by_deps_soon(
-            "verify_request_vulnerability",
+            "verify_vulnerabilities_request",
             finding_id=finding_id,
             group_name=group_name,
         )

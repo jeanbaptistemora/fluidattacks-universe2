@@ -59,7 +59,7 @@ async def mutate(
             set(vulnerabilities),
         )
         redis_del_by_deps_soon(
-            "request_verification_vulnerability",
+            "request_vulnerabilities_verification",
             finding_id=finding_id,
         )
         logs_utils.cloudwatch_log(

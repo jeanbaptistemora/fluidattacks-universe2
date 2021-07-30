@@ -76,7 +76,7 @@ async def mutate(
 
     if success:
         await redis_del_by_deps(
-            "edit_stakeholder_organization", organization_id=organization_id
+            "update_organization_stakeholder", organization_id=organization_id
         )
         logs_utils.cloudwatch_log(
             info.context,

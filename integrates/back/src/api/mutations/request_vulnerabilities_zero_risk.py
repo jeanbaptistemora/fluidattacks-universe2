@@ -48,7 +48,7 @@ async def mutate(
         for vuln_id in vulnerabilities:
             info.context.loaders.vulnerability.clear(vuln_id)
         await redis_del_by_deps(
-            "request_zero_risk_vuln",
+            "request_vulnerabilities_zero_risk",
             finding_id=finding_id,
         )
         logs_utils.cloudwatch_log(

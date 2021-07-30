@@ -53,7 +53,7 @@ async def mutate(
         )
         if success:
             await redis_del_by_deps(
-                "request_zero_risk_vuln",
+                "request_vulnerabilities_zero_risk",
                 finding_id=finding_id,
             )
             await update_unreliable_indicators_by_deps(

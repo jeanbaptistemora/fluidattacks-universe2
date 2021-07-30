@@ -57,12 +57,12 @@ async def mutate(
 
     info.context.loaders.finding.clear(finding_id)
     redis_del_by_deps_soon(
-        "request_verification_vulnerability",
+        "request_vulnerabilities_verification",
         finding_id=finding_id,
     )
     logs_utils.cloudwatch_log(
         info.context,
-        f"Security: Verified a request in finding_id: {finding_id}",
+        f"Security: Requested a verification in finding_id: {finding_id}",
     )
 
     return SimplePayloadType(success=True)

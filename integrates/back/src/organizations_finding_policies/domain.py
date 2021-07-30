@@ -260,7 +260,7 @@ async def _apply_finding_policy(
     await collect(
         [
             redis_del_by_deps(
-                "update_treatment_vulnerability", finding_id=finding_id
+                "update_vulnerability_treatment", finding_id=finding_id
             )
             for finding_id in findings_ids
         ],

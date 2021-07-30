@@ -59,7 +59,7 @@ async def mutate(
     )
     if success:
         await redis_del_by_deps(
-            "update_vulns_treatment",
+            "update_vulnerabilities_treatment",
             finding_id=finding_id,
             group_name=group_name,
         )
