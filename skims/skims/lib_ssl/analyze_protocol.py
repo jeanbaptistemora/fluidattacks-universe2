@@ -784,25 +784,27 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
         "RSA_WITH_CAMELLIA_256_CBC_SHA256",
     ]
 
-    intention: Dict[core_model.LocalesEnum, str] = {
-        core_model.LocalesEnum.EN: (
-            "check if server accepts connections with weak ciphers"
-        ),
-        core_model.LocalesEnum.ES: (
-            "verificar si el servidor acepta conexiones con cifrado débil"
-        ),
-    }
-
-    sock = tcp_connect(
-        ctx.target.host,
-        ctx.target.port,
-        intention[core_model.LocalesEnum.EN],
-    )
-
-    if sock is None:
-        return tuple()
-
     for v_id in ctx.tls_versions:
+        intention: Dict[core_model.LocalesEnum, str] = {
+            core_model.LocalesEnum.EN: (
+                "check if server accepts connections with weak ciphers"
+                " in {v_name}".format(v_name=ssl_id2ssl_name(v_id).value)
+            ),
+            core_model.LocalesEnum.ES: (
+                "verificar si el servidor acepta conexiones con cifrado débil"
+                " en {v_name}".format(v_name=ssl_id2ssl_name(v_id).value)
+            ),
+        }
+
+        sock = tcp_connect(
+            ctx.target.host,
+            ctx.target.port,
+            intention[core_model.LocalesEnum.EN],
+        )
+
+        if sock is None:
+            continue
+
         package = get_client_hello_package(v_id, suites)
         sock.send(bytes(package))
         handshake_record = read_ssl_record(sock)
@@ -826,7 +828,8 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
                         finding=core_model.FindingEnum.F052,
                     )
                 )
-    sock.close()
+
+        sock.close()
 
     return _create_core_vulns(ssl_vulnerabilities)
 
@@ -1080,29 +1083,34 @@ def _sweet32_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         "ECDHE_PSK_WITH_3DES_EDE_CBC_SHA",
     ]
 
-    intention: Dict[core_model.LocalesEnum, str] = {
-        core_model.LocalesEnum.EN: (
-            "check if server is vulnerable to SWEET32 attacks"
-        ),
-        core_model.LocalesEnum.ES: (
-            "verificar si el servidor es vulnerable a ataques SWEET32"
-        ),
-    }
-
-    sock = tcp_connect(
-        ctx.target.host,
-        ctx.target.port,
-        intention[core_model.LocalesEnum.EN],
-    )
-
-    if sock is None:
-        return tuple()
-
     extensions: List[int] = get_ec_point_formats_ext()
     extensions += get_elliptic_curves_ext()
     extensions += get_session_ticket_ext()
 
     for v_id in ctx.tls_versions:
+        if v_id == SSLVersionId.tlsv1_3:
+            continue
+
+        intention: Dict[core_model.LocalesEnum, str] = {
+            core_model.LocalesEnum.EN: (
+                "check if server is vulnerable to SWEET32 attacks"
+                " in {v_name}".format(v_name=ssl_id2ssl_name(v_id).value)
+            ),
+            core_model.LocalesEnum.ES: (
+                "verificar si el servidor es vulnerable a ataques SWEET32"
+                " en {v_name}".format(v_name=ssl_id2ssl_name(v_id).value)
+            ),
+        }
+
+        sock = tcp_connect(
+            ctx.target.host,
+            ctx.target.port,
+            intention[core_model.LocalesEnum.EN],
+        )
+
+        if sock is None:
+            return tuple()
+
         package = get_client_hello_package(v_id, suites, extensions)
         sock.send(bytes(package))
         handshake_record = read_ssl_record(sock)

@@ -1,10 +1,22 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
 F052,inputs,localhost:4446 (namespace),server accepts connections with weak ciphers,310,"home,socket-send,socket-response",052. Insecure encryption algorithm,server accepts connections with weak ciphers,"
-  1 | intention: check if server accepts connections with weak ciphers
+  1 | intention: check if server accepts connections with weak ciphers in TLSv1.0
   2 | SSL request made to localhost:4446 with following parameters
   3 |    fallback scsv: False
   4 |    min version: TLSv1.0
   5 |    max version: TLSv1.0
+> 6 |    ciphers: null, des, rc4
+  7 |    mac: sha, sha256, sha384, aead
+  8 |    key exchange: rsa, dhe_rsa, ecdhe_rsa, srp_sha, srp_sha_rsa, ecdh_anon, dh_anon, ecdhe_ecdsa, dhe_dsa
+  9 | result: server accepts connections with weak ciphers
+    ^ Col 0
+"
+F052,inputs,localhost:4446 (namespace),server accepts connections with weak ciphers,310,"home,socket-send,socket-response",052. Insecure encryption algorithm,server accepts connections with weak ciphers,"
+  1 | intention: check if server accepts connections with weak ciphers in TLSv1.1
+  2 | SSL request made to localhost:4446 with following parameters
+  3 |    fallback scsv: False
+  4 |    min version: TLSv1.1
+  5 |    max version: TLSv1.1
 > 6 |    ciphers: null, des, rc4
   7 |    mac: sha, sha256, sha384, aead
   8 |    key exchange: rsa, dhe_rsa, ecdhe_rsa, srp_sha, srp_sha_rsa, ecdh_anon, dh_anon, ecdhe_ecdsa, dhe_dsa
