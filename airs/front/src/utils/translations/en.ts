@@ -181,16 +181,16 @@ const pageTexts: ResourceKey = {
     belonging: "is one solution among all those belonging to our leading",
     benefits: "Benefits",
     cards: {
-      hackers: "11",
-      hackersText: "hackers on average attacking your project",
+      hackers: "17",
+      hackersText: "Hackers on average attacking your project",
       owasp: "100",
       owaspText: "OWASP Benchmark Accuracy Score",
-      percentage: "77%",
+      percentage: "10X",
       percentageText:
-        " of continuous hacking projects with" +
-        "at least one high or critical vulnerability",
-      vulnerabilities: "100k",
-      vulnerabilitiesText: "vulnerabilities discovered annually",
+        "Cost of vulnerability remediation in the production " +
+        "stage compared to the development stage",
+      vulnerabilities: "100k+",
+      vulnerabilitiesText: "Vulnerabilities discovered annually",
     },
     cardsTitle: "Fluid Attacks in Numbers",
   },

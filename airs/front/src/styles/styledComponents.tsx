@@ -826,7 +826,6 @@ const SquaredCardContainer: StyledComponent<
 > = styled.div.attrs({
   className: `
     counter-container
-    bg-white
     bs-btm-h-10
     br3
     dib

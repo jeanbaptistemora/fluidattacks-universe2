@@ -128,18 +128,26 @@ const SolutionIndex: React.FC<IQueryData> = ({
                 <BlackH2>{translate.t("solution.cardsTitle")}</BlackH2>
                 <CardsContainer>
                   <WhiteShadowedCard
+                    color={"bg-black-18"}
+                    image={"/airs/solutions/icon-skull"}
                     number={translate.t("solution.cards.vulnerabilities")}
                     text={translate.t("solution.cards.vulnerabilitiesText")}
                   />
                   <WhiteShadowedCard
+                    color={"bg-black-18"}
+                    image={"/airs/solutions/icon-lock"}
                     number={translate.t("solution.cards.percentage")}
                     text={translate.t("solution.cards.percentageText")}
                   />
                   <WhiteShadowedCard
+                    color={"bg-black-18"}
+                    image={"/airs/solutions/icon-security"}
                     number={translate.t("solution.cards.hackers")}
                     text={translate.t("solution.cards.hackersText")}
                   />
                   <WhiteShadowedCard
+                    color={"bg-black-18"}
+                    image={"/airs/solutions/icon-fly"}
                     number={translate.t("solution.cards.owasp")}
                     text={translate.t("solution.cards.owaspText")}
                   />

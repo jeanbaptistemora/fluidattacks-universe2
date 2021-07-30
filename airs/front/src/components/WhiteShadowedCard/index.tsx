@@ -4,8 +4,11 @@ import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
 import { SquaredCardContainer } from "../../styles/styledComponents";
+import { CloudImage } from "../CloudImage";
 
 interface IProps {
+  color: string;
+  image: string;
   number?: string;
   text?: string;
 }
@@ -27,11 +30,24 @@ const RedParagraph: StyledComponent<
   Record<string, unknown>
 > = styled.p.attrs({
   className: `
-    tc
     c-dkred
     f-375
     mb4
     fw7
+    mt0
+  `,
+})``;
+
+const WhiteParagraph: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: `
+    white
+    f-375
+    mb1
+    fw7
+    mt0
   `,
 })``;
 
@@ -40,20 +56,47 @@ const SmallBlackText: StyledComponent<
   Record<string, unknown>
 > = styled.p.attrs({
   className: `
-    tc
+    mt0
     c-fluid-bk
     f5
   `,
 })``;
 
+const SmallGrayText: StyledComponent<
+  "p",
+  Record<string, unknown>
+> = styled.p.attrs({
+  className: `
+    mt0
+    c-fluid-gray
+    f5
+  `,
+})``;
+
 const WhiteShadowedCard: React.FC<IProps> = ({
+  color,
+  image,
   number,
   text,
 }: IProps): JSX.Element => (
   <WhiteCardContainer>
-    <SquaredCardContainer>
-      <RedParagraph>{number}</RedParagraph>
-      <SmallBlackText>{text}</SmallBlackText>
+    <SquaredCardContainer className={`${color}`}>
+      <CloudImage
+        alt={"card-image"}
+        src={`${image}`}
+        styles={"solution-card-icon mt4"}
+      />
+      {color === "bg-white" ? (
+        <React.Fragment>
+          <RedParagraph>{number}</RedParagraph>
+          <SmallBlackText>{text}</SmallBlackText>
+        </React.Fragment>
+      ) : color === "bg-black-18" ? (
+        <React.Fragment>
+          <WhiteParagraph>{number}</WhiteParagraph>
+          <SmallGrayText>{text}</SmallGrayText>
+        </React.Fragment>
+      ) : undefined}
     </SquaredCardContainer>
   </WhiteCardContainer>
 );
