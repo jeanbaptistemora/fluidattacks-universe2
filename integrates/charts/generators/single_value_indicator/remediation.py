@@ -24,9 +24,6 @@ from typing import (
     List,
     Tuple,
 )
-from vulnerabilities import (
-    domain as vulns_domain,
-)
 
 
 def had_state_by_then(
@@ -81,7 +78,7 @@ async def generate_one(  # pylint: disable=too-many-locals
 ) -> RemediationReport:
     context = get_new_context()
     group_findings_loader = context.group_findings
-    finding_vulns_loader = context.finding_vulns
+    finding_vulns_loader = context.finding_vulns_nzr
 
     groups_findings_data = await group_findings_loader.load_many(groups)
 
@@ -101,7 +98,6 @@ async def generate_one(  # pylint: disable=too-many-locals
                 await finding_vulns_loader.load_many(group_findings_ids)
             )
         )
-        vulns = vulns_domain.filter_zero_risk(vulns)
 
         open_last_week, closed_last_week = get_totals_by_week(
             vulns,
