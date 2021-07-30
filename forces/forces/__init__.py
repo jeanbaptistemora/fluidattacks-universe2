@@ -6,7 +6,6 @@ from aioextensions import (
 import copy
 from forces.apis.git import (
     check_remotes,
-    DEFAULT_COLUMN_VALUE,
     get_repository_metadata,
 )
 from forces.apis.integrates import (
@@ -45,22 +44,7 @@ async def entrypoint(
         repo_path=config.repository_path,
     )
     if config.kind in {KindEnum.STATIC, KindEnum.ALL}:
-        if (
-            not config.repository_name
-            and metadata["git_repo"] != DEFAULT_COLUMN_VALUE
-        ):
-            config = config._replace(repository_name=metadata["git_repo"])
-        elif (
-            not config.repository_name
-            and metadata["git_repo"] == DEFAULT_COLUMN_VALUE
-        ):
-            await log(
-                "warning",
-                (
-                    "Could not detect repository name, use"
-                    " --repo-name option to specify it"
-                ),
-            )
+        if not config.repository_name:
             await log(
                 "warning",
                 "The vulnerabilities of all repositories will be scanned",
