@@ -56,25 +56,18 @@ BY_TYPE: Dict[str, Set[str]] = complete_attrs_on_dict(
 
 
 def go_evaluate_assignment(args: EvaluatorArgs) -> None:
-    if args.shard.metadata.language == GraphShardMetadataLanguage.GO:
-        if len(args.dependencies) == 1 and (dep := args.dependencies[0]):
-            # If the variable is a structure
-            if (
-                var_decl := lookup_var_dcl_by_name(args, args.syntax_step.var)
-            ) and args.syntax_step.attribute:
-                if var_decl.meta.value:
-                    var_decl.meta.value.update(
-                        {
-                            args.syntax_step.attribute: SyntaxStepMeta(
-                                danger=dep.meta.danger,
-                                dependencies=[],
-                                n_id=dep.meta.n_id,
-                                value=dep.meta.value,
-                            )
-                        }
-                    )
-                else:
-                    var_decl.meta.value = {
+    if (
+        args.shard.metadata.language == GraphShardMetadataLanguage.GO
+        and len(args.dependencies) == 1
+        and (dep := args.dependencies[0])
+    ):
+        # If the variable is a structure
+        if (
+            var_decl := lookup_var_dcl_by_name(args, args.syntax_step.var)
+        ) and args.syntax_step.attribute:
+            if var_decl.meta.value:
+                var_decl.meta.value.update(
+                    {
                         args.syntax_step.attribute: SyntaxStepMeta(
                             danger=dep.meta.danger,
                             dependencies=[],
@@ -82,11 +75,21 @@ def go_evaluate_assignment(args: EvaluatorArgs) -> None:
                             value=dep.meta.value,
                         )
                     }
-                args.syntax_step.meta.value = var_decl.meta.value
-                args.syntax_step.meta.danger = var_decl.meta.danger
-            # Normal variables
+                )
             else:
-                args.syntax_step.meta.value = args.dependencies[0].meta.value
+                var_decl.meta.value = {
+                    args.syntax_step.attribute: SyntaxStepMeta(
+                        danger=dep.meta.danger,
+                        dependencies=[],
+                        n_id=dep.meta.n_id,
+                        value=dep.meta.value,
+                    )
+                }
+            args.syntax_step.meta.value = var_decl.meta.value
+            args.syntax_step.meta.danger = var_decl.meta.danger
+        # Normal variables
+        else:
+            args.syntax_step.meta.value = args.dependencies[0].meta.value
 
 
 def evaluate(args: EvaluatorArgs) -> None:
