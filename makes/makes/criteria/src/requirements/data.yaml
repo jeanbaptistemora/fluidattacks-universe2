@@ -6846,22 +6846,72 @@
 "355":
   en:
     title: Serve files with specific extensions
-    summary: __empty_
-    description: __empty__
+    summary: >
+      The system should only
+      serve files with extensions
+      within a specific list.
+    description: >
+      Servers usually host files
+      that are required for their operation
+      or that contain relevant
+      technical information.
+      These files should not be
+      publicly accessible because
+      the information they contain
+      could be leveraged by an attacker
+      in order to exploit
+      other vulnerabilities.
+      Configuring the server to serve
+      only files with a specific extension
+      helps prevent the unintentional
+      disclosure of technical information.
   es:
     title: Proveer archivos con extensiones específicas
-    summary: __empty__
-    description: __empty__
+    summary: >
+      El sistema solo debe
+      servir archivos con extensiones
+      dentro de una lista específica.
+    description: >
+      Los servidores generalmente
+      mantienen los archivos
+      que se requieren para su operación
+      o que contienen información
+      técnica relevante.
+      Estos archivos no deben ser accesibles
+      públicamente porque la información
+      que contienen podrían ser aprovechada
+      por un atacante para explotar
+      otras vulnerabilidades.
+      Configurar el servidor
+      para servir solo los archivos
+      con una extensión específica
+      ayuda a prevenir la exposición
+      involuntaria de la información técnica.
   references: []
   metadata: {}
 "356":
   en:
     title: Verify sub-domain names
-    summary: __empty_
+    summary: >
+      The system should regularly
+      check DNS names and sub-domain names
+      in use by the application
+      for expiration or change.
+      This helps protect applications
+      from the effects of sub-domain
+      takeover attacks.
     description: __empty__
   es:
     title: Verificar nombres de sub-dominios
-    summary: __empty__
+    summary: >
+      El sistema debe verificar
+      regularmente los nombres DNS
+      y los nombres de subdominio en uso
+      por la aplicación para su vencimiento
+      o cambio.
+      Esto ayuda a proteger las aplicaciones
+      de los efectos de los ataques
+      de toma de control del subdominio.
     description: __empty__
   references: []
   metadata: {}
