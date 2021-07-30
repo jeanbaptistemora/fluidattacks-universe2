@@ -12,7 +12,6 @@ from lib_ssl.ssl_connection import (
     get_session_ticket_ext,
     read_ssl_record,
     ssl_connect,
-    tlslite_connect,
 )
 from lib_ssl.types import (
     SSLContext,
@@ -24,7 +23,6 @@ from lib_ssl.types import (
 from model import (
     core_model,
 )
-import tlslite
 from typing import (
     Callable,
     Dict,
@@ -834,46 +832,6 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
-def _beast_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
-    ssl_vulnerabilities: List[SSLVulnerability] = []
-
-    ssl_settings = SSLSettings(
-        ctx.target.host,
-        ctx.target.port,
-        min_version=SSLVersionId.tlsv1_0,
-        max_version=SSLVersionId.tlsv1_0,
-        intention={
-            core_model.LocalesEnum.EN: (
-                "check if server is vulnerable to BEAST attacks"
-            ),
-            core_model.LocalesEnum.ES: (
-                "verificar si el servidor es vulnerable a ataques BEAST"
-            ),
-        },
-    )
-
-    with tlslite_connect(
-        ssl_settings,
-        expected_exceptions=(tlslite.errors.TLSRemoteAlert,),
-    ) as connection:
-        # pylint: disable=protected-access
-        if (
-            connection is not None
-            and not connection.closed
-            and connection._recordLayer.isCBCMode()
-        ):
-            ssl_vulnerabilities.append(
-                _create_ssl_vuln(
-                    check="beast_possible",
-                    ssl_settings=ssl_settings,
-                    line=SSLSnippetLine.max_version,
-                    finding=core_model.FindingEnum.F094,
-                )
-            )
-
-    return _create_core_vulns(ssl_vulnerabilities)
-
-
 def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
 
@@ -1605,7 +1563,6 @@ CHECKS: Dict[
 ] = {
     core_model.FindingEnum.F052: [_weak_ciphers_allowed],
     core_model.FindingEnum.F094: [
-        _beast_possible,
         _cbc_enabled,
         _sweet32_possible,
     ],

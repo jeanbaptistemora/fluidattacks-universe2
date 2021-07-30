@@ -1,6 +1,3 @@
-lib_ssl.analyze_protocol.beast_possible:
-  en: server is vulnerable to BEAST attacks
-  es: el servidor es vulnerable a ataques BEAST
 lib_ssl.analyze_protocol.cbc_enabled:
   en: server accepts connections with ciphers that supports CBC
   es: el servidor acepta conexiones con métodos de encriptado que soportan CBC
