@@ -47,7 +47,7 @@ TABLE_NAME: str = "FI_vulnerabilities"
 
 
 async def confirm_zero_risk_vulnerability(
-    user_email: str, date: str, comment_id: int, vuln: Dict[str, FindingType]
+    user_email: str, date: str, comment_id: str, vuln: Dict[str, FindingType]
 ) -> bool:
     historic_zero_risk = cast(
         List[Dict[str, Union[int, str]]], vuln.get("historic_zero_risk", [])
@@ -172,7 +172,7 @@ async def get_vulnerabilities_async(
 
 
 async def reject_zero_risk_vulnerability(
-    user_email: str, date: str, comment_id: int, vuln: Dict[str, FindingType]
+    user_email: str, date: str, comment_id: str, vuln: Dict[str, FindingType]
 ) -> bool:
     historic_zero_risk = cast(
         List[Dict[str, Union[int, str]]], vuln.get("historic_zero_risk", [])
@@ -209,7 +209,7 @@ async def request_verification(vuln: Dict[str, FindingType]) -> bool:
 
 
 async def request_zero_risk_vulnerability(
-    user_email: str, date: str, comment_id: int, vuln: Dict[str, FindingType]
+    user_email: str, date: str, comment_id: str, vuln: Dict[str, FindingType]
 ) -> bool:
     historic_zero_risk = cast(
         List[Dict[str, Union[int, str]]], vuln.get("historic_zero_risk", [])

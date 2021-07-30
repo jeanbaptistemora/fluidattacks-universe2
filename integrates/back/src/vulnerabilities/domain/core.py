@@ -122,7 +122,7 @@ async def confirm_zero_risk_vulnerabilities(
     confirm_zero_risk_vulns = await collect(
         [
             vulns_dal.confirm_zero_risk_vulnerability(
-                user_email, today, comment_id, vuln
+                user_email, today, str(comment_id), vuln
             )
             for vuln in vulnerabilities
         ]
@@ -546,7 +546,7 @@ async def reject_zero_risk_vulnerabilities(
     reject_zero_risk_vulns = await collect(
         [
             vulns_dal.reject_zero_risk_vulnerability(
-                user_email, today, comment_id, vuln
+                user_email, today, str(comment_id), vuln
             )
             for vuln in vulnerabilities
         ]
@@ -591,7 +591,7 @@ async def request_zero_risk_vulnerabilities(
     request_zero_risk_vulns = await collect(
         [
             vulns_dal.request_zero_risk_vulnerability(
-                user_email, today, comment_id, vuln
+                user_email, today, str(comment_id), vuln
             )
             for vuln in vulnerabilities
         ]
