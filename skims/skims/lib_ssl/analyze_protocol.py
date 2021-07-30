@@ -1134,7 +1134,7 @@ def _sweet32_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                         finding=core_model.FindingEnum.F094,
                     )
                 )
-    sock.close()
+        sock.close()
 
     return _create_core_vulns(ssl_vulnerabilities)
 
