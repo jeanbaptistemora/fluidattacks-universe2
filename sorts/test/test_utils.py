@@ -4,9 +4,11 @@ from training.evaluate_results import (
     get_model_item,
 )
 from training.training_script.train import (
-    get_best_combination,
     get_features_combinations,
     get_tried_combinations,
+)
+from training.training_script.utils import (
+    get_best_combination,
 )
 
 DATA_PATH: str = f"{os.path.dirname(__file__)}/data"
