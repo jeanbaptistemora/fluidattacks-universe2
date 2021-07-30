@@ -7297,33 +7297,56 @@
 "371":
   en:
     title: Use GCM Padding with AES
-    summary: __empty_
+    summary: >
+      AES symmetric encryption
+      should be used only with GCM padding.
     description: __empty__
   es:
     title: Uso de relleno GCM con AES
-    summary: __empty__
+    summary: >
+      El cifrado simétrico AES
+      debe usarse solo con relleno GCM. 
     description: __empty__
   references: []
   metadata: {}
 "372":
   en:
     title: Proper Use of Initialization Vector (IV)
-    summary: __empty_
+    summary: >
+      Symmetric encryption should use
+      a random IV (Initialization Vector)
+      which should have the same length
+      of the encryption key.
     description: __empty__
   es:
     title: Uso adecuado de vector de initialización
-    summary: __empty__
+    summary: >
+      El cifrado simétrico debe
+      utilizar un IV (vector de inicialización)
+      aleatorio que debe tener
+      la misma longitud que la clave de cifrado.
     description: __empty__
   references: []
   metadata: {}
 "373":
   en:
     title: Use certificate pinning
-    summary: __empty_
+    summary: >
+      Mobile applications should use
+      certificate pinning
+      to validate the endpoints.
+      If a pinset is used,
+      up to 2 certificates should be allowed.
     description: __empty__
   es:
     title: Utilizar fijación de certificados
-    summary: __empty__
+    summary: >
+      Las aplicaciones móviles
+      deben utilizar la fijación
+      de certificados para validar
+      los puntos finales.
+      Si se utiliza un pinset,
+      se deben permitir hasta 2 certificados.
     description: __empty__
   references: []
   metadata: {}
