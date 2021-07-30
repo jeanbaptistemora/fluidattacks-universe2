@@ -1,27 +1,3 @@
-from tap_csv import (
-    core,
-)
-from tap_csv.core import (
-    ColumnType,
-)
-from typing import (
-    Dict,
-)
-
-
-def test_translate_types() -> None:
-    # Arrange
-    test_types: Dict[str, ColumnType] = {
-        "field1": ColumnType.STRING,
-        "field2": ColumnType.NUMBER,
-        "field3": ColumnType.DATE_TIME,
-    }
-    # Act
-    result = core.translate_types(test_types)
-    # Assert
-    expected = {
-        "field1": {"type": "string"},
-        "field2": {"type": ["number", "null"]},
-        "field3": {"type": ["string", "null"]},
-    }
-    assert result == expected
+def test_temp() -> None:
+    temp_var = 1
+    assert temp_var + 1 == 2

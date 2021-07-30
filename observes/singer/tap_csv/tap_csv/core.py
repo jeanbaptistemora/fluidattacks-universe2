@@ -2,19 +2,28 @@ import csv
 from enum import (
     Enum,
 )
-from singer_io import (
-    factory,
+from returns.pipeline import (
+    pipe,
 )
-from singer_io.singer import (
+from singer_io.singer2 import (
+    SingerEmitter,
     SingerRecord,
     SingerSchema,
+)
+from singer_io.singer2.json import (
+    JsonObj,
+    JsonValFactory,
+    JsonValue,
+)
+from singer_io.singer2.json_schema import (
+    JsonSchema,
+    JsonSchemaFactory,
 )
 from tap_csv import (
     utils,
 )
 import tempfile
 from typing import (
-    Any,
     Callable,
     Dict,
     IO,
@@ -26,6 +35,7 @@ from typing import (
 )
 
 LOG = utils.get_log(__name__)
+emitter = SingerEmitter()
 
 
 class ColumnType(Enum):
@@ -51,70 +61,82 @@ class AdjustCsvOptions(NamedTuple):
     file_schema: Dict[str, str] = {}
 
 
-def translate_types(
-    raw_field_type: Dict[str, ColumnType]
-) -> Dict[str, Dict[str, Any]]:
+jlist = JsonValFactory.from_list
+
+
+def translate_types(raw_field_type: Dict[str, ColumnType]) -> JsonSchema:
     """Translates type names into JSON SCHEMA types."""
-    type_string: Dict[str, str] = {"type": "string"}
-    type_number: Dict[str, List[str]] = {"type": ["number", "null"]}
-    type_bool: Dict[str, str] = {"type": "boolean"}
-    type_int: Dict[str, List[str]] = {"type": ["integer", "null"]}
-    type_datetime: Dict[str, Any] = {"type": ["string", "null"]}
-    transform: Dict[ColumnType, Dict[str, Any]] = {
-        ColumnType.STRING: type_string,
-        ColumnType.NUMBER: type_number,
-        ColumnType.DATE_TIME: type_datetime,
-        ColumnType.FLOAT: type_number,
-        ColumnType.BOOL: type_bool,
-        ColumnType.INT: type_int,
+    transform: Dict[ColumnType, JsonObj] = {
+        ColumnType.STRING: {"type": JsonValue("string")},
+        ColumnType.NUMBER: {"type": jlist(["number", "null"])},
+        ColumnType.DATE_TIME: {"type": jlist(["string", "null"])},
+        ColumnType.FLOAT: {"type": jlist(["number", "null"])},
+        ColumnType.BOOL: {"type": JsonValue("boolean")},
+        ColumnType.INT: {"type": jlist(["integer", "null"])},
     }
-    field_type = map(lambda x: (x[0], transform[x[1]]), raw_field_type.items())
-    return dict(field_type)
+    field_type = {
+        key: JsonValue(transform[val]).to_raw()
+        for key, val in raw_field_type.items()
+    }
+    return JsonSchemaFactory.from_dict({"properties": field_type})
 
 
 def translate_values(
-    field_type: Dict[str, ColumnType],
-    field_value: Dict[str, str],
+    name_type_map: Dict[str, ColumnType],
+    name_value_map: Dict[str, str],
     auto_type: bool = False,
-) -> Dict[str, Any]:
-    """Translates type names into JSON SCHEMA value."""
-    transform: Dict[ColumnType, Callable[[str], Any]] = {
-        ColumnType.STRING: str,
-        ColumnType.NUMBER: lambda x: float(x) if x else None,
-        ColumnType.DATE_TIME: lambda x: x,
-        ColumnType.FLOAT: lambda x: float(x) if x else None,
-        ColumnType.BOOL: lambda x: bool(x) if x else None,
-        ColumnType.INT: lambda x: int(x) if x else None,
+) -> JsonObj:
+    transform: Dict[ColumnType, Callable[[str], JsonValue]] = {
+        ColumnType.STRING: pipe(JsonValue),
+        ColumnType.NUMBER: pipe(lambda x: float(x) if x else None, JsonValue),
+        ColumnType.DATE_TIME: pipe(JsonValue),
+        ColumnType.FLOAT: pipe(lambda x: float(x) if x else None, JsonValue),
+        ColumnType.BOOL: pipe(lambda x: bool(x) if x else None, JsonValue),
+        ColumnType.INT: pipe(lambda x: int(x) if x else None, JsonValue),
     }
-    cast_function: Callable[[str, str], Any] = (
-        lambda x, y: auto_cast(y) if auto_type else transform[field_type[x]](y)
+
+    def cast_function(name: str, value: str) -> JsonValue:
+        if auto_type:
+            return auto_cast(value)
+        return transform[name_type_map[name]](value)
+
+    new_name_value_map = map(
+        lambda x: (x[0], cast_function(x[0], x[1])), name_value_map.items()
     )
-    new_field_value = map(
-        lambda x: (x[0], cast_function(x[0], x[1])), field_value.items()
-    )
-    return dict(new_field_value)
+    return dict(new_name_value_map)
 
 
-def try_cast(cast: Callable[[str], Any], data: str) -> Any:
+def try_cast(cast: Callable[[str], JsonValue], data: str) -> JsonValue:
     try:
         return cast(data)
     except ValueError:
-        return None
+        return JsonValue(None)
 
 
-def auto_cast(data: str) -> Any:
-    test_casts: List[Callable[[str], Any]] = [
-        lambda x: str(x) if int(x) > pow(10, 12) else int(x),
-        lambda x: float(x)
-        if (x.lower() != "nan" or x == "NaN") and float(x) != float("inf")
-        else None,
-        lambda x: x.lower() == "true"
-        if x.lower() == "false" or x.lower() == "true"
-        else None,
-        str,
+def auto_cast(data: str) -> JsonValue:
+    test_casts: List[Callable[[str], JsonValue]] = [
+        pipe(lambda x: str(x) if int(x) > pow(10, 12) else int(x), JsonValue),
+        pipe(
+            lambda x: float(x)
+            if (x.lower() != "nan" or x == "NaN") and float(x) != float("inf")
+            else None,
+            JsonValue,
+        ),
+        pipe(
+            lambda x: x.lower() == "true"
+            if x.lower() == "false" or x.lower() == "true"
+            else None,
+            JsonValue,
+        ),
+        pipe(JsonValue),
     ]
-    cast: Callable[[Callable[[str], Any]], Any] = lambda c: try_cast(c, data)
-    return next(filter(lambda x: x is not None, map(cast, test_casts)), data)
+    cast: Callable[
+        [Callable[[str], JsonValue]], JsonValue
+    ] = lambda c: try_cast(c, data)
+    return next(
+        filter(lambda x: x.value is not None, map(cast, test_casts)),
+        JsonValue(data),
+    )
 
 
 def add_default_types(
@@ -215,10 +237,10 @@ def to_singer(
                 if not options.only_records:
                     singer_schema: SingerSchema = SingerSchema(
                         stream=stream,
-                        schema={"properties": translate_types(name_type_map)},
+                        schema=translate_types(name_type_map),
                         key_properties=frozenset(pkeys),
                     )
-                    factory.emit(singer_schema)
+                    emitter.emit(singer_schema)
         else:
             name_value_map = dict(zip(field_names, record))
             singer_record: SingerRecord = SingerRecord(
@@ -229,4 +251,4 @@ def to_singer(
                     auto_type=options.only_records,
                 ),
             )
-            factory.emit(singer_record)
+            emitter.emit(singer_record)
