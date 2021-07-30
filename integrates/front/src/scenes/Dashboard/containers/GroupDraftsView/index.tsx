@@ -9,6 +9,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
+import type { ConfiguredValidator } from "revalidate";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
@@ -43,6 +44,7 @@ import {
   composeValidators,
   required,
   validDraftTitle,
+  validFindingTypology,
 } from "utils/validations";
 
 const GroupDraftsView: React.FC = (): JSX.Element => {
@@ -230,19 +232,11 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
     [addDraft, groupName, suggestions]
   );
 
-  const validFindingTypology: (title: string) => string | undefined = (
-    title: string
-  ): string | undefined => {
-    if (titleSuggestions.includes(title)) {
-      return undefined;
-    }
-
-    return translate.t("validations.draftTypology");
-  };
-
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
   }
+  const validateFindingTypology: ConfiguredValidator =
+    validFindingTypology(titleSuggestions);
 
   return (
     <React.StrictMode>
@@ -286,7 +280,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
                     validate={composeValidators([
                       required,
                       validDraftTitle,
-                      validFindingTypology,
+                      validateFindingTypology,
                     ])}
                   />
                 </Col100>

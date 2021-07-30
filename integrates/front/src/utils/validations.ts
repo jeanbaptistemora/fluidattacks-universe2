@@ -224,6 +224,16 @@ const validDraftTitle: (title: string) => string | undefined = (
   return translate.t("validations.draftTitle");
 };
 
+const validFindingTypology: (titleSuggestions: string[]) => Validator =
+  (titleSuggestions: string[]): Validator =>
+  (title: string): string | undefined => {
+    if (titleSuggestions.includes(title)) {
+      return undefined;
+    }
+
+    return translate.t("validations.draftTypology");
+  };
+
 const isValidVulnSeverity: Validator = (value: string): string | undefined => {
   const min: number = 0;
   const max: number = 1000000000;
@@ -430,6 +440,7 @@ export {
   validEventFile,
   validEvidenceImage,
   validExploitFile,
+  validFindingTypology,
   validRecordsFile,
   dateTimeBeforeToday,
   isValidVulnsFile,
