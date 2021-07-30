@@ -132,10 +132,9 @@ def train_model(  # pylint: disable=too-many-locals
         if combination not in tried_combinations
     ]
 
-    model = get_model_instance(model_class)
-
     # Train the model
     for combination in valid_combinations:
+        model = get_model_instance(model_class)
         training_combination_output: List[str] = train_combination(
             model, training_data, combination
         )
