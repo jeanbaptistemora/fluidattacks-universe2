@@ -66795,6 +66795,70 @@
             "type": "SyntaxStepMethodInvocation"
           }
         ],
+        "574": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "579",
+              "value": {
+                "a": [
+                  {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": [],
+                      "n_id": "584",
+                      "value": null
+                    },
+                    "type": "SyntaxStepLiteral",
+                    "value": "1",
+                    "value_type": "number"
+                  }
+                ],
+                "b": [
+                  {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": [],
+                      "n_id": "589",
+                      "value": null
+                    },
+                    "type": "SyntaxStepLiteral",
+                    "value": "2",
+                    "value_type": "number"
+                  }
+                ],
+                "c": [
+                  {
+                    "meta": {
+                      "danger": false,
+                      "dependencies": [],
+                      "n_id": "594",
+                      "value": null
+                    },
+                    "type": "SyntaxStepLiteral",
+                    "value": "3",
+                    "value_type": "number"
+                  }
+                ]
+              }
+            },
+            "object_type": "object",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "576",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "triangle",
+            "var_type": null
+          }
+        ],
         "59": [
           {
             "meta": {

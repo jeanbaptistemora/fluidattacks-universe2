@@ -77,6 +77,7 @@ from sast_syntax_readers.javascript import (
     lexical_declaration as javascript_lexical_declaration,
     member_expression as javascript_member_expression,
     new_expression as javascript_new_expression,
+    object_ as javascript_object,
     template_string as javascript_template_string,
     variable_declaration as javascript_variable_declaration,
     variable_declarator as javascript_variable_declarator,
@@ -112,13 +113,17 @@ def generic(
     warn_if_missing_syntax_reader: bool = True,
 ) -> graph_model.SyntaxSteps:
     n_attrs_label_type = args.graph.nodes[args.n_id]["label_type"]
-    for dispatcher in DISPATCHERS_BY_LANG[args.language]:
-        if n_attrs_label_type in dispatcher.applicable_node_label_types:
-            for syntax_reader in dispatcher.syntax_readers:
-                try:
-                    return list(syntax_reader(args))
-                except MissingCaseHandling:
-                    continue
+    available = [
+        syntax_reader
+        for _dispatcher in DISPATCHERS_BY_LANG[args.language]
+        if n_attrs_label_type in _dispatcher.applicable_node_label_types
+        for syntax_reader in _dispatcher.syntax_readers
+    ]
+    for syntax_reader in available:
+        try:
+            return list(syntax_reader(args))
+        except MissingCaseHandling:
+            continue
 
     if warn_if_missing_syntax_reader:
         log_blocking("debug", "Missing syntax reader for n_id: %s", args.n_id)
@@ -741,6 +746,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "template_string",
         },
         syntax_readers=(javascript_template_string.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+        },
+        applicable_node_label_types={
+            "object",
+        },
+        syntax_readers=(javascript_object.reader,),
     ),
     *[
         Dispatcher(
