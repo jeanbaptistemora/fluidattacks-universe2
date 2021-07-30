@@ -6759,33 +6759,54 @@
 "350":
   en:
     title: Enable memory protection mechanisms
-    summary: __empty_
+    summary: >
+      The system should enable
+      memory protection mechanisms,
+      such as ASLR and DEP.
     description: __empty__
   es:
     title: Habilitar mecanismos de protección de memoria
-    summary: __empty__
+    summary: >
+      El sistema debería habilitar
+      mecanismo de protección de memoria,
+      tales como ASLR y DEP.
     description: __empty__
   references: []
   metadata: {}
 "351":
   en:
     title: Assign unique keys to each device
-    summary: __empty_
+    summary: >
+      Each individual device
+      must have unique cryptographic keys
+      and certificates.
     description: __empty__
   es:
     title: Asignar llaves únicas a cada dispositivo
-    summary: __empty__
+    summary: >
+      Cada dispositivo individual
+      debe tener claves criptográficas únicas
+      y certificados.
     description: __empty__
   references: []
   metadata: {}
 "352":
   en:
     title: Enable trusted execution
-    summary: __empty_
+    summary: >
+      Developers should implement
+      and enable trusted execution
+      if it is available on the device’s
+      System-on-Chip (SoC) or CPU.
     description: __empty__
   es:
     title: Habilitar ejecución de confianza
-    summary: __empty__
+    summary: >
+      Los desarrolladores deberían
+      implementar y habilitar ejecución
+      confiable si está disponible en
+      System-on-Chip (SoC) o CPU
+      del dispositivo.
     description: __empty__
   references: []
   metadata: {}
