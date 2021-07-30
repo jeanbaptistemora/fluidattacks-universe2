@@ -6813,22 +6813,33 @@
 "353":
   en:
     title: Schedule firmware updates
-    summary: __empty_
+    summary: >
+      Devices should update their own
+      firmware upon a predefined schedule.
     description: __empty__
   es:
     title: Programar actulización de firmware
-    summary: __empty__
+    summary: >
+      Los dispositivos deberían
+      actualizar su propio firmware
+      en un horario predefinido.
     description: __empty__
   references: []
   metadata: {}
 "354":
   en:
     title: Prevent firmware downgrades
-    summary: __empty_
+    summary: >
+      Devices should have mechanisms
+      that protect their firmware
+      (anti-rollback) from being downgraded.
     description: __empty__
   es:
     title: Prevenir desactualización de firmware
-    summary: __empty__
+    summary: >
+      Los dispositivos deben tener
+      mecanismos que protegen su firmware
+      (anti-rollback) de estar degradado.
     description: __empty__
   references: []
   metadata: {}
