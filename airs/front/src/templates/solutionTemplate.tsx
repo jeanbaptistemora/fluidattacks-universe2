@@ -18,7 +18,7 @@ import { CloudImage } from "../components/CloudImage";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
-import { WhiteShadowedCard } from "../components/WhiteShadowedCard";
+import { ShadowedCard } from "../components/ShadowedCard";
 import {
   BigPageContainer,
   BigSolutionParagraph,
@@ -127,25 +127,25 @@ const SolutionIndex: React.FC<IQueryData> = ({
               <FullWidthContainer className={"pv4"}>
                 <BlackH2>{translate.t("solution.cardsTitle")}</BlackH2>
                 <CardsContainer>
-                  <WhiteShadowedCard
+                  <ShadowedCard
                     color={"bg-black-18"}
                     image={"/airs/solutions/icon-skull"}
                     number={translate.t("solution.cards.vulnerabilities")}
                     text={translate.t("solution.cards.vulnerabilitiesText")}
                   />
-                  <WhiteShadowedCard
+                  <ShadowedCard
                     color={"bg-black-18"}
                     image={"/airs/solutions/icon-lock"}
                     number={translate.t("solution.cards.percentage")}
                     text={translate.t("solution.cards.percentageText")}
                   />
-                  <WhiteShadowedCard
+                  <ShadowedCard
                     color={"bg-black-18"}
                     image={"/airs/solutions/icon-security"}
                     number={translate.t("solution.cards.hackers")}
                     text={translate.t("solution.cards.hackersText")}
                   />
-                  <WhiteShadowedCard
+                  <ShadowedCard
                     color={"bg-black-18"}
                     image={"/airs/solutions/icon-fly"}
                     number={translate.t("solution.cards.owasp")}

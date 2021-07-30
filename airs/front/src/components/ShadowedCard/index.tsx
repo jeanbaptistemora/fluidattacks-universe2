@@ -73,7 +73,7 @@ const SmallGrayText: StyledComponent<
   `,
 })``;
 
-const WhiteShadowedCard: React.FC<IProps> = ({
+const ShadowedCard: React.FC<IProps> = ({
   color,
   image,
   number,
@@ -102,9 +102,9 @@ const WhiteShadowedCard: React.FC<IProps> = ({
 );
 
 // eslint-disable-next-line fp/no-mutation
-WhiteShadowedCard.defaultProps = {
+ShadowedCard.defaultProps = {
   number: "",
   text: "",
 };
 
-export { WhiteShadowedCard };
+export { ShadowedCard };
