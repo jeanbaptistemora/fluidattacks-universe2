@@ -7244,33 +7244,53 @@
 "368":
   en:
     title: Use of indistinguishable response time
-    summary: __empty_
+    summary: >
+      Response time of authentication probes
+      should be indistinguishable
+      whether an user exists or not.
     description: __empty__
   es:
     title: Uso de tiempos de respuesta indistinguibles
-    summary: __empty__
+    summary: >
+      El tiempo de respuesta de los intentos
+      de autenticación debe ser indistinguible
+      ya sea que un usuario exista o no.
     description: __empty__
   references: []
   metadata: {}
 "369":
   en:
     title: Set a maximum lifetime in sessions
-    summary: __empty_
+    summary: >
+      Application sessions should
+      have a maximum lifetime,
+      regardless of the user activity
+      (absolute timeout).
     description: __empty__
   es:
     title: Establecer un tiempo de duración máximo en sesiones
-    summary: __empty__
+    summary: >
+      Las sesiones de la aplicación
+      deben tener una vida útil máxima,
+      independientemente de la actividad
+      del usuario (tiempo de espera absoluto).
     description: __empty__
   references: []
   metadata: {}
 "370":
   en:
     title: Use OAEP padding with RSA
-    summary: __empty_
+    summary: >
+      RSA asymmetric encryption
+      should be used only with OAEP padding
+      (Optimal Asymmetric Encryption Padding).
     description: __empty__
   es:
     title: Use de relleno OAEP con RSA
-    summary: __empty__
+    summary: >
+      El cifrado asimétrico RSA
+      debe usarse solo con relleno OAEP
+      (relleno de cifrado asimétrico óptimo).
     description: __empty__
   references: []
   metadata: {}
