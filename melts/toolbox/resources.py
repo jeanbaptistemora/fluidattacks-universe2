@@ -351,13 +351,14 @@ def _http_repo_cloning(
     return problem
 
 
-def repo_cloning(subs: str) -> bool:
+def repo_cloning(subs: str, repo_name: str) -> bool:
     """cloning or updated a repository"""
 
     success = True
     problems: list = []
     original_dir: str = os.getcwd()
     destination_folder = f"groups/{subs}/fusion"
+    repositories: List[Dict[str, str]] = []
 
     os.makedirs(destination_folder, exist_ok=True)
     os.chdir(destination_folder)
@@ -370,13 +371,22 @@ def repo_cloning(subs: str) -> bool:
         LOGGER.error(repo_request.errors)
         return False
 
-    repositories: List[Dict[str, str]] = list(
-        root
-        for root in repo_request.data["project"]["roots"]
-        if root["state"] == "ACTIVE"
-    )
-
-    manage_repo_diffs(repositories)
+    if repo_name == "*":
+        repositories = list(
+            root
+            for root in repo_request.data["project"]["roots"]
+            if root["state"] == "ACTIVE"
+        )
+        manage_repo_diffs(repositories)
+    else:
+        repositories = list(
+            root
+            for root in repo_request.data["project"]["roots"]
+            if root["state"] == "ACTIVE" and root["nickname"] == repo_name
+        )
+        if not repositories:
+            LOGGER.error("There is no %s repository in %s", repo_name, subs)
+            return False
 
     utils.generic.aws_login("continuous-admin")
 

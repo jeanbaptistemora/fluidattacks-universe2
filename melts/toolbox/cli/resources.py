@@ -24,6 +24,13 @@ SUBS_METAVAR = "[GROUP]"
     is_flag=True,
     help="clone the repositories of a group",
 )
+@option(
+    "--name",
+    "o_name",
+    help="Specific name of repository",
+    default="*",
+    type=str,
+)
 @option("--fingerprint", is_flag=True, help="get the fingerprint of a group")
 @option("--login", is_flag=True, help="login to AWS through OKTA")
 @option("--edit-dev", is_flag=True, help="edit the dev secrets of a group")
@@ -32,6 +39,7 @@ SUBS_METAVAR = "[GROUP]"
 @option("--read-prod", is_flag=True, help="read the prod secrets of a group")
 def resources_management(  # pylint: disable=too-many-arguments
     group: str,
+    o_name: str,
     clone: bool,
     fingerprint: bool,
     login: bool,
@@ -44,7 +52,7 @@ def resources_management(  # pylint: disable=too-many-arguments
     success: bool = True
 
     if clone:
-        success = resources.repo_cloning(group)
+        success = resources.repo_cloning(group, o_name)
     elif fingerprint:
         success = resources.get_fingerprint(group)
     elif edit_dev:
