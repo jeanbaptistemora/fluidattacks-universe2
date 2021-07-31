@@ -19,7 +19,7 @@ spec:
         worker_group: development
       containers:
         - name: integrates
-          image: nixos/nix:2.3.6
+          image: nixos/nix@sha256:d9bb3b85b846eb0b6c5204e0d76639dff72c7871fb68f5d4edcfbb727f8a5653
           imagePullPolicy: Always
           command: [sh]
           args:
@@ -66,7 +66,7 @@ spec:
             failureThreshold: 40
             timeoutSeconds: 60
         - name: db
-          image: nixos/nix:2.3.6
+          image: nixos/nix@sha256:d9bb3b85b846eb0b6c5204e0d76639dff72c7871fb68f5d4edcfbb727f8a5653
           imagePullPolicy: Always
           command: [sh]
           args:
@@ -84,7 +84,7 @@ spec:
             - secretRef:
                 name: integrates-${CI_COMMIT_REF_NAME}
         - name: cache
-          image: nixos/nix:2.3.6
+          image: nixos/nix@sha256:d9bb3b85b846eb0b6c5204e0d76639dff72c7871fb68f5d4edcfbb727f8a5653
           imagePullPolicy: Always
           command: [sh]
           args:
@@ -103,7 +103,7 @@ spec:
             - secretRef:
                 name: integrates-${CI_COMMIT_REF_NAME}
         - name: storage
-          image: nixos/nix:2.3.6
+          image: nixos/nix@sha256:d9bb3b85b846eb0b6c5204e0d76639dff72c7871fb68f5d4edcfbb727f8a5653
           imagePullPolicy: Always
           command: [sh]
           args:
