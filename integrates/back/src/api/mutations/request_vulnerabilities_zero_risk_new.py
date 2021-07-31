@@ -57,7 +57,7 @@ async def mutate(
                 finding_id=finding_id,
             )
             await update_unreliable_indicators_by_deps(
-                EntityDependency.request_zero_risk_vuln,
+                EntityDependency.request_vulnerabilities_zero_risk,
                 finding_id=finding_id,
             )
             logs_utils.cloudwatch_log(

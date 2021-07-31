@@ -70,7 +70,7 @@ async def mutate(
                 group_name=finding.group_name,
             )
             await update_unreliable_indicators_by_deps(
-                EntityDependency.verify_request_vulnerability,
+                EntityDependency.verify_vulnerabilities_request,
                 finding_id=finding.id,
             )
             logs_utils.cloudwatch_log(
