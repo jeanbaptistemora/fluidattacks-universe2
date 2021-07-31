@@ -5,8 +5,8 @@ standarization titles migration (0102).
 
 Vulns are copied to the oldest finding and the newer ones is deleted.
 
-Execution Time:
-Finalization Time:
+Execution Time:     2021-07-30 at 18:03:54 UTC-05
+Finalization Time:  2021-07-30 at 18:04:25 UTC-05
 """
 
 from aioextensions import (
