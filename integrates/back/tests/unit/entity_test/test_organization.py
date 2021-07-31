@@ -50,11 +50,11 @@ async def _get_result_async(
 
 
 @pytest.mark.changes_db
-async def test_create_organization() -> None:
+async def test_add_organization() -> None:
     mutation_tpl = Template(
         """
         mutation {
-            createOrganization(name: "$name") {
+            addOrganization(name: "$name") {
                 organization {
                     id
                     name
@@ -70,14 +70,14 @@ async def test_create_organization() -> None:
     result = await _get_result_async(data)
 
     assert "errors" not in result
-    assert result["data"]["createOrganization"]["success"]
+    assert result["data"]["addOrganization"]["success"]
     assert (
-        result["data"]["createOrganization"]["organization"]["name"]
+        result["data"]["addOrganization"]["organization"]["name"]
         == name.lower()
     )
-    assert result["data"]["createOrganization"]["organization"][
-        "id"
-    ].startswith("ORG")
+    assert result["data"]["addOrganization"]["organization"]["id"].startswith(
+        "ORG"
+    )
 
     name = "MADEUP-NAME"
     data = {"query": mutation_tpl.substitute(name=name)}
@@ -88,13 +88,13 @@ async def test_create_organization() -> None:
 
 
 @pytest.mark.changes_db
-async def test_edit_stakeholder_organization() -> None:
+async def test_update_organization_stakeholder() -> None:
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
     stakeholder = "org_testgroupmanager1@gmail.com"
     query = Template(
         """
         mutation {
-            editStakeholderOrganization(
+            updateOrganizationStakeholder(
                 organizationId: "$org_id",
                 phoneNumber: "-",
                 role: $role,
@@ -116,9 +116,9 @@ async def test_edit_stakeholder_organization() -> None:
     }
     result = await _get_result_async(data)
     assert "errors" not in result
-    assert result["data"]["editStakeholderOrganization"]["success"]
+    assert result["data"]["updateOrganizationStakeholder"]["success"]
     assert (
-        result["data"]["editStakeholderOrganization"]["modifiedStakeholder"][
+        result["data"]["updateOrganizationStakeholder"]["modifiedStakeholder"][
             "email"
         ]
         == stakeholder

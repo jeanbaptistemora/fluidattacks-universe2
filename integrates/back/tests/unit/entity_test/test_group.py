@@ -465,7 +465,7 @@ async def test_update_group_good(  # type: ignore
         ],
     ],
 )
-async def test_edit_group_bad(  # type: ignore
+async def test_update_group_bad(  # type: ignore
     comments,
     group_name,
     subscription,
@@ -477,7 +477,7 @@ async def test_edit_group_bad(  # type: ignore
 ) -> None:
     query = f"""
         mutation {{
-            editGroup(
+            updateGroup(
                 comments: "{comments}"
                 groupName: "{group_name}",
                 hasSquad: {has_squad},

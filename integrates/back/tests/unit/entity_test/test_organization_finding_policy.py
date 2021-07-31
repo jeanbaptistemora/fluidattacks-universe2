@@ -84,7 +84,7 @@ async def _run(
 
 
 @pytest.mark.changes_db
-async def test_handle_org_finding_policy_acceptation() -> None:
+async def test_handle_organization_finding_policy_acceptation() -> None:
     org_name = "okada"
     finding_name = "037. Technical information leak"
     finding_id = "457497318"
@@ -110,12 +110,12 @@ async def test_handle_org_finding_policy_acceptation() -> None:
 
     tags = ["password", "session"]
     add_mutation = """
-        mutation AddOrgFindingPolicy(
+        mutation AddOrganizationFindingPolicy(
             $findingName: String!
             $orgName: String!
             $tags: [String]
         ) {
-            addOrgFindingPolicy(
+            addOrganizationFindingPolicy(
                 findingName: $findingName
                 organizationName: $orgName
                 tags: $tags
@@ -134,16 +134,16 @@ async def test_handle_org_finding_policy_acceptation() -> None:
     }
     result = await _get_result_async(data, "integratescustomer@gmail.com")
     assert "errors" not in result
-    assert result["data"]["addOrgFindingPolicy"]["success"]
+    assert result["data"]["addOrganizationFindingPolicy"]["success"]
 
     approver_user = "integratesuser@gmail.com"
     handle_mutation = """
-        mutation HandleOrgFindingPolicyAcceptation(
+        mutation HandleOrganizationFindingPolicyAcceptation(
             $findingPolicyId: ID!
             $orgName: String!
             $status: OrganizationFindindPolicy!
         ) {
-            handleOrgFindingPolicyAcceptation(
+            handleOrganizationFindingPolicyAcceptation(
                 findingPolicyId: $findingPolicyId
                 organizationName: $orgName
                 status: $status
@@ -170,7 +170,9 @@ async def test_handle_org_finding_policy_acceptation() -> None:
         hande_acceptation_data, stakeholder=approver_user
     )
     assert "errors" not in result
-    assert result["data"]["handleOrgFindingPolicyAcceptation"]["success"]
+    assert result["data"]["handleOrganizationFindingPolicyAcceptation"][
+        "success"
+    ]
     assert (
         await _run(
             finding_policy_id=finding_policy.id,
@@ -228,8 +230,11 @@ async def test_deactivate_org_finding_policy() -> None:
     assert vulns[0]["tag"] == ""
 
     add_mutation = """
-        mutation AddOrgFindingPolicy($findingName: String! $orgName: String!) {
-            addOrgFindingPolicy(
+        mutation AddOrganizationFindingPolicy(
+            $findingName: String!
+            $orgName: String!
+            ) {
+            addOrganizationFindingPolicy(
                 findingName: $findingName
                 organizationName: $orgName
             ) {
@@ -243,16 +248,16 @@ async def test_deactivate_org_finding_policy() -> None:
     }
     result = await _get_result_async(data, "integratescustomer@gmail.com")
     assert "errors" not in result
-    assert result["data"]["addOrgFindingPolicy"]["success"]
+    assert result["data"]["addOrganizationFindingPolicy"]["success"]
 
     approver_user = "integratesuser@gmail.com"
     handle_mutation = """
-        mutation HandleOrgFindingPolicyAcceptation(
+        mutation HandleOrganizationFindingPolicyAcceptation(
             $findingPolicyId: ID!
             $orgName: String!
             $status: OrganizationFindindPolicy!
         ) {
-            handleOrgFindingPolicyAcceptation(
+            handleOrganizationFindingPolicyAcceptation(
                 findingPolicyId: $findingPolicyId
                 organizationName: $orgName
                 status: $status
@@ -277,7 +282,9 @@ async def test_deactivate_org_finding_policy() -> None:
         hande_acceptation_data, stakeholder=approver_user
     )
     assert "errors" not in result
-    assert result["data"]["handleOrgFindingPolicyAcceptation"]["success"]
+    assert result["data"]["handleOrganizationFindingPolicyAcceptation"][
+        "success"
+    ]
     assert (
         await _run(
             finding_policy_id=finding_policy.id,
@@ -369,11 +376,11 @@ async def test_add_org_finding_policy() -> None:
     org_name = "okada"
     fin_name = "031. Excessive privileges - AWS"
     query = """
-        mutation AddOrgFindingPolicy(
+        mutation AddOrganizationFindingPolicy(
             $findingName: String!
             $orgName: String!
         ) {
-            addOrgFindingPolicy(
+            addOrganizationFindingPolicy(
                 findingName: $findingName
                 organizationName: $orgName
             ) {
@@ -390,7 +397,7 @@ async def test_add_org_finding_policy() -> None:
         data, stakeholder="integratescustomer@gmail.com"
     )
     assert "errors" not in result
-    assert result["data"]["addOrgFindingPolicy"]["success"]
+    assert result["data"]["addOrganizationFindingPolicy"]["success"]
 
     result = await _get_result_async(
         data, stakeholder="org_testuser5@gmail.com"
@@ -439,11 +446,11 @@ async def test_submit_organization_finding_policy() -> None:
     organization_name = "okada"
     finding_name = "001. SQL injection - C Sharp SQL API"
     query = """
-        mutation AddOrgFindingPolicy(
+        mutation AddOrganizationFindingPolicy(
             $findingName: String!
             $orgName: String!
         ) {
-            addOrgFindingPolicy(
+            addOrganizationFindingPolicy(
                 findingName: $findingName
                 organizationName: $orgName
             ) {
@@ -462,16 +469,16 @@ async def test_submit_organization_finding_policy() -> None:
         data, stakeholder="integratescustomer@gmail.com"
     )
     assert "errors" not in result
-    assert result["data"]["addOrgFindingPolicy"]["success"]
+    assert result["data"]["addOrganizationFindingPolicy"]["success"]
 
     approver_user = "integratesuser@gmail.com"
     handle_mutation = """
-        mutation HandleOrgFindingPolicyAcceptation(
+        mutation HandleOrganizationFindingPolicyAcceptation(
             $findingPolicyId: ID!
             $orgName: String!
             $status: OrganizationFindindPolicy!
         ) {
-            handleOrgFindingPolicyAcceptation(
+            handleOrganizationFindingPolicyAcceptation(
                 findingPolicyId: $findingPolicyId
                 organizationName: $orgName
                 status: $status
@@ -496,7 +503,9 @@ async def test_submit_organization_finding_policy() -> None:
         hande_acceptation_rejected_data, stakeholder=approver_user
     )
     assert "errors" not in result
-    assert result["data"]["handleOrgFindingPolicyAcceptation"]["success"]
+    assert result["data"]["handleOrganizationFindingPolicyAcceptation"][
+        "success"
+    ]
 
     submit_mutation = """
         mutation SubmitOrganizationFindingPolicy(
