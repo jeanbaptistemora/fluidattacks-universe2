@@ -61,6 +61,3 @@ slug: /development/writing/general/numbers
   we *should* use the abbreviations M and B, respectively (e.g., $15.4M).
   We *must not* express the whole number unless strictly necessary,
   for example, for some kind of analysis.
-
-> **NOTE:**
-> This section of our documentation is under construction.

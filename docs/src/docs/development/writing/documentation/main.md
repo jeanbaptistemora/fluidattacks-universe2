@@ -153,4 +153,4 @@ slug: /development/writing/documentation/main
   (i.e., including description and associated requirements).
 
 > **NOTE:**
-> This section of our documentation is under construction.
+> This subsection of our documentation is under construction.

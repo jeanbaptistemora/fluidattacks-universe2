@@ -43,6 +43,3 @@ slug: /development/writing/general/lists
   for words or sentences that stand alone within a subsection,
   page or blog post,
   as if they were part of a list.
-
-> **NOTE:**
-> This section of our documentation is under construction.

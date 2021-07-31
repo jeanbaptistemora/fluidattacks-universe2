@@ -69,6 +69,3 @@ slug: /development/writing/blog/code
   that are irrelevant to cybersecurity
   (e.g., introducing a programming language
   without mentioning how to use it securely).
-
-> **NOTE:**
-> This section of our documentation is under construction.

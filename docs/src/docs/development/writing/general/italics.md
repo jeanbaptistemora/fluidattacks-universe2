@@ -42,6 +42,3 @@ slug: /development/writing/general/italics
   that are employed as statistical symbols or algebraic variables
   ([e.g.](https://apastyle.apa.org/style-grammar-guidelines/italics-quotations/italics),
   Cohen's *d*, *SD*, *M*, *t*).
-
-> **NOTE:**
-> This section of our documentation is under construction.

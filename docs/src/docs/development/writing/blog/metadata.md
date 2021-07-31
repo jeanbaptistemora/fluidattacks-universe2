@@ -24,6 +24,3 @@ Below, we show a table with the **mandatory** metadata for a blog post:
 |:about1:             |Information describing the author, such as academic experience, profession or business role (e.g., Systems Engineering undergraduate student; Cybersecurity Editor).|
 |:about2:             |Additional information about the author (this is optional): personal interests, links to personal blogs or profiles, motivational quotes.|
 |:source:             |Link to the cover image from [Unsplash](https://unsplash.com/).|
-
-> **NOTE:**
-> This section of our documentation is under construction.

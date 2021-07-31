@@ -52,6 +52,3 @@ slug: /development/writing/general/links
   and then associating those same links to them
   (e.g., To learn more, visit the TypeScript documentation page
   at [https://www.typescriptlang.org/docs/handbook/basic-types.html](https://www.typescriptlang.org/docs/handbook/basic-types.html).).
-
-> **NOTE:**
-> This section of our documentation is under construction.

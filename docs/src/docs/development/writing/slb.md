@@ -57,6 +57,3 @@ For more information regarding SLBs and their use,
 please check out the posts "[Semantic Linefeeds](http://rhodesmill.org/brandon/2012/one-sentence-per-line/)"
 and "[Semantic linewrapping](https://scott.mn/2014/02/21/semantic_linewrapping/),"
 or the document "[AsciiDoc Recommended Practices](http://asciidoctor.org/docs/AsciiDoc-recommended-practices/#one-sentence)."
-
-> **NOTE:**
-> This section of our documentation is under construction.

@@ -36,4 +36,4 @@ Finally, we have some rules
 strictly related to the use of Semantic Line Breaks (SLBs).
 
 > **NOTE:**
-> This section of our documentation is under construction.
+> This subsection of our documentation is under construction.

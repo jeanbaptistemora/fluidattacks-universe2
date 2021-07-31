@@ -6,4 +6,4 @@ slug: /development/writing/documentation/markdown
 ---
 
 > **NOTE:**
-> This section of our documentation is under construction.
+> This subsection of our documentation is under construction.

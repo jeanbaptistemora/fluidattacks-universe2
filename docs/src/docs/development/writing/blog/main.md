@@ -118,6 +118,3 @@ slug: /development/writing/blog/main
   Example:
 
   ![BO01](https://res.cloudinary.com/fluid-attacks/image/upload/v1625258536/docs/development/writing/boa_jlahex.webp)
-
-> **NOTE:**
-> This section of our documentation is under construction.

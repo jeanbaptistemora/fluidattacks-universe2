@@ -48,6 +48,3 @@ slug: /development/writing/general/others
   but not in titles or subtitles.
 
 * **GO09:** We *must not* put periods at the end of titles and subtitles.
-
-> **NOTE:**
-> This section of our documentation is under construction.

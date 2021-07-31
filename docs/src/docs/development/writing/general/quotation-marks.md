@@ -63,6 +63,3 @@ slug: /development/writing/general/quotation-marks
   when it is longer than **40 words**.
   However, we *can* do this also with shorter quotations
   when we want to give them some emphasis.
-
-> **NOTE:**
-> This section of our documentation is under construction.

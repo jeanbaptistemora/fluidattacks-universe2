@@ -12,7 +12,7 @@ slug: /development/writing/general/main
 
 * **GM03:** We *must not* copy and publish other people's texts
   without referencing their source.
-  We *must* be original in our writings.
+  Besides, we *must* show originality in our writings.
 
 * **GM04:** We *must* avoid unnecessary repetition of information in our texts.
 
@@ -27,7 +27,7 @@ slug: /development/writing/general/main
   (e.g., use "reattacks" all the time and not sometimes "re-attacks").
 
 * **GM07:** We *must not* close any block of text
-  of the subsections and pages
+  of the sections and pages
   with *goodbye* or any similar expression
   (it is different in blog posts).
 
@@ -50,6 +50,3 @@ slug: /development/writing/general/main
   Once published, on the next day, for example,
   we can invest some more time in another quick revision
   and make any necessary adjustments.
-
-> **NOTE:**
-> This section of our documentation is under construction.

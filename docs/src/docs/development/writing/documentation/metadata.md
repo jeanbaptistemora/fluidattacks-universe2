@@ -15,6 +15,3 @@ Below, we show a table with the **mandatory** metadata for documentation:
 |title:          |The title of the subsection before its body of text.|
 |sidebar_label:      |The name of the subsection (i.e., the title) appearing in the left-hand menu.|
 |slug:          |The part of the URL of the subsection that goes after docs.fluidattacks.com (e.g., /machine/scanner/plans/foss).|
-
-> **NOTE:**
-> This section of our documentation is under construction.

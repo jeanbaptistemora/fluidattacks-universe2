@@ -13,8 +13,8 @@ along with your name.
 
 You must send the text in *.adoc* and *.pdf*
 and the images for the blog post
-to fruiz@fluidattacks.com or fzarate@fluidattacks.com.
-Our editors will review these files
+to fruiz@fluidattacks.com.
+Our editor will review these files
 to determine and let you know
 whether or not we will publish your writing on our website.
 
@@ -37,6 +37,3 @@ whether or not we will publish your writing on our website.
 
 * We do not pay for articles accepted for publication
   on [our blog](https://fluidattacks.com/blog/).
-
-> **NOTE:**
-> This section of our documentation is under construction.

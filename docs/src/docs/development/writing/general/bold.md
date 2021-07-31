@@ -18,6 +18,3 @@ slug: /development/writing/general/bold
 
 * **GB05:** We *must not* use bold and italics in the same emphasis
   (e.g., ***bold-italics***).
-
-> **NOTE:**
-> This section of our documentation is under construction.
