@@ -36,21 +36,6 @@ resource "aws_dynamodb_table" "fi_authz" {
   range_key    = "object"
 }
 
-resource "aws_dynamodb_table" "FI_comments" {
-  attribute {
-    name = "finding_id"
-    type = "N"
-  }
-  attribute {
-    name = "user_id"
-    type = "N"
-  }
-  billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "finding_id"
-  name         = "FI_comments"
-  range_key    = "user_id"
-}
-
 resource "aws_dynamodb_table" "fi_events" {
   attribute {
     name = "event_id"

@@ -96,41 +96,6 @@ resource "aws_dynamodb_table" "subscriptions" {
   }
 }
 
-resource "aws_dynamodb_table" "comments" {
-  name           = "FI_comments"
-  read_capacity  = 10
-  write_capacity = 10
-  hash_key       = "finding_id"
-  range_key      = "user_id"
-
-  attribute {
-    name = "finding_id"
-    type = "N"
-  }
-
-  attribute {
-    name = "user_id"
-    type = "N"
-  }
-
-  point_in_time_recovery {
-    enabled = true
-  }
-
-  lifecycle {
-    ignore_changes = [
-      read_capacity,
-      write_capacity
-    ]
-  }
-
-  tags = {
-    "Name"               = "FI_comments"
-    "management:type"    = "production"
-    "management:product" = "integrates"
-  }
-}
-
 resource "aws_dynamodb_table" "project_comments" {
   name         = "fi_project_comments"
   billing_mode = "PAY_PER_REQUEST"
