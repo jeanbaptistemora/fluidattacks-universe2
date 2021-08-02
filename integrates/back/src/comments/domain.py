@@ -185,7 +185,7 @@ async def get_comments_new(
                 verification.vuln_uuids,
                 vulns,
             )
-            if str(comment["id"]) == verification.comment_id
+            if comment["id"] == verification.comment_id
             else comment
             for comment in comments
             for verification in verified

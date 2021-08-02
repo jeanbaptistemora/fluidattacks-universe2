@@ -902,7 +902,7 @@ async def request_vulnerabilities_verification(
     )
     historic_verification.append(
         {
-            "comment": int(comment_id),
+            "comment": comment_id,
             "date": today,
             "status": "REQUESTED",
             "user": user_email,
@@ -1214,7 +1214,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         )
         historic_verification.append(
             {
-                "comment": int(comment_id),
+                "comment": comment_id,
                 "date": today,
                 "status": "VERIFIED",
                 "user": user_email,
