@@ -79,3 +79,52 @@ async def test_get_group(populate: bool, email: str) -> None:
         event["id"] for event in result["data"]["group"]["events"]
     ]
     assert root in [root["id"] for root in result["data"]["group"]["roots"]]
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("group")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["service_forces@gmail.com"],
+    ],
+)
+async def test_get_group_fail(populate: bool, email: str) -> None:
+    assert populate
+    group_name: str = "group1"
+    finding: str = "475041521"
+    root: str = "63298a73-9dff-46cf-b42d-9b2f01a56690"
+    result: Dict[str, Any] = await get_result(user=email, group=group_name)
+    print(result)
+    assert "errors" in result
+    assert result["errors"][0]["message"] == "Access denied"
+    assert result["data"]["group"]["name"] == group_name
+    assert result["data"]["group"]["hasSquad"]
+    assert result["data"]["group"]["hasForces"]
+    assert result["data"]["group"]["hasAsm"]
+    assert result["data"]["group"]["openVulnerabilities"] == 1
+    assert result["data"]["group"]["closedVulnerabilities"] == 1
+    assert result["data"]["group"]["lastClosingVuln"] == 40
+    assert result["data"]["group"]["maxSeverity"] == 4.1
+    assert result["data"]["group"]["meanRemediate"] == 2
+    assert result["data"]["group"]["meanRemediateCriticalSeverity"] == 0
+    assert result["data"]["group"]["meanRemediateHighSeverity"] == 0
+    assert result["data"]["group"]["meanRemediateLowSeverity"] == 3
+    assert result["data"]["group"]["meanRemediateMediumSeverity"] == 4
+    assert result["data"]["group"]["openFindings"] == 1
+    assert result["data"]["group"]["totalFindings"] == 1
+    assert result["data"]["group"]["totalTreatment"] == "{}"
+    assert result["data"]["group"]["subscription"] == "continuous"
+    assert result["data"]["group"]["deletionDate"] == ""
+    assert result["data"]["group"]["userDeletion"] == ""
+    assert result["data"]["group"]["tags"] == ["testing"]
+    assert result["data"]["group"]["description"] == "this is group1"
+    assert result["data"]["group"]["organization"] == "orgtest"
+    assert result["data"]["group"]["userRole"] == email.split("@")[0]
+    assert result["data"]["group"]["maxOpenSeverity"] == 4.3
+    assert result["data"]["group"]["maxOpenSeverityFinding"] is None
+    assert result["data"]["group"]["lastClosingVulnFinding"] is None
+    assert finding in [
+        finding["id"] for finding in result["data"]["group"]["findings"]
+    ]
+    assert root in [root["id"] for root in result["data"]["group"]["roots"]]
