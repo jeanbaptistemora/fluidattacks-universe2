@@ -61,7 +61,7 @@ async def test_create_event() -> None:
         "event_date": parse_datetime("2019-12-09T05:00:00.000Z"),
         "event_type": "CLIENT_DETECTS_ATTACK",
     }
-    assert await events_domain.create_event(
+    assert await events_domain.add_event(
         get_new_context(),
         analyst_email="unittesting@fluidattacks.com",
         group_name="unittesting",
@@ -90,7 +90,7 @@ async def test_create_event_file_image() -> None:
             uploaded_image = UploadFile(
                 image_test.name, image_test, "image/gif"
             )
-            test_data = await events_domain.create_event(
+            test_data = await events_domain.add_event(
                 get_new_context(),
                 analyst_email="unittesting@fluidattacks.com",
                 group_name="unittesting",

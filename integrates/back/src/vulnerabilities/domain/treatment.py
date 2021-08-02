@@ -257,7 +257,7 @@ async def handle_vuln_acceptation(
     )
 
 
-async def handle_vulns_acceptation(
+async def handle_vulnerabilities_acceptation(
     *,
     context: Any,
     accepted_vulns: List[str],

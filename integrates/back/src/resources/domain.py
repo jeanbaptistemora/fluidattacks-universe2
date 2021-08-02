@@ -43,7 +43,7 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-async def create_file(
+async def add_file(
     files_data: List[Dict[str, str]],
     uploaded_file: UploadFile,
     group_name: str,

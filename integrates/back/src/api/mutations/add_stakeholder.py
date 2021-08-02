@@ -57,7 +57,7 @@ async def mutate(
     )
 
     if role in allowed_roles_to_grant:
-        new_user = await groups_domain.create_without_group(
+        new_user = await groups_domain.add_without_group(
             email=email,
             role=role,
             phone_number=phone_number,

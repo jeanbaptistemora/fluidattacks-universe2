@@ -156,7 +156,7 @@ async def approve_draft_new(
     return approval_date
 
 
-async def create_draft(
+async def add_draft(
     info: GraphQLResolveInfo, group_name: str, title: str, **kwargs: Any
 ) -> bool:
     last_fs_id = 550000000
@@ -197,7 +197,7 @@ async def create_draft(
     raise InvalidDraftTitle()
 
 
-async def create_draft_new(
+async def add_draft_new(
     context: Any, group_name: str, title: str, user_email: str, **kwargs: Any
 ) -> None:
     if not findings_utils.is_valid_finding_title(title):

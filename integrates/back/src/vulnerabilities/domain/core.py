@@ -93,7 +93,7 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-async def confirm_zero_risk_vulnerabilities(
+async def confirm_vulnerabilities_zero_risk(
     finding_id: str,
     user_info: Dict[str, str],
     justification: str,

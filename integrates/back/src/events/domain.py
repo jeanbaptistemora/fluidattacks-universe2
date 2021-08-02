@@ -88,7 +88,7 @@ async def add_comment(
     return cast(Tuple[Optional[str], bool], success)
 
 
-async def create_event(  # pylint: disable=too-many-locals
+async def add_event(  # pylint: disable=too-many-locals
     loaders: Any,
     analyst_email: str,
     group_name: str,

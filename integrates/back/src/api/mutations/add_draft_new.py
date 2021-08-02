@@ -46,7 +46,7 @@ async def mutate(
     try:
         user_info = await token_utils.get_jwt_content(info.context)
         user_email = user_info["user_email"]
-        await findings_domain.create_draft_new(
+        await findings_domain.add_draft_new(
             info.context, group_name, title, user_email, **kwargs
         )
         logs_utils.cloudwatch_log(

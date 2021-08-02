@@ -44,7 +44,7 @@ async def mutate(
     group_name: str = get_key_or_fallback(kwargs)
     kwargs = clean_up_kwargs(kwargs)
 
-    success: bool = await findings_domain.create_draft(
+    success: bool = await findings_domain.add_draft(
         info, group_name, title, **kwargs
     )
 

@@ -1,5 +1,5 @@
 from .core import (
-    confirm_zero_risk_vulnerabilities,
+    confirm_vulnerabilities_zero_risk,
     delete_tags,
     delete_vulnerability,
     filter_closed_vulnerabilities,
@@ -32,7 +32,7 @@ from .core import (
 )
 from .treatment import (
     add_vuln_treatment,
-    handle_vulns_acceptation,
+    handle_vulnerabilities_acceptation,
     send_treatment_change_mail,
     update_vulns_treatment,
     validate_treatment_change,
@@ -50,7 +50,7 @@ from .verification import (
 
 __all__ = [
     # core
-    "confirm_zero_risk_vulnerabilities",
+    "confirm_vulnerabilities_zero_risk",
     "delete_tags",
     "delete_vulnerability",
     "filter_closed_vulnerabilities",
@@ -82,7 +82,7 @@ __all__ = [
     "verify_vulnerability",
     # treatment
     "add_vuln_treatment",
-    "handle_vulns_acceptation",
+    "handle_vulnerabilities_acceptation",
     "send_treatment_change_mail",
     "update_vulns_treatment",
     "validate_treatment_change",

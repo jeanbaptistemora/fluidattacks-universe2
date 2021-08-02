@@ -79,7 +79,7 @@ async def test_create_organization() -> None:
     with pytest.raises(InvalidOrganization):
         await orgs_domain.get_id_by_name(org_name)
 
-    await orgs_domain.create_organization(org_name, user)
+    await orgs_domain.add_organization(org_name, user)
     org_id = await orgs_domain.get_id_by_name(org_name)
     assert await orgs_domain.has_user_access(org_id, user)
     assert (
@@ -88,7 +88,7 @@ async def test_create_organization() -> None:
     )
 
     with pytest.raises(InvalidOrganization):
-        await orgs_domain.create_organization(org_name, user)
+        await orgs_domain.add_organization(org_name, user)
 
 
 @pytest.mark.changes_db

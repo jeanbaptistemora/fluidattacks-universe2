@@ -52,7 +52,7 @@ async def mutate(
 
     virus_scan.scan_file(uploaded_file, user_email, group_name)
 
-    success = await resources_domain.create_file(
+    success = await resources_domain.add_file(
         new_files_data, uploaded_file, group_name, user_email
     )
     if success:

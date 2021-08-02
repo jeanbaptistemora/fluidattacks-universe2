@@ -54,7 +54,7 @@ async def mutate(
     kwargs = clean_up_kwargs(kwargs)
     user_info = await token_utils.get_jwt_content(info.context)
     analyst_email = user_info["user_email"]
-    success = await events_domain.create_event(
+    success = await events_domain.add_event(
         info.context.loaders,
         analyst_email,
         group_name.lower(),

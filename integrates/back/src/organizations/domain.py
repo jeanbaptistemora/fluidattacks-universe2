@@ -198,7 +198,7 @@ async def add_user(organization_id: str, email: str, role: str) -> bool:
     return success
 
 
-async def create_organization(name: str, email: str) -> OrganizationType:
+async def add_organization(name: str, email: str) -> OrganizationType:
     new_organization: OrganizationType = {}
 
     if not await names_domain.exists(name, "organization"):

@@ -49,7 +49,7 @@ from group_comments.domain import (
     list_comments,
 )
 from groups.domain import (
-    create_group,
+    add_group,
     edit,
     get_active_groups,
     get_alive_group_names,
@@ -484,7 +484,7 @@ async def test_create_group_not_user_admin() -> None:
     await names_domain.create("NEWAVAILABLENAME", "group")
     user_email = "integratesuser@gmail.com"
     user_role = "customeradmin"
-    test_data = await create_group(
+    test_data = await add_group(
         user_email=user_email,
         user_role=user_role,
         group_name="NEWAVAILABLENAME",

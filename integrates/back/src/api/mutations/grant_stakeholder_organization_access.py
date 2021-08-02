@@ -58,7 +58,7 @@ async def mutate(
     user_created = False
     user_exists = bool(await users_domain.get_data(user_email, "email"))
     if not user_exists:
-        user_created = await groups_domain.create_without_group(
+        user_created = await groups_domain.add_without_group(
             user_email,
             "customer",
             user_phone_number,

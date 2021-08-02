@@ -64,7 +64,7 @@ async def autoenroll_user(email: str) -> None:
     new_user_user_level_role: str = "customer"
     new_user_group_level_role: str = "customer"
 
-    await groups_domain.create_without_group(
+    await groups_domain.add_without_group(
         email=email, role=new_user_user_level_role
     )
     for group in FI_COMMUNITY_PROJECTS.split(","):

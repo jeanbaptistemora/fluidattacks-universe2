@@ -462,7 +462,7 @@ async def complete_register_for_group_invitation(
     return success
 
 
-async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
+async def add_group(  # pylint: disable=too-many-arguments,too-many-locals
     user_email: str,
     user_role: str,
     group_name: str,
@@ -569,7 +569,7 @@ async def create_group(  # pylint: disable=too-many-arguments,too-many-locals
     return success
 
 
-async def create_without_group(
+async def add_without_group(
     email: str,
     role: str,
     phone_number: str = "",

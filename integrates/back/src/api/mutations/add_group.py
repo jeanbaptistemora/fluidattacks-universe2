@@ -58,7 +58,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     user_email = user_data["user_email"]
     user_role = await authz.get_user_level_role(user_email)
 
-    success = await groups_domain.create_group(
+    success = await groups_domain.add_group(
         user_email,
         user_role,
         group_name.lower(),
