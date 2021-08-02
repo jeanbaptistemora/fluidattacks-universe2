@@ -63,8 +63,8 @@ def snippet(
 
     content: str = snippet_skeleton.format(
         intention=ssl_settings.intention[locale],
-        host=ssl_settings.host,
-        port=ssl_settings.port,
+        host=ssl_settings.context.host,
+        port=ssl_settings.context.port,
         scsv=ssl_settings.scsv,
         min_version=ssl_id2ssl_name(ssl_settings.min_version),
         max_version=ssl_id2ssl_name(ssl_settings.max_version),

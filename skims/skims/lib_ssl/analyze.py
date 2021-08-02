@@ -66,15 +66,16 @@ async def analyze_one(
 async def get_ssl_contexts() -> Set[SSLContext]:
     ssl_contexts: Set[SSLContext] = {
         SSLContext(
-            target=target,
+            host=target.host,
+            port=target.port,
             tls_versions=tuple(
                 v_id
                 for v_id in SSLVersionId
                 if v_id != SSLVersionId.sslv3_0
                 and analyze_protocol.supports_tls(
-                    target.host,
-                    target.port,
-                    v_id,
+                    host=target.host,
+                    port=target.port,
+                    v_id=v_id,
                 )
             ),
         )

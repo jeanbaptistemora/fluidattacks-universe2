@@ -47,8 +47,7 @@ from zone import (
 def supports_tls(host: str, port: int, v_id: SSLVersionId) -> Optional[bool]:
     intention_en = "verify if server supports " + ssl_id2ssl_name(v_id)
     ssl_settings = SSLSettings(
-        host=host,
-        port=port,
+        context=SSLContext(host=host, port=port),
         min_version=v_id,
         max_version=v_id,
         intention={core_model.LocalesEnum.EN: intention_en},
@@ -71,7 +70,7 @@ def _create_core_vulns(
             namespace=CTX.config.namespace,
             state=core_model.VulnerabilityStateEnum.OPEN,
             stream="home,socket-send,socket-response",
-            what=ssl_vulnerability.ssl_settings.get_target(),
+            what=str(ssl_vulnerability),
             where=ssl_vulnerability.description,
             skims_metadata=core_model.SkimsVulnerabilityMetadata(
                 cwe=(ssl_vulnerability.finding.value.cwe,),
@@ -218,8 +217,8 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         }
 
         sock = tcp_connect(
-            ctx.target.host,
-            ctx.target.port,
+            ctx.host,
+            ctx.port,
             intention[core_model.LocalesEnum.EN],
         )
 
@@ -239,8 +238,7 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                         check="pfs_disabled",
                         line=SSLSnippetLine.key_exchange,
                         ssl_settings=SSLSettings(
-                            ctx.target.host,
-                            ctx.target.port,
+                            context=ctx,
                             min_version=v_id,
                             max_version=v_id,
                             key_exchange_names=[
@@ -369,8 +367,8 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     }
 
     sock = tcp_connect(
-        ctx.target.host,
-        ctx.target.port,
+        ctx.host,
+        ctx.port,
         intention[core_model.LocalesEnum.EN],
     )
 
@@ -390,8 +388,7 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     check="sslv3_enabled",
                     line=SSLSnippetLine.max_version,
                     ssl_settings=SSLSettings(
-                        host=ctx.target.host,
-                        port=ctx.target.port,
+                        context=ctx,
                         max_version=SSLVersionId.sslv3_0,
                         intention=intention,
                     ),
@@ -411,8 +408,7 @@ def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
             _create_ssl_vuln(
                 check="tlsv1_enabled",
                 ssl_settings=SSLSettings(
-                    host=ctx.target.host,
-                    port=ctx.target.port,
+                    context=ctx,
                     min_version=SSLVersionId.tlsv1_0,
                     max_version=SSLVersionId.tlsv1_0,
                     intention={
@@ -440,8 +436,7 @@ def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
             _create_ssl_vuln(
                 check="tlsv1_1_enabled",
                 ssl_settings=SSLSettings(
-                    host=ctx.target.host,
-                    port=ctx.target.port,
+                    context=ctx,
                     min_version=SSLVersionId.tlsv1_1,
                     max_version=SSLVersionId.tlsv1_1,
                     intention={
@@ -475,8 +470,7 @@ def _tlsv1_2_or_higher_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
             _create_ssl_vuln(
                 check="tlsv1_2_or_higher_disabled",
                 ssl_settings=SSLSettings(
-                    ctx.target.host,
-                    ctx.target.port,
+                    context=ctx,
                     min_version=SSLVersionId.tlsv1_2,
                     max_version=SSLVersionId.tlsv1_3,
                     intention={
@@ -796,8 +790,8 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
         }
 
         sock = tcp_connect(
-            ctx.target.host,
-            ctx.target.port,
+            ctx.host,
+            ctx.port,
             intention[core_model.LocalesEnum.EN],
         )
 
@@ -817,8 +811,7 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
                         check="weak_ciphers_allowed",
                         line=SSLSnippetLine.ciphers,
                         ssl_settings=SSLSettings(
-                            host=ctx.target.host,
-                            port=ctx.target.port,
+                            context=ctx,
                             min_version=v_id,
                             max_version=v_id,
                             cipher_names=["null", "des", "rc4"],
@@ -963,8 +956,8 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         }
 
         sock = tcp_connect(
-            ctx.target.host,
-            ctx.target.port,
+            ctx.host,
+            ctx.port,
             intention[core_model.LocalesEnum.EN],
         )
 
@@ -984,8 +977,7 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                         check="cbc_enabled",
                         line=SSLSnippetLine.ciphers,
                         ssl_settings=SSLSettings(
-                            host=ctx.target.host,
-                            port=ctx.target.port,
+                            context=ctx,
                             min_version=v_id,
                             max_version=v_id,
                             cipher_names=["3des", "camellia", "idea"],
@@ -1062,8 +1054,8 @@ def _sweet32_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         }
 
         sock = tcp_connect(
-            ctx.target.host,
-            ctx.target.port,
+            ctx.host,
+            ctx.port,
             intention[core_model.LocalesEnum.EN],
         )
 
@@ -1083,8 +1075,7 @@ def _sweet32_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                         check="sweet32_possible",
                         line=SSLSnippetLine.ciphers,
                         ssl_settings=SSLSettings(
-                            host=ctx.target.host,
-                            port=ctx.target.port,
+                            context=ctx,
                             min_version=v_id,
                             max_version=v_id,
                             cipher_names=["3des"],
@@ -1147,8 +1138,8 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     }
 
     sock = tcp_connect(
-        ctx.target.host,
-        ctx.target.port,
+        ctx.host,
+        ctx.port,
         intention[core_model.LocalesEnum.EN],
     )
 
@@ -1172,8 +1163,7 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     check="fallback_scsv_disabled",
                     line=SSLSnippetLine.min_version,
                     ssl_settings=SSLSettings(
-                        host=ctx.target.host,
-                        port=ctx.target.port,
+                        context=ctx,
                         min_version=min_v_id,
                         max_version=min_v_id,
                         intention=intention,
@@ -1198,8 +1188,7 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
 
         v_name: str = ssl_id2ssl_name(v_id)
         ssl_settings = SSLSettings(
-            ctx.target.host,
-            ctx.target.port,
+            context=ctx,
             min_version=v_id,
             max_version=v_id,
             intention={
@@ -1308,8 +1297,8 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         }
 
         sock = tcp_connect(
-            ctx.target.host,
-            ctx.target.port,
+            ctx.host,
+            ctx.port,
             intention[core_model.LocalesEnum.EN],
         )
 
@@ -1338,8 +1327,7 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                                 check="heartbleed_possible",
                                 line=SSLSnippetLine.max_version,
                                 ssl_settings=SSLSettings(
-                                    ctx.target.host,
-                                    ctx.target.port,
+                                    context=ctx,
                                     min_version=v_id,
                                     max_version=v_id,
                                     intention=intention,
@@ -1390,8 +1378,8 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         }
 
         sock = tcp_connect(
-            ctx.target.host,
-            ctx.target.port,
+            ctx.host,
+            ctx.port,
             intention[core_model.LocalesEnum.EN],
         )
 
@@ -1411,8 +1399,7 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                         check="freak_possible",
                         line=SSLSnippetLine.max_version,
                         ssl_settings=SSLSettings(
-                            ctx.target.host,
-                            ctx.target.port,
+                            context=ctx,
                             min_version=v_id,
                             max_version=v_id,
                             intention=intention,
@@ -1463,8 +1450,8 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         }
 
         sock = tcp_connect(
-            ctx.target.host,
-            ctx.target.port,
+            ctx.host,
+            ctx.port,
             intention[core_model.LocalesEnum.EN],
         )
 
@@ -1484,8 +1471,7 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                         check="raccoon_possible",
                         line=SSLSnippetLine.max_version,
                         ssl_settings=SSLSettings(
-                            ctx.target.host,
-                            ctx.target.port,
+                            context=ctx,
                             min_version=v_id,
                             max_version=v_id,
                             intention=intention,
@@ -1532,8 +1518,7 @@ def _breach_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                     check="breach_possible",
                     line=SSLSnippetLine.ssl_connection,
                     ssl_settings=SSLSettings(
-                        ctx.target.host,
-                        ctx.target.port,
+                        context=ctx,
                         intention={
                             core_model.LocalesEnum.EN: (
                                 "check if server is vulnerable to BREACH"

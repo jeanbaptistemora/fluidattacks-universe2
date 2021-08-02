@@ -5,7 +5,6 @@ from enum import (
 from model.core_model import (
     FindingEnum,
     LocalesEnum,
-    SkimsSslTarget,
 )
 from ssl import (
     TLSVersion,
@@ -55,16 +54,16 @@ class SSLVersionName(Enum):
 
 
 class SSLContext(NamedTuple):
-    target: SkimsSslTarget
-    tls_versions: Tuple[SSLVersionId, ...]
+    host: str = "localhost"
+    port: int = 443
+    tls_versions: Tuple[SSLVersionId, ...] = ()
 
     def __str__(self) -> str:
-        return f"{self.target.host}:{self.target.port}"
+        return f"{self.host}:{self.port}"
 
 
 class SSLSettings(NamedTuple):
-    host: str = "localhost"
-    port: int = 443
+    context: SSLContext
     scsv: bool = False
     anonymous: bool = False
     min_version: SSLVersionId = SSLVersionId.sslv3_0
@@ -100,13 +99,13 @@ class SSLSettings(NamedTuple):
         "dhe_dsa",
     ]
 
-    def get_target(self) -> str:
-        return f"{self.host}:{self.port}"
-
     def get_key_exchange_names(self) -> List[str]:
         if self.anonymous:
             return self.anon_key_exchange_names
         return self.key_exchange_names
+
+    def __str__(self) -> str:
+        return str(self.context)
 
 
 class SSLSnippetLine(Enum):
@@ -134,6 +133,9 @@ class SSLVulnerability(NamedTuple):
 
     def get_line(self) -> int:
         return self.line.value
+
+    def __str__(self) -> str:
+        return str(self.ssl_settings)
 
 
 class SSLSuite(Enum):

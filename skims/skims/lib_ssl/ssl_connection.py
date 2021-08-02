@@ -46,8 +46,8 @@ def ssl_id2tls_id(ssl_id: SSLVersionId) -> ssl.TLSVersion:
 def ssl_connect(
     ssl_settings: SSLSettings,
 ) -> Generator[Optional[ssl.SSLSocket], None, None]:
-    host: str = ssl_settings.host
-    port: int = ssl_settings.port
+    host: str = ssl_settings.context.host
+    port: int = ssl_settings.context.port
     intention: str = ssl_settings.intention[LocalesEnum.EN]
 
     try:
