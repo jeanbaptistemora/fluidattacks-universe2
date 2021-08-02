@@ -111,11 +111,6 @@ const LinksSection: React.FC = (): JSX.Element => (
       <HeadLink link={"/about-us/"} name={"About Us"} /> <br />
       <BodyLink link={"/about-us/clients/"} name={"Clients"} /> <br />
       <BodyLink
-        link={"/about-us/certifications/"}
-        name={"Certifications"}
-      />{" "}
-      <br />
-      <BodyLink
         link={"/about-us/differentiators/"}
         name={"Differentiators"}
       />{" "}
@@ -128,6 +123,11 @@ const LinksSection: React.FC = (): JSX.Element => (
     </LinksContainer>
     <LinksContainer className={"dib-xl"}>
       <HeadLink link={"/blog/"} name={"Blog"} /> <br />
+      <HeadLink
+        link={"/about-us/certifications/"}
+        name={"Certifications"}
+      />{" "}
+      <br />
       <HeadLink link={"/partners/"} name={"Partners"} /> <br />
       <HeadLink link={"/careers/"} name={"Careers"} /> <br />
       <HeadLink link={"/advisories/"} name={"Advisories"} /> <br />
