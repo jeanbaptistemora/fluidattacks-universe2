@@ -1,10 +1,10 @@
 import contextlib
 from lib_ssl.types import (
-    SSL_SUITES,
     SSLHandshakeRecord,
     SSLRecord,
     SSLServerHello,
     SSLSettings,
+    SSLSuite,
     SSLVersionId,
     TLSVersionId,
 )
@@ -149,10 +149,8 @@ def rand_bytes(length: int) -> List[int]:
     return list(urandom(length))
 
 
-def get_suites_package(cipher_suites: List[str], n_bytes: int) -> List[int]:
-    package: List[int] = [
-        byte for suite in cipher_suites for byte in SSL_SUITES[suite]
-    ]
+def get_suites_package(suites: List[SSLSuite], n_bytes: int) -> List[int]:
+    package: List[int] = [byte for suite in suites for byte in suite.value]
     return num_to_bytes(len(package), n_bytes) + package
 
 
@@ -167,35 +165,35 @@ def get_ec_point_formats_ext() -> List[int]:
 def get_elliptic_curves_ext() -> List[int]:
     extension_id: List[int] = [0, 10]
 
-    cipher_suites: List[str] = [
-        "DH_RSA_EXPORT_WITH_DES40_CBC_SHA",
-        "DH_DSS_WITH_3DES_EDE_CBC_SHA",
-        "DH_anon_EXPORT_WITH_DES40_CBC_SHA",
-        "DH_DSS_EXPORT_WITH_DES40_CBC_SHA",
-        "DH_DSS_WITH_DES_CBC_SHA",
-        "DH_anon_WITH_RC4_128_MD5",
-        "DH_anon_EXPORT_WITH_RC4_40_MD5",
-        "RSA_WITH_DES_CBC_SHA",
-        "RSA_WITH_3DES_EDE_CBC_SHA",
-        "DHE_RSA_WITH_3DES_EDE_CBC_SHA",
-        "RSA_EXPORT_WITH_DES40_CBC_SHA",
-        "RSA_EXPORT_WITH_RC2_CBC_40_MD5",
-        "RSA_WITH_IDEA_CBC_SHA",
-        "DHE_RSA_EXPORT_WITH_DES40_CBC_SHA",
-        "DHE_RSA_WITH_DES_CBC_SHA",
-        "RSA_WITH_RC4_128_MD5",
-        "RSA_WITH_RC4_128_SHA",
-        "DHE_DSS_WITH_DES_CBC_SHA",
-        "DHE_DSS_WITH_3DES_EDE_CBC_SHA",
-        "RSA_WITH_NULL_MD5",
-        "RSA_WITH_NULL_SHA",
-        "RSA_EXPORT_WITH_RC4_40_MD5",
-        "DH_RSA_WITH_DES_CBC_SHA",
-        "DH_RSA_WITH_3DES_EDE_CBC_SHA",
-        "DHE_DSS_EXPORT_WITH_DES40_CBC_SHA",
+    suites: List[SSLSuite] = [
+        SSLSuite.DH_RSA_EXPORT_WITH_DES40_CBC_SHA,
+        SSLSuite.DH_DSS_WITH_3DES_EDE_CBC_SHA,
+        SSLSuite.DH_anon_EXPORT_WITH_DES40_CBC_SHA,
+        SSLSuite.DH_DSS_EXPORT_WITH_DES40_CBC_SHA,
+        SSLSuite.DH_DSS_WITH_DES_CBC_SHA,
+        SSLSuite.DH_anon_WITH_RC4_128_MD5,
+        SSLSuite.DH_anon_EXPORT_WITH_RC4_40_MD5,
+        SSLSuite.RSA_WITH_DES_CBC_SHA,
+        SSLSuite.RSA_WITH_3DES_EDE_CBC_SHA,
+        SSLSuite.DHE_RSA_WITH_3DES_EDE_CBC_SHA,
+        SSLSuite.RSA_EXPORT_WITH_DES40_CBC_SHA,
+        SSLSuite.RSA_EXPORT_WITH_RC2_CBC_40_MD5,
+        SSLSuite.RSA_WITH_IDEA_CBC_SHA,
+        SSLSuite.DHE_RSA_EXPORT_WITH_DES40_CBC_SHA,
+        SSLSuite.DHE_RSA_WITH_DES_CBC_SHA,
+        SSLSuite.RSA_WITH_RC4_128_MD5,
+        SSLSuite.RSA_WITH_RC4_128_SHA,
+        SSLSuite.DHE_DSS_WITH_DES_CBC_SHA,
+        SSLSuite.DHE_DSS_WITH_3DES_EDE_CBC_SHA,
+        SSLSuite.RSA_WITH_NULL_MD5,
+        SSLSuite.RSA_WITH_NULL_SHA,
+        SSLSuite.RSA_EXPORT_WITH_RC4_40_MD5,
+        SSLSuite.DH_RSA_WITH_DES_CBC_SHA,
+        SSLSuite.DH_RSA_WITH_3DES_EDE_CBC_SHA,
+        SSLSuite.DHE_DSS_EXPORT_WITH_DES40_CBC_SHA,
     ]
 
-    package: List[int] = get_suites_package(cipher_suites, n_bytes=2)
+    package: List[int] = get_suites_package(suites, n_bytes=2)
     return extension_id + num_to_bytes(len(package), 2) + package
 
 
@@ -248,7 +246,7 @@ def get_client_hello_header(version_id: int, package: List[int]) -> List[int]:
 
 def get_client_hello_package(
     version_id: int,
-    cipher_suites: List[str],
+    cipher_suites: List[SSLSuite],
     extensions: Optional[List[int]] = None,
 ) -> List[int]:
     session_id: List[int] = [0]
