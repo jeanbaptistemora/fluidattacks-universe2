@@ -669,7 +669,7 @@ async def test_add_git_root_white() -> None:
           gitignore: []
           groupName: "unittesting"
           includesHealthCheck: true
-          url: "https://gitlab.com/fluidattacks/integrates"
+          url: "https://gitlab.com/fluidattacks/test1"
         ) {
           success
         }
