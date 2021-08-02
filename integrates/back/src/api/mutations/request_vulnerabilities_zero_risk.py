@@ -39,7 +39,7 @@ async def mutate(
     vulnerabilities: List[str],
 ) -> SimplePayloadType:
     """Resolve request_vulnerabilities_zero_risk mutation."""
-    success = await vulns_domain.request_zero_risk_vulnerabilities(
+    success = await vulns_domain.request_vulnerabilities_zero_risk(
         info, finding_id, justification, vulnerabilities
     )
     if success:

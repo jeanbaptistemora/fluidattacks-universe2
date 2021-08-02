@@ -57,7 +57,7 @@ async def mutate(
     finding_data = await finding_loader.load(finding_id)
     group_name = get_key_or_fallback(finding_data)
 
-    success = await findings_domain.delete_finding(
+    success = await findings_domain.remove_finding(
         info.context, finding_id, justification
     )
     if success:

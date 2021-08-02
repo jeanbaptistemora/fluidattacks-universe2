@@ -50,7 +50,7 @@ async def mutate(
         user_info = await token_utils.get_jwt_content(info.context)
         requester_email = user_info["user_email"]
         success = False
-        success = await groups_domain.edit(
+        success = await groups_domain.update_group_attrs(
             context=loaders,
             comments="",
             group_name=group_name,

@@ -56,7 +56,7 @@ async def mutate(
         info.context.loaders.group.clear(group_name)
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Removed Files from {group_name} " "group successfully",
+            f"Security: Removed files from {group_name} group successfully",
         )
     else:
         LOGGER.error(

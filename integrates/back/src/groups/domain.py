@@ -646,7 +646,7 @@ async def delete_group(
     return response
 
 
-async def edit(
+async def update_group_attrs(
     *,
     context: Any,
     comments: str,

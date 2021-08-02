@@ -133,7 +133,7 @@ async def confirm_vulnerabilities_zero_risk(
     return success
 
 
-async def delete_tags(
+async def remove_vulnerability_tags(
     finding_id: str, vulnerabilities: List[str], tag: str
 ) -> bool:
     vuln_update_coroutines = []
@@ -162,7 +162,7 @@ async def delete_tags(
     return all(success)
 
 
-async def delete_vulnerability(  # pylint: disable=too-many-arguments
+async def remove_vulnerability(  # pylint: disable=too-many-arguments
     context: Any,
     finding_id: str,
     vuln_id: str,
@@ -517,7 +517,7 @@ async def mask_vuln(finding_id: str, vuln_id: str) -> bool:
     return success
 
 
-async def reject_zero_risk_vulnerabilities(
+async def reject_vulnerabilities_zero_risk(
     finding_id: str,
     user_info: Dict[str, str],
     justification: str,
@@ -561,7 +561,7 @@ async def request_verification(vulnerability: Dict[str, FindingType]) -> bool:
     return await vulns_dal.request_verification(vulnerability)
 
 
-async def request_zero_risk_vulnerabilities(
+async def request_vulnerabilities_zero_risk(
     info: GraphQLResolveInfo,
     finding_id: str,
     justification: str,

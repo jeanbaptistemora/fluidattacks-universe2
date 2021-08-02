@@ -50,7 +50,6 @@ from group_comments.domain import (
 )
 from groups.domain import (
     add_group,
-    edit,
     get_active_groups,
     get_alive_group_names,
     get_closed_vulnerabilities,
@@ -62,6 +61,7 @@ from groups.domain import (
     get_open_finding,
     get_open_vulnerabilities,
     is_alive,
+    update_group_attrs,
     validate_group_services_config,
     validate_group_tags,
 )
@@ -517,7 +517,7 @@ async def test_create_group_not_user_admin() -> None:
         ["not-exists", "WHITE", "continuous", False, False, False, False],
     ],  # pylint: disable=too-many-arguments
 )
-async def test_edit(
+async def test_update_group_attrs(
     group_name: str,
     service: str,
     subscription: str,
@@ -526,7 +526,7 @@ async def test_edit(
     has_asm: bool,
     expected: bool,
 ) -> None:
-    assert expected == await edit(
+    assert expected == await update_group_attrs(
         context=get_new_context(),
         comments="",
         group_name=group_name,

@@ -64,7 +64,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     has_squad: bool = get_key_or_fallback(kwargs, "has_squad", "has_drills")
 
     try:
-        success = await groups_domain.edit(
+        success = await groups_domain.update_group_attrs(
             context=loaders,
             comments=comments,
             group_name=group_name,

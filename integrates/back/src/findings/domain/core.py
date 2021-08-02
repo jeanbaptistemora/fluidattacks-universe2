@@ -204,7 +204,7 @@ def cast_new_vulnerabilities(
     return finding
 
 
-async def delete_finding(
+async def remove_finding(
     context: Any, finding_id: str, justification: str
 ) -> bool:
     finding_data = await get_finding(finding_id)
@@ -236,7 +236,7 @@ async def delete_finding(
     return success
 
 
-async def delete_finding_new(
+async def remove_finding_new(
     context: Any,
     finding_id: str,
     justification: FindingStateJustification,
@@ -271,7 +271,7 @@ async def delete_vulnerabilities(
     source = requests_utils.get_source(context)
     return all(
         await collect(
-            vulns_domain.delete_vulnerability(
+            vulns_domain.remove_vulnerability(
                 context.loaders,
                 finding_id,
                 str(vuln["UUID"]),
@@ -872,7 +872,7 @@ async def mask_verification(
     )
 
 
-async def request_vulnerability_verification(
+async def request_vulnerabilities_verification(
     context: Any,
     finding_id: str,
     user_info: Dict[str, str],
@@ -940,7 +940,7 @@ async def request_vulnerability_verification(
         raise NotVerificationRequested()
 
 
-async def request_vulnerability_verification_new(
+async def request_vulnerabilities_verification_new(
     context: Any,
     finding_id: str,
     user_info: Dict[str, str],

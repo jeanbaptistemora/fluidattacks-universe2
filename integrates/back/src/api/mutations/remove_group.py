@@ -48,7 +48,7 @@ async def mutate(
     success = False
 
     try:
-        success = await groups_domain.edit(
+        success = await groups_domain.update_group_attrs(
             context=loaders,
             comments="",
             group_name=group_name,
