@@ -148,7 +148,6 @@ def main() -> None:
         previous_results,
         hyperparameters_to_tune_list,
     )
-    training_output[-1] += [hyperparameters_to_tune_list]
 
     update_results_csv(results_filename, training_output)
     save_model(
