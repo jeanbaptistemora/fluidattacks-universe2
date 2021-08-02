@@ -8,15 +8,20 @@ import { MenuLink } from "../MenuLink";
 
 const LinksSection: React.FC = (): JSX.Element => (
   <MenuLinksContainer>
-    <div className={"mr3"}>
+    <div className={"mr3 mb3"}>
+      <MenuLink link={"/plans/"} name={"Plans"} />
+      <MenuLink link={"/about-us/certifications/"} name={"Certifications"} />
       <MenuLink link={"/blog/"} name={"Blog"} />
       <MenuLink link={"/partners/"} name={"Partners"} />
-      <MenuLink link={"/advisories/"} name={"Advisories"} />
     </div>
     <div>
       <MenuLink link={"/careers/"} name={"Careers"} />
+      <MenuLink link={"/advisories/"} name={"Advisories"} />
       <MenuLink link={"/faq/"} name={"FAQ"} />
-      <MenuLink link={"/plans/"} name={"Plans"} />
+      <MenuLink
+        link={"https://docs.fluidattacks.com/"}
+        name={"Documentation"}
+      />
     </div>
   </MenuLinksContainer>
 );

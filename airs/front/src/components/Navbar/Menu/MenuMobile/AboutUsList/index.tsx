@@ -38,12 +38,6 @@ const AboutUsList: React.FC = (): JSX.Element => {
             </InnerListItem>
             <InnerListItem>
               <BodyLink
-                link={"/about-us/certifications/"}
-                name={"Certifications"}
-              />
-            </InnerListItem>
-            <InnerListItem>
-              <BodyLink
                 link={"/about-us/differentiators/"}
                 name={"Differentiators"}
               />

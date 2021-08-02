@@ -1431,7 +1431,7 @@ const ContentList: StyledComponent<
 
 const MenuLinksContainer = styled.div.attrs({
   className: `
-    flex
+    flex-m
     mh3
   `,
 })``;
