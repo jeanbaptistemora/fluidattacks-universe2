@@ -32,11 +32,11 @@
   secretsForEnvFromSops = {
     makesDnsDev = {
       vars = [ "CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL" ];
-      target = "/makes/makes/secrets/dev.yaml";
+      manifest = "/makes/makes/secrets/dev.yaml";
     };
     makesDnsProd = {
       vars = [ "CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL" ];
-      target = "/makes/makes/secrets/prod.yaml";
+      manifest = "/makes/makes/secrets/prod.yaml";
     };
   };
   secretsForTerraformFromEnv = {

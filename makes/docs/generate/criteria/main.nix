@@ -1,4 +1,4 @@
-{ asBashMap
+{ toBashMap
 , fromYaml
 , inputs
 , makeScript
@@ -104,13 +104,13 @@ in
 makeScript {
   name = "generate-criteria";
   replace = {
-    __argVulnerabilities__ = asBashMap (
+    __argVulnerabilities__ = toBashMap (
       builtins.mapAttrs makeVulnerability data_vulnerabilities
     );
-    __argRequirements__ = asBashMap (
+    __argRequirements__ = toBashMap (
       builtins.mapAttrs makeRequirement data_requirements
     );
-    __argCompliance__ = asBashMap (
+    __argCompliance__ = toBashMap (
       builtins.mapAttrs makeCompliance data_compliance
     );
   };

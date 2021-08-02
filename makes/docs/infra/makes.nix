@@ -41,11 +41,11 @@
   secretsForEnvFromSops = {
     docsInfraDev = {
       vars = [ "CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_TOKEN" ];
-      target = "/docs/secrets/dev.yaml";
+      manifest = "/docs/secrets/dev.yaml";
     };
     docsInfraProd = {
       vars = [ "CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_TOKEN" ];
-      target = "/docs/secrets/prod.yaml";
+      manifest = "/docs/secrets/prod.yaml";
     };
   };
   secretsForTerraformFromEnv = {
