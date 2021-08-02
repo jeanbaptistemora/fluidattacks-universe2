@@ -21,6 +21,7 @@ from typing import (
     Dict,
     IO as IO_FILE,
     List,
+    Optional,
     Type,
     TypeVar,
     Union,
@@ -74,6 +75,9 @@ class JsonValue:
         if isinstance(self.value, list):
             return self.value
         raise InvalidType(f"{type(self.value)} expected list")
+
+    def to_opt_list(self) -> Optional[List[JsonValue]]:
+        return None if self.value is None else self.to_list()
 
     def to_dict_of(self, prim_type: Type[VarType]) -> Dict[str, VarType]:
         if isinstance(self.value, dict):

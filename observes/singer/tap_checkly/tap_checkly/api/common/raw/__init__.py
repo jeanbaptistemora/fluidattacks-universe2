@@ -22,11 +22,20 @@ from typing import (
 LOG = logging.getLogger(__name__)
 
 
-def _mask_env_vars(result: List[JsonObj]) -> None:
-    for item in result:
-        env_vars = item["environmentVariables"].to_list()
-        for env_var in env_vars:
-            env_var.to_json()["value"] = JsonValue("__masked__")
+def _mask_env_var(env_var: JsonValue) -> JsonValue:
+    new_env = env_var.to_json()
+    new_env["value"] = JsonValue("__masked__")
+    return JsonValue(new_env)
+
+
+def _mask_env_vars(items: List[JsonObj]) -> List[JsonObj]:
+    _items = items.copy()
+    for item in _items:
+        env_vars = item["environmentVariables"].to_opt_list()
+        if env_vars:
+            new_envs = [_mask_env_var(env_var) for env_var in env_vars]
+            item["environmentVariables"] = JsonValue(new_envs)
+    return _items
 
 
 def list_reports(
@@ -50,18 +59,16 @@ def list_checks(client: Client, page: PageId) -> IO[List[JsonObj]]:
     result = client.get(
         "/v1/checks", params={"limit": page.per_page, "page": page.page}
     )
-    _mask_env_vars(result)
     LOG.debug("checks response: %s", result)
-    return IO(result)
+    return IO(_mask_env_vars(result))
 
 
 def list_check_groups(client: Client, page: PageId) -> IO[List[JsonObj]]:
     result = client.get(
         "/v1/check-groups", params={"limit": page.per_page, "page": page.page}
     )
-    _mask_env_vars(result)
     LOG.debug("check-groups response: %s", result)
-    return IO(result)
+    return IO(_mask_env_vars(result))
 
 
 def list_check_results(
