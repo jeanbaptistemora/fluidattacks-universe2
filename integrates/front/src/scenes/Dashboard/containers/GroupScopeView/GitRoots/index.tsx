@@ -18,7 +18,7 @@ import {
   hasCheckedItem,
   useGitSubmit,
 } from "./helpers";
-import { ManagementModal } from "./Modal";
+import { ManagementModal } from "./ManagementModal";
 import { Container } from "./styles";
 
 import { DeactivationModal } from "../deactivationModal";

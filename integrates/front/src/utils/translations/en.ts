@@ -624,6 +624,7 @@ export const enTranslations: ResourceKey = {
         port: "Port",
         protocol: "Protocol",
         title: "URL Roots",
+        url: "URL",
       },
     },
     tabs: {

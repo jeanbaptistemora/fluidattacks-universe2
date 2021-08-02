@@ -7,7 +7,7 @@ import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
 
-import { ManagementModal } from "./Modal";
+import { ManagementModal } from "./ManagementModal";
 
 import { GitRoots } from ".";
 import type { IGitRootAttr } from "../types";
