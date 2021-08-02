@@ -53,14 +53,14 @@ async def mutate(
     event_id: str,
     parent: str,
 ) -> AddConsultPayload:
-    random_comment_id = int(round(time() * 1000))
+    comment_id = str(round(time() * 1000))
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email = str(user_info["user_email"])
     comment_data = {
         "comment_type": "event",
         "parent": parent,
         "content": content,
-        "user_id": random_comment_id,
+        "comment_id": comment_id,
     }
     comment_id, success = await events_domain.add_comment(
         info, user_email, comment_data, event_id, parent

@@ -211,10 +211,10 @@ async def test_add_comment() -> None:
     )
     finding_id = "463461507"
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    comment_id = int(round(time.time() * 1000))
+    comment_id = str(round(time.time() * 1000))
     comment_data = {
         "comment_type": "comment",
-        "user_id": comment_id,
+        "comment_id": comment_id,
         "content": "Test comment",
         "created": current_time,
         "fullname": "unittesting",

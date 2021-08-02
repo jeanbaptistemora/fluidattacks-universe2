@@ -51,8 +51,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         ],
         "comments": [
             {
-                "finding_id": 418900971,
-                "user_id": 43455343453,
+                "finding_id": "418900971",
+                "comment_id": "43455343453",
                 "comment_type": "event",
                 "content": "This is a test comment",
                 "created": "2019-05-28 15:09:37",

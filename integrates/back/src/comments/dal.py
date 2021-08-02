@@ -35,20 +35,19 @@ TABLE_NAME: str = "FI_comments"
 TABLE_NAME_NEW: str = "fi_finding_comments"
 
 
-async def create(comment_id: int, comment_attributes: CommentType) -> bool:
+async def create(
+    comment_id: str, comment_attributes: CommentType, finding_id: str
+) -> bool:
     success = False
     try:
-        comment_attributes.update({"user_id": comment_id})
-        success = await dynamodb_ops.put_item(TABLE_NAME, comment_attributes)
-        comment_attributes.update(
+        success = await dynamodb_ops.put_item(
+            TABLE_NAME_NEW,
             {
-                "finding_id": str(comment_attributes.pop("finding_id")),
-                "comment_id": str(comment_attributes.pop("user_id")),
-                "parent": str(comment_attributes.pop("parent")),
-            }
-        )
-        success = success and await dynamodb_ops.put_item(
-            TABLE_NAME_NEW, comment_attributes
+                **comment_attributes,
+                "comment_id": comment_id,
+                "finding_id": finding_id,
+                "parent": str(comment_attributes["parent"]),
+            },
         )
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})

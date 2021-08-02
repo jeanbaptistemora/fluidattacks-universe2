@@ -65,7 +65,7 @@ async def add_comment(
     comment_data: CommentType,
     event_id: str,
     parent: str,
-) -> Tuple[Union[int, None], bool]:
+) -> Tuple[Union[str, None], bool]:
     parent = str(parent)
     content = str(comment_data["content"])
     event_loader = info.context.loaders.event
@@ -85,8 +85,7 @@ async def add_comment(
     user_data = await users_domain.get(user_email)
     user_data["user_email"] = user_data.pop("email")
     success = await comments_domain.create(event_id, comment_data, user_data)
-    del comment_data["user_id"]
-    return cast(Tuple[Optional[int], bool], success)
+    return cast(Tuple[Optional[str], bool], success)
 
 
 async def create_event(  # pylint: disable=too-many-locals

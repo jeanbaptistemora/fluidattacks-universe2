@@ -893,7 +893,7 @@ async def request_vulnerability_verification(
     if not vulnerabilities:
         raise VulnNotFound()
 
-    comment_id = int(round(time() * 1000))
+    comment_id = str(round(time() * 1000))
     today = datetime_utils.get_now_as_str()
     user_email: str = user_info["user_email"]
     historic_verification = cast(
@@ -902,7 +902,7 @@ async def request_vulnerability_verification(
     )
     historic_verification.append(
         {
-            "comment": comment_id,
+            "comment": int(comment_id),
             "date": today,
             "status": "REQUESTED",
             "user": user_email,
@@ -915,10 +915,10 @@ async def request_vulnerability_verification(
     comment_data = {
         "comment_type": "verification",
         "content": justification,
-        "parent": 0,
-        "user_id": comment_id,
+        "parent": "0",
+        "comment_id": comment_id,
     }
-    await comments_domain.create(int(finding_id), comment_data, user_info)
+    await comments_domain.create(finding_id, comment_data, user_info)
 
     update_vulns = await collect(
         map(vulns_domain.request_verification, vulnerabilities)
@@ -962,10 +962,10 @@ async def request_vulnerability_verification_new(
     if not vulnerabilities:
         raise VulnNotFound()
 
-    comment_id = int(round(time() * 1000))
+    comment_id = str(round(time() * 1000))
     user_email: str = user_info["user_email"]
     verification = FindingVerification(
-        comment_id=str(comment_id),
+        comment_id=comment_id,
         modified_by=user_email,
         modified_date=datetime_utils.get_iso_date(),
         status=FindingVerificationStatus.REQUESTED,
@@ -979,10 +979,10 @@ async def request_vulnerability_verification_new(
     comment_data = {
         "comment_type": "verification",
         "content": justification,
-        "parent": 0,
-        "user_id": comment_id,
+        "parent": "0",
+        "comment_id": comment_id,
     }
-    await comments_domain.create(int(finding_id), comment_data, user_info)
+    await comments_domain.create(finding_id, comment_data, user_info)
     update_vulns = await collect(
         map(vulns_domain.request_verification, vulnerabilities)
     )
@@ -1184,7 +1184,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     if not vulnerabilities:
         raise VulnNotFound()
 
-    comment_id = int(round(time() * 1000))
+    comment_id = str(round(time() * 1000))
     today = datetime_utils.get_now_as_str()
     user_email: str = user_info["user_email"]
 
@@ -1193,7 +1193,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         finding_new_loader = info.context.loaders.finding_new
         finding_new: Finding = await finding_new_loader.load(finding_id)
         verification = FindingVerification(
-            comment_id=str(comment_id),
+            comment_id=comment_id,
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
             status=FindingVerificationStatus.VERIFIED,
@@ -1214,7 +1214,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         )
         historic_verification.append(
             {
-                "comment": comment_id,
+                "comment": int(comment_id),
                 "date": today,
                 "status": "VERIFIED",
                 "user": user_email,
@@ -1227,10 +1227,10 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     comment_data = {
         "comment_type": "verification",
         "content": parameters.get("justification", ""),
-        "parent": 0,
-        "user_id": comment_id,
+        "parent": "0",
+        "comment_id": comment_id,
     }
-    await comments_domain.create(int(finding_id), comment_data, user_info)
+    await comments_domain.create(finding_id, comment_data, user_info)
 
     # Modify the verification state to mark all passed vulns as verified
     success = await collect(

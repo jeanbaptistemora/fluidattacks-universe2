@@ -107,22 +107,22 @@ async def confirm_zero_risk_vulnerabilities(
     if not vulnerabilities:
         raise VulnNotFound()
 
-    comment_id = int(round(time() * 1000))
+    comment_id = str(round(time() * 1000))
     today = datetime_utils.get_now_as_str()
     user_email: str = user_info["user_email"]
     comment_data = {
         "comment_type": "zero_risk",
         "content": justification,
-        "parent": 0,
-        "user_id": comment_id,
+        "parent": "0",
+        "comment_id": comment_id,
     }
     create_comment = await comments_domain.create(
-        int(finding_id), comment_data, user_info
+        finding_id, comment_data, user_info
     )
     confirm_zero_risk_vulns = await collect(
         [
             vulns_dal.confirm_zero_risk_vulnerability(
-                user_email, today, str(comment_id), vuln
+                user_email, today, comment_id, vuln
             )
             for vuln in vulnerabilities
         ]
@@ -531,17 +531,17 @@ async def reject_zero_risk_vulnerabilities(
     if not vulnerabilities:
         raise VulnNotFound()
 
-    comment_id = int(round(time() * 1000))
+    comment_id = str(round(time() * 1000))
     today = datetime_utils.get_now_as_str()
     user_email: str = user_info["user_email"]
     comment_data = {
         "comment_type": "zero_risk",
         "content": justification,
-        "parent": 0,
-        "user_id": comment_id,
+        "parent": "0",
+        "comment_id": comment_id,
     }
     create_comment = await comments_domain.create(
-        int(finding_id), comment_data, user_info
+        finding_id, comment_data, user_info
     )
     reject_zero_risk_vulns = await collect(
         [
@@ -575,18 +575,18 @@ async def request_zero_risk_vulnerabilities(
     if not vulnerabilities:
         raise VulnNotFound()
 
-    comment_id = int(round(time() * 1000))
+    comment_id = str(round(time() * 1000))
     today = datetime_utils.get_now_as_str()
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
     comment_data = {
         "comment_type": "zero_risk",
         "content": justification,
-        "parent": 0,
-        "user_id": comment_id,
+        "parent": "0",
+        "comment_id": comment_id,
     }
     create_comment = await comments_domain.create(
-        int(finding_id), comment_data, user_info
+        finding_id, comment_data, user_info
     )
     request_zero_risk_vulns = await collect(
         [

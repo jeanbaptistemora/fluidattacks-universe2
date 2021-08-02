@@ -354,8 +354,9 @@ async def populate_comments(data: List[Any]) -> bool:
     coroutines.extend(
         [
             dal_comment.create(
-                comment["user_id"],
+                comment["comment_id"],
                 comment,
+                comment["finding_id"],
             )
             for comment in data
         ]

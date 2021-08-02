@@ -51,7 +51,7 @@ from typing import (
 
 async def _add_finding_consult(  # pylint: disable=too-many-locals
     info: GraphQLResolveInfo, **parameters: Any
-) -> Tuple[bool, int]:
+) -> Tuple[bool, str]:
     param_type = parameters.get("type", "").lower()
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
@@ -62,16 +62,16 @@ async def _add_finding_consult(  # pylint: disable=too-many-locals
     content = parameters["content"]
 
     user_email = user_data["user_email"]
-    comment_id = int(round(time() * 1000))
+    comment_id = str(round(time() * 1000))
     current_time = datetime_utils.get_as_str(datetime_utils.get_now())
     comment_data = {
-        "user_id": comment_id,
+        "comment_id": comment_id,
         "comment_type": param_type if param_type != "consult" else "comment",
         "content": content,
         "fullname": " ".join(
             [user_data["first_name"], user_data["last_name"]]
         ),
-        "parent": parameters.get("parent"),
+        "parent": parameters.get("parent", "0"),
         "created": current_time,
         "modified": current_time,
     }
@@ -114,13 +114,13 @@ async def _add_finding_consult(  # pylint: disable=too-many-locals
 @require_squad
 async def add_finding_consult(
     info: GraphQLResolveInfo, **parameters: Any
-) -> Tuple[bool, int]:
+) -> Tuple[bool, str]:
     return await _add_finding_consult(info, **parameters)
 
 
 async def add_finding_observation(
     info: GraphQLResolveInfo, **parameters: Any
-) -> Tuple[bool, int]:
+) -> Tuple[bool, str]:
     return await _add_finding_consult(info, **parameters)
 
 
@@ -139,4 +139,4 @@ async def mutate(
     else:
         success, comment_id = await add_finding_consult(info, **parameters)
 
-    return AddConsultPayloadType(success=success, comment_id=str(comment_id))
+    return AddConsultPayloadType(success=success, comment_id=comment_id)

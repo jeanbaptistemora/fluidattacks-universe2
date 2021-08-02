@@ -254,8 +254,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         ],
         "comments": [
             {
-                "finding_id": 475041513,
-                "user_id": 43455343453,
+                "finding_id": "475041513",
+                "comment_id": "43455343453",
                 "comment_type": "observation",
                 "content": "This is a test observations",
                 "created": "2019-05-28 15:09:37",
@@ -265,8 +265,8 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "parent": 0,
             },
             {
-                "finding_id": 475041513,
-                "user_id": 42343434,
+                "finding_id": "475041513",
+                "comment_id": "42343434",
                 "comment_type": "comment",
                 "content": "This is a test observations",
                 "created": "2019-05-28 15:09:37",

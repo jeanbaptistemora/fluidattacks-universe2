@@ -126,7 +126,7 @@ async def test_solve_event() -> None:
 async def test_add_comment() -> None:
     event_id = "538745942"
     user_email = "integratesmanager@gmail.com"
-    comment_id = int(round(time() * 1000))
+    comment_id = str(round(time() * 1000))
     parent = "0"
     request = await create_dummy_session("unittest@fluidattacks.com")
     info = GraphQLResolveInfo(
@@ -136,7 +136,7 @@ async def test_add_comment() -> None:
         "comment_type": "event",
         "parent": parent,
         "content": "comment test",
-        "user_id": comment_id,
+        "comment_id": comment_id,
     }
     comment_id, success = await events_domain.add_comment(
         info, user_email, comment_data, event_id, parent
@@ -145,8 +145,8 @@ async def test_add_comment() -> None:
     assert comment_id
 
     comment_data["content"] = "comment test 2"
-    comment_data["parent"] = str(comment_id)
-    comment_data["user_id"] = int(round(time() * 1000))
+    comment_data["parent"] = comment_id
+    comment_data["comment_id"] = str(round(time() * 1000))
     comment_id, success = await events_domain.add_comment(
         info, user_email, comment_data, event_id, parent=str(comment_id)
     )
@@ -154,14 +154,14 @@ async def test_add_comment() -> None:
     assert comment_id
 
     with pytest.raises(InvalidCommentParent):
-        comment_data["parent"] = str(comment_id + 1)
-        comment_data["user_id"] = int(round(time() * 1000))
+        comment_data["parent"] = str(int(comment_id) + 1)
+        comment_data["comment_id"] = str(round(time() * 1000))
         assert await events_domain.add_comment(
             info,
             user_email,
             comment_data,
             event_id,
-            parent=str(comment_id + 1),
+            parent=str(int(comment_id) + 1),
         )
 
 
@@ -208,7 +208,7 @@ async def test_validate_evidence_invalid_file_size() -> None:
 async def test_mask_event() -> None:
     event_id = "418900971"
     parent = "0"
-    comment_id = int(round(time() * 1000))
+    comment_id = str(round(time() * 1000))
     request = await create_dummy_session("unittest@fluidattacks.com")
     info = GraphQLResolveInfo(
         None, None, None, None, None, None, None, None, None, None, request
@@ -217,7 +217,7 @@ async def test_mask_event() -> None:
         "comment_type": "event",
         "parent": "0",
         "content": "comment test",
-        "user_id": comment_id,
+        "comment_id": comment_id,
     }
     comment_id, success = await events_domain.add_comment(
         info, "integratesmanager@gmail.com", comment_data, event_id, parent
