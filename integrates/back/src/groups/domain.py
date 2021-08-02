@@ -1021,7 +1021,7 @@ async def mask_resources(group_name: str) -> NamedTuple:
     group = await get_attributes(
         group_name, ["environments", "files", "repositories"]
     )
-    status: NamedTuple = namedtuple(
+    status: NamedTuple = namedtuple(  # NOSONAR
         "status",
         (
             "are_files_removed files_result "
