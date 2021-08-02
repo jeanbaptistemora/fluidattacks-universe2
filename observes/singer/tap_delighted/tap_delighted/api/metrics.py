@@ -13,8 +13,8 @@ from returns.curry import (
 from returns.io import (
     IO,
 )
-from singer_io import (
-    JSON,
+from singer_io.singer2.json import (
+    JsonObj,
 )
 from tap_delighted.api.common import (
     handle_rate_limit,
@@ -27,7 +27,7 @@ from typing import (
 
 
 class Metrics(NamedTuple):
-    data: JSON
+    data: JsonObj
 
     @classmethod
     def new(cls, client: Client) -> IO[Metrics]:

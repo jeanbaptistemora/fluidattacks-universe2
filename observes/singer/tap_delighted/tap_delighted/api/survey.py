@@ -18,8 +18,8 @@ from returns.curry import (
 from returns.io import (
     IO,
 )
-from singer_io import (
-    JSON,
+from singer_io.singer2.json import (
+    JsonObj,
 )
 from tap_delighted.api.common import (
     extractor,
@@ -34,7 +34,7 @@ from typing import (
 
 
 class SurveyPage(NamedTuple):
-    data: Iterator[JSON]
+    data: Iterator[JsonObj]
 
     @classmethod
     def new(cls, client: Client, page: PageId) -> IO[SurveyPage]:

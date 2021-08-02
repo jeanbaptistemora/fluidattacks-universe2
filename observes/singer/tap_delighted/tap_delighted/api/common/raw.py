@@ -16,8 +16,12 @@ from returns.io import (
     IOResult,
     IOSuccess,
 )
-from singer_io import (
-    JSON,
+from returns.pipeline import (
+    pipe,
+)
+from singer_io.singer2.json import (
+    JsonFactory,
+    JsonObj,
 )
 from typing import (
     Any,
@@ -33,50 +37,64 @@ class RateLimitError(TooManyRequestsError):
 
 DataType = TypeVar("DataType")
 RawApiResult = IOResult[DataType, RateLimitError]
-RawItem = RawApiResult[JSON]
-RawItems = RawApiResult[Iterator[JSON]]
+RawItem = RawApiResult[JsonObj]
+RawItems = RawApiResult[Iterator[JsonObj]]
 
 
-def _wrap_manyreqs_error(request: Callable[[], Any]) -> RawApiResult[Any]:
+def _wrap_manyreqs_error(
+    request: Callable[[], DataType]
+) -> RawApiResult[DataType]:
     try:
         return IOSuccess(request())
     except TooManyRequestsError as error:
         return IOFailure(RateLimitError(error.response))
 
 
-def _call_paged_resource(
-    request: Callable[..., Any],
-    client: Client,
-    page: PageId,
-) -> RawItems:
-    return _wrap_manyreqs_error(
-        lambda: request(client=client, page=page.page, per_page=page.per_page)
-    )
+def _single_request(request: Callable[[], Any]) -> Callable[[], JsonObj]:
+    return lambda: JsonFactory.from_any(request())
 
 
-def _call_single_resource(
-    request: Callable[..., Any],
-    client: Client,
-) -> RawItem:
-    return _wrap_manyreqs_error(lambda: request(client=client))
+def _paged_request(
+    request: Callable[[], Any]
+) -> Callable[[], Iterator[JsonObj]]:
+    return lambda: iter(JsonFactory.from_any(item) for item in request())
+
+
+_call_single_resource = pipe(_single_request, _wrap_manyreqs_error)
+_call_paged_resource = pipe(_paged_request, _wrap_manyreqs_error)
 
 
 def get_metrics(client: Client) -> RawItem:
-    return _call_single_resource(delighted.Metrics.retrieve, client)
+    return _call_single_resource(
+        lambda: delighted.Metrics.retrieve(client=client)
+    )
 
 
 def list_bounced(client: Client, page: PageId) -> RawItems:
-    return _call_paged_resource(delighted.Bounce.all, client, page)
+    return _call_paged_resource(
+        lambda: delighted.Bounce.all(
+            client=client, page=page.page, per_page=page.per_page
+        )
+    )
 
 
-def list_people(client: Client) -> IO[Iterator[JSON]]:
+def list_people(client: Client) -> IO[Iterator[JsonObj]]:
     people = delighted.Person.list(client=client, auto_handle_rate_limits=True)
-    return IO(iter(people.auto_paging_iter()))
+    request = _paged_request(lambda: people.auto_paging_iter())
+    return IO(request())
 
 
 def list_surveys(client: Client, page: PageId) -> RawItems:
-    return _call_paged_resource(delighted.SurveyResponse.all, client, page)
+    return _call_paged_resource(
+        lambda: delighted.SurveyResponse.all(
+            client=client, page=page.page, per_page=page.per_page
+        )
+    )
 
 
 def list_unsubscribed(client: Client, page: PageId) -> RawItems:
-    return _call_paged_resource(delighted.Unsubscribe.all, client, page)
+    return _call_paged_resource(
+        lambda: delighted.Unsubscribe.all(
+            client=client, page=page.page, per_page=page.per_page
+        )
+    )

@@ -1,15 +1,12 @@
-from returns.curry import (
-    partial,
-)
 from returns.io import (
     IO,
 )
-from singer_io import (
-    factory,
-    JSON,
-)
-from singer_io.singer import (
+from singer_io.singer2 import (
+    SingerEmitter,
     SingerRecord,
+)
+from singer_io.singer2.json import (
+    JsonObj,
 )
 from tap_delighted.api import (
     ApiPage,
@@ -21,28 +18,22 @@ from typing import (
     Iterator,
 )
 
-
-def _json_list_srecords(
-    stream: SupportedStreams, items: Iterator[JSON]
-) -> Iterator[SingerRecord]:
-    return iter(
-        SingerRecord(stream=stream.value.lower(), record=item)
-        for item in items
-    )
+emitter = SingerEmitter()
 
 
 def emit_records(
     stream: SupportedStreams,
-    records: Iterator[JSON],
-) -> None:
-    s_records = _json_list_srecords(stream, records)
+    records: Iterator[JsonObj],
+) -> IO[None]:
+    s_records = (
+        SingerRecord(stream=stream.value.lower(), record=item)
+        for item in records
+    )
     for record in s_records:
-        factory.emit(record)
+        emitter.emit(record)
+    return IO(None)
 
 
-def emit_page(stream: SupportedStreams, page: ApiPage) -> None:
-    emit_records(stream, page.data)
-
-
-def emit_iopage(stream: SupportedStreams, page: IO[ApiPage]) -> None:
-    page.map(partial(emit_page, stream))
+def emit_iopage(stream: SupportedStreams, page: IO[ApiPage]) -> IO[None]:
+    page.map(lambda p: emit_records(stream, p.data))
+    return IO(None)

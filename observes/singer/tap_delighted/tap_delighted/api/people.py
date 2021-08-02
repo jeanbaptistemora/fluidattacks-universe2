@@ -18,8 +18,8 @@ from returns.curry import (
 from returns.io import (
     IO,
 )
-from singer_io import (
-    JSON,
+from singer_io.singer2.json import (
+    JsonObj,
 )
 from tap_delighted.api.common import (
     extractor,
@@ -36,7 +36,7 @@ from typing import (
 
 
 class BouncedPage(NamedTuple):
-    data: Iterator[JSON]
+    data: Iterator[JsonObj]
 
     @classmethod
     def new(cls, client: Client, page: PageId) -> IO[BouncedPage]:
@@ -45,7 +45,7 @@ class BouncedPage(NamedTuple):
 
 
 class UnsubscribedPage(NamedTuple):
-    data: Iterator[JSON]
+    data: Iterator[JsonObj]
 
     @classmethod
     def new(cls, client: Client, page: PageId) -> IO[UnsubscribedPage]:
@@ -79,7 +79,7 @@ def _generic_listing(
 
 class PeopleApi(NamedTuple):
     list_bounced: Callable[[PageOrAll], Iterator[IO[BouncedPage]]]
-    list_people: Callable[[], IO[Iterator[JSON]]]
+    list_people: Callable[[], IO[Iterator[JsonObj]]]
     list_unsubscribed: Callable[[PageOrAll], Iterator[IO[UnsubscribedPage]]]
 
     @classmethod
