@@ -843,6 +843,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "try_statement",
             "try_with_resources_statement",
             "throw_statement",
+            "update_expression",
             "argument_list",
             ";",
             "-",
