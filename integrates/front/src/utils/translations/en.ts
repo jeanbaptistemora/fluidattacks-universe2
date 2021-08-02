@@ -619,6 +619,9 @@ export const enTranslations: ResourceKey = {
         title: "IP Roots",
       },
       url: {
+        errors: {
+          invalid: "Invalid URL",
+        },
         host: "Host",
         path: "Path",
         port: "Port",

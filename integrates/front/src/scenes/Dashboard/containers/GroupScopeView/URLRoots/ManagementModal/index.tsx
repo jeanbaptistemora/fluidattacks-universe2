@@ -3,7 +3,6 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
-import type { IURLRootAttr } from "../../types";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import {
@@ -16,9 +15,8 @@ import {
 import { FormikText } from "utils/forms/fields";
 
 interface IManagementModalProps {
-  initialValues: IURLRootAttr;
   onClose: () => void;
-  onSubmit: (values: IURLRootAttr) => Promise<void>;
+  onSubmit: (values: { url: string }) => Promise<void>;
 }
 
 const validations = object().shape({
@@ -26,7 +24,6 @@ const validations = object().shape({
 });
 
 const ManagementModal: React.FC<IManagementModalProps> = ({
-  initialValues,
   onClose,
   onSubmit,
 }: IManagementModalProps): JSX.Element => {
@@ -35,7 +32,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
   return (
     <Modal headerTitle={t(`group.scope.common.add`)} open={true}>
       <Formik
-        initialValues={initialValues}
+        initialValues={{ url: "" }}
         name={"urlRoot"}
         onSubmit={onSubmit}
         validationSchema={validations}

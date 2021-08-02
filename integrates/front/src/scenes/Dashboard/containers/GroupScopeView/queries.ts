@@ -102,6 +102,14 @@ const UPDATE_GIT_ROOT: DocumentNode = gql`
   }
 `;
 
+const ADD_URL_ROOT = gql`
+  mutation AddUrlRoot($url: String!, $groupName: String!) {
+    addUrlRoot(url: $url, groupName: $groupName) {
+      success
+    }
+  }
+`;
+
 const ACTIVATE_ROOT: DocumentNode = gql`
   mutation ActivateRoot($groupName: String!, $id: ID!) {
     activateRoot(groupName: $groupName, id: $id) {
@@ -131,6 +139,7 @@ const DEACTIVATE_ROOT: DocumentNode = gql`
 export {
   ACTIVATE_ROOT,
   ADD_GIT_ROOT,
+  ADD_URL_ROOT,
   DEACTIVATE_ROOT,
   GET_ROOTS,
   UPDATE_GIT_ENVIRONMENTS,

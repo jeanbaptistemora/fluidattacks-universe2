@@ -276,7 +276,7 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
     host: str = url_attributes.host
     path: str = url_attributes.path or "/"
     default_port = "443" if url_attributes.scheme == "https" else "80"
-    port = str(url_attributes.port) or default_port
+    port = url_attributes.port if url_attributes.port else default_port
     protocol: str = url_attributes.scheme.upper()
     group = await group_loader.load(group_name)
 
