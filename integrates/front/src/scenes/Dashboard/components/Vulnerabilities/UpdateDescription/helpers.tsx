@@ -238,7 +238,9 @@ const handleSubmitHelper = async (
   changedToUndefined: boolean,
   isEditPristine: boolean,
   isTreatmentPristine: boolean
-): Promise<void> => {
+  // Exception: FP(parameters are necessary)
+  // eslint-disable-next-line
+): Promise<void> => { // NOSONAR
   if (changedToRequestZeroRisk) {
     await requestZeroRisk({
       variables: {
