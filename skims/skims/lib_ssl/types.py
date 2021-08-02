@@ -14,6 +14,7 @@ from typing import (
     Dict,
     List,
     NamedTuple,
+    Optional,
     Tuple,
 )
 
@@ -59,12 +60,6 @@ class SSLContext(NamedTuple):
 
     def __str__(self) -> str:
         return f"{self.target.host}:{self.target.port}"
-
-
-class SSLServerHello(NamedTuple):
-    rand: bytes
-    session_id: bytes
-    cipher_suite: bytes
 
 
 class SSLSettings(NamedTuple):
@@ -499,3 +494,69 @@ class SSLSuite(Enum):
     ECDHE_PSK_WITH_AES_256_GCM_SHA384: Tuple[int, int] = (0xD0, 0x02)
     ECDHE_PSK_WITH_AES_128_CCM_8_SHA256: Tuple[int, int] = (0xD0, 0x03)
     ECDHE_PSK_WITH_AES_128_CCM_SHA256: Tuple[int, int] = (0xD0, 0x05)
+
+
+class SSLAlertLevel(Enum):
+    WARNING: int = 1
+    FATAL: int = 2
+    unknown: int = 255
+
+
+class SSLAlertDescription(Enum):
+    close_notify: int = 0
+    unexpected_message: int = 10
+    bad_record_mac: int = 20
+    decryption_failed_reserved: int = 21
+    record_overflow: int = 22
+    decompression_failure_reserved: int = 30
+    handshake_failure: int = 40
+    no_certificate_reserved: int = 41
+    bad_certificate: int = 42
+    unsupported_certificate: int = 43
+    certificate_revoked: int = 44
+    certificate_expired: int = 45
+    certificate_unknown: int = 46
+    illegal_parameter: int = 47
+    unknown_ca: int = 48
+    access_denied: int = 49
+    decode_error: int = 50
+    decrypt_error: int = 51
+    export_restriction_reserved: int = 60
+    protocol_version: int = 70
+    insufficient_security: int = 71
+    internal_error: int = 80
+    inappropriate_fallback: int = 86
+    user_canceled: int = 90
+    no_renegotiation_reserved: int = 100
+    missing_extension: int = 109
+    unsupported_extension: int = 110
+    certificate_unobtainable_reserved: int = 111
+    unrecognized_name: int = 112
+    bad_certificate_status_response: int = 113
+    bad_certificate_hash_value_reserved: int = 114
+    unknown_psk_identity: int = 115
+    certificate_required: int = 116
+    no_application_protocol: int = 120
+    unknown: int = 255
+
+
+class SSLAlert(NamedTuple):
+    level: SSLAlertLevel
+    description: SSLAlertDescription
+
+
+class SSLServerHandshake(NamedTuple):
+    record: SSLHandshakeRecord
+    version_id: SSLVersionId
+    length: int
+    rand: bytes
+    session_id: bytes
+    cipher_suite: SSLSuite
+
+
+class SSLServerResponse(NamedTuple):
+    record: SSLRecord
+    version_id: SSLVersionId
+    length: int
+    alert: Optional[SSLAlert] = None
+    handshake: Optional[SSLServerHandshake] = None

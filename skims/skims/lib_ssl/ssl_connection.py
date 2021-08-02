@@ -2,7 +2,7 @@ import contextlib
 from lib_ssl.types import (
     SSLHandshakeRecord,
     SSLRecord,
-    SSLServerHello,
+    SSLServerHandshake,
     SSLSettings,
     SSLSuite,
     SSLVersionId,
@@ -288,11 +288,13 @@ def read_session_id(sock: socket.socket) -> bytes:
     return tcp_read(sock, session_id_length)
 
 
-def read_cipher_suite(sock: socket.socket) -> bytes:
-    return tcp_read(sock, 2)
+def read_cipher_suite(sock: socket.socket) -> SSLSuite:
+    b_cipher_suite = tcp_read(sock, 2)
+    first_byte, second_byte = unpack(">BB", b_cipher_suite)
+    return SSLSuite((first_byte, second_byte))
 
 
-def parse_server_hello(sock: socket.socket) -> Optional[SSLServerHello]:
+def parse_server_hello(sock: socket.socket) -> Optional[SSLServerHandshake]:
     header = read_ssl_record(sock)
 
     if header is None:
@@ -305,9 +307,14 @@ def parse_server_hello(sock: socket.socket) -> Optional[SSLServerHello]:
         if handshake_header is None:
             return None
 
-        handshake_type, _, _ = handshake_header
-        if handshake_type == SSLHandshakeRecord.SERVER_HELLO.value:
-            return SSLServerHello(
+        handshake_type, version_id, length = handshake_header
+        record = SSLHandshakeRecord(handshake_type)
+
+        if record == SSLHandshakeRecord.SERVER_HELLO:
+            return SSLServerHandshake(
+                record=record,
+                version_id=SSLVersionId(version_id),
+                length=length,
                 rand=read_random_val(sock),
                 session_id=read_session_id(sock),
                 cipher_suite=read_cipher_suite(sock),
