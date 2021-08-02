@@ -17,22 +17,6 @@ const ADD_ORGANIZATION_FINDING_POLICY: DocumentNode = gql`
   }
 `;
 
-const GET_ORGANIZATION_FINDINGS_TITLES: DocumentNode = gql`
-  query GetOrganizationFindingTitles($organizationId: String!) {
-    organization(organizationId: $organizationId) {
-      id
-      name
-      groups {
-        name
-        findings {
-          id
-          title
-        }
-      }
-    }
-  }
-`;
-
 const DEACTIVATE_ORGANIZATION_FINDING_POLICY: DocumentNode = gql`
   mutation DeactivateOrganizationFindingPolicy(
     $findingPolicyId: ID!
@@ -79,7 +63,6 @@ const RESUBMIT_ORGANIZATION_FINDING_POLICY: DocumentNode = gql`
 
 export {
   ADD_ORGANIZATION_FINDING_POLICY,
-  GET_ORGANIZATION_FINDINGS_TITLES,
   DEACTIVATE_ORGANIZATION_FINDING_POLICY,
   HANDLE_ORGANIZATION_FINDING_POLICY,
   RESUBMIT_ORGANIZATION_FINDING_POLICY,

@@ -14,22 +14,4 @@ interface IFindingPoliciesForm {
   tags: string;
 }
 
-interface IOrganizationFindingTitles {
-  organization: {
-    id: string;
-    groups: {
-      name: string;
-      findings: {
-        id: string;
-        title: string;
-      }[];
-    }[];
-  };
-}
-
-export {
-  IFindingPolicies,
-  IFindingPoliciesData,
-  IFindingPoliciesForm,
-  IOrganizationFindingTitles,
-};
+export { IFindingPolicies, IFindingPoliciesData, IFindingPoliciesForm };
