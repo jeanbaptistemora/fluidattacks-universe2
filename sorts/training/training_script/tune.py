@@ -134,7 +134,7 @@ def main() -> None:
     model_class: ModelType = MODELS[model_name]
     model: ModelType = model_class(**hyperparameters_to_tune)
 
-    results_filename: str = f"{model_name}_train_results.csv"
+    results_filename: str = f"{model_name}_tune_results.csv"
     previous_results = get_previous_training_results(results_filename)
 
     # Start training process
