@@ -67776,6 +67776,178 @@
             "var_type": null
           }
         ],
+        "832": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "918",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Papayas",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "916",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "914",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Mangoes",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "912",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "896",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Cherries",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "894",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "878",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Bananas",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "876",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "860",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Apples",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "858",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "842",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Oranges",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "840",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "836",
+              "value": null
+            },
+            "symbol": "expr",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "834",
+              "value": null
+            },
+            "type": "SyntaxStepParenthesizedExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -7,
+              "n_id": "832",
+              "value": null
+            },
+            "type": "SyntaxStepSwitch"
+          }
+        ],
+        "840": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "842",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Oranges",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "840",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          }
+        ],
         "844": [
           {
             "meta": {
@@ -67833,6 +68005,28 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "858": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "860",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Apples",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "858",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
           }
         ],
         "86": [
@@ -67908,6 +68102,28 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "876": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "878",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Bananas",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "876",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          }
+        ],
         "880": [
           {
             "meta": {
@@ -67954,6 +68170,28 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "894": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "896",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Cherries",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "894",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
           }
         ],
         "898": [
@@ -68015,6 +68253,50 @@
             "type": "SyntaxStepNoOp"
           }
         ],
+        "912": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "914",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Mangoes",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "912",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          }
+        ],
+        "916": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "918",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "Papayas",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "916",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelCase"
+          }
+        ],
         "920": [
           {
             "meta": {
@@ -68061,6 +68343,17 @@
               "value": null
             },
             "type": "SyntaxStepNoOp"
+          }
+        ],
+        "934": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "934",
+              "value": null
+            },
+            "type": "SyntaxStepSwitchLabelDefault"
           }
         ],
         "955": [

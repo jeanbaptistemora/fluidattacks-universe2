@@ -5,38 +5,24 @@ from model.graph_model import (
     SyntaxStepsLazy,
 )
 from sast_syntax_readers.types import (
-    MissingCaseHandling,
     SyntaxReaderArgs,
-)
-from utils import (
-    graph as g,
 )
 
 
 def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
-    match = g.match_ast(
-        args.graph,
-        args.n_id,
-        "if",
-        "parenthesized_expression",
-        "statement_block",
-        "else_clause",
-    )
-    statement_id = match["statement_block"]
-    else_id = match["else_clause"]
-
-    if not statement_id:
-        raise MissingCaseHandling(args)
+    node_attrs = args.graph.nodes[args.n_id]
+    consequence_id = node_attrs["label_field_consequence"]
+    alternative_id = node_attrs.get("label_field_alternative")
 
     yield graph_model.SyntaxStepIf(
         meta=graph_model.SyntaxStepMeta.default(
             n_id=args.n_id,
             dependencies=[
                 args.generic(
-                    args.fork_n_id(match["parenthesized_expression"])
+                    args.fork_n_id(node_attrs["label_field_condition"])
                 ),
             ],
         ),
-        n_id_false=else_id,
-        n_id_true=statement_id,
+        n_id_false=alternative_id,
+        n_id_true=consequence_id,
     )
