@@ -1,8 +1,12 @@
 import contextlib
 from lib_ssl.types import (
+    SSLAlert,
+    SSLAlertDescription,
+    SSLAlertLevel,
     SSLHandshakeRecord,
     SSLRecord,
     SSLServerHandshake,
+    SSLServerResponse,
     SSLSettings,
     SSLSuite,
     SSLVersionId,
@@ -294,25 +298,38 @@ def read_cipher_suite(sock: socket.socket) -> SSLSuite:
     return SSLSuite((first_byte, second_byte))
 
 
-def parse_server_hello(sock: socket.socket) -> Optional[SSLServerHandshake]:
-    header = read_ssl_record(sock)
+def parse_server_alert(
+    sock: socket.socket, record: SSLRecord
+) -> Optional[SSLAlert]:
+    if record == SSLRecord.ALERT:
+        data = tcp_read(sock, 2)
 
-    if header is None:
-        return None
+        if data is not None:
+            level, description = unpack(">BB", data)
 
-    package_type, _, _ = header
-    if package_type == SSLRecord.HANDSHAKE.value:
+            return SSLAlert(
+                level=SSLAlertLevel(level),
+                description=SSLAlertDescription(description),
+            )
+
+    return None
+
+
+def parse_server_handshake(
+    sock: socket.socket, record: SSLRecord
+) -> Optional[SSLServerHandshake]:
+    if record == SSLRecord.HANDSHAKE:
         handshake_header = read_handshake_header(sock)
 
         if handshake_header is None:
             return None
 
         handshake_type, version_id, length = handshake_header
-        record = SSLHandshakeRecord(handshake_type)
+        handshake_record = SSLHandshakeRecord(handshake_type)
 
-        if record == SSLHandshakeRecord.SERVER_HELLO:
+        if handshake_record == SSLHandshakeRecord.SERVER_HELLO:
             return SSLServerHandshake(
-                record=record,
+                record=handshake_record,
                 version_id=SSLVersionId(version_id),
                 length=length,
                 rand=read_random_val(sock),
@@ -321,3 +338,21 @@ def parse_server_hello(sock: socket.socket) -> Optional[SSLServerHandshake]:
             )
 
     return None
+
+
+def parse_server_response(sock: socket.socket) -> Optional[SSLServerResponse]:
+    header = read_ssl_record(sock)
+
+    if header is None:
+        return None
+
+    package_type, version_id, length = header
+    record: SSLRecord = SSLRecord(package_type)
+
+    return SSLServerResponse(
+        record=record,
+        version_id=SSLVersionId(version_id),
+        length=length,
+        alert=parse_server_alert(sock, record),
+        handshake=parse_server_handshake(sock, record),
+    )
