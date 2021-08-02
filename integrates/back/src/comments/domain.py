@@ -113,8 +113,8 @@ async def create(
     return (comment_id if success else None, success)
 
 
-async def delete(finding_id: int, user_id: int) -> bool:
-    return await comments_dal.delete(finding_id, user_id)
+async def delete(comment_id: str, finding_id: str) -> bool:
+    return await comments_dal.delete(comment_id, finding_id)
 
 
 async def get(comment_type: str, element_id: str) -> List[CommentType]:

@@ -768,7 +768,7 @@ async def mask_finding(context: Any, finding_id: str) -> bool:
         "comment", finding_id
     ) + await comments_domain.get("observation", finding_id)
     comments_coroutines = [
-        comments_domain.delete(int(finding_id), int(comment["comment_id"]))
+        comments_domain.delete(comment["comment_id"], finding_id)
         for comment in comments_and_observations
     ]
     mask_finding_coroutines.extend(comments_coroutines)
@@ -846,7 +846,7 @@ async def mask_finding_new(  # pylint: disable=too-many-locals
         "comment", finding.id
     ) + await comments_domain.get("observation", finding.id)
     comments_coroutines = [
-        comments_domain.delete(int(finding.id), int(comment["comment_id"]))
+        comments_domain.delete(comment["comment_id"], finding.id)
         for comment in comments_and_observations
     ]
     mask_finding_coroutines.extend(comments_coroutines)

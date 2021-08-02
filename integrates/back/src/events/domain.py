@@ -229,7 +229,7 @@ async def mask(event_id: str) -> bool:
     list_comments = await comments_domain.get("event", event_id)
     mask_events_coroutines.extend(
         [
-            comments_domain.delete(int(event_id), int(comment["comment_id"]))
+            comments_domain.delete(comment["comment_id"], event_id)
             for comment in list_comments
         ]
     )

@@ -54,19 +54,13 @@ async def create(
     return success
 
 
-async def delete(finding_id: int, user_id: int) -> bool:
+async def delete(comment_id: str, finding_id: str) -> bool:
     success = False
     try:
         delete_attrs = DynamoDeleteType(
-            Key={"finding_id": finding_id, "user_id": user_id}
+            Key={"finding_id": finding_id, "comment_id": comment_id}
         )
-        success = await dynamodb_ops.delete_item(TABLE_NAME, delete_attrs)
-        delete_attrs = DynamoDeleteType(
-            Key={"finding_id": str(finding_id), "comment_id": str(user_id)}
-        )
-        success = success and await dynamodb_ops.delete_item(
-            TABLE_NAME_NEW, delete_attrs
-        )
+        success = await dynamodb_ops.delete_item(TABLE_NAME_NEW, delete_attrs)
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
     return success
