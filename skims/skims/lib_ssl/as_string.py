@@ -13,12 +13,12 @@ from utils.string import (
 )
 
 
-def ssl_name2ssl_id(ssl_name: SSLVersionName) -> SSLVersionId:
-    return getattr(SSLVersionId, ssl_name.name)
+def ssl_name2ssl_id(ssl_name: SSLVersionName) -> int:
+    return getattr(SSLVersionId, ssl_name.name).value
 
 
-def ssl_id2ssl_name(ssl_id: SSLVersionId) -> SSLVersionName:
-    return getattr(SSLVersionName, ssl_id.name)
+def ssl_id2ssl_name(ssl_id: SSLVersionId) -> str:
+    return getattr(SSLVersionName, ssl_id.name).value
 
 
 def get_snippet_skeleton_en() -> str:
@@ -66,8 +66,8 @@ def snippet(
         host=ssl_settings.host,
         port=ssl_settings.port,
         scsv=ssl_settings.scsv,
-        min_version=ssl_id2ssl_name(ssl_settings.min_version).value,
-        max_version=ssl_id2ssl_name(ssl_settings.max_version).value,
+        min_version=ssl_id2ssl_name(ssl_settings.min_version),
+        max_version=ssl_id2ssl_name(ssl_settings.max_version),
         ciphers=", ".join(ssl_settings.cipher_names),
         mac=", ".join(ssl_settings.mac_names),
         key_exchange=", ".join(ssl_settings.get_key_exchange_names()),

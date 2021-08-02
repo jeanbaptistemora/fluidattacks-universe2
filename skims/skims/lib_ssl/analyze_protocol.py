@@ -45,7 +45,7 @@ from zone import (
 
 
 def supports_tls(host: str, port: int, v_id: SSLVersionId) -> Optional[bool]:
-    intention_en = "verify if server supports " + ssl_id2ssl_name(v_id).value
+    intention_en = "verify if server supports " + ssl_id2ssl_name(v_id)
     ssl_settings = SSLSettings(
         host=host,
         port=port,
@@ -206,13 +206,13 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
             core_model.LocalesEnum.EN: (
                 "check if server accepts key exchange with PFS support in"
                 " {v_name}".format(
-                    v_name=ssl_id2ssl_name(v_id).value,
+                    v_name=ssl_id2ssl_name(v_id),
                 )
             ),
             core_model.LocalesEnum.ES: (
                 "verificar si el servidor acepta intercambio de llaves con"
                 "soporte PFS en {v_name}".format(
-                    v_name=ssl_id2ssl_name(v_id).value,
+                    v_name=ssl_id2ssl_name(v_id),
                 )
             ),
         }
@@ -226,7 +226,7 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         if sock is None:
             break
 
-        package = get_client_hello_package(v_id.value, suites, extensions)
+        package = get_client_hello_package(v_id, suites, extensions)
         sock.send(bytes(package))
         handshake_record = read_ssl_record(sock)
 
@@ -377,7 +377,7 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     if sock is None:
         return tuple()
 
-    package = get_client_hello_package(SSLVersionId.sslv3_0.value, suites)
+    package = get_client_hello_package(SSLVersionId.sslv3_0, suites)
     sock.send(bytes(package))
     handshake_record = read_ssl_record(sock)
 
@@ -787,11 +787,11 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
         intention: Dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
                 "check if server accepts connections with weak ciphers"
-                " in {v_name}".format(v_name=ssl_id2ssl_name(v_id).value)
+                " in {v_name}".format(v_name=ssl_id2ssl_name(v_id))
             ),
             core_model.LocalesEnum.ES: (
                 "verificar si el servidor acepta conexiones con cifrado débil"
-                " en {v_name}".format(v_name=ssl_id2ssl_name(v_id).value)
+                " en {v_name}".format(v_name=ssl_id2ssl_name(v_id))
             ),
         }
 
@@ -954,11 +954,11 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         intention: Dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
                 "check if server accepts connections with ciphers that use"
-                " CBC in {v_name}".format(v_name=ssl_id2ssl_name(v_id).value)
+                " CBC in {v_name}".format(v_name=ssl_id2ssl_name(v_id))
             ),
             core_model.LocalesEnum.ES: (
                 "verificar si el servidor soporta cifrado con CBC"
-                " en {v_name}".format(v_name=ssl_id2ssl_name(v_id).value)
+                " en {v_name}".format(v_name=ssl_id2ssl_name(v_id))
             ),
         }
 
@@ -1053,11 +1053,11 @@ def _sweet32_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         intention: Dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
                 "check if server is vulnerable to SWEET32 attacks"
-                " in {v_name}".format(v_name=ssl_id2ssl_name(v_id).value)
+                " in {v_name}".format(v_name=ssl_id2ssl_name(v_id))
             ),
             core_model.LocalesEnum.ES: (
                 "verificar si el servidor es vulnerable a ataques SWEET32"
-                " en {v_name}".format(v_name=ssl_id2ssl_name(v_id).value)
+                " en {v_name}".format(v_name=ssl_id2ssl_name(v_id))
             ),
         }
 
@@ -1196,7 +1196,7 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
         if v_id in (SSLVersionId.tlsv1_2, SSLVersionId.tlsv1_3):
             continue
 
-        v_name: str = ssl_id2ssl_name(v_id).value
+        v_name: str = ssl_id2ssl_name(v_id)
         ssl_settings = SSLSettings(
             ctx.target.host,
             ctx.target.port,
@@ -1296,13 +1296,13 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
             core_model.LocalesEnum.EN: (
                 "check if server is vulnerable to heartbleed attack with"
                 " {v_name}".format(
-                    v_name=ssl_id2ssl_name(v_id).value,
+                    v_name=ssl_id2ssl_name(v_id),
                 )
             ),
             core_model.LocalesEnum.ES: (
                 "verificar si el servidor es vulnerable a un ataque heartbleed"
                 "con {v_name}".format(
-                    v_name=ssl_id2ssl_name(v_id).value,
+                    v_name=ssl_id2ssl_name(v_id),
                 )
             ),
         }
@@ -1316,7 +1316,7 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         if sock is None:
             break
 
-        package = get_client_hello_package(v_id.value, suites, extensions)
+        package = get_client_hello_package(v_id, suites, extensions)
         sock.send(bytes(package))
         handshake_record = read_ssl_record(sock)
 
@@ -1324,7 +1324,7 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
             handshake_type, _, _ = handshake_record
 
             if handshake_type == 22:
-                package = get_malicious_heartbeat(v_id.value, n_payload=16384)
+                package = get_malicious_heartbeat(v_id, n_payload=16384)
                 sock.send(bytes(package))
 
                 heartbeat_record = read_ssl_record(sock)
@@ -1378,13 +1378,13 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
             core_model.LocalesEnum.EN: (
                 "check if server is vulnerable to FREAK attack with"
                 " {v_name}".format(
-                    v_name=ssl_id2ssl_name(v_id).value,
+                    v_name=ssl_id2ssl_name(v_id),
                 )
             ),
             core_model.LocalesEnum.ES: (
                 "verificar si el servidor es vulnerable a un ataque FREAK"
                 " con {v_name}".format(
-                    v_name=ssl_id2ssl_name(v_id).value,
+                    v_name=ssl_id2ssl_name(v_id),
                 )
             ),
         }
@@ -1398,7 +1398,7 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         if sock is None:
             break
 
-        package = get_client_hello_package(v_id.value, suites, extensions)
+        package = get_client_hello_package(v_id, suites, extensions)
         sock.send(bytes(package))
         handshake_record = read_ssl_record(sock)
 
@@ -1451,13 +1451,13 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
             core_model.LocalesEnum.EN: (
                 "check if server is vulnerable to RACCOON attack with"
                 " {v_name}".format(
-                    v_name=ssl_id2ssl_name(v_id).value,
+                    v_name=ssl_id2ssl_name(v_id),
                 )
             ),
             core_model.LocalesEnum.ES: (
                 "verificar si el servidor es vulnerable a un ataque RACCOON"
                 " con {v_name}".format(
-                    v_name=ssl_id2ssl_name(v_id).value,
+                    v_name=ssl_id2ssl_name(v_id),
                 )
             ),
         }
@@ -1471,7 +1471,7 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         if sock is None:
             break
 
-        package = get_client_hello_package(v_id.value, suites, extensions)
+        package = get_client_hello_package(v_id, suites, extensions)
         sock.send(bytes(package))
         handshake_record = read_ssl_record(sock)
 
