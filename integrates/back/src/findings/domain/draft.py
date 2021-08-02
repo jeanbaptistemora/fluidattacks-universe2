@@ -193,7 +193,7 @@ async def add_draft(
     )
 
     if findings_utils.is_valid_finding_title(title):
-        return await findings_dal.create(finding_id, group_name, finding_attrs)
+        return await findings_dal.add(finding_id, group_name, finding_attrs)
     raise InvalidDraftTitle()
 
 
@@ -226,7 +226,7 @@ async def add_draft_new(
         threat=kwargs.get("threat", ""),
         type=kwargs.get("type", ""),
     )
-    await findings_model.create(finding=draft)
+    await findings_model.add(finding=draft)
 
 
 async def get_drafts_by_group(

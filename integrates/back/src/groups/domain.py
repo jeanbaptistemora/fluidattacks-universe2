@@ -522,7 +522,7 @@ async def add_group(  # pylint: disable=too-many-arguments,too-many-locals
                 "project_status": "ACTIVE",
                 "group_status": "ACTIVE",
             }
-            success = await groups_dal.create(group)
+            success = await groups_dal.add(group)
             await dynamomodel.create_group_metadata(
                 group_metadata=GroupMetadata(
                     name=group_name,
@@ -592,7 +592,7 @@ async def add_without_group(
                 ]
             )
         )
-        org = await orgs_domain.get_or_create(FI_DEFAULT_ORG)
+        org = await orgs_domain.get_or_add(FI_DEFAULT_ORG)
         if should_add_default_org and not await orgs_domain.has_user_access(
             str(org["id"]), email
         ):
@@ -1237,7 +1237,7 @@ async def after_complete_register(group_access: GroupAccessType) -> None:
     if enforcer("self", "keep_default_organization_access"):
         return
     organization_id: str = await orgs_domain.get_id_for_group(group_name)
-    default_org = await orgs_domain.get_or_create(FI_DEFAULT_ORG)
+    default_org = await orgs_domain.get_or_add(FI_DEFAULT_ORG)
     default_org_id: str = str(default_org["id"])
     if (
         organization_id != default_org_id

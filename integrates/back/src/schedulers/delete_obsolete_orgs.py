@@ -67,7 +67,7 @@ async def delete_organization(
     success = (
         success
         and groups_removed
-        and await orgs_domain.delete_organization(organization_id)
+        and await orgs_domain.remove_organization(organization_id)
     )
     return success
 

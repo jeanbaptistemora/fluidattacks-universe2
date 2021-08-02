@@ -94,7 +94,7 @@ async def test_create_organization() -> None:
 @pytest.mark.changes_db
 async def test_delete_organization() -> None:
     org_id = "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"  # NOSONAR
-    await orgs_domain.delete_organization(org_id)
+    await orgs_domain.remove_organization(org_id)
 
     with pytest.raises(InvalidOrganization):
         await orgs_domain.get_name_by_id(org_id)
@@ -145,11 +145,11 @@ async def test_get_or_create() -> None:
     ex_org_name = "okada"
     email = "unittest@fluidattacks.com"
     not_ex_org_name = "new-org"
-    existing_org = await orgs_domain.get_or_create(ex_org_name, email)
+    existing_org = await orgs_domain.get_or_add(ex_org_name, email)
     assert isinstance(existing_org, dict)
     assert existing_org["id"] == "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
 
-    not_existent_org = await orgs_domain.get_or_create(not_ex_org_name, email)
+    not_existent_org = await orgs_domain.get_or_add(not_ex_org_name, email)
     assert isinstance(not_existent_org, dict)
     assert not_existent_org
 

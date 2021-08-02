@@ -1,7 +1,7 @@
 from .dal import (
-    add_org_finding_policy,
-    get_org_finding_policies,
-    get_org_finding_policy,
+    add_organization_finding_policy,
+    get_organization_finding_policies,
+    get_organization_finding_policy,
     update_finding_policy_status,
 )
 from .types import (
@@ -55,7 +55,7 @@ from vulnerabilities import (
 async def get_finding_policy(
     *, org_name: str, finding_policy_id: str
 ) -> OrgFindingPolicyItem:
-    finding_policy = await get_org_finding_policy(
+    finding_policy = await get_organization_finding_policy(
         org_name=org_name, finding_policy_id=finding_policy_id
     )
     if finding_policy:
@@ -67,7 +67,7 @@ async def get_finding_policy(
 async def get_finding_policies(
     *, org_name: str
 ) -> Tuple[OrgFindingPolicyItem, ...]:
-    return await get_org_finding_policies(org_name=org_name)
+    return await get_organization_finding_policies(org_name=org_name)
 
 
 def validate_finding_name(name: str) -> None:
@@ -116,7 +116,7 @@ async def add_finding_policy(
             status="SUBMITTED",
         ),
     )
-    await add_org_finding_policy(finding_policy=new_finding_policy)
+    await add_organization_finding_policy(finding_policy=new_finding_policy)
 
 
 async def handle_finding_policy_acceptation(
@@ -362,7 +362,9 @@ async def _update_treatment_in_org_groups(
 
 
 async def get_org_policies(*, org_name: str) -> Tuple[OrgFindingPolicy, ...]:
-    finding_policies = await get_org_finding_policies(org_name=org_name)
+    finding_policies = await get_organization_finding_policies(
+        org_name=org_name
+    )
     return tuple(
         OrgFindingPolicy(
             id=policy.id,

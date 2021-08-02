@@ -204,14 +204,14 @@ async def add_organization(name: str, email: str) -> OrganizationType:
     if not await names_domain.exists(name, "organization"):
         raise InvalidOrganization()
 
-    new_organization = await get_or_create(name, email)
+    new_organization = await get_or_add(name, email)
     await names_domain.remove(name, "organization")
     return new_organization
 
 
-async def delete_organization(organization_id: str) -> bool:
+async def remove_organization(organization_id: str) -> bool:
     organization_name = await get_name_by_id(organization_id)
-    success = await orgs_dal.delete(organization_id, organization_name)
+    success = await orgs_dal.remove(organization_id, organization_name)
     return success
 
 
@@ -284,12 +284,12 @@ async def get_name_by_id(organization_id: str) -> str:
     return str(result["name"])
 
 
-async def get_or_create(
+async def get_or_add(
     organization_name: str, email: str = ""
 ) -> OrganizationType:
     """
     Return an organization, even if it does not exists,
-    in which case it will be created
+    in which case it will be added
     """
     org_created: bool = False
     org_role: str = "customer"

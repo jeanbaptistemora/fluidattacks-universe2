@@ -48,7 +48,7 @@ def _escape_alnum(string: str) -> str:
     return "".join([char for char in string if char.isalnum()])
 
 
-async def create(
+async def add(
     finding_id: str, group_name: str, finding_attrs: Dict[str, FindingType]
 ) -> bool:
     success = False

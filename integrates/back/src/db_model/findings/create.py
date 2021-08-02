@@ -26,9 +26,7 @@ from dynamodb.exceptions import (
 )
 
 
-async def create(  # pylint: disable=too-many-locals
-    *, finding: Finding
-) -> None:
+async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
     key_structure = TABLE.primary_key
     id_key = keys.build_key(
         facet=TABLE.facets["finding_id"],

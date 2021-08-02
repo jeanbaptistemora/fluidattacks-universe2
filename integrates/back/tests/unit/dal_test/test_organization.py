@@ -100,7 +100,7 @@ async def test_delete() -> None:
     assert await orgs_dal.exists(org_name)
 
     org = await orgs_dal.get_by_name(org_name, ["id"])
-    await orgs_dal.delete(org["id"], org_name)
+    await orgs_dal.remove(org["id"], org_name)
     assert not await orgs_dal.exists(org_name)
 
 

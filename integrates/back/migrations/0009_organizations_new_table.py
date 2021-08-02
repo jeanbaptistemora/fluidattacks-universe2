@@ -57,7 +57,7 @@ def main() -> None:
                 "pk: ORG#{}\n" "sk: {}".format(unique_orgs[org_name], org_name)
             )
         else:
-            org_dict = orgs_domain.get_or_create(org_name)
+            org_dict = orgs_domain.get_or_add(org_name)
             success: bool = groups_dal.update(
                 data={"organization": org_dict["id"]}, group_name=proj_name
             )

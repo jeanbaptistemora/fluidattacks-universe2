@@ -127,9 +127,9 @@ async def create(
     return _map_keys_to_domain(new_item)
 
 
-async def delete(organization_id: str, organization_name: str) -> bool:
+async def remove(organization_id: str, organization_name: str) -> bool:
     """
-    Delete an organization
+    Remove/delete an organization
     """
     success: bool = False
     item = DynamoDeleteType(

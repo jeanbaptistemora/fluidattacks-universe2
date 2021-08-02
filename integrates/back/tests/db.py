@@ -156,7 +156,7 @@ async def populate_groups(data: List[Any]) -> bool:
     data_parsed: List[Any] = json.loads(json.dumps(data), parse_float=Decimal)
     coroutines.extend(
         [
-            dal_groups.create(
+            dal_groups.add(
                 group,
             )
             for group in data_parsed
@@ -170,7 +170,7 @@ async def populate_findings(data: List[Any]) -> bool:
     data_parsed: List[Any] = json.loads(json.dumps(data), parse_float=Decimal)
     coroutines.extend(
         [
-            dal_findings.create(
+            dal_findings.add(
                 finding["finding_id"],
                 get_key_or_fallback(finding),
                 finding,
@@ -218,7 +218,7 @@ async def _populate_finding_historic_verification(
 
 
 async def populate_findings_new(data: List[Dict[str, Any]]) -> bool:
-    await collect([findings.create(finding=item["finding"]) for item in data])
+    await collect([findings.add(finding=item["finding"]) for item in data])
     await collect([_populate_finding_historic_state(item) for item in data])
     await collect(
         [_populate_finding_unreliable_indicator(item) for item in data]
@@ -398,7 +398,9 @@ async def populate_organization_finding_policies(
 ) -> bool:
     await collect(
         [
-            dal_policies.add_org_finding_policy(finding_policy=finding_policy)
+            dal_policies.add_organization_finding_policy(
+                finding_policy=finding_policy
+            )
             for finding_policy in data
         ]
     )

@@ -803,7 +803,7 @@ async def get_org_finding_policies(
     )
 
 
-async def create_org_finding_policy(
+async def add_organization_finding_policy(
     *, finding_policy: OrgFindingPolicyItem
 ) -> None:
     key_structure = TABLE.primary_key
@@ -834,7 +834,7 @@ async def create_org_finding_policy(
     await operations.batch_write_item(items=items, table=TABLE)
 
 
-async def update_org_finding_policy_state(
+async def update_organization_finding_policy_state(
     *, org_name: str, finding_policy_id: str, state: OrgFindingPolicyState
 ) -> None:
     key_structure = TABLE.primary_key

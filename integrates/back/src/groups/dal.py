@@ -55,7 +55,7 @@ async def can_user_access(
     return is_user_allowed
 
 
-async def create(group: GroupType) -> bool:
+async def add(group: GroupType) -> bool:
     """Add group to dynamo."""
     resp = False
     try:
