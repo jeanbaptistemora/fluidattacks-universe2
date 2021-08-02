@@ -34,7 +34,7 @@ from .treatment import (
     add_vuln_treatment,
     handle_vulnerabilities_acceptation,
     send_treatment_change_mail,
-    update_vulns_treatment,
+    update_vulnerabilities_treatment,
     validate_treatment_change,
 )
 from .verification import (
@@ -84,7 +84,7 @@ __all__ = [
     "add_vuln_treatment",
     "handle_vulnerabilities_acceptation",
     "send_treatment_change_mail",
-    "update_vulns_treatment",
+    "update_vulnerabilities_treatment",
     "validate_treatment_change",
     # verification
     "get_efficacy",

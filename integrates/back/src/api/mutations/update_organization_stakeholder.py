@@ -64,7 +64,7 @@ async def mutate(
         raise UserNotInOrganization()
 
     if await orgs_domain.add_user(organization_id, user_email, new_role):
-        success = await users_domain.edit_user_information(
+        success = await users_domain.update_user_information(
             info.context,
             {
                 "email": user_email,

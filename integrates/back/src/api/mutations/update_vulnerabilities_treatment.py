@@ -47,7 +47,7 @@ async def mutate(
     finding_data = await finding_loader.load(finding_id)
     group_name: str = get_key_or_fallback(finding_data)
     group = await group_loader.load(group_name)
-    success: bool = await vulns_domain.update_vulns_treatment(
+    success: bool = await vulns_domain.update_vulnerabilities_treatment(
         context=info.context.loaders,
         finding_id=finding_id,
         updated_values=parameters,

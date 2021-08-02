@@ -22,31 +22,31 @@ async def rebase(
     *,
     finding_id: str,
     finding_vulns_data: List[Vulnerability],
-    vuln_commit: str,
-    vuln_id: str,
-    vuln_where: str,
-    vuln_specific: str,
-    vuln_type: str,
+    vulnerability_commit: str,
+    vulnerability_id: str,
+    vulnerability_where: str,
+    vulnerability_specific: str,
+    vulnerability_type: str,
 ) -> bool:
-    if vuln_type != "lines":
+    if vulnerability_type != "lines":
         raise ExpectedVulnToBeOfLinesType.new()
 
-    validate_commit_hash(vuln_commit)
-    validate_specific(vuln_specific)
+    validate_commit_hash(vulnerability_commit)
+    validate_specific(vulnerability_specific)
     validate_uniqueness(
         finding_vulns_data=finding_vulns_data,
-        vuln_where=vuln_where,
-        vuln_specific=vuln_specific,
-        vuln_type=vuln_type,
+        vulnerability_where=vulnerability_where,
+        vulnerability_specific=vulnerability_specific,
+        vulnerability_type=vulnerability_type,
     )
-    validate_where(vuln_where)
+    validate_where(vulnerability_where)
 
     return await update(
         finding_id=finding_id,
-        vuln_id=vuln_id,
+        vuln_id=vulnerability_id,
         data={
-            "commit_hash": vuln_commit,
-            "where": vuln_where,
-            "specific": vuln_specific,
+            "commit_hash": vulnerability_commit,
+            "where": vulnerability_where,
+            "specific": vulnerability_specific,
         },
     )

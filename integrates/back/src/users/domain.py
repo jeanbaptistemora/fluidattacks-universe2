@@ -126,7 +126,7 @@ async def delete(email: str) -> bool:
     return success
 
 
-async def edit_user_information(
+async def update_user_information(
     context: Any, modified_user_data: Dict[str, str], group_name: str
 ) -> bool:
     coroutines: List[Awaitable[bool]] = []

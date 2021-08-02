@@ -33,17 +33,17 @@ def validate_specific(specific: str) -> None:
 def validate_uniqueness(
     *,
     finding_vulns_data: List[Vulnerability],
-    vuln_where: str,
-    vuln_specific: str,
-    vuln_type: str,
+    vulnerability_where: str,
+    vulnerability_specific: str,
+    vulnerability_type: str,
 ) -> None:
     finding_vulns_hashes: Set[int] = set(
         map(get_hash_from_dict, finding_vulns_data)
     )
     vuln_hash: int = get_hash(
-        specific=vuln_specific,
-        type_=vuln_type,
-        where=vuln_where,
+        specific=vulnerability_specific,
+        type_=vulnerability_type,
+        where=vulnerability_where,
     )
 
     if vuln_hash in finding_vulns_hashes:

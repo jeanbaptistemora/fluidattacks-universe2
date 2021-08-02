@@ -360,7 +360,7 @@ async def send_treatment_change_mail(
     return bool(treatments)
 
 
-async def update_vulns_treatment(
+async def update_vulnerabilities_treatment(
     *,
     context: Any,
     finding_id: str,
