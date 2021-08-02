@@ -31,8 +31,7 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-TABLE_NAME: str = "FI_comments"
-TABLE_NAME_NEW: str = "fi_finding_comments"
+TABLE_NAME: str = "fi_finding_comments"
 
 
 async def create(
@@ -41,7 +40,7 @@ async def create(
     success = False
     try:
         success = await dynamodb_ops.put_item(
-            TABLE_NAME_NEW,
+            TABLE_NAME,
             {
                 **comment_attributes,
                 "comment_id": comment_id,
@@ -60,7 +59,7 @@ async def delete(comment_id: str, finding_id: str) -> bool:
         delete_attrs = DynamoDeleteType(
             Key={"finding_id": finding_id, "comment_id": comment_id}
         )
-        success = await dynamodb_ops.delete_item(TABLE_NAME_NEW, delete_attrs)
+        success = await dynamodb_ops.delete_item(TABLE_NAME, delete_attrs)
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
     return success
@@ -86,7 +85,7 @@ async def get_comments(
         "KeyConditionExpression": key_exp,
         "FilterExpression": filter_exp,
     }
-    return await dynamodb_ops.query(TABLE_NAME_NEW, query_attrs)
+    return await dynamodb_ops.query(TABLE_NAME, query_attrs)
 
 
 async def get_comments_for_ids(
