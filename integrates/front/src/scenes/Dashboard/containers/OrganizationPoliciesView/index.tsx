@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import type { IHeaderConfig } from "components/DataTableNext/types";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { FindingPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView/FindingPolicies/index";
 import style from "scenes/Dashboard/containers/OrganizationPoliciesView/index.css";
 import {
@@ -295,16 +296,25 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
       >
         {({ dirty, submitForm }): JSX.Element => (
           <Form id={"orgPolicies"}>
-            <DataTableNext
-              bordered={true}
-              dataset={policiesDataSet}
-              exportCsv={false}
-              headers={tableHeaders}
-              id={"policiesTbl"}
-              pageSize={10}
-              search={false}
-              striped={true}
-            />
+            <TooltipWrapper
+              id={translate.t(
+                "organization.tabs.policies.permissionTooltip.id"
+              )}
+              message={translate.t(
+                "organization.tabs.policies.permissionTooltip"
+              )}
+            >
+              <DataTableNext
+                bordered={true}
+                dataset={policiesDataSet}
+                exportCsv={false}
+                headers={tableHeaders}
+                id={"policiesTbl"}
+                pageSize={10}
+                search={false}
+                striped={true}
+              />
+            </TooltipWrapper>
             <Can do={"api_mutations_update_organization_policies_mutate"}>
               {!dirty || loadingPolicies || savingPolicies ? undefined : (
                 <ButtonToolbar>
