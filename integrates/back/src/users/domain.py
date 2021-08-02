@@ -192,8 +192,12 @@ def get_invitation_state(
 
 
 async def format_stakeholder(email: str, group_name: str) -> StakeholderType:
-    stakeholder: StakeholderType = await get_by_email(email)
-    group_access = await group_access_domain.get_user_access(email, group_name)
+    group_access, stakeholder = await collect(
+        (
+            group_access_domain.get_user_access(email, group_name),
+            get_by_email(email),
+        )
+    )
     invitation = cast(InvitationType, group_access.get("invitation"))
     invitation_state = get_invitation_state(invitation, stakeholder)
     if invitation_state == "PENDING":

@@ -148,7 +148,9 @@ async def verify_closed_vulnerabilities(
         "modified": today,
         "parent": 0,
     }
-    coroutines.append(comments_dal.create(comment_id, comment_data))
+    coroutines.append(
+        comments_dal.create(comment_id, comment_data, finding_id)
+    )
     coroutines.extend(map(vulns_dal.verify_vulnerability, vulnerabilities))
     await collect(coroutines)
 

@@ -377,7 +377,7 @@ async def get_findings_async(
         resource = await stack.enter_async_context(start_context())
         table = await resource.Table(findings_dal.TABLE_NAME)
         findings = await collect(
-            get(finding_id, table) for finding_id in finding_ids
+            [get(finding_id, table) for finding_id in finding_ids]
         )
     return cast(List[Dict[str, FindingType]], findings)
 

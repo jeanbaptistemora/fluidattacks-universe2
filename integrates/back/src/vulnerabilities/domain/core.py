@@ -328,7 +328,7 @@ async def get_by_finding_and_uuids(
 
 async def get_by_ids(vulns_ids: List[str]) -> List[Dict[str, FindingType]]:
     result: List[Dict[str, FindingType]] = await collect(
-        get(vuln_id) for vuln_id in vulns_ids
+        [get(vuln_id) for vuln_id in vulns_ids]
     )
     return result
 
@@ -489,8 +489,12 @@ async def list_vulnerabilities_async(
         resource = await stack.enter_async_context(start_context())
         table = await resource.Table(vulns_dal.TABLE_NAME)
         vulns = await collect(
-            get_vulnerabilities_async(finding_id, table, should_list_deleted)
-            for finding_id in finding_ids
+            [
+                get_vulnerabilities_async(
+                    finding_id, table, should_list_deleted
+                )
+                for finding_id in finding_ids
+            ]
         )
 
     result: List[Dict[str, FindingType]] = []

@@ -1,4 +1,10 @@
+from aioextensions import (
+    collect,
+)
 import asyncio
+from authz import (
+    get_cached_group_service_policies,
+)
 import contextlib
 from custom_types import (
     ForcesExecutions,
@@ -139,7 +145,17 @@ async def iterate_organizations_and_groups() -> AsyncIterator[
     Tuple[str, str, Tuple[str, ...]],
 ]:
     """Yield (org_id, org_name, org_groups) non-concurrently generated."""
-    groups: Set[str] = set(await groups_domain.get_alive_group_names())
+    alive_groups: Set[str] = set(
+        sorted(await groups_domain.get_alive_group_names())
+    )
+    group_services = await collect(
+        [get_cached_group_service_policies(group) for group in alive_groups]
+    )
+    groups: Set[str] = {
+        group
+        for group, services in zip(alive_groups, group_services)
+        if "continuous" in services
+    }
     async for org_id, org_name, org_groups in (
         orgs_domain.iterate_organizations_and_groups()
     ):

@@ -51,7 +51,7 @@ async def process_finding(context: Any, finding_id: str) -> bool:
         and vuln["historic_state"][0]["date"] > "2021-07-21 00:00:00"
     ]
 
-    if len(vulns_machine):
+    if len(vulns_machine) > 0:
         print(
             f"   === finding: {finding_id}, "
             f"vulns by machine ({len(vulns_machine)}): {vulns_machine}"
