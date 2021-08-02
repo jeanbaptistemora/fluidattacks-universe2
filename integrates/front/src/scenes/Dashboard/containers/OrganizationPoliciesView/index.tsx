@@ -142,11 +142,19 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
         </p>
       ),
       value: (
-        <Field
-          component={FormikText}
-          name={"maxAcceptanceDays"}
-          type={"text"}
-        />
+        <Can
+          do={"api_mutations_update_organization_policies_mutate"}
+          passThrough={true}
+        >
+          {(canEdit: boolean): JSX.Element => (
+            <Field
+              component={FormikText}
+              disabled={!canEdit}
+              name={"maxAcceptanceDays"}
+              type={"text"}
+            />
+          )}
+        </Can>
       ),
     },
     {
@@ -168,22 +176,38 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
         <div>
           <RowCenter>
             <Col33L>
-              <Field
-                component={FormikText}
-                name={"minAcceptanceSeverity"}
-                type={"text"}
-              />
+              <Can
+                do={"api_mutations_update_organization_policies_mutate"}
+                passThrough={true}
+              >
+                {(canEdit: boolean): JSX.Element => (
+                  <Field
+                    component={FormikText}
+                    disabled={!canEdit}
+                    name={"minAcceptanceSeverity"}
+                    type={"text"}
+                  />
+                )}
+              </Can>
             </Col33L>
             {/* eslint-disable-next-line react/forbid-component-props */}
             <Col33L className={"tc"}>
               <p>{"-"}</p>
             </Col33L>
             <Col33L>
-              <Field
-                component={FormikText}
-                name={"maxAcceptanceSeverity"}
-                type={"text"}
-              />
+              <Can
+                do={"api_mutations_update_organization_policies_mutate"}
+                passThrough={true}
+              >
+                {(canEdit: boolean): JSX.Element => (
+                  <Field
+                    component={FormikText}
+                    disabled={!canEdit}
+                    name={"maxAcceptanceSeverity"}
+                    type={"text"}
+                  />
+                )}
+              </Can>
             </Col33L>
           </RowCenter>
         </div>
@@ -205,11 +229,19 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
         </p>
       ),
       value: (
-        <Field
-          component={FormikText}
-          name={"maxNumberAcceptations"}
-          type={"text"}
-        />
+        <Can
+          do={"api_mutations_update_organization_policies_mutate"}
+          passThrough={true}
+        >
+          {(canEdit: boolean): JSX.Element => (
+            <Field
+              component={FormikText}
+              disabled={!canEdit}
+              name={"maxNumberAcceptations"}
+              type={"text"}
+            />
+          )}
+        </Can>
       ),
     },
   ];
