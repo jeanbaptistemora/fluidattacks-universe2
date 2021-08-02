@@ -34,6 +34,12 @@ const MenuDesktop: React.FC = (): JSX.Element => (
               name={"One-Shot Hacking"}
             />
             <BodyLink link={"/services/comparative/"} name={"Comparative"} />
+
+            <HeadLink link={"/resources/"} margin={"mt4"} name={"Resources"} />
+            <BodyLink
+              link={"https://docs.fluidattacks.com/criteria/"}
+              name={"Criteria"}
+            />
           </MenuDesktopSectionList>
 
           <MenuDesktopSectionList>
@@ -126,11 +132,15 @@ const MenuDesktop: React.FC = (): JSX.Element => (
           </MenuDesktopSectionList>
 
           <MenuDesktopSectionList>
-            <HeadLink link={"/resources/"} margin={"mb4"} name={"Resources"} />
-            <BodyLink
-              link={"https://docs.fluidattacks.com/criteria/"}
-              name={"Criteria"}
+            <HeadLink link={"/plans/"} margin={"mb3"} name={"Plans"} />
+            <HeadLink
+              link={"/about-us/certifications/"}
+              margin={"mb3"}
+              name={"Certifications"}
             />
+            <HeadLink link={"/blog/"} margin={"mb3"} name={"Blog"} />
+            <HeadLink link={"/partners/"} margin={"mb3"} name={"Partners"} />
+            <HeadLink link={"/careers/"} margin={"mb3"} name={"Careers"} />
           </MenuDesktopSectionList>
         </div>
 
@@ -143,10 +153,6 @@ const MenuDesktop: React.FC = (): JSX.Element => (
           </MenuDesktopSectionList>
 
           <MenuDesktopSectionList>
-            <HeadLink link={"/plans/"} margin={"mb3"} name={"Plans"} />
-            <HeadLink link={"/blog/"} margin={"mb3"} name={"Blog"} />
-            <HeadLink link={"/partners/"} margin={"mb3"} name={"Partners"} />
-            <HeadLink link={"/careers/"} margin={"mb3"} name={"Careers"} />
             <HeadLink
               link={"/advisories/"}
               margin={"mb3"}
