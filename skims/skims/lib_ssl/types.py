@@ -18,6 +18,25 @@ from typing import (
 )
 
 
+class SSLHandshakeRecord(Enum):
+    CLIENT_HELLO: int = 1
+    SERVER_HELLO: int = 2
+    CERTIFICATE: int = 11
+    SERVER_KEY_EXCHANGE: int = 12
+    CERTIFICATE_REQUEST: int = 13
+    SERVER_HELLO_DONE: int = 14
+    CERTIFICATE_VERIFY: int = 15
+    CLIENT_KEY_EXCHANGE: int = 16
+    FINISHED: int = 20
+
+
+class SSLRecord(Enum):
+    CHANGE_CIPHER_SPEC: int = 20
+    ALERT: int = 21
+    HANDSHAKE: int = 22
+    APPLICATION_DATA: int = 23
+
+
 class SSLVersionId(IntEnum):
     sslv3_0: int = 0
     tlsv1_0: int = 1
@@ -40,6 +59,12 @@ class SSLContext(NamedTuple):
 
     def __str__(self) -> str:
         return f"{self.target.host}:{self.target.port}"
+
+
+class SSLServerHello(NamedTuple):
+    rand: bytes
+    session_id: bytes
+    cipher_suite: bytes
 
 
 class SSLSettings(NamedTuple):

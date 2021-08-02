@@ -1,6 +1,9 @@
 import contextlib
 from lib_ssl.types import (
     SSL_SUITES,
+    SSLHandshakeRecord,
+    SSLRecord,
+    SSLServerHello,
     SSLSettings,
     SSLVersionId,
     TLSVersionId,
@@ -138,6 +141,10 @@ def num_to_bytes(num: int, n_bytes: int, encoding: str = "big") -> List[int]:
     return list(b_num)
 
 
+def bytes_to_num(data: bytes, encoding: str = "big") -> int:
+    return int.from_bytes(data, byteorder=encoding)
+
+
 def rand_bytes(length: int) -> List[int]:
     return list(urandom(length))
 
@@ -265,3 +272,53 @@ def read_ssl_record(sock: socket.socket) -> Optional[Tuple[int, int, int]]:
 
     packet_type, _, version_id, length = unpack(">BBBH", header)
     return packet_type, version_id, length
+
+
+def read_handshake_header(
+    sock: socket.socket,
+) -> Optional[Tuple[int, int, int]]:
+    header = tcp_read(sock, 6)
+
+    if header is None or len(header) < 6:
+        return None
+
+    packet_type, b_length, _, version_id = unpack(">B3sBB", header)
+    return packet_type, version_id, bytes_to_num(b_length)
+
+
+def read_random_val(sock: socket.socket) -> bytes:
+    return tcp_read(sock, 32)
+
+
+def read_session_id(sock: socket.socket) -> bytes:
+    b_session_id_length = tcp_read(sock, 1)
+    [session_id_length] = unpack(">B", b_session_id_length)
+    return tcp_read(sock, session_id_length)
+
+
+def read_cipher_suite(sock: socket.socket) -> bytes:
+    return tcp_read(sock, 2)
+
+
+def parse_server_hello(sock: socket.socket) -> Optional[SSLServerHello]:
+    header = read_ssl_record(sock)
+
+    if header is None:
+        return None
+
+    package_type, _, _ = header
+    if package_type == SSLRecord.HANDSHAKE.value:
+        handshake_header = read_handshake_header(sock)
+
+        if handshake_header is None:
+            return None
+
+        handshake_type, _, _ = handshake_header
+        if handshake_type == SSLHandshakeRecord.SERVER_HELLO.value:
+            return SSLServerHello(
+                rand=read_random_val(sock),
+                session_id=read_session_id(sock),
+                cipher_suite=read_cipher_suite(sock),
+            )
+
+    return None
