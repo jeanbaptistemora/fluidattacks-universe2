@@ -228,7 +228,7 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
     )
 
 
-async def create_root(*, root: RootItem) -> None:
+async def add_root(*, root: RootItem) -> None:
     key_structure = TABLE.primary_key
 
     metadata_key = keys.build_key(
@@ -315,7 +315,7 @@ async def update_git_root_cloning(
     await operations.batch_write_item(items=historic, table=TABLE)
 
 
-async def create_git_root_toe_lines(
+async def add_git_root_toe_lines(
     *, root_toe_lines: GitRootToeLinesItem
 ) -> None:
     key_structure = TABLE.primary_key
@@ -457,7 +457,7 @@ async def update_git_root_toe_lines(
     )
 
 
-async def create_git_root_toe_input(
+async def add_git_root_toe_input(
     *, root_toe_input: GitRootToeInputItem
 ) -> None:
     key_structure = TABLE.primary_key

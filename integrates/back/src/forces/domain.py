@@ -75,15 +75,13 @@ async def add_forces_execution(
         if await forces_dal.save_log_execution(
             log, log_name
         ) and await forces_dal.save_log_execution(vulns_file, vulns_name):
-            success = await forces_dal.create_execution(
+            success = await forces_dal.add_execution(
                 group_name=group_name, **execution_attributes
             )
     return success
 
 
-async def create_forces_user(
-    info: GraphQLResolveInfo, group_name: str
-) -> bool:
+async def add_forces_user(info: GraphQLResolveInfo, group_name: str) -> bool:
     user_email = format_forces_user_email(group_name)
     success = await groups_domain.invite_to_group(
         email=user_email,

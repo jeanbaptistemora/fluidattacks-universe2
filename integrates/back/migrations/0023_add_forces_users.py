@@ -19,7 +19,7 @@ from dataloaders import (
     get_new_context,
 )
 from forces.domain import (
-    create_forces_user,
+    add_forces_user,
 )
 from groups.dal import (
     get_active_groups,
@@ -42,7 +42,7 @@ async def main() -> None:
         success = False
         try:
             context = get_new_context()
-            success = await create_forces_user(
+            success = await add_forces_user(
                 info=context, group_name=group_name
             )
         except ClientError:

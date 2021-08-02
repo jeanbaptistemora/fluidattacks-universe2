@@ -47,9 +47,7 @@ def _format_git_toe_lines_item(
 async def create(root_toe_lines: GitRootToeLines) -> None:
     try:
         root_toe_lines_item = _format_git_toe_lines_item(root_toe_lines)
-        await model.create_git_root_toe_lines(
-            root_toe_lines=root_toe_lines_item
-        )
+        await model.add_git_root_toe_lines(root_toe_lines=root_toe_lines_item)
     except ConditionalCheckFailedException:
         raise RepeatedToeLines()
 

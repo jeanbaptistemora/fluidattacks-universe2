@@ -415,7 +415,7 @@ async def populate_executions(data: List[Any]) -> bool:
             execution["date"], date_format="%Y-%m-%dT%H:%M:%SZ", zone="UTC"
         )
     coroutines.extend(
-        [dal_forces.create_execution(**execution) for execution in data]
+        [dal_forces.add_execution(**execution) for execution in data]
     )
     return all(await collect(coroutines))
 

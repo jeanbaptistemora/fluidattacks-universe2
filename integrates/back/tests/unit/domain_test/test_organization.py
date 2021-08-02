@@ -73,7 +73,7 @@ async def test_add_user() -> None:
 
 
 @pytest.mark.changes_db
-async def test_create_organization() -> None:
+async def test_add_organization() -> None:
     org_name = "esdeath"
     user = "org_testusermanager1@gmail.com"
     with pytest.raises(InvalidOrganization):

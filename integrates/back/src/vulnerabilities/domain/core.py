@@ -540,7 +540,7 @@ async def reject_vulnerabilities_zero_risk(
         "parent": "0",
         "comment_id": comment_id,
     }
-    create_comment = await comments_domain.add(
+    add_comment = await comments_domain.add(
         finding_id, comment_data, user_info
     )
     reject_zero_risk_vulns = await collect(
@@ -551,7 +551,7 @@ async def reject_vulnerabilities_zero_risk(
             for vuln in vulnerabilities
         ]
     )
-    success = all(reject_zero_risk_vulns) and create_comment[1]
+    success = all(reject_zero_risk_vulns) and add_comment[1]
     if not success:
         LOGGER.error("An error occurred rejecting zero risk vuln", **NOEXTRA)
     return success
@@ -585,7 +585,7 @@ async def request_vulnerabilities_zero_risk(
         "parent": "0",
         "comment_id": comment_id,
     }
-    create_comment = await comments_domain.add(
+    add_comment = await comments_domain.add(
         finding_id, comment_data, user_info
     )
     request_zero_risk_vulns = await collect(
@@ -596,7 +596,7 @@ async def request_vulnerabilities_zero_risk(
             for vuln in vulnerabilities
         ]
     )
-    success = all(request_zero_risk_vulns) and create_comment[1]
+    success = all(request_zero_risk_vulns) and add_comment[1]
     if success:
         await notifications_domain.request_vulnerability_zero_risk(
             info=info,

@@ -48,10 +48,8 @@ LOGGER = logging.getLogger(__name__)
 TABLE_NAME = "FI_forces"
 
 
-async def create_execution(
-    group_name: str, **execution_attributes: Any
-) -> bool:
-    """Create an execution of forces."""
+async def add_execution(group_name: str, **execution_attributes: Any) -> bool:
+    """Add/creates an execution of forces."""
     success = False
     try:
         execution_attributes["date"] = datetime_utils.get_as_str(

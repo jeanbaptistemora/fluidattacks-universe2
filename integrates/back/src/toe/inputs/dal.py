@@ -47,9 +47,7 @@ def _format_git_toe_input_item(
 async def create(root_toe_input: GitRootToeInput) -> None:
     try:
         root_toe_input_item = _format_git_toe_input_item(root_toe_input)
-        await model.create_git_root_toe_input(
-            root_toe_input=root_toe_input_item
-        )
+        await model.add_git_root_toe_input(root_toe_input=root_toe_input_item)
     except ConditionalCheckFailedException:
         raise RepeatedToeInput()
 

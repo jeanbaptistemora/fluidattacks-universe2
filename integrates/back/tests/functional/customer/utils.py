@@ -27,7 +27,7 @@ async def get_result(
     return result
 
 
-async def create_group() -> str:
+async def add_group() -> str:
     query = """{
         internalNames(entity: GROUP){
             name
@@ -43,7 +43,7 @@ async def create_group() -> str:
     org_name = "okada"
     query = f"""
         mutation {{
-            createGroup(
+            addGroup(
                 organization: "{org_name}",
                 description: "This is a new group from pytest",
                 groupName: "{group_name}",
@@ -57,8 +57,8 @@ async def create_group() -> str:
     """
     data = {"query": query}
     result = await get_result(data, stakeholder=MANAGER)
-    assert "success" in result["data"]["createGroup"]
-    assert result["data"]["createGroup"]["success"]
+    assert "success" in result["data"]["addGroup"]
+    assert result["data"]["addGroup"]["success"]
 
     role = "CUSTOMER"
     customer_email = CUSTOMER

@@ -1,5 +1,5 @@
 from forces.dal import (
-    create_execution,
+    add_execution,
     get_secret_token,
     update_secret_token,
 )
@@ -19,7 +19,7 @@ async def test_create_execution() -> None:
     group = "unittesting"
     execution_id = "random_id"
     now = datetime_utils.get_now()
-    assert await create_execution(
+    assert await add_execution(
         group_name=group,
         execution_id=execution_id,
         date=now,
