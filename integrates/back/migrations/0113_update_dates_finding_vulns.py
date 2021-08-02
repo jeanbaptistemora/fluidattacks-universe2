@@ -5,8 +5,8 @@ is the same, or older, than the date of creation for its vulns.
 
 https://gitlab.com/fluidattacks/product/-/issues/4271
 
-Execution Time:     2021-07-29 at 14:01:08 UTC-05
-Finalization Time:  2021-07-29 at 14:26:43 UTC-05
+Execution Time:     2021-08-02 at 06:43:08 UTC-05
+Finalization Time:  2021-08-02 at 08:05:06 UTC-05
 """
 
 from aioextensions import (
@@ -34,7 +34,7 @@ from vulnerabilities import (
     domain as vulns_domain,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 
 async def process_finding(
