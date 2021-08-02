@@ -600,7 +600,7 @@ async def add_without_group(
     return success
 
 
-async def delete_group(
+async def remove_group(
     context: Any, group_name: str, user_email: str, organization_id: str
 ) -> bool:
     response = False
@@ -706,12 +706,12 @@ async def update_group_attrs(
         group_loader = context.group
         group = await group_loader.load(group_name)
         org_id = group["organization"]
-        success = success and await delete_group(
+        success = success and await remove_group(
             context, group_name, requester_email, org_id
         )
 
     if success and has_asm:
-        await notifications_domain.edit_group(
+        await notifications_domain.update_group(
             comments=comments,
             group_name=group_name,
             had_machine=cast(

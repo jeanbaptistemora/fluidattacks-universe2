@@ -91,7 +91,7 @@ def _is_scope_comment(comment: CommentType) -> bool:
     return str(comment["content"]).strip() not in {"#external", "#internal"}
 
 
-async def create(
+async def add(
     finding_id: str, comment_data: CommentType, user_info: UserType
 ) -> Tuple[Union[str, None], bool]:
     today = datetime_utils.get_as_str(datetime_utils.get_now())

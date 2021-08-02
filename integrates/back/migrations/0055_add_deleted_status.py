@@ -14,9 +14,9 @@ from custom_types import (
     Finding,
 )
 from findings.domain.core import (
-    delete_vulnerabilities,
     get_findings_by_group,
     is_deleted,
+    remove_vulnerabilities,
 )
 from groups.domain import (
     get_alive_groups,
@@ -37,7 +37,7 @@ async def _add_deleted_status(
     historic_state = finding["historic_state"]
     last_state = historic_state[-1]
     if STAGE == "apply":
-        await delete_vulnerabilities(
+        await remove_vulnerabilities(
             finding_id,
             last_state["justification"],
             last_state["analyst"],

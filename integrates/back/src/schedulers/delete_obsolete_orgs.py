@@ -60,7 +60,7 @@ async def delete_organization(
     org_groups = await orgs_domain.get_groups(organization_id)
     groups_removed = all(
         await collect(
-            groups_domain.delete_group(context, group, email, organization_id)
+            groups_domain.remove_group(context, group, email, organization_id)
             for group in org_groups
         )
     )

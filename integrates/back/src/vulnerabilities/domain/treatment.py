@@ -158,7 +158,7 @@ async def validate_treatment_change(
     )
 
 
-async def add_vuln_treatment(
+async def add_vulnerability_treatment(
     *,
     finding_id: str,
     updated_values: Dict[str, str],
@@ -407,7 +407,7 @@ async def update_vulnerabilities_treatment(
             organization_id,
             updated_values,
         ):
-            success = await add_vuln_treatment(
+            success = await add_vulnerability_treatment(
                 finding_id=finding_id,
                 updated_values=updated_values,
                 vuln=vulnerability,

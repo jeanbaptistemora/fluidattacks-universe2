@@ -51,7 +51,7 @@ async def _delete_groups(
     success = all(
         await collect(
             [
-                groups_domain.delete_group(
+                groups_domain.remove_group(
                     loaders, get_key_or_fallback(group), email, org_id
                 )
                 for group, org_id in zip(

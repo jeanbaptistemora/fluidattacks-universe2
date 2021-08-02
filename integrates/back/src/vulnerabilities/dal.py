@@ -46,7 +46,7 @@ LOGGER = logging.getLogger(__name__)
 TABLE_NAME: str = "FI_vulnerabilities"
 
 
-async def confirm_zero_risk_vulnerability(
+async def confirm_vulnerability_zero_risk(
     user_email: str, date: str, comment_id: str, vuln: Dict[str, FindingType]
 ) -> bool:
     historic_zero_risk = cast(
@@ -171,7 +171,7 @@ async def get_vulnerabilities_async(
     ]
 
 
-async def reject_zero_risk_vulnerability(
+async def reject_vulnerability_zero_risk(
     user_email: str, date: str, comment_id: str, vuln: Dict[str, FindingType]
 ) -> bool:
     historic_zero_risk = cast(

@@ -64,7 +64,7 @@ async def reset_group_expired_accepted_findings(
         )
         if is_accepted_expired or is_undefined_accepted_expired:
             updated_values = {"treatment": "NEW"}
-            await vulns_domain.add_vuln_treatment(
+            await vulns_domain.add_vulnerability_treatment(
                 finding_id=finding_id,
                 updated_values=updated_values,
                 vuln=vuln,

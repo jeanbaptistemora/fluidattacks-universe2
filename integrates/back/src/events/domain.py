@@ -84,7 +84,7 @@ async def add_comment(
             raise InvalidCommentParent()
     user_data = await users_domain.get(user_email)
     user_data["user_email"] = user_data.pop("email")
-    success = await comments_domain.create(event_id, comment_data, user_data)
+    success = await comments_domain.add(event_id, comment_data, user_data)
     return cast(Tuple[Optional[str], bool], success)
 
 

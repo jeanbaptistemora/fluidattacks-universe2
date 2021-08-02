@@ -75,7 +75,7 @@ async def send_mail_comment(
     )
 
 
-async def send_mail_delete_finding(
+async def send_mail_remove_finding(
     finding_id: str,
     finding_name: str,
     group_name: str,

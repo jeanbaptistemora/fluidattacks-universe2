@@ -111,7 +111,7 @@ async def delete_group(
     )
 
 
-async def edit_group(
+async def update_group(
     *,
     comments: str,
     group_name: str,
@@ -259,7 +259,7 @@ async def request_health_check(
     )
 
 
-async def request_zero_risk_vuln(
+async def request_vulnerability_zero_risk(
     info: GraphQLResolveInfo,
     finding_id: str,
     justification: str,

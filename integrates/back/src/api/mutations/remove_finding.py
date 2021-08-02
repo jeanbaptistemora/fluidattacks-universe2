@@ -71,7 +71,7 @@ async def mutate(
             f"Security: Removed a finding: {finding_id} successfully",
         )
         schedule(
-            findings_mail.send_mail_delete_finding(
+            findings_mail.send_mail_remove_finding(
                 finding_id,
                 str(finding_data.get("finding", "")),
                 group_name,

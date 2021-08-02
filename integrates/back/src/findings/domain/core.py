@@ -154,7 +154,7 @@ async def add_comment(
 
     user_data = await users_domain.get(user_email)
     user_data["user_email"] = user_data.pop("email")
-    success = await comments_domain.create(finding_id, comment_data, user_data)
+    success = await comments_domain.add(finding_id, comment_data, user_data)
     return success[1]
 
 
@@ -231,7 +231,7 @@ async def remove_finding(
             finding_id, {"historic_state": submission_history}
         )
         schedule(
-            delete_vulnerabilities(context, finding_id, justification, analyst)
+            remove_vulnerabilities(context, finding_id, justification, analyst)
         )
     return success
 
@@ -257,13 +257,13 @@ async def remove_finding_new(
         state=new_state,
     )
     schedule(
-        delete_vulnerabilities(
+        remove_vulnerabilities(
             context, finding_id, justification.value, user_email
         )
     )
 
 
-async def delete_vulnerabilities(
+async def remove_vulnerabilities(
     context: Any, finding_id: str, justification: str, user_email: str
 ) -> bool:
     finding_vulns_loader = context.loaders.finding_vulns
@@ -918,7 +918,7 @@ async def request_vulnerabilities_verification(
         "parent": "0",
         "comment_id": comment_id,
     }
-    await comments_domain.create(finding_id, comment_data, user_info)
+    await comments_domain.add(finding_id, comment_data, user_info)
 
     update_vulns = await collect(
         map(vulns_domain.request_verification, vulnerabilities)
@@ -982,7 +982,7 @@ async def request_vulnerabilities_verification_new(
         "parent": "0",
         "comment_id": comment_id,
     }
-    await comments_domain.create(finding_id, comment_data, user_info)
+    await comments_domain.add(finding_id, comment_data, user_info)
     update_vulns = await collect(
         map(vulns_domain.request_verification, vulnerabilities)
     )
@@ -1230,7 +1230,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         "parent": "0",
         "comment_id": comment_id,
     }
-    await comments_domain.create(finding_id, comment_data, user_info)
+    await comments_domain.add(finding_id, comment_data, user_info)
 
     # Modify the verification state to mark all passed vulns as verified
     success = await collect(

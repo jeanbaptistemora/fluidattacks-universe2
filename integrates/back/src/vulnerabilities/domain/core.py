@@ -102,7 +102,7 @@ async def confirm_vulnerabilities_zero_risk(
     validate_justification_length(justification)
     vulnerabilities = await get_by_finding_and_uuids(finding_id, set(vuln_ids))
     vulnerabilities = [
-        validate_requested_zero_risk_vuln(vuln) for vuln in vulnerabilities
+        validate_requested_vuln_zero_risk(vuln) for vuln in vulnerabilities
     ]
     if not vulnerabilities:
         raise VulnNotFound()
@@ -116,18 +116,18 @@ async def confirm_vulnerabilities_zero_risk(
         "parent": "0",
         "comment_id": comment_id,
     }
-    create_comment = await comments_domain.create(
+    add_comment = await comments_domain.add(
         finding_id, comment_data, user_info
     )
     confirm_zero_risk_vulns = await collect(
         [
-            vulns_dal.confirm_zero_risk_vulnerability(
+            vulns_dal.confirm_vulnerability_zero_risk(
                 user_email, today, comment_id, vuln
             )
             for vuln in vulnerabilities
         ]
     )
-    success = all(confirm_zero_risk_vulns) and create_comment[1]
+    success = all(confirm_zero_risk_vulns) and add_comment[1]
     if not success:
         LOGGER.error("An error occurred confirming zero risk vuln", **NOEXTRA)
     return success
@@ -526,7 +526,7 @@ async def reject_vulnerabilities_zero_risk(
     validate_justification_length(justification)
     vulnerabilities = await get_by_finding_and_uuids(finding_id, set(vuln_ids))
     vulnerabilities = [
-        validate_requested_zero_risk_vuln(vuln) for vuln in vulnerabilities
+        validate_requested_vuln_zero_risk(vuln) for vuln in vulnerabilities
     ]
     if not vulnerabilities:
         raise VulnNotFound()
@@ -540,12 +540,12 @@ async def reject_vulnerabilities_zero_risk(
         "parent": "0",
         "comment_id": comment_id,
     }
-    create_comment = await comments_domain.create(
+    create_comment = await comments_domain.add(
         finding_id, comment_data, user_info
     )
     reject_zero_risk_vulns = await collect(
         [
-            vulns_dal.reject_zero_risk_vulnerability(
+            vulns_dal.reject_vulnerability_zero_risk(
                 user_email, today, str(comment_id), vuln
             )
             for vuln in vulnerabilities
@@ -585,7 +585,7 @@ async def request_vulnerabilities_zero_risk(
         "parent": "0",
         "comment_id": comment_id,
     }
-    create_comment = await comments_domain.create(
+    create_comment = await comments_domain.add(
         finding_id, comment_data, user_info
     )
     request_zero_risk_vulns = await collect(
@@ -598,7 +598,7 @@ async def request_vulnerabilities_zero_risk(
     )
     success = all(request_zero_risk_vulns) and create_comment[1]
     if success:
-        await notifications_domain.request_zero_risk_vuln(
+        await notifications_domain.request_vulnerability_zero_risk(
             info=info,
             finding_id=finding_id,
             justification=justification,
@@ -837,7 +837,7 @@ def validate_not_requested_zero_risk_vuln(
     return vuln
 
 
-def validate_requested_zero_risk_vuln(
+def validate_requested_vuln_zero_risk(
     vuln: Dict[str, FindingType]
 ) -> Dict[str, FindingType]:
     """Validate zero risk vuln is already resquested"""

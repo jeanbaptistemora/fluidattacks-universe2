@@ -72,7 +72,7 @@ async def mutate(
             group_name=finding.group_name,
         )
         schedule(
-            findings_mail.send_mail_delete_finding(
+            findings_mail.send_mail_remove_finding(
                 finding.id,
                 finding.title,
                 finding.group_name,
