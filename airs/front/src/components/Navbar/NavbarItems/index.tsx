@@ -32,31 +32,6 @@ const NavbarItems: React.FC = (): JSX.Element => (
       </li>
     </div>
     <div className={"w-auto dn flex-l center"}>
-      <NavbarItem className={"db-l dn services-index"}>
-        <Link className={"no-underline"} to={"/services/continuous-hacking/"}>
-          <NavbarRegularButton>
-            {"Services"}
-            <FontAwesomeContainerSmall>
-              <FontAwesomeIcon icon={faAngleDown} />
-            </FontAwesomeContainerSmall>
-          </NavbarRegularButton>
-        </Link>
-
-        <NavbarSubcategory className={"services-content nl-3125"}>
-          <Link className={"f-18 fw4"} to={"/services/continuous-hacking/"}>
-            {"Continuous Hacking"}
-          </Link>
-
-          <Link className={"f-18 fw4"} to={"/services/one-shot-hacking/"}>
-            {"One Shot Hacking"}
-          </Link>
-
-          <Link className={"f-18 fw4"} to={"/services/comparative/"}>
-            {"Comparative"}
-          </Link>
-        </NavbarSubcategory>
-      </NavbarItem>
-
       <NavbarItem className={"db-l dn solutions-index"}>
         <Link className={"no-underline"} to={"/solutions/"}>
           <NavbarRegularButton>
@@ -103,6 +78,11 @@ const NavbarItems: React.FC = (): JSX.Element => (
             {"Vulnerability Management"}
           </Link>
         </NavbarSubcategory>
+      </NavbarItem>
+      <NavbarItem className={"db-l dn"}>
+        <Link className={"no-underline"} to={"/about-us/certifications/"}>
+          <NavbarRegularButton>{"Certifications"}</NavbarRegularButton>
+        </Link>
       </NavbarItem>
       <NavbarItem className={"db-xl display-none"}>
         <Link className={"no-underline"} to={"/resources/"}>
