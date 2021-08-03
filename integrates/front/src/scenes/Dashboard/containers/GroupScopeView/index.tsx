@@ -47,7 +47,11 @@ export const GroupScopeView: React.FC = (): JSX.Element => {
         />
       </Have>
       <Have I={"has_service_black"}>
-        <IPRoots roots={roots.filter(isIPRoot)} />
+        <IPRoots
+          groupName={groupName}
+          onUpdate={refetch}
+          roots={roots.filter(isIPRoot)}
+        />
         <hr />
         <URLRoots
           groupName={groupName}

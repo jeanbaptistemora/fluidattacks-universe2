@@ -104,6 +104,14 @@ const UPDATE_GIT_ROOT: DocumentNode = gql`
   }
 `;
 
+const ADD_IP_ROOT = gql`
+  mutation AddIpRoot($address: String!, $groupName: String!, $port: Int!) {
+    addIpRoot(address: $address, groupName: $groupName, port: $port) {
+      success
+    }
+  }
+`;
+
 const ADD_URL_ROOT = gql`
   mutation AddUrlRoot($url: String!, $groupName: String!) {
     addUrlRoot(url: $url, groupName: $groupName) {
@@ -141,6 +149,7 @@ const DEACTIVATE_ROOT: DocumentNode = gql`
 export {
   ACTIVATE_ROOT,
   ADD_GIT_ROOT,
+  ADD_IP_ROOT,
   ADD_URL_ROOT,
   DEACTIVATE_ROOT,
   GET_ROOTS,
