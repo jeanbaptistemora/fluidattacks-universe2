@@ -25,3 +25,97 @@
       title: Use secure coding standards
       link: https://www.bsimm.com/content/dam/bsimm/reports/bsimm9.pdf
   metadata: {}
+"002":
+  title: CAPEC™
+  en:
+    description: >
+      Common Attack Pattern Enumeration and Classification
+      helps by providing
+      a comprehensive dictionary
+      of known patterns of attack
+      employed by adversaries
+      to exploit known weaknesses
+      in cyber-enabled capabilities.
+      It can be used by
+      analysts, developers, testers, and educators
+      to advance community understanding
+      and enhance defenses.
+      The version used in this section is CAPEC List v3.4.
+  es:
+    description: __empty__
+  definitions:
+    "1":
+      title: Accessing Functionality Not Properly Constrained by ACLs
+      link: https://capec.mitre.org/data/definitions/1.html
+    "2":
+      title: Inducing Account Lockout
+      link: https://capec.mitre.org/data/definitions/2.html
+    "3":
+      title: Using Leading 'Ghost' Character Sequences to Bypass Input Filters
+      link: https://capec.mitre.org/data/definitions/3.html
+    "4":
+      title: Using Alternative IP Address Encodings
+      link: https://capec.mitre.org/data/definitions/4.html
+    "6":
+      title: Argument Injection
+      link: https://capec.mitre.org/data/definitions/6.html
+    "7":
+      title: Blind SQL Injection
+      link: https://capec.mitre.org/data/definitions/7.html
+    "11":
+      title: Cause Web Server Misclassification
+      link: https://capec.mitre.org/data/definitions/11.html
+    "12":
+      title: Choosing Message Identifier
+      link: https://capec.mitre.org/data/definitions/12.html
+    "13":
+      title: Subverting Environment Variable Values
+      link: https://capec.mitre.org/data/definitions/13.html
+    "15":
+      title: Command Delimiters
+      link: https://capec.mitre.org/data/definitions/15.html
+    "16":
+      title: Dictionary-based Password Attack
+      link: https://capec.mitre.org/data/definitions/16.html
+    "17":
+      title: Using Malicious Files
+      link: https://capec.mitre.org/data/definitions/17.html
+    "18":
+      title: XSS Targeting Non-Script Elements
+      link: https://capec.mitre.org/data/definitions/18.html
+    "19":
+      title: Embedding Scripts within Scripts
+      link: https://capec.mitre.org/data/definitions/19.html
+    "20":
+      title: Encryption Brute Forcing
+      link: https://capec.mitre.org/data/definitions/20.html   
+    "21":
+      title: Exploitation of Trusted Identifiers
+      link: https://capec.mitre.org/data/definitions/21.html
+    "22":
+      title: Exploiting Trust in Client
+      link: https://capec.mitre.org/data/definitions/22.html
+    "23":
+      title: File Content Injection
+      link: https://capec.mitre.org/data/definitions/23.html
+    "24":
+      title: Filter Failure through Buffer Overflow
+      link: https://capec.mitre.org/data/definitions/24.html
+    "25":
+      title: Forced Deadlock
+      link: https://capec.mitre.org/data/definitions/25.html
+    "26":
+      title: Leveraging Race Conditions
+      link: https://capec.mitre.org/data/definitions/26.html
+    "27":
+      title: Leveraging Race Conditions via Symbolic Links
+      link: https://capec.mitre.org/data/definitions/27.html
+    "28":
+      title: Fuzzing
+      link: https://capec.mitre.org/data/definitions/28.html
+    "29":
+      title: Leveraging Time-of-Check and Time-of-Use (TOCTOU) Race Conditions
+      link: https://capec.mitre.org/data/definitions/29.html
+    "30":
+      title: Hijacking a Privileged Thread of Execution
+      link: https://capec.mitre.org/data/definitions/30.html
