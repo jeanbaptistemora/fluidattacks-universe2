@@ -54,8 +54,6 @@ makes.announce.bugsnag
 makes.attrs
 makes.ci.config
 makes.done
-makes.k8s.apply
-makes.k8s.test
 makes.kill-port
 makes.kill-tree
 makes.okta.apply
