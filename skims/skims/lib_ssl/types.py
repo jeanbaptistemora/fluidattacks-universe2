@@ -125,19 +125,6 @@ class TLSVersionId(Enum):
     tlsv1_3: TLSVersion = TLSVersion.TLSv1_3
 
 
-class SSLVulnerability(NamedTuple):
-    description: str
-    line: SSLSnippetLine
-    ssl_settings: SSLSettings
-    finding: FindingEnum
-
-    def get_line(self) -> int:
-        return self.line.value
-
-    def __str__(self) -> str:
-        return str(self.ssl_settings)
-
-
 class SSLSuite(Enum):
     NULL_WITH_NULL_NULL: Tuple[int, int] = (0x00, 0x00)
     RSA_WITH_NULL_MD5: Tuple[int, int] = (0x00, 0x01)
@@ -562,3 +549,17 @@ class SSLServerResponse(NamedTuple):
     length: int
     alert: Optional[SSLAlert] = None
     handshake: Optional[SSLServerHandshake] = None
+
+
+class SSLVulnerability(NamedTuple):
+    description: str
+    line: SSLSnippetLine
+    ssl_settings: SSLSettings
+    server_response: Optional[SSLServerResponse]
+    finding: FindingEnum
+
+    def get_line(self) -> int:
+        return self.line.value
+
+    def __str__(self) -> str:
+        return str(self.ssl_settings)
