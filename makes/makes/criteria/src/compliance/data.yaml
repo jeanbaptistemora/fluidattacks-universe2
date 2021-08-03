@@ -419,5 +419,41 @@
       link: https://www.cisecurity.org/controls/
     "16.4":
       title: Encrypt or Hash All Authentication Credentials
-      link: https://www.cisecurity.org/controls/        
+      link: https://www.cisecurity.org/controls/
+    "16.5":
+      title: Encrypt Transmittal of Username and Authentication Credentials
+      link: https://www.cisecurity.org/controls/
+    "16.7":
+      title: Establish Process for Revoking Access
+      link: https://www.cisecurity.org/controls/
+    "16.9":
+      title: Disable Dormant Accounts
+      link: https://www.cisecurity.org/controls/
+    "16.10":
+      title: Ensure All Accounts Have An Expiration Date
+      link: https://www.cisecurity.org/controls/
+    "16.11":
+      title: Lock Workstation Sessions After Inactivity
+      link: https://www.cisecurity.org/controls/
+    "18.1":
+      title: Establish Secure Coding Practices
+      link: https://www.cisecurity.org/controls/
+    "18.2":
+      title: Ensure That Explicit Error Checking Is Performed for All In-House Developed Software
+      link: https://www.cisecurity.org/controls/
+    "18.3":
+      title: Verify That Acquired Software Is Still Supported
+      link: https://www.cisecurity.org/controls/
+    "18.4":
+      title: Verify That Acquired Software Is Still Supported
+      link: https://www.cisecurity.org/controls/
+    "18.5":
+      title: Use only Standardized and Extensively Reviewed Encryption Algorithms
+      link: https://www.cisecurity.org/controls/
+    "18.10":
+      title: Deploy Web Application Firewalls
+      link: https://www.cisecurity.org/controls/
+    "20.8":
+      title: Control and Monitor Accounts Associated With Penetration Testing
+      link: https://www.cisecurity.org/controls/    
   metadata: {}
