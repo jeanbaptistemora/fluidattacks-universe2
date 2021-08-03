@@ -146,7 +146,7 @@ async def get_comments(
                 set(cast(List[str], verification.get("vulns", []))),
                 vulns,
             )
-            if comment["id"] == str(verification.get("comment", ""))
+            if comment["id"] == verification["comment"]
             else comment
             for comment in comments
             for verification in verified
