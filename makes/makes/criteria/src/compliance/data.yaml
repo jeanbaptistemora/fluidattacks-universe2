@@ -288,3 +288,54 @@
       title: Traffic Injection
       link: https://capec.mitre.org/data/definitions/594.html
   metadata: {}
+"003":
+  title:  CIS
+  en:
+    description: >
+      The Center for Internet Security Controls
+      are a prioritized set of Safeguards
+      to mitigate the most prevalent
+      cyber-attacks against systems and networks.
+      They are mapped to and referenced
+      by multiple legal, regulatory,
+      and policy frameworks.
+      The version used in this section is CIS Controls v7.1.
+  es:
+    description: __empty__
+  definitions:
+    "1.7":
+      title: Deploy Port Level Access Control
+      link: https://www.cisecurity.org/controls/
+    "1.8":
+      title: Utilize Client Certificates to Authenticate Hardware Assets
+      link: https://www.cisecurity.org/controls/
+    "2.4":
+      title: Track Software Inventory Information
+      link: https://www.cisecurity.org/controls/
+    "2.7":
+      title: Utilize Application Whitelisting
+      link: https://www.cisecurity.org/controls/
+    "3.4":
+      title: Deploy Automated Operating System Patch Management Tools
+      link: https://www.cisecurity.org/controls/
+    "3.5":
+      title: Deploy Automated Software Patch Management Tools
+      link: https://www.cisecurity.org/controls/
+    "4.1":
+      title: Maintain Inventory of Administrative Accounts
+      link: https://www.cisecurity.org/controls/
+    "4.2":
+      title: Change Default Passwords
+      link: https://www.cisecurity.org/controls/
+    "4.4":
+      title: Use Unique Passwords
+      link: https://www.cisecurity.org/controls/
+    "4.5":
+      title: Use Use Multi-Factor Authentication for All Administrative Access
+      link: https://www.cisecurity.org/controls/
+    "4.7":
+      title: Limit Access to Scripting Tools
+      link: https://www.cisecurity.org/controls/
+    "4.8":
+      title: Log and Alert on Changes to Administrative Group Membership
+      link: https://www.cisecurity.org/controls/
