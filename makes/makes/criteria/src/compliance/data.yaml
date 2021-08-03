@@ -1,44 +1,27 @@
 "001":
-  title: CAPEC™
+  title: BSIMM
   en:
     description: >
-      Common Attack Pattern Enumeration and Classification
-      helps by providing
-      a comprehensive dictionary
-      of known patterns of attack
-      employed by adversaries
-      to exploit known weaknesses
-      in cyber-enabled capabilities.
-      It can be used by
-      analysts, developers, testers, and educators
-      to advance community understanding
-      and enhance defenses.
-      The version used in this section is CAPEC List v3.4.
+      The Building Security In Maturity Model
+      is a data-driven model developed
+      through rigorous analysis of software
+      security initiatives (SSIs),
+      also known as application / product
+      security programs.
+      The version used in this section is BSIMM9.
   es:
     description: __empty__
   definitions:
-    "1":
-      title: Accessing Functionality Not Properly Constrained by ACLs
-      link: https://capec.mitre.org/data/definitions/1.html
-    "227":
-      title: Sustained Client Engagement
-      link: https://capec.mitre.org/data/definitions/227.html
-  metadata: {}
-"002":
-  title: HIPAA
-  en:
-    description: >
-      The Health Insurance Portability and Accountability Act of 1996
-      required the Secretary of the U.S. Department of Health and Human Services (HHS)
-      to develop regulations
-      protecting the privacy and security
-      of certain health information.
-      The version used in this section
-      is HIPAA Rules 2013 update.
-  es:
-    description: __empty__
-  definitions:
-    "164_308":
-      title: 45 CFR § 164.308 - Administrative safeguards.
-      link: https://www.law.cornell.edu/cfr/text/45/164.308
+    "CR3.4: 2":
+      title: Automate malicious code detection
+      link: https://www.bsimm.com/content/dam/bsimm/reports/bsimm9.pdf
+    "SE3.2: 13":
+      title: Use code protection
+      link: https://www.bsimm.com/content/dam/bsimm/reports/bsimm9.pdf
+    "SR2.4: 60":
+      title: Identify open source
+      link: https://www.bsimm.com/content/dam/bsimm/reports/bsimm9.pdf
+    "SR3.3: 9":
+      title: Use secure coding standards
+      link: https://www.bsimm.com/content/dam/bsimm/reports/bsimm9.pdf
   metadata: {}
