@@ -1,7 +1,5 @@
-from singer_io import (
-    factory,
-)
-from singer_io.singer import (
+from singer_io.singer2 import (
+    SingerDeserializer,
     SingerRecord,
     SingerSchema,
 )
@@ -29,7 +27,7 @@ def test_all_audiences() -> None:
         streams.all_audiences(client, target=tmp)
         tmp.seek(0)
         raw_msgs = tmp.readlines()
-        singer_msgs = list(map(factory.deserialize, raw_msgs))
+        singer_msgs = list(map(SingerDeserializer.deserialize, raw_msgs))
         n_schemas = len(
             list(filter(lambda x: isinstance(x, SingerSchema), singer_msgs))
         )

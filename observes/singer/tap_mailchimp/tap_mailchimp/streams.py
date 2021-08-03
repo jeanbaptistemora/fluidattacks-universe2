@@ -7,11 +7,12 @@ from enum import (
 from itertools import (
     chain,
 )
-from singer_io import (
-    factory,
-)
-from singer_io.singer import (
+from singer_io.singer2 import (
+    SingerEmitter,
     SingerRecord,
+)
+from singer_io.singer2.json import (
+    JsonEmitter,
 )
 import sys
 from tap_mailchimp.api import (
@@ -96,11 +97,12 @@ def _emit_item(
 ) -> None:
     target = target if target else sys.stdout
     results = _item_getter(client, stream, item_id)
+    emitter = SingerEmitter(JsonEmitter(target))
     if isinstance(results, ApiData):
         results = iter([results])
     for result in results:
         record = SingerRecord(stream=stream.value.lower(), record=result.data)
-        factory.emit(record, target)
+        emitter.emit(record)
 
 
 def _emit_items(

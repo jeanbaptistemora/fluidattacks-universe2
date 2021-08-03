@@ -1,9 +1,9 @@
-import json
 from paginator import (
     PageId,
 )
-from singer_io import (
-    JSON,
+from singer_io.singer2.json import (
+    JsonFactory,
+    JsonObj,
 )
 from tap_mailchimp import (
     api,
@@ -17,14 +17,18 @@ from tap_mailchimp.api.common.raw import (
 )
 
 
-def _list_audiences(_page: PageId) -> JSON:
+def _list_audiences(_page: PageId) -> JsonObj:
     with open("./tests/mock_data/audience.json") as data:
-        return json.load(data)["list_audiences"]
+        return JsonFactory.load(data)["list_audiences"].to_json()
 
 
-def _get_audience(audience: AudienceId) -> JSON:
+def _get_audience(audience: AudienceId) -> JsonObj:
     with open("./tests/mock_data/audience.json") as data:
-        return json.load(data)["get_audience"][audience.str_id]
+        return (
+            JsonFactory.load(data)["get_audience"]
+            .to_json()[audience.str_id]
+            .to_json()
+        )
 
 
 def mock_data_source() -> RawSource:

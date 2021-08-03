@@ -1,3 +1,6 @@
+from singer_io.singer2.json import (
+    JsonValue,
+)
 from tap_mailchimp.api.common import (
     api_data,
 )
@@ -21,12 +24,14 @@ def get_activity(
     raw_source: RawSource, audience: AudienceId
 ) -> Iterator[ApiData]:
     result = api_data.create_api_data(raw_source.get_activity(audience))
-    activity = result.data["activity"].copy()
+    activity = [
+        item.to_json().copy() for item in result.data["activity"].to_list()
+    ]
     audience_id = result.data["list_id"]
     for data in activity:
         data["list_id"] = audience_id
         if "_links" not in data:
-            data["_links"] = [{}]
+            data["_links"] = JsonValue([JsonValue({})])
     return iter(map(api_data.create_api_data, activity))
 
 
@@ -34,11 +39,13 @@ def get_top_clients(
     raw_source: RawSource, audience: AudienceId
 ) -> Iterator[ApiData]:
     result = api_data.create_api_data(raw_source.get_top_clients(audience))
-    clients = result.data["clients"].copy()
+    clients = [
+        item.to_json().copy() for item in result.data["clients"].to_list()
+    ]
     audience_id = result.data["list_id"]
     for data in clients:
         data["list_id"] = audience_id
-        data["_links"] = [{}]
+        data["_links"] = JsonValue([JsonValue({})])
     return iter(map(api_data.create_api_data, clients))
 
 
@@ -83,9 +90,11 @@ def get_audience_locations(
     result = api_data.create_api_data(
         raw_source.get_audience_locations(audience)
     )
-    locations = result.data["locations"].copy()
+    locations = [
+        item.to_json().copy() for item in result.data["locations"].to_list()
+    ]
     audience_id = result.data["list_id"]
     for data in locations:
         data["list_id"] = audience_id
-        data["_links"] = [{}]
+        data["_links"] = JsonValue([JsonValue({})])
     return iter(map(api_data.create_api_data, locations))
