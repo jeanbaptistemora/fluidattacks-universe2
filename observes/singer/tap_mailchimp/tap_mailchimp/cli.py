@@ -1,5 +1,7 @@
 import click
-import json
+from singer_io.singer2.json import (
+    JsonFactory,
+)
 from tap_mailchimp import (
     auth,
     executor,
@@ -11,14 +13,13 @@ from tap_mailchimp.streams import (
     SupportedStreams,
 )
 from typing import (
-    AnyStr,
     IO,
     Optional,
 )
 
 
 @click.command()
-@click.option("--creds-file", type=click.File("r"), required=True)
+@click.option("--creds-file", type=click.File("r", "UTF-8"), required=True)
 @click.option("--all-streams", is_flag=True, default=False)
 @click.option(
     "--name",
@@ -29,9 +30,9 @@ from typing import (
     default=None,
 )
 def stream(
-    creds_file: IO[AnyStr], name: Optional[str], all_streams: bool
+    creds_file: IO[str], name: Optional[str], all_streams: bool
 ) -> None:
-    creds: Credentials = auth.to_credentials(json.load(creds_file))
+    creds: Credentials = auth.to_credentials(JsonFactory.load(creds_file))
     if all_streams:
         executor.stream_all(creds)
     elif name:
