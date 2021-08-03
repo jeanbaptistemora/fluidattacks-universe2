@@ -457,3 +457,19 @@
       title: Control and Monitor Accounts Associated With Penetration Testing
       link: https://www.cisecurity.org/controls/    
   metadata: {}
+"004":
+  title: CWE
+  en:
+    description: >
+      Common Weakness Enumeration
+      is a community-developed list
+      of software and hardware weakness types.
+      It serves as a common language,
+      a measuring stick for security tools,
+      and as a baseline for weakness identification,
+      mitigation, and prevention efforts.
+      The version used in this section is CWE List v4.4.
+  es:
+    description: __empty__
+  definitions: __empty__
+  metadata: {}
