@@ -44,7 +44,7 @@ def _format_git_toe_input_item(
     return GitRootToeInputItem(**toe_input._asdict())
 
 
-async def create(root_toe_input: GitRootToeInput) -> None:
+async def add(root_toe_input: GitRootToeInput) -> None:
     try:
         root_toe_input_item = _format_git_toe_input_item(root_toe_input)
         await model.add_git_root_toe_input(root_toe_input=root_toe_input_item)
@@ -52,9 +52,9 @@ async def create(root_toe_input: GitRootToeInput) -> None:
         raise RepeatedToeInput()
 
 
-async def delete(entry_point: str, component: str, group_name: str) -> None:
+async def remove(entry_point: str, component: str, group_name: str) -> None:
     try:
-        await model.delete_git_root_toe_input(
+        await model.remove_git_root_toe_input(
             entry_point=entry_point, component=component, group_name=group_name
         )
     except ClientError as ex:

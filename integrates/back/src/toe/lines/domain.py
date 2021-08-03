@@ -10,11 +10,11 @@ from typing import (
 
 
 async def add(root_toe_lines: GitRootToeLines) -> None:
-    await toe_lines_dal.create(root_toe_lines)
+    await toe_lines_dal.add(root_toe_lines)
 
 
-async def delete(filename: str, group_name: str, root_id: str) -> None:
-    await toe_lines_dal.delete(filename, group_name, root_id)
+async def remove(filename: str, group_name: str, root_id: str) -> None:
+    await toe_lines_dal.remove(filename, group_name, root_id)
 
 
 async def get_by_group(group_name: str) -> Tuple[GitRootToeLines, ...]:

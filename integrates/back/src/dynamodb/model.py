@@ -342,7 +342,7 @@ async def add_git_root_toe_lines(
     )
 
 
-async def delete_git_root_toe_lines(
+async def remove_git_root_toe_lines(
     *, filename: str, group_name: str, root_id: str
 ) -> None:
     facet = TABLE.facets["root_toe_lines"]
@@ -484,7 +484,7 @@ async def add_git_root_toe_input(
     )
 
 
-async def delete_git_root_toe_input(
+async def remove_git_root_toe_input(
     *,
     entry_point: str,
     component: str,

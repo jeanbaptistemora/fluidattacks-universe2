@@ -84,11 +84,11 @@ async def test_add() -> None:
 
 
 @pytest.mark.changes_db
-async def test_delete() -> None:
+async def test_remove() -> None:
     group_name = "unittesting"
     group_toe_lines = await toe_lines_domain.get_by_group(group_name)
     assert len(group_toe_lines) == 3
-    await toe_lines_domain.delete(
+    await toe_lines_domain.remove(
         group_name=group_name,
         root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
         filename="product/test/new#.new",

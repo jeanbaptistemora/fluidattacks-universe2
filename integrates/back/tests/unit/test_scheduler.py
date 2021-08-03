@@ -310,7 +310,7 @@ async def test_delete_obsolete_orgs() -> None:
 
 @pytest.mark.changes_db
 @freeze_time("2021-01-01")
-async def test_delete_imamura_stakeholders() -> None:
+async def test_remove_imamura_stakeholders() -> None:
     org_name = "imamura"
     org_id = await get_id_by_name(org_name)
     loaders = get_new_context()
@@ -323,14 +323,14 @@ async def test_delete_imamura_stakeholders() -> None:
         "deleteimamura@fluidattacks.com",  # NOSONAR
         "nodeleteimamura@fluidattacks.com",  # NOSONAR
     ]
-    delete_stakeholder = await users_dal.get("deleteimamura@fluidattacks.com")
-    delete_stakeholder_exists = bool(delete_stakeholder)
-    assert delete_stakeholder_exists
-    nodelete_stakeholder = await users_dal.get(
+    remove_stakeholder = await users_dal.get("deleteimamura@fluidattacks.com")
+    remove_stakeholder_exists = bool(remove_stakeholder)
+    assert remove_stakeholder_exists
+    noremove_stakeholder = await users_dal.get(
         "nodeleteimamura@fluidattacks.com"
     )
-    nodelete_stakeholder_exists = bool(nodelete_stakeholder)
-    assert nodelete_stakeholder_exists
+    noremove_stakeholder_exists = bool(noremove_stakeholder)
+    assert noremove_stakeholder_exists
 
     await delete_imamura_stakeholders.main()
 
@@ -341,18 +341,18 @@ async def test_delete_imamura_stakeholders() -> None:
         stakeholder["email"] for stakeholder in org_stakeholders
     ]
     assert org_stakeholders_emails == ["nodeleteimamura@fluidattacks.com"]
-    delete_stakeholder = await users_dal.get("deleteimamura@fluidattacks.com")
-    delete_stakeholder_exists = bool(delete_stakeholder)
-    assert not delete_stakeholder_exists
-    nodelete_stakeholder = await users_dal.get(
+    remove_stakeholder = await users_dal.get("deleteimamura@fluidattacks.com")
+    remove_stakeholder_exists = bool(remove_stakeholder)
+    assert not remove_stakeholder_exists
+    noremove_stakeholder = await users_dal.get(
         "nodeleteimamura@fluidattacks.com"
     )
-    nodelete_stakeholder_exists = bool(nodelete_stakeholder)
-    assert nodelete_stakeholder_exists
+    noremove_stakeholder_exists = bool(noremove_stakeholder)
+    assert noremove_stakeholder_exists
 
 
 @pytest.mark.changes_db
-async def test_delete_obsolete_groups() -> None:
+async def test_remove_obsolete_groups() -> None:
     group_attributes = {
         "project_name",
         "project_status",

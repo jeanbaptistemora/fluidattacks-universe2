@@ -92,7 +92,7 @@ async def test_add_organization() -> None:
 
 
 @pytest.mark.changes_db
-async def test_delete_organization() -> None:
+async def test_remove_organization() -> None:
     org_id = "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"  # NOSONAR
     await orgs_domain.remove_organization(org_id)
 

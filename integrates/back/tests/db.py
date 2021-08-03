@@ -421,12 +421,12 @@ async def populate_executions(data: List[Any]) -> bool:
 
 
 async def populate_toe_lines(data: Tuple[GitRootToeLines, ...]) -> bool:
-    await collect([dal_toe_lines.create(toe_lines) for toe_lines in data])
+    await collect([dal_toe_lines.add(toe_lines) for toe_lines in data])
     return True
 
 
 async def populate_toe_inputs(data: Tuple[GitRootToeInput, ...]) -> bool:
-    await collect([dal_toe_inputs.create(toe_input) for toe_input in data])
+    await collect([dal_toe_inputs.add(toe_input) for toe_input in data])
     return True
 
 

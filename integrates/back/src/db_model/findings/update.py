@@ -123,14 +123,14 @@ async def update_historic_verification(  # pylint: disable=too-many-locals
             items=tuple(verification_items), table=TABLE
         )
     )
-    verifications_to_delete = [
+    verifications_to_remove = [
         current_verification_key
         for current_verification_key in current_verification_keys
         if current_verification_key not in verification_keys
     ]
     operation_coroutines.append(
         operations.batch_delete_item(
-            keys=verifications_to_delete,
+            keys=verifications_to_remove,
             table=TABLE,
         )
     )

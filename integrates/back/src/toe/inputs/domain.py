@@ -10,11 +10,11 @@ from typing import (
 
 
 async def add(root_toe_input: GitRootToeInput) -> None:
-    await toe_inputs_dal.create(root_toe_input)
+    await toe_inputs_dal.add(root_toe_input)
 
 
 async def delete(entry_point: str, component: str, group_name: str) -> None:
-    await toe_inputs_dal.delete(entry_point, component, group_name)
+    await toe_inputs_dal.remove(entry_point, component, group_name)
 
 
 async def get_by_group(group_name: str) -> Tuple[GitRootToeInput, ...]:

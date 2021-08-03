@@ -544,7 +544,7 @@ async def test_reject_draft() -> None:
 
 @pytest.mark.changes_db
 @freeze_time("2020-12-01")
-async def test_delete_finding() -> None:
+async def test_remove_finding() -> None:
     """Check for removeFinding mutation."""
     query = """
       mutation {

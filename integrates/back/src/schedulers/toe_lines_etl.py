@@ -205,7 +205,7 @@ async def update_toe_lines_from_csv(
     )
     await collect(
         [
-            toe_lines_domain.delete(
+            toe_lines_domain.remove(
                 toe_lines.filename, toe_lines.group_name, toe_lines.root_id
             )
             for toe_lines in toe_lines_to_remove

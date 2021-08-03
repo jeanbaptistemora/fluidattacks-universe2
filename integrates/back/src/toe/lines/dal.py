@@ -44,7 +44,7 @@ def _format_git_toe_lines_item(
     return GitRootToeLinesItem(**toe_lines._asdict())
 
 
-async def create(root_toe_lines: GitRootToeLines) -> None:
+async def add(root_toe_lines: GitRootToeLines) -> None:
     try:
         root_toe_lines_item = _format_git_toe_lines_item(root_toe_lines)
         await model.add_git_root_toe_lines(root_toe_lines=root_toe_lines_item)
@@ -52,9 +52,9 @@ async def create(root_toe_lines: GitRootToeLines) -> None:
         raise RepeatedToeLines()
 
 
-async def delete(filename: str, group_name: str, root_id: str) -> None:
+async def remove(filename: str, group_name: str, root_id: str) -> None:
     try:
-        await model.delete_git_root_toe_lines(
+        await model.remove_git_root_toe_lines(
             filename=filename, group_name=group_name, root_id=root_id
         )
     except ClientError as ex:
