@@ -16,6 +16,9 @@ from lib_ssl.ssl_connection import (
 )
 from lib_ssl.types import (
     SSLContext,
+    SSLHandshakeRecord,
+    SSLRecord,
+    SSLServerHandshake,
     SSLServerResponse,
     SSLSettings,
     SSLSnippetLine,
@@ -44,6 +47,31 @@ from utils.sockets import (
 from zone import (
     t,
 )
+
+
+def tls_connect(
+    host: str, port: int, v_id: SSLVersionId
+) -> Optional[SSLServerResponse]:
+    intention_en = "verify if server supports " + ssl_id2ssl_name(v_id)
+    ssl_settings = SSLSettings(
+        context=SSLContext(host=host, port=port),
+        min_version=v_id,
+        max_version=v_id,
+        intention={core_model.LocalesEnum.EN: intention_en},
+    )
+
+    with ssl_connect(ssl_settings) as ssl_socket:
+        if ssl_socket is not None:
+            return SSLServerResponse(
+                record=SSLRecord.HANDSHAKE,
+                version_id=v_id,
+                handshake=SSLServerHandshake(
+                    record=SSLHandshakeRecord.SERVER_HELLO,
+                    version_id=v_id,
+                    cipher_suite=SSLSuite.UNKNOWN,
+                ),
+            )
+    return None
 
 
 def supports_tls(host: str, port: int, v_id: SSLVersionId) -> Optional[bool]:

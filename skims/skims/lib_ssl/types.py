@@ -462,6 +462,7 @@ class SSLSuite(Enum):
     ECDHE_PSK_WITH_AES_256_GCM_SHA384: Tuple[int, int] = (0xD0, 0x02)
     ECDHE_PSK_WITH_AES_128_CCM_8_SHA256: Tuple[int, int] = (0xD0, 0x03)
     ECDHE_PSK_WITH_AES_128_CCM_SHA256: Tuple[int, int] = (0xD0, 0x05)
+    UNKNOWN: Tuple[int, int] = (-1, -1)
 
 
 class SSLAlertLevel(Enum):
