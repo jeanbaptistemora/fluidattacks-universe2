@@ -80,6 +80,10 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/lintTerraform/makesKubernetes";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintTerraform/makesSecrets";
           gitlabExtra = gitlabLint;
         }
