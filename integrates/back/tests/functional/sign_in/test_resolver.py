@@ -19,6 +19,7 @@ from typing import (
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],
         ["executive@gmail.com"],
+        ["resourcer@gmail.com"],
     ],
 )
 async def test_sign_in(populate: bool, email: str) -> None:
