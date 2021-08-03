@@ -199,7 +199,7 @@ def old_snippet(
         max_version=ssl_id2ssl_name(ssl_settings.max_version),
         ciphers=", ".join(ssl_settings.cipher_names),
         mac=", ".join(ssl_settings.mac_names),
-        key_exchange=", ".join(ssl_settings.get_key_exchange_names()),
+        key_exchange=", ".join(ssl_settings.key_exchange_names),
         result=ssl_vulnerability.description,
     )
 

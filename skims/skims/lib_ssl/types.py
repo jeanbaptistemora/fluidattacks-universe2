@@ -72,37 +72,10 @@ class SSLSettings(NamedTuple):
         LocalesEnum.EN: "establish SSL/TLS connection",
         LocalesEnum.ES: "establecer conexión SSL/TLS",
     }
-    mac_names: List[str] = ["sha", "sha256", "sha384", "aead"]
-    cipher_names: List[str] = [
-        "chacha20-poly1305",
-        "aes256gcm",
-        "aes128gcm",
-        "aes256ccm",
-        "aes128ccm",
-        "aes256",
-        "aes128",
-        "3des",
-    ]
-    anon_key_exchange_names: List[str] = [
-        "ecdh_anon",
-        "dh_anon",
-    ]
-    key_exchange_names: List[str] = [
-        "rsa",
-        "dhe_rsa",
-        "ecdhe_rsa",
-        "srp_sha",
-        "srp_sha_rsa",
-        "ecdh_anon",
-        "dh_anon",
-        "ecdhe_ecdsa",
-        "dhe_dsa",
-    ]
-
-    def get_key_exchange_names(self) -> List[str]:
-        if self.anonymous:
-            return self.anon_key_exchange_names
-        return self.key_exchange_names
+    mac_names: List[str] = []
+    cipher_names: List[str] = []
+    anon_key_exchange_names: List[str] = []
+    key_exchange_names: List[str] = []
 
     def __str__(self) -> str:
         return str(self.context)
