@@ -271,16 +271,15 @@ def parse_server_handshake(
         if handshake_header is None:
             return None
 
-        handshake_type, version_id, length = handshake_header
+        handshake_type, version_id, _ = handshake_header
         handshake_record = SSLHandshakeRecord(handshake_type)
 
         if handshake_record == SSLHandshakeRecord.SERVER_HELLO:
+            read_random_val(sock)
+            read_session_id(sock)
             return SSLServerHandshake(
                 record=handshake_record,
                 version_id=SSLVersionId(version_id),
-                length=length,
-                rand=read_random_val(sock),
-                session_id=read_session_id(sock),
                 cipher_suite=read_cipher_suite(sock),
             )
 
@@ -293,13 +292,12 @@ def parse_server_response(sock: socket.socket) -> Optional[SSLServerResponse]:
     if header is None:
         return None
 
-    package_type, version_id, length = header
+    package_type, version_id, _ = header
     record: SSLRecord = SSLRecord(package_type)
 
     return SSLServerResponse(
         record=record,
         version_id=SSLVersionId(version_id),
-        length=length,
         alert=parse_server_alert(sock, record),
         handshake=parse_server_handshake(sock, record),
     )

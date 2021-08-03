@@ -543,16 +543,12 @@ class SSLAlert(NamedTuple):
 class SSLServerHandshake(NamedTuple):
     record: SSLHandshakeRecord
     version_id: SSLVersionId
-    length: int
-    rand: bytes
-    session_id: bytes
     cipher_suite: SSLSuite
 
 
 class SSLServerResponse(NamedTuple):
     record: SSLRecord
     version_id: SSLVersionId
-    length: int
     alert: Optional[SSLAlert] = None
     handshake: Optional[SSLServerHandshake] = None
 
