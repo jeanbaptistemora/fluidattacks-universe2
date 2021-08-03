@@ -26,7 +26,7 @@ def _get_audience(audience: AudienceId) -> JsonObj:
     with open("./tests/mock_data/audience.json") as data:
         return (
             JsonFactory.load(data)["get_audience"]
-            .to_json()[audience.str_id]
+            .to_json()[audience.item_id]
             .to_json()
         )
 

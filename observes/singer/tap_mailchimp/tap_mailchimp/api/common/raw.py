@@ -25,36 +25,36 @@ LOG = logging.getLogger(__name__)
 
 
 class AudienceId(NamedTuple):
-    str_id: str
+    item_id: str
 
 
 class AbsReportId(NamedTuple):
     audience_id: AudienceId
-    str_id: str
+    item_id: int
 
 
 class CampaignId(NamedTuple):
-    str_id: str
+    item_id: str
 
 
 class FeedbackId(NamedTuple):
     campaign_id: CampaignId
-    str_id: str
+    item_id: int
 
 
 class GrowthHistId(NamedTuple):
     audience_id: AudienceId
-    str_id: str
+    month: str
 
 
 class InterestCatgId(NamedTuple):
     audience_id: AudienceId
-    str_id: str
+    item_id: str
 
 
 class MemberId(NamedTuple):
     audience_id: AudienceId
-    str_id: str
+    item_id: str
 
 
 ItemId = Union[
@@ -103,7 +103,7 @@ def _list_audiences(client: Client, page_id: PageId) -> JsonObj:
 
 @RateLimiter(max_calls=5, period=1)
 def _get_audience(client: Client, audience_id: AudienceId) -> JsonObj:
-    return JsonFactory.from_any(client.lists.get_list(audience_id.str_id))
+    return JsonFactory.from_any(client.lists.get_list(audience_id.item_id))
 
 
 @RateLimiter(max_calls=5, period=1)
@@ -111,7 +111,7 @@ def _list_abuse_reports(
     client: Client, audience_id: AudienceId, page_id: PageId
 ) -> JsonObj:
     raw = client.lists.get_list_abuse_reports(
-        audience_id.str_id,
+        audience_id.item_id,
         fields=["abuse_reports.id", "total_items", "_links"],
         count=page_id.per_page,
         offset=page_id.page * page_id.per_page,
@@ -124,21 +124,21 @@ def _list_abuse_reports(
 @RateLimiter(max_calls=5, period=1)
 def _get_abuse_report(client: Client, report_id: AbsReportId) -> JsonObj:
     raw = client.lists.get_list_abuse_report_details(
-        report_id.audience_id.str_id, report_id.str_id
+        report_id.audience_id.item_id, report_id.item_id
     )
     return JsonFactory.from_any(raw)
 
 
 @RateLimiter(max_calls=5, period=1)
 def _get_activity(client: Client, audience_id: AudienceId) -> JsonObj:
-    raw = client.lists.get_list_recent_activity(audience_id.str_id)
+    raw = client.lists.get_list_recent_activity(audience_id.item_id)
     return JsonFactory.from_any(raw)
 
 
 @RateLimiter(max_calls=5, period=1)
 def _get_clients(client: Client, audience_id: AudienceId) -> JsonObj:
     return JsonFactory.from_any(
-        client.lists.get_list_clients(audience_id.str_id)
+        client.lists.get_list_clients(audience_id.item_id)
     )
 
 
@@ -147,7 +147,7 @@ def _list_members(
     client: Client, audience_id: AudienceId, page_id: PageId
 ) -> JsonObj:
     raw = client.lists.get_list_members_info(
-        audience_id.str_id,
+        audience_id.item_id,
         fields=["members.id", "total_items", "_links"],
         count=page_id.per_page,
         offset=page_id.page * page_id.per_page,
@@ -165,7 +165,9 @@ def _list_members(
 @RateLimiter(max_calls=5, period=1)
 def _get_member(client: Client, member_id: MemberId) -> JsonObj:
     raw = client.lists.get_list_member(
-        member_id.audience_id.str_id, member_id.str_id, exclude_fields=["tags"]
+        member_id.audience_id.item_id,
+        member_id.item_id,
+        exclude_fields=["tags"],
     )
     result = JsonFactory.from_any(raw)
     return result
@@ -176,7 +178,7 @@ def _list_growth_hist(
     client: Client, audience_id: AudienceId, page_id: PageId
 ) -> JsonObj:
     raw = client.lists.get_list_growth_history(
-        audience_id.str_id,
+        audience_id.item_id,
         fields=["history.month", "total_items", "_links"],
         count=page_id.per_page,
         offset=page_id.page * page_id.per_page,
@@ -188,7 +190,7 @@ def _list_growth_hist(
 @RateLimiter(max_calls=5, period=1)
 def _get_growth_hist(client: Client, ghist_id: GrowthHistId) -> JsonObj:
     raw = client.lists.get_list_growth_history_by_month(
-        ghist_id.audience_id.str_id, ghist_id.str_id
+        ghist_id.audience_id.item_id, ghist_id.month
     )
     return JsonFactory.from_any(raw)
 
@@ -198,7 +200,7 @@ def _list_interest_catg(
     client: Client, audience_id: AudienceId, page_id: PageId
 ) -> JsonObj:
     raw = client.lists.get_list_interest_categories(
-        audience_id.str_id,
+        audience_id.item_id,
         fields=["categories.id", "total_items", "_links"],
         count=page_id.per_page,
         offset=page_id.page * page_id.per_page,
@@ -209,7 +211,7 @@ def _list_interest_catg(
 @RateLimiter(max_calls=5, period=1)
 def _get_interest_catg(client: Client, interest_id: InterestCatgId) -> JsonObj:
     raw = client.lists.get_interest_category(
-        interest_id.audience_id.str_id, interest_id.str_id
+        interest_id.audience_id.item_id, interest_id.item_id
     )
     return JsonFactory.from_any(raw)
 
@@ -219,7 +221,7 @@ def _get_audience_locations(
     client: Client, audience_id: AudienceId
 ) -> JsonObj:
     return JsonFactory.from_any(
-        client.lists.get_list_locations(audience_id.str_id)
+        client.lists.get_list_locations(audience_id.item_id)
     )
 
 
@@ -237,13 +239,13 @@ def _list_campaigns(client: Client, page_id: PageId) -> JsonObj:
 
 @RateLimiter(max_calls=5, period=1)
 def _get_campaign(client: Client, campaign_id: CampaignId) -> JsonObj:
-    return JsonFactory.from_any(client.campaigns.get(campaign_id.str_id))
+    return JsonFactory.from_any(client.campaigns.get(campaign_id.item_id))
 
 
 @RateLimiter(max_calls=5, period=1)
 def _list_feedbacks(client: Client, campaign_id: CampaignId) -> JsonObj:
     raw = client.campaigns.get_feedback(
-        campaign_id.str_id,
+        campaign_id.item_id,
         fields=["feedback.feedback_id", "total_items", "_links"],
     )
     result = JsonFactory.from_any(raw)
@@ -254,15 +256,15 @@ def _list_feedbacks(client: Client, campaign_id: CampaignId) -> JsonObj:
 @RateLimiter(max_calls=5, period=1)
 def _get_feedback(client: Client, feedback_id: FeedbackId) -> JsonObj:
     raw = client.campaigns.get_feedback_message(
-        feedback_id.campaign_id.str_id,
-        feedback_id.str_id,
+        feedback_id.campaign_id.item_id,
+        feedback_id.item_id,
     )
     return JsonFactory.from_any(raw)
 
 
 @RateLimiter(max_calls=5, period=1)
 def _get_checklist(client: Client, campaign_id: CampaignId) -> JsonObj:
-    raw = client.campaigns.get_send_checklist(campaign_id.str_id)
+    raw = client.campaigns.get_send_checklist(campaign_id.item_id)
     return JsonFactory.from_any(raw)
 
 

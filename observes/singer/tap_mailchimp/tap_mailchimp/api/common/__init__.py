@@ -18,7 +18,6 @@ from tap_mailchimp.api.common.api_data import (
 )
 from typing import (
     Callable,
-    Dict,
     Iterator,
     TypeVar,
 )
@@ -35,7 +34,7 @@ class NoneTotal(Exception):
 def list_items(
     raw_list: Callable[[PageId], JsonObj],
     items_list_key: str,
-    id_builder: Callable[[Dict[str, str]], IdType],
+    id_builder: Callable[[JsonObj], IdType],
 ) -> Iterator[IdType]:
     getter: Callable[
         [PageId], ApiData
@@ -48,12 +47,11 @@ def list_items(
     pages = paginator.new_page_range(range(total_pages), chunk_size)
     results: Iterator[ApiData] = paginator.get_pages(pages, getter)
 
-    def extract_aud_ids(a_data: ApiData) -> Iterator[IdType]:
-        audiences_data = (
-            item.to_dict_of(str)
-            for item in a_data.data[items_list_key].to_list()
+    def extract_aud_ids(data: ApiData) -> Iterator[IdType]:
+        return iter(
+            id_builder(item.to_json())
+            for item in data.data[items_list_key].to_list()
         )
-        return iter(map(id_builder, audiences_data))
 
     return chain.from_iterable(map(extract_aud_ids, results))
 
@@ -61,7 +59,7 @@ def list_items(
 def list_unsupported_pagination(
     raw_list: Callable[[], JsonObj],
     items_list_key: str,
-    id_builder: Callable[[Dict[str, str]], IdType],
+    id_builder: Callable[[JsonObj], IdType],
 ) -> Iterator[IdType]:
     result = api_data.create_api_data(raw_list())
     if result.total_items is None:
@@ -69,4 +67,4 @@ def list_unsupported_pagination(
     data_list = result.data[items_list_key].to_list()
     if result.total_items > len(data_list):
         LOG.error("Unsupported pagination request miss some items")
-    return iter(id_builder(item.to_dict_of(str)) for item in data_list)
+    return iter(id_builder(item.to_json()) for item in data_list)

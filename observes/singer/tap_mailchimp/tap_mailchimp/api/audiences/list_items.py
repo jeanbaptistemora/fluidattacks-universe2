@@ -1,6 +1,9 @@
 from functools import (
     partial,
 )
+from singer_io.singer2.json import (
+    JsonObj,
+)
 from tap_mailchimp.api.common import (
     list_items,
 )
@@ -13,7 +16,6 @@ from tap_mailchimp.api.common.raw import (
     RawSource,
 )
 from typing import (
-    Dict,
     Iterator,
 )
 
@@ -22,7 +24,9 @@ def list_audiences(
     raw_source: RawSource,
 ) -> Iterator[AudienceId]:
     return list_items(
-        raw_source.list_audiences, "lists", lambda item: AudienceId(item["id"])
+        raw_source.list_audiences,
+        "lists",
+        lambda item: AudienceId(item["id"].to_primitive(str)),
     )
 
 
@@ -30,8 +34,8 @@ def list_abuse_reports(
     raw_source: RawSource,
     audience: AudienceId,
 ) -> Iterator[AbsReportId]:
-    def id_builder(item: Dict[str, str]) -> AbsReportId:
-        return AbsReportId(audience_id=audience, str_id=item["id"])
+    def id_builder(item: JsonObj) -> AbsReportId:
+        return AbsReportId(audience, item["id"].to_primitive(int))
 
     return list_items(
         partial(raw_source.list_abuse_reports, audience),
@@ -44,8 +48,8 @@ def list_members(
     raw_source: RawSource,
     audience: AudienceId,
 ) -> Iterator[MemberId]:
-    def id_builder(item: Dict[str, str]) -> MemberId:
-        return MemberId(audience_id=audience, str_id=item["id"])
+    def id_builder(item: JsonObj) -> MemberId:
+        return MemberId(audience, item["id"].to_primitive(str))
 
     return list_items(
         partial(raw_source.list_members, audience), "members", id_builder
@@ -56,8 +60,8 @@ def list_growth_hist(
     raw_source: RawSource,
     audience: AudienceId,
 ) -> Iterator[GrowthHistId]:
-    def id_builder(item: Dict[str, str]) -> GrowthHistId:
-        return GrowthHistId(audience_id=audience, str_id=item["month"])
+    def id_builder(item: JsonObj) -> GrowthHistId:
+        return GrowthHistId(audience, item["month"].to_primitive(str))
 
     return list_items(
         partial(raw_source.list_growth_hist, audience), "history", id_builder
@@ -68,8 +72,8 @@ def list_interest_catg(
     raw_source: RawSource,
     audience: AudienceId,
 ) -> Iterator[InterestCatgId]:
-    def id_builder(item: Dict[str, str]) -> InterestCatgId:
-        return InterestCatgId(audience_id=audience, str_id=item["id"])
+    def id_builder(item: JsonObj) -> InterestCatgId:
+        return InterestCatgId(audience, item["id"].to_primitive(str))
 
     return list_items(
         partial(raw_source.list_interest_catg, audience),
