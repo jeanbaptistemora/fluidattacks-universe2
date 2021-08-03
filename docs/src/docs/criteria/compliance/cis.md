@@ -109,9 +109,11 @@ The version used in this section is
 
 - [14.8 Encrypt Sensitive Information at Rest](/criteria/requirements/185)
 
-- [15.7 Leverage the Advanced Encryption Standard (AES) to Encrypt Wireless Data](/criteria/requirements/181)
+- 15.7 Leverage the Advanced Encryption Standard (AES) to Encrypt Wireless Data
 
-- [15.7 Leverage the Advanced Encryption Standard (AES) to Encrypt Wireless Data](/criteria/requirements/224)
+    - [181. Transmit data using secure protocols](/criteria/requirements/181)
+
+    - [224. Use secure cryptographic mechanisms](/criteria/requirements/224)
 
 - [15.8 Use Wireless Authentication Protocols That Require Mutual, Multi-Factor Authentication](/criteria/requirements/257)
 
