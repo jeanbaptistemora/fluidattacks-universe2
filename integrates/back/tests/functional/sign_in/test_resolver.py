@@ -20,6 +20,7 @@ from typing import (
         ["customeradmin@gmail.com"],
         ["executive@gmail.com"],
         ["resourcer@gmail.com"],
+        ["group_manager@gmail.com"],
     ],
 )
 async def test_sign_in(populate: bool, email: str) -> None:
