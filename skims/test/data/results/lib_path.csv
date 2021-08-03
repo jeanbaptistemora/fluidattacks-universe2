@@ -4969,6 +4969,90 @@ F060,lines,namespace/skims/test/data/lib_path/f060/Test.java,12,397,skims,060. I
   13 |
      ^ Col 13
 "
+F060,lines,namespace/skims/test/data/lib_path/f060/kotlin.kt,16,397,skims,060. Insecure exceptions,Insecure Kotlin exception in skims/test/data/lib_path/f060/kotlin.kt,"
+   1 | package f060
+   2 |
+   3 | fun main() {
+   4 |     val a = 6
+   5 |     val b = 0
+   6 |     var c: Int
+   7 |
+   8 |     try {
+   9 |         c = a / b
+  10 |     } catch (e: ArithmeticException) {
+  11 |         println(e.message)
+  12 |     } catch (e: Error) {
+  13 |         println(e.message)
+  14 |     } catch (e: Exception) {
+  15 |         println(e.message)
+> 16 |     } catch (e: Throwable) {
+  17 |         println(e.message)
+  18 |     }
+  19 | }
+     ^ Col 0
+"
+F060,lines,namespace/skims/test/data/lib_path/f060/kotlin.kt,14,397,skims,060. Insecure exceptions,Insecure Kotlin exception in skims/test/data/lib_path/f060/kotlin.kt,"
+   1 | package f060
+   2 |
+   3 | fun main() {
+   4 |     val a = 6
+   5 |     val b = 0
+   6 |     var c: Int
+   7 |
+   8 |     try {
+   9 |         c = a / b
+  10 |     } catch (e: ArithmeticException) {
+  11 |         println(e.message)
+  12 |     } catch (e: Error) {
+  13 |         println(e.message)
+> 14 |     } catch (e: Exception) {
+  15 |         println(e.message)
+  16 |     } catch (e: Throwable) {
+  17 |         println(e.message)
+  18 |     }
+  19 | }
+     ^ Col 0
+"
+F060,lines,namespace/skims/test/data/lib_path/f060/kotlin.kt,12,397,skims,060. Insecure exceptions,Insecure Kotlin exception in skims/test/data/lib_path/f060/kotlin.kt,"
+   1 | package f060
+   2 |
+   3 | fun main() {
+   4 |     val a = 6
+   5 |     val b = 0
+   6 |     var c: Int
+   7 |
+   8 |     try {
+   9 |         c = a / b
+  10 |     } catch (e: ArithmeticException) {
+  11 |         println(e.message)
+> 12 |     } catch (e: Error) {
+  13 |         println(e.message)
+  14 |     } catch (e: Exception) {
+  15 |         println(e.message)
+  16 |     } catch (e: Throwable) {
+  17 |         println(e.message)
+  18 |     }
+  19 | }
+     ^ Col 0
+"
+F060,lines,namespace/skims/test/data/lib_path/f061/kotlin.kt,14,397,skims,060. Insecure exceptions,Insecure Kotlin exception in skims/test/data/lib_path/f061/kotlin.kt,"
+   1 | package f061
+   2 |
+   3 | fun main() {
+   4 |     val a = 6
+   5 |     val b = 0
+   6 |     var c: Int
+   7 |
+   8 |     try {
+   9 |         c = a / b
+  10 |     } catch (e: ArithmeticException) {
+  11 |         println(e.message)
+  12 |     } catch (e: IOException) {
+  13 |         // Comment
+> 14 |     } catch (e: Exception) {}
+  15 | }
+     ^ Col 0
+"
 F070,lines,namespace/skims/test/data/lib_root/f070_wildcard_import/test.kt,13,398,skims,070. Inappropriate coding practices - Wildcard import,Use of wildcard import,"
    1 | package f70_wildcard_import
    2 |
