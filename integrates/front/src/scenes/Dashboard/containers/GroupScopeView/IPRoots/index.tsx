@@ -1,4 +1,5 @@
 import { useMutation } from "@apollo/client";
+import { useAbility } from "@casl/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback, useState } from "react";
@@ -7,13 +8,16 @@ import { useTranslation } from "react-i18next";
 import { ManagementModal } from "./ManagementModal";
 import { Container } from "./styles";
 
-import { ADD_IP_ROOT } from "../queries";
+import { DeactivationModal } from "../deactivationModal";
+import { ACTIVATE_ROOT, ADD_IP_ROOT, DEACTIVATE_ROOT } from "../queries";
 import type { IIPRootAttr } from "../types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { DataTableNext } from "components/DataTableNext";
+import { changeFormatter } from "components/DataTableNext/formatters";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import { Can } from "utils/authz/Can";
+import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
@@ -73,11 +77,86 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
     [addIpRoot, groupName]
   );
 
+  const [activateRoot] = useMutation(ACTIVATE_ROOT, {
+    onCompleted: (): void => {
+      onUpdate();
+    },
+    onError: ({ graphQLErrors }): void => {
+      graphQLErrors.forEach((error): void => {
+        switch (error.message) {
+          case "Exception - Active root with the same URL/branch already exists":
+            msgError(t("group.scope.url.errors.invalid"));
+            break;
+          default:
+            msgError(t("groupAlerts.errorTextsad"));
+            Logger.error("Couldn't activate root", error);
+        }
+      });
+    },
+  });
+
+  const [deactivationModal, setDeactivationModal] = useState({
+    open: false,
+    rootId: "",
+  });
+  const openDeactivationModal = useCallback((rootId: string): void => {
+    setDeactivationModal({ open: true, rootId });
+  }, []);
+  const closeDeactivationModal = useCallback((): void => {
+    setDeactivationModal({ open: false, rootId: "" });
+  }, []);
+  const [deactivateRoot] = useMutation(DEACTIVATE_ROOT, {
+    onCompleted: (): void => {
+      onUpdate();
+      closeDeactivationModal();
+    },
+    onError: ({ graphQLErrors }): void => {
+      graphQLErrors.forEach((error): void => {
+        switch (error.message) {
+          case "Exception - Active root with the same URL/branch already exists":
+            msgError(t("group.scope.url.errors.invalid"));
+            break;
+          default:
+            msgError(t("groupAlerts.errorTextsad"));
+            Logger.error("Couldn't deactivate root", error);
+        }
+      });
+    },
+  });
+  const handleDeactivationSubmit = useCallback(
+    async (rootId: string, values: Record<string, string>): Promise<void> => {
+      await deactivateRoot({
+        variables: {
+          groupName,
+          id: rootId,
+          other: values.other,
+          reason: values.reason,
+        },
+      });
+    },
+    [deactivateRoot, groupName]
+  );
+
+  const permissions = useAbility(authzPermissionsContext);
+  const canUpdateRootState = permissions.can(
+    "api_mutations_update_root_state_mutate"
+  );
+
   return (
     <React.Fragment>
       <h2>{t("group.scope.ip.title")}</h2>
       <ConfirmDialog title={t("group.scope.common.confirm")}>
-        {(): JSX.Element => {
+        {(confirm): JSX.Element => {
+          const handleStateUpdate = (row: Record<string, string>): void => {
+            if (row.state === "ACTIVE") {
+              openDeactivationModal(row.id);
+            } else {
+              confirm((): void => {
+                void activateRoot({ variables: { groupName, id: row.id } });
+              });
+            }
+          };
+
           return (
             <Container>
               <DataTableNext
@@ -106,9 +185,13 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
                   },
                   {
                     align: "center",
+                    changeFunction: handleStateUpdate,
                     dataField: "state",
-                    formatter: pointStatusFormatter,
+                    formatter: canUpdateRootState
+                      ? changeFormatter
+                      : pointStatusFormatter,
                     header: t("group.scope.common.state"),
+                    width: canUpdateRootState ? "10%" : "100px",
                   },
                 ]}
                 id={"tblIPRoots"}
@@ -123,6 +206,13 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
       {isManagingRoot === false ? undefined : (
         <ManagementModal onClose={closeModal} onSubmit={handleIpSubmit} />
       )}
+      {deactivationModal.open ? (
+        <DeactivationModal
+          onClose={closeDeactivationModal}
+          onSubmit={handleDeactivationSubmit}
+          rootId={deactivationModal.rootId}
+        />
+      ) : undefined}
     </React.Fragment>
   );
 };
