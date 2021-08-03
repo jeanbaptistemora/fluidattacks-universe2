@@ -96,6 +96,10 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/pipelineOnGitlab/makes";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/testTerraform/makesCi";
           gitlabExtra = gitlabTestInfra;
         }
