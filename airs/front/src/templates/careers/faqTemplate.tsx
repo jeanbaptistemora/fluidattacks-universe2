@@ -75,15 +75,12 @@ const FaqIndex: React.FC<IQueryData> = ({
             .querySelector("h4")
             ?.innerText.split(".") as unknown) as number[];
           if (
-            showMore === "1" &&
-            numbers > next1 &&
-            numbers <= next1 + itemPerList
-          ) {
-            element.classList.remove("dn");
-          } else if (
-            showMore === "2" &&
-            numbers > next2 &&
-            numbers <= next2 + itemPerList
+            (showMore === "1" &&
+              numbers > next1 &&
+              numbers <= next1 + itemPerList) ||
+            (showMore === "2" &&
+              numbers > next2 &&
+              numbers <= next2 + itemPerList)
           ) {
             element.classList.remove("dn");
           }
