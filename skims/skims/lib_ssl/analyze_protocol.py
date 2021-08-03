@@ -34,6 +34,7 @@ from typing import (
     Dict,
     List,
     Optional,
+    Tuple,
 )
 from utils.ctx import (
     CTX,
@@ -136,6 +137,7 @@ def _create_ssl_vuln(  # pylint: disable=too-many-arguments
 
 def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
+    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
     suites: List[SSLSuite] = [
         SSLSuite.DHE_DSS_EXPORT_WITH_DES40_CBC_SHA,
@@ -229,7 +231,7 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     extensions += get_elliptic_curves_ext()
     extensions += get_session_ticket_ext()
 
-    for v_id in ctx.tls_versions:
+    for v_id in tls_versions:
         if v_id == SSLVersionId.tlsv1_3:
             continue
 
@@ -431,8 +433,9 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 
 def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
+    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
-    if SSLVersionId.tlsv1_0 in ctx.tls_versions:
+    if SSLVersionId.tlsv1_0 in tls_versions:
         ssl_vulnerabilities.append(
             _create_ssl_vuln(
                 check="tlsv1_enabled",
@@ -460,8 +463,9 @@ def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 
 def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
+    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
-    if SSLVersionId.tlsv1_1 in ctx.tls_versions:
+    if SSLVersionId.tlsv1_1 in tls_versions:
         ssl_vulnerabilities.append(
             _create_ssl_vuln(
                 check="tlsv1_1_enabled",
@@ -489,13 +493,14 @@ def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 
 def _tlsv1_2_or_higher_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
+    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
-    if not ctx.tls_versions:
+    if not tls_versions:
         return tuple()
 
     if (
-        SSLVersionId.tlsv1_2 not in ctx.tls_versions
-        and SSLVersionId.tlsv1_3 not in ctx.tls_versions
+        SSLVersionId.tlsv1_2 not in tls_versions
+        and SSLVersionId.tlsv1_3 not in tls_versions
     ):
         ssl_vulnerabilities.append(
             _create_ssl_vuln(
@@ -524,6 +529,7 @@ def _tlsv1_2_or_higher_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 
 def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
+    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
     suites: List[SSLSuite] = [
         SSLSuite.NULL_WITH_NULL_NULL,
@@ -809,7 +815,7 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
         SSLSuite.RSA_WITH_CAMELLIA_256_CBC_SHA256,
     ]
 
-    for v_id in ctx.tls_versions:
+    for v_id in tls_versions:
         intention: Dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
                 "check if server accepts connections with weak ciphers"
@@ -858,6 +864,7 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
 
 def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
+    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
     suites: List[SSLSuite] = [
         SSLSuite.RSA_EXPORT_WITH_DES40_CBC_SHA,
@@ -970,7 +977,7 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     extensions: List[int] = get_ec_point_formats_ext()
     extensions += get_elliptic_curves_ext()
 
-    for v_id in ctx.tls_versions:
+    for v_id in tls_versions:
         if v_id == SSLVersionId.tlsv1_3:
             continue
 
@@ -1022,6 +1029,7 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 
 def _sweet32_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
+    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
     suites: List[SSLSuite] = [
         SSLSuite.RSA_EXPORT_WITH_DES40_CBC_SHA,
@@ -1066,7 +1074,7 @@ def _sweet32_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     extensions += get_elliptic_curves_ext()
     extensions += get_session_ticket_ext()
 
-    for v_id in ctx.tls_versions:
+    for v_id in tls_versions:
         if v_id == SSLVersionId.tlsv1_3:
             continue
 
@@ -1117,8 +1125,9 @@ def _sweet32_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
 
 def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
+    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
-    if len(ctx.tls_versions) < 2:
+    if len(tls_versions) < 2:
         return tuple()
 
     suites: List[SSLSuite] = [
@@ -1152,7 +1161,7 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         SSLSuite.FALLBACK_SCSV,
     ]
 
-    min_v_id: SSLVersionId = min(ctx.tls_versions)
+    min_v_id: SSLVersionId = min(tls_versions)
 
     intention: Dict[core_model.LocalesEnum, str] = {
         core_model.LocalesEnum.EN: (
@@ -1202,11 +1211,12 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 
 def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
+    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
-    if SSLVersionId.tlsv1_3 not in ctx.tls_versions:
+    if SSLVersionId.tlsv1_3 not in tls_versions:
         return tuple()
 
-    for v_id in ctx.tls_versions:
+    for v_id in tls_versions:
         if v_id in (SSLVersionId.tlsv1_2, SSLVersionId.tlsv1_3):
             continue
 
@@ -1245,6 +1255,7 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
 
 def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
+    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
     suites: List[SSLSuite] = [
         SSLSuite.ECDHE_RSA_WITH_AES_256_CBC_SHA,
@@ -1305,7 +1316,7 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     extensions += get_session_ticket_ext()
     extensions += get_heartbeat_ext()
 
-    for v_id in ctx.tls_versions:
+    for v_id in tls_versions:
         intention: Dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
                 "check if server is vulnerable to heartbleed attack with"
@@ -1365,6 +1376,7 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
 
 def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
+    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
     suites: List[SSLSuite] = [
         SSLSuite.RESERVED_SUITE_00_62,
@@ -1384,7 +1396,7 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     extensions += get_session_ticket_ext()
     extensions += get_heartbeat_ext()
 
-    for v_id in ctx.tls_versions:
+    for v_id in tls_versions:
         intention: Dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
                 "check if server is vulnerable to FREAK attack with"
@@ -1435,6 +1447,7 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
 
 def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
+    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
     suites: List[SSLSuite] = [
         SSLSuite.DHE_RSA_WITH_CHACHA20_POLY1305_SHA256,
@@ -1454,7 +1467,7 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     extensions += get_session_ticket_ext()
     extensions += get_heartbeat_ext()
 
-    for v_id in ctx.tls_versions:
+    for v_id in tls_versions:
         intention: Dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
                 "check if server is vulnerable to RACCOON attack with"

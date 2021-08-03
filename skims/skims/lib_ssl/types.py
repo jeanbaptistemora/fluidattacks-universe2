@@ -502,7 +502,14 @@ class SSLServerResponse(NamedTuple):
 class SSLContext(NamedTuple):
     host: str = "localhost"
     port: int = 443
-    tls_versions: Tuple[SSLVersionId, ...] = ()
+    tls_responses: Tuple[SSLServerResponse, ...] = ()
+
+    def get_supported_tls_versions(self) -> Tuple[SSLVersionId, ...]:
+        return tuple(
+            tls_response.handshake.version_id
+            for tls_response in self.tls_responses
+            if tls_response.handshake is not None
+        )
 
     def __str__(self) -> str:
         return f"{self.host}:{self.port}"

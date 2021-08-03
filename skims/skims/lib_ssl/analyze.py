@@ -68,14 +68,16 @@ async def get_ssl_contexts() -> Set[SSLContext]:
         SSLContext(
             host=target.host,
             port=target.port,
-            tls_versions=tuple(
-                v_id
+            tls_responses=tuple(
+                tls_response
                 for v_id in SSLVersionId
                 if v_id != SSLVersionId.sslv3_0
-                and analyze_protocol.supports_tls(
-                    host=target.host,
-                    port=target.port,
-                    v_id=v_id,
+                and (
+                    tls_response := analyze_protocol.tls_connect(
+                        host=target.host,
+                        port=target.port,
+                        v_id=v_id,
+                    )
                 )
             ),
         )
