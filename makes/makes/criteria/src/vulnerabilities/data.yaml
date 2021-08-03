@@ -183,7 +183,9 @@
       - A single malicious request
       that breaks the application
       or consumes an enormous amount of resources.
-    impact: __empty__
+    impact: >
+      Deny temporary or permanently the access to one
+      or several application services.
     recommendation: >
       Define a time-out when a query
       or a search is taking a lot of time
@@ -202,7 +204,9 @@
       como resultado de ataques de amplificación,
       en donde una petición genera
       múltiples respuestas.
-    impact: __empty__
+    impact: >
+      Denegar temporal o permanentemente el acceso
+      a uno o varios servicios de la aplicación.
     recommendation: >
       Definir un time-out cuando una consulta
       o una búsqueda se está demorando mucho
@@ -237,7 +241,9 @@
       by successively repeating a request
       which consumes a lot of resources
       or takes too long to be processed.
-    impact: __empty__
+    impact: >
+      Deny temporary or permanently the access to one
+      or several application services.
     recommendation: >
       Define a time-out when a query
       or a search is taking a lot of time
@@ -256,7 +262,9 @@
       a una funcionalidad específica
       la cual consume muchos recursos
       o se demora en procesar la información.
-    impact: __empty__
+    impact: >
+      Denegar temporal o permanentemente el acceso
+      a uno o varios servicios de la aplicación.
     recommendation: >
       Definir un time-out cuando una consulta
       o una búsqueda se está demorando mucho
@@ -359,7 +367,9 @@
       administrative access
       or privileges using
       a standard user account.
-    impact: __empty__
+    impact: >
+      Get access to information and operations
+      that should not be available for the current role.
     recommendation: >
       The roles must be controlled
       with users' tokens
@@ -378,7 +388,9 @@
       desde funciones de un usuario estándar
       debido a una mala configuración de los roles
       dentro de la aplicación.
-    impact: __empty__
+    impact: >
+      Obtener acceso a información y operaciones
+      que no deberían estar disponibles para el rol actual.
     recommendation: >
       Los roles deben ser controlados
       con tokens de usuario
@@ -418,7 +430,9 @@
       an attacker can access resources
       that should be protected
       without having an active session.
-    impact: __empty__
+    impact: >
+      Bypass the login mechanism a
+      nd get unauthorized access to the application
     recommendation: >
       Each criticial functionality resource
       for the organization must have
@@ -442,7 +456,9 @@
       un atacante puede acceder
       a recursos compartidos
       sin tener una sesión activa.
-    impact: __empty__
+    impact: >
+      Sobrepasar el mecanismo de autenticación
+      y obtener acceso no autorizado a la aplicación
     recommendation: >
       Poner para todo recurso
       con una funcionalidad crítica
@@ -482,7 +498,9 @@
       to trick authenticated users
       into executing actions
       without their consent.
-    impact: __empty__
+    impact: >
+      Impersonate a user request
+      to execute malicious actions in the application.
     recommendation: >
       Use of tokens in forms to verify requests
       done by legitimate users.
@@ -501,7 +519,9 @@
       por medio de links manipulados
       para ejecutar acciones sobre la aplicación
       sin su consentimiento.
-    impact: __empty__
+    impact: >
+      Suplantar las peticiones de un usuario
+      para ejecutar acciones maliciosas en la aplicación.
     recommendation: >
       Hacer uso de tokens en los formularios
       para la verificación
@@ -674,11 +694,11 @@
       to compromise the session
       of any user who enters the platform
       or to distribute malicious software.
-    impact: __empty__
+    impact: Inject malicious JavaScript code persistently
     recommendation: >
       Filter the information that receives
       and sends the application using white lists.
-    threat: __empty__
+    threat: Authorized attacker from the Internet
   es:
     title: Stored cross-site scripting (XSS)
     description: >
@@ -689,12 +709,12 @@
       a la plataforma sea afectado,
       permitiendo el robo de información
       o la distribución de software malicioso.
-    impact: __empty__
+    impact: Inyectar código JavaScript malicioso de forma persistente
     recommendation: >
       Filtrar la información que recibe
       y envía la aplicación
       por medio de listas blancas.
-    threat: __empty__
+    threat: Atacante autorizado desde Internet
   score:
     base:
       attack_vector: "N"
@@ -775,11 +795,7 @@
       For this purpose
       the escape(String) method is available.
     impact: >
-      An authorized user in the application
-      can inject SQL statements,
-      with the possibility of obtaining information
-      about the database,
-      as well as extract information from it.
+      Extract sensitive information from the Database
     recommendation: >
       Perform queries to the database
       through sentences
@@ -806,10 +822,7 @@
       Para este propósito,
       se puede usar el método escape(String).
     impact: >
-      Inyectar sentencias SQL,
-      con la posibilidad de obtener información
-      sobre la base de datos,
-      así como extraer información de la misma.
+      Extraer información sensible de la base de datos
     recommendation: >
       Realizar las consultas a la base de datos
       por medio de sentencias
@@ -841,29 +854,30 @@
       does not prevent one user
       from accessing another user's data
       by modifying the key value that identifies it.
-    impact: __empty__
-    recommendation: __empty__
+    impact: Obtain, modify or delete information from other users
+    recommendation: >
+      - Validate that unprivileged users can access
+      and modify only their own information
+
+      - Handle the user operations using
+      session objects
     threat: >
-      An unauthorized user
-      can access to other users' information
-      only knowing the id that differentiates them,
-      because the application does not validate
-      the necessary permissions to access.
+      Authenticated user from the Internet.
   es:
     title: Insecure object reference
-    description: __empty__
-    impact: __empty__
+    description: >
+      El sistema permite saltar mecanismos de autenticación
+      y modificar información de otros usuarios
+      al alterar los identificadores únicos que distinguen a cada usuario.
+    impact: Obtener, modificar o eliminar información de otros usuarios
     recommendation: >
-      Verificar que el usuario
-      que está intentando acceder a la información
-      efectivamente tenga los permisos
-      necesarios para hacerlo.
+      - Validar que los usuarios sin privilegios solo puedan acceder
+      y modificar su propia información
+
+      - Manejar las operaciones de los usuarios
+      utilizando objetos de sesión
     threat: >
-      Un usuario no autorizado
-      puede acceder a información de otros usuarios
-      solo con conocer el identificador que los diferencia,
-      ya que el aplicativo no valida los permisos
-      necesarios para acceder.
+      Usuario autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -875,9 +889,9 @@
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["176"]
   metadata: {}
 "014":
