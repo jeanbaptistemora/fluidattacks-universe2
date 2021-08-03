@@ -1,12 +1,17 @@
 # pylint: disable=invalid-name
 """
-This migration aims to merge duplicated findings generated during the
+This migration aims to merge duplicate findings generated during the
 standarization titles migration (0102).
 
 Vulns are copied to the oldest finding and the newer ones is deleted.
 
+Duplicate vulns in the merged finding are also deleted.
+
 Execution Time:     2021-07-30 at 18:03:54 UTC-05
 Finalization Time:  2021-07-30 at 18:04:25 UTC-05
+
+Execution Time:
+Finalization Time:
 """
 
 from aioextensions import (
@@ -15,37 +20,127 @@ from aioextensions import (
 )
 import copy
 import csv
+from custom_types import (
+    Finding as FindingType,
+    Historic as HistoricType,
+    Vulnerability as VulnType,
+)
 from findings import (
     dal as findings_dal,
-    domain as findings_domain,
 )
 from newutils import (
     findings as findings_utils,
+    vulnerabilities as vulns_utils,
+)
+from operator import (
+    itemgetter,
 )
 import time
 from typing import (
+    cast,
+    Dict,
     List,
 )
 from vulnerabilities import (
     dal as vulns_dal,
 )
+from vulnerabilities.domain.utils import (
+    get_hash_from_dict,
+)
 
-PROD: bool = True
+PROD: bool = False
+
+
+def _get_creation_date(vuln: Dict[str, VulnType]) -> str:
+    historic_state = cast(HistoricType, vuln.get("historic_state", [{}]))
+    return historic_state[0].get("date", "")
+
+
+async def remove_duplicate_vulns(
+    finding_id: str,
+) -> bool:
+    vulns = await vulns_dal.get_by_finding(finding_id)
+    open_vulns = [
+        vuln for vuln in vulns if vulns_utils.get_last_status(vuln) == "open"
+    ]
+
+    duplicates: List[Dict[str, FindingType]] = [
+        next(
+            iter(
+                [
+                    vuln
+                    for vuln in open_vulns
+                    if vuln["UUID"] != vuln_to_compare["UUID"]
+                    and get_hash_from_dict(vuln)
+                    == get_hash_from_dict(vuln_to_compare)
+                    and vuln["repo_nickname"]
+                    == vuln_to_compare["repo_nickname"]
+                    and _get_creation_date(vuln)
+                    >= _get_creation_date(vuln_to_compare)
+                ]
+            ),
+            {},
+        )
+        for vuln_to_compare in open_vulns
+    ]
+    duplicates = [vuln for vuln in duplicates if vuln]
+    duplicates = sorted(duplicates, key=itemgetter("where"), reverse=True)
+
+    if not len(duplicates):
+        print(f"   === {finding_id}, NO duplicates found")
+        return True
+
+    print(f"   === {finding_id}, duplicates found ({len(duplicates)})")
+    success = False
+    if PROD:
+        success = all(
+            await collect(
+                vulns_dal.delete(vuln["UUID"], finding_id)
+                for vuln in duplicates
+            )
+        )
+        print(f"   === {finding_id}, duplicates removed: {success}")
+
+    return success
+
+
+def _get_approval_date(finding: Dict[str, FindingType]) -> str:
+    """Get approval date from the historic state"""
+    approval_date = "ZZZ"
+    approval_info = None
+    historic_state = findings_utils.get_historic_state(finding)
+    if historic_state:
+        approval_info = list(
+            filter(
+                lambda state_info: state_info["state"] == "APPROVED",
+                historic_state,
+            )
+        )
+    if approval_info:
+        approval_date = approval_info[-1]["date"]
+    return approval_date
 
 
 async def merge_findings(
     finding_id1: str,
     finding_id2: str,
 ) -> str:
-    findings = await findings_domain.get_findings_async(
-        [finding_id1, finding_id2]
-    )
+    finding1 = await findings_dal.get_finding(finding_id1)
+    finding2 = await findings_dal.get_finding(finding_id2)
+
+    if not finding1:
+        print(f"   ### ERROR finding1 NOT in db ({finding_id1})")
+        return finding_id2
+    elif not finding2:
+        print(f"   ### ERROR finding2 NOT in db ({finding_id2})")
+        return finding_id1
+
     # Find oldest finding and call it "target"
-    release_date1 = findings_utils.get_approval_date(findings[0])
-    release_date2 = findings_utils.get_approval_date(findings[1])
+    release_date1 = _get_approval_date(finding1)
+    release_date2 = _get_approval_date(finding2)
     if release_date1 < release_date2:
-        target_finding = finding_id1
-        duplicate_finding = finding_id2
+        target_finding = finding_id1  # Older
+        duplicate_finding = finding_id2  # Newer
         release_date = release_date1
     else:
         target_finding = finding_id2
@@ -72,7 +167,7 @@ async def merge_findings(
         success = all(
             await collect(vulns_dal.create(vuln) for vuln in new_vulns)
         )
-        print(f"   --- created: {success}")
+        print(f"   --- {target_finding}, vulns created: {success}")
         # Delete old ones
         if success:
             success = all(
@@ -81,7 +176,7 @@ async def merge_findings(
                     for vuln in vulns_to_move
                 )
             )
-            print(f"   --- deleted: {success}")
+            print(f"   --- {duplicate_finding}, vulns deleted: {success}")
             if success:
                 vulns_left = await vulns_dal.get_by_finding(duplicate_finding)
                 print(f"   === vulns_left: {len(vulns_left)}")
@@ -89,7 +184,7 @@ async def merge_findings(
                     # Remove duplicate finding once it's empty
                     success = await findings_dal.delete(duplicate_finding)
                     print(
-                        f"   >>> finding {duplicate_finding} deleted: "
+                        f"   --- {duplicate_finding}, finding deleted: "
                         f"{str(success)}"
                     )
 
@@ -100,10 +195,12 @@ async def process_row(row: List[str]) -> bool:
     merged_finding_id = await merge_findings(row[0], row[1])
 
     if len(row) > 2 and row[2]:
-        print(row[2] + " present!!!")
-        await merge_findings(merged_finding_id, row[2])
+        print(f"   === finding3 ({row[2]}) present")
+        merged_finding_id = await merge_findings(merged_finding_id, row[2])
 
-    return True
+    if merged_finding_id:
+        return await remove_duplicate_vulns(merged_finding_id)
+    return False
 
 
 async def main() -> None:
