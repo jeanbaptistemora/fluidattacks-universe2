@@ -9,6 +9,7 @@ buildPythonRequirements {
       "click==7.1.2"
       "mailchimp-marketing==3.0.40"
       "ratelimiter==1.2.0.post0"
+      "returns==0.16.0"
     ];
     inherited = [
       "certifi==2020.12.5"
@@ -17,6 +18,7 @@ buildPythonRequirements {
       "python-dateutil==2.8.1"
       "requests==2.25.1"
       "six==1.15.0"
+      "typing-extensions==3.10.0.0"
       "urllib3==1.26.4"
     ];
   };

@@ -12,5 +12,8 @@ makeTemplate {
     envSources = [
       tap-mailchimp.runtime
     ];
+    envUtils = [
+      "/makes/utils/lint-python"
+    ];
   };
 }
