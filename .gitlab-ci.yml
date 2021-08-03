@@ -83,8 +83,7 @@ workflow:
       when: never
     - when: always
 
-.common_in_master_branch: &common_in_master_branch
-  resource_group: "${CI_JOB_NAME}"
+.common_rules_in_master_branch: &common_rules_in_master_branch
   rules:
     - if: '$CI_COMMIT_BRANCH != "master"'
       when: never
@@ -93,6 +92,10 @@ workflow:
     - if: '$CI_PIPELINE_SOURCE == "trigger"'
       when: never
     - when: always
+
+.common_in_master_branch: &common_in_master_branch
+  <<: *common_rules_in_master_branch
+  resource_group: "${CI_JOB_NAME}"
 
 /deployContainerImage/makesProd:
   <<: *makes4
@@ -193,7 +196,7 @@ common_forces:
     GIT_DEPTH: 5
 
 common_sonarcloud_check:
-  <<: *common_in_master_branch
+  <<: *common_rules_in_master_branch
   interruptible: true
   stage: external
   tags: [autoscaling]
