@@ -37,11 +37,11 @@ resource "helm_release" "dns" {
 
   set {
     name  = "cloudflare.email"
-    value = var.cloudflare_email
+    value = var.cloudflareEmail
   }
 
   set {
     name  = "cloudflare.apiKey"
-    value = var.cloudflare_api_key
+    value = var.cloudflareApiKey
   }
 }

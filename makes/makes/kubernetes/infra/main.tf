@@ -38,18 +38,15 @@ terraform {
 
 }
 
-provider "aws" {
-  access_key = var.aws_access_key
-  secret_key = var.aws_secret_key
-  region     = var.region
-}
+provider "aws" {}
 
 provider "cloudflare" {
-  email   = var.cloudflare_email
-  api_key = var.cloudflare_api_key
+  email   = var.cloudflareEmail
+  api_key = var.cloudflareApiKey
 }
 
 provider "kubernetes" {
+  config_path            = split(":", var.kubeConfig)[0]
   host                   = data.aws_eks_cluster.cluster.endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
   token                  = data.aws_eks_cluster_auth.cluster.token
@@ -58,6 +55,6 @@ provider "kubernetes" {
 
 provider "helm" {
   kubernetes {
-    config_path = "~/.kube/config"
+    config_path = split(":", var.kubeConfig)[0]
   }
 }

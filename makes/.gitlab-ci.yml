@@ -60,16 +60,6 @@ makes.ci.config:
   <<: *makes_in_master_branch
   stage: deploy-infra
 
-makes.k8s.apply:
-  <<: *makes
-  <<: *makes_in_master_branch
-  stage: deploy-infra
-
-makes.k8s.test:
-  <<: *makes
-  <<: *makes_in_dev_branch
-  stage: test-infra
-
 makes.okta.apply:
   <<: *makes
   <<: *makes_in_master_branch

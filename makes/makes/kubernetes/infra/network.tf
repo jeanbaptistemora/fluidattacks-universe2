@@ -1,6 +1,6 @@
 resource "aws_subnet" "region_a" {
   vpc_id                  = var.fluid_vpc_id
-  availability_zone       = "${var.region}b"
+  availability_zone       = "us-east-1b"
   cidr_block              = "192.168.12.0/22"
   map_public_ip_on_launch = true
 
@@ -15,7 +15,7 @@ resource "aws_subnet" "region_a" {
 
 resource "aws_subnet" "region_b" {
   vpc_id                  = var.fluid_vpc_id
-  availability_zone       = "${var.region}a"
+  availability_zone       = "us-east-1a"
   cidr_block              = "192.168.16.0/22"
   map_public_ip_on_launch = true
 
@@ -30,7 +30,7 @@ resource "aws_subnet" "region_b" {
 
 resource "aws_subnet" "region_d" {
   vpc_id                  = var.fluid_vpc_id
-  availability_zone       = "${var.region}d"
+  availability_zone       = "us-east-1d"
   cidr_block              = "192.168.20.0/22"
   map_public_ip_on_launch = true
 

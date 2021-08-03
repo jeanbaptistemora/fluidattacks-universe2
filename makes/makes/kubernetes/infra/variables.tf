@@ -1,8 +1,7 @@
 data "aws_caller_identity" "current" {}
-variable "aws_access_key" {}
-variable "aws_secret_key" {}
-variable "cloudflare_email" {}
-variable "cloudflare_api_key" {}
+variable "cloudflareEmail" {}
+variable "cloudflareApiKey" {}
+variable "kubeConfig" {}
 
 data "aws_security_group" "cloudflare" {
   name = "CloudFlare"
@@ -13,9 +12,7 @@ data "aws_eks_cluster" "cluster" {
 data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_id
 }
-variable "region" {
-  default = "us-east-1"
-}
+
 variable "fluid_vpc_id" {
   default = "vpc-0ea1c7bd6be683d2d"
 }

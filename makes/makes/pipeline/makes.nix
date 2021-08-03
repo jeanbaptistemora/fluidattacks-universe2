@@ -60,6 +60,10 @@ in
           gitlabExtra = gitlabDeployInfra;
         }
         {
+          output = "/deployTerraform/makesKubernetes";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
           output = "/deployTerraform/makesSecrets";
           gitlabExtra = gitlabDeployInfra;
         }
@@ -121,6 +125,10 @@ in
         }
         {
           output = "/testTerraform/makesFoss";
+          gitlabExtra = gitlabTestInfra;
+        }
+        {
+          output = "/testTerraform/makesKubernetes";
           gitlabExtra = gitlabTestInfra;
         }
         {
