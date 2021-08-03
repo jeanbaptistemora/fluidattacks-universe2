@@ -4,9 +4,8 @@ import React from "react";
 import { BlogAuthorList } from "../components/BlogAuthorList";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
-import { PageHeader } from "../components/PageHeader";
 import { Seo } from "../components/Seo";
-import { PageArticle } from "../styles/styledComponents";
+import { BlogPageArticle } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
 import { capitalizeDashedString, capitalizeObject } from "../utils/utilities";
 
@@ -42,18 +41,9 @@ const blogAuthorTemplate: React.FC<IQueryData> = ({
             crumbSeparator={" / "}
             crumbs={capitalizeObject(crumbs)}
           />
-          <PageArticle>
-            <PageHeader
-              banner={"blog-bg"}
-              pageWithBanner={true}
-              slug={`blog/authors/${authorName}`}
-              subtext={""}
-              subtitle={""}
-              title={"Blog"}
-            />
-
+          <BlogPageArticle>
             <BlogAuthorList authorName={authorName} />
-          </PageArticle>
+          </BlogPageArticle>
         </div>
       </Layout>
     </React.Fragment>

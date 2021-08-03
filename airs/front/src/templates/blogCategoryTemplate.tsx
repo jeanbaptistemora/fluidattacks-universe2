@@ -4,9 +4,8 @@ import React from "react";
 import { BlogCategoryList } from "../components/BlogCategoryList";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
-import { PageHeader } from "../components/PageHeader";
 import { Seo } from "../components/Seo";
-import { PageArticle } from "../styles/styledComponents";
+import { BlogPageArticle } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
@@ -44,17 +43,9 @@ const blogCategoryTemplate: React.FC<IQueryData> = ({
             crumbSeparator={" / "}
             crumbs={capitalizeObject(crumbs)}
           />
-          <PageArticle>
-            <PageHeader
-              banner={"blog-bg"}
-              pageWithBanner={true}
-              slug={"blog/tags/"}
-              subtext={""}
-              subtitle={""}
-              title={"Blog"}
-            />
+          <BlogPageArticle>
             <BlogCategoryList categoryName={categoryName} />
-          </PageArticle>
+          </BlogPageArticle>
         </div>
       </Layout>
     </React.Fragment>

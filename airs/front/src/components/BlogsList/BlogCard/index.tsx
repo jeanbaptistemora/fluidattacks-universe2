@@ -99,7 +99,7 @@ export const BlogCard: React.FC<IProps> = ({
               }
               to={`/blog/${blogLink}`}
             >
-              <button className={"button-white w-80"}>{"Read Post"}</button>
+              <button className={"button-white w-80"}>{"Read post"}</button>
             </Link>
           </CardButtonContainer>
         </PostInfo>
