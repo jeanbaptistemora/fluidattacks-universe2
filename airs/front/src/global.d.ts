@@ -124,12 +124,13 @@ interface INodes {
       author: string;
       category: string;
       certification: string;
-      image: string;
-      tags: string;
+      date: string;
       description: string;
+      image: string;
       slug: string;
       spanish: string;
       subtitle: string;
+      tags: string;
     };
   };
 }

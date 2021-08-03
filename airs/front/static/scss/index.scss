@@ -25,6 +25,7 @@ $gray-244: rgba(244, 244, 246, 1);
 $gray-179: rgba(179, 175, 169, 1);
 $black-18: rgba(18, 18, 22, 1);
 $gray-221: rgba(221, 221, 227, 1);
+$gray-120: rgba(120, 120, 145, 1);
 
 // Rules
 @keyframes fadein {
@@ -153,6 +154,7 @@ $gray-221: rgba(221, 221, 227, 1);
 .c-fluid-gray { color: $fluid-gray; }
 .c-gray-179 { color: $gray-179; }
 .c-gray-64 { color: $gray-64; }
+.c-gray-120 { color: $gray-120; }
 .bc-darker-blue { border-color: $darker-blue; }
 
 // Columns classes
@@ -190,6 +192,8 @@ $gray-221: rgba(221, 221, 227, 1);
 .h-section { min-height: 50rem; }
 .h30-em { min-height: 30em; }
 .min-h-25 { min-height: 25%; }
+.h-20 { min-height: 20rem; }
+
 
 // Hover changes classes
 .hv-fluid-black { &:hover { color: $fluid-black;} }
@@ -246,6 +250,7 @@ $gray-221: rgba(221, 221, 227, 1);
 .mw-615 { max-width: 615px; }
 .mw-750 { max-width: 750px; }
 .mw-900 { max-width: 900px; }
+.w-blog-card { width: 26.5rem; }
 .w-products { width: 31.25rem; }
 .w-resources-card { width: 21.875rem; }
 
@@ -297,6 +302,7 @@ $gray-221: rgba(221, 221, 227, 1);
   .nt-125 { margin-top: -0.125rem; }
   .two-columns-m { column-count: 2; }
   .w-products { width: 20rem; }
+
 }
 
 // Small screen sizes
@@ -304,6 +310,7 @@ $gray-221: rgba(221, 221, 227, 1);
   .cover-s { background-size: cover; }
   .f1-s { font-size: 3rem;}
   .nt-125 { margin-top: -0.125rem; }
+  .w-blog-card { width: 21.875rem; }
   .w-100-s { width: 100%; }
   .w-products { width: 20rem; }
 }
