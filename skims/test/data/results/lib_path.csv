@@ -4423,6 +4423,28 @@ F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.jar,1,377,skims,117. Un
   15 | �MyJar.classPK��
      ^ Col 0
 "
+F057,lines,namespace/skims/test/data/lib_path/f031_cwe378/test.cs,10,378,skims,057. Excessive privileges - Temporary Files,Use of C# Path.GetTempFileName in skims/test/data/lib_path/f031_cwe378/test.cs,"
+   1 | using System;
+   2 | using System.IO;
+   3 |
+   4 | namespace StreamReadWrite
+   5 | {
+   6 |     class Program
+   7 |     {
+   8 |         static void Main(string[] args)
+   9 |         {
+> 10 |             var tempPath = Path.GetTempFileName();
+  11 |             var randomPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+  12 |
+  13 |             using (var writer = new StreamWriter(tempPath))
+  14 |             {
+  15 |                writer.WriteLine(""content"");
+  16 |             }
+  17 |         }
+  18 |     }
+  19 | }
+     ^ Col 0
+"
 F057,lines,namespace/skims/test/data/lib_path/f031_cwe378/Test.java,6,378,skims,057. Excessive privileges - Temporary Files,Use of Java File.createTempFile in skims/test/data/lib_path/f031_cwe378/Test.java,"
    1 | import java.io.File;
    2 |
