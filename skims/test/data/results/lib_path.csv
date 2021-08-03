@@ -4540,6 +4540,42 @@ F061,lines,namespace/skims/test/data/lib_path/f061/javascript.js,3,390,skims,061
   5 | } catch (e) {}
     ^ Col 0
 "
+F061,lines,namespace/skims/test/data/lib_path/f061/kotlin.kt,14,390,skims,061. Errors without traceability,Empty Kotlin catch in skims/test/data/lib_path/f061/kotlin.kt,"
+   1 | package f061
+   2 |
+   3 | fun main() {
+   4 |     val a = 6
+   5 |     val b = 0
+   6 |     var c: Int
+   7 |
+   8 |     try {
+   9 |         c = a / b
+  10 |     } catch (e: ArithmeticException) {
+  11 |         println(e.message)
+  12 |     } catch (e: IOException) {
+  13 |         // Comment
+> 14 |     } catch (e: Exception) {}
+  15 | }
+     ^ Col 0
+"
+F061,lines,namespace/skims/test/data/lib_path/f061/kotlin.kt,12,390,skims,061. Errors without traceability,Empty Kotlin catch in skims/test/data/lib_path/f061/kotlin.kt,"
+   1 | package f061
+   2 |
+   3 | fun main() {
+   4 |     val a = 6
+   5 |     val b = 0
+   6 |     var c: Int
+   7 |
+   8 |     try {
+   9 |         c = a / b
+  10 |     } catch (e: ArithmeticException) {
+  11 |         println(e.message)
+> 12 |     } catch (e: IOException) {
+  13 |         // Comment
+  14 |     } catch (e: Exception) {}
+  15 | }
+     ^ Col 0
+"
 F061,lines,namespace/skims/test/data/lib_path/f061/python.py,24,390,skims,061. Errors without traceability,Empty Python catch in skims/test/data/lib_path/f061/python.py,"
    8 |
    9 |     try:
