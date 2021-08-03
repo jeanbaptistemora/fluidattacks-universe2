@@ -14,7 +14,7 @@ def java_switch_without_default(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:
-        for shard in graph_db.shards_by_langauge(
+        for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.JAVA,
         ):
             for switch_id in g.filter_nodes(
@@ -43,10 +43,10 @@ def javascript_switch_without_default(
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:
         for shard in [
-            *graph_db.shards_by_langauge(
+            *graph_db.shards_by_language(
                 graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
             ),
-            *graph_db.shards_by_langauge(
+            *graph_db.shards_by_language(
                 graph_model.GraphShardMetadataLanguage.TSX,
             ),
         ]:
@@ -75,7 +75,7 @@ def c_sharp_switch_without_default(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:
-        for shard in graph_db.shards_by_langauge(
+        for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.CSHARP,
         ):
             for switch_id in g.filter_nodes(
@@ -112,7 +112,7 @@ def go_switch_without_default(
                 n_id
             )
 
-        for shard in graph_db.shards_by_langauge(
+        for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.GO,
         ):
             for switch_id in g.filter_nodes(

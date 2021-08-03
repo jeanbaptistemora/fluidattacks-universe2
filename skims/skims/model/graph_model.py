@@ -485,7 +485,7 @@ class GraphDB(NamedTuple):
     def shards_by_path_f(self, path: str) -> GraphShard:
         return self.shards[self.shards_by_path[path]]
 
-    def shards_by_langauge(
+    def shards_by_language(
         self,
         language: GraphShardMetadataLanguage,
     ) -> List[GraphShard]:

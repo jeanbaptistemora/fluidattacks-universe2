@@ -30,7 +30,7 @@ def javascript_crypto_js_credentials(
                 "CryptoJS.enc.Utf8.parse",
             }
         )
-        for shard in graph_db.shards_by_langauge(
+        for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
         ):
             graph = shard.graph

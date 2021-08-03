@@ -33,7 +33,7 @@ def go_float_currency(
             "valor",
             "value",
         }
-        for shard in graph_db.shards_by_langauge(
+        for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.GO,
         ):
             graph = shard.graph

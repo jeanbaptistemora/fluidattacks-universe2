@@ -14,7 +14,7 @@ def java_wildcard_import(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:
-        for shard in graph_db.shards_by_langauge(
+        for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.JAVA,
         ):
             for import_dcl_id in g.filter_nodes(
@@ -47,7 +47,7 @@ def go_wildcard_import(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:
-        for shard in graph_db.shards_by_langauge(
+        for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.GO,
         ):
             for import_dcl_id in g.filter_nodes(
@@ -74,7 +74,7 @@ def kotlin_wildcard_import(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:
-        for shard in graph_db.shards_by_langauge(
+        for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.KOTLIN
         ):
             for import_dcl_id in g.filter_nodes(

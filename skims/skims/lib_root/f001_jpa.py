@@ -60,7 +60,7 @@ def java_jpa_like(
                 "org.springframework.jdbc.object.SqlQuery",
             }
         )
-        for shard in graph_db.shards_by_langauge(
+        for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.JAVA,
         ):
             graph = shard.graph

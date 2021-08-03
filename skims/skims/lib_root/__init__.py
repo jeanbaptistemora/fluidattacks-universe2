@@ -17,7 +17,7 @@ from utils.graph.transformation import (
 def yield_java_method_invocation(
     graph_db: graph_model.GraphDB,
 ) -> Iterable[Tuple[graph_model.GraphShard, str, str]]:
-    for shard in graph_db.shards_by_langauge(
+    for shard in graph_db.shards_by_language(
         graph_model.GraphShardMetadataLanguage.JAVA,
     ):
         for method_id in g.filter_nodes(
@@ -46,7 +46,7 @@ def yield_java_method_invocation(
 def yield_java_object_creation(
     graph_db: graph_model.GraphDB,
 ) -> Iterable[Tuple[graph_model.GraphShard, str, str]]:
-    for shard in graph_db.shards_by_langauge(
+    for shard in graph_db.shards_by_language(
         graph_model.GraphShardMetadataLanguage.JAVA,
     ):
         for object_id in g.filter_nodes(
@@ -72,10 +72,50 @@ def yield_java_object_creation(
                 yield shard, object_id, type_name
 
 
+def yield_kotlin_method_invocation(
+    graph_db: graph_model.GraphDB,
+) -> Iterable[Tuple[graph_model.GraphShard, str, str]]:
+    for shard in graph_db.shards_by_language(
+        graph_model.GraphShardMetadataLanguage.KOTLIN,
+    ):
+        for method_id in g.filter_nodes(
+            shard.graph,
+            nodes=shard.graph.nodes,
+            predicate=g.pred_has_labels(label_type="call_expression"),
+        ):
+            match = g.match_ast(
+                shard.graph,
+                method_id,
+                "navigation_expression",
+                "simple_identifier",
+            )
+            method_name = ""
+            while nav_expr := match["navigation_expression"]:
+                match = g.match_ast(
+                    shard.graph,
+                    nav_expr,
+                    "navigation_expression",
+                    "navigation_suffix",
+                    "simple_identifier",
+                )
+                method_name = (
+                    g.concatenate_label_text(
+                        shard.graph,
+                        g.adj_ast(shard.graph, match["navigation_suffix"]),
+                    )
+                    + method_name
+                )
+            method_name = (
+                shard.graph.nodes[match["simple_identifier"]]["label_text"]
+                + method_name
+            )
+            yield shard, method_id, method_name
+
+
 def yield_c_sharp_invocation_expression(
     graph_db: graph_model.GraphDB,
 ) -> Iterable[Tuple[graph_model.GraphShard, str, str]]:
-    for shard in graph_db.shards_by_langauge(
+    for shard in graph_db.shards_by_language(
         graph_model.GraphShardMetadataLanguage.CSHARP,
     ):
         for method_id in g.filter_nodes(
@@ -94,7 +134,7 @@ def yield_c_sharp_invocation_expression(
 def yield_go_object_creation(
     graph_db: graph_model.GraphDB, members: Set[str]
 ) -> graph_model.GraphShardNodes:
-    for shard in graph_db.shards_by_langauge(
+    for shard in graph_db.shards_by_language(
         graph_model.GraphShardMetadataLanguage.GO,
     ):
         for member in g.filter_nodes(
@@ -112,7 +152,7 @@ def yield_go_object_creation(
 def yield_go_member_access(
     graph_db: graph_model.GraphDB, members: Set[str]
 ) -> graph_model.GraphShardNodes:
-    for shard in graph_db.shards_by_langauge(
+    for shard in graph_db.shards_by_language(
         graph_model.GraphShardMetadataLanguage.GO,
     ):
         for member in g.filter_nodes(

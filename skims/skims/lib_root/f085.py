@@ -40,10 +40,10 @@ def javascript_client_storage(
 
     def n_ids() -> graph_model.GraphShardNodes:
         for shard in [
-            *graph_db.shards_by_langauge(
+            *graph_db.shards_by_language(
                 graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
             ),
-            *graph_db.shards_by_langauge(
+            *graph_db.shards_by_language(
                 graph_model.GraphShardMetadataLanguage.TSX,
             ),
         ]:

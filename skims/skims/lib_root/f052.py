@@ -6,6 +6,7 @@ from lib_root import (
     yield_go_object_creation,
     yield_java_method_invocation,
     yield_java_object_creation,
+    yield_kotlin_method_invocation,
 )
 from model import (
     core_model,
@@ -15,6 +16,8 @@ from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from typing import (
+    Any,
+    List,
     Set,
 )
 from utils import (
@@ -47,7 +50,7 @@ def _vuln_cipher_get_instance(transformation: str) -> bool:
 def _csharp_yield_member_access(
     graph_db: graph_model.GraphDB, members: Set[str]
 ) -> graph_model.GraphShardNodes:
-    for shard in graph_db.shards_by_langauge(
+    for shard in graph_db.shards_by_language(
         graph_model.GraphShardMetadataLanguage.CSHARP,
     ):
         for member in g.filter_nodes(
@@ -71,48 +74,56 @@ def _java_yield_insecure_ciphers(
             method_id,
             "argument_list",
         )
-        if method_name not in complete_attrs_on_set(
-            {
-                "javax.crypto.Cipher.getInstance",
-                "javax.crypto.KeyGenerator.getInstance",
-                "javax.net.ssl.SSLContext.getInstance",
-            }
-        ):
-            continue
         parameters = g.adj_ast(
             shard.graph,
             match["argument_list"][0],
         )[1:-1]
-        for param_id in parameters:
-            if param_text := shard.graph.nodes[param_id].get("label_text"):
-                if (  # NOSONAR
-                    (
-                        method_name
-                        in complete_attrs_on_set(
-                            {
-                                "javax.crypto.Cipher.getInstance",
-                                "javax.crypto.KeyGenerator.getInstance",
-                            }
-                        )
-                        and _vuln_cipher_get_instance(param_text)
-                    )
-                    or method_name
+        yield from _javax_yield_insecure_ciphers(
+            shard, method_name, parameters
+        )
+
+
+def _javax_yield_insecure_ciphers(
+    shard: graph_model.GraphShard, method_name: str, parameters: List[Any]
+) -> graph_model.GraphShardNodes:
+    if method_name not in complete_attrs_on_set(
+        {
+            "javax.crypto.Cipher.getInstance",
+            "javax.crypto.KeyGenerator.getInstance",
+            "javax.net.ssl.SSLContext.getInstance",
+        }
+    ):
+        return
+    for param_id in parameters:
+        if param_text := shard.graph.nodes[param_id].get("label_text"):
+            if (  # NOSONAR
+                (
+                    method_name
                     in complete_attrs_on_set(
                         {
-                            "javax.net.ssl.SSLContext.getInstance",
+                            "javax.crypto.Cipher.getInstance",
+                            "javax.crypto.KeyGenerator.getInstance",
                         }
                     )
-                    and param_id
-                    not in {
-                        "tls",
-                        "tlsv1.2",
-                        "tlsv1.3",
-                        "dtls",
-                        "dtlsv1.2",
-                        "dtlsv1.3",
+                    and _vuln_cipher_get_instance(param_text)
+                )
+                or method_name
+                in complete_attrs_on_set(
+                    {
+                        "javax.net.ssl.SSLContext.getInstance",
                     }
-                ):
-                    yield shard, param_id
+                )
+                and param_id
+                not in {
+                    "tls",
+                    "tlsv1.2",
+                    "tlsv1.3",
+                    "dtls",
+                    "dtlsv1.2",
+                    "dtlsv1.3",
+                }
+            ):
+                yield shard, param_id
 
 
 def _java_yield_insecure_hash(
@@ -282,7 +293,7 @@ def _java_yield_insecure_pass(
 def _csharp_yield_object_creation(
     graph_db: graph_model.GraphDB, members: Set[str]
 ) -> graph_model.GraphShardNodes:
-    for shard in graph_db.shards_by_langauge(
+    for shard in graph_db.shards_by_language(
         graph_model.GraphShardMetadataLanguage.CSHARP,
     ):
         for member in g.filter_nodes(
@@ -299,10 +310,28 @@ def _csharp_yield_object_creation(
                 yield shard, member
 
 
+def _kotlin_yield_insecure_ciphers(
+    graph_db: graph_model.GraphDB,
+) -> graph_model.GraphShardNodes:
+    for shard, method_id, method_name in yield_kotlin_method_invocation(
+        graph_db
+    ):
+        match = g.match_ast_group(
+            shard.graph, method_id, "value_argument", depth=3
+        )
+        parameters = [
+            g.adj_ast(shard.graph, argument_id)[0]
+            for argument_id in match["value_argument"]
+        ]
+        yield from _javax_yield_insecure_ciphers(
+            shard, method_name, parameters
+        )
+
+
 def csharp_insecure_hash(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
-    insecure_cyphers = {
+    insecure_ciphers = {
         "HMACMD5",
         "HMACRIPEMD160",
         "HMACSHA1",
@@ -320,8 +349,8 @@ def csharp_insecure_hash(
     }
 
     def n_ids() -> graph_model.GraphShardNodes:
-        yield from _csharp_yield_member_access(graph_db, insecure_cyphers)
-        yield from _csharp_yield_object_creation(graph_db, insecure_cyphers)
+        yield from _csharp_yield_member_access(graph_db, insecure_ciphers)
+        yield from _csharp_yield_object_creation(graph_db, insecure_ciphers)
 
     return get_vulnerabilities_from_n_ids(
         cwe=("310", "327"),
@@ -335,7 +364,7 @@ def csharp_insecure_hash(
 def csharp_insecure_cipher(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
-    insecure_cyphers = {
+    insecure_ciphers = {
         "AesFastEngine",
         "DES",
         "DESCryptoServiceProvider",
@@ -348,8 +377,8 @@ def csharp_insecure_cipher(
     }
 
     def n_ids() -> graph_model.GraphShardNodes:
-        yield from _csharp_yield_member_access(graph_db, insecure_cyphers)
-        yield from _csharp_yield_object_creation(graph_db, insecure_cyphers)
+        yield from _csharp_yield_member_access(graph_db, insecure_ciphers)
+        yield from _csharp_yield_object_creation(graph_db, insecure_ciphers)
 
     return get_vulnerabilities_from_n_ids(
         cwe=("310", "327"),
@@ -363,14 +392,14 @@ def csharp_insecure_cipher(
 def go_insecure_cipher(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
-    insecure_cyphers = {
+    insecure_ciphers = {
         "des",
         "NewTripleDESCipher",
     }
 
     def n_ids() -> graph_model.GraphShardNodes:
-        yield from yield_go_member_access(graph_db, insecure_cyphers)
-        yield from yield_go_object_creation(graph_db, insecure_cyphers)
+        yield from yield_go_member_access(graph_db, insecure_ciphers)
+        yield from yield_go_object_creation(graph_db, insecure_ciphers)
 
     return get_vulnerabilities_from_n_ids(
         cwe=("310", "327"),
@@ -385,10 +414,10 @@ def go_insecure_hash(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
 
-    insecure_cyphers = {"md4", "md5", "ripemd160", "sha1"}
+    insecure_ciphers = {"md4", "md5", "ripemd160", "sha1"}
 
     def n_ids() -> graph_model.GraphShardNodes:
-        yield from yield_go_object_creation(graph_db, insecure_cyphers)
+        yield from yield_go_object_creation(graph_db, insecure_ciphers)
 
     return get_vulnerabilities_from_n_ids(
         cwe=("310", "327"),
@@ -399,7 +428,7 @@ def go_insecure_hash(
     )
 
 
-def java_insecure_cypher(
+def java_insecure_cipher(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     return get_vulnerabilities_from_n_ids(
@@ -447,6 +476,18 @@ def java_insecure_pass(
     )
 
 
+def kotlin_insecure_cipher(
+    graph_db: graph_model.GraphDB,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_n_ids(
+        cwe=("310", "327"),
+        desc_key="src.lib_path.f052.insecure_cipher.description",
+        desc_params=dict(lang="Kotlin"),
+        finding=FINDING,
+        graph_shard_nodes=_kotlin_yield_insecure_ciphers(graph_db),
+    )
+
+
 # Constants
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F052
 QUERIES: graph_model.Queries = (
@@ -454,8 +495,9 @@ QUERIES: graph_model.Queries = (
     (FINDING, csharp_insecure_cipher),
     (FINDING, go_insecure_cipher),
     (FINDING, go_insecure_hash),
-    (FINDING, java_insecure_cypher),
+    (FINDING, java_insecure_cipher),
     (FINDING, java_insecure_hash),
     (FINDING, java_insecure_key),
     (FINDING, java_insecure_pass),
+    (FINDING, kotlin_insecure_cipher),
 )

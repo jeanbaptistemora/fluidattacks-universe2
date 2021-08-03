@@ -23,7 +23,7 @@ def java_declaration_of_throws_for_generic_exception(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:
-        for shard in graph_db.shards_by_langauge(
+        for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.JAVA,
         ):
             graph = shard.graph
@@ -88,7 +88,7 @@ def c_sharp_insecure_exceptions(
             "NullReferenceException",
             "system.NullReferenceException",
         }
-        for shard in graph_db.shards_by_langauge(
+        for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.CSHARP,
         ):
             graph = shard.graph
@@ -139,7 +139,7 @@ def c_sharp_throws_for_generic_exception(
             "IndexOutOfRangeException",
             "System.IndexOutOfRangeException",
         }
-        for shard in graph_db.shards_by_langauge(
+        for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.CSHARP,
         ):
             graph = shard.graph
@@ -192,7 +192,7 @@ def java_insecure_exceptions(
                 "java.lang.Throwable",
             }
         )
-        for shard in graph_db.shards_by_langauge(
+        for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.JAVA,
         ):
             graph = shard.graph
@@ -235,7 +235,7 @@ def kotlin_generic_exceptions(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:
-        for shard in graph_db.shards_by_langauge(
+        for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.KOTLIN
         ):
             for catch_clause in g.filter_nodes(
