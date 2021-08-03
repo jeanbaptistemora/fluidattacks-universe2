@@ -27,13 +27,13 @@ const MainBlogCard: StyledComponent<
     br3
     bs-btm-h-10
     hv-card
-    mb5
+    mb3
     relative
     dt-ns
     mt0-ns
     ma-auto
     bg-white
-    w-resources-card
+    w-blog-card
   `,
 })``;
 
@@ -42,32 +42,43 @@ const CardInnerDiv: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    h30-em
+    h-20
     ph4
   `,
 })``;
 
-const CardTitle: StyledComponent<
-  "h2",
-  Record<string, unknown>
-> = styled.h2.attrs({
-  className: `
+const CardTitle: StyledComponent<"p", Record<string, unknown>> = styled.p.attrs(
+  {
+    className: `
     c-fluid-bk
     mb0
-    tc
+    f4
+    b
     hv-fluid-rd
     lh-solid
   `,
-})``;
+  }
+)``;
 
 const CardSubTitle: StyledComponent<
-  "h4",
+  "p",
   Record<string, unknown>
-> = styled.h4.attrs({
+> = styled.p.attrs({
   className: `
-    c-fluid-bk
+    c-black-gray
     mb0
-    tc
+    f5
+    normal
+  `,
+})``;
+
+const CardDate: StyledComponent<
+  "h6",
+  Record<string, unknown>
+> = styled.h6.attrs({
+  className: `
+    c-black-gray
+    mb0
   `,
 })``;
 
@@ -77,7 +88,6 @@ const PostInfo: StyledComponent<
 > = styled.div.attrs({
   className: `
     tl
-    pl2
   `,
 })``;
 
@@ -95,9 +105,8 @@ const CardDescription: StyledComponent<
   Record<string, unknown>
 > = styled.p.attrs({
   className: `
-    c-fluid-bk
+    c-gray-120
     f5
-    pl2
     mt0
     pt1
     mt2
@@ -164,6 +173,7 @@ const LoadMoreButton: StyledComponent<
 export {
   BlogMainDiv,
   MainBlogCard,
+  CardDate,
   CardInnerDiv,
   CardTitle,
   PostInfo,

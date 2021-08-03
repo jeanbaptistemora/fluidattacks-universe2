@@ -36,6 +36,7 @@ const BlogCategoryList: React.FC<{ categoryName: string }> = ({
               alt
               author
               category
+              date
               slug
               tags
               description
@@ -83,27 +84,23 @@ const BlogCategoryList: React.FC<{ categoryName: string }> = ({
         {(postsToShow as INodes[]).map((post): JSX.Element | unknown => {
           const {
             alt,
-            author,
-            category,
+            date,
             description,
             image,
             slug,
             spanish,
             subtitle,
-            tags,
           } = post.node.pageAttributes;
 
           return spanish === "yes" ? undefined : (
             <BlogCard
               alt={alt}
-              author={author}
               blogLink={slug}
-              category={category}
+              date={date}
               description={description}
               image={image}
               key={post.node.document.title}
               subtitle={subtitle}
-              tags={tags}
               title={post.node.document.title}
             />
           );

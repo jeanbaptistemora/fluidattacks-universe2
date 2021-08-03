@@ -3,15 +3,15 @@
 /* eslint @typescript-eslint/no-magic-numbers:0 */
 import { Link } from "gatsby";
 import { decode } from "he";
+import moment from "moment";
 import React from "react";
 
-import { stringToUri } from "../../../utils/utilities";
 import {
   CardButtonContainer,
+  CardDate,
   CardDescription,
   CardInnerDiv,
   CardSubTitle,
-  CardText,
   CardTitle,
   MainBlogCard,
   PostInfo,
@@ -19,79 +19,36 @@ import {
 
 interface IProps {
   alt: string;
-  author: string;
   blogLink: string;
-  category: string;
+  date: string;
   description: string;
   image: string;
   subtitle: string;
-  tags: string;
   title: string;
 }
 
 export const BlogCard: React.FC<IProps> = ({
   alt,
-  author,
   blogLink,
-  category,
+  date,
   description,
   image,
   subtitle,
-  tags,
   title,
 }: IProps): JSX.Element => {
-  const taglist: string[] = tags.split(", ");
+  const fDate = moment(date).format("MMMM DD, YYYY");
 
   return (
     <MainBlogCard>
       <img alt={alt} className={"br3 br--top"} src={image} />
       <CardInnerDiv>
+        <CardDate>{fDate}</CardDate>
         <Link className={"no-underline"} to={`/blog/${blogLink}`}>
           <CardTitle>{decode(title)}</CardTitle>
         </Link>
         <CardSubTitle>{decode(subtitle)}</CardSubTitle>
-        <br />
         <PostInfo>
-          <CardText>
-            {"Author:"}&nbsp;
-            <Link
-              className={"c-fluid-gray hv-fluid-black no-underline"}
-              to={`/blog/authors/${stringToUri(author)}`}
-            >
-              {author}
-            </Link>
-          </CardText>
-          <CardText>
-            {"Category:"}&nbsp;
-            {
-              <Link
-                className={"c-fluid-gray hv-fluid-black no-underline"}
-                to={`/blog/categories/${category.toLowerCase()}`}
-              >
-                {category.replace("-", " ")}
-              </Link>
-            }
-          </CardText>
-          <CardText>
-            {"Tags:"}&nbsp;
-            {taglist.map(
-              (tag: string, index): JSX.Element =>
-                taglist.length === index + 1 ? (
-                  <Link
-                    className={"c-fluid-gray hv-fluid-black no-underline"}
-                    to={`/blog/tags/${tag}`}
-                  >{`${tag}`}</Link>
-                ) : (
-                  <Link
-                    className={"c-fluid-gray hv-fluid-black no-underline"}
-                    to={`/blog/tags/${tag}`}
-                  >{`${tag}, `}</Link>
-                )
-            )}
-          </CardText>
           <CardDescription>{`${description.slice(0, 100)}...`}</CardDescription>
-          <br />
-          <br />
           <CardButtonContainer>
             <Link
               className={
