@@ -3,7 +3,9 @@ $zoho.salesiq = $zoho.salesiq || {
   widgetcode:
     "50094df2b302da078befa3cee2e8de00943ab0089a71d1aa34f6df9b6cb54ae5feb79731b60e202192c2895c9acefb61",
   values: {},
-  ready: function () {},
+  ready: function () {
+    // Intentionally left blank
+  },
 };
 var d = document;
 var s = d.createElement("script");
