@@ -7,7 +7,6 @@ import React from "react";
 
 import { stringToUri } from "../../../utils/utilities";
 import {
-  CardButton,
   CardButtonContainer,
   CardDescription,
   CardInnerDiv,
@@ -94,8 +93,13 @@ export const BlogCard: React.FC<IProps> = ({
           <br />
           <br />
           <CardButtonContainer>
-            <Link className={"no-underline"} to={`/blog/${blogLink}`}>
-              <CardButton>{"Read More"}</CardButton>
+            <Link
+              className={
+                "c-fluid-bk f5 mt6 hv-fluid-rd fw4 no-underline t-all-5"
+              }
+              to={`/blog/${blogLink}`}
+            >
+              <button className={"button-white w-80"}>{"Read Post"}</button>
             </Link>
           </CardButtonContainer>
         </PostInfo>

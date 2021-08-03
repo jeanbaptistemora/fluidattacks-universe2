@@ -6,7 +6,6 @@ import React from "react";
 import { BlogsList } from "../components/BlogsList";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
-import { PageHeader } from "../components/PageHeader";
 import { Seo } from "../components/Seo";
 import { PageArticle } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
@@ -35,22 +34,12 @@ const BlogIndex: React.FC<IQueryData> = ({
       <Layout>
         <div>
           <NavbarComponent />
-
           <Breadcrumb
             crumbLabel={"Blog"}
             crumbSeparator={" / "}
             crumbs={capitalizeObject(crumbs)}
           />
           <PageArticle>
-            <PageHeader
-              banner={"blog-bg"}
-              pageWithBanner={true}
-              slug={"blog/"}
-              subtext={""}
-              subtitle={""}
-              title={"Blog"}
-            />
-
             <BlogsList />
           </PageArticle>
         </div>

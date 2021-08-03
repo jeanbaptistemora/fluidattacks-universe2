@@ -8,7 +8,7 @@ import type { SetStateAction } from "react";
 import { BlogCard } from "./BlogCard";
 import { BlogMainDiv, LoadMoreButton } from "./StyledComponents";
 
-import { PageArticle } from "../../styles/styledComponents";
+import { BlogPageArticle } from "../../styles/styledComponents";
 
 export const BlogsList: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
@@ -73,7 +73,7 @@ export const BlogsList: React.FC = (): JSX.Element => {
 
   return (
     <div>
-      <PageArticle>
+      <BlogPageArticle>
         <BlogMainDiv>
           {(postsToShow as INodes[]).map((post): JSX.Element | unknown => {
             const {
@@ -110,7 +110,7 @@ export const BlogsList: React.FC = (): JSX.Element => {
           {/* eslint-disable-next-line react/forbid-component-props */}
           <FontAwesomeIcon className={"f3 db center"} icon={faChevronDown} />
         </LoadMoreButton>
-      </PageArticle>
+      </BlogPageArticle>
     </div>
   );
 };

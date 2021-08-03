@@ -346,6 +346,15 @@ const PageArticle: StyledComponent<
   `,
 })``;
 
+const BlogPageArticle: StyledComponent<
+  "article",
+  Record<string, unknown>
+> = styled.article.attrs({
+  className: `
+    bg-gray-221
+  `,
+})``;
+
 const ArticleTitle: StyledComponent<
   "h1",
   Record<string, unknown>
@@ -1587,6 +1596,7 @@ export {
   BlogItemList,
   BlogItemListContainer,
   BlogItemTitle,
+  BlogPageArticle,
   BannerContainer,
   BannerH2Title,
   BannerSubtitle,
