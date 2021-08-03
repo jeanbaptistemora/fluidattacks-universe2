@@ -10,6 +10,7 @@ from lib_ssl.ssl_connection import (
     get_heartbeat_ext,
     get_malicious_heartbeat,
     get_session_ticket_ext,
+    parse_server_response,
     read_ssl_record,
     ssl_connect,
 )
@@ -88,9 +89,9 @@ def _create_core_vulns(
 
 def _create_ssl_vuln(  # pylint: disable=too-many-arguments
     check: str,
-    line: SSLSnippetLine,
     ssl_settings: SSLSettings,
     server_response: Optional[SSLServerResponse],
+    line: SSLSnippetLine,
     finding: core_model.FindingEnum,
     check_kwargs: Optional[Dict[str, str]] = None,
 ) -> SSLVulnerability:
@@ -230,32 +231,30 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 
         package = get_client_hello_package(v_id, suites, extensions)
         sock.send(bytes(package))
-        handshake_record = read_ssl_record(sock)
+        response: Optional[SSLServerResponse] = parse_server_response(sock)
 
-        if handshake_record is not None:
-            handshake_type, _, _ = handshake_record
-
-            if handshake_type != 22:
-                ssl_vulnerabilities.append(
-                    _create_ssl_vuln(
-                        check="pfs_disabled",
-                        line=SSLSnippetLine.key_exchange,
-                        ssl_settings=SSLSettings(
-                            context=ctx,
-                            min_version=v_id,
-                            max_version=v_id,
-                            key_exchange_names=[
-                                "dhe_rsa",
-                                "ecdhe_rsa",
-                                "ecdh_anon",
-                                "dh_anon",
-                            ],
-                            intention=intention,
-                        ),
-                        server_response=None,
-                        finding=core_model.FindingEnum.F133,
-                    )
+        if response is not None and response.alert is not None:
+            ssl_vulnerabilities.append(
+                _create_ssl_vuln(
+                    check="pfs_disabled",
+                    ssl_settings=SSLSettings(
+                        context=ctx,
+                        min_version=v_id,
+                        max_version=v_id,
+                        key_exchange_names=[
+                            "dhe_rsa",
+                            "ecdhe_rsa",
+                            "ecdh_anon",
+                            "dh_anon",
+                        ],
+                        intention=intention,
+                    ),
+                    server_response=response,
+                    line=SSLSnippetLine.alert_description,
+                    finding=core_model.FindingEnum.F133,
                 )
+            )
+
         sock.close()
 
     return _create_core_vulns(ssl_vulnerabilities)
@@ -381,25 +380,22 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 
     package = get_client_hello_package(SSLVersionId.sslv3_0, suites)
     sock.send(bytes(package))
-    handshake_record = read_ssl_record(sock)
+    response: Optional[SSLServerResponse] = parse_server_response(sock)
 
-    if handshake_record is not None:
-        handshake_type, _, _ = handshake_record
-
-        if handshake_type == 22:
-            ssl_vulnerabilities.append(
-                _create_ssl_vuln(
-                    check="sslv3_enabled",
-                    line=SSLSnippetLine.max_version,
-                    ssl_settings=SSLSettings(
-                        context=ctx,
-                        max_version=SSLVersionId.sslv3_0,
-                        intention=intention,
-                    ),
-                    server_response=None,
-                    finding=core_model.FindingEnum.F016,
-                )
+    if response is not None and response.handshake is not None:
+        ssl_vulnerabilities.append(
+            _create_ssl_vuln(
+                check="sslv3_enabled",
+                ssl_settings=SSLSettings(
+                    context=ctx,
+                    max_version=SSLVersionId.sslv3_0,
+                    intention=intention,
+                ),
+                server_response=response,
+                line=SSLSnippetLine.max_version,
+                finding=core_model.FindingEnum.F016,
             )
+        )
     sock.close()
 
     return _create_core_vulns(ssl_vulnerabilities)
@@ -425,8 +421,8 @@ def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                         ),
                     },
                 ),
-                line=SSLSnippetLine.max_version,
                 server_response=None,
+                line=SSLSnippetLine.max_version,
                 finding=core_model.FindingEnum.F016,
             )
         )
@@ -454,8 +450,8 @@ def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                         ),
                     },
                 ),
-                line=SSLSnippetLine.max_version,
                 server_response=None,
+                line=SSLSnippetLine.max_version,
                 finding=core_model.FindingEnum.F016,
             )
         )
@@ -489,8 +485,8 @@ def _tlsv1_2_or_higher_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                         ),
                     },
                 ),
-                line=SSLSnippetLine.max_version,
                 server_response=None,
+                line=SSLSnippetLine.max_version,
                 finding=core_model.FindingEnum.F016,
             )
         )
@@ -808,27 +804,24 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
 
         package = get_client_hello_package(v_id, suites)
         sock.send(bytes(package))
-        handshake_record = read_ssl_record(sock)
+        response: Optional[SSLServerResponse] = parse_server_response(sock)
 
-        if handshake_record is not None:
-            handshake_type, _, _ = handshake_record
-
-            if handshake_type == 22:
-                ssl_vulnerabilities.append(
-                    _create_ssl_vuln(
-                        check="weak_ciphers_allowed",
-                        line=SSLSnippetLine.ciphers,
-                        ssl_settings=SSLSettings(
-                            context=ctx,
-                            min_version=v_id,
-                            max_version=v_id,
-                            cipher_names=["null", "des", "rc4"],
-                            intention=intention,
-                        ),
-                        server_response=None,
-                        finding=core_model.FindingEnum.F052,
-                    )
+        if response is not None and response.handshake is not None:
+            ssl_vulnerabilities.append(
+                _create_ssl_vuln(
+                    check="weak_ciphers_allowed",
+                    ssl_settings=SSLSettings(
+                        context=ctx,
+                        min_version=v_id,
+                        max_version=v_id,
+                        cipher_names=["null", "des", "rc4"],
+                        intention=intention,
+                    ),
+                    server_response=response,
+                    line=SSLSnippetLine.handshake_cipher,
+                    finding=core_model.FindingEnum.F052,
                 )
+            )
 
         sock.close()
 
@@ -975,27 +968,24 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 
         package = get_client_hello_package(v_id, suites, extensions)
         sock.send(bytes(package))
-        handshake_record = read_ssl_record(sock)
+        response: Optional[SSLServerResponse] = parse_server_response(sock)
 
-        if handshake_record is not None:
-            handshake_type, _, _ = handshake_record
-
-            if handshake_type == 22:
-                ssl_vulnerabilities.append(
-                    _create_ssl_vuln(
-                        check="cbc_enabled",
-                        line=SSLSnippetLine.ciphers,
-                        ssl_settings=SSLSettings(
-                            context=ctx,
-                            min_version=v_id,
-                            max_version=v_id,
-                            cipher_names=["3des", "camellia", "idea"],
-                            intention=intention,
-                        ),
-                        server_response=None,
-                        finding=core_model.FindingEnum.F094,
-                    )
+        if response is not None and response.handshake is not None:
+            ssl_vulnerabilities.append(
+                _create_ssl_vuln(
+                    check="cbc_enabled",
+                    ssl_settings=SSLSettings(
+                        context=ctx,
+                        min_version=v_id,
+                        max_version=v_id,
+                        cipher_names=["3des", "camellia", "idea"],
+                        intention=intention,
+                    ),
+                    server_response=response,
+                    line=SSLSnippetLine.handshake_cipher,
+                    finding=core_model.FindingEnum.F094,
                 )
+            )
 
         sock.close()
 
@@ -1074,27 +1064,24 @@ def _sweet32_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
 
         package = get_client_hello_package(v_id, suites, extensions)
         sock.send(bytes(package))
-        handshake_record = read_ssl_record(sock)
+        response: Optional[SSLServerResponse] = parse_server_response(sock)
 
-        if handshake_record is not None:
-            handshake_type, _, _ = handshake_record
-
-            if handshake_type == 22:
-                ssl_vulnerabilities.append(
-                    _create_ssl_vuln(
-                        check="sweet32_possible",
-                        line=SSLSnippetLine.ciphers,
-                        ssl_settings=SSLSettings(
-                            context=ctx,
-                            min_version=v_id,
-                            max_version=v_id,
-                            cipher_names=["3des"],
-                            intention=intention,
-                        ),
-                        server_response=None,
-                        finding=core_model.FindingEnum.F094,
-                    )
+        if response is not None and response.handshake is not None:
+            ssl_vulnerabilities.append(
+                _create_ssl_vuln(
+                    check="sweet32_possible",
+                    ssl_settings=SSLSettings(
+                        context=ctx,
+                        min_version=v_id,
+                        max_version=v_id,
+                        cipher_names=["3des"],
+                        intention=intention,
+                    ),
+                    server_response=response,
+                    line=SSLSnippetLine.handshake_cipher,
+                    finding=core_model.FindingEnum.F094,
                 )
+            )
         sock.close()
 
     return _create_core_vulns(ssl_vulnerabilities)
@@ -1163,26 +1150,23 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 
     package = get_client_hello_package(min_v_id, suites, extensions)
     sock.send(bytes(package))
-    handshake_record = read_ssl_record(sock)
+    response: Optional[SSLServerResponse] = parse_server_response(sock)
 
-    if handshake_record is not None:
-        handshake_type, _, _ = handshake_record
-
-        if handshake_type == 22:
-            ssl_vulnerabilities.append(
-                _create_ssl_vuln(
-                    check="fallback_scsv_disabled",
-                    line=SSLSnippetLine.min_version,
-                    ssl_settings=SSLSettings(
-                        context=ctx,
-                        min_version=min_v_id,
-                        max_version=min_v_id,
-                        intention=intention,
-                    ),
-                    server_response=None,
-                    finding=core_model.FindingEnum.F016,
-                )
+    if response is not None and response.handshake is not None:
+        ssl_vulnerabilities.append(
+            _create_ssl_vuln(
+                check="fallback_scsv_disabled",
+                ssl_settings=SSLSettings(
+                    context=ctx,
+                    min_version=min_v_id,
+                    max_version=min_v_id,
+                    intention=intention,
+                ),
+                server_response=response,
+                line=SSLSnippetLine.min_version,
+                finding=core_model.FindingEnum.F016,
             )
+        )
     sock.close()
 
     return _create_core_vulns(ssl_vulnerabilities)
@@ -1221,8 +1205,8 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
             _create_ssl_vuln(
                 check="tlsv1_3_downgrade",
                 ssl_settings=ssl_settings,
-                line=SSLSnippetLine.max_version,
                 server_response=None,
+                line=SSLSnippetLine.max_version,
                 finding=core_model.FindingEnum.F016,
                 check_kwargs={"version": v_name},
             )
@@ -1303,7 +1287,7 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
             ),
             core_model.LocalesEnum.ES: (
                 "verificar si el servidor es vulnerable a un ataque heartbleed"
-                "con {v_name}".format(
+                " con {v_name}".format(
                     v_name=ssl_id2ssl_name(v_id),
                 )
             ),
@@ -1320,35 +1304,32 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
 
         package = get_client_hello_package(v_id, suites, extensions)
         sock.send(bytes(package))
-        handshake_record = read_ssl_record(sock)
+        response: Optional[SSLServerResponse] = parse_server_response(sock)
 
-        if handshake_record is not None:
-            handshake_type, _, _ = handshake_record
+        if response is not None and response.handshake is not None:
+            package = get_malicious_heartbeat(v_id, n_payload=16384)
+            sock.send(bytes(package))
 
-            if handshake_type == 22:
-                package = get_malicious_heartbeat(v_id, n_payload=16384)
-                sock.send(bytes(package))
+            heartbeat_record = read_ssl_record(sock)
 
-                heartbeat_record = read_ssl_record(sock)
+            if heartbeat_record is not None:
+                heartbeat_type, _, _ = heartbeat_record
 
-                if heartbeat_record is not None:
-                    heartbeat_type, _, _ = heartbeat_record
-
-                    if heartbeat_type == 24:
-                        ssl_vulnerabilities.append(
-                            _create_ssl_vuln(
-                                check="heartbleed_possible",
-                                line=SSLSnippetLine.max_version,
-                                ssl_settings=SSLSettings(
-                                    context=ctx,
-                                    min_version=v_id,
-                                    max_version=v_id,
-                                    intention=intention,
-                                ),
-                                server_response=None,
-                                finding=core_model.FindingEnum.F016,
-                            )
+                if heartbeat_type == 24:
+                    ssl_vulnerabilities.append(
+                        _create_ssl_vuln(
+                            check="heartbleed_possible",
+                            ssl_settings=SSLSettings(
+                                context=ctx,
+                                min_version=v_id,
+                                max_version=v_id,
+                                intention=intention,
+                            ),
+                            server_response=None,
+                            line=SSLSnippetLine.max_version,
+                            finding=core_model.FindingEnum.F016,
                         )
+                    )
         sock.close()
 
     return _create_core_vulns(ssl_vulnerabilities)
@@ -1402,26 +1383,23 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
 
         package = get_client_hello_package(v_id, suites, extensions)
         sock.send(bytes(package))
-        handshake_record = read_ssl_record(sock)
+        response: Optional[SSLServerResponse] = parse_server_response(sock)
 
-        if handshake_record is not None:
-            handshake_type, _, _ = handshake_record
-
-            if handshake_type == 22:
-                ssl_vulnerabilities.append(
-                    _create_ssl_vuln(
-                        check="freak_possible",
-                        line=SSLSnippetLine.max_version,
-                        ssl_settings=SSLSettings(
-                            context=ctx,
-                            min_version=v_id,
-                            max_version=v_id,
-                            intention=intention,
-                        ),
-                        server_response=None,
-                        finding=core_model.FindingEnum.F016,
-                    )
+        if response is not None and response.handshake is not None:
+            ssl_vulnerabilities.append(
+                _create_ssl_vuln(
+                    check="freak_possible",
+                    ssl_settings=SSLSettings(
+                        context=ctx,
+                        min_version=v_id,
+                        max_version=v_id,
+                        intention=intention,
+                    ),
+                    server_response=response,
+                    line=SSLSnippetLine.max_version,
+                    finding=core_model.FindingEnum.F016,
                 )
+            )
         sock.close()
 
     return _create_core_vulns(ssl_vulnerabilities)
@@ -1475,26 +1453,23 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
 
         package = get_client_hello_package(v_id, suites, extensions)
         sock.send(bytes(package))
-        handshake_record = read_ssl_record(sock)
+        response: Optional[SSLServerResponse] = parse_server_response(sock)
 
-        if handshake_record is not None:
-            handshake_type, _, _ = handshake_record
-
-            if handshake_type == 22:
-                ssl_vulnerabilities.append(
-                    _create_ssl_vuln(
-                        check="raccoon_possible",
-                        line=SSLSnippetLine.max_version,
-                        ssl_settings=SSLSettings(
-                            context=ctx,
-                            min_version=v_id,
-                            max_version=v_id,
-                            intention=intention,
-                        ),
-                        server_response=None,
-                        finding=core_model.FindingEnum.F016,
-                    )
+        if response is not None and response.handshake is not None:
+            ssl_vulnerabilities.append(
+                _create_ssl_vuln(
+                    check="raccoon_possible",
+                    ssl_settings=SSLSettings(
+                        context=ctx,
+                        min_version=v_id,
+                        max_version=v_id,
+                        intention=intention,
+                    ),
+                    server_response=response,
+                    line=SSLSnippetLine.max_version,
+                    finding=core_model.FindingEnum.F016,
                 )
+            )
         sock.close()
 
     return _create_core_vulns(ssl_vulnerabilities)
@@ -1532,7 +1507,6 @@ def _breach_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
             ssl_vulnerabilities.append(
                 _create_ssl_vuln(
                     check="breach_possible",
-                    line=SSLSnippetLine.ssl_connection,
                     ssl_settings=SSLSettings(
                         context=ctx,
                         intention={
@@ -1553,6 +1527,7 @@ def _breach_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                         },
                     ),
                     server_response=None,
+                    line=SSLSnippetLine.request_title,
                     finding=core_model.FindingEnum.F016,
                 )
             )

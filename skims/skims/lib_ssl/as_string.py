@@ -45,7 +45,7 @@ def get_bad_response_skeleton_en() -> str:
     return content
 
 
-def new_get_snippet_skeleton_en() -> str:
+def get_snippet_skeleton_en() -> str:
     content = "Target\n"
     content += "    {host}:{port}\n"
     content += "Intention\n"
@@ -78,7 +78,7 @@ def get_bad_response_skeleton_es() -> str:
     return content
 
 
-def new_get_snippet_skeleton_es() -> str:
+def get_snippet_skeleton_es() -> str:
     content = "Objetivo\n"
     content += "    {host}:{port}\n"
     content += "Intención\n"
@@ -92,7 +92,7 @@ def new_get_snippet_skeleton_es() -> str:
     return content
 
 
-def new_snippet(
+def snippet(
     locale: LocalesEnum,
     ssl_vulnerability: SSLVulnerability,
     columns_per_line: int = SNIPPETS_COLUMNS,
@@ -118,12 +118,12 @@ def new_snippet(
         max_version=ssl_id2ssl_name(ssl_settings.max_version),
     )
 
-    response: str = "Unknown response"
+    response: str = "    ---\n"
     if s_response is not None:
         if s_response.alert is not None:
             response = bad_response_skeleton.format(
-                level=s_response.alert.level,
-                description=s_response.alert.description,
+                level=s_response.alert.level.name,
+                description=s_response.alert.description.name,
             )
         elif s_response.handshake is not None:
             response = good_response_skeleton.format(
@@ -150,7 +150,7 @@ def new_snippet(
     )
 
 
-def get_snippet_skeleton_en() -> str:
+def old_get_snippet_skeleton_en() -> str:
     content: str = "intention: {intention}\n"
     content += "SSL request made to {host}:{port} with following parameters\n"
     content += "   fallback scsv: {scsv}\n"
@@ -163,7 +163,7 @@ def get_snippet_skeleton_en() -> str:
     return content
 
 
-def get_snippet_skeleton_es() -> str:
+def old_get_snippet_skeleton_es() -> str:
     content: str = "intención: {intention}\n"
     content += "petición SSL hecha a {host}:{port} con los parámetros\n"
     content += "   fallback scsv: {scsv}\n"
@@ -176,7 +176,7 @@ def get_snippet_skeleton_es() -> str:
     return content
 
 
-def snippet(
+def old_snippet(
     locale: LocalesEnum,
     ssl_vulnerability: SSLVulnerability,
     columns_per_line: int = SNIPPETS_COLUMNS,
@@ -186,9 +186,9 @@ def snippet(
     snippet_skeleton: str = ""
 
     if locale == LocalesEnum.ES:
-        snippet_skeleton = get_snippet_skeleton_es()
+        snippet_skeleton = old_get_snippet_skeleton_es()
     else:
-        snippet_skeleton = get_snippet_skeleton_en()
+        snippet_skeleton = old_get_snippet_skeleton_en()
 
     content: str = snippet_skeleton.format(
         intention=ssl_settings.intention[locale],

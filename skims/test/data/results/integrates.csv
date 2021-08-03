@@ -1,27 +1,37 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
 F133,inputs,localhost:4446 (namespace),server refuses connections with PFS support,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,server refuses connections with PFS support,"
-  1 | intention: check if server accepts key exchange with PFS support in TLSv1.0
-  2 | SSL request made to localhost:4446 with following parameters
-  3 |    fallback scsv: False
-  4 |    min version: TLSv1.0
-  5 |    max version: TLSv1.0
-  6 |    ciphers: chacha20-poly1305, aes256gcm, aes128gcm, aes256ccm, aes128ccm, aes256, aes128, 3des
-  7 |    mac: sha, sha256, sha384, aead
-> 8 |    key exchange: dhe_rsa, ecdhe_rsa, ecdh_anon, dh_anon
-  9 | result: server refuses connections with PFS support
-    ^ Col 0
+   1 | Target
+   2 |     localhost:4446
+   3 | Intention
+   4 |     check if server accepts key exchange with PFS support in TLSv1.0
+   5 | Request
+   6 |     fallback scsv: False
+   7 |     min version: TLSv1.0
+   8 |     max version: TLSv1.0
+   9 | Response
+  10 |     type: ALERT
+  11 |     level: FATAL
+> 12 |     description: handshake_failure
+  13 | Result
+  14 |     server refuses connections with PFS support
+     ^ Col 0
 "
 F133,inputs,localhost:4446 (namespace),server refuses connections with PFS support,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,server refuses connections with PFS support,"
-  1 | intention: check if server accepts key exchange with PFS support in TLSv1.1
-  2 | SSL request made to localhost:4446 with following parameters
-  3 |    fallback scsv: False
-  4 |    min version: TLSv1.1
-  5 |    max version: TLSv1.1
-  6 |    ciphers: chacha20-poly1305, aes256gcm, aes128gcm, aes256ccm, aes128ccm, aes256, aes128, 3des
-  7 |    mac: sha, sha256, sha384, aead
-> 8 |    key exchange: dhe_rsa, ecdhe_rsa, ecdh_anon, dh_anon
-  9 | result: server refuses connections with PFS support
-    ^ Col 0
+   1 | Target
+   2 |     localhost:4446
+   3 | Intention
+   4 |     check if server accepts key exchange with PFS support in TLSv1.1
+   5 | Request
+   6 |     fallback scsv: False
+   7 |     min version: TLSv1.1
+   8 |     max version: TLSv1.1
+   9 | Response
+  10 |     type: ALERT
+  11 |     level: FATAL
+> 12 |     description: handshake_failure
+  13 | Result
+  14 |     server refuses connections with PFS support
+     ^ Col 0
 "
 F117,lines,namespace/skims/test/data/lib_path/f117/.project,1,377,skims,117. Unverifiable files,Unverifiable file in skims/test/data/lib_path/f117/.project,"
 

@@ -109,13 +109,19 @@ class SSLSettings(NamedTuple):
 
 
 class SSLSnippetLine(Enum):
-    ssl_connection: int = 2
-    fallback_scsv: int = 3
-    min_version: int = 4
-    max_version: int = 5
-    ciphers: int = 6
-    mac: int = 7
-    key_exchange: int = 8
+    target_title: int = 1
+    target: int = 2
+    intention_title: int = 3
+    intention: int = 4
+    request_title: int = 5
+    fallback_scsv: int = 6
+    min_version: int = 7
+    max_version: int = 8
+    response_title: int = 9
+    handshake_cipher: int = 10
+    alert_type: int = 10
+    alert_level: int = 11
+    alert_description: int = 12
 
 
 class TLSVersionId(Enum):
