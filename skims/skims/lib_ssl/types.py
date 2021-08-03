@@ -18,25 +18,6 @@ from typing import (
 )
 
 
-class SSLHandshakeRecord(Enum):
-    CLIENT_HELLO: int = 1
-    SERVER_HELLO: int = 2
-    CERTIFICATE: int = 11
-    SERVER_KEY_EXCHANGE: int = 12
-    CERTIFICATE_REQUEST: int = 13
-    SERVER_HELLO_DONE: int = 14
-    CERTIFICATE_VERIFY: int = 15
-    CLIENT_KEY_EXCHANGE: int = 16
-    FINISHED: int = 20
-
-
-class SSLRecord(Enum):
-    CHANGE_CIPHER_SPEC: int = 20
-    ALERT: int = 21
-    HANDSHAKE: int = 22
-    APPLICATION_DATA: int = 23
-
-
 class SSLVersionId(IntEnum):
     sslv3_0: int = 0
     tlsv1_0: int = 1
@@ -51,34 +32,6 @@ class SSLVersionName(Enum):
     tlsv1_1: str = "TLSv1.1"
     tlsv1_2: str = "TLSv1.2"
     tlsv1_3: str = "TLSv1.3"
-
-
-class SSLContext(NamedTuple):
-    host: str = "localhost"
-    port: int = 443
-    tls_versions: Tuple[SSLVersionId, ...] = ()
-
-    def __str__(self) -> str:
-        return f"{self.host}:{self.port}"
-
-
-class SSLSettings(NamedTuple):
-    context: SSLContext
-    scsv: bool = False
-    anonymous: bool = False
-    min_version: SSLVersionId = SSLVersionId.sslv3_0
-    max_version: SSLVersionId = SSLVersionId.tlsv1_3
-    intention: Dict[LocalesEnum, str] = {
-        LocalesEnum.EN: "establish SSL/TLS connection",
-        LocalesEnum.ES: "establecer conexión SSL/TLS",
-    }
-    mac_names: List[str] = []
-    cipher_names: List[str] = []
-    anon_key_exchange_names: List[str] = []
-    key_exchange_names: List[str] = []
-
-    def __str__(self) -> str:
-        return str(self.context)
 
 
 class SSLSnippetLine(Enum):
@@ -465,6 +418,25 @@ class SSLSuite(Enum):
     UNKNOWN: Tuple[int, int] = (-1, -1)
 
 
+class SSLHandshakeRecord(Enum):
+    CLIENT_HELLO: int = 1
+    SERVER_HELLO: int = 2
+    CERTIFICATE: int = 11
+    SERVER_KEY_EXCHANGE: int = 12
+    CERTIFICATE_REQUEST: int = 13
+    SERVER_HELLO_DONE: int = 14
+    CERTIFICATE_VERIFY: int = 15
+    CLIENT_KEY_EXCHANGE: int = 16
+    FINISHED: int = 20
+
+
+class SSLRecord(Enum):
+    CHANGE_CIPHER_SPEC: int = 20
+    ALERT: int = 21
+    HANDSHAKE: int = 22
+    APPLICATION_DATA: int = 23
+
+
 class SSLAlertLevel(Enum):
     WARNING: int = 1
     FATAL: int = 2
@@ -525,6 +497,34 @@ class SSLServerResponse(NamedTuple):
     version_id: SSLVersionId
     alert: Optional[SSLAlert] = None
     handshake: Optional[SSLServerHandshake] = None
+
+
+class SSLContext(NamedTuple):
+    host: str = "localhost"
+    port: int = 443
+    tls_versions: Tuple[SSLVersionId, ...] = ()
+
+    def __str__(self) -> str:
+        return f"{self.host}:{self.port}"
+
+
+class SSLSettings(NamedTuple):
+    context: SSLContext
+    scsv: bool = False
+    anonymous: bool = False
+    min_version: SSLVersionId = SSLVersionId.sslv3_0
+    max_version: SSLVersionId = SSLVersionId.tlsv1_3
+    intention: Dict[LocalesEnum, str] = {
+        LocalesEnum.EN: "establish SSL/TLS connection",
+        LocalesEnum.ES: "establecer conexión SSL/TLS",
+    }
+    mac_names: List[str] = []
+    cipher_names: List[str] = []
+    anon_key_exchange_names: List[str] = []
+    key_exchange_names: List[str] = []
+
+    def __str__(self) -> str:
+        return str(self.context)
 
 
 class SSLVulnerability(NamedTuple):
