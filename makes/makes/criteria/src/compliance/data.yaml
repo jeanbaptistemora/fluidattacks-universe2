@@ -209,3 +209,82 @@
     "137":
       title: Parameter Injection
       link: https://capec.mitre.org/data/definitions/137.html
+    "148":
+      title: Content Spoofing
+      link: https://capec.mitre.org/data/definitions/148.html
+    "151":
+      title: Identity Spoofing
+      link: https://capec.mitre.org/data/definitions/151.html
+    "153":
+      title: Input Data Manipulation
+      link: https://capec.mitre.org/data/definitions/153.html
+    "154":
+      title: Resource Location Spoofing
+      link: https://capec.mitre.org/data/definitions/154.html
+    "161":
+      title: Infrastructure Manipulation
+      link: https://capec.mitre.org/data/definitions/161.html
+    "165":
+      title: File Manipulation
+      link: https://capec.mitre.org/data/definitions/165.html
+    "169":
+      title: Footprinting
+      link: https://capec.mitre.org/data/definitions/169.html
+    "173":
+      title: Action Spoofing
+      link: https://capec.mitre.org/data/definitions/173.html
+    "175":
+      title: Code Inclusion
+      link: https://capec.mitre.org/data/definitions/175.html
+    "176":
+      title: Configuration/Environment Manipulation
+      link: https://capec.mitre.org/data/definitions/176.html
+    "188":
+      title: Reverse Engineering
+      link: https://capec.mitre.org/data/definitions/188.html
+    "212":
+      title: Functionality Misuse
+      link: https://capec.mitre.org/data/definitions/212.html
+    "216":
+      title: Communication Channel Manipulation
+      link: https://capec.mitre.org/data/definitions/216.html
+    "224":
+      title: Fingerprinting
+      link: https://capec.mitre.org/data/definitions/224.html          
+    "227":
+      title: Sustained Client Engagement
+      link: https://capec.mitre.org/data/definitions/227.html
+    "233":
+      title: Privilege Escalation
+      link: https://capec.mitre.org/data/definitions/233.html
+    "240":
+      title: Resource Injection
+      link: https://capec.mitre.org/data/definitions/240.html
+    "242":
+      title: Code Injection
+      link: https://capec.mitre.org/data/definitions/242.html
+    "248":
+      title: Command Injection
+      link: https://capec.mitre.org/data/definitions/248.html
+    "272":
+      title: Protocol Manipulation
+      link: https://capec.mitre.org/data/definitions/272.html
+    "438":
+      title: Modification During Manufacture
+      link: https://capec.mitre.org/data/definitions/438.html
+    "549":
+      title: Local Execution of Code
+      link: https://capec.mitre.org/data/definitions/549.html
+    "554":
+      title: Functionality Bypass
+      link: https://capec.mitre.org/data/definitions/554.html
+    "560":
+      title: Use of Known Domain Credentials
+      link: https://capec.mitre.org/data/definitions/560.html
+    "586":
+      title: Object Injection
+      link: https://capec.mitre.org/data/definitions/586.html
+    "594":
+      title: Traffic Injection
+      link: https://capec.mitre.org/data/definitions/594.html
+  metadata: {}
