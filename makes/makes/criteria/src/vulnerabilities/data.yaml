@@ -1721,7 +1721,7 @@
 
       - visible to scripts running on the browser
       that may belong to third-parties.
-    impact: __empty__
+    impact: Obtain sensitive information from application URLs
     recommendation: >
       Guarantee that the session's id
       are sent through secure methods (POST)
@@ -1750,7 +1750,7 @@
       - son visibles por scripts
       corriendo en la página
       los cuales pueden pertenecer a terceros.
-    impact: __empty__
+    impact: Obtener información sensible de los enlaces de la aplicación.
     recommendation: >
       Garantizar que los identificadores de sesión
       se envían por métodos seguros (POST)
@@ -1795,7 +1795,9 @@
       Explicitly assign permissions
       to the appropriate groups and roles
       following the principle of least privilege.
-    threat: __empty__
+    threat: >
+      Autenticated user from the Internet
+      with access to a misconfigured role
   es:
     title: Excessive privileges - AWS
     description: >
@@ -1822,16 +1824,16 @@
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "N"
-      availability: "N"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["095", "096", "186"]
   metadata:
     en:
@@ -1879,9 +1881,13 @@
       that appear to come from the system
       and modifying data in the name of other users
       (who may have more privileges).
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    impact: >
+      Impersonate the application to increase the chances
+      of a successful phishing or social engineering attack
+    recommendation: >
+      Avoid the usage of custom system messages
+      that can be tampered by an user
+    threat: Authenticated attacker from the Internet
   es:
     title: Spoofing
     description: >
@@ -1893,30 +1899,28 @@
       enviar mensajes que parecen venir del sistema
       o modificar datos a nombre de otros usuarios
       (quienes podrían tener más privilegios).
-    impact: __empty__
+    impact: >
+      Suplantar la aplicación para incrementar las posibilidades
+      de un ataque exitoso de phishing o ingeniería social
     recommendation: >
-      Usar control de acceso a nivel de sesión
-      para evitar que hayan transacciones
-      que modifiquen información de otros usuarios
-      basado únicamente el el ID.
+      Evitar usar mensajes de sistema personalizados
+      que puedan ser modificados sin autorización por un usuario.
     threat: >
-      Un usuario válido de la aplicación
-      puede cambiar información de otros usuarios
-      sin el consentimiento de estos.
+      Atacante autenticado desde Internet
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["035", "096", "173", "176", "265", "320"]
   metadata: {}
 "033":
@@ -1928,20 +1932,17 @@
       without requesting the previous one
       or enforcing another
       identity verification mechanism.
-    impact: __empty__
+    impact: Gain total control over a user account
     recommendation: >
-      Guarantee that the current password
+      - Guarantee that the current password
       is needed when a password change
       is requested by users.
+
+      - Use a second authentication mechanism
+      to ensure the password change is performed
+      by the account owner
     threat: >
-      A user with access
-      to a careless user's workstation
-      with an open session in the application,
-      can take advantage of that
-      and modify the access credentials
-      to use them later to its own benefit,
-      due to the lack of current password request
-      by system.
+      Authenticated attacker from the internet
   es:
     title: Password change without identity check
     description: >
@@ -1949,33 +1950,30 @@
       el producto no requiere conocimiento
       de la contraseña original,
       o el uso de otro tipo de autenticación.
-    impact: __empty__
+    impact: Obtener control total de la cuenta de un usuario
     recommendation: >
-      Garantizar que al hacer el cambio de contraseña
+      - Garantizar que al hacer el cambio de contraseña
       se ingrese la contraseña actual.
+
+      - Establecer mecanismos como un segundo factor de autenticación
+      para garantizar que el cambio de contraseña sea efectuado
+      por el dueño de la cuenta
     threat: >
-      Un usuario con acceso
-      a la estación de trabajo de otro desapercibido
-      que deja la sesión abierta de la aplicación,
-      puede aprovechar un descuido
-      y modificar las credenciales de acceso
-      para luego utilizarlas en su beneficio,
-      ya que el sistema no valida
-      la clave actual del usuario.
+      Atacante autenticado desde Internet
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
-      availability: "N"
+      integrity: "L"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["238"]
   metadata: {}
 "034":
@@ -1989,19 +1987,15 @@
       to guess the generation sequence
       after a short time or predict results
       using probabilistic methods.
-    impact: __empty__
+    impact: >
+      Predict the secuence of random numbers
+      to create new attack vectors.
     recommendation: >
       Use the most secure mechanisms
       offered by language
       to generate random numbers.
     threat: >
-      An attacker could predict
-      session's id UUID
-      due to predictable methods used
-      to generate random numbers,
-      what can allow to gain unauthorized access
-      to the application
-      and make a user spoofing.
+      Authenticated attacker from the Internet
   es:
     title: Insecure generation of random numbers
     description: >
@@ -2013,33 +2007,29 @@
       averiguar la secuencia de generación
       o predecir resultados
       usando métodos probabilísticos.
-    impact: __empty__
+    impact: >
+      Predecir la secuencia de números aleatorios
+      para crear nuevos vectores de ataque.
     recommendation: >
       Usar los mecanismos más seguros
       ofrecidos por el lenguaje
       para la generación de números aleatorios.
     threat: >
-      Un atacante podría predecir
-      el identificador de sesión UUID
-      debido a que se usan métodos predecibles
-      para generar números aleatorios,
-      lo que le permitiría ganar acceso no autorizado
-      a la aplicación
-      y generar una suplantación de usuario.
+      Atacante autenticado desde Internet
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
   requirements: ["223", "224"]
   metadata: {}
 "035":
@@ -2048,36 +2038,32 @@
     description: >
       The system's credential policy
       is not compliant with security regulations.
-    impact: __empty__
+    impact: >
+      Increase the chances of getting valid credentials
+      using brute force or dictionary attacks.
     recommendation: >
       Establish a policy
       for creation of credentials
       that uses phrases,
       not word based passwords.
     threat: >
-      A user can modify
-      the password without a policy
-      that validates the strength of it,
-      increasing the probability of success
-      of a brute force attack.
+      Anonymous user from the Internet
   es:
     title: Weak credential policy
     description: >
       La política de credenciales
       presente en el sistema
       no cuenta con los parámetros recomendados.
-    impact: __empty__
+    impact: >
+      Incrementar las posibilidades de obtener credenciales válidas
+      mediante ataques de fuerza bruta o diccionario
     recommendation: >
       Establecer una política
       para la creación de credenciales
       que involucre frases
       y no contraseñas basadas en palabras.
     threat: >
-      Un usuario puede cambiar su contraseña
-      sin una política de contraseñas
-      que asegure la fortaleza de dicha contraseña,
-      permitiendo así una probabilidad mayor de éxito
-      ante un ataque de fuerza bruta.
+      Atacante anónimo desde Internet
   score:
     base:
       attack_vector: "N"
@@ -2085,13 +2071,13 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["130", "132", "133", "139", "332"]
   metadata: {}
 "036":
@@ -2128,18 +2114,18 @@
       al navegador de la victima.
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "L"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["026"]
   metadata: {}
 "037":
@@ -2155,7 +2141,7 @@
       - Specific information
       about the configuration
       of server components (php.ini, web.config)
-    impact: __empty__
+    impact: Obtain technical information to create new attack vectors.
     recommendation: >
       - Eliminate the services banner
       with information leakage.
@@ -2163,13 +2149,7 @@
       - Verify that HTTP headers
       do not display any name or version.
     threat: >
-      An unauthorized user
-      with access to the system,
-      can identify versions and components
-      that are being used by it
-      through HTTP response headers
-      or in the response
-      to non-customized HTTP errors.
+      Authenticated attacker from the Internet
   es:
     title: Technical information leak
     description: >
@@ -2186,7 +2166,7 @@
 
       - Funcionalidades que arrojan
       información del servidor.
-    impact: __empty__
+    impact: Obtener información técnica para crear nuevos vectores de ataque
     recommendation: >
       - Eliminar el banner de los servicios
       con fuga de información.
@@ -2194,28 +2174,21 @@
       - Verificar que los encabezados HTTP
       no expongan ningún nombre o versión.
     threat: >
-      Un usuario no autorizado
-      con acceso al sistema
-      puede identificar versiones y/o componentes
-      que usa el sistema a través
-      de las cabeceras HTTP
-      que responde el servidor
-      o en la respuesta a los errores
-      HTTP no personalizados.
+      Atacante autenticado desde Internet
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["077", "176"]
   metadata: {}
 "038":
@@ -2234,7 +2207,7 @@
       - Clients information
 
       - Providers information
-    impact: __empty__
+    impact: Obtain sensitive information to create new attack vectors.
     recommendation: >
       Based on the classification
       of the information found,
@@ -2260,7 +2233,7 @@
       - Información de clientes
 
       - Información de proveedores
-    impact: __empty__
+    impact: Obtener información sensible para crear nuevos vectores de ataque.
     recommendation: >
       De acuerdo a la clasificación
       de la información encontrada,
@@ -2276,16 +2249,16 @@
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["123", "176", "177", "261", "300"]
   metadata: {}
 "039":
