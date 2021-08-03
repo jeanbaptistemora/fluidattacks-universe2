@@ -2,6 +2,9 @@
 """
 This migration change the comment type from integer to string in the finding
 historic verification
+
+Execution Time:     2021-08-03 at 09:37:26 UTC-05
+Finalization Time:  2021-08-03 at 09:39:14 UTC-05
 """
 
 from aioextensions import (
