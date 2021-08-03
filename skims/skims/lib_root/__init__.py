@@ -9,6 +9,9 @@ from typing import (
 from utils import (
     graph as g,
 )
+from utils.graph.transformation import (
+    build_member_access_expression_key,
+)
 
 
 def yield_java_method_invocation(
@@ -67,6 +70,25 @@ def yield_java_object_creation(
             elif type_identifier := match["type_identifier"]:
                 type_name = shard.graph.nodes[type_identifier]["label_text"]
                 yield shard, object_id, type_name
+
+
+def yield_c_sharp_invocation_expression(
+    graph_db: graph_model.GraphDB,
+) -> Iterable[Tuple[graph_model.GraphShard, str, str]]:
+    for shard in graph_db.shards_by_langauge(
+        graph_model.GraphShardMetadataLanguage.CSHARP,
+    ):
+        for method_id in g.filter_nodes(
+            shard.graph,
+            nodes=shard.graph.nodes,
+            predicate=g.pred_has_labels(label_type="invocation_expression"),
+        ):
+            method_name = build_member_access_expression_key(
+                shard.graph,
+                method_id,
+            )
+
+            yield shard, method_id, method_name
 
 
 def yield_go_object_creation(
