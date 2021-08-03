@@ -30,6 +30,7 @@ class IPRoot(NamedTuple):
     address: str
     id: str
     port: int
+    state: str
 
 
 class URLRoot(NamedTuple):
@@ -38,6 +39,7 @@ class URLRoot(NamedTuple):
     path: str
     port: int
     protocol: str
+    state: str
 
 
 Root = Union[GitRoot, IPRoot, URLRoot]

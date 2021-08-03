@@ -1,5 +1,8 @@
 interface IRoot {
+  "ID of the root"
   id: ID!
+  "Whether the root is active or not"
+  state: ResourceState!
 }
 
 type GitRootCloningStatus {
@@ -29,8 +32,13 @@ type GitRoot implements IRoot {
   "Last time the root status was modified"
   lastStateStatusUpdate: DateTime!
   "Last time the root status was modified"
-  lastStatusUpdate: DateTime! @deprecated(reason: """This field will be removed
-    after 2021/12/20. Use `lastStateStatusUpdate`.""")
+  lastStatusUpdate: DateTime!
+    @deprecated(
+      reason: """
+      This field will be removed
+      after 2021/12/20. Use `lastStateStatusUpdate`.
+      """
+    )
   "Nickname for the repository"
   nickname: String!
   "Whether the root is active or not"
@@ -48,6 +56,8 @@ type IPRoot implements IRoot {
   id: ID!
   "Indicates the port to test. Zero means all ports"
   port: Int!
+  "Whether the root is active or not"
+  state: ResourceState!
 }
 
 type URLRoot implements IRoot {
@@ -61,4 +71,6 @@ type URLRoot implements IRoot {
   port: Int!
   "URL protocol"
   protocol: URLProtocol!
+  "Whether the root is active or not"
+  state: ResourceState!
 }
