@@ -46,6 +46,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
               </ControlLabel>
               <Field component={FormikText} name={"url"} type={"text"} />
             </React.Fragment>
+            <hr />
             <Row>
               <Col100>
                 <ButtonToolbar>

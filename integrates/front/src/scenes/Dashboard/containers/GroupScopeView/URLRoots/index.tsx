@@ -12,6 +12,7 @@ import type { IURLRootAttr } from "../types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { DataTableNext } from "components/DataTableNext";
+import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -104,6 +105,12 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
                   {
                     dataField: "protocol",
                     header: t("group.scope.url.protocol"),
+                  },
+                  {
+                    align: "center",
+                    dataField: "state",
+                    formatter: pointStatusFormatter,
+                    header: t("group.scope.common.state"),
                   },
                 ]}
                 id={"tblURLRoots"}

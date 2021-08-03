@@ -8,8 +8,9 @@ const organizationLevelPermissions: PureAbility<string> =
   new PureAbility<string>();
 const userLevelPermissions: PureAbility<string> = new PureAbility<string>();
 
-const authzPermissionsContext: React.Context<PureAbility<string>> =
-  createContext(new PureAbility<string>());
+const authzPermissionsContext = createContext(
+  new PureAbility<string, unknown>()
+);
 
 const authzGroupContext: React.Context<PureAbility<string>> = createContext(
   new PureAbility<string>()

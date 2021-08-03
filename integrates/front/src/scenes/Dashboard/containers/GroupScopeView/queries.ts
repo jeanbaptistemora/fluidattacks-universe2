@@ -27,6 +27,7 @@ const GET_ROOTS: DocumentNode = gql`
           address
           id
           port
+          state
         }
         ... on URLRoot {
           host
@@ -34,6 +35,7 @@ const GET_ROOTS: DocumentNode = gql`
           path
           port
           protocol
+          state
         }
       }
     }
