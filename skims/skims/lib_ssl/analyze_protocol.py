@@ -75,22 +75,6 @@ def tls_connect(
     return None
 
 
-def supports_tls(host: str, port: int, v_id: SSLVersionId) -> Optional[bool]:
-    intention_en = "verify if server supports " + ssl_id2ssl_name(v_id)
-    ssl_settings = SSLSettings(
-        context=SSLContext(host=host, port=port),
-        min_version=v_id,
-        max_version=v_id,
-        intention={core_model.LocalesEnum.EN: intention_en},
-    )
-
-    supported: bool = False
-    with ssl_connect(ssl_settings) as ssl_socket:
-        if ssl_socket is not None:
-            supported = True
-    return supported
-
-
 def _create_core_vulns(
     ssl_vulnerabilities: List[SSLVulnerability],
 ) -> core_model.Vulnerabilities:
