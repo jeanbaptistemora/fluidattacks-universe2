@@ -935,7 +935,7 @@
     description: >
       The server uses Basic authentication
       over an insecure channel.
-    impact: Gather plain text credentials.
+    impact: Gather base 64 coded credentials.
     recommendation: >
       Use stronger authentication mechanisms
       like Bearer and OAuth.
@@ -947,7 +947,7 @@
     description: >
       El servidor usa autenticación de tipo Basic
       sobre un canal inseguro.
-    impact: Obtener credenciales en texto plano.
+    impact: Obtener credenciales codificadas en base 64.
     recommendation: >
       Usar mecanismos de autenticación fuertes
       como Bearer y OAuth.
@@ -956,18 +956,18 @@
       ejecutando un MITM.
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
   requirements: ["030", "228", "319"]
   metadata: {}
 "016":
@@ -1001,18 +1001,18 @@
       explotando vulnerabilidad.
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
   requirements: ["148", "149", "150", "181", "336"]
   metadata:
       en:
@@ -1078,11 +1078,7 @@
       such as session variables
       or using HTTP POST method.
     threat: >
-      An unauthorized user
-      with access to the local machine
-      can view the browser's cache
-      and the URLs that contain the session ID
-      to make a successful user spoofing.
+      Anonymous attacker from local network
   es:
     title: Sensitive information sent insecurely
     description: >
@@ -1097,25 +1093,21 @@
       como variables de sesión
       o por el método HTTP POST.
     threat: >
-      Un usuario no autorizado
-      con acceso al máquina local
-      puede ver la caché del navegador
-      y las URL que contiene el ID de sesión
-      para lograr una suplantación de usuarios.
+      Atacante anónimo desde una red local
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "L"
       attack_complexity: "L"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
   requirements: ["032", "181"]
   metadata: {}
 "018":
@@ -1125,12 +1117,12 @@
       The folders that are shared over the network
       do not require any authentication
       to be accessed.
-    impact: __empty__
+    impact: Access to sensitive information stored in folders
     recommendation: >
       Limit the access to shared folders
       only to authorized users
       with their credentials.
-    threat: __empty__
+    threat: Anonymous attacker from local network
   es:
     title: Improper authentication for shared folders
     description: >
@@ -1138,26 +1130,26 @@
       sin ningún tipo de credencial
       permitiendo el acceso
       a información confidencial.
-    impact: __empty__
+    impact: Acceder a Información sensible almacenada en carpetas
     recommendation: >
       Limitar el acceso a carpetas compartidas
       solo a personal autorizado
       y con las credenciales respectivas.
-    threat: __empty__
+    threat: Atacante anónimo desde red local
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "L"
       attack_complexity: "L"
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "H"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["229", "264"]
   metadata: {}
 "019":
@@ -1167,36 +1159,36 @@
       It is possible to retrieve
       administrative credentials
       from the system's cache memory.
-    impact: __empty__
+    impact: Obtain functional credetials for privileged users
     recommendation: >
       Avoid the store of sensitive information
       in temporary files or cache.
-    threat: __empty__
+    threat: Authenticated attacker from local network
   es:
     title: Administrative credentials stored in cache memory
     description: >
       Es posible extraer
       credenciales administrativas
       desde la caché de los procesos.
-    impact: __empty__
+    impact: Obtener credenciales funcionales de usuarios privilegiados
     recommendation: >
       Evitar almacenar información sensible
       en archivos temporales o en caché.
-    threat: __empty__
+    threat: Atacante autenticado desde la red local
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_vector: "L"
+      attack_complexity: "H"
+      privileges_required: "H"
       user_interaction: "N"
-      scope: "U"
-      confidentiality: "N"
+      scope: "C"
+      confidentiality: "H"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "H"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["177"]
   metadata: {}
 "020":
@@ -1239,16 +1231,16 @@
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["134", "135", "185"]
   metadata: {}
 "021":
@@ -1306,9 +1298,6 @@
     impact: >
       - Capture confidential information
       and credentials in plain text.
-
-      - Intercept the communication
-      and steal/tamper requests and responses.
     recommendation: >
       Deploy the application
       over an encrypted communication channel,
@@ -1324,9 +1313,6 @@
     impact: >
       - Capturar información confidencial
       y credenciales en texto plano.
-
-      - Interceptar la comunicación y robar
-      o falsificar peticiones y respuestas.
     recommendation: >
       Desplegar la aplicación
       sobre un canal de comunicación cifrado,
@@ -1336,18 +1322,18 @@
       ejecutando un ataque de hombre en el medio.
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "R"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
   requirements: ["181"]
   metadata: {}
 "023":
@@ -1387,18 +1373,18 @@
     threat: Atacante sin autorización desde Internet.
   score:
     base:
-      attack_vector: "N"
+      attack_vector: "A"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "R"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["173", "324"]
   metadata: {}
 "024":
@@ -1456,13 +1442,13 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["255"]
   metadata: {}
 "025":
@@ -1509,28 +1495,31 @@
 "026":
   en:
     title: User enumeration
-    description: __empty__
-    impact: __empty__
-    recommendation: __empty__
-    threat: __empty__
+    description: >
+      The system provides different responses
+      for existent and non-existent users,
+      allowing an attacker to enumerate valid users
+      via error messages, response times, frames count,
+      among other techniques.
+    impact: Obtain valid application usernames
+    recommendation: >
+      Set the same server response for existent
+      and non-existent users.
+    threat: Anonymous attacker from the Internet
   es:
     title: User enumeration
     description: >
-      Debido a una práctica inadecuada
-      en la configuración
-      se pueden enumerar los usuarios
-      válidos en la aplicación.
-    impact: __empty__
+      El sistema proporciona respuestas diferentes
+      para usuarios existentes y no existentes,
+      permitiendo a un atacante enumerar usuarios válidos
+      mediante mensajes de error, tiempos de respuesta,
+      conteo de frames u otras técnicas.
+    impact: Obtener usuarios válidos de la aplicación
     recommendation: >
-      Implementar mensajes de error genéricos
-      que no le permitan a un atacante
-      discernir la existencia del usuario en el sistema
-      a través de los errores HTTP (500 o 404).
+      Implementar las mismas respuestas del servidor
+      para usuarios existentes y no existentes
     threat: >
-      Un usuario no autorizado desde internet
-      puede realizar un ataque de diccionario
-      a la URL objetivo para enumerar usuarios
-      con privilegios de la aplicación.
+      Atacante anónimo desde Internet
   score:
     base:
       attack_vector: "N"
@@ -1538,13 +1527,13 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["225"]
   metadata: {}
 "027":
@@ -1558,7 +1547,7 @@
       the system does not validate
       whether or not the file
       is free from malicious code.
-    impact: __empty__
+    impact: Upload malicious files to the server
     recommendation: >
       - Validate with regular expressions
       that the file has only one extension
@@ -1582,7 +1571,7 @@
       como (.html, .php, .exe),
       tampoco se valida si el archivo está libre
       de código malicioso o no.
-    impact: __empty__
+    impact: Cargar archivos maliciosos al servidor
     recommendation: >
       - Validar con expresiones regulares
       que el archivo corresponda
@@ -1606,16 +1595,16 @@
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["040", "041"]
   metadata: {}
 "028":
@@ -1666,38 +1655,49 @@
       an adequate control
       of the size of the files
       that can be uploaded to the server.
-    impact: __empty__
+    impact: >
+      - Consume server resources and storage
+      to upload large files
+
+      - Lead to denial of service attacks
+      if the server storage capacity is overloaded.
     recommendation: >
       Implement controls
       to limit the maximum file size
       that can be uploaded to the server.
-    threat: __empty__
+    threat: Authenticated attacker on the Internet
   es:
     title: Inadequate file size control
     description: >
       No existe un control adecuado
       sobre el tamaño de los archivos
       que se pueden subir al servidor.
-    impact: __empty__
+    impact: >
+      - Consumir recursos y almacenamiento del servidor
+      para subir archivos de gran tamaño.
+
+      - Conducir a denegaciones de servicio
+      si la capacidad de almacenamiento
+      del servidor es sobrecargada.
     recommendation: >
       Implementar controles
       para limitar el máximo tamaño
       de archivos permitido.
-    threat: __empty__
+    threat: Atacante autorizado desde Internet
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
       integrity: "N"
-      availability: "N"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["039"]
   metadata: {}
 "030":
