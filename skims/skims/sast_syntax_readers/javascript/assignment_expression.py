@@ -9,9 +9,6 @@ from typing import (
     Iterator,
     Union,
 )
-from utils import (
-    graph as g,
-)
 from utils.graph.transformation import (
     build_js_member_expression_key,
 )
@@ -31,37 +28,10 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
 def _expression(
     args: SyntaxReaderArgs, expression_id: str
 ) -> Iterator[Union[str, graph_model.SyntaxStepAssignment]]:
-    assignment_operators = {
-        "=",
-        "+=",
-        "-=",
-        "*=",
-        "/=",
-        "%=",
-        "**=",
-        "<<=",
-        ">>=",
-        ">>>=",
-        "&=",
-        "^=",
-        "|=",
-        "&&=",
-        "||=",
-        "??=",
-    }
-    match = g.match_ast(
-        args.graph,
-        expression_id,
-        "__0__",
-        "__1__",
-        "__2__",
-    )
-    left_id = match["__0__"]
-    operator_id = match["__1__"]
-    src_id = match["__2__"]
+    node_attributes = args.graph.nodes[expression_id]
 
-    if args.graph.nodes[operator_id]["label_text"] not in assignment_operators:
-        raise MissingCaseHandling(args)
+    left_id = node_attributes["label_field_left"]
+    src_id = node_attributes["label_field_right"]
 
     left_type = args.graph.nodes[left_id]["label_type"]
     if left_type == "identifier":

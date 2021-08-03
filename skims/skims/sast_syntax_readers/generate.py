@@ -494,6 +494,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         applicable_node_label_types={
             "function_declaration",
             "generator_function_declaration",
+            "function",
         },
         syntax_readers=(javascript_function_declaration.reader,),
     ),

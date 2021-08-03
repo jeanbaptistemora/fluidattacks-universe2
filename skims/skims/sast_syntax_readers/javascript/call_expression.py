@@ -11,23 +11,21 @@ from sast_syntax_readers.types import (
 from sast_syntax_readers.utils_generic import (
     dependencies_from_arguments,
 )
-from utils import (
-    graph as g,
-)
 from utils.graph.transformation import (
     build_js_member_expression_key,
 )
 
 
 def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
-    match = g.match_ast(
-        args.graph, args.n_id, "arguments", "member_expression", "identifier"
-    )
-    arguments_id = match["arguments"]
-    if member_id := match["member_expression"]:
-        method_name = build_js_member_expression_key(args.graph, member_id)
-    elif identifier_id := match["identifier"]:
-        method_name = args.graph.nodes[identifier_id]["label_text"]
+    node_attrs = args.graph.nodes[args.n_id]
+    arguments_id = node_attrs["label_field_arguments"]
+    function_id = node_attrs["label_field_function"]
+    function_attrs = args.graph.nodes[function_id]
+
+    if function_attrs["label_type"] == "member_expression":
+        method_name = build_js_member_expression_key(args.graph, function_id)
+    elif function_attrs["label_type"] == "identifier":
+        method_name = args.graph.nodes[function_id]["label_text"]
     else:
         raise MissingCaseHandling(args)
 

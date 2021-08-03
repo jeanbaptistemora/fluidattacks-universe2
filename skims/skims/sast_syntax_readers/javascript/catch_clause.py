@@ -9,23 +9,18 @@ from sast_syntax_readers.types import (
 from sast_syntax_readers.utils_generic import (
     dependencies_from_arguments,
 )
-from utils import (
-    graph as g,
-)
 
 
 def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
-    match = g.match_ast(
-        args.graph, args.n_id, "catch", "statement_block", "identifier"
-    )
+    node_attrs = args.graph.nodes[args.n_id]
     # exceptions may not have an identifier
-    if match["identifier"]:
+    if parameter_id := node_attrs.get("label_field_parameter"):
         yield SyntaxStepCatchClause(
             meta=SyntaxStepMeta.default(
                 n_id=args.n_id,
                 dependencies=dependencies_from_arguments(
-                    args.fork_n_id(match["statement_block"]),
+                    args.fork_n_id(node_attrs["label_field_body"]),
                 ),
             ),
-            var=args.graph.nodes[match["identifier"]]["label_text"],
+            var=args.graph.nodes[parameter_id].get("label_text"),
         )
