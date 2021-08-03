@@ -1,17 +1,9 @@
-import type { ApolloError } from "@apollo/client";
-import { useQuery } from "@apollo/client";
 import { Field, Formik } from "formik";
-import type { GraphQLError } from "graphql";
 import React from "react";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { GET_ROOTS } from "scenes/Dashboard/containers/GroupScopeView/queries";
-import type {
-  IGitRootAttr,
-  Root,
-} from "scenes/Dashboard/containers/GroupScopeView/types";
 import {
   Alert,
   ButtonToolbar,
@@ -21,7 +13,6 @@ import {
   Row,
 } from "styles/styledComponents";
 import { FormikDropdown, FormikText } from "utils/forms/fields";
-import { Logger } from "utils/logger";
 import { translate } from "utils/translations/translate";
 import { required } from "utils/validations";
 
@@ -32,28 +23,10 @@ interface IDeleteGroupModalProps {
   onSubmit: (values: { confirmation: string; reason: string }) => void;
 }
 
-const isGitRoot = (root: Root): root is IGitRootAttr =>
-  root.__typename === "GitRoot";
-
 const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
   props: IDeleteGroupModalProps
 ): JSX.Element => {
   const { groupName, isOpen, onClose, onSubmit } = props;
-
-  const { data } = useQuery<{ group: { roots: Root[] } }>(GET_ROOTS, {
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        Logger.error("Couldn't load roots", error);
-      });
-    },
-    variables: { groupName },
-  });
-
-  const roots: Root[] = data === undefined ? [] : data.group.roots;
-  const gitRoots = roots.filter(isGitRoot);
-  const allRootsInactive = !gitRoots.find(
-    (gitRoot): boolean => gitRoot.state === "ACTIVE"
-  );
 
   function formValidations(values: { confirmation: string; reason: string }): {
     confirmation?: string;
@@ -156,13 +129,6 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
                   </FormGroup>
                 </TooltipWrapper>
               </FormGroup>
-              {dirty && isValid && !allRootsInactive ? (
-                <Alert>
-                  {translate.t(
-                    "searchFindings.servicesTable.deleteGroup.deactivateRoots"
-                  )}
-                </Alert>
-              ) : undefined}
               <hr />
               <Row>
                 <Col100>
@@ -171,7 +137,7 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = (
                       {translate.t("confirmmodal.cancel")}
                     </Button>
                     <Button
-                      disabled={!dirty || !isValid || !allRootsInactive}
+                      disabled={!dirty || !isValid}
                       onClick={submitForm}
                       type={"submit"}
                     >
