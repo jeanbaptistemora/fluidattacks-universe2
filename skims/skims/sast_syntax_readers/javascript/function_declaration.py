@@ -4,11 +4,9 @@ from model.graph_model import (
 from sast_syntax_readers.types import (
     SyntaxReaderArgs,
 )
-from utils import (
-    graph as g,
-)
 
 
 def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
-    match = g.match_ast(args.graph, args.n_id, "formal_parameters")
-    yield from args.generic(args.fork_n_id(match["formal_parameters"]))
+    yield from args.generic(
+        args.fork_n_id(args.graph.nodes[args.n_id]["label_field_parameters"])
+    )

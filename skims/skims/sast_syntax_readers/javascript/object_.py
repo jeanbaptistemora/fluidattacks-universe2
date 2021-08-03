@@ -4,7 +4,6 @@ from model.graph_model import (
     SyntaxStepsLazy,
 )
 from sast_syntax_readers.types import (
-    MissingCaseHandling,
     SyntaxReaderArgs,
 )
 from utils import (
@@ -16,14 +15,13 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
     match_pairs = g.match_ast_group(args.graph, args.n_id, "pair")
     current_object = dict()
     for pair_id in match_pairs["pair"]:
-        match = g.match_ast(
-            args.graph, pair_id, "property_identifier", ":", "__0__"
+        pair_attrs = args.graph.nodes[pair_id]
+        key_name = args.graph.nodes[pair_attrs["label_field_key"]][
+            "label_text"
+        ]
+        current_object[key_name] = args.generic(
+            args.fork_n_id(pair_attrs["label_field_value"])
         )
-        key_name_id = match["property_identifier"]
-        if not key_name_id:
-            raise MissingCaseHandling(args)
-        key_name = args.graph.nodes[key_name_id]["label_text"]
-        current_object[key_name] = args.generic(args.fork_n_id(match["__0__"]))
 
     yield SyntaxStepObjectInstantiation(
         meta=SyntaxStepMeta(
