@@ -10,8 +10,8 @@ Duplicate vulns in the merged finding are also deleted.
 Execution Time:     2021-07-30 at 18:03:54 UTC-05
 Finalization Time:  2021-07-30 at 18:04:25 UTC-05
 
-Execution Time:
-Finalization Time:
+Execution Time:     2021-08-03 at 09:41:31 UTC-05
+Finalization Time:  2021-08-03 at 09:56:04 UTC-05
 """
 
 from aioextensions import (
@@ -48,7 +48,7 @@ from vulnerabilities.domain.utils import (
     get_hash_from_dict,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 
 def _get_creation_date(vuln: Dict[str, VulnType]) -> str:
@@ -73,8 +73,8 @@ async def remove_duplicate_vulns(
                     if vuln["UUID"] != vuln_to_compare["UUID"]
                     and get_hash_from_dict(vuln)
                     == get_hash_from_dict(vuln_to_compare)
-                    and vuln["repo_nickname"]
-                    == vuln_to_compare["repo_nickname"]
+                    and vuln.get("repo_nickname", "no_repo1")
+                    == vuln_to_compare.get("repo_nickname", "no_repo2")
                     and _get_creation_date(vuln)
                     >= _get_creation_date(vuln_to_compare)
                 ]
