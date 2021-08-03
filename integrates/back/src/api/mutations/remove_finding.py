@@ -65,7 +65,9 @@ async def mutate(
         info.context.loaders.group_findings.clear(group_name)
         info.context.loaders.group_drafts.clear(group_name)
         info.context.loaders.finding.clear(finding_id)
-        redis_del_by_deps_soon("remove_finding", finding_id=finding_id)
+        redis_del_by_deps_soon(
+            "remove_finding", finding_id=finding_id, group_name=group_name
+        )
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Removed a finding: {finding_id} successfully",

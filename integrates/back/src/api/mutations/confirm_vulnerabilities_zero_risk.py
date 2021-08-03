@@ -46,7 +46,7 @@ async def mutate(
     )
     if success:
         await redis_del_by_deps(
-            "confim_vulnerabilities_zero_risk",
+            "confirm_vulnerabilities_zero_risk",
             finding_id=finding_id,
         )
         logs_utils.cloudwatch_log(

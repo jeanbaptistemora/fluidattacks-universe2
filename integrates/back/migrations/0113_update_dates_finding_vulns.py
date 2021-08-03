@@ -57,7 +57,7 @@ async def process_finding(
     ]
 
     uuids = [vuln["id"] for vuln in new_vulns]
-    if len(new_vulns):
+    if len(new_vulns) > 0:
         print(
             f'   >>> finding: {finding["finding_id"]}, release: {release_date}'
             f", new vulns ({len(new_vulns)}): {uuids}"
