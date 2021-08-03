@@ -55,31 +55,6 @@
       when: never
     - when: always
 
-/deployTerraform/makesCi:
-  <<: *makes4
-  <<: *makes_in_master_branch
-  stage: deploy-infra
-
-/deployTerraform/makesCompute:
-  <<: *makes4
-  <<: *makes_in_master_branch
-  stage: deploy-infra
-
-/deployTerraform/makesDns:
-  <<: *makes4
-  <<: *makes_in_master_branch
-  stage: deploy-infra
-
-/deployTerraform/makesFoss:
-  <<: *makes4
-  <<: *makes_in_master_branch
-  stage: deploy-infra
-
-/deployTerraform/makesSecrets:
-  <<: *makes4
-  <<: *makes_in_master_branch
-  stage: deploy-infra
-
 makes.ci.config:
   <<: *makes
   <<: *makes_in_master_branch

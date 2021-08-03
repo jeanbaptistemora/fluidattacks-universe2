@@ -1,4 +1,6 @@
 include:
+  - local: makes/makes/gitlab-ci.yaml
+
   - local: airs/.gitlab-ci.yml
   - local: asserts/.gitlab-ci.yml
   - local: docs/.gitlab-ci.yml

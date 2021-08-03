@@ -18,6 +18,7 @@
     ./criteria/makes.nix
     ./dns/makes.nix
     ./foss/makes.nix
+    ./pipeline/makes.nix
     ./secrets/makes.nix
   ];
   secretsForAwsFromEnv = {
