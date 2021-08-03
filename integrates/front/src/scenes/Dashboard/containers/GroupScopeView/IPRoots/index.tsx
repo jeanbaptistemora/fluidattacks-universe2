@@ -10,7 +10,9 @@ import { Container } from "./styles";
 import { ADD_IP_ROOT } from "../queries";
 import type { IIPRootAttr } from "../types";
 import { Button } from "components/Button";
+import { ConfirmDialog } from "components/ConfirmDialog";
 import { DataTableNext } from "components/DataTableNext";
+import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -74,38 +76,50 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
   return (
     <React.Fragment>
       <h2>{t("group.scope.ip.title")}</h2>
-      <Container>
-        <DataTableNext
-          bordered={true}
-          columnToggle={true}
-          dataset={roots}
-          exportCsv={true}
-          extraButtons={
-            <Can do={"api_mutations_add_ip_root_mutate"}>
-              <div className={"mb3"}>
-                <Button onClick={openAddModal}>
-                  <FontAwesomeIcon icon={faPlus} />
-                  &nbsp;{t("group.scope.common.add")}
-                </Button>
-              </div>
-            </Can>
-          }
-          headers={[
-            {
-              dataField: "address",
-              header: t("group.scope.ip.address"),
-            },
-            {
-              dataField: "port",
-              header: t("group.scope.ip.port"),
-            },
-          ]}
-          id={"tblIPRoots"}
-          pageSize={10}
-          search={true}
-          striped={true}
-        />
-      </Container>
+      <ConfirmDialog title={t("group.scope.common.confirm")}>
+        {(): JSX.Element => {
+          return (
+            <Container>
+              <DataTableNext
+                bordered={true}
+                columnToggle={true}
+                dataset={roots}
+                exportCsv={true}
+                extraButtons={
+                  <Can do={"api_mutations_add_ip_root_mutate"}>
+                    <div className={"mb3"}>
+                      <Button onClick={openAddModal}>
+                        <FontAwesomeIcon icon={faPlus} />
+                        &nbsp;{t("group.scope.common.add")}
+                      </Button>
+                    </div>
+                  </Can>
+                }
+                headers={[
+                  {
+                    dataField: "address",
+                    header: t("group.scope.ip.address"),
+                  },
+                  {
+                    dataField: "port",
+                    header: t("group.scope.ip.port"),
+                  },
+                  {
+                    align: "center",
+                    dataField: "state",
+                    formatter: pointStatusFormatter,
+                    header: t("group.scope.common.state"),
+                  },
+                ]}
+                id={"tblIPRoots"}
+                pageSize={10}
+                search={true}
+                striped={true}
+              />
+            </Container>
+          );
+        }}
+      </ConfirmDialog>
       {isManagingRoot === false ? undefined : (
         <ManagementModal onClose={closeModal} onSubmit={handleIpSubmit} />
       )}
