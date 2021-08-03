@@ -119,3 +119,93 @@
     "30":
       title: Hijacking a Privileged Thread of Execution
       link: https://capec.mitre.org/data/definitions/30.html
+    "31":
+      title: Accessing/Intercepting/Modifying HTTP Cookies
+      link: https://capec.mitre.org/data/definitions/31.html
+    "32":
+      title: XSS Through HTTP Query Strings
+      link: https://capec.mitre.org/data/definitions/32.html
+    "33":
+      title: HTTP Request Smuggling
+      link: https://capec.mitre.org/data/definitions/33.html
+    "34":
+      title: HTTP Response Splitting
+      link: https://capec.mitre.org/data/definitions/34.html
+    "35":
+      title: Leverage Executable Code in Non-Executable Files
+      link: https://capec.mitre.org/data/definitions/35.html
+    "36":
+      title: Using Unpublished Interfaces
+      link: https://capec.mitre.org/data/definitions/36.html
+    "38":
+      title: Leveraging/Manipulating Configuration File Search Paths
+      link: https://capec.mitre.org/data/definitions/38.html
+    "39":
+      title: Manipulating Opaque Client-based Data Tokens
+      link: https://capec.mitre.org/data/definitions/39.html
+    "41":
+      title: Using Meta-characters in E-mail Headers to Inject Malicious Payloads
+      link: https://capec.mitre.org/data/definitions/41.html
+    "42":
+      title: MIME Conversion
+      link: https://capec.mitre.org/data/definitions/42.html
+    "43":
+      title: Exploiting Multiple Input Interpretation Layers
+      link: https://capec.mitre.org/data/definitions/43.html
+    "48":
+      title: Passing Local Filenames to Functions That Expect a URL
+      link: https://capec.mitre.org/data/definitions/48.html
+    "49":
+      title: Password Brute Forcing
+      link: https://capec.mitre.org/data/definitions/49.html
+    "60":
+      title: Reusing Session IDs (aka Session Replay)
+      link: https://capec.mitre.org/data/definitions/60.html
+    "70":
+      title: Try Common Usernames and Passwords
+      link: https://capec.mitre.org/data/definitions/70.html
+    "74":
+      title: Manipulating State
+      link: https://capec.mitre.org/data/definitions/74.html
+    "94":
+      title: Man in the Middle Attack
+      link: https://capec.mitre.org/data/definitions/94.html
+    "113":
+      title: API Manipulation
+      link: https://capec.mitre.org/data/definitions/113.html
+    "114":
+      title: Authentication Abuse
+      link: https://capec.mitre.org/data/definitions/114.html
+    "115":
+      title: Authentication Bypass
+      link: https://capec.mitre.org/data/definitions/115.html
+    "116":
+      title: Excavation
+      link: https://capec.mitre.org/data/definitions/116.html
+    "117":
+      title: Interception
+      link: https://capec.mitre.org/data/definitions/117.html
+    "122":
+      title: Privilege Abuse
+      link: https://capec.mitre.org/data/definitions/122.html
+    "123":
+      title: Buffer Manipulation
+      link: https://capec.mitre.org/data/definitions/123.html
+    "124":
+      title: Shared Resource Manipulation
+      link: https://capec.mitre.org/data/definitions/124.html
+    "125":
+      title: Flooding
+      link: https://capec.mitre.org/data/definitions/125.html
+    "129":
+      title: Pointer Manipulation
+      link: https://capec.mitre.org/data/definitions/129.html
+    "130":
+      title: Excessive Allocation
+      link: https://capec.mitre.org/data/definitions/130.html
+    "131":
+      title: Resource Leak Exposure
+      link: https://capec.mitre.org/data/definitions/131.html
+    "137":
+      title: Parameter Injection
+      link: https://capec.mitre.org/data/definitions/137.html
