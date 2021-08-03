@@ -105,8 +105,6 @@ makes.users.sorts.apply
 makes.users.sorts.rotate.even
 makes.users.sorts.rotate.odd
 makes.users.sorts.test
-makes.vpc.apply
-makes.vpc.test
 makes.wait
 melts
 melts.test

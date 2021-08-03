@@ -299,13 +299,3 @@ makes.users.sorts.test:
   <<: *makes
   <<: *makes_in_dev_branch
   stage: test-infra
-
-makes.vpc.apply:
-  <<: *makes
-  <<: *makes_in_master_branch
-  stage: deploy-infra
-
-makes.vpc.test:
-  <<: *makes
-  <<: *makes_in_dev_branch
-  stage: test-infra
