@@ -30,7 +30,8 @@ slug: /development/writing/general/others
 
 * **GO04:** We *must* use the monospace font
   only when referring to the name of our company (i.e., `Fluid Attacks`)
-  and when exposing code commands within our texts.
+  and when displaying any code-related elements
+  (e.g., commands, functions) within our texts.
 
 * **GO05:** We *must not* leave loose sentences in texts without periods
   (unlike what happens with dependent clauses and simple terms

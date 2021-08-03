@@ -104,8 +104,8 @@ slug: /development/writing/blog/main
 
 * **BI07:** We *must* always upload the images to [Cloudinary](https://cloudinary.com/)
   and then use their links,
-  changing their filename extensions to `.webp`
-  inside the `.adoc` files.
+  changing their filename extensions to .webp
+  inside the .adoc files.
   (Only for `Fluid Attacks` staff.)
 
 ## Others
