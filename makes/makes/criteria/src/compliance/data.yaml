@@ -339,3 +339,85 @@
     "4.8":
       title: Log and Alert on Changes to Administrative Group Membership
       link: https://www.cisecurity.org/controls/
+    "4.9":
+      title: Log and Alert on Unsuccessful Administrative Account Login
+      link: https://www.cisecurity.org/controls/
+    "5.1":
+      title: Establish Secure Configurations
+      link: https://www.cisecurity.org/controls/
+    "5.3":
+      title: Securely Store Master Images
+      link: https://www.cisecurity.org/controls/
+    "6.1":
+      title: Utilize Three Synchronized Time Sources
+      link: https://www.cisecurity.org/controls/
+    "6.2":
+      title: Activate Audit Logging
+      link: https://www.cisecurity.org/controls/
+    "6.3":
+      title: Enable Detailed Logging
+      link: https://www.cisecurity.org/controls/
+    "7.2":
+      title: Disable Unnecessary or Unauthorized Browser or Email Client Plugins
+      link: https://www.cisecurity.org/controls/
+    "7.7":
+      title: Use of DNS Filtering Services
+      link: https://www.cisecurity.org/controls/
+    "7.9":
+      title: Block Unnecessary File Types
+      link: https://www.cisecurity.org/controls/
+    "7.10":
+      title: Sandbox All Email Attachments
+      link: https://www.cisecurity.org/controls/
+    "8.1":
+      title: Utilize Centrally Managed Anti-Malware Software
+      link: https://www.cisecurity.org/controls/
+    "9.2":
+      title: Ensure Only Approved Ports, Protocols, and Services Are Running
+      link: https://www.cisecurity.org/controls/
+    "9.4":
+      title: Apply Host-Based Firewalls or Port-Filtering
+      link: https://www.cisecurity.org/controls/
+    "9.5":
+      title: Implement Application Firewalls
+      link: https://www.cisecurity.org/controls/
+    "11.1":
+      title: Maintain Standard Security Configurations for Network Devices
+      link: https://www.cisecurity.org/controls/
+    "12.3":
+      title: Deny Communications With Known Malicious IP Addresses
+      link: https://www.cisecurity.org/controls/
+    "12.4":
+      title: Deny Communication Over Unauthorized Ports
+      link: https://www.cisecurity.org/controls/
+    "12.11":
+      title: Require All Remote Logins to Use Multi-Factor Authentication
+      link: https://www.cisecurity.org/controls/
+    "13.6":
+      title: Encrypt Mobile Device Data
+      link: https://www.cisecurity.org/controls/
+    "14.1":
+      title: Segment the Network Based on Sensitivity
+      link: https://www.cisecurity.org/controls/
+    "14.2":
+      title: Enable Firewall Filtering Between VLANs
+      link: https://www.cisecurity.org/controls/
+    "14.4":
+      title: Encrypt All Sensitive Information in Transit
+      link: https://www.cisecurity.org/controls/
+    "14.6":
+      title: Protect Information Through Access Control Lists
+      link: https://www.cisecurity.org/controls/
+    "14.8":
+      title: Encrypt Sensitive Information at Rest
+      link: https://www.cisecurity.org/controls/
+    "15.7":
+      title: Leverage the Advanced Encryption Standard (AES) to Encrypt Wireless Data
+      link: https://www.cisecurity.org/controls/
+    "15.8":
+      title: Use Wireless Authentication Protocols That Require Mutual, Multi-Factor Authentication
+      link: https://www.cisecurity.org/controls/
+    "16.4":
+      title: Encrypt or Hash All Authentication Credentials
+      link: https://www.cisecurity.org/controls/        
+  metadata: {}
