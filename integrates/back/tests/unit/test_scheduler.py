@@ -2,6 +2,9 @@
 from _pytest.monkeypatch import (
     MonkeyPatch,
 )
+from aioextensions import (
+    collect,
+)
 from collections import (
     OrderedDict,
 )
@@ -28,6 +31,7 @@ from groups import (
 )
 from newutils import (
     datetime as datetime_utils,
+    findings as findings_utils,
     git as git_utils,
 )
 from newutils.utils import (
@@ -78,16 +82,38 @@ async def test_get_status_vulns_by_time_range() -> None:
     released_findings = await get_findings_by_group("UNITTESTING")
     first_day = "2019-01-01 12:00:00"
     last_day = "2019-06-30 23:59:59"
+    context = get_new_context()
     vulns = await list_vulnerabilities_async(
         [str(finding["finding_id"]) for finding in released_findings],
         include_confirmed_zero_risk=True,
         include_requested_zero_risk=True,
     )
+    vulnerabilities_severity = await collect(
+        [
+            update_indicators.get_severity(
+                context=context, vulnerability=vulnerability
+            )
+            for vulnerability in vulns
+        ]
+    )
+    historic_states = [
+        findings_utils.sort_historic_by_date(vulnerability["historic_state"])
+        for vulnerability in vulns
+    ]
     test_data = update_indicators.get_status_vulns_by_time_range(
-        vulns, first_day, last_day
+        vulnerabilities=vulns,
+        vulnerabilities_severity=vulnerabilities_severity,
+        vulnerabilities_historic_states=historic_states,
+        first_day=first_day,
+        last_day=last_day,
     )
     expected_output = {"found": 8, "accepted": 2, "closed": 2}
-    assert test_data == expected_output
+    output = {
+        "found": test_data.found_vulnerabilities,
+        "accepted": test_data.accepted_vulnerabilities,
+        "closed": test_data.closed_vulnerabilities,
+    }
+    assert sorted(output) == sorted(expected_output)
 
 
 def test_create_weekly_date() -> None:
@@ -98,6 +124,7 @@ def test_create_weekly_date() -> None:
 
 
 async def test_get_accepted_vulns() -> None:
+    context = get_new_context()
     released_findings = await get_findings_by_group("UNITTESTING")
     last_day = "2019-06-30 23:59:59"
     vulns = await list_vulnerabilities_async(
@@ -105,10 +132,28 @@ async def test_get_accepted_vulns() -> None:
         include_confirmed_zero_risk=True,
         include_requested_zero_risk=True,
     )
+    vulnerabilities_severity = await collect(
+        [
+            update_indicators.get_severity(
+                context=context, vulnerability=vulnerability
+            )
+            for vulnerability in vulns
+        ]
+    )
+    vulnerabilities_historic_states = [
+        findings_utils.sort_historic_by_date(vulnerability["historic_state"])
+        for vulnerability in vulns
+    ]
     test_data = sum(
         [
-            update_indicators.get_accepted_vulns(vuln, last_day)
-            for vuln in vulns
+            update_indicators.get_accepted_vulns(
+                vulnerability, historic_state, severity, last_day
+            ).vulnerabilities
+            for vulnerability, historic_state, severity in zip(
+                vulns,
+                vulnerabilities_historic_states,
+                vulnerabilities_severity,
+            )
         ]
     )
     expected_output = 2
@@ -116,11 +161,19 @@ async def test_get_accepted_vulns() -> None:
 
 
 async def test_get_by_time_range() -> None:
+    context = get_new_context()
     last_day = "2020-09-09 23:59:59"
     vuln = await get_vuln("80d6a69f-a376-46be-98cd-2fdedcffdcc0")
-    test_data = update_indicators.get_by_time_range(vuln[0], last_day)
+    vulnerability_severity = await update_indicators.get_severity(
+        context=context, vulnerability=vuln[0]
+    )
+    test_data = update_indicators.get_by_time_range(
+        findings_utils.sort_historic_by_date(vuln[0]["historic_state"]),
+        vulnerability_severity,
+        last_day,
+    )
     expected_output = 1
-    assert test_data == expected_output
+    assert test_data.vulnerabilities == expected_output
 
 
 async def test_create_register_by_week() -> None:
