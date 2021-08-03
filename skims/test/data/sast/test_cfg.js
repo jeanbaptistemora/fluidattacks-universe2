@@ -234,3 +234,10 @@ function resolveAfter3Seconds() {
     let chuck = 42;
     return a + b + chuck;
   }
+
+var express = require('express');
+var router = express.Router();
+
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});

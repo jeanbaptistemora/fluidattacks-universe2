@@ -231,9 +231,13 @@ def _generic(
     stack.pop()
 
 
-def arrow_function(graph: Graph, n_id: str, stack: Stack) -> None:
+def unnamed_function(graph: Graph, n_id: str, stack: Stack) -> None:
     current_node_adj = g.adj_cfg(graph, n_id)
     for pred_id in g.pred_ast_lazy(graph, n_id, depth=-1):
+        node_attrs = graph.nodes[n_id]
+        if "label_field_body" not in node_attrs:
+            continue
+
         adj_ids = g.adj_cfg(graph, pred_id)
         if not (adj_ids or g.pred_cfg(graph, n_id)):
             continue
@@ -252,19 +256,18 @@ def arrow_function(graph: Graph, n_id: str, stack: Stack) -> None:
         # add edge with first cfp parent
         graph.add_edge(pred_id, n_id, **g.ALWAYS)
 
-        match = g.match_ast(
+        graph.add_edge(n_id, node_attrs["label_field_body"], **g.ALWAYS)
+        _generic(
             graph,
-            n_id,
-            "identifier",
-            "formal_parameters",
-            "=>",
-            "__0__",
+            node_attrs["label_field_body"],
+            stack=stack,
+            edge_attrs=g.ALWAYS,
         )
-        graph.add_edge(n_id, match["__0__"], **g.ALWAYS)
-        _generic(graph, match["__0__"], stack=stack, edge_attrs=g.ALWAYS)
 
         # get last statement in edge block statements
-        function_statements = g.adj_cfg(graph, match["__0__"], depth=-1)
+        function_statements = g.adj_cfg(
+            graph, node_attrs["label_field_body"], depth=-1
+        )
         for adj in current_node_adj:
             graph.add_edge(function_statements[-1], adj, **g.ALWAYS)
         if last_statement:
@@ -278,5 +281,7 @@ def add(graph: Graph) -> None:
 
     # some nodes must be post-processed
     for n_id, node in graph.nodes.items():
-        if g.pred_has_labels(label_type="arrow_function")(node):
-            arrow_function(graph, n_id, [])
+        if g.pred_has_labels(label_type="arrow_function")(
+            node
+        ) or g.pred_has_labels(label_type="function")(node):
+            unnamed_function(graph, n_id, [])

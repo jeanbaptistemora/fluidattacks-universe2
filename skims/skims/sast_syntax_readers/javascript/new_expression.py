@@ -33,7 +33,9 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
             args.n_id,
             dependencies_from_arguments(
                 args.fork_n_id(node_attrs["label_field_arguments"]),
-            ),
+            )
+            if "label_field_arguments" in node_attrs
+            else [],
         ),
         object_type=type_name,
     )
