@@ -23,6 +23,7 @@ from typing import (
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],
         ["executive@gmail.com"],
+        ["resourcer@gmail.com"],
     ],
 )
 async def test_update_access_token(populate: bool, email: str) -> None:
