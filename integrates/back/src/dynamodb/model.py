@@ -51,7 +51,7 @@ with open(FI_DB_MODEL_PATH, mode="r") as file:
     TABLE = load_table(json.load(file))
 
 
-def _build_root(
+def build_root(
     *,
     group_name: str,
     item_id: str,
@@ -174,7 +174,7 @@ async def get_root(
     )
 
     if results:
-        return _build_root(
+        return build_root(
             group_name=group_name,
             item_id=primary_key.partition_key,
             key_structure=key_structure,
@@ -218,7 +218,7 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
         root_items[root_id].append(item)
 
     return tuple(
-        _build_root(
+        build_root(
             group_name=group_name,
             item_id=root_id,
             key_structure=key_structure,

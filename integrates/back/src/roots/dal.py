@@ -1,6 +1,9 @@
 from boto3.dynamodb.conditions import (
     Key,
 )
+from db_model import (
+    roots as roots_model,
+)
 from dynamodb import (
     model,
     operations_legacy as dynamodb_ops,
@@ -31,7 +34,7 @@ LOGGER: logging.Logger = logging.getLogger(__name__)
 
 
 async def get_root(*, group_name: str, root_id: str) -> Optional[RootItem]:
-    return await model.get_root(group_name=group_name, root_id=root_id)
+    return await roots_model.get_root(group_name=group_name, root_id=root_id)
 
 
 async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
