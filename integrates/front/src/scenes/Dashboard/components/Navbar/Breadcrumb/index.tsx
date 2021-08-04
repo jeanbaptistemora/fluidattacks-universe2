@@ -150,7 +150,7 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
     (item: string, index: number): JSX.Element => {
       const [, baseLink] = path.split("/");
       const link: string = pathData.slice(0, index + 2).join("/");
-      const crumbItem: string = findingAlias.includes(
+      const breadcrumbItem: string = findingAlias.includes(
         pathBreadcrumbItems[index - 1]
       )
         ? _.isUndefined(findingData)
@@ -161,7 +161,7 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
       return (
         <li key={index.toString()}>
           <Link to={`/${baseLink}/${link}`}>
-            {stylizeBreadcrumbItem(crumbItem)}
+            {stylizeBreadcrumbItem(breadcrumbItem)}
           </Link>
         </li>
       );
