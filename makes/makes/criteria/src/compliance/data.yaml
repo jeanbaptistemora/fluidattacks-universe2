@@ -901,3 +901,15 @@
       title: Cryptographic Module Authentication
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf
   metadata: {}
+"011":
+  title: NIST 800-63B
+  en:
+    description: >
+      Digital Identity Guidelines.
+      Authentication and Lifecycle Management.
+      The version used for this section
+      is NIST 800-63B.
+  es:
+    description: __empty__
+  definitions: {}
+  metadata: {}
