@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-component-props, fp/no-rest-parameters, react/jsx-props-no-spreading */
 import React, { useCallback, useState } from "react";
 
-import { Col100, Col25, Col33, Col50 } from "./components/ChartCols";
+import { Col100, Col25, Col50 } from "./components/ChartCols";
 
 import { Graphic } from "graphics/components/Graphic";
 import { ChartsGenericViewExtras } from "scenes/Dashboard/containers/ChartsGenericView/components/Extras";
@@ -105,7 +105,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
         ) : undefined}
         {doesEntityMatch("group", "organization") ? (
           <RowCenter>
-            <Col33>
+            <Col50>
               <Graphic
                 bsHeight={80}
                 className={"g3"}
@@ -119,25 +119,8 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 subject={subject}
                 title={translate.t("analytics.textBox.totalFindings.title")}
               />
-            </Col33>
-            <Col33>
-              <Graphic
-                bsHeight={80}
-                className={"g3"}
-                documentName={"totalVulnerabilities"}
-                documentType={"textBox"}
-                entity={entity}
-                generatorName={"raw"}
-                generatorType={"textBox"}
-                infoLink={`${graphInfoLink}common#total-vulnerabilities`}
-                reportMode={reportMode}
-                subject={subject}
-                title={translate.t(
-                  "analytics.textBox.totalVulnerabilities.title"
-                )}
-              />
-            </Col33>
-            <Col33>
+            </Col50>
+            <Col50>
               <Graphic
                 bsHeight={80}
                 className={"g3"}
@@ -153,7 +136,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   "analytics.textBox.vulnsWithUndefinedTreatment.title"
                 )}
               />
-            </Col33>
+            </Col50>
           </RowCenter>
         ) : undefined}
         {doesEntityMatch("group", "organization", "portfolio") ? (
@@ -204,7 +187,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   entity={entity}
                   generatorName={"raw"}
                   generatorType={"textBox"}
-                  infoLink={`${graphInfoLink}common#mean-time-to-remediate-all-vulnerabilities`}
+                  infoLink={`${graphInfoLink}common`}
                   reportMode={reportMode}
                   subject={subject}
                   title={translate.t(
@@ -216,16 +199,16 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 <Graphic
                   bsHeight={80}
                   className={"g3"}
-                  documentName={"meanTimeToRemediateNonTreated"}
+                  documentName={"totalVulnerabilities"}
                   documentType={"textBox"}
                   entity={entity}
                   generatorName={"raw"}
                   generatorType={"textBox"}
-                  infoLink={`${graphInfoLink}common#mean-time-to-remediate-non-treated-vulnerabilities`}
+                  infoLink={`${graphInfoLink}common#total-vulnerabilities`}
                   reportMode={reportMode}
                   subject={subject}
                   title={translate.t(
-                    "analytics.textBox.meanTimeToRemediateNonTreated.title"
+                    "analytics.textBox.totalVulnerabilities.title"
                   )}
                 />
               </Col50>
@@ -425,23 +408,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 title={translate.t("tagIndicator.undefinedTitle")}
               />
             </Col50>
-            <Col50>
-              <Graphic
-                bsHeight={80}
-                className={"g3"}
-                documentName={"totalVulnerabilities"}
-                documentType={"textBox"}
-                entity={entity}
-                generatorName={"raw"}
-                generatorType={"textBox"}
-                infoLink={`${graphInfoLink}common#total-vulnerabilities`}
-                reportMode={reportMode}
-                subject={subject}
-                title={translate.t(
-                  "analytics.textBox.totalVulnerabilities.title"
-                )}
-              />
-            </Col50>
+            <Col50 />
           </Row>
         </div>
       ) : undefined}
