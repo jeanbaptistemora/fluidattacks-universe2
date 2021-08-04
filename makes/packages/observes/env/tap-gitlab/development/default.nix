@@ -15,5 +15,8 @@ makeTemplate {
     envSources = [
       tap-gitlab.runtime
     ];
+    envUtils = [
+      "/makes/utils/lint-python"
+    ];
   };
 }
