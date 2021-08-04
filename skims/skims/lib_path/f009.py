@@ -361,6 +361,7 @@ async def analyze(  # pylint: disable=too-many-arguments
         "jpage",
         "js",
         "json",
+        "kt",
         "properties",
         "py",
         "sbt",

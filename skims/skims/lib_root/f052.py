@@ -118,7 +118,7 @@ def _javax_yield_insecure_ciphers(
         )
         is_ssl_cipher_vulnerable: bool = (
             method_name in ssl_ciphers
-            and param_type == "string_literal"
+            and param_type in {"line_string_literal", "string_literal"}
             and param_text
             and param_text.lower()[1:-1] not in ssl_ciphers_safe
         )
