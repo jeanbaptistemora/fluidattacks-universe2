@@ -39,15 +39,17 @@ class SSLSnippetLine(Enum):
     target: int = 2
     intention_title: int = 3
     intention: int = 4
-    request_title: int = 5
-    fallback_scsv: int = 6
-    min_version: int = 7
-    max_version: int = 8
-    response_title: int = 9
-    handshake_cipher: int = 10
-    alert_type: int = 10
-    alert_level: int = 11
-    alert_description: int = 12
+    information_title: int = 5
+    information_versions: int = 6
+    request_title: int = 7
+    fallback_scsv: int = 8
+    min_version: int = 9
+    max_version: int = 10
+    response_title: int = 11
+    handshake_cipher: int = 12
+    alert_type: int = 12
+    alert_level: int = 13
+    alert_description: int = 14
 
 
 class TLSVersionId(Enum):

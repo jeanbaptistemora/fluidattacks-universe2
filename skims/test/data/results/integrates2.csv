@@ -4,16 +4,18 @@ F133,inputs,localhost:4446 (namespace2),server refuses connections with PFS supp
    2 |     localhost:4446
    3 | Intention
    4 |     check if server accepts key exchange with PFS support in TLSv1.0
-   5 | Request
-   6 |     fallback scsv: False
-   7 |     min version: TLSv1.0
-   8 |     max version: TLSv1.0
-   9 | Response
-  10 |     type: ALERT
-  11 |     level: FATAL
-> 12 |     description: handshake_failure
-  13 | Result
-  14 |     server refuses connections with PFS support
+   5 | Information
+   6 |     available versions: TLSv1.0, TLSv1.1
+   7 | Request
+   8 |     fallback scsv: False
+   9 |     min version: TLSv1.0
+  10 |     max version: TLSv1.0
+  11 | Response
+  12 |     type: ALERT
+  13 |     level: FATAL
+> 14 |     description: handshake_failure
+  15 | Result
+  16 |     server refuses connections with PFS support
      ^ Col 0
 "
 F133,inputs,localhost:4446 (namespace2),server refuses connections with PFS support,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,server refuses connections with PFS support,"
@@ -21,16 +23,18 @@ F133,inputs,localhost:4446 (namespace2),server refuses connections with PFS supp
    2 |     localhost:4446
    3 | Intention
    4 |     check if server accepts key exchange with PFS support in TLSv1.1
-   5 | Request
-   6 |     fallback scsv: False
-   7 |     min version: TLSv1.1
-   8 |     max version: TLSv1.1
-   9 | Response
-  10 |     type: ALERT
-  11 |     level: FATAL
-> 12 |     description: handshake_failure
-  13 | Result
-  14 |     server refuses connections with PFS support
+   5 | Information
+   6 |     available versions: TLSv1.0, TLSv1.1
+   7 | Request
+   8 |     fallback scsv: False
+   9 |     min version: TLSv1.1
+  10 |     max version: TLSv1.1
+  11 | Response
+  12 |     type: ALERT
+  13 |     level: FATAL
+> 14 |     description: handshake_failure
+  15 | Result
+  16 |     server refuses connections with PFS support
      ^ Col 0
 "
 F117,lines,namespace2/skims/test/data/lib_path/f117/.project,1,377,skims,117. Unverifiable files,Unverifiable file in skims/test/data/lib_path/f117/.project,"
