@@ -86,6 +86,15 @@ def validate_field_length(
     return True
 
 
+def validate_finding_id(finding_id: str) -> None:
+    if not re.match(
+        r"[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab]"
+        r"[0-9A-Za-z]{3}-[0-9A-Za-z]{12}|\d+",
+        finding_id,
+    ):
+        raise InvalidField("finding id")
+
+
 def validate_group_name(group_name: str) -> None:
     if not group_name.isalnum():
         raise InvalidField("group name")
