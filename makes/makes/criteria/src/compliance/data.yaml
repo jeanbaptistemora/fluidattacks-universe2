@@ -847,3 +847,57 @@
       title: Prevent the unauthorized retrieval of BES Cyber System Information
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-011-2.pdf
   metadata: {}
+"010":
+  title: NIST 800-53
+  en:
+    description: >
+      Security and Privacy Controls
+      for Information Systems and Organizations.
+      The version used in this section
+      is NIST 800-53 Rev. 4.
+  es:
+    description: __empty__
+  definitions:
+    "AC-2_2":
+      title: Removal Of Temporary or Emergency Accounts
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf
+    "AC-2_3":
+      title: Disable Inactive Accounts
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf
+    "AC-2_4":
+      title: Automated Audit Actions
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf
+    "AC-2_6":
+      title: Dynamic Privilege Management
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf
+    "AC-2_7a":
+      title: Establishes and administers privileged user accounts
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf
+    "AC-2_7b":
+      title: Monitors privileged role assignments
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf
+    "AC-2_7c":
+      title: Organization-defined actions
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf
+    "AC-2_10":
+      title: Shared Group Account Credential Termination
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf
+    "AC-2_13":
+      title: Disable Accounts For High-Risk Individuals
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf
+    "AC-6":
+      title: Least Privilege
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf
+    "AC-12":
+      title: Account Monitoring or Atypical Usage
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf
+    "IA-1-2":
+      title: Identification And Authentication Policy And Procedures
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf
+    "IA-2":
+      title: Identification And Authentication (organizational Users)
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf
+    "IA-7":
+      title: Cryptographic Module Authentication
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf
+  metadata: {}
