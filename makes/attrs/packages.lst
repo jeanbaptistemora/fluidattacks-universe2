@@ -104,6 +104,7 @@ observes.env.streamer-zoho-crm.development
 observes.env.streamer-zoho-crm.development.python
 observes.env.streamer-zoho-crm.runtime
 observes.env.streamer-zoho-crm.runtime.python
+observes.env.tap-announcekit.runtime
 observes.env.tap-announcekit.runtime.python
 observes.env.tap-bugsnag.development
 observes.env.tap-bugsnag.runtime
