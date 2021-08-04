@@ -1,6 +1,6 @@
 :page-slug: ewptv1-certification/
 :page-date: 2021-07-01
-:page-subtitle: Interview with Andres Roldan on his eWPTv1 certification
+:page-subtitle: Interview with Roldan on his eWPTv1 certification
 :page-category: interview
 :page-tags: cybersecurity, red-team, interview, training, software, exploit
 :page-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627391011/blog/ewptv1-certification/cover-ewptv1-certification_huw2bl.webp

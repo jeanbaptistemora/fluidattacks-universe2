@@ -40,7 +40,7 @@ function check_adoc_blog_patterns {
   )
   declare -A patterns=(
     [source_unsplash]='(?<=^:source: )((?!https://unsplash).*$)'
-    [subtitle_length_limit]='(?<=^:subtitle: ).{56,}'
+    [subtitle_length_limit]='(?<=^:page-subtitle: ).{56,}'
     [title_length_limit]='^= .{36,}'
   )
 
