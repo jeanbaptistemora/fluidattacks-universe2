@@ -5,5 +5,15 @@ from .get import (
     get_root,
     get_roots,
 )
+from .update import (
+    update_git_root_cloning,
+    update_root_state,
+)
 
-__all__ = ["add", "get_root", "get_roots"]
+__all__ = [
+    "add",
+    "get_root",
+    "get_roots",
+    "update_root_state",
+    "update_git_root_cloning",
+]

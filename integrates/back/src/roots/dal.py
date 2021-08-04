@@ -5,7 +5,6 @@ from db_model import (
     roots as roots_model,
 )
 from dynamodb import (
-    model,
     operations_legacy as dynamodb_ops,
 )
 from dynamodb.types import (
@@ -44,7 +43,7 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
 async def update_git_root_cloning(
     *, cloning: GitRootCloning, group_name: str, root_id: str
 ) -> None:
-    await model.update_git_root_cloning(
+    await roots_model.update_git_root_cloning(
         cloning=cloning, group_name=group_name, root_id=root_id
     )
 
@@ -55,7 +54,7 @@ async def update_root_state(
     root_id: str,
     state: Union[GitRootState, IPRootState, URLRootState],
 ) -> None:
-    await model.update_root_state(
+    await roots_model.update_root_state(
         group_name=group_name, state=state, root_id=root_id
     )
 
