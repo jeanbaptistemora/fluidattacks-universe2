@@ -52,10 +52,13 @@ const CardTitle: StyledComponent<"p", Record<string, unknown>> = styled.p.attrs(
     className: `
     c-fluid-bk
     mb0
+    f3-l
+    f3-m
     f4
     b
     hv-fluid-rd
     lh-solid
+    mt2
   `,
   }
 )``;
@@ -69,13 +72,14 @@ const CardSubTitle: StyledComponent<
     mb0
     f4
     normal
+    mt1
   `,
 })``;
 
 const CardDate: StyledComponent<
-  "h6",
+  "h5",
   Record<string, unknown>
-> = styled.h6.attrs({
+> = styled.h5.attrs({
   className: `
     c-black-gray
     mb0
