@@ -11,9 +11,10 @@ F052,inputs,localhost:4446 (namespace),server accepts connections with weak ciph
    9 |     min version: TLSv1.0
   10 |     max version: TLSv1.0
   11 | Response
-> 12 |     cipher suite: RSA_WITH_AES_256_CBC_SHA
-  13 | Result
-  14 |     server accepts connections with weak ciphers
+  12 |     version: TLSv1.0
+> 13 |     cipher suite: RSA_WITH_AES_256_CBC_SHA
+  14 | Result
+  15 |     server accepts connections with weak ciphers
      ^ Col 0
 "
 F052,inputs,localhost:4446 (namespace),server accepts connections with weak ciphers,310,"home,socket-send,socket-response",052. Insecure encryption algorithm,server accepts connections with weak ciphers,"
@@ -28,9 +29,10 @@ F052,inputs,localhost:4446 (namespace),server accepts connections with weak ciph
    9 |     min version: TLSv1.1
   10 |     max version: TLSv1.1
   11 | Response
-> 12 |     cipher suite: RSA_WITH_AES_256_CBC_SHA
-  13 | Result
-  14 |     server accepts connections with weak ciphers
+  12 |     version: TLSv1.1
+> 13 |     cipher suite: RSA_WITH_AES_256_CBC_SHA
+  14 | Result
+  15 |     server accepts connections with weak ciphers
      ^ Col 0
 "
 F133,inputs,localhost:4446 (namespace),server refuses connections with PFS support,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,server refuses connections with PFS support,"
@@ -134,9 +136,10 @@ F094,inputs,localhost:4446 (namespace),server accepts connections with ciphers t
    9 |     min version: TLSv1.0
   10 |     max version: TLSv1.0
   11 | Response
-> 12 |     cipher suite: RSA_WITH_CAMELLIA_128_CBC_SHA
-  13 | Result
-  14 |     server accepts connections with ciphers that supports CBC
+  12 |     version: TLSv1.0
+> 13 |     cipher suite: RSA_WITH_CAMELLIA_128_CBC_SHA
+  14 | Result
+  15 |     server accepts connections with ciphers that supports CBC
      ^ Col 0
 "
 F094,inputs,localhost:4446 (namespace),server accepts connections with ciphers that supports CBC,757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,server accepts connections with ciphers that supports CBC,"
@@ -151,8 +154,9 @@ F094,inputs,localhost:4446 (namespace),server accepts connections with ciphers t
    9 |     min version: TLSv1.1
   10 |     max version: TLSv1.1
   11 | Response
-> 12 |     cipher suite: RSA_WITH_CAMELLIA_128_CBC_SHA
-  13 | Result
-  14 |     server accepts connections with ciphers that supports CBC
+  12 |     version: TLSv1.1
+> 13 |     cipher suite: RSA_WITH_CAMELLIA_128_CBC_SHA
+  14 | Result
+  15 |     server accepts connections with ciphers that supports CBC
      ^ Col 0
 "

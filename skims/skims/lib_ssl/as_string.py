@@ -41,7 +41,8 @@ def get_request_skeleton_en() -> str:
 
 
 def get_good_response_skeleton_en() -> str:
-    content = "    cipher suite: {cipher_suite}\n"
+    content = "    version: {version}\n"
+    content += "    cipher suite: {cipher_suite}\n"
     return content
 
 
@@ -81,7 +82,8 @@ def get_request_skeleton_es() -> str:
 
 
 def get_good_response_skeleton_es() -> str:
-    content = "    suite de cifrado: {cipher_suite}\n"
+    content = "    versión: {version}\n"
+    content += "    suite de cifrado: {cipher_suite}\n"
     return content
 
 
@@ -154,6 +156,7 @@ def snippet(
             )
         elif s_response.handshake is not None:
             response = good_response_skeleton.format(
+                version=ssl_id2ssl_name(s_response.handshake.version_id),
                 cipher_suite=s_response.handshake.cipher_suite.name,
             )
 

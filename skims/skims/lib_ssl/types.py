@@ -46,7 +46,8 @@ class SSLSnippetLine(Enum):
     min_version: int = 9
     max_version: int = 10
     response_title: int = 11
-    handshake_cipher: int = 12
+    handshake_version: int = 12
+    handshake_cipher: int = 13
     alert_type: int = 12
     alert_level: int = 13
     alert_description: int = 14
@@ -505,6 +506,17 @@ class SSLContext(NamedTuple):
     host: str = "localhost"
     port: int = 443
     tls_responses: Tuple[SSLServerResponse, ...] = ()
+
+    def get_tls_response(
+        self, v_id: SSLVersionId
+    ) -> Optional[SSLServerResponse]:
+        for tls_response in self.tls_responses:
+            if (
+                tls_response.handshake is not None
+                and tls_response.handshake.version_id == v_id
+            ):
+                return tls_response
+        return None
 
     def get_supported_tls_versions(self) -> Tuple[SSLVersionId, ...]:
         return tuple(
