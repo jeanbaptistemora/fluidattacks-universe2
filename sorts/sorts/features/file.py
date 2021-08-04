@@ -193,7 +193,6 @@ def get_seldom_contributors(git_metrics: GitMetrics) -> int:
     return seldom_contributors
 
 
-# TODO: use mailmaps to filter possible noise due to bad git management
 def get_unique_authors(git_metrics: GitMetrics) -> List[str]:
     """Gets the list of unique authors that modified a file"""
     authors_history: List[str] = list(set(git_metrics["author_email"]))
