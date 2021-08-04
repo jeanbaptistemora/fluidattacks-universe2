@@ -260,7 +260,7 @@ async def test_add_group() -> None:
 async def test_add_group_tags() -> None:
     """Check for addGroupTags mutation."""
     query = """
-        mutation AddTagsMutation(
+        mutation AddGroupTagsMutation(
           $groupName: String!,
           $tagsData: JSONString!
         ) {

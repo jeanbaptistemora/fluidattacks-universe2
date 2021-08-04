@@ -417,10 +417,10 @@ integrates.back.test.functional.update_severity_new:
 integrates.back.test.functional.update_toe_lines_sorts:
   <<: *integrates_back_test_functional
 
-integrates.back.test.functional.update_treatment_vuln:
+integrates.back.test.functional.update_vulnerability_commit:
   <<: *integrates_back_test_functional
 
-integrates.back.test.functional.update_vulnerability_commit:
+integrates.back.test.functional.update_vulnerability_treatment:
   <<: *integrates_back_test_functional
 
 integrates.back.test.functional.upload_file:

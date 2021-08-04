@@ -299,7 +299,7 @@ describe("Organization groups view", (): void => {
         },
         result: {
           data: {
-            createGroup: {
+            addGroup: {
               success: true,
             },
           },

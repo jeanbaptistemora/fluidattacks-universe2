@@ -317,11 +317,11 @@ async def test_deactivate_org_finding_policy() -> None:
     assert vulns[0]["tag"] == ""
 
     deactivate_mutation = """
-        mutation DeactivateOrgFindingPolicy(
+        mutation DeactivateOrganizationFindingPolicy(
             $findingPolicyId: ID!
             $orgName: String!
         ) {
-            deactivateOrgFindingPolicy(
+            deactivateOrganizationFindingPolicy(
                 findingPolicyId: $findingPolicyId
                 organizationName: $orgName
             ) {
@@ -340,7 +340,7 @@ async def test_deactivate_org_finding_policy() -> None:
         deactivate_mutation_data, stakeholder=approver_user
     )
     assert "errors" not in result
-    assert result["data"]["deactivateOrgFindingPolicy"]["success"]
+    assert result["data"]["deactivateOrganizationFindingPolicy"]["success"]
     assert (
         await _run(
             finding_policy_id=finding_policy.id,
