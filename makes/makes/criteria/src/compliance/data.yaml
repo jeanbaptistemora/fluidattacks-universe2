@@ -649,5 +649,44 @@
       is HIPAA Rules 2013 update.
   es:
     description: __empty__
-  definitions: {}
+  definitions:
+    "164.308_a_1_ii_D":
+      title: Information system activity review (Required)
+      link: https://www.law.cornell.edu/cfr/text/45/164.308
+    "164.308_a_3_i":
+      title: "Standard: Workforce security"
+      link: https://www.law.cornell.edu/cfr/text/45/164.308
+    "164.308_a_3_ii_A":
+      title: Authorization or supervision (Addressable)
+      link: https://www.law.cornell.edu/cfr/text/45/164.308
+    "164.310_a_2_iii":
+      title: Access control and validation procedures (Addressable)
+      link: https://www.law.cornell.edu/cfr/text/45/164.310
+    "164.310_d_2_i":
+      title: Disposal (Required)
+      link: https://www.law.cornell.edu/cfr/text/45/164.310
+    "164.312_a_1":
+      title: "Standard: Access control"
+      link: https://www.law.cornell.edu/cfr/text/45/164.312
+    "164.312_a_2_i":
+      title: Unique user identification (Required)
+      link: https://www.law.cornell.edu/cfr/text/45/164.312
+    "164.312_a_2_iii":
+      title: Automatic logoff (Addressable)
+      link: https://www.law.cornell.edu/cfr/text/45/164.312
+    "164.312_a_2_iv":
+      title: Encryption and decryption (Addressable)
+      link: https://www.law.cornell.edu/cfr/text/45/164.312
+    "164.312_b":
+      title: "Standard: Audit controls"
+      link: https://www.law.cornell.edu/cfr/text/45/164.312
+    "164.312_d":
+      title: "Standard: Person or entity authentication"
+      link: https://www.law.cornell.edu/cfr/text/45/164.312
+    "164.312_e_1":
+      title: "Standard: Transmission security"
+      link: https://www.law.cornell.edu/cfr/text/45/164.312
+    "164.312_e_2_i":
+      title: Integrity controls (Addressable)
+      link: https://www.law.cornell.edu/cfr/text/45/164.312
   metadata: {}
