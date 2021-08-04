@@ -690,3 +690,46 @@
       title: Integrity controls (Addressable)
       link: https://www.law.cornell.edu/cfr/text/45/164.312
   metadata: {}
+"008":
+  title: ISO/IEC 27001
+  en:
+    description: >
+      It is widely known,
+      providing requirements
+      for an information security
+      management system (ISMS),
+      though there are more than
+      a dozen standards in the
+      ISO/IEC 27000 family.
+      Using them enables organizations
+      of any kind to manage the security
+      of assets such as financial information,
+      intellectual property, employee details
+      or information entrusted by third parties.
+      The version used in this section is
+      ISO/IEC 27001:2013 - Annex A.
+  es:
+    description: __empty__
+  definitions:
+    "9.1.2":
+      title: Access to Networks and Network Services
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
+    "9.2.1":
+      title: User registration and de-registration
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
+    "9.2.2":
+      title: User Access Provisioning
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
+    "9.2.3":
+      title: Management of Privileged Access Rights
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
+    "9.4.2":
+      title: Secure Log-on Procedures
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
+    "9.4.5":
+      title: Access Control to Program Source Code
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
+    "12.2.1":
+      title: Controls Against Malware
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
+  metadata: {}
