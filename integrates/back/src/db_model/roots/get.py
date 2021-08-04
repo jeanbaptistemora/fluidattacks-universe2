@@ -8,19 +8,119 @@ from db_model import (
     TABLE,
 )
 from dynamodb import (
+    historics,
     keys,
     operations,
 )
-from dynamodb.model import (
-    build_root,
-)
 from dynamodb.types import (
+    GitRootCloning,
+    GitRootItem,
+    GitRootMetadata,
+    GitRootState,
+    IPRootItem,
+    IPRootMetadata,
+    IPRootState,
+    Item,
+    PrimaryKey,
     RootItem,
+    URLRootItem,
+    URLRootMetadata,
+    URLRootState,
 )
 from typing import (
     Optional,
     Tuple,
 )
+
+
+def _build_root(
+    *,
+    group_name: str,
+    item_id: str,
+    key_structure: PrimaryKey,
+    raw_items: Tuple[Item, ...],
+) -> RootItem:
+    metadata = historics.get_metadata(
+        item_id=item_id, key_structure=key_structure, raw_items=raw_items
+    )
+    state = historics.get_latest(
+        item_id=item_id,
+        key_structure=key_structure,
+        historic_suffix="STATE",
+        raw_items=raw_items,
+    )
+
+    if metadata["type"] == "Git":
+        cloning = historics.get_latest(
+            item_id=item_id,
+            key_structure=key_structure,
+            historic_suffix="CLON",
+            raw_items=raw_items,
+        )
+
+        return GitRootItem(
+            cloning=GitRootCloning(
+                modified_date=cloning["modified_date"],
+                reason=cloning["reason"],
+                status=cloning["status"],
+            ),
+            group_name=group_name,
+            id=metadata[key_structure.sort_key].split("#")[1],
+            metadata=GitRootMetadata(
+                branch=metadata["branch"],
+                type=metadata["type"],
+                url=metadata["url"],
+            ),
+            state=GitRootState(
+                environment_urls=state["environment_urls"],
+                environment=state["environment"],
+                gitignore=state["gitignore"],
+                includes_health_check=state["includes_health_check"],
+                modified_by=state["modified_by"],
+                modified_date=state["modified_date"],
+                nickname=state["nickname"],
+                other=state.get("other"),
+                reason=state.get("reason"),
+                status=state["status"],
+            ),
+        )
+
+    if metadata["type"] == "IP":
+        return IPRootItem(
+            group_name=group_name,
+            id=metadata[key_structure.sort_key].split("#")[1],
+            metadata=IPRootMetadata(
+                address=metadata["address"],
+                port=metadata["port"],
+                type=metadata["type"],
+            ),
+            state=IPRootState(
+                modified_by=state["modified_by"],
+                modified_date=state["modified_date"],
+                other=state.get("other"),
+                reason=state.get("reason"),
+                status=state["status"],
+            ),
+        )
+
+    return URLRootItem(
+        group_name=group_name,
+        id=metadata[key_structure.sort_key].split("#")[1],
+        metadata=URLRootMetadata(
+            host=metadata["host"],
+            path=metadata["path"],
+            port=metadata["port"],
+            protocol=metadata["protocol"],
+            type=metadata["type"],
+        ),
+        state=URLRootState(
+            modified_by=state["modified_by"],
+            modified_date=state["modified_date"],
+            other=state.get("other"),
+            reason=state.get("reason"),
+            status=state["status"],
+        ),
+    )
 
 
 async def get_root(
@@ -56,7 +156,7 @@ async def get_root(
     )
 
     if results:
-        return build_root(
+        return _build_root(
             group_name=group_name,
             item_id=primary_key.partition_key,
             key_structure=key_structure,
@@ -100,7 +200,7 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
         root_items[root_id].append(item)
 
     return tuple(
-        build_root(
+        _build_root(
             group_name=group_name,
             item_id=root_id,
             key_structure=key_structure,
