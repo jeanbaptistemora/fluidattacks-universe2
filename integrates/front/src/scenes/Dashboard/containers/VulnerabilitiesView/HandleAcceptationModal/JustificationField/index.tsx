@@ -1,16 +1,21 @@
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import { Field } from "formik";
 import React from "react";
-import { Field } from "redux-form";
 import type { ConfigurableValidator } from "revalidate";
 
 import type { IJustificationFieldProps } from "./types";
 
 import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
-import { Dropdown, TextArea } from "utils/forms/fields";
+import { FormikDropdown, FormikTextArea } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
-import { maxLength, required, validTextField } from "utils/validations";
+import {
+  composeValidators,
+  maxLength,
+  required,
+  validTextField,
+} from "utils/validations";
 
 const MAX_TREATMENT_JUSTIFICATION_LENGTH: number = 200;
 const maxTreatmentJustificationLength: ConfigurableValidator = maxLength(
@@ -44,7 +49,7 @@ const JustificationField: React.FC<IJustificationFieldProps> = (
       </ControlLabel>
       {shouldRenderDropdown ? (
         <Field
-          component={Dropdown}
+          component={FormikDropdown}
           name={"justification"}
           type={"text"}
           validate={required}
@@ -81,10 +86,14 @@ const JustificationField: React.FC<IJustificationFieldProps> = (
         </Field>
       ) : (
         <Field
-          component={TextArea}
+          component={FormikTextArea}
           name={"justification"}
           type={"text"}
-          validate={[required, validTextField, maxTreatmentJustificationLength]}
+          validate={composeValidators([
+            required,
+            validTextField,
+            maxTreatmentJustificationLength,
+          ])}
         />
       )}
     </FormGroup>

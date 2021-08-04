@@ -3,12 +3,12 @@ import { MockedProvider } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
 import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
+import { Field } from "formik";
 import { GraphQLError } from "graphql";
 import type { PropsWithChildren } from "react";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import { Field } from "redux-form";
 import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
@@ -137,13 +137,13 @@ describe("handle vulns acceptation modal", (): void => {
     });
     const justification: ReactWrapper = wrapper.find("textarea");
     justification.simulate("change", {
-      target: { value: "This is a justification test" },
+      target: { name: "justification", value: "This is a justification test" },
     });
     const switchButton: ReactWrapper = wrapper
       .find("#vulnTreatmentSwitch")
       .at(0);
     switchButton.simulate("click");
-    const form: ReactWrapper = wrapper.find("form");
+    const form: ReactWrapper = wrapper.find("Formik");
     form.at(0).simulate("submit");
 
     await act(async (): Promise<void> => {
@@ -238,9 +238,12 @@ describe("handle vulns acceptation modal", (): void => {
     });
     const justification: ReactWrapper = wrapper.find("textarea");
     justification.simulate("change", {
-      target: { value: "This is a justification test error" },
+      target: {
+        name: "justification",
+        value: "This is a justification test error",
+      },
     });
-    const form: ReactWrapper = wrapper.find("form");
+    const form: ReactWrapper = wrapper.find("Formik");
     form.at(0).simulate("submit");
     await act(async (): Promise<void> => {
       await waitForExpect((): void => {
@@ -376,7 +379,7 @@ describe("handle vulns acceptation modal", (): void => {
       .filter({ name: "treatment" })
       .find("select");
     treatmentFieldSelect.simulate("change", {
-      target: { value: "CONFIRM_REJECT_ZERO_RISK" },
+      target: { name: "treatment", value: "CONFIRM_REJECT_ZERO_RISK" },
     });
     const justificationFieldTextArea: ReactWrapper = wrapper
       .find(Field)
@@ -384,6 +387,7 @@ describe("handle vulns acceptation modal", (): void => {
       .find("textarea");
     justificationFieldTextArea.simulate("change", {
       target: {
+        name: "justification",
         value: "This is a test of confirming zero risk vulns",
       },
     });
@@ -394,10 +398,11 @@ describe("handle vulns acceptation modal", (): void => {
       .at(0);
     requestedZeroRiskCheckBox.simulate("click");
 
-    const form: ReactWrapper = wrapper.find("form");
+    const form: ReactWrapper = wrapper.find("Formik");
     form.at(0).simulate("submit");
     await act(async (): Promise<void> => {
-      await wait(0);
+      const delay = 150;
+      await wait(delay);
       wrapper.update();
     });
 
@@ -538,7 +543,7 @@ describe("handle vulns acceptation modal", (): void => {
       .filter({ name: "treatment" })
       .find("select");
     treatmentFieldSelect.simulate("change", {
-      target: { value: "CONFIRM_REJECT_ZERO_RISK" },
+      target: { name: "treatment", value: "CONFIRM_REJECT_ZERO_RISK" },
     });
     const justificationFieldTextArea: ReactWrapper = wrapper
       .find(Field)
@@ -546,6 +551,7 @@ describe("handle vulns acceptation modal", (): void => {
       .find("textarea");
     justificationFieldTextArea.simulate("change", {
       target: {
+        name: "justification",
         value: "This is a test of confirming zero risk vulns",
       },
     });
@@ -556,10 +562,11 @@ describe("handle vulns acceptation modal", (): void => {
       .at(0);
     requestedZeroRiskCheckBox.simulate("click");
 
-    const form: ReactWrapper = wrapper.find("form");
+    const form: ReactWrapper = wrapper.find("Formik");
     form.at(0).simulate("submit");
     await act(async (): Promise<void> => {
-      await wait(0);
+      const delay = 150;
+      await wait(delay);
       wrapper.update();
     });
 
@@ -693,7 +700,7 @@ describe("handle vulns acceptation modal", (): void => {
       .filter({ name: "treatment" })
       .find("select");
     treatmentFieldSelect.simulate("change", {
-      target: { value: "CONFIRM_REJECT_ZERO_RISK" },
+      target: { name: "treatment", value: "CONFIRM_REJECT_ZERO_RISK" },
     });
     const justificationFieldTextArea: ReactWrapper = wrapper
       .find(Field)
@@ -701,6 +708,7 @@ describe("handle vulns acceptation modal", (): void => {
       .find("textarea");
     justificationFieldTextArea.simulate("change", {
       target: {
+        name: "justification",
         value: "This is a test of rejecting zero risk vulns",
       },
     });
@@ -711,10 +719,11 @@ describe("handle vulns acceptation modal", (): void => {
       .at(0);
     requestedZeroRiskCheckBox.simulate("click");
 
-    const form: ReactWrapper = wrapper.find("form");
+    const form: ReactWrapper = wrapper.find("Formik");
     form.at(0).simulate("submit");
     await act(async (): Promise<void> => {
-      await wait(0);
+      const delay = 150;
+      await wait(delay);
       wrapper.update();
     });
 
@@ -855,7 +864,7 @@ describe("handle vulns acceptation modal", (): void => {
       .filter({ name: "treatment" })
       .find("select");
     treatmentFieldSelect.simulate("change", {
-      target: { value: "CONFIRM_REJECT_ZERO_RISK" },
+      target: { name: "treatment", value: "CONFIRM_REJECT_ZERO_RISK" },
     });
     const justificationFieldTextArea: ReactWrapper = wrapper
       .find(Field)
@@ -863,6 +872,7 @@ describe("handle vulns acceptation modal", (): void => {
       .find("textarea");
     justificationFieldTextArea.simulate("change", {
       target: {
+        name: "justification",
         value: "This is a test of rejecting zero risk vulns",
       },
     });
@@ -873,10 +883,11 @@ describe("handle vulns acceptation modal", (): void => {
       .at(0);
     requestedZeroRiskCheckBox.simulate("click");
 
-    const form: ReactWrapper = wrapper.find("form");
+    const form: ReactWrapper = wrapper.find("Formik");
     form.at(0).simulate("submit");
     await act(async (): Promise<void> => {
-      await wait(0);
+      const delay = 150;
+      await wait(delay);
       wrapper.update();
     });
 
@@ -942,7 +953,7 @@ describe("handle vulns acceptation modal", (): void => {
       .find(TreatmentField)
       .find("select");
     treatmentFieldDropdown.simulate("change", {
-      target: { value: "CONFIRM_REJECT_ZERO_RISK" },
+      target: { name: "treatment", value: "CONFIRM_REJECT_ZERO_RISK" },
     });
 
     const zeroRiskTable: ReactWrapper<PropsWithChildren<IZeroRiskTableProps>> =
@@ -1036,7 +1047,7 @@ describe("handle vulns acceptation modal", (): void => {
       .find(TreatmentField)
       .find("select");
     treatmentFieldDropdown.simulate("change", {
-      target: { value: "CONFIRM_REJECT_ZERO_RISK" },
+      target: { name: "treatment", value: "CONFIRM_REJECT_ZERO_RISK" },
     });
 
     const zeroRiskTable: ReactWrapper<PropsWithChildren<IZeroRiskTableProps>> =

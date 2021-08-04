@@ -245,6 +245,7 @@ const isAcceptedUndefinedSelectedHelper = (
 };
 
 const isConfirmZeroRiskSelectedHelper = (
+  existAcceptedVulns: boolean,
   isConfirmZeroRiskSelected: boolean,
   confirmZeroRisk: (
     options?:
@@ -262,7 +263,7 @@ const isConfirmZeroRiskSelectedHelper = (
     justification: string;
   }
 ): void => {
-  if (isConfirmZeroRiskSelected) {
+  if (isConfirmZeroRiskSelected && existAcceptedVulns) {
     // Exception: FP(void operator is necessary)
     // eslint-disable-next-line
     void confirmZeroRisk({ //NOSONAR
@@ -276,6 +277,7 @@ const isConfirmZeroRiskSelectedHelper = (
 };
 
 const isRejectZeroRiskSelectedHelper = (
+  existRejectedVulns: boolean,
   isRejectZeroRiskSelected: boolean,
   rejectZeroRisk: (
     options?:
@@ -293,7 +295,7 @@ const isRejectZeroRiskSelectedHelper = (
   },
   rejectedVulnIds: string[]
 ): void => {
-  if (isRejectZeroRiskSelected) {
+  if (isRejectZeroRiskSelected && existRejectedVulns) {
     // Exception: FP(void operator is necessary)
     // eslint-disable-next-line
     void rejectZeroRisk({ //NOSONAR

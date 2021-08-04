@@ -10,7 +10,11 @@ import type { IHeaderConfig } from "components/DataTableNext/types";
 const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
   props: IZeroRiskTableProps
 ): JSX.Element => {
-  const { acceptationVulns, setAcceptationVulns } = props;
+  const {
+    acceptationVulns,
+    isConfirmRejectZeroRiskSelected,
+    setAcceptationVulns,
+  } = props;
 
   const handleRejectZeroRisk: (vulnInfo?: Dictionary<string>) => void = (
     vulnInfo?: Dictionary<string>
@@ -75,15 +79,17 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
 
   return (
     <React.StrictMode>
-      <DataTableNext
-        bordered={false}
-        dataset={acceptationVulns}
-        exportCsv={false}
-        headers={vulnsHeader}
-        id={"vulnsToHandleAcceptation"}
-        pageSize={10}
-        search={false}
-      />
+      {isConfirmRejectZeroRiskSelected ? (
+        <DataTableNext
+          bordered={false}
+          dataset={acceptationVulns}
+          exportCsv={false}
+          headers={vulnsHeader}
+          id={"vulnsToHandleAcceptation"}
+          pageSize={10}
+          search={false}
+        />
+      ) : undefined}
     </React.StrictMode>
   );
 };
