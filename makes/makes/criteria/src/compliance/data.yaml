@@ -911,5 +911,32 @@
       is NIST 800-63B.
   es:
     description: __empty__
-  definitions: {}
+  definitions:
+    "5.1.1.2":
+      title: Memorized Secret Verifiers
+      link: https://pages.nist.gov/800-63-3/sp800-63b.html
+    "5.1.3.2":
+      title: Out-of-Band Verifiers
+      link: https://pages.nist.gov/800-63-3/sp800-63b.html
+    "5.1.4.2":
+      title: Single-Factor OTP Verifiers
+      link: https://pages.nist.gov/800-63-3/sp800-63b.html
+    "5.2.3":
+      title: Use of Biometrics
+      link: https://pages.nist.gov/800-63-3/sp800-63b.html
+    "5.2.5":
+      title: Verifier Impersonation Resistance
+      link: https://pages.nist.gov/800-63-3/sp800-63b.html
+    "5.2.8":
+      title: Replay Resistance
+      link: https://pages.nist.gov/800-63-3/sp800-63b.html
+    "6.1.1":
+      title: Binding at Enrollment
+      link: https://pages.nist.gov/800-63-3/sp800-63b.html
+    "7.1":
+      title: Session Bindings
+      link: https://pages.nist.gov/800-63-3/sp800-63b.html
+    "7.1.1":
+      title: Browser Cookies
+      link: https://pages.nist.gov/800-63-3/sp800-63b.html
   metadata: {}
