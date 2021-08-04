@@ -19,6 +19,7 @@ from datetime import (
 )
 from decimal import (
     Decimal,
+    ROUND_CEILING,
 )
 from findings import (
     domain as findings_domain,
@@ -67,6 +68,11 @@ class VulnerabilitiesStatusByTimeRange(NamedTuple):
     found_cvssf: Decimal
 
 
+class RegisterByWeek(NamedTuple):
+    vulnerabilities: List[List[Dict[str, Union[str, int]]]]
+    vulnerabilities_cvssf: List[List[Dict[str, Union[str, int]]]]
+
+
 def create_data_format_chart(
     all_registers: Dict[str, Dict[str, int]]
 ) -> List[List[Dict[str, Union[str, int]]]]:
@@ -100,12 +106,12 @@ def get_severity(
 
 async def create_register_by_week(  # pylint: disable=too-many-locals
     context: Any, group: str, min_date: Optional[datetime] = None
-) -> List[List[Dict[str, Union[str, int]]]]:
+) -> RegisterByWeek:
     """Create weekly vulnerabilities registry by group"""
-    accepted = 0
-    closed = 0
     found = 0
+    found_cvssf = Decimal(0.0)
     all_registers = OrderedDict()
+    all_registers_cvsff = OrderedDict()
 
     findings: List[Dict[str, FindingType]] = await context.group_findings.load(
         group
@@ -141,9 +147,8 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
                     else None,
                 )
             )
-            accepted = result_vulns_by_week.accepted_vulnerabilities
-            closed = result_vulns_by_week.closed_vulnerabilities
             found += result_vulns_by_week.found_vulnerabilities
+            found_cvssf += result_vulns_by_week.found_cvssf
             if any(
                 [
                     result_vulns_by_week.accepted_vulnerabilities,
@@ -154,10 +159,43 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
                 week_dates = create_weekly_date(first_day)
                 all_registers[week_dates] = {
                     "found": found,
-                    "closed": closed,
-                    "accepted": accepted,
-                    "assumed_closed": accepted + closed,
-                    "opened": found - closed - accepted,
+                    "closed": result_vulns_by_week.closed_vulnerabilities,
+                    "accepted": result_vulns_by_week.accepted_vulnerabilities,
+                    "assumed_closed": (
+                        result_vulns_by_week.accepted_vulnerabilities
+                        + result_vulns_by_week.closed_vulnerabilities
+                    ),
+                    "opened": found
+                    - result_vulns_by_week.closed_vulnerabilities
+                    - result_vulns_by_week.accepted_vulnerabilities,
+                }
+                all_registers_cvsff[week_dates] = {
+                    "found": int(
+                        found_cvssf.to_integral_exact(rounding=ROUND_CEILING)
+                    ),
+                    "closed": int(
+                        result_vulns_by_week.closed_cvssf.to_integral_exact(
+                            rounding=ROUND_CEILING
+                        )
+                    ),
+                    "accepted": int(
+                        result_vulns_by_week.accepted_cvssf.to_integral_exact(
+                            rounding=ROUND_CEILING
+                        )
+                    ),
+                    "assumed_closed": int(
+                        (
+                            result_vulns_by_week.accepted_cvssf
+                            + result_vulns_by_week.closed_cvssf
+                        ).to_integral_exact(rounding=ROUND_CEILING)
+                    ),
+                    "opened": int(
+                        (
+                            found_cvssf
+                            - result_vulns_by_week.closed_cvssf
+                            - result_vulns_by_week.accepted_cvssf
+                        ).to_integral_exact(rounding=ROUND_CEILING)
+                    ),
                 }
             first_day = datetime_utils.get_as_str(
                 datetime_utils.get_plus_delta(
@@ -169,7 +207,10 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
                     datetime_utils.get_from_str(last_day), days=7
                 )
             )
-    return create_data_format_chart(all_registers)
+    return RegisterByWeek(
+        vulnerabilities=create_data_format_chart(all_registers),
+        vulnerabilities_cvssf=create_data_format_chart(all_registers_cvsff),
+    )
 
 
 def create_weekly_date(first_date: str) -> str:
@@ -323,21 +364,33 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
         max_open_severity,
         max_open_severity_finding,
     ) = await findings_domain.get_max_open_severity(context, findings)
-    remediated_over_time = await create_register_by_week(context, group)
-    remediated_over_thirty_days = await create_register_by_week(
-        context,
-        group,
-        datetime.combine(
-            datetime_utils.get_now_minus_delta(days=30), datetime.min.time()
-        ),
+
+    (
+        remediated_over_time,
+        remediated_over_thirty_days,
+        remediated_over_ninety_days,
+    ) = await collect(
+        [
+            create_register_by_week(context, group),
+            create_register_by_week(
+                context,
+                group,
+                datetime.combine(
+                    datetime_utils.get_now_minus_delta(days=30),
+                    datetime.min.time(),
+                ),
+            ),
+            create_register_by_week(
+                context,
+                group,
+                datetime.combine(
+                    datetime_utils.get_now_minus_delta(days=90),
+                    datetime.min.time(),
+                ),
+            ),
+        ]
     )
-    remediated_over_ninety_days = await create_register_by_week(
-        context,
-        group,
-        datetime.combine(
-            datetime_utils.get_now_minus_delta(days=90), datetime.min.time()
-        ),
-    )
+
     (
         remediate_critical,
         remediate_high,
@@ -377,9 +430,18 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
         "total_treatment": await findings_domain.get_total_treatment(
             context, findings
         ),
-        "remediated_over_time": remediated_over_time,
-        "remediated_over_time_30": remediated_over_thirty_days,
-        "remediated_over_time_90": remediated_over_ninety_days,
+        "remediated_over_time": remediated_over_time.vulnerabilities,
+        "remediated_over_time_cvssf": (
+            remediated_over_time.vulnerabilities_cvssf
+        ),
+        "remediated_over_time_30": remediated_over_thirty_days.vulnerabilities,
+        "remediated_over_time_cvssf_30": (
+            remediated_over_thirty_days.vulnerabilities_cvssf
+        ),
+        "remediated_over_time_90": remediated_over_ninety_days.vulnerabilities,
+        "remediated_over_time_cvssf_90": (
+            remediated_over_ninety_days.vulnerabilities_cvssf
+        ),
     }
     return indicators
 

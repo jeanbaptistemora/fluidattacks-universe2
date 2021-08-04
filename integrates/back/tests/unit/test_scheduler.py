@@ -185,8 +185,8 @@ async def test_create_register_by_week() -> None:
     test_data = await update_indicators.create_register_by_week(
         context, group_name
     )
-    assert isinstance(test_data, list)
-    for item in test_data:
+    assert isinstance(test_data.vulnerabilities, list)
+    for item in test_data.vulnerabilities:
         assert isinstance(item, list)
         assert isinstance(item[0], dict)
         assert item[0] is not None
@@ -255,7 +255,7 @@ async def test_get_group_indicators() -> None:
     accepted = over_time[2][-1]["y"]
 
     assert isinstance(test_data, dict)
-    assert len(test_data) == 16
+    assert len(test_data) == 19
     assert test_data["max_open_severity"] == Decimal(6.3).quantize(
         Decimal("0.1")
     )
