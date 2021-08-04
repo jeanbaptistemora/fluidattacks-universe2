@@ -791,5 +791,59 @@
       NERC CIP v5 Standards.
   es:
     description: __empty__
-  definitions: {}    
+  definitions:
+    "003-8_3.1":
+      title: Only necessary inbound and outbound electronic access
+      link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-003-8.pdf
+    "003-8_3.2":
+      title: Authenticate all Dial up Connectivity
+      link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-003-8.pdf
+    "003-8_5.1":
+      title: For Transient Cyber Assets
+      link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-003-8.pdf
+    "004-6_R5":
+      title: Access revocation program
+      link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-004-6.pdf
+    "005-5_R1.3":
+      title: Electronic Access Points
+      link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf
+    "005-5_R1.4":
+      title: Perform authentication when establishing Dial-up Connectivity
+      link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf
+    "005-5_R1.5":
+      title: Methods for detecting known or suspected malicious communications
+      link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf
+    "005-5_R2.2":
+      title: Utilize encryption that terminates at an Intermediate System
+      link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf
+    "007-6_R1.1":
+      title: Enable only logical network accessible ports
+      link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
+    "007-6_R3.1":
+      title: Methods to deter, detect, or prevent malicious code
+      link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
+    "007-6_R4.1":
+      title: Log events at the BES Cyber System level
+      link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
+    "007-6_R5.1":
+      title: Methods to enforce authentication of interactive user access
+      link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
+    "007-6_R5.4":
+      title: Change known default passwords
+      link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
+    "007-6_R5.5":
+      title: Password length and complexity
+      link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
+    "007-6_R5.6":
+      title: Enforce password changes
+      link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
+    "007-6_R5.7":
+      title: Limit authentication attempts
+      link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
+    "011-2_R1.2":
+      title: Procedures for protecting and securely handling BES Cyber System Information
+      link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-011-2.pdf
+    "011-2_R2.1":
+      title: Prevent the unauthorized retrieval of BES Cyber System Information
+      link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-011-2.pdf
   metadata: {}
