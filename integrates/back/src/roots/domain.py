@@ -14,6 +14,9 @@ from custom_exceptions import (
     RepeatedValues,
     RootNotFound,
 )
+from db_model import (
+    roots as roots_model,
+)
 from dynamodb.types import (
     GitRootCloning,
     GitRootItem,
@@ -221,7 +224,7 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
             status="ACTIVE",
         ),
     )
-    await roots_dal.create_root(root=root)
+    await roots_model.add(root=root)
 
     if kwargs["includes_health_check"]:
         await _notify_health_check(
@@ -263,7 +266,7 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
             status="ACTIVE",
         ),
     )
-    await roots_dal.create_root(root=root)
+    await roots_model.add(root=root)
 
 
 async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
@@ -307,7 +310,7 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
             status="ACTIVE",
         ),
     )
-    await roots_dal.create_root(root=root)
+    await roots_model.add(root=root)
 
 
 def _get_nickname_from_url(url: str) -> str:

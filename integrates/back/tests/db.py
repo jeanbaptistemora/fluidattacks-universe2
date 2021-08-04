@@ -15,6 +15,7 @@ from data_containers.toe_lines import (
 )
 from db_model import (
     findings,
+    roots as roots_model,
     vulnerabilities,
 )
 from decimal import (
@@ -57,9 +58,6 @@ from organizations import (
 )
 from organizations_finding_policies import (
     dal as dal_policies,
-)
-from roots import (
-    dal as dal_roots,
 )
 from toe.inputs import (
     dal as dal_toe_inputs,
@@ -314,7 +312,7 @@ async def populate_vulnerabilities(data: List[Any]) -> bool:
 
 
 async def populate_roots(data: Tuple[RootItem, ...]) -> bool:
-    await collect(tuple(dal_roots.create_root(root=root) for root in data))
+    await collect(tuple(roots_model.add(root=root) for root in data))
 
     return True
 

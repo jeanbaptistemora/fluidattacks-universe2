@@ -17,6 +17,9 @@ from boto3.dynamodb.conditions import (
 from datetime import (
     timezone,
 )
+from db_model import (
+    roots as roots_model,
+)
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
@@ -145,7 +148,7 @@ async def _migrate_root(legacy_root: Dict[str, Any]) -> None:
         ),
     )
 
-    await roots_dal.create_root(root=root)
+    await roots_model.add(root=root)
     await _migrate_cloning(group_name, root_id, legacy_root)
     await _migrate_state(group_name, root_id, legacy_root)
 

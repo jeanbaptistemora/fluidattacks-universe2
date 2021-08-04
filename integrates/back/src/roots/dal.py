@@ -30,10 +30,6 @@ logging.config.dictConfig(LOGGING)
 LOGGER: logging.Logger = logging.getLogger(__name__)
 
 
-async def create_root(*, root: RootItem) -> None:
-    await model.add_root(root=root)
-
-
 async def get_root(*, group_name: str, root_id: str) -> Optional[RootItem]:
     return await model.get_root(group_name=group_name, root_id=root_id)
 
