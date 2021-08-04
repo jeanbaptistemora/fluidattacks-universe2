@@ -55,6 +55,11 @@
       when: never
     - when: always
 
+/docs/generate/criteria:
+  <<: *makes4
+  <<: *makes_in_dev_branch
+  stage: build
+
 makes.ci.config:
   <<: *makes
   <<: *makes_in_master_branch

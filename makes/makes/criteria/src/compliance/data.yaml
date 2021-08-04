@@ -88,7 +88,7 @@
       link: https://capec.mitre.org/data/definitions/19.html
     "20":
       title: Encryption Brute Forcing
-      link: https://capec.mitre.org/data/definitions/20.html   
+      link: https://capec.mitre.org/data/definitions/20.html
     "21":
       title: Exploitation of Trusted Identifiers
       link: https://capec.mitre.org/data/definitions/21.html
@@ -250,7 +250,7 @@
       link: https://capec.mitre.org/data/definitions/216.html
     "224":
       title: Fingerprinting
-      link: https://capec.mitre.org/data/definitions/224.html          
+      link: https://capec.mitre.org/data/definitions/224.html
     "227":
       title: Sustained Client Engagement
       link: https://capec.mitre.org/data/definitions/227.html
@@ -455,7 +455,7 @@
       link: https://www.cisecurity.org/controls/
     "20.8":
       title: Control and Monitor Accounts Associated With Penetration Testing
-      link: https://www.cisecurity.org/controls/    
+      link: https://www.cisecurity.org/controls/
   metadata: {}
 "004":
   title: CWE
@@ -471,7 +471,7 @@
       The version used in this section is CWE List v4.4.
   es:
     description: __empty__
-  definitions: __empty__
+  definitions: {}
   metadata: {}
 "005":
   title: ePrivacy Directive
@@ -508,7 +508,7 @@
   title: GDPR
   en:
     description: >
-      This Regulation lays down rules relating 
+      This Regulation lays down rules relating
       to the protection of natural persons
       with regard to the processing
       of personal data and rules relating
@@ -594,7 +594,7 @@
       title: Notification of a personal data breach to the supervisory authority.(5)
       link: https://gdpr-info.eu/art-33-gdpr/
     "89_2":
-      title: > 
+      title: >
         Safeguards and derogations relating
         to processing for archiving purposes
         in the public interest, scientific
@@ -602,7 +602,7 @@
         or statistical purposes.(2)
       link: https://gdpr-info.eu/art-89-gdpr/
     "89_3":
-      title: > 
+      title: >
         Safeguards and derogations relating
         to processing for archiving purposes
         in the public interest,
@@ -649,5 +649,5 @@
       is HIPAA Rules 2013 update.
   es:
     description: __empty__
-  definitions: __empty__
+  definitions: {}
   metadata: {}

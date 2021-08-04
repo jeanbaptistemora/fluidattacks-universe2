@@ -58,7 +58,7 @@
       del sistema, sus usuarios
       y la información que contiene.
   references:
-    - "001.227"
+    - "002.227"
   metadata: {}
 "024":
   en:
@@ -5324,7 +5324,7 @@
   es:
     title: Notificar cambios a terceros
     summary: >
-      
+
     description: >
       Los sistemas suelen solicitar información
       de sus usuarios,
@@ -5342,7 +5342,7 @@
       para que ellos hagan lo mismo.
       Este también es el caso
       cuando el usuario solicita
-      que el sistema deje de procesar sus datos. 
+      que el sistema deje de procesar sus datos.
   references: []
   metadata: {}
 "319":
@@ -5364,7 +5364,7 @@
     summary: >
       Todas las vías de autenticación del sistema
       y API de gestión de identidad
-      deben ser igualmente seguros. 
+      deben ser igualmente seguros.
     description: >
       Algunos sistemas ofrecen más de una opción
       para autenticar a sus usuarios
@@ -5372,7 +5372,7 @@
       Todas estas opciones deben tener
       la misma fortaleza
       en el control de seguridad,
-      para que no haya una alternativa más débil. 
+      para que no haya una alternativa más débil.
   references: []
   metadata: {}
 "320":
@@ -5492,7 +5492,7 @@
     summary: >
       El sistema no debe almacenar
       información innecesaria
-      al registrar eventos excepcionales. 
+      al registrar eventos excepcionales.
     description: >
       Si bien el registro de eventos
       es generalmente una buena práctica
@@ -5703,7 +5703,7 @@
       si el dispositivo está rooteado
       e informar al usuario
       sobre los riesgos asociados,
-      o evitar su propia ejecución. 
+      o evitar su propia ejecución.
   references: []
   metadata: {}
 "327":
@@ -5873,7 +5873,7 @@
       la integridad de dichos activos
       utilizando la integridad de SubreSource (SRI),
       en caso de que los sistemas
-      estén comprometidos. 
+      estén comprometidos.
   references: []
   metadata: {}
 "331":
@@ -6007,7 +6007,7 @@
       y la autenticación basada
       en el conocimiento,
       como las preguntas secretas,
-      no deben habilitarse. 
+      no deben habilitarse.
     description: >
       Las sugerencias de contraseña
       a menudo ofrecen suficiente
@@ -6023,7 +6023,7 @@
       estos mecanismos no deben ser parte
       del proceso de autenticación
       y tampoco deben usarse en el proceso
-      de recuperación de contraseña. 
+      de recuperación de contraseña.
   references: []
   metadata: {}
 "335":
@@ -6259,7 +6259,7 @@
       El sistema no debe almacenar
       archivos cargados por el usuario
       ni archivos que contienen
-      información confidencial en la raíz web. 
+      información confidencial en la raíz web.
     description: >
       La raíz web es el directorio
       superior en un servidor web.
@@ -7305,7 +7305,7 @@
     title: Uso de relleno GCM con AES
     summary: >
       El cifrado simétrico AES
-      debe usarse solo con relleno GCM. 
+      debe usarse solo con relleno GCM.
     description: __empty__
   references: []
   metadata: {}
