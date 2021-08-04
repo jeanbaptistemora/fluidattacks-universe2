@@ -43,7 +43,6 @@ from newutils import (
     token as token_utils,
     vulnerabilities as vulns_utils,
 )
-import random
 from typing import (
     Any,
     cast,
@@ -53,6 +52,7 @@ from typing import (
     Set,
     Tuple,
 )
+import uuid
 from vulnerabilities import (
     domain as vulns_domain,
 )
@@ -159,8 +159,7 @@ async def approve_draft_new(
 async def add_draft(
     info: GraphQLResolveInfo, group_name: str, title: str, **kwargs: Any
 ) -> bool:
-    last_fs_id = 550000000
-    finding_id = str(random.randint(last_fs_id, 1000000000))
+    finding_id = str(uuid.uuid4())
     group_name = group_name.lower()
     creation_date = datetime_utils.get_now_as_str()
     user_data = cast(UserType, await token_utils.get_jwt_content(info.context))
@@ -204,8 +203,7 @@ async def add_draft_new(
         raise InvalidDraftTitle()
 
     group_name = group_name.lower()
-    last_fs_id = 550000000
-    finding_id = str(random.randint(last_fs_id, 1000000000))
+    finding_id = str(uuid.uuid4())
     draft = Finding(
         affected_systems=kwargs.get("affected_systems", ""),
         analyst_email=user_email,
