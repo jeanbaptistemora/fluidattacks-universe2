@@ -2,9 +2,6 @@
 from _pytest.monkeypatch import (
     MonkeyPatch,
 )
-from aioextensions import (
-    collect,
-)
 from collections import (
     OrderedDict,
 )
@@ -79,23 +76,24 @@ pytestmark = [
 
 
 async def test_get_status_vulns_by_time_range() -> None:
-    released_findings = await get_findings_by_group("UNITTESTING")
     first_day = "2019-01-01 12:00:00"
     last_day = "2019-06-30 23:59:59"
     context = get_new_context()
+    findings = await context.group_findings.load("unittesting")
     vulns = await list_vulnerabilities_async(
-        [str(finding["finding_id"]) for finding in released_findings],
+        [str(finding["finding_id"]) for finding in findings],
         include_confirmed_zero_risk=True,
         include_requested_zero_risk=True,
     )
-    vulnerabilities_severity = await collect(
-        [
-            update_indicators.get_severity(
-                context=context, vulnerability=vulnerability
-            )
-            for vulnerability in vulns
-        ]
-    )
+    findings_dict = {
+        str(finding["finding_id"]): finding for finding in findings
+    }
+    vulnerabilities_severity = [
+        update_indicators.get_severity(
+            findings_dict=findings_dict, vulnerability=vulnerability
+        )
+        for vulnerability in vulns
+    ]
     historic_states = [
         findings_utils.sort_historic_by_date(vulnerability["historic_state"])
         for vulnerability in vulns
@@ -125,21 +123,22 @@ def test_create_weekly_date() -> None:
 
 async def test_get_accepted_vulns() -> None:
     context = get_new_context()
-    released_findings = await get_findings_by_group("UNITTESTING")
     last_day = "2019-06-30 23:59:59"
+    findings = await context.group_findings.load("unittesting")
+    findings_dict = {
+        str(finding["finding_id"]): finding for finding in findings
+    }
     vulns = await list_vulnerabilities_async(
-        [str(finding["finding_id"]) for finding in released_findings],
+        [str(finding["finding_id"]) for finding in findings],
         include_confirmed_zero_risk=True,
         include_requested_zero_risk=True,
     )
-    vulnerabilities_severity = await collect(
-        [
-            update_indicators.get_severity(
-                context=context, vulnerability=vulnerability
-            )
-            for vulnerability in vulns
-        ]
-    )
+    vulnerabilities_severity = [
+        update_indicators.get_severity(
+            findings_dict=findings_dict, vulnerability=vulnerability
+        )
+        for vulnerability in vulns
+    ]
     vulnerabilities_historic_states = [
         findings_utils.sort_historic_by_date(vulnerability["historic_state"])
         for vulnerability in vulns
@@ -163,9 +162,13 @@ async def test_get_accepted_vulns() -> None:
 async def test_get_by_time_range() -> None:
     context = get_new_context()
     last_day = "2020-09-09 23:59:59"
+    findings = await context.group_findings.load("unittesting")
+    findings_dict = {
+        str(finding["finding_id"]): finding for finding in findings
+    }
     vuln = await get_vuln("80d6a69f-a376-46be-98cd-2fdedcffdcc0")
-    vulnerability_severity = await update_indicators.get_severity(
-        context=context, vulnerability=vuln[0]
+    vulnerability_severity = update_indicators.get_severity(
+        findings_dict=findings_dict, vulnerability=vuln[0]
     )
     test_data = update_indicators.get_by_time_range(
         findings_utils.sort_historic_by_date(vuln[0]["historic_state"]),
@@ -252,7 +255,7 @@ async def test_get_group_indicators() -> None:
     accepted = over_time[2][-1]["y"]
 
     assert isinstance(test_data, dict)
-    assert len(test_data) == 17
+    assert len(test_data) == 16
     assert test_data["max_open_severity"] == Decimal(6.3).quantize(
         Decimal("0.1")
     )

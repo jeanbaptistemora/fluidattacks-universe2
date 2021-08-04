@@ -86,15 +86,19 @@ def create_data_format_chart(
     return result_data
 
 
-async def get_severity(
-    *, context: Any, vulnerability: Dict[str, FindingType]
+def get_severity(
+    *,
+    findings_dict: Dict[str, Dict[str, FindingType]],
+    vulnerability: Dict[str, FindingType],
 ) -> Decimal:
-    finding = await context.finding.load(str(vulnerability["finding_id"]))
+    return Decimal(
+        findings_dict[str(vulnerability["finding_id"])].get(
+            "cvss_temporal", 0.0
+        )
+    )
 
-    return Decimal(finding["severity_score"])
 
-
-async def create_register_by_week(
+async def create_register_by_week(  # pylint: disable=too-many-locals
     context: Any, group: str, min_date: Optional[datetime] = None
 ) -> List[List[Dict[str, Union[str, int]]]]:
     """Create weekly vulnerabilities registry by group"""
@@ -103,18 +107,19 @@ async def create_register_by_week(
     found = 0
     all_registers = OrderedDict()
 
+    findings: List[Dict[str, FindingType]] = await context.group_findings.load(
+        group
+    )
     vulns = await context.finding_vulns_nzr.load_many_chained(
-        [
-            finding["finding_id"]
-            for finding in await context.group_findings.load(group)
-        ]
+        [finding["finding_id"] for finding in findings]
     )
-    vulnerabilities_severity = await collect(
-        [
-            get_severity(context=context, vulnerability=vulnerability)
-            for vulnerability in vulns
-        ]
-    )
+    findings_dict: Dict[str, Dict[str, FindingType]] = {
+        str(finding["finding_id"]): finding for finding in findings
+    }
+    vulnerabilities_severity = [
+        get_severity(findings_dict=findings_dict, vulnerability=vulnerability)
+        for vulnerability in vulns
+    ]
     historic_states = [
         findings_utils.sort_historic_by_date(vulnerability["historic_state"])
         for vulnerability in vulns
@@ -356,9 +361,6 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
         "last_closing_vuln_finding": last_closing_vuln.get("finding_id", ""),
         "mean_remediate": await groups_domain.get_mean_remediate(
             context, group
-        ),
-        "mean_remediate_non_treated": (
-            await groups_domain.get_mean_remediate_non_treated(context, group)
         ),
         "mean_remediate_critical_severity": remediate_critical,
         "mean_remediate_high_severity": remediate_high,
