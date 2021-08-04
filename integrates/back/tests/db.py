@@ -18,12 +18,14 @@ from db_model import (
     roots as roots_model,
     vulnerabilities,
 )
+from db_model.roots.types import (
+    RootItem,
+)
 from decimal import (
     Decimal,
 )
 from dynamodb.types import (
     OrgFindingPolicyItem,
-    RootItem,
 )
 from events import (
     dal as dal_event,

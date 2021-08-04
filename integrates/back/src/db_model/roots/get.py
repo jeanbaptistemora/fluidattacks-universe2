@@ -7,12 +7,7 @@ from collections import (
 from db_model import (
     TABLE,
 )
-from dynamodb import (
-    historics,
-    keys,
-    operations,
-)
-from dynamodb.types import (
+from db_model.roots.types import (
     GitRootCloning,
     GitRootItem,
     GitRootMetadata,
@@ -20,12 +15,19 @@ from dynamodb.types import (
     IPRootItem,
     IPRootMetadata,
     IPRootState,
-    Item,
-    PrimaryKey,
     RootItem,
     URLRootItem,
     URLRootMetadata,
     URLRootState,
+)
+from dynamodb import (
+    historics,
+    keys,
+    operations,
+)
+from dynamodb.types import (
+    Item,
+    PrimaryKey,
 )
 from typing import (
     Optional,

@@ -4,15 +4,15 @@ from boto3.dynamodb.conditions import (
 from db_model import (
     roots as roots_model,
 )
-from dynamodb import (
-    operations_legacy as dynamodb_ops,
-)
-from dynamodb.types import (
+from db_model.roots.types import (
     GitRootCloning,
     GitRootState,
     IPRootState,
     RootItem,
     URLRootState,
+)
+from dynamodb import (
+    operations_legacy as dynamodb_ops,
 )
 import logging
 import logging.config

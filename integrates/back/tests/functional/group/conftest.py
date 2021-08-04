@@ -1,7 +1,7 @@
 from back.tests import (
     db,
 )
-from dynamodb.types import (
+from db_model.roots.types import (
     GitRootCloning,
     GitRootItem,
     GitRootMetadata,

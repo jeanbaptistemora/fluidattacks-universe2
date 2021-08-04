@@ -1,14 +1,14 @@
 from db_model import (
     TABLE,
 )
+from db_model.roots.types import (
+    GitRootItem,
+    RootItem,
+)
 from dynamodb import (
     historics,
     keys,
     operations,
-)
-from dynamodb.types import (
-    GitRootItem,
-    RootItem,
 )
 
 

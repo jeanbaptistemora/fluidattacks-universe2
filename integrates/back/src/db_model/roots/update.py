@@ -1,15 +1,15 @@
 from db_model import (
     TABLE,
 )
-from dynamodb import (
-    historics,
-    operations,
-)
-from dynamodb.types import (
+from db_model.roots.types import (
     GitRootCloning,
     GitRootState,
     IPRootState,
     URLRootState,
+)
+from dynamodb import (
+    historics,
+    operations,
 )
 from typing import (
     Union,

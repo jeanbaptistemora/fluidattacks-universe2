@@ -16,7 +16,7 @@ from custom_exceptions import (
 from db_model import (
     roots as roots_model,
 )
-from dynamodb.types import (
+from db_model.roots.types import (
     GitRootCloning,
     GitRootItem,
     GitRootMetadata,

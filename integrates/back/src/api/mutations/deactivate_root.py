@@ -7,17 +7,17 @@ from custom_exceptions import (
 from custom_types import (
     SimplePayload,
 )
+from db_model.roots.types import (
+    GitRootItem,
+    IPRootItem,
+    URLRootItem,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_login,
     require_service_black,
     require_service_white,
-)
-from dynamodb.types import (
-    GitRootItem,
-    IPRootItem,
-    URLRootItem,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,

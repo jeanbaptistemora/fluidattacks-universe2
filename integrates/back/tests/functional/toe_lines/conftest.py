@@ -4,7 +4,7 @@ from back.tests import (
 from data_containers.toe_lines import (
     GitRootToeLines,
 )
-from dynamodb.types import (
+from db_model.roots.types import (
     GitRootCloning,
     GitRootItem,
     GitRootMetadata,

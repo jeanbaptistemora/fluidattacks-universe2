@@ -18,14 +18,14 @@ from db_model.findings.types import (
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
 )
-from decimal import (
-    Decimal,
-)
-from dynamodb.types import (
+from db_model.roots.types import (
     GitRootCloning,
     GitRootItem,
     GitRootMetadata,
     GitRootState,
+)
+from decimal import (
+    Decimal,
 )
 import pytest
 from typing import (

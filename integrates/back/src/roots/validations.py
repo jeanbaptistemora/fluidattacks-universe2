@@ -2,7 +2,7 @@ from custom_exceptions import (
     InvalidChar,
     RepeatedRootNickname,
 )
-from dynamodb.types import (
+from db_model.roots.types import (
     GitRootItem,
     IPRootItem,
     RootItem,
