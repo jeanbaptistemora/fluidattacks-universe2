@@ -517,5 +517,53 @@
       is GDPR - OJ L 119, 4.5.2016.
   es:
     description: __empty__
-  definitions: __empty__
+  definitions:
+    "5_1e":
+      title: Principles relating to processing of personal data.(1)(e)
+      link: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679
+    "5_1f":
+      title: Principles relating to processing of personal data.(1)(f)
+      link: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679
+    "7_1":
+      title: Conditions for consent.(1)
+      link: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679
+    "7_3":
+      title: Conditions for consent.(3)
+      link: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679
+    "11_2":
+      title: Processing which does not require identification.(2)
+      link: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679
+    "13_1_3":
+      title: >
+        Information to be provided
+        where personal data are collected
+        from the data subject.(1-3)
+      link: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679
+    "14_1_4":
+      title: >
+        Information to be provided
+        where personal data have not been
+        obtained from the data subject.(1-4)
+      link: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679
+    "15_1ag":
+      title: Right of access by the data subject.(1)(a-g)
+      link: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679
+    "15_1":
+      title: Right of access by the data subject.(1)
+      link: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679
+    "16_1":
+      title: Right to rectification.(1)
+      link: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679
+    "17_1":
+      title: Right to erasure (‘right to be forgotten').(1)
+      link: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679
+    "18_1":
+      title: Right to restriction of processing.(1)
+      link: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679
+    "19":
+      title: >
+        Notification obligation regarding
+        rectification or erasure of personal data
+        or restriction of processing
+      link: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679
   metadata: {}
