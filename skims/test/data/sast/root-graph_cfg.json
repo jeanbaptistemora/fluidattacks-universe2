@@ -51925,6 +51925,14 @@
               "label_ast": "AST",
               "label_index": "7"
             },
+            "1215": {
+              "label_ast": "AST",
+              "label_index": "73"
+            },
+            "1232": {
+              "label_ast": "AST",
+              "label_index": "74"
+            },
             "143": {
               "label_ast": "AST",
               "label_index": "8"
@@ -53069,11 +53077,9 @@
           "1171": {
             "1172": {
               "label_ast": "AST",
-              "label_index": "0"
-            },
-            "1181": {
               "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
+              "label_cfg_always": "cfg_always",
+              "label_index": "0"
             },
             "1214": {
               "label_ast": "AST",
@@ -53088,6 +53094,10 @@
             "1177": {
               "label_ast": "AST",
               "label_index": "1"
+            },
+            "1181": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             }
           },
           "1173": {
@@ -53201,10 +53211,6 @@
             }
           },
           "1194": {
-            "1172": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
-            },
             "1195": {
               "label_ast": "AST",
               "label_index": "0"
@@ -53212,6 +53218,10 @@
             "1199": {
               "label_ast": "AST",
               "label_index": "1"
+            },
+            "1215": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             }
           },
           "1195": {
@@ -53298,6 +53308,66 @@
               "label_index": "2"
             }
           },
+          "1215": {
+            "1216": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "0"
+            }
+          },
+          "1216": {
+            "1217": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1228": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1232": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "1217": {
+            "1218": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1226": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1227": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "1218": {
+            "1219": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1223": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "1219": {
+            "1220": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1221": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1222": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
           "122": {
             "123": {
               "label_ast": "AST",
@@ -53308,6 +53378,80 @@
               "label_index": "1"
             },
             "125": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "1223": {
+            "1224": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1225": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "1228": {
+            "1229": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1230": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1231": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "1232": {
+            "1233": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "0"
+            },
+            "1242": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "1233": {
+            "1234": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1238": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "1234": {
+            "1235": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1236": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1237": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "1238": {
+            "1239": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1240": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1241": {
               "label_ast": "AST",
               "label_index": "2"
             }
@@ -59524,14 +59668,165 @@
             "label_text": ";",
             "label_type": ";"
           },
+          "1215": {
+            "label_c": 1,
+            "label_l": 245,
+            "label_type": "expression_statement"
+          },
+          "1216": {
+            "label_c": 1,
+            "label_field_arguments": "1228",
+            "label_field_function": "1217",
+            "label_l": 245,
+            "label_type": "call_expression"
+          },
+          "1217": {
+            "label_c": 1,
+            "label_field_object": "1218",
+            "label_field_property": "1227",
+            "label_l": 245,
+            "label_type": "member_expression"
+          },
+          "1218": {
+            "label_c": 1,
+            "label_field_arguments": "1223",
+            "label_field_function": "1219",
+            "label_l": 245,
+            "label_type": "call_expression"
+          },
+          "1219": {
+            "label_c": 1,
+            "label_field_object": "1220",
+            "label_field_property": "1222",
+            "label_l": 245,
+            "label_type": "member_expression"
+          },
           "122": {
             "label_c": 4,
             "label_l": 24,
             "label_type": "parenthesized_expression"
           },
+          "1220": {
+            "label_c": 1,
+            "label_l": 245,
+            "label_text": "express",
+            "label_type": "identifier"
+          },
+          "1221": {
+            "label_c": 8,
+            "label_l": 245,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "1222": {
+            "label_c": 9,
+            "label_l": 245,
+            "label_text": "Router",
+            "label_type": "property_identifier"
+          },
+          "1223": {
+            "label_c": 15,
+            "label_l": 245,
+            "label_type": "arguments"
+          },
+          "1224": {
+            "label_c": 15,
+            "label_l": 245,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "1225": {
+            "label_c": 16,
+            "label_l": 245,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "1226": {
+            "label_c": 17,
+            "label_l": 245,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "1227": {
+            "label_c": 18,
+            "label_l": 245,
+            "label_text": "call",
+            "label_type": "property_identifier"
+          },
+          "1228": {
+            "label_c": 22,
+            "label_l": 245,
+            "label_type": "arguments"
+          },
+          "1229": {
+            "label_c": 22,
+            "label_l": 245,
+            "label_text": "(",
+            "label_type": "("
+          },
           "123": {
             "label_c": 4,
             "label_l": 24,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "1230": {
+            "label_c": 23,
+            "label_l": 245,
+            "label_text": "'/users'",
+            "label_type": "string"
+          },
+          "1231": {
+            "label_c": 31,
+            "label_l": 245,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "1232": {
+            "label_c": 1,
+            "label_l": 246,
+            "label_type": "expression_statement"
+          },
+          "1233": {
+            "label_c": 1,
+            "label_field_arguments": "1238",
+            "label_field_function": "1234",
+            "label_l": 246,
+            "label_type": "call_expression"
+          },
+          "1234": {
+            "label_c": 1,
+            "label_field_object": "1235",
+            "label_field_property": "1237",
+            "label_l": 246,
+            "label_type": "member_expression"
+          },
+          "1235": {
+            "label_c": 1,
+            "label_l": 246,
+            "label_text": "console",
+            "label_type": "identifier"
+          },
+          "1236": {
+            "label_c": 8,
+            "label_l": 246,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "1237": {
+            "label_c": 9,
+            "label_l": 246,
+            "label_text": "log",
+            "label_type": "property_identifier"
+          },
+          "1238": {
+            "label_c": 12,
+            "label_l": 246,
+            "label_type": "arguments"
+          },
+          "1239": {
+            "label_c": 12,
+            "label_l": 246,
             "label_text": "(",
             "label_type": "("
           },
@@ -59540,6 +59835,24 @@
             "label_l": 24,
             "label_text": "true",
             "label_type": "true"
+          },
+          "1240": {
+            "label_c": 13,
+            "label_l": 246,
+            "label_text": "'hello'",
+            "label_type": "string"
+          },
+          "1241": {
+            "label_c": 20,
+            "label_l": 246,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "1242": {
+            "label_c": 21,
+            "label_l": 246,
+            "label_text": ";",
+            "label_type": ";"
           },
           "125": {
             "label_c": 9,
@@ -66508,6 +66821,91 @@
             "n_id_false": null,
             "n_id_true": "126",
             "type": "SyntaxStepIf"
+          }
+        ],
+        "1215": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1215",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1216": [
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1218",
+              "value": null
+            },
+            "method": "express.Router",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1230",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "/users",
+            "value_type": "string"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "1216",
+              "value": null
+            },
+            "method": "call",
+            "type": "SyntaxStepMethodInvocationChain"
+          }
+        ],
+        "1232": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1232",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "1233": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1240",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "hello",
+            "value_type": "string"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1233",
+              "value": null
+            },
+            "method": "console.log",
+            "type": "SyntaxStepMethodInvocation"
           }
         ],
         "126": [

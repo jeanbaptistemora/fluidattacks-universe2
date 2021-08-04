@@ -60,6 +60,7 @@ def _build_nested_identifier_ids_js(
         "property_identifier",
         "call_expression",
         ".",
+        "arguments",
     )
     if identifiers := match_access["property_identifier"]:
         keys = [*identifiers, *keys]

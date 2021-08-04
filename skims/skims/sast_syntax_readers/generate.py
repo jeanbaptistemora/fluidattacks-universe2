@@ -645,6 +645,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "floating_point_type",
             "nil",
             "null_literal",
+            "null",
             "raw_string_literal",
             "real_literal",
             "string_literal",
