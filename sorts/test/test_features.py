@@ -54,7 +54,7 @@ def test_extract_file_features(test_clone_repo: str) -> None:
     assert training_df[FILE_FEATURES].values.tolist() == [
         [
             137,
-            55,
+            53,
             file_ages[0],
             25,
             0,
@@ -66,7 +66,7 @@ def test_extract_file_features(test_clone_repo: str) -> None:
         ],
         [
             116,
-            49,
+            48,
             file_ages[1],
             12,
             0,
@@ -78,7 +78,7 @@ def test_extract_file_features(test_clone_repo: str) -> None:
         ],
         [
             46,
-            21,
+            19,
             file_ages[2],
             7,
             0,
@@ -90,7 +90,7 @@ def test_extract_file_features(test_clone_repo: str) -> None:
         ],
         [
             323,
-            105,
+            102,
             file_ages[3],
             46,
             0,
@@ -102,7 +102,7 @@ def test_extract_file_features(test_clone_repo: str) -> None:
         ],
         [
             251,
-            95,
+            90,
             file_ages[4],
             44,
             0,

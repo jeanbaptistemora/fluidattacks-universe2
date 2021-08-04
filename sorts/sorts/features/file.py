@@ -84,7 +84,7 @@ def get_features(row: Series, logs_dir: str) -> FileFeatures:
     num_lines: int = -1
     risky_commits: int = -1
     seldom_contributors: int = -1
-    unique_authors: Set[str] = set()
+    unique_authors: List[str] = []
     extension: str = ""
     try:
         repo_path: str = row["repo"]
@@ -194,10 +194,18 @@ def get_seldom_contributors(git_metrics: GitMetrics) -> int:
 
 
 # TODO: use mailmaps to filter possible noise due to bad git management
-def get_unique_authors(git_metrics: GitMetrics) -> Set[str]:
-    """Gets the number of unique authors that modified a file"""
-    authors_history: List[str] = git_metrics["author_email"]
-    return set(authors_history)
+def get_unique_authors(git_metrics: GitMetrics) -> List[str]:
+    """Gets the list of unique authors that modified a file"""
+    authors_history: List[str] = list(set(git_metrics["author_email"]))
+    authors_history_names: List[str] = [
+        author.split("@")[0] for author in authors_history
+    ]
+    for index, author_name in enumerate(authors_history_names):
+        if authors_history_names.count(author_name) > 1:
+            del authors_history[index]
+            del authors_history_names[index]
+
+    return authors_history
 
 
 def extract_features(training_df: DataFrame) -> bool:
