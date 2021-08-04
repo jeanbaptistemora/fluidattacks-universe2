@@ -634,3 +634,20 @@
       title: Identity verification
       link: https://gdpr-info.eu/recitals/no-64/
   metadata: {}
+"007":
+  title: HIPAA
+  en:
+    description: >
+      The Health Insurance Portability
+      and Accountability Act of 1996
+      required the Secretary of the
+      U.S. Department of Health and Human Services (HHS)
+      to develop regulations
+      protecting the privacy and security
+      of certain health information.
+      The version used in this section
+      is HIPAA Rules 2013 update.
+  es:
+    description: __empty__
+  definitions: __empty__
+  metadata: {}
