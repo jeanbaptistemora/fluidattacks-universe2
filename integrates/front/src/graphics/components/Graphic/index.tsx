@@ -24,9 +24,9 @@ import React, {
   useState,
 } from "react";
 
-import { DaysLabel } from "./helpers";
-
 import { Modal } from "components/Modal";
+import { DropdownFilter } from "graphics/components/Graphic/filter";
+import { DaysLabel, DocumentMerged } from "graphics/components/Graphic/helpers";
 import styles from "graphics/components/Graphic/index.css";
 import type { IGraphicProps } from "graphics/types";
 import {
@@ -41,6 +41,18 @@ import {
 import type { ISecureStoreConfig } from "utils/secureStore";
 import { secureStoreContext } from "utils/secureStore";
 import { translate } from "utils/translations/translate";
+
+interface IDocumentValues {
+  label: string;
+  tooltip: string;
+  url: string;
+}
+interface IMergedCharts {
+  alt: IDocumentValues;
+  default: IDocumentValues;
+  documentName: string;
+  documentType: string;
+}
 
 const glyphPadding: number = 15;
 const fontSize: number = 16;
@@ -60,6 +72,24 @@ const allowedDocumentTypes: string[] = [
   "stackedBarChart",
   "textBox",
 ];
+const mergedDocuments: Record<string, IMergedCharts> = {
+  meanTimeToRemediate: {
+    alt: {
+      label: "Non treated",
+      tooltip: translate.t(
+        "analytics.textBox.meanTimeToRemediate.tooltip.nonTreated"
+      ),
+      url: "#mean-time-to-remediate-non-treated-vulnerabilities",
+    },
+    default: {
+      label: "All",
+      tooltip: translate.t("analytics.textBox.meanTimeToRemediate.tooltip.all"),
+      url: "#mean-time-to-remediate-all-vulnerabilities",
+    },
+    documentName: "meanTimeToRemediateNonTreated",
+    documentType: "textBox",
+  },
+};
 
 interface IComponentSizeProps {
   readonly height: number;
@@ -78,7 +108,8 @@ interface IReadonlyGraphicProps {
 function buildUrl(
   props: IReadonlyGraphicProps,
   size: IComponentSizeProps,
-  subjectName: string
+  subjectName: string,
+  documentName: string
 ): string {
   const roundedHeight: number =
     pixelsSensitivity * Math.floor(size.height / pixelsSensitivity);
@@ -86,7 +117,7 @@ function buildUrl(
     pixelsSensitivity * Math.floor(size.width / pixelsSensitivity);
 
   const url: URL = new URL("/graphic", window.location.origin);
-  url.searchParams.set("documentName", props.documentName);
+  url.searchParams.set("documentName", documentName);
   url.searchParams.set("documentType", props.documentType);
   url.searchParams.set("entity", props.entity);
   url.searchParams.set("generatorName", props.generatorName);
@@ -131,6 +162,7 @@ export const Graphic: React.FC<IGraphicProps> = (
   const modalSize: ComponentSize = useComponentSize(modalBodyRef);
 
   const [subjectName, setSubjectName] = useState(subject);
+  const [currentDocumentName, setCurrentDocumentName] = useState(documentName);
   const [expanded, setExpanded] = useState(reportMode);
   const [fullScreen, setFullScreen] = useState(false);
   const [iframeState, setIframeState] = useState("loading");
@@ -141,16 +173,26 @@ export const Graphic: React.FC<IGraphicProps> = (
   const iframeSrc: string = useMemo(
     (): string =>
       secureStore.retrieveBlob(
-        buildUrl({ ...props, subject: subjectName }, bodySize, subjectName)
+        buildUrl(
+          { ...props, documentName: currentDocumentName, subject: subjectName },
+          bodySize,
+          subjectName,
+          currentDocumentName
+        )
       ),
-    [bodySize, props, secureStore, subjectName]
+    [bodySize, props, secureStore, subjectName, currentDocumentName]
   );
   const modalIframeSrc: string = useMemo(
     (): string =>
       secureStore.retrieveBlob(
-        buildUrl({ ...props, subject: subjectName }, modalSize, subjectName)
+        buildUrl(
+          { ...props, documentName: currentDocumentName, subject: subjectName },
+          modalSize,
+          subjectName,
+          currentDocumentName
+        )
       ),
-    [modalSize, props, secureStore, subjectName]
+    [modalSize, props, secureStore, subjectName, currentDocumentName]
   );
 
   function panelOnMouseEnter(): void {
@@ -198,11 +240,36 @@ export const Graphic: React.FC<IGraphicProps> = (
     setSubjectName(subject);
     frameOnRefresh();
   }
+  function changeToDefault(): void {
+    setCurrentDocumentName(documentName);
+    frameOnRefresh();
+  }
+  function changeToAlternative(): void {
+    if (_.includes(Object.keys(mergedDocuments), documentName)) {
+      setCurrentDocumentName(mergedDocuments[documentName].documentName);
+      frameOnRefresh();
+    }
+  }
   function isDocumentAllowed(name: string, type: string): boolean {
     return (
       _.includes(allowedDocumentNames, name) &&
       _.includes(allowedDocumentTypes, type)
     );
+  }
+  function isDocumentMerged(name: string, type: string): boolean {
+    return (
+      _.includes(Object.keys(mergedDocuments), name) &&
+      mergedDocuments[name].documentType === type
+    );
+  }
+  function getAdditionalInfoLink(name: string, type: string): string {
+    if (isDocumentMerged(name, type)) {
+      return mergedDocuments[name].documentName === currentDocumentName
+        ? mergedDocuments[name].alt.url
+        : mergedDocuments[name].default.url;
+    }
+
+    return "";
   }
 
   if (
@@ -219,8 +286,12 @@ export const Graphic: React.FC<IGraphicProps> = (
     headSize.height + glyphPadding + glyphSize / 2 - fontSize;
 
   const track: () => void = useCallback((): void => {
-    mixpanelTrack("DownloadGraphic", { documentName, entity });
-  }, [documentName, entity]);
+    mixpanelTrack("DownloadGraphic", { currentDocumentName, entity });
+  }, [currentDocumentName, entity]);
+
+  const isFilteringPosible: boolean =
+    isDocumentAllowed(documentName, documentType) ||
+    isDocumentMerged(documentName, documentType);
 
   return (
     <React.Fragment>
@@ -232,12 +303,6 @@ export const Graphic: React.FC<IGraphicProps> = (
               <ButtonToolbar className={"f5"}>
                 {isDocumentAllowed(documentName, documentType) ? (
                   <React.Fragment>
-                    <GraphicButton onClick={changeToAll}>
-                      <DaysLabel
-                        days={"allTime"}
-                        isEqual={subjectName === subject}
-                      />
-                    </GraphicButton>
                     <GraphicButton onClick={changeTothirtyDays}>
                       <DaysLabel
                         days={"30"}
@@ -250,13 +315,22 @@ export const Graphic: React.FC<IGraphicProps> = (
                         isEqual={subjectName === `${subject}_90`}
                       />
                     </GraphicButton>
+                    <GraphicButton onClick={changeToAll}>
+                      <DaysLabel
+                        days={"allTime"}
+                        isEqual={subjectName === subject}
+                      />
+                    </GraphicButton>
                   </React.Fragment>
                 ) : undefined}
                 {!_.isUndefined(infoLink) && (
                   <GraphicButton>
                     <a
                       className={"g-a"}
-                      href={infoLink}
+                      href={
+                        infoLink +
+                        getAdditionalInfoLink(documentName, documentType)
+                      }
                       rel={"noopener noreferrer"}
                       target={"_blank"}
                     >
@@ -268,7 +342,12 @@ export const Graphic: React.FC<IGraphicProps> = (
                   <a
                     className={"g-a"}
                     download={buildFileName(modalSize)}
-                    href={buildUrl(props, modalSize, subjectName)}
+                    href={buildUrl(
+                      props,
+                      modalSize,
+                      subjectName,
+                      currentDocumentName
+                    )}
                     onClick={track}
                     rel={"noopener noreferrer"}
                     target={"_blank"}
@@ -322,33 +401,94 @@ export const Graphic: React.FC<IGraphicProps> = (
                     !reportMode &&
                     fullSize.width > minWidthToShowButtons && (
                       <ButtonGroup className={"fr"}>
-                        {isDocumentAllowed(documentName, documentType) ? (
-                          <React.Fragment>
-                            <GraphicButton onClick={changeToAll}>
-                              <DaysLabel
-                                days={"allTime"}
-                                isEqual={subjectName === subject}
-                              />
-                            </GraphicButton>
-                            <GraphicButton onClick={changeTothirtyDays}>
-                              <DaysLabel
-                                days={"30"}
-                                isEqual={subjectName === `${subject}_30`}
-                              />
-                            </GraphicButton>
-                            <GraphicButton onClick={changeToNinety}>
-                              <DaysLabel
-                                days={"90"}
-                                isEqual={subjectName === `${subject}_90`}
-                              />
-                            </GraphicButton>
-                          </React.Fragment>
+                        {isFilteringPosible ? (
+                          <DropdownFilter>
+                            <React.Fragment>
+                              {isDocumentMerged(documentName, documentType) ? (
+                                <React.Fragment>
+                                  <GraphicButton
+                                    className={styles.buttonSize}
+                                    onClick={changeToDefault}
+                                  >
+                                    <DocumentMerged
+                                      isEqual={
+                                        documentName === currentDocumentName
+                                      }
+                                      label={
+                                        mergedDocuments[documentName].default
+                                          .label
+                                      }
+                                      tooltip={
+                                        mergedDocuments[documentName].default
+                                          .tooltip
+                                      }
+                                    />
+                                  </GraphicButton>
+                                  <GraphicButton
+                                    className={styles.buttonSize}
+                                    onClick={changeToAlternative}
+                                  >
+                                    <DocumentMerged
+                                      isEqual={
+                                        mergedDocuments[documentName]
+                                          .documentName === currentDocumentName
+                                      }
+                                      label={
+                                        mergedDocuments[documentName].alt.label
+                                      }
+                                      tooltip={
+                                        mergedDocuments[documentName].alt
+                                          .tooltip
+                                      }
+                                    />
+                                  </GraphicButton>
+                                </React.Fragment>
+                              ) : undefined}
+                              {isDocumentAllowed(documentName, documentType) ? (
+                                <React.Fragment>
+                                  <GraphicButton
+                                    className={styles.buttonSize}
+                                    onClick={changeTothirtyDays}
+                                  >
+                                    <DaysLabel
+                                      days={"30"}
+                                      isEqual={subjectName === `${subject}_30`}
+                                    />
+                                  </GraphicButton>
+                                  <GraphicButton
+                                    className={styles.buttonSize}
+                                    onClick={changeToNinety}
+                                  >
+                                    <DaysLabel
+                                      days={"90"}
+                                      isEqual={subjectName === `${subject}_90`}
+                                    />
+                                  </GraphicButton>
+                                  <GraphicButton
+                                    className={styles.buttonSize}
+                                    onClick={changeToAll}
+                                  >
+                                    <DaysLabel
+                                      days={"allTime"}
+                                      isEqual={subjectName === subject}
+                                    />
+                                  </GraphicButton>
+                                </React.Fragment>
+                              ) : undefined}
+                            </React.Fragment>
+                          </DropdownFilter>
                         ) : undefined}
                         {!_.isUndefined(infoLink) && (
                           <GraphicButton>
                             <a
                               className={"g-a"}
-                              href={infoLink}
+                              href={
+                                infoLink +
+                                getAdditionalInfoLink(
+                                  documentName,
+                                  documentType
+                                )
+                              }
                               rel={"noopener noreferrer"}
                               target={"_blank"}
                             >
@@ -360,7 +500,12 @@ export const Graphic: React.FC<IGraphicProps> = (
                           <a
                             className={"g-a"}
                             download={buildFileName(bigGraphicSize)}
-                            href={buildUrl(props, bigGraphicSize, subjectName)}
+                            href={buildUrl(
+                              props,
+                              bigGraphicSize,
+                              subjectName,
+                              currentDocumentName
+                            )}
                             onClick={track}
                             rel={"noopener noreferrer"}
                             target={"_blank"}
