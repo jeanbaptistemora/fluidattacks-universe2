@@ -3,6 +3,7 @@ from .add import (
 )
 from .get import (
     get_root,
+    get_roots,
 )
 
-__all__ = ["add", "get_root"]
+__all__ = ["add", "get_root", "get_roots"]

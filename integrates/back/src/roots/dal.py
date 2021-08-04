@@ -38,7 +38,7 @@ async def get_root(*, group_name: str, root_id: str) -> Optional[RootItem]:
 
 
 async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
-    return await model.get_roots(group_name=group_name)
+    return await roots_model.get_roots(group_name=group_name)
 
 
 async def update_git_root_cloning(
