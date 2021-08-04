@@ -192,7 +192,7 @@ $gray-120: rgba(120, 120, 145, 1);
 .h-section { min-height: 50rem; }
 .h30-em { min-height: 30em; }
 .min-h-25 { min-height: 25%; }
-.h-20 { min-height: 20rem; }
+.h-blog-card { min-height: 22rem; }
 
 
 // Hover changes classes
@@ -311,6 +311,7 @@ $gray-120: rgba(120, 120, 145, 1);
   .f1-s { font-size: 3rem;}
   .nt-125 { margin-top: -0.125rem; }
   .w-blog-card { width: 21.875rem; }
+  .h-blog-card { min-height: 25rem; }
   .w-100-s { width: 100%; }
   .w-products { width: 20rem; }
 }

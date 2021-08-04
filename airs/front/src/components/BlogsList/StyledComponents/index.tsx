@@ -42,7 +42,7 @@ const CardInnerDiv: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
-    h-20
+    h-blog-card
     ph4
   `,
 })``;
@@ -67,7 +67,7 @@ const CardSubTitle: StyledComponent<
   className: `
     c-black-gray
     mb0
-    f5
+    f4
     normal
   `,
 })``;

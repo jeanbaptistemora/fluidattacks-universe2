@@ -48,7 +48,7 @@ export const BlogCard: React.FC<IProps> = ({
         </Link>
         <CardSubTitle>{decode(subtitle)}</CardSubTitle>
         <PostInfo>
-          <CardDescription>{`${description.slice(0, 100)}...`}</CardDescription>
+          <CardDescription>{description}</CardDescription>
           <CardButtonContainer>
             <Link
               className={
