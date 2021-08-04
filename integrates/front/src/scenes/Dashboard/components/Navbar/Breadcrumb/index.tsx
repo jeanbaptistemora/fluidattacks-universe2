@@ -1,11 +1,13 @@
+import type { ApolloError } from "@apollo/client";
 import { useQuery } from "@apollo/client";
+import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useHistory, useLocation } from "react-router-dom";
 
 import { AddOrganizationModal } from "./AddOrganizationModal";
-import { GET_USER_ORGANIZATIONS } from "./queries";
+import { GET_FINDING_TITLE, GET_USER_ORGANIZATIONS } from "./queries";
 import { SplitButton } from "./SplitButton";
 import { BreadcrumbContainer, NavSplitButtonContainer } from "./styles";
 import { stylizeBreadcrumbItem } from "./utils";
@@ -15,6 +17,7 @@ import { Can } from "utils/authz/Can";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 export const Breadcrumb: React.FC = (): JSX.Element => {
   const { pathname } = useLocation();
@@ -27,6 +30,11 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
     localStorage
   );
 
+  interface IFindingTitle {
+    finding: {
+      title: string;
+    };
+  }
   interface IUserOrgs {
     me: {
       organizations: { name: string }[];
@@ -112,18 +120,53 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathOrganization]);
 
-  const breadcrumbItems: JSX.Element[] = pathData
-    .slice(1)
-    .map((item: string, index: number): JSX.Element => {
+  const pathBreadcrumbItems = pathData.slice(1);
+  const findingAlias = ["drafts", "vulns"];
+  const findingId = pathBreadcrumbItems.reduce(
+    (id, item, index, arr): string => {
+      const nextIndex = index + 1;
+
+      return pathBreadcrumbItems.length > nextIndex &&
+        findingAlias.includes(item)
+        ? arr[nextIndex]
+        : id;
+    },
+    ""
+  );
+  const { data: findingData } = useQuery<IFindingTitle>(GET_FINDING_TITLE, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        Logger.warning("An error occurred loading finding title", error);
+      });
+    },
+    skip: _.isEmpty(findingId),
+    variables: {
+      findingId,
+    },
+  });
+
+  const breadcrumbItems: JSX.Element[] = pathBreadcrumbItems.map(
+    (item: string, index: number): JSX.Element => {
       const [, baseLink] = path.split("/");
       const link: string = pathData.slice(0, index + 2).join("/");
+      const crumbItem: string = findingAlias.includes(
+        pathBreadcrumbItems[index - 1]
+      )
+        ? _.isUndefined(findingData)
+          ? "-"
+          : findingData.finding.title
+        : item;
 
       return (
         <li key={index.toString()}>
-          <Link to={`/${baseLink}/${link}`}>{stylizeBreadcrumbItem(item)}</Link>
+          <Link to={`/${baseLink}/${link}`}>
+            {stylizeBreadcrumbItem(crumbItem)}
+          </Link>
         </li>
       );
-    });
+    }
+  );
 
   return (
     <BreadcrumbContainer>
