@@ -21,7 +21,7 @@ const DaysLabel: React.FC<IDaysLabelProps> = (
   const { days, isEqual } = props;
   const label = labels[days];
 
-  return <div>{isEqual ? <b>{label}</b> : label}</div>;
+  return <div className={"pointer"}>{isEqual ? <b>{label}</b> : label}</div>;
 };
 
 interface IDocumentMergedProps {

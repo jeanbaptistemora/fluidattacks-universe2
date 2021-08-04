@@ -25,8 +25,12 @@ import React, {
 } from "react";
 
 import { Modal } from "components/Modal";
-import { DropdownFilter } from "graphics/components/Graphic/filter";
-import { DaysLabel, DocumentMerged } from "graphics/components/Graphic/helpers";
+import {
+  allowedDocumentNames,
+  allowedDocumentTypes,
+  mergedDocuments,
+} from "graphics/components/Graphic/ctx";
+import { FilterButton } from "graphics/components/Graphic/filterButton";
 import styles from "graphics/components/Graphic/index.css";
 import type { IGraphicProps } from "graphics/types";
 import {
@@ -42,18 +46,6 @@ import type { ISecureStoreConfig } from "utils/secureStore";
 import { secureStoreContext } from "utils/secureStore";
 import { translate } from "utils/translations/translate";
 
-interface IDocumentValues {
-  label: string;
-  tooltip: string;
-  url: string;
-}
-interface IMergedCharts {
-  alt: IDocumentValues;
-  default: IDocumentValues;
-  documentName: string;
-  documentType: string;
-}
-
 const glyphPadding: number = 15;
 const fontSize: number = 16;
 const pixelsSensitivity: number = 5;
@@ -61,34 +53,6 @@ const minWidthToShowButtons: number = 320;
 const bigGraphicSize: ComponentSize = {
   height: 400,
   width: 1000,
-};
-const allowedDocumentNames: string[] = [
-  "meanTimeToRemediate",
-  "meanTimeToRemediateNonTreated",
-  "riskOverTime",
-];
-const allowedDocumentTypes: string[] = [
-  "barChart",
-  "stackedBarChart",
-  "textBox",
-];
-const mergedDocuments: Record<string, IMergedCharts> = {
-  meanTimeToRemediate: {
-    alt: {
-      label: "Non treated",
-      tooltip: translate.t(
-        "analytics.textBox.meanTimeToRemediate.tooltip.nonTreated"
-      ),
-      url: "#mean-time-to-remediate-non-treated-vulnerabilities",
-    },
-    default: {
-      label: "All",
-      tooltip: translate.t("analytics.textBox.meanTimeToRemediate.tooltip.all"),
-      url: "#mean-time-to-remediate-all-vulnerabilities",
-    },
-    documentName: "meanTimeToRemediateNonTreated",
-    documentType: "textBox",
-  },
 };
 
 interface IComponentSizeProps {
@@ -289,10 +253,6 @@ export const Graphic: React.FC<IGraphicProps> = (
     mixpanelTrack("DownloadGraphic", { currentDocumentName, entity });
   }, [currentDocumentName, entity]);
 
-  const isFilteringPosible: boolean =
-    isDocumentAllowed(documentName, documentType) ||
-    isDocumentMerged(documentName, documentType);
-
   return (
     <React.Fragment>
       <Modal
@@ -301,28 +261,22 @@ export const Graphic: React.FC<IGraphicProps> = (
             <div className={styles.titleBar}>
               {title}
               <ButtonToolbar className={"f5"}>
-                {isDocumentAllowed(documentName, documentType) ? (
-                  <React.Fragment>
-                    <GraphicButton onClick={changeTothirtyDays}>
-                      <DaysLabel
-                        days={"30"}
-                        isEqual={subjectName === `${subject}_30`}
-                      />
-                    </GraphicButton>
-                    <GraphicButton onClick={changeToNinety}>
-                      <DaysLabel
-                        days={"90"}
-                        isEqual={subjectName === `${subject}_90`}
-                      />
-                    </GraphicButton>
-                    <GraphicButton onClick={changeToAll}>
-                      <DaysLabel
-                        days={"allTime"}
-                        isEqual={subjectName === subject}
-                      />
-                    </GraphicButton>
-                  </React.Fragment>
-                ) : undefined}
+                <FilterButton
+                  changeToAll={changeToAll}
+                  changeToAlternative={changeToAlternative}
+                  changeToDefault={changeToDefault}
+                  changeToNinety={changeToNinety}
+                  changeTothirtyDays={changeTothirtyDays}
+                  currentDocumentName={currentDocumentName}
+                  documentName={documentName}
+                  documentNameFilter={isDocumentMerged(
+                    documentName,
+                    documentType
+                  )}
+                  subject={subject}
+                  subjectName={subjectName}
+                  timeFilter={isDocumentAllowed(documentName, documentType)}
+                />
                 {!_.isUndefined(infoLink) && (
                   <GraphicButton>
                     <a
@@ -401,83 +355,25 @@ export const Graphic: React.FC<IGraphicProps> = (
                     !reportMode &&
                     fullSize.width > minWidthToShowButtons && (
                       <ButtonGroup className={"fr"}>
-                        {isFilteringPosible ? (
-                          <DropdownFilter>
-                            <React.Fragment>
-                              {isDocumentMerged(documentName, documentType) ? (
-                                <React.Fragment>
-                                  <GraphicButton
-                                    className={styles.buttonSize}
-                                    onClick={changeToDefault}
-                                  >
-                                    <DocumentMerged
-                                      isEqual={
-                                        documentName === currentDocumentName
-                                      }
-                                      label={
-                                        mergedDocuments[documentName].default
-                                          .label
-                                      }
-                                      tooltip={
-                                        mergedDocuments[documentName].default
-                                          .tooltip
-                                      }
-                                    />
-                                  </GraphicButton>
-                                  <GraphicButton
-                                    className={styles.buttonSize}
-                                    onClick={changeToAlternative}
-                                  >
-                                    <DocumentMerged
-                                      isEqual={
-                                        mergedDocuments[documentName]
-                                          .documentName === currentDocumentName
-                                      }
-                                      label={
-                                        mergedDocuments[documentName].alt.label
-                                      }
-                                      tooltip={
-                                        mergedDocuments[documentName].alt
-                                          .tooltip
-                                      }
-                                    />
-                                  </GraphicButton>
-                                </React.Fragment>
-                              ) : undefined}
-                              {isDocumentAllowed(documentName, documentType) ? (
-                                <React.Fragment>
-                                  <GraphicButton
-                                    className={styles.buttonSize}
-                                    onClick={changeTothirtyDays}
-                                  >
-                                    <DaysLabel
-                                      days={"30"}
-                                      isEqual={subjectName === `${subject}_30`}
-                                    />
-                                  </GraphicButton>
-                                  <GraphicButton
-                                    className={styles.buttonSize}
-                                    onClick={changeToNinety}
-                                  >
-                                    <DaysLabel
-                                      days={"90"}
-                                      isEqual={subjectName === `${subject}_90`}
-                                    />
-                                  </GraphicButton>
-                                  <GraphicButton
-                                    className={styles.buttonSize}
-                                    onClick={changeToAll}
-                                  >
-                                    <DaysLabel
-                                      days={"allTime"}
-                                      isEqual={subjectName === subject}
-                                    />
-                                  </GraphicButton>
-                                </React.Fragment>
-                              ) : undefined}
-                            </React.Fragment>
-                          </DropdownFilter>
-                        ) : undefined}
+                        <FilterButton
+                          changeToAll={changeToAll}
+                          changeToAlternative={changeToAlternative}
+                          changeToDefault={changeToDefault}
+                          changeToNinety={changeToNinety}
+                          changeTothirtyDays={changeTothirtyDays}
+                          currentDocumentName={currentDocumentName}
+                          documentName={documentName}
+                          documentNameFilter={isDocumentMerged(
+                            documentName,
+                            documentType
+                          )}
+                          subject={subject}
+                          subjectName={subjectName}
+                          timeFilter={isDocumentAllowed(
+                            documentName,
+                            documentType
+                          )}
+                        />
                         {!_.isUndefined(infoLink) && (
                           <GraphicButton>
                             <a
