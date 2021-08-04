@@ -33,3 +33,23 @@
   line-height: 30px;
   text-align: left;
 }
+
+:local .buttonSize {
+  min-width: 100%;
+}
+
+:local .dropdownFilter {
+  border-radius: 0 !important;
+  cursor: pointer;
+  white-space: normal;
+}
+
+:local .childrenContainer {
+  min-width: 100%;
+  word-break: normal;
+}
+
+:local .dropdownFilter:hover :local .childrenContainer {
+  background-color: #eee;
+  display: block;
+}
