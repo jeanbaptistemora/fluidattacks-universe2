@@ -141,49 +141,6 @@ def build_root(
     )
 
 
-async def get_root(
-    *,
-    group_name: str,
-    root_id: str,
-) -> Optional[RootItem]:
-    primary_key = keys.build_key(
-        facet=TABLE.facets["git_root_metadata"],
-        values={"name": group_name, "uuid": root_id},
-    )
-
-    index = TABLE.indexes["inverted_index"]
-    key_structure = index.primary_key
-    results = await operations.query(
-        condition_expression=(
-            Key(key_structure.partition_key).eq(primary_key.sort_key)
-            & Key(key_structure.sort_key).begins_with(
-                primary_key.partition_key
-            )
-        ),
-        facets=(
-            TABLE.facets["git_root_cloning"],
-            TABLE.facets["git_root_metadata"],
-            TABLE.facets["git_root_state"],
-            TABLE.facets["ip_root_metadata"],
-            TABLE.facets["ip_root_state"],
-            TABLE.facets["url_root_metadata"],
-            TABLE.facets["url_root_state"],
-        ),
-        index=index,
-        table=TABLE,
-    )
-
-    if results:
-        return build_root(
-            group_name=group_name,
-            item_id=primary_key.partition_key,
-            key_structure=key_structure,
-            raw_items=results,
-        )
-
-    return None
-
-
 async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["git_root_metadata"],
@@ -226,52 +183,6 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
         )
         for root_id, items in root_items.items()
     )
-
-
-async def add_root(*, root: RootItem) -> None:
-    key_structure = TABLE.primary_key
-
-    metadata_key = keys.build_key(
-        facet=TABLE.facets["git_root_metadata"],
-        values={"name": root.group_name, "uuid": root.id},
-    )
-    initial_metadata = {
-        key_structure.partition_key: metadata_key.partition_key,
-        key_structure.sort_key: metadata_key.sort_key,
-        **dict(root.metadata._asdict()),
-    }
-
-    historic_state = historics.build_historic(
-        attributes=dict(root.state._asdict()),
-        historic_facet=TABLE.facets["git_root_historic_state"],
-        key_structure=key_structure,
-        key_values={
-            "iso8601utc": root.state.modified_date,
-            "name": root.group_name,
-            "uuid": root.id,
-        },
-        latest_facet=TABLE.facets["git_root_state"],
-    )
-
-    items = (initial_metadata, *historic_state)
-
-    if isinstance(root, GitRootItem):
-        historic_cloning = historics.build_historic(
-            attributes=dict(root.cloning._asdict()),
-            historic_facet=TABLE.facets["git_root_historic_cloning"],
-            key_structure=key_structure,
-            key_values={
-                "iso8601utc": root.cloning.modified_date,
-                "name": root.group_name,
-                "uuid": root.id,
-            },
-            latest_facet=TABLE.facets["git_root_cloning"],
-        )
-        await operations.batch_write_item(
-            items=(*items, *historic_cloning), table=TABLE
-        )
-    else:
-        await operations.batch_write_item(items=items, table=TABLE)
 
 
 async def update_root_state(
