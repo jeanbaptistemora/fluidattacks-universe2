@@ -185,6 +185,7 @@ $gray-120: rgba(120, 120, 145, 1);
 .h-600 { min-height: 600px; }
 .h-700 { min-height: 700px; }
 .h-banner { min-height: 350px; }
+.h-blog-card { min-height: 20rem; }
 .h-navbar { min-height: 6.5rem; }
 .h-resources-card-title { min-height: 90px; }
 .h-resources-card-description { min-height: 50px; }
@@ -192,7 +193,7 @@ $gray-120: rgba(120, 120, 145, 1);
 .h-section { min-height: 50rem; }
 .h30-em { min-height: 30em; }
 .min-h-25 { min-height: 25%; }
-.h-blog-card { min-height: 20rem; }
+.min-h-60 { min-height: 60px; }
 
 
 // Hover changes classes

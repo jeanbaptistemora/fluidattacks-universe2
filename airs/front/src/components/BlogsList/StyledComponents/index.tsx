@@ -73,6 +73,7 @@ const CardSubTitle: StyledComponent<
     f4
     normal
     mt1
+    min-h-60
   `,
 })``;
 
