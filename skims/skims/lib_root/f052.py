@@ -86,44 +86,45 @@ def _java_yield_insecure_ciphers(
 def _javax_yield_insecure_ciphers(
     shard: graph_model.GraphShard, method_name: str, parameters: List[Any]
 ) -> graph_model.GraphShardNodes:
-    if method_name not in complete_attrs_on_set(
+    ciphers: Set[str] = complete_attrs_on_set(
         {
             "javax.crypto.Cipher.getInstance",
             "javax.crypto.KeyGenerator.getInstance",
-            "javax.net.ssl.SSLContext.getInstance",
         }
-    ):
+    )
+    ssl_ciphers_safe: Set[str] = {
+        "tls",
+        "tlsv1.2",
+        "tlsv1.3",
+        "dtls",
+        "dtlsv1.2",
+        "dtlsv1.3",
+    }
+    ssl_ciphers: Set[str] = complete_attrs_on_set(
+        {"javax.net.ssl.SSLContext.getInstance"}
+    )
+
+    if method_name not in ciphers | ssl_ciphers:
         return
+
     for param_id in parameters:
-        if param_text := shard.graph.nodes[param_id].get("label_text"):
-            if (  # NOSONAR
-                (
-                    method_name
-                    in complete_attrs_on_set(
-                        {
-                            "javax.crypto.Cipher.getInstance",
-                            "javax.crypto.KeyGenerator.getInstance",
-                        }
-                    )
-                    and _vuln_cipher_get_instance(param_text)
-                )
-                or method_name
-                in complete_attrs_on_set(
-                    {
-                        "javax.net.ssl.SSLContext.getInstance",
-                    }
-                )
-                and param_id
-                not in {
-                    "tls",
-                    "tlsv1.2",
-                    "tlsv1.3",
-                    "dtls",
-                    "dtlsv1.2",
-                    "dtlsv1.3",
-                }
-            ):
-                yield shard, param_id
+        param_type = shard.graph.nodes[param_id]["label_type"]
+        param_text = shard.graph.nodes[param_id].get("label_text")
+
+        is_cipher_vulnerable: bool = (
+            method_name in ciphers
+            and param_text
+            and _vuln_cipher_get_instance(param_text)
+        )
+        is_ssl_cipher_vulnerable: bool = (
+            method_name in ssl_ciphers
+            and param_type == "string_literal"
+            and param_text
+            and param_text.lower()[1:-1] not in ssl_ciphers_safe
+        )
+
+        if is_cipher_vulnerable or is_ssl_cipher_vulnerable:
+            yield shard, param_id
 
 
 def _java_yield_insecure_hash(
