@@ -775,3 +775,21 @@
       title: Regulation of Cryptographic Controls
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
   metadata: {}
+"009":
+  title: NERC CIP
+  en:
+    description: >
+      North American Electric Reliability
+      Corporation Reliability Standards
+      are developed using an industry-driven,
+      ANSI-accredited process that ensures
+      the process is open to all persons
+      who are directly and materially affected
+      by the reliability of the North American
+      bulk power system.
+      The version used for this section is
+      NERC CIP v5 Standards.
+  es:
+    description: __empty__
+  definitions: {}    
+  metadata: {}
