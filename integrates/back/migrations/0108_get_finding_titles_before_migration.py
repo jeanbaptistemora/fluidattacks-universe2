@@ -10,6 +10,9 @@ https://gitlab.com/fluidattacks/product/-/issues/4903
 
 Execution Time:    2021-07-28 at 10:01:49 UTC-05
 Finalization Time: 2021-07-28 at 10:03:48 UTC-05
+
+Execution Time:    2021-08-04 at 11:53:23 UTC-05
+Finalization Time: 2021-08-04 at 11:55:04 UTC-05
 """
 
 from aioextensions import (
@@ -31,7 +34,7 @@ from typing import (
     List,
 )
 
-TABLE_NAME: str = "Backup_findings_22Jul"
+TABLE_NAME: str = "FI_findings"
 
 
 async def get_all_findings(
@@ -65,7 +68,7 @@ async def main() -> None:
     print(f"    === sample: {findings_non_deleted[0:3]}")
 
     csv_columns = ["group", "finding_id", "finding_name"]
-    csv_file = "0108_findings_names_jul_22_2021.csv"
+    csv_file = "0108_findings_names_aug_04_2021.csv"
     success = False
     try:
         with open(csv_file, "w") as f:
