@@ -17,72 +17,23 @@ from dynamodb.table import (
     load_table,
 )
 from dynamodb.types import (
-    GitRootCloning,
-    GitRootState,
     GitRootToeInputItem,
     GitRootToeLinesItem,
     GroupMetadata,
-    IPRootState,
     Item,
     OrgFindingPolicyItem,
     OrgFindingPolicyMetadata,
     OrgFindingPolicyState,
     PrimaryKey,
-    URLRootState,
-    VulnerabilityItem,
-    VulnerabilityMetadata,
-    VulnerabilityState,
 )
 import json
 from typing import (
     Optional,
     Tuple,
-    Union,
 )
 
 with open(FI_DB_MODEL_PATH, mode="r") as file:
     TABLE = load_table(json.load(file))
-
-
-async def update_root_state(
-    *,
-    group_name: str,
-    root_id: str,
-    state: Union[GitRootState, IPRootState, URLRootState],
-) -> None:
-    key_structure = TABLE.primary_key
-    historic = historics.build_historic(
-        attributes=dict(state._asdict()),
-        historic_facet=TABLE.facets["git_root_historic_state"],
-        key_structure=key_structure,
-        key_values={
-            "iso8601utc": state.modified_date,
-            "name": group_name,
-            "uuid": root_id,
-        },
-        latest_facet=TABLE.facets["git_root_state"],
-    )
-
-    await operations.batch_write_item(items=historic, table=TABLE)
-
-
-async def update_git_root_cloning(
-    *, cloning: GitRootCloning, group_name: str, root_id: str
-) -> None:
-    key_structure = TABLE.primary_key
-    historic = historics.build_historic(
-        attributes=dict(cloning._asdict()),
-        historic_facet=TABLE.facets["git_root_historic_cloning"],
-        key_structure=key_structure,
-        key_values={
-            "iso8601utc": cloning.modified_date,
-            "name": group_name,
-            "uuid": root_id,
-        },
-        latest_facet=TABLE.facets["git_root_cloning"],
-    )
-
-    await operations.batch_write_item(items=historic, table=TABLE)
 
 
 async def add_git_root_toe_lines(
@@ -338,51 +289,6 @@ async def update_git_root_toe_input(
         facet=facet,
         item=toe_input,
         table=TABLE,
-    )
-
-
-def _build_vuln(
-    *,
-    item_id: str,
-    key_structure: PrimaryKey,
-    raw_items: Tuple[Item, ...],
-) -> VulnerabilityItem:
-    metadata = historics.get_metadata(
-        item_id=item_id, key_structure=key_structure, raw_items=raw_items
-    )
-    state = historics.get_latest(
-        item_id=item_id,
-        key_structure=key_structure,
-        historic_suffix="STATE",
-        raw_items=raw_items,
-    )
-
-    return VulnerabilityItem(
-        id=metadata[key_structure.sort_key].split("#")[1],
-        metadata=VulnerabilityMetadata(
-            affected_components=metadata["affected_components"],
-            attack_vector=metadata["attack_vector"],
-            cvss=metadata["cvss"],
-            description=metadata["description"],
-            evidences=metadata["evidences"],
-            name=metadata["name"],
-            recommendation=metadata["recommendation"],
-            requirements=metadata["requirements"],
-            source=metadata["source"],
-            specific=metadata["specific"],
-            threat=metadata["threat"],
-            type=metadata["type"],
-            using_sorts=metadata["using_sorts"],
-            where=metadata["where"],
-        ),
-        state=VulnerabilityState(
-            modified_by=state["modified_by"],
-            modified_date=state["modified_date"],
-            reason=state["reason"],
-            source=state["source"],
-            status=state["status"],
-            tags=state["tags"],
-        ),
     )
 
 
