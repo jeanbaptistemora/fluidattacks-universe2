@@ -125,6 +125,15 @@ def format_verification_item(verification: FindingVerification) -> Item:
     }
 
 
+def format_optional_state(
+    state_item: Item,
+) -> Optional[FindingState]:
+    state = None
+    if state_item.get("status"):
+        state = format_state(state_item)
+    return state
+
+
 def format_optional_verification(
     verification_item: Item,
 ) -> Optional[FindingVerification]:
@@ -132,6 +141,15 @@ def format_optional_verification(
     if verification_item.get("status"):
         verification = format_verification(verification_item)
     return verification
+
+
+def format_optional_state_item(
+    state: Optional[FindingState],
+) -> Item:
+    state_item = {}
+    if state is not None:
+        state_item = format_state_item(state)
+    return state_item
 
 
 def format_optional_verification_item(
