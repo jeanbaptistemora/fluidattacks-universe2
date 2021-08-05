@@ -8,6 +8,7 @@
 makeEntrypoint {
   arguments = {
     envDb = path "/makes/applications/integrates/db";
+    envNewDbDesign = path "/integrates/arch";
     envDynamoZip = fetchurl {
       url = "https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_2021-02-08.zip";
       sha256 = "01xgqk2crrnpvzr3xkd3mwiwcs6bfxqhbbyard6y8c0jgibm31pk";
@@ -18,6 +19,7 @@ makeEntrypoint {
     envPaths = [
       nixpkgs.awscli
       nixpkgs.gnused
+      nixpkgs.jq
       nixpkgs.openjdk_headless
       nixpkgs.terraform
       nixpkgs.unzip

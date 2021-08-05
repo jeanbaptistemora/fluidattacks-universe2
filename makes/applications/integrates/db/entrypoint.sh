@@ -2,17 +2,37 @@
 
 function populate {
   local email="${1:-integratesmanager@gmail.com}"
+  local db_status="${2:-}"
+  local db_design='__envNewDbDesign__/database-design.json'
+  local TMP_ITEMS='.tmp_integrates_vms'
+  local i=0
 
-  echo "[INFO] Admin email: ${email}" \
-    && sed "s/2020-09-04.*/$(date -u +%Y-%m-%dT%H:%M:%S.000000%z)\"/g" \
-      < '__envDb__/data/forces.json' \
-    | sed "s/33e5d863252940edbfb144ede56d56cf/aaa/g" \
-      | sed "s/a125217504d447ada2b81da3e4bdab0e/bbb/g" \
-        > "${STATE_PATH}/forces.now.json" \
-    && for data in '__envDb__/data/'*'.json'; do
-      sed "s/__adminEmail__/${email}/g" "${data}" \
-        > "${STATE_PATH}/$(basename "${data}")"
-    done \
+  if test "${db_status}" == 'migration'; then
+    echo '[INFO] Populating from new database design...' \
+      && jq -c '{integrates_vms: [{PutRequest: {Item: .DataModel[].TableFacets[].TableData[]}}]}' \
+        ${db_design} > "${STATE_PATH}/${TMP_ITEMS}" \
+      && items_len=$(jq '.integrates_vms | length' "${STATE_PATH}/${TMP_ITEMS}") \
+      && echo "items qy: ${items_len}" \
+      && while [ $((i * 25)) -lt "$items_len" ]; do
+        local ilow=$((i * 25)) \
+          && local ihigh=$(((i + 1) * 25)) \
+          && jq -c "{integrates_vms: .integrates_vms[$ilow:$ihigh]}" \
+            "${STATE_PATH}/${TMP_ITEMS}" > "${STATE_PATH}/integrates_vms${i}.json" \
+          && ((i++))
+      done \
+      && rm "${STATE_PATH}/${TMP_ITEMS}"
+  else
+    echo "[INFO] Admin email: ${email}" \
+      && sed "s/2020-09-04.*/$(date -u +%Y-%m-%dT%H:%M:%S.000000%z)\"/g" \
+        < '__envDb__/data/forces.json' \
+      | sed "s/33e5d863252940edbfb144ede56d56cf/aaa/g" \
+        | sed "s/a125217504d447ada2b81da3e4bdab0e/bbb/g" \
+          > "${STATE_PATH}/forces.now.json" \
+      && for data in '__envDb__/data/'*'.json'; do
+        sed "s/__adminEmail__/${email}/g" "${data}" \
+          > "${STATE_PATH}/$(basename "${data}")"
+      done
+  fi \
     && for data in "${STATE_PATH}/"*'.json'; do
       echo "[INFO] Writing data from: ${data}" \
         && aws dynamodb batch-write-item \
