@@ -21,8 +21,12 @@ type Group {
     be removed after 2021/12/20. Use `hasMachine` instead.""")
   hasSquad: Boolean
   language: Language
-  lastClosingVuln: Int
-  lastClosingVulnFinding: Finding
+  lastClosingVuln: Int @deprecated(reason: """This field will
+    be removed after 2021/12/31. Use `lastClosingVulnerability` instead.""")
+  lastClosingVulnFinding: Finding @deprecated(reason: """This field will be
+    removed after 2021/12/31. Use `lastClosingVulnerabilityFinding` instead.""")
+  lastClosingVulnerability: Int
+  lastClosingVulnerabilityFinding: Finding
   maxOpenSeverity: Float
   maxOpenSeverityFinding: Finding
   maxSeverity: Float

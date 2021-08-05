@@ -40,8 +40,8 @@ async def test_get_group(populate: bool, email: str) -> None:
     assert result["data"]["group"]["hasAsm"]
     assert result["data"]["group"]["openVulnerabilities"] == 2
     assert result["data"]["group"]["closedVulnerabilities"] == 1
-    assert result["data"]["group"]["lastClosingVuln"] == 40
-    assert result["data"]["group"]["lastClosingVulnFinding"] == {
+    assert result["data"]["group"]["lastClosingVulnerability"] == 40
+    assert result["data"]["group"]["lastClosingVulnerabilityFinding"] == {
         "id": "475041521"
     }
     assert result["data"]["group"]["maxOpenSeverity"] == 4.3

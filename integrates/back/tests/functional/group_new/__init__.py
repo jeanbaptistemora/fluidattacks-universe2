@@ -25,7 +25,7 @@ async def get_result(
                 hasAsm
                 openVulnerabilities
                 closedVulnerabilities
-                lastClosingVuln
+                lastClosingVulnerability
                 maxSeverity
                 meanRemediate
                 meanRemediateCriticalSeverity
@@ -74,7 +74,7 @@ async def get_result(
                     id
                     title
                 }}
-                lastClosingVulnFinding {{
+                lastClosingVulnerabilityFinding {{
                     id
                 }}
                 maxSeverityFinding {{

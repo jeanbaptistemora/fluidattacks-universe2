@@ -49,12 +49,14 @@ GROUP.set_field("stakeholders", stakeholders.resolve)
 GROUP.set_field("toeInputs", toe_inputs.resolve)
 GROUP.set_field("totalTreatment", total_treatment.resolve)
 GROUP.set_field("userRole", user_role.resolve)
+GROUP.set_alias("lastClosingVulnerability", "last_closing_vuln")
 
 if FI_API_STATUS == "migration":
     GROUP.set_field("drafts", drafts_new.resolve)
     GROUP.set_field("findings", findings_new.resolve)
     GROUP.set_field(
-        "lastClosingVulnFinding", last_closing_vuln_finding_new.resolve
+        "lastClosingVulnerabilityFinding",
+        last_closing_vuln_finding_new.resolve,
     )
     GROUP.set_field(
         "maxOpenSeverityFinding", max_open_severity_finding_new.resolve
@@ -62,11 +64,16 @@ if FI_API_STATUS == "migration":
     GROUP.set_field("maxSeverity", max_severity_new.resolve)
     GROUP.set_field("maxSeverityFinding", max_severity_finding_new.resolve)
     GROUP.set_field("totalFindings", total_findings_new.resolve)
+    # --------------------Deprecated fields------------------------------------
+    GROUP.set_field(
+        "lastClosingVulnFinding", last_closing_vuln_finding_new.resolve
+    )
+    # -------------------------------------------------------------------------
 else:
     GROUP.set_field("drafts", drafts.resolve)
     GROUP.set_field("findings", findings.resolve)
     GROUP.set_field(
-        "lastClosingVulnFinding", last_closing_vuln_finding.resolve
+        "lastClosingVulnerabilityFinding", last_closing_vuln_finding.resolve
     )
     GROUP.set_field(
         "maxOpenSeverityFinding", max_open_severity_finding.resolve
@@ -74,3 +81,7 @@ else:
     GROUP.set_field("maxSeverity", max_severity.resolve)
     GROUP.set_field("maxSeverityFinding", max_severity_finding.resolve)
     GROUP.set_field("totalFindings", total_findings.resolve)
+    # ----------------------Deprecated fields----------------------------------
+    GROUP.set_field(
+        "lastClosingVulnFinding", last_closing_vuln_finding.resolve
+    )

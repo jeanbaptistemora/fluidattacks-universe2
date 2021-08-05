@@ -21,7 +21,7 @@ async def test_get_tag_query() -> None:
     query = """
         query{
             tag(tag: "test-projects"){
-                lastClosingVuln
+                lastClosingVulnerability
                 maxOpenSeverity
                 maxSeverity
                 meanRemediateLowSeverity
@@ -43,7 +43,7 @@ async def test_get_tag_query() -> None:
     _, result = await graphql(SCHEMA, data, context_value=request)
     assert "errors" not in result
     assert "groups" in result["data"]["tag"]
-    assert result["data"]["tag"]["lastClosingVuln"] == 50
+    assert result["data"]["tag"]["lastClosingVulnerability"] == 50
     assert result["data"]["tag"]["meanRemediateLowSeverity"] == 116
     assert result["data"]["tag"]["meanRemediateMediumSeverity"] == 135.9
     assert result["data"]["tag"]["meanRemediate"] == 123
@@ -55,7 +55,7 @@ async def test_get_tag_query_access_denied() -> None:
     query = """
         query{
             tag(tag: "another-tag"){
-                lastClosingVuln
+                lastClosingVulnerability
                 maxOpenSeverity
                 meanRemediate
                 name

@@ -40,7 +40,7 @@ async def test_get_group(populate: bool, email: str) -> None:
     assert result["data"]["group"]["hasAsm"]
     assert result["data"]["group"]["openVulnerabilities"] == 1
     assert result["data"]["group"]["closedVulnerabilities"] == 1
-    assert result["data"]["group"]["lastClosingVuln"] == 40
+    assert result["data"]["group"]["lastClosingVulnerability"] == 40
     assert result["data"]["group"]["maxSeverity"] == 4.1
     assert result["data"]["group"]["meanRemediate"] == 2
     assert result["data"]["group"]["meanRemediateCriticalSeverity"] == 0
@@ -68,7 +68,7 @@ async def test_get_group(populate: bool, email: str) -> None:
     assert result["data"]["group"]["userRole"] == email.split("@")[0]
     assert result["data"]["group"]["maxOpenSeverity"] == 4.3
     assert result["data"]["group"]["maxOpenSeverityFinding"] is None
-    assert result["data"]["group"]["lastClosingVulnFinding"] is None
+    assert result["data"]["group"]["lastClosingVulnerabilityFinding"] is None
     assert consult in [
         consult["content"] for consult in result["data"]["group"]["consulting"]
     ]
@@ -104,7 +104,7 @@ async def test_get_group_fail(populate: bool, email: str) -> None:
     assert result["data"]["group"]["hasAsm"]
     assert result["data"]["group"]["openVulnerabilities"] == 1
     assert result["data"]["group"]["closedVulnerabilities"] == 1
-    assert result["data"]["group"]["lastClosingVuln"] == 40
+    assert result["data"]["group"]["lastClosingVulnerability"] == 40
     assert result["data"]["group"]["maxSeverity"] == 4.1
     assert result["data"]["group"]["meanRemediate"] == 2
     assert result["data"]["group"]["meanRemediateCriticalSeverity"] == 0
@@ -123,7 +123,7 @@ async def test_get_group_fail(populate: bool, email: str) -> None:
     assert result["data"]["group"]["userRole"] == email.split("@")[0]
     assert result["data"]["group"]["maxOpenSeverity"] == 4.3
     assert result["data"]["group"]["maxOpenSeverityFinding"] is None
-    assert result["data"]["group"]["lastClosingVulnFinding"] is None
+    assert result["data"]["group"]["lastClosingVulnerabilityFinding"] is None
     assert finding in [
         finding["id"] for finding in result["data"]["group"]["findings"]
     ]
