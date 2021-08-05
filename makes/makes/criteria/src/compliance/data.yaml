@@ -957,3 +957,19 @@
     description: __empty__
   definitions: {}
   metadata: {}
+"013":
+  title: OWASP TOP TEN
+  en:
+    description: >
+      The OWASP Top 10 is a standard
+      awareness document for developers
+      and web application security.
+      It represents a broad consensus about
+      the most critical security risks
+      to web applications.
+      The version used in this section
+      is OWASP Top 10:2017.
+  es:
+    description: __empty__
+  definitions: {}
+  metadata: {}
