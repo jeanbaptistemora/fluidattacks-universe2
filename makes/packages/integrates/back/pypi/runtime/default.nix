@@ -63,7 +63,7 @@ let
         "simplejson==3.17.0"
         "social-auth-core==3.3.3"
         "starlette==0.13.8"
-        "tracers==21.8.4349"
+        "tracers==21.8.6876"
         "uvicorn[standard]==0.12.3"
         "watchtower==0.7.3"
         "zenpy==2.0.20"
