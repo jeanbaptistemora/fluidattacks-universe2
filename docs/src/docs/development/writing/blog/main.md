@@ -53,14 +53,14 @@ slug: /development/writing/blog/main
   [Robert Pozen](https://www.amazon.com/Extreme-Productivity-Boost-Results-Reduce-ebook/dp/B007HBLNSS)):
 
   1. An introduction that contextualizes the reader,
-  states the main theme,
-  and describes the organization of the text.
+     states the main theme,
+     and describes the organization of the text.
   1. A body with paragraphs highlighting central ideas
-  and providing supporting information for them
-  (subtitles can make the structure clearer).
+     and providing supporting information for them
+     (subtitles can make the structure clearer).
   1. A conclusion that, rather than condensing the main points,
-  provides lessons learned, possible implications
-  or recommendations to keep in mind.
+     provides lessons learned, possible implications
+     or recommendations to keep in mind.
 
 * **BS03:** We *must* build blog posts
   with a [LIX](https://en.wikipedia.org/wiki/Lix_(readability_test))

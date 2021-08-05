@@ -43,9 +43,12 @@ slug: /development/writing/general/others
 * **GO07:** We *must* present conjunctions in ordinary texts
   with the word *and*, not with symbols (e.g., *&*).
 
-* **GO08:** We *must* indicate the meaning of acronyms
-  (e.g., One click in our ASM (Attack Surface Manager).)
-  only the first time we mention them in a subsection, page or blog post,
-  but not in titles or subtitles.
+* **GO08:** We *must* write an acronym and its meaning together
+  (e.g., Go to our Attack Surface Manager (ASM).)
+  only the first time we mention one of them in a subsection,
+  page or blog post
+  (not in titles or subtitles).
+  After that,
+  we *should* use only the acronym.
 
 * **GO09:** We *must not* put periods at the end of titles and subtitles.

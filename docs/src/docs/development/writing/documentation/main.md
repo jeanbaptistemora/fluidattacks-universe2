@@ -7,7 +7,7 @@ slug: /development/writing/documentation/main
 
 ## General
 
-* **DG01:** We *must* create **one-word** titles for the sections
+* **DG01:** We *must* create **one-word titles** for the sections
   (those that appear in the top menu).
 
 * **DG02:** We *must* create short titles for the subsections
@@ -39,11 +39,11 @@ slug: /development/writing/documentation/main
   Based on recommendations by the American Lecturer,
   [Robert Pozen](https://www.amazon.com/Extreme-Productivity-Boost-Results-Reduce-ebook/dp/B007HBLNSS),
   we *can* follow three steps:
-  **(a)** Contextualize the reader with facts or background data and issues
+  (a) Contextualize the reader with facts or background data and issues
   that may be driving them to spend their time there.
-  **(b)** Mention, as a summary, the main topic of the section,
+  (b) Mention, as a summary, the main topic of the section,
   i.e., what we are going to discuss next.
-  **(c)** Explain the organization, the text structure,
+  (c) Explain the organization, the text structure,
   and be coherent with the titles and subtitles within the section.
   We can follow a sequence, saying something like:
   "In the first part, we will expose [...].
@@ -83,8 +83,8 @@ slug: /development/writing/documentation/main
 
 * **DG15:** We *must* upload all the images we need to [Cloudinary](https://cloudinary.com/)
   and then use their corresponding links
-  (which *must* have the filename extension *.webp*
-  inside the *.md* files, unless they are gifs).
+  (which *must* have the filename extension .webp
+  inside the .md files).
 
 * **DG16:** In cases where we include warnings for the reader,
   pointing out something that *is not* part of the content,
