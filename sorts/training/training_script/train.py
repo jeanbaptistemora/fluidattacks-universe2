@@ -61,7 +61,13 @@ def get_model_instance(model_class: ModelType) -> ModelType:
         if model_class == MLPClassifier:
             default_args.update({"max_iter": 500})
         elif model_class == LGBMClassifier:
-            default_args.update({"learning_rate": 0.05, "max_depth": 5})
+            default_args.update(
+                {
+                    "learning_rate": 0.05,
+                    "max_depth": 3,
+                    "subsample_for_bin": 20000,
+                }
+            )
         elif model_class == LogisticRegression:
             default_args.update({"max_iter": 800})
     return model_class(**default_args)
