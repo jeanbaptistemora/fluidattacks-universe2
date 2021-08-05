@@ -8,11 +8,8 @@ from async_lru import (
 from charts import (
     utils,
 )
-from charts.colors import (
-    RISK,
-)
 from charts.generators.stacked_bar_chart.utils import (
-    DATE_FMT,
+    format_document,
     GroupDocumentData,
     translate_date,
 )
@@ -23,12 +20,10 @@ from datetime import (
     datetime,
 )
 from typing import (
-    cast,
     Dict,
     Iterable,
     List,
     Optional,
-    Union,
 )
 
 
@@ -130,69 +125,6 @@ async def get_many_groups_document(
             "Found",
         ]
     }
-
-
-def format_document(document: Dict[str, Dict[datetime, float]]) -> dict:
-    return dict(
-        data=dict(
-            x="date",
-            columns=[
-                cast(List[Union[float, str]], [name])
-                + [
-                    date.strftime(DATE_FMT)
-                    if name == "date"
-                    else document[name][date]
-                    for date in tuple(document["date"])[-12:]
-                ]
-                for name in document
-            ],
-            colors={
-                "Closed": RISK.more_passive,
-                "Accepted": RISK.agressive,
-                "Found": RISK.more_agressive,
-            },
-            types={
-                "Closed": "line",
-                "Accepted": "line",
-                "Found": "line",
-            },
-        ),
-        axis=dict(
-            x=dict(
-                tick=dict(
-                    centered=True,
-                    multiline=False,
-                    rotate=12,
-                ),
-                type="category",
-            ),
-            y=dict(
-                min=0,
-                padding=dict(
-                    bottom=0,
-                ),
-            ),
-        ),
-        grid=dict(
-            x=dict(
-                show=True,
-            ),
-            y=dict(
-                show=True,
-            ),
-        ),
-        legend=dict(
-            position="bottom",
-        ),
-        point=dict(
-            focus=dict(
-                expand=dict(
-                    enabled=True,
-                ),
-            ),
-            r=5,
-        ),
-    )
 
 
 async def generate_all() -> None:

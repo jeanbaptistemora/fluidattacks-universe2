@@ -1,8 +1,15 @@
+from charts.colors import (
+    RISK,
+)
 from datetime import (
     datetime,
 )
 from typing import (
+    cast,
+    Dict,
+    List,
     NamedTuple,
+    Union,
 )
 
 # Constants
@@ -51,3 +58,66 @@ def translate_date(date_str: str) -> datetime:
         raise ValueError(f"Unexpected number of parts: {parts}")
 
     return datetime(int(date_year), MONTH_TO_NUMBER[date_month], int(date_day))
+
+
+def format_document(document: Dict[str, Dict[datetime, float]]) -> dict:
+    return dict(
+        data=dict(
+            x="date",
+            columns=[
+                cast(List[Union[float, str]], [name])
+                + [
+                    date.strftime(DATE_FMT)
+                    if name == "date"
+                    else document[name][date]
+                    for date in tuple(document["date"])[-12:]
+                ]
+                for name in document
+            ],
+            colors={
+                "Closed": RISK.more_passive,
+                "Accepted": RISK.agressive,
+                "Found": RISK.more_agressive,
+            },
+            types={
+                "Closed": "line",
+                "Accepted": "line",
+                "Found": "line",
+            },
+        ),
+        axis=dict(
+            x=dict(
+                tick=dict(
+                    centered=True,
+                    multiline=False,
+                    rotate=12,
+                ),
+                type="category",
+            ),
+            y=dict(
+                min=0,
+                padding=dict(
+                    bottom=0,
+                ),
+            ),
+        ),
+        grid=dict(
+            x=dict(
+                show=True,
+            ),
+            y=dict(
+                show=True,
+            ),
+        ),
+        legend=dict(
+            position="bottom",
+        ),
+        point=dict(
+            focus=dict(
+                expand=dict(
+                    enabled=True,
+                ),
+            ),
+            r=5,
+        ),
+    )
