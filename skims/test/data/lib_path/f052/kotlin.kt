@@ -1,6 +1,8 @@
 package f052
 
 import java.security.NoSuchAlgorithmException
+import java.security.spec.ECGenParameterSpec
+import java.security.spec.RSAKeyGenParameterSpec
 import javax.crypto.Cipher
 import javax.crypto.NoSuchPaddingException
 
@@ -26,6 +28,11 @@ class test {
             val c17 = Cipher.getInstance("RSA/ECB/PKCS1Padding")
             val c18 = Cipher.getInstance("RSA/ECB/OAEPWithSHA-1AndMGF1Padding")
             val c19 = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding")
+
+            val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+            val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
+            val k3 = ECGenParameterSpec("secp521r1")
+            val k4 = ECGenParameterSpec("c2pnb208w1")
         } catch (e: NoSuchAlgorithmException) {
         } catch (e: NoSuchPaddingException) {
         }

@@ -191,6 +191,26 @@ def _java_yield_insecure_hash(
 def _java_yield_insecure_key(
     graph_db: graph_model.GraphDB,
 ) -> graph_model.GraphShardNodes:
+    for shard, object_id, type_name in yield_java_object_creation(graph_db):
+        match = g.match_ast(
+            shard.graph,
+            object_id,
+            "argument_list",
+        )
+        parameters = g.adj_ast(
+            shard.graph,
+            match["argument_list"],
+        )[1:-1]
+        yield from _java_security_yield_insecure_key(
+            shard,
+            type_name,
+            parameters,
+        )
+
+
+def _java_security_yield_insecure_key(
+    shard: graph_model.GraphShard, type_name: str, parameters: List[Any]
+) -> graph_model.GraphShardNodes:
     insecure_stds = {
         "secp112r1",
         "secp112r2",
@@ -237,37 +257,25 @@ def _java_yield_insecure_key(
         "brainpoolp192r1",
         "brainpoolp192t1",
     }
-    for shard, object_id, type_name in yield_java_object_creation(graph_db):
-        match = g.match_ast(
-            shard.graph,
-            object_id,
-            "argument_list",
-        )
-        parameters = g.adj_ast(
-            shard.graph,
-            match["argument_list"],
-        )[1:-1]
-        if parameters and type_name in complete_attrs_on_set(
-            {
-                "java.security.spec.RSAKeyGenParameterSpec",
-            }
-        ):
-            param_id = parameters[0]
-            if param_text := shard.graph.nodes[param_id].get("label_text"):
-                with suppress(TypeError):
-                    key_length = int(param_text)
-                    if key_length < 2048:
-                        yield shard, param_id
-        if parameters and type_name in complete_attrs_on_set(
-            {
-                "java.security.spec.ECGenParameterSpec",
-            }
-        ):
-            param_id = parameters[0]
-            if (
-                param_text := shard.graph.nodes[param_id].get("label_text")
-            ) and param_text.replace('"', "") in insecure_stds:
-                yield shard, param_id
+    insecure_rsa_spec = complete_attrs_on_set(
+        {"java.security.spec.RSAKeyGenParameterSpec"}
+    )
+    insecure_ec_spec = complete_attrs_on_set(
+        {"java.security.spec.ECGenParameterSpec"}
+    )
+    if parameters and type_name in insecure_rsa_spec:
+        param_id = parameters[0]
+        if param_text := shard.graph.nodes[param_id].get("label_text"):
+            with suppress(TypeError):
+                key_length = int(param_text)
+                if key_length < 2048:
+                    yield shard, param_id
+    if parameters and type_name in insecure_ec_spec:
+        param_id = parameters[0]
+        if (
+            param_text := shard.graph.nodes[param_id].get("label_text")
+        ) and param_text.replace('"', "") in insecure_stds:
+            yield shard, param_id
 
 
 def _java_yield_insecure_pass(
@@ -325,6 +333,24 @@ def _kotlin_yield_insecure_ciphers(
             for argument_id in match["value_argument"]
         ]
         yield from _javax_yield_insecure_ciphers(
+            shard, method_name, parameters
+        )
+
+
+def _kotlin_yield_insecure_key(
+    graph_db: graph_model.GraphDB,
+) -> graph_model.GraphShardNodes:
+    for shard, method_id, method_name in yield_kotlin_method_invocation(
+        graph_db
+    ):
+        match = g.match_ast_group(
+            shard.graph, method_id, "value_argument", depth=3
+        )
+        parameters = [
+            g.adj_ast(shard.graph, argument_id)[0]
+            for argument_id in match["value_argument"]
+        ]
+        yield from _java_security_yield_insecure_key(
             shard, method_name, parameters
         )
 
@@ -489,6 +515,18 @@ def kotlin_insecure_cipher(
     )
 
 
+def kotlin_insecure_key(
+    graph_db: graph_model.GraphDB,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_n_ids(
+        cwe=("310", "327"),
+        desc_key="src.lib_path.f052.insecure_key.description",
+        desc_params=dict(lang="Kotlin"),
+        finding=FINDING,
+        graph_shard_nodes=_kotlin_yield_insecure_key(graph_db),
+    )
+
+
 # Constants
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F052
 QUERIES: graph_model.Queries = (
@@ -501,4 +539,5 @@ QUERIES: graph_model.Queries = (
     (FINDING, java_insecure_key),
     (FINDING, java_insecure_pass),
     (FINDING, kotlin_insecure_cipher),
+    (FINDING, kotlin_insecure_key),
 )
