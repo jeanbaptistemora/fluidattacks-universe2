@@ -30,6 +30,9 @@ spec:
             - wget -O - fluidattacks.com/install/integrates-back | sh /dev/stdin master &&
               integrates-back prod
           resources:
+            # You can see node resources like this:
+            #   kubectl get node --selector=worker_group=production
+            #   kubectl describe node <node>
             requests:
               cpu: 1000m
               memory: 2000Mi
