@@ -174,6 +174,7 @@ async def new_group(
     requester_email: str,
     service: str,
     subscription: str,
+    organization: str,
 ) -> bool:
     translations: Dict[Union[str, bool], str] = {
         "continuous": "Continuous Hacking",
@@ -197,6 +198,7 @@ async def new_group(
                 - Type: {translations.get(subscription, subscription)}
                 - Service: {service}
                 - Squad: {translations[has_squad]}
+                - Organization: {organization}
 
                 If you require any further information,
                 do not hesitate to contact us.

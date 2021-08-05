@@ -568,6 +568,7 @@ async def add_group(  # pylint: disable=too-many-arguments,too-many-locals
             requester_email=user_email,
             service=service,
             subscription=subscription,
+            organization=organization,
         )
     return success
 
