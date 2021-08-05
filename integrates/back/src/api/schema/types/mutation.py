@@ -262,6 +262,7 @@ if FI_API_STATUS == "migration":
         request_vulnerabilities_zero_risk_new.mutate,
     )
     MUTATION.set_field("submitDraft", submit_draft_new.mutate)
+    MUTATION.set_field("submitMachineJob", submit_machine_job.mutate)
     MUTATION.set_field(
         "updateDescription", update_finding_description_new.mutate
     )

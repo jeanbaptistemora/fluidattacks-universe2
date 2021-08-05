@@ -2,10 +2,14 @@ from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from context import (
+    FI_API_STATUS,
     PRODUCT_API_TOKEN,
 )
 from custom_types import (
     SimplePayload,
+)
+from db_model.findings.types import (
+    Finding,
 )
 from decorators import (
     concurrent_decorators,
@@ -38,8 +42,15 @@ async def mutate(
     finding_id: str,
     root_nickname: str,
 ) -> SimplePayload:
-    finding = await info.context.loaders.finding.load(finding_id)
-    group_name: str = finding["group_name"]
+    if FI_API_STATUS == "migration":
+        finding_new_loader = info.context.loaders.finding_new
+        finding: Finding = await finding_new_loader.load(finding_id)
+        group_name: str = finding.group_name
+        finding_title: str = finding.title
+    else:
+        finding = await info.context.loaders.finding.load(finding_id)
+        group_name = finding["group_name"]
+        finding_title = finding["title"]
 
     root_nicknames: Set[str] = {
         root.nickname
@@ -48,7 +59,6 @@ async def mutate(
     if root_nickname not in root_nicknames:
         return SimplePayload(success=False)
 
-    finding_title: str = finding["title"]
     finding_code: Optional[str] = get_finding_code_from_title(finding_title)
 
     if finding_code is None:
