@@ -16,6 +16,7 @@ const allowedDocumentNames: string[] = [
   "meanTimeToRemediate",
   "meanTimeToRemediateNonTreated",
   "riskOverTime",
+  "riskOverTimeCvssf",
 ];
 const allowedDocumentTypes: string[] = [
   "barChart",
@@ -38,6 +39,24 @@ const mergedDocuments: Record<string, IMergedCharts> = {
     },
     documentName: "meanTimeToRemediateNonTreated",
     documentType: "textBox",
+  },
+  riskOverTimeCvssf: {
+    alt: {
+      label: "Vulns",
+      tooltip: translate.t(
+        "analytics.stackedBarChart.riskOverTime.tooltip.vulnerabilities"
+      ),
+      url: "#vulnerabilities-over-time",
+    },
+    default: {
+      label: "Cvssf",
+      tooltip: translate.t(
+        "analytics.stackedBarChart.riskOverTime.tooltip.cvssf"
+      ),
+      url: "#vulnerabilities-over-time",
+    },
+    documentName: "riskOverTime",
+    documentType: "stackedBarChart",
   },
 };
 

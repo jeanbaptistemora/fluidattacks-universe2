@@ -142,18 +142,11 @@ export const enTranslations: ResourceKey = {
     },
     stackedBarChart: {
       riskOverTime: {
-        footer: {
-          accepted:
-            "Open vulnerabilities with accepted treatment are exactly like open ones" +
-            ", except that you decided to coexist with that risk.",
-          closed:
-            "Closed vulnerabilities may be seen as security breaches that your system no longer has.",
-          intro:
-            "In ASM, you can track the evolution of your systems from a security point of view:",
-          opened:
-            "Open vulnerabilities represent a risk currently impacting your end-users and systems.",
-        },
         title: "Vulnerabilities over time",
+        tooltip: {
+          cvssf: "CVSSF",
+          vulnerabilities: "Vulnerabilities",
+        },
       },
     },
     textBox: {
