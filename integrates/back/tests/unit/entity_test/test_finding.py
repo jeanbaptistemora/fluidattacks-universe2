@@ -99,7 +99,7 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
         "currentApprovalStatus": "",
         "analyst": "unittest@fluidattacks.com",
         "source": "asm",
-        "vulnType": "lines",
+        "vulnerabilityType": "lines",
         "zeroRisk": "",
     }
     expected_tracking = [
@@ -182,7 +182,7 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
             currentApprovalStatus
             analyst
             source
-            vulnType
+            vulnerabilityType
             zeroRisk
           }
           portsVulns {

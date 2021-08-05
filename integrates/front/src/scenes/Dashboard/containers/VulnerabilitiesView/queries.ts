@@ -30,7 +30,7 @@ const VULNS_FRAGMENT: DocumentNode = gql`
     stream
     tag
     verification
-    vulnType
+    vulnerabilityType
     where
     zeroRisk
   }

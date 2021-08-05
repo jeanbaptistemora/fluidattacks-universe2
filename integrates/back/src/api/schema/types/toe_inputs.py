@@ -3,3 +3,5 @@ from ariadne import (
 )
 
 TOEINPUTS = ObjectType("ToeInputs")
+
+TOEINPUTS.set_alias("vulnerabilities", "vulns")

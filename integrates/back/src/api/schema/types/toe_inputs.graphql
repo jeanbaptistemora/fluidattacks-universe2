@@ -7,5 +7,7 @@ type ToeInputs {
   seenFirstTimeBy: String
   testedDate: String
   verified: String
-  vulns: String
+  vulnerabilities: String
+  vulns: String @deprecated(reason: """This field will be removed after
+    2021/12/31. Use `vulnerabilities` instead.""")
 }

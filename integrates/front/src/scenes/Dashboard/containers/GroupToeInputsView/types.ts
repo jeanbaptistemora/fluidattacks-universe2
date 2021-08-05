@@ -6,7 +6,7 @@ interface IToeInputAttr {
   seenFirstTimeBy: string;
   testedDate: string;
   verified: string;
-  vulns: string;
+  vulnerabilities: string;
 }
 
 interface IToeInputData {
@@ -17,7 +17,7 @@ interface IToeInputData {
   seenFirstTimeBy: string;
   testedDate: string;
   verified: string;
-  vulns: string;
+  vulnerabilities: string;
 }
 
 export type { IToeInputAttr, IToeInputData };

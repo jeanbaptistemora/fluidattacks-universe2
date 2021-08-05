@@ -2224,7 +2224,7 @@ export const enTranslations: ResourceKey = {
         treatmentsTooltip:
           "Filter vulnerabilities based on the treatment they were given",
         verification: "Last reattack",
-        vulnType: {
+        vulnerabilityType: {
           inputs: "app",
           lines: "code",
           ports: "infra",

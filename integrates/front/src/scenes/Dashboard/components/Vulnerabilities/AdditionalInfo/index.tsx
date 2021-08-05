@@ -137,7 +137,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
           <div className={"pl1 pr2 w-10-l w-100-m w-100-ns"}>
             <Label>
               {t(
-                `searchFindings.tabVuln.vulnTable.specificType.${vulnerability.vulnType}`
+                `searchFindings.tabVuln.vulnTable.specificType.${vulnerability.vulnerabilityType}`
               )}
             </Label>
           </div>
@@ -307,11 +307,13 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
             <Row>
               <LabelField>
                 <Label>
-                  {t("searchFindings.tabVuln.vulnTable.vulnType.title")}
+                  {t(
+                    "searchFindings.tabVuln.vulnTable.vulnerabilityType.title"
+                  )}
                 </Label>
               </LabelField>
               <InfoField>
-                <Value value={vulnerability.vulnType} />
+                <Value value={vulnerability.vulnerabilityType} />
               </InfoField>
             </Row>
             <Row>

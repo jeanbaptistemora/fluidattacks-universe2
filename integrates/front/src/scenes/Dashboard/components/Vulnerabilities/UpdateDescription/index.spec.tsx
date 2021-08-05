@@ -93,7 +93,7 @@ describe("Update Description component", (): void => {
             specific: "",
             tag: "",
             verification: "",
-            vulnType: "",
+            vulnerabilityType: "",
             where: "",
             zeroRisk: "",
           },

@@ -13,7 +13,7 @@ const GET_TOE_INPUTS: DocumentNode = gql`
         seenFirstTimeBy
         testedDate
         verified
-        vulns
+        vulnerabilities
       }
     }
   }

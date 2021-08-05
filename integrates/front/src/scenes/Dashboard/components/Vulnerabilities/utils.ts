@@ -136,8 +136,8 @@ const formatVulnerabilities: (
         ? (lastTreatment.treatmentManager as string)
         : "-",
       verification: shouldDisplayVerification ? verification : "",
-      vulnType: translate.t(
-        `searchFindings.tabVuln.vulnTable.vulnType.${vulnerability.vulnType}`
+      vulnerabilityType: translate.t(
+        `searchFindings.tabVuln.vulnTable.vulnerabilityType.${vulnerability.vulnerabilityType}`
       ),
     };
   });

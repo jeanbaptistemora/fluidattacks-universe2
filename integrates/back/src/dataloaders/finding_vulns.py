@@ -101,6 +101,7 @@ async def batch_load_fn_vulns(
                 .get("status", "")
                 .capitalize(),
                 vuln_type=cast(str, vuln.get("vuln_type", "")),
+                vulnerability_type=cast(str, vuln.get("vuln_type", "")),
                 where=cast(str, vuln.get("where", "")),
                 zero_risk=cast(
                     HistoricType, vuln.get("historic_zero_risk", [{}])

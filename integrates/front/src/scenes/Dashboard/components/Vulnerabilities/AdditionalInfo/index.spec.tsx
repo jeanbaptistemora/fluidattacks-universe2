@@ -48,7 +48,7 @@ describe("AdditionalInfo", (): void => {
     treatmentDate: "2019-07-05 09:56:40",
     treatmentManager: "treatment-manager-4",
     verification: "Verified",
-    vulnType: "lines",
+    vulnerabilityType: "lines",
     where: "https://example.com/lines",
     zeroRisk: "",
   };
@@ -81,7 +81,7 @@ describe("AdditionalInfo", (): void => {
 
     wrapper.setProps({
       vulnerability: formatVulnerabilities([
-        { ...mockVuln, vulnType: "inputs" },
+        { ...mockVuln, vulnerabilityType: "inputs" },
       ])[0],
     });
     wrapper.update();

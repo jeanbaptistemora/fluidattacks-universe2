@@ -35,7 +35,7 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
       seenFirstTimeBy: true,
       testedDate: true,
       verified: true,
-      vulns: true,
+      vulnerabilities: true,
     },
     localStorage
   );
@@ -127,10 +127,10 @@ const GroupToeInputsView: React.FC = (): JSX.Element => {
     },
     {
       align: "left",
-      dataField: "vulns",
+      dataField: "vulnerabilities",
       header: translate.t("group.toe.inputs.vulns"),
       onSort,
-      visible: checkedItems.vulns,
+      visible: checkedItems.vulnerabilities,
       width: "15%",
     },
     {
