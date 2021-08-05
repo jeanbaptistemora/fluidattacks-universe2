@@ -47,15 +47,14 @@ you need to do the following:
 
 - `--token`: Your DevSecOps agent token [required].
 - `--dynamic / --static`: Run only DAST / SAST vulnerabilities. (optional)
-- `--verbose <number>`: Declare the level of detail of the report (default 3)
-    - `1`: Show only the number of open,
+- `--verbose`: Declare the level of detail of the report (default vvv)
+    - `v`: Show only the number of open,
     closed and accepted vulnerabilities.
-    - `2`: Show only open vulnerabilities.
-    - `3`: Show open and closed vulnerabilities.
-    - `4`: Show open, closed
+    - `vv`: Show only open vulnerabilities.
+    - `vvv`: Show open and closed vulnerabilities.
+    - `vvvv`: Show open, closed
     and accepted vulnerabilities.
-    - You can use `-v`, `-vv`, `-vvv`, `-vvvv`
-    instead of `--verbose`.
+    - You can use `-v`, `-vv`, `-vvv`, `-vvvv`.
 - `--strict / --lax`: Run forces in strict mode (default `--lax`).
 - `--repo-name`: Git repository name (optional)
 
@@ -65,10 +64,11 @@ Run the Docker image:
 
 1. To check `all` vulnerabilities
   including static and dynamic
-    - `docker run --rm fluidattacks/forces:new forces --token <your-token>`.
+    - `docker run --rm -ti fluidattacks/forces:new
+    forces --token <your-token> -vvv`.
 1. To check only `static` vulnerabilities
-    - `docker run --rm fluidattacks/forces:new forces
-    --static --strict --token <your-token>`.
+    - `docker run --rm -ti fluidattacks/forces:new
+    forces --static --strict --token <your-token>`.
 1. To check only `dynamyc` vulnerabilities
-    - `docker run --rm fluidattacks/forces:new forces
-    --dynamic --strict --token <your-token>`.
+    - `docker run --rm -ti fluidattacks/forces:new
+    forces --dynamic --strict --token <your-token>`.
