@@ -24,13 +24,13 @@ const NavbarItems: React.FC = (): JSX.Element => (
     <div className={"w-auto flex flex-nowrap"}>
       <Menu />
       <li>
-        <Link className={"db tc pa1 no-underline"} to={"/"}>
+        <TransitionLink styles={"db tc pa1 no-underline"} to={"/"}>
           <CloudImage
             alt={"Fluid Attacks logo navbar"}
             src={"logo_fluid_attacks_2021"}
             styles={"h-5 ml3 pv2"}
           />
-        </Link>
+        </TransitionLink>
       </li>
     </div>
     <div className={"w-auto dn flex-l center"}>
@@ -90,29 +90,32 @@ const NavbarItems: React.FC = (): JSX.Element => (
         </NavbarSubcategory>
       </NavbarItem>
       <NavbarItem className={"db-l dn"}>
-        <Link className={"no-underline"} to={"/about-us/certifications/"}>
+        <TransitionLink
+          styles={"no-underline"}
+          to={"/about-us/certifications/"}
+        >
           <NavbarRegularButton>{"Certifications"}</NavbarRegularButton>
-        </Link>
+        </TransitionLink>
       </NavbarItem>
       <NavbarItem className={"db-xl display-none"}>
-        <Link className={"no-underline"} to={"/resources/"}>
+        <TransitionLink styles={"no-underline"} to={"/resources/"}>
           <NavbarRegularButton>{"Resources"}</NavbarRegularButton>
-        </Link>
+        </TransitionLink>
       </NavbarItem>
       <NavbarItem className={"db-xl display-none"}>
-        <Link className={"no-underline"} to={"/plans/"}>
+        <TransitionLink styles={"no-underline"} to={"/plans/"}>
           <NavbarRegularButton>{"Plans"}</NavbarRegularButton>
-        </Link>
+        </TransitionLink>
       </NavbarItem>
       <NavbarItem className={"db-xl display-none"}>
-        <Link className={"no-underline"} to={"/advisories/"}>
+        <TransitionLink styles={"no-underline"} to={"/advisories/"}>
           <NavbarRegularButton>{"Advisories"}</NavbarRegularButton>
-        </Link>
+        </TransitionLink>
       </NavbarItem>
       <NavbarItem className={"db-xl display-none"}>
-        <Link className={"no-underline"} to={"/blog/"}>
+        <TransitionLink styles={"no-underline"} to={"/blog/"}>
           <NavbarRegularButton>{"Blog"}</NavbarRegularButton>
-        </Link>
+        </TransitionLink>
       </NavbarItem>
     </div>
     <div className={"w-auto flex-l flex-nowrap dn"}>
@@ -123,9 +126,9 @@ const NavbarItems: React.FC = (): JSX.Element => (
       </li>
 
       <li className={"pv4"}>
-        <Link className={"no-underline"} to={"/contact-us/"}>
+        <TransitionLink styles={"no-underline"} to={"/contact-us/"}>
           <NavbarContactButton>{"Contact now"}</NavbarContactButton>
-        </Link>
+        </TransitionLink>
       </li>
     </div>
   </NavbarList>
