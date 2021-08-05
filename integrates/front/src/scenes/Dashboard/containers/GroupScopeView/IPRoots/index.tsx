@@ -83,13 +83,14 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
     },
     onError: ({ graphQLErrors }): void => {
       graphQLErrors.forEach((error): void => {
-        switch (error.message) {
-          case "Exception - Active root with the same URL/branch already exists":
-            msgError(t("group.scope.url.errors.invalid"));
-            break;
-          default:
-            msgError(t("groupAlerts.errorTextsad"));
-            Logger.error("Couldn't activate root", error);
+        if (
+          error.message ===
+          "Exception - Active root with the same URL/branch already exists"
+        ) {
+          msgError(t("group.scope.url.errors.invalid"));
+        } else {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.error("Couldn't activate root", error);
         }
       });
     },
@@ -112,13 +113,14 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
     },
     onError: ({ graphQLErrors }): void => {
       graphQLErrors.forEach((error): void => {
-        switch (error.message) {
-          case "Exception - Active root with the same URL/branch already exists":
-            msgError(t("group.scope.url.errors.invalid"));
-            break;
-          default:
-            msgError(t("groupAlerts.errorTextsad"));
-            Logger.error("Couldn't deactivate root", error);
+        if (
+          error.message ===
+          "Exception - Active root with the same URL/branch already exists"
+        ) {
+          msgError(t("group.scope.url.errors.invalid"));
+        } else {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.error("Couldn't deactivate root", error);
         }
       });
     },
