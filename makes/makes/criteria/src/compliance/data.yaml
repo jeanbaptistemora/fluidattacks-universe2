@@ -973,3 +973,19 @@
     description: __empty__
   definitions: {}
   metadata: {}
+"014":
+  title: PCI DSS
+  en:
+    description: >
+      The PCI Security Standards Council's
+      mission is to enhance global payment
+      account data security by developing
+      standards and supporting services
+      that drive education, awareness,
+      and effective implementation by stakeholders.
+      The version used in this section
+      is PCI DSS v3.2.1.
+  es:
+    description: __empty__
+  definitions: {}
+  metadata: {}
