@@ -226,7 +226,7 @@ export const enTranslations: ResourceKey = {
         footer:
           "A finding is a group of vulnerabilities on your system " +
           "related to the same attack vector.",
-        title: "Total findings",
+        title: "Total types",
       },
       totalVulnerabilities: {
         footer:
