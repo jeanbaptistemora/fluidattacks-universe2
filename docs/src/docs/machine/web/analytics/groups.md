@@ -5,9 +5,9 @@ sidebar_label: Group
 slug: /machine/web/analytics/groups
 ---
 
-## Total findings
+## Total types
 
-A finding is
+A type is
 a group of vulnerabilities
 on your system
 related to
