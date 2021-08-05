@@ -21,7 +21,7 @@ from typing import (
 
 
 def get_api_schema(creds: Creds, target: IO_FILE[str]) -> IO[None]:
-    endpoint = HTTPEndpoint(API_ENDPOINT, creds.basic_auth_header)
+    endpoint = HTTPEndpoint(API_ENDPOINT, creds.basic_auth_header())
     data = endpoint(
         introspection.query,
         introspection.variables(
