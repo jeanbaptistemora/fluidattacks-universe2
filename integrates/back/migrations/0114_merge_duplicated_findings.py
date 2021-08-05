@@ -7,17 +7,23 @@ Vulns are copied to the oldest finding and the newer ones is deleted.
 
 Duplicate vulns in the merged finding are also deleted.
 
-Execution Time:     2021-07-30 at 18:03:54 UTC-05
-Finalization Time:  2021-07-30 at 18:04:25 UTC-05
+Execution Time:    2021-07-30 at 18:03:54 UTC-05
+Finalization Time: 2021-07-30 at 18:04:25 UTC-05
 
-Execution Time:     2021-08-03 at 09:41:31 UTC-05
-Finalization Time:  2021-08-03 at 09:56:04 UTC-05
+Execution Time:    2021-08-03 at 09:41:31 UTC-05
+Finalization Time: 2021-08-03 at 09:56:04 UTC-05
 
 Execution Time:    2021-08-03 at 14:46:19 UTC-05
 Finalization Time: 2021-08-03 at 14:46:25 UTC-05
 
 Execution Time:    2021-08-04 at 11:46:10 UTC-05
 Finalization Time: 2021-08-04 at 11:46:32 UTC-05
+
+Execution Time:    2021-08-04 at 18:22:33 UTC-05
+Finalization Time: 2021-08-04 at 18:31:30 UTC-05
+
+Execution Time:    2021-08-05 at 09:02:12 UTC-05
+Finalization Time: 2021-08-05 at 09:35:52 UTC-05
 """
 
 from aioextensions import (
