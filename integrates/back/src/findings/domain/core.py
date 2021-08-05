@@ -576,7 +576,7 @@ async def get_total_treatment(
     finding_vulns_loader = context.finding_vulns_nzr
 
     are_findings_valid = await collect(
-        validate_finding(str(finding["finding_id"])) for finding in findings
+        [validate_finding(finding=finding) for finding in findings]
     )
     valid_findings = [
         finding
