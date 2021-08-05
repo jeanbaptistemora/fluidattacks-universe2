@@ -564,11 +564,12 @@ async def add_group(  # pylint: disable=too-many-arguments,too-many-locals
         await notifications_domain.new_group(
             description=description,
             group_name=group_name,
+            has_machine=has_machine,
             has_squad=has_squad,
+            organization=organization,
             requester_email=user_email,
             service=service,
             subscription=subscription,
-            organization=organization,
         )
     return success
 
