@@ -13,6 +13,7 @@ from .types import (
 )
 from .utils import (
     filter_non_state_status_findings,
+    format_optional_state,
     format_optional_verification,
     format_state,
     format_unreliable_indicators,
@@ -50,7 +51,6 @@ from itertools import (
 )
 from typing import (
     List,
-    Optional,
     Tuple,
     Union,
 )
@@ -81,41 +81,31 @@ def _build_finding(
             raw_items=raw_items,
         )
     )
-
-    try:
-        approval: Optional[FindingState] = format_state(
-            historics.get_latest(
-                item_id=item_id,
-                key_structure=key_structure,
-                historic_suffix="APPROVAL",
-                raw_items=raw_items,
-            )
+    approval = format_optional_state(
+        historics.get_latest(
+            item_id=item_id,
+            key_structure=key_structure,
+            historic_suffix="APPROVAL",
+            raw_items=raw_items,
         )
-    except StopIteration:
-        approval = None
-    try:
-        creation: Optional[FindingState] = format_state(
-            historics.get_latest(
-                item_id=item_id,
-                key_structure=key_structure,
-                historic_suffix="CREATION",
-                raw_items=raw_items,
-            )
+    )
+    creation = format_state(
+        historics.get_latest(
+            item_id=item_id,
+            key_structure=key_structure,
+            historic_suffix="CREATION",
+            raw_items=raw_items,
         )
-    except StopIteration:
-        creation = None
-    try:
-        submission: Optional[FindingState] = format_state(
-            historics.get_latest(
-                item_id=item_id,
-                key_structure=key_structure,
-                historic_suffix="SUBMISSION",
-                raw_items=raw_items,
-            )
+    )
+    submission = format_optional_state(
+        historics.get_latest(
+            item_id=item_id,
+            key_structure=key_structure,
+            historic_suffix="SUBMISSION",
+            raw_items=raw_items,
         )
-    except StopIteration:
-        submission = None
-    verification: Optional[FindingVerification] = format_optional_verification(
+    )
+    verification = format_optional_verification(
         historics.get_latest(
             item_id=item_id,
             key_structure=key_structure,

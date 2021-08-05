@@ -585,6 +585,15 @@ class InvalidStream(CustomBaseException):
         super(InvalidStream, self).__init__(msg)
 
 
+class InvalidStateStatus(CustomBaseException):
+    """Exception to control state status."""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Exception - Invalid state status"
+        super(InvalidStateStatus, self).__init__(msg)
+
+
 class InvalidTreatmentManager(CustomBaseException):
     """Exception to control if treatment manager is valid"""
 
