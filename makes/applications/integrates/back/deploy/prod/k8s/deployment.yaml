@@ -30,15 +30,21 @@ spec:
             - wget -O - fluidattacks.com/install/integrates-back | sh /dev/stdin master &&
               integrates-back prod
           resources:
-            # You can see node resources like this:
+            # Ensure your request and limit fits in the node:
             #   kubectl get node --selector=worker_group=production
             #   kubectl describe node <node>
+            #
+            # You can have 1 pod per node, or 2, or 3, etc..
+            #
+            # Debug if pods were actually able to use the node:
+            #   kubectl get pod -n production
+            #   kubectl describe pod -n production <pod>
             requests:
-              cpu: 1000m
-              memory: 2000Mi
+              cpu: 3000m
+              memory: 6000Mi
             limits:
-              cpu: 2000m
-              memory: 3500Mi
+              cpu: 4000m
+              memory: 7800Mi
           env:
             - name: INSTANA_AGENT_HOST
               valueFrom:
