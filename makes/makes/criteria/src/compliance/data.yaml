@@ -955,7 +955,106 @@
       is OWASP-ASVS v4.0.1.
   es:
     description: __empty__
-  definitions: {}
+  definitions:
+    "C.1":
+      title: Application layer debugging interfaces are disabled or protected
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.2":
+      title: Cryptographic keys and certificates
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.3":
+      title: Memory protection controls (ASLR and DEP)
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.4":
+      title: On-chip debugging interfaces such as JTAG and SWD
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.5":
+      title: Trusted execution is implemented and enabled
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.6":
+      title: Private keys and certificates are store securely
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.7":
+      title: Transport layer security
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.8":
+      title: Firmware apps validate the digital signature (server)
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.9":
+      title: Wireless connection are mutually authenticated
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.10":
+      title: Wireless communication over an encrypted channel
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.11":
+      title: Replace banned C functions
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.12":
+      title: Firmware maintains a software bill of materials
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.13":
+      title: Hardcoded credentials reviewed in code with third party libraries
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.14":
+      title: Components are not susceptible to OS Command Injection
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.15":
+      title: Pin the digital signature to a trusted server
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.16":
+      title: Use of tamper resistance or detection
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.17":
+      title: Intellectual Property protection
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.18":
+      title: Security controls against firmware reverse engineering
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.19":
+      title: Boot image signature
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.20":
+      title: Time-of-checks vs time-of-use attacks
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.21":
+      title: Validate firmware upgrade and use code signing
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.22":
+      title: Device cannot be downgraded
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.23":
+      title: Cryptographically secure pseudo-random number generator
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.24":
+      title: Predefined schedule for firmware updates
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.25":
+      title: Wipe of firmware and sensitive data
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.26":
+      title: Disabling debugging interfaces
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.27":
+      title: Substantial protection from decapping and side channel attacks
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.29":
+      title: Interchip communication is encrypted
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf  
+    "C.30":
+      title: Code validation before execution
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.31":
+      title: Sensitive information in memory is overwritten with zeros
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.32":
+      title: Kernel containers for isolation
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.33":
+      title: Secure compiler flags configured for firmware builts
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "C.34":
+      title: Micro controllers configured with code protection
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
   metadata: {}
 "013":
   title: OWASP TOP TEN
