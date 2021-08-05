@@ -1,9 +1,6 @@
 # pylint: skip-file
 import click
 import logging
-from os import (
-    environ,
-)
 from returns.io import (
     IO,
 )
@@ -24,10 +21,6 @@ from typing import (
 )
 
 LOG = logging.getLogger(__name__)
-
-
-def get_creds() -> Creds:
-    return Creds(environ["ANNOUNCEKIT_USER"], environ["ANNOUNCEKIT_PASSWD"])
 
 
 @click.command()

@@ -6,6 +6,7 @@ buildPythonRequirements {
   name = "observes-env-tap-announcekit-runtime-python";
   requirements = {
     direct = [
+      "cachetools==4.2.2"
       "click==7.1.2"
       "returns==0.16.0"
       "sgqlc==14.0"
