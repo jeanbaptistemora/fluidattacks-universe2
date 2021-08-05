@@ -6,7 +6,6 @@ from aioextensions import (
 )
 import authz
 from custom_exceptions import (
-    HasOpenVulns,
     InvalidParameter,
     InvalidRootExclusion,
     PermissionDenied,
@@ -441,7 +440,7 @@ async def update_root_cloning_status(
     )
 
 
-async def _has_open_vulns(root: GitRootItem) -> bool:
+async def has_open_vulns(root: GitRootItem) -> bool:
     return await roots_dal.has_open_vulns(nickname=root.state.nickname)
 
 
@@ -538,9 +537,6 @@ async def deactivate_root(
 
     if root.state.status != new_status:
         if isinstance(root, GitRootItem):
-            if await _has_open_vulns(root=root):
-                raise HasOpenVulns()
-
             await roots_dal.update_root_state(
                 group_name=group_name,
                 root_id=root.id,

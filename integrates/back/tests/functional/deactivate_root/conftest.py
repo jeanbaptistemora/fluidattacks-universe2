@@ -107,7 +107,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     includes_health_check=True,
                     modified_by=test_email,
                     modified_date=test_date,
-                    nickname="",
+                    nickname="nickname",
                     other=None,
                     reason=None,
                     status=test_status,

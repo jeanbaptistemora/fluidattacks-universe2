@@ -115,6 +115,9 @@ import re
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
+from roots import (
+    domain as roots_domain,
+)
 import secrets
 from settings import (
     LOGGING,
@@ -630,6 +633,24 @@ async def remove_group(
         response = all(
             [all_resources_removed, await update(group_name, new_data)]
         )
+        if response:
+            all_group_roots = await roots_domain.get_roots(
+                group_name=group_name
+            )
+            other = ""
+            reason = "GROUP_DELETED"
+            await collect(
+                [
+                    roots_domain.deactivate_root(
+                        group_name=group_name,
+                        other=other,
+                        reason=reason,
+                        root=root,
+                        user_email=user_email,
+                    )
+                    for root in all_group_roots
+                ]
+            )
     else:
         raise AlreadyPendingDeletion()
     if response:

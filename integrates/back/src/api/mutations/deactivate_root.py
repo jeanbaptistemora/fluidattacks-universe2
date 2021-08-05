@@ -1,6 +1,9 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from custom_exceptions import (
+    HasOpenVulns,
+)
 from custom_types import (
     SimplePayload,
 )
@@ -38,6 +41,8 @@ async def deactivate_git_root(
     user_email: str,
     **kwargs: Any,
 ) -> None:
+    if await roots_domain.has_open_vulns(root):
+        raise HasOpenVulns()
     await roots_domain.deactivate_root(
         group_name=kwargs["group_name"],
         other=kwargs.get("other"),
