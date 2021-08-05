@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
 import React from "react";
 
+import { TransitionLink } from "./TransitionLink";
+
 import {
   FontAwesomeContainerSmall,
   NavbarContactButton,
@@ -33,14 +35,14 @@ const NavbarItems: React.FC = (): JSX.Element => (
     </div>
     <div className={"w-auto dn flex-l center"}>
       <NavbarItem className={"db-l dn solutions-index"}>
-        <Link className={"no-underline"} to={"/solutions/"}>
+        <TransitionLink styles={"no-underline"} to={"/solutions/"}>
           <NavbarRegularButton>
             {"Solutions"}
             <FontAwesomeContainerSmall>
               <FontAwesomeIcon icon={faAngleDown} />
             </FontAwesomeContainerSmall>
           </NavbarRegularButton>
-        </Link>
+        </TransitionLink>
 
         <NavbarSubcategory className={"solutions-content nl-5"}>
           <Link className={"f-18 fw4"} to={"/solutions/devsecops/"}>
