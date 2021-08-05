@@ -1055,6 +1055,60 @@
     "C.34":
       title: Micro controllers configured with code protection
       link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V1.2.1":
+      title: Authentication Architectural Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V1.2.2":
+      title: Authentication Architectural Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V1.2.3":
+      title: Authentication Architectural Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V1.2.4":
+      title: Authentication Architectural Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V1.4.1":
+      title: Access Control Architectural Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V1.4.3":
+      title: Access Control Architectural Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V1.4.4":
+      title: Access Control Architectural Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V1.4.5":
+      title: Access Control Architectural Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V1.5.1":
+      title: Input and Output Architectural Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V1.5.2":
+      title: Input and Output Architectural Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V1.5.3":
+      title: Input and Output Architectural Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V1.5.4":
+      title: Input and Output Architectural Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V1.6.1":
+      title: Cryptographic Architectural Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V1.6.2":
+      title: Cryptographic Architectural Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V1.6.3":
+      title: Cryptographic Architectural Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V1.6.4":
+      title: Cryptographic Architectural Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V1.7.1":
+      title: Errors, Logging and Auditing Architectural Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V1.9.1":
+      title: Client-side Data Protection
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
   metadata: {}
 "013":
   title: OWASP TOP TEN
