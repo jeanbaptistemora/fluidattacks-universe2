@@ -222,10 +222,7 @@ export const enTranslations: ResourceKey = {
           "excluding accepted vulnerabilities.",
         title: "Mean time to remediate",
       },
-      totalFindings: {
-        footer:
-          "A finding is a group of vulnerabilities on your system " +
-          "related to the same attack vector.",
+      totalTypes: {
         title: "Total types",
       },
       totalVulnerabilities: {

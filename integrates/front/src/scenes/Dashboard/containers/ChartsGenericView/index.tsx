@@ -114,10 +114,10 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 entity={entity}
                 generatorName={"raw"}
                 generatorType={"textBox"}
-                infoLink={`${graphInfoLink}organization#total-findings`}
+                infoLink={`${graphInfoLink}organization#total-types`}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("analytics.textBox.totalFindings.title")}
+                title={translate.t("analytics.textBox.totalTypes.title")}
               />
             </Col50>
             <Col50>
