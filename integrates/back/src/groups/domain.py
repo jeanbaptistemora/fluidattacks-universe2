@@ -636,9 +636,8 @@ async def remove_group(
             [all_resources_removed, await update(group_name, new_data)]
         )
         if response:
-            all_group_roots = await roots_domain.get_roots(
-                group_name=group_name
-            )
+            group_roots_loader: DataLoader = context.group_roots
+            all_group_roots = await group_roots_loader.load(group_name)
             other = ""
             reason = "GROUP_DELETED"
             await collect(

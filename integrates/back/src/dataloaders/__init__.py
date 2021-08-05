@@ -28,9 +28,6 @@ from .group_findings import (
 from .group_findings_non_deleted import (
     GroupFindingsNonDeletedLoader,
 )
-from .group_roots import (
-    GroupRootsLoader,
-)
 from .group_stakeholders import (
     GroupStakeholdersLoader,
 )
@@ -70,6 +67,7 @@ from db_model.findings.get import (
     GroupFindingsNonDeletedNewLoader,
 )
 from db_model.roots.get import (
+    GroupRootsLoader,
     RootLoader,
 )
 from db_model.vulnerabilities.get import (

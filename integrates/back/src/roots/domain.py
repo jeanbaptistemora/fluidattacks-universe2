@@ -1,9 +1,6 @@
 from aiodataloader import (
     DataLoader,
 )
-from aioextensions import (
-    collect,
-)
 import authz
 from custom_exceptions import (
     InvalidParameter,
@@ -109,21 +106,14 @@ def format_root(root: RootItem) -> Root:
     )
 
 
-async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
-    return await roots_dal.get_roots(group_name=group_name)
-
-
 @newrelic.agent.function_trace()
-async def get_org_roots(*, org_id: str) -> Tuple[RootItem, ...]:
+async def get_org_roots(*, context: Any, org_id: str) -> Tuple[RootItem, ...]:
     org_groups = await orgs_domain.get_groups(org_id)
+    group_roots_loader = context.group_roots
 
     return tuple(
         root
-        for group_roots in await collect(
-            tuple(
-                get_roots(group_name=group_name) for group_name in org_groups
-            )
-        )
+        for group_roots in await group_roots_loader.load_many(org_groups)
         for root in group_roots
     )
 
@@ -171,8 +161,9 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
     enforcer = await authz.get_group_level_enforcer(user_email)
 
     validations.validate_nickname(nickname)
+    group_roots_loader = context.group_roots
     validations.validate_nickname_is_unique(
-        nickname, await get_roots(group_name=group_name)
+        nickname, await group_roots_loader.load(group_name)
     )
 
     if gitignore and not enforcer(group_name, "update_git_root_filter"):
@@ -188,7 +179,7 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
 
     group = await group_loader.load(group_name)
     if not validations.is_git_unique(
-        url, await get_org_roots(org_id=group["organization"])
+        url, await get_org_roots(context=context, org_id=group["organization"])
     ):
         raise RepeatedRoot()
 
@@ -240,7 +231,9 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
     group = await group_loader.load(group_name)
 
     if not validations.is_ip_unique(
-        address, port, await get_org_roots(org_id=group["organization"])
+        address,
+        port,
+        await get_org_roots(context=context, org_id=group["organization"]),
     ):
         raise RepeatedValues()
 
@@ -282,7 +275,7 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
         path,
         port,
         protocol,
-        await get_org_roots(org_id=group["organization"]),
+        await get_org_roots(context=context, org_id=group["organization"]),
     ):
         raise RepeatedValues()
 
@@ -381,9 +374,10 @@ async def update_git_root(
     )
 
     validations.validate_nickname(nickname)
+    group_roots_loader = context.group_roots
     validations.validate_nickname_is_unique(
         nickname,
-        await get_roots(group_name=group_name),
+        await group_roots_loader.load(group_name),
         old_nickname=root.state.nickname,
     )
 
@@ -453,7 +447,9 @@ async def activate_root(
     if root.state.status != new_status:
         group_loader: DataLoader = context.group
         group = await group_loader.load(group_name)
-        org_roots = await get_org_roots(org_id=group["organization"])
+        org_roots = await get_org_roots(
+            context=context, org_id=group["organization"]
+        )
 
         if isinstance(root, GitRootItem):
             if not validations.is_git_unique(root.metadata.url, org_roots):
@@ -619,25 +615,11 @@ def get_root_id_by_filename(
     file_name_root_ids = [
         root.id
         for root in group_roots
-        if isinstance(root, GitRoot) and root.nickname == root_nickname
+        if isinstance(root, GitRootItem)
+        and root.state.nickname == root_nickname
     ]
 
     if not file_name_root_ids:
         raise RootNotFound()
 
     return file_name_root_ids[0]
-
-
-async def get_root_by_nickname(
-    *, group_name: str, repo_nickname: str
-) -> GitRootItem:
-    try:
-        return next(
-            root
-            for root in await get_roots(group_name=group_name)
-            if isinstance(root, GitRootItem)
-            and root.state.nickname == repo_nickname
-            and root.state.status == "ACTIVE"
-        )
-    except StopIteration:
-        raise RootNotFound()

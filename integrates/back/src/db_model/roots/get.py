@@ -177,7 +177,7 @@ async def _get_root(
     raise RootNotFound()
 
 
-async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
+async def _get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["git_root_metadata"],
         values={"name": group_name},
@@ -229,4 +229,14 @@ class RootLoader(DataLoader):
         return await collect(
             _get_root(group_name=group_name, root_id=root_id)
             for group_name, root_id in root_ids
+        )
+
+
+class GroupRootsLoader(DataLoader):
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, group_names: List[str]
+    ) -> Tuple[Tuple[RootItem, ...], ...]:
+        return await collect(
+            _get_roots(group_name=group_name) for group_name in group_names
         )

@@ -1,12 +1,6 @@
 from boto3.dynamodb.conditions import (
     Key,
 )
-from db_model import (
-    roots as roots_model,
-)
-from db_model.roots.types import (
-    RootItem,
-)
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
@@ -24,10 +18,6 @@ from typing import (
 # Constants
 logging.config.dictConfig(LOGGING)
 LOGGER: logging.Logger = logging.getLogger(__name__)
-
-
-async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
-    return await roots_model.get_roots(group_name=group_name)
 
 
 async def get_root_vulns(*, nickname: str) -> Tuple[Dict[str, Any], ...]:
