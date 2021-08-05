@@ -4,6 +4,9 @@ from aiogqlc import (
     GraphQLClient,
 )
 import aiohttp
+from aiohttp.client_exceptions import (
+    ClientResponseError,
+)
 import contextlib
 from contextvars import (
     ContextVar,
@@ -83,8 +86,17 @@ async def execute(
             variables=variables,
             operation=operation_name,
         )
-        result = await response.json()
 
+        try:
+            result = await response.json()
+        except ClientResponseError:
+            raise ApiError(
+                dict(
+                    status=getattr(response, "status", "unknown"),
+                    reason=getattr(response, "reason", "unknown"),
+                    ok=getattr(response, "ok", False),
+                )
+            )
         if "errors" in result.keys():
             raise ApiError(*result["errors"])
 
