@@ -33,6 +33,7 @@ from newutils import (
     logs as logs_utils,
     templates as templates_utils,
     token as token_utils,
+    validations,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -83,6 +84,7 @@ async def _resolve_from_event_id(context: Any, identifier: str) -> str:
 
 
 async def _resolve_from_finding_id(context: Any, identifier: str) -> str:
+    validations.validate_finding_id(identifier)
     if FI_API_STATUS == "migration":
         finding_new_loader = context.loaders.finding_new
         finding: Finding = await finding_new_loader.load(identifier)
@@ -423,6 +425,7 @@ def require_finding_access(func: TVar) -> TVar:
             vuln = await vulns_domain.get(kwargs["vuln_uuid"])
             finding_id = vuln["finding_id"]
 
+        validations.validate_finding_id(finding_id)
         if FI_API_STATUS == "migration":
             finding_new_loader = context.loaders.finding_new
             try:
