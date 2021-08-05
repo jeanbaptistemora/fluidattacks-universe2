@@ -5,11 +5,7 @@ from db_model import (
     roots as roots_model,
 )
 from db_model.roots.types import (
-    GitRootCloning,
-    GitRootState,
-    IPRootState,
     RootItem,
-    URLRootState,
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,
@@ -24,7 +20,6 @@ from typing import (
     Dict,
     Optional,
     Tuple,
-    Union,
 )
 
 # Constants
@@ -38,25 +33,6 @@ async def get_root(*, group_name: str, root_id: str) -> Optional[RootItem]:
 
 async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
     return await roots_model.get_roots(group_name=group_name)
-
-
-async def update_git_root_cloning(
-    *, cloning: GitRootCloning, group_name: str, root_id: str
-) -> None:
-    await roots_model.update_git_root_cloning(
-        cloning=cloning, group_name=group_name, root_id=root_id
-    )
-
-
-async def update_root_state(
-    *,
-    group_name: str,
-    root_id: str,
-    state: Union[GitRootState, IPRootState, URLRootState],
-) -> None:
-    await roots_model.update_root_state(
-        group_name=group_name, state=state, root_id=root_id
-    )
 
 
 async def get_root_vulns(*, nickname: str) -> Tuple[Dict[str, Any], ...]:

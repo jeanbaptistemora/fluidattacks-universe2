@@ -14,6 +14,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils import (
+    logs as logs_utils,
     token as token_utils,
 )
 from roots import (
@@ -36,5 +37,9 @@ async def mutate(
     user_email: str = user_info["user_email"]
 
     await roots_domain.add_url_root(info.context.loaders, user_email, **kwargs)
+    logs_utils.cloudwatch_log(
+        info.context,
+        f'Security: Added a root in {kwargs["group_name"].lower()}',
+    )
 
     return SimplePayload(success=True)

@@ -1,7 +1,6 @@
 from typing import (
     Any,
     Dict,
-    List,
     NamedTuple,
     Optional,
     Set,
@@ -57,38 +56,6 @@ class GitRootToeLinesItem(NamedTuple):
     tested_date: str
     tested_lines: int
     sorts_risk_level: float
-
-
-class VulnerabilityMetadata(NamedTuple):
-    affected_components: str
-    attack_vector: str
-    cvss: Dict[str, float]
-    description: str
-    evidences: Dict[str, str]
-    name: str
-    recommendation: str
-    requirements: str
-    source: str
-    specific: str
-    threat: str
-    type: str
-    using_sorts: bool
-    where: str
-
-
-class VulnerabilityState(NamedTuple):
-    modified_by: str
-    modified_date: str
-    reason: str
-    source: str
-    status: str
-    tags: List[str]
-
-
-class VulnerabilityItem(NamedTuple):
-    id: str
-    metadata: VulnerabilityMetadata
-    state: VulnerabilityState
 
 
 class OrgFindingPolicyMetadata(NamedTuple):
