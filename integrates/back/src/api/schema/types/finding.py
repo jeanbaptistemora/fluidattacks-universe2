@@ -41,6 +41,7 @@ from api.resolvers.finding_new import (
     is_exploitable_new,
     last_vulnerability_new,
     lines_vulns_new,
+    machine_jobs_new,
     observations_new,
     open_age_new,
     open_vulnerabilities_new,
@@ -83,6 +84,7 @@ if FI_API_STATUS == "migration":
     FINDING.set_field("isExploitable", is_exploitable_new.resolve)
     FINDING.set_field("lastVulnerability", last_vulnerability_new.resolve)
     FINDING.set_field("linesVulns", lines_vulns_new.resolve)
+    FINDING.set_field("machineJobs", machine_jobs_new.resolve)
     FINDING.set_field("newRemediated", remediated_new.resolve)
     FINDING.set_field("observations", observations_new.resolve)
     FINDING.set_field("openAge", open_age_new.resolve)

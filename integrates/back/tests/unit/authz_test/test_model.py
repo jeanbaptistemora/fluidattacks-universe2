@@ -163,6 +163,8 @@ def test_model_integrity_migrated_finding_permissions(
         "finding_new_analyst_new_resolve",
         "api_resolvers_finding_historic_state_resolve": "api_resolvers_"
         "finding_new_historic_state_new_resolve",
+        "api_resolvers_finding_machine_jobs_resolve": "api_resolvers_"
+        "finding_new_machine_jobs_new_resolve",
         "api_resolvers_finding_observations_resolve": "api_resolvers_"
         "finding_new_observations_new_resolve",
         "api_resolvers_finding_sorts_resolve": "api_resolvers_"
