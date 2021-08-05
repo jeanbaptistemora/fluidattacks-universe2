@@ -45,40 +45,48 @@ const NavbarItems: React.FC = (): JSX.Element => (
         </TransitionLink>
 
         <NavbarSubcategory className={"solutions-content nl-5"}>
-          <Link className={"f-18 fw4"} to={"/solutions/devsecops/"}>
+          <TransitionLink styles={"f-18 fw4"} to={"/solutions/devsecops/"}>
             {"DevSecOps"}
-          </Link>
-
-          <Link className={"f-18 fw4"} to={"/solutions/security-testing/"}>
+          </TransitionLink>
+          <TransitionLink
+            styles={"f-18 fw4"}
+            to={"/solutions/security-testing/"}
+          >
             {"Security Testing"}
-          </Link>
-
-          <Link className={"f-18 fw4"} to={"/solutions/penetration-testing/"}>
+          </TransitionLink>
+          <TransitionLink
+            styles={"f-18 fw4"}
+            to={"/solutions/penetration-testing/"}
+          >
             {"Penetration Testing"}
-          </Link>
-
-          <Link className={"f-18 fw4"} to={"/solutions/ethical-hacking/"}>
+          </TransitionLink>
+          <TransitionLink
+            styles={"f-18 fw4"}
+            to={"/solutions/ethical-hacking/"}
+          >
             {"Ethical Hacking"}
-          </Link>
-
-          <Link className={"f-18 fw4"} to={"/solutions/red-teaming/"}>
+          </TransitionLink>
+          <TransitionLink styles={"f-18 fw4"} to={"/solutions/red-teaming/"}>
             {"Red Teaming"}
-          </Link>
-
-          <Link className={"f-18 fw4"} to={"/solutions/attack-simulation/"}>
+          </TransitionLink>
+          <TransitionLink
+            styles={"f-18 fw4"}
+            to={"/solutions/attack-simulation/"}
+          >
             {"Breach and Attack Simulation"}
-          </Link>
-
-          <Link className={"f-18 fw4"} to={"/solutions/secure-code-review/"}>
+          </TransitionLink>
+          <TransitionLink
+            styles={"f-18 fw4"}
+            to={"/solutions/secure-code-review/"}
+          >
             {"Secure Code Review"}
-          </Link>
-
-          <Link
-            className={"f-18 fw4"}
+          </TransitionLink>
+          <TransitionLink
+            styles={"f-18 fw4"}
             to={"/solutions/vulnerability-management/"}
           >
             {"Vulnerability Management"}
-          </Link>
+          </TransitionLink>
         </NavbarSubcategory>
       </NavbarItem>
       <NavbarItem className={"db-l dn"}>
