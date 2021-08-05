@@ -54,6 +54,7 @@ def update_schema(
             LOG.info("Getting current schema")
             utils.get_api_schema(Creds("", ""), schema_file)
         schema_file.seek(0)
+        LOG.info("Generating code")
         return utils.gen_schema_code(schema_file, out)
 
 

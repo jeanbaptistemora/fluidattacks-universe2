@@ -129,6 +129,7 @@ observes.bin.tap-timedoctor
 observes.bin.tap-toe-files
 observes.bin.tap-zoho-analytics
 observes.bin.update-project-variable
+observes.job.announcekit.update-schema
 observes.job.batch-stability
 observes.job.bugsnag-etl
 observes.job.checkly-etl
