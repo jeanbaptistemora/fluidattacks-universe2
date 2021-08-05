@@ -20,7 +20,7 @@ def c_sharp_check_cookie_security(
     graph_db: graph_model.GraphDB, checks: Set[str], name_var: str
 ) -> int:
     count_checks = 0
-    for shard in graph_db.shards_by_langauge(
+    for shard in graph_db.shards_by_language(
         graph_model.GraphShardMetadataLanguage.CSHARP,
     ):
         for method_id in g.filter_nodes(
@@ -55,7 +55,7 @@ def c_sharp_insecurely_generated_cookies(
     }
 
     def n_ids() -> graph_model.GraphShardNodes:
-        for shard in graph_db.shards_by_langauge(
+        for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.CSHARP,
         ):
             for member in g.filter_nodes(
