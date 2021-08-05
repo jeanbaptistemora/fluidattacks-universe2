@@ -1,8 +1,17 @@
+from aiodataloader import (
+    DataLoader,
+)
+from aioextensions import (
+    collect,
+)
 from boto3.dynamodb.conditions import (
     Key,
 )
 from collections import (
     defaultdict,
+)
+from custom_exceptions import (
+    RootNotFound,
 )
 from db_model import (
     TABLE,
@@ -30,7 +39,7 @@ from dynamodb.types import (
     PrimaryKey,
 )
 from typing import (
-    Optional,
+    List,
     Tuple,
 )
 
@@ -125,11 +134,11 @@ def _build_root(
     )
 
 
-async def get_root(
+async def _get_root(
     *,
     group_name: str,
     root_id: str,
-) -> Optional[RootItem]:
+) -> RootItem:
     primary_key = keys.build_key(
         facet=TABLE.facets["git_root_metadata"],
         values={"name": group_name, "uuid": root_id},
@@ -165,7 +174,7 @@ async def get_root(
             raw_items=results,
         )
 
-    return None
+    raise RootNotFound()
 
 
 async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
@@ -210,3 +219,14 @@ async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
         )
         for root_id, items in root_items.items()
     )
+
+
+class RootLoader(DataLoader):
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, root_ids: List[Tuple[str, str]]
+    ) -> Tuple[RootItem, ...]:
+        return await collect(
+            _get_root(group_name=group_name, root_id=root_id)
+            for group_name, root_id in root_ids
+        )

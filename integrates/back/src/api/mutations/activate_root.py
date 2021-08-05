@@ -1,3 +1,6 @@
+from aiodataloader import (
+    DataLoader,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -88,9 +91,8 @@ async def mutate(
 ) -> SimplePayload:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
-    root = await roots_domain.get_root(
-        group_name=kwargs["group_name"], root_id=kwargs["id"]
-    )
+    root_loader: DataLoader = info.context.loaders.root
+    root = await root_loader.load((kwargs["group_name"], kwargs["id"]))
 
     if isinstance(root, GitRootItem):
         await activate_git_root(info, root, user_email, **kwargs)

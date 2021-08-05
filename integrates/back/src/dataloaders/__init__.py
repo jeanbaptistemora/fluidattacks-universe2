@@ -69,6 +69,9 @@ from db_model.findings.get import (
     GroupFindingsNewLoader,
     GroupFindingsNonDeletedNewLoader,
 )
+from db_model.roots.get import (
+    RootLoader,
+)
 from db_model.vulnerabilities.get import (
     VulnHistoricStateNewLoader,
     VulnHistoricTreatmentNewLoader,
@@ -110,6 +113,7 @@ class Dataloaders(NamedTuple):
     organization: OrganizationLoader
     organization_stakeholders: OrganizationStakeholdersLoader
     organization_tags: OrganizationTagsLoader
+    root: RootLoader
     root_toe_lines: RootToeLinesLoader
     vulnerability: VulnerabilityLoader
     vuln_historic_state_new: VulnHistoricStateNewLoader
@@ -175,6 +179,7 @@ def get_new_context() -> Dataloaders:
         organization=OrganizationLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization_tags=OrganizationTagsLoader(),
+        root=RootLoader(),
         root_toe_lines=root_toe_lines_loader,
         vulnerability=VulnerabilityLoader(),
         vuln_historic_state_new=VulnHistoricStateNewLoader(),

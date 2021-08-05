@@ -36,7 +36,9 @@ async def mutate(
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
 
-    await roots_domain.update_git_root(user_email, **kwargs)
+    await roots_domain.update_git_root(
+        info.context.loaders, user_email, **kwargs
+    )
     logs_utils.cloudwatch_log(
         info.context, f'Security: Updated root {kwargs["id"]}'
     )

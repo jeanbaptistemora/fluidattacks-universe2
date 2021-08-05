@@ -2,7 +2,6 @@ from .add import (
     add,
 )
 from .get import (
-    get_root,
     get_roots,
 )
 from .update import (
@@ -12,7 +11,6 @@ from .update import (
 
 __all__ = [
     "add",
-    "get_root",
     "get_roots",
     "update_root_state",
     "update_git_root_cloning",

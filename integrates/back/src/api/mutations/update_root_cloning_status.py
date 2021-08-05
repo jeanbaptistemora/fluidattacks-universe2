@@ -27,11 +27,12 @@ from typing import (
 )
 async def mutate(
     _: None,
-    __: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> SimplePayload:
 
     await roots_domain.update_root_cloning_status(
+        info.context.loaders,
         kwargs["group_name"],
         kwargs["id"],
         kwargs["status"],

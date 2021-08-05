@@ -109,15 +109,6 @@ def format_root(root: RootItem) -> Root:
     )
 
 
-async def get_root(*, group_name: str, root_id: str) -> RootItem:
-    root = await roots_dal.get_root(group_name=group_name, root_id=root_id)
-
-    if root:
-        return root
-
-    raise RootNotFound()
-
-
 async def get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
     return await roots_dal.get_roots(group_name=group_name)
 
@@ -327,9 +318,14 @@ def _format_root_nickname(nickname: str, url: str) -> str:
 
 
 async def update_git_environments(
-    user_email: str, group_name: str, root_id: str, environment_urls: List[str]
+    context: Any,
+    user_email: str,
+    group_name: str,
+    root_id: str,
+    environment_urls: List[str],
 ) -> None:
-    root = await get_root(group_name=group_name, root_id=root_id)
+    root_loader: DataLoader = context.root
+    root = await root_loader.load((group_name, root_id))
 
     if not isinstance(root, GitRootItem):
         raise InvalidParameter()
@@ -358,10 +354,13 @@ async def update_git_environments(
     )
 
 
-async def update_git_root(user_email: str, **kwargs: Any) -> None:
+async def update_git_root(
+    context: Any, user_email: str, **kwargs: Any
+) -> None:
     root_id: str = kwargs["id"]
     group_name: str = kwargs["group_name"]
-    root = await get_root(group_name=group_name, root_id=root_id)
+    root_loader: DataLoader = context.root
+    root = await root_loader.load((group_name, root_id))
 
     if not isinstance(root, GitRootItem):
         raise InvalidParameter()
@@ -418,13 +417,15 @@ async def update_git_root(user_email: str, **kwargs: Any) -> None:
 
 
 async def update_root_cloning_status(
+    context: Any,
     group_name: str,
     root_id: str,
     status: str,
     message: str,
 ) -> None:
     validation_utils.validate_field_length(message, 400)
-    root = await get_root(group_name=group_name, root_id=root_id)
+    root_loader: DataLoader = context.root
+    root = await root_loader.load((group_name, root_id))
 
     if not isinstance(root, GitRootItem):
         raise InvalidParameter()
@@ -592,7 +593,8 @@ async def deactivate_root(
 async def update_root_state(
     context: Any, user_email: str, group_name: str, root_id: str, state: str
 ) -> None:
-    root = await get_root(group_name=group_name, root_id=root_id)
+    root_loader: DataLoader = context.root
+    root = await root_loader.load((group_name, root_id))
     if state == "ACTIVE":
         await activate_root(
             context=context,
