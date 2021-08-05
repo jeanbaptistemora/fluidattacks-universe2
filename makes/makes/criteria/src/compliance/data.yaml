@@ -1340,6 +1340,72 @@
     "V4.3.2":
       title: Other Access Control Considerations
       link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V5.1.1":
+      title: Input Validation Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V5.1.2":
+      title: Input Validation Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V5.1.3":
+      title: Input Validation Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V5.1.4":
+      title: Input Validation Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V5.1.5":
+      title: Input Validation Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V5.2.1":
+      title: Sanitization and Sandboxing Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V5.2.2":
+      title: Sanitization and Sandboxing Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V5.2.3":
+      title: Sanitization and Sandboxing Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V5.2.4":
+      title: Sanitization and Sandboxing Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V5.2.5":
+      title: Sanitization and Sandboxing Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V5.2.6":
+      title: Sanitization and Sandboxing Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V5.2.7":
+      title: Sanitization and Sandboxing Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V5.2.8":
+      title: Sanitization and Sandboxing Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V5.3.1":
+      title: Output encoding and Injection Prevention Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V5.3.2":
+      title: Output encoding and Injection Prevention Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V5.3.3":
+      title: Output encoding and Injection Prevention Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V5.3.4":
+      title: Output encoding and Injection Prevention Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V5.3.5":
+      title: Output encoding and Injection Prevention Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V5.3.6":
+      title: Output encoding and Injection Prevention Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V5.3.7":
+      title: Output encoding and Injection Prevention Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V5.3.8":
+      title: Output encoding and Injection Prevention Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V5.3.9":
+      title: Output encoding and Injection Prevention Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
   metadata: {}
 "013":
   title: OWASP TOP TEN
