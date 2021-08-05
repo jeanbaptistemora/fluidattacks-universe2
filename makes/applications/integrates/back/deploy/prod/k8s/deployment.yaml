@@ -10,8 +10,8 @@ spec:
       app: integrates-master
   strategy:
     rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
+      maxSurge: 10%
+      maxUnavailable: 10%
   template:
     metadata:
       labels:
