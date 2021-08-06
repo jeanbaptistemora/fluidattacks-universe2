@@ -135,11 +135,6 @@ makes.users.forces.rotate.odd:
   <<: *makes_in_schedule_users_rotate_odd
   stage: rotation
 
-makes.users.integrates.apply:
-  <<: *makes
-  <<: *makes_in_master_branch
-  stage: deploy-infra
-
 makes.users.integrates.rotate.even:
   <<: *makes
   <<: *makes_in_schedule_users_rotate_even
@@ -149,11 +144,6 @@ makes.users.integrates.rotate.odd:
   <<: *makes
   <<: *makes_in_schedule_users_rotate_odd
   stage: rotation
-
-makes.users.integrates.test:
-  <<: *makes
-  <<: *makes_in_dev_branch
-  stage: test-infra
 
 makes.users.melts.apply:
   <<: *makes

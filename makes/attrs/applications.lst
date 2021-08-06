@@ -71,10 +71,8 @@ makes.users.docs.rotate.even
 makes.users.docs.rotate.odd
 makes.users.forces.rotate.even
 makes.users.forces.rotate.odd
-makes.users.integrates.apply
 makes.users.integrates.rotate.even
 makes.users.integrates.rotate.odd
-makes.users.integrates.test
 makes.users.makes.apply
 makes.users.makes.rotate.even
 makes.users.makes.rotate.odd
