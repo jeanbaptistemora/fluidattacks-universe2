@@ -205,11 +205,6 @@ makes.users.services.test:
   <<: *makes_in_dev_branch
   stage: test-infra
 
-makes.users.skims.apply:
-  <<: *makes
-  <<: *makes_in_master_branch
-  stage: deploy-infra
-
 makes.users.skims.rotate.even:
   <<: *makes
   <<: *makes_in_schedule_users_rotate_even
@@ -219,11 +214,6 @@ makes.users.skims.rotate.odd:
   <<: *makes
   <<: *makes_in_schedule_users_rotate_odd
   stage: rotation
-
-makes.users.skims.test:
-  <<: *makes
-  <<: *makes_in_dev_branch
-  stage: test-infra
 
 makes.users.sorts.apply:
   <<: *makes

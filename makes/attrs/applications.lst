@@ -85,10 +85,8 @@ makes.users.services.apply
 makes.users.services.rotate.even
 makes.users.services.rotate.odd
 makes.users.services.test
-makes.users.skims.apply
 makes.users.skims.rotate.even
 makes.users.skims.rotate.odd
-makes.users.skims.test
 makes.users.sorts.apply
 makes.users.sorts.rotate.even
 makes.users.sorts.rotate.odd
