@@ -7,6 +7,9 @@ from custom_types import (
     Finding,
     Historic,
 )
+from db_model.roots.types import (
+    GitRootItem,
+)
 from typing import (
     Any,
     cast,
@@ -92,7 +95,9 @@ async def get_root_nicknames_for_skims(
 
     if include_all:
         root_nicknames.update(
-            root.nickname for root in await dataloaders.group_roots.load(group)
+            root.state.nickname
+            for root in await dataloaders.group_roots.load(group)
+            if isinstance(root, GitRootItem)
         )
 
     return root_nicknames

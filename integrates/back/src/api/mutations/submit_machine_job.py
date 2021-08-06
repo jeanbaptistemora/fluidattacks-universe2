@@ -11,6 +11,9 @@ from custom_types import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.roots.types import (
+    GitRootItem,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -53,8 +56,9 @@ async def mutate(
         finding_title = finding["title"]
 
     root_nicknames: Set[str] = {
-        root.nickname
+        root.state.nickname
         for root in await info.context.loaders.group_roots.load(group_name)
+        if isinstance(root, GitRootItem)
     }
     if root_nickname not in root_nicknames:
         return SimplePayload(success=False)

@@ -52,6 +52,7 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+LOGGER_CONSOLE = logging.getLogger("console")
 
 
 class VulnerabilityStatusByTimeRange(NamedTuple):
@@ -354,6 +355,9 @@ def get_first_week_dates(
 
 
 async def get_group_indicators(group: str) -> Dict[str, object]:
+    LOGGER_CONSOLE.info(
+        "Getting group indicator", extra={"extra": {"group_name": group}}
+    )
     context = get_new_context()
     findings = await context.group_findings.load(group)
     (
