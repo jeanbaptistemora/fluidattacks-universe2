@@ -7,15 +7,15 @@ from api.resolvers.finding import (
     closed_vulnerabilities,
     consulting,
     historic_state,
-    inputs_vulns,
+    inputs_vulnerabilities,
     last_vulnerability,
-    lines_vulns,
+    lines_vulnerabilities,
     machine_jobs,
     new_remediated,
     observations,
     open_age,
     open_vulnerabilities,
-    ports_vulns,
+    ports_vulnerabilities,
     records,
     release_date,
     remediated,
@@ -25,7 +25,7 @@ from api.resolvers.finding import (
     tracking,
     verified,
     vulnerabilities,
-    vulns_to_reattack,
+    vulnerabilities_to_reattack,
     zero_risk,
 )
 from api.resolvers.finding_new import (
@@ -37,15 +37,15 @@ from api.resolvers.finding_new import (
     evidence_new,
     group_name_new,
     historic_state_new,
-    inputs_vulns_new,
+    inputs_vulnerabilities_new,
     is_exploitable_new,
     last_vulnerability_new,
-    lines_vulns_new,
+    lines_vulnerabilities_new,
     machine_jobs_new,
     observations_new,
     open_age_new,
     open_vulnerabilities_new,
-    ports_vulns_new,
+    ports_vulnerabilities_new,
     records_new,
     release_date_new,
     remediated_new,
@@ -57,7 +57,7 @@ from api.resolvers.finding_new import (
     tracking_new,
     verified_new,
     vulnerabilities_new,
-    vulns_to_reattack_new,
+    vulnerabilities_to_reattack_new,
     zero_risk_new,
 )
 from ariadne import (
@@ -81,16 +81,22 @@ if FI_API_STATUS == "migration":
     FINDING.set_field("evidence", evidence_new.resolve)
     FINDING.set_field("groupName", group_name_new.resolve)
     FINDING.set_field("historicState", historic_state_new.resolve)
-    FINDING.set_field("inputsVulnerabilities", inputs_vulns_new.resolve)
+    FINDING.set_field(
+        "inputsVulnerabilities", inputs_vulnerabilities_new.resolve
+    )
     FINDING.set_field("isExploitable", is_exploitable_new.resolve)
     FINDING.set_field("lastVulnerability", last_vulnerability_new.resolve)
-    FINDING.set_field("linesVulnerabilities", lines_vulns_new.resolve)
+    FINDING.set_field(
+        "linesVulnerabilities", lines_vulnerabilities_new.resolve
+    )
     FINDING.set_field("machineJobs", machine_jobs_new.resolve)
     FINDING.set_field("newRemediated", remediated_new.resolve)
     FINDING.set_field("observations", observations_new.resolve)
     FINDING.set_field("openAge", open_age_new.resolve)
     FINDING.set_field("openVulnerabilities", open_vulnerabilities_new.resolve)
-    FINDING.set_field("portsVulnerabilities", ports_vulns_new.resolve)
+    FINDING.set_field(
+        "portsVulnerabilities", ports_vulnerabilities_new.resolve
+    )
     FINDING.set_field("projectName", group_name_new.resolve)
     FINDING.set_field("records", records_new.resolve)
     FINDING.set_field("releaseDate", release_date_new.resolve)
@@ -105,13 +111,15 @@ if FI_API_STATUS == "migration":
     FINDING.set_field("vulnerabilities", vulnerabilities_new.resolve)
     FINDING.set_field("zeroRisk", zero_risk_new.resolve)
     FINDING.set_field(
-        "vulnerabilitiesToReattack", vulns_to_reattack_new.resolve
+        "vulnerabilitiesToReattack", vulnerabilities_to_reattack_new.resolve
     )
     # --------------------------Deprecated fields------------------------------
-    FINDING.set_field("inputsVulns", inputs_vulns_new.resolve)
-    FINDING.set_field("linesVulns", lines_vulns_new.resolve)
-    FINDING.set_field("portsVulns", ports_vulns_new.resolve)
-    FINDING.set_field("vulnsToReattack", vulns_to_reattack_new.resolve)
+    FINDING.set_field("inputsVulns", inputs_vulnerabilities_new.resolve)
+    FINDING.set_field("linesVulns", lines_vulnerabilities_new.resolve)
+    FINDING.set_field("portsVulns", ports_vulnerabilities_new.resolve)
+    FINDING.set_field(
+        "vulnsToReattack", vulnerabilities_to_reattack_new.resolve
+    )
     # -------------------------------------------------------------------------
 else:
     FINDING.set_field("age", age.resolve)
@@ -119,15 +127,15 @@ else:
     FINDING.set_field("closedVulnerabilities", closed_vulnerabilities.resolve)
     FINDING.set_field("consulting", consulting.resolve)
     FINDING.set_field("historicState", historic_state.resolve)
-    FINDING.set_field("inputsVulnerabilities", inputs_vulns.resolve)
+    FINDING.set_field("inputsVulnerabilities", inputs_vulnerabilities.resolve)
     FINDING.set_field("lastVulnerability", last_vulnerability.resolve)
-    FINDING.set_field("linesVulnerabilities", lines_vulns.resolve)
+    FINDING.set_field("linesVulnerabilities", lines_vulnerabilities.resolve)
     FINDING.set_field("machineJobs", machine_jobs.resolve)
     FINDING.set_field("newRemediated", new_remediated.resolve)
     FINDING.set_field("observations", observations.resolve)
     FINDING.set_field("openAge", open_age.resolve)
     FINDING.set_field("openVulnerabilities", open_vulnerabilities.resolve)
-    FINDING.set_field("portsVulnerabilities", ports_vulns.resolve)
+    FINDING.set_field("portsVulnerabilities", ports_vulnerabilities.resolve)
     FINDING.set_field("records", records.resolve)
     FINDING.set_field("releaseDate", release_date.resolve)
     FINDING.set_field("remediated", remediated.resolve)
@@ -138,9 +146,11 @@ else:
     FINDING.set_field("verified", verified.resolve)
     FINDING.set_field("vulnerabilities", vulnerabilities.resolve)
     FINDING.set_field("zeroRisk", zero_risk.resolve)
-    FINDING.set_field("vulnerabilitiesToReattack", vulns_to_reattack.resolve)
+    FINDING.set_field(
+        "vulnerabilitiesToReattack", vulnerabilities_to_reattack.resolve
+    )
     # --------------------------Deprecated fields------------------------------
-    FINDING.set_field("inputsVulns", inputs_vulns.resolve)
-    FINDING.set_field("linesVulns", lines_vulns.resolve)
-    FINDING.set_field("portsVulns", ports_vulns.resolve)
-    FINDING.set_field("vulnsToReattack", vulns_to_reattack.resolve)
+    FINDING.set_field("inputsVulns", inputs_vulnerabilities.resolve)
+    FINDING.set_field("linesVulns", lines_vulnerabilities.resolve)
+    FINDING.set_field("portsVulns", ports_vulnerabilities.resolve)
+    FINDING.set_field("vulnsToReattack", vulnerabilities_to_reattack.resolve)
