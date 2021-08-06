@@ -2032,4 +2032,56 @@
     "6.5.10":
       title: Broken authentication and session management
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "7.1.1":
+      title: Define access needs for each role
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "7.1.2":
+      title: Restrict access to privileged user IDs
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "7.1.3":
+      title: Assign access
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "7.2.2":
+      title: Assignment of privileges
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "8.1.1":
+      title: Assign all users a unique ID
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "8.1.2":
+      title: Control addition, deletion, and modification of user IDs
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "8.1.3":
+      title: Immediately revoke access for any terminated users
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "8.1.4":
+      title: Remove/disable inactive user accounts
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "8.1.8":
+      title: Require the user to re-authenticate (inactive)
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "8.2":
+      title: >
+        Ensure proper user-authentication
+        management for non-consumer users
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "8.2.1":
+      title: Using strong cryptography
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "8.2.2":
+      title: >
+        Verify user identity before
+        modifying any authentication credential
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "8.2.3":
+      title: Passwords or passphrases must meet minimum requirements
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "8.2.4":
+      title: Change user passwords
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "8.2.5":
+      title: Passwords or passphrases
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "8.2.6":
+      title: Set passwords or passphrases for first time use
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
   metadata: {}
