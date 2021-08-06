@@ -55,12 +55,12 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 <Graphic
                   bsHeight={320}
                   className={"g1"}
-                  documentName={"riskOverTime"}
+                  documentName={"riskOverTimeCvssf"}
                   documentType={"stackedBarChart"}
                   entity={entity}
                   generatorName={"generic"}
                   generatorType={"c3"}
-                  infoLink={`${graphInfoLink}common#vulnerabilities-over-time`}
+                  infoLink={`${graphInfoLink}common`}
                   reportMode={reportMode}
                   subject={subject}
                   title={translate.t(
