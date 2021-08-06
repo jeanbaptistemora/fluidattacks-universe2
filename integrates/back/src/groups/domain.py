@@ -853,6 +853,25 @@ async def get_groups_by_user(
     return user_groups
 
 
+async def get_vulnerabilities_with_pending_attacks(
+    *,
+    loaders: Any,
+    group_name: str,
+) -> int:
+    findings = await loaders.group_findings.load(group_name)
+    vulnerabilities = await loaders.finding_vulns_nzr.load_many_chained(
+        [str(finding["finding_id"]) for finding in findings]
+    )
+
+    return sum(
+        [
+            1
+            for vulnerability in vulnerabilities
+            if vulnerability["verification"] == "Requested"
+        ]
+    )
+
+
 async def get_groups_with_forces() -> List[str]:
     return await groups_dal.get_groups_with_forces()
 

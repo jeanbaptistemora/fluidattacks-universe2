@@ -2,28 +2,36 @@ from aioextensions import (
     collect,
     run,
 )
+from async_lru import (
+    alru_cache,
+)
 from charts import (
     utils,
 )
 from dataloaders import (
     get_new_context,
 )
-from findings import (
-    domain as findings_domain,
+from groups.domain import (
+    get_vulnerabilities_with_pending_attacks,
 )
 from typing import (
+    Any,
     Tuple,
 )
 
 
-async def generate_one(group: str) -> int:
-    context = get_new_context()
+@alru_cache(maxsize=None, typed=True)
+async def generate_one(group: str, loaders: Any) -> int:
 
-    return await findings_domain.get_pending_closing_check(context, group)
+    return await get_vulnerabilities_with_pending_attacks(
+        loaders=loaders, group_name=group
+    )
 
 
-async def get_many_groups(groups: Tuple[str, ...]) -> int:
-    groups_data = await collect(map(generate_one, list(groups)))
+async def get_many_groups(groups: Tuple[str, ...], loaders: Any) -> int:
+    groups_data = await collect(
+        [generate_one(group, loaders) for group in list(groups)]
+    )
 
     return sum(groups_data)
 
@@ -36,9 +44,12 @@ def format_data(findings_reattack: int) -> dict:
 
 
 async def generate_all() -> None:
+    loaders = get_new_context()
     async for group in utils.iterate_groups():
         utils.json_dump(
-            document=format_data(findings_reattack=await generate_one(group)),
+            document=format_data(
+                findings_reattack=await generate_one(group, loaders)
+            ),
             entity="group",
             subject=group,
         )
@@ -48,7 +59,7 @@ async def generate_all() -> None:
     ):
         utils.json_dump(
             document=format_data(
-                findings_reattack=await get_many_groups(org_groups),
+                findings_reattack=await get_many_groups(org_groups, loaders),
             ),
             entity="organization",
             subject=org_id,
@@ -58,7 +69,9 @@ async def generate_all() -> None:
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
             utils.json_dump(
                 document=format_data(
-                    findings_reattack=await get_many_groups(tuple(groups)),
+                    findings_reattack=await get_many_groups(
+                        tuple(groups), loaders
+                    ),
                 ),
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
