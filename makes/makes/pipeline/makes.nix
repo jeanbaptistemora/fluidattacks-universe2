@@ -112,6 +112,10 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/lintTerraform/makesUsersForces";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintTerraform/makesVpc";
           gitlabExtra = gitlabLint;
         }

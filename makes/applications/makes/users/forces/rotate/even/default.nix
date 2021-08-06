@@ -8,7 +8,7 @@ in
 userRotateKeys {
   name = "makes-users-forces-rotate-even";
   product = "makes";
-  target = "makes/applications/makes/users/forces/src/terraform";
+  target = "makes/makes/users/forces/infra";
   keys = {
     "aws_iam_access_key.forces_prod_key-2" = {
       id = {
