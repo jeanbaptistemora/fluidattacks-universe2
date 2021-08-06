@@ -3,6 +3,19 @@
 , ...
 }:
 {
+  deployTerraform = {
+    modules = {
+      makesUsersAirs = {
+        setup = [
+          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForEnvFromSops/makesUsersAirsProd"
+          outputs."/secretsForTerraformFromEnv/makesUsersAirs"
+        ];
+        src = "/makes/makes/users/airs/infra";
+        version = "0.13";
+      };
+    };
+  };
   lintTerraform = {
     modules = {
       makesUsersAirs = {

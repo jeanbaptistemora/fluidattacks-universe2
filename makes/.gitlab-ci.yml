@@ -115,11 +115,6 @@ makes.users.asserts.test:
   <<: *makes_in_dev_branch
   stage: test-infra
 
-makes.users.docs.apply:
-  <<: *makes
-  <<: *makes_in_master_branch
-  stage: deploy-infra
-
 makes.users.docs.rotate.even:
   <<: *makes
   <<: *makes_in_schedule_users_rotate_even
