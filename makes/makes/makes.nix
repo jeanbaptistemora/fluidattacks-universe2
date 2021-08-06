@@ -21,6 +21,7 @@
     ./kubernetes/makes.nix
     ./pipeline/makes.nix
     ./secrets/makes.nix
+    ./users/makes.nix
     ./vpc/makes.nix
   ];
   secretsForAwsFromEnv = {
