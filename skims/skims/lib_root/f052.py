@@ -18,11 +18,16 @@ from sast.query import (
 )
 from typing import (
     Any,
+    Dict,
     List,
+    Optional,
     Set,
 )
 from utils import (
     graph as g,
+)
+from utils.graph.transformation import (
+    build_member_access_expression_key,
 )
 from utils.string import (
     complete_attrs_on_set,
@@ -431,6 +436,65 @@ def csharp_insecure_cipher(
     def n_ids() -> graph_model.GraphShardNodes:
         yield from _csharp_yield_member_access(graph_db, insecure_ciphers)
         yield from _csharp_yield_object_creation(graph_db, insecure_ciphers)
+
+    return get_vulnerabilities_from_n_ids(
+        cwe=("310", "327"),
+        desc_key="src.lib_path.f052.insecure_cipher.description",
+        desc_params=dict(lang="CSharp"),
+        finding=FINDING,
+        graph_shard_nodes=n_ids(),
+    )
+
+
+def csharp_aesmanaged_secure_mode(
+    graph_db: graph_model.GraphDB,
+) -> core_model.Vulnerabilities:
+    unsafe_modes = {
+        "CipherMode.ECB",
+        "CipherMode.OFB",
+        "CipherMode.CFB",
+    }
+
+    def n_ids() -> graph_model.GraphShardNodes:
+        for shard in graph_db.shards_by_language(
+            graph_model.GraphShardMetadataLanguage.CSHARP,
+        ):
+            for member in g.filter_nodes(
+                shard.graph,
+                nodes=shard.graph.nodes,
+                predicate=g.pred_has_labels(
+                    label_type="object_creation_expression"
+                ),
+            ):
+                match_object_creation = g.match_ast(
+                    shard.graph, member, "__0__"
+                )
+
+                if (
+                    shard.graph.nodes[match_object_creation["__1__"]].get(
+                        "label_text"
+                    )
+                    == "AesManaged"
+                ) and check_props(shard.graph, match_object_creation):
+                    yield shard, member
+
+    def check_props(
+        graph: graph_model.GraphShard, match: Dict[str, Optional[str]]
+    ) -> bool:
+        insecure = False
+        props = g.get_ast_childs(
+            graph, match["__2__"], "member_access_expression", depth=2
+        )
+
+        for prop in props:
+            mode = build_member_access_expression_key(
+                graph,
+                prop,
+            )
+            if mode in unsafe_modes:
+                insecure = True
+
+        return insecure
 
     return get_vulnerabilities_from_n_ids(
         cwe=("310", "327"),
