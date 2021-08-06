@@ -103,7 +103,7 @@ def format_document(
                 ),
                 label=dict(
                     text=y_label,
-                    position="outer-top",
+                    position="inner-top",
                 ),
             ),
         ),
