@@ -8,7 +8,7 @@ in
 userRotateKeys {
   name = "makes-users-airs-rotate-even";
   product = "makes";
-  target = "makes/applications/makes/users/airs/src/terraform";
+  target = "makes/makes/users/airs/infra";
   secretsPath = "makes/makes/secrets/prod.yaml";
   keys = {
     "aws_iam_access_key.web-prod-key-2" = {

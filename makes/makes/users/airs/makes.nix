@@ -11,7 +11,7 @@
           outputs."/secretsForEnvFromSops/makesUsersAirsProd"
           outputs."/secretsForTerraformFromEnv/makesUsersAirs"
         ];
-        src = "/makes/applications/makes/users/airs/src/terraform";
+        src = "/makes/makes/users/airs/infra";
         version = "0.13";
       };
     };
@@ -22,7 +22,7 @@
         setup = [
           outputs."/secretsForAwsFromEnv/makesDev"
         ];
-        src = "/makes/applications/makes/users/airs/src/terraform";
+        src = "/makes/makes/users/airs/infra";
         version = "0.13";
       };
     };
@@ -54,7 +54,7 @@
           outputs."/secretsForEnvFromSops/makesUsersAirsDev"
           outputs."/secretsForTerraformFromEnv/makesUsersAirs"
         ];
-        src = "/makes/applications/makes/users/airs/src/terraform";
+        src = "/makes/makes/users/airs/infra";
         version = "0.13";
       };
     };
