@@ -1808,7 +1808,37 @@
       is OWASP Top 10:2017.
   es:
     description: __empty__
-  definitions: {}
+  definitions:
+    "A1":
+      title: Injection
+      link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
+    "A2":
+      title: Broken Authentication
+      link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
+    "A3":
+      title: Sensitive Data Exposure
+      link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
+    "A4":
+      title: XML External Entities (XXE)
+      link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
+    "A5":
+      title: Broken Access Control
+      link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
+    "A6":
+      title: Security Misconfiguration
+      link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
+    "A7":
+      title: Cross-Site Scripting (XSS)
+      link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
+    "A8":
+      title: Insecure Deserialization
+      link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
+    "A9":
+      title: Using Components with Known Vulnerabilities
+      link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
+    "A10":
+      title: Insufficient Logging & Monitoring
+      link: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
   metadata: {}
 "014":
   title: PCI DSS
