@@ -163,7 +163,7 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
             <Container>
               <DataTableNext
                 bordered={true}
-                columnToggle={true}
+                columnToggle={false}
                 dataset={roots}
                 exportCsv={true}
                 extraButtons={

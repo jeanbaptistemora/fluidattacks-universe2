@@ -155,7 +155,7 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
             <Container>
               <DataTableNext
                 bordered={true}
-                columnToggle={true}
+                columnToggle={false}
                 dataset={roots}
                 exportCsv={true}
                 extraButtons={

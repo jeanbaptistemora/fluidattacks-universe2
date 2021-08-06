@@ -75,7 +75,7 @@
             "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
           },
           "sk": {
-            "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#STATE#2020-11-19T13:37:10+00:00"
+            "S": "STATE#2020-11-19T13:37:10+00:00"
           },
           "status": {
             "S": "ACTIVE"
@@ -143,7 +143,7 @@
             "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
           },
           "sk": {
-            "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#CLON#2020-11-19T13:37:10+00:00"
+            "S": "CLON#2020-11-19T13:37:10+00:00"
           },
           "status": {
             "S": "UNKNOWN"
@@ -242,7 +242,7 @@
             "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
           },
           "sk": {
-            "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#CLON#2020-11-19T13:37:10+00:00"
+            "S": "CLON#2020-11-19T13:37:10+00:00"
           },
           "status": {
             "S": "UNKNOWN"
@@ -263,7 +263,7 @@
             "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
           },
           "sk": {
-            "S": "ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#STATE#2020-11-19T13:39:56+00:00"
+            "S": "STATE#2020-11-19T13:39:56+00:00"
           },
           "status": {
             "S": "ACTIVE"
@@ -348,7 +348,7 @@
             "S": "ROOT#d312f0b9-da49-4d2b-a881-bed438875e99"
           },
           "sk": {
-            "S": "ROOT#d312f0b9-da49-4d2b-a881-bed438875e99#STATE#2020-11-19T13:44:37+00:00"
+            "S": "STATE#2020-11-19T13:44:37+00:00"
           },
           "modified_by": {
             "S": "jdoe@fluidattacks.com"
@@ -417,7 +417,7 @@
             "S": "ROOT#8493c82f-2860-4902-86fa-75b0fef76034"
           },
           "sk": {
-            "S": "ROOT#8493c82f-2860-4902-86fa-75b0fef76034#STATE#2020-11-19T13:45:55+00:00"
+            "S": "STATE#2020-11-19T13:45:55+00:00"
           },
           "modified_by": {
             "S": "jdoe@fluidattacks.com"

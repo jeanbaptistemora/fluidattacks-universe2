@@ -20,7 +20,6 @@ class GitRoot(NamedTuple):
     id: str
     includes_health_check: bool
     last_cloning_status_update: str
-    last_state_status_update: str
     nickname: str
     state: str
     url: str

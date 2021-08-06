@@ -22,6 +22,7 @@ from db_model.roots.types import (
     IPRootMetadata,
     IPRootState,
     RootItem,
+    RootState,
     URLRootItem,
     URLRootMetadata,
     URLRootState,
@@ -82,7 +83,6 @@ def format_root(root: RootItem) -> Root:
             id=root.id,
             includes_health_check=root.state.includes_health_check,
             last_cloning_status_update=root.cloning.modified_date,
-            last_state_status_update=root.state.modified_date,
             nickname=root.state.nickname,
             state=root.state.status,
             url=root.metadata.url,
@@ -623,3 +623,22 @@ def get_root_id_by_filename(
         raise RootNotFound()
 
     return file_name_root_ids[0]
+
+
+@newrelic.agent.function_trace()
+async def get_last_status_update(
+    context: Any, root_id: str, current_status: str
+) -> str:
+    root_states_loader = context.root_states
+    historic_state: Tuple[RootState, ...] = await root_states_loader.load(
+        root_id
+    )
+
+    return next(
+        (
+            state.modified_date
+            for state in reversed(historic_state)
+            if state.status != current_status
+        ),
+        historic_state[0].modified_date,
+    )

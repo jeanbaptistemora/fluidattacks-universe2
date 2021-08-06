@@ -255,7 +255,11 @@ async def _get_historic_state(*, root_id: str) -> Tuple[RootState, ...]:
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
         ),
-        facets=(TABLE.facets["git_root_historic_state"],),
+        facets=(
+            TABLE.facets["git_root_historic_state"],
+            TABLE.facets["ip_root_historic_state"],
+            TABLE.facets["url_root_historic_state"],
+        ),
         table=TABLE,
     )
 
