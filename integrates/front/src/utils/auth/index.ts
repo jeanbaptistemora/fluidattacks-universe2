@@ -26,11 +26,14 @@ const setupSessionCheck: (expDate: string) => void = (expDate): void => {
 
   const startInactivityTimer: () => number = (): number => {
     const msInSec: number = 1000;
-    const timeout: number = 10;
+    const timeout: number = 300;
 
     return window.setTimeout((): void => {
       // eslint-disable-next-line fp/no-mutation
       state.active = false;
+      // eslint-disable-next-line no-alert -- Deliberate usage
+      alert(translate.t("validations.inactiveSession"));
+      location.replace("/logout");
     }, timeout * msInSec);
   };
 

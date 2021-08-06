@@ -2353,6 +2353,7 @@ export const enTranslations: ResourceKey = {
       "Groups without an active Fluid Attacks service " +
       "can not have Fluid Attacks staff",
     greaterDate: "The date must be today or before",
+    inactiveSession: "The session has expired due to inactivity",
     infectedFile: "Our system detected that the uploaded file is infected",
     invalidChar:
       "Invalid characters, use: alphanumerics, spaces and punctuations",
