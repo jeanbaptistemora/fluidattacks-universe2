@@ -1760,6 +1760,39 @@
     "V14.3.3":
       title: Unintended Security Disclosure Requirements
       link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.4.1":
+      title: HTTP Security Headers Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.4.2":
+      title: HTTP Security Headers Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.4.3":
+      title: HTTP Security Headers Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.4.4":
+      title: HTTP Security Headers Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.4.5":
+      title: HTTP Security Headers Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.4.6":
+      title: HTTP Security Headers Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.4.7":
+      title: HTTP Security Headers Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.5.1":
+      title: Validate HTTP Request Header Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.5.2":
+      title: Validate HTTP Request Header Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.5.3":
+      title: Validate HTTP Request Header Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.5.4":
+      title: Validate HTTP Request Header Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
   metadata: {}
 "013":
   title: OWASP TOP TEN
