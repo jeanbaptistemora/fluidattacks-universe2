@@ -10,6 +10,7 @@ import { ModalBody, ModalHeader, ModalTitle } from "styles/styledComponents";
 interface IModalProps {
   children: React.ReactNode;
   headerTitle: React.ReactNode | string;
+  onEsc?: () => void;
   open: boolean;
   size?: string;
 }

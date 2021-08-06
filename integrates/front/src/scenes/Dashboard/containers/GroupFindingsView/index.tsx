@@ -346,6 +346,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       </TooltipWrapper>
       <Modal
         headerTitle={translate.t("group.findings.report.modalTitle")}
+        onEsc={closeReportsModal}
         open={isReportsModalOpen}
       >
         <div className={"flex flex-wrap tc"}>
