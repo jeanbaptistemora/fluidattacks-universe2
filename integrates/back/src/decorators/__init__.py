@@ -97,16 +97,9 @@ async def _resolve_from_finding_id(context: Any, identifier: str) -> str:
 
 
 async def _resolve_from_vuln_id(context: Any, identifier: str) -> str:
-    if FI_API_STATUS == "migration":
-        vuln_loader = context.loaders.vuln_new
-        vuln: Vulnerability = await vuln_loader.load(identifier)
-        group_name = await _resolve_from_finding_id(context, vuln.finding_id)
-    else:
-        vuln_loader = context.loaders.vulnerability
-        vuln = await vuln_loader.load(identifier)
-        group_name = await _resolve_from_finding_id(
-            context, vuln["finding_id"]
-        )
+    vuln_loader = context.loaders.vulnerability
+    vuln = await vuln_loader.load(identifier)
+    group_name = await _resolve_from_finding_id(context, vuln["finding_id"])
     return group_name
 
 
