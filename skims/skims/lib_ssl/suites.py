@@ -114,6 +114,8 @@ class SSLSuiteInfo(NamedTuple):
     vulnerabilities: Tuple[SSLSuiteVuln, ...]
 
 
+#  Information taken from ciphersuite.info and
+#  https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml
 class SSLCipherSuite(Enum):
     NULL_WITH_NULL_NULL: SSLSuiteInfo = SSLSuiteInfo(
         rfc=5246,
@@ -5816,6 +5818,149 @@ class SSLCipherSuite(Enum):
         authentication=SSLAuthentication.ECCPWD,
         encryption=SSLEncryption.AES_256_CCM,
         ssl_hash=SSLHash.SHA384,
+        tls_versions=(SSLVersionId.tlsv1_2,),
+        vulnerabilities=(),
+    )
+    ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256: SSLSuiteInfo = SSLSuiteInfo(
+        rfc=7905,
+        iana_name="TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+        openssl_name="ECDHE-RSA-CHACHA20-POLY1305",
+        gnutls_name="TLS_ECDHE_RSA_CHACHA20_POLY1305",
+        code=(0xCC, 0xA8),
+        key_exchange=SSLKeyExchange.ECDHE,
+        authentication=SSLAuthentication.RSA,
+        encryption=SSLEncryption.CHACHA_20_POLY_1305,
+        ssl_hash=SSLHash.SHA256,
+        tls_versions=(SSLVersionId.tlsv1_2,),
+        vulnerabilities=(),
+    )
+    ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256: SSLSuiteInfo = SSLSuiteInfo(
+        rfc=7905,
+        iana_name="TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256",
+        openssl_name="ECDHE-ECDSA-CHACHA20-POLY1305",
+        gnutls_name="TLS_ECDHE_ECDSA_CHACHA20_POLY1305",
+        code=(0xCC, 0xA9),
+        key_exchange=SSLKeyExchange.ECDHE,
+        authentication=SSLAuthentication.ECDSA,
+        encryption=SSLEncryption.CHACHA_20_POLY_1305,
+        ssl_hash=SSLHash.SHA256,
+        tls_versions=(SSLVersionId.tlsv1_2,),
+        vulnerabilities=(),
+    )
+    DHE_RSA_WITH_CHACHA20_POLY1305_SHA256: SSLSuiteInfo = SSLSuiteInfo(
+        rfc=7905,
+        iana_name="TLS_DHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+        openssl_name="DHE-RSA-CHACHA20-POLY1305",
+        gnutls_name="TLS_DHE_RSA_CHACHA20_POLY1305",
+        code=(0xCC, 0xAA),
+        key_exchange=SSLKeyExchange.DHE,
+        authentication=SSLAuthentication.RSA,
+        encryption=SSLEncryption.CHACHA_20_POLY_1305,
+        ssl_hash=SSLHash.SHA256,
+        tls_versions=(SSLVersionId.tlsv1_2,),
+        vulnerabilities=(),
+    )
+    PSK_WITH_CHACHA20_POLY1305_SHA256: SSLSuiteInfo = SSLSuiteInfo(
+        rfc=7905,
+        iana_name="TLS_PSK_WITH_CHACHA20_POLY1305_SHA256",
+        openssl_name="PSK-CHACHA20-POLY1305",
+        gnutls_name="TLS_PSK_CHACHA20_POLY1305",
+        code=(0xCC, 0xAB),
+        key_exchange=SSLKeyExchange.PSK,
+        authentication=SSLAuthentication.PSK,
+        encryption=SSLEncryption.CHACHA_20_POLY_1305,
+        ssl_hash=SSLHash.SHA256,
+        tls_versions=(SSLVersionId.tlsv1_2,),
+        vulnerabilities=(SSLSuiteVuln.PFS,),
+    )
+    ECDHE_PSK_WITH_CHACHA20_POLY1305_SHA256: SSLSuiteInfo = SSLSuiteInfo(
+        rfc=7905,
+        iana_name="TLS_ECDHE_PSK_WITH_CHACHA20_POLY1305_SHA256",
+        openssl_name="ECDHE-PSK-CHACHA20-POLY1305",
+        gnutls_name="TLS_ECDHE_PSK_CHACHA20_POLY1305",
+        code=(0xCC, 0xAC),
+        key_exchange=SSLKeyExchange.ECDHE,
+        authentication=SSLAuthentication.PSK,
+        encryption=SSLEncryption.CHACHA_20_POLY_1305,
+        ssl_hash=SSLHash.SHA256,
+        tls_versions=(SSLVersionId.tlsv1_2,),
+        vulnerabilities=(),
+    )
+    DHE_PSK_WITH_CHACHA20_POLY1305_SHA256: SSLSuiteInfo = SSLSuiteInfo(
+        rfc=7905,
+        iana_name="TLS_DHE_PSK_WITH_CHACHA20_POLY1305_SHA256",
+        openssl_name="DHE-PSK-CHACHA20-POLY1305",
+        gnutls_name="TLS_DHE_PSK_CHACHA20_POLY1305",
+        code=(0xCC, 0xAD),
+        key_exchange=SSLKeyExchange.DHE,
+        authentication=SSLAuthentication.PSK,
+        encryption=SSLEncryption.CHACHA_20_POLY_1305,
+        ssl_hash=SSLHash.SHA256,
+        tls_versions=(SSLVersionId.tlsv1_2,),
+        vulnerabilities=(),
+    )
+    RSA_PSK_WITH_CHACHA20_POLY1305_SHA256: SSLSuiteInfo = SSLSuiteInfo(
+        rfc=7905,
+        iana_name="TLS_RSA_PSK_WITH_CHACHA20_POLY1305_SHA256",
+        openssl_name="RSA-PSK-CHACHA20-POLY1305",
+        gnutls_name="TLS_RSA_PSK_CHACHA20_POLY1305",
+        code=(0xCC, 0xAE),
+        key_exchange=SSLKeyExchange.RSA,
+        authentication=SSLAuthentication.PSK,
+        encryption=SSLEncryption.CHACHA_20_POLY_1305,
+        ssl_hash=SSLHash.SHA256,
+        tls_versions=(SSLVersionId.tlsv1_2,),
+        vulnerabilities=(SSLSuiteVuln.PFS,),
+    )
+    ECDHE_PSK_WITH_AES_128_GCM_SHA256: SSLSuiteInfo = SSLSuiteInfo(
+        rfc=8442,
+        iana_name="TLS_ECDHE_PSK_WITH_AES_128_GCM_SHA256",
+        openssl_name=None,
+        gnutls_name=None,
+        code=(0xD0, 0x01),
+        key_exchange=SSLKeyExchange.ECDHE,
+        authentication=SSLAuthentication.PSK,
+        encryption=SSLEncryption.AES_128_GCM,
+        ssl_hash=SSLHash.SHA256,
+        tls_versions=(SSLVersionId.tlsv1_2,),
+        vulnerabilities=(),
+    )
+    ECDHE_PSK_WITH_AES_256_GCM_SHA384: SSLSuiteInfo = SSLSuiteInfo(
+        rfc=8442,
+        iana_name="TLS_ECDHE_PSK_WITH_AES_256_GCM_SHA384",
+        openssl_name=None,
+        gnutls_name=None,
+        code=(0xD0, 0x02),
+        key_exchange=SSLKeyExchange.ECDHE,
+        authentication=SSLAuthentication.PSK,
+        encryption=SSLEncryption.AES_256_GCM,
+        ssl_hash=SSLHash.SHA384,
+        tls_versions=(SSLVersionId.tlsv1_2,),
+        vulnerabilities=(),
+    )
+    ECDHE_PSK_WITH_AES_128_CCM_8_SHA256: SSLSuiteInfo = SSLSuiteInfo(
+        rfc=8442,
+        iana_name="TLS_ECDHE_PSK_WITH_AES_128_CCM_8_SHA256",
+        openssl_name=None,
+        gnutls_name=None,
+        code=(0xD0, 0x03),
+        key_exchange=SSLKeyExchange.ECDHE,
+        authentication=SSLAuthentication.PSK,
+        encryption=SSLEncryption.AES_128_CCM_8,
+        ssl_hash=SSLHash.SHA256,
+        tls_versions=(SSLVersionId.tlsv1_2,),
+        vulnerabilities=(),
+    )
+    ECDHE_PSK_WITH_AES_128_CCM_SHA256: SSLSuiteInfo = SSLSuiteInfo(
+        rfc=8442,
+        iana_name="TLS_ECDHE_PSK_WITH_AES_128_CCM_SHA256",
+        openssl_name=None,
+        gnutls_name=None,
+        code=(0xD0, 0x05),
+        key_exchange=SSLKeyExchange.ECDHE,
+        authentication=SSLAuthentication.PSK,
+        encryption=SSLEncryption.AES_128_CCM,
+        ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(),
     )
