@@ -78,11 +78,13 @@ def c_sharp_insecurely_generated_cookies(
                         "label_text"
                     )
                     == "HttpCookie"
-                ):
-                    if c_sharp_check_cookie_security(
+                ) and (
+                    c_sharp_check_cookie_security(
                         graph_db, security_props, name_var
-                    ) != len(security_props):
-                        yield shard, member
+                    )
+                    != len(security_props)
+                ):
+                    yield shard, member
 
     return get_vulnerabilities_from_n_ids(
         cwe=("614",),
