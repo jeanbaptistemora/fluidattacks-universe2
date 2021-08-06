@@ -1691,6 +1691,75 @@
     "V13.1.5":
       title: Generic Web Service Security Verification Requirements
       link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V13.2.1":
+      title: RESTful Web Service Verification Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V13.2.2":
+      title: RESTful Web Service Verification Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V13.2.3":
+      title: RESTful Web Service Verification Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V13.2.4":
+      title: RESTful Web Service Verification Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V13.2.5":
+      title: RESTful Web Service Verification Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V13.3.1":
+      title: SOAP Web Service Verification Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V13.3.2":
+      title: SOAP Web Service Verification Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V13.4.1":
+      title: GraphQL and other Web Service Data Layer Security Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V13.4.2":
+      title: GraphQL and other Web Service Data Layer Security Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.1.1":
+      title: Build
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.1.2":
+      title: Build
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.1.3":
+      title: Build
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.1.4":
+      title: Build
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.1.5":
+      title: Build
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.2.1":
+      title: Dependency
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.2.2":
+      title: Dependency
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.2.3":
+      title: Dependency
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.2.4":
+      title: Dependency
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.2.5":
+      title: Dependency
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.2.6":
+      title: Dependency
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.3.1":
+      title: Unintended Security Disclosure Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.3.2":
+      title: Unintended Security Disclosure Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
+    "V14.3.3":
+      title: Unintended Security Disclosure Requirements
+      link: https://github.com/OWASP/ASVS/blob/v4.0.1/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf
   metadata: {}
 "013":
   title: OWASP TOP TEN
