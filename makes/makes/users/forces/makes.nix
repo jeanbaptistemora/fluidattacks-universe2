@@ -3,6 +3,18 @@
 , ...
 }:
 {
+  deployTerraform = {
+    modules = {
+      makesUsersForces = {
+        setup = [
+          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForTerraformFromEnv/makesUsersForces"
+        ];
+        src = "/makes/makes/users/forces/infra";
+        version = "0.13";
+      };
+    };
+  };
   lintTerraform = {
     modules = {
       makesUsersForces = {

@@ -76,6 +76,10 @@ in
           gitlabExtra = gitlabDeployInfra;
         }
         {
+          output = "/deployTerraform/makesUsersForces";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
           output = "/deployTerraform/makesVpc";
           gitlabExtra = gitlabDeployInfra;
         }

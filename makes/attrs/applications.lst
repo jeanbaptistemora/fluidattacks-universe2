@@ -69,7 +69,6 @@ makes.users.asserts.rotate.odd
 makes.users.asserts.test
 makes.users.docs.rotate.even
 makes.users.docs.rotate.odd
-makes.users.forces.apply
 makes.users.forces.rotate.even
 makes.users.forces.rotate.odd
 makes.users.integrates.apply
