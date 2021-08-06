@@ -192,9 +192,6 @@ MUTATION.set_field(
     "updateVulnerabilityCommit", update_vulnerability_commit.mutate
 )
 MUTATION.set_field(
-    "updateVulnerabilitiesTreatment", update_vulnerabilities_treatment.mutate
-)
-MUTATION.set_field(
     "updateVulnerabilityTreatment", update_vulnerability_treatment.mutate
 )
 
@@ -271,6 +268,10 @@ if FI_API_STATUS == "migration":
         "updateEvidenceDescription", update_evidence_description_new.mutate
     )
     MUTATION.set_field("updateSeverity", update_severity_new.mutate)
+    MUTATION.set_field(
+        "updateVulnerabilitiesTreatment",
+        update_vulnerabilities_treatment.mutate,
+    )
     MUTATION.set_field("uploadFile", upload_file_new.mutate)
     MUTATION.set_field(
         "verifyVulnerabilitiesRequest",
@@ -325,6 +326,10 @@ else:
         "updateEvidenceDescription", update_evidence_description.mutate
     )
     MUTATION.set_field("updateSeverity", update_severity.mutate)
+    MUTATION.set_field(
+        "updateVulnerabilitiesTreatment",
+        update_vulnerabilities_treatment.mutate,
+    )
     MUTATION.set_field("uploadFile", upload_file.mutate)
     MUTATION.set_field(
         "verifyVulnerabilitiesRequest", verify_vulnerabilities_request.mutate
