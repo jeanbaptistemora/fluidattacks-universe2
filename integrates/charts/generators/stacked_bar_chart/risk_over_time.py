@@ -128,10 +128,12 @@ async def get_many_groups_document(
 
 
 async def generate_all() -> None:
+    y_label: str = "Vulnerabilities"
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_document(
                 document=await get_group_document(group),
+                y_label=y_label,
             ),
             entity="group",
             subject=group,
@@ -143,6 +145,7 @@ async def generate_all() -> None:
         utils.json_dump(
             document=format_document(
                 document=await get_many_groups_document(org_groups),
+                y_label=y_label,
             ),
             entity="organization",
             subject=org_id,
@@ -153,6 +156,7 @@ async def generate_all() -> None:
             utils.json_dump(
                 document=format_document(
                     document=await get_many_groups_document(groups),
+                    y_label=y_label,
                 ),
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
@@ -165,6 +169,7 @@ async def generate_all() -> None:
             utils.json_dump(
                 document=format_document(
                     document=await get_group_document(group, days),
+                    y_label=y_label,
                 ),
                 entity="group",
                 subject=f"{group}_{days}",
@@ -176,6 +181,7 @@ async def generate_all() -> None:
             utils.json_dump(
                 document=format_document(
                     document=await get_many_groups_document(org_groups, days),
+                    y_label=y_label,
                 ),
                 entity="organization",
                 subject=f"{org_id}_{days}",
@@ -190,6 +196,7 @@ async def generate_all() -> None:
                 utils.json_dump(
                     document=format_document(
                         document=await get_many_groups_document(groups, days),
+                        y_label=y_label,
                     ),
                     entity="portfolio",
                     subject=f"{org_id}PORTFOLIO#{portfolio}_{days}",

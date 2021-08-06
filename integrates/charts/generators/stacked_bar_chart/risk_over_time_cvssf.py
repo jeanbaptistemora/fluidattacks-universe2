@@ -122,6 +122,7 @@ async def get_many_groups_document(
 
 
 async def generate_all() -> None:
+    y_label: str = "CVSSF"
     list_days: List[int] = [0, 30, 90]
     for days in list_days:
         async for group in utils.iterate_groups():
@@ -130,6 +131,7 @@ async def generate_all() -> None:
                     document=await get_group_document(
                         group, days if days else None
                     ),
+                    y_label=y_label,
                 ),
                 entity="group",
                 subject=group + (f"_{days}" if days else ""),
@@ -143,6 +145,7 @@ async def generate_all() -> None:
                     document=await get_many_groups_document(
                         org_groups, days if days else None
                     ),
+                    y_label=y_label,
                 ),
                 entity="organization",
                 subject=org_id + (f"_{days}" if days else ""),
@@ -159,6 +162,7 @@ async def generate_all() -> None:
                         document=await get_many_groups_document(
                             groups, days if days else None
                         ),
+                        y_label=y_label,
                     ),
                     entity="portfolio",
                     subject=f"{org_id}PORTFOLIO#{portfolio}"

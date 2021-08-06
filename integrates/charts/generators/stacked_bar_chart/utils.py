@@ -60,7 +60,9 @@ def translate_date(date_str: str) -> datetime:
     return datetime(int(date_year), MONTH_TO_NUMBER[date_month], int(date_day))
 
 
-def format_document(document: Dict[str, Dict[datetime, float]]) -> dict:
+def format_document(
+    document: Dict[str, Dict[datetime, float]], y_label: str
+) -> dict:
     return dict(
         data=dict(
             x="date",
@@ -98,6 +100,10 @@ def format_document(document: Dict[str, Dict[datetime, float]]) -> dict:
                 min=0,
                 padding=dict(
                     bottom=0,
+                ),
+                label=dict(
+                    text=y_label,
+                    position="outer-top",
                 ),
             ),
         ),
