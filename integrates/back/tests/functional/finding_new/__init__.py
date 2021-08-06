@@ -38,12 +38,12 @@ async def get_result(
                 evidence
                 historicState
                 id
-                inputsVulns {{
+                inputsVulnerabilities {{
                     specific
                 }}
                 isExploitable
                 lastVulnerability
-                linesVulns {{
+                linesVulnerabilities {{
                     specific
                 }}
                 newRemediated
@@ -52,7 +52,7 @@ async def get_result(
                 }}
                 openAge
                 openVulnerabilities
-                portsVulns {{
+                portsVulnerabilities {{
                     specific
                 }}
                 groupName

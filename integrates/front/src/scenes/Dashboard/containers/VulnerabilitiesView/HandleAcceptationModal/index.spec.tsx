@@ -83,9 +83,9 @@ describe("handle vulns acceptation modal", (): void => {
           data: {
             finding: {
               id: "1",
-              inputsVulns: [],
-              linesVulns: [],
-              portsVulns: [],
+              inputsVulnerabilities: [],
+              linesVulnerabilities: [],
+              portsVulnerabilities: [],
               releaseDate: "",
             },
           },
@@ -319,9 +319,9 @@ describe("handle vulns acceptation modal", (): void => {
         data: {
           finding: {
             id: "422286126",
-            inputsVulns: [],
-            linesVulns: [],
-            portsVulns: [],
+            inputsVulnerabilities: [],
+            linesVulnerabilities: [],
+            portsVulnerabilities: [],
             releaseDate: "",
             remediated: false,
             state: "",
@@ -483,9 +483,9 @@ describe("handle vulns acceptation modal", (): void => {
         data: {
           finding: {
             id: "422286126",
-            inputsVulns: [],
-            linesVulns: [],
-            portsVulns: [],
+            inputsVulnerabilities: [],
+            linesVulnerabilities: [],
+            portsVulnerabilities: [],
             releaseDate: "",
             remediated: false,
             state: "",
@@ -640,9 +640,9 @@ describe("handle vulns acceptation modal", (): void => {
         data: {
           finding: {
             id: "422286126",
-            inputsVulns: [],
-            linesVulns: [],
-            portsVulns: [],
+            inputsVulnerabilities: [],
+            linesVulnerabilities: [],
+            portsVulnerabilities: [],
             releaseDate: "",
             remediated: false,
             state: "",
@@ -804,9 +804,9 @@ describe("handle vulns acceptation modal", (): void => {
         data: {
           finding: {
             id: "422286126",
-            inputsVulns: [],
-            linesVulns: [],
-            portsVulns: [],
+            inputsVulnerabilities: [],
+            linesVulnerabilities: [],
+            portsVulnerabilities: [],
             releaseDate: "",
             remediated: false,
             state: "",

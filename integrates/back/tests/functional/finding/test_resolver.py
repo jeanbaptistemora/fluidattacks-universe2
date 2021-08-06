@@ -72,9 +72,12 @@ async def test_get_finding(populate: bool, email: str) -> None:
     current_state: str = "APPROVED"
     new_remediated: bool = False
     verified: bool = True
-    ports_vulns: List[Any] = [{"specific": "2321"}, {"specific": "9999"}]
-    inputs_vulns: List[Any] = []
-    lines_vulns: List[Any] = []
+    ports_vulnerabilities: List[Any] = [
+        {"specific": "2321"},
+        {"specific": "9999"},
+    ]
+    inputs_vulnerabilities: List[Any] = []
+    lines_vulnerabilities: List[Any] = []
     open_vuln: str = "6401bc87-8633-4a4a-8d8e-7dae0ca57e6a"
     closed_vuln: str = "be09edb7-cd5c-47ed-bee4-97c645acdce8"
     finding_id: str = "475041513"
@@ -149,9 +152,18 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["newRemediated"] == new_remediated
     assert result["data"]["finding"]["verified"] == verified
     assert result["data"]["finding"]["analyst"] == analyst
-    assert result["data"]["finding"]["portsVulns"] == ports_vulns
-    assert result["data"]["finding"]["inputsVulns"] == inputs_vulns
-    assert result["data"]["finding"]["linesVulns"] == lines_vulns
+    assert (
+        result["data"]["finding"]["portsVulnerabilities"]
+        == ports_vulnerabilities
+    )
+    assert (
+        result["data"]["finding"]["inputsVulnerabilities"]
+        == inputs_vulnerabilities
+    )
+    assert (
+        result["data"]["finding"]["linesVulnerabilities"]
+        == lines_vulnerabilities
+    )
     vuln_ids: List[str] = [
         vuln["id"] for vuln in result["data"]["finding"]["vulnerabilities"]
     ]
@@ -239,9 +251,12 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     current_state: str = "APPROVED"
     new_remediated: bool = False
     verified: bool = True
-    ports_vulns: List[Any] = [{"specific": "2321"}, {"specific": "9999"}]
-    inputs_vulns: List[Any] = []
-    lines_vulns: List[Any] = []
+    ports_vulnerabilities: List[Any] = [
+        {"specific": "2321"},
+        {"specific": "9999"},
+    ]
+    inputs_vulnerabilities: List[Any] = []
+    lines_vulnerabilities: List[Any] = []
     open_vuln: str = "6401bc87-8633-4a4a-8d8e-7dae0ca57e6a"
     closed_vuln: str = "be09edb7-cd5c-47ed-bee4-97c645acdce8"
     finding_id: str = "475041513"
@@ -314,9 +329,18 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["currentState"] == current_state
     assert result["data"]["finding"]["newRemediated"] == new_remediated
     assert result["data"]["finding"]["verified"] == verified
-    assert result["data"]["finding"]["portsVulns"] == ports_vulns
-    assert result["data"]["finding"]["inputsVulns"] == inputs_vulns
-    assert result["data"]["finding"]["linesVulns"] == lines_vulns
+    assert (
+        result["data"]["finding"]["portsVulnerabilities"]
+        == ports_vulnerabilities
+    )
+    assert (
+        result["data"]["finding"]["inputsVulnerabilities"]
+        == inputs_vulnerabilities
+    )
+    assert (
+        result["data"]["finding"]["linesVulnerabilities"]
+        == lines_vulnerabilities
+    )
     vuln_ids: List[str] = [
         vuln["id"] for vuln in result["data"]["finding"]["vulnerabilities"]
     ]

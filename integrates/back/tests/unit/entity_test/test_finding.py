@@ -185,13 +185,13 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
             vulnerabilityType
             zeroRisk
           }
-          portsVulns {
+          portsVulnerabilities {
               specific
           }
-          inputsVulns {
+          inputsVulnerabilities {
               specific
           }
-          linesVulns {
+          linesVulnerabilities {
               specific
           }
           __typename

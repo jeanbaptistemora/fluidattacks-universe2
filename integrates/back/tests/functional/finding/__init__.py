@@ -35,13 +35,13 @@ async def get_result(
                 newRemediated
                 verified
                 analyst
-                portsVulns {{
+                portsVulnerabilities {{
                     specific
                 }}
-                inputsVulns {{
+                inputsVulnerabilities {{
                     specific
                 }}
-                linesVulns {{
+                linesVulnerabilities {{
                     specific
                 }}
                 consulting {{

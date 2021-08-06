@@ -67,18 +67,18 @@ async def get_result(  # pylint: disable=too-many-locals
                     evidence
                     historicState
                     id
-                    inputsVulns {{
+                    inputsVulnerabilities {{
                         specific
                     }}
                     isExploitable
                     lastVulnerability
-                    linesVulns {{
+                    linesVulnerabilities {{
                         specific
                     }}
                     newRemediated
                     openAge
                     openVulnerabilities
-                    portsVulns {{
+                    portsVulnerabilities {{
                         specific
                     }}
                     groupName
