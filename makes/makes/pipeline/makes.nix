@@ -148,6 +148,10 @@ in
           gitlabExtra = gitlabTestInfra;
         }
         {
+          output = "/testTerraform/makesUsersAirs";
+          gitlabExtra = gitlabTestInfra;
+        }
+        {
           output = "/testTerraform/makesVpc";
           gitlabExtra = gitlabTestInfra;
         }

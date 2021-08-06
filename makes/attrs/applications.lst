@@ -64,7 +64,6 @@ makes.review-mr
 makes.users.airs.apply
 makes.users.airs.rotate.even
 makes.users.airs.rotate.odd
-makes.users.airs.test
 makes.users.asserts.apply
 makes.users.asserts.rotate.even
 makes.users.asserts.rotate.odd
