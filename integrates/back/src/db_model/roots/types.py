@@ -84,3 +84,11 @@ class URLRootItem(NamedTuple):
 
 
 RootItem = Union[GitRootItem, IPRootItem, URLRootItem]
+
+
+class RootState(NamedTuple):
+    modified_by: str
+    modified_date: str
+    other: Optional[str]
+    reason: Optional[str]
+    status: str

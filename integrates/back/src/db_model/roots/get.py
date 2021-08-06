@@ -25,6 +25,7 @@ from db_model.roots.types import (
     IPRootMetadata,
     IPRootState,
     RootItem,
+    RootState,
     URLRootItem,
     URLRootMetadata,
     URLRootState,
@@ -177,6 +178,17 @@ async def _get_root(
     raise RootNotFound()
 
 
+class RootLoader(DataLoader):
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, root_ids: List[Tuple[str, str]]
+    ) -> Tuple[RootItem, ...]:
+        return await collect(
+            _get_root(group_name=group_name, root_id=root_id)
+            for group_name, root_id in root_ids
+        )
+
+
 async def _get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["git_root_metadata"],
@@ -221,17 +233,6 @@ async def _get_roots(*, group_name: str) -> Tuple[RootItem, ...]:
     )
 
 
-class RootLoader(DataLoader):
-    # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, root_ids: List[Tuple[str, str]]
-    ) -> Tuple[RootItem, ...]:
-        return await collect(
-            _get_root(group_name=group_name, root_id=root_id)
-            for group_name, root_id in root_ids
-        )
-
-
 class GroupRootsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
@@ -239,4 +240,42 @@ class GroupRootsLoader(DataLoader):
     ) -> Tuple[Tuple[RootItem, ...], ...]:
         return await collect(
             _get_roots(group_name=group_name) for group_name in group_names
+        )
+
+
+async def _get_historic_state(*, root_id: str) -> Tuple[RootState, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["git_root_historic_state"],
+        values={"uuid": root_id},
+    )
+
+    key_structure = TABLE.primary_key
+    results = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["git_root_historic_state"],),
+        table=TABLE,
+    )
+
+    return tuple(
+        RootState(
+            modified_by=state["modified_by"],
+            modified_date=state["modified_date"],
+            other=state.get("other"),
+            reason=state.get("reason"),
+            status=state["status"],
+        )
+        for state in results
+    )
+
+
+class RootStatesLoader(DataLoader):
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, root_ids: List[str]
+    ) -> Tuple[Tuple[RootState, ...], ...]:
+        return await collect(
+            _get_historic_state(root_id=root_id) for root_id in root_ids
         )
