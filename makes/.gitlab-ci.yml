@@ -85,11 +85,6 @@ makes.test.makes:
   <<: *makes_in_master_branch
   stage: test-code
 
-makes.users.airs.apply:
-  <<: *makes
-  <<: *makes_in_master_branch
-  stage: deploy-infra
-
 makes.users.airs.rotate.even:
   <<: *makes
   <<: *makes_in_schedule_users_rotate_even
