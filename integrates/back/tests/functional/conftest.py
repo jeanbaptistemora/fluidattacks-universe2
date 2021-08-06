@@ -26,6 +26,7 @@ TEST_GROUPS: Set[str] = {
     "deactivate_root",
     "download_event_file",
     "download_vulnerability_file",
+    "download_vulnerability_file_new",
     "download_file",
     "event",
     "events",
