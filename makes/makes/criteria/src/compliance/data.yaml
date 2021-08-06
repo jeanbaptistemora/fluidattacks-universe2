@@ -2084,4 +2084,69 @@
     "8.2.6":
       title: Set passwords or passphrases for first time use
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "8.5":
+      title: Do not use group, shared, or generic IDs, passwords
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "8.6":
+      title: Proper use of authentication mechanisms
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "8.7":
+      title: Database containing cardholder data
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "9.8.2":
+      title: Render cardholder data on electronic media unrecoverable
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "10.2.1":
+      title: Individual user accesses to cardholder data
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "10.2.2":
+      title: >
+        Actions taken by any individual
+        with root or administrative privileges
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "10.2.3":
+      title: Access to all audit trails
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "10.2.4":
+      title: Invalid logical access attempts
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "10.2.5":
+      title: Use of and changes to identification and authentication mechanisms
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "10.2.6":
+      title: Initialization, stopping,or pausing of the audit logs
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "10.2.7":
+      title: Creation and deletion of system-level objects
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "10.3":
+      title: Record at least the following audit trail entries
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "10.4.1":
+      title: Critical systems have the correct and consistent time
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "10.4.2":
+      title: Time data is protected
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "10.4.3":
+      title: Time settings are received from industry-accepted time source
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "10.5.1":
+      title: Limit viewing of audit trails
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "10.5.2":
+      title: Protect audit trail files
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "10.5.3":
+      title: Promptly back up audit trail files
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "10.5.5":
+      title: Use file-integrity monitoring or change-detection software
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "12.3.8":
+      title: >
+        Automatic disconnect of sessions
+        for remote-access technologies
+        after a specific period of inactivity
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
   metadata: {}
