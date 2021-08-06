@@ -155,12 +155,7 @@ export const enTranslations: ResourceKey = {
         title: "Days since last remediation",
       },
       findingsBeingReattacked: {
-        footer:
-          "Once your team has solved a vulnerability you can request a re-attack. " +
-          "In the re-attack process a hacker will replay the attack vector and confirm that " +
-          "the proposed solution actually shields your system. " +
-          "In case it does not, your team will be notified and the finding kept open.",
-        title: "Findings being re-attacked",
+        title: "Vulnerabilities being re-attacked",
       },
       forcesAutomatizedVulns: {
         footer:
