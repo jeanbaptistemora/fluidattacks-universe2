@@ -9,7 +9,7 @@ const GET_EVENT_CONSULTING: DocumentNode = gql`
         content
         created
         email
-        fullname
+        fullName
         modified
         parent
       }

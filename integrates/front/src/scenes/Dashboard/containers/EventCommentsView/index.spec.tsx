@@ -26,7 +26,7 @@ describe("EventCommentsView", (): void => {
                 content: "Hello world",
                 created: "2019/12/04 08:13:53",
                 email: "unittest@fluidattacks.com",
-                fullname: "Test User",
+                fullName: "Test User",
                 id: "1337260012345",
                 modified: "2019/12/04 08:13:53",
                 parent: "0",

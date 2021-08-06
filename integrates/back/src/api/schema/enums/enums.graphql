@@ -179,7 +179,7 @@ enum OrganizationFindindPolicy {
   REJECTED
 }
 
-enum OrganizationFindindPolicyStatus {
+enum OrganizationFindingPolicyStatus {
   APPROVED
   INACTIVE
   REJECTED

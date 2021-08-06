@@ -29,9 +29,11 @@ async def resolve(
     finding_id: str = parent.id
     finding_vulns_loader: DataLoader = info.context.loaders.finding_vulns_nzr
     vulns: List[Vulnerability] = await finding_vulns_loader.load(finding_id)
-    vulns_to_reattack: List[Vulnerability] = list(
+    vulnerabilities_to_reattack: List[Vulnerability] = list(
         filter(filter_last_reattack_requested, vulns)
     )
-    vulns_to_reattack = filter_open_vulnerabilities(vulns_to_reattack)
+    vulnerabilities_to_reattack = filter_open_vulnerabilities(
+        vulnerabilities_to_reattack
+    )
 
-    return vulns_to_reattack
+    return vulnerabilities_to_reattack

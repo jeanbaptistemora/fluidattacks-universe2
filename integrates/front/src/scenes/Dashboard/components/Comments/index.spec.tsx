@@ -19,7 +19,7 @@ describe("Comments section", (): void => {
     created: "2021/04/20 00:00:01",
     created_by_current_user: true, // eslint-disable-line camelcase
     email: "unittest@fluidattacks.com",
-    fullname: "Test User",
+    fullName: "Test User",
     id: 1337260012345,
     modified: "2021/04/20 00:00:01",
     parent: 0,

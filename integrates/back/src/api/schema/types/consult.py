@@ -8,3 +8,4 @@ from ariadne import (
 # None
 
 CONSULT = ObjectType("Consult")
+CONSULT.set_alias("fullName", "fullname")

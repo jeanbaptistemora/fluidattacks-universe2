@@ -8,7 +8,7 @@ const FRAGMENTS: Dictionary<DocumentNode> = {
       content
       created
       email
-      fullname
+      fullName
       modified
       parent
     }
@@ -19,7 +19,7 @@ const FRAGMENTS: Dictionary<DocumentNode> = {
       content
       created
       email
-      fullname
+      fullName
       modified
       parent
     }

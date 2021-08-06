@@ -79,8 +79,8 @@ const NestedComment: React.FC<INestedCommentProps> = (
           author={
             <span className={"comment-author"}>
               {rootComment.created_by_current_user
-                ? `You (${rootComment.fullname})`
-                : rootComment.fullname}
+                ? `You (${rootComment.fullName})`
+                : rootComment.fullName}
             </span>
           }
           content={
