@@ -79,7 +79,7 @@ They are tied to a system,
 and a specific location
 within that system.
 
-## Findings being re-attacked
+## Vulnerabilities being re-attacked
 
 Once your team has solved a vulnerability
 you can request a re-attack.
