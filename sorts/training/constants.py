@@ -92,10 +92,9 @@ MODEL_HYPERPARAMETERS = {
         "n_estimators": IntegerParameter(40, 60),
     },
     "gradientboostingclassifier": {
-        "max_depth": IntegerParameter(3, 5),
         "n_estimators": IntegerParameter(105, 115),
         "learning_rate": ContinuousParameter(
-            0.01, 0.1, scaling_type="Logarithmic"
+            0.01, 0.06, scaling_type="Logarithmic"
         ),
     },
     "lgbmclassifier": {
