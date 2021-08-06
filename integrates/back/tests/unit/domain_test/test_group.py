@@ -25,7 +25,7 @@ from findings import (
     dal as findings_dal,
 )
 from findings.domain import (
-    get_last_closing_vuln_info,
+    get_last_closed_vulnerability_info,
     get_max_open_severity,
     get_pending_closing_check,
     get_pending_verification_findings,
@@ -142,7 +142,7 @@ async def test_get_last_closing_vuln() -> None:
     findings = await collect(
         findings_dal.get_finding(finding_id) for finding_id in findings_to_get
     )
-    test_data = await get_last_closing_vuln_info(context, findings)
+    test_data = await get_last_closed_vulnerability_info(context, findings)
     tzn = timezone(TIME_ZONE)
     actual_date = datetime.now(tz=tzn).date()
     initial_date = datetime(2019, 1, 15).date()

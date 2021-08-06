@@ -400,10 +400,10 @@ async def get_findings_by_group(
     ]
 
 
-async def get_last_closing_vuln_info(
+async def get_last_closed_vulnerability_info(
     context: Any, findings: List[Dict[str, FindingType]]
 ) -> Tuple[Decimal, VulnerabilityType]:
-    """Get day since last vulnerability closing."""
+    """Get days since the last closed vulnerability"""
     finding_vulns_loader = context.finding_vulns_nzr
     validate_findings = await collect(
         validate_finding(str(finding["finding_id"])) for finding in findings

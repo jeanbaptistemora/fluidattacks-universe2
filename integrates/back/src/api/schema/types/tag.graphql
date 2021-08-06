@@ -1,9 +1,9 @@
 "Tag type definition"
 type Tag {
   groups: [Group]
+  lastClosedVulnerability: Float
   lastClosingVuln: Float @deprecated(reason: """This field will
-    be removed after 2021/12/31. Use `lastClosingVulnerability` instead.""")
-  lastClosingVulnerability: Float
+    be removed after 2021/12/31. Use `lastClosedVulnerability` instead.""")
   maxOpenSeverity: Float
   maxSeverity: Float
   meanRemediate: Float

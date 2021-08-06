@@ -50,7 +50,7 @@ async def test_group() -> None:
           hasAsm
           openVulnerabilities
           closedVulnerabilities
-          lastClosingVulnerability
+          lastClosedVulnerability
           maxSeverity
           meanRemediate
           meanRemediateLowSeverity
@@ -98,7 +98,7 @@ async def test_group() -> None:
     assert len(result["data"]["group"]["findings"]) == 6
     assert result["data"]["group"]["openVulnerabilities"] == 31
     assert result["data"]["group"]["closedVulnerabilities"] == 8
-    assert "lastClosingVulnerability" in result["data"]["group"]
+    assert "lastClosedVulnerability" in result["data"]["group"]
     assert result["data"]["group"]["maxSeverity"] == 6.3
     assert result["data"]["group"]["meanRemediate"] == 245
     assert result["data"]["group"]["meanRemediateLowSeverity"] == 232

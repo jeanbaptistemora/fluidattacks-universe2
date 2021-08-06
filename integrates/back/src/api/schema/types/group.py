@@ -11,8 +11,8 @@ from api.resolvers.group import (
     findings,
     findings_new,
     forces_token,
-    last_closing_vuln_finding,
-    last_closing_vuln_finding_new,
+    last_closed_vulnerability_finding,
+    last_closed_vulnerability_finding_new,
     max_open_severity_finding,
     max_open_severity_finding_new,
     max_severity,
@@ -49,14 +49,14 @@ GROUP.set_field("stakeholders", stakeholders.resolve)
 GROUP.set_field("toeInputs", toe_inputs.resolve)
 GROUP.set_field("totalTreatment", total_treatment.resolve)
 GROUP.set_field("userRole", user_role.resolve)
-GROUP.set_alias("lastClosingVulnerability", "last_closing_vuln")
+GROUP.set_alias("lastClosedVulnerability", "last_closing_vuln")
 
 if FI_API_STATUS == "migration":
     GROUP.set_field("drafts", drafts_new.resolve)
     GROUP.set_field("findings", findings_new.resolve)
     GROUP.set_field(
-        "lastClosingVulnerabilityFinding",
-        last_closing_vuln_finding_new.resolve,
+        "lastClosedVulnerabilityFinding",
+        last_closed_vulnerability_finding_new.resolve,
     )
     GROUP.set_field(
         "maxOpenSeverityFinding", max_open_severity_finding_new.resolve
@@ -66,14 +66,15 @@ if FI_API_STATUS == "migration":
     GROUP.set_field("totalFindings", total_findings_new.resolve)
     # --------------------Deprecated fields------------------------------------
     GROUP.set_field(
-        "lastClosingVulnFinding", last_closing_vuln_finding_new.resolve
+        "lastClosingVulnFinding", last_closed_vulnerability_finding_new.resolve
     )
     # -------------------------------------------------------------------------
 else:
     GROUP.set_field("drafts", drafts.resolve)
     GROUP.set_field("findings", findings.resolve)
     GROUP.set_field(
-        "lastClosingVulnerabilityFinding", last_closing_vuln_finding.resolve
+        "lastClosedVulnerabilityFinding",
+        last_closed_vulnerability_finding.resolve,
     )
     GROUP.set_field(
         "maxOpenSeverityFinding", max_open_severity_finding.resolve
@@ -83,5 +84,5 @@ else:
     GROUP.set_field("totalFindings", total_findings.resolve)
     # ----------------------Deprecated fields----------------------------------
     GROUP.set_field(
-        "lastClosingVulnFinding", last_closing_vuln_finding.resolve
+        "lastClosingVulnFinding", last_closed_vulnerability_finding.resolve
     )

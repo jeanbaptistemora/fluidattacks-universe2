@@ -359,7 +359,9 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
     (
         last_closing_vuln_days,
         last_closing_vuln,
-    ) = await findings_domain.get_last_closing_vuln_info(context, findings)
+    ) = await findings_domain.get_last_closed_vulnerability_info(
+        context, findings
+    )
     (
         max_open_severity,
         max_open_severity_finding,
