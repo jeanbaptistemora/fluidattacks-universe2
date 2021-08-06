@@ -33,6 +33,17 @@ class test {
             val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
             val k3 = ECGenParameterSpec("secp521r1")
             val k4 = ECGenParameterSpec("c2pnb208w1")
+
+            val spec1: ConnectionSpec = (
+                ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+                    .tlsVersions(TlsVersion.TLS_1_1)
+                    .build()
+            )
+            val spec2: ConnectionSpec = (
+                ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+                    .tlsVersions(TlsVersion.TLS_1_2)
+                    .build()
+            )
         } catch (e: NoSuchAlgorithmException) {
         } catch (e: NoSuchPaddingException) {
         }

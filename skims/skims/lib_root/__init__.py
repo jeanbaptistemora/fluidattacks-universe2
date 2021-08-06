@@ -14,6 +14,50 @@ from utils.graph.transformation import (
 )
 
 
+def get_composite_name_kotlin(
+    graph: graph_model.Graph, n_id: graph_model.NId
+) -> str:
+    # Function to build the name of a function/argument that has multiple
+    # levels, e.g. ConnectionSpec.Builder.tlsVersions
+    # For it to work, n_id must have children nodes of the type
+    # `navigation_expression`.
+    # n_id itself should not be a `navigation_expression` node, use its parent
+    composite_name: str = ""
+    match = g.match_ast(
+        graph,
+        n_id,
+        "navigation_expression",
+        "simple_identifier",
+    )
+    while nav_expr := match["navigation_expression"]:
+        match = g.match_ast(
+            graph,
+            nav_expr,
+            "call_expression",
+            "navigation_expression",
+            "navigation_suffix",
+            "simple_identifier",
+        )
+        composite_name = (
+            g.concatenate_label_text(
+                graph,
+                g.adj_ast(graph, match["navigation_suffix"]),
+            )
+            + composite_name
+        )
+        if call_expr := match["call_expression"]:
+            match = g.match_ast(
+                graph,
+                call_expr,
+                "navigation_expression",
+                "simple_identifier",
+            )
+    composite_name = (
+        graph.nodes[match["simple_identifier"]]["label_text"] + composite_name
+    )
+    return composite_name
+
+
 def yield_java_method_invocation(
     graph_db: graph_model.GraphDB,
 ) -> Iterable[Tuple[graph_model.GraphShard, str, str]]:
@@ -83,32 +127,7 @@ def yield_kotlin_method_invocation(
             nodes=shard.graph.nodes,
             predicate=g.pred_has_labels(label_type="call_expression"),
         ):
-            match = g.match_ast(
-                shard.graph,
-                method_id,
-                "navigation_expression",
-                "simple_identifier",
-            )
-            method_name = ""
-            while nav_expr := match["navigation_expression"]:
-                match = g.match_ast(
-                    shard.graph,
-                    nav_expr,
-                    "navigation_expression",
-                    "navigation_suffix",
-                    "simple_identifier",
-                )
-                method_name = (
-                    g.concatenate_label_text(
-                        shard.graph,
-                        g.adj_ast(shard.graph, match["navigation_suffix"]),
-                    )
-                    + method_name
-                )
-            method_name = (
-                shard.graph.nodes[match["simple_identifier"]]["label_text"]
-                + method_name
-            )
+            method_name = get_composite_name_kotlin(shard.graph, method_id)
             yield shard, method_id, method_name
 
 

@@ -2,6 +2,7 @@ from contextlib import (
     suppress,
 )
 from lib_root import (
+    get_composite_name_kotlin,
     yield_go_member_access,
     yield_go_object_creation,
     yield_java_method_invocation,
@@ -335,6 +336,9 @@ def _kotlin_yield_insecure_ciphers(
         yield from _javax_yield_insecure_ciphers(
             shard, method_name, parameters
         )
+        yield from _okhttp_yield_insecure_ciphers(
+            shard, method_name, parameters
+        )
 
 
 def _kotlin_yield_insecure_key(
@@ -353,6 +357,27 @@ def _kotlin_yield_insecure_key(
         yield from _java_security_yield_insecure_key(
             shard, method_name, parameters
         )
+
+
+def _okhttp_yield_insecure_ciphers(
+    shard: graph_model.GraphShard, method_name: str, parameters: List[Any]
+) -> graph_model.GraphShardNodes:
+    ssl_cipher_method: Set[str] = complete_attrs_on_set(
+        {"ConnectionSpec.Builder.tlsVersions"}
+    )
+    insecure_ciphers: Set[str] = {
+        "SSL_3_0",
+        "TLS_1_0",
+        "TLS_1_1",
+    }
+    if parameters and method_name in ssl_cipher_method:
+        param_id = parameters[0]
+        param_value = get_composite_name_kotlin(
+            shard.graph, g.pred_ast(shard.graph, param_id)[0]
+        )
+        ssl_version = param_value.split(".")[-1]
+        if ssl_version in insecure_ciphers:
+            yield shard, param_id
 
 
 def csharp_insecure_hash(
