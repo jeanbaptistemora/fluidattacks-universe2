@@ -19,7 +19,6 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
     utils,
-    virus_scan,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -49,8 +48,6 @@ async def mutate(
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
     group_name: str = get_key_or_fallback(parameters)
-
-    virus_scan.scan_file(uploaded_file, user_email, group_name)
 
     success = await resources_domain.add_file(
         new_files_data, uploaded_file, group_name, user_email
