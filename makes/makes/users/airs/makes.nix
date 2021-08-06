@@ -33,4 +33,17 @@
       region = "AWS_DEFAULT_REGION";
     };
   };
+  testTerraform = {
+    modules = {
+      makesUsersAirs = {
+        setup = [
+          outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForEnvFromSops/makesUsersAirsDev"
+          outputs."/secretsForTerraformFromEnv/makesUsersAirs"
+        ];
+        src = "/makes/makes/users/airs/infra";
+        version = "0.13";
+      };
+    };
+  };
 }
