@@ -25,6 +25,18 @@ Finalization Time: 2021-08-04 at 18:06:20 UTC-05
 
 Execution Time:    2021-08-05 at 09:38:21 UTC-05
 Finalization Time: 2021-08-05 at 09:38:22 UTC-05
+
+Execution Time:    2021-08-05 at 14:30:30 UTC-05
+Finalization Time: 2021-08-05 at 14:30:31 UTC-05
+
+Execution Time:    2021-08-05 at 16:35:22 UTC-05
+Finalization Time: 2021-08-05 at 16:37:16 UTC-05
+
+Execution Time:    2021-08-05 at 18:39:54 UTC-05
+Finalization Time: 2021-08-05 at 18:39:55 UTC-05
+
+Execution Time:    2021-08-06 at 08:54:02 UTC-05
+Finalization Time: 2021-08-06 at 08:57:04 UTC-05
 """
 
 from aioextensions import (
@@ -47,11 +59,11 @@ async def main() -> None:
         reader = csv.reader(infile)
         findings = [
             {
-                "finding_id": rows[1],
-                "title": rows[4],
+                "finding_id": rows[0],
+                "title": rows[1],
             }
             for rows in reader
-            if rows[1] != "finding_id"
+            if rows[0] != "finding_id"
         ]
 
     print(f"    === findings to update: {len(findings)}")
