@@ -104,6 +104,10 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/lintTerraform/makesUsersDocs";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintTerraform/makesVpc";
           gitlabExtra = gitlabLint;
         }

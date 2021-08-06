@@ -8,6 +8,6 @@ in
 terraformTest {
   name = "makes-users-docs-test";
   product = "makes";
-  target = "makes/applications/makes/users/docs/src/terraform";
+  target = "makes/makes/users/docs/infra";
   secretsPath = "makes/makes/secrets/dev.yaml";
 }

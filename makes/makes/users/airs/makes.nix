@@ -3,19 +3,6 @@
 , ...
 }:
 {
-  deployTerraform = {
-    modules = {
-      makesUsersAirs = {
-        setup = [
-          outputs."/secretsForAwsFromEnv/makesProd"
-          outputs."/secretsForEnvFromSops/makesUsersAirsProd"
-          outputs."/secretsForTerraformFromEnv/makesUsersAirs"
-        ];
-        src = "/makes/makes/users/airs/infra";
-        version = "0.13";
-      };
-    };
-  };
   lintTerraform = {
     modules = {
       makesUsersAirs = {
@@ -44,19 +31,6 @@
       cloudflare_api_key = "CLOUDFLARE_API_KEY";
       cloudflare_email = "CLOUDFLARE_EMAIL";
       region = "AWS_DEFAULT_REGION";
-    };
-  };
-  testTerraform = {
-    modules = {
-      makesUsersAirs = {
-        setup = [
-          outputs."/secretsForAwsFromEnv/makesDev"
-          outputs."/secretsForEnvFromSops/makesUsersAirsDev"
-          outputs."/secretsForTerraformFromEnv/makesUsersAirs"
-        ];
-        src = "/makes/makes/users/airs/infra";
-        version = "0.13";
-      };
     };
   };
 }

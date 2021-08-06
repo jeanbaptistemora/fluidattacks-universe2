@@ -8,6 +8,6 @@ in
 terraformApply {
   name = "makes-users-docs-apply";
   product = "makes";
-  target = "makes/applications/makes/users/docs/src/terraform";
+  target = "makes/makes/users/docs/infra";
   secretsPath = "makes/makes/secrets/prod.yaml";
 }
