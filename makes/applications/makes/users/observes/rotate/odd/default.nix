@@ -8,7 +8,7 @@ in
 userRotateKeys {
   name = "makes-users-observes-rotate-odd";
   product = "makes";
-  target = "makes/applications/makes/users/observes/src/terraform";
+  target = "makes/makes/users/observes/infra";
   keys = {
     "aws_iam_access_key.prod-key-1" = {
       id = {
