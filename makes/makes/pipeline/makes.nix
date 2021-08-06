@@ -84,6 +84,10 @@ in
           gitlabExtra = gitlabDeployInfra;
         }
         {
+          output = "/deployTerraform/makesUsersMelts";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
           output = "/deployTerraform/makesVpc";
           gitlabExtra = gitlabDeployInfra;
         }
@@ -125,6 +129,10 @@ in
         }
         {
           output = "/lintTerraform/makesUsersIntegrates";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintTerraform/makesUsersMelts";
           gitlabExtra = gitlabLint;
         }
         {
@@ -189,6 +197,10 @@ in
         }
         {
           output = "/testTerraform/makesUsersIntegrates";
+          gitlabExtra = gitlabTestInfra;
+        }
+        {
+          output = "/testTerraform/makesUsersMelts";
           gitlabExtra = gitlabTestInfra;
         }
         {
