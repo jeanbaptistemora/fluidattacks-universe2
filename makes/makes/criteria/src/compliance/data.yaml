@@ -1897,4 +1897,76 @@
     "1.3.7":
       title: Do not disclose private IP addresses and routing information
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "2.1.1":
+      title: For wireless environments connected
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "2.2.2":
+      title: Enable only necessary services
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "2.2.3":
+      title: Implement additional security features
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "2.2.4":
+      title: Configure system security parameters
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "2.2.5":
+      title: Remove all unnecessary functionality
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "2.3":
+      title: Encrypt all non-console administrative access
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "3.1":
+      title: Keep cardholder data storage to a minimum
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "3.2.1":
+      title: Do not store the full contents of any track
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "3.2.2":
+      title: Do not store the card verification code or value
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "3.2.3":
+      title: Do not store the personal identification number (PIN)
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "3.3":
+      title: Mask PAN when displayed
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "3.4":
+      title: Render PAN unreadable anywhere it is stored
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "3.4.1":
+      title: Disk encryption
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "3.5.2":
+      title: Restrict access to cryptographic keys
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "3.5.3":
+      title: Store secret and private keys used to encrypt or decrypt
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "3.5.4":
+      title: Store cryptographic keys
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "3.6.1":
+      title: Generation of strong cryptographic keys
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "3.6.2":
+      title: Secure cryptographic key distribution
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "3.6.3":
+      title: Secure cryptographic key storage
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "3.6.4":
+      title: Cryptographic key changes for keys
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "3.6.5":
+      title: Retirement or replacement of keys
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "3.6.7":
+      title: Prevention of unauthorized substitution of cryptographic keys
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "4.1":
+      title: Use strong cryptography and security protocols
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "4.1.1":
+      title: Ensure wireless networks transmitting cardholder data
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
   metadata: {}
