@@ -140,11 +140,6 @@ makes.users.forces.rotate.odd:
   <<: *makes_in_schedule_users_rotate_odd
   stage: rotation
 
-makes.users.forces.test:
-  <<: *makes
-  <<: *makes_in_dev_branch
-  stage: test-infra
-
 makes.users.integrates.apply:
   <<: *makes
   <<: *makes_in_master_branch
