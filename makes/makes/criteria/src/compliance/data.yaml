@@ -1854,5 +1854,47 @@
       is PCI DSS v3.2.1.
   es:
     description: __empty__
-  definitions: {}
+  definitions:
+    "A1.1":
+      title: A hosting provider must fulfill these requirements
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "A1.2":
+      title: Restrict each entity’s access and privileges
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "A1.3":
+      title: Ensure logging and audit trails
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "A2.1":
+      title: Where POS POI terminals use SSL or early TLS
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "1.2.1":
+      title: Restrict inbound and outbound traffic
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "1.2.2":
+      title: Secure and synchronize router configuration files
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "1.2.3":
+      title: Install perimeter firewalls
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "1.3.1":
+      title: Implement a DMZ
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "1.3.2":
+      title: Limit inbound Internet traffic
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "1.3.3":
+      title: Implement anti-spoofing measures
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "1.3.4":
+      title: Do not allow unauthorized outbound traffic
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "1.3.5":
+      title: Permit only “established” connections
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "1.3.6":
+      title: Place system components that store cardholder data
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "1.3.7":
+      title: Do not disclose private IP addresses and routing information
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
   metadata: {}
