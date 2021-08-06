@@ -7,5 +7,5 @@ from ariadne import (
 )
 
 GITROOT: ObjectType = ObjectType("GitRoot")
-GITROOT.set_field("toeLines", toe_lines.resolve)
 GITROOT.set_field("lastStateStatusUpdate", last_state_status_update.resolve)
+GITROOT.set_field("toeLines", toe_lines.resolve)

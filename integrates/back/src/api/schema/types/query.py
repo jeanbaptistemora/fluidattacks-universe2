@@ -49,13 +49,13 @@ QUERY.set_field("tag", tag.resolve)
 QUERY.set_field(
     "vulnerabilitiesToReattack", vulnerabilities_to_reattack.resolve
 )
-
 # --------------------------Deprecated Queries---------------------------------
 QUERY.set_field("project", group.resolve)
 QUERY.set_field("userListProjects", list_user_groups.resolve)
 QUERY.set_field("userListGroups", list_user_groups.resolve)
 QUERY.set_field("vulnsToReattack", vulnerabilities_to_reattack.resolve)
 # -----------------------------------------------------------------------------
+
 if FI_API_STATUS == "migration":
     QUERY.set_field("finding", finding_new.resolve)
     QUERY.set_field("vulnerability", vulnerability_new.resolve)

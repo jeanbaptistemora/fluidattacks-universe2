@@ -69,7 +69,6 @@ from context import (
 
 FINDING = ObjectType("Finding")
 
-
 if FI_API_STATUS == "migration":
     FINDING.set_field("age", age_new.resolve)
     FINDING.set_field("analyst", analyst_new.resolve)
@@ -97,7 +96,6 @@ if FI_API_STATUS == "migration":
     FINDING.set_field(
         "portsVulnerabilities", ports_vulnerabilities_new.resolve
     )
-    FINDING.set_field("projectName", group_name_new.resolve)
     FINDING.set_field("records", records_new.resolve)
     FINDING.set_field("releaseDate", release_date_new.resolve)
     FINDING.set_field("remediated", remediated_new.resolve)
@@ -109,11 +107,12 @@ if FI_API_STATUS == "migration":
     FINDING.set_field("tracking", tracking_new.resolve)
     FINDING.set_field("verified", verified_new.resolve)
     FINDING.set_field("vulnerabilities", vulnerabilities_new.resolve)
-    FINDING.set_field("zeroRisk", zero_risk_new.resolve)
     FINDING.set_field(
         "vulnerabilitiesToReattack", vulnerabilities_to_reattack_new.resolve
     )
+    FINDING.set_field("zeroRisk", zero_risk_new.resolve)
     # --------------------------Deprecated fields------------------------------
+    FINDING.set_field("projectName", group_name_new.resolve)
     FINDING.set_field("inputsVulns", inputs_vulnerabilities_new.resolve)
     FINDING.set_field("linesVulns", lines_vulnerabilities_new.resolve)
     FINDING.set_field("portsVulns", ports_vulnerabilities_new.resolve)
@@ -131,7 +130,6 @@ else:
     FINDING.set_field("lastVulnerability", last_vulnerability.resolve)
     FINDING.set_field("linesVulnerabilities", lines_vulnerabilities.resolve)
     FINDING.set_field("machineJobs", machine_jobs.resolve)
-    FINDING.set_field("newRemediated", new_remediated.resolve)
     FINDING.set_field("observations", observations.resolve)
     FINDING.set_field("openAge", open_age.resolve)
     FINDING.set_field("openVulnerabilities", open_vulnerabilities.resolve)
@@ -145,12 +143,13 @@ else:
     FINDING.set_field("tracking", tracking.resolve)
     FINDING.set_field("verified", verified.resolve)
     FINDING.set_field("vulnerabilities", vulnerabilities.resolve)
-    FINDING.set_field("zeroRisk", zero_risk.resolve)
     FINDING.set_field(
         "vulnerabilitiesToReattack", vulnerabilities_to_reattack.resolve
     )
+    FINDING.set_field("zeroRisk", zero_risk.resolve)
     # --------------------------Deprecated fields------------------------------
     FINDING.set_field("inputsVulns", inputs_vulnerabilities.resolve)
     FINDING.set_field("linesVulns", lines_vulnerabilities.resolve)
+    FINDING.set_field("newRemediated", new_remediated.resolve)
     FINDING.set_field("portsVulns", ports_vulnerabilities.resolve)
     FINDING.set_field("vulnsToReattack", vulnerabilities_to_reattack.resolve)

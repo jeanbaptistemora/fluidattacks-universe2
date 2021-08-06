@@ -13,9 +13,8 @@ from ariadne import (
 
 ORGANIZATION: ObjectType = ObjectType("Organization")
 ORGANIZATION.set_field("analytics", analytics.resolve)
-ORGANIZATION.set_field("projects", groups.resolve)
-ORGANIZATION.set_field("stakeholders", stakeholders.resolve)
 ORGANIZATION.set_field("findingPolicies", finding_policies.resolve)
-
-# Standardization Fields
 ORGANIZATION.set_field("groups", groups.resolve)
+ORGANIZATION.set_field("stakeholders", stakeholders.resolve)
+# -------------------------Deprecated fields-----------------------------------
+ORGANIZATION.set_field("projects", groups.resolve)
