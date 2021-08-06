@@ -621,6 +621,7 @@ FINDING: core_model.FindingEnum = core_model.FindingEnum.F052
 QUERIES: graph_model.Queries = (
     (FINDING, csharp_insecure_hash),
     (FINDING, csharp_insecure_cipher),
+    (FINDING, csharp_aesmanaged_secure_mode),
     (FINDING, go_insecure_cipher),
     (FINDING, go_insecure_hash),
     (FINDING, java_insecure_cipher),
