@@ -319,6 +319,7 @@ export const Graphic: React.FC<IGraphicProps> = (
             </div>
           </div>
         }
+        onEsc={frameOnFullScreenExit}
         open={fullScreen}
         size={"graphicModal"}
       >

@@ -123,7 +123,11 @@ const GlobalConfigModal: React.FC<IGlobalConfigModalProps> = (
 
   return (
     <React.StrictMode>
-      <Modal headerTitle={translate.t("configuration.title")} open={open}>
+      <Modal
+        headerTitle={translate.t("configuration.title")}
+        onEsc={onClose}
+        open={open}
+      >
         <Formik
           enableReinitialize={true}
           initialValues={{

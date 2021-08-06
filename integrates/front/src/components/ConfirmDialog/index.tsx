@@ -55,7 +55,7 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = (
 
   return (
     <React.Fragment>
-      <Modal headerTitle={title} open={isOpen}>
+      <Modal headerTitle={title} onEsc={handleClose} open={isOpen}>
         {messageLines.map(
           (line: string): JSX.Element => (
             <p key={line}>{line}</p>

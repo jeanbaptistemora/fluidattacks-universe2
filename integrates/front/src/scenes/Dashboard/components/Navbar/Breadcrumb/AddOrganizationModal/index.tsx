@@ -115,6 +115,7 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = (
     <React.StrictMode>
       <Modal
         headerTitle={translate.t("sidebar.newOrganization.modal.title")}
+        onEsc={onClose}
         open={open}
       >
         <Formik
