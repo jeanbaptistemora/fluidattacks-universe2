@@ -62,9 +62,11 @@ async def resolve(
     vulns_flatten: List[Vulnerability] = list(
         itertools.chain.from_iterable(vulns)
     )
-    vulns_to_reattack: List[Vulnerability] = list(
+    vulnerabilities_to_reattack: List[Vulnerability] = list(
         filter(filter_last_reattack_requested, vulns_flatten)
     )
-    vulns_to_reattack = filter_open_vulnerabilities(vulns_to_reattack)
+    vulnerabilities_to_reattack = filter_open_vulnerabilities(
+        vulnerabilities_to_reattack
+    )
 
-    return vulns_to_reattack
+    return vulnerabilities_to_reattack

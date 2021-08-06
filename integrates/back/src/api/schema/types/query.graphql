@@ -84,9 +84,14 @@ type Query {
   ): [Group] @deprecated(reason: """This query will be removed
     after 2021/12/31. Use `listUserGroups` instead.""")
 
+  "Vulnerabilities pending to reattack"
+  vulnerabilitiesToReattack(group: String): [Vulnerability]
+
   "Vulnerability entity"
   vulnerability(uuid: String!): Vulnerability
 
   "Vulnerabilities pending to reattack"
   vulnsToReattack(group: String): [Vulnerability]
+    @deprecated(reason: """This query will be removed after 2021/12/31. Use
+    `vulnerabilitiesToReattack` instead.""")
 }
