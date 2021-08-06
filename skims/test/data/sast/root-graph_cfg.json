@@ -51933,6 +51933,10 @@
               "label_ast": "AST",
               "label_index": "74"
             },
+            "1243": {
+              "label_ast": "AST",
+              "label_index": "75"
+            },
             "143": {
               "label_ast": "AST",
               "label_index": "8"
@@ -53426,6 +53430,10 @@
             "1238": {
               "label_ast": "AST",
               "label_index": "1"
+            },
+            "1243": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
             }
           },
           "1234": {
@@ -53452,6 +53460,72 @@
               "label_index": "1"
             },
             "1241": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "1243": {
+            "1244": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1245": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1257": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "1245": {
+            "1246": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1250": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1251": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "1246": {
+            "1247": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1248": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1249": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "1251": {
+            "1252": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1253": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "1253": {
+            "1254": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "1255": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "1256": {
               "label_ast": "AST",
               "label_index": "2"
             }
@@ -59856,11 +59930,100 @@
             "label_text": ";",
             "label_type": ";"
           },
+          "1243": {
+            "label_c": 1,
+            "label_l": 248,
+            "label_type": "lexical_declaration"
+          },
+          "1244": {
+            "label_c": 1,
+            "label_l": 248,
+            "label_text": "const",
+            "label_type": "const"
+          },
+          "1245": {
+            "label_c": 7,
+            "label_field_name": "1246",
+            "label_field_value": "1251",
+            "label_l": 248,
+            "label_type": "variable_declarator"
+          },
+          "1246": {
+            "label_c": 7,
+            "label_l": 248,
+            "label_type": "object_pattern"
+          },
+          "1247": {
+            "label_c": 7,
+            "label_l": 248,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "1248": {
+            "label_c": 3,
+            "label_l": 249,
+            "label_text": "exec",
+            "label_type": "shorthand_property_identifier_pattern"
+          },
+          "1249": {
+            "label_c": 1,
+            "label_l": 250,
+            "label_text": "}",
+            "label_type": "}"
+          },
           "125": {
             "label_c": 9,
             "label_l": 24,
             "label_text": ")",
             "label_type": ")"
+          },
+          "1250": {
+            "label_c": 3,
+            "label_l": 250,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "1251": {
+            "label_c": 5,
+            "label_field_arguments": "1253",
+            "label_field_function": "1252",
+            "label_l": 250,
+            "label_type": "call_expression"
+          },
+          "1252": {
+            "label_c": 5,
+            "label_l": 250,
+            "label_text": "require",
+            "label_type": "identifier"
+          },
+          "1253": {
+            "label_c": 12,
+            "label_l": 250,
+            "label_type": "arguments"
+          },
+          "1254": {
+            "label_c": 12,
+            "label_l": 250,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "1255": {
+            "label_c": 13,
+            "label_l": 250,
+            "label_text": "\"child_process\"",
+            "label_type": "string"
+          },
+          "1256": {
+            "label_c": 28,
+            "label_l": 250,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "1257": {
+            "label_c": 29,
+            "label_l": 250,
+            "label_text": ";",
+            "label_type": ";"
           },
           "126": {
             "label_c": 11,
@@ -66908,6 +67071,44 @@
             },
             "method": "console.log",
             "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "1243": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1255",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "child_process",
+            "value_type": "string"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1251",
+              "value": null
+            },
+            "method": "require",
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "1245",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "exec",
+            "var_type": null
           }
         ],
         "126": [
