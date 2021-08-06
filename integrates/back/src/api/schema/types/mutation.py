@@ -134,9 +134,6 @@ MUTATION.set_field(
 MUTATION.set_field("deactivateRoot", deactivate_root.mutate)
 MUTATION.set_field("downloadEventFile", download_event_file.mutate)
 MUTATION.set_field("downloadFile", download_file.mutate)
-MUTATION.set_field(
-    "downloadVulnerabilityFile", download_vulnerability_file.mutate
-)
 MUTATION.set_field("grantStakeholderAccess", grant_stakeholder_access.mutate)
 MUTATION.set_field(
     "grantStakeholderOrganizationAccess",
@@ -244,6 +241,9 @@ MUTATION.set_field(
 if FI_API_STATUS == "migration":
     MUTATION.set_field("addDraft", add_draft_new.mutate)
     MUTATION.set_field("approveDraft", approve_draft_new.mutate)
+    MUTATION.set_field(
+        "downloadVulnerabilityFile", download_vulnerability_file.mutate
+    )
     MUTATION.set_field("rejectDraft", reject_draft_new.mutate)
     MUTATION.set_field(
         "rejectVulnerabilitiesZeroRisk",
@@ -297,6 +297,9 @@ if FI_API_STATUS == "migration":
 else:
     MUTATION.set_field("addDraft", add_draft.mutate)
     MUTATION.set_field("approveDraft", approve_draft.mutate)
+    MUTATION.set_field(
+        "downloadVulnerabilityFile", download_vulnerability_file.mutate
+    )
     MUTATION.set_field("rejectDraft", reject_draft.mutate)
     MUTATION.set_field(
         "rejectVulnerabilitiesZeroRisk",
