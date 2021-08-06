@@ -20,6 +20,7 @@ interface IQueryData {
         author: string;
         authors: string;
         banner: string;
+        category: string;
         certificationid: string;
         certificationsindex: string;
         clientsindex: string;
@@ -38,6 +39,7 @@ interface IQueryData {
         solution: string;
         subtext: string;
         subtitle: string;
+        tags: string;
         writer: string;
       };
     };

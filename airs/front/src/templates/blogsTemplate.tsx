@@ -28,6 +28,7 @@ import {
   PageArticle,
 } from "../styles/styledComponents";
 import {
+  capitalizeDashedString,
   capitalizeObject,
   capitalizePlainString,
   stringToUri,
@@ -45,14 +46,17 @@ const BlogsIndex: React.FC<IQueryData> = ({
   const {
     alt,
     author,
+    category,
     date,
     description,
     image,
     keywords,
     slug,
     subtitle,
+    tags,
     writer,
   } = data.asciidoc.pageAttributes;
+  const taglist: string[] = tags.split(", ");
   const fDate = moment(date).format("MMMM DD, YYYY");
 
   return (
@@ -92,7 +96,11 @@ const BlogsIndex: React.FC<IQueryData> = ({
                   <Link to={`/blog/authors/${stringToUri(author)}`}>
                     {author}
                   </Link>
-                  {` | ${fDate}`}
+                  {` | ${fDate} | `}
+                  <Link to={"/blog/categories/"}>{"Category:"}</Link>{" "}
+                  <Link to={`/blog/categories/${category.toLocaleLowerCase()}`}>
+                    {capitalizeDashedString(category)}
+                  </Link>
                 </p>
               </div>
               <div
@@ -101,6 +109,33 @@ const BlogsIndex: React.FC<IQueryData> = ({
                   __html: data.asciidoc.html,
                 }}
               />
+              <div className={"pt3"}>
+                <p className={"f5"}>
+                  <Link to={"/blog/tags/"}>{"Tags:"}</Link>
+                  {taglist.map(
+                    (tag: string, index): JSX.Element =>
+                      taglist.length === index + 1 ? (
+                        <Link
+                          className={
+                            "ph2 mh2 mb2 dib hv-fluid-rd button-white br2"
+                          }
+                          to={`/blog/tags/${tag}`}
+                        >
+                          {capitalizeDashedString(tag)}
+                        </Link>
+                      ) : (
+                        <Link
+                          className={
+                            "ph2 mh2 mb2 dib hv-fluid-rd button-white br2"
+                          }
+                          to={`/blog/tags/${tag}`}
+                        >
+                          {capitalizeDashedString(tag)}
+                        </Link>
+                      )
+                  )}
+                </p>
+              </div>
               <BlogFooter author={author} slug={slug} writer={writer} />
             </BlogArticleContainer>
           </PageArticle>
@@ -125,12 +160,14 @@ export const query: void = graphql`
       pageAttributes {
         alt
         author
+        category
         date
         description
         image
         keywords
         slug
         subtitle
+        tags
         writer
       }
     }

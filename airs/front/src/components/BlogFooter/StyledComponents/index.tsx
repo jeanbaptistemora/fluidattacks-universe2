@@ -10,8 +10,7 @@ const BlogFooterContainer: StyledComponent<
     flex-wrap
     w-100
     tl
-    pt6-l
-    pt5
+    pt3
     mw6-m
     ml-auto
     mr-auto
