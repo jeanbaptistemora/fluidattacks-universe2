@@ -28,9 +28,7 @@
   };
   secretsForTerraformFromEnv = {
     makesUsersMelts = {
-      aws_access_key = "AWS_ACCESS_KEY_ID";
-      aws_secret_key = "AWS_SECRET_ACCESS_KEY";
-      region = "AWS_DEFAULT_REGION";
+      gitlab_token = "PRODUCT_API_TOKEN";
     };
   };
   testTerraform = {
