@@ -98,3 +98,35 @@ resource "aws_iam_access_key" "melts-dev-key-1" {
 resource "aws_iam_access_key" "melts-dev-key-2" {
   user = "melts-dev"
 }
+
+resource "time_static" "dev_key_1_created_at" {
+  rfc3339 = aws_iam_access_key.melts-dev-key-1.create_date
+}
+
+resource "time_static" "dev_key_2_created_at" {
+  rfc3339 = aws_iam_access_key.melts-dev-key-2.create_date
+}
+
+resource "gitlab_project_variable" "dev_key_id" {
+  key       = "MELTS_DEV_AWS_ACCESS_KEY_ID"
+  masked    = true
+  project   = "20741933"
+  protected = false
+  value = (
+    time_static.dev_key_1_created_at.unix > time_static.dev_key_2_created_at.unix
+    ? aws_iam_access_key.melts-dev-key-1.id
+    : aws_iam_access_key.melts-dev-key-2.id
+  )
+}
+
+resource "gitlab_project_variable" "dev_key_secret" {
+  key       = "MELTS_DEV_AWS_SECRET_ACCESS_KEY"
+  masked    = true
+  project   = "20741933"
+  protected = false
+  value = (
+    time_static.dev_key_1_created_at.unix > time_static.dev_key_2_created_at.unix
+    ? aws_iam_access_key.melts-dev-key-1.secret
+    : aws_iam_access_key.melts-dev-key-2.secret
+  )
+}
