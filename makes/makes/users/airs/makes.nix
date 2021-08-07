@@ -50,6 +50,7 @@
       makesUsersAirsKeys1 = {
         setup = [
           outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForEnvFromSops/makesUsersAirsProd"
           outputs."/secretsForTerraformFromEnv/makesUsersAirs"
         ];
         resources = [
@@ -63,6 +64,7 @@
       makesUsersAirsKeys2 = {
         setup = [
           outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForEnvFromSops/makesUsersAirsProd"
           outputs."/secretsForTerraformFromEnv/makesUsersAirs"
         ];
         resources = [
