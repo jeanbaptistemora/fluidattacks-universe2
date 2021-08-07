@@ -73,34 +73,11 @@ resource "aws_iam_access_key" "melts-prod-key-2" {
   user = "melts-prod"
 }
 
-resource "time_static" "prod_key_1_created_at" {
-  rfc3339 = aws_iam_access_key.melts-prod-key-1.create_date
-}
-
-resource "time_static" "prod_key_2_created_at" {
-  rfc3339 = aws_iam_access_key.melts-prod-key-2.create_date
-}
-
-resource "gitlab_project_variable" "prod_key_id" {
-  key       = "MELTS_PROD_AWS_ACCESS_KEY_ID"
-  masked    = true
-  project   = "20741933"
-  protected = true
-  value = (
-    time_static.prod_key_1_created_at.unix > time_static.prod_key_2_created_at.unix
-    ? aws_iam_access_key.melts-prod-key-1.id
-    : aws_iam_access_key.melts-prod-key-2.id
-  )
-}
-
-resource "gitlab_project_variable" "prod_key_secret" {
-  key       = "MELTS_PROD_AWS_SECRET_ACCESS_KEY"
-  masked    = true
-  project   = "20741933"
-  protected = true
-  value = (
-    time_static.prod_key_1_created_at.unix > time_static.prod_key_2_created_at.unix
-    ? aws_iam_access_key.melts-prod-key-1.secret
-    : aws_iam_access_key.melts-prod-key-2.secret
-  )
+module "publish_credentials_prod" {
+  source       = "../../modules/publish_credentials"
+  gitlab_token = var.gitlab_token
+  key_1        = aws_iam_access_key.melts-prod-key-1
+  key_2        = aws_iam_access_key.melts-prod-key-2
+  prefix       = "MELTS_PROD"
+  protected    = true
 }
