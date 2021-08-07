@@ -145,16 +145,6 @@ makes.users.integrates.rotate.odd:
   <<: *makes_in_schedule_users_rotate_odd
   stage: rotation
 
-makes.users.melts.rotate.even:
-  <<: *makes
-  <<: *makes_in_schedule_users_rotate_even
-  stage: rotation
-
-makes.users.melts.rotate.odd:
-  <<: *makes
-  <<: *makes_in_schedule_users_rotate_odd
-  stage: rotation
-
 makes.users.observes.rotate.even:
   <<: *makes
   <<: *makes_in_schedule_users_rotate_even

@@ -37,4 +37,3 @@ output "prod-secret-key-2" {
   sensitive = true
   value     = aws_iam_access_key.melts-prod-key-2.secret
 }
-
