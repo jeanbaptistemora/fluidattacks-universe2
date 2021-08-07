@@ -32,6 +32,24 @@ let
     stage = "lint-code";
     tags = [ "autoscaling" ];
   };
+  gitlabRotateUsersKeys1 = {
+    rules = [
+      gitlabCi.rules.schedules
+      (gitlabCi.rules.varIsDefined "makes_users_rotate_even")
+      gitlabCi.rules.always
+    ];
+    stage = "rotation";
+    tags = [ "autoscaling" ];
+  };
+  gitlabRotateUsersKeys2 = {
+    rules = [
+      gitlabCi.rules.schedules
+      (gitlabCi.rules.varIsDefined "makes_users_rotate_odd")
+      gitlabCi.rules.always
+    ];
+    stage = "rotation";
+    tags = [ "autoscaling" ];
+  };
   gitlabTestInfra = {
     rules = gitlabOnlyDev;
     stage = "test-infra";
@@ -178,6 +196,14 @@ in
         {
           output = "/pipelineOnGitlab/makes";
           gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/taintTerraform/makesUsersMeltsKeys1";
+          gitlabExtra = gitlabRotateUsersKeys1;
+        }
+        {
+          output = "/taintTerraform/makesUsersMeltsKeys2";
+          gitlabExtra = gitlabRotateUsersKeys2;
         }
         {
           output = "/testTerraform/makesCi";

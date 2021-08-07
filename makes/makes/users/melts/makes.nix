@@ -42,6 +42,7 @@
           "aws_iam_access_key.melts-dev-key-1"
           "aws_iam_access_key.melts-prod-key-1"
         ];
+        reDeploy = true;
         src = "/makes/makes/users/melts/infra";
         version = "0.13";
       };
@@ -54,6 +55,7 @@
           "aws_iam_access_key.melts-dev-key-2"
           "aws_iam_access_key.melts-prod-key-2"
         ];
+        reDeploy = true;
         src = "/makes/makes/users/melts/infra";
         version = "0.13";
       };

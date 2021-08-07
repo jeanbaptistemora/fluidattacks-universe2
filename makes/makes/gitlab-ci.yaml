@@ -697,6 +697,40 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+/taintTerraform/makesUsersMeltsKeys1:
+  image: ghcr.io/fluidattacks/makes:21.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $makes_users_rotate_even == ""
+      when: never
+    - when: always
+  script:
+    - m . /taintTerraform/makesUsersMeltsKeys1
+  stage: rotation
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/taintTerraform/makesUsersMeltsKeys2:
+  image: ghcr.io/fluidattacks/makes:21.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $makes_users_rotate_odd == ""
+      when: never
+    - when: always
+  script:
+    - m . /taintTerraform/makesUsersMeltsKeys2
+  stage: rotation
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
 /testTerraform/makesCi:
   image: ghcr.io/fluidattacks/makes:21.09
   interruptible: true
