@@ -31,6 +31,34 @@
       gitlab_token = "PRODUCT_API_TOKEN";
     };
   };
+  taintTerraform = {
+    modules = {
+      makesUsersMeltsKeys1 = {
+        setup = [
+          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForTerraformFromEnv/makesUsersMelts"
+        ];
+        resources = [
+          "aws_iam_access_key.melts-dev-key-1"
+          "aws_iam_access_key.melts-prod-key-1"
+        ];
+        src = "/makes/makes/users/melts/infra";
+        version = "0.13";
+      };
+      makesUsersMeltsKeys2 = {
+        setup = [
+          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForTerraformFromEnv/makesUsersMelts"
+        ];
+        resources = [
+          "aws_iam_access_key.melts-dev-key-2"
+          "aws_iam_access_key.melts-prod-key-2"
+        ];
+        src = "/makes/makes/users/melts/infra";
+        version = "0.13";
+      };
+    };
+  };
   testTerraform = {
     modules = {
       makesUsersMelts = {
