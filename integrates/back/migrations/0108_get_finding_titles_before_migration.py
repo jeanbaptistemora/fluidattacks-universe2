@@ -13,6 +13,9 @@ Finalization Time: 2021-07-28 at 10:03:48 UTC-05
 
 Execution Time:    2021-08-04 at 11:53:23 UTC-05
 Finalization Time: 2021-08-04 at 11:55:04 UTC-05
+
+Execution Time:    2021-08-06 at 11:41:39 UTC-05
+Finalization Time: 2021-08-06 at 11:45:35 UTC-05
 """
 
 from aioextensions import (
@@ -68,7 +71,7 @@ async def main() -> None:
     print(f"    === sample: {findings_non_deleted[0:3]}")
 
     csv_columns = ["group", "finding_id", "finding_name"]
-    csv_file = "0108_findings_names_aug_04_2021.csv"
+    csv_file = "0108_findings_names_aug_06_2021.csv"
     success = False
     try:
         with open(csv_file, "w") as f:

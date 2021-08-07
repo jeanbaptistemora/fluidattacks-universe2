@@ -1,10 +1,10 @@
 # pylint: disable=invalid-name
-""",
+"""
 Extract info related to vulns in findings of type `HTTP headers`,
 previous to a future migration processing these vulns
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-08-06 at 14:55:20 UTC-05
+Finalization Time: 2021-08-06 at 15:21:44 UTC-05
 """,
 
 from aioextensions import (
