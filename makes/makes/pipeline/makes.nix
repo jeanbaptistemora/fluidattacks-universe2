@@ -198,6 +198,14 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/taintTerraform/makesUsersAirsKeys1";
+          gitlabExtra = gitlabRotateUsersKeys1;
+        }
+        {
+          output = "/taintTerraform/makesUsersAirsKeys2";
+          gitlabExtra = gitlabRotateUsersKeys2;
+        }
+        {
           output = "/taintTerraform/makesUsersMeltsKeys1";
           gitlabExtra = gitlabRotateUsersKeys1;
         }

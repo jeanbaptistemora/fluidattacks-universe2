@@ -11,14 +11,22 @@ resource "aws_iam_user" "web-dev" {
   }
 }
 
-resource "aws_iam_access_key" "web-dev-key-1" {
+resource "aws_iam_access_key" "airs-dev-key-1" {
   user = "web-dev"
 }
 
-resource "aws_iam_access_key" "web-dev-key-2" {
+resource "aws_iam_access_key" "airs-dev-key-2" {
   user = "web-dev"
 }
 
+module "publish_credentials_dev" {
+  source       = "../../modules/publish_credentials"
+  gitlab_token = var.gitlab_token
+  key_1        = aws_iam_access_key.airs-dev-key-1
+  key_2        = aws_iam_access_key.airs-dev-key-2
+  prefix       = "AIRS_DEV"
+  protected    = false
+}
 
 # CloudFlare
 

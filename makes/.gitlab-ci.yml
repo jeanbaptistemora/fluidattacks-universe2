@@ -85,16 +85,6 @@ makes.test.makes:
   <<: *makes_in_master_branch
   stage: test-code
 
-makes.users.airs.rotate.even:
-  <<: *makes
-  <<: *makes_in_schedule_users_rotate_even
-  stage: rotation
-
-makes.users.airs.rotate.odd:
-  <<: *makes
-  <<: *makes_in_schedule_users_rotate_odd
-  stage: rotation
-
 makes.users.asserts.apply:
   <<: *makes
   <<: *makes_in_master_branch

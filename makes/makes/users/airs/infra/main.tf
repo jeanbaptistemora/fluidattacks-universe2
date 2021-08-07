@@ -4,11 +4,11 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.23.0"
+      version = "3.53.0"
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "~> 2.20.0"
+      version = "2.25.0"
     }
   }
 
@@ -22,11 +22,7 @@ terraform {
 
 }
 
-provider "aws" {
-  access_key = var.aws_access_key
-  secret_key = var.aws_secret_key
-  region     = var.region
-}
+provider "aws" {}
 
 provider "cloudflare" {
   email   = var.cloudflare_email

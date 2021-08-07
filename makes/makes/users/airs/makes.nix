@@ -39,11 +39,40 @@
   };
   secretsForTerraformFromEnv = {
     makesUsersAirs = {
-      aws_access_key = "AWS_ACCESS_KEY_ID";
-      aws_secret_key = "AWS_SECRET_ACCESS_KEY";
       cloudflare_api_key = "CLOUDFLARE_API_KEY";
       cloudflare_email = "CLOUDFLARE_EMAIL";
+      gitlab_token = "PRODUCT_API_TOKEN";
       region = "AWS_DEFAULT_REGION";
+    };
+  };
+  taintTerraform = {
+    modules = {
+      makesUsersAirsKeys1 = {
+        setup = [
+          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForTerraformFromEnv/makesUsersAirs"
+        ];
+        resources = [
+          "aws_iam_access_key.airs-dev-key-1"
+          "aws_iam_access_key.airs-prod-key-1"
+        ];
+        reDeploy = true;
+        src = "/makes/makes/users/airs/infra";
+        version = "0.13";
+      };
+      makesUsersAirsKeys2 = {
+        setup = [
+          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForTerraformFromEnv/makesUsersAirs"
+        ];
+        resources = [
+          "aws_iam_access_key.airs-dev-key-2"
+          "aws_iam_access_key.airs-prod-key-2"
+        ];
+        reDeploy = true;
+        src = "/makes/makes/users/airs/infra";
+        version = "0.13";
+      };
     };
   };
   testTerraform = {

@@ -61,8 +61,6 @@ makes.okta.lint
 makes.okta.test
 makes.profiles
 makes.review-mr
-makes.users.airs.rotate.even
-makes.users.airs.rotate.odd
 makes.users.asserts.apply
 makes.users.asserts.rotate.even
 makes.users.asserts.rotate.odd
