@@ -39,27 +39,6 @@
       when: never
     - if: *makes_commit_pattern
 
-.makes_in_schedule_users_rotate_even: &makes_in_schedule_users_rotate_even
-  rules:
-    - if: '$CI_PIPELINE_SOURCE != "schedule"'
-      when: never
-    - if: '$makes_users_rotate_even != "defined"'
-      when: never
-    - when: always
-
-.makes_in_schedule_users_rotate_odd: &makes_in_schedule_users_rotate_odd
-  rules:
-    - if: '$CI_PIPELINE_SOURCE != "schedule"'
-      when: never
-    - if: '$makes_users_rotate_odd != "defined"'
-      when: never
-    - when: always
-
-/docs/generate/criteria:
-  <<: *makes4
-  <<: *makes_in_dev_branch
-  stage: build
-
 makes.ci.config:
   <<: *makes
   <<: *makes_in_master_branch
@@ -84,63 +63,3 @@ makes.test.makes:
   <<: *makes
   <<: *makes_in_master_branch
   stage: test-code
-
-makes.users.docs.rotate.even:
-  <<: *makes
-  <<: *makes_in_schedule_users_rotate_even
-  stage: rotation
-
-makes.users.docs.rotate.odd:
-  <<: *makes
-  <<: *makes_in_schedule_users_rotate_odd
-  stage: rotation
-
-makes.users.forces.rotate.even:
-  <<: *makes
-  <<: *makes_in_schedule_users_rotate_even
-  stage: rotation
-
-makes.users.forces.rotate.odd:
-  <<: *makes
-  <<: *makes_in_schedule_users_rotate_odd
-  stage: rotation
-
-makes.users.integrates.rotate.even:
-  <<: *makes
-  <<: *makes_in_schedule_users_rotate_even
-  stage: rotation
-
-makes.users.integrates.rotate.odd:
-  <<: *makes
-  <<: *makes_in_schedule_users_rotate_odd
-  stage: rotation
-
-makes.users.observes.rotate.even:
-  <<: *makes
-  <<: *makes_in_schedule_users_rotate_even
-  stage: rotation
-
-makes.users.observes.rotate.odd:
-  <<: *makes
-  <<: *makes_in_schedule_users_rotate_odd
-  stage: rotation
-
-makes.users.makes.rotate.even:
-  <<: *makes
-  <<: *makes_in_schedule_users_rotate_even
-  stage: rotation
-
-makes.users.makes.rotate.odd:
-  <<: *makes
-  <<: *makes_in_schedule_users_rotate_odd
-  stage: rotation
-
-makes.users.skims.rotate.even:
-  <<: *makes
-  <<: *makes_in_schedule_users_rotate_even
-  stage: rotation
-
-makes.users.skims.rotate.odd:
-  <<: *makes
-  <<: *makes_in_schedule_users_rotate_odd
-  stage: rotation

@@ -62,6 +62,14 @@ in
       gitlabPath = "/makes/makes/gitlab-ci.yaml";
       jobs = [
         {
+          output = "/docs/generate/criteria";
+          gitlabExtra = {
+            rules = gitlabOnlyDev;
+            stage = "build";
+            tags = [ "autoscaling" ];
+          };
+        }
+        {
           output = "/deployTerraform/makesCi";
           gitlabExtra = gitlabDeployInfra;
         }
