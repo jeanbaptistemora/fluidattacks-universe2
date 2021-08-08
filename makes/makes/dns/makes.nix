@@ -12,7 +12,7 @@
           outputs."/secretsForTerraformFromEnv/makesDns"
         ];
         src = "/makes/makes/dns/infra";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };
@@ -25,7 +25,7 @@
           outputs."/secretsForTerraformFromEnv/makesDns"
         ];
         src = "/makes/makes/dns/infra";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };
@@ -54,7 +54,7 @@
           outputs."/secretsForTerraformFromEnv/makesDns"
         ];
         src = "/makes/makes/dns/infra";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };

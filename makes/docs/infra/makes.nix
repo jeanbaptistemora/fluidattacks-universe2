@@ -11,7 +11,7 @@
           outputs."/secretsForTerraformFromEnv/docsInfra"
         ];
         src = "/docs/infra";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };
@@ -24,7 +24,7 @@
           outputs."/secretsForTerraformFromEnv/docsInfra"
         ];
         src = "/docs/infra";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };
@@ -63,7 +63,7 @@
           outputs."/secretsForTerraformFromEnv/docsInfra"
         ];
         src = "/docs/infra";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };

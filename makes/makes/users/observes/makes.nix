@@ -11,7 +11,7 @@
           outputs."/secretsForTerraformFromEnv/makesUsersObserves"
         ];
         src = "/makes/makes/users/observes/infra";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };
@@ -22,7 +22,7 @@
           outputs."/secretsForAwsFromEnv/makesDev"
         ];
         src = "/makes/makes/users/observes/infra";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };
@@ -45,7 +45,7 @@
         ];
         reDeploy = true;
         src = "/makes/makes/users/observes/infra";
-        version = "0.13";
+        version = "0.14";
       };
       makesUsersObservesKeys2 = {
         setup = [
@@ -58,7 +58,7 @@
         ];
         reDeploy = true;
         src = "/makes/makes/users/observes/infra";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };
@@ -70,7 +70,7 @@
           outputs."/secretsForTerraformFromEnv/makesUsersObserves"
         ];
         src = "/makes/makes/users/observes/infra";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };

@@ -12,7 +12,7 @@
           outputs."/secretsForTerraformFromEnv/makesUsersAirs"
         ];
         src = "/makes/makes/users/airs/infra";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };
@@ -23,7 +23,7 @@
           outputs."/secretsForAwsFromEnv/makesDev"
         ];
         src = "/makes/makes/users/airs/infra";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };
@@ -57,7 +57,7 @@
         ];
         reDeploy = true;
         src = "/makes/makes/users/airs/infra";
-        version = "0.13";
+        version = "0.14";
       };
       makesUsersAirsKeys2 = {
         setup = [
@@ -71,7 +71,7 @@
         ];
         reDeploy = true;
         src = "/makes/makes/users/airs/infra";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };
@@ -84,7 +84,7 @@
           outputs."/secretsForTerraformFromEnv/makesUsersAirs"
         ];
         src = "/makes/makes/users/airs/infra";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };

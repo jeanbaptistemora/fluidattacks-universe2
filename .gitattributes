@@ -1,2 +1,3 @@
+*.hcl gitlab-language=terraform
 *.yaml diff=sopsdiffer
 *.yml diff=sopsdiffer

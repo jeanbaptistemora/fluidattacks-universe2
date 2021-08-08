@@ -8,7 +8,7 @@
       makesSecrets = {
         setup = [ outputs."/secretsForAwsFromEnv/makesProd" ];
         src = "/makes/makes/secrets/infra";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };
@@ -17,7 +17,7 @@
       makesSecrets = {
         setup = [ outputs."/secretsForAwsFromEnv/makesDev" ];
         src = "/makes/makes/secrets/infra";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };
@@ -26,7 +26,7 @@
       makesSecrets = {
         setup = [ outputs."/secretsForAwsFromEnv/makesDev" ];
         src = "/makes/makes/secrets/infra";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };

@@ -11,7 +11,7 @@
           outputs."/secretsForTerraformFromEnv/makesUsersServices"
         ];
         src = "/makes/makes/users/services/infra";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };
@@ -23,7 +23,7 @@
           outputs."/secretsForTerraformFromEnv/makesUsersServices"
         ];
         src = "/makes/makes/users/services/infra";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };
@@ -47,7 +47,7 @@
         ];
         reDeploy = true;
         src = "/makes/makes/users/services/infra";
-        version = "0.13";
+        version = "0.14";
       };
       makesUsersServicesKeys2 = {
         setup = [
@@ -60,7 +60,7 @@
         ];
         reDeploy = true;
         src = "/makes/makes/users/services/infra";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };
@@ -72,7 +72,7 @@
           outputs."/secretsForTerraformFromEnv/makesUsersServices"
         ];
         src = "/makes/makes/users/services/infra";
-        version = "0.13";
+        version = "0.14";
       };
     };
   };
