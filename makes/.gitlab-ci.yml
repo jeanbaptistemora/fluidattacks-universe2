@@ -85,26 +85,6 @@ makes.test.makes:
   <<: *makes_in_master_branch
   stage: test-code
 
-makes.users.asserts.apply:
-  <<: *makes
-  <<: *makes_in_master_branch
-  stage: deploy-infra
-
-makes.users.asserts.rotate.even:
-  <<: *makes
-  <<: *makes_in_schedule_users_rotate_even
-  stage: rotation
-
-makes.users.asserts.rotate.odd:
-  <<: *makes
-  <<: *makes_in_schedule_users_rotate_odd
-  stage: rotation
-
-makes.users.asserts.test:
-  <<: *makes
-  <<: *makes_in_dev_branch
-  stage: test-infra
-
 makes.users.docs.rotate.even:
   <<: *makes
   <<: *makes_in_schedule_users_rotate_even
