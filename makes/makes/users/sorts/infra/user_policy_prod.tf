@@ -52,9 +52,9 @@ data "aws_iam_policy_document" "sorts_prod_policy_data" {
     effect  = "Allow"
     actions = ["batch:SubmitJob"]
     resources = [
-      "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-definition/default",
-      "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/spot*",
-      "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/dedicated*",
+      "arn:aws:batch:${var.region}:${data.aws_caller_identity.current.account_id}:job-definition/default",
+      "arn:aws:batch:${var.region}:${data.aws_caller_identity.current.account_id}:job-queue/spot*",
+      "arn:aws:batch:${var.region}:${data.aws_caller_identity.current.account_id}:job-queue/dedicated*",
     ]
   }
   statement {
@@ -82,9 +82,9 @@ data "aws_iam_policy_document" "sorts_prod_policy_data" {
       "sagemaker:*"
     ]
     resources = [
-      "arn:aws:sagemaker:us-east-1:${data.aws_caller_identity.current.account_id}:training-job/sagemaker*",
-      "arn:aws:sagemaker:us-east-1:${data.aws_caller_identity.current.account_id}:training-job/sorts*",
-      "arn:aws:sagemaker:us-east-1:${data.aws_caller_identity.current.account_id}:hyper-parameter-tuning-job/sagemaker*",
+      "arn:aws:sagemaker:${var.region}:${data.aws_caller_identity.current.account_id}:training-job/sagemaker*",
+      "arn:aws:sagemaker:${var.region}:${data.aws_caller_identity.current.account_id}:training-job/sorts*",
+      "arn:aws:sagemaker:${var.region}:${data.aws_caller_identity.current.account_id}:hyper-parameter-tuning-job/sagemaker*",
     ]
   }
   statement {

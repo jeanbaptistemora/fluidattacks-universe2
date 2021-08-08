@@ -164,23 +164,3 @@ makes.users.skims.rotate.odd:
   <<: *makes
   <<: *makes_in_schedule_users_rotate_odd
   stage: rotation
-
-makes.users.sorts.apply:
-  <<: *makes
-  <<: *makes_in_master_branch
-  stage: deploy-infra
-
-makes.users.sorts.rotate.even:
-  <<: *makes
-  <<: *makes_in_schedule_users_rotate_even
-  stage: rotation
-
-makes.users.sorts.rotate.odd:
-  <<: *makes
-  <<: *makes_in_schedule_users_rotate_odd
-  stage: rotation
-
-makes.users.sorts.test:
-  <<: *makes
-  <<: *makes_in_dev_branch
-  stage: test-infra

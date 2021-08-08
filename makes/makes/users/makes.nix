@@ -8,5 +8,6 @@
     ./melts/makes.nix
     ./observes/makes.nix
     ./skims/makes.nix
+    ./sorts/makes.nix
   ];
 }
