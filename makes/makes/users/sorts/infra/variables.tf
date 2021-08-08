@@ -1,4 +1,5 @@
 data "aws_caller_identity" "current" {}
+variable "gitlab_token" {}
 
 variable "region" {
   default = "us-east-1"

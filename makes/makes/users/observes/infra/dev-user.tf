@@ -128,3 +128,12 @@ resource "aws_iam_access_key" "dev-key-1" {
 resource "aws_iam_access_key" "dev-key-2" {
   user = "observes-dev"
 }
+
+module "publish_credentials_dev" {
+  source       = "../../modules/publish_credentials"
+  gitlab_token = var.gitlab_token
+  key_1        = aws_iam_access_key.dev-key-1
+  key_2        = aws_iam_access_key.dev-key-2
+  prefix       = "OBSERVES_DEV"
+  protected    = false
+}

@@ -8,6 +8,7 @@
       makesUsersSorts = {
         setup = [
           outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForTerraformFromEnv/makesUsersSorts"
         ];
         src = "/makes/makes/users/sorts/infra";
         version = "0.13";
@@ -19,10 +20,16 @@
       makesUsersSorts = {
         setup = [
           outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForTerraformFromEnv/makesUsersSorts"
         ];
         src = "/makes/makes/users/sorts/infra";
         version = "0.13";
       };
+    };
+  };
+  secretsForTerraformFromEnv = {
+    makesUsersSorts = {
+      gitlab_token = "PRODUCT_API_TOKEN";
     };
   };
   testTerraform = {
@@ -30,6 +37,7 @@
       makesUsersSorts = {
         setup = [
           outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForTerraformFromEnv/makesUsersSorts"
         ];
         src = "/makes/makes/users/sorts/infra";
         version = "0.13";

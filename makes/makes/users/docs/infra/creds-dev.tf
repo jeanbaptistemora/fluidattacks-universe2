@@ -19,6 +19,14 @@ resource "aws_iam_access_key" "dev_2" {
   user = "docs_dev"
 }
 
+module "publish_credentials_dev" {
+  source       = "../../modules/publish_credentials"
+  gitlab_token = var.gitlab_token
+  key_1        = aws_iam_access_key.dev_1
+  key_2        = aws_iam_access_key.dev_2
+  prefix       = "DOCS_DEV"
+  protected    = false
+}
 
 # CloudFlare
 
