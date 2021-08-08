@@ -135,21 +135,39 @@ integrates.back.deploy.dev:
     name: development/$CI_COMMIT_REF_SLUG
     url: https://$CI_COMMIT_REF_SLUG.app.fluidattacks.com
 
-# Take into account that changing this job name impacts the rotation of
-#   AWS secrets at makes.
-# The rotation script looks the last execution
-#   and decides if keys should be rotated or not.
-# This is done to avoid keys expiration on the current integrates deployment
-#   in case the continuous delivery system at Integrates is failing
-# Please adjust the makes.users.integrates.rotate.* jobs
-integrates.back.deploy.prod:
+.integrates_back_deploy_prod: &integrates_back_deploy_prod
   <<: *makes
-  <<: *in_master_except_periodic_jobs_integrates
+  script:
+  - ./m integrates.back.deploy.prod
   stage: deploy-app
   retry: 1
   environment:
     name: production
     url: https://app.fluidattacks.com
+
+integrates.back.deploy.prod:
+  <<: *in_master_except_periodic_jobs_integrates
+  <<: *integrates_back_deploy_prod
+
+integrates.back.deploy.prod.even:
+  <<: *integrates_back_deploy_prod
+  needs: [ /taintTerraform/makesUsersIntegratesKeys1 ]
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $makes_users_rotate_even == null
+      when: never
+    - when: always
+
+integrates.back.deploy.prod.odd:
+  <<: *integrates_back_deploy_prod
+  needs: [ /taintTerraform/makesUsersIntegratesKeys2 ]
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "schedule"
+      when: never
+    - if: $makes_users_rotate_odd == null
+      when: never
+    - when: always
 
 integrates.back.destroy.eph:
   <<: *makes
