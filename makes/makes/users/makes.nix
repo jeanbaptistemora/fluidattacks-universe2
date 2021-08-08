@@ -7,6 +7,7 @@
     ./makes/makes.nix
     ./melts/makes.nix
     ./observes/makes.nix
+    ./services/makes.nix
     ./skims/makes.nix
     ./sorts/makes.nix
   ];

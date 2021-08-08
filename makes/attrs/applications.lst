@@ -71,10 +71,6 @@ makes.users.makes.rotate.even
 makes.users.makes.rotate.odd
 makes.users.observes.rotate.even
 makes.users.observes.rotate.odd
-makes.users.services.apply
-makes.users.services.rotate.even
-makes.users.services.rotate.odd
-makes.users.services.test
 makes.users.skims.rotate.even
 makes.users.skims.rotate.odd
 makes.wait

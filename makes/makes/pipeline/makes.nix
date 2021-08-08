@@ -114,6 +114,10 @@ in
           gitlabExtra = gitlabDeployInfra;
         }
         {
+          output = "/deployTerraform/makesUsersServices";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
           output = "/deployTerraform/makesUsersSkims";
           gitlabExtra = gitlabDeployInfra;
         }
@@ -175,6 +179,10 @@ in
         }
         {
           output = "/lintTerraform/makesUsersObserves";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintTerraform/makesUsersServices";
           gitlabExtra = gitlabLint;
         }
         {
@@ -275,6 +283,10 @@ in
         }
         {
           output = "/testTerraform/makesUsersObserves";
+          gitlabExtra = gitlabTestInfra;
+        }
+        {
+          output = "/testTerraform/makesUsersServices";
           gitlabExtra = gitlabTestInfra;
         }
         {
