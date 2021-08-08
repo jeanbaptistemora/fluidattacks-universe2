@@ -43,6 +43,38 @@
       region = "AWS_DEFAULT_REGION";
     };
   };
+  taintTerraform = {
+    modules = {
+      makesUsersDocsKeys1 = {
+        setup = [
+          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForEnvFromSops/makesUsersDocsProd"
+          outputs."/secretsForTerraformFromEnv/makesUsersDocs"
+        ];
+        resources = [
+          "aws_iam_access_key.dev_1"
+          "aws_iam_access_key.prod_1"
+        ];
+        reDeploy = true;
+        src = "/makes/makes/users/docs/infra";
+        version = "0.13";
+      };
+      makesUsersDocsKeys2 = {
+        setup = [
+          outputs."/secretsForAwsFromEnv/makesProd"
+          outputs."/secretsForEnvFromSops/makesUsersDocsProd"
+          outputs."/secretsForTerraformFromEnv/makesUsersDocs"
+        ];
+        resources = [
+          "aws_iam_access_key.dev_2"
+          "aws_iam_access_key.prod_2"
+        ];
+        reDeploy = true;
+        src = "/makes/makes/users/docs/infra";
+        version = "0.13";
+      };
+    };
+  };
   testTerraform = {
     modules = {
       makesUsersDocs = {
