@@ -16,5 +16,3 @@ terraform {
     dynamodb_table = "terraform_state_lock"
   }
 }
-
-provider "aws" {}

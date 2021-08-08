@@ -39,8 +39,6 @@
   };
   secretsForTerraformFromEnv = {
     makesUsersAirs = {
-      cloudflare_api_key = "CLOUDFLARE_API_KEY";
-      cloudflare_email = "CLOUDFLARE_EMAIL";
       gitlab_token = "PRODUCT_API_TOKEN";
       region = "AWS_DEFAULT_REGION";
     };

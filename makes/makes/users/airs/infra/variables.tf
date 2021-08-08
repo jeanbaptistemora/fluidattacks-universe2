@@ -1,7 +1,5 @@
 data "aws_caller_identity" "current" {}
 data "cloudflare_api_token_permission_groups" "all" {}
-variable "cloudflare_email" {}
-variable "cloudflare_api_key" {}
 variable "gitlab_token" {}
 variable "region" {}
 variable "terraform_state_lock_arn" {

@@ -39,10 +39,6 @@
   };
   secretsForTerraformFromEnv = {
     makesUsersIntegrates = {
-      aws_access_key = "AWS_ACCESS_KEY_ID";
-      aws_secret_key = "AWS_SECRET_ACCESS_KEY";
-      cloudflare_api_key = "CLOUDFLARE_API_KEY";
-      cloudflare_email = "CLOUDFLARE_EMAIL";
       gitlab_token = "PRODUCT_API_TOKEN";
       gitlab_token_services = "SERVICES_API_TOKEN";
       region = "AWS_DEFAULT_REGION";

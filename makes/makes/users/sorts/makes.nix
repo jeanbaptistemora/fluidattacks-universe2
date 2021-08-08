@@ -30,6 +30,7 @@
   secretsForTerraformFromEnv = {
     makesUsersSorts = {
       gitlab_token = "PRODUCT_API_TOKEN";
+      region = "AWS_DEFAULT_REGION";
     };
   };
   testTerraform = {
