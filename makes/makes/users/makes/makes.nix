@@ -40,6 +40,7 @@
         ];
         resources = [
           "aws_iam_access_key.dev-key-1"
+          "aws_iam_access_key.prod-key-1"
         ];
         reDeploy = true;
         src = "/makes/makes/users/makes/infra";
@@ -52,6 +53,7 @@
         ];
         resources = [
           "aws_iam_access_key.dev-key-2"
+          "aws_iam_access_key.prod-key-2"
         ];
         reDeploy = true;
         src = "/makes/makes/users/makes/infra";
