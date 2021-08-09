@@ -259,10 +259,14 @@ async def main() -> None:
         groups_name=set(groups_name)
     )
 
+    loaders: Dataloaders = get_new_context()
     roots: List[RootItem] = list(
         chain.from_iterable(
             await collect(
-                [get_org_roots(org_id=org_id) for org_id in organizations_ids]
+                [
+                    get_org_roots(context=loaders, org_id=org_id)
+                    for org_id in organizations_ids
+                ]
             )
         )
     )
@@ -278,7 +282,6 @@ async def main() -> None:
         nicknames=nicknames
     )
 
-    loaders: Dataloaders = get_new_context()
     findings: List[Dict[str, Finding]] = await loaders.finding.load_many(
         get_findings_ids(vulnerabilities=vulnerabilities)
     )

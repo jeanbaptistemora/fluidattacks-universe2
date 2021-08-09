@@ -12,6 +12,9 @@ from aioextensions import (
     collect,
     run,
 )
+from dataloaders import (
+    get_new_context,
+)
 from datetime import (
     datetime,
 )
@@ -125,6 +128,7 @@ def format_old_url(url: str) -> str:
 
 
 async def update_envs(group_name: str) -> None:
+    context = get_new_context()
     url, branch = await get_oldest_active_repo(group_name)
 
     if url and branch:
@@ -152,6 +156,7 @@ async def update_envs(group_name: str) -> None:
                 if STAGE != "test":
                     envs: List[str] = get_envs_by_group(group_name)
                     await roots_domain.update_git_environments(
+                        context=context,
                         user_email="",
                         group_name=group_name,
                         root_id=matching_root["sk"],

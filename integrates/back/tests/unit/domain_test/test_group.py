@@ -27,7 +27,6 @@ from findings import (
 from findings.domain import (
     get_last_closed_vulnerability_info,
     get_max_open_severity,
-    get_pending_closing_check,
     get_pending_verification_findings,
     get_total_treatment,
 )
@@ -60,6 +59,7 @@ from groups.domain import (
     get_mean_remediate_severity,
     get_open_finding,
     get_open_vulnerabilities,
+    get_vulnerabilities_with_pending_attacks,
     is_alive,
     update_group_attrs,
     validate_group_services_config,
@@ -129,9 +129,11 @@ async def test_is_alive() -> None:
     assert not await is_alive("unexisting_group")
 
 
-async def test_get_pending_closing_checks() -> None:
+async def test_get_vulnerabilities_with_pending_attacks() -> None:
     context = get_new_context()
-    test_data = await get_pending_closing_check(context, "unittesting")
+    test_data = await get_vulnerabilities_with_pending_attacks(
+        loaders=context, group_name="unittesting"
+    )
     expected_output = 1
     assert test_data == expected_output
 

@@ -499,14 +499,6 @@ async def get_open_vulnerabilities(loaders: Any, finding_id: str) -> int:
     return len(vulns)
 
 
-async def get_pending_closing_check(context: Any, group: str) -> int:
-    """Check for pending closing checks."""
-    pending_closing = len(
-        await get_pending_verification_findings(context, group)
-    )
-    return pending_closing
-
-
 async def get_pending_verification_findings(
     context: Any, group_name: str
 ) -> List[Dict[str, FindingType]]:
