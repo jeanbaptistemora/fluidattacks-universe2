@@ -1,6 +1,6 @@
 import contextlib
 from lib_ssl.suites import (
-    SSLCipherSuite,
+    SSLSuiteInfo,
 )
 from lib_ssl.types import (
     SSLAlert,
@@ -211,15 +211,15 @@ def get_client_hello_package(
 
 
 def new_get_suites_package(
-    suites: List[SSLCipherSuite], n_bytes: int
+    suites: List[SSLSuiteInfo], n_bytes: int
 ) -> List[int]:
-    package: List[int] = [val for suite in suites for val in suite.value.code]
+    package: List[int] = [val for suite in suites for val in suite.code]
     return num_to_bytes(len(package), n_bytes) + package
 
 
 def new_get_client_hello_package(
     v_id: SSLVersionId,
-    cipher_suites: List[SSLCipherSuite],
+    cipher_suites: List[SSLSuiteInfo],
     extensions: Optional[List[int]] = None,
 ) -> List[int]:
     session_id: List[int] = [0]

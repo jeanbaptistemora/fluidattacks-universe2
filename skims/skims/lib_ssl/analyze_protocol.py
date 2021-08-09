@@ -17,7 +17,7 @@ from lib_ssl.ssl_connection import (
 )
 from lib_ssl.suites import (
     get_suites_with_pfs,
-    SSLCipherSuite,
+    SSLSuiteInfo,
 )
 from lib_ssl.types import (
     SSLContext,
@@ -128,7 +128,7 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
-    suites: List[SSLCipherSuite] = list(get_suites_with_pfs())
+    suites: List[SSLSuiteInfo] = list(get_suites_with_pfs())
 
     extensions: List[int] = get_ec_point_formats_ext()
     extensions += get_elliptic_curves_ext()

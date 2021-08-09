@@ -2880,22 +2880,6 @@ class SSLCipherSuite(Enum):
             SSLSuiteVuln.SM3,
         ),
     )
-    EMPTY_RENEGOTIATION_INFO_SCSV: SSLSuiteInfo = SSLSuiteInfo(
-        rfc=5746,
-        iana_name="TLS_EMPTY_RENEGOTIATION_INFO_SCSV",
-        openssl_name=None,
-        gnutls_name=None,
-        code=(0x00, 0xFF),
-        key_exchange=SSLKeyExchange.NONE,
-        authentication=SSLAuthentication.NONE,
-        encryption=SSLEncryption.NONE,
-        ssl_hash=SSLHash.NONE,
-        tls_versions=(
-            SSLVersionId.tlsv1_0,
-            SSLVersionId.tlsv1_1,
-        ),
-        vulnerabilities=(),
-    )
     AES_128_GCM_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=8446,
         iana_name="TLS_AES_128_GCM_SHA256",
@@ -5985,7 +5969,26 @@ class SSLCipherSuite(Enum):
     )
 
 
-def get_suites_with_pfs() -> Iterator[SSLCipherSuite]:
+class SSLSpecialSuite(Enum):
+    EMPTY_RENEGOTIATION_INFO_SCSV: SSLSuiteInfo = SSLSuiteInfo(
+        rfc=5746,
+        iana_name="TLS_EMPTY_RENEGOTIATION_INFO_SCSV",
+        openssl_name=None,
+        gnutls_name=None,
+        code=(0x00, 0xFF),
+        key_exchange=SSLKeyExchange.NONE,
+        authentication=SSLAuthentication.NONE,
+        encryption=SSLEncryption.NONE,
+        ssl_hash=SSLHash.NONE,
+        tls_versions=(
+            SSLVersionId.tlsv1_0,
+            SSLVersionId.tlsv1_1,
+        ),
+        vulnerabilities=(),
+    )
+
+
+def get_suites_with_pfs() -> Iterator[SSLSuiteInfo]:
     for suite in SSLCipherSuite:
         if SSLSuiteVuln.PFS not in suite.value.vulnerabilities:
-            yield suite
+            yield suite.value
