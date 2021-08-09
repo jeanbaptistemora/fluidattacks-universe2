@@ -354,23 +354,43 @@ def get_first_week_dates(
     )
 
 
+async def _get_group_indicators(
+    group: str, context: Any, findings: List[Dict[str, FindingType]]
+) -> Dict[str, object]:
+    (
+        (last_closing_vuln_days, last_closing_vuln),
+        (max_open_severity, max_open_severity_finding),
+        mean_remediate,
+        closed_vulnerabilities,
+    ) = await collect(
+        (
+            findings_domain.get_last_closed_vulnerability_info(
+                context, findings
+            ),
+            findings_domain.get_max_open_severity(context, findings),
+            groups_domain.get_mean_remediate(context, group),
+            groups_domain.get_closed_vulnerabilities(context, group),
+        )
+    )
+
+    return {
+        "last_closing_date": last_closing_vuln_days,
+        "last_closing_vuln_finding": last_closing_vuln.get("finding_id", ""),
+        "max_open_severity": max_open_severity,
+        "max_open_severity_finding": max_open_severity_finding.get(
+            "finding_id", ""
+        ),
+        "closed_vulnerabilities": closed_vulnerabilities,
+        "mean_remediate": mean_remediate,
+    }
+
+
 async def get_group_indicators(group: str) -> Dict[str, object]:
     LOGGER_CONSOLE.info(
         "Getting group indicator", extra={"extra": {"group_name": group}}
     )
     context = get_new_context()
     findings = await context.group_findings.load(group)
-    (
-        last_closing_vuln_days,
-        last_closing_vuln,
-    ) = await findings_domain.get_last_closed_vulnerability_info(
-        context, findings
-    )
-    (
-        max_open_severity,
-        max_open_severity_finding,
-    ) = await findings_domain.get_max_open_severity(context, findings)
-
     (
         remediated_over_time,
         remediated_over_thirty_days,
@@ -402,6 +422,8 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
         remediate_high,
         remediate_medium,
         remediate_low,
+        _indicators,
+        total_treatment,
     ) = await collect(
         [
             groups_domain.get_mean_remediate_severity(context, group, 9, 10),
@@ -410,43 +432,36 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
             groups_domain.get_mean_remediate_severity(
                 context, group, 0.1, 3.9
             ),
+            _get_group_indicators(group, context, findings),
+            findings_domain.get_total_treatment(context, findings),
         ]
     )
     indicators = {
-        "closed_vulnerabilities": (
-            await groups_domain.get_closed_vulnerabilities(context, group)
-        ),
-        "last_closing_date": last_closing_vuln_days,
-        "last_closing_vuln_finding": last_closing_vuln.get("finding_id", ""),
-        "mean_remediate": await groups_domain.get_mean_remediate(
-            context, group
-        ),
+        **_indicators,
         "mean_remediate_critical_severity": remediate_critical,
         "mean_remediate_high_severity": remediate_high,
         "mean_remediate_low_severity": remediate_low,
         "mean_remediate_medium_severity": remediate_medium,
-        "max_open_severity": max_open_severity,
-        "max_open_severity_finding": max_open_severity_finding.get(
-            "finding_id", ""
-        ),
         "open_findings": await groups_domain.get_open_finding(context, group),
         "open_vulnerabilities": (
             await groups_domain.get_open_vulnerabilities(context, group)
         ),
-        "total_treatment": await findings_domain.get_total_treatment(
-            context, findings
-        ),
-        "remediated_over_time": remediated_over_time.vulnerabilities,
+        "total_treatment": total_treatment,
+        "remediated_over_time": remediated_over_time.vulnerabilities[-24:],
         "remediated_over_time_cvssf": (
-            remediated_over_time.vulnerabilities_cvssf
+            remediated_over_time.vulnerabilities_cvssf[-24:]
         ),
-        "remediated_over_time_30": remediated_over_thirty_days.vulnerabilities,
+        "remediated_over_time_30": remediated_over_thirty_days.vulnerabilities[
+            -24:
+        ],
         "remediated_over_time_cvssf_30": (
-            remediated_over_thirty_days.vulnerabilities_cvssf
+            remediated_over_thirty_days.vulnerabilities_cvssf[-24:]
         ),
-        "remediated_over_time_90": remediated_over_ninety_days.vulnerabilities,
+        "remediated_over_time_90": remediated_over_ninety_days.vulnerabilities[
+            -24:
+        ],
         "remediated_over_time_cvssf_90": (
-            remediated_over_ninety_days.vulnerabilities_cvssf
+            remediated_over_ninety_days.vulnerabilities_cvssf[-24:]
         ),
     }
     return indicators
@@ -557,7 +572,7 @@ async def update_group_indicators(group_name: str) -> None:
 async def update_indicators() -> None:
     """Update in dynamo indicators."""
     groups = await groups_domain.get_active_groups()
-    await collect(map(update_group_indicators, groups), workers=48)
+    await collect(map(update_group_indicators, groups), workers=64)
 
 
 async def main() -> None:

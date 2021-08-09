@@ -406,7 +406,7 @@ async def get_last_closed_vulnerability_info(
     """Get days since the last closed vulnerability"""
     finding_vulns_loader = context.finding_vulns_nzr
     validate_findings = await collect(
-        validate_finding(str(finding["finding_id"])) for finding in findings
+        [validate_finding(finding=finding) for finding in findings]
     )
     validated_findings = [
         finding
@@ -467,8 +467,7 @@ async def get_max_open_severity(
     context: Any, findings: List[Dict[str, FindingType]]
 ) -> Tuple[Decimal, Dict[str, FindingType]]:
     total_vulns = await collect(
-        total_vulnerabilities(context, str(fin.get("finding_id", "")))
-        for fin in findings
+        [total_vulnerabilities(context, fin) for fin in findings]
     )
     opened_findings = [
         finding
@@ -1011,11 +1010,12 @@ async def save_severity(finding: Dict[str, FindingType]) -> bool:
 
 
 async def total_vulnerabilities(
-    context: Any, finding_id: str
+    context: Any, finding_: Dict[str, FindingType]
 ) -> Dict[str, int]:
+    finding_id: str = str(finding_["finding_id"])
     finding = {"openVulnerabilities": 0, "closedVulnerabilities": 0}
     finding_vulns_loader = context.finding_vulns_nzr
-    if await validate_finding(finding_id):
+    if await validate_finding(finding=finding_):
         vulnerabilities = await finding_vulns_loader.load(finding_id)
         last_approved_status = await collect(
             [
