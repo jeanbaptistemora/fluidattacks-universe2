@@ -409,6 +409,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
         {isEditing ? (
           <Modal
             headerTitle={t("searchFindings.tabDescription.editVuln")}
+            onEsc={handleCloseUpdateModal}
             open={isEditing}
             size={"largeModal"}
           >

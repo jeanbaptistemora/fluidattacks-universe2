@@ -30,7 +30,11 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
   const { t } = useTranslation();
 
   return (
-    <Modal headerTitle={t(`group.scope.common.add`)} open={true}>
+    <Modal
+      headerTitle={t(`group.scope.common.add`)}
+      onEsc={onClose}
+      open={true}
+    >
       <Formik
         initialValues={{ url: "" }}
         name={"urlRoot"}

@@ -257,6 +257,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
       </Row>
       <Modal
         headerTitle={translate.t("group.drafts.new")}
+        onEsc={closeNewDraftModal}
         open={isDraftModalOpen}
       >
         <Formik

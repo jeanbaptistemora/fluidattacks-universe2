@@ -357,6 +357,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       </Row>
       <Modal
         headerTitle={translate.t("group.events.new")}
+        onEsc={closeNewEventModal}
         open={isEventModalOpen}
       >
         <Formik

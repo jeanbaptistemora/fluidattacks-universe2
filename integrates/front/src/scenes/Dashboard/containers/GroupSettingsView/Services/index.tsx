@@ -366,6 +366,7 @@ const Services: React.FC<IServicesProps> = (
                 headerTitle={translate.t(
                   "searchFindings.servicesTable.modal.title"
                 )}
+                onEsc={handleClose}
                 open={isModalOpen}
               >
                 <ControlLabel>
