@@ -14,6 +14,7 @@ TEST_GROUPS: Set[str] = {
     "add_event_consult",
     "add_files",
     "add_finding_consult",
+    "add_finding_consult_new",
     "add_forces_execution",
     "add_git_root",
     "add_group",
