@@ -19,6 +19,12 @@ from datetime import (
     date as datetype,
     datetime,
 )
+from db_model.findings.enums import (
+    FindingVerificationStatus,
+)
+from db_model.findings.types import (
+    FindingVerification,
+)
 from decimal import (
     Decimal,
     ROUND_CEILING,
@@ -41,6 +47,8 @@ from typing import (
     List,
     NamedTuple,
     Optional,
+    Set,
+    Tuple,
     Union,
 )
 
@@ -318,6 +326,30 @@ def get_reattack_requesters(
         if not vulnerabilities:
             break
     return list(set(users))
+
+
+def get_reattack_requesters_new(
+    historic_verification: Tuple[FindingVerification],
+    vulnerability_ids: Set[str],
+) -> List[str]:
+    reversed_historic_verification = tuple(reversed(historic_verification))
+    users: Set[str] = set()
+    for verification in reversed_historic_verification:
+        if verification.status == FindingVerificationStatus.REQUESTED:
+            if [
+                vuln_id
+                for vuln_id in verification.vuln_uuids
+                if vuln_id in vulnerability_ids
+            ]:
+                vulnerability_ids = {
+                    vuln_id
+                    for vuln_id in vulnerability_ids
+                    if vuln_id not in verification.vuln_uuids
+                }
+                users.add(verification.modified_by)
+        if not vulnerability_ids:
+            break
+    return list(users)
 
 
 def get_report_dates(
