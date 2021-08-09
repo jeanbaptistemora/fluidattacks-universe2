@@ -6,6 +6,7 @@ from lib_ssl.types import (
     SSLVersionId,
 )
 from typing import (
+    Iterator,
     NamedTuple,
     Optional,
     Tuple,
@@ -5964,3 +5965,9 @@ class SSLCipherSuite(Enum):
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(),
     )
+
+
+def get_suites_with_pfs() -> Iterator[SSLCipherSuite]:
+    for suite in SSLCipherSuite:
+        if SSLSuiteVuln.PFS not in suite.value.vulnerabilities:
+            yield suite
