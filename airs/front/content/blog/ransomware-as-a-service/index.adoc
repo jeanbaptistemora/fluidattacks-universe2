@@ -13,7 +13,7 @@
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/RjD01Is-KnI
 
-= Raas: That’s All We Needed!
+= RaaS: That's All We Needed!
 
 We already know what link:../ransomware/[ransomware] is:
 malicious software that, being on your computer,
