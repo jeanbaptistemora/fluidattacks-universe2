@@ -35,6 +35,7 @@ from sorts.typings import (
 from typing import (
     Dict,
     List,
+    Union,
 )
 
 # AWS-related
@@ -83,6 +84,15 @@ MODELS: Dict[str, ModelType] = {
     "logisticregression": LogisticRegression,
     "mlpclassifier": MLPClassifier,
     "randomforestclassifier": RandomForestClassifier,
+}
+MODELS_DEFAULTS: Dict[ModelType, Dict[str, Union[str, int, float]]] = {
+    LGBMClassifier: {
+        "learning_rate": 0.05,
+        "max_depth": 3,
+        "subsample_for_bin": 20000,
+    },
+    LogisticRegression: {"max_iter": 800},
+    MLPClassifier: {"max_iter": 500},
 }
 
 # Hyperparameters

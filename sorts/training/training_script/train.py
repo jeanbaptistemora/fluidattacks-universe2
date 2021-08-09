@@ -5,21 +5,12 @@ import argparse
 from itertools import (
     combinations,
 )
-from lightgbm import (
-    LGBMClassifier,
-)
 import os
 from pandas import (
     DataFrame,
 )
-from sklearn.linear_model import (
-    LogisticRegression,
-)
 from sklearn.neighbors import (
     KNeighborsClassifier,
-)
-from sklearn.neural_network import (
-    MLPClassifier,
 )
 from sorts.typings import (
     Model as ModelType,
@@ -27,6 +18,7 @@ from sorts.typings import (
 from training.constants import (
     FEATURES_DICTS,
     MODELS,
+    MODELS_DEFAULTS,
     RESULT_HEADERS,
 )
 from training.training_script.utils import (
@@ -58,18 +50,9 @@ def get_model_instance(model_class: ModelType) -> ModelType:
     default_args: Dict[str, Any] = {}
     if model_class != KNeighborsClassifier:
         default_args = {"random_state": 42}
-        if model_class == MLPClassifier:
-            default_args.update({"max_iter": 500})
-        elif model_class == LGBMClassifier:
-            default_args.update(
-                {
-                    "learning_rate": 0.05,
-                    "max_depth": 3,
-                    "subsample_for_bin": 20000,
-                }
-            )
-        elif model_class == LogisticRegression:
-            default_args.update({"max_iter": 800})
+        model_defaults = MODELS_DEFAULTS.get(model_class, {})
+        default_args.update(model_defaults)
+
     return model_class(**default_args)
 
 
