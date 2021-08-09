@@ -65,32 +65,34 @@ class SSLEncryption(Enum):
     NONE: int = 1
     NULL: int = 2
     RC4_40: int = 3
-    RC4_128: int = 4
-    RC2_40_CBC: int = 5
-    IDEA_CBC: int = 6
-    DES_40_CBC: int = 7
-    DES_56_CBC: int = 8
-    DES3_EDE_CBC: int = 9
-    AES_128_CBC: int = 10
-    AES_256_CBC: int = 11
-    CAMELLIA_128_CBC: int = 12
-    CAMELLIA_256_CBC: int = 13
-    CAMELLIA_128_GCM: int = 14
-    CAMELLIA_256_GCM: int = 15
-    SEED_CBC: int = 16
-    AES_128_GCM: int = 17
-    AES_256_GCM: int = 18
-    AES_128_CCM: int = 19
-    AES_128_CCM_8: int = 20
-    AES_256_CCM: int = 21
-    AES_256_CCM_8: int = 22
-    SM_4_GCM: int = 23
-    SM_4_CCM: int = 24
-    CHACHA_20_POLY_1305: int = 25
-    ARIA_128_CBC: int = 26
-    ARIA_256_CBC: int = 27
-    ARIA_128_GCM: int = 28
-    ARIA_256_GCM: int = 29
+    RC4_56: int = 4
+    RC4_128: int = 5
+    RC2_40_CBC: int = 6
+    RC2_56_CBC: int = 7
+    IDEA_CBC: int = 8
+    DES_40_CBC: int = 9
+    DES_56_CBC: int = 10
+    DES3_EDE_CBC: int = 11
+    AES_128_CBC: int = 12
+    AES_256_CBC: int = 13
+    CAMELLIA_128_CBC: int = 14
+    CAMELLIA_256_CBC: int = 15
+    CAMELLIA_128_GCM: int = 16
+    CAMELLIA_256_GCM: int = 17
+    SEED_CBC: int = 18
+    AES_128_GCM: int = 19
+    AES_256_GCM: int = 20
+    AES_128_CCM: int = 21
+    AES_128_CCM_8: int = 22
+    AES_256_CCM: int = 23
+    AES_256_CCM_8: int = 24
+    SM_4_GCM: int = 25
+    SM_4_CCM: int = 26
+    CHACHA_20_POLY_1305: int = 27
+    ARIA_128_CBC: int = 28
+    ARIA_256_CBC: int = 29
+    ARIA_128_GCM: int = 30
+    ARIA_256_GCM: int = 31
 
 
 class SSLHash(Enum):
@@ -6000,6 +6002,132 @@ class SSLSpecialSuite(Enum):
             SSLVersionId.tlsv1_3,
         ),
         vulnerabilities=(),
+    )
+    RESERVED_SUITE_00_60: SSLSuiteInfo = SSLSuiteInfo(
+        rfc=0,
+        iana_name="TLS_RSA_EXPORT1024_WITH_RC4_56_MD5",
+        openssl_name=None,
+        gnutls_name=None,
+        code=(0x00, 0x60),
+        key_exchange=SSLKeyExchange.RSA,
+        authentication=SSLAuthentication.RSA,
+        encryption=SSLEncryption.RC4_56,
+        ssl_hash=SSLHash.MD5,
+        tls_versions=(),
+        vulnerabilities=(
+            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.EXPORT_GRADE,
+            SSLSuiteVuln.RC4,
+            SSLSuiteVuln.MD5,
+        ),
+    )
+    RESERVED_SUITE_00_61: SSLSuiteInfo = SSLSuiteInfo(
+        rfc=0,
+        iana_name="TLS_RSA_EXPORT1024_WITH_RC2_CBC_56_MD5",
+        openssl_name=None,
+        gnutls_name=None,
+        code=(0x00, 0x61),
+        key_exchange=SSLKeyExchange.RSA,
+        authentication=SSLAuthentication.RSA,
+        encryption=SSLEncryption.RC2_56_CBC,
+        ssl_hash=SSLHash.MD5,
+        tls_versions=(),
+        vulnerabilities=(
+            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.EXPORT_GRADE,
+            SSLSuiteVuln.RC2,
+            SSLSuiteVuln.CBC,
+            SSLSuiteVuln.MD5,
+        ),
+    )
+    RESERVED_SUITE_00_62: SSLSuiteInfo = SSLSuiteInfo(
+        rfc=0,
+        iana_name="TLS_RSA_EXPORT1024_WITH_DES_CBC_SHA",
+        openssl_name=None,
+        gnutls_name=None,
+        code=(0x00, 0x62),
+        key_exchange=SSLKeyExchange.RSA,
+        authentication=SSLAuthentication.RSA,
+        encryption=SSLEncryption.DES_40_CBC,
+        ssl_hash=SSLHash.SHA,
+        tls_versions=(),
+        vulnerabilities=(
+            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.EXPORT_GRADE,
+            SSLSuiteVuln.DES,
+            SSLSuiteVuln.CBC,
+            SSLSuiteVuln.SHA,
+        ),
+    )
+    RESERVED_SUITE_00_63: SSLSuiteInfo = SSLSuiteInfo(
+        rfc=0,
+        iana_name="TLS_DHE_DSS_EXPORT1024_WITH_DES_CBC_SHA",
+        openssl_name=None,
+        gnutls_name=None,
+        code=(0x00, 0x63),
+        key_exchange=SSLKeyExchange.DHE,
+        authentication=SSLAuthentication.DSS,
+        encryption=SSLEncryption.DES_40_CBC,
+        ssl_hash=SSLHash.SHA,
+        tls_versions=(),
+        vulnerabilities=(
+            SSLSuiteVuln.EXPORT_GRADE,
+            SSLSuiteVuln.DES,
+            SSLSuiteVuln.CBC,
+            SSLSuiteVuln.SHA,
+        ),
+    )
+    RESERVED_SUITE_00_64: SSLSuiteInfo = SSLSuiteInfo(
+        rfc=0,
+        iana_name="TLS_RSA_EXPORT1024_WITH_RC4_56_SHA",
+        openssl_name=None,
+        gnutls_name=None,
+        code=(0x00, 0x64),
+        key_exchange=SSLKeyExchange.RSA,
+        authentication=SSLAuthentication.RSA,
+        encryption=SSLEncryption.RC4_56,
+        ssl_hash=SSLHash.SHA,
+        tls_versions=(),
+        vulnerabilities=(
+            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.EXPORT_GRADE,
+            SSLSuiteVuln.RC4,
+            SSLSuiteVuln.SHA,
+        ),
+    )
+    RESERVED_SUITE_00_65: SSLSuiteInfo = SSLSuiteInfo(
+        rfc=0,
+        iana_name="TLS_DHE_DSS_EXPORT1024_WITH_RC4_56_SHA",
+        openssl_name=None,
+        gnutls_name=None,
+        code=(0x00, 0x65),
+        key_exchange=SSLKeyExchange.DHE,
+        authentication=SSLAuthentication.DSS,
+        encryption=SSLEncryption.RC4_56,
+        ssl_hash=SSLHash.SHA,
+        tls_versions=(),
+        vulnerabilities=(
+            SSLSuiteVuln.EXPORT_GRADE,
+            SSLSuiteVuln.RC4,
+            SSLSuiteVuln.SHA,
+        ),
+    )
+    RESERVED_SUITE_00_66: SSLSuiteInfo = SSLSuiteInfo(
+        rfc=0,
+        iana_name="TLS_DHE_DSS_WITH_RC4_128_SHA",
+        openssl_name=None,
+        gnutls_name=None,
+        code=(0x00, 0x66),
+        key_exchange=SSLKeyExchange.DHE,
+        authentication=SSLAuthentication.DSS,
+        encryption=SSLEncryption.RC4_128,
+        ssl_hash=SSLHash.SHA,
+        tls_versions=(),
+        vulnerabilities=(
+            SSLSuiteVuln.EXPORT_GRADE,
+            SSLSuiteVuln.RC4,
+            SSLSuiteVuln.SHA,
+        ),
     )
 
 
