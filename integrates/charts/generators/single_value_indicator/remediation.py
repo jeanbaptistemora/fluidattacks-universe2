@@ -45,7 +45,7 @@ def had_state_by_then(
 def get_totals_by_week(
     vulns: List[VulnerabilityType], last_day: datetime
 ) -> Tuple[int, int]:
-    open_vulns = len(
+    open_vulnerabilities = len(
         tuple(
             filter(
                 lambda vuln: had_state_by_then(
@@ -57,7 +57,7 @@ def get_totals_by_week(
             )
         )
     )
-    closed_vulns = len(
+    closed_vulnerabilities = len(
         tuple(
             filter(
                 lambda vuln: had_state_by_then(
@@ -70,7 +70,7 @@ def get_totals_by_week(
         )
     )
 
-    return open_vulns, closed_vulns
+    return open_vulnerabilities, closed_vulnerabilities
 
 
 async def generate_one(  # pylint: disable=too-many-locals

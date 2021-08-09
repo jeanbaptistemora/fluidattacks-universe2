@@ -422,7 +422,7 @@ async def get_last_closed_vulnerability_info(
             for vuln in vulns
         ]
     )
-    closed_vulns = [
+    closed_vulnerabilities = [
         vuln
         for vuln, is_vuln_closed in zip(vulns, are_vuln_closed)
         if is_vuln_closed
@@ -430,22 +430,22 @@ async def get_last_closed_vulnerability_info(
     closing_vuln_dates = await collect(
         [
             in_process(vulns_utils.get_last_closing_date, vuln)
-            for vuln in closed_vulns
+            for vuln in closed_vulnerabilities
         ]
     )
     if closing_vuln_dates:
         current_date, date_index = max(
             (v, i) for i, v in enumerate(closing_vuln_dates)
         )
-        last_closing_vuln = closed_vulns[date_index]
+        last_closed_vuln = closed_vulnerabilities[date_index]
         current_date = max(closing_vuln_dates)
-        last_closing_days = Decimal(
+        last_closed_days = Decimal(
             (datetime_utils.get_now().date() - current_date).days
         ).quantize(Decimal("0.1"))
     else:
-        last_closing_days = Decimal(0)
-        last_closing_vuln = {}
-    return last_closing_days, cast(VulnerabilityType, last_closing_vuln)
+        last_closed_days = Decimal(0)
+        last_closed_vuln = {}
+    return last_closed_days, cast(VulnerabilityType, last_closed_vuln)
 
 
 async def get_group(finding_id: str) -> str:
@@ -1242,7 +1242,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
             info=info,
             finding_id=finding_id,
             vulnerabilities=vulnerabilities,
-            closed_vulns=get_key_or_fallback(
+            closed_vulnerabilities=get_key_or_fallback(
                 parameters, "closed_vulnerabilities", "closed_vulns", []
             ),
             date=today,

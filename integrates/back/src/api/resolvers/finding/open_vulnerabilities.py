@@ -25,7 +25,7 @@ async def resolve(
     response: int = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="finding",
-        attr="open_vulns",
+        attr="open_vulnerabilities",
         id=cast(Dict[str, str], parent)["id"],
     )
     return response

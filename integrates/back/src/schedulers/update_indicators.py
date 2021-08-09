@@ -279,7 +279,7 @@ def get_by_time_range(
     )
 
 
-def get_closed_vulns(
+def get_closed_vulnerabilities(
     historic_state: List[Dict[str, str]],
     severity: Decimal,
     last_day: str,
@@ -488,7 +488,9 @@ def get_status_vulns_by_time_range(
         )
     ]
     vulnerabilities_closed = [
-        get_closed_vulns(historic_state, severity, last_day, min_date)
+        get_closed_vulnerabilities(
+            historic_state, severity, last_day, min_date
+        )
         for historic_state, severity in zip(
             vulnerabilities_historic_states, vulnerabilities_severity
         )

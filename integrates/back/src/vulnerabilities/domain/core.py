@@ -858,7 +858,7 @@ async def verify(
     info: GraphQLResolveInfo,
     finding_id: str,
     vulnerabilities: List[Dict[str, FindingType]],
-    closed_vulns: List[str],
+    closed_vulnerabilities: List[str],
     date: str,
     vulns_to_close_from_file: List[Dict[str, str]],
 ) -> List[bool]:
@@ -867,7 +867,7 @@ async def verify(
             [vuln for vuln in vulnerabilities if vuln["UUID"] == closed_vuln][
                 0
             ]
-            for closed_vuln in closed_vulns
+            for closed_vuln in closed_vulnerabilities
         ],
         key=itemgetter("UUID"),
     )

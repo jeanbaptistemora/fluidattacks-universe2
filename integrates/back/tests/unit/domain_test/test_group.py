@@ -219,10 +219,10 @@ async def test_get_open_vulnerabilities() -> None:
 async def test_get_closed_vulnerabilities() -> None:
     group_name = "unittesting"
     expected_output = 7
-    closed_vulns = await get_closed_vulnerabilities(
+    closed_vulnerabilities = await get_closed_vulnerabilities(
         get_new_context(), group_name
     )
-    assert closed_vulns == expected_output
+    assert closed_vulnerabilities == expected_output
 
 
 async def test_get_open_finding() -> None:
