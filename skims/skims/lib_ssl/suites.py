@@ -2945,7 +2945,6 @@ class SSLCipherSuite(Enum):
         tls_versions=(SSLVersionId.tlsv1_3,),
         vulnerabilities=(),
     )
-
     ECDH_ECDSA_WITH_NULL_SHA: SSLSuiteInfo = SSLSuiteInfo(
         rfc=8422,
         iana_name="TLS_ECDH_ECDSA_WITH_NULL_SHA",
@@ -5983,6 +5982,22 @@ class SSLSpecialSuite(Enum):
         tls_versions=(
             SSLVersionId.tlsv1_0,
             SSLVersionId.tlsv1_1,
+        ),
+        vulnerabilities=(),
+    )
+    FALLBACK_SCSV: SSLSuiteInfo = SSLSuiteInfo(
+        rfc=7507,
+        iana_name="TLS_FALLBACK_SCSV",
+        openssl_name="TLS_FALLBACK_SCSV",
+        gnutls_name=None,
+        code=(0x56, 0x00),
+        key_exchange=SSLKeyExchange.NONE,
+        authentication=SSLAuthentication.NONE,
+        encryption=SSLEncryption.NONE,
+        ssl_hash=SSLHash.NONE,
+        tls_versions=(
+            SSLVersionId.tlsv1_2,
+            SSLVersionId.tlsv1_3,
         ),
         vulnerabilities=(),
     )
