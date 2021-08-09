@@ -441,6 +441,9 @@ integrates.back.test.functional.update_toe_lines_sorts:
 integrates.back.test.functional.update_vulnerability_commit:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.update_vulnerability_commit_new:
+  <<: *integrates_back_test_functional_migration
+
 integrates.back.test.functional.update_vulnerability_treatment:
   <<: *integrates_back_test_functional
 

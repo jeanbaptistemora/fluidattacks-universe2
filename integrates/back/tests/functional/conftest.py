@@ -90,6 +90,7 @@ TEST_GROUPS: Set[str] = {
     "update_severity_new",
     "update_toe_lines_sorts",
     "update_vulnerability_commit",
+    "update_vulnerability_commit_new",
     "update_vulnerability_treatment",
     "update_vulnerability_treatment_new",
     "upload_file",
