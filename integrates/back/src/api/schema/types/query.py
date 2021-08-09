@@ -21,7 +21,6 @@ from api.resolvers.query import (
     tag,
     vulnerabilities_to_reattack,
     vulnerability,
-    vulnerability_new,
 )
 from ariadne import (
     QueryType,
@@ -46,6 +45,7 @@ QUERY.set_field("report", report.resolve)
 QUERY.set_field("resources", resources.resolve)
 QUERY.set_field("stakeholder", stakeholder.resolve)
 QUERY.set_field("tag", tag.resolve)
+QUERY.set_field("vulnerability", vulnerability.resolve)
 QUERY.set_field(
     "vulnerabilitiesToReattack", vulnerabilities_to_reattack.resolve
 )
@@ -58,7 +58,5 @@ QUERY.set_field("vulnsToReattack", vulnerabilities_to_reattack.resolve)
 
 if FI_API_STATUS == "migration":
     QUERY.set_field("finding", finding_new.resolve)
-    QUERY.set_field("vulnerability", vulnerability_new.resolve)
 else:
     QUERY.set_field("finding", finding.resolve)
-    QUERY.set_field("vulnerability", vulnerability.resolve)
