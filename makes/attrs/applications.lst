@@ -3,8 +3,6 @@ airs.build
 airs.development
 airs.lint.code
 forces
-forces.infra.deploy
-forces.infra.test
 forces.process-groups
 forces.process-groups-break
 forces.test

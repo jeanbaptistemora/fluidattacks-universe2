@@ -1,4 +1,13 @@
 terraform {
+  required_version = "~> 0.14.0"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.23.0"
+    }
+  }
+
   backend "s3" {
     bucket         = "fluidattacks-terraform-states-prod"
     key            = "break-build.tfstate"
@@ -6,11 +15,4 @@ terraform {
     encrypt        = true
     dynamodb_table = "terraform_state_lock"
   }
-}
-
-provider "aws" {
-  access_key = var.aws_access_key
-  secret_key = var.aws_secret_key
-  version    = "~> 2.0"
-  region     = var.region
 }

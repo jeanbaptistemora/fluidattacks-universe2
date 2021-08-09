@@ -68,16 +68,6 @@ forces.test-container:
   needs:
     - /deployContainerImage/forcesDev
 
-forces.infra.test:
-  <<: *makes
-  <<: *forces_in_dev_and_master_branch
-  stage: test-code
-
-forces.infra.deploy:
-  <<: *makes
-  <<: *forces_in_master_branch
-  stage: deploy-app
-
 forces.process-groups:
   <<: *makes
   only:
