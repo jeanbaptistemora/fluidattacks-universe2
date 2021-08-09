@@ -5,7 +5,10 @@ previous to a future migration processing these vulns
 
 Execution Time:    2021-08-06 at 14:55:20 UTC-05
 Finalization Time: 2021-08-06 at 15:21:44 UTC-05
-""",
+
+Execution Time:    2021-08-09 at 13:45:27 UTC-05
+Finalization Time: 2021-08-09 at 13:48:17 UTC-05
+"""
 
 from aioextensions import (
     collect,
@@ -14,6 +17,8 @@ from aioextensions import (
 import csv
 from custom_types import (
     Finding as FindingType,
+    Historic as HistoricType,
+    Vulnerability as VulnerabilityType,
 )
 from dataloaders import (
     Dataloaders,
@@ -28,11 +33,17 @@ from itertools import (
 import time
 from typing import (
     Any,
+    cast,
     Dict,
     List,
 )
 
 PROD: bool = False
+
+
+def _get_zero_risk_status(vuln: Dict[str, VulnerabilityType]) -> str:
+    zero_risk = cast(HistoricType, vuln.get("historic_zero_risk", [{}]))
+    return zero_risk[-1].get("status", "")
 
 
 async def process_finding(
@@ -53,6 +64,8 @@ async def process_finding(
             "finding_name": finding["title"],
             "vuln_uuid": vuln["UUID"],
             "specific": vuln["specific"],
+            "where": vuln["where"],
+            "zero_risk": _get_zero_risk_status(vuln),
         }
         for vuln in vulns
     ]
@@ -91,6 +104,7 @@ async def process_group(
 async def main() -> None:
     context: Dataloaders = get_new_context()
     groups = sorted(await get_active_groups())
+    # groups = groups[:10]
     print(f"   === groups: {len(groups)}:\n{groups}")
 
     total = list(
@@ -112,8 +126,10 @@ async def main() -> None:
         "finding_name",
         "vuln_uuid",
         "specific",
+        "where",
+        "zero_risk",
     ]
-    csv_file = "0116_vuln_info_aug_06.csv"
+    csv_file = "0116_vuln_info_aug_09.csv"
     success = False
     try:
         with open(csv_file, "w") as f:
