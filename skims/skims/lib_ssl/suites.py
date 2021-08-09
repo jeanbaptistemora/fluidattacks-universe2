@@ -43,6 +43,7 @@ class SSLKeyExchange(Enum):
     ECDHE: int = 9
     ECCPWD: int = 10
     SRP: int = 11
+    UNKNOWN: int = 12
 
 
 class SSLAuthentication(Enum):
@@ -59,6 +60,7 @@ class SSLAuthentication(Enum):
     ECCPWD: int = 11
     SHA: int = 12
     DHE: int = 13
+    UNKNOWN: int = 14
 
 
 class SSLEncryption(Enum):
@@ -93,6 +95,7 @@ class SSLEncryption(Enum):
     ARIA_256_CBC: int = 29
     ARIA_128_GCM: int = 30
     ARIA_256_GCM: int = 31
+    UNKNOWN: int = 32
 
 
 class SSLHash(Enum):
@@ -103,6 +106,7 @@ class SSLHash(Enum):
     SHA256: int = 5
     SHA384: int = 6
     SM3: int = 7
+    UNKNOWN: int = 8
 
 
 class SSLSuiteInfo(NamedTuple):
@@ -6129,6 +6133,31 @@ class SSLSpecialSuite(Enum):
             SSLSuiteVuln.SHA,
         ),
     )
+    UNKNOWN: SSLSuiteInfo = SSLSuiteInfo(
+        rfc=0,
+        iana_name="UNKNOWN",
+        openssl_name=None,
+        gnutls_name=None,
+        code=(-1, -1),
+        key_exchange=SSLKeyExchange.UNKNOWN,
+        authentication=SSLAuthentication.UNKNOWN,
+        encryption=SSLEncryption.UNKNOWN,
+        ssl_hash=SSLHash.UNKNOWN,
+        tls_versions=(),
+        vulnerabilities=(),
+    )
+
+
+def get_suite_by_code(code: Tuple[int, int]) -> SSLSuiteInfo:
+    for normal_suite in SSLCipherSuite:
+        if code == normal_suite.value.code:
+            return normal_suite.value
+
+    for special_suite in SSLSpecialSuite:
+        if code == special_suite.value.code:
+            return special_suite.value
+
+    return SSLSpecialSuite.UNKNOWN.value
 
 
 def get_suites_with_pfs() -> Iterator[SSLSuiteInfo]:
