@@ -31,6 +31,7 @@ from mailer import (
 )
 from newutils import (
     datetime as datetime_utils,
+    findings as findings_utils,
     logs as logs_utils,
     token as token_utils,
 )
@@ -89,13 +90,16 @@ async def _add_finding_consult(  # pylint: disable=too-many-locals
     if success:
         redis_del_by_deps_soon("add_finding_consult", finding_id=finding_id)
         if content.strip() not in {"#external", "#internal"}:
+            is_finding_released = findings_utils.is_released(finding)
             schedule(
                 findings_mail.send_mail_comment(
                     context=info.context.loaders,
                     comment_data=comment_data,
                     user_mail=user_email,
-                    finding=finding,
+                    finding_id=finding_id,
+                    finding_title=finding["title"],
                     group_name=group,
+                    is_finding_released=is_finding_released,
                 )
             )
 

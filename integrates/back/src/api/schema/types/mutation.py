@@ -189,9 +189,6 @@ MUTATION.set_field(
 MUTATION.set_field("updateRootState", update_root_state.mutate)
 MUTATION.set_field("updateToeLinesSorts", update_toe_lines_sorts.mutate)
 MUTATION.set_field(
-    "updateVulnerabilityCommit", update_vulnerability_commit.mutate
-)
-MUTATION.set_field(
     "updateVulnerabilityTreatment", update_vulnerability_treatment.mutate
 )
 
@@ -229,10 +226,6 @@ MUTATION.set_field("removeTag", remove_group_tag.mutate)
 MUTATION.set_field(
     "updateTreatmentVuln", update_vulnerability_treatment.mutate
 )
-MUTATION.set_field("updateVulnCommit", update_vulnerability_commit.mutate)
-MUTATION.set_field(
-    "updateVulnsTreatment", update_vulnerabilities_treatment.mutate
-)
 # -----------------------------------------------------------------------------
 
 if FI_API_STATUS == "migration":
@@ -269,6 +262,9 @@ if FI_API_STATUS == "migration":
     )
     MUTATION.set_field("updateSeverity", update_severity_new.mutate)
     MUTATION.set_field(
+        "updateVulnerabilityCommit", update_vulnerability_commit.mutate
+    )
+    MUTATION.set_field(
         "updateVulnerabilitiesTreatment",
         update_vulnerabilities_treatment.mutate,
     )
@@ -290,6 +286,10 @@ if FI_API_STATUS == "migration":
     )
     MUTATION.set_field(
         "requestZeroRiskVuln", request_vulnerabilities_zero_risk_new.mutate
+    )
+    MUTATION.set_field("updateVulnCommit", update_vulnerability_commit.mutate)
+    MUTATION.set_field(
+        "updateVulnsTreatment", update_vulnerabilities_treatment.mutate
     )
     MUTATION.set_field(
         "verifyRequestVuln", verify_vulnerabilities_request_new.mutate
@@ -327,6 +327,9 @@ else:
     )
     MUTATION.set_field("updateSeverity", update_severity.mutate)
     MUTATION.set_field(
+        "updateVulnerabilityCommit", update_vulnerability_commit.mutate
+    )
+    MUTATION.set_field(
         "updateVulnerabilitiesTreatment",
         update_vulnerabilities_treatment.mutate,
     )
@@ -346,6 +349,10 @@ else:
     )
     MUTATION.set_field(
         "requestZeroRiskVuln", request_vulnerabilities_zero_risk.mutate
+    )
+    MUTATION.set_field("updateVulnCommit", update_vulnerability_commit.mutate)
+    MUTATION.set_field(
+        "updateVulnsTreatment", update_vulnerabilities_treatment.mutate
     )
     MUTATION.set_field(
         "verifyRequestVuln", verify_vulnerabilities_request.mutate

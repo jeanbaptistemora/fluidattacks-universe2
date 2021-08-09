@@ -10,7 +10,6 @@ from context import (
 )
 from custom_types import (
     Comment as CommentType,
-    Finding as FindingType,
     MailContent as MailContentType,
 )
 from db_model.findings.enums import (
@@ -23,12 +22,8 @@ from mailer.utils import (
     get_consult_users,
     get_organization_name,
 )
-from newutils import (
-    findings as findings_utils,
-)
 from typing import (
     Any,
-    Dict,
     List,
 )
 
@@ -38,25 +33,26 @@ async def send_mail_comment(
     context: Any,
     comment_data: CommentType,
     user_mail: str,
-    finding: Dict[str, FindingType],
+    finding_id: str,
+    finding_title: str,
     group_name: str,
+    is_finding_released: bool,
 ) -> None:
     org_name = await get_organization_name(context, group_name)
     type_: str = comment_data["comment_type"]
     recipients = await get_consult_users(
         group_name=group_name, comment_type=type_
     )
-    is_finding_released = findings_utils.is_released(finding)
     email_context: MailContentType = {
         "comment": comment_data["content"].splitlines(),
         "comment_type": type_,
         "comment_url": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/"
-            f'{"vulns" if is_finding_released else "drafts"}/{finding["id"]}/'
+            f'{"vulns" if is_finding_released else "drafts"}/{finding_id}/'
             f'{"consulting" if type_ == "comment" else "observations"}'
         ),
-        "finding_id": str(finding["id"]),
-        "finding_name": finding["title"],
+        "finding_id": finding_id,
+        "finding_name": finding_title,
         "parent": str(comment_data["parent"]),
         "group": group_name,
         "user_email": user_mail,
@@ -69,7 +65,7 @@ async def send_mail_comment(
         (
             f"New "
             f'{"observation" if type_ == "observation" else "comment"}'
-            f' in finding #{finding["id"]} for [{group_name}]'
+            f" in finding #{finding_id} for [{group_name}]"
         ),
         "new_comment",
     )
