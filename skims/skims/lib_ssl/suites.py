@@ -6137,6 +6137,12 @@ def get_suites_with_pfs() -> Iterator[SSLSuiteInfo]:
             yield suite.value
 
 
+def get_suites_with_cbc() -> Iterator[SSLSuiteInfo]:
+    for suite in SSLCipherSuite:
+        if SSLSuiteVuln.CBC in suite.value.vulnerabilities:
+            yield suite.value
+
+
 def get_weak_suites() -> Iterator[SSLSuiteInfo]:
     for suite in SSLCipherSuite:
         weak_vuln = False
