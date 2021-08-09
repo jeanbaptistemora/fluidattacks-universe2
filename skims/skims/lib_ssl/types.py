@@ -33,11 +33,16 @@ class SSLSnippetLine(Enum):
     min_version: int = 9
     max_version: int = 10
     response_title: int = 11
-    handshake_version: int = 12
-    handshake_cipher: int = 13
+    no_response: int = 12
     alert_type: int = 12
     alert_level: int = 13
     alert_description: int = 14
+    handshake_version: int = 12
+    handshake_selected_cipher: int = 13
+    handshake_iana: int = 14
+    handshake_openssl: int = 15
+    handshake_code: int = 16
+    handshake_vuln: int = 17
 
 
 class TLSVersionId(Enum):

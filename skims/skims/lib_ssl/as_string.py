@@ -44,7 +44,11 @@ def get_request_skeleton_en() -> str:
 
 def get_good_response_skeleton_en() -> str:
     content = "    version: {version}\n"
-    content += "    cipher suite: {cipher_suite}\n"
+    content += "    Selected cipher suite:\n"
+    content += "        iana name: {iana_name}\n"
+    content += "        openssl name: {openssl_name}\n"
+    content += "        code: {code}\n"
+    content += "        vulnerabilities: {vulns}\n"
     return content
 
 
@@ -159,7 +163,10 @@ def snippet(
         elif s_response.handshake is not None:
             response = good_response_skeleton.format(
                 version=ssl_id2ssl_name(s_response.handshake.version_id),
-                cipher_suite=s_response.handshake.cipher_suite.iana_name,
+                iana_name=s_response.handshake.cipher_suite.iana_name,
+                openssl_name=s_response.handshake.cipher_suite.openssl_name,
+                code=s_response.handshake.cipher_suite.get_code_str(),
+                vulns=s_response.handshake.cipher_suite.get_vuln_str(),
             )
 
     content: str = snippet_skeleton.format(

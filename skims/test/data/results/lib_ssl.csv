@@ -12,9 +12,13 @@ F052,inputs,localhost:4446 (namespace),server accepts connections with weak ciph
   10 |     max version: TLSv1.0
   11 | Response
   12 |     version: TLSv1.0
-> 13 |     cipher suite: TLS_RSA_WITH_AES_128_CBC_SHA
-  14 | Result
-  15 |     server accepts connections with weak ciphers
+  13 |     Selected cipher suite:
+  14 |         iana name: TLS_RSA_WITH_AES_128_CBC_SHA
+  15 |         openssl name: AES128-SHA
+  16 |         code: 0x0 0x2f
+> 17 |         vulnerabilities: NO_PFS, CBC, SHA
+  18 | Result
+  19 |     server accepts connections with weak ciphers
      ^ Col 0
 "
 F052,inputs,localhost:4446 (namespace),server accepts connections with weak ciphers,310,"home,socket-send,socket-response",052. Insecure encryption algorithm,server accepts connections with weak ciphers,"
@@ -30,9 +34,13 @@ F052,inputs,localhost:4446 (namespace),server accepts connections with weak ciph
   10 |     max version: TLSv1.1
   11 | Response
   12 |     version: TLSv1.1
-> 13 |     cipher suite: TLS_RSA_WITH_AES_128_CBC_SHA
-  14 | Result
-  15 |     server accepts connections with weak ciphers
+  13 |     Selected cipher suite:
+  14 |         iana name: TLS_RSA_WITH_AES_128_CBC_SHA
+  15 |         openssl name: AES128-SHA
+  16 |         code: 0x0 0x2f
+> 17 |         vulnerabilities: NO_PFS, CBC, SHA
+  18 | Result
+  19 |     server accepts connections with weak ciphers
      ^ Col 0
 "
 F133,inputs,localhost:4446 (namespace),server refuses connections with PFS support,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,server refuses connections with PFS support,"
@@ -137,9 +145,13 @@ F094,inputs,localhost:4446 (namespace),server accepts connections with ciphers t
   10 |     max version: TLSv1.0
   11 | Response
   12 |     version: TLSv1.0
-> 13 |     cipher suite: TLS_RSA_WITH_AES_128_CBC_SHA
-  14 | Result
-  15 |     server accepts connections with ciphers that supports CBC
+  13 |     Selected cipher suite:
+  14 |         iana name: TLS_RSA_WITH_AES_128_CBC_SHA
+  15 |         openssl name: AES128-SHA
+  16 |         code: 0x0 0x2f
+> 17 |         vulnerabilities: NO_PFS, CBC, SHA
+  18 | Result
+  19 |     server accepts connections with ciphers that supports CBC
      ^ Col 0
 "
 F094,inputs,localhost:4446 (namespace),server accepts connections with ciphers that supports CBC,757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,server accepts connections with ciphers that supports CBC,"
@@ -155,8 +167,12 @@ F094,inputs,localhost:4446 (namespace),server accepts connections with ciphers t
   10 |     max version: TLSv1.1
   11 | Response
   12 |     version: TLSv1.1
-> 13 |     cipher suite: TLS_RSA_WITH_AES_128_CBC_SHA
-  14 | Result
-  15 |     server accepts connections with ciphers that supports CBC
+  13 |     Selected cipher suite:
+  14 |         iana name: TLS_RSA_WITH_AES_128_CBC_SHA
+  15 |         openssl name: AES128-SHA
+  16 |         code: 0x0 0x2f
+> 17 |         vulnerabilities: NO_PFS, CBC, SHA
+  18 | Result
+  19 |     server accepts connections with ciphers that supports CBC
      ^ Col 0
 "

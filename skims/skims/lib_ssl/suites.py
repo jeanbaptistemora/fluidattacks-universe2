@@ -136,6 +136,12 @@ class SSLSuiteInfo(NamedTuple):
     tls_versions: Tuple[SSLVersionId, ...]
     vulnerabilities: Tuple[SSLSuiteVuln, ...]
 
+    def get_code_str(self) -> str:
+        return " ".join([hex(byte) for byte in self.code])
+
+    def get_vuln_str(self) -> str:
+        return ", ".join([vuln.name for vuln in self.vulnerabilities])
+
 
 #  Information taken from ciphersuite.info and
 #  https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml
