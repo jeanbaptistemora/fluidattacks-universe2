@@ -1,6 +1,4 @@
 data "aws_caller_identity" "current" {}
-variable "aws_access_key" {}
-variable "aws_secret_key" {}
 
 data "aws_iam_policy_document" "backup-assume-role-policy-data" {
   statement {

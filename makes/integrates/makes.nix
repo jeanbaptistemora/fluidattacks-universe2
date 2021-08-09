@@ -1,19 +1,18 @@
 # https://github.com/fluidattacks/makes
-{ config
-, ...
-}:
 {
-  lintPython = {
-    dirsOfModules = {
-      integrates = {
-        extraSources = [
-          config.inputs.product.integrates-back-pypi-runtime
-          config.inputs.product.integrates-back-pypi-unit-tests
-          config.inputs.product.skims-config-sdk
-        ];
-        python = "3.7";
-        src = "/integrates/back/src";
-      };
+  imports = [
+    ./infra/makes.nix
+    ./linters/makes.nix
+    ./pipeline/makes.nix
+  ];
+  secretsForAwsFromEnv = {
+    integratesDev = {
+      accessKeyId = "INTEGRATES_DEV_AWS_ACCESS_KEY_ID";
+      secretAccessKey = "INTEGRATES_DEV_AWS_SECRET_ACCESS_KEY";
+    };
+    integratesProd = {
+      accessKeyId = "INTEGRATES_PROD_AWS_ACCESS_KEY_ID";
+      secretAccessKey = "INTEGRATES_PROD_AWS_SECRET_ACCESS_KEY";
     };
   };
 }
