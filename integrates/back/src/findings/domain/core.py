@@ -532,6 +532,40 @@ async def get_pending_verification_findings(
     return cast(List[Dict[str, FindingType]], pending_to_verify)
 
 
+async def get_pending_verification_findings_new(
+    context: Any,
+    group_name: str,
+) -> List[Dict[str, str]]:
+    """Gets findings pending for verification"""
+    findings_ids = await list_findings_new(context, [group_name])
+    are_pending_verifications = await collect(
+        [
+            is_pending_verification(context, finding_id)
+            for finding_id in findings_ids[0]
+        ]
+    )
+    pending_to_verify_ids = [
+        finding_id
+        for finding_id, are_pending_verification in zip(
+            findings_ids[0], are_pending_verifications
+        )
+        if are_pending_verification
+    ]
+    findings_loader_new = context.finding_new
+    findings_to_verify: Tuple[Finding, ...] = findings_loader_new.load(
+        pending_to_verify_ids
+    )
+    pending_to_verify = await collect(
+        {
+            "title": finding.title,
+            "id": finding.id,
+            "group_name": finding.group_name,
+        }
+        for finding in findings_to_verify
+    )
+    return cast(List[Dict[str, str]], pending_to_verify)
+
+
 async def get_report_date_new(loaders: Any, finding_id: str) -> Optional[str]:
     iso_report_date = ""
     finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr
@@ -707,6 +741,27 @@ async def list_findings(
         for group_findings in findings
     ]
     return cast(List[List[str]], findings)
+
+
+async def list_findings_new(
+    context: Any,
+    group_names: List[str],
+    include_deleted: bool = False,
+) -> List[List[str]]:
+    """Returns a list of the list of finding ids associated with the groups"""
+    group_findings_loader = (
+        context.group_findings_all_new
+        if include_deleted
+        else context.group_findings_new
+    )
+    findings: Tuple[
+        Tuple[Finding, ...], ...
+    ] = await group_findings_loader.load_many(group_names)
+    findings_ids = [
+        list(map(lambda finding: finding.id, group_findings))
+        for group_findings in findings
+    ]
+    return cast(List[List[str]], findings_ids)
 
 
 async def mask_finding(context: Any, finding_id: str) -> bool:
