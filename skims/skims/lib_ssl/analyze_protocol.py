@@ -545,102 +545,6 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
-def _sweet32_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
-    ssl_vulnerabilities: List[SSLVulnerability] = []
-    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
-
-    suites: List[SSLSuite] = [
-        SSLSuite.RSA_EXPORT_WITH_DES40_CBC_SHA,
-        SSLSuite.RSA_WITH_DES_CBC_SHA,
-        SSLSuite.RSA_WITH_3DES_EDE_CBC_SHA,
-        SSLSuite.DH_DSS_EXPORT_WITH_DES40_CBC_SHA,
-        SSLSuite.DH_DSS_WITH_DES_CBC_SHA,
-        SSLSuite.DH_DSS_WITH_3DES_EDE_CBC_SHA,
-        SSLSuite.DH_RSA_EXPORT_WITH_DES40_CBC_SHA,
-        SSLSuite.DH_RSA_WITH_DES_CBC_SHA,
-        SSLSuite.DH_RSA_WITH_3DES_EDE_CBC_SHA,
-        SSLSuite.DHE_DSS_EXPORT_WITH_DES40_CBC_SHA,
-        SSLSuite.DHE_DSS_WITH_DES_CBC_SHA,
-        SSLSuite.DHE_DSS_WITH_3DES_EDE_CBC_SHA,
-        SSLSuite.DHE_RSA_EXPORT_WITH_DES40_CBC_SHA,
-        SSLSuite.DHE_RSA_WITH_DES_CBC_SHA,
-        SSLSuite.DHE_RSA_WITH_3DES_EDE_CBC_SHA,
-        SSLSuite.DH_anon_EXPORT_WITH_DES40_CBC_SHA,
-        SSLSuite.DH_anon_WITH_DES_CBC_SHA,
-        SSLSuite.DH_anon_WITH_3DES_EDE_CBC_SHA,
-        SSLSuite.KRB5_WITH_DES_CBC_SHA,
-        SSLSuite.KRB5_WITH_3DES_EDE_CBC_SHA,
-        SSLSuite.KRB5_WITH_DES_CBC_MD5,
-        SSLSuite.KRB5_WITH_3DES_EDE_CBC_MD5,
-        SSLSuite.KRB5_EXPORT_WITH_DES_CBC_40_SHA,
-        SSLSuite.KRB5_EXPORT_WITH_DES_CBC_40_MD5,
-        SSLSuite.PSK_WITH_3DES_EDE_CBC_SHA,
-        SSLSuite.DHE_PSK_WITH_3DES_EDE_CBC_SHA,
-        SSLSuite.RSA_PSK_WITH_3DES_EDE_CBC_SHA,
-        SSLSuite.ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA,
-        SSLSuite.ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA,
-        SSLSuite.ECDH_RSA_WITH_3DES_EDE_CBC_SHA,
-        SSLSuite.ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,
-        SSLSuite.ECDH_anon_WITH_3DES_EDE_CBC_SHA,
-        SSLSuite.SRP_SHA_WITH_3DES_EDE_CBC_SHA,
-        SSLSuite.SRP_SHA_RSA_WITH_3DES_EDE_CBC_SHA,
-        SSLSuite.SRP_SHA_DSS_WITH_3DES_EDE_CBC_SHA,
-        SSLSuite.ECDHE_PSK_WITH_3DES_EDE_CBC_SHA,
-    ]
-
-    extensions: List[int] = get_ec_point_formats_ext()
-    extensions += get_elliptic_curves_ext()
-    extensions += get_session_ticket_ext()
-
-    for v_id in tls_versions:
-        if v_id == SSLVersionId.tlsv1_3:
-            continue
-
-        intention: Dict[core_model.LocalesEnum, str] = {
-            core_model.LocalesEnum.EN: (
-                "check if server is vulnerable to SWEET32 attacks"
-                " in {v_name}".format(v_name=ssl_id2ssl_name(v_id))
-            ),
-            core_model.LocalesEnum.ES: (
-                "verificar si el servidor es vulnerable a ataques SWEET32"
-                " en {v_name}".format(v_name=ssl_id2ssl_name(v_id))
-            ),
-        }
-
-        sock = tcp_connect(
-            ctx.host,
-            ctx.port,
-            intention[core_model.LocalesEnum.EN],
-        )
-
-        if sock is None:
-            return tuple()
-
-        package = get_client_hello_package(v_id, suites, extensions)
-        sock.send(bytes(package))
-        response: Optional[SSLServerResponse] = parse_server_response(sock)
-
-        if response is not None and response.handshake is not None:
-            ssl_vulnerabilities.append(
-                _create_ssl_vuln(
-                    check="sweet32_possible",
-                    ssl_settings=SSLSettings(
-                        context=ctx,
-                        min_version=v_id,
-                        max_version=v_id,
-                        cipher_names=["3des"],
-                        intention=intention,
-                    ),
-                    server_response=response,
-                    line=SSLSnippetLine.handshake_cipher,
-                    finding=core_model.FindingEnum.F094,
-                )
-            )
-        sock.close()
-
-    return _create_core_vulns(ssl_vulnerabilities)
-
-
 def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
@@ -1099,10 +1003,7 @@ CHECKS: Dict[
     List[Callable[[SSLContext], core_model.Vulnerabilities]],
 ] = {
     core_model.FindingEnum.F052: [_weak_ciphers_allowed],
-    core_model.FindingEnum.F094: [
-        _cbc_enabled,
-        _sweet32_possible,
-    ],
+    core_model.FindingEnum.F094: [_cbc_enabled],
     core_model.FindingEnum.F133: [_pfs_disabled],
     core_model.FindingEnum.F016: [
         _sslv3_enabled,
