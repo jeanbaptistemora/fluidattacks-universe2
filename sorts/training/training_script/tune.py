@@ -10,6 +10,7 @@ from training.constants import (
     FEATURES_DICTS,
     MODEL_HYPERPARAMETERS,
     MODELS,
+    MODELS_DEFAULTS,
     RESULT_HEADERS,
 )
 from training.training_script.utils import (
@@ -129,10 +130,17 @@ def main() -> None:
     # Set necessary env vars that SageMaker environment needs
     set_sagemaker_extra_envs(args.envs)
 
-    hyperparameters_to_tune = get_model_hyperparameters(model_name, vars(args))
+    hyperparameters_to_tune: Dict[str, str] = get_model_hyperparameters(
+        model_name,
+        vars(args),
+    )
     display_model_hyperparameters(model_name, hyperparameters_to_tune)
     model_class: ModelType = MODELS[model_name]
-    model: ModelType = model_class(**hyperparameters_to_tune)
+    model_parameters = {
+        **MODELS_DEFAULTS[model_class],
+        **hyperparameters_to_tune,
+    }
+    model: ModelType = model_class(**model_parameters)
 
     results_filename: str = f"{model_name}_tune_results.csv"
     previous_results = get_previous_training_results(results_filename)
