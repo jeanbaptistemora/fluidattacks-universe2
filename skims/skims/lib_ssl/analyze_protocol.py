@@ -552,35 +552,35 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     if len(tls_versions) < 2:
         return tuple()
 
-    suites: List[SSLSuite] = [
-        SSLSuite.ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
-        SSLSuite.ECDHE_RSA_WITH_AES_256_GCM_SHA384,
-        SSLSuite.DHE_RSA_WITH_AES_256_GCM_SHA384,
-        SSLSuite.ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256,
-        SSLSuite.ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256,
-        SSLSuite.DHE_RSA_WITH_CHACHA20_POLY1305_SHA256,
-        SSLSuite.ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
-        SSLSuite.ECDHE_RSA_WITH_AES_128_GCM_SHA256,
-        SSLSuite.DHE_RSA_WITH_AES_128_GCM_SHA256,
-        SSLSuite.ECDHE_ECDSA_WITH_AES_256_CBC_SHA384,
-        SSLSuite.ECDHE_RSA_WITH_AES_256_CBC_SHA384,
-        SSLSuite.DHE_RSA_WITH_AES_256_CBC_SHA256,
-        SSLSuite.ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,
-        SSLSuite.ECDHE_RSA_WITH_AES_128_CBC_SHA256,
-        SSLSuite.DHE_RSA_WITH_AES_128_CBC_SHA256,
-        SSLSuite.ECDHE_ECDSA_WITH_AES_256_CBC_SHA,
-        SSLSuite.ECDHE_RSA_WITH_AES_256_CBC_SHA,
-        SSLSuite.DHE_RSA_WITH_AES_256_CBC_SHA,
-        SSLSuite.ECDHE_ECDSA_WITH_AES_128_CBC_SHA,
-        SSLSuite.ECDHE_RSA_WITH_AES_128_CBC_SHA,
-        SSLSuite.DHE_RSA_WITH_AES_128_CBC_SHA,
-        SSLSuite.RSA_WITH_AES_256_GCM_SHA384,
-        SSLSuite.RSA_WITH_AES_128_GCM_SHA256,
-        SSLSuite.RSA_WITH_AES_256_CBC_SHA256,
-        SSLSuite.RSA_WITH_AES_128_CBC_SHA256,
-        SSLSuite.RSA_WITH_AES_256_CBC_SHA,
-        SSLSuite.RSA_WITH_AES_128_CBC_SHA,
-        SSLSuite.FALLBACK_SCSV,
+    suites: List[SSLSuiteInfo] = [
+        SSLCipherSuite.ECDHE_ECDSA_WITH_AES_256_GCM_SHA384.value,
+        SSLCipherSuite.ECDHE_RSA_WITH_AES_256_GCM_SHA384.value,
+        SSLCipherSuite.DHE_RSA_WITH_AES_256_GCM_SHA384.value,
+        SSLCipherSuite.ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256.value,
+        SSLCipherSuite.ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256.value,
+        SSLCipherSuite.DHE_RSA_WITH_CHACHA20_POLY1305_SHA256.value,
+        SSLCipherSuite.ECDHE_ECDSA_WITH_AES_128_GCM_SHA256.value,
+        SSLCipherSuite.ECDHE_RSA_WITH_AES_128_GCM_SHA256.value,
+        SSLCipherSuite.DHE_RSA_WITH_AES_128_GCM_SHA256.value,
+        SSLCipherSuite.ECDHE_ECDSA_WITH_AES_256_CBC_SHA384.value,
+        SSLCipherSuite.ECDHE_RSA_WITH_AES_256_CBC_SHA384.value,
+        SSLCipherSuite.DHE_RSA_WITH_AES_256_CBC_SHA256.value,
+        SSLCipherSuite.ECDHE_ECDSA_WITH_AES_128_CBC_SHA256.value,
+        SSLCipherSuite.ECDHE_RSA_WITH_AES_128_CBC_SHA256.value,
+        SSLCipherSuite.DHE_RSA_WITH_AES_128_CBC_SHA256.value,
+        SSLCipherSuite.ECDHE_ECDSA_WITH_AES_256_CBC_SHA.value,
+        SSLCipherSuite.ECDHE_RSA_WITH_AES_256_CBC_SHA.value,
+        SSLCipherSuite.DHE_RSA_WITH_AES_256_CBC_SHA.value,
+        SSLCipherSuite.ECDHE_ECDSA_WITH_AES_128_CBC_SHA.value,
+        SSLCipherSuite.ECDHE_RSA_WITH_AES_128_CBC_SHA.value,
+        SSLCipherSuite.DHE_RSA_WITH_AES_128_CBC_SHA.value,
+        SSLCipherSuite.RSA_WITH_AES_256_GCM_SHA384.value,
+        SSLCipherSuite.RSA_WITH_AES_128_GCM_SHA256.value,
+        SSLCipherSuite.RSA_WITH_AES_256_CBC_SHA256.value,
+        SSLCipherSuite.RSA_WITH_AES_128_CBC_SHA256.value,
+        SSLCipherSuite.RSA_WITH_AES_256_CBC_SHA.value,
+        SSLCipherSuite.RSA_WITH_AES_128_CBC_SHA.value,
+        SSLSpecialSuite.FALLBACK_SCSV.value,
     ]
 
     min_v_id: SSLVersionId = min(tls_versions)
@@ -607,7 +607,7 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     extensions += get_elliptic_curves_ext()
     extensions += get_session_ticket_ext()
 
-    package = get_client_hello_package(min_v_id, suites, extensions)
+    package = new_get_client_hello_package(min_v_id, suites, extensions)
     sock.send(bytes(package))
     response: Optional[SSLServerResponse] = parse_server_response(sock)
 
