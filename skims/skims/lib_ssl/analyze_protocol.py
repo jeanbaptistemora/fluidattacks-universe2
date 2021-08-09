@@ -4,7 +4,6 @@ from lib_ssl.as_string import (
     ssl_id2ssl_name,
 )
 from lib_ssl.ssl_connection import (
-    get_client_hello_package,
     get_ec_point_formats_ext,
     get_elliptic_curves_ext,
     get_heartbeat_ext,
@@ -871,17 +870,17 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
-    suites: List[SSLSuite] = [
-        SSLSuite.DHE_RSA_WITH_CHACHA20_POLY1305_SHA256,
-        SSLSuite.DHE_RSA_WITH_AES_256_GCM_SHA384,
-        SSLSuite.DHE_RSA_WITH_AES_128_GCM_SHA256,
-        SSLSuite.DHE_RSA_WITH_AES_256_CCM,
-        SSLSuite.DHE_RSA_WITH_AES_128_CCM,
-        SSLSuite.DHE_RSA_WITH_AES_256_CBC_SHA256,
-        SSLSuite.DHE_RSA_WITH_AES_128_CBC_SHA256,
-        SSLSuite.DHE_RSA_WITH_AES_256_CBC_SHA,
-        SSLSuite.DHE_RSA_WITH_AES_128_CBC_SHA,
-        SSLSuite.DHE_RSA_WITH_3DES_EDE_CBC_SHA,
+    suites: List[SSLSuiteInfo] = [
+        SSLCipherSuite.DHE_RSA_WITH_CHACHA20_POLY1305_SHA256.value,
+        SSLCipherSuite.DHE_RSA_WITH_AES_256_GCM_SHA384.value,
+        SSLCipherSuite.DHE_RSA_WITH_AES_128_GCM_SHA256.value,
+        SSLCipherSuite.DHE_RSA_WITH_AES_256_CCM.value,
+        SSLCipherSuite.DHE_RSA_WITH_AES_128_CCM.value,
+        SSLCipherSuite.DHE_RSA_WITH_AES_256_CBC_SHA256.value,
+        SSLCipherSuite.DHE_RSA_WITH_AES_128_CBC_SHA256.value,
+        SSLCipherSuite.DHE_RSA_WITH_AES_256_CBC_SHA.value,
+        SSLCipherSuite.DHE_RSA_WITH_AES_128_CBC_SHA.value,
+        SSLCipherSuite.DHE_RSA_WITH_3DES_EDE_CBC_SHA.value,
     ]
 
     extensions: List[int] = get_ec_point_formats_ext()
@@ -914,7 +913,7 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         if sock is None:
             break
 
-        package = get_client_hello_package(v_id, suites, extensions)
+        package = new_get_client_hello_package(v_id, suites, extensions)
         sock.send(bytes(package))
         response: Optional[SSLServerResponse] = parse_server_response(sock)
 
