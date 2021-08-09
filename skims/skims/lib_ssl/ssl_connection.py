@@ -2,6 +2,7 @@ import contextlib
 from lib_ssl.suites import (
     SSLCipherSuite,
     SSLSuiteInfo,
+    SSLVersionId,
 )
 from lib_ssl.types import (
     SSLAlert,
@@ -13,7 +14,6 @@ from lib_ssl.types import (
     SSLServerResponse,
     SSLSettings,
     SSLSuite,
-    SSLVersionId,
     TLSVersionId,
 )
 from model.core_model import (

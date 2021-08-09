@@ -5,9 +5,11 @@ from aioextensions import (
 from lib_ssl import (
     analyze_protocol,
 )
+from lib_ssl.suites import (
+    SSLVersionId,
+)
 from lib_ssl.types import (
     SSLContext,
-    SSLVersionId,
 )
 from model import (
     core_model,

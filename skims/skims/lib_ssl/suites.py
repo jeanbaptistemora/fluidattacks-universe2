@@ -1,9 +1,7 @@
 # pylint: disable=too-many-lines
 from enum import (
     Enum,
-)
-from lib_ssl.types import (
-    SSLVersionId,
+    IntEnum,
 )
 from typing import (
     Iterator,
@@ -11,6 +9,22 @@ from typing import (
     Optional,
     Tuple,
 )
+
+
+class SSLVersionId(IntEnum):
+    sslv3_0: int = 0
+    tlsv1_0: int = 1
+    tlsv1_1: int = 2
+    tlsv1_2: int = 3
+    tlsv1_3: int = 4
+
+
+class SSLVersionName(Enum):
+    sslv3_0: str = "SSLv3.0"
+    tlsv1_0: str = "TLSv1.0"
+    tlsv1_1: str = "TLSv1.1"
+    tlsv1_2: str = "TLSv1.2"
+    tlsv1_3: str = "TLSv1.3"
 
 
 class SSLSuiteVuln(Enum):

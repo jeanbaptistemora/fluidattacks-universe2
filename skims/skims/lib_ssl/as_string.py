@@ -1,9 +1,11 @@
+from lib_ssl.suites import (
+    SSLVersionId,
+    SSLVersionName,
+)
 from lib_ssl.types import (
     SSLContext,
     SSLServerResponse,
     SSLSettings,
-    SSLVersionId,
-    SSLVersionName,
     SSLVulnerability,
 )
 from model.core_model import (

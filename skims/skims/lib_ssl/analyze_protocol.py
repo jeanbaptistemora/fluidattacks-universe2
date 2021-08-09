@@ -21,6 +21,7 @@ from lib_ssl.suites import (
     SSLCipherSuite,
     SSLSpecialSuite,
     SSLSuiteInfo,
+    SSLVersionId,
 )
 from lib_ssl.types import (
     SSLContext,
@@ -31,7 +32,6 @@ from lib_ssl.types import (
     SSLSettings,
     SSLSnippetLine,
     SSLSuite,
-    SSLVersionId,
     SSLVulnerability,
 )
 from model import (
