@@ -4,11 +4,17 @@ from aioextensions import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from context import (
+    FI_API_STATUS,
+)
 from custom_exceptions import (
     PermissionDenied,
 )
 from custom_types import (
     AddConsultPayload as AddConsultPayloadType,
+)
+from db_model.findings.types import (
+    Finding,
 )
 from decorators import (
     concurrent_decorators,
@@ -57,11 +63,19 @@ async def _add_finding_consult(  # pylint: disable=too-many-locals
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
     finding_id = str(parameters.get("finding_id"))
-    finding_loader = info.context.loaders.finding
-    finding = await finding_loader.load(finding_id)
-    group = get_key_or_fallback(finding)
-    content = parameters["content"]
+    if FI_API_STATUS == "migration":
+        finding_new_loader = info.context.loaders.finding_new
+        finding: Finding = await finding_new_loader.load(finding_id)
+        group_name: str = finding.group_name
+        finding_title: str = finding.title
+        is_finding_released = bool(finding.approval)
+    else:
+        finding = await info.context.loaders.finding.load(finding_id)
+        group_name = get_key_or_fallback(finding)
+        finding_title = finding["title"]
+        is_finding_released = findings_utils.is_released(finding)
 
+    content = parameters["content"]
     user_email = user_data["user_email"]
     comment_id = str(round(time() * 1000))
     current_time = datetime_utils.get_as_str(datetime_utils.get_now())
@@ -78,7 +92,7 @@ async def _add_finding_consult(  # pylint: disable=too-many-locals
     }
     try:
         success = await findings_domain.add_comment(
-            info, user_email, comment_data, finding_id, group
+            info, user_email, comment_data, finding_id, group_name
         )
     except PermissionDenied:
         logs_utils.cloudwatch_log(
@@ -90,15 +104,14 @@ async def _add_finding_consult(  # pylint: disable=too-many-locals
     if success:
         redis_del_by_deps_soon("add_finding_consult", finding_id=finding_id)
         if content.strip() not in {"#external", "#internal"}:
-            is_finding_released = findings_utils.is_released(finding)
             schedule(
                 findings_mail.send_mail_comment(
                     context=info.context.loaders,
                     comment_data=comment_data,
                     user_mail=user_email,
                     finding_id=finding_id,
-                    finding_title=finding["title"],
-                    group_name=group,
+                    finding_title=finding_title,
+                    group_name=group_name,
                     is_finding_released=is_finding_released,
                 )
             )
