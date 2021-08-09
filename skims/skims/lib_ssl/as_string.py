@@ -159,7 +159,7 @@ def snippet(
         elif s_response.handshake is not None:
             response = good_response_skeleton.format(
                 version=ssl_id2ssl_name(s_response.handshake.version_id),
-                cipher_suite=s_response.handshake.cipher_suite.name,
+                cipher_suite=s_response.handshake.cipher_suite.iana_name,
             )
 
     content: str = snippet_skeleton.format(

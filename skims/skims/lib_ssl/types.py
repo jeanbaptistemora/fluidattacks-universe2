@@ -2,6 +2,7 @@ from enum import (
     Enum,
 )
 from lib_ssl.suites import (
+    SSLSuiteInfo,
     SSLVersionId,
 )
 from model.core_model import (
@@ -478,7 +479,7 @@ class SSLAlert(NamedTuple):
 class SSLServerHandshake(NamedTuple):
     record: SSLHandshakeRecord
     version_id: SSLVersionId
-    cipher_suite: SSLSuite
+    cipher_suite: SSLSuiteInfo
 
 
 class SSLServerResponse(NamedTuple):

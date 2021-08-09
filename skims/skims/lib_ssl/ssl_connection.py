@@ -1,5 +1,6 @@
 import contextlib
 from lib_ssl.suites import (
+    get_suite_by_code,
     SSLCipherSuite,
     SSLSuiteInfo,
     SSLVersionId,
@@ -13,7 +14,6 @@ from lib_ssl.types import (
     SSLServerHandshake,
     SSLServerResponse,
     SSLSettings,
-    SSLSuite,
     TLSVersionId,
 )
 from model.core_model import (
@@ -243,10 +243,10 @@ def read_session_id(sock: socket.socket) -> bytes:
     return tcp_read(sock, session_id_length)
 
 
-def read_cipher_suite(sock: socket.socket) -> SSLSuite:
+def read_cipher_suite(sock: socket.socket) -> SSLSuiteInfo:
     b_cipher_suite = tcp_read(sock, 2)
     first_byte, second_byte = unpack(">BB", b_cipher_suite)
-    return SSLSuite((first_byte, second_byte))
+    return get_suite_by_code(code=(first_byte, second_byte))
 
 
 def parse_server_alert(

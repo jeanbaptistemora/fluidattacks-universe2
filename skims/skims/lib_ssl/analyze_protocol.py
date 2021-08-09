@@ -31,7 +31,6 @@ from lib_ssl.types import (
     SSLServerResponse,
     SSLSettings,
     SSLSnippetLine,
-    SSLSuite,
     SSLVulnerability,
 )
 from model import (
@@ -77,7 +76,7 @@ def tls_connect(
                 handshake=SSLServerHandshake(
                     record=SSLHandshakeRecord.SERVER_HELLO,
                     version_id=v_id,
-                    cipher_suite=SSLSuite.UNKNOWN,
+                    cipher_suite=SSLSpecialSuite.UNKNOWN.value,
                 ),
             )
     return None
