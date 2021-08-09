@@ -44,6 +44,7 @@ integrates.mobile.deploy.playstore
 integrates.mobile.e2e
 integrates.mobile.ota
 integrates.scheduler
+integrates.scheduler.update-indicators-on-aws
 integrates.storage
 integrates.subscriptions.user-to-entity
 integrates.subscriptions.user-to-entity-on-aws
