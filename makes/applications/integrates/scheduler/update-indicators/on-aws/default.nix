@@ -3,7 +3,7 @@
 }:
 computeOnAws {
   attempts = 1;
-  command = [ "./m" "integrates.scheduler" ];
+  command = [ "./m" "integrates.scheduler.update-indicators.job" ];
   jobname = "integrates-scheduler-update-indicators";
   jobqueue = "dedicated_later";
   name = "integrates-scheduler-update-indicators-on-aws";

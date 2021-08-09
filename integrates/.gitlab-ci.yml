@@ -667,7 +667,7 @@ integrates.scheduler.update_indicators:
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_update_indicators]
-  script: [./m integrates.scheduler.update-indicators-on-aws prod schedulers.update_indicators.main]
+  script: [./m integrates.scheduler.update-indicators.on-aws prod]
   stage: scheduler
 
 integrates.scheduler.update_portfolios:
