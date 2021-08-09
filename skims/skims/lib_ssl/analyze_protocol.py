@@ -800,17 +800,17 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
-    suites: List[SSLSuite] = [
-        SSLSuite.RESERVED_SUITE_00_62,
-        SSLSuite.RESERVED_SUITE_00_61,
-        SSLSuite.RESERVED_SUITE_00_64,
-        SSLSuite.RESERVED_SUITE_00_60,
-        SSLSuite.DHE_RSA_EXPORT_WITH_DES40_CBC_SHA,
-        SSLSuite.DHE_DSS_EXPORT_WITH_DES40_CBC_SHA,
-        SSLSuite.RSA_EXPORT_WITH_DES40_CBC_SHA,
-        SSLSuite.RSA_EXPORT_WITH_RC2_CBC_40_MD5,
-        SSLSuite.RSA_EXPORT_WITH_RC4_40_MD5,
-        SSLSuite.EMPTY_RENEGOTIATION_INFO_SCSV,
+    suites: List[SSLSuiteInfo] = [
+        SSLSpecialSuite.RESERVED_SUITE_00_62.value,
+        SSLSpecialSuite.RESERVED_SUITE_00_61.value,
+        SSLSpecialSuite.RESERVED_SUITE_00_64.value,
+        SSLSpecialSuite.RESERVED_SUITE_00_60.value,
+        SSLCipherSuite.DHE_RSA_EXPORT_WITH_DES40_CBC_SHA.value,
+        SSLCipherSuite.DHE_DSS_EXPORT_WITH_DES40_CBC_SHA.value,
+        SSLCipherSuite.RSA_EXPORT_WITH_DES40_CBC_SHA.value,
+        SSLCipherSuite.RSA_EXPORT_WITH_RC2_CBC_40_MD5.value,
+        SSLCipherSuite.RSA_EXPORT_WITH_RC4_40_MD5.value,
+        SSLSpecialSuite.EMPTY_RENEGOTIATION_INFO_SCSV.value,
     ]
 
     extensions: List[int] = get_ec_point_formats_ext()
@@ -843,7 +843,7 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         if sock is None:
             break
 
-        package = get_client_hello_package(v_id, suites, extensions)
+        package = new_get_client_hello_package(v_id, suites, extensions)
         sock.send(bytes(package))
         response: Optional[SSLServerResponse] = parse_server_response(sock)
 
