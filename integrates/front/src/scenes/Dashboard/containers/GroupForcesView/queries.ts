@@ -9,7 +9,7 @@ const GET_FORCES_EXECUTIONS: DocumentNode = gql`
         date
         exitCode
         gitRepo
-        execution_id
+        executionId
         kind
         strictness
         vulnerabilities {

@@ -30,8 +30,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
   // States
   const defaultCurrentRow: IExecution = {
     date: "",
-    // eslint-disable-next-line camelcase -- API related
-    execution_id: "",
+    executionId: "",
     exitCode: "",
     foundVulnerabilities: {
       accepted: 0,
@@ -184,7 +183,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     },
     {
       align: "center",
-      dataField: "execution_id",
+      dataField: "executionId",
       header: translate.t("group.forces.identifier"),
       onSort: onSortState,
       wrapped: true,
@@ -291,7 +290,7 @@ const GroupForcesView: React.FC = (): JSX.Element => {
       >
         <Execution
           date={currentRow.date}
-          execution_id={currentRow.execution_id}
+          executionId={currentRow.executionId}
           exitCode={currentRow.exitCode}
           foundVulnerabilities={currentRow.foundVulnerabilities}
           gitRepo={currentRow.gitRepo}

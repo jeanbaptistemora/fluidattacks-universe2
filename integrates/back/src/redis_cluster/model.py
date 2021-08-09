@@ -116,7 +116,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
         },
         attrs={
             "consulting",
-            "last_closing_vuln_finding",
+            "last_closed_vulnerability_finding",
             "max_open_severity_finding",
             "max_severity",
             "max_severity_finding",

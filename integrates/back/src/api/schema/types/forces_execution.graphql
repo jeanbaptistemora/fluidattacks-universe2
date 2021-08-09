@@ -1,6 +1,8 @@
 type ForcesExecution {
   date: DateTime
-  execution_id: String
+  executionId: String
+  execution_id: String @deprecated(reason: """This field will
+    be removed after 2021/12/31. Use `executionId` instead.""")
   exitCode: String
   gitBranch: String
   gitCommit: String

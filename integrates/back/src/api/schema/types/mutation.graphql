@@ -71,7 +71,8 @@ type Mutation {
 
   addForcesExecution(
     projectName: String
-    execution_id: String!
+    executionId: String
+    execution_id: String
     date: DateTime!
     exitCode: String!
     gitBranch: String

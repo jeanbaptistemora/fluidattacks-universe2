@@ -24,8 +24,7 @@ interface IVulnerabilities {
 
 interface IExecution {
   date: string;
-  // eslint-disable-next-line camelcase -- API related
-  execution_id: string;
+  executionId: string;
   exitCode: string;
   foundVulnerabilities: IFoundVulnerabilities;
   gitRepo: string;

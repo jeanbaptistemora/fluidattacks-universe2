@@ -36,7 +36,7 @@ async def get_result(
             ) {
                 addForcesExecution (
                     groupName: $groupName,
-                    execution_id: $executionId,
+                    executionId: $executionId,
                     date: $date,
                     exitCode: "1",
                     gitBranch: "master",

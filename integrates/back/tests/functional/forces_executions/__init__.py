@@ -26,7 +26,7 @@ async def get_result(
                 toDate
                 executions {{
                     groupName
-                    execution_id
+                    executionId
                     date
                     exitCode
                     gitBranch

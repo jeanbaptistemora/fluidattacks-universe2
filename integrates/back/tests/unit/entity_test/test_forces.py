@@ -49,7 +49,7 @@ async def _test_executions() -> None:
           __typename
           executions {
             groupName
-            execution_id
+            executionId
             date
             exitCode
             gitBranch

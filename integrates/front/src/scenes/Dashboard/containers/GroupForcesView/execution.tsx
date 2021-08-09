@@ -26,8 +26,7 @@ import { translate } from "utils/translations/translate";
 const Execution: React.FC<IExecution> = (
   props: Readonly<IExecution>
 ): JSX.Element => {
-  // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
-  const { log, execution_id, groupName } = props;
+  const { log, executionId, groupName } = props;
   const isOld: boolean = log !== undefined;
 
   const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>(
@@ -39,7 +38,7 @@ const Execution: React.FC<IExecution> = (
     skip: isOld,
     variables: {
       // eslint-disable-next-line camelcase -- API related
-      executionId: execution_id,
+      executionId,
       groupName,
     },
   });
@@ -254,7 +253,7 @@ const Execution: React.FC<IExecution> = (
           </p>
         </Col33>
         <Col33>
-          <p>{execution.execution_id}</p>
+          <p>{execution.executionId}</p>
         </Col33>
       </Row>
       {/* eslint-disable-next-line react/forbid-component-props */}
