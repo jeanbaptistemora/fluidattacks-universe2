@@ -41,7 +41,23 @@ def _is_str(obj: Any) -> str:
     raise InvalidType(f"{type(obj)} expected str")
 
 
-VarType = TypeVar("VarType", str, int, float, bool)
+PrimitiveType = TypeVar("PrimitiveType", str, int, float, bool)
+
+
+def to_primitive(raw: Any, prim_type: Type[PrimitiveType]) -> PrimitiveType:
+    if isinstance(raw, prim_type):
+        return raw
+    raise InvalidType(f"{type(raw)} expected a PrimitiveType")
+
+
+def to_opt_primitive(
+    raw: Any, prim_type: Type[PrimitiveType]
+) -> Optional[PrimitiveType]:
+    if isinstance(raw, prim_type):
+        return raw
+    if raw is None:
+        return None
+    raise InvalidType(f"{type(raw)} expected a PrimitiveType | None")
 
 
 @dataclass(frozen=True)
@@ -61,12 +77,14 @@ class JsonValue:
             return {key: val.to_raw() for key, val in raw.items()}
         return raw
 
-    def to_primitive(self, prim_type: Type[VarType]) -> VarType:
+    def to_primitive(self, prim_type: Type[PrimitiveType]) -> PrimitiveType:
         if isinstance(self.value, prim_type):
             return self.value
-        raise InvalidType(f"{type(self.value)} expected str")
+        raise InvalidType(f"{type(self.value)} expected a PrimitiveType")
 
-    def to_list_of(self, prim_type: Type[VarType]) -> List[VarType]:
+    def to_list_of(
+        self, prim_type: Type[PrimitiveType]
+    ) -> List[PrimitiveType]:
         if isinstance(self.value, list):
             return [item.to_primitive(prim_type) for item in self.value]
         raise InvalidType(f"{type(self.value)} expected list")
@@ -79,7 +97,9 @@ class JsonValue:
     def to_opt_list(self) -> Optional[List[JsonValue]]:
         return None if self.value is None else self.to_list()
 
-    def to_dict_of(self, prim_type: Type[VarType]) -> Dict[str, VarType]:
+    def to_dict_of(
+        self, prim_type: Type[PrimitiveType]
+    ) -> Dict[str, PrimitiveType]:
         if isinstance(self.value, dict):
             return {
                 key: val.to_primitive(prim_type)
