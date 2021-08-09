@@ -13,8 +13,9 @@ exports.handler = function(event, context) {
     if(event.region.length === 0) { announce(null, results); context.succeed(results); return; }
 
     // For each region specified in the event...
-    for(let region of event.region) {
+    for(var i = 0; i < event.region.length; i++) {
         semaphore.describe++;
+        var region = event.region[i];
         var ec2 = new AWS.EC2({region:region, apiVersion:apiVersion});
         var request = ec2.describeInstances({DryRun:false});
 
@@ -23,8 +24,10 @@ exports.handler = function(event, context) {
             var region = response.request.service.config.region;
             var data = response.data;
             var ids = [];
-            for(let reservation of data.Reservations) {
-                for(let instance of reservation.instances) {
+            for(var i = 0; i < data.Reservations.length; i++) {
+                var Instances = data.Reservations[i].Instances;
+                for(var j = 0; j < Instances.length; j++) {
+                    var instance = Instances[j];
                     if(isTagless(instance))
                         ids.push(instance.InstanceId);
                 }
@@ -80,7 +83,7 @@ exports.handler = function(event, context) {
  * A simple logging function used for printing to AWS Lambda logs.
  */
 function announce(region, message) {
-    if(region !== null) { var d = "=========="; console.log(d + " " + region + " " + d); }
+    if(region !== null) { d = "=========="; console.log(d + " " + region + " " + d); }
     console.log(message);
 }
 /**
