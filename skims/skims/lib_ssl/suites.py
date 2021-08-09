@@ -6135,3 +6135,17 @@ def get_suites_with_pfs() -> Iterator[SSLSuiteInfo]:
     for suite in SSLCipherSuite:
         if SSLSuiteVuln.PFS not in suite.value.vulnerabilities:
             yield suite.value
+
+
+def get_weak_suites() -> Iterator[SSLSuiteInfo]:
+    for suite in SSLCipherSuite:
+        weak_vuln = False
+        for vuln in SSLSuiteVuln:
+            if vuln in suite.value.vulnerabilities and vuln not in (
+                SSLSuiteVuln.PFS,
+                SSLSuiteVuln.CBC,
+            ):
+                weak_vuln = True
+                break
+        if weak_vuln:
+            yield suite.value
