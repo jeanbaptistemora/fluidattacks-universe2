@@ -1324,7 +1324,7 @@
     base:
       attack_vector: "A"
       attack_complexity: "L"
-      privileges_required: "R"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "L"
@@ -1375,7 +1375,7 @@
     base:
       attack_vector: "A"
       attack_complexity: "L"
-      privileges_required: "R"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"

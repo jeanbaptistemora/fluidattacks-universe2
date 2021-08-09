@@ -1,4 +1,6 @@
 { toBashMap
+, calculateCvss3
+, fromJson
 , fromYaml
 , inputs
 , makeScript
@@ -17,6 +19,25 @@ let
   data_compliance = fromYaml (
     builtins.readFile (
       projectPath "/makes/makes/criteria/src/compliance/data.yaml"));
+
+  # Generate score and severity for a vulnerability
+  vectorString = vector:
+    let
+      AV = vector.base.attack_vector;
+      AC = vector.base.attack_complexity;
+      PR = vector.base.privileges_required;
+      UI = vector.base.user_interaction;
+      S = vector.base.scope;
+      C = vector.base.confidentiality;
+      I = vector.base.integrity;
+      A = vector.base.availability;
+      E = vector.temporal.exploit_code_maturity;
+      RL = vector.temporal.remediation_level;
+      RC = vector.temporal.report_confidence;
+    in
+    "CVSS:3.1/AV:${AV}/AC:${AC}/PR:${PR}/UI:${UI}/S:${S}/C:${C}/I:${I}/A:${A}/E:${E}/RL:${RL}/RC:${RC}";
+  vulnScore = vector:
+    fromJson (builtins.readFile (calculateCvss3 (vectorString vector)));
 
   # Generate requirements list for a vulnerability
   vulnReq = id:
@@ -76,6 +97,11 @@ let
       __argScoreTemporalExploitCodeMadurity__ = src.score.temporal.exploit_code_maturity;
       __argScoreTemporalRemediationLevel__ = src.score.temporal.remediation_level;
       __argScoreTemporalReportConfidence__ = src.score.temporal.report_confidence;
+      __argVectorString__ = vectorString src.score;
+      __argScoreBase__ = (vulnScore src.score).score.base;
+      __argScoreTemporal__ = (vulnScore src.score).score.temporal;
+      __argSeverityBase__ = (vulnScore src.score).severity.base;
+      __argSeverityTemporal__ = (vulnScore src.score).severity.temporal;
       __argRequirements__ = reqsForVuln src.requirements;
     };
     name = "docs-make-vulnerability-${name}";
