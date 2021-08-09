@@ -62,43 +62,45 @@ class SSLAuthentication(Enum):
 
 
 class SSLEncryption(Enum):
-    NULL: int = 1
-    RC4_40: int = 2
-    RC4_128: int = 3
-    RC2_40_CBC: int = 4
-    IDEA_CBC: int = 5
-    DES_40_CBC: int = 6
-    DES_56_CBC: int = 7
-    DES3_EDE_CBC: int = 8
-    AES_128_CBC: int = 9
-    AES_256_CBC: int = 10
-    CAMELLIA_128_CBC: int = 11
-    CAMELLIA_256_CBC: int = 12
-    CAMELLIA_128_GCM: int = 13
-    CAMELLIA_256_GCM: int = 14
-    SEED_CBC: int = 15
-    AES_128_GCM: int = 16
-    AES_256_GCM: int = 17
-    AES_128_CCM: int = 18
-    AES_128_CCM_8: int = 19
-    AES_256_CCM: int = 20
-    AES_256_CCM_8: int = 21
-    SM_4_GCM: int = 22
-    SM_4_CCM: int = 23
-    CHACHA_20_POLY_1305: int = 24
-    ARIA_128_CBC: int = 25
-    ARIA_256_CBC: int = 26
-    ARIA_128_GCM: int = 27
-    ARIA_256_GCM: int = 28
+    NONE: int = 1
+    NULL: int = 2
+    RC4_40: int = 3
+    RC4_128: int = 4
+    RC2_40_CBC: int = 5
+    IDEA_CBC: int = 6
+    DES_40_CBC: int = 7
+    DES_56_CBC: int = 8
+    DES3_EDE_CBC: int = 9
+    AES_128_CBC: int = 10
+    AES_256_CBC: int = 11
+    CAMELLIA_128_CBC: int = 12
+    CAMELLIA_256_CBC: int = 13
+    CAMELLIA_128_GCM: int = 14
+    CAMELLIA_256_GCM: int = 15
+    SEED_CBC: int = 16
+    AES_128_GCM: int = 17
+    AES_256_GCM: int = 18
+    AES_128_CCM: int = 19
+    AES_128_CCM_8: int = 20
+    AES_256_CCM: int = 21
+    AES_256_CCM_8: int = 22
+    SM_4_GCM: int = 23
+    SM_4_CCM: int = 24
+    CHACHA_20_POLY_1305: int = 25
+    ARIA_128_CBC: int = 26
+    ARIA_256_CBC: int = 27
+    ARIA_128_GCM: int = 28
+    ARIA_256_GCM: int = 29
 
 
 class SSLHash(Enum):
-    NULL: int = 1
-    MD5: int = 2
-    SHA: int = 3
-    SHA256: int = 4
-    SHA384: int = 5
-    SM3: int = 6
+    NONE: int = 1
+    NULL: int = 2
+    MD5: int = 3
+    SHA: int = 4
+    SHA256: int = 5
+    SHA384: int = 6
+    SM3: int = 7
 
 
 class SSLSuiteInfo(NamedTuple):
@@ -2877,6 +2879,22 @@ class SSLCipherSuite(Enum):
             SSLSuiteVuln.SM4,
             SSLSuiteVuln.SM3,
         ),
+    )
+    EMPTY_RENEGOTIATION_INFO_SCSV: SSLSuiteInfo = SSLSuiteInfo(
+        rfc=5746,
+        iana_name="TLS_EMPTY_RENEGOTIATION_INFO_SCSV",
+        openssl_name=None,
+        gnutls_name=None,
+        code=(0x00, 0xFF),
+        key_exchange=SSLKeyExchange.NONE,
+        authentication=SSLAuthentication.NONE,
+        encryption=SSLEncryption.NONE,
+        ssl_hash=SSLHash.NONE,
+        tls_versions=(
+            SSLVersionId.tlsv1_0,
+            SSLVersionId.tlsv1_1,
+        ),
+        vulnerabilities=(),
     )
     AES_128_GCM_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=8446,
