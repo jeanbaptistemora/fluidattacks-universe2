@@ -10,8 +10,8 @@ from charts.colors import (
 from dataloaders import (
     get_new_context,
 )
-from roots.types import (
-    GitRoot,
+from db_model.roots.types import (
+    GitRootItem,
 )
 from typing import (
     Any,
@@ -24,7 +24,7 @@ Resources = NamedTuple(
     "Resources",
     [
         ("environments", List[str]),
-        ("repositories", List[GitRoot]),
+        ("repositories", List[GitRootItem]),
     ],
 )
 
@@ -53,10 +53,12 @@ def format_data(data: Resources) -> Dict[str, Any]:
     }
 
 
-def format_resources(roots: List[GitRoot]) -> Resources:
+def format_resources(roots: List[GitRootItem]) -> Resources:
     return Resources(
         environments=[
-            env_url for root in roots for env_url in root.environment_urls
+            env_url
+            for root in roots
+            for env_url in root.state.environment_urls
         ],
         repositories=roots,
     )
@@ -72,7 +74,8 @@ async def generate_all() -> None:
             [
                 root
                 for root in group_roots
-                if isinstance(root, GitRoot) and root.state == "ACTIVE"
+                if isinstance(root, GitRootItem)
+                and root.state.status == "ACTIVE"
             ]
             for group_roots in await loader.load_many(org_groups)
         ]

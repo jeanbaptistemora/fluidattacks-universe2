@@ -7,6 +7,10 @@ function render(dataDocument, height, width) {
     dataDocument.gauge.label.format = (datum) => datum;
   }
 
+  if (dataDocument.formatGaugeTooltip) {
+    dataDocument.tooltip.format.title = (_datum, index) => dataDocument.data.names[index][0];
+  }
+
   if (dataDocument.barChartYTickFormat) {
     dataDocument.axis.y.tick = { format: (x) => (x % 1 === 0 ? x : '') };
   }
