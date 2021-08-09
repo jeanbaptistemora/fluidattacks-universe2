@@ -540,7 +540,7 @@ async def get_pending_verification_findings_new(
     findings_ids = await list_findings_new(context, [group_name])
     are_pending_verifications = await collect(
         [
-            is_pending_verification(context, finding_id)
+            is_pending_verification_new(context, finding_id)
             for finding_id in findings_ids[0]
         ]
     )
@@ -724,6 +724,29 @@ async def is_pending_verification(context: Any, finding_id: str) -> bool:
         == "REQUESTED"
     ]
     return len(reattack_requested) > 0 and await validate_finding(finding_id)
+
+
+async def is_pending_verification_new(
+    context: Any,
+    finding_id: str,
+) -> bool:
+    # Validate finding is not deleted
+    finding_loader = context.finding_new
+    if not finding_loader.load([finding_id]):
+        return False
+
+    finding_vulns_loader = context.finding_vulns_nzr
+    vulns = await finding_vulns_loader.load(finding_id)
+    open_vulns = vulns_utils.filter_open_vulns(vulns)
+    reattack_requested = [
+        vuln
+        for vuln in open_vulns
+        if cast(List[Dict[str, str]], vuln.get("historic_verification", [{}]))[
+            -1
+        ].get("status")
+        == "REQUESTED"
+    ]
+    return len(reattack_requested) > 0
 
 
 async def list_findings(
@@ -1201,7 +1224,7 @@ async def validate_finding(
     finding_id: Union[str, int] = 0,
     finding: Optional[Dict[str, FindingType]] = None,
 ) -> bool:
-    """Validate if a finding is not deleted."""
+    """Validate if a finding is not deleted"""
     if not finding:
         non_optional_finding = await findings_dal.get_finding(str(finding_id))
     return not is_deleted(finding if finding else non_optional_finding)
