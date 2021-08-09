@@ -27,7 +27,9 @@ export const HelpWidget: React.FC = (): JSX.Element => {
   });
 
   const openCalendly = useCallback((): void => {
-    openPopupWidget({ url: "https://calendly.com/jrestrepoatfluid/30min" });
+    openPopupWidget({
+      url: "https://calendly.com/fluidattacks/talk-to-an-expert",
+    });
   }, []);
 
   return (
