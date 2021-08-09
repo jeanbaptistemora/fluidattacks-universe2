@@ -119,9 +119,9 @@ describe("AddGroupModal component", (): void => {
       </Provider>
     );
     wrapper
-      .find({ name: "type" })
+      .find({ name: "service" })
       .find("select")
-      .simulate("change", { target: { value: "ONESHOT" } });
+      .simulate("change", { target: { value: "BLACK" } });
 
     const checkedLength = 1;
 

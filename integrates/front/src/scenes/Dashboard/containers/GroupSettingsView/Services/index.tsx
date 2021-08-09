@@ -7,11 +7,7 @@ import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import type { Dispatch } from "redux";
-import type {
-  EventWithDataHandler,
-  InjectedFormProps,
-  Validator,
-} from "redux-form";
+import type { InjectedFormProps, Validator } from "redux-form";
 import { Field, change, formValueSelector } from "redux-form";
 
 import {
@@ -103,11 +99,9 @@ const Services: React.FC<IServicesProps> = (
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Business Logic handlers
-  const handleSubscriptionTypeChange: EventWithDataHandler<
-    React.ChangeEvent<string>
-  > = useCallback(
-    (_0: React.ChangeEvent<string> | undefined, subsType: string): void => {
-      dispatch(change("editGroup", "machine", isContinuousType(subsType)));
+  const handleServiceTypeChange = useCallback(
+    (_0: React.ChangeEvent<string> | undefined, serviceType: string): void => {
+      dispatch(change("editGroup", "machine", serviceType === "WHITE"));
       dispatch(change("editGroup", "squad", true));
     },
     [dispatch]
@@ -205,7 +199,7 @@ const Services: React.FC<IServicesProps> = (
   ];
   const servicesList: IServicesDataSet[] = [
     {
-      canHave: isContinuousType(formValues.type),
+      canHave: formValues.service === "WHITE",
       id: "machineSwitch",
       onChange: handleMachineBtnChange,
       service: "machine",
@@ -222,11 +216,7 @@ const Services: React.FC<IServicesProps> = (
     {
       service: <p>{translate.t("searchFindings.servicesTable.type")}</p>,
       status: (
-        <Field
-          component={Dropdown}
-          name={"type"}
-          onChange={handleSubscriptionTypeChange}
-        >
+        <Field component={Dropdown} name={"type"}>
           <option value={"CONTINUOUS"}>
             {translate.t("searchFindings.servicesTable.continuous")}
           </option>
@@ -239,7 +229,11 @@ const Services: React.FC<IServicesProps> = (
     {
       service: <p>{translate.t("searchFindings.servicesTable.service")}</p>,
       status: (
-        <Field component={Dropdown} name={"service"}>
+        <Field
+          component={Dropdown}
+          name={"service"}
+          onChange={handleServiceTypeChange}
+        >
           <option value={"BLACK"}>
             {translate.t("searchFindings.servicesTable.black")}
           </option>

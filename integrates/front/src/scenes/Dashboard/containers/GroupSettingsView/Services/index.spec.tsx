@@ -84,7 +84,7 @@ describe("Services", (): void => {
             hasSquad: false,
             language: "EN",
             name: "unittesting",
-            service: "WHITE",
+            service: "BLACK",
             subscription: "OnEsHoT",
           },
         },

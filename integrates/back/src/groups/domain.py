@@ -483,12 +483,11 @@ async def add_group(  # pylint: disable=too-many-arguments,too-many-locals
     validate_field_length(description, 200)
 
     is_user_admin = user_role == "admin"
-    is_continuous_type = subscription == "continuous"
 
     success: bool = False
     if description.strip() and group_name.strip():
         validate_group_services_config(
-            is_continuous_type,
+            service,
             has_machine,
             has_squad,
             has_asm=True,
@@ -514,7 +513,7 @@ async def add_group(  # pylint: disable=too-many-arguments,too-many-locals
                 "historic_configuration": [
                     {
                         "date": datetime_utils.get_now_as_str(),
-                        "has_skims": has_machine,
+                        "has_skims": service == "WHITE" and has_machine,
                         "has_drills": has_squad,
                         "has_forces": True,
                         "requester": user_email,
@@ -686,7 +685,7 @@ async def update_group_attrs(
     validate_fields([comments])
     validate_string_length_between(comments, 0, 250)
     validate_group_services_config(
-        subscription == "continuous",
+        service,
         has_machine,
         has_squad,
         has_asm,
@@ -709,8 +708,8 @@ async def update_group_attrs(
                     {
                         "comments": comments,
                         "date": datetime_utils.get_now_as_str(),
-                        "has_skims": has_machine,
-                        "has_machine": has_machine,
+                        "has_skims": service == "WHITE" and has_machine,
+                        "has_machine": service == "WHITE" and has_machine,
                         "has_drills": has_squad,
                         "has_squad": has_squad,
                         "has_forces": True,
@@ -1240,12 +1239,12 @@ async def update_tags(
 
 
 def validate_group_services_config(
-    is_continuous_type: bool,
+    service: str,
     has_machine: bool,
     has_squad: bool,
     has_asm: bool,
 ) -> None:
-    if is_continuous_type:
+    if service == "WHITE":
         if has_squad:
             if not has_asm:
                 raise InvalidGroupServicesConfig(

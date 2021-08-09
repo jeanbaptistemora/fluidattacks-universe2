@@ -72,10 +72,6 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
   const { onClose, organization } = props;
   const { t } = useTranslation();
 
-  const isContinuousType: (subsType: string) => boolean = (
-    subsType: string
-  ): boolean => subsType === "CONTINUOUS";
-
   const handleMutationResult = (result: {
     addGroup: { success: boolean };
   }): void => {
@@ -157,10 +153,10 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
           onSubmit={handleSubmit}
         >
           {({ values, dirty, setFieldValue }): JSX.Element => {
-            const handleSubscriptionTypeChange = getSwitchButtonHandlers(
+            const handleServiceTypeChange = getSwitchButtonHandlers(
               values,
               setFieldValue,
-              "subscription"
+              "service"
             );
 
             const handleMachineBtnChange = getSwitchButtonHandlers(
@@ -270,11 +266,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         placement={"top"}
                       >
                         <FormGroup>
-                          <Field
-                            component={FormikDropdown}
-                            customChange={handleSubscriptionTypeChange}
-                            name={"type"}
-                          >
+                          <Field component={FormikDropdown} name={"type"}>
                             <option value={"CONTINUOUS"}>
                               {translate.t(
                                 "organization.tabs.groups.newGroup.type.continuous"
@@ -324,7 +316,11 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                       <ControlLabel>
                         {t("organization.tabs.groups.newGroup.service.title")}
                       </ControlLabel>
-                      <Field component={FormikDropdown} name={"service"}>
+                      <Field
+                        component={FormikDropdown}
+                        customChange={handleServiceTypeChange}
+                        name={"service"}
+                      >
                         <option value={"BLACK"}>
                           {t("organization.tabs.groups.newGroup.service.black")}
                         </option>
@@ -335,7 +331,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     </FormGroup>
                   </Col100>
                 </Row>
-                {isContinuousType(values.type) ? (
+                {values.service === "WHITE" ? (
                   <Row>
                     <Col40>
                       <TooltipWrapper

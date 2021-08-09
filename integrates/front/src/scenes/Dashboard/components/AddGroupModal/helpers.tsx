@@ -41,7 +41,7 @@ function handleGroupNameErrorHelper(
 
 const getSwitchButtonHandlers = (
   values: {
-    type: string;
+    service: string;
     squad: boolean;
     machine: boolean;
   },
@@ -50,10 +50,10 @@ const getSwitchButtonHandlers = (
     value: unknown,
     shouldValidate?: boolean | undefined
   ) => void,
-  scope: "machine" | "squad" | "subscription"
+  scope: "machine" | "service" | "squad"
 ): ((checked: boolean) => void) => {
-  function handleSubscriptionTypeChange(): void {
-    setFieldValue("machine", values.type !== "CONTINUOUS");
+  function handleServiceTypeChange(): void {
+    setFieldValue("machine", values.service !== "WHITE");
     setFieldValue("squad", true);
   }
 
@@ -73,8 +73,8 @@ const getSwitchButtonHandlers = (
     }
   }
 
-  if (scope === "subscription") {
-    return handleSubscriptionTypeChange;
+  if (scope === "service") {
+    return handleServiceTypeChange;
   } else if (scope === "machine") {
     return handleMachineBtnChange;
   }
