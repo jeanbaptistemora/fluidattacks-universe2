@@ -486,7 +486,7 @@
       a measuring stick for security tools,
       and as a baseline for weakness identification,
       mitigation, and prevention efforts.
-      The version used in this section is CWE List v4.4.
+      The version used in this section is CWE List v4.5.
   es:
     description: __empty__
   definitions:
@@ -1400,7 +1400,9 @@
       title: Limit authentication attempts
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
     "011-2_R1.2":
-      title: Procedures for protecting and securely handling BES Cyber System Information
+      title: >
+        Procedures for protecting and securely
+        handling BES Cyber System Information
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-011-2.pdf
     "011-2_R2.1":
       title: Prevent the unauthorized retrieval of BES Cyber System Information
