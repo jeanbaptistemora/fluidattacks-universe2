@@ -40,8 +40,26 @@ interface IQueryData {
         subtext: string;
         subtitle: string;
         tags: string;
+        title: string;
         writer: string;
       };
+    };
+    markdownRemark: {
+      html: string;
+      fields: {
+        slug: string;
+      };
+      frontmatter: {
+        banner: string;
+        description: string;
+        keywords: string;
+        slug: string;
+        subtext: string;
+        subtitle: string;
+        template: string;
+        title: string;
+      };
+      rawMarkdownBody: string;
     };
     site: {
       siteMetadata: {
