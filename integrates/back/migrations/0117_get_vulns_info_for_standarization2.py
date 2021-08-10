@@ -3,8 +3,8 @@
 Extract info related to vulns from a csv list for finding
 standarization purposes
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-08-10 at 10:03:07 UTC-05
+Finalization Time: 2021-08-10 at 10:03:53 UTC-05
 """
 
 from aioextensions import (
