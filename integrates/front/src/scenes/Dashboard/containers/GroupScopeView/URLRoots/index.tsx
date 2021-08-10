@@ -57,6 +57,9 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
           case "Exception - Active root with the same URL/branch already exists":
             msgError(t("group.scope.common.errors.duplicateUrl"));
             break;
+          case "Exception - Active root with the same Nickname already exists":
+            msgError(t("group.scope.common.errors.duplicateNickname"));
+            break;
           default:
             msgError(t("groupAlerts.errorTextsad"));
             Logger.error("Couldn't add url roots", error);
@@ -65,8 +68,14 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
     },
   });
   const handleUrlSubmit = useCallback(
-    async ({ url }: { url: string }): Promise<void> => {
-      await addUrlRoot({ variables: { groupName, url } });
+    async ({
+      nickname,
+      url,
+    }: {
+      nickname: string;
+      url: string;
+    }): Promise<void> => {
+      await addUrlRoot({ variables: { groupName, nickname, url } });
     },
     [addUrlRoot, groupName]
   );

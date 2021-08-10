@@ -858,6 +858,7 @@ async def test_add_url_root_black() -> None:
       mutation {
         addUrlRoot(
           groupName: "oneshottest",
+          nickname: "test_url"
           url: "https://fluidattacks.com/"
         ) {
           success
@@ -875,6 +876,7 @@ async def test_add_url_root_white() -> None:
       mutation {
         addUrlRoot(
           groupName: "unittesting",
+          nickname: "test_url"
           url: "https://fluidattacks.com/"
         ) {
           success
@@ -890,7 +892,11 @@ async def test_add_url_root_white() -> None:
 async def test_add_url_root_invalid_url() -> None:
     query = """
       mutation {
-        addUrlRoot(groupName: "oneshottest", url: "randomstring") {
+        addUrlRoot(
+          groupName: "oneshottest"
+          nickname: "test_url"
+          url: "randomstring"
+        ) {
           success
         }
       }
@@ -904,7 +910,11 @@ async def test_add_url_root_invalid_url() -> None:
 async def test_add_url_root_invalid_protocol() -> None:
     query = """
       mutation {
-        addUrlRoot(groupName: "oneshottest", url: "ssh://test.com:22") {
+        addUrlRoot(
+          groupName: "oneshottest"
+          nickname: "test_url"
+          url: "ssh://test.com:22"
+        ) {
           success
         }
       }
@@ -919,7 +929,11 @@ async def test_add_url_root_invalid_protocol() -> None:
 async def test_add_url_root_uniqueness() -> None:
     query = """
       mutation {
-        addUrlRoot(groupName: "oneshottest", url: "https://unique.com/") {
+        addUrlRoot(
+          groupName: "oneshottest"
+          nickname: "test_url_1"
+          url: "https://unique.com/"
+        ) {
           success
         }
       }

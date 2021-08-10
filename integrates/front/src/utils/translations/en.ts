@@ -617,6 +617,7 @@ export const enTranslations: ResourceKey = {
           invalid: "Invalid URL",
         },
         host: "Host",
+        nickname: "Nickname",
         path: "Path",
         port: "Port",
         protocol: "Protocol",

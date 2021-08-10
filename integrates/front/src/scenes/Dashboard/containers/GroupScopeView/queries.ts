@@ -123,8 +123,8 @@ const ADD_IP_ROOT = gql`
 `;
 
 const ADD_URL_ROOT = gql`
-  mutation AddUrlRoot($url: String!, $groupName: String!) {
-    addUrlRoot(url: $url, groupName: $groupName) {
+  mutation AddUrlRoot($url: String!, $groupName: String!, $nickname: String!) {
+    addUrlRoot(url: $url, groupName: $groupName, nickname: $nickname) {
       success
     }
   }

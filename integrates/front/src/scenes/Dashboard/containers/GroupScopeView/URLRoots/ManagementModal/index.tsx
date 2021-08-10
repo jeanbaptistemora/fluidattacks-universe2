@@ -16,10 +16,13 @@ import { FormikText } from "utils/forms/fields";
 
 interface IManagementModalProps {
   onClose: () => void;
-  onSubmit: (values: { url: string }) => Promise<void>;
+  onSubmit: (values: { nickname: string; url: string }) => Promise<void>;
 }
 
 const validations = object().shape({
+  nickname: string()
+    .required()
+    .matches(/^[a-zA-Z_0-9-]{1,128}$/u),
   url: string().required(),
 });
 
@@ -36,20 +39,27 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
       open={true}
     >
       <Formik
-        initialValues={{ url: "" }}
+        initialValues={{ nickname: "", url: "" }}
         name={"urlRoot"}
         onSubmit={onSubmit}
         validationSchema={validations}
       >
         {({ dirty, isSubmitting }): JSX.Element => (
           <Form>
-            <React.Fragment>
+            <div>
               <ControlLabel>
                 <RequiredField>{"*"}&nbsp;</RequiredField>
                 {t("group.scope.url.url")}
               </ControlLabel>
               <Field component={FormikText} name={"url"} type={"text"} />
-            </React.Fragment>
+            </div>
+            <div>
+              <ControlLabel>
+                <RequiredField>{"*"}&nbsp;</RequiredField>
+                {t("group.scope.url.nickname")}
+              </ControlLabel>
+              <Field component={FormikText} name={"nickname"} type={"text"} />
+            </div>
             <hr />
             <Row>
               <Col100>
