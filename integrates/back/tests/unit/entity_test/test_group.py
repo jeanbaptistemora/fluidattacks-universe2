@@ -754,7 +754,12 @@ async def test_add_git_root_uniqueness() -> None:
 async def test_add_ip_root_black() -> None:
     query = """
       mutation {
-        addIpRoot(address: "8.8.8.8", groupName: "oneshottest", port: 53) {
+        addIpRoot(
+          address: "8.8.8.8"
+          groupName: "oneshottest"
+          nickname: "test_ip"
+          port: 53
+        ) {
           success
         }
       }
@@ -768,7 +773,12 @@ async def test_add_ip_root_black() -> None:
 async def test_add_ip_root_white() -> None:
     query = """
       mutation {
-        addIpRoot(address: "8.8.8.8", groupName: "unittesting", port: 53) {
+        addIpRoot(
+          address: "8.8.8.8"
+          groupName: "unittesting"
+          nickname: "test_ip"
+          port: 53
+        ) {
           success
         }
       }
@@ -782,7 +792,12 @@ async def test_add_ip_root_white() -> None:
 async def test_add_ip_root_invalid_ip() -> None:
     query = """
       mutation {
-        addIpRoot(address: "randomstr", groupName: "oneshottest", port: 53) {
+        addIpRoot(
+          address: "randomstr"
+          groupName: "oneshottest"
+          nickname: "test_ip"
+          port: 53
+        ) {
           success
         }
       }
@@ -796,7 +811,12 @@ async def test_add_ip_root_invalid_ip() -> None:
 async def test_add_ip_root_invalid_port() -> None:
     query = """
       mutation {
-        addIpRoot(address: "8.8.8.8", groupName: "oneshottest", port: -2600) {
+        addIpRoot(
+          address: "8.8.8.8"
+          groupName: "oneshottest"
+          nickname: "test_ip"
+          port: -2600
+        ) {
           success
         }
       }
@@ -811,7 +831,12 @@ async def test_add_ip_root_invalid_port() -> None:
 async def test_add_ip_root_uniqueness() -> None:
     query = """
       mutation {
-        addIpRoot(address: "1.1.1.1", groupName: "oneshottest", port: 53) {
+        addIpRoot(
+          address: "1.1.1.1"
+          groupName: "oneshottest"
+          nickname: "test_ip_1"
+          port: 53
+        ) {
           success
         }
       }

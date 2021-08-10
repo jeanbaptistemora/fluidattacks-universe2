@@ -237,6 +237,13 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
     ):
         raise RepeatedValues()
 
+    nickname = kwargs["nickname"]
+    validations.validate_nickname(nickname)
+    group_roots_loader = context.group_roots
+    validations.validate_nickname_is_unique(
+        nickname, await group_roots_loader.load(group_name)
+    )
+
     root = IPRootItem(
         group_name=group_name,
         id=str(uuid4()),
@@ -244,7 +251,7 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
         state=IPRootState(
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
-            nickname="",
+            nickname=nickname,
             other=None,
             reason=None,
             status="ACTIVE",

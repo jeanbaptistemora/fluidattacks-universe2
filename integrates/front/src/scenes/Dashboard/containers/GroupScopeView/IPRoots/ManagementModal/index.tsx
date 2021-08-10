@@ -16,11 +16,18 @@ import { FormikText } from "utils/forms/fields";
 
 interface IManagementModalProps {
   onClose: () => void;
-  onSubmit: (values: { address: string; port: number }) => Promise<void>;
+  onSubmit: (values: {
+    address: string;
+    nickname: string;
+    port: number;
+  }) => Promise<void>;
 }
 
 const validations = object().shape({
   address: string().required(),
+  nickname: string()
+    .required()
+    .matches(/^[a-zA-Z_0-9-]{1,128}$/u),
   port: number().required(),
 });
 
@@ -37,7 +44,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
       open={true}
     >
       <Formik
-        initialValues={{ address: "", port: 0 }}
+        initialValues={{ address: "", nickname: "", port: 0 }}
         name={"ipRoot"}
         onSubmit={onSubmit}
         validationSchema={validations}
@@ -59,6 +66,13 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
                 </ControlLabel>
                 <Field component={FormikText} name={"port"} type={"number"} />
               </div>
+            </div>
+            <div>
+              <ControlLabel>
+                <RequiredField>{"*"}&nbsp;</RequiredField>
+                {t("group.scope.ip.nickname")}
+              </ControlLabel>
+              <Field component={FormikText} name={"nickname"} type={"text"} />
             </div>
             <hr />
             <Row>

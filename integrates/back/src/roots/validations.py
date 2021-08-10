@@ -76,9 +76,7 @@ def validate_nickname_is_unique(
     nickname: str, roots: Tuple[RootItem, ...], old_nickname: str = ""
 ) -> None:
     if nickname != old_nickname and nickname in {
-        root.state.nickname
-        for root in roots
-        if isinstance(root, GitRootItem) and root.state.status == "ACTIVE"
+        root.state.nickname for root in roots if root.state.status == "ACTIVE"
     }:
         raise RepeatedRootNickname()
 

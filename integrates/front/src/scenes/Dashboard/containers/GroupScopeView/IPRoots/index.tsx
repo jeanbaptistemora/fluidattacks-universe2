@@ -57,6 +57,9 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
           case "Exception - Active root with the same URL/branch already exists":
             msgError(t("group.scope.common.errors.duplicateUrl"));
             break;
+          case "Exception - Active root with the same Nickname already exists":
+            msgError(t("group.scope.common.errors.duplicateNickname"));
+            break;
           default:
             msgError(t("groupAlerts.errorTextsad"));
             Logger.error("Couldn't add ip roots", error);
@@ -67,12 +70,14 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
   const handleIpSubmit = useCallback(
     async ({
       address,
+      nickname,
       port,
     }: {
       address: string;
+      nickname: string;
       port: number;
     }): Promise<void> => {
-      await addIpRoot({ variables: { address, groupName, port } });
+      await addIpRoot({ variables: { address, groupName, nickname, port } });
     },
     [addIpRoot, groupName]
   );

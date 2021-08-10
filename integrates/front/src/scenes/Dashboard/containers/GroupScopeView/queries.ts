@@ -105,8 +105,18 @@ const UPDATE_GIT_ROOT: DocumentNode = gql`
 `;
 
 const ADD_IP_ROOT = gql`
-  mutation AddIpRoot($address: String!, $groupName: String!, $port: Int!) {
-    addIpRoot(address: $address, groupName: $groupName, port: $port) {
+  mutation AddIpRoot(
+    $address: String!
+    $groupName: String!
+    $nickname: String!
+    $port: Int!
+  ) {
+    addIpRoot(
+      address: $address
+      groupName: $groupName
+      nickname: $nickname
+      port: $port
+    ) {
       success
     }
   }
