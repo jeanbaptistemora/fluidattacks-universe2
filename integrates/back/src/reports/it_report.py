@@ -181,7 +181,7 @@ class ITReport:
 
     @classmethod
     def get_row_range(cls, row: int) -> List[str]:
-        return [f"A{row}", f"AX{row}"]
+        return [f"A{row}", f"AY{row}"]
 
     def parse_template(self) -> None:
         self.current_sheet.range(*self.get_row_range(self.row)).value = [
@@ -387,6 +387,10 @@ class ITReport:
         if "tag" in row:
             tags = row.get("tag", "")
 
+        stream = EMPTY
+        if "stream" in row:
+            stream = row.get("stream", "")
+
         self.row_values[vuln["#"]] = self.row - 1
         self.row_values[vuln["Related Finding"]] = str(finding.get("finding"))
         self.row_values[vuln["Finding Id"]] = str(
@@ -397,6 +401,7 @@ class ITReport:
         self.row_values[vuln["Specific"]] = specific
         self.row_values[vuln["Commit Hash"]] = commit
         self.row_values[vuln["Tags"]] = tags
+        self.row_values[vuln["Stream"]] = stream
 
         self.set_finding_data(finding, row)
         self.set_vuln_temporal_data(row)

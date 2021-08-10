@@ -32,6 +32,7 @@ class GroupVulnsReportHeader(GenericHeader):
         label="Vulnerability Id", width=50
     )
     WHERE: ColumnConfig = ColumnConfig(label="Where", width=45)
+    STREAM: ColumnConfig = ColumnConfig(label="Stream", width=45)
     SPECIFIC: ColumnConfig = ColumnConfig(label="Specific", width=38)
     DESCRIPTION: ColumnConfig = ColumnConfig(label="Description", width=95)
     STATUS: ColumnConfig = ColumnConfig(label="Status", width=13)
