@@ -760,6 +760,85 @@
     "347":
       title: Improper Verification of Cryptographic Signature
       link: https://cwe.mitre.org/data/definitions/347.html
+    "350":
+      title: >
+        Reliance on Reverse DNS Resolution
+        for a Security-Critical Action
+      link: https://cwe.mitre.org/data/definitions/350.html
+    "352":
+      title: Cross-Site Request Forgery (CSRF)
+      link: https://cwe.mitre.org/data/definitions/352.html
+    "353":
+      title: Missing Support for Integrity Check
+      link: https://cwe.mitre.org/data/definitions/353.html
+    "359":
+      title: >
+        Exposure of Private Personal
+        Information to an Unauthorized Actor
+      link: https://cwe.mitre.org/data/definitions/359.html
+    "362":
+      title: >
+        Concurrent Execution
+        using Shared Resource with
+        Improper Synchronization ('Race Condition')
+      link: https://cwe.mitre.org/data/definitions/362.html
+    "367":
+      title: Time-of-check Time-of-use (TOCTOU) Race Condition
+      link: https://cwe.mitre.org/data/definitions/367.html
+    "384":
+      title: Session Fixation
+      link: https://cwe.mitre.org/data/definitions/384.html
+    "390":
+      title: Detection of Error Condition Without Action
+      link: https://cwe.mitre.org/data/definitions/390.html
+    "396":
+      title: Declaration of Catch for Generic Exception
+      link: https://cwe.mitre.org/data/definitions/396.html
+    "397":
+      title: Declaration of Throws for Generic Exception
+      link: https://cwe.mitre.org/data/definitions/397.html
+    "400":
+      title: Uncontrolled Resource Consumption
+      link: https://cwe.mitre.org/data/definitions/400.html
+    "404":
+      title: Improper Resource Shutdown or Release
+      link: https://cwe.mitre.org/data/definitions/404.html
+    "409":
+      title: >
+        Improper Handling of Highly
+        Compressed Data (Data Amplification)
+      link: https://cwe.mitre.org/data/definitions/409.html
+    "419":
+      title: Unprotected Primary Channel
+      link: https://cwe.mitre.org/data/definitions/419.html
+    "434":
+      title: Unrestricted Upload of File with Dangerous Type
+      link: https://cwe.mitre.org/data/definitions/434.html
+    "444":
+      title: >
+        Inconsistent Interpretation of
+        HTTP Requests ('HTTP Request Smuggling')
+      link: https://cwe.mitre.org/data/definitions/444.html
+    "451":
+      title: User Interface (UI) Misrepresentation of Critical Information
+      link: https://cwe.mitre.org/data/definitions/451.html
+    "459":
+      title: Incomplete Cleanup
+      link: https://cwe.mitre.org/data/definitions/459.html
+    "474":
+      title: Use of Function with Inconsistent Implementations
+      link: https://cwe.mitre.org/data/definitions/474.html
+    "478":
+      title: Missing Default Case in Switch Statement
+      link: https://cwe.mitre.org/data/definitions/478.html
+    "494":
+      title: Download of Code Without Integrity Check
+      link: https://cwe.mitre.org/data/definitions/494.html
+    "497":
+      title: >
+        Exposure of Sensitive System Information
+        to an Unauthorized Control Sphere
+      link: https://cwe.mitre.org/data/definitions/497.html
   metadata: {}
 "005":
   title: ePrivacy Directive
