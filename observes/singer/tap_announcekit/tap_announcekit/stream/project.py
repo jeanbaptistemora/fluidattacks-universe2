@@ -5,6 +5,12 @@ from datetime import (
     datetime,
 )
 import logging
+from returns.io import (
+    IO,
+)
+from returns.unsafe import (
+    unsafe_perform_io,
+)
 from sgqlc.endpoint.http import (
     HTTPEndpoint,
 )
@@ -22,6 +28,7 @@ from tap_announcekit.api.gql_schema import (
     Project as RawProject,
 )
 from typing import (
+    Iterator,
     Optional,
 )
 
@@ -108,14 +115,28 @@ def to_proj(raw: RawProject) -> Project:
     return Project(draft)
 
 
-def get_project(client: HTTPEndpoint, proj_id: str) -> Project:
+def proj_query(proj_id: str) -> Operation:
     operation = Operation(gql_schema.Query)
     proj = operation.project(proj_id)
     # select fields
     for attr, _ in _Project.__annotations__.items():
         getattr(proj, attr)()
+    return operation
+
+
+def get_project(client: HTTPEndpoint, proj_id: str) -> IO[Project]:
+    operation = proj_query(proj_id)
     LOG.debug("operation: %s", operation)
     data = client(operation)
     LOG.debug("raw: %s", data)
     raw: RawProject = (operation + data).project
-    return to_proj(raw)
+    return IO(to_proj(raw))
+
+
+def get_projs(
+    client: HTTPEndpoint, projs: Iterator[str]
+) -> IO[Iterator[Project]]:
+    results = iter(
+        unsafe_perform_io(get_project(client, proj)) for proj in projs
+    )
+    return IO(results)
