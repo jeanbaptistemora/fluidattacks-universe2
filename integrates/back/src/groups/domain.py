@@ -857,11 +857,18 @@ async def get_vulnerabilities_with_pending_attacks(
     loaders: Any,
     group_name: str,
 ) -> int:
-    findings = await loaders.group_findings.load(group_name)
-    vulnerabilities = await loaders.finding_vulns_nzr.load_many_chained(
-        [str(finding["finding_id"]) for finding in findings]
-    )
-
+    if FI_API_STATUS == "migration":
+        findings_new: Tuple[
+            Finding, ...
+        ] = await loaders.group_findings_new.load(group_name)
+        vulnerabilities = await loaders.finding_vulns_nzr.load_many_chained(
+            [finding.id for finding in findings_new]
+        )
+    else:
+        findings = await loaders.group_findings.load(group_name)
+        vulnerabilities = await loaders.finding_vulns_nzr.load_many_chained(
+            [str(finding["finding_id"]) for finding in findings]
+        )
     return sum(
         [
             1
