@@ -1,8 +1,16 @@
 data "aws_caller_identity" "current" {}
 
+data "local_file" "init" {
+  filename = "../init.sh"
+}
+
 #
 # Constants
 #
+
+variable "fluidAttacksToken" {
+  default = "default-value"
+}
 
 variable "ci_cache_buckets" {
   default = {
