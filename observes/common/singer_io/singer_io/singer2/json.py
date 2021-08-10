@@ -178,6 +178,10 @@ class JsonFactory:
         raise UnexpectedResult("build_json not returned a JsonObj")
 
     @classmethod
+    def from_prim_dict(cls, raw: Dict[str, Primitive]) -> JsonObj:
+        return {key: JsonValue(val) for key, val in raw.items()}
+
+    @classmethod
     def from_any(cls, raw: Any) -> JsonObj:
         if not isinstance(raw, dict):
             raise InvalidType("build_json expects a dict instance")
