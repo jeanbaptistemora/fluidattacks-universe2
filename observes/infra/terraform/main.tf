@@ -23,3 +23,17 @@ provider "aws" {
   secret_key = var.aws_secret_key
   region     = var.region
 }
+
+module "external" {
+  source = "../../../makes/utils/terraform-modules/external-data"
+
+  aws_iam_roles = [
+    "observes_dev",
+    "observes_prod",
+    "makes_prod",
+  ]
+  aws_iam_users = [
+    "observes-dev",
+    "observes-prod",
+  ]
+}
