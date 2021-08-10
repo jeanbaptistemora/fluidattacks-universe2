@@ -2265,7 +2265,7 @@ export const enTranslations: ResourceKey = {
     remediatedAcceptedVuln:
       "How many vulnerabilities are remediated and accepted?",
     remediatedVuln: "How many vulnerabilities are remediated (closed)?",
-    topFindingsByVulnerabilities: "Top findings (by open vulnerabilities)",
+    topFindingsByVulnerabilities: "Top vulnerabilities",
     topOldestFindings: "Top oldest findings",
     totalVuln: "vulnerabilities",
     undefinedTitle: "Treatmentless by group",
