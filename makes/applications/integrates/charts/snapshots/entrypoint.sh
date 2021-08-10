@@ -2,8 +2,9 @@
 
 function main {
   local env="${1:-}"
+  local api_status="${2:-no-migration}"
 
-  source __envIntegratesEnv__ "${env}" \
+  source __envIntegratesEnv__ "${env}" "${api_status}" \
     && if test "${env}" = 'prod'; then
       DAEMON=true integrates-cache
     else

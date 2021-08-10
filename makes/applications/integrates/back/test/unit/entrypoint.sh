@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 
 function main {
+  local api_status="${1:-no-migration}"
   local pytest_args=(
     --cov 'back'
     --cov 'backend'
@@ -14,7 +15,7 @@ function main {
     --verbose
   )
 
-  source __envIntegratesEnv__ dev \
+  source __envIntegratesEnv__ dev "${api_status}" \
     && DAEMON=true integrates-cache \
     && DAEMON=true integrates-db \
     && DAEMON=true integrates-storage \

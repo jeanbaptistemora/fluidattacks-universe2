@@ -1,7 +1,9 @@
 # shellcheck shell=bash
 
 function main {
-  source __envIntegratesEnv__ dev \
+  local api_status="${1:-no-migration}"
+
+  source __envIntegratesEnv__ dev "${api_status}" \
     && pushd integrates \
     && python3 deploy/permissions_matrix/matrix.py \
     && popd \

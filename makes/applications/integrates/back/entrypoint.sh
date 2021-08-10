@@ -1,8 +1,8 @@
 # shellcheck shell=bash
 
 function main {
-  local api_status="${2:-}"
   local env="${1:-}"
+  local api_status="${2:-no-migration}"
   local host='0.0.0.0'
   local port='8001'
   local config=(
