@@ -588,6 +588,93 @@
     "190":
       title: Integer Overflow or Wraparound
       link: https://cwe.mitre.org/data/definitions/190.html
+    "200":
+      title: >
+        Exposure of Sensitive Information
+        to an Unauthorized Actor
+      link: https://cwe.mitre.org/data/definitions/200.html
+    "203":
+      title: Observable Discrepancy
+      link: https://cwe.mitre.org/data/definitions/203.html
+    "204":
+      title: Observable Response Discrepancy
+      link: https://cwe.mitre.org/data/definitions/204.html
+    "208":
+      title: Observable Timing Discrepancy
+      link: https://cwe.mitre.org/data/definitions/208.html
+    "209":
+      title: >
+        Generation of Error Message
+        Containing Sensitive Information
+      link: https://cwe.mitre.org/data/definitions/209.html
+    "210":
+      title: >
+        Self-generated Error Message
+        Containing Sensitive Information
+      link: https://cwe.mitre.org/data/definitions/210.html    
+    "212":
+      title: >
+        Improper Removal of Sensitive
+        Information Before Storage or Transfer
+      link: https://cwe.mitre.org/data/definitions/212.html
+    "213":
+      title: >
+        Exposure of Sensitive Information
+        Due to Incompatible Policies
+      link: https://cwe.mitre.org/data/definitions/213.html
+    "219":
+      title: Storage of File with Sensitive Data Under Web Root
+      link: https://cwe.mitre.org/data/definitions/219.html
+    "223":
+      title: Omission of Security-relevant Information
+      link: https://cwe.mitre.org/data/definitions/223.html
+    "226":
+      title: >
+        Sensitive Information in Resource
+        Not Removed Before Reuse
+      link: https://cwe.mitre.org/data/definitions/226.html
+    "233":
+      title: Improper Handling of Parameters
+      link: https://cwe.mitre.org/data/definitions/233.html
+    "235":
+      title: Improper Handling of Extra Parameters
+      link: https://cwe.mitre.org/data/definitions/235.html
+    "250":
+      title: Execution with Unnecessary Privileges
+      link: https://cwe.mitre.org/data/definitions/250.html
+    "256":
+      title: Plaintext Storage of a Password
+      link: https://cwe.mitre.org/data/definitions/256.html
+    "259":
+      title: Use of Hard-coded Password
+      link: https://cwe.mitre.org/data/definitions/259.html
+    "263":
+      title: Password Aging with Long Expiration
+      link: https://cwe.mitre.org/data/definitions/263.html
+    "267":
+      title: Privilege Defined With Unsafe Actions
+      link: https://cwe.mitre.org/data/definitions/267.html
+    "269":
+      title: Improper Privilege Management
+      link: https://cwe.mitre.org/data/definitions/269.html
+    "272":
+      title: Least Privilege Violation
+      link: https://cwe.mitre.org/data/definitions/272.html
+    "276":
+      title: Incorrect Default Permissions
+      link: https://cwe.mitre.org/data/definitions/276.html
+    "284":
+      title: Improper Access Control
+      link: https://cwe.mitre.org/data/definitions/284.html
+    "285":
+      title: Improper Authorization
+      link: https://cwe.mitre.org/data/definitions/285.html
+    "287":
+      title: Improper Authentication
+      link: https://cwe.mitre.org/data/definitions/287.html
+    "290":
+      title: Authentication Bypass by Spoofing
+      link: https://cwe.mitre.org/data/definitions/290.html
   metadata: {}
 "005":
   title: ePrivacy Directive
