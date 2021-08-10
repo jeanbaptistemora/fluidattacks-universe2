@@ -675,6 +675,91 @@
     "290":
       title: Authentication Bypass by Spoofing
       link: https://cwe.mitre.org/data/definitions/290.html
+    "294":
+      title: Authentication Bypass by Capture-replay
+      link: https://cwe.mitre.org/data/definitions/294.html
+    "295":
+      title: Improper Certificate Validation
+      link: https://cwe.mitre.org/data/definitions/295.html
+    "297":
+      title: Improper Validation of Certificate with Host Mismatch
+      link: https://cwe.mitre.org/data/definitions/297.html
+    "299":
+      title: Improper Check for Certificate Revocation
+      link: https://cwe.mitre.org/data/definitions/299.html
+    "300":
+      title: Channel Accessible by Non-Endpoint
+      link: https://cwe.mitre.org/data/definitions/300.html
+    "306":
+      title: Missing Authentication for Critical Function
+      link: https://cwe.mitre.org/data/definitions/306.html
+    "307":
+      title: Improper Restriction of Excessive Authentication Attempts
+      link: https://cwe.mitre.org/data/definitions/307.html
+    "308":
+      title: Use of Single-factor Authentication
+      link: https://cwe.mitre.org/data/definitions/308.html
+    "311":
+      title: Missing Encryption of Sensitive Data
+      link: https://cwe.mitre.org/data/definitions/311.html
+    "319":
+      title: Cleartext Transmission of Sensitive Information
+      link: https://cwe.mitre.org/data/definitions/319.html
+    "321":
+      title: Use of Hard-coded Cryptographic Key
+      link: https://cwe.mitre.org/data/definitions/321.html
+    "322":
+      title: Key Exchange without Entity Authentication
+      link: https://cwe.mitre.org/data/definitions/322.html
+    "323":
+      title: Reusing a Nonce, Key Pair in Encryption
+      link: https://cwe.mitre.org/data/definitions/323.html
+    "324":
+      title: Use of a Key Past its Expiration Date
+      link: https://cwe.mitre.org/data/definitions/324.html
+    "326":
+      title: Inadequate Encryption Strength
+      link: https://cwe.mitre.org/data/definitions/326.html
+    "327":
+      title: Use of a Broken or Risky Cryptographic Algorithm
+      link: https://cwe.mitre.org/data/definitions/327.html
+    "330":
+      title: Use of Insufficiently Random Values
+      link: https://cwe.mitre.org/data/definitions/330.html
+    "331":
+      title: Insufficient Entropy
+      link: https://cwe.mitre.org/data/definitions/331.html
+    "332":
+      title: Insufficient Entropy in PRNG
+      link: https://cwe.mitre.org/data/definitions/332.html
+    "333":
+      title: Improper Handling of Insufficient Entropy in TRNG
+      link: https://cwe.mitre.org/data/definitions/333.html
+    "334":
+      title: Small Space of Random Values
+      link: https://cwe.mitre.org/data/definitions/334.html
+    "335":
+      title: >
+        Incorrect Usage of Seeds in
+        Pseudo-Random Number Generator (PRNG)
+      link: https://cwe.mitre.org/data/definitions/335.html
+    "338":
+      title: >
+        Use of Cryptographically Weak
+        Pseudo-Random Number Generator (PRNG)
+      link: https://cwe.mitre.org/data/definitions/338.html
+    "340":
+      title: Generation of Predictable Numbers or Identifiers
+      link: https://cwe.mitre.org/data/definitions/340.html
+    "345":
+      title: Insufficient Verification of Data Authenticity
+      link: https://cwe.mitre.org/data/definitions/345.html
+    "346":
+      title: Origin Validation Error
+      link: https://cwe.mitre.org/data/definitions/346.html
+    "347":
+      title: Improper Verification of Cryptographic Signature
+      link: https://cwe.mitre.org/data/definitions/347.html
   metadata: {}
 "005":
   title: ePrivacy Directive
