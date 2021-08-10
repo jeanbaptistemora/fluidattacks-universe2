@@ -952,6 +952,58 @@
     "749":
       title: Exposed Dangerous Method or Function
       link: https://cwe.mitre.org/data/definitions/749.html
+    "759":
+      title: Use of a One-Way Hash without a Salt
+      link: https://cwe.mitre.org/data/definitions/759.html
+    "760":
+      title: Use of a One-Way Hash with a Predictable Salt
+      link: https://cwe.mitre.org/data/definitions/760.html
+    "770":
+      title: Allocation of Resources Without Limits or Throttling
+      link: https://cwe.mitre.org/data/definitions/770.html
+    "778":
+      title: Insufficient Logging
+      link: https://cwe.mitre.org/data/definitions/778.html
+    "779":
+      title: Logging of Excessive Data
+      link: https://cwe.mitre.org/data/definitions/779.html
+    "804":
+      title: Guessable CAPTCHA
+      link: https://cwe.mitre.org/data/definitions/804.html
+    "829":
+      title: Inclusion of Functionality from Untrusted Control Sphere
+      link: https://cwe.mitre.org/data/definitions/829.html
+    "830":
+      title: Inclusion of Web Functionality from an Untrusted Source
+      link: https://cwe.mitre.org/data/definitions/830.html
+    "915":
+      title: >
+        Improperly Controlled Modification
+        of Dynamically-Determined Object Attributes
+      link: https://cwe.mitre.org/data/definitions/915.html
+    "916":
+      title: Use of Password Hash With Insufficient Computational Effort
+      link: https://cwe.mitre.org/data/definitions/916.html
+    "918":
+      title: Server-Side Request Forgery (SSRF)
+      link: https://cwe.mitre.org/data/definitions/918.html
+    "922":
+      title: Insecure Storage of Sensitive Information
+      link: https://cwe.mitre.org/data/definitions/922.html
+    "923":
+      title: >
+        Improper Restriction of Communication
+        Channel to Intended Endpoints
+      link: https://cwe.mitre.org/data/definitions/923.html
+    "943":
+      title: Improper Neutralization of Special Elements in Data Query Logic
+      link: https://cwe.mitre.org/data/definitions/943.html
+    "1004":
+      title: Sensitive Cookie Without 'HttpOnly' Flag
+      link: https://cwe.mitre.org/data/definitions/1004.html
+    "1021":
+      title: Improper Restriction of Rendered UI Layers or Frames
+      link: https://cwe.mitre.org/data/definitions/1021.html
   metadata: {}
 "005":
   title: ePrivacy Directive
