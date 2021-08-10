@@ -15,6 +15,7 @@ from lib_ssl.ssl_connection import (
     ssl_connect,
 )
 from lib_ssl.suites import (
+    get_suite_by_openssl_name,
     get_suites_with_cbc,
     get_suites_with_pfs,
     get_weak_suites,
@@ -69,13 +70,20 @@ def tls_connect(
 
     with ssl_connect(ssl_settings) as ssl_socket:
         if ssl_socket is not None:
+            cipher_info = ssl_socket.cipher()
+
+            if cipher_info:
+                openssl_name, _, _ = cipher_info
+            else:
+                openssl_name = "UNKNOWN"
+
             return SSLServerResponse(
                 record=SSLRecord.HANDSHAKE,
                 version_id=v_id,
                 handshake=SSLServerHandshake(
                     record=SSLHandshakeRecord.SERVER_HELLO,
                     version_id=v_id,
-                    cipher_suite=SSLSpecialSuite.UNKNOWN.value,
+                    cipher_suite=get_suite_by_openssl_name(openssl_name),
                 ),
             )
     return None
@@ -353,7 +361,7 @@ def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                         ),
                     },
                 ),
-                server_response=None,
+                server_response=ctx.get_tls_response(SSLVersionId.tlsv1_0),
                 line=SSLSnippetLine.VERSIONS,
                 finding=core_model.FindingEnum.F016,
             )
@@ -382,7 +390,7 @@ def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                         ),
                     },
                 ),
-                server_response=None,
+                server_response=ctx.get_tls_response(SSLVersionId.tlsv1_1),
                 line=SSLSnippetLine.VERSIONS,
                 finding=core_model.FindingEnum.F016,
             )
@@ -654,7 +662,7 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
             _create_ssl_vuln(
                 check="tlsv1_3_downgrade",
                 ssl_settings=ssl_settings,
-                server_response=None,
+                server_response=ctx.get_tls_response(v_id),
                 line=SSLSnippetLine.RESPONSE,
                 finding=core_model.FindingEnum.F016,
                 check_kwargs={"version": v_name},
@@ -774,7 +782,7 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                                 tls_version=v_id,
                                 intention=intention,
                             ),
-                            server_response=None,
+                            server_response=response,
                             line=SSLSnippetLine.RESPONSE,
                             finding=core_model.FindingEnum.F016,
                         )

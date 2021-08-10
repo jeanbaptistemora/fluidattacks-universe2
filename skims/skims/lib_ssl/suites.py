@@ -6168,6 +6168,14 @@ class SSLSpecialSuite(Enum):
     )
 
 
+def get_suite_by_openssl_name(name: str) -> SSLSuiteInfo:
+    for normal_suite in SSLCipherSuite:
+        if name == normal_suite.value.openssl_name:
+            return normal_suite.value
+
+    return SSLSpecialSuite.UNKNOWN.value
+
+
 def get_suite_by_code(code: Tuple[int, int]) -> SSLSuiteInfo:
     for normal_suite in SSLCipherSuite:
         if code == normal_suite.value.code:

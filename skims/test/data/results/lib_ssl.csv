@@ -62,28 +62,38 @@ F133,inputs,localhost:4446 (namespace),server refuses connections with PFS suppo
      ^ Col 0
 "
 F016,inputs,localhost:4446 (namespace),server accepts connections with TLSv1.0,326,"home,socket-send,socket-response",016. Insecure encryption algorithm - SSL/TLS,server accepts connections with TLSv1.0,"
-  1 | Target: localhost:4446
-  2 | Intention: check if server accepts connections with TLSv1.0
-> 3 | TLS versions on server: TLSv1.0, TLSv1.1
-  4 | Request:
-  5 |     fallback scsv: False
-  6 |     TLS version: TLSv1.0
-  7 | Response:
-  8 |     ---
-  9 | Result: server accepts connections with TLSv1.0
-    ^ Col 0
+   1 | Target: localhost:4446
+   2 | Intention: check if server accepts connections with TLSv1.0
+>  3 | TLS versions on server: TLSv1.0, TLSv1.1
+   4 | Request:
+   5 |     fallback scsv: False
+   6 |     TLS version: TLSv1.0
+   7 | Response:
+   8 |     version: TLSv1.0
+   9 |     Selected cipher suite:
+  10 |         iana name: TLS_RSA_WITH_AES_256_CBC_SHA
+  11 |         openssl name: AES256-SHA
+  12 |         code: 0x0 0x35
+  13 |         vulnerabilities: NO_PFS, CBC, SHA
+  14 | Result: server accepts connections with TLSv1.0
+     ^ Col 0
 "
 F016,inputs,localhost:4446 (namespace),server accepts connections with TLSv1.1,326,"home,socket-send,socket-response",016. Insecure encryption algorithm - SSL/TLS,server accepts connections with TLSv1.1,"
-  1 | Target: localhost:4446
-  2 | Intention: check if server accepts connections with TLSv1.1
-> 3 | TLS versions on server: TLSv1.0, TLSv1.1
-  4 | Request:
-  5 |     fallback scsv: False
-  6 |     TLS version: TLSv1.1
-  7 | Response:
-  8 |     ---
-  9 | Result: server accepts connections with TLSv1.1
-    ^ Col 0
+   1 | Target: localhost:4446
+   2 | Intention: check if server accepts connections with TLSv1.1
+>  3 | TLS versions on server: TLSv1.0, TLSv1.1
+   4 | Request:
+   5 |     fallback scsv: False
+   6 |     TLS version: TLSv1.1
+   7 | Response:
+   8 |     version: TLSv1.1
+   9 |     Selected cipher suite:
+  10 |         iana name: TLS_RSA_WITH_AES_256_CBC_SHA
+  11 |         openssl name: AES256-SHA
+  12 |         code: 0x0 0x35
+  13 |         vulnerabilities: NO_PFS, CBC, SHA
+  14 | Result: server accepts connections with TLSv1.1
+     ^ Col 0
 "
 F016,inputs,localhost:4446 (namespace),server refuses connections with TLSv1.2 or TLSv1.3,326,"home,socket-send,socket-response",016. Insecure encryption algorithm - SSL/TLS,server refuses connections with TLSv1.2 or TLSv1.3,"
   1 | Target: localhost:4446
