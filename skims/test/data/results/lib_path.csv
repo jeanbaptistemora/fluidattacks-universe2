@@ -5997,6 +5997,78 @@ F073,lines,namespace/skims/test/data/lib_root/f073/test.go,31,478,skims,073. Con
   37 | }
      ^ Col 0
 "
+F073,lines,namespace/skims/test/data/lib_root/f073/kotlin.kt,5,478,skims,073. Conditional statement without a default option,When without else in skims/test/data/lib_root/f073/kotlin.kt,"
+   1 | package f073
+   2 |
+   3 | fun main() {
+   4 |     val x = 1
+>  5 |     when (x) {
+   6 |         1 -> print(""Case 1"")
+   7 |         2 -> print(""Case 2"")
+   8 |     }
+   9 |
+  10 |     when (x) {
+  11 |         3 -> print(""Case 3"")
+  12 |         else -> print(""Default case 1"")
+  13 |     }
+  14 |
+  15 |     when (x) {
+  16 |         4 -> print(""Empty else block"")
+  17 |         else -> {}
+  18 |     }
+  19 |
+  20 |     when (x) {
+  21 |         4 -> print(""Empty else block with comments"")
+     ^ Col 0
+"
+F073,lines,namespace/skims/test/data/lib_root/f073/kotlin.kt,15,478,skims,073. Conditional statement without a default option,When without else in skims/test/data/lib_root/f073/kotlin.kt,"
+   5 |     when (x) {
+   6 |         1 -> print(""Case 1"")
+   7 |         2 -> print(""Case 2"")
+   8 |     }
+   9 |
+  10 |     when (x) {
+  11 |         3 -> print(""Case 3"")
+  12 |         else -> print(""Default case 1"")
+  13 |     }
+  14 |
+> 15 |     when (x) {
+  16 |         4 -> print(""Empty else block"")
+  17 |         else -> {}
+  18 |     }
+  19 |
+  20 |     when (x) {
+  21 |         4 -> print(""Empty else block with comments"")
+  22 |         else -> {
+  23 |             // Comment
+  24 |         }
+  25 |     }
+     ^ Col 0
+"
+F073,lines,namespace/skims/test/data/lib_root/f073/kotlin.kt,20,478,skims,073. Conditional statement without a default option,When without else in skims/test/data/lib_root/f073/kotlin.kt,"
+  10 |     when (x) {
+  11 |         3 -> print(""Case 3"")
+  12 |         else -> print(""Default case 1"")
+  13 |     }
+  14 |
+  15 |     when (x) {
+  16 |         4 -> print(""Empty else block"")
+  17 |         else -> {}
+  18 |     }
+  19 |
+> 20 |     when (x) {
+  21 |         4 -> print(""Empty else block with comments"")
+  22 |         else -> {
+  23 |             // Comment
+  24 |         }
+  25 |     }
+  26 |
+  27 |     when (x) {
+  28 |         5 -> print(""Case 5"")
+  29 |         else -> {
+  30 |             print(""Default case 2"")
+     ^ Col 0
+"
 F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,15,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
    2 |  System;

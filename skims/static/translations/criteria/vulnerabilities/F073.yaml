@@ -1,6 +1,9 @@
 src.lib_path.f073.switch_no_default:
   en: Switch without default in {path}
   es: Switch sin caso por defecto en {path}
+src.lib_path.f073.when_no_else:
+  en: When without else in {path}
+  es: When sin else en {path}
 F073.description:
   en: >
     The source code has conditional statements without a default option.
