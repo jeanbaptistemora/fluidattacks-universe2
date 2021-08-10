@@ -22,6 +22,9 @@ from api import (
 from api.schema import (
     SCHEMA,
 )
+from ariadne.validation import (
+    cost_validator,
+)
 import asyncio
 import bugsnag
 from bugsnag.asgi import (
@@ -37,6 +40,9 @@ from custom_exceptions import (
 )
 from decorators import (
     authenticate_session,
+)
+from graphql.validation.rules import (
+    ASTValidationRule,
 )
 from group_access import (
     domain as group_access_domain,
@@ -86,6 +92,10 @@ from starlette.routing import (
 )
 from starlette.staticfiles import (
     StaticFiles,
+)
+from typing import (
+    Dict,
+    List,
 )
 from users import (
     domain as users_domain,
@@ -181,11 +191,31 @@ def start_queue_daemon() -> None:
     asyncio.create_task(queue_daemon())
 
 
+def get_cost_rules(
+    _context_value: Dict, _document: Dict, data: Dict
+) -> List[ASTValidationRule]:
+    return [
+        cost_validator(
+            maximum_cost=1000,
+            default_complexity=0,
+            default_cost=0,
+            variables=data.get("variables"),
+        )
+    ]
+
+
 STARLETTE_APP = Starlette(
     debug=DEBUG,
     routes=[
         Route("/", templates.login),
-        Route("/api", IntegratesAPI(SCHEMA, debug=DEBUG)),
+        Route(
+            "/api",
+            IntegratesAPI(
+                SCHEMA,
+                debug=DEBUG,
+                validation_rules=get_cost_rules,
+            ),
+        ),
         Route("/authz_azure", auth.authz_azure),
         Route("/authz_bitbucket", auth.authz_bitbucket),
         Route("/authz_google", auth.authz_google),
