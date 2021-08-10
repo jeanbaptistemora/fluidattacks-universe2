@@ -89,7 +89,11 @@ def get_request_skeleton_es() -> str:
 
 def get_good_response_skeleton_es() -> str:
     content = "    versión: {version}\n"
-    content += "    suite de cifrado: {cipher_suite}\n"
+    content += "    suite de cifrado:\n"
+    content += "        nombre iana: {iana_name}\n"
+    content += "        nombre openssl: {openssl_name}\n"
+    content += "        código: {code}\n"
+    content += "        vulnerabilidades: {vulns}\n"
     return content
 
 
