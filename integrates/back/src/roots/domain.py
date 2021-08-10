@@ -244,6 +244,7 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
         state=IPRootState(
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
+            nickname="",
             other=None,
             reason=None,
             status="ACTIVE",
@@ -288,6 +289,7 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
         state=URLRootState(
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
+            nickname="",
             other=None,
             reason=None,
             status="ACTIVE",
@@ -492,6 +494,7 @@ async def activate_root(
                 state=IPRootState(
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
+                    nickname=root.state.nickname,
                     other=None,
                     reason=None,
                     status=new_status,
@@ -514,6 +517,7 @@ async def activate_root(
                 state=URLRootState(
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
+                    nickname=root.state.nickname,
                     other=None,
                     reason=None,
                     status=new_status,
@@ -566,6 +570,7 @@ async def deactivate_root(
                 state=IPRootState(
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
+                    nickname=root.state.nickname,
                     other=_other,
                     reason=reason,
                     status=new_status,
@@ -579,6 +584,7 @@ async def deactivate_root(
                 state=URLRootState(
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
+                    nickname=root.state.nickname,
                     other=_other,
                     reason=reason,
                     status=new_status,

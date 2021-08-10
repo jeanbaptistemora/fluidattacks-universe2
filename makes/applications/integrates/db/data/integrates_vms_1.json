@@ -335,6 +335,9 @@
           "modified_date": {
             "S": "2020-11-19T13:44:37+00:00"
           },
+          "nickname": {
+            "S": "ip_root_1"
+          },
           "status": {
             "S": "ACTIVE"
           }
@@ -355,6 +358,9 @@
           },
           "modified_date": {
             "S": "2020-11-19T13:44:37+00:00"
+          },
+          "nickname": {
+            "S": "ip_root_1"
           },
           "status": {
             "S": "ACTIVE"
@@ -404,6 +410,9 @@
           "modified_date": {
             "S": "2020-11-19T13:45:55+00:00"
           },
+          "nickname": {
+            "S": "url_root_1"
+          },
           "status": {
             "S": "ACTIVE"
           }
@@ -424,6 +433,9 @@
           },
           "modified_date": {
             "S": "2020-11-19T13:45:55+00:00"
+          },
+          "nickname": {
+            "S": "url_root_1"
           },
           "status": {
             "S": "ACTIVE"

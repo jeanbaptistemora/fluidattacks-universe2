@@ -64,6 +64,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 state=IPRootState(
                     modified_by=test_email,
                     modified_date=test_date,
+                    nickname="",
                     other=None,
                     reason=None,
                     status=test_status,
@@ -82,6 +83,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 state=URLRootState(
                     modified_by=test_email,
                     modified_date=test_date,
+                    nickname="",
                     other=None,
                     reason=None,
                     status=test_status,
@@ -125,6 +127,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 state=IPRootState(
                     modified_by=test_email,
                     modified_date=test_date,
+                    nickname="",
                     other=None,
                     reason=None,
                     status=test_status,
@@ -143,6 +146,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 state=URLRootState(
                     modified_by=test_email,
                     modified_date=test_date,
+                    nickname="",
                     other=None,
                     reason=None,
                     status=test_status,

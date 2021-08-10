@@ -48,6 +48,7 @@ class IPRootMetadata(NamedTuple):
 class IPRootState(NamedTuple):
     modified_by: str
     modified_date: str
+    nickname: str
     other: Optional[str]
     reason: Optional[str]
     status: str
@@ -71,6 +72,7 @@ class URLRootMetadata(NamedTuple):
 class URLRootState(NamedTuple):
     modified_by: str
     modified_date: str
+    nickname: str
     other: Optional[str]
     reason: Optional[str]
     status: str
