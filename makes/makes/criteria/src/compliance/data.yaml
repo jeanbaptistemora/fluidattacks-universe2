@@ -890,6 +890,68 @@
     "598":
       title: Use of GET Request Method With Sensitive Query Strings
       link: https://cwe.mitre.org/data/definitions/598.html
+    "601":
+      title: URL Redirection to Untrusted Site ('Open Redirect')
+      link: https://cwe.mitre.org/data/definitions/601.html
+    "602":
+      title: Client-Side Enforcement of Server-Side Security
+      link: https://cwe.mitre.org/data/definitions/602.html
+    "611":
+      title: Improper Restriction of XML External Entity Reference
+      link: https://cwe.mitre.org/data/definitions/611.html
+    "613":
+      title: Insufficient Session Expiration
+      link: https://cwe.mitre.org/data/definitions/613.html
+    "614":
+      title: Sensitive Cookie in HTTPS Session Without 'Secure' Attribute
+      link: https://cwe.mitre.org/data/definitions/614.html
+    "615":
+      title: Inclusion of Sensitive Information in Source Code Comments
+      link: https://cwe.mitre.org/data/definitions/615.html
+    "620":
+      title: Unverified Password Change
+      link: https://cwe.mitre.org/data/definitions/620.html
+    "639":
+      title: Authorization Bypass Through User-Controlled Key
+      link: https://cwe.mitre.org/data/definitions/639.html
+    "640":
+      title: Weak Password Recovery Mechanism for Forgotten Password
+      link: https://cwe.mitre.org/data/definitions/640.html
+    "641":
+      title: Improper Restriction of Names for Files and Other Resources
+      link: https://cwe.mitre.org/data/definitions/641.html
+    "642":
+      title: External Control of Critical State Data
+      link: https://cwe.mitre.org/data/definitions/642.html
+    "643":
+      title: >
+        Improper Neutralization of Data
+        within XPath Expressions ('XPath Injection')
+      link: https://cwe.mitre.org/data/definitions/643.html
+    "644":
+      title: Improper Neutralization of HTTP Headers for Scripting Syntax
+      link: https://cwe.mitre.org/data/definitions/644.html
+    "645":
+      title: Overly Restrictive Account Lockout Mechanism
+      link: https://cwe.mitre.org/data/definitions/645.html
+    "646":
+      title: Reliance on File Name or Extension of Externally-Supplied File
+      link: https://cwe.mitre.org/data/definitions/646.html
+    "651":
+      title: Exposure of WSDL File Containing Sensitive Information
+      link: https://cwe.mitre.org/data/definitions/651.html
+    "693":
+      title: Protection Mechanism Failure
+      link: https://cwe.mitre.org/data/definitions/693.html
+    "710":
+      title: Improper Adherence to Coding Standards
+      link: https://cwe.mitre.org/data/definitions/710.html
+    "732":
+      title: Incorrect Permission Assignment for Critical Resource
+      link: https://cwe.mitre.org/data/definitions/732.html
+    "749":
+      title: Exposed Dangerous Method or Function
+      link: https://cwe.mitre.org/data/definitions/749.html
   metadata: {}
 "005":
   title: ePrivacy Directive
