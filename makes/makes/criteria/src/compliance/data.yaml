@@ -51,7 +51,9 @@
       title: Inducing Account Lockout
       link: https://capec.mitre.org/data/definitions/2.html
     "3":
-      title: Using Leading 'Ghost' Character Sequences to Bypass Input Filters
+      title: >
+        Using Leading 'Ghost' Character Sequences
+        to Bypass Input Filters
       link: https://capec.mitre.org/data/definitions/3.html
     "4":
       title: Using Alternative IP Address Encodings
@@ -114,7 +116,9 @@
       title: Fuzzing
       link: https://capec.mitre.org/data/definitions/28.html
     "29":
-      title: Leveraging Time-of-Check and Time-of-Use (TOCTOU) Race Conditions
+      title: >
+        Leveraging Time-of-Check and
+        Time-of-Use (TOCTOU) Race Conditions
       link: https://capec.mitre.org/data/definitions/29.html
     "30":
       title: Hijacking a Privileged Thread of Execution
@@ -144,7 +148,9 @@
       title: Manipulating Opaque Client-based Data Tokens
       link: https://capec.mitre.org/data/definitions/39.html
     "41":
-      title: Using Meta-characters in E-mail Headers to Inject Malicious Payloads
+      title: >
+        Using Meta-characters in E-mail
+        Headers to Inject Malicious Payloads
       link: https://capec.mitre.org/data/definitions/41.html
     "42":
       title: MIME Conversion
@@ -331,7 +337,9 @@
       title: Use Unique Passwords
       link: https://www.cisecurity.org/controls/
     "4.5":
-      title: Use Use Multi-Factor Authentication for All Administrative Access
+      title: >
+        Use Use Multi-Factor Authentication
+        for All Administrative Access
       link: https://www.cisecurity.org/controls/
     "4.7":
       title: Limit Access to Scripting Tools
@@ -358,7 +366,9 @@
       title: Enable Detailed Logging
       link: https://www.cisecurity.org/controls/
     "7.2":
-      title: Disable Unnecessary or Unauthorized Browser or Email Client Plugins
+      title: >
+        Disable Unnecessary or Unauthorized
+        Browser or Email Client Plugins
       link: https://www.cisecurity.org/controls/
     "7.7":
       title: Use of DNS Filtering Services
@@ -412,10 +422,14 @@
       title: Encrypt Sensitive Information at Rest
       link: https://www.cisecurity.org/controls/
     "15.7":
-      title: Leverage the Advanced Encryption Standard (AES) to Encrypt Wireless Data
+      title: >
+        Leverage the Advanced Encryption Standard
+        (AES) to Encrypt Wireless Data
       link: https://www.cisecurity.org/controls/
     "15.8":
-      title: Use Wireless Authentication Protocols That Require Mutual, Multi-Factor Authentication
+      title: >
+        Use Wireless Authentication Protocols
+        That Require Mutual, Multi-Factor Authentication
       link: https://www.cisecurity.org/controls/
     "16.4":
       title: Encrypt or Hash All Authentication Credentials
@@ -439,7 +453,9 @@
       title: Establish Secure Coding Practices
       link: https://www.cisecurity.org/controls/
     "18.2":
-      title: Ensure That Explicit Error Checking Is Performed for All In-House Developed Software
+      title: >
+        Ensure That Explicit Error Checking
+        Is Performed for All In-House Developed Software
       link: https://www.cisecurity.org/controls/
     "18.3":
       title: Verify That Acquired Software Is Still Supported
@@ -448,7 +464,9 @@
       title: Verify That Acquired Software Is Still Supported
       link: https://www.cisecurity.org/controls/
     "18.5":
-      title: Use only Standardized and Extensively Reviewed Encryption Algorithms
+      title: >
+        Use only Standardized and
+        Extensively Reviewed Encryption Algorithms
       link: https://www.cisecurity.org/controls/
     "18.10":
       title: Deploy Web Application Firewalls
@@ -518,11 +536,11 @@
   es:
     description: __empty__
   definitions:
-    "5_1_e":
-      title: Principles relating to processing of personal data.(1)(e)
+    "5_1e":
+      title: Principles relating to processing of personal data
       link: https://gdpr-info.eu/art-5-gdpr/
-    "5_1_f":
-      title: Principles relating to processing of personal data.(1)(f)
+    "5_1f":
+      title: Principles relating to processing of personal data
       link: https://gdpr-info.eu/art-5-gdpr/
     "7_1":
       title: Conditions for consent.(1)
@@ -531,34 +549,34 @@
       title: Conditions for consent.(3)
       link: https://gdpr-info.eu/art-7-gdpr/
     "11_2":
-      title: Processing which does not require identification.(2)
+      title: Processing which does not require identification
       link: https://gdpr-info.eu/art-11-gdpr/
     "13_1_3":
       title: >
         Information to be provided
         where personal data are collected
-        from the data subject.(1-3)
+        from the data subject
       link: https://gdpr-info.eu/art-13-gdpr/
     "14_1_4":
       title: >
         Information to be provided
         where personal data have not been
-        obtained from the data subject.(1-4)
+        obtained from the data subject
       link: https://gdpr-info.eu/art-14-gdpr/
-    "15_1_ag":
-      title: Right of access by the data subject.(1)(a-g)
+    "15_1ag":
+      title: Right of access by the data subject
       link: https://gdpr-info.eu/art-15-gdpr/
     "15_1":
-      title: Right of access by the data subject.(1)
+      title: Right of access by the data subject
       link: https://gdpr-info.eu/art-15-gdpr/
     "16_1":
-      title: Right to rectification.(1)
+      title: Right to rectification
       link: https://gdpr-info.eu/art-16-gdpr/
     "17_1":
-      title: Right to erasure (‘right to be forgotten').(1)
+      title: Right to erasure (‘right to be forgotten')
       link: https://gdpr-info.eu/art-17-gdpr/
     "18_1":
-      title: Right to restriction of processing.(1)
+      title: Right to restriction of processing
       link: https://gdpr-info.eu/art-18-gdpr/
     "19":
       title: >
@@ -567,31 +585,33 @@
         or restriction of processing
       link: https://gdpr-info.eu/art-19-gdpr/
     "20_1":
-      title: Right to data portability.(1)
+      title: Right to data portability
       link: https://gdpr-info.eu/art-20-gdpr/
     "21_1":
-      title: Right to object.(1)
+      title: Right to object
       link: https://gdpr-info.eu/art-21-gdpr/
     "25_1":
-      title: Data protection by design and by default.(1)
+      title: Data protection by design and by default
       link: https://gdpr-info.eu/art-25-gdpr/
     "30":
       title: Records of processing activities
       link: https://gdpr-info.eu/art-30-gdpr/
-    "32_1_a":
-      title: Security of processing.(1)(a)
+    "32_1a":
+      title: Security of processing
       link: https://gdpr-info.eu/art-32-gdpr/
-    "32_1_b":
-      title: Security of processing.(1)(b)
+    "32_1b":
+      title: Security of processing
       link: https://gdpr-info.eu/art-32-gdpr/
-    "32_1_c":
-      title: Security of processing.(1)(c)
+    "32_1c":
+      title: Security of processing
       link: https://gdpr-info.eu/art-32-gdpr/
     "32_4":
-      title: Security of processing.(4)
+      title: Security of processing
       link: https://gdpr-info.eu/art-32-gdpr/
     "33_5":
-      title: Notification of a personal data breach to the supervisory authority.(5)
+      title: >
+        Notification of a personal data breach
+        to the supervisory authority
       link: https://gdpr-info.eu/art-33-gdpr/
     "89_2":
       title: >
@@ -599,7 +619,7 @@
         to processing for archiving purposes
         in the public interest, scientific
         or historical research purposes
-        or statistical purposes.(2)
+        or statistical purposes
       link: https://gdpr-info.eu/art-89-gdpr/
     "89_3":
       title: >
@@ -607,7 +627,7 @@
         to processing for archiving purposes
         in the public interest,
         scientific or historical research purposes
-        or statistical purposes.(3)
+        or statistical purposes
       link: https://gdpr-info.eu/art-89-gdpr/
     "R6":
       title: >
