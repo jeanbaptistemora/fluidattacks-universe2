@@ -205,9 +205,9 @@ whether they come
 directly from an app,
 code or the infrastructure.
 
-## Top findings (by open vulnerabilities)
+## Top vulnerabilities
 
-![Top Findings](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443230/docs/web/analytics/common/top_findings_by_open_vulns_vl8lls.png)
+![Top Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443230/docs/web/analytics/common/top_findings_by_open_vulns_vl8lls.png)
 
 These graph shows the findings
 that have the highest number
