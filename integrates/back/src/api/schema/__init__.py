@@ -15,9 +15,6 @@ from ariadne import (
     make_executable_schema,
     snake_case_fallback_resolvers,
 )
-from ariadne.validation import (
-    cost_directive,
-)
 from graphql import (
     GraphQLSchema,
 )
@@ -27,7 +24,7 @@ SCHEMA_PATH: str = os.path.dirname(os.path.abspath(__file__))
 SDL_CONTENT: str = load_schema_from_path(SCHEMA_PATH)
 
 SCHEMA: GraphQLSchema = make_executable_schema(
-    [SDL_CONTENT, cost_directive],
+    SDL_CONTENT,
     *ENUMS,
     *SCALARS,
     *TYPES,
