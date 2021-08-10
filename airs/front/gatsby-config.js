@@ -48,6 +48,17 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        tableOfContents: {
+          absolute: false,
+          heading: null,
+          maxDepth: 6,
+          pathToSlugField: "frontmatter.path",
+        },
+      },
+    },
+    {
       resolve: "gatsby-plugin-google-tagmanager",
       options: {
         id: "GTM-PCDDL8T",

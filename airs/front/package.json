@@ -52,6 +52,7 @@
     "gatsby-source-filesystem": "3.7.1",
     "gatsby-transformer-asciidoc": "2.7.1",
     "gatsby-transformer-cloudinary": "2.2.4",
+    "gatsby-transformer-remark": "4.8.0",
     "gatsby-transformer-sharp": "3.7.1",
     "graphql": "15.5.0",
     "gsap": "3.7.0",

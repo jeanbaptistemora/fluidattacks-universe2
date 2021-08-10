@@ -19,7 +19,7 @@ export const onRenderBody = (
       integrity={
         "sha384-OkvTy+NUkZMJbbmFEAPbDMq3Q9yJVfdMxHLBqwXd7W5c256/DtRrbfLEg5NgPlD+"
       }
-      crossorigin={"anonymous"}
+      crossOrigin={"anonymous"}
       data-cf-beacon={'{"token": "f4f99c985c414a5591e8077bf301b39b"}'}
     />,
     // Highlight.js syntax highlighter
