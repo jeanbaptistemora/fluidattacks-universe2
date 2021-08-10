@@ -3,8 +3,8 @@
 This migration updates the machine service ensuring it is only enabled in
 groups with service type white
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-08-10 at 11:21:21 UTC-05
+Finalization Time: 2021-08-10 at 11:21:35 UTC-05
 """
 
 from aioextensions import (
