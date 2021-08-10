@@ -36,6 +36,11 @@ data "aws_iam_policy_document" "dev-policy-data" {
       "ec2:Get*",
       "eks:Describe*",
       "eks:List*",
+      "ssm:Describe*",
+      "ssm:Get*",
+      "ssm:List*",
+      "logs:Describe*",
+      "logs:List*",
     ]
     resources = [
       "*"

@@ -33,6 +33,7 @@ data "aws_iam_policy_document" "prod-policy-data" {
       "acm:*",
       "events:*",
       "logs:*",
+      "ssm:*",
     ]
     resources = ["*"]
   }
