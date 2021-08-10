@@ -5,9 +5,18 @@ from datetime import (
     datetime,
 )
 import logging
+from sgqlc.endpoint.http import (
+    HTTPEndpoint,
+)
+from sgqlc.operation import (
+    Operation,
+)
 from singer_io.singer2.json import (
     to_opt_primitive,
     to_primitive,
+)
+from tap_announcekit.api import (
+    gql_schema,
 )
 from tap_announcekit.api.gql_schema import (
     Project as RawProject,
@@ -97,3 +106,16 @@ def to_proj(raw: RawProject) -> Project:
         to_primitive(raw.metadata, str),
     )
     return Project(draft)
+
+
+def get_project(client: HTTPEndpoint, proj_id: str) -> Project:
+    operation = Operation(gql_schema.Query)
+    proj = operation.project(proj_id)
+    # select fields
+    for attr, _ in _Project.__annotations__.items():
+        getattr(proj, attr)()
+    LOG.debug("operation: %s", operation)
+    data = client(operation)
+    LOG.debug("raw: %s", data)
+    raw: RawProject = (operation + data).project
+    return to_proj(raw)
