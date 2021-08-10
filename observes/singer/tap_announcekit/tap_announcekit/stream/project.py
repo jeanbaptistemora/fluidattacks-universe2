@@ -117,10 +117,11 @@ def to_proj(raw: RawProject) -> Project:
 
 def proj_query(proj_id: str) -> Operation:
     operation = Operation(gql_schema.Query)
-    proj = operation.project(proj_id)
+    proj = operation.project(project_id=proj_id)
     # select fields
     for attr, _ in _Project.__annotations__.items():
-        getattr(proj, attr)()
+        _attr = "id" if attr == "proj_id" else attr
+        getattr(proj, _attr)()
     return operation
 
 
