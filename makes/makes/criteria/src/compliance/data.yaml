@@ -1004,6 +1004,31 @@
     "1021":
       title: Improper Restriction of Rendered UI Layers or Frames
       link: https://cwe.mitre.org/data/definitions/1021.html
+    "1085":
+      title: >
+        Invokable Control Element with
+        Excessive Volume of Commented-out Code
+      link: https://cwe.mitre.org/data/definitions/1085.html
+    "1120":
+      title: Excessive Code Complexity
+      link: https://cwe.mitre.org/data/definitions/1120.html
+    "1121":
+      title: Excessive McCabe Cyclomatic Complexity
+      link: https://cwe.mitre.org/data/definitions/1121.html
+    "1204":
+      title: Generation of Weak Initialization Vector (IV)
+      link: https://cwe.mitre.org/data/definitions/1204.html
+    "1230":
+      title: Exposure of Sensitive Information Through Metadata
+      link: https://cwe.mitre.org/data/definitions/1230.html
+    "1233":
+      title: >
+        Improper Hardware Lock Protection
+        for Security Sensitive Controls
+      link: https://cwe.mitre.org/data/definitions/1233.html
+    "1269":
+      title: Product Released in Non-Release Configuration
+      link: https://cwe.mitre.org/data/definitions/1269.html
   metadata: {}
 "005":
   title: ePrivacy Directive
