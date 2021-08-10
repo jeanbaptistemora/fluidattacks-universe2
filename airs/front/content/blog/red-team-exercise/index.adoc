@@ -17,43 +17,49 @@
 = Red Team Exercise
 
 Red Team refers to a team of professional hackers
-that attempts to access a system through simulating a cyberattack.
-During a Red Team exercise each team member plays a specific role
-while the team, as a whole,
+that attempts to access a system by simulating a cyberattack.
+During a Red Team exercise,
+each team member plays a specific role
+while the team,
+as a whole,
 uses offensive strategies,
 a variety of techniques,
 and tools in order to weaken a system.
 
+== Red Team (the concept)
 
-== Red Team--The Concept
-
-In cybersecurity, a Red Team's knowledge,
+In cybersecurity,
+a Red Team's knowledge,
 skills, and abilities go beyond those of a pentester
 whose role is to search, find, and report system vulnerabilities.
 A Red Team also simulates a real attack by assuming an adversarial role.
 
 
-== Divide and Conquer
+== Divide and conquer
 
-Red Team members possess different link:https://www.tutorialspoint.com/ethical_hacking/ethical_hacking_skills.htm[hacking skills],
+Red Team members possess different link:https://www.tutorialspoint.com/ethical_hacking/ethical_hacking_skills.htm[hacking skills]
 in order to simulate a real attack.
-A real attack may be structured and divided,
+This attack may be structured and divided,
 with the attackers focusing on specific activities to achieve success.
-Therefore, in a Red Team, you will find team members with the following skills:
+Therefore,
+in a Red Team,
+you will find team members with the following skills:
 
-.Possible roles in a Red Team via link:https://medium.com/@redteamwrangler/how-do-i-prepare-to-join-a-red-team-d74ffb5fdbe6[Medium.com].
+.Possible roles in a Red Team via link:https://medium.com/@redteamwrangler/how-do-i-prepare-to-join-a-red-team-d74ffb5fdbe6[medium.com].
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331046/blog/red-team-exercise/skillredteam_khyqsr.webp[Possible roles in a Red Team via Medium.com.]
 
-Regarding the information above the above,
-we spoke with Andres of `Fluid Attacks`,
+Regarding the information above,
+we spoke with link:../../about-us/people/aroldan/[Andres Roldan].
 When we asked him
-about the Red Team exercise done by `Fluid Attacks`, he said:
+about the Red Team exercise done by `Fluid Attacks`,
+he said:
 [role="fluid-answer"]
-  . "First, the Red Team propose hacking objetives.
-  For example: escalate privileges, modify system files or install backdoor
-  to do it. We use the kill chain strategy"
+  . "First, the Red Team proposes hacking objectives.
+  For example: escalate privileges, modify system files
+  or install a backdoor to do it.
+  We use the kill chain strategy."
 
-Take a look at this video from `Fox9` about Red Team exercise.
+Take a look at this video from `Fox9` about a Red Team exercise.
 
 ++++
 <div style="text-align: center;">
@@ -65,11 +71,11 @@ frameborder="0" allowfullscreen></iframe></div>
 
 Kill Chain is a military term
 to describe the steps in launching an attack.
-One of its model is the `F2T2EA`
+One of its models is the `F2T2EA`
 and includes the following phases:<<r3, [1]>>
 
-. *Find*:  Identify a target
-using surveillance, reconnaissance data or via intelligence gathering.
+. *Find*:  Identify a target using surveillance,
+reconnaissance data or intelligence gathering.
 
 . *Fix*: Fix the target's location.
 Obtain specific coordinates for the target either
@@ -90,33 +96,34 @@ of appropriate weapons to engage it.
 . *Assess*: Evaluate the effects of the attack,
 including any intelligence gathered at the location.
 
-.`F2T2EA` - The Kill Chain via link:http://myarick.blogspot.com/2014/02/f2t2ea.html[Biz -n- Seen Blog].
+.`F2T2EA` - The Kill Chain via link:http://myarick.blogspot.com/2014/02/f2t2ea.html[Biz -n- Seen blog].
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331046/blog/red-team-exercise/f2t2ea-killchain_lhmilw.webp[`F2T2EA` - The Kill Chain]
 
 == Cyber Kill Chain
 
 This term was adopted by link:https://www.lockheedmartin.com/en-us/index.html[Lockheed Martin]
-and its incident team to prevent cyber attacks.
+and its incident team to prevent cyberattacks.
 Cyber Kill Chain has the following phases:
 
-. *Reconnaissance* : Learning about the target
+. *Reconnaissance*: Learning about the target
 using a variety of different techniques.
 
-. *Weaponization* : Combining your vector of attack with a malicious
-payload.
+. *Weaponization*: Combining your vector of attack
+with a malicious payload.
 
-. *Delivery* : Transmitting the payload via a communications vector.
+. *Delivery*: Transmitting the payload via a communications vector.
 
-. *Exploitation* : Taking advantage of a software or human weakness
+. *Exploitation*: Taking advantage of a software or human weakness
 in order to get your payload to run.
 
-. *Installation* : The payload establishes the persistence of an
+. *Installation*: The payload establishes the persistence of an
 individual host.
 
-. *Command & Control (C2*) : The malware calls home, providing attacker control.
+. *Command & Control (C2*): The malware calls home,
+providing attacker control.
 
-. *Actions on Objectives* : The bad actor steals or does whatever he was
-planning on doing.
+. *Actions on objectives*: The bad actor steals
+or does whatever he was planning on doing.
 
 .Cyber Kill Chain Phases via link:https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html[Lockheed Martin].
 image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331045/blog/red-team-exercise/cyber-kill-chain_hq3v77.webp[Cyber Kill Chain Phases]
@@ -124,7 +131,7 @@ image::https://res.cloudinary.com/fluid-attacks/image/upload/v1620331045/blog/re
 == Cyber Kill Chain 3.0
 
 This is an update of the cyber kill chain
-for better defense by link:https://www.watchguard.com/es/wgrd-about/leadership/corey-nachreiner[Corey Nachreiner]
+for better defense by link:https://www.watchguard.com/es/wgrd-about/leadership/corey-nachreiner[Corey Nachreiner],
 Watchguard Chief Technology Officer.
 
 Cyber Kill Chain 3.0 has the following phases<<r1, [2]>>:
@@ -143,7 +150,8 @@ Cyber Kill Chain 3.0 has the following phases<<r1, [2]>>:
 
 As you can see, version 3.0 has minor changes
 designed for better security defense,
-but those are not unique strategies, link:https://www.helpnetsecurity.com/2015/02/10/kill-chain-30-update-the-cyber-kill-chain-for-better-defense/[HelpNetSecurity.]
+but those are not unique strategies. 
+As mentioned in link:https://www.helpnetsecurity.com/2015/02/10/kill-chain-30-update-the-cyber-kill-chain-for-better-defense/[Help Net Security:]
 [role="fluid-answer"]
  . "Security professionals have differing opinions
  on the effectiveness of the kill chain as a defense model.
@@ -157,30 +165,36 @@ but those are not unique strategies, link:https://www.helpnetsecurity.com/2015/0
 Therefore, Kill Chain is not the only option.
 You can also adapt your attack link:https://en.wikipedia.org/wiki/Military_strategy[strategy].
 
-== Customer Benefits
+== Customer benefits
 
-Then, what are the benefits on the client side?
-Simply put, Red Team's cyberattacks simulations
-expose the weaknesses within a client's systems or applications
-so that a client can better protect its information from a real attack scenario.
+Then,
+what are the benefits on the client side?
+Simply put,
+Red Team's cyberattack simulations expose the weaknesses
+within a client's systems or applications
+so that a client can better protect its information
+from a real attack scenario.
 
-The client can then fix, build, design, and maximize its cybersecurity<<r4, [3]>>;
+The client can then fix,
+build, design, and maximize its cybersecurity<<r4, [3]>>;
 this is why the link:https://en.wikipedia.org/wiki/Blue_team_(computer_security)[Blue Team] exists.
-Like Red Team, Blue Team also has its defensive strategies,
+Like Red Team,
+Blue Team also has its defensive strategies,
 but we will save that discussion for a future post.
 
 == Conclusions
 
 According to link:https://medium.com/@redteamwrangler/how-do-i-prepare-to-join-a-red-team-d74ffb5fdbe6[Medium.com],
 a Red Team member must have an offensive mindset.
-For this reason, "`CTFs`, wargames, or pen testing labs
+For this reason, "CTFs, wargames, or pen testing labs
 are a great way to exercise offensive mindset"<<r5, [4]>>.
-At `Fluid Attacks`, every new member
-trains in hacking and programming challenges
+At `Fluid Attacks`,
+every new member trains in hacking and programming challenges
 to check and assess their level of offensive mindset.
 
-Our current talents are in the link:https://www.wechall.net/country_ranking/for/31/Colombia[TOP10 for Colombia],
-and in fact, some of them are in the link:https://www.wechall.net/ranking[TOP100 Worldwide].
+Our current talents are in the link:https://www.wechall.net/country_ranking/for/31/Colombia[Top 10 for Colombia],
+and, in fact,
+some of them are in the link:https://www.wechall.net/ranking[Top 100 Worldwide].
 
 == References
 
@@ -192,4 +206,4 @@ and in fact, some of them are in the link:https://www.wechall.net/ranking[TOP100
 
 . [[r4]] link:https://resources.infosecinstitute.com/red-teaming-overview-assessment-methodology/#gref[Red Teaming Overview, Assessment & Methodology].
 
-. [[r5]] link:https://medium.com/@redteamwrangler/how-do-i-prepare-to-join-a-red-team-d74ffb5fdbe6[How Do I Prepare to Join a Red Team?].
+. [[r5]] link:https://medium.com/@redteamwrangler/how-do-i-prepare-to-join-a-red-team-d74ffb5fdbe6[How Do I Prepare to Join a Red Team?]
