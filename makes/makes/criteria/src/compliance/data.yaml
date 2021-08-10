@@ -839,6 +839,57 @@
         Exposure of Sensitive System Information
         to an Unauthorized Control Sphere
       link: https://cwe.mitre.org/data/definitions/497.html
+    "502":
+      title: Deserialization of Untrusted Data
+      link: https://cwe.mitre.org/data/definitions/502.html
+    "507":
+      title: Trojan Horse
+      link: https://cwe.mitre.org/data/definitions/507.html
+    "509":
+      title: Replicating Malicious Code (Virus or Worm)
+      link: https://cwe.mitre.org/data/definitions/509.html
+    "510":
+      title: Trapdoor
+      link: https://cwe.mitre.org/data/definitions/510.html
+    "511":
+      title: Logic/Time Bomb
+      link: https://cwe.mitre.org/data/definitions/511.html
+    "521":
+      title: Weak Password Requirements
+      link: https://cwe.mitre.org/data/definitions/521.html
+    "522":
+      title: Insufficiently Protected Credentials
+      link: https://cwe.mitre.org/data/definitions/522.html
+    "523":
+      title: Unprotected Transport of Credentials
+      link: https://cwe.mitre.org/data/definitions/523.html
+    "524":
+      title: Use of Cache Containing Sensitive Information
+      link: https://cwe.mitre.org/data/definitions/524.html
+    "525":
+      title: Use of Web Browser Cache Containing Sensitive Information
+      link: https://cwe.mitre.org/data/definitions/525.html
+    "532":
+      title: Insertion of Sensitive Information into Log File
+      link: https://cwe.mitre.org/data/definitions/532.html
+    "540":
+      title: Inclusion of Sensitive Information in Source Code
+      link: https://cwe.mitre.org/data/definitions/540.html
+    "544":
+      title: Missing Standardized Error Handling Mechanism
+      link: https://cwe.mitre.org/data/definitions/544.html
+    "548":
+      title: Exposure of Information Through Directory Listing
+      link: https://cwe.mitre.org/data/definitions/548.html
+    "552":
+      title: Files or Directories Accessible to External Parties
+      link: https://cwe.mitre.org/data/definitions/552.html
+    "561":
+      title: Dead Code
+      link: https://cwe.mitre.org/data/definitions/561.html
+    "598":
+      title: Use of GET Request Method With Sensitive Query Strings
+      link: https://cwe.mitre.org/data/definitions/598.html
   metadata: {}
 "005":
   title: ePrivacy Directive
