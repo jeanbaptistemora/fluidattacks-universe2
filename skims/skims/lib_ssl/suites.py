@@ -28,7 +28,7 @@ class SSLVersionName(Enum):
 
 
 class SSLSuiteVuln(Enum):
-    PFS: int = 1
+    NO_PFS: int = 1
     MD5: int = 2
     SHA: int = 3
     RC4: int = 4
@@ -156,7 +156,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.NULL_AUTHENTICATION,
             SSLSuiteVuln.NULL_ENCRYPTION,
         ),
@@ -177,7 +177,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.NULL_ENCRYPTION,
             SSLSuiteVuln.MD5,
         ),
@@ -198,7 +198,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.NULL_ENCRYPTION,
             SSLSuiteVuln.SHA,
         ),
@@ -220,7 +220,7 @@ class SSLCipherSuite(Enum):
         ),
         vulnerabilities=(
             SSLSuiteVuln.EXPORT_GRADE,
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.RC4,
             SSLSuiteVuln.MD5,
         ),
@@ -241,7 +241,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.RC4,
             SSLSuiteVuln.MD5,
         ),
@@ -262,7 +262,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.RC4,
             SSLSuiteVuln.SHA,
         ),
@@ -284,7 +284,7 @@ class SSLCipherSuite(Enum):
         ),
         vulnerabilities=(
             SSLSuiteVuln.EXPORT_GRADE,
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.RC2,
             SSLSuiteVuln.MD5,
@@ -305,7 +305,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_1,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -326,7 +326,7 @@ class SSLCipherSuite(Enum):
         ),
         vulnerabilities=(
             SSLSuiteVuln.EXPORT_GRADE,
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES,
             SSLSuiteVuln.SHA,
@@ -347,7 +347,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_1,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES,
             SSLSuiteVuln.SHA,
@@ -368,7 +368,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_1,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES3,
             SSLSuiteVuln.SHA,
@@ -390,7 +390,7 @@ class SSLCipherSuite(Enum):
         ),
         vulnerabilities=(
             SSLSuiteVuln.EXPORT_GRADE,
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES,
             SSLSuiteVuln.DES,
@@ -412,7 +412,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_1,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES,
             SSLSuiteVuln.SHA,
@@ -433,7 +433,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_1,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES3,
             SSLSuiteVuln.SHA,
@@ -455,7 +455,7 @@ class SSLCipherSuite(Enum):
         ),
         vulnerabilities=(
             SSLSuiteVuln.EXPORT_GRADE,
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES,
             SSLSuiteVuln.SHA,
@@ -476,7 +476,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_1,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES,
             SSLSuiteVuln.SHA,
@@ -497,7 +497,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_1,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES3,
             SSLSuiteVuln.SHA,
@@ -642,7 +642,7 @@ class SSLCipherSuite(Enum):
         ),
         vulnerabilities=(
             SSLSuiteVuln.EXPORT_GRADE,
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
             SSLSuiteVuln.RC4,
             SSLSuiteVuln.MD5,
@@ -664,7 +664,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
             SSLSuiteVuln.RC4,
             SSLSuiteVuln.MD5,
@@ -686,7 +686,7 @@ class SSLCipherSuite(Enum):
         ),
         vulnerabilities=(
             SSLSuiteVuln.EXPORT_GRADE,
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES,
@@ -708,7 +708,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_1,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES,
@@ -730,7 +730,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_1,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES3,
@@ -752,7 +752,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_1,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES,
             SSLSuiteVuln.SHA,
@@ -773,7 +773,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_1,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES3,
             SSLSuiteVuln.SHA,
@@ -795,7 +795,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.RC4,
             SSLSuiteVuln.SHA,
         ),
@@ -815,7 +815,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_1,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -835,7 +835,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_1,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES,
             SSLSuiteVuln.MD5,
@@ -856,7 +856,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_1,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES3,
             SSLSuiteVuln.MD5,
@@ -878,7 +878,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.RC4,
             SSLSuiteVuln.MD5,
         ),
@@ -898,7 +898,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_1,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.MD5,
         ),
@@ -919,7 +919,7 @@ class SSLCipherSuite(Enum):
         ),
         vulnerabilities=(
             SSLSuiteVuln.EXPORT_GRADE,
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES,
             SSLSuiteVuln.SHA,
@@ -942,7 +942,7 @@ class SSLCipherSuite(Enum):
         ),
         vulnerabilities=(
             SSLSuiteVuln.EXPORT_GRADE,
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.RC2,
             SSLSuiteVuln.SHA,
@@ -965,7 +965,7 @@ class SSLCipherSuite(Enum):
         ),
         vulnerabilities=(
             SSLSuiteVuln.EXPORT_GRADE,
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.RC4,
             SSLSuiteVuln.SHA,
         ),
@@ -986,7 +986,7 @@ class SSLCipherSuite(Enum):
         ),
         vulnerabilities=(
             SSLSuiteVuln.EXPORT_GRADE,
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES,
             SSLSuiteVuln.MD5,
@@ -1009,7 +1009,7 @@ class SSLCipherSuite(Enum):
         ),
         vulnerabilities=(
             SSLSuiteVuln.EXPORT_GRADE,
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.RC2,
             SSLSuiteVuln.MD5,
@@ -1032,7 +1032,7 @@ class SSLCipherSuite(Enum):
         ),
         vulnerabilities=(
             SSLSuiteVuln.EXPORT_GRADE,
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.RC4,
             SSLSuiteVuln.MD5,
         ),
@@ -1053,7 +1053,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.NULL_ENCRYPTION,
             SSLSuiteVuln.SHA,
         ),
@@ -1094,7 +1094,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.NULL_ENCRYPTION,
             SSLSuiteVuln.SHA,
         ),
@@ -1115,7 +1115,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -1136,7 +1136,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -1157,7 +1157,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -1218,7 +1218,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
@@ -1240,7 +1240,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -1261,7 +1261,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -1282,7 +1282,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -1343,7 +1343,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
@@ -1361,7 +1361,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.NULL_ENCRYPTION,
         ),
     )
@@ -1377,7 +1377,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -1393,7 +1393,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -1409,7 +1409,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -1425,7 +1425,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -1458,7 +1458,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -1479,7 +1479,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -1500,7 +1500,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -1561,7 +1561,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
@@ -1592,7 +1592,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -1608,7 +1608,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -1650,7 +1650,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
             SSLSuiteVuln.CBC,
         ),
@@ -1667,7 +1667,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
             SSLSuiteVuln.CBC,
         ),
@@ -1688,7 +1688,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -1709,7 +1709,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -1730,7 +1730,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -1791,7 +1791,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
@@ -1813,7 +1813,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.RC4,
             SSLSuiteVuln.SHA,
         ),
@@ -1833,7 +1833,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_1,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES3,
             SSLSuiteVuln.SHA,
@@ -1855,7 +1855,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -1876,7 +1876,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -1977,7 +1977,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.RC4,
             SSLSuiteVuln.SHA,
         ),
@@ -1997,7 +1997,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_1,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES3,
             SSLSuiteVuln.SHA,
@@ -2019,7 +2019,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -2040,7 +2040,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -2061,7 +2061,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -2082,7 +2082,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -2103,7 +2103,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -2164,7 +2164,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
@@ -2181,7 +2181,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_128_GCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     RSA_WITH_AES_256_GCM_SHA384: SSLSuiteInfo = SSLSuiteInfo(
         rfc=5288,
@@ -2194,7 +2194,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_256_GCM,
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     DHE_RSA_WITH_AES_128_GCM_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=5288,
@@ -2233,7 +2233,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_128_GCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     DH_RSA_WITH_AES_256_GCM_SHA384: SSLSuiteInfo = SSLSuiteInfo(
         rfc=5288,
@@ -2246,7 +2246,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_256_GCM,
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     DHE_DSS_WITH_AES_128_GCM_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=5288,
@@ -2285,7 +2285,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_128_GCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     DH_DSS_WITH_AES_256_GCM_SHA384: SSLSuiteInfo = SSLSuiteInfo(
         rfc=5288,
@@ -2298,7 +2298,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_256_GCM,
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     DH_anon_WITH_AES_128_GCM_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=5288,
@@ -2312,7 +2312,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
         ),
     )
@@ -2328,7 +2328,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
         ),
     )
@@ -2343,7 +2343,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_128_GCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     PSK_WITH_AES_256_GCM_SHA384: SSLSuiteInfo = SSLSuiteInfo(
         rfc=5487,
@@ -2356,7 +2356,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_256_GCM,
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     DHE_PSK_WITH_AES_128_GCM_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=5487,
@@ -2395,7 +2395,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_128_GCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     RSA_PSK_WITH_AES_256_GCM_SHA384: SSLSuiteInfo = SSLSuiteInfo(
         rfc=5487,
@@ -2408,7 +2408,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_256_GCM,
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     PSK_WITH_AES_128_CBC_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=5487,
@@ -2426,7 +2426,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -2446,7 +2446,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -2466,7 +2466,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.NULL_ENCRYPTION,
         ),
     )
@@ -2486,7 +2486,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.NULL_ENCRYPTION,
         ),
     )
@@ -2574,7 +2574,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -2594,7 +2594,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -2614,7 +2614,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.NULL_ENCRYPTION,
         ),
     )
@@ -2634,7 +2634,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.NULL_ENCRYPTION,
         ),
     )
@@ -2654,7 +2654,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -2674,7 +2674,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -2694,7 +2694,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -2748,7 +2748,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
             SSLSuiteVuln.CBC,
         ),
@@ -2769,7 +2769,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -2789,7 +2789,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -2809,7 +2809,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -2863,7 +2863,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
             SSLSuiteVuln.CBC,
         ),
@@ -2981,7 +2981,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.NULL_ENCRYPTION,
             SSLSuiteVuln.SHA,
         ),
@@ -3002,7 +3002,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.RC4,
             SSLSuiteVuln.SHA,
         ),
@@ -3022,7 +3022,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_1,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES3,
             SSLSuiteVuln.SHA,
@@ -3044,7 +3044,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -3065,7 +3065,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -3186,7 +3186,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.NULL_ENCRYPTION,
             SSLSuiteVuln.SHA,
         ),
@@ -3207,7 +3207,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.RC4,
             SSLSuiteVuln.SHA,
         ),
@@ -3227,7 +3227,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_1,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES3,
             SSLSuiteVuln.SHA,
@@ -3249,7 +3249,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -3270,7 +3270,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
         ),
@@ -3391,7 +3391,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
             SSLSuiteVuln.NULL_ENCRYPTION,
             SSLSuiteVuln.SHA,
@@ -3413,7 +3413,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
             SSLSuiteVuln.RC4,
             SSLSuiteVuln.SHA,
@@ -3434,7 +3434,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_1,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.DES3,
@@ -3457,7 +3457,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
@@ -3479,7 +3479,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
             SSLSuiteVuln.CBC,
             SSLSuiteVuln.SHA,
@@ -3703,7 +3703,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -3719,7 +3719,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -3761,7 +3761,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -3777,7 +3777,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -3818,7 +3818,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_128_GCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     ECDH_ECDSA_WITH_AES_256_GCM_SHA384: SSLSuiteInfo = SSLSuiteInfo(
         rfc=5289,
@@ -3831,7 +3831,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_256_GCM,
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     ECDHE_RSA_WITH_AES_128_GCM_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=5289,
@@ -3870,7 +3870,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_128_GCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     ECDH_RSA_WITH_AES_256_GCM_SHA384: SSLSuiteInfo = SSLSuiteInfo(
         rfc=5289,
@@ -3883,7 +3883,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_256_GCM,
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     ECDHE_PSK_WITH_RC4_128_SHA: SSLSuiteInfo = SSLSuiteInfo(
         rfc=5489,
@@ -4069,7 +4069,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -4089,7 +4089,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -4109,7 +4109,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -4129,7 +4129,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -4149,7 +4149,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -4169,7 +4169,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -4257,7 +4257,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
             SSLSuiteVuln.CBC,
         ),
@@ -4278,7 +4278,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
             SSLSuiteVuln.CBC,
         ),
@@ -4333,7 +4333,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -4353,7 +4353,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -4407,7 +4407,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -4427,7 +4427,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -4442,7 +4442,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.ARIA_128_GCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     RSA_WITH_ARIA_256_GCM_SHA384: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6209,
@@ -4455,7 +4455,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.ARIA_256_GCM,
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     DHE_RSA_WITH_ARIA_128_GCM_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6209,
@@ -4494,7 +4494,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.ARIA_128_GCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     DH_RSA_WITH_ARIA_256_GCM_SHA384: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6209,
@@ -4507,7 +4507,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.ARIA_256_GCM,
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     DHE_DSS_WITH_ARIA_128_GCM_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6209,
@@ -4546,7 +4546,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.ARIA_128_GCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     DH_DSS_WITH_ARIA_256_GCM_SHA384: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6209,
@@ -4559,7 +4559,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.ARIA_256_GCM,
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     DH_anon_WITH_ARIA_128_GCM_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6209,
@@ -4573,7 +4573,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
         ),
     )
@@ -4589,7 +4589,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
         ),
     )
@@ -4630,7 +4630,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.ARIA_128_GCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     ECDH_ECDSA_WITH_ARIA_256_GCM_SHA384: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6209,
@@ -4643,7 +4643,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.ARIA_256_GCM,
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     ECDHE_RSA_WITH_ARIA_128_GCM_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6209,
@@ -4682,7 +4682,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.ARIA_128_GCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     ECDH_RSA_WITH_ARIA_256_GCM_SHA384: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6209,
@@ -4695,7 +4695,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.ARIA_256_GCM,
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     PSK_WITH_ARIA_128_CBC_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6209,
@@ -4713,7 +4713,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -4733,7 +4733,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -4787,7 +4787,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -4807,7 +4807,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -4822,7 +4822,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.ARIA_128_GCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     PSK_WITH_ARIA_256_GCM_SHA384: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6209,
@@ -4835,7 +4835,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.ARIA_256_GCM,
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     DHE_PSK_WITH_ARIA_128_GCM_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6209,
@@ -4874,7 +4874,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.ARIA_128_GCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     RSA_PSK_WITH_ARIA_256_GCM_SHA384: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6209,
@@ -4887,7 +4887,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.ARIA_256_GCM,
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     ECDHE_PSK_WITH_ARIA_128_CBC_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6209,
@@ -4961,7 +4961,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -4977,7 +4977,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -5019,7 +5019,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -5035,7 +5035,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -5050,7 +5050,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.CAMELLIA_128_GCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     RSA_WITH_CAMELLIA_256_GCM_SHA384: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6367,
@@ -5063,7 +5063,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.CAMELLIA_256_GCM,
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     DHE_RSA_WITH_CAMELLIA_128_GCM_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6367,
@@ -5102,7 +5102,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.CAMELLIA_128_GCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     DH_RSA_WITH_CAMELLIA_256_GCM_SHA384: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6367,
@@ -5115,7 +5115,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.CAMELLIA_256_GCM,
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     DHE_DSS_WITH_CAMELLIA_128_GCM_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6367,
@@ -5154,7 +5154,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.CAMELLIA_128_GCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     DH_DSS_WITH_CAMELLIA_256_GCM_SHA384: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6367,
@@ -5167,7 +5167,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.CAMELLIA_256_GCM,
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     DH_anon_WITH_CAMELLIA_128_GCM_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6367,
@@ -5181,7 +5181,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
         ),
     )
@@ -5197,7 +5197,7 @@ class SSLCipherSuite(Enum):
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.ANON_KEY_EXCHANGE,
         ),
     )
@@ -5238,7 +5238,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.CAMELLIA_128_GCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     ECDH_ECDSA_WITH_CAMELLIA_256_GCM_SHA384: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6367,
@@ -5251,7 +5251,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.CAMELLIA_256_GCM,
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     ECDHE_RSA_WITH_CAMELLIA_128_GCM_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6367,
@@ -5290,7 +5290,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.CAMELLIA_128_GCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     ECDH_RSA_WITH_CAMELLIA_256_GCM_SHA384: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6367,
@@ -5303,7 +5303,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.CAMELLIA_256_GCM,
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     PSK_WITH_CAMELLIA_128_GCM_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6367,
@@ -5316,7 +5316,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.CAMELLIA_128_GCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     PSK_WITH_CAMELLIA_256_GCM_SHA384: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6367,
@@ -5329,7 +5329,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.CAMELLIA_256_GCM,
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     DHE_PSK_WITH_CAMELLIA_128_GCM_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6367,
@@ -5368,7 +5368,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.CAMELLIA_128_GCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     RSA_PSK_WITH_CAMELLIA_256_GCM_SHA384: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6367,
@@ -5381,7 +5381,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.CAMELLIA_256_GCM,
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     PSK_WITH_CAMELLIA_128_CBC_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6367,
@@ -5399,7 +5399,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -5419,7 +5419,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -5473,7 +5473,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -5493,7 +5493,7 @@ class SSLCipherSuite(Enum):
             SSLVersionId.tlsv1_2,
         ),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
         ),
     )
@@ -5542,7 +5542,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_128_CCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     RSA_WITH_AES_256_CCM: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6655,
@@ -5555,7 +5555,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_256_CCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     DHE_RSA_WITH_AES_128_CCM: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6655,
@@ -5594,7 +5594,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_128_CCM_8,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     RSA_WITH_AES_256_CCM_8: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6655,
@@ -5607,7 +5607,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_256_CCM_8,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     DHE_RSA_WITH_AES_128_CCM_8: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6655,
@@ -5646,7 +5646,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_128_CCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     PSK_WITH_AES_256_CCM: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6655,
@@ -5659,7 +5659,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_256_CCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     DHE_PSK_WITH_AES_128_CCM: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6655,
@@ -5698,7 +5698,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_128_CCM_8,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     PSK_WITH_AES_256_CCM_8: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6655,
@@ -5711,7 +5711,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_256_CCM_8,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     PSK_DHE_WITH_AES_128_CCM_8: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6655,
@@ -5724,7 +5724,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_128_CCM_8,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     PSK_DHE_WITH_AES_256_CCM_8: SSLSuiteInfo = SSLSuiteInfo(
         rfc=6655,
@@ -5737,7 +5737,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.AES_256_CCM_8,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     ECDHE_ECDSA_WITH_AES_128_CCM: SSLSuiteInfo = SSLSuiteInfo(
         rfc=7251,
@@ -5893,7 +5893,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.CHACHA_20_POLY_1305,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     ECDHE_PSK_WITH_CHACHA20_POLY1305_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=7905,
@@ -5932,7 +5932,7 @@ class SSLCipherSuite(Enum):
         encryption=SSLEncryption.CHACHA_20_POLY_1305,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
-        vulnerabilities=(SSLSuiteVuln.PFS,),
+        vulnerabilities=(SSLSuiteVuln.NO_PFS,),
     )
     ECDHE_PSK_WITH_AES_128_GCM_SHA256: SSLSuiteInfo = SSLSuiteInfo(
         rfc=8442,
@@ -6033,7 +6033,7 @@ class SSLSpecialSuite(Enum):
         ssl_hash=SSLHash.MD5,
         tls_versions=(),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.EXPORT_GRADE,
             SSLSuiteVuln.RC4,
             SSLSuiteVuln.MD5,
@@ -6051,7 +6051,7 @@ class SSLSpecialSuite(Enum):
         ssl_hash=SSLHash.MD5,
         tls_versions=(),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.EXPORT_GRADE,
             SSLSuiteVuln.RC2,
             SSLSuiteVuln.CBC,
@@ -6070,7 +6070,7 @@ class SSLSpecialSuite(Enum):
         ssl_hash=SSLHash.SHA,
         tls_versions=(),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.EXPORT_GRADE,
             SSLSuiteVuln.DES,
             SSLSuiteVuln.CBC,
@@ -6107,7 +6107,7 @@ class SSLSpecialSuite(Enum):
         ssl_hash=SSLHash.SHA,
         tls_versions=(),
         vulnerabilities=(
-            SSLSuiteVuln.PFS,
+            SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.EXPORT_GRADE,
             SSLSuiteVuln.RC4,
             SSLSuiteVuln.SHA,
@@ -6176,7 +6176,7 @@ def get_suite_by_code(code: Tuple[int, int]) -> SSLSuiteInfo:
 
 def get_suites_with_pfs() -> Iterator[SSLSuiteInfo]:
     for suite in SSLCipherSuite:
-        if SSLSuiteVuln.PFS not in suite.value.vulnerabilities:
+        if SSLSuiteVuln.NO_PFS not in suite.value.vulnerabilities:
             yield suite.value
 
 
@@ -6191,7 +6191,7 @@ def get_weak_suites() -> Iterator[SSLSuiteInfo]:
         weak_vuln = False
         for vuln in SSLSuiteVuln:
             if vuln in suite.value.vulnerabilities and vuln not in (
-                SSLSuiteVuln.PFS,
+                SSLSuiteVuln.NO_PFS,
                 SSLSuiteVuln.CBC,
             ):
                 weak_vuln = True
