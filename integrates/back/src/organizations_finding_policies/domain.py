@@ -10,6 +10,9 @@ from .types import (
 from aioextensions import (
     collect,
 )
+from context import (
+    FI_API_STATUS,
+)
 from custom_exceptions import (
     FindingNamePolicyNotFound,
     InvalidFindingNamePolicy,
@@ -18,6 +21,9 @@ from custom_exceptions import (
 )
 from custom_types import (
     Finding,
+)
+from db_model.findings.types import (
+    Finding as FindingNew,
 )
 from dynamodb.types import (
     OrgFindingPolicyItem,
@@ -201,17 +207,33 @@ async def update_finding_policy_in_groups(
     user_email: str,
     tags: Set[str],
 ) -> None:
-    group_drafts = await loaders.group_drafts.load_many(groups)
-    group_findings = await loaders.group_findings.load_many(groups)
-    findings: List[Dict[str, Finding]] = list(
-        chain.from_iterable(filter(None, group_drafts + group_findings))
-    )
+    if FI_API_STATUS == "migration":
+        group_drafts_new: Tuple[
+            Tuple[FindingNew, ...], ...
+        ] = await loaders.group_drafts_new.load_many(groups)
+        group_findings_new: Tuple[
+            Tuple[FindingNew, ...], ...
+        ] = await loaders.group_findings_new.load_many(groups)
+        findings_new = tuple(
+            chain.from_iterable(group_drafts_new + group_findings_new)
+        )
+        findings_ids: List[str] = [
+            finding.id
+            for finding in findings_new
+            if finding.title.split(".")[0].lower() == finding_name
+        ]
+    else:
+        group_drafts = await loaders.group_drafts.load_many(groups)
+        group_findings = await loaders.group_findings.load_many(groups)
+        findings: List[Dict[str, Finding]] = list(
+            chain.from_iterable(filter(None, group_drafts + group_findings))
+        )
+        findings_ids = [
+            finding["id"]
+            for finding in findings
+            if finding["title"].split(".")[0].lower() == finding_name
+        ]
 
-    findings_ids: List[str] = [
-        finding["id"]
-        for finding in findings
-        if finding["title"].split(".")[0].lower() == finding_name
-    ]
     if not findings_ids:
         return
     vulns = await loaders.finding_vulns_nzr.load_many_chained(findings_ids)
