@@ -115,7 +115,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   const tableHeaders: IHeaderConfig[] = [
     { align: "center", dataField: "name", header: "Group Name" },
     { align: "center", dataField: "description", header: "Description" },
-    { align: "center", dataField: "subscription", header: "Service Type" },
+    { align: "center", dataField: "subscription", header: "Subscription" },
     {
       align: "left",
       dataField: "asm",
