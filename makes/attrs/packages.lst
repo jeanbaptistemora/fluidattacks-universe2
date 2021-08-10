@@ -105,6 +105,7 @@ observes.env.streamer-zoho-crm.development.python
 observes.env.streamer-zoho-crm.runtime
 observes.env.streamer-zoho-crm.runtime.python
 observes.env.tap-announcekit.development
+observes.env.tap-announcekit.development.python
 observes.env.tap-announcekit.runtime
 observes.env.tap-announcekit.runtime.python
 observes.env.tap-bugsnag.development
@@ -177,6 +178,7 @@ observes.test.code-etl
 observes.test.postgres-client
 observes.test.singer-io
 observes.test.streamer-zoho-crm
+observes.test.tap-announcekit
 observes.test.tap-csv
 observes.test.tap-gitlab
 observes.test.tap-mailchimp
