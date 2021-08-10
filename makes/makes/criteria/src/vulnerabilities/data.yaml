@@ -191,12 +191,7 @@
       or a search is taking a lot of time
       processing the information.
     threat: >
-      An authorized user in the application
-      can inject SQL statements,
-      with the possibility of obtaining information
-      about the database,
-      and extract, modify
-      or delete information about it.
+      Anonymous attacker from the Internet.
   es:
     title: Asymmetric denial of service
     description: >
@@ -212,11 +207,7 @@
       o una búsqueda se está demorando mucho
       en procesar la información.
     threat: >
-      Un usuario autorizado en la aplicación
-      puede inyectar sentencias SQL,
-      con la posibilidad de obtener información
-      sobre la base de datos, así como extraer,
-      modificar y/o borrar información de la misma.
+      Atacante anónimo desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -249,11 +240,7 @@
       or a search is taking a lot of time
       processing the information
     threat: >
-      An authorized user in the application
-      can inject SQL statements,
-      with the possibility of obtaining information
-      about the database, and extract,
-      modify or delete information about it.
+      Anonymous attacker from the Internet.
   es:
     title: Symmetric denial of service
     description: >
@@ -270,11 +257,7 @@
       o una búsqueda se está demorando mucho
       en procesar la información.
     threat: >
-      Un usuario puede crear un script
-      que haga la misma tarea N veces
-      y así lograr que el servidor
-      que está procesando la información
-      logrando que el servidor no esté disponible.
+      Atacante anónimo desde Internet
   score:
     base:
       attack_vector: "N"
@@ -376,11 +359,7 @@
       or the exposure of user ID
       must be avoided.
     threat: >
-      A user with a different role
-      than administrator
-      can elevate privileges
-      due to a bad permission validation of roles
-      or to a failure in functionalities requests.
+      Autenthicated attacker from the Internet
   es:
     title: Privilege escalation
     description: >
@@ -397,13 +376,7 @@
       o se debe evitar la exposición
       de identificadores de usuario.
     threat: >
-      Un usuario con un rol diferente
-      al del administrador
-      puede elevar privilegios
-      debido a una mala validación
-      de los permisos en los roles
-      o a una falla en las peticiones
-      de las funcionalidades.
+      Atacante autenticado desde Internet
   score:
     base:
       attack_vector: "N"
@@ -441,11 +414,7 @@
       that each user trying to access
       has an initialized session.
     threat: >
-      An unauthorized user can access
-      to business functionalities
-      without being authenticated
-      or having an activated session
-      on the server of the application.
+      Anonymous attacker from the Internet.
   es:
     title: Authentication mechanism absence or evasion
     description: >
@@ -468,11 +437,7 @@
       que intente acceder
       tenga una sesión iniciada.
     threat: >
-      Un usuario no autorizado
-      puede acceder a funcionalidades del negocio
-      sin estar autenticado
-      o tener una sesión activa
-      en el servidor de la aplicación.
+      Atacante anónimo desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -505,12 +470,7 @@
       Use of tokens in forms to verify requests
       done by legitimate users.
     threat: >
-      An unauthorized user from Internet
-      can trick an authenticated user
-      on the application
-      using a link modified
-      to execute critical transactions
-      such as transfers or payments.
+      Anonymous attacker from the internet
   es:
     title: Cross-site request forgery
     description: >
@@ -528,12 +488,7 @@
       de las peticiones realizadas
       por usuarios legítimos.
     threat: >
-      Un usuario no autorizado desde Internet
-      puede engañar un usuario autenticado
-      en la aplicación
-      por medio de un enlace modificado
-      para ejecutar transacciones críticas
-      como transferencias o pagos.
+      Atacante anónimo desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -983,8 +938,7 @@
       Update TLS protocol to version
       TLSv1.2 or TLSv1.3 if possible.
     threat: >
-      Unauthorized attacker from adjacent network
-      exploiting a vulnerability.
+      Unauthorized attacker from adjacent network.
   es:
     title: Insecure encryption algorithm - SSL/TLS
     description: >
@@ -997,8 +951,7 @@
       Actualizar el protocolo TLS a la versión
       TLSv1.2 o TLSv1.3 de ser posible.
     threat: >
-      Atacante sin autorización desde red adjacente
-      explotando vulnerabilidad.
+      Atacante sin autorización desde red adjacente.
   score:
     base:
       attack_vector: "A"
@@ -1560,8 +1513,7 @@
       to the file's extension
       before upload it to the server
     threat: >
-      A user within local network
-      with access to the application can upload all
+      Authenticated attacker from the Internet.
   es:
     title: Insecure file upload
     description: >
@@ -1585,12 +1537,7 @@
       corresponda a la extension del archivo
       antes de subirlo al servidor.
     threat: >
-      Un usuario en la red interna
-      con acceso a la aplicación
-      en cuenta puede subir todo tipo de archivos
-      al servidor para efectuar
-      ataques del tipo phishing
-      o de distribución de malware.
+      Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -1727,8 +1674,8 @@
       are sent through secure methods (POST)
       or obtain the cookies' session.
     threat: >
-      A user with access to the application's registry,
-      can view
+      Anonymous attacker from adjacent network
+      performing a sniffing attack
   es:
     title: Sensitive information sent via URL parameters
     description: >
@@ -1756,13 +1703,8 @@
       se envían por métodos seguros (POST)
       u obtener la sesión de las cookies.
     threat: >
-      Un usuario con acceso a los registros
-      de la aplicación,
-      puede ver identificadores
-      de sesión de usuario válidos,
-      lo que le permitiría ganar acceso
-      no autorizado a la aplicación
-      y generar una suplantación de usuario.
+      Atacante anónimo desde red adyacente
+      ejecutando un ataque de sniffing
   score:
     base:
       attack_vector: "N"
@@ -2095,7 +2037,7 @@
       Encrypt the ViewState
       in the application configuration.
     threat: >
-      Unauthenticated attacker
+      Anonymous attacker
       with local access to the victim's browser.
   es:
     title: ViewState not encrypted
@@ -2110,7 +2052,7 @@
       Establecer cifrado del ViewState
       en la configuración de la aplicación.
     threat: >
-      Atacante no autenticado con acceso local
+      Atacante anónimo con acceso local
       al navegador de la victima.
   score:
     base:
@@ -2215,10 +2157,7 @@
       to guarantee that information
       is accessible only to right users.
     threat: >
-      An unauthorized user
-      from local or external network
-      can identify business information
-      without enough protection.
+      Authenticathed attacker from the Internet.
   es:
     title: Business information leak
     description: >
@@ -2241,10 +2180,7 @@
       para que la información sea accesible
       sólo a las personas indicadas.
     threat: >
-      Un usuario no autorizado
-      desde una red interna o externa
-      puede identificar que hay información de negocio
-      sin la protección suficiente.
+      Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -2270,7 +2206,7 @@
       or the one in place can be bypassed.
     impact: __empty__
     recommendation: __empty__
-    threat: __empty__
+    threat: Anonymous attacker from the Internet.
   es:
     title: Improper authorization control for web services
     description: >
@@ -2280,7 +2216,7 @@
       puede ser evitado.
     impact: __empty__
     recommendation: __empty__
-    threat: __empty__
+    threat: Atacante anónimo desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -2306,7 +2242,7 @@
       and is exposed to a larger audience than required.
     impact: __empty__
     recommendation: __empty__
-    threat: __empty__
+    threat: Anonymous attacker from the Internet
   es:
     title: Exposed web services
     description: >
@@ -2316,7 +2252,7 @@
       para una audiencia mayor que la necesaria.
     impact: __empty__
     recommendation: __empty__
-    threat: __empty__
+    threat: Atacante anónimo desde Internet
   score:
     base:
       attack_vector: "N"
@@ -2347,9 +2283,7 @@
       from the storage manager
       to avoid login attempts with those.
     threat: >
-      An unauthorized user
-      can login by guessing default passwords
-      used in the application.
+      Anonymous attacker from the Internet.
   es:
     title: Enabled default credentials
     description: >
@@ -2363,11 +2297,7 @@
       del gestor de almacenamiento
       para evitar inicios de sesión con estas.
     threat: >
-      Un usuario no autorizado
-      puede iniciar sesión
-      adivinando contraseñas por defecto
-      presentes en los distintos softwares
-      en la aplicación.
+      Atacante anónimo desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -2400,7 +2330,7 @@
       The application must set
       the corresponding security attributes
       when cookies are generated.
-    threat: Unauthenticated attacker from the Internet.
+    threat: Anonymous attacker from the Internet.
   es:
     title: Insecurely generated cookies
     description: >
@@ -2418,7 +2348,7 @@
       La aplicación debe establecer
       los correspondientes atributos de seguridad
       cuando se generan las cookies.
-    threat: Atacante no autenticado desde Internet.
+    threat: Atacante anónimo desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -2509,12 +2439,7 @@
       Configure secure methods
       for server's requests.
     threat: >
-      An unauthorized user
-      from local network can modify
-      requests to the server
-      allowing to delete, include files,
-      view the request's debug,
-      view which methods the server accepts.
+      Authenticated attacker from the Internet.
   es:
     title: Insecure HTTP methods enabled
     description: >
@@ -2530,11 +2455,7 @@
       Configurar los métodos seguros
       para las peticiones en el servidor.
     threat: >
-      Un usuario no autorizado desde la red interna
-      puede alterar las peticiones al servidor
-      permitiéndole eliminar, incluir archivos,
-      ver la depuración de la petición,
-      ver que métodos acepta el servidor.
+      Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -2568,9 +2489,7 @@
       with regular expressions
       or white lists to avoid injections.
     threat: >
-      A user can inject HTML code on a field
-      that will be executed on the server
-      causing a modification on the web page.
+      Authenticated attacker from the Internet.
   es:
     title: HTML code injection
     description: >
@@ -2588,9 +2507,7 @@
       con expresiones regulares
       o listas blancas para evitar inyecciones.
     threat: >
-      Un usuario puede inyectar código HTML
-      en un campo que se ejecutarán en el navegador
-      causando un cambio de aspecto en la página web.
+      Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -2693,11 +2610,7 @@
       that is received through the ports
       avoiding the detection of services.
     threat: >
-      An unauthorized user
-      can discover which services are running
-      on a specific port
-      by scanning the network,
-      then an attack could be released.
+      Anonymous attacker from the Internet.
   es:
     title: Automatic information enumeration
     description: >
@@ -2713,12 +2626,7 @@
       para que un escaneo no detecte los servicios
       que corren en dicho puerto.
     threat: >
-      Un usuario no autorizado
-      puede escanear los puertos en la red
-      permitiéndole saber
-      qué servicios están corriendo
-      en un puerto específico
-      y poder lanzar ataques.
+      Atacante anónimo desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -2851,7 +2759,7 @@
       This allows an attacker
       to have quicker success
       when executing a brute force attack.
-    impact: __empty__
+    impact: Obtain functional credentials for resources or services.
     recommendation: >
       Enforce strong password policy.
       A password security policy
@@ -2865,13 +2773,7 @@
 
       - Do not reuse passwords.
     threat: >
-      An unauthorized user
-      can execute brute force attacks
-      with common words
-      due to the lack of recommended methods,
-      then,
-      a valid password can be found
-      in a short period of time.
+      Anonymous attacker from the Internet.
   es:
     title: Guessed weak credentials
     description: >
@@ -2899,15 +2801,7 @@
 
       - No reutilizar contraseñas.
     threat: >
-      Un usuario no autorizado
-      puede ejecutar ataques de fuerza bruta
-      con palabras comunes
-      ya que no se sigue la recomendación,
-      así puede lograr encontrar
-      una contraseña válida
-      en poco tiempo a diferencia
-      de claves seguras
-      que se demoran mucho más.
+      Atacante anónimo desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -2938,12 +2832,8 @@
       of password summary
       have a minimum size of 256 bits.
     threat: >
-      An unauthorized user
-      can execute a process
-      to revert the hashes found
-      in the database,
-      and then could find
-      users' passwords.
+      Authenticated attacker from Internet
+      with access to the hashes.
   es:
     title: Cracked weak credentials
     description: >
@@ -2958,12 +2848,8 @@
       de resumen de contraseñas
       tenga un tamaño mínimo de 256 bits.
     threat: >
-      Un usuario no autorizado
-      puede realizar un proceso
-      para revertir los hash encontrados
-      en la base de datos
-      pudiendo así encontrar
-      las contraseñas de los usuarios.
+      Atacante autenticado desde Internet
+      con acceso a los hashes.
   score:
     base:
       attack_vector: "N"
@@ -2996,8 +2882,7 @@
       Use algorithms considered
       cryptographically secure.
     threat: >
-      Anonymous attacker
-      from adjacent network via MITM.
+      Anonymous attacker from adjacent network.
   es:
     title: Insecure encryption algorithm
     description: >
@@ -3014,8 +2899,7 @@
       Utilizar algoritmos considerados
       criptográficamente seguros.
     threat: >
-      Atacante anónimo desde red interna
-      ejecutando un MITM.
+      Atacante anónimo desde red interna.
   score:
     base:
       attack_vector: "N"
@@ -3049,12 +2933,7 @@
       E.g. Captcha,
       failed attempts blockout, etc.
     threat: >
-      An unauthorized user
-      with access to the intranet
-      can enumerate accounts
-      and valid users' passwords
-      through a robot that executes
-      brute force and wordlists attacks.
+      Anonymous attacker from the Internet.
   es:
     title: Lack of protection against brute force attacks
     description: >
@@ -3071,13 +2950,7 @@
       bloqueo por retardo en el número
       de intentos fallidos, etc.
     threat: >
-      Un usuario no autorizado
-      con acceso a la intranet
-      puede enumerar cuentas
-      y claves de usuarios válidos
-      a través de un robot elaborado
-      que ejecute ataques
-      de fuerza bruta y diccionario.
+      Atacante anónimo desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -3111,12 +2984,7 @@
       or management's network segments
       explicitly allowed.
     threat: >
-      An unauthorized user
-      from internet can decrypt
-      the credentials of the administrators
-      to exploit public vulnerabilities
-      of the product
-      due the exposed consoles.
+      Anonymous attacker from the Internet.
   es:
     title: Exposed administrative services
     description: >
@@ -3132,12 +3000,7 @@
       o segmentos de red de gestión
       explícitamente permitidos.
     threat: >
-      Un usuario no autorizado
-      desde internet puede descifrar
-      las credenciales de los administradores
-      o explotar vulnerabilidades
-      públicas del producto
-      gracias a las consolas expuestas.
+      Atacante anónimo desde Internet
   score:
     base:
       attack_vector: "N"
@@ -3242,10 +3105,7 @@
       to avoid services' enumeration
       or to connect to these anonymously.
     threat: >
-      An unauthorized user
-      can enumerate anonymously
-      the active processes
-      on the system.
+      Anonymous attacker from adjacent network.
   es:
     title: Anonymous connection
     description: >
@@ -3262,9 +3122,7 @@
       para que no se pueda enumerar los servicios
       o conectarse a estos de forma anónima.
     threat: >
-      Un usuario no autorizado
-      puede enumerar los procesos activos
-      en el sistema de forma anónima.
+      Atacante anónimo desde red adyacente.
   score:
     base:
       attack_vector: "N"
@@ -3305,7 +3163,7 @@
       and ensure it has 0600 permission mask.
     threat: >
       Anonymous attacker
-      with local access.
+      with local access to the server.
   es:
     title: Excessive privileges - Temporary Files
     description: >
@@ -3327,7 +3185,7 @@
       y asegurar que estos tienen una máscara
       de permisos 0600.
     threat: >
-      Atacante anónimo con acceso local.
+      Atacante anónimo con acceso local al servidor.
   score:
     base:
       attack_vector: "N"
@@ -3687,7 +3545,7 @@
       has already been initiated
       nor when a second one commences
       from a different location.
-    impact: __empty__
+    impact: Affect the traceability and non-repudiation of the user's actions
     recommendation: >
       The system must restrict
       the number of concurrent sessions
@@ -3697,11 +3555,7 @@
       when a login from a different
       location occurs.
     threat: >
-      An unauthorized user
-      with access credentials
-      can act as a valid user
-      without creating an alert
-      into the system.
+      Authenticated attacker from the Internet
   es:
     title: Concurrent sessions
     description: >
@@ -3715,7 +3569,9 @@
       cuando ya existe una sesión
       ni cuando se inicia sesión
       desde otra ubicación.
-    impact: __empty__
+    impact: >
+      Afectar la trazabilidad e irrenunciabilidad
+      de las acciones del usuario
     recommendation: >
       El sistema debe restringir
       el número de sesiones concurrentes
@@ -3724,12 +3580,7 @@
       cuando se inicie sesión
       en otra ubicación.
     threat: >
-      Un usuario no autorizado
-      con credenciales de acceso
-      puede suplantar un usuario
-      sin generar ninguna alerta
-      en el usuario autorizado
-      ni en los administradores de la plataforma.
+      Atacante autenticado desde Internet
   score:
     base:
       attack_vector: "N"
@@ -3876,11 +3727,7 @@
       - Disable the _autocomplete_ field
       to prevent cache to field's level.
     threat: >
-      An unauthorized user
-      with access to local machine
-      can view the browser's cache memory
-      and discover valid users
-      into the application.
+      Anonymous attacker from local network
   es:
     title: Cached form fields
     description: >
@@ -3902,11 +3749,7 @@
       - Deshabilitar el campo _autocomplete_
       para prevenir caché a nivel de campos.
     threat: >
-      Un usuario no autorizado
-      con acceso a la máquina local
-      puede acceder a la memoria caché del navegador
-      para conocer usuarios válidos
-      para la aplicación.
+      Atacante anónimo desde red local
   score:
     base:
       attack_vector: "N"
@@ -3935,21 +3778,14 @@
       - Specific information
       about the configuration
       of server components (php.ini, web.config).
-    impact: __empty__
+    impact: Gather technical information to craft new attack vectors
     recommendation: >
       Delete the services' banner
       information leakage.
       Verify that HTTP headers
       do not expose any name or version.
     threat: >
-      An unauthorized user
-      with access to the system
-      can identify versions
-      or components that the system uses
-      through HTTP headers
-      used by the server
-      or in the response
-      to non customized HTTP errors.
+      Authenticated attacker from the Internet
   es:
     title: Technical information leak - Console functions
     description: >
@@ -3965,21 +3801,16 @@
 
       - Funcionalidades que arrojan
       información del servidor.
-    impact: __empty__
+    impact: >
+      Recopilar información técnica
+      para elaborar vectores de ataque más complejos.
     recommendation: >
       Eliminar el banner de los servicios
       con fuga de información.
       Verificar que los encabezados HTTP
       no expongan ningún nombre o versión.
     threat: >
-      Un usuario no autorizado
-      con acceso al sistema
-      puede identificar versiones
-      y/o componentes que usa el sistema
-      a través de las cabeceras HTTP
-      que responde el servidor
-      o en la respuesta a los errores HTTP
-      no personalizados.
+      Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -4060,12 +3891,7 @@
       to perform functions
       without a large computational expense.
     threat: >
-      A user can make multiple requests
-      to the system
-      affecting processes performance
-      and response times,
-      due to the use of non optimized
-      components and libraries.
+      Authenticated attacker from the Internet
   es:
     title: Improper resource allocation
     description: >
@@ -4088,12 +3914,7 @@
       y optimizadas para realizar funciones
       sin mucho gasto computacional.
     threat: >
-      Un usuario puede realizar múltiples peticiones
-      al sistema afectando el desempeño de procesos
-      y tiempos de respuesta,
-      ya que el sistema
-      no hace uso de los componentes
-      y librerías más óptimos.
+      Atacante autenticado desde Internet
   score:
     base:
       attack_vector: "N"
@@ -4122,11 +3943,8 @@
       when they remain inactive
       more than 5 minutes.
     threat: >
-      An unauthorized user
-      can take control
-      of a disregarded machine
-      impersonating the user who
-      left the system opened.
+      Anonymous attacker from local network
+      with access to an unatended session.
   es:
     title: Insecure session expiration time
     description: >
@@ -4139,10 +3957,8 @@
       cuando permanezcan inactivas
       más de 5 minutos.
     threat: >
-      Un usuario no autorizado
-      puede tomar control de un equipo desatendido
-      suplantando el usuario
-      que desatendió la máquina.
+      Atacante anónimo desde red local
+      con acceso a una sesión desatendida.
   score:
     base:
       attack_vector: "N"
@@ -4168,7 +3984,9 @@
       that allows the usage
       of optical recognition tools
       to automatically pass it.
-    impact: __empty__
+    impact: >
+      Bypass security mechanisms
+      to perform automated attacks
     recommendation: >
       Ensure that captcha's response
       is at server's level
@@ -4178,16 +3996,7 @@
       ensure that captcha
       can not be read by an OCR.
     threat: >
-      An unauthorized user
-      from internet
-      can create a robot
-      to fill the database
-      with garbage in which
-      the sent data is stored
-      of the contact forms
-      causing an exhaustion of space
-      on the hard drive
-      and a possible denial of service.
+      Anonymous attacker from the Internet.
   es:
     title: Weak CAPTCHA
     description: >
@@ -4196,7 +4005,9 @@
       que permite automatizar la lectura
       y uso de la información de validación
       con herramientas de reconocimiento óptico.
-    impact: __empty__
+    impact: >
+      Saltar mecanismos de seguridad
+      para realizar ataques automatizados
     recommendation: >
       Asegurarse que la respuesta del captcha
       se encuentre a nivel de servidor
@@ -4204,15 +4015,7 @@
       también asegurarse que el Captcha
       no sea leído por un OCR.
     threat: >
-      Un usuario no autorizado
-      desde internet
-      puede generar un robot
-      para llenar de basura la base de datos
-      en la cual se guardan los datos enviados
-      de los formularios de contacto
-      ocasionando un agotamiento de espacio
-      en el disco duro
-      y una posible denegación de servicios.
+      Atacante anónimo desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -4374,13 +4177,7 @@
       does not have classes,
       functions or repeated methods.
     threat: >
-      A developer can cause
-      unexpected behaviors
-      in the application
-      or problems when a class,
-      method or function tries to overlap
-      to other causing errors
-      in source code compilation.
+      Authenticated attacker from the Internet
   es:
     title: Duplicate code
     description: >
@@ -4396,13 +4193,7 @@
       no tenga clases,
       funciones o métodos repetidos.
     threat: >
-      Un desarrollador
-      puede causar comportamientos inesperados
-      en la aplicación
-      o problemas cuando una clase,
-      método o función intenta superponerse
-      a otra generando así errores
-      en la compilación del código fuente.
+      Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -4490,13 +4281,8 @@
       of functional commented code
       in the source code of the application.
     threat: >
-      A user in charge
-      of maintaining the application
-      can have problems
-      in the code update process
-      or can cause unexpected behaviors
-      in the application when uncommenting
-      any portion of commented code.
+      Authenticated attacker from the Internet
+      with write permissions on the repository.
   es:
     title: Commented-out code
     description: >
@@ -4513,14 +4299,7 @@
       de código funcional comentado
       en el código fuente de la aplicación.
     threat: >
-      Un usuario encargado
-      del mantenimiento de la aplicación
-      puede tener inconvenientes en el proceso
-      de actualización del código
-      o causar comportamientos inesperados
-      en la aplicación al eliminar comentarios
-      de cualquiera de las porciones de código
-      comentado presente en la aplicación.
+      Atacante autenticado desde Internet
   score:
     base:
       attack_vector: "N"
@@ -4630,10 +4409,8 @@
       when user closes session
       and can be reused in future requests.
     threat: >
-      Unauthorized use of web services
-      due to session's tokens
-      do not expire
-      when a session is closed.
+      Anonymous attacker from the Internet
+      with access to a session token.
   es:
     title: Insecure session management
     description: >
@@ -4646,9 +4423,8 @@
       El token de sesión debe caducar
       cuando se cierra una sesión.
     threat: >
-      Uso no autorizado de servicios web
-      debido a que los tokens de sesión
-      no caducan cuando se cierra una sesión.
+      Atacante anónimo desde Internet
+      con acceso a un token de sesión.
   score:
     base:
       attack_vector: "N"
@@ -4722,7 +4498,7 @@
     recommendation: >
       Generate a token with random components
       without sensitive information.
-    threat: __empty__
+    threat: Anonymous attacker from the internet with access to the hash
   es:
     title: Insecurely generated token
     description: >
@@ -4733,7 +4509,7 @@
     recommendation: >
       Generar un token con componentes aleatorios
       sin información sensible.
-    threat: __empty__
+    threat: Atacante anónimo desde internet con acceso al hash
   score:
     base:
       attack_vector: "N"
@@ -4762,14 +4538,7 @@
       This allows to standardize
       projects' construction and packaging.
     threat: >
-      If a new vulnerability
-      for a used library (specific version)
-      in the system is published
-      and the third-party software used
-      is not inventoried,
-      an attacker could take advantage of this
-      before the maintenance's team
-      updates the library opportunely.
+      Authenticated attacker from the Internet.
   es:
     title: Non-upgradable dependencies
     description: >
@@ -4788,15 +4557,7 @@
       Esto permite estandarizar la construcción
       y empaquetado de proyectos.
     threat: >
-      Si se publica una nueva vulnerabilidad
-      para una librería (versión específica)
-      utilizada en el sistema
-      y no se tiene inventario de todo
-      el software de tercero utilizado,
-      un atacante podría utilizar
-      esta vulnerabilidad
-      antes de que el equipo de mantenimiento
-      pueda actualizar la libreria oportunamente.
+      Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -4880,7 +4641,7 @@
       by software or hardware
       to increase the protection level
       of the resources' authentication.
-    threat: __empty__
+    threat: Authenticathed attacker from the Internet
   es:
     title: Lack of multi-factor authentication
     description: >
@@ -4900,7 +4661,7 @@
       para incrementar el nivel de protección
       de la autenticación
       de los recursos críticos.
-    threat: __empty__
+    threat: Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -4933,10 +4694,7 @@
       and destruction of sensitive information
       (Policies).
     threat: >
-      An attacker can extract
-      sensitive information
-      using the recycle bin
-      as a metadata's source.
+      Authenticated attacker from local network.
   es:
     title: Insecurely deleted files
     description: >
@@ -4952,9 +4710,7 @@
       y destrucción de información sensible
       (Políticas).
     threat: >
-      Un atacante puede conseguir información sensible
-      usando las papeleras de reciclaje
-      como fuente para obtener metadatos.
+      Atacante autenticado desde red local.
   score:
     base:
       attack_vector: "N"
@@ -4988,10 +4744,7 @@
       by the application
       through white lists.
     threat: >
-      An attacker could generate
-      a service failure
-      by referencing external entities
-      that can require many system's resources.
+      Authenticated attacker from the Internet.
   es:
     title: XML injection (XXE)
     description: >
@@ -5006,11 +4759,7 @@
       y envía la aplicación
       por medio de listas blancas.
     threat: >
-      Un atacante podría generar
-      una caída del servicio
-      al referenciar entidades externas
-      que pudieran requerir
-      demasiados recursos del sistema.
+      Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -5049,10 +4798,7 @@
       to filter incoming connections
       from UDP 5353 port.
     threat: >
-      An attacker can perform
-      a MDNS spoofing on the network
-      and can obtain domain users,
-      operating systems, among others.
+      Anonymous attacker from local network.
   es:
     title: MDNS spoofing
     description: >
@@ -5069,10 +4815,7 @@
       para filtrar conexiones provenientes
       del puerto UDP 5353.
     threat: >
-      Un atacante puede realizar
-      un MDNS spoofing en la red
-      y conseguir usuarios de dominio,
-      sistemas operativos, entre otros.
+      Atacante autenticado en la red local.
   score:
     base:
       attack_vector: "N"
@@ -5214,8 +4957,7 @@
       or control it to prevent
       an exploitation by attackers.
     threat: >
-      Unauthenticated user
-      from internet.
+      Anonymous attacker from the Internet.
   es:
     title: Account lockout
     description: >
@@ -5232,9 +4974,7 @@
       para que no pueda ser explotado
       por atacantes.
     threat: >
-      Es posible bloquear
-      las cuentas de los usuarios,
-      evitando que accedan al sistema.
+      Atacante anónimo desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -5362,10 +5102,7 @@
       when the exported file
       is generated.
     threat: >
-      Inject formulas
-      that are interpreted by Excel
-      causing the risk
-      of commands execution.
+      Authenticated attacker from the Internet.
   es:
     title: CSV injection
     description: >
@@ -5379,10 +5116,7 @@
       a exportar en el servidor
       al generar el archivo exportado.
     threat: >
-      Inyectar fórmulas
-      que son interpretadas por excel
-      generando riesgo
-      de ejecución de comandos.
+      Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -5409,17 +5143,18 @@
       without properly validating,
       sanitizing
       or escaping their content.
-    impact: __empty__
-    recommendation: >
-      Sanitize inputs before
-      storing them in the log.
-    threat: >
+    impact: >
       Inject code or fake inputs
       in the system's log,
       compromising the integrity
       of logs,
       or in the worst case,
       the system of who is viewing the logs.
+    recommendation: >
+      Sanitize inputs before
+      storing them in the log.
+    threat: >
+      Authenticated attacker from the Internet
   es:
     title: Log injection
     description: >
@@ -5427,18 +5162,19 @@
       sin validar en los logs del sistema,
       permitiendo la inyección
       de entradas maliciosas.
-    impact: __empty__
-    recommendation: >
-      Sanitizar entradas antes
-      de guardarlas en el log.
-    threat: >
+    impact: >
       Inyectar código o entradas falsas
       en los logs del sistema,
       comprometiendo así la integridad
       de los logs o,
       en el peor caso,
       el sistema de quien esté visualizando
-      los logs.
+      los logs
+    recommendation: >
+      Sanitizar entradas antes
+      de guardarlas en el log.
+    threat: >
+      Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -5578,18 +5314,19 @@
       that are invisible to the regular user
       and cause undesired behaviors
       in the application.
-    impact: __empty__
+    impact: >
+      Force unwanted actions
+      in the application
+      modifying resources
+      which can not be accessible
+      by user.
     recommendation: >
       Send only fields that require
       users' inputs in the requests,
       and control the rest
       from the server.
     threat: >
-      Force unwanted actions
-      in the application
-      modifying resources
-      which can not be accessible
-      by user.
+      Authenticated attacker from the Internet
   es:
     title: Hidden fields manipulation
     description: >
@@ -5597,18 +5334,19 @@
       campos invisibles al usuario
       para forzar la aplicación
       a comportarse de manera inadecuada.
-    impact: __empty__
+    impact: >
+      Forzar acciones
+      indeseadas en la aplicación
+      modificando recursos
+      a los que el usuario
+      no debería tener acceso.
     recommendation: >
       Enviar en las peticiones
       solo los campos
       que requieran entradas del usuario
       y manejar el resto desde el servidor.
     threat: >
-      Forzar acciones
-      indeseadas en la aplicación
-      modificando recursos
-      a los que el usuario
-      no debería tener acceso.
+      Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -5639,8 +5377,7 @@
       cryptographically secure.
     threat: >
       Unauthorized attacker
-      from adjacent network
-      exploiting vulnerability.
+      from adjacent network.
   es:
     title: Insecure encryption algorithm - Cipher Block Chaining
     description: >
@@ -5655,8 +5392,7 @@
       criptográficamente seguros.
     threat: >
       Atacante sin autorización
-      desde red adyacente
-      explotando vulnerabilidad.
+      desde red adyacente.
   score:
     base:
       attack_vector: "N"
@@ -5740,10 +5476,7 @@
       and only deserialize them
       if they meet expected properties.
     threat: >
-      Send a constructed object
-      specially to exploit
-      an insecure deserialization
-      and execute code on the server.
+      Authenticathed attacker from the Internet.
   es:
     title: Insecure deserialization
     description: >
@@ -5756,9 +5489,7 @@
       y solo deserializarlos si cumplen
       con las propiedades esperadas.
     threat: >
-      Enviar un objeto construido especialmente
-      para explotar la deserializacion insegura
-      y lograr ejecucion de codigo en el servidor.
+      Atacante autenticado desde Internet.
   score:
     base:
       attack_vector: "N"
@@ -5788,17 +5519,18 @@
       making it look like
       a legitimate redirect performed
       by the system.
-    impact: __empty__
-    recommendation: >
-      Set the attribute _rel_
-      with the _noopener_ value
-      in each external link.
-    threat: >
+    impact: >
       Redirect to the user
       to an external site controlled
       by a malicious actor
       in the tab where original site was,
       leading to a phishing attack.
+    recommendation: >
+      Set the attribute _rel_
+      with the _noopener_ value
+      in each external link.
+    threat: >
+      Anonymous attacker from local network.
   es:
     title: Reverse tabnabbing
     description: >
@@ -5809,17 +5541,18 @@
       a otro sitio en la pestaña original,
       haciendo que parezca
       una redirección legítima de la aplicación.
-    impact: __empty__
+    impact: >
+      Redireccionar al usuario
+      a un sitio externo controlado
+      por un actor malicioso en la pestaña
+      donde tenía antes el sitio original,
+      dando paso a ataques tipo Phishing
     recommendation: >
       Establecer el atributo _rel_
       con el valor _noopener_
       en cada link externo.
     threat: >
-      Redireccionar al usuario
-      a un sitio externo controlado
-      por un actor malicioso en la pestaña
-      donde tenía antes el sitio original,
-      dando paso a ataques tipo Phishing.
+      Atacante anónimo desde red Interna.
   score:
     base:
       attack_vector: "N"
