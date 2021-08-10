@@ -126,4 +126,5 @@ def format_document(
             ),
             r=5,
         ),
+        barChartYTickFormat=True,
     )

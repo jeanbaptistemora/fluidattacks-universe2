@@ -362,6 +362,7 @@ async def _get_group_indicators(
         (max_open_severity, max_open_severity_finding),
         mean_remediate,
         closed_vulnerabilities,
+        open_findings,
     ) = await collect(
         (
             findings_domain.get_last_closed_vulnerability_info(
@@ -370,6 +371,7 @@ async def _get_group_indicators(
             findings_domain.get_max_open_severity(context, findings),
             groups_domain.get_mean_remediate(context, group),
             groups_domain.get_closed_vulnerabilities(context, group),
+            groups_domain.get_open_finding(context, group),
         )
     )
 
@@ -382,6 +384,7 @@ async def _get_group_indicators(
         ),
         "closed_vulnerabilities": closed_vulnerabilities,
         "mean_remediate": mean_remediate,
+        "open_findings": open_findings,
     }
 
 
@@ -442,7 +445,6 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
         "mean_remediate_high_severity": remediate_high,
         "mean_remediate_low_severity": remediate_low,
         "mean_remediate_medium_severity": remediate_medium,
-        "open_findings": await groups_domain.get_open_finding(context, group),
         "open_vulnerabilities": (
             await groups_domain.get_open_vulnerabilities(context, group)
         ),

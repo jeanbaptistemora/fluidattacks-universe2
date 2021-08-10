@@ -259,6 +259,7 @@ async def test_get_group_indicators() -> None:
     assert test_data["max_open_severity"] == Decimal(6.3).quantize(
         Decimal("0.1")
     )
+    assert test_data["open_findings"] == 5
     assert found == len(
         [
             vuln
