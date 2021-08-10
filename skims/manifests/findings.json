@@ -63,6 +63,14 @@
       "title": "016. Insecure encryption algorithm - SSL/TLS"
     }
   },
+  "F017": {
+    "EN": {
+      "title": "017. Sensitive information sent insecurely"
+    },
+    "ES": {
+      "title": "017. Sensitive information sent insecurely"
+    }
+  },
   "F021": {
     "EN": {
       "title": "021. XPath injection"

@@ -48,6 +48,11 @@
     "skims/test/data/sast/test_cfg.go": {},
     "skims/test/data/sast/test_cfg.js": {}
   },
+  "F017": {
+    "skims/test/data/sast/TestCFG.java": {},
+    "skims/test/data/sast/test_cfg.go": {},
+    "skims/test/data/sast/test_cfg.js": {}
+  },
   "F021": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},

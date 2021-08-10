@@ -53,6 +53,10 @@
     "skims/test/data/benchmark/instance_references/src/App.java": {},
     "skims/test/data/benchmark/instance_references/src/User.java": {}
   },
+  "F017": {
+    "skims/test/data/benchmark/instance_references/src/App.java": {},
+    "skims/test/data/benchmark/instance_references/src/User.java": {}
+  },
   "F021": {
     "skims/test/data/benchmark/instance_references/src/App.java": {
       "187": {},
