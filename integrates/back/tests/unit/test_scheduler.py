@@ -475,7 +475,6 @@ async def test_toe_lines_etl() -> None:
 @pytest.mark.changes_db
 async def test_toe_inputs_etl(monkeypatch: MonkeyPatch) -> None:
     def mocked_clone_services_repository(path: str) -> None:
-        print("mocked_clone_services_repository")
         dirname = os.path.dirname(__file__)
         filename = os.path.join(dirname, "mock/test_inputs.csv")
         os.makedirs(f"{path}/groups/unittesting/toe")

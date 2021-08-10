@@ -95,7 +95,6 @@ async def test_get_group_fail(populate: bool, email: str) -> None:
     finding: str = "475041521"
     root: str = "63298a73-9dff-46cf-b42d-9b2f01a56690"
     result: Dict[str, Any] = await get_result(user=email, group=group_name)
-    print(result)
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
     assert result["data"]["group"]["name"] == group_name

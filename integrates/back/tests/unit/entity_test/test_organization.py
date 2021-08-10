@@ -363,7 +363,6 @@ async def test_organization() -> None:
     groups = [
         group["name"] for group in result["data"]["organization"]["groups"]
     ]
-    print(result["data"]["organization"]["stakeholders"])
     stakeholders = [
         stakeholders["email"]
         for stakeholders in result["data"]["organization"]["stakeholders"]

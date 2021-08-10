@@ -40,7 +40,6 @@ async def mutate(
     # Compatibility with old API
     group_name: str = get_key_or_fallback(parameters)
     parameters = clean_up_kwargs(parameters)
-    print(parameters.keys())
     success = await forces_domain.add_forces_execution(
         group_name=group_name, log=log, **parameters
     )
