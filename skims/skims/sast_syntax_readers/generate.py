@@ -81,6 +81,7 @@ from sast_syntax_readers.javascript import (
     member_expression as javascript_member_expression,
     new_expression as javascript_new_expression,
     object_ as javascript_object,
+    subscript_expression as javascript_subscript_expression,
     switch_case as javascript_switch_case,
     switch_default as javascript_switch_default,
     switch_statement as javascript_switch_statement,
@@ -818,6 +819,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "switch_default",
         },
         syntax_readers=(javascript_switch_default.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+        },
+        applicable_node_label_types={
+            "subscript_expression",
+        },
+        syntax_readers=(javascript_subscript_expression.reader,),
     ),
     *[
         Dispatcher(

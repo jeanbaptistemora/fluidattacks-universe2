@@ -35,6 +35,7 @@ from sast_symbolic_evaluation.cases import (
     object_instantiation,
     parenthesized_expression,
     return_,
+    subscript_expression,
     switch_label,
     switch_label_case,
     symbol_lookup,
@@ -191,6 +192,7 @@ EVALUATORS: Dict[object, Evaluator] = {
     graph_model.SyntaxStepThis: no_op.evaluate,
     graph_model.SyntaxStepLambdaExpression: lambda_expression.evaluate,
     graph_model.SyntaxStepTemplateString: template_string.evaluate,
+    graph_model.SyntaxStepSubscriptExpression: subscript_expression.evaluate,
 }
 
 

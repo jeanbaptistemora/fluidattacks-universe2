@@ -259,6 +259,12 @@ class SyntaxStepArrayAccess(NamedTuple):
     type: str = "SyntaxStepArrayAccess"
 
 
+class SyntaxStepSubscriptExpression(NamedTuple):
+    meta: SyntaxStepMeta
+
+    type: str = "SyntaxStepSubscriptExpression"
+
+
 class SyntaxStepMemberAccessExpression(NamedTuple):
     meta: SyntaxStepMeta
     member: str
