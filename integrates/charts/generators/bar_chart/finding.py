@@ -14,31 +14,47 @@ from charts.colors import (
 from charts.generators.pie_chart.utils import (
     PortfoliosGroupsInfo,
 )
+from context import (
+    FI_API_STATUS,
+)
 from dataloaders import (
     get_new_context,
+)
+from db_model.findings.types import (
+    Finding,
 )
 from operator import (
     attrgetter,
 )
 from typing import (
     List,
+    Tuple,
 )
 
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> PortfoliosGroupsInfo:
     context = get_new_context()
-    group_findings_loader = context.group_findings
-    finding_loader = context.finding
-
-    group_findings_data = await group_findings_loader.load(group.lower())
-    finding_ids = [finding["finding_id"] for finding in group_findings_data]
-    findings = await finding_loader.load_many(finding_ids)
-    findings_found = sum(
-        1
-        for finding in findings
-        if "current_state" in finding and finding["current_state"] != "DELETED"
-    )
+    if FI_API_STATUS == "migration":
+        group_findings_new_loader = context.group_findings_new
+        group_findings_new: Tuple[
+            Finding, ...
+        ] = await group_findings_new_loader.load(group.lower())
+        findings_found = len(group_findings_new)
+    else:
+        group_findings_loader = context.group_findings
+        finding_loader = context.finding
+        group_findings_data = await group_findings_loader.load(group.lower())
+        finding_ids = [
+            finding["finding_id"] for finding in group_findings_data
+        ]
+        findings = await finding_loader.load_many(finding_ids)
+        findings_found = sum(
+            1
+            for finding in findings
+            if "current_state" in finding
+            and finding["current_state"] != "DELETED"
+        )
 
     return PortfoliosGroupsInfo(
         group_name=group.lower(),
