@@ -36,8 +36,8 @@ Through this standard,
 developers can see the error of their ways
 and make the necessary changes before a catastrophe.
 
-Heading the link:https://owasp.org/www-project-top-ten/2017/[OWASP Top Ten 2017],
-link:https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf[according to variables] such as prevalence, detectability,
+Leading the link:https://owasp.org/www-project-top-ten/2017/[OWASP Top Ten 2017],
+link:https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf[in terms of variables] such as prevalence, detectability,
 exploitability, and impact,
 we find the web application security risk link:https://owasp.org/www-project-top-ten/2017/A1_2017-Injection[Injection].
 Within this risk, we have SQL Injection,
@@ -47,7 +47,7 @@ our focal point in this new blog post.
 
 In the Common Attack Pattern Enumeration and Classification (link:https://capec.mitre.org/index.html[CAPEC]),
 "a community resource for identifying and understanding attacks,"
-we find a list of attack patterns grouped among nine mechanisms.
+we find a list of attack patterns grouped into nine mechanisms.
 One of them is the category called link:https://capec.mitre.org/data/definitions/152.html[Inject Unexpected Items].
 There, the attack patterns
 "focus on the ability to control or disrupt the behavior of a target
@@ -58,9 +58,9 @@ The attacker can _inject_ input (including instructions) that,
 in the interpretation of the application,
 can provoke it to perform actions
 far from the original purpose and reach instability.
-Something that in similarity is not far
-from what in the biological framework
-some microorganisms can do with our immune system
+Something similar to what,
+in a biological setting,
+some microorganisms can do to our immune system
 (see link:https://www.amazon.com/Body-Guide-Occupants-Bill-Bryson/dp/0385539304[Bryson's book]).
 
 Additionally,
@@ -79,8 +79,7 @@ including the one that concerns us now: link:https://capec.mitre.org/data/defini
 
 == Ok, what's SQL Injection?
 
-No, I think, for many of us,
-we should first pose the following question:
+I think we should first pose the following question:
 What does SQL mean?
 SQL refers to Structured Query Language,
 link:http://www.sqlcourse.com/intro.html["the standard language] for relational database management systems" (RDBMSs).
