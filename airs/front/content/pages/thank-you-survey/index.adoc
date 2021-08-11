@@ -1,9 +1,0 @@
-:page-slug: thank-you-survey/
-:page-description: Thank you for filling out our form, we invite you to visit our Blog entries.
-:page-keywords: Fluid Attacks, Contact, Acknowledgment, Company, About us, Security
-:page-template: thankYou
-
-= Your form was submitted succesfully!
-
-Thank you for contacting Fluid Attacks. We will get back to you very soon.
-In the meantime, you might be interested in:

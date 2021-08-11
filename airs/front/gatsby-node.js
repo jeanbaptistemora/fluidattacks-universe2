@@ -4,6 +4,7 @@ const { createFilePath } = require(`gatsby-source-filesystem`);
 
 const defaultTemplate = path.resolve(`./src/templates/pageArticle.tsx`);
 const blogsTemplate = path.resolve(`./src/templates/blogsTemplate.tsx`);
+const mdDefaultTemplate = path.resolve(`./src/templates/mdPageArticle.tsx`);
 
 const setTemplate = (template) =>
   path.resolve(`./src/templates/${template}Template.tsx`);
@@ -44,6 +45,36 @@ const PageMaker = (createPage) => {
               slug: `/blog/${post.node.pageAttributes.slug}`,
             },
           });
+        }
+      });
+    },
+  };
+};
+
+const MdPageMaker = (createPage) => {
+  return {
+    createTemplatePage(posts) {
+      _.each(posts, (post) => {
+        if (post.node.fields.slug.startsWith("/pages/")) {
+          if (post.node.frontmatter.template == null) {
+            createPage({
+              path: `${post.node.frontmatter.slug}`,
+              component: mdDefaultTemplate,
+              context: {
+                id: post.node.id,
+                slug: `/pages/${post.node.frontmatter.slug}`,
+              },
+            });
+          } else {
+            createPage({
+              path: `${post.node.frontmatter.slug}`,
+              component: setTemplate(post.node.frontmatter.template),
+              context: {
+                id: post.node.id,
+                slug: `/pages/${post.node.frontmatter.slug}`,
+              },
+            });
+          }
         }
       });
     },
@@ -132,6 +163,7 @@ const createAuthorPages = (createPage, posts) => {
 
 exports.createPages = ({ graphql, actions: { createPage } }) => {
   const pageMaker = PageMaker(createPage);
+  const mdPageMaker = MdPageMaker(createPage);
   // The “graphql” function allows us to run arbitrary
   // queries against the local Drupal graphql schema. Think of
   // it like the site has a built-in database constructed
@@ -157,6 +189,20 @@ exports.createPages = ({ graphql, actions: { createPage } }) => {
             }
           }
         }
+        allMarkdownRemark(limit: 2000) {
+          edges {
+            node {
+              id
+              fields {
+                slug
+              }
+              frontmatter {
+                slug
+                template
+              }
+            }
+          }
+        }
       }
     `
   ).then((result) => {
@@ -165,8 +211,10 @@ exports.createPages = ({ graphql, actions: { createPage } }) => {
     }
 
     const posts = result.data.allAsciidoc.edges;
+    const mDposts = result.data.allMarkdownRemark.edges;
 
     pageMaker.createTemplatePage(posts);
+    mdPageMaker.createTemplatePage(mDposts);
     createTagPages(createPage, posts);
     createAuthorPages(createPage, posts);
     createCategoryPages(createPage, posts);
@@ -176,7 +224,7 @@ exports.createPages = ({ graphql, actions: { createPage } }) => {
 exports.onCreateNode = async ({ node, actions, getNode, loadNodeContent }) => {
   const { createNodeField } = actions;
 
-  if (node.internal.type === `Asciidoc`) {
+  if (node.internal.type === `Asciidoc` || node.internal.type === `MarkdownRemark`) {
     const value = createFilePath({ node, getNode });
     createNodeField({
       name: `slug`,
