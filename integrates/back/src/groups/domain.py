@@ -958,6 +958,37 @@ async def get_mean_remediate_severity(
     )
 
 
+async def get_mean_remediate_severity_new(
+    context: Any,
+    group_name: str,
+    min_severity: float,
+    max_severity: float,
+    min_date: Optional[date] = None,
+) -> Decimal:
+    """Get mean time to remediate"""
+    finding_vulns_loader = context.finding_vulns_nzr
+    group_findings_loader = context.group_findings_new
+
+    group_findings: Tuple[Finding] = await group_findings_loader.load(
+        group_name.lower()
+    )
+    group_findings_ids: List[str] = [
+        finding.id
+        for finding in group_findings
+        if (
+            min_severity
+            <= float(findings_domain.get_severity_score_new(finding.severity))
+            <= max_severity
+        )
+    ]
+    findings_vulns = await finding_vulns_loader.load_many_chained(
+        group_findings_ids
+    )
+    return await vulns_utils.get_mean_remediate_vulnerabilities(
+        findings_vulns, min_date
+    )
+
+
 async def get_open_finding(context: Any, group_name: str) -> int:
     finding_vulns_loader = context.finding_vulns_nzr
     group_findings_loader = context.group_findings
@@ -982,6 +1013,34 @@ async def get_open_vulnerabilities(context: Any, group_name: str) -> int:
     group_findings = await group_findings_loader.load(group_name)
     findings_vulns = await finding_vulns_loader.load_many_chained(
         [finding["finding_id"] for finding in group_findings]
+    )
+
+    last_approved_status = await collect(
+        [
+            in_process(vulns_utils.get_last_status, vuln)
+            for vuln in findings_vulns
+        ]
+    )
+    open_vulnerabilities = 0
+    for status in last_approved_status:
+        if status == "open":
+            open_vulnerabilities += 1
+    return open_vulnerabilities
+
+
+async def get_open_vulnerabilities_new(
+    context: Any,
+    group_name: str,
+) -> int:
+    group_findings_loader = context.group_findings_new
+    group_findings_loader.clear(group_name)
+    finding_vulns_loader = context.finding_vulns_nzr
+
+    group_findings: Tuple[Finding] = await group_findings_loader.load(
+        group_name
+    )
+    findings_vulns = await finding_vulns_loader.load_many_chained(
+        [finding.id for finding in group_findings]
     )
 
     last_approved_status = await collect(
