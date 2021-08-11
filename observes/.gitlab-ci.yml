@@ -32,122 +32,82 @@
       when: never
     - if: *observes_commit_pattern
 
+.lint_job: &lint_job
+  <<: *makes
+  <<: *observes_in_dev_branch
+  needs: []
+  stage: lint-code
+
 # lint jobs
 
 observes.lint.architecture:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 observes.lint.code-etl:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 observes.lint.job-last-success:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 observes.lint.paginator:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 observes.lint.postgres-client:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 observes.lint.service-batch-stability:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 observes.lint.service-jobs-scheduler:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 observes.lint.service-migrate-tables:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 observes.lint.service-timedoctor-tokens:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 observes.lint.singer-io:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 observes.lint.streamer-zoho-crm:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 observes.lint.tap-announcekit:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 observes.lint.tap-bugsnag:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 observes.lint.tap-checkly:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 observes.lint.tap-csv:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 observes.lint.tap-delighted:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 observes.lint.tap-formstack:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 observes.lint.tap-gitlab:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 observes.lint.tap-json:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 observes.lint.tap-mailchimp:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 observes.lint.tap-mixpanel:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 observes.lint.tap-timedoctor:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 observes.lint.target-redshift:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: lint-code
+  <<: *lint_job
 
 # scheduled jobs
 
