@@ -13,6 +13,8 @@ makeDerivation {
           (name: _: (
             # Exclude broken jobs
             name != "asserts.doc.build"
+            && name != "observes.test.postgres-client"
+            && name != "observes.test.streamer-zoho-crm"
             # Select derivations belonging to the product
             && (nixpkgs.lib.strings.hasPrefix product name)
             # Prevent infinite recursion
