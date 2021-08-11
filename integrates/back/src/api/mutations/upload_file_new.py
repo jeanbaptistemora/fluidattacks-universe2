@@ -80,7 +80,6 @@ async def mutate(
                 finding_id,
                 finding_policy,
                 finding.group_name,
-                support_roots=group["subscription"] == "continuous",
             )
         else:
             raise InvalidFileType()

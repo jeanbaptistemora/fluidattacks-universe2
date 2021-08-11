@@ -62,6 +62,8 @@ async def deactivate_ip_root(
     user_email: str,
     **kwargs: Any,
 ) -> None:
+    if await roots_domain.has_open_vulns(root):
+        raise HasOpenVulns()
     await roots_domain.deactivate_root(
         group_name=kwargs["group_name"],
         other=kwargs.get("other"),
@@ -78,6 +80,8 @@ async def deactivate_url_root(
     user_email: str,
     **kwargs: Any,
 ) -> None:
+    if await roots_domain.has_open_vulns(root):
+        raise HasOpenVulns()
     await roots_domain.deactivate_root(
         group_name=kwargs["group_name"],
         other=kwargs.get("other"),
