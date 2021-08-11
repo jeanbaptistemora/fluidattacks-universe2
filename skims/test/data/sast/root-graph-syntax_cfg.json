@@ -2,26 +2,17 @@
   "F001": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
-    "skims/test/data/sast/test_cfg.js": {
-      "1185": {},
-      "1187": {}
-    }
+    "skims/test/data/sast/test_cfg.js": {}
   },
   "F004": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
-    "skims/test/data/sast/test_cfg.js": {
-      "1185": {},
-      "1187": {}
-    }
+    "skims/test/data/sast/test_cfg.js": {}
   },
   "F008": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
-    "skims/test/data/sast/test_cfg.js": {
-      "1185": {},
-      "1187": {}
-    }
+    "skims/test/data/sast/test_cfg.js": {}
   },
   "F009": {
     "skims/test/data/sast/TestCFG.java": {},
@@ -56,10 +47,7 @@
   "F021": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
-    "skims/test/data/sast/test_cfg.js": {
-      "1185": {},
-      "1187": {}
-    }
+    "skims/test/data/sast/test_cfg.js": {}
   },
   "F022": {
     "skims/test/data/sast/TestCFG.java": {},
@@ -149,10 +137,7 @@
   "F063": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
-    "skims/test/data/sast/test_cfg.js": {
-      "1185": {},
-      "1187": {}
-    }
+    "skims/test/data/sast/test_cfg.js": {}
   },
   "F064": {
     "skims/test/data/sast/TestCFG.java": {},
@@ -222,10 +207,7 @@
   "F107": {
     "skims/test/data/sast/TestCFG.java": {},
     "skims/test/data/sast/test_cfg.go": {},
-    "skims/test/data/sast/test_cfg.js": {
-      "1185": {},
-      "1187": {}
-    }
+    "skims/test/data/sast/test_cfg.js": {}
   },
   "F109": {
     "skims/test/data/sast/TestCFG.java": {},

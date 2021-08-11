@@ -59608,7 +59608,6 @@
           },
           "1185": {
             "label_c": 26,
-            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 241,
             "label_text": "req",
             "label_type": "identifier"
@@ -59621,7 +59620,6 @@
           },
           "1187": {
             "label_c": 31,
-            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 241,
             "label_text": "res",
             "label_type": "identifier"
@@ -66307,7 +66305,17 @@
             "var_type": null
           }
         ],
-        "1060": [],
+        "1060": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "1060",
+              "value": null
+            },
+            "type": "SyntaxStepLambdaExpression"
+          }
+        ],
         "1066": [
           {
             "meta": {
@@ -66324,10 +66332,13 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1083",
+              "n_id": "1078",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "resolve",
+            "var_type": null
           },
           {
             "meta": {
@@ -66341,19 +66352,7 @@
           {
             "meta": {
               "danger": false,
-              "dependencies": 0,
-              "n_id": "1078",
-              "value": null
-            },
-            "modifiers": null,
-            "type": "SyntaxStepDeclaration",
-            "var": "resolve",
-            "var_type": null
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
+              "dependencies": -1,
               "n_id": "1073",
               "value": null
             },
@@ -66385,15 +66384,6 @@
             "type": "SyntaxStepDeclaration",
             "var": "resolve",
             "var_type": null
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1083",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
           },
           {
             "meta": {
@@ -66432,15 +66422,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1095",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "1088",
               "value": null
             },
@@ -66476,15 +66457,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1095",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "1088",
               "value": null
             },
@@ -66544,10 +66516,13 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "23",
+              "n_id": "18",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "resolve",
+            "var_type": null
           },
           {
             "meta": {
@@ -66561,19 +66536,7 @@
           {
             "meta": {
               "danger": false,
-              "dependencies": 0,
-              "n_id": "18",
-              "value": null
-            },
-            "modifiers": null,
-            "type": "SyntaxStepDeclaration",
-            "var": "resolve",
-            "var_type": null
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
+              "dependencies": -1,
               "n_id": "13",
               "value": null
             },
@@ -66627,18 +66590,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1120",
-              "value": null
-            },
-            "modifiers": [],
-            "type": "SyntaxStepDeclaration",
-            "var": "a",
-            "var_type": null
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
               "n_id": "1122",
               "value": null
             },
@@ -66651,83 +66602,13 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1132",
+              "n_id": "1120",
               "value": null
             },
-            "type": "SyntaxStepLiteral",
-            "value": "42",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "1129",
-              "value": null
-            },
-            "modifiers": null,
+            "modifiers": [],
             "type": "SyntaxStepDeclaration",
-            "var": "chuck",
+            "var": "a",
             "var_type": null
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1142",
-              "value": null
-            },
-            "symbol": "chuck",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1140",
-              "value": null
-            },
-            "symbol": "b",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1138",
-              "value": null
-            },
-            "symbol": "a",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "1137",
-              "value": null
-            },
-            "operator": "+",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "1136",
-              "value": null
-            },
-            "operator": "+",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "1134",
-              "value": null
-            },
-            "type": "SyntaxStepReturn"
           },
           {
             "meta": {
@@ -66986,12 +66867,21 @@
             "var_type": null
           },
           {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "1181",
+              "value": null
+            },
+            "type": "SyntaxStepLambdaExpression"
+          },
+          {
             "current_instance": {
               "fields": {}
             },
             "meta": {
               "danger": false,
-              "dependencies": -4,
+              "dependencies": -2,
               "n_id": "1172",
               "value": null
             },
@@ -67004,12 +66894,12 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1185",
+              "n_id": "1189",
               "value": null
             },
             "modifiers": [],
             "type": "SyntaxStepDeclaration",
-            "var": "req",
+            "var": "next",
             "var_type": null
           },
           {
@@ -67028,13 +66918,22 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1189",
+              "n_id": "1185",
               "value": null
             },
             "modifiers": [],
             "type": "SyntaxStepDeclaration",
-            "var": "next",
+            "var": "req",
             "var_type": null
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "1181",
+              "value": null
+            },
+            "type": "SyntaxStepLambdaExpression"
           }
         ],
         "1191": [
@@ -67535,15 +67434,6 @@
           {
             "meta": {
               "danger": false,
-              "dependencies": 0,
-              "n_id": "23",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          },
-          {
-            "meta": {
-              "danger": false,
               "dependencies": -1,
               "n_id": "18",
               "value": null
@@ -67766,15 +67656,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "35",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "28",
               "value": null
             },
@@ -67903,15 +67784,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "35",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "28",
               "value": null
             },
@@ -68015,7 +67887,17 @@
             "var": "err"
           }
         ],
-        "3": [],
+        "3": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "3",
+              "value": null
+            },
+            "type": "SyntaxStepLambdaExpression"
+          }
+        ],
         "300": [
           {
             "meta": {
@@ -68429,6 +68311,15 @@
             "type": "SyntaxStepDeclaration",
             "var": "stream",
             "var_type": null
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "391",
+              "value": null
+            },
+            "type": "SyntaxStepLambdaExpression"
           }
         ],
         "485": [
@@ -68443,6 +68334,15 @@
             "type": "SyntaxStepDeclaration",
             "var": "url",
             "var_type": null
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "485",
+              "value": null
+            },
+            "type": "SyntaxStepLambdaExpression"
           }
         ],
         "493": [
@@ -68565,7 +68465,17 @@
             "var_type": null
           }
         ],
-        "52": [],
+        "52": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "52",
+              "value": null
+            },
+            "type": "SyntaxStepLambdaExpression"
+          }
+        ],
         "535": [
           {
             "meta": {
@@ -68799,7 +68709,17 @@
             "type": "SyntaxStepNoOp"
           }
         ],
-        "597": [],
+        "597": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "597",
+              "value": null
+            },
+            "type": "SyntaxStepLambdaExpression"
+          }
+        ],
         "603": [
           {
             "meta": {
@@ -69380,6 +69300,15 @@
             "type": "SyntaxStepDeclaration",
             "var": "a",
             "var_type": null
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "757",
+              "value": null
+            },
+            "type": "SyntaxStepLambdaExpression"
           }
         ],
         "764": [
