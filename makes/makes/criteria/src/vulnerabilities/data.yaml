@@ -5757,55 +5757,31 @@
   en:
     title: Email uniqueness not properly verified
     description: >
-      The system performs
-      a partial check on the uniqueness
-      of email addresses,
-      as it does not properly filter
-      the "+" character.
-      As a result, "user@exam.com",
-      "user+1@exam.com" and "user+100@exam.com"
-      are considered independent
-      despite the fact
-      that they all represent the "user@exam.com"
-      email account.
-      This lack of validation could cause
-      two independent accounts
-      to be linked
-      to the same email address.
-    impact: __empty__
+      The system allows the _plus_ character
+      in the email registration process.
+      An attacker could abuse this feature
+      to create several accounts pointing to the same email.
+    impact: Create multiple accounts with the same email.
     recommendation: >
       The system must validate
       emails in such way
       that an inbox only can be
       associated or represent an account.
-    threat: __empty__
+    threat: Anonymous attacker from the Internet
   es:
     title: Email uniqueness not properly verified
     description: >
-      Se está haciendo una verificación
-      parcial de unicidad
-      de correos electrónicos,
-      ya que el caracter (signo más)
-      en la parte del usuario del correo
-      no se filtra adecuadamente.
-      Esto hace que usuario@ejemplo.com,
-      usuario(signo más)1@ejemplo.com
-      y usuario(signo más)2000@ejemplo.com
-      se tomen como diferentes personas/cuentas
-      cuando en realidad todas esas direcciones
-      llegan al mismo buzón
-      de correo usuario@ejemplo.com.
-      Esta falta de verificación
-      podría llevar a que existan
-      dos cuentas independientes
-      con la misma dirección de correo.
-    impact: __empty__
+      El sistema permite el uso del caracter _suma_
+      para registrar un correo de un usuario.
+      Esto le permite a un atacante abusar de esta funcionalidad
+      para crear múltiples cuentas que apunten al mismo correo electrónico.
+    impact: Crear múltiples cuentas con el mismo correo electrónico.
     recommendation: >
       El sistema debe validar los correos
       de manera que un mismo buzón
       solo pueda estar asociado
       y/o representar una cuenta.
-    threat: __empty__
+    threat: Atacante anónimo desde Internet
   score:
     base:
       attack_vector: "N"
@@ -5814,12 +5790,12 @@
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
   requirements: ["121"]
   metadata: {}
 "103":
