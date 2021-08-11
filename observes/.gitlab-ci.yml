@@ -38,6 +38,11 @@
   needs: []
   stage: lint-code
 
+.test_job: &test_job
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: test-code
+
 # lint jobs
 
 observes.lint.architecture:
@@ -260,48 +265,48 @@ makes.test.observes:
   <<: *makes
   <<: *observes_in_master_branch
   stage: test-code
+  needs:
+    - observes.lint.architecture
 
 observes.test.code-etl:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: test-code
+  <<: *test_job
+  needs:
+    - observes.lint.code-etl
 
 observes.test.singer-io:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: test-code
+  <<: *test_job
+  needs:
+    - observes.lint.singer-io
 
 observes.test.tap-announcekit:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: test-code
+  <<: *test_job
+  needs:
+    - observes.lint.tap-announcekit
 
 observes.test.tap-csv:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: test-code
+  <<: *test_job
+  needs:
+    - observes.lint.tap-csv
 
 observes.test.tap-gitlab:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: test-code
+  <<: *test_job
+  needs:
+    - observes.lint.tap-gitlab
 
 observes.test.tap-mailchimp:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: test-code
+  <<: *test_job
+  needs:
+    - observes.lint.tap-mailchimp
 
 observes.test.tap-mixpanel:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: test-code
+  <<: *test_job
+  needs:
+    - observes.lint.tap-mixpanel
 
 # fx-test jobs
 
 observes.fx-test.tap-announcekit:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: test-code
+  <<: *test_job
   needs:
     - observes.test.tap-announcekit
 
