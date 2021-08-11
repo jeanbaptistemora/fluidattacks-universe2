@@ -8,8 +8,8 @@ import type { ReactWrapper } from "enzyme";
 import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
+import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
 import { GET_GROUP_DATA as GET_GROUP_SERVICES } from "scenes/Dashboard/containers/GroupRoute/queries";
@@ -18,15 +18,18 @@ import {
   UPDATE_GROUP_DATA,
 } from "scenes/Dashboard/containers/GroupSettingsView/queries";
 import { Services } from "scenes/Dashboard/containers/GroupSettingsView/Services";
-import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
+import { msgSuccess } from "utils/notifications";
 
-interface IFormValues {
-  squad: boolean;
-  forces: boolean;
-  asm: boolean;
-  type: string;
-}
+jest.mock("../../../../../utils/notifications", (): Dictionary => {
+  const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
+    "../../../../../utils/notifications"
+  );
+  jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
+
+  return mockedNotifications;
+});
 
 describe("Services", (): void => {
   const mockResponses: readonly MockedResponse[] = [
@@ -74,6 +77,27 @@ describe("Services", (): void => {
       request: {
         query: GET_GROUP_DATA,
         variables: {
+          groupName: "unittesting",
+        },
+      },
+      result: {
+        data: {
+          group: {
+            hasMachine: true,
+            hasSquad: true,
+            language: "EN",
+            name: "unittesting",
+            service: "WHITE",
+            subscription: "CoNtInUoUs",
+          },
+        },
+      },
+    },
+
+    {
+      request: {
+        query: GET_GROUP_DATA,
+        variables: {
           groupName: "oneshottest",
         },
       },
@@ -92,20 +116,20 @@ describe("Services", (): void => {
     },
     {
       request: {
-        query: UPDATE_GROUP_DATA,
+        query: GET_GROUP_SERVICES,
         variables: {
           groupName: "unittesting",
-          hasMachine: false,
-          hasSquad: false,
-          language: "EN",
-          service: "WHITE",
-          subscription: "CONTINUOUS",
         },
       },
       result: {
         data: {
-          editGroup: {
-            success: true,
+          group: {
+            hasMachine: false,
+            hasSquad: false,
+            language: "EN",
+            name: "unittesting",
+            service: "WHITE",
+            subscription: "CONTINUOUS",
           },
         },
       },
@@ -120,7 +144,27 @@ describe("Services", (): void => {
       result: {
         data: {
           group: {
-            hasMachine: false,
+            hasMachine: true,
+            hasSquad: true,
+            language: "EN",
+            name: "unittesting",
+            service: "WHITE",
+            subscription: "CONTINUOUS",
+          },
+        },
+      },
+    },
+    {
+      request: {
+        query: GET_GROUP_SERVICES,
+        variables: {
+          groupName: "unittesting",
+        },
+      },
+      result: {
+        data: {
+          group: {
+            hasMachine: true,
             hasSquad: false,
             language: "EN",
             name: "unittesting",
@@ -150,17 +194,17 @@ describe("Services", (): void => {
       expect.hasAssertions();
 
       const wrapper: ReactWrapper = mount(
-        <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={mockResponses}>
-            <authzPermissionsContext.Provider value={mockedPermissions}>
-              <MemoryRouter initialEntries={["/home"]}>
-                <Services groupName={test.group} />
-              </MemoryRouter>
-            </authzPermissionsContext.Provider>
-          </MockedProvider>
-        </Provider>
+        <MockedProvider addTypename={false} mocks={mockResponses}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <MemoryRouter initialEntries={["/home"]}>
+              <Services groupName={test.group} />
+            </MemoryRouter>
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
       );
       await act(async (): Promise<void> => {
+        const delay = 150;
+        await wait(delay);
         await waitForExpect((): void => {
           wrapper.update();
 
@@ -181,27 +225,97 @@ describe("Services", (): void => {
   it("should toggle buttons properly", async (): Promise<void> => {
     expect.hasAssertions();
 
+    const mockMutations: readonly MockedResponse[] = [
+      {
+        request: {
+          query: UPDATE_GROUP_DATA,
+          variables: {
+            comments: "",
+            groupName: "unittesting",
+            hasASM: true,
+            hasMachine: true,
+            hasSquad: true,
+            reason: "NONE",
+            service: "WHITE",
+            subscription: "CONTINUOUS",
+          },
+        },
+        result: {
+          data: {
+            editGroup: {
+              success: true,
+            },
+          },
+        },
+      },
+      {
+        request: {
+          query: UPDATE_GROUP_DATA,
+          variables: {
+            comments: "",
+            groupName: "unittesting",
+            hasASM: true,
+            hasMachine: false,
+            hasSquad: false,
+            reason: "NONE",
+            service: "WHITE",
+            subscription: "CONTINUOUS",
+          },
+        },
+        result: {
+          data: {
+            editGroup: {
+              success: true,
+            },
+          },
+        },
+      },
+      {
+        request: {
+          query: UPDATE_GROUP_DATA,
+          variables: {
+            comments: "",
+            groupName: "unittesting",
+            hasASM: true,
+            hasMachine: true,
+            hasSquad: false,
+            reason: "NONE",
+            service: "WHITE",
+            subscription: "CONTINUOUS",
+          },
+        },
+        result: {
+          data: {
+            editGroup: {
+              success: true,
+            },
+          },
+        },
+      },
+    ];
+
     const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mockResponses}>
-          <authzPermissionsContext.Provider value={mockedPermissions}>
-            <MemoryRouter initialEntries={["/home"]}>
-              <Services groupName={"unittesting"} />
-            </MemoryRouter>
-          </authzPermissionsContext.Provider>
-        </MockedProvider>
-      </Provider>
+      <MockedProvider
+        addTypename={false}
+        mocks={[...mockResponses, ...mockMutations]}
+      >
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <MemoryRouter initialEntries={["/home"]}>
+            <Services groupName={"unittesting"} />
+          </MemoryRouter>
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
     );
+
     await act(async (): Promise<void> => {
+      const delay = 150;
+      await wait(delay);
       await waitForExpect((): void => {
         wrapper.update();
 
         expect(wrapper).toHaveLength(1);
       });
     });
-
-    const formValues: () => IFormValues = (): IFormValues =>
-      store.getState().form.editGroup.values;
 
     // Wrappers are functions because references get rapidly changed
     const table: () => ReactWrapper = (): ReactWrapper => wrapper.find("table");
@@ -234,65 +348,68 @@ describe("Services", (): void => {
       machineRow().find("#machineSwitch").at(0);
     const squadSwitch: () => ReactWrapper = (): ReactWrapper =>
       squadRow().find("#squadSwitch").at(0);
-
-    expect(formValues()).toStrictEqual({
-      asm: true,
-      comments: "",
-      confirmation: "",
-      machine: true,
-      reason: "NONE",
-      service: "WHITE",
-      squad: true,
-      type: "CONTINUOUS",
-    });
-
-    machineSwitch().simulate("click");
-
-    expect(formValues()).toStrictEqual({
-      asm: true,
-      comments: "",
-      confirmation: "",
-      machine: false,
-      reason: "NONE",
-      service: "WHITE",
-      squad: false,
-      type: "CONTINUOUS",
-    });
-
+    const formik: () => ReactWrapper = (): ReactWrapper =>
+      wrapper.find("Formik").first();
     const proceedButton: () => ReactWrapper = (): ReactWrapper =>
       wrapper.find("Button").first();
 
+    machineSwitch().simulate("click");
+
     expect(proceedButton().exists()).toStrictEqual(true);
 
-    squadSwitch().simulate("click");
+    proceedButton().simulate("click");
+    const confirmation: () => ReactWrapper = (): ReactWrapper =>
+      wrapper.find({ name: "confirmation" }).find("input");
+    confirmation().simulate("change", {
+      target: { name: "confirmation", value: "unittesting" },
+    });
+    formik().simulate("submit");
 
-    expect(formValues()).toStrictEqual({
-      asm: true,
-      comments: "",
-      confirmation: "",
-      machine: true,
-      reason: "NONE",
-      service: "WHITE",
-      squad: true,
-      type: "CONTINUOUS",
+    await act(async (): Promise<void> => {
+      const delay = 150;
+      await wait(delay);
+      wrapper.update();
+
+      expect(wrapper).toHaveLength(1);
+      expect(msgSuccess).toHaveBeenCalledTimes(1);
     });
 
-    const genericForm: () => ReactWrapper = (): ReactWrapper =>
-      wrapper.find("genericForm").first();
+    squadSwitch().simulate("click");
 
-    genericForm().simulate("submit");
+    expect(proceedButton().exists()).toStrictEqual(true);
+
+    proceedButton().simulate("click");
+    confirmation().simulate("change", {
+      target: { name: "confirmation", value: "unittesting" },
+    });
+    formik().simulate("submit");
+    await act(async (): Promise<void> => {
+      const delay = 150;
+      await wait(delay);
+      wrapper.update();
+
+      expect(wrapper).toHaveLength(1);
+      expect(msgSuccess).toHaveBeenCalledTimes(2);
+    });
 
     squadSwitch().simulate("click");
 
-    expect(formValues()).toStrictEqual({
-      asm: true,
-      comments: "",
-      confirmation: "",
-      machine: true,
-      reason: "NONE",
-      service: "WHITE",
-      squad: false,
-      type: "CONTINUOUS",
+    expect(proceedButton().exists()).toStrictEqual(true);
+
+    proceedButton().simulate("click");
+    confirmation().simulate("change", {
+      target: { name: "confirmation", value: "unittesting" },
+    });
+    formik().simulate("submit");
+
+    await act(async (): Promise<void> => {
+      const delay = 150;
+      await wait(delay);
+      wrapper.update();
+      const calls = 3;
+
+      expect(wrapper).toHaveLength(1);
+      expect(msgSuccess).toHaveBeenCalledTimes(calls);
     });
 
     jest.clearAllMocks();

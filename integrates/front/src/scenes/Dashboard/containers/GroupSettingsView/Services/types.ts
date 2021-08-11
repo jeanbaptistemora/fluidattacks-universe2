@@ -2,10 +2,10 @@ interface IFormData {
   asm: boolean;
   comments: string;
   confirmation: string;
-  forces: boolean;
+  forces?: boolean;
   machine: boolean;
   reason: string;
-  organization: string;
+  organization?: string;
   service: string;
   squad: boolean;
   type: string;
@@ -28,6 +28,15 @@ interface IServicesProps {
   groupName: string;
 }
 
+interface IServicesFormProps {
+  data: IGroupData | undefined;
+  groupName: string;
+  isModalOpen: boolean;
+  loadingGroupData: boolean;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  submittingGroupData: boolean;
+}
+
 interface IServicesDataSet {
   canHave: boolean;
   id: string;
@@ -35,4 +44,10 @@ interface IServicesDataSet {
   service: string;
 }
 
-export { IFormData, IGroupData, IServicesDataSet, IServicesProps };
+export {
+  IFormData,
+  IGroupData,
+  IServicesDataSet,
+  IServicesFormProps,
+  IServicesProps,
+};
