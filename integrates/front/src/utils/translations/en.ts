@@ -2,6 +2,15 @@ import type { ResourceKey } from "i18next";
 
 export const enTranslations: ResourceKey = {
   analytics: {
+    barChart: {
+      topVulnerabilities: {
+        title: "Top vulnerabilities",
+        tooltip: {
+          cvssf: "CVSSF",
+          vulnerabilities: "Vulnerabilities",
+        },
+      },
+    },
     disjointForceDirectedGraph: {
       whereToFindings: {
         footer: {

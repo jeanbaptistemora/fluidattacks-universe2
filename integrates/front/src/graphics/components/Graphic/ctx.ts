@@ -58,6 +58,24 @@ const mergedDocuments: Record<string, IMergedCharts> = {
     documentName: "riskOverTime",
     documentType: "stackedBarChart",
   },
+  topVulnerabilitiesCvssf: {
+    alt: {
+      label: "Vulns",
+      tooltip: translate.t(
+        "analytics.barChart.topVulnerabilities.tooltip.vulnerabilities"
+      ),
+      url: "#top-vulnerabilities",
+    },
+    default: {
+      label: "Cvssf",
+      tooltip: translate.t(
+        "analytics.barChart.topVulnerabilities.tooltip.cvssf"
+      ),
+      url: "#top-vulnerabilities",
+    },
+    documentName: "topFindingsByVulnerabilities",
+    documentType: "barChart",
+  },
 };
 
 export { mergedDocuments, allowedDocumentNames, allowedDocumentTypes };
