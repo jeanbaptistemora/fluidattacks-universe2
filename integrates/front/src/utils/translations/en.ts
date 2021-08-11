@@ -46,11 +46,6 @@ export const enTranslations: ResourceKey = {
         title: "Your commitment towards security",
       },
       severity: {
-        footer:
-          "Security vulnerabilities are ranked based on C.V.S.S. v3.1. " +
-          "The higher the score, " +
-          "the more damage an attack can make to your system, " +
-          "and the easier it is to carry it on",
         title: "Severity",
       },
     },
