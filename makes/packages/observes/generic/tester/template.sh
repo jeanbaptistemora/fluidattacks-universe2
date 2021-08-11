@@ -10,5 +10,7 @@ function observes_generic_test {
       -p no:cacheprovider \
       --full-trace "${testDir}" \
     && popd \
-    && touch "${out}"
+    && if test "${out+x}"; then
+      touch "${out}"
+    fi
 }
