@@ -189,5 +189,11 @@ class SSLVulnerability(NamedTuple):
     def get_line(self) -> int:
         return self.line.value
 
+    def get_context(self) -> SSLContext:
+        return self.ssl_settings.context
+
+    def get_intention(self, locale: LocalesEnum) -> str:
+        return self.ssl_settings.intention[locale]
+
     def __str__(self) -> str:
         return str(self.ssl_settings)
