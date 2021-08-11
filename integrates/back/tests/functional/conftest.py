@@ -65,6 +65,7 @@ TEST_GROUPS: Set[str] = {
     "request_vulnerabilities_verification_new",
     "request_vulnerabilities_zero_risk",
     "request_vulnerabilities_zero_risk_new",
+    "reset_expired_accepted_findings_new",
     "resources",
     "sign_in",
     "solve_event",

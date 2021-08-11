@@ -61,7 +61,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         "groups": [
             {
                 "project_name": "group1",
-                "description": "Integrates group",
+                "description": "ASM group",
                 "language": "en",
                 "historic_configuration": [
                     {
@@ -86,7 +86,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             },
             {
                 "project_name": "setpendingdeletion",
-                "description": "Integrates group",
+                "description": "ASM group",
                 "language": "en",
                 "historic_configuration": [
                     {
@@ -126,7 +126,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             },
             {
                 "project_name": "deletegroup",
-                "description": "Integrates group",
+                "description": "ASM group",
                 "language": "en",
                 "historic_configuration": [
                     {

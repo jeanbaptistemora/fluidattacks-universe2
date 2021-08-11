@@ -361,6 +361,9 @@ integrates.back.test.functional.request_vulnerabilities_zero_risk:
 integrates.back.test.functional.request_vulnerabilities_zero_risk_new:
   <<: *integrates_back_test_functional_migration
 
+integrates.back.test.functional.reset_expired_accepted_findings_new:
+  <<: *integrates_back_test_functional_migration
+
 integrates.back.test.functional.resources:
   <<: *integrates_back_test_functional
 
