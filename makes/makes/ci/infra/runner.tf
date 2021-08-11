@@ -1,3 +1,71 @@
+data "local_file" "init_runner" {
+  filename = "./init/runner.sh"
+}
+
+data "local_file" "init_worker" {
+  filename = "./init/worker.sh"
+}
+
+variable "docker_machine_c5d" {
+  type = list(string)
+  default = [
+    "amazonec2-request-spot-instance=true",
+    "amazonec2-spot-price=",
+    "amazonec2-access-key=__autoscaling_access_key__",
+    "amazonec2-secret-key=__autoscaling_secret_key__",
+    "amazonec2-region=us-east-1",
+    "amazonec2-tags=use,ci,management:type,production,management:product,common",
+    "amazonec2-vpc-id=vpc-0ea1c7bd6be683d2d",
+    "amazonec2-subnet-id=subnet-0bceb7aa2c900324a",
+    "amazonec2-zone=a",
+    "amazonec2-use-private-address=true",
+    "amazonec2-use-ebs-optimized-instance=true",
+    "amazonec2-security-group=AutoscalingCISG",
+    "amazonec2-ami=ami-013da1cc4ae87618c",
+    "amazonec2-instance-type=c5ad.large",
+    "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+    "amazonec2-volume-type=gp3",
+    "amazonec2-root-size=10"
+  ]
+}
+
+variable "off_peak_periods" {
+  type = list(object({
+    periods    = list(string)
+    idle_count = number
+    idle_time  = number
+    timezone   = string
+  }))
+  default = [
+    {
+      periods = [
+        "* * 0-6,20-23 * * mon-fri *",
+        "* * * * * sat,sun *",
+      ]
+      idle_count = 0
+      idle_time  = 1800
+      timezone   = "America/Bogota"
+    }
+  ]
+}
+
+variable "runner_block_device" {
+  type = object({
+    delete_on_termination = bool
+    volume_type           = string
+    volume_size           = number
+    encrypted             = bool
+    iops                  = number
+  })
+  default = {
+    delete_on_termination = true
+    volume_type           = "gp3"
+    volume_size           = 15
+    encrypted             = true
+    iops                  = 3000
+  }
+}
+
 module "gitlab_runner" {
   source  = "npalm/gitlab-runner/aws"
   version = "4.28.0"
@@ -33,58 +101,26 @@ module "gitlab_runner" {
   }
   runner_instance_ebs_optimized     = true
   runner_instance_enable_monitoring = true
-  runner_root_block_device = {
-    delete_on_termination = true
-    volume_type           = "gp3"
-    volume_size           = 15
-    encrypted             = true
-    iops                  = 3000
-  }
-  runners_concurrent    = 1000
-  runners_ebs_optimized = true
-  runners_executor      = "docker+machine"
-  runners_gitlab_url    = "https://gitlab.com"
-  runners_idle_count    = 0
-  runners_idle_time     = 1800
-  runners_image         = "docker"
-  runners_limit         = 1000
-  runners_max_builds    = 15
-  runners_monitoring    = true
-  runners_name          = "fluidattacks-autoscaling"
-  runners_machine_autoscaling = [{
-    periods = [
-      "* * 0-6,20-23 * * mon-fri *",
-      "* * * * * sat,sun *",
-    ]
-    idle_count = 0
-    idle_time  = 1800
-    timezone   = "America/Bogota"
-  }]
-  runners_output_limit          = 4096
-  runners_privileged            = false
-  runners_pull_policy           = "always"
-  runners_request_concurrency   = 10
-  runners_request_spot_instance = true
-  runners_use_private_address   = false
-  docker_machine_options = [
-    "amazonec2-request-spot-instance=true",
-    "amazonec2-spot-price=",
-    "amazonec2-access-key=__autoscaling_access_key__",
-    "amazonec2-secret-key=__autoscaling_secret_key__",
-    "amazonec2-region=us-east-1",
-    "amazonec2-tags=use,ci,management:type,production,management:product,common",
-    "amazonec2-vpc-id=vpc-0ea1c7bd6be683d2d",
-    "amazonec2-subnet-id=subnet-0bceb7aa2c900324a",
-    "amazonec2-zone=a",
-    "amazonec2-use-private-address=true",
-    "amazonec2-use-ebs-optimized-instance=true",
-    "amazonec2-security-group=AutoscalingCISG",
-    "amazonec2-ami=ami-013da1cc4ae87618c",
-    "amazonec2-instance-type=c5ad.large",
-    "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
-    "amazonec2-volume-type=gp3",
-    "amazonec2-root-size=10"
-  ]
+  runners_concurrent                = 1000
+  runners_ebs_optimized             = true
+  runners_executor                  = "docker+machine"
+  runners_gitlab_url                = "https://gitlab.com"
+  runners_idle_count                = 0
+  runners_idle_time                 = 1800
+  runners_image                     = "docker"
+  runners_limit                     = 1000
+  runners_max_builds                = 15
+  runners_monitoring                = true
+  runners_name                      = "fluidattacks-autoscaling"
+  runners_output_limit              = 4096
+  runners_privileged                = false
+  runners_pull_policy               = "always"
+  runners_request_concurrency       = 10
+  runners_request_spot_instance     = true
+  runners_use_private_address       = false
+  runner_root_block_device          = var.runner_block_device
+  docker_machine_options            = var.docker_machine_c5d
+  runners_machine_autoscaling       = var.off_peak_periods
 
   environment = "fluidattacks-autoscaling"
   overrides = {
