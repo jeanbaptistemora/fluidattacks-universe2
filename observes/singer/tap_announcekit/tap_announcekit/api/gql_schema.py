@@ -1,5 +1,4 @@
-# pylint: disable=too-many-lines
-# pylint: disable=too-few-public-methods
+# pylint: disable=too-many-lines, too-few-public-methods
 
 import sgqlc.types
 import sgqlc.types.datetime
