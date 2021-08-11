@@ -96,13 +96,9 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       const forces: string = translate.t(
         servicesParameters[group.hasForces.toString()]
       );
-      const asm: string = translate.t(
-        servicesParameters[group.hasAsm.toString()]
-      );
 
       return {
         ...group,
-        asm,
         description,
         forces,
         name,
@@ -116,13 +112,6 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     { align: "center", dataField: "name", header: "Group Name" },
     { align: "center", dataField: "description", header: "Description" },
     { align: "center", dataField: "subscription", header: "Subscription" },
-    {
-      align: "left",
-      dataField: "asm",
-      formatter: pointStatusFormatter,
-      header: "ASM",
-      width: "90px",
-    },
     {
       align: "left",
       dataField: "squad",

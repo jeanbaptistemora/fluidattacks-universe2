@@ -153,7 +153,7 @@ describe("Organization groups view", (): void => {
         .filterWhere((element: ReactWrapper): boolean =>
           element.contains("Enabled")
         )
-    ).toHaveLength(2);
+    ).toHaveLength(1);
     expect(
       oneshottestRow
         .find({ className: "v-mid" })
@@ -162,7 +162,7 @@ describe("Organization groups view", (): void => {
         )
     ).toHaveLength(1);
 
-    const PENDING_GROUP_ROW_LENGTH = 3;
+    const PENDING_GROUP_ROW_LENGTH = 2;
 
     expect(pendingGroupRow.text()).toContain("PENDINGGROUP");
     expect(pendingGroupRow.text()).toContain("Continuous");
@@ -175,7 +175,7 @@ describe("Organization groups view", (): void => {
         )
     ).toHaveLength(PENDING_GROUP_ROW_LENGTH);
 
-    const UNIT_TESTING_ROW_LENGTH = 3;
+    const UNIT_TESTING_ROW_LENGTH = 2;
 
     expect(unittestingRow.text()).toContain("UNITTESTING");
     expect(unittestingRow.text()).toContain("User");
