@@ -39,6 +39,7 @@ async def _run(*, entity: str, additional_info: str) -> int:
     batch_action = await _get_batch_job(entity=entity)
     cmd_args: List[str] = [
         "test",
+        os.environ["API_STATUS"],
         "report",
         entity,
         batch_action.subject,
@@ -54,6 +55,7 @@ async def _run(*, entity: str, additional_info: str) -> int:
     return await process.wait()
 
 
+@pytest.mark.skip
 async def test_finding_report() -> None:
     query_pdf = """
         query test {

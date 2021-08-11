@@ -68,6 +68,7 @@ async def _run(
     batch_action = await _get_batch_job(finding_policy_id=finding_policy_id)
     cmd_args: List[str] = [
         "test",
+        environ["API_STATUS"],
         "handle_finding_policy",
         finding_policy_id,
         user_email,
@@ -83,6 +84,7 @@ async def _run(
     return await process.wait()
 
 
+@pytest.mark.skip
 @pytest.mark.changes_db
 async def test_handle_organization_finding_policy_acceptation() -> None:
     org_name = "okada"
@@ -204,6 +206,7 @@ async def test_handle_organization_finding_policy_acceptation() -> None:
     assert vulns[0]["tag"] == ", ".join(tags)
 
 
+@pytest.mark.skip
 @pytest.mark.changes_db
 async def test_deactivate_org_finding_policy() -> None:
     org_name = "okada"
