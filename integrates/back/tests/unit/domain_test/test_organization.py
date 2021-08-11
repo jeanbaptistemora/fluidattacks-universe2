@@ -355,6 +355,7 @@ async def test_iterate_organizations() -> None:
         "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac": "kamiya",
         "ORG#33c08ebd-2068-47e7-9673-e1aa03dc9448": "kiba",
         "ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b": "imamura",
+        "ORG#d32674a9-9838-4337-b222-68c88bf54647": "makoto",
     }
     async for org_id, org_name in orgs_domain.iterate_organizations():
         assert expected_organizations.pop(org_id) == org_name
@@ -390,6 +391,7 @@ async def test_iterate_organizations_and_groups() -> None:
         "ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b": {
             "imamura": ["deleteimamura"]
         },
+        "ORG#d32674a9-9838-4337-b222-68c88bf54647": {"makoto": []},
     }
     async for org_id, org_name, groups in orgs_domain.iterate_organizations_and_groups():  # noqa
         assert sorted(groups) == sorted(

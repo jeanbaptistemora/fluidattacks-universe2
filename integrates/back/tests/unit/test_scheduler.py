@@ -290,13 +290,13 @@ async def test_get_group_indicators() -> None:
 @pytest.mark.changes_db
 @freeze_time("2019-12-01")
 async def test_delete_obsolete_orgs() -> None:
-    org_id = "ORG#33c08ebd-2068-47e7-9673-e1aa03dc9448"
-    org_name = "kiba"
+    org_id = "ORG#d32674a9-9838-4337-b222-68c88bf54647"
+    org_name = "makoto"
     org_ids = []
     async for organization_id, _ in iterate_organizations():
         org_ids.append(organization_id)
     assert org_id in org_ids
-    assert len(org_ids) == 9
+    assert len(org_ids) == 10
 
     now_str = datetime_utils.get_as_str(datetime_utils.get_now())
     await update_pending_deletion_date(org_id, org_name, now_str)
@@ -305,7 +305,7 @@ async def test_delete_obsolete_orgs() -> None:
     async for organization_id, _ in iterate_organizations():
         new_org_ids.append(organization_id)
     assert org_id not in new_org_ids
-    assert len(new_org_ids) == 8
+    assert len(new_org_ids) == 9
 
     org_id = "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"
     org_pending_deletion_date = await get_pending_deletion_date_str(org_id)
