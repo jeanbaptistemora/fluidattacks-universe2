@@ -8,7 +8,7 @@
       security initiatives (SSIs),
       also known as application / product
       security programs.
-      The version used in this section is BSIMM9.
+      The version used in this section is BSIMM11.
   es:
     description: __empty__
   definitions:
@@ -40,7 +40,7 @@
       analysts, developers, testers, and educators
       to advance community understanding
       and enhance defenses.
-      The version used in this section is CAPEC List v3.4.
+      The version used in this section is CAPEC List v3.5.
   es:
     description: __empty__
   definitions:
@@ -174,10 +174,10 @@
       title: Manipulating State
       link: https://capec.mitre.org/data/definitions/74.html
     "94":
-      title: Man in the Middle Attack
+      title: Adversary in the Middle (AiTM)
       link: https://capec.mitre.org/data/definitions/94.html
     "113":
-      title: API Manipulation
+      title: Interface Manipulation
       link: https://capec.mitre.org/data/definitions/113.html
     "114":
       title: Authentication Abuse
@@ -1045,20 +1045,20 @@
   es:
     description: __empty__
   definitions:
-    "4_1":
-      title: Security of processing.(1a)
+    "4_1a":
+      title: Security of processing
       link: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219
     "6_1":
-      title: Traffic data.(1)
+      title: Traffic data
       link: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219
     "6_3":
-      title: Traffic data.(3)
+      title: Traffic data
       link: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219
     "6_4":
-      title: Traffic data.(4)
+      title: Traffic data
       link: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219
     "9_1":
-      title: Location data other than traffic data.(1)
+      title: Location data other than traffic data
       link: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02002L0058-20091219
   metadata: {}
 "006":
@@ -1090,13 +1090,13 @@
     "11_2":
       title: Processing which does not require identification
       link: https://gdpr-info.eu/art-11-gdpr/
-    "13_1_3":
+    "13_1-3":
       title: >
         Information to be provided
         where personal data are collected
         from the data subject
       link: https://gdpr-info.eu/art-13-gdpr/
-    "14_1_4":
+    "14_1-4":
       title: >
         Information to be provided
         where personal data have not been
@@ -1352,60 +1352,60 @@
     description: __empty__
   definitions:
     "003-8_3.1":
-      title: Only necessary inbound and outbound electronic access
+      title: Electronic Access Controls
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-003-8.pdf
     "003-8_3.2":
-      title: Authenticate all Dial up Connectivity
+      title: Electronic Access Controls
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-003-8.pdf
     "003-8_5.1":
-      title: For Transient Cyber Assets
+      title: >
+        Transient Cyber Asset and Removable
+        Media Malicious Code Risk Mitigation
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-003-8.pdf
     "004-6_R5":
-      title: Access revocation program
+      title: Access revocation
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-004-6.pdf
     "005-5_R1.3":
-      title: Electronic Access Points
+      title: Electronic Security Perimeter
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf
     "005-5_R1.4":
-      title: Perform authentication when establishing Dial-up Connectivity
+      title: Electronic Security Perimeter
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf
     "005-5_R1.5":
-      title: Methods for detecting known or suspected malicious communications
+      title: Electronic Security Perimeter
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf
     "005-5_R2.2":
-      title: Utilize encryption that terminates at an Intermediate System
+      title: Interactive Remote Access Management
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-005-5.pdf
     "007-6_R1.1":
-      title: Enable only logical network accessible ports
+      title: Ports and Services
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
     "007-6_R3.1":
-      title: Methods to deter, detect, or prevent malicious code
+      title:  Malicious Code Prevention
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
     "007-6_R4.1":
-      title: Log events at the BES Cyber System level
+      title: Security Event Monitoring
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
     "007-6_R5.1":
-      title: Methods to enforce authentication of interactive user access
+      title: System Access Control
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
     "007-6_R5.4":
-      title: Change known default passwords
+      title: System Access Control
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
     "007-6_R5.5":
-      title: Password length and complexity
+      title: System Access Control
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
     "007-6_R5.6":
-      title: Enforce password changes
+      title: System Access Control
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
     "007-6_R5.7":
-      title: Limit authentication attempts
+      title: System Access Control
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-007-6.pdf
     "011-2_R1.2":
-      title: >
-        Procedures for protecting and securely
-        handling BES Cyber System Information
+      title: Information Protection
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-011-2.pdf
     "011-2_R2.1":
-      title: Prevent the unauthorized retrieval of BES Cyber System Information
+      title: BES Cyber Asset Reuse and Disposal
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-011-2.pdf
   metadata: {}
 "010":
