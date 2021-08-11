@@ -565,8 +565,8 @@
       such as usernames, passwords, email addresses
       and IP addresses, among others.
       Alternatively,
-      while values may be "password=123"
-      o "aws.secret_key=test",
+      while values may be password=123
+      o aws.secret_key=test,
       they reveal the bad practice
       of storing sensitive information
       in the repository with no encryption,
@@ -596,8 +596,8 @@
       credenciales de API, entre otros.
       Alternativamente,
       a pesar de que algunos valores
-      pueden ser "password=123"
-      o "aws.secret_key=prueba",
+      pueden ser password=123
+      o aws.secret_key=prueba,
       estos revelan la mala práctica
       de almacenar información sensible
       en el repositorio sin cifrar,
@@ -3040,7 +3040,7 @@
     recommendation: >
       Configure the attribute:
       application.android:allowBackup
-      to "false" in the file: AndroidManifest.xml.
+      to false in the file: AndroidManifest.xml.
     threat: >
       Unauthorized attacker
       with the APK installed in a device.
@@ -3067,7 +3067,7 @@
     recommendation: >
       Configurar el atributo:
       application.android:allowBackup
-      a "false" en el archivo: AndroidManifest.xml.
+      a false en el archivo: AndroidManifest.xml.
     threat: >
       Atacante sin autorización
       con el APK instalado en un dispositivo.
@@ -3309,7 +3309,7 @@
     recommendation: >
       Configure the attribute:
       application.android:debuggable
-      to "false" in the file: AndroidManifest.xml.
+      to false in the file: AndroidManifest.xml.
     threat: >
       Unauthorized attacker
       from internet network.
@@ -3328,7 +3328,7 @@
     recommendation: >
       Configurar el atributo:
       application.android:debuggable
-      a "false" en el archivo: AndroidManifest.xml.
+      a false en el archivo: AndroidManifest.xml.
     threat: >
       Atacante sin autorización
       desde internet.
@@ -3724,7 +3724,7 @@
 
       - Use meta-tags in HTML pages.
 
-      - Disable the _autocomplete_ field
+      - Disable the autocomplete field
       to prevent cache to field's level.
     threat: >
       Anonymous attacker from local network
@@ -3746,7 +3746,7 @@
 
       - Usar meta-tags en las páginas HTML.
 
-      - Deshabilitar el campo _autocomplete_
+      - Deshabilitar el campo autocomplete
       para prevenir caché a nivel de campos.
     threat: >
       Atacante anónimo desde red local
@@ -4122,9 +4122,9 @@
       to external services.
     recommendation: >
       Set the Referrer-Policy header
-      to "no-referrer", "same-origin",
-      "strict-origin",
-      or "strict-origin-when-cross-origin"
+      to no-referrer, same-origin,
+      strict-origin,
+      or strict-origin-when-cross-origin
       in the server responses.
     threat: >
       Unauthorized attacker
@@ -4141,9 +4141,9 @@
       y su ruta a servicios externos.
     recommendation: >
       Establecer la cabecera
-      Referrer-Policy a "no-referrer",
-      "same-origin", "strict-origin",
-      o "strict-origin-when-cross-origin"
+      Referrer-Policy a no-referrer,
+      same-origin, strict-origin,
+      o strict-origin-when-cross-origin
       en las respuestas del servidor.
     threat: >
       Atacante sin autorización
@@ -4338,11 +4338,11 @@
       through the Content Provider API.
     recommendation: >
       Deny access to all Content Providers with:
-      android:exported="false"
-      and android:grantUriPermissions="false".
+      android:exported=false
+      and android:grantUriPermissions=false.
       If required
       you can allow specific Content Providers
-      by using "grant-uri-permission".
+      by using grant-uri-permission.
     threat: >
       Unauthorized attacker
       owner of a third party application
@@ -4370,11 +4370,11 @@
     recommendation: >
       Denegar el acceso
       a todos los Content Providers con:
-      android:exported="false"
-      y android:grantUriPermissions="false".
+      android:exported=false
+      y android:grantUriPermissions=false.
       Si se requiere
       se puede permitir Content Providers específicos
-      usando "grant-uri-permission".
+      usando grant-uri-permission.
     threat: >
       Atacante sin autorización
       propietario de una aplicación de terceros
@@ -4905,7 +4905,7 @@
       from a third party server.
     recommendation: >
       Add the integrity attribute
-      to HTML "script" tags.
+      to HTML script tags.
     threat: >
       Unauthorized attacker
       from internet network.
@@ -4920,8 +4920,8 @@
       Embeber recursos comprometidos
       desde un servidor de terceros.
     recommendation: >
-      Agregar el atributo "integrity"
-      a las tags "script" de HTML.
+      Agregar el atributo integrity
+      a las tags script de HTML.
     threat: >
       Atacante sin autorización
       desde red internet.
@@ -5526,8 +5526,8 @@
       in the tab where original site was,
       leading to a phishing attack.
     recommendation: >
-      Set the attribute _rel_
-      with the _noopener_ value
+      Set the attribute rel
+      with the noopener value
       in each external link.
     threat: >
       Anonymous attacker from local network.
@@ -5548,8 +5548,8 @@
       donde tenía antes el sitio original,
       dando paso a ataques tipo Phishing
     recommendation: >
-      Establecer el atributo _rel_
-      con el valor _noopener_
+      Establecer el atributo rel
+      con el valor noopener
       en cada link externo.
     threat: >
       Atacante anónimo desde red Interna.
@@ -5757,7 +5757,7 @@
   en:
     title: Email uniqueness not properly verified
     description: >
-      The system allows the _plus_ character
+      The system allows the plus character
       in the email registration process.
       An attacker could abuse this feature
       to create several accounts pointing to the same email.
@@ -5771,7 +5771,7 @@
   es:
     title: Email uniqueness not properly verified
     description: >
-      El sistema permite el uso del caracter _suma_
+      El sistema permite el uso del caracter suma
       para registrar un correo de un usuario.
       Esto le permite a un atacante abusar de esta funcionalidad
       para crear múltiples cuentas que apunten al mismo correo electrónico.
@@ -7186,8 +7186,8 @@
       Alternatively,
       the header's max-age is too short.
     impact: >
-      Visit the website under
-      an insecure channel.
+      Compromise confidential information
+      sent through insecure channels.
     recommendation: >
       Set the Strict-Transport-Security header
       and a max-age of at least 31536000
@@ -7195,18 +7195,18 @@
     threat: >
       Unauthorized attacker
       from adjacent network
-      performing a MITM.
+      performing a sniffing attack
   es:
     title: Insecure or unset HTTP headers - Strict Transport Security
     description: >
       El servidor carece del encabezado
       HTTP Strict-Transport-Security.
       Alternativamente,
-      el valor "max-age" del mismo
+      el valor max-age del mismo
       es muy pequeño.
     impact: >
-      Visitar el servidor usando
-      un canal inseguro.
+      Comprometer información sensible
+      que viaja por un canal inseguro.
     recommendation: >
       Establecer la cabecera
       Strict-Transport-Security
@@ -7215,7 +7215,7 @@
     threat: >
       Atacante sin autorización
       desde red adyacente
-      ejecutando un MITM.
+      ejecutando un ataque de sniffing.
   score:
     base:
       attack_vector: "A"
@@ -7315,7 +7315,7 @@
       and craft new attack vectors.
     recommendation: >
       Set the X-Content-Type-Options header
-      to 'nosniff' in the server responses.
+      to nosniff in the server responses.
     threat: >
       Unauthorized attacker
       from internet network.
@@ -7330,7 +7330,7 @@
       y generar nuevos vectores de ataque.
     recommendation: >
       Establecer la cabecera
-      X-Content-Type-Options a 'nosniff'
+      X-Content-Type-Options a nosniff
       en las respuestas del servidor.
     threat: >
       Atacante sin autorización
@@ -7366,7 +7366,7 @@
       or has been stored.
     recommendation: >
       Enable Perfect-Forward-Secrecy in the server side,
-      by allowing Ciphersuites that contain 'DHE' and 'ECDHE' on its names.
+      by allowing Ciphersuites that contain DHE and ECDHE on its names.
     threat: >
       Unauthorized attacker
       from adjacent network
@@ -7387,7 +7387,7 @@
       o ha sido guardada.
     recommendation: >
       Habilitar el Perfect-Forward-Secrecy en el lado del servidor
-      admitiendo algoritmos que contengan 'DHE' o 'ECHDE' en sus nombres.
+      admitiendo algoritmos que contengan DHE o ECHDE en sus nombres.
     threat: >
       Atacante sin autorización
       desde red adyacente
@@ -7532,8 +7532,8 @@
       using Cache Poison attacks.
     recommendation: >
       Set the Cache Control header in the server responses
-      using a secure value such as 'no-store' , 'no-cache'
-      and 'must-revalidate'
+      using a secure value such as no-store , no-cache
+      and must-revalidate
     threat: >
       Unauthorized attacker
       from local network.
@@ -7548,13 +7548,14 @@
       - Almacenar respuestas del servidor
       con información sensible
       en el caché del navegador
+
       - Generar respuestas
       potencialmente peligrosas
       mediante ataques de Cache Poison.
     recommendation: >
       Establecer la cabecera Caché control en las respuestas del servidor
-      con un valor seguro como 'no-store' , 'no-cache'
-      y `must-revalidate`
+      con un valor seguro como no-store , no-cache
+      y must-revalidate
     threat: >
       Atacante sin autorización
       desde red local.
@@ -7587,7 +7588,7 @@
     recommendation: >
       Unless the application
       requires Adobe products,
-      set the X-Permitted-Cross-Domain-Policies to 'none'
+      set the X-Permitted-Cross-Domain-Policies to none
       in the server responses.
     threat: >
       Unauthorized attacker
@@ -7607,7 +7608,7 @@
       A menos que se requiera
       utilizar productos de Adobe
       establecer X-Permitted-Cross-Domain-Policies
-      con el valor de 'none'
+      con el valor de none
       en las respuestas del servidor.
     threat: >
       Atacante sin autorización
@@ -8150,74 +8151,112 @@
   en:
     title: Insecure or unset HTTP headers - X-Frame Options
     description: >
-      __empty__
+      The application uses the X-Frame Options header
+      on the server responses as the only protection mechanism
+      against clickjacking.
+      This header is considered deprecated,
+      since its protection can be bypassed using several iframe layers.
     impact: >
-      __empty__
+      Embed the application in malicious frames
     recommendation: >
-      __empty__
+      - Disable the X-Frame Options
+      from the server responses
+
+      - Define the frame_ancestors policy
+      in the Content Security Policy header
     threat: >
-      __empty__
+      Anonymous attacker from the Internet
   es:
     title: Insecure or unset HTTP headers - X-Frame Options
     description: >
-      __empty__
+      La aplicación utiliza la cabecera X-Frame Options
+      como única medida de protección contra ataques de clickjacking.
+      Esta cabecera es considerada obsoleta,
+      debido a que su protección puede ser saltada
+      utilizando iframes de múltiples capas.
     impact: >
-      __empty__
+      Incrustar la aplicación en frames maliciosos
     recommendation: >
-      __empty__
+      - Deshabilitar el header X-Frame Options
+      en las respuestas del servidor
+
+      - Definir la política de seguridad frame_ancestors
+      en la cabecera Content Security Policy
     threat: >
-      __empty__
+      Atacante anónimo desde Internet
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
       confidentiality: "N"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "R"
   requirements: ["119", "266"]
   metadata: {}
 "153":
   en:
     title: Insecure or unset HTTP headers - Accept
     description: >
-      __empty__
+      The application does not set the Accept header
+      or allows any MIME type in the requests.
+      An attacker could abuse this feature to cause
+      unexpected behaviors when the application interprets
+      incorrect content-types.
     impact: >
-      __empty__
+      Lead to unexpected behaviors
+      due to content type misinterpretations
     recommendation: >
-      __empty__
+      - Set the Accept Header in client requests.
+
+      - Define explicitly the allowed content types
+      for the application
+
+      - Deny all request that contain a content type
+      different from the expected by the application.
     threat: >
-      __empty__
+      Anonymous attacker from the Internet
   es:
     title: Insecure or unset HTTP headers - Accept
     description: >
-      __empty__
+      La aplicación no define el header Accept,
+      o permite cualquier MIME type en las peticiones.
+      Un atacante podría abusar de esta funcionalidad
+      para causar comportamientos inesperados cuando la aplicación
+      interpreta content-types incorrectos.
     impact: >
-      __empty__
+      Causar comportamientos inesperados
+      por interpretaciones incorrectas de content types.
     recommendation: >
-      __empty__
+      - Establecer la cabecera Accept en las peticiones del cliente
+
+      - Definir explícitamente los content types permitidos
+      por la aplicación
+
+      - Denegar todas las peticiones que contengan
+      content types diferentes a los esperados por la aplicación.
     threat: >
-      __empty__
+      Atacante anónimo desde Internet
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "R"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "U"
+      remediation_level: "U"
+      report_confidence: "R"
   requirements: ["119", "266"]
   metadata: {}
 "154":
@@ -14699,37 +14738,41 @@
   en:
     title: Insecure or unset HTTP headers - Content-Type
     description: >
-      __empty__
+      The application does not define the Content-Type header
+      in the server responses
     impact: >
-      __empty__
+      Lead to unexpected behaviors
+      due to content type misinterpretations
     recommendation: >
-      __empty__
+      Define explicitly the content types allowed by the application.
     threat: >
-      __empty__
+      Authenticated attacker from the Internet
   es:
     title: Insecure or unset HTTP headers - Content-Type
     description: >
-      __empty__
+      La aplicación no define la cabecera Content Type
+      en las respuestas del servidor
     impact: >
-      __empty__
+      Causar comportamientos inesperados
+      debido a interpretaciones incorrectas del content type.
     recommendation: >
-      __empty__
+      Definir explícitamente los content types permitidos por la aplicación.
     threat: >
-      __empty__
+      Atacante autenticado desde Internet
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
-      privileges_required: "N"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "R"
   requirements: ["119", "266"]
   metadata: {}
 "330":
@@ -15846,36 +15889,44 @@
   en:
     title: Clickjacking
     description: >
-      __empty__
+      The application can be embeded in malicious iframes
+      allowing an attacker to hijack the user clicks
+      to perform actions without the user consent.
     impact: >
-      __empty__
+      Hijack the user clicks to execute unintended actions.
     recommendation: >
-      __empty__
+      Set the frame-ancestors policy
+      in the Content Security Policy
+      using a secure configuration.
     threat: >
-      __empty__
+      Anonymous attacker from Internet
   es:
     title: Clickjacking
     description: >
-      __empty__
+      La aplicación puede ser incrustada en frames maliciosos
+      permitiéndole a un atacante secuestrar los clicks de un usuario
+      para ejecutar acciones sin su consentimiento.
     impact: >
-      __empty__
+      Forzar al usuario a ejecutar acciones no deseadas
     recommendation: >
-      __empty__
+      Establecer la política frame-ancestors
+      en la cabecera Content Security Policy
+      utilizando una configuración segura.
     threat: >
-      __empty__
+      Atacante anónimo desde Internet
   score:
     base:
       attack_vector: "N"
       attack_complexity: "L"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
       confidentiality: "N"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "H"
+      remediation_level: "O"
+      report_confidence: "C"
   requirements: ["119", "266"]
   metadata: {}
