@@ -1,7 +1,6 @@
 .makes: &makes
   tags: [autoscaling]
   image: "${CI_REGISTRY_IMAGE}/makes"
-  needs: []
   interruptible: true
   script:
     - ./m "${CI_JOB_NAME% *}"
@@ -33,20 +32,7 @@
       when: never
     - if: *observes_commit_pattern
 
-makes.test.observes:
-  <<: *makes
-  <<: *observes_in_master_branch
-  stage: test-code
-
-observes.job.infra.apply:
-  <<: *makes
-  <<: *observes_in_master_branch
-  stage: deploy-infra
-
-observes.job.infra.test:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: test-infra
+# lint jobs
 
 observes.lint.architecture:
   <<: *makes
@@ -162,6 +148,8 @@ observes.lint.target-redshift:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: lint-code
+
+# scheduled jobs
 
 observes.scheduled.job.batch-stability:
   <<: *makes
@@ -306,6 +294,13 @@ observes.scheduled.on-aws.code-etl-upload:
   tags: [autoscaling]
   interruptible: false
 
+# test jobs
+
+makes.test.observes:
+  <<: *makes
+  <<: *observes_in_master_branch
+  stage: test-code
+
 observes.test.code-etl:
   <<: *makes
   <<: *observes_in_dev_branch
@@ -340,3 +335,26 @@ observes.test.tap-mixpanel:
   <<: *makes
   <<: *observes_in_dev_branch
   stage: test-code
+
+# fx-test jobs
+
+observes.fx-test.tap-announcekit:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: test-code
+  needs:
+    - observes.test.tap-announcekit
+
+# test infra jobs
+
+observes.job.infra.test:
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: test-infra
+
+# deploy infra jobs
+
+observes.job.infra.apply:
+  <<: *makes
+  <<: *observes_in_master_branch
+  stage: deploy-infra
