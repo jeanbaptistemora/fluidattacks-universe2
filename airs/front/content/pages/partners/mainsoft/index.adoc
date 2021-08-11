@@ -7,9 +7,11 @@
 
 = Mainsoft
 
-link:https://www.mainsoft.cl/[Mainsoft] is a leading company in the design and implementation
-of IT solutions and services, founded in 1993 in Chile
+link:https://www.mainsoft.cl/[Mainsoft] is a leading company
+in the design and implementation of IT solutions and services,
+founded in 1993 in Chile
 and with offices also in Peru and Argentina.
-Mainsoft's central contributions to the industry are in the areas
-of application performance management, cybersecurity, managed file transfer,
+Mainsoft's central contributions to the industry
+are in the areas of application performance management,
+cybersecurity, managed file transfer,
 IT service management and project management office.

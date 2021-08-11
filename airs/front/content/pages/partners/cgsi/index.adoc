@@ -7,9 +7,10 @@
 
 = CGSI
 
-link:http://www.cgsi.com.ve/index.html[CGSI] is a group of companies specialized in cybersecurity solutions
-and services for Central America, South America and the Caribbean.
+link:http://www.cgsi.com.ve/index.html[CGSI] is a group of companies
+specialized in cybersecurity solutions and services
+for Central America, South America and the Caribbean.
 Their primary business areas include corporate security assessments,
 design and planning; cloud security, educational and anti-fraud services;
-continuous compromise assessments; and
-information security products and solutions.
+continuous compromise assessments;
+and information security products and solutions.

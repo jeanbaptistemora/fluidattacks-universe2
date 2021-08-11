@@ -7,9 +7,10 @@
 
 = MI Group
 
-link:https://migroupco.com/[MI Group USA] is a full-service
-digital marketing and software development company
-focused on helping non-tech savvy startups, small and medium-sized businesses
+link:https://migroupco.com/[MI Group USA] is a full-service digital marketing
+and software development company
+focused on helping non-tech savvy startups,
+small and medium-sized businesses
 to find new clients and grow revenue quickly.
 Their solutions and services include digital assessment
 and strategy development, email, social media, SMS and online marketing,

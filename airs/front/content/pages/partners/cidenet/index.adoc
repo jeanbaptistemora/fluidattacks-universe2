@@ -7,7 +7,8 @@
 
 = Cidenet
 
-link:https://cidenet.com.co/en/[Cidenet] is a custom software development firm founded in 2012.
+link:https://cidenet.com.co/en/[Cidenet] is a custom software development firm
+founded in 2012.
 They work under an Agile Factory model,
 with a human team aimed at finding practical solutions to your needs.
 They have created software solutions

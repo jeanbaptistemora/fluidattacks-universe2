@@ -8,9 +8,10 @@
 
 = Arroyo Consulting
 
-{usa} link:http://arroyoconsulting.net/[Arroyo Consulting] is an agile `IT` development firm formed in `2009`.
+{usa} link:http://arroyoconsulting.net/[Arroyo Consulting] is an agile IT development firm
+formed in 2009.
 They have offices in the United States
 and low-cost operation centers located in Mexico City,
 as well as in Medellín and Bogotá, Colombia.
-They have successfully delivered over `1000` projects internationally,
+They have successfully delivered over 1,000 projects internationally,
 with partners in a variety of industries and sectors.
