@@ -195,6 +195,10 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
                     header: t("group.scope.url.protocol"),
                   },
                   {
+                    dataField: "nickname",
+                    header: t("group.scope.ip.nickname"),
+                  },
+                  {
                     align: "center",
                     changeFunction: handleStateUpdate,
                     dataField: "state",

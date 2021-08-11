@@ -1,6 +1,8 @@
 interface IRoot {
   "ID of the root"
   id: ID!
+  "Nickname for the root"
+  nickname: String!
   "Whether the root is active or not"
   state: ResourceState!
 }
@@ -54,6 +56,8 @@ type IPRoot implements IRoot {
   address: String!
   "ID of the root"
   id: ID!
+  "Nickname for the root"
+  nickname: String!
   "Indicates the port to test. Zero means all ports"
   port: Int!
   "Whether the root is active or not"
@@ -65,6 +69,8 @@ type URLRoot implements IRoot {
   host: String!
   "ID of the root"
   id: ID!
+  "Nickname for the root"
+  nickname: String!
   "URL path"
   path: String!
   "URL port"

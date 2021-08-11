@@ -92,6 +92,7 @@ def format_root(root: RootItem) -> Root:
         return IPRoot(
             address=root.metadata.address,
             id=root.id,
+            nickname=root.state.nickname,
             port=root.metadata.port,
             state=root.state.status,
         )
@@ -99,6 +100,7 @@ def format_root(root: RootItem) -> Root:
     return URLRoot(
         host=root.metadata.host,
         id=root.id,
+        nickname=root.state.nickname,
         path=root.metadata.path,
         port=root.metadata.port,
         protocol=root.metadata.protocol,

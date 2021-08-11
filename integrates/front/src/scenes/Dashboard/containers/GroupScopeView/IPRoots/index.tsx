@@ -191,6 +191,10 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
                     header: t("group.scope.ip.port"),
                   },
                   {
+                    dataField: "nickname",
+                    header: t("group.scope.ip.nickname"),
+                  },
+                  {
                     align: "center",
                     changeFunction: handleStateUpdate,
                     dataField: "state",

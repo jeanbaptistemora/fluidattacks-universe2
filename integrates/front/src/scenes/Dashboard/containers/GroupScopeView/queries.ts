@@ -26,12 +26,14 @@ const GET_ROOTS: DocumentNode = gql`
         ... on IPRoot {
           address
           id
+          nickname
           port
           state
         }
         ... on URLRoot {
           host
           id
+          nickname
           path
           port
           protocol
