@@ -120,6 +120,46 @@ def get_snippet_skeleton_es() -> str:
     return content
 
 
+class SnippetConstructor:
+    null = "---"
+
+    # pylint: disable=unused-argument
+    def get_target(self, ssl_vulnerability: SSLVulnerability) -> str:
+        return "Target: " + self.null
+
+    def get_intention(self, ssl_vulnerability: SSLVulnerability) -> str:
+        return "Intention " + self.null
+
+    def get_versions(self, ssl_vulnerability: SSLVulnerability) -> str:
+        return "Versions: " + self.null
+
+    def get_request(self, ssl_vulnerability: SSLVulnerability) -> str:
+        return "Request: " + self.null
+
+    def get_response(self, ssl_vulnerability: SSLVulnerability) -> str:
+        return "Response: " + self.null
+
+    def get_result(self, ssl_vulnerability: SSLVulnerability) -> str:
+        return "Result: " + self.null
+
+    def construct(self, ssl_vulnerability: SSLVulnerability) -> str:
+        return (
+            "{target}\n"
+            "{intention}\n"
+            "{versions}\n"
+            "{request}\n"
+            "{response}\n"
+            "{result}\n"
+        ).format(
+            target=self.get_target(ssl_vulnerability),
+            intention=self.get_intention(ssl_vulnerability),
+            versions=self.get_versions(ssl_vulnerability),
+            request=self.get_request(ssl_vulnerability),
+            response=self.get_response(ssl_vulnerability),
+            result=self.get_result(ssl_vulnerability),
+        )
+
+
 def snippet(
     locale: LocalesEnum,
     ssl_vulnerability: SSLVulnerability,
