@@ -66,6 +66,25 @@ module "gitlab_runner" {
   runners_request_concurrency   = 10
   runners_request_spot_instance = true
   runners_use_private_address   = false
+  docker_machine_options = [
+    "amazonec2-request-spot-instance=true",
+    "amazonec2-spot-price=",
+    "amazonec2-access-key=__autoscaling_access_key__",
+    "amazonec2-secret-key=__autoscaling_secret_key__",
+    "amazonec2-region=us-east-1",
+    "amazonec2-tags=use,ci,management:type,production,management:product,common",
+    "amazonec2-vpc-id=vpc-0ea1c7bd6be683d2d",
+    "amazonec2-subnet-id=subnet-0bceb7aa2c900324a",
+    "amazonec2-zone=a",
+    "amazonec2-use-private-address=true",
+    "amazonec2-use-ebs-optimized-instance=true",
+    "amazonec2-security-group=AutoscalingCISG",
+    "amazonec2-ami=ami-013da1cc4ae87618c",
+    "amazonec2-instance-type=c5ad.large",
+    "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+    "amazonec2-volume-type=gp3",
+    "amazonec2-root-size=10"
+  ]
 
   environment = "fluidattacks-autoscaling"
   overrides = {
@@ -77,17 +96,5 @@ module "gitlab_runner" {
     "Name"               = "AutoscalingCISG"
     "management:type"    = "production"
     "management:product" = "makes"
-  }
-}
-
-resource "null_resource" "cancel_spot_requests" {
-  # Cancel active and open spot requests, terminate instances
-  triggers = {
-    environment = "fluidattacks-autoscaling"
-  }
-
-  provisioner "local-exec" {
-    when    = destroy
-    command = "../../bin/cancel-spot-instances.sh ${self.triggers.environment}"
   }
 }
