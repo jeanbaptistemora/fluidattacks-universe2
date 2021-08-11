@@ -220,7 +220,9 @@ async def update_finding_policy_in_groups(
         findings_ids: List[str] = [
             finding.id
             for finding in findings_new
-            if finding.title.split(".")[0].lower() == finding_name
+            if finding_name.lower().endswith(
+                finding["title"].split(".")[0].lower()
+            )
         ]
     else:
         group_drafts = await loaders.group_drafts.load_many(groups)
@@ -231,7 +233,9 @@ async def update_finding_policy_in_groups(
         findings_ids = [
             finding["id"]
             for finding in findings
-            if finding["title"].split(".")[0].lower() == finding_name
+            if finding_name.lower().endswith(
+                finding["title"].split(".")[0].lower()
+            )
         ]
 
     if not findings_ids:

@@ -240,3 +240,9 @@ def retry_on_exceptions(
         return wrapper
 
     return decorator
+
+
+def get_cvssf(severity: Decimal) -> Decimal:
+    return Decimal(pow(Decimal("4.0"), severity - Decimal("4.0"))).quantize(
+        Decimal("0.001")
+    )

@@ -11,47 +11,75 @@ from charts import (
 from charts.colors import (
     RISK,
 )
-from collections import (
-    Counter,
+from custom_types import (
+    Finding,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
+)
+from decimal import (
+    Decimal,
 )
 from itertools import (
     groupby,
 )
 from typing import (
     cast,
+    Counter,
     List,
     Tuple,
     Union,
 )
 
 
+def get_finding_severity(findings: List[Finding], finding_id: str) -> Decimal:
+    return Decimal(
+        next(
+            finding
+            for finding in findings
+            if finding["finding_id"] == finding_id
+        ).get("cvss_temporal", 0.0)
+    )
+
+
 @alru_cache(maxsize=None, typed=True)
-async def get_data_one_group(group: str) -> Counter:
-    context = get_new_context()
-    group_findings_loader = context.group_findings
-    finding_vulns_loader = context.finding_vulns
+async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter[str]:
+    group_findings = await loaders.group_findings.load(group.lower())
+    finding_ids = [finding["finding_id"] for finding in group_findings]
+    finding_vulns = await loaders.finding_vulns.load_many(finding_ids)
 
-    group_findings_data = await group_findings_loader.load(group.lower())
-    finding_ids = [finding["finding_id"] for finding in group_findings_data]
-    finding_vulns = await finding_vulns_loader.load_many(finding_ids)
-
-    return Counter(
+    counter: Counter[str] = Counter(
         [
             f'{finding["finding_id"]}/{finding["title"]}'
-            for finding, vulnerabilities in zip(
-                group_findings_data, finding_vulns
-            )
+            for finding, vulnerabilities in zip(group_findings, finding_vulns)
             for vulnerability in vulnerabilities
             if vulnerability["current_state"] == "open"
         ]
     )
+    counter_tuple = counter.most_common()
+    for key, value in counter_tuple:
+        counter.update(
+            {
+                key: Decimal(
+                    utils.get_cvssf(
+                        get_finding_severity(group_findings, key.split("/")[0])
+                    )
+                    * value
+                ).quantize(Decimal("0.001"))
+                - value
+            }
+        )
+
+    return counter
 
 
-async def get_data_many_groups(groups: List[str]) -> Counter:
-    groups_data = await collect(map(get_data_one_group, groups))
+async def get_data_many_groups(
+    groups: List[str], loaders: Dataloaders
+) -> Counter[str]:
+    groups_data = await collect(
+        [get_data_one_group(group, loaders) for group in groups]
+    )
 
     return sum(groups_data, Counter())
 
@@ -71,11 +99,14 @@ def format_data(counters: Counter) -> dict:
     return dict(
         data=dict(
             columns=[
-                cast(List[Union[int, str]], ["# Open Vulnerabilities"])
-                + [value for _, value in merged_data],
+                cast(List[Union[Decimal, str]], ["# Open Cvssf"])
+                + [
+                    Decimal(value).quantize(Decimal("0.1"))
+                    for _, value in merged_data
+                ],
             ],
             colors={
-                "# Open Vulnerabilities": RISK.neutral,
+                "# Open Cvssf": RISK.neutral,
             },
             type="bar",
         ),
@@ -101,14 +132,16 @@ def format_data(counters: Counter) -> dict:
                 ),
             ),
         ),
-        barChartYTickFormat=True,
     )
 
 
 async def generate_all() -> None:
+    loaders = get_new_context()
     async for group in utils.iterate_groups():
         utils.json_dump(
-            document=format_data(counters=await get_data_one_group(group)),
+            document=format_data(
+                counters=await get_data_one_group(group, loaders)
+            ),
             entity="group",
             subject=group,
         )
@@ -118,7 +151,7 @@ async def generate_all() -> None:
     ):
         utils.json_dump(
             document=format_data(
-                counters=await get_data_many_groups(list(org_groups)),
+                counters=await get_data_many_groups(list(org_groups), loaders),
             ),
             entity="organization",
             subject=org_id,
@@ -128,7 +161,7 @@ async def generate_all() -> None:
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
             utils.json_dump(
                 document=format_data(
-                    counters=await get_data_many_groups(groups),
+                    counters=await get_data_many_groups(list(groups), loaders),
                 ),
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
