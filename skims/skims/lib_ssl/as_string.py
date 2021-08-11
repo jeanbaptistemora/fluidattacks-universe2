@@ -228,6 +228,74 @@ class SnippetConstructorEN(SnippetConstructor):
         return f"Result: {ssl_vulnerability.description}"
 
 
+class SnippetConstructorES(SnippetConstructor):
+    # pylint: disable=no-self-use
+    def get_target(self, ssl_vulnerability: SSLVulnerability) -> str:
+        return f"Objetivo: {ssl_vulnerability.get_context()}"
+
+    def get_intention(self, ssl_vulnerability: SSLVulnerability) -> str:
+        return f"Intención: {ssl_vulnerability.get_intention(LocalesEnum.ES)}"
+
+    def get_versions(self, ssl_vulnerability: SSLVulnerability) -> str:
+        tls_vers = ssl_vulnerability.get_context().get_supported_tls_versions()
+        versions = ", ".join([ssl_id2ssl_name(v_id) for v_id in tls_vers])
+        return f"Versiones de TLS en el servidor: {versions}"
+
+    def get_request(self, ssl_vulnerability: SSLVulnerability) -> str:
+        ssl_settings: SSLSettings = ssl_vulnerability.ssl_settings
+
+        return (
+            "Petición:\n"
+            "    fallback scsv: {scsv}\n"
+            "    min versión: {min_version}\n"
+            "    max versión: {max_version}"
+        ).format(
+            scsv=ssl_settings.scsv,
+            min_version=ssl_id2ssl_name(ssl_settings.min_version),
+            max_version=ssl_id2ssl_name(ssl_settings.max_version),
+        )
+
+    def get_response(self, ssl_vulnerability: SSLVulnerability) -> str:
+        response = ssl_vulnerability.server_response
+        default = "Respuesta:\n    ---"
+
+        if response is None:
+            return default
+
+        if response.alert is not None:
+            return (
+                "Respuesta:\n"
+                "    tipo: ALERT\n"
+                "    nivel: {level}\n"
+                "    descripción: {description}"
+            ).format(
+                level=response.alert.level.name,
+                description=response.alert.description.name,
+            )
+
+        if response.handshake is not None:
+            return (
+                "Respuesta:\n"
+                "    versión: {version}\n"
+                "    Suite de cifrado seleccionada:\n"
+                "        nombre iana: {iana_name}\n"
+                "        nombre openssl: {openssl_name}\n"
+                "        código: {code}\n"
+                "        vulnerabilidades: {vulns}"
+            ).format(
+                version=ssl_id2ssl_name(response.handshake.version_id),
+                iana_name=response.handshake.cipher_suite.iana_name,
+                openssl_name=response.handshake.cipher_suite.openssl_name,
+                code=response.handshake.cipher_suite.get_code_str(),
+                vulns=response.handshake.cipher_suite.get_vuln_str(),
+            )
+
+        return default
+
+    def get_result(self, ssl_vulnerability: SSLVulnerability) -> str:
+        return f"Resultado: {ssl_vulnerability.description}"
+
+
 def snippet(
     locale: LocalesEnum,
     ssl_vulnerability: SSLVulnerability,
