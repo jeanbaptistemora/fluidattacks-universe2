@@ -84,7 +84,6 @@ async def _run(
     return await process.wait()
 
 
-@pytest.mark.skip
 @pytest.mark.changes_db
 async def test_handle_organization_finding_policy_acceptation() -> None:
     org_name = "okada"
@@ -206,7 +205,6 @@ async def test_handle_organization_finding_policy_acceptation() -> None:
     assert vulns[0]["tag"] == ", ".join(tags)
 
 
-@pytest.mark.skip
 @pytest.mark.changes_db
 async def test_deactivate_org_finding_policy() -> None:
     org_name = "okada"
