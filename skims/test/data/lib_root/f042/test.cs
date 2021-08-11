@@ -8,13 +8,13 @@ namespace cookies
         public static void Main(string[] args)
         {
             var secure_cookie = new HttpCookie(key , value);
-            secure_cookie .Expires = DateTime.Now.AddDays(expireDay);
-            secure_cookie .HttpOnly = true;
-            secure_cookie .Secure = true;
+            secure_cookie.Expires = DateTime.Now.AddDays(expireDay);
+            secure_cookie.HttpOnly = true;
+            secure_cookie.Secure = true;
 
             var insecure_cookie = new HttpCookie(key , value);
-            insecure_cookie .Expires = DateTime.Now.AddDays(expireDay);
-            insecure_cookie .HttpOnly = true;
+            insecure_cookie.Expires = DateTime.Now.AddDays(expireDay);
+            insecure_cookie.HttpOnly = true;
 
             var insecure = new HttpCookie(key , value);
         }

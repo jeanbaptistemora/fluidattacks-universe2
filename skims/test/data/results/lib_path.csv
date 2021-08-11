@@ -6080,13 +6080,13 @@ F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,15,614,skims,042. Ins
    8 |    public static void Main(string[] args)
    9 |    {
   10 |        var secure_cookie = new HttpCookie(key , value);
-  11 |        secure_cookie .Expires = DateTime.Now.AddDays(expireDay);
-  12 |        secure_cookie .HttpOnly = true;
-  13 |        secure_cookie .Secure = true;
+  11 |        secure_cookie.Expires = DateTime.Now.AddDays(expireDay);
+  12 |        secure_cookie.HttpOnly = true;
+  13 |        secure_cookie.Secure = true;
   14 |
 > 15 |        var insecure_cookie = new HttpCookie(key , value);
-  16 |        insecure_cookie .Expires = DateTime.Now.AddDays(expireDay);
-  17 |        insecure_cookie .HttpOnly = true;
+  16 |        insecure_cookie.Expires = DateTime.Now.AddDays(expireDay);
+  17 |        insecure_cookie.HttpOnly = true;
   18 |
   19 |        var insecure = new HttpCookie(key , value);
   20 |    }
@@ -6105,13 +6105,13 @@ F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,19,614,skims,042. Ins
    8 |         public static void Main(string[] args)
    9 |         {
   10 |             var secure_cookie = new HttpCookie(key , value);
-  11 |             secure_cookie .Expires = DateTime.Now.AddDays(expireDay);
-  12 |             secure_cookie .HttpOnly = true;
-  13 |             secure_cookie .Secure = true;
+  11 |             secure_cookie.Expires = DateTime.Now.AddDays(expireDay);
+  12 |             secure_cookie.HttpOnly = true;
+  13 |             secure_cookie.Secure = true;
   14 |
   15 |             var insecure_cookie = new HttpCookie(key , value);
-  16 |             insecure_cookie .Expires = DateTime.Now.AddDays(expireDay);
-  17 |             insecure_cookie .HttpOnly = true;
+  16 |             insecure_cookie.Expires = DateTime.Now.AddDays(expireDay);
+  17 |             insecure_cookie.HttpOnly = true;
   18 |
 > 19 |             var insecure = new HttpCookie(key , value);
   20 |         }
