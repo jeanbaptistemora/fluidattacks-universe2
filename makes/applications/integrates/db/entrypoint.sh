@@ -77,7 +77,7 @@ function serve {
 function serve_daemon {
   makes-kill-port 28022 \
     && { serve "${@}" & } \
-    && makes-wait 60 localhost:28022
+    && makes-wait 300 localhost:28022
 }
 
 function main {
