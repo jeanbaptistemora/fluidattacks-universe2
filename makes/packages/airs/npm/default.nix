@@ -305,7 +305,6 @@ buildNodeRequirements {
       "@types/scheduler@0.16.1"
       "@types/stack-utils@2.0.0"
       "@types/tmp@0.0.33"
-      "@types/trusted-types@2.0.2"
       "@types/unist@2.0.3"
       "@types/websocket@1.0.2"
       "@types/yargs-parser@20.2.0"
