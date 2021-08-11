@@ -65,36 +65,37 @@ module "gitlab_runner" {
   enable_cloudwatch_logging            = true
 
   # Runner
+  instance_type                     = "c5a.large"
   enable_runner_ssm_access          = true
   enable_gitlab_runner_ssh_access   = false
   subnet_ids_gitlab_runner          = ["subnet-0bceb7aa2c900324a"]
   runner_instance_ebs_optimized     = true
   runner_instance_enable_monitoring = true
+  runner_root_block_device          = var.runner_block_device
   userdata_pre_install              = data.local_file.init_runner.content
-  runners_gitlab_url                = "https://gitlab.com"
-  runners_executor                  = "docker+machine"
+  gitlab_runner_registration_config = {
+    registration_token = var.fluidAttacksToken
+    tag_list           = "autoscaling"
+    description        = "fluidattacks-autoscaling"
+    locked_to_project  = "true"
+    run_untagged       = "false"
+    maximum_timeout    = "3600"
+    access_level       = "ref_protected"
+  }
 
   # Workers
   docker_machine_options = [
     "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
     "amazonec2-volume-type=gp3",
   ]
-  gitlab_runner_registration_config = {
-    registration_token = var.fluidAttacksToken
-    tag_list           = "docker_spot_runner"
-    description        = "runner public - auto"
-    locked_to_project  = "true"
-    run_untagged       = "false"
-    maximum_timeout    = "3600"
-    access_level       = "ref_protected"
-  }
   docker_machine_spot_price_bid = ""
   docker_machine_instance_type  = "c5ad.large"
+  runners_gitlab_url            = "https://gitlab.com"
+  runners_executor              = "docker+machine"
   runners_root_size             = 10
-  subnet_id_runners             = "subnet-0bceb7aa2c900324a"
   runners_concurrent            = 1000
   runners_ebs_optimized         = true
-  runners_idle_count            = 0
+  runners_idle_count            = 3
   runners_idle_time             = 1800
   runners_image                 = "docker"
   runners_limit                 = 1000
@@ -107,18 +108,12 @@ module "gitlab_runner" {
   runners_request_concurrency   = 10
   runners_request_spot_instance = true
   runners_use_private_address   = false
-  runner_root_block_device      = var.runner_block_device
   runners_machine_autoscaling   = var.off_peak_periods
+  subnet_id_runners             = "subnet-0bceb7aa2c900324a"
 
   # Tags
   environment = "fluidattacks-autoscaling"
-  overrides = {
-    name_sg                     = "fluidattacks-autoscaling"
-    name_runner_agent_instance  = "bastion"
-    name_docker_machine_runners = "worker"
-  }
   tags = {
-    "Name"               = "AutoscalingCISG"
     "management:type"    = "production"
     "management:product" = "makes"
   }
