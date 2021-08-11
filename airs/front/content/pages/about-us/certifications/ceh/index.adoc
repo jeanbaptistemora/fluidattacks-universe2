@@ -4,12 +4,12 @@
 :page-certificationlogo: logo-ceh
 :page-alt: Logo CEH
 :page-certification: yes
-:page-certificationid: 011
+:page-certificationid: 012
 
 = Certified Ethical Hacker (CEH)
 
-`CEH` is a professional certification
-by the International Electronic Commerce Council (`EC-Council`).
+CEH is a professional certification
+by the International Electronic Commerce Council (EC-Council).
 This council certifies professionals
 in the security discipline of ethical hacking.
 It is unaffiliated with any commercial entity

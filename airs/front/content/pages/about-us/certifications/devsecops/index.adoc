@@ -7,9 +7,9 @@
 
 = Certified DevSecOps Professional (CDP)
 
-The `CDP` credential validates the practical
+The CDP credential validates the practical
 expertise to understand, implement and manage
-the `DevSecOps` program in an organization.
-A `CDP` can assess the current state of `DevSecOps`,
-embed security as part of `DevOps`, manage vulnerabilities and
-improve the overall Maturity Level.
+the DevSecOps program in an organization.
+A CDP can assess the current state of DevSecOps,
+embed security as part of DevOps, manage vulnerabilities
+and improve the overall Maturity Level.

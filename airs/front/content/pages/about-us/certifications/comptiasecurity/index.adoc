@@ -7,9 +7,9 @@
 
 = CompTIA Security+
 
-`CompTIA` is an international certification.
+CompTIA is an international certification.
 It was created by
-`Computing Technology Industry Association`.
+Computing Technology Industry Association.
 It certifies that the candidate has the knowledge
 to install systems to protect applications.
 The candidate can assess the security posture
