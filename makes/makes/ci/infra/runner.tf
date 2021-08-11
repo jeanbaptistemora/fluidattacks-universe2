@@ -43,7 +43,7 @@ variable "runner_block_device" {
   }
 }
 
-module "gitlab_runner" {
+module "fluidattacks_ci" {
   source  = "npalm/gitlab-runner/aws"
   version = "4.28.0"
 
@@ -76,11 +76,11 @@ module "gitlab_runner" {
   gitlab_runner_registration_config = {
     registration_token = var.fluidAttacksToken
     tag_list           = "autoscaling"
-    description        = "fluidattacks-autoscaling"
+    description        = "fluidattacks-ci"
     locked_to_project  = "true"
     run_untagged       = "false"
     maximum_timeout    = "3600"
-    access_level       = "ref_protected"
+    access_level       = "not_protected"
   }
 
   # Workers
@@ -101,7 +101,7 @@ module "gitlab_runner" {
   runners_limit                 = 1000
   runners_max_builds            = 15
   runners_monitoring            = true
-  runners_name                  = "fluidattacks-autoscaling"
+  runners_name                  = "fluidattacks-ci"
   runners_output_limit          = 4096
   runners_privileged            = false
   runners_pull_policy           = "always"
@@ -112,7 +112,7 @@ module "gitlab_runner" {
   subnet_id_runners             = "subnet-0bceb7aa2c900324a"
 
   # Tags
-  environment = "fluidattacks-autoscaling"
+  environment = "makes-fluidattacks-ci"
   tags = {
     "management:type"    = "production"
     "management:product" = "makes"
