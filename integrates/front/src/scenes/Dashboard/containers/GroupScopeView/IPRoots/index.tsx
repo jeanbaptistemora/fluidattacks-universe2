@@ -95,7 +95,7 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
           msgError(t("group.scope.url.errors.invalid"));
         } else {
           msgError(t("groupAlerts.errorTextsad"));
-          Logger.error("Couldn't activate root", error);
+          Logger.error("Couldn't activate ip root", error);
         }
       });
     },
@@ -120,12 +120,12 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
       graphQLErrors.forEach((error): void => {
         if (
           error.message ===
-          "Exception - Active root with the same URL/branch already exists"
+          "Exception - A root with open vulns can't be deactivated"
         ) {
-          msgError(t("group.scope.url.errors.invalid"));
+          msgError(t("group.scope.common.errors.hasOpenVulns"));
         } else {
           msgError(t("groupAlerts.errorTextsad"));
-          Logger.error("Couldn't deactivate root", error);
+          Logger.error("Couldn't deactivate ip root", error);
         }
       });
     },

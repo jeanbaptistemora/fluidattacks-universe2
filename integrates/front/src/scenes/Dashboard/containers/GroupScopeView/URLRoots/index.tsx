@@ -92,7 +92,7 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
             break;
           default:
             msgError(t("groupAlerts.errorTextsad"));
-            Logger.error("Couldn't activate root", error);
+            Logger.error("Couldn't activate url root", error);
         }
       });
     },
@@ -115,13 +115,14 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
     },
     onError: ({ graphQLErrors }): void => {
       graphQLErrors.forEach((error): void => {
-        switch (error.message) {
-          case "Exception - Active root with the same URL/branch already exists":
-            msgError(t("group.scope.url.errors.invalid"));
-            break;
-          default:
-            msgError(t("groupAlerts.errorTextsad"));
-            Logger.error("Couldn't deactivate root", error);
+        if (
+          error.message ===
+          "Exception - A root with open vulns can't be deactivated"
+        ) {
+          msgError(t("group.scope.common.errors.hasOpenVulns"));
+        } else {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.error("Couldn't deactivate url root", error);
         }
       });
     },
