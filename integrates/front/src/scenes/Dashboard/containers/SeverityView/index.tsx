@@ -9,7 +9,7 @@ import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { tooltipPropHelper } from "./helpers";
+import { mapSeveritytoStringValues, tooltipPropHelper } from "./helpers";
 import { validateValues } from "./SeverityContent/utils";
 
 import { Button } from "components/Button/index";
@@ -130,9 +130,10 @@ const SeverityView: React.FC = (): JSX.Element => {
   const handleUpdateSeverity: (values: Record<string, unknown>) => void =
     useCallback(
       (values: Record<string, unknown>): void => {
+        const stringValues = mapSeveritytoStringValues(values);
         setEditing(false);
         void updateSeverity({
-          variables: { data: { ...values, id: findingId }, findingId },
+          variables: { findingId, ...stringValues },
         });
       },
       [findingId, updateSeverity]

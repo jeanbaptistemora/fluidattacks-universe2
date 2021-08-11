@@ -40,9 +40,14 @@ from typing import (
 async def mutate(
     _parent: None, info: GraphQLResolveInfo, **parameters: Any
 ) -> SimpleFindingPayload:
-    data = parameters.get("data", dict())
-    data = {utils.snakecase_to_camelcase(k): data[k] for k in data}
     finding_id = parameters.get("finding_id", "")
+    if "data" in parameters:
+        data = parameters.get("data", dict())
+    else:
+        data = parameters
+        data["id"] = finding_id
+        del data["finding_id"]
+    data = {utils.snakecase_to_camelcase(k): data[k] for k in data}
     finding_loader = info.context.loaders.finding
     finding_data = await finding_loader.load(finding_id)
     group_name = get_key_or_fallback(finding_data)

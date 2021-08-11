@@ -8,4 +8,12 @@ const tooltipPropHelper = (currentOption: string): string | undefined => {
     : translate.t(currentOption.replace(/text/u, "tooltip"));
 };
 
-export { tooltipPropHelper };
+const mapSeveritytoStringValues = (
+  values: Record<string, unknown>
+): Record<string, string> => {
+  return _.mapValues(values, function toString(value: unknown): string {
+    return String(value);
+  });
+};
+
+export { mapSeveritytoStringValues, tooltipPropHelper };

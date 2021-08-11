@@ -159,10 +159,7 @@ def get_key_or_fallback(
     """Tries to get current_key's value from kwargs, with a (lazy) old_key as a
     second option. If none of the keys can be found it returns a fallback value
     if specified, returns None otherwise"""
-    value = kwargs.get(current_key, kwargs.get(old_key))
-    if value is not None:
-        return value
-    return fallback
+    return kwargs.get(current_key, kwargs.get(old_key, fallback))
 
 
 def get_present_key(
