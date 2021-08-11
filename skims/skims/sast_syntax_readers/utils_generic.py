@@ -6,6 +6,7 @@ from sast_syntax_readers.types import (
 )
 from typing import (
     List,
+    Tuple,
 )
 from utils import (
     graph as g,
@@ -29,11 +30,11 @@ def dependencies_from_arguments(
     ]
 
 
-def get_dependencies(
+def get_dependencies_with_index(
     syntax_step_index: int,
     syntax_steps: graph_model.SyntaxSteps,
-) -> graph_model.SyntaxSteps:
-    dependencies: graph_model.SyntaxSteps = []
+) -> List[Tuple[int, graph_model.SyntaxStep]]:
+    dependencies: List[Tuple[int, graph_model.SyntaxStep]] = []
     dependencies_depth: int = 0
     dependencies_expected_length: int = -syntax_steps[
         syntax_step_index
@@ -45,8 +46,22 @@ def get_dependencies(
         if dependencies_depth:
             dependencies_depth += 1
         else:
-            dependencies.append(syntax_steps[syntax_step_index])
+            dependencies.append(
+                (syntax_step_index, syntax_steps[syntax_step_index])
+            )
 
         dependencies_depth += syntax_steps[syntax_step_index].meta.dependencies
 
     return dependencies
+
+
+def get_dependencies(
+    syntax_step_index: int,
+    syntax_steps: graph_model.SyntaxSteps,
+) -> graph_model.SyntaxSteps:
+    return [
+        step
+        for _, step in get_dependencies_with_index(
+            syntax_step_index, syntax_steps
+        )
+    ]

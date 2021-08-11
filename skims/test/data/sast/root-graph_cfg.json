@@ -59608,6 +59608,7 @@
           },
           "1185": {
             "label_c": 26,
+            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 241,
             "label_text": "req",
             "label_type": "identifier"
@@ -59620,6 +59621,7 @@
           },
           "1187": {
             "label_c": 31,
+            "label_input_type": "F001,F004,F008,F021,F063,F107",
             "label_l": 241,
             "label_text": "res",
             "label_type": "identifier"
@@ -66852,7 +66854,7 @@
             "modifiers": [],
             "type": "SyntaxStepDeclaration",
             "var": "res",
-            "var_type": null
+            "var_type": "Response"
           },
           {
             "meta": {
@@ -66864,7 +66866,7 @@
             "modifiers": [],
             "type": "SyntaxStepDeclaration",
             "var": "req",
-            "var_type": null
+            "var_type": "Request"
           },
           {
             "meta": {
