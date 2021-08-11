@@ -4,9 +4,10 @@
   "title": "Vulnerabilities",
   "description": "This is a standardization of the set of vulnerabilities that serve as a basis for the security analysis",
   "type": "object",
+  "additionalProperties": false,
   "propertyNames": { "pattern": "^[0-9]+$" },
   "patternProperties": {
-    "^\"[0-9]+\"$": {
+    "^[0-9]+$": {
       "type": "object",
       "additionalProperties": false,
       "required": [ "en", "es", "score", "requirements", "metadata" ],
@@ -19,7 +20,7 @@
           "type": "array",
           "items": {
             "type": "string",
-            "pattern": "^\"[0-9]+\"$"
+            "pattern": "^[0-9]+$"
           }
         },
         "metadata": { "type": "object" }
@@ -60,35 +61,35 @@
           "properties": {
             "attack_vector": {
               "type": "string",
-              "pattern": "^[N|A|L|P]$"
+              "pattern": "^[NALP]$"
             },
             "attack_complexity": {
               "type": "string",
-              "pattern": "^[L|H]$"
+              "pattern": "^[LH]$"
             },
             "privileges_required": {
               "type": "string",
-              "pattern": "^[N|L|H]$"
+              "pattern": "^[NLH]$"
             },
             "user_interaction": {
               "type": "string",
-              "pattern": "^[N|R]$"
+              "pattern": "^[NR]$"
             },
             "scope": {
               "type": "string",
-              "pattern": "^[U|C]$"
+              "pattern": "^[UC]$"
             },
             "confidentiality": {
               "type": "string",
-              "pattern": "^[N|L|H]$"
+              "pattern": "^[NLH]$"
             },
             "integrity": {
               "type": "string",
-              "pattern": "^[N|L|H]$"
+              "pattern": "^[NLH]$"
             },
             "availability": {
               "type": "string",
-              "pattern": "^[N|L|H]$"
+              "pattern": "^[NLH]$"
             }
           }
         },
@@ -103,15 +104,15 @@
           "properties": {
             "exploit_code_maturity": {
               "type": "string",
-              "pattern": "^[X|U|P|F|H]$"
+              "pattern": "^[XUPFH]$"
             },
             "remediation_level": {
               "type": "string",
-              "pattern": "^[X|O|T|W|U]$"
+              "pattern": "^[XOTWU]$"
             },
             "report_confidence": {
               "type": "string",
-              "pattern": "^[X|U|R|C]$"
+              "pattern": "^[XURC]$"
             }
           }
         }

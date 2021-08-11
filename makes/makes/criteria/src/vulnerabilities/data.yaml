@@ -8247,7 +8247,7 @@
     base:
       attack_vector: "N"
       attack_complexity: "H"
-      privileges_required: "R"
+      privileges_required: "N"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"

@@ -4,9 +4,10 @@
   "title": "Requirements",
   "description": "This is a standardization of the set of requirements that serve as a basis for the security analysis",
   "type": "object",
+  "additionalProperties": false,
   "propertyNames": { "pattern": "^[0-9]+$" },
   "patternProperties": {
-    "^\"[0-9]+\"$": {
+    "^[0-9]+$": {
       "type": "object",
       "additionalProperties": false,
       "required": [ "en", "es", "references", "metadata" ],
@@ -18,7 +19,7 @@
           "type": "array",
           "items": {
             "type": "string",
-            "pattern": "^\"[a-z0-9_.]\"+$"
+            "pattern": "^[a-z0-9_.]+$"
           }
         },
         "metadata": { "type": "object" }
