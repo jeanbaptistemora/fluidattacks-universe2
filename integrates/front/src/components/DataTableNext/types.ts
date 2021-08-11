@@ -33,10 +33,9 @@ interface ITableProps {
   headers: IHeaderConfig[];
   id: string;
   isFilterEnabled?: boolean;
-  onSizePerPageChange?: (sizePerPage: number, page: number) => void;
   onPageChange?: (arg1: number) => void;
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-  pageSize: 10 | 25 | 30 | 50 | 100 | 200 | 500 | 1000;
+  pageSize: number;
   rowEvents?: Record<string, unknown>;
   search: boolean;
   selectionMode?: ISelectRowProps;
@@ -67,6 +66,8 @@ interface ICustomToggleProps {
 interface ITableWrapperProps {
   dataset: Record<string, unknown>[];
   extraButtons?: JSX.Element;
+  preferredPageSize: number;
+  onSizePerPageChange?: (sizePerPage: number, page: number) => void;
   tableProps: ITableProps;
   toolkitProps: ToolkitContextType;
 }

@@ -1,5 +1,5 @@
 import _ from "lodash";
-import React from "react";
+import React, { useCallback } from "react";
 import type { SearchMatchProps } from "react-bootstrap-table2-toolkit";
 import ToolkitProvider from "react-bootstrap-table2-toolkit";
 
@@ -12,6 +12,7 @@ import {
 } from "components/DataTableNext/utils";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
+import { useStoredState } from "utils/hooks";
 
 export const DataTableNext: React.FC<ITableProps> = (
   props: ITableProps
@@ -23,12 +24,29 @@ export const DataTableNext: React.FC<ITableProps> = (
     headers,
     id,
     isFilterEnabled,
+    pageSize,
     search,
   } = props;
 
   const datasetWithUniqueKeys: Record<string, unknown>[] = _.isEmpty(dataset)
     ? dataset
     : addUniqueKeys(dataset);
+
+  const [storedPageSize, setPageSize] = useStoredState<Record<string, number>>(
+    "tablePageSizes",
+    { [id]: pageSize },
+    localStorage
+  );
+
+  const handleSizePerPageChange: (sizePerPage: number) => void = useCallback(
+    (sizePerPage: number): void => {
+      setPageSize({
+        ...storedPageSize,
+        [id]: sizePerPage,
+      });
+    },
+    [id, storedPageSize, setPageSize]
+  );
 
   function onColumnMatch({ searchText, row }: SearchMatchProps): boolean {
     if (_.isEmpty(searchText)) {
@@ -56,6 +74,8 @@ export const DataTableNext: React.FC<ITableProps> = (
           {(toolkitProps): JSX.Element => (
             <TableWrapper
               dataset={datasetWithUniqueKeys}
+              onSizePerPageChange={handleSizePerPageChange}
+              preferredPageSize={storedPageSize[id]}
               tableProps={props}
               toolkitProps={toolkitProps}
             />

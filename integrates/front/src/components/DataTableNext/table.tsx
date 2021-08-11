@@ -39,7 +39,13 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   props: Readonly<ITableWrapperProps>
 ): JSX.Element => {
   const { SearchBar } = Search;
-  const { toolkitProps, tableProps, dataset } = props;
+  const {
+    dataset,
+    onSizePerPageChange,
+    preferredPageSize,
+    toolkitProps,
+    tableProps,
+  } = props;
   const { columnToggleProps, searchProps, baseProps } = toolkitProps;
   const {
     bordered,
@@ -49,7 +55,6 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     onUpdateEnableFilter,
     isFilterEnabled,
     pageSize,
-    onSizePerPageChange,
     columnToggle = false,
     exportCsv,
     onPageChange,
@@ -76,7 +81,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   const paginationOptions: PaginationOptions = {
     onPageChange,
     onSizePerPageChange,
-    sizePerPage: pageSize,
+    sizePerPage: preferredPageSize,
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     sizePerPageList: [10, 25, 30, 50, 100, 200, 500, 1000],
     sizePerPageRenderer:
