@@ -136,62 +136,21 @@ def _javax_yield_insecure_ciphers(
 def _java_yield_insecure_hash(
     graph_db: graph_model.GraphDB,
 ) -> graph_model.GraphShardNodes:
-    insecure_digests = {
-        "org.apache.commons.codec.digest.DigestUtils.getMd2Digest",
-        "org.apache.commons.codec.digest.DigestUtils.getMd5Digest",
-        "org.apache.commons.codec.digest.DigestUtils.getShaDigest",
-        "org.apache.commons.codec.digest.DigestUtils.getSha1Digest",
-        "org.apache.commons.codec.digest.DigestUtils.md2",
-        "org.apache.commons.codec.digest.DigestUtils.md2Hex",
-        "org.apache.commons.codec.digest.DigestUtils.md5",
-        "org.apache.commons.codec.digest.DigestUtils.md5Hex",
-        "org.apache.commons.codec.digest.DigestUtils.sha",
-        "org.apache.commons.codec.digest.DigestUtils.shaHex",
-        "org.apache.commons.codec.digest.DigestUtils.sha1",
-        "org.apache.commons.codec.digest.DigestUtils.sha1Hex",
-        "com.google.common.hash.Hashing.adler32",
-        "com.google.common.hash.Hashing.crc32",
-        "com.google.common.hash.Hashing.crc32c",
-        "com.google.common.hash.Hashing.goodFastHash",
-        "com.google.common.hash.Hashing.hmacMd5",
-        "com.google.common.hash.Hashing.hmacSha1",
-        "com.google.common.hash.Hashing.md5",
-        "com.google.common.hash.Hashing.sha1",
-        "java.security.spec.MGF1ParameterSpec.SHA1",
-    }
     for shard, method_id, method_name in yield_java_method_invocation(
         graph_db
     ):
-        if method_name in complete_attrs_on_set(insecure_digests):
-            yield shard, method_id
-            continue
-
         match = g.match_ast_group(
             shard.graph,
             method_id,
             "argument_list",
         )
-        if method_name not in complete_attrs_on_set(
-            {
-                "java.security.MessageDigest.getInstance",
-            }
-        ):
-            continue
         parameters = g.adj_ast(
             shard.graph,
             match["argument_list"][0],
         )[1:-1]
-        for param_id in parameters:
-            if (
-                param_text := shard.graph.nodes[param_id].get("label_text")
-            ) and param_text.lower().replace('"', "") in {
-                "md2",
-                "md4",
-                "md5",
-                "sha1",
-                "sha-1",
-            }:
-                yield shard, param_id
+        yield from _jvm_yield_insecure_hash(
+            shard, method_name, method_id, parameters
+        )
 
 
 def _java_yield_insecure_key(
@@ -305,6 +264,55 @@ def _java_yield_insecure_pass(
             yield shard, object_id
 
 
+def _jvm_yield_insecure_hash(
+    shard: graph_model.GraphShard,
+    method_name: str,
+    method_id: str,
+    parameters: List[Any],
+) -> graph_model.GraphShardNodes:
+    insecure_digests = {
+        "org.apache.commons.codec.digest.DigestUtils.getMd2Digest",
+        "org.apache.commons.codec.digest.DigestUtils.getMd5Digest",
+        "org.apache.commons.codec.digest.DigestUtils.getShaDigest",
+        "org.apache.commons.codec.digest.DigestUtils.getSha1Digest",
+        "org.apache.commons.codec.digest.DigestUtils.md2",
+        "org.apache.commons.codec.digest.DigestUtils.md2Hex",
+        "org.apache.commons.codec.digest.DigestUtils.md5",
+        "org.apache.commons.codec.digest.DigestUtils.md5Hex",
+        "org.apache.commons.codec.digest.DigestUtils.sha",
+        "org.apache.commons.codec.digest.DigestUtils.shaHex",
+        "org.apache.commons.codec.digest.DigestUtils.sha1",
+        "org.apache.commons.codec.digest.DigestUtils.sha1Hex",
+        "com.google.common.hash.Hashing.adler32",
+        "com.google.common.hash.Hashing.crc32",
+        "com.google.common.hash.Hashing.crc32c",
+        "com.google.common.hash.Hashing.goodFastHash",
+        "com.google.common.hash.Hashing.hmacMd5",
+        "com.google.common.hash.Hashing.hmacSha1",
+        "com.google.common.hash.Hashing.md5",
+        "com.google.common.hash.Hashing.sha1",
+        "java.security.spec.MGF1ParameterSpec.SHA1",
+    }
+    if method_name in complete_attrs_on_set(insecure_digests):
+        yield shard, method_id
+    if method_name in complete_attrs_on_set(
+        {
+            "java.security.MessageDigest.getInstance",
+        }
+    ):
+        for param_id in parameters:
+            if (
+                param_text := shard.graph.nodes[param_id].get("label_text")
+            ) and param_text.lower().replace('"', "") in {
+                "md2",
+                "md4",
+                "md5",
+                "sha1",
+                "sha-1",
+            }:
+                yield shard, param_id
+
+
 def _csharp_yield_object_creation(
     graph_db: graph_model.GraphDB, members: Set[str]
 ) -> graph_model.GraphShardNodes:
@@ -343,6 +351,24 @@ def _kotlin_yield_insecure_ciphers(
         )
         yield from _okhttp_yield_insecure_ciphers(
             shard, method_name, parameters
+        )
+
+
+def _kotlin_yield_insecure_hash(
+    graph_db: graph_model.GraphDB,
+) -> graph_model.GraphShardNodes:
+    for shard, method_id, method_name in yield_kotlin_method_invocation(
+        graph_db
+    ):
+        match = g.match_ast_group(
+            shard.graph, method_id, "value_argument", depth=3
+        )
+        parameters = [
+            g.adj_ast(shard.graph, argument_id)[0]
+            for argument_id in match["value_argument"]
+        ]
+        yield from _jvm_yield_insecure_hash(
+            shard, method_name, method_id, parameters
         )
 
 
@@ -604,6 +630,18 @@ def kotlin_insecure_cipher(
     )
 
 
+def kotlin_insecure_hash(
+    graph_db: graph_model.GraphDB,
+) -> core_model.Vulnerabilities:
+    return get_vulnerabilities_from_n_ids(
+        cwe=("310", "327"),
+        desc_key="src.lib_path.f052.insecure_hash.description",
+        desc_params=dict(lang="Kotlin"),
+        finding=FINDING,
+        graph_shard_nodes=_kotlin_yield_insecure_hash(graph_db),
+    )
+
+
 def kotlin_insecure_key(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
@@ -629,5 +667,6 @@ QUERIES: graph_model.Queries = (
     (FINDING, java_insecure_key),
     (FINDING, java_insecure_pass),
     (FINDING, kotlin_insecure_cipher),
+    (FINDING, kotlin_insecure_hash),
     (FINDING, kotlin_insecure_key),
 )

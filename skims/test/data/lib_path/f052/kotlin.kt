@@ -1,5 +1,6 @@
 package f052
 
+import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.security.spec.ECGenParameterSpec
 import java.security.spec.RSAKeyGenParameterSpec
@@ -44,6 +45,9 @@ class test {
                     .tlsVersions(TlsVersion.TLS_1_2)
                     .build()
             )
+
+            val md2: MessageDigest = MessageDigest.getInstance("SHA1")
+            val md3: MessageDigest = MessageDigest.getInstance("SHA-512")
         } catch (e: NoSuchAlgorithmException) {
         } catch (e: NoSuchPaddingException) {
         }

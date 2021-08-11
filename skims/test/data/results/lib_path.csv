@@ -3770,388 +3770,388 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.java,37,310 + 327,skims,
   42 |
      ^ Col 17
 "
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,13,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/kotlin.kt,"
-   3 | .security.NoSuchAlgorithmException
-   4 | .security.spec.ECGenParameterSpec
-   5 | .security.spec.RSAKeyGenParameterSpec
-   6 | x.crypto.Cipher
-   7 | x.crypto.NoSuchPaddingException
-   8 |
-   9 | {
-  10 | n(args: Array<String>) {
-  11 |  {
-  12 |  val c1 = Cipher.getInstance(""AES"")
-> 13 |  val c2 = Cipher.getInstance(""DES"")
-  14 |  val c3 = Cipher.getInstance(""DESede"")
-  15 |  val c4 = Cipher.getInstance(""RSA"")
-  16 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  17 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  18 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  19 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  20 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  21 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  22 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  23 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-     ^ Col 11
-"
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,14,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/kotlin.kt,"
-   4 | .security.spec.ECGenParameterSpec
-   5 | .security.spec.RSAKeyGenParameterSpec
-   6 | x.crypto.Cipher
-   7 | x.crypto.NoSuchPaddingException
-   8 |
-   9 | {
-  10 | n(args: Array<String>) {
-  11 |  {
-  12 |  val c1 = Cipher.getInstance(""AES"")
-  13 |  val c2 = Cipher.getInstance(""DES"")
-> 14 |  val c3 = Cipher.getInstance(""DESede"")
-  15 |  val c4 = Cipher.getInstance(""RSA"")
-  16 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  17 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  18 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  19 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  20 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  21 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  22 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  23 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  24 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+   4 | .security.NoSuchAlgorithmException
+   5 | .security.spec.ECGenParameterSpec
+   6 | .security.spec.RSAKeyGenParameterSpec
+   7 | x.crypto.Cipher
+   8 | x.crypto.NoSuchPaddingException
+   9 |
+  10 | {
+  11 | n(args: Array<String>) {
+  12 |  {
+  13 |  val c1 = Cipher.getInstance(""AES"")
+> 14 |  val c2 = Cipher.getInstance(""DES"")
+  15 |  val c3 = Cipher.getInstance(""DESede"")
+  16 |  val c4 = Cipher.getInstance(""RSA"")
+  17 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
      ^ Col 11
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,15,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/kotlin.kt,"
-   5 | .security.spec.RSAKeyGenParameterSpec
-   6 | x.crypto.Cipher
-   7 | x.crypto.NoSuchPaddingException
-   8 |
-   9 | {
-  10 | n(args: Array<String>) {
-  11 |  {
-  12 |  val c1 = Cipher.getInstance(""AES"")
-  13 |  val c2 = Cipher.getInstance(""DES"")
-  14 |  val c3 = Cipher.getInstance(""DESede"")
-> 15 |  val c4 = Cipher.getInstance(""RSA"")
-  16 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  17 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  18 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  19 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  20 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  21 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  22 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  23 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  24 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  25 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+   5 | .security.spec.ECGenParameterSpec
+   6 | .security.spec.RSAKeyGenParameterSpec
+   7 | x.crypto.Cipher
+   8 | x.crypto.NoSuchPaddingException
+   9 |
+  10 | {
+  11 | n(args: Array<String>) {
+  12 |  {
+  13 |  val c1 = Cipher.getInstance(""AES"")
+  14 |  val c2 = Cipher.getInstance(""DES"")
+> 15 |  val c3 = Cipher.getInstance(""DESede"")
+  16 |  val c4 = Cipher.getInstance(""RSA"")
+  17 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
      ^ Col 11
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,16,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/kotlin.kt,"
-   6 | x.crypto.Cipher
-   7 | x.crypto.NoSuchPaddingException
-   8 |
-   9 | {
-  10 | n(args: Array<String>) {
-  11 |  {
-  12 |  val c1 = Cipher.getInstance(""AES"")
-  13 |  val c2 = Cipher.getInstance(""DES"")
-  14 |  val c3 = Cipher.getInstance(""DESede"")
-  15 |  val c4 = Cipher.getInstance(""RSA"")
-> 16 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  17 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  18 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  19 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  20 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  21 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  22 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  23 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  24 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  25 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  26 |  val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+   6 | .security.spec.RSAKeyGenParameterSpec
+   7 | x.crypto.Cipher
+   8 | x.crypto.NoSuchPaddingException
+   9 |
+  10 | {
+  11 | n(args: Array<String>) {
+  12 |  {
+  13 |  val c1 = Cipher.getInstance(""AES"")
+  14 |  val c2 = Cipher.getInstance(""DES"")
+  15 |  val c3 = Cipher.getInstance(""DESede"")
+> 16 |  val c4 = Cipher.getInstance(""RSA"")
+  17 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
      ^ Col 11
 "
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,18,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/kotlin.kt,"
-   8 |
-   9 | {
-  10 | n(args: Array<String>) {
-  11 |  {
-  12 |  val c1 = Cipher.getInstance(""AES"")
-  13 |  val c2 = Cipher.getInstance(""DES"")
-  14 |  val c3 = Cipher.getInstance(""DESede"")
-  15 |  val c4 = Cipher.getInstance(""RSA"")
-  16 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  17 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-> 18 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  19 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  20 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  21 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  22 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  23 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  24 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  25 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  26 |  val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  27 |  val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  28 |  val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,17,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/kotlin.kt,"
+   7 | x.crypto.Cipher
+   8 | x.crypto.NoSuchPaddingException
+   9 |
+  10 | {
+  11 | n(args: Array<String>) {
+  12 |  {
+  13 |  val c1 = Cipher.getInstance(""AES"")
+  14 |  val c2 = Cipher.getInstance(""DES"")
+  15 |  val c3 = Cipher.getInstance(""DESede"")
+  16 |  val c4 = Cipher.getInstance(""RSA"")
+> 17 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 |  val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
      ^ Col 11
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,19,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/kotlin.kt,"
-   9 | {
-  10 | n(args: Array<String>) {
-  11 |  {
-  12 |  val c1 = Cipher.getInstance(""AES"")
-  13 |  val c2 = Cipher.getInstance(""DES"")
-  14 |  val c3 = Cipher.getInstance(""DESede"")
-  15 |  val c4 = Cipher.getInstance(""RSA"")
-  16 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  17 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  18 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-> 19 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  20 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  21 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  22 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  23 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  24 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  25 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  26 |  val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  27 |  val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  28 |  val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  29 |  val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+   9 |
+  10 | {
+  11 | n(args: Array<String>) {
+  12 |  {
+  13 |  val c1 = Cipher.getInstance(""AES"")
+  14 |  val c2 = Cipher.getInstance(""DES"")
+  15 |  val c3 = Cipher.getInstance(""DESede"")
+  16 |  val c4 = Cipher.getInstance(""RSA"")
+  17 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+> 19 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 |  val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 |  val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 |  val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
      ^ Col 11
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,20,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/kotlin.kt,"
-  10 | n(args: Array<String>) {
-  11 |  {
-  12 |  val c1 = Cipher.getInstance(""AES"")
-  13 |  val c2 = Cipher.getInstance(""DES"")
-  14 |  val c3 = Cipher.getInstance(""DESede"")
-  15 |  val c4 = Cipher.getInstance(""RSA"")
-  16 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  17 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  18 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  19 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-> 20 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  21 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  22 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  23 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  24 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  25 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  26 |  val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  27 |  val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  28 |  val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  29 |  val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  30 |  val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  10 | {
+  11 | n(args: Array<String>) {
+  12 |  {
+  13 |  val c1 = Cipher.getInstance(""AES"")
+  14 |  val c2 = Cipher.getInstance(""DES"")
+  15 |  val c3 = Cipher.getInstance(""DESede"")
+  16 |  val c4 = Cipher.getInstance(""RSA"")
+  17 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+> 20 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 |  val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 |  val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 |  val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 |  val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
      ^ Col 11
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,21,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/kotlin.kt,"
-  11 | {
-  12 | val c1 = Cipher.getInstance(""AES"")
-  13 | val c2 = Cipher.getInstance(""DES"")
-  14 | val c3 = Cipher.getInstance(""DESede"")
-  15 | val c4 = Cipher.getInstance(""RSA"")
-  16 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  17 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  18 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  19 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  20 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-> 21 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  22 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  23 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  24 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  25 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  26 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  27 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  28 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  29 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  30 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-  31 |
-     ^ Col 12
+  11 | n(args: Array<String>) {
+  12 |  {
+  13 |  val c1 = Cipher.getInstance(""AES"")
+  14 |  val c2 = Cipher.getInstance(""DES"")
+  15 |  val c3 = Cipher.getInstance(""DESede"")
+  16 |  val c4 = Cipher.getInstance(""RSA"")
+  17 |  val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 |  val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 |  val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 |  val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+> 21 |  val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 |  val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 |  val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 |  val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 |  val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 |  val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 |  val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 |  val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 |  val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 |  val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+     ^ Col 11
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,22,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/kotlin.kt,"
-  12 | val c1 = Cipher.getInstance(""AES"")
-  13 | val c2 = Cipher.getInstance(""DES"")
-  14 | val c3 = Cipher.getInstance(""DESede"")
-  15 | val c4 = Cipher.getInstance(""RSA"")
-  16 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  17 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  18 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  19 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  20 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  21 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-> 22 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  23 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  24 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  25 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  26 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  27 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  28 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  29 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  30 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-  31 |
-  32 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  12 | {
+  13 | val c1 = Cipher.getInstance(""AES"")
+  14 | val c2 = Cipher.getInstance(""DES"")
+  15 | val c3 = Cipher.getInstance(""DESede"")
+  16 | val c4 = Cipher.getInstance(""RSA"")
+  17 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+> 22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  32 |
      ^ Col 12
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,23,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/kotlin.kt,"
-  13 | val c2 = Cipher.getInstance(""DES"")
-  14 | val c3 = Cipher.getInstance(""DESede"")
-  15 | val c4 = Cipher.getInstance(""RSA"")
-  16 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  17 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  18 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  19 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  20 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  21 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  22 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-> 23 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  24 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  25 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  26 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  27 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  28 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  29 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  30 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-  31 |
-  32 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-  33 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
+  13 | val c1 = Cipher.getInstance(""AES"")
+  14 | val c2 = Cipher.getInstance(""DES"")
+  15 | val c3 = Cipher.getInstance(""DESede"")
+  16 | val c4 = Cipher.getInstance(""RSA"")
+  17 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+> 23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  32 |
+  33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
      ^ Col 12
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,24,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/kotlin.kt,"
-  14 | val c3 = Cipher.getInstance(""DESede"")
-  15 | val c4 = Cipher.getInstance(""RSA"")
-  16 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  17 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  18 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  19 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  20 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  21 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  22 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  23 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-> 24 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  25 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  26 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  27 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  28 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  29 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  30 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-  31 |
-  32 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-  33 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
-  34 | val k3 = ECGenParameterSpec(""secp521r1"")
+  14 | val c2 = Cipher.getInstance(""DES"")
+  15 | val c3 = Cipher.getInstance(""DESede"")
+  16 | val c4 = Cipher.getInstance(""RSA"")
+  17 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+> 24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  32 |
+  33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  34 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
      ^ Col 12
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,25,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/kotlin.kt,"
-  15 | val c4 = Cipher.getInstance(""RSA"")
-  16 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  17 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  18 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  19 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  20 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  21 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  22 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  23 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  24 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-> 25 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  26 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  27 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  28 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  29 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  30 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-  31 |
-  32 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-  33 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
-  34 | val k3 = ECGenParameterSpec(""secp521r1"")
-  35 | val k4 = ECGenParameterSpec(""c2pnb208w1"")
+  15 | val c3 = Cipher.getInstance(""DESede"")
+  16 | val c4 = Cipher.getInstance(""RSA"")
+  17 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+> 25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  32 |
+  33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  34 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
+  35 | val k3 = ECGenParameterSpec(""secp521r1"")
      ^ Col 12
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,26,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/kotlin.kt,"
-  16 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
-  17 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  18 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  19 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  20 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  21 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  22 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  23 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  24 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  25 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-> 26 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  27 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  28 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  29 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  30 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-  31 |
-  32 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-  33 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
-  34 | val k3 = ECGenParameterSpec(""secp521r1"")
-  35 | val k4 = ECGenParameterSpec(""c2pnb208w1"")
-  36 |
+  16 | val c4 = Cipher.getInstance(""RSA"")
+  17 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+> 26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  32 |
+  33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  34 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
+  35 | val k3 = ECGenParameterSpec(""secp521r1"")
+  36 | val k4 = ECGenParameterSpec(""c2pnb208w1"")
      ^ Col 12
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,27,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/kotlin.kt,"
-  17 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
-  18 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  19 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  20 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  21 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  22 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  23 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  24 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  25 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  26 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-> 27 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  28 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  29 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  30 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-  31 |
-  32 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-  33 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
-  34 | val k3 = ECGenParameterSpec(""secp521r1"")
-  35 | val k4 = ECGenParameterSpec(""c2pnb208w1"")
-  36 |
-  37 | val spec1: ConnectionSpec = (
+  17 | val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+> 27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  32 |
+  33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  34 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
+  35 | val k3 = ECGenParameterSpec(""secp521r1"")
+  36 | val k4 = ECGenParameterSpec(""c2pnb208w1"")
+  37 |
      ^ Col 12
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,28,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/kotlin.kt,"
-  18 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
-  19 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
-  20 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
-  21 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
-  22 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
-  23 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  24 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  25 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  26 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  27 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-> 28 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  29 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  30 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-  31 |
-  32 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-  33 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
-  34 | val k3 = ECGenParameterSpec(""secp521r1"")
-  35 | val k4 = ECGenParameterSpec(""c2pnb208w1"")
-  36 |
-  37 | val spec1: ConnectionSpec = (
-  38 |     ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  18 | val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+> 28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  32 |
+  33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  34 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
+  35 | val k3 = ECGenParameterSpec(""secp521r1"")
+  36 | val k4 = ECGenParameterSpec(""c2pnb208w1"")
+  37 |
+  38 | val spec1: ConnectionSpec = (
      ^ Col 12
 "
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,39,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/kotlin.kt,"
-  29 |         val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  30 |         val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-  31 |
-  32 |         val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-  33 |         val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
-  34 |         val k3 = ECGenParameterSpec(""secp521r1"")
-  35 |         val k4 = ECGenParameterSpec(""c2pnb208w1"")
-  36 |
-  37 |         val spec1: ConnectionSpec = (
-  38 |             ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-> 39 |                 .tlsVersions(TlsVersion.TLS_1_1)
-  40 |                 .build()
-  41 |         )
-  42 |         val spec2: ConnectionSpec = (
-  43 |             ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-  44 |                 .tlsVersions(TlsVersion.TLS_1_2)
-  45 |                 .build()
-  46 |         )
-  47 |     } catch (e: NoSuchAlgorithmException) {
-  48 |     } catch (e: NoSuchPaddingException) {
-  49 |     }
+F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,29,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/kotlin.kt,"
+  19 | val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  20 | val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  21 | val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  22 | val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  23 | val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  24 | val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 | val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 | val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 | val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 | val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+> 29 | val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 | val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 | val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  32 |
+  33 | val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  34 | val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
+  35 | val k3 = ECGenParameterSpec(""secp521r1"")
+  36 | val k4 = ECGenParameterSpec(""c2pnb208w1"")
+  37 |
+  38 | val spec1: ConnectionSpec = (
+  39 |     ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+     ^ Col 12
+"
+F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,40,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/kotlin.kt,"
+  30 |         val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 |         val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  32 |
+  33 |         val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  34 |         val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
+  35 |         val k3 = ECGenParameterSpec(""secp521r1"")
+  36 |         val k4 = ECGenParameterSpec(""c2pnb208w1"")
+  37 |
+  38 |         val spec1: ConnectionSpec = (
+  39 |             ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+> 40 |                 .tlsVersions(TlsVersion.TLS_1_1)
+  41 |                 .build()
+  42 |         )
+  43 |         val spec2: ConnectionSpec = (
+  44 |             ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  45 |                 .tlsVersions(TlsVersion.TLS_1_2)
+  46 |                 .build()
+  47 |         )
+  48 |
+  49 |         val md2: MessageDigest = MessageDigest.getInstance(""SHA1"")
+  50 |         val md3: MessageDigest = MessageDigest.getInstance(""SHA-512"")
      ^ Col 4
 "
 F052,lines,namespace/skims/test/data/lib_root/f052/test.cs,24,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_root/f052/test.cs,"
@@ -4454,6 +4454,30 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.java,5,310 + 327,skims,0
   21 | r.getInstance(""DES/CBC/PKCS5Padding"");
      ^ Col 24
 "
+F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,49,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in skims/test/data/lib_path/f052/kotlin.kt,"
+  35 | rSpec(""secp521r1"")
+  36 | rSpec(""c2pnb208w1"")
+  37 |
+  38 | pec = (
+  39 | lder(ConnectionSpec.MODERN_TLS)
+  40 | lsVersion.TLS_1_1)
+  41 |
+  42 |
+  43 | pec = (
+  44 | lder(ConnectionSpec.MODERN_TLS)
+  45 | lsVersion.TLS_1_2)
+  46 |
+  47 |
+  48 |
+> 49 |  = MessageDigest.getInstance(""SHA1"")
+  50 |  = MessageDigest.getInstance(""SHA-512"")
+  51 | mException) {
+  52 | xception) {
+  53 |
+  54 |
+  55 |
+     ^ Col 34
+"
 F052,lines,namespace/skims/test/data/lib_root/f052/test.go,17,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in skims/test/data/lib_root/f052/test.go,"
    3 | import (
    4 |  ""crypto/des""
@@ -4598,52 +4622,52 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.java,34,310 + 327,skims,
   42 |
      ^ Col 6
 "
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,33,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in skims/test/data/lib_path/f052/kotlin.kt,"
-  23 |  c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
-  24 |  c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
-  25 |  c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  26 |  c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  27 |  c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  28 |  c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  29 |  c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  30 |  c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-  31 |
-  32 |  k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-> 33 |  k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
-  34 |  k3 = ECGenParameterSpec(""secp521r1"")
-  35 |  k4 = ECGenParameterSpec(""c2pnb208w1"")
-  36 |
-  37 |  spec1: ConnectionSpec = (
-  38 |  ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-  39 |      .tlsVersions(TlsVersion.TLS_1_1)
-  40 |      .build()
-  41 |
-  42 |  spec2: ConnectionSpec = (
-  43 |  ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,34,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in skims/test/data/lib_path/f052/kotlin.kt,"
+  24 |  c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  25 |  c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  26 |  c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 |  c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 |  c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 |  c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 |  c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 |  c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  32 |
+  33 |  k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+> 34 |  k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
+  35 |  k3 = ECGenParameterSpec(""secp521r1"")
+  36 |  k4 = ECGenParameterSpec(""c2pnb208w1"")
+  37 |
+  38 |  spec1: ConnectionSpec = (
+  39 |  ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  40 |      .tlsVersions(TlsVersion.TLS_1_1)
+  41 |      .build()
+  42 |
+  43 |  spec2: ConnectionSpec = (
+  44 |  ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
      ^ Col 15
 "
-F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,35,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in skims/test/data/lib_path/f052/kotlin.kt,"
-  25 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
-  26 |  val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
-  27 |  val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
-  28 |  val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
-  29 |  val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
-  30 |  val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
-  31 |
-  32 |  val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-  33 |  val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
-  34 |  val k3 = ECGenParameterSpec(""secp521r1"")
-> 35 |  val k4 = ECGenParameterSpec(""c2pnb208w1"")
-  36 |
-  37 |  val spec1: ConnectionSpec = (
-  38 |      ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-  39 |          .tlsVersions(TlsVersion.TLS_1_1)
-  40 |          .build()
-  41 |  )
-  42 |  val spec2: ConnectionSpec = (
-  43 |      ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-  44 |          .tlsVersions(TlsVersion.TLS_1_2)
-  45 |          .build()
+F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,36,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in skims/test/data/lib_path/f052/kotlin.kt,"
+  26 |  val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  27 |  val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  28 |  val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  29 |  val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  30 |  val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  31 |  val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  32 |
+  33 |  val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  34 |  val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
+  35 |  val k3 = ECGenParameterSpec(""secp521r1"")
+> 36 |  val k4 = ECGenParameterSpec(""c2pnb208w1"")
+  37 |
+  38 |  val spec1: ConnectionSpec = (
+  39 |      ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  40 |          .tlsVersions(TlsVersion.TLS_1_1)
+  41 |          .build()
+  42 |  )
+  43 |  val spec2: ConnectionSpec = (
+  44 |      ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  45 |          .tlsVersions(TlsVersion.TLS_1_2)
+  46 |          .build()
      ^ Col 11
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,40,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure password encoder in skims/test/data/lib_path/f052/java.java,"
@@ -5138,52 +5162,52 @@ F061,lines,namespace/skims/test/data/lib_path/f061/javascript.js,3,390,skims,061
   5 | } catch (e) {}
     ^ Col 0
 "
-F061,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,48,390,skims,061. Errors without traceability,Empty Kotlin catch in skims/test/data/lib_path/f052/kotlin.kt,"
-  31 |
-  32 |             val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-  33 |             val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
-  34 |             val k3 = ECGenParameterSpec(""secp521r1"")
-  35 |             val k4 = ECGenParameterSpec(""c2pnb208w1"")
-  36 |
-  37 |             val spec1: ConnectionSpec = (
-  38 |                 ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-  39 |                     .tlsVersions(TlsVersion.TLS_1_1)
-  40 |                     .build()
-  41 |             )
-  42 |             val spec2: ConnectionSpec = (
-  43 |                 ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-  44 |                     .tlsVersions(TlsVersion.TLS_1_2)
-  45 |                     .build()
-  46 |             )
-  47 |         } catch (e: NoSuchAlgorithmException) {
-> 48 |         } catch (e: NoSuchPaddingException) {
-  49 |         }
-  50 |     }
-  51 | }
+F061,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,52,390,skims,061. Errors without traceability,Empty Kotlin catch in skims/test/data/lib_path/f052/kotlin.kt,"
+  35 |             val k3 = ECGenParameterSpec(""secp521r1"")
+  36 |             val k4 = ECGenParameterSpec(""c2pnb208w1"")
+  37 |
+  38 |             val spec1: ConnectionSpec = (
+  39 |                 ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  40 |                     .tlsVersions(TlsVersion.TLS_1_1)
+  41 |                     .build()
+  42 |             )
+  43 |             val spec2: ConnectionSpec = (
+  44 |                 ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  45 |                     .tlsVersions(TlsVersion.TLS_1_2)
+  46 |                     .build()
+  47 |             )
+  48 |
+  49 |             val md2: MessageDigest = MessageDigest.getInstance(""SHA1"")
+  50 |             val md3: MessageDigest = MessageDigest.getInstance(""SHA-512"")
+  51 |         } catch (e: NoSuchAlgorithmException) {
+> 52 |         } catch (e: NoSuchPaddingException) {
+  53 |         }
+  54 |     }
+  55 | }
      ^ Col 0
 "
-F061,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,47,390,skims,061. Errors without traceability,Empty Kotlin catch in skims/test/data/lib_path/f052/kotlin.kt,"
-  31 |
-  32 |             val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
-  33 |             val k2 = RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4)
-  34 |             val k3 = ECGenParameterSpec(""secp521r1"")
-  35 |             val k4 = ECGenParameterSpec(""c2pnb208w1"")
-  36 |
-  37 |             val spec1: ConnectionSpec = (
-  38 |                 ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-  39 |                     .tlsVersions(TlsVersion.TLS_1_1)
-  40 |                     .build()
-  41 |             )
-  42 |             val spec2: ConnectionSpec = (
-  43 |                 ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-  44 |                     .tlsVersions(TlsVersion.TLS_1_2)
-  45 |                     .build()
-  46 |             )
-> 47 |         } catch (e: NoSuchAlgorithmException) {
-  48 |         } catch (e: NoSuchPaddingException) {
-  49 |         }
-  50 |     }
-  51 | }
+F061,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,51,390,skims,061. Errors without traceability,Empty Kotlin catch in skims/test/data/lib_path/f052/kotlin.kt,"
+  35 |             val k3 = ECGenParameterSpec(""secp521r1"")
+  36 |             val k4 = ECGenParameterSpec(""c2pnb208w1"")
+  37 |
+  38 |             val spec1: ConnectionSpec = (
+  39 |                 ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  40 |                     .tlsVersions(TlsVersion.TLS_1_1)
+  41 |                     .build()
+  42 |             )
+  43 |             val spec2: ConnectionSpec = (
+  44 |                 ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  45 |                     .tlsVersions(TlsVersion.TLS_1_2)
+  46 |                     .build()
+  47 |             )
+  48 |
+  49 |             val md2: MessageDigest = MessageDigest.getInstance(""SHA1"")
+  50 |             val md3: MessageDigest = MessageDigest.getInstance(""SHA-512"")
+> 51 |         } catch (e: NoSuchAlgorithmException) {
+  52 |         } catch (e: NoSuchPaddingException) {
+  53 |         }
+  54 |     }
+  55 | }
      ^ Col 0
 "
 F061,lines,namespace/skims/test/data/lib_path/f061/kotlin.kt,14,390,skims,061. Errors without traceability,Empty Kotlin catch in skims/test/data/lib_path/f061/kotlin.kt,"
