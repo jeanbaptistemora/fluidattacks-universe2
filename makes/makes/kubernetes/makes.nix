@@ -41,11 +41,21 @@ in
   };
   secretsForEnvFromSops = {
     makesKubernetesDev = {
-      vars = [ "CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL" ];
+      vars = [
+        "CLOUDFLARE_ACCOUNT_ID"
+        "CLOUDFLARE_API_KEY"
+        "CLOUDFLARE_EMAIL"
+        "NEW_RELIC_LICENSE_KEY"
+      ];
       manifest = "/makes/makes/secrets/dev.yaml";
     };
     makesKubernetesProd = {
-      vars = [ "CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL" ];
+      vars = [
+        "CLOUDFLARE_ACCOUNT_ID"
+        "CLOUDFLARE_API_KEY"
+        "CLOUDFLARE_EMAIL"
+        "NEW_RELIC_LICENSE_KEY"
+      ];
       manifest = "/makes/makes/secrets/prod.yaml";
     };
   };
@@ -59,6 +69,7 @@ in
     makesKubernetes = {
       cloudflareApiKey = "CLOUDFLARE_API_KEY";
       cloudflareEmail = "CLOUDFLARE_EMAIL";
+      newRelicLicenseKey = "NEW_RELIC_LICENSE_KEY";
       kubeConfig = "KUBECONFIG";
     };
   };

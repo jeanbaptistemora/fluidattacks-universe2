@@ -1,6 +1,4 @@
-variable "newrelic_license_key" {
-  default = "default value for test"
-}
+variable "newRelicLicenseKey" {}
 
 resource "helm_release" "newrelic" {
   name       = "newrelic"
@@ -11,7 +9,7 @@ resource "helm_release" "newrelic" {
 
   set_sensitive {
     name  = "global.licenseKey"
-    value = var.newrelic_license_key
+    value = var.newRelicLicenseKey
   }
 
   set {
