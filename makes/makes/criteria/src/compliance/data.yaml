@@ -14,16 +14,16 @@
   definitions:
     "CR3.4: 2":
       title: Automate malicious code detection
-      link: https://www.bsimm.com/content/dam/bsimm/reports/bsimm9.pdf
+      link: https://www.bsimm.com/content/dam/bsimm/reports/bsimm11.pdf
     "SE3.2: 13":
       title: Use code protection
-      link: https://www.bsimm.com/content/dam/bsimm/reports/bsimm9.pdf
+      link: https://www.bsimm.com/content/dam/bsimm/reports/bsimm11.pdf
     "SR2.4: 60":
       title: Identify open source
-      link: https://www.bsimm.com/content/dam/bsimm/reports/bsimm9.pdf
+      link: https://www.bsimm.com/content/dam/bsimm/reports/bsimm11.pdf
     "SR3.3: 9":
       title: Use secure coding standards
-      link: https://www.bsimm.com/content/dam/bsimm/reports/bsimm9.pdf
+      link: https://www.bsimm.com/content/dam/bsimm/reports/bsimm11.pdf
   metadata: {}
 "002":
   title: CAPEC™
