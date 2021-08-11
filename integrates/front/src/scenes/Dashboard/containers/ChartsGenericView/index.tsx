@@ -508,15 +508,17 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
               <Graphic
                 bsHeight={320}
                 className={"g1"}
-                documentName={"topFindingsByVulnerabilities"}
+                documentName={"topVulnerabilitiesCvssf"}
                 documentType={"barChart"}
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"c3"}
-                infoLink={`${graphInfoLink}common#top-vulnerabilities`}
+                infoLink={`${graphInfoLink}common`}
                 reportMode={reportMode}
                 subject={subject}
-                title={translate.t("tagIndicator.topFindingsByVulnerabilities")}
+                title={translate.t(
+                  "analytics.barChart.topVulnerabilities.title"
+                )}
               />
             </Col100>
           </RowCenter>
