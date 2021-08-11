@@ -15,6 +15,7 @@ from collections import (
     Counter,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from itertools import (
@@ -29,14 +30,11 @@ from typing import (
 
 
 @alru_cache(maxsize=None, typed=True)
-async def get_data_one_group(group: str) -> Counter:
-    context = get_new_context()
-    group_findings_loader = context.group_findings
-    finding_vulns_loader = context.finding_vulns
+async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter:
 
-    group_findings_data = await group_findings_loader.load(group.lower())
+    group_findings_data = await loaders.group_findings.load(group.lower())
     finding_ids = [finding["finding_id"] for finding in group_findings_data]
-    finding_vulns = await finding_vulns_loader.load_many(finding_ids)
+    finding_vulns = await loaders.finding_vulns_nzr.load_many(finding_ids)
 
     return Counter(
         [
@@ -50,8 +48,12 @@ async def get_data_one_group(group: str) -> Counter:
     )
 
 
-async def get_data_many_groups(groups: List[str]) -> Counter:
-    groups_data = await collect(map(get_data_one_group, groups))
+async def get_data_many_groups(
+    groups: List[str], loaders: Dataloaders
+) -> Counter:
+    groups_data = await collect(
+        [get_data_one_group(group, loaders) for group in groups]
+    )
 
     return sum(groups_data, Counter())
 
@@ -106,9 +108,12 @@ def format_data(counters: Counter) -> dict:
 
 
 async def generate_all() -> None:
+    loaders = get_new_context()
     async for group in utils.iterate_groups():
         utils.json_dump(
-            document=format_data(counters=await get_data_one_group(group)),
+            document=format_data(
+                counters=await get_data_one_group(group, loaders)
+            ),
             entity="group",
             subject=group,
         )
@@ -118,7 +123,7 @@ async def generate_all() -> None:
     ):
         utils.json_dump(
             document=format_data(
-                counters=await get_data_many_groups(list(org_groups)),
+                counters=await get_data_many_groups(list(org_groups), loaders),
             ),
             entity="organization",
             subject=org_id,
@@ -128,7 +133,7 @@ async def generate_all() -> None:
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
             utils.json_dump(
                 document=format_data(
-                    counters=await get_data_many_groups(groups),
+                    counters=await get_data_many_groups(list(groups), loaders),
                 ),
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",

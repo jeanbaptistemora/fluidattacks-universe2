@@ -47,7 +47,7 @@ def get_finding_severity(findings: List[Finding], finding_id: str) -> Decimal:
 async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter[str]:
     group_findings = await loaders.group_findings.load(group.lower())
     finding_ids = [finding["finding_id"] for finding in group_findings]
-    finding_vulns = await loaders.finding_vulns.load_many(finding_ids)
+    finding_vulns = await loaders.finding_vulns_nzr.load_many(finding_ids)
 
     counter: Counter[str] = Counter(
         [
