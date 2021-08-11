@@ -137,8 +137,8 @@ def proj_query(proj_id: str) -> Operation:
     return operation
 
 
-def get_project(client: HTTPEndpoint, proj_id: str) -> IO[Project]:
-    operation = proj_query(proj_id)
+def get_project(client: HTTPEndpoint, proj_id: ProjectId) -> IO[Project]:
+    operation = proj_query(proj_id.proj_id)
     LOG.debug("operation: %s", operation)
     data = client(operation)
     LOG.debug("raw: %s", data)
@@ -147,7 +147,7 @@ def get_project(client: HTTPEndpoint, proj_id: str) -> IO[Project]:
 
 
 def get_projs(
-    client: HTTPEndpoint, projs: Iterator[str]
+    client: HTTPEndpoint, projs: Iterator[ProjectId]
 ) -> IO[Iterator[Project]]:
     results = iter(
         unsafe_perform_io(get_project(client, proj)) for proj in projs
