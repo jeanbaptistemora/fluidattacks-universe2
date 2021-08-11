@@ -1,7 +1,11 @@
 data "aws_caller_identity" "current" {}
 
-data "local_file" "init" {
-  filename = "../init.sh"
+data "local_file" "init_runner" {
+  filename = "./init/runner.sh"
+}
+
+data "local_file" "init_worker" {
+  filename = "./init/worker.sh"
 }
 
 #

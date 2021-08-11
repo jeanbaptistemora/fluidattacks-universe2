@@ -9,10 +9,11 @@ module "gitlab_runner" {
   kms_deletion_window_in_days            = 30
   enable_manage_gitlab_token             = true
   enable_runner_ssm_access               = true
+  enable_gitlab_runner_ssh_access        = false
   docker_machine_spot_price_bid          = "0.6"
   subnet_id_runners                      = "subnet-0bceb7aa2c900324a"
   subnet_ids_gitlab_runner               = ["subnet-0bceb7aa2c900324a"]
-  userdata_pre_install                   = data.local_file.init.content
+  userdata_pre_install                   = data.local_file.init_runner.content
 
   cache_bucket_versioning = false
   cache_expiration_days   = 30
@@ -35,7 +36,7 @@ module "gitlab_runner" {
   runner_root_block_device = {
     delete_on_termination = true
     volume_type           = "gp3"
-    volume_size           = 10
+    volume_size           = 15
     encrypted             = true
     iops                  = 3000
   }
@@ -43,7 +44,7 @@ module "gitlab_runner" {
   runners_ebs_optimized = true
   runners_executor      = "docker+machine"
   runners_gitlab_url    = "https://gitlab.com"
-  runners_idle_count    = 20
+  runners_idle_count    = 0
   runners_idle_time     = 1800
   runners_image         = "docker"
   runners_limit         = 1000
@@ -64,7 +65,7 @@ module "gitlab_runner" {
   runners_pull_policy           = "always"
   runners_request_concurrency   = 10
   runners_request_spot_instance = true
-  runners_use_private_address   = true
+  runners_use_private_address   = false
 
   environment = "fluidattacks-autoscaling"
   overrides = {
