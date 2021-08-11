@@ -448,6 +448,48 @@ async def get_last_closed_vulnerability_info(
     return last_closed_days, cast(VulnerabilityType, last_closed_vuln)
 
 
+async def get_last_closed_vulnerability_info_new(
+    context: Any,
+    findings: List[Finding],
+) -> Tuple[Decimal, VulnerabilityType]:
+    """Get days since the last closed vulnerability"""
+    finding_vulns_loader = context.finding_vulns_nzr
+    valid_findings_ids = [
+        finding.id for finding in findings if not is_deleted_new(finding)
+    ]
+    vulns = await finding_vulns_loader.load_many_chained(valid_findings_ids)
+    are_vuln_closed = await collect(
+        [
+            in_process(vulns_utils.is_vulnerability_closed, vuln)
+            for vuln in vulns
+        ]
+    )
+    closed_vulnerabilities = [
+        vuln
+        for vuln, is_vuln_closed in zip(vulns, are_vuln_closed)
+        if is_vuln_closed
+    ]
+    closing_vuln_dates = await collect(
+        [
+            in_process(vulns_utils.get_last_closing_date, vuln)
+            for vuln in closed_vulnerabilities
+        ]
+    )
+    if closing_vuln_dates:
+        current_date, date_index = max(
+            (v, i) for i, v in enumerate(closing_vuln_dates)
+        )
+        last_closed_vuln = closed_vulnerabilities[date_index]
+        current_date = max(closing_vuln_dates)
+        last_closed_days = Decimal(
+            (datetime_utils.get_now().date() - current_date).days
+        ).quantize(Decimal("0.1"))
+    else:
+        last_closed_days = Decimal(0)
+        last_closed_vuln = {}
+    return last_closed_days, cast(VulnerabilityType, last_closed_vuln)
+
+
 async def get_group(finding_id: str) -> str:
     attribute = await get_attributes(finding_id, ["project_name"])
     return str(get_key_or_fallback(attribute))
@@ -487,6 +529,36 @@ async def get_max_open_severity(
     else:
         max_severity = Decimal(0).quantize(Decimal("0.1"))
         max_severity_finding = {}
+    return max_severity, max_severity_finding
+
+
+async def get_max_open_severity_new(
+    context: Any, findings: List[Finding]
+) -> Tuple[Decimal, Optional[Finding]]:
+    total_vulns = await collect(
+        [total_vulnerabilities_new(context, finding) for finding in findings]
+    )
+    opened_findings = [
+        finding
+        for finding, total_vuln in zip(findings, total_vulns)
+        if int(total_vuln.get("openVulnerabilities", "")) > 0
+    ]
+    total_severity: List[float] = cast(
+        List[float],
+        [
+            float(get_severity_score_new(finding.severity))
+            for finding in opened_findings
+        ],
+    )
+    if total_severity:
+        severity, severity_index = max(
+            (v, i) for i, v in enumerate(total_severity)
+        )
+        max_severity = Decimal(severity).quantize(Decimal("0.1"))
+        max_severity_finding = opened_findings[severity_index]
+    else:
+        max_severity = Decimal(0).quantize(Decimal("0.1"))
+        max_severity_finding = None
     return max_severity, max_severity_finding
 
 
@@ -701,6 +773,10 @@ def is_deleted(finding: Dict[str, FindingType]) -> bool:
         List[Dict[str, str]], finding.get("historic_state", [{}])
     )
     return historic_state[-1].get("state", "") == "DELETED"
+
+
+def is_deleted_new(finding: Finding) -> bool:
+    return finding.state.status == FindingStateStatus.DELETED
 
 
 async def is_pending_verification(context: Any, finding_id: str) -> bool:
@@ -1102,6 +1178,27 @@ async def total_vulnerabilities(
                 # Vulnerability does not have a valid state
                 pass
     return finding
+
+
+async def total_vulnerabilities_new(
+    context: Any, finding: Finding
+) -> Dict[str, int]:
+    finding_stats = {"openVulnerabilities": 0, "closedVulnerabilities": 0}
+    finding_vulns_loader = context.finding_vulns_nzr
+    if not is_deleted_new(finding):
+        vulns = await finding_vulns_loader.load(finding.id)
+        last_approved_status = await collect(
+            [in_process(vulns_utils.get_last_status, vuln) for vuln in vulns]
+        )
+        for current_state in last_approved_status:
+            if current_state == "open":
+                finding_stats["openVulnerabilities"] += 1
+            elif current_state == "closed":
+                finding_stats["closedVulnerabilities"] += 1
+            else:
+                # Vulnerability does not have a valid state
+                pass
+    return finding_stats
 
 
 async def update_description(
