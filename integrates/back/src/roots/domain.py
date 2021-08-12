@@ -56,6 +56,9 @@ from typing import (
     Optional,
     Tuple,
 )
+from urllib3.exceptions import (
+    LocationParseError,
+)
 from urllib3.util.url import (
     parse_url,
 )
@@ -264,12 +267,16 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
 
 async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
     group_name: str = kwargs["group_name"].lower()
-    url_attributes = parse_url(kwargs["url"])
-    is_valid = validations.is_valid_url(
-        kwargs["url"]
-    ) and url_attributes.scheme in {"http", "https"}
 
-    if not is_valid:
+    try:
+        url_attributes = parse_url(kwargs["url"])
+    except LocationParseError:
+        raise InvalidParameter()
+
+    if not url_attributes.host or url_attributes.scheme not in {
+        "http",
+        "https",
+    }:
         raise InvalidParameter()
 
     host: str = url_attributes.host
