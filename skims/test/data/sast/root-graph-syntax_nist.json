@@ -4,6 +4,7 @@
       "61": {
         "52-69-71-78-79-96-104-106-128-137-146-148-150-168-170-171-179-180-189-212-215-216-237": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": true,
               "dependencies": 0,
@@ -16,6 +17,7 @@
             "var_type": "HttpRequest"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -37,6 +39,7 @@
             "type": "SyntaxStepNoOp"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -184,6 +187,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": true,
               "dependencies": -1,
@@ -207,6 +211,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -230,6 +235,7 @@
             "value_type": "null"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": true,
               "dependencies": -1,
@@ -281,6 +287,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -373,6 +380,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -518,6 +526,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": true,
               "dependencies": -1,
@@ -532,6 +541,7 @@
         ],
         "52-69-71-78-79-96-104-106-128-137-146-148-150-168-170-171-179-180-189-237": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": true,
               "dependencies": 0,
@@ -544,6 +554,7 @@
             "var_type": "HttpRequest"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -565,6 +576,7 @@
             "type": "SyntaxStepNoOp"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -712,6 +724,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": true,
               "dependencies": -1,
@@ -735,6 +748,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -758,6 +772,7 @@
             "value_type": "null"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -809,6 +824,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -901,6 +917,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -946,6 +963,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,

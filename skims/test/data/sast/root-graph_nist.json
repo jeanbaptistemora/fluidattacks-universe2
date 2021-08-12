@@ -4486,6 +4486,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -4511,6 +4512,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -4536,6 +4538,7 @@
             "value_type": "null"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -4593,6 +4596,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -4697,6 +4701,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -4850,6 +4855,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -5360,6 +5366,7 @@
         ],
         "52": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -5372,6 +5379,7 @@
             "var_type": "HttpRequest"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -5397,6 +5405,7 @@
         ],
         "71": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -17936,6 +17945,7 @@
       "syntax": {
         "1015": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -17992,6 +18002,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -18071,6 +18082,7 @@
               "value": null
             },
             "method": "NotFound",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -18159,6 +18171,7 @@
               "value": null
             },
             "method": "StatusCode",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -18173,6 +18186,7 @@
         ],
         "143": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -18185,6 +18199,7 @@
             "var_type": "IHouseRepository"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -18398,6 +18413,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -18488,6 +18504,7 @@
         ],
         "387": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -18544,6 +18561,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -18623,6 +18641,7 @@
               "value": null
             },
             "method": "NotFound",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -18678,6 +18697,7 @@
               "value": null
             },
             "method": "Ok",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -18768,6 +18788,7 @@
               "value": null
             },
             "method": "BadRequest",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -18813,6 +18834,7 @@
               "value": null
             },
             "method": "BadRequest",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -18858,6 +18880,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -18992,6 +19015,7 @@
               "value": null
             },
             "method": "BadRequest",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -19037,6 +19061,7 @@
               "value": null
             },
             "method": "BadRequest",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -19082,6 +19107,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -19161,6 +19187,7 @@
               "value": null
             },
             "method": "NotFound",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -19338,6 +19365,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -19393,6 +19421,7 @@
               "value": null
             },
             "method": "Ok",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -19483,6 +19512,7 @@
               "value": null
             },
             "method": "BadRequest",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -19528,6 +19558,7 @@
               "value": null
             },
             "method": "BadRequest",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -19573,6 +19604,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -19652,6 +19684,7 @@
               "value": null
             },
             "method": "NotFound",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -19697,6 +19730,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -19807,6 +19841,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -19862,6 +19897,7 @@
               "value": null
             },
             "method": "Ok",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -26710,6 +26746,7 @@
               "value": null
             },
             "method": "NotFound",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -26744,6 +26781,7 @@
               "value": null
             },
             "method": "Ok",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -26758,6 +26796,7 @@
         ],
         "185": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -26815,6 +26854,7 @@
               "value": null
             },
             "method": "BadRequest",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -26839,6 +26879,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -26853,6 +26894,7 @@
         ],
         "22": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -26966,6 +27008,7 @@
               "value": null
             },
             "method": "Ok",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -26980,6 +27023,7 @@
         ],
         "303": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -27026,6 +27070,7 @@
               "value": null
             },
             "method": "BadRequest",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -27061,6 +27106,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -27086,6 +27132,7 @@
             "value_type": "null"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -27132,6 +27179,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -27333,6 +27381,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -27368,6 +27417,7 @@
               "value": null
             },
             "method": "NotFound",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -27392,6 +27442,7 @@
               "value": null
             },
             "method": "Ok",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -27406,6 +27457,7 @@
         ],
         "468": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -27496,6 +27548,7 @@
               "value": null
             },
             "method": "BadRequest",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -27520,6 +27573,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -27566,6 +27620,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -27698,6 +27753,7 @@
               "value": null
             },
             "method": "Ok",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {

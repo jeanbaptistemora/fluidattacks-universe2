@@ -97,6 +97,7 @@ class SyntaxStepDeclaration(NamedTuple):
     var: str
     var_type: Optional[str] = None
     modifiers: Optional[Set[str]] = None
+    is_destructuring: bool = False
 
     type: str = "SyntaxStepDeclaration"
 
@@ -184,6 +185,7 @@ class SyntaxStepMethodInvocation(NamedTuple):
     meta: SyntaxStepMeta
     method: str
     current_instance: Optional[CurrentInstance] = None
+    return_type: Optional[str] = None
 
     type: str = "SyntaxStepMethodInvocation"
 

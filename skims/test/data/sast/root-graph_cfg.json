@@ -19196,6 +19196,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -19352,6 +19353,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -19379,6 +19381,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -19426,6 +19429,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -19494,6 +19498,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -19541,6 +19546,7 @@
             "type": "SyntaxStepArrayInitialization"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -19565,6 +19571,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -19642,6 +19649,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -19658,6 +19666,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -19672,6 +19681,7 @@
         ],
         "1138": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -19839,6 +19849,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -19898,6 +19909,7 @@
               "value": null
             },
             "method": "e.printStackTrace",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -19957,6 +19969,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -20016,6 +20029,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -20043,6 +20057,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20167,6 +20182,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -20235,6 +20251,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -20250,6 +20267,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20275,6 +20293,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20429,6 +20448,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -20497,6 +20517,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -20643,6 +20664,7 @@
             "type": "SyntaxStepArrayInitialization"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20668,6 +20690,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20821,6 +20844,7 @@
               "value": null
             },
             "method": "numbers.add",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -20919,6 +20943,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -21092,6 +21117,7 @@
             "type": "SyntaxStepArrayInitialization"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -21117,6 +21143,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -21142,6 +21169,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -21201,6 +21229,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -21248,6 +21277,7 @@
               "value": null
             },
             "method": "numbers.add",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -21490,6 +21520,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -21539,6 +21570,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -21628,6 +21660,7 @@
               "value": null
             },
             "method": "log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -21676,6 +21709,7 @@
               "value": null
             },
             "method": "numbers.add",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -21723,6 +21757,7 @@
               "value": null
             },
             "method": "log2",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -21761,6 +21796,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -21839,6 +21875,7 @@
               "value": null
             },
             "method": "log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -21877,6 +21914,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -21944,6 +21982,7 @@
               "value": null
             },
             "method": "log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -21982,6 +22021,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -22018,6 +22058,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -22064,6 +22105,7 @@
               "value": null
             },
             "method": "numbers.add",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -22126,6 +22168,7 @@
               "value": null
             },
             "method": "numbers.forEach",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -22211,6 +22254,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -22247,6 +22291,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -22283,6 +22328,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -22354,6 +22400,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -22370,6 +22417,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -22459,6 +22507,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -22530,6 +22579,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -22589,6 +22639,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -22605,6 +22656,7 @@
             "value_type": "boolean"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -22630,6 +22682,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -22749,6 +22802,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -22787,6 +22841,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -22917,6 +22972,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -22933,6 +22989,7 @@
             "value_type": "string"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -23149,6 +23206,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -23252,6 +23310,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -23357,6 +23416,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -23439,6 +23499,7 @@
             "type": "SyntaxStepArrayInitialization"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -23496,6 +23557,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -23544,6 +23606,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -23560,6 +23623,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -23574,6 +23638,7 @@
         ],
         "526": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -23741,6 +23806,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -23822,6 +23888,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -23838,6 +23905,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -23927,6 +23995,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -24030,6 +24099,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -24119,6 +24189,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -24156,6 +24227,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -24215,6 +24287,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -24242,6 +24315,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -24256,6 +24330,7 @@
         ],
         "677": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -24423,6 +24498,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -24482,6 +24558,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -24541,6 +24618,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -24589,6 +24667,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -24616,6 +24695,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -24630,6 +24710,7 @@
         ],
         "756": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -24890,6 +24971,7 @@
               "value": null
             },
             "method": "e.toString",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -24968,6 +25050,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -25082,6 +25165,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -25141,6 +25225,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -25168,6 +25253,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -25287,6 +25373,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -25336,6 +25423,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -25371,6 +25459,7 @@
               "value": null
             },
             "method": "e.toString",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -25460,6 +25549,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -25498,6 +25588,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -25587,6 +25678,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -25603,6 +25695,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -25651,6 +25744,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -25805,6 +25899,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -47649,6 +47744,7 @@
               "value": null
             },
             "method": "errors.New",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -47665,6 +47761,7 @@
         ],
         "1014": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -47677,6 +47774,7 @@
             "var_type": "http.ResponseWriter"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -47689,6 +47787,7 @@
             "var_type": "*http.Request"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -47745,9 +47844,11 @@
               "value": null
             },
             "method": "store.Get",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -47791,9 +47892,11 @@
               "value": null
             },
             "method": "store.Get",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -47873,6 +47976,7 @@
               "value": null
             },
             "method": "err.Error",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -47886,6 +47990,7 @@
               "value": null
             },
             "method": "log.Println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -48023,6 +48128,7 @@
               "value": null
             },
             "method": "session.Save",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -48138,6 +48244,7 @@
               "value": null
             },
             "method": "err.Error",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -48151,11 +48258,13 @@
               "value": null
             },
             "method": "log.Println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
         "1239": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -48212,9 +48321,11 @@
               "value": null
             },
             "method": "GetCookie",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -48489,6 +48600,7 @@
               "value": null
             },
             "method": "errors.New",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -48527,9 +48639,11 @@
               "value": null
             },
             "method": "config.LoadConfig",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -48544,6 +48658,7 @@
         ],
         "1355": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -48558,6 +48673,7 @@
         ],
         "1361": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -48673,6 +48789,7 @@
               "value": null
             },
             "method": "fmt.Sprintf",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -48720,9 +48837,11 @@
               "value": null
             },
             "method": "sql.Open",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -48766,9 +48885,11 @@
               "value": null
             },
             "method": "sql.Open",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -48921,6 +49042,7 @@
               "value": null
             },
             "method": "db.Exec",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -48986,6 +49108,7 @@
               "value": null
             },
             "method": "db.Exec",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -49221,6 +49344,7 @@
               "value": null
             },
             "method": "fmt.Sprintf",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -49247,6 +49371,7 @@
               "value": null
             },
             "method": "err.Error",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -49260,6 +49385,7 @@
               "value": null
             },
             "method": "log.Println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -49296,6 +49422,7 @@
               "value": null
             },
             "method": "sql.Open",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -49341,6 +49468,7 @@
               "value": null
             },
             "method": "sql.Open",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -49476,6 +49604,7 @@
         ],
         "1575": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -49488,6 +49617,7 @@
             "var_type": "http.ResponseWriter"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -49545,6 +49675,7 @@
             "type": "SyntaxStepUnaryExpression"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -49589,6 +49720,7 @@
               "value": null
             },
             "method": "http.SetCookie",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -49614,6 +49746,7 @@
               "value": null
             },
             "method": "err.Error",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -49647,6 +49780,7 @@
               "value": null
             },
             "method": "http.Error",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -49772,6 +49906,7 @@
               "value": null
             },
             "method": "fmt.Printf",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -49822,6 +49957,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -49845,6 +49981,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -49870,6 +50007,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -49895,6 +50033,7 @@
             "value_type": "boolean"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -49918,6 +50057,7 @@
             "value_type": "boolean"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -49941,6 +50081,7 @@
             "value_type": "string"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -50025,6 +50166,7 @@
               "value": null
             },
             "method": "fmt.Println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -50042,6 +50184,7 @@
         ],
         "1812": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -50054,6 +50197,7 @@
             "var_type": ""
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -50100,6 +50244,7 @@
               "value": null
             },
             "method": "fmt.Println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -50160,6 +50305,7 @@
               "value": null
             },
             "method": "fmt.Println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -50244,6 +50390,7 @@
               "value": null
             },
             "method": "fmt.Println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -50307,6 +50454,7 @@
         ],
         "195": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -50342,6 +50490,7 @@
               "value": null
             },
             "method": "fmt.Println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -50379,6 +50528,7 @@
               "value": null
             },
             "method": "fmt.Println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -50395,6 +50545,7 @@
         ],
         "360": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -50409,6 +50560,7 @@
         ],
         "37": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -50444,9 +50596,11 @@
               "value": null
             },
             "method": "session.New",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -50461,6 +50615,7 @@
         ],
         "521": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -50496,6 +50651,7 @@
               "value": null
             },
             "method": "database.Connect",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -50520,6 +50676,7 @@
               "value": null
             },
             "method": "database.Connect",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -50567,9 +50724,11 @@
               "value": null
             },
             "method": "fmt.Sprintf",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -50615,9 +50774,11 @@
               "value": null
             },
             "method": "DB.Query",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -50650,9 +50811,11 @@
               "value": null
             },
             "method": "DB.Query",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -50667,6 +50830,7 @@
         ],
         "59": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -50898,6 +51062,7 @@
               "value": null
             },
             "method": "rows.Scan",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -50924,9 +51089,11 @@
               "value": null
             },
             "method": "recover",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -51017,6 +51184,7 @@
               "value": null
             },
             "method": "err.Error",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -51030,6 +51198,7 @@
               "value": null
             },
             "method": "log.Printf",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -51078,6 +51247,7 @@
         ],
         "720": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -51113,6 +51283,7 @@
               "value": null
             },
             "method": "database.Connect",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -51137,6 +51308,7 @@
               "value": null
             },
             "method": "database.Connect",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -51164,6 +51336,7 @@
             "value_type": "string"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -51242,9 +51415,11 @@
               "value": null
             },
             "method": "DB.Prepare",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -51277,9 +51452,11 @@
               "value": null
             },
             "method": "DB.Prepare",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -51390,6 +51567,7 @@
               "value": null
             },
             "method": "stmt.QueryRow",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -51648,6 +51826,7 @@
         ],
         "895": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -51704,9 +51883,11 @@
               "value": null
             },
             "method": "store.Get",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -51750,9 +51931,11 @@
               "value": null
             },
             "method": "store.Get",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -51832,6 +52015,7 @@
               "value": null
             },
             "method": "err.Error",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -51845,6 +52029,7 @@
               "value": null
             },
             "method": "log.Println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -66151,6 +66336,7 @@
               "value": null
             },
             "method": "logMyErrors",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -66167,6 +66353,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -66190,6 +66377,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -66213,6 +66401,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -66295,6 +66484,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -66331,6 +66521,7 @@
         ],
         "1068": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -66362,6 +66553,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -66376,6 +66568,7 @@
         ],
         "1078": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -66451,6 +66644,7 @@
               "value": null
             },
             "method": "setTimeout",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -66510,11 +66704,13 @@
               "value": null
             },
             "method": "resolve",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
         "11": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -66589,6 +66785,7 @@
         ],
         "1117": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -66601,6 +66798,7 @@
             "var_type": null
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -66646,6 +66844,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -66671,6 +66870,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -66767,9 +66967,11 @@
               "value": null
             },
             "method": "require",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -66794,9 +66996,11 @@
               "value": null
             },
             "method": "express.Router",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -66833,6 +67037,7 @@
             "value_type": "string"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -66845,6 +67050,7 @@
             "var_type": null
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -66857,6 +67063,7 @@
             "var_type": "Response"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -66888,11 +67095,13 @@
               "value": null
             },
             "method": "router.get",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
         "1181": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -66905,6 +67114,7 @@
             "var_type": null
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -66917,6 +67127,7 @@
             "var_type": null
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -66991,6 +67202,7 @@
             "type": "SyntaxStepSubscriptExpression"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -67094,6 +67306,7 @@
               "value": null
             },
             "method": "res.render",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -67120,6 +67333,7 @@
               "value": null
             },
             "method": "express.Router",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -67179,6 +67393,7 @@
               "value": null
             },
             "method": "console.log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -67205,9 +67420,11 @@
               "value": null
             },
             "method": "require",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": true,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -67244,6 +67461,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -67269,6 +67487,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -67314,6 +67533,7 @@
               "value": null
             },
             "method": "console.log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -67350,6 +67570,7 @@
               "value": null
             },
             "method": "console.log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -67366,6 +67587,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -67422,6 +67644,7 @@
         ],
         "18": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -67628,6 +67851,7 @@
               "value": null
             },
             "method": "console.log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -67685,6 +67909,7 @@
               "value": null
             },
             "method": "setTimeout",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -67753,6 +67978,7 @@
               "value": null
             },
             "method": "console.log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -67769,6 +67995,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -67944,6 +68171,7 @@
               "value": null
             },
             "method": "console.log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -67980,6 +68208,7 @@
               "value": null
             },
             "method": "console.log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -67996,6 +68225,7 @@
             "value_type": "string"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -68032,6 +68262,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -68262,6 +68493,7 @@
               "value": null
             },
             "method": "resolve",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -68298,11 +68530,13 @@
               "value": null
             },
             "method": "console.log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
         "391": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -68326,6 +68560,7 @@
         ],
         "485": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -68380,9 +68615,11 @@
               "value": null
             },
             "method": "fetch",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -68408,6 +68645,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -68452,9 +68690,11 @@
               "value": null
             },
             "method": "streamAsyncIterable",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -68575,6 +68815,7 @@
               "value": null
             },
             "method": "console.log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -68633,6 +68874,7 @@
               "value": null
             },
             "method": "getResponseSize",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -68688,6 +68930,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -68836,6 +69079,7 @@
               "value": null
             },
             "method": "console.log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -68851,6 +69095,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -68875,6 +69120,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -68920,6 +69166,7 @@
               "value": null
             },
             "method": "obj.hasOwnProperty",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -69006,6 +69253,7 @@
               "value": null
             },
             "method": "console.log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -69061,6 +69309,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -69085,6 +69334,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -69176,6 +69426,7 @@
               "value": null
             },
             "method": "console.log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -69191,9 +69442,11 @@
               "value": null
             },
             "method": "resolveAfter2Seconds",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -69219,6 +69472,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -69287,11 +69541,13 @@
               "value": null
             },
             "method": "console.log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
         "757": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -69326,6 +69582,7 @@
         ],
         "766": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -69548,6 +69805,7 @@
               "value": null
             },
             "method": "testNum",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -69561,6 +69819,7 @@
               "value": null
             },
             "method": "console.log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -69577,6 +69836,7 @@
             "value_type": "string"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -69795,6 +70055,7 @@
               "value": null
             },
             "method": "console.log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -69864,6 +70125,7 @@
               "value": null
             },
             "method": "console.log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -69901,6 +70163,7 @@
               "value": null
             },
             "method": "console.log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -69971,6 +70234,7 @@
               "value": null
             },
             "method": "console.log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -70041,6 +70305,7 @@
               "value": null
             },
             "method": "console.log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -70144,6 +70409,7 @@
               "value": null
             },
             "method": "console.log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -70203,6 +70469,7 @@
               "value": null
             },
             "method": "console.log",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -70219,6 +70486,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -70244,6 +70512,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -70321,6 +70590,7 @@
               "value": null
             },
             "method": "asyncCall",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],

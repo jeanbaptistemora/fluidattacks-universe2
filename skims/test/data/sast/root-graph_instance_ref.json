@@ -10492,6 +10492,7 @@
             "value_type": "string"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -10527,6 +10528,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -10572,6 +10574,7 @@
               "value": null
             },
             "method": "Float.toString",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -10585,6 +10588,7 @@
               "value": null
             },
             "method": "currentUser.setUserId",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -10601,9 +10605,11 @@
               "value": null
             },
             "method": "currentUser.getUserId",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -10639,6 +10645,7 @@
               "value": null
             },
             "method": "request.getSession",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -10697,6 +10704,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -10732,6 +10740,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -10768,6 +10777,7 @@
             "value_type": "string"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -10813,6 +10823,7 @@
               "value": null
             },
             "method": "Float.toString",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -10826,6 +10837,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -10861,6 +10873,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -10885,6 +10898,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -10920,6 +10934,7 @@
               "value": null
             },
             "method": "request.getSession",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -10978,6 +10993,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -11013,6 +11029,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -11069,6 +11086,7 @@
               "value": null
             },
             "method": "Integer.toString",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -11082,6 +11100,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -11117,6 +11136,7 @@
               "value": null
             },
             "method": "request.getSession",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -11176,6 +11196,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -11211,6 +11232,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -11268,6 +11290,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -11302,6 +11325,7 @@
               "value": null
             },
             "method": "Float.toString",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -11369,6 +11393,7 @@
               "value": null
             },
             "method": "Float.toString",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -11406,6 +11431,7 @@
               "value": null
             },
             "method": "request.getSession",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -11430,6 +11456,7 @@
               "value": null
             },
             "method": "currentUser.getUserId",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -11468,6 +11495,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -11514,6 +11542,7 @@
               "value": null
             },
             "method": "Generate.createSecureRandom",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -11527,6 +11556,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -11562,6 +11592,7 @@
               "value": null
             },
             "method": "request.getSession",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -11621,6 +11652,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -11646,6 +11678,7 @@
             "value_type": "string"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -11681,6 +11714,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -11716,6 +11750,7 @@
               "value": null
             },
             "method": "Generate.createRandom",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -11729,6 +11764,7 @@
               "value": null
             },
             "method": "currentUser.setUserId",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -11744,9 +11780,11 @@
               "value": null
             },
             "method": "currentUser.getUserId",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -11782,6 +11820,7 @@
               "value": null
             },
             "method": "request.getSession",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -11840,6 +11879,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -11865,6 +11905,7 @@
             "value_type": "string"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -11900,6 +11941,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -11945,6 +11987,7 @@
               "value": null
             },
             "method": "Float.toString",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -11958,6 +12001,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -11982,6 +12026,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -12017,6 +12062,7 @@
               "value": null
             },
             "method": "request.getSession",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -12075,6 +12121,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -12110,6 +12157,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -12166,6 +12214,7 @@
               "value": null
             },
             "method": "Integer.toString",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -12179,6 +12228,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -12225,6 +12275,7 @@
               "value": null
             },
             "method": "request.getSession",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -12272,6 +12323,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -12308,6 +12360,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -12365,6 +12418,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -12444,6 +12498,7 @@
               "value": null
             },
             "method": "request.getSession",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -12468,6 +12523,7 @@
               "value": null
             },
             "method": "currentUser.getUserId",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -12506,6 +12562,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -12541,9 +12598,11 @@
               "value": null
             },
             "method": "request.getParamert",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -12579,6 +12638,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -12624,6 +12684,7 @@
               "value": null
             },
             "method": "Generate.readFile",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -12672,6 +12733,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -12707,6 +12769,7 @@
               "value": null
             },
             "method": "request.getSession",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -15564,6 +15627,7 @@
               "value": null
             },
             "method": "setName",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -15681,6 +15745,7 @@
         ],
         "143": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -15763,6 +15828,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -15787,6 +15853,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -15822,6 +15889,7 @@
         ],
         "193": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -15881,6 +15949,7 @@
         ],
         "213": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -15940,6 +16009,7 @@
         ],
         "30": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -16030,6 +16100,7 @@
         ],
         "54": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -16042,6 +16113,7 @@
             "var_type": "String"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -16109,6 +16181,7 @@
               "value": null
             },
             "method": "setName",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -16159,6 +16232,7 @@
         ],
         "86": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -16171,6 +16245,7 @@
             "var_type": "String"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -16183,6 +16258,7 @@
             "var_type": "String"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,

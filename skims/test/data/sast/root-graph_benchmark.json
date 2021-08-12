@@ -6754,6 +6754,7 @@
               "value": null
             },
             "method": "userCookie.setMaxAge",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -6791,6 +6792,7 @@
               "value": null
             },
             "method": "userCookie.setSecure",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -6817,6 +6819,7 @@
               "value": null
             },
             "method": "request.getRequestURI",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -6830,6 +6833,7 @@
               "value": null
             },
             "method": "userCookie.setPath",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -6856,6 +6860,7 @@
               "value": null
             },
             "method": "request.getRequestURL",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -6901,6 +6906,7 @@
               "value": null
             },
             "method": "userCookie.setDomain",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -6937,6 +6943,7 @@
               "value": null
             },
             "method": "response.addCookie",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -6963,9 +6970,11 @@
               "value": null
             },
             "method": "request.getRequestDispatcher",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -7021,11 +7030,13 @@
               "value": null
             },
             "method": "rd.include",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
         "223": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -7038,6 +7049,7 @@
             "var_type": "HttpServletRequest"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -7095,6 +7107,7 @@
               "value": null
             },
             "method": "response.setContentType",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -7110,9 +7123,11 @@
               "value": null
             },
             "method": "request.getCookies",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -7138,6 +7153,7 @@
             "value_type": "string"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -7217,6 +7233,7 @@
             "type": "SyntaxStepSymbolLookup"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -7252,6 +7269,7 @@
               "value": null
             },
             "method": "theCookie.getName",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -7322,6 +7340,7 @@
               "value": null
             },
             "method": "theCookie.getValue",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -7346,6 +7365,7 @@
               "value": null
             },
             "method": "java.net.URLDecoder.decode",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -7384,6 +7404,7 @@
             "value_type": "null"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -7409,6 +7430,7 @@
             "value_type": "null"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -7563,6 +7585,7 @@
             "type": "SyntaxStepArrayInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -7597,9 +7620,11 @@
               "value": null
             },
             "method": "fis.read",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -7635,6 +7660,7 @@
               "value": null
             },
             "method": "response.getWriter",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -7648,6 +7674,7 @@
               "value": null
             },
             "method": "org.owasp.esapi.ESAPI.encoder",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -7724,6 +7751,7 @@
               "value": null
             },
             "method": "org.owasp.esapi.ESAPI.encoder",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -7917,6 +7945,7 @@
               "value": null
             },
             "method": "System.out.println",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -7943,6 +7972,7 @@
               "value": null
             },
             "method": "response.getWriter",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -7956,6 +7986,7 @@
               "value": null
             },
             "method": "org.owasp.esapi.ESAPI.encoder",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -7969,6 +8000,7 @@
               "value": null
             },
             "method": "e.getMessage",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -8137,6 +8169,7 @@
               "value": null
             },
             "method": "fis.close",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -8210,6 +8243,7 @@
         ],
         "62": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -8222,6 +8256,7 @@
             "var_type": "HttpServletRequest"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -8279,6 +8314,7 @@
               "value": null
             },
             "method": "response.setContentType",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -8316,6 +8352,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -11904,6 +11941,7 @@
               "value": null
             },
             "method": "response.setContentType",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -11920,6 +11958,7 @@
             "value_type": "string"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -11966,6 +12005,7 @@
               "value": null
             },
             "method": "request.getHeader",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -12035,6 +12075,7 @@
               "value": null
             },
             "method": "request.getHeader",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -12093,6 +12134,7 @@
               "value": null
             },
             "method": "java.net.URLDecoder.decode",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -12161,6 +12203,7 @@
             "type": "SyntaxStepBinaryExpression"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -12207,9 +12250,11 @@
               "value": null
             },
             "method": "org.owasp.benchmark.helpers.DatabaseHelper.getSqlConnection",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -12244,9 +12289,11 @@
               "value": null
             },
             "method": "connection.prepareCall",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -12271,9 +12318,11 @@
               "value": null
             },
             "method": "statement.executeQuery",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -12339,6 +12388,7 @@
               "value": null
             },
             "method": "org.owasp.benchmark.helpers.DatabaseHelper.printResults",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -12444,6 +12494,7 @@
               "value": null
             },
             "method": "response.getWriter",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -12502,6 +12553,7 @@
         ],
         "62": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -12514,6 +12566,7 @@
             "var_type": "HttpServletRequest"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -12580,11 +12633,13 @@
               "value": null
             },
             "method": "doPost",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
         "98": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -12597,6 +12652,7 @@
             "var_type": "HttpServletRequest"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -20014,6 +20070,7 @@
               "value": null
             },
             "method": "response.setContentType",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -20030,6 +20087,7 @@
             "value_type": "string"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20076,6 +20134,7 @@
               "value": null
             },
             "method": "request.getHeader",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -20145,6 +20204,7 @@
               "value": null
             },
             "method": "request.getHeader",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -20203,6 +20263,7 @@
               "value": null
             },
             "method": "java.net.URLDecoder.decode",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -20230,6 +20291,7 @@
             "value_type": "string"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20320,6 +20382,7 @@
               "value": null
             },
             "method": "param.getBytes",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -20333,6 +20396,7 @@
               "value": null
             },
             "method": "org.apache.commons.codec.binary.Base64.encodeBase64",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -20346,6 +20410,7 @@
               "value": null
             },
             "method": "org.apache.commons.codec.binary.Base64.decodeBase64",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -20393,6 +20458,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20427,9 +20493,11 @@
               "value": null
             },
             "method": "Long.toString",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20455,6 +20523,7 @@
             "value_type": "string"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20500,6 +20569,7 @@
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20568,6 +20638,7 @@
               "value": null
             },
             "method": "fullClassName.lastIndexOf",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -20601,9 +20672,11 @@
               "value": null
             },
             "method": "fullClassName.substring",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20683,6 +20756,7 @@
             "type": "SyntaxStepBinaryExpression"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20708,6 +20782,7 @@
             "value_type": "boolean"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20732,9 +20807,11 @@
               "value": null
             },
             "method": "request.getCookies",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20815,6 +20892,7 @@
             "value_type": "number"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20881,6 +20959,7 @@
             "type": "SyntaxStepArrayAccess"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -20905,6 +20984,7 @@
               "value": null
             },
             "method": "cookie.getName",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -20918,6 +20998,7 @@
               "value": null
             },
             "method": "cookieName.equals",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -20955,6 +21036,7 @@
               "value": null
             },
             "method": "cookie.getValue",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -20968,6 +21050,7 @@
               "value": null
             },
             "method": "request.getSession",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -21117,6 +21200,7 @@
               "value": null
             },
             "method": "response.getWriter",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -21226,6 +21310,7 @@
             "type": "SyntaxStepObjectInstantiation"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": -1,
@@ -21272,6 +21357,7 @@
               "value": null
             },
             "method": "rememberMe.setSecure",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -21309,6 +21395,7 @@
               "value": null
             },
             "method": "rememberMe.setHttpOnly",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -21335,6 +21422,7 @@
               "value": null
             },
             "method": "request.getRequestURI",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -21348,6 +21436,7 @@
               "value": null
             },
             "method": "rememberMe.setPath",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -21374,6 +21463,7 @@
               "value": null
             },
             "method": "request.getSession",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -21441,6 +21531,7 @@
               "value": null
             },
             "method": "response.addCookie",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
@@ -21467,6 +21558,7 @@
               "value": null
             },
             "method": "response.getWriter",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -21491,6 +21583,7 @@
               "value": null
             },
             "method": "rememberMe.getValue",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -21515,6 +21608,7 @@
               "value": null
             },
             "method": "rememberMe.getName",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -21602,6 +21696,7 @@
         ],
         "62": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -21614,6 +21709,7 @@
             "var_type": "HttpServletRequest"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -21649,6 +21745,7 @@
               "value": null
             },
             "method": "response.getWriter",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           },
           {
@@ -21728,11 +21825,13 @@
               "value": null
             },
             "method": "doPost",
+            "return_type": null,
             "type": "SyntaxStepMethodInvocation"
           }
         ],
         "98": [
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
@@ -21745,6 +21844,7 @@
             "var_type": "HttpServletRequest"
           },
           {
+            "is_destructuring": false,
             "meta": {
               "danger": false,
               "dependencies": 0,
