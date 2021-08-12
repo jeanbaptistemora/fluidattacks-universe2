@@ -50,9 +50,12 @@ interface IQueryData {
         slug: string;
       };
       frontmatter: {
+        banner: string;
         description: string;
         keywords: string;
         slug: string;
+        subtext: string;
+        subtitle: string;
         template: string;
         title: string;
       };
