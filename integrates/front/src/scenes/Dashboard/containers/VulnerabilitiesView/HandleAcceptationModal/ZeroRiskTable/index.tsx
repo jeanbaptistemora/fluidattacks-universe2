@@ -56,6 +56,7 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
       dataField: "where",
       header: "Where",
       width: "45%",
+      wordBreak: "break-word",
       wrapped: true,
     },
     {
@@ -63,6 +64,7 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
       dataField: "specific",
       header: "Specific",
       width: "25%",
+      wordBreak: "break-word",
       wrapped: true,
     },
     {
@@ -73,6 +75,7 @@ const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
       formatter: changeZeroRiskFormatter,
       header: "Acceptation",
       width: "30%",
+      wordBreak: "break-word",
       wrapped: true,
     },
   ];

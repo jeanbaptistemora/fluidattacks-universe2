@@ -51,6 +51,7 @@ interface IHeaderConfig extends Omit<ColumnDescription, "text" | "width"> {
   header: string;
   visible?: boolean;
   width?: string;
+  wordBreak?: "break-all" | "break-word" | "keep-all" | "normal";
   wrapped?: boolean;
   approveFunction?: (arg1?: Record<string, string>) => void;
   changeFunction?: (arg1: Readonly<Record<string, string>>) => void;

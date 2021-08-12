@@ -51,6 +51,7 @@ const addGivenHeaders = (
       sortFunc: key.sortFunc,
       style: (): CSSProperties => ({
         whiteSpace: defineWhitespace(key.wrapped, "pre-wrap"),
+        wordBreak: _.isUndefined(key.wordBreak) ? "normal" : key.wordBreak,
       }),
       text: key.header,
     };
