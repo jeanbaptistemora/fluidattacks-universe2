@@ -19,6 +19,7 @@ from sast_transformations.danger_nodes.java import (
 )
 from sast_transformations.danger_nodes.javascript import (
     mark_inputs as javascript_mark_imputs,
+    mark_sinks as javascript_mark_sinks,
 )
 
 
@@ -38,6 +39,7 @@ def mark(
         go_mark_sinks(graph, syntax)
     elif language == GraphShardMetadataLanguage.JAVASCRIPT:
         javascript_mark_imputs(graph, syntax)
+        javascript_mark_sinks(graph, syntax)
 
 
 def mark_metadata(
