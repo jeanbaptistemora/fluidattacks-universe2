@@ -14,8 +14,14 @@ from charts.colors import (
 from collections import (
     Counter,
 )
+from context import (
+    FI_API_STATUS,
+)
 from dataloaders import (
     get_new_context,
+)
+from db_model.findings.types import (
+    Finding,
 )
 from findings.domain import (
     get_finding_open_age,
@@ -34,21 +40,37 @@ from typing import (
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Counter:
     context = get_new_context()
-    group_findings_loader = context.group_findings
-    finding_loader = context.finding
+    if FI_API_STATUS == "migration":
+        group_findings_new_loader = context.group_findings_new
+        group_findings_new: Tuple[
+            Finding, ...
+        ] = await group_findings_new_loader.load(group.lower())
+        counter = Counter(
+            {
+                f"{finding.id}/{finding.title}": await get_finding_open_age(
+                    context, finding.id
+                )
+                for finding in group_findings_new
+            }
+        )
+    else:
+        group_findings_loader = context.group_findings
+        finding_loader = context.finding
+        group_findings_data = await group_findings_loader.load(group.lower())
+        finding_ids = [
+            finding["finding_id"] for finding in group_findings_data
+        ]
+        findings = await finding_loader.load_many(finding_ids)
+        counter = Counter(
+            {
+                f'{finding_id}/{finding["title"]}': await get_finding_open_age(
+                    context, finding_id
+                )
+                for finding, finding_id in zip(findings, finding_ids)
+            }
+        )
 
-    group_findings_data = await group_findings_loader.load(group.lower())
-    finding_ids = [finding["finding_id"] for finding in group_findings_data]
-    findings = await finding_loader.load_many(finding_ids)
-
-    return Counter(
-        {
-            f'{finding_id}/{finding["title"]}': await get_finding_open_age(
-                context, finding_id
-            )
-            for finding, finding_id in zip(findings, finding_ids)
-        }
-    )
+    return counter
 
 
 async def get_data_many_groups(groups: List[str]) -> Counter:
