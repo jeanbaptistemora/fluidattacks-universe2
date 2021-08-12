@@ -8,9 +8,9 @@ from sgqlc.endpoint.http import (
     HTTPEndpoint,
 )
 from tap_announcekit.stream.project import (
-    _project,
+    _builders,
 )
-from tap_announcekit.stream.project._project import (
+from tap_announcekit.stream.project._objs import (
     Project,
     ProjectId,
 )
@@ -24,7 +24,7 @@ class ProjectStream:
     client: HTTPEndpoint
 
     def get_projs(self, projs: Iterator[ProjectId]) -> IO[Iterator[Project]]:
-        return _project.get_projs(self.client, projs)
+        return _builders.get_projs(self.client, projs)
 
 
 __all__ = [

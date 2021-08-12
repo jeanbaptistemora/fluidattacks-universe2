@@ -1,4 +1,4 @@
-from tap_announcekit.stream.project._project import (
+from tap_announcekit.stream.project._builders import (
     proj_query,
 )
 
