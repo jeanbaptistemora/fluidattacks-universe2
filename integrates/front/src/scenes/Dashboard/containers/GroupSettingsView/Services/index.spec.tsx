@@ -187,7 +187,7 @@ describe("Services", (): void => {
 
   [
     { group: "unittesting", rows: 4 },
-    { group: "oneshottest", rows: 3 },
+    { group: "oneshottest", rows: 4 },
     { group: "not-exists", rows: 0 },
   ].forEach((test: { group: string; rows: number }): void => {
     it(`should render services for: ${test.group}`, async (): Promise<void> => {

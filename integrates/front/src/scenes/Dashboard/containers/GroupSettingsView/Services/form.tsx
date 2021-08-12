@@ -2,11 +2,6 @@ import { Field, Form, useFormikContext } from "formik";
 import _ from "lodash";
 import React, { useCallback } from "react";
 
-import {
-  handleMachineBtnChangeHelper,
-  handleSquadBtnChangeHelper,
-} from "./helpers";
-
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import type { IHeaderConfig } from "components/DataTableNext/types";
@@ -48,9 +43,6 @@ const downgradeReasons: string[] = [
   "OTHER",
 ];
 
-const isContinuousType: (type: string) => boolean = (type: string): boolean =>
-  _.isUndefined(type) ? false : type.toLowerCase() === "continuous";
-
 const MAX_LENGTH_VALIDATOR = 250;
 const maxLength250 = maxLength(MAX_LENGTH_VALIDATOR);
 
@@ -68,34 +60,22 @@ const ServicesForm: React.FC<IServicesFormProps> = (
   const { values, setFieldValue, dirty, submitForm, isValid } =
     useFormikContext<IFormData>();
 
-  // Business Logic handlers
-  const handleServiceTypeChange = useCallback(
-    (_0: React.ChangeEvent<string> | undefined, serviceType: string): void => {
-      setFieldValue("machine", serviceType === "WHITE");
-      setFieldValue("squad", true);
-    },
-    [setFieldValue]
-  );
-
   const handleMachineBtnChange: (withMachine: boolean) => void = (
     withMachine: boolean
   ): void => {
     setFieldValue("machine", withMachine);
-
-    handleMachineBtnChangeHelper(setFieldValue, withMachine);
+    if (!withMachine) {
+      setFieldValue("squad", false);
+    }
   };
 
   const handleSquadBtnChange: (withSquad: boolean) => void = (
     withSquad: boolean
   ): void => {
     setFieldValue("squad", withSquad);
-
-    handleSquadBtnChangeHelper(
-      setFieldValue,
-      withSquad,
-      values.type,
-      isContinuousType
-    );
+    if (withSquad) {
+      setFieldValue("machine", true);
+    }
   };
 
   const handleClose: () => void = useCallback((): void => {
@@ -122,18 +102,16 @@ const ServicesForm: React.FC<IServicesFormProps> = (
   ];
   const servicesList: IServicesDataSet[] = [
     {
-      canHave: values.service === "WHITE",
       id: "machineSwitch",
       onChange: handleMachineBtnChange,
       service: "machine",
     },
     {
-      canHave: true,
       id: "squadSwitch",
       onChange: handleSquadBtnChange,
       service: "squad",
     },
-  ].filter((element: IServicesDataSet): boolean => element.canHave);
+  ];
 
   const servicesDataSet: Record<string, JSX.Element>[] = [
     {
@@ -152,11 +130,7 @@ const ServicesForm: React.FC<IServicesFormProps> = (
     {
       service: <p>{translate.t("searchFindings.servicesTable.service")}</p>,
       status: (
-        <Field
-          component={FormikDropdown}
-          customChange={handleServiceTypeChange}
-          name={"service"}
-        >
+        <Field component={FormikDropdown} name={"service"}>
           <option value={"BLACK"}>
             {translate.t("searchFindings.servicesTable.black")}
           </option>

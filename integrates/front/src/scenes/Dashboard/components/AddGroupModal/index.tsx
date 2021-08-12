@@ -153,12 +153,6 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
           onSubmit={handleSubmit}
         >
           {({ values, dirty, setFieldValue }): JSX.Element => {
-            const handleServiceTypeChange = getSwitchButtonHandlers(
-              values,
-              setFieldValue,
-              "service"
-            );
-
             const handleMachineBtnChange = getSwitchButtonHandlers(
               values,
               setFieldValue,
@@ -316,11 +310,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                       <ControlLabel>
                         {t("organization.tabs.groups.newGroup.service.title")}
                       </ControlLabel>
-                      <Field
-                        component={FormikDropdown}
-                        customChange={handleServiceTypeChange}
-                        name={"service"}
-                      >
+                      <Field component={FormikDropdown} name={"service"}>
                         <option value={"BLACK"}>
                           {t("organization.tabs.groups.newGroup.service.black")}
                         </option>
@@ -331,7 +321,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     </FormGroup>
                   </Col100>
                 </Row>
-                {values.service === "WHITE" ? (
+                <div>
                   <Row>
                     <Col40>
                       <TooltipWrapper
@@ -363,7 +353,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                       </TooltipWrapper>
                     </Col40>
                   </Row>
-                ) : undefined}
+                </div>
                 <Row>
                   <Col40>
                     <TooltipWrapper

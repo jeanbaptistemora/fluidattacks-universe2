@@ -38,7 +38,6 @@ interface IServicesFormProps {
 }
 
 interface IServicesDataSet {
-  canHave: boolean;
   id: string;
   onChange?: (checked: boolean) => void;
   service: string;

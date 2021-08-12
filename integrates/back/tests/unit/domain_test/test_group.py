@@ -98,9 +98,9 @@ pytestmark = [
 
 def test_validate_group_services_config() -> None:
     with pytest.raises(InvalidGroupServicesConfig):
-        validate_group_services_config("WHITE", True, True, False)
+        validate_group_services_config(True, True, False)
     with pytest.raises(InvalidGroupServicesConfig):
-        validate_group_services_config("WHITE", False, True, True)
+        validate_group_services_config(False, True, True)
 
 
 @pytest.mark.changes_db

@@ -123,7 +123,7 @@ describe("AddGroupModal component", (): void => {
       .find("select")
       .simulate("change", { target: { value: "BLACK" } });
 
-    const checkedLength = 1;
+    const checkedLength = 2;
 
     expect(wrapper.find({ checked: true })).toHaveLength(checkedLength);
   });
