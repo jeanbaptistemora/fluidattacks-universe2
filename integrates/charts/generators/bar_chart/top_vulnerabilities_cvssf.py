@@ -11,6 +11,9 @@ from charts import (
 from charts.colors import (
     RISK,
 )
+from context import (
+    FI_API_STATUS,
+)
 from custom_types import (
     Finding,
 )
@@ -18,8 +21,14 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.findings.types import (
+    Finding as FindingNew,
+)
 from decimal import (
     Decimal,
+)
+from findings import (
+    domain as findings_domain,
 )
 from itertools import (
     groupby,
@@ -43,33 +52,79 @@ def get_finding_severity(findings: List[Finding], finding_id: str) -> Decimal:
     )
 
 
+def get_finding_severity_new(
+    findings: Tuple[FindingNew, ...], finding_id: str
+) -> Decimal:
+    return findings_domain.get_severity_score_new(
+        next(
+            finding for finding in findings if finding.id == finding_id
+        ).severity
+    )
+
+
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter[str]:
-    group_findings = await loaders.group_findings.load(group.lower())
-    finding_ids = [finding["finding_id"] for finding in group_findings]
-    finding_vulns = await loaders.finding_vulns_nzr.load_many(finding_ids)
-
-    counter: Counter[str] = Counter(
-        [
-            f'{finding["finding_id"]}/{finding["title"]}'
-            for finding, vulnerabilities in zip(group_findings, finding_vulns)
-            for vulnerability in vulnerabilities
-            if vulnerability["current_state"] == "open"
-        ]
-    )
-    counter_tuple = counter.most_common()
-    for key, value in counter_tuple:
-        counter.update(
-            {
-                key: Decimal(
-                    utils.get_cvssf(
-                        get_finding_severity(group_findings, key.split("/")[0])
-                    )
-                    * value
-                ).quantize(Decimal("0.001"))
-                - value
-            }
+    if FI_API_STATUS == "migration":
+        group_findings_new_loader = loaders.group_findings_new
+        group_findings_new: Tuple[
+            FindingNew, ...
+        ] = await group_findings_new_loader.load(group.lower())
+        finding_ids = [finding.id for finding in group_findings_new]
+        finding_vulns = await loaders.finding_vulns_nzr.load_many(finding_ids)
+        counter: Counter[str] = Counter(
+            [
+                f"{finding.id}/{finding.title}"
+                for finding, vulnerabilities in zip(
+                    group_findings_new, finding_vulns
+                )
+                for vulnerability in vulnerabilities
+                if vulnerability["current_state"] == "open"
+            ]
         )
+        counter_tuple = counter.most_common()
+        for key, value in counter_tuple:
+            counter.update(
+                {
+                    key: Decimal(
+                        utils.get_cvssf(
+                            get_finding_severity_new(
+                                group_findings_new, key.split("/")[0]
+                            )
+                        )
+                        * value
+                    ).quantize(Decimal("0.001"))
+                    - value
+                }
+            )
+    else:
+        group_findings = await loaders.group_findings.load(group.lower())
+        finding_ids = [finding["finding_id"] for finding in group_findings]
+        finding_vulns = await loaders.finding_vulns_nzr.load_many(finding_ids)
+        counter = Counter(
+            [
+                f'{finding["finding_id"]}/{finding["title"]}'
+                for finding, vulnerabilities in zip(
+                    group_findings, finding_vulns
+                )
+                for vulnerability in vulnerabilities
+                if vulnerability["current_state"] == "open"
+            ]
+        )
+        counter_tuple = counter.most_common()
+        for key, value in counter_tuple:
+            counter.update(
+                {
+                    key: Decimal(
+                        utils.get_cvssf(
+                            get_finding_severity(
+                                group_findings, key.split("/")[0]
+                            )
+                        )
+                        * value
+                    ).quantize(Decimal("0.001"))
+                    - value
+                }
+            )
 
     return counter
 
