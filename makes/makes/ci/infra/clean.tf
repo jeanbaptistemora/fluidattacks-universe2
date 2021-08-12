@@ -28,6 +28,31 @@ data "aws_iam_policy_document" "autoscaling-clean" {
   }
 }
 
+data "aws_iam_policy_document" "lambda-assume-role-policy" {
+  statement {
+    sid    = "LambdaAssumeRolePolicy"
+    effect = "Allow"
+
+    principals {
+      type = "Service"
+      identifiers = [
+        "lambda.amazonaws.com",
+        "edgelambda.amazonaws.com",
+      ]
+    }
+
+    actions = [
+      "sts:AssumeRole",
+    ]
+  }
+}
+
+data "archive_file" "autoscaling-clean" {
+  type        = "zip"
+  source_file = "index.js"
+  output_path = "autoscaling-clean.zip"
+}
+
 resource "aws_iam_policy" "autoscaling-clean" {
   description = "Policy for lambda that cleans autoscaling orphaned machines"
   name        = "autoscaling-clean"
@@ -51,12 +76,6 @@ resource "aws_iam_role_policy_attachment" "autoscaling-clean" {
   policy_arn = aws_iam_policy.autoscaling-clean.arn
 }
 
-data "archive_file" "autoscaling-clean" {
-  type        = "zip"
-  source_file = "index.js"
-  output_path = "autoscaling-clean.zip"
-}
-
 resource "aws_lambda_function" "autoscaling-clean" {
   filename      = "autoscaling-clean.zip"
   function_name = "autoscaling-clean"
@@ -74,4 +93,38 @@ resource "aws_lambda_function" "autoscaling-clean" {
     "management:type"    = "production"
     "management:product" = "makes"
   }
+}
+
+resource "aws_cloudwatch_event_rule" "every-hour" {
+  name                = "every--hour"
+  description         = "Fires every one hours"
+  schedule_expression = "rate(1 hour)"
+
+  tags = {
+    "Name"               = "every--hour"
+    "management:type"    = "production"
+    "management:product" = "makes"
+  }
+}
+
+resource "aws_cloudwatch_event_target" "autoscaling-clean" {
+  rule      = aws_cloudwatch_event_rule.every-hour.name
+  target_id = "lambda"
+  arn       = aws_lambda_function.autoscaling-clean.arn
+
+  input = <<-EOF
+    {
+      "region": [
+        "us-east-1"
+      ]
+    }
+  EOF
+}
+
+resource "aws_lambda_permission" "autoscaling-clean-every-hour" {
+  statement_id  = "AllowExecutionFromCloudWatch"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.autoscaling-clean.function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.every-hour.arn
 }
