@@ -69,10 +69,10 @@ in
             tags = [ "autoscaling" ];
           };
         }
-        {
-          output = "/deployTerraform/makesCi";
-          gitlabExtra = gitlabDeployInfra;
-        }
+        #{
+        #  output = "/deployTerraform/makesCi";
+        #  gitlabExtra = gitlabDeployInfra;
+        #}
         {
           output = "/deployTerraform/makesCompute";
           gitlabExtra = gitlabDeployInfra;

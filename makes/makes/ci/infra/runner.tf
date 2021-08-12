@@ -61,8 +61,9 @@ module "fluidattacks_ci_cache" {
 }
 
 module "fluidattacks_ci" {
-  source  = "npalm/gitlab-runner/aws"
-  version = "4.28.0"
+  source   = "npalm/gitlab-runner/aws"
+  version  = "4.28.0"
+  for_each = toset(["1", "2", "3"])
 
   # AWS
   aws_region                             = "us-east-1"
@@ -96,7 +97,7 @@ module "fluidattacks_ci" {
   gitlab_runner_registration_config = {
     registration_token = var.fluidAttacksToken
     tag_list           = "autoscaling"
-    description        = "fluidattacks-ci"
+    description        = "fluidattacks-ci-${each.key}"
     locked_to_project  = "true"
     run_untagged       = "false"
     maximum_timeout    = "3600"
@@ -121,7 +122,7 @@ module "fluidattacks_ci" {
   runners_limit                 = 1000
   runners_max_builds            = 15
   runners_monitoring            = true
-  runners_name                  = "fluidattacks-ci"
+  runners_name                  = "fluidattacks-ci-${each.key}"
   runners_output_limit          = 4096
   runners_privileged            = false
   runners_pull_policy           = "always"
@@ -132,10 +133,10 @@ module "fluidattacks_ci" {
   subnet_id_runners             = "subnet-0bceb7aa2c900324a"
 
   # Tags
-  environment = "makes-fluidattacks-ci"
+  environment = "makes-fluidattacks-ci-${each.key}"
   overrides = {
-    name_runner_agent_instance  = "fluidattacks-ci-runner",
-    name_docker_machine_runners = "fluidattacks-ci-worker",
+    name_runner_agent_instance  = "fluidattacks-ci-runner-${each.key}",
+    name_docker_machine_runners = "fluidattacks-ci-worker-${each.key}",
     name_sg                     = "",
   }
   tags = {
