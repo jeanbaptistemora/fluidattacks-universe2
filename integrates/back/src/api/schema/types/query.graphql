@@ -1,60 +1,101 @@
 "Main Query object"
 type Query {
-  "Get event"
-  event(identifier: String!): Event
+  "Event entity"
+  event(
+    "ID of the event to query"
+    identifier: String!
+  ): Event
 
   "List of events from a specific group"
-  events(groupName: String, projectName: String): [Event]
+  events(
+    "Name of the group to query"
+    groupName: String,
+    "Deprecated. Use `groupName` instead"
+    projectName: String
+  ): [Event]
 
   "Finding entity"
-  finding(identifier: String!): Finding
+  finding(
+    "ID of the finding to query"
+    identifier: String!
+  ): Finding
 
   "Get Forces execution"
   forcesExecution(
+    "Name of the group where Forces was executed"
     groupName: String
+    "Deprecated. Use `groupName` instead"
     projectName: String
+    "ID of the forcesExecution"
     executionId: String!
   ): ForcesExecution
 
   "Get Forces executions"
   forcesExecutions(
+    "Name of the group where Forces was executed"
     groupName: String
+    "Deprecated. Use `groupName` instead"
     projectName: String
+    "Start date of the query interval in yyyy-mm-ddThh:mm:ssZ format"
     fromDate: DateTime
+    "End date of the query interval in yyyy-mm-ddThh:mm:ssZ format"
     toDate: DateTime
   ): ForcesExecutions
 
   "Group entity"
-  group(groupName: String!): Group
+  group(
+    "Name of the group to query"
+    groupName: String!
+  ): Group
 
   "List groups with forces"
   groupsWithForces: [String]
 
   "InternalNames entity"
-  internalNames(entity: NameEntity!): InternalName
+  internalNames(
+    "Query internal names from this entity"
+    entity: NameEntity!
+  ): InternalName
 
   "List groups a user is subscribed to"
-  listUserGroups(userEmail: String!): [Group]
+  listUserGroups(
+    "Email address of the user to query"
+    userEmail: String!
+  ): [Group]
 
   "Me entity"
-  me(callerOrigin: String): Me
+  me(
+    callerOrigin: String
+  ): Me
 
   "Organization entity"
-  organization(organizationId: String!): Organization
+  organization(
+    "ID of the organization to query"
+    organizationId: String!
+  ): Organization
 
-  organizationId(organizationName: String!): Organization
+  "Gets an organization ID from its name"
+  organizationId(
+    "Name of the organization to query"
+    organizationName: String!
+  ): Organization
 
   "Project entity"
   project(
+    "Name of the project to query"
     projectName: String!
   ): Group @deprecated(reason: """This query will be removed after 2021/12/20.
     Use `group` instead.""")
 
   "Report entity"
   report(
+    "Name of the group to which the report belongs"
     groupName: String,
+    "Type of the report/export"
     reportType: ReportType!,
+    "Deprecated. Use `groupName` instead"
     projectName: String,
+    "Language of the requested report"
     lang: ReportLang
   ): Report
 
