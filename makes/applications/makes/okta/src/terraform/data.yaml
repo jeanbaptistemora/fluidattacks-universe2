@@ -651,7 +651,7 @@ OKTA_DATA_RAW:
           preconfigured_app: null
           credentials_scheme: ENC[AES256_GCM,data:P6rfW8XQ8p4JaRTggLtRglMU7ebOokX7RwMoUg==,iv:D54S9+bHDNO8UO9T3XOwogGCR2+NfkAb+OPgFSyhUZo=,tag:FEl6OdPqsT2G48LK8gtVBw==,type:str]
           shared_username: ENC[AES256_GCM,data:3Xz4rRsFQFL2w2Nkv32WJ/ceRs5g0KK5Zl4C,iv:x45pnaXQ2Y5MgQGpUBT5fG3N+LhG6a9B17/R5h4hw1k=,tag:rJNMQVPBZIpzDDnsU6e+gg==,type:str]
-          shared_password: ENC[AES256_GCM,data:G6bhd0u/M/lXgw+mulxX,iv:m+SimA10aPcSB4PP2NLb2SkQDPFA8jeTEzL2BmEzmng=,tag:GfOru2wrkkzj1RHtdGn5ww==,type:str]
+          shared_password: ENC[AES256_GCM,data:cc6KYUlOLA9DvefECHBFhclVALww5l5I+TC9HAya/FywhzHdDyiang==,iv:xzbLPeLimhqH3UvbV14LvJ1Jcm2IY9m9aoMORDVQgVM=,tag:OQ94vd7oR6ul8zNsP9kp3Q==,type:str]
           sign_on_url: ENC[AES256_GCM,data:pGekCVB+hjlMtsojrJruyrIm2WvI6RwlzjZXN1oQ5JA=,iv:X3cdpL5JNHCthmA8Mx6W+xkMdxkY1Lsa2qoR7ZLPT34=,tag:AnhpbszLc7ykQvFSp4sbgw==,type:str]
         - id: ENC[AES256_GCM,data:I1I955t9kP4yZd//ZS1BstyvMnEGAg==,iv:ycv6IqBcmV6LrzI3/KdEse9Ku/RBtfIm8iufRXZXS40=,tag:6WPCID/xkP6FpB58cStWSg==,type:str]
           type: ENC[AES256_GCM,data:j7lE26cso/DwvQ==,iv:zcaqvHx0IIeIZ9DtUP1/Az9eeGIQwl8juUEvaBEhzNI=,tag:vSjM+42ylgQvfJdISMBtmg==,type:str]
@@ -2806,8 +2806,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2021-08-11T15:56:03Z"
-    mac: ENC[AES256_GCM,data:WdYPiPIo8FCV1pWOzw+FmlVxSVG4cTRMlZF7vxgko4a4Qouiv+orRjoDhFN/NFk9iapAJbeIn8aCkk+cwWPqObQCXGOAmXeNjAj3ELLNXzl7biWnANH9tpRg7+lVBBb3EhWzvmkDKqZ5qZZcjaJC75ihCq6giIFPsDv+Nj+FeJY=,iv:frl4TSshb5CPMSyRVcUHGMwaOUEpEcF4JKc3iZulbdE=,tag:GddFvcYVWdlkqd3HnnB2gQ==,type:str]
+    lastmodified: "2021-08-12T21:06:38Z"
+    mac: ENC[AES256_GCM,data:oLAAkeTUu3My1x75pTXowpafVd1L9YzalnpAo8b0H00U9HFub+B7tMK2YpPZ/ON3jpjFy+21xGeENn6dFCsd8STQR9Ma7cPNP2AbOdtqZpKsjTDSxrL89Fa5PMKMktBTD3apSXiWM4WjPD/3aO3yiahQi5+OnhgCkwn8mcfbtrg=,iv:1W47hdX5eTJsDgwJUIUMWU3Gxvy3vIXA3bm6fKIj9pc=,tag:mK3N6Xr5q0qPdKCMqal7tQ==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.1
