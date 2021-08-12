@@ -11,37 +11,6 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-const handleMachineBtnChangeHelper = (
-  setFieldValue: (
-    field: string,
-    value: any,
-    shouldValidate?: boolean | undefined
-  ) => void,
-  withMachine: boolean
-): void => {
-  if (withMachine) {
-    setFieldValue("asm", true);
-  } else {
-    setFieldValue("squad", false);
-  }
-};
-
-const handleSquadBtnChangeHelper = (
-  setFieldValue: (
-    field: string,
-    value: any,
-    shouldValidate?: boolean | undefined
-  ) => void,
-  withSquad: boolean,
-  type: string,
-  isContinuousType: (type: string) => boolean
-): void => {
-  if (withSquad) {
-    setFieldValue("asm", true);
-    setFieldValue("machine", isContinuousType(type));
-  }
-};
-
 const editGroupDataHelper = (
   asm: boolean,
   groupName: string,
@@ -62,9 +31,4 @@ const handleEditGroupDataError = (error: ApolloError): void => {
   Logger.warning("An error occurred editing group services", error);
 };
 
-export {
-  handleMachineBtnChangeHelper,
-  handleSquadBtnChangeHelper,
-  editGroupDataHelper,
-  handleEditGroupDataError,
-};
+export { editGroupDataHelper, handleEditGroupDataError };

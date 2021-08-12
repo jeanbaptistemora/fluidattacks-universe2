@@ -103,28 +103,4 @@ describe("AddGroupModal component", (): void => {
     expect(switchButtons).toHaveLength(2);
     expect(submitButton).toHaveLength(1);
   });
-
-  it("should remove Squad switch", (): void => {
-    expect.hasAssertions();
-
-    const wrapper: ReactWrapper = mount(
-      <Provider store={store}>
-        <MockedProvider addTypename={false} mocks={mocksMutation}>
-          <AddGroupModal
-            isOpen={true}
-            onClose={handleOnClose}
-            organization={"okada"}
-          />
-        </MockedProvider>
-      </Provider>
-    );
-    wrapper
-      .find({ name: "service" })
-      .find("select")
-      .simulate("change", { target: { value: "BLACK" } });
-
-    const checkedLength = 2;
-
-    expect(wrapper.find({ checked: true })).toHaveLength(checkedLength);
-  });
 });

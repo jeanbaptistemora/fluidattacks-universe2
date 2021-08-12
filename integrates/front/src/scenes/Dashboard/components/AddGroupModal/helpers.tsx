@@ -41,7 +41,6 @@ function handleGroupNameErrorHelper(
 
 const getSwitchButtonHandlers = (
   values: {
-    service: string;
     squad: boolean;
     machine: boolean;
   },
@@ -50,13 +49,8 @@ const getSwitchButtonHandlers = (
     value: unknown,
     shouldValidate?: boolean | undefined
   ) => void,
-  scope: "machine" | "service" | "squad"
+  scope: "machine" | "squad"
 ): ((checked: boolean) => void) => {
-  function handleServiceTypeChange(): void {
-    setFieldValue("machine", values.service !== "WHITE");
-    setFieldValue("squad", true);
-  }
-
   function handleMachineBtnChange(): void {
     setFieldValue("machine", !values.machine);
 
@@ -73,9 +67,7 @@ const getSwitchButtonHandlers = (
     }
   }
 
-  if (scope === "service") {
-    return handleServiceTypeChange;
-  } else if (scope === "machine") {
+  if (scope === "machine") {
     return handleMachineBtnChange;
   }
 
