@@ -6,8 +6,11 @@ module "fluidattacks_ci_cache" {
   cache_bucket_versioning = false
   cache_expiration_days   = 30
   cache_lifecycle_clear   = true
-  cache_lifecycle_prefix  = ""
   create_cache_bucket     = true
+
+  cache_bucket_name_include_account_id = false
+  cache_lifecycle_prefix               = "fluidattacks-ci-cache"
+  cache_bucket_prefix                  = "fluidattacks-ci-cache"
 
   tags = {
     "management:type"    = "production"
