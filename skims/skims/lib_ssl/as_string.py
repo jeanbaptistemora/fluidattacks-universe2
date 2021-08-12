@@ -85,11 +85,19 @@ class SnippetConstructorEN(SnippetConstructor):
 
         return (
             "Request:\n"
-            "    fallback scsv: {scsv}\n"
-            "    TLS version: {tls_version}"
+            "    Fallback scsv: {scsv}\n"
+            "    TLS version: {tls_version}\n"
+            "    Key exchange: {key_exchange}\n"
+            "    Authentication: {authentication}\n"
+            "    Cipher: {cipher}\n"
+            "    Hash: {ssl_hash}"
         ).format(
             scsv=ssl_settings.scsv,
             tls_version=ssl_id2ssl_name(ssl_settings.tls_version),
+            key_exchange=", ".join(ssl_settings.key_exchange_names),
+            authentication=", ".join(ssl_settings.authentication_names),
+            cipher=", ".join(ssl_settings.cipher_names),
+            ssl_hash=", ".join(ssl_settings.hash_names),
         )
 
     def get_response(self, ssl_vulnerability: SSLVulnerability) -> str:
@@ -102,9 +110,9 @@ class SnippetConstructorEN(SnippetConstructor):
         if response.alert is not None:
             return (
                 "Response:\n"
-                "    type: ALERT\n"
-                "    level: {level}\n"
-                "    description: {description}"
+                "    Type: ALERT\n"
+                "    Level: {level}\n"
+                "    Description: {description}"
             ).format(
                 level=response.alert.level.name,
                 description=response.alert.description.name,
@@ -113,12 +121,12 @@ class SnippetConstructorEN(SnippetConstructor):
         if response.handshake is not None:
             return (
                 "Response:\n"
-                "    version: {version}\n"
+                "    Version: {version}\n"
                 "    Selected cipher suite:\n"
-                "        iana name: {iana_name}\n"
-                "        openssl name: {openssl_name}\n"
-                "        code: {code}\n"
-                "        vulnerabilities: {vulns}"
+                "        Iana name: {iana_name}\n"
+                "        Openssl name: {openssl_name}\n"
+                "        Code: {code}\n"
+                "        Vulnerabilities: {vulns}"
             ).format(
                 version=ssl_id2ssl_name(response.handshake.version_id),
                 iana_name=response.handshake.cipher_suite.iana_name,
@@ -151,11 +159,19 @@ class SnippetConstructorES(SnippetConstructor):
 
         return (
             "Petición:\n"
-            "    fallback scsv: {scsv}\n"
-            "    versión TLS: {tls_version}"
+            "    Fallback scsv: {scsv}\n"
+            "    Versión TLS: {tls_version}"
+            "    Intercambio de llaves: {key_exchange}\n"
+            "    Autenticación: {authentication}\n"
+            "    Encriptado: {cipher}\n"
+            "    Hash: {ssl_hash}"
         ).format(
             scsv=ssl_settings.scsv,
             tls_version=ssl_id2ssl_name(ssl_settings.tls_version),
+            key_exchange=", ".join(ssl_settings.key_exchange_names),
+            authentication=", ".join(ssl_settings.authentication_names),
+            cipher=", ".join(ssl_settings.cipher_names),
+            ssl_hash=", ".join(ssl_settings.hash_names),
         )
 
     def get_response(self, ssl_vulnerability: SSLVulnerability) -> str:
@@ -168,9 +184,9 @@ class SnippetConstructorES(SnippetConstructor):
         if response.alert is not None:
             return (
                 "Respuesta:\n"
-                "    tipo: ALERT\n"
-                "    nivel: {level}\n"
-                "    descripción: {description}"
+                "    Tipo: ALERT\n"
+                "    Nivel: {level}\n"
+                "    Descripción: {description}"
             ).format(
                 level=response.alert.level.name,
                 description=response.alert.description.name,
@@ -179,12 +195,12 @@ class SnippetConstructorES(SnippetConstructor):
         if response.handshake is not None:
             return (
                 "Respuesta:\n"
-                "    versión: {version}\n"
+                "    Versión: {version}\n"
                 "    Suite de cifrado seleccionada:\n"
-                "        nombre iana: {iana_name}\n"
-                "        nombre openssl: {openssl_name}\n"
-                "        código: {code}\n"
-                "        vulnerabilidades: {vulns}"
+                "        Nombre iana: {iana_name}\n"
+                "        Nombre openssl: {openssl_name}\n"
+                "        Código: {code}\n"
+                "        Vulnerabilidades: {vulns}"
             ).format(
                 version=ssl_id2ssl_name(response.handshake.version_id),
                 iana_name=response.handshake.cipher_suite.iana_name,

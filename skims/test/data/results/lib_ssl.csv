@@ -4,16 +4,20 @@ F052,inputs,localhost:4446 (namespace),server accepts connections with weak ciph
    2 | Intention: check if server accepts connections with weak ciphers in TLSv1.0
    3 | TLS versions on server: TLSv1.0, TLSv1.1
    4 | Request:
-   5 |     fallback scsv: False
+   5 |     Fallback scsv: False
    6 |     TLS version: TLSv1.0
->  7 | Response:
-   8 |     version: TLSv1.0
-   9 |     Selected cipher suite:
-  10 |         iana name: TLS_RSA_WITH_AES_128_CBC_SHA
-  11 |         openssl name: AES128-SHA
-  12 |         code: 0x0 0x2f
-  13 |         vulnerabilities: NO_PFS, CBC, SHA
-  14 | Result: server accepts connections with weak ciphers
+   7 |     Key exchange: ANY
+   8 |     Authentication: ANY
+   9 |     Cipher: NULL, RC2, RC4, DES, DES3, SM3, SM4, CBC
+  10 |     Hash: SHA, MD5, SM3
+> 11 | Response:
+  12 |     Version: TLSv1.0
+  13 |     Selected cipher suite:
+  14 |         Iana name: TLS_RSA_WITH_AES_128_CBC_SHA
+  15 |         Openssl name: AES128-SHA
+  16 |         Code: 0x0 0x2f
+  17 |         Vulnerabilities: NO_PFS, CBC, SHA
+  18 | Result: server accepts connections with weak ciphers
      ^ Col 0
 "
 F052,inputs,localhost:4446 (namespace),server accepts connections with weak ciphers,310,"home,socket-send,socket-response",052. Insecure encryption algorithm,server accepts connections with weak ciphers,"
@@ -21,16 +25,20 @@ F052,inputs,localhost:4446 (namespace),server accepts connections with weak ciph
    2 | Intention: check if server accepts connections with weak ciphers in TLSv1.1
    3 | TLS versions on server: TLSv1.0, TLSv1.1
    4 | Request:
-   5 |     fallback scsv: False
+   5 |     Fallback scsv: False
    6 |     TLS version: TLSv1.1
->  7 | Response:
-   8 |     version: TLSv1.1
-   9 |     Selected cipher suite:
-  10 |         iana name: TLS_RSA_WITH_AES_128_CBC_SHA
-  11 |         openssl name: AES128-SHA
-  12 |         code: 0x0 0x2f
-  13 |         vulnerabilities: NO_PFS, CBC, SHA
-  14 | Result: server accepts connections with weak ciphers
+   7 |     Key exchange: ANY
+   8 |     Authentication: ANY
+   9 |     Cipher: NULL, RC2, RC4, DES, DES3, SM3, SM4, CBC
+  10 |     Hash: SHA, MD5, SM3
+> 11 | Response:
+  12 |     Version: TLSv1.1
+  13 |     Selected cipher suite:
+  14 |         Iana name: TLS_RSA_WITH_AES_128_CBC_SHA
+  15 |         Openssl name: AES128-SHA
+  16 |         Code: 0x0 0x2f
+  17 |         Vulnerabilities: NO_PFS, CBC, SHA
+  18 | Result: server accepts connections with weak ciphers
      ^ Col 0
 "
 F133,inputs,localhost:4446 (namespace),server refuses connections with PFS support,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,server refuses connections with PFS support,"
@@ -38,13 +46,17 @@ F133,inputs,localhost:4446 (namespace),server refuses connections with PFS suppo
    2 | Intention: check if server accepts key exchange with PFS support in TLSv1.0
    3 | TLS versions on server: TLSv1.0, TLSv1.1
    4 | Request:
-   5 |     fallback scsv: False
+   5 |     Fallback scsv: False
    6 |     TLS version: TLSv1.0
->  7 | Response:
-   8 |     type: ALERT
-   9 |     level: FATAL
-  10 |     description: handshake_failure
-  11 | Result: server refuses connections with PFS support
+   7 |     Key exchange: DHE, ECDHE, SRP, ECCPWD
+   8 |     Authentication: ANY
+   9 |     Cipher: ANY
+  10 |     Hash: ANY
+> 11 | Response:
+  12 |     Type: ALERT
+  13 |     Level: FATAL
+  14 |     Description: handshake_failure
+  15 | Result: server refuses connections with PFS support
      ^ Col 0
 "
 F133,inputs,localhost:4446 (namespace),server refuses connections with PFS support,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,server refuses connections with PFS support,"
@@ -52,13 +64,17 @@ F133,inputs,localhost:4446 (namespace),server refuses connections with PFS suppo
    2 | Intention: check if server accepts key exchange with PFS support in TLSv1.1
    3 | TLS versions on server: TLSv1.0, TLSv1.1
    4 | Request:
-   5 |     fallback scsv: False
+   5 |     Fallback scsv: False
    6 |     TLS version: TLSv1.1
->  7 | Response:
-   8 |     type: ALERT
-   9 |     level: FATAL
-  10 |     description: handshake_failure
-  11 | Result: server refuses connections with PFS support
+   7 |     Key exchange: DHE, ECDHE, SRP, ECCPWD
+   8 |     Authentication: ANY
+   9 |     Cipher: ANY
+  10 |     Hash: ANY
+> 11 | Response:
+  12 |     Type: ALERT
+  13 |     Level: FATAL
+  14 |     Description: handshake_failure
+  15 | Result: server refuses connections with PFS support
      ^ Col 0
 "
 F016,inputs,localhost:4446 (namespace),server accepts connections with TLSv1.0,326,"home,socket-send,socket-response",016. Insecure encryption algorithm - SSL/TLS,server accepts connections with TLSv1.0,"
@@ -66,16 +82,20 @@ F016,inputs,localhost:4446 (namespace),server accepts connections with TLSv1.0,3
    2 | Intention: check if server accepts connections with TLSv1.0
 >  3 | TLS versions on server: TLSv1.0, TLSv1.1
    4 | Request:
-   5 |     fallback scsv: False
+   5 |     Fallback scsv: False
    6 |     TLS version: TLSv1.0
-   7 | Response:
-   8 |     version: TLSv1.0
-   9 |     Selected cipher suite:
-  10 |         iana name: TLS_RSA_WITH_AES_256_CBC_SHA
-  11 |         openssl name: AES256-SHA
-  12 |         code: 0x0 0x35
-  13 |         vulnerabilities: NO_PFS, CBC, SHA
-  14 | Result: server accepts connections with TLSv1.0
+   7 |     Key exchange: ANY
+   8 |     Authentication: ANY
+   9 |     Cipher: ANY
+  10 |     Hash: ANY
+  11 | Response:
+  12 |     Version: TLSv1.0
+  13 |     Selected cipher suite:
+  14 |         Iana name: TLS_RSA_WITH_AES_256_CBC_SHA
+  15 |         Openssl name: AES256-SHA
+  16 |         Code: 0x0 0x35
+  17 |         Vulnerabilities: NO_PFS, CBC, SHA
+  18 | Result: server accepts connections with TLSv1.0
      ^ Col 0
 "
 F016,inputs,localhost:4446 (namespace),server accepts connections with TLSv1.1,326,"home,socket-send,socket-response",016. Insecure encryption algorithm - SSL/TLS,server accepts connections with TLSv1.1,"
@@ -83,45 +103,57 @@ F016,inputs,localhost:4446 (namespace),server accepts connections with TLSv1.1,3
    2 | Intention: check if server accepts connections with TLSv1.1
 >  3 | TLS versions on server: TLSv1.0, TLSv1.1
    4 | Request:
-   5 |     fallback scsv: False
+   5 |     Fallback scsv: False
    6 |     TLS version: TLSv1.1
-   7 | Response:
-   8 |     version: TLSv1.1
-   9 |     Selected cipher suite:
-  10 |         iana name: TLS_RSA_WITH_AES_256_CBC_SHA
-  11 |         openssl name: AES256-SHA
-  12 |         code: 0x0 0x35
-  13 |         vulnerabilities: NO_PFS, CBC, SHA
-  14 | Result: server accepts connections with TLSv1.1
+   7 |     Key exchange: ANY
+   8 |     Authentication: ANY
+   9 |     Cipher: ANY
+  10 |     Hash: ANY
+  11 | Response:
+  12 |     Version: TLSv1.1
+  13 |     Selected cipher suite:
+  14 |         Iana name: TLS_RSA_WITH_AES_256_CBC_SHA
+  15 |         Openssl name: AES256-SHA
+  16 |         Code: 0x0 0x35
+  17 |         Vulnerabilities: NO_PFS, CBC, SHA
+  18 | Result: server accepts connections with TLSv1.1
      ^ Col 0
 "
 F016,inputs,localhost:4446 (namespace),server refuses connections with TLSv1.2 or TLSv1.3,326,"home,socket-send,socket-response",016. Insecure encryption algorithm - SSL/TLS,server refuses connections with TLSv1.2 or TLSv1.3,"
-  1 | Target: localhost:4446
-  2 | Intention: check if server accepts TLSv1.2 or TLSv1.3
-> 3 | TLS versions on server: TLSv1.0, TLSv1.1
-  4 | Request:
-  5 |     fallback scsv: False
-  6 |     TLS version: TLSv1.3
-  7 | Response:
-  8 |     ---
-  9 | Result: server refuses connections with TLSv1.2 or TLSv1.3
-    ^ Col 0
+   1 | Target: localhost:4446
+   2 | Intention: check if server accepts TLSv1.2 or TLSv1.3
+>  3 | TLS versions on server: TLSv1.0, TLSv1.1
+   4 | Request:
+   5 |     Fallback scsv: False
+   6 |     TLS version: TLSv1.3
+   7 |     Key exchange: ANY
+   8 |     Authentication: ANY
+   9 |     Cipher: ANY
+  10 |     Hash: ANY
+  11 | Response:
+  12 |     ---
+  13 | Result: server refuses connections with TLSv1.2 or TLSv1.3
+     ^ Col 0
 "
 F094,inputs,localhost:4446 (namespace),server accepts connections with ciphers that supports CBC,757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,server accepts connections with ciphers that supports CBC,"
    1 | Target: localhost:4446
    2 | Intention: check if server accepts connections with ciphers that use CBC in TLSv1.0
    3 | TLS versions on server: TLSv1.0, TLSv1.1
    4 | Request:
-   5 |     fallback scsv: False
+   5 |     Fallback scsv: False
    6 |     TLS version: TLSv1.0
->  7 | Response:
-   8 |     version: TLSv1.0
-   9 |     Selected cipher suite:
-  10 |         iana name: TLS_RSA_WITH_AES_128_CBC_SHA
-  11 |         openssl name: AES128-SHA
-  12 |         code: 0x0 0x2f
-  13 |         vulnerabilities: NO_PFS, CBC, SHA
-  14 | Result: server accepts connections with ciphers that supports CBC
+   7 |     Key exchange: ANY
+   8 |     Authentication: ANY
+   9 |     Cipher: CBC
+  10 |     Hash: ANY
+> 11 | Response:
+  12 |     Version: TLSv1.0
+  13 |     Selected cipher suite:
+  14 |         Iana name: TLS_RSA_WITH_AES_128_CBC_SHA
+  15 |         Openssl name: AES128-SHA
+  16 |         Code: 0x0 0x2f
+  17 |         Vulnerabilities: NO_PFS, CBC, SHA
+  18 | Result: server accepts connections with ciphers that supports CBC
      ^ Col 0
 "
 F094,inputs,localhost:4446 (namespace),server accepts connections with ciphers that supports CBC,757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,server accepts connections with ciphers that supports CBC,"
@@ -129,15 +161,19 @@ F094,inputs,localhost:4446 (namespace),server accepts connections with ciphers t
    2 | Intention: check if server accepts connections with ciphers that use CBC in TLSv1.1
    3 | TLS versions on server: TLSv1.0, TLSv1.1
    4 | Request:
-   5 |     fallback scsv: False
+   5 |     Fallback scsv: False
    6 |     TLS version: TLSv1.1
->  7 | Response:
-   8 |     version: TLSv1.1
-   9 |     Selected cipher suite:
-  10 |         iana name: TLS_RSA_WITH_AES_128_CBC_SHA
-  11 |         openssl name: AES128-SHA
-  12 |         code: 0x0 0x2f
-  13 |         vulnerabilities: NO_PFS, CBC, SHA
-  14 | Result: server accepts connections with ciphers that supports CBC
+   7 |     Key exchange: ANY
+   8 |     Authentication: ANY
+   9 |     Cipher: CBC
+  10 |     Hash: ANY
+> 11 | Response:
+  12 |     Version: TLSv1.1
+  13 |     Selected cipher suite:
+  14 |         Iana name: TLS_RSA_WITH_AES_128_CBC_SHA
+  15 |         Openssl name: AES128-SHA
+  16 |         Code: 0x0 0x2f
+  17 |         Vulnerabilities: NO_PFS, CBC, SHA
+  18 | Result: server accepts connections with ciphers that supports CBC
      ^ Col 0
 "

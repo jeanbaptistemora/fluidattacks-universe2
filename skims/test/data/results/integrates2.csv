@@ -4,13 +4,17 @@ F133,inputs,localhost:4446 (namespace2),server refuses connections with PFS supp
    2 | Intention: check if server accepts key exchange with PFS support in TLSv1.0
    3 | TLS versions on server: TLSv1.0, TLSv1.1
    4 | Request:
-   5 |     fallback scsv: False
+   5 |     Fallback scsv: False
    6 |     TLS version: TLSv1.0
->  7 | Response:
-   8 |     type: ALERT
-   9 |     level: FATAL
-  10 |     description: handshake_failure
-  11 | Result: server refuses connections with PFS support
+   7 |     Key exchange: DHE, ECDHE, SRP, ECCPWD
+   8 |     Authentication: ANY
+   9 |     Cipher: ANY
+  10 |     Hash: ANY
+> 11 | Response:
+  12 |     Type: ALERT
+  13 |     Level: FATAL
+  14 |     Description: handshake_failure
+  15 | Result: server refuses connections with PFS support
      ^ Col 0
 "
 F133,inputs,localhost:4446 (namespace2),server refuses connections with PFS support,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,server refuses connections with PFS support,"
@@ -18,13 +22,17 @@ F133,inputs,localhost:4446 (namespace2),server refuses connections with PFS supp
    2 | Intention: check if server accepts key exchange with PFS support in TLSv1.1
    3 | TLS versions on server: TLSv1.0, TLSv1.1
    4 | Request:
-   5 |     fallback scsv: False
+   5 |     Fallback scsv: False
    6 |     TLS version: TLSv1.1
->  7 | Response:
-   8 |     type: ALERT
-   9 |     level: FATAL
-  10 |     description: handshake_failure
-  11 | Result: server refuses connections with PFS support
+   7 |     Key exchange: DHE, ECDHE, SRP, ECCPWD
+   8 |     Authentication: ANY
+   9 |     Cipher: ANY
+  10 |     Hash: ANY
+> 11 | Response:
+  12 |     Type: ALERT
+  13 |     Level: FATAL
+  14 |     Description: handshake_failure
+  15 | Result: server refuses connections with PFS support
      ^ Col 0
 "
 F117,lines,namespace2/skims/test/data/lib_path/f117/.project,1,377,skims,117. Unverifiable files,Unverifiable file in skims/test/data/lib_path/f117/.project,"

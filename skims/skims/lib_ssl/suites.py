@@ -38,11 +38,10 @@ class SSLSuiteVuln(Enum):
     DES3: int = 8
     SM3: int = 9
     SM4: int = 10
-    SRP: int = 11
-    EXPORT_GRADE: int = 12
-    ANON_KEY_EXCHANGE: int = 13
-    NULL_AUTHENTICATION: int = 14
-    NULL_ENCRYPTION: int = 15
+    EXPORT_GRADE: int = 11
+    ANON_KEY_EXCHANGE: int = 12
+    NULL_AUTHENTICATION: int = 13
+    NULL_ENCRYPTION: int = 14
 
 
 class SSLKeyExchange(Enum):
@@ -398,7 +397,6 @@ class SSLCipherSuite(Enum):
             SSLSuiteVuln.EXPORT_GRADE,
             SSLSuiteVuln.NO_PFS,
             SSLSuiteVuln.CBC,
-            SSLSuiteVuln.DES,
             SSLSuiteVuln.DES,
             SSLSuiteVuln.SHA,
         ),

@@ -26,7 +26,7 @@ class SSLSnippetLine(Enum):
     INTENTION: int = 2
     VERSIONS: int = 3
     REQUEST: int = 4
-    RESPONSE: int = 7
+    RESPONSE: int = 11
 
 
 class TLSVersionId(Enum):
@@ -147,16 +147,15 @@ class SSLContext(NamedTuple):
 class SSLSettings(NamedTuple):
     context: SSLContext
     scsv: bool = False
-    anonymous: bool = False
     tls_version: SSLVersionId = SSLVersionId.sslv3_0
+    key_exchange_names: List[str] = ["ANY"]
+    authentication_names: List[str] = ["ANY"]
+    cipher_names: List[str] = ["ANY"]
+    hash_names: List[str] = ["ANY"]
     intention: Dict[LocalesEnum, str] = {
         LocalesEnum.EN: "establish SSL/TLS connection",
         LocalesEnum.ES: "establecer conexión SSL/TLS",
     }
-    mac_names: List[str] = []
-    cipher_names: List[str] = []
-    anon_key_exchange_names: List[str] = []
-    key_exchange_names: List[str] = []
 
     def __str__(self) -> str:
         return str(self.context)

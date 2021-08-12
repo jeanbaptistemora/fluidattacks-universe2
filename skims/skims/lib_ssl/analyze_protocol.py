@@ -182,10 +182,10 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                         context=ctx,
                         tls_version=v_id,
                         key_exchange_names=[
-                            "dhe_rsa",
-                            "ecdhe_rsa",
-                            "ecdhe_anon",
-                            "dhe_anon",
+                            "DHE",
+                            "ECDHE",
+                            "SRP",
+                            "ECCPWD",
                         ],
                         intention=intention,
                     ),
@@ -472,7 +472,21 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
                     ssl_settings=SSLSettings(
                         context=ctx,
                         tls_version=v_id,
-                        cipher_names=["null", "des", "rc4"],
+                        cipher_names=[
+                            "NULL",
+                            "RC2",
+                            "RC4",
+                            "DES",
+                            "DES3",
+                            "SM3",
+                            "SM4",
+                            "CBC",
+                        ],
+                        hash_names=[
+                            "SHA",
+                            "MD5",
+                            "SM3",
+                        ],
                         intention=intention,
                     ),
                     server_response=response,
@@ -530,7 +544,7 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     ssl_settings=SSLSettings(
                         context=ctx,
                         tls_version=v_id,
-                        cipher_names=["3des", "camellia", "idea"],
+                        cipher_names=["CBC"],
                         intention=intention,
                     ),
                     server_response=response,
@@ -850,6 +864,7 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                     ssl_settings=SSLSettings(
                         context=ctx,
                         tls_version=v_id,
+                        key_exchange_names=["RSA"],
                         intention=intention,
                     ),
                     server_response=response,
@@ -920,6 +935,8 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                     ssl_settings=SSLSettings(
                         context=ctx,
                         tls_version=v_id,
+                        key_exchange_names=["DHE"],
+                        authentication_names=["RSA"],
                         intention=intention,
                     ),
                     server_response=response,
