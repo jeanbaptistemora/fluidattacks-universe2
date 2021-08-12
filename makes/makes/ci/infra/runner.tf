@@ -73,9 +73,12 @@ module "fluidattacks_ci" {
   enable_manage_gitlab_token             = true
 
   # Cache
-  cache_bucket_versioning = false
-  cache_expiration_days   = 30
-  cache_shared            = true
+  cache_shared = true
+  cache_bucket = {
+    create = false
+    policy = module.fluidattacks_ci_cache.policy_arn
+    bucket = module.fluidattacks_ci_cache.bucket
+  }
 
   # Logs
   cloudwatch_logging_retention_in_days = 365
