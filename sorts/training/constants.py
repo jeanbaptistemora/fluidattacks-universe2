@@ -60,7 +60,6 @@ FEATURES_DICTS: Dict[str, str] = {
     "midnight_commits": "MC",
     "risky_commits": "RC",
     "seldom_contributors": "SC",
-    "num_chars": "CC",
     "num_lines": "LC",
     "busy_file": "BF",
     "commit_frequency": "CF",

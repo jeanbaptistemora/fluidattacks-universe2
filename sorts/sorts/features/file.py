@@ -45,7 +45,6 @@ FILE_FEATURES = [
     "midnight_commits",
     "risky_commits",
     "seldom_contributors",
-    "num_chars",
     "num_lines",
     "commit_frequency",
     "busy_file",
@@ -60,7 +59,6 @@ class FileFeatures(NamedTuple):
     midnight_commits: int
     risky_commits: int
     seldom_contributors: int
-    num_chars: int
     num_lines: int
     commit_frequency: float
     busy_file: int
@@ -84,7 +82,6 @@ def get_features(  # pylint: disable=too-many-locals
     # Use -1 as default value to avoid ZeroDivisionError
     file_age: int = -1
     midnight_commits: int = -1
-    num_chars: int = -1
     num_commits: int = -1
     num_lines: int = -1
     risky_commits: int = -1
@@ -101,7 +98,6 @@ def get_features(  # pylint: disable=too-many-locals
         file_age = get_file_age(git_metrics)
         midnight_commits = get_midnight_commits(git_metrics)
         num_commits = get_num_commits(git_metrics)
-        num_chars = get_num_chars(os.path.join(repo_path, file_relative))
         num_lines = get_num_lines(os.path.join(repo_path, file_relative))
         risky_commits = get_risky_commits(git_metrics)
         seldom_contributors = get_seldom_contributors(git_metrics)
@@ -129,7 +125,6 @@ def get_features(  # pylint: disable=too-many-locals
         midnight_commits=midnight_commits,
         risky_commits=risky_commits,
         seldom_contributors=seldom_contributors,
-        num_chars=num_chars,
         num_lines=num_lines,
         commit_frequency=(
             round(num_commits / file_age, 4) if file_age else num_commits
@@ -160,18 +155,6 @@ def get_num_lines(file_path: str) -> int:
         file = open(file_path, "rb")
         bufgen = iter(partial(file.raw.read, 1024 * 1024), b"")  # type: ignore
         result = sum(buf.count(b"\n") for buf in bufgen)
-    except FileNotFoundError:
-        log("warning", "File %s not found", file_path)
-    return result
-
-
-def get_num_chars(file_path: str) -> int:
-    """Gets the numberr of lines that a file has"""
-    result: int = 0
-    try:
-        file = open(file_path, "rb")
-        bufgen = iter(partial(file.raw.read, 1024 * 1024), b"")  # type: ignore
-        result = sum(len(buf.decode("utf-8")) for buf in bufgen)
     except FileNotFoundError:
         log("warning", "File %s not found", file_path)
     return result
