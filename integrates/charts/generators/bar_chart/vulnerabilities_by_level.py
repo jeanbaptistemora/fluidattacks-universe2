@@ -14,8 +14,14 @@ from charts.colors import (
 from collections import (
     Counter,
 )
+from context import (
+    FI_API_STATUS,
+)
 from dataloaders import (
     get_new_context,
+)
+from db_model.findings.types import (
+    Finding,
 )
 from itertools import (
     chain,
@@ -26,6 +32,7 @@ from operator import (
 from typing import (
     cast,
     List,
+    Tuple,
     Union,
 )
 
@@ -33,11 +40,20 @@ from typing import (
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Counter:
     context = get_new_context()
-    group_findings_loader = context.group_findings
-    finding_vulns_loader = context.finding_vulns
+    if FI_API_STATUS == "migration":
+        group_findings_new_loader = context.group_findings_new
+        group_findings_new: Tuple[
+            Finding, ...
+        ] = await group_findings_new_loader.load(group.lower())
+        finding_ids = [finding.id for finding in group_findings_new]
+    else:
+        group_findings_loader = context.group_findings
+        group_findings_data = await group_findings_loader.load(group.lower())
+        finding_ids = [
+            finding["finding_id"] for finding in group_findings_data
+        ]
 
-    group_findings_data = await group_findings_loader.load(group.lower())
-    finding_ids = [finding["finding_id"] for finding in group_findings_data]
+    finding_vulns_loader = context.finding_vulns
     vulnerabilities = list(
         chain.from_iterable(await finding_vulns_loader.load_many(finding_ids))
     )
