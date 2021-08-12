@@ -69,8 +69,8 @@ slug: /development/writing/documentation/main
   second and third level subtitles of a subsection
   in the menu on the right side.
 
-* **DG12:** We *must* present the subtitles of the subsections
-  in the right-hand menu
+* **DG12:** For all subsections,
+  we *must* present the subtitles of the right-hand menu
   in a homogeneous way
   (e.g., all without bold).
 
