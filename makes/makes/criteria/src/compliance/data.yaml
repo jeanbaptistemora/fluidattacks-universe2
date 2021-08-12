@@ -309,171 +309,150 @@
   es:
     description: __empty__
   definitions:
-    "1.7":
-      title: Deploy Port Level Access Control
+    "2.1":
+      title: Establish and Maintain a Software Inventory
       link: https://www.cisecurity.org/controls/
-    "1.8":
-      title: Utilize Client Certificates to Authenticate Hardware Assets
-      link: https://www.cisecurity.org/controls/
-    "2.4":
-      title: Track Software Inventory Information
+    "2.5":
+      title: Allowlist Authorized Software
       link: https://www.cisecurity.org/controls/
     "2.7":
-      title: Utilize Application Whitelisting
+      title: Allowlist Authorized Scripts
       link: https://www.cisecurity.org/controls/
-    "3.4":
-      title: Deploy Automated Operating System Patch Management Tools
+    "3.3":
+      title: Configure Data Access Control Lists
       link: https://www.cisecurity.org/controls/
-    "3.5":
-      title: Deploy Automated Software Patch Management Tools
+    "3.6":
+      title: Encrypt Data on End-User Devices
+      link: https://www.cisecurity.org/controls/
+    "3.10":
+      title: Encrypt Sensitive Data in Transit
+      link: https://www.cisecurity.org/controls/
+    "3.11":
+      title: Encrypt Sensitive Data at Rest
+      link: https://www.cisecurity.org/controls/
+    "3.12":
+      title: >
+        Segment Data Processing
+        and Storage Based on Sensitivity
       link: https://www.cisecurity.org/controls/
     "4.1":
-      title: Maintain Inventory of Administrative Accounts
+      title: Establish and Maintain a Secure Configuration Process
       link: https://www.cisecurity.org/controls/
     "4.2":
-      title: Change Default Passwords
+      title: >
+        Establish and Maintain a Secure
+        Configuration Process for Network Infrastructure
+      link: https://www.cisecurity.org/controls/
+    "4.3":
+      title: Configure Automatic Session Locking on Enterprise Assets
       link: https://www.cisecurity.org/controls/
     "4.4":
-      title: Use Unique Passwords
+      title: Implement and Manage a Firewall on Servers
       link: https://www.cisecurity.org/controls/
     "4.5":
-      title: >
-        Use Use Multi-Factor Authentication
-        for All Administrative Access
+      title: Implement and Manage a Firewall on End-User Devices
       link: https://www.cisecurity.org/controls/
     "4.7":
-      title: Limit Access to Scripting Tools
+      title: Manage Default Accounts on Enterprise Assets and Software
       link: https://www.cisecurity.org/controls/
     "4.8":
-      title: Log and Alert on Changes to Administrative Group Membership
-      link: https://www.cisecurity.org/controls/
-    "4.9":
-      title: Log and Alert on Unsuccessful Administrative Account Login
+      title: >
+        Uninstall or Disable Unnecessary Services
+        on Enterprise Assets and Software
       link: https://www.cisecurity.org/controls/
     "5.1":
-      title: Establish Secure Configurations
+      title: Establish and Maintain an Inventory of Accounts
+      link: https://www.cisecurity.org/controls/
+    "5.2":
+      title: Use Unique Passwords
       link: https://www.cisecurity.org/controls/
     "5.3":
-      title: Securely Store Master Images
-      link: https://www.cisecurity.org/controls/
-    "6.1":
-      title: Utilize Three Synchronized Time Sources
-      link: https://www.cisecurity.org/controls/
-    "6.2":
-      title: Activate Audit Logging
-      link: https://www.cisecurity.org/controls/
-    "6.3":
-      title: Enable Detailed Logging
-      link: https://www.cisecurity.org/controls/
-    "7.2":
-      title: >
-        Disable Unnecessary or Unauthorized
-        Browser or Email Client Plugins
-      link: https://www.cisecurity.org/controls/
-    "7.7":
-      title: Use of DNS Filtering Services
-      link: https://www.cisecurity.org/controls/
-    "7.9":
-      title: Block Unnecessary File Types
-      link: https://www.cisecurity.org/controls/
-    "7.10":
-      title: Sandbox All Email Attachments
-      link: https://www.cisecurity.org/controls/
-    "8.1":
-      title: Utilize Centrally Managed Anti-Malware Software
-      link: https://www.cisecurity.org/controls/
-    "9.2":
-      title: Ensure Only Approved Ports, Protocols, and Services Are Running
-      link: https://www.cisecurity.org/controls/
-    "9.4":
-      title: Apply Host-Based Firewalls or Port-Filtering
-      link: https://www.cisecurity.org/controls/
-    "9.5":
-      title: Implement Application Firewalls
-      link: https://www.cisecurity.org/controls/
-    "11.1":
-      title: Maintain Standard Security Configurations for Network Devices
-      link: https://www.cisecurity.org/controls/
-    "12.3":
-      title: Deny Communications With Known Malicious IP Addresses
-      link: https://www.cisecurity.org/controls/
-    "12.4":
-      title: Deny Communication Over Unauthorized Ports
-      link: https://www.cisecurity.org/controls/
-    "12.11":
-      title: Require All Remote Logins to Use Multi-Factor Authentication
-      link: https://www.cisecurity.org/controls/
-    "13.6":
-      title: Encrypt Mobile Device Data
-      link: https://www.cisecurity.org/controls/
-    "14.1":
-      title: Segment the Network Based on Sensitivity
-      link: https://www.cisecurity.org/controls/
-    "14.2":
-      title: Enable Firewall Filtering Between VLANs
-      link: https://www.cisecurity.org/controls/
-    "14.4":
-      title: Encrypt All Sensitive Information in Transit
-      link: https://www.cisecurity.org/controls/
-    "14.6":
-      title: Protect Information Through Access Control Lists
-      link: https://www.cisecurity.org/controls/
-    "14.8":
-      title: Encrypt Sensitive Information at Rest
-      link: https://www.cisecurity.org/controls/
-    "15.7":
-      title: >
-        Leverage the Advanced Encryption Standard
-        (AES) to Encrypt Wireless Data
-      link: https://www.cisecurity.org/controls/
-    "15.8":
-      title: >
-        Use Wireless Authentication Protocols
-        That Require Mutual, Multi-Factor Authentication
-      link: https://www.cisecurity.org/controls/
-    "16.4":
-      title: Encrypt or Hash All Authentication Credentials
-      link: https://www.cisecurity.org/controls/
-    "16.5":
-      title: Encrypt Transmittal of Username and Authentication Credentials
-      link: https://www.cisecurity.org/controls/
-    "16.7":
-      title: Establish Process for Revoking Access
-      link: https://www.cisecurity.org/controls/
-    "16.9":
       title: Disable Dormant Accounts
       link: https://www.cisecurity.org/controls/
+    "5.5":
+      title: >
+        Establish and Maintain
+        an Inventory of Service Accounts
+      link: https://www.cisecurity.org/controls/
+    "6.2":
+      title: Establish an Access Revoking Process
+      link: https://www.cisecurity.org/controls/
+    "6.4":
+      title: Require MFA for Remote Network Access
+      link: https://www.cisecurity.org/controls/   
+    "6.5":
+      title: Require MFA for Administrative Access
+      link: https://www.cisecurity.org/controls/   
+    "7.3":
+      title: Perform Automated Operating System Patch Management
+      link: https://www.cisecurity.org/controls/
+    "7.4":
+      title: Perform Automated Application Patch Management
+      link: https://www.cisecurity.org/controls/
+    "8.2":
+      title: Collect Audit Logs
+      link: https://www.cisecurity.org/controls/
+    "8.4":
+      title: Standardize Time Synchronization
+      link: https://www.cisecurity.org/controls/
+    "8.5":
+      title: Collect Detailed Audit Logs
+      link: https://www.cisecurity.org/controls/
+    "9.2":
+      title: Use DNS Filtering Services
+      link: https://www.cisecurity.org/controls/
+    "9.4":
+      title: >
+        Restrict Unnecessary or Unauthorized Browser
+        and Email Client Extensions
+      link: https://www.cisecurity.org/controls/   
+    "9.6":
+      title: Block Unnecessary File Types
+      link: https://www.cisecurity.org/controls/
+    "10.6":
+      title: Centrally Manage Anti-Malware Software
+      link: https://www.cisecurity.org/controls/
+    "12.6":
+      title: >
+        Use of Secure Network Management
+        and Communication Protocols 
+      link: https://www.cisecurity.org/controls/
+    "13.4":
+      title: >
+        Perform Traffic Filtering
+        Between Network Segments
+      link: https://www.cisecurity.org/controls/
+    "13.9":
+      title: Deploy Port-Level Access Control
+      link: https://www.cisecurity.org/controls/
+    "13.10":
+      title: Perform Application Layer Filtering
+      link: https://www.cisecurity.org/controls/   
+    "16.1":
+      title: >
+        Establish and Maintain a Secure
+        Application Development Process
+      link: https://www.cisecurity.org/controls/
+    "16.4":
+      title: >
+        Establish and Manage an Inventory
+        of Third-Party Software Components
+      link: https://www.cisecurity.org/controls/
+    "16.5":
+      title: >
+        Use Up-to-Date and Trusted
+        Third-Party Software Components
+      link: https://www.cisecurity.org/controls/
     "16.10":
-      title: Ensure All Accounts Have An Expiration Date
+      title: >
+        Apply Secure Design Principles
+        in Application Architectures
       link: https://www.cisecurity.org/controls/
     "16.11":
-      title: Lock Workstation Sessions After Inactivity
-      link: https://www.cisecurity.org/controls/
-    "18.1":
-      title: Establish Secure Coding Practices
-      link: https://www.cisecurity.org/controls/
-    "18.2":
       title: >
-        Ensure That Explicit Error Checking
-        Is Performed for All In-House Developed Software
-      link: https://www.cisecurity.org/controls/
-    "18.3":
-      title: Verify That Acquired Software Is Still Supported
-      link: https://www.cisecurity.org/controls/
-    "18.4":
-      title: Verify That Acquired Software Is Still Supported
-      link: https://www.cisecurity.org/controls/
-    "18.5":
-      title: >
-        Use only Standardized and
-        Extensively Reviewed Encryption Algorithms
-      link: https://www.cisecurity.org/controls/
-    "18.10":
-      title: Deploy Web Application Firewalls
-      link: https://www.cisecurity.org/controls/
-    "20.8":
-      title: Control and Monitor Accounts Associated With Penetration Testing
-      link: https://www.cisecurity.org/controls/
+        Leverage Vetted Modules or Services
+        for Application Security Components
+      link: https://www.cisecurity.org/controls/   
   metadata: {}
 "004":
   title: CWE
