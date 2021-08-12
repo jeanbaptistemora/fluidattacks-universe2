@@ -6,8 +6,8 @@ standarization purposes. The vulns info is loaded from a csv file.
 Related issue:
 https://gitlab.com/fluidattacks/product/-/issues/4903
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-08-12 at 13:47:57 UTC-05
+Finalization Time: 2021-08-12 at 13:57:28 UTC-05
 """
 
 from aioextensions import (
