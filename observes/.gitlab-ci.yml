@@ -1,3 +1,6 @@
+include:
+  - local: observes/singer/tap_announcekit/.gitlab-ci.yml
+
 .makes: &makes
   tags: [autoscaling]
   image: "${CI_REGISTRY_IMAGE}/makes"
@@ -38,10 +41,6 @@
   needs: []
   stage: lint-code
 
-.test_job: &test_job
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: test-code
 
 .scheduled: &scheduled
   <<: *makes
@@ -59,6 +58,11 @@
 .scheduled_job_large: &scheduled_job_large
   <<: *scheduled
   tags: [autoscaling-large]
+
+.test_job: &test_job
+  <<: *makes
+  <<: *observes_in_dev_branch
+  stage: test-code
 
 # lint jobs
 
@@ -95,8 +99,6 @@ observes.lint.singer-io:
 observes.lint.streamer-zoho-crm:
   <<: *lint_job
 
-observes.lint.tap-announcekit:
-  <<: *lint_job
 
 observes.lint.tap-bugsnag:
   <<: *lint_job
@@ -199,11 +201,6 @@ observes.test.singer-io:
   needs:
     - observes.lint.singer-io
 
-observes.test.tap-announcekit:
-  <<: *test_job
-  needs:
-    - observes.lint.tap-announcekit
-
 observes.test.tap-csv:
   <<: *test_job
   needs:
@@ -223,13 +220,6 @@ observes.test.tap-mixpanel:
   <<: *test_job
   needs:
     - observes.lint.tap-mixpanel
-
-# fx-test jobs
-
-observes.fx-test.tap-announcekit:
-  <<: *test_job
-  needs:
-    - observes.test.tap-announcekit
 
 # test infra jobs
 
