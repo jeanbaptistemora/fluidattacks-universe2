@@ -33,7 +33,7 @@ check_interval = 20
       BucketName = "autoscaling-ci-cache"
       BucketLocation = "us-east-1"
   [runners.machine]
-    IdleCount = 20
+    IdleCount = 0
     IdleTime = 1800
     MaxBuilds = 15
     MachineDriver = "amazonec2"
@@ -95,7 +95,7 @@ check_interval = 20
       BucketName = "autoscaling-ci-cache"
       BucketLocation = "us-east-1"
   [runners.machine]
-    IdleCount = 5
+    IdleCount = 0
     IdleTime = 1800
     MaxBuilds = 15
     MachineDriver = "amazonec2"
@@ -156,7 +156,7 @@ check_interval = 20
       BucketName = "autonomicmind-ci-cache"
       BucketLocation = "us-east-1"
   [runners.machine]
-    IdleCount = 5
+    IdleCount = 0
     IdleTime = 1800
     MaxBuilds = 15
     MachineDriver = "amazonec2"
@@ -218,7 +218,7 @@ check_interval = 20
       BucketName = "autonomicjump-ci-cache"
       BucketLocation = "us-east-1"
   [runners.machine]
-    IdleCount = 5
+    IdleCount = 0
     IdleTime = 1800
     MaxBuilds = 15
     MachineDriver = "amazonec2"
