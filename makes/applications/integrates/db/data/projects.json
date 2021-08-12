@@ -1779,13 +1779,13 @@
                     "S": "2020-05-20 17:00:00"
                   },
                   "has_forces": {
-                    "BOOL": false
+                    "BOOL": true
                   },
                   "has_drills": {
-                    "BOOL": false
+                    "BOOL": true
                   },
                   "has_skims": {
-                    "BOOL": false
+                    "BOOL": true
                   },
                   "requester": {
                     "S": "unknown"
@@ -2524,13 +2524,13 @@
                     "S": "2020-05-20 17:00:00"
                   },
                   "has_forces": {
-                    "BOOL": false
+                    "BOOL": true
                   },
                   "has_drills": {
-                    "BOOL": false
+                    "BOOL": true
                   },
                   "has_skims": {
-                    "BOOL": false
+                    "BOOL": true
                   },
                   "requester": {
                     "S": "unknown"

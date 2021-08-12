@@ -401,10 +401,10 @@ async def test_list_drafts() -> None:
 async def test_list_drafts_deleted() -> None:
     groups_name = ["continuoustesting"]
     test_data = await list_drafts(groups_name)
-    expected_output = ["818828206", "836530833", "475041524"]
+    expected_output = ["836530833", "475041524"]
     assert sorted(expected_output) == sorted(test_data[0])
     test_data = await list_drafts(groups_name, include_deleted=True)
-    expected_output = ["818828206", "836530833", "475041524", "991607942"]
+    expected_output = ["836530833", "475041524", "991607942"]
     assert sorted(expected_output) == sorted(test_data[0])
 
 

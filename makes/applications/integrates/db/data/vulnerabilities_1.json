@@ -1467,6 +1467,101 @@
           }
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "finding_id": {
+            "S": "818828206"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-12-12 08:45:48"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "integrates"
+                  },
+                  "state": {
+                    "S": "open"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-02-19 10:42:04"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "integrates"
+                  },
+                  "state": {
+                    "S": "closed"
+                  }
+                }
+              }
+            ]
+          },
+          "vuln_type": {
+            "S": "ports"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-12-12 08:45:48"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  }
+                }
+              }
+            ]
+          },
+          "historic_verification": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-02-18 10:41:04"
+                  },
+                  "status": {
+                    "S": "REQUESTED"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-02-19 10:41:04"
+                  },
+                  "status": {
+                    "S": "VERIFIED"
+                  }
+                }
+              }
+            ]
+          },
+          "where": {
+            "S": "192.168.1.29"
+          },
+          "UUID": {
+            "S": "429bd683-3654-4dad-9eeb-3f8a2de9afd4"
+          },
+          "specific": {
+            "S": "3333"
+          }
+        }
+      }
     }
   ]
 }
