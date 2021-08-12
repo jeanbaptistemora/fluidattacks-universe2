@@ -1,8 +1,13 @@
 type Mutation {
-  acceptLegal(remember: Boolean): SimplePayload!
+  "Whether to keep showing the legal notice modal or not"
+  acceptLegal(
+    "If set to true, ASM will stop showing the legal notice upon a new login"
+    remember: Boolean
+  ): SimplePayload!
 
   acknowledgeConcurrentSession: SimplePayload!
 
+  "Activate a root and make its content available for security analyses"
   activateRoot(
     "Name of the group the root is associated with"
     groupName: String!
@@ -86,6 +91,7 @@ type Mutation {
     vulnerabilities: ExecutionVulnerabilitiesInput!
   ): SimplePayload!
 
+  """Adds a new root to be analyzed and tested"""
   addGitRoot(
     "Repository branch to be tested"
     branch: String!
@@ -103,14 +109,23 @@ type Mutation {
     url: String!
   ): SimplePayload!
 
+  "Adds a new group to the specified organization"
   addGroup(
+    "Brief description to identify the group"
     description: String!
+    "Name of the new group"
     groupName: String!
+    "Enables the Machine plan within the new group"
     hasMachine: Boolean
+    "Enables the Squad plan within the new group"
     hasSquad: Boolean
+    "Language in which findings should be reported"
     language: Language
+    "Organization to which the group will belong"
     organization: String
+    "Enables either Black or White box type of hacking service"
     service: ServiceType
+    "Enables either continuous or one-shot hacking within the group"
     subscription: SubscriptionType
   ): SimplePayload!
 
@@ -235,14 +250,23 @@ type Mutation {
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
       after 2021/12/31. Use `addEvent` instead.""")
 
+  "Adds a new group to the specified organization"
   createGroup(
+    "Brief description to identify the group"
     description: String!
+    "Name of the new group"
     groupName: String!
+    "Enables the Machine plan within the new group"
     hasMachine: Boolean
+    "Enables the Squad plan within the new group"
     hasSquad: Boolean
+    "Language in which findings should be reported"
     language: Language
+    "Organization to which the group will belong"
     organization: String
+    "Enables either Black or White box type of hacking service"
     service: ServiceType
+    "Enables either continuous or one-shot hacking within the group"
     subscription: SubscriptionType
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
       after 2021/12/31. Use `addGroup` instead.""")
@@ -326,17 +350,29 @@ type Mutation {
 
   downloadVulnerabilityFile(findingId: String!): DownloadFilePayload!
 
+  "Edit a group's services and parameters"
   editGroup(
+    "Observations about the group edit"
     comments: String!
+    "Name of the group to be edited"
     groupName: String!
+    """Whether to keep using ASM services. Caution: Setting this to False
+    **will** remove the group from it!"""
     hasAsm: Boolean
+    "Deprecated, use `hasSquad` instead"
     hasDrills: Boolean
+    "Deprecated, use `hasAsm` instead"
     hasIntegrates: Boolean
+    "Whether to keep the Machine plan enabled within the group"
     hasMachine: Boolean
     hasSkims: Boolean
+    "Whether to keep the Squad plan enabled within the group"
     hasSquad: Boolean
+    "Reason for the downgrade in services if applicable"
     reason: UpdateGroupReason!
+    "Enables either Black or White box type of hacking service"
     service: ServiceType
+    "Enables either continuous or one-shot hacking within the group"
     subscription: SubscriptionType!
   ): SimplePayload! @deprecated(reason: """This mutation will be
     removed after 2021/12/31. Use `updateGroup` instead.""")
@@ -451,7 +487,14 @@ type Mutation {
     justification: RemoveFindingJustification!
   ): SimplePayload!
 
-  removeGroup(groupName: String!, reason: String): SimplePayload!
+  """Removes/deletes a group from ASM. Once succesful this action cannot be
+  undone"""
+  removeGroup(
+    "Name of the group to be deleted"
+    groupName: String!
+    "Reason for the removal of the group"
+    reason: String
+  ): SimplePayload!
 
   removeGroupTag(
     groupName: String!
@@ -542,7 +585,11 @@ type Mutation {
     reportSubject: String!
   ): SimplePayload!
 
-  unsubscribeFromGroup(groupName: String!): SimplePayload!
+  "Revoke your access permissions to a group"
+  unsubscribeFromGroup(
+    "Name of the group to be removed from"
+    groupName: String!
+  ): SimplePayload!
 
   updateAccessToken(expirationTime: Int!): UpdateAccessTokenPayload!
 
@@ -611,14 +658,24 @@ type Mutation {
     nickname: String
   ): SimplePayload!
 
+  "Updates a group's services and parameters"
   updateGroup(
+    "Observations about the group update"
     comments: String!
+    "Name of the group to be updated"
     groupName: String!
+    """Whether to keep using ASM services. Caution: Setting this to False
+    **will** remove the group from it!"""
     hasAsm: Boolean!
+    "Whether to keep the Machine plan enabled within the group"
     hasMachine: Boolean!
+    "Whether to keep the Squad plan enabled within the group"
     hasSquad: Boolean!
+    "Reason for the downgrade in services if applicable"
     reason: UpdateGroupReason!
+    "Enables either Black or White box type of hacking service"
     service: ServiceType
+    "Enables either continuous or one-shot hacking within the group"
     subscription: SubscriptionType!
   ): SimplePayload!
 
