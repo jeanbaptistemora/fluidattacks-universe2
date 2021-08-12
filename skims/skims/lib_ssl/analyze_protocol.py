@@ -184,7 +184,7 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                         intention=intention,
                     ),
                     server_response=response,
-                    line=SSLSnippetLine.alert_description,
+                    line=SSLSnippetLine.RESPONSE,
                     finding=core_model.FindingEnum.F133,
                 )
             )
@@ -326,7 +326,7 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     intention=intention,
                 ),
                 server_response=response,
-                line=SSLSnippetLine.handshake_version,
+                line=SSLSnippetLine.RESPONSE,
                 finding=core_model.FindingEnum.F016,
             )
         )
@@ -357,7 +357,7 @@ def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     },
                 ),
                 server_response=None,
-                line=SSLSnippetLine.max_version,
+                line=SSLSnippetLine.VERSIONS,
                 finding=core_model.FindingEnum.F016,
             )
         )
@@ -387,7 +387,7 @@ def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     },
                 ),
                 server_response=None,
-                line=SSLSnippetLine.max_version,
+                line=SSLSnippetLine.VERSIONS,
                 finding=core_model.FindingEnum.F016,
             )
         )
@@ -423,7 +423,7 @@ def _tlsv1_2_or_higher_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     },
                 ),
                 server_response=None,
-                line=SSLSnippetLine.max_version,
+                line=SSLSnippetLine.VERSIONS,
                 finding=core_model.FindingEnum.F016,
             )
         )
@@ -474,7 +474,7 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
                         intention=intention,
                     ),
                     server_response=response,
-                    line=SSLSnippetLine.handshake_vuln,
+                    line=SSLSnippetLine.RESPONSE,
                     finding=core_model.FindingEnum.F052,
                 )
             )
@@ -533,7 +533,7 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                         intention=intention,
                     ),
                     server_response=response,
-                    line=SSLSnippetLine.handshake_vuln,
+                    line=SSLSnippetLine.RESPONSE,
                     finding=core_model.FindingEnum.F094,
                 )
             )
@@ -620,7 +620,7 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     intention=intention,
                 ),
                 server_response=response,
-                line=SSLSnippetLine.handshake_version,
+                line=SSLSnippetLine.RESPONSE,
                 finding=core_model.FindingEnum.F016,
             )
         )
@@ -664,7 +664,7 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
                 check="tlsv1_3_downgrade",
                 ssl_settings=ssl_settings,
                 server_response=None,
-                line=SSLSnippetLine.max_version,
+                line=SSLSnippetLine.RESPONSE,
                 finding=core_model.FindingEnum.F016,
                 check_kwargs={"version": v_name},
             )
@@ -785,7 +785,7 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                                 intention=intention,
                             ),
                             server_response=None,
-                            line=SSLSnippetLine.handshake_version,
+                            line=SSLSnippetLine.RESPONSE,
                             finding=core_model.FindingEnum.F016,
                         )
                     )
@@ -856,7 +856,7 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                         intention=intention,
                     ),
                     server_response=response,
-                    line=SSLSnippetLine.handshake_vuln,
+                    line=SSLSnippetLine.RESPONSE,
                     finding=core_model.FindingEnum.F016,
                 )
             )
@@ -927,7 +927,7 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                         intention=intention,
                     ),
                     server_response=response,
-                    line=SSLSnippetLine.handshake_selected_cipher,
+                    line=SSLSnippetLine.RESPONSE,
                     finding=core_model.FindingEnum.F016,
                 )
             )
@@ -988,7 +988,7 @@ def _breach_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                         },
                     ),
                     server_response=None,
-                    line=SSLSnippetLine.request_title,
+                    line=SSLSnippetLine.INTENTION,
                     finding=core_model.FindingEnum.F016,
                 )
             )

@@ -21,36 +21,12 @@ from typing import (
 )
 
 
-class NewSSLSnippetLine(Enum):
+class SSLSnippetLine(Enum):
     TARGET: int = 1
     INTENTION: int = 2
     VERSIONS: int = 3
     REQUEST: int = 4
     RESPONSE: int = 8
-
-
-class SSLSnippetLine(Enum):
-    target_title: int = 1
-    target: int = 2
-    intention_title: int = 3
-    intention: int = 4
-    information_title: int = 5
-    information_versions: int = 6
-    request_title: int = 7
-    fallback_scsv: int = 8
-    min_version: int = 9
-    max_version: int = 10
-    response_title: int = 11
-    no_response: int = 12
-    alert_type: int = 12
-    alert_level: int = 13
-    alert_description: int = 14
-    handshake_version: int = 12
-    handshake_selected_cipher: int = 13
-    handshake_iana: int = 14
-    handshake_openssl: int = 15
-    handshake_code: int = 16
-    handshake_vuln: int = 17
 
 
 class TLSVersionId(Enum):
