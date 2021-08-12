@@ -5,13 +5,12 @@ F133,inputs,localhost:4446 (namespace),server refuses connections with PFS suppo
    3 | TLS versions on server: TLSv1.0, TLSv1.1
    4 | Request:
    5 |     fallback scsv: False
-   6 |     min version: TLSv1.0
-   7 |     max version: TLSv1.0
->  8 | Response:
-   9 |     type: ALERT
-  10 |     level: FATAL
-  11 |     description: handshake_failure
-  12 | Result: server refuses connections with PFS support
+   6 |     TLS version: TLSv1.0
+>  7 | Response:
+   8 |     type: ALERT
+   9 |     level: FATAL
+  10 |     description: handshake_failure
+  11 | Result: server refuses connections with PFS support
      ^ Col 0
 "
 F133,inputs,localhost:4446 (namespace),server refuses connections with PFS support,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,server refuses connections with PFS support,"
@@ -20,13 +19,12 @@ F133,inputs,localhost:4446 (namespace),server refuses connections with PFS suppo
    3 | TLS versions on server: TLSv1.0, TLSv1.1
    4 | Request:
    5 |     fallback scsv: False
-   6 |     min version: TLSv1.1
-   7 |     max version: TLSv1.1
->  8 | Response:
-   9 |     type: ALERT
-  10 |     level: FATAL
-  11 |     description: handshake_failure
-  12 | Result: server refuses connections with PFS support
+   6 |     TLS version: TLSv1.1
+>  7 | Response:
+   8 |     type: ALERT
+   9 |     level: FATAL
+  10 |     description: handshake_failure
+  11 | Result: server refuses connections with PFS support
      ^ Col 0
 "
 F117,lines,namespace/skims/test/data/lib_path/f117/.project,1,377,skims,117. Unverifiable files,Unverifiable file in skims/test/data/lib_path/f117/.project,"

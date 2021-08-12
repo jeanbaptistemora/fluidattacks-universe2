@@ -63,8 +63,7 @@ def tls_connect(
     intention_en = "verify if server supports " + ssl_id2ssl_name(v_id)
     ssl_settings = SSLSettings(
         context=SSLContext(host=host, port=port),
-        min_version=v_id,
-        max_version=v_id,
+        tls_version=v_id,
         intention={core_model.LocalesEnum.EN: intention_en},
     )
 
@@ -173,8 +172,7 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     check="pfs_disabled",
                     ssl_settings=SSLSettings(
                         context=ctx,
-                        min_version=v_id,
-                        max_version=v_id,
+                        tls_version=v_id,
                         key_exchange_names=[
                             "dhe_rsa",
                             "ecdhe_rsa",
@@ -322,7 +320,7 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                 check="sslv3_enabled",
                 ssl_settings=SSLSettings(
                     context=ctx,
-                    max_version=SSLVersionId.sslv3_0,
+                    tls_version=SSLVersionId.sslv3_0,
                     intention=intention,
                 ),
                 server_response=response,
@@ -345,8 +343,7 @@ def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                 check="tlsv1_enabled",
                 ssl_settings=SSLSettings(
                     context=ctx,
-                    min_version=SSLVersionId.tlsv1_0,
-                    max_version=SSLVersionId.tlsv1_0,
+                    tls_version=SSLVersionId.tlsv1_0,
                     intention={
                         core_model.LocalesEnum.EN: (
                             "check if server accepts connections with TLSv1.0"
@@ -375,8 +372,7 @@ def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                 check="tlsv1_1_enabled",
                 ssl_settings=SSLSettings(
                     context=ctx,
-                    min_version=SSLVersionId.tlsv1_1,
-                    max_version=SSLVersionId.tlsv1_1,
+                    tls_version=SSLVersionId.tlsv1_1,
                     intention={
                         core_model.LocalesEnum.EN: (
                             "check if server accepts connections with TLSv1.1"
@@ -411,8 +407,7 @@ def _tlsv1_2_or_higher_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                 check="tlsv1_2_or_higher_disabled",
                 ssl_settings=SSLSettings(
                     context=ctx,
-                    min_version=SSLVersionId.tlsv1_2,
-                    max_version=SSLVersionId.tlsv1_3,
+                    tls_version=SSLVersionId.tlsv1_3,
                     intention={
                         core_model.LocalesEnum.EN: (
                             "check if server accepts TLSv1.2 or TLSv1.3"
@@ -468,8 +463,7 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
                     check="weak_ciphers_allowed",
                     ssl_settings=SSLSettings(
                         context=ctx,
-                        min_version=v_id,
-                        max_version=v_id,
+                        tls_version=v_id,
                         cipher_names=["null", "des", "rc4"],
                         intention=intention,
                     ),
@@ -527,8 +521,7 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     check="cbc_enabled",
                     ssl_settings=SSLSettings(
                         context=ctx,
-                        min_version=v_id,
-                        max_version=v_id,
+                        tls_version=v_id,
                         cipher_names=["3des", "camellia", "idea"],
                         intention=intention,
                     ),
@@ -615,8 +608,7 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                 check="fallback_scsv_disabled",
                 ssl_settings=SSLSettings(
                     context=ctx,
-                    min_version=min_v_id,
-                    max_version=min_v_id,
+                    tls_version=min_v_id,
                     intention=intention,
                 ),
                 server_response=response,
@@ -643,8 +635,7 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
         v_name: str = ssl_id2ssl_name(v_id)
         ssl_settings = SSLSettings(
             context=ctx,
-            min_version=v_id,
-            max_version=v_id,
+            tls_version=v_id,
             intention={
                 core_model.LocalesEnum.EN: (
                     "check if TLSv1.3 can be downgraded to {v_name}".format(
@@ -780,8 +771,7 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                             check="heartbleed_possible",
                             ssl_settings=SSLSettings(
                                 context=ctx,
-                                min_version=v_id,
-                                max_version=v_id,
+                                tls_version=v_id,
                                 intention=intention,
                             ),
                             server_response=None,
@@ -851,8 +841,7 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                     check="freak_possible",
                     ssl_settings=SSLSettings(
                         context=ctx,
-                        min_version=v_id,
-                        max_version=v_id,
+                        tls_version=v_id,
                         intention=intention,
                     ),
                     server_response=response,
@@ -922,8 +911,7 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                     check="raccoon_possible",
                     ssl_settings=SSLSettings(
                         context=ctx,
-                        min_version=v_id,
-                        max_version=v_id,
+                        tls_version=v_id,
                         intention=intention,
                     ),
                     server_response=response,

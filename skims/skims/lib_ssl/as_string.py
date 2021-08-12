@@ -86,12 +86,10 @@ class SnippetConstructorEN(SnippetConstructor):
         return (
             "Request:\n"
             "    fallback scsv: {scsv}\n"
-            "    min version: {min_version}\n"
-            "    max version: {max_version}"
+            "    TLS version: {tls_version}"
         ).format(
             scsv=ssl_settings.scsv,
-            min_version=ssl_id2ssl_name(ssl_settings.min_version),
-            max_version=ssl_id2ssl_name(ssl_settings.max_version),
+            tls_version=ssl_id2ssl_name(ssl_settings.tls_version),
         )
 
     def get_response(self, ssl_vulnerability: SSLVulnerability) -> str:
@@ -154,12 +152,10 @@ class SnippetConstructorES(SnippetConstructor):
         return (
             "Petición:\n"
             "    fallback scsv: {scsv}\n"
-            "    min versión: {min_version}\n"
-            "    max versión: {max_version}"
+            "    versión TLS: {tls_version}"
         ).format(
             scsv=ssl_settings.scsv,
-            min_version=ssl_id2ssl_name(ssl_settings.min_version),
-            max_version=ssl_id2ssl_name(ssl_settings.max_version),
+            tls_version=ssl_id2ssl_name(ssl_settings.tls_version),
         )
 
     def get_response(self, ssl_vulnerability: SSLVulnerability) -> str:

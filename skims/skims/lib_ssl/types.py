@@ -26,7 +26,7 @@ class SSLSnippetLine(Enum):
     INTENTION: int = 2
     VERSIONS: int = 3
     REQUEST: int = 4
-    RESPONSE: int = 8
+    RESPONSE: int = 7
 
 
 class TLSVersionId(Enum):
@@ -148,8 +148,7 @@ class SSLSettings(NamedTuple):
     context: SSLContext
     scsv: bool = False
     anonymous: bool = False
-    min_version: SSLVersionId = SSLVersionId.sslv3_0
-    max_version: SSLVersionId = SSLVersionId.tlsv1_3
+    tls_version: SSLVersionId = SSLVersionId.sslv3_0
     intention: Dict[LocalesEnum, str] = {
         LocalesEnum.EN: "establish SSL/TLS connection",
         LocalesEnum.ES: "establecer conexión SSL/TLS",

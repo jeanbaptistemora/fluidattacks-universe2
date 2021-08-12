@@ -61,8 +61,8 @@ def ssl_connect(
             yield None
         else:
             ssl_ctx = ssl.SSLContext(protocol=ssl.PROTOCOL_TLS)  # NOSONAR
-            ssl_ctx.minimum_version = ssl_id2tls_id(ssl_settings.min_version)
-            ssl_ctx.maximum_version = ssl_id2tls_id(ssl_settings.max_version)
+            ssl_ctx.minimum_version = ssl_id2tls_id(ssl_settings.tls_version)
+            ssl_ctx.maximum_version = ssl_id2tls_id(ssl_settings.tls_version)
 
             ssl_sock = ssl_ctx.wrap_socket(sock, do_handshake_on_connect=False)
             ssl_sock.do_handshake()
