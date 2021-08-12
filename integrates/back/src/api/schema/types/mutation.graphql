@@ -1,3 +1,4 @@
+"Main mutation object"
 type Mutation {
   "Whether to keep showing the legal notice modal or not"
   acceptLegal(
@@ -135,8 +136,11 @@ type Mutation {
     parent: GenericScalar!
   ): AddConsultPayload!
 
+  "Adds the specified tags to the group"
   addGroupTags(
+    "Name of the group where the tags will be added"
     groupName: String!
+    "Tags to add in list format with the tags enclosed in quotes"
     tags: JSONString
   ): SimpleGroupPayload!
 
@@ -187,13 +191,18 @@ type Mutation {
     phoneNumber: String
   ): AddStakeholderPayload!
 
+  "Adds the specified tags to the group"
   addTags(
+    "Deprecated. Use `groupName` instead"
     projectName: String
-    groupName: String
+    "Name of the group where the tags will be added"
+    groupName: String!
+    "Tags to add in list format with the tags enclosed in quotes"
     tags: JSONString
   ): SimpleGroupPayload! @deprecated(reason: """This mutation will be removed
       after 2021/12/31. Use `addGroupTags` instead.""")
 
+  "Adds the URL of the environment to be tested"
   addUrlRoot(
     "URL of the environment to test"
     url: String!
@@ -203,7 +212,11 @@ type Mutation {
     nickname: String!
   ): SimplePayload!
 
-  approveDraft(draftId: String!): ApproveDraftPayload!
+  "Approves the specified draft finding"
+  approveDraft(
+    "Identifier of the draft to approve"
+    draftId: String!
+  ): ApproveDraftPayload!
 
   confirmVulnerabilitiesZeroRisk(
     findingId: String!
@@ -329,9 +342,13 @@ type Mutation {
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
     after 2021/12/31. Use `removeTags` instead.""")
 
+  "Removes/deletes a vulnerability within a finding"
   deleteVulnerability(
+    "Identifier of the vulnerability to remove"
     id: String!
+    "Finding where the vulnerability is located"
     findingId: String!
+    "Justtification for the removal"
     justification: RemoveVulnerabilityJustification!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
     after 2021/12/31. Use `removeVulnerability` instead.""")
@@ -496,8 +513,11 @@ type Mutation {
     reason: String
   ): SimplePayload!
 
+  "Removes/deletes the specified tag from the group"
   removeGroupTag(
+    "Name of the group where the tag should be removed from"
     groupName: String!
+    "Tag to remove"
     tag: String!
   ): SimpleGroupPayload!
 
@@ -512,9 +532,13 @@ type Mutation {
     userEmail: String!
   ): SimplePayload!
 
+  "Removes/deletes the specified tag from the group"
   removeTag(
+    "Deprecated. User `groupName` instead"
     projectName: String
+    "Name of the group where the tag should be removed from"
     groupName: String
+    "Tag to remove"
     tag: String!
   ): SimpleGroupPayload! @deprecated(reason: """This mutation will be removed
     after 2021/12/31. Use `removeGroupTag` instead.""")
@@ -525,9 +549,13 @@ type Mutation {
     tag: String
   ): SimplePayload!
 
+  "Removes/deletes a vulnerability within a finding"
   removeVulnerability(
+    "Identifier of the vulnerability to remove"
     id: String!
+    "Finding where the vulnerability is located"
     findingId: String!
+    "Justtification for the removal"
     justification: RemoveVulnerabilityJustification!
   ): SimplePayload!
 
@@ -591,7 +619,11 @@ type Mutation {
     groupName: String!
   ): SimplePayload!
 
-  updateAccessToken(expirationTime: Int!): UpdateAccessTokenPayload!
+  "Generates an access token for the API"
+  updateAccessToken(
+    "An unix timestamp within the near future (< 6 months from now)"
+    expirationTime: Int!
+  ): UpdateAccessTokenPayload!
 
   updateDescription(
     actor: String!
@@ -679,11 +711,17 @@ type Mutation {
     subscription: SubscriptionType!
   ): SimplePayload!
 
+  "Updates/edits an user belonging to a group"
   updateGroupStakeholder(
+    "Name of the group to which the user to be updated belongs"
     groupName: String!
+    "Email of the user to update"
     email: String!
+    "Responsibility of the user within the group"
     responsibility: String!
+    "Role of the user within the group"
     role: StakeholderRole!
+    "Phone number of the user"
     phoneNumber: String!
   ): UpdateStakeholderPayload!
 
