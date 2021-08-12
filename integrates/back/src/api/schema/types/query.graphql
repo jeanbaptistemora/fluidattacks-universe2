@@ -104,35 +104,56 @@ type Query {
 
   "Get user info from group"
   stakeholder(
+    "Entity to which the user belongs to"
     entity: StakeholderEntity!
+    "ID of the organization, if applicable"
     organizationId: String
+    "Deprecated. Use 'groupName' instead"
     projectName: String
+    "Name of the group, if applicable"
     groupName: String
+    "Email address of the user to query"
     userEmail: String!
   ): Stakeholder
 
   "Tag entity"
-  tag(tag: String!): Tag
+  tag(
+    "Content of the tag to be queried e.g. test-projects"
+    tag: String!
+  ): Tag
 
   "List groups a user is subscribed to"
-  userListGroups(userEmail: String!): [Group]
+  userListGroups(
+    "Email address of the user to query"
+    userEmail: String!
+  ): [Group]
     @deprecated(reason: """This query will be removed after 2021/12/31.
     Use `listUserGroups` instead.""")
 
   "List projects a user is subscribed to"
   userListProjects(
+    "Email address of the user to query"
     userEmail: String!
   ): [Group] @deprecated(reason: """This query will be removed
     after 2021/12/31. Use `listUserGroups` instead.""")
 
-  "Vulnerabilities pending to reattack"
-  vulnerabilitiesToReattack(group: String): [Vulnerability]
+  "Gets vulnerabilities pending to reattack"
+  vulnerabilitiesToReattack(
+    "Name of the group to which the vulnerabilties belong to"
+    group: String
+  ): [Vulnerability]
 
   "Vulnerability entity"
-  vulnerability(uuid: String!): Vulnerability
+  vulnerability(
+    "Identifier of the vulnerability to query"
+    uuid: String!
+  ): Vulnerability
 
-  "Vulnerabilities pending to reattack"
-  vulnsToReattack(group: String): [Vulnerability]
+  "Gets vulnerabilities pending to reattack"
+  vulnsToReattack(
+    "Name of the group to which the vulnerabilties belong to"
+    group: String
+  ): [Vulnerability]
     @deprecated(reason: """This query will be removed after 2021/12/31. Use
     `vulnerabilitiesToReattack` instead.""")
 }
