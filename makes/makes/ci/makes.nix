@@ -42,13 +42,19 @@ in
   };
   secretsForEnvFromSops = {
     makesCiProd = {
-      vars = [ "FLUID_ATTACKS_TOKEN" ];
+      vars = [
+        "GITLAB_TOKEN_FLUIDATTACKS"
+        "GITLAB_TOKEN_AUTONOMICMIND"
+        "GITLAB_TOKEN_AUTONOMICJUMP"
+      ];
       manifest = "/makes/makes/secrets/prod.yaml";
     };
   };
   secretsForTerraformFromEnv = {
     makesCiProd = {
-      fluidAttacksToken = "FLUID_ATTACKS_TOKEN";
+      gitlabTokenFluidattacks = "GITLAB_TOKEN_FLUIDATTACKS";
+      gitlabTokenAutonomicmind = "GITLAB_TOKEN_AUTONOMICMIND";
+      gitlabTokenAutonomicjump = "GITLAB_TOKEN_AUTONOMICJUMP";
     };
   };
   testTerraform = {
