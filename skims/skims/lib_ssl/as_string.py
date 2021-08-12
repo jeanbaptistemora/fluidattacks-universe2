@@ -12,6 +12,7 @@ from model.core_model import (
     LocalesEnum,
 )
 from typing import (
+    Dict,
     Optional,
     Tuple,
 )
@@ -294,6 +295,12 @@ class SnippetConstructorES(SnippetConstructor):
 
     def get_result(self, ssl_vulnerability: SSLVulnerability) -> str:
         return f"Resultado: {ssl_vulnerability.description}"
+
+
+SnippetConstructors: Dict[LocalesEnum, SnippetConstructor] = {
+    LocalesEnum.EN: SnippetConstructorEN(),
+    LocalesEnum.ES: SnippetConstructorES(),
+}
 
 
 def snippet(

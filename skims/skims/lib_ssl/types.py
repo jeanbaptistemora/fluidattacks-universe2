@@ -21,6 +21,14 @@ from typing import (
 )
 
 
+class NewSSLSnippetLine(Enum):
+    TARGET: int = 1
+    INTENTION: int = 2
+    VERSIONS: int = 3
+    REQUEST: int = 4
+    RESPONSE: int = 8
+
+
 class SSLSnippetLine(Enum):
     target_title: int = 1
     target: int = 2
