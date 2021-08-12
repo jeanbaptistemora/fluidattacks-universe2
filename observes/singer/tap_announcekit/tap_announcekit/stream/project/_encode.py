@@ -1,6 +1,7 @@
 from singer_io.singer2.json import (
     JsonFactory,
     JsonObj,
+    JsonValue,
     Primitive,
 )
 from tap_announcekit.stream.project._objs import (
@@ -9,6 +10,10 @@ from tap_announcekit.stream.project._objs import (
 from typing import (
     Dict,
 )
+
+
+class UnexpectedType(Exception):
+    pass
 
 
 def to_json(proj: Project) -> JsonObj:
@@ -40,3 +45,27 @@ def to_json(proj: Project) -> JsonObj:
         "metadata": proj.metadata,
     }
     return JsonFactory.from_prim_dict(json)
+
+
+def to_jschema_type(ptype: str) -> JsonObj:
+    if ptype == "bool":
+        return JsonFactory.from_prim_dict({"type": "boolean"})
+    if ptype == "float":
+        return JsonFactory.from_prim_dict({"type": "number"})
+    if ptype == "int":
+        return JsonFactory.from_prim_dict({"type": "integer"})
+    if ptype in ("EmptyStr", "str"):
+        return JsonFactory.from_prim_dict({"type": "string"})
+    if ptype == "datetime":
+        return JsonFactory.from_prim_dict(
+            {"type": "string", "format": "date-time"}
+        )
+    raise UnexpectedType(ptype)
+
+
+def project_schema() -> JsonObj:
+    props = {
+        key: JsonValue(to_jschema_type(str_type))
+        for key, str_type in Project.__annotations__.items()
+    }
+    return {"properties": JsonValue(props)}
