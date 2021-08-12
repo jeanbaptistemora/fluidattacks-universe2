@@ -1,18 +1,40 @@
-"Tag type definition"
+"Tag entity"
 type Tag {
+  "Groups where the tag is present"
   groups: [Group]
+  """Days since last remediation of a vulnerability in the groups where the tag
+  is present"""
   lastClosedVulnerability: Float
+  """Days since last remediation of a vulnerability in the groups where the tag
+  is present"""
   lastClosingVuln: Float @deprecated(reason: """This field will
     be removed after 2021/12/31. Use `lastClosedVulnerability` instead.""")
+  """Maximum severity of a currently open vulnerability in the groups where
+  the tag is present"""
   maxOpenSeverity: Float
+  """Maximum severity ever found of a vulnerability in the groups where
+  the tag is present"""
   maxSeverity: Float
+  """Mean time in days to remediate a vulnerability in the groups where the tag
+  is present"""
   meanRemediate: Float
+  """Mean time in days to remediate a critical vulnerability in the groups
+  where the tag is present"""
   meanRemediateCriticalSeverity: Float
+  """Mean time in days to remediate a high-severity vulnerability in the groups
+  where the tag is present"""
   meanRemediateHighSeverity: Float
+  """Mean time in days to remediate a low-severity vulnerability in the groups
+  where the tag is present"""
   meanRemediateLowSeverity: Float
+  """Mean time in days to remediate a medium-severity vulnerability in the
+  groups where the tag is present"""
   meanRemediateMediumSeverity: Float
+  "Tag name, also its content"
   name: String
+  "Organization where the tag is present"
   organization: String
+  "Groups where the tag is present"
   projects: [Group] @deprecated(reason: """This field will
     be removed after 2021/12/20. Use `groups` instead.""")
 }
