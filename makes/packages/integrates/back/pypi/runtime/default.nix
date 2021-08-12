@@ -32,7 +32,7 @@ let
         "exponent-server-sdk==0.3.1"
         "fpdf==1.7.2"
         "frozendict==1.2"
-        "GitPython==3.1.11"
+        "GitPython==3.1.12"
         "graphql-core==3.0.3"
         "gunicorn==20.0.4"
         "httplib2==0.18.1"
