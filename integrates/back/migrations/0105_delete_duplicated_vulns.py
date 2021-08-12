@@ -5,6 +5,11 @@ https://gitlab.com/fluidattacks/product/-/issues/5068
 
 Execution Time:    2021-07-26 at 16:02:49 UTC-05
 Finalization Time: 2021-07-26 at 16:03:50 UTC-05
+
+New execution deleting unneeded vulns:
+
+Execution Time:    2021-08-11 at 17:28:00 UTC-05
+Finalization Time: 2021-08-11 at 17:28:01 UTC-05
 """
 
 from aioextensions import (
@@ -22,16 +27,17 @@ PROD: bool = True
 
 async def main() -> None:
     # Read file with deletion info
-    with open("0105_vulns_to_delete.csv", mode="r") as f:
+    with open("0105.csv", mode="r") as f:
         reader = csv.reader(f)
         vulns_to_delete = [
             {
-                "finding_id": row[2],
-                "vuln_uuid": row[4],
+                "finding_id": row[0],
+                "vuln_uuid": row[1],
             }
             for row in reader
         ]
     print(f"    === vulns to delete: {len(vulns_to_delete)}")
+    print(f"    === sample: {vulns_to_delete[:3]}")
 
     success = False
     if PROD:
