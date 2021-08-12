@@ -133,6 +133,11 @@ module "fluidattacks_ci" {
 
   # Tags
   environment = "makes-fluidattacks-ci"
+  overrides = {
+    name_runner_agent_instance  = "fluidattacks-ci-runner",
+    name_docker_machine_runners = "fluidattacks-ci-worker",
+    name_sg                     = "",
+  }
   tags = {
     "management:type"    = "production"
     "management:product" = "makes"
