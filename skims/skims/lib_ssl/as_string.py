@@ -123,14 +123,14 @@ class SnippetConstructorEN(SnippetConstructor):
                 "Response:\n"
                 "    Version: {version}\n"
                 "    Selected cipher suite:\n"
-                "        Iana name: {iana_name}\n"
-                "        Openssl name: {openssl_name}\n"
+                "        Iana name: {iana}\n"
+                "        Openssl name: {openssl}\n"
                 "        Code: {code}\n"
                 "        Vulnerabilities: {vulns}"
             ).format(
                 version=ssl_id2ssl_name(response.handshake.version_id),
-                iana_name=response.handshake.cipher_suite.iana_name,
-                openssl_name=response.handshake.cipher_suite.openssl_name,
+                iana=response.handshake.cipher_suite.iana_name,
+                openssl=response.handshake.cipher_suite.get_openssl_name(),
                 code=response.handshake.cipher_suite.get_code_str(),
                 vulns=response.handshake.cipher_suite.get_vuln_str(),
             )
@@ -197,14 +197,14 @@ class SnippetConstructorES(SnippetConstructor):
                 "Respuesta:\n"
                 "    Versión: {version}\n"
                 "    Suite de cifrado seleccionada:\n"
-                "        Nombre iana: {iana_name}\n"
-                "        Nombre openssl: {openssl_name}\n"
+                "        Nombre iana: {iana}\n"
+                "        Nombre openssl: {openssl}\n"
                 "        Código: {code}\n"
                 "        Vulnerabilidades: {vulns}"
             ).format(
                 version=ssl_id2ssl_name(response.handshake.version_id),
-                iana_name=response.handshake.cipher_suite.iana_name,
-                openssl_name=response.handshake.cipher_suite.openssl_name,
+                iana=response.handshake.cipher_suite.iana_name,
+                openssl=response.handshake.cipher_suite.get_openssl_name(),
                 code=response.handshake.cipher_suite.get_code_str(),
                 vulns=response.handshake.cipher_suite.get_vuln_str(),
             )

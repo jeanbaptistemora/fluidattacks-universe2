@@ -99,7 +99,12 @@ def rand_bytes(length: int) -> List[int]:
 
 
 def get_suites_package(suites: List[SSLSuiteInfo], n_bytes: int) -> List[int]:
-    package: List[int] = [val for suite in suites for val in suite.code]
+    package: List[int] = []
+    for suite in suites:
+        if suite.code:
+            first_byte, second_byte = suite.code
+            package.append(first_byte)
+            package.append(second_byte)
     return num_to_bytes(len(package), n_bytes) + package
 
 

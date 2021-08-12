@@ -127,7 +127,7 @@ class SSLSuiteInfo(NamedTuple):
     iana_name: str
     openssl_name: Optional[str]
     gnutls_name: Optional[str]
-    code: Tuple[int, int]
+    code: Optional[Tuple[int, int]]
     key_exchange: SSLKeyExchange
     authentication: SSLAuthentication
     encryption: SSLEncryption
@@ -135,10 +135,24 @@ class SSLSuiteInfo(NamedTuple):
     tls_versions: Tuple[SSLVersionId, ...]
     vulnerabilities: Tuple[SSLSuiteVuln, ...]
 
+    def get_openssl_name(self) -> str:
+        if not self.openssl_name:
+            return "---"
+        return self.openssl_name
+
+    def get_gnutls_name(self) -> str:
+        if not self.gnutls_name:
+            return "---"
+        return self.gnutls_name
+
     def get_code_str(self) -> str:
+        if not self.code:
+            return "---"
         return " ".join([hex(byte) for byte in self.code])
 
     def get_vuln_str(self) -> str:
+        if not self.vulnerabilities:
+            return "---"
         return ", ".join([vuln.name for vuln in self.vulnerabilities])
 
 
@@ -6151,19 +6165,6 @@ class SSLSpecialSuite(Enum):
             SSLSuiteVuln.SHA,
         ),
     )
-    UNKNOWN: SSLSuiteInfo = SSLSuiteInfo(
-        rfc=0,
-        iana_name="UNKNOWN",
-        openssl_name=None,
-        gnutls_name=None,
-        code=(-1, -1),
-        key_exchange=SSLKeyExchange.UNKNOWN,
-        authentication=SSLAuthentication.UNKNOWN,
-        encryption=SSLEncryption.UNKNOWN,
-        ssl_hash=SSLHash.UNKNOWN,
-        tls_versions=(),
-        vulnerabilities=(),
-    )
 
 
 def get_suite_by_openssl_name(name: str) -> SSLSuiteInfo:
@@ -6171,7 +6172,19 @@ def get_suite_by_openssl_name(name: str) -> SSLSuiteInfo:
         if name == normal_suite.value.openssl_name:
             return normal_suite.value
 
-    return SSLSpecialSuite.UNKNOWN.value
+    return SSLSuiteInfo(
+        rfc=0,
+        iana_name="UNKNOWN",
+        openssl_name=name,
+        gnutls_name=None,
+        code=None,
+        key_exchange=SSLKeyExchange.UNKNOWN,
+        authentication=SSLAuthentication.UNKNOWN,
+        encryption=SSLEncryption.UNKNOWN,
+        ssl_hash=SSLHash.UNKNOWN,
+        tls_versions=(),
+        vulnerabilities=(),
+    )
 
 
 def get_suite_by_code(code: Tuple[int, int]) -> SSLSuiteInfo:
@@ -6183,7 +6196,19 @@ def get_suite_by_code(code: Tuple[int, int]) -> SSLSuiteInfo:
         if code == special_suite.value.code:
             return special_suite.value
 
-    return SSLSpecialSuite.UNKNOWN.value
+    return SSLSuiteInfo(
+        rfc=0,
+        iana_name="UNKNOWN",
+        openssl_name=None,
+        gnutls_name=None,
+        code=code,
+        key_exchange=SSLKeyExchange.UNKNOWN,
+        authentication=SSLAuthentication.UNKNOWN,
+        encryption=SSLEncryption.UNKNOWN,
+        ssl_hash=SSLHash.UNKNOWN,
+        tls_versions=(),
+        vulnerabilities=(),
+    )
 
 
 def get_suites_with_pfs() -> Iterator[SSLSuiteInfo]:

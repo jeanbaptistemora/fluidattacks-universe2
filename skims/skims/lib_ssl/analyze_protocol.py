@@ -69,14 +69,8 @@ def tls_connect(
     )
 
     with ssl_connect(ssl_settings) as ssl_socket:
-        if ssl_socket is not None:
-            cipher_info = ssl_socket.cipher()
-
-            if cipher_info:
-                openssl_name, _, _ = cipher_info
-            else:
-                openssl_name = "UNKNOWN"
-
+        if ssl_socket is not None and (cipher_info := ssl_socket.cipher()):
+            openssl_name, _, _ = cipher_info
             return SSLServerResponse(
                 record=SSLRecord.HANDSHAKE,
                 version_id=v_id,
