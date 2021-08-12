@@ -7,14 +7,17 @@ def main():
     root_path = sys.argv[1]
     config_path = sys.argv[2]
     check_missing = sys.argv[3].lower() == "true"
-
+    ignore = (
+        "__init__.py",
+        "py.typed",
+        ".cfg",
+        "__pycache__",
+        "gitlab-ci.yml",
+    )
     expected_layers = set(
         module.replace(".py", "")
         for module in os.listdir(root_path)
-        if not module.endswith("__init__.py")
-        if not module.endswith("py.typed")
-        if not module.endswith(".cfg")
-        if not module.endswith("__pycache__")
+        if not module.endswith(ignore)
     )
 
     config = configparser.ConfigParser()
