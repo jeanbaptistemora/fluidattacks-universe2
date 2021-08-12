@@ -1,7 +1,6 @@
 import { Field, Form, useFormikContext } from "formik";
 import _ from "lodash";
 import React, { useCallback } from "react";
-import type { EventWithDataHandler, Validator } from "redux-form";
 
 import {
   handleMachineBtnChangeHelper,
@@ -53,7 +52,7 @@ const isContinuousType: (type: string) => boolean = (type: string): boolean =>
   _.isUndefined(type) ? false : type.toLowerCase() === "continuous";
 
 const MAX_LENGTH_VALIDATOR = 250;
-const maxLength250: Validator = maxLength(MAX_LENGTH_VALIDATOR);
+const maxLength250 = maxLength(MAX_LENGTH_VALIDATOR);
 
 const ServicesForm: React.FC<IServicesFormProps> = (
   props: IServicesFormProps
@@ -70,11 +69,9 @@ const ServicesForm: React.FC<IServicesFormProps> = (
     useFormikContext<IFormData>();
 
   // Business Logic handlers
-  const handleSubscriptionTypeChange: EventWithDataHandler<
-    React.ChangeEvent<string>
-  > = useCallback(
-    (_0: React.ChangeEvent<string> | undefined, subsType: string): void => {
-      setFieldValue("machine", isContinuousType(subsType));
+  const handleServiceTypeChange = useCallback(
+    (_0: React.ChangeEvent<string> | undefined, serviceType: string): void => {
+      setFieldValue("machine", serviceType === "WHITE");
       setFieldValue("squad", true);
     },
     [setFieldValue]
@@ -125,7 +122,7 @@ const ServicesForm: React.FC<IServicesFormProps> = (
   ];
   const servicesList: IServicesDataSet[] = [
     {
-      canHave: isContinuousType(values.type),
+      canHave: values.service === "WHITE",
       id: "machineSwitch",
       onChange: handleMachineBtnChange,
       service: "machine",
@@ -142,11 +139,7 @@ const ServicesForm: React.FC<IServicesFormProps> = (
     {
       service: <p>{translate.t("searchFindings.servicesTable.type")}</p>,
       status: (
-        <Field
-          component={FormikDropdown}
-          customChange={handleSubscriptionTypeChange}
-          name={"type"}
-        >
+        <Field component={FormikDropdown} name={"type"}>
           <option value={"CONTINUOUS"}>
             {translate.t("searchFindings.servicesTable.continuous")}
           </option>
@@ -159,7 +152,11 @@ const ServicesForm: React.FC<IServicesFormProps> = (
     {
       service: <p>{translate.t("searchFindings.servicesTable.service")}</p>,
       status: (
-        <Field component={FormikDropdown} name={"service"}>
+        <Field
+          component={FormikDropdown}
+          customChange={handleServiceTypeChange}
+          name={"service"}
+        >
           <option value={"BLACK"}>
             {translate.t("searchFindings.servicesTable.black")}
           </option>
