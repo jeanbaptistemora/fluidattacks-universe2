@@ -160,9 +160,9 @@ describe("Organization groups view", (): void => {
         .filterWhere((element: ReactWrapper): boolean =>
           element.contains("Disabled")
         )
-    ).toHaveLength(1);
+    ).toHaveLength(0);
 
-    const PENDING_GROUP_ROW_LENGTH = 2;
+    const PENDING_GROUP_ROW_LENGTH = 1;
 
     expect(pendingGroupRow.text()).toContain("PENDINGGROUP");
     expect(pendingGroupRow.text()).toContain("Continuous");
@@ -175,7 +175,7 @@ describe("Organization groups view", (): void => {
         )
     ).toHaveLength(PENDING_GROUP_ROW_LENGTH);
 
-    const UNIT_TESTING_ROW_LENGTH = 2;
+    const UNIT_TESTING_ROW_LENGTH = 1;
 
     expect(unittestingRow.text()).toContain("UNITTESTING");
     expect(unittestingRow.text()).toContain("User");
