@@ -1,11 +1,9 @@
 interface IGroupData {
   description: string;
+  machine: string;
   squad: string;
-  forces: string;
+  hasMachine: boolean;
   hasSquad: boolean;
-  hasForces: boolean;
-  hasAsm: boolean;
-  asm: string;
   name: string;
   subscription: string;
   userRole: string;

@@ -90,6 +90,9 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       const name: string = group.name.toUpperCase();
       const description: string = _.capitalize(group.description);
       const subscription: string = _.capitalize(group.subscription);
+      const machine: string = translate.t(
+        servicesParameters[group.hasMachine.toString()]
+      );
       const squad: string = translate.t(
         servicesParameters[group.hasSquad.toString()]
       );
@@ -97,6 +100,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       return {
         ...group,
         description,
+        machine,
         name,
         squad,
         subscription,
@@ -108,6 +112,13 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     { align: "center", dataField: "name", header: "Group Name" },
     { align: "center", dataField: "description", header: "Description" },
     { align: "center", dataField: "subscription", header: "Subscription" },
+    {
+      align: "left",
+      dataField: "machine",
+      formatter: pointStatusFormatter,
+      header: "Machine",
+      width: "90px",
+    },
     {
       align: "left",
       dataField: "squad",

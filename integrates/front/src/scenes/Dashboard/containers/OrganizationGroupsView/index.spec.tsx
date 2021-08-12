@@ -76,8 +76,7 @@ describe("Organization groups view", (): void => {
               groups: [
                 {
                   description: "Continuous type test group",
-                  hasAsm: true,
-                  hasForces: true,
+                  hasMachine: true,
                   hasSquad: true,
                   name: "unittesting",
                   subscription: "continuous",
@@ -85,8 +84,7 @@ describe("Organization groups view", (): void => {
                 },
                 {
                   description: "One-shot type test group",
-                  hasAsm: true,
-                  hasForces: false,
+                  hasMachine: true,
                   hasSquad: true,
                   name: "oneshottest",
                   subscription: "oneshot",
@@ -94,8 +92,7 @@ describe("Organization groups view", (): void => {
                 },
                 {
                   description: "Continuous group for deletion",
-                  hasAsm: false,
-                  hasForces: false,
+                  hasMachine: true,
                   hasSquad: false,
                   name: "pendingGroup",
                   subscription: "continuous",
@@ -153,7 +150,7 @@ describe("Organization groups view", (): void => {
         .filterWhere((element: ReactWrapper): boolean =>
           element.contains("Enabled")
         )
-    ).toHaveLength(1);
+    ).toHaveLength(2);
     expect(
       oneshottestRow
         .find({ className: "v-mid" })
@@ -175,7 +172,7 @@ describe("Organization groups view", (): void => {
         )
     ).toHaveLength(PENDING_GROUP_ROW_LENGTH);
 
-    const UNIT_TESTING_ROW_LENGTH = 1;
+    const UNIT_TESTING_ROW_LENGTH = 2;
 
     expect(unittestingRow.text()).toContain("UNITTESTING");
     expect(unittestingRow.text()).toContain("User");
@@ -251,8 +248,7 @@ describe("Organization groups view", (): void => {
               groups: [
                 {
                   description: "Continuous type test group",
-                  hasAsm: true,
-                  hasForces: true,
+                  hasMachine: true,
                   hasSquad: true,
                   name: "unittesting",
                   subscription: "continuous",
@@ -260,8 +256,7 @@ describe("Organization groups view", (): void => {
                 },
                 {
                   description: "One-shot type test group",
-                  hasAsm: true,
-                  hasForces: false,
+                  hasMachine: true,
                   hasSquad: true,
                   name: "oneshottest",
                   subscription: "oneshot",
