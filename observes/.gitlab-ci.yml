@@ -2,6 +2,7 @@ include:
   - local: observes/common/singer_io/.gitlab-ci.yml
   - local: observes/singer/tap_announcekit/.gitlab-ci.yml
   - local: observes/singer/tap_bugsnag/.gitlab-ci.yml
+  - local: observes/singer/tap_gitlab/.gitlab-ci.yml
 
 .makes: &makes
   tags: [autoscaling]
@@ -110,9 +111,6 @@ observes.lint.tap-delighted:
 observes.lint.tap-formstack:
   <<: *lint_job
 
-observes.lint.tap-gitlab:
-  <<: *lint_job
-
 observes.lint.tap-json:
   <<: *lint_job
 
@@ -195,11 +193,6 @@ observes.test.tap-csv:
   <<: *test_job
   needs:
     - observes.lint.tap-csv
-
-observes.test.tap-gitlab:
-  <<: *test_job
-  needs:
-    - observes.lint.tap-gitlab
 
 observes.test.tap-mailchimp:
   <<: *test_job
