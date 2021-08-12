@@ -1,5 +1,6 @@
 include:
   - local: observes/singer/tap_announcekit/.gitlab-ci.yml
+  - local: observes/singer/tap_bugsnag/.gitlab-ci.yml
 
 .makes: &makes
   tags: [autoscaling]
@@ -97,10 +98,6 @@ observes.lint.singer-io:
   <<: *lint_job
 
 observes.lint.streamer-zoho-crm:
-  <<: *lint_job
-
-
-observes.lint.tap-bugsnag:
   <<: *lint_job
 
 observes.lint.tap-checkly:
