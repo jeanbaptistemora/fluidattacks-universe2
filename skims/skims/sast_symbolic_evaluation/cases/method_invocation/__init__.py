@@ -2,8 +2,13 @@ from model import (
     core_model,
     graph_model,
 )
-from model.graph_model import (
-    SyntaxStepAttributeAccess,
+from sast_symbolic_evaluation.cases.method_invocation.go import (
+    attempt_go_parse_float,
+)
+from sast_symbolic_evaluation.cases.method_invocation.java import (
+    attempt_java_looked_up_class,
+    attempt_java_security_msgdigest,
+    attempt_java_util_properties_methods,
 )
 from sast_symbolic_evaluation.lookup import (
     lookup_class,
@@ -12,17 +17,12 @@ from sast_symbolic_evaluation.lookup import (
 )
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
-    GoParsedFloat,
     JavaClassInstance,
-    LookedUpClass,
 )
 from sast_symbolic_evaluation.utils_generic import (
     complete_attrs_on_dict,
     lookup_var_dcl_by_name,
     lookup_var_state_by_name,
-)
-from sast_syntax_readers.utils_generic import (
-    get_dependencies,
 )
 from typing import (
     Any,
@@ -31,7 +31,6 @@ from typing import (
     Set,
 )
 from utils.string import (
-    build_attr_paths,
     complete_attrs_on_set,
     split_on_first_dot,
     split_on_last_dot,
@@ -399,10 +398,6 @@ BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
         }
     ),
 }
-WEAK_CIPHERS: Set[str] = {
-    "md5",
-    "sha1",
-}
 
 
 def evaluate(args: EvaluatorArgs) -> None:
@@ -431,130 +426,6 @@ def evaluate_many(args: EvaluatorArgs) -> None:
         or attempt_the_old_way(args)
         or attempt_java_looked_up_class(args)
     )
-
-
-def check_go_float_sanitization(args: EvaluatorArgs) -> bool:
-    for method, attr in {
-        "math.IsNaN": "is_nan",
-        "math.IsInf": "is_inf",
-    }.items():
-        if args.syntax_step.method == method:
-            for dep in args.dependencies:
-                if isinstance(dep.meta.value, GoParsedFloat):
-                    setattr(dep.meta.value, attr, False)
-                    dep.meta.danger = (
-                        dep.meta.value.is_inf or dep.meta.value.is_nan
-                    )
-                    if not dep.meta.danger and isinstance(
-                        dep, SyntaxStepAttributeAccess
-                    ):
-                        parent = get_dependencies(
-                            args.syntax_step_index - 1, args.syntax_steps
-                        )[0]
-                        parent.meta.value[dep.attribute] = dep.meta
-            return True
-    return False
-
-
-def attempt_go_parse_float(args: EvaluatorArgs) -> bool:
-    if args.syntax_step.method == "strconv.ParseFloat":
-        args.syntax_step.meta.value = GoParsedFloat(
-            method_n_id=args.syntax_step.meta.n_id,
-            shard_idx=args.graph_db.shards.index(args.shard),
-        )
-        args.syntax_step.meta.danger = True
-        return True
-
-    if check_go_float_sanitization(args):
-        return True
-
-    # Avoids reporting the vulnerability in the line where the dangerous value
-    # is used, since it can be far from the point where the real danger was
-    # injected
-    if args.shard.graph.nodes[args.syntax_step.meta.n_id].get(
-        "label_sink_type"
-    ):
-        for dep in args.dependencies:
-            if isinstance(dep.meta.value, GoParsedFloat) and dep.meta.danger:
-                dep.meta.danger = False
-
-                # Add a sink label to the method's node so the report is made
-                # on the line the danger is inserted instead of the line where
-                # the dangerous value is used
-                shard_idx = dep.meta.value.shard_idx
-                n_id = dep.meta.value.method_n_id
-                graph = args.graph_db.shards[shard_idx].graph
-                if "label_sink_type" in graph.nodes[n_id]:
-                    graph.nodes[n_id]["label_sink_type"].add(args.finding.name)
-                else:
-                    graph.nodes[n_id]["label_sink_type"] = {args.finding.name}
-    return False
-
-
-def attempt_java_util_properties_methods(args: EvaluatorArgs) -> bool:
-    method_var, method_path = split_on_first_dot(args.syntax_step.method)
-
-    if (
-        dcl := lookup_var_dcl_by_name(args, method_var)
-        # pylint: disable=used-before-assignment
-    ) and dcl.var_type in build_attr_paths("java", "util", "Properties"):
-        if method_path == "load" and len(args.dependencies) == 1:
-            dcl.meta.value = args.dependencies[0].meta.value
-        if (
-            method_path == "getProperty"
-            and len(args.dependencies) == 2
-            and dcl.meta.value
-        ):
-            args.syntax_step.meta.value = dcl.meta.value.get(
-                args.dependencies[-1].meta.value,
-                args.dependencies[-2].meta.value,
-            )
-        return True
-
-    return False
-
-
-def attempt_java_security_msgdigest(args: EvaluatorArgs) -> bool:
-    if (
-        args.finding == core_model.FindingEnum.F052
-        and args.syntax_step.method
-        in {
-            "java.security.MessageDigest.getInstance",
-        }
-        and len(args.dependencies) >= 1
-        and isinstance(args.dependencies[-1].meta.value, str)
-    ):
-        args.syntax_step.meta.danger = (
-            args.dependencies[-1].meta.value.lower() in WEAK_CIPHERS
-        )
-        return True
-
-    return False
-
-
-def attempt_java_looked_up_class(args: EvaluatorArgs) -> bool:
-    method_var, method_path = split_on_first_dot(args.syntax_step.method)
-
-    if (prnt := lookup_var_state_by_name(args, method_var)) and isinstance(
-        # pylint: disable=used-before-assignment
-        prnt.meta.value,
-        LookedUpClass,
-    ):
-        method_path = f".{method_path}"
-
-        if (method_path in prnt.meta.value.metadata.methods) and (
-            return_step := args.eval_method(
-                args,
-                prnt.meta.value.metadata.methods[method_path].n_id,
-                args.dependencies,
-                args.graph_db.shards_by_path_f(prnt.meta.value.shard_path),
-            )
-        ):
-            args.syntax_step.meta.danger = return_step.meta.danger
-            args.syntax_step.meta.value = return_step.meta.value
-            return True
-
-    return False
 
 
 def attempt_by_args_propagation_no_type(
