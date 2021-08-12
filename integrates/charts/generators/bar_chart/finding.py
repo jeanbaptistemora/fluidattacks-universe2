@@ -43,18 +43,8 @@ async def get_data_one_group(group: str) -> PortfoliosGroupsInfo:
         findings_found = len(group_findings_new)
     else:
         group_findings_loader = context.group_findings
-        finding_loader = context.finding
         group_findings_data = await group_findings_loader.load(group.lower())
-        finding_ids = [
-            finding["finding_id"] for finding in group_findings_data
-        ]
-        findings = await finding_loader.load_many(finding_ids)
-        findings_found = sum(
-            1
-            for finding in findings
-            if "current_state" in finding
-            and finding["current_state"] != "DELETED"
-        )
+        findings_found = len(group_findings_data)
 
     return PortfoliosGroupsInfo(
         group_name=group.lower(),

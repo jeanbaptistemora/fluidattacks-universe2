@@ -20,19 +20,9 @@ from typing import (
 async def generate_one(group: str) -> int:
     context = get_new_context()
     group_findings_loader = context.group_findings
-    finding_loader = context.finding
-
     group_findings = await group_findings_loader.load(group)
-    group_findings_ids = [finding["finding_id"] for finding in group_findings]
-    findings = await finding_loader.load_many(group_findings_ids)
 
-    non_deleted_findings_count = sum(
-        1
-        for finding in findings
-        if "current_state" in finding and finding["current_state"] != "DELETED"
-    )
-
-    return non_deleted_findings_count
+    return len(group_findings)
 
 
 async def get_findings_count_many_groups(groups: Tuple[str, ...]) -> int:

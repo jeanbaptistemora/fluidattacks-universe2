@@ -263,7 +263,6 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
 
 
 async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
-    group_loader = context.group
     group_name: str = kwargs["group_name"].lower()
     url_attributes = parse_url(kwargs["url"])
     is_valid = validations.is_valid_url(
@@ -278,7 +277,7 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
     default_port = "443" if url_attributes.scheme == "https" else "80"
     port = url_attributes.port if url_attributes.port else default_port
     protocol: str = url_attributes.scheme.upper()
-    group = await group_loader.load(group_name)
+    group = await context.group.load(group_name)
 
     if not validations.is_url_unique(
         host,

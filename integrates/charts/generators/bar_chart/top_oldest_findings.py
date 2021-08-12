@@ -45,28 +45,39 @@ async def get_data_one_group(group: str) -> Counter:
         group_findings_new: Tuple[
             Finding, ...
         ] = await group_findings_new_loader.load(group.lower())
+        findings_open_age = await collect(
+            [
+                get_finding_open_age(context, finding.id)
+                for finding in group_findings_new
+            ]
+        )
         counter = Counter(
             {
-                f"{finding.id}/{finding.title}": await get_finding_open_age(
-                    context, finding.id
+                f"{finding.id}/{finding.title}": open_age
+                for finding, open_age in zip(
+                    group_findings_new, findings_open_age
                 )
-                for finding in group_findings_new
             }
         )
     else:
         group_findings_loader = context.group_findings
-        finding_loader = context.finding
-        group_findings_data = await group_findings_loader.load(group.lower())
+        group_findings = await group_findings_loader.load(group.lower())
         finding_ids = [
-            finding["finding_id"] for finding in group_findings_data
+            str(finding["finding_id"]) for finding in group_findings
         ]
-        findings = await finding_loader.load_many(finding_ids)
+        findings_open_age = await collect(
+            [
+                get_finding_open_age(context, finding_id)
+                for finding_id in finding_ids
+            ]
+        )
+
         counter = Counter(
             {
-                f'{finding_id}/{finding["title"]}': await get_finding_open_age(
-                    context, finding_id
+                f'{finding_id}/{finding["title"]}': open_age
+                for finding, finding_id, open_age in zip(
+                    group_findings, finding_ids, findings_open_age
                 )
-                for finding, finding_id in zip(findings, finding_ids)
             }
         )
 
