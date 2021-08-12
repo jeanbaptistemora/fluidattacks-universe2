@@ -180,6 +180,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptationModalPro
             "searchFindings.tabDescription.handleAcceptationModal.title"
           )}
           open={true}
+          size={"extraLargeModal"}
         >
           <Formik
             enableReinitialize={true}

@@ -20,6 +20,10 @@
   width: 850px;
 }
 
+:global .extraLargeModal {
+  width: 1000px;
+}
+
 :global .graphicModal {
   width: 1200px;
 }
@@ -30,6 +34,12 @@
 
 @media (max-width: 900px) {
   :global .largeModal {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1050px) {
+  :global .extraLargeModal {
     width: 100%;
   }
 }
