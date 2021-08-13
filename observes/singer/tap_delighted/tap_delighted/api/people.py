@@ -7,6 +7,7 @@ from __future__ import (
 from delighted import (
     Client,
 )
+import logging
 from paginator import (
     AllPages,
     PageId,
@@ -34,6 +35,8 @@ from typing import (
     TypeVar,
 )
 
+LOG = logging.getLogger(__name__)
+
 
 class BouncedPage(NamedTuple):
     data: Iterator[JsonObj]
@@ -59,6 +62,9 @@ PageType = TypeVar("PageType", BouncedPage, UnsubscribedPage)
 
 
 def _is_empty(iopage: IO[PageType]) -> bool:
+    LOG.debug(
+        "_is_empty %s, %s", iopage, iopage.map(lambda page: bool(page.data))
+    )
     return iopage.map(lambda page: bool(page.data)) == IO(False)
 
 

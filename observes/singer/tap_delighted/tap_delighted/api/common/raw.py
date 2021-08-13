@@ -7,6 +7,7 @@ from delighted import (
 from delighted.errors import (
     TooManyRequestsError,
 )
+import logging
 from paginator import (
     PageId,
 )
@@ -27,8 +28,11 @@ from typing import (
     Any,
     Callable,
     Iterator,
+    List,
     TypeVar,
 )
+
+LOG = logging.getLogger(__name__)
 
 
 class RateLimitError(TooManyRequestsError):
@@ -38,14 +42,15 @@ class RateLimitError(TooManyRequestsError):
 DataType = TypeVar("DataType")
 RawApiResult = IOResult[DataType, RateLimitError]
 RawItem = RawApiResult[JsonObj]
-RawItems = RawApiResult[Iterator[JsonObj]]
+RawItems = RawApiResult[List[JsonObj]]
 
 
 def _wrap_manyreqs_error(
     request: Callable[[], DataType]
 ) -> RawApiResult[DataType]:
     try:
-        return IOSuccess(request())
+        result = request()
+        return IOSuccess(result)
     except TooManyRequestsError as error:
         return IOFailure(RateLimitError(error.response))
 
@@ -54,10 +59,8 @@ def _single_request(request: Callable[[], Any]) -> Callable[[], JsonObj]:
     return lambda: JsonFactory.from_any(request())
 
 
-def _paged_request(
-    request: Callable[[], Any]
-) -> Callable[[], Iterator[JsonObj]]:
-    return lambda: iter(JsonFactory.from_any(item) for item in request())
+def _paged_request(request: Callable[[], Any]) -> Callable[[], List[JsonObj]]:
+    return lambda: [JsonFactory.from_any(item) for item in request()]
 
 
 _call_single_resource = pipe(_single_request, _wrap_manyreqs_error)
@@ -71,6 +74,7 @@ def get_metrics(client: Client) -> RawItem:
 
 
 def list_bounced(client: Client, page: PageId) -> RawItems:
+    LOG.debug("raw list_bounced %s", page)
     return _call_paged_resource(
         lambda: delighted.Bounce.all(
             client=client, page=page.page, per_page=page.per_page
@@ -80,8 +84,8 @@ def list_bounced(client: Client, page: PageId) -> RawItems:
 
 def list_people(client: Client) -> IO[Iterator[JsonObj]]:
     people = delighted.Person.list(client=client, auto_handle_rate_limits=True)
-    request = _paged_request(lambda: people.auto_paging_iter())
-    return IO(request())
+    pages = (JsonFactory.from_any(item) for item in people.auto_paging_iter())
+    return IO(iter(pages))
 
 
 def list_surveys(client: Client, page: PageId) -> RawItems:
