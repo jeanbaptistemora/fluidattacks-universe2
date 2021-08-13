@@ -3,6 +3,7 @@ include:
   - local: observes/singer/tap_announcekit/.gitlab-ci.yml
   - local: observes/singer/tap_bugsnag/.gitlab-ci.yml
   - local: observes/singer/tap_gitlab/.gitlab-ci.yml
+  - local: observes/singer/tap_mixpanel/.gitlab-ci.yml
 
 .makes: &makes
   tags: [autoscaling]
@@ -43,7 +44,6 @@ include:
   <<: *observes_in_dev_branch
   needs: []
   stage: lint-code
-
 
 .scheduled: &scheduled
   <<: *makes
@@ -115,9 +115,6 @@ observes.lint.tap-json:
   <<: *lint_job
 
 observes.lint.tap-mailchimp:
-  <<: *lint_job
-
-observes.lint.tap-mixpanel:
   <<: *lint_job
 
 observes.lint.tap-timedoctor:
@@ -198,11 +195,6 @@ observes.test.tap-mailchimp:
   <<: *test_job
   needs:
     - observes.lint.tap-mailchimp
-
-observes.test.tap-mixpanel:
-  <<: *test_job
-  needs:
-    - observes.lint.tap-mixpanel
 
 # test infra jobs
 
