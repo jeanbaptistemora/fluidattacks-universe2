@@ -57,7 +57,7 @@
       la confidencialidad e integridad
       del sistema, sus usuarios
       y la información que contiene.
-  category: __empty__
+  category: Session
   references:
     - "002.227"
   metadata: {}
@@ -78,7 +78,7 @@
       para transferir información
       entre páginas cuando sea necesario.
     description: __empty__
-  category: __empty__
+  category: Session
   references: []
   metadata: {}
 "025":
@@ -128,7 +128,7 @@
       y pérdida de trazabilidad de acciones
       hechas por el usuario suplantado
       <<r1, ^[1]^>> <<r2, ^[2]^>>.
-  category: __empty__
+  category: Session
   references: []
   metadata: {}
 "026":
@@ -146,7 +146,7 @@
       y cifrar los estados de sesión
       que están al lado del cliente.
     description: __empty__
-  category: __empty__
+  category: Session
   references: []
   metadata: {}
 "027":
@@ -167,7 +167,7 @@
       de cada recurso protegido
       por autenticación.
     description: __empty__
-  category: __empty__
+  category: Session
   references: []
   metadata: {}
 "028":
@@ -216,7 +216,7 @@
       Por lo tanto,
       el sistema permitiría a los usuarios
       ver y cerrar cualquier sesión activa.
-  category: __empty__
+  category: Session
   references: []
   metadata: {}
 "029":
@@ -272,7 +272,7 @@
       (con el uso de HTTPS).
       De esta manera,
       el robo de sesión se mitiga drásticamente.
-  category: __empty__
+  category: Session
   references: []
   metadata: {}
 "030":
@@ -321,7 +321,7 @@
       de cualquier solicitud que podría
       afectar la confidencialidad,
       integridad y disponibilidad del sistema.
-  category: __empty__
+  category: Session
   references: []
   metadata: {}
 "031":
@@ -374,7 +374,7 @@
       el tiempo durante el cual una sesión
       puede ser usada maliciosamente
       se incrementa.
-  category: __empty__
+  category: Session
   references: []
   metadata: {}
 "032":
@@ -443,7 +443,7 @@
       ni ser desplegados como mensajes
       presentados al usuario,
       ni almacenados en logs.
-  category: __empty__
+  category: Session
   references: []
   metadata: {}
 "033":
@@ -500,7 +500,7 @@
       la configuración de administración del sistema),
       e incrementa el nivel de confidencialidad
       y dispnibilidad del sistema.
-  category: __empty__
+  category: Authorization
   references: []
   metadata: {}
 "034":
@@ -519,7 +519,7 @@
       del sistema deshabilitar
       cuentas de usuario.
     description: __empty__
-  category: __empty__
+  category: Authorization
   references: []
   metadata: {}
 "035":
@@ -566,7 +566,7 @@
       esto podría aprovecharse
       para acceder a funcionalidades
       y recursos restringidos.
-  category: __empty__
+  category: Authorization
   references: []
   metadata: {}
 "036":
@@ -583,7 +583,7 @@
       archivos temporales
       en ambientes de producción.
     description: __empty__
-  category: __empty__
+  category: Files
   references: []
   metadata: {}
 "037":
@@ -616,7 +616,7 @@
       con estos parámetros,
       un atacante puede acceder a estas rutas
       y comprometer información sensible.
-  category: __empty__
+  category: Files
   references: []
   metadata: {}
 "039":
@@ -654,7 +654,7 @@
       y reducir la posibilidad
       de que un atacante cargue un archivo
       que contiene software malicioso.
-  category: __empty__
+  category: Files
   references: []
   metadata: {}
 "040":
@@ -673,7 +673,7 @@
       de los archivos
       corresponde a su extensión.
     description: __empty__
-  category: __empty__
+  category: Files
   references: []
   metadata: {}
 "041":
@@ -693,7 +693,7 @@
       hacia el mismo sistema
       esté libre de código malicioso.
     description: __empty__
-  category: __empty__
+  category: Files
   references: []
   metadata: {}
 "042":
@@ -711,7 +711,7 @@
       archivos cuyo formato (estructura)
       es requerido por la operación del negocio.
     description: __empty__
-  category: __empty__
+  category: Files
   references: []
   metadata: {}
 "043":
@@ -729,7 +729,7 @@
       deben tener un tipo de contenido
       definido explícitamente.
     description: __empty__
-  category: __empty__
+  category: Files
   references: []
   metadata: {}
 "044":
@@ -749,7 +749,7 @@
       un conjunto de caracteres (charset)
       definido explícitamente.
     description: __empty__
-  category: __empty__
+  category: Files
   references: []
   metadata: {}
 "045":
@@ -767,7 +767,7 @@
       los metadatos antes de compartir
       un archivo o de hacerlo público.
     description: __empty__
-  category: __empty__
+  category: Files
   references: []
   metadata: {}
 "046":
@@ -786,7 +786,7 @@
       en la integridad de archivos críticos
       del sistema.
     description: __empty__
-  category: __empty__
+  category: Files
   references: []
   metadata: {}
 "048":
@@ -803,7 +803,7 @@
       deben tener tan pocas dependencias
       como sea posible.
     description: __empty__
-  category: __empty__
+  category: Architecture
   references: []
   metadata: {}
 "050":
@@ -837,7 +837,7 @@
       en dominios controlados por la organización
       con el fin para prevenir
       varios tipos de ataques por inyección.
-  category: __empty__
+  category: Architecture
   references: []
   metadata: {}
 "051":
@@ -854,7 +854,7 @@
       el código fuente
       en un repositorio centrl.
     description: __empty__
-  category: __empty__
+  category: Architecture
   references: []
   metadata: {}
 "062":
@@ -899,7 +899,7 @@
       integridad, disponibilidad
       y resiliencia contínuas de los sistemas
       y servicios.
-  category: __empty__
+  category: Architecture
   references: []
   metadata: {}
 "072":
@@ -930,7 +930,7 @@
     description: >
       El tiempo de respuesta
       es una medida relevante
-  category: __empty__
+  category: Architecture
   references: []
   metadata: {}
 "075":
@@ -1427,7 +1427,7 @@
       o administrador,
       ya que este no debería ser
       un rol predeterminado.
-  category: __empty__
+  category: Authorization
   references: []
   metadata: {}
 "096":
@@ -1462,7 +1462,7 @@
       y el rol de cada usuario
       debería también estar
       claramente establecido.
-  category: __empty__
+  category: Authorization
   references: []
   metadata: {}
 "114":
@@ -1481,7 +1481,7 @@
       con credenciales caducadas,
       revocadas o bloqueadas.
     description: __empty__
-  category: __empty__
+  category: Authorization
   references: []
   metadata: {}
 "115":
@@ -4794,7 +4794,7 @@
       como puertas de enlace
       de control de acceso, servidores
       y funciones sin servidor.
-  category: __empty__
+  category: Architecture
   references: []
   metadata: {}
 "273":
@@ -5578,7 +5578,7 @@
       de acceso del lado del cliente
       porque es propenso a ser eludido
       y / o manipulado.
-  category: __empty__
+  category: Architecture
   references: []
   metadata: {}
 "321":
@@ -5781,7 +5781,7 @@
       deben controlarse para que los usuarios
       solo sean redirigidos
       a los sitios de confianza.
-  category: __empty__
+  category: Architecture
   references: []
   metadata: {}
 "325":
@@ -5827,7 +5827,7 @@
       como Internet,
       entonces no debe contener
       ninguna información confidencial.
-  category: __empty__
+  category: Architecture
   references: []
   metadata: {}
 "326":
@@ -5938,7 +5938,7 @@
       debe incluir un rate limit
       que considere un flujo de solicitud
       regular entre un host y el servidor.
-  category: __empty__
+  category: Architecture
   references: []
   metadata: {}
 "328":
@@ -6455,7 +6455,7 @@
       de usuario que contienen
       información confidencial
       no deben almacenarse en ella.
-  category: __empty__
+  category: Files
   references: []
   metadata: {}
 "340":
@@ -6511,7 +6511,7 @@
       Esto reduce el riesgo
       de vectores XSS u otros ataques
       del archivo cargado.
-  category: __empty__
+  category: Files
   references: []
   metadata: {}
 "341":
@@ -6558,7 +6558,7 @@
       se deben otorgar permisos
       y acceso utilizando el principio
       de negación de forma predeterminada.
-  category: __empty__
+  category: Authorization
   references: []
   metadata: {}
 "342":
@@ -6908,7 +6908,7 @@
       Server-Side Request Forgery (SSRF)
       y los ataques de inclusión
       de archivos remotos (RFI).
-  category: __empty__
+  category: Architecture
   references: []
   metadata: {}
 "349":
@@ -6948,7 +6948,7 @@
       deben configurarse lo más estrictamente
       posible e incluirse en todas
       las solicitudes de servidores y respuestas.
-  category: __empty__
+  category: Architecture
   references: []
   metadata: {}
 "350":
@@ -7087,7 +7087,7 @@
       con una extensión específica
       ayuda a prevenir la exposición
       involuntaria de la información técnica.
-  category: __empty__
+  category: Architecture
   references: []
   metadata: {}
 "356":
@@ -7137,7 +7137,7 @@
       que se validen utilizando firmas digitales
       en lugar de secretos de la API estática.
     description: __empty__
-  category: __empty__
+  category: Session
   references: []
   metadata: {}
 "358":
@@ -7489,7 +7489,7 @@
       independientemente de la actividad
       del usuario (tiempo de espera absoluto).
     description: __empty__
-  category: __empty__
+  category: Session
   references: []
   metadata: {}
 "370":
