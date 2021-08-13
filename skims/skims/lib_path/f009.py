@@ -21,6 +21,7 @@ from parse_java_properties import (
     load as load_java_properties,
 )
 from pyparsing import (
+    ParseResults,
     Regex,
 )
 import re
@@ -275,6 +276,51 @@ async def java_properties_sensitive_data(
     )
 
 
+def _sensitive_key_in_json(
+    content: str,
+    path: str,
+) -> core_model.Vulnerabilities:
+    key_smell = {
+        "api_key",
+        "current_key",
+    }
+
+    def check_key(tokens: ParseResults) -> bool:
+        for token in tokens:
+            key, _ = token.split(":", maxsplit=1)
+            if key.strip(' "') in key_smell:
+                return True
+        return False
+
+    grammar = Regex(r"\s*\"\w+\"\s*:\s*\"[A-Za-z0-9]{5,}\"")
+    grammar.addCondition(check_key)
+
+    return get_vulnerabilities_blocking(
+        content=content,
+        cwe={"798"},
+        description=t(
+            key="src.lib_path.f009.sensitive_key_in_json.description",
+            path=path,
+        ),
+        finding=core_model.FindingEnum.F009,
+        grammar=grammar,
+        path=path,
+    )
+
+
+@SHIELD
+@TIMEOUT_1MIN
+async def sensitive_key_in_json(
+    content: str,
+    path: str,
+) -> core_model.Vulnerabilities:
+    return await in_process(
+        _sensitive_key_in_json,
+        content=content,
+        path=path,
+    )
+
+
 def _web_config_user_pass(
     content: str,
     path: str,
@@ -386,6 +432,13 @@ async def analyze(  # pylint: disable=too-many-arguments
     elif file_extension in EXTENSIONS_JAVA_PROPERTIES:
         coroutines.append(
             java_properties_sensitive_data(
+                content=await content_generator(),
+                path=path,
+            )
+        )
+    elif file_extension in {"json"}:
+        coroutines.append(
+            sensitive_key_in_json(
                 content=await content_generator(),
                 path=path,
             )
