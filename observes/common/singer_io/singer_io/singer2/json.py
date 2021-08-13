@@ -131,6 +131,10 @@ class DictFactory:
     def load(cls, json_file: IO_FILE[str]) -> Dict[str, Any]:
         return json.load(json_file)
 
+    @classmethod
+    def from_json(cls, json_obj: JsonObj) -> Dict[str, Any]:
+        return {key: val.to_raw() for key, val in json_obj.items()}
+
 
 @dataclass(frozen=True)
 class JsonValFactory:
