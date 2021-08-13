@@ -1,3 +1,4 @@
+import itertools
 from lib_root.f052 import (
     _csharp_yield_member_access,
     _csharp_yield_object_creation,
@@ -40,9 +41,9 @@ def csharp_verify_decoder(
                     member,
                 )
                 if method == "decoder.Decode":
-                    pred = g.pred(shard.graph, member)
+                    pred = g.pred(shard.graph, member)[0]
                     props = g.get_ast_childs(
-                        shard.graph, pred[0], depth=4, label_type="identifier"
+                        shard.graph, pred, depth=4, label_type="identifier"
                     )
                     if not verify_prop(shard.graph, props):
                         yield shard, member
@@ -80,37 +81,25 @@ def csharp_jwt_signed(
     object_name = {"JwtBuilder"}
 
     def n_ids() -> graph_model.GraphShardNodes:
-        for shard in graph_db.shards_by_language(
-            graph_model.GraphShardMetadataLanguage.CSHARP,
+        for shard, member in itertools.chain(
+            _csharp_yield_member_access(graph_db, object_name),
+            _csharp_yield_object_creation(graph_db, object_name),
         ):
-            members_jwt = list(
-                _csharp_yield_member_access(graph_db, object_name)
-            )
-            object_jwt = list(
-                _csharp_yield_object_creation(graph_db, object_name)
-            )
-
-            object_jwt += members_jwt
-
-            for element in object_jwt:
-                if not check_pred(shard.graph, elem_jwt=element[1]):
-                    yield shard, element[1]
+            if not check_pred(shard.graph, elem_jwt=member):
+                yield shard, member
 
     def check_pred(
         graph: graph_model.GraphShard, depth: int = 1, elem_jwt: int = 0
     ) -> bool:
-        pred = g.pred(graph, elem_jwt, depth)
-        if (
-            graph.nodes[pred[0]].get("label_type")
-            == "member_access_expression"
-        ):
-            prop = g.get_ast_childs(graph, pred[0], "identifier")
-            if graph.nodes[prop[0]].get("label_text") == "MustVerifySignature":
+        pred = g.pred(graph, elem_jwt, depth)[0]
+        if graph.nodes[pred].get("label_type") == "member_access_expression":
+            prop = g.get_ast_childs(graph, pred, "identifier")[0]
+            if graph.nodes[prop].get("label_text") == "MustVerifySignature":
                 return True
-        if graph.nodes[pred[0]].get("label_type") != "variable_declaration":
-            signed = check_pred(graph, depth + 1, pred[0])
+        if graph.nodes[pred].get("label_type") != "variable_declarator":
+            signed = check_pred(graph, depth + 1, pred)
         else:
-            signed = False
+            return False
         return signed
 
     return get_vulnerabilities_from_n_ids(
