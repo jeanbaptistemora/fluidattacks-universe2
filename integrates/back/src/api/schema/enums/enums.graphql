@@ -1,17 +1,26 @@
+"Actions after getting blocked by an event"
 enum ActionsAfterBlocking {
+  "The analyst started working on another group from another client"
   EXECUTE_OTHER_GROUP_OTHER_CLIENT
+  "The analyst started working on another group from the same client"
   EXECUTE_OTHER_GROUP_SAME_CLIENT
+  "Analyst started working on another group from another client"
   EXECUTE_OTHER_PROJECT_OTHER_CLIENT
     @deprecated(reason: """This enum field  will be removed
     after 2021/12/20. Use `EXECUTE_OTHER_GROUP_OTHER_CLIENT` instead.""")
+  "The analyst started working on another group from the same client"
   EXECUTE_OTHER_PROJECT_SAME_CLIENT
     @deprecated(reason: """This enum field  will be removed
     after 2021/12/20. Use `EXECUTE_OTHER_GROUP_SAME_CLIENT` instead.""")
+  "The analyst stopped their work"
   NONE
+  "The analyst started doing something else"
   OTHER
+  "The analyst started training"
   TRAINING
 }
 
+"Actions before getting blocked by an event"
 enum ActionsBeforeBlocking {
   DOCUMENT_GROUP
   DOCUMENT_PROJECT @deprecated(reason: """This enum field  will
@@ -42,43 +51,70 @@ enum AffectedComponents {
   VPN_CONNECTION
 }
 
+"OAuth providers"
 enum AuthProvider {
+  "Bitbucket"
   BITBUCKET
+  "Google"
   GOOGLE
+  "Microsoft"
   MICROSOFT
 }
 
+"Origin of requests made"
 enum CallerOrigin {
+  "The request came from the API"
   API
+  "The request came from the ASM Frontend"
   FRONT
 }
 
+"Git root cloning status"
 enum CloningStatus {
+  "Cloning failed"
   FAILED
+  "Cloning was successful"
   OK
+  "Cloning status unknown"
   UNKNOWN
 }
 
+"Reasons to remove a Finding"
 enum RemoveFindingJustification {
+  "Finding is a duplicate of another"
   DUPLICATED
+  "Finding is a false positive"
   FALSE_POSITIVE
+  "Finding is not required"
   NOT_REQUIRED
 }
 
+"Reasons to remove a Vulnerability"
 enum RemoveVulnerabilityJustification {
+  "Vulnerability is a duplicate of another"
   DUPLICATED
+  "Vulnerability is a false positive"
   FALSE_POSITIVE
+  "Vulnerability was mistakenly reported"
   REPORTING_ERROR
 }
 
+"Reasons to downgrade a Group's services/plans"
 enum UpdateGroupReason {
+  "Budget constraints"
   BUDGET
+  "Client decided to end the security testing"
   GROUP_FINALIZATION
+  "Client decided to put on hold the security testing"
   GROUP_SUSPENSION
+  "No particular reason"
   NONE
+  "Another reason not covered"
   OTHER
+  "Client decided to end the security testing"
   PROJECT_FINALIZATION @deprecated(reason: """This enum field
     will be removed after 2021/12/20. Use `GROUP_FINALIZATION` instead.""")
+  "Client decided to put on hold the security testing"
   PROJECT_SUSPENSION @deprecated(reason: """This enum field
     will be removed after 2021/12/20. Use `GROUP_SUSPENSION` instead.""")
 }
