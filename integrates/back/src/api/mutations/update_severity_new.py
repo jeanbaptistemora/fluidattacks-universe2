@@ -44,6 +44,7 @@ from redis_cluster.operations import (
 )
 from typing import (
     Any,
+    Dict,
 )
 
 
@@ -58,15 +59,20 @@ async def mutate(
     _parent: None, info: GraphQLResolveInfo, finding_id: str, **kwargs: Any
 ) -> SimplePayload:
     try:
+        parameters: Dict
+        if "data" in kwargs:
+            parameters = kwargs.get("data")
+        else:
+            parameters = kwargs
         finding_loader = info.context.loaders.finding_new
         finding: Finding = await finding_loader.load(finding_id)
-        if "cvss_version" not in kwargs["data"]:
+        if "cvss_version" not in parameters:
             raise NotCvssVersion()
-        cvss_version = str(kwargs["data"]["cvss_version"])
+        cvss_version = str(parameters["cvss_version"])
         try:
             cvss_fields = {
                 key: Decimal(str(value))
-                for key, value in kwargs["data"].items()
+                for key, value in parameters.items()
                 if key != "cvss_version"
             }
         except InvalidOperation:
