@@ -1,5 +1,6 @@
 include:
   - local: observes/common/singer_io/.gitlab-ci.yml
+  - local: observes/code_etl/.gitlab-ci.yml
   - local: observes/singer/tap_announcekit/.gitlab-ci.yml
   - local: observes/singer/tap_bugsnag/.gitlab-ci.yml
   - local: observes/singer/tap_gitlab/.gitlab-ci.yml
@@ -71,9 +72,6 @@ include:
 # lint jobs
 
 observes.lint.architecture:
-  <<: *lint_job
-
-observes.lint.code-etl:
   <<: *lint_job
 
 observes.lint.job-last-success:
@@ -179,11 +177,6 @@ makes.test.observes:
   <<: *observes_in_master_branch
   stage: test-code
   needs: []
-
-observes.test.code-etl:
-  <<: *test_job
-  needs:
-    - observes.lint.code-etl
 
 observes.test.tap-csv:
   <<: *test_job
