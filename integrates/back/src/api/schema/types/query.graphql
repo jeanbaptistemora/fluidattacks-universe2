@@ -51,7 +51,7 @@ type Query {
   "List groups with forces"
   groupsWithForces: [String]
 
-  "InternalNames entity"
+  "Gets an InternalName depending on the entity"
   internalNames(
     "Query internal names from this entity"
     entity: NameEntity!

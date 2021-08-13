@@ -1,26 +1,37 @@
 "Event type definition"
 type Event {
+  "Where the event was present"
   accessibility: String
   affectation: String
+  "Components involved or affected by the event, if applicable"
   affectedComponents: String
   analyst: String
   client: String
   closingDate: String
+  "Comment/consult array regarding the event"
   consulting: [Consult!]
+  "Where the analyst physically was when the event happened"
   context: String
+  "Comment laying out or explaining the event"
   detail: String
+  "Datetime of the event in the format `yyyy-MM-ddThh:mm:ssZ`"
   eventDate: String
   eventStatus: String
+  "The kind of event that happened"
   eventType: String
   evidence: String
   "Upload date of evidence image"
   evidenceDate: String
+  "Evidence file of the event"
   evidenceFile: String
   "Upload date of evidence file"
   evidenceFileDate: String
+  "Name of the group linked to the event"
   groupName: String
   historicState: [GenericScalar]
+  "Identifier of the event"
   id: String
+  "Name of the group linked to the event"
   projectName: String @deprecated(reason: """This field will
     be removed after 2021/12/20. Use `groupName` instead.""")
   subscription: String

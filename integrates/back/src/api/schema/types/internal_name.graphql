@@ -1,4 +1,5 @@
-"InternalNames type definition"
+"InternalNames entity"
 type InternalName {
+  "Name for the requested entity"
   name: String
 }
