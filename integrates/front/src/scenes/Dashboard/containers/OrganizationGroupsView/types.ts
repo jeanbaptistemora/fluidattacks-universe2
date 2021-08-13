@@ -2,6 +2,7 @@ interface IGroupData {
   description: string;
   machine: string;
   squad: string;
+  service: string;
   hasMachine: boolean;
   hasSquad: boolean;
   name: string;

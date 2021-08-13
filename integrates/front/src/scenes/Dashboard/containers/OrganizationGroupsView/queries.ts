@@ -10,6 +10,7 @@ export const GET_ORGANIZATION_GROUPS: DocumentNode = gql`
         description
         hasMachine
         hasSquad
+        service
         subscription
         userRole
       }
