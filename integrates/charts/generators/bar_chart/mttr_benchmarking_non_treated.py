@@ -16,9 +16,15 @@ from charts.generators.bar_chart.utils import (
     get_vulnerability_reattacks,
     OrganizationBenchmarking,
 )
+from context import (
+    FI_API_STATUS,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
+)
+from db_model.findings.types import (
+    Finding,
 )
 from decimal import (
     Decimal,
@@ -26,6 +32,7 @@ from decimal import (
 )
 from groups.domain import (
     get_mean_remediate_non_treated,
+    get_mean_remediate_non_treated_new,
 )
 from newutils.vulnerabilities import (
     filter_non_confirmed_zero_risk,
@@ -42,10 +49,19 @@ from typing import (
 
 @alru_cache(maxsize=None, typed=True)
 async def get_group_reattacks(*, group: str, loaders: Dataloaders) -> int:
-    group_findings = await loaders.group_findings.load(group)
-    all_vulnerabilities = await loaders.finding_vulns.load_many_chained(
-        [str(finding["finding_id"]) for finding in group_findings]
-    )
+    if FI_API_STATUS == "migration":
+        group_findings_new: Tuple[
+            Finding, ...
+        ] = await loaders.group_findings_new.load(group.lower())
+        all_vulnerabilities = await loaders.finding_vulns.load_many_chained(
+            [finding.id for finding in group_findings_new]
+        )
+    else:
+        group_findings = await loaders.group_findings.load(group)
+        all_vulnerabilities = await loaders.finding_vulns.load_many_chained(
+            [str(finding["finding_id"]) for finding in group_findings]
+        )
+
     vulnerabilities = filter_non_confirmed_zero_risk(all_vulnerabilities)
     vulnerabilities_excluding_eternally_accepted = [
         vulnerability
@@ -63,13 +79,23 @@ async def get_group_reattacks(*, group: str, loaders: Dataloaders) -> int:
 async def get_data_one_organization(
     *, organization_id: str, groups: Tuple[str, ...], loaders: Dataloaders
 ) -> OrganizationBenchmarking:
-    groups_mttr_data = await collect(
-        [
-            get_mean_remediate_non_treated(loaders, group.lower())
-            for group in groups
-        ],
-        workers=24,
-    )
+    if FI_API_STATUS == "migration":
+        groups_mttr_data = await collect(
+            [
+                get_mean_remediate_non_treated_new(loaders, group.lower())
+                for group in groups
+            ],
+            workers=24,
+        )
+    else:
+        groups_mttr_data = await collect(
+            [
+                get_mean_remediate_non_treated(loaders, group.lower())
+                for group in groups
+            ],
+            workers=24,
+        )
+
     groups_reattacks_data = await collect(
         [
             get_group_reattacks(group=group.lower(), loaders=loaders)
