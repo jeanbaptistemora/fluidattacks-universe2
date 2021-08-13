@@ -15163,7 +15163,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -15201,7 +15201,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -15239,7 +15239,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -15277,7 +15277,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -15315,7 +15315,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -15353,7 +15353,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -15391,7 +15391,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -15429,7 +15429,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -15467,7 +15467,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -15505,7 +15505,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -15543,7 +15543,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -15581,7 +15581,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -15619,7 +15619,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -15657,7 +15657,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -15695,7 +15695,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -15733,7 +15733,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -15771,7 +15771,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -15809,7 +15809,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -15847,7 +15847,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -15885,7 +15885,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -15923,7 +15923,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -15961,7 +15961,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -15999,7 +15999,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -16037,7 +16037,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -16075,7 +16075,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Manipulate Data
   score:
     base:
       attack_vector: "N"
@@ -16113,7 +16113,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -16151,7 +16151,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -16189,7 +16189,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -16227,7 +16227,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -16273,7 +16273,7 @@
       utilizando una configuración segura.
     threat: >
       Atacante anónimo desde Internet
-  category: __empty__
+  category: Deceptive Interactions
   score:
     base:
       attack_vector: "N"
