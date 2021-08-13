@@ -2233,6 +2233,7 @@ export const enTranslations: ResourceKey = {
       invitation: "Invitation",
       lastlogin: "Last login",
       phoneNumber: "Phone Number",
+      resendEmail: "Resend",
       userOrganization: "Organization",
       userResponsibility: "Responsibility",
       userRole: "Role",

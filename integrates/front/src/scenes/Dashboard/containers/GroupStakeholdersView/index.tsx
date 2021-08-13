@@ -42,6 +42,22 @@ import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
+interface IStakeholderDataSet {
+  email: string;
+  firstLogin: string;
+  invitationState: string;
+  lastLogin: string;
+  organization: string;
+  phoneNumber: string;
+  groupName: string;
+  responsibility: string;
+  role: string;
+  invitationResend: React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  >;
+}
+
 const GroupStakeholdersView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
@@ -137,10 +153,15 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
       header: translate.t("searchFindings.usersTable.invitation"),
       width: "80px",
     },
+    {
+      dataField: "invitationResend",
+      header: "",
+      width: "80px",
+    },
   ];
 
   // GraphQL operations
-  const { data, refetch } = useQuery(GET_STAKEHOLDERS, {
+  const { data, refetch } = useQuery<IGetStakeholdersAttrs>(GET_STAKEHOLDERS, {
     onError: (error: ApolloError): void => {
       msgError(translate.t("groupAlerts.errorTextsad"));
       Logger.warning("An error occurred loading group stakeholders", error);
@@ -208,8 +229,8 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     }
   );
 
-  const handleSubmit: (values: IGetStakeholdersAttrs) => void = useCallback(
-    (values: IGetStakeholdersAttrs): void => {
+  const handleSubmit: (values: IStakeholderAttrs) => void = useCallback(
+    (values: IStakeholderAttrs): void => {
       closeUserModal();
       if (userModalAction === "add") {
         void grantStakeholderAccess({
@@ -248,8 +269,28 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     return <div />;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- DB queries use "any" type
-  const stakeholdersList: IStakeholderAttrs[] = data.group.stakeholders;
+  const stakeholdersList = data.group.stakeholders.map(
+    (stakeholder: IStakeholderAttrs): IStakeholderDataSet => {
+      function handleResendEmail(): void {
+        const resendStakeholder = {
+          ...stakeholder,
+          role: stakeholder.role.toUpperCase(),
+        };
+        setuserModalAction("add");
+        handleSubmit(resendStakeholder);
+      }
+      const isPending = stakeholder.invitationState === "PENDING";
+
+      return {
+        ...stakeholder,
+        invitationResend: (
+          <Button disabled={!isPending} onClick={handleResendEmail}>
+            {translate.t("searchFindings.usersTable.resendEmail")}
+          </Button>
+        ),
+      };
+    }
+  );
 
   return (
     <React.StrictMode>

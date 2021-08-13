@@ -29,6 +29,7 @@ interface IGetStakeholdersAttrs {
 interface IStakeholderAttrs {
   email: string;
   firstLogin: string;
+  invitationState: string;
   lastLogin: string;
   organization: string;
   phoneNumber: string;
