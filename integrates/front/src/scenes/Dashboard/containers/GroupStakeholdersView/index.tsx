@@ -7,8 +7,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
+import { selectFilter } from "react-bootstrap-table2-filter";
 import { useParams } from "react-router-dom";
 
+import { selectOptionsInvitation, selectOptionsRole } from "./filters";
 import { handleEditError, handleGrantError } from "./helpers";
 
 import { Button } from "components/Button";
@@ -35,53 +37,10 @@ import type {
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
+import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
-
-const tableHeaders: IHeaderConfig[] = [
-  {
-    dataField: "email",
-    header: translate.t("searchFindings.usersTable.usermail"),
-    width: "33%",
-  },
-  {
-    dataField: "role",
-    formatter: (value: string): string =>
-      translate.t(`userModal.roles.${_.camelCase(value)}`, {
-        defaultValue: "-",
-      }),
-    header: translate.t("searchFindings.usersTable.userRole"),
-    width: "12%",
-  },
-  {
-    dataField: "responsibility",
-    header: translate.t("searchFindings.usersTable.userResponsibility"),
-    width: "12%",
-  },
-  {
-    dataField: "phoneNumber",
-    header: translate.t("searchFindings.usersTable.phoneNumber"),
-    width: "12%",
-  },
-  {
-    dataField: "firstLogin",
-    header: translate.t("searchFindings.usersTable.firstlogin"),
-    width: "12%",
-  },
-  {
-    dataField: "lastLogin",
-    formatter: timeFromNow,
-    header: translate.t("searchFindings.usersTable.lastlogin"),
-    width: "12%",
-  },
-  {
-    dataField: "invitationState",
-    formatter: pointStatusFormatter,
-    header: translate.t("searchFindings.usersTable.invitation"),
-    width: "80px",
-  },
-];
 
 const GroupStakeholdersView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
@@ -102,6 +61,83 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
   const closeUserModal: () => void = useCallback((): void => {
     setUserModalOpen(false);
   }, []);
+
+  const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>(
+    "stakeHoldersFilters",
+    false
+  );
+
+  const handleUpdateFilter: () => void = useCallback((): void => {
+    setFilterEnabled(!isFilterEnabled);
+  }, [isFilterEnabled, setFilterEnabled]);
+
+  const onFilterRole: (filterVal: string) => void = (
+    filterVal: string
+  ): void => {
+    sessionStorage.setItem("roleFilter", filterVal);
+  };
+
+  const onFilterInvitation: (filterVal: string) => void = (
+    filterVal: string
+  ): void => {
+    sessionStorage.setItem("invitationFilter", filterVal);
+  };
+
+  const tableHeaders: IHeaderConfig[] = [
+    {
+      dataField: "email",
+      header: translate.t("searchFindings.usersTable.usermail"),
+      width: "33%",
+    },
+    {
+      dataField: "role",
+      filter: selectFilter({
+        defaultValue: _.get(sessionStorage, "roleFilter"),
+        onFilter: onFilterRole,
+        options: selectOptionsRole,
+        placeholder: "ALL",
+      }),
+      formatter: (value: string): string =>
+        translate.t(`userModal.roles.${_.camelCase(value)}`, {
+          defaultValue: "-",
+        }),
+      header: translate.t("searchFindings.usersTable.userRole"),
+      width: "12%",
+    },
+    {
+      dataField: "responsibility",
+      header: translate.t("searchFindings.usersTable.userResponsibility"),
+      width: "12%",
+    },
+    {
+      dataField: "phoneNumber",
+      header: translate.t("searchFindings.usersTable.phoneNumber"),
+      width: "12%",
+    },
+    {
+      dataField: "firstLogin",
+      header: translate.t("searchFindings.usersTable.firstlogin"),
+      width: "12%",
+    },
+    {
+      dataField: "lastLogin",
+      formatter: timeFromNow,
+      header: translate.t("searchFindings.usersTable.lastlogin"),
+      width: "12%",
+    },
+    {
+      dataField: "invitationState",
+      filter: selectFilter({
+        defaultValue: _.get(sessionStorage, "invitationFilter"),
+        onFilter: onFilterInvitation,
+        options: selectOptionsInvitation,
+        placeholder: "ALL",
+      }),
+      formatter: pointStatusFormatter,
+      header: translate.t("searchFindings.usersTable.invitation"),
+      width: "80px",
+    },
+  ];
 
   // GraphQL operations
   const { data, refetch } = useQuery(GET_STAKEHOLDERS, {
@@ -290,6 +326,8 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                   exportCsv={true}
                   headers={tableHeaders}
                   id={"tblUsers"}
+                  isFilterEnabled={isFilterEnabled}
+                  onUpdateEnableFilter={handleUpdateFilter}
                   pageSize={10}
                   search={true}
                   selectionMode={{
