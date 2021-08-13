@@ -4,7 +4,7 @@ export const enTranslations: ResourceLanguage = {
   about: {
     bin: "Bin:",
     commit: "Commit:",
-    deploymentDate: "Deployment Date:",
+    deploymentDate: "Deploy Date:",
   },
   common: {
     error: {
