@@ -120,10 +120,14 @@ enum UpdateGroupReason {
 }
 
 enum Entity {
+  "Group"
   GROUP
+  "Organization"
   ORGANIZATION
+  "Group"
   PROJECT @deprecated(reason: """This enum field  will be
     removed after 2021/12/20. Use `GROUP` instead.""")
+  "User"
   USER
 }
 
@@ -132,16 +136,25 @@ enum EventAccessibility {
   REPOSITORY
 }
 
+"Place where the analyst was in when the event happened"
 enum EventContext {
+  "At the client's"
   CLIENT
+  "Fluid"
   FLUID
+  "Another place"
   OTHER
+  "Planning"
   PLANNING
+  "Telecommuting"
   TELECOMMUTING
 }
 
+"Types of Event evidence"
 enum EventEvidenceType {
+  "File"
   FILE
+  "Image"
   IMAGE
 }
 
@@ -176,14 +189,21 @@ enum EvidenceType {
   RECORDS
 }
 
+"Stakeholder invitation state"
 enum InvitationState {
+  "Acceptance confirmed"
   CONFIRMED
+  "Acceptance pending"
   PENDING
+  "Unregistered invitation"
   UNREGISTERED
 }
 
+"Type of Finding consult"
 enum FindingConsultType {
+  "To share information about the finding"
   CONSULT
+  "To review the finding and suggest adjustments"
   OBSERVATION
 }
 
@@ -192,11 +212,17 @@ enum FindingType {
   SECURITY
 }
 
+"Entity report frequency"
 enum Frequency {
+  "Daily"
   DAILY
+  "Hourly"
   HOURLY
+  "Monthly"
   MONTHLY
+  "Never receive reports"
   NEVER
+  "Weekly"
   WEEKLY
 }
 
@@ -224,10 +250,15 @@ enum OrganizationFindindPolicy {
   REJECTED
 }
 
+"Status of an organization finding policy"
 enum OrganizationFindingPolicyStatus {
+  "Approved"
   APPROVED
+  "Inactive"
   INACTIVE
+  "Rejected"
   REJECTED
+  "Submitted"
   SUBMITTED
 }
 
@@ -253,13 +284,19 @@ enum ReportType {
   XLS
 }
 
+"Root state"
 enum ResourceState {
+  "Active root"
   ACTIVE
+  "Inactive root"
   INACTIVE
 }
 
+"Testing service type"
 enum ServiceType {
+  "Black-box testing"
   BLACK
+  "White-box testing"
   WHITE
 }
 
@@ -268,9 +305,13 @@ enum Sorts {
   YES
 }
 
+"Stakeholder entity scope"
 enum StakeholderEntity {
+  "Group"
   GROUP
+  "Organization"
   ORGANIZATION
+  "Group"
   PROJECT @deprecated(reason: """This enum field  will be
     removed after 2021/12/20. Use `GROUP` instead.""")
 }
