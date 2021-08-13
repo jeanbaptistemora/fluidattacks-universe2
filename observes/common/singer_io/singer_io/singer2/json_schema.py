@@ -63,3 +63,8 @@ class JsonSchemaFactory:
     def from_raw(cls, raw_schema: str) -> JsonSchema:
         raw = DictFactory.loads(raw_schema)
         return cls.from_dict(raw)
+
+    @classmethod
+    def from_json(cls, json_obj: JsonObj) -> JsonSchema:
+        raw = DictFactory.from_json(json_obj)
+        return cls.from_dict(raw)
