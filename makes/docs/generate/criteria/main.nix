@@ -41,7 +41,7 @@ let
 
   # Generate requirements list for a vulnerability
   vulnReq = id:
-    "- [${id}. ${data_requirements.${id}.en.title}](/criteria2/requirements/${id})";
+    "- [${id}. ${data_requirements.${id}.en.title}](/criteria/requirements/${id})";
   reqsForVuln = reqs:
     builtins.concatStringsSep "\n" (builtins.map vulnReq reqs);
 
@@ -57,7 +57,7 @@ let
   reqRef = data:
     let
       standard = data_compliance.${data.standard_id};
-      standard_link = "/criteria2/compliance/${data.standard_id}";
+      standard_link = "/criteria/compliance/${data.standard_id}";
       definition = standard.definitions.${data.definition_id};
     in
     "- [${standard.title}-${data.definition_id}: ${definition.title}](${standard_link})";

@@ -25,7 +25,7 @@ function _clean {
 }
 
 function main {
-  local src='docs/src/docs/criteria2'
+  local src='docs/src/docs/criteria'
   local path_vulnerabilities="${src}/vulnerabilities"
   local path_requirements="${src}/requirements"
   local path_compliance="${src}/compliance"
