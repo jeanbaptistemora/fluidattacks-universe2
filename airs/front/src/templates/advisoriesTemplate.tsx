@@ -37,8 +37,13 @@ const AdvisoriesIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { title } = data.asciidoc.document;
-  const { banner, description, keywords, slug } = data.asciidoc.pageAttributes;
+  const {
+    banner,
+    description,
+    keywords,
+    slug,
+    title,
+  } = data.markdownRemark.frontmatter;
 
   return (
     <React.Fragment>
@@ -93,19 +98,17 @@ export default AdvisoriesIndex;
 
 export const query: void = graphql`
   query AdvisoriesIndex($slug: String!) {
-    asciidoc(fields: { slug: { eq: $slug } }) {
-      document {
-        title
-      }
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       fields {
         slug
       }
-      pageAttributes {
+      frontmatter {
         description
         banner
         keywords
         slug
+        title
       }
     }
   }
