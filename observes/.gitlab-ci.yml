@@ -1,6 +1,7 @@
 include:
   - local: observes/common/singer_io/.gitlab-ci.yml
   - local: observes/code_etl/.gitlab-ci.yml
+  - local: observes/infra/.gitlab-ci.yml
   - local: observes/singer/tap_announcekit/.gitlab-ci.yml
   - local: observes/singer/tap_bugsnag/.gitlab-ci.yml
   - local: observes/singer/tap_csv/.gitlab-ci.yml
@@ -65,11 +66,6 @@ include:
   <<: *scheduled
   tags: [autoscaling-large]
 
-.test_job: &test_job
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: test-code
-
 # lint jobs
 
 observes.lint.architecture:
@@ -110,7 +106,6 @@ observes.lint.tap-formstack:
 
 observes.lint.tap-json:
   <<: *lint_job
-
 
 observes.lint.tap-timedoctor:
   <<: *lint_job
@@ -175,17 +170,3 @@ makes.test.observes:
   <<: *observes_in_master_branch
   stage: test-code
   needs: []
-
-# test infra jobs
-
-observes.job.infra.test:
-  <<: *makes
-  <<: *observes_in_dev_branch
-  stage: test-infra
-
-# deploy infra jobs
-
-observes.job.infra.apply:
-  <<: *makes
-  <<: *observes_in_master_branch
-  stage: deploy-infra
