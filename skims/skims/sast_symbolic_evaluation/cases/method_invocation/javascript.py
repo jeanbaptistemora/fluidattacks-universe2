@@ -2,6 +2,7 @@ import functools
 from model.graph_model import (
     GraphShardMetadataLanguage,
     SyntaxStepDeclaration,
+    SyntaxStepLiteral,
     SyntaxStepMethodInvocation,
 )
 from sast_symbolic_evaluation.types import (
@@ -28,6 +29,20 @@ def javascript_only(
         return func(args)
 
     return wrapper_decorator
+
+
+def evaluate_required(args: EvaluatorArgs) -> None:
+    returns = {
+        "child_process": "child_process",
+        "express": "core.Express",
+    }
+    method: SyntaxStepMethodInvocation = args.syntax_step
+    if method.method != "require":
+        return
+
+    module: SyntaxStepLiteral = args.dependencies[0]
+    if isinstance(module, SyntaxStepLiteral):
+        method.return_type = returns.get(module.value)
 
 
 @javascript_only

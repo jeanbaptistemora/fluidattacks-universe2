@@ -10,6 +10,9 @@ from sast_symbolic_evaluation.cases.method_invocation.java import (
     attempt_java_security_msgdigest,
     attempt_java_util_properties_methods,
 )
+from sast_symbolic_evaluation.cases.method_invocation.javascript import (
+    evaluate_required as javascript_evaluate_required,
+)
 from sast_symbolic_evaluation.lookup import (
     lookup_class,
     lookup_field,
@@ -408,6 +411,7 @@ def evaluate(args: EvaluatorArgs) -> None:
 
     if language in (
         graph_model.GraphShardMetadataLanguage.JAVA,
+        graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
         graph_model.GraphShardMetadataLanguage.CSHARP,
     ):
         evaluate_many(args)
@@ -695,6 +699,11 @@ def analyze_method_invocation_values(
     method = method or args.syntax_step.method
     method_var, method_path = split_on_first_dot(method)
     method_var_decl_type = None
+
+    language = args.shard.metadata.language
+
+    if language == graph_model.GraphShardMetadataLanguage.JAVASCRIPT:
+        javascript_evaluate_required(args)
 
     # lookup methods with teh format new Test().some()
     # last argument is teh instance
