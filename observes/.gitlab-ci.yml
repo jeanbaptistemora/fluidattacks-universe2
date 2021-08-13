@@ -3,6 +3,7 @@ include:
   - local: observes/code_etl/.gitlab-ci.yml
   - local: observes/singer/tap_announcekit/.gitlab-ci.yml
   - local: observes/singer/tap_bugsnag/.gitlab-ci.yml
+  - local: observes/singer/tap_csv/.gitlab-ci.yml
   - local: observes/singer/tap_gitlab/.gitlab-ci.yml
   - local: observes/singer/tap_mailchimp/.gitlab-ci.yml
   - local: observes/singer/tap_mixpanel/.gitlab-ci.yml
@@ -101,9 +102,6 @@ observes.lint.streamer-zoho-crm:
 observes.lint.tap-checkly:
   <<: *lint_job
 
-observes.lint.tap-csv:
-  <<: *lint_job
-
 observes.lint.tap-delighted:
   <<: *lint_job
 
@@ -177,11 +175,6 @@ makes.test.observes:
   <<: *observes_in_master_branch
   stage: test-code
   needs: []
-
-observes.test.tap-csv:
-  <<: *test_job
-  needs:
-    - observes.lint.tap-csv
 
 # test infra jobs
 
