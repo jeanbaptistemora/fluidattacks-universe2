@@ -12,7 +12,7 @@ makeDerivation {
   searchPaths = {
     envSources = [
       generic.linter
-      env.tap-announcekit.runtime
+      env.tap-announcekit.development
     ];
   };
   builder = path "/makes/packages/observes/generic/linter/lint_builder.sh";
