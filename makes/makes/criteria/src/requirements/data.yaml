@@ -1006,7 +1006,7 @@
       un comportamiento malicioso
       o se puede obstruir un análisis forense
       en caso de que un ataque sea exitoso.
-  category: __empty__
+  category: Logs
   references: []
   metadata: {}
 "077":
@@ -1051,7 +1051,7 @@
       ya que esto podría ser aprovechado
       por atacantes para explotar
       otras vulnerabilidades más adelante.
-  category: __empty__
+  category: Logs
   references: []
   metadata: {}
 "078":
@@ -1067,7 +1067,7 @@
       Los eventos con severidad de depuración
       no deben estar habilitados en producción.
     description: __empty__
-  category: __empty__
+  category: Logs
   references: []
   metadata: {}
 "079":
@@ -1097,7 +1097,7 @@
       deben contener el tiempo exacto
       de ocurrencia para permitir
       el seguimiento en una investigación.
-  category: __empty__
+  category: Logs
   references: []
   metadata: {}
 "080":
@@ -1139,7 +1139,7 @@
       ya que esto podría prevenir
       que una vulnerabilidad o brecha
       se note de manera oportuna.
-  category: __empty__
+  category: Logs
   references: []
   metadata: {}
 "083":
@@ -1188,7 +1188,7 @@
       en los registros,
       un atacante que tenga acceso a estos
       también puede obtener la información.
-  category: __empty__
+  category: Logs
   references: []
   metadata: {}
 "084":
@@ -1225,7 +1225,7 @@
       que el sistema haya recopilado de ellos,
       incluidos sus registros
       de transacciones.
-  category: __empty__
+  category: Logs
   references: []
   metadata: {}
 "085":
@@ -1262,7 +1262,7 @@
       e inspeccionar cualquier información
       que el sistema haya recopilado de ellos,
       incluido su historial de sesión.
-  category: __empty__
+  category: Logs
   references: []
   metadata: {}
 "088":
@@ -3611,7 +3611,7 @@
       y antes de solicitar su consentimiento
       para la recolección
       y procesamiento de datos.
-  category: __empty__
+  category: Privacy
   references: []
   metadata: {}
 "205":
@@ -4316,7 +4316,7 @@
       deben deshabilitar la publicación
       del SSID (Service Set Identifier).
     description: __empty__
-  category: __empty__
+  category: Networks
   references: []
   metadata: {}
 "248":
@@ -4333,7 +4333,7 @@
       no debe contener palabras
       de diccionario.
     description: __empty__
-  category: __empty__
+  category: Networks
   references: []
   metadata: {}
 "249":
@@ -4355,7 +4355,7 @@
       alcanzar solo
       las instalaciones autorizadas.
     description: __empty__
-  category: __empty__
+  category: Networks
   references: []
   metadata: {}
 "250":
@@ -4376,7 +4376,7 @@
       solo por uno de los puertos físicos
       del equipo.
     description: __empty__
-  category: __empty__
+  category: Networks
   references: []
   metadata: {}
 "251":
@@ -4393,7 +4393,7 @@
       no deben utilizar la dirección IP
       que viene de fábrica.
     description: __empty__
-  category: __empty__
+  category: Networks
   references: []
   metadata: {}
 "252":
@@ -4413,7 +4413,7 @@
       los métodos de cifrado WPA2 Personal
       o WPA2 Enterprise (802.11x).
     description: __empty__
-  category: __empty__
+  category: Networks
   references: []
   metadata: {}
 "253":
@@ -4433,7 +4433,7 @@
       mediante credenciales de usuario
       y direcciones MAC autorizadas.
     description: __empty__
-  category: __empty__
+  category: Networks
   references: []
   metadata: {}
 "254":
@@ -4451,7 +4451,7 @@
       el nombre de fábrica por defecto
       del SSID de la red inalámbrica.
     description: __empty__
-  category: __empty__
+  category: Networks
   references: []
   metadata: {}
 "255":
@@ -4471,7 +4471,7 @@
       o contenido deben permitir acceso
       sólo a los puertos necesarios.
     description: __empty__
-  category: __empty__
+  category: Networks
   references: []
   metadata: {}
 "257":
@@ -4492,7 +4492,7 @@
       organizacionales del usuario
       (por ejemplo, NAC 802.1x).
     description: __empty__
-  category: __empty__
+  category: Networks
   references: []
   metadata: {}
 "258":
@@ -4514,7 +4514,7 @@
       que pertenece a la misma entidad
       (Output 'Proxy').
     description: __empty__
-  category: __empty__
+  category: Networks
   references: []
   metadata: {}
 "259":
@@ -4530,7 +4530,7 @@
       La red de la organización
       debe estar segmentada.
     description: __empty__
-  category: __empty__
+  category: Networks
   references: []
   metadata: {}
 "260":
@@ -4550,7 +4550,7 @@
       para registrar cuentas
       en redes sociales (incluido +LinkedIn+).
     description: __empty__
-  category: __empty__
+  category: Social
   references: []
   metadata: {}
 "261":
@@ -4593,7 +4593,7 @@
       la información confidencial
       corporativa tampoco debe exponerse
       en las cuentas de redes sociales personales.
-  category: __empty__
+  category: Social
   references: []
   metadata: {}
 "262":
@@ -4642,7 +4642,7 @@
       si hubo correcciones o nuevos controles
       relacionados con vulnerabilidades
       descubiertas recientemente.
-  category: __empty__
+  category: Services
   references: []
   metadata: {}
 "264":
@@ -4729,7 +4729,7 @@
       para usuarios autenticados
       con roles que tengan
       los privilegios requeridos.
-  category: __empty__
+  category: Services
   references: []
   metadata: {}
 "266":
@@ -5097,7 +5097,7 @@
       fácilmente comprensible antes de
       recopilar cualquier información
       personal.
-  category: __empty__
+  category: Privacy
   references: []
   metadata: {}
 "311":
@@ -5148,7 +5148,7 @@
       con un mecanismo que pueda
       utilizarse para demostrar
       la concesión del consentimiento.
-  category: __empty__
+  category: Privacy
   references: []
   metadata: {}
 "312":
@@ -5202,7 +5202,7 @@
       hayan otorgado con respecto
       a la recolección y procesamiento
       de su información.
-  category: __empty__
+  category: Privacy
   references: []
   metadata: {}
 "313":
@@ -5259,7 +5259,7 @@
       con los datos que de ellos
       recaba y pueda demostrarlo,
       deberá informarles de esta situación.
-  category: __empty__
+  category: Privacy
   references: []
   metadata: {}
 "314":
@@ -5303,7 +5303,7 @@
       incluso si no se obtuvo
       de los usuarios
       sino de un tercero.
-  category: __empty__
+  category: Privacy
   references: []
   metadata: {}
 "315":
@@ -5376,7 +5376,7 @@
       los datos deben presentarse de manera clara,
       en un formato estructurado
       y utilizar un lenguaje fácilmente comprensible.
-  category: __empty__
+  category: Privacy
   references: []
   metadata: {}
 "316":
@@ -5412,7 +5412,7 @@
       que permite a los usuarios averiguar
       sobre esta información y solicitar su rectificación
       si lo consideran necesario.
-  category: __empty__
+  category: Privacy
   references: []
   metadata: {}
 "317":
@@ -5457,7 +5457,7 @@
       el borrado también debería ocurrir
       si el usuario decide revocar
       su consentimiento.
-  category: __empty__
+  category: Privacy
   references: []
   metadata: {}
 "318":
@@ -5506,7 +5506,7 @@
       Este también es el caso
       cuando el usuario solicita
       que el sistema deje de procesar sus datos.
-  category: __empty__
+  category: Privacy
   references: []
   metadata: {}
 "319":
@@ -5683,7 +5683,7 @@
       o se obstaculiza la depuración
       de problemas en los entornos
       de producción.
-  category: __empty__
+  category: Logs
   references: []
   metadata: {}
 "323":
@@ -6049,7 +6049,7 @@
       utilizando la integridad de SubreSource (SRI),
       en caso de que los sistemas
       estén comprometidos.
-  category: __empty__
+  category: Services
   references: []
   metadata: {}
 "331":
@@ -6651,7 +6651,7 @@
       lo que podría representar
       una violación de la privacidad
       si no se solicita ningún consentimiento.
-  category: __empty__
+  category: Privacy
   references: []
   metadata: {}
 "344":
@@ -7114,7 +7114,7 @@
       de los efectos de los ataques
       de toma de control del subdominio.
     description: __empty__
-  category: __empty__
+  category: Networks
   references: []
   metadata: {}
 "357":
@@ -7237,7 +7237,7 @@
       Por lo tanto,
       el sistema debe eliminar esta información
       después de que ya no se requiera.
-  category: __empty__
+  category: Privacy
   references: []
   metadata: {}
 "361":
@@ -7629,7 +7629,7 @@
       el nivel de gravedad de cada
       evento excepcional y de seguridad.
     description: __empty__
-  category: __empty__
+  category: Logs
   references: []
   metadata: {}
 "377":
@@ -7653,7 +7653,7 @@
       estipulado por la normativa vigente
       para ese sistema específico.
     description: __empty__
-  category: __empty__
+  category: Logs
   references: []
   metadata: {}
 "378":
@@ -7673,7 +7673,7 @@
       o por un sistema externo
       separado de la aplicación.
     description: __empty__
-  category: __empty__
+  category: Logs
   references: []
   metadata: {}
 "379":
