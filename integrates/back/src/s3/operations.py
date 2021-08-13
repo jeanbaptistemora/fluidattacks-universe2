@@ -121,3 +121,21 @@ async def upload_memory_file(
             "Attempt to upload invalid memory file", extra={"extra": locals()}
         )
     return success
+
+
+async def sing_upload_url(
+    file_name: str, expire_mins: float, bucket: str
+) -> str:
+    response: str = ""
+    async with aio_client() as client:
+        try:
+            response = str(
+                await client.generate_presigned_url(
+                    "put_object",
+                    Params={"Bucket": bucket, "Key": file_name},
+                    ExpiresIn=expire_mins,
+                )
+            )
+        except ClientError as ex:
+            LOGGER.exception(ex, extra={"extra": locals()})
+    return response
