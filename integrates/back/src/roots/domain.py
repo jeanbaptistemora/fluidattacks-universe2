@@ -7,7 +7,6 @@ from custom_exceptions import (
     InvalidRootExclusion,
     PermissionDenied,
     RepeatedRoot,
-    RepeatedValues,
     RootNotFound,
 )
 from db_model import (
@@ -240,7 +239,7 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
         port,
         await get_org_roots(context=context, org_id=group["organization"]),
     ):
-        raise RepeatedValues()
+        raise RepeatedRoot()
 
     nickname = kwargs["nickname"]
     validations.validate_nickname(nickname)
@@ -293,7 +292,7 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
         protocol,
         await get_org_roots(context=context, org_id=group["organization"]),
     ):
-        raise RepeatedValues()
+        raise RepeatedRoot()
 
     nickname = kwargs["nickname"]
     validations.validate_nickname(nickname)

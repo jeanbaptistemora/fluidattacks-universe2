@@ -77,7 +77,9 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
       nickname: string;
       port: number;
     }): Promise<void> => {
-      await addIpRoot({ variables: { address, groupName, nickname, port } });
+      await addIpRoot({
+        variables: { address: address.trim(), groupName, nickname, port },
+      });
     },
     [addIpRoot, groupName]
   );

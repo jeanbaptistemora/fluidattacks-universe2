@@ -189,7 +189,7 @@ function useGitSubmit(
               groupName,
               includesHealthCheck,
               nickname,
-              url,
+              url: url.trim(),
             },
           });
         } else {

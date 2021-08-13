@@ -75,7 +75,7 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
       nickname: string;
       url: string;
     }): Promise<void> => {
-      await addUrlRoot({ variables: { groupName, nickname, url } });
+      await addUrlRoot({ variables: { groupName, nickname, url: url.trim() } });
     },
     [addUrlRoot, groupName]
   );
