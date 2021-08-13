@@ -25,7 +25,6 @@ from vulnerabilities import (
 async def test_get_group(populate: bool) -> None:
     assert populate
     finding_id = "475041521"
-    accepted_undefined_not_expired = "6401bc87-8633-4a4a-8d8e-7dae0ca57e63"
     context: Dataloaders = get_new_context()
     finding_vulns_loader = context.finding_vulns
     vulns = await finding_vulns_loader.load(finding_id)

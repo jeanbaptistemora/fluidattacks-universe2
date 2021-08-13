@@ -6,7 +6,6 @@ from db_model.enums import (
 )
 from db_model.findings.enums import (
     FindingStateStatus,
-    FindingVerificationStatus,
 )
 from db_model.findings.types import (
     Finding,
@@ -14,7 +13,6 @@ from db_model.findings.types import (
     FindingState,
     FindingStatus,
     FindingUnreliableIndicatorsToUpdate,
-    FindingVerification,
 )
 from decimal import (
     Decimal,

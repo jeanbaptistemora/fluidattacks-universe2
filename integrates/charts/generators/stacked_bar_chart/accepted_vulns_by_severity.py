@@ -40,16 +40,14 @@ def get_severity_level(severity: float) -> str:
 async def get_data_one_group(group: str) -> Counter:
     context = get_new_context()
     group_findings_loader = context.group_findings
-    finding_loader = context.finding
-    finding_vulns_loader = context.finding_vulns
+    finding_vulns_loader = context.finding_vulns_nzr
 
-    group_findings_data = await group_findings_loader.load(group.lower())
-    finding_ids = [finding["finding_id"] for finding in group_findings_data]
-    findings = await finding_loader.load_many(finding_ids)
+    group_findings = await group_findings_loader.load(group.lower())
+    finding_ids = [finding["finding_id"] for finding in group_findings]
     finding_vulns = await finding_vulns_loader.load_many(finding_ids)
     severity_counter: Counter = Counter()
-    for finding, vulns in zip(findings, finding_vulns):
-        severity = get_severity_level(float(finding["severity_score"]))
+    for finding, vulns in zip(group_findings, finding_vulns):
+        severity = get_severity_level(float(finding.get("cvss_temporal", 0.0)))
         for vuln in vulns:
             if vuln["current_state"] == "open":
                 severity_counter.update([f"{severity}_open"])
@@ -141,14 +139,13 @@ async def generate_all() -> None:
         utils.iterate_organizations_and_groups()
     ):
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
-            if groups:
-                utils.json_dump(
-                    document=format_data(
-                        data=await get_data_many_groups(groups),
-                    ),
-                    entity="portfolio",
-                    subject=f"{org_id}PORTFOLIO#{portfolio}",
-                )
+            utils.json_dump(
+                document=format_data(
+                    data=await get_data_many_groups(list(groups)),
+                ),
+                entity="portfolio",
+                subject=f"{org_id}PORTFOLIO#{portfolio}",
+            )
 
 
 if __name__ == "__main__":
