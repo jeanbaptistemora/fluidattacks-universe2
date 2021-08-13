@@ -92,22 +92,30 @@ async def get_data_many_groups(
             mean([group.critical_severity for group in groups_data])
         )
         .quantize(Decimal("0.1"))
-        .to_integral_exact(rounding=ROUND_CEILING),
+        .to_integral_exact(rounding=ROUND_CEILING)
+        if groups_data
+        else Decimal("0"),
         high_severity=Decimal(
             mean([group.high_severity for group in groups_data])
         )
         .quantize(Decimal("0.1"))
-        .to_integral_exact(rounding=ROUND_CEILING),
+        .to_integral_exact(rounding=ROUND_CEILING)
+        if groups_data
+        else Decimal("0"),
         medium_severity=Decimal(
             mean([group.medium_severity for group in groups_data])
         )
         .quantize(Decimal("0.1"))
-        .to_integral_exact(rounding=ROUND_CEILING),
+        .to_integral_exact(rounding=ROUND_CEILING)
+        if groups_data
+        else Decimal("0"),
         low_severity=Decimal(
             mean([group.low_severity for group in groups_data])
         )
         .quantize(Decimal("0.1"))
-        .to_integral_exact(rounding=ROUND_CEILING),
+        .to_integral_exact(rounding=ROUND_CEILING)
+        if groups_data
+        else Decimal("0"),
     )
 
 
@@ -167,18 +175,17 @@ async def generate_all() -> None:
         async for org_id, _, org_groups in (
             utils.iterate_organizations_and_groups()
         ):
-            if org_groups:
-                utils.json_dump(
-                    document=format_data(
-                        data=await get_data_many_groups(
-                            groups=list(org_groups),
-                            loaders=loaders,
-                            min_date=min_date,
-                        ),
+            utils.json_dump(
+                document=format_data(
+                    data=await get_data_many_groups(
+                        groups=list(org_groups),
+                        loaders=loaders,
+                        min_date=min_date,
                     ),
-                    entity="organization",
-                    subject=f"{org_id}_{days}" if days else org_id,
-                )
+                ),
+                entity="organization",
+                subject=f"{org_id}_{days}" if days else org_id,
+            )
 
         async for org_id, org_name, _ in (
             utils.iterate_organizations_and_groups()
@@ -186,20 +193,19 @@ async def generate_all() -> None:
             for portfolio, groups in await utils.get_portfolios_groups(
                 org_name
             ):
-                if groups:
-                    utils.json_dump(
-                        document=format_data(
-                            data=await get_data_many_groups(
-                                groups=groups,
-                                loaders=loaders,
-                                min_date=min_date,
-                            ),
+                utils.json_dump(
+                    document=format_data(
+                        data=await get_data_many_groups(
+                            groups=groups,
+                            loaders=loaders,
+                            min_date=min_date,
                         ),
-                        entity="portfolio",
-                        subject=f"{org_id}PORTFOLIO#{portfolio}_{days}"
-                        if days
-                        else f"{org_id}PORTFOLIO#{portfolio}",
-                    )
+                    ),
+                    entity="portfolio",
+                    subject=f"{org_id}PORTFOLIO#{portfolio}_{days}"
+                    if days
+                    else f"{org_id}PORTFOLIO#{portfolio}",
+                )
 
 
 if __name__ == "__main__":
