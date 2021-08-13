@@ -57,6 +57,7 @@
       la confidencialidad e integridad
       del sistema, sus usuarios
       y la información que contiene.
+  category: __empty__
   references:
     - "002.227"
   metadata: {}
@@ -77,6 +78,7 @@
       para transferir información
       entre páginas cuando sea necesario.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "025":
@@ -126,6 +128,7 @@
       y pérdida de trazabilidad de acciones
       hechas por el usuario suplantado
       <<r1, ^[1]^>> <<r2, ^[2]^>>.
+  category: __empty__
   references: []
   metadata: {}
 "026":
@@ -143,6 +146,7 @@
       y cifrar los estados de sesión
       que están al lado del cliente.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "027":
@@ -163,6 +167,7 @@
       de cada recurso protegido
       por autenticación.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "028":
@@ -211,6 +216,7 @@
       Por lo tanto,
       el sistema permitiría a los usuarios
       ver y cerrar cualquier sesión activa.
+  category: __empty__
   references: []
   metadata: {}
 "029":
@@ -266,6 +272,7 @@
       (con el uso de HTTPS).
       De esta manera,
       el robo de sesión se mitiga drásticamente.
+  category: __empty__
   references: []
   metadata: {}
 "030":
@@ -314,6 +321,7 @@
       de cualquier solicitud que podría
       afectar la confidencialidad,
       integridad y disponibilidad del sistema.
+  category: __empty__
   references: []
   metadata: {}
 "031":
@@ -366,6 +374,7 @@
       el tiempo durante el cual una sesión
       puede ser usada maliciosamente
       se incrementa.
+  category: __empty__
   references: []
   metadata: {}
 "032":
@@ -434,6 +443,7 @@
       ni ser desplegados como mensajes
       presentados al usuario,
       ni almacenados en logs.
+  category: __empty__
   references: []
   metadata: {}
 "033":
@@ -490,6 +500,7 @@
       la configuración de administración del sistema),
       e incrementa el nivel de confidencialidad
       y dispnibilidad del sistema.
+  category: __empty__
   references: []
   metadata: {}
 "034":
@@ -508,6 +519,7 @@
       del sistema deshabilitar
       cuentas de usuario.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "035":
@@ -554,6 +566,7 @@
       esto podría aprovecharse
       para acceder a funcionalidades
       y recursos restringidos.
+  category: __empty__
   references: []
   metadata: {}
 "036":
@@ -570,6 +583,7 @@
       archivos temporales
       en ambientes de producción.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "037":
@@ -602,6 +616,7 @@
       con estos parámetros,
       un atacante puede acceder a estas rutas
       y comprometer información sensible.
+  category: __empty__
   references: []
   metadata: {}
 "039":
@@ -639,6 +654,7 @@
       y reducir la posibilidad
       de que un atacante cargue un archivo
       que contiene software malicioso.
+  category: __empty__
   references: []
   metadata: {}
 "040":
@@ -657,6 +673,7 @@
       de los archivos
       corresponde a su extensión.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "041":
@@ -676,6 +693,7 @@
       hacia el mismo sistema
       esté libre de código malicioso.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "042":
@@ -693,6 +711,7 @@
       archivos cuyo formato (estructura)
       es requerido por la operación del negocio.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "043":
@@ -710,6 +729,7 @@
       deben tener un tipo de contenido
       definido explícitamente.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "044":
@@ -729,6 +749,7 @@
       un conjunto de caracteres (charset)
       definido explícitamente.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "045":
@@ -746,6 +767,7 @@
       los metadatos antes de compartir
       un archivo o de hacerlo público.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "046":
@@ -764,6 +786,7 @@
       en la integridad de archivos críticos
       del sistema.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "048":
@@ -780,6 +803,7 @@
       deben tener tan pocas dependencias
       como sea posible.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "050":
@@ -813,6 +837,7 @@
       en dominios controlados por la organización
       con el fin para prevenir
       varios tipos de ataques por inyección.
+  category: __empty__
   references: []
   metadata: {}
 "051":
@@ -829,6 +854,7 @@
       el código fuente
       en un repositorio centrl.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "062":
@@ -873,6 +899,7 @@
       integridad, disponibilidad
       y resiliencia contínuas de los sistemas
       y servicios.
+  category: __empty__
   references: []
   metadata: {}
 "072":
@@ -903,6 +930,7 @@
     description: >
       El tiempo de respuesta
       es una medida relevante
+  category: __empty__
   references: []
   metadata: {}
 "075":
@@ -978,6 +1006,7 @@
       un comportamiento malicioso
       o se puede obstruir un análisis forense
       en caso de que un ataque sea exitoso.
+  category: __empty__
   references: []
   metadata: {}
 "077":
@@ -1022,6 +1051,7 @@
       ya que esto podría ser aprovechado
       por atacantes para explotar
       otras vulnerabilidades más adelante.
+  category: __empty__
   references: []
   metadata: {}
 "078":
@@ -1037,6 +1067,7 @@
       Los eventos con severidad de depuración
       no deben estar habilitados en producción.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "079":
@@ -1066,6 +1097,7 @@
       deben contener el tiempo exacto
       de ocurrencia para permitir
       el seguimiento en una investigación.
+  category: __empty__
   references: []
   metadata: {}
 "080":
@@ -1107,6 +1139,7 @@
       ya que esto podría prevenir
       que una vulnerabilidad o brecha
       se note de manera oportuna.
+  category: __empty__
   references: []
   metadata: {}
 "083":
@@ -1155,6 +1188,7 @@
       en los registros,
       un atacante que tenga acceso a estos
       también puede obtener la información.
+  category: __empty__
   references: []
   metadata: {}
 "084":
@@ -1191,6 +1225,7 @@
       que el sistema haya recopilado de ellos,
       incluidos sus registros
       de transacciones.
+  category: __empty__
   references: []
   metadata: {}
 "085":
@@ -1227,6 +1262,7 @@
       e inspeccionar cualquier información
       que el sistema haya recopilado de ellos,
       incluido su historial de sesión.
+  category: __empty__
   references: []
   metadata: {}
 "088":
@@ -1248,6 +1284,7 @@
       certificados digitales de cliente
       en el proceso de autenticación.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "089":
@@ -1265,6 +1302,7 @@
       certificados digitales
       con una vigencia superior a dos años.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "090":
@@ -1281,6 +1319,7 @@
       certificados digitales
       que no se encuentren vencidos.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "091":
@@ -1300,6 +1339,7 @@
       válidas cuando estos sean
       para aplicaciones internas.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "092":
@@ -1319,6 +1359,7 @@
       externas válidas cuando estos
       sean para aplicaciones externas.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "093":
@@ -1340,6 +1381,7 @@
       entre otros) a la cual
       se encuentra asociado.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "095":
@@ -1385,6 +1427,7 @@
       o administrador,
       ya que este no debería ser
       un rol predeterminado.
+  category: __empty__
   references: []
   metadata: {}
 "096":
@@ -1419,6 +1462,7 @@
       y el rol de cada usuario
       debería también estar
       claramente establecido.
+  category: __empty__
   references: []
   metadata: {}
 "114":
@@ -1437,6 +1481,7 @@
       con credenciales caducadas,
       revocadas o bloqueadas.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "115":
@@ -1454,6 +1499,7 @@
       y salientes deben pasar
       por un filtro anti-spam.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "116":
@@ -1472,6 +1518,7 @@
       no debe mostrar por defecto imágenes
       cuyo origen sea desconocido.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "117":
@@ -1489,6 +1536,7 @@
       no debe renderizar código HTML
       por defecto.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "118":
@@ -1507,6 +1555,7 @@
       en un correo con herramientas
       anti-malware.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "119":
@@ -1524,6 +1573,7 @@
       en vez del campo TO al enviar
       correos electrónicos masivos.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "121":
@@ -1549,6 +1599,7 @@
       de la estructura de dirección
       de correo RFC822.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "122":
@@ -1571,6 +1622,7 @@
       al usuario que reclama
       propiedad sobre ellos.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "123":
@@ -1620,6 +1672,7 @@
       automáticas los recolecten
       o añadan a listas de distribución
       de correos masivos.
+  category: __empty__
   references: []
   metadata: {}
 "126":
@@ -1670,6 +1723,7 @@
       que permita a los usuarios
       generar una nueva contraseña
       en cualquiera de estos escenarios.
+  category: __empty__
   references: []
   metadata: {}
 "127":
@@ -1710,6 +1764,7 @@
       no autorizados hayan accedido
       al sistema de almacenamiento
       para obtenerlas.
+  category: __empty__
   references: []
   metadata: {}
 "128":
@@ -1727,6 +1782,7 @@
       deben estar almacenadas en una
       única fuente de datos.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "129":
@@ -1750,6 +1806,7 @@
       de las 5 contraseñas previas
       para el mismo usuario.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "130":
@@ -1765,6 +1822,7 @@
       Las contraseñas deben ser validas
       por un maximo de 30 dias.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "131":
@@ -1783,6 +1841,7 @@
       sean modificadas más de una vez
       el mismo día.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "132":
@@ -1813,6 +1872,7 @@
       deben tener al menos 3 palabras
       de longitud.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "133":
@@ -1828,6 +1888,7 @@
       Las contraseñas del sistema
       deben tener al menos 20 caracteres.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "134":
@@ -1845,6 +1906,7 @@
       las contraseñas con diferentes
       derivaciones de clave (Salt).
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "135":
@@ -1862,6 +1924,7 @@
       deben ser aleatorias
       y de mínimo 48 bits.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "136":
@@ -1900,6 +1963,7 @@
       Por lo tanto,
       los usuarios deberían ser forzados
       a cambiarlas después del primer uso.
+  category: __empty__
   references: []
   metadata: {}
 "137":
@@ -1948,6 +2012,7 @@
       las contraseñas deberían
       ser cambiadas después
       del primer uso.
+  category: __empty__
   references: []
   metadata: {}
 "138":
@@ -1984,6 +2049,7 @@
       puede no ser garantizado
       por el sistema que las creó.
       Por lot
+  category: __empty__
   references: []
   metadata: {}
 "139":
@@ -2019,6 +2085,7 @@
       deberían tener una longitud mínima
       de 6 caracteres como protección
       contra ataques de fuerza bruta.
+  category: __empty__
   references: []
   metadata: {}
 "140":
@@ -2063,6 +2130,7 @@
       debería ser posible
       solamente usarlas una vez
       dentro del periodo de validez.
+  category: __empty__
   references: []
   metadata: {}
 "141":
@@ -2089,6 +2157,7 @@
       bloqueo, borrado del usuario,
       deshabilitación del usuario, etc).
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "142":
@@ -2149,6 +2218,7 @@
       antes de la implementación
       y eliminar todas las credenciales
       predeterminadas.
+  category: __empty__
   references: []
   metadata: {}
 "143":
@@ -2165,6 +2235,7 @@
       al sistema deben ser únicas
       para cada actor.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "144":
@@ -2182,6 +2253,7 @@
       debe purgar las cuentas de usuario
       periódicamente.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "145":
@@ -2233,6 +2305,7 @@
       estas claves deben protegerse
       y administrarse siguiendo estándares
       verificados por la industria.
+  category: __empty__
   references: []
   metadata: {}
 "146":
@@ -2251,6 +2324,7 @@
       en la memoria RAM por más
       de 5 segundos.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "147":
@@ -2289,6 +2363,7 @@
       basados en mecanismos seguros
       pre-existentes, probados,
       y aprovados.
+  category: __empty__
   references: []
   metadata: {}
 "148":
@@ -2307,6 +2382,7 @@
       un tamaño de clave mínimo
       de 2048 bits.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "149":
@@ -2325,6 +2401,7 @@
       un tamaño de clave mínimo
       de 128 bits.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "150":
@@ -2340,6 +2417,7 @@
       Deben utilizarse funciones resumen
       con un tamaño mínimo de 256 bits.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "151":
@@ -2358,6 +2436,7 @@
       con llaves separadas
       para el cifrado y las firmas.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "152":
@@ -2373,6 +2452,7 @@
       El sistema debe reutilizar
       las conexiones de la base de datos.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "153":
@@ -2427,6 +2507,7 @@
       al menos un autenticador fuera de banda
       y la opción predeterminada
       no debe ser de texto claro.
+  category: __empty__
   references: []
   metadata: {}
 "154":
@@ -2483,6 +2564,7 @@
       ya que podría convertirse
       en graves vulnerabilidades
       de seguridad.
+  category: __empty__
   references: []
   metadata: {}
 "155":
@@ -2532,6 +2614,7 @@
       que no tiene puertas traseras,
       rootkits, bombas de tiempo,
       bombas lógicas, etc.
+  category: __empty__
   references: []
   metadata: {}
 "156":
@@ -2579,6 +2662,7 @@
       debe estar presente en el código fuente,
       ya que una fuga podría poner
       en peligro los sistemas críticos.
+  category: __empty__
   references: []
   metadata: {}
 "157":
@@ -2600,6 +2684,7 @@
       e intérpretes para ejecutar
       en modo estricto.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "158":
@@ -2623,6 +2708,7 @@
       actualizada, probada
       y libre de vulnerabilidades conocidas.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "159":
@@ -2640,6 +2726,7 @@
       debe estar ofuscado
       en ambiente de producción.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "160":
@@ -2680,6 +2767,7 @@
       Cuando estos mensajes
       incluyen una entrada de fuentes no confiables
       y esta entrada no está apropiadamente
+  category: __empty__
   references: []
   metadata: {}
 "161":
@@ -2757,6 +2845,7 @@
       de mantener,
       es más probable que surjan
       vulnerabilidades.
+  category: __empty__
   references: []
   metadata: {}
 "162":
@@ -2774,6 +2863,7 @@
       no debe tener funciones,
       métodos o clases repetidas.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "164":
@@ -2789,6 +2879,7 @@
       El código debe usar contenedores
       de datos y estructuras optimizadas.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "167":
@@ -2809,6 +2900,7 @@
       de alguno de los recursos
       abiertos no utilizados.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "168":
@@ -2826,6 +2918,7 @@
       en el código fuente deben
       estar explícitamente inicializadas.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "169":
@@ -2848,6 +2941,7 @@
       dinámica de sentencias
       (ej: java.sql.PreparedStatement).
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "171":
@@ -2866,6 +2960,7 @@
       en ambiente de producción
       deben ser removidos.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "172":
@@ -2914,6 +3009,7 @@
       usando un algoritmo criptográfico seguro
       y la clave de cifrado debe
       también estar protegido.
+  category: __empty__
   references: []
   metadata: {}
 "173":
@@ -2996,6 +3092,7 @@
       de un artefacto tecnológico,
       y se deben aplicar controles
       y un tratamiento adecuado.
+  category: __empty__
   references: []
   metadata: {}
 "174":
@@ -3014,6 +3111,7 @@
       transacciones no sigan
       un patrón discernible.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "175":
@@ -3062,6 +3160,7 @@
       que las páginas se incrusten
       en sitios maliciosos
       (por ejemplo, "X-Frame-Options").
+  category: __empty__
   references: []
   metadata: {}
 "176":
@@ -3118,6 +3217,7 @@
       y la política de asignación de roles
       deben implementarse
       teniendo en cuenta estas restricciones.
+  category: __empty__
   references: []
   metadata: {}
 "177":
@@ -3169,6 +3269,7 @@
       evitar la memoria caché
       y los archivos temporales ayuda
       a proteger la información confidencial.
+  category: __empty__
   references: []
   metadata: {}
 "178":
@@ -3210,6 +3311,7 @@
       o con datos y recursos
       que sean susceptibles
       de ser afectados por terceros.
+  category: __empty__
   references: []
   metadata: {}
 "180":
@@ -3252,6 +3354,7 @@
       datos simulados
       o datos que se hayan generado
       automáticamente.
+  category: __empty__
   references: []
   metadata: {}
 "181":
@@ -3294,6 +3397,7 @@
       la información.
       Ejemplos de estos protocolos inseguros
       son HTTP, FTP, POP3 y Telnet.
+  category: __empty__
   references: []
   metadata: {}
 "183":
@@ -3337,6 +3441,7 @@
       y que su eliminación sigue
       procedimientos seguros
       que evitan que sean recuperado.
+  category: __empty__
   references: []
   metadata: {}
 "184":
@@ -3352,6 +3457,7 @@
       El sistema debe ofuscar los datos
       si la aplicación no está enfocada.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "185":
@@ -3404,6 +3510,7 @@
       no autorizados que pueden haber
       accedido al sistema de almacenamiento
       obtengan la información.
+  category: __empty__
   references: []
   metadata: {}
 "186":
@@ -3452,6 +3559,7 @@
       o apalancamiento para causar
       mayor impacto al explotar
       otras vulnerabilidades.
+  category: __empty__
   references: []
   metadata: {}
 "189":
@@ -3503,6 +3611,7 @@
       y antes de solicitar su consentimiento
       para la recolección
       y procesamiento de datos.
+  category: __empty__
   references: []
   metadata: {}
 "205":
@@ -3523,6 +3632,7 @@
       de identificación personal (PIN)
       configurado en la tarjeta SIM.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "206":
@@ -3550,6 +3660,7 @@
       que permiten el intercambio de datos
       como Bluetooth, NFC y Tethering.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "209":
@@ -3569,6 +3680,7 @@
       una contraseña en el caché
       de autenticación.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "210":
@@ -3589,6 +3701,7 @@
       móviles después de 10 intentos
       fallidos de autenticación.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "213":
@@ -3607,6 +3720,7 @@
       geográfica remota en caso
       de pérdida.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "214":
@@ -3625,6 +3739,7 @@
       remota de los datos
       en caso de pérdida.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "221":
@@ -3647,6 +3762,7 @@
       (por ejemplo,
       Floppy, IDE, CD/DVD, USB, Serial).
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "222":
@@ -3665,6 +3781,7 @@
       a información de la máquina
       anfitriona.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "223":
@@ -3709,6 +3826,7 @@
       mediante mecanismos seguros
       que garanticen una distribución
       aleatoria.
+  category: __empty__
   references: []
   metadata: {}
 "224":
@@ -3765,6 +3883,7 @@
       mecanismos seguros,
       que a menudo ya ha sido
       implementado por la plataforma.
+  category: __empty__
   references: []
   metadata: {}
 "225":
@@ -3821,6 +3940,7 @@
       válidos (enumeración de usuarios)
       que pueden usar en ataques
       de fuerza bruta.
+  category: __empty__
   references: []
   metadata: {}
 "226":
@@ -3841,6 +3961,7 @@
       o varios intentos de autenticación
       fallidos.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "227":
@@ -3894,6 +4015,7 @@
       que los recursos
       solo están disponibles
       para los usuarios autorizados.
+  category: __empty__
   references: []
   metadata: {}
 "228":
@@ -3910,6 +4032,7 @@
       La autenticación debe realizarse
       siguiendo protocolos estándar.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "229":
@@ -3953,6 +4076,7 @@
       debe solicitar al menos
       un nombre de usuario
       y una contraseña.
+  category: __empty__
   references: []
   metadata: {}
 "231":
@@ -4011,6 +4135,7 @@
       mecanismo de afirmación
       de identidad en vigor,
       sino más bien un factor secundario.
+  category: __empty__
   references: []
   metadata: {}
 "232":
@@ -4031,6 +4156,7 @@
       del equipo desde el cual un usuario
       o sistema está autenticado.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "235":
@@ -4048,6 +4174,7 @@
       una interfaz independiente
       para el ingreso de credenciales.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "236":
@@ -4065,6 +4192,7 @@
       debe tener un tiempo límite
       definido de 30 segundos.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "237":
@@ -4119,6 +4247,7 @@
       mecanismos que ayuden a asegurar
       que la entidad con la que se está
       interactuando sea un ser humano.
+  category: __empty__
   references: []
   metadata: {}
 "238":
@@ -4169,6 +4298,7 @@
       el sistema debe verificar
       la propiedad del ususario
       de la cuenta correspondiente.
+  category: __empty__
   references: []
   metadata: {}
 "247":
@@ -4186,6 +4316,7 @@
       deben deshabilitar la publicación
       del SSID (Service Set Identifier).
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "248":
@@ -4202,6 +4333,7 @@
       no debe contener palabras
       de diccionario.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "249":
@@ -4223,6 +4355,7 @@
       alcanzar solo
       las instalaciones autorizadas.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "250":
@@ -4243,6 +4376,7 @@
       solo por uno de los puertos físicos
       del equipo.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "251":
@@ -4259,6 +4393,7 @@
       no deben utilizar la dirección IP
       que viene de fábrica.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "252":
@@ -4278,6 +4413,7 @@
       los métodos de cifrado WPA2 Personal
       o WPA2 Enterprise (802.11x).
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "253":
@@ -4297,6 +4433,7 @@
       mediante credenciales de usuario
       y direcciones MAC autorizadas.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "254":
@@ -4314,6 +4451,7 @@
       el nombre de fábrica por defecto
       del SSID de la red inalámbrica.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "255":
@@ -4333,6 +4471,7 @@
       o contenido deben permitir acceso
       sólo a los puertos necesarios.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "257":
@@ -4353,6 +4492,7 @@
       organizacionales del usuario
       (por ejemplo, NAC 802.1x).
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "258":
@@ -4374,6 +4514,7 @@
       que pertenece a la misma entidad
       (Output 'Proxy').
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "259":
@@ -4389,6 +4530,7 @@
       La red de la organización
       debe estar segmentada.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "260":
@@ -4408,6 +4550,7 @@
       para registrar cuentas
       en redes sociales (incluido +LinkedIn+).
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "261":
@@ -4450,6 +4593,7 @@
       la información confidencial
       corporativa tampoco debe exponerse
       en las cuentas de redes sociales personales.
+  category: __empty__
   references: []
   metadata: {}
 "262":
@@ -4498,6 +4642,7 @@
       si hubo correcciones o nuevos controles
       relacionados con vulnerabilidades
       descubiertas recientemente.
+  category: __empty__
   references: []
   metadata: {}
 "264":
@@ -4536,6 +4681,7 @@
       de autenticación seguro
       que evite que actores no autorizados
       accedan a ellos.
+  category: __empty__
   references: []
   metadata: {}
 "265":
@@ -4583,6 +4729,7 @@
       para usuarios autenticados
       con roles que tengan
       los privilegios requeridos.
+  category: __empty__
   references: []
   metadata: {}
 "266":
@@ -4647,6 +4794,7 @@
       como puertas de enlace
       de control de acceso, servidores
       y funciones sin servidor.
+  category: __empty__
   references: []
   metadata: {}
 "273":
@@ -4667,6 +4815,7 @@
       inalterable (Anti-virus, Antispyware,
       Host Firewall, Host-IDS, Host-IPS).
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "280":
@@ -4685,6 +4834,7 @@
       con acceso solo a los archivos
       necesarios.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "284":
@@ -4702,6 +4852,7 @@
       un número máximo de conexiones
       definidas por IP origen.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "300":
@@ -4746,6 +4897,7 @@
       El enmascaramiento es un
       mecanismo que contribuye
       a esta protección.
+  category: __empty__
   references: []
   metadata: {}
 "301":
@@ -4792,6 +4944,7 @@
       por ejemplo,
       ataques de apropiación
       de cuentas.
+  category: __empty__
   references: []
   metadata: {}
 "302":
@@ -4857,6 +5010,7 @@
       referencia a él
       y administrarlo mediante
       un administrador de paquetes.
+  category: __empty__
   references: []
   metadata: {}
 "305":
@@ -4876,6 +5030,7 @@
       en vez de guardar la información
       de la tarjeta.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "310":
@@ -4942,6 +5097,7 @@
       fácilmente comprensible antes de
       recopilar cualquier información
       personal.
+  category: __empty__
   references: []
   metadata: {}
 "311":
@@ -4992,6 +5148,7 @@
       con un mecanismo que pueda
       utilizarse para demostrar
       la concesión del consentimiento.
+  category: __empty__
   references: []
   metadata: {}
 "312":
@@ -5045,6 +5202,7 @@
       hayan otorgado con respecto
       a la recolección y procesamiento
       de su información.
+  category: __empty__
   references: []
   metadata: {}
 "313":
@@ -5101,6 +5259,7 @@
       con los datos que de ellos
       recaba y pueda demostrarlo,
       deberá informarles de esta situación.
+  category: __empty__
   references: []
   metadata: {}
 "314":
@@ -5144,6 +5303,7 @@
       incluso si no se obtuvo
       de los usuarios
       sino de un tercero.
+  category: __empty__
   references: []
   metadata: {}
 "315":
@@ -5216,6 +5376,7 @@
       los datos deben presentarse de manera clara,
       en un formato estructurado
       y utilizar un lenguaje fácilmente comprensible.
+  category: __empty__
   references: []
   metadata: {}
 "316":
@@ -5251,6 +5412,7 @@
       que permite a los usuarios averiguar
       sobre esta información y solicitar su rectificación
       si lo consideran necesario.
+  category: __empty__
   references: []
   metadata: {}
 "317":
@@ -5295,6 +5457,7 @@
       el borrado también debería ocurrir
       si el usuario decide revocar
       su consentimiento.
+  category: __empty__
   references: []
   metadata: {}
 "318":
@@ -5343,6 +5506,7 @@
       Este también es el caso
       cuando el usuario solicita
       que el sistema deje de procesar sus datos.
+  category: __empty__
   references: []
   metadata: {}
 "319":
@@ -5373,6 +5537,7 @@
       la misma fortaleza
       en el control de seguridad,
       para que no haya una alternativa más débil.
+  category: __empty__
   references: []
   metadata: {}
 "320":
@@ -5413,6 +5578,7 @@
       de acceso del lado del cliente
       porque es propenso a ser eludido
       y / o manipulado.
+  category: __empty__
   references: []
   metadata: {}
 "321":
@@ -5459,6 +5625,7 @@
       antes de deserializarse,
       puede llevar a ataques de deserialización,
       como inyección de objetos.
+  category: __empty__
   references: []
   metadata: {}
 "322":
@@ -5516,6 +5683,7 @@
       o se obstaculiza la depuración
       de problemas en los entornos
       de producción.
+  category: __empty__
   references: []
   metadata: {}
 "323":
@@ -5571,6 +5739,7 @@
       y estos podrían contener vulnerabilidades graves,
       como las puertas traseras,
       los rootkits e información sensible expuesta.
+  category: __empty__
   references: []
   metadata: {}
 "324":
@@ -5612,6 +5781,7 @@
       deben controlarse para que los usuarios
       solo sean redirigidos
       a los sitios de confianza.
+  category: __empty__
   references: []
   metadata: {}
 "325":
@@ -5657,6 +5827,7 @@
       como Internet,
       entonces no debe contener
       ninguna información confidencial.
+  category: __empty__
   references: []
   metadata: {}
 "326":
@@ -5704,6 +5875,7 @@
       e informar al usuario
       sobre los riesgos asociados,
       o evitar su propia ejecución.
+  category: __empty__
   references: []
   metadata: {}
 "327":
@@ -5766,6 +5938,7 @@
       debe incluir un rate limit
       que considere un flujo de solicitud
       regular entre un host y el servidor.
+  category: __empty__
   references: []
   metadata: {}
 "328":
@@ -5783,6 +5956,7 @@
       la información de sesión
       del lado del cliente (ViewState).
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "329":
@@ -5838,6 +6012,7 @@
       no se debe almacenar información
       sensible o de sesión en el almacenamiento
       del lado del cliente.
+  category: __empty__
   references: []
   metadata: {}
 "330":
@@ -5874,6 +6049,7 @@
       utilizando la integridad de SubreSource (SRI),
       en caso de que los sistemas
       estén comprometidos.
+  category: __empty__
   references: []
   metadata: {}
 "331":
@@ -5891,6 +6067,7 @@
       con los requisitos legales
       de la jurisdicción a la cual está sujeto.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "332":
@@ -5930,6 +6107,7 @@
       de la creación de la cuenta
       y la actualización de contraseña
       usen contraseñas contenidas en ellas.
+  category: __empty__
   references: []
   metadata: {}
 "333":
@@ -5976,6 +6154,7 @@
       un atacante aún tiene que probar
       cada valor de salt posible
       para descifrar una sola contraseña.
+  category: __empty__
   references: []
   metadata: {}
 "334":
@@ -6024,6 +6203,7 @@
       del proceso de autenticación
       y tampoco deben usarse en el proceso
       de recuperación de contraseña.
+  category: __empty__
   references: []
   metadata: {}
 "335":
@@ -6075,6 +6255,7 @@
       que se usen solo una vez
       dentro de este período
       para evitar ataques de repetición.
+  category: __empty__
   references: []
   metadata: {}
 "336":
@@ -6119,6 +6300,7 @@
       que las comunicaciones
       recurran a los protocolos inseguros
       o no cifrados.
+  category: __empty__
   references: []
   metadata: {}
 "337":
@@ -6174,6 +6356,7 @@
       deben gestionarse cuidadosamente
       para evitar que surjan
       las condiciones de carrera.
+  category: __empty__
   references: []
   metadata: {}
 "338":
@@ -6232,6 +6415,7 @@
       una pequeña parte de una conversación,
       lo que representa un aumento
       en la seguridad general del sistema.
+  category: __empty__
   references: []
   metadata: {}
 "339":
@@ -6271,6 +6455,7 @@
       de usuario que contienen
       información confidencial
       no deben almacenarse en ella.
+  category: __empty__
   references: []
   metadata: {}
 "340":
@@ -6326,6 +6511,7 @@
       Esto reduce el riesgo
       de vectores XSS u otros ataques
       del archivo cargado.
+  category: __empty__
   references: []
   metadata: {}
 "341":
@@ -6372,6 +6558,7 @@
       se deben otorgar permisos
       y acceso utilizando el principio
       de negación de forma predeterminada.
+  category: __empty__
   references: []
   metadata: {}
 "342":
@@ -6419,6 +6606,7 @@
       de masa,
       y proporciona contramedidas para proteger
       contra la asignación de parámetros inseguros.
+  category: __empty__
   references: []
   metadata: {}
 "343":
@@ -6463,6 +6651,7 @@
       lo que podría representar
       una violación de la privacidad
       si no se solicita ningún consentimiento.
+  category: __empty__
   references: []
   metadata: {}
 "344":
@@ -6508,6 +6697,7 @@
       las entradas no confiables
       (por ejemplo, las que proporciona los usuarios)
       deben ser filtradas adecuadamente.
+  category: __empty__
   references: []
   metadata: {}
 "345":
@@ -6569,6 +6759,7 @@
       como cadenas seguras de memoria,
       copia de memoria segura
       y puntero aritmético.
+  category: __empty__
   references: []
   metadata: {}
 "346":
@@ -6617,6 +6808,7 @@
       criptográficamente
       y solo deben usarse una vez
       con una clave de cifrado dada.
+  category: __empty__
   references: []
   metadata: {}
 "347":
@@ -6659,6 +6851,7 @@
       todas las OTP anteriores deben
       invalidarse cada vez que
       se genere una nueva.
+  category: __empty__
   references: []
   metadata: {}
 "348":
@@ -6715,6 +6908,7 @@
       Server-Side Request Forgery (SSRF)
       y los ataques de inclusión
       de archivos remotos (RFI).
+  category: __empty__
   references: []
   metadata: {}
 "349":
@@ -6754,6 +6948,7 @@
       deben configurarse lo más estrictamente
       posible e incluirse en todas
       las solicitudes de servidores y respuestas.
+  category: __empty__
   references: []
   metadata: {}
 "350":
@@ -6771,6 +6966,7 @@
       mecanismo de protección de memoria,
       tales como ASLR y DEP.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "351":
@@ -6788,6 +6984,7 @@
       debe tener claves criptográficas únicas
       y certificados.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "352":
@@ -6808,6 +7005,7 @@
       System-on-Chip (SoC) o CPU
       del dispositivo.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "353":
@@ -6824,6 +7022,7 @@
       actualizar su propio firmware
       en un horario predefinido.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "354":
@@ -6841,6 +7040,7 @@
       mecanismos que protegen su firmware
       (anti-rollback) de estar degradado.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "355":
@@ -6887,6 +7087,7 @@
       con una extensión específica
       ayuda a prevenir la exposición
       involuntaria de la información técnica.
+  category: __empty__
   references: []
   metadata: {}
 "356":
@@ -6913,6 +7114,7 @@
       de los efectos de los ataques
       de toma de control del subdominio.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "357":
@@ -6935,6 +7137,7 @@
       que se validen utilizando firmas digitales
       en lugar de secretos de la API estática.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "358":
@@ -6952,6 +7155,7 @@
       cuando sus credenciales
       están a punto de caducar.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "359":
@@ -6988,6 +7192,7 @@
       se materialicen,
       ya que algunos flujos especiales
       pasan desapercibidos.
+  category: __empty__
   references: []
   metadata: {}
 "360":
@@ -7032,6 +7237,7 @@
       Por lo tanto,
       el sistema debe eliminar esta información
       después de que ya no se requiera.
+  category: __empty__
   references: []
   metadata: {}
 "361":
@@ -7080,6 +7286,7 @@
       a lo largo del tiempo
       y cualquier posible pérdida de su integridad,
       deben ser reemplazados a menudo.
+  category: __empty__
   references: []
   metadata: {}
 "362":
@@ -7123,6 +7330,7 @@
       Sin embargo,
       su valor disminuye considerablemente
       cuando se comparten entre varias cuentas.
+  category: __empty__
   references: []
   metadata: {}
 "363":
@@ -7172,6 +7380,7 @@
       sistemas para establecer la secuencia
       de eventos que provocó el incidente
       de seguridad.
+  category: __empty__
   references: []
   metadata: {}
 "364":
@@ -7190,6 +7399,7 @@
       proporcionar certificados de validación
       extendida (EV).
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "365":
@@ -7208,6 +7418,7 @@
       de los servicios expuestos
       no debería ser accesible.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "366":
@@ -7223,6 +7434,7 @@
       Todas las variables del código fuente
       deben tener un tipo asociado.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "367":
@@ -7239,6 +7451,7 @@
       deben generarse de forma automática
       y aleatoria.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "368":
@@ -7256,6 +7469,7 @@
       de autenticación debe ser indistinguible
       ya sea que un usuario exista o no.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "369":
@@ -7275,6 +7489,7 @@
       independientemente de la actividad
       del usuario (tiempo de espera absoluto).
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "370":
@@ -7292,6 +7507,7 @@
       debe usarse solo con relleno OAEP
       (relleno de cifrado asimétrico óptimo).
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "371":
@@ -7307,6 +7523,7 @@
       El cifrado simétrico AES
       debe usarse solo con relleno GCM.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "372":
@@ -7326,6 +7543,7 @@
       aleatorio que debe tener
       la misma longitud que la clave de cifrado.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "373":
@@ -7348,6 +7566,7 @@
       Si se utiliza un pinset,
       se deben permitir hasta 2 certificados.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "374":
@@ -7365,6 +7584,7 @@
       aisladas de otras aplicaciones
       (usando sandboxing, cárceles, contenedores, etc.).
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "375":
@@ -7391,6 +7611,7 @@
       admitir listas de control de acceso
       según el origen esperado.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "376":
@@ -7408,6 +7629,7 @@
       el nivel de gravedad de cada
       evento excepcional y de seguridad.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "377":
@@ -7431,6 +7653,7 @@
       estipulado por la normativa vigente
       para ese sistema específico.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "378":
@@ -7450,6 +7673,7 @@
       o por un sistema externo
       separado de la aplicación.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "379":
@@ -7499,6 +7723,7 @@
       el tiempo y el esfuerzo necesarios
       para encontrar y corregir vulnerabilidades
       aumentarán sustancialmente.
+  category: __empty__
   references: []
   metadata: {}
 "380":
@@ -7520,6 +7745,7 @@
       en la organización para
       completar esta tarea.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}
 "381":
@@ -7536,5 +7762,6 @@
       a los archivos del sistema
       mediante rutas absolutas.
     description: __empty__
+  category: __empty__
   references: []
   metadata: {}

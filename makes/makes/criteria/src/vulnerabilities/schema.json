@@ -10,18 +10,73 @@
     "^[0-9]+$": {
       "type": "object",
       "additionalProperties": false,
-      "required": [ "en", "es", "score", "requirements", "metadata" ],
+      "required": [ "en", "es", "category", "score", "requirements", "metadata" ],
       "properties": {
         "en": { "$ref": "#/definitions/language" },
         "es": { "$ref": "#/definitions/language" },
-        "score": { "$ref": "#/definitions/cvss" },
+        "category": {
+          "oneOf": [
+            { "type": "string", "pattern": "^Collect Information$" },
+            { "type": "string", "pattern": "^Inject Unexpected$" },
+            { "type": "string", "pattern": "^Deceptive Interactions$" },
+            { "type": "string", "pattern": "^Abuse Functionality$" },
+            { "type": "string", "pattern": "^Probabilistic Techniques$" },
+            { "type": "string", "pattern": "^Subvert Access$" },
+            { "type": "string", "pattern": "^Manipulate Data$" },
+            { "type": "string", "pattern": "^Manipulate System$" },
+            { "type": "string", "pattern": "^Protocol Manipulation$" },
+            { "type": "string", "pattern": "^__empty__$" }
+          ]
+        },
+        "score": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [ "base", "temporal" ],
+          "properties": {
+            "base": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "attack_vector",
+                "attack_complexity",
+                "privileges_required",
+                "user_interaction",
+                "scope",
+                "confidentiality",
+                "integrity",
+                "availability"
+              ],
+              "properties": {
+                "attack_vector": { "type": "string", "pattern": "^[NALP]$" },
+                "attack_complexity": { "type": "string", "pattern": "^[LH]$" },
+                "privileges_required": { "type": "string", "pattern": "^[NLH]$" },
+                "user_interaction": { "type": "string", "pattern": "^[NR]$" },
+                "scope": { "type": "string", "pattern": "^[UC]$" },
+                "confidentiality": { "type": "string", "pattern": "^[NLH]$" },
+                "integrity": { "type": "string", "pattern": "^[NLH]$" },
+                "availability": { "type": "string", "pattern": "^[NLH]$" }
+              }
+            },
+            "temporal": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "exploit_code_maturity",
+                "remediation_level",
+                "report_confidence"
+              ],
+              "properties": {
+                "exploit_code_maturity": { "type": "string", "pattern": "^[XUPFH]$" },
+                "remediation_level": { "type": "string", "pattern": "^[XOTWU]$" },
+                "report_confidence": { "type": "string", "pattern": "^[XURC]$" }
+              }
+            }
+          }
+        },
         "requirements": {
           "uniqueItems": true,
           "type": "array",
-          "items": {
-            "type": "string",
-            "pattern": "^[0-9]+$"
-          }
+          "items": { "type": "string", "pattern": "^[0-9]+$" }
         },
         "metadata": { "type": "object" }
       }
@@ -38,84 +93,6 @@
         "impact": { "type": "string" },
         "recommendation": { "type": "string" },
         "threat": { "type": "string" }
-      }
-    },
-    "cvss": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [ "base", "temporal" ],
-      "properties": {
-        "base": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "attack_vector",
-            "attack_complexity",
-            "privileges_required",
-            "user_interaction",
-            "scope",
-            "confidentiality",
-            "integrity",
-            "availability"
-          ],
-          "properties": {
-            "attack_vector": {
-              "type": "string",
-              "pattern": "^[NALP]$"
-            },
-            "attack_complexity": {
-              "type": "string",
-              "pattern": "^[LH]$"
-            },
-            "privileges_required": {
-              "type": "string",
-              "pattern": "^[NLH]$"
-            },
-            "user_interaction": {
-              "type": "string",
-              "pattern": "^[NR]$"
-            },
-            "scope": {
-              "type": "string",
-              "pattern": "^[UC]$"
-            },
-            "confidentiality": {
-              "type": "string",
-              "pattern": "^[NLH]$"
-            },
-            "integrity": {
-              "type": "string",
-              "pattern": "^[NLH]$"
-            },
-            "availability": {
-              "type": "string",
-              "pattern": "^[NLH]$"
-            }
-          }
-        },
-        "temporal": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "exploit_code_maturity",
-            "remediation_level",
-            "report_confidence"
-          ],
-          "properties": {
-            "exploit_code_maturity": {
-              "type": "string",
-              "pattern": "^[XUPFH]$"
-            },
-            "remediation_level": {
-              "type": "string",
-              "pattern": "^[XOTWU]$"
-            },
-            "report_confidence": {
-              "type": "string",
-              "pattern": "^[XURC]$"
-            }
-          }
-        }
       }
     }
   }

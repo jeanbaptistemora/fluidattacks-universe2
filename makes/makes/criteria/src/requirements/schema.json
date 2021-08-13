@@ -10,17 +10,39 @@
     "^[0-9]+$": {
       "type": "object",
       "additionalProperties": false,
-      "required": [ "en", "es", "references", "metadata" ],
+      "required": [ "en", "es", "category", "references", "metadata" ],
       "properties": {
         "en": { "$ref": "#/definitions/language" },
         "es": { "$ref": "#/definitions/language" },
+        "category": {
+          "oneOf": [
+            { "type": "string", "pattern": "^Credentials$" },
+            { "type": "string", "pattern": "^Authentication$" },
+            { "type": "string", "pattern": "^Authorization$" },
+            { "type": "string", "pattern": "^Session$" },
+            { "type": "string", "pattern": "^Legal$" },
+            { "type": "string", "pattern": "^Privacy$" },
+            { "type": "string", "pattern": "^Data$" },
+            { "type": "string", "pattern": "^Source$" },
+            { "type": "string", "pattern": "^System$" },
+            { "type": "string", "pattern": "^Files$" },
+            { "type": "string", "pattern": "^Logs$" },
+            { "type": "string", "pattern": "^Emails$" },
+            { "type": "string", "pattern": "^Services$" },
+            { "type": "string", "pattern": "^Certificates$" },
+            { "type": "string", "pattern": "^Cryptography$" },
+            { "type": "string", "pattern": "^Architecture$" },
+            { "type": "string", "pattern": "^Networks$" },
+            { "type": "string", "pattern": "^Virtualization$" },
+            { "type": "string", "pattern": "^Devices$" },
+            { "type": "string", "pattern": "^Social$" },
+            { "type": "string", "pattern": "^__empty__$" }
+          ]
+        },
         "references": {
           "uniqueItems": true,
           "type": "array",
-          "items": {
-            "type": "string",
-            "pattern": "^[a-z0-9_.]+$"
-          }
+          "items": { "type": "string", "pattern": "^[a-z0-9_.]+$" }
         },
         "metadata": { "type": "object" }
       }
