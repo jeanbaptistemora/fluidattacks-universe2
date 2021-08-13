@@ -32,7 +32,7 @@
       por medio de sentencias
       o procedimientos parametrizados.
     threat: Atacante autenticado desde Internet.
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -209,7 +209,7 @@
       en procesar la información.
     threat: >
       Atacante anónimo desde Internet.
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -260,7 +260,7 @@
       en procesar la información.
     threat: >
       Atacante anónimo desde Internet
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -328,7 +328,7 @@
       usados para generar el comando
       y evite los caracteres especiales.
     threat: Atacante autenticado desde Internet.
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -381,7 +381,7 @@
       de identificadores de usuario.
     threat: >
       Atacante autenticado desde Internet
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -443,7 +443,7 @@
       tenga una sesión iniciada.
     threat: >
       Atacante anónimo desde Internet.
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -495,7 +495,7 @@
       por usuarios legítimos.
     threat: >
       Atacante anónimo desde Internet.
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -547,7 +547,7 @@
       para evitar los ataques más comunes
       de inyección de scripts.
     threat: Atacante autenticado desde Internet.
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -630,7 +630,7 @@
       que estén debidamente cifrados
       o variables de entorno administrativas.
     threat: Atacante con acceso al código fuente desde Internet.
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -679,7 +679,7 @@
       y envía la aplicación
       por medio de listas blancas.
     threat: Atacante autorizado desde Internet
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -725,7 +725,7 @@
       a las versiones recomendadas
       por el fabricante.
     threat: Atacante autenticado desde Internet.
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -796,7 +796,7 @@
       o alternativamente usar
       la función escape(String) del framework.
     threat: Atacante autenticado desde Internet.
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -845,7 +845,7 @@
       utilizando objetos de sesión
     threat: >
       Usuario autenticado desde Internet.
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -881,7 +881,7 @@
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -923,7 +923,7 @@
     threat: >
       Atacante sin autorización desde red adyacente
       ejecutando un MITM.
-  category: __empty__
+  category: Protocol Manipulation
   score:
     base:
       attack_vector: "A"
@@ -967,7 +967,7 @@
       TLSv1.2 o TLSv1.3 de ser posible.
     threat: >
       Atacante sin autorización desde red adjacente.
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "A"
@@ -1063,7 +1063,7 @@
       o por el método HTTP POST.
     threat: >
       Atacante anónimo desde una red local
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "L"
@@ -1106,7 +1106,7 @@
       solo a personal autorizado
       y con las credenciales respectivas.
     threat: Atacante anónimo desde red local
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "L"
@@ -1146,7 +1146,7 @@
       Evitar almacenar información sensible
       en archivos temporales o en caché.
     threat: Atacante autenticado desde la red local
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "L"
@@ -1199,7 +1199,7 @@
     threat: >
       Atacante con acceso al código fuente
       desde Internet.
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -1246,7 +1246,7 @@
       para evitar los ataques
       mas comunes de inyección.
     threat: Atacante autenticado desde Internet
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -1294,7 +1294,7 @@
     threat: >
       Atacante anónimo en red adyacente
       ejecutando un ataque de hombre en el medio.
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "A"
@@ -1346,7 +1346,7 @@
       Configurar el servidor
       para prevenir redirecciones a hosts de terceros.
     threat: Atacante sin autorización desde Internet.
-  category: __empty__
+  category: Deceptive Interactions
   score:
     base:
       attack_vector: "A"
@@ -1411,7 +1411,7 @@
       y servicios administrativos
       solamente a los usuarios requeridos.
     threat: Atacante anónimo desde Internet.
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -1453,7 +1453,7 @@
       y TLS o configurar un firewall
       para cifrar las llamadas.
     threat: __empty__
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -1498,7 +1498,7 @@
       para usuarios existentes y no existentes
     threat: >
       Atacante anónimo desde Internet
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -1564,7 +1564,7 @@
       antes de subirlo al servidor.
     threat: >
       Atacante autenticado desde Internet.
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -1605,7 +1605,7 @@
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -1659,7 +1659,7 @@
       para limitar el máximo tamaño
       de archivos permitido.
     threat: Atacante autorizado desde Internet
-  category: __empty__
+  category: Manipulate System
   score:
     base:
       attack_vector: "N"
@@ -1734,7 +1734,7 @@
     threat: >
       Atacante anónimo desde red adyacente
       ejecutando un ataque de sniffing
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -1792,7 +1792,7 @@
       Atacante desde Internet
       con acceso a cualquiera
       de los roles mal configurados.
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -1880,7 +1880,7 @@
       que puedan ser modificados sin autorización por un usuario.
     threat: >
       Atacante autenticado desde Internet
-  category: __empty__
+  category: Deceptive Interactions
   score:
     base:
       attack_vector: "N"
@@ -1934,7 +1934,7 @@
       por el dueño de la cuenta
     threat: >
       Atacante autenticado desde Internet
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -1991,7 +1991,7 @@
       para la generación de números aleatorios.
     threat: >
       Atacante autenticado desde Internet
-  category: __empty__
+  category: Probabilistic Techniques
   score:
     base:
       attack_vector: "N"
@@ -2040,7 +2040,7 @@
       y no contraseñas basadas en palabras.
     threat: >
       Atacante anónimo desde Internet
-  category: __empty__
+  category: Probabilistic Techniques
   score:
     base:
       attack_vector: "N"
@@ -2089,7 +2089,7 @@
     threat: >
       Atacante anónimo con acceso local
       al navegador de la victima.
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "L"
@@ -2153,7 +2153,7 @@
       no expongan ningún nombre o versión.
     threat: >
       Atacante autenticado desde Internet
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -2218,7 +2218,7 @@
       sólo a las personas indicadas.
     threat: >
       Atacante autenticado desde Internet.
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -2255,7 +2255,7 @@
     impact: __empty__
     recommendation: __empty__
     threat: Atacante anónimo desde Internet.
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -2292,7 +2292,7 @@
     impact: __empty__
     recommendation: __empty__
     threat: Atacante anónimo desde Internet
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -2338,7 +2338,7 @@
       para evitar inicios de sesión con estas.
     threat: >
       Atacante anónimo desde Internet.
-  category: __empty__
+  category: Probabilistic Techniques
   score:
     base:
       attack_vector: "N"
@@ -2390,7 +2390,7 @@
       los correspondientes atributos de seguridad
       cuando se generan las cookies.
     threat: Atacante anónimo desde Internet.
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -2451,7 +2451,7 @@
       en las respuestas del servidor
       y configurarla de forma segura.
     threat: Atacante sin autorización desde Internet.
-  category: __empty__
+  category: Protocol Manipulation
   score:
     base:
       attack_vector: "N"
@@ -2499,7 +2499,7 @@
       para las peticiones en el servidor.
     threat: >
       Atacante autenticado desde Internet.
-  category: __empty__
+  category: Protocol Manipulation
   score:
     base:
       attack_vector: "N"
@@ -2552,7 +2552,7 @@
       o listas blancas para evitar inyecciones.
     threat: >
       Atacante autenticado desde Internet.
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -2624,7 +2624,7 @@
       Atacante sin autorización
       desde internet
       con acceso a el APK.
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -2673,7 +2673,7 @@
       que corren en dicho puerto.
     threat: >
       Atacante anónimo desde Internet.
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -2728,7 +2728,7 @@
       Atacante sin autorización
       con un dispositivo rooteado
       y el APK instalado.
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -2781,7 +2781,7 @@
       Atacante sin autorización
       desde red adyacente
       ejecutando un MITM.
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -2851,7 +2851,7 @@
       - No reutilizar contraseñas.
     threat: >
       Atacante anónimo desde Internet.
-  category: __empty__
+  category: Probabilistic Techniques
   score:
     base:
       attack_vector: "N"
@@ -2900,7 +2900,7 @@
     threat: >
       Atacante autenticado desde Internet
       con acceso a los hashes.
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -2951,7 +2951,7 @@
       criptográficamente seguros.
     threat: >
       Atacante anónimo desde red interna.
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -3003,7 +3003,7 @@
       de intentos fallidos, etc.
     threat: >
       Atacante anónimo desde Internet.
-  category: __empty__
+  category: Probabilistic Techniques
   score:
     base:
       attack_vector: "N"
@@ -3054,7 +3054,7 @@
       explícitamente permitidos.
     threat: >
       Atacante anónimo desde Internet
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -3125,7 +3125,7 @@
     threat: >
       Atacante sin autorización
       con el APK instalado en un dispositivo.
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -3178,7 +3178,7 @@
       o conectarse a estos de forma anónima.
     threat: >
       Atacante anónimo desde red adyacente.
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -3242,7 +3242,7 @@
       de permisos 0600.
     threat: >
       Atacante anónimo con acceso local al servidor.
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -3389,7 +3389,7 @@
     threat: >
       Atacante sin autorización
       desde internet.
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -3439,7 +3439,7 @@
     threat: >
       Atacante local autorizado
       con acceso a los logs.
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -3506,7 +3506,7 @@
     threat: >
       Atacante autenticado
       desde Internet.
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -3574,7 +3574,7 @@
     threat: >
       Atacante autenticado
       desde Internet.
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -3642,7 +3642,7 @@
       en otra ubicación.
     threat: >
       Atacante autenticado desde Internet
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -3707,7 +3707,7 @@
     threat: >
       Atacante autenticado
       desde Internet.
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -3752,7 +3752,7 @@
     threat: >
       Atacante anónimo
       desde Internet.
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -3814,7 +3814,7 @@
       para prevenir caché a nivel de campos.
     threat: >
       Atacante anónimo desde red local
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -3876,7 +3876,7 @@
       no expongan ningún nombre o versión.
     threat: >
       Atacante autenticado desde Internet.
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -3981,7 +3981,7 @@
       sin mucho gasto computacional.
     threat: >
       Atacante autenticado desde Internet
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -4026,7 +4026,7 @@
     threat: >
       Atacante anónimo desde red local
       con acceso a una sesión desatendida.
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -4084,7 +4084,7 @@
       no sea leído por un OCR.
     threat: >
       Atacante anónimo desde Internet.
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -4162,7 +4162,7 @@
     threat: >
       Atacante autorizado
       con acceso a la aplicación.
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -4218,7 +4218,7 @@
     threat: >
       Atacante sin autorización
       desde Internet.
-  category: __empty__
+  category: Protocol Manipulation
   score:
     base:
       attack_vector: "N"
@@ -4265,7 +4265,7 @@
       funciones o métodos repetidos.
     threat: >
       Atacante autenticado desde Internet.
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -4320,7 +4320,7 @@
     threat: >
       Atacante autenticado
       desde Internet.
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -4373,7 +4373,7 @@
       en el código fuente de la aplicación.
     threat: >
       Atacante autenticado desde Internet
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -4453,7 +4453,7 @@
       Atacante sin autorización
       propietario de una aplicación de terceros
       instalada en el dispositivo.
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -4500,7 +4500,7 @@
     threat: >
       Atacante anónimo desde Internet
       con acceso a un token de sesión.
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -4545,7 +4545,7 @@
       Establecer controles de red
       (PortSecurity) en los switches afectados.
     threat: __empty__
-  category: __empty__
+  category: Manipulate System
   score:
     base:
       attack_vector: "N"
@@ -4587,7 +4587,7 @@
       Generar un token con componentes aleatorios
       sin información sensible.
     threat: Atacante anónimo desde internet con acceso al hash
-  category: __empty__
+  category: Deceptive Interactions
   score:
     base:
       attack_vector: "N"
@@ -4636,7 +4636,7 @@
       y empaquetado de proyectos.
     threat: >
       Atacante autenticado desde Internet.
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -4685,7 +4685,7 @@
     threat: >
       Atacante interno
       con acceso a la configuración.
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -4742,7 +4742,7 @@
       de la autenticación
       de los recursos críticos.
     threat: Atacante autenticado desde Internet.
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -4792,7 +4792,7 @@
       (Políticas).
     threat: >
       Atacante autenticado desde red local.
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -4842,7 +4842,7 @@
       por medio de listas blancas.
     threat: >
       Atacante autenticado desde Internet.
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -4899,7 +4899,7 @@
       del puerto UDP 5353.
     threat: >
       Atacante autenticado en la red local.
-  category: __empty__
+  category: Deceptive Interactions
   score:
     base:
       attack_vector: "N"
@@ -4961,7 +4961,7 @@
     threat: >
       Atacante con acceso físico
       o virtual al navegador de la víctima.
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -5010,7 +5010,7 @@
     threat: >
       Atacante sin autorización
       desde red internet.
-  category: __empty__
+  category: Deceptive Interactions
   score:
     base:
       attack_vector: "N"
@@ -5061,7 +5061,7 @@
       por atacantes.
     threat: >
       Atacante anónimo desde Internet.
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -5103,7 +5103,7 @@
     threat: >
       Atacante en internet
       no autenticado en la aplicación
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -5158,7 +5158,7 @@
     threat: >
       Atacante autenticado
       desde Internet.
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -5206,7 +5206,7 @@
       al generar el archivo exportado.
     threat: >
       Atacante autenticado desde Internet.
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -5265,7 +5265,7 @@
       de guardarlas en el log.
     threat: >
       Atacante autenticado desde Internet.
-  category: __empty__
+  category: Manipulate System
   score:
     base:
       attack_vector: "N"
@@ -5313,7 +5313,7 @@
     threat: >
       Atacante sin autorización
       desde red adyacente ejecutando un MITM.
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -5439,7 +5439,7 @@
       y manejar el resto desde el servidor.
     threat: >
       Atacante autenticado desde Internet.
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -5486,7 +5486,7 @@
     threat: >
       Atacante sin autorización
       desde red adyacente.
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -5541,7 +5541,7 @@
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -5585,7 +5585,7 @@
       con las propiedades esperadas.
     threat: >
       Atacante autenticado desde Internet.
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -5649,7 +5649,7 @@
       en cada link externo.
     threat: >
       Atacante anónimo desde red Interna.
-  category: __empty__
+  category: Deceptive Interactions
   score:
     base:
       attack_vector: "N"
@@ -5693,7 +5693,7 @@
       Sobreescribir archivos importantes
       dentro del sistema tomando como referencia
       la ruta donde se realiza la carga.
-  category: __empty__
+  category: Manipulate Data
   score:
     base:
       attack_vector: "N"
@@ -5748,7 +5748,7 @@
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -5802,7 +5802,7 @@
       el sistema debe restringir los endpoints
       aceptados para consulta.
     threat: __empty__
-  category: __empty__
+  category: Deceptive Interactions
   score:
     base:
       attack_vector: "N"
@@ -5837,7 +5837,7 @@
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -5883,7 +5883,7 @@
       solo pueda estar asociado
       y/o representar una cuenta.
     threat: Atacante anónimo desde Internet
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -5926,7 +5926,7 @@
     threat: >
       Atacante no autenticado
       desde Internet.
-  category: __empty__
+  category: Manipulate Data
   score:
     base:
       attack_vector: "N"
@@ -5980,7 +5980,7 @@
       que mitigue el riesgo de infección
       con software malicioso.
     threat: __empty__
-  category: __empty__
+  category: Manipulate System
   score:
     base:
       attack_vector: "N"
@@ -6023,7 +6023,7 @@
       por medio de sentencias
       o procedimientos parametrizados.
     threat: __empty__
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -6065,7 +6065,7 @@
       que serán incluidos en sentencias
       generadas dinámicamente.
     threat: __empty__
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -6115,7 +6115,7 @@
     threat: >
       Atacante autenticado
       desde Internet.
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -6157,7 +6157,7 @@
       que puede realizar un mismo host
       en espacios de tiempo definidos.
     threat: __empty__
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -6224,7 +6224,7 @@
     threat: >
       Atacante autenticado
       desde Internet.
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -6290,7 +6290,7 @@
       en los delimitadores
       entre las peticiones.
     threat: __empty__
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -6327,7 +6327,7 @@
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
-  category: __empty__
+  category: Manipulate Data
   score:
     base:
       attack_vector: "N"
@@ -6387,7 +6387,7 @@
     threat: >
       Atacante autenticado
       desde Internet.
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -6430,7 +6430,7 @@
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -6479,7 +6479,7 @@
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
-  category: __empty__
+  category: Deceptive Interactions
   score:
     base:
       attack_vector: "N"
@@ -6513,7 +6513,7 @@
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -6555,7 +6555,7 @@
     threat: >
       Filtrar datos sensibles
       del usuario sin su autorización.
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -6623,7 +6623,7 @@
     threat: >
       Atacante autenticado
       desde Internet.
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -6666,7 +6666,7 @@
     threat: >
       - Incurrir en una multa
       o alguna otra sanción legal.
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -6716,7 +6716,7 @@
       - Obtener información
       que pueda ser utilizada
       para comprometer otros sistemas.
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -6781,7 +6781,7 @@
       una versión de una dependencia
       que no es compatible con la aplicación
       u otras dependencias.
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -6836,7 +6836,7 @@
     threat: >
       Causar comportamientos inesperados
       en la aplicación.
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -6890,7 +6890,7 @@
 
       - Ocultar información importante
       de otros correos.
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -6952,7 +6952,7 @@
       Visualizar el contenido
       de archivos sensibles almacenados
       en el servidor.
-  category: __empty__
+  category: Manipulate Data
   score:
     base:
       attack_vector: "N"
@@ -7002,7 +7002,7 @@
     threat: >
       Ocasionar comportamientos inesperados
       en la aplicación.
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
@@ -7063,7 +7063,7 @@
       Obtener información técnica
       o sensible de los archivos almacenados
       en el directorio de la aplicación.
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -7100,7 +7100,7 @@
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -7130,7 +7130,7 @@
     impact: __empty__
     recommendation: __empty__
     threat: __empty__
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -7182,7 +7182,7 @@
       Atacante con autorización
       desde internet
       ejecutando un ataque XSS.
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -7232,7 +7232,7 @@
     threat: >
       Atacante desde internet
       ejecutando un ataque CSRF.
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -7290,7 +7290,7 @@
       Atacante sin autorización
       desde red adyacente
       ejecutando un MITM.
-  category: __empty__
+  category: Subvert Access
   score:
     base:
       attack_vector: "N"
@@ -7346,7 +7346,7 @@
       Atacante sin autorización
       desde red adyacente
       ejecutando un ataque de sniffing.
-  category: __empty__
+  category: Protocol Manipulation
   score:
     base:
       attack_vector: "A"
@@ -7466,7 +7466,7 @@
     threat: >
       Atacante sin autorización
       desde internet.
-  category: __empty__
+  category: Protocol Manipulation
   score:
     base:
       attack_vector: "N"
@@ -7525,7 +7525,7 @@
       desde red adyacente
       que haya comprometido
       una llave privada.
-  category: __empty__
+  category: Collect Information
   score:
     base:
       attack_vector: "N"
@@ -7578,7 +7578,7 @@
     threat: >
       Atacante sin autorización
       desde Internet.
-  category: __empty__
+  category: Protocol Manipulation
   score:
     base:
       attack_vector: "N"
@@ -7633,7 +7633,7 @@
     threat: >
       Atacante sin autorización
       desde Internet.
-  category: __empty__
+  category: Protocol Manipulation
   score:
     base:
       attack_vector: "N"
@@ -7694,7 +7694,7 @@
     threat: >
       Atacante sin autorización
       desde red local.
-  category: __empty__
+  category: Protocol Manipulation
   score:
     base:
       attack_vector: "L"
@@ -7749,7 +7749,7 @@
     threat: >
       Atacante sin autorización
       desde Internet.
-  category: __empty__
+  category: Protocol Manipulation
   score:
     base:
       attack_vector: "N"
@@ -7787,7 +7787,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
