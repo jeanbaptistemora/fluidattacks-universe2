@@ -38,15 +38,10 @@ from typing import (
     require_asm,
 )
 async def mutate(
-    _parent: None, info: GraphQLResolveInfo, **parameters: Any
+    _parent: None, info: GraphQLResolveInfo, finding_id: str, **parameters: Any
 ) -> SimpleFindingPayload:
-    finding_id = parameters.get("finding_id", "")
-    if "data" in parameters:
-        data = parameters.get("data", dict())
-    else:
-        data = parameters
-        data["id"] = finding_id
-        del data["finding_id"]
+    data = parameters
+    data["id"] = finding_id
     data = {utils.snakecase_to_camelcase(k): data[k] for k in data}
     finding_loader = info.context.loaders.finding
     finding_data = await finding_loader.load(finding_id)

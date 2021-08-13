@@ -59,20 +59,16 @@ async def mutate(
     _parent: None, info: GraphQLResolveInfo, finding_id: str, **kwargs: Any
 ) -> SimplePayload:
     try:
-        parameters: Dict
-        if "data" in kwargs:
-            parameters = kwargs.get("data")
-        else:
-            parameters = kwargs
+        kwargs["id"] = finding_id
         finding_loader = info.context.loaders.finding_new
         finding: Finding = await finding_loader.load(finding_id)
-        if "cvss_version" not in parameters:
+        if "cvss_version" not in kwargs:
             raise NotCvssVersion()
-        cvss_version = str(parameters["cvss_version"])
+        cvss_version = str(kwargs["cvss_version"])
         try:
             cvss_fields = {
                 key: Decimal(str(value))
-                for key, value in parameters.items()
+                for key, value in kwargs.items()
                 if key != "cvss_version"
             }
         except InvalidOperation:

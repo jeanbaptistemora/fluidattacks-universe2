@@ -792,31 +792,30 @@ type Mutation {
 
   updateSeverity(
     findingId: String!
-    data: GenericScalar
-    attackComplexity: String
-    attackVector: String
-    availabilityImpact: String
-    availabilityRequirement: String
-    confidentialityImpact: String
-    confidentialityRequirement: String
-    cvssVersion: String
-    exploitability: String
-    integrityImpact: String
-    integrityRequirement: String
-    modifiedAttackComplexity: String
-    modifiedAttackVector: String
-    modifiedAvailabilityImpact: String
-    modifiedConfidentialityImpact: String
-    modifiedIntegrityImpact: String
-    modifiedPrivilegesRequired: String
-    modifiedSeverityScope: String
-    modifiedUserInteraction: String
-    privilegesRequired: String
-    remediationLevel: String
-    reportConfidence: String
+    attackComplexity: String!
+    attackVector: String!
+    availabilityImpact: String!
+    availabilityRequirement: String!
+    confidentialityImpact: String!
+    confidentialityRequirement: String!
+    cvssVersion: String!
+    exploitability: String!
+    integrityImpact: String!
+    integrityRequirement: String!
+    modifiedAttackComplexity: String!
+    modifiedAttackVector: String!
+    modifiedAvailabilityImpact: String!
+    modifiedConfidentialityImpact: String!
+    modifiedIntegrityImpact: String!
+    modifiedPrivilegesRequired: String!
+    modifiedSeverityScope: String!
+    modifiedUserInteraction: String!
+    privilegesRequired: String!
+    remediationLevel: String!
+    reportConfidence: String!
     severity: String
-    severityScope: String
-    userInteraction: String
+    severityScope: String!
+    userInteraction: String!
   ): SimpleFindingPayload!
 
   updateToeLinesSorts(
