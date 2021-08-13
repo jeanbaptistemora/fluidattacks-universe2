@@ -581,26 +581,66 @@ async def do_update_finding_severity(
     result = await _execute(
         query="""
             mutation SkimsDoUpdateFindingSeverity(
-                $finding_id: String!
-                $data: GenericScalar!
+                $findingId: String!
+                $attackComplexity: String!
+                $attackVector: String!
+                $availabilityImpact: String!
+                $availabilityRequirement: String!
+                $confidentialityImpact: String!
+                $confidentialityRequirement: String!
+                $cvssVersion: String!
+                $exploitability: String!
+                $integrityImpact: String!
+                $integrityRequirement: String!
+                $modifiedAttackComplexity: String!
+                $modifiedAttackVector: String!
+                $modifiedAvailabilityImpact: String!
+                $modifiedConfidentialityImpact: String!
+                $modifiedIntegrityImpact: String!
+                $modifiedPrivilegesRequired: String!
+                $modifiedSeverityScope: String!
+                $modifiedUserInteraction: String!
+                $privilegesRequired: String!
+                $remediationLevel: String!
+                $reportConfidence: String!
+                $severity: String
+                $severityScope: String!
+                $userInteraction: String!
             ) {
                 updateSeverity(
-                    findingId: $finding_id
-                    data: $data
+                    findingId: $findingId
+                    attackComplexity: $attackComplexity
+                    attackVector: $attackVector
+                    availabilityImpact: $availabilityImpact
+                    availabilityRequirement: $availabilityRequirement
+                    confidentialityImpact: $confidentialityImpact
+                    confidentialityRequirement: $confidentialityRequirement
+                    cvssVersion: $cvssVersion
+                    exploitability: $exploitability
+                    integrityImpact: $integrityImpact
+                    integrityRequirement: $integrityRequirement
+                    modifiedAttackComplexity: $modifiedAttackComplexity
+                    modifiedAttackVector: $modifiedAttackVector
+                    modifiedAvailabilityImpact: $modifiedAvailabilityImpact
+                    modifiedConfidentialityImpact:
+                        $modifiedConfidentialityImpact
+                    modifiedIntegrityImpact: $modifiedIntegrityImpact
+                    modifiedPrivilegesRequired: $modifiedPrivilegesRequired
+                    modifiedSeverityScope: $modifiedSeverityScope
+                    modifiedUserInteraction: $modifiedUserInteraction
+                    privilegesRequired: $privilegesRequired
+                    remediationLevel: $remediationLevel
+                    reportConfidence: $reportConfidence
+                    severity: $severity
+                    severityScope: $severityScope
+                    userInteraction: $userInteraction
                 ) {
                     success
                 }
             }
         """,
         operation="SkimsDoUpdateFindingSeverity",
-        variables=dict(
-            finding_id=finding_id,
-            data=dict(
-                cvssVersion="3.1",
-                id=finding_id,
-                **severity,
-            ),
-        ),
+        variables=dict(cvssVersion="3.1", findingId=finding_id, **severity),
     )
 
     success: bool = result["data"]["updateSeverity"]["success"]
