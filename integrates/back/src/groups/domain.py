@@ -971,6 +971,29 @@ async def get_mean_remediate_non_treated(
     )
 
 
+async def get_mean_remediate_non_treated_new(
+    loaders: Any, group_name: str, min_date: Optional[date] = None
+) -> Decimal:
+    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
+        group_name
+    )
+    all_vulnerabilities = await loaders.finding_vulns.load_many_chained(
+        [finding.id for finding in findings]
+    )
+    vulnerabilities = vulns_utils.filter_non_confirmed_zero_risk(
+        all_vulnerabilities
+    )
+
+    return await vulns_utils.get_mean_remediate_vulnerabilities(
+        [
+            vuln
+            for vuln in vulnerabilities
+            if not vulns_utils.is_accepted_undefined_vulnerability(vuln)
+        ],
+        min_date,
+    )
+
+
 async def get_mean_remediate_severity(
     context: Any,
     group_name: str,
