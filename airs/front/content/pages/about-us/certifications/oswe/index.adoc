@@ -6,7 +6,7 @@
 :page-certification: yes
 :page-certificationid: 003
 
-= Offensive Security Web Expert (OSWE)
+= Offensive Security Web Expert
 
 OSWE is a certification designed to demonstrate
 the ability to exploit web apps,

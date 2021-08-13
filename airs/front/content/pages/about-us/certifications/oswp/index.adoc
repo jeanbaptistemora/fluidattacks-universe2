@@ -6,7 +6,7 @@
 :page-certification: yes
 :page-certificationid: 004
 
-= Offensive Security Wireless Professional (OSWP)
+= Offensive Security Wireless Professional
 
 OSWP is the only professional certification
 in practical wireless attacks in the security field today.

@@ -6,7 +6,7 @@
 :page-certification: yes
 :page-certificationid: 001
 
-= Offensive Security Certified Expert (OSCE)
+= Offensive Security Certified Expert
 
 OSCE is a certification focused on advanced penetration testing skills,
 created by Offensive Security.

@@ -6,7 +6,7 @@
 :page-certification: yes
 :page-certificationid: 005
 
-= Offensive Security Certified Professional (OSCP)
+= Offensive Security Certified Professional
 
 OSCP is a professional certification in ethical hacking
 developed by Offensive Security.

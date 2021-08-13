@@ -6,7 +6,7 @@
 :page-certification: yes
 :page-certificationid: 010
 
-= eLearnSecurity Web Application Penetration Tester (eWPTv1)
+= eLearnSecurity Web Application Penetration Tester
 
 eWPTv1 is a certification
 created by eLearnSecurity.
