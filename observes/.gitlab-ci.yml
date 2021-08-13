@@ -3,6 +3,7 @@ include:
   - local: observes/singer/tap_announcekit/.gitlab-ci.yml
   - local: observes/singer/tap_bugsnag/.gitlab-ci.yml
   - local: observes/singer/tap_gitlab/.gitlab-ci.yml
+  - local: observes/singer/tap_mailchimp/.gitlab-ci.yml
   - local: observes/singer/tap_mixpanel/.gitlab-ci.yml
 
 .makes: &makes
@@ -114,8 +115,6 @@ observes.lint.tap-formstack:
 observes.lint.tap-json:
   <<: *lint_job
 
-observes.lint.tap-mailchimp:
-  <<: *lint_job
 
 observes.lint.tap-timedoctor:
   <<: *lint_job
@@ -190,11 +189,6 @@ observes.test.tap-csv:
   <<: *test_job
   needs:
     - observes.lint.tap-csv
-
-observes.test.tap-mailchimp:
-  <<: *test_job
-  needs:
-    - observes.lint.tap-mailchimp
 
 # test infra jobs
 
