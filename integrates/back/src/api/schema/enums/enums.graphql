@@ -200,18 +200,27 @@ enum Frequency {
   WEEKLY
 }
 
+"Language for Findings"
 enum Language {
+  "English"
   EN
+  "Spanish"
   ES
 }
 
+"Name entity for Internal Names queries/generation"
 enum NameEntity {
+  "Group"
   GROUP
+  "Organization"
   ORGANIZATION
 }
 
+"Approval status of an organization finding policy"
 enum OrganizationFindindPolicy {
+  "Policy was approved and enacted"
   APPROVED
+  "Policy was rejected and discarded"
   REJECTED
 }
 
@@ -228,13 +237,19 @@ enum OrganizationRole {
   GROUP_MANAGER
 }
 
+"Language for Group Reports"
 enum ReportLang {
+  "English"
   EN
 }
 
+"Group Reports type"
 enum ReportType {
+  "ZIP file (Findings data)"
   DATA
+  "PDF (Executive)"
   PDF
+  "Excel Spreadsheet (Technical)"
   XLS
 }
 
@@ -282,8 +297,11 @@ enum SubscriptionReportEntity {
   PORTFOLIO
 }
 
+"Group Subscription Type"
 enum SubscriptionType {
+  "Continuous Hacking"
   CONTINUOUS
+  "One-Shot Hacking"
   ONESHOT
 }
 
@@ -293,21 +311,34 @@ enum UpdateClientDescriptionTreatment {
   IN_PROGRESS
 }
 
+"Vulnerability state"
 enum VulnerabilityState {
+  "Accepted"
   ACCEPTED
+  "Closed/Solved"
   CLOSED
+  "Open"
   OPEN
+  "Unknown state"
   UNKNOWN
 }
 
+"Protocol to use in URLRoots"
 enum URLProtocol {
+  "HTTP"
   HTTP
+  "HTTPS"
   HTTPS
 }
 
+"Reasons to deactive a Root"
 enum RootDeactivationReason {
+  "The Root was moved or encompassed by another"
   MOVED_TO_ANOTHER_ROOT
+  "Other reason not covered"
   OTHER
+  "The Root is out of the scope for this group"
   OUT_OF_SCOPE
+  "The Root was registered by mistake"
   REGISTERED_BY_MISTAKE
 }
