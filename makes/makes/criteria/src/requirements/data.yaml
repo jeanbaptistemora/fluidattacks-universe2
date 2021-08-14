@@ -1499,7 +1499,7 @@
       y salientes deben pasar
       por un filtro anti-spam.
     description: __empty__
-  category: __empty__
+  category: Emails
   references: []
   metadata: {}
 "116":
@@ -1518,7 +1518,7 @@
       no debe mostrar por defecto imágenes
       cuyo origen sea desconocido.
     description: __empty__
-  category: __empty__
+  category: Emails
   references: []
   metadata: {}
 "117":
@@ -1536,7 +1536,7 @@
       no debe renderizar código HTML
       por defecto.
     description: __empty__
-  category: __empty__
+  category: Emails
   references: []
   metadata: {}
 "118":
@@ -1555,7 +1555,7 @@
       en un correo con herramientas
       anti-malware.
     description: __empty__
-  category: __empty__
+  category: Emails
   references: []
   metadata: {}
 "119":
@@ -1573,7 +1573,7 @@
       en vez del campo TO al enviar
       correos electrónicos masivos.
     description: __empty__
-  category: __empty__
+  category: Emails
   references: []
   metadata: {}
 "121":
@@ -1599,7 +1599,7 @@
       de la estructura de dirección
       de correo RFC822.
     description: __empty__
-  category: __empty__
+  category: Emails
   references: []
   metadata: {}
 "122":
@@ -1672,7 +1672,7 @@
       automáticas los recolecten
       o añadan a listas de distribución
       de correos masivos.
-  category: __empty__
+  category: Emails
   references: []
   metadata: {}
 "126":
@@ -2452,7 +2452,7 @@
       El sistema debe reutilizar
       las conexiones de la base de datos.
     description: __empty__
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "153":
@@ -2564,7 +2564,7 @@
       ya que podría convertirse
       en graves vulnerabilidades
       de seguridad.
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "155":
@@ -2614,7 +2614,7 @@
       que no tiene puertas traseras,
       rootkits, bombas de tiempo,
       bombas lógicas, etc.
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "156":
@@ -2662,7 +2662,7 @@
       debe estar presente en el código fuente,
       ya que una fuga podría poner
       en peligro los sistemas críticos.
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "157":
@@ -2684,7 +2684,7 @@
       e intérpretes para ejecutar
       en modo estricto.
     description: __empty__
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "158":
@@ -2708,7 +2708,7 @@
       actualizada, probada
       y libre de vulnerabilidades conocidas.
     description: __empty__
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "159":
@@ -2726,7 +2726,7 @@
       debe estar ofuscado
       en ambiente de producción.
     description: __empty__
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "160":
@@ -2767,7 +2767,7 @@
       Cuando estos mensajes
       incluyen una entrada de fuentes no confiables
       y esta entrada no está apropiadamente
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "161":
@@ -2845,7 +2845,7 @@
       de mantener,
       es más probable que surjan
       vulnerabilidades.
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "162":
@@ -2863,7 +2863,7 @@
       no debe tener funciones,
       métodos o clases repetidas.
     description: __empty__
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "164":
@@ -2879,7 +2879,7 @@
       El código debe usar contenedores
       de datos y estructuras optimizadas.
     description: __empty__
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "167":
@@ -2900,7 +2900,7 @@
       de alguno de los recursos
       abiertos no utilizados.
     description: __empty__
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "168":
@@ -2918,7 +2918,7 @@
       en el código fuente deben
       estar explícitamente inicializadas.
     description: __empty__
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "169":
@@ -2941,7 +2941,7 @@
       dinámica de sentencias
       (ej: java.sql.PreparedStatement).
     description: __empty__
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "171":
@@ -2960,7 +2960,7 @@
       en ambiente de producción
       deben ser removidos.
     description: __empty__
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "172":
@@ -3009,7 +3009,7 @@
       usando un algoritmo criptográfico seguro
       y la clave de cifrado debe
       también estar protegido.
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "173":
@@ -3092,7 +3092,7 @@
       de un artefacto tecnológico,
       y se deben aplicar controles
       y un tratamiento adecuado.
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "174":
@@ -3111,7 +3111,7 @@
       transacciones no sigan
       un patrón discernible.
     description: __empty__
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "175":
@@ -3160,7 +3160,7 @@
       que las páginas se incrusten
       en sitios maliciosos
       (por ejemplo, "X-Frame-Options").
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "176":
@@ -3217,7 +3217,7 @@
       y la política de asignación de roles
       deben implementarse
       teniendo en cuenta estas restricciones.
-  category: __empty__
+  category: Data
   references: []
   metadata: {}
 "177":
@@ -3269,7 +3269,7 @@
       evitar la memoria caché
       y los archivos temporales ayuda
       a proteger la información confidencial.
-  category: __empty__
+  category: Data
   references: []
   metadata: {}
 "178":
@@ -3311,7 +3311,7 @@
       o con datos y recursos
       que sean susceptibles
       de ser afectados por terceros.
-  category: __empty__
+  category: Data
   references: []
   metadata: {}
 "180":
@@ -3354,7 +3354,7 @@
       datos simulados
       o datos que se hayan generado
       automáticamente.
-  category: __empty__
+  category: Data
   references: []
   metadata: {}
 "181":
@@ -3397,7 +3397,7 @@
       la información.
       Ejemplos de estos protocolos inseguros
       son HTTP, FTP, POP3 y Telnet.
-  category: __empty__
+  category: Data
   references: []
   metadata: {}
 "183":
@@ -3441,7 +3441,7 @@
       y que su eliminación sigue
       procedimientos seguros
       que evitan que sean recuperado.
-  category: __empty__
+  category: Data
   references: []
   metadata: {}
 "184":
@@ -3457,7 +3457,7 @@
       El sistema debe ofuscar los datos
       si la aplicación no está enfocada.
     description: __empty__
-  category: __empty__
+  category: Data
   references: []
   metadata: {}
 "185":
@@ -3510,7 +3510,7 @@
       no autorizados que pueden haber
       accedido al sistema de almacenamiento
       obtengan la información.
-  category: __empty__
+  category: Data
   references: []
   metadata: {}
 "186":
@@ -3559,7 +3559,7 @@
       o apalancamiento para causar
       mayor impacto al explotar
       otras vulnerabilidades.
-  category: __empty__
+  category: System
   references: []
   metadata: {}
 "189":
@@ -3632,7 +3632,7 @@
       de identificación personal (PIN)
       configurado en la tarjeta SIM.
     description: __empty__
-  category: __empty__
+  category: Devices
   references: []
   metadata: {}
 "206":
@@ -3660,7 +3660,7 @@
       que permiten el intercambio de datos
       como Bluetooth, NFC y Tethering.
     description: __empty__
-  category: __empty__
+  category: Devices
   references: []
   metadata: {}
 "209":
@@ -3680,7 +3680,7 @@
       una contraseña en el caché
       de autenticación.
     description: __empty__
-  category: __empty__
+  category: Devices
   references: []
   metadata: {}
 "210":
@@ -3701,7 +3701,7 @@
       móviles después de 10 intentos
       fallidos de autenticación.
     description: __empty__
-  category: __empty__
+  category: Devices
   references: []
   metadata: {}
 "213":
@@ -3720,7 +3720,7 @@
       geográfica remota en caso
       de pérdida.
     description: __empty__
-  category: __empty__
+  category: Devices
   references: []
   metadata: {}
 "214":
@@ -3739,7 +3739,7 @@
       remota de los datos
       en caso de pérdida.
     description: __empty__
-  category: __empty__
+  category: Devices
   references: []
   metadata: {}
 "221":
@@ -3762,7 +3762,7 @@
       (por ejemplo,
       Floppy, IDE, CD/DVD, USB, Serial).
     description: __empty__
-  category: __empty__
+  category: Virtualization
   references: []
   metadata: {}
 "222":
@@ -3781,7 +3781,7 @@
       a información de la máquina
       anfitriona.
     description: __empty__
-  category: __empty__
+  category: Virtualization
   references: []
   metadata: {}
 "223":
@@ -4815,7 +4815,7 @@
       inalterable (Anti-virus, Antispyware,
       Host Firewall, Host-IDS, Host-IPS).
     description: __empty__
-  category: __empty__
+  category: System
   references: []
   metadata: {}
 "280":
@@ -4834,7 +4834,7 @@
       con acceso solo a los archivos
       necesarios.
     description: __empty__
-  category: __empty__
+  category: System
   references: []
   metadata: {}
 "284":
@@ -4852,7 +4852,7 @@
       un número máximo de conexiones
       definidas por IP origen.
     description: __empty__
-  category: __empty__
+  category: System
   references: []
   metadata: {}
 "300":
@@ -4897,7 +4897,7 @@
       El enmascaramiento es un
       mecanismo que contribuye
       a esta protección.
-  category: __empty__
+  category: Data
   references: []
   metadata: {}
 "301":
@@ -4944,7 +4944,7 @@
       por ejemplo,
       ataques de apropiación
       de cuentas.
-  category: __empty__
+  category: Data
   references: []
   metadata: {}
 "302":
@@ -5010,7 +5010,7 @@
       referencia a él
       y administrarlo mediante
       un administrador de paquetes.
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "305":
@@ -5030,7 +5030,7 @@
       en vez de guardar la información
       de la tarjeta.
     description: __empty__
-  category: __empty__
+  category: Data
   references: []
   metadata: {}
 "310":
@@ -5625,7 +5625,7 @@
       antes de deserializarse,
       puede llevar a ataques de deserialización,
       como inyección de objetos.
-  category: __empty__
+  category: Data
   references: []
   metadata: {}
 "322":
@@ -5739,7 +5739,7 @@
       y estos podrían contener vulnerabilidades graves,
       como las puertas traseras,
       los rootkits e información sensible expuesta.
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "324":
@@ -5875,7 +5875,7 @@
       e informar al usuario
       sobre los riesgos asociados,
       o evitar su propia ejecución.
-  category: __empty__
+  category: Devices
   references: []
   metadata: {}
 "327":
@@ -6012,7 +6012,7 @@
       no se debe almacenar información
       sensible o de sesión en el almacenamiento
       del lado del cliente.
-  category: __empty__
+  category: Data
   references: []
   metadata: {}
 "330":
@@ -6356,7 +6356,7 @@
       deben gestionarse cuidadosamente
       para evitar que surjan
       las condiciones de carrera.
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "338":
@@ -6606,7 +6606,7 @@
       de masa,
       y proporciona contramedidas para proteger
       contra la asignación de parámetros inseguros.
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "343":
@@ -6697,7 +6697,7 @@
       las entradas no confiables
       (por ejemplo, las que proporciona los usuarios)
       deben ser filtradas adecuadamente.
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "345":
@@ -6759,7 +6759,7 @@
       como cadenas seguras de memoria,
       copia de memoria segura
       y puntero aritmético.
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "346":
@@ -6966,7 +6966,7 @@
       mecanismo de protección de memoria,
       tales como ASLR y DEP.
     description: __empty__
-  category: __empty__
+  category: Devices
   references: []
   metadata: {}
 "351":
@@ -7005,7 +7005,7 @@
       System-on-Chip (SoC) o CPU
       del dispositivo.
     description: __empty__
-  category: __empty__
+  category: Devices
   references: []
   metadata: {}
 "353":
@@ -7022,7 +7022,7 @@
       actualizar su propio firmware
       en un horario predefinido.
     description: __empty__
-  category: __empty__
+  category: Devices
   references: []
   metadata: {}
 "354":
@@ -7040,7 +7040,7 @@
       mecanismos que protegen su firmware
       (anti-rollback) de estar degradado.
     description: __empty__
-  category: __empty__
+  category: Devices
   references: []
   metadata: {}
 "355":
@@ -7192,7 +7192,7 @@
       se materialicen,
       ya que algunos flujos especiales
       pasan desapercibidos.
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "360":
@@ -7380,7 +7380,7 @@
       sistemas para establecer la secuencia
       de eventos que provocó el incidente
       de seguridad.
-  category: __empty__
+  category: System
   references: []
   metadata: {}
 "364":
@@ -7418,7 +7418,7 @@
       de los servicios expuestos
       no debería ser accesible.
     description: __empty__
-  category: __empty__
+  category: Data
   references: []
   metadata: {}
 "366":
@@ -7434,7 +7434,7 @@
       Todas las variables del código fuente
       deben tener un tipo asociado.
     description: __empty__
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "367":
@@ -7584,7 +7584,7 @@
       aisladas de otras aplicaciones
       (usando sandboxing, cárceles, contenedores, etc.).
     description: __empty__
-  category: __empty__
+  category: System
   references: []
   metadata: {}
 "375":
@@ -7611,7 +7611,7 @@
       admitir listas de control de acceso
       según el origen esperado.
     description: __empty__
-  category: __empty__
+  category: Data
   references: []
   metadata: {}
 "376":
@@ -7723,7 +7723,7 @@
       el tiempo y el esfuerzo necesarios
       para encontrar y corregir vulnerabilidades
       aumentarán sustancialmente.
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
 "380":
@@ -7762,6 +7762,6 @@
       a los archivos del sistema
       mediante rutas absolutas.
     description: __empty__
-  category: __empty__
+  category: Source
   references: []
   metadata: {}
