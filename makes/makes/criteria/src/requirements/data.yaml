@@ -1284,7 +1284,7 @@
       certificados digitales de cliente
       en el proceso de autenticación.
     description: __empty__
-  category: __empty__
+  category: Certificates
   references: []
   metadata: {}
 "089":
@@ -1302,7 +1302,7 @@
       certificados digitales
       con una vigencia superior a dos años.
     description: __empty__
-  category: __empty__
+  category: Certificates
   references: []
   metadata: {}
 "090":
@@ -1319,7 +1319,7 @@
       certificados digitales
       que no se encuentren vencidos.
     description: __empty__
-  category: __empty__
+  category: Certificates
   references: []
   metadata: {}
 "091":
@@ -1339,7 +1339,7 @@
       válidas cuando estos sean
       para aplicaciones internas.
     description: __empty__
-  category: __empty__
+  category: Certificates
   references: []
   metadata: {}
 "092":
@@ -1359,7 +1359,7 @@
       externas válidas cuando estos
       sean para aplicaciones externas.
     description: __empty__
-  category: __empty__
+  category: Certificates
   references: []
   metadata: {}
 "093":
@@ -1381,7 +1381,7 @@
       entre otros) a la cual
       se encuentra asociado.
     description: __empty__
-  category: __empty__
+  category: Certificates
   references: []
   metadata: {}
 "095":
@@ -1622,7 +1622,7 @@
       al usuario que reclama
       propiedad sobre ellos.
     description: __empty__
-  category: __empty__
+  category: Authentication
   references: []
   metadata: {}
 "123":
@@ -1723,7 +1723,7 @@
       que permita a los usuarios
       generar una nueva contraseña
       en cualquiera de estos escenarios.
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "127":
@@ -1764,7 +1764,7 @@
       no autorizados hayan accedido
       al sistema de almacenamiento
       para obtenerlas.
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "128":
@@ -1782,7 +1782,7 @@
       deben estar almacenadas en una
       única fuente de datos.
     description: __empty__
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "129":
@@ -1806,7 +1806,7 @@
       de las 5 contraseñas previas
       para el mismo usuario.
     description: __empty__
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "130":
@@ -1822,7 +1822,7 @@
       Las contraseñas deben ser validas
       por un maximo de 30 dias.
     description: __empty__
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "131":
@@ -1841,7 +1841,7 @@
       sean modificadas más de una vez
       el mismo día.
     description: __empty__
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "132":
@@ -1872,7 +1872,7 @@
       deben tener al menos 3 palabras
       de longitud.
     description: __empty__
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "133":
@@ -1888,7 +1888,7 @@
       Las contraseñas del sistema
       deben tener al menos 20 caracteres.
     description: __empty__
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "134":
@@ -1906,7 +1906,7 @@
       las contraseñas con diferentes
       derivaciones de clave (Salt).
     description: __empty__
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "135":
@@ -1924,7 +1924,7 @@
       deben ser aleatorias
       y de mínimo 48 bits.
     description: __empty__
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "136":
@@ -1963,7 +1963,7 @@
       Por lo tanto,
       los usuarios deberían ser forzados
       a cambiarlas después del primer uso.
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "137":
@@ -2012,7 +2012,7 @@
       las contraseñas deberían
       ser cambiadas después
       del primer uso.
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "138":
@@ -2049,7 +2049,7 @@
       puede no ser garantizado
       por el sistema que las creó.
       Por lot
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "139":
@@ -2085,7 +2085,7 @@
       deberían tener una longitud mínima
       de 6 caracteres como protección
       contra ataques de fuerza bruta.
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "140":
@@ -2130,7 +2130,7 @@
       debería ser posible
       solamente usarlas una vez
       dentro del periodo de validez.
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "141":
@@ -2157,7 +2157,7 @@
       bloqueo, borrado del usuario,
       deshabilitación del usuario, etc).
     description: __empty__
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "142":
@@ -2218,7 +2218,7 @@
       antes de la implementación
       y eliminar todas las credenciales
       predeterminadas.
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "143":
@@ -2235,7 +2235,7 @@
       al sistema deben ser únicas
       para cada actor.
     description: __empty__
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "144":
@@ -2253,7 +2253,7 @@
       debe purgar las cuentas de usuario
       periódicamente.
     description: __empty__
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "145":
@@ -2305,7 +2305,7 @@
       estas claves deben protegerse
       y administrarse siguiendo estándares
       verificados por la industria.
-  category: __empty__
+  category: Cryptography
   references: []
   metadata: {}
 "146":
@@ -2324,7 +2324,7 @@
       en la memoria RAM por más
       de 5 segundos.
     description: __empty__
-  category: __empty__
+  category: Cryptography
   references: []
   metadata: {}
 "147":
@@ -2363,7 +2363,7 @@
       basados en mecanismos seguros
       pre-existentes, probados,
       y aprovados.
-  category: __empty__
+  category: Cryptography
   references: []
   metadata: {}
 "148":
@@ -2382,7 +2382,7 @@
       un tamaño de clave mínimo
       de 2048 bits.
     description: __empty__
-  category: __empty__
+  category: Cryptography
   references: []
   metadata: {}
 "149":
@@ -2401,7 +2401,7 @@
       un tamaño de clave mínimo
       de 128 bits.
     description: __empty__
-  category: __empty__
+  category: Cryptography
   references: []
   metadata: {}
 "150":
@@ -2417,7 +2417,7 @@
       Deben utilizarse funciones resumen
       con un tamaño mínimo de 256 bits.
     description: __empty__
-  category: __empty__
+  category: Cryptography
   references: []
   metadata: {}
 "151":
@@ -2436,7 +2436,7 @@
       con llaves separadas
       para el cifrado y las firmas.
     description: __empty__
-  category: __empty__
+  category: Cryptography
   references: []
   metadata: {}
 "152":
@@ -2507,7 +2507,7 @@
       al menos un autenticador fuera de banda
       y la opción predeterminada
       no debe ser de texto claro.
-  category: __empty__
+  category: Authentication
   references: []
   metadata: {}
 "154":
@@ -3826,7 +3826,7 @@
       mediante mecanismos seguros
       que garanticen una distribución
       aleatoria.
-  category: __empty__
+  category: Cryptography
   references: []
   metadata: {}
 "224":
@@ -3883,7 +3883,7 @@
       mecanismos seguros,
       que a menudo ya ha sido
       implementado por la plataforma.
-  category: __empty__
+  category: Cryptography
   references: []
   metadata: {}
 "225":
@@ -3940,7 +3940,7 @@
       válidos (enumeración de usuarios)
       que pueden usar en ataques
       de fuerza bruta.
-  category: __empty__
+  category: Authentication
   references: []
   metadata: {}
 "226":
@@ -3961,7 +3961,7 @@
       o varios intentos de autenticación
       fallidos.
     description: __empty__
-  category: __empty__
+  category: Authentication
   references: []
   metadata: {}
 "227":
@@ -4015,7 +4015,7 @@
       que los recursos
       solo están disponibles
       para los usuarios autorizados.
-  category: __empty__
+  category: Authentication
   references: []
   metadata: {}
 "228":
@@ -4032,7 +4032,7 @@
       La autenticación debe realizarse
       siguiendo protocolos estándar.
     description: __empty__
-  category: __empty__
+  category: Authentication
   references: []
   metadata: {}
 "229":
@@ -4076,7 +4076,7 @@
       debe solicitar al menos
       un nombre de usuario
       y una contraseña.
-  category: __empty__
+  category: Authentication
   references: []
   metadata: {}
 "231":
@@ -4135,7 +4135,7 @@
       mecanismo de afirmación
       de identidad en vigor,
       sino más bien un factor secundario.
-  category: __empty__
+  category: Authentication
   references: []
   metadata: {}
 "232":
@@ -4156,7 +4156,7 @@
       del equipo desde el cual un usuario
       o sistema está autenticado.
     description: __empty__
-  category: __empty__
+  category: Authentication
   references: []
   metadata: {}
 "235":
@@ -4174,7 +4174,7 @@
       una interfaz independiente
       para el ingreso de credenciales.
     description: __empty__
-  category: __empty__
+  category: Authentication
   references: []
   metadata: {}
 "236":
@@ -4192,7 +4192,7 @@
       debe tener un tiempo límite
       definido de 30 segundos.
     description: __empty__
-  category: __empty__
+  category: Authentication
   references: []
   metadata: {}
 "237":
@@ -4247,7 +4247,7 @@
       mecanismos que ayuden a asegurar
       que la entidad con la que se está
       interactuando sea un ser humano.
-  category: __empty__
+  category: Authentication
   references: []
   metadata: {}
 "238":
@@ -4298,7 +4298,7 @@
       el sistema debe verificar
       la propiedad del ususario
       de la cuenta correspondiente.
-  category: __empty__
+  category: Authentication
   references: []
   metadata: {}
 "247":
@@ -4681,7 +4681,7 @@
       de autenticación seguro
       que evite que actores no autorizados
       accedan a ellos.
-  category: __empty__
+  category: Authentication
   references: []
   metadata: {}
 "265":
@@ -5537,7 +5537,7 @@
       la misma fortaleza
       en el control de seguridad,
       para que no haya una alternativa más débil.
-  category: __empty__
+  category: Authentication
   references: []
   metadata: {}
 "320":
@@ -5956,7 +5956,7 @@
       la información de sesión
       del lado del cliente (ViewState).
     description: __empty__
-  category: __empty__
+  category: Authentication
   references: []
   metadata: {}
 "329":
@@ -6067,7 +6067,7 @@
       con los requisitos legales
       de la jurisdicción a la cual está sujeto.
     description: __empty__
-  category: __empty__
+  category: Legal
   references: []
   metadata: {}
 "332":
@@ -6107,7 +6107,7 @@
       de la creación de la cuenta
       y la actualización de contraseña
       usen contraseñas contenidas en ellas.
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "333":
@@ -6154,7 +6154,7 @@
       un atacante aún tiene que probar
       cada valor de salt posible
       para descifrar una sola contraseña.
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "334":
@@ -6203,7 +6203,7 @@
       del proceso de autenticación
       y tampoco deben usarse en el proceso
       de recuperación de contraseña.
-  category: __empty__
+  category: Authentication
   references: []
   metadata: {}
 "335":
@@ -6255,7 +6255,7 @@
       que se usen solo una vez
       dentro de este período
       para evitar ataques de repetición.
-  category: __empty__
+  category: Authentication
   references: []
   metadata: {}
 "336":
@@ -6300,7 +6300,7 @@
       que las comunicaciones
       recurran a los protocolos inseguros
       o no cifrados.
-  category: __empty__
+  category: Cryptography
   references: []
   metadata: {}
 "337":
@@ -6415,7 +6415,7 @@
       una pequeña parte de una conversación,
       lo que representa un aumento
       en la seguridad general del sistema.
-  category: __empty__
+  category: Cryptography
   references: []
   metadata: {}
 "339":
@@ -6808,7 +6808,7 @@
       criptográficamente
       y solo deben usarse una vez
       con una clave de cifrado dada.
-  category: __empty__
+  category: Cryptography
   references: []
   metadata: {}
 "347":
@@ -6851,7 +6851,7 @@
       todas las OTP anteriores deben
       invalidarse cada vez que
       se genere una nueva.
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "348":
@@ -6984,7 +6984,7 @@
       debe tener claves criptográficas únicas
       y certificados.
     description: __empty__
-  category: __empty__
+  category: Cryptography
   references: []
   metadata: {}
 "352":
@@ -7155,7 +7155,7 @@
       cuando sus credenciales
       están a punto de caducar.
     description: __empty__
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "359":
@@ -7286,7 +7286,7 @@
       a lo largo del tiempo
       y cualquier posible pérdida de su integridad,
       deben ser reemplazados a menudo.
-  category: __empty__
+  category: Cryptography
   references: []
   metadata: {}
 "362":
@@ -7330,7 +7330,7 @@
       Sin embargo,
       su valor disminuye considerablemente
       cuando se comparten entre varias cuentas.
-  category: __empty__
+  category: Authentication
   references: []
   metadata: {}
 "363":
@@ -7399,7 +7399,7 @@
       proporcionar certificados de validación
       extendida (EV).
     description: __empty__
-  category: __empty__
+  category: Certificates
   references: []
   metadata: {}
 "365":
@@ -7451,7 +7451,7 @@
       deben generarse de forma automática
       y aleatoria.
     description: __empty__
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "368":
@@ -7469,7 +7469,7 @@
       de autenticación debe ser indistinguible
       ya sea que un usuario exista o no.
     description: __empty__
-  category: __empty__
+  category: Authentication
   references: []
   metadata: {}
 "369":
@@ -7523,7 +7523,7 @@
       El cifrado simétrico AES
       debe usarse solo con relleno GCM.
     description: __empty__
-  category: __empty__
+  category: Cryptography
   references: []
   metadata: {}
 "372":
@@ -7543,7 +7543,7 @@
       aleatorio que debe tener
       la misma longitud que la clave de cifrado.
     description: __empty__
-  category: __empty__
+  category: Cryptography
   references: []
   metadata: {}
 "373":
@@ -7566,7 +7566,7 @@
       Si se utiliza un pinset,
       se deben permitir hasta 2 certificados.
     description: __empty__
-  category: __empty__
+  category: Certificates
   references: []
   metadata: {}
 "374":
@@ -7745,7 +7745,7 @@
       en la organización para
       completar esta tarea.
     description: __empty__
-  category: __empty__
+  category: Credentials
   references: []
   metadata: {}
 "381":
