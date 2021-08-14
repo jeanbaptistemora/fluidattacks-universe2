@@ -505,19 +505,29 @@ type Mutation {
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
     after 2021/12/31. Use `rejectVulnerabilitiesZeroRisk` instead.""")
 
+  "Removes evidence from an Event"
   removeEventEvidence(
+    "Identifier of the event to which the Evidence belongs"
     eventId: String!
+    "Type of the Evidence to remove"
     evidenceType: EventEvidenceType!
   ): SimplePayload!
 
+  "Removes evidence from a Finding"
   removeEvidence(
+    "Identifier of the finding to which the Evidence belongs"
     findingId: String!
+    "Type identifier of the Evidence to remove"
     evidenceId: EvidenceType!
   ): SimpleFindingPayload!
 
+  "Removes Files from a Group"
   removeFiles(
+    "Data of the file to remove in the format {`fileName`:`file.ext`}"
     filesData: JSONString!
+    "Deprecated. Use `groupName` instead"
     projectName: String
+    "Name of the group where the File to remove is"
     groupName: String
   ): SimplePayload!
 
@@ -543,14 +553,22 @@ type Mutation {
     tag: String!
   ): SimpleGroupPayload!
 
+  "Removes a stakeholder's access from a Group"
   removeStakeholderAccess(
+    "Deprecated. Use `groupName` instead"
     projectName: String
+    "Name of the group where the stakeholder should be removed from"
     groupName: String
+    "Email address of the stakeholder to remove"
     userEmail: String!
   ): RemoveStakeholderAccessPayload!
 
+  "Removes a stakeholder's access from an Organization"
   removeStakeholderOrganizationAccess(
+    """Identifier of the organization where the stakeholder should be removed
+    from"""
     organizationId: String!
+    "Email address of the stakeholder to remove"
     userEmail: String!
   ): SimplePayload!
 
@@ -612,7 +630,12 @@ type Mutation {
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
     after 2021/12/31. Use `requestVulnerabilitiesZeroRisk` instead.""")
 
-  signIn(authToken: String!, provider: AuthProvider!): SignInPayload!
+  "Signs an user in"
+  signIn(
+    authToken: String!,
+    "OAuth provider"
+    provider: AuthProvider!
+  ): SignInPayload!
 
   solveEvent(
     eventId: String!
@@ -752,22 +775,35 @@ type Mutation {
     phoneNumber: String!
   ): UpdateStakeholderPayload!
 
+  "Updates the Organization's common policies"
   updateOrganizationPolicies(
+    "Maximum number of calendar days a finding can be temporally accepted"
     maxAcceptanceDays: Int
+    "Maximum CVSS 3.1 score in which a finding can be temporally accepted"
     maxAcceptanceSeverity: Float
+    "Maximum number of times a finding can be temporally accepted"
     maxNumberAcceptations: Int
+    "Minimum CVSS 3.1 score in which a finding can be temporally accepted"
     minAcceptanceSeverity: Float
+    "Identifier of the Organization whose policies are to be updated"
     organizationId: String!
+    "Name of the Organization whose policies are to be updated"
     organizationName: String!
   ): SimplePayload!
 
+  "Updates an stakeholder's data from an Organization"
   updateOrganizationStakeholder(
+    "Identifier of the Organization to which the stakeholder belongs"
     organizationId: String!
+    "Stakeholder's phone number"
     phoneNumber: String
+    "Stakeholder role"
     role: OrganizationRole!
+    "Email address of the stakeholder to be updated"
     userEmail: String!
   ): UpdateStakeholderPayload!
 
+  "Updates the Root cloning status"
   updateRootCloningStatus(
     "Name of the group the root is associated with"
     groupName: String!
