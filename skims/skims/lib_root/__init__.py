@@ -58,6 +58,24 @@ def get_composite_name_kotlin(
     return composite_name
 
 
+def csharp_get_variable_value(
+    graph: graph_model.GraphShard, name_var: str
+) -> str:
+    for member in g.filter_nodes(
+        graph,
+        nodes=graph.nodes,
+        predicate=g.pred_has_labels(
+            label_type="identifier", label_text=name_var
+        ),
+    ):
+        pred = g.pred(graph, member)[0]
+        if graph.nodes[pred].get("label_type") == "variable_declarator":
+            declaration_node = g.match_ast(graph, pred, "__0__")["__1__"]
+            value_node = g.match_ast(graph, declaration_node, "__0__")["__1__"]
+            return graph.nodes[value_node].get("label_text")
+    return ""
+
+
 def yield_java_method_invocation(
     graph_db: graph_model.GraphDB,
 ) -> Iterable[Tuple[graph_model.GraphShard, str, str]]:
