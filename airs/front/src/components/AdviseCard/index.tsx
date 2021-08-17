@@ -19,16 +19,13 @@ import { CloudImage } from "../CloudImage";
 const AdviseCard: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
     query AdviseQuery {
-      allAsciidoc(sort: { fields: [pageAttributes___date], order: DESC }) {
+      allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
         edges {
           node {
             fields {
               slug
             }
-            document {
-              title
-            }
-            pageAttributes {
+            frontmatter {
               advise
               authors
               codename
@@ -37,6 +34,7 @@ const AdviseCard: React.FC = (): JSX.Element => {
               description
               product
               slug
+              title
               writer
             }
           }
@@ -45,8 +43,8 @@ const AdviseCard: React.FC = (): JSX.Element => {
     }
   `);
 
-  const adviseInfo = data.allAsciidoc.edges.filter(
-    (advisePages): boolean => advisePages.node.pageAttributes.advise === "yes"
+  const adviseInfo = data.allMarkdownRemark.edges.filter(
+    (advisePages): boolean => advisePages.node.frontmatter.advise === "yes"
   );
 
   return (
@@ -62,7 +60,7 @@ const AdviseCard: React.FC = (): JSX.Element => {
             product,
             slug,
             writer,
-          } = advisePage.node.pageAttributes;
+          } = advisePage.node.frontmatter;
 
           return (
             <AdvisoriesShadowBoxContainer key={date}>

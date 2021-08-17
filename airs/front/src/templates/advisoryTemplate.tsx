@@ -33,8 +33,14 @@ const AdvisoryIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { title } = data.asciidoc.document;
-  const { banner, description, keywords, slug } = data.asciidoc.pageAttributes;
+  const {
+    banner,
+    description,
+    keywords,
+    slug,
+    title,
+  } = data.markdownRemark.frontmatter;
+  const { html } = data.markdownRemark;
 
   return (
     <React.Fragment>
@@ -65,7 +71,7 @@ const AdvisoryIndex: React.FC<IQueryData> = ({
             </BannerContainer>
             <AdvisoryContainer
               dangerouslySetInnerHTML={{
-                __html: data.asciidoc.html,
+                __html: html,
               }}
             />
           </PageArticle>
@@ -79,19 +85,17 @@ export default AdvisoryIndex;
 
 export const query: void = graphql`
   query AdvisoryIndex($slug: String!) {
-    asciidoc(fields: { slug: { eq: $slug } }) {
-      document {
-        title
-      }
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       fields {
         slug
       }
-      pageAttributes {
+      frontmatter {
         description
         banner
         keywords
         slug
+        title
       }
     }
   }
