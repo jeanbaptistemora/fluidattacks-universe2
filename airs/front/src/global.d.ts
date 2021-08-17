@@ -50,14 +50,21 @@ interface IQueryData {
         slug: string;
       };
       frontmatter: {
+        advise: string;
+        authors: string;
         banner: string;
+        codename: string;
+        cveid: string;
+        date: string;
         description: string;
         keywords: string;
         slug: string;
         subtext: string;
         subtitle: string;
+        product: string;
         template: string;
         title: string;
+        writer: string;
       };
       rawMarkdownBody: string;
     };
@@ -123,6 +130,35 @@ interface IData {
             slug: string;
             spanish: string;
             subtitle: string;
+            writer: string;
+          };
+        };
+      }
+    ];
+  };
+  allMarkdownRemark: {
+    edges: [
+      {
+        node: {
+          fields: {
+            slug: string;
+          };
+          html: string;
+          frontmatter: {
+            advise: string;
+            authors: string;
+            banner: string;
+            codename: string;
+            cveid: string;
+            date: string;
+            description: string;
+            keywords: string;
+            slug: string;
+            subtext: string;
+            subtitle: string;
+            product: string;
+            template: string;
+            title: string;
             writer: string;
           };
         };
