@@ -92,7 +92,8 @@ class SyntaxStepUnaryExpression(NamedTuple):
     type: str = "SyntaxStepUnaryExpression"
 
 
-class SyntaxStepDeclaration(NamedTuple):
+@dataclass
+class SyntaxStepDeclaration:
     meta: SyntaxStepMeta
     var: str
     var_type: Optional[str] = None
@@ -181,7 +182,8 @@ class SyntaxStepLiteral(NamedTuple):
     type: str = "SyntaxStepLiteral"
 
 
-class SyntaxStepMethodInvocation(NamedTuple):
+@dataclass
+class SyntaxStepMethodInvocation:
     meta: SyntaxStepMeta
     method: str
     current_instance: Optional[CurrentInstance] = None
@@ -190,9 +192,11 @@ class SyntaxStepMethodInvocation(NamedTuple):
     type: str = "SyntaxStepMethodInvocation"
 
 
-class SyntaxStepLambdaExpression(NamedTuple):
+@dataclass
+class SyntaxStepLambdaExpression:
     meta: SyntaxStepMeta
 
+    lambda_type: Optional[str] = None
     type: str = "SyntaxStepLambdaExpression"
 
 

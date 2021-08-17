@@ -103,12 +103,11 @@ def _syntax_step_declaration_values(args: EvaluatorArgs) -> None:
         (declaration,) = args.dependencies
         # The assignment object may not be of the declared type,
         # the declared type can be an interface or a generic type
-        if isinstance(declaration.meta.value, JavaClassInstance):
-            new_step = args.syntax_step._replace(
-                var_type=declaration.meta.value.class_name
-            )
-            args.syntax_steps[args.syntax_step_index] = new_step
-            step = new_step
+        if (
+            isinstance(declaration.meta.value, JavaClassInstance)
+            and not step.var_type
+        ):
+            step.var_type = declaration.meta.value.class_name
         step.meta.value = args.dependencies[0].meta.value
 
     # Analyze if the case is a declaration of a previously called function

@@ -356,7 +356,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "cookieKey",
-            "var_type": "User"
+            "var_type": "String"
           },
           {
             "meta": {
@@ -1781,7 +1781,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "cookieKey",
-            "var_type": "User"
+            "var_type": "String"
           },
           {
             "meta": {
@@ -3395,7 +3395,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "cookieKey",
-            "var_type": "User"
+            "var_type": "String"
           },
           {
             "meta": {
@@ -4820,7 +4820,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "cookieKey",
-            "var_type": "User"
+            "var_type": "String"
           },
           {
             "meta": {

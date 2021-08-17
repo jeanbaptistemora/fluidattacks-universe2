@@ -79,7 +79,5 @@ def mark_requests(
 
                 # add the type to the parameters, the type is only known
                 # at runtime
-                with suppress(AttributeError, TypeError):
-                    syntax_steps[req[0]] = req[1]._replace(var_type="Request")
-                with suppress(AttributeError, TypeError):
-                    syntax_steps[res[0]] = res[1]._replace(var_type="Response")
+                req[1].var_type = "Request"
+                res[1].var_type = "Response"

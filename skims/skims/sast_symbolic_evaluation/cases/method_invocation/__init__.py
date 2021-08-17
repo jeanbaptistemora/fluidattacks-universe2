@@ -11,7 +11,7 @@ from sast_symbolic_evaluation.cases.method_invocation.java import (
     attempt_java_util_properties_methods,
 )
 from sast_symbolic_evaluation.cases.method_invocation.javascript import (
-    evaluate_required as javascript_evaluate_required,
+    process as javascript_process,
 )
 from sast_symbolic_evaluation.lookup import (
     lookup_class,
@@ -406,6 +406,9 @@ BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
 def evaluate(args: EvaluatorArgs) -> None:
     language = args.shard.metadata.language
 
+    if language == graph_model.GraphShardMetadataLanguage.JAVASCRIPT:
+        javascript_process(args)
+
     if language == graph_model.GraphShardMetadataLanguage.GO:
         evaluate_go(args)
 
@@ -699,12 +702,6 @@ def analyze_method_invocation_values(
     method = method or args.syntax_step.method
     method_var, method_path = split_on_first_dot(method)
     method_var_decl_type = None
-
-    language = args.shard.metadata.language
-
-    if language == graph_model.GraphShardMetadataLanguage.JAVASCRIPT:
-        javascript_evaluate_required(args)
-
     # lookup methods with teh format new Test().some()
     # last argument is teh instance
     if (
