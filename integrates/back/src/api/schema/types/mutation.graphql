@@ -25,6 +25,7 @@ type Mutation {
     confidentialityImpact: String
     description: String
     exploitability: String
+    "Name of the Group where the new draft will be in"
     groupName: String!
     integrityImpact: String
     privilegesRequired: String
@@ -113,6 +114,7 @@ type Mutation {
     gitCommit: String
     gitOrigin: String
     gitRepo: String
+    "Name of the Group where the Forces log will be in"
     groupName: String
     kind: String
     log: Upload
@@ -303,6 +305,7 @@ type Mutation {
     eventDate: DateTime!
     eventType: EventType!
     file: Upload
+    "Name of the Group where the new Event will be in"
     groupName: String
     image: Upload
     "Deprecated. Use `groupName` instead"
@@ -498,12 +501,6 @@ type Mutation {
   ): UpdateStakeholderPayload! @deprecated(reason: """This mutation will be
     removed after 2021/12/31. Use `updateOrganizationStakeholder` instead.""")
 
-  "Execute Skims in the roots of a Group"
-  executeSkims(
-    "Name of the Group to be checked by Skims"
-    groupName: String!
-  ): ExecuteSkimsPayload!
-
   "Grants a stakeholder access to a Group"
   grantStakeholderAccess(
     "Deprecated. Use `groupName` instead"
@@ -551,33 +548,52 @@ type Mutation {
   ): SimplePayload!
 
    handleVulnerabilitiesAcceptation(
+    "List of identifiers of the vulnerabilties to be accepted"
     acceptedVulnerabilities: [String]!
+    "Identifier of the Finding that contains the vulnerabilities"
     findingId: String!
+    "Justification of the acceptances and rejections"
     justification: String!
+    "List of identifiers of the vulnerabilties to be rejected"
     rejectedVulnerabilities: [String]!
   ): SimplePayload!
 
   handleVulnsAcceptation(
+    "List of identifiers of the vulnerabilties to be accepted"
     acceptedVulns: [String]!
+    "Identifier of the Finding that contains the vulnerabilities"
     findingId: String!
+    "Justification of the acceptances and rejections"
     justification: String!
+    "List of identifiers of the vulnerabilties to be rejected"
     rejectedVulns: [String]!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
     after 2021/12/31. Use `handleVulnerabilitiesAcceptation` instead.""")
 
+  "Revokes the current user's API access token"
   invalidateAccessToken: SimplePayload!
 
-  invalidateCache(pattern: String!): SimplePayload!
+  "Ditches a section of the cache and forces a refresh"
+  invalidateCache(
+    "Cache pattern to ditch"
+    pattern: String!
+  ): SimplePayload!
 
-  rejectDraft(findingId: String!): SimplePayload!
+  "Rejects a drafted Finding"
+  rejectDraft(
+    "Identifier of the draft Finding to be rejected"
+    findingId: String!
+  ): SimplePayload!
 
   rejectVulnerabilitiesZeroRisk(
+    "Identifier of Finding containing the vulnerabilities"
     findingId: String!
     justification: String!
     vulnerabilities: [String]!
   ): SimplePayload!
 
   rejectZeroRiskVuln(
+    "Identifier of Finding containing the vulnerabilities"
     findingId: String!
     justification: String!
     vulnerabilities: [String]!
@@ -687,6 +703,7 @@ type Mutation {
   ): SimplePayload!
 
   requestVerificationVuln(
+    "Identifier of Finding containing the vulnerabilities"
     findingId: String!
     justification: String!
     vulnerabilities: [String]!
@@ -694,18 +711,21 @@ type Mutation {
     after 2021/12/31. Use `requestVulnerabilitiesVerification` instead.""")
 
   requestVulnerabilitiesVerification(
+    "Identifier of Finding containing the vulnerabilities"
     findingId: String!
     justification: String!
     vulnerabilities: [String]!
   ): SimplePayload!
 
   requestVulnerabilitiesZeroRisk(
+    "Identifier of Finding containing the vulnerabilities"
     findingId: String!
     justification: String!
     vulnerabilities: [String]!
   ): SimplePayload!
 
   requestZeroRiskVuln(
+    "Identifier of Finding containing the vulnerabilities"
     findingId: String!
     justification: String!
     vulnerabilities: [String]!
@@ -727,8 +747,12 @@ type Mutation {
 
   submitDraft(findingId: String!): SimplePayload!
 
+  "Queues a job to execute Skims on the provided root"
   submitMachineJob(
+    """Identifier of the Finding where the results should be reported. Also
+    sets the Vulnerability type to check for"""
     findingId: String!
+    "Nickname of the root to run Skims on"
     rootNickname: String!
   ): SimplePayload!
 
@@ -948,6 +972,7 @@ type Mutation {
 
   updateToeLinesSorts(
     filename: String,
+    "Name of the Group containing the Toe Lines to be updated"
     groupName: String,
     sortsRiskLevel: Int
   ): SimplePayload!
