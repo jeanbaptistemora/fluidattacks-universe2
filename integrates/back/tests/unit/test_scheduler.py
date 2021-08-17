@@ -307,7 +307,7 @@ async def test_delete_obsolete_orgs() -> None:
     assert org_id not in new_org_ids
     assert len(new_org_ids) == 9
 
-    org_id = "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"
+    org_id = "ORG#ffddc7a3-7f05-4fc7-b65d-7defffa883c2"
     org_pending_deletion_date = await get_pending_deletion_date_str(org_id)
     assert org_pending_deletion_date == "2020-01-29 19:00:00"
 
