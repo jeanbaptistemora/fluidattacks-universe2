@@ -35,8 +35,7 @@
             { "type": "string", "pattern": "^Networks$" },
             { "type": "string", "pattern": "^Virtualization$" },
             { "type": "string", "pattern": "^Devices$" },
-            { "type": "string", "pattern": "^Social$" },
-            { "type": "string", "pattern": "^__empty__$" }
+            { "type": "string", "pattern": "^Social$" }
           ]
         },
         "references": {

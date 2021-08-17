@@ -24,8 +24,7 @@
             { "type": "string", "pattern": "^Subvert Access$" },
             { "type": "string", "pattern": "^Manipulate Data$" },
             { "type": "string", "pattern": "^Manipulate System$" },
-            { "type": "string", "pattern": "^Protocol Manipulation$" },
-            { "type": "string", "pattern": "^__empty__$" }
+            { "type": "string", "pattern": "^Protocol Manipulation$" }
           ]
         },
         "score": {
