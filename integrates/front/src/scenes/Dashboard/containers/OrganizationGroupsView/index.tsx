@@ -12,6 +12,7 @@ import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 import {
   selectOptionsMachine,
   selectOptionsService,
+  selectOptionsSquad,
   selectOptionsSubscription,
 } from "./filters";
 
@@ -147,6 +148,11 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   ): void => {
     sessionStorage.setItem("machineFilter", filterVal);
   };
+  const onFilterSquad: (filterVal: string) => void = (
+    filterVal: string
+  ): void => {
+    sessionStorage.setItem("squadFilter", filterVal);
+  };
 
   // Render Elements
   const tableHeaders: IHeaderConfig[] = [
@@ -199,6 +205,12 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     {
       align: "left",
       dataField: "squad",
+      filter: selectFilter({
+        defaultValue: _.get(sessionStorage, "squadFilter"),
+        onFilter: onFilterSquad,
+        options: selectOptionsSquad,
+        placeholder: "ALL",
+      }),
       formatter: pointStatusFormatter,
       header: "Squad",
       width: "90px",
