@@ -87,7 +87,7 @@
 integrates.charts.documents-dev:
   <<: *charts_template
   <<: *in_dev_branch_integrates
-  parallel: 4
+  parallel: 5
   script: [./m integrates.charts.documents dev]
 
 integrates.charts.documents-prod-schedule:
@@ -96,7 +96,7 @@ integrates.charts.documents-prod-schedule:
   only:
     refs: [schedules]
     variables: [$integrates_charts_make_documents_prod_schedule]
-  parallel: 10
+  parallel: 12
   script: [./m integrates.charts.documents prod]
 
 integrates.charts.lint:
