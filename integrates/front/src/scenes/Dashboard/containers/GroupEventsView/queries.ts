@@ -5,6 +5,7 @@ const GET_EVENTS: DocumentNode = gql`
   query GetEventsQuery($groupName: String!) {
     group(groupName: $groupName) {
       events {
+        accessibility
         eventDate
         detail
         id

@@ -177,6 +177,14 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     },
     {
       align: "center",
+      dataField: "accessibility",
+      header: translate.t("searchFindings.tabEvents.accessibility"),
+      onSort: onSortState,
+      width: "50%",
+      wrapped: true,
+    },
+    {
+      align: "center",
       dataField: "eventType",
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "eventTypeFilter"),

@@ -1387,6 +1387,7 @@ export const enTranslations: ResourceKey = {
       zeroRisk: "Zero risk",
     },
     tabEvents: {
+      accessibility: "Accessibility",
       affectation: "Affectation",
       affectedComponents: "Affected components",
       analyst: "Hacker",
