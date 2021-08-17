@@ -37,7 +37,7 @@ from typing import (
 
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(
-    group: str, context: Any, min_date: Optional[date] = None
+    group: str, context: Any, min_date: Optional[date]
 ) -> Decimal:
     return await get_mean_remediate(context, group.lower(), min_date)
 
@@ -68,7 +68,7 @@ async def generate_all() -> None:
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_data(
-                mean_remediate=await generate_one(group, context),
+                mean_remediate=await generate_one(group, context, None),
             ),
             entity="group",
             subject=group,
