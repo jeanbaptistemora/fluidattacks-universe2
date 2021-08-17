@@ -5,11 +5,17 @@ from aioextensions import (
 from charts import (
     utils,
 )
+from context import (
+    FI_API_STATUS,
+)
 from custom_types import (
     Finding,
 )
 from dataloaders import (
     get_new_context,
+)
+from db_model.findings.types import (
+    Finding as FindingNew,
 )
 from itertools import (
     chain,
@@ -57,11 +63,22 @@ async def get_data_finding(
 
 async def get_data(group: str) -> FindingsTags:
     context = get_new_context()
-    group_findings_loader = context.group_findings
+    if FI_API_STATUS == "migration":
+        group_findings_new_loader = context.group_findings_new
+        group_findings_new: Tuple[
+            FindingNew, ...
+        ] = await group_findings_new_loader.load(group.lower())
+        finding_ids = [finding.id for finding in group_findings_new]
+        findings = [finding.title for finding in group_findings_new]
+    else:
+        group_findings_loader = context.group_findings
+        group_findings_data = await group_findings_loader.load(group.lower())
+        finding_ids = [
+            finding["finding_id"] for finding in group_findings_data
+        ]
+        findings = [finding["title"] for finding in group_findings_data]
+
     finding_vulns_loader = context.finding_vulns
-    group_findings_data = await group_findings_loader.load(group.lower())
-    finding_ids = [finding["finding_id"] for finding in group_findings_data]
-    findings = [finding["title"] for finding in group_findings_data]
     vulnerabilities = await finding_vulns_loader.load_many(finding_ids)
 
     findings_data = await collect(
