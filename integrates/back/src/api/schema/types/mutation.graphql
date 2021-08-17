@@ -204,8 +204,11 @@ type Mutation {
   addPushToken(token: String!): SimplePayload
 
   addStakeholder(
+    "Email address of the new stakeholder"
     email: String!
+    "Role of the stakeholder"
     role: StakeholderRole!
+    "Phone number of the stakeholder preceded by its call sign"
     phoneNumber: String
   ): AddStakeholderPayload!
 
@@ -431,6 +434,7 @@ type Mutation {
     hasIntegrates: Boolean
     "Whether to keep the Machine plan enabled within the group"
     hasMachine: Boolean
+    "Deprecated. Use `hasMachine` instead"
     hasSkims: Boolean
     "Whether to keep the Squad plan enabled within the group"
     hasSquad: Boolean
@@ -443,39 +447,62 @@ type Mutation {
   ): SimplePayload! @deprecated(reason: """This mutation will be
     removed after 2021/12/31. Use `updateGroup` instead.""")
 
+  "Updates stakeholder info at the Group level"
   editStakeholder(
+    "Deprecated. Use `groupName` instead"
     projectName: String
+    "Name of the Group to which the stakeholder belongs"
     groupName: String
+    "Email address of the stakeholder to update"
     email: String!
+    "Responsibility of the stakeholder e.g. Product Owner, Group Manager etc.."
     responsibility: String!
+    "Role of the stakeholder"
     role: StakeholderRole!
+    "Phone number of the stakeholder preceded by its call sign"
     phoneNumber: String!
   ): UpdateStakeholderPayload! @deprecated(reason: """This mutation will be
     removed after 2021/12/31. Use `updateGroupStakeholder` instead.""")
 
+  "Updates stakeholder info at the Organization level"
   editStakeholderOrganization(
+    "Identifier of the Organization to which the stakeholder belongs"
     organizationId: String!
+    "Phone number of the stakeholder preceded by its call sign"
     phoneNumber: String
+    "Role of the stakeholder"
     role: OrganizationRole!
+    "Email address of the stakeholder to update"
     userEmail: String!
   ): UpdateStakeholderPayload! @deprecated(reason: """This mutation will be
     removed after 2021/12/31. Use `updateOrganizationStakeholder` instead.""")
 
   executeSkims(groupName: String!): ExecuteSkimsPayload!
 
+  "Grants a stakeholder access to a Group"
   grantStakeholderAccess(
+    "Deprecated. Use `groupName` instead"
     projectName: String
+    "Name of the Group"
     groupName: String
+    "Email address of the stakeholder that will be granted access"
     email: String!
+    "Responsibility of the stakeholder e.g. Product Owner, Group Manager etc.."
     responsibility: String
     role: StakeholderRole!
+    "Phone number of the stakeholder preceded by its call sign"
     phoneNumber: String
   ): GrantStakeholderAccessPayload!
 
+  "Grants a stakeholder access to an Organization"
   grantStakeholderOrganizationAccess(
+    "Identifier of the Organization"
     organizationId: String!
+    "Phone number of the stakeholder preceded by its call sign"
     phoneNumber: String
+    "Role of the skakeholder"
     role: OrganizationRole!
+    "Email address of the stakeholder that will be granted access"
     userEmail: String!
   ): GrantStakeholderAccessPayload!
 
@@ -801,11 +828,11 @@ type Mutation {
     groupName: String!
     "Email of the user to update"
     email: String!
-    "Responsibility of the user within the group"
+    "Responsibility of the stakeholder e.g. Product Owner, Group Manager etc.."
     responsibility: String!
     "Role of the user within the group"
     role: StakeholderRole!
-    "Phone number of the user"
+    "Phone number of the user preceded by its call sign"
     phoneNumber: String!
   ): UpdateStakeholderPayload!
 
@@ -829,7 +856,7 @@ type Mutation {
   updateOrganizationStakeholder(
     "Identifier of the Organization to which the stakeholder belongs"
     organizationId: String!
-    "Stakeholder's phone number"
+    "Stakeholder's phone number preceded by its call sign"
     phoneNumber: String
     "Stakeholder role"
     role: OrganizationRole!
