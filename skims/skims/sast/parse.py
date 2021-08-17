@@ -292,16 +292,22 @@ def decide_language(path: str) -> GraphShardMetadataLanguage:
     return language
 
 
+def parse_content(
+    content: bytes,
+    language: GraphShardMetadataLanguage,
+) -> Tree:
+    parser: Parser = Parser()
+    parser.set_language(Language(LANGUAGES_SO, language.value))
+    return parser.parse(content)
+
+
 def _parse_one_cached(
     *,
     content: bytes,
     language: GraphShardMetadataLanguage,
     _: int,
 ) -> GraphShardCacheable:
-    parser: Parser = Parser()
-    parser.set_language(Language(LANGUAGES_SO, language.value))
-
-    raw_tree: Tree = parser.parse(content)
+    raw_tree: Tree = parse_content(content, language)
 
     graph: Graph = _build_ast_graph(content, language, raw_tree)
     control_flow.add(graph, language)
