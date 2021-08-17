@@ -44,7 +44,6 @@ from redis_cluster.operations import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
