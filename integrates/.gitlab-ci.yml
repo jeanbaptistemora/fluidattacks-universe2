@@ -105,12 +105,14 @@ integrates.charts.lint:
   stage: lint-code
 
 integrates.charts.snapshots-prod:
-  <<: *charts_template
+  <<: *makes
+  needs: [integrates.charts.documents-prod-schedule]
   interruptible: false
   only:
     refs: [schedules]
     variables: [$charts]
-  script: [./m integrates.charts.snapshots prod]
+  script: [./m integrates.charts.snapshots.on-aws prod]
+  stage: analytics
 
 integrates.back.authz-matrix:
   <<: *makes
