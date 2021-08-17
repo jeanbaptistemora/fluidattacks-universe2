@@ -9915,7 +9915,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -9953,7 +9953,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Inject Unexpected
   score:
     base:
       attack_vector: "N"
@@ -11435,7 +11435,7 @@
       __empty__
     threat: >
       __empty__
-  category: __empty__
+  category: Abuse Functionality
   score:
     base:
       attack_vector: "N"
