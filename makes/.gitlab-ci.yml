@@ -39,11 +39,6 @@
       when: never
     - if: *makes_commit_pattern
 
-makes.ci.config:
-  <<: *makes
-  <<: *makes_in_master_branch
-  stage: deploy-infra
-
 makes.okta.apply:
   <<: *makes
   <<: *makes_in_master_branch

@@ -51,7 +51,6 @@ integrates.subscriptions.user-to-entity-on-aws
 integrates.web.e2e
 makes.announce.bugsnag
 makes.attrs
-makes.ci.config
 makes.done
 makes.kill-port
 makes.kill-tree
