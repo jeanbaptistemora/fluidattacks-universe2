@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
+import type { TableColumnFilterProps } from "react-bootstrap-table-next";
+import { textFilter } from "react-bootstrap-table2-filter";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { Button } from "components/Button";
@@ -22,6 +24,7 @@ import type {
 } from "scenes/Dashboard/containers/OrganizationGroupsView/types";
 import { ButtonToolbarCenter, Col100, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
+import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -109,9 +112,33 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       };
     });
 
+  const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>(
+    "organizationGroupsFilters",
+    false
+  );
+
+  const handleUpdateFilter: () => void = useCallback((): void => {
+    setFilterEnabled(!isFilterEnabled);
+  }, [isFilterEnabled, setFilterEnabled]);
+
+  const onFilterGroupName: TableColumnFilterProps["onFilter"] = (
+    filterVal: string
+  ): void => {
+    sessionStorage.setItem("groupNameFilter", filterVal);
+  };
+
   // Render Elements
   const tableHeaders: IHeaderConfig[] = [
-    { align: "center", dataField: "name", header: "Group Name" },
+    {
+      align: "center",
+      dataField: "name",
+      filter: textFilter({
+        defaultValue: _.get(sessionStorage, "groupNameFilter"),
+        delay: 1000,
+        onFilter: onFilterGroupName,
+      }),
+      header: "Group Name",
+    },
     { align: "center", dataField: "description", header: "Description" },
     { align: "center", dataField: "subscription", header: "Subscription" },
     { align: "center", dataField: "service", header: "Service" },
@@ -174,6 +201,8 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                   exportCsv={false}
                   headers={tableHeaders}
                   id={"tblGroups"}
+                  isFilterEnabled={isFilterEnabled}
+                  onUpdateEnableFilter={handleUpdateFilter}
                   pageSize={10}
                   rowEvents={{ onClick: handleRowClick }}
                   search={true}
