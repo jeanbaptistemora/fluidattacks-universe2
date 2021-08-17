@@ -9,8 +9,9 @@ computeOnAws {
   name = "integrates-charts-snapshots-on-aws";
   product = "integrates";
   secrets = [
+    "INTEGRATES_API_TOKEN"
     "PRODUCT_API_TOKEN"
   ];
   timeout = 14400;
-  vcpus = 2;
+  vcpus = 4;
 }
