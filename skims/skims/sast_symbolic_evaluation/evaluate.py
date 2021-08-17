@@ -257,6 +257,16 @@ def eval_syntax_steps(
     return syntax_steps
 
 
+def _has_already_evaluated(
+    syntax_steps: graph_model.SyntaxSteps, n_id: str
+) -> bool:
+    for step in reversed(syntax_steps):
+        if n_id == step.meta.n_id:
+            return True
+
+    return False
+
+
 def get_possible_syntax_steps_from_path(
     graph_db: graph_model.GraphDB,
     *,
@@ -273,6 +283,10 @@ def get_possible_syntax_steps_from_path(
 
     for first, _, (n_id, n_id_next) in mark_ends(zip(path, path_next)):
         try:
+            # a node can be part of the cfg but also an argument of
+            # a superior node creating duplicates
+            if syntax_steps and _has_already_evaluated(syntax_steps, n_id):
+                continue
             eval_syntax_steps(
                 graph_db=graph_db,
                 finding=finding,
