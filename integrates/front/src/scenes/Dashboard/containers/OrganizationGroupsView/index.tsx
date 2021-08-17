@@ -9,7 +9,11 @@ import type { TableColumnFilterProps } from "react-bootstrap-table-next";
 import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
-import { selectOptionsSubscription } from "./filters";
+import {
+  selectOptionsMachine,
+  selectOptionsService,
+  selectOptionsSubscription,
+} from "./filters";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext/index";
@@ -128,11 +132,20 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   ): void => {
     sessionStorage.setItem("groupNameFilter", filterVal);
   };
-
   const onFilterSubscription: (filterVal: string) => void = (
     filterVal: string
   ): void => {
     sessionStorage.setItem("subscriptionFilter", filterVal);
+  };
+  const onFilterService: (filterVal: string) => void = (
+    filterVal: string
+  ): void => {
+    sessionStorage.setItem("serviceFilter", filterVal);
+  };
+  const onFilterMachine: (filterVal: string) => void = (
+    filterVal: string
+  ): void => {
+    sessionStorage.setItem("machineFilter", filterVal);
   };
 
   // Render Elements
@@ -159,10 +172,26 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       }),
       header: "Subscription",
     },
-    { align: "center", dataField: "service", header: "Service" },
+    {
+      align: "center",
+      dataField: "service",
+      filter: selectFilter({
+        defaultValue: _.get(sessionStorage, "serviceFilter"),
+        onFilter: onFilterService,
+        options: selectOptionsService,
+        placeholder: "ALL",
+      }),
+      header: "Service",
+    },
     {
       align: "left",
       dataField: "machine",
+      filter: selectFilter({
+        defaultValue: _.get(sessionStorage, "machineFilter"),
+        onFilter: onFilterMachine,
+        options: selectOptionsMachine,
+        placeholder: "ALL",
+      }),
       formatter: pointStatusFormatter,
       header: "Machine",
       width: "90px",
