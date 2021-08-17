@@ -15,12 +15,22 @@ from charts.colors import (
 from collections import (
     Counter,
 )
+from context import (
+    FI_API_STATUS,
+)
 from dataloaders import (
     get_new_context,
+)
+from db_model.findings.types import (
+    Finding,
+)
+from findings import (
+    domain as findings_domain,
 )
 from typing import (
     cast,
     List,
+    Tuple,
     Union,
 )
 
@@ -39,15 +49,31 @@ def get_severity_level(severity: float) -> str:
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Counter:
     context = get_new_context()
-    group_findings_loader = context.group_findings
-    finding_vulns_loader = context.finding_vulns_nzr
+    if FI_API_STATUS == "migration":
+        group_findings_new_loader = context.group_findings_new
+        group_findings_new: Tuple[
+            Finding, ...
+        ] = await group_findings_new_loader.load(group.lower())
+        finding_ids = [finding.id for finding in group_findings_new]
+        finding_severity_levels = [
+            get_severity_level(
+                float(findings_domain.get_severity_score_new(finding.severity))
+            )
+            for finding in group_findings_new
+        ]
+    else:
+        group_findings_loader = context.group_findings
+        group_findings = await group_findings_loader.load(group.lower())
+        finding_ids = [finding["finding_id"] for finding in group_findings]
+        finding_severity_levels = [
+            get_severity_level(float(finding.get("cvss_temporal", 0.0)))
+            for finding in group_findings
+        ]
 
-    group_findings = await group_findings_loader.load(group.lower())
-    finding_ids = [finding["finding_id"] for finding in group_findings]
+    finding_vulns_loader = context.finding_vulns_nzr
     finding_vulns = await finding_vulns_loader.load_many(finding_ids)
     severity_counter: Counter = Counter()
-    for finding, vulns in zip(group_findings, finding_vulns):
-        severity = get_severity_level(float(finding.get("cvss_temporal", 0.0)))
+    for severity, vulns in zip(finding_severity_levels, finding_vulns):
         for vuln in vulns:
             if vuln["current_state"] == "open":
                 severity_counter.update([f"{severity}_open"])
