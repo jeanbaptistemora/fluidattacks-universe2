@@ -531,6 +531,70 @@ def csharp_aesmanaged_secure_mode(
     )
 
 
+def csharp_rsa_secure_mode(
+    graph_db: graph_model.GraphDB,
+) -> core_model.Vulnerabilities:
+    name_vars = []
+
+    def n_ids() -> graph_model.GraphShardNodes:
+        for shard in graph_db.shards_by_language(
+            graph_model.GraphShardMetadataLanguage.CSHARP,
+        ):
+            for member in g.filter_nodes(
+                shard.graph,
+                nodes=shard.graph.nodes,
+                predicate=g.pred_has_labels(
+                    label_type="object_creation_expression"
+                ),
+            ):
+                object_creation = g.match_ast(shard.graph, member, "__0__")
+                if (
+                    shard.graph.nodes[object_creation["__1__"]].get(
+                        "label_text"
+                    )
+                    == "RSACryptoServiceProvider"
+                ):
+                    node_var = g.get_ast_childs(
+                        shard.graph,
+                        g.pred_ast(shard.graph, member, depth=2)[1],
+                        "identifier",
+                    )[0]
+                    name_vars.append(
+                        shard.graph.nodes[node_var].get("label_text")
+                    )
+            for member in g.filter_nodes(
+                shard.graph,
+                nodes=shard.graph.nodes,
+                predicate=g.pred_has_labels(
+                    label_type="member_access_expression",
+                ),
+            ):
+                prop = build_member_access_expression_key(
+                    shard.graph,
+                    member,
+                )
+                method = prop.split(".")
+                if method[0] in name_vars and method[1] == "Encrypt":
+                    member_encrypt = g.pred(shard.graph, member)[0]
+                    arg_bool = g.get_ast_childs(
+                        shard.graph, member_encrypt, "boolean_literal", depth=3
+                    )
+                    if (
+                        len(arg_bool) > 0
+                        and shard.graph.nodes[arg_bool[0]].get("label_text")
+                        == "false"
+                    ):
+                        yield shard, member
+
+    return get_vulnerabilities_from_n_ids(
+        cwe=("310", "327"),
+        desc_key="src.lib_path.f052.insecure_cipher.description",
+        desc_params=dict(lang="CSharp"),
+        finding=FINDING,
+        graph_shard_nodes=n_ids(),
+    )
+
+
 def go_insecure_cipher(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
