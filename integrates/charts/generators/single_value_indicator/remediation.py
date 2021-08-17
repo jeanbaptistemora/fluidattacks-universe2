@@ -7,6 +7,9 @@ from charts import (
 from charts.types import (
     RemediationReport,
 )
+from context import (
+    FI_API_STATUS,
+)
 from custom_types import (
     Vulnerability as VulnerabilityType,
 )
@@ -16,6 +19,9 @@ from dataloaders import (
 from datetime import (
     datetime,
     timedelta,
+)
+from db_model.findings.types import (
+    Finding,
 )
 from itertools import (
     chain,
@@ -77,10 +83,25 @@ async def generate_one(  # pylint: disable=too-many-locals
     groups: Tuple[str, ...]
 ) -> RemediationReport:
     context = get_new_context()
-    group_findings_loader = context.group_findings
     finding_vulns_loader = context.finding_vulns_nzr
-
-    groups_findings_data = await group_findings_loader.load_many(groups)
+    if FI_API_STATUS == "migration":
+        group_findings_new_loader = context.group_findings_new
+        groups_findings_new: Tuple[
+            Tuple[Finding, ...], ...
+        ] = await group_findings_new_loader.load_many(groups)
+        groups_findings_ids = [
+            finding.id
+            for group_findings in groups_findings_new
+            for finding in group_findings
+        ]
+    else:
+        group_findings_loader = context.group_findings
+        groups_findings_data = await group_findings_loader.load_many(groups)
+        groups_findings_ids = [
+            finding["finding_id"]
+            for group_findings in groups_findings_data
+            for finding in group_findings
+        ]
 
     current_rolling_week = datetime.now()
     previous_rolling_week = current_rolling_week - timedelta(days=7)
@@ -89,10 +110,7 @@ async def generate_one(  # pylint: disable=too-many-locals
     total_previous_closed: int = 0
     total_current_open: int = 0
     total_current_closed: int = 0
-    for group_findings in groups_findings_data:
-        group_findings_ids = [
-            finding["finding_id"] for finding in group_findings
-        ]
+    for group_findings_ids in groups_findings_ids:
         vulns = list(
             chain.from_iterable(
                 await finding_vulns_loader.load_many(group_findings_ids)
