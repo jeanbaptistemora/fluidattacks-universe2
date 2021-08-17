@@ -896,22 +896,48 @@ $gray-120: rgba(120, 120, 145, 1);
 }
 
 .internal-advisory {
+  font-size: 1.125rem;
+  font-weight: 300 !important;
+
   h2 {
     font-size: 1.75rem !important;
     margin-bottom: 24px !important;
     margin-top: 24px !important;
   }
 
-  p {
-    font-weight: 300 !important;
-  }
-
   table {
+    border-collapse: collapse;
+    border-color: $soft-black;
+    border-spacing: 0;
+    border-style: solid;
+    border-width: 1px;
+    display: block;
+    overflow-x: auto;
+    overflow-y: hidden;
+    text-align: left;
     width: 100% !important;
   }
 
-  td {
-    padding: 0 2rem !important;
+  thead {
+    display: none;
+  }
+
+  tbody {
+    display: inline-table;
+    vertical-align: top !important;
+    width: 100%;
+  }
+
+  tbody tr {
+    background-color: $soft-gray !important;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: $whiter-gray !important;
+  }
+
+  tbody td {
+    padding: 1rem 2rem !important;
   }
 }
 
