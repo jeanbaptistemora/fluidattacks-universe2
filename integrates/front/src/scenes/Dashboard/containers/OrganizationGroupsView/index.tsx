@@ -6,8 +6,10 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import type { TableColumnFilterProps } from "react-bootstrap-table-next";
-import { textFilter } from "react-bootstrap-table2-filter";
+import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
+
+import { selectOptionsSubscription } from "./filters";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext/index";
@@ -127,6 +129,12 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     sessionStorage.setItem("groupNameFilter", filterVal);
   };
 
+  const onFilterSubscription: (filterVal: string) => void = (
+    filterVal: string
+  ): void => {
+    sessionStorage.setItem("subscriptionFilter", filterVal);
+  };
+
   // Render Elements
   const tableHeaders: IHeaderConfig[] = [
     {
@@ -140,7 +148,17 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       header: "Group Name",
     },
     { align: "center", dataField: "description", header: "Description" },
-    { align: "center", dataField: "subscription", header: "Subscription" },
+    {
+      align: "center",
+      dataField: "subscription",
+      filter: selectFilter({
+        defaultValue: _.get(sessionStorage, "subscriptionFilter"),
+        onFilter: onFilterSubscription,
+        options: selectOptionsSubscription,
+        placeholder: "ALL",
+      }),
+      header: "Subscription",
+    },
     { align: "center", dataField: "service", header: "Service" },
     {
       align: "left",
