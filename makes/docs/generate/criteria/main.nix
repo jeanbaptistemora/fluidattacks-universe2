@@ -78,6 +78,41 @@ let
       )
     );
 
+  # Generate introduction indexes
+  categories = data: inputs.nixpkgs.lib.lists.unique (
+    builtins.map (x: x.category) (builtins.attrValues data));
+  itemsByCategory = category: inputs.nixpkgs.lib.attrsets.filterAttrs
+    (_: v: v.category == category);
+  linksByCategory = type: category: data:
+    "### ${category}\n" + builtins.concatStringsSep "\n" (
+      builtins.attrValues (builtins.mapAttrs
+        (k: v: "- [${k}. ${v.en.title}](/criteria/${type}/${k})")
+        (itemsByCategory category data)
+      )
+    );
+  links = type: data: builtins.concatStringsSep "\n" (
+    builtins.map (category: linksByCategory type category data) (categories data));
+
+  # Generate a template for every introduction
+  makeIntroVulnerabilities = makeTemplate {
+    replace = {
+      __argIndex__ = links "vulnerabilities" data_vulnerabilities;
+    };
+    name = "docs-make-intro-vulnerabilities";
+    template = ./templates/intros/vulnerability.md;
+  };
+  makeIntroRequirements = makeTemplate {
+    replace = {
+      __argIndex__ = links "requirements" data_requirements;
+    };
+    name = "docs-make-intro-requirements";
+    template = ./templates/intros/requirement.md;
+  };
+  makeIntroCompliance = makeTemplate {
+    name = "docs-make-intro-compliance";
+    template = ./templates/intros/compliance.md;
+  };
+
   # Generate a template for every md
   makeVulnerability = name: src: makeTemplate {
     replace = {
@@ -130,6 +165,9 @@ in
 makeScript {
   name = "generate-criteria";
   replace = {
+    __argIntroVulnerabilities__ = makeIntroVulnerabilities;
+    __argIntroRequirements__ = makeIntroRequirements;
+    __argIntroCompliance__ = makeIntroCompliance;
     __argVulnerabilities__ = toBashMap (
       builtins.mapAttrs makeVulnerability data_vulnerabilities
     );

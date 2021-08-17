@@ -10,18 +10,14 @@ function _copy {
 
 function _clean {
   local src="${1}"
-  local regex="[0-9]{3}\.md"
   local targets=(
     "${src}/vulnerabilities"
     "${src}/requirements"
     "${src}/compliance"
   )
 
-  for target in "${targets[@]}"; do
-    info "Cleaning ${target}" \
-      && find "${target}" -name "${regex}" -delete \
-      || return 1
-  done
+  rm -rf "${targets[@]}" \
+    && mkdir -p "${targets[@]}"
 }
 
 function main {
@@ -35,6 +31,15 @@ function main {
 
   _clean "${src}" \
     && info Autogenerating Criteria \
+    && _copy \
+      "__argIntroVulnerabilities__/template" \
+      "${path_vulnerabilities}/introduction.md" \
+    && _copy \
+      "__argIntroRequirements__/template" \
+      "${path_requirements}/introduction.md" \
+    && _copy \
+      "__argIntroCompliance__/template" \
+      "${path_compliance}/introduction.md" \
     && for var in "${!vulnerabilities[@]}"; do
       _copy \
         "${vulnerabilities[${var}]}/template" \
