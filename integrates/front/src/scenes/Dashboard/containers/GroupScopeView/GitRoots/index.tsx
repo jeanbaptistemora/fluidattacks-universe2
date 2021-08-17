@@ -9,7 +9,7 @@ import React, { useCallback, useState } from "react";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { useTranslation } from "react-i18next";
 
-import { renderDescription } from "./description";
+import { renderEnvDescription } from "./envDescription";
 import {
   handleActivationError,
   handleCreationError,
@@ -19,6 +19,7 @@ import {
   useGitSubmit,
 } from "./helpers";
 import { ManagementModal } from "./ManagementModal";
+import { renderRepoDescription } from "./repoDescription";
 import { Container } from "./styles";
 
 import { DeactivationModal } from "../deactivationModal";
@@ -254,6 +255,24 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     storageKey: "gitRootsExpandedRows",
   });
 
+  const rootsGroupedByEnvs = roots
+    .filter((root): boolean => root.environmentUrls.length > 0)
+    .reduce<Record<string, string[]>>(
+      (previousValue, currentValue): Record<string, string[]> => ({
+        ...previousValue,
+        ...Object.fromEntries(
+          currentValue.environmentUrls.map((envUrl): [string, string[]] => [
+            envUrl,
+            [
+              ...(envUrl in previousValue ? previousValue[envUrl] : []),
+              currentValue.url,
+            ],
+          ])
+        ),
+      }),
+      {}
+    );
+
   return (
     <React.Fragment>
       <h2>{t("group.scope.git.title")}</h2>
@@ -282,7 +301,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                   expanded: expandedRows,
                   onExpand: handleRowExpand,
                   onExpandAll: handleRowExpandAll,
-                  renderer: renderDescription,
+                  renderer: renderRepoDescription,
                   showExpandColumn: true,
                 }}
                 exportCsv={true}
@@ -358,6 +377,33 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           );
         }}
       </ConfirmDialog>
+      <br />
+      <DataTableNext
+        bordered={true}
+        dataset={Object.entries(rootsGroupedByEnvs).map(
+          ([environmentUrl, repositoryUrls]): Record<string, unknown> => ({
+            environmentUrl,
+            repositoryUrls,
+          })
+        )}
+        expandRow={{
+          expandByColumnOnly: true,
+          renderer: renderEnvDescription,
+          showExpandColumn: true,
+        }}
+        exportCsv={false}
+        extraButtons={<h2>{t("group.scope.git.envUrls")}</h2>}
+        headers={[
+          {
+            dataField: "environmentUrl",
+            header: t("group.scope.git.repo.url"),
+          },
+        ]}
+        id={"tblGitRootEnvs"}
+        pageSize={10}
+        search={true}
+        striped={true}
+      />
       {isManagingRoot === false ? undefined : (
         <ManagementModal
           initialValues={

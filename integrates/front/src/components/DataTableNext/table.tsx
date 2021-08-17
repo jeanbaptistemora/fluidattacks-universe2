@@ -144,6 +144,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
       </div>
       <BootstrapTable
         {...baseProps}
+        bootstrap4={true}
         bordered={bordered}
         defaultSorted={
           _.isUndefined(defaultSorted) ? undefined : [defaultSorted]

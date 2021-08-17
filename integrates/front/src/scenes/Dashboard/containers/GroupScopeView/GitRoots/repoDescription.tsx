@@ -85,7 +85,9 @@ const Description = ({
   );
 };
 
-export const renderDescription = (props: IDescriptionProps): JSX.Element => (
+export const renderRepoDescription = (
+  props: IDescriptionProps
+): JSX.Element => (
   <Description
     cloningStatus={props.cloningStatus}
     environment={props.environment}

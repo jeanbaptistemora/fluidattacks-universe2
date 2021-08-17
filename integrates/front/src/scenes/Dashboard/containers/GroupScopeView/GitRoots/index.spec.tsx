@@ -23,7 +23,7 @@ describe("GitRoots", (): void => {
     expect(typeof GitRoots).toStrictEqual("function");
   });
 
-  it("should render table", (): void => {
+  it("should render tables", (): void => {
     expect.hasAssertions();
 
     const refetch: jest.Mock = jest.fn();
@@ -36,7 +36,7 @@ describe("GitRoots", (): void => {
     );
 
     expect(wrapper).toHaveLength(1);
-    expect(wrapper.find("table")).toHaveLength(1);
+    expect(wrapper.find("table")).toHaveLength(2);
   });
 
   it("should render action buttons", (): void => {
