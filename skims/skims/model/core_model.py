@@ -1175,6 +1175,26 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.required,
         ),
     )
+    F234: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F234",
+        cwe=209,
+        execution_queue=ExecutionQueue.none,
+        requirements=[77, 176],
+        score=cvss3_model.Score(
+            attack_complexity=cvss3_model.AttackComplexity.low,
+            attack_vector=cvss3_model.AttackVector.local,
+            availability_impact=cvss3_model.AvailabilityImpact.none,
+            confidentiality_impact=cvss3_model.ConfidentialityImpact.low,
+            exploitability=cvss3_model.Exploitability.poc,
+            integrity_impact=cvss3_model.IntegrityImpact.none,
+            privileges_required=cvss3_model.PrivilegesRequired.high,
+            remediation_level=cvss3_model.RemediationLevel.unavailable,
+            report_confidence=cvss3_model.ReportConfidence.confirmed,
+            severity_scope=cvss3_model.SeverityScope.unchanged,
+            user_interaction=cvss3_model.UserInteraction.none,
+        ),
+    )
 
 
 FINDING_ENUM_FROM_STR: Dict[str, FindingEnum] = {
