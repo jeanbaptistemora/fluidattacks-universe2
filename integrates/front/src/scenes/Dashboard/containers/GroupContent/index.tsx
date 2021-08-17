@@ -125,16 +125,18 @@ const GroupContent: React.FC = (): JSX.Element => {
                       />
                     </Can>
                   </Have>
-                  {organizationName === "imamura" ||
-                  (!canGetToeInputs && !canGetToeLines) ? undefined : (
-                    <ContentTab
-                      icon={"icon pe-7s-note2"}
-                      id={"toeTab"}
-                      link={`${url}/surface`}
-                      title={translate.t("group.tabs.toe.text")}
-                      tooltip={translate.t("group.tabs.toe.tooltip")}
-                    />
-                  )}
+                  <Have I={"has_service_white"}>
+                    {organizationName === "imamura" ||
+                    (!canGetToeInputs && !canGetToeLines) ? undefined : (
+                      <ContentTab
+                        icon={"icon pe-7s-note2"}
+                        id={"toeTab"}
+                        link={`${url}/surface`}
+                        title={translate.t("group.tabs.toe.text")}
+                        tooltip={translate.t("group.tabs.toe.tooltip")}
+                      />
+                    )}
+                  </Have>
                   <ContentTab
                     icon={"icon pe-7s-box1"}
                     id={"resourcesTab"}
