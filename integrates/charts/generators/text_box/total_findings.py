@@ -8,8 +8,14 @@ from async_lru import (
 from charts import (
     utils,
 )
+from context import (
+    FI_API_STATUS,
+)
 from dataloaders import (
     get_new_context,
+)
+from db_model.findings.types import (
+    Finding,
 )
 from typing import (
     Tuple,
@@ -19,10 +25,18 @@ from typing import (
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str) -> int:
     context = get_new_context()
-    group_findings_loader = context.group_findings
-    group_findings = await group_findings_loader.load(group)
+    if FI_API_STATUS == "migration":
+        group_findings_new_loader = context.group_findings_new
+        group_findings_new: Tuple[
+            Finding, ...
+        ] = await group_findings_new_loader.load(group)
+        count = len(group_findings_new)
+    else:
+        group_findings_loader = context.group_findings
+        group_findings = await group_findings_loader.load(group)
+        count = len(group_findings)
 
-    return len(group_findings)
+    return count
 
 
 async def get_findings_count_many_groups(groups: Tuple[str, ...]) -> int:
