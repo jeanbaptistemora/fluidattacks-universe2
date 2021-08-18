@@ -4,6 +4,8 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import type { ReactElement } from "react";
 import React, { useCallback, useState } from "react";
+import type { TableColumnFilterProps } from "react-bootstrap-table-next";
+import { textFilter } from "react-bootstrap-table2-filter";
 import { useParams } from "react-router-dom";
 
 import { DataTableNext } from "components/DataTableNext";
@@ -16,6 +18,7 @@ import type {
   IData,
 } from "scenes/Dashboard/containers/GroupAuthorsView/types";
 import { Col100, Row } from "styles/styledComponents";
+import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -57,10 +60,40 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     []
   );
 
+  const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>(
+    "groupAuthorsFilters",
+    false
+  );
+
+  const handleUpdateFilter: () => void = useCallback((): void => {
+    setFilterEnabled(!isFilterEnabled);
+  }, [isFilterEnabled, setFilterEnabled]);
+
+  const onFilterAuthor: TableColumnFilterProps["onFilter"] = (
+    filterVal: string
+  ): void => {
+    sessionStorage.setItem("authorFilter", filterVal);
+  };
+  const onFilterGroupsContributed: TableColumnFilterProps["onFilter"] = (
+    filterVal: string
+  ): void => {
+    sessionStorage.setItem("groupsContributedFilter", filterVal);
+  };
+  const onFilterRepository: TableColumnFilterProps["onFilter"] = (
+    filterVal: string
+  ): void => {
+    sessionStorage.setItem("repositoryFilter", filterVal);
+  };
+
   const headersAuthorsTable: IHeaderConfig[] = [
     {
       align: "center",
       dataField: "actor",
+      filter: textFilter({
+        defaultValue: _.get(sessionStorage, "authorFilter"),
+        delay: 1000,
+        onFilter: onFilterAuthor,
+      }),
       formatter: formatText,
       header: translate.t("group.authors.actor"),
       width: "40%",
@@ -69,6 +102,11 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "groups",
+      filter: textFilter({
+        defaultValue: _.get(sessionStorage, "groupsContributedFilter"),
+        delay: 1000,
+        onFilter: onFilterGroupsContributed,
+      }),
       formatter: formatText,
       header: translate.t("group.authors.groupsContributed"),
       width: "20%",
@@ -85,6 +123,11 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "repository",
+      filter: textFilter({
+        defaultValue: _.get(sessionStorage, "repositoryFilter"),
+        delay: 1000,
+        onFilter: onFilterRepository,
+      }),
       formatter: formatText,
       header: translate.t("group.authors.repository"),
       width: "20%",
@@ -139,6 +182,8 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
         exportCsv={true}
         headers={headersAuthorsTable}
         id={"tblAuthorsList"}
+        isFilterEnabled={isFilterEnabled}
+        onUpdateEnableFilter={handleUpdateFilter}
         pageSize={100}
         search={true}
         striped={true}
