@@ -784,7 +784,15 @@
       de que un atacante cargue un archivo
       que contiene software malicioso.
   category: Files
-  references: []
+  references:
+    - "004.400"
+    - "004.409"
+    - "004.770"
+    - "012.V11.1.3"
+    - "012.V11.1.4"
+    - "012.V12.1.1"
+    - "012.V12.1.2"
+    - "012.V12.1.3"
   metadata: {}
 "040":
   en:
@@ -803,7 +811,12 @@
       corresponde a su extensión.
     description: __empty__
   category: Files
-  references: []
+  references:
+    - "002.11"
+    - "002.165"
+    - "002.434"
+    - "002.646"
+    - "012.V12.2.1"
   metadata: {}
 "041":
   en:
@@ -823,7 +836,18 @@
       esté libre de código malicioso.
     description: __empty__
   category: Files
-  references: []
+  references:
+    - "002.17"
+    - "002.23"
+    - "002.165"
+    - "002.549"
+    - "003.2.5"
+    - "004.509"
+    - "004.749"
+    - "009.003-8_5.1"
+    - "012.V10.1.1"
+    - "012.V12.4.2"
+    - "014.5.1.1"
   metadata: {}
 "042":
   en:
@@ -841,7 +865,10 @@
       es requerido por la operación del negocio.
     description: __empty__
   category: Files
-  references: []
+  references:
+    - "002.165"
+    - "004.646"
+    - "012.V12.2.1"
   metadata: {}
 "043":
   en:
@@ -859,7 +886,19 @@
       definido explícitamente.
     description: __empty__
   category: Files
-  references: []
+  references:
+    - "002.242"
+    - "004.116"
+    - "012.V5.3.1"
+    - "012.V12.3.4"
+    - "012.V12.5.1"
+    - "012.V12.5.2"
+    - "012.V13.1.5"
+    - "012.V13.2.5"
+    - "012.V14.4.1"
+    - "012.V14.4.2"
+    - "013.A1"
+    - "013.A6"
   metadata: {}
 "044":
   en:
@@ -879,7 +918,12 @@
       definido explícitamente.
     description: __empty__
   category: Files
-  references: []
+  references:
+    - "002.242"
+    - "004.116"
+    - "004.173"
+    - "012.V5.3.1"
+    - "012.V14.4.1"
   metadata: {}
 "045":
   en:
@@ -897,7 +941,12 @@
       un archivo o de hacerlo público.
     description: __empty__
   category: Files
-  references: []
+  references:
+    - "004.1230"
+    - "006.25_1"
+    - "006.R51"
+    - "012.V4.3.2"
+    - "013.A3"
   metadata: {}
 "046":
   en:
@@ -916,7 +965,19 @@
       del sistema.
     description: __empty__
   category: Files
-  references: []
+  references:
+    - "002.13"
+    - "002.23"
+    - "002.35"
+    - "002.38"
+    - "002.154"
+    - "002.176"
+    - "004.778"
+    - "012.V14.1.5"
+    - "014.10.2.2"
+    - "014.10.2.6"
+    - "014.10.4.2"
+    - "014.10.5.5"
   metadata: {}
 "048":
   en:
@@ -967,7 +1028,22 @@
       con el fin para prevenir
       varios tipos de ataques por inyección.
   category: Architecture
-  references: []
+  references:
+    - "002.19"
+    - "002.154"
+    - "002.175"
+    - "002.242"
+    - "004.829"
+    - "004.830"
+    - "012.V5.3.6"
+    - "012.V10.3.2"
+    - "012.V10.3.3"
+    - "012.V12.3.6"
+    - "013.A1"
+    - "013.A6"
+    - "013.A7"
+    - "014.6.5.1"
+    - "014.6.5.7"
   metadata: {}
 "051":
   en:
@@ -984,7 +1060,10 @@
       en un repositorio centrl.
     description: __empty__
   category: Architecture
-  references: []
+  references:
+    - "008.9.4.5"
+    - "008.14.2.2"
+    - "012.V1.10.1"
   metadata: {}
 "062":
   en:
@@ -1029,7 +1108,39 @@
       y resiliencia contínuas de los sistemas
       y servicios.
   category: Architecture
-  references: []
+  references:
+    - "001.SR3.3:_9"
+    - "002.125"
+    - "002.130"
+    - "002.151"
+    - "002.161"
+    - "003.4.1"
+    - "003.4.2"
+    - "003.13.10"
+    - "006.32_1b"
+    - "012.C.17"
+    - "012.C.32"
+    - "012.C.33"
+    - "012.C.34"
+    - "012.V5.5.2"
+    - "012.V6.2.2"
+    - "012.V6.2.3"
+    - "012.V9.2.4"
+    - "012.V10.3.2"
+    - "012.V13.2.2"
+    - "012.V13.3.1"
+    - "012.V14.1.1"
+    - "012.V14.1.2"
+    - "012.V14.1.3"
+    - "013.A4"
+    - "013.A6"
+    - "014.1.2.2"
+    - "014.1.3.4"
+    - "014.1.3.5"
+    - "014.2.2.3"
+    - "014.2.2.4"
+    - "014.6.2"
+    - "014.6.3"
   metadata: {}
 "072":
   en:
