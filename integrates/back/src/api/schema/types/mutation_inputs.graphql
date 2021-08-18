@@ -1,9 +1,9 @@
 input ExecutionVulnerabilitiesInput {
-  "acepted vulnerabilities"
+  "Acepted vulnerabilities"
   accepted: [ExploitResultInput!]
-  "closed exploits"
+  "Closed exploits"
   closed: [ExploitResultInput!]
-  "open vulnerabilities"
+  "Open vulnerabilities"
   open: [ExploitResultInput!]
 }
 

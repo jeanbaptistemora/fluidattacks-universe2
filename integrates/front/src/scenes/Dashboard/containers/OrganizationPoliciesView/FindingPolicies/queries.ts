@@ -35,7 +35,7 @@ const HANDLE_ORGANIZATION_FINDING_POLICY: DocumentNode = gql`
   mutation HandleOrganizationFindingPolicyAcceptation(
     $findingPolicyId: ID!
     $organizationName: String!
-    $status: OrganizationFindindPolicy!
+    $status: OrganizationFindingPolicy!
   ) {
     handleOrganizationFindingPolicyAcceptation(
       findingPolicyId: $findingPolicyId

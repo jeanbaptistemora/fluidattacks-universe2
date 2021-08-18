@@ -57,7 +57,7 @@ type Mutation {
     context: EventContext!
     "Comment laying out or explaining the event"
     detail: String!
-    "Datetime of the event in the format `yyyy-MM-ddThh:mm:ssZ`"
+    "DateTime of the event in the format `yyyy-MM-ddThh:mm:ssZ`"
     eventDate: DateTime!
     "The kind of event that happened"
     eventType: EventType!
@@ -103,22 +103,33 @@ type Mutation {
     type: FindingConsultType!
   ): AddConsultPayload!
 
+  "Adds a new Forces execution results and log to a Group"
   addForcesExecution(
     "Deprecated. Use `groupName` instead"
     projectName: String
+    "Identifier of the Forces execution"
     executionId: String
+    "Deprecated. Use `executionId` instead"
     execution_id: String
+    "DateTime in the format yyyy-MM-ddThh:mm:ssZ"
     date: DateTime!
+    "Exit code of the execution"
     exitCode: String!
+    "Tested repo branch"
     gitBranch: String
+    "Full SHA-1 hash of the tested commit"
     gitCommit: String
+    "Repo URL"
     gitOrigin: String
+    "Root nickname"
     gitRepo: String
     "Name of the Group where the Forces log will be in"
     groupName: String
     kind: String
+    "Forces execution log"
     log: Upload
     strictness: String!
+    "Object containing arrays of accepted, open and closed vulnerabilities"
     vulnerabilities: ExecutionVulnerabilitiesInput!
   ): SimplePayload!
 
@@ -431,7 +442,7 @@ type Mutation {
     id: String!
     "Finding where the vulnerability is located"
     findingId: String!
-    "Justtification for the removal"
+    "Justification for the removal"
     justification: RemoveVulnerabilityJustification!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
     after 2021/12/31. Use `removeVulnerability` instead.""")
@@ -547,7 +558,7 @@ type Mutation {
     organizationId: String!
     "Phone number of the stakeholder preceded by its call sign"
     phoneNumber: String
-    "Role of the skakeholder"
+    "Role of the stakeholder"
     role: OrganizationRole!
     "Email address of the stakeholder that will be granted access"
     userEmail: String!
@@ -559,7 +570,7 @@ type Mutation {
     "Name of the organization the finding policy is associated with"
     organizationName: String!
     "Whether the finding policy is approved or rejected"
-    status: OrganizationFindindPolicy!
+    status: OrganizationFindingPolicy!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed after
    2021/12/31. Use `handleOrganizationFindingPolicyAcceptation` instead.""")
 
@@ -569,7 +580,7 @@ type Mutation {
     "Name of the organization the finding policy is associated with"
     organizationName: String!
     "Whether the finding policy is approved or rejected"
-    status: OrganizationFindindPolicy!
+    status: OrganizationFindingPolicy!
   ): SimplePayload!
 
    handleVulnerabilitiesAcceptation(
@@ -659,7 +670,7 @@ type Mutation {
     justification: RemoveFindingJustification!
   ): SimplePayload!
 
-  """Removes/deletes a group from ASM. Once succesful this action cannot be
+  """Removes/deletes a group from ASM. Once successful this action cannot be
   undone"""
   removeGroup(
     "Name of the group to be deleted"
@@ -723,7 +734,7 @@ type Mutation {
     id: String!
     "Finding where the vulnerability is located"
     findingId: String!
-    "Justtification for the removal"
+    "Justification for the removal"
     justification: RemoveVulnerabilityJustification!
   ): SimplePayload!
 

@@ -142,7 +142,7 @@ async def test_handle_organization_finding_policy_acceptation() -> None:
         mutation HandleOrganizationFindingPolicyAcceptation(
             $findingPolicyId: ID!
             $orgName: String!
-            $status: OrganizationFindindPolicy!
+            $status: OrganizationFindingPolicy!
         ) {
             handleOrganizationFindingPolicyAcceptation(
                 findingPolicyId: $findingPolicyId
@@ -256,7 +256,7 @@ async def test_deactivate_org_finding_policy() -> None:
         mutation HandleOrganizationFindingPolicyAcceptation(
             $findingPolicyId: ID!
             $orgName: String!
-            $status: OrganizationFindindPolicy!
+            $status: OrganizationFindingPolicy!
         ) {
             handleOrganizationFindingPolicyAcceptation(
                 findingPolicyId: $findingPolicyId
@@ -477,7 +477,7 @@ async def test_submit_organization_finding_policy() -> None:
         mutation HandleOrganizationFindingPolicyAcceptation(
             $findingPolicyId: ID!
             $orgName: String!
-            $status: OrganizationFindindPolicy!
+            $status: OrganizationFindingPolicy!
         ) {
             handleOrganizationFindingPolicyAcceptation(
                 findingPolicyId: $findingPolicyId
