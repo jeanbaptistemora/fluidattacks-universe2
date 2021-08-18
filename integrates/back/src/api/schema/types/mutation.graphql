@@ -178,6 +178,7 @@ type Mutation {
     tags: JSONString
   ): SimpleGroupPayload!
 
+  "Adds an IP to the Group roots"
   addIpRoot(
     "IP address of the environment to test"
     address: String!
@@ -189,24 +190,32 @@ type Mutation {
     port: Int!
   ): SimplePayload!
 
+  """Adds a Finding policy to the Organization. Approval is still needed for
+  enactment"""
   addOrgFindingPolicy(
-    "Name of the finding"
+    "Name of the Finding to be associated with the policy"
     findingName: String!
-    "Name of the organization the finding policy is associated with"
+    "Name of the Organization relevant to the finding policy"
     organizationName: String!
-    "Tags associated with the organization the finding policy"
+    "Tags that will be related to this finding policy"
     tags: [String]
   ): SimplePayload! @deprecated(reason: """This mutation will be removed after
   2021/12/20. Use `addOrganizationFindingPolicy` instead.""")
 
-  addOrganization(name: String!): AddOrganizationPayload!
+  "Adds a new Organization"
+  addOrganization(
+    "Name of the new Organization. Must come from an Internal Names whitelist"
+    name: String!
+  ): AddOrganizationPayload!
 
+  """Adds a Finding policy to the Organization. Approval is still needed for
+  enactment"""
   addOrganizationFindingPolicy(
-    "Name of the finding"
+    "Name of the Finding to be associated with the policy"
     findingName: String!
-    "Name of the organization the finding policy is associated with"
+    "Name of the Organization relevant to the finding policy"
     organizationName: String!
-    "Tags associated with the organization the finding policy"
+    "Tags that will be related to this finding policy"
     tags: [String]
   ): SimplePayload!
 
@@ -223,6 +232,8 @@ type Mutation {
 
   addPushToken(token: String!): SimplePayload
 
+  """Adds a new Stakeholder to ASM. Extra permissions might be needed to access
+  Organizations and Groups"""
   addStakeholder(
     "Email address of the new stakeholder"
     email: String!
@@ -278,6 +289,7 @@ type Mutation {
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
       after 2021/12/31. Use `confirmVulnerabilitiesZeroRisk` instead.""")
 
+  "Adds a new draft Finding to the specified Group"
   createDraft(
     affectedSystems: String
     attackVectorDesc: String
@@ -294,6 +306,7 @@ type Mutation {
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
       after 2021/12/31. Use `addDraft` instead.""")
 
+  "Adds a new blocking Event to the specified Group"
   createEvent(
     actionAfterBlocking: ActionsAfterBlocking!
     actionBeforeBlocking: ActionsBeforeBlocking!
@@ -334,19 +347,31 @@ type Mutation {
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
       after 2021/12/31. Use `addGroup` instead.""")
 
-  createOrganization(name: String!): AddOrganizationPayload!
+  "Adds a new Organization"
+  createOrganization(
+    "Name of the new Organization. Must come from an Internal Names whitelist"
+    name: String!
+  ): AddOrganizationPayload!
     @deprecated(reason: """This mutation will be removed after 2021/12/31.
     Use `addOrganization` instead.""")
 
+  "Adds a new Group to the specified Organization"
   createProject(
+    "Brief description to identify the group"
     description: String!
+    "Language in which findings should be reported"
     language: Language
+    "Organization to which the group will belong"
     organization: String
-    "Deprecated. Use `groupName` instead"
+    "Name of the new Group"
     projectName: String!
+    "Enables either continuous or one-shot hacking within the group"
     subscription: SubscriptionType
+    "Enables the Machine plan within the new group"
     hasSkims: Boolean
+    "Enables the Squad plan within the new group"
     hasDrills: Boolean
+    "Deprecated field"
     hasForces: Boolean
   ): SimplePayload!
     @deprecated(reason: """This mutation will be removed
@@ -745,7 +770,10 @@ type Mutation {
     date: DateTime!
   ): SimplePayload!
 
-  submitDraft(findingId: String!): SimplePayload!
+  submitDraft(
+    "Identifier of the draft Finding to be submitted"
+    findingId: String!
+  ): SimplePayload!
 
   "Queues a job to execute Skims on the provided root"
   submitMachineJob(
@@ -786,6 +814,7 @@ type Mutation {
     affectedSystems: String!
     attackVectorDesc: String!
     description: String!
+    "Identifier of Finding whose description will be updated"
     findingId: String!
     recommendation: String!
     records: String
@@ -815,9 +844,13 @@ type Mutation {
     evidenceId: EvidenceType!
   ): SimplePayload!
 
+  "Updates the description of an Evidence in a Finding"
   updateEvidenceDescription(
+    "New description of the Evidence"
     description: String!
+    "Identifier of the Evidence to be updated"
     evidenceId: EvidenceDescriptionType!
+    "Identifier of the Finding associated with the Evidence"
     findingId: String!
   ): SimplePayload!
 
