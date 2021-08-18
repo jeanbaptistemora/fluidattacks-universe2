@@ -72,6 +72,8 @@ BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set(
         "System.IO.Path.Combine",
         "System.Xml.XPath.XPathExpression.Compile",
         "Encoding.UTF8.GetBytes",
+        # javascript
+        "exec",
     }
 )
 STATIC_FINDING: Dict[str, Set[str]] = {

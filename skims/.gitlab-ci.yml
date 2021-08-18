@@ -207,6 +207,9 @@ skims.test.unittesting:
 skims.test.vulnerableapp:
   <<: *skims_test
 
+skims.test.vulnerable_js_app:
+  <<: *skims_test
+
 skims.test.nist_c_sharp:
   <<: *skims_test
 

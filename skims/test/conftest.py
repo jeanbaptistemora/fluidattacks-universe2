@@ -55,6 +55,7 @@ TEST_GROUPS = {
     "nist_c_sharp_f107",
     "unittesting",
     "vulnerableapp",
+    "vulnerable_js_app",
 }
 
 # Side effects

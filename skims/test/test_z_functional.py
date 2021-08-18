@@ -325,6 +325,12 @@ def test_vulnerableapp() -> None:
 
 
 @pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("vulnerable_js_app")
+def test_vulnerable_js_app() -> None:
+    _run_no_group("vulnerable_js_app")
+
+
+@pytest.mark.flaky(reruns=0)
 @pytest.mark.skims_test_group("nist_c_sharp")
 def test_nist_c_sharp() -> None:
     _run_no_group("nist_c_sharp")

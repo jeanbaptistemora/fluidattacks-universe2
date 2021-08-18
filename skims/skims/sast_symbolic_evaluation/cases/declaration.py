@@ -54,6 +54,7 @@ def _syntax_step_declaration_danger(args: EvaluatorArgs) -> None:
     danger_types = {
         "javax.servlet.http.HttpServletRequest",
         "System.Web.HttpRequest",
+        "Request",
     }
     danger_modifiers = {
         "org.springframework.web.bind.annotation.RequestParam",
