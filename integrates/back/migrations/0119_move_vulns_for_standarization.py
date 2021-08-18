@@ -8,6 +8,9 @@ https://gitlab.com/fluidattacks/product/-/issues/4903
 
 Execution Time:    2021-08-12 at 13:47:57 UTC-05
 Finalization Time: 2021-08-12 at 13:57:28 UTC-05
+
+Execution Time:
+Finalization Time:
 """
 
 from aioextensions import (
@@ -27,28 +30,42 @@ from vulnerabilities import (
     dal as vulns_dal,
 )
 
-PROD: bool = True
+PROD: bool = False
 
 
 async def process_vuln(
     context: Dataloaders,
     vuln_info: Dict[str, str],
 ) -> bool:
-    group_findings_loader = context.group_findings
-    group_findings = await group_findings_loader.load(vuln_info["group_name"])
-    group_findings_titles = [finding["title"] for finding in group_findings]
+    group_name = vuln_info["group_name"]
+    target_finding = dict()
 
-    if vuln_info["definitive_name"] not in group_findings_titles:
+    group_findings_loader = context.group_findings
+    group_findings = await group_findings_loader.load(group_name)
+    group_findings_titles = [finding["title"] for finding in group_findings]
+    if vuln_info["definitive_name"] in group_findings_titles:
+        target_finding = next(
+            finding
+            for finding in group_findings
+            if finding["title"] == vuln_info["definitive_name"]
+        )
+    else:
+        group_drafts_loader = context.group_drafts
+        group_drafts = await group_drafts_loader.load(group_name)
+        group_drafts_titles = [draft["title"] for draft in group_drafts]
+        if vuln_info["definitive_name"] in group_drafts_titles:
+            target_finding = next(
+                draft
+                for draft in group_drafts
+                if draft["title"] == vuln_info["definitive_name"]
+            )
+
+    if not target_finding:
         print(
             f'  --- {vuln_info["vuln_uuid"]}, '
-            f'finding "{vuln_info["definitive_name"]}" NOT found'
+            f'finding/draft "{vuln_info["definitive_name"]}" NOT found'
         )
         return False
-    target_finding = next(
-        finding
-        for finding in group_findings
-        if finding["title"] == vuln_info["definitive_name"]
-    )
 
     vuln = await vulns_dal.get(vuln_info["vuln_uuid"])
     if len(vuln) < 0:
