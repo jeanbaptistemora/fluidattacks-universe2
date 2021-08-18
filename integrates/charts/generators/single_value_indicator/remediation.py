@@ -89,7 +89,7 @@ async def generate_one(  # pylint: disable=too-many-locals
         groups_findings_new: Tuple[
             Tuple[Finding, ...], ...
         ] = await group_findings_new_loader.load_many(groups)
-        groups_findings_ids = [
+        finding_ids = [
             finding.id
             for group_findings in groups_findings_new
             for finding in group_findings
@@ -97,7 +97,7 @@ async def generate_one(  # pylint: disable=too-many-locals
     else:
         group_findings_loader = context.group_findings
         groups_findings_data = await group_findings_loader.load_many(groups)
-        groups_findings_ids = [
+        finding_ids = [
             finding["finding_id"]
             for group_findings in groups_findings_data
             for finding in group_findings
@@ -106,30 +106,19 @@ async def generate_one(  # pylint: disable=too-many-locals
     current_rolling_week = datetime.now()
     previous_rolling_week = current_rolling_week - timedelta(days=7)
 
-    total_previous_open: int = 0
-    total_previous_closed: int = 0
-    total_current_open: int = 0
-    total_current_closed: int = 0
-    for group_findings_ids in groups_findings_ids:
-        vulns = list(
-            chain.from_iterable(
-                await finding_vulns_loader.load_many(group_findings_ids)
-            )
-        )
+    vulns = list(
+        chain.from_iterable(await finding_vulns_loader.load_many(finding_ids))
+    )
 
-        open_last_week, closed_last_week = get_totals_by_week(
-            vulns,
-            previous_rolling_week,
-        )
-        total_previous_open += open_last_week
-        total_previous_closed += closed_last_week
+    total_previous_open, total_previous_closed = get_totals_by_week(
+        vulns,
+        previous_rolling_week,
+    )
 
-        currently_open, currently_closed = get_totals_by_week(
-            vulns,
-            current_rolling_week,
-        )
-        total_current_open += currently_open
-        total_current_closed += currently_closed
+    total_current_open, total_current_closed = get_totals_by_week(
+        vulns,
+        current_rolling_week,
+    )
 
     return {
         "current": {
