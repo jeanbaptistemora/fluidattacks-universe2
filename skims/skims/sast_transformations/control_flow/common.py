@@ -84,6 +84,7 @@ def step_by_step(
     # Skip { }
     if graph.nodes[n_id]["label_type"] in {
         "block",
+        "function_body",
         "statement_block",
     }:
         stmt_ids = stmt_ids[1:-1]
