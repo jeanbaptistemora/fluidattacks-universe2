@@ -256,7 +256,10 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   });
 
   const rootsGroupedByEnvs = roots
-    .filter((root): boolean => root.environmentUrls.length > 0)
+    .filter(
+      (root): boolean =>
+        root.state === "ACTIVE" && root.environmentUrls.length > 0
+    )
     .reduce<Record<string, string[]>>(
       (previousValue, currentValue): Record<string, string[]> => ({
         ...previousValue,
@@ -378,6 +381,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
         }}
       </ConfirmDialog>
       <br />
+      <h2>{t("group.scope.git.envUrls")}</h2>
       <DataTableNext
         bordered={true}
         dataset={Object.entries(rootsGroupedByEnvs).map(
@@ -392,7 +396,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           showExpandColumn: true,
         }}
         exportCsv={false}
-        extraButtons={<h2>{t("group.scope.git.envUrls")}</h2>}
         headers={[
           {
             dataField: "environmentUrl",
