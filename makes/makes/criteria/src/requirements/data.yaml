@@ -1171,7 +1171,14 @@
       El tiempo de respuesta
       es una medida relevante
   category: Architecture
-  references: []
+  references:
+    - "002.125"
+    - "002.130"
+    - "004.400"
+    - "004.770"
+    - "006.32_1c"
+    - "012.V11.1.4"
+    - "012.V13.4.1"
   metadata: {}
 "075":
   en:
@@ -1247,7 +1254,34 @@
       o se puede obstruir un análisis forense
       en caso de que un ataque sea exitoso.
   category: Logs
-  references: []
+  references:
+    - "003.8.2"
+    - "003.8.5"
+    - "004.390"
+    - "004.544"
+    - "004.778"
+    - "006.33_5"
+    - "007.164.312_b"
+    - "008.12.4.1"
+    - "008.12.4.3"
+    - "009.007-6_R4.1"
+    - "012.V1.7.1"
+    - "012.V7.1.3"
+    - "012.V7.1.4"
+    - "012.V7.2.1"
+    - "012.V7.2.2"
+    - "012.V8.3.5"
+    - "012.V9.2.5"
+    - "012.V11.1.7"
+    - "013.A10"
+    - "014.A1.3"
+    - "014.10.2.1"
+    - "014.10.2.2"
+    - "014.10.2.3"
+    - "014.10.2.4"
+    - "014.10.2.5"
+    - "014.10.2.6"
+    - "014.10.2.7"
   metadata: {}
 "077":
   en:
@@ -1292,7 +1326,16 @@
       por atacantes para explotar
       otras vulnerabilidades más adelante.
   category: Logs
-  references: []
+  references:
+    - "002.116"
+    - "002.224"
+    - "004.209"
+    - "004.210"
+    - "012.V14.3.1"
+    - "012.V14.3.2"
+    - "012.V14.3.3"
+    - "014.1.3.7"
+    - "014.6.5.5"
   metadata: {}
 "078":
   en:
@@ -1308,7 +1351,21 @@
       no deben estar habilitados en producción.
     description: __empty__
   category: Logs
-  references: []
+  references:
+    - "002.113"
+    - "002.116"
+    - "004.209"
+    - "004.210"
+    - "004.497"
+    - "004.1269"
+    - "012.C.1"
+    - "012.C.4"
+    - "012.C.18"
+    - "012.C.26"
+    - "012.V7.4.1"
+    - "012.V14.3.2"
+    - "013.A6"
+    - "014.6.5.5"
   metadata: {}
 "079":
   en:
