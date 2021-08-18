@@ -167,7 +167,11 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
           <select className={styles.selectDate} onChange={handleDateChange}>
             {dateRange.map(
               (date: Date, index: number): JSX.Element => (
-                <option key={index.toString()} value={date.toISOString()}>
+                <option
+                  key={index.toString()}
+                  selected={date.toISOString() === billDate}
+                  value={date.toISOString()}
+                >
                   {formatDate(date)}
                 </option>
               )
