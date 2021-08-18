@@ -1,4 +1,3 @@
-import { lang } from "moment";
 import React from "react";
 
 const HtmlAttributes = {
