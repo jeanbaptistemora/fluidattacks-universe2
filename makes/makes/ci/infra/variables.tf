@@ -59,10 +59,18 @@ variable "runner_block_device" {
   }
 }
 
+variable "runner_timeout" {
+  default = "86400"
+}
+
 #
 # Reused infrastructure from other services
 #
 
 variable "autostaling_ci_vpc_id" {
   default = "vpc-0ea1c7bd6be683d2d"
+}
+
+variable "autoscaling_ci_subnet_id" {
+  default = "subnet-0bceb7aa2c900324a"
 }

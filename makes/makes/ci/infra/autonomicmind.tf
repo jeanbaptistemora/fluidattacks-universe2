@@ -47,7 +47,7 @@ module "autonomicmind_ci" {
   instance_type                     = "c5a.large"
   enable_runner_ssm_access          = true
   enable_gitlab_runner_ssh_access   = false
-  subnet_ids_gitlab_runner          = ["subnet-0bceb7aa2c900324a"]
+  subnet_ids_gitlab_runner          = [var.autoscaling_ci_subnet_id]
   runner_instance_ebs_optimized     = true
   runner_instance_enable_monitoring = true
   runner_root_block_device          = var.runner_block_device
@@ -58,7 +58,7 @@ module "autonomicmind_ci" {
     description        = "autonomicmind-ci-${each.key}"
     locked_to_project  = "true"
     run_untagged       = "false"
-    maximum_timeout    = "3600"
+    maximum_timeout    = var.runner_timeout
     access_level       = "not_protected"
   }
 
@@ -88,7 +88,7 @@ module "autonomicmind_ci" {
   runners_request_spot_instance = true
   runners_use_private_address   = false
   runners_machine_autoscaling   = var.off_peak_periods
-  subnet_id_runners             = "subnet-0bceb7aa2c900324a"
+  subnet_id_runners             = var.autoscaling_ci_subnet_id
 
   # Tags
   environment = "makes-autonomicmind-ci-${each.key}"

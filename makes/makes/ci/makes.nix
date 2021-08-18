@@ -8,6 +8,7 @@ let
   searchPaths = makeSearchPaths {
     bin = [
       inputs.nixpkgs.awscli
+      inputs.nixpkgs.bash
       inputs.nixpkgs.git
       inputs.nixpkgs.jq
     ];
