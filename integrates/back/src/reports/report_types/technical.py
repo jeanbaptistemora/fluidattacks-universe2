@@ -81,6 +81,39 @@ def convert_evidences_to_png(
                 )
 
 
+def convert_evidences_to_png_new(
+    findings: Tuple[Finding, ...],
+    finding_evidences_set: Dict[str, List[Dict[str, str]]],
+    tempdir: str,
+) -> None:
+    """
+    Standardize all evidences to png, converting evidences
+    like .gif, .jpg and evidences without extension.
+    """
+    ImageFile.LOAD_TRUNCATED_IMAGES = True
+    for finding in findings:
+        for evidence in finding_evidences_set[finding.id]:
+            try:
+                img_id = evidence["id"].split("/")[-1]
+                new_name = img_id.split(".")[0]
+                evidence["id"] = new_name
+                evidence["name"] = f"image::{tempdir}/{new_name}[align=center]"
+                img = Image.open(f"{tempdir}/{img_id}")
+                img.save(f"{tempdir}/{new_name}", "png", optimize=True)
+                img.close()
+            except OSError as exc:
+                LOGGER.exception(
+                    exc,
+                    extra=dict(
+                        extra=dict(
+                            evidence_id=evidence["id"],
+                            finding_id=finding.id,
+                            group_name=finding.group_name,
+                        )
+                    ),
+                )
+
+
 async def download_evidences_for_pdf(
     findings: List[Dict[str, FindingType]], tempdir: str
 ) -> None:
