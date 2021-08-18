@@ -91,3 +91,20 @@ type ExecuteSkimsPayload implements Payload {
   pipelineUrl: String
   success: Boolean!
 }
+
+type SignPostUrlsPayload implements Payload {
+  success: Boolean!
+  url: SignedUrlObject!
+}
+
+type SignedUrlObject {
+  fields: SignedFieldsObject!
+  url: String!
+}
+
+type SignedFieldsObject {
+  awsaccesskeyid: String!
+  key: String!
+  policy: String!
+  signature: String!
+}

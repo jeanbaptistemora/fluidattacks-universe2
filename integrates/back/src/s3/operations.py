@@ -25,8 +25,10 @@ from tempfile import (
     _TemporaryFileWrapper as TemporaryFileWrapper,
 )
 from typing import (
+    Dict,
     List,
     Optional,
+    Union,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -125,17 +127,25 @@ async def upload_memory_file(
 
 async def sing_upload_url(
     file_name: str, expire_mins: float, bucket: str
-) -> str:
-    response: str = ""
+) -> Dict[str, str]:
+    params = {
+        "conditions": [
+            {"acl": "private"},
+            {"bucket": bucket},
+            ["starts-with", "$key", file_name],
+            ["content-length-range", 1, 314572800],
+        ]
+    }
     async with aio_client() as client:
         try:
-            response = str(
-                await client.generate_presigned_url(
-                    "put_object",
-                    Params={"Bucket": bucket, "Key": file_name},
-                    ExpiresIn=expire_mins,
-                )
+            response = await client.generate_presigned_post(
+                bucket,
+                file_name,
+                Fields=None,
+                Conditions=params["conditions"],
+                ExpiresIn=expire_mins,
             )
+
         except ClientError as ex:
             LOGGER.exception(ex, extra={"extra": locals()})
     return response
