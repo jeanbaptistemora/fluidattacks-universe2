@@ -107,11 +107,25 @@ resource "cloudflare_record" "fluidsignal_com_email_5" {
 
 # Page Rules
 
-resource "cloudflare_page_rule" "fluidsignal_redirect" {
+resource "cloudflare_page_rule" "fluidsignal_com_to_fluidattacks_com" {
   zone_id  = cloudflare_zone.fluidsignal_com.id
   target   = "${cloudflare_zone.fluidsignal_com.zone}/*"
   status   = "active"
   priority = 1
+
+  actions {
+    forwarding_url {
+      url         = "https://fluidattacks.com/$1"
+      status_code = 301
+    }
+  }
+}
+
+resource "cloudflare_page_rule" "www_fluidsignal_com_to_fluidattacks_com" {
+  zone_id  = cloudflare_zone.fluidsignal_com.id
+  target   = "www.${cloudflare_zone.fluidsignal_com.zone}/*"
+  status   = "active"
+  priority = 2
 
   actions {
     forwarding_url {

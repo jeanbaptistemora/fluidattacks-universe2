@@ -41,7 +41,7 @@ resource "cloudflare_zone_dnssec" "fluid_la" {
 
 # CNAME Records
 
-resource "cloudflare_record" "fluid_main" {
+resource "cloudflare_record" "fluid_la_main" {
   zone_id = cloudflare_zone.fluid_la.id
   name    = cloudflare_zone.fluid_la.zone
   type    = "CNAME"
@@ -109,7 +109,7 @@ resource "cloudflare_record" "mail_dkim_1" {
 
 # Page Rules
 
-resource "cloudflare_page_rule" "fluidla_to_fluidattacks" {
+resource "cloudflare_page_rule" "fluidla_to_fluidattacks_com" {
   zone_id  = cloudflare_zone.fluid_la.id
   target   = "${cloudflare_zone.fluid_la.zone}/*"
   status   = "active"
@@ -123,11 +123,11 @@ resource "cloudflare_page_rule" "fluidla_to_fluidattacks" {
   }
 }
 
-resource "cloudflare_page_rule" "www_fluidla_to_fluidattacks" {
+resource "cloudflare_page_rule" "www_fluidla_to_fluidattacks_com" {
   zone_id  = cloudflare_zone.fluid_la.id
   target   = "www.${cloudflare_zone.fluid_la.zone}/*"
   status   = "active"
-  priority = 99
+  priority = 2
 
   actions {
     forwarding_url {
