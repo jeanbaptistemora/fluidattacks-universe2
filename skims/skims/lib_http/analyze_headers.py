@@ -105,7 +105,7 @@ def _content_security_policy_wild_uri(
     value: str,
 ) -> None:
     for uri in ("data:", "http:", "https:", "://*"):
-        if uri in value:
+        if uri == value:
             locations.append(
                 desc="content_security_policy.wild_uri",
                 desc_kwargs=dict(uri=uri),
