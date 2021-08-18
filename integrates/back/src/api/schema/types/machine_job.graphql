@@ -3,9 +3,11 @@ type MachineJob {
   createdAt: String
   exitCode: Int
   exitReason: String
+  "Identifier of the Machine check"
   id: String!
   name: String!
   queue: String!
+  "Nickname of the root where Machine was run"
   rootNickname: String!
   startedAt: String
   status: String!

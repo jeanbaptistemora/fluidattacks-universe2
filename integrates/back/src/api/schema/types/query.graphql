@@ -65,6 +65,7 @@ type Query {
 
   "Me entity"
   me(
+    "User endpoint in use, either API or FRONT"
     callerOrigin: String
   ): Me
 
@@ -99,8 +100,13 @@ type Query {
     lang: ReportLang
   ): Report
 
-  "Get resources from group"
-  resources(projectName: String, groupName: String): Resource
+  "Get resource metadata from group"
+  resources(
+    "Deprecated. Use `groupName` instead"
+    projectName: String,
+    "Name of the Group containing the files to be queried"
+    groupName: String
+  ): Resource
 
   "Get user info from group"
   stakeholder(

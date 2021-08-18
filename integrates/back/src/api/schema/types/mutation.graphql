@@ -786,25 +786,31 @@ type Mutation {
     findingId: String!
   ): SimplePayload!
 
-  "Queues a job to execute Skims on the provided root"
+  "Queues a job to execute Machine (Skims) on the provided root"
   submitMachineJob(
     """Identifier of the Finding where the results should be reported. Also
     sets the Vulnerability type to check for"""
     findingId: String!
-    "Nickname of the root to run Skims on"
+    "Nickname of the root to run Machine on"
     rootNickname: String!
   ): SimplePayload!
 
+  """Submits a Finding policy for the Organization, pending approval of a
+  Stakeholder"""
   submitOrganizationFindingPolicy(
     "ID of the policy"
     findingPolicyId: ID!
-    "Name of the organization the finding policy is associated with"
+    "Name of the organization the finding policy will be associated with"
     organizationName: String!
   ): SimplePayload!
 
+  "Subscribes the user to periodic mails about an Entity"
   subscribeToEntityReport(
+    "Desired frequency of the report"
     frequency: Frequency!
+    "Type of Entity to report about"
     reportEntity: SubscriptionReportEntity!
+    "Identifier of the Entity to report about"
     reportSubject: String!
   ): SimplePayload!
 
@@ -820,6 +826,7 @@ type Mutation {
     expirationTime: Int!
   ): UpdateAccessTokenPayload!
 
+  "Updates a Finding's description"
   updateDescription(
     actor: String!
     affectedSystems: String!
@@ -839,9 +846,13 @@ type Mutation {
     findingType: String
   ): SimpleFindingPayload!
 
+  "Updates an Event's evidence"
   updateEventEvidence(
+    "Identifier of the Event whose evidence will be modified"
     eventId: String!
+    "Evidence type to update"
     evidenceType: EventEvidenceType!
+    "Evidence file to upload"
     file: Upload!
   ): SimplePayload!
 

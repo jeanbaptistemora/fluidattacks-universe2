@@ -1,4 +1,5 @@
 "Report type definition"
 type Report {
+  "Report URL"
   url: String
 }
