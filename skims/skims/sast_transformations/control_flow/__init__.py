@@ -14,6 +14,9 @@ from sast_transformations.control_flow.java import (
 from sast_transformations.control_flow.javascript import (
     add as javascript_add,
 )
+from sast_transformations.control_flow.kotlin import (
+    add as kotlin_add,
+)
 
 
 def add(
@@ -28,3 +31,5 @@ def add(
         c_sharp_add(graph)
     elif language == GraphShardMetadataLanguage.GO:
         go_add(graph)
+    elif language == GraphShardMetadataLanguage.KOTLIN:
+        kotlin_add(graph)
