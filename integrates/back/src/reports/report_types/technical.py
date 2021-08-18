@@ -8,6 +8,9 @@ from botocore.exceptions import (
 from custom_types import (
     Finding as FindingType,
 )
+from db_model.findings.types import (
+    Finding,
+)
 from findings import (
     dal as findings_dal,
 )
@@ -38,6 +41,7 @@ from typing import (
     Dict,
     List,
     Set,
+    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -121,6 +125,49 @@ async def download_evidences_for_pdf(
                 evidence["name"] = (
                     f"image::../images/{evidence_id_2}" '[align="center"]'
                 )
+
+
+async def download_evidences_for_pdf_new(
+    findings: Tuple[Finding, ...], tempdir: str
+) -> Dict[str, List[Dict[str, str]]]:
+    finding_evidences_set = dict()
+    for finding in findings:
+        folder_name = f"{finding.group_name}/{finding.id}"
+        evidences_s3: Set[str] = set(
+            await findings_dal.search_evidence(folder_name)
+        )
+        evidence_set = [
+            {
+                "id": f"{folder_name}/{evidence.url}",
+                "explanation": evidence.description.capitalize(),
+            }
+            for evidence in finding.evidences
+            if (evidence and f"{folder_name}/{evidence.url}" in evidences_s3)
+        ]
+        finding_evidences_set[finding.id] = evidence_set
+
+        if evidence_set:
+            for evidence in evidence_set:
+                evidence_id_2 = str(evidence["id"]).split("/")[2]
+                try:
+                    await findings_dal.download_evidence(
+                        evidence["id"],
+                        f"{tempdir}/{evidence_id_2}",
+                    )
+                except ClientError as ex:
+                    LOGGER.exception(
+                        ex,
+                        extra={
+                            "extra": {
+                                "evidence_id": evidence["id"],
+                                "group_name": finding.group_name,
+                            }
+                        },
+                    )
+                evidence["name"] = (
+                    f"image::../images/{evidence_id_2}" '[align="center"]'
+                )
+    return finding_evidences_set
 
 
 async def generate_pdf_file(
