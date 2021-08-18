@@ -1,7 +1,12 @@
+import { lang } from "moment";
 import React from "react";
 
+const HtmlAttributes = {
+  translate: "no"
+}
+
 export const onRenderBody = (
-  { setHeadComponents, setPostBodyComponents },
+  { setHeadComponents, setHtmlAttributes, setPostBodyComponents },
   pluginOptions
 ) => {
   setHeadComponents([
@@ -36,6 +41,7 @@ export const onRenderBody = (
     <script src={"highlightjs.js"}/>,
     // End Highlight.js
   ]);
+  setHtmlAttributes(HtmlAttributes);
   setPostBodyComponents([
     // Zoho CRM Live Chat
     <script
