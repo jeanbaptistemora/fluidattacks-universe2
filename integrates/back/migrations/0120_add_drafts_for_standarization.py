@@ -20,6 +20,9 @@ import csv
 from custom_exceptions import (
     InvalidDraftTitle,
 )
+from custom_types import (
+    Finding as FindingType,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -243,7 +246,6 @@ async def _add_draft(
         {
             "analyst": analyst_email,
             "cvss_version": "3.1",
-            "exploitability": 0,
             "files": [],
             "finding": draft_data["title"],
             "historic_state": [submission_history],
@@ -262,11 +264,21 @@ async def process_draft(
 ) -> bool:
     group_name = new_draft["group_name"]
     new_draft_title = new_draft["new_draft"]
+
     group_findings_loader = context.group_findings
     group_findings = await group_findings_loader.load(group_name)
     group_findings_titles = [finding["title"] for finding in group_findings]
-
     if new_draft_title in group_findings_titles:
+        print(
+            f"  --- ERROR {group_name}, "
+            f'finding "{new_draft_title}" already in db'
+        )
+        return False
+
+    group_drafts_loader = context.group_drafts
+    group_drafts = await group_drafts_loader.load(group_name)
+    group_drafts_titles = [draft["title"] for draft in group_drafts]
+    if new_draft_title in group_drafts_titles:
         print(
             f"  --- ERROR {group_name}, "
             f'draft "{new_draft_title}" already in db'
@@ -274,14 +286,21 @@ async def process_draft(
         return False
 
     old_finding_id = new_draft["finding_id"]
-    finding_loader = context.finding
-    old_finding = await finding_loader.load(old_finding_id)
+    old_finding: Dict[str, FindingType] = await findings_dal.get_finding(
+        old_finding_id
+    )
+    affected_systems = old_finding.get("affected_systems", "")
     analyst_email = old_finding["analyst"]
     draft_data = _get_draft_data(data, new_draft["new_draft"])
-    draft_data["affected_systems"] = old_finding.get("affected_systems", "")
+    draft_data["affected_systems"] = affected_systems
+    draft_data["exploitability"] = old_finding.get("exploitability", "")
+    draft_data["remediation_level"] = old_finding.get("remediation_level", "")
+    draft_data["report_confidence"] = old_finding.get("report_confidence", "")
 
     if PROD:
         return await _add_draft(group_name, analyst_email, draft_data)
+    else:
+        print(f"  === draft_data {group_name}: {draft_data}")
     return False
 
 
