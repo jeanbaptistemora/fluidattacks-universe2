@@ -443,7 +443,13 @@
       puede ser usada maliciosamente
       se incrementa.
   category: Session
-  references: []
+  references:
+    - "004.613"
+    - "011.7.1"
+    - "012.V3.3.1"
+    - "012.V8.2.3"
+    - "013.A2"
+    - "014.6.5.10"
   metadata: {}
 "032":
   en:
@@ -512,7 +518,16 @@
       presentados al usuario,
       ni almacenados en logs.
   category: Session
-  references: []
+  references:
+    - "004.200"
+    - "004.319"
+    - "004.598"
+    - "012.V3.1.1"
+    - "012.V8.3.1"
+    - "012.V13.1.3"
+    - "013.A2"
+    - "013.A3"
+    - "014.6.5.10"
   metadata: {}
 "033":
   en:
@@ -569,7 +584,15 @@
       e incrementa el nivel de confidencialidad
       y dispnibilidad del sistema.
   category: Authorization
-  references: []
+  references:
+    - "004.419"
+    - "012.V13.1.2"
+    - "013.A5"
+    - "014.1.2.1"
+    - "014.1.2.2"
+    - "014.1.3.6"
+    - "014.6.5.8"
+    - "014.8.7"
   metadata: {}
 "034":
   en:
@@ -588,7 +611,13 @@
       cuentas de usuario.
     description: __empty__
   category: Authorization
-  references: []
+  references:
+    - "003.6.2"
+    - "007.164.308_a_3_ii_A"
+    - "008.9.2.1"
+    - "008.9.2.2"
+    - "009.004-6_R5"
+    - "014.8.1.2"
   metadata: {}
 "035":
   en:
@@ -635,7 +664,19 @@
       para acceder a funcionalidades
       y recursos restringidos.
   category: Authorization
-  references: []
+  references:
+    - "002.233"
+    - "004.267"
+    - "004.269"
+    - "004.285"
+    - "004.639"
+    - "008.9.2.3"
+    - "012.V4.1.2"
+    - "012.V4.1.3"
+    - "012.13.1.2"
+    - "013.A5"
+    - "014.6.5.8"
+    - "014.8.1.2"
   metadata: {}
 "036":
   en:
@@ -685,7 +726,27 @@
       un atacante puede acceder a estas rutas
       y comprometer información sensible.
   category: Files
-  references: []
+  references:
+    - "002.11"
+    - "002.153"
+    - "002.162"
+    - "002.175"
+    - "004.22"
+    - "004.23"
+    - "004.36"
+    - "004.73"
+    - "004.98"
+    - "004.641"
+    - "012.V5.3.9"
+    - "012.V5.3.10"
+    - "012.V12.3.1"
+    - "012.V12.3.2"
+    - "012.V12.3.3"
+    - "012.V12.3.4"
+    - "012.V12.3.5"
+    - "013.A1"
+    - "013.A3"
+    - "014.6.5.10"
   metadata: {}
 "039":
   en:
