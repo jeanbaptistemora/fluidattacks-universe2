@@ -16290,3 +16290,54 @@
       report_confidence: "C"
   requirements: ["119", "266"]
   metadata: {}
+"361":
+  en:
+    title: Conflicting transparency annotations
+    description: >
+      Attackers will attempt to exploit unpatched flaws or access
+      default accounts, unused pages, unprotected files and directories,
+      etc to gain unauthorized access or knowledge of the system.
+    impact: >
+      Such flaws frequently give attackers unauthorized access to some
+      system data or functionality. Occasionally, such flaws result in
+      a complete system compromise.
+    recommendation: >
+      Remove or do not install unused features and frameworks.
+      Run an automated process to verify the effectiveness of settings
+      and adjustments in all environments.
+    threat: >
+      Anonymous attacker from Internet.
+  es:
+    title: Anotaciones de transparencia en conflicto
+    description: >
+      Los atacantes a intentarán explotar fallas no reparadas o
+      acceder a cuentas predeterminadas, páginas no utilizadas, archivos
+      y directorios desprotegidos, etc. para obtener acceso no autorizado
+      o conocimiento del sistema.
+    impact: >
+      Con frecuencia, estos defectos dan a los atacantes acceso no
+      autorizado a algunos datos o funciones del sistema. Ocasionalmente,
+      tales fallas resultan en un compromiso completo del sistema.
+    recommendation: >
+      Elimine o no instale funciones y marcos no utilizados.
+      Ejecute un proceso automatizado para verificar la efectividad
+      de las configuraciones y ajustes en todos los entornos.
+    threat: >
+      Atacante anónimo desde Internet.
+  category: Deceptive Interactions
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "L"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: ["266"]
+  metadata: {}
