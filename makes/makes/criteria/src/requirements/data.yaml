@@ -60,6 +60,18 @@
   category: Session
   references:
     - "002.227"
+    - "003.4.3"
+    - "004.404"
+    - "004.613"
+    - "007.164.312_a_2_iii"
+    - "010.AC-2_2"
+    - "010.AC-12"
+    - "012.V3.3.2"
+    - "012.V3.6.1"
+    - "012.V3.6.2"
+    - "013.A2"
+    - "014.6.5.10"
+    - "014.8.1.8"
   metadata: {}
 "024":
   en:
@@ -79,7 +91,8 @@
       entre páginas cuando sea necesario.
     description: __empty__
   category: Session
-  references: []
+  references:
+    - "013.A3"
   metadata: {}
 "025":
   en:
@@ -129,7 +142,14 @@
       hechas por el usuario suplantado
       <<r1, ^[1]^>> <<r2, ^[2]^>>.
   category: Session
-  references: []
+  references:
+    - "002.227"
+    - "004.384"
+    - "011.7.1"
+    - "012.V2.2.3"
+    - "012.V3.2.1"
+    - "013.A2"
+    - "014.6.5.10"
   metadata: {}
 "026":
   en:
@@ -147,7 +167,12 @@
       que están al lado del cliente.
     description: __empty__
   category: Session
-  references: []
+  references:
+    - "002.39"
+    - "002.74"
+    - "004.642"
+    - "013.A2"
+    - "014.6.5.10"
   metadata: {}
 "027":
   en:
@@ -168,7 +193,11 @@
       por autenticación.
     description: __empty__
   category: Session
-  references: []
+  references:
+    - "010.AC-2_2"
+    - "010.AC-2_13"
+    - "013.A2"
+    - "014.6.5.10"
   metadata: {}
 "028":
   en:
@@ -217,7 +246,13 @@
       el sistema permitiría a los usuarios
       ver y cerrar cualquier sesión activa.
   category: Session
-  references: []
+  references:
+    - "004.613"
+    - "011.7.1"
+    - "012.V3.3.4"
+    - "012.V3.5.1"
+    - "013.A2"
+    - "014.6.5.10"
   metadata: {}
 "029":
   en:
@@ -273,7 +308,28 @@
       De esta manera,
       el robo de sesión se mitiga drásticamente.
   category: Session
-  references: []
+  references:
+   - "002.31"
+   - "004.346"
+   - "004.352"
+   - "004.614"
+   - "004.1004"
+   - "011.7.1.1"
+   - "012.V3.2.3"
+   - "012.V3.4.1"
+   - "012.V3.4.2"
+   - "012.V3.4.3"
+   - "012.V3.4.4"
+   - "012.V3.4.5"
+   - "012.V4.2.2"
+   - "012.V13.2.3"
+   - "012.V14.5.3"
+   - "013.A2"
+   - "013.A3"
+   - "013.A7"
+   - "014.6.5.7"
+   - "014.6.5.9"
+   - "014.6.5.10"
   metadata: {}
 "030":
   en:
@@ -322,7 +378,19 @@
       afectar la confidencialidad,
       integridad y disponibilidad del sistema.
   category: Session
-  references: []
+  references:
+    - "002.60"
+    - "004.287"
+    - "004.294"
+    - "004.308"
+    - "004.345"
+    - "008.14.1.3"
+    - "011.5.2.8"
+    - "011.7.1"
+    - "012.V2.2.6"
+    - "012.V3.2.1"
+    - "013.A2"
+    - "014.6.5.10"
   metadata: {}
 "031":
   en:
