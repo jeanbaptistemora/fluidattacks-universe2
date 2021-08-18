@@ -82,6 +82,7 @@ interface IFormValues {
 interface IEventsDataset {
   group: {
     events: {
+      accessibility: string;
       closingDate: string;
       detail: string;
       eventDate: string;
