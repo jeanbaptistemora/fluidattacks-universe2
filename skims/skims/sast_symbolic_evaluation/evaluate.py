@@ -500,21 +500,40 @@ def get_possible_syntax_steps_for_finding(
     finding: core_model.FindingEnum,
     shard: graph_model.GraphShard,
 ) -> PossibleSyntaxStepsForFinding:
-    syntax_steps_map: PossibleSyntaxStepsForFinding = {
-        untrusted_n_id: get_possible_syntax_steps_for_n_id(
-            graph_db,
-            finding=finding,
-            n_id=untrusted_n_id,
-            shard=shard,
-            only_sinks=True,
-        )
-        for untrusted_n_id in shard.graph.nodes
-        if "label_input_type" in shard.graph.nodes[untrusted_n_id]
+    syntax_steps_map: PossibleSyntaxStepsForFinding = {}
+    inputs = [
+        n_id
+        for n_id in shard.graph.nodes
+        if "label_input_type" in shard.graph.nodes[n_id]
         if any(
             core_model.FINDING_ENUM_FROM_STR[label] == finding
-            for label in shard.graph.nodes[untrusted_n_id]["label_input_type"]
+            for label in shard.graph.nodes[n_id]["label_input_type"]
         )
-    }
+    ]
+    if (
+        shard.metadata.language
+        == graph_model.GraphShardMetadataLanguage.JAVASCRIPT
+    ) and inputs:
+        syntax_steps_map = {
+            "1": get_possible_syntax_steps_for_n_id(
+                graph_db,
+                finding=finding,
+                n_id="1",
+                shard=shard,
+                only_sinks=True,
+            )
+        }
+    else:
+        syntax_steps_map = {
+            untrusted_n_id: get_possible_syntax_steps_for_n_id(
+                graph_db,
+                finding=finding,
+                n_id=untrusted_n_id,
+                shard=shard,
+                only_sinks=True,
+            )
+            for untrusted_n_id in inputs
+        }
 
     return syntax_steps_map
 
