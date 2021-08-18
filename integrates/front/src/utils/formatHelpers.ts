@@ -29,6 +29,12 @@ const castEventStatus: (field: string) => string = (field: string): string => {
   return eventStatus[field];
 };
 
+const formatAccessibility: (accessibility: string) => string = (
+  accessibility: string
+): string => {
+  return accessibility ? accessibility : "-";
+};
+
 const formatDropdownField: (field: string) => string = (
   field: string
 ): string => {
@@ -103,4 +109,10 @@ const formatTreatment: (treatment: string, findingState: string) => string = (
   return translate.t(treatmentParameters[treatment]);
 };
 
-export { castEventType, castEventStatus, formatDropdownField, formatTreatment };
+export {
+  castEventType,
+  castEventStatus,
+  formatAccessibility,
+  formatDropdownField,
+  formatTreatment,
+};
