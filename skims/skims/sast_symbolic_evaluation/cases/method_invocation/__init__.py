@@ -73,7 +73,7 @@ BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set(
         "System.Xml.XPath.XPathExpression.Compile",
         "Encoding.UTF8.GetBytes",
         # javascript
-        "exec",
+        "child_process.exec",
     }
 )
 STATIC_FINDING: Dict[str, Set[str]] = {
@@ -270,6 +270,10 @@ BY_OBJ_ARGS: Dict[str, Set[str]] = complete_attrs_on_dict(
         "javax.xml.xpath.XPath": {
             "evaluate",
             "compile",
+        },
+        # javascrip
+        "child_process": {
+            "exec",
         },
     }
 )

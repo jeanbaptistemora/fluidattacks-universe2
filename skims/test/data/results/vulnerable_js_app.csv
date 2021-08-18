@@ -1,4 +1,54 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
+F004,lines,VULNERABLE_JS_APP/routes/testcases/test005.js,7,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+   1 | const process = require(""child_process"");
+   2 | var express = require('express');
+   3 | var router = express.Router();
+   4 |
+   5 | router.get('/test005/:user', function (req, res) {
+   6 |   var user = req.params['user'];
+>  7 |   process.exec(""ls test/test_files/users/"" + user + ""/"", (error, stdout, stderr) => {
+   8 |
+   9 |     var user_files = [];
+  10 |     for (file of stdout.split('\n')) {
+  11 |       if (file) {
+  12 |         user_files.push(file);
+  13 |       }
+  14 |     }
+  15 |
+  16 |     var data = {
+  17 |       'user_files': user_files
+  18 |     };
+  19 |     res.json(data);
+  20 |   });
+  21 | });
+     ^ Col 0
+"
+F004,lines,VULNERABLE_JS_APP/routes/testcases/test007.js,8,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+   1 | const process = require(""child_process"");
+   2 | var express = require('express');
+   3 | var router = express.Router();
+   4 |
+   5 | router.get('/test007', function (req, res) {
+   6 |   let body = req.body;
+   7 |
+>  8 |   process.exec(""ls test/test_files/users/"" + body['user'] + ""/"", (error, stdout, stderr) => {
+   9 |
+  10 |     var user_files = [];
+  11 |     for (file of stdout.split('\n')) {
+  12 |       if (file) {
+  13 |         user_files.push(file);
+  14 |       }
+  15 |     }
+  16 |
+  17 |     var data = {
+  18 |       'user_files': user_files
+  19 |     };
+  20 |     res.json(data);
+  21 |   });
+     ^ Col 0
+"
 F004,lines,VULNERABLE_JS_APP/routes/testcases/test001.js,9,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    1 | const {
@@ -10,6 +60,56 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test001.js,9,78,skims,004. Remote 
    7 | router.get('/test001/:user', function (req, res) {
    8 |   var user = req.params['user'];
 >  9 |   exec(""ls test/test_files/users/"" + user + ""/"", (error, stdout, stderr) => {
+  10 |
+  11 |     var user_files = [];
+  12 |     for (file of stdout.split('\n')) {
+  13 |       if (file) {
+  14 |         user_files.push(file);
+  15 |       }
+  16 |     }
+  17 |
+  18 |     var data = {
+  19 |       'user_files': user_files
+  20 |     };
+  21 |     res.json(data);
+     ^ Col 0
+"
+F004,lines,VULNERABLE_JS_APP/routes/testcases/test003.js,9,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+   1 | const {
+   2 |   exec
+   3 | } = require(""child_process"");
+   4 | var express = require('express');
+   5 | var router = express.Router();
+   6 |
+   7 | router.get('/test003/:user', function (req, res) {
+   8 |   var user = req.params['user'];
+>  9 |   exec(`ls test/test_files/users/${user}/`, (error, stdout, stderr) => {
+  10 |
+  11 |     var user_files = [];
+  12 |     for (file of stdout.split('\n')) {
+  13 |       if (file) {
+  14 |         user_files.push(file);
+  15 |       }
+  16 |     }
+  17 |
+  18 |     var data = {
+  19 |       'user_files': user_files
+  20 |     };
+  21 |     res.json(data);
+     ^ Col 0
+"
+F004,lines,VULNERABLE_JS_APP/routes/testcases/test004.js,9,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+   1 | const {
+   2 |   exec
+   3 | } = require(""child_process"");
+   4 | var express = require('express');
+   5 | var router = express.Router();
+   6 |
+   7 | router.get('/test004/', function (req, res) {
+   8 |   var user = req.query.user;
+>  9 |   exec(`ls test/test_files/users/${user}/`, (error, stdout, stderr) => {
   10 |
   11 |     var user_files = [];
   12 |     for (file of stdout.split('\n')) {
