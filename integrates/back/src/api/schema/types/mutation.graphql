@@ -1032,47 +1032,71 @@ type Mutation {
     sortsRiskLevel: Int
   ): SimplePayload!
 
+  "Updates the treatment of a single Vulnerability"
   updateTreatmentVuln(
     externalBts: String
     "Identifier of the Finding that contains the vulnerability to update"
     findingId: String!
+    "CVSS 3.1 score"
     severity: Int
+    "Tags associated with the update, each separated by commas"
     tag: String
+    "Identifier of the Vulnerability to update"
     vulnerabilityId: ID!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
     after 2021/12/31. Use `updateVulnerabilityTreatment` instead.""")
 
+  "Updates Vulnerability commit data"
   updateVulnCommit(
+    "Full SHA-1 hash of the commit where the Vulnerability was found"
     vulnCommit: String!
+    "Identifier of the Vulnerability to update"
     vulnId: String!
+    "General location of the Vulnerability, can be a file, an URL or an IP"
     vulnWhere: String!
+    """Spefific location of the Vulnerability, can be a line of code,
+    a field or a port"""
     vulnSpecific: String!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
     after 2021/12/31. Use `updateVulnerabilityCommit` instead.""")
 
   updateVulnerabilitiesTreatment(
     acceptanceDate: String
-    "Identifier of the Finding that contains the vulnerability to update"
+    "Identifier of the Finding that contains the Vulnerability to update"
     findingId: String!
+    "Justification for the updated treatment"
     justification: String!
+    "New designated treatment for the Vulnerability"
     treatment: UpdateClientDescriptionTreatment!
+    "Email address of the user who is updating the treatment"
     treatmentManager: String
+    "Identifier of the Vulnerability to update"
     vulnerabilityId: ID!
   ): SimplePayload!
 
+  "Updates Vulnerability commit data"
   updateVulnerabilityCommit(
+    "Full SHA-1 hash of the commit where the Vulnerability was found"
     vulnerabilityCommit: String!
+    "Identifier of the Vulnerability to update"
     vulnerabilityId: String!
+    "General location of the Vulnerability, can be a file, an URL or an IP"
     vulnerabilityWhere: String!
+    """Spefific location of the Vulnerability, can be a line of code,
+    a field or a port"""
     vulnerabilitySpecific: String!
   ): SimplePayload!
 
+  "Updates the treatment of a single Vulnerability"
   updateVulnerabilityTreatment(
     externalBts: String
     "Identifier of the Finding that contains the vulnerability to update"
     findingId: String!
+    "CVSS 3.1 score"
     severity: Int
+    "Tags associated with the update, each separated by commas"
     tag: String
+    "Identifier of the Vulnerability to update"
     vulnerabilityId: ID!
   ): SimplePayload!
 
@@ -1080,9 +1104,13 @@ type Mutation {
     acceptanceDate: String
     "Identifier of the Finding that contains the vulnerability to update"
     findingId: String!
+    "Justification for the updated treatment"
     justification: String!
+    "New designated treatment for the Vulnerability"
     treatment: UpdateClientDescriptionTreatment!
+    "Email address of the user who is updating the treatment"
     treatmentManager: String
+    "Identifier of the Vulnerability to update"
     vulnerabilityId: ID!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
     after 2021/12/20. Use `updateVulnerabilitiesTreatment` instead.""")
@@ -1095,10 +1123,11 @@ type Mutation {
     findingId: String!
   ): SimplePayload!
 
+  "To verify if the vulnerabilities still remain open or were closed"
   verifyRequestVuln(
     "Identifier of the Finding that contains the vulnerabilities to verify"
     findingId: String!
-    "Justification for the verifications"
+    "Justification for the open and closed vulnerabilities"
     justification: String!
     "List of vulnerabilities that still remain open"
     openVulns: [String]!
@@ -1107,10 +1136,11 @@ type Mutation {
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
     after 2021/12/20. Use `verifyVulnerabilitiesRequest` instead.""")
 
+  "To verify if the vulnerabilities still remain open or were closed"
   verifyVulnerabilitiesRequest(
     "Identifier of the Finding that contains the vulnerabilities to verify"
     findingId: String!
-    "Justification for the verifications"
+    "Justification for the open and closed vulnerabilities"
     justification: String!
     "List of vulnerabilities that still remain open"
     openVulnerabilities: [String]!
