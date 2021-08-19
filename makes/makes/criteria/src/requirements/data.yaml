@@ -1822,7 +1822,31 @@
       debería también estar
       claramente establecido.
   category: Authorization
-  references: []
+  references:
+    - "002.1"
+    - "002.122"
+    - "003.3.3"
+    - "004.250"
+    - "004.276"
+    - "004.287"
+    - "004.306"
+    - "007.164.312_a_1"
+    - "007.164.312_d"
+    - "009.005-5_R1.3"
+    - "010.AC-2_6"
+    - "010.AC-2_7a"
+    - "010.AC-2_7b"
+    - "010.AC-2_7c"
+    - "012.V1.2.1"
+    - "012.V4.1.4"
+    - "012.V13.2.1"
+    - "013.A5"
+    - "014.A1.1"
+    - "014.6.5.8"
+    - "014.7.1.1"
+    - "014.7.1.3"
+    - "014.7.2.2"
+    - "014.10.5.1"
   metadata: {}
 "114":
   en:
@@ -1841,7 +1865,12 @@
       revocadas o bloqueadas.
     description: __empty__
   category: Authorization
-  references: []
+  references:
+    - "007.164.310_a_2_iii"
+    - "009.004-6_R5"
+    - "013.A2"
+    - "014.6.5.10"
+    - "014.8.1.3"
   metadata: {}
 "115":
   en:
@@ -1859,7 +1888,8 @@
       por un filtro anti-spam.
     description: __empty__
   category: Emails
-  references: []
+  references:
+    - "002.41"
   metadata: {}
 "116":
   en:
@@ -1896,7 +1926,11 @@
       por defecto.
     description: __empty__
   category: Emails
-  references: []
+  references:
+    - "002.242"
+    - "004.80"  
+    - "013.A1"
+    - "014.6.5.1"
   metadata: {}
 "118":
   en:
@@ -1915,7 +1949,12 @@
       anti-malware.
     description: __empty__
   category: Emails
-  references: []
+  references:
+    - "003.9.6"
+    - "004.509"
+    - "012.V10.1.1"
+    - "012.V12.4.2"
+    - "014.5.1.1"
   metadata: {}
 "119":
   en:
@@ -2032,7 +2071,8 @@
       o añadan a listas de distribución
       de correos masivos.
   category: Emails
-  references: []
+  references:
+    - "012.V11.1.4"
   metadata: {}
 "126":
   en:
@@ -2083,7 +2123,14 @@
       generar una nueva contraseña
       en cualquiera de estos escenarios.
   category: Credentials
-  references: []
+  references:
+    - "004.521"
+    - "004.640"
+    - "012.V2.1.5"
+    - "012.V2.5.1"
+    - "012.V2.5.3"
+    - "012.V2.5.6"
+    - "014.8.2.5"
   metadata: {}
 "127":
   en:
@@ -2124,7 +2171,13 @@
       al sistema de almacenamiento
       para obtenerlas.
   category: Credentials
-  references: []
+  references:
+    - "004.916"
+    - "011.5.1.1.2"
+    - "012.V2.4.1"
+    - "012.V2.4.3"
+    - "012.V2.4.4"
+    - "014.8.2.1"
   metadata: {}
 "128":
   en:
@@ -2142,7 +2195,10 @@
       única fuente de datos.
     description: __empty__
   category: Credentials
-  references: []
+  references:
+    - "004.522"
+    - "012.V6.4.1"
+    - "012.V6.4.2"
   metadata: {}
 "129":
   en:
@@ -2166,7 +2222,8 @@
       para el mismo usuario.
     description: __empty__
   category: Credentials
-  references: []
+  references:
+    - "014.8.2.5"
   metadata: {}
 "130":
   en:
@@ -2182,7 +2239,12 @@
       por un maximo de 30 dias.
     description: __empty__
   category: Credentials
-  references: []
+  references:
+    - "002.49"
+    - "003.5.3"
+    - "004.263"
+    - "009.007-6_R5.6"
+    - "014.8.2.4"
   metadata: {}
 "131":
   en:
