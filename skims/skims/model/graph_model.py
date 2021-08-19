@@ -443,6 +443,11 @@ GRAPH_VULNERABILITY_PARAMETERS: Dict[
         desc_key="F034.description",
         desc_params={},
     ),
+    core_model.FindingEnum.F035: GraphVulnerabilityParameters(
+        cwe=(521,),
+        desc_key="F035.description",
+        desc_params={},
+    ),
     core_model.FindingEnum.F042: GraphVulnerabilityParameters(
         cwe=(614,),
         desc_key="F042.description",
