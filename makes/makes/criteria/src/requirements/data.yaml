@@ -3324,7 +3324,18 @@
       y libre de vulnerabilidades conocidas.
     description: __empty__
   category: Source
-  references: []
+  references:
+    - "002.123"
+    - "002.129"
+    - "002.131"
+    - "003.16_1"
+    - "004.120"
+    - "012.C_11"
+    - "012.V5_4_1"
+    - "012.V14_2_1"
+    - "012.V14_2_4"
+    - "013.A9"
+    - "014.6_2"
   metadata: {}
 "159":
   en:
@@ -3342,7 +3353,12 @@
       en ambiente de producción.
     description: __empty__
   category: Source
-  references: []
+  references:
+    - "001.SE3_2:_13"
+    - "002.188"
+    - "004.1269"
+    - "012.C_18"
+    - "012.C_34"
   metadata: {}
 "160":
   en:
@@ -3383,7 +3399,36 @@
       incluyen una entrada de fuentes no confiables
       y esta entrada no está apropiadamente
   category: Source
-  references: []
+  references:
+    - "002.18"
+    - "002.19"
+    - "002.32"
+    - "002.48"
+    - "002.130"
+    - "002.153"
+    - "002.240"
+    - "002.242"
+    - "002.248"
+    - "004.20"
+    - "004.79"
+    - "004.116"
+    - "004.117"
+    - "004.173"
+    - "004.176"
+    - "012.V1_5_3"
+    - "012.V1_5_4"
+    - "012.V5_3_1"
+    - "012.V5_3_2"
+    - "012.V5_3_3"
+    - "012.V5_3_5"
+    - "012.V5_3_6"
+    - "012.V5_3_8"
+    - "012.V7_3_1"
+    - "012.V7_3_2"
+    - "013.A1"
+    - "013.A7"
+    - "014.6_5_1"
+    - "014.6_5_7"
   metadata: {}
 "161":
   en:
