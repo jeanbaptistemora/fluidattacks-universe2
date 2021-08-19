@@ -83,7 +83,7 @@ exports.handler = function(event, context) {
  * A simple logging function used for printing to AWS Lambda logs.
  */
 function announce(region, message) {
-    if(region !== null) { d = "=========="; console.log(d + " " + region + " " + d); }
+    if(region !== null) { let d = "=========="; console.log(d + " " + region + " " + d); }
     console.log(message);
 }
 /**
