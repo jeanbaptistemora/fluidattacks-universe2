@@ -28,15 +28,26 @@ const GroupInformation: React.FC = (): JSX.Element => {
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
   }
-  const attributesDataset: { attribute: string; value: string }[] = [
+  const attributesDataset: {
+    attribute: string;
+    description: string;
+    value: string;
+  }[] = [
     {
       attribute: "Language",
+      // Next annotations needed as DB queries use "any" type
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      description: data.group.description,
       // Next annotations needed as DB queries use "any" type
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-member-access
       value: translate.t(`searchFindings.infoTable.${data.group.language}`),
     },
   ];
   const tableHeaders: IHeaderConfig[] = [
+    {
+      dataField: "description",
+      header: "Description",
+    },
     {
       dataField: "attribute",
       header: "Attribute",

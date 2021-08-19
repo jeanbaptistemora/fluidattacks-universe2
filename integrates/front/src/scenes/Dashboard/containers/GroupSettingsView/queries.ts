@@ -4,6 +4,7 @@ import type { DocumentNode } from "graphql";
 const GET_GROUP_DATA: DocumentNode = gql`
   query GetGroupData($groupName: String!) {
     group(groupName: $groupName) {
+      description
       hasSquad
       hasMachine
       language
