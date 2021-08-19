@@ -3524,7 +3524,9 @@
       métodos o clases repetidas.
     description: __empty__
   category: Source
-  references: []
+  references:
+    - "004.474"
+    - "004.561"
   metadata: {}
 "164":
   en:
@@ -3540,7 +3542,9 @@
       de datos y estructuras optimizadas.
     description: __empty__
   category: Source
-  references: []
+  references:
+    - "004.20"
+    - "012.V5_1_4"
   metadata: {}
 "167":
   en:
@@ -3561,7 +3565,8 @@
       abiertos no utilizados.
     description: __empty__
   category: Source
-  references: []
+  references:
+    - "004.404"
   metadata: {}
 "168":
   en:
@@ -3602,7 +3607,13 @@
       (ej: java.sql.PreparedStatement).
     description: __empty__
   category: Source
-  references: []
+  references:
+    - "002.7"
+    - "002.248"
+    - "004.89"
+    - "012.V5_3_4"
+    - "013.A1"
+    - "014.6_5_1"
   metadata: {}
 "171":
   en:
@@ -3621,7 +3632,9 @@
       deben ser removidos.
     description: __empty__
   category: Source
-  references: []
+  references:
+    - "004.1085"
+    - "012.V14_2_2"
   metadata: {}
 "172":
   en:
@@ -3670,7 +3683,11 @@
       y la clave de cifrado debe
       también estar protegido.
   category: Source
-  references: []
+  references:
+    - "004.259"
+    - "004.311"
+    - "004.798"
+    - "012.V2_10_4"
   metadata: {}
 "173":
   en:
@@ -3753,7 +3770,76 @@
       y se deben aplicar controles
       y un tratamiento adecuado.
   category: Source
-  references: []
+  references:
+    - "002.3"
+    - "002.4"
+    - "002.6"
+    - "002.7"
+    - "002.15"
+    - "002.18"
+    - "002.19"
+    - "002.22"
+    - "002.32"
+    - "002.34"
+    - "002.41"
+    - "002.48"
+    - "002.130"
+    - "002.137"
+    - "002.153"
+    - "002.175"
+    - "002.240"
+    - "002.242"
+    - "002.248"
+    - "003.16_10"
+    - "004.20"
+    - "004.74"
+    - "004.78"
+    - "004.79"
+    - "004.80"
+    - "004.89"
+    - "004.94"
+    - "004.116"
+    - "004.138"
+    - "004.147"
+    - "004.159"
+    - "004.602"
+    - "004.643"
+    - "004.943"
+    - "012.V1_5_3"
+    - "012.V1_5_4"
+    - "012.V5_1_1"
+    - "012.V5_1_3"
+    - "012.V5_1_4"
+    - "012.V5_2_1"
+    - "012.V5_2_2"
+    - "012.V5_2_3"
+    - "012.V5_2_4"
+    - "012.V5_2_5"
+    - "012.V5_2_6"
+    - "012.V5_2_7"
+    - "012.V5_2_8"
+    - "012.V5_3_4"
+    - "012.V5_3_5"
+    - "012.V5_3_7"
+    - "012.V5_3_8"
+    - "012.V5_3_9"
+    - "012.V5_3_10"
+    - "012.V5_4_2"
+    - "012.V5_4_3"
+    - "012.V5_5_2"
+    - "012.V7_3_1"
+    - "012.V12_1_2"
+    - "012.V13_1_5"
+    - "012.V13_2_2"
+    - "012.V13_3_1"
+    - "013.A1"
+    - "013.A4"
+    - "013.A7"
+    - "013.A8"
+    - "014.1_3_3"
+    - "014.6_5_1"
+    - "014.6_5_2"
+    - "014.6_5_7"
   metadata: {}
 "174":
   en:
