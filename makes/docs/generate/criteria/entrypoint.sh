@@ -4,20 +4,11 @@ function _copy {
   local origin="${1}"
   local destination="${2}"
 
-  info "Copying ${origin} to ${destination}" \
-    && copy "${origin}" "${destination}"
-}
-
-function _clean {
-  local src="${1}"
-  local targets=(
-    "${src}/vulnerabilities"
-    "${src}/requirements"
-    "${src}/compliance"
-  )
-
-  rm -rf "${targets[@]}" \
-    && mkdir -p "${targets[@]}"
+  if ! git diff --no-index "${origin}" "${destination}" &> /dev/null; then
+    info "Copying ${origin} to ${destination}" \
+      && touch "${destination}" \
+      && cat "${origin}" > "${destination}"
+  fi
 }
 
 function main {
@@ -29,8 +20,11 @@ function main {
   source __argRequirements__/template requirements
   source __argCompliance__/template compliance
 
-  _clean "${src}" \
-    && info Autogenerating Criteria \
+  info Autogenerating Criteria \
+    && mkdir -p \
+      "${path_vulnerabilities}" \
+      "${path_requirements}" \
+      "${path_compliance}" \
     && _copy \
       "__argIntroVulnerabilities__/template" \
       "${path_vulnerabilities}/introduction.md" \

@@ -178,10 +178,6 @@ makeScript {
       builtins.mapAttrs makeCompliance data_compliance
     );
   };
-  searchPaths = {
-    bin = [
-      inputs.nixpkgs.findutils
-    ];
-  };
+  searchPaths.bin = [ inputs.nixpkgs.git ];
   entrypoint = ./entrypoint.sh;
 }
