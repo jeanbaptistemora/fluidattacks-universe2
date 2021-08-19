@@ -32,7 +32,7 @@ def java_info_leak_stacktrace(
                 exception_id = g.match_ast_d(graph, param, "identifier")
 
                 if exception_id is None:
-                    break
+                    continue
 
                 exception = graph.nodes[exception_id]["label_text"]
                 block = g.match_ast_d(graph, catch, "block")
