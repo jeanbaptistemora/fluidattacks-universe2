@@ -2849,7 +2849,15 @@
       de 5 segundos.
     description: __empty__
   category: Cryptography
-  references: []
+  references:
+    - "004.226"
+    - "004.459"
+    - "012.C_31"
+    - "012.V1_6_1"
+    - "012.V8_2_3"
+    - "012.V8_3_6"
+    - "014.3_5_4"
+    - "014.3_6_3"
   metadata: {}
 "147":
   en:
@@ -2888,7 +2896,23 @@
       pre-existentes, probados,
       y aprovados.
   category: Cryptography
-  references: []
+  references:
+    - "002.20"
+    - "003.3_6"
+    - "003.16_11"
+    - "004.326"
+    - "004.327"
+    - "007.164_312_a_2_iv"
+    - "010.IA-7"
+    - "012.C_23"
+    - "012.V1_6_1"
+    - "012.V1_6_2"
+    - "012.V1_6_3"
+    - "012.V2_8_3"
+    - "012.V2_9_3"
+    - "012.V6_2_2"
+    - "012.V6_2_3"
+    - "014.4_1_1"
   metadata: {}
 "148":
   en:
@@ -2907,7 +2931,10 @@
       de 2048 bits.
     description: __empty__
   category: Cryptography
-  references: []
+  references:
+    - "002.20"
+    - "007.164_312_a_2_iv"
+    - "012.V1_6_1"
   metadata: {}
 "149":
   en:
@@ -2926,7 +2953,10 @@
       de 128 bits.
     description: __empty__
   category: Cryptography
-  references: []
+  references:
+    - "002.20"
+    - "007.164_312_a_2_iv"
+    - "012.V1_6_1"
   metadata: {}
 "150":
   en:
@@ -2942,7 +2972,9 @@
       con un tamaño mínimo de 256 bits.
     description: __empty__
   category: Cryptography
-  references: []
+  references:
+    - "002.20"
+    - "012.V1_6_1"
   metadata: {}
 "151":
   en:
@@ -2961,7 +2993,8 @@
       para el cifrado y las firmas.
     description: __empty__
   category: Cryptography
-  references: []
+  references:
+    - "012.V1_6_1"
   metadata: {}
 "152":
   en:
@@ -3032,7 +3065,14 @@
       y la opción predeterminada
       no debe ser de texto claro.
   category: Authentication
-  references: []
+  references:
+    - "004.287"
+    - "004.319"
+    - "004.523"
+    - "012.V2_7_1"
+    - "012.V2_7_4"
+    - "013.A2"
+    - "014.6_5_10"
   metadata: {}
 "154":
   en:
@@ -3089,7 +3129,18 @@
       en graves vulnerabilidades
       de seguridad.
   category: Source
-  references: []
+  references:
+    - "002.113"
+    - "002.115"
+    - "002.438"
+    - "002.554"
+    - "003.5_5"
+    - "004.510"
+    - "004.1269"
+    - "012.C_13"
+    - "012.V10_2_3"
+    - "014.6_3_1"
+    - "014.6_4_4"
   metadata: {}
 "155":
   en:
@@ -3139,7 +3190,20 @@
       rootkits, bombas de tiempo,
       bombas lógicas, etc.
   category: Source
-  references: []
+  references:
+    - "001.CR3_4:_2"
+    - "002.438"
+    - "004.507"
+    - "004.510"
+    - "004.511"
+    - "008.12_2_1"
+    - "009.007-6_R3_1"
+    - "012.C_13"
+    - "012.V10_2_1"
+    - "012.V10_2_3"
+    - "012.V10_2_4"
+    - "012.V10_2_5"
+    - "012.V10_2_6"
   metadata: {}
 "156":
   en:
@@ -3187,7 +3251,22 @@
       ya que una fuga podría poner
       en peligro los sistemas críticos.
   category: Source
-  references: []
+  references:
+    - "004.259"
+    - "004.321"
+    - "004.522"
+    - "004.540"
+    - "004.615"
+    - "004.798"
+    - "005.4_1a"
+    - "006.25_1"
+    - "006.R51"
+    - "012.C_13"
+    - "012.V2_10_3"
+    - "012.V2_10_4"
+    - "012.V6_4_1"
+    - "012.V6_4_2"
+    - "013.A3"
   metadata: {}
 "157":
   en:
@@ -3209,7 +3288,19 @@
       en modo estricto.
     description: __empty__
   category: Source
-  references: []
+  references:
+    - "002.123"
+    - "002.129"
+    - "002.130"
+    - "004.120"
+    - "004.611"
+    - "012.C_33"
+    - "012.V5_5_2"
+    - "012.V14_1_2"
+    - "013.A4"
+    - "013.A6"
+    - "013.A8"
+    - "014.6_5_2"
   metadata: {}
 "158":
   en:
