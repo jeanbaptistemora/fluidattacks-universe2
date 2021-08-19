@@ -12,8 +12,12 @@ from datetime import (
 from dateutil.parser import (  # type: ignore
     parse,
 )
+from db_model.findings.enums import (
+    FindingVerificationStatus,
+)
 from db_model.findings.types import (
     Finding,
+    FindingVerification,
 )
 from findings import (
     domain as findings_domain,
@@ -503,6 +507,9 @@ class ITReportNew:
     ) -> None:
         """Initialize variables."""
         self.data = data
+        self.finding_historic_verification_loader = (
+            context.finding_historic_verification_new
+        )
         self.finding_vulns_loader = context.finding_vulns_nzr
         self.group_name = group_name
         self.lang = lang
@@ -615,6 +622,51 @@ class ITReportNew:
             "# Compromised records": str(finding.compromised_records),
         }
         for key, value in finding_data.items():
+            self.row_values[self.vulnerability[key]] = value
+
+    async def set_reattack_data(
+        self, finding: Finding, vuln: VulnType
+    ) -> None:
+        historic_verification: Tuple[
+            FindingVerification, ...
+        ] = await self.finding_historic_verification_loader.load(finding.id)
+        vuln_closed = (
+            cast(HistoricType, vuln.get("historic_state"))[-1]["state"]
+            == "closed"
+        )
+        reattack_requested = None
+        reattack_date = None
+        reattack_requester = None
+        n_requested_reattacks = None
+        remediation_effectiveness = EMPTY
+        if historic_verification:
+            reattack_requested = (
+                finding.verification.status
+                == FindingVerificationStatus.REQUESTED
+            )
+            n_requested_reattacks = len(
+                [
+                    verification
+                    for verification in historic_verification
+                    if verification.status
+                    == FindingVerificationStatus.REQUESTED
+                ]
+            )
+            if vuln_closed:
+                remediation_effectiveness = f"{100 / n_requested_reattacks}%"
+            if reattack_requested:
+                reattack_date = datetime.fromisoformat(
+                    finding.verification.modified_date
+                )
+                reattack_requester = finding.verification.modified_by
+        reattack_data = {
+            "Pending Reattack": "Yes" if reattack_requested else "No",
+            "# Requested Reattacks": n_requested_reattacks or "0",
+            "Last requested reattack": reattack_date or EMPTY,
+            "Last reattack Requester": reattack_requester or EMPTY,
+            "Remediation Effectiveness": remediation_effectiveness,
+        }
+        for key, value in reattack_data.items():
             self.row_values[self.vulnerability[key]] = value
 
     def set_row_height(self) -> None:
