@@ -2263,7 +2263,13 @@
       el mismo día.
     description: __empty__
   category: Credentials
-  references: []
+  references:
+    - "004.620"
+    - "004.640"
+    - "012.V1.4.1"
+    - "012.V2.5.6"
+    - "013.A2"
+    - "014.6.5.10"
   metadata: {}
 "132":
   en:
@@ -2294,7 +2300,14 @@
       de longitud.
     description: __empty__
   category: Credentials
-  references: []
+  references:
+    - "002.49"
+    - "002.560"
+    - "004.521"
+    - "009.007-6_R5.5"
+    - "011.5.1.1.2"
+    - "012.v2.1.2"
+    - "014.8.2.3"
   metadata: {}
 "133":
   en:
@@ -2310,7 +2323,13 @@
       deben tener al menos 20 caracteres.
     description: __empty__
   category: Credentials
-  references: []
+  references:
+    - "002.49"
+    - "002.560"
+    - "004.521"
+    - "009.007-6_R5.5"
+    - "012.V2.1.1"
+    - "014.8.2.3"
   metadata: {}
 "134":
   en:
@@ -2328,7 +2347,13 @@
       derivaciones de clave (Salt).
     description: __empty__
   category: Credentials
-  references: []
+  references:
+    - "003.3.11"
+    - "004.759"
+    - "004.760"
+    - "004.916"
+    - "011.5.1.1.2"
+    - 012.V2.4.1
   metadata: {}
 "135":
   en:
@@ -2346,7 +2371,13 @@
       y de mínimo 48 bits.
     description: __empty__
   category: Credentials
-  references: []
+  references:
+    - "004.759"
+    - "004.760"
+    - "004.916"
+    - "011.5.1.1.2"
+    - "012.V2.4.1"
+    - "012.V2.4.2"
   metadata: {}
 "136":
   en:
@@ -2385,7 +2416,11 @@
       los usuarios deberían ser forzados
       a cambiarlas después del primer uso.
   category: Credentials
-  references: []
+  references:
+    - "004.263"
+    - "011.6.1.1"
+    - "012.V2.3.1"
+    - "014.8.2.6"
   metadata: {}
 "137":
   en:
@@ -2434,7 +2469,11 @@
       ser cambiadas después
       del primer uso.
   category: Credentials
-  references: []
+  references:
+    - "004.263"
+    - "011.6.1.1"
+    - "012.v2.3.1"
+    - "014.8.2.6"
   metadata: {}
 "138":
   en:
@@ -2471,7 +2510,9 @@
       por el sistema que las creó.
       Por lot
   category: Credentials
-  references: []
+  references:
+    - "004.263"
+    - "012.V2.3.1"
   metadata: {}
 "139":
   en:
@@ -2507,7 +2548,12 @@
       de 6 caracteres como protección
       contra ataques de fuerza bruta.
   category: Credentials
-  references: []
+  references:
+    - "004.330"
+    - "011.5.1.1.2"
+    - "012.V2.3.1"
+    - "013.A2"
+    - "014.6.5.10"
   metadata: {}
 "140":
   en:
@@ -2552,7 +2598,16 @@
       solamente usarlas una vez
       dentro del periodo de validez.
   category: Credentials
-  references: []
+  references:
+    - "004.287"
+    - "004.326"
+    - "004.613"
+    - "011.5.1.4.2"
+    - "012.V2.8.1"
+    - "012.V2.8.3"
+    - "012.V2.8.4"
+    - "013.A2"
+    - "014.6.5.10"
   metadata: {}
 "141":
   en:
