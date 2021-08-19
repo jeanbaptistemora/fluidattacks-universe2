@@ -15,6 +15,9 @@ from dateutil.parser import (  # type: ignore
 from db_model.findings.types import (
     Finding,
 )
+from findings import (
+    domain as findings_domain,
+)
 from newutils import (
     datetime as datetime_utils,
 )
@@ -593,27 +596,26 @@ class ITReportNew:
         )
         self.workbook.save(self.result_filename)
 
-    def set_cvss_metrics_cell(self, row: Dict[str, FindingType]) -> None:
-        metric_vector = []
-        vuln = self.vulnerability
-        cvss_key = "CVSSv3.1 string vector"
-        for ind, (indicator, measure) in enumerate(self.cvss_measures.items()):
-            value = self.get_measure(
-                measure, cast(Dict[str, str], row["severity"])[measure]
-            )
-            if value:
-                metric_vector.append(f"{indicator}:{value[0]}")
-                self.row_values[vuln[cvss_key] + ind + 1] = value
-
-        cvss_metric_vector = "/".join(metric_vector)
-        cvss_calculator_url = (
-            "https://www.first.org/cvss/calculator/3.1#CVSS:3.1"
-            f"/{cvss_metric_vector}"
+    def set_finding_data(self, finding: Finding, vuln: VulnType) -> None:
+        severity = float(
+            findings_domain.get_severity_score_new(finding.severity)
         )
-        cell_content = (
-            f'=HYPERLINK("{cvss_calculator_url}", "{cvss_metric_vector}")'
-        )
-        self.row_values[vuln[cvss_key]] = cell_content
+        finding_data = {
+            "Description": finding.description,
+            "Status": cast(HistoricType, vuln.get("historic_state"))[-1][
+                "state"
+            ],
+            "Severity": severity or EMPTY,
+            "Requirements": finding.requirements,
+            "Impact": finding.attack_vector_desc,
+            "Affected System": finding.affected_systems,
+            "Threat": finding.threat,
+            "Recommendation": finding.recommendation,
+            "Compromised Attributes": finding.compromised_attributes,
+            "# Compromised records": str(finding.compromised_records),
+        }
+        for key, value in finding_data.items():
+            self.row_values[self.vulnerability[key]] = value
 
     def set_row_height(self) -> None:
         self.current_sheet.set_row_style(
