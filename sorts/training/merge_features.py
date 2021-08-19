@@ -30,6 +30,7 @@ def main() -> None:
         for file in os.listdir(tmpdir):
             features: DataFrame = pd.read_csv(os.path.join(tmpdir, file))
             merged_features = pd.concat([merged_features, features])
+            redshift.delete("features")
             redshift.insert(
                 "features",
                 {
