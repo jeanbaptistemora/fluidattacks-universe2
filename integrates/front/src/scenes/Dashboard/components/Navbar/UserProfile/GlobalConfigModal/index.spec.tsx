@@ -133,7 +133,8 @@ describe("Global configuration modal", (): void => {
     );
 
     await act(async (): Promise<void> => {
-      await wait(0);
+      const delay = 50;
+      await wait(delay);
       wrapper.update();
     });
 
@@ -179,7 +180,8 @@ describe("Global configuration modal", (): void => {
     );
 
     await act(async (): Promise<void> => {
-      await wait(0);
+      const delay = 50;
+      await wait(delay);
       wrapper.update();
     });
 

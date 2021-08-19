@@ -1,12 +1,8 @@
-/* eslint @typescript-eslint/no-explicit-any:0 */
 import type {
-  ApolloCache,
   ApolloError,
-  DefaultContext,
   FetchResult,
   MutationFunctionOptions,
   MutationHookOptions,
-  OperationVariables,
 } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 
@@ -214,14 +210,7 @@ const rejectZeroRiskProps = (
 const isAcceptedUndefinedSelectedHelper = (
   isAcceptedUndefinedSelected: boolean,
   handleAcceptation: (
-    options?:
-      | MutationFunctionOptions<
-          any,
-          OperationVariables,
-          DefaultContext,
-          ApolloCache<any>
-        >
-      | undefined
+    options?: MutationFunctionOptions | undefined
   ) => Promise<FetchResult>,
   acceptedVulnIds: string[],
   findingId: string,
@@ -248,14 +237,7 @@ const isConfirmZeroRiskSelectedHelper = (
   existAcceptedVulns: boolean,
   isConfirmZeroRiskSelected: boolean,
   confirmZeroRisk: (
-    options?:
-      | MutationFunctionOptions<
-          any,
-          OperationVariables,
-          DefaultContext,
-          ApolloCache<any>
-        >
-      | undefined
+    options?: MutationFunctionOptions | undefined
   ) => Promise<FetchResult>,
   acceptedVulnIds: string[],
   findingId: string,
@@ -280,14 +262,7 @@ const isRejectZeroRiskSelectedHelper = (
   existRejectedVulns: boolean,
   isRejectZeroRiskSelected: boolean,
   rejectZeroRisk: (
-    options?:
-      | MutationFunctionOptions<
-          any,
-          OperationVariables,
-          DefaultContext,
-          ApolloCache<any>
-        >
-      | undefined
+    options?: MutationFunctionOptions | undefined
   ) => Promise<FetchResult>,
   findingId: string,
   values: {

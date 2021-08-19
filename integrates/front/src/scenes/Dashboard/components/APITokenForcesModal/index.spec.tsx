@@ -173,7 +173,8 @@ describe("Update access token modal", (): void => {
 
     revealButton.simulate("click");
     await act(async (): Promise<void> => {
-      await wait(4);
+      const delay = 50;
+      await wait(delay);
       wrapper.update();
     });
 
@@ -214,7 +215,7 @@ describe("Update access token modal", (): void => {
         result: {
           data: {
             group: {
-              forcesToken: undefined,
+              forcesToken: null,
               name: "unnittesting",
             },
           },

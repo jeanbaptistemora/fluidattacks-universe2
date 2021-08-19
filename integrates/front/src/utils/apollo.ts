@@ -130,7 +130,7 @@ const extendedFetch: WindowOrWorkerGlobalScope["fetch"] = async (
 ): Promise<Response> =>
   options.notifyUploadProgress ? xhrWrapper(uri, options) : fetch(uri, options);
 
-const httpLink: ApolloLink = createUploadLink({
+const httpLink = createUploadLink({
   credentials: "same-origin",
   fetch: extendedFetch,
   headers: {
@@ -138,7 +138,7 @@ const httpLink: ApolloLink = createUploadLink({
     accept: "application/json",
   },
   uri: `${window.location.origin}/api`,
-}) as unknown as ApolloLink;
+});
 
 const wsLink: ApolloLink = new WebSocketLink({
   options: {
