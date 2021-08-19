@@ -41,7 +41,7 @@
         "references": {
           "uniqueItems": true,
           "type": "array",
-          "items": { "type": "string", "pattern": "^[-_.:a-zA-Z0-9]+$" }
+          "items": { "type": "string", "pattern": "^[0-9]+\\.[-_:a-zA-Z0-9]+$" }
         },
         "metadata": { "type": "object" }
       }
