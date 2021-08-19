@@ -8,6 +8,14 @@ resource "aws_s3_bucket" "fi_resources_bucket" {
   bucket = var.bucket_name
   acl    = "private"
 
+  cors_rule {
+    allowed_headers = ["*"]
+    allowed_methods = ["PUT", "POST"]
+    allowed_origins = ["https://app.fluidattacks.com", "http://localhost:*"]
+    expose_headers  = ["ETag"]
+    max_age_seconds = 3000
+  }
+
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
