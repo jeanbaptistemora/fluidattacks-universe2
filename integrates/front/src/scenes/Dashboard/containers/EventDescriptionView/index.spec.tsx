@@ -27,7 +27,7 @@ describe("EventDescriptionView", (): void => {
           event: {
             accessibility: "Repositorio",
             affectation: "1",
-            affectedComponents: "Conectividad a Internet",
+            affectedComponents: "-",
             analyst: "unittest@fluidattacks.com",
             client: "Test",
             detail: "Something happened",
@@ -87,7 +87,7 @@ describe("EventDescriptionView", (): void => {
       wrapper.update();
     });
 
-    expect(wrapper.text()).toContain("Conectividad a Internet");
+    expect(wrapper.text()).toContain("-");
   });
 
   it("should render solving modal", async (): Promise<void> => {

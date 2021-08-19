@@ -23,6 +23,7 @@ import {
   Row,
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
+import { castAffectedComponents } from "utils/formatHelpers";
 import { EditableField, FormikDateTime, FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -275,7 +276,9 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                       <EditableField
                         alignField={"horizontalWide"}
                         component={FormikText}
-                        currentValue={data.event.affectedComponents}
+                        currentValue={translate.t(
+                          castAffectedComponents(data.event.affectedComponents)
+                        )}
                         label={translate.t(
                           "searchFindings.tabEvents.affectedComponents"
                         )}
