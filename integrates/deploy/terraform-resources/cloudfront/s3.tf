@@ -11,7 +11,7 @@ resource "aws_s3_bucket" "fi_resources_bucket" {
   cors_rule {
     allowed_headers = ["*"]
     allowed_methods = ["PUT", "POST"]
-    allowed_origins = ["https://app.fluidattacks.com", "http://localhost:*"]
+    allowed_origins = ["https://app.fluidattacks.com", "https://localhost:*"]
     expose_headers  = ["ETag"]
     max_age_seconds = 3000
   }
