@@ -335,18 +335,19 @@ def get_reattack_requesters_new(
     reversed_historic_verification = tuple(reversed(historic_verification))
     users: Set[str] = set()
     for verification in reversed_historic_verification:
-        if verification.status == FindingVerificationStatus.REQUESTED:
-            if [
+        if verification.status == FindingVerificationStatus.REQUESTED and (
+            [
                 vuln_id
                 for vuln_id in verification.vuln_uuids
                 if vuln_id in vulnerability_ids
-            ]:
-                vulnerability_ids = {
-                    vuln_id
-                    for vuln_id in vulnerability_ids
-                    if vuln_id not in verification.vuln_uuids
-                }
-                users.add(verification.modified_by)
+            ]
+        ):
+            vulnerability_ids = {
+                vuln_id
+                for vuln_id in vulnerability_ids
+                if vuln_id not in verification.vuln_uuids
+            }
+            users.add(verification.modified_by)
         if not vulnerability_ids:
             break
     return list(users)
