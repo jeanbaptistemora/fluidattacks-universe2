@@ -1,9 +1,9 @@
 "Group type definition"
 type Group {
   analytics(
-    "Document name"
+    "Analytics chart name"
     documentName: String!
-    "Document type"
+    "Analytics chart type"
     documentType: String!
   ): GenericScalar
   bill(

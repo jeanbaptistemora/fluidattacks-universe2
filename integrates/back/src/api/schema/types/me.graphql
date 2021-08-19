@@ -4,12 +4,30 @@ type Me {
   callerOrigin: CallerOrigin
   isConcurrentSession: Boolean
   organizations: [Organization!]
-  permissions(entity: Entity!, identifier: String): [String]
+  permissions(
+    entity: Entity!
+    identifier: String
+  ): [String]
   remember: Boolean
-  role(entity: Entity!, identifier: String): String
+  "Get level role according to the provided entity"
+  role(
+    "Entity to check for level role"
+    entity: Entity!
+    "Identifier of the provided entity. Not needed if the entity is USER"
+    identifier: String
+  ): String
+  """Unix timestamp representing the moment where the user's API access
+  token will expire"""
   sessionExpiration: String
+  "User subscriptions"
   subscriptionsToEntityReport: [EntityReportSubscription]
-  tags(organizationId: String!): [Tag!]
+  "Tags associated with the organization/groups"
+  tags(
+    "Identifier of the organization to query for tags"
+    organizationId: String!
+  ): [Tag!]
+  "Email address of the user"
   userEmail: String!
+  "Current user name"
   userName: String!
 }
