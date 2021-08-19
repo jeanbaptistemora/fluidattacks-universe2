@@ -18,9 +18,9 @@
         "definitions": {
           "type": "object",
           "additionalProperties": false,
-          "propertyNames": { "pattern": "^[-_.:a-zA-Z0-9]+$" },
+          "propertyNames": { "pattern": "^[-_:a-zA-Z0-9]+$" },
           "patternProperties": {
-            "^[-_.:a-zA-Z0-9]+$": {
+            "^[-_:a-zA-Z0-9]+$": {
               "type": "object",
               "additionalProperties": false,
               "required": [ "title", "link" ],
