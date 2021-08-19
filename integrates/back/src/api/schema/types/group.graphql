@@ -1,14 +1,27 @@
 "Group type definition"
 type Group {
-  analytics(documentName: String!, documentType: String!): GenericScalar
-  bill(date: DateTime): Bill
+  analytics(
+    "Document name"
+    documentName: String!
+    "Document type"
+    documentType: String!
+  ): GenericScalar
+  bill(
+    """Selects bills from this Group according to the provided date
+    (year and month)"""
+    date: DateTime
+  ): Bill
   closedVulnerabilities: Int
   consulting: [Consult!]
   deletionDate: String
   description: String
   drafts: [Finding!]
   events: [Event!]
-  findings(filters: GenericScalar): [Finding]
+  findings(
+    """Filters findings in this Group. A dict-like object must be provided
+    e.g. `{affectedSystems: "test", actor: "ANY_EMPLOYEE"}`"""
+    filters: GenericScalar
+  ): [Finding]
   forcesToken: String
   hasAsm: Boolean
   hasDrills: Boolean @deprecated(reason: """This field will

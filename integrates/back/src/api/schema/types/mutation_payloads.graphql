@@ -92,16 +92,19 @@ type ExecuteSkimsPayload implements Payload {
   success: Boolean!
 }
 
+"Sign post URLs Payload Payload type definition"
 type SignPostUrlsPayload implements Payload {
   success: Boolean!
   url: SignedUrlObject!
 }
 
+"Signed URL object Payload type definition"
 type SignedUrlObject {
   fields: SignedFieldsObject!
   url: String!
 }
 
+"Signed fields object Payload type definition"
 type SignedFieldsObject {
   awsaccesskeyid: String!
   key: String!

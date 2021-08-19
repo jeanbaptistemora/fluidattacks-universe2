@@ -31,7 +31,7 @@ def camel_case_list_dict(elements: List[Dict]) -> List[Dict]:
 
 
 def camelcase_to_snakecase(str_value: str) -> str:
-    """Convert a camelcase string to snackecase."""
+    """Convert a camelcase string to snakecase."""
     my_str = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", str_value)
     return re.sub("([a-z0-9])([A-Z])", r"\1_\2", my_str).lower()
 

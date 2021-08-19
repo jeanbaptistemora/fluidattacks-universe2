@@ -1,7 +1,12 @@
 "Organization type definition"
 type Organization {
   "Analytics and stats of the organization"
-  analytics(documentName: String!, documentType: String!): GenericScalar
+  analytics(
+    "Document name"
+    documentName: String!
+    "Document type"
+    documentType: String!
+  ): GenericScalar
   "Enacted and pending Finding policies within the organization"
   findingPolicies: [FindingPolicy]
   "Groups belonging to the organization"

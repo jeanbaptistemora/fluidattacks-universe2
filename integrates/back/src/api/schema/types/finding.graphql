@@ -54,9 +54,17 @@ type Finding {
   tracking: [GenericScalar]
   type: String
   verified: Boolean
-  vulnerabilities(state: String): [Vulnerability]
+  vulnerabilities(
+    "Filter vulnerabilities by their current state"
+    state: String
+  ): [Vulnerability]
+  "Vulnerabilities that have been requested for a reattack"
   vulnerabilitiesToReattack: [Vulnerability]
+  "Vulnerabilities that have been requested for a reattack"
   vulnsToReattack: [Vulnerability] @deprecated(reason: """This field will be
     removed after 2021/12/31. Use `vulnerabilitiesToReattack` instead.""")
-  zeroRisk(state: String): [Vulnerability]
+  zeroRisk(
+    "Filter vulnerabilities by their current state"
+    state: String
+  ): [Vulnerability]
 }
