@@ -3,8 +3,8 @@
 This migration aims to apply standardization to organization
 finding policies names
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-08-19 at 06:31:14 UTC-05
+Finalization Time: 2021-08-19 at 06:31:25 UTC-05
 """
 
 from aioextensions import (
@@ -40,7 +40,7 @@ from typing import (
 )
 
 # Constants
-PROD: bool = False
+PROD: bool = True
 
 
 async def update_organization_finding_policy_metadata(
