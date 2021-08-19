@@ -2055,6 +2055,19 @@ F109,lines,namespace/skims/test/data/lib_root/f124/test.go,49,197,skims,109. Ins
   59 |  operation.Message = ""Message""
      ^ Col 0
 "
+F234,lines,namespace/skims/test/data/lib_root/f234/Test.java,7,209,skims,234. Technical information leak - Stacktrace,error stacktrace can be printed,"
+   1 | public class Test{
+   2 |     public static void main(String[] args){
+   3 |         try {
+   4 |             throw new IOException();
+   5 |         }
+   6 |         catch (IOException e) {
+>  7 |             e.printStackTrace();
+   8 |         }
+   9 |     }
+  10 | }
+     ^ Col 0
+"
 F234,lines,namespace/skims/test/data/lib_path/f037/Test.java,16,209,skims,234. Technical information leak - Stacktrace,error stacktrace can be printed,"
    6 |   private static Logger logger = LogManager.getLogger(Log4jExample.class);
    7 |
