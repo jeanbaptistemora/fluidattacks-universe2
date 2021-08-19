@@ -1,5 +1,47 @@
 import { translate } from "utils/translations/translate";
 
+const castAffectedComponents: (field: string) => string = (
+  field: string
+): string => {
+  const eventAffectedComponents: Record<string, string> = {
+    CLIENT_STATION:
+      "searchFindings.tabEvents.affectedComponentsValues.clientStation",
+    COMPILE_ERROR:
+      "searchFindings.tabEvents.affectedComponentsValues.compileError",
+    DOCUMENTATION:
+      "searchFindings.tabEvents.affectedComponentsValues.documentation",
+    FLUID_STATION:
+      "searchFindings.tabEvents.affectedComponentsValues.fluidStation",
+    INTERNET_CONNECTION:
+      "searchFindings.tabEvents.affectedComponentsValues.internetConnection",
+    LOCAL_CONNECTION:
+      "searchFindings.tabEvents.affectedComponentsValues.localConnection",
+    OTHER: "searchFindings.tabEvents.affectedComponentsValues.other",
+    SOURCE_CODE: "searchFindings.tabEvents.affectedComponentsValues.sourceCode",
+    TEST_DATA: "searchFindings.tabEvents.affectedComponentsValues.testData",
+    TOE_ALTERATION:
+      "searchFindings.tabEvents.affectedComponentsValues.toeAlteration",
+    TOE_CREDENTIALS:
+      "searchFindings.tabEvents.affectedComponentsValues.toeCredentials",
+    TOE_EXCLUSSION:
+      "searchFindings.tabEvents.affectedComponentsValues.toeExclussion",
+    TOE_LOCATION:
+      "searchFindings.tabEvents.affectedComponentsValues.toeLocation",
+    TOE_PRIVILEGES:
+      "searchFindings.tabEvents.affectedComponentsValues.toePrivileges",
+    TOE_UNACCESSIBLE:
+      "searchFindings.tabEvents.affectedComponentsValues.toeUnaccessible",
+    TOE_UNAVAILABLE:
+      "searchFindings.tabEvents.affectedComponentsValues.toeUnavailable",
+    TOE_UNSTABLE:
+      "searchFindings.tabEvents.affectedComponentsValues.toeUnstable",
+    VPN_CONNECTION:
+      "searchFindings.tabEvents.affectedComponentsValues.vpnConnection",
+  };
+
+  return eventAffectedComponents[field] ? eventAffectedComponents[field] : "-";
+};
+
 const castEventType: (field: string) => string = (field: string): string => {
   const eventType: Record<string, string> = {
     AUTHORIZATION_SPECIAL_ATTACK:
@@ -29,10 +71,10 @@ const castEventStatus: (field: string) => string = (field: string): string => {
   return eventStatus[field];
 };
 
-const formatAccessibility: (accessibility: string) => string = (
-  accessibility: string
+const formatAccessibility: (field: string) => string = (
+  field: string
 ): string => {
-  return accessibility ? accessibility : "-";
+  return field ? field : "-";
 };
 
 const formatDropdownField: (field: string) => string = (
@@ -110,6 +152,7 @@ const formatTreatment: (treatment: string, findingState: string) => string = (
 };
 
 export {
+  castAffectedComponents,
   castEventType,
   castEventStatus,
   formatAccessibility,

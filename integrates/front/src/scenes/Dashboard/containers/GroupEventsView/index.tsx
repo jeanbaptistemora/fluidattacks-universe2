@@ -83,6 +83,7 @@ interface IEventsDataset {
   group: {
     events: {
       accessibility: string;
+      affectedComponents: string;
       closingDate: string;
       detail: string;
       eventDate: string;
@@ -180,6 +181,14 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       align: "center",
       dataField: "accessibility",
       header: translate.t("searchFindings.tabEvents.accessibility"),
+      onSort: onSortState,
+      width: "50%",
+      wrapped: true,
+    },
+    {
+      align: "center",
+      dataField: "affectedComponents",
+      header: translate.t("searchFindings.tabEvents.affectedComponents"),
       onSort: onSortState,
       width: "50%",
       wrapped: true,

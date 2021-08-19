@@ -87,6 +87,9 @@
           "action_before_blocking": {
             "S": "TEST_OTHER_PART_TOE"
           },
+          "affected_components": {
+            "S": "CLIENT_STATION"
+          },
           "analyst": {
             "S": "unittest@fluidattacks.com"
           },

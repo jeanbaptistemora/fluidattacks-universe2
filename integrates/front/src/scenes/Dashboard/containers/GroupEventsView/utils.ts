@@ -1,4 +1,5 @@
 import {
+  castAffectedComponents,
   castEventStatus,
   castEventType,
   formatAccessibility,
@@ -7,6 +8,7 @@ import { translate } from "utils/translations/translate";
 
 interface IEventConfig {
   accessibility: string;
+  affectedComponents: string;
   eventStatus: string;
   eventType: string;
 }
@@ -20,6 +22,15 @@ export const formatEvents: (dataset: IEventConfig[]) => IEventConfig[] = (
     const accessibility: string = translate.t(
       formatAccessibility(event.accessibility)
     );
+    const affectedComponents: string = translate.t(
+      castAffectedComponents(event.affectedComponents)
+    );
 
-    return { ...event, accessibility, eventStatus, eventType };
+    return {
+      ...event,
+      accessibility,
+      affectedComponents,
+      eventStatus,
+      eventType,
+    };
   });
