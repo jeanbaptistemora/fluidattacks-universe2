@@ -414,5 +414,13 @@
     "ES": {
       "title": "133. Insecure encryption algorithm - Perfect Forward Secrecy"
     }
+  },
+  "F361": {
+    "EN": {
+      "title": "361. Conflicting transparency annotations"
+    },
+    "ES": {
+      "title": "361. Anotaciones de transparencia en conflicto"
+    }
   }
 }
