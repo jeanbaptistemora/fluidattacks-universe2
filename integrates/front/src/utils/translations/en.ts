@@ -145,6 +145,9 @@ export const enTranslations: ResourceKey = {
       },
     },
     stackedBarChart: {
+      cvssfBenchmarking: {
+        title: "Cvssf Benchmarking (by closing rate)",
+      },
       riskOverTime: {
         title: "Vulnerabilities over time",
         tooltip: {

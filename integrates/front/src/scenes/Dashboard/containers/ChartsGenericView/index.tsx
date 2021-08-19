@@ -19,6 +19,7 @@ import {
 } from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
 
+// eslint-disable-next-line complexity
 const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
   props: IChartsGenericViewProps
 ): JSX.Element => {
@@ -749,6 +750,26 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
             </RowCenter>
           </div>
         </div>
+      ) : undefined}
+      {doesEntityMatch("organization") ? (
+        <RowCenter>
+          <Col100>
+            <Graphic
+              bsHeight={320}
+              className={"g1"}
+              documentName={"cvssfBenchmarking"}
+              documentType={"stackedBarChart"}
+              entity={entity}
+              generatorName={"generic"}
+              generatorType={"c3"}
+              reportMode={reportMode}
+              subject={subject}
+              title={translate.t(
+                "analytics.stackedBarChart.cvssfBenchmarking.title"
+              )}
+            />
+          </Col100>
+        </RowCenter>
       ) : undefined}
       {reportMode ? undefined : <ChartsGenericViewExtras {...props} />}
     </React.StrictMode>
