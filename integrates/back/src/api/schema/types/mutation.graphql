@@ -776,6 +776,7 @@ type Mutation {
   ): SignInPayload!
 
   solveEvent(
+    "Identifier of the Event to solve"
     eventId: String!
     affectation: String!
     date: DateTime!
@@ -1027,7 +1028,7 @@ type Mutation {
 
   updateToeLinesSorts(
     filename: String,
-    "Name of the Group containing the Toe Lines to be updated"
+    "Name of the Group containing the ToE lines to be updated"
     groupName: String,
     sortsRiskLevel: Int
   ): SimplePayload!

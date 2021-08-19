@@ -1,4 +1,5 @@
 "Bill type definition"
 type Bill {
+  "List of authors that have contributed to the Group"
   authors: [BillAuthor]
 }

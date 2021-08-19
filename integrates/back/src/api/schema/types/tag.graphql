@@ -1,4 +1,4 @@
-"Tag entity"
+"Tag type definition"
 type Tag {
   "Groups where the tag is present"
   groups: [Group]

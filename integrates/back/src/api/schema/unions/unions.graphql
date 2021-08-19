@@ -1,1 +1,2 @@
+"General Root type definition"
 union Root = GitRoot | IPRoot | URLRoot

@@ -1,3 +1,4 @@
+"Execution Vulnerabilities definition"
 type ExecutionVulnerabilities {
   accepted: [ExploitResult!]
   closed: [ExploitResult!]

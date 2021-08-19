@@ -28,6 +28,7 @@ type Event {
   evidenceFileDate: String
   "Name of the group linked to the event"
   groupName: String
+  "List of historic configurations of the Event"
   historicState: [GenericScalar]
   "Identifier of the event"
   id: String

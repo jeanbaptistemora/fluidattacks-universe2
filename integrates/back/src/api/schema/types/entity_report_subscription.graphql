@@ -1,5 +1,9 @@
+"Entity Report Subscription type definition"
 type EntityReportSubscription {
+  "Type of Entity the report is about"
   entity: SubscriptionReportEntity!
+  "Desired frequency of the report"
   frequency: Frequency!
+  "Identifier of the Entity the report is about"
   subject: String!
 }

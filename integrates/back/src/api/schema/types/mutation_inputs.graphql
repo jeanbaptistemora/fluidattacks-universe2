@@ -1,3 +1,4 @@
+"Execution Vulnerabilities input definition"
 input ExecutionVulnerabilitiesInput {
   "Acepted vulnerabilities"
   accepted: [ExploitResultInput!]
@@ -7,6 +8,7 @@ input ExecutionVulnerabilitiesInput {
   open: [ExploitResultInput!]
 }
 
+"Exploit Result input definition"
 input ExploitResultInput {
   "CVSS Exploitability"
   exploitability: Float

@@ -1,5 +1,6 @@
 "BillAuthor type definition"
 type BillAuthor {
+  "Author who has contributed to a Group"
   actor: String
   commit: String
   groups: String

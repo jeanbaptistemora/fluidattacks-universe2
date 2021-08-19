@@ -1,3 +1,4 @@
+"Finding policy definition"
 type FindingPolicy {
   "ID of the policy"
   id: ID

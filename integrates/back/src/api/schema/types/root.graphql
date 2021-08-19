@@ -1,3 +1,4 @@
+"Root interface definition"
 interface IRoot {
   "ID of the root"
   id: ID!
@@ -7,6 +8,7 @@ interface IRoot {
   state: ResourceState!
 }
 
+"Git Root cloning status definition"
 type GitRootCloningStatus {
   "Message after repository cloning"
   message: String!
@@ -14,6 +16,7 @@ type GitRootCloningStatus {
   status: CloningStatus!
 }
 
+"Git Root type definition"
 type GitRoot implements IRoot {
   "Repository branch to be tested"
   branch: String!
@@ -51,6 +54,7 @@ type GitRoot implements IRoot {
   url: String!
 }
 
+"IP Root type definition"
 type IPRoot implements IRoot {
   "IP address of the environment to test"
   address: String!
@@ -64,6 +68,7 @@ type IPRoot implements IRoot {
   state: ResourceState!
 }
 
+"URL Root type definition"
 type URLRoot implements IRoot {
   "Domain name or IP of the environment to test"
   host: String!
