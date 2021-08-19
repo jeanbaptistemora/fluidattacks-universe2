@@ -6258,6 +6258,46 @@ F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,19,614,skims,042. Ins
   22 | }
      ^ Col 0
 "
+F074,lines,namespace/skims/test/data/lib_root/f074/Test.java,10,615,skims,074. Commented-out code,Commented code,"
+   1 | //normal comment
+   2 | // int CTE = 3;
+   3 | /*
+   4 |    This comment should
+   5 |    not be detected.
+   6 | */
+   7 |
+   8 | public class Test{
+   9 |     public int special_add(int a, int b){
+> 10 |         /*
+  11 |         if(a < 4){
+  12 |             return 0;
+  13 |         }
+  14 |         */
+  15 |         return a + b;
+  16 |     }
+  17 | }
+     ^ Col 0
+"
+F074,lines,namespace/skims/test/data/lib_root/f074/Test.java,2,615,skims,074. Commented-out code,Commented code,"
+   1 | //normal comment
+>  2 | // int CTE = 3;
+   3 | /*
+   4 |    This comment should
+   5 |    not be detected.
+   6 | */
+   7 |
+   8 | public class Test{
+   9 |     public int special_add(int a, int b){
+  10 |         /*
+  11 |         if(a < 4){
+  12 |             return 0;
+  13 |         }
+  14 |         */
+  15 |         return a + b;
+  16 |     }
+  17 | }
+     ^ Col 0
+"
 F361,lines,namespace/skims/test/data/lib_root/f361/test.cs,10,749,skims,361. Conflicting transparency annotations,"Conflicting transparency annotations
 ","
    1 | using System;
