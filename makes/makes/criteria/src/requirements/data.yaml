@@ -2634,7 +2634,12 @@
       deshabilitación del usuario, etc).
     description: __empty__
   category: Credentials
-  references: []
+  references:
+    - "004.613"
+    - "012.V3.3.3"
+    - "012.V3.7.1"
+    - "013.A2"
+    - "014.6.5.10"
   metadata: {}
 "142":
   en:
@@ -2695,7 +2700,17 @@
       y eliminar todas las credenciales
       predeterminadas.
   category: Credentials
-  references: []
+  references:
+    - "002.70"
+    - "002.560"
+    - "003.4.7"
+    - "009.007-6_R5.4"
+    - "012.V2.5.4"
+    - "012.V2.10.2"
+    - "012.V14.2.2"
+    - "013.A2"
+    - "014.2.1.1"
+    - "014.6.5.10"
   metadata: {}
 "143":
   en:
@@ -2712,7 +2727,13 @@
       para cada actor.
     description: __empty__
   category: Credentials
-  references: []
+  references:
+    - "003.5.2"
+    - "007.164.312_a_2_i"
+    - "013.A2"
+    - "014.6.5.10"
+    - "014.8.1.1"
+    - "014.8.5"
   metadata: {}
 "144":
   en:
@@ -2730,7 +2751,12 @@
       periódicamente.
     description: __empty__
   category: Credentials
-  references: []
+  references:
+    - "003.5.3"
+    - "010.AC-2_3"
+    - "010.AC-2_10"
+    - "010.AC-2_13"
+    - "014.8.1.4"
   metadata: {}
 "145":
   en:
@@ -2782,7 +2808,29 @@
       y administrarse siguiendo estándares
       verificados por la industria.
   category: Cryptography
-  references: []
+  references:
+     - "004.321"
+     - "004.322"
+     - "004.323"
+     - "004.522"
+     - "012.C.6"
+     - "012.V1.6.1"
+     - "012.V1.6.2"
+     - "012.V1.6.3"
+     - "012.V1.6.4"
+     - "012.V2.8.2"
+     - "012.V2.9.1"
+     - "012.V6.4.1"
+     - "012.V6.4.2"
+     - "013.A3"
+     - "014.3.4.1"
+     - "014.3.5.2"
+     - "014.3.5.3"
+     - "014.3.5.4"
+     - "014.3.6.2"
+     - "014.3.6.3"
+     - "014.3.6.7"
+     - "014.6.5.3"
   metadata: {}
 "146":
   en:
