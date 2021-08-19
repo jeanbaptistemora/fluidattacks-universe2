@@ -86,13 +86,14 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
     },
     onError: ({ graphQLErrors }): void => {
       graphQLErrors.forEach((error): void => {
-        switch (error.message) {
-          case "Exception - Active root with the same URL/branch already exists":
-            msgError(t("group.scope.url.errors.invalid"));
-            break;
-          default:
-            msgError(t("groupAlerts.errorTextsad"));
-            Logger.error("Couldn't activate url root", error);
+        if (
+          error.message ===
+          "Exception - Active root with the same URL/branch already exists"
+        ) {
+          msgError(t("group.scope.url.errors.invalid"));
+        } else {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.error("Couldn't activate url root", error);
         }
       });
     },
