@@ -19,6 +19,7 @@ from lib_root import (
     f073,
     f074,
     f085,
+    f234,
     f361,
 )
 from model import (
@@ -63,6 +64,7 @@ QUERIES: graph_model.Queries = (
     *f073.QUERIES,
     *f074.QUERIES,
     *f085.QUERIES,
+    *f234.QUERIES,
     *f361.QUERIES,
     *sast_query.QUERIES,
 )

@@ -2055,6 +2055,30 @@ F109,lines,namespace/skims/test/data/lib_root/f124/test.go,49,197,skims,109. Ins
   59 |  operation.Message = ""Message""
      ^ Col 0
 "
+F234,lines,namespace/skims/test/data/lib_path/f037/Test.java,16,209,skims,234. Technical information leak - Stacktrace,error stacktrace can be printed,"
+   6 |   private static Logger logger = LogManager.getLogger(Log4jExample.class);
+   7 |
+   8 |   public static void main(String[ ] args) {
+   9 |     try {
+  10 |       int[] myNumbers = {1, 2, 3};
+  11 |       System.out.println(myNumbers[10]);
+  12 |     } catch (IndexException e) {
+  13 |       if (e.toString() == ""Error""){
+  14 |         System.out.println(""Error"");
+  15 |       }
+> 16 |       e.printStackTrace();
+  17 |     }
+  18 |
+  19 |     try {
+  20 |       int a = 1 / 0;
+  21 |     } catch (ArithmeticException exc) {
+  22 |       logger.info(exc);
+  23 |     }
+  24 |
+  25 |     try {
+  26 |       int a = 1 / 0;
+     ^ Col 0
+"
 F063,lines,namespace/skims/test/data/lib_path/f063_path_traversal/Test.java,13,22,skims,063. Lack of data validation - Path Traversal,Path traversal in skims/test/data/lib_path/f063_path_traversal/Test.java,"
    1 | t java.io.File;
    2 |
