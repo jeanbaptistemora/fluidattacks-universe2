@@ -6258,6 +6258,29 @@ F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,19,614,skims,042. Ins
   22 | }
      ^ Col 0
 "
+F361,lines,namespace/skims/test/data/lib_root/f361/test.cs,10,749,skims,361. Conflicting transparency annotations,"Conflicting transparency annotations
+","
+   1 | using System;
+   2 | using System.Security;
+   3 |
+   4 | namespace MyLibrary
+   5 | {
+   6 |
+   7 |     [SecurityCritical]
+   8 |     public class Foo
+   9 |     {
+> 10 |         [SecuritySafeCritical]
+  11 |         public void Bar()
+  12 |         {
+  13 |         }
+  14 |
+  15 |         public void Testeo()
+  16 |         {
+  17 |         }
+  18 |     }
+  19 | }
+     ^ Col 0
+"
 F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,4,798,skims,009. Sensitive information in source code,AWS credential in skims/test/data/lib_path/f009/java.properties,"
    1 | bda.credentials2.key       = AKIA0000000000000000
    2 | zon.aws.accesskey          = AKIA0000000000000000
