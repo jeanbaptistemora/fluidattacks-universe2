@@ -23,10 +23,10 @@ async def main() -> None:
 
     info("Computing jobs")
     jobs: List[Tuple[str, str, str]] = [
-        (group, check, root.nickname)
+        (group, check, root.state.nickname)
         for group in groups
         for root in await dataloaders.group_roots.load(group)
-        if root.state == "ACTIVE"
+        if root.state.status == "ACTIVE"
         for check in skims_sdk.FINDINGS
     ]
     random.shuffle(jobs)
