@@ -15,6 +15,13 @@ DEFAULT_STR = "2000-01-01 00:00:00"
 TZ = pytz.timezone(TIME_ZONE)
 
 
+def as_zone(
+    date: datetime,
+    zone: str = TIME_ZONE,
+) -> datetime:
+    return date.astimezone(tz=pytz.timezone(zone))
+
+
 def format_comment_date(date_string: str) -> str:
     comment_date = get_from_str(date_string)
     formatted_date = get_as_str(comment_date, date_format="%Y/%m/%d %H:%M:%S")
