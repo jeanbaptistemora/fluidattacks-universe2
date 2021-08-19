@@ -29,9 +29,7 @@ const DropdownFilter: React.FC<IDropdownFilterProps> = ({
   children,
 }: IDropdownFilterProps): JSX.Element => (
   <Dropdown>
-    {/* We need className to override default styles */}
-    {/* eslint-disable-next-line react/forbid-component-props */}
-    <GraphicButton className={"pointer"}>
+    <GraphicButton>
       <FontAwesomeIcon icon={faFilter} />
     </GraphicButton>
     <Children>{children}</Children>

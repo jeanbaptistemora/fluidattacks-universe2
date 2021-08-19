@@ -245,7 +245,9 @@ const GraphicButton: StyledComponent<
     className,
     type,
   }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
-    className: `dim dib g-btn pr3 pl3 pt2 pb2 outline-0 ${className ?? ""}`,
+    className: `dim dib g-btn pointer pr3 pl3 pt2 pb2 outline-0 ${
+      className ?? ""
+    }`,
     type: type ?? "button",
   })
 )``;
