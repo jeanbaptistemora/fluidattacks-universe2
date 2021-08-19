@@ -1395,7 +1395,14 @@
       de ocurrencia para permitir
       el seguimiento en una investigación.
   category: Logs
-  references: []
+  references:
+    - "003.8.5"
+    - "004.778"
+    - "012.V1.7.1"
+    - "012.V7.1.4"
+    - "012.V7.3.4"
+    - "013.A10"
+    - "014.10.3"
   metadata: {}
 "080":
   en:
@@ -1437,7 +1444,16 @@
       que una vulnerabilidad o brecha
       se note de manera oportuna.
   category: Logs
-  references: []
+  references:
+    - "002.161"
+    - "004.200"
+    - "004.285"
+    - "008.12.4.2"
+    - "012.V7.3.3"
+    - "013.A5"
+    - "014.6.5.8"
+    - "014.10.5.2"
+    - "014.10.5.3"
   metadata: {}
 "083":
   en:
@@ -1486,7 +1502,15 @@
       un atacante que tenga acceso a estos
       también puede obtener la información.
   category: Logs
-  references: []
+  references:
+    - "004.532"
+    - "005.4_1a"
+    - "012.V1.7.1"
+    - "012.V7.1.1"
+    - "012.V7.1.2"
+    - "012.V7.2.1"
+    - "012.V8.3.5"
+    - "013.A3"
   metadata: {}
 "084":
   en:
@@ -1523,7 +1547,9 @@
       incluidos sus registros
       de transacciones.
   category: Logs
-  references: []
+  references:
+    - "006.R7"
+    - "007.164.308_a_1_ii_D"
   metadata: {}
 "085":
   en:
@@ -1560,7 +1586,10 @@
       que el sistema haya recopilado de ellos,
       incluido su historial de sesión.
   category: Logs
-  references: []
+  references:
+    - "006.R7"
+    - "007.164.308_a_1_ii_D"
+    - "012.V7.2.1"
   metadata: {}
 "088":
   en:
@@ -1582,7 +1611,18 @@
       en el proceso de autenticación.
     description: __empty__
   category: Certificates
-  references: []
+  references:
+    - "003.13.9"
+    - "004.299"
+    - "004.521"
+    - "008.14.1.3"
+    - "011.5.2.5"
+    - "012.C.9"
+    - "012.V2.2.4"
+    - "012.V9.2.4"
+    - "013.A2"
+    - "014.4.1"
+    - "014.6.5.10"
   metadata: {}
 "089":
   en:
