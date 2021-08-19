@@ -1109,6 +1109,11 @@
     "skims/test/data/benchmark/nist/HouseController.cs": {},
     "skims/test/data/benchmark/nist/StudentController.cs": {}
   },
+  "F035": {
+    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
+    "skims/test/data/benchmark/nist/HouseController.cs": {},
+    "skims/test/data/benchmark/nist/StudentController.cs": {}
+  },
   "F036": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": {},
     "skims/test/data/benchmark/nist/HouseController.cs": {},
