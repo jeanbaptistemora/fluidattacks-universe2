@@ -3,14 +3,6 @@
   "version": "1.0.0",
   "lockfileVersion": 1,
   "dependencies": {
-    "chokidar": {
-      "version": "2.1.8",
-      "dependencies": {
-        "glob-parent": {
-          "version": "5.1.2"
-        }
-      }
-    },
     "isomorphic-fetch": {
       "version": "2.2.1",
       "requires": {
