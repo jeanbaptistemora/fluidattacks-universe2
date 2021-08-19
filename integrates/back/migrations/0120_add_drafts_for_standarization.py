@@ -8,8 +8,8 @@ The new drafts info are uploaded from a csv.
 Related issue:
 https://gitlab.com/fluidattacks/product/-/issues/4903
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-08-19 at 11:19:50 UTC-05
+Finalization Time: 2021-08-19 at 11:21:48 UTC-05
 """
 
 from aioextensions import (
@@ -42,7 +42,7 @@ from typing import (
 import uuid
 import yaml
 
-PROD: bool = False
+PROD: bool = True
 
 attackComplexityOptions = {
     "H": "0.44",
@@ -135,6 +135,11 @@ def _get_privileges_required(
 def _get_draft_data(data: Any, draft_name: str) -> Dict[str, str]:
     cve = draft_name[:3]
     criteria = data[cve]
+
+    if draft_name != f'{cve}. {criteria["en"]["title"]}':
+        print(f"   --- ERROR draft name NOT compliant: {draft_name}")
+        return {}
+
     # Create finding data
     attackVectorRaw = _validate_not_empty(
         criteria["score"]["base"]["attack_vector"]
@@ -270,7 +275,7 @@ async def process_draft(
     group_findings_titles = [finding["title"] for finding in group_findings]
     if new_draft_title in group_findings_titles:
         print(
-            f"  --- ERROR {group_name}, "
+            f"   --- ERROR {group_name}, "
             f'finding "{new_draft_title}" already in db'
         )
         return False
@@ -280,7 +285,7 @@ async def process_draft(
     group_drafts_titles = [draft["title"] for draft in group_drafts]
     if new_draft_title in group_drafts_titles:
         print(
-            f"  --- ERROR {group_name}, "
+            f"   --- ERROR {group_name}, "
             f'draft "{new_draft_title}" already in db'
         )
         return False
@@ -292,6 +297,9 @@ async def process_draft(
     affected_systems = old_finding.get("affected_systems", "")
     analyst_email = old_finding["analyst"]
     draft_data = _get_draft_data(data, new_draft["new_draft"])
+    if not draft_data:
+        print(f"   --- ERROR with draft_data {group_name}: {draft_data}")
+        return False
     draft_data["affected_systems"] = affected_systems
     draft_data["exploitability"] = old_finding.get("exploitability", "")
     draft_data["remediation_level"] = old_finding.get("remediation_level", "")

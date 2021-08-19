@@ -8,8 +8,8 @@ This is done after copying vulns and evidences from other findings.
 Related issue:
 https://gitlab.com/fluidattacks/product/-/issues/4903
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-08-19 at 11:42:32 UTC-05
+Finalization Time: 2021-08-19 at 11:42:46 UTC-05
 """
 
 from aioextensions import (
@@ -37,7 +37,7 @@ from typing import (
     NamedTuple,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 
 class Context(NamedTuple):
@@ -77,6 +77,7 @@ async def process_draft(
         for finding in group_drafts
         if finding["title"] == draft_info["new_draft"]
     )
+    print(f'   === target_draft: {target_draft["id"]}')
 
     old_finding_id = draft_info["finding_id"]
     finding_loader = context.finding
@@ -102,10 +103,15 @@ async def process_draft(
         success = await findings_domain.approve_draft(
             info_context, target_draft["id"], approver_email
         )
-        if not success:
+        if success:
+            print(
+                f'   === draft {target_draft["id"]} - '
+                f'"{target_draft["title"]}" approved'
+            )
+        else:
             print(
                 f'   --- ERROR draft {target_draft["id"]} - '
-                f'"{target_draft["title"]}" NOT submitted'
+                f'"{target_draft["title"]}" NOT approved'
             )
             return False
 
@@ -114,7 +120,7 @@ async def process_draft(
 
 async def main() -> None:
     # Read file with new drafts info
-    with open("0121_dummy.csv", mode="r") as f:
+    with open("0120.csv", mode="r") as f:
         reader = csv.reader(f)
         new_drafts_info = [
             {

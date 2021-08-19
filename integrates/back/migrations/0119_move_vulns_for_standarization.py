@@ -9,8 +9,8 @@ https://gitlab.com/fluidattacks/product/-/issues/4903
 Execution Time:    2021-08-12 at 13:47:57 UTC-05
 Finalization Time: 2021-08-12 at 13:57:28 UTC-05
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-08-19 at 11:26:04 UTC-05
+Finalization Time: 2021-08-19 at 11:26:11 UTC-05
 """
 
 from aioextensions import (
@@ -30,7 +30,7 @@ from vulnerabilities import (
     dal as vulns_dal,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 
 async def process_vuln(
@@ -70,6 +70,7 @@ async def process_vuln(
     vuln = await vulns_dal.get(vuln_info["vuln_uuid"])
     if len(vuln) < 0:
         print(f'   --- ERROR: {vuln_info["vuln_uuid"]} NOT found')
+        return False
     new_vuln = vuln[0]
     new_vuln["finding_id"] = target_finding["id"]
 
@@ -113,6 +114,7 @@ async def main() -> None:
                 "definitive_name": row[4],
             }
             for row in reader
+            if "group" not in row[0]
         ]
     print(f"    === vulns to move: {len(vulns_to_move)}")
     print(f"    === sample: {vulns_to_move[:1]}")

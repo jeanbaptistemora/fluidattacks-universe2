@@ -8,8 +8,8 @@ Evidences will be copied to drafts created in the previous migration.
 Related issue:
 https://gitlab.com/fluidattacks/product/-/issues/4903
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-08-19 at 11:41:01 UTC-05
+Finalization Time: 2021-08-19 at 11:41:14 UTC-05
 """
 
 from aioextensions import (
@@ -37,7 +37,7 @@ from typing import (
     List,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 
 async def move_evidence(
@@ -99,25 +99,27 @@ async def process_draft(
             f'   --- ERROR finding "{draft_info["finding_id"]}" NOT found!!!'
         )
 
-    finding_files: List[Dict[str, str]] = finding.get("files", [])
-    success = all(
-        await collect(
-            move_evidence(
-                file,
-                draft_info["group_name"],
-                target_draft["id"],
-                finding["finding_id"],
+    success = False
+    if PROD:
+        finding_files: List[Dict[str, str]] = finding.get("files", [])
+        success = all(
+            await collect(
+                move_evidence(
+                    file,
+                    draft_info["group_name"],
+                    target_draft["id"],
+                    finding["finding_id"],
+                )
+                for file in finding_files
             )
-            for file in finding_files
         )
-    )
 
     return success
 
 
 async def main() -> None:
     # Read file with new drafts info
-    with open("0121_dummy.csv", mode="r") as f:
+    with open("0120.csv", mode="r") as f:
         reader = csv.reader(f)
         new_drafts_info = [
             {

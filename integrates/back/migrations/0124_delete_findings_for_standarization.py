@@ -9,8 +9,8 @@ migrations.
 Related issue:
 https://gitlab.com/fluidattacks/product/-/issues/4903
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-08-19 at 13:16:59 UTC-05
+Finalization Time: 2021-08-19 at 13:17:01 UTC-05
 """
 
 from aioextensions import (
