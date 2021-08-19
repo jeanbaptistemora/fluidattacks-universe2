@@ -30,6 +30,7 @@ enum ActionsBeforeBlocking {
   TEST_OTHER_PART_TOE
 }
 
+"Components affected during an Event"
 enum AffectedComponents {
   CLIENT_STATION
   COMPILE_ERROR
@@ -119,6 +120,7 @@ enum UpdateGroupReason {
     will be removed after 2021/12/20. Use `GROUP_SUSPENSION` instead.""")
 }
 
+"Entity enum definition"
 enum Entity {
   "Group"
   GROUP
@@ -131,8 +133,11 @@ enum Entity {
   USER
 }
 
+"Where the event was present"
 enum EventAccessibility {
+  "Client Environment"
   ENVIRONMENT
+  "Client Repository"
   REPOSITORY
 }
 
@@ -158,6 +163,7 @@ enum EventEvidenceType {
   IMAGE
 }
 
+"Event type enum definition"
 enum EventType {
   AUTHORIZATION_SPECIAL_ATTACK
   CLIENT_APPROVES_CHANGE_TOE
@@ -168,28 +174,45 @@ enum EventType {
   TOE_DIFFERS_APPROVED
 }
 
+"Evidence description enum definition"
 enum EvidenceDescriptionType {
+  "Animated exploitation"
   ANIMATION
+  "Evidence 1"
   EVIDENCE1
+  "Evidence 2"
   EVIDENCE2
+  "Evidence 3"
   EVIDENCE3
+  "Evidence 4"
   EVIDENCE4
+  "Evidence 5"
   EVIDENCE5
+  "Exploitation"
   EXPLOITATION
 }
 
+"Evidence type enum definition"
 enum EvidenceType {
+  "Animated exploitation"
   ANIMATION
+  "Evidence 1"
   EVIDENCE1
+  "Evidence 2"
   EVIDENCE2
+  "Evidence 3"
   EVIDENCE3
+  "Evidence 4"
   EVIDENCE4
+  "Evidence 5"
   EVIDENCE5
+  "Exploitation"
   EXPLOITATION
+  "Records"
   RECORDS
 }
 
-"Stakeholder invitation state"
+"Stakeholder invitation state enum definition"
 enum InvitationState {
   "Acceptance confirmed"
   CONFIRMED
@@ -199,7 +222,7 @@ enum InvitationState {
   UNREGISTERED
 }
 
-"Type of Finding consult"
+"Type of Finding consult enum definition"
 enum FindingConsultType {
   "To share information about the finding"
   CONSULT
@@ -207,12 +230,13 @@ enum FindingConsultType {
   OBSERVATION
 }
 
+"Finding type enum definition"
 enum FindingType {
   HYGIENE
   SECURITY
 }
 
-"Entity report frequency"
+"Entity report frequency enum definition"
 enum Frequency {
   "Daily"
   DAILY
@@ -262,19 +286,20 @@ enum OrganizationFindingPolicyStatus {
   SUBMITTED
 }
 
+"Organization stakeholder role enum definition"
 enum OrganizationRole {
   CUSTOMER
   CUSTOMERADMIN
   GROUP_MANAGER
 }
 
-"Language for Group Reports"
+"Language for Group Reports enum definition"
 enum ReportLang {
   "English"
   EN
 }
 
-"Group Reports type"
+"Group Reports type enum definition"
 enum ReportType {
   "ZIP file (Findings data)"
   DATA
@@ -284,7 +309,7 @@ enum ReportType {
   XLS
 }
 
-"Root state"
+"Root state enum definition"
 enum ResourceState {
   "Active root"
   ACTIVE
@@ -292,7 +317,7 @@ enum ResourceState {
   INACTIVE
 }
 
-"Testing service type"
+"Testing service type enum definition"
 enum ServiceType {
   "Black-box testing"
   BLACK
@@ -300,12 +325,13 @@ enum ServiceType {
   WHITE
 }
 
+"Use sorts enum definition"
 enum Sorts {
   NO
   YES
 }
 
-"Stakeholder entity scope"
+"Stakeholder entity scope enum definition"
 enum StakeholderEntity {
   "Group"
   GROUP
@@ -316,6 +342,7 @@ enum StakeholderEntity {
     removed after 2021/12/20. Use `GROUP` instead.""")
 }
 
+"Stakeholder role enum definition"
 enum StakeholderRole {
   ADMIN
   ANALYST
@@ -330,6 +357,7 @@ enum StakeholderRole {
   SERVICE_FORCES
 }
 
+"Subscription report entity enum definition"
 enum SubscriptionReportEntity {
   COMMENTS
   DIGEST
@@ -338,7 +366,7 @@ enum SubscriptionReportEntity {
   PORTFOLIO
 }
 
-"Group Subscription Type"
+"Group subscription type enum definition"
 enum SubscriptionType {
   "Continuous Hacking"
   CONTINUOUS
@@ -346,9 +374,13 @@ enum SubscriptionType {
   ONESHOT
 }
 
+"Update client description treatment enum definition"
 enum UpdateClientDescriptionTreatment {
+  "Temporally accepted"
   ACCEPTED
+  "Permanently accepted"
   ACCEPTED_UNDEFINED
+  "In progress"
   IN_PROGRESS
 }
 
@@ -364,7 +396,7 @@ enum VulnerabilityState {
   UNKNOWN
 }
 
-"Protocol to use in URLRoots"
+"Protocol to use in URLRoots enum definition"
 enum URLProtocol {
   "HTTP"
   HTTP
@@ -372,7 +404,7 @@ enum URLProtocol {
   HTTPS
 }
 
-"Reasons to deactive a Root"
+"Reasons to deactive a Root enum definition"
 enum RootDeactivationReason {
   "The Root was moved or encompassed by another"
   MOVED_TO_ANOTHER_ROOT
