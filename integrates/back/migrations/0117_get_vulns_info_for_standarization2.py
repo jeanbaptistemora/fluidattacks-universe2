@@ -5,22 +5,39 @@ standarization purposes
 
 Execution Time:    2021-08-10 at 10:03:07 UTC-05
 Finalization Time: 2021-08-10 at 10:03:53 UTC-05
+
+Execution Time:    2021-08-18 at 17:05:21 UTC-05
+Finalization Time: 2021-08-18 at 17:06:47 UTC-05
 """
 
 from aioextensions import (
+    collect,
     run,
 )
 import csv
-from dataloaders import (
-    Dataloaders,
-    get_new_context,
-)
 from newutils.vulnerabilities import (
     get_last_status,
 )
 import time
+from typing import (
+    Dict,
+)
+from vulnerabilities import (
+    dal as vulns_dal,
+)
 
 PROD: bool = False
+
+
+async def get_vuln_status(vuln_uuid: str) -> Dict[str, str]:
+    vuln = await vulns_dal.get(vuln_uuid)
+    last_status = get_last_status(vuln[0])
+    if not last_status:
+        last_status = "NOT_FOUND"
+    return {
+        "vuln_uuid": vuln_uuid,
+        "vuln_status": last_status,
+    }
 
 
 async def main() -> None:
@@ -31,23 +48,15 @@ async def main() -> None:
     print(f"    === vulns uuids: {len(vulns_uuids)}")
     print(f"    === sample: {vulns_uuids[:3]}")
 
-    context: Dataloaders = get_new_context()
-    vuln_loader = context.vulnerability
-    vulns = await vuln_loader.load_many(vulns_uuids)
-
-    info = [
-        {
-            "vuln_uuid": vuln["id"],
-            "vuln_status": get_last_status(vuln),
-        }
-        for vuln in vulns
-    ]
+    info = await collect(
+        [get_vuln_status(vuln_uuid) for vuln_uuid in vulns_uuids]
+    )
 
     csv_columns = [
         "vuln_uuid",
         "vuln_status",
     ]
-    csv_file = "0117_vuln_info_aug_10.csv"
+    csv_file = "0117_results.csv"
     success = False
     try:
         with open(csv_file, "w") as f:
