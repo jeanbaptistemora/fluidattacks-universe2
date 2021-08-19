@@ -9,6 +9,7 @@ import base64
 import botocore.exceptions
 from custom_exceptions import (
     DocumentNotFound,
+    InvalidAuthorization,
 )
 from custom_types import (
     GraphicParameters,
@@ -180,6 +181,7 @@ async def handle_graphic_request(request: Request) -> Response:
         )
     except (
         DocumentNotFound,
+        InvalidAuthorization,
         KeyError,
         PermissionError,
         ValueError,
