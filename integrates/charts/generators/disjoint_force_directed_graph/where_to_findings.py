@@ -13,6 +13,9 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
+from decimal import (
+    Decimal,
+)
 from findings import (
     domain as findings_domain,
 )
@@ -48,7 +51,13 @@ async def generate_one(group: str) -> dict:  # pylint: disable=too-many-locals
         group_findings_loader = context.group_findings
         group_findings = await group_findings_loader.load(group)
         group_findings_data = [
-            (finding["finding_id"], finding["title"], finding["cvss_temporal"])
+            (
+                finding["finding_id"],
+                finding["title"],
+                Decimal(finding.get("cvss_temporal", 0.0)).quantize(
+                    Decimal("0.1")
+                ),
+            )
             for finding in group_findings
         ]
     for finding_id, finding_title, finding_cvss in group_findings_data:

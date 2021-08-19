@@ -78,8 +78,7 @@ async def get_data(group: str) -> FindingsTags:
         ]
         findings = [finding["title"] for finding in group_findings_data]
 
-    finding_vulns_loader = context.finding_vulns
-    vulnerabilities = await finding_vulns_loader.load_many(finding_ids)
+    vulnerabilities = await context.finding_vulns_nzr.load_many(finding_ids)
 
     findings_data = await collect(
         [

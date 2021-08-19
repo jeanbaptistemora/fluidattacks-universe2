@@ -518,7 +518,7 @@ async def get_max_open_severity(
     ]
     total_severity: List[float] = cast(
         List[float],
-        [finding.get("cvss_temporal", "") for finding in opened_findings],
+        [finding.get("cvss_temporal", 0.0) for finding in opened_findings],
     )
     if total_severity:
         severity, severity_index = max(
