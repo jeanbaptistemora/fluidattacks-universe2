@@ -37,5 +37,3 @@ LOGGER_HANDLER: logging.StreamHandler = logging.StreamHandler()
 LOGGER: logging.Logger = logging.getLogger("Sorts")
 LOGGER_REMOTE_HANDLER = bugsnag.handlers.BugsnagHandler()
 LOGGER_REMOTE: logging.Logger = logging.getLogger("Sorts.stability")
-
-MIXPANEL_API_TOKEN_SORTS = "e7302b1c55ca87525a134eaef6a51d62"

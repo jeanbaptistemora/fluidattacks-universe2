@@ -3,12 +3,12 @@ import logging
 from mixpanel import (
     Mixpanel,
 )
+import os
 from sorts.constants import (
     LOGGER,
     LOGGER_HANDLER,
     LOGGER_REMOTE,
     LOGGER_REMOTE_HANDLER,
-    MIXPANEL_API_TOKEN_SORTS,
 )
 from sorts.utils.bugs import (
     META as BUGS_META,
@@ -94,4 +94,6 @@ configure()
 
 
 def mixpanel_track(email: str, event_name: str, **extra: str) -> None:
-    Mixpanel(MIXPANEL_API_TOKEN_SORTS).track(email, event_name, {**extra})
+    Mixpanel(
+        os.environ["MIXPANEL_API_TOKEN_SORTS"],
+    ).track(email, event_name, {**extra})
