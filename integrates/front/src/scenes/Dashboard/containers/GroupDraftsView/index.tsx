@@ -34,6 +34,7 @@ import {
   ButtonToolbar,
   ButtonToolbarCenter,
   Col100,
+  HintFieldText,
   Row,
 } from "styles/styledComponents";
 import { FormikAutocompleteText } from "utils/forms/fields";
@@ -232,6 +233,24 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
     [addDraft, groupName, suggestions]
   );
 
+  const getFindingDescription: (findingName: string) => string = (
+    findingName: string
+  ): string => {
+    const [matchingSuggestion]: IDraftVariables[] = suggestions.filter(
+      (suggestion: ISuggestion): boolean =>
+        `${suggestion.key}. ${suggestion.title}` === findingName
+    );
+
+    if (
+      _.isUndefined(matchingSuggestion) ||
+      matchingSuggestion.description.includes("__empty__")
+    ) {
+      return translate.t("group.drafts.hint.empty");
+    }
+
+    return matchingSuggestion.description;
+  };
+
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
   }
@@ -266,13 +285,14 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
           name={"newDraft"}
           onSubmit={handleSubmit}
         >
-          {({ dirty }): JSX.Element => (
+          {({ dirty, isValid, values }): JSX.Element => (
             <Form>
               <Row>
                 <Col100>
                   <Field
                     alignField={"horizontal"}
                     component={FormikAutocompleteText}
+                    focus={true}
                     id={"title"}
                     name={"title"}
                     renderAsEditable={true}
@@ -286,6 +306,17 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
                   />
                 </Col100>
               </Row>
+              {dirty && isValid ? (
+                <React.Fragment>
+                  <hr />
+                  <HintFieldText>
+                    {translate.t("group.drafts.hint.description")}
+                  </HintFieldText>
+                  <HintFieldText>
+                    {getFindingDescription(values.title)}
+                  </HintFieldText>
+                </React.Fragment>
+              ) : undefined}
               <hr />
               <Row>
                 <Col100>
@@ -293,7 +324,10 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
                     <Button onClick={closeNewDraftModal}>
                       {translate.t("confirmmodal.cancel")}
                     </Button>
-                    <Button disabled={!dirty || submitting} type={"submit"}>
+                    <Button
+                      disabled={!dirty || !isValid || submitting}
+                      type={"submit"}
+                    >
                       {translate.t("confirmmodal.proceed")}
                     </Button>
                   </ButtonToolbar>

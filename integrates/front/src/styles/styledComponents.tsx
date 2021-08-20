@@ -237,6 +237,13 @@ const FormGroup: StyledComponent<
   className: "mb4 w-100",
 })``;
 
+const HintFieldText: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "w-auto mb1 mh1",
+})``;
+
 const GraphicButton: StyledComponent<
   "button",
   Record<string, unknown>
@@ -579,6 +586,7 @@ export {
   ExpandableLabel,
   Flex,
   FormGroup,
+  HintFieldText,
   GraphicButton,
   GraphicPanelCollapse,
   GraphicPanelCollapseBody,

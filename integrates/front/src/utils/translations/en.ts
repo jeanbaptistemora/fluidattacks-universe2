@@ -315,6 +315,10 @@ export const enTranslations: ResourceKey = {
         tooltip: "Create a new finding",
       },
       errorSubmit: "Please provide {{missingFields}} before submitting",
+      hint: {
+        description: "Hint: Description",
+        empty: "Not available",
+      },
       new: "New Finding",
       reject: {
         text: "Reject",
