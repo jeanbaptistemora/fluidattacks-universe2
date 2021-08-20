@@ -28,37 +28,42 @@ def ssl_id2ssl_name(ssl_id: SSLVersionId) -> str:
 
 
 class SnippetConstructor:
-    null = "---"
+    placeholder = "---"
+    hline = placeholder * 25
 
     # pylint: disable=unused-argument
-    def get_target(self, ssl_vulnerability: SSLVulnerability) -> str:
-        return "Target: " + self.null
+    def get_server(self, ssl_vulnerability: SSLVulnerability) -> str:
+        return "Server: " + self.placeholder
 
     def get_intention(self, ssl_vulnerability: SSLVulnerability) -> str:
-        return "Intention " + self.null
+        return "Intention " + self.placeholder
 
     def get_versions(self, ssl_vulnerability: SSLVulnerability) -> str:
-        return "Versions: " + self.null
+        return "Versions: " + self.placeholder
 
     def get_request(self, ssl_vulnerability: SSLVulnerability) -> str:
-        return "Request: " + self.null
+        return "Request: " + self.placeholder
 
     def get_response(self, ssl_vulnerability: SSLVulnerability) -> str:
-        return "Response: " + self.null
+        return "Response: " + self.placeholder
 
     def get_result(self, ssl_vulnerability: SSLVulnerability) -> str:
-        return "Result: " + self.null
+        return "Result: " + self.placeholder
 
     def construct(self, ssl_vulnerability: SSLVulnerability) -> str:
         return (
-            "{target}\n"
+            "{server}\n"
             "{intention}\n"
             "{versions}\n"
+            "{hline}\n"
             "{request}\n"
+            "{hline}\n"
             "{response}\n"
+            "{hline}\n"
             "{result}\n"
         ).format(
-            target=self.get_target(ssl_vulnerability),
+            hline=self.hline,
+            server=self.get_server(ssl_vulnerability),
             intention=self.get_intention(ssl_vulnerability),
             versions=self.get_versions(ssl_vulnerability),
             request=self.get_request(ssl_vulnerability),
@@ -69,8 +74,8 @@ class SnippetConstructor:
 
 class SnippetConstructorEN(SnippetConstructor):
     # pylint: disable=no-self-use
-    def get_target(self, ssl_vulnerability: SSLVulnerability) -> str:
-        return f"Target: {ssl_vulnerability.get_context()}"
+    def get_server(self, ssl_vulnerability: SSLVulnerability) -> str:
+        return f"Server: {ssl_vulnerability.get_context()}"
 
     def get_intention(self, ssl_vulnerability: SSLVulnerability) -> str:
         return f"Intention: {ssl_vulnerability.get_intention(LocalesEnum.EN)}"
@@ -143,8 +148,8 @@ class SnippetConstructorEN(SnippetConstructor):
 
 class SnippetConstructorES(SnippetConstructor):
     # pylint: disable=no-self-use
-    def get_target(self, ssl_vulnerability: SSLVulnerability) -> str:
-        return f"Objetivo: {ssl_vulnerability.get_context()}"
+    def get_server(self, ssl_vulnerability: SSLVulnerability) -> str:
+        return f"Servidor: {ssl_vulnerability.get_context()}"
 
     def get_intention(self, ssl_vulnerability: SSLVulnerability) -> str:
         return f"Intención: {ssl_vulnerability.get_intention(LocalesEnum.ES)}"

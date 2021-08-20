@@ -22,11 +22,11 @@ from typing import (
 
 
 class SSLSnippetLine(Enum):
-    TARGET: int = 1
+    SERVER: int = 1
     INTENTION: int = 2
     VERSIONS: int = 3
-    REQUEST: int = 4
-    RESPONSE: int = 11
+    REQUEST: int = 5
+    RESPONSE: int = 13
 
 
 class TLSVersionId(Enum):
