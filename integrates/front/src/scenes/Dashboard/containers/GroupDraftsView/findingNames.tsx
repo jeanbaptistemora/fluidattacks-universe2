@@ -210,7 +210,7 @@ async function getFindingNames(
         return {
           attackComplexity,
           attackVector,
-          attackVectorDesc: validateNotEmpty(vulnsData[key].es.impact),
+          attackVectorDescription: validateNotEmpty(vulnsData[key].es.impact),
           availabilityImpact,
           confidentialityImpact,
           description: validateNotEmpty(vulnsData[key].es.description),
@@ -234,7 +234,7 @@ async function getFindingNames(
       return {
         attackComplexity,
         attackVector,
-        attackVectorDesc: validateNotEmpty(vulnsData[key].en.impact),
+        attackVectorDescription: validateNotEmpty(vulnsData[key].en.impact),
         availabilityImpact,
         confidentialityImpact,
         description: validateNotEmpty(vulnsData[key].en.description),

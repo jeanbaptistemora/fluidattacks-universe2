@@ -54,7 +54,7 @@ async def get_result(
                 actor
                 description
                 requirements
-                attackVectorDesc
+                attackVectorDescription
                 threat
                 recommendation
                 affectedSystems

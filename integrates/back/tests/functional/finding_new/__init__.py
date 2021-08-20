@@ -24,7 +24,7 @@ async def get_result(
                 affectedSystems
                 age
                 analyst
-                attackVectorDesc
+                attackVectorDescription
                 btsUrl
                 closedVulnerabilities
                 compromisedAttributes

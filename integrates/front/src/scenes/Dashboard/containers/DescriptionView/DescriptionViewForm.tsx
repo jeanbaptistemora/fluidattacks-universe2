@@ -221,12 +221,12 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                 {(canEdit: boolean): JSX.Element => (
                   <EditableField
                     component={FormikTextArea}
-                    currentValue={dataset.attackVectorDesc}
+                    currentValue={dataset.attackVectorDescription}
                     id={"searchFindings.tabDescription.attackVectors.tooltip"}
                     label={translate.t(
                       "searchFindings.tabDescription.attackVectors.text"
                     )}
-                    name={"attackVectorDesc"}
+                    name={"attackVectorDescription"}
                     renderAsEditable={isEditing}
                     tooltip={translate.t(
                       "searchFindings.tabDescription.attackVectors.tooltip"

@@ -25,7 +25,7 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
   mutation AddDraftMutation(
     $attackComplexity: String
     $attackVector: String
-    $attackVectorDesc: String
+    $attackVectorDescription: String
     $availabilityImpact: String
     $confidentialityImpact: String
     $description: String
@@ -46,7 +46,7 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
     addDraft(
       attackComplexity: $attackComplexity
       attackVector: $attackVector
-      attackVectorDesc: $attackVectorDesc
+      attackVectorDescription: $attackVectorDescription
       availabilityImpact: $availabilityImpact
       confidentialityImpact: $confidentialityImpact
       description: $description

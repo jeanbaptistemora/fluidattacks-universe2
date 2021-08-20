@@ -68,6 +68,7 @@ from context import (
 )
 
 FINDING = ObjectType("Finding")
+FINDING.set_alias("attackVectorDescription", "attack_vector_desc")
 
 if FI_API_STATUS == "migration":
     FINDING.set_field("age", age_new.resolve)

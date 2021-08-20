@@ -17,7 +17,7 @@ async def get_result(  # pylint: disable=too-many-locals
     finding_id: str = "475041513"
     actor: str = "ANYONE_INTERNET"
     affected_systems: str = "Server bWAPP"
-    attack_vector_desc: str = "This is an updated attack vector"
+    attack_vector_description: str = "This is an updated attack vector"
     records: str = "Clave plana"
     records_number: int = 12
     description: str = "I just have updated the description"
@@ -34,7 +34,7 @@ async def get_result(  # pylint: disable=too-many-locals
             updateDescription(
                 actor: "{actor}",
                 affectedSystems: "{affected_systems}",
-                attackVectorDesc: "{attack_vector_desc}",
+                attackVectorDescription: "{attack_vector_description}",
                 description: "{description}",
                 findingId: "{finding_id}",
                 records: "{records}",

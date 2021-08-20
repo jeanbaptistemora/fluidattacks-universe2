@@ -23,7 +23,7 @@ describe("Finding Description", (): void => {
   const finding: IFinding = {
     actor: "ANY_EMPLOYEE",
     affectedSystems: "BWAPP Server",
-    attackVectorDesc: "Run a reverse shell",
+    attackVectorDescription: "Run a reverse shell",
     compromisedAttributes: "Server files",
     compromisedRecords: 204,
     description: "It's possible to execute shell commands from the site",

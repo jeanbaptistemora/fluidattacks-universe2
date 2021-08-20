@@ -11,7 +11,7 @@ const GET_FINDING_DESCRIPTION: DocumentNode = gql`
       actor
       affectedSystems
       analyst @include(if: $canRetrieveAnalyst)
-      attackVectorDesc
+      attackVectorDescription
       compromisedAttributes
       compromisedRecords
       description
@@ -33,7 +33,7 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
   mutation UpdateFindingDescription(
     $actor: String!
     $affectedSystems: String!
-    $attackVectorDesc: String!
+    $attackVectorDescription: String!
     $compromisedAttributes: String
     $compromisedRecords: Int!
     $description: String!
@@ -49,7 +49,7 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
     updateDescription(
       actor: $actor
       affectedSystems: $affectedSystems
-      attackVectorDesc: $attackVectorDesc
+      attackVectorDescription: $attackVectorDescription
       description: $description
       findingId: $findingId
       records: $compromisedAttributes

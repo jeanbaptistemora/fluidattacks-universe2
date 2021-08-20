@@ -21,7 +21,7 @@ interface IGroupDraftsAttr {
 interface IDraftVariables {
   attackComplexity: string;
   attackVector: string;
-  attackVectorDesc: string;
+  attackVectorDescription: string;
   availabilityImpact: string;
   confidentialityImpact: string;
   description: string;

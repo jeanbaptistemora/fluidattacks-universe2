@@ -12,7 +12,7 @@ interface IFinding {
   actor: string;
   affectedSystems: string;
   analyst?: string;
-  attackVectorDesc: string;
+  attackVectorDescription: string;
   compromisedAttributes: string;
   compromisedRecords: number;
   description: string;

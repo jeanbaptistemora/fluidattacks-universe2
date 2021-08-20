@@ -111,7 +111,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
     requirements: str = (
         "REQ.0132. Passwords (phrase type) must be at least 3 words long."
     )
-    attack_vector_desc: str = "This is an updated attack vector"
+    attack_vector_description: str = "This is an updated attack vector"
     threat: str = "Updated threat"
     recommendation: str = "Updated recommendation"
     affected_systems: str = "Server bWAPP"
@@ -159,7 +159,10 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["affectedSystems"] == affected_systems
     assert result["data"]["finding"]["age"] == age
     assert result["data"]["finding"]["analyst"] == analyst
-    assert result["data"]["finding"]["attackVectorDesc"] == attack_vector_desc
+    assert (
+        result["data"]["finding"]["attackVectorDescription"]
+        == attack_vector_description
+    )
     assert result["data"]["finding"]["btsUrl"] == ""
     assert result["data"]["finding"]["closedVulnerabilities"] == 3
     assert (
@@ -308,7 +311,7 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     requirements: str = (
         "REQ.0132. Passwords (phrase type) must be at least 3 words long."
     )
-    attack_vector_desc: str = "This is an updated attack vector"
+    attack_vector_description: str = "This is an updated attack vector"
     threat: str = "Updated threat"
     recommendation: str = "Updated recommendation"
     affected_systems: str = "Server bWAPP"
@@ -355,7 +358,10 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["actor"] == actor
     assert result["data"]["finding"]["affectedSystems"] == affected_systems
     assert result["data"]["finding"]["age"] == age
-    assert result["data"]["finding"]["attackVectorDesc"] == attack_vector_desc
+    assert (
+        result["data"]["finding"]["attackVectorDescription"]
+        == attack_vector_description
+    )
     assert result["data"]["finding"]["btsUrl"] == ""
     assert result["data"]["finding"]["closedVulnerabilities"] == 3
     assert (

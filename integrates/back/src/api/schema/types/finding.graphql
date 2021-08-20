@@ -6,7 +6,10 @@ type Finding {
   age: Int
   analyst: String
   "Attack vector description"
-  attackVectorDesc: String
+  attackVectorDesc: String @deprecated(reason: """This field will be removed
+  after 2021/12/31. Use `attackVectorDescription` instead.""")
+  "Attack vector description"
+  attackVectorDescription: String
   "External Bug Tracker System URL"
   btsUrl: String
   closedVulnerabilities: Int

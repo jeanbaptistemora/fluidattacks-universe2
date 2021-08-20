@@ -142,7 +142,7 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
           actor
           description
           requirements
-          attackVectorDesc
+          attackVectorDescription
           threat
           recommendation
           affectedSystems
@@ -223,7 +223,7 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
     assert "actor" in result["data"]["finding"]
     assert "description" in result["data"]["finding"]
     assert "requirements" in result["data"]["finding"]
-    assert "attackVectorDesc" in result["data"]["finding"]
+    assert "attackVectorDescription" in result["data"]["finding"]
     assert "threat" in result["data"]["finding"]
     assert "recommendation" in result["data"]["finding"]
     assert "affectedSystems" in result["data"]["finding"]
@@ -469,7 +469,7 @@ async def test_update_description() -> None:
         mutation UpdateFindingDescription(
             $actor: String!,
             $affectedSystems: String!,
-            $attackVectorDesc: String!,
+            $attackVectorDescription: String!,
             $compromisedAttributes: String,
             $compromisedRecords: Int!,
             $description: String!,
@@ -484,7 +484,7 @@ async def test_update_description() -> None:
             updateDescription(
             actor: $actor,
             affectedSystems: $affectedSystems,
-            attackVectorDesc: $attackVectorDesc,
+            attackVectorDescription: $attackVectorDescription,
             description: $description,
             findingId: $findingId,
             records: $compromisedAttributes,
@@ -503,7 +503,7 @@ async def test_update_description() -> None:
     variables = {
         "actor": "ANYONE_INTERNET",
         "affectedSystems": "Server bWAPP",
-        "attackVectorDesc": "This is an updated attack vector",
+        "attackVectorDescription": "This is an updated attack vector",
         "compromisedAttributes": "Clave plana",
         "compromisedRecords": 12,
         "description": "I just have updated the description",
