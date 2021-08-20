@@ -6375,7 +6375,9 @@
       utilizarse para demostrar
       la concesión del consentimiento.
   category: Privacy
-  references: []
+  references:
+    - "006.7_1"
+    - "008.18_1_4"
   metadata: {}
 "312":
   en:
@@ -6429,7 +6431,12 @@
       a la recolección y procesamiento
       de su información.
   category: Privacy
-  references: []
+  references:
+    - "005.6_3"
+    - "006.7_3"
+    - "006.18_1"
+    - "006.21_1"
+    - "008.18_1_4"
   metadata: {}
 "313":
   en:
@@ -6486,7 +6493,10 @@
       recaba y pueda demostrarlo,
       deberá informarles de esta situación.
   category: Privacy
-  references: []
+  references:
+    - "006.11_2"
+    - "008.18_1_4"
+    - "012.V8_3_4"
   metadata: {}
 "314":
   en:
@@ -6530,7 +6540,12 @@
       de los usuarios
       sino de un tercero.
   category: Privacy
-  references: []
+  references:
+    - "006.11_2"
+    - "006.15_1"
+    - "006.89_2"
+    - "006.89_3"
+    - "008.18_1_4"
   metadata: {}
 "315":
   en:
@@ -6603,7 +6618,16 @@
       en un formato estructurado
       y utilizar un lenguaje fácilmente comprensible.
   category: Privacy
-  references: []
+  references:
+    - "005.6_4"
+    - "005.9_1"
+    - "006.11_2"
+    - "006.15_1ag"
+    - "006.20_1"
+    - "006.89_2"
+    - "006.89_3"
+    - "008.18_1_4"
+    - "012.V8_3_4"
   metadata: {}
 "316":
   en:
@@ -6639,7 +6663,12 @@
       sobre esta información y solicitar su rectificación
       si lo consideran necesario.
   category: Privacy
-  references: []
+  references:
+    - "006.11_2"
+    - "006.16_1"
+    - "006.89_2"
+    - "006.89_3"
+    - "008.18_1_4"
   metadata: {}
 "317":
   en:
@@ -6684,7 +6713,12 @@
       si el usuario decide revocar
       su consentimiento.
   category: Privacy
-  references: []
+  references:
+    - "004.212"
+    - "006.11_2"
+    - "006.17_1"
+    - "008.18_1_4"
+    - "012.V8_3_2"
   metadata: {}
 "318":
   en:
@@ -6733,7 +6767,10 @@
       cuando el usuario solicita
       que el sistema deje de procesar sus datos.
   category: Privacy
-  references: []
+  references:
+    - "006.19"
+    - "006.89_3"
+    - "008.18_1_4"
   metadata: {}
 "319":
   en:
