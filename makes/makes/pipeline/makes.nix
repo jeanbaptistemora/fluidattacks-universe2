@@ -50,6 +50,11 @@ let
     stage = "rotation";
     tags = [ "autoscaling" ];
   };
+  gitlabTestCode = {
+    rules = gitlabOnlyDev;
+    stage = "test-code";
+    tags = [ "autoscaling" ];
+  };
   gitlabTestInfra = {
     rules = gitlabOnlyDev;
     stage = "test-infra";
@@ -216,6 +221,10 @@ in
         {
           output = "/lintWithAjv/makes/criteria/vulnerabilities";
           gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/makes/criteria/test";
+          gitlabExtra = gitlabTestCode;
         }
         {
           output = "/pipelineOnGitlab/makes";
