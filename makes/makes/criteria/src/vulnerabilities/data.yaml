@@ -9898,39 +9898,45 @@
   en:
     title: Lack of data validation - Host Header Injection
     description: >
-      __empty__
+      The application allows to manipulate the host header
+      which may lead to unintended redirects
+      to malicious websites.
     impact: >
-      __empty__
+      Redirect the user to harfmful websites
     recommendation: >
-      __empty__
+      Validate the host header against a whitelist
+      of trusty domains
     threat: >
-      __empty__
+      Anonymous attacker from adjacent network
   es:
     title: Lack of data validation - Host Header Injection
     description: >
-      __empty__
+      La aplicación permite manipular la cabecera host
+      lo cual podría conducir a redirecciones no controladas
+      a sitios web maliciosos
     impact: >
-      __empty__
+      Redirigir al usuario a sitios maliciosos
     recommendation: >
-      __empty__
+      Validar la cabecera host contra una lista blanca
+      de dominios confiables permitidos
     threat: >
-      __empty__
+      Atacante anónimo desde una red adyacente
   category: Inject Unexpected
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
       confidentiality: "N"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: ["119", "266"]
+      exploit_code_maturity: "H"
+      remediation_level: "U"
+      report_confidence: "C"
+  requirements: ["176"]
   metadata: {}
 "194":
   en:
@@ -11494,23 +11500,30 @@
   en:
     title: Technical information leak - Headers
     description: >
-      __empty__
+      It is possible to obtain technical information
+      such as technology names or component versions
+      through the server response headers.
     impact: >
-      __empty__
+      Obtain technical information to craft new attack vectors
     recommendation: >
-      __empty__
+      Verify that HTTP response headers
+      do not contain any name or version
     threat: >
-      __empty__
+      Anonymous attacker from the Internet
   es:
     title: Technical information leak - Headers
     description: >
-      __empty__
+      Es posible obtener información técnica
+      como nombres de tecnologías o versiones de componentes
+      mediante las cabeceras de respuesta del servidor
     impact: >
-      __empty__
+      Obtener información técnica
+      para elaborar nuevos vectores de ataque
     recommendation: >
-      __empty__
+      Verificar que las respuestas HTTP
+      no contengan ningún nombre o versión
     threat: >
-      __empty__
+      Atacante anónimo desde Internet
   category: Collect Information
   score:
     base:
@@ -11519,14 +11532,14 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "N"
-      integrity: "L"
+      confidentiality: "L"
+      integrity: "N"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: ["119", "266"]
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
+  requirements: ["176"]
   metadata: {}
 "236":
   en:
@@ -15091,7 +15104,7 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "L"
       user_interaction: "N"
       scope: "U"
@@ -16290,41 +16303,28 @@
       report_confidence: "C"
   requirements: ["119", "266"]
   metadata: {}
-"366":
+"361":
   en:
-    title: Inappropriate coding practices - Transparency Conflict
+    title: Missing secure obfuscation - JavaScript
     description: >
-      Attackers will attempt to exploit unpatched flaws or access
-      default accounts, unused pages, unprotected files and directories,
-      etc to gain unauthorized access or knowledge of the system.
+      __empty__
     impact: >
-      Such flaws frequently give attackers unauthorized access to some
-      system data or functionality. Occasionally, such flaws result in
-      a complete system compromise.
+      __empty__
     recommendation: >
-      Remove or do not install unused features and frameworks.
-      Run an automated process to verify the effectiveness of settings
-      and adjustments in all environments.
+      __empty__
     threat: >
-      Anonymous attacker from Internet.
+      __empty__
+  category: Inject Unexpected
   es:
-    title: Anotaciones de transparencia en conflicto
+    title: Missing secure obfuscation - JavaScript
     description: >
-      Los atacantes a intentarán explotar fallas no reparadas o
-      acceder a cuentas predeterminadas, páginas no utilizadas, archivos
-      y directorios desprotegidos, etc. para obtener acceso no autorizado
-      o conocimiento del sistema.
+      __empty__
     impact: >
-      Con frecuencia, estos defectos dan a los atacantes acceso no
-      autorizado a algunos datos o funciones del sistema. Ocasionalmente,
-      tales fallas resultan en un compromiso completo del sistema.
+      __empty__
     recommendation: >
-      Elimine o no instale funciones y marcos no utilizados.
-      Ejecute un proceso automatizado para verificar la efectividad
-      de las configuraciones y ajustes en todos los entornos.
+      __empty__
     threat: >
-      Atacante anónimo desde Internet.
-  category: Deceptive Interactions
+      __empty__
   score:
     base:
       attack_vector: "N"
@@ -16332,12 +16332,219 @@
       privileges_required: "N"
       user_interaction: "N"
       scope: "U"
-      confidentiality: "L"
+      confidentiality: "N"
       integrity: "L"
-      availability: "L"
+      availability: "N"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["266"]
+  requirements: ["119", "266"]
   metadata: {}
+"362":
+  en:
+    title: Technical information leak - Content response
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  category: Inject Unexpected
+  es:
+    title: Technical information leak - Content response
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: ["119", "266"]
+  metadata: {}
+"363":
+  en:
+    title: Weak credential policy - Password strength
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  category: Inject Unexpected
+  es:
+    title: Weak credential policy - Password strength
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: ["119", "266"]
+  metadata: {}
+"364":
+  en:
+    title: Weak credential policy - Temporary passwords
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  category: Inject Unexpected
+  es:
+    title: Weak credential policy - Temporary passwords
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: ["119", "266"]
+  metadata: {}
+"365":
+  en:
+    title: Authentication mechanism absence or evasion - Response tampering
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  category: Inject Unexpected
+  es:
+    title: Authentication mechanism absence or evasion - Response tampering
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: ["119", "266"]
+  metadata: {}
+"366":
+  en:
+    title: Inappropriate coding practices - Transparency Conflict
+    description: >
+      The application uses Transparency attributes
+      such as SecurityCriticalAttribute and SecuritySafeCriticalAttribute
+      to identify code that performs critical security operations.
+      However a trasparency conflict is created
+      when a member is marked with a security attribute
+      that has a different transparency than the security attribute
+      of a container of the member.
+    impact: >
+      Cause unexpected behaviors in the application
+    recommendation: >
+      Remove nested transparency annotation
+      to avoid security attributes conflicts
+    threat: >
+      Anonymous attacker from Internet.
+  es:
+    title: Inappropriate coding practices - Transparency Conflict
+    description: >
+      La aplicación utiliza atributos de transparencia
+      como SecurityCriticalAttribute y SecuritySafeCriticalAttribute
+      para identificar código que ejecuta operaciones críticas de seguridad.
+      Sin embargo, se crea un conflicto de transparencia
+      cuando un miembro es marcado con un atributo de seguridad
+      que tiene una transparencia diferente
+      a la transparencia del contenedor de dicho miembro.
+    impact: >
+      Causar comportamientos inesperados en la aplicación
+    recommendation: >
+      Eliminar anotaciones de transparencia anidadas
+      para evitar conflictos en los atributos de seguridad
+    threat: >
+      Atacante anónimo desde Internet.
+  category: Abuse Functionality
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "H"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "U"
+      remediation_level: "U"
+      report_confidence: "R"
+  requirements: ["266"]
+  metadata:
+    en:
+      details: >
+        https://rules.sonarsource.com/csharp/type/Vulnerability/RSPEC-4211
