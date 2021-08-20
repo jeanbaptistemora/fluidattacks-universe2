@@ -1,6 +1,9 @@
 from _pytest.monkeypatch import (
     MonkeyPatch,
 )
+from aiodataloader import (
+    DataLoader,
+)
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
@@ -12,6 +15,7 @@ from typing import (
     Any,
     Dict,
     List,
+    NamedTuple,
 )
 
 
@@ -36,6 +40,7 @@ async def test_has_open_vulns(
     async def mocked_query(*_) -> List[Dict[str, Any]]:  # type: ignore
         return [
             {
+                "finding_id": "",
                 "repo_nickname": "product",
                 "UUID": "123",
                 "historic_state": [{"state": state}],
@@ -46,5 +51,46 @@ async def test_has_open_vulns(
 
     monkeypatch.setattr(dynamodb_ops, "query", mocked_query)
 
-    result = await roots_dal.has_open_vulns(nickname="product")
+    class MockedDraftsLoader(DataLoader):
+        async def batch_load_fn(*_):
+            return [[]]
+
+    class MockedContext(NamedTuple):
+        group_drafts: MockedDraftsLoader
+
+    result = await roots_dal.has_open_vulns(
+        nickname="product",
+        context=MockedContext(group_drafts=MockedDraftsLoader()),
+        group_name="",
+    )
     assert result == expected_result
+
+
+@pytest.mark.asyncio
+async def test_has_open_draft_vulns(monkeypatch: MonkeyPatch) -> None:
+    async def mocked_query(*_) -> List[Dict[str, Any]]:  # type: ignore
+        return [
+            {
+                "finding_id": "123",
+                "repo_nickname": "product",
+                "UUID": "123",
+                "historic_state": [{"state": "OPEN"}],
+                "historic_treatment": [{"treatment": "NEW"}],
+            }
+        ]
+
+    monkeypatch.setattr(dynamodb_ops, "query", mocked_query)
+
+    class MockedDraftsLoader(DataLoader):
+        async def batch_load_fn(*_):
+            return [[{"id": "123"}]]
+
+    class MockedContext(NamedTuple):
+        group_drafts: MockedDraftsLoader
+
+    result = await roots_dal.has_open_vulns(
+        nickname="product",
+        context=MockedContext(group_drafts=MockedDraftsLoader()),
+        group_name="",
+    )
+    assert result == False

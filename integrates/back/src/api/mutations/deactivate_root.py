@@ -39,12 +39,14 @@ from typing import (
 
 @require_service_white
 async def deactivate_git_root(
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     root: GitRootItem,
     user_email: str,
     **kwargs: Any,
 ) -> None:
-    if await roots_domain.has_open_vulns(root):
+    if await roots_domain.has_open_vulns(
+        root, info.context.loaders, kwargs["group_name"]
+    ):
         raise HasOpenVulns()
     await roots_domain.deactivate_root(
         group_name=kwargs["group_name"],
@@ -57,12 +59,14 @@ async def deactivate_git_root(
 
 @require_service_black
 async def deactivate_ip_root(
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     root: IPRootItem,
     user_email: str,
     **kwargs: Any,
 ) -> None:
-    if await roots_domain.has_open_vulns(root):
+    if await roots_domain.has_open_vulns(
+        root, info.context.loaders, kwargs["group_name"]
+    ):
         raise HasOpenVulns()
     await roots_domain.deactivate_root(
         group_name=kwargs["group_name"],
@@ -75,12 +79,14 @@ async def deactivate_ip_root(
 
 @require_service_black
 async def deactivate_url_root(
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     root: URLRootItem,
     user_email: str,
     **kwargs: Any,
 ) -> None:
-    if await roots_domain.has_open_vulns(root):
+    if await roots_domain.has_open_vulns(
+        root, info.context.loaders, kwargs["group_name"]
+    ):
         raise HasOpenVulns()
     await roots_domain.deactivate_root(
         group_name=kwargs["group_name"],

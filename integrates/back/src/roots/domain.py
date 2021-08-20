@@ -458,8 +458,12 @@ async def update_root_cloning_status(
     )
 
 
-async def has_open_vulns(root: GitRootItem) -> bool:
-    return await roots_dal.has_open_vulns(nickname=root.state.nickname)
+async def has_open_vulns(
+    root: GitRootItem, context: Any, group_name: str
+) -> bool:
+    return await roots_dal.has_open_vulns(
+        nickname=root.state.nickname, context=context, group_name=group_name
+    )
 
 
 async def activate_root(

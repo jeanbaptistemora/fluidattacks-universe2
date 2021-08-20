@@ -43,8 +43,13 @@ def _filter_open_and_accepted_undef_vulns(vuln: Dict[str, Any]) -> bool:
     return result
 
 
-async def has_open_vulns(*, nickname: str) -> bool:
+async def has_open_vulns(
+    *, nickname: str, context: Any, group_name: str
+) -> bool:
     vulns = await get_root_vulns(nickname=nickname)
+    draft_ids = (
+        draft["id"] for draft in await context.group_drafts.load(group_name)
+    )
 
     return bool(
         next(
@@ -52,6 +57,7 @@ async def has_open_vulns(*, nickname: str) -> bool:
                 vuln
                 for vuln in vulns
                 if _filter_open_and_accepted_undef_vulns(vuln)
+                and vuln["finding_id"] not in draft_ids
             ),
             None,
         )
