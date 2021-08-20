@@ -28,7 +28,6 @@ from typing import (
     Dict,
     List,
     Optional,
-    Union,
 )
 
 logging.config.dictConfig(LOGGING)

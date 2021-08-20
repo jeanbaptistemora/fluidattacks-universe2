@@ -123,8 +123,8 @@ async def get_data_one_organization(
 def get_best_organization(
     *, organizations: List[OrganizationCvssfBenchmarking]
 ) -> OrganizationCvssfBenchmarking:
-    return (
-        max(
+    if organizations:
+        return max(
             organizations,
             key=lambda organization: Decimal(
                 organization.closed / organization.total
@@ -132,14 +132,13 @@ def get_best_organization(
             if organization.total > Decimal("0.0")
             else Decimal("0.0"),
         )
-        if organizations
-        else OrganizationCvssfBenchmarking(
-            accepted=Decimal("0.0"),
-            closed=Decimal("1.0"),
-            open=Decimal("0.0"),
-            organization_id="",
-            total=Decimal("1.0"),
-        )
+
+    return OrganizationCvssfBenchmarking(
+        accepted=Decimal("0.0"),
+        closed=Decimal("1.0"),
+        open=Decimal("0.0"),
+        organization_id="",
+        total=Decimal("1.0"),
     )
 
 

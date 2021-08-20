@@ -19,7 +19,6 @@ from datetime import (
 )
 from decimal import (
     Decimal,
-    ROUND_CEILING,
 )
 from findings import (
     domain as findings_domain,
@@ -70,15 +69,15 @@ class VulnerabilitiesStatusByTimeRange(NamedTuple):
 
 
 class RegisterByWeek(NamedTuple):
-    vulnerabilities: List[List[Dict[str, Union[str, int]]]]
-    vulnerabilities_cvssf: List[List[Dict[str, Union[str, int]]]]
+    vulnerabilities: List[List[Dict[str, Union[str, Decimal]]]]
+    vulnerabilities_cvssf: List[List[Dict[str, Union[str, Decimal]]]]
 
 
 def create_data_format_chart(
-    all_registers: Dict[str, Dict[str, int]]
-) -> List[List[Dict[str, Union[str, int]]]]:
+    all_registers: Dict[str, Dict[str, Decimal]]
+) -> List[List[Dict[str, Union[str, Decimal]]]]:
     result_data = []
-    plot_points: Dict[str, List[Dict[str, Union[str, int]]]] = {
+    plot_points: Dict[str, List[Dict[str, Union[str, Decimal]]]] = {
         "found": [],
         "closed": [],
         "accepted": [],
@@ -159,44 +158,40 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
             ):
                 week_dates = create_weekly_date(first_day)
                 all_registers[week_dates] = {
-                    "found": found,
-                    "closed": result_vulns_by_week.closed_vulnerabilities,
-                    "accepted": result_vulns_by_week.accepted_vulnerabilities,
-                    "assumed_closed": (
+                    "found": Decimal(found),
+                    "closed": Decimal(
+                        result_vulns_by_week.closed_vulnerabilities
+                    ),
+                    "accepted": Decimal(
+                        result_vulns_by_week.accepted_vulnerabilities
+                    ),
+                    "assumed_closed": Decimal(
                         result_vulns_by_week.accepted_vulnerabilities
                         + result_vulns_by_week.closed_vulnerabilities
                     ),
-                    "opened": found
-                    - result_vulns_by_week.closed_vulnerabilities
-                    - result_vulns_by_week.accepted_vulnerabilities,
+                    "opened": Decimal(
+                        found
+                        - result_vulns_by_week.closed_vulnerabilities
+                        - result_vulns_by_week.accepted_vulnerabilities
+                    ),
                 }
                 all_registers_cvsff[week_dates] = {
-                    "found": int(
-                        found_cvssf.to_integral_exact(rounding=ROUND_CEILING)
+                    "found": found_cvssf.quantize(Decimal("0.1")),
+                    "closed": result_vulns_by_week.closed_cvssf.quantize(
+                        Decimal("0.1")
                     ),
-                    "closed": int(
-                        result_vulns_by_week.closed_cvssf.to_integral_exact(
-                            rounding=ROUND_CEILING
-                        )
+                    "accepted": result_vulns_by_week.accepted_cvssf.quantize(
+                        Decimal("0.1")
                     ),
-                    "accepted": int(
-                        result_vulns_by_week.accepted_cvssf.to_integral_exact(
-                            rounding=ROUND_CEILING
-                        )
-                    ),
-                    "assumed_closed": int(
-                        (
-                            result_vulns_by_week.accepted_cvssf
-                            + result_vulns_by_week.closed_cvssf
-                        ).to_integral_exact(rounding=ROUND_CEILING)
-                    ),
-                    "opened": int(
-                        (
-                            found_cvssf
-                            - result_vulns_by_week.closed_cvssf
-                            - result_vulns_by_week.accepted_cvssf
-                        ).to_integral_exact(rounding=ROUND_CEILING)
-                    ),
+                    "assumed_closed": (
+                        result_vulns_by_week.accepted_cvssf
+                        + result_vulns_by_week.closed_cvssf
+                    ).quantize(Decimal("0.1")),
+                    "opened": (
+                        found_cvssf
+                        - result_vulns_by_week.closed_cvssf
+                        - result_vulns_by_week.accepted_cvssf
+                    ).quantize(Decimal("0.1")),
                 }
             first_day = datetime_utils.get_as_str(
                 datetime_utils.get_plus_delta(

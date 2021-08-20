@@ -61,7 +61,9 @@ def translate_date(date_str: str) -> datetime:
 
 
 def format_document(
-    document: Dict[str, Dict[datetime, float]], y_label: str
+    document: Dict[str, Dict[datetime, float]],
+    y_label: str,
+    tick_format: bool = True,
 ) -> dict:
     return dict(
         data=dict(
@@ -126,5 +128,5 @@ def format_document(
             ),
             r=5,
         ),
-        barChartYTickFormat=True,
+        barChartYTickFormat=tick_format,
     )

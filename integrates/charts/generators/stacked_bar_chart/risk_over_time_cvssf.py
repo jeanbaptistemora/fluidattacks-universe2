@@ -132,6 +132,7 @@ async def generate_all() -> None:
                         group, days if days else None
                     ),
                     y_label=y_label,
+                    tick_format=False,
                 ),
                 entity="group",
                 subject=group + (f"_{days}" if days else ""),
@@ -146,6 +147,7 @@ async def generate_all() -> None:
                         org_groups, days if days else None
                     ),
                     y_label=y_label,
+                    tick_format=False,
                 ),
                 entity="organization",
                 subject=org_id + (f"_{days}" if days else ""),
@@ -163,6 +165,7 @@ async def generate_all() -> None:
                             groups, days if days else None
                         ),
                         y_label=y_label,
+                        tick_format=False,
                     ),
                     entity="portfolio",
                     subject=f"{org_id}PORTFOLIO#{portfolio}"
