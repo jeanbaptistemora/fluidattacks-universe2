@@ -8,11 +8,15 @@ from sast_transformations.control_flow.common import (
     GenericType,
     link_to_last_node,
     propagate_next_id_from_parent,
+    set_next_id,
     step_by_step,
 )
 from sast_transformations.control_flow.types import (
     EdgeAttrs,
     Stack,
+)
+from typing import (
+    Optional,
 )
 from utils import (
     graph as g,
@@ -58,18 +62,37 @@ def _generic(
 def _try_catch_statement(
     graph: Graph, n_id: str, stack: Stack, *, _generic: GenericType
 ) -> None:
-    match = g.match_ast_group(graph, n_id, "statements", "catch_block")
+    def _set_next_id(stack: Stack, next_id: Optional[str]) -> None:
+        if next_id:
+            set_next_id(stack, next_id)
+        else:
+            propagate_next_id_from_parent(stack)
+
+    match = g.match_ast_group(
+        graph, n_id, "statements", "catch_block", "finally_block"
+    )
+    next_id: Optional[str] = None
+    if match["finally_block"]:
+        finally_actions = g.match_ast(
+            graph, match["finally_block"][0], "statements"
+        )
+        if finally_block := finally_actions["statements"]:
+            next_id = finally_block
+            propagate_next_id_from_parent(stack)
+            _generic(graph, finally_block, stack, edge_attrs=g.ALWAYS)
+
     if match["statements"]:
         try_block_id = match["statements"][0]
         graph.add_edge(n_id, try_block_id, **g.ALWAYS)
-        propagate_next_id_from_parent(stack)
+        _set_next_id(stack, next_id)
         _generic(graph, try_block_id, stack, edge_attrs=g.ALWAYS)
+
     if match["catch_block"]:
         for catch_id in match["catch_block"]:
             catch_actions = g.match_ast(graph, catch_id, "statements")
             if catch_block := catch_actions["statements"]:
                 graph.add_edge(n_id, catch_block, **g.MAYBE)
-                propagate_next_id_from_parent(stack)
+                _set_next_id(stack, next_id)
                 _generic(graph, catch_block, stack, edge_attrs=g.ALWAYS)
 
 

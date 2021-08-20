@@ -195,9 +195,6 @@ class ServerInfoActivity : AppCompatActivity() {
         this.serverIPAddress = prefs!!.getString("ip_address", "127.0.0.1")
         this.serverPort = prefs!!.getString("port", "8080")
 
-        findViewById<EditText>(R.id.IPAddress).setText(this.serverIPAddress)
-        findViewById<EditText>(R.id.port).setText(this.serverPort)
-
         var buttonSave: Button = findViewById(R.id.buttonSave)
 
         buttonSave.setOnClickListener {
