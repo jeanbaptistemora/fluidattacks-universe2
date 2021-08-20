@@ -4334,7 +4334,13 @@
       si la aplicación no está enfocada.
     description: __empty__
   category: Data
-  references: []
+  references:
+    - "004.200"
+    - "004.359"
+    - "006.5_1f"
+    - "008.18_1_3"
+    - "012.V8_3_4"
+    - "013.A3"
   metadata: {}
 "185":
   en:
@@ -4387,7 +4393,25 @@
       accedido al sistema de almacenamiento
       obtengan la información.
   category: Data
-  references: []
+  references:
+    - "003.3_11"
+    - "004.311"
+    - "005.4_1a"
+    - "006.32_1a"
+    - "006.R45"
+    - "008.18_1_3"
+    - "009.011-2_R1_2"
+    - "012.C_6"
+    - "012.V6_1_1"
+    - "012.V6_1_2"
+    - "012.V6_1_3"
+    - "012.V8_3_7"
+    - "013.A3"
+    - "014.2_3"
+    - "014.3_4"
+    - "014.3_5_3"
+    - "014.6_5_3"
+    - "014.8_2_1"
   metadata: {}
 "186":
   en:
@@ -4436,7 +4460,37 @@
       mayor impacto al explotar
       otras vulnerabilidades.
   category: System
-  references: []
+  references:
+    - "002.17"
+    - "002.23"
+    - "002.27"
+    - "002.35"
+    - "002.122"
+    - "002.153"
+    - "002.176"
+    - "002.233"
+    - "003.2_7"
+    - "004.250"
+    - "004.269"
+    - "004.272"
+    - "004.276"
+    - "004.285"
+    - "004.732"
+    - "010.AC-6"
+    - "012.V1_2_1"
+    - "012.V1_4_3"
+    - "012.V4_1_3"
+    - "012.V4_1_4"
+    - "012.V10_2_2"
+    - "012.V14_2_6"
+    - "013.A5"
+    - "014.A1_1"
+    - "014.A1_2"
+    - "014.3_4_1"
+    - "014.3_5_2"
+    - "014.5_3"
+    - "014.6_5_8"
+    - "014.7_1_2"
   metadata: {}
 "189":
   en:
@@ -4488,7 +4542,17 @@
       para la recolección
       y procesamiento de datos.
   category: Privacy
-  references: []
+  references:
+    - "005.6_4"
+    - "005.9_1"
+    - "006.13_1-3"
+    - "006.14_1-4"
+    - "006.30"
+    - "006.R39"
+    - "006.R40"
+    - "006.R45"
+    - "008.18_1_4"
+    - "012.V8_3_3"
   metadata: {}
 "205":
   en:
@@ -4509,7 +4573,8 @@
       configurado en la tarjeta SIM.
     description: __empty__
   category: Devices
-  references: []
+  references:
+    - "013.A6"
   metadata: {}
 "206":
   en:
@@ -4537,7 +4602,8 @@
       como Bluetooth, NFC y Tethering.
     description: __empty__
   category: Devices
-  references: []
+  references:
+    - "013.A6"
   metadata: {}
 "209":
   en:
@@ -4557,7 +4623,9 @@
       de autenticación.
     description: __empty__
   category: Devices
-  references: []
+  references:
+    - "013.A2"
+    - "014.6_5_10"
   metadata: {}
 "210":
   en:
@@ -4578,7 +4646,11 @@
       fallidos de autenticación.
     description: __empty__
   category: Devices
-  references: []
+  references:
+    - "004.459"
+    - "005.4_1a"
+    - "012.C_25"
+    - "012.V8_3_8"
   metadata: {}
 "213":
   en:
@@ -4616,7 +4688,12 @@
       en caso de pérdida.
     description: __empty__
   category: Devices
-  references: []
+  references:
+    - "007.164_310_d_2_i"
+    - "007.164_312_e_2_i"
+    - "012.C_25"
+    - "012.C_31"
+    - "012.V8_3_6"
   metadata: {}
 "221":
   en:
