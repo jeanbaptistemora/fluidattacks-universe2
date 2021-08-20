@@ -27,10 +27,10 @@ def main() -> None:
         local_merged_file: str = os.path.join(tmpdir, merged_filename)
         remote_merged_file: str = f"training/{merged_filename}"
         merged_features: DataFrame = pd.DataFrame()
+        redshift.delete("features")
         for file in os.listdir(tmpdir):
             features: DataFrame = pd.read_csv(os.path.join(tmpdir, file))
             merged_features = pd.concat([merged_features, features])
-            redshift.delete("features")
             redshift.insert(
                 "features",
                 {
