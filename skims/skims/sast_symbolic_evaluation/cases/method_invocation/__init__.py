@@ -74,6 +74,9 @@ BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set(
         "Encoding.UTF8.GetBytes",
         # javascript
         "child_process.exec",
+        "decodeURI",
+        "encodeURIComponent",
+        "Object.values",
     }
 )
 STATIC_FINDING: Dict[str, Set[str]] = {

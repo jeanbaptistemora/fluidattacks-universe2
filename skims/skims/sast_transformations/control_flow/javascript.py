@@ -233,13 +233,13 @@ def _generic(
 
 def unnamed_function(graph: Graph, n_id: str, stack: Stack) -> None:
     current_node_adj = g.adj_cfg(graph, n_id)
-    for pred_id in g.pred_ast_lazy(graph, n_id, depth=-1):
-        node_attrs = graph.nodes[n_id]
-        if "label_field_body" not in node_attrs:
-            continue
+    node_attrs = graph.nodes[n_id]
+    if "label_field_body" not in node_attrs:
+        return
 
+    for pred_id in g.pred_ast_lazy(graph, n_id, depth=-1):
         adj_ids = g.adj_cfg(graph, pred_id)
-        if not (adj_ids or g.pred_cfg(graph, n_id)):
+        if not (adj_ids or g.pred_cfg(graph, pred_id)):
             continue
 
         last_statement: Optional[str] = None

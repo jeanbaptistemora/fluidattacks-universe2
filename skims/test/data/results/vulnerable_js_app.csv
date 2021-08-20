@@ -124,3 +124,128 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test004.js,9,78,skims,004. Remote 
   21 |     res.json(data);
      ^ Col 0
 "
+F004,lines,VULNERABLE_JS_APP/routes/testcases/test012.js,11,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+   1 | const {
+   2 |   exec
+   3 | } = require(""child_process"");
+   4 | var express = require('express');
+   5 | var router = express.Router();
+   6 |
+   7 | router.get('/test012/:user', function (req, res) {
+   8 |   var user_files = [];
+   9 |   var user = """";
+  10 |   for (user of Object.values(req.params)) {
+> 11 |     exec(""ls test/test_files/users/"" + user + ""/"", (error, stdout, stderr) => {
+  12 |
+  13 |       for (file of stdout.split('\n')) {
+  14 |         if (file) {
+  15 |           user_files.push(file);
+  16 |         }
+  17 |       }
+  18 |
+  19 |       var data = {
+  20 |         'user_files': user_files
+  21 |       };
+     ^ Col 0
+"
+F004,lines,VULNERABLE_JS_APP/routes/testcases/test010.js,14,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+   4 | var express = require('express');
+   5 | var router = express.Router();
+   6 |
+   7 | router.get('/test010/:user', function (req, res) {
+   8 |   var user = """";
+   9 |   var parameters = req.params;
+  10 |   if (req.params['user'] != undefined) {
+  11 |     user = parameters['user'];
+  12 |   }
+  13 |   user = decodeURI(user);
+> 14 |   exec(`ls test/test_files/users/${user}/`, (error, stdout, stderr) => {
+  15 |
+  16 |     var user_files = [];
+  17 |     for (file of stdout.split('\n')) {
+  18 |       if (file) {
+  19 |         user_files.push(file);
+  20 |       }
+  21 |     }
+  22 |
+  23 |     var data = {
+  24 |       'user_files': user_files
+     ^ Col 0
+"
+F004,lines,VULNERABLE_JS_APP/routes/testcases/test013.js,15,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+   5 | var router = express.Router();
+   6 |
+   7 | router.get('/test013/:user', function (req, res) {
+   8 |   var user_files = [];
+   9 |   var user = """";
+  10 |   var paramValues = Object.values(req.params);
+  11 |   if (paramValues.length > 0) {
+  12 |     user = paramValues[0];
+  13 |   }
+  14 |   if (user) {
+> 15 |     exec(""ls test/test_files/users/"" + user + ""/"", (error, stdout, stderr) => {
+  16 |
+  17 |       for (file of stdout.split('\n')) {
+  18 |         if (file) {
+  19 |           user_files.push(file);
+  20 |         }
+  21 |       }
+  22 |
+  23 |       var data = {
+  24 |         'user_files': user_files
+  25 |       };
+     ^ Col 0
+"
+F004,lines,VULNERABLE_JS_APP/routes/testcases/test011.js,16,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+   6 |
+   7 | router.get('/test011/:user', function (req, res) {
+   8 |   var user = """";
+   9 |   for(key of Object.keys(req.params))
+  10 |   {
+  11 |     if (key == 'user'){
+  12 |       user = req.params[key];
+  13 |       break;
+  14 |     }
+  15 |   }
+> 16 |   exec(""ls test/test_files/users/"" + user + ""/"", (error, stdout, stderr) => {
+  17 |
+  18 |     var user_files = [];
+  19 |     for (file of stdout.split('\n')) {
+  20 |       if (file) {
+  21 |         user_files.push(file);
+  22 |       }
+  23 |     }
+  24 |
+  25 |     var data = {
+  26 |       'user_files': user_files
+     ^ Col 0
+"
+F004,lines,VULNERABLE_JS_APP/routes/testcases/test014.js,31,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+  21 |       break;
+  22 |     case 'C':
+  23 |     case 'D':
+  24 |       user = param;
+  25 |       break;
+  26 |     default:
+  27 |       uer = ""bobs_your_uncle"";
+  28 |       break;
+  29 |   }
+  30 |
+> 31 |   exec(""ls test/test_files/users/"" + user + ""/"", (error, stdout, stderr) => {
+  32 |
+  33 |     for (file of stdout.split('\n')) {
+  34 |       if (file) {
+  35 |         user_files.push(file);
+  36 |       }
+  37 |     }
+  38 |
+  39 |     var data = {
+  40 |       'user_files': user_files
+  41 |     };
+     ^ Col 0
+"

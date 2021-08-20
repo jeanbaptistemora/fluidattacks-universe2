@@ -653,6 +653,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "string",
             "verbatim_string_literal",
             "true",
+            "undefined",
         },
         syntax_readers=(common_literal.reader,),
     ),

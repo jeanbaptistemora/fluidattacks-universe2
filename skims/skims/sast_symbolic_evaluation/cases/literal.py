@@ -14,6 +14,7 @@ def evaluate(args: EvaluatorArgs) -> None:
             "nil": None,
             "null": None,
             "true": True,
+            "undefined": None,
         }[args.syntax_step.value]
     elif args.syntax_step.value_type == "number":
         args.syntax_step.meta.value = float(args.syntax_step.value)
