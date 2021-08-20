@@ -160,7 +160,7 @@ class SnippetConstructorES(SnippetConstructor):
         return (
             "Petición:\n"
             "    Fallback scsv: {scsv}\n"
-            "    Versión TLS: {tls_version}"
+            "    Versión TLS: {tls_version}\n"
             "    Intercambio de llaves: {key_exchange}\n"
             "    Autenticación: {authentication}\n"
             "    Encriptado: {cipher}\n"
