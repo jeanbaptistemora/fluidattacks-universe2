@@ -12,12 +12,14 @@ import style from "utils/forms/index.css";
 interface IAutocompleteTextProps
   extends FieldProps<string, Record<string, string>>,
     Omit<InputHTMLAttributes<HTMLInputElement>, "form"> {
+  focus: boolean;
   suggestions: string[];
 }
 
 export const FormikAutocompleteText: React.FC<IAutocompleteTextProps> = ({
   disabled,
   field,
+  focus,
   form,
   suggestions,
 }: IAutocompleteTextProps): JSX.Element => {
@@ -42,6 +44,7 @@ export const FormikAutocompleteText: React.FC<IAutocompleteTextProps> = ({
     <React.Fragment>
       <StyledInput
         autoComplete={"off"}
+        autoFocus={focus} // eslint-disable-line jsx-a11y/no-autofocus
         disabled={disabled}
         name={name}
         onChange={onChange}
