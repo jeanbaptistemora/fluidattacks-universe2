@@ -90,6 +90,7 @@ async def batch_load_fn_vulns(
                 report_date=cast(HistoricType, vuln["historic_state"])[0][
                     "date"
                 ],
+                root_nickname=vuln.get("repo_nickname"),
                 severity=cast(str, vuln.get("severity", "")),
                 source=source,
                 specific=cast(str, vuln.get("specific", "")),
