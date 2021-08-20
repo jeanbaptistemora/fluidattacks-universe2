@@ -17,6 +17,7 @@ from db_model.findings.enums import (
 )
 from db_model.findings.types import (
     Finding,
+    Finding31Severity,
     FindingVerification,
 )
 from findings import (
@@ -518,6 +519,13 @@ class ITReportNew:
         self.current_sheet = self.workbook.new_sheet("Data")
         self.parse_template()
 
+    async def generate(self, data: Tuple[Finding, ...]) -> None:
+        for finding in data:
+            finding_vulns = await self.finding_vulns_loader.load(finding.id)
+            for vuln in finding_vulns:
+                await self.set_vuln_row(cast(VulnType, vuln), finding)
+                self.row += 1
+
     @staticmethod
     def get_measure(metric: str, metric_value: str) -> str:
         """Extract number of CSSV metrics."""
@@ -607,10 +615,14 @@ class ITReportNew:
         metric_vector = []
         vuln = self.vulnerability
         cvss_key = "CVSSv3.1 string vector"
+        is_31_severity = isinstance(row.severity, Finding31Severity)
         for ind, (indicator, measure) in enumerate(self.cvss_measures.items()):
-            value = self.get_measure(
-                measure, getattr(row.severity, measure, EMPTY)
-            )
+            value = EMPTY
+            if is_31_severity:
+                value = self.get_measure(
+                    measure, getattr(row.severity, measure)
+                )
+
             self.row_values[vuln[cvss_key] + ind + 1] = value
             if value != EMPTY:
                 metric_vector.append(f"{indicator}:{value[0]}")
