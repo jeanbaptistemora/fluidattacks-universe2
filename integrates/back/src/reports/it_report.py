@@ -519,6 +519,11 @@ class ITReportNew:
         self.current_sheet = self.workbook.new_sheet("Data")
         self.parse_template()
 
+    async def create(self) -> None:
+        await self.generate(self.data)
+        self.style_sheet()
+        self.save()
+
     async def generate(self, data: Tuple[Finding, ...]) -> None:
         for finding in data:
             finding_vulns = await self.finding_vulns_loader.load(finding.id)
