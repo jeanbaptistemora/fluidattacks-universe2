@@ -43,6 +43,9 @@ from newutils import (
     token as token_utils,
     vulnerabilities as vulns_utils,
 )
+from newutils.utils import (
+    get_key_or_fallback,
+)
 from typing import (
     Any,
     cast,
@@ -207,7 +210,9 @@ async def add_draft_new(
     draft = Finding(
         affected_systems=kwargs.get("affected_systems", ""),
         analyst_email=user_email,
-        attack_vector_desc=kwargs.get("attack_vector_desc", ""),
+        attack_vector_desc=get_key_or_fallback(
+            kwargs, "attack_vector_description", "attack_vector_desc", ""
+        ),
         description=kwargs.get("description", ""),
         group_name=group_name,
         id=finding_id,

@@ -21,6 +21,7 @@ from newutils import (
 )
 from newutils.utils import (
     clean_up_kwargs,
+    duplicate_dict_keys,
     get_key_or_fallback,
 )
 from typing import (
@@ -43,6 +44,10 @@ async def mutate(
     # Compatibility with old API
     group_name: str = get_key_or_fallback(kwargs)
     kwargs = clean_up_kwargs(kwargs)
+    if "attack_vector_desc" in kwargs or "attack_vector_description" in kwargs:
+        kwargs = duplicate_dict_keys(
+            kwargs, "attack_vector_description", "attack_vector_desc"
+        )
 
     success: bool = await findings_domain.add_draft(
         info, group_name, title, **kwargs

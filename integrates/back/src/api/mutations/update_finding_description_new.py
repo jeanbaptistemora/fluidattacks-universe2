@@ -33,6 +33,9 @@ from graphql.type.definition import (
 from newutils import (
     logs as logs_utils,
 )
+from newutils.utils import (
+    get_key_or_fallback,
+)
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
@@ -56,7 +59,9 @@ async def mutate(
         description = FindingDescriptionToUpdate(
             actor=kwargs["actor"],
             affected_systems=kwargs["affected_systems"],
-            attack_vector_desc=kwargs["attack_vector_desc"],
+            attack_vector_desc=get_key_or_fallback(
+                kwargs, "attack_vector_description", "attack_vector_desc"
+            ),
             compromised_attributes=kwargs.get("records"),
             compromised_records=kwargs["records_number"],
             description=kwargs["description"],

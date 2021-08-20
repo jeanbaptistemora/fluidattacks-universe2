@@ -41,6 +41,7 @@ async def _batch_load_fn(
             affected_systems=finding.get("affectedSystems", ""),
             analyst=finding.get("analyst", ""),
             attack_vector_desc=finding.get("attackVectorDesc", ""),
+            attack_vector_description=finding.get("attackVectorDesc", ""),
             bts_url=finding.get("externalBts", ""),
             compromised_attributes=finding.get("compromisedAttrs", ""),
             compromised_records=finding.get("recordsNumber", 0),

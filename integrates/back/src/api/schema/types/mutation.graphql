@@ -24,8 +24,10 @@ type Mutation {
     attackVector: String
     "Systems under threat from the vulnerability"
     affectedSystems: String
-    "Attack vector description"
+    "Deprecated. Use `attackVectorDescription` instead"
     attackVectorDesc: String
+    "Attack vector description"
+    attackVectorDescription: String
     """Hypotethical impact on resource (webpages, content etc...) availability
     and possibility of service denial"""
     availabilityImpact: String
@@ -882,8 +884,10 @@ type Mutation {
     actor: String!
     "Systems under threat from the vulnerability"
     affectedSystems: String!
+    "Deprecated. Use `attackVectorDescription` instead"
+    attackVectorDesc: String
     "Attack vector description"
-    attackVectorDesc: String!
+    attackVectorDescription: String
     "Description of the draft Finding"
     description: String!
     "Identifier of Finding whose description will be updated"

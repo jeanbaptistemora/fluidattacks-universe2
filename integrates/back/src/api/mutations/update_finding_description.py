@@ -20,6 +20,9 @@ from graphql.type.definition import (
 from newutils import (
     logs as logs_utils,
 )
+from newutils.utils import (
+    duplicate_dict_keys,
+)
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
@@ -38,6 +41,13 @@ from typing import (
 async def mutate(
     _: Any, info: GraphQLResolveInfo, finding_id: str, **parameters: Any
 ) -> SimpleFindingPayloadType:
+    if (
+        "attack_vector_desc" in parameters
+        or "attack_vector_description" in parameters
+    ):
+        parameters = duplicate_dict_keys(
+            parameters, "attack_vector_description", "attack_vector_desc"
+        )
     success = await findings_domain.update_description(finding_id, parameters)
     if success:
         info.context.loaders.finding.clear(finding_id)
