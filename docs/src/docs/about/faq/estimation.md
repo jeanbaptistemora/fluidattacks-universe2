@@ -7,38 +7,35 @@ slug: /about/faq/estimation
 
 ## What information is needed in order to provide a quotation?
 
-To provide a proposal,
-we need to determine
-what the target of evaluation (scope) will be.
+To provide a quotation,
+we need to determine the target of evaluation (scope).
 So,
 we require the following information:
 
-1. *One-shot hacking* (by project):
+[**One-Shot Hacking**](https://fluidattacks.com/services/one-shot-hacking/)
+  (by project):
 
-  a. How many ports are included in the scope?
+- How many ports are included in the scope?
 
-  b. How many inputs of applications
+- How many inputs of applications
   are included in the scope?
 
-  c. How many `LoC` are included in the scope?
+- How many LoC are included in the scope?
   We recommend running
-  [`CLOC`](https://github.com/AlDanial/cloc)
+  [CLOC](https://github.com/AlDanial/cloc)
   in order to facilitate quantification.
 
-**Note:**
-It would be desirable to obtain
-the access credentials
-(standard user, not privileges)
-to the applications in cases
-where this will be included.
+- It would be desirable to obtain the access credentials
+  (standard user, not privileges)
+  to the applications
+  in cases where this will be included.
 
-1. **Continuous hacking** (`SDLC`):
+[**Continuous Hacking**](https://fluidattacks.com/services/continuous-hacking/)
+  (SDLC):
   Under this model,
   we need to know how many active authors
   will be involved in the project.
 
-Regarding the health check estimation,
-the same considerations apply
-as for one-shot hacking,
-so the client should provide
-the above-mentioned information as well.
+Regarding the Health Check estimation,
+the same considerations apply as for One-Shot Hacking,
+so the client should also provide the mentioned information.
