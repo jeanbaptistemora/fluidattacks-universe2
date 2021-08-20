@@ -11,9 +11,6 @@ from charts import (
 from charts.colors import (
     OTHER,
 )
-from collections import (
-    Counter,
-)
 from context import (
     FI_API_STATUS,
 )
@@ -23,20 +20,18 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
-from itertools import (
-    chain,
-)
 from operator import (
     itemgetter,
 )
 from typing import (
+    Counter,
     List,
     Tuple,
 )
 
 
 @alru_cache(maxsize=None, typed=True)
-async def get_data_one_group(group: str) -> Counter:
+async def get_data_one_group(group: str) -> Counter[str]:
     context = get_new_context()
     if FI_API_STATUS == "migration":
         group_findings_new_loader = context.group_findings_new
@@ -51,21 +46,20 @@ async def get_data_one_group(group: str) -> Counter:
             finding["finding_id"] for finding in group_findings_data
         ]
 
-    finding_vulns_loader = context.finding_vulns
-    vulnerabilities = list(
-        chain.from_iterable(await finding_vulns_loader.load_many(finding_ids))
+    vulnerabilities = await context.finding_vulns_nzr.load_many_chained(
+        finding_ids
     )
 
     return Counter(filter(None, map(itemgetter("vuln_type"), vulnerabilities)))
 
 
-async def get_data_many_groups(groups: List[str]) -> Counter:
+async def get_data_many_groups(groups: List[str]) -> Counter[str]:
     groups_data = await collect(map(get_data_one_group, groups))
 
     return sum(groups_data, Counter())
 
 
-def format_data(counters: Counter) -> dict:
+def format_data(counters: Counter[str]) -> dict:
     translations = {
         "inputs": "app",
         "lines": "code",

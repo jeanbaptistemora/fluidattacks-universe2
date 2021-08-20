@@ -62,7 +62,7 @@ async def get_group_data(*, group: str, loaders: Dataloaders) -> Counter[str]:
                 for finding in group_findings_new
             }
         )
-        vulnerabilities = await loaders.finding_vulns.load_many_chained(
+        vulnerabilities = await loaders.finding_vulns_nzr.load_many_chained(
             [finding.id for finding in group_findings_new]
         )
     else:
