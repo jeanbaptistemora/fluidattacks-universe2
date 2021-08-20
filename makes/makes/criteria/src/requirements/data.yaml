@@ -3858,7 +3858,12 @@
       un patrón discernible.
     description: __empty__
   category: Source
-  references: []
+  references:
+    - "002.21"
+    - "002.31"
+    - "004.352"
+    - "012.V4_2_2"
+    - "014.6_5_9"
   metadata: {}
 "175":
   en:
@@ -3907,7 +3912,10 @@
       en sitios maliciosos
       (por ejemplo, "X-Frame-Options").
   category: Source
-  references: []
+  references:
+    - "004.346"
+    - "004.451"
+    - "012.V14_4_7"
   metadata: {}
 "176":
   en:
@@ -3964,7 +3972,27 @@
       deben implementarse
       teniendo en cuenta estas restricciones.
   category: Data
-  references: []
+  references:
+    - "003.3_3"
+    - "004.284"
+    - "004.287"
+    - "004.306"
+    - "004.359"
+    - "004.639"
+    - "005.4_1a"
+    - "006.32_4"
+    - "006.R6"
+    - "009.003-8_3_1"
+    - "012.V1_2_2"
+    - "012.V4_2_1"
+    - "012.V13_2_1"
+    - "013.A3"
+    - "013.A5"
+    - "014.V1_2_2"
+    - "014.V3_6_7"
+    - "014.V6_5_8"
+    - "014.V7_1_1"
+    - "014.V10_5_1"
   metadata: {}
 "177":
   en:
@@ -4016,7 +4044,17 @@
       y los archivos temporales ayuda
       a proteger la información confidencial.
   category: Data
-  references: []
+  references:
+    - "004.524"
+    - "004.525"
+    - "005.4_1a"
+    - "006.5_1f"
+    - "008.18_1_3"
+    - "012.V8_1_1"
+    - "012.V8_1_2"
+    - "012.V8_2_1"
+    - "012.V8_2_2"
+    - "013.A3"
   metadata: {}
 "178":
   en:
@@ -4058,7 +4096,28 @@
       que sean susceptibles
       de ser afectados por terceros.
   category: Data
-  references: []
+  references:
+    - "002.21"
+    - "002.22"
+    - "002.148"
+    - "004.326"
+    - "004.345"
+    - "004.347"
+    - "004.494"
+    - "008.14_1_3"
+    - "012.C_8"
+    - "012.C_15"
+    - "012.C_16"
+    - "012.C_19"
+    - "012.C_21"
+    - "012.C_30"
+    - "012.V1_14_2"
+    - "012.V3_5_3"
+    - "012.V6_2_7"
+    - "012.V10_3_1"
+    - "012.V10_3_2"
+    - "012.V13_2_5"
+    - "012.V13_3_2"
   metadata: {}
 "180":
   en:
