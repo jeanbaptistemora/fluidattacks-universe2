@@ -5,9 +5,9 @@ function main {
 
   INTEGRATES_DEPLOYMENT_DATE="$(date -u '+%FT%H:%M:%SZ')" \
     && pushd integrates/front \
+    && rm -rf node_modules \
     && copy "__envSetupIntegratesFrontDevRuntime__/node_modules" node_modules \
     && npm start \
-    && rm -rf node_modules \
     && popd \
     || return 1
 }
