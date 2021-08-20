@@ -472,17 +472,17 @@ class ITReportNew:
 
     current_sheet: WorksheetType = None
     cvss_measures = {
-        "AV": "attackVector",
-        "AC": "attackComplexity",
-        "PR": "privilegesRequired",
-        "UI": "userInteraction",
-        "S": "severityScope",
-        "C": "confidentialityImpact",
-        "I": "integrityImpact",
-        "A": "availabilityImpact",
+        "AV": "attack_vector",
+        "AC": "attack_complexity",
+        "PR": "privileges_required",
+        "UI": "user_interaction",
+        "S": "severity_scope",
+        "C": "confidentiality_impact",
+        "I": "integrity_impact",
+        "A": "availability_impact",
         "E": "exploitability",
-        "RL": "remediationLevel",
-        "RC": "reportConfidence",
+        "RL": "remediation_level",
+        "RC": "report_confidence",
     }
     data: Tuple[Finding, ...] = tuple()
     lang = None
@@ -522,42 +522,42 @@ class ITReportNew:
     def get_measure(metric: str, metric_value: str) -> str:
         """Extract number of CSSV metrics."""
         metrics = {
-            "attackVector": {
+            "attack_vector": {
                 "0.85": "Network",
                 "0.62": "Adjacent",
                 "0.55": "Local",
                 "0.20": "Physical",
             },
-            "attackComplexity": {
+            "attack_complexity": {
                 "0.77": "Low",
                 "0.44": "High",
             },
-            "privilegesRequired": {
+            "privileges_required": {
                 "0.85": "None",
                 "0.62": "Low",
                 "0.68": "Low",
                 "0.27": "High",
                 "0.50": "High",
             },
-            "userInteraction": {
+            "user_interaction": {
                 "0.85": "None",
                 "0.62": "Required",
             },
-            "severityScope": {
+            "severity_scope": {
                 "0.0": "Unchanged",
                 "1.0": "Changed",
             },
-            "confidentialityImpact": {
+            "confidentiality_impact": {
                 "0.56": "High",
                 "0.22": "Low",
                 "0.0": "None",
             },
-            "integrityImpact": {
+            "integrity_impact": {
                 "0.56": "High",
                 "0.22": "Low",
                 "0.0": "None",
             },
-            "availabilityImpact": {
+            "availability_impact": {
                 "0.56": "High",
                 "0.22": "Low",
                 "0.0": "None",
@@ -568,13 +568,13 @@ class ITReportNew:
                 "0.97": "Functional",
                 "1.0": "High",
             },
-            "remediationLevel": {
+            "remediation_level": {
                 "0.95": "Official Fix",
                 "0.96": "Temporary Fix",
                 "0.97": "Workaround",
                 "1.0": "Unavailable",
             },
-            "reportConfidence": {
+            "report_confidence": {
                 "0.92": "Unknown",
                 "0.96": "Reasonable",
                 "1.0": "Confirmed",
@@ -602,6 +602,28 @@ class ITReportNew:
             f"{self.group_name}-vulnerabilities-{today_date}.xlsx"
         )
         self.workbook.save(self.result_filename)
+
+    def set_cvss_metrics_cell(self, row: Finding) -> None:
+        metric_vector = []
+        vuln = self.vulnerability
+        cvss_key = "CVSSv3.1 string vector"
+        for ind, (indicator, measure) in enumerate(self.cvss_measures.items()):
+            value = self.get_measure(
+                measure, getattr(row.severity, measure, EMPTY)
+            )
+            self.row_values[vuln[cvss_key] + ind + 1] = value
+            if value != EMPTY:
+                metric_vector.append(f"{indicator}:{value[0]}")
+
+        cvss_metric_vector = "/".join(metric_vector)
+        cvss_calculator_url = (
+            "https://www.first.org/cvss/calculator/3.1#CVSS:3.1"
+            f"/{cvss_metric_vector}"
+        )
+        cell_content = (
+            f'=HYPERLINK("{cvss_calculator_url}", "{cvss_metric_vector}")'
+        )
+        self.row_values[vuln[cvss_key]] = cell_content
 
     def set_finding_data(self, finding: Finding, vuln: VulnType) -> None:
         severity = float(
@@ -655,8 +677,8 @@ class ITReportNew:
             if vuln_closed:
                 remediation_effectiveness = f"{100 / n_requested_reattacks}%"
             if reattack_requested:
-                reattack_date = datetime.fromisoformat(
-                    finding.verification.modified_date
+                reattack_date = datetime_utils.as_zone(
+                    datetime.fromisoformat(finding.verification.modified_date)
                 )
                 reattack_requester = finding.verification.modified_by
         reattack_data = {
