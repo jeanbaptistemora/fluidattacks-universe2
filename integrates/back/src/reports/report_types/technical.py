@@ -22,6 +22,7 @@ from newutils.utils import (
 import os
 from reports.it_report import (
     ITReport,
+    ITReportNew,
 )
 from reports.pdf import (
     CreatorPDF,
@@ -235,6 +236,31 @@ async def generate_xls_file(
     passphrase: str,
 ) -> str:
     it_report = ITReport(
+        data=findings_ord, group_name=group_name, context=context
+    )
+    await it_report.create()
+    filepath = it_report.result_filename
+
+    cmd = (
+        f"cat {filepath} | secure-spreadsheet "
+        f'--password "{passphrase}" '
+        "--input-format xlsx "
+        f"> {filepath}-pwd"
+    )
+
+    os.system(cmd)
+    os.unlink(filepath)
+    os.rename(f"{filepath}-pwd", filepath)
+    return filepath
+
+
+async def generate_xls_file_new(
+    context: Any,
+    findings_ord: Tuple[Finding, ...],
+    group_name: str,
+    passphrase: str,
+) -> str:
+    it_report = ITReportNew(
         data=findings_ord, group_name=group_name, context=context
     )
     await it_report.create()
