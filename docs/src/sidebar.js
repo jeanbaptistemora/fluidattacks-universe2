@@ -4,6 +4,7 @@ const About = [
     label: 'FAQ',
     items: [
       'about/faq/general',
+      'about/faq/machine',
       'about/faq/estimation',
       'about/faq/requirements',
       'about/faq/billing',
