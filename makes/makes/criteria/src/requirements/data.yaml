@@ -6007,7 +6007,21 @@
       Host Firewall, Host-IDS, Host-IPS).
     description: __empty__
   category: System
-  references: []
+  references:
+    - "001.CR3_4:_2"
+    - "002.169"
+    - "002.442"
+    - "002.549"
+    - "003.4_4"
+    - "003.10_6"
+    - "003.13_4"
+    - "003.13_10"
+    - "004.923"
+    - "009.003-8_5_1"
+    - "009.005-5_R1_5"
+    - "012.V1_14_1"
+    - "012.V12_4_2"
+    - "014.5_1"
   metadata: {}
 "280":
   en:
@@ -6026,7 +6040,8 @@
       necesarios.
     description: __empty__
   category: System
-  references: []
+  references:
+    - "002.122"
   metadata: {}
 "284":
   en:
@@ -6089,7 +6104,13 @@
       mecanismo que contribuye
       a esta protección.
   category: Data
-  references: []
+  references:
+    - "004.359"
+    - "005.4_1a"
+    - "006.R51"
+    - "008.18_1_3"
+    - "013.A3"
+    - "014.3_3"
   metadata: {}
 "301":
   en:
@@ -6136,7 +6157,10 @@
       ataques de apropiación
       de cuentas.
   category: Data
-  references: []
+  references:
+    - "004.620"
+    - "010.AC-2_4"
+    - "012.V2_2_3"
   metadata: {}
 "302":
   en:
@@ -6202,7 +6226,13 @@
       y administrarlo mediante
       un administrador de paquetes.
   category: Source
-  references: []
+  references:
+    - "004.829"
+    - "012.C_12"
+    - "012.V14_1_4"
+    - "012.V14_2_1"
+    - "012.V14_2_5"
+    - "014.2_3"
   metadata: {}
 "305":
   en:
@@ -6289,7 +6319,12 @@
       recopilar cualquier información
       personal.
   category: Privacy
-  references: []
+  references:
+    - "005.6_4"
+    - "005.9_1"
+    - "006.7_1"
+    - "008.18_1_4"
+    - "012.V10_2_1"
   metadata: {}
 "311":
   en:

@@ -278,6 +278,9 @@
     "438":
       title: Modification During Manufacture
       link: https://capec.mitre.org/data/definitions/438.html
+    "442":
+      title: Infected Software
+      link: https://capec.mitre.org/data/definitions/442.html
     "549":
       title: Local Execution of Code
       link: https://capec.mitre.org/data/definitions/549.html
