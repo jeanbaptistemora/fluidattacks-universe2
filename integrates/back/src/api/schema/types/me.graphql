@@ -1,13 +1,21 @@
 "Me type definition"
 type Me {
+  "Access token metadata"
   accessToken: String
+  "Origin of the requests made to the endpoint by this user"
   callerOrigin: CallerOrigin
+  "Indicator to see if there's more than one open session currently"
   isConcurrentSession: Boolean
+  "List of Organizations the user is a member of"
   organizations: [Organization!]
+  "Get level permissions according to the provided entity"
   permissions(
+    "Entity to check for level permissions"
     entity: Entity!
+    "Identifier of the provided entity. Not needed if the entity is USER"
     identifier: String
   ): [String]
+  "If true, the legal notice modal won't appear after every ASM login"
   remember: Boolean
   "Get level role according to the provided entity"
   role(

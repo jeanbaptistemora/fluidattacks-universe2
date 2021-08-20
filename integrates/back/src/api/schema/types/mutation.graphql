@@ -17,27 +17,53 @@ type Mutation {
   ): SimplePayload!
 
   addDraft(
+    """Measuere of the effort and resources needed for an attacker to put
+    in to successfully breach the system"""
     attackComplexity: String
+    "Level of access needed for an attack to succeed"
     attackVector: String
+    "Systems under threat from the vulnerability"
     affectedSystems: String
+    "Attack vector description"
     attackVectorDesc: String
+    """Hypotethical impact on resource (webpages, content etc...) availability
+    and possibility of service denial"""
     availabilityImpact: String
+    """Measure of the sensible/restricted information (e.g. password,
+    encryption keys) the attacker could gather from the breached component"""
     confidentialityImpact: String
+    "Description of the draft Finding"
     description: String
+    """Measure of the availability of resources and details, both theoretical
+    and practical, available for a malicious actor to build and/or automate an
+    attack"""
     exploitability: String
     "Name of the Group where the new draft will be in"
     groupName: String!
+    """How vulnerable for malicious modification are the files in the impacted
+    components"""
     integrityImpact: String
+    "Privileges required by the attacker to exploit the vulnerabilities"
     privilegesRequired: String
+    "Recommended course of action to close the vulnerabilities"
     recommendation: String
+    "Availability of a fix"
     remediationLevel: String
+    "Report Confidence"
     reportConfidence: String
+    "Unmet security requirements while the vulnerabilities remains open"
     requirements: String
+    "Other risks opened by the exploit"
     risk: String
+    "Security scope of the affected resources by the exploited vulnerabilities"
     severityScope: String
+    "A summary of the threats posed by a successful exploit"
     threat: String
+    "Draft Finding title"
     title: String!
+    "Finding type"
     type: FindingType
+    "User involvement needed for a successful attack"
     userInteraction: String
   ): SimplePayload!
 
@@ -302,17 +328,27 @@ type Mutation {
 
   "Adds a new draft Finding to the specified Group"
   createDraft(
+    "Systems under threat from the vulnerability"
     affectedSystems: String
+    "Attack vector description"
     attackVectorDesc: String
+    "Description of the draft Finding"
     description: String
+    "Name of the Group where the new draft will be in"
     groupName: String
     "Deprecated. Use `groupName` instead"
     projectName: String
+    "Recommended course of action to close the vulnerabilities"
     recommendation: String
+    "Unmet security requirements while the vulnerabilities remains open"
     requirements: String
+    "Other risks opened by the exploit"
     risk: String
+    "A summary of the threats posed by a successful exploit"
     threat: String
+    "Draft Finding title"
     title: String!
+    "Draft Finding type"
     type: FindingType
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
       after 2021/12/31. Use `addDraft` instead.""")
@@ -830,20 +866,29 @@ type Mutation {
   "Updates a Finding's description"
   updateDescription(
     actor: String!
+    "Systems under threat from the vulnerability"
     affectedSystems: String!
+    "Attack vector description"
     attackVectorDesc: String!
+    "Description of the draft Finding"
     description: String!
     "Identifier of Finding whose description will be updated"
     findingId: String!
+    "Recommended course of action to close the vulnerabilities"
     recommendation: String!
     records: String
     recordsNumber: Int!
+    "Unmet security requirements while the vulnerabilities remains open"
     requirements: String!
+    "Other risks opened by the exploit"
     risk: String
     scenario: String!
     sorts: Sorts
+    "A summary of the threats posed by a successful exploit"
     threat: String!
+    "Draft Finding title"
     title: String!
+    "Draft Finding type"
     findingType: String
   ): SimpleFindingPayload!
 
@@ -1004,6 +1049,8 @@ type Mutation {
     attackVector: String!
     availabilityImpact: String!
     availabilityRequirement: String!
+    """Measure of the sensible/restricted information (e.g. password,
+    encryption keys) the attacker could gather from the breached component"""
     confidentialityImpact: String!
     confidentialityRequirement: String!
     cvssVersion: String!
