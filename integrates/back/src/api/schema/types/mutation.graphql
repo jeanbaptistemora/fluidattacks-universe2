@@ -1112,6 +1112,7 @@ type Mutation {
 
   "Updates the treatment of a single Vulnerability"
   updateTreatmentVuln(
+    "External Bug Tracker System URL"
     externalBts: String
     "Identifier of the Finding that contains the vulnerability to update"
     findingId: String!
@@ -1167,6 +1168,7 @@ type Mutation {
 
   "Updates the treatment of a single Vulnerability"
   updateVulnerabilityTreatment(
+    "External Bug Tracker System URL"
     externalBts: String
     "Identifier of the Finding that contains the vulnerability to update"
     findingId: String!

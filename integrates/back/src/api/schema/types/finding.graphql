@@ -1,59 +1,85 @@
 "Finding type definition"
 type Finding {
   actor: String!
+  "Systems under threat from the vulnerability"
   affectedSystems: String
   age: Int
   analyst: String
+  "Attack vector description"
   attackVectorDesc: String
+  "External Bug Tracker System URL"
   btsUrl: String
   closedVulnerabilities: Int
   compromisedAttributes: String
   compromisedRecords: Int
   consulting: [Consult]
   currentState: String
+  "Common Vulnerability Scoring System version"
   cvssVersion: String
+  "Description of the Finding"
   description: String
+  "Evidences of the Finding"
   evidence: GenericScalar
+  "Name of the Group where the Finding is in"
   groupName: String
+  "Previous configurations of the Finding"
   historicState: [GenericScalar]
+  "Finding Identifier"
   id: String
   inputsVulnerabilities: [Vulnerability]
   inputsVulns: [Vulnerability] @deprecated(reason: """This field will be
     removed after 2021/12/31. Use `inputsVulnerabilities` instead.""")
   isExploitable: Boolean
+  "Time in days since the last closed vulnerability in this Finding"
   lastVulnerability: Int
+  "Lines vulnerabilities"
   linesVulnerabilities: [Vulnerability]
+  "Lines vulnerabilities"
   linesVulns: [Vulnerability] @deprecated(reason: """This field will be
     removed after 2021/12/31. Use `linesVulnerabilities` instead.""")
+  "Machine (Skims) checks and tests associated with this Finding"
   machineJobs: [MachineJob]
   newRemediated: Boolean @deprecated(reason: """This field
     will be removed after 2021/12/20. Use `remediated` instead.""")
   observations: [Consult]
   openAge: Int
+  "Quantity of remaining open vulnerabilities"
   openVulnerabilities: Int
+  "Ports vulnerabilities"
   portsVulnerabilities: [Vulnerability]
+  "Ports vulnerabilities"
   portsVulns: [Vulnerability] @deprecated(reason: """This field will be
     removed after 2021/12/31. Use `portsVulnerabilities` instead.""")
   projectName: String @deprecated(reason: """This field will
     be removed after 2021/12/20. Use `groupName` instead.""")
+  "Recommended course of action to close the vulnerabilities"
   recommendation: String
   records: JSONString
   releaseDate: String
   "Re-attacks requested in all locations"
   remediated: Boolean
   reportDate: String
+  "Unmet security requirements while the vulnerabilities remains open"
   requirements: String
+  "Other risks opened by the exploit"
   risk: String
   scenario: String
+  "CVSS Score"
   severity: GenericScalar
+  "Security scope of the affected resources by the exploited vulnerabilities"
   severityScore: Float
   sorts: Sorts
   state: String
+  "A summary of the threats posed by a successful exploit"
   threat: String
+  "Finding title"
   title: String
+  "Timeline of actions in this Finding"
   tracking: [GenericScalar]
+  "Finding type"
   type: String
   verified: Boolean
+  "Vulnerabilities associated with the Finding"
   vulnerabilities(
     "Filter vulnerabilities by their current state"
     state: String
