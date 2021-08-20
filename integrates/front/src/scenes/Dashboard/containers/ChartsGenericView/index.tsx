@@ -752,24 +752,42 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
         </div>
       ) : undefined}
       {doesEntityMatch("organization") ? (
-        <RowCenter>
-          <Col100>
-            <Graphic
-              bsHeight={320}
-              className={"g1"}
-              documentName={"cvssfBenchmarking"}
-              documentType={"stackedBarChart"}
-              entity={entity}
-              generatorName={"generic"}
-              generatorType={"c3"}
-              reportMode={reportMode}
-              subject={subject}
-              title={translate.t(
-                "analytics.stackedBarChart.cvssfBenchmarking.title"
-              )}
-            />
-          </Col100>
-        </RowCenter>
+        <React.Fragment>
+          <RowCenter>
+            <Col100>
+              <Graphic
+                bsHeight={320}
+                className={"g1"}
+                documentName={"cvssfBenchmarking"}
+                documentType={"stackedBarChart"}
+                entity={entity}
+                generatorName={"generic"}
+                generatorType={"c3"}
+                reportMode={reportMode}
+                subject={subject}
+                title={translate.t(
+                  "analytics.stackedBarChart.cvssfBenchmarking.title"
+                )}
+              />
+            </Col100>
+          </RowCenter>
+          <RowCenter>
+            <Col100>
+              <Graphic
+                bsHeight={320}
+                className={"g1"}
+                documentName={"mttrBenchmarking"}
+                documentType={"barChart"}
+                entity={entity}
+                generatorName={"generic"}
+                generatorType={"c3"}
+                reportMode={reportMode}
+                subject={subject}
+                title={translate.t("analytics.barChart.mttrBenchmarking.title")}
+              />
+            </Col100>
+          </RowCenter>
+        </React.Fragment>
       ) : undefined}
       {reportMode ? undefined : <ChartsGenericViewExtras {...props} />}
     </React.StrictMode>
