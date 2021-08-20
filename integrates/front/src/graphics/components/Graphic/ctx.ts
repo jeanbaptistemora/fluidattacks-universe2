@@ -40,6 +40,22 @@ const mergedDocuments: Record<string, IMergedCharts> = {
     documentName: "meanTimeToRemediateNonTreated",
     documentType: "textBox",
   },
+  mttrBenchmarking: {
+    alt: {
+      label: "Non treated",
+      tooltip: translate.t(
+        "analytics.barChart.mttrBenchmarking.tooltip.nonTreated"
+      ),
+      url: "",
+    },
+    default: {
+      label: "All",
+      tooltip: translate.t("analytics.barChart.mttrBenchmarking.tooltip.all"),
+      url: "",
+    },
+    documentName: "mttrBenchmarkingNonTreated",
+    documentType: "barChart",
+  },
   riskOverTimeCvssf: {
     alt: {
       label: "Vulns",

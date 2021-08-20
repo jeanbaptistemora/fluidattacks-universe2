@@ -3,6 +3,13 @@ import type { ResourceKey } from "i18next";
 export const enTranslations: ResourceKey = {
   analytics: {
     barChart: {
+      mttrBenchmarking: {
+        title: "Mttr Benchmarking",
+        tooltip: {
+          all: "All vulnerabilities",
+          nonTreated: "Non treated vulnerabilities",
+        },
+      },
       topVulnerabilities: {
         title: "Top vulnerabilities",
         tooltip: {
