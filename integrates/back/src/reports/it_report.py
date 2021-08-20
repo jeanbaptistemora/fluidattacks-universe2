@@ -775,6 +775,45 @@ class ITReportNew:
             kword = self.vulnerability[first_treatment_key]
             self.row_values[kword] = first_treatment_data[first_treatment_key]
 
+    async def set_vuln_row(self, row: VulnType, finding: Finding) -> None:
+        vuln = self.vulnerability
+        specific = str(row.get("specific", ""))
+        if row.get("vuln_type") == "lines":
+            specific = str(int(specific))
+
+        commit = EMPTY
+        if "commit_hash" in row:
+            commit = row["commit_hash"][0:7]
+
+        tags = EMPTY
+        if "tag" in row:
+            tags = row.get("tag", "")
+
+        stream = EMPTY
+        if "stream" in row:
+            stream = row.get("stream", "")
+
+        self.row_values[vuln["#"]] = self.row - 1
+        self.row_values[vuln["Related Finding"]] = finding.title
+        self.row_values[vuln["Finding Id"]] = finding.id
+        self.row_values[vuln["Vulnerability Id"]] = str(row.get("UUID", EMPTY))
+        self.row_values[vuln["Where"]] = str(row.get("where"))
+        self.row_values[vuln["Specific"]] = specific
+        self.row_values[vuln["Commit Hash"]] = commit
+        self.row_values[vuln["Tags"]] = tags
+        self.row_values[vuln["Stream"]] = stream
+
+        self.set_finding_data(finding, row)
+        self.set_vuln_temporal_data(row)
+        self.set_treatment_data(row)
+        await self.set_reattack_data(finding, row)
+        self.set_cvss_metrics_cell(finding)
+
+        self.current_sheet.range(*self.get_row_range(self.row)).value = [
+            self.row_values[1:]
+        ]
+        self.set_row_height()
+
     def set_vuln_temporal_data(self, vuln: VulnType) -> None:
         vuln_historic_state = cast(HistoricType, vuln.get("historic_state"))
         vuln_date = datetime_utils.get_from_str(vuln_historic_state[0]["date"])
