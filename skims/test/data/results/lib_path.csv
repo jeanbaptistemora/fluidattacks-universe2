@@ -6335,7 +6335,7 @@ F074,lines,namespace/skims/test/data/lib_root/f074/Test.java,2,615,skims,074. Co
   17 | }
      ^ Col 0
 "
-F361,lines,namespace/skims/test/data/lib_root/f361/test.cs,10,749,skims,361. Conflicting transparency annotations,"Conflicting transparency annotations
+F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,10,749,skims,366. Inappropriate coding practices - Transparency Conflict,"Inappropriate coding practices - Transparency Conflict
 ","
    1 | using System;
    2 | using System.Security;

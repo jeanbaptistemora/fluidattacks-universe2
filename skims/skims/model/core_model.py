@@ -1215,9 +1215,9 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.none,
         ),
     )
-    F361: FindingMetadata = FindingMetadata.new(
+    F366: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
-        code="F361",
+        code="F366",
         cwe=749,
         execution_queue=ExecutionQueue.f014,
         requirements=[266],

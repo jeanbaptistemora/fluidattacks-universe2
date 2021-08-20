@@ -61,12 +61,12 @@ def csharp_conflicting_annotations(
 
     return get_vulnerabilities_from_n_ids(
         cwe=("749",),
-        desc_key="F361.title",
+        desc_key="F366.title",
         desc_params={},
         finding=FINDING,
         graph_shard_nodes=n_ids(),
     )
 
 
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F361
+FINDING: core_model.FindingEnum = core_model.FindingEnum.F366
 QUERIES: graph_model.Queries = ((FINDING, csharp_conflicting_annotations),)

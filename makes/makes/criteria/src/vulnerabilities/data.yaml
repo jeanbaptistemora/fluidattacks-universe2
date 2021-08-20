@@ -16290,9 +16290,9 @@
       report_confidence: "C"
   requirements: ["119", "266"]
   metadata: {}
-"361":
+"366":
   en:
-    title: Conflicting transparency annotations
+    title: Inappropriate coding practices - Transparency Conflict
     description: >
       Attackers will attempt to exploit unpatched flaws or access
       default accounts, unused pages, unprotected files and directories,
