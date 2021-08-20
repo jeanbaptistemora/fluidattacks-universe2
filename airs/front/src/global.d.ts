@@ -58,6 +58,7 @@ interface IQueryData {
         date: string;
         description: string;
         keywords: string;
+        phrase: string;
         slug: string;
         subtext: string;
         subtitle: string;
