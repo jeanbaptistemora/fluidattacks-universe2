@@ -4735,7 +4735,8 @@
       anfitriona.
     description: __empty__
   category: Virtualization
-  references: []
+  references:
+    - "002.115"
   metadata: {}
 "223":
   en:
@@ -4780,7 +4781,17 @@
       que garanticen una distribución
       aleatoria.
   category: Cryptography
-  references: []
+  references:
+    - "002.20"
+    - "004.330"
+    - "004.331"
+    - "004.332"
+    - "004.335"
+    - "004.338"
+    - "004.340"
+    - "012.V6_3_1"
+    - "012.V6_3_2"
+    - "012.V6_3_3"
   metadata: {}
 "224":
   en:
@@ -4837,7 +4848,42 @@
       que a menudo ya ha sido
       implementado por la plataforma.
   category: Cryptography
-  references: []
+  references:
+    - "002.20"
+    - "002.94"
+    - "002.117"
+    - "002.151"
+    - "002.216"
+    - "002.272"
+    - "002.594"
+    - "003.3_10"
+    - "004.327"
+    - "004.330"
+    - "004.331"
+    - "004.332"
+    - "004.333"
+    - "004.334"
+    - "004.335"
+    - "004.338"
+    - "004.340"
+    - "010.IA-7"
+    - "012.C_23"
+    - "012.V1_6_1"
+    - "012.V2_6_2"
+    - "012.V2_6_3"
+    - "012.V2_7_6"
+    - "012.V2_8_3"
+    - "012.V2_9_2"
+    - "012.V2_9_3"
+    - "012.V6_2_3"
+    - "012.V6_2_5"
+    - "012.V6_3_1"
+    - "012.V8_3_7"
+    - "012.V9_1_2"
+    - "014.2_3"
+    - "014.3_6_1"
+    - "014.4_1"
+    - "014.6_5_3"
   metadata: {}
 "225":
   en:
@@ -4894,7 +4940,11 @@
       que pueden usar en ataques
       de fuerza bruta.
   category: Authentication
-  references: []
+  references:
+    - "004.203"
+    - "004.204"
+    - "013.A2"
+    - "014.6_5_10"
   metadata: {}
 "226":
   en:
@@ -4915,7 +4965,14 @@
       fallidos.
     description: __empty__
   category: Authentication
-  references: []
+  references:
+    - "002.2"
+    - "002.212"
+    - "004.307"
+    - "004.645"
+    - "012.V2_2_1"
+    - "013.A2"
+    - "014.6_5_10"
   metadata: {}
 "227":
   en:
@@ -4969,7 +5026,11 @@
       solo están disponibles
       para los usuarios autorizados.
   category: Authentication
-  references: []
+  references:
+    - "004.287"
+    - "004.306"
+    - "012.V1_2_2"
+    - "012.V1_2_3"
   metadata: {}
 "228":
   en:
@@ -4986,7 +5047,10 @@
       siguiendo protocolos estándar.
     description: __empty__
   category: Authentication
-  references: []
+  references:
+    - "002.115"
+    - "013.A2"
+    - "014.6_5_10"
   metadata: {}
 "229":
   en:
@@ -5030,7 +5094,19 @@
       un nombre de usuario
       y una contraseña.
   category: Authentication
-  references: []
+  references:
+    - "004.306"
+    - "007.164_310_a_2_iii"
+    - "007.164_312_a_1"
+    - "007.164_312_d"
+    - "010.IA-1"
+    - "010.IA-2"
+    - "012.V1_2_2"
+    - "012.V1_2_3"
+    - "013.A2"
+    - "014.6_5_10"
+    - "014.8_1_1"
+    - "014.8_2"
   metadata: {}
 "231":
   en:
@@ -5089,7 +5165,15 @@
       de identidad en vigor,
       sino más bien un factor secundario.
   category: Authentication
-  references: []
+  references:
+    - "004.308"
+    - "006.R64"
+    - "007.164_310_a_2_iii"
+    - "007.164_312_d"
+    - "011.5_2_3"
+    - "012.V2_8_7"
+    - "013.A2"
+    - "014.6_5_10"
   metadata: {}
 "232":
   en:
@@ -5146,7 +5230,10 @@
       definido de 30 segundos.
     description: __empty__
   category: Authentication
-  references: []
+  references:
+    - "012.V3_6_1"
+    - "013.A2"
+    - "014.6_5_10"
   metadata: {}
 "237":
   en:
