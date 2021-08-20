@@ -6,8 +6,19 @@ from api.mutations.sign_in import (
 from app import (
     utils,
 )
+from authlib.integrations.base_client.errors import (
+    MismatchingStateError,
+)
+import logging
+import logging.config
+from newutils import (
+    templates as templates_utils,
+)
 from sessions import (
     dal as sessions_dal,
+)
+from settings import (
+    LOGGING,
 )
 from settings.auth import (
     OAUTH,
@@ -25,10 +36,18 @@ from typing import (
 )
 import uuid
 
+logging.config.dictConfig(LOGGING)
+
+LOGGER = logging.getLogger(__name__)
+
 
 async def authz_azure(request: Request) -> HTMLResponse:
     client = OAUTH.azure
-    token = await client.authorize_access_token(request)
+    try:
+        token = await client.authorize_access_token(request)
+    except (MismatchingStateError) as ex:
+        LOGGER.exception(ex, extra=dict(extra=locals()))
+        return templates_utils.unauthorized(request)
     user = await utils.get_jwt_userinfo(client, request, token)
     email = user.get("email", user.get("upn", "")).lower()
     await handle_user(
@@ -39,7 +58,11 @@ async def authz_azure(request: Request) -> HTMLResponse:
 
 async def authz_bitbucket(request: Request) -> HTMLResponse:
     client = OAUTH.bitbucket
-    token = await client.authorize_access_token(request)
+    try:
+        token = await client.authorize_access_token(request)
+    except (MismatchingStateError) as ex:
+        LOGGER.exception(ex, extra=dict(extra=locals()))
+        return templates_utils.unauthorized(request)
     user = await utils.get_bitbucket_oauth_userinfo(client, token)
     await handle_user(request, user)
     return RedirectResponse(url="/home")
@@ -47,7 +70,11 @@ async def authz_bitbucket(request: Request) -> HTMLResponse:
 
 async def authz_google(request: Request) -> HTMLResponse:
     client = OAUTH.google
-    token = await client.authorize_access_token(request)
+    try:
+        token = await client.authorize_access_token(request)
+    except (MismatchingStateError) as ex:
+        LOGGER.exception(ex, extra=dict(extra=locals()))
+        return templates_utils.unauthorized(request)
     user = await utils.get_jwt_userinfo(client, request, token)
     await handle_user(request, user)
     return RedirectResponse(url="/home")

@@ -44,6 +44,8 @@ from group_access import (
 from groups import (
     domain as groups_domain,
 )
+import logging
+import logging.config
 import newrelic.agent
 from newutils import (
     analytics,
@@ -61,6 +63,7 @@ from sessions import (
 from settings import (
     DEBUG,
     JWT_COOKIE_NAME,
+    LOGGING,
     queue,
     TEMPLATES_DIR,
 )
@@ -90,6 +93,10 @@ from starlette.staticfiles import (
 from users import (
     domain as users_domain,
 )
+
+logging.config.dictConfig(LOGGING)
+
+LOGGER = logging.getLogger(__name__)
 
 
 @authenticate_session
@@ -181,6 +188,19 @@ def start_queue_daemon() -> None:
     asyncio.create_task(queue_daemon())
 
 
+async def not_found(request, ex):
+    LOGGER.exception(ex, extra=dict(extra=locals()))
+    return templates.error401(request)
+
+
+async def server_error(request, ex):
+    LOGGER.exception(ex, extra=dict(extra=locals()))
+    return templates.error500(request)
+
+
+exception_handlers = {404: not_found, 500: server_error}
+
+
 STARLETTE_APP = Starlette(
     debug=DEBUG,
     routes=[
@@ -220,6 +240,7 @@ STARLETTE_APP = Starlette(
         Middleware(CustomRequestMiddleware),
     ],
     on_startup=[start_queue_daemon],
+    exception_handlers=exception_handlers,
 )
 BUGSNAG_WRAP = BugsnagMiddleware(STARLETTE_APP)
 NEWRELIC_WRAP = newrelic.agent.ASGIApplicationWrapper(
