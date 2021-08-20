@@ -5603,7 +5603,8 @@
       (Output 'Proxy').
     description: __empty__
   category: Networks
-  references: []
+  references:
+    - "003.9_2"
   metadata: {}
 "259":
   en:
@@ -5619,7 +5620,20 @@
       debe estar segmentada.
     description: __empty__
   category: Networks
-  references: []
+  references:
+    - "003.9_2"
+    - "003.3_12"
+    - "004.923"
+    - "008.13_1_3"
+    - "012.V6_4_1"
+    - "013.A6"
+    - "014.1_2_1"
+    - "014.1_2_3"
+    - "014.1_3_1"
+    - "014.1_3_2"
+    - "014.1_3_3"
+    - "014.1_3_4"
+    - "014.1_3_6"
   metadata: {}
 "260":
   en:
@@ -5682,7 +5696,17 @@
       corporativa tampoco debe exponerse
       en las cuentas de redes sociales personales.
   category: Social
-  references: []
+  references:
+    - "002.116"
+    - "004.200"
+    - "004.359"
+    - "004.548"
+    - "005.4_1a"
+    - "006.5_1f"
+    - "008.18_1_3"
+    - "012.V4_3_2"
+    - "013.A3"
+    - "014.1_3_7"
   metadata: {}
 "262":
   en:
@@ -5731,7 +5755,31 @@
       relacionados con vulnerabilidades
       descubiertas recientemente.
   category: Services
-  references: []
+  references:
+    - "001.SR2_4:_60"
+    - "002.42"
+    - "002.240"
+    - "002.242"
+    - "003.2_1"
+    - "003.7_4"
+    - "003.16_4"
+    - "003.16_5"
+    - "004.507"
+    - "008.12_6_1"
+    - "012.C_13"
+    - "012.C_26"
+    - "012.C_27"
+    - "012.V1_14_1"
+    - "012.V10_2_1"
+    - "012.V10_2_3"
+    - "012.V10_2_4"
+    - "012.V10_2_5"
+    - "012.V10_2_6"
+    - "012.V14_2_1"
+    - "012.V14_2_4"
+    - "013.A9"
+    - "014.5_2"
+    - "014.6_2"
   metadata: {}
 "264":
   en:
@@ -5770,7 +5818,26 @@
       que evite que actores no autorizados
       accedan a ellos.
   category: Authentication
-  references: []
+  references:
+    - "002.1"
+    - "002.36"
+    - "002.115"
+    - "004.287"
+    - "004.306"
+    - "008.9_4_2"
+    - "009.003-8_3_2"
+    - "009.005-5_R1_4"
+    - "009.007-6_R5_1"
+    - "012.C_9"
+    - "012.V1_2_2"
+    - "012.V1_2_3"
+    - "012.V3_7_1"
+    - "012.V9_2_3"
+    - "012.V14_5_4"
+    - "013.A2"
+    - "013.A3"
+    - "014.6_5_10"
+    - "014.8_1_1"
   metadata: {}
 "265":
   en:
@@ -5818,7 +5885,23 @@
       con roles que tengan
       los privilegios requeridos.
   category: Services
-  references: []
+  references:
+    - "002.13"
+    - "002.122"
+    - "003.2_7"
+    - "004.269"
+    - "004.284"
+    - "004.285"
+    - "004.287"
+    - "004.306"
+    - "005.4_1a"
+    - "010.IA-2"
+    - "012.V1_4_3"
+    - "012.V1_4_4"
+    - "012.V1_4_5"
+    - "013.A5"
+    - "014.6_5_8"
+    - "014.8_7"
   metadata: {}
 "266":
   en:
@@ -5883,7 +5966,27 @@
       de control de acceso, servidores
       y funciones sin servidor.
   category: Architecture
-  references: []
+  references:
+    - "002.161"
+    - "002.212"
+    - "003.9_4"
+    - "004.284"
+    - "004.602"
+    - "004.749"
+    - "012.C_1"
+    - "012.C_4"
+    - "012.C_11"
+    - "012.V1_4_1"
+    - "012.V4_1_1"
+    - "012.V6_2_5"
+    - "012.V9_1_3"
+    - "012.V14_2_2"
+    - "012.V14_5_1"
+    - "013.A5"
+    - "013.A6"
+    - "014.2_2_2"
+    - "014.2_2_5"
+    - "014.6_5_8"
   metadata: {}
 "273":
   en:
