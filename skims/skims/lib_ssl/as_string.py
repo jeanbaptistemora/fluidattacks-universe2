@@ -35,11 +35,11 @@ class SnippetConstructor:
     def get_server(self, ssl_vulnerability: SSLVulnerability) -> str:
         return "Server: " + self.placeholder
 
-    def get_intention(self, ssl_vulnerability: SSLVulnerability) -> str:
-        return "Intention " + self.placeholder
-
     def get_versions(self, ssl_vulnerability: SSLVulnerability) -> str:
         return "Versions: " + self.placeholder
+
+    def get_intention(self, ssl_vulnerability: SSLVulnerability) -> str:
+        return "Intention " + self.placeholder
 
     def get_request(self, ssl_vulnerability: SSLVulnerability) -> str:
         return "Request: " + self.placeholder
@@ -47,28 +47,28 @@ class SnippetConstructor:
     def get_response(self, ssl_vulnerability: SSLVulnerability) -> str:
         return "Response: " + self.placeholder
 
-    def get_result(self, ssl_vulnerability: SSLVulnerability) -> str:
-        return "Result: " + self.placeholder
+    def get_conclusion(self, ssl_vulnerability: SSLVulnerability) -> str:
+        return "Conclusion: " + self.placeholder
 
     def construct(self, ssl_vulnerability: SSLVulnerability) -> str:
         return (
             "{server}\n"
-            "{intention}\n"
             "{versions}\n"
+            "{intention}\n"
             "{hline}\n"
             "{request}\n"
             "{hline}\n"
             "{response}\n"
             "{hline}\n"
-            "{result}\n"
+            "{conclusion}\n"
         ).format(
             hline=self.hline,
             server=self.get_server(ssl_vulnerability),
-            intention=self.get_intention(ssl_vulnerability),
             versions=self.get_versions(ssl_vulnerability),
+            intention=self.get_intention(ssl_vulnerability),
             request=self.get_request(ssl_vulnerability),
             response=self.get_response(ssl_vulnerability),
-            result=self.get_result(ssl_vulnerability),
+            conclusion=self.get_conclusion(ssl_vulnerability),
         )
 
 
@@ -77,27 +77,25 @@ class SnippetConstructorEN(SnippetConstructor):
     def get_server(self, ssl_vulnerability: SSLVulnerability) -> str:
         return f"Server: {ssl_vulnerability.get_context()}"
 
-    def get_intention(self, ssl_vulnerability: SSLVulnerability) -> str:
-        return f"Intention: {ssl_vulnerability.get_intention(LocalesEnum.EN)}"
-
     def get_versions(self, ssl_vulnerability: SSLVulnerability) -> str:
         tls_vers = ssl_vulnerability.get_context().get_supported_tls_versions()
         versions = ", ".join([ssl_id2ssl_name(v_id) for v_id in tls_vers])
         return f"TLS versions on server: {versions}"
 
+    def get_intention(self, ssl_vulnerability: SSLVulnerability) -> str:
+        return f"Intention: {ssl_vulnerability.get_intention(LocalesEnum.EN)}"
+
     def get_request(self, ssl_vulnerability: SSLVulnerability) -> str:
         ssl_settings: SSLSettings = ssl_vulnerability.ssl_settings
 
         return (
-            "Request:\n"
-            "    Fallback scsv: {scsv}\n"
+            "Request made with the following parameters:\n"
             "    TLS version: {tls_version}\n"
             "    Key exchange: {key_exchange}\n"
             "    Authentication: {authentication}\n"
             "    Cipher: {cipher}\n"
             "    Hash: {ssl_hash}"
         ).format(
-            scsv=ssl_settings.scsv,
             tls_version=ssl_id2ssl_name(ssl_settings.tls_version),
             key_exchange=", ".join(ssl_settings.key_exchange_names),
             authentication=", ".join(ssl_settings.authentication_names),
@@ -107,14 +105,18 @@ class SnippetConstructorEN(SnippetConstructor):
 
     def get_response(self, ssl_vulnerability: SSLVulnerability) -> str:
         response = ssl_vulnerability.server_response
-        default = "Response:\n    ---"
+        default = (
+            "No response obtained from server:\n"
+            "    Result: UNSUCCESSFULL_CONNECTION"
+        )
 
         if response is None:
             return default
 
         if response.alert is not None:
             return (
-                "Response:\n"
+                "Response obtained from server:\n"
+                "    Result: CONNECTION_FAILED\n"
                 "    Type: ALERT\n"
                 "    Level: {level}\n"
                 "    Description: {description}"
@@ -125,8 +127,9 @@ class SnippetConstructorEN(SnippetConstructor):
 
         if response.handshake is not None:
             return (
-                "Response:\n"
-                "    Version: {version}\n"
+                "Response obtained from server:\n"
+                "    Result: CONNECTION_SUCCESS\n"
+                "    TLS version: {version}\n"
                 "    Selected cipher suite:\n"
                 "        Iana name: {iana}\n"
                 "        Openssl name: {openssl}\n"
@@ -142,8 +145,8 @@ class SnippetConstructorEN(SnippetConstructor):
 
         return default
 
-    def get_result(self, ssl_vulnerability: SSLVulnerability) -> str:
-        return f"Result: {ssl_vulnerability.description}"
+    def get_conclusion(self, ssl_vulnerability: SSLVulnerability) -> str:
+        return f"Conclusion: {ssl_vulnerability.description}"
 
 
 class SnippetConstructorES(SnippetConstructor):
@@ -151,27 +154,25 @@ class SnippetConstructorES(SnippetConstructor):
     def get_server(self, ssl_vulnerability: SSLVulnerability) -> str:
         return f"Servidor: {ssl_vulnerability.get_context()}"
 
-    def get_intention(self, ssl_vulnerability: SSLVulnerability) -> str:
-        return f"Intención: {ssl_vulnerability.get_intention(LocalesEnum.ES)}"
-
     def get_versions(self, ssl_vulnerability: SSLVulnerability) -> str:
         tls_vers = ssl_vulnerability.get_context().get_supported_tls_versions()
         versions = ", ".join([ssl_id2ssl_name(v_id) for v_id in tls_vers])
         return f"Versiones de TLS en el servidor: {versions}"
 
+    def get_intention(self, ssl_vulnerability: SSLVulnerability) -> str:
+        return f"Intención: {ssl_vulnerability.get_intention(LocalesEnum.ES)}"
+
     def get_request(self, ssl_vulnerability: SSLVulnerability) -> str:
         ssl_settings: SSLSettings = ssl_vulnerability.ssl_settings
 
         return (
-            "Petición:\n"
-            "    Fallback scsv: {scsv}\n"
+            "Petición realizada con los siguientes parámetros:\n"
             "    Versión TLS: {tls_version}\n"
             "    Intercambio de llaves: {key_exchange}\n"
             "    Autenticación: {authentication}\n"
             "    Encriptado: {cipher}\n"
             "    Hash: {ssl_hash}"
         ).format(
-            scsv=ssl_settings.scsv,
             tls_version=ssl_id2ssl_name(ssl_settings.tls_version),
             key_exchange=", ".join(ssl_settings.key_exchange_names),
             authentication=", ".join(ssl_settings.authentication_names),
@@ -181,14 +182,18 @@ class SnippetConstructorES(SnippetConstructor):
 
     def get_response(self, ssl_vulnerability: SSLVulnerability) -> str:
         response = ssl_vulnerability.server_response
-        default = "Respuesta:\n    ---"
+        default = (
+            "No se obtuvo respuesta del servidor:\n"
+            "    Resultado: UNSUCCESSFULL_CONNECTION"
+        )
 
         if response is None:
             return default
 
         if response.alert is not None:
             return (
-                "Respuesta:\n"
+                "Respuesta obtenida del servidor:\n"
+                "    Resultado: CONNECTION_FAILED\n"
                 "    Tipo: ALERT\n"
                 "    Nivel: {level}\n"
                 "    Descripción: {description}"
@@ -199,8 +204,9 @@ class SnippetConstructorES(SnippetConstructor):
 
         if response.handshake is not None:
             return (
-                "Respuesta:\n"
-                "    Versión: {version}\n"
+                "Respuesta obtenida del servidor:\n"
+                "    Resultado: CONNECTION_SUCCESS\n"
+                "    Versión TLS: {version}\n"
                 "    Suite de cifrado seleccionada:\n"
                 "        Nombre iana: {iana}\n"
                 "        Nombre openssl: {openssl}\n"
@@ -216,8 +222,8 @@ class SnippetConstructorES(SnippetConstructor):
 
         return default
 
-    def get_result(self, ssl_vulnerability: SSLVulnerability) -> str:
-        return f"Resultado: {ssl_vulnerability.description}"
+    def get_conclusion(self, ssl_vulnerability: SSLVulnerability) -> str:
+        return f"Conclusión: {ssl_vulnerability.description}"
 
 
 SnippetConstructors: Dict[LocalesEnum, SnippetConstructor] = {
