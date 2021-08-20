@@ -828,7 +828,7 @@ async def get_closed_vulnerabilities_new(context: Any, group_name: str) -> int:
     group_findings_loader.clear(group_name)
     finding_vulns_loader = context.finding_vulns_nzr
 
-    group_findings: Tuple[Finding] = await group_findings_loader.load(
+    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name
     )
     findings_vulns = await finding_vulns_loader.load_many_chained(
@@ -939,7 +939,7 @@ async def get_mean_remediate_new(
     group_findings_loader = context.group_findings_new
     finding_vulns_loaders = context.finding_vulns
 
-    group_findings: Tuple[Finding] = await group_findings_loader.load(
+    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name
     )
     vulns = await finding_vulns_loaders.load_many_chained(
@@ -1034,7 +1034,7 @@ async def get_mean_remediate_severity_new(
     finding_vulns_loader = context.finding_vulns_nzr
     group_findings_loader = context.group_findings_new
 
-    group_findings: Tuple[Finding] = await group_findings_loader.load(
+    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name.lower()
     )
     group_findings_ids: List[str] = [
@@ -1074,7 +1074,7 @@ async def get_open_finding_new(context: Any, group_name: str) -> int:
     finding_vulns_loader = context.finding_vulns_nzr
     group_findings_loader = context.group_findings_new
 
-    group_findings: Tuple[Finding] = await group_findings_loader.load(
+    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name
     )
     vulns = await finding_vulns_loader.load_many_chained(
@@ -1119,7 +1119,7 @@ async def get_open_vulnerabilities_new(
     group_findings_loader.clear(group_name)
     finding_vulns_loader = context.finding_vulns_nzr
 
-    group_findings: Tuple[Finding] = await group_findings_loader.load(
+    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name
     )
     findings_vulns = await finding_vulns_loader.load_many_chained(

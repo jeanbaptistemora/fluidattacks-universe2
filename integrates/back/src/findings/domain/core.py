@@ -450,7 +450,7 @@ async def get_last_closed_vulnerability_info(
 
 async def get_last_closed_vulnerability_info_new(
     context: Any,
-    findings: List[Finding],
+    findings: Tuple[Finding, ...],
 ) -> Tuple[Decimal, VulnerabilityType]:
     """Get days since the last closed vulnerability"""
     finding_vulns_loader = context.finding_vulns_nzr
@@ -533,7 +533,7 @@ async def get_max_open_severity(
 
 
 async def get_max_open_severity_new(
-    context: Any, findings: List[Finding]
+    context: Any, findings: Tuple[Finding, ...]
 ) -> Tuple[Decimal, Optional[Finding]]:
     total_vulns = await collect(
         [total_vulnerabilities_new(context, finding) for finding in findings]
@@ -615,10 +615,10 @@ async def get_pending_verification_findings_new(
         )
         if are_pending_verification
     ]
-    findings_loader_new = context.finding_new
-    findings_to_verify: Tuple[Finding, ...] = findings_loader_new.load(
-        pending_to_verify_ids
-    )
+    findings_loader = context.finding_new
+    findings_to_verify: Tuple[
+        Finding, ...
+    ] = await findings_loader.load_many_chained(pending_to_verify_ids)
     pending_to_verify = await collect(
         {
             "title": finding.title,
@@ -707,7 +707,7 @@ async def get_total_treatment(
 
 
 async def get_total_treatment_new(
-    context: Any, findings: Tuple[Finding]
+    context: Any, findings: Tuple[Finding, ...]
 ) -> Dict[str, int]:
     """Get the total vulnerability treatment of all the findings"""
     accepted_vuln: int = 0
@@ -838,10 +838,9 @@ async def is_pending_verification_new(
     context: Any,
     finding_id: str,
 ) -> bool:
-    # Validate finding is not deleted
+    # Validate if finding exists
     finding_loader = context.finding_new
-    if not finding_loader.load([finding_id]):
-        return False
+    await finding_loader.load(finding_id)
 
     finding_vulns_loader = context.finding_vulns_nzr
     vulns = await finding_vulns_loader.load(finding_id)
