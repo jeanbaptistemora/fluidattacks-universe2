@@ -5288,7 +5288,21 @@
       que la entidad con la que se está
       interactuando sea un ser humano.
   category: Authentication
-  references: []
+  references:
+    - "002.49"
+    - "004.287"
+    - "004.307"
+    - "004.799"
+    - "004.804"
+    - "009.007-6_R5_7"
+    - "012.V1_2_4"
+    - "012.V2_2_1"
+    - "012.V8_1_4"
+    - "012.V11_1_2"
+    - "012.V11_1_8"
+    - "012.V13_2_4"    
+    - "013.A2"
+    - "014.6_5_10"
   metadata: {}
 "238":
   en:
@@ -5339,7 +5353,18 @@
       la propiedad del ususario
       de la cuenta correspondiente.
   category: Authentication
-  references: []
+  references:
+    - "004.345"
+    - "004.602"
+    - "004.620"
+    - "004.640"
+    - "012.V1_4_1"
+    - "012.V2_1_6"
+    - "012.V2_5_6"
+    - "012.V4_1_1"
+    - "013.A2"
+    - "014.6_5_10"
+    - "014.8_2_2"
   metadata: {}
 "247":
   en:
@@ -5417,7 +5442,8 @@
       del equipo.
     description: __empty__
   category: Networks
-  references: []
+  references:
+    - "009.007-6_R1_1"
   metadata: {}
 "251":
   en:
@@ -5434,7 +5460,11 @@
       que viene de fábrica.
     description: __empty__
   category: Networks
-  references: []
+  references:
+    - "012.V2_5_4"
+    - "012.V2_10_2"
+    - "012.V14_2_2"
+    - "014.2_1_1"
   metadata: {}
 "252":
   en:
@@ -5454,7 +5484,10 @@
       o WPA2 Enterprise (802.11x).
     description: __empty__
   category: Networks
-  references: []
+  references:
+    - "013.A6"
+    - "014.4_1"
+    - "014.4_1_1"
   metadata: {}
 "253":
   en:
@@ -5474,7 +5507,9 @@
       y direcciones MAC autorizadas.
     description: __empty__
   category: Networks
-  references: []
+  references:
+    - "003.13_9"
+    - "008.9_1_2"
   metadata: {}
 "254":
   en:
@@ -5512,7 +5547,15 @@
       sólo a los puertos necesarios.
     description: __empty__
   category: Networks
-  references: []
+  references:
+    - "003.4_5"
+    - "003.4_8"
+    - "007.164_312_e_1"
+    - "009.007-6_R1_1"
+    - "014.1_3_1"
+    - "014.1_3_2"
+    - "014.1_3_5"
+    - "014.2_2_2"
   metadata: {}
 "257":
   en:
@@ -5533,7 +5576,12 @@
       (por ejemplo, NAC 802.1x).
     description: __empty__
   category: Networks
-  references: []
+  references:
+    - "003.12_6"
+    - "003.13_9"
+    - "007.164_312_e_1"
+    - "008.9_1_2"
+    - "010.IA-2"
   metadata: {}
 "258":
   en:

@@ -949,6 +949,9 @@
     "798":
       title: Use of Hard-coded Credentials
       link: https://cwe.mitre.org/data/definitions/798.html
+    "799":
+      title: Improper Control of Interaction Frequency
+      link: https://cwe.mitre.org/data/definitions/799.html
     "804":
       title: Guessable CAPTCHA
       link: https://cwe.mitre.org/data/definitions/804.html
