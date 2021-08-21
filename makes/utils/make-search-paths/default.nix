@@ -6,7 +6,13 @@ let
     "export ${envVar}=\"${envDrv}${envPath}:\${${envVar}:-}\"";
 
   source = envDrv:
-    "source ${envDrv}";
+    ''
+      if test -e "${envDrv}/template"; then
+        source "${envDrv}/template"
+      else
+        source "${envDrv}"
+      fi
+    '';
 in
 { envClassPaths ? [ ]
 , envLibraries ? [ ]

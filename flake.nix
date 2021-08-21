@@ -60,7 +60,9 @@
           sha256 = "pcNMJJJ2cRxh4Kgq0ElOIyBJemJu4qggxY3Debjbcms=";
         };
 
-        makes = import "${makesSource}/src/args/agnostic.nix" { };
+        makes = import "${makesSource}/src/args/agnostic.nix" {
+          inherit system;
+        };
 
         # Nix packages
         nixpkgs = import nixpkgsSource {

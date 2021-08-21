@@ -19,7 +19,7 @@ makeEntrypoint {
       packages.integrates.cache
       packages.integrates.storage
     ];
-    envPython37Paths = [
+    envSources = [
       (makes.makePythonPypiEnvironment {
         name = "integrates-charts-snapshots";
         sourcesYaml = ./sources.yaml;
