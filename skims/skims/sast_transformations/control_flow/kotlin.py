@@ -9,6 +9,7 @@ from more_itertools import (
 )
 from sast_transformations.control_flow.common import (
     GenericType,
+    get_next_id,
     link_to_last_node,
     propagate_next_id_from_parent,
     set_next_id,
@@ -39,6 +40,10 @@ def _generic(
 
     walkers = (
         (
+            {"for_statement", "while_statement"},
+            partial(_loop_statement, _generic=_generic),
+        ),
+        (
             {"function_body", "statements"},
             partial(step_by_step, _generic=_generic),
         ),
@@ -64,6 +69,19 @@ def _generic(
             graph.add_edge(n_id, next_id, **edge_attrs)
 
     stack.pop()
+
+
+def _loop_statement(
+    graph: Graph, n_id: str, stack: Stack, *, _generic: GenericType
+) -> None:
+    if next_id := get_next_id(stack):
+        graph.add_edge(n_id, next_id, **g.FALSE)
+
+    statements = g.get_ast_childs(graph, n_id, "statements", depth=2)
+    if statements:
+        graph.add_edge(n_id, statements[0], **g.TRUE)
+        propagate_next_id_from_parent(stack)
+        _generic(graph, statements[0], stack, edge_attrs=g.ALWAYS)
 
 
 def _try_catch_statement(
