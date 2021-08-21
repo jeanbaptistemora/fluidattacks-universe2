@@ -52,6 +52,10 @@ def _generic(
             partial(link_to_last_node, _generic=_generic),
         ),
         (
+            {"if_expression"},
+            partial(_if_statement, _generic=_generic),
+        ),
+        (
             {"try_catch_expression"},
             partial(_try_catch_statement, _generic=_generic),
         ),
@@ -82,6 +86,30 @@ def _loop_statement(
         graph.add_edge(n_id, statements[0], **g.TRUE)
         propagate_next_id_from_parent(stack)
         _generic(graph, statements[0], stack, edge_attrs=g.ALWAYS)
+
+
+def _if_statement(
+    graph: Graph, n_id: str, stack: Stack, *, _generic: GenericType
+) -> None:
+    match = g.match_ast_group(
+        graph, n_id, "if", "else", "control_structure_body"
+    )
+    if match["if"] and (if_else_blocks := match["control_structure_body"]):
+        if_stmts = g.get_ast_childs(graph, if_else_blocks[0], "statements")
+        if if_stmts:
+            graph.add_edge(n_id, if_stmts[0], **g.TRUE)
+            propagate_next_id_from_parent(stack)
+            _generic(graph, if_stmts[0], stack, edge_attrs=g.ALWAYS)
+    if (
+        match["else"]
+        and (if_else_blocks := match["control_structure_body"])
+        and len(if_else_blocks) == 2
+    ):
+        else_stmts = g.get_ast_childs(graph, if_else_blocks[1], "statements")
+        if else_stmts:
+            graph.add_edge(n_id, else_stmts[0], **g.FALSE)
+            propagate_next_id_from_parent(stack)
+            _generic(graph, else_stmts[0], stack, edge_attrs=g.ALWAYS)
 
 
 def _try_catch_statement(
