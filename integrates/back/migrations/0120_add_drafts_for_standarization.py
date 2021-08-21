@@ -10,6 +10,9 @@ https://gitlab.com/fluidattacks/product/-/issues/4903
 
 Execution Time:    2021-08-19 at 11:19:50 UTC-05
 Finalization Time: 2021-08-19 at 11:21:48 UTC-05
+
+Execution Time:    2021-08-20 at 21:22:10 UTC-05
+Finalization Time: 2021-08-20 at 21:33:12 UTC-05
 """
 
 from aioextensions import (
@@ -329,7 +332,9 @@ async def main() -> None:
     print(f"    === sample: {new_drafts_info[:1]}")
 
     # Read file with criteria
-    with open("data.yaml", mode="r") as data_yaml:
+    with open(
+        "../../../makes/makes/criteria/src/vulnerabilities/data.yaml", mode="r"
+    ) as data_yaml:
         criteria_data = yaml.safe_load(data_yaml)
 
     context: Dataloaders = get_new_context()

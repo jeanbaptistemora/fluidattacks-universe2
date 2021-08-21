@@ -11,6 +11,9 @@ https://gitlab.com/fluidattacks/product/-/issues/4903
 
 Execution Time:    2021-08-19 at 13:16:59 UTC-05
 Finalization Time: 2021-08-19 at 13:17:01 UTC-05
+
+Execution Time:    2021-08-20 at 21:24:33 UTC-05
+Finalization Time: 2021-08-20 at 21:44:53 UTC-05
 """
 
 from aioextensions import (
@@ -36,7 +39,7 @@ from typing import (
     Dict,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 
 async def process_finding(context: Dataloaders, finding_id: str) -> bool:
