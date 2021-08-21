@@ -6801,7 +6801,18 @@
       en el control de seguridad,
       para que no haya una alternativa más débil.
   category: Authentication
-  references: []
+  references:
+    - "002.114"
+    - "002.115"
+    - "002.151"
+    - "004.287"
+    - "004.306"
+    - "012.V1_2_4"
+    - "012.V2_5_7"
+    - "012.V11_1_1"
+    - "012.V14_5_4"
+    - "013.A2"
+    - "014.6_5_10"
   metadata: {}
 "320":
   en:
@@ -6842,7 +6853,31 @@
       porque es propenso a ser eludido
       y / o manipulado.
   category: Architecture
-  references: []
+  references:
+    - "002.11"
+    - "002.22"
+    - "002.28"
+    - "002.34"
+    - "002.39"
+    - "002.153"
+    - "004.284"
+    - "004.285"
+    - "004.602"
+    - "004.639"
+    - "005.4_1a"
+    - "012.V1_4_1"
+    - "012.V1_4_4"
+    - "012.V1_5_3"
+    - "012.V4_1_1"
+    - "012.V4_1_2"
+    - "012.V4_2_1"
+    - "012.V13_1_4"
+    - "012.V13_4_2"
+    - "012.V14_5_2"
+    - "013.A2"
+    - "013.A5"
+    - "014.6_5_8"
+    - "014.6_5_10"
   metadata: {}
 "321":
   en:
@@ -6889,7 +6924,24 @@
       puede llevar a ataques de deserialización,
       como inyección de objetos.
   category: Data
-  references: []
+  references:
+    - "002.130"
+    - "002.153"
+    - "002.248"
+    - "002.586"
+    - "004.94"
+    - "004.95"
+    - "004.502"
+    - "012.V1_5_2"
+    - "012.V5_5_1"
+    - "012.V5_5_3"
+    - "012.V5_5_4"
+    - "012.V13_2_2"
+    - "012.V13_3_1"
+    - "013.A1"
+    - "013.A4"
+    - "013.A8"
+    - "014.6_5_1"
   metadata: {}
 "322":
   en:
@@ -6947,7 +6999,9 @@
       de problemas en los entornos
       de producción.
   category: Logs
-  references: []
+  references:
+    - "004.779"
+    - "012.V1_7_1"
   metadata: {}
 "323":
   en:
@@ -7003,7 +7057,9 @@
       como las puertas traseras,
       los rootkits e información sensible expuesta.
   category: Source
-  references: []
+  references:
+    - "004.510"
+    - "012.V10_2_3"
   metadata: {}
 "324":
   en:
@@ -7045,7 +7101,20 @@
       solo sean redirigidos
       a los sitios de confianza.
   category: Architecture
-  references: []
+  references:
+    - "002.161"
+    - "004.601"
+    - "004.602"
+    - "004.918"
+    - "004.1022"
+    - "008.14_1_3"
+    - "012.V1_4_1"
+    - "012.V1_5_3"
+    - "012.V4_1_1"
+    - "012.V5_1_5"
+    - "012.V5_2_6"
+    - "012.V12_6_1"
+    - "012.V14_4_6"
   metadata: {}
 "325":
   en:

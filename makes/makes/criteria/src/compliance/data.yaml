@@ -992,6 +992,11 @@
     "1021":
       title: Improper Restriction of Rendered UI Layers or Frames
       link: https://cwe.mitre.org/data/definitions/1021.html
+    "1022":
+      title: >
+        Use of Web Link to Untrusted Target
+        with window.opener Access
+      link: https://cwe.mitre.org/data/definitions/1022.html
     "1085":
       title: >
         Invokable Control Element with
