@@ -1087,13 +1087,21 @@ type Mutation {
     components"""
     integrityImpact: String!
     integrityRequirement: String!
+    "Modified Attack Complexity"
     modifiedAttackComplexity: String!
+    "Modified Attack Vector"
     modifiedAttackVector: String!
+    "Modified Availability Impact"
     modifiedAvailabilityImpact: String!
+    "Modified Confidentiality Impact"
     modifiedConfidentialityImpact: String!
+    "Modified Integrity Impact"
     modifiedIntegrityImpact: String!
+    "Modified Privileges Required"
     modifiedPrivilegesRequired: String!
+    "Modified Scope"
     modifiedSeverityScope: String!
+    "Modified User Interaction"
     modifiedUserInteraction: String!
     "Privileges required by the attacker to exploit the vulnerabilities"
     privilegesRequired: String!
