@@ -26,7 +26,7 @@ class SSLSnippetLine(Enum):
     INTENTION: int = 2
     VERSIONS: int = 3
     REQUEST: int = 5
-    RESPONSE: int = 12
+    RESPONSE: int = 10
 
 
 class TLSVersionId(Enum):
