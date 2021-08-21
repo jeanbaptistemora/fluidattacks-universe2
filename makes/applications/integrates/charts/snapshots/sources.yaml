@@ -1,0 +1,17 @@
+closure:
+  selenium: 3.14.1
+  urllib3: 1.26.6
+links:
+  - name: selenium-3.14.1-py2.py3-none-any.whl
+    sha256: 1lfwjs3am4hm6jyxnnf3p86li6nqymdx12im5siyi6c87lab3dpx
+    url: https://pypi.org/packages/py2.py3/s/selenium/selenium-3.14.1-py2.py3-none-any.whl
+  - name: selenium-3.14.1.tar.gz
+    sha256: 0576jvqfwvpaap69v9pl898lj4lbdk34fjzlpkx40k0n8v82q6db
+    url: https://pypi.org/packages/source/s/selenium/selenium-3.14.1.tar.gz
+  - name: urllib3-1.26.6-py2.py3-none-any.whl
+    sha256: 1m6823gifpdhma46q3rg3vn4s406138qswd776qsqnb129r8dyrr
+    url: https://pypi.org/packages/py2.py3/u/urllib3/urllib3-1.26.6-py2.py3-none-any.whl
+  - name: urllib3-1.26.6.tar.gz
+    sha256: 0brlisgwwcms6q7p6nd2b5mzn4jm4mdw75rxgq5pd8igqqb4qyzm
+    url: https://pypi.org/packages/source/u/urllib3/urllib3-1.26.6.tar.gz
+python: "3.7"

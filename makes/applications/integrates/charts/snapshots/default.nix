@@ -1,4 +1,4 @@
-{ buildPythonRequirements
+{ makes
 , nixpkgs
 , makeEntrypoint
 , packages
@@ -20,17 +20,9 @@ makeEntrypoint {
       packages.integrates.storage
     ];
     envPython37Paths = [
-      (buildPythonRequirements {
+      (makes.makePythonPypiEnvironment {
         name = "integrates-charts-snapshots";
-        requirements = {
-          direct = [
-            "selenium==3.141.0"
-          ];
-          inherited = [
-            "urllib3==1.26.4"
-          ];
-        };
-        python = nixpkgs.python37;
+        sourcesYaml = ./sources.yaml;
       })
     ];
     envUtils = [
