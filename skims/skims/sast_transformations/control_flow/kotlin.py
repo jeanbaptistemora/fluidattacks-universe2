@@ -4,6 +4,9 @@ from functools import (
 from model.graph_model import (
     Graph,
 )
+from more_itertools import (
+    pairwise,
+)
 from sast_transformations.control_flow.common import (
     GenericType,
     link_to_last_node,
@@ -46,6 +49,10 @@ def _generic(
         (
             {"try_catch_expression"},
             partial(_try_catch_statement, _generic=_generic),
+        ),
+        (
+            {"when_expression"},
+            partial(_when_statement, _generic=_generic),
         ),
     )
     for types, walker in walkers:
@@ -94,6 +101,29 @@ def _try_catch_statement(
                 graph.add_edge(n_id, catch_block, **g.MAYBE)
                 _set_next_id(stack, next_id)
                 _generic(graph, catch_block, stack, edge_attrs=g.ALWAYS)
+
+
+def _when_statement(
+    graph: Graph, n_id: str, stack: Stack, *, _generic: GenericType
+) -> None:
+    match = g.match_ast_group(graph, n_id, "when_entry")
+    if when_options := match["when_entry"]:
+        for option in when_options:
+            match = g.match_ast(graph, option, "control_structure_body")
+            if option_body := match["control_structure_body"]:
+                graph.add_edge(n_id, option, **g.MAYBE)
+                option_stmts = g.adj_ast(graph, option_body)
+                if option_stmts:
+                    for step_a_id, step_b_id in pairwise(
+                        (option, *option_stmts)
+                    ):
+                        set_next_id(stack, step_b_id)
+                        _generic(graph, step_a_id, stack, edge_attrs=g.ALWAYS)
+
+                    propagate_next_id_from_parent(stack)
+                    _generic(
+                        graph, option_stmts[-1], stack, edge_attrs=g.ALWAYS
+                    )
 
 
 def add(graph: Graph) -> None:
