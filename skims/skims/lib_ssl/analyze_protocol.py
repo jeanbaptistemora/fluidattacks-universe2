@@ -133,20 +133,28 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     extensions: List[int] = get_ec_point_formats_ext()
     extensions += get_elliptic_curves_ext()
 
+    en_intention = (
+        "Perform a {v_name} request offering only key exchange algorithms\n"
+        "with PFS support and check if the connection is accepted by the\n"
+        "server"
+    )
+
+    es_intention = (
+        "Realizar una petición {v_name} ofreciendo únicamente algoritmos\n"
+        "de intercambio de llaves con soporte PFS y verificar si la conexión\n"
+        "es aceptada por el servidor"
+    )
+
     for v_id in tls_versions:
         if v_id == SSLVersionId.tlsv1_3:
             continue
 
         intention: Dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
-                "check if server accepts key exchange with PFS support in"
-                " {v_name}".format(
-                    v_name=ssl_id2ssl_name(v_id),
-                )
+                en_intention.format(v_name=ssl_id2ssl_name(v_id))
             ),
             core_model.LocalesEnum.ES: (
-                "verificar si el servidor acepta intercambio de llaves con"
-                "soporte PFS en {v_name}".format(
+                es_intention.format(
                     v_name=ssl_id2ssl_name(v_id),
                 )
             ),
@@ -290,13 +298,19 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         SSLSpecialSuite.EMPTY_RENEGOTIATION_INFO_SCSV.value,
     ]
 
+    en_intention = (
+        "Perform a SSLv3 request offering any cipher suite and check if the\n"
+        "connection is accepted by the server"
+    )
+
+    es_intention = (
+        "Realizar una petición SSLv3 ofreciendo cualquier suite de cifrado\n"
+        "y verificar si la conexión es aceptada por el servidor"
+    )
+
     intention: Dict[core_model.LocalesEnum, str] = {
-        core_model.LocalesEnum.EN: (
-            "check if server accepts connections with SSLv3"
-        ),
-        core_model.LocalesEnum.ES: (
-            "verificar si el servidor acepta conexiones con SSLv3"
-        ),
+        core_model.LocalesEnum.EN: en_intention,
+        core_model.LocalesEnum.ES: es_intention,
     }
 
     sock = tcp_connect(
@@ -334,6 +348,16 @@ def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
+    en_intention = (
+        "Perform a TLSv1.0 request offering any cipher suite and check if\n"
+        "the server accepts the connection"
+    )
+
+    es_intention = (
+        "Realizar una petición TLSv1.0 ofreciendo cualquier suite de\n"
+        "cifrado y verificar si el servidor acepta la conexión"
+    )
+
     if SSLVersionId.tlsv1_0 in tls_versions:
         ssl_vulnerabilities.append(
             _create_ssl_vuln(
@@ -342,12 +366,8 @@ def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     context=ctx,
                     tls_version=SSLVersionId.tlsv1_0,
                     intention={
-                        core_model.LocalesEnum.EN: (
-                            "check if server accepts connections with TLSv1.0"
-                        ),
-                        core_model.LocalesEnum.ES: (
-                            "verificar si el servidor acepta TLSv1.0"
-                        ),
+                        core_model.LocalesEnum.EN: en_intention,
+                        core_model.LocalesEnum.ES: es_intention,
                     },
                 ),
                 server_response=ctx.get_tls_response(SSLVersionId.tlsv1_0),
@@ -362,6 +382,16 @@ def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     ssl_vulnerabilities: List[SSLVulnerability] = []
     tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
+    en_intention = (
+        "Perform a TLSv1.1 request offering any cipher suite and check if\n"
+        "the server accepts the connection"
+    )
+
+    es_intention = (
+        "Realizar una petición TLSv1.1 ofreciendo cualquier suite de\n"
+        "cifrado y verificar si el servidor acepta la conexión"
+    )
+
     if SSLVersionId.tlsv1_1 in tls_versions:
         ssl_vulnerabilities.append(
             _create_ssl_vuln(
@@ -370,12 +400,8 @@ def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     context=ctx,
                     tls_version=SSLVersionId.tlsv1_1,
                     intention={
-                        core_model.LocalesEnum.EN: (
-                            "check if server accepts connections with TLSv1.1"
-                        ),
-                        core_model.LocalesEnum.ES: (
-                            "verificar si el servidor acepta TLSv1.1"
-                        ),
+                        core_model.LocalesEnum.EN: en_intention,
+                        core_model.LocalesEnum.ES: es_intention,
                     },
                 ),
                 server_response=ctx.get_tls_response(SSLVersionId.tlsv1_1),
@@ -393,6 +419,17 @@ def _tlsv1_2_or_higher_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     if not tls_versions:
         return tuple()
 
+    en_intention = (
+        "Perform a request offering any cipher suite on versions TLSv1.2 or\n"
+        "TLSv1.3 and check if the server accepts the connection"
+    )
+
+    es_intention = (
+        "Realizar una petición ofreciendo cualquier suite de cifrado con\n"
+        "las versiones TLSv1.2 o TLSv1.3 y verificar si el servidor acepta\n"
+        "la conexión"
+    )
+
     if (
         SSLVersionId.tlsv1_2 not in tls_versions
         and SSLVersionId.tlsv1_3 not in tls_versions
@@ -404,12 +441,8 @@ def _tlsv1_2_or_higher_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
                     context=ctx,
                     tls_version=SSLVersionId.tlsv1_3,
                     intention={
-                        core_model.LocalesEnum.EN: (
-                            "check if server accepts TLSv1.2 or TLSv1.3"
-                        ),
-                        core_model.LocalesEnum.ES: (
-                            "verificar si el servidor acepta TLSv1.2 o TLSv1.3"
-                        ),
+                        core_model.LocalesEnum.EN: en_intention,
+                        core_model.LocalesEnum.ES: es_intention,
                     },
                 ),
                 server_response=None,
@@ -426,15 +459,24 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
 
     suites: List[SSLSuiteInfo] = list(get_weak_suites())
 
+    en_intention = (
+        "Perform a {v_name} request offering only weak cipher suites and\n"
+        "check if the connection is accepted by the server"
+    )
+
+    es_intention = (
+        "Realizar una petición {v_name} ofreciendo solamente suites de\n"
+        "cifrado débiles y verificar si la conexión es aceptada por el\n"
+        "servidor"
+    )
+
     for v_id in tls_versions:
         intention: Dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
-                "check if server accepts connections with weak ciphers"
-                " in {v_name}".format(v_name=ssl_id2ssl_name(v_id))
+                en_intention.format(v_name=ssl_id2ssl_name(v_id))
             ),
             core_model.LocalesEnum.ES: (
-                "verificar si el servidor acepta conexiones con cifrado débil"
-                " en {v_name}".format(v_name=ssl_id2ssl_name(v_id))
+                es_intention.format(v_name=ssl_id2ssl_name(v_id))
             ),
         }
 
@@ -494,18 +536,27 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     extensions: List[int] = get_ec_point_formats_ext()
     extensions += get_elliptic_curves_ext()
 
+    en_intention = (
+        "Perform a {v_name} request offering any cipher suite \n"
+        "and check if the connection is accepted by the server"
+    )
+
+    es_intention = (
+        "Realizar una petición {v_name} ofreciendo solamente suites de\n"
+        "cifrado que usen CBC y verificar si la conexión es aceptada por el\n"
+        "servidor"
+    )
+
     for v_id in tls_versions:
         if v_id == SSLVersionId.tlsv1_3:
             continue
 
         intention: Dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
-                "check if server accepts connections with ciphers that use"
-                " CBC in {v_name}".format(v_name=ssl_id2ssl_name(v_id))
+                en_intention.format(v_name=ssl_id2ssl_name(v_id))
             ),
             core_model.LocalesEnum.ES: (
-                "verificar si el servidor soporta cifrado con CBC"
-                " en {v_name}".format(v_name=ssl_id2ssl_name(v_id))
+                es_intention.format(v_name=ssl_id2ssl_name(v_id))
             ),
         }
 
@@ -582,13 +633,21 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 
     min_v_id: SSLVersionId = min(tls_versions)
 
+    en_intention = (
+        "Perform a request with the lower TLS version supported by the\n"
+        "server with the TLS_FALLBACK_SCSV parameter set on true and check\n"
+        "if the server accept the connection"
+    )
+
+    es_intention = (
+        "Realizar una petición con la menor versión de TLS soportada por el\n"
+        "servidor con el paremtro TLS_FALLBACK_SCSV activado y verificar si\n"
+        "el servidor acepta la conexión"
+    )
+
     intention: Dict[core_model.LocalesEnum, str] = {
-        core_model.LocalesEnum.EN: (
-            "check if server supports TLS_FALLBACK_SCSV"
-        ),
-        core_model.LocalesEnum.ES: (
-            "verificar si el servidor soporta TLS_FALLBACK_SCSV"
-        ),
+        core_model.LocalesEnum.EN: en_intention,
+        core_model.LocalesEnum.ES: es_intention,
     }
 
     sock = tcp_connect(
@@ -633,6 +692,18 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
     if SSLVersionId.tlsv1_3 not in tls_versions:
         return tuple()
 
+    en_intention = (
+        "Perform a {v_name} request offering any cipher suite to check if\n"
+        "the connection is accepted by the server, meaning that a downgrade\n"
+        "from TLSv1.3 is possible"
+    )
+
+    es_intention = (
+        "Realizar una petición {v_name} ofreciendo cualquier suite de\n"
+        "cifrado para verificar si la conexión es aceptada por el servidor,\n"
+        "lo cual significaria que TLSv1.3 puede ser degradado"
+    )
+
     for v_id in tls_versions:
         if v_id in (SSLVersionId.tlsv1_2, SSLVersionId.tlsv1_3):
             continue
@@ -642,16 +713,8 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
             context=ctx,
             tls_version=v_id,
             intention={
-                core_model.LocalesEnum.EN: (
-                    "check if TLSv1.3 can be downgraded to {v_name}".format(
-                        v_name=v_name
-                    )
-                ),
-                core_model.LocalesEnum.ES: (
-                    "verificar si TLSv1.3 puede degradarse a {v_name}".format(
-                        v_name=v_name
-                    )
-                ),
+                core_model.LocalesEnum.EN: en_intention.format(v_name=v_name),
+                core_model.LocalesEnum.ES: es_intention.format(v_name=v_name),
             },
         )
 
@@ -731,17 +794,24 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     extensions += get_session_ticket_ext()
     extensions += get_heartbeat_ext()
 
+    en_intention = (
+        "Perform a {v_name} request offering any cipher suite and check if\n"
+        "the server is vulnerable to a heartbleed attack"
+    )
+
+    es_intention = (
+        "Realizar una petición {v_name} ofreciendo cualquier suite de\n"
+        "cifrado y verificar si el servidor es vulnerable a un ataque\n"
+        "heartbleed"
+    )
+
     for v_id in tls_versions:
         intention: Dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
-                "check if server is vulnerable to heartbleed attack with"
-                " {v_name}".format(
-                    v_name=ssl_id2ssl_name(v_id),
-                )
+                en_intention.format(v_name=ssl_id2ssl_name(v_id))
             ),
             core_model.LocalesEnum.ES: (
-                "verificar si el servidor es vulnerable a un ataque heartbleed"
-                " con {v_name}".format(
+                es_intention.format(
                     v_name=ssl_id2ssl_name(v_id),
                 )
             ),
@@ -809,19 +879,21 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     extensions += get_session_ticket_ext()
     extensions += get_heartbeat_ext()
 
+    en_intention = (
+        "Check if server is vulnerable to FREAK attack with {v_name}"
+    )
+
+    es_intention = (
+        "Verificar si el servidor es vulnerable a ataques FREAK en {v_name}"
+    )
+
     for v_id in tls_versions:
         intention: Dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
-                "check if server is vulnerable to FREAK attack with"
-                " {v_name}".format(
-                    v_name=ssl_id2ssl_name(v_id),
-                )
+                en_intention.format(v_name=ssl_id2ssl_name(v_id))
             ),
             core_model.LocalesEnum.ES: (
-                "verificar si el servidor es vulnerable a un ataque FREAK"
-                " con {v_name}".format(
-                    v_name=ssl_id2ssl_name(v_id),
-                )
+                es_intention.format(v_name=ssl_id2ssl_name(v_id))
             ),
         }
 
@@ -879,19 +951,21 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     extensions += get_session_ticket_ext()
     extensions += get_heartbeat_ext()
 
+    en_intention = (
+        "check if server is vulnerable to RACCOON attack with {v_name}"
+    )
+
+    es_intention = (
+        "verificar si el servidor es vulnerable a un ataque RACCOON - {v_name}"
+    )
+
     for v_id in tls_versions:
         intention: Dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
-                "check if server is vulnerable to RACCOON attack with"
-                " {v_name}".format(
-                    v_name=ssl_id2ssl_name(v_id),
-                )
+                en_intention.format(v_name=ssl_id2ssl_name(v_id))
             ),
             core_model.LocalesEnum.ES: (
-                "verificar si el servidor es vulnerable a un ataque RACCOON"
-                " con {v_name}".format(
-                    v_name=ssl_id2ssl_name(v_id),
-                )
+                es_intention.format(v_name=ssl_id2ssl_name(v_id))
             ),
         }
 
@@ -947,6 +1021,16 @@ def _breach_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         "xz",
     ]
 
+    en_intention = (
+        "check if server is vulnerable to BREACH attack with {compression}\n"
+        "as encoding method"
+    )
+
+    es_intention = (
+        "verificar si el servidor es vulnerable a un ataque BREACH al usar\n"
+        "{compression} como método de codificación"
+    )
+
     for compression in common_compressors:
         response = request_blocking(
             url=url,
@@ -964,18 +1048,10 @@ def _breach_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
                         context=ctx,
                         intention={
                             core_model.LocalesEnum.EN: (
-                                "check if server is vulnerable to BREACH"
-                                " attack with {compression} as encoding"
-                                " method".format(
-                                    compression=compression,
-                                )
+                                en_intention.format(compression=compression)
                             ),
                             core_model.LocalesEnum.ES: (
-                                "verificar si el servidor es vulnerable a un"
-                                " ataque BREACH al usar {compression} como"
-                                " método de codificación".format(
-                                    compression=compression,
-                                )
+                                es_intention.format(compression=compression)
                             ),
                         },
                     ),

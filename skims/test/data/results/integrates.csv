@@ -1,42 +1,46 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
 F133,inputs,localhost:4446 (namespace),server refuses connections with PFS support,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,server refuses connections with PFS support,"
    1 | Server: localhost:4446
-   2 | Available TLS versions: TLSv1.0, TLSv1.1
+   2 | Available versions on server: TLSv1.0, TLSv1.1
    3 | -------------------------------Intention-------------------------------
-   4 | check if server accepts key exchange with PFS support in TLSv1.0
-   5 | --------------Request made with the following parameters---------------
-   6 | TLS version: TLSv1.0
-   7 | Key exchange: DHE, ECDHE, SRP, ECCPWD
-   8 | Authentication: ANY
-   9 | Cipher: ANY
-  10 | Hash: ANY
-  11 | ---------------------Response obtained from server---------------------
-  12 | Result: CONNECTION_FAILED
-  13 | Type: ALERT
-  14 | Level: FATAL
-  15 | Description: handshake_failure
-  16 | ------------------------------Conclusion-------------------------------
-  17 | server refuses connections with PFS support
+   4 | Perform a TLSv1.0 request offering only key exchange algorithms
+   5 | with PFS support and check if the connection is accepted by the
+   6 | server
+   7 | --------------Request made with the following parameters---------------
+   8 | TLS version: TLSv1.0
+   9 | Key exchange: DHE, ECDHE, SRP, ECCPWD
+  10 | Authentication: ANY
+  11 | Cipher: ANY
+  12 | Hash: ANY
+  13 | ---------------------Response obtained from server---------------------
+  14 | Result: CONNECTION_FAILED
+  15 | Type: ALERT
+  16 | Level: FATAL
+  17 | Description: handshake_failure
+  18 | ------------------------------Conclusion-------------------------------
+  19 | server refuses connections with PFS support
      ^ Col 0
 "
 F133,inputs,localhost:4446 (namespace),server refuses connections with PFS support,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,server refuses connections with PFS support,"
    1 | Server: localhost:4446
-   2 | Available TLS versions: TLSv1.0, TLSv1.1
+   2 | Available versions on server: TLSv1.0, TLSv1.1
    3 | -------------------------------Intention-------------------------------
-   4 | check if server accepts key exchange with PFS support in TLSv1.1
-   5 | --------------Request made with the following parameters---------------
-   6 | TLS version: TLSv1.1
-   7 | Key exchange: DHE, ECDHE, SRP, ECCPWD
-   8 | Authentication: ANY
-   9 | Cipher: ANY
-  10 | Hash: ANY
-  11 | ---------------------Response obtained from server---------------------
-  12 | Result: CONNECTION_FAILED
-  13 | Type: ALERT
-  14 | Level: FATAL
-  15 | Description: handshake_failure
-  16 | ------------------------------Conclusion-------------------------------
-  17 | server refuses connections with PFS support
+   4 | Perform a TLSv1.1 request offering only key exchange algorithms
+   5 | with PFS support and check if the connection is accepted by the
+   6 | server
+   7 | --------------Request made with the following parameters---------------
+   8 | TLS version: TLSv1.1
+   9 | Key exchange: DHE, ECDHE, SRP, ECCPWD
+  10 | Authentication: ANY
+  11 | Cipher: ANY
+  12 | Hash: ANY
+  13 | ---------------------Response obtained from server---------------------
+  14 | Result: CONNECTION_FAILED
+  15 | Type: ALERT
+  16 | Level: FATAL
+  17 | Description: handshake_failure
+  18 | ------------------------------Conclusion-------------------------------
+  19 | server refuses connections with PFS support
      ^ Col 0
 "
 F117,lines,namespace/skims/test/data/lib_path/f117/.project,1,377,skims,117. Unverifiable files,Unverifiable file in skims/test/data/lib_path/f117/.project,"

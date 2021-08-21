@@ -94,7 +94,7 @@ class SnippetConstructorEN(SnippetConstructor):
     def get_versions(self, ssl_vulnerability: SSLVulnerability) -> str:
         tls_vers = ssl_vulnerability.get_context().get_supported_tls_versions()
         versions = ", ".join([ssl_id2ssl_name(v_id) for v_id in tls_vers])
-        return f"Available TLS versions: {versions}"
+        return f"Available versions on server: {versions}"
 
     def get_intention_title(self) -> str:
         return (
@@ -170,7 +170,7 @@ class SnippetConstructorEN(SnippetConstructor):
                 vulns=response.handshake.cipher_suite.get_vuln_str(),
             )
 
-        return "NONE"
+        return super().get_response(ssl_vulnerability)
 
     def get_conclusion_title(self) -> str:
         return (
@@ -191,7 +191,7 @@ class SnippetConstructorES(SnippetConstructor):
     def get_versions(self, ssl_vulnerability: SSLVulnerability) -> str:
         tls_vers = ssl_vulnerability.get_context().get_supported_tls_versions()
         versions = ", ".join([ssl_id2ssl_name(v_id) for v_id in tls_vers])
-        return f"Versiones de TLS disponibles en el servidor: {versions}"
+        return f"Versiones disponibles en servidor: {versions}"
 
     def get_intention_title(self) -> str:
         return (
@@ -229,9 +229,9 @@ class SnippetConstructorES(SnippetConstructor):
 
     def get_response_title(self, ssl_vulnerability: SSLVulnerability) -> str:
         return (
-            "-----------------------------"
+            "--------------------"
             "Respuesta obtenida del servidor"
-            "------------------------------"
+            "--------------------"
         )
 
     def get_response(self, ssl_vulnerability: SSLVulnerability) -> str:
@@ -267,7 +267,7 @@ class SnippetConstructorES(SnippetConstructor):
                 vulns=response.handshake.cipher_suite.get_vuln_str(),
             )
 
-        return "NONE"
+        return super().get_response(ssl_vulnerability)
 
     def get_conclusion_title(self) -> str:
         return (
