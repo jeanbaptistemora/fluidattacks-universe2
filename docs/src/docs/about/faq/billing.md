@@ -8,20 +8,18 @@ slug: /about/faq/billing
 ## What is an active author?
 
 An active author is a user
-with access to the `Git` repository
+with access to the Git repository
 who makes changes to the stored code
 in the repository
 during the analyzed month.
 
-## Why is there a month 0 and how does setup work?
+## Why is there a month 0, and how does the setup work?
 
-Month `0` begins the test setup
+Month 0 begins the test setup
 and is the start of the monthly payment.
 A project leader is assigned
-who is responsible for managing
-the connection of environments,
-profiling, user creation,
-allocation of privileges,
+who is responsible for managing the connection of environments,
+profiling, user creation, allocation of privileges,
 and all the necessary inputs
 to begin the review without setbacks.
 
