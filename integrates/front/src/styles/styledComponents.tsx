@@ -177,7 +177,7 @@ const EditableFieldNotUrl: StyledComponent<
   "p",
   Record<string, unknown>
 > = styled.p.attrs({
-  className: "f5 w-fit-content ws-pre-wrap ww-break-word ma0",
+  className: "f5 w-fit-content ws-pre-wrap ma0",
 })``;
 
 const EditableFieldTitle25: StyledComponent<
@@ -200,7 +200,7 @@ const EvidenceDescription: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "f5 w-100",
+  className: "f5 w-100 nowrap",
 })``;
 
 const EventHeaderGrid: StyledComponent<

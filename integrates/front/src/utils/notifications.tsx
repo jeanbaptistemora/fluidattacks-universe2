@@ -52,7 +52,7 @@ const msgInfo: (text: string, title: string, hideMessage?: boolean) => void = (
   toast.info(<Notification text={text} title={title} />, {
     autoClose: false,
     className: "bg-ns",
-    closeButton: false,
+    closeButton: true,
     delay: 0,
     draggable: false,
     toastId,
