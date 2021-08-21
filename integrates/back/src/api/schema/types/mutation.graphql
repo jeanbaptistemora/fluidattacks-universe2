@@ -22,11 +22,11 @@ type Mutation {
     attackComplexity: String
     "Level of access needed for an attack to succeed"
     attackVector: String
-    "Systems under threat from the vulnerability"
+    "Project or application that contains the vulnerability"
     affectedSystems: String
     "Deprecated. Use `attackVectorDescription` instead"
     attackVectorDesc: String
-    "Attack vector description"
+    "Malicious actions that can be performed by exploiting the vulnerability"
     attackVectorDescription: String
     """Hypotethical impact on resource (webpages, content etc...) availability
     and possibility of service denial"""
@@ -34,7 +34,7 @@ type Mutation {
     """Measure of the sensible/restricted information (e.g. password,
     encryption keys) the attacker could gather from the breached component"""
     confidentialityImpact: String
-    "Description of the draft Finding"
+    "Brief explanation of the vulnerability and how it works"
     description: String
     """Measure of the availability of resources and details, both theoretical
     and practical, available for a malicious actor to build and/or automate an
@@ -53,15 +53,15 @@ type Mutation {
     remediationLevel: String
     "Report Confidence"
     reportConfidence: String
-    "Unmet security requirements while the vulnerabilities remains open"
+    "Rules that are broken and lead to the existence of the vulnerability"
     requirements: String
     "Other risks opened by the exploit"
     risk: String
     "Security scope of the affected resources by the exploited vulnerabilities"
     severityScope: String
-    "A summary of the threats posed by a successful exploit"
+    "Actor and scenery where the vulnerability can be exploited"
     threat: String
-    "Draft Finding title"
+    "Finding number and name"
     title: String!
     "Draft finding type"
     type: FindingType
@@ -157,7 +157,7 @@ type Mutation {
     kind: String
     "Forces execution log"
     log: Upload
-    "Degree of strictness of the execution"
+    "Strict mode, if enabled, forces the fix of security issues"
     strictness: String!
     "Object containing arrays of accepted, open and closed vulnerabilities"
     vulnerabilities: ExecutionVulnerabilitiesInput!
@@ -332,11 +332,11 @@ type Mutation {
 
   "Adds a new draft Finding to the specified Group"
   createDraft(
-    "Systems under threat from the vulnerability"
+    "Project or application that contains the vulnerability"
     affectedSystems: String
     "Attack vector description"
     attackVectorDesc: String
-    "Description of the draft Finding"
+    "Brief explanation of the vulnerability and how it works"
     description: String
     "Name of the Group where the new draft will be in"
     groupName: String
@@ -344,13 +344,13 @@ type Mutation {
     projectName: String
     "Recommended course of action to close the vulnerabilities"
     recommendation: String
-    "Unmet security requirements while the vulnerabilities remains open"
+    "Rules that are broken and lead to the existence of the vulnerability"
     requirements: String
     "Other risks opened by the exploit"
     risk: String
-    "A summary of the threats posed by a successful exploit"
+    "Actor and scenery where the vulnerability can be exploited"
     threat: String
-    "Draft Finding title"
+    "Finding number and name"
     title: String!
     "Draft Finding type"
     type: FindingType
@@ -882,13 +882,13 @@ type Mutation {
   "Updates a Finding's description"
   updateDescription(
     actor: String!
-    "Systems under threat from the vulnerability"
+    "Project or application that contains the vulnerability"
     affectedSystems: String!
     "Deprecated. Use `attackVectorDescription` instead"
     attackVectorDesc: String
-    "Attack vector description"
+    "Malicious actions that can be performed by exploiting the vulnerability"
     attackVectorDescription: String
-    "Description of the draft Finding"
+    "Brief explanation of the vulnerability and how it works"
     description: String!
     "Identifier of Finding whose description will be updated"
     findingId: String!
@@ -896,15 +896,17 @@ type Mutation {
     recommendation: String!
     records: String
     recordsNumber: Int!
-    "Unmet security requirements while the vulnerabilities remains open"
+    "Rules that are broken and lead to the existence of the vulnerability"
     requirements: String!
     "Other risks opened by the exploit"
     risk: String
+    "Scenario"
     scenario: String!
+    "Did Sorts guide you to the file where the vulnerability was found?"
     sorts: Sorts
-    "A summary of the threats posed by a successful exploit"
+    "Actor and scenery where the vulnerability can be exploited"
     threat: String!
-    "Draft Finding title"
+    "Finding number and name"
     title: String!
     "Draft Finding type"
     findingType: String
@@ -1144,6 +1146,7 @@ type Mutation {
     after 2021/12/31. Use `updateVulnerabilityCommit` instead.""")
 
   updateVulnerabilitiesTreatment(
+    "Temporarily accepted until"
     acceptanceDate: String
     "Identifier of the Finding that contains the Vulnerability to update"
     findingId: String!
@@ -1185,6 +1188,7 @@ type Mutation {
   ): SimplePayload!
 
   updateVulnsTreatment(
+    "Temporarily accepted until"
     acceptanceDate: String
     "Identifier of the Finding that contains the vulnerability to update"
     findingId: String!

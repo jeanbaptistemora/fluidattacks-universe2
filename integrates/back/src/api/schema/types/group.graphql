@@ -19,7 +19,7 @@ type Group {
   events: [Event!]
   findings(
     """Filters findings in this Group. A dict-like object must be provided
-    e.g. `{affectedSystems: "test", actor: "ANY_EMPLOYEE"}`"""
+    e.g. `{affectedSystems: "system", actor: "ANY_EMPLOYEE"}`"""
     filters: GenericScalar
   ): [Finding]
   forcesToken: String

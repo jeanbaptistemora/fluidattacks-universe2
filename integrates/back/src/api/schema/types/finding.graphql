@@ -1,14 +1,15 @@
 "Finding type definition"
 type Finding {
+  "Actor"
   actor: String!
-  "Systems under threat from the vulnerability"
+  "Project or application that contains the vulnerability"
   affectedSystems: String
   age: Int
   analyst: String
   "Attack vector description"
   attackVectorDesc: String @deprecated(reason: """This field will be removed
   after 2021/12/31. Use `attackVectorDescription` instead.""")
-  "Attack vector description"
+  "Malicious actions that can be performed by exploiting the vulnerability"
   attackVectorDescription: String
   "External Bug Tracker System URL"
   btsUrl: String
@@ -19,7 +20,7 @@ type Finding {
   currentState: String
   "Common Vulnerability Scoring System version"
   cvssVersion: String
-  "Description of the Finding"
+  "Brief explanation of the vulnerability and how it works"
   description: String
   "Evidences of the Finding"
   evidence: GenericScalar
@@ -62,10 +63,11 @@ type Finding {
   "Re-attacks requested in all locations"
   remediated: Boolean
   reportDate: String
-  "Unmet security requirements while the vulnerabilities remains open"
+  "Rules that are broken and lead to the existence of the vulnerability"
   requirements: String
   "Other risks opened by the exploit"
   risk: String
+  "Scenario"
   scenario: String
   "CVSS Score"
   severity: GenericScalar
@@ -73,9 +75,9 @@ type Finding {
   severityScore: Float
   sorts: Sorts
   state: String
-  "A summary of the threats posed by a successful exploit"
+  "Actor and scenery where the vulnerability can be exploited"
   threat: String
-  "Finding title"
+  "Finding number and name"
   title: String
   "Timeline of actions in this Finding"
   tracking: [GenericScalar]
