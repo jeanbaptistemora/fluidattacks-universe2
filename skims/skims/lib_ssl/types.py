@@ -163,13 +163,9 @@ class SSLSettings(NamedTuple):
 
 class SSLVulnerability(NamedTuple):
     description: str
-    line: SSLSnippetLine
     ssl_settings: SSLSettings
     server_response: Optional[SSLServerResponse]
     finding: FindingEnum
-
-    def get_line(self) -> int:
-        return self.line.value
 
     def get_context(self) -> SSLContext:
         return self.ssl_settings.context

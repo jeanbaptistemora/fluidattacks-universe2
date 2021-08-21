@@ -277,9 +277,9 @@ def snippet(
     return make_snippet(
         content=SnippetConstructors[locale].construct(ssl_vulnerability),
         viewport=SnippetViewport(
+            line=0,
             column=0,
             wrap=True,
             columns_per_line=columns_per_line,
-            line=ssl_vulnerability.get_line(),
         ),
     )

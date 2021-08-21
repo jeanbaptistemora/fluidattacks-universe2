@@ -9,7 +9,7 @@ F052,inputs,localhost:4446 (namespace),server accepts connections with weak ciph
    7 | Authentication: ANY
    8 | Cipher: NULL, RC2, RC4, DES, DES3, SM3, SM4, CBC
    9 | Hash: SHA, MD5, SM3
-> 10 | -----------------------Response obtained from server------------------------
+  10 | -----------------------Response obtained from server------------------------
   11 | Result: CONNECTION_SUCCESS
   12 | TLS version: TLSv1.0
   13 | Selected cipher suite:
@@ -31,7 +31,7 @@ F052,inputs,localhost:4446 (namespace),server accepts connections with weak ciph
    7 | Authentication: ANY
    8 | Cipher: NULL, RC2, RC4, DES, DES3, SM3, SM4, CBC
    9 | Hash: SHA, MD5, SM3
-> 10 | -----------------------Response obtained from server------------------------
+  10 | -----------------------Response obtained from server------------------------
   11 | Result: CONNECTION_SUCCESS
   12 | TLS version: TLSv1.1
   13 | Selected cipher suite:
@@ -53,7 +53,7 @@ F133,inputs,localhost:4446 (namespace),server refuses connections with PFS suppo
    7 | Authentication: ANY
    8 | Cipher: ANY
    9 | Hash: ANY
-> 10 | -----------------------Response obtained from server------------------------
+  10 | -----------------------Response obtained from server------------------------
   11 | Result: CONNECTION_FAILED
   12 | Type: ALERT
   13 | Level: FATAL
@@ -72,7 +72,7 @@ F133,inputs,localhost:4446 (namespace),server refuses connections with PFS suppo
    7 | Authentication: ANY
    8 | Cipher: ANY
    9 | Hash: ANY
-> 10 | -----------------------Response obtained from server------------------------
+  10 | -----------------------Response obtained from server------------------------
   11 | Result: CONNECTION_FAILED
   12 | Type: ALERT
   13 | Level: FATAL
@@ -84,7 +84,7 @@ F133,inputs,localhost:4446 (namespace),server refuses connections with PFS suppo
 F016,inputs,localhost:4446 (namespace),server accepts connections with TLSv1.0,326,"home,socket-send,socket-response",016. Insecure encryption algorithm - SSL/TLS,server accepts connections with TLSv1.0,"
    1 | Server: localhost:4446
    2 | TLS versions on server: TLSv1.0, TLSv1.1
->  3 | Intention: check if server accepts connections with TLSv1.0
+   3 | Intention: check if server accepts connections with TLSv1.0
    4 | -----------------Request made with the following parameters-----------------
    5 | TLS version: TLSv1.0
    6 | Key exchange: ANY
@@ -106,7 +106,7 @@ F016,inputs,localhost:4446 (namespace),server accepts connections with TLSv1.0,3
 F016,inputs,localhost:4446 (namespace),server accepts connections with TLSv1.1,326,"home,socket-send,socket-response",016. Insecure encryption algorithm - SSL/TLS,server accepts connections with TLSv1.1,"
    1 | Server: localhost:4446
    2 | TLS versions on server: TLSv1.0, TLSv1.1
->  3 | Intention: check if server accepts connections with TLSv1.1
+   3 | Intention: check if server accepts connections with TLSv1.1
    4 | -----------------Request made with the following parameters-----------------
    5 | TLS version: TLSv1.1
    6 | Key exchange: ANY
@@ -128,7 +128,7 @@ F016,inputs,localhost:4446 (namespace),server accepts connections with TLSv1.1,3
 F016,inputs,localhost:4446 (namespace),server refuses connections with TLSv1.2 or TLSv1.3,326,"home,socket-send,socket-response",016. Insecure encryption algorithm - SSL/TLS,server refuses connections with TLSv1.2 or TLSv1.3,"
    1 | Server: localhost:4446
    2 | TLS versions on server: TLSv1.0, TLSv1.1
->  3 | Intention: check if server accepts TLSv1.2 or TLSv1.3
+   3 | Intention: check if server accepts TLSv1.2 or TLSv1.3
    4 | -----------------Request made with the following parameters-----------------
    5 | TLS version: TLSv1.3
    6 | Key exchange: ANY
@@ -151,7 +151,7 @@ F094,inputs,localhost:4446 (namespace),server accepts connections with ciphers t
    7 | Authentication: ANY
    8 | Cipher: CBC
    9 | Hash: ANY
-> 10 | -----------------------Response obtained from server------------------------
+  10 | -----------------------Response obtained from server------------------------
   11 | Result: CONNECTION_SUCCESS
   12 | TLS version: TLSv1.0
   13 | Selected cipher suite:
@@ -173,7 +173,7 @@ F094,inputs,localhost:4446 (namespace),server accepts connections with ciphers t
    7 | Authentication: ANY
    8 | Cipher: CBC
    9 | Hash: ANY
-> 10 | -----------------------Response obtained from server------------------------
+  10 | -----------------------Response obtained from server------------------------
   11 | Result: CONNECTION_SUCCESS
   12 | TLS version: TLSv1.1
   13 | Selected cipher suite:

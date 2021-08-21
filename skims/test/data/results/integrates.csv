@@ -9,7 +9,7 @@ F133,inputs,localhost:4446 (namespace),server refuses connections with PFS suppo
    7 | Authentication: ANY
    8 | Cipher: ANY
    9 | Hash: ANY
-> 10 | -----------------------Response obtained from server------------------------
+  10 | -----------------------Response obtained from server------------------------
   11 | Result: CONNECTION_FAILED
   12 | Type: ALERT
   13 | Level: FATAL
@@ -28,7 +28,7 @@ F133,inputs,localhost:4446 (namespace),server refuses connections with PFS suppo
    7 | Authentication: ANY
    8 | Cipher: ANY
    9 | Hash: ANY
-> 10 | -----------------------Response obtained from server------------------------
+  10 | -----------------------Response obtained from server------------------------
   11 | Result: CONNECTION_FAILED
   12 | Type: ALERT
   13 | Level: FATAL
