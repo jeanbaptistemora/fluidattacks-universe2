@@ -7160,7 +7160,10 @@
       entonces no debe contener
       ninguna información confidencial.
   category: Architecture
-  references: []
+  references:
+    - "002.116"
+    - "002.224"
+    - "004.651"
   metadata: {}
 "326":
   en:
@@ -7208,7 +7211,9 @@
       sobre los riesgos asociados,
       o evitar su propia ejecución.
   category: Devices
-  references: []
+  references:
+    - "004.250"
+    - "004.693"
   metadata: {}
 "327":
   en:
@@ -7271,7 +7276,21 @@
       que considere un flujo de solicitud
       regular entre un host y el servidor.
   category: Architecture
-  references: []
+  references:
+    - "002.49"
+    - "002.125"
+    - "002.130"
+    - "004.770"
+    - "004.799"
+    - "012.V2_2_1"
+    - "012.V8_1_4"
+    - "012.V11_1_2"
+    - "012.V11_1_3"
+    - "012.V11_1_4"
+    - "012.V11_1_5"
+    - "012.V12_1_3"
+    - "012.V13_2_4"
+    - "012.V13_4_1"
   metadata: {}
 "328":
   en:
@@ -7289,7 +7308,12 @@
       del lado del cliente (ViewState).
     description: __empty__
   category: Authentication
-  references: []
+  references:
+    - "002.39"
+    - "002.74"
+    - "004.642"
+    - "013.A2"
+    - "014.6_5_10"
   metadata: {}
 "329":
   en:
@@ -7345,7 +7369,16 @@
       sensible o de sesión en el almacenamiento
       del lado del cliente.
   category: Data
-  references: []
+  references:
+    - "002.74"
+    - "004.922"
+    - "005.4_1a"
+    - "006.5_1f"
+    - "006.R51"
+    - "008.18_1_3"
+    - "011.7_1"
+    - "012.V8_2_2"
+    - "013.A3"
   metadata: {}
 "330":
   en:
@@ -7382,7 +7415,15 @@
       en caso de que los sistemas
       estén comprometidos.
   category: Services
-  references: []
+  references:
+    - "002.148"
+    - "002.154"
+    - "002.165"
+    - "004.353"
+    - "004.494"
+    - "012.V10_3_1"
+    - "012.V10_3_2"
+    - "012.V14_2_3"
   metadata: {}
 "331":
   en:
@@ -7400,7 +7441,16 @@
       de la jurisdicción a la cual está sujeto.
     description: __empty__
   category: Legal
-  references: []
+  references:
+    - "006.R45"
+    - "008.18_1_2"
+    - "008.18_1_3"
+    - "008.18_1_4"
+    - "008.18_1_5"
+    - "012.V1_5_1"
+    - "012.V1_7_2"
+    - "012.V6_1_1"
+    - "012.V8_3_4"
   metadata: {}
 "332":
   en:
@@ -7440,7 +7490,15 @@
       y la actualización de contraseña
       usen contraseñas contenidas en ellas.
   category: Credentials
-  references: []
+  references:
+    - "002.16"
+    - "002.560"
+    - "004.521"
+    - "011.5_1_1_2"
+    - "012.V2_1_7"
+    - "012.V2_2_1"
+    - "013.A2"
+    - "014.6_5_10"
   metadata: {}
 "333":
   en:
@@ -7487,7 +7545,12 @@
       cada valor de salt posible
       para descifrar una sola contraseña.
   category: Credentials
-  references: []
+  references:
+    - "004.916"
+    - "011.5_1_1_2"
+    - "012.V2_4_5"
+    - "012.V6_4_2"
+    - "014.3_5_3"
   metadata: {}
 "334":
   en:
@@ -7536,7 +7599,12 @@
       y tampoco deben usarse en el proceso
       de recuperación de contraseña.
   category: Authentication
-  references: []
+  references:
+    - "004.640"
+    - "011.5_1_1_2"
+    - "012.V2_5_2"
+    - "013.A2"
+    - "014.6_5_10"
   metadata: {}
 "335":
   en:
@@ -7588,7 +7656,15 @@
       dentro de este período
       para evitar ataques de repetición.
   category: Authentication
-  references: []
+  references:
+    - "004.287"
+    - "004.294"
+    - "004.613"
+    - "011.5_1_3_2"
+    - "012.V2_7_2"
+    - "012.V2_7_3"
+    - "013.A2"
+    - "014.3_2_1"
   metadata: {}
 "336":
   en:

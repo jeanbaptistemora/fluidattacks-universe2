@@ -1660,6 +1660,9 @@
     "V1_7_1":
       title: Errors, Logging and Auditing Architectural Requirements
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
+    "V1_7_2":
+      title: Errors, Logging and Auditing Architectural Requirements
+      link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
     "V1_9_1":
       title: Client-side Data Protection
       link: https://raw.githubusercontent.com/OWASP/ASVS/v4.0.2/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.2-en.pdf
