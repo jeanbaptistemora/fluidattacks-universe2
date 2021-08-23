@@ -13,6 +13,9 @@ Finalization Time: 2021-08-19 at 11:21:48 UTC-05
 
 Execution Time:    2021-08-20 at 21:22:10 UTC-05
 Finalization Time: 2021-08-20 at 21:33:12 UTC-05
+
+Execution Time:    2021-08-23 at 09:59:38 UTC-05
+Finalization Time: 2021-08-23 at 11:55:16 UTC-05
 """
 
 from aioextensions import (
@@ -308,11 +311,13 @@ async def process_draft(
     draft_data["remediation_level"] = old_finding.get("remediation_level", "")
     draft_data["report_confidence"] = old_finding.get("report_confidence", "")
 
+    success = False
     if PROD:
-        return await _add_draft(group_name, analyst_email, draft_data)
+        success = await _add_draft(group_name, analyst_email, draft_data)
+        print(f'   === draft {new_draft["new_draft"]} created: {success}')
     else:
         print(f"  === draft_data {group_name}: {draft_data}")
-    return False
+    return success
 
 
 async def main() -> None:

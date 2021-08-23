@@ -15,8 +15,8 @@ Finalization Time: 2021-08-19 at 13:17:01 UTC-05
 Execution Time:    2021-08-20 at 21:24:33 UTC-05
 Finalization Time: 2021-08-20 at 21:44:53 UTC-05
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-08-23 at 10:48:48 UTC-05
+Finalization Time: 2021-08-23 at 11:55:16 UTC-05
 """
 
 from aioextensions import (
@@ -44,7 +44,7 @@ from typing import (
     List,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 
 async def process_finding(context: Dataloaders, finding_id: str) -> bool:

@@ -13,6 +13,9 @@ Finalization Time: 2021-08-19 at 11:41:14 UTC-05
 
 Execution Time:    2021-08-20 at 21:23:10 UTC-05
 Finalization Time: 2021-08-20 at 21:34:03 UTC-05
+
+Execution Time:    2021-08-23 at 10:08:06 UTC-05
+Finalization Time: 2021-08-23 at 11:55:16 UTC-05
 """
 
 from aioextensions import (
@@ -68,7 +71,10 @@ async def move_evidence(
             )
 
     if success:
-        print(f'   === evidence {file["name"]} - {filepath} MOVED ok')
+        print(
+            f'   === evidence "{file["name"]}" from "{from_finding_id}" '
+            f'- "{filepath}" MOVED ok'
+        )
     else:
         print(f'   --- ERROR evidence "{file["name"]}"')
 
