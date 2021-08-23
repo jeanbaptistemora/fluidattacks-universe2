@@ -22,7 +22,7 @@ makeEntrypoint {
     envSources = [
       (makes.makePythonPypiEnvironment {
         name = "integrates-charts-snapshots";
-        sourcesYaml = ./sources.yaml;
+        sourcesYaml = ./pypi-sources.yaml;
       })
     ];
     envUtils = [
