@@ -54,9 +54,6 @@ makes.attrs
 makes.done
 makes.kill-port
 makes.kill-tree
-makes.okta.apply
-makes.okta.lint
-makes.okta.test
 makes.profiles
 makes.review-mr
 makes.wait

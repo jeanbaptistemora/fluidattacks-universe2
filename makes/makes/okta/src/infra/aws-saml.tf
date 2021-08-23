@@ -82,6 +82,12 @@ resource "aws_iam_saml_provider" "okta-saml-provider" {
     J1ufkupsSdNt7VAVjA/sBE2qmnE9c4+uaWnR/nUYrRkLLRXRF7+Gdge5HqJ1H/XGPyt0RT9UaJsV
     5pBqdjpXGt+eZOKx4yze9tfx9rP+OUbzjZwBUw==</ds:X509Certificate></ds:X509Data></ds:KeyInfo></md:KeyDescriptor><md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</md:NameIDFormat><md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:unspecified</md:NameIDFormat><md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://fluidattacks.okta.com/app/amazon_aws/exk9ahz3reGbi064Y357/sso/saml"/><md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://fluidattacks.okta.com/app/amazon_aws/exk9ahz3reGbi064Y357/sso/saml"/></md:IDPSSODescriptor></md:EntityDescriptor>
   EOL
+
+  tags = {
+    "Name"               = "okta-saml-provider"
+    "management:type"    = "production"
+    "management:product" = "makes"
+  }
 }
 
 output "okta-access-user-key" {

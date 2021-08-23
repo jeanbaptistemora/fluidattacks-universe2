@@ -1,10 +1,10 @@
 terraform {
-  required_version = "~> 0.13.0"
+  required_version = "~> 0.14.0"
 
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.23.0"
+      version = "~> 3.55.0"
     }
     okta = {
       source  = "okta/okta"
@@ -22,14 +22,10 @@ terraform {
 
 }
 
-provider "aws" {
-  access_key = var.aws_access_key
-  secret_key = var.aws_secret_key
-  region     = var.region
-}
+provider "aws" {}
 
 provider "okta" {
   org_name  = "fluidattacks"
   base_url  = "okta.com"
-  api_token = var.okta_api_token
+  api_token = var.oktaApiToken
 }
