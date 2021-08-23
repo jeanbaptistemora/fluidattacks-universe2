@@ -6,8 +6,14 @@ from aioextensions import (
     collect,
     in_process,
 )
+from context import (
+    FI_API_STATUS,
+)
 from dataloaders import (
     get_new_context,
+)
+from db_model.findings.types import (
+    Finding,
 )
 from findings import (
     domain as findings_domain,
@@ -20,6 +26,7 @@ from newutils import (
 )
 from typing import (
     Optional,
+    Tuple,
 )
 from vulnerabilities import (
     domain as vulns_domain,
@@ -34,51 +41,80 @@ async def get_group_report_url(
     user_email: str,
 ) -> Optional[str]:
     context = get_new_context()
-    group_findings = await findings_domain.list_findings(context, [group_name])
-    findings = await findings_domain.get_findings_async(group_findings[0])
-    format_vulns = await collect(
-        [
-            vulns_domain.get_open_vuln_by_type(
-                context, str(finding["findingId"])
+    if FI_API_STATUS == "migration":
+        group_findings_new_loader = context.group_findings_new
+        group_findings_new: Tuple[
+            Finding, ...
+        ] = await group_findings_new_loader.load(group_name)
+        findings_ord_new = tuple(
+            sorted(
+                group_findings_new,
+                key=lambda finding: findings_domain.get_severity_score_new(
+                    finding.severity
+                ),
             )
-            for finding in findings
-        ]
-    )
-    format_findings = await collect(
-        [
-            in_process(
-                findings_domain.cast_new_vulnerabilities, format_vuln, finding
-            )
-            for finding, format_vuln in zip(findings, format_vulns)
-        ]
-    )
-    findings_ord = reports_utils.ord_asc_by_criticality(list(format_findings))
-    description = await groups_domain.get_description(group_name)
+        )
 
-    if report_type == "XLS":
-        return await technical_report.generate_xls_file(
-            context,
-            findings_ord=findings_ord,
-            group_name=group_name,
-            passphrase=passphrase,
+        if report_type == "XLS":
+            return await technical_report.generate_xls_file_new(
+                context,
+                findings_ord=findings_ord_new,
+                group_name=group_name,
+                passphrase=passphrase,
+            )
+
+    else:
+        group_findings = await findings_domain.list_findings(
+            context, [group_name]
         )
-    if report_type == "PDF":
-        return await technical_report.generate_pdf_file(
-            context=context,
-            description=description,
-            findings_ord=findings_ord,
-            group_name=group_name,
-            lang="en",
-            passphrase=passphrase,
-            user_email=user_email,
+        findings = await findings_domain.get_findings_async(group_findings[0])
+        format_vulns = await collect(
+            [
+                vulns_domain.get_open_vuln_by_type(
+                    context, str(finding["findingId"])
+                )
+                for finding in findings
+            ]
         )
-    if report_type == "DATA":
-        return await data_report.generate(
-            context=context,
-            findings_ord=findings_ord,
-            group=group_name,
-            group_description=description,
-            passphrase=passphrase,
-            requester_email=user_email,
+        format_findings = await collect(
+            [
+                in_process(
+                    findings_domain.cast_new_vulnerabilities,
+                    format_vuln,
+                    finding,
+                )
+                for finding, format_vuln in zip(findings, format_vulns)
+            ]
         )
+        findings_ord = reports_utils.ord_asc_by_criticality(
+            list(format_findings)
+        )
+        description = await groups_domain.get_description(group_name)
+
+        if report_type == "XLS":
+            return await technical_report.generate_xls_file(
+                context,
+                findings_ord=findings_ord,
+                group_name=group_name,
+                passphrase=passphrase,
+            )
+        if report_type == "PDF":
+            return await technical_report.generate_pdf_file(
+                context=context,
+                description=description,
+                findings_ord=findings_ord,
+                group_name=group_name,
+                lang="en",
+                passphrase=passphrase,
+                user_email=user_email,
+            )
+        if report_type == "DATA":
+            return await data_report.generate(
+                context=context,
+                findings_ord=findings_ord,
+                group=group_name,
+                group_description=description,
+                passphrase=passphrase,
+                requester_email=user_email,
+            )
     return None
