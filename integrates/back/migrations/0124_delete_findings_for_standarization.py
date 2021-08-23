@@ -14,6 +14,9 @@ Finalization Time: 2021-08-19 at 13:17:01 UTC-05
 
 Execution Time:    2021-08-20 at 21:24:33 UTC-05
 Finalization Time: 2021-08-20 at 21:44:53 UTC-05
+
+Execution Time:
+Finalization Time:
 """
 
 from aioextensions import (
@@ -30,6 +33,7 @@ from dataloaders import (
 )
 from findings import (
     dal as findings_dal,
+    domain as findings_domain,
 )
 from newutils import (
     vulnerabilities as vulns_utils,
@@ -37,9 +41,10 @@ from newutils import (
 import time
 from typing import (
     Dict,
+    List,
 )
 
-PROD: bool = True
+PROD: bool = False
 
 
 async def process_finding(context: Dataloaders, finding_id: str) -> bool:
@@ -62,8 +67,20 @@ async def process_finding(context: Dataloaders, finding_id: str) -> bool:
 
     success = False
     if PROD:
-        success = await findings_dal.delete(finding_id)
-        print(f"   === finding {finding_id} deleted: {success}")
+        finding_files: List[Dict[str, str]] = finding.get("files", [])
+        if finding_files:
+            success = all(
+                await collect(
+                    findings_domain.remove_evidence(file["name"], finding_id)
+                    for file in finding_files
+                )
+            )
+            print(f"   === finding {finding_id} evidences deleted: {success}")
+        else:
+            success = True
+        if success:
+            success = await findings_dal.delete(finding_id)
+            print(f"   === finding {finding_id} deleted: {success}")
     else:
         print(f"   === finding {finding_id} could be DELETED")
 
