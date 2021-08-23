@@ -43,9 +43,8 @@ makeEntrypoint {
       nixpkgs.python37
       packages.makes.kill-port
       packages.makes.wait
-      pythonRequirements
     ];
-    envPython37Paths = [
+    envSources = [
       pythonRequirements
     ];
   };
