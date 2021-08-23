@@ -1,4 +1,3 @@
-import asyncio
 from context import (
     FI_AWS_S3_REPORTS_BUCKET,
 )
@@ -64,45 +63,6 @@ def ord_asc_by_criticality(
                 data[i] = data[j]
                 data[j] = aux
     return data
-
-
-def patch_loop_exception_handler(
-    user_email: str, group_name: str, report_type: str
-) -> None:
-    asyncio.get_event_loop().set_exception_handler(
-        lambda loop, context: reports_exception_handler(
-            loop,
-            context,
-            group_name=group_name,
-            user_email=user_email,
-            report_type=report_type,
-        )
-    )
-
-
-def reports_exception_handler(
-    _: asyncio.AbstractEventLoop, context: Dict[str, str], **kwargs: str
-) -> None:
-    """
-    Catches any exception raised in report generation
-    process and reports information to bugsnag
-    """
-
-    exception = context.get("exception", "not provided")
-    error_msg = (
-        f'Message: {context.get("message", "")} ' f"Exception: '{exception}'"
-    )
-    LOGGER.error(
-        error_msg,
-        extra={
-            "extra": {
-                "exception": exception,
-                "group_name": kwargs.get("group_name"),
-                "user_email": kwargs.get("user_email"),
-                "report_type": kwargs.get("report_type"),
-            }
-        },
-    )
 
 
 # Default ttl for reports is 1 hour = 3600 seconds
