@@ -46,8 +46,6 @@ We use several technologies for accomplishing this:
   https://github.com/okta/terraform-provider-okta/issues/443.
 - Three Field apps do not support shared passwords yet, they are being managed manually:
   https://github.com/okta/terraform-provider-okta/issues/459.
-- SAML apps do not support app link configurations, they are being managed manually:
-  https://github.com/okta/terraform-provider-okta/issues/461.
 - Some preconfigured auto_login apps are still pending migration as app settings must be passed:
   https://github.com/okta/terraform-provider-okta/issues/462.
 - AWS apps need some manual configuration after creation:

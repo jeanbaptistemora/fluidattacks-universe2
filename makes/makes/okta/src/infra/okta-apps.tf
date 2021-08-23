@@ -64,6 +64,7 @@ resource "okta_app_saml" "apps" {
   user_name_template       = each.value.user_name_template
   user_name_template_type  = each.value.user_name_template_type
   app_settings_json        = jsonencode(each.value.app_settings_json)
+  app_links_json           = jsonencode(each.value.app_links_json)
   auto_submit_toolbar      = true
 
   lifecycle {
