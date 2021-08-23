@@ -8553,7 +8553,11 @@
       y certificados.
     description: __empty__
   category: Cryptography
-  references: []
+  references:
+    - "004.693"
+    - "004.1233"
+    - "012.C_3"
+    - "013.A6"
   metadata: {}
 "352":
   en:
@@ -8574,7 +8578,11 @@
       del dispositivo.
     description: __empty__
   category: Devices
-  references: []
+  references:
+    - "004.693"
+    - "004.1233"
+    - "012.C_5"
+    - "013.A6"
   metadata: {}
 "353":
   en:
@@ -8591,7 +8599,15 @@
       en un horario predefinido.
     description: __empty__
   category: Devices
-  references: []
+  references:
+    - "003.7_3"
+    - "004.367"
+    - "012.C_20"
+    - "012.C_24"
+    - "012.V1_11_3"
+    - "012.V11_1_6"
+    - "013.A6"
+    - "013.A9"
   metadata: {}
 "354":
   en:
@@ -8609,7 +8625,10 @@
       (anti-rollback) de estar degradado.
     description: __empty__
   category: Devices
-  references: []
+  references:
+    - "004.693"
+    - "004.757"
+    - "012.C_22"
   metadata: {}
 "355":
   en:
@@ -8656,7 +8675,14 @@
       ayuda a prevenir la exposición
       involuntaria de la información técnica.
   category: Architecture
-  references: []
+  references:
+    - "004.200"
+    - "004.213"
+    - "012.V12_3_4"
+    - "012.V12_5_1"
+    - "012.V14_4_1"
+    - "012.V14_4_2"
+    - "013.A6"
   metadata: {}
 "356":
   en:
@@ -8683,7 +8709,10 @@
       de toma de control del subdominio.
     description: __empty__
   category: Networks
-  references: []
+  references:
+    - "004.350"
+    - "012.V10_3_3"
+    - "013.A6"
   metadata: {}
 "357":
   en:
@@ -8706,7 +8735,16 @@
       en lugar de secretos de la API estática.
     description: __empty__
   category: Session
-  references: []
+  references:
+    - "004.290"
+    - "004.345"
+    - "004.798"
+    - "012.V3_2_2"
+    - "012.V3_5_1"
+    - "012.V3_5_2"
+    - "012.V3_5_3"
+    - "013.A2"
+    - "014.6_5_10"
   metadata: {}
 "358":
   en:
@@ -8724,7 +8762,9 @@
       están a punto de caducar.
     description: __empty__
   category: Credentials
-  references: []
+  references:
+    - "004.263"
+    - "012.V2_3_3"
   metadata: {}
 "359":
   en:
@@ -8761,7 +8801,11 @@
       ya que algunos flujos especiales
       pasan desapercibidos.
   category: Source
-  references: []
+  references:
+    - "004.396"
+    - "004.397"
+    - "012.V4_1_5"
+    - "012.V7_4_2"
   metadata: {}
 "360":
   en:
@@ -8806,7 +8850,15 @@
       el sistema debe eliminar esta información
       después de que ya no se requiera.
   category: Privacy
-  references: []
+  references:
+    - "006.5_1e"
+    - "008.18_1_3"
+    - "008.18_1_4"
+    - "012.V8_3_8"
+    - "014.3_1"
+    - "014.3_2_1"
+    - "014.3_2_2"
+    - "014.3_2_3"
   metadata: {}
 "361":
   en:
@@ -8855,7 +8907,14 @@
       y cualquier posible pérdida de su integridad,
       deben ser reemplazados a menudo.
   category: Cryptography
-  references: []
+  references:
+    - "004.324"
+    - "004.326"
+    - "012.V1_6_3"
+    - "012.V2_9_2"
+    - "012.V6_2_6"
+    - "014.3_6_4"
+    - "014.3_6_5"
   metadata: {}
 "362":
   en:
@@ -8899,7 +8958,13 @@
       su valor disminuye considerablemente
       cuando se comparten entre varias cuentas.
   category: Authentication
-  references: []
+  references:
+    - "004.287"
+    - "012.V1_2_4"
+    - "013.A2"
+    - "014.6_5_10"
+    - "014.8_5"
+    - "014.8_6"
   metadata: {}
 "363":
   en:
@@ -8949,7 +9014,12 @@
       de eventos que provocó el incidente
       de seguridad.
   category: System
-  references: []
+  references:
+    - "003.8_4"
+    - "008.12_4_4"
+    - "014.10_4_1"
+    - "014.10_4_2"
+    - "014.10_4_3"
   metadata: {}
 "364":
   en:
@@ -8987,7 +9057,9 @@
       no debería ser accesible.
     description: __empty__
   category: Data
-  references: []
+  references:
+    - "002.116"
+    - "002.224"
   metadata: {}
 "366":
   en:
@@ -9003,7 +9075,8 @@
       deben tener un tipo asociado.
     description: __empty__
   category: Source
-  references: []
+  references:
+    - "004.710"
   metadata: {}
 "367":
   en:
@@ -9020,7 +9093,12 @@
       y aleatoria.
     description: __empty__
   category: Credentials
-  references: []
+  references:
+    - "004.263"
+    - "004.640"
+    - "011.6_1_1"
+    - "012.V2_3_1"
+    - "014.8_2_6"
   metadata: {}
 "368":
   en:
@@ -9038,7 +9116,10 @@
       ya sea que un usuario exista o no.
     description: __empty__
   category: Authentication
-  references: []
+  references:
+    - "004.203"
+    - "004.204"
+    - "004.208"
   metadata: {}
 "369":
   en:
