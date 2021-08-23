@@ -154,8 +154,8 @@ describe("handle vulns acceptation modal", (): void => {
           "Indefinite acceptation has been handled",
           "Correct!"
         );
-        expect(handleRefetchData).toHaveBeenCalledWith();
-        expect(handleOnClose).toHaveBeenCalledWith();
+        expect(handleRefetchData).toHaveBeenCalledTimes(1);
+        expect(handleOnClose).toHaveBeenCalledTimes(1);
       });
     });
   });

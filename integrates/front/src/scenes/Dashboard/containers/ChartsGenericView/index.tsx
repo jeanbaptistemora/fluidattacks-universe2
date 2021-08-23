@@ -19,7 +19,6 @@ import {
 } from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
 
-// eslint-disable-next-line complexity
 const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
   props: IChartsGenericViewProps
 ): JSX.Element => {

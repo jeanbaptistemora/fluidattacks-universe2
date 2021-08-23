@@ -264,9 +264,9 @@ describe("update verification component", (): void => {
     });
 
     expect(wrapper).toHaveLength(1);
-    expect(handleOnClose).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
-    expect(handleVerifyState).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
-    expect(handleRefetchData).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+    expect(handleOnClose).toHaveBeenCalledTimes(1);
+    expect(handleVerifyState).toHaveBeenCalledTimes(1);
+    expect(handleRefetchData).toHaveBeenCalledTimes(1);
   });
 
   it("should handle verify a request error", async (): Promise<void> => {
