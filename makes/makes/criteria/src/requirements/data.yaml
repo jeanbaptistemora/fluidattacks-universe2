@@ -9139,7 +9139,11 @@
       del usuario (tiempo de espera absoluto).
     description: __empty__
   category: Session
-  references: []
+  references:
+    - "004.613"
+    - "010.AC-12"
+    - "012.V3_3_2"
+    - "014.12_3_8"
   metadata: {}
 "370":
   en:
@@ -9157,7 +9161,10 @@
       (relleno de cifrado asimétrico óptimo).
     description: __empty__
   category: Cryptography
-  references: []
+  references:
+    - "002.20"
+    - "007.164_312_a_2_iv"
+    - "012.V1_6_1"
   metadata: {}
 "371":
   en:
@@ -9173,7 +9180,10 @@
       debe usarse solo con relleno GCM.
     description: __empty__
   category: Cryptography
-  references: []
+  references:
+    - "002.20"
+    - "007.164_312_a_2_iv"
+    - "012.V1_6_1"
   metadata: {}
 "372":
   en:
@@ -9193,7 +9203,11 @@
       la misma longitud que la clave de cifrado.
     description: __empty__
   category: Cryptography
-  references: []
+  references:
+    - "004.330"
+    - "004.1204"
+    - "007.164_312_a_2_iv"
+    - "012.V1_6_1"
   metadata: {}
 "373":
   en:
@@ -9216,7 +9230,11 @@
       se deben permitir hasta 2 certificados.
     description: __empty__
   category: Certificates
-  references: []
+  references:
+    - "002.94"
+    - "004.94"
+    - "004.297"
+    - "004.300"
   metadata: {}
 "374":
   en:
@@ -9234,7 +9252,8 @@
       (usando sandboxing, cárceles, contenedores, etc.).
     description: __empty__
   category: System
-  references: []
+  references:
+    - "002.124"
   metadata: {}
 "375":
   en:
@@ -9261,7 +9280,16 @@
       según el origen esperado.
     description: __empty__
   category: Data
-  references: []
+  references:
+    - "004.200"
+    - "004.359"
+    - "004.522"
+    - "004.540"
+    - "005.4_1a"
+    - "006.5_1f"
+    - "008.18_1_3"
+    - "012.V2_10_3"
+    - "013.A3"
   metadata: {}
 "376":
   en:
@@ -9279,7 +9307,15 @@
       evento excepcional y de seguridad.
     description: __empty__
   category: Logs
-  references: []
+  references:
+    - "003.8_5"
+    - "004.223"
+    - "004.532"
+    - "004.778"
+    - "008.12_4_1"
+    - "012.V1_7_1"
+    - "012.V7_1_4"
+    - "013.A10"
   metadata: {}
 "377":
   en:
@@ -9303,7 +9339,13 @@
       para ese sistema específico.
     description: __empty__
   category: Logs
-  references: []
+  references:
+    - "003.8_5"
+    - "004.778"
+    - "008.12_4_1"
+    - "012.V1_7_1"
+    - "012.V7_1_4"
+    - "013.A10"
   metadata: {}
 "378":
   en:
@@ -9323,7 +9365,13 @@
       separado de la aplicación.
     description: __empty__
   category: Logs
-  references: []
+  references:
+    - "003.8_5"
+    - "004.778"
+    - "008.12_4_1"
+    - "012.V1_7_1"
+    - "012.V7_1_4"
+    - "013.A10"
   metadata: {}
 "379":
   en:
@@ -9373,7 +9421,9 @@
       para encontrar y corregir vulnerabilidades
       aumentarán sustancialmente.
   category: Source
-  references: []
+  references:
+    - "004.1120"
+    - "004.1121"
   metadata: {}
 "380":
   en:
@@ -9395,7 +9445,9 @@
       completar esta tarea.
     description: __empty__
   category: Credentials
-  references: []
+  references:
+    - "004.256"
+    - "004.522"
   metadata: {}
 "381":
   en:
@@ -9412,5 +9464,7 @@
       mediante rutas absolutas.
     description: __empty__
   category: Source
-  references: []
+  references:
+    - "004.73"
+    - "004.710"
   metadata: {}
