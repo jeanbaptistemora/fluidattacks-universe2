@@ -13,6 +13,7 @@ resource "okta_app_auto_login" "apps" {
   shared_username     = each.value.shared_username
   shared_password     = each.value.shared_password
   sign_on_url         = each.value.sign_on_url
+  app_settings_json   = jsonencode(each.value.app_settings_json)
   auto_submit_toolbar = true
 
   groups = [
