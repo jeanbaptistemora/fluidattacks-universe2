@@ -7709,7 +7709,25 @@
       recurran a los protocolos inseguros
       o no cifrados.
   category: Cryptography
-  references: []
+  references:
+    - "002.94"
+    - "002.117"
+    - "002.212"
+    - "002.216"
+    - "002.272"
+    - "002.594"
+    - "004.319"
+    - "004.326"
+    - "004.757"
+    - "012.C_22"
+    - "012.V9_1_1"
+    - "012.V9_1_2"
+    - "012.V9_1_3"
+    - "012.V9_2_2"
+    - "013.A3"
+    - "014.4_1"
+    - "014.6_5_4"
+    - "014.A2_1"
   metadata: {}
 "337":
   en:
@@ -7765,7 +7783,20 @@
       para evitar que surjan
       las condiciones de carrera.
   category: Source
-  references: []
+  references:
+    - "002.25"
+    - "002.26"
+    - "002.27"
+    - "002.29"
+    - "002.30"
+    - "002.124"
+    - "002.233"
+    - "004.362"
+    - "004.367"
+    - "012.C_20"
+    - "012.V1_11_2"
+    - "012.V1_11_3"
+    - "012.V11_1_6"
   metadata: {}
 "338":
   en:
@@ -7824,7 +7855,13 @@
       lo que representa un aumento
       en la seguridad general del sistema.
   category: Cryptography
-  references: []
+  references:
+    - "002.117"
+    - "004.326"
+    - "012.V9_1_1"
+    - "012.V9_1_2"
+    - "013.A3"
+    - "014.3_6_4"
   metadata: {}
 "339":
   en:

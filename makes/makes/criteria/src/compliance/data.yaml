@@ -934,6 +934,11 @@
     "749":
       title: Exposed Dangerous Method or Function
       link: https://cwe.mitre.org/data/definitions/749.html
+    "757":
+      title: >
+        Selection of Less-Secure Algorithm
+        During Negotiation ('Algorithm Downgrade')
+      link: https://cwe.mitre.org/data/definitions/757.html
     "759":
       title: Use of a One-Way Hash without a Salt
       link: https://cwe.mitre.org/data/definitions/759.html
