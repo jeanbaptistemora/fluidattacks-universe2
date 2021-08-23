@@ -200,7 +200,7 @@ const EvidenceDescription: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "f5 w-100 nowrap",
+  className: "f5 w-100",
 })``;
 
 const EventHeaderGrid: StyledComponent<
