@@ -8,6 +8,9 @@ from context import (
 from custom_types import (
     Finding as FindingType,
 )
+from decimal import (
+    Decimal,
+)
 import importlib
 import jinja2
 from jinja2 import (
@@ -193,6 +196,71 @@ def get_severity(metric: str, metric_value: str) -> Optional[str]:
             description = metric_descriptions.get(str(metric_value))
     except ValueError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
+    return description
+
+
+def get_severity_new(metric: str, metric_value: Decimal) -> Optional[str]:
+    """Extract number of CSSV metrics."""
+    description: Optional[str] = ""
+    metrics = {
+        "access_vector": {
+            Decimal("0.395"): "Local",
+            Decimal("0.646"): "Red adyacente",
+            Decimal("1.0"): "Red",
+        },
+        "attack_vector": {
+            Decimal("0.85"): "Red",
+            Decimal("0.62"): "Red adyacente",
+            Decimal("0.55"): "Local",
+            Decimal("0.20"): "Físico",
+        },
+        "confidentiality_impact": {
+            Decimal("0.0"): "Ninguno",
+            Decimal("0.275"): "Parcial",
+            Decimal("0.66"): "Completo",
+        },
+        "integrity_impact": {
+            Decimal("0.0"): "Ninguno",
+            Decimal("0.275"): "Parcial",
+            Decimal("0.66"): "Completo",
+        },
+        "availability_impact": {
+            Decimal("0.0"): "Ninguno",
+            Decimal("0.275"): "Parcial",
+            Decimal("0.66"): "Completo",
+        },
+        "authentication": {
+            Decimal("0.45"): "Múltiple",
+            Decimal("0.56"): "Única",
+            Decimal("0.704"): "Ninguna",
+        },
+        "exploitability": {
+            Decimal("0.85"): "Improbable",
+            Decimal("0.9"): "Conceptual",
+            Decimal("0.95"): "Funcional",
+            Decimal("1.0"): "Alta",
+        },
+        "confidence_level": {
+            Decimal("0.9"): "No confirmado",
+            Decimal("0.95"): "No corroborado",
+            Decimal("1.0"): "Confirmado",
+        },
+        "resolution_level": {
+            Decimal("0.87"): "Oficial",
+            Decimal("0.9"): "Temporal",
+            Decimal("0.95"): "Paliativa",
+            Decimal("1.0"): "Inexistente",
+        },
+        "access_complexity": {
+            Decimal("0.35"): "Alto",
+            Decimal("0.61"): "Medio",
+            Decimal("0.71"): "Bajo",
+        },
+    }
+    metric_descriptions = metrics.get(metric)
+    if metric_descriptions:
+        description = metric_descriptions.get(metric_value)
+
     return description
 
 
