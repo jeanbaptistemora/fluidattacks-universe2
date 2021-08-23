@@ -86,6 +86,7 @@ def _get_metadata_classes(
                 n_id=c_id,
                 fields=_get_metadata_class_fields(graph, c_id),
                 methods=_get_metadata_class_methods(graph, c_id),
+                attributes=_get_metadata_class_attributes(graph, c_id),
                 inherit=base_type_name,
             )
 
@@ -335,6 +336,23 @@ def _get_metadata_class_methods(
             )
 
     return methods
+
+
+def _get_metadata_class_attributes(
+    graph: graph_model.Graph,
+    n_id: str,
+) -> List[str]:
+    attributes = list()
+    attribute_list_class = g.match_ast(graph, n_id, "attribute_list")[
+        "attribute_list"
+    ]
+    if attribute_list_class:
+        attr_values = g.get_ast_childs(
+            graph, attribute_list_class, "identifier", depth=2
+        )
+        for attribute in attr_values:
+            attributes.append(graph.nodes[attribute]["label_text"])
+    return attributes
 
 
 def _get_metadata_method_parameters(

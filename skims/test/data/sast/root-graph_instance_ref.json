@@ -10372,6 +10372,7 @@
         "java": {
           "classes": {
             ".App": {
+              "attributes": null,
               "fields": {},
               "inherit": null,
               "methods": {
@@ -15425,6 +15426,7 @@
         "java": {
           "classes": {
             ".User": {
+              "attributes": null,
               "fields": {
                 ".lastName": {
                   "n_id": "21",

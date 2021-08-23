@@ -331,6 +331,7 @@ class GraphShardMetadataClass(NamedTuple):
     fields: Dict[str, GraphShardMetadataClassField]
     methods: Dict[str, GraphShardMetadataClassMethod]
     n_id: NId
+    attributes: Optional[List[str]] = None
     inherit: Optional[Set[str]] = None
 
 

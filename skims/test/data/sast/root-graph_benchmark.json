@@ -6589,6 +6589,7 @@
         "java": {
           "classes": {
             ".BenchmarkTest00001": {
+              "attributes": null,
               "fields": {
                 ".serialVersionUID": {
                   "n_id": "58",
@@ -6641,6 +6642,7 @@
               "n_id": "31"
             },
             "org.owasp.benchmark.testcode.BenchmarkTest00001": {
+              "attributes": null,
               "fields": {
                 ".serialVersionUID": {
                   "n_id": "58",
@@ -11786,6 +11788,7 @@
         "java": {
           "classes": {
             ".BenchmarkTest00008": {
+              "attributes": null,
               "fields": {
                 ".serialVersionUID": {
                   "n_id": "58",
@@ -11838,6 +11841,7 @@
               "n_id": "31"
             },
             "org.owasp.benchmark.testcode.BenchmarkTest00008": {
+              "attributes": null,
               "fields": {
                 ".serialVersionUID": {
                   "n_id": "58",
@@ -19915,6 +19919,7 @@
         "java": {
           "classes": {
             ".BenchmarkTest00167": {
+              "attributes": null,
               "fields": {
                 ".serialVersionUID": {
                   "n_id": "58",
@@ -19967,6 +19972,7 @@
               "n_id": "31"
             },
             "org.owasp.benchmark.testcode.BenchmarkTest00167": {
+              "attributes": null,
               "fields": {
                 ".serialVersionUID": {
                   "n_id": "58",

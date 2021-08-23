@@ -711,6 +711,7 @@
         "java": {
           "classes": {
             ".Test": {
+              "attributes": null,
               "fields": {},
               "inherit": null,
               "methods": {
@@ -2132,6 +2133,7 @@
         "java": {
           "classes": {
             ".Test": {
+              "attributes": null,
               "fields": {},
               "inherit": null,
               "methods": {

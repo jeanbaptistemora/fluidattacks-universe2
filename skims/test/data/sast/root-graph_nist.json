@@ -4368,6 +4368,7 @@
         "c_sharp": {
           "classes": {
             ".CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01": {
+              "attributes": [],
               "fields": {},
               "inherit": "AbstractTestCaseWeb",
               "methods": {
@@ -4397,6 +4398,7 @@
               "n_id": "44"
             },
             "testcases.CWE89_SQL_Injection.CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01": {
+              "attributes": [],
               "fields": {},
               "inherit": "AbstractTestCaseWeb",
               "methods": {
@@ -17619,6 +17621,9 @@
         "c_sharp": {
           "classes": {
             ".HouseController": {
+              "attributes": [
+                "RoutePrefix"
+              ],
               "fields": {
                 ".MaxPageSize": {
                   "n_id": "131",
@@ -17792,6 +17797,9 @@
               "n_id": "92"
             },
             "SampleWebApi.Controllers.HouseController": {
+              "attributes": [
+                "RoutePrefix"
+              ],
               "fields": {
                 ".MaxPageSize": {
                   "n_id": "131",
@@ -26621,6 +26629,7 @@
         "c_sharp": {
           "classes": {
             ".StudentController": {
+              "attributes": [],
               "fields": {},
               "inherit": "ApiController",
               "methods": {
