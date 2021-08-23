@@ -10,6 +10,7 @@ from api.mutations import (
     add_event,
     add_event_consult,
     add_files,
+    add_files_to_db,
     add_finding_consult,
     add_forces_execution,
     add_git_root,
@@ -59,6 +60,7 @@ from api.mutations import (
     request_vulnerabilities_zero_risk,
     request_vulnerabilities_zero_risk_new,
     sign_in,
+    sign_post_url,
     solve_event,
     submit_draft,
     submit_draft_new,
@@ -110,6 +112,7 @@ MUTATION.set_field("activateRoot", activate_root.mutate)
 MUTATION.set_field("addEvent", add_event.mutate)
 MUTATION.set_field("addEventConsult", add_event_consult.mutate)
 MUTATION.set_field("addFiles", add_files.mutate)
+MUTATION.set_field("addFilesToDb", add_files_to_db.mutate)
 MUTATION.set_field("addFindingConsult", add_finding_consult.mutate)
 MUTATION.set_field("addForcesExecution", add_forces_execution.mutate)
 MUTATION.set_field("addGitRoot", add_git_root.mutate)
@@ -159,6 +162,7 @@ MUTATION.set_field("removeFiles", remove_files.mutate)
 MUTATION.set_field("removeGroupTag", remove_group_tag.mutate)
 MUTATION.set_field("removeTags", remove_vulnerability_tags.mutate)
 MUTATION.set_field("signIn", sign_in.mutate)
+MUTATION.set_field("signPostUrl", sign_post_url.mutate)
 MUTATION.set_field("solveEvent", solve_event.mutate)
 MUTATION.set_field(
     "submitOrganizationFindingPolicy",

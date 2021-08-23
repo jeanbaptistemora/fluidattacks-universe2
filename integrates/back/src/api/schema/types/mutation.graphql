@@ -107,7 +107,7 @@ type Mutation {
     parent: GenericScalar!
   ): AddConsultPayload!
 
-  "Adds files to a Group's scope view"
+  "Deprecated. Use signPostUrl instead"
   addFiles(
     "The file object itself"
     file: Upload!
@@ -117,6 +117,16 @@ type Mutation {
     projectName: String
     "Name of the Group to upload the File to"
     groupName: String
+  ): SimplePayload!
+
+  "Adds files to a Group's scope view"
+  addFilesToDb(
+    "A JSON with description and fileName keys"
+    filesData: JSONString!
+    "Name of the Group to add the File to"
+    groupName: String
+    "Deprecated. Use `groupName` instead"
+    projectName: String
   ): SimplePayload!
 
   "Adds a consult/comment in a Finding"
@@ -826,6 +836,16 @@ type Mutation {
     "OAuth provider"
     provider: AuthProvider!
   ): SignInPayload!
+
+  "Signs a POST URL to upload files to a Group's resources bucket"
+  signPostUrl(
+    "A JSON with description and fileName keys"
+    filesData: JSONString!
+    "Name of the Group to add the File to"
+    groupName: String
+    "Deprecated. Use `groupName` instead"
+    projectName: String
+  ): SignPostUrlsPayload!
 
   solveEvent(
     "Identifier of the Event to solve"
