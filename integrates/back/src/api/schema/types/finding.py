@@ -69,6 +69,7 @@ from context import (
 
 FINDING = ObjectType("Finding")
 FINDING.set_alias("attackVectorDescription", "attack_vector_desc")
+FINDING.set_alias("bugTrackingSystemUrl", "bts_url")
 
 if FI_API_STATUS == "migration":
     FINDING.set_field("age", age_new.resolve)

@@ -163,7 +163,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
         result["data"]["finding"]["attackVectorDescription"]
         == attack_vector_description
     )
-    assert result["data"]["finding"]["btsUrl"] == ""
+    assert result["data"]["finding"]["bugTrackingSystemUrl"] == ""
     assert result["data"]["finding"]["closedVulnerabilities"] == 3
     assert (
         result["data"]["finding"]["compromisedAttributes"]
@@ -362,7 +362,7 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
         result["data"]["finding"]["attackVectorDescription"]
         == attack_vector_description
     )
-    assert result["data"]["finding"]["btsUrl"] == ""
+    assert result["data"]["finding"]["bugTrackingSystemUrl"] == ""
     assert result["data"]["finding"]["closedVulnerabilities"] == 3
     assert (
         result["data"]["finding"]["compromisedAttributes"]

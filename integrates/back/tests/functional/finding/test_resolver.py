@@ -191,7 +191,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["affectedSystems"] == affected_systems
     assert result["data"]["finding"]["compromisedAttributes"] == records
     assert result["data"]["finding"]["compromisedRecords"] == records_number
-    assert result["data"]["finding"]["btsUrl"] == ""
+    assert result["data"]["finding"]["bugTrackingSystemUrl"] == ""
     assert result["data"]["finding"]["risk"] == risk
     assert result["data"]["finding"]["type"] == finding_type
     assert result["data"]["finding"]["observations"] == []
@@ -371,7 +371,7 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["affectedSystems"] == affected_systems
     assert result["data"]["finding"]["compromisedAttributes"] == records
     assert result["data"]["finding"]["compromisedRecords"] == records_number
-    assert result["data"]["finding"]["btsUrl"] == ""
+    assert result["data"]["finding"]["bugTrackingSystemUrl"] == ""
     assert result["data"]["finding"]["risk"] == risk
     assert result["data"]["finding"]["type"] == finding_type
     assert result["data"]["finding"]["tracking"] == tracking.get("tracking")
