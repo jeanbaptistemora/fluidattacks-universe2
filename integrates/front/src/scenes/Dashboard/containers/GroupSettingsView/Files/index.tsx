@@ -55,8 +55,6 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       setOptionsModalOpen(true);
     };
 
-  const [uploadProgress, setUploadProgress] = useState(0);
-
   // GraphQL operations
   const { data, refetch } = useQuery(GET_FILES, {
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -112,20 +110,9 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     // eslint-disable-next-line react/destructuring-assignment -- In conflict with previous declaration
   }, [closeOptionsModal, currentRow.fileName, props.groupName, removeFile]);
 
-  const UPLOAD_PROGRESS_DIVIDER = 100;
   const [uploadFile, { loading: uploading }] = useMutation(
     UPLOAD_FILE_MUTATION,
     {
-      context: {
-        fetchOptions: {
-          notifyUploadProgress: true,
-          onUploadProgress: (ev: ProgressEvent): void => {
-            setUploadProgress(
-              _.round((ev.loaded / ev.total) * UPLOAD_PROGRESS_DIVIDER)
-            );
-          },
-        },
-      },
       onCompleted: (): void => {
         void refetch();
         track("AddGroupFiles");
@@ -282,7 +269,6 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
         isUploading={uploading}
         onClose={closeAddModal}
         onSubmit={handleUpload} // eslint-disable-line react/jsx-no-bind -- Unexpected behaviour with no-bind
-        uploadProgress={uploadProgress}
       />
       <Can do={"api_mutations_remove_files_mutate"} passThrough={true}>
         {(canRemove: boolean): JSX.Element => (

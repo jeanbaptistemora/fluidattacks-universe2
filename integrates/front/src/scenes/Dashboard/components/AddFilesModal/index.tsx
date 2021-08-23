@@ -7,7 +7,6 @@ import { mixed, object, string } from "yup";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
-import { renderUploadBar } from "scenes/Dashboard/components/AddFilesModal/renderUploadBar";
 import { IAddFilesModalProps } from "scenes/Dashboard/components/AddFilesModal/types";
 import {
   ButtonToolbar,
@@ -109,16 +108,18 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
                   />
                 </div>
               </div>
-              {isUploading ? renderUploadBar(props) : undefined}
+              {isUploading ? (
+                <div>
+                  {" "}
+                  <br />
+                  {translate.t("searchFindings.tabResources.uploadingProgress")}
+                </div>
+              ) : undefined}
               <hr />
               <Row>
                 <Col100>
                   <ButtonToolbar>
-                    <Button
-                      disabled={isUploading}
-                      id={"file-add-cancel"}
-                      onClick={onClose}
-                    >
+                    <Button id={"file-add-cancel"} onClick={onClose}>
                       {translate.t("confirmmodal.cancel")}
                     </Button>
                     <Button
