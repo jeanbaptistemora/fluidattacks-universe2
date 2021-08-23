@@ -20911,9 +20911,6 @@
               "n_id": "377",
               "value": null
             },
-            "n_id_conditional_expression": "387",
-            "n_id_update": "397",
-            "n_id_var_declaration": "380",
             "type": "SyntaxStepFor"
           }
         ],

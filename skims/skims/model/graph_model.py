@@ -167,9 +167,6 @@ class SyntaxStepCatchClause(NamedTuple):
 
 class SyntaxStepFor(NamedTuple):
     meta: SyntaxStepMeta
-    n_id_update: NId
-    n_id_var_declaration: NId
-    n_id_conditional_expression: NId
 
     type: str = "SyntaxStepFor"
 
