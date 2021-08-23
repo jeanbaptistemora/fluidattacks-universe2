@@ -8,6 +8,10 @@ from context import (
 from custom_types import (
     Finding as FindingType,
 )
+from db_model.findings.types import (
+    Finding,
+    Finding31Severity,
+)
 from decimal import (
     Decimal,
 )
@@ -129,6 +133,19 @@ def get_access_vector(finding: Dict[str, FindingType]) -> Optional[str]:
         severity = get_severity("attackVector", finding["attackVector"])
     else:
         severity = get_severity("accessVector", finding["accessVector"])
+    return severity
+
+
+def get_access_vector_new(finding: Finding) -> Optional[str]:
+    """Get metrics based on cvss version."""
+    if isinstance(finding.severity, Finding31Severity):
+        severity = get_severity_new(
+            "attack_vector", finding.severity.attack_vector
+        )
+    else:
+        severity = get_severity_new(
+            "access_vector", finding.severity.access_vector
+        )
     return severity
 
 
