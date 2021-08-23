@@ -1,0 +1,11 @@
+aioextensions: 20.8.2087641
+aiogqlc: 2.0.0b1
+aiohttp: 3.6.2
+bugsnag: 3.7.1
+click: 7.1.2
+GitPython: 3.1.7
+more-itertools: 8.5.0
+oyaml: "0.9"
+python-dateutil: 2.8.1
+pytz: "2020.1"
+uvloop: 0.14.0
