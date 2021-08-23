@@ -165,10 +165,10 @@ class SyntaxStepCatchClause(NamedTuple):
     type: str = "SyntaxStepParenthesizedExpression"
 
 
-class SyntaxStepFor(NamedTuple):
+class SyntaxStepLoop(NamedTuple):
     meta: SyntaxStepMeta
 
-    type: str = "SyntaxStepFor"
+    type: str = "SyntaxStepLoop"
 
 
 class SyntaxStepLiteral(NamedTuple):

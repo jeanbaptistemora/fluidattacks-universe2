@@ -16,7 +16,7 @@ def reader(
     if condition_id := node_attrs.get("label_field_condition"):
         dependencies.append(args.generic(args.fork_n_id(condition_id)))
 
-    yield graph_model.SyntaxStepFor(
+    yield graph_model.SyntaxStepLoop(
         meta=graph_model.SyntaxStepMeta.default(
             args.n_id,
             dependencies,

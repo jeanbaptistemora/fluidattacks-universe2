@@ -1,7 +1,6 @@
-from model import (
-    graph_model,
-)
 from model.graph_model import (
+    SyntaxStepLoop,
+    SyntaxStepMeta,
     SyntaxStepsLazy,
 )
 from sast_syntax_readers.types import (
@@ -13,8 +12,8 @@ from sast_syntax_readers.utils_generic import (
 
 
 def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
-    yield graph_model.SyntaxStepParenthesizedExpression(
-        meta=graph_model.SyntaxStepMeta.default(
+    yield SyntaxStepLoop(
+        meta=SyntaxStepMeta.default(
             args.n_id,
             dependencies_from_arguments(
                 args.fork_n_id(

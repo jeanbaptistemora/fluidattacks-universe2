@@ -148,7 +148,7 @@ def _side_effects() -> None:
         graph_model.SyntaxStepCatchClause,
         graph_model.SyntaxStepDeclaration,
         graph_model.SyntaxStepIf,
-        graph_model.SyntaxStepFor,
+        graph_model.SyntaxStepLoop,
         graph_model.SyntaxStepLiteral,
         graph_model.SyntaxStepMethodInvocation,
         graph_model.SyntaxStepMethodInvocationChain,

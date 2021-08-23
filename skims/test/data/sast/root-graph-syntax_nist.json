@@ -439,7 +439,7 @@
               "n_id": "189",
               "value": null
             },
-            "type": "SyntaxStepFor"
+            "type": "SyntaxStepLoop"
           },
           {
             "meta": {
@@ -1013,7 +1013,7 @@
               "n_id": "189",
               "value": null
             },
-            "type": "SyntaxStepFor"
+            "type": "SyntaxStepLoop"
           },
           {
             "meta": {

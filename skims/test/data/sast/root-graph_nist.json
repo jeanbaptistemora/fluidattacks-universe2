@@ -4760,7 +4760,7 @@
               "n_id": "189",
               "value": null
             },
-            "type": "SyntaxStepFor"
+            "type": "SyntaxStepLoop"
           }
         ],
         "212": [
