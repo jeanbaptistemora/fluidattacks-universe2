@@ -20907,7 +20907,67 @@
           {
             "meta": {
               "danger": false,
+              "dependencies": 0,
+              "n_id": "395",
+              "value": null
+            },
+            "symbol": "cookies.length",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "393",
+              "value": null
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "392",
+              "value": null
+            },
+            "operator": "<",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "390",
+              "value": null
+            },
+            "symbol": "foundUser",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
               "dependencies": -1,
+              "n_id": "388",
+              "value": null
+            },
+            "operator": "!",
+            "type": "SyntaxStepUnaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "387",
+              "value": null
+            },
+            "operator": "&&",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
               "n_id": "377",
               "value": null
             },

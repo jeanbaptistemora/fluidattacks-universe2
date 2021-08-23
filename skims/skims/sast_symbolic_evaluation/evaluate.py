@@ -24,6 +24,7 @@ from sast_symbolic_evaluation.cases import (
     binary_expression,
     cast_expression,
     declaration,
+    for_statement,
     if_,
     instanceof_expression,
     lambda_expression,
@@ -170,7 +171,7 @@ EVALUATORS: Dict[object, Evaluator] = {
         parenthesized_expression.evaluate
     ),
     graph_model.SyntaxStepDeclaration: declaration.evaluate,
-    graph_model.SyntaxStepFor: no_op.evaluate,
+    graph_model.SyntaxStepFor: for_statement.evaluate,
     graph_model.SyntaxStepIf: if_.evaluate,
     graph_model.SyntaxStepInstanceofExpression: instanceof_expression.evaluate,
     graph_model.SyntaxStepMemberAccessExpression: (

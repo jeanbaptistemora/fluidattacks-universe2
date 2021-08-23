@@ -394,8 +394,48 @@
           },
           {
             "meta": {
-              "danger": false,
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "204",
+              "value": null
+            },
+            "symbol": "names",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "member": "Length",
+            "meta": {
+              "danger": true,
               "dependencies": -1,
+              "n_id": "203",
+              "value": null
+            },
+            "type": "SyntaxStepMemberAccessExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "201",
+              "value": 0.0
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -2,
+              "n_id": "200",
+              "value": null
+            },
+            "operator": "<",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -2,
               "n_id": "189",
               "value": null
             },
@@ -928,8 +968,48 @@
           },
           {
             "meta": {
-              "danger": false,
+              "danger": true,
+              "dependencies": 0,
+              "n_id": "204",
+              "value": null
+            },
+            "symbol": "names",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "member": "Length",
+            "meta": {
+              "danger": true,
               "dependencies": -1,
+              "n_id": "203",
+              "value": null
+            },
+            "type": "SyntaxStepMemberAccessExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "201",
+              "value": 0.0
+            },
+            "symbol": "i",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -2,
+              "n_id": "200",
+              "value": null
+            },
+            "operator": "<",
+            "type": "SyntaxStepBinaryExpression"
+          },
+          {
+            "meta": {
+              "danger": true,
+              "dependencies": -2,
               "n_id": "189",
               "value": null
             },
