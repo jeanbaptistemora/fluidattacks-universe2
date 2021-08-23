@@ -1,6 +1,6 @@
 "Execution Vulnerabilities input definition"
 input ExecutionVulnerabilitiesInput {
-  "Acepted vulnerabilities"
+  "Accepted vulnerabilities"
   accepted: [ExploitResultInput!]
   "Closed exploits"
   closed: [ExploitResultInput!]

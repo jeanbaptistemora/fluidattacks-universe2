@@ -17,7 +17,7 @@ type Mutation {
   ): SimplePayload!
 
   addDraft(
-    """Measuere of the effort and resources needed for an attacker to put
+    """Measure of the effort and resources needed for an attacker to put
     in to successfully breach the system"""
     attackComplexity: String
     "Level of access needed for an attack to succeed"
@@ -28,7 +28,7 @@ type Mutation {
     attackVectorDesc: String
     "Malicious actions that can be performed by exploiting the vulnerability"
     attackVectorDescription: String
-    """Hypotethical impact on resource (webpages, content etc...) availability
+    """Hypothetical impact on resource (webpages, content etc...) availability
     and possibility of service denial"""
     availabilityImpact: String
     """Measure of the sensible/restricted information (e.g. password,
@@ -636,24 +636,24 @@ type Mutation {
   ): SimplePayload!
 
    handleVulnerabilitiesAcceptation(
-    "List of identifiers of the vulnerabilties to be accepted"
+    "List of identifiers of the vulnerabilities to be accepted"
     acceptedVulnerabilities: [String]!
     "Identifier of the Finding that contains the vulnerabilities"
     findingId: String!
     "Justification of the acceptances and rejections"
     justification: String!
-    "List of identifiers of the vulnerabilties to be rejected"
+    "List of identifiers of the vulnerabilities to be rejected"
     rejectedVulnerabilities: [String]!
   ): SimplePayload!
 
   handleVulnsAcceptation(
-    "List of identifiers of the vulnerabilties to be accepted"
+    "List of identifiers of the vulnerabilities to be accepted"
     acceptedVulns: [String]!
     "Identifier of the Finding that contains the vulnerabilities"
     findingId: String!
     "Justification of the acceptances and rejections"
     justification: String!
-    "List of identifiers of the vulnerabilties to be rejected"
+    "List of identifiers of the vulnerabilities to be rejected"
     rejectedVulns: [String]!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
     after 2021/12/31. Use `handleVulnerabilitiesAcceptation` instead.""")
@@ -1065,12 +1065,12 @@ type Mutation {
   updateSeverity(
     "Identifier of the finding in which the new severity will be calculated"
     findingId: String!
-    """Measuere of the effort and resources needed for an attacker to put
+    """Measure of the effort and resources needed for an attacker to put
     in to successfully breach the system"""
     attackComplexity: String!
     "Level of access needed for an attack to succeed"
     attackVector: String!
-    """Hypotethical impact on resource (webpages, content etc...) availability
+    """Hypothetical impact on resource (webpages, content etc...) availability
     and possibility of service denial"""
     availabilityImpact: String!
     availabilityRequirement: String!
@@ -1147,7 +1147,7 @@ type Mutation {
     vulnId: String!
     "General location of the Vulnerability, can be a file, an URL or an IP"
     vulnWhere: String!
-    """Spefific location of the Vulnerability, can be a line of code,
+    """Specific location of the Vulnerability, can be a line of code,
     a field or a port"""
     vulnSpecific: String!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
@@ -1176,7 +1176,7 @@ type Mutation {
     vulnerabilityId: String!
     "General location of the Vulnerability, can be a file, an URL or an IP"
     vulnerabilityWhere: String!
-    """Spefific location of the Vulnerability, can be a line of code,
+    """Specific location of the Vulnerability, can be a line of code,
     a field or a port"""
     vulnerabilitySpecific: String!
   ): SimplePayload!
