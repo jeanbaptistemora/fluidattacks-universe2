@@ -1,3 +1,6 @@
+from contextlib import (
+    suppress,
+)
 from functools import (
     partial,
 )
@@ -37,8 +40,13 @@ def _generic(
     n_attrs = graph.nodes[n_id]
     n_attrs_label_type = n_attrs["label_type"]
     stack.append(dict(type=n_attrs_label_type))
+    print(stack)
 
     walkers = (
+        (
+            {"class_body"},
+            partial(_class_statements, _generic=_generic),
+        ),
         (
             {"for_statement", "while_statement"},
             partial(_loop_statement, _generic=_generic),
@@ -48,7 +56,7 @@ def _generic(
             partial(step_by_step, _generic=_generic),
         ),
         (
-            {"function_declaration"},
+            {"class_declaration", "function_declaration", "companion_object"},
             partial(link_to_last_node, _generic=_generic),
         ),
         (
@@ -73,6 +81,42 @@ def _generic(
             graph.add_edge(n_id, next_id, **edge_attrs)
 
     stack.pop()
+
+
+def _class_statements(
+    graph: Graph, n_id: str, stack: Stack, *, _generic: GenericType
+) -> None:
+    stmt_ids = [
+        node
+        for node in g.adj_ast(graph, n_id)
+        if graph.nodes[node].get("label_type")
+        not in [";", "\n", "(", ")", ",", "comment"]
+    ][1:-1]
+
+    fn_stmts = tuple(
+        node
+        for node in stmt_ids
+        if graph.nodes[node]["label_type"]
+        in {"companion_object", "function_declaration"}
+    )
+    for fn_stmt in fn_stmts:
+        stmt_ids.pop(stmt_ids.index(fn_stmt))
+        graph.add_edge(n_id, fn_stmt, **g.ALWAYS)
+
+    if stmt_ids:
+        # Link to the first statement in the block
+        graph.add_edge(n_id, stmt_ids[0], **g.ALWAYS)
+
+        # Walk pairs of elements
+        for stmt_a_id, stmt_b_id in pairwise(stmt_ids):
+            # Mark as next_id the next statement in chain
+            set_next_id(stack, stmt_b_id)
+            _generic(graph, stmt_a_id, stack, edge_attrs=g.ALWAYS)
+
+        # Link recursively the last statement in the block
+        with suppress(IndexError):
+            propagate_next_id_from_parent(stack)
+        _generic(graph, stmt_ids[-1], stack, edge_attrs=g.ALWAYS)
 
 
 def _loop_statement(
@@ -173,9 +217,16 @@ def _when_statement(
 
 
 def add(graph: Graph) -> None:
+    def _predicate(n_id: str) -> bool:
+        return (
+            g.pred_has_labels(label_type="function_declaration")(n_id)
+            or g.pred_has_labels(label_type="class_declaration")(n_id)
+            or g.pred_has_labels(label_type="companion_object")(n_id)
+        )
+
     for n_id in g.filter_nodes(
         graph,
         graph.nodes,
-        predicate=g.pred_has_labels(label_type="function_declaration"),
+        predicate=_predicate,
     ):
         _generic(graph, n_id, stack=[], edge_attrs=g.ALWAYS)
