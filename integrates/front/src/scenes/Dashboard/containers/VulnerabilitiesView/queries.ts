@@ -8,7 +8,7 @@ const VULNS_FRAGMENT: DocumentNode = gql`
     currentState
     cycles
     efficacy
-    externalBts
+    externalBugTrackingSystem
     findingId
     historicTreatment {
       acceptanceDate

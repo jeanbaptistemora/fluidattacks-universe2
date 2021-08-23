@@ -5,7 +5,7 @@ import type { ConfigurableValidator } from "revalidate";
 
 import type { IExternalBtsFieldProps } from "./types";
 
-import { groupExternalBts } from "../utils";
+import { groupExternalBugTrackingSystem } from "../utils";
 import { authzPermissionsContext } from "utils/authz/config";
 import { EditableField, FormikText } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
@@ -38,9 +38,9 @@ const ExternalBtsField: React.FC<IExternalBtsFieldProps> = (
       !hasNewVulnSelected ? (
         <EditableField
           component={FormikText}
-          currentValue={groupExternalBts(vulnerabilities)}
+          currentValue={groupExternalBugTrackingSystem(vulnerabilities)}
           label={translate.t("searchFindings.tabDescription.bts")}
-          name={"externalBts"}
+          name={"externalBugTrackingSystem"}
           placeholder={translate.t(
             "searchFindings.tabDescription.btsPlaceholder"
           )}

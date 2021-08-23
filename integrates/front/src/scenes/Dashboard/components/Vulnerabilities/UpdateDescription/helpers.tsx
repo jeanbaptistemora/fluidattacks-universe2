@@ -65,7 +65,7 @@ const getResults = async (
         updateVuln({
           variables: {
             acceptanceDate: dataTreatment.acceptanceDate,
-            externalBts: dataTreatment.externalBts,
+            externalBugTrackingSystem: dataTreatment.externalBugTrackingSystem,
             findingId,
             isVulnInfoChanged: !isEditPristine,
             isVulnTreatmentChanged: !isTreatmentPristine,

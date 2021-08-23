@@ -1126,8 +1126,10 @@ type Mutation {
 
   "Updates the treatment of a single Vulnerability"
   updateTreatmentVuln(
-    "External Bug Tracker System URL"
+    "Deprecated. Use `externalBugTrackingSystem` instead."
     externalBts: String
+    "External Bug Tracking System URL"
+    externalBugTrackingSystem: String
     "Identifier of the Finding that contains the vulnerability to update"
     findingId: String!
     "CVSS 3.1 score"
@@ -1183,8 +1185,10 @@ type Mutation {
 
   "Updates the treatment of a single Vulnerability"
   updateVulnerabilityTreatment(
-    "External Bug Tracker System URL"
+    "Deprecated. Use `externalBugTrackingSystem` instead."
     externalBts: String
+    "External Bug Tracking System URL"
+    externalBugTrackingSystem: String
     "Identifier of the Finding that contains the vulnerability to update"
     findingId: String!
     "CVSS 3.1 score"

@@ -43,7 +43,7 @@ describe("Update Description component", (): void => {
   const vulns: IVulnDataTypeAttr[] = [
     {
       currentState: "open",
-      externalBts: "",
+      externalBugTrackingSystem: "",
       historicTreatment: [
         {
           date: "",
@@ -81,7 +81,7 @@ describe("Update Description component", (): void => {
             currentState: "open",
             cycles: "0",
             efficacy: "0",
-            externalBts: "",
+            externalBugTrackingSystem: "",
             findingId: "480857698",
             historicTreatment: [],
             id: "",
@@ -149,7 +149,7 @@ describe("Update Description component", (): void => {
     const vulnerabilities: IVulnDataTypeAttr[] = [
       {
         currentState: "open",
-        externalBts: "",
+        externalBugTrackingSystem: "",
         historicTreatment: [treatment],
         id: "test_one",
         severity: "",
@@ -160,7 +160,7 @@ describe("Update Description component", (): void => {
       },
       {
         currentState: "open",
-        externalBts: "",
+        externalBugTrackingSystem: "",
         historicTreatment: [treatment],
         id: "test_two",
         severity: "",
@@ -420,7 +420,7 @@ describe("Update Description component", (): void => {
     };
     const mutationVariables: Dictionary<boolean | number | string> = {
       acceptanceDate: "",
-      externalBts: "http://test.t",
+      externalBugTrackingSystem: "http://test.t",
       findingId: "422286126",
       isVulnInfoChanged: true,
       isVulnTreatmentChanged: true,
@@ -449,7 +449,7 @@ describe("Update Description component", (): void => {
     const vulnsToUpdate: IVulnDataTypeAttr[] = [
       {
         currentState: "open",
-        externalBts: "",
+        externalBugTrackingSystem: "",
         historicTreatment: [],
         id: "test1",
         severity: "",
@@ -460,7 +460,7 @@ describe("Update Description component", (): void => {
       },
       {
         currentState: "open",
-        externalBts: "",
+        externalBugTrackingSystem: "",
         historicTreatment: [],
         id: "test2",
         severity: "",
@@ -513,13 +513,13 @@ describe("Update Description component", (): void => {
         value: "test justification to treatment",
       },
     });
-    const externalBts: ReactWrapper = wrapper
-      .find({ name: "externalBts" })
+    const externalBugTrackingSystem: ReactWrapper = wrapper
+      .find({ name: "externalBugTrackingSystem" })
       .find("input");
-    externalBts.at(0).simulate("change", {
+    externalBugTrackingSystem.at(0).simulate("change", {
       // FP: local testing
       // eslint-disable-next-line
-      target: { name: "externalBts", value: "http://test.t" }, // NOSONAR
+      target: { name: "externalBugTrackingSystem", value: "http://test.t" }, // NOSONAR
     });
     const vulnLevel: ReactWrapper = wrapper
       .find({ name: "severity" })
@@ -567,7 +567,7 @@ describe("Update Description component", (): void => {
         query: UPDATE_DESCRIPTION_MUTATION,
         variables: {
           acceptanceDate: "",
-          externalBts: "",
+          externalBugTrackingSystem: "",
           findingId: "422286126",
           isVulnInfoChanged: false,
           isVulnTreatmentChanged: true,
@@ -589,7 +589,7 @@ describe("Update Description component", (): void => {
     const vulnsToUpdate: IVulnDataTypeAttr[] = [
       {
         currentState: "open",
-        externalBts: "",
+        externalBugTrackingSystem: "",
         historicTreatment: [],
         id: "test",
         severity: "",

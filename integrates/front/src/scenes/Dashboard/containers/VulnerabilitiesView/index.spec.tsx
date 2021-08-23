@@ -43,7 +43,7 @@ describe("VulnerabilitiesView", (): void => {
               currentState: "open",
               cycles: "",
               efficacy: "",
-              externalBts: "",
+              externalBugTrackingSystem: "",
               findingId: "422286126",
               historicTreatment: [
                 {
@@ -79,7 +79,7 @@ describe("VulnerabilitiesView", (): void => {
               currentState: "open",
               cycles: "",
               efficacy: "",
-              externalBts: "",
+              externalBugTrackingSystem: "",
               findingId: "422286126",
               historicTreatment: [
                 {
@@ -117,7 +117,7 @@ describe("VulnerabilitiesView", (): void => {
               currentState: "open",
               cycles: "",
               efficacy: "",
-              externalBts: "",
+              externalBugTrackingSystem: "",
               findingId: "422286126",
               historicTreatment: [
                 {

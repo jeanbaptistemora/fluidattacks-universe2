@@ -19,17 +19,21 @@ const sortTags: (tags: string) => string[] = (tags: string): string[] => {
   return tagSplit.map((tag: string): string => tag.trim());
 };
 
-const groupExternalBts: (vulnerabilities: IVulnDataTypeAttr[]) => string = (
+const groupExternalBugTrackingSystem: (
   vulnerabilities: IVulnDataTypeAttr[]
-): string => {
+) => string = (vulnerabilities: IVulnDataTypeAttr[]): string => {
   const bts: string = vulnerabilities.reduce(
     (acc: string, vuln: IVulnDataTypeAttr): string =>
-      _.isEmpty(vuln.externalBts) ? acc : vuln.externalBts,
+      _.isEmpty(vuln.externalBugTrackingSystem)
+        ? acc
+        : vuln.externalBugTrackingSystem,
     ""
   );
 
   return vulnerabilities.every((row: IVulnDataTypeAttr): boolean =>
-    _.isEmpty(row.externalBts) ? true : row.externalBts === bts
+    _.isEmpty(row.externalBugTrackingSystem)
+      ? true
+      : row.externalBugTrackingSystem === bts
   )
     ? bts
     : "";
@@ -116,7 +120,7 @@ const groupVulnLevel: (vulnerabilities: IVulnDataTypeAttr[]) => string = (
 
 export {
   getLastTreatment,
-  groupExternalBts,
+  groupExternalBugTrackingSystem,
   groupLastHistoricTreatment,
   groupVulnLevel,
   sortTags,

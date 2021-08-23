@@ -8,7 +8,7 @@ import { UpdateTreatmentModal } from "./form";
 import { handleSubmitHelper } from "./helpers";
 import type { IUpdateDescriptionProps } from "./types";
 import {
-  groupExternalBts,
+  groupExternalBugTrackingSystem,
   groupLastHistoricTreatment,
   groupVulnLevel,
   sortTags,
@@ -127,7 +127,8 @@ export const UpdateDescription: React.FC<IUpdateDescriptionProps> = ({
                 acceptanceDate: lastTreatment.acceptanceDate,
                 acceptanceStatus: lastTreatment.acceptanceStatus,
                 date: lastTreatment.date,
-                externalBts: groupExternalBts(vulnerabilities),
+                externalBugTrackingSystem:
+                  groupExternalBugTrackingSystem(vulnerabilities),
                 justification: lastTreatment.justification,
                 severity: groupVulnLevel(vulnerabilities),
                 tag: _.join(_.intersection(...vulnsTags), ","),

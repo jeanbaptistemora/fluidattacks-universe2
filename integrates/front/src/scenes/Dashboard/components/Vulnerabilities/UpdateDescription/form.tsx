@@ -133,7 +133,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   );
   const isEditPristine: boolean =
     diffs.filter((diff: string): boolean =>
-      ["externalBts", "tag", "severity"].includes(diff)
+      ["externalBugTrackingSystem", "tag", "severity"].includes(diff)
     ).length === 0;
   const isTreatmentValuesPristine: boolean =
     diffs.filter((diff: string): boolean =>

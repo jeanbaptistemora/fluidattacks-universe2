@@ -8,7 +8,7 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
     $tag: String
     $treatmentManager: String
     $vulnerabilityId: ID!
-    $externalBts: String!
+    $externalBugTrackingSystem: String!
     $acceptanceDate: String
     $justification: String!
     $treatment: UpdateClientDescriptionTreatment!
@@ -16,7 +16,7 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
     $isVulnInfoChanged: Boolean!
   ) {
     updateVulnerabilityTreatment(
-      externalBts: $externalBts
+      externalBugTrackingSystem: $externalBugTrackingSystem
       findingId: $findingId
       severity: $severity
       tag: $tag
