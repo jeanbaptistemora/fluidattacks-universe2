@@ -1,21 +1,12 @@
+variable "gitlabTokenFluidattacks" {}
+variable "gitlabTokenAutonomicmind" {}
+variable "gitlabTokenAutonomicjump" {}
 data "local_file" "init_runner" {
   filename = "./init/runner.sh"
 }
 
 data "local_file" "init_worker" {
   filename = "./init/worker.sh"
-}
-
-variable "gitlabTokenFluidattacks" {
-  default = "default-value"
-}
-
-variable "gitlabTokenAutonomicmind" {
-  default = "default-value"
-}
-
-variable "gitlabTokenAutonomicjump" {
-  default = "default-value"
 }
 
 #

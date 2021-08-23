@@ -22,7 +22,7 @@ in
           searchPaths
           outputs."/secretsForAwsFromEnv/makesProd"
           outputs."/secretsForEnvFromSops/makesCiProd"
-          outputs."/secretsForTerraformFromEnv/makesCiProd"
+          outputs."/secretsForTerraformFromEnv/makesCi"
         ];
         src = "/makes/makes/ci/infra";
         version = "0.14";
@@ -35,6 +35,8 @@ in
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForEnvFromSops/makesCiDev"
+          outputs."/secretsForTerraformFromEnv/makesCi"
         ];
         src = "/makes/makes/ci/infra";
         version = "0.14";
@@ -50,9 +52,17 @@ in
       ];
       manifest = "/makes/makes/secrets/prod.yaml";
     };
+    makesCiDev = {
+      vars = [
+        "GITLAB_TOKEN_FLUIDATTACKS"
+        "GITLAB_TOKEN_AUTONOMICMIND"
+        "GITLAB_TOKEN_AUTONOMICJUMP"
+      ];
+      manifest = "/makes/makes/secrets/dev.yaml";
+    };
   };
   secretsForTerraformFromEnv = {
-    makesCiProd = {
+    makesCi = {
       gitlabTokenFluidattacks = "GITLAB_TOKEN_FLUIDATTACKS";
       gitlabTokenAutonomicmind = "GITLAB_TOKEN_AUTONOMICMIND";
       gitlabTokenAutonomicjump = "GITLAB_TOKEN_AUTONOMICJUMP";
@@ -64,6 +74,8 @@ in
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/makesDev"
+          outputs."/secretsForEnvFromSops/makesCiDev"
+          outputs."/secretsForTerraformFromEnv/makesCi"
         ];
         src = "/makes/makes/ci/infra";
         version = "0.14";
