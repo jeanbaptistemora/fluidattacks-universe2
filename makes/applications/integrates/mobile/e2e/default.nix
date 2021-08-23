@@ -1,5 +1,5 @@
 { buildNodeRequirements
-, buildPythonRequirements
+, makes
 , nixpkgs
 , makeEntrypoint
 , packages
@@ -19,30 +19,9 @@ let
       ];
     };
   };
-  pythonRequirements = buildPythonRequirements {
+  pythonRequirements = makes.makePythonPypiEnvironment {
     name = "integrates-mobile-e2e-pypi";
-    python = nixpkgs.python37;
-    requirements = {
-      direct = [
-        "Appium-Python-Client==1.0.2"
-        "pytest==6.0.1"
-      ];
-      inherited = [
-        "attrs==20.3.0"
-        "importlib-metadata==3.6.0"
-        "iniconfig==1.1.1"
-        "more-itertools==8.7.0"
-        "packaging==20.9"
-        "pluggy==0.13.1"
-        "py==1.10.0"
-        "pyparsing==2.4.7"
-        "selenium==3.141.0"
-        "toml==0.10.2"
-        "typing-extensions==3.7.4.3"
-        "urllib3==1.26.4"
-        "zipp==3.4.0"
-      ];
-    };
+    sourcesYaml = ./pypi-sources.yaml;
   };
 in
 makeEntrypoint {
