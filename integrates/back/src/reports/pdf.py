@@ -523,3 +523,77 @@ class CreatorPDF:
             tplfile.write(render_text.encode("utf-8"))
         self.create_command(tpl_name)
         subprocess.call(self.command, shell=True)
+
+
+class CreatorPdfNew:
+    """Class to generate reports in PDF."""
+
+    command: str = ""
+    context: Optional[Context] = None
+    doctype: str = "executive"
+    font_dir: str = "/resources/fonts"
+    lang: str = "en"
+    out_name: str = ""
+    proj_tpl: str = "templates/pdf/executive_new.adoc"
+    result_dir: str = "/results/results_pdf/"
+    style: str = "fluid"
+    style_dir: str = "/resources/themes"
+    tpl_dir: str = "/tpls/"
+    wordlist: Dict[str, Dict[str, str]] = {}
+
+    def __init__(self, lang: str, doctype: str, tempdir: str) -> None:
+        """Class constructor."""
+        self.path = f"{STARTDIR}/integrates/back/src/reports"
+        self.tpl_img_path = tempdir
+
+        self.doctype = doctype
+        self.font_dir = self.path + self.font_dir
+        self.lang = lang
+        self.result_dir = self.path + self.result_dir
+        self.tpl_dir = self.path + self.tpl_dir
+        self.style_dir = self.path + self.style_dir
+        if self.doctype == "tech":
+            self.proj_tpl = "templates/pdf/tech.adoc"
+
+        importlib.reload(sys)
+        self.lang_support()
+
+    def create_command(self, tpl_name: str) -> None:
+        """Create the SO command to create the PDF with asciidoctor."""
+        self.command = (
+            "asciidoctor-pdf "
+            f"-a pdf-stylesdir={self.style_dir} "
+            f"-a pdf-style={self.style} "
+            f"-a pdf-fontsdir={self.font_dir} "
+            f"-D {self.result_dir} "
+            f"-o {self.out_name} "
+            f"{tpl_name} && chmod 777 {tpl_name}"
+        )
+
+    def lang_support(self) -> None:
+        """Define the dictionaries of accepted languages."""
+        self.wordlist = dict()
+        self.lang_support_en()
+
+    def lang_support_en(self) -> None:
+        """Add the English dictionary."""
+        self.wordlist["en"] = dict(
+            zip(PDFWordlistEn.keys(), PDFWordlistEn.labels())
+        )
+
+    def make_content(self, words: Dict[str, str]) -> Dict[str, str]:
+        """Create context with the titles of the document."""
+        base_img = "image::../templates/pdf/{name}_{lang}.png[]"
+        base_adoc = "include::../templates/pdf/{name}_{lang}.adoc[]"
+        return {
+            "content_title": words["content_title"],
+            "content_list": words["content_list"],
+            "goals_title": words["goals_title"],
+            "goals_img": base_img.format(name="goals", lang=self.lang),
+            "severity_img": base_img.format(name="severity", lang=self.lang),
+            "metodology_title": words["metodology_title"],
+            "metodology_img": base_img.format(
+                name="metodology", lang=self.lang
+            ),
+            "footer_adoc": base_adoc.format(name="footer", lang=self.lang),
+        }
