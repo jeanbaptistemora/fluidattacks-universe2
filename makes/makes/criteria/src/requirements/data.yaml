@@ -7901,7 +7901,15 @@
       información confidencial
       no deben almacenarse en ella.
   category: Files
-  references: []
+  references:
+    - "002.116"
+    - "004.219"
+    - "004.548"
+    - "004.922"
+    - "012.V1_2_1"
+    - "012.V4_3_2"
+    - "012.V12_4_1"
+    - "013.A3"
   metadata: {}
 "340":
   en:
@@ -7957,7 +7965,17 @@
       de vectores XSS u otros ataques
       del archivo cargado.
   category: Files
-  references: []
+  references:
+    - "002.19"
+    - "002.165"
+    - "004.646"
+    - "004.1021"
+    - "012.V1_12_2"
+    - "012.V12_5_2"
+    - "012.V14_4_3"
+    - "013.A7"
+    - "013.A1"
+    - "014.6_5_7"
   metadata: {}
 "341":
   en:
@@ -8004,7 +8022,20 @@
       y acceso utilizando el principio
       de negación de forma predeterminada.
   category: Authorization
-  references: []
+  references:
+    - "002.122"
+    - "002.233"
+    - "004.276"
+    - "004.732"
+    - "009.005-5_R1_3"
+    - "012.V4_1_4"
+    - "012.V10_2_2"
+    - "012.V14_2_6"
+    - "012.V14_5_1"
+    - "013.A5"
+    - "014.6_5_8"
+    - "014.7_1_2"
+    - "014.7_2_2"
   metadata: {}
 "342":
   en:
@@ -8052,7 +8083,21 @@
       y proporciona contramedidas para proteger
       contra la asignación de parámetros inseguros.
   category: Source
-  references: []
+  references:
+    - "002.6"
+    - "002.31"
+    - "002.32"
+    - "002.137"
+    - "002.153"
+    - "004.20"
+    - "004.233"
+    - "004.235"
+    - "004.915"
+    - "012.V5_1_1"
+    - "012.V5_1_2"
+    - "012.V5_1_3"
+    - "012.V8_1_1"
+    - "013.A1"
   metadata: {}
 "343":
   en:
@@ -8097,7 +8142,12 @@
       una violación de la privacidad
       si no se solicita ningún consentimiento.
   category: Privacy
-  references: []
+  references:
+    - "005.6_4"
+    - "005.9_1"
+    - "006.R39"
+    - "006.R40"
+    - "008.18_1_4"
   metadata: {}
 "344":
   en:
@@ -8143,7 +8193,21 @@
       (por ejemplo, las que proporciona los usuarios)
       deben ser filtradas adecuadamente.
   category: Source
-  references: []
+  references:
+    - "002.19"
+    - "002.242"
+    - "002.248"
+    - "004.20"
+    - "004.94"
+    - "004.95"
+    - "012.C_14"
+    - "012.V5_2_4"
+    - "012.V5_2_7"
+    - "012.V5_2_8"
+    - "013.A1"
+    - "013.A7"
+    - "014.6_5_1"
+    - "014.6_5_7"
   metadata: {}
 "345":
   en:
@@ -8205,7 +8269,16 @@
       copia de memoria segura
       y puntero aritmético.
   category: Source
-  references: []
+  references:
+    - "002.123"
+    - "002.153"
+    - "004.120"
+    - "004.134"
+    - "004.190"
+    - "012.V5_4_1"
+    - "012.V5_4_2"
+    - "012.V5_4_3"
+    - "014.6_5_2"
   metadata: {}
 "346":
   en:
@@ -8254,7 +8327,11 @@
       y solo deben usarse una vez
       con una clave de cifrado dada.
   category: Cryptography
-  references: []
+  references:
+    - "004.326"
+    - "004.330"
+    - "012.V6_2_6"
+    - "012.V6_3_1"
   metadata: {}
 "347":
   en:
@@ -8297,7 +8374,15 @@
       invalidarse cada vez que
       se genere una nueva.
   category: Credentials
-  references: []
+  references:
+    - "004.287"
+    - "004.307"
+    - "012.V2_2_1"
+    - "012.V2_6_1"
+    - "012.V2_8_4"
+    - "012.V3_2_1"
+    - "013.A2"
+    - "014.6_5_10"
   metadata: {}
 "348":
   en:
@@ -8354,7 +8439,13 @@
       y los ataques de inclusión
       de archivos remotos (RFI).
   category: Architecture
-  references: []
+  references:
+    - "002.33"
+    - "002.43"
+    - "002.153"
+    - "004.116"
+    - "004.444"
+    - "012.V13_1_1"
   metadata: {}
 "349":
   en:
@@ -8394,7 +8485,39 @@
       posible e incluirse en todas
       las solicitudes de servidores y respuestas.
   category: Architecture
-  references: []
+  references:
+    - "002.19"
+    - "002.31"
+    - "002.32"
+    - "002.161"
+    - "002.173"
+    - "004.116"
+    - "004.173"
+    - "004.319"
+    - "004.352"
+    - "004.451"
+    - "004.523"
+    - "004.525"
+    - "004.644"
+    - "004.1021"
+    - "012.V4_2_2"
+    - "012.V8_2_1"
+    - "012.V12_3_4"
+    - "012.V13_2_3"
+    - "012.V14_4_1"
+    - "012.V14_4_2"
+    - "012.V14_4_3"
+    - "012.V14_4_4"
+    - "012.V14_4_5"
+    - "012.V14_4_6"
+    - "012.V14_4_7"
+    - "012.V14_5_3"
+    - "013.A1"
+    - "013.A3"
+    - "013.A6"
+    - "013.A7"
+    - "014.6_5_7"
+    - "014.6_5_9"
   metadata: {}
 "350":
   en:
