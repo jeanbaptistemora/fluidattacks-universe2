@@ -16,9 +16,10 @@
 = Come To Your Senses Already!
 
 When it comes to cybersecurity,
-the expression _you snooze, you lose_
-perhaps never ceases to apply.
-There are so many security vulnerabilities appearing every day.
+few things can be more perilous
+than to be asleep at the wheel.
+Every day,
+a great number of new vulnerabilities appear.
 In 2020,
 for example,
 there was apparently link:https://www.securitymagazine.com/articles/94602-record-number-of-critical-and-high-severity-vulnerabilities-were-logged-to-the-nist-nvd-in-2020[an average of 50 per day].
@@ -29,8 +30,7 @@ thus increasing their risk of getting screwed.
 It is not uncommon to see a person or firm
 who inadvertently falls asleep
 and ends up losing in this field.
-But,
-the most peculiar of all
+But the most peculiar of all
 is that now that loss can also be provoked by a nightmare.
 
 == What kind of nightmare are we referring to?
@@ -88,7 +88,7 @@ it was known that this vulnerability could affect all versions
 of the Windows operating system,
 even those now rarely used,
 such as Vista and XP.
-The nightmare started to look darker
+The nightmare started to get darker
 when several researchers reported
 that the patch delivered by Microsoft was insufficient.
 Apparently,
