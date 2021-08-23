@@ -11856,6 +11856,21 @@
             "type": "SyntaxStepMethodInvocationChain"
           }
         ],
+        "60": [
+          {
+            "is_destructuring": false,
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "68",
+              "value": null
+            },
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "args",
+            "var_type": "String[]"
+          }
+        ],
         "605": [],
         "613": [
           {

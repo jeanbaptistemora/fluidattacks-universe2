@@ -6,9 +6,6 @@ from model.graph_model import (
 from sast_syntax_readers.types import (
     SyntaxReaderArgs,
 )
-from sast_syntax_readers.utils_generic import (
-    dependencies_from_arguments,
-)
 
 
 def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
@@ -18,9 +15,6 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
         yield SyntaxStepCatchClause(
             meta=SyntaxStepMeta.default(
                 n_id=args.n_id,
-                dependencies=dependencies_from_arguments(
-                    args.fork_n_id(node_attrs["label_field_body"]),
-                ),
             ),
             var=args.graph.nodes[parameter_id].get("label_text"),
         )

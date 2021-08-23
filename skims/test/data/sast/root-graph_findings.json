@@ -739,6 +739,21 @@
       },
       "path": "skims/test/data/lib_path/f031_cwe378/Test.java",
       "syntax": {
+        "13": [
+          {
+            "is_destructuring": false,
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "21",
+              "value": null
+            },
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "args",
+            "var_type": "String[]"
+          }
+        ],
         "25": [
           {
             "meta": {
@@ -837,14 +852,14 @@
         ],
         "51": [
           {
-            "catch_type": "56",
+            "catch_type": "Exception",
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "51",
+              "n_id": "56",
               "value": null
             },
-            "type": "SyntaxStepParenthesizedExpression",
+            "type": "SyntaxStepCatchClause",
             "var": "e"
           }
         ],

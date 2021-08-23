@@ -13,18 +13,8 @@ from utils import (
 
 
 def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
-    # if ( __0__ ) __1__ else __2__
-    match = g.match_ast(
-        args.graph,
-        args.n_id,
-        "if",
-        "__0__",
-        "__1__",
-        "else",
-        "__2__",
-    )
-
-    n_id_false = match["__2__"]
+    node_attrs = args.graph.nodes[args.n_id]
+    n_id_false = node_attrs.get("label_field_alternative")
     if not n_id_false:
         # Read the else branch by following the CFG, if such branch exists
         c_ids = g.adj_cfg(args.graph, args.n_id)
@@ -35,9 +25,9 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
         meta=graph_model.SyntaxStepMeta.default(
             n_id=args.n_id,
             dependencies=dependencies_from_arguments(
-                args.fork_n_id(match["__0__"]),
+                args.fork_n_id(node_attrs["label_field_condition"]),
             ),
         ),
         n_id_false=n_id_false,
-        n_id_true=match["__1__"],
+        n_id_true=node_attrs["label_field_consequence"],
     )

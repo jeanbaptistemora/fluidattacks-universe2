@@ -7832,32 +7832,14 @@
         ],
         "482": [
           {
+            "catch_type": "Exception",
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "492",
+              "n_id": "487",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "508",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          },
-          {
-            "catch_type": "487",
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "482",
-              "value": null
-            },
-            "type": "SyntaxStepParenthesizedExpression",
+            "type": "SyntaxStepCatchClause",
             "var": "e"
           }
         ],
@@ -8212,23 +8194,14 @@
         ],
         "582": [
           {
+            "catch_type": "Exception",
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "592",
+              "n_id": "587",
               "value": null
             },
-            "type": "SyntaxStepNoOp"
-          },
-          {
-            "catch_type": "587",
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "582",
-              "value": null
-            },
-            "type": "SyntaxStepParenthesizedExpression",
+            "type": "SyntaxStepCatchClause",
             "var": "e"
           }
         ],
@@ -12398,35 +12371,14 @@
         ],
         "261": [
           {
+            "catch_type": "java.sql.SQLException",
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "275",
+              "n_id": "266",
               "value": null
             },
-            "symbol": "org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "271",
-              "value": null
-            },
-            "n_id_false": "300",
-            "n_id_true": "277",
-            "type": "SyntaxStepIf"
-          },
-          {
-            "catch_type": "266",
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "261",
-              "value": null
-            },
-            "type": "SyntaxStepParenthesizedExpression",
+            "type": "SyntaxStepCatchClause",
             "var": "e"
           }
         ],

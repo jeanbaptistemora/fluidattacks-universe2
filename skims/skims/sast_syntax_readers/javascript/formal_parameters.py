@@ -1,6 +1,3 @@
-from model import (
-    graph_model,
-)
 from model.graph_model import (
     SyntaxStepDeclaration,
     SyntaxStepMeta,
@@ -26,24 +23,24 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
 
 
 def _yield_parameter(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
-    node_type = args.graph.nodes[args.n_id]["label_type"]
-    if node_type == "identifier":
+    node_attrs = args.graph.nodes[args.n_id]
+    if node_attrs["label_type"] == "identifier":
         yield SyntaxStepDeclaration(
             meta=SyntaxStepMeta.default(args.n_id),
-            var=args.graph.nodes[args.n_id]["label_text"],
+            var=node_attrs["label_text"],
             modifiers=set(),
         )
-    elif node_type == "assignment_pattern":
-        match = g.match_ast(args.graph, args.n_id, "identifier", "=")
-
+    elif node_attrs["label_type"] == "assignment_pattern":
         yield SyntaxStepDeclaration(
-            meta=graph_model.SyntaxStepMeta.default(
+            meta=SyntaxStepMeta.default(
                 args.n_id,
                 [
-                    args.generic(args.fork_n_id(match["__0__"])),
+                    args.generic(
+                        args.fork_n_id(node_attrs["label_field_right"])
+                    ),
                 ],
             ),
-            var=args.graph.nodes[match["identifier"]]["label_text"],
+            var=args.graph.nodes[node_attrs["label_field_left"]]["label_text"],
             modifiers=set(),
         )
     else:

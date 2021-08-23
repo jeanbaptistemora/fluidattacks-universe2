@@ -162,7 +162,7 @@ class SyntaxStepCatchClause(NamedTuple):
     var: str
     catch_type: Optional[str] = None
 
-    type: str = "SyntaxStepParenthesizedExpression"
+    type: str = "SyntaxStepCatchClause"
 
 
 class SyntaxStepLoop(NamedTuple):
