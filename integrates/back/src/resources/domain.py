@@ -172,10 +172,6 @@ async def add_file_to_db(
     if validations.validate_file_name(files_data[0]["fileName"]):
         group_files.extend(json_data)
         success = all(
-            await collect(
-                [
-                    groups_domain.update(group_name, {"files": group_files}),
-                ]
-            )
+            await groups_domain.update(group_name, {"files": group_files})
         )
     return success
