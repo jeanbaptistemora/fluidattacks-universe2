@@ -921,6 +921,7 @@ type Mutation {
 
   "Updates a Finding's description"
   updateDescription(
+    "Email address of the Hacker who found the vulnerability"
     actor: String!
     "Project or application that contains the vulnerability"
     affectedSystems: String!
@@ -1116,10 +1117,12 @@ type Mutation {
     """Hypothetical impact on resource (webpages, content etc...) availability
     and possibility of service denial"""
     availabilityImpact: String!
+    "Availability requirement for the impacted systems"
     availabilityRequirement: String!
     """Measure of the sensible/restricted information (e.g. password,
     encryption keys) the attacker could gather from the breached component"""
     confidentialityImpact: String!
+    "Confidentiality requirement for the impacted systems"
     confidentialityRequirement: String!
     "Common Vulnerability Scoring System version"
     cvssVersion: String!
@@ -1130,6 +1133,7 @@ type Mutation {
     """How vulnerable for malicious modification are the files in the impacted
     components"""
     integrityImpact: String!
+    "Integrity requirement for the impacted systems"
     integrityRequirement: String!
     "Modified Attack Complexity"
     modifiedAttackComplexity: String!
@@ -1162,9 +1166,11 @@ type Mutation {
   ): SimpleFindingPayload!
 
   updateToeLinesSorts(
+    "Where source code has been reviewed by Sorts"
     filename: String,
     "Name of the Group containing the ToE lines to be updated"
     groupName: String,
+    "Risk level of the reviewed lines assigned by Sorts"
     sortsRiskLevel: Int
   ): SimplePayload!
 
