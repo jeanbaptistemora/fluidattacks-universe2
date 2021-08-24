@@ -68,7 +68,6 @@ async def test_add_files() -> None:
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "../mock/test-anim.gif")
     with open(filename, "rb") as test_file:
-        uploaded_file = UploadFile(test_file.name, test_file, "image/gif")
         file_data = [
             {
                 "description": "test",
@@ -77,11 +76,10 @@ async def test_add_files() -> None:
             }
         ]
         query = """
-            mutation UploadFileMutation(
-                $file: Upload!, $filesData: JSONString!, $groupName: String!
+            mutation SignPostUrlMutation(
+                $filesData: JSONString!, $groupName: String!
             ) {
-                addFiles (
-                    file: $file,
+                signPostUrl (
                     filesData: $filesData,
                     groupName: $groupName) {
                         success
@@ -89,7 +87,6 @@ async def test_add_files() -> None:
             }
         """
         variables = {
-            "file": uploaded_file,
             "filesData": json.dumps(file_data),
             "groupName": "UNITTESTING",
         }
@@ -97,8 +94,8 @@ async def test_add_files() -> None:
     result = await _get_result(data)
     if "errors" not in result:
         assert "errors" not in result
-        assert "success" in result["data"]["addFiles"]
-        assert result["data"]["addFiles"]["success"]
+        assert "success" in result["data"]["signPostUrl"]
+        assert result["data"]["signPostUrl"]["success"]
     else:
         pytest.skip("Expected error")
 

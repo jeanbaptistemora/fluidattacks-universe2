@@ -27,10 +27,10 @@ async def get_result(
             {"description": "test", "fileName": filename, "uploadDate": ""}
         ]
         query: str = """
-            mutation SignPostUrlMutation(
+            mutation AddFilesToDb(
                 $filesData: JSONString!, $groupName: String!
             ) {
-                signPostUrl (
+                addFilesToDb (
                     filesData: $filesData,
                     groupName: $groupName) {
                         success

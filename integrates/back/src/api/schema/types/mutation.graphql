@@ -128,8 +128,6 @@ type Mutation {
     filesData: JSONString!
     "Name of the Group to add the File to"
     groupName: String
-    "Deprecated. Use `groupName` instead"
-    projectName: String
   ): SimplePayload!
 
   "Adds a consult/comment in a Finding"
