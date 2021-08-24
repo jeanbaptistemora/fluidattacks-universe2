@@ -2223,6 +2223,7 @@ export const enTranslations: ResourceKey = {
       vulnTable: {
         currentTreatment: "Current",
         cycles: "Cycles",
+        dateTooltip: "Filter vulnerabilities based on the report date",
         efficacy: "Efficiency",
         info: "Info",
         lastReattackDate: "Last reattack date",

@@ -22,4 +22,16 @@ const SearchText = styled.input.attrs({
   className: `${style["form-control"]} black-40 border-box`,
 })``;
 
-export { ActionsContainer, Filters, Select, SelectContainer, SearchText };
+const SelectDate = styled.input.attrs({
+  className: `${style["form-control"]} black-40 border-box`,
+  type: `date`,
+})``;
+
+export {
+  SelectDate,
+  ActionsContainer,
+  Filters,
+  Select,
+  SelectContainer,
+  SearchText,
+};

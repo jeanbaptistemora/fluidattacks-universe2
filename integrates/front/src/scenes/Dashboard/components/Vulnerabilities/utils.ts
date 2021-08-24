@@ -176,6 +176,22 @@ function filterCurrentStatus(
     _.isEmpty(currentState) ? true : vuln.currentState === currentState
   );
 }
+function filterReportDate(
+  vulnerabilities: IVulnRowAttr[],
+  currentDate: string
+): IVulnRowAttr[] {
+  const selectedDate = new Date(currentDate);
+
+  return vulnerabilities.filter((vuln: IVulnRowAttr): boolean => {
+    const reportDate = new Date(vuln.reportDate);
+
+    return _.isEmpty(currentDate)
+      ? true
+      : selectedDate.getUTCDate() === reportDate.getDate() &&
+          selectedDate.getUTCMonth() === reportDate.getMonth() &&
+          selectedDate.getUTCFullYear() === reportDate.getFullYear();
+  });
+}
 function filterTreatmentCurrentStatus(
   vulnerabilities: IVulnRowAttr[],
   currentState: string
@@ -260,6 +276,7 @@ export {
   filterTreatment,
   filterCurrentStatus,
   filterOutVulnerabilities,
+  filterReportDate,
   filterTreatmentCurrentStatus,
   filterZeroRisk,
   formatVulnerabilities,

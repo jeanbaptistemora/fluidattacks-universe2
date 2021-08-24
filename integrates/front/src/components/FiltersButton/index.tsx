@@ -11,6 +11,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
+import { TooltipWrapper } from "components/TooltipWrapper";
 
 interface IFilterButtonProps {
   isFilterEnabled: boolean;
@@ -30,13 +31,16 @@ export const FiltersButton: React.FC<IFilterButtonProps> = (
   }
 
   return (
-    <Button onClick={handleUpdateEnableFilter}>
-      {isFilterEnabled ? (
-        <FontAwesomeIcon icon={faMinus} />
-      ) : (
-        <FontAwesomeIcon icon={faPlus} />
-      )}
-      {t("dataTableNext.filters")}
-    </Button>
+    <TooltipWrapper id={"filterTooltip"} message={t("dataTableNext.tooltip")}>
+      <Button onClick={handleUpdateEnableFilter}>
+        {isFilterEnabled ? (
+          <FontAwesomeIcon icon={faMinus} />
+        ) : (
+          <FontAwesomeIcon icon={faPlus} />
+        )}
+        &nbsp;
+        {t("dataTableNext.filters")}
+      </Button>
+    </TooltipWrapper>
   );
 };
