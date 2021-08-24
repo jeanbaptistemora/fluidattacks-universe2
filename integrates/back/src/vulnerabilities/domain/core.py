@@ -79,6 +79,7 @@ from typing import (
     List,
     Optional,
     Set,
+    Tuple,
     Union,
 )
 import uuid
@@ -390,6 +391,61 @@ async def get_open_vuln_by_type(
                 },
             )
     return finding
+
+
+async def get_open_vulnerabilities_by_type_new(
+    loaders: Any,
+    finding_id: str,
+) -> Dict[str, Tuple[Dict[str, str], ...]]:
+    finding_vulns_loader = loaders.finding_vulns_nzr
+    vulnerabilities = await finding_vulns_loader.load(finding_id)
+    ports_vulnerabilities = []
+    lines_vulnerabilities = []
+    inputs_vulnerabilities = []
+    vulns_types = ["ports", "lines", "inputs"]
+    for vulnerability in vulnerabilities:
+        current_state = vulns_utils.get_last_status(vulnerability)
+        if current_state == "open":
+            vulnerability_info: Dict[str, str] = {
+                "where": vulnerability.get("where", ""),
+                "specific": vulnerability.get("specific", ""),
+                "commit_hash": vulnerability.get("commit_hash", ""),
+            }
+            if vulnerability.get("vuln_type") in vulns_types:
+                if vulnerability["vuln_type"] == "ports":
+                    ports_vulnerabilities.append(vulnerability_info)
+                if vulnerability["vuln_type"] == "lines":
+                    lines_vulnerabilities.append(vulnerability_info)
+                if vulnerability["vuln_type"] == "inputs":
+                    inputs_vulnerabilities.append(vulnerability_info)
+            else:
+                LOGGER.error(
+                    "Vulnerability does not have the right type",
+                    extra={
+                        "extra": {
+                            "vuln_uuid": vulnerability["UUID"],
+                            "finding_id": finding_id,
+                        }
+                    },
+                )
+        elif current_state == "closed":
+            pass
+        else:
+            LOGGER.error(
+                "Error: Vulnerability does not have the right state",
+                extra={
+                    "extra": {
+                        "vuln_uuid": vulnerability["UUID"],
+                        "finding_id": finding_id,
+                    }
+                },
+            )
+
+    return {
+        "ports_vulnerabilities": tuple(ports_vulnerabilities),
+        "lines_vulnerabilities": tuple(lines_vulnerabilities),
+        "inputs_vulnerabilities": tuple(inputs_vulnerabilities),
+    }
 
 
 async def get_vulnerabilities_async(
