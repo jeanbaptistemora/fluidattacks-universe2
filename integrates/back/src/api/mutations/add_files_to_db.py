@@ -24,7 +24,7 @@ from newutils.utils import (
     get_key_or_fallback,
 )
 from resources.domain import (
-    add_file,
+    add_file_to_db,
 )
 from typing import (
     Any,
@@ -49,7 +49,7 @@ async def mutate(
     user_email = user_info["user_email"]
     group_name: str = get_key_or_fallback(parameters)
 
-    success = await add_file(new_files_data, group_name, user_email)
+    success = await add_file_to_db(new_files_data, group_name, user_email)
 
     if success:
         msg = (

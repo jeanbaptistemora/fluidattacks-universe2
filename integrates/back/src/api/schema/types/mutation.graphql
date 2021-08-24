@@ -118,7 +118,8 @@ type Mutation {
     projectName: String
     "Name of the Group to upload the File to"
     groupName: String
-  ): SimplePayload!
+  ): SimplePayload! @deprecated(reason: """This mutation will be removed after
+  2022/02/24. Use `signPostUrl` and `addFilesToDb` instead.""")
 
   "Adds files to a Group's scope view"
   addFilesToDb(
@@ -861,8 +862,6 @@ type Mutation {
     filesData: JSONString!
     "Name of the Group to add the File to"
     groupName: String
-    "Deprecated. Use `groupName` instead"
-    projectName: String
   ): SignPostUrlsPayload!
 
   solveEvent(

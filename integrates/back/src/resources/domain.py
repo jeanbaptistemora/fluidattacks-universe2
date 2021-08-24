@@ -42,7 +42,7 @@ logging.config.dictConfig(LOGGING)
 # Constants
 LOGGER = logging.getLogger(__name__)
 
-
+# Deprecated
 async def add_file(
     files_data: List[Dict[str, str]],
     uploaded_file: UploadFile,
@@ -132,3 +132,50 @@ async def validate_file_size(
     if await files_utils.get_file_size(uploaded_file) > file_size * mib:
         raise InvalidFileSize()
     return True
+
+
+async def add_file_to_db(
+    files_data: List[Dict[str, str]],
+    group_name: str,
+    user_email: str,
+) -> bool:
+    success = False
+    group_name = group_name.lower()
+    json_data: List[ResourceType] = []
+    for file_info in files_data:
+        description = file_info["description"]
+        validations.validate_fields(cast(List[str], [description]))
+        validations.validate_field_length(description, 200)
+        json_data.append(
+            {
+                "fileName": file_info.get("fileName", file_info["fileName"]),
+                "description": description,
+                "uploadDate": datetime_utils.get_as_str(
+                    datetime_utils.get_now(), date_format="%Y-%m-%d %H:%M"
+                ),
+                "uploader": user_email,
+            }
+        )
+    files = await groups_domain.get_attributes(group_name, ["files"])
+    group_files = cast(List[ResourceType], files.get("files", []))
+    if group_files:
+        contains_repeated = [
+            f.get("fileName")
+            for f in group_files
+            if f.get("fileName") == files_data[0]["fileName"]
+        ]
+        if contains_repeated:
+            LOGGER.error("File already exists", **NOEXTRA)
+    else:
+        # Group doesn't have files
+        pass
+    if validations.validate_file_name(files_data[0]["fileName"]):
+        group_files.extend(json_data)
+        success = all(
+            await collect(
+                [
+                    groups_domain.update(group_name, {"files": group_files}),
+                ]
+            )
+        )
+    return success
