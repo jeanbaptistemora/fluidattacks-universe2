@@ -71,6 +71,14 @@ class VulnerabilitiesStatusByTimeRange(NamedTuple):
 class RegisterByWeek(NamedTuple):
     vulnerabilities: List[List[Dict[str, Union[str, Decimal]]]]
     vulnerabilities_cvssf: List[List[Dict[str, Union[str, Decimal]]]]
+    exposed_cvssf: List[List[Dict[str, Union[str, Decimal]]]]
+
+
+class CvssfExposureByTimeRange(NamedTuple):
+    low: Decimal
+    medium: Decimal
+    high: Decimal
+    critical: Decimal
 
 
 def create_data_format_chart(
@@ -83,6 +91,24 @@ def create_data_format_chart(
         "accepted": [],
         "assumed_closed": [],
         "opened": [],
+    }
+    for week, dict_status in list(all_registers.items()):
+        for status in plot_points:
+            plot_points[status].append({"x": week, "y": dict_status[status]})
+    for status in plot_points:
+        result_data.append(plot_points[status])
+    return result_data
+
+
+def format_exposed_chart(
+    all_registers: Dict[str, Dict[str, Decimal]]
+) -> List[List[Dict[str, Union[str, Decimal]]]]:
+    result_data = []
+    plot_points: Dict[str, List[Dict[str, Union[str, Decimal]]]] = {
+        "low": [],
+        "medium": [],
+        "high": [],
+        "critical": [],
     }
     for week, dict_status in list(all_registers.items()):
         for status in plot_points:
@@ -108,10 +134,14 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
     context: Any, group: str, min_date: Optional[datetime] = None
 ) -> RegisterByWeek:
     """Create weekly vulnerabilities registry by group"""
-    found = 0
+    found: int = 0
+    accepted: int = 0
+    closed: int = 0
+    exposed_cvssf: Decimal = Decimal(0.0)
     found_cvssf = Decimal(0.0)
     all_registers = OrderedDict()
     all_registers_cvsff = OrderedDict()
+    all_registers_exposed_cvsff = OrderedDict()
 
     findings: List[Dict[str, FindingType]] = await context.group_findings.load(
         group
@@ -147,16 +177,23 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
                     else None,
                 )
             )
+            result_cvssf_by_week: CvssfExposureByTimeRange = (
+                get_exposed_cvssf_by_time_range(
+                    vulnerabilities_severity=vulnerabilities_severity,
+                    vulnerabilities_historic_states=historic_states,
+                    last_day=last_day,
+                )
+            )
             found += result_vulns_by_week.found_vulnerabilities
             found_cvssf += result_vulns_by_week.found_cvssf
+            week_dates = create_weekly_date(first_day)
             if any(
                 [
-                    result_vulns_by_week.accepted_vulnerabilities,
-                    result_vulns_by_week.closed_vulnerabilities,
                     result_vulns_by_week.found_vulnerabilities,
+                    accepted != result_vulns_by_week.accepted_vulnerabilities,
+                    closed != result_vulns_by_week.closed_vulnerabilities,
                 ]
             ):
-                week_dates = create_weekly_date(first_day)
                 all_registers[week_dates] = {
                     "found": Decimal(found),
                     "closed": Decimal(
@@ -193,6 +230,31 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
                         - result_vulns_by_week.accepted_cvssf
                     ).quantize(Decimal("0.1")),
                 }
+            if exposed_cvssf != (
+                result_cvssf_by_week.low
+                + result_cvssf_by_week.medium
+                + result_cvssf_by_week.high
+                + result_cvssf_by_week.critical
+            ):
+                all_registers_exposed_cvsff[week_dates] = {
+                    "low": result_cvssf_by_week.low.quantize(Decimal("0.1")),
+                    "medium": result_cvssf_by_week.medium.quantize(
+                        Decimal("0.1")
+                    ),
+                    "high": result_cvssf_by_week.high.quantize(Decimal("0.1")),
+                    "critical": result_cvssf_by_week.critical.quantize(
+                        Decimal("0.1")
+                    ),
+                }
+
+            exposed_cvssf = (
+                result_cvssf_by_week.low
+                + result_cvssf_by_week.medium
+                + result_cvssf_by_week.high
+                + result_cvssf_by_week.critical
+            )
+            accepted = result_vulns_by_week.accepted_vulnerabilities
+            closed = result_vulns_by_week.closed_vulnerabilities
             first_day = datetime_utils.get_as_str(
                 datetime_utils.get_plus_delta(
                     datetime_utils.get_from_str(first_day), days=7
@@ -203,9 +265,11 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
                     datetime_utils.get_from_str(last_day), days=7
                 )
             )
+
     return RegisterByWeek(
         vulnerabilities=create_data_format_chart(all_registers),
         vulnerabilities_cvssf=create_data_format_chart(all_registers_cvsff),
+        exposed_cvssf=format_exposed_chart(all_registers_exposed_cvsff),
     )
 
 
@@ -448,6 +512,7 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
         "remediated_over_time_cvssf": (
             remediated_over_time.vulnerabilities_cvssf[-24:]
         ),
+        "exposed_over_time_cvssf": remediated_over_time.exposed_cvssf[-24:],
         "remediated_over_time_30": remediated_over_thirty_days.vulnerabilities[
             -24:
         ],
@@ -524,6 +589,27 @@ def get_status_vulns_by_time_range(
     )
 
 
+def get_exposed_cvssf_by_time_range(
+    *,
+    vulnerabilities_severity: List[Decimal],
+    vulnerabilities_historic_states: List[List[Historic]],
+    last_day: str,
+) -> CvssfExposureByTimeRange:
+    exposed_cvssf: List[CvssfExposureByTimeRange] = [
+        get_exposed_cvssf(historic_state, severity, last_day)
+        for historic_state, severity in zip(
+            vulnerabilities_historic_states, vulnerabilities_severity
+        )
+    ]
+
+    return CvssfExposureByTimeRange(
+        low=Decimal(sum([cvssf.low for cvssf in exposed_cvssf])),
+        medium=Decimal(sum([cvssf.medium for cvssf in exposed_cvssf])),
+        high=Decimal(sum([cvssf.high for cvssf in exposed_cvssf])),
+        critical=Decimal(sum([cvssf.critical for cvssf in exposed_cvssf])),
+    )
+
+
 def get_cssvf(severity: Decimal) -> Decimal:
     return Decimal(pow(Decimal("4.0"), severity - Decimal("4.0"))).quantize(
         Decimal("0.001")
@@ -553,6 +639,43 @@ def get_found_vulnerabilities(
         )
     return VulnerabilityStatusByTimeRange(
         vulnerabilities=0, cvssf=Decimal("0.0")
+    )
+
+
+def get_severity_level(severity: Decimal) -> str:
+    if severity <= 3.9:
+        return "low"
+    if 4 <= severity <= 6.9:
+        return "medium"
+    if 7 <= severity <= 8.9:
+        return "high"
+
+    return "critical"
+
+
+def get_exposed_cvssf(
+    historic_state: List[Dict[str, str]],
+    severity: Decimal,
+    last_day: str,
+) -> CvssfExposureByTimeRange:
+    states = findings_utils.filter_by_date(
+        historic_state, datetime_utils.get_from_str(last_day)
+    )
+    cvssf: Decimal = Decimal("0.0")
+    severity_level = get_severity_level(severity)
+
+    if (
+        states
+        and states[-1]["date"] <= last_day
+        and states[-1]["state"] == "open"
+    ):
+        cvssf = get_cssvf(severity)
+
+    return CvssfExposureByTimeRange(
+        low=cvssf if severity_level == "low" else Decimal("0.0"),
+        medium=cvssf if severity_level == "medium" else Decimal("0.0"),
+        high=cvssf if severity_level == "high" else Decimal("0.0"),
+        critical=cvssf if severity_level == "critical" else Decimal("0.0"),
     )
 
 
