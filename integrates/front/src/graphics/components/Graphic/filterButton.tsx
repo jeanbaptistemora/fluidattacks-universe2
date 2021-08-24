@@ -1,7 +1,8 @@
-/* eslint-disable react/forbid-component-props
-  --------
+/* eslint-disable react/forbid-component-props, react/no-multi-comp
+--------
   We need className to override default styles
-  */
+  Needed to declare various small helpers components
+*/
 import React from "react";
 
 import { mergedDocuments } from "./ctx";
@@ -11,19 +12,49 @@ import { DaysLabel, DocumentMerged } from "./helpers";
 import styles from "graphics/components/Graphic/index.css";
 import { GraphicButton } from "styles/styledComponents";
 
-interface IFilterButton {
+interface ITimeFilterButton {
   subjectName: string;
   subject: string;
-  documentName: string;
-  currentDocumentName: string;
   timeFilter: boolean;
-  documentNameFilter: boolean;
-  changeToAlternative: () => void;
-  changeTothirtyDays: () => void;
+  changeToThirtyDays: () => void;
   changeToNinety: () => void;
   changeToAll: () => void;
+}
+
+interface IFilterButton extends ITimeFilterButton {
+  documentName: string;
+  currentDocumentName: string;
+  documentNameFilter: boolean;
+  changeToAlternative: () => void;
   changeToDefault: () => void;
 }
+
+const TimeFilterButton: React.FC<ITimeFilterButton> = ({
+  subjectName,
+  subject,
+  timeFilter,
+  changeToThirtyDays,
+  changeToNinety,
+  changeToAll,
+}: ITimeFilterButton): JSX.Element => {
+  if (!timeFilter) {
+    return <React.StrictMode />;
+  }
+
+  return (
+    <React.StrictMode>
+      <GraphicButton className={styles.buttonSize} onClick={changeToThirtyDays}>
+        <DaysLabel days={"30"} isEqual={subjectName === `${subject}_30`} />
+      </GraphicButton>
+      <GraphicButton className={styles.buttonSize} onClick={changeToNinety}>
+        <DaysLabel days={"90"} isEqual={subjectName === `${subject}_90`} />
+      </GraphicButton>
+      <GraphicButton className={styles.buttonSize} onClick={changeToAll}>
+        <DaysLabel days={"allTime"} isEqual={subjectName === subject} />
+      </GraphicButton>
+    </React.StrictMode>
+  );
+};
 
 export const FilterButton: React.FC<IFilterButton> = ({
   subjectName,
@@ -33,7 +64,7 @@ export const FilterButton: React.FC<IFilterButton> = ({
   timeFilter,
   documentNameFilter,
   changeToAlternative,
-  changeTothirtyDays,
+  changeToThirtyDays,
   changeToNinety,
   changeToAll,
   changeToDefault,
@@ -69,34 +100,14 @@ export const FilterButton: React.FC<IFilterButton> = ({
               </GraphicButton>
             </React.Fragment>
           ) : undefined}
-          {timeFilter ? (
-            <React.Fragment>
-              <GraphicButton
-                className={styles.buttonSize}
-                onClick={changeTothirtyDays}
-              >
-                <DaysLabel
-                  days={"30"}
-                  isEqual={subjectName === `${subject}_30`}
-                />
-              </GraphicButton>
-              <GraphicButton
-                className={styles.buttonSize}
-                onClick={changeToNinety}
-              >
-                <DaysLabel
-                  days={"90"}
-                  isEqual={subjectName === `${subject}_90`}
-                />
-              </GraphicButton>
-              <GraphicButton
-                className={styles.buttonSize}
-                onClick={changeToAll}
-              >
-                <DaysLabel days={"allTime"} isEqual={subjectName === subject} />
-              </GraphicButton>
-            </React.Fragment>
-          ) : undefined}
+          <TimeFilterButton
+            changeToAll={changeToAll}
+            changeToNinety={changeToNinety}
+            changeToThirtyDays={changeToThirtyDays}
+            subject={subject}
+            subjectName={subjectName}
+            timeFilter={timeFilter}
+          />
         </React.Fragment>
       </DropdownFilter>
     ) : undefined}

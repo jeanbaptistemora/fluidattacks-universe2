@@ -9,7 +9,6 @@ import type { PropsWithChildren } from "react";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
-import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
 import { JustificationField } from "./JustificationField";
@@ -400,18 +399,19 @@ describe("handle vulns acceptation modal", (): void => {
 
     const form: ReactWrapper = wrapper.find("Formik");
     form.at(0).simulate("submit");
-    await act(async (): Promise<void> => {
-      const delay = 150;
-      await wait(delay);
-      wrapper.update();
-    });
 
-    expect(handleRefetchData).toHaveBeenCalledWith();
-    expect(handleCloseModal).toHaveBeenCalledWith();
-    expect(msgSuccess).toHaveBeenCalledWith(
-      "Zero risk vulnerability has been confirmed",
-      "Correct!"
-    );
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(handleRefetchData).toHaveBeenCalledTimes(1);
+        expect(handleCloseModal).toHaveBeenCalledTimes(1);
+        expect(msgSuccess).toHaveBeenCalledWith(
+          "Zero risk vulnerability has been confirmed",
+          "Correct!"
+        );
+      });
+    });
   });
 
   it("should handle confirm zero risk error", async (): Promise<void> => {
@@ -564,17 +564,18 @@ describe("handle vulns acceptation modal", (): void => {
 
     const form: ReactWrapper = wrapper.find("Formik");
     form.at(0).simulate("submit");
-    await act(async (): Promise<void> => {
-      const delay = 150;
-      await wait(delay);
-      wrapper.update();
-    });
 
-    expect(handleRefetchData).not.toHaveBeenCalledWith();
-    expect(handleCloseModal).not.toHaveBeenCalledWith();
-    expect(msgError).toHaveBeenCalledWith(
-      "Zero risk vulnerability is not requested"
-    );
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(handleRefetchData).not.toHaveBeenCalledTimes(1);
+        expect(handleCloseModal).not.toHaveBeenCalledTimes(1);
+        expect(msgError).toHaveBeenCalledWith(
+          "Zero risk vulnerability is not requested"
+        );
+      });
+    });
   });
 
   it("should handle reject zero risk", async (): Promise<void> => {
@@ -721,18 +722,19 @@ describe("handle vulns acceptation modal", (): void => {
 
     const form: ReactWrapper = wrapper.find("Formik");
     form.at(0).simulate("submit");
-    await act(async (): Promise<void> => {
-      const delay = 150;
-      await wait(delay);
-      wrapper.update();
-    });
 
-    expect(handleRefetchData).toHaveBeenCalledWith();
-    expect(handleCloseModal).toHaveBeenCalledWith();
-    expect(msgSuccess).toHaveBeenCalledWith(
-      "Zero risk vulnerability has been rejected",
-      "Correct!"
-    );
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(handleRefetchData).toHaveBeenCalledTimes(1);
+        expect(handleCloseModal).toHaveBeenCalledTimes(1);
+        expect(msgSuccess).toHaveBeenCalledWith(
+          "Zero risk vulnerability has been rejected",
+          "Correct!"
+        );
+      });
+    });
   });
 
   it("should handle reject zero risk error", async (): Promise<void> => {
@@ -885,17 +887,18 @@ describe("handle vulns acceptation modal", (): void => {
 
     const form: ReactWrapper = wrapper.find("Formik");
     form.at(0).simulate("submit");
-    await act(async (): Promise<void> => {
-      const delay = 150;
-      await wait(delay);
-      wrapper.update();
-    });
 
-    expect(handleRefetchData).not.toHaveBeenCalledWith();
-    expect(handleCloseModal).not.toHaveBeenCalledWith();
-    expect(msgError).toHaveBeenCalledWith(
-      "Zero risk vulnerability is not requested"
-    );
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(handleRefetchData).not.toHaveBeenCalledTimes(1);
+        expect(handleCloseModal).not.toHaveBeenCalledTimes(1);
+        expect(msgError).toHaveBeenCalledWith(
+          "Zero risk vulnerability is not requested"
+        );
+      });
+    });
   });
 
   it("should display dropdown to confirm zero risk", (): void => {
