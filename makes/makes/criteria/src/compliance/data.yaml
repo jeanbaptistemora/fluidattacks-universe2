@@ -281,6 +281,9 @@
     "442":
       title: Infected Software
       link: https://capec.mitre.org/data/definitions/442.html
+    "475":
+      title: Signature Spoofing by Improper Validation
+      link: https://capec.mitre.org/data/definitions/475.html  
     "549":
       title: Local Execution of Code
       link: https://capec.mitre.org/data/definitions/549.html
@@ -666,6 +669,9 @@
     "297":
       title: Improper Validation of Certificate with Host Mismatch
       link: https://cwe.mitre.org/data/definitions/297.html
+    "298":
+      title: Improper Validation of Certificate Expiration
+      link: https://cwe.mitre.org/data/definitions/298.html  
     "299":
       title: Improper Check for Certificate Revocation
       link: https://cwe.mitre.org/data/definitions/299.html

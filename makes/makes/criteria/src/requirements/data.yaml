@@ -1640,7 +1640,11 @@
       con una vigencia superior a dos años.
     description: __empty__
   category: Certificates
-  references: []
+  references:
+    - "004.295" 
+    - "004.298"
+    - "004.299"
+    - "012.V9_2_4"
   metadata: {}
 "090":
   en:
@@ -1658,6 +1662,7 @@
     description: __empty__
   category: Certificates
   references:
+    - "004.298"
     - "004.299"
     - "012.V9_2_4"
   metadata: {}
@@ -1725,7 +1730,10 @@
       se encuentra asociado.
     description: __empty__
   category: Certificates
-  references: []
+  references:
+    - "002.475"
+    - "004.295"
+    - "004.297"
   metadata: {}
 "095":
   en:
