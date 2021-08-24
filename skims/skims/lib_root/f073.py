@@ -5,6 +5,9 @@ from model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
+from sast_syntax_readers.utils_generic import (
+    get_dependencies,
+)
 from typing import (
     Tuple,
 )
@@ -20,17 +23,18 @@ def java_switch_without_default(
         for shard in graph_db.shards_by_language(
             graph_model.GraphShardMetadataLanguage.JAVA,
         ):
-            for switch_id in g.filter_nodes(
-                shard.graph,
-                nodes=shard.graph.nodes,
-                predicate=g.pred_has_labels(label_type="switch_statement"),
-            ):
-                if not g.filter_nodes(
-                    shard.graph,
-                    nodes=g.adj_ast(shard.graph, switch_id, depth=3),
-                    predicate=g.pred_has_labels(label_type="default"),
-                ):
-                    yield shard, switch_id
+            for syntax_steps in shard.syntax.values():
+                for index, syntax_step in enumerate(syntax_steps):
+                    if isinstance(syntax_step, graph_model.SyntaxStepSwitch):
+                        cases = get_dependencies(index, syntax_steps)[1:]
+                        has_default = any(
+                            isinstance(
+                                case, graph_model.SyntaxStepSwitchLabelDefault
+                            )
+                            for case in cases
+                        )
+                        if not has_default:
+                            yield shard, syntax_step.meta.n_id
 
     return get_vulnerabilities_from_n_ids(
         cwe=("478",),

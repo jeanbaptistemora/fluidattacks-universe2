@@ -59,8 +59,8 @@ from sast_syntax_readers.java import (
     method_declaration as java_method_declaration,
     method_invocation as java_method_invocation,
     resource as java_resource,
+    switch_expression as java_switch_expression,
     switch_label as java_switch_label,
-    switch_statement as java_switch_statement,
     ternary_expression as java_ternary_expression,
     this as java_this,
 )
@@ -356,9 +356,9 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
-            "switch_statement",
+            "switch_expression",
         },
-        syntax_readers=(java_switch_statement.reader,),
+        syntax_readers=(java_switch_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={

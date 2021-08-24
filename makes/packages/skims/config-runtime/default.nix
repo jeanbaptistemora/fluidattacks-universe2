@@ -121,8 +121,8 @@ makeTemplate {
             sha256 = "7LD8wR4Gg4OadYaXTSbGPe5iAOagRPGJSpO51uW0ow8=";
           };
           envSrcTreeSitterJava = fetchzip {
-            url = "https://github.com/tree-sitter/tree-sitter-java/archive/8d6a858350475386b6fd58210c34750a8f361b6a.tar.gz";
-            sha256 = "fhN+yKPfGkpA/QIUSkzczXF0EOGPbwoCYlyEjDUtgg0=";
+            url = "https://github.com/tree-sitter/tree-sitter-java/archive/2efe37f92d2e6aeb25186e9da07455bb4a30163c.tar.gz";
+            sha256 = "09v3xg1356ghc2n0yi8iqkp80lbkav0jpfgz8iz2j1sl7ihbvkyw";
           };
           envSrcTreeSitterJavaScript = fetchzip {
             url = "https://github.com/tree-sitter/tree-sitter-javascript/archive/45b9ce2a2588c0e6d616b0ee2a710b1fcb99c5b5.tar.gz";
