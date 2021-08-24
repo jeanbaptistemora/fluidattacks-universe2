@@ -14,7 +14,7 @@
     recommendation: >
       Perform queries to the database
       through sentences or parameterized procedures.
-    threat: Autenticated attacker from the Internet.
+    threat: Authenticated attacker from the Internet.
   es:
     title: SQL injection - C Sharp SQL API
     description: >
@@ -301,7 +301,7 @@
       - Properly escape the arguments used
       to generate the command
       and avoid special characters.
-    threat: Autenticated attacker from the Internet.
+    threat: Authenticated attacker from the Internet.
   es:
     title: Remote command execution
     description: >
@@ -710,7 +710,7 @@
       Update the affected software
       to the versions recommended
       by the vendor.
-    threat: Autenticated attacker from the Internet.
+    threat: Authenticated attacker from the Internet.
   es:
     title: Use of software with known vulnerabilities
     description: >
@@ -768,7 +768,7 @@
       or parameterized procedures.
       Alternatively use escape(String)
       built-in function.
-    threat: Autenticated attacker from the Internet.
+    threat: Authenticated attacker from the Internet.
   es:
     title: SQL injection - Java Persistence API
     description: >
@@ -1229,7 +1229,7 @@
       Perform input data validations
       on the server-side
       to avoid common injection attacks.
-    threat: Autenticated attacker from the Internet.
+    threat: Authenticated attacker from the Internet.
   es:
     title: XPath injection
     description: >
@@ -1768,7 +1768,7 @@
       to the appropriate groups and roles
       following the principle of least privilege.
     threat: >
-      Autenticated user from the Internet
+      Authenticated user from the Internet
       with access to a misconfigured role
   es:
     title: Excessive privileges - AWS
@@ -3479,7 +3479,7 @@
       and provide custom treatment
       to every exceptional event.
     threat: >
-      Autenticated attacker
+      Authenticated attacker
       from the Internet.
   es:
     title: Insecure exceptions
@@ -3546,7 +3546,7 @@
       - Make sure all events related
       to successes and failures are recorded.
     threat: >
-      Autenticated attacker
+      Authenticated attacker
       from the Internet.
   es:
     title: Errors without traceability
@@ -3682,7 +3682,7 @@
       - Validate/Neutralize the input
       for special elements like: .., ~, /.
     threat: >
-      Autenticated attacker
+      Authenticated attacker
       from the Internet.
   es:
     title: Lack of data validation - Path Traversal
@@ -4299,7 +4299,7 @@
       Define a default option for statements
       that do not yet have it.
     threat: >
-      Autenticated attacker
+      Authenticated attacker
       from the Internet.
   es:
     title: Conditional statement without a default option
@@ -5137,7 +5137,7 @@
       in critical data structures
       or structured messages.
     threat: >
-      Autenticated attacker
+      Authenticated attacker
       from the Internet.
   es:
     title: Lack of data validation - Trust boundary violation
@@ -5911,7 +5911,7 @@
     recommendation: >
       Digitally sign the APK.
     threat: >
-      Non-autenticated attacker
+      Non-authenticated attacker
       from the Internet.
   es:
     title: Insufficient data authenticity validation - APK signing
@@ -6097,7 +6097,7 @@
       - Avoid using untrusted data
       to generate dynamic LDAP queries.
     threat: >
-      Autenticated attacker
+      Authenticated attacker
       from the Internet.
   es:
     title: LDAP injection
@@ -6364,7 +6364,7 @@
       Alternatively,
       use escape(String) built-in function.
     threat: >
-      Autenticated attacker
+      Authenticated attacker
       from the Internet.
   es:
     title: SQL injection - Java SQL API
@@ -6596,7 +6596,7 @@
       - Include the affected extensions
       in the .gitignore file.
     threat: >
-      Autenticated attacker
+      Authenticated attacker
       from the Internet.
   es:
     title: Unverifiable files
