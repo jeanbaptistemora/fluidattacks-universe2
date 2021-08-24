@@ -1,6 +1,7 @@
 import asyncio
 from datetime import (
     datetime,
+    timedelta,
     timezone,
 )
 from enum import (
@@ -15,8 +16,97 @@ from typing import (
     Any,
     Dict,
     Optional,
+    Set,
     Tuple,
 )
+
+HOLIDAYS: Set[str] = {
+    # Colombia, next five years
+    "21-01-01",
+    "21-01-11",
+    "21-03-22",
+    "21-04-01",
+    "21-04-02",
+    "21-05-01",
+    "21-05-17",
+    "21-06-07",
+    "21-06-14",
+    "21-07-05",
+    "21-07-20",
+    "21-08-07",
+    "21-08-16",
+    "21-10-18",
+    "21-11-01",
+    "21-11-15",
+    "21-12-08",
+    "21-12-25",
+    "22-01-10",
+    "22-03-21",
+    "22-04-14",
+    "22-04-15",
+    "22-05-01",
+    "22-05-30",
+    "22-06-20",
+    "22-06-27",
+    "22-07-04",
+    "22-07-20",
+    "22-08-07",
+    "22-08-15",
+    "22-10-17",
+    "22-11-07",
+    "22-11-14",
+    "22-12-08",
+    "22-12-25",
+    "23-01-09",
+    "23-03-20",
+    "23-04-06",
+    "23-04-07",
+    "23-05-01",
+    "23-05-22",
+    "23-06-12",
+    "23-06-19",
+    "23-07-03",
+    "23-07-20",
+    "23-08-07",
+    "23-08-21",
+    "23-10-16",
+    "23-11-06",
+    "23-11-13",
+    "23-12-08",
+    "23-12-25",
+    "24-01-01",
+    "24-01-08",
+    "24-03-25",
+    "24-03-28",
+    "24-03-29",
+    "24-05-01",
+    "24-05-13",
+    "24-06-03",
+    "24-06-10",
+    "24-07-01",
+    "24-08-07",
+    "24-08-19",
+    "24-10-14",
+    "24-11-04",
+    "24-11-11",
+    "24-12-25",
+    "25-01-01",
+    "25-01-06",
+    "25-03-24",
+    "25-04-17",
+    "25-04-18",
+    "25-05-01",
+    "25-06-02",
+    "25-06-23",
+    "25-06-30",
+    "25-08-07",
+    "25-08-18",
+    "25-10-13",
+    "25-11-03",
+    "25-11-17",
+    "25-12-08",
+    "25-12-25",
+}
 
 
 class AvailabilityEnum(Enum):
@@ -25,7 +115,7 @@ class AvailabilityEnum(Enum):
     WORKING_HOURS: str = "WORKING_HOURS"
 
     def is_available_right_now(self) -> bool:
-        now: datetime = datetime.now(timezone.utc)
+        now: datetime = datetime.now(timezone(timedelta(hours=-5)))  # Colombia
 
         if self == AvailabilityEnum.ALWAYS:
             return True
@@ -33,8 +123,8 @@ class AvailabilityEnum(Enum):
             return False
         if self == AvailabilityEnum.WORKING_HOURS:
             in_working_days: bool = 0 <= now.weekday() <= 5  # Monday to Friday
-            in_working_hours: bool = 14 <= now.hour < 21  # [9:00, 15:59] Col
-            is_holiday: bool = False
+            in_working_hours: bool = 9 <= now.hour < 16  # [9:00, 15:59] Col
+            is_holiday: bool = now.strftime("%y-%m-%d") in HOLIDAYS
             return in_working_days and in_working_hours and not is_holiday
 
         raise NotImplementedError()
