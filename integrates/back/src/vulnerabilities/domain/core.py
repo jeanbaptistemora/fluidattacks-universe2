@@ -86,6 +86,10 @@ import uuid
 from vulnerabilities import (
     dal as vulns_dal,
 )
+from vulnerabilities.types import (
+    FindingGroupedVulnerabilitiesInfo,
+    GroupedVulnerabilitiesInfo,
+)
 import yaml  # type: ignore
 
 logging.config.dictConfig(LOGGING)
@@ -332,6 +336,74 @@ async def get_by_ids(vulns_ids: List[str]) -> List[Dict[str, FindingType]]:
         [get(vuln_id) for vuln_id in vulns_ids]
     )
     return result
+
+
+async def get_grouped_vulnerabilities_info(
+    loaders: Any,
+    finding_id: str,
+) -> FindingGroupedVulnerabilitiesInfo:
+    vulnerabilities_by_type = await get_open_vulnerabilities_specific_by_type(
+        loaders, finding_id
+    )
+    ports_vulnerabilities = vulnerabilities_by_type["ports_vulnerabilities"]
+    lines_vulnerabilities = vulnerabilities_by_type["lines_vulnerabilities"]
+    inputs_vulnerabilities = vulnerabilities_by_type["inputs_vulnerabilities"]
+    grouped_ports_vulnerablities: Tuple[
+        GroupedVulnerabilitiesInfo, ...
+    ] = tuple()
+    grouped_inputs_vulnerabilities: Tuple[
+        GroupedVulnerabilitiesInfo, ...
+    ] = tuple()
+    grouped_lines_vulnerabilities: Tuple[
+        GroupedVulnerabilitiesInfo, ...
+    ] = tuple()
+    where = "-"
+    if ports_vulnerabilities:
+        grouped_ports_vulnerablities = tuple(
+            map(
+                lambda grouped_vulns_info: GroupedVulnerabilitiesInfo(
+                    where=grouped_vulns_info["where"],
+                    specific=grouped_vulns_info["specific"],
+                    commit_hash=grouped_vulns_info.get("commit_hash"),
+                ),
+                vulns_utils.group_specific(ports_vulnerabilities, "ports"),
+            )
+        )
+        where = vulns_utils.format_where(where, ports_vulnerabilities)
+
+    if lines_vulnerabilities:
+        grouped_lines_vulnerabilities = tuple(
+            map(
+                lambda grouped_vulns_info: GroupedVulnerabilitiesInfo(
+                    where=grouped_vulns_info["where"],
+                    specific=grouped_vulns_info["specific"],
+                    commit_hash=grouped_vulns_info.get("commit_hash"),
+                ),
+                vulns_utils.group_specific(lines_vulnerabilities, "lines"),
+            )
+        )
+        where = vulns_utils.format_where(where, lines_vulnerabilities)
+
+    if inputs_vulnerabilities:
+        grouped_inputs_vulnerabilities = tuple(
+            map(
+                lambda grouped_vulns_info: GroupedVulnerabilitiesInfo(
+                    where=grouped_vulns_info["where"],
+                    specific=grouped_vulns_info["specific"],
+                    commit_hash=grouped_vulns_info.get("commit_hash"),
+                ),
+                vulns_utils.group_specific(inputs_vulnerabilities, "inputs"),
+            )
+        )
+        where = vulns_utils.format_where(where, inputs_vulnerabilities)
+
+    grouped_vulnerabilities_info = FindingGroupedVulnerabilitiesInfo(
+        where=where,
+        grouped_ports_vulnerablities=grouped_ports_vulnerablities,
+        grouped_lines_vulnerabilities=grouped_lines_vulnerabilities,
+        grouped_inputs_vulnerabilities=grouped_inputs_vulnerabilities,
+    )
+    return grouped_vulnerabilities_info
 
 
 async def get_open_vuln_by_type(
