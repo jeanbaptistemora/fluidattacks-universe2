@@ -33,7 +33,7 @@ class AvailabilityEnum(Enum):
             return False
         if self == AvailabilityEnum.WORKING_HOURS:
             in_working_days: bool = 0 <= now.weekday() <= 5  # Monday to Friday
-            in_working_hours: bool = 14 <= now.hour <= 21  # 9am to 5pm Col
+            in_working_hours: bool = 14 <= now.hour < 21  # [9:00, 15:59] Col
             is_holiday: bool = False
             return in_working_days and in_working_hours and not is_holiday
 
@@ -49,6 +49,18 @@ FINDINGS: Dict[str, Dict[str, Dict[str, str]]] = _json_load(
     environ["SKIMS_FINDINGS"]
 )
 QUEUES: Dict[str, Dict[str, str]] = _json_load(environ["SKIMS_QUEUES"])
+
+
+def get_available_queues() -> Dict[str, Dict[str, str]]:
+    return {
+        queue: data
+        for queue, data in QUEUES.items()
+        if AvailabilityEnum(data["availability"]).is_available_right_now()
+    }
+
+
+def print_available_queues() -> None:
+    print(json.dumps(get_available_queues(), indent=2, sort_keys=True))
 
 
 async def _run(
