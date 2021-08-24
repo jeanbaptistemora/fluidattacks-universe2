@@ -89,6 +89,9 @@ from sast_syntax_readers.javascript import (
     variable_declaration as javascript_variable_declaration,
     variable_declarator as javascript_variable_declarator,
 )
+from sast_syntax_readers.kotlin import (
+    object_declaration as kotlin_object_declaration,
+)
 from sast_syntax_readers.types import (
     Dispatcher,
     Dispatchers,
@@ -498,6 +501,16 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "function",
         },
         syntax_readers=(javascript_function_declaration.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.KOTLIN,
+        },
+        applicable_node_label_types={
+            "class_declaration",
+            "function_declaration",
+        },
+        syntax_readers=(kotlin_object_declaration.reader,),
     ),
     Dispatcher(
         applicable_languages={

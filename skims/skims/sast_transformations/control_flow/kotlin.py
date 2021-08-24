@@ -40,7 +40,6 @@ def _generic(
     n_attrs = graph.nodes[n_id]
     n_attrs_label_type = n_attrs["label_type"]
     stack.append(dict(type=n_attrs_label_type))
-    print(stack)
 
     walkers = (
         (
