@@ -945,7 +945,7 @@
     title: Insecure encryption algorithm - SSL/TLS
     description: >
       The server allows
-      the usage of old TLS protocol versions.
+      the usage of insecure TLS protocol versions.
     impact: >
       Compromize sensitive information
       that travels between client and server.
@@ -958,7 +958,7 @@
     title: Insecure encryption algorithm - SSL/TLS
     description: >
       El servidor permite
-      utilizar versiones viejas del protocolo TLS.
+      utilizar versiones inseguras del protocolo TLS.
     impact: >
       Comprometer la información sensible
       que viaja entre cliente y servidor.
@@ -16548,3 +16548,53 @@
     en:
       details: >
         https://rules.sonarsource.com/csharp/type/Vulnerability/RSPEC-4211
+"367":
+  en:
+    title: Sensitive information in source code - Git history
+    description: >
+      Sensitive information such as usernames,
+      service credentials or access tokens
+      can be found in the git history.
+    impact: >
+      Obtain sensitive information to compromise
+      more resources or services
+    recommendation: >
+      - Remove the sensitive information
+      from the git history
+
+      - Change the compromised access credentials
+    threat: >
+      Authenticated user from Internet with access to the source code.
+  category: Collect Information
+  es:
+    title: Sensitive information in source code - Git history
+    description: >
+      Información sensible como nombres de usuario,
+      credenciales de servicios, o tokens de acceso vigentes
+      pueden ser encontrados en el historial de git.
+    impact: >
+      Obtener información sensible para comprometer
+      más recursos o servicios
+    recommendation: >
+      - Eliminar la información sensible
+      del historial de git
+
+      - Cambiar las claves de acceso comprometidas
+    threat: >
+      Atacante autenticado desde Internet con acceso al código fuente.
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "L"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "L"
+      integrity: "N"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
+  requirements: ["119", "266"]
+  metadata: {}
