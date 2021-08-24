@@ -23,13 +23,10 @@ makeDerivation {
       nixpkgs.gnused
       nixpkgs.graphviz
       nixpkgs.python37
-      pythonRequirements
-    ];
-    envPython37Paths = [
-      pythonRequirements
     ];
     envSources = [
       packages.integrates.back.pypi.runtime
+      pythonRequirements
     ];
   };
 }

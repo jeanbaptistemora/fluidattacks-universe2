@@ -60,7 +60,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
-/pipelineOnGitlab/integratesBackups:
+/pipelineOnGitlab/integrates:
   image: ghcr.io/fluidattacks/makes:21.09
   interruptible: true
   needs: []
@@ -75,7 +75,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /pipelineOnGitlab/integratesBackups
+    - m . /pipelineOnGitlab/integrates
   stage: lint-code
   tags:
     - autoscaling

@@ -1,6 +1,6 @@
 { buildNodeRequirements
-, buildPythonRequirements
 , lintPython
+, makes
 , nixpkgs
 , makeDerivation
 , packages
@@ -166,13 +166,9 @@ let
       ];
     };
   };
-  pythonRequirements = buildPythonRequirements {
+  pythonRequirements = makes.makePythonPypiEnvironment {
     name = "charts-lint-python-lint";
-    python = nixpkgs.python37;
-    requirements = {
-      direct = [ "selenium==3.141.0" ];
-      inherited = [ "urllib3==1.26.4" ];
-    };
+    sourcesYaml = ./pypi-sources.yaml;
   };
 in
 makeDerivation {
@@ -185,10 +181,10 @@ makeDerivation {
   searchPaths = {
     envNodeBinaries = [ nodeRequirements ];
     envNodeLibraries = [ nodeRequirements ];
-    envPython37Paths = [ pythonRequirements ];
     envSources = [
       lintPython
       packages.integrates.back.pypi.runtime
+      pythonRequirements
     ];
   };
 }

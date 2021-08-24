@@ -56,7 +56,7 @@ in
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/pipelineOnGitlab/integratesBackups";
+          output = "/pipelineOnGitlab/integrates";
           gitlabExtra = gitlabLint;
         }
         {

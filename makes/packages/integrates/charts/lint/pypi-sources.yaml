@@ -1,13 +1,10 @@
 closure:
-  selenium: 3.14.1
+  selenium: 3.141.0
   urllib3: 1.26.6
 links:
-  - name: selenium-3.14.1-py2.py3-none-any.whl
-    sha256: 1lfwjs3am4hm6jyxnnf3p86li6nqymdx12im5siyi6c87lab3dpx
-    url: https://files.pythonhosted.org/packages/b0/c9/52390baa8d6b65c3e3b89f522c3a0fcf58f2b4faf37893ef9d97cddde699/selenium-3.14.1-py2.py3-none-any.whl
-  - name: selenium-3.14.1.tar.gz
-    sha256: 0576jvqfwvpaap69v9pl898lj4lbdk34fjzlpkx40k0n8v82q6db
-    url: https://files.pythonhosted.org/packages/75/c4/e361c5659c558edbd391d322622d8d37ae1cf011cf42470455d54956a80f/selenium-3.14.1.tar.gz
+  - name: selenium-3.141.0.tar.gz
+    sha256: 039hf9knvl4s3hp21bzwsp1g5ri9gxsh504dp48lc6nr1av35byy
+    url: https://files.pythonhosted.org/packages/ed/9c/9030520bf6ff0b4c98988448a93c04fcbd5b13cd9520074d8ed53569ccfe/selenium-3.141.0.tar.gz
   - name: urllib3-1.26.6-py2.py3-none-any.whl
     sha256: 1m6823gifpdhma46q3rg3vn4s406138qswd776qsqnb129r8dyrr
     url: https://files.pythonhosted.org/packages/5f/64/43575537846896abac0b15c3e5ac678d787a4021e906703f1766bfb8ea11/urllib3-1.26.6-py2.py3-none-any.whl
