@@ -14,20 +14,6 @@ def to_dict(*, item: str) -> Dict[str, Any]:
     return {x["id"]: x for x in OKTA_DATA[item]}
 
 
-def user_groups() -> List[Dict[str, str]]:
-    result: List[Dict[str, str]] = []
-    for user in OKTA_DATA["users"]:
-        for group in OKTA_DATA["groups"]:
-            if user["id"] in group["users"]:
-                result.append(
-                    {
-                        "id": user["id"],
-                        "group": group["id"],
-                    }
-                )
-    return result
-
-
 def app_groups() -> List[Dict[str, str]]:
     result: List[Dict[str, str]] = []
     for app in OKTA_DATA["apps"]:
@@ -108,7 +94,6 @@ def main() -> None:
                 "groups": to_dict(item="groups"),
                 "rules": to_dict(item="rules"),
                 "users": to_dict(item="users"),
-                "user_groups": user_groups(),
                 "app_groups": app_groups(),
                 "app_users": app_users(),
                 "aws_group_roles": aws_group_roles(),

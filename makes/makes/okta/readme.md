@@ -50,4 +50,3 @@ We use several technologies for accomplishing this:
   https://github.com/okta/terraform-provider-okta/issues/608.
 - AWS apps need some manual configuration after creation:
   https://support.okta.com/help/s/question/0D54z00006w0REiCAM/aws-account-federation-via-api?language=en_US.
-- Custom apps do not support logos, they are being managed manually.

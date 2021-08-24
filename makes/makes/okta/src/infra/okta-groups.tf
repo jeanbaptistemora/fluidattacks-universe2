@@ -13,13 +13,14 @@ resource "okta_group" "groups" {
   }
 }
 
-resource "okta_group_membership" "memberships" {
+resource "okta_group_memberships" "memberships" {
   for_each = {
-    for user in local.data.user_groups : "${user.id}_${user.group}" => user
+    for group, data in local.data.groups : group => data
+    if length(data.users) > 0
   }
 
-  group_id = okta_group.groups[each.value.group].id
-  user_id  = okta_user.users[each.value.id].id
+  group_id = okta_group.groups[each.key].id
+  users    = [for user in each.value.users : okta_user.users[user].id]
 }
 
 resource "okta_group_rule" "rules" {
