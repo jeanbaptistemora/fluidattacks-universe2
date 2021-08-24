@@ -17,6 +17,7 @@ type Mutation {
     id: ID!
   ): SimplePayload!
 
+  "Adds a new draft Finding to the specified Group"
   addDraft(
     """Measure of the effort and resources needed for an attacker to put
     in to successfully breach the system"""
@@ -327,6 +328,7 @@ type Mutation {
     draftId: String!
   ): ApproveDraftPayload!
 
+  "Confirms the provided vulnerabilities as zero risk"
   confirmVulnerabilitiesZeroRisk(
     "Identifier of the Finding to be commented"
     findingId: String!
@@ -336,6 +338,7 @@ type Mutation {
     vulnerabilities: [String]!
   ): SimplePayload!
 
+  "Confirms the provided vulnerabilities as zero risk"
   confirmZeroRiskVuln(
     "Identifier of the Finding associated with the vulnerabilities"
     findingId: String!
@@ -455,6 +458,7 @@ type Mutation {
     @deprecated(reason: """This mutation will be removed
     after 2021/12/20. Use `addGroup` instead.""")
 
+  "Disables the specified Finding policy"
   deactivateOrgFindingPolicy(
     "ID of the policy"
     findingPolicyId: ID!
@@ -463,6 +467,7 @@ type Mutation {
   ): SimplePayload!  @deprecated(reason: """This mutation will be removed
     after 2021/12/31. Use `deactivateOrganizationFindingPolicy` instead.""")
 
+  "Disables the specified Finding policy"
   deactivateOrganizationFindingPolicy(
     "ID of the policy"
     findingPolicyId: ID!
@@ -470,6 +475,7 @@ type Mutation {
     organizationName: String!
   ): SimplePayload!
 
+  "Deactivates a Group root, which stops further testing of it"
   deactivateRoot(
     "Name of the group the root is associated with"
     groupName: String!
@@ -483,6 +489,7 @@ type Mutation {
     reason: RootDeactivationReason!
   ): SimplePayload!
 
+  "Removes/deletes a Finding from a Group"
   deleteFinding(
     "Identifier of the Finding to be removed"
     findingId: String!
@@ -632,16 +639,18 @@ type Mutation {
     userEmail: String!
   ): GrantStakeholderAccessPayload!
 
+  "Handles submission, acceptation or rejection of a Finding policy"
   handleOrgFindingPolicyAcceptation(
     "ID of the policy"
     findingPolicyId: ID!
     "Name of the organization the finding policy is associated with"
     organizationName: String!
-    "Whether the finding policy is approved or rejected"
+    "Whether the finding policy status is submitted, approved or rejected"
     status: OrganizationFindingPolicy!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed after
    2021/12/31. Use `handleOrganizationFindingPolicyAcceptation` instead.""")
 
+  "Handles submission, acceptation or rejection of a Finding policy"
   handleOrganizationFindingPolicyAcceptation(
     "ID of the policy"
     findingPolicyId: ID!
@@ -651,6 +660,7 @@ type Mutation {
     status: OrganizationFindingPolicy!
   ): SimplePayload!
 
+  "Handles acceptation and rejection of Vulnerabilities"
    handleVulnerabilitiesAcceptation(
     "List of identifiers of the vulnerabilities to be accepted"
     acceptedVulnerabilities: [String]!
@@ -662,6 +672,7 @@ type Mutation {
     rejectedVulnerabilities: [String]!
   ): SimplePayload!
 
+  "Handles acceptation and rejection of Vulnerabilities"
   handleVulnsAcceptation(
     "List of identifiers of the vulnerabilities to be accepted"
     acceptedVulns: [String]!
@@ -689,21 +700,23 @@ type Mutation {
     findingId: String!
   ): SimplePayload!
 
+  "Rejects the provided vulnerabilities from being considered as zero risk"
   rejectVulnerabilitiesZeroRisk(
     "Identifier of Finding containing the vulnerabilities"
     findingId: String!
     "Justification for the rejection"
     justification: String!
-    "List of rejected zero risk Vulnerabilities"
+    "List of rejected Vulnerabilities"
     vulnerabilities: [String]!
   ): SimplePayload!
 
+  "Rejects the provided vulnerabilities from being considered as zero risk"
   rejectZeroRiskVuln(
     "Identifier of Finding containing the vulnerabilities"
     findingId: String!
     "Justification for the rejection"
     justification: String!
-    "List of rejected zero risk Vulnerabilities"
+    "List of rejected Vulnerabilities"
     vulnerabilities: [String]!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
     after 2021/12/31. Use `rejectVulnerabilitiesZeroRisk` instead.""")
@@ -810,25 +823,28 @@ type Mutation {
     justification: RemoveVulnerabilityJustification!
   ): SimplePayload!
 
+  "Requests a reattack on the provided Vulnerabilities"
   requestVerificationVuln(
     "Identifier of Finding containing the vulnerabilities"
     findingId: String!
     "Justification for the request"
     justification: String!
-    "List of Vulnerabilities to be verified"
+    "List of Vulnerabilities to be reattacked"
     vulnerabilities: [String]!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
     after 2021/12/31. Use `requestVulnerabilitiesVerification` instead.""")
 
+  "Requests a reattack on the provided Vulnerabilities"
   requestVulnerabilitiesVerification(
     "Identifier of Finding containing the vulnerabilities"
     findingId: String!
     "Justification for the request"
     justification: String!
-    "List of Vulnerabilities to be verified"
+    "List of Vulnerabilities to be reattacked"
     vulnerabilities: [String]!
   ): SimplePayload!
 
+  "Requests a zero risk on the provided Vulnerabilities"
   requestVulnerabilitiesZeroRisk(
     "Identifier of Finding containing the vulnerabilities"
     findingId: String!
@@ -838,6 +854,7 @@ type Mutation {
     vulnerabilities: [String]!
   ): SimplePayload!
 
+  "Requests a zero risk on the provided Vulnerabilities"
   requestZeroRiskVuln(
     "Identifier of Finding containing the vulnerabilities"
     findingId: String!
@@ -864,6 +881,7 @@ type Mutation {
     groupName: String
   ): SignPostUrlsPayload!
 
+  "Marks an ongoing Event within the group as solved"
   solveEvent(
     "Identifier of the Event to solve"
     eventId: String!
@@ -873,6 +891,7 @@ type Mutation {
     date: DateTime!
   ): SimplePayload!
 
+  "Submits a draft Finding submission for approval"
   submitDraft(
     "Identifier of the draft Finding to be submitted"
     findingId: String!
@@ -993,6 +1012,7 @@ type Mutation {
     groupName: String
   ): UpdateAccessTokenPayload!
 
+  "Updates a Group's Git environment URLs"
   updateGitEnvironments(
     "Name of the group the root is associated with"
     groupName: String!
@@ -1002,8 +1022,9 @@ type Mutation {
     environmentUrls: [String!]!
   ): SimplePayload!
 
+  "Updates a Group's Git root and its attributes"
   updateGitRoot(
-    "Kind of environment to test. E.g. production, QA, etc."
+    "Kind of environment to test. E.g. Production, QA, Dev, etc..."
     environment: String!
     "Repository paths to be ignored"
     gitignore: [String!]!
@@ -1164,6 +1185,8 @@ type Mutation {
     userInteraction: String!
   ): SimpleFindingPayload!
 
+  """Updates the sorts_risk_level attribute in one or more ToEs of a concrete
+  group"""
   updateToeLinesSorts(
     "Where source code has been reviewed by Sorts"
     filename: String,
@@ -1173,7 +1196,7 @@ type Mutation {
     sortsRiskLevel: Int
   ): SimplePayload!
 
-  "Updates the treatment of a single Vulnerability"
+  "Updates data related to the treatment of a Vulnerability"
   updateTreatmentVuln(
     "Deprecated. Use `externalBugTrackingSystem` instead."
     externalBts: String
@@ -1204,6 +1227,7 @@ type Mutation {
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
     after 2021/12/31. Use `updateVulnerabilityCommit` instead.""")
 
+  "Updates the treatment of a single Vulnerability"
   updateVulnerabilitiesTreatment(
     "Temporarily accepted until"
     acceptanceDate: String
@@ -1232,7 +1256,7 @@ type Mutation {
     vulnerabilitySpecific: String!
   ): SimplePayload!
 
-  "Updates the treatment of a single Vulnerability"
+  "Updates data related to the treatment of a Vulnerability"
   updateVulnerabilityTreatment(
     "Deprecated. Use `externalBugTrackingSystem` instead."
     externalBts: String
@@ -1248,6 +1272,7 @@ type Mutation {
     vulnerabilityId: ID!
   ): SimplePayload!
 
+  "Updates the treatment of a single Vulnerability"
   updateVulnsTreatment(
     "Temporarily accepted until"
     acceptanceDate: String
