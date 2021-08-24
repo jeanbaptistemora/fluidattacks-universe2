@@ -1395,7 +1395,6 @@ export const enTranslations: ResourceKey = {
         "Modify the existing vulnerabilities using the selected yaml file",
       verification: "Verification",
       vulnApproval: "Vulnerability approval status was changed",
-      vulnBatchLimit: "You can update up to {{count}} vulnerabilities at once",
       vulnDeleted: "Vulnerability deleted",
       where: "Where",
       zeroRisk: "Zero risk",

@@ -9,7 +9,6 @@ import { useTranslation } from "react-i18next";
 import {
   handleDeleteVulnerabilityHelper,
   onRemoveVulnResultHelper,
-  onSelectOneVulnerabilityHelper,
   onSelectVariousVulnerabilitiesHelper,
   setColumnHelper,
   setNonSelectable,
@@ -178,8 +177,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     previousIsVerifyingRequest,
   ]);
 
-  const batchLimit: number = 50;
-
   function onSelectVariousVulnerabilities(
     isSelect: boolean,
     vulnerabilitiesSelected: IVulnRowAttr[]
@@ -188,7 +185,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       isSelect,
       vulnerabilitiesSelected,
       selectedVulnerabilities,
-      batchLimit,
       setSelectedVulnerabilities
     );
   }
@@ -197,14 +193,9 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     vulnerability: IVulnRowAttr,
     isSelect: boolean
   ): boolean {
-    return onSelectOneVulnerabilityHelper(
-      vulnerability,
-      isSelect,
-      selectedVulnerabilities,
-      batchLimit,
-      onSelectVariousVulnerabilities,
-      t
-    );
+    onSelectVariousVulnerabilities(isSelect, [vulnerability]);
+
+    return true;
   }
 
   const selectionMode: ISelectRowProps = {

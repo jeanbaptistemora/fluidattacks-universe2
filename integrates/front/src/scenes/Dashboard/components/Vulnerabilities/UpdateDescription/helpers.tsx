@@ -45,23 +45,22 @@ const deleteTagVulnHelper = (result: IRemoveTagResultAttr): void => {
   }
 };
 
+type VulnUpdateResult = ExecutionResult<IUpdateVulnDescriptionResultAttr>;
+
 const getResults = async (
-  updateVuln: (
-    variables: Record<string, unknown>
-  ) => Promise<
-    FetchResult<IUpdateVulnDescriptionResultAttr | null | undefined>
-  >,
+  updateVuln: (variables: Record<string, unknown>) => Promise<VulnUpdateResult>,
   vulnerabilities: IVulnDataTypeAttr[],
   dataTreatment: IUpdateTreatmentVulnerabilityForm,
   findingId: string,
   isEditPristine: boolean,
   isTreatmentPristine: boolean
-): Promise<ExecutionResult<IUpdateVulnDescriptionResultAttr>[]> => {
-  return Promise.all(
-    vulnerabilities.map(
-      async (
-        vuln: IVulnDataTypeAttr
-      ): Promise<ExecutionResult<IUpdateVulnDescriptionResultAttr>> =>
+): Promise<VulnUpdateResult[]> => {
+  const chunkSize = 15;
+  const chunks = _.chunk(vulnerabilities, chunkSize).map(async (chunk): Promise<
+    VulnUpdateResult[]
+  > => {
+    const updates = chunk.map(
+      async (vuln): Promise<VulnUpdateResult> =>
         updateVuln({
           variables: {
             acceptanceDate: dataTreatment.acceptanceDate,
@@ -85,7 +84,17 @@ const getResults = async (
             vulnerabilityId: vuln.id,
           },
         })
-    )
+    );
+
+    return Promise.all(updates);
+  });
+
+  // Sequentially execute chunks
+  return chunks.reduce(
+    async (previousValue, currentValue): Promise<VulnUpdateResult[]> => [
+      ...(await previousValue),
+      ...(await currentValue),
+    ]
   );
 };
 

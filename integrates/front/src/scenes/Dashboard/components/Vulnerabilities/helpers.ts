@@ -106,36 +106,10 @@ const onRemoveVulnResultHelper = (
   }
 };
 
-const onSelectOneVulnerabilityHelper = (
-  vulnerability: IVulnRowAttr,
-  isSelect: boolean,
-  selectedVulnerabilities: IVulnRowAttr[],
-  batchLimit: number,
-  onSelectVariousVulnerabilities: (
-    isSelect: boolean,
-    vulnerabilitiesSelected: IVulnRowAttr[]
-  ) => string[],
-  t: UseTranslationResponse["t"]
-): boolean => {
-  if (isSelect && selectedVulnerabilities.length === batchLimit) {
-    msgError(
-      t("searchFindings.tabDescription.vulnBatchLimit", {
-        count: batchLimit,
-      })
-    );
-
-    return false;
-  }
-  onSelectVariousVulnerabilities(isSelect, [vulnerability]);
-
-  return true;
-};
-
 const onSelectVariousVulnerabilitiesHelper = (
   isSelect: boolean,
   vulnerabilitiesSelected: IVulnRowAttr[],
   selectedVulnerabilities: IVulnRowAttr[],
-  batchLimit: number,
   setSelectedVulnerabilities: (
     value: React.SetStateAction<IVulnRowAttr[]>
   ) => void
@@ -143,7 +117,7 @@ const onSelectVariousVulnerabilitiesHelper = (
   if (isSelect) {
     const vulnsToSet: IVulnRowAttr[] = Array.from(
       new Set([...selectedVulnerabilities, ...vulnerabilitiesSelected])
-    ).slice(0, batchLimit);
+    );
     setSelectedVulnerabilities(vulnsToSet);
 
     return vulnsToSet.map((vuln: IVulnRowAttr): string => vuln.id);
@@ -191,7 +165,6 @@ export {
   errorMessageHelper,
   handleDeleteVulnerabilityHelper,
   onRemoveVulnResultHelper,
-  onSelectOneVulnerabilityHelper,
   onSelectVariousVulnerabilitiesHelper,
   setColumnHelper,
   setNonSelectable,
