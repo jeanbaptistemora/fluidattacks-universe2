@@ -172,7 +172,7 @@ def cast_new_vulnerabilities(
     where = "-"
     if finding_new.get("portsVulns"):
         finding["portsVulns"] = vulns_utils.group_specific(
-            cast(List[str], finding_new.get("portsVulns")), "ports"
+            cast(List[Dict[str, str]], finding_new.get("portsVulns")), "ports"
         )
         where = vulns_utils.format_where(
             where, cast(List[Dict[str, str]], finding["portsVulns"])
@@ -182,7 +182,7 @@ def cast_new_vulnerabilities(
         pass
     if finding_new.get("linesVulns"):
         finding["linesVulns"] = vulns_utils.group_specific(
-            cast(List[str], finding_new.get("linesVulns")), "lines"
+            cast(List[Dict[str, str]], finding_new.get("linesVulns")), "lines"
         )
         where = vulns_utils.format_where(
             where, cast(List[Dict[str, str]], finding["linesVulns"])

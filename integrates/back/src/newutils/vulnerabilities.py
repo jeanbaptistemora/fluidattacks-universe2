@@ -391,7 +391,7 @@ def get_treatments(
 
 
 def group_specific(
-    specific: List[str], vuln_type: str
+    specific: List[Dict[str, str]], vuln_type: str
 ) -> List[Dict[str, FindingType]]:
     """Group vulnerabilities by its specific field."""
     sorted_specific = sort_vulnerabilities(specific)
@@ -400,23 +400,21 @@ def group_specific(
     for key, group in itertools.groupby(
         sorted_specific,
         key=lambda x: (
-            x["where"],  # type: ignore
-            x["commit_hash"],  # type: ignore
+            x["where"],
+            x["commit_hash"],
         ),
     ):
         vuln_info = list(group)
         if vuln_type == "inputs":
             specific_grouped: List[Union[int, str]] = [
-                cast(Dict[str, str], i).get("specific", "") for i in vuln_info
+                i.get("specific", "") for i in vuln_info
             ]
             dictlines: Dict[str, FindingType] = {
                 "where": key[0],
                 "specific": ",".join(cast(List[str], specific_grouped)),
             }
         else:
-            specific_grouped = [
-                get_specific(cast(Dict[str, str], i)) for i in vuln_info
-            ]
+            specific_grouped = [get_specific(i) for i in vuln_info]
             specific_grouped.sort()
             dictlines = {
                 "where": key[0],
@@ -481,7 +479,7 @@ def is_vulnerability_closed(vuln: Dict[str, FindingType]) -> bool:
     return get_last_status(vuln) == "closed"
 
 
-def sort_vulnerabilities(item: List[str]) -> List[str]:
+def sort_vulnerabilities(item: List[Dict[str, str]]) -> List[Dict[str, str]]:
     """Sort a vulnerability by its where field."""
     sorted_item = sorted(item, key=itemgetter("where"))
     return sorted_item
