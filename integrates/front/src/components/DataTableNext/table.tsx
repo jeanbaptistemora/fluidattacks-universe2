@@ -59,9 +59,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     exportCsv,
     onPageChange,
     search,
-    tableHeader,
     rowEvents,
-    tableBody,
     selectionMode,
     striped,
   } = tableProps;
@@ -159,15 +157,13 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
               }
         }
         filter={filterFactory()}
-        headerClasses={
-          _.isUndefined(tableHeader) ? style.tableHeader : tableHeader
-        }
+        headerClasses={style.tableHeader}
         hover={true}
         noDataIndication={handleNoData}
         pagination={
           enablePagination ? paginationFactory(paginationOptions) : undefined
         }
-        rowClasses={_.isUndefined(tableBody) ? style.tableBody : tableBody}
+        rowClasses={style.tableBody}
         rowEvents={rowEvents}
         selectRow={selectionMode as SelectRowProps<unknown>}
         striped={striped}

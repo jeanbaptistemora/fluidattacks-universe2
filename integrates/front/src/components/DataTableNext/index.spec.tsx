@@ -184,8 +184,6 @@ describe("Data table next", (): void => {
         pageSize={10}
         search={true}
         selectionMode={selectionMode}
-        tableBody={undefined}
-        tableHeader={undefined}
       />
     );
 

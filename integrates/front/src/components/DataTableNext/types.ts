@@ -40,8 +40,6 @@ interface ITableProps {
   search: boolean;
   selectionMode?: ISelectRowProps;
   striped?: boolean;
-  tableBody?: string;
-  tableHeader?: string;
   onColumnToggle?: (arg1: string) => void;
   onUpdateEnableFilter?: () => void;
 }
