@@ -1623,7 +1623,11 @@ export const enTranslations: ResourceKey = {
       },
       groupToRemove: "Please type: <strong>{{groupName}}</strong>, to proceed",
       https: "HTTPS",
+      information: {
+        btnTooltip: "Edit general information of this group",
+      },
       invalidChars: "File name has invalid characters.",
+      modalEditGroupInformation: "Edit group information",
       modalEnvTitle: "Add environment information",
       modalFileTitle: "Add file",
       modalOptionsContent: "What do you want to do with the file ",
