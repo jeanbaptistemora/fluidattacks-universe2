@@ -16,6 +16,9 @@ Finalization Time: 2021-08-20 at 21:42:39 UTC-05
 
 Execution Time:    2021-08-23 at 10:11:50 UTC-05
 Finalization Time: 2021-08-23 at 11:55:16 UTC-05
+
+Execution Time:    2021-08-23 at 14:30:07 UTC-05
+Finalization Time: 2021-08-23 at 17:02:09 UTC-05
 """
 
 from aioextensions import (
@@ -95,9 +98,15 @@ async def process_draft(
     success = False
     if PROD:
         analyst_email = old_finding["analyst"]
-        success = await findings_domain.submit_draft(
-            info_context, target_draft["id"], analyst_email
-        )
+        try:
+            success = await findings_domain.submit_draft(
+                info_context, target_draft["id"], analyst_email
+            )
+        except Exception as e:
+            print(
+                f'   --- ERROR draft {target_draft["id"]} - '
+                f'"{target_draft["title"]}" NOT submitted: {str(e)}'
+            )
         if not success:
             print(
                 f'   --- ERROR draft {target_draft["id"]} - '
@@ -106,20 +115,19 @@ async def process_draft(
             return False
 
         approver_email = _get_approver(old_finding)
-        success = await findings_domain.approve_draft(
-            info_context, target_draft["id"], approver_email
-        )
-        if success:
-            print(
-                f'   === draft {target_draft["id"]} - '
-                f'"{target_draft["title"]}" approved'
+        try:
+            success = await findings_domain.approve_draft(
+                info_context, target_draft["id"], approver_email
             )
-        else:
+        except Exception as e:
             print(
                 f'   --- ERROR draft {target_draft["id"]} - '
-                f'"{target_draft["title"]}" NOT approved'
+                f'"{target_draft["title"]}" NOT submitted: {str(e)}'
             )
-            return False
+        print(
+            f'   === draft {target_draft["id"]} - '
+            f'"{target_draft["title"]}" approved: {success}'
+        )
 
     return success
 

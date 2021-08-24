@@ -17,6 +17,9 @@ Finalization Time: 2021-08-20 at 21:44:53 UTC-05
 
 Execution Time:    2021-08-23 at 10:48:48 UTC-05
 Finalization Time: 2021-08-23 at 11:55:16 UTC-05
+
+Execution Time:    2021-08-23 at 14:30:44 UTC-05
+Finalization Time: 2021-08-23 at 17:10:21 UTC-05
 """
 
 from aioextensions import (
@@ -47,6 +50,19 @@ from typing import (
 PROD: bool = True
 
 
+async def _remove_evidence(
+    file: Dict[str, str],
+    finding_id: str,
+) -> bool:
+    if str(file["name"]).lower() == "masked":
+        print(
+            f'   --- WARNING evidence "{file["name"]}" at '
+            f"{finding_id} MASKED"
+        )
+        return True
+    return await findings_domain.remove_evidence(file["name"], finding_id)
+
+
 async def process_finding(context: Dataloaders, finding_id: str) -> bool:
 
     finding: Dict[str, FindingType] = await findings_dal.get_finding(
@@ -63,7 +79,7 @@ async def process_finding(context: Dataloaders, finding_id: str) -> bool:
     ]
     if has_vulns:
         print(f"   --- WARNING: finding {finding_id} has vulns. NO deletion")
-        return False
+        return True
 
     success = False
     if PROD:
@@ -71,7 +87,7 @@ async def process_finding(context: Dataloaders, finding_id: str) -> bool:
         if finding_files:
             success = all(
                 await collect(
-                    findings_domain.remove_evidence(file["name"], finding_id)
+                    _remove_evidence(file, finding_id)
                     for file in finding_files
                 )
             )

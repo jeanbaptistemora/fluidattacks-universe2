@@ -16,6 +16,9 @@ Finalization Time: 2021-08-20 at 21:34:03 UTC-05
 
 Execution Time:    2021-08-23 at 10:08:06 UTC-05
 Finalization Time: 2021-08-23 at 11:55:16 UTC-05
+
+Execution Time:    2021-08-23 at 14:29:05 UTC-05
+Finalization Time: 2021-08-23 at 16:10:02 UTC-05
 """
 
 from aioextensions import (
@@ -53,6 +56,14 @@ async def move_evidence(
     from_finding_id: str,
 ) -> bool:
     success = False
+
+    if str(file["name"]).lower() == "masked":
+        print(
+            f'   --- ERROR evidence "{file["name"]}" at '
+            f"{group_name} - {from_finding_id} MASKED"
+        )
+        return True
+
     # Download evidence
     filepath = await findings_domain.download_evidence_file(
         group_name, from_finding_id, file["file_url"]
