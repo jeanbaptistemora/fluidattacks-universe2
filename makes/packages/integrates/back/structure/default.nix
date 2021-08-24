@@ -1,22 +1,14 @@
-{ nixpkgs
+{ makes
+, nixpkgs
 , makeDerivation
-, buildPythonRequirements
 , packages
 , path
 , ...
 } @ _:
 let
-  pythonRequirements = buildPythonRequirements {
+  pythonRequirements = makes.makePythonPypiEnvironment {
     name = "integrates-back-structure-pypi";
-    python = nixpkgs.python37;
-    requirements = {
-      direct = [
-        "pydeps==1.9.13"
-      ];
-      inherited = [
-        "stdlib-list==0.8.0"
-      ];
-    };
+    sourcesYaml = ./pypi-sources.yaml;
   };
 in
 makeDerivation {
