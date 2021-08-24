@@ -24,13 +24,11 @@
   needs: []
   resource_group: $CI_JOB_NAME
   rules:
-    - if: $CI_COMMIT_BRANCH != "master"
+    - if: $CI_PIPELINE_SOURCE != "schedule"
       when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $integrates_scheduler_skims_queue_all == null
       when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+    - when: always
   script:
     - m . /deployTerraform/makesCompute
   stage: deploy-infra
