@@ -195,7 +195,7 @@ def _is_final_node(obj: Any, language: GraphShardMetadataLanguage) -> bool:
         )
         or (
             language == GraphShardMetadataLanguage.KOTLIN
-            and obj.type in {"line_string_literal"}
+            and obj.type in {"boolean_literal", "line_string_literal"}
         )
     )
 

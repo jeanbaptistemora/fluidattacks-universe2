@@ -91,6 +91,7 @@ from sast_syntax_readers.javascript import (
 )
 from sast_syntax_readers.kotlin import (
     object_declaration as kotlin_object_declaration,
+    property_declaration as kotlin_property_declaration,
 )
 from sast_syntax_readers.types import (
     Dispatcher,
@@ -463,6 +464,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     ),
     Dispatcher(
         applicable_languages={
+            graph_model.GraphShardMetadataLanguage.KOTLIN,
+        },
+        applicable_node_label_types={
+            "property_declaration",
+        },
+        syntax_readers=(kotlin_property_declaration.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
         },
         applicable_node_label_types={
@@ -645,6 +655,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             graph_model.GraphShardMetadataLanguage.JAVA,
             graph_model.GraphShardMetadataLanguage.CSHARP,
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.KOTLIN,
         },
         applicable_node_label_types={
             "boolean_literal",
@@ -657,6 +668,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "number",
             "interpreted_string_literal",
             "floating_point_type",
+            "line_string_literal",
             "nil",
             "null_literal",
             "null",
