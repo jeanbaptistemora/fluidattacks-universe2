@@ -5391,7 +5391,8 @@
       del SSID (Service Set Identifier).
     description: __empty__
   category: Networks
-  references: []
+  references:
+    - "002.613"
   metadata: {}
 "248":
   en:
@@ -5408,7 +5409,8 @@
       de diccionario.
     description: __empty__
   category: Networks
-  references: []
+  references:
+    - "002.613"
   metadata: {}
 "249":
   en:
@@ -5536,7 +5538,8 @@
       del SSID de la red inalámbrica.
     description: __empty__
   category: Networks
-  references: []
+  references:
+    - "002.613"
   metadata: {}
 "255":
   en:

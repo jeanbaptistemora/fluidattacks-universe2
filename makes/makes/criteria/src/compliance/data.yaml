@@ -299,6 +299,9 @@
     "594":
       title: Traffic Injection
       link: https://capec.mitre.org/data/definitions/594.html
+    "613":
+      title: WiFi SSID Tracking
+      link: https://capec.mitre.org/data/definitions/613.html  
   metadata: {}
 "003":
   title: CIS
