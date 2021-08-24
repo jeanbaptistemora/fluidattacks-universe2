@@ -51,6 +51,7 @@ def test_model_core_model_manifest_queues() -> None:
         json.dumps(
             {
                 f"skims_{queue.name}": dict(
+                    availability=queue.value.availability.value,
                     findings=sorted(
                         finding.name
                         for finding in core_model.FindingEnum

@@ -1,4 +1,7 @@
 import asyncio
+from enum import (
+    Enum,
+)
 import json
 from os import (
     environ,
@@ -10,6 +13,12 @@ from typing import (
     Optional,
     Tuple,
 )
+
+
+class AvailabilityEnum(Enum):
+    ALWAYS: str = "ALWAYS"
+    NEVER: str = "NEVER"
+    WORKING_HOURS: str = "WORKING_HOURS"
 
 
 def _json_load(path: str) -> Any:

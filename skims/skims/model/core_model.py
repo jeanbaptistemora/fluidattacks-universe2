@@ -13,6 +13,9 @@ from model import (
     cvss3_model,
     time_model,
 )
+from skims_sdk import (
+    AvailabilityEnum,
+)
 from typing import (
     Dict,
     List,
@@ -23,26 +26,95 @@ from typing import (
 )
 
 
+class ExecutionQueueConfig(NamedTuple):
+    availability: AvailabilityEnum
+    name: str
+
+
 class ExecutionQueue(Enum):
-    apk: str = "apk"  # APK related checks
-    aws: str = "aws"  # AWS related checks (cloudformation, terraform, api)
-    control: str = "control"  # Sphere of control, we should optimize them
-    cookie: str = "cookie"  # Cookies, we should optimize them
-    crypto: str = "crypto"  # Crypto, we should optimize them
-    exception: str = "exception"  # Exception findings, we should optimize them
-    f011: str = "f011"  # Single finding, fast queue
-    f014: str = "f014"  # Single finding
-    f022: str = "f022"  # Single finding, fast queue
-    f070: str = "f070"  # Single finding, we should optimize them
-    f073: str = "f073"  # Single finding, we should optimize them
-    f117: str = "f117"  # Single finding, fast queue
-    http: str = "http"  # HTTP checks are fast and can go in a single queue
-    injection: str = "injection"  # Injection findings, we should optimize them
-    leak: str = "leak"  # Leak related findings, we should optimize them
-    none: str = "none"  # Checks that do not execute in production
-    sql: str = "sql"  # SQL related checks, we should optimize them
-    ssl: str = "ssl"  # SSL checks are fast and can go in a single queue
-    xss: str = "xss"  # XSS, we should optimize them
+    apk = ExecutionQueueConfig(  # APK related checks
+        availability=AvailabilityEnum.ALWAYS,
+        name="apk",
+    )
+    aws = ExecutionQueueConfig(
+        # AWS related checks (cloudformation, terraform, api)
+        availability=AvailabilityEnum.ALWAYS,
+        name="aws",
+    )
+    control = ExecutionQueueConfig(
+        # Sphere of control, we should optimize them
+        availability=AvailabilityEnum.ALWAYS,
+        name="control",
+    )
+    cookie = ExecutionQueueConfig(  # Cookies, we should optimize them
+        availability=AvailabilityEnum.ALWAYS,
+        name="cookie",
+    )
+    crypto = ExecutionQueueConfig(  # Crypto, we should optimize them
+        availability=AvailabilityEnum.ALWAYS,
+        name="crypto",
+    )
+    exception = ExecutionQueueConfig(
+        # Exception findings, we should optimize them
+        availability=AvailabilityEnum.ALWAYS,
+        name="exception",
+    )
+    f011 = ExecutionQueueConfig(  # Single finding, fast queue
+        availability=AvailabilityEnum.ALWAYS,
+        name="f011",
+    )
+    f014 = ExecutionQueueConfig(  # Single finding
+        availability=AvailabilityEnum.ALWAYS,
+        name="f014",
+    )
+    f022 = ExecutionQueueConfig(  # Single finding, fast queue
+        availability=AvailabilityEnum.ALWAYS,
+        name="f022",
+    )
+    f070 = ExecutionQueueConfig(  # Single finding, we should optimize them
+        availability=AvailabilityEnum.ALWAYS,
+        name="f070",
+    )
+    f073 = ExecutionQueueConfig(  # Single finding, we should optimize them
+        availability=AvailabilityEnum.ALWAYS,
+        name="f073",
+    )
+    f117 = ExecutionQueueConfig(  # Single finding, fast queue
+        availability=AvailabilityEnum.ALWAYS,
+        name="f117",
+    )
+    http = ExecutionQueueConfig(
+        # HTTP checks are fast and can go in a single queue
+        availability=AvailabilityEnum.ALWAYS,
+        name="http",
+    )
+    injection = ExecutionQueueConfig(
+        # Injection findings, we should optimize them
+        availability=AvailabilityEnum.ALWAYS,
+        name="injection",
+    )
+    leak = ExecutionQueueConfig(
+        # Leak related findings, we should optimize them
+        availability=AvailabilityEnum.ALWAYS,
+        name="leak",
+    )
+    none = ExecutionQueueConfig(  # Checks that do not execute in production
+        availability=AvailabilityEnum.ALWAYS,
+        name="none",
+    )
+    sql = ExecutionQueueConfig(  # SQL related checks, we should optimize them
+        availability=AvailabilityEnum.ALWAYS,
+        name="sql",
+    )
+    ssl = ExecutionQueueConfig(
+        # SSL checks are fast and can go in a single queue
+        availability=AvailabilityEnum.ALWAYS,
+        name="ssl",
+    )
+    xss = ExecutionQueueConfig(  # XSS, we should optimize them
+        availability=AvailabilityEnum.ALWAYS,
+        name="xss",
+    )
 
 
 if len(ExecutionQueue) > 20:

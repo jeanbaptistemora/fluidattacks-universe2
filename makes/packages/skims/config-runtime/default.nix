@@ -104,6 +104,7 @@ makeTemplate {
     ];
     envSources = [
       packages.makes.python.safe-pickle
+      packages.skims.config-sdk
       (makeTemplate {
         arguments = {
           envCriteriaRequirements = path "/makes/makes/criteria/src/requirements/data.yaml";

@@ -1,5 +1,6 @@
 {
   "skims_apk": {
+    "availability": "ALWAYS",
     "findings": [
       "F046",
       "F048",
@@ -11,6 +12,7 @@
     ]
   },
   "skims_aws": {
+    "availability": "ALWAYS",
     "findings": [
       "F024",
       "F031",
@@ -18,6 +20,7 @@
     ]
   },
   "skims_control": {
+    "availability": "ALWAYS",
     "findings": [
       "F057",
       "F089",
@@ -25,55 +28,65 @@
     ]
   },
   "skims_cookie": {
+    "availability": "ALWAYS",
     "findings": [
       "F042"
     ]
   },
   "skims_crypto": {
+    "availability": "ALWAYS",
     "findings": [
       "F034",
       "F052"
     ]
   },
   "skims_exception": {
+    "availability": "ALWAYS",
     "findings": [
       "F060",
       "F061"
     ]
   },
   "skims_f011": {
+    "availability": "ALWAYS",
     "findings": [
       "F011"
     ]
   },
   "skims_f014": {
+    "availability": "ALWAYS",
     "findings": [
       "F109",
       "F366"
     ]
   },
   "skims_f022": {
+    "availability": "ALWAYS",
     "findings": [
       "F022"
     ]
   },
   "skims_f070": {
+    "availability": "ALWAYS",
     "findings": [
       "F070"
     ]
   },
   "skims_f073": {
+    "availability": "ALWAYS",
     "findings": [
       "F073"
     ]
   },
   "skims_f117": {
+    "availability": "ALWAYS",
     "findings": [
       "F079",
       "F117"
     ]
   },
   "skims_http": {
+    "availability": "ALWAYS",
     "findings": [
       "F015",
       "F017",
@@ -91,6 +104,7 @@
     ]
   },
   "skims_injection": {
+    "availability": "ALWAYS",
     "findings": [
       "F004",
       "F021",
@@ -99,12 +113,14 @@
     ]
   },
   "skims_leak": {
+    "availability": "ALWAYS",
     "findings": [
       "F009",
       "F085"
     ]
   },
   "skims_sql": {
+    "availability": "ALWAYS",
     "findings": [
       "F001",
       "F012",
@@ -112,6 +128,7 @@
     ]
   },
   "skims_ssl": {
+    "availability": "ALWAYS",
     "findings": [
       "F016",
       "F092",
@@ -120,6 +137,7 @@
     ]
   },
   "skims_xss": {
+    "availability": "ALWAYS",
     "findings": [
       "F008"
     ]
