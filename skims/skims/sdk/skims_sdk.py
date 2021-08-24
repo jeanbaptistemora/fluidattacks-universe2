@@ -1,4 +1,8 @@
 import asyncio
+from datetime import (
+    datetime,
+    timezone,
+)
 from enum import (
     Enum,
 )
@@ -19,6 +23,21 @@ class AvailabilityEnum(Enum):
     ALWAYS: str = "ALWAYS"
     NEVER: str = "NEVER"
     WORKING_HOURS: str = "WORKING_HOURS"
+
+    def is_available_right_now(self) -> bool:
+        now: datetime = datetime.now(timezone.utc)
+
+        if self == AvailabilityEnum.ALWAYS:
+            return True
+        if self == AvailabilityEnum.NEVER:
+            return False
+        if self == AvailabilityEnum.WORKING_HOURS:
+            in_working_days: bool = 0 <= now.weekday() <= 5  # Monday to Friday
+            in_working_hours: bool = 14 <= now.hour <= 21  # 9am to 5pm Col
+            is_holiday: bool = False
+            return in_working_days and in_working_hours and not is_holiday
+
+        raise NotImplementedError()
 
 
 def _json_load(path: str) -> Any:
