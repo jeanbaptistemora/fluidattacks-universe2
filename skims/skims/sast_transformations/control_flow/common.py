@@ -78,7 +78,7 @@ def step_by_step(
         for node in g.adj_ast(graph, n_id)
         # skip unnecessary node
         if graph.nodes[node].get("label_type")
-        not in [";", "\n", "(", ")", ","]
+        not in [";", "\n", "(", ")", ",", "comment"]
     )
 
     # Skip { }
@@ -88,12 +88,6 @@ def step_by_step(
         "statement_block",
     }:
         stmt_ids = stmt_ids[1:-1]
-
-    stmt_ids = tuple(
-        sts
-        for sts in stmt_ids
-        if graph.nodes[sts]["label_type"] not in {"comment"}
-    )
 
     if not stmt_ids:
         if next_id := get_next_id(stack):
