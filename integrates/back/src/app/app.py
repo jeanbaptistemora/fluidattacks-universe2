@@ -188,12 +188,12 @@ def start_queue_daemon() -> None:
     asyncio.create_task(queue_daemon())
 
 
-async def not_found(request, ex):
+async def not_found(request: Request, ex: Exception) -> HTMLResponse:
     LOGGER.exception(ex, extra=dict(extra=locals()))
     return templates.error401(request)
 
 
-async def server_error(request, ex):
+async def server_error(request: Request, ex: Exception) -> HTMLResponse:
     LOGGER.exception(ex, extra=dict(extra=locals()))
     return templates.error500(request)
 

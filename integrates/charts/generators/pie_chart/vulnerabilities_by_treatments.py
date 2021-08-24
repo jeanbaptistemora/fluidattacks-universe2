@@ -14,9 +14,6 @@ from charts.colors import (
 from charts.generators.pie_chart.utils import (
     MAX_GROUPS_DISPLAYED,
 )
-from collections import (
-    Counter,
-)
 from context import (
     FI_API_STATUS,
 )
@@ -33,19 +30,23 @@ from operator import (
     itemgetter,
 )
 from typing import (
+    Any,
+    Counter,
+    Dict,
     List,
     Tuple,
 )
 
 
-def get_treatment_changes(vuln: Vulnerability) -> int:
-    return len(vuln["historic_treatment"]) - (
-        1 if vuln["historic_treatment"][0]["treatment"] == "NEW" else 0
+def get_treatment_changes(vuln: Vulnerability) -> str:
+    return str(
+        len(vuln["historic_treatment"])
+        - (1 if vuln["historic_treatment"][0]["treatment"] == "NEW" else 0)
     )
 
 
 @alru_cache(maxsize=None, typed=True)
-async def get_data_one_group(group: str) -> Counter:
+async def get_data_one_group(group: str) -> Counter[str]:
     context = get_new_context()
     if FI_API_STATUS == "migration":
         group_findings_new_loader = context.group_findings_new
@@ -67,14 +68,14 @@ async def get_data_one_group(group: str) -> Counter:
     return Counter(filter(None, map(get_treatment_changes, vulnerabilities)))
 
 
-async def get_data_many_groups(groups: List[str]) -> Counter:
+async def get_data_many_groups(groups: List[str]) -> Counter[str]:
     groups_data = await collect(map(get_data_one_group, groups))
 
     return sum(groups_data, Counter())
 
 
-def format_data(counters: Counter) -> dict:
-    treatments_data = counters.most_common()
+def format_data(counters: Counter[str]) -> Dict[str, Any]:
+    treatments_data: List[Tuple[str, int]] = counters.most_common()
     data = treatments_data[:MAX_GROUPS_DISPLAYED] + (
         [
             (
@@ -91,12 +92,11 @@ def format_data(counters: Counter) -> dict:
     return {
         "data": {
             "columns": [
-                [str(treatment_change), value]
-                for treatment_change, value in data
+                [treatment_change, value] for treatment_change, value in data
             ],
             "type": "pie",
             "colors": {
-                str(treatment_change[0]): column
+                treatment_change[0]: column
                 for treatment_change, column in zip(data, OTHER)
             },
         },

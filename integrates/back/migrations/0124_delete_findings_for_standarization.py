@@ -106,7 +106,7 @@ async def process_finding(context: Dataloaders, finding_id: str) -> bool:
 async def main() -> None:
     with open("0119.csv", mode="r") as f:
         reader = csv.reader(f)
-        finding_ids = set([row[1] for row in reader if "group" not in row[0]])
+        finding_ids = {row[1] for row in reader if "group" not in row[0]}
     print(f"   === finding ids ({len(finding_ids)}): {finding_ids}")
 
     context: Dataloaders = get_new_context()

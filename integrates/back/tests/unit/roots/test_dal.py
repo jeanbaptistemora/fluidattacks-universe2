@@ -4,6 +4,9 @@ from _pytest.monkeypatch import (
 from aiodataloader import (
     DataLoader,
 )
+from custom_types import (
+    Finding,
+)
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
@@ -52,7 +55,7 @@ async def test_has_open_vulns(
     monkeypatch.setattr(dynamodb_ops, "query", mocked_query)
 
     class MockedDraftsLoader(DataLoader):
-        async def batch_load_fn(*_):
+        async def batch_load_fn(*_: Any) -> List[List[Finding]]:
             return [[]]
 
     class MockedContext(NamedTuple):
@@ -82,7 +85,7 @@ async def test_has_open_draft_vulns(monkeypatch: MonkeyPatch) -> None:
     monkeypatch.setattr(dynamodb_ops, "query", mocked_query)
 
     class MockedDraftsLoader(DataLoader):
-        async def batch_load_fn(*_):
+        async def batch_load_fn(*_: Any) -> List[List[Finding]]:
             return [[{"id": "123"}]]
 
     class MockedContext(NamedTuple):
@@ -93,4 +96,4 @@ async def test_has_open_draft_vulns(monkeypatch: MonkeyPatch) -> None:
         context=MockedContext(group_drafts=MockedDraftsLoader()),
         group_name="",
     )
-    assert result == False
+    assert not result
