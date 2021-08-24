@@ -1,10 +1,17 @@
+from decimal import (
+    Decimal,
+)
 from enum import (
     Enum,
 )
 from typing import (
     List,
     NamedTuple,
+    Tuple,
     Union,
+)
+from vulnerabilities.types import (
+    GroupedVulnerabilitiesInfo,
 )
 
 
@@ -143,6 +150,26 @@ class GroupVulnsReportHeader(GenericHeader):
 
 
 # PDF report types definitions
+
+
+class PdfFindingInfo(NamedTuple):  # pylint: disable=too-few-public-methods
+    affected_systems: str
+    attack_vector_desc: str
+    closed_vulnerabilities: int
+    compromised_records: int
+    description: str
+    grouped_inputs_vulnerabilities: Tuple[GroupedVulnerabilitiesInfo, ...]
+    grouped_lines_vulnerabilities: Tuple[GroupedVulnerabilitiesInfo, ...]
+    grouped_ports_vulnerablities: Tuple[GroupedVulnerabilitiesInfo, ...]
+    open_vulnerabilities: int
+    recommendation: str
+    risk: str
+    severity_score: Decimal
+    state: str
+    title: str
+    threat: str
+    treatment: str
+    where: str
 
 
 class WordlistItem(NamedTuple):  # pylint: disable=too-few-public-methods

@@ -393,7 +393,7 @@ async def get_open_vuln_by_type(
     return finding
 
 
-async def get_open_vulnerabilities_by_type_new(
+async def get_open_vulnerabilities_specific_by_type(
     loaders: Any,
     finding_id: str,
 ) -> Dict[str, Tuple[Dict[str, str], ...]]:
