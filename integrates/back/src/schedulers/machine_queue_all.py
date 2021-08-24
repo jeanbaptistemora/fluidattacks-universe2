@@ -28,6 +28,7 @@ async def main() -> None:
         for root in await dataloaders.group_roots.load(group)
         if root.state.status == "ACTIVE"
         for check in skims_sdk.FINDINGS
+        if skims_sdk.is_check_available(check)
     ]
     random.shuffle(jobs)
 

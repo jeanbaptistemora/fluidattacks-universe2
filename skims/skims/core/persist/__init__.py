@@ -23,6 +23,9 @@ from model import (
     core_model,
 )
 import random
+from sdk import (
+    skims_sdk,
+)
 from state.ephemeral import (
     EphemeralStore,
     get_ephemeral_store,
@@ -34,6 +37,9 @@ from typing import (
 )
 from utils.ctx import (
     CTX,
+)
+from utils.env import (
+    guess_environment,
 )
 from utils.logs import (
     log,
@@ -326,6 +332,8 @@ async def persist(
                 )
                 for finding in core_model.FindingEnum
                 if finding in CTX.config.checks
+                if guess_environment() != "production"
+                or skims_sdk.is_check_available(finding.name)
             )
         )
     )

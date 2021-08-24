@@ -149,6 +149,16 @@ def get_available_queues() -> Dict[str, Dict[str, str]]:
     }
 
 
+def is_check_available(finding_code: str) -> bool:
+    for data in QUEUES.values():
+        if finding_code in data["findings"]:
+            return AvailabilityEnum(
+                data["availability"]
+            ).is_available_right_now()
+
+    raise NotImplementedError(f"{finding_code} does not belong to a queue")
+
+
 def print_available_queues() -> None:
     print(json.dumps(get_available_queues(), indent=2, sort_keys=True))
 
