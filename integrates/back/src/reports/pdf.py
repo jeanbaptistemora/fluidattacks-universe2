@@ -1,4 +1,5 @@
 from .typing import (
+    PdfFindingInfo,
     PDFWordlistEn,
 )
 from context import (
@@ -14,6 +15,9 @@ from db_model.findings.types import (
 )
 from decimal import (
     Decimal,
+)
+from findings import (
+    domain as findings_domain,
 )
 import importlib
 import jinja2
@@ -52,6 +56,9 @@ from typing_extensions import (
     TypedDict,
 )
 import uuid
+from vulnerabilities import (
+    domain as vulns_domain,
+)
 
 # FP: local testing
 logging.config.dictConfig(LOGGING)  # NOSONAR
@@ -125,6 +132,82 @@ Context = TypedDict(  # pylint: disable=invalid-name
         "link": str,
     },
 )
+
+
+async def format_finding(
+    loaders: Any,
+    finding: Finding,
+    evidence_set: List[Dict[str, str]],
+    words: Dict[str, str],
+) -> PdfFindingInfo:
+    """Generate the pdf findings info."""
+    finding_vulns_loader = loaders.finding_vulns_nzr
+    vulnerabilities = await finding_vulns_loader.load(finding.id)
+    grouped_vulnerabilities_info = (
+        await vulns_domain.get_grouped_vulnerabilities_info(
+            loaders, finding.id
+        )
+    )
+    closed_vulnerabilities = await findings_domain.get_closed_vulnerabilities(
+        loaders, finding.id
+    )
+    open_vulnerabilities = await findings_domain.get_open_vulnerabilities(
+        loaders, finding.id
+    )
+    severity_score = findings_domain.get_severity_score_new(finding.severity)
+
+    treatments = get_treatments(vulnerabilities)
+    formated_treatments: List[str] = []
+    if treatments.ACCEPTED > 0:
+        formated_treatments.append(
+            f'{words["treat_status_asu"]}: {treatments.ACCEPTED}'
+        )
+    if treatments.ACCEPTED_UNDEFINED > 0:
+        formated_treatments.append(
+            f'{words["treat_ete_asu"]}: {treatments.ACCEPTED_UNDEFINED}'
+        )
+    if treatments.IN_PROGRESS > 0:
+        formated_treatments.append(
+            f'{words["treat_status_rem"]}: {treatments.IN_PROGRESS}'
+        )
+    if treatments.NEW > 0:
+        formated_treatments.append(
+            f'{words["treat_status_wor"]}: {treatments.NEW}'
+        )
+
+    if open_vulnerabilities > 0:
+        state = words["fin_status_open"]
+        treatment = "\n".join(sorted(formated_treatments))
+    else:
+        state = words["fin_status_closed"]
+        treatment = "-"
+
+    return PdfFindingInfo(
+        affected_systems=finding.affected_systems,
+        attack_vector_desc=finding.attack_vector_desc,
+        closed_vulnerabilities=closed_vulnerabilities,
+        compromised_records=finding.compromised_records,
+        description=finding.description,
+        evidence_set=evidence_set,
+        grouped_inputs_vulnerabilities=(
+            grouped_vulnerabilities_info.grouped_inputs_vulnerabilities
+        ),
+        grouped_lines_vulnerabilities=(
+            grouped_vulnerabilities_info.grouped_lines_vulnerabilities
+        ),
+        grouped_ports_vulnerablities=(
+            grouped_vulnerabilities_info.grouped_ports_vulnerablities
+        ),
+        open_vulnerabilities=open_vulnerabilities,
+        recommendation=finding.recommendation,
+        risk=finding.risk,
+        severity_score=severity_score,
+        state=state,
+        title=finding.title,
+        threat=finding.threat,
+        treatment=treatment,
+        where=grouped_vulnerabilities_info.where,
+    )
 
 
 def get_access_vector(finding: Dict[str, FindingType]) -> Optional[str]:

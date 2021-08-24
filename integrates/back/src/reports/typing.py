@@ -5,6 +5,7 @@ from enum import (
     Enum,
 )
 from typing import (
+    Dict,
     List,
     NamedTuple,
     Tuple,
@@ -158,6 +159,7 @@ class PdfFindingInfo(NamedTuple):  # pylint: disable=too-few-public-methods
     closed_vulnerabilities: int
     compromised_records: int
     description: str
+    evidence_set: List[Dict[str, str]]
     grouped_inputs_vulnerabilities: Tuple[GroupedVulnerabilitiesInfo, ...]
     grouped_lines_vulnerabilities: Tuple[GroupedVulnerabilitiesInfo, ...]
     grouped_ports_vulnerablities: Tuple[GroupedVulnerabilitiesInfo, ...]
