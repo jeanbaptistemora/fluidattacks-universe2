@@ -19,6 +19,9 @@ Finalization Time: 2021-08-23 at 11:55:16 UTC-05
 
 Execution Time:    2021-08-23 at 14:26:22 UTC-05
 Finalization Time: 2021-08-23 at 16:08:33 UTC-05
+
+Execution Time:    2021-08-24 at 09:35:14 UTC-05
+Finalization Time: 2021-08-24 at 11:20:03 UTC-05
 """
 
 from aioextensions import (
@@ -342,10 +345,13 @@ async def process_draft(
         success = await _add_draft(
             group_name, analyst_email, source, draft_data
         )
-        print(f'   === draft {new_draft["new_draft"]} created: {success}')
+        print(
+            f"   === draft {group_name} - "
+            f'"{new_draft["new_draft"]}" created: {success}'
+        )
     else:
         print(
-            f"  === draft_data {group_name} - "
+            f"   === draft_data {group_name} - "
             f'{new_draft["new_draft"]} parsed OK'
         )
     return success
@@ -364,8 +370,8 @@ async def main() -> None:
             for row in reader
             if row[0] != "group_name"
         ]
-    print(f"    === new drafts: {len(new_drafts_info)}")
-    print(f"    === sample: {new_drafts_info[:1]}")
+    print(f"   === new drafts: {len(new_drafts_info)}")
+    print(f"   === sample: {new_drafts_info[:1]}")
 
     # Read file with criteria
     with open(

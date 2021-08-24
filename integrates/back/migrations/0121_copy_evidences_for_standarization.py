@@ -19,6 +19,9 @@ Finalization Time: 2021-08-23 at 11:55:16 UTC-05
 
 Execution Time:    2021-08-23 at 14:29:05 UTC-05
 Finalization Time: 2021-08-23 at 16:10:02 UTC-05
+
+Execution Time:    2021-08-24 at 09:44:31 UTC-05
+Finalization Time: 2021-08-24 at 11:23:26 UTC-05
 """
 
 from aioextensions import (
@@ -96,12 +99,16 @@ async def process_draft(
     context: Dataloaders,
     draft_info: Dict[str, str],
 ) -> bool:
+    group_name = draft_info["group_name"]
     group_drafts_loader = context.group_drafts
-    group_drafts = await group_drafts_loader.load(draft_info["group_name"])
+    group_drafts = await group_drafts_loader.load(group_name)
     group_drafts_titles = [finding["title"] for finding in group_drafts]
 
     if draft_info["new_draft"] not in group_drafts_titles:
-        print(f'   --- ERROR draft "{draft_info["new_draft"]}" NOT found')
+        print(
+            f"   --- ERROR draft {group_name} - "
+            f'"{draft_info["new_draft"]}" NOT found'
+        )
         return False
     target_draft = next(
         finding
@@ -126,7 +133,7 @@ async def process_draft(
             await collect(
                 move_evidence(
                     file,
-                    draft_info["group_name"],
+                    group_name,
                     target_draft["id"],
                     finding["finding_id"],
                 )
@@ -150,8 +157,8 @@ async def main() -> None:
             for row in reader
             if row[0] != "group_name"
         ]
-    print(f"    === new drafts: {len(new_drafts_info)}")
-    print(f"    === sample: {new_drafts_info[:1]}")
+    print(f"   === new drafts: {len(new_drafts_info)}")
+    print(f"   === sample: {new_drafts_info[:1]}")
 
     context: Dataloaders = get_new_context()
     success = all(
