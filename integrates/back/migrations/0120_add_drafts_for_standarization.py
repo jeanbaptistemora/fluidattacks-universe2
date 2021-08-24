@@ -16,6 +16,9 @@ Finalization Time: 2021-08-20 at 21:33:12 UTC-05
 
 Execution Time:    2021-08-23 at 09:59:38 UTC-05
 Finalization Time: 2021-08-23 at 11:55:16 UTC-05
+
+Execution Time:    2021-08-23 at 14:26:22 UTC-05
+Finalization Time: 2021-08-23 at 16:08:33 UTC-05
 """
 
 from aioextensions import (
@@ -28,6 +31,7 @@ from custom_exceptions import (
 )
 from custom_types import (
     Finding as FindingType,
+    Historic as HistoricType,
 )
 from dataloaders import (
     Dataloaders,
@@ -43,6 +47,7 @@ from newutils import (
 import time
 from typing import (
     Any,
+    cast,
     Dict,
 )
 import uuid
@@ -138,11 +143,15 @@ def _get_privileges_required(
     return privilegesRequiredNoScope[privilegesRequired]
 
 
-def _get_draft_data(data: Any, draft_name: str) -> Dict[str, str]:
+def _get_draft_data(
+    data: Any,
+    draft_name: str,
+    language: str,
+) -> Dict[str, str]:
     cve = draft_name[:3]
     criteria = data[cve]
 
-    if draft_name != f'{cve}. {criteria["en"]["title"]}':
+    if draft_name != f'{cve}. {criteria[language]["title"]}':
         print(f"   --- ERROR draft name NOT compliant: {draft_name}")
         return {}
 
@@ -183,7 +192,9 @@ def _get_draft_data(data: Any, draft_name: str) -> Dict[str, str]:
         "attack_vector": attackVectorOptions[attackVectorRaw]
         if attackVectorRaw in attackVectorOptions
         else "",
-        "attack_vector_desc": _validate_not_empty(criteria["en"]["impact"]),
+        "attack_vector_desc": _validate_not_empty(
+            criteria[language]["impact"]
+        ),
         "availability_impact": availabilityImpactOptions[availabilityRaw]
         if availabilityRaw in availabilityImpactOptions
         else "",
@@ -192,7 +203,7 @@ def _get_draft_data(data: Any, draft_name: str) -> Dict[str, str]:
         ]
         if confidentialityRaw in confidentialityImpactOptions
         else "",
-        "description": _validate_not_empty(criteria["en"]["description"]),
+        "description": _validate_not_empty(criteria[language]["description"]),
         "exploitability": exploitabilityOptions[exploitabilityRaw]
         if exploitabilityRaw in exploitabilityOptions
         else "",
@@ -206,7 +217,7 @@ def _get_draft_data(data: Any, draft_name: str) -> Dict[str, str]:
             privilegesRequiredRaw,
         ),
         "recommendation": _validate_not_empty(
-            criteria["en"]["recommendation"]
+            criteria[language]["recommendation"]
         ),
         "remediation_level": remediationLevelOptions[remediationLevelRaw]
         if remediationLevelRaw in remediationLevelOptions
@@ -220,8 +231,8 @@ def _get_draft_data(data: Any, draft_name: str) -> Dict[str, str]:
         "severity_scope": severityScopeOptions[scopeRaw]
         if scopeRaw in severityScopeOptions
         else "",
-        "threat": _validate_not_empty(criteria["en"]["threat"]),
-        "title": f'{cve}. {criteria["en"]["title"]}',
+        "threat": _validate_not_empty(criteria[language]["threat"]),
+        "title": f'{cve}. {criteria[language]["title"]}',
         "user_interaction": userInteractionOptions[userInteractionRaw]
         if userInteractionRaw in userInteractionOptions
         else "",
@@ -232,12 +243,12 @@ def _get_draft_data(data: Any, draft_name: str) -> Dict[str, str]:
 async def _add_draft(
     group_name: str,
     analyst_email: str,
+    source: str,
     draft_data: Dict[str, str],
 ) -> bool:
     finding_id = str(uuid.uuid4())
     group_name = group_name.lower()
     creation_date = datetime_utils.get_now_as_str()
-    source = "asm"
     submission_history = {
         "analyst": analyst_email,
         "date": creation_date,
@@ -268,6 +279,16 @@ async def _add_draft(
     raise InvalidDraftTitle()
 
 
+def _get_finding_source(finding: Dict[str, FindingType]) -> str:
+    historic_state = cast(HistoricType, finding.get("historic_state", [{}]))
+    source = historic_state[0].get("source", "")
+    if source.lower() == "skims":
+        source = "machine"
+    if source.lower() == "integrates":
+        source = "asm"
+    return source
+
+
 async def process_draft(
     context: Dataloaders,
     data: Any,
@@ -276,25 +297,29 @@ async def process_draft(
     group_name = new_draft["group_name"]
     new_draft_title = new_draft["new_draft"]
 
+    group_loader = context.group
+    group = await group_loader.load(group_name)
+    language = group["language"]
+
     group_findings_loader = context.group_findings
     group_findings = await group_findings_loader.load(group_name)
     group_findings_titles = [finding["title"] for finding in group_findings]
     if new_draft_title in group_findings_titles:
         print(
-            f"   --- ERROR {group_name}, "
-            f'finding "{new_draft_title}" already in db'
+            f"   --- WARNING {group_name}, "
+            f'finding "{new_draft_title}" ALREADY in db'
         )
-        return False
+        return True
 
     group_drafts_loader = context.group_drafts
     group_drafts = await group_drafts_loader.load(group_name)
     group_drafts_titles = [draft["title"] for draft in group_drafts]
     if new_draft_title in group_drafts_titles:
         print(
-            f"   --- ERROR {group_name}, "
-            f'draft "{new_draft_title}" already in db'
+            f"   --- WARNING {group_name}, "
+            f'draft "{new_draft_title}" ALREADY in db'
         )
-        return False
+        return True
 
     old_finding_id = new_draft["finding_id"]
     old_finding: Dict[str, FindingType] = await findings_dal.get_finding(
@@ -302,7 +327,8 @@ async def process_draft(
     )
     affected_systems = old_finding.get("affected_systems", "")
     analyst_email = old_finding["analyst"]
-    draft_data = _get_draft_data(data, new_draft["new_draft"])
+    source = _get_finding_source(old_finding)
+    draft_data = _get_draft_data(data, new_draft["new_draft"], language)
     if not draft_data:
         print(f"   --- ERROR with draft_data {group_name}: {draft_data}")
         return False
@@ -313,10 +339,15 @@ async def process_draft(
 
     success = False
     if PROD:
-        success = await _add_draft(group_name, analyst_email, draft_data)
+        success = await _add_draft(
+            group_name, analyst_email, source, draft_data
+        )
         print(f'   === draft {new_draft["new_draft"]} created: {success}')
     else:
-        print(f"  === draft_data {group_name}: {draft_data}")
+        print(
+            f"  === draft_data {group_name} - "
+            f'{new_draft["new_draft"]} parsed OK'
+        )
     return success
 
 
