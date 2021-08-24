@@ -29,7 +29,6 @@ describe("ForcesView", (): void => {
             executions: [
               {
                 date: "2020-02-19T19:31:18+00:00",
-                // eslint-disable-next-line camelcase -- Possibly API related var
                 executionId: "33e5d863252940edbfb144ede56d56cf",
                 exitCode: "1",
                 gitRepo: "Repository",

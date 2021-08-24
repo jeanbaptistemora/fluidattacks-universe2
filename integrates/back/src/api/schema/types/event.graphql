@@ -2,11 +2,15 @@
 type Event {
   "Where the event was present"
   accessibility: String
+  "Time spent solving the Event, in hours"
   affectation: String
   "Components involved or affected by the event, if applicable"
   affectedComponents: String
+  "Hacker"
   analyst: String
+  "Client"
   client: String
+  "Datetime of solving of the Event, in the format yyyy-MM-ddThh:mm:ssZ"
   closingDate: String
   "Comment/consult array regarding the event"
   consulting: [Consult!]
@@ -16,9 +20,11 @@ type Event {
   detail: String
   "Datetime of the event in the format `yyyy-MM-ddThh:mm:ssZ`"
   eventDate: String
+  "Current status of the Event"
   eventStatus: String
   "The kind of event that happened"
   eventType: String
+  "Filename of the event evidence"
   evidence: String
   "Upload date of evidence image"
   evidenceDate: String

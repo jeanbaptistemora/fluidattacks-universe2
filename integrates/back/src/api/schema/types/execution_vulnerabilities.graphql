@@ -1,9 +1,15 @@
 "Execution Vulnerabilities definition"
 type ExecutionVulnerabilities {
+  "Array of accepted vulnerabilities"
   accepted: [ExploitResult!]
+  "Array of closed vulnerabilities"
   closed: [ExploitResult!]
+  "Quantity of accepted vulnerabilities"
   numOfAcceptedVulnerabilities: Int
+  "Quantity of closed vulnerabilities"
   numOfClosedVulnerabilities: Int
+  "Quantity of open vulnerabilities"
   numOfOpenVulnerabilities: Int
+  "Array of open vulnerabilities"
   open: [ExploitResult!]
 }

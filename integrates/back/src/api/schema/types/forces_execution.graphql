@@ -7,6 +7,7 @@ type ForcesExecution {
   "Deprecated. Use `executionId` instead"
   execution_id: String @deprecated(reason: """This field will
     be removed after 2021/12/31. Use `executionId` instead.""")
+  "Forces exit code, 0 for success, 1 for anything else"
   exitCode: String
   "Tested repo branch"
   gitBranch: String

@@ -30,7 +30,7 @@ type Query {
     executionId: String!
   ): ForcesExecution
 
-  "Get Forces executions"
+  "Get Forces executions from a time period"
   forcesExecutions(
     "Name of the group where Forces was executed"
     groupName: String
