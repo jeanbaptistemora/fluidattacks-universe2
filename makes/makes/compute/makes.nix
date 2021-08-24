@@ -1,13 +1,15 @@
 # https://github.com/fluidattacks/makes
 { inputs
 , makeDerivation
+, makesExecutionId
 , outputs
 , ...
 }:
 let
   skimsQueuesAvailable = makeDerivation {
-    name = "skims-queues-after-exclusions";
+    name = "skims-queues-available";
     env.envPrintAvailableQueues = builtins.toFile "print-available-queues.py" ''
+      # ${makesExecutionId}
       import skims_sdk
       skims_sdk.print_available_queues()
     '';

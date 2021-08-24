@@ -1,6 +1,5 @@
 { applications
 , path
-, nixpkgs
 , makeTemplate
 , ...
 }:

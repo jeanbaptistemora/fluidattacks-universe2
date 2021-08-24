@@ -34,7 +34,7 @@
     ]
   },
   "skims_crypto": {
-    "availability": "ALWAYS",
+    "availability": "WORKING_HOURS",
     "findings": [
       "F034",
       "F052"
@@ -86,7 +86,7 @@
     ]
   },
   "skims_http": {
-    "availability": "ALWAYS",
+    "availability": "WORKING_HOURS",
     "findings": [
       "F015",
       "F017",
@@ -128,7 +128,7 @@
     ]
   },
   "skims_ssl": {
-    "availability": "ALWAYS",
+    "availability": "WORKING_HOURS",
     "findings": [
       "F016",
       "F092",

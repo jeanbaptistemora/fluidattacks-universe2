@@ -51,7 +51,7 @@ class ExecutionQueue(Enum):
         name="cookie",
     )
     crypto = ExecutionQueueConfig(  # Crypto, we should optimize them
-        availability=AvailabilityEnum.ALWAYS,
+        availability=AvailabilityEnum.WORKING_HOURS,
         name="crypto",
     )
     exception = ExecutionQueueConfig(
@@ -85,7 +85,7 @@ class ExecutionQueue(Enum):
     )
     http = ExecutionQueueConfig(
         # HTTP checks are fast and can go in a single queue
-        availability=AvailabilityEnum.ALWAYS,
+        availability=AvailabilityEnum.WORKING_HOURS,
         name="http",
     )
     injection = ExecutionQueueConfig(
@@ -99,7 +99,7 @@ class ExecutionQueue(Enum):
         name="leak",
     )
     none = ExecutionQueueConfig(  # Checks that do not execute in production
-        availability=AvailabilityEnum.ALWAYS,
+        availability=AvailabilityEnum.NEVER,
         name="none",
     )
     sql = ExecutionQueueConfig(  # SQL related checks, we should optimize them
@@ -108,7 +108,7 @@ class ExecutionQueue(Enum):
     )
     ssl = ExecutionQueueConfig(
         # SSL checks are fast and can go in a single queue
-        availability=AvailabilityEnum.ALWAYS,
+        availability=AvailabilityEnum.WORKING_HOURS,
         name="ssl",
     )
     xss = ExecutionQueueConfig(  # XSS, we should optimize them
