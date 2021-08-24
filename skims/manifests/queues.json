@@ -1,91 +1,127 @@
 {
-  "skims_apk": [
-    "F046",
-    "F048",
-    "F049",
-    "F055",
-    "F058",
-    "F075",
-    "F103"
-  ],
-  "skims_aws": [
-    "F024",
-    "F031",
-    "F080"
-  ],
-  "skims_control": [
-    "F057",
-    "F089",
-    "F127"
-  ],
-  "skims_cookie": [
-    "F042"
-  ],
-  "skims_crypto": [
-    "F034",
-    "F052"
-  ],
-  "skims_exception": [
-    "F060",
-    "F061"
-  ],
-  "skims_f011": [
-    "F011"
-  ],
-  "skims_f014": [
-    "F109",
-    "F366"
-  ],
-  "skims_f022": [
-    "F022"
-  ],
-  "skims_f070": [
-    "F070"
-  ],
-  "skims_f073": [
-    "F073"
-  ],
-  "skims_f117": [
-    "F079",
-    "F117"
-  ],
-  "skims_http": [
-    "F015",
-    "F017",
-    "F023",
-    "F036",
-    "F043",
-    "F064",
-    "F071",
-    "F086",
-    "F128",
-    "F129",
-    "F130",
-    "F131",
-    "F132"
-  ],
-  "skims_injection": [
-    "F004",
-    "F021",
-    "F063",
-    "F107"
-  ],
-  "skims_leak": [
-    "F009",
-    "F085"
-  ],
-  "skims_sql": [
-    "F001",
-    "F012",
-    "F112"
-  ],
-  "skims_ssl": [
-    "F016",
-    "F092",
-    "F094",
-    "F133"
-  ],
-  "skims_xss": [
-    "F008"
-  ]
+  "skims_apk": {
+    "findings": [
+      "F046",
+      "F048",
+      "F049",
+      "F055",
+      "F058",
+      "F075",
+      "F103"
+    ]
+  },
+  "skims_aws": {
+    "findings": [
+      "F024",
+      "F031",
+      "F080"
+    ]
+  },
+  "skims_control": {
+    "findings": [
+      "F057",
+      "F089",
+      "F127"
+    ]
+  },
+  "skims_cookie": {
+    "findings": [
+      "F042"
+    ]
+  },
+  "skims_crypto": {
+    "findings": [
+      "F034",
+      "F052"
+    ]
+  },
+  "skims_exception": {
+    "findings": [
+      "F060",
+      "F061"
+    ]
+  },
+  "skims_f011": {
+    "findings": [
+      "F011"
+    ]
+  },
+  "skims_f014": {
+    "findings": [
+      "F109",
+      "F366"
+    ]
+  },
+  "skims_f022": {
+    "findings": [
+      "F022"
+    ]
+  },
+  "skims_f070": {
+    "findings": [
+      "F070"
+    ]
+  },
+  "skims_f073": {
+    "findings": [
+      "F073"
+    ]
+  },
+  "skims_f117": {
+    "findings": [
+      "F079",
+      "F117"
+    ]
+  },
+  "skims_http": {
+    "findings": [
+      "F015",
+      "F017",
+      "F023",
+      "F036",
+      "F043",
+      "F064",
+      "F071",
+      "F086",
+      "F128",
+      "F129",
+      "F130",
+      "F131",
+      "F132"
+    ]
+  },
+  "skims_injection": {
+    "findings": [
+      "F004",
+      "F021",
+      "F063",
+      "F107"
+    ]
+  },
+  "skims_leak": {
+    "findings": [
+      "F009",
+      "F085"
+    ]
+  },
+  "skims_sql": {
+    "findings": [
+      "F001",
+      "F012",
+      "F112"
+    ]
+  },
+  "skims_ssl": {
+    "findings": [
+      "F016",
+      "F092",
+      "F094",
+      "F133"
+    ]
+  },
+  "skims_xss": {
+    "findings": [
+      "F008"
+    ]
+  }
 }

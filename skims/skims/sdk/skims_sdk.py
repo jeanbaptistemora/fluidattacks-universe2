@@ -7,7 +7,6 @@ import subprocess  # nosec
 from typing import (
     Any,
     Dict,
-    List,
     Optional,
     Tuple,
 )
@@ -21,7 +20,7 @@ def _json_load(path: str) -> Any:
 FINDINGS: Dict[str, Dict[str, Dict[str, str]]] = _json_load(
     environ["SKIMS_FINDINGS"]
 )
-QUEUES: Dict[str, List[str]] = _json_load(environ["SKIMS_QUEUES"])
+QUEUES: Dict[str, Dict[str, str]] = _json_load(environ["SKIMS_QUEUES"])
 
 
 async def _run(
@@ -59,8 +58,8 @@ def get_priority_suffix(urgent: bool) -> str:
 
 
 def get_queue_for_finding(finding_code: str, urgent: bool = False) -> str:
-    for queue_, finding_codes in QUEUES.items():
-        if finding_code in finding_codes:
+    for queue_ in QUEUES:
+        if finding_code in QUEUES[queue_]["findings"]:
             return f"{queue_}_{get_priority_suffix(urgent)}"
 
     raise NotImplementedError(f"{finding_code} does not belong to a queue")

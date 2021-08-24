@@ -50,10 +50,12 @@ def test_model_core_model_manifest_queues() -> None:
     expected: str = (
         json.dumps(
             {
-                f"skims_{queue.name}": sorted(
-                    finding.name
-                    for finding in core_model.FindingEnum
-                    if finding.value.execution_queue == queue
+                f"skims_{queue.name}": dict(
+                    findings=sorted(
+                        finding.name
+                        for finding in core_model.FindingEnum
+                        if finding.value.execution_queue == queue
+                    ),
                 )
                 for queue in core_model.ExecutionQueue
                 if queue != core_model.ExecutionQueue.none
