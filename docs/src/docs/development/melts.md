@@ -85,11 +85,11 @@ from inside your local `services` repository,
 in these cases you can use the following command:
 
 ```bash
-nix-env -i melts -f . --option narinfo-cache-negative-ttl 1
---option narinfo-cache-positive-ttl 1
---option restrict-eval false
---option sandbox false
---option substituters 'https://fluidattacks.cachix.org https://cache.nixos.org'
+nix-env -i melts -f . --option narinfo-cache-negative-ttl 1 \
+--option narinfo-cache-positive-ttl 1 \
+--option restrict-eval false \
+--option sandbox false \
+--option substituters 'https://fluidattacks.cachix.org https://cache.nixos.org' \
 --option trusted-public-keys '
     fluidattacks.cachix.org-1:upiUCP8kWnr7NxVSJtTOM+SBqL0pZhZnUoqPG04sBv0=
     cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
@@ -167,3 +167,149 @@ you should use the `continuous-admin` role
 which will allow you to use the functionalities
 with admin privileges,
 useful for developer purposes.
+
+## Creating secrets as a resourcer
+
+By using the login function
+that Melts provides,
+resourcers can access a role
+with enough privileges
+to create a project's configuration files,
+specifically,
+those that contain said project's secrets.
+The following are the steps
+needed to create these files:
+
+- The first thing to do
+  is add a function
+  that we will call `switch_aws`
+  to your `~/.bashrc` file,
+  something you only need to do once.
+
+  ```bash
+  function switch_aws(){
+    project="$1"
+    local key=$(aws configure get aws_access_key_id --profile ${project})
+    local secret=$(aws configure get aws_secret_access_key --profile ${project})
+    local token=$(aws configure get aws_session_token --profile ${project})
+    export AWS_ACCESS_KEY_ID=$key
+    export AWS_SECRET_ACCESS_KEY=$secret
+    export AWS_SESSION_TOKEN=$token
+    aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
+    aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
+    aws configure set aws_session_token "$AWS_SESSION_TOKEN"
+  }
+  ```
+
+- Go into your local `services` repository folder
+  and then use the following command
+  that uses Melts
+  to log in with the admin role:
+
+  ```bash
+  melts resources --login admin
+  ```
+
+  Enter your credentials
+  when asked for them
+  and then use these two commands
+  in succession:
+
+  ```bash
+  aws sts get-caller-identity --profile continuous-admin
+  switch_aws continuous-admin
+  ```
+
+  These allow you to
+  get the necessary AWS credentials.
+- After this is done
+  you need to open
+  the file `~/.aws/credentials`
+  with your favorite editor.
+- This file will have
+  two sets of credentials,
+  one under `continuous-admin`
+  and another one under `default`,
+  you need to copy
+  all the information of `continuous-admin`
+  and paste it under `default`
+  replacing what `default` already has.
+  This step is necessary
+  in case the file has been modified
+  while you utilize
+  other Melts functions
+  that interact with it.
+- After that's done,
+  go to the config folder
+  of the group you want
+  to create a secrets file for
+  (`services/groups/{group}/config`)
+  and create a dummy yaml file
+  with a single line containing
+  this: `{}`
+- Then open a terminal
+  in the folder
+  and run this command:
+
+  ```bash
+  sops -e --kms arn:aws:kms:us-east-1:{account_id}:alias/continuous-{group} dummy.yaml > secrets-dev.yaml
+  ```
+
+  With this you will create
+  the group's secrets-dev file.
+- Creating the secrets-prod file
+  requires a little more customization
+  so you need to
+  talk to the group's PM
+  to create it.
+
+## Troubleshooting
+
+In case you encounter
+any errors while using Melts,
+there are a couple of things
+you can try to fix them:
+
+- The first thing you should do
+  is update Melts,
+  in order to do this
+  as an analyst,
+  you only need to use
+  the `install.sh` file again,
+  otherwise use the command
+  `curl -L fluidattacks.com/install/melts | sh`.
+  Both will automatically
+  uninstall the current version
+  and install the most recent one.
+- The next thing you can check
+  is if your `INTEGRATES_API_TOKEN`
+  hasn't expired,
+  for this you only need to
+  repeat the steps shown
+  [here](/machine/api#using-the-asm-api-token)
+  for updating your api token,
+  and be aware of when
+  it will expire next.
+- Another thing that
+  may be causing issues
+  is a conflict in your environment variables
+  that are taken when you log into AWS,
+  so you can try deleting this information
+  and logging in again.
+  In order to do this
+  use the command `rm -rf ~/.aws/credentials`
+  before logging in,
+  if that doesn't work
+  then use `rm -rf ~/.okta*` as well.
+  After doing this and logging in
+  with the appropiate credentials
+  and choosing the correct role,
+  if applicable,
+  you should have solved any problems
+  regarding permissions.
+- If none of these work,
+  get in contact
+  with the fluid attacks team
+  sending an e-mail to
+  help@fluidattacks.com
+  to assist you with any problems.
