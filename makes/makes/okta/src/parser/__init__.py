@@ -43,6 +43,21 @@ def app_groups() -> List[Dict[str, str]]:
     return result
 
 
+def app_groups_2() -> Dict[str, Any]:
+    result: Dict[str, Any] = {}
+    for app in OKTA_DATA["apps"]:
+        for group in OKTA_DATA["groups"]:
+            if app["id"] in group["apps"]:
+                if app["id"] in result.keys():
+                    result[app["id"]]["groups"].append(group["id"])
+                else:
+                    result[app["id"]] = {
+                        "type": app["type"],
+                        "groups": [group["id"]],
+                    }
+    return result
+
+
 def app_users() -> List[Dict[str, str]]:
     result: List[Dict[str, str]] = []
     for app in OKTA_DATA["apps"]:
@@ -110,6 +125,7 @@ def main() -> None:
                 "users": to_dict(item="users"),
                 "user_groups": user_groups(),
                 "app_groups": app_groups(),
+                "app_groups_2": app_groups_2(),
                 "app_users": app_users(),
                 "aws_group_roles": aws_group_roles(),
                 "aws_user_roles": aws_user_roles(),

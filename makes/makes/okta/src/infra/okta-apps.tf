@@ -76,19 +76,19 @@ resource "okta_app_saml" "apps" {
   }
 }
 
-resource "okta_app_group_assignment" "apps_saml" {
+resource "okta_app_group_assignments" "apps_saml" {
   for_each = {
-    for app in local.data.app_groups : "${app.id}_${app.group}" => app
-    if app.type == "saml"
+    for app, data in local.data.app_groups_2 : app => data
+    if data.type == "saml"
   }
 
-  app_id   = okta_app_saml.apps[each.value.id].id
-  group_id = okta_group.groups[each.value.group].id
+  app_id = okta_app_saml.apps[each.key].id
 
-  lifecycle {
-    ignore_changes = [
-      priority,
-    ]
+  dynamic "group" {
+    for_each = toset(each.value.groups)
+    content {
+      id = okta_group.groups[group.key].id
+    }
   }
 }
 
@@ -218,19 +218,19 @@ resource "okta_app_three_field" "apps" {
   }
 }
 
-resource "okta_app_group_assignment" "apps_three_field" {
+resource "okta_app_group_assignments" "apps_three_field" {
   for_each = {
-    for app in local.data.app_groups : "${app.id}_${app.group}" => app
-    if app.type == "three_field"
+    for app, data in local.data.app_groups_2 : app => data
+    if data.type == "three_field"
   }
 
-  app_id   = okta_app_three_field.apps[each.value.id].id
-  group_id = okta_group.groups[each.value.group].id
+  app_id = okta_app_three_field.apps[each.key].id
 
-  lifecycle {
-    ignore_changes = [
-      priority,
-    ]
+  dynamic "group" {
+    for_each = toset(each.value.groups)
+    content {
+      id = okta_group.groups[group.key].id
+    }
   }
 }
 
