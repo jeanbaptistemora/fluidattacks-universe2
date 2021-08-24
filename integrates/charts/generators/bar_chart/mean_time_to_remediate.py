@@ -190,7 +190,7 @@ async def generate_all() -> None:
                     ),
                 ),
                 entity="group",
-                subject=f"{group}_{days}" if days else group,
+                subject=group + utils.get_subject_days(days),
             )
 
         async for org_id, _, org_groups in (
@@ -205,7 +205,7 @@ async def generate_all() -> None:
                     ),
                 ),
                 entity="organization",
-                subject=f"{org_id}_{days}" if days else org_id,
+                subject=org_id + utils.get_subject_days(days),
             )
 
         async for org_id, org_name, _ in (
@@ -223,9 +223,8 @@ async def generate_all() -> None:
                         ),
                     ),
                     entity="portfolio",
-                    subject=f"{org_id}PORTFOLIO#{portfolio}_{days}"
-                    if days
-                    else f"{org_id}PORTFOLIO#{portfolio}",
+                    subject=f"{org_id}PORTFOLIO#{portfolio}"
+                    + utils.get_subject_days(days),
                 )
 
 

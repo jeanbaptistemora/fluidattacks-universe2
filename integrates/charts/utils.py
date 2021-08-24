@@ -46,6 +46,7 @@ from typing import (
     Dict,
     List,
     NamedTuple,
+    Optional,
     Set,
     Tuple,
     Type,
@@ -246,3 +247,9 @@ def get_cvssf(severity: Decimal) -> Decimal:
     return Decimal(pow(Decimal("4.0"), severity - Decimal("4.0"))).quantize(
         Decimal("0.001")
     )
+
+
+def get_subject_days(days: Optional[int]) -> str:
+    if days:
+        return f"_{days}"
+    return ""

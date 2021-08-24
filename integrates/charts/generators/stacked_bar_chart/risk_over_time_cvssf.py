@@ -23,13 +23,13 @@ from typing import (
     Dict,
     Iterable,
     List,
-    Optional,
 )
 
 
 @alru_cache(maxsize=None, typed=True)
 async def get_group_document(
-    group: str, days: Optional[int] = None
+    group: str,
+    days: int,
 ) -> Dict[str, Dict[datetime, float]]:
     data: List[GroupDocumentData] = []
     loaders = get_new_context()
@@ -76,10 +76,11 @@ async def get_group_document(
 
 
 async def get_many_groups_document(
-    groups: Iterable[str], days: Optional[int] = None
+    groups: Iterable[str],
+    days: int,
 ) -> Dict[str, Dict[datetime, float]]:
     group_documents = await collect(
-        get_group_document(group, days) for group in groups
+        [get_group_document(group, days) for group in groups]
     )
 
     all_dates: List[datetime] = sorted(
@@ -128,14 +129,12 @@ async def generate_all() -> None:
         async for group in utils.iterate_groups():
             utils.json_dump(
                 document=format_document(
-                    document=await get_group_document(
-                        group, days if days else None
-                    ),
+                    document=await get_group_document(group, days),
                     y_label=y_label,
                     tick_format=False,
                 ),
                 entity="group",
-                subject=group + (f"_{days}" if days else ""),
+                subject=group + utils.get_subject_days(days),
             )
 
         async for org_id, _, org_groups in (
@@ -143,14 +142,12 @@ async def generate_all() -> None:
         ):
             utils.json_dump(
                 document=format_document(
-                    document=await get_many_groups_document(
-                        org_groups, days if days else None
-                    ),
+                    document=await get_many_groups_document(org_groups, days),
                     y_label=y_label,
                     tick_format=False,
                 ),
                 entity="organization",
-                subject=org_id + (f"_{days}" if days else ""),
+                subject=org_id + utils.get_subject_days(days),
             )
 
         async for org_id, org_name, _ in (
@@ -161,15 +158,13 @@ async def generate_all() -> None:
             ):
                 utils.json_dump(
                     document=format_document(
-                        document=await get_many_groups_document(
-                            groups, days if days else None
-                        ),
+                        document=await get_many_groups_document(groups, days),
                         y_label=y_label,
                         tick_format=False,
                     ),
                     entity="portfolio",
                     subject=f"{org_id}PORTFOLIO#{portfolio}"
-                    + (f"_{days}" if days else ""),
+                    + utils.get_subject_days(days),
                 )
 
 
