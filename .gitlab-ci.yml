@@ -1,5 +1,6 @@
 include:
   - local: makes/forces/gitlab-ci.yaml
+  - local: makes/integrates/gitlab-ci.yaml
   - local: makes/makes/gitlab-ci.yaml
 
   - local: airs/.gitlab-ci.yml

@@ -42,7 +42,7 @@ logging.config.dictConfig(LOGGING)
 # Constants
 LOGGER = logging.getLogger(__name__)
 
-# Deprecated
+
 async def add_file(
     files_data: List[Dict[str, str]],
     uploaded_file: UploadFile,
