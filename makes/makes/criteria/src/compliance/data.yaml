@@ -415,6 +415,11 @@
     "9_6":
       title: Block Unnecessary File Types
       link: https://www.cisecurity.org/controls/
+    "9_7":
+      title: >
+        Deploy and Maintain Email Server
+        Anti-Malware Protections
+      link: https://www.cisecurity.org/controls/
     "10_6":
       title: Centrally Manage Anti-Malware Software
       link: https://www.cisecurity.org/controls/
