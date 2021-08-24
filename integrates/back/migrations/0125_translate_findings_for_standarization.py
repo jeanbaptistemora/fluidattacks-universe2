@@ -7,8 +7,8 @@ If the findings' group is in Spanish, the related text fields will be updated.
 Related issue:
 https://gitlab.com/fluidattacks/product/-/issues/4903
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-08-23 at 22:15:49 UTC-05
+Finalization Time: 2021-08-23 at 22:16:00 UTC-05
 """
 
 from aiodataloader import (
@@ -36,7 +36,7 @@ from typing import (
 )
 import yaml
 
-PROD: bool = False
+PROD: bool = True
 
 
 def _validate_not_empty(field: str) -> str:
