@@ -29,10 +29,6 @@ from utils.logs import (
     log,
 )
 
-with contextlib.redirect_stderr(io.StringIO()):
-    import tracers.function
-
-
 # Constants
 RAISE = object()
 RATE_LIMIT_ENABLED: bool = guess_environment() == "production"
@@ -161,10 +157,6 @@ def time_limited(
         return cast(TFun, wrapper)
 
     return decorator
-
-
-def trace() -> Callable[[TFun], TFun]:
-    return tracers.function.trace(enabled=False)
 
 
 # Constants

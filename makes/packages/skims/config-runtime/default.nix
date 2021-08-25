@@ -1,6 +1,6 @@
 { applications
-, buildPythonRequirements
 , fetchzip
+, makes
 , makeTemplate
 , packages
 , path
@@ -35,76 +35,19 @@ makeTemplate {
       nixpkgs.python38Packages.soupsieve
       nixpkgs.python38Packages.unidiff
       nixpkgs.python38Packages.viewstate
-      (buildPythonRequirements {
-        name = "skims-runtime";
-        requirements = {
-          direct = [
-            "aioextensions==20.11.1621472"
-            "aiofiles==0.6.0"
-            "aiogqlc==2.0.0b1"
-            "aiohttp==3.7.4"
-            "bugsnag==4.0.3"
-            "cfn-flip==1.2.3"
-            "click==7.1.2"
-            "confuse==1.4.0"
-            "frozendict==2.0.2"
-            "GitPython==3.1.15"
-            "jmespath==0.10.0"
-            "lark-parser==0.7.8" # pending to upgrade
-            "metaloaders==20.9.2566091"
-            "more-itertools==8.7.0"
-            "mypy-extensions==0.4.3"
-            "networkx==2.5.1"
-            "oyaml==1.0"
-            "Pillow==8.2.0"
-            "pyparsing==2.4.7"
-            "python-dateutil==2.8.1"
-            "python-hcl2==1.0.0" # pending to upgrade
-            "python-jose==3.2.0"
-            "requests==2.25.1"
-            "ruamel.yaml.clib==0.2.2"
-            "ruamel.yaml==0.17.4"
-            "semver==2.13.0"
-            "tlslite-ng==0.8.0a41"
-            "tracers==20.7.17562"
-            "tree-sitter==0.19.0"
-            "uvloop==0.15.2"
-          ];
-          inherited = [
-            "aioboto3==8.0.3"
-            "aiobotocore==1.0.4"
-            "aioitertools==0.7.1"
-            "async-timeout==3.0.1"
-            "attrs==20.3.0"
-            "boto3==1.12.32"
-            "botocore==1.15.32"
-            "certifi==2020.12.5"
-            "chardet==3.0.4"
-            "decorator==4.4.2"
-            "docutils==0.15.2"
-            "ecdsa==0.14.1"
-            "gitdb==4.0.7"
-            "idna==2.10"
-            "multidict==5.1.0"
-            "pyasn1==0.4.8"
-            "PyYAML==5.4.1"
-            "rsa==4.7.2"
-            "s3transfer==0.3.7"
-            "six==1.15.0"
-            "smmap==4.0.0"
-            "typing-extensions==3.10.0.0"
-            "urllib3==1.26.4"
-            "WebOb==1.8.7"
-            "wrapt==1.12.1"
-            "yarl==1.6.3"
-          ];
-        };
-        python = nixpkgs.python38;
-      })
     ];
     envSources = [
       packages.makes.python.safe-pickle
       packages.skims.config-sdk
+      (makes.makePythonPypiEnvironment {
+        name = "skims-runtime";
+        searchPaths = {
+          bin = [ nixpkgs.gcc ];
+        };
+        sourcesYaml = ./pypi-sources.yaml;
+        withSetuptools_57_4_0 = true;
+        withWheel_0_37_0 = true;
+      })
       (makeTemplate {
         arguments = {
           envCriteriaRequirements = path "/makes/makes/criteria/src/requirements/data.yaml";
