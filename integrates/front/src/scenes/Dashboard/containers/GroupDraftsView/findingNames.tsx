@@ -125,18 +125,18 @@ function getRequirementsText(
   if (criteriaData === undefined) {
     return requirements.toString();
   }
-  const requirementTitles: string[] = requirements.map(
+  const requirementsSummaries: string[] = requirements.map(
     (key: string): string => {
-      const title =
+      const summary =
         language === "ES"
-          ? criteriaData[key].es.title
-          : criteriaData[key].en.title;
+          ? criteriaData[key].es.summary
+          : criteriaData[key].en.summary;
 
-      return `R${key}. ${title}.`;
+      return `${key}. ${summary}`;
     }
   );
 
-  return requirementTitles.join("\n");
+  return requirementsSummaries.join("");
 }
 
 async function getFindingNames(
