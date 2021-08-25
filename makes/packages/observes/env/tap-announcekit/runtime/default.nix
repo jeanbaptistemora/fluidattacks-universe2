@@ -1,9 +1,9 @@
-{ makeTemplate
+{ makes
+, makeTemplate
 , packages
 , path
 , ...
 }:
-with packages.observes.env;
 let
   self = path "/observes/singer/tap_announcekit";
 in
@@ -13,19 +13,17 @@ makeTemplate {
     envMypyPaths = [
       self
     ];
-    envPaths = [
-      tap-announcekit.runtime.python
-    ];
     envPythonPaths = [
       self
     ];
-    envPython38Paths = [
-      tap-announcekit.runtime.python
-    ];
     envSources = [
-      paginator.runtime
-      singer-io.runtime
-      utils-logger.runtime
+      (makes.makePythonPypiEnvironment {
+        name = "observes-env-tap-announcekit-runtime";
+        sourcesYaml = ./pypi-sources.yaml;
+      })
+      packages.observes.env.paginator.runtime
+      packages.observes.env.singer-io.runtime
+      packages.observes.env.utils-logger.runtime
     ];
   };
 }
