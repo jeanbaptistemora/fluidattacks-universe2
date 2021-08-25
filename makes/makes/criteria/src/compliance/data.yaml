@@ -227,6 +227,9 @@
     "154":
       title: Resource Location Spoofing
       link: https://capec.mitre.org/data/definitions/154.html
+    "155":
+      title: Screen Temporary Files for Sensitive Information
+      link: https://capec.mitre.org/data/definitions/155.html
     "161":
       title: Infrastructure Manipulation
       link: https://capec.mitre.org/data/definitions/161.html
@@ -301,7 +304,10 @@
       link: https://capec.mitre.org/data/definitions/594.html
     "613":
       title: WiFi SSID Tracking
-      link: https://capec.mitre.org/data/definitions/613.html  
+      link: https://capec.mitre.org/data/definitions/613.html
+    "619":
+      title: Signal Strength Tracking
+      link: https://capec.mitre.org/data/definitions/619.html
   metadata: {}
 "003":
   title: CIS
