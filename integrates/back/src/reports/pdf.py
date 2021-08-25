@@ -50,6 +50,7 @@ from typing import (
     Dict,
     List,
     Optional,
+    Tuple,
     Union,
 )
 from typing_extensions import (
@@ -765,3 +766,47 @@ class CreatorPdfNew:
             ),
             "footer_adoc": base_adoc.format(name="footer", lang=self.lang),
         }
+
+    def make_pie_finding(
+        self,
+        context_findings: Tuple[PdfFindingInfo, ...],
+        group: str,
+        words: Dict[str, str],
+    ) -> str:
+        """Create the findings graph."""
+        figure(1, figsize=(6, 6))
+        finding_state_pie = [0, 0, 0, 0]  # A, PC, C
+        finding_state_pielabels = [
+            words["vuln_c"],
+            words["vuln_h"],
+            words["vuln_m"],
+            words["vuln_l"],
+        ]
+        colors = ["#980000", "red", "orange", "yellow"]
+        explode = (0.1, 0, 0, 0)
+        for finding in context_findings:
+            if 9.0 <= finding.severity_score <= 10.0:
+                finding_state_pie[0] += 1
+            elif 7.0 <= finding.severity_score <= 8.9:
+                finding_state_pie[1] += 1
+            elif 4.0 <= finding.severity_score <= 6.9:
+                finding_state_pie[2] += 1
+            elif 0.0 <= finding.severity_score <= 3.9:  # Abierto por defecto
+                finding_state_pie[3] += 1
+            else:
+                finding_state_pie[3] += 1
+        pie(
+            finding_state_pie,
+            explode=explode,
+            labels=finding_state_pielabels,
+            autopct="%1.0f%%",
+            startangle=90,
+            colors=colors,
+        )
+        axis("equal")
+        pie_filename = f"{self.tpl_img_path}/finding_graph_{group}.png"
+        savefig(pie_filename, bbox_inches="tight", transparent=True, dpi=100)
+        cla()
+        clf()
+        close("all")
+        return pie_filename
