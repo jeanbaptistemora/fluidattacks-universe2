@@ -4,7 +4,6 @@
 , path
 , ...
 }:
-with packages.observes.env;
 let
   self = path "/observes/singer/tap_mixpanel";
 in
@@ -17,17 +16,18 @@ makeTemplate {
     envMypyPaths = [
       self
     ];
-    envPaths = [
-      tap-mixpanel.runtime.python
-    ];
     envPythonPaths = [
       self
     ];
     envPython38Paths = [
-      tap-mixpanel.runtime.python
+      nixpkgs.python38Packages.boto3
+      nixpkgs.python38Packages.botocore
+      nixpkgs.python38Packages.pandas
+      nixpkgs.python38Packages.ratelimiter
+      nixpkgs.python38Packages.requests
     ];
     envSources = [
-      singer-io.runtime
+      packages.observes.env.singer-io.runtime
     ];
   };
 }
