@@ -192,6 +192,16 @@ function filterReportDate(
           selectedDate.getUTCFullYear() === reportDate.getFullYear();
   });
 }
+function filterTag(
+  vulnerabilities: IVulnRowAttr[],
+  currentTag: string
+): IVulnRowAttr[] {
+  return vulnerabilities.filter((vuln: IVulnRowAttr): boolean =>
+    _.isEmpty(currentTag)
+      ? true
+      : _.includes(vuln.tag.toLowerCase(), currentTag.toLowerCase())
+  );
+}
 function filterTreatmentCurrentStatus(
   vulnerabilities: IVulnRowAttr[],
   currentState: string
@@ -277,6 +287,7 @@ export {
   filterCurrentStatus,
   filterOutVulnerabilities,
   filterReportDate,
+  filterTag,
   filterTreatmentCurrentStatus,
   filterZeroRisk,
   formatVulnerabilities,

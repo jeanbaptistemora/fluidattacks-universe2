@@ -2215,11 +2215,13 @@ export const enTranslations: ResourceKey = {
       notApplicable: "n/a",
       open: "Open",
       requested: "Requested",
+      searchTag: "Search Tag",
       searchText: "Search Text",
       status: "Status",
       statusTooltip:
         "Filter vulnerabilities based on their open / closed status",
       tabTitle: "Locations",
+      tagTooltip: "Filter vulnerabilities based on their tag",
       tooltip: "Open / Closed vulnerabilities",
       treatmentStatus:
         "Filter vulnerabilities based on eternally accepted treatment acceptation",

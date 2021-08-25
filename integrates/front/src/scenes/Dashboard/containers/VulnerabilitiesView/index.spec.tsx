@@ -293,10 +293,11 @@ describe("VulnerabilitiesView", (): void => {
     await act(async (): Promise<void> => {
       await waitForExpect((): void => {
         wrapper.update();
+        const totalButtons = 3;
 
         expect(wrapper).toHaveLength(1);
 
-        expect(wrapper.find("Button")).toHaveLength(2);
+        expect(wrapper.find("Button")).toHaveLength(totalButtons);
       });
     });
 
@@ -371,7 +372,7 @@ describe("VulnerabilitiesView", (): void => {
 
         expect(wrapper).toHaveLength(1);
 
-        expect(wrapper.find("Button")).toHaveLength(1);
+        expect(wrapper.find("Button")).toHaveLength(2);
       });
     });
 

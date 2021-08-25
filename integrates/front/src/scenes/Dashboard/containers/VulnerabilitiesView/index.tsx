@@ -19,8 +19,10 @@ import {
   SearchText,
   Select,
   SelectContainer,
+  SelectDate,
 } from "./styles";
 
+import { FiltersButton } from "components/FiltersButton";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
@@ -30,6 +32,8 @@ import { UpdateDescription } from "scenes/Dashboard/components/Vulnerabilities/U
 import {
   filterCurrentStatus,
   filterOutVulnerabilities,
+  filterReportDate,
+  filterTag,
   filterText,
   filterTreatment,
   filterTreatmentCurrentStatus,
@@ -43,7 +47,9 @@ import { HandleAcceptationModal } from "scenes/Dashboard/containers/Vulnerabilit
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import type { IGetFindingVulnInfoAttr } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
 import { isPendingToAcceptation } from "scenes/Dashboard/containers/VulnerabilitiesView/utils";
+import { ButtonToolbarRow, Col50Ph, Row } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
+import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
@@ -63,12 +69,18 @@ export const VulnsView: React.FC = (): JSX.Element => {
   );
 
   const [treatmentFilter, setTreatmentFilter] = useState("");
+  const [reportDateFilter, setReportDateFilter] = useState("");
+  const [tagFilter, setTagFilter] = useState("");
   const [currentStatusFilter, setCurrentStatusFilter] = useState("");
   const [treatmentCurrentStatusFilter, setTreatmentCurrentStatusFilter] =
     useState("");
   const [verificationFilter, setVerificationFilter] = useState("");
   const [textFilter, setTextFilter] = useState("");
   const [isOpen, setOpen] = useState(false);
+  const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>(
+    "vulnerabilitiesFilters",
+    false
+  );
 
   const [isHandleAcceptationModalOpen, setHandleAcceptationModalOpen] =
     useState(false);
@@ -92,6 +104,10 @@ export const VulnsView: React.FC = (): JSX.Element => {
     },
     []
   );
+
+  const handleUpdateFilter: () => void = useCallback((): void => {
+    setFilterEnabled(!isFilterEnabled);
+  }, [isFilterEnabled, setFilterEnabled]);
 
   function closeRemediationModal(): void {
     setOpen(false);
@@ -140,6 +156,14 @@ export const VulnsView: React.FC = (): JSX.Element => {
   ): void {
     setTreatmentFilter(event.target.value);
   }
+  function onReportDateChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setReportDateFilter(event.target.value);
+  }
+  function onTagChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    setTagFilter(event.target.value);
+  }
   function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
     setCurrentStatusFilter(event.target.value);
   }
@@ -160,6 +184,11 @@ export const VulnsView: React.FC = (): JSX.Element => {
     vulns,
     treatmentFilter
   );
+  const filterReportDateVulnerabilities: IVulnRowAttr[] = filterReportDate(
+    vulns,
+    reportDateFilter
+  );
+  const filterTagVulnerabilities: IVulnRowAttr[] = filterTag(vulns, tagFilter);
   const filterCurrentStatusVulnerabilities: IVulnRowAttr[] = isRequestingVerify
     ? vulns
     : filterCurrentStatus(vulns, currentStatusFilter);
@@ -179,7 +208,9 @@ export const VulnsView: React.FC = (): JSX.Element => {
     filterTreatmentVulnerabilities,
     filterCurrentStatusVulnerabilities,
     filterVerificationVulnerabilities,
-    filterTextVulnerabilities
+    filterTextVulnerabilities,
+    filterReportDateVulnerabilities,
+    filterTagVulnerabilities
   );
   const isFindingReleased: boolean = !_.isEmpty(data.finding.releaseDate);
   function toggleModal(): void {
@@ -237,107 +268,23 @@ export const VulnsView: React.FC = (): JSX.Element => {
         <div>
           <div>
             <ActionsContainer>
-              <Filters>
-                <SelectContainer>
-                  <SearchText
-                    defaultValue={textFilter}
-                    onChange={onSearchChange}
-                    placeholder={t("searchFindings.tabVuln.searchText")}
-                  />
-                </SelectContainer>
-                <SelectContainer>
-                  <TooltipWrapper
-                    id={"searchFindings.tabVuln.vulnTable.treatmentsTooltip.id"}
-                    message={t(
-                      "searchFindings.tabVuln.vulnTable.treatmentsTooltip"
-                    )}
-                  >
-                    <Select
-                      defaultValue={treatmentFilter}
-                      onChange={onTreatmentChange}
-                    >
-                      <option value={""}>
-                        {t("searchFindings.tabVuln.vulnTable.treatments")}
-                      </option>
-                      <option value={"NEW"}>
-                        {t("searchFindings.tabDescription.treatment.new")}
-                      </option>
-                      <option value={"IN_PROGRESS"}>
-                        {t(
-                          "searchFindings.tabDescription.treatment.inProgress"
-                        )}
-                      </option>
-                      <option value={"ACCEPTED"}>
-                        {t("searchFindings.tabDescription.treatment.accepted")}
-                      </option>
-                      <option value={"ACCEPTED_UNDEFINED"}>
-                        {t(
-                          "searchFindings.tabDescription.treatment.acceptedUndefined"
-                        )}
-                      </option>
-                    </Select>
-                  </TooltipWrapper>
-                </SelectContainer>
-                <SelectContainer>
-                  <TooltipWrapper
-                    id={"searchFindings.tabVuln.vulnTable.reattacksTooltip.id"}
-                    message={t(
-                      "searchFindings.tabVuln.vulnTable.reattacksTooltip"
-                    )}
-                  >
-                    <Select
-                      defaultValue={verificationFilter}
-                      onChange={onVerificationChange}
-                    >
-                      <option value={""}>
-                        {t("searchFindings.tabVuln.vulnTable.reattacks")}
-                      </option>
-                      <option value={"Requested"}>
-                        {t("searchFindings.tabVuln.requested")}
-                      </option>
-                      <option value={"Verified"}>
-                        {t("searchFindings.tabVuln.verified")}
-                      </option>
-                    </Select>
-                  </TooltipWrapper>
-                </SelectContainer>
-                <SelectContainer>
-                  <TooltipWrapper
-                    id={"searchFindings.tabVuln.statusTooltip.id"}
-                    message={t("searchFindings.tabVuln.statusTooltip")}
-                  >
-                    <Select
-                      defaultValue={currentStatusFilter}
-                      onChange={onStatusChange}
-                    >
-                      <option value={""}>
-                        {t("searchFindings.tabVuln.status")}
-                      </option>
-                      <option value={"open"}>
-                        {t("searchFindings.tabVuln.open")}
-                      </option>
-                      <option value={"closed"}>
-                        {t("searchFindings.tabVuln.closed")}
-                      </option>
-                    </Select>
-                  </TooltipWrapper>
-                </SelectContainer>
-                <SelectContainer>
-                  <TooltipWrapper
-                    id={"searchFindings.tabVuln.treatmentStatus.id"}
-                    message={t("searchFindings.tabVuln.treatmentStatus")}
-                  >
-                    <Select
-                      defaultValue={treatmentCurrentStatusFilter}
-                      onChange={onTreatmentStatusChange}
-                    >
-                      <option value={""}>{"Treatment Acceptation"}</option>
-                      <option value={"true"}>{"Pending"}</option>
-                      <option value={"false"}>{"Accepted"}</option>
-                    </Select>
-                  </TooltipWrapper>
-                </SelectContainer>
-              </Filters>
+              <SelectContainer>
+                <Row>
+                  <Col50Ph>
+                    <SearchText
+                      defaultValue={textFilter}
+                      onChange={onSearchChange}
+                      placeholder={t("searchFindings.tabVuln.searchText")}
+                    />
+                  </Col50Ph>
+                  <ButtonToolbarRow>
+                    <FiltersButton
+                      isFilterEnabled={isFilterEnabled}
+                      onUpdateEnableFilter={handleUpdateFilter}
+                    />
+                  </ButtonToolbarRow>
+                </Row>
+              </SelectContainer>
               <ActionButtons
                 areVulnerabilitiesPendingToAcceptation={isPendingToAcceptation(
                   vulnerabilities
@@ -361,6 +308,137 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 subscription={data.group.subscription}
               />
             </ActionsContainer>
+            {isFilterEnabled ? (
+              <React.Fragment>
+                <br />
+                <Filters>
+                  <SelectContainer>
+                    <TooltipWrapper
+                      id={"searchFindings.tabVuln.vulnTable.dateTooltip.id"}
+                      message={t(
+                        "searchFindings.tabVuln.vulnTable.dateTooltip"
+                      )}
+                    >
+                      <SelectDate
+                        defaultValue={reportDateFilter}
+                        onChange={onReportDateChange}
+                      />
+                    </TooltipWrapper>
+                  </SelectContainer>
+                  <SelectContainer>
+                    <TooltipWrapper
+                      id={
+                        "searchFindings.tabVuln.vulnTable.treatmentsTooltip.id"
+                      }
+                      message={t(
+                        "searchFindings.tabVuln.vulnTable.treatmentsTooltip"
+                      )}
+                    >
+                      <Select
+                        defaultValue={treatmentFilter}
+                        onChange={onTreatmentChange}
+                      >
+                        <option value={""}>
+                          {t("searchFindings.tabVuln.vulnTable.treatments")}
+                        </option>
+                        <option value={"NEW"}>
+                          {t("searchFindings.tabDescription.treatment.new")}
+                        </option>
+                        <option value={"IN_PROGRESS"}>
+                          {t(
+                            "searchFindings.tabDescription.treatment.inProgress"
+                          )}
+                        </option>
+                        <option value={"ACCEPTED"}>
+                          {t(
+                            "searchFindings.tabDescription.treatment.accepted"
+                          )}
+                        </option>
+                        <option value={"ACCEPTED_UNDEFINED"}>
+                          {t(
+                            "searchFindings.tabDescription.treatment.acceptedUndefined"
+                          )}
+                        </option>
+                      </Select>
+                    </TooltipWrapper>
+                  </SelectContainer>
+                  <SelectContainer>
+                    <TooltipWrapper
+                      id={
+                        "searchFindings.tabVuln.vulnTable.reattacksTooltip.id"
+                      }
+                      message={t(
+                        "searchFindings.tabVuln.vulnTable.reattacksTooltip"
+                      )}
+                    >
+                      <Select
+                        defaultValue={verificationFilter}
+                        onChange={onVerificationChange}
+                      >
+                        <option value={""}>
+                          {t("searchFindings.tabVuln.vulnTable.reattacks")}
+                        </option>
+                        <option value={"Requested"}>
+                          {t("searchFindings.tabVuln.requested")}
+                        </option>
+                        <option value={"Verified"}>
+                          {t("searchFindings.tabVuln.verified")}
+                        </option>
+                      </Select>
+                    </TooltipWrapper>
+                  </SelectContainer>
+                  <SelectContainer>
+                    <TooltipWrapper
+                      id={"searchFindings.tabVuln.statusTooltip.id"}
+                      message={t("searchFindings.tabVuln.statusTooltip")}
+                    >
+                      <Select
+                        defaultValue={currentStatusFilter}
+                        onChange={onStatusChange}
+                      >
+                        <option value={""}>
+                          {t("searchFindings.tabVuln.status")}
+                        </option>
+                        <option value={"open"}>
+                          {t("searchFindings.tabVuln.open")}
+                        </option>
+                        <option value={"closed"}>
+                          {t("searchFindings.tabVuln.closed")}
+                        </option>
+                      </Select>
+                    </TooltipWrapper>
+                  </SelectContainer>
+                  <SelectContainer>
+                    <TooltipWrapper
+                      id={"searchFindings.tabVuln.treatmentStatus.id"}
+                      message={t("searchFindings.tabVuln.treatmentStatus")}
+                    >
+                      <Select
+                        defaultValue={treatmentCurrentStatusFilter}
+                        onChange={onTreatmentStatusChange}
+                      >
+                        <option value={""}>{"Treatment Acceptation"}</option>
+                        <option value={"true"}>{"Pending"}</option>
+                        <option value={"false"}>{"Accepted"}</option>
+                      </Select>
+                    </TooltipWrapper>
+                  </SelectContainer>
+                  <SelectContainer>
+                    <TooltipWrapper
+                      id={"searchFindings.tabVuln.tagTooltip.id"}
+                      message={t("searchFindings.tabVuln.tagTooltip")}
+                    >
+                      <SearchText
+                        defaultValue={tagFilter}
+                        onChange={onTagChange}
+                        placeholder={t("searchFindings.tabVuln.searchTag")}
+                      />
+                    </TooltipWrapper>
+                  </SelectContainer>
+                </Filters>
+              </React.Fragment>
+            ) : undefined}
+
             <div>
               <VulnComponent
                 canDisplayAnalyst={canRetrieveAnalyst}

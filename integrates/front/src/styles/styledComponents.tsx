@@ -123,6 +123,15 @@ const Col50: StyledComponent<
   className: "ph1-5 w-50-ns",
 })``;
 
+const Col50Ph: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "w-50-ns",
+})``;
+
 const Col60: StyledComponent<
   "div",
   Record<string, unknown>
@@ -571,6 +580,7 @@ export {
   Col40,
   Col45,
   Col50,
+  Col50Ph,
   Col60,
   Col80,
   Col33L,
