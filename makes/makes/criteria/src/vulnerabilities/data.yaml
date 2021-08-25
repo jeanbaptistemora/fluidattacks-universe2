@@ -2466,7 +2466,7 @@
       exploit_code_maturity: "P"
       remediation_level: "O"
       report_confidence: "C"
-  requirements: ["062", "175"]
+  requirements: ["062", "117", "175", "349"]
   metadata: {}
 "044":
   en:
@@ -4233,7 +4233,7 @@
       exploit_code_maturity: "P"
       remediation_level: "O"
       report_confidence: "C"
-  requirements: ["062", "175"]
+  requirements: ["062", "349"]
   metadata: {}
 "072":
   en:
@@ -7362,7 +7362,7 @@
       exploit_code_maturity: "P"
       remediation_level: "O"
       report_confidence: "C"
-  requirements: ["062", "175"]
+  requirements: ["062", "181", "349"]
   metadata:
     en:
       details: >
@@ -7482,7 +7482,7 @@
       exploit_code_maturity: "P"
       remediation_level: "O"
       report_confidence: "C"
-  requirements: ["062", "175"]
+  requirements: ["062", "349"]
   metadata: {}
 "133":
   en:
@@ -7594,7 +7594,7 @@
       exploit_code_maturity: "P"
       remediation_level: "U"
       report_confidence: "C"
-  requirements: ["266"]
+  requirements: ["062", "266", "349"]
   metadata: {}
 "135":
   en:
@@ -7649,7 +7649,7 @@
       exploit_code_maturity: "P"
       remediation_level: "O"
       report_confidence: "R"
-  requirements: ["266"]
+  requirements: ["062", "175", "266", "349"]
   metadata: {}
 "136":
   en:
@@ -7710,7 +7710,7 @@
       exploit_code_maturity: "P"
       remediation_level: "O"
       report_confidence: "R"
-  requirements: ["266"]
+  requirements: ["062", "177", "266", "349"]
   metadata: {}
 "137":
   en:
@@ -7765,7 +7765,7 @@
       exploit_code_maturity: "P"
       remediation_level: "O"
       report_confidence: "R"
-  requirements: ["266"]
+  requirements: ["062" ,"266" ,"349"]
   metadata: {}
 "138":
   en:
@@ -8351,7 +8351,7 @@
       exploit_code_maturity: "P"
       remediation_level: "O"
       report_confidence: "R"
-  requirements: ["266"]
+  requirements: ["062", "175", "266", "349"]
   metadata: {}
 "153":
   en:
@@ -8411,7 +8411,7 @@
       exploit_code_maturity: "U"
       remediation_level: "U"
       report_confidence: "R"
-  requirements: ["266"]
+  requirements: ["062", "266", "349"]
   metadata: {}
 "154":
   en:
@@ -15116,7 +15116,7 @@
       exploit_code_maturity: "P"
       remediation_level: "U"
       report_confidence: "R"
-  requirements: ["266"]
+  requirements: ["062", "266", "349"]
   metadata: {}
 "330":
   en:
