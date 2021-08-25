@@ -11,9 +11,6 @@ from charts import (
 from charts.colors import (
     RISK,
 )
-from collections import (
-    Counter,
-)
 from context import (
     FI_API_STATUS,
 )
@@ -25,6 +22,7 @@ from db_model.findings.types import (
 )
 from typing import (
     cast,
+    Counter,
     List,
     Tuple,
     Union,
@@ -32,7 +30,7 @@ from typing import (
 
 
 @alru_cache(maxsize=None, typed=True)
-async def get_data_one_group(group: str) -> Counter:
+async def get_data_one_group(group: str) -> Counter[str]:
     context = get_new_context()
     if FI_API_STATUS == "migration":
         group_findings_new_loader = context.group_findings_new
@@ -61,7 +59,7 @@ async def get_data_one_group(group: str) -> Counter:
     )
 
 
-async def get_data_many_groups(groups: List[str]) -> Counter:
+async def get_data_many_groups(groups: List[str]) -> Counter[str]:
     groups_data = await collect(map(get_data_one_group, groups))
 
     return sum(groups_data, Counter())
