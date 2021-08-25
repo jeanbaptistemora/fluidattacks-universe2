@@ -3,7 +3,6 @@
 , path
 , ...
 }:
-with packages.observes.env;
 let
   self = path "/observes/common/utils_logger";
 in
@@ -13,14 +12,11 @@ makeTemplate {
     envMypyPaths = [
       self
     ];
-    envPaths = [
-      utils-logger.runtime.python
-    ];
     envPythonPaths = [
       self
     ];
-    envPython38Paths = [
-      utils-logger.runtime.python
+    envSources = [
+      packages.observes.env.utils-logger.runtime.python
     ];
   };
 }
