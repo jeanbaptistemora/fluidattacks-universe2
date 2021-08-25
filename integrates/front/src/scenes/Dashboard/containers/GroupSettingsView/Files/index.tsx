@@ -15,10 +15,11 @@ import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddFilesModal } from "scenes/Dashboard/components/AddFilesModal";
 import { FileOptionsModal } from "scenes/Dashboard/components/FileOptionsModal";
 import {
+  ADD_FILES_TO_DB_MUTATION,
   DOWNLOAD_FILE_MUTATION,
   GET_FILES,
   REMOVE_FILE_MUTATION,
-  UPLOAD_FILE_MUTATION,
+  SIGN_POST_URL_MUTATION,
 } from "scenes/Dashboard/containers/GroupSettingsView/queries";
 import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
@@ -54,6 +55,15 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       setCurrentRow(row);
       setOptionsModalOpen(true);
     };
+
+  const [isButtonEnabled, setButtonEnabled] = useState(false);
+  const disableButton: () => void = useCallback((): void => {
+    setButtonEnabled(true);
+  }, []);
+
+  const enableButton: () => void = useCallback((): void => {
+    setButtonEnabled(false);
+  }, []);
 
   // GraphQL operations
   const { data, refetch } = useQuery(GET_FILES, {
@@ -110,40 +120,35 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     // eslint-disable-next-line react/destructuring-assignment -- In conflict with previous declaration
   }, [closeOptionsModal, currentRow.fileName, props.groupName, removeFile]);
 
-  const [uploadFile, { loading: uploading }] = useMutation(
-    UPLOAD_FILE_MUTATION,
-    {
-      onCompleted: (): void => {
-        void refetch();
-        track("AddGroupFiles");
-        msgSuccess(
-          translate.t("searchFindings.tabResources.success"),
-          translate.t("searchFindings.tabUsers.titleSuccess")
-        );
-      },
-      onError: (filesError: ApolloError): void => {
-        filesError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-          switch (message) {
-            case "Exception - Invalid field in form":
-              msgError(translate.t("validations.invalidValueInField"));
-              break;
-            case "Exception - Invalid characters":
-              msgError(translate.t("validations.invalidChar"));
-              break;
-            case "Exception - File infected":
-              msgError(translate.t("validations.infectedFile"));
-              break;
-            default:
-              msgError(translate.t("groupAlerts.errorTextsad"));
-              Logger.warning(
-                "An error occurred while adding files to the group",
-                filesError
-              );
-          }
-        });
-      },
-    }
-  );
+  const [uploadFile] = useMutation(SIGN_POST_URL_MUTATION, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        Logger.warning("An error occurred uploading group files", error);
+      });
+    },
+    variables: {
+      filesData: JSON.stringify(currentRow.fileName),
+      groupName,
+    },
+  });
+
+  const [addFilesToDb] = useMutation(ADD_FILES_TO_DB_MUTATION, {
+    onCompleted: (): void => {
+      void refetch();
+      track("AddGroupFiles");
+    },
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        Logger.warning("An error occurred adding files to the db", error);
+      });
+    },
+    variables: {
+      filesData: JSON.stringify(currentRow.fileName),
+      groupName,
+    },
+  });
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -153,6 +158,26 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     description: string;
     fileName: string;
     uploadDate: string;
+  }
+
+  interface IAddFiles {
+    signPostUrl: {
+      url: {
+        url: string;
+        fields: {
+          awsaccesskeyid: string;
+          key: string;
+          policy: string;
+          signature: string;
+        };
+      };
+    };
+  }
+
+  interface IAddFilesToDbResults {
+    addFilesToDb: {
+      success: boolean;
+    };
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- DB queries use "any" type
@@ -172,9 +197,9 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
     if (repeatedFiles.length > 0) {
       msgError(translate.t("searchFindings.tabResources.repeatedItem"));
     } else {
-      await uploadFile({
+      disableButton();
+      const results = await uploadFile({
         variables: {
-          file: values.file[0],
           filesData: JSON.stringify([
             {
               description: values.description,
@@ -184,6 +209,61 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
           groupName: props.groupName,
         },
       });
+
+      const { signPostUrl }: IAddFiles = results.data;
+      const { url } = signPostUrl;
+      const { awsaccesskeyid, key, policy, signature } = url.fields;
+
+      const formData = new FormData();
+      formData.append("acl", "private");
+      formData.append("AWSAccessKeyId", awsaccesskeyid);
+      formData.append("key", key);
+      formData.append("policy", policy);
+      formData.append("signature", signature);
+      formData.append("file", values.file[0], values.file[0].name);
+
+      const response = await fetch(url.url, {
+        body: formData,
+        method: "POST",
+      });
+
+      if (response.ok) {
+        const addFilesToDbResults = await addFilesToDb({
+          variables: {
+            filesData: JSON.stringify([
+              {
+                description: values.description,
+                fileName: values.file[0].name,
+              },
+            ]),
+            groupName: props.groupName,
+          },
+        });
+
+        const dbAddResults: IAddFilesToDbResults = addFilesToDbResults.data;
+
+        if (dbAddResults.addFilesToDb.success) {
+          msgSuccess(
+            translate.t("searchFindings.tabResources.success"),
+            translate.t("searchFindings.tabUsers.titleSuccess")
+          );
+        } else {
+          msgError(translate.t("groupAlerts.errorTextsad"));
+          Logger.warning(
+            "An error occurred adding group files to the db",
+            response.json
+          );
+          enableButton();
+        }
+      } else {
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        Logger.warning(
+          "An error occurred uploading group files",
+          response.json
+        );
+        enableButton();
+      }
+      enableButton();
       closeAddModal();
     }
   };
@@ -266,7 +346,7 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       </label>
       <AddFilesModal
         isOpen={isAddModalOpen}
-        isUploading={uploading}
+        isUploading={isButtonEnabled}
         onClose={closeAddModal}
         onSubmit={handleUpload} // eslint-disable-line react/jsx-no-bind -- Unexpected behaviour with no-bind
       />

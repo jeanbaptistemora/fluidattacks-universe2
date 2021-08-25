@@ -91,6 +91,7 @@ const REMOVE_FILE_MUTATION: DocumentNode = gql`
   }
 `;
 
+// Deprecated Use SIGN_POST_URL_MUTATION instead
 const UPLOAD_FILE_MUTATION: DocumentNode = gql`
   mutation UploadFileMutation(
     $file: Upload!
@@ -98,6 +99,31 @@ const UPLOAD_FILE_MUTATION: DocumentNode = gql`
     $groupName: String!
   ) {
     addFiles(file: $file, filesData: $filesData, groupName: $groupName) {
+      success
+    }
+  }
+`;
+
+const SIGN_POST_URL_MUTATION: DocumentNode = gql`
+  mutation SignPostUrlMutation($filesData: JSONString!, $groupName: String!) {
+    signPostUrl(filesData: $filesData, groupName: $groupName) {
+      success
+      url {
+        url
+        fields {
+          key
+          awsaccesskeyid
+          policy
+          signature
+        }
+      }
+    }
+  }
+`;
+
+const ADD_FILES_TO_DB_MUTATION: DocumentNode = gql`
+  mutation addFilesToDbMutation($filesData: JSONString!, $groupName: String!) {
+    addFilesToDb(filesData: $filesData, groupName: $groupName) {
       success
     }
   }
@@ -113,4 +139,6 @@ export {
   DOWNLOAD_FILE_MUTATION,
   REMOVE_FILE_MUTATION,
   UPLOAD_FILE_MUTATION,
+  SIGN_POST_URL_MUTATION,
+  ADD_FILES_TO_DB_MUTATION,
 };
