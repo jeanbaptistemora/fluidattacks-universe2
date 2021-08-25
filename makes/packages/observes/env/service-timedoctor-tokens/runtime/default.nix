@@ -1,9 +1,9 @@
-{ makeTemplate
+{ makes
+, makeTemplate
 , packages
 , path
 , ...
 }:
-with packages.observes.env;
 let
   self = path "/observes/services/timedoctor_tokens";
 in
@@ -15,16 +15,16 @@ makeTemplate {
     ];
     envPaths = [
       packages.observes.bin.update-project-variable
-      service-timedoctor-tokens.runtime.python
     ];
     envPythonPaths = [
       self
     ];
-    envPython38Paths = [
-      service-timedoctor-tokens.runtime.python
-    ];
     envSources = [
-      utils-logger.runtime
+      (makes.makePythonPypiEnvironment {
+        name = "observes-env-service-timedoctor-tokens-runtime";
+        sourcesYaml = ./pypi-sources.yaml;
+      })
+      packages.observes.env.utils-logger.runtime
     ];
   };
 }
