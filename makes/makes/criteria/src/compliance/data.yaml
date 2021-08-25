@@ -818,6 +818,12 @@
     "451":
       title: User Interface (UI) Misrepresentation of Critical Information
       link: https://cwe.mitre.org/data/definitions/451.html
+    "456":
+      title: Missing Initialization of a Variable
+      link: https://cwe.mitre.org/data/definitions/456.html
+    "457":
+      title: Use of Uninitialized Variable
+      link: https://cwe.mitre.org/data/definitions/457.html
     "459":
       title: Incomplete Cleanup
       link: https://cwe.mitre.org/data/definitions/459.html

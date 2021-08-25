@@ -3593,7 +3593,9 @@
       estar explícitamente inicializadas.
     description: __empty__
   category: Source
-  references: []
+  references:
+    - "004.456"
+    - "004.457"
   metadata: {}
 "169":
   en:
