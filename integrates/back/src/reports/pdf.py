@@ -440,6 +440,77 @@ def make_vuln_table(
     return {"resume": vuln_table, "top": top_table, "num_reg": ttl_num_reg}
 
 
+def make_vuln_table_new(
+    context_findings: Tuple[PdfFindingInfo, ...], words: Dict[str, str]
+) -> VulnTable:
+    """Label findings percent quantity."""
+    vuln_table: List[List[Union[float, int, str]]] = [
+        [words["vuln_c"], 0, 0, 0],
+        [words["vuln_h"], 0, 0, 0],
+        [words["vuln_m"], 0, 0, 0],
+        [words["vuln_l"], 0, 0, 0],
+        ["Total", len(context_findings), "100.00%", 0],
+    ]
+    top_table: List[List[Union[int, str]]] = []
+    ttl_vulns, ttl_num_reg, top = 0, 0, 1
+    for finding in context_findings:
+        crit_as_text = words["crit_l"]
+        vuln_amount = finding.open_vulnerabilities
+        ttl_vulns += vuln_amount
+        if 9.0 <= finding.severity_score <= 10.0:
+            vuln_table[0][1] = int(vuln_table[0][1]) + 1
+            vuln_table[0][3] = int(vuln_table[0][3]) + vuln_amount
+            crit_as_text = words["crit_c"]
+        elif 7.0 <= finding.severity_score <= 8.9:
+            vuln_table[1][1] = int(vuln_table[1][1]) + 1
+            vuln_table[1][3] = int(vuln_table[1][3]) + vuln_amount
+            crit_as_text = words["crit_h"]
+        elif 4.0 <= finding.severity_score <= 6.9:
+            vuln_table[2][1] = int(vuln_table[2][1]) + 1
+            vuln_table[2][3] = int(vuln_table[2][3]) + vuln_amount
+            crit_as_text = words["crit_m"]
+        else:
+            vuln_table[3][1] = int(vuln_table[3][1]) + 1
+            vuln_table[3][3] = int(vuln_table[3][3]) + vuln_amount
+        ttl_num_reg += finding.compromised_records
+        if top <= 5:
+            top_table.append(
+                [
+                    top,
+                    f"{str(finding.severity_score)} {crit_as_text}",
+                    finding.title,
+                ]
+            )
+            top += 1
+    number_of_findings = float(len(context_findings))
+    vuln_table[0][2] = float(
+        int(vuln_table[0][1]) * 100 / number_of_findings
+        if number_of_findings != 0
+        else 0.0
+    )
+    vuln_table[1][2] = float(
+        int(vuln_table[1][1]) * 100 / number_of_findings
+        if number_of_findings != 0
+        else 0.0
+    )
+    vuln_table[2][2] = float(
+        int(vuln_table[2][1]) * 100 / number_of_findings
+        if number_of_findings != 0
+        else 0.0
+    )
+    vuln_table[3][2] = float(
+        int(vuln_table[3][1]) * 100 / number_of_findings
+        if number_of_findings != 0
+        else 0.0
+    )
+    vuln_table[0][2] = "{0:.2f}%".format(float(vuln_table[0][2]))
+    vuln_table[1][2] = "{0:.2f}%".format(float(vuln_table[1][2]))
+    vuln_table[2][2] = "{0:.2f}%".format(float(vuln_table[2][2]))
+    vuln_table[3][2] = "{0:.2f}%".format(float(vuln_table[3][2]))
+    vuln_table[4][3] = ttl_vulns
+    return {"resume": vuln_table, "top": top_table, "num_reg": ttl_num_reg}
+
+
 # pylint: disable=too-many-instance-attributes
 class CreatorPDF:
     """Class to generate reports in PDF."""
