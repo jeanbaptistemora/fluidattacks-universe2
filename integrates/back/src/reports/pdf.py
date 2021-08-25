@@ -795,7 +795,7 @@ class CreatorPdfNew:
         self.tpl_dir = self.path + self.tpl_dir
         self.style_dir = self.path + self.style_dir
         if self.doctype == "tech":
-            self.proj_tpl = "templates/pdf/tech.adoc"
+            self.proj_tpl = "templates/pdf/tech_new.adoc"
 
         importlib.reload(sys)
         self.lang_support()
