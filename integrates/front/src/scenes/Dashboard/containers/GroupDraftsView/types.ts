@@ -107,6 +107,5 @@ export {
   IGroupDraftsAttr,
   ISuggestion,
   IRequirementData,
-  IRequirementLanguage,
   IVulnData,
 };
