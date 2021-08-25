@@ -8,8 +8,8 @@ backup from F!_findings table is used for old findings.
 Related issue:
 https://gitlab.com/fluidattacks/product/-/issues/4903
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-08-25 at 15:47:47 UTC-05
+Finalization Time: 2021-08-25 at 15:48:29 UTC-05
 """
 
 from aiodataloader import (
@@ -45,7 +45,7 @@ from typing import (
     Dict,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 BACKUP_NAME: str = "backup_findings_aug_18"
 TABLE_NAME: str = "FI_findings"
