@@ -115,9 +115,7 @@ observes.env.tap-checkly.development
 observes.env.tap-checkly.runtime
 observes.env.tap-checkly.runtime.python
 observes.env.tap-csv.development
-observes.env.tap-csv.development.python
 observes.env.tap-csv.runtime
-observes.env.tap-csv.runtime.python
 observes.env.tap-delighted.development
 observes.env.tap-delighted.runtime
 observes.env.tap-formstack.runtime

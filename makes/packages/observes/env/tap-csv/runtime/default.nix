@@ -1,9 +1,9 @@
 { makeTemplate
+, nixpkgs
 , packages
 , path
 , ...
 }:
-with packages.observes.env;
 let
   self = path "/observes/singer/tap_csv";
 in
@@ -14,16 +14,16 @@ makeTemplate {
       self
     ];
     envPaths = [
-      tap-csv.runtime.python
+      nixpkgs.python38Packages.click
     ];
     envPythonPaths = [
       self
     ];
     envPython38Paths = [
-      tap-csv.runtime.python
+      nixpkgs.python38Packages.click
     ];
     envSources = [
-      singer-io.runtime
+      packages.observes.env.singer-io.runtime
     ];
   };
 }
