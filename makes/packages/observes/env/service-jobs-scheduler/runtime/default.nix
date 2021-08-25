@@ -1,4 +1,5 @@
-{ makeTemplate
+{ makes
+, makeTemplate
 , packages
 , path
 , ...
@@ -14,7 +15,6 @@ makeTemplate {
       self
     ];
     envPaths = [
-      env.service-jobs-scheduler.runtime.python
       job.batch-stability
       scheduled.on-aws.bugsnag-etl
       scheduled.on-aws.checkly-etl
@@ -33,10 +33,11 @@ makeTemplate {
     envPythonPaths = [
       self
     ];
-    envPython38Paths = [
-      env.service-jobs-scheduler.runtime.python
-    ];
     envSources = [
+      (makes.makePythonPypiEnvironment {
+        name = "observes-env-service-jobs-scheduler-runtime";
+        sourcesYaml = ./pypi-sources.yaml;
+      })
       env.utils-logger.runtime
     ];
   };
