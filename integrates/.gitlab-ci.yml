@@ -96,7 +96,7 @@ integrates.charts.documents-prod-schedule:
   only:
     refs: [schedules]
     variables: [$integrates_charts_make_documents_prod_schedule]
-  parallel: 13
+  parallel: 14
   script: [./m integrates.charts.documents prod]
 
 integrates.charts.lint:
