@@ -1,9 +1,9 @@
-{ makeTemplate
+{ makes
+, makeTemplate
 , packages
 , path
 , ...
 }:
-with packages.observes.env;
 let
   self = path "/observes/singer/streamer_zoho_crm";
 in
@@ -13,19 +13,17 @@ makeTemplate {
     envMypyPaths = [
       self
     ];
-    envPaths = [
-      streamer-zoho-crm.runtime.python
-    ];
     envPythonPaths = [
       self
     ];
-    envPython38Paths = [
-      streamer-zoho-crm.runtime.python
-    ];
     envSources = [
-      postgres-client.runtime
-      singer-io.runtime
-      utils-logger.runtime
+      (makes.makePythonPypiEnvironment {
+        name = "observes-env-streamer-zoho-crm-runtime";
+        sourcesYaml = ./pypi-sources.yaml;
+      })
+      packages.observes.env.postgres-client.runtime
+      packages.observes.env.singer-io.runtime
+      packages.observes.env.utils-logger.runtime
     ];
   };
 }
