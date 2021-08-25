@@ -128,7 +128,6 @@ observes.env.tap-git.runtime.python
 observes.env.tap-gitlab.development
 observes.env.tap-gitlab.development.python
 observes.env.tap-gitlab.runtime
-observes.env.tap-gitlab.runtime.python
 observes.env.tap-json.development
 observes.env.tap-json.runtime
 observes.env.tap-mailchimp.development

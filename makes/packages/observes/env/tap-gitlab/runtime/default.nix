@@ -1,29 +1,24 @@
-{ makeTemplate
+{ makes
+, makeTemplate
 , packages
 , path
 , ...
 }:
-with packages.observes.env;
-let
-  self = path "/observes/singer/tap_gitlab";
-in
 makeTemplate {
   name = "observes-env-tap-gitlab-runtime";
   searchPaths = {
-    envPaths = [
-      tap-gitlab.runtime.python
-    ];
     envPythonPaths = [
-      self
-    ];
-    envPython38Paths = [
-      tap-gitlab.runtime.python
+      (path "/observes/singer/tap_gitlab")
     ];
     envSources = [
-      paginator.runtime
-      postgres-client.runtime
-      singer-io.runtime
-      utils-logger.runtime
+      (makes.makePythonPypiEnvironment {
+        name = "observes-env-tap-gitlab-runtime";
+        sourcesYaml = ./pypi-sources.yaml;
+      })
+      packages.observes.env.paginator.runtime
+      packages.observes.env.postgres-client.runtime
+      packages.observes.env.singer-io.runtime
+      packages.observes.env.utils-logger.runtime
     ];
   };
 }
