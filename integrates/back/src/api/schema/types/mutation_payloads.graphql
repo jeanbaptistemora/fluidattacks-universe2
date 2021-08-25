@@ -1,12 +1,12 @@
 "Generic Payload interface definition"
 interface Payload {
-  "Was the query successful?"
+  "Did the query succeed?"
   success: Boolean!
 }
 
 "Simple Payload type definition"
 type SimplePayload implements Payload {
-  "Was the query successful?"
+  "Did the query succeed?"
   success: Boolean!
 }
 
@@ -14,7 +14,7 @@ type SimplePayload implements Payload {
 type AddOrganizationPayload implements Payload {
   "Newly added Organization"
   organization: Organization
-  "Was the query successful?"
+  "Did the query succeed?"
   success: Boolean!
 }
 
@@ -22,13 +22,13 @@ type AddOrganizationPayload implements Payload {
 type UpdateAccessTokenPayload implements Payload {
   "New API access token"
   sessionJwt: String
-  "Was the query successful?"
+  "Did the query succeed?"
   success: Boolean!
 }
 
 "Download file Payload type definition"
 type DownloadFilePayload implements Payload {
-  "Was the query successful?"
+  "Did the query succeed?"
   success: Boolean!
   "URL to the file"
   url: String
@@ -38,7 +38,7 @@ type DownloadFilePayload implements Payload {
 type GrantStakeholderAccessPayload implements Payload {
   "New Organization/Group Stakeholder"
   grantedStakeholder: Stakeholder
-  "Was the query successful?"
+  "Did the query succeed?"
   success: Boolean!
 }
 
@@ -46,7 +46,7 @@ type GrantStakeholderAccessPayload implements Payload {
 type RemoveStakeholderAccessPayload implements Payload {
   "Email address of the former Stakeholder"
   removedEmail: String
-  "Was the query successful?"
+  "Did the query succeed?"
   success: Boolean!
 }
 
@@ -54,7 +54,7 @@ type RemoveStakeholderAccessPayload implements Payload {
 type UpdateStakeholderPayload implements Payload {
   "Modified Organization/Group Stakeholder"
   modifiedStakeholder: Stakeholder
-  "Was the query successful?"
+  "Did the query succeed?"
   success: Boolean!
 }
 
@@ -62,7 +62,7 @@ type UpdateStakeholderPayload implements Payload {
 type AddStakeholderPayload implements Payload {
   "Email address of the potential new Stakeholder"
   email: String
-  "Was the query successful?"
+  "Did the query succeed?"
   success: Boolean!
 }
 
@@ -70,7 +70,7 @@ type AddStakeholderPayload implements Payload {
 type SimpleFindingPayload implements Payload {
   "Updated Finding"
   finding: Finding
-  "Was the query successful?"
+  "Did the query succeed?"
   success: Boolean!
 }
 
@@ -78,55 +78,60 @@ type SimpleFindingPayload implements Payload {
 type AddConsultPayload implements Payload {
   "Identifier of the new comment"
   commentId: String
-  "Was the query successful?"
+  "Did the query succeed?"
   success: Boolean!
 }
 
 "Approve draft Payload type definition"
 type ApproveDraftPayload implements Payload {
+  "Date of Approval"
   releaseDate: String
-  "Was the query successful?"
+  "Did the query succeed?"
   success: Boolean!
 }
 
 "Approve draft Payload type definition"
 type SimpleGroupPayload implements Payload {
+  "Updated Group"
   group: Group
-  "Was the query successful?"
+  "Did the query succeed?"
   success: Boolean!
 }
 
 "Sign in Payload type definition"
 type SignInPayload implements Payload {
+  "Front API access token"
   sessionJwt: String
-  "Was the query successful?"
-  success: Boolean!
-}
-
-"Execute skims Payload type definition"
-type ExecuteSkimsPayload implements Payload {
-  pipelineUrl: String
-  "Was the query successful?"
+  "Did the query succeed?"
   success: Boolean!
 }
 
 "Sign post URLs Payload Payload type definition"
 type SignPostUrlsPayload implements Payload {
-  "Was the query successful?"
+  "Did the query succeed?"
   success: Boolean!
+  "Metadata of the newly uploaded file"
   url: SignedUrlObject!
 }
 
 "Signed URL object Payload type definition"
 type SignedUrlObject {
+  "Signed URL metadata"
   fields: SignedFieldsObject!
+  "Signed URL"
   url: String!
 }
 
-"Signed fields object Payload type definition"
+"""Signed fields object Payload type definition, for more information about
+this type feel free to check the relevant
+[AWS docs](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-signed-urls.html)"""
 type SignedFieldsObject {
+  "AWS Access key identifier"
   awsaccesskeyid: String!
+  "Key"
   key: String!
+  "Access control policy"
   policy: String!
+  "Signature"
   signature: String!
 }

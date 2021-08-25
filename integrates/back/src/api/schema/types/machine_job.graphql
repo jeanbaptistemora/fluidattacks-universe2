@@ -1,15 +1,23 @@
 """MachineJob type definition"""
 type MachineJob {
+  "Unix timestamp of the job creation"
   createdAt: String
+  "Machine exit code"
   exitCode: Int
+  "Machine test failure reason"
   exitReason: String
-  "Identifier of the Machine check"
+  "Identifier of the Machine job"
   id: String!
+  "Job name"
   name: String!
+  "Queue in which Machine was executed"
   queue: String!
   "Nickname of the root where Machine was run"
   rootNickname: String!
+  "Starting time of the job"
   startedAt: String
+  "Status of the job"
   status: String!
+  "Stopping time of the job"
   stoppedAt: String
 }
