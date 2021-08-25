@@ -31,7 +31,6 @@ const GroupInformation: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
-  const [currentRow, setCurrentRow] = useState<Dictionary<string>>({});
   const [isGroupSettingsModalOpen, setGroupSettingsModalOpen] = useState(false);
   const openEditGroupInformationModal: () => void = useCallback((): void => {
     setGroupSettingsModalOpen(true);
@@ -39,6 +38,28 @@ const GroupInformation: React.FC = (): JSX.Element => {
   const closeEditGroupInformationModal: () => void = useCallback((): void => {
     setGroupSettingsModalOpen(false);
   }, []);
+
+  const formatDataSet: (
+    attributes: {
+      attribute: string;
+      value: string;
+    }[]
+  ) => Record<string, string> = (
+    attributes: {
+      attribute: string;
+      value: string;
+    }[]
+  ): Record<string, string> => {
+    return attributes.reduce(
+      // Type specification not necessary
+      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+      (acc, cur) => ({
+        ...acc,
+        [cur.attribute.toLocaleLowerCase()]: cur.value,
+      }),
+      {}
+    );
+  };
 
   const { data } = useQuery(GET_GROUP_DATA, {
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -100,8 +121,10 @@ const GroupInformation: React.FC = (): JSX.Element => {
                   )}
                 >
                   <Button
-                    disabled={_.isEmpty(currentRow)}
-                    id={"editUser"}
+                    disabled={permissions.cannot(
+                      "api_mutations_update_group_mutate"
+                    )}
+                    id={"editGroup"}
                     onClick={openEditGroupInformationModal}
                   >
                     <FluidIcon icon={"edit"} />
@@ -121,19 +144,13 @@ const GroupInformation: React.FC = (): JSX.Element => {
           id={"tblGroupInfo"}
           pageSize={10}
           search={false}
-          selectionMode={{
-            clickToSelect: true,
-            hideSelectColumn: permissions.cannot(
-              "api_mutations_update_group_mutate"
-            ),
-            mode: "radio",
-            onSelect: setCurrentRow,
-          }}
           striped={true}
         />
         <EditGroupInformationModal
+          initialValues={formatDataSet(attributesDataset)}
           isOpen={isGroupSettingsModalOpen}
           onClose={closeEditGroupInformationModal}
+          onSubmit={closeEditGroupInformationModal}
         />
       </LastGroupSetting>
     </React.StrictMode>

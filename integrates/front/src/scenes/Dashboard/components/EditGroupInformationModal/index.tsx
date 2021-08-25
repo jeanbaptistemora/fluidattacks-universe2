@@ -1,16 +1,37 @@
+import { Field, Form, Formik } from "formik";
 import React from "react";
+import type { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import type { IEditGroupInformation } from "scenes/Dashboard/components/EditGroupInformationModal/types";
-import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
+import {
+  ButtonToolbar,
+  Col100,
+  ControlLabel,
+  FormGroup,
+  Row,
+} from "styles/styledComponents";
+import { FormikDropdown, FormikText } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
+import {
+  composeValidators,
+  maxLength,
+  required,
+  validTextField,
+} from "utils/validations";
+
+const MAX_DESCRIPTION_LENGTH: number = 200;
+
+const maxDescriptionLength: ConfigurableValidator = maxLength(
+  MAX_DESCRIPTION_LENGTH
+);
 
 const EditGroupInformationModal: React.FC<IEditGroupInformation> = (
   props: IEditGroupInformation
 ): JSX.Element => {
-  const { isOpen, onClose } = props;
-  const tempText: string = "This function will be available soon";
+  const { initialValues, isOpen, onClose, onSubmit } = props;
 
   return (
     <React.StrictMode>
@@ -21,7 +42,76 @@ const EditGroupInformationModal: React.FC<IEditGroupInformation> = (
         onEsc={onClose}
         open={isOpen}
       >
-        {tempText}
+        <Formik
+          enableReinitialize={true}
+          initialValues={initialValues}
+          name={"editGroupInformation"}
+          onSubmit={onSubmit}
+        >
+          <Form>
+            <Row>
+              <Col100>
+                <FormGroup>
+                  <ControlLabel>
+                    {translate.t(
+                      "organization.tabs.groups.newGroup.description.text"
+                    )}
+                  </ControlLabel>
+                  <TooltipWrapper
+                    id={"organization.tabs.groups.newGroup.description.tooltip"}
+                    message={translate.t(
+                      "organization.tabs.groups.newGroup.description.tooltip"
+                    )}
+                    placement={"top"}
+                  >
+                    <FormGroup>
+                      <Field
+                        component={FormikText}
+                        id={"add-group-description"}
+                        name={"description"}
+                        type={"text"}
+                        validate={composeValidators([
+                          required,
+                          maxDescriptionLength,
+                          validTextField,
+                        ])}
+                      />
+                    </FormGroup>
+                  </TooltipWrapper>
+                </FormGroup>
+                <FormGroup>
+                  <ControlLabel>
+                    {translate.t(
+                      "organization.tabs.groups.newGroup.language.text"
+                    )}
+                  </ControlLabel>
+                  <TooltipWrapper
+                    id={"organization.tabs.groups.newGroup.language.tooltip"}
+                    message={translate.t(
+                      "organization.tabs.groups.newGroup.language.tooltip"
+                    )}
+                    placement={"top"}
+                  >
+                    <FormGroup>
+                      <Field component={FormikDropdown} name={"language"}>
+                        <option value={"EN"}>
+                          {translate.t(
+                            "organization.tabs.groups.newGroup.language.EN"
+                          )}
+                        </option>
+                        <option value={"ES"}>
+                          {translate.t(
+                            "organization.tabs.groups.newGroup.language.ES"
+                          )}
+                        </option>
+                      </Field>
+                    </FormGroup>
+                  </TooltipWrapper>
+                </FormGroup>
+              </Col100>
+            </Row>
+          </Form>
+        </Formik>
         <Row>
           <Col100>
             <ButtonToolbar>
