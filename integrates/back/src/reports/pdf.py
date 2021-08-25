@@ -91,6 +91,7 @@ Context = TypedDict(  # pylint: disable=invalid-name
         "main_pie_filename": str,
         "main_tables": VulnTable,
         "findings": List[Dict[str, FindingType]],
+        "findings_new": Tuple[PdfFindingInfo, ...],
         "accessVector": Optional[str],
         "finding_title": str,
         "finding_section_title": str,
@@ -623,6 +624,7 @@ class CreatorPDF:
             "main_pie_filename": main_pie_filename,
             "main_tables": main_tables,
             "findings": findings,
+            "findings_new": tuple(),
             "accessVector": access_vector,
             # Titulos segun lenguaje
             "finding_title": words["finding_title"],
