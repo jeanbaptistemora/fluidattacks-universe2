@@ -1,9 +1,8 @@
 { makeTemplate
+, nixpkgs
 , path
-, packages
 , ...
 }:
-with packages.observes.env;
 let
   self = path "/observes/singer/tap_zoho_analytics";
 in
@@ -14,13 +13,13 @@ makeTemplate {
       self
     ];
     envPaths = [
-      tap-zoho-analytics.runtime.python
+      nixpkgs.python38Packages.requests
     ];
     envPythonPaths = [
       self
     ];
     envPython38Paths = [
-      tap-zoho-analytics.runtime.python
+      nixpkgs.python38Packages.requests
     ];
   };
 }

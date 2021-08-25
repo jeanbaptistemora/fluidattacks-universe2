@@ -143,7 +143,6 @@ observes.env.tap-mixpanel.runtime.python
 observes.env.tap-timedoctor.runtime
 observes.env.tap-toe-files.runtime
 observes.env.tap-zoho-analytics.runtime
-observes.env.tap-zoho-analytics.runtime.python
 observes.env.target-redshift.runtime
 observes.env.target-redshift.runtime.python
 observes.env.utils-logger.runtime
