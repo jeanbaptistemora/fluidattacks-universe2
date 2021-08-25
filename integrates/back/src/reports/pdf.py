@@ -1,3 +1,5 @@
+# pylint: disable=too-many-lines
+
 from .typing import (
     PdfFindingInfo,
     PDFWordlistEn,
@@ -976,3 +978,31 @@ class CreatorPdfNew:
         clf()
         close("all")
         return pie_filename
+
+    async def tech(  # noqa pylint: disable=too-many-arguments
+        self,
+        findings: Tuple[Finding, ...],
+        finding_evidences_set: Dict[str, List[Dict[str, str]]],
+        group: str,
+        description: str,
+        user: str,
+        loaders: Any,
+    ) -> None:
+        """Create the template to render and apply the context."""
+        await self.fill_group(
+            findings, finding_evidences_set, group, description, user, loaders
+        )
+        self.out_name = f"{str(uuid.uuid4())}.pdf"
+        searchpath = self.path
+        template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
+        template_env = jinja2.Environment(
+            loader=template_loader,
+            autoescape=select_autoescape(["html", "xml"], default=True),
+        )
+        template = template_env.get_template(self.proj_tpl)
+        tpl_name = f"{self.tpl_dir}{group}_IT.tpl"
+        render_text = template.render(self.context)
+        with open(tpl_name, "wb") as tplfile:
+            tplfile.write(render_text.encode("utf-8"))
+        self.create_command(tpl_name)
+        subprocess.call(self.command, shell=True)
