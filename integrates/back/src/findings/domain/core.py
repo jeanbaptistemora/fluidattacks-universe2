@@ -416,23 +416,18 @@ async def get_last_closed_vulnerability_info(
     vulns = await finding_vulns_loader.load_many_chained(
         [str(finding["finding_id"]) for finding in validated_findings]
     )
-    are_vuln_closed = await collect(
-        [
-            in_process(vulns_utils.is_vulnerability_closed, vuln)
-            for vuln in vulns
-        ]
-    )
+    are_vuln_closed = [
+        vulns_utils.is_vulnerability_closed(vuln) for vuln in vulns
+    ]
     closed_vulnerabilities = [
         vuln
         for vuln, is_vuln_closed in zip(vulns, are_vuln_closed)
         if is_vuln_closed
     ]
-    closing_vuln_dates = await collect(
-        [
-            in_process(vulns_utils.get_last_closing_date, vuln)
-            for vuln in closed_vulnerabilities
-        ]
-    )
+    closing_vuln_dates = [
+        vulns_utils.get_last_closing_date(vuln)
+        for vuln in closed_vulnerabilities
+    ]
     if closing_vuln_dates:
         current_date, date_index = max(
             (v, i) for i, v in enumerate(closing_vuln_dates)
@@ -458,23 +453,18 @@ async def get_last_closed_vulnerability_info_new(
         finding.id for finding in findings if not is_deleted_new(finding)
     ]
     vulns = await finding_vulns_loader.load_many_chained(valid_findings_ids)
-    are_vuln_closed = await collect(
-        [
-            in_process(vulns_utils.is_vulnerability_closed, vuln)
-            for vuln in vulns
-        ]
-    )
+    are_vuln_closed = [
+        vulns_utils.is_vulnerability_closed(vuln) for vuln in vulns
+    ]
     closed_vulnerabilities = [
         vuln
         for vuln, is_vuln_closed in zip(vulns, are_vuln_closed)
         if is_vuln_closed
     ]
-    closing_vuln_dates = await collect(
-        [
-            in_process(vulns_utils.get_last_closing_date, vuln)
-            for vuln in closed_vulnerabilities
-        ]
-    )
+    closing_vuln_dates = [
+        vulns_utils.get_last_closing_date(vuln)
+        for vuln in closed_vulnerabilities
+    ]
     if closing_vuln_dates:
         current_date, date_index = max(
             (v, i) for i, v in enumerate(closing_vuln_dates)

@@ -926,9 +926,7 @@ async def get_mean_remediate(
     vulns = await finding_vulns_loaders.load_many_chained(
         [str(finding["finding_id"]) for finding in group_findings]
     )
-    return await vulns_utils.get_mean_remediate_vulnerabilities(
-        vulns, min_date
-    )
+    return vulns_utils.get_mean_remediate_vulnerabilities(vulns, min_date)
 
 
 async def get_mean_remediate_new(
@@ -945,9 +943,7 @@ async def get_mean_remediate_new(
     vulns = await finding_vulns_loaders.load_many_chained(
         [finding.id for finding in group_findings]
     )
-    return await vulns_utils.get_mean_remediate_vulnerabilities(
-        vulns, min_date
-    )
+    return vulns_utils.get_mean_remediate_vulnerabilities(vulns, min_date)
 
 
 async def get_mean_remediate_non_treated(
@@ -961,7 +957,7 @@ async def get_mean_remediate_non_treated(
         all_vulnerabilities
     )
 
-    return await vulns_utils.get_mean_remediate_vulnerabilities(
+    return vulns_utils.get_mean_remediate_vulnerabilities(
         [
             vuln
             for vuln in vulnerabilities
@@ -984,7 +980,7 @@ async def get_mean_remediate_non_treated_new(
         all_vulnerabilities
     )
 
-    return await vulns_utils.get_mean_remediate_vulnerabilities(
+    return vulns_utils.get_mean_remediate_vulnerabilities(
         [
             vuln
             for vuln in vulnerabilities
@@ -1018,7 +1014,7 @@ async def get_mean_remediate_severity(
     findings_vulns = await finding_vulns_loader.load_many_chained(
         group_findings_ids
     )
-    return await vulns_utils.get_mean_remediate_vulnerabilities(
+    return vulns_utils.get_mean_remediate_vulnerabilities(
         findings_vulns, min_date
     )
 
@@ -1049,7 +1045,7 @@ async def get_mean_remediate_severity_new(
     findings_vulns = await finding_vulns_loader.load_many_chained(
         group_findings_ids
     )
-    return await vulns_utils.get_mean_remediate_vulnerabilities(
+    return vulns_utils.get_mean_remediate_vulnerabilities(
         findings_vulns, min_date
     )
 

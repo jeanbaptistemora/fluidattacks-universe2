@@ -227,22 +227,21 @@ def get_last_status(vuln: Dict[str, FindingType]) -> str:
     return historic_state[-1].get("state", "")
 
 
-async def get_mean_remediate_vulnerabilities(
+def get_mean_remediate_vulnerabilities(
     vulns: List[Dict[str, FindingType]], min_date: Optional[datetype] = None
 ) -> Decimal:
     """Get mean time to remediate a vulnerability."""
     total_vuln = 0
     total_days = 0
-    open_vuln_dates = await collect(
-        in_process(get_open_vulnerability_date, vuln, min_date)
-        for vuln in vulns
-    )
+    open_vuln_dates = [
+        get_open_vulnerability_date(vuln, min_date) for vuln in vulns
+    ]
     filtered_open_vuln_dates = [vuln for vuln in open_vuln_dates if vuln]
-    closed_vuln_dates = await collect(
-        in_process(get_last_closing_date, vuln, min_date)
+    closed_vuln_dates = [
+        get_last_closing_date(vuln, min_date)
         for vuln, open_vuln in zip(vulns, open_vuln_dates)
         if open_vuln
-    )
+    ]
     for index, closed_vuln_date in enumerate(closed_vuln_dates):
         if closed_vuln_date:
             total_days += int(

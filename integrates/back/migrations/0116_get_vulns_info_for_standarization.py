@@ -39,6 +39,7 @@ from typing import (
 )
 
 PROD: bool = False
+TITLE_TO_MATCH: str = "HTTP headers"
 
 
 def _get_zero_risk_status(vuln: Dict[str, VulnerabilityType]) -> str:
@@ -76,7 +77,6 @@ async def process_group(
     context: Any,
     group_name: str,
 ) -> List[Dict[str, str]]:
-    TITLE_TO_MATCH: str = "HTTP headers"
     group_findings_loader = context.group_findings
     findings = await group_findings_loader.load(group_name)
     filtered = [

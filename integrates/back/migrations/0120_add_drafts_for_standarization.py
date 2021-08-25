@@ -269,7 +269,7 @@ async def _add_draft(
     if "type" in draft_data:
         draft_data["finding_type"] = draft_data.pop("type")
 
-    finding_attrs = draft_data.copy()
+    finding_attrs: Dict[str, Any] = draft_data.copy()
     finding_attrs.update(
         {
             "analyst": analyst_email,
