@@ -1,4 +1,5 @@
-{ makeTemplate
+{ makes
+, makeTemplate
 , nixpkgs
 , packages
 , path
@@ -16,15 +17,16 @@ makeTemplate {
     ];
     envPaths = [
       nixpkgs.postgresql
-      postgres-client.runtime.python
     ];
     envPythonPaths = [
       self
     ];
-    envPython38Paths = [
-      postgres-client.runtime.python
-    ];
     envSources = [
+      (makes.makePythonPypiEnvironment {
+        name = "observes-env-postgres-client-development";
+        searchPaths.bin = [ nixpkgs.gcc nixpkgs.postgresql ];
+        sourcesYaml = ./pypi-sources.yaml;
+      })
       utils-logger.runtime
     ];
   };
