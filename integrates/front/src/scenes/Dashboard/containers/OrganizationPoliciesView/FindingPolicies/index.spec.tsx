@@ -71,7 +71,13 @@ mockedFetch.mock(`${baseUrl}/${requirementsFileId}/raw?ref=${branchRef}`, {
       category: "",
       en: {
         description: "",
-        summary: "",
+        summary: `
+          The source code
+          must have secure default options
+          ensuring secure failures
+          in the application
+          (try, catch/except; default for switches).
+        `,
         title: "Define secure default options",
       },
       references: [],
@@ -80,7 +86,11 @@ mockedFetch.mock(`${baseUrl}/${requirementsFileId}/raw?ref=${branchRef}`, {
       category: "",
       en: {
         description: "",
-        summary: "",
+        summary: `
+          The system should use
+          typified exceptions instead of
+          generic exceptions.
+        `,
         title: "Avoid using generic exceptions",
       },
       references: [],

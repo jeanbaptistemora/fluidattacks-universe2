@@ -62,7 +62,13 @@ mockedFetch.mock(`${baseUrl}/${requirementsFileId}/raw?ref=${branchRef}`, {
       category: "",
       en: {
         description: "",
-        summary: "",
+        summary: `
+          The session cookies
+          of web applications must have
+          security attributes
+          (HttpOnly, Secure, SameSite)
+          and prefixes (e.g., __Host-).
+        `,
         title: "Cookies with security attributes",
       },
       references: [],
@@ -71,7 +77,11 @@ mockedFetch.mock(`${baseUrl}/${requirementsFileId}/raw?ref=${branchRef}`, {
       category: "",
       en: {
         description: "",
-        summary: "",
+        summary: `
+          The system must discard
+          all potentially harmful information
+          received via data inputs.
+        `,
         title: "Discard unsafe inputs",
       },
       references: [],
