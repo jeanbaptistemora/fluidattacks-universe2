@@ -1,3 +1,4 @@
+boto3: "1.16.29"
 bugsnag: "3.9.0"
 category-encoders: "2.2.2"
 click: "7.1.2"

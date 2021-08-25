@@ -2,6 +2,8 @@ closure:
   aiohttp: 3.6.2
   async-timeout: 3.0.1
   attrs: 21.2.0
+  boto3: 1.16.29
+  botocore: 1.19.63
   bugsnag: 3.9.0
   category-encoders: 2.2.2
   certifi: 2021.5.30
@@ -12,6 +14,7 @@ closure:
   gql: 3.0.0a2
   graphql-core: 3.1.6
   idna: "2.10"
+  jmespath: 0.10.0
   joblib: 0.16.0
   lizard: 1.17.9
   mixpanel: 4.5.0
@@ -27,6 +30,7 @@ closure:
   python-dateutil: 2.8.2
   pytz: "2020.1"
   requests: 2.24.0
+  s3transfer: 0.3.7
   scikit-learn: 0.23.2
   scipy: 1.7.1
   six: 1.16.0
@@ -58,6 +62,18 @@ links:
   - name: attrs-21.2.0.tar.gz
     sha256: 1yzmwi5d197p0qhl7rl4xi9q1w8mk9i3zn6hrl22knbcrb1slspg
     url: https://files.pythonhosted.org/packages/ed/d6/3ebca4ca65157c12bd08a63e20ac0bdc21ac7f3694040711f9fd073c0ffb/attrs-21.2.0.tar.gz
+  - name: boto3-1.16.29-py2.py3-none-any.whl
+    sha256: 13i43zf6pnvd90rlncpysgwikjdb5j1c8g09kmfnj8lm4g6q4ibl
+    url: https://files.pythonhosted.org/packages/5c/8f/93e490e99c25bebbc79f762448866acf4b942ea6666423ac308c2aedb800/boto3-1.16.29-py2.py3-none-any.whl
+  - name: boto3-1.16.29.tar.gz
+    sha256: 0c0gmj4dry0k0il3mrdm6v1an6jq4mzd80s0j2b8rnf47c3jdqz6
+    url: https://files.pythonhosted.org/packages/40/46/6924c3f4ecaad8a14ef7e22f82235112fcdc84f35fe987cc88dce1249061/boto3-1.16.29.tar.gz
+  - name: botocore-1.19.63-py2.py3-none-any.whl
+    sha256: 088y6rffy47zc63rr1q1q9a1sz2hksld6r8c9gc02m2v376dyjmd
+    url: https://files.pythonhosted.org/packages/2c/05/0a955f0c92bec7da076fbbc73926dfb13fab8e2b88de7f8eb17c443f28f0/botocore-1.19.63-py2.py3-none-any.whl
+  - name: botocore-1.19.63.tar.gz
+    sha256: 14hacn6ckbg8cqx4x6792av87kfnkhqfzr8k4l4giphqz5p4ysfk
+    url: https://files.pythonhosted.org/packages/a9/d5/e033ed633d16ebafe72c07abaf8d64131c38a76ad8c3fb0762ee5374b950/botocore-1.19.63.tar.gz
   - name: bugsnag-3.9.0-py2.py3-none-any.whl
     sha256: 0l81p7b0qal3b4xvb6ylgihkckkhypjvan1rvl8j7i5821jcrkrk
     url: https://files.pythonhosted.org/packages/4f/d7/cb50f7e28ccc91bf2cd8bc7aac289586d6f4804fb124dadb9e06b1e7ec33/bugsnag-3.9.0-py2.py3-none-any.whl
@@ -115,6 +131,12 @@ links:
   - name: idna-2.10.tar.gz
     sha256: 1xmk3s92d2vq42684p61wixfmh3qpr2mw762w0n6662vhlpqf1xk
     url: https://files.pythonhosted.org/packages/ea/b7/e0e3c1c467636186c39925827be42f16fee389dc404ac29e930e9136be70/idna-2.10.tar.gz
+  - name: jmespath-0.10.0-py2.py3-none-any.whl
+    sha256: 0bxp1hnjrb4vaksa43s2ghjwr3jb5rpv6q8x2hq7fnfc0icm5xnd
+    url: https://files.pythonhosted.org/packages/07/cb/5f001272b6faeb23c1c9e0acc04d48eaaf5c862c17709d20e3469c6e0139/jmespath-0.10.0-py2.py3-none-any.whl
+  - name: jmespath-0.10.0.tar.gz
+    sha256: 1yflbqggg1z9ndw9ps771hy36d07j9l2wwbj66lljqb6p1khapdq
+    url: https://files.pythonhosted.org/packages/3c/56/3f325b1eef9791759784aa5046a8f6a1aff8f7c898a2e34506771d3b99d8/jmespath-0.10.0.tar.gz
   - name: joblib-0.16.0-py3-none-any.whl
     sha256: 0jcz7ss0r18q5njsl2s8z42d4kc6hyvxkmk0l0m6nj9imvacaj6k
     url: https://files.pythonhosted.org/packages/51/dd/0e015051b4a27ec5a58b02ab774059f3289a94b0906f880a3f9507e74f38/joblib-0.16.0-py3-none-any.whl
@@ -226,6 +248,12 @@ links:
   - name: requests-2.24.0.tar.gz
     sha256: 06r3017hz0hzxv42gpg73l8xvdjbzw7q904ljvp36b5p3l9rlmdk
     url: https://files.pythonhosted.org/packages/da/67/672b422d9daf07365259958912ba533a0ecab839d4084c487a5fe9a5405f/requests-2.24.0.tar.gz
+  - name: s3transfer-0.3.7-py2.py3-none-any.whl
+    sha256: 0iijs1pgp8v30ms4jvbmw280fbfmlgf2hf1qq7asidlpm29bv9gg
+    url: https://files.pythonhosted.org/packages/00/89/0cb4e92c239e6425b9b0035227b8cdf9d3d098a5c9e95632c3815df63a09/s3transfer-0.3.7-py2.py3-none-any.whl
+  - name: s3transfer-0.3.7.tar.gz
+    sha256: 1509v2y2g5l8df53scy68r5q24m3k05gwxbrq9x7xycgmy37nqim
+    url: https://files.pythonhosted.org/packages/66/f5/5ca537483fa5e96fbd455f52a69fc70c5f659f7e8c9189a1dbc211e1ccf9/s3transfer-0.3.7.tar.gz
   - name: scikit_learn-0.23.2-cp38-cp38-macosx_10_9_x86_64.whl
     sha256: 1ax9ak9jl4y9ij4fy2b7l0dvy8jzmhnl9dgkd1lrlkvzvpnvnwbn
     url: https://files.pythonhosted.org/packages/a4/8f/473b2929d63b3e1eafc83e27300091c7822fb5939f259b3ad6a042297290/scikit_learn-0.23.2-cp38-cp38-macosx_10_9_x86_64.whl
