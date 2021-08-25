@@ -83,7 +83,6 @@ observes.env.paginator.development.python
 observes.env.paginator.runtime
 observes.env.paginator.runtime.python
 observes.env.postgres-client.development
-observes.env.postgres-client.development.python
 observes.env.postgres-client.runtime
 observes.env.postgres-client.runtime.python
 observes.env.service-batch-stability.runtime
