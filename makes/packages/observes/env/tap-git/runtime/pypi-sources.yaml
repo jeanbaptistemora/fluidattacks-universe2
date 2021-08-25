@@ -1,0 +1,24 @@
+closure:
+  gitdb: 4.0.7
+  gitpython: 3.1.14
+  smmap: 4.0.0
+links:
+  - name: gitdb-4.0.7-py3-none-any.whl
+    sha256: 1c35r3afq1dwgzbdddxaxr0zpx3cpsn9hyci43d92sa56ccwfk3c
+    url: https://files.pythonhosted.org/packages/ea/e8/f414d1a4f0bbc668ed441f74f44c116d9816833a48bf81d22b697090dba8/gitdb-4.0.7-py3-none-any.whl
+  - name: gitdb-4.0.7.tar.gz
+    sha256: 01c02fx57wv0j88947n8lk688li34z9yca8iqkz6d9jpn445rgwn
+    url: https://files.pythonhosted.org/packages/34/fe/9265459642ab6e29afe734479f94385870e8702e7f892270ed6e52dd15bf/gitdb-4.0.7.tar.gz
+  - name: GitPython-3.1.14-py3-none-any.whl
+    sha256: 16wksh6ip9xgxw4vpqja0sy2nxx7z6jmnbp1azc17j9ip8psx0rj
+    url: https://files.pythonhosted.org/packages/a6/99/98019716955ba243657daedd1de8f3a88ca1f5b75057c38e959db22fb87b/GitPython-3.1.14-py3-none-any.whl
+  - name: GitPython-3.1.14.tar.gz
+    sha256: 0qdg6w8lwl9fv8qcvncjiy85pkx6n8rcs1q2y68q7r89flz669xy
+    url: https://files.pythonhosted.org/packages/5f/f2/ea3242d97695451ab1521775a85253e002942d2c8f4519ae1172c0f5f979/GitPython-3.1.14.tar.gz
+  - name: smmap-4.0.0-py2.py3-none-any.whl
+    sha256: 1hp3g32c8c1xj5sczhhqk7rlkp68h0qcska0bivjwbjp9jg4g9x9
+    url: https://files.pythonhosted.org/packages/68/ee/d540eb5e5996eb81c26ceffac6ee49041d473bc5125f2aa995cf51ec1cf1/smmap-4.0.0-py2.py3-none-any.whl
+  - name: smmap-4.0.0.tar.gz
+    sha256: 10jidncbjjgvwfxlc7a0gqp56avxgxxn75gpvl2m9m12s5mkhrby
+    url: https://files.pythonhosted.org/packages/dd/d4/2b4f196171674109f0fbb3951b8beab06cd0453c1b247ec0c4556d06648d/smmap-4.0.0.tar.gz
+python: "3.8"

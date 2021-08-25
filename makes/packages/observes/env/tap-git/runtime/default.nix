@@ -1,4 +1,5 @@
-{ makeTemplate
+{ makes
+, makeTemplate
 , nixpkgs
 , packages
 , path
@@ -16,13 +17,15 @@ makeTemplate {
     ];
     envPaths = [
       nixpkgs.git
-      tap-git.runtime.python
     ];
     envPythonPaths = [
       self
     ];
-    envPython38Paths = [
-      tap-git.runtime.python
+    envSources = [
+      (makes.makePythonPypiEnvironment {
+        name = "observes-env-tap-git-runtime";
+        sourcesYaml = ./pypi-sources.yaml;
+      })
     ];
   };
 }

@@ -124,7 +124,6 @@ observes.env.tap-delighted.runtime.python
 observes.env.tap-formstack.runtime
 observes.env.tap-formstack.runtime.python
 observes.env.tap-git.runtime
-observes.env.tap-git.runtime.python
 observes.env.tap-gitlab.development
 observes.env.tap-gitlab.runtime
 observes.env.tap-json.development
