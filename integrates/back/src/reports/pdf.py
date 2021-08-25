@@ -2,6 +2,9 @@ from .typing import (
     PdfFindingInfo,
     PDFWordlistEn,
 )
+from aioextensions import (
+    collect,
+)
 from context import (
     BASE_URL,
     STARTDIR,
@@ -811,6 +814,96 @@ class CreatorPdfNew:
             f"-o {self.out_name} "
             f"{tpl_name} && chmod 777 {tpl_name}"
         )
+
+    async def fill_group(  # noqa pylint: disable=too-many-arguments,too-many-locals
+        self,
+        findings: Tuple[Finding, ...],
+        finding_evidences_set: Dict[str, List[Dict[str, str]]],
+        group: str,
+        description: str,
+        user: str,
+        loaders: Any,
+    ) -> None:
+        """Add group information."""
+        words = self.wordlist[self.lang]
+        doctype = words[self.doctype]
+        full_group = f"{description} [{group}]"
+        team = "Engineering Team"
+        version = "v1.0"
+        team_mail = "engineering@fluidattacks.com"
+        fluid_tpl_content = self.make_content(words)
+        access_vector = get_access_vector_new(findings[0]) if findings else ""
+        context_findings = await collect(
+            [
+                format_finding(
+                    loaders, finding, finding_evidences_set[finding.id], words
+                )
+                for finding in findings
+            ]
+        )
+        main_tables = make_vuln_table_new(context_findings, words)
+        main_pie_filename = self.make_pie_finding(
+            context_findings, group, words
+        )
+        main_pie_filename = (
+            f"image::{main_pie_filename}[width=300, align=center]"
+        )
+        self.context = {
+            "full_group": full_group.upper(),
+            "team": team,
+            "team_mail": team_mail,
+            "customer": "",
+            "toe": description,
+            "version": version,
+            "revdate": f'{doctype} {time.strftime("%d/%m/%Y")}',
+            "simpledate": time.strftime("%Y.%m.%d"),
+            "fluid_tpl": fluid_tpl_content,
+            "main_pie_filename": main_pie_filename,
+            "main_tables": main_tables,
+            "findings": [],
+            "findings_new": context_findings,
+            "accessVector": access_vector,
+            # Titulos segun lenguaje
+            "finding_title": words["finding_title"],
+            "finding_section_title": words["finding_section_title"],
+            "where_title": words["where_title"],
+            "description_title": words["description_title"],
+            "resume_vuln_title": words["resume_vuln_title"],
+            "resume_perc_title": words["resume_perc_title"],
+            "resume_regi_title": words["resume_regi_title"],
+            "resume_vnum_title": words["resume_vnum_title"],
+            "resume_vname_title": words["resume_vname_title"],
+            "resume_ttab_title": words["resume_ttab_title"],
+            "resume_top_title": words["resume_top_title"],
+            "risk_title": words["risk_title"],
+            "evidence_title": words["evidence_title"],
+            "records_title": words["records_title"],
+            "threat_title": words["threat_title"],
+            "solution_title": words["solution_title"],
+            "requisite_title": words["requisite_title"],
+            "treatment_title": words["treatment_title"],
+            "severity_title": words["severity_title"],
+            "cardinality_title": words["cardinality_title"],
+            "attack_vector_title": words["attack_vector_title"],
+            "compromised_system_title": words["compromised_system_title"],
+            "resume_page_title": words["resume_page_title"],
+            "resume_table_title": words["resume_table_title"],
+            "state_title": words["state_title"],
+            "commit_hash": words["commit_hash"],
+            "crit_h": words["crit_h"],
+            "crit_m": words["crit_m"],
+            "crit_l": words["crit_l"],
+            "field": words["field"],
+            "inputs": words["inputs"],
+            "line": words["line"],
+            "lines": words["lines"],
+            "path": words["path"],
+            "port": words["port"],
+            "ports": words["ports"],
+            "user": user,
+            "date": time.strftime("%Y-%m-%d at %H:%M"),
+            "link": f"{BASE_URL}/groups/{group}/vulns",
+        }
 
     def lang_support(self) -> None:
         """Define the dictionaries of accepted languages."""
