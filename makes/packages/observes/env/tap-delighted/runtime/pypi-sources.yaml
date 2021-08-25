@@ -1,0 +1,97 @@
+closure:
+  backports.zoneinfo: 0.2.1
+  certifi: 2021.5.30
+  charset-normalizer: 2.0.4
+  click: 7.1.2
+  delighted: 4.0.0
+  idna: "3.2"
+  requests: 2.26.0
+  returns: 0.16.0
+  six: 1.16.0
+  typing-extensions: 3.10.0.0
+  tzdata: "2021.1"
+  tzlocal: "3.0"
+  urllib3: 1.26.6
+links:
+  - name: backports.zoneinfo-0.2.1-cp38-cp38-macosx_10_14_x86_64.whl
+    sha256: 11yrgy7irb5a5w932agc8mqw17nrihgimlgax2w6ycyh5krw0qc9
+    url: https://files.pythonhosted.org/packages/4a/6d/eca004eeadcbf8bd64cc96feb9e355536147f0577420b44d80c7cac70767/backports.zoneinfo-0.2.1-cp38-cp38-macosx_10_14_x86_64.whl
+  - name: backports.zoneinfo-0.2.1-cp38-cp38-manylinux1_i686.whl
+    sha256: 1lbqrys7dmr6cgaghnllwdmbxybpm4mj8ig3a351znlfrv57c6z8
+    url: https://files.pythonhosted.org/packages/c1/8f/9b1b920a6a95652463143943fa3b8c000cb0b932ab463764a6f2a2416560/backports.zoneinfo-0.2.1-cp38-cp38-manylinux1_i686.whl
+  - name: backports.zoneinfo-0.2.1-cp38-cp38-manylinux1_x86_64.whl
+    sha256: 1jf8q3s7pj70vz0fdkp59ja9p4hgfwi07hggv7z4hm8llk6n82kv
+    url: https://files.pythonhosted.org/packages/1a/ab/3e941e3fcf1b7d3ab3d0233194d99d6a0ed6b24f8f956fc81e47edc8c079/backports.zoneinfo-0.2.1-cp38-cp38-manylinux1_x86_64.whl
+  - name: backports.zoneinfo-0.2.1.tar.gz
+    sha256: 1wk2k1wqnkgg8ihv1idmd34fl48n0273n8kz0cjd0la0ywvzxnzs
+    url: https://files.pythonhosted.org/packages/ad/85/475e514c3140937cf435954f78dedea1861aeab7662d11de232bdaa90655/backports.zoneinfo-0.2.1.tar.gz
+  - name: certifi-2021.5.30-py2.py3-none-any.whl
+    sha256: 1n57ixzaln34d2qw55g7vh0hd6g033dkhqyxwwdz81kb8kwf9cah
+    url: https://files.pythonhosted.org/packages/05/1b/0a0dece0e8aa492a6ec9e4ad2fe366b511558cdc73fd3abc82ba7348e875/certifi-2021.5.30-py2.py3-none-any.whl
+  - name: certifi-2021.5.30.tar.gz
+    sha256: 1vm9gf8p3wxsc274av2lz35jfkslw3fs7pgn7s5i6q198gypdgrb
+    url: https://files.pythonhosted.org/packages/6d/78/f8db8d57f520a54f0b8a438319c342c61c22759d8f9a1cd2e2180b5e5ea9/certifi-2021.5.30.tar.gz
+  - name: charset_normalizer-2.0.4-py3-none-any.whl
+    sha256: 12sx2xiqnjzmq37a5g32m5aj0c4s149sb551cqrj46axs7ni328c
+    url: https://files.pythonhosted.org/packages/33/53/b7f6126a2b9fd878b025fe3c40266cfaad696f312165008ce045bffa3fe7/charset_normalizer-2.0.4-py3-none-any.whl
+  - name: charset-normalizer-2.0.4.tar.gz
+    sha256: 1ws8lc1cshngraxyir4p81a0cll6b958wlz0d9gy8jq8w7mnfdpj
+    url: https://files.pythonhosted.org/packages/e7/4e/2af0238001648ded297fb54ceb425ca26faa15b341b4fac5371d3938666e/charset-normalizer-2.0.4.tar.gz
+  - name: click-7.1.2-py2.py3-none-any.whl
+    sha256: 1p607168jqq20d8bngrkfqv0vvkfas57r6s8szimvpgs9fgsik6s
+    url: https://files.pythonhosted.org/packages/d2/3d/fa76db83bf75c4f8d338c2fd15c8d33fdd7ad23a9b5e57eb6c5de26b430e/click-7.1.2-py2.py3-none-any.whl
+  - name: click-7.1.2.tar.gz
+    sha256: 06kbzd6sjfkqan3miwj9wqyddfxc2b6hi7p5s4dvqjb3gif2bdfj
+    url: https://files.pythonhosted.org/packages/27/6f/be940c8b1f1d69daceeb0032fee6c34d7bd70e3e649ccac0951500b4720e/click-7.1.2.tar.gz
+  - name: delighted-4.0.0.tar.gz
+    sha256: 1shgnkkycccgdj0iz2npmkq3nx9sx1nck4bxx3blixgj49kf7zxs
+    url: https://files.pythonhosted.org/packages/46/0f/c642dee942949f2a94119272634fa25f78901f357929a1011c6d2c763f3f/delighted-4.0.0.tar.gz
+  - name: idna-3.2-py3-none-any.whl
+    sha256: 0ynxnv3raplspvcsqly99m6b33s2a5l6zq28rcs116c4w9150iql
+    url: https://files.pythonhosted.org/packages/d7/77/ff688d1504cdc4db2a938e2b7b9adee5dd52e34efbd2431051efc9984de9/idna-3.2-py3-none-any.whl
+  - name: idna-3.2.tar.gz
+    sha256: 1wr5s7ngfdwp4fap4r95liihxyvidj137qsc2j2hg4b7j3cvlzs6
+    url: https://files.pythonhosted.org/packages/cb/38/4c4d00ddfa48abe616d7e572e02a04273603db446975ab46bbcd36552005/idna-3.2.tar.gz
+  - name: requests-2.26.0-py2.py3-none-any.whl
+    sha256: 097xdqddqm6ikzf30867irmrq3wg1s8nz450512wspnd7r8lc4kc
+    url: https://files.pythonhosted.org/packages/92/96/144f70b972a9c0eabbd4391ef93ccd49d0f2747f4f6a2a2738e99e5adc65/requests-2.26.0-py2.py3-none-any.whl
+  - name: requests-2.26.0.tar.gz
+    sha256: 19q73fq7hip7b74fwls3p9x6zwvfwqcwpn6kha3zsgvrrzw5iamq
+    url: https://files.pythonhosted.org/packages/e7/01/3569e0b535fb2e4a6c384bdbed00c55b9d78b5084e0fb7f4d0bf523d7670/requests-2.26.0.tar.gz
+  - name: returns-0.16.0-py3-none-any.whl
+    sha256: 0amw125x7wnf6gqlfga4y29wjy48xlscxdk96kdcian5p3vl8x9v
+    url: https://files.pythonhosted.org/packages/ff/e6/c66f2dfd12cd47e0efb54c0aefd35f0bbad0242fbaefe52310ebf71f010b/returns-0.16.0-py3-none-any.whl
+  - name: returns-0.16.0.tar.gz
+    sha256: 1dq0z348xyjkba8whdqgplkgf1mvw1ydaz4wijc8g7783npplwdc
+    url: https://files.pythonhosted.org/packages/52/ad/a312c66697e1be62dc50144ad491ec43ee08c0f4090a635c8a34c88cbd3a/returns-0.16.0.tar.gz
+  - name: six-1.16.0-py2.py3-none-any.whl
+    sha256: 0m02dsi8lvrjf4bi20ab6lm7rr6krz7pg6lzk3xjs2l9hqfjzfwa
+    url: https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875f2abbb91bd84cf2dc52d792b5a01506781dbcf25c91daf11/six-1.16.0-py2.py3-none-any.whl
+  - name: six-1.16.0.tar.gz
+    sha256: 09n9qih9rpj95q3r4a40li7hk6swma11syvgwdc68qm1fxsc6q8y
+    url: https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz
+  - name: typing_extensions-3.10.0.0-py3-none-any.whl
+    sha256: 112ar7s85msx9r0hmkl3j9x979y8m8wzzw0wwjdck43d13v874vp
+    url: https://files.pythonhosted.org/packages/2e/35/6c4fff5ab443b57116cb1aad46421fb719bed2825664e8fe77d66d99bcbc/typing_extensions-3.10.0.0-py3-none-any.whl
+  - name: typing_extensions-3.10.0.0.tar.gz
+    sha256: 0hpkrp39w58f6lc6r0jhn97qhcp95z49vyan0ryj2x4ihibz3djh
+    url: https://files.pythonhosted.org/packages/aa/55/62e2d4934c282a60b4243a950c9dbfa01ae7cac0e8d6c0b5315b87432c81/typing_extensions-3.10.0.0.tar.gz
+  - name: tzdata-2021.1-py2.py3-none-any.whl
+    sha256: 0pf8lq5szwihb535hazvlkjfnszfndsacn4q7qg015sclnnixlls
+    url: https://files.pythonhosted.org/packages/4a/c3/6b6c7a5821bcfc1363161b854a272c7fd4a9f27c5a614ff8e48475a45a3e/tzdata-2021.1-py2.py3-none-any.whl
+  - name: tzdata-2021.1.tar.gz
+    sha256: 0f1x3mav7cppm3pzsr5ps5nxxpcjwm0i1lirqwd2lll7z18p7771
+    url: https://files.pythonhosted.org/packages/cc/f8/2fcb8cb8b227c43c4f59647a479029091493feb07fae22a5b86dbab4f1d4/tzdata-2021.1.tar.gz
+  - name: tzlocal-3.0-py3-none-any.whl
+    sha256: 0nb5137qfjf61sv0agw042d1wf95zk1sg73qin9vbphk0xag4dn7
+    url: https://files.pythonhosted.org/packages/99/73/0b78b979e457bde19266130929b1fceee7c31a2d68169048b34e997c5665/tzlocal-3.0-py3-none-any.whl
+  - name: tzlocal-3.0.tar.gz
+    sha256: 04pg9bf4c1xmaqsfjrni14k8w10z0ihp7dkr5zcy1684nmny7rpl
+    url: https://files.pythonhosted.org/packages/89/e7/5fc01b31d9df0b914d5bbbea6f5d80ff76c6b5cf11bf23a8beca8407a0f1/tzlocal-3.0.tar.gz
+  - name: urllib3-1.26.6-py2.py3-none-any.whl
+    sha256: 1m6823gifpdhma46q3rg3vn4s406138qswd776qsqnb129r8dyrr
+    url: https://files.pythonhosted.org/packages/5f/64/43575537846896abac0b15c3e5ac678d787a4021e906703f1766bfb8ea11/urllib3-1.26.6-py2.py3-none-any.whl
+  - name: urllib3-1.26.6.tar.gz
+    sha256: 0brlisgwwcms6q7p6nd2b5mzn4jm4mdw75rxgq5pd8igqqb4qyzm
+    url: https://files.pythonhosted.org/packages/4f/5a/597ef5911cb8919efe4d86206aa8b2658616d676a7088f0825ca08bd7cb8/urllib3-1.26.6.tar.gz
+python: "3.8"

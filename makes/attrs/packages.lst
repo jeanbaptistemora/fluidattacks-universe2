@@ -120,7 +120,6 @@ observes.env.tap-csv.runtime
 observes.env.tap-csv.runtime.python
 observes.env.tap-delighted.development
 observes.env.tap-delighted.runtime
-observes.env.tap-delighted.runtime.python
 observes.env.tap-formstack.runtime
 observes.env.tap-git.runtime
 observes.env.tap-gitlab.development
