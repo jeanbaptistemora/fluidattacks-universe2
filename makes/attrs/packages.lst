@@ -81,7 +81,6 @@ observes.env.job-last-success.runtime.python
 observes.env.paginator.development
 observes.env.paginator.development.python
 observes.env.paginator.runtime
-observes.env.paginator.runtime.python
 observes.env.postgres-client.development
 observes.env.postgres-client.runtime
 observes.env.service-batch-stability.runtime
