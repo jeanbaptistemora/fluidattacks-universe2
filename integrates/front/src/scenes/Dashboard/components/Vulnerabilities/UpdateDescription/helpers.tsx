@@ -55,10 +55,11 @@ const getResults = async (
   isEditPristine: boolean,
   isTreatmentPristine: boolean
 ): Promise<VulnUpdateResult[]> => {
-  const chunkSize = 15;
-  const chunks = _.chunk(vulnerabilities, chunkSize).map(async (chunk): Promise<
+  const chunkSize = 10;
+  const vulnChunks = _.chunk(vulnerabilities, chunkSize);
+  const updateChunks = vulnChunks.map((chunk): (() => Promise<
     VulnUpdateResult[]
-  > => {
+  >) => async (): Promise<VulnUpdateResult[]> => {
     const updates = chunk.map(
       async (vuln): Promise<VulnUpdateResult> =>
         updateVuln({
@@ -90,11 +91,12 @@ const getResults = async (
   });
 
   // Sequentially execute chunks
-  return chunks.reduce(
+  return updateChunks.reduce(
     async (previousValue, currentValue): Promise<VulnUpdateResult[]> => [
       ...(await previousValue),
-      ...(await currentValue),
-    ]
+      ...(await currentValue()),
+    ],
+    Promise.resolve<VulnUpdateResult[]>([])
   );
 };
 

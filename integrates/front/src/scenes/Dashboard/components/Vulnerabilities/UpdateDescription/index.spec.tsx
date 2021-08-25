@@ -660,7 +660,8 @@ describe("Update Description component", (): void => {
     confirmProceedButton.first().simulate("click");
 
     await act(async (): Promise<void> => {
-      await wait(0);
+      const delay = 50;
+      await wait(delay);
       wrapper.update();
     });
 
