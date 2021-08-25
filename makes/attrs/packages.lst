@@ -137,7 +137,6 @@ observes.env.tap-mailchimp.development.python
 observes.env.tap-mailchimp.runtime
 observes.env.tap-mailchimp.runtime.python
 observes.env.tap-mixpanel.development
-observes.env.tap-mixpanel.development.python
 observes.env.tap-mixpanel.runtime
 observes.env.tap-timedoctor.runtime
 observes.env.tap-toe-files.runtime

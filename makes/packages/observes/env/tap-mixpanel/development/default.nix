@@ -1,19 +1,26 @@
 { makeTemplate
+, nixpkgs
 , packages
 , ...
 }:
-with packages.observes.env;
+let
+  pythonPackages = [
+    nixpkgs.python38Packages.freezegun
+    nixpkgs.python38Packages.iniconfig
+    nixpkgs.python38Packages.pluggy
+    nixpkgs.python38Packages.py
+    nixpkgs.python38Packages.pytest
+    nixpkgs.python38Packages.python-dateutil
+    nixpkgs.python38Packages.pytest-freezegun
+  ];
+in
 makeTemplate {
   name = "observes-env-tap-mixpanel-development";
   searchPaths = {
-    envPaths = [
-      tap-mixpanel.development.python
-    ];
-    envPython38Paths = [
-      tap-mixpanel.development.python
-    ];
+    envPaths = pythonPackages;
+    envPython38Paths = pythonPackages;
     envSources = [
-      tap-mixpanel.runtime
+      packages.observes.env.tap-mixpanel.runtime
     ];
   };
 }
