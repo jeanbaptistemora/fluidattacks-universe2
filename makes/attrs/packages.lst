@@ -99,7 +99,6 @@ observes.env.singer-io.development.python
 observes.env.singer-io.runtime
 observes.env.singer-io.runtime.python
 observes.env.streamer-dynamodb.runtime
-observes.env.streamer-dynamodb.runtime.python
 observes.env.streamer-zoho-crm.development
 observes.env.streamer-zoho-crm.runtime
 observes.env.tap-announcekit.development

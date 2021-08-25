@@ -1,9 +1,8 @@
-{ makeTemplate
+{ makes
+, makeTemplate
 , path
-, packages
 , ...
 }:
-with packages.observes.env;
 let
   self = path "/observes/singer/streamer_dynamodb";
 in
@@ -13,14 +12,14 @@ makeTemplate {
     envMypyPaths = [
       self
     ];
-    envPaths = [
-      streamer-dynamodb.runtime.python
-    ];
     envPythonPaths = [
       self
     ];
-    envPython38Paths = [
-      streamer-dynamodb.runtime.python
+    envSources = [
+      (makes.makePythonPypiEnvironment {
+        name = "observes-env-streamer-dynamodb-runtime";
+        sourcesYaml = ./pypi-sources.yaml;
+      })
     ];
   };
 }
