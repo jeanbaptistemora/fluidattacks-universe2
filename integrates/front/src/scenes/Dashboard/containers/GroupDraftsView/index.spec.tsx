@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
 import type { ReactWrapper } from "enzyme";
@@ -15,19 +16,70 @@ import { GET_DRAFTS } from "scenes/Dashboard/containers/GroupDraftsView/queries"
 import store from "store";
 
 const mockedFetch: FetchMockStatic = fetch as FetchMockStatic & typeof fetch;
-const baseUrl: string = "https://spreadsheets.google.com/feeds/list";
-const spreadsheetId: string = "1L37WnF6enoC8Ws8vs9sr0G29qBLwbe-3ztbuopu1nvc";
-mockedFetch.mock(
-  `${baseUrl}/${spreadsheetId}/1/public/values?alt=json&min-row=2`,
-  {
-    body: {
-      feed: {
-        entry: [],
+const baseUrl: string =
+  "https://gitlab.com/api/v4/projects/20741933/repository/files";
+const branchRef: string = "master";
+const vulnsFileId: string =
+  "makes%2Fmakes%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml";
+mockedFetch.mock(`${baseUrl}/${vulnsFileId}/raw?ref=${branchRef}`, {
+  body: {
+    "008": {
+      en: {
+        description: "",
+        impact: "",
+        recommendation: "",
+        threat: "",
+        title: "Reflected cross-site scripting (XSS)",
+      },
+      requirements: [],
+      score: {
+        base: {
+          attack_complexity: "",
+          attack_vector: "",
+          availability: "",
+          confidentiality: "",
+          integrity: "",
+          privileges_required: "",
+          scope: "",
+          user_interaction: "",
+        },
+        temporal: {
+          exploit_code_maturity: "",
+          remediation_level: "",
+          report_confidence: "",
+        },
       },
     },
-    status: 200,
-  }
-);
+  },
+
+  status: 200,
+});
+const requirementsFileId: string =
+  "makes%2Fmakes%2Fcriteria%2Fsrc%2Frequirements%2Fdata.yaml";
+mockedFetch.mock(`${baseUrl}/${requirementsFileId}/raw?ref=${branchRef}`, {
+  body: {
+    "029": {
+      category: "",
+      en: {
+        description: "",
+        summary: "",
+        title: "Cookies with security attributes",
+      },
+      references: [],
+    },
+    "173": {
+      category: "",
+      en: {
+        description: "",
+        summary: "",
+        title: "Discard unsafe inputs",
+      },
+      references: [],
+    },
+  },
+
+  status: 200,
+});
 
 describe("GroupDraftsView", (): void => {
   const mocks: readonly MockedResponse[] = [
@@ -44,7 +96,7 @@ describe("GroupDraftsView", (): void => {
             drafts: [
               {
                 currentState: "",
-                description: "Xcross site scripting - login.",
+                description: "The web application...",
                 id: "507046047",
                 isExploitable: true,
                 openVulnerabilities: 0,
@@ -55,6 +107,7 @@ describe("GroupDraftsView", (): void => {
                 type: "HYGIENE",
               },
             ],
+            language: "EN",
             name: "TEST",
           },
         },
