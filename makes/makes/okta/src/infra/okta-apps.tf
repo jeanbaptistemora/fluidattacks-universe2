@@ -151,20 +151,21 @@ resource "okta_app_user" "aws" {
 }
 
 
-# SWA
+# Shared Credentials
 
-resource "okta_app_swa" "apps" {
+resource "okta_app_shared_credentials" "apps" {
   for_each = {
     for _, app in local.data.apps : app.id => app
-    if app.type == "swa"
+    if app.type == "shared_credentials"
   }
 
   label               = each.value.label
   status              = each.value.status
-  preconfigured_app   = each.value.preconfigured_app
   button_field        = each.value.button_field
   username_field      = each.value.username_field
   password_field      = each.value.password_field
+  shared_username     = each.value.shared_username
+  shared_password     = each.value.shared_password
   url                 = each.value.url
   auto_submit_toolbar = true
 
@@ -180,13 +181,13 @@ resource "okta_app_swa" "apps" {
   }
 }
 
-resource "okta_app_user" "apps_swa" {
+resource "okta_app_user" "apps_shared_credentials" {
   for_each = {
     for app in local.data.app_users : "${app.id}_${app.user}" => app
-    if app.type == "swa"
+    if app.type == "shared_credentials"
   }
 
-  app_id   = okta_app_swa.apps[each.value.id].id
+  app_id   = okta_app_shared_credentials.apps[each.value.id].id
   user_id  = okta_user.users[each.value.user].id
   username = ""
 }
@@ -240,7 +241,7 @@ resource "okta_app_user" "apps_three_field" {
     if app.type == "three_field"
   }
 
-  app_id   = okta_app_swa.apps[each.value.id].id
+  app_id   = okta_app_three_field.apps[each.value.id].id
   user_id  = okta_user.users[each.value.user].id
   username = ""
 }
