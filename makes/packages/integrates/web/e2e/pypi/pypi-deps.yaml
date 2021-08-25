@@ -1,0 +1,5 @@
+itsdangerous: "1.1.0"
+pytest-rerunfailures: "9.1.1"
+pytest-test-groups: "1.0.3"
+pytest: "6.1.2"
+selenium: "3.141.0"

@@ -12,6 +12,8 @@ makeEntrypoint {
   searchPaths = {
     envPaths = [
       nixpkgs.kubectl
+    ];
+    envSources = [
       packages.integrates.web.e2e.pypi
     ];
     envUtils = [
