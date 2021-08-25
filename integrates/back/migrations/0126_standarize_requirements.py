@@ -5,8 +5,8 @@ finding's decription, taking their values from the criteria data.
 Related issue:
 https://gitlab.com/fluidattacks/product/-/issues/4903
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-08-25 at 09:22:15 UTC-05
+Finalization Time: 2021-08-25 at 09:22:49 UTC-05
 """
 
 from aiodataloader import (
@@ -33,7 +33,7 @@ from typing import (
 )
 import yaml
 
-PROD: bool = False
+PROD: bool = True
 
 
 def _get_requirements(
