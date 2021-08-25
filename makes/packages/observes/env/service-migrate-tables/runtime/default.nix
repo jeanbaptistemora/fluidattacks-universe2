@@ -1,4 +1,5 @@
-{ makeTemplate
+{ makes
+, makeTemplate
 , packages
 , path
 , ...
@@ -13,16 +14,14 @@ makeTemplate {
     envMypyPaths = [
       self
     ];
-    envPaths = [
-      service-migrate-tables.runtime.python
-    ];
     envPythonPaths = [
       self
     ];
-    envPython38Paths = [
-      service-migrate-tables.runtime.python
-    ];
     envSources = [
+      (makes.makePythonPypiEnvironment {
+        name = "observes-env-service-migrate-tables-runtime";
+        sourcesYaml = ./pypi-sources.yaml;
+      })
       postgres-client.runtime
     ];
   };
