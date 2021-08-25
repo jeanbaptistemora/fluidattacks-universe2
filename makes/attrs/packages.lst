@@ -113,7 +113,6 @@ observes.env.tap-bugsnag.runtime
 observes.env.tap-bugsnag.runtime.python
 observes.env.tap-checkly.development
 observes.env.tap-checkly.runtime
-observes.env.tap-checkly.runtime.python
 observes.env.tap-csv.development
 observes.env.tap-csv.runtime
 observes.env.tap-delighted.development
