@@ -3,7 +3,6 @@
 , path
 , ...
 }:
-with packages.observes.env;
 let
   self = path "/observes/singer/tap_mailchimp";
 in
@@ -13,19 +12,14 @@ makeTemplate {
     envMypyPaths = [
       self
     ];
-    envPaths = [
-      tap-mailchimp.runtime.python
-    ];
     envPythonPaths = [
       self
     ];
-    envPython38Paths = [
-      tap-mailchimp.runtime.python
-    ];
     envSources = [
-      singer-io.runtime
-      paginator.runtime
-      utils-logger.runtime
+      packages.observes.env.tap-mailchimp.runtime.python
+      packages.observes.env.singer-io.runtime
+      packages.observes.env.paginator.runtime
+      packages.observes.env.utils-logger.runtime
     ];
   };
 }
