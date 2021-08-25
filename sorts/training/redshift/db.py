@@ -80,6 +80,15 @@ def initialize() -> None:
                         group_name
                     )
                 )
+                CREATE TABLE IF NOT EXISTS sorts.executions (
+                    timestamp TIMESTAMPTZ,
+                    group_name VARCHAR(256),
+                    execution_time FLOAT,
+
+                    PRIMARY KEY (
+                        timestamp
+                    )
+                )
             """
         )
 
