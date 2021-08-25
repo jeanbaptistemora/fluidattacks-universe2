@@ -1,66 +1,23 @@
-{ buildPythonRequirements
-, makeTemplate
+{ makeTemplate
+, makes
 , nixpkgs
 , path
 , ...
 }:
 let
-  pythonRequirements = buildPythonRequirements {
-    dependencies = [
-      nixpkgs.postgresql
-    ];
+  pythonRequirements = makes.makePythonPypiEnvironment {
     name = "sorts-development";
-    requirements = {
-      direct = [
-        "boto3==1.16.29"
-        "lightgbm==3.2.1"
-        "numpy==1.19.2"
-        "pandas==1.1.2"
-        "psycopg2==2.8.4"
-        "pytest-cov==2.10.1"
-        "pytest-rerunfailures==9.1.1"
-        "pytest==6.1.1"
-        "sagemaker==2.18.0"
-      ];
-      inherited = [
-        "attrs==20.3.0"
-        "botocore==1.19.56"
-        "coverage==5.3.1"
-        "google-pasta==0.2.0"
-        "importlib-metadata==3.4.0"
-        "iniconfig==1.1.1"
-        "jmespath==0.10.0"
-        "joblib==1.0.1"
-        "packaging==20.8"
-        "pluggy==0.13.1"
-        "protobuf3-to-dict==0.1.5"
-        "protobuf==3.14.0"
-        "py==1.10.0"
-        "pyparsing==2.4.7"
-        "python-dateutil==2.8.1"
-        "pytz==2020.5"
-        "s3transfer==0.3.4"
-        "scikit-learn==0.23.2"
-        "scipy==1.7.0"
-        "six==1.15.0"
-        "smdebug-rulesconfig==0.1.5"
-        "threadpoolctl==2.2.0"
-        "toml==0.10.2"
-        "urllib3==1.26.4"
-        "zipp==3.4.0"
-      ];
-    };
-    python = nixpkgs.python38;
+    searchPaths.bin = [ nixpkgs.gcc nixpkgs.postgresql ];
+    sourcesYaml = ./pypi-sources.yaml;
   };
 in
 makeTemplate {
   name = "sorts-config-development";
   searchPaths = {
     envLibraries = [ nixpkgs.gcc.cc.lib ];
-    envPaths = [ pythonRequirements ];
     envPythonPaths = [
       (path "/sorts/training")
     ];
-    envPython38Paths = [ pythonRequirements ];
+    envSources = [ pythonRequirements ];
   };
 }
