@@ -86,11 +86,27 @@ interface IVulnData {
   metadata: Record<string, unknown>;
 }
 
+interface IRequirementLanguage {
+  title: string;
+  summary: string;
+  description: string;
+}
+
+interface IRequirementData {
+  en: IRequirementLanguage;
+  es: IRequirementLanguage;
+  category: string;
+  references: string;
+  metadata: Record<string, unknown>;
+}
+
 export {
   IDraftVariables,
   IAddDraftMutationResult,
   IAddDraftMutationVariables,
   IGroupDraftsAttr,
   ISuggestion,
+  IRequirementData,
+  IRequirementLanguage,
   IVulnData,
 };

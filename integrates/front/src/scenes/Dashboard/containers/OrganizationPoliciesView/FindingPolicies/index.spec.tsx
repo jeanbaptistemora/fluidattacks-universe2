@@ -27,10 +27,10 @@ import { translate } from "utils/translations/translate";
 const mockedFetch: FetchMockStatic = fetch as FetchMockStatic & typeof fetch;
 const baseUrl: string =
   "https://gitlab.com/api/v4/projects/20741933/repository/files";
-const fileId: string =
-  "makes%2Fmakes%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml";
 const branchRef: string = "master";
-mockedFetch.mock(`${baseUrl}/${fileId}/raw?ref=${branchRef}`, {
+const vulnsFileId: string =
+  "makes%2Fmakes%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml";
+mockedFetch.mock(`${baseUrl}/${vulnsFileId}/raw?ref=${branchRef}`, {
   body: {
     "060": {
       en: {
@@ -63,6 +63,33 @@ mockedFetch.mock(`${baseUrl}/${fileId}/raw?ref=${branchRef}`, {
 
   status: 200,
 });
+const requirementsFileId: string =
+  "makes%2Fmakes%2Fcriteria%2Fsrc%2Frequirements%2Fdata.yaml";
+mockedFetch.mock(`${baseUrl}/${requirementsFileId}/raw?ref=${branchRef}`, {
+  body: {
+    "161": {
+      category: "",
+      en: {
+        description: "",
+        summary: "",
+        title: "Define secure default options",
+      },
+      references: [],
+    },
+    "359": {
+      category: "",
+      en: {
+        description: "",
+        summary: "",
+        title: "Avoid using generic exceptions",
+      },
+      references: [],
+    },
+  },
+
+  status: 200,
+});
+
 jest.mock("../../../../../utils/notifications", (): Dictionary => {
   const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
     "../../../../../utils/notifications"
