@@ -1,12 +1,22 @@
 "Stakeholder type definition"
 type Stakeholder {
+  "Email address"
   email: String
+  "Datetime of the first login to ASM"
   firstLogin: String
+  "Groups the stakeholder has access to"
   groups: [Group]
+  "Current invitation state"
   invitationState: InvitationState
+  "Datetime of the latest login to ASM"
   lastLogin: String
+  "Phone number"
   phoneNumber: String
-  projects: [Group]
+  "Groups the stakeholder has access to"
+  projects: [Group] @deprecated(reason: """This field will
+    be removed after 2021/12/31. Use `groups` instead.""")
+  "Responsibility"
   responsibility: String
+  "Role"
   role: String
 }
