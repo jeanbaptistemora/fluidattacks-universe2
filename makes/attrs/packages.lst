@@ -133,7 +133,6 @@ observes.env.tap-json.development
 observes.env.tap-json.runtime
 observes.env.tap-json.runtime.python
 observes.env.tap-mailchimp.development
-observes.env.tap-mailchimp.development.python
 observes.env.tap-mailchimp.runtime
 observes.env.tap-mailchimp.runtime.python
 observes.env.tap-mixpanel.development

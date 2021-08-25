@@ -1,16 +1,17 @@
 { makeTemplate
+, makes
 , packages
 , ...
 }:
-with packages.observes.env;
 makeTemplate {
   name = "observes-env-tap-mailchimp-development";
   searchPaths = {
-    envPython38Paths = [
-      tap-mailchimp.development.python
-    ];
     envSources = [
-      tap-mailchimp.runtime
+      (makes.makePythonPypiEnvironment {
+        name = "observes-env-tap-mailchimp-development";
+        sourcesYaml = ./pypi-sources.yaml;
+      })
+      packages.observes.env.tap-mailchimp.runtime
     ];
     envUtils = [
       "/makes/utils/lint-python"
