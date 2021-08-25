@@ -168,15 +168,20 @@ resource "okta_app_shared_credentials" "apps" {
   shared_password     = each.value.shared_password
   url                 = each.value.url
   auto_submit_toolbar = true
+}
 
-  groups = [
-    for app_group in local.data.app_groups : okta_group.groups[app_group.group].id
-    if app_group.id == each.value.id
-  ]
+resource "okta_app_group_assignment" "apps_shared_credentials" {
+  for_each = {
+    for app in local.data.app_groups : "${app.id}_${app.group}" => app
+    if app.type == "shared_credentials"
+  }
+
+  app_id   = okta_app_shared_credentials.apps[each.value.id].id
+  group_id = okta_group.groups[each.value.group].id
 
   lifecycle {
     ignore_changes = [
-      users,
+      priority,
     ]
   }
 }
