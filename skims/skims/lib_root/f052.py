@@ -2,7 +2,6 @@ from contextlib import (
     suppress,
 )
 from lib_root import (
-    get_composite_name_kotlin,
     yield_go_member_access,
     yield_go_object_creation,
     yield_java_method_invocation,
@@ -15,6 +14,9 @@ from model import (
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
+)
+from sast_syntax_readers.kotlin.common import (
+    get_composite_name,
 )
 from typing import (
     Any,
@@ -403,7 +405,7 @@ def _okhttp_yield_insecure_ciphers(
     }
     if parameters and method_name in ssl_cipher_method:
         param_id = parameters[0]
-        param_value = get_composite_name_kotlin(
+        param_value = get_composite_name(
             shard.graph, g.pred_ast(shard.graph, param_id)[0]
         )
         ssl_version = param_value.split(".")[-1]

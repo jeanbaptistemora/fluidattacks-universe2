@@ -1,6 +1,9 @@
 from model import (
     graph_model,
 )
+from sast_syntax_readers.kotlin.common import (
+    get_composite_name,
+)
 from typing import (
     Iterable,
     Set,
@@ -12,50 +15,6 @@ from utils import (
 from utils.graph.transformation import (
     build_member_access_expression_key,
 )
-
-
-def get_composite_name_kotlin(
-    graph: graph_model.Graph, n_id: graph_model.NId
-) -> str:
-    # Function to build the name of a function/argument that has multiple
-    # levels, e.g. ConnectionSpec.Builder.tlsVersions
-    # For it to work, n_id must have children nodes of the type
-    # `navigation_expression`.
-    # n_id itself should not be a `navigation_expression` node, use its parent
-    composite_name: str = ""
-    match = g.match_ast(
-        graph,
-        n_id,
-        "navigation_expression",
-        "simple_identifier",
-    )
-    while nav_expr := match["navigation_expression"]:
-        match = g.match_ast(
-            graph,
-            nav_expr,
-            "call_expression",
-            "navigation_expression",
-            "navigation_suffix",
-            "simple_identifier",
-        )
-        composite_name = (
-            g.concatenate_label_text(
-                graph,
-                g.adj_ast(graph, match["navigation_suffix"]),
-            )
-            + composite_name
-        )
-        if call_expr := match["call_expression"]:
-            match = g.match_ast(
-                graph,
-                call_expr,
-                "navigation_expression",
-                "simple_identifier",
-            )
-    composite_name = (
-        graph.nodes[match["simple_identifier"]]["label_text"] + composite_name
-    )
-    return composite_name
 
 
 def csharp_get_variable_value(
@@ -145,7 +104,7 @@ def yield_kotlin_method_invocation(
             nodes=shard.graph.nodes,
             predicate=g.pred_has_labels(label_type="call_expression"),
         ):
-            method_name = get_composite_name_kotlin(shard.graph, method_id)
+            method_name = get_composite_name(shard.graph, method_id)
             yield shard, method_id, method_name
 
 

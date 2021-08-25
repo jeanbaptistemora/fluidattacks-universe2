@@ -5,10 +5,8 @@ from asyncio import (
 from asyncio.tasks import (
     wait_for,
 )
-import contextlib
 import functools
 import inspect
-import io
 from more_itertools import (
     mark_ends,
 )

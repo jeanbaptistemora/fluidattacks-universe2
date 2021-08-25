@@ -90,6 +90,7 @@ from sast_syntax_readers.javascript import (
     variable_declarator as javascript_variable_declarator,
 )
 from sast_syntax_readers.kotlin import (
+    call_expression as kotlin_call_expression,
     object_declaration as kotlin_object_declaration,
     property_declaration as kotlin_property_declaration,
 )
@@ -260,10 +261,12 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             graph_model.GraphShardMetadataLanguage.JAVA,
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
             graph_model.GraphShardMetadataLanguage.CSHARP,
+            graph_model.GraphShardMetadataLanguage.KOTLIN,
         },
         applicable_node_label_types={
             "field_access",
             "identifier",
+            "simple_identifier",
         },
         syntax_readers=(common_identifier.reader,),
     ),
@@ -530,6 +533,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "call_expression",
         },
         syntax_readers=(go_call_expression.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.KOTLIN,
+        },
+        applicable_node_label_types={
+            "call_expression",
+        },
+        syntax_readers=(kotlin_call_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={

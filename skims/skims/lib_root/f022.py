@@ -1,5 +1,4 @@
 from lib_root import (
-    get_composite_name_kotlin,
     yield_kotlin_method_invocation,
 )
 from model.core_model import (
@@ -13,6 +12,9 @@ from model.graph_model import (
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
+)
+from sast_syntax_readers.kotlin.common import (
+    get_composite_name,
 )
 from typing import (
     Set,
@@ -50,7 +52,7 @@ def _kotlin_yield_unencrypted_channels(graph_db: GraphDB) -> GraphShardNodes:
             ]
             if parameters:
                 param_id = parameters[0]
-                param_value = get_composite_name_kotlin(
+                param_value = get_composite_name(
                     shard.graph, g.pred_ast(shard.graph, param_id)[0]
                 )
                 protocol = param_value.split(".")[-1]
