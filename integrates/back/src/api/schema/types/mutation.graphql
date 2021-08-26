@@ -692,6 +692,16 @@ type Mutation {
     pattern: String!
   ): SimplePayload!
 
+  "Moves a root and its associations to another"
+  moveRoot(
+    "Name of the source group"
+    groupName: String!
+    "ID of the source root"
+    id: ID!
+    "ID of the target root"
+    targetId: ID!
+  ): SimplePayload!
+
   "Rejects a drafted Finding"
   rejectDraft(
     "Identifier of the draft Finding to be rejected"

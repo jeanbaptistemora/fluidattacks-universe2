@@ -2,6 +2,9 @@ from aiodataloader import (
     DataLoader,
 )
 import authz
+from batch import (
+    dal as batch_dal,
+)
 from custom_exceptions import (
     InvalidParameter,
     InvalidRootExclusion,
@@ -672,4 +675,37 @@ async def get_last_status_update(
             if state.status != current_status
         ),
         historic_state[0].modified_date,
+    )
+
+
+async def move_root(
+    context: Any,
+    user_email: str,
+    group_name: str,
+    root_id: str,
+    target_id: str,
+) -> None:
+    root_loader: DataLoader = context.root
+    source_root = await root_loader.load((group_name, root_id))
+    target_root = await root_loader.load((group_name, target_id))
+
+    if (
+        root_id == target_id
+        or source_root.state.status != "ACTIVE"
+        or target_root.state.status != "ACTIVE"
+    ):
+        raise InvalidParameter()
+
+    await deactivate_root(
+        group_name=group_name,
+        other=None,
+        reason="MOVED_TO_ANOTHER_ROOT",
+        root=source_root,
+        user_email=user_email,
+    )
+    await batch_dal.put_action(
+        action_name="move_root",
+        entity=source_root.state.nickname,
+        subject=user_email,
+        additional_info=target_root.state.nickname,
     )
