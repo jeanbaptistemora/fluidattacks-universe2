@@ -995,7 +995,9 @@
       como sea posible.
     description: __empty__
   category: Architecture
-  references: []
+  references:
+    - "012.V14_2_2"
+    - "012.V14_2_5"
   metadata: {}
 "050":
   en:
@@ -1982,7 +1984,9 @@
       correos electrónicos masivos.
     description: __empty__
   category: Emails
-  references: []
+  references:
+    - "004.200"
+    - "006.5_1f"
   metadata: {}
 "121":
   en:
@@ -3516,7 +3520,8 @@
       es más probable que surjan
       vulnerabilidades.
   category: Source
-  references: []
+  references:
+    - "013.A6"
   metadata: {}
 "162":
   en:
@@ -6269,6 +6274,7 @@
     description: __empty__
   category: Data
   references:
+    - "012.V6_1_3"
     - "014.12_3_2"
   metadata: {}
 "310":
@@ -8552,7 +8558,9 @@
       tales como ASLR y DEP.
     description: __empty__
   category: Devices
-  references: []
+  references:
+    - "002.123"
+    - "012.C_3"
   metadata: {}
 "351":
   en:
