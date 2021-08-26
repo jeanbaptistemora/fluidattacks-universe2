@@ -5,8 +5,8 @@ field, for all the findings in db.
 Related issue:
 https://gitlab.com/fluidattacks/product/-/issues/5229
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-08-26 at 10:10:31 UTC-05
+Finalization Time: 2021-08-26 at 10:13:07 UTC-05
 """
 
 from aioextensions import (
