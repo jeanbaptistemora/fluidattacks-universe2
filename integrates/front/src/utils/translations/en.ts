@@ -155,6 +155,9 @@ export const enTranslations: ResourceKey = {
       cvssfBenchmarking: {
         title: "Cvssf Benchmarking (by closing rate)",
       },
+      exposedOverTimeCvssf: {
+        title: "Total Exposure",
+      },
       riskOverTime: {
         title: "Vulnerabilities over time",
         tooltip: {
