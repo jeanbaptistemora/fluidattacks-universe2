@@ -155,7 +155,7 @@ class GroupVulnsReportHeader(GenericHeader):
 
 class PdfFindingInfo(NamedTuple):  # pylint: disable=too-few-public-methods
     affected_systems: str
-    attack_vector_desc: str
+    attack_vector_description: str
     closed_vulnerabilities: int
     compromised_records: int
     description: str

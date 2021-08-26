@@ -1,0 +1,147 @@
+= {{full_group}}
+:lang:		{{lang}}
+:author:	{{team}}
+:email:		{{team_mail}}
+:date: 	    {{report_date}}
+:language:	python
+:revnumber:	{{version}}
+:revdate:	{{revdate}}
+:revmark:	Versión inicial
+
+
+'''
+
+
+This report was requested by {{user}} on {{date}} and it is only intended for their use.
+If you are reading this report and you are not {{user}}, you are not authorized to read nor keep this document. Please stop reading at the end of this paragraph, delete this document, and report the incident to {{user}}, the owner. To get an updated version of this report for yourself, please request a copy following this link [{{link}}[Fluid] > Reports > Executive].
+
+
+//Primera pagina - Contenido
+<<<
+=== {{fluid_tpl['content_title']}}
+{% for li in fluid_tpl['content_list'] %}
+{{"==== "+li+"\n"}}
+{%- endfor %}
+
+//Segunda pagina - Objetivos
+<<<
+=== {{fluid_tpl['goals_title']}}
+{{fluid_tpl['goals_img']}}
+
+//Tercera pagina - Explicacion severity
+<<<
+=== {{severity_title}}
+{{fluid_tpl['severity_img']}}
+
+//Cuarta pagina - Tabla de hallazgos
+<<<
+=== {{resume_table_title}}
+.{{resume_table_title}}
+|===
+|{{finding_title}} |{{severity_title}} |{{cardinality_title}} |{{state_title}} |{{treatment_title}}
+{% for finding in findings_new %}
+    {{"| "+finding.title}}
+    {{"| "+finding.severity_score|string}}
+    {{"| "+finding.open_vulnerabilities|string}}
+    {{"| "+finding.state+"\n"}}
+    {{"| "+finding.treatment+"\n"}}
+{%- endfor %}
+|===
+
+//Quinta pagina - Vista general
+<<<
+=== {{resume_page_title}}
+{{main_pie_filename}}
+.{{resume_ttab_title}}
+[cols="^,^,^,^", options="header"]
+|===
+|{{severity_title}}|{{finding_title}}s|{{resume_perc_title}}|{{resume_vuln_title}}
+{% for row in main_tables['resume'] %}
+  {% for col in row %}
+    {{"| "+col|string}}
+  {%- endfor %}
+{%- endfor %}
+|===
+//Sexta pagina - Vista general
+<<<
+.{{resume_top_title}}
+|===
+|{{resume_vnum_title}}|{{severity_title}}|{{resume_vname_title}}
+{% for row in main_tables['top'] %}
+    {% for col in row %}
+        {{"| "+col|string }}
+    {%-  endfor %}
+{%- endfor %}
+|===
+.{{resume_regi_title}}
+[cols="<,^", options="header"]
+|===
+|{{"*"+records_title+"*"}}|{{main_tables['num_reg']}}
+|===
+
+//Septima en adleante - Resumen hallazgos
+<<<
+=== {{finding_section_title}}
+{% for finding in findings_new %}
+==== {{finding.title + "\n"}}
+|===
+|{{severity_title}}|{{cardinality_title}}|{{records_title}}|{{state_title}}
+{{"|"+finding.severity_score|string +"|"+finding.open_vulnerabilities|string+"|"+finding.compromised_records|string+"|"+finding.state}}
+|===
+===== {{description_title}}
+{{finding.description + "\n"}}
+===== {{threat_title}}
+{{finding.threat + "\n"}}
+
+===== {{risk_title}}
+{{finding.risk + "\n"}}
+
+===== {{attack_vector_title}}
+{{finding.attack_vector_description + "\n"}}
+
+===== {{compromised_system_title}}
+{{finding.affected_systems + "\n"}}
+
+===== {{solution_title}}
+{{finding.recommendation + "\n"}}
+===== {{requisite_title}}
+    {% for req in finding.recommendation.split("\n") %}
+        - {{req + "\n"}}
+    {% endfor %}
+==== {{where_title}}
+{% if finding.grouped_ports_vulnerablities or finding.grouped_lines_vulnerablities or finding.grouped_inputs_vulnerablities %}
+===== {{ports}}
+|===
+|{{'Host'}}|{{port}}
+{% for port in finding.grouped_ports_vulnerablities %}
+{{'|'+port.where+'|'+port.specific}}
+{% endfor %}
+|===
+===== {{lines}}
+|===
+|{{path}}|{{line}}|{{commit_hash}}
+{% for line in finding.grouped_lines_vulnerablities %}
+{{'|'+line.where+'|'+line.specific+'|'+line.commit_hash}}
+{% endfor %}
+|===
+===== {{inputs}}
+|===
+|{{'URL'}}|{{field}}
+{% for input in finding.grouped_inputs_vulnerablities %}
+{{'|'+input.where+'|'+input.specific}}
+{% endfor %}
+|===
+{% else %}
+    {{finding.where.lstrip() + '\n'}}
+{% endif %}
+==== {{evidence_title}}
+{% for evidence in finding.evidence_set %}
+{{evidence['explanation'] + "\n"}}
+{{evidence['name']+"\n"}}
+<<<
+{% endfor %}
+<<<
+{%- endfor %}
+
+<<<
+{{fluid_tpl['footer_adoc']}}
