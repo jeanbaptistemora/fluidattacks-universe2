@@ -37,3 +37,7 @@ html, body, #root {
 p, ol, ul {
   margin-block-end: 0rem !important;
 }
+
+.c3-area {
+  opacity: 0.95 !important;
+}
