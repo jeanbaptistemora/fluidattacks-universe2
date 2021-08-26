@@ -3,7 +3,7 @@ This migration aims to fix the historic state dates used in the creation
 of new findings, in the context of the types standarization effort.
 
 The historic state from the original finding is restored to the new one. A
-backup from F!_findings table is used for old findings.
+backup from FI_findings table is used for old findings.
 
 Related issue:
 https://gitlab.com/fluidattacks/product/-/issues/4903
