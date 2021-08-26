@@ -75,7 +75,6 @@ observes.env.code-etl.runtime.python
 observes.env.gitlab-etl.development
 observes.env.gitlab-etl.development.python
 observes.env.gitlab-etl.runtime
-observes.env.gitlab-etl.runtime.python
 observes.env.job-last-success.runtime
 observes.env.paginator.development
 observes.env.paginator.runtime

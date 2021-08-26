@@ -1,4 +1,5 @@
-{ makeTemplate
+{ makes
+, makeTemplate
 , nixpkgs
 , packages
 , ...
@@ -8,15 +9,16 @@ makeTemplate {
   name = "observes-env-gitlab-etl-runtime";
   searchPaths = {
     envPaths = [
-      gitlab-etl.runtime.python
       nixpkgs.git
       packages.observes.tap-json
       packages.observes.target-redshift
     ];
-    envPython38Paths = [
-      gitlab-etl.runtime.python
-    ];
     envSources = [
+      (makes.makePythonPypiEnvironment {
+        name = "observes-env-gitlab-etl-runtime";
+        searchPaths.bin = [ nixpkgs.gcc nixpkgs.postgresql ];
+        sourcesYaml = ./pypi-sources.yaml;
+      })
       tap-gitlab.runtime
     ];
   };
