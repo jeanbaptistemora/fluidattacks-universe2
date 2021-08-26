@@ -1,14 +1,17 @@
-{ nixpkgs
+{ makes
+, nixpkgs
 , makeEntrypoint
 , packages
 , applications
 , path
 , ...
 }:
-makeEntrypoint {
+makeEntrypoint
+{
   arguments = {
     envAirsBuild = applications.airs.build;
     envAirsDevelopment = applications.airs.development;
+    envSyncGatsby = path "/makes/applications/airs/gatsby.py";
   };
   name = "airs";
   searchPaths = {
@@ -17,9 +20,15 @@ makeEntrypoint {
       nixpkgs.gnused
       nixpkgs.gzip
       nixpkgs.nodejs
-      nixpkgs.python37
+      nixpkgs.python38
       nixpkgs.utillinux
       packages.makes.announce.bugsnag
+    ];
+    envSources = [
+      (makes.makePythonPypiEnvironment {
+        name = "gatsby-upload";
+        sourcesYaml = ./pypi-sources.yaml;
+      })
     ];
     envUtils = [
       "/makes/utils/aws"

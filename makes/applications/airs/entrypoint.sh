@@ -102,7 +102,7 @@ function deploy_eph {
   __envAirsBuild__ \
     && aws_login_dev airs \
     && compress_files "${src}/public" \
-    && sync_files "${src}/public" "s3://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
+    && python '__envSyncGatsby__' "${src}/public" "web.eph.fluidattacks.com" "${CI_COMMIT_REF_NAME}" \
     && announce_to_bugsnag ephemeral
 }
 
@@ -112,7 +112,7 @@ function deploy_prod {
   __envAirsBuild__ \
     && aws_login_prod airs \
     && compress_files "${src}/public" \
-    && sync_files "${src}/public" 's3://fluidattacks.com' \
+    && python '__envSyncGatsby__' "${src}/public" "fluidattacks.com" \
     && announce_to_bugsnag production
 }
 
