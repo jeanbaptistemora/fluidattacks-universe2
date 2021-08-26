@@ -38,4 +38,4 @@ for vulnerabilities
 - Orange for In progress
 - Purple for New
 - Gray for temporarily Accepted
-- Black for Eternally Accepted
+- Black for Permanently Accepted

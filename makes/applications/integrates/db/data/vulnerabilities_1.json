@@ -146,7 +146,7 @@
                     "S": "ACCEPTED_UNDEFINED"
                   },
                   "justification": {
-                    "S": "test justification eternally accepted"
+                    "S": "test justification permanently accepted"
                   },
                   "user": {
                     "S": "integratesuser@gmail.com"
@@ -168,7 +168,7 @@
                     "S": "ACCEPTED_UNDEFINED"
                   },
                   "justification": {
-                    "S": "Observations about eternally accepted"
+                    "S": "Observations about permanently accepted"
                   },
                   "user": {
                     "S": "integratesuser@gmail.com"

@@ -19,7 +19,7 @@ categorized by group.
 
 The percentage of
 closed, open, temporarily accepted
-and eternally accepted vulnerabilities
+and permanently accepted vulnerabilities
 categorized by group.
 
 ## Findings by group

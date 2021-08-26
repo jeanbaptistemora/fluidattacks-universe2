@@ -63,7 +63,7 @@ async def get_group_reattacks(*, group: str, loaders: Dataloaders) -> int:
         )
 
     vulnerabilities = filter_non_confirmed_zero_risk(all_vulnerabilities)
-    vulnerabilities_excluding_eternally_accepted = [
+    vulnerabilities_excluding_permanently_accepted = [
         vulnerability
         for vulnerability in vulnerabilities
         if not is_accepted_undefined_vulnerability(vulnerability)
@@ -71,7 +71,7 @@ async def get_group_reattacks(*, group: str, loaders: Dataloaders) -> int:
 
     return sum(
         get_vulnerability_reattacks(vulnerability=vulnerability)
-        for vulnerability in vulnerabilities_excluding_eternally_accepted
+        for vulnerability in vulnerabilities_excluding_permanently_accepted
     )
 
 

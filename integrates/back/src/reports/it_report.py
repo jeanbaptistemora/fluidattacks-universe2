@@ -322,7 +322,7 @@ class ITReport:
         def format_treatment(treatment: str) -> str:
             treatment = treatment.capitalize().replace("_", " ")
             if treatment == "Accepted undefined":
-                treatment = "Eternally accepted"
+                treatment = "Permanently accepted"
             elif treatment == "Accepted":
                 treatment = "Temporarily accepted"
             return treatment
@@ -731,7 +731,7 @@ class ITReportNew:
         def format_treatment(treatment: str) -> str:
             treatment = treatment.capitalize().replace("_", " ")
             if treatment == "Accepted undefined":
-                treatment = "Eternally accepted"
+                treatment = "Permanently accepted"
             elif treatment == "Accepted":
                 treatment = "Temporarily accepted"
             return treatment

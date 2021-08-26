@@ -59,7 +59,7 @@ async def get_data_many_groups(groups: Iterable[str]) -> Treatment:
 
 def format_data(data: Treatment) -> dict:
     translations = {
-        "acceptedUndefined": "Eternally accepted",
+        "acceptedUndefined": "Permanently accepted",
         "accepted": "Temporarily Accepted",
         "inProgress": "In Progress",
         "undefined": "Not defined",
@@ -73,7 +73,7 @@ def format_data(data: Treatment) -> dict:
             ],
             "type": "pie",
             "colors": {
-                "Eternally accepted": TREATMENT.more_passive,
+                "Permanently accepted": TREATMENT.more_passive,
                 "Temporarily Accepted": TREATMENT.passive,
                 "In Progress": TREATMENT.neutral,
                 "Not defined": TREATMENT.more_agressive,

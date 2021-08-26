@@ -21,7 +21,7 @@ const Description = ({
   treatment,
 }: IDescriptionProps): JSX.Element => {
   const { t } = useTranslation();
-  const [treatmentNew, inProgress, temporallyAccepted, eternallyAccepted] =
+  const [treatmentNew, inProgress, temporallyAccepted, permanentlyAccepted] =
     treatment.split(",").map((line): string => line.trim());
 
   return (
@@ -67,7 +67,7 @@ const Description = ({
               : "group.findings.boolean.False"
           )}
         </Col50>
-        <Col50>{eternallyAccepted}</Col50>
+        <Col50>{permanentlyAccepted}</Col50>
       </Row>
     </div>
   );

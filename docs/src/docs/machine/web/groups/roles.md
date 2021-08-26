@@ -18,7 +18,7 @@ the leaders of the product
 and, besides the basic privileges,
 it allows the user to generate reports,
 define important treatments like
-accepting vulnerabilities eternally,
+accepting vulnerabilities permanently,
 requesting Zero Risk treatments,
 adding and editing users for the group
 and more.

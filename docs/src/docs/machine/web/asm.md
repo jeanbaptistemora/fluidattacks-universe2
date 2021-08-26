@@ -263,7 +263,7 @@ in the Locations tab:
   a maximum of six months.
   You can control this setting
   in the Organization Policies section.
-- **Eternally accepted:**
+- **Permanently accepted:**
   You may not resolve the vulnerability
   and decide to coexist
   with the risk forever.

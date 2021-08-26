@@ -171,7 +171,7 @@ async def format_finding(
         )
     if treatments.ACCEPTED_UNDEFINED > 0:
         formated_treatments.append(
-            f'{words["treat_ete_asu"]}: {treatments.ACCEPTED_UNDEFINED}'
+            f'{words["treat_per_asu"]}: {treatments.ACCEPTED_UNDEFINED}'
         )
     if treatments.IN_PROGRESS > 0:
         formated_treatments.append(
@@ -593,7 +593,7 @@ class CreatorPDF:
                 )
             if treatment.ACCEPTED_UNDEFINED > 0:
                 treatments.append(
-                    f'{words["treat_ete_asu"]}: {treatment.ACCEPTED_UNDEFINED}'
+                    f'{words["treat_per_asu"]}: {treatment.ACCEPTED_UNDEFINED}'
                 )
             if treatment.IN_PROGRESS > 0:
                 treatments.append(

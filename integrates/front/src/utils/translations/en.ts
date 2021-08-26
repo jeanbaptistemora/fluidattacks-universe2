@@ -100,14 +100,14 @@ export const enTranslations: ResourceKey = {
         footer: {
           accepted:
             "Temporarily accepted: A manager decided to coexist with the risk temporarily.",
-          eternally:
-            "Eternally accepted: A vulnerability that will never be remediated.",
           inProgress:
             "In progress: The system is currently being hardened by your developers.",
           intro:
             "In ASM, you can plan and manage the remediation of security findings:",
           notDefined:
             "Not defined: New vulnerabilities go here until one of your managers generates an action plan.",
+          permanently:
+            "Permanently accepted: A vulnerability that will never be remediated.",
         },
         title: "Vulnerabilities treatment",
       },
@@ -975,7 +975,7 @@ export const enTranslations: ResourceKey = {
             deactivateButton: "Disable organization finding policy",
             nameInput:
               "Add the type of finding to which vulnerabilities in organization " +
-              "groups will apply the accepted eternally treatment",
+              "groups will apply the accepted permanently treatment",
             rejectButton: "Reject organization finding policy",
             resubmitButton: "Re-submit organization finding policy",
             tagsInput: "Tags associated to the policy",
@@ -1372,7 +1372,7 @@ export const enTranslations: ResourceKey = {
         "Overall information about the finding: explanation, location, impacts, and threats",
       treatment: {
         accepted: "Temporarily accepted",
-        acceptedUndefined: "Eternally accepted",
+        acceptedUndefined: "Permanently accepted",
         approvedBy: "Approved by",
         confirmRejectZeroRisk: "Confirm/Reject zero risk",
         confirmZeroRisk: "Confirm zero risk",
@@ -1562,7 +1562,7 @@ export const enTranslations: ResourceKey = {
           "Number of times that the total finding types repeat within your system",
       },
       treatmentAccepted: "Temporarily accepted",
-      treatmentAcceptedUndefined: "Eternally accepted",
+      treatmentAcceptedUndefined: "Permanently accepted",
       treatmentGraph: "Treatment",
       treatmentInProgress: "In progress",
       treatmentNoDefined: "Not defined",
@@ -2111,7 +2111,7 @@ export const enTranslations: ResourceKey = {
     },
     tabTracking: {
       accepted: "Temporally accepted",
-      acceptedUndefined: "Eternally accepted",
+      acceptedUndefined: "Permanently accepted",
       closed: "Closed",
       cycle: "Cycle",
       effectiveness: "Effectiveness",
@@ -2126,12 +2126,12 @@ export const enTranslations: ResourceKey = {
       tabTitle: "Tracking",
       tooltip:
         "Evolution of the finding over time: historical records, open/closed vulnerabilities, " +
-        "and temporally/eternally accepted treatments",
+        "and temporally/permanently accepted treatments",
       treatment: "Treatment",
       vulnerabilitiesAcceptedTreatment:
         "{{count}} vulnerabilities were accepted temporally",
       vulnerabilitiesAcceptedUndefinedTreatment:
-        "{{count}} vulnerabilities were accepted eternally",
+        "{{count}} vulnerabilities were accepted permanently",
       vulnerabilitiesClosed: "Vulnerabilities closed:",
       vulnerabilitiesFound: "Vulnerabilities found:",
     },
@@ -2227,7 +2227,7 @@ export const enTranslations: ResourceKey = {
       tagTooltip: "Filter vulnerabilities based on their tag",
       tooltip: "Open / Closed vulnerabilities",
       treatmentStatus:
-        "Filter vulnerabilities based on eternally accepted treatment acceptation",
+        "Filter vulnerabilities based on permanently accepted treatment acceptation",
       verified: "Verified",
       vulnTable: {
         currentTreatment: "Current",

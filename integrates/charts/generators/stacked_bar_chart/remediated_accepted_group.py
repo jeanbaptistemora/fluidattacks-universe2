@@ -85,7 +85,7 @@ def format_data(data: List[Treatment]) -> dict:
                 + [group.closed_vulnerabilities for group in data],
                 cast(List[Union[int, str]], ["Temporarily Accepted"])
                 + [group.accepted for group in data],
-                cast(List[Union[int, str]], ["Eternally accepted"])
+                cast(List[Union[int, str]], ["Permanently accepted"])
                 + [group.accepted_undefined for group in data],
                 cast(List[Union[int, str]], ["Open"])
                 + [group.remaining_open_vulnerabilities for group in data],
@@ -93,7 +93,7 @@ def format_data(data: List[Treatment]) -> dict:
             colors={
                 "Closed": RISK.more_passive,
                 "Temporarily Accepted": TREATMENT.passive,
-                "Eternally accepted": TREATMENT.more_passive,
+                "Permanently accepted": TREATMENT.more_passive,
                 "Open": RISK.more_agressive,
             },
             type="bar",
@@ -101,7 +101,7 @@ def format_data(data: List[Treatment]) -> dict:
                 [
                     "Closed",
                     "Temporarily Accepted",
-                    "Eternally accepted",
+                    "Permanently accepted",
                     "Open",
                 ],
             ],

@@ -67,7 +67,7 @@ the remediation of security findings:
   A manager decided
   to coexist with the risk
   temporarily.
-- Eternally accepted:
+- Permanently accepted:
   A vulnerability
   that will never be remediated.
 
@@ -188,7 +188,7 @@ For example,
 a vulnerability starts as **New**,
 then changes to **In progress**
 when a user starts solving it,
-then it may change to **Eternally accepted**
+then it may change to **Permanently accepted**
 if for any number of circumstances
 it couldn't be solved,
 and then this vulnerability

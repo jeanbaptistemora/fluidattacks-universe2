@@ -46,7 +46,7 @@ are the following:
   you accept the risks
   that comes with it
   until a selected date.
-- **Eternally accepted:**
+- **Permanently accepted:**
   As with the previous treatment,
   this is used
   when you don't intend
@@ -54,7 +54,7 @@ are the following:
   but this time
   you accept the risks
   that come with it
-  eternally.
+  permanently.
 
 You will need to provide
 certain additional information

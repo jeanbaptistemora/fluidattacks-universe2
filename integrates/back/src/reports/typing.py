@@ -280,8 +280,8 @@ class PDFWordlistEn(Wordlist):
     TREAT_STATUS_ASU: WordlistItem = WordlistItem(
         "treat_status_asu", "Temporarily Accepted"
     )
-    TREAT_ETERNALLY_ASU: WordlistItem = WordlistItem(
-        "treat_ete_asu", "Eternally Accepted"
+    TREAT_PERMANENTLY_ASU: WordlistItem = WordlistItem(
+        "treat_per_asu", "Permanently Accepted"
     )
     TREAT_STATUS_REM: WordlistItem = WordlistItem(
         "treat_status_rem", "In Progress"
