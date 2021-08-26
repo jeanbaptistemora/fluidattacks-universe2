@@ -26,6 +26,7 @@ from reports.it_report import (
 )
 from reports.pdf import (
     CreatorPDF,
+    CreatorPdfNew,
 )
 from reports.secure_pdf import (
     SecurePDF,
@@ -222,6 +223,40 @@ async def generate_pdf_file(
         convert_evidences_to_png(findings_ord, tempdir, group_name)
         await pdf_maker.tech(
             findings_ord, group_name, description, user_email, context
+        )
+    report_filename = await secure_pdf.create_full(
+        user_email, pdf_maker.out_name, group_name
+    )
+    return report_filename
+
+
+async def generate_pdf_file_new(
+    *,
+    context: Any,
+    description: str,
+    findings_ord: Tuple[Finding, ...],
+    group_name: str,
+    lang: str,
+    passphrase: str,
+    user_email: str,
+) -> str:
+    secure_pdf = SecurePDF(passphrase)
+    report_filename = ""
+    with TemporaryDirectory() as tempdir:
+        pdf_maker = CreatorPdfNew(lang, "tech", tempdir)
+        finding_evidences_set = await download_evidences_for_pdf_new(
+            findings_ord, tempdir
+        )
+        convert_evidences_to_png_new(
+            findings_ord, finding_evidences_set, tempdir
+        )
+        await pdf_maker.tech(
+            findings_ord,
+            finding_evidences_set,
+            group_name,
+            description,
+            user_email,
+            context,
         )
     report_filename = await secure_pdf.create_full(
         user_email, pdf_maker.out_name, group_name
