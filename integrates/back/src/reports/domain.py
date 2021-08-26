@@ -54,6 +54,7 @@ async def get_group_report_url(
                 ),
             )
         )
+        description = await groups_domain.get_description(group_name)
 
         if report_type == "XLS":
             return await technical_report.generate_xls_file_new(
@@ -61,6 +62,16 @@ async def get_group_report_url(
                 findings_ord=findings_ord_new,
                 group_name=group_name,
                 passphrase=passphrase,
+            )
+        if report_type == "PDF":
+            return await technical_report.generate_pdf_file_new(
+                context=context,
+                description=description,
+                findings_ord=findings_ord_new,
+                group_name=group_name,
+                lang="en",
+                passphrase=passphrase,
+                user_email=user_email,
             )
 
     else:
