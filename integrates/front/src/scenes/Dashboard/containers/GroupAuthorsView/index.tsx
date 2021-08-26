@@ -69,11 +69,6 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     setFilterEnabled(!isFilterEnabled);
   }, [isFilterEnabled, setFilterEnabled]);
 
-  const onFilterAuthor: TableColumnFilterProps["onFilter"] = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("authorFilter", filterVal);
-  };
   const onFilterGroupsContributed: TableColumnFilterProps["onFilter"] = (
     filterVal: string
   ): void => {
@@ -90,9 +85,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       align: "center",
       dataField: "actor",
       filter: textFilter({
-        defaultValue: _.get(sessionStorage, "authorFilter"),
         delay: 1000,
-        onFilter: onFilterAuthor,
       }),
       formatter: formatText,
       header: translate.t("group.authors.actor"),
