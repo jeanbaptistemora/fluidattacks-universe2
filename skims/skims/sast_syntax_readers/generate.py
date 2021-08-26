@@ -91,6 +91,7 @@ from sast_syntax_readers.javascript import (
 )
 from sast_syntax_readers.kotlin import (
     call_expression as kotlin_call_expression,
+    navigation_expression as kotlin_navigation_expression,
     object_declaration as kotlin_object_declaration,
     property_declaration as kotlin_property_declaration,
 )
@@ -354,6 +355,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "selector_expression",
         },
         syntax_readers=(common_attribute_access.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.KOTLIN,
+        },
+        applicable_node_label_types={
+            "navigation_expression",
+        },
+        syntax_readers=(kotlin_navigation_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
@@ -726,9 +736,11 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
+            graph_model.GraphShardMetadataLanguage.KOTLIN,
         },
         applicable_node_label_types={
             "this",
+            "this_expression",
         },
         syntax_readers=(java_this.reader,),
     ),
@@ -974,6 +986,7 @@ def read_from_graph(
                     warn_if_missing_syntax_reader=False,
                 )
 
+    print(graph_syntax.values())
     # Linearize items so we can evaluate steps in a linear for, no recursion
     for syntax_steps in graph_syntax.values():
         while linearize_syntax_steps(syntax_steps):
