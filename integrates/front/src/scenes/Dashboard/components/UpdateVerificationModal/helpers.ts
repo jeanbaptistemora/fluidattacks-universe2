@@ -1,7 +1,13 @@
-import type { FetchResult } from "@apollo/client";
+import _ from "lodash";
 import { track } from "mixpanel-browser";
 
 import type { IVulnData } from ".";
+import type {
+  IRequestVulnVerificationResult,
+  IVerifyRequestVulnResult,
+  ReattackVulnerabilitiesResult,
+  VerifyVulnerabilitiesResult,
+} from "scenes/Dashboard/components/UpdateVerificationModal/types";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -72,55 +78,136 @@ const handleVerifyRequestError = (error: unknown): void => {
   }
 };
 
-const handleSubmitHelper = (
+const getAreAllMutationValid = (
+  results: ReattackVulnerabilitiesResult[] | VerifyVulnerabilitiesResult[]
+): boolean[] => {
+  return results.map(
+    (
+      result: ReattackVulnerabilitiesResult | VerifyVulnerabilitiesResult
+    ): boolean => {
+      if (!_.isUndefined(result.data) && !_.isNull(result.data)) {
+        const reattackSuccess: boolean = _.isUndefined(
+          (result.data as IRequestVulnVerificationResult)
+            .requestVulnerabilitiesVerification
+        )
+          ? false
+          : (result.data as IRequestVulnVerificationResult)
+              .requestVulnerabilitiesVerification.success;
+
+        const verifySuccess: boolean = _.isUndefined(
+          (result.data as IVerifyRequestVulnResult).verifyVulnerabilitiesRequest
+        )
+          ? false
+          : (result.data as IVerifyRequestVulnResult)
+              .verifyVulnerabilitiesRequest.success;
+
+        return reattackSuccess || verifySuccess;
+      }
+
+      return false;
+    }
+  );
+};
+
+const handleSubmitHelper = async (
   requestVerification: (
     variables: Record<string, unknown>
-  ) => Promise<FetchResult<unknown>>,
+  ) => Promise<ReattackVulnerabilitiesResult>,
   verifyRequest: (
     variables: Record<string, unknown>
-  ) => Promise<FetchResult<unknown>>,
+  ) => Promise<VerifyVulnerabilitiesResult>,
   findingId: string,
   values: { treatmentJustification: string },
   vulns: IVulnData[],
   vulnerabilitiesList: IVulnData[],
   isReattacking: boolean
-): void => {
+): Promise<ReattackVulnerabilitiesResult[] | VerifyVulnerabilitiesResult[]> => {
+  const chunkSize = 100;
   if (isReattacking) {
     const vulnerabilitiesId: string[] = vulns.map(
       (vuln: IVulnData): string => vuln.id
     );
 
     track("RequestReattack");
-    requestVerification({
-      variables: {
-        findingId,
-        justification: values.treatmentJustification,
-        vulnerabilities: vulnerabilitiesId,
-      },
-    }).catch((): undefined => undefined);
-  } else {
-    const openVulnsId: string[] = vulnerabilitiesList.reduce(
-      (acc: string[], vuln: IVulnData): string[] =>
-        vuln.currentState === "open" ? [...acc, vuln.id] : acc,
-      []
+    const vulnerabilitiesIdsChunks: string[][] = _.chunk(
+      vulnerabilitiesId,
+      chunkSize
     );
-    const closedVulnsId: string[] = vulnerabilitiesList.reduce(
-      (acc: string[], vuln: IVulnData): string[] =>
-        vuln.currentState === "closed" ? [...acc, vuln.id] : acc,
-      []
+    const requestedChunks = vulnerabilitiesIdsChunks.map(
+      (
+          chunkedVulnerabilitiesIds
+        ): (() => Promise<ReattackVulnerabilitiesResult[]>) =>
+        async (): Promise<ReattackVulnerabilitiesResult[]> => {
+          return Promise.all([
+            requestVerification({
+              variables: {
+                findingId,
+                justification: values.treatmentJustification,
+                vulnerabilities: chunkedVulnerabilitiesIds,
+              },
+            }),
+          ]);
+        }
     );
-    verifyRequest({
-      variables: {
-        closedVulns: closedVulnsId,
-        findingId,
-        justification: values.treatmentJustification,
-        openVulns: openVulnsId,
-      },
-    }).catch((): undefined => undefined);
+
+    return requestedChunks.reduce(
+      async (
+        previousValue,
+        currentValue
+      ): Promise<ReattackVulnerabilitiesResult[]> => [
+        ...(await previousValue),
+        ...(await currentValue()),
+      ],
+      Promise.resolve<ReattackVulnerabilitiesResult[]>([])
+    );
   }
+  const VulnerabilitiesListChunks: IVulnData[][] = _.chunk(
+    vulnerabilitiesList,
+    chunkSize
+  );
+  const verifiedChunks = VulnerabilitiesListChunks.map(
+    (
+        chunkedVulnerabilitiesList
+      ): (() => Promise<VerifyVulnerabilitiesResult[]>) =>
+      async (): Promise<VerifyVulnerabilitiesResult[]> => {
+        const openVulnsId: string[] = chunkedVulnerabilitiesList.reduce(
+          (acc: string[], vuln: IVulnData): string[] =>
+            vuln.currentState === "open" ? [...acc, vuln.id] : acc,
+          []
+        );
+        const closedVulnsId: string[] = chunkedVulnerabilitiesList.reduce(
+          (acc: string[], vuln: IVulnData): string[] =>
+            vuln.currentState === "closed" ? [...acc, vuln.id] : acc,
+          []
+        );
+
+        return Promise.all([
+          verifyRequest({
+            variables: {
+              closedVulns: closedVulnsId,
+              findingId,
+              justification: values.treatmentJustification,
+              openVulns: openVulnsId,
+            },
+          }),
+        ]);
+      }
+  );
+
+  return verifiedChunks.reduce(
+    async (
+      previousValue,
+      currentValue
+    ): Promise<VerifyVulnerabilitiesResult[]> => [
+      ...(await previousValue),
+      ...(await currentValue()),
+    ],
+    Promise.resolve<VerifyVulnerabilitiesResult[]>([])
+  );
 };
 
 export {
+  getAreAllMutationValid,
   handleRequestVerification,
   handleRequestVerificationError,
   handleVerifyRequest,

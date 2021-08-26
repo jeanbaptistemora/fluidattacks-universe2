@@ -1,10 +1,10 @@
 import { useMutation } from "@apollo/client";
-import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import React, { useCallback, useState } from "react";
 
 import {
+  getAreAllMutationValid,
   handleRequestVerification,
   handleRequestVerificationError,
   handleSubmitHelper,
@@ -20,10 +20,6 @@ import {
   REQUEST_VULNERABILITIES_VERIFICATION,
   VERIFY_VULNERABILITIES,
 } from "scenes/Dashboard/components/UpdateVerificationModal/queries";
-import type {
-  IRequestVulnVerificationResult,
-  IVerifyRequestVulnResult,
-} from "scenes/Dashboard/components/UpdateVerificationModal/types";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -76,16 +72,6 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
   const [requestVerification, { loading: submittingRequest }] = useMutation(
     REQUEST_VULNERABILITIES_VERIFICATION,
     {
-      onCompleted: (data: IRequestVulnVerificationResult): void => {
-        handleRequestVerification(
-          clearSelected,
-          setRequestState,
-          data.requestVulnerabilitiesVerification.success
-        );
-      },
-      onError: ({ graphQLErrors }: ApolloError): void => {
-        handleRequestVerificationError(graphQLErrors);
-      },
       refetchQueries: [
         {
           query: GET_FINDING_VULN_INFO,
@@ -107,17 +93,6 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
   const [verifyRequest, { loading: submittingVerify }] = useMutation(
     VERIFY_VULNERABILITIES,
     {
-      onCompleted: (data: IVerifyRequestVulnResult): void => {
-        handleVerifyRequest(
-          clearSelected,
-          setVerifyState,
-          data.verifyVulnerabilitiesRequest.success,
-          vulns.length
-        );
-      },
-      onError: ({ graphQLErrors }: ApolloError): void => {
-        handleVerifyRequestError(graphQLErrors);
-      },
       refetchQueries: [
         {
           query: GET_FINDING_HEADER,
@@ -143,30 +118,41 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
     }
   );
 
-  const handleSubmit: (values: { treatmentJustification: string }) => void =
-    useCallback(
-      (values: { treatmentJustification: string }): void => {
-        handleSubmitHelper(
-          requestVerification,
-          verifyRequest,
-          findingId,
-          values,
-          vulns,
-          vulnerabilitiesList,
-          isReattacking
-        );
-        closeRemediationModal();
-      },
-      [
-        closeRemediationModal,
-        findingId,
-        isReattacking,
-        vulns,
+  async function handleSubmit(values: {
+    treatmentJustification: string;
+  }): Promise<void> {
+    try {
+      const results = await handleSubmitHelper(
         requestVerification,
         verifyRequest,
+        findingId,
+        values,
+        vulns,
         vulnerabilitiesList,
-      ]
-    );
+        isReattacking
+      );
+      const areAllMutationValid = getAreAllMutationValid(results);
+      if (areAllMutationValid.every(Boolean)) {
+        if (isReattacking) {
+          handleRequestVerification(clearSelected, setRequestState, true);
+        } else {
+          handleVerifyRequest(
+            clearSelected,
+            setVerifyState,
+            true,
+            vulns.length
+          );
+        }
+      }
+    } catch (requestError: unknown) {
+      if (isReattacking) {
+        handleRequestVerificationError(requestError);
+      } else {
+        handleVerifyRequestError(requestError);
+      }
+    }
+    closeRemediationModal();
+  }
 
   const renderVulnsToVerify: () => JSX.Element = (): JSX.Element => {
     const handleUpdateRepo: (vulnInfo: Dictionary<string>) => void = (
