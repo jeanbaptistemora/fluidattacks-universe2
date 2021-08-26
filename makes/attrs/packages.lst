@@ -69,7 +69,6 @@ melts.config-runtime
 melts.lib
 melts.lint
 observes.env.code-etl.development
-observes.env.code-etl.development.python
 observes.env.code-etl.runtime
 observes.env.gitlab-etl.development
 observes.env.gitlab-etl.runtime
