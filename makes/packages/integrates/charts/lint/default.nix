@@ -166,7 +166,6 @@ let
 in
 makeDerivation {
   arguments = {
-    envChartsSrc = path "/integrates/charts";
     envGraphsSrc = path "/integrates/back/src/app/templates/static/graphics";
   };
   builder = path "/makes/packages/integrates/charts/lint/builder.sh";

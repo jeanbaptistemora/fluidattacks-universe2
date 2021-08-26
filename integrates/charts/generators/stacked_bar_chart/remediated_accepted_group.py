@@ -22,7 +22,7 @@ from typing import (
     Union,
 )
 
-Treatment = NamedTuple(
+Treatment = NamedTuple(  # type: ignore
     "Status",
     [
         ("accepted", int),

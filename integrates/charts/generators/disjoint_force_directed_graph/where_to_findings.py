@@ -19,7 +19,7 @@ from decimal import (
 from findings import (
     domain as findings_domain,
 )
-from frozendict import (
+from frozendict import (  # type: ignore
     frozendict,
 )
 from typing import (
