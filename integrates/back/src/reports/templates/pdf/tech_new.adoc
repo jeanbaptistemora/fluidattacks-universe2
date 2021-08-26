@@ -105,11 +105,11 @@ If you are reading this report and you are not {{user}}, you are not authorized 
 ===== {{solution_title}}
 {{finding.recommendation + "\n"}}
 ===== {{requisite_title}}
-    {% for req in finding.recommendation.split("\n") %}
+    {% for req in finding.requirements.split("\n") %}
         - {{req + "\n"}}
     {% endfor %}
 ==== {{where_title}}
-{% if finding.grouped_ports_vulnerablities or finding.grouped_lines_vulnerablities or finding.grouped_inputs_vulnerablities %}
+{% if finding.grouped_ports_vulnerablities or finding.grouped_lines_vulnerabilities or finding.grouped_inputs_vulnerabilities %}
 ===== {{ports}}
 |===
 |{{'Host'}}|{{port}}
@@ -120,14 +120,14 @@ If you are reading this report and you are not {{user}}, you are not authorized 
 ===== {{lines}}
 |===
 |{{path}}|{{line}}|{{commit_hash}}
-{% for line in finding.grouped_lines_vulnerablities %}
+{% for line in finding.grouped_lines_vulnerabilities %}
 {{'|'+line.where+'|'+line.specific+'|'+line.commit_hash}}
 {% endfor %}
 |===
 ===== {{inputs}}
 |===
 |{{'URL'}}|{{field}}
-{% for input in finding.grouped_inputs_vulnerablities %}
+{% for input in finding.grouped_inputs_vulnerabilities %}
 {{'|'+input.where+'|'+input.specific}}
 {% endfor %}
 |===

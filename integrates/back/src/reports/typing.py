@@ -165,6 +165,7 @@ class PdfFindingInfo(NamedTuple):  # pylint: disable=too-few-public-methods
     grouped_ports_vulnerablities: Tuple[GroupedVulnerabilitiesInfo, ...]
     open_vulnerabilities: int
     recommendation: str
+    requirements: str
     risk: str
     severity_score: Decimal
     state: str

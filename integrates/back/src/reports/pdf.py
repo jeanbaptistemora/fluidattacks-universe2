@@ -207,6 +207,7 @@ async def format_finding(
         ),
         open_vulnerabilities=open_vulnerabilities,
         recommendation=finding.recommendation,
+        requirements=finding.requirements,
         risk=finding.risk,
         severity_score=severity_score,
         state=state,
