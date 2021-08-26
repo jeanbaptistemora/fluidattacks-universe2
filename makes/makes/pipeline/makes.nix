@@ -96,10 +96,10 @@ in
           output = "/deployTerraform/makesKubernetes";
           gitlabExtra = gitlabDeployInfra;
         }
-        #{
-        #  output = "/deployTerraform/makesOkta";
-        #  gitlabExtra = gitlabDeployInfra;
-        #}
+        {
+          output = "/deployTerraform/makesOkta";
+          gitlabExtra = gitlabDeployInfra;
+        }
         {
           output = "/deployTerraform/makesSecrets";
           gitlabExtra = gitlabDeployInfra;
@@ -344,10 +344,10 @@ in
           output = "/testTerraform/makesKubernetes";
           gitlabExtra = gitlabTestInfra;
         }
-        #{
-        #  output = "/testTerraform/makesOkta";
-        #  gitlabExtra = gitlabTestInfra;
-        #}
+        {
+          output = "/testTerraform/makesOkta";
+          gitlabExtra = gitlabTestInfra;
+        }
         {
           output = "/testTerraform/makesSecrets";
           gitlabExtra = gitlabTestInfra;
