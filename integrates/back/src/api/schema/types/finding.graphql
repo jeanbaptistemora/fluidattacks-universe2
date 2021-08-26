@@ -21,6 +21,7 @@ type Finding {
   "Quantity of closed vulnerabilities within the Finding"
   closedVulnerabilities: Int
   compromisedAttributes: String
+  "Number of compromised records"
   compromisedRecords: Int
   "Information about the Finding shared by the stakeholders via comments"
   consulting: [Consult]
@@ -43,6 +44,7 @@ type Finding {
   "Inputs Vulnerabilities"
   inputsVulns: [Vulnerability] @deprecated(reason: """This field will be
     removed after 2021/12/31. Use `inputsVulnerabilities` instead.""")
+  "Is the Finding still exploitable?"
   isExploitable: Boolean
   "Time in days since the last closed vulnerability in this Finding"
   lastVulnerability: Int
@@ -53,8 +55,10 @@ type Finding {
     removed after 2021/12/31. Use `linesVulnerabilities` instead.""")
   "Machine (Skims) checks and tests associated with this Finding"
   machineJobs: [MachineJob]
+  "Re-attacks requested in all locations"
   newRemediated: Boolean @deprecated(reason: """This field
     will be removed after 2021/12/20. Use `remediated` instead.""")
+  "Consults/Comments about the Finding"
   observations: [Consult]
   "Age of the oldest open vulnerability in the Finding in days"
   openAge: Int
