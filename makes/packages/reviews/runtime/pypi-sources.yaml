@@ -1,0 +1,105 @@
+closure:
+  cached-property: 1.5.2
+  certifi: 2021.5.30
+  cffi: 1.14.6
+  charset-normalizer: 2.0.4
+  click: 7.1.2
+  dynaconf: 3.0.0
+  idna: "3.2"
+  pycparser: "2.20"
+  pygit2: 1.2.1
+  python-gitlab: 2.4.0
+  requests: 2.26.0
+  urllib3: 1.26.6
+links:
+  - name: cached_property-1.5.2-py2.py3-none-any.whl
+    sha256: 1856hpmij4rgl4drxsymxgn6aqnj2ajz9al1qf65i6mdywy62kyz
+    url: https://files.pythonhosted.org/packages/48/19/f2090f7dad41e225c7f2326e4cfe6fff49e57dedb5b53636c9551f86b069/cached_property-1.5.2-py2.py3-none-any.whl
+  - name: cached-property-1.5.2.tar.gz
+    sha256: 0c51i6yzg6dlq6zhk4c6nv33mg8gv05kkan36k9b5jzf71c7b9cz
+    url: https://files.pythonhosted.org/packages/61/2c/d21c1c23c2895c091fa7a91a54b6872098fea913526932d21902088a7c41/cached-property-1.5.2.tar.gz
+  - name: certifi-2021.5.30-py2.py3-none-any.whl
+    sha256: 1n57ixzaln34d2qw55g7vh0hd6g033dkhqyxwwdz81kb8kwf9cah
+    url: https://files.pythonhosted.org/packages/05/1b/0a0dece0e8aa492a6ec9e4ad2fe366b511558cdc73fd3abc82ba7348e875/certifi-2021.5.30-py2.py3-none-any.whl
+  - name: certifi-2021.5.30.tar.gz
+    sha256: 1vm9gf8p3wxsc274av2lz35jfkslw3fs7pgn7s5i6q198gypdgrb
+    url: https://files.pythonhosted.org/packages/6d/78/f8db8d57f520a54f0b8a438319c342c61c22759d8f9a1cd2e2180b5e5ea9/certifi-2021.5.30.tar.gz
+  - name: cffi-1.14.6-cp38-cp38-macosx_10_9_x86_64.whl
+    sha256: 1w12nkbvs0qqzdn86m69qiv9hi0h4gcssjwgsm2hj59f8lzjnvxs
+    url: https://files.pythonhosted.org/packages/ca/e1/015e2ae23230d9de8597e9ad8c0b81d5ac181f08f2e6e75774b7f5301677/cffi-1.14.6-cp38-cp38-macosx_10_9_x86_64.whl
+  - name: cffi-1.14.6-cp38-cp38-manylinux1_i686.whl
+    sha256: 0bjcj12zj09vhfwp7difapm9ljskh3krp2fl45sh7i3vff9sgzb4
+    url: https://files.pythonhosted.org/packages/1f/e3/33394dcef4264f5a20249bd9dbd9375743bc97291a264470e630fa01ddf9/cffi-1.14.6-cp38-cp38-manylinux1_i686.whl
+  - name: cffi-1.14.6-cp38-cp38-manylinux1_x86_64.whl
+    sha256: 0ip3bkip1in042qqfs51dz0pyvrv2d3p5fnibrjip7fkik136glz
+    url: https://files.pythonhosted.org/packages/80/a8/1562ce87c8cb8c736cbef40bc235f4a2ac7835822c231f717e3064dfcc93/cffi-1.14.6-cp38-cp38-manylinux1_x86_64.whl
+  - name: cffi-1.14.6-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 1p2imn74gj3l3rbrns3zk9xjl0knc5sjprmbylrwh217nx4jbfr6
+    url: https://files.pythonhosted.org/packages/91/ac/e0181c9402f5897be54bbddc87ca1c6ae4d2c562cfebc19959843d9ef438/cffi-1.14.6-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: cffi-1.14.6-cp38-cp38-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
+    sha256: 1zbarkiw8xpk7wwfvjvyhmk57k2rwi0hzn7d36bq78d7y08pls7b
+    url: https://files.pythonhosted.org/packages/30/69/cb013027404d6508d53005038eacb09e707a9fec0cbbd893c79461acc35a/cffi-1.14.6-cp38-cp38-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
+  - name: cffi-1.14.6-cp38-cp38-manylinux_2_17_s390x.manylinux2014_s390x.whl
+    sha256: 1k4187s3jjawn6xi8f5k170jn8g35gzpmlfwh794a1jwi9k4vbfj
+    url: https://files.pythonhosted.org/packages/a5/30/d0d23e56afef51ca18de6b7099cf8b595cb5e90c50cc3fa44d1fac68e405/cffi-1.14.6-cp38-cp38-manylinux_2_17_s390x.manylinux2014_s390x.whl
+  - name: cffi-1.14.6.tar.gz
+    sha256: 1pb5jwd368dcl8lc3p6a3mxrp42p7i9xsx22g23jiqvzkp77ba69
+    url: https://files.pythonhosted.org/packages/2e/92/87bb61538d7e60da8a7ec247dc048f7671afe17016cd0008b3b710012804/cffi-1.14.6.tar.gz
+  - name: charset_normalizer-2.0.4-py3-none-any.whl
+    sha256: 12sx2xiqnjzmq37a5g32m5aj0c4s149sb551cqrj46axs7ni328c
+    url: https://files.pythonhosted.org/packages/33/53/b7f6126a2b9fd878b025fe3c40266cfaad696f312165008ce045bffa3fe7/charset_normalizer-2.0.4-py3-none-any.whl
+  - name: charset-normalizer-2.0.4.tar.gz
+    sha256: 1ws8lc1cshngraxyir4p81a0cll6b958wlz0d9gy8jq8w7mnfdpj
+    url: https://files.pythonhosted.org/packages/e7/4e/2af0238001648ded297fb54ceb425ca26faa15b341b4fac5371d3938666e/charset-normalizer-2.0.4.tar.gz
+  - name: click-7.1.2-py2.py3-none-any.whl
+    sha256: 1p607168jqq20d8bngrkfqv0vvkfas57r6s8szimvpgs9fgsik6s
+    url: https://files.pythonhosted.org/packages/d2/3d/fa76db83bf75c4f8d338c2fd15c8d33fdd7ad23a9b5e57eb6c5de26b430e/click-7.1.2-py2.py3-none-any.whl
+  - name: click-7.1.2.tar.gz
+    sha256: 06kbzd6sjfkqan3miwj9wqyddfxc2b6hi7p5s4dvqjb3gif2bdfj
+    url: https://files.pythonhosted.org/packages/27/6f/be940c8b1f1d69daceeb0032fee6c34d7bd70e3e649ccac0951500b4720e/click-7.1.2.tar.gz
+  - name: dynaconf-3.0.0-py2.py3-none-any.whl
+    sha256: 0hy3apvdg05mp8pwbf8idzdxbzvv2ysjhsviw8gmjcwdynwn82q0
+    url: https://files.pythonhosted.org/packages/1b/d8/8994ffc917a16d85a08026528c66a91fff920d733a48b11fa59a7a510ea7/dynaconf-3.0.0-py2.py3-none-any.whl
+  - name: dynaconf-3.0.0.tar.gz
+    sha256: 0wz26zir699s80cx2y8nbvjis41dx96ppc4b49k633m70wdkvyxm
+    url: https://files.pythonhosted.org/packages/b6/02/339a6c2ae2b2afe8d525b0edf6f34899c8f9ceab7c8ccb325dfb66e11f86/dynaconf-3.0.0.tar.gz
+  - name: idna-3.2-py3-none-any.whl
+    sha256: 0ynxnv3raplspvcsqly99m6b33s2a5l6zq28rcs116c4w9150iql
+    url: https://files.pythonhosted.org/packages/d7/77/ff688d1504cdc4db2a938e2b7b9adee5dd52e34efbd2431051efc9984de9/idna-3.2-py3-none-any.whl
+  - name: idna-3.2.tar.gz
+    sha256: 1wr5s7ngfdwp4fap4r95liihxyvidj137qsc2j2hg4b7j3cvlzs6
+    url: https://files.pythonhosted.org/packages/cb/38/4c4d00ddfa48abe616d7e572e02a04273603db446975ab46bbcd36552005/idna-3.2.tar.gz
+  - name: pycparser-2.20-py2.py3-none-any.whl
+    sha256: 01apwc8fj6qh7lr01yxmns475rfhz07gccr8220ws3wgcwiav0km
+    url: https://files.pythonhosted.org/packages/ae/e7/d9c3a176ca4b02024debf82342dab36efadfc5776f9c8db077e8f6e71821/pycparser-2.20-py2.py3-none-any.whl
+  - name: pycparser-2.20.tar.gz
+    sha256: 1w0m3xvlrzq4lkbvd1ngfm8mdw64r1yxy6n7djlw6qj5d0km6ird
+    url: https://files.pythonhosted.org/packages/0f/86/e19659527668d70be91d0369aeaa055b4eb396b0f387a4f92293a20035bd/pycparser-2.20.tar.gz
+  - name: pygit2-1.2.1-cp38-cp38-macosx_10_9_x86_64.whl
+    sha256: 1gfpxnsd63li9ffrv3cfc4pw6lgazrhd021m41ihijx5968l1w3b
+    url: https://files.pythonhosted.org/packages/d5/62/f4794cd74ed98d87e8120c05d3d9f1e0c42ec408f1ab44bbaf429b6ae6d4/pygit2-1.2.1-cp38-cp38-macosx_10_9_x86_64.whl
+  - name: pygit2-1.2.1-cp38-cp38-manylinux2010_x86_64.whl
+    sha256: 06jm8ggky240n46kads8ykvcm1fsdbv4fsb2sdr363flhij4g66v
+    url: https://files.pythonhosted.org/packages/cb/24/6dd5f626758ac4fcf8f770ceeba7f4470739bf632e7fa49fff96fdc03a85/pygit2-1.2.1-cp38-cp38-manylinux2010_x86_64.whl
+  - name: pygit2-1.2.1.tar.gz
+    sha256: 11q3a0p4mvzdskla0c6ffcrddldfbh7dc4p5l6xrriwri88j356y
+    url: https://files.pythonhosted.org/packages/d0/c6/33e2df5722e3adf49adc6a2d3c2cdb5a5247236fd8f2063a0c4d058116a1/pygit2-1.2.1.tar.gz
+  - name: python_gitlab-2.4.0-py3-none-any.whl
+    sha256: 0wf7anlpp34r3jphq3bn1qgc2g0kj59j5z9zzfavgkmc5ikf0qb4
+    url: https://files.pythonhosted.org/packages/bf/01/b6651210e5d4e488a588a6095767cac37921780b6cca5e0bcd2a1dfadb09/python_gitlab-2.4.0-py3-none-any.whl
+  - name: python-gitlab-2.4.0.tar.gz
+    sha256: 0ks7vpha6zxj7m9iv86dlqykzn1wy31pin40r538rsfrf71vah72
+    url: https://files.pythonhosted.org/packages/74/a0/323c2057dbf3df0c6cfe6d6b3214077a2ec2e585b49c00e8350c99fce9d7/python-gitlab-2.4.0.tar.gz
+  - name: requests-2.26.0-py2.py3-none-any.whl
+    sha256: 097xdqddqm6ikzf30867irmrq3wg1s8nz450512wspnd7r8lc4kc
+    url: https://files.pythonhosted.org/packages/92/96/144f70b972a9c0eabbd4391ef93ccd49d0f2747f4f6a2a2738e99e5adc65/requests-2.26.0-py2.py3-none-any.whl
+  - name: requests-2.26.0.tar.gz
+    sha256: 19q73fq7hip7b74fwls3p9x6zwvfwqcwpn6kha3zsgvrrzw5iamq
+    url: https://files.pythonhosted.org/packages/e7/01/3569e0b535fb2e4a6c384bdbed00c55b9d78b5084e0fb7f4d0bf523d7670/requests-2.26.0.tar.gz
+  - name: urllib3-1.26.6-py2.py3-none-any.whl
+    sha256: 1m6823gifpdhma46q3rg3vn4s406138qswd776qsqnb129r8dyrr
+    url: https://files.pythonhosted.org/packages/5f/64/43575537846896abac0b15c3e5ac678d787a4021e906703f1766bfb8ea11/urllib3-1.26.6-py2.py3-none-any.whl
+  - name: urllib3-1.26.6.tar.gz
+    sha256: 0brlisgwwcms6q7p6nd2b5mzn4jm4mdw75rxgq5pd8igqqb4qyzm
+    url: https://files.pythonhosted.org/packages/4f/5a/597ef5911cb8919efe4d86206aa8b2658616d676a7088f0825ca08bd7cb8/urllib3-1.26.6.tar.gz
+python: "3.8"
