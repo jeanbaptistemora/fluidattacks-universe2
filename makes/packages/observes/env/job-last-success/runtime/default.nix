@@ -1,10 +1,9 @@
-{ makeTemplate
+{ makes
+, makeTemplate
 , nixpkgs
-, packages
 , path
 , ...
 }:
-with packages.observes.env;
 let
   self = path "/observes/services/job_last_success";
 in
@@ -14,15 +13,15 @@ makeTemplate {
     envMypyPaths = [
       self
     ];
-    envPaths = [
-      job-last-success.runtime.python
-    ];
     envPythonPaths = [
       self
     ];
-    envPython38Paths = [
-      nixpkgs.python38Packages.psycopg2
-      job-last-success.runtime.python
+    envSources = [
+      (makes.makePythonPypiEnvironment {
+        name = "observes-env-job-last-success-runtime";
+        searchPaths.bin = [ nixpkgs.gcc nixpkgs.postgresql ];
+        sourcesYaml = ./pypi-sources.yaml;
+      })
     ];
   };
 }

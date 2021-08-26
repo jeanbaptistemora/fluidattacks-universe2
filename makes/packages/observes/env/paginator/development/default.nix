@@ -8,7 +8,7 @@ makeTemplate {
   searchPaths = {
     envSources = [
       (makes.makePythonPypiEnvironment {
-        name = "observes-env-paginator-runtime";
+        name = "observes-env-paginator-development";
         sourcesYaml = ./pypi-sources.yaml;
       })
       packages.observes.env.paginator.runtime
