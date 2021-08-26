@@ -2734,6 +2734,9 @@
     "10_5_5":
       title: Use file-integrity monitoring or change-detection software
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "12_3_2":
+      title:  Authentication for use of the technology
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf  
     "12_3_8":
       title: >
         Automatic disconnect of sessions

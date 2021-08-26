@@ -6268,7 +6268,8 @@
       de la tarjeta.
     description: __empty__
   category: Data
-  references: []
+  references:
+    - "014.12_3_2"
   metadata: {}
 "310":
   en:
