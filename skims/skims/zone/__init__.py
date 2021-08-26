@@ -45,8 +45,8 @@ def load_translations() -> Dict[str, Dict[str, str]]:
     with open(CRITERIA_REQUIREMENTS) as handle:
         for code, data in yaml.safe_load(handle).items():
             translations[f"criteria.requirements.{code}"] = dict(
-                EN=f"{code}. {data['en']['title']}",
-                ES=f"{code}. {data['es']['title']}",
+                EN=f"{code}. {data['en']['summary']}",
+                ES=f"{code}. {data['es']['summary']}",
             )
 
     with open(CRITERIA_VULNERABILITIES) as handle:
