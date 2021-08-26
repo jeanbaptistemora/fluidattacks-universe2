@@ -52,6 +52,10 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/lintPython/module/integratesBackTestsE2e";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintTerraform/integratesBackups";
           gitlabExtra = gitlabLint;
         }

@@ -748,11 +748,6 @@ integrates.web.e2e:
   retry: 2
   parallel: 5
 
-integrates.web.e2e.lint:
-  <<: *makes
-  <<: *in_dev_branch_integrates
-  stage: lint-code
-
 makes.test.integrates:
   <<: *makes
   <<: *in_master_branch_integrates

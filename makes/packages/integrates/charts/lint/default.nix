@@ -1,9 +1,6 @@
 { buildNodeRequirements
-, lintPython
-, makes
 , nixpkgs
 , makeDerivation
-, packages
 , path
 , ...
 }:
@@ -166,10 +163,6 @@ let
       ];
     };
   };
-  pythonRequirements = makes.makePythonPypiEnvironment {
-    name = "charts-lint-python-lint";
-    sourcesYaml = ./pypi-sources.yaml;
-  };
 in
 makeDerivation {
   arguments = {
@@ -181,10 +174,5 @@ makeDerivation {
   searchPaths = {
     envNodeBinaries = [ nodeRequirements ];
     envNodeLibraries = [ nodeRequirements ];
-    envSources = [
-      lintPython
-      packages.integrates.back.pypi.runtime
-      pythonRequirements
-    ];
   };
 }
