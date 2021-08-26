@@ -22,33 +22,56 @@ enum ActionsAfterBlocking {
 
 "Actions before getting blocked by an event"
 enum ActionsBeforeBlocking {
+  "Document group"
   DOCUMENT_GROUP
+  "Document group"
   DOCUMENT_PROJECT @deprecated(reason: """This enum field  will
     be removed after 2021/12/20. Use `DOCUMENT_GROUP` instead.""")
+  "None"
   NONE
+  "Other"
   OTHER
+  "Testing another part of the Target of Evaluation"
   TEST_OTHER_PART_TOE
 }
 
 "Components affected during an Event"
 enum AffectedComponents {
+  "Client test station"
   CLIENT_STATION
+  "Compilation error"
   COMPILE_ERROR
+  "Group documentation"
   DOCUMENTATION
+  "Fluid test station"
   FLUID_STATION
+  "Internet connectivity"
   INTERNET_CONNECTION
+  "Local connectivity"
   LOCAL_CONNECTION
+  "Other component(s)"
   OTHER
+  "Source code"
   SOURCE_CODE
+  "Test data"
   TEST_DATA
+  "Altered Target of Evaluation"
   TOE_ALTERATION
+  "Target of Evaluation credentials"
   TOE_CREDENTIALS
+  "Target of Evaluation exclusion"
   TOE_EXCLUSSION
+  "Target of Evaluation location (IP, URL)"
   TOE_LOCATION
+  "Target of Evaluation privileges"
   TOE_PRIVILEGES
+  "Altered Target of Evaluation"
   TOE_UNACCESSIBLE
+  "Unavailable Target of Evaluation"
   TOE_UNAVAILABLE
+  "Unstable Target of Evaluation"
   TOE_UNSTABLE
+  "VPN connectivity"
   VPN_CONNECTION
 }
 
@@ -325,9 +348,11 @@ enum ServiceType {
   WHITE
 }
 
-"Use sorts enum definition"
+"Use of Sorts enum definition"
 enum Sorts {
+  "Sorts wasn't involved"
   NO
+  "Sorts was involved"
   YES
 }
 
@@ -344,25 +369,41 @@ enum StakeholderEntity {
 
 "Stakeholder role enum definition"
 enum StakeholderRole {
+  "Administrator"
   ADMIN
+  "Hacker"
   ANALYST
+  "Closer"
   CLOSER
+  "Customer"
   CUSTOMER
+  "Customer Administrator"
   CUSTOMERADMIN
+  "Executive"
   EXECUTIVE
+  "Group Manager"
   GROUP_MANAGER
+  "Internal Manager"
   INTERNAL_MANAGER
+  "Resourcer"
   RESOURCER
+  "Reviewer"
   REVIEWER
+  "Forces"
   SERVICE_FORCES
 }
 
 "Subscription report entity enum definition"
 enum SubscriptionReportEntity {
+  "Comments"
   COMMENTS
+  "Daily digest"
   DIGEST
+  "Group"
   GROUP
+  "Organization"
   ORGANIZATION
+  "Portfolio"
   PORTFOLIO
 }
 
