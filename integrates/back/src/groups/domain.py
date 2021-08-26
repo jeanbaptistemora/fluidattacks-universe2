@@ -810,12 +810,9 @@ async def get_closed_vulnerabilities(context: Any, group_name: str) -> int:
         [finding["finding_id"] for finding in group_findings]
     )
 
-    last_approved_status = await collect(
-        [
-            in_process(vulns_utils.get_last_status, vuln)
-            for vuln in findings_vulns
-        ]
-    )
+    last_approved_status = [
+        vulns_utils.get_last_status(vuln) for vuln in findings_vulns
+    ]
     closed_vulnerabilities = 0
     for status in last_approved_status:
         if status == "closed":
@@ -1063,7 +1060,7 @@ async def get_open_finding(context: Any, group_name: str) -> int:
     for vuln in vulns:
         finding_vulns_dict[vuln["finding_id"]].append(vuln)
     finding_vulns = list(finding_vulns_dict.values())
-    return await vulns_utils.get_open_findings(finding_vulns)
+    return vulns_utils.get_open_findings(finding_vulns)
 
 
 async def get_open_finding_new(context: Any, group_name: str) -> int:
@@ -1081,7 +1078,7 @@ async def get_open_finding_new(context: Any, group_name: str) -> int:
     for vuln in vulns:
         finding_vulns_dict[vuln["finding_id"]].append(vuln)
     finding_vulns = list(finding_vulns_dict.values())
-    return await vulns_utils.get_open_findings(finding_vulns)
+    return vulns_utils.get_open_findings(finding_vulns)
 
 
 async def get_open_vulnerabilities(context: Any, group_name: str) -> int:

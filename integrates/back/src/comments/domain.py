@@ -140,17 +140,25 @@ async def get_comments(
     ]
     if verified:
         vulns = await finding_vulns_loader.load(finding_id)
+        verification_comments_ids: Set[str] = {
+            str(verification["comment"]) for verification in verified
+        }
         comments = [
             _fill_vuln_info(
                 cast(Dict[str, str], comment),
                 set(cast(List[str], verification.get("vulns", []))),
                 vulns,
             )
-            if comment["id"] == verification["comment"]
-            else comment
+            if str(comment["id"]) == str(verification["comment"])
+            else (
+                comment
+                if str(comment["id"]) not in verification_comments_ids
+                else {}
+            )
             for comment in comments
             for verification in verified
         ]
+        comments = list(filter(None, comments))
 
     new_comments: List[CommentType] = []
     enforcer = await authz.get_group_level_enforcer(user_email)

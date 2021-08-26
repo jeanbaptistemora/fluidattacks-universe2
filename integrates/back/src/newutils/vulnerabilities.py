@@ -1,10 +1,6 @@
 from . import (
     datetime as datetime_utils,
 )
-from aioextensions import (
-    collect,
-    in_process,
-)
 from custom_exceptions import (
     AlreadyRequested,
     InvalidRange,
@@ -263,14 +259,12 @@ def get_mean_remediate_vulnerabilities(
     return mean_vulnerabilities.to_integral_exact(rounding=ROUND_CEILING)
 
 
-async def get_open_findings(
+def get_open_findings(
     finding_vulns: List[List[Dict[str, FindingType]]]
 ) -> int:
-    last_approved_status = await collect(
-        in_process(get_last_status, vuln)
-        for vulns in finding_vulns
-        for vuln in vulns
-    )
+    last_approved_status = [
+        get_last_status(vuln) for vulns in finding_vulns for vuln in vulns
+    ]
     open_findings = [
         vulns
         for vulns, last_approved in zip(finding_vulns, last_approved_status)
