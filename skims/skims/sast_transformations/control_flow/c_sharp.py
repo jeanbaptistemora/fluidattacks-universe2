@@ -82,6 +82,20 @@ def using_statement(
     link_to_last_node(graph, n_id, stack, _generic=_generic)
 
 
+def _lambda_expression(
+    graph: Graph,
+    n_id: str,
+    stack: Stack,
+) -> None:
+    node_attrs = graph.nodes[n_id]
+    if "label_field_body" not in node_attrs:
+        return
+
+    body_id = node_attrs["label_field_body"]
+    graph.add_edge(n_id, body_id, **g.ALWAYS)
+    _generic(graph, body_id, stack, edge_attrs=g.ALWAYS)
+
+
 def _generic(
     graph: Graph,
     n_id: str,
@@ -146,6 +160,12 @@ def _generic(
             },
             partial(loop_statement, _generic=_generic),
         ),
+        (
+            {
+                "lambda_expression",
+            },
+            _lambda_expression,
+        ),
     )
     for types, walker in walkers:
         if n_attrs_label_type in types:
@@ -168,12 +188,11 @@ def _generic(
 
 
 def add(graph: Graph) -> None:
-    def _predicate(n_id: str) -> bool:
+    def _predicate(n_attrs: str) -> bool:
         return (
-            g.pred_has_labels(
-                label_type="method_declaration",
-            )(n_id)
-            or g.pred_has_labels(label_type="constructor_declaration")(n_id)
+            g.pred_has_labels(label_type="method_declaration")(n_attrs)
+            or g.pred_has_labels(label_type="constructor_declaration")(n_attrs)
+            or g.pred_has_labels(label_type="lambda_expression")(n_attrs)
         )
 
     for n_id in g.filter_nodes(

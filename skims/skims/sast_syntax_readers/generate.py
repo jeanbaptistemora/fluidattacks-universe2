@@ -16,6 +16,7 @@ from sast_syntax_readers.c_sharp import (
     element_access_expression as c_sharp_element_access_expression,
     for_statement as c_sharp_for_statement,
     invocation_expression as c_sharp_invocation_expression,
+    lambda_expression as c_sharp_lambda_expression,
     local_declaration_statement as c_sharp_local_declaration_statement,
     member_access_expression as c_sharp_member_access_expression,
     method_declaration as c_sharp_method_declaration,
@@ -55,7 +56,7 @@ from sast_syntax_readers.java import (
     for_statement as java_for_statement,
     if_statement as java_if_statement,
     instanceof_expression as java_instanceof_expression,
-    lambda_expression,
+    lambda_expression as java_lambda_expression,
     local_variable_declaration as java_local_variable_declaration,
     method_declaration as java_method_declaration,
     method_invocation as java_method_invocation,
@@ -618,7 +619,16 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         applicable_node_label_types={
             "lambda_expression",
         },
-        syntax_readers=(lambda_expression.reader,),
+        syntax_readers=(java_lambda_expression.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.CSHARP,
+        },
+        applicable_node_label_types={
+            "lambda_expression",
+        },
+        syntax_readers=(c_sharp_lambda_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
