@@ -26,6 +26,9 @@ Finalization Time: 2021-08-24 at 11:33:49 UTC-05
 
 Execution Time:    2021-08-24 at 12:30:00 UTC-05
 Finalization Time: 2021-08-24 at 13:09:10 UTC-05
+
+Execution Time:    2021-08-25 at 17:10:04 UTC-05
+Finalization Time: 2021-08-25 at 17:14:52 UTC-05
 """
 
 from aioextensions import (
@@ -76,7 +79,7 @@ async def process_finding(context: Dataloaders, finding_id: str) -> bool:
     )
     if not finding:
         print(f"   --- ERROR finding {finding_id} NOT found")
-        return False
+        return True
 
     finding_vulns_nzr_loader = context.finding_vulns_nzr
     vulns_nzr = await finding_vulns_nzr_loader.load(finding_id)
@@ -110,9 +113,9 @@ async def process_finding(context: Dataloaders, finding_id: str) -> bool:
 
 
 async def main() -> None:
-    with open("0119.csv", mode="r") as f:
+    with open("0124.csv", mode="r") as f:
         reader = csv.reader(f)
-        finding_ids = {row[1] for row in reader if "group" not in row[0]}
+        finding_ids = {row[0] for row in reader}
     print(f"   === finding ids ({len(finding_ids)}): {finding_ids}")
 
     context: Dataloaders = get_new_context()
