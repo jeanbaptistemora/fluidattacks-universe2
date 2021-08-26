@@ -188,12 +188,19 @@ enum EventEvidenceType {
 
 "Event type enum definition"
 enum EventType {
+  "Authorization for special attack"
   AUTHORIZATION_SPECIAL_ATTACK
+  "Client approves a change of the Target of Evaluation"
   CLIENT_APPROVES_CHANGE_TOE
+  "Client detects the attack"
   CLIENT_DETECTS_ATTACK
+  "High availability approval"
   HIGH_AVAILABILITY_APPROVAL
+  "Incorrect or missing supplies"
   INCORRECT_MISSING_SUPPLIES
+  "Other"
   OTHER
+  "Target of Evaluation different than agreed upon"
   TOE_DIFFERS_APPROVED
 }
 
@@ -255,7 +262,9 @@ enum FindingConsultType {
 
 "Finding type enum definition"
 enum FindingType {
+  "Hygiene"
   HYGIENE
+  "Security-related"
   SECURITY
 }
 
@@ -311,8 +320,11 @@ enum OrganizationFindingPolicyStatus {
 
 "Organization stakeholder role enum definition"
 enum OrganizationRole {
+  "Customer"
   CUSTOMER
+  "Customer administrator"
   CUSTOMERADMIN
+  "Group Manager"
   GROUP_MANAGER
 }
 
