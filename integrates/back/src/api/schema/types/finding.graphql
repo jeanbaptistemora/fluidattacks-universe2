@@ -20,8 +20,9 @@ type Finding {
   bugTrackingSystemUrl: String
   "Quantity of closed vulnerabilities within the Finding"
   closedVulnerabilities: Int
+  "Compromised client DB attributes extracted through the vulnerability"
   compromisedAttributes: String
-  "Number of compromised records"
+  "Number of compromised records extracted through the vulnerability"
   compromisedRecords: Int
   "Information about the Finding shared by the stakeholders via comments"
   consulting: [Consult]
@@ -74,7 +75,7 @@ type Finding {
     be removed after 2021/12/20. Use `groupName` instead.""")
   "Recommended course of action to close the vulnerabilities"
   recommendation: String
-  """Information that will be compromised or disclosed by exploiting the
+  """Information that was compromised or disclosed by exploiting the
   vulnerability"""
   records: JSONString
   "Approval date"
@@ -117,6 +118,8 @@ type Finding {
   "Vulnerabilities that have been requested for a reattack"
   vulnsToReattack: [Vulnerability] @deprecated(reason: """This field will be
     removed after 2021/12/31. Use `vulnerabilitiesToReattack` instead.""")
+  """List of requested and confirmed zero-risk vulnerabilities within the
+  Finding"""
   zeroRisk(
     "Filter vulnerabilities by their current state"
     state: String
