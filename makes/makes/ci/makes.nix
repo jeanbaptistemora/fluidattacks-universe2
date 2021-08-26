@@ -2,6 +2,7 @@
 { inputs
 , makeSearchPaths
 , outputs
+, projectPath
 , ...
 }:
 let
@@ -23,10 +24,16 @@ in
           outputs."/secretsForAwsFromEnv/makesProd"
           outputs."/secretsForEnvFromSops/makesCiProd"
           outputs."/secretsForTerraformFromEnv/makesCi"
+          outputs."/envVarsForTerraform/makesCi"
         ];
         src = "/makes/makes/ci/infra";
         version = "0.14";
       };
+    };
+  };
+  envVarsForTerraform = {
+    makesCi = {
+      makesCiInit = projectPath "/makes/makes/ci/infra/init";
     };
   };
   lintTerraform = {
@@ -37,6 +44,7 @@ in
           outputs."/secretsForAwsFromEnv/makesDev"
           outputs."/secretsForEnvFromSops/makesCiDev"
           outputs."/secretsForTerraformFromEnv/makesCi"
+          outputs."/envVarsForTerraform/makesCi"
         ];
         src = "/makes/makes/ci/infra";
         version = "0.14";
@@ -76,6 +84,7 @@ in
           outputs."/secretsForAwsFromEnv/makesDev"
           outputs."/secretsForEnvFromSops/makesCiDev"
           outputs."/secretsForTerraformFromEnv/makesCi"
+          outputs."/envVarsForTerraform/makesCi"
         ];
         src = "/makes/makes/ci/infra";
         version = "0.14";

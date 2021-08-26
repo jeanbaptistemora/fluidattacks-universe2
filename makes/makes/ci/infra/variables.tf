@@ -1,12 +1,14 @@
 variable "gitlabTokenFluidattacks" {}
 variable "gitlabTokenAutonomicmind" {}
 variable "gitlabTokenAutonomicjump" {}
+variable "makesCiInit" {}
+
 data "local_file" "init_runner" {
-  filename = "./init/runner.sh"
+  filename = "${var.makesCiInit}/runner.sh"
 }
 
 data "local_file" "init_worker" {
-  filename = "./init/worker.sh"
+  filename = "${var.makesCiInit}/worker.sh"
 }
 
 #

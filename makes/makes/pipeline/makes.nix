@@ -75,10 +75,6 @@ in
           };
         }
         {
-          output = "/deployTerraform/makesCi";
-          gitlabExtra = gitlabDeployInfra;
-        }
-        {
           output = "/deployTerraform/makesCompute";
           gitlabExtra = gitlabDeployInfra // {
             rules = [
