@@ -79,7 +79,6 @@ observes.env.gitlab-etl.runtime.python
 observes.env.job-last-success.runtime
 observes.env.job-last-success.runtime.python
 observes.env.paginator.development
-observes.env.paginator.development.python
 observes.env.paginator.runtime
 observes.env.postgres-client.development
 observes.env.postgres-client.runtime
