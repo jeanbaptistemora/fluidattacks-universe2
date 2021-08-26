@@ -7,6 +7,7 @@ import React from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
+import waitForExpect from "wait-for-expect";
 
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import {
@@ -46,7 +47,6 @@ describe("update verification component", (): void => {
 
     const handleOnClose: jest.Mock = jest.fn();
     const handleRequestState: jest.Mock = jest.fn();
-    const handleRefetchData: jest.Mock = jest.fn();
     const mocksMutation: MockedResponse[] = [
       {
         request: {
@@ -74,7 +74,6 @@ describe("update verification component", (): void => {
             handleCloseModal={handleOnClose}
             isReattacking={true}
             isVerifying={false}
-            refetchData={handleRefetchData}
             setRequestState={handleRequestState}
             setVerifyState={jest.fn()}
             vulns={[
@@ -93,16 +92,16 @@ describe("update verification component", (): void => {
     });
     const form: ReactWrapper = wrapperRequest.find("form");
     form.at(0).simulate("submit");
-    await act(async (): Promise<void> => {
-      const delay: number = 150;
-      await wait(delay);
-      wrapperRequest.update();
-    });
 
-    expect(wrapperRequest).toHaveLength(1);
-    expect(handleOnClose).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
-    expect(handleRequestState).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
-    expect(handleRefetchData).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapperRequest.update();
+
+        expect(wrapperRequest).toHaveLength(1);
+        expect(handleOnClose).toHaveBeenCalledTimes(1);
+        expect(handleRequestState).toHaveBeenCalledTimes(1);
+      });
+    });
   });
 
   it("should handle request verification error", async (): Promise<void> => {
@@ -145,7 +144,6 @@ describe("update verification component", (): void => {
             handleCloseModal={handleOnClose}
             isReattacking={true}
             isVerifying={false}
-            refetchData={jest.fn()}
             setRequestState={handleRequestState}
             setVerifyState={jest.fn()}
             vulns={[
@@ -169,14 +167,16 @@ describe("update verification component", (): void => {
     });
     const form: ReactWrapper = wrapper.find("form");
     form.at(0).simulate("submit");
-    await act(async (): Promise<void> => {
-      await wait(0);
-      wrapper.update();
-    });
 
-    expect(wrapper).toHaveLength(1);
-    expect(handleOnClose).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
-    expect(handleRequestState).not.toHaveBeenCalled();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(wrapper).toHaveLength(1);
+        expect(handleOnClose).toHaveBeenCalledTimes(1);
+        expect(handleRequestState).not.toHaveBeenCalled();
+      });
+    });
   });
 
   it("should handle verify a request", async (): Promise<void> => {
@@ -184,7 +184,6 @@ describe("update verification component", (): void => {
 
     const handleOnClose: jest.Mock = jest.fn();
     const handleVerifyState: jest.Mock = jest.fn();
-    const handleRefetchData: jest.Mock = jest.fn();
     const mocksMutation: MockedResponse[] = [
       {
         request: {
@@ -235,7 +234,6 @@ describe("update verification component", (): void => {
             handleCloseModal={handleOnClose}
             isReattacking={false}
             isVerifying={true}
-            refetchData={handleRefetchData}
             setRequestState={jest.fn()}
             setVerifyState={handleVerifyState}
             vulns={[
@@ -266,7 +264,6 @@ describe("update verification component", (): void => {
     expect(wrapper).toHaveLength(1);
     expect(handleOnClose).toHaveBeenCalledTimes(1);
     expect(handleVerifyState).toHaveBeenCalledTimes(1);
-    expect(handleRefetchData).toHaveBeenCalledTimes(1);
   });
 
   it("should handle verify a request error", async (): Promise<void> => {
@@ -305,7 +302,6 @@ describe("update verification component", (): void => {
             handleCloseModal={handleOnClose}
             isReattacking={false}
             isVerifying={true}
-            refetchData={jest.fn()}
             setRequestState={jest.fn()}
             setVerifyState={handleVerifyState}
             vulns={[
@@ -330,14 +326,15 @@ describe("update verification component", (): void => {
     });
     const form: ReactWrapper = wrapper.find("form");
     form.at(0).simulate("submit");
-    await act(async (): Promise<void> => {
-      const delay: number = 150;
-      await wait(delay);
-      wrapper.update();
-    });
 
-    expect(wrapper).toHaveLength(1);
-    expect(handleOnClose).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
-    expect(handleVerifyState).not.toHaveBeenCalled();
+    await act(async (): Promise<void> => {
+      await waitForExpect((): void => {
+        wrapper.update();
+
+        expect(wrapper).toHaveLength(1);
+        expect(handleOnClose).toHaveBeenCalledTimes(1);
+        expect(handleVerifyState).not.toHaveBeenCalled();
+      });
+    });
   });
 });

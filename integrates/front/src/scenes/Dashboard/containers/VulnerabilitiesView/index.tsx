@@ -469,7 +469,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
             handleCloseModal={closeRemediationModal}
             isReattacking={isRequestingVerify}
             isVerifying={isVerifying}
-            refetchData={refetch}
             setRequestState={toggleRequestVerify}
             setVerifyState={toggleVerify}
             vulns={remediationModalConfig.vulnerabilities}

@@ -1,11 +1,5 @@
 import type { FetchResult } from "@apollo/client";
-import type { GraphQLError } from "graphql";
 import { track } from "mixpanel-browser";
-
-import type {
-  IRequestVulnVerificationResult,
-  IVerifyRequestVulnResult,
-} from "./types";
 
 import type { IVulnData } from ".";
 import { Logger } from "utils/logger";
@@ -13,51 +7,44 @@ import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const handleRequestVerification = (
-  refetchData: () => void,
   clearSelected: () => void,
   setRequestState: () => void,
-  data: IRequestVulnVerificationResult
+  data: boolean
 ): void => {
-  if (data.requestVulnerabilitiesVerification.success) {
+  if (data) {
     msgSuccess(
       translate.t("groupAlerts.requestedReattackSuccess"),
       translate.t("groupAlerts.updatedTitle")
     );
-    refetchData();
     clearSelected();
     setRequestState();
   }
 };
 
-const handleRequestVerificationError = (
-  graphQLErrors: readonly GraphQLError[]
-): void => {
-  graphQLErrors.forEach((error: GraphQLError): void => {
-    switch (error.message) {
-      case "Exception - Request verification already requested":
-        msgError(translate.t("groupAlerts.verificationAlreadyRequested"));
-        break;
-      case "Exception - The vulnerability has already been closed":
-        msgError(translate.t("groupAlerts."));
-        break;
-      case "Exception - Vulnerability not found":
-        msgError(translate.t("groupAlerts.noFound"));
-        break;
-      default:
-        msgError(translate.t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred requesting verification", error);
-    }
-  });
+const handleRequestVerificationError = (error: unknown): void => {
+  switch (String(error)) {
+    case "Exception - Request verification already requested":
+      msgError(translate.t("groupAlerts.verificationAlreadyRequested"));
+      break;
+    case "Exception - The vulnerability has already been closed":
+      msgError(translate.t("groupAlerts."));
+      break;
+    case "Exception - Vulnerability not found":
+      msgError(translate.t("groupAlerts.noFound"));
+      break;
+    default:
+      msgError(translate.t("groupAlerts.errorTextsad"));
+      Logger.warning("An error occurred requesting verification", error);
+  }
 };
 
 const handleVerifyRequest = (
-  refetchData: () => void,
   clearSelected: () => void,
   setVerifyState: () => void,
-  data: IVerifyRequestVulnResult,
+  data: boolean,
   numberOfVulneabilities: number
 ): void => {
-  if (data.verifyVulnerabilitiesRequest.success) {
+  if (data) {
     msgSuccess(
       translate.t(
         `groupAlerts.verifiedSuccess${
@@ -66,28 +53,23 @@ const handleVerifyRequest = (
       ),
       translate.t("groupAlerts.updatedTitle")
     );
-    refetchData();
     clearSelected();
     setVerifyState();
   }
 };
 
-const handleVerifyRequestError = (
-  graphQLErrors: readonly GraphQLError[]
-): void => {
-  graphQLErrors.forEach((error: GraphQLError): void => {
-    switch (error.message) {
-      case "Exception - Error verification not requested":
-        msgError(translate.t("groupAlerts.noVerificationRequested"));
-        break;
-      case "Exception - Vulnerability not found":
-        msgError(translate.t("groupAlerts.noFound"));
-        break;
-      default:
-        msgError(translate.t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred verifying a request", error);
-    }
-  });
+const handleVerifyRequestError = (error: unknown): void => {
+  switch (String(error)) {
+    case "Exception - Error verification not requested":
+      msgError(translate.t("groupAlerts.noVerificationRequested"));
+      break;
+    case "Exception - Vulnerability not found":
+      msgError(translate.t("groupAlerts.noFound"));
+      break;
+    default:
+      msgError(translate.t("groupAlerts.errorTextsad"));
+      Logger.warning("An error occurred verifying a request", error);
+  }
 };
 
 const handleSubmitHelper = (

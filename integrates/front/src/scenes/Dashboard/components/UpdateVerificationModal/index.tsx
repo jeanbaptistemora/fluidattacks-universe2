@@ -43,7 +43,6 @@ interface IUpdateVerificationModal {
   vulns: IVulnData[];
   clearSelected: () => void;
   handleCloseModal: () => void;
-  refetchData: () => void;
   setRequestState: () => void;
   setVerifyState: () => void;
 }
@@ -59,7 +58,6 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
     vulns,
     clearSelected,
     handleCloseModal,
-    refetchData,
     setRequestState,
     setVerifyState,
   } = props;
@@ -80,10 +78,9 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
     {
       onCompleted: (data: IRequestVulnVerificationResult): void => {
         handleRequestVerification(
-          refetchData,
           clearSelected,
           setRequestState,
-          data
+          data.requestVulnerabilitiesVerification.success
         );
       },
       onError: ({ graphQLErrors }: ApolloError): void => {
@@ -112,10 +109,9 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
     {
       onCompleted: (data: IVerifyRequestVulnResult): void => {
         handleVerifyRequest(
-          refetchData,
           clearSelected,
           setVerifyState,
-          data,
+          data.verifyVulnerabilitiesRequest.success,
           vulns.length
         );
       },
