@@ -19,7 +19,8 @@ link:../ransomware/[Ransomware],
 link:../pipeline-ransomware-darkside/[ransomware],
 link:../cyber-insurance-ransomware/[ransomware];
 everyone is talking about it.
-Being a victim of ransomware scares the crap out of many of us.
+Thinking about being a victim of ransomware
+surely scares many of us.
 Nevertheless,
 despite all the dissemination about it,
 many people may not be,
@@ -160,8 +161,8 @@ there was commentary
 that the LockBit group was demanding $50M as a ransom
 for a database of approximately 6TB.
 Do they really have all that data,
-and will it be revealed in time?
-Or is it just bullshit?
+and will they reveal it later?
+Or is it just nonsense?
 Has Accenture already made a payment?
 One thing that seems clear for now is that
 the attack's aftermath will be a bad reputation for this organization,
