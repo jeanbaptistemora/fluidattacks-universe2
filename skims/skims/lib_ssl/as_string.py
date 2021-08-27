@@ -217,7 +217,7 @@ class SnippetConstructorES(SnippetConstructor):
             "Versión TLS: {tls_version}\n"
             "Intercambio de llaves: {key_exchange}\n"
             "Autenticación: {authentication}\n"
-            "Encriptado: {cipher}\n"
+            "Encripción: {cipher}\n"
             "Hash: {ssl_hash}"
         ).format(
             tls_version=ssl_id2ssl_name(ssl_settings.tls_version),
