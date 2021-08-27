@@ -7,6 +7,4 @@ __argSummary__
 
 __argDescription__
 
-## References
-
 __argReferences__

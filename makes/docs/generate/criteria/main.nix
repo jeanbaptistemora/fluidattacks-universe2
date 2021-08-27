@@ -12,9 +12,9 @@
 let
   lib = inputs.nixpkgs.lib;
 
-  # Title and content if content not __empty__
+  # Title and content
   section = title: content:
-    if content != "__empty__"
+    if content != "__empty__" && content != ""
     then "${title}\n\n${content}"
     else "";
 
@@ -176,7 +176,8 @@ let
         __argSeverityBase__ = score.severity.base;
         __argSeverityTemporal__ = score.severity.temporal;
         __argDetails__ = section "## Details" src.metadata.en.details;
-        __argRequirements__ = reqsForVuln src.requirements;
+        __argRequirements__ =
+          section "## Requirements" (reqsForVuln src.requirements);
       };
       name = "docs-make-vulnerability-${__argCode__}";
       template = ./templates/vulnerability.md;
@@ -188,7 +189,7 @@ let
       __argTitle__ = src.en.title;
       __argSummary__ = section "## Summary" src.en.summary;
       __argDescription__ = section "## Description" src.en.description;
-      __argReferences__ = refsForReq src.references;
+      __argReferences__ = section "## References" (refsForReq src.references);
     };
     name = "docs-make-requirement-${__argCode__}";
     template = ./templates/requirement.md;
@@ -199,7 +200,8 @@ let
       inherit __argCode__;
       __argTitle__ = src.title;
       __argDescription__ = section "## Description" src.en.description;
-      __argDefinitions__ = defsForStandard src.definitions;
+      __argDefinitions__ =
+        section "## Definitions" (defsForStandard src.definitions);
     };
     name = "docs-make-compliance-${__argCode__}";
     template = ./templates/compliance.md;

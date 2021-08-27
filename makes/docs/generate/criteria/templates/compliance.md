@@ -5,6 +5,4 @@ slug: /criteria/compliance/__argCode__
 
 __argDescription__
 
-## Definitions
-
 __argDefinitions__
