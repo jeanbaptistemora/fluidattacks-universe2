@@ -6,8 +6,8 @@ slug: /about/sla
 ---
 
 - [Availability](/about/sla/availability):
-  **99%** of the time
-  the ASM will be available via internet
+  **99%** of the time,
+  the ASM (Attack Surface Manager) will be available via the internet
   for its registered users.
 
 - [Accuracy](/about/sla/accuracy):
@@ -17,20 +17,14 @@ slug: /about/sla
 - [Response](/about/sla/response):
   **90%** of reattacks, comments and incidents
   will have a median first response time
-  of less than **16** office hours.
+  of less than **16 office hours**.
 
 ## Details
 
-All of the SLAs are measured
+All SLAs (service-level agreements) are measured
 considering the following:
 
-1. Measurement in
-  calendar quarters,
-1. Taking into account
-  all the groups
-  of the organization
-  over time,
-1. Taking into account
-  all the historical data,
-  not only that of
-  the quarterly analysis period.
+- Measurement in calendar quarters
+- All the groups of the organization over time
+- All the historical data,
+  not only that of the quarterly analysis period
