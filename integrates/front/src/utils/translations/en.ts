@@ -1254,7 +1254,6 @@ export const enTranslations: ResourceKey = {
         text: "Affected systems",
         tooltip: "Project or application that contains the vulnerability",
       },
-      analyst: "Hacker",
       approvalMessage:
         "Remember that the indefinite acceptation of a finding requires the approval of a user with manager role",
       approvalTitle: "Confirmation",
@@ -1292,6 +1291,7 @@ export const enTranslations: ResourceKey = {
       },
       errorFileVuln: "Vulnerabilities file has errors",
       field: "Field",
+      hacker: "Hacker",
       handleAcceptationModal: {
         title: "Observations",
         zeroRiskJustification: {

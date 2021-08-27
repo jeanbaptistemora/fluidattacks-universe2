@@ -17,7 +17,7 @@ async def get_result(
     session_jwt: Optional[str] = None,
     context: Optional[Dataloaders] = None,
 ) -> Dict[str, Any]:
-    """Get result for group_manager role."""
+    """Get result for system_owner/group_manager role."""
     result = await get_graphql_result(data, stakeholder, session_jwt, context)
 
     return result

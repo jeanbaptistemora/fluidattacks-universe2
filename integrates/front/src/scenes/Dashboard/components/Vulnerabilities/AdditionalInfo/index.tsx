@@ -335,7 +335,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
             {canDisplayAnalyst ? (
               <Row>
                 <LabelField>
-                  <Label>{t("searchFindings.tabDescription.analyst")}</Label>
+                  <Label>{t("searchFindings.tabDescription.hacker")}</Label>
                 </LabelField>
                 <InfoField>
                   <Value value={vulnerability.analyst} />

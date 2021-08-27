@@ -93,7 +93,7 @@ async def list_group_managers(group: str) -> List[str]:
     managers = [
         user
         for user, role in zip(all_users, users_roles)
-        if role == "group_manager"
+        if role in ["system_owner", "group_manager"]
     ]
     return managers
 

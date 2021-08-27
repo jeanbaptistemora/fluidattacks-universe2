@@ -172,12 +172,12 @@ async def filter_non_fluid_staff(
     group_name: str,
 ) -> List[str]:
     are_managers = await collect(
-        [is_manager(email, group_name) for email in emails]
+        [is_system_owner(email, group_name) for email in emails]
     )
     return [
         email
-        for email, is_manager in zip(emails, are_managers)
-        if not is_fluid_staff(email) or is_manager
+        for email, is_system_owner in zip(emails, are_managers)
+        if not is_fluid_staff(email) or is_system_owner
     ]
 
 
@@ -317,9 +317,9 @@ def is_fluid_staff(email: str) -> bool:
     return email.endswith("@fluidattacks.com")
 
 
-async def is_manager(email: str, group_name: str) -> bool:
+async def is_system_owner(email: str, group_name: str) -> bool:
     role: str = await authz.get_group_level_role(email, group_name)
-    return role == "group_manager"
+    return role in ["system_owner", "group_manager"]
 
 
 async def is_registered(email: str) -> bool:

@@ -76,6 +76,7 @@ async def get_evidence(request: Request) -> Response:
         "group_manager",
         "resourcer",
         "reviewer",
+        "system_owner",
     ]
     error = await enforce_group_level_role(request, group_name, *allowed_roles)
     if error is not None:
