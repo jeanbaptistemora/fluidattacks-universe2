@@ -111,7 +111,7 @@ integrates.charts.snapshots-prod:
   only:
     refs: [schedules]
     variables: [$charts]
-  script: [./m integrates.charts.snapshots.on-aws prod]
+  script: [./m integrates.charts.snapshots prod]
   stage: analytics
 
 integrates.back.authz-matrix:
@@ -667,13 +667,10 @@ integrates.scheduler.reset_expired_accepted_findings:
     variables: [$integrates_scheduler_reset_expired_accepted_findings]
 
 integrates.scheduler.update_indicators:
-  <<: *makes
-  interruptible: false
+  <<: *integrates_schedulers
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_update_indicators]
-  script: [./m integrates.scheduler.update-indicators.on-aws prod]
-  stage: scheduler
 
 integrates.scheduler.update_portfolios:
   <<: *integrates_schedulers
