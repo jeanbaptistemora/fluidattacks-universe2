@@ -12,6 +12,12 @@
 let
   lib = inputs.nixpkgs.lib;
 
+  # Title and content if content not __empty__
+  section = title: content:
+    if content != "__empty__"
+    then "${title}\n\n${content}"
+    else "";
+
   # Category path for a vulnerability or requirement
   categoryPath = id: data:
     let
@@ -137,46 +143,51 @@ let
   };
 
   # Generate a template for every md
-  makeVulnerability = __argCode__: src: makeTemplate {
-    replace = {
-      inherit __argCode__;
-      __argTitle__ = src.en.title;
-      __argDescription__ = src.en.description;
-      __argImpact__ = src.en.impact;
-      __argRecommendation__ = src.en.recommendation;
-      __argThreat__ = src.en.threat;
-      __argScoreBaseAttackVector__ = src.score.base.attack_vector;
-      __argScoreBaseAttackComplexity__ = src.score.base.attack_complexity;
-      __argScoreBasePrivilegesRequired__ = src.score.base.privileges_required;
-      __argScoreBaseUserInteraction__ = src.score.base.user_interaction;
-      __argScoreBaseScope__ = src.score.base.scope;
-      __argScoreBaseConfidentiality__ = src.score.base.confidentiality;
-      __argScoreBaseIntegrity__ = src.score.base.integrity;
-      __argScoreBaseAvailability__ = src.score.base.availability;
-      __argScoreTemporalExploitCodeMadurity__ =
-        src.score.temporal.exploit_code_maturity;
-      __argScoreTemporalRemediationLevel__ =
-        src.score.temporal.remediation_level;
-      __argScoreTemporalReportConfidence__ =
-        src.score.temporal.report_confidence;
-      __argVectorString__ = vectorString src.score;
-      __argScoreBase__ = (vulnScore src.score).score.base;
-      __argScoreTemporal__ = (vulnScore src.score).score.temporal;
-      __argSeverityBase__ = (vulnScore src.score).severity.base;
-      __argSeverityTemporal__ = (vulnScore src.score).severity.temporal;
-      __argDetails__ = src.metadata.en.details;
-      __argRequirements__ = reqsForVuln src.requirements;
+  makeVulnerability = __argCode__: src:
+    let
+      score = vulnScore src.score;
+    in
+    makeTemplate {
+      replace = {
+        inherit __argCode__;
+        __argTitle__ = src.en.title;
+        __argDescription__ = section "## Description" src.en.description;
+        __argImpact__ = section "## Impact" src.en.impact;
+        __argRecommendation__ =
+          section "## Recommendation" src.en.recommendation;
+        __argThreat__ = section "## Threat" src.en.threat;
+        __argScoreBaseAttackVector__ = src.score.base.attack_vector;
+        __argScoreBaseAttackComplexity__ = src.score.base.attack_complexity;
+        __argScoreBasePrivilegesRequired__ = src.score.base.privileges_required;
+        __argScoreBaseUserInteraction__ = src.score.base.user_interaction;
+        __argScoreBaseScope__ = src.score.base.scope;
+        __argScoreBaseConfidentiality__ = src.score.base.confidentiality;
+        __argScoreBaseIntegrity__ = src.score.base.integrity;
+        __argScoreBaseAvailability__ = src.score.base.availability;
+        __argScoreTemporalExploitCodeMadurity__ =
+          src.score.temporal.exploit_code_maturity;
+        __argScoreTemporalRemediationLevel__ =
+          src.score.temporal.remediation_level;
+        __argScoreTemporalReportConfidence__ =
+          src.score.temporal.report_confidence;
+        __argVectorString__ = vectorString src.score;
+        __argScoreBase__ = score.score.base;
+        __argScoreTemporal__ = score.score.temporal;
+        __argSeverityBase__ = score.severity.base;
+        __argSeverityTemporal__ = score.severity.temporal;
+        __argDetails__ = section "## Details" src.metadata.en.details;
+        __argRequirements__ = reqsForVuln src.requirements;
+      };
+      name = "docs-make-vulnerability-${__argCode__}";
+      template = ./templates/vulnerability.md;
+      local = false;
     };
-    name = "docs-make-vulnerability-${__argCode__}";
-    template = ./templates/vulnerability.md;
-    local = false;
-  };
   makeRequirement = __argCode__: src: makeTemplate {
     replace = {
       inherit __argCode__;
       __argTitle__ = src.en.title;
-      __argSummary__ = src.en.summary;
-      __argDescription__ = src.en.description;
+      __argSummary__ = section "## Summary" src.en.summary;
+      __argDescription__ = section "## Description" src.en.description;
       __argReferences__ = refsForReq src.references;
     };
     name = "docs-make-requirement-${__argCode__}";
@@ -187,7 +198,7 @@ let
     replace = {
       inherit __argCode__;
       __argTitle__ = src.title;
-      __argDescription__ = src.en.description;
+      __argDescription__ = section "## Description" src.en.description;
       __argDefinitions__ = defsForStandard src.definitions;
     };
     name = "docs-make-compliance-${__argCode__}";
