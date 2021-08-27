@@ -10,8 +10,8 @@ The oiginal historic state got damaged once the related new draft was approved.
 Related issue:
 https://gitlab.com/fluidattacks/product/-/issues/4903
 
-Execution Time:    2021-08-26 at 17:55:56 UTC-05
-Finalization Time: 2021-08-26 at 18:22:07 UTC-05
+Execution Time:    2021-08-27 at 09:59:26 UTC-05
+Finalization Time: 2021-08-27 at 10:27:13 UTC-05
 """
 
 from aioextensions import (
@@ -40,7 +40,7 @@ from vulnerabilities import (
     dal as vulns_dal,
 )
 
-PROD: bool = False
+PROD: bool = True
 
 BACKUP_NAME: str = "backup_vulns_aug_08"
 TABLE_NAME: str = "FI_vulnerabilities"
@@ -101,14 +101,12 @@ async def process_vuln(uuid: str) -> bool:
         target_vuln["historic_state"],
         backup_vuln["historic_state"],
     )
-    print(f" >>> state: {historic_state}")
 
     # Fix historic treatment
     historic_treatment = _replace_historic_dates(
         target_vuln.get("historic_treatment", []),
         backup_vuln.get("historic_treatment", []),
     )
-    print(f" >>> treatment: {historic_treatment}")
 
     success = False
     if PROD:
@@ -130,7 +128,6 @@ async def main() -> None:
         reader = csv.reader(f)
         uuids = [row[3] for row in reader if "group" not in row[0]]
     print(f" = uuids({len(uuids)}): {uuids[:3]}")
-    # uuids = uuids[:100]
 
     success = all(await collect(process_vuln(uuid) for uuid in uuids))
 
