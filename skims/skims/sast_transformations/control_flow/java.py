@@ -52,8 +52,10 @@ def _method_invocation(
 ) -> None:
     nested_methods = list(reversed(_nested_method_invocation(graph, n_id)))
     for method_id in nested_methods:
-        match = g.match_ast(graph, method_id, "argument_list")
-        for node in g.adj_ast(graph, match["argument_list"])[1:-1]:
+        method_attrs = graph.nodes[method_id]
+        for node in g.adj_ast(graph, method_attrs["label_field_arguments"])[
+            1:-1
+        ]:
             _generic(graph, node, stack=[], edge_attrs=g.ALWAYS)
     with suppress(IndexError):
         if next_id := get_next_id(stack):
@@ -65,10 +67,10 @@ def _lambda_expression(
     n_id: str,
     stack: Stack,
 ) -> None:
-    match = g.match_ast(graph, n_id, "block")
-    if block_id := match["block"]:
-        graph.add_edge(n_id, block_id, **g.ALWAYS)
-        _generic(graph, block_id, stack, edge_attrs=g.ALWAYS)
+    node_attrs = graph.nodes[n_id]
+    block_id = node_attrs["label_field_body"]
+    graph.add_edge(n_id, block_id, **g.ALWAYS)
+    _generic(graph, block_id, stack, edge_attrs=g.ALWAYS)
 
 
 def _switch_expression(
@@ -113,27 +115,23 @@ def try_with_resources_statement(
     n_id: str,
     stack: Stack,
 ) -> None:
-    match = g.match_ast(
+    node_attrs = graph.nodes[n_id]
+    _resources = node_attrs["label_field_resources"]
+
+    graph.add_edge(n_id, _resources, **g.ALWAYS)
+    match_resources = g.match_ast_group(graph, _resources, "resource")
+    last_resource: Optional[str] = None
+    for resource in match_resources.get("resource", set()):
+        graph.add_edge(last_resource or _resources, resource, **g.ALWAYS)
+        last_resource = resource
+
+    try_statement(
         graph,
         n_id,
-        "resource_specification",
+        stack,
+        _generic=_generic,
+        last_node=last_resource,
     )
-
-    if _resources := match["resource_specification"]:
-        graph.add_edge(n_id, _resources, **g.ALWAYS)
-        match_resources = g.match_ast_group(graph, _resources, "resource")
-        last_resource: Optional[str] = None
-        for resource in match_resources.get("resource", set()):
-            graph.add_edge(last_resource or _resources, resource, **g.ALWAYS)
-            last_resource = resource
-
-        try_statement(
-            graph,
-            n_id,
-            stack,
-            _generic=_generic,
-            last_node=last_resource,
-        )
 
 
 def _generic(
