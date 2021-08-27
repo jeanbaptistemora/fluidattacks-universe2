@@ -210,7 +210,7 @@ async def add_draft_new(
     draft = Finding(
         affected_systems=kwargs.get("affected_systems", ""),
         analyst_email=user_email,
-        attack_vector_desc=get_key_or_fallback(
+        attack_vector_description=get_key_or_fallback(
             kwargs, "attack_vector_description", "attack_vector_desc", ""
         ),
         description=kwargs.get("description", ""),

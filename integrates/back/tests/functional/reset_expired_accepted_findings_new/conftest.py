@@ -103,7 +103,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     requirements="R359. Avoid using generic exceptions.",
                     threat="Autenticated attacker from the Internet.",
                     affected_systems="system1",
-                    attack_vector_desc="This is an updated attack vector",
+                    attack_vector_description="This is an updated attack vector",
                     scenario="UNAUTHORIZED_USER_EXTRANET",
                     actor="SOME_CUSTOMERS",
                 ),

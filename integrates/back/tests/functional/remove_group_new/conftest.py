@@ -115,7 +115,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "must be at least 3 words long.",
                     threat="Updated threat",
                     affected_systems="Server bWAPP",
-                    attack_vector_desc="This is an updated attack vector",
+                    attack_vector_description="This is an updated attack vector",
                     scenario="UNAUTHORIZED_USER_EXTRANET",
                     actor="ANYONE_INTERNET",
                     evidences=FindingEvidences(
@@ -201,7 +201,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "must be at least 3 words long.",
                     threat="Updated threat",
                     affected_systems="Server bWAPP",
-                    attack_vector_desc="This is an updated attack vector",
+                    attack_vector_description="This is an updated attack vector",
                     scenario="UNAUTHORIZED_USER_EXTRANET",
                     actor="ANYONE_INTERNET",
                     evidences=FindingEvidences(
@@ -294,7 +294,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     "must be at least 3 words long.",
                     threat="Updated threat",
                     affected_systems="Server bWAPP",
-                    attack_vector_desc="This is an updated attack vector",
+                    attack_vector_description="This is an updated attack vector",
                     scenario="UNAUTHORIZED_USER_EXTRANET",
                     actor="ANYONE_INTERNET",
                     evidences=FindingEvidences(

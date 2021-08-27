@@ -973,7 +973,7 @@ async def mask_finding_new(  # pylint: disable=too-many-locals
     )
     metadata = FindingMetadataToUpdate(
         affected_systems=masked_msg,
-        attack_vector_desc=masked_msg,
+        attack_vector_description=masked_msg,
         compromised_attributes=masked_msg,
         description=masked_msg,
         evidences=new_evidences,
@@ -1276,7 +1276,7 @@ async def update_description_new(
     metadata = FindingMetadataToUpdate(
         actor=description.actor,
         affected_systems=description.affected_systems,
-        attack_vector_desc=description.attack_vector_desc,
+        attack_vector_description=description.attack_vector_description,
         compromised_attributes=description.compromised_attributes,
         compromised_records=description.compromised_records,
         description=description.description,

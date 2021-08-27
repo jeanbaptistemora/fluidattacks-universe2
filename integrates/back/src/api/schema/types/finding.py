@@ -68,7 +68,6 @@ from context import (
 )
 
 FINDING = ObjectType("Finding")
-FINDING.set_alias("attackVectorDescription", "attack_vector_desc")
 FINDING.set_alias("bugTrackingSystemUrl", "bts_url")
 
 if FI_API_STATUS == "migration":
@@ -155,3 +154,5 @@ else:
     FINDING.set_field("newRemediated", new_remediated.resolve)
     FINDING.set_field("portsVulns", ports_vulnerabilities.resolve)
     FINDING.set_field("vulnsToReattack", vulnerabilities_to_reattack.resolve)
+    # --------------------------Alias fields-----------------------------------
+    FINDING.set_alias("attackVectorDescription", "attack_vector_desc")

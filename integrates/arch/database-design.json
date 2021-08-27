@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Aug 10, 2021, 03:58 PM",
+    "DateLastModified": "Aug 27, 2021, 09:38 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -359,7 +359,7 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "attack_vector_desc",
+          "AttributeName": "attack_vector_description",
           "AttributeType": "S"
         },
         {
@@ -1239,8 +1239,8 @@
             "reason",
             "modified_date",
             "modified_by",
-            "other",
-            "nickname"
+            "nickname",
+            "other"
           ]
         },
         {
@@ -1255,8 +1255,8 @@
             "reason",
             "modified_date",
             "modified_by",
-            "other",
-            "nickname"
+            "nickname",
+            "other"
           ]
         },
         {
@@ -1286,8 +1286,8 @@
             "reason",
             "modified_date",
             "modified_by",
-            "other",
-            "nickname"
+            "nickname",
+            "other"
           ]
         },
         {
@@ -1302,8 +1302,8 @@
             "reason",
             "modified_date",
             "modified_by",
-            "other",
-            "nickname"
+            "nickname",
+            "other"
           ]
         },
         {
@@ -1632,7 +1632,7 @@
               "bts_url": {
                 "S": "https://btsurl.test/test"
               },
-              "attack_vector_desc": {
+              "attack_vector_description": {
                 "S": "This is an updated attack vector"
               }
             }
@@ -1658,7 +1658,7 @@
             "risk",
             "scenario",
             "bts_url",
-            "attack_vector_desc"
+            "attack_vector_description"
           ]
         },
         {

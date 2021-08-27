@@ -191,7 +191,7 @@ async def format_finding(
 
     return PdfFindingInfo(
         affected_systems=finding.affected_systems,
-        attack_vector_description=finding.attack_vector_desc,
+        attack_vector_description=finding.attack_vector_description,
         closed_vulnerabilities=closed_vulnerabilities,
         compromised_records=finding.compromised_records,
         description=finding.description,

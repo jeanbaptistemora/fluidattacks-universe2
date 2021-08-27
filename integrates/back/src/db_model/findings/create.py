@@ -63,7 +63,7 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
         "actor": finding.actor,
         "affected_systems": finding.affected_systems,
         "analyst_email": finding.analyst_email,
-        "attack_vector_desc": finding.attack_vector_desc,
+        "attack_vector_description": finding.attack_vector_description,
         "bts_url": finding.bts_url,
         "compromised_attributes": finding.compromised_attributes,
         "compromised_records": finding.compromised_records,

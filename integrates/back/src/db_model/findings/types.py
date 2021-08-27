@@ -142,7 +142,7 @@ class Finding(NamedTuple):
     title: str
     actor: str = ""
     affected_systems: str = ""
-    attack_vector_desc: str = ""
+    attack_vector_description: str = ""
     approval: Optional[FindingState] = None
     bts_url: str = ""
     compromised_attributes: str = ""
@@ -169,7 +169,7 @@ class Finding(NamedTuple):
 class FindingMetadataToUpdate(NamedTuple):
     actor: Optional[str] = None
     affected_systems: Optional[str] = None
-    attack_vector_desc: Optional[str] = None
+    attack_vector_description: Optional[str] = None
     compromised_attributes: Optional[str] = None
     compromised_records: Optional[int] = None
     cvss_version: Optional[str] = None
