@@ -79,7 +79,7 @@ def initialize() -> None:
                     PRIMARY KEY (
                         group_name
                     )
-                )
+                );
                 CREATE TABLE IF NOT EXISTS sorts.executions (
                     timestamp TIMESTAMPTZ,
                     group_name VARCHAR(256),

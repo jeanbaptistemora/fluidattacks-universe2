@@ -24,6 +24,9 @@ from sorts.utils.logs import (
 )
 import sys
 import time
+from training.redshift import (
+    db as redshift,
+)
 
 
 @click.command(
@@ -69,12 +72,20 @@ def execute_sorts(
         else:
             success = prioritize_files(subscription)
 
+        execution_time: float = time.time() - start_time
         log_to_remote_info(
             msg=f"Success: {success}",
             subscription=subscription,
-            time=f"Finished after {time.time() - start_time:.2f} seconds",
+            time=f"Finished after {execution_time:.2f} seconds",
             get_file_data=get_file_data,
             user=user_email,
+        )
+        redshift.insert(
+            "executions",
+            {
+                "group_name": subscription.split("/")[-1],
+                "execution_time": execution_time,
+            },
         )
         mixpanel_track(
             user_email,
