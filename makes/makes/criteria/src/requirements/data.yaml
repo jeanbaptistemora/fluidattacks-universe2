@@ -2012,7 +2012,8 @@
       de correo RFC822.
     description: __empty__
   category: Emails
-  references: []
+  references:
+    - "010.IA-2"
   metadata: {}
 "122":
   en:
@@ -5692,7 +5693,8 @@
       en redes sociales (incluido +LinkedIn+).
     description: __empty__
   category: Social
-  references: []
+  references:
+    - "010.PL-4_1"
   metadata: {}
 "261":
   en:

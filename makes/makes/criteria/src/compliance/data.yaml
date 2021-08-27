@@ -1491,6 +1491,11 @@
     "IA-7":
       title: Cryptographic Module Authentication
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
+    "PL-4_1":
+      title: >
+        Social Media and External
+        Site/Applications Usage Restrictions
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
   metadata: {}
 "011":
   title: NIST 800-63B
