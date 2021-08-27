@@ -21,7 +21,7 @@ const categoriesIndex: React.FC<IQueryData> = ({
       <Seo
         description={""}
         keywords={""}
-        title={`Authors | Fluid Attacks`}
+        title={`Categories | Fluid Attacks`}
         url={"https://fluidattacks.com/blog/authors/"}
       />
 
