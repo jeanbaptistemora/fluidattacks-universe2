@@ -21,7 +21,7 @@ interface ITimeFilterButton {
   changeToAll: () => void;
 }
 
-interface IFilterButton extends ITimeFilterButton {
+interface ITypeFilterButton {
   documentName: string;
   currentDocumentName: string;
   documentNameFilter: boolean;
@@ -56,7 +56,43 @@ const TimeFilterButton: React.FC<ITimeFilterButton> = ({
   );
 };
 
-export const FilterButton: React.FC<IFilterButton> = ({
+const TypeFilterButton: React.FC<ITypeFilterButton> = ({
+  documentName,
+  currentDocumentName,
+  documentNameFilter,
+  changeToAlternative,
+  changeToDefault,
+}: ITypeFilterButton): JSX.Element => {
+  if (!documentNameFilter) {
+    return <React.StrictMode />;
+  }
+
+  return (
+    <React.StrictMode>
+      <GraphicButton className={styles.buttonSize} onClick={changeToDefault}>
+        <DocumentMerged
+          isEqual={documentName === currentDocumentName}
+          label={mergedDocuments[documentName].default.label}
+          tooltip={mergedDocuments[documentName].default.tooltip}
+        />
+      </GraphicButton>
+      <GraphicButton
+        className={styles.buttonSize}
+        onClick={changeToAlternative}
+      >
+        <DocumentMerged
+          isEqual={
+            mergedDocuments[documentName].documentName === currentDocumentName
+          }
+          label={mergedDocuments[documentName].alt.label}
+          tooltip={mergedDocuments[documentName].alt.tooltip}
+        />
+      </GraphicButton>
+    </React.StrictMode>
+  );
+};
+
+export const FilterButton: React.FC<ITimeFilterButton & ITypeFilterButton> = ({
   subjectName,
   subject,
   documentName,
@@ -68,38 +104,18 @@ export const FilterButton: React.FC<IFilterButton> = ({
   changeToNinety,
   changeToAll,
   changeToDefault,
-}: IFilterButton): JSX.Element => (
+}: ITimeFilterButton & ITypeFilterButton): JSX.Element => (
   <React.StrictMode>
     {documentNameFilter || timeFilter ? (
       <DropdownFilter>
         <React.Fragment>
-          {documentNameFilter ? (
-            <React.Fragment>
-              <GraphicButton
-                className={styles.buttonSize}
-                onClick={changeToDefault}
-              >
-                <DocumentMerged
-                  isEqual={documentName === currentDocumentName}
-                  label={mergedDocuments[documentName].default.label}
-                  tooltip={mergedDocuments[documentName].default.tooltip}
-                />
-              </GraphicButton>
-              <GraphicButton
-                className={styles.buttonSize}
-                onClick={changeToAlternative}
-              >
-                <DocumentMerged
-                  isEqual={
-                    mergedDocuments[documentName].documentName ===
-                    currentDocumentName
-                  }
-                  label={mergedDocuments[documentName].alt.label}
-                  tooltip={mergedDocuments[documentName].alt.tooltip}
-                />
-              </GraphicButton>
-            </React.Fragment>
-          ) : undefined}
+          <TypeFilterButton
+            changeToAlternative={changeToAlternative}
+            changeToDefault={changeToDefault}
+            currentDocumentName={currentDocumentName}
+            documentName={documentName}
+            documentNameFilter={documentNameFilter}
+          />
           <TimeFilterButton
             changeToAll={changeToAll}
             changeToNinety={changeToNinety}
