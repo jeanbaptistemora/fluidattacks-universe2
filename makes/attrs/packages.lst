@@ -10,7 +10,6 @@ forces.lint
 forces.oci-build
 integrates.back.certs.development
 integrates.back.env
-integrates.back.lint
 integrates.back.probes.lib
 integrates.back.probes.liveness
 integrates.back.probes.readiness

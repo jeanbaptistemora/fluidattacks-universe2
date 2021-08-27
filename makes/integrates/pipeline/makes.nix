@@ -55,6 +55,11 @@ in
           output = "/lintPython/dirOfModules/integratesBackChartsGenerators";
           gitlabExtra = gitlabLint;
         }
+        # TODO: https://gitlab.com/fluidattacks/product/-/issues/5247
+        # {
+        #   output = "/lintPython/imports/integrates";
+        #   gitlabExtra = gitlabLint;
+        # }
         {
           output = "/lintPython/module/integratesBackDeployPermissionsMatrix";
           gitlabExtra = gitlabLint;

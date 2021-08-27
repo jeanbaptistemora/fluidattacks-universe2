@@ -23,6 +23,12 @@
         src = "/integrates/charts/generators";
       };
     };
+    imports = {
+      integrates = {
+        config = "/integrates/back/setup.imports.cfg";
+        src = "/integrates/back/src";
+      };
+    };
     modules = {
       integratesBackDeployPermissionsMatrix = {
         extraSources = [
