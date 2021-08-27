@@ -38,6 +38,14 @@
         python = "3.7";
         src = "/integrates/back/migrations";
       };
+      integratesBackTests = {
+        extraSources = [
+          inputs.product.integrates-back-pypi-unit-tests
+          inputs.product.integrates-back-pypi-runtime
+        ];
+        python = "3.7";
+        src = "/integrates/back/tests";
+      };
       integratesBackTestsE2e = {
         extraSources = [
           inputs.product.integrates-web-e2e-pypi
