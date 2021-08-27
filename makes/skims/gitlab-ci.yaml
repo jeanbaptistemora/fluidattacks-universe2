@@ -1,0 +1,228 @@
+/deployContainerImage/skimsProd:
+  image: ghcr.io/fluidattacks/makes:21.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH != "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /deployContainerImage/skimsProd
+  stage: deploy-app
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/deployTerraform/skims:
+  image: ghcr.io/fluidattacks/makes:21.09
+  interruptible: true
+  needs: []
+  resource_group: $CI_JOB_NAME
+  rules:
+    - if: $CI_COMMIT_BRANCH != "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /deployTerraform/skims
+  stage: deploy-infra
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/lintPython/dirOfModules/skims:
+  image: ghcr.io/fluidattacks/makes:21.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /lintPython/dirOfModules/skims
+  stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/lintPython/imports/skims:
+  image: ghcr.io/fluidattacks/makes:21.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /lintPython/imports/skims
+  stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/lintPython/module/skimsProcessGroup:
+  image: ghcr.io/fluidattacks/makes:21.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /lintPython/module/skimsProcessGroup
+  stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/lintPython/module/skimsTest:
+  image: ghcr.io/fluidattacks/makes:21.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /lintPython/module/skimsTest
+  stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/lintPython/module/skimsTestMocksHttp:
+  image: ghcr.io/fluidattacks/makes:21.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /lintPython/module/skimsTestMocksHttp
+  stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/lintPython/module/skimsTestSdk:
+  image: ghcr.io/fluidattacks/makes:21.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /lintPython/module/skimsTestSdk
+  stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/lintTerraform/skims:
+  image: ghcr.io/fluidattacks/makes:21.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /lintTerraform/skims
+  stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/securePythonWithBandit/skims:
+  image: ghcr.io/fluidattacks/makes:21.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /securePythonWithBandit/skims
+  stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/testTerraform/skims:
+  image: ghcr.io/fluidattacks/makes:21.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /testTerraform/skims
+  stage: test-infra
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1

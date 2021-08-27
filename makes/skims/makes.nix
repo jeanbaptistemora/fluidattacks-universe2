@@ -4,6 +4,9 @@
 , ...
 }:
 {
+  imports = [
+    ./pipeline/makes.nix
+  ];
   deployContainerImage = {
     images = {
       skimsProd = {

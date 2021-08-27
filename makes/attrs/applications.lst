@@ -134,7 +134,6 @@ observes.tap-json
 observes.target-redshift
 reviews
 skims
-skims.lint
 skims.owasp-benchmark
 skims.owasp-benchmark-and-upload
 skims.owasp-benchmark-on-aws

@@ -44,56 +44,6 @@
       when: never
     - if: *skims_commit_pattern
 
-/deployContainerImage/skimsProd:
-  <<: *makes4
-  <<: *skims_in_master_branch
-  stage: deploy-app
-
-/deployTerraform/skims:
-  <<: *makes4
-  <<: *skims_in_master_branch
-  stage: deploy-app
-
-/lintPython/dirOfModules/skims:
-  <<: *makes4
-  <<: *skims_in_dev_branch
-  stage: lint-code
-
-/lintPython/module/skimsTest:
-  <<: *makes4
-  <<: *skims_in_dev_branch
-  stage: lint-code
-
-/lintPython/module/skimsTestMocksHttp:
-  <<: *makes4
-  <<: *skims_in_dev_branch
-  stage: lint-code
-
-/lintPython/module/skimsTestSdk:
-  <<: *makes4
-  <<: *skims_in_dev_branch
-  stage: lint-code
-
-/lintPython/module/skimsProcessGroup:
-  <<: *makes4
-  <<: *skims_in_dev_branch
-  stage: lint-code
-
-/lintTerraform/skims:
-  <<: *makes4
-  <<: *skims_in_dev_branch
-  stage: test-infra
-
-/securePythonWithBandit/skims:
-  <<: *makes4
-  <<: *skims_in_dev_branch
-  stage: test-security
-
-/testTerraform/skims:
-  <<: *makes4
-  <<: *skims_in_dev_branch
-  stage: test-infra
-
 makes.test.skims:
   <<: *makes
   <<: *skims_in_master_branch
@@ -106,11 +56,6 @@ skims.owasp-benchmark-on-aws:
     refs: [schedules]
     variables: [$skims_benchmark_on_aws]
   stage: scheduler
-
-skims.lint:
-  <<: *makes
-  <<: *skims_in_dev_branch
-  stage: lint-code
 
 skims.structure:
   <<: *makes
