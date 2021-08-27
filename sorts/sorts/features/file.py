@@ -13,7 +13,7 @@ from pandas import (
     DataFrame,
     Series,
 )
-import pytz
+import pytz  # type: ignore
 from sorts.utils.logs import (
     log,
     log_exception,

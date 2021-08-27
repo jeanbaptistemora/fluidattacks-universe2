@@ -13,7 +13,6 @@ makeTemplate {
       packages.skims.config-runtime
     ];
     envPaths = [ nixpkgs.black ];
-    envUtils = [ "/makes/utils/lint-python" ];
   };
   template = path "/makes/packages/makes/dev/skims/template.sh";
 }

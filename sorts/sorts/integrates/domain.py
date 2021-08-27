@@ -1,4 +1,4 @@
-from integrates.dal import (
+from integrates.dal import (  # type: ignore
     get_vulnerabilities,
     Vulnerability,
     VulnerabilityKindEnum,
