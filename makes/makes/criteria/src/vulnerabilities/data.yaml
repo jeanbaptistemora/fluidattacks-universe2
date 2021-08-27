@@ -50,7 +50,7 @@
   requirements: ["169", "173"]
   metadata:
     en:
-      details: >
+      details: |
         In **Spring Data JPA** framework
         you can create SQL queries in many ways:
 
@@ -74,11 +74,11 @@
         public class User { /* ... */ }
         ```
 
-        ## Abuse cases
+        ### Abuse cases
 
         No framework is silver-bullet, though.
 
-        ### Java Persistence Query Language
+        #### Java Persistence Query Language
 
         By default,
         the `JPQL` engine will escape
@@ -124,7 +124,7 @@
         sanitizing is no solution at all.
         The problem is having a hard-coded `%` in the `JPQL` statement.
 
-        ### Spring Expression Language
+        #### Spring Expression Language
 
         By default,
         `SpEL` Expressions are **not escaped**.
@@ -1013,7 +1013,7 @@
   requirements: ["148", "149", "150", "181", "336"]
   metadata:
     en:
-      details: >
+      details: |
         SSL (Secure Sockets Layer) and its successor,
         TLS (Transport Layer Security),
         are protocols for establishing authenticated
@@ -1866,7 +1866,7 @@
   requirements: ["095", "096", "186"]
   metadata:
     en:
-      details: >
+      details: |
         To configure many AWS services,
         you must pass an IAM role to the service.
         This allows the service to later assume the role
@@ -3366,7 +3366,7 @@
   requirements: ["095", "096", "186"]
   metadata:
     en:
-      details: >
+      details: |
         This java method
         has the following signature:
 
@@ -4016,7 +4016,7 @@
   requirements: ["077", "176"]
   metadata:
     en:
-      details: >
+      details: |
         In front-end programming,
         JavaScript's Console object
         provides access to the browser's
@@ -5503,7 +5503,7 @@
   requirements: ["148", "149", "150", "181", "336"]
   metadata:
     en:
-      details: >
+      details: |
         A cipher suite is a set of algorithms
         that help secure a network connection.
         Suites typically use
@@ -5546,7 +5546,7 @@
         the cipher suite and TLS connection
         is then vulnerable.
 
-        ## Weak algorithms
+        ### Weak algorithms
 
         - **RSA with key < 2048 bytes**,
         can be brute-forced in feasible time
@@ -7613,7 +7613,7 @@
   requirements: ["062", "181", "349"]
   metadata:
     en:
-      details: >
+      details: |
         The HTTP `Strict-Transport-Security`
         response header informs the browser
         that it should never load a site
@@ -7622,7 +7622,7 @@
         to access the site using HTTP
         to HTTPS requests instead.
 
-        ## Exploitation scenario
+        ### Exploitation scenario
 
         You log into a free
         WiFi access point at an airport
@@ -7652,7 +7652,7 @@
         preventing hackers from performing
         this sort of man-in-the-middle attack.
 
-        ## Words of caution
+        ### Words of caution
 
         It's important to note that
         in order for the `Strict Transport Security`
@@ -7677,7 +7677,7 @@
         also increases the effectiveness
         of the header.
 
-        # Secure implementation
+        ### Secure implementation
 
         Set `Strict-Transport-Security: max-age=31536000`
         HTTP header in all responses
@@ -17263,7 +17263,7 @@
   requirements: ["266"]
   metadata:
     en:
-      details: >
+      details: |
         https://rules.sonarsource.com/csharp/type/Vulnerability/RSPEC-4211
 "367":
   en:
