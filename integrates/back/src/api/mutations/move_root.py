@@ -13,6 +13,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils import (
+    logs as logs_utils,
     token as token_utils,
 )
 from roots import (
@@ -31,6 +32,7 @@ async def mutate(
 ) -> SimplePayload:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
+
     await roots_domain.move_root(
         info.context.loaders,
         user_email,
@@ -38,4 +40,9 @@ async def mutate(
         kwargs["id"],
         kwargs["target_id"],
     )
+    logs_utils.cloudwatch_log(
+        info.context,
+        f'Security: Moved a root in {kwargs["group_name"].lower()}',
+    )
+
     return SimplePayload(success=True)

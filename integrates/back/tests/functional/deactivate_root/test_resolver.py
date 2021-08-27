@@ -27,11 +27,11 @@ from typing import (
     ),
 )
 @pytest.mark.parametrize(
-    ("reason", "new_root_id"),
+    ("reason"),
     (
-        ("MOVED_TO_ANOTHER_ROOT", "00000000-0000-0000-0000-000000000000"),
-        ("OUT_OF_SCOPE", None),
-        ("REGISTERED_BY_MISTAKE", None),
+        ("MOVED_TO_ANOTHER_ROOT"),
+        ("OUT_OF_SCOPE"),
+        ("REGISTERED_BY_MISTAKE"),
     ),
 )
 async def test_deactivate_root(
@@ -39,14 +39,12 @@ async def test_deactivate_root(
     group_name: str,
     root_id: str,
     reason: str,
-    new_root_id: Optional[str],
 ) -> None:
     assert populate
     result = await get_result(
         email="admin@gmail.com",
         group_name=group_name,
         identifier=root_id,
-        new_root_id=new_root_id,
         reason=reason,
     )
     assert "errors" not in result
@@ -82,7 +80,6 @@ async def test_deactivate_root_fail(
         email="admin@gmail.com",
         group_name=group_name,
         identifier=root_id,
-        new_root_id=None,
         reason="REGISTERED_BY_MISTAKE",
     )
     assert "errors" in result
