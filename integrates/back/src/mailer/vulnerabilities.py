@@ -5,30 +5,23 @@ from .common import (
 from context import (
     BASE_URL,
 )
-from custom_types import (
-    Finding as FindingType,
-)
 from group_access import (
     domain as group_access_domain,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from typing import (
     Any,
-    Dict,
 )
 
 
 async def send_mail_updated_treatment(
+    *,
     context: Any,
+    finding_id: str,
+    finding_title: str,
+    group_name: str,
     treatment: str,
-    finding: Dict[str, FindingType],
     vulnerabilities: str,
 ) -> None:
-    finding_id = str(finding["finding_id"])
-    group_name = str(get_key_or_fallback(finding))
-
     group_loader = context.group
     group = await group_loader.load(group_name)
     org_id = group["organization"]
@@ -41,7 +34,7 @@ async def send_mail_updated_treatment(
     email_context = {
         "group": group_name,
         "treatment": treatment,
-        "finding": finding["title"],
+        "finding": finding_title,
         "vulnerabilities": vulnerabilities.splitlines(),
         "finding_link": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}"

@@ -760,13 +760,13 @@ async def should_send_update_treatment(
     *,
     context: Any,
     finding_id: str,
-    updated_vulns: List[Dict[str, FindingType]],
+    finding_title: str,
+    group_name: str,
     treatment: str,
+    updated_vulns: List[Dict[str, FindingType]],
 ) -> None:
     translations = {"IN PROGRESS": "In Progress"}
     if treatment in translations:
-        finding_loader = context.finding
-        finding = await finding_loader.load(finding_id)
         vulns_grouped = group_vulnerabilities(updated_vulns)
         vulns_data = vulns_utils.format_vulnerabilities(
             cast(List[Dict[str, FindingType]], vulns_grouped)
@@ -776,7 +776,12 @@ async def should_send_update_treatment(
         )
         schedule(
             vulns_mail.send_mail_updated_treatment(
-                context, translations[treatment], finding, mail_content
+                context=context,
+                finding_id=finding_id,
+                finding_title=finding_title,
+                group_name=group_name,
+                treatment=translations[treatment],
+                vulnerabilities=mail_content,
             )
         )
 

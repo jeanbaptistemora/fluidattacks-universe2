@@ -32,6 +32,9 @@ from newutils import (
     validations,
     vulnerabilities as vulns_utils,
 )
+from newutils.utils import (
+    get_key_or_fallback,
+)
 from typing import (
     Any,
     Awaitable,
@@ -341,6 +344,9 @@ def is_vulnerabilities_treatment_changed(
 async def send_treatment_change_mail(
     context: Any, finding_id: str, min_date: Datetime
 ) -> bool:
+    finding_loader = context.finding
+    finding = await finding_loader.load(finding_id)
+
     finding_vulns_loader = context.finding_vulns_nzr
     vulns = await finding_vulns_loader.load(finding_id)
     changes = list(
@@ -354,8 +360,10 @@ async def send_treatment_change_mail(
         await should_send_update_treatment(
             context=context,
             finding_id=finding_id,
-            updated_vulns=[change[1] for change in treatments_change],
+            finding_title=finding["title"],
+            group_name=str(get_key_or_fallback(finding)),
             treatment=treatment,
+            updated_vulns=[change[1] for change in treatments_change],
         )
     return bool(treatments)
 
