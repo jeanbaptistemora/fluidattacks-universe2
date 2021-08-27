@@ -435,6 +435,9 @@
     "10_6":
       title: Centrally Manage Anti-Malware Software
       link: https://www.cisecurity.org/controls/
+    "12_2":
+      title: Establish and Maintain a Secure Network Architecture
+      link: https://www.cisecurity.org/controls/
     "12_6":
       title: >
         Use of Secure Network Management
@@ -1495,6 +1498,9 @@
       title: >
         Social Media and External
         Site/Applications Usage Restrictions
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
+    "SC-3":
+      title: Security Function Isolation
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
   metadata: {}
 "011":
