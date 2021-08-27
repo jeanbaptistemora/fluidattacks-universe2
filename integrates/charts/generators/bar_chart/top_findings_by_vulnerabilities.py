@@ -11,9 +11,6 @@ from charts import (
 from charts.colors import (
     RISK,
 )
-from collections import (
-    Counter,
-)
 from context import (
     FI_API_STATUS,
 )
@@ -28,7 +25,10 @@ from itertools import (
     groupby,
 )
 from typing import (
+    Any,
     cast,
+    Counter,
+    Dict,
     List,
     Tuple,
     Union,
@@ -36,7 +36,7 @@ from typing import (
 
 
 @alru_cache(maxsize=None, typed=True)
-async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter:
+async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter[str]:
     if FI_API_STATUS == "migration":
         group_findings_new_loader = loaders.group_findings_new
         group_findings_new: Tuple[
@@ -76,7 +76,7 @@ async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter:
 
 async def get_data_many_groups(
     groups: List[str], loaders: Dataloaders
-) -> Counter:
+) -> Counter[str]:
     groups_data = await collect(
         [get_data_one_group(group, loaders) for group in groups]
     )
@@ -84,7 +84,7 @@ async def get_data_many_groups(
     return sum(groups_data, Counter())
 
 
-def format_data(counters: Counter) -> dict:
+def format_data(counters: Counter[str]) -> Dict[str, Any]:
     data: List[Tuple[str, int]] = counters.most_common()
 
     merged_data: List[List[Union[int, str]]] = []

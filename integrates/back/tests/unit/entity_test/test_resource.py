@@ -15,9 +15,6 @@ from dataloaders import (
 import json
 import os
 import pytest
-from starlette.datastructures import (
-    UploadFile,
-)
 from typing import (
     Any,
     Dict,

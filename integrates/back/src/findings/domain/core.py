@@ -1192,12 +1192,9 @@ async def total_vulnerabilities(
     finding_vulns_loader = context.finding_vulns_nzr
     if await validate_finding(finding=finding_):
         vulnerabilities = await finding_vulns_loader.load(finding_id)
-        last_approved_status = await collect(
-            [
-                in_process(vulns_utils.get_last_status, vuln)
-                for vuln in vulnerabilities
-            ]
-        )
+        last_approved_status = [
+            vulns_utils.get_last_status(vuln) for vuln in vulnerabilities
+        ]
         for current_state in last_approved_status:
             if current_state == "open":
                 finding["openVulnerabilities"] += 1
