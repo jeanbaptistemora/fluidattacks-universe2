@@ -1,5 +1,6 @@
 # https://github.com/fluidattacks/forces
 { config
+, inputs
 , outputs
 , ...
 }:
@@ -27,6 +28,25 @@
         setup = [ outputs."/secretsForAwsFromEnv/forcesProd" ];
         src = "/forces/infra";
         version = "0.14";
+      };
+    };
+  };
+  lintPython = {
+    modules = {
+      forces = {
+        extraSources = [
+          inputs.product.forces-config-runtime
+        ];
+        python = "3.8";
+        src = "/forces/forces";
+      };
+      forcesTests = {
+        extraSources = [
+          inputs.product.forces-config-development
+          inputs.product.forces-config-runtime
+        ];
+        python = "3.8";
+        src = "/forces/test";
       };
     };
   };

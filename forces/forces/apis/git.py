@@ -17,7 +17,7 @@ from git import (
     Repo,
 )
 import os
-import pytz
+import pytz  # type: ignore
 import re
 from typing import (
     Dict,

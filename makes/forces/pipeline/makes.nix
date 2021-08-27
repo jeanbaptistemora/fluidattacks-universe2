@@ -48,6 +48,14 @@ in
           gitlabExtra = gitlabDeployInfra;
         }
         {
+          output = "/lintPython/module/forces";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintPython/module/forcesTests";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintTerraform/forces";
           gitlabExtra = gitlabLint;
         }

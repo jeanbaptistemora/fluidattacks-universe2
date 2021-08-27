@@ -48,11 +48,6 @@
   <<: *forces_in_dev_and_master_branch
   stage: build
 
-forces.lint:
-  <<: *makes
-  <<: *forces_in_dev_and_master_branch
-  stage: lint-code
-
 forces.test:
   <<: *makes
   <<: *forces_in_dev_and_master_branch
