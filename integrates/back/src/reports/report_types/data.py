@@ -224,3 +224,39 @@ async def generate(
             passphrase=passphrase,
             source_contents=_get_directory_contents(directory),
         )
+
+
+async def generate_new(
+    *,
+    context: Any,
+    findings_ord: Tuple[Finding, ...],
+    group: str,
+    group_description: str,
+    passphrase: str,
+    requester_email: str,
+) -> str:
+    with tempfile.TemporaryDirectory() as directory:
+        await _append_pdf_report_new(
+            context=context,
+            directory=directory,
+            findings_ord=findings_ord,
+            group=group,
+            group_description=group_description,
+            passphrase=passphrase,
+            requester_email=requester_email,
+        )
+        await _append_xls_report_new(
+            context,
+            directory=directory,
+            findings_ord=findings_ord,
+            group_name=group,
+            passphrase=passphrase,
+        )
+        await _append_evidences(
+            directory=directory,
+            group=group,
+        )
+        return _encrypted_zip_file(
+            passphrase=passphrase,
+            source_contents=_get_directory_contents(directory),
+        )
