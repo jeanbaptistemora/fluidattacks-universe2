@@ -24,6 +24,13 @@
       };
     };
     modules = {
+      integratesBackDeployPermissionsMatrix = {
+        extraSources = [
+          inputs.product.integrates-back-pypi-runtime
+        ];
+        python = "3.7";
+        src = "/integrates/deploy/permissions_matrix";
+      };
       integratesBackTestsE2e = {
         extraSources = [
           inputs.product.integrates-web-e2e-pypi

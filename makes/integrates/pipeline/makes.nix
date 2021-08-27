@@ -56,6 +56,10 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/lintPython/module/integratesBackDeployPermissionsMatrix";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintPython/module/integratesBackTestsE2e";
           gitlabExtra = gitlabLint;
         }
