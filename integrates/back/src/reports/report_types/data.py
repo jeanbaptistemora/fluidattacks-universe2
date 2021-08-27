@@ -122,6 +122,24 @@ async def _append_xls_report(
             file.write(report.read())
 
 
+async def _append_xls_report_new(
+    context: Any,
+    directory: str,
+    findings_ord: Tuple[Finding, ...],
+    group_name: str,
+    passphrase: str,
+) -> None:
+    report_filename = await technical_report.generate_xls_file_new(
+        context,
+        findings_ord=findings_ord,
+        group_name=group_name,
+        passphrase=passphrase,
+    )
+    with open(os.path.join(directory, "report.xls"), mode="wb") as file:
+        with open(report_filename, "rb") as report:
+            file.write(report.read())
+
+
 def _encrypted_zip_file(
     *,
     passphrase: str,
