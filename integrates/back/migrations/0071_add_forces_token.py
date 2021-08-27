@@ -24,7 +24,7 @@ from typing import (
 
 
 async def get_old_forces_token(group: str) -> Optional[str]:
-    client = boto3.client(
+    client = boto3.client(  # nosec
         "secretsmanager",
         aws_access_key_id="serves_prod_key",
         aws_secret_access_key="serves_prod_secret",

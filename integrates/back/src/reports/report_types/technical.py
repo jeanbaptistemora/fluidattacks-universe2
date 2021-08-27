@@ -283,7 +283,7 @@ async def generate_xls_file(
         f"> {filepath}-pwd"
     )
 
-    os.system(cmd)
+    os.system(cmd)  # nosec
     os.unlink(filepath)
     os.rename(f"{filepath}-pwd", filepath)
     return filepath
@@ -308,7 +308,7 @@ async def generate_xls_file_new(
         f"> {filepath}-pwd"
     )
 
-    os.system(cmd)
+    os.system(cmd)  # nosec
     os.unlink(filepath)
     os.rename(f"{filepath}-pwd", filepath)
     return filepath

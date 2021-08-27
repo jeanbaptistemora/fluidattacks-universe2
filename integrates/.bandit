@@ -1,3 +1,0 @@
-[bandit]
-targets:__init__.py,./arch/,./build/,./charts/,./deploy/,./front/,./lambda/,./test_unit/
-exclude:./back/,./mobile/

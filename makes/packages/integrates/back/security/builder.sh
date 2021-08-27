@@ -2,7 +2,7 @@
 
 function main {
   bandit --recursive "${envSrcIntegratesBack}" \
-    || true \
+    --exclude tests \
     && touch "${out}"
 }
 

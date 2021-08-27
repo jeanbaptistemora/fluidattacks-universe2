@@ -97,7 +97,7 @@ async def get_evidence(request: Request) -> Response:
         if evidences:
             for evidence in evidences:
                 start = evidence.find(finding_id) + len(finding_id)
-                localfile = f"/tmp{evidence[start:]}"
+                localfile = f"/tmp{evidence[start:]}"  # nosec
                 localtmp = utils.replace_all(
                     localfile, {".png": ".tmp", ".gif": ".tmp"}
                 )

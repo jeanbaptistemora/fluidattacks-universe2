@@ -161,7 +161,7 @@ def _encrypted_zip_file(
     with tempfile.NamedTemporaryFile() as temp_file:
         target = temp_file.name + f"_{uuid4()}.7z"
 
-    subprocess.run(
+    subprocess.run(  # nosec
         [
             "7z",
             "a",

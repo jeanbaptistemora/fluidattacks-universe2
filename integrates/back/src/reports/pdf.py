@@ -770,7 +770,7 @@ class CreatorPDF:
         with open(tpl_name, "wb") as tplfile:
             tplfile.write(render_text.encode("utf-8"))
         self.create_command(tpl_name)
-        subprocess.call(self.command, shell=True)
+        subprocess.call(self.command, shell=True)  # nosec
 
 
 class CreatorPdfNew:
@@ -1006,4 +1006,4 @@ class CreatorPdfNew:
         with open(tpl_name, "wb") as tplfile:
             tplfile.write(render_text.encode("utf-8"))
         self.create_command(tpl_name)
-        subprocess.call(self.command, shell=True)
+        subprocess.call(self.command, shell=True)  # nosec

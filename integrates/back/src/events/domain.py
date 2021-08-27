@@ -99,7 +99,7 @@ async def add_event(  # pylint: disable=too-many-locals
     validations.validate_fields([kwargs["detail"]])
     validations.validate_field_length(kwargs["detail"], 300)
 
-    event_id = str(random.randint(10000000, 170000000))
+    event_id = str(random.randint(10000000, 170000000))  # nosec
     tzn = pytz.timezone(TIME_ZONE)
     today = datetime_utils.get_now()
 

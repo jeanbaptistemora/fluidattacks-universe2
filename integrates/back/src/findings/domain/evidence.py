@@ -75,7 +75,7 @@ async def download_evidence_file(
     file_exists = await findings_dal.search_evidence(file_id)
     if file_exists:
         start = file_id.find(finding_id) + len(finding_id)
-        localfile = f"/tmp{file_id[start:]}"
+        localfile = f"/tmp{file_id[start:]}"  # nosec
         ext = {".py": ".tmp"}
         tmp_filepath = utils.replace_all(localfile, ext)
         await findings_dal.download_evidence(file_id, tmp_filepath)
