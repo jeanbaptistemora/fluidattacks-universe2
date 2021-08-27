@@ -180,12 +180,15 @@ async def get_comments_new(
     historic_verification: Tuple[
         FindingVerification, ...
     ] = await historic_verification_loader.load(finding_id)
-    verified = (
+    verified = tuple(
         verification
         for verification in historic_verification
         if verification.vuln_uuids
     )
     if bool(verified):
+        verification_comments_ids: Set[str] = {
+            verification.comment_id for verification in verified
+        }
         vulns = await finding_vulns_loader.load(finding_id)
         comments = [
             _fill_vuln_info(
@@ -194,10 +197,16 @@ async def get_comments_new(
                 vulns,
             )
             if comment["id"] == verification.comment_id
-            else comment
+            else (
+                comment
+                if str(comment["id"]) not in verification_comments_ids
+                else {}
+            )
             for comment in comments
             for verification in verified
         ]
+        comments = list(filter(None, comments))
+
     enforcer = await authz.get_group_level_enforcer(user_email)
     if enforcer(group_name, "handle_comment_scope"):
         return tuple(comments)
