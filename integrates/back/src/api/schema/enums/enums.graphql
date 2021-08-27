@@ -399,6 +399,8 @@ enum StakeholderRole {
   GROUP_MANAGER
   "Internal Manager"
   INTERNAL_MANAGER
+  "Reattacker"
+  REATTACKER
   "Resourcer"
   RESOURCER
   "Reviewer"

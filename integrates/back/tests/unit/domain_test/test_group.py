@@ -37,9 +37,9 @@ from graphql.type import (
     GraphQLResolveInfo,
 )
 from group_access.domain import (
-    get_closers,
     get_group_users,
     get_managers,
+    get_reattackers,
     remove_access,
 )
 from group_comments.domain import (
@@ -421,7 +421,7 @@ async def test_get_users() -> None:
 
 
 async def test_get_closers() -> None:
-    closers = await get_closers("oneshottest")
+    closers = await get_reattackers("oneshottest")
     assert closers == ["integratesanalyst@fluidattacks.com"]
 
 

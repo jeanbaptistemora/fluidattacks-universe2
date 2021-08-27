@@ -13,7 +13,7 @@ async def get_result(
     stakeholder: str = "integratescloser@fluidattacks.com",
     session_jwt: Optional[str] = None,
 ) -> Dict[str, Any]:
-    """Get result for closer role."""
+    """Get result for reattacker/closer role."""
     result = await get_graphql_result(data, stakeholder, session_jwt)
 
     return result

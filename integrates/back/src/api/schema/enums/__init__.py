@@ -210,9 +210,11 @@ ENUMS: Tuple[EnumType, ...] = (
             "CUSTOMERADMIN": "customeradmin",
             "EXECUTIVE": "executive",
             "GROUP_MANAGER": "group_manager",
+            "REATTACKER": "reattacker",
             "RESOURCER": "resourcer",
             "REVIEWER": "reviewer",
             "SERVICE_FORCES": "service_forces",
+            "SYSTEM_OWNER": "system_owner",
         },
     ),
     EnumType(

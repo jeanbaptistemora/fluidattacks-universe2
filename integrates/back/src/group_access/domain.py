@@ -29,7 +29,7 @@ async def get_access_by_url_token(url_token: str) -> GroupAccessType:
     return cast(GroupAccessType, access[0]) if access else {}
 
 
-async def get_closers(group_name: str, active: bool = True) -> List[str]:
+async def get_reattackers(group_name: str, active: bool = True) -> List[str]:
     users = await get_group_users(group_name, active)
     user_roles = await collect(
         authz.get_group_level_role(user, group_name) for user in users
@@ -37,7 +37,7 @@ async def get_closers(group_name: str, active: bool = True) -> List[str]:
     return [
         str(user)
         for user, user_role in zip(users, user_roles)
-        if user_role == "closer"
+        if user_role in ["reattacker", "closer"]
     ]
 
 

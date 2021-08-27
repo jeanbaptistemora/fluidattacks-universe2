@@ -183,7 +183,7 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
     justification: str,
 ) -> None:
     org_name = await get_organization_name(context, group_name)
-    recipients = await group_access_domain.get_closers(group_name)
+    recipients = await group_access_domain.get_reattackers(group_name)
     mail_context = {
         "group": group_name.lower(),
         "organization": org_name,
