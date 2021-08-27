@@ -284,7 +284,8 @@ export const enTranslations: ResourceKey = {
     filters: "Filters",
     more: "--More--",
     noDataIndication: "There is no data to display",
-    tooltip: "filters of search on the table",
+    search: "Search",
+    tooltip: "Search filters for the table",
   },
   deleteVulns: {
     notSuccess: "Vulnerability could not be eliminated",
@@ -446,6 +447,11 @@ export const enTranslations: ResourceKey = {
       exportCsv: {
         text: "Export",
         tooltip: "Export to a comma-separated values file",
+      },
+      filtersTooltips: {
+        reattack: "Filter by reattack",
+        status: "Filter by status",
+        where: "Filter by text on 'Where' column",
       },
       helpLabel: "Click on a finding to see more details",
       records: {

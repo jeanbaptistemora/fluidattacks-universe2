@@ -1,6 +1,8 @@
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
+import style from "utils/forms/index.css";
+
 const Alert: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs(
   {
     className: "b--salmon bg-salmon br3 burgundy mb4 outline-transparent pa3",
@@ -233,6 +235,10 @@ const ExpandableLabel: StyledComponent<
   className: "b pointer",
 })``;
 
+const Filters = styled.div.attrs({
+  className: "flex flex-wrap flex-auto mt2",
+})``;
+
 const Flex: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: string;
 }>({
@@ -461,6 +467,23 @@ const RowCenter: StyledComponent<
   className: "flex flex-wrap justify-center",
 })``;
 
+const Select = styled.select.attrs({
+  className: `${style["form-control"]} black-40 border-box`,
+})``;
+
+const SelectContainer = styled.div.attrs({
+  className: "flex-auto mh1",
+})``;
+
+const SearchText = styled.input.attrs({
+  className: `${style["form-control"]} black-40 border-box`,
+})``;
+
+const SelectDate = styled.input.attrs({
+  className: `${style["form-control"]} black-40 border-box`,
+  type: `date`,
+})``;
+
 const StickyContainer = styled.div.attrs({
   className: "bg-white z-4",
 })`
@@ -594,6 +617,7 @@ export {
   EventHeaderLabel,
   EvidenceDescription,
   ExpandableLabel,
+  Filters,
   Flex,
   FormGroup,
   HintFieldText,
@@ -624,6 +648,10 @@ export {
   Row,
   RowCenter,
   StickyContainer,
+  SearchText,
+  Select,
+  SelectContainer,
+  SelectDate,
   Switch,
   SwitchHandle,
   SwitchGroup,

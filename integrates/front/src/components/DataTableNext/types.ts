@@ -19,19 +19,38 @@ interface ISelectRowProps extends Omit<SelectRowProps<any>, "onSelectAll"> {
   ) => string[];
 }
 
+interface IFilterSelectOptions {
+  value: string;
+  text: string;
+}
+
+interface IFilterProps {
+  defaultValue?: string;
+  onChangeInput?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeSelect?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  selectOptions?: IFilterSelectOptions[];
+  placeholder?: string;
+  tooltipId: string;
+  tooltipMessage: string;
+  type: "date" | "select" | "text";
+}
+
 interface ITableProps {
   bodyContainer?: string;
   bordered: boolean;
   columnToggle?: boolean;
   csvFilename?: string;
+  customSearchDefault?: string;
   dataset: any[];
   defaultSorted?: { dataField: string; order: SortOrder };
   expandRow?: BootstrapTableProps["expandRow"];
   exportCsv: boolean;
   extraButtons?: JSX.Element;
+  customFiltersProps?: IFilterProps[];
   headerContainer?: string;
   headers: IHeaderConfig[];
   id: string;
+  isCustomFilterEnabled?: boolean;
   isFilterEnabled?: boolean;
   onPageChange?: (arg1: number) => void;
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
@@ -41,6 +60,8 @@ interface ITableProps {
   selectionMode?: ISelectRowProps;
   striped?: boolean;
   onColumnToggle?: (arg1: string) => void;
+  onUpdateCustomSearch?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onUpdateEnableCustomFilter?: () => void;
   onUpdateEnableFilter?: () => void;
 }
 
@@ -73,6 +94,8 @@ interface ITableWrapperProps {
 
 export {
   ICustomToggleProps,
+  IFilterSelectOptions,
+  IFilterProps,
   IHeaderConfig,
   ISelectRowProps,
   ITableProps,
