@@ -2035,7 +2035,11 @@
       propiedad sobre ellos.
     description: __empty__
   category: Authentication
-  references: []
+  references:
+    - "002.654"
+    - "004.287"
+    - "014.8_1_2"
+    - "014.8_2_2"
   metadata: {}
 "123":
   en:
@@ -5211,7 +5215,10 @@
       o sistema está autenticado.
     description: __empty__
   category: Authentication
-  references: []
+  references:
+    - "002.114"
+    - "004.287"
+    - "014.12_3_2"
   metadata: {}
 "235":
   en:
