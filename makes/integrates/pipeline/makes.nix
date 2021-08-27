@@ -60,6 +60,10 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/lintPython/module/integratesBackMigrations";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintPython/module/integratesBackTestsE2e";
           gitlabExtra = gitlabLint;
         }

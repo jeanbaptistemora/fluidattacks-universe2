@@ -35,7 +35,7 @@ from typing import (
 from urllib.parse import (
     unquote,
 )
-import yaml
+import yaml  # type: ignore
 
 STAGE: str = os.environ["STAGE"]
 SERVICES_REPO_DIR: str = f"{os.getcwd()}/services"

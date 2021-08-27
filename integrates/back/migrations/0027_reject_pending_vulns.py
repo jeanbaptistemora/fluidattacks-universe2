@@ -12,7 +12,7 @@ from aioextensions import (
 from dataloaders import (
     get_new_context,
 )
-import django
+import django  # noqa
 from findings import (
     domain as findings_domain,
 )

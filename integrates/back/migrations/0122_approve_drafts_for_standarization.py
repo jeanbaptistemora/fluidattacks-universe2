@@ -108,7 +108,7 @@ async def process_draft(
             success = await findings_domain.submit_draft(
                 info_context, target_draft["id"], analyst_email
             )
-        except Exception as e:
+        except Exception as e:  # noqa
             print(
                 f'   --- ERROR draft {target_draft["id"]} - '
                 f'"{target_draft["title"]}" NOT submitted: {str(e)}'
@@ -125,7 +125,7 @@ async def process_draft(
             success = await findings_domain.approve_draft(
                 info_context, target_draft["id"], approver_email
             )
-        except Exception as e:
+        except Exception as e:  # noqa
             print(
                 f'   --- ERROR draft {target_draft["id"]} - '
                 f'"{target_draft["title"]}" NOT submitted: {str(e)}'

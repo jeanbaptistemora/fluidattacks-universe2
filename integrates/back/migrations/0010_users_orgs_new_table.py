@@ -15,7 +15,7 @@ from asgiref.sync import (
     async_to_sync,
 )
 import bugsnag
-import django
+import django  # noqa
 from organizations import (
     dal as orgs_dal,
 )

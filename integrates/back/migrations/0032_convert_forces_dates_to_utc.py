@@ -9,7 +9,7 @@ import asyncio
 from boto3.dynamodb.conditions import (
     Key,
 )
-from dateutil.parser import (
+from dateutil.parser import (  # type: ignore
     parse as date_parser,
 )
 from dynamodb import (
@@ -21,7 +21,7 @@ from groups.dal import (
 from groups.domain import (
     get_many_groups,
 )
-import pytz
+import pytz  # type: ignore
 from typing import (
     Any,
     AsyncIterator,

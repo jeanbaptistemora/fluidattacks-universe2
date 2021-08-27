@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration aims to fix the language for several drafts created in
 previous migrations, in the scope of the findings type standarization effort.
@@ -34,7 +35,7 @@ from typing import (
     Any,
     Dict,
 )
-import yaml
+import yaml  # type: ignore
 
 PROD: bool = True
 
@@ -118,7 +119,7 @@ async def main() -> None:
         criteria_data = yaml.safe_load(data_yaml)
 
     # Read findings info
-    with open("0125.csv", mode="r") as f:
+    with open("0125.csv", mode="r") as f:  # noqa
         reader = csv.reader(f)
         info = [
             {

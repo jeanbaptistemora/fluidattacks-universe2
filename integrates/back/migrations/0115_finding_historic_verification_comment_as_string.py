@@ -45,7 +45,7 @@ async def set_historic_verification_comment_as_string(
     historic_verification = copy.deepcopy(old_historic_verification)
 
     for verification_info in historic_verification:
-        if type(verification_info["comment"]) != str:
+        if type(verification_info["comment"]) != str:  # noqa
             to_update = True
             verification_info["comment"] = str(verification_info["comment"])
 

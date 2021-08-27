@@ -57,91 +57,91 @@ from typing import (
     Dict,
 )
 import uuid
-import yaml
+import yaml  # type: ignore
 
 PROD: bool = True
 
-attackComplexityOptions = {
+attackComplexityOptions = {  # noqa
     "H": "0.44",
     "L": "0.77",
 }
 
-attackVectorOptions = {
+attackVectorOptions = {  # noqa
     "A": "0.62",
     "L": "0.55",
     "N": "0.85",
     "P": "0.2",
 }
 
-availabilityImpactOptions = {
+availabilityImpactOptions = {  # noqa
     "H": "0.56",
     "L": "0.22",
     "N": "0",
 }
 
-confidentialityImpactOptions = {
+confidentialityImpactOptions = {  # noqa
     "H": "0.56",
     "L": "0.22",
     "N": "0",
 }
 
-exploitabilityOptions = {
+exploitabilityOptions = {  # noqa
     "F": "0.97",
     "H": "1",
     "P": "0.94",
     "U": "0.91",
 }
 
-integrityImpactOptions = {
+integrityImpactOptions = {  # noqa
     "H": "0.56",
     "L": "0.22",
     "N": "0",
 }
 
-severityScopeOptions = {
+severityScopeOptions = {  # noqa
     "C": "1",
     "U": "0",
 }
 
-privilegesRequiredScope = {
+privilegesRequiredScope = {  # noqa
     "H": "0.5",
     "L": "0.68",
     "N": "0.85",
 }
 
-privilegesRequiredNoScope = {
+privilegesRequiredNoScope = {  # noqa
     "H": "0.27",
     "L": "0.62",
     "N": "0.85",
 }
 
-remediationLevelOptions = {
+remediationLevelOptions = {  # noqa
     "O": "0.95",
     "T": "0.96",
     "U": "1",
     "W": "0.97",
 }
 
-reportConfidenceOptions = {
+reportConfidenceOptions = {  # noqa
     "C": "1",
     "R": "0.96",
     "U": "0.92",
 }
 
-userInteractionOptions = {
+userInteractionOptions = {  # noqa
     "N": "0.85",
     "R": "0.62",
 }
 
 
 def _validate_not_empty(field: str) -> str:
-    if field != "__empty__" and field != "X":
+    if field != "__empty__" and field != "X":  # noqa
         return field.strip()
     return ""
 
 
 def _get_privileges_required(
-    severityScope: str,
+    severityScope: str,  # noqa
     privilegesRequired: str,
 ) -> str:
     if severityScope == severityScopeOptions["C"]:
@@ -149,7 +149,7 @@ def _get_privileges_required(
     return privilegesRequiredNoScope[privilegesRequired]
 
 
-def _get_draft_data(
+def _get_draft_data(  # noqa
     data: Any,
     draft_name: str,
     language: str,
@@ -162,33 +162,35 @@ def _get_draft_data(
         return {}
 
     # Create finding data
-    attackVectorRaw = _validate_not_empty(
+    attackVectorRaw = _validate_not_empty(  # noqa
         criteria["score"]["base"]["attack_vector"]
     )
-    attackComplexityRaw = _validate_not_empty(
+    attackComplexityRaw = _validate_not_empty(  # noqa
         criteria["score"]["base"]["attack_complexity"]
     )
-    availabilityRaw = _validate_not_empty(
+    availabilityRaw = _validate_not_empty(  # noqa
         criteria["score"]["base"]["availability"]
     )
-    confidentialityRaw = _validate_not_empty(
+    confidentialityRaw = _validate_not_empty(  # noqa
         criteria["score"]["base"]["confidentiality"]
     )
-    exploitabilityRaw = _validate_not_empty(
+    exploitabilityRaw = _validate_not_empty(  # noqa
         criteria["score"]["temporal"]["exploit_code_maturity"]
     )
-    integrityRaw = _validate_not_empty(criteria["score"]["base"]["integrity"])
-    privilegesRequiredRaw = _validate_not_empty(
+    integrityRaw = _validate_not_empty(  # noqa
+        criteria["score"]["base"]["integrity"]
+    )
+    privilegesRequiredRaw = _validate_not_empty(  # noqa
         criteria["score"]["base"]["privileges_required"]
     )
-    remediationLevelRaw = _validate_not_empty(
+    remediationLevelRaw = _validate_not_empty(  # noqa
         criteria["score"]["temporal"]["remediation_level"]
     )
-    reportConfidenceRaw = _validate_not_empty(
+    reportConfidenceRaw = _validate_not_empty(  # noqa
         criteria["score"]["temporal"]["report_confidence"]
     )
-    scopeRaw = _validate_not_empty(criteria["score"]["base"]["scope"])
-    userInteractionRaw = _validate_not_empty(
+    scopeRaw = _validate_not_empty(criteria["score"]["base"]["scope"])  # noqa
+    userInteractionRaw = _validate_not_empty(  # noqa
         criteria["score"]["base"]["user_interaction"]
     )
     draft_data = {
@@ -295,7 +297,7 @@ def _get_finding_source(finding: Dict[str, FindingType]) -> str:
     return source
 
 
-async def process_draft(
+async def process_draft(  # noqa
     context: Dataloaders,
     data: Any,
     new_draft: Dict[str, str],

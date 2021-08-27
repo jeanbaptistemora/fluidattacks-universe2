@@ -33,7 +33,7 @@ from aioextensions import (
 from asyncio import (
     run,
 )
-import dateutil.parser
+import dateutil.parser  # type: ignore
 from dynamodb.operations_legacy import (
     RESOURCE_OPTIONS,
 )

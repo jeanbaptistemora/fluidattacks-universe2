@@ -28,7 +28,7 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
-import django
+import django  # noqa
 from findings import (
     dal as findings_dal,
     domain as findings_domain,
@@ -43,7 +43,7 @@ from newutils import (
     vulnerabilities as vulns_utils,
 )
 import os
-import pytz
+import pytz  # type: ignore
 from settings import (
     TIME_ZONE,
 )

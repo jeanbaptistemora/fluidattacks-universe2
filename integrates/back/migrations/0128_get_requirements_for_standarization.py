@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration aims to get info about the current data in the requirements
 field, for all the findings in db.

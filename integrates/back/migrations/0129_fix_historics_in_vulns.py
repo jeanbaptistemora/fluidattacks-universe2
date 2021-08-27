@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration aims to fix the historic state dates of moved vulns,
 in the context of the types standarization effort.

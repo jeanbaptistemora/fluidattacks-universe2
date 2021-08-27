@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=import-error,invalid-name
 """
 This migration erases duplicate users from both DynamoDB and MySQL,
 created by the Azure auth backend when it could not resolve the user correctly.

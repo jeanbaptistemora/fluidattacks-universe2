@@ -12,7 +12,7 @@ import boto3
 from datetime import (
     datetime,
 )
-from dateutil.parser import (
+from dateutil.parser import (  # type: ignore
     parse as parse_date,
 )
 from itertools import (

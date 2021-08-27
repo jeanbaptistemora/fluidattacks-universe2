@@ -107,7 +107,7 @@ async def remove_duplicate_vulns(
     duplicates = [vuln for vuln in duplicates if vuln]
     duplicates = sorted(duplicates, key=itemgetter("where"), reverse=True)
 
-    if not len(duplicates):
+    if not len(duplicates):  # noqa
         print(f"   === {finding_id}, NO duplicates found")
         return True
 
@@ -152,7 +152,7 @@ async def merge_findings(
     if not finding1:
         print(f"   ### ERROR finding1 NOT in db ({finding_id1})")
         return finding_id2
-    elif not finding2:
+    if not finding2:
         print(f"   ### ERROR finding2 NOT in db ({finding_id2})")
         return finding_id1
 

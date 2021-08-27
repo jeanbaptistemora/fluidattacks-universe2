@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 This migration aims to standarize the requirements field in several
 finding's decription, taking their values from the criteria data.
@@ -31,7 +32,7 @@ import time
 from typing import (
     Dict,
 )
-import yaml
+import yaml  # type: ignore
 
 PROD: bool = True
 
@@ -44,7 +45,10 @@ def _get_requirements(
 ) -> str:
     cve = finding_name[:3]
     requirements = [
-        f'{requ}. {requirements_data[requ][language]["summary"]}'
+        (
+            f"{requ}. "  # type: ignore
+            f'{requirements_data[requ][language]["summary"]}'
+        )
         for requ in vulns_data[cve]["requirements"]
     ]
     return "".join(requirements)
