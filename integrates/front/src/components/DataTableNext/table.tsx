@@ -25,16 +25,26 @@ import { CustomToggleList } from "components/DataTableNext/customToggleList";
 import { ExportCSVButtonWrapper } from "components/DataTableNext/exportCSVButton";
 import style from "components/DataTableNext/index.css";
 import { SizePerPageRenderer } from "components/DataTableNext/sizePerPageRenderer";
-import type { ITableWrapperProps } from "components/DataTableNext/types";
+import type {
+  IFilterProps,
+  IFilterSelectOptions,
+  ITableWrapperProps,
+} from "components/DataTableNext/types";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   ButtonGroup,
   ButtonToolbarLeft,
   ButtonToolbarRow,
+  Col100,
+  Filters,
+  SearchText,
+  Select,
+  SelectContainer,
+  SelectDate,
   TableOptionsColBar,
   TableOptionsColBtn,
 } from "styles/styledComponents";
-
+// eslint-disable-next-line complexity
 export const TableWrapper: React.FC<ITableWrapperProps> = (
   props: Readonly<ITableWrapperProps>
 ): JSX.Element => {
@@ -52,7 +62,12 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     defaultSorted,
     expandRow,
     extraButtons,
+    customFiltersProps,
+    customSearchDefault,
+    onUpdateCustomSearch,
+    onUpdateEnableCustomFilter,
     onUpdateEnableFilter,
+    isCustomFilterEnabled,
     isFilterEnabled,
     pageSize,
     columnToggle = false,
@@ -70,6 +85,12 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
       onUpdateEnableFilter();
     }
   }
+  function handleUpdateEnableCustomFilter(): void {
+    if (!_.isUndefined(onUpdateEnableCustomFilter)) {
+      onUpdateEnableCustomFilter();
+    }
+  }
+
   function handleNoData(): string {
     return t("dataTableNext.noDataIndication");
   }
@@ -86,6 +107,42 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
       SizePerPageRenderer as unknown as PaginationOptions["sizePerPageRenderer"],
   };
 
+  const filterOption = (filter: IFilterProps): JSX.Element => {
+    const {
+      defaultValue,
+      onChangeSelect,
+      onChangeInput,
+      selectOptions,
+      placeholder = "",
+      type,
+    } = filter;
+
+    if (type === "date")
+      return (
+        <SelectDate defaultValue={defaultValue} onChange={onChangeInput} />
+      );
+    if (type === "select")
+      return (
+        <Select defaultValue={defaultValue} onChange={onChangeSelect}>
+          {selectOptions?.map(
+            (option: IFilterSelectOptions): JSX.Element => (
+              <option key={option.text} value={option.value}>
+                {t(option.text)}
+              </option>
+            )
+          )}
+        </Select>
+      );
+
+    return (
+      <SearchText
+        defaultValue={defaultValue}
+        onChange={onChangeInput}
+        placeholder={t(`${placeholder}`)}
+      />
+    );
+  };
+
   return (
     <div>
       <div className={`flex flex-wrap ${style.tableOptions}`}>
@@ -93,6 +150,8 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           {exportCsv ||
           columnToggle ||
           !_.isUndefined(isFilterEnabled) ||
+          !_.isUndefined(isCustomFilterEnabled) ||
+          !_.isUndefined(customSearchDefault) ||
           extraButtons !== undefined ? (
             <TableOptionsColBtn>
               <ButtonToolbarLeft>
@@ -128,9 +187,53 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                   </ButtonGroup>
                 )}
                 <ButtonGroup>{extraButtons}</ButtonGroup>
+                {!_.isUndefined(isCustomFilterEnabled) && (
+                  <ButtonGroup>
+                    <TooltipWrapper
+                      id={"CustomFilterTooltip"}
+                      message={t("dataTableNext.tooltip")}
+                    >
+                      <Button onClick={handleUpdateEnableCustomFilter}>
+                        {isCustomFilterEnabled ? (
+                          <FontAwesomeIcon icon={faMinus} />
+                        ) : (
+                          <FontAwesomeIcon icon={faPlus} />
+                        )}
+                        &nbsp;
+                        {t("dataTableNext.filters")}
+                      </Button>
+                    </TooltipWrapper>
+                  </ButtonGroup>
+                )}
+                {!_.isUndefined(customSearchDefault) && (
+                  <ButtonGroup>
+                    <Col100>
+                      <SearchText
+                        defaultValue={customSearchDefault || ""}
+                        onChange={onUpdateCustomSearch}
+                        placeholder={t("dataTableNext.search")}
+                      />
+                    </Col100>
+                  </ButtonGroup>
+                )}
               </ButtonToolbarLeft>
             </TableOptionsColBtn>
           ) : undefined}
+          {!_.isUndefined(isCustomFilterEnabled) && isCustomFilterEnabled && (
+            <Filters>
+              {customFiltersProps?.map((filter: IFilterProps): JSX.Element => {
+                const { tooltipId, tooltipMessage } = filter;
+
+                return (
+                  <SelectContainer key={`container.${filter.tooltipId}`}>
+                    <TooltipWrapper id={tooltipId} message={t(tooltipMessage)}>
+                      {filterOption(filter)}
+                    </TooltipWrapper>
+                  </SelectContainer>
+                );
+              })}
+            </Filters>
+          )}
         </div>
         {search && (
           <TableOptionsColBar>

@@ -26,6 +26,7 @@ interface IFindingAttr {
     where: string;
     zeroRisk: string;
   }[];
+  where?: string;
 }
 
 interface IRequestGroupReportResult {
