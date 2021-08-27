@@ -428,9 +428,7 @@ describe("Group stakeholders view", (): void => {
     });
     const select: ReactWrapper = addUserModal
       .find("select")
-      .findWhere((element: ReactWrapper): boolean =>
-        element.contains("Analyst")
-      )
+      .findWhere((element: ReactWrapper): boolean => element.contains("Hacker"))
       .at(0);
     select.simulate("change", { target: { name: "role", value: "ANALYST" } });
     const form: ReactWrapper = addUserModal.find("Formik").at(0);
@@ -611,9 +609,7 @@ describe("Group stakeholders view", (): void => {
     });
     const select: ReactWrapper = editUserModal
       .find("select")
-      .findWhere((element: ReactWrapper): boolean =>
-        element.contains("Analyst")
-      )
+      .findWhere((element: ReactWrapper): boolean => element.contains("Hacker"))
       .at(0);
     select.simulate("change", { target: { name: "role", value: "ANALYST" } });
     const form: ReactWrapper = editUserModal.find("Formik").at(0);
@@ -730,9 +726,7 @@ describe("Group stakeholders view", (): void => {
     });
     const select: ReactWrapper = addUserModal
       .find("select")
-      .findWhere((element: ReactWrapper): boolean =>
-        element.contains("Analyst")
-      )
+      .findWhere((element: ReactWrapper): boolean => element.contains("Hacker"))
       .at(0);
     select.simulate("change", { target: { name: "role", value: "ANALYST" } });
     const form: ReactWrapper = addUserModal.find("Formik").at(0);
@@ -913,9 +907,7 @@ describe("Group stakeholders view", (): void => {
     });
     const select: ReactWrapper = editUserModal
       .find("select")
-      .findWhere((element: ReactWrapper): boolean =>
-        element.contains("Analyst")
-      )
+      .findWhere((element: ReactWrapper): boolean => element.contains("Hacker"))
       .at(0);
     select.simulate("change", { target: { name: "role", value: "ANALYST" } });
     const form: ReactWrapper = editUserModal.find("Formik").at(0);

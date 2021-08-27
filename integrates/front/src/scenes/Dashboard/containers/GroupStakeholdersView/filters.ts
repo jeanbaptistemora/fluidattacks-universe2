@@ -1,12 +1,12 @@
 const selectOptionsRole = {
   admin: "Admin",
-  analyst: "Analyst",
-  closer: "Closer",
+  analyst: "Hacker",
+  closer: "Reattacker",
   customer: "User",
   customeradmin: "User Manager",
   executive: "Executive",
   // eslint-disable-next-line camelcase
-  group_manager: "Group Manager",
+  group_manager: "System Owner",
   resourcer: "Resourcer",
   reviewer: "Reviewer",
 };
