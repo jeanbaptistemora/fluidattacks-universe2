@@ -21,6 +21,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # Autogen
-/docs/criteria/vulnerabilities/*
-/docs/criteria/requirements/*
-/docs/criteria/compliance/*
+/docs/criteria/Vulnerabilities/*
+/docs/criteria/Requirements/*
+/docs/criteria/Compliance/*

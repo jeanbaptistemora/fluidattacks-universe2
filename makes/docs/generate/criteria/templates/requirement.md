@@ -1,5 +1,6 @@
 ---
 title: __argTitle__
+slug: /criteria/requirements/__argCode__
 ---
 
 ## Summary

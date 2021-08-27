@@ -9,14 +9,29 @@
 , ...
 }:
 let
+  lib = inputs.nixpkgs.lib;
+  capitalize = str:
+    let
+      head = lib.strings.toUpper (builtins.substring 0 1 str);
+      tail = builtins.substring 1 999999999999999999 str;
+    in
+    head + tail;
+
+  # Return category path for a vulnerability or requirement
+  categoryPath = id: data:
+    let
+      category = capitalize data.category;
+    in
+    "${category}/${id}";
+
   # Extract model data
-  data_vulnerabilities = fromYaml (
+  vulnerabilities = fromYaml (
     builtins.readFile (
       projectPath "/makes/makes/criteria/src/vulnerabilities/data.yaml"));
-  data_requirements = fromYaml (
+  requirements = fromYaml (
     builtins.readFile (
       projectPath "/makes/makes/criteria/src/requirements/data.yaml"));
-  data_compliance = fromYaml (
+  compliance = fromYaml (
     builtins.readFile (
       projectPath "/makes/makes/criteria/src/compliance/data.yaml"));
 
@@ -41,14 +56,14 @@ let
 
   # Generate requirements list for a vulnerability
   vulnReq = id:
-    "- [${id}. ${data_requirements.${id}.en.title}](/criteria/requirements/${id})";
+    "- [${id}. ${requirements.${id}.en.title}](/criteria/requirements/${id})";
   reqsForVuln = reqs:
     builtins.concatStringsSep "\n" (builtins.map vulnReq reqs);
 
   # Generate references list for a requirement
   reqRefParseData = raw:
     let
-      parsed = inputs.nixpkgs.lib.strings.splitString "." raw;
+      parsed = lib.strings.splitString "." raw;
     in
     {
       standard_id = (builtins.head parsed);
@@ -56,7 +71,7 @@ let
     };
   reqRef = data:
     let
-      standard = data_compliance.${data.standard_id};
+      standard = compliance.${data.standard_id};
       standard_link = "/criteria/compliance/${data.standard_id}";
       definition = standard.definitions.${data.definition_id};
     in
@@ -79,9 +94,9 @@ let
     );
 
   # Generate introduction indexes
-  categories = data: inputs.nixpkgs.lib.lists.unique (
+  categories = data: lib.lists.unique (
     builtins.map (x: x.category) (builtins.attrValues data));
-  itemsByCategory = category: inputs.nixpkgs.lib.attrsets.filterAttrs
+  itemsByCategory = category: lib.attrsets.filterAttrs
     (_: v: v.category == category);
   linksByCategory = type: category: data:
     "### ${category}\n" + builtins.concatStringsSep "\n" (
@@ -96,14 +111,14 @@ let
   # Generate a template for every introduction
   makeIntroVulnerabilities = makeTemplate {
     replace = {
-      __argIndex__ = links "vulnerabilities" data_vulnerabilities;
+      __argIndex__ = links "vulnerabilities" vulnerabilities;
     };
     name = "docs-make-intro-vulnerabilities";
     template = ./templates/intros/vulnerability.md;
   };
   makeIntroRequirements = makeTemplate {
     replace = {
-      __argIndex__ = links "requirements" data_requirements;
+      __argIndex__ = links "requirements" requirements;
     };
     name = "docs-make-intro-requirements";
     template = ./templates/intros/requirement.md;
@@ -114,8 +129,9 @@ let
   };
 
   # Generate a template for every md
-  makeVulnerability = name: src: makeTemplate {
+  makeVulnerability = __argCode__: src: makeTemplate {
     replace = {
+      inherit __argCode__;
       __argTitle__ = src.en.title;
       __argDescription__ = src.en.description;
       __argImpact__ = src.en.impact;
@@ -139,26 +155,28 @@ let
       __argSeverityTemporal__ = (vulnScore src.score).severity.temporal;
       __argRequirements__ = reqsForVuln src.requirements;
     };
-    name = "docs-make-vulnerability-${name}";
+    name = "docs-make-vulnerability-${__argCode__}";
     template = ./templates/vulnerability.md;
   };
-  makeRequirement = name: src: makeTemplate {
+  makeRequirement = __argCode__: src: makeTemplate {
     replace = {
+      inherit __argCode__;
       __argTitle__ = src.en.title;
       __argSummary__ = src.en.summary;
       __argDescription__ = src.en.description;
       __argReferences__ = refsForReq src.references;
     };
-    name = "docs-make-requirement-${name}";
+    name = "docs-make-requirement-${__argCode__}";
     template = ./templates/requirement.md;
   };
-  makeCompliance = name: src: makeTemplate {
+  makeCompliance = __argCode__: src: makeTemplate {
     replace = {
+      inherit __argCode__;
       __argTitle__ = src.title;
       __argDescription__ = src.en.description;
       __argDefinitions__ = defsForStandard src.definitions;
     };
-    name = "docs-make-compliance-${name}";
+    name = "docs-make-compliance-${__argCode__}";
     template = ./templates/compliance.md;
   };
 in
@@ -169,13 +187,13 @@ makeScript {
     __argIntroRequirements__ = makeIntroRequirements;
     __argIntroCompliance__ = makeIntroCompliance;
     __argVulnerabilities__ = toBashMap (
-      builtins.mapAttrs makeVulnerability data_vulnerabilities
+      lib.mapAttrs' (k: v: lib.nameValuePair (categoryPath k v) (makeVulnerability k v)) vulnerabilities
     );
     __argRequirements__ = toBashMap (
-      builtins.mapAttrs makeRequirement data_requirements
+      lib.mapAttrs' (k: v: lib.nameValuePair (categoryPath k v) (makeRequirement k v)) requirements
     );
     __argCompliance__ = toBashMap (
-      builtins.mapAttrs makeCompliance data_compliance
+      builtins.mapAttrs makeCompliance compliance
     );
   };
   searchPaths.bin = [ inputs.nixpkgs.git ];
