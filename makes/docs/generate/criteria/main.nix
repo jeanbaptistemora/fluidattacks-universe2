@@ -6,21 +6,16 @@
 , makeScript
 , makeTemplate
 , projectPath
+, stringCapitalize
 , ...
 }:
 let
   lib = inputs.nixpkgs.lib;
-  capitalize = str:
-    let
-      head = lib.strings.toUpper (builtins.substring 0 1 str);
-      tail = builtins.substring 1 999999999999999999 str;
-    in
-    head + tail;
 
-  # Return category path for a vulnerability or requirement
+  # Category path for a vulnerability or requirement
   categoryPath = id: data:
     let
-      category = capitalize data.category;
+      category = stringCapitalize data.category;
     in
     "${category}/${id}";
 
@@ -115,6 +110,7 @@ let
     };
     name = "docs-make-intro-vulnerabilities";
     template = ./templates/intros/vulnerability.md;
+    local = false;
   };
   makeIntroRequirements = makeTemplate {
     replace = {
@@ -122,10 +118,12 @@ let
     };
     name = "docs-make-intro-requirements";
     template = ./templates/intros/requirement.md;
+    local = false;
   };
   makeIntroCompliance = makeTemplate {
     name = "docs-make-intro-compliance";
     template = ./templates/intros/compliance.md;
+    local = false;
   };
 
   # Generate a template for every md
@@ -158,6 +156,7 @@ let
     };
     name = "docs-make-vulnerability-${__argCode__}";
     template = ./templates/vulnerability.md;
+    local = false;
   };
   makeRequirement = __argCode__: src: makeTemplate {
     replace = {
@@ -169,6 +168,7 @@ let
     };
     name = "docs-make-requirement-${__argCode__}";
     template = ./templates/requirement.md;
+    local = false;
   };
   makeCompliance = __argCode__: src: makeTemplate {
     replace = {
@@ -179,6 +179,7 @@ let
     };
     name = "docs-make-compliance-${__argCode__}";
     template = ./templates/compliance.md;
+    local = false;
   };
 in
 makeScript {
