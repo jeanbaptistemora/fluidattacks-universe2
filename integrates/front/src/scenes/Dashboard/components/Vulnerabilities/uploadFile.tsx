@@ -1,7 +1,3 @@
-/* eslint-disable react/forbid-component-props
-  -------
-  We need className to override default styles from react-boostrap.
-*/
 import { useMutation } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
@@ -29,7 +25,6 @@ import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/q
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import {
   ButtonToolbarLeft,
-  Col25,
   Col33,
   FormGroup,
   RowCenter,
@@ -229,7 +224,7 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
                 </TooltipWrapper>
               </ButtonToolbarLeft>
             </Col33>
-            <Col25 className={"upload-file"}>
+            <div className={"ph1-5 w-25-ns upload-file"}>
               <FormGroup>
                 <Field
                   accept={".yaml, .yml"}
@@ -239,7 +234,7 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
                   validate={composeValidators([isValidVulnsFile])}
                 />
               </FormGroup>
-            </Col25>
+            </div>
             <Col33>
               <ButtonToolbarLeft>
                 <TooltipWrapper

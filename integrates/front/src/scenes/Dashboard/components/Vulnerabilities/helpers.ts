@@ -67,7 +67,7 @@ const errorMessageHelper = (message: string): void => {
     );
   } else {
     msgError(translate.t("groupAlerts.invalidSpecific"));
-    Logger.warning(message);
+    Logger.error("An error occurred uploading vulnerabilities file", message);
   }
 };
 
