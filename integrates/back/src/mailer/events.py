@@ -10,11 +10,11 @@ from custom_types import (
     MailContent as MailContentType,
 )
 from mailer.utils import (
-    get_consult_users,
     get_organization_name,
 )
 from typing import (
     Any,
+    List,
 )
 
 
@@ -23,13 +23,11 @@ async def send_mail_comment(
     context: Any,
     comment_data: CommentType,
     event_id: str,
+    recipients: List[str],
     group_name: str,
     user_mail: str,
 ) -> None:
     org_name = await get_organization_name(context, group_name)
-    recipients = await get_consult_users(
-        group_name=group_name, comment_type=comment_data["comment_type"]
-    )
 
     email_context: MailContentType = {
         "comment": comment_data["content"].splitlines(),

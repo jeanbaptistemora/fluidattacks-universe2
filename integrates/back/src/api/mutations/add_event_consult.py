@@ -6,6 +6,7 @@ from ariadne.utils import (
 )
 from custom_types import (
     AddConsultPayload,
+    Comment,
 )
 from decorators import (
     concurrent_decorators,
@@ -32,12 +33,36 @@ from newutils.utils import (
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
+from subscriptions.domain import (
+    get_users_subscribed_to_consult,
+)
 from time import (
     time,
 )
 from typing import (
     Dict,
 )
+
+
+async def send_event_consult_mail(
+    *,
+    info: GraphQLResolveInfo,
+    comment_data: Comment,
+    event_id: str,
+    user_email: str,
+    group_name: str,
+) -> None:
+    await events_mail.send_mail_comment(
+        context=info.context.loaders,
+        comment_data=comment_data,
+        event_id=event_id,
+        recipients=await get_users_subscribed_to_consult(
+            group_name=group_name,
+            comment_type=comment_data["comment_type"],
+        ),
+        user_mail=user_email,
+        group_name=group_name,
+    )
 
 
 @convert_kwargs_to_snake_case
@@ -72,12 +97,12 @@ async def mutate(
             event = await event_loader.load(event_id)
             group_name = get_key_or_fallback(event)
             schedule(
-                events_mail.send_mail_comment(
-                    context=info.context.loaders,
+                send_event_consult_mail(
+                    info=info,
                     comment_data=comment_data,
                     event_id=event_id,
+                    user_email=user_email,
                     group_name=group_name,
-                    user_mail=user_email,
                 )
             )
 

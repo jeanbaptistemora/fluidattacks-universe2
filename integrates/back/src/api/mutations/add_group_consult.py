@@ -6,6 +6,7 @@ from ariadne import (
 )
 from custom_types import (
     AddConsultPayload as AddConsultPayloadType,
+    Comment,
 )
 from decorators import (
     concurrent_decorators,
@@ -34,10 +35,31 @@ from newutils.utils import (
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
+from subscriptions.domain import (
+    get_users_subscribed_to_consult,
+)
 import time
 from typing import (
     Any,
 )
+
+
+async def send_group_consult_mail(
+    *,
+    info: GraphQLResolveInfo,
+    comment_data: Comment,
+    user_email: str,
+    group_name: str,
+) -> None:
+    await groups_mail.send_mail_comment(
+        context=info.context.loaders,
+        comment_data=comment_data,
+        user_mail=user_email,
+        recipients=await get_users_subscribed_to_consult(
+            group_name=group_name, comment_type="group"
+        ),
+        group_name=group_name,
+    )
 
 
 @convert_kwargs_to_snake_case
@@ -73,10 +95,10 @@ async def mutate(  # pylint: disable=too-many-arguments
         redis_del_by_deps_soon("add_group_consult", group_name=group_name)
         if content.strip() not in {"#external", "#internal"}:
             schedule(
-                groups_mail.send_mail_comment(
-                    context=info.context.loaders,
+                send_group_consult_mail(
+                    info=info,
                     comment_data=comment_data,
-                    user_mail=user_email,
+                    user_email=user_email,
                     group_name=group_name,
                 )
             )

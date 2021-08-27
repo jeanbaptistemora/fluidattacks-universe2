@@ -12,6 +12,7 @@ from custom_exceptions import (
 )
 from custom_types import (
     AddConsultPayload as AddConsultPayloadType,
+    Comment,
 )
 from db_model.findings.types import (
     Finding,
@@ -47,6 +48,9 @@ from newutils.utils import (
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
+from subscriptions.domain import (
+    get_users_subscribed_to_consult,
+)
 from time import (
     time,
 )
@@ -54,6 +58,31 @@ from typing import (
     Any,
     Tuple,
 )
+
+
+async def send_finding_consult_mail(
+    *,
+    info: GraphQLResolveInfo,
+    comment_data: Comment,
+    user_email: str,
+    group_name: str,
+    finding_id: str,
+    finding_title: str,
+    is_finding_released: bool,
+) -> None:
+    await findings_mail.send_mail_comment(
+        context=info.context.loaders,
+        comment_data=comment_data,
+        user_mail=user_email,
+        finding_id=finding_id,
+        finding_title=finding_title,
+        recipients=await get_users_subscribed_to_consult(
+            group_name=group_name,
+            comment_type=comment_data["comment_type"],
+        ),
+        group_name=group_name,
+        is_finding_released=is_finding_released,
+    )
 
 
 async def _add_finding_consult(  # pylint: disable=too-many-locals
@@ -105,13 +134,13 @@ async def _add_finding_consult(  # pylint: disable=too-many-locals
         redis_del_by_deps_soon("add_finding_consult", finding_id=finding_id)
         if content.strip() not in {"#external", "#internal"}:
             schedule(
-                findings_mail.send_mail_comment(
-                    context=info.context.loaders,
+                send_finding_consult_mail(
+                    info=info,
                     comment_data=comment_data,
-                    user_mail=user_email,
+                    user_email=user_email,
+                    group_name=group_name,
                     finding_id=finding_id,
                     finding_title=finding_title,
-                    group_name=group_name,
                     is_finding_released=is_finding_released,
                 )
             )

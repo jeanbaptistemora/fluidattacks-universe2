@@ -19,7 +19,6 @@ from group_access import (
     domain as group_access_domain,
 )
 from mailer.utils import (
-    get_consult_users,
     get_organization_name,
 )
 from typing import (
@@ -35,14 +34,12 @@ async def send_mail_comment(
     user_mail: str,
     finding_id: str,
     finding_title: str,
+    recipients: List[str],
     group_name: str,
     is_finding_released: bool,
 ) -> None:
     org_name = await get_organization_name(context, group_name)
     type_: str = comment_data["comment_type"]
-    recipients = await get_consult_users(
-        group_name=group_name, comment_type=type_
-    )
     email_context: MailContentType = {
         "comment": comment_data["content"].splitlines(),
         "comment_type": type_,
