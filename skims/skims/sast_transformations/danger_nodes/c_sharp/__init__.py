@@ -6,6 +6,7 @@ from sast_transformations.danger_nodes.c_sharp.web_api import (
     mark_metadata as mark_metadata_web_api,
 )
 from sast_transformations.danger_nodes.utils import (
+    mark_array_input,
     mark_assignments_sink,
     mark_function_arg,
     mark_methods_input,
@@ -71,6 +72,14 @@ def mark_inputs(
                 "GetEnvironmentVariable",
             },
         )
+    mark_array_input(
+        findings.F052,
+        graph,
+        syntax,
+        {
+            "byte",
+        },
+    )
 
 
 def mark_sinks(
@@ -103,6 +112,14 @@ def mark_sinks(
         syntax,
         {
             "Start",
+        },
+    )
+    mark_methods_sink(
+        findings.F052,
+        graph,
+        syntax,
+        {
+            "CreateEncryptor",
         },
     )
     mark_methods_sink(

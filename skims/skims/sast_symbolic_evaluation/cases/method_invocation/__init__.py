@@ -275,6 +275,9 @@ BY_OBJ_ARGS: Dict[str, Set[str]] = complete_attrs_on_dict(
             "evaluate",
             "compile",
         },
+        "System.Security.Cryptography.AesCryptoServiceProvider": {
+            "CreateEncryptor",
+        },
         # javascrip
         "child_process": {
             "exec",

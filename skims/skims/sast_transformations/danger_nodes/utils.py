@@ -65,7 +65,7 @@ def _mark_array(
                 marker(graph, syntax_step.meta.n_id, finding)
 
 
-def _mark_array_input(
+def mark_array_input(
     finding: core_model.FindingEnum,
     graph: graph_model.Graph,
     graph_syntax: graph_model.SyntaxSteps,

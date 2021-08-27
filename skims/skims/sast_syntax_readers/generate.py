@@ -9,6 +9,7 @@ from model import (
 )
 from sast_syntax_readers.c_sharp import (
     argument as c_sharp_argument,
+    array_creation_expression as c_sharp_array_creation_expression,
     assignment_expression as c_sharp_assignment_expression,
     case_switch_label as c_sharp_case_switch_label,
     default_switch_label as c_sharp_default_switch_label,
@@ -652,6 +653,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "array_creation_expression",
         },
         syntax_readers=(java_array_creation_expression.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.CSHARP,
+        },
+        applicable_node_label_types={
+            "array_creation_expression",
+        },
+        syntax_readers=(c_sharp_array_creation_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
