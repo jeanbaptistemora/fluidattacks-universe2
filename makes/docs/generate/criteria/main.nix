@@ -45,7 +45,11 @@ let
       RL = vector.temporal.remediation_level;
       RC = vector.temporal.report_confidence;
     in
-    "CVSS:3.1/AV:${AV}/AC:${AC}/PR:${PR}/UI:${UI}/S:${S}/C:${C}/I:${I}/A:${A}/E:${E}/RL:${RL}/RC:${RC}";
+    builtins.concatStringsSep "" [
+      "CVSS:3.1"
+      "/AV:${AV}/AC:${AC}/PR:${PR}/UI:${UI}/S:${S}/C:${C}/I:${I}/A:${A}"
+      "/E:${E}/RL:${RL}/RC:${RC}"
+    ];
   vulnScore = vector:
     fromJson (builtins.readFile (calculateCvss3 (vectorString vector)));
 
@@ -70,7 +74,10 @@ let
       standard_link = "/criteria/compliance/${data.standard_id}";
       definition = standard.definitions.${data.definition_id};
     in
-    "- [${standard.title}-${data.definition_id}: ${definition.title}](${standard_link})";
+    builtins.concatStringsSep "" [
+      "- [${standard.title}-${data.definition_id}: ${definition.title}]"
+      "(${standard_link})"
+    ];
   refsForReq = refs:
     builtins.concatStringsSep "\n" (
       builtins.map reqRef (
@@ -101,7 +108,10 @@ let
       )
     );
   links = type: data: builtins.concatStringsSep "\n" (
-    builtins.map (category: linksByCategory type category data) (categories data));
+    builtins.map
+      (category: linksByCategory type category data)
+      (categories data)
+  );
 
   # Generate a template for every introduction
   makeIntroVulnerabilities = makeTemplate {
@@ -143,9 +153,12 @@ let
       __argScoreBaseConfidentiality__ = src.score.base.confidentiality;
       __argScoreBaseIntegrity__ = src.score.base.integrity;
       __argScoreBaseAvailability__ = src.score.base.availability;
-      __argScoreTemporalExploitCodeMadurity__ = src.score.temporal.exploit_code_maturity;
-      __argScoreTemporalRemediationLevel__ = src.score.temporal.remediation_level;
-      __argScoreTemporalReportConfidence__ = src.score.temporal.report_confidence;
+      __argScoreTemporalExploitCodeMadurity__ =
+        src.score.temporal.exploit_code_maturity;
+      __argScoreTemporalRemediationLevel__ =
+        src.score.temporal.remediation_level;
+      __argScoreTemporalReportConfidence__ =
+        src.score.temporal.report_confidence;
       __argVectorString__ = vectorString src.score;
       __argScoreBase__ = (vulnScore src.score).score.base;
       __argScoreTemporal__ = (vulnScore src.score).score.temporal;
@@ -189,10 +202,18 @@ makeScript {
     __argIntroRequirements__ = makeIntroRequirements;
     __argIntroCompliance__ = makeIntroCompliance;
     __argVulnerabilities__ = toBashMap (
-      lib.mapAttrs' (k: v: lib.nameValuePair (categoryPath k v) (makeVulnerability k v)) vulnerabilities
+      lib.mapAttrs'
+        (
+          k: v: lib.nameValuePair (categoryPath k v) (makeVulnerability k v)
+        )
+        vulnerabilities
     );
     __argRequirements__ = toBashMap (
-      lib.mapAttrs' (k: v: lib.nameValuePair (categoryPath k v) (makeRequirement k v)) requirements
+      lib.mapAttrs'
+        (
+          k: v: lib.nameValuePair (categoryPath k v) (makeRequirement k v)
+        )
+        requirements
     );
     __argCompliance__ = toBashMap (
       builtins.mapAttrs makeCompliance compliance
