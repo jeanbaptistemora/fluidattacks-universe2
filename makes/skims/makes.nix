@@ -33,6 +33,12 @@
         src = "/skims/skims";
       };
     };
+    imports = {
+      skims = {
+        config = "/skims/setup.imports.cfg";
+        src = "/skims/skims";
+      };
+    };
     modules = {
       skimsTest = {
         extraSources = [
