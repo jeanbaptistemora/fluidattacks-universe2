@@ -11,29 +11,38 @@ closure:
   click: 7.1.2
   gitdb: 4.0.7
   gitpython: 3.1.9
+  google-pasta: 0.2.0
   gql: 3.0.0a2
   graphql-core: 3.1.6
   idna: "2.10"
+  importlib-metadata: 4.7.1
   jmespath: 0.10.0
   joblib: 0.16.0
+  lightgbm: 3.2.1
   lizard: 1.17.9
   mixpanel: 4.5.0
   more-itertools: 8.5.0
   multidict: 4.7.6
   mypy-extensions: 0.4.3
   numpy: 1.19.2
+  packaging: "21.0"
   pandas: 1.1.2
   patsy: 0.5.1
   prettytable: 1.0.1
+  protobuf: 3.17.3
+  protobuf3-to-dict: 0.1.5
   psycopg2: 2.8.4
   pydriller: 1.15.2
+  pyparsing: 2.4.7
   python-dateutil: 2.8.2
   pytz: "2020.1"
   requests: 2.24.0
   s3transfer: 0.3.7
+  sagemaker: 2.18.0
   scikit-learn: 0.23.2
   scipy: 1.7.1
   six: 1.16.0
+  smdebug-rulesconfig: 0.1.5
   smmap: 4.0.0
   statsmodels: 0.12.2
   threadpoolctl: 2.2.0
@@ -43,6 +52,7 @@ closure:
   webob: 1.8.7
   websockets: "8.1"
   yarl: 1.6.3
+  zipp: 3.5.0
 links:
   - name: aiohttp-3.6.2-py3-none-any.whl
     sha256: 196vzsfqmsx5dl8ijwvfwjpqh0gnj8li4znmbqxwrgidglix82s6
@@ -116,6 +126,12 @@ links:
   - name: GitPython-3.1.9.tar.gz
     sha256: 13psp5sy8jm7wihmkzv8jd8mbnmhd9y214spcnk9g5ff965p4gx0
     url: https://files.pythonhosted.org/packages/72/ad/5cf16fd1307e0ec17fc2347475e732f64d396649c64ed358a29186f4ce74/GitPython-3.1.9.tar.gz
+  - name: google_pasta-0.2.0-py3-none-any.whl
+    sha256: 1vc4x8rb9xji7qms0dcri0hph40v42lsk4icldk56srn99wq495k
+    url: https://files.pythonhosted.org/packages/a3/de/c648ef6835192e6e2cc03f40b19eeda4382c49b5bafb43d88b931c4c74ac/google_pasta-0.2.0-py3-none-any.whl
+  - name: google-pasta-0.2.0.tar.gz
+    sha256: 0vm1r1jlaiagj0l9yf7j6zn9w3733dr2169911c0svgrr3gwiwn9
+    url: https://files.pythonhosted.org/packages/35/4a/0bd53b36ff0323d10d5f24ebd67af2de10a1117f5cf4d7add90df92756f1/google-pasta-0.2.0.tar.gz
   - name: gql-3.0.0a2.tar.gz
     sha256: 021nni5i5f527jn42m136gvyn3gqyx4gw3rkglb8alzfpar616x2
     url: https://files.pythonhosted.org/packages/87/69/1fef21a5397e68eeb22699573c2c8ffac1370a853badd0025b6774670635/gql-3.0.0a2.tar.gz
@@ -131,6 +147,12 @@ links:
   - name: idna-2.10.tar.gz
     sha256: 1xmk3s92d2vq42684p61wixfmh3qpr2mw762w0n6662vhlpqf1xk
     url: https://files.pythonhosted.org/packages/ea/b7/e0e3c1c467636186c39925827be42f16fee389dc404ac29e930e9136be70/idna-2.10.tar.gz
+  - name: importlib_metadata-4.7.1-py3-none-any.whl
+    sha256: 0qfxbf3v9mglqf66m72jpa055wfdixp809wwvnvaj5ba0xcvy14y
+    url: https://files.pythonhosted.org/packages/09/24/707a687e93f72a8eeba442da7a70de79111eac3586544935d5c253bf8d7b/importlib_metadata-4.7.1-py3-none-any.whl
+  - name: importlib_metadata-4.7.1.tar.gz
+    sha256: 06vb7x3ydqv99d9r7pgqv815rk8ivskh35x3hgiq4xk9bzn3vsy4
+    url: https://files.pythonhosted.org/packages/d5/e7/b716bf428edb23df5b04a15ac1c2c1acbae8bca3a84991805261f6f47577/importlib_metadata-4.7.1.tar.gz
   - name: jmespath-0.10.0-py2.py3-none-any.whl
     sha256: 0bxp1hnjrb4vaksa43s2ghjwr3jb5rpv6q8x2hq7fnfc0icm5xnd
     url: https://files.pythonhosted.org/packages/07/cb/5f001272b6faeb23c1c9e0acc04d48eaaf5c862c17709d20e3469c6e0139/jmespath-0.10.0-py2.py3-none-any.whl
@@ -143,6 +165,18 @@ links:
   - name: joblib-0.16.0.tar.gz
     sha256: 1mlj9zcndbcqzl6f3bygr2midxgwsr3hwgjnnbq8nq2bqqjbyllg
     url: https://files.pythonhosted.org/packages/1f/17/6162a5fd4b2b76f2beb5933547ea5c3a27304585483edc93dedd740cf9b9/joblib-0.16.0.tar.gz
+  - name: lightgbm-3.2.1-py3-none-macosx_10_14_x86_64.macosx_10_15_x86_64.macosx_11_0_x86_64.whl
+    sha256: 11pnrxxzmhp9g8jz3fjz3kmnqsb1kjg9ik9njj6p1bvg0h39fwbr
+    url: https://files.pythonhosted.org/packages/68/b3/4d8fc4708ae3bbe04778fa795f509f30c9af638245b929fb7de46b28b0a1/lightgbm-3.2.1-py3-none-macosx_10_14_x86_64.macosx_10_15_x86_64.macosx_11_0_x86_64.whl
+  - name: lightgbm-3.2.1-py3-none-manylinux1_x86_64.whl
+    sha256: 1cs34zy7mjsrv5zr09qnfq7iwslblf35d527l23m1pvc0brmihdl
+    url: https://files.pythonhosted.org/packages/18/b2/fff8370f48549ce223f929fe8cab4ee6bf285a41f86037d91312b48ed95b/lightgbm-3.2.1-py3-none-manylinux1_x86_64.whl
+  - name: lightgbm-3.2.1-py3-none-manylinux2014_aarch64.whl
+    sha256: 0cwhrlh9i4d5bj1rvs58v5zhxqv8l7w528ahjllvwcn2zv4g3c4m
+    url: https://files.pythonhosted.org/packages/15/2e/8522657a347997589ab6ff687195bfb3a20ac4abd8a7206570dcb1ec00fb/lightgbm-3.2.1-py3-none-manylinux2014_aarch64.whl
+  - name: lightgbm-3.2.1.tar.gz
+    sha256: 15a30a7ib4sv7ca9xagg7vz26aglczj97bgl4z0lvhml06sy765x
+    url: https://files.pythonhosted.org/packages/7a/6d/db0f5effd3f7982632111f37fcd2fa386b8407f1ff58ef30b71d65e1a444/lightgbm-3.2.1.tar.gz
   - name: lizard-1.17.9-py2.py3-none-any.whl
     sha256: 1aa07pnxdfxli6fmickmqa44dgxfqvl0rcxdf0cllzg6469l4p1s
     url: https://files.pythonhosted.org/packages/4d/2e/ef0a4cc393164d24e5b2784850ed92dbd27999ab51244cd38a62dac48ff8/lizard-1.17.9-py2.py3-none-any.whl
@@ -197,6 +231,12 @@ links:
   - name: numpy-1.19.2.zip
     sha256: 0k28m123rc0jy9srg6f9wk80bdwpc5rxwzddcmq554z7w4q0fc8d
     url: https://files.pythonhosted.org/packages/bf/e8/15aea783ea72e2d4e51e3ec365e8dc4a1a32c9e5eb3a6d695b0d58e67cdd/numpy-1.19.2.zip
+  - name: packaging-21.0-py3-none-any.whl
+    sha256: 057z2kyp5f66w7gz9ph0h3d4f20gfvgblsadr4ff6m8d4bwm8qn8
+    url: https://files.pythonhosted.org/packages/3c/77/e2362b676dc5008d81be423070dd9577fa03be5da2ba1105811900fda546/packaging-21.0-py3-none-any.whl
+  - name: packaging-21.0.tar.gz
+    sha256: 1rzvq94xyygpf5s7px23nc5xs1hi52j402b7q32wwk1symln5jbx
+    url: https://files.pythonhosted.org/packages/df/86/aef78bab3afd461faecf9955a6501c4999933a48394e90f03cd512aad844/packaging-21.0.tar.gz
   - name: pandas-1.1.2-cp38-cp38-macosx_10_9_x86_64.whl
     sha256: 1l271vs7sjhjnxrd4mcz9nxwdnblxdd5x37jpzc58j5afq19zpsr
     url: https://files.pythonhosted.org/packages/f0/8e/876fbd98f712dcda93c7b6826f5ca06b3d7b1aff343e9b0b2460c463c591/pandas-1.1.2-cp38-cp38-macosx_10_9_x86_64.whl
@@ -221,6 +261,24 @@ links:
   - name: prettytable-1.0.1.tar.gz
     sha256: 0wcpp1nkicrswb353yn6xd2x535cpif62nw5rgz33c1wj0wzbdvb
     url: https://files.pythonhosted.org/packages/69/89/564e58a41c8593be42e2522c43adc29f8a0f387cccec6ea0038c02113f6d/prettytable-1.0.1.tar.gz
+  - name: protobuf-3.17.3-cp38-cp38-macosx_10_9_x86_64.whl
+    sha256: 11vds0mzdj5ylppgb8v56l6vnxcacjxyfj23nyvaz4hrdnxr5ria
+    url: https://files.pythonhosted.org/packages/af/f4/0f7ea83bc253f296ed7159c29e000a07f0c82fccd3128e38b7487773cf41/protobuf-3.17.3-cp38-cp38-macosx_10_9_x86_64.whl
+  - name: protobuf-3.17.3-cp38-cp38-manylinux2014_aarch64.whl
+    sha256: 1c9haymsg078d2yiix7czn2c8r12k2l5q36y18y5d9kw5lm8z4wr
+    url: https://files.pythonhosted.org/packages/a2/f4/0fb4082a337ae97863e0a66a5f9ecb73faf91f84ff7783d7457fb1ba803d/protobuf-3.17.3-cp38-cp38-manylinux2014_aarch64.whl
+  - name: protobuf-3.17.3-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.whl
+    sha256: 0v927pd96d4bfixcx5i11mmv615hns0zyibk39hyq6d3nzja20k9
+    url: https://files.pythonhosted.org/packages/e1/24/762768848490169a1a0a6843e183e5f251da12e588c7b5421f39e0e23c14/protobuf-3.17.3-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.whl
+  - name: protobuf-3.17.3-py2.py3-none-any.whl
+    sha256: 0kmhxhi6b4n3kgjvwmkwnr27lhv8z8mzs5ibqnp9zkd92r983yrb
+    url: https://files.pythonhosted.org/packages/d5/e0/20ba06eb42155cdb4c741e5caf9946e4569e26d71165abaecada18c58603/protobuf-3.17.3-py2.py3-none-any.whl
+  - name: protobuf-3.17.3.tar.gz
+    sha256: 0yyx9wf18gamyfm9gr2s5nv77chg50z820r81l4jmhm9xajlx03j
+    url: https://files.pythonhosted.org/packages/3d/64/a3b379cb9c7827ad33c67dcda4c4ad117bdef1b7d68b22a05c963cf4727d/protobuf-3.17.3.tar.gz
+  - name: protobuf3-to-dict-0.1.5.tar.gz
+    sha256: 0nibblvj3n20zvq6d73zalbjqjby0w8ji5mim7inhn7vb9dw4hhy
+    url: https://files.pythonhosted.org/packages/6b/55/522bb43539fed463275ee803d79851faaebe86d17e7e3dbc89870d0322b9/protobuf3-to-dict-0.1.5.tar.gz
   - name: psycopg2-2.8.4.tar.gz
     sha256: 1djvh98pi4hjd8rxbq8qzc63bg8v78k33yg6pl99wak61b6fb67q
     url: https://files.pythonhosted.org/packages/84/d7/6a93c99b5ba4d4d22daa3928b983cec66df4536ca50b22ce5dcac65e4e71/psycopg2-2.8.4.tar.gz
@@ -230,6 +288,12 @@ links:
   - name: PyDriller-1.15.2.tar.gz
     sha256: 0hjwbvcf57sqm4kmjryyzlbp8w59sqy6pb5ij2jzxj333mcj4crd
     url: https://files.pythonhosted.org/packages/de/6a/c89a16c2fd35b624b634e3f4254343a26f1c67712f1bc26a6110ff1f168d/PyDriller-1.15.2.tar.gz
+  - name: pyparsing-2.4.7-py2.py3-none-any.whl
+    sha256: 12y8xwjb118a4jqvvfg9k90kqg03n4d3ygb5csz0l81wxy4pb7gg
+    url: https://files.pythonhosted.org/packages/8a/bb/488841f56197b13700afd5658fc279a2025a39e22449b7cf29864669b15d/pyparsing-2.4.7-py2.py3-none-any.whl
+  - name: pyparsing-2.4.7.tar.gz
+    sha256: 1hgc8qrbq1ymxbwfbjghv01fm3fbpjwpjwi0bcailxxzhf3yq0y2
+    url: https://files.pythonhosted.org/packages/c1/47/dfc9c342c9842bbe0036c7f763d2d6686bcf5eb1808ba3e170afdb282210/pyparsing-2.4.7.tar.gz
   - name: python_dateutil-2.8.2-py2.py3-none-any.whl
     sha256: 1aaxjfp4lrz8c6qls3vdhw554lan3khy9afyvdcvrssk6kf067cn
     url: https://files.pythonhosted.org/packages/36/7a/87837f39d0296e723bb9b62bbb257d0355c7f6128853c78955f57342a56d/python_dateutil-2.8.2-py2.py3-none-any.whl
@@ -254,6 +318,9 @@ links:
   - name: s3transfer-0.3.7.tar.gz
     sha256: 1509v2y2g5l8df53scy68r5q24m3k05gwxbrq9x7xycgmy37nqim
     url: https://files.pythonhosted.org/packages/66/f5/5ca537483fa5e96fbd455f52a69fc70c5f659f7e8c9189a1dbc211e1ccf9/s3transfer-0.3.7.tar.gz
+  - name: sagemaker-2.18.0.tar.gz
+    sha256: 1xzyg0qqhg7d8hq1pyz6jf0r3msnmknqs8vz0nykz8qq43k0zs6j
+    url: https://files.pythonhosted.org/packages/cb/b5/8d5fbf83c12a4cdcd256481d475a985dce8cc6914bb9f402853b93256c0f/sagemaker-2.18.0.tar.gz
   - name: scikit_learn-0.23.2-cp38-cp38-macosx_10_9_x86_64.whl
     sha256: 1ax9ak9jl4y9ij4fy2b7l0dvy8jzmhnl9dgkd1lrlkvzvpnvnwbn
     url: https://files.pythonhosted.org/packages/a4/8f/473b2929d63b3e1eafc83e27300091c7822fb5939f259b3ad6a042297290/scikit_learn-0.23.2-cp38-cp38-macosx_10_9_x86_64.whl
@@ -287,6 +354,9 @@ links:
   - name: six-1.16.0.tar.gz
     sha256: 09n9qih9rpj95q3r4a40li7hk6swma11syvgwdc68qm1fxsc6q8y
     url: https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz
+  - name: smdebug_rulesconfig-0.1.5-py2.py3-none-any.whl
+    sha256: 0fj2fdjimb0vpz1c26133xg6f3zfqqy73hykgpr9g4b5cp6ybzi9
+    url: https://files.pythonhosted.org/packages/3e/d9/10f5d4e1992575b704a9a0d0af1e962e31c6409ab414f686fdc2e2d42787/smdebug_rulesconfig-0.1.5-py2.py3-none-any.whl
   - name: smmap-4.0.0-py2.py3-none-any.whl
     sha256: 1hp3g32c8c1xj5sczhhqk7rlkp68h0qcska0bivjwbjp9jg4g9x9
     url: https://files.pythonhosted.org/packages/68/ee/d540eb5e5996eb81c26ceffac6ee49041d473bc5125f2aa995cf51ec1cf1/smmap-4.0.0-py2.py3-none-any.whl
@@ -377,4 +447,10 @@ links:
   - name: yarl-1.6.3.tar.gz
     sha256: 045z4ssg8g5h0qhz8hnx74hswgkndaldqq1xi5l1n5s0j996d44a
     url: https://files.pythonhosted.org/packages/97/e7/af7219a0fe240e8ef6bb555341a63c43045c21ab0392b4435e754b716fa1/yarl-1.6.3.tar.gz
+  - name: zipp-3.5.0-py3-none-any.whl
+    sha256: 18whjgls10yan9vhcd9544g9kjj1123y7fdq1ic8kqwpfylgsz4m
+    url: https://files.pythonhosted.org/packages/92/d9/89f433969fb8dc5b9cbdd4b4deb587720ec1aeb59a020cf15002b9593eef/zipp-3.5.0-py3-none-any.whl
+  - name: zipp-3.5.0.tar.gz
+    sha256: 1i7hkdbivya5lvww9y8i85mp3spbwzsfk9a96kvcyj3y00g2p0gm
+    url: https://files.pythonhosted.org/packages/3a/9f/1d4b62cbe8d222539a84089eeab603d8e45ee1f897803a0ae0860400d6e7/zipp-3.5.0.tar.gz
 python: "3.8"
