@@ -225,7 +225,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["072"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "003":
   en:
     title: Symmetric denial of service
@@ -276,7 +278,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["072", "237", "327"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "004":
   en:
     title: Remote command execution
@@ -344,7 +348,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["173", "265", "266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "005":
   en:
     title: Privilege escalation
@@ -397,7 +403,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["035"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "006":
   en:
     title: Authentication mechanism absence or evasion
@@ -459,7 +467,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["227", "228", "229", "231", "235", "264", "319"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "007":
   en:
     title: Cross-site request forgery
@@ -511,7 +521,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["029", "174"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "008":
   en:
     title: Reflected cross-site scripting (XSS)
@@ -563,7 +575,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["029", "173"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "009":
   en:
     title: Sensitive information in source code
@@ -646,7 +660,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["145", "156"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "010":
   en:
     title: Stored cross-site scripting (XSS)
@@ -695,7 +711,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["029", "173"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "011":
   en:
     title: Use of software with known vulnerabilities
@@ -741,7 +759,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["262"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "012":
   en:
     title: SQL injection - Java Persistence API
@@ -812,7 +832,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["169", "173"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "013":
   en:
     title: Insecure object reference
@@ -861,7 +883,9 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["176"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "014":
   en:
     title: Insecure functionality
@@ -897,7 +921,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "015":
   en:
     title: Insecure authentication method - Basic
@@ -939,7 +965,9 @@
       remediation_level: "O"
       report_confidence: "C"
   requirements: ["030", "228", "319"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "016":
   en:
     title: Insecure encryption algorithm - SSL/TLS
@@ -984,54 +1012,54 @@
       report_confidence: "C"
   requirements: ["148", "149", "150", "181", "336"]
   metadata:
-      en:
-        details: >
-          SSL (Secure Sockets Layer) and its successor,
-          TLS (Transport Layer Security),
-          are protocols for establishing authenticated
-          and encrypted links
-          between networked computers.
+    en:
+      details: >
+        SSL (Secure Sockets Layer) and its successor,
+        TLS (Transport Layer Security),
+        are protocols for establishing authenticated
+        and encrypted links
+        between networked computers.
 
-          The most common and well-known use of SSL/TLS
-          is secure web browsing via the HTTPS protocol.
-          Users visiting an HTTPS website
-          can be assured of:
+        The most common and well-known use of SSL/TLS
+        is secure web browsing via the HTTPS protocol.
+        Users visiting an HTTPS website
+        can be assured of:
 
-          - **Authenticity**,
-          The server presenting the certificate
-          is in possession of the private key
-          that matches the public key
-          in the certificate.
+        - **Authenticity**,
+        The server presenting the certificate
+        is in possession of the private key
+        that matches the public key
+        in the certificate.
 
-          - **Integrity**,
-          Documents signed by the certificate
-          (e.g. web pages)
-          have not been altered in transit
-          by a man in the middle.
+        - **Integrity**,
+        Documents signed by the certificate
+        (e.g. web pages)
+        have not been altered in transit
+        by a man in the middle.
 
-          - **Encryption**,
-          Communications between the client
-          and server are encrypted.
+        - **Encryption**,
+        Communications between the client
+        and server are encrypted.
 
-          Because of these properties,
-          SSL/TLS and HTTPS allow users
-          to securely transmit
-          confidential information
-          such as credit card numbers,
-          social security numbers,
-          and login credentials over the internet,
-          and be sure that the website
-          they are sending them to is authentic.
+        Because of these properties,
+        SSL/TLS and HTTPS allow users
+        to securely transmit
+        confidential information
+        such as credit card numbers,
+        social security numbers,
+        and login credentials over the internet,
+        and be sure that the website
+        they are sending them to is authentic.
 
-          With an insecure HTTP website,
-          these data are sent as plain text,
-          readily available to any eavesdropper
-          with access to the data stream.
-          Furthermore,
-          users of these unprotected websites
-          have no trusted third-party assurance
-          that the website they are visiting
-          is what it claims to be.
+        With an insecure HTTP website,
+        these data are sent as plain text,
+        readily available to any eavesdropper
+        with access to the data stream.
+        Furthermore,
+        users of these unprotected websites
+        have no trusted third-party assurance
+        that the website they are visiting
+        is what it claims to be.
 "017":
   en:
     title: Sensitive information sent insecurely
@@ -1079,7 +1107,9 @@
       remediation_level: "O"
       report_confidence: "C"
   requirements: ["032", "181"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "018":
   en:
     title: Improper authentication for shared folders
@@ -1122,7 +1152,9 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["229", "264"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "019":
   en:
     title: Administrative credentials stored in cache memory
@@ -1162,7 +1194,9 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["177"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "020":
   en:
     title: Non-encrypted confidential information
@@ -1215,7 +1249,9 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["134", "135", "185"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "021":
   en:
     title: XPath injection
@@ -1262,7 +1298,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["173"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "022":
   en:
     title: Use of an insecure channel
@@ -1310,7 +1348,9 @@
       remediation_level: "O"
       report_confidence: "C"
   requirements: ["181"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "023":
   en:
     title: Uncontrolled external site redirect - Host Header Injection
@@ -1362,7 +1402,9 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["173", "324"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "024":
   en:
     title: Unrestricted access between network segments - AWS
@@ -1427,7 +1469,9 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["255"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "025":
   en:
     title: Call interception
@@ -1469,7 +1513,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["181"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "026":
   en:
     title: User enumeration
@@ -1514,7 +1560,9 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["225"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "027":
   en:
     title: Insecure file upload
@@ -1580,7 +1628,9 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["040", "041"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "028":
   en:
     title: Insecure temporary files
@@ -1621,7 +1671,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["036", "177"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "029":
   en:
     title: Inadequate file size control
@@ -1675,7 +1727,9 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["039"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "030":
   en:
     title: Sensitive information sent via URL parameters
@@ -1750,7 +1804,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["032", "181"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "031":
   en:
     title: Excessive privileges - AWS
@@ -1896,7 +1952,9 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["035", "096", "173", "176", "265", "320"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "033":
   en:
     title: Password change without identity check
@@ -1950,7 +2008,9 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["238"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "034":
   en:
     title: Insecure generation of random numbers
@@ -2007,7 +2067,9 @@
       remediation_level: "O"
       report_confidence: "C"
   requirements: ["223", "224"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "035":
   en:
     title: Weak credential policy
@@ -2056,7 +2118,9 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["130", "132", "133", "139", "332"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "036":
   en:
     title: ViewState not encrypted
@@ -2105,7 +2169,9 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["026"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "037":
   en:
     title: Technical information leak
@@ -2169,7 +2235,9 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["077", "176"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "038":
   en:
     title: Business information leak
@@ -2234,7 +2302,9 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["123", "176", "177", "261", "300"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "039":
   en:
     title: Improper authorization control for web services
@@ -2271,7 +2341,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["096", "176", "265", "320"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "040":
   en:
     title: Exposed web services
@@ -2308,7 +2380,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["176", "325"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "041":
   en:
     title: Enabled default credentials
@@ -2354,7 +2428,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["142"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "042":
   en:
     title: Insecurely generated cookies
@@ -2406,7 +2482,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["029"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "043":
   en:
     title: Insecure or unset HTTP headers - Content-Security-Policy
@@ -2467,7 +2545,9 @@
       remediation_level: "O"
       report_confidence: "C"
   requirements: ["062", "117", "175", "349"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "044":
   en:
     title: Insecure HTTP methods enabled
@@ -2515,7 +2595,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "045":
   en:
     title: HTML code injection
@@ -2568,7 +2650,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["173"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "046":
   en:
     title: Missing secure obfuscation - APK
@@ -2640,7 +2724,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["159"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "047":
   en:
     title: Automatic information enumeration
@@ -2689,7 +2775,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["237", "266", "327"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "048":
   en:
     title: Lack of root detection
@@ -2744,7 +2832,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["326"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "049":
   en:
     title: Insecure digital certificates - APK Pinning
@@ -2797,7 +2887,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["088", "089", "090", "091", "092", "093", "150"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "050":
   en:
     title: Guessed weak credentials
@@ -2867,7 +2959,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["132", "133", "139"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "051":
   en:
     title: Cracked weak credentials
@@ -2916,7 +3010,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["134", "135", "150"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "052":
   en:
     title: Insecure encryption algorithm
@@ -2967,7 +3063,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["148", "149", "150", "181", "336"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "053":
   en:
     title: Lack of protection against brute force attacks
@@ -3019,7 +3117,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["237", "327"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "054":
   en:
     title: Exposed administrative services
@@ -3070,7 +3170,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["033"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "055":
   en:
     title: Insecure service configuration - ADB Backups
@@ -3141,7 +3243,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "056":
   en:
     title: Anonymous connection
@@ -3194,7 +3298,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["142", "264", "265", "266", "319"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "057":
   en:
     title: Excessive privileges - Temporary Files
@@ -3405,7 +3511,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["077", "078"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "059":
   en:
     title: Sensitive information stored in logs
@@ -3455,7 +3563,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["083"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "060":
   en:
     title: Insecure exceptions
@@ -3522,7 +3632,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["161", "359"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "061":
   en:
     title: Errors without traceability
@@ -3590,7 +3702,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["075", "161"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "062":
   en:
     title: Concurrent sessions
@@ -3658,7 +3772,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["025"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "063":
   en:
     title: Lack of data validation - Path Traversal
@@ -3723,7 +3839,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["173", "320", "342"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "064":
   en:
     title: Traceability loss - Server's clock
@@ -3768,7 +3886,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["075", "320"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "065":
   en:
     title: Cached form fields
@@ -3830,7 +3950,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["177"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "066":
   en:
     title: Technical information leak - Console functions
@@ -3997,7 +4119,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["072", "158", "164", "173"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "068":
   en:
     title: Insecure session expiration time
@@ -4042,7 +4166,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["023"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "069":
   en:
     title: Weak CAPTCHA
@@ -4100,7 +4226,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["237"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "070":
   en:
     title: Inappropriate coding practices - Wildcard import
@@ -4178,7 +4306,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["158"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "071":
   en:
     title: Insecure or unset HTTP headers - Referrer-Policy
@@ -4234,7 +4364,9 @@
       remediation_level: "O"
       report_confidence: "C"
   requirements: ["062", "349"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "072":
   en:
     title: Duplicate code
@@ -4281,7 +4413,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["162"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "073":
   en:
     title: Conditional statement without a default option
@@ -4336,7 +4470,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["161"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "074":
   en:
     title: Commented-out code
@@ -4389,7 +4525,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["171"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "075":
   en:
     title: Unauthorized access to files - APK Content Provider
@@ -4469,7 +4607,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["096", "176", "264", "320"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "076":
   en:
     title: Insecure session management
@@ -4516,7 +4656,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["030", "031", "141"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "077":
   en:
     title: ARP spoofing
@@ -4561,7 +4703,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["062", "273"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "078":
   en:
     title: Insecurely generated token
@@ -4603,7 +4747,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["224"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "079":
   en:
     title: Non-upgradable dependencies
@@ -4652,7 +4798,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["302"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "080":
   en:
     title: Non-encrypted confidential information - AWS
@@ -4701,7 +4849,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "081":
   en:
     title: Lack of multi-factor authentication
@@ -4758,7 +4908,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["229", "231", "264", "319", "328"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "082":
   en:
     title: Insecurely deleted files
@@ -4808,7 +4960,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["183"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "083":
   en:
     title: XML injection (XXE)
@@ -4858,7 +5012,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["173"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "084":
   en:
     title: MDNS spoofing
@@ -4915,7 +5071,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["062", "273"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "085":
   en:
     title: Sensitive data stored in client-side storage
@@ -4977,7 +5135,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["177", "329"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "086":
   en:
     title: Missing subresource integrity check
@@ -5026,7 +5186,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["178", "262", "330"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "087":
   en:
     title: Account lockout
@@ -5077,7 +5239,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "088":
   en:
     title: Privacy violation
@@ -5119,7 +5283,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["189", "310", "311", "312", "313", "314", "315", "316", "317", "318", "343"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "089":
   en:
     title: Lack of data validation - Trust boundary violation
@@ -5174,7 +5340,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["173", "320", "342"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "090":
   en:
     title: CSV injection
@@ -5222,7 +5390,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["173"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "091":
   en:
     title: Log injection
@@ -5281,7 +5451,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["080", "173"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "092":
   en:
     title: Insecure encryption algorithm - Anonymous cipher suites
@@ -5455,7 +5627,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["173", "320"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "094":
   en:
     title: Insecure encryption algorithm - Cipher Block Chaining
@@ -5502,7 +5676,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["148", "149", "150", "181", "336"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "095":
   en:
     title: Non-encrypted confidential information - AWS EBS
@@ -5557,7 +5733,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "096":
   en:
     title: Insecure deserialization
@@ -5601,7 +5779,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["173", "321"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "097":
   en:
     title: Reverse tabnabbing
@@ -5665,7 +5845,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["173", "324"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "098":
   en:
     title: External control of file name or path
@@ -5709,7 +5891,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["037", "320"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "099":
   en:
     title: Non-encrypted confidential information - S3 Server Side Encryption
@@ -5764,7 +5948,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "100":
   en:
     title: Server-side request forgery (SSRF)
@@ -5818,7 +6004,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["173", "324"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "101":
   en:
     title: Lack of protection against deletion
@@ -5853,7 +6041,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["186", "265"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "102":
   en:
     title: Email uniqueness not properly verified
@@ -5899,7 +6089,9 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["121"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "103":
   en:
     title: Insufficient data authenticity validation - APK signing
@@ -5942,7 +6134,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["122", "173", "178", "320"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "104":
   en:
     title: USB flash drive attacks
@@ -5996,7 +6190,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["273"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "105":
   en:
     title: Apache lucene query injection
@@ -6039,7 +6235,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["169", "173"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "106":
   en:
     title: NoSQL injection
@@ -6081,7 +6279,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["173"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "107":
   en:
     title: LDAP injection
@@ -6131,7 +6331,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["173"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "108":
   en:
     title: Improper control of interaction frequency
@@ -6173,7 +6375,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["327"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "109":
   en:
     title: Insecure functionality - Float currency
@@ -6240,7 +6444,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["158"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "110":
   en:
     title: HTTP request smuggling
@@ -6306,7 +6512,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["062", "173", "266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "111":
   en:
     title: Out-of-bounds read
@@ -6343,7 +6551,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["062", "266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "112":
   en:
     title: SQL injection - Java SQL API
@@ -6403,7 +6613,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["169", "173"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "113":
   en:
     title: Improper type assignation
@@ -6446,7 +6658,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["164"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "114":
   en:
     title: Phishing
@@ -6495,7 +6709,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["115", "116", "117", "118", "144"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "115":
   en:
     title: Security controls bypass or absence
@@ -6529,7 +6745,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["062", "266", "273"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "116":
   en:
     title: XS-Leaks
@@ -6571,7 +6789,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["062", "176", "266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "117":
   en:
     title: Unverifiable files
@@ -6639,7 +6859,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["323"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "118":
   en:
     title: Regulation infringement
@@ -6682,7 +6904,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["331"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "119":
   en:
     title: Metadata with sensitive information
@@ -6732,7 +6956,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["045"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "120":
   en:
     title: Improper dependency pinning
@@ -6797,7 +7023,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["302"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "121":
   en:
     title: HTTP parameter pollution
@@ -6852,7 +7080,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["173", "342"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "122":
   en:
     title: Email flooding
@@ -6907,7 +7137,9 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["115", "119"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "123":
   en:
     title: Local file inclusion
@@ -6969,7 +7201,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["173", "176"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "124":
   en:
     title: Race condition
@@ -7019,7 +7253,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["337"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "125":
   en:
     title: Directory listing
@@ -7080,7 +7316,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["176", "266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "126":
   en:
     title: Lack of isolation methods
@@ -7117,7 +7355,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["374"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "127":
   en:
     title: Lack of data validation - Type confusion
@@ -7147,7 +7387,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: []
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "128":
   en:
     title: Insecurely generated cookies - HttpOnly
@@ -7199,7 +7441,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["029"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "129":
   en:
     title: Insecurely generated cookies - SameSite
@@ -7249,7 +7493,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["029"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "130":
   en:
     title: Insecurely generated cookies - Secure
@@ -7307,7 +7553,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["029"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "131":
   en:
     title: Insecure or unset HTTP headers - Strict Transport Security
@@ -7483,7 +7731,9 @@
       remediation_level: "O"
       report_confidence: "C"
   requirements: ["062", "349"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "133":
   en:
     title: Insecure encryption algorithm - Perfect Forward Secrecy
@@ -7542,7 +7792,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["148", "149", "150", "181", "336"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "134":
   en:
     title: Insecure or unset HTTP headers - CORS
@@ -7595,7 +7847,9 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["062", "266", "349"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "135":
   en:
     title: Insecure or unset HTTP headers - X-XSS Protection
@@ -7650,7 +7904,9 @@
       remediation_level: "O"
       report_confidence: "R"
   requirements: ["062", "175", "266", "349"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "136":
   en:
     title: Insecure or unset HTTP headers - Cache Control
@@ -7711,7 +7967,9 @@
       remediation_level: "O"
       report_confidence: "R"
   requirements: ["062", "177", "266", "349"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "137":
   en:
     title: Insecure or unset HTTP headers - X-Permitted-Cross-Domain-Policies
@@ -7766,7 +8024,9 @@
       remediation_level: "O"
       report_confidence: "R"
   requirements: ["062" ,"266" ,"349"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "138":
   en:
     title: Inappropriate coding practices
@@ -7804,7 +8064,9 @@
       remediation_level: "O"
       report_confidence: "R"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "139":
   en:
     title: Use of deprecated components
@@ -7842,7 +8104,9 @@
       remediation_level: "O"
       report_confidence: "R"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "140":
   en:
     title: Insecure exceptions - Empty or no catch
@@ -7880,7 +8144,9 @@
       remediation_level: "O"
       report_confidence: "R"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "141":
   en:
     title: Lack of data validation - URL
@@ -7918,7 +8184,9 @@
       remediation_level: "O"
       report_confidence: "R"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "142":
   en:
     title: Sensitive information in source code - API Key
@@ -7956,7 +8224,9 @@
       remediation_level: "O"
       report_confidence: "R"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "143":
   en:
     title: Inappropriate coding practices - Eval function
@@ -7994,7 +8264,9 @@
       remediation_level: "O"
       report_confidence: "R"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "144":
   en:
     title: Inappropriate coding practices - Static Import
@@ -8032,7 +8304,9 @@
       remediation_level: "O"
       report_confidence: "R"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "145":
   en:
     title: Insecure encryption algorithm - Unused components
@@ -8070,7 +8344,9 @@
       remediation_level: "O"
       report_confidence: "R"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "146":
   en:
     title: SQL injection
@@ -8108,7 +8384,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "147":
   en:
     title: Insecure encryption algorithm - SSLContext
@@ -8146,7 +8424,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "148":
   en:
     title: Use of an insecure channel - FTP
@@ -8184,7 +8464,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "149":
   en:
     title: Use of an insecure channel - SMTP
@@ -8222,7 +8504,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "150":
   en:
     title: Use of an insecure channel - useSslProtocol()
@@ -8260,7 +8544,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "151":
   en:
     title: Use of an insecure channel - Telnet
@@ -8298,7 +8584,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "152":
   en:
     title: Insecure or unset HTTP headers - X-Frame Options
@@ -8352,7 +8640,9 @@
       remediation_level: "O"
       report_confidence: "R"
   requirements: ["062", "175", "266", "349"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "153":
   en:
     title: Insecure or unset HTTP headers - Accept
@@ -8412,7 +8702,9 @@
       remediation_level: "U"
       report_confidence: "R"
   requirements: ["062", "266", "349"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "154":
   en:
     title: Time-based SQL Injection
@@ -8450,7 +8742,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "155":
   en:
     title: SQL Injection - Headers
@@ -8488,7 +8782,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "156":
   en:
     title: Uncontrolled external site redirect
@@ -8526,7 +8822,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "157":
   en:
     title: Unrestricted access between network segments
@@ -8564,7 +8862,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "158":
   en:
     title: Unrestricted access between network segments - Azure AD
@@ -8602,7 +8902,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "159":
   en:
     title: Excessive privileges
@@ -8640,7 +8942,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "160":
   en:
     title: Excessive privileges - Temporary files
@@ -8678,7 +8982,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "161":
   en:
     title: Missing secure obfuscation
@@ -8716,7 +9022,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "162":
   en:
     title: Missing secure obfuscation - binary
@@ -8754,7 +9062,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "163":
   en:
     title: Insecure digital certificates
@@ -8792,7 +9102,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "164":
   en:
     title: Insecure service configuration
@@ -8830,7 +9142,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "165":
   en:
     title: Insecure service configuration - AWS
@@ -8868,7 +9182,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "166":
   en:
     title: Insecure service configuration - Kerberoast
@@ -8906,7 +9222,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "167":
   en:
     title: Insecure service configuration - Wireless Certificates
@@ -8944,7 +9262,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "168":
   en:
     title: Insecure service configuration - Keystore
@@ -8982,7 +9302,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "169":
   en:
     title: Insecure service configuration - Keys
@@ -9020,7 +9342,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "170":
   en:
     title: Insecure service configuration - Antivirus
@@ -9058,7 +9382,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "171":
   en:
     title: Insecure service configuration - Firewall
@@ -9096,7 +9422,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "172":
   en:
     title: Insecure service configuration - App Backup
@@ -9134,7 +9462,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "173":
   en:
     title: Insecure service configuration - Backup
@@ -9172,7 +9502,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "174":
   en:
     title: Insecure service configuration - Backdoor
@@ -9210,7 +9542,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "175":
   en:
     title: Insecure service configuration - DNS
@@ -9248,7 +9582,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "176":
   en:
     title: Insecure service configuration - SSH
@@ -9286,7 +9622,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "177":
   en:
     title: Insecure service configuration - Security Groups
@@ -9324,7 +9662,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "178":
   en:
     title: Insecure service configuration - RDP
@@ -9362,7 +9702,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "179":
   en:
     title: Insecure service configuration - SMB
@@ -9400,7 +9742,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "180":
   en:
     title: Insecure service configuration - SMTP
@@ -9438,7 +9782,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "181":
   en:
     title: Insecure service configuration - DynamoDB
@@ -9476,7 +9822,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "182":
   en:
     title: Email spoofing
@@ -9514,7 +9862,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "183":
   en:
     title: Debugging enabled in production
@@ -9552,7 +9902,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "184":
   en:
     title: Lack of data validation
@@ -9590,7 +9942,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "185":
   en:
     title: Lack of data validation - Header x-amzn-RequestId
@@ -9628,7 +9982,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "186":
   en:
     title: Lack of data validation - Web Service
@@ -9666,7 +10022,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "187":
   en:
     title: Lack of data validation - Source Code
@@ -9704,7 +10062,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "188":
   en:
     title: Lack of data validation - Modify DOM Elements
@@ -9742,7 +10102,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "189":
   en:
     title: Lack of data validation - Content Spoofing
@@ -9780,7 +10142,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "190":
   en:
     title: Lack of data validation - Session Cookie
@@ -9818,7 +10182,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "191":
   en:
     title: Lack of data validation - Responses
@@ -9856,7 +10222,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "192":
   en:
     title: Lack of data validation - Reflected Parameters
@@ -9894,7 +10262,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "193":
   en:
     title: Lack of data validation - Host Header Injection
@@ -9938,7 +10308,9 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["176"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "194":
   en:
     title: Lack of data validation - Input Length
@@ -9976,7 +10348,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "195":
   en:
     title: Lack of data validation - Headers
@@ -10014,7 +10388,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "196":
   en:
     title: Lack of data validation - Dates
@@ -10052,7 +10428,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "197":
   en:
     title: Lack of data validation - Numbers
@@ -10090,7 +10468,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "198":
   en:
     title: Lack of data validation - Out of range
@@ -10128,7 +10508,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "199":
   en:
     title: Lack of data validation - Emails
@@ -10166,7 +10548,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "200":
   en:
     title: Traceability loss
@@ -10204,7 +10588,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "201":
   en:
     title: Unauthorized access to files
@@ -10242,7 +10628,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "202":
   en:
     title: Unauthorized access to files - Debug APK
@@ -10280,7 +10668,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "203":
   en:
     title: Unauthorized access to files - S3 Bucket
@@ -10318,7 +10708,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "204":
   en:
     title: Insufficient data authenticity validation
@@ -10356,7 +10748,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "205":
   en:
     title: Insuficient Phisical Access Controls
@@ -10394,7 +10788,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "206":
   en:
     title: Security controls bypass or absence - Anti hooking
@@ -10432,7 +10828,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "207":
   en:
     title: Security controls bypass or absence - SSLPinning
@@ -10470,7 +10868,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "208":
   en:
     title: Security controls bypass or absence - Antivirus
@@ -10508,7 +10908,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "209":
   en:
     title: Security controls bypass or absence - Emulator
@@ -10546,7 +10948,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "210":
   en:
     title: Security controls bypass or absence - Facial Recognition
@@ -10584,7 +10988,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "211":
   en:
     title: Asymmetric denial of service - ReDoS
@@ -10622,7 +11028,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "212":
   en:
     title: Security controls bypass or absence - Cloudflare
@@ -10660,7 +11068,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "213":
   en:
     title: Business information leak - JWT
@@ -10698,7 +11108,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "214":
   en:
     title: Business information leak - Credentials
@@ -10736,7 +11148,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "215":
   en:
     title: Business information leak - Repository
@@ -10774,7 +11188,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "216":
   en:
     title: Business information leak - Source Code
@@ -10812,7 +11228,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "217":
   en:
     title: Business information leak - Credit Cards
@@ -10850,7 +11268,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "218":
   en:
     title: Business information leak - Network Unit
@@ -10888,7 +11308,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "219":
   en:
     title: Business information leak - Redis
@@ -10926,7 +11348,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "220":
   en:
     title: Business information leak - Token
@@ -10964,7 +11388,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "221":
   en:
     title: Business information leak - Users
@@ -11002,7 +11428,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "222":
   en:
     title: Business information leak - DB
@@ -11040,7 +11468,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "223":
   en:
     title: Business information leak - JFROG
@@ -11078,7 +11508,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "224":
   en:
     title: Business information leak - AWS
@@ -11116,7 +11548,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "225":
   en:
     title: Business information leak - Azure
@@ -11154,7 +11588,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "226":
   en:
     title: Business information leak - Personal Information
@@ -11192,7 +11628,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "227":
   en:
     title: Business information leak - NAC
@@ -11230,7 +11668,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "228":
   en:
     title: Business information leak - Analytics
@@ -11268,7 +11708,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "229":
   en:
     title: Business information leak - Power BI
@@ -11306,7 +11748,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "230":
   en:
     title: Business information leak - Firestore
@@ -11344,7 +11788,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "231":
   en:
     title: Message flooding
@@ -11382,7 +11828,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "232":
   en:
     title: Technical information leak - Angular
@@ -11420,7 +11868,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "233":
   en:
     title: Incomplete funcional code
@@ -11458,7 +11908,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "234":
   en:
     title: Technical information leak - Stacktrace
@@ -11496,7 +11948,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "235":
   en:
     title: Technical information leak - Headers
@@ -11541,7 +11995,9 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["176"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "236":
   en:
     title: Technical information leak - SourceMap
@@ -11579,7 +12035,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "237":
   en:
     title: Technical information leak - Print Functions
@@ -11617,7 +12075,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "238":
   en:
     title: Technical information leak - API
@@ -11655,7 +12115,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "239":
   en:
     title: Technical information leak - Errors
@@ -11693,7 +12155,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "240":
   en:
     title: Authentication mechanism absence or evasion - OTP
@@ -11731,7 +12195,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "241":
   en:
     title: Authentication mechanism absence or evasion - AWS
@@ -11769,7 +12235,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "242":
   en:
     title: Authentication mechanism absence or evasion - WiFi
@@ -11807,7 +12275,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "243":
   en:
     title: Authentication mechanism absence or evasion - Admin Console
@@ -11845,7 +12315,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "244":
   en:
     title: Authentication mechanism absence or evasion - BIOS
@@ -11883,7 +12355,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "245":
   en:
     title: Non-encrypted confidential information - Credit Cards
@@ -11921,7 +12395,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "246":
   en:
     title: Non-encrypted confidential information - DB
@@ -11959,7 +12435,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "247":
   en:
     title: Non-encrypted confidential information - AWS
@@ -11997,7 +12475,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "248":
   en:
     title: Non-encrypted confidential information - LDAP
@@ -12035,7 +12515,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "249":
   en:
     title: Non-encrypted confidential information - Credentials
@@ -12073,7 +12555,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "250":
   en:
     title: Non-encrypted hard drives
@@ -12111,7 +12595,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "251":
   en:
     title: Non-encrypted confidential information - JFROG
@@ -12149,7 +12635,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "252":
   en:
     title: Automatic information enumeration - Open ports
@@ -12187,7 +12675,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "253":
   en:
     title: Automatic information enumeration - AWS
@@ -12225,7 +12715,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "254":
   en:
     title: Automatic information enumeration - Credit Cards
@@ -12263,7 +12755,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "255":
   en:
     title: Insecure functionality - Pass the hash
@@ -12301,7 +12795,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "256":
   en:
     title: Lack of protection against deletion - RDS
@@ -12339,7 +12835,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "257":
   en:
     title: Lack of protection against deletion - EC2
@@ -12377,7 +12875,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "258":
   en:
     title: Lack of protection against deletion - ELB
@@ -12415,7 +12915,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "259":
   en:
     title: Lack of protection against deletion - DynamoDB
@@ -12453,7 +12955,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "260":
   en:
     title: Insecure Binary compilation
@@ -12491,7 +12995,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "261":
   en:
     title: Insecure encryption algorithm - DSA
@@ -12529,7 +13035,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "262":
   en:
     title: Insecure encryption algorithm - SHA1
@@ -12567,7 +13075,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "263":
   en:
     title: Insecure encryption algorithm - MD5
@@ -12605,7 +13115,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "264":
   en:
     title: Insecure encryption algorithm - TripleDES
@@ -12643,7 +13155,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "265":
   en:
     title: Insecure encryption algorithm - AES
@@ -12681,7 +13195,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "266":
   en:
     title: Insecure encryption algorithm - TLS
@@ -12719,7 +13235,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "267":
   en:
     title: Insecure encryption algorithm - SSL
@@ -12757,7 +13275,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "268":
   en:
     title: Insecure encryption algorithm - DES
@@ -12795,7 +13315,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "269":
   en:
     title: Insecure encryption algorithm - Blowfish
@@ -12833,7 +13355,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "270":
   en:
     title: Insecure functionality - File Creation
@@ -12871,7 +13395,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "271":
   en:
     title: Insecure functionality - Password management
@@ -12909,7 +13435,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "272":
   en:
     title: Insecure functionality - Masking
@@ -12947,7 +13475,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "273":
   en:
     title: Insecure functionality - Fingerprint
@@ -12985,7 +13515,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "274":
   en:
     title: Restricted fields manipulation
@@ -13023,7 +13555,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "275":
   en:
     title: Non-encrypted confidential information - Local data
@@ -13061,7 +13595,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "276":
   en:
     title: Sensitive information sent via URL parameters - Session
@@ -13099,7 +13635,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "277":
   en:
     title: Weak credential policy - Password Expiration
@@ -13137,7 +13675,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "278":
   en:
     title: Insecure exceptions - NullPointerException
@@ -13175,7 +13715,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "279":
   en:
     title: Root detection control bypass
@@ -13213,7 +13755,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "280":
   en:
     title: Session Fixation
@@ -13251,7 +13795,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "281":
   en:
     title: Use of an insecure channel - AWS
@@ -13289,7 +13835,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "282":
   en:
     title: Insecure encryption algorithm - ECB
@@ -13327,7 +13875,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "283":
   en:
     title: Automatic information enumeration - Personal Information
@@ -13365,7 +13915,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "284":
   en:
     title: Non-encrypted confidential information - Basic
@@ -13403,7 +13955,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "285":
   en:
     title: Insecure service configuration - App Transport Security
@@ -13441,7 +13995,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "286":
   en:
     title: Insecure object reference - Personal information
@@ -13479,7 +14035,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "287":
   en:
     title: Insecure object reference - Corporate information
@@ -13517,7 +14075,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "288":
   en:
     title: Insecure object reference - Financial information
@@ -13555,7 +14115,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "289":
   en:
     title: Technical information leak - Logs
@@ -13593,7 +14155,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "290":
   en:
     title: Technical information leak - IPs
@@ -13631,7 +14195,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "291":
   en:
     title: Business information leak - Financial Information
@@ -13669,7 +14235,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "292":
   en:
     title: Inappropriate coding practices - Public variables
@@ -13707,7 +14275,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "293":
   en:
     title: Insecure service configuration - Key pair
@@ -13745,7 +14315,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "294":
   en:
     title: Insecure service configuration - OTP
@@ -13783,7 +14355,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "295":
   en:
     title: Insecure session management - Change Password
@@ -13821,7 +14395,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "296":
   en:
     title: Weak credential policy - Password Change Limit
@@ -13859,7 +14435,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "297":
   en:
     title: SQL injection - Code
@@ -13897,7 +14475,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "298":
   en:
     title: Authentication mechanism absence or evasion - Redirect
@@ -13935,7 +14515,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "299":
   en:
     title: Authentication mechanism absence or evasion - JFROG
@@ -13973,7 +14555,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "300":
   en:
     title: Authentication mechanism absence or evasion - Azure
@@ -14011,7 +14595,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "301":
   en:
     title: Concurrent sessions control bypass
@@ -14049,7 +14635,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "302":
   en:
     title: Insecure functionality - Session management
@@ -14087,7 +14675,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "303":
   en:
     title: Inappropriate coding practices - Initialization
@@ -14125,7 +14715,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "304":
   en:
     title: Inappropriate coding practices - Performance
@@ -14163,7 +14755,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "305":
   en:
     title: Security controls bypass or absence - Data creation
@@ -14201,7 +14795,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "306":
   en:
     title: Insecure object reference - Files
@@ -14239,7 +14835,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "307":
   en:
     title: Insecure object reference - Data
@@ -14277,7 +14875,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "308":
   en:
     title: Enabled default configuration
@@ -14315,7 +14915,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "309":
   en:
     title: Insecurely generated token - JWT
@@ -14353,7 +14955,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "310":
   en:
     title: Unauthorized access to screen
@@ -14391,7 +14995,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "311":
   en:
     title: Unrestricted access between network segments - JSch
@@ -14429,7 +15035,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "312":
   en:
     title: Insecure service configuration - Signatures
@@ -14467,7 +15075,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "313":
   en:
     title: Insecure service configuration - Certificates
@@ -14505,7 +15115,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "314":
   en:
     title: Insecure service configuration - DB
@@ -14543,7 +15155,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "315":
   en:
     title: Insecure service configuration - CloudDB
@@ -14581,7 +15195,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "316":
   en:
     title: Improper resource allocation - Buffer overflow
@@ -14619,7 +15235,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "317":
   en:
     title: Improper resource allocation - Memory leak
@@ -14657,7 +15275,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "318":
   en:
     title: Insecurely generated token - Validation
@@ -14695,7 +15315,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "319":
   en:
     title: Insecure service configuration - Roles
@@ -14733,7 +15355,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "320":
   en:
     title: Insecure service configuration - LDAP
@@ -14771,7 +15395,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "321":
   en:
     title: Lack of data validation - HTML code
@@ -14809,7 +15435,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "322":
   en:
     title: Insecurely generated token - Lifespan
@@ -14847,7 +15475,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "323":
   en:
     title: XML injection (XXE) - Unmarshaller
@@ -14885,7 +15515,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "324":
   en:
     title: Insecure functionality - User management
@@ -14923,7 +15555,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "325":
   en:
     title:  Excessive privileges - Wildcards
@@ -14961,7 +15595,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "326":
   en:
     title: Sensitive information in source code - Dependencies
@@ -14999,7 +15635,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "327":
   en:
     title: Insufficient data authenticity validation - Images
@@ -15037,7 +15675,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "328":
   en:
     title: Insecure object reference - Session management
@@ -15075,7 +15715,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "329":
   en:
     title: Insecure or unset HTTP headers - Content-Type
@@ -15117,7 +15759,9 @@
       remediation_level: "U"
       report_confidence: "R"
   requirements: ["062", "266", "349"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "330":
   en:
     title: Lack of protection against brute force attacks - Credentials
@@ -15155,7 +15799,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "331":
   en:
     title: User Enumeration - Wordpress
@@ -15193,7 +15839,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "332":
   en:
     title: Use of insecure channel - Source code
@@ -15231,7 +15879,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "333":
   en:
     title: Insecure service configuration - EC2
@@ -15269,7 +15919,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "334":
   en:
     title: Insecure service configuration - IAM
@@ -15307,7 +15959,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "335":
   en:
     title: Insecure service configuration - S3
@@ -15345,7 +15999,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "336":
   en:
     title: Business information leak - Corporate information
@@ -15383,7 +16039,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "337":
   en:
     title: Insecure session management - CSRF Fixation
@@ -15421,7 +16079,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "338":
   en:
     title: Insecure service configuration - Salt
@@ -15459,7 +16119,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "339":
   en:
     title: Insecure service configuration - Request Validation
@@ -15497,7 +16159,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "340":
   en:
     title: Lack of data validation - Special Characters
@@ -15535,7 +16199,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "341":
   en:
     title: Lack of data validation - OTP
@@ -15573,7 +16239,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "342":
   en:
     title: Technical information leak - Alert
@@ -15611,7 +16279,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "343":
   en:
     title: Insecure service configuration - BREACH Attack
@@ -15649,7 +16319,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "344":
   en:
     title: Lack of data validation - Non Sanitized Variables
@@ -15687,7 +16359,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "345":
   en:
     title: Security controls bypass or absence - Session Invalidation
@@ -15725,7 +16399,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "346":
   en:
     title: Excessive privileges - Mobile App
@@ -15763,7 +16439,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "347":
   en:
     title: Insecure service configuration - Task Hijacking
@@ -15801,7 +16479,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "348":
   en:
     title: Insecure digital certificates - Lifespan
@@ -15839,7 +16519,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "349":
   en:
     title: Technical information leak - Credentials
@@ -15877,7 +16559,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "350":
   en:
     title: Insecure digital certificates - Chain of trust
@@ -15915,7 +16599,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "351":
   en:
     title: Automatic information enumeration - Corporate information
@@ -15953,7 +16639,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "352":
   en:
     title: Insecure service configuration - Non Masked Variables
@@ -15991,7 +16679,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "353":
   en:
     title: Lack of data validation - Token
@@ -16029,7 +16719,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "354":
   en:
     title: Insecure file upload - Files Limit
@@ -16067,7 +16759,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "355":
   en:
     title: Insufficient data authenticity validation - Checksum verification
@@ -16105,7 +16799,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "356":
   en:
     title: Symmetric denial of service - SMTP
@@ -16143,7 +16839,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "357":
   en:
     title: Symmetric denial of service - FTP
@@ -16181,7 +16879,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "358":
   en:
     title: Insecure service configuration - DocumentBuilderFactory
@@ -16219,7 +16919,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "359":
   en:
     title: Sensitive information in source code - Credentials
@@ -16257,7 +16959,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "360":
   en:
     title: Clickjacking
@@ -16303,7 +17007,9 @@
       remediation_level: "O"
       report_confidence: "C"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "361":
   en:
     title: Missing secure obfuscation - JavaScript
@@ -16341,7 +17047,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "362":
   en:
     title: Technical information leak - Content response
@@ -16379,7 +17087,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "363":
   en:
     title: Weak credential policy - Password strength
@@ -16417,7 +17127,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "364":
   en:
     title: Weak credential policy - Temporary passwords
@@ -16455,7 +17167,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "365":
   en:
     title: Authentication mechanism absence or evasion - Response tampering
@@ -16493,7 +17207,9 @@
       remediation_level: "X"
       report_confidence: "X"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__
 "366":
   en:
     title: Inappropriate coding practices - Transparency Conflict
@@ -16598,4 +17314,6 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["266"]
-  metadata: {}
+  metadata:
+    en:
+      details: __empty__

@@ -77,7 +77,25 @@
           "type": "array",
           "items": { "type": "string", "pattern": "^[0-9]+$" }
         },
-        "metadata": { "type": "object" }
+        "metadata": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "en"
+          ],
+          "properties": {
+            "en": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "details"
+              ],
+              "properties": {
+                "details": { "type": "string" }
+              }
+            }
+          }
+        }
       }
     }
   },
