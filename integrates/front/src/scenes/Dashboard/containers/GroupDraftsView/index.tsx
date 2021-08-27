@@ -243,6 +243,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
 
     if (
       _.isUndefined(matchingSuggestion) ||
+      !matchingSuggestion.description ||
       matchingSuggestion.description.includes("__empty__")
     ) {
       return translate.t("group.drafts.hint.empty");
