@@ -94,8 +94,8 @@ let
     );
 
   # Generate introduction indexes
-  categories = data: lib.lists.unique (
-    builtins.map (x: x.category) (builtins.attrValues data));
+  categories = data: builtins.sort builtins.lessThan (lib.lists.unique (
+    builtins.map (x: x.category) (builtins.attrValues data)));
   itemsByCategory = category: lib.attrsets.filterAttrs
     (_: v: v.category == category);
   linksByCategory = type: category: data:
@@ -153,6 +153,7 @@ let
       __argScoreTemporal__ = (vulnScore src.score).score.temporal;
       __argSeverityBase__ = (vulnScore src.score).severity.base;
       __argSeverityTemporal__ = (vulnScore src.score).severity.temporal;
+      __argDetails__ = src.metadata.en.details;
       __argRequirements__ = reqsForVuln src.requirements;
     };
     name = "docs-make-vulnerability-${__argCode__}";
