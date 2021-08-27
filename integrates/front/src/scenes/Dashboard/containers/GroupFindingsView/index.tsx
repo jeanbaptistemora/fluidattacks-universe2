@@ -10,22 +10,27 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
-import type {
-  SortOrder,
-  TableColumnFilterProps,
-} from "react-bootstrap-table-next";
-import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
+import type { SortOrder } from "react-bootstrap-table-next";
 import { Trans } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { renderDescription } from "./description";
+import {
+  filterCurrentStatus,
+  filterReattack,
+  filterText,
+  filterWhere,
+} from "./filters";
 import { setReportType } from "./helpers";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { limitFormatter } from "components/DataTableNext/formatters";
 import { useRowExpand } from "components/DataTableNext/hooks/useRowExpand";
-import type { IHeaderConfig } from "components/DataTableNext/types";
+import type {
+  IFilterProps,
+  IHeaderConfig,
+} from "components/DataTableNext/types";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import AppstoreBadge from "resources/appstore_badge.svg";
@@ -106,13 +111,13 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     localStorage
   );
 
-  const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>(
-    "findingsFilters",
-    false
-  );
+  const [isCustomFilterEnabled, setCustomFilterEnabled] =
+    useStoredState<boolean>("findingsCustomFilters", false);
 
-  const selectOptionsStatus = { Closed: "Closed", Open: "Open" };
-  const selectOptionsVerification = { "-": "-", Pending: "Pending" };
+  const [searchTextFilter, setSearchTextFilter] = useState("");
+  const [currentStatusFilter, setCurrentStatusFilter] = useState("");
+  const [reattackFilter, setReattackFilter] = useState("");
+  const [whereFilter, setWhereFilter] = useState("");
 
   const handleChange: (columnName: string) => void = useCallback(
     (columnName: string): void => {
@@ -136,9 +141,10 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     },
     [checkedItems, setCheckedItems]
   );
-  const handleUpdateFilter: () => void = useCallback((): void => {
-    setFilterEnabled(!isFilterEnabled);
-  }, [isFilterEnabled, setFilterEnabled]);
+
+  const handleUpdateCustomFilter: () => void = useCallback((): void => {
+    setCustomFilterEnabled(!isCustomFilterEnabled);
+  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
 
   const goToFinding: (
     event: React.FormEvent<HTMLButtonElement>,
@@ -166,21 +172,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     const newSorted = { dataField, order };
     sessionStorage.setItem("findingSort", JSON.stringify(newSorted));
   };
-  const onFilterWhere: TableColumnFilterProps["onFilter"] = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("whereFilter", filterVal);
-  };
-  const onFilterStatus: (filterVal: string) => void = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("statusFilter", filterVal);
-  };
-  const onFilterVerification: (filterVal: string) => void = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("verificationFilter", filterVal);
-  };
 
   const tableHeaders: IHeaderConfig[] = [
     {
@@ -201,12 +192,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     {
       align: "left",
       dataField: "state",
-      filter: selectFilter({
-        defaultValue: _.get(sessionStorage, "statusFilter"),
-        onFilter: onFilterStatus,
-        options: selectOptionsStatus,
-        placeholder: "All",
-      }),
       formatter: pointStatusFormatter,
       header: "Status",
       onSort: onSortState,
@@ -239,11 +224,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "where",
-      filter: textFilter({
-        defaultValue: _.get(sessionStorage, "whereFilter"),
-        delay: 1000,
-        onFilter: onFilterWhere,
-      }),
       formatter: limitFormatter,
       header: "Where",
       onSort: onSortState,
@@ -253,12 +233,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "remediated",
-      filter: selectFilter({
-        defaultValue: _.get(sessionStorage, "verificationFilter"),
-        onFilter: onFilterVerification,
-        options: selectOptionsVerification,
-        placeholder: "All",
-      }),
       header: "Reattack",
       onSort: onSortState,
       visible: checkedItems.remediated,
@@ -300,6 +274,100 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     storageKey: "findingExpandedRows",
   });
 
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
+  const filterSearchtextFindings: IFindingAttr[] = filterText(
+    findings,
+    searchTextFilter
+  );
+
+  function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    setCurrentStatusFilter(event.target.value);
+  }
+  const filterCurrentStatusFindings: IFindingAttr[] = filterCurrentStatus(
+    findings,
+    currentStatusFilter
+  );
+
+  function onReattackChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    setReattackFilter(event.target.value);
+  }
+  const filterReattackFindings: IFindingAttr[] = filterReattack(
+    findings,
+    reattackFilter
+  );
+
+  function onWhereChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    setWhereFilter(event.target.value);
+  }
+  const filterWhereFindings: IFindingAttr[] = filterWhere(
+    findings,
+    whereFilter
+  );
+
+  const resultFindings: IFindingAttr[] = _.intersection(
+    filterSearchtextFindings,
+    filterCurrentStatusFindings,
+    filterReattackFindings,
+    filterWhereFindings
+  );
+
+  const customFilters: IFilterProps[] = [
+    {
+      defaultValue: currentStatusFilter,
+      onChangeSelect: onStatusChange,
+      selectOptions: [
+        {
+          text: "Status",
+          value: "",
+        },
+        {
+          text: "Open",
+          value: "Open",
+        },
+        {
+          text: "Closed",
+          value: "Closed",
+        },
+      ],
+      tooltipId: "group.findings.filtersTooltips.status.id",
+      tooltipMessage: "group.findings.filtersTooltips.status",
+      type: "select",
+    },
+    {
+      defaultValue: whereFilter,
+      onChangeInput: onWhereChange,
+      placeholder: "Where",
+      tooltipId: "group.findings.filtersTooltips.where.id",
+      tooltipMessage: "group.findings.filtersTooltips.where",
+      type: "text",
+    },
+    {
+      defaultValue: reattackFilter,
+      onChangeSelect: onReattackChange,
+      selectOptions: [
+        {
+          text: "Reattack",
+          value: "",
+        },
+        {
+          text: "-",
+          value: "-",
+        },
+        {
+          text: "Pending",
+          value: "Pending",
+        },
+      ],
+      tooltipId: "group.findings.filtersTooltips.reattack.id",
+      tooltipMessage: "group.findings.filtersTooltips.reattack",
+      type: "select",
+    },
+  ];
+
   return (
     <React.StrictMode>
       <TooltipWrapper
@@ -310,7 +378,9 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           bordered={true}
           columnToggle={true}
           csvFilename={`${groupName}-findings-${currentDate}.csv`}
-          dataset={findings}
+          customFiltersProps={customFilters}
+          customSearchDefault={searchTextFilter}
+          dataset={resultFindings}
           defaultSorted={JSON.parse(_.get(sessionStorage, "findingSort", "{}"))}
           expandRow={{
             expandByColumnOnly: true,
@@ -335,12 +405,13 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           }
           headers={tableHeaders}
           id={"tblFindings"}
-          isFilterEnabled={isFilterEnabled}
+          isCustomFilterEnabled={isCustomFilterEnabled}
           onColumnToggle={handleChange}
-          onUpdateEnableFilter={handleUpdateFilter}
+          onUpdateCustomSearch={onSearchTextChange}
+          onUpdateEnableCustomFilter={handleUpdateCustomFilter}
           pageSize={10}
           rowEvents={{ onClick: goToFinding }}
-          search={true}
+          search={false}
           striped={true}
         />
       </TooltipWrapper>
