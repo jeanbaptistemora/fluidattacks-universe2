@@ -8,7 +8,7 @@ import { DropDownCard } from "../DropDownCard";
 const PartnerPage: React.FC = (): JSX.Element => {
   const data: IData = useStaticQuery(graphql`
     query PartnerQuery {
-      allAsciidoc(sort: { fields: [pageAttributes___slug], order: ASC }) {
+      allAsciidoc(sort: { fields: [pageAttributes___alt], order: ASC }) {
         edges {
           node {
             fields {
