@@ -7,6 +7,9 @@ from context import (
 from custom_types import (
     Finding as FindingType,
 )
+from db_model.findings.types import (
+    Finding,
+)
 import os
 from s3.operations import (
     download_file,
@@ -18,6 +21,7 @@ from typing import (
     Any,
     Dict,
     List,
+    Tuple,
 )
 from uuid import (
     uuid4,
@@ -62,6 +66,31 @@ async def _append_pdf_report(
 ) -> None:
     # Generate the PDF report
     report_filename = await technical_report.generate_pdf_file(
+        context=context,
+        description=group_description,
+        findings_ord=findings_ord,
+        group_name=group,
+        lang="en",
+        passphrase=passphrase,
+        user_email=requester_email,
+    )
+    with open(os.path.join(directory, "report.pdf"), mode="wb") as file:
+        with open(report_filename, "rb") as report:
+            file.write(report.read())
+
+
+async def _append_pdf_report_new(
+    *,
+    context: Any,
+    directory: str,
+    findings_ord: Tuple[Finding, ...],
+    group: str,
+    group_description: str,
+    passphrase: str,
+    requester_email: str,
+) -> None:
+    # Generate the PDF report
+    report_filename = await technical_report.generate_pdf_file_new(
         context=context,
         description=group_description,
         findings_ord=findings_ord,
