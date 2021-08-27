@@ -127,7 +127,9 @@ const ResourcesPage: React.FC<IProps> = ({
           "resources.cardsText.buttons.downloadButton"
         )}`}
         cardType={"report-card"}
-        description={`${translate.t("resources.report3Description")}`}
+        description={`${translate.t(
+          "resources.cardsText.reports.report3Description"
+        )}`}
         image={"/resources/resource-card13_lkzcem"}
         language={"Webinar cover ESP"}
         title={`${translate.t("resources.cardsText.reports.report3Title")}`}
