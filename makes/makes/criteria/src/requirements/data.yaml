@@ -3028,7 +3028,9 @@
       las conexiones de la base de datos.
     description: __empty__
   category: Source
-  references: []
+  references:
+    - "003.16_10"
+    - "014.6_3"
   metadata: {}
 "153":
   en:
@@ -4690,7 +4692,8 @@
       de pérdida.
     description: __empty__
   category: Devices
-  references: []
+  references:
+    - "003.4_1"
   metadata: {}
 "214":
   en:
@@ -4737,7 +4740,10 @@
       Floppy, IDE, CD/DVD, USB, Serial).
     description: __empty__
   category: Virtualization
-  references: []
+  references:
+    - "003.4_1"
+    - "003.4_2"
+    - "003.4_8"
   metadata: {}
 "222":
   en:
@@ -5236,7 +5242,9 @@
       para el ingreso de credenciales.
     description: __empty__
   category: Authentication
-  references: []
+  references:
+    - "013.A6"
+    - "014.2_2_4"
   metadata: {}
 "236":
   en:
@@ -5449,6 +5457,7 @@
   category: Networks
   references:
     - "002.619"
+    - "010.AC-18_5"
   metadata: {}
 "250":
   en:
@@ -5471,6 +5480,7 @@
   category: Networks
   references:
     - "009.007-6_R1_1"
+    - "014.9_1_3"
   metadata: {}
 "251":
   en:
@@ -5537,6 +5547,7 @@
   references:
     - "003.13_9"
     - "008.9_1_2"
+    - "014.1_3_4"
   metadata: {}
 "254":
   en:
@@ -6087,7 +6098,9 @@
       definidas por IP origen.
     description: __empty__
   category: System
-  references: []
+  references:
+    - "003.16_10"
+    - "013.A6"
   metadata: {}
 "300":
   en:

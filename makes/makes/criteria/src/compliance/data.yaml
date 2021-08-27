@@ -1479,6 +1479,9 @@
     "AC-12":
       title: Session Termination
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
+    "AC-18_5":
+      title: Antennas and Transmission Power Levels
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
     "IA-1":
       title: Policy And Procedures
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
@@ -2686,6 +2689,14 @@
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
     "8_7":
       title: Database containing cardholder data
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+    "9_1_3":
+      title: >
+        Restrict physical access
+        to wireless access points, gateways,
+        handheld devices,
+        networking/communications hardware,
+        and telecommunication lines
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
     "9_8_2":
       title: Render cardholder data on electronic media unrecoverable
