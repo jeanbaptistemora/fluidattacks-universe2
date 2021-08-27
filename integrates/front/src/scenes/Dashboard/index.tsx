@@ -5,7 +5,7 @@ import type { PureAbility } from "@casl/ability";
 import type { GraphQLError } from "graphql";
 import { identify, people, register } from "mixpanel-browser";
 import React, { useCallback, useContext, useState } from "react";
-import { Redirect, Route, Switch, useLocation } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 
 import {
   DashboardContainer,
@@ -44,8 +44,6 @@ import { translate } from "utils/translations/translate";
 import { initializeDelighted, initializeZendesk } from "utils/widgets";
 
 export const Dashboard: React.FC = (): JSX.Element => {
-  const { hash } = useLocation();
-
   const orgRegex: string = ":organizationName([a-zA-Z0-9]+)";
   const groupRegex: string = ":groupName([a-zA-Z0-9]+)";
   const tagRegex: string = ":tagName([a-zA-Z0-9-_ ]+)";
@@ -188,17 +186,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
             <Route path={`/groups/${groupRegex}`}>
               <OrganizationRedirect type={"groups"} />
             </Route>
-            {/* Necessary to support hashrouter URLs */}
-            <Redirect path={"/dashboard"} to={hash.replace("#!", "")} />
-            {/* Necessary to support old URLs with entities in singular */}
-            <Redirect
-              path={`/portfolio/${tagRegex}/*`}
-              to={`/portfolios/${tagRegex}/*`}
-            />
-            <Redirect
-              path={`/project/${groupRegex}/*`}
-              to={`/groups/${groupRegex}/*`}
-            />
             <Redirect to={"/home"} />
           </Switch>
         </main>

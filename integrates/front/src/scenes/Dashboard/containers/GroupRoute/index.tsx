@@ -116,11 +116,6 @@ const GroupRoute: React.FC<IGroupRoute> = (props: IGroupRoute): JSX.Element => {
             component={FindingContent}
             path={`${path}/:type(vulns|drafts)/:findingId([0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3}-[0-9A-Za-z]{12}|\\d+)`}
           />
-          {/* Necessary to support legacy URLs before finding had its own path */}
-          <Redirect
-            path={`${path}/:findingId([0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3}-[0-9A-Za-z]{12}|\\d+)`}
-            to={`${path}/vulns/:findingId([0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3}-[0-9A-Za-z]{12}|\\d+)`}
-          />
           <Route component={GroupContent} path={path} />
         </Switch>
       </div>

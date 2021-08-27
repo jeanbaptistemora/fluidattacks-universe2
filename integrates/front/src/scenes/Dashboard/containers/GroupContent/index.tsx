@@ -195,9 +195,6 @@ const GroupContent: React.FC = (): JSX.Element => {
                     path={`${path}/consulting`}
                   />
                   <Route component={ToeContent} path={`${path}/surface`} />
-                  {/* Necessary to support old resources URLs */}
-                  <Redirect path={`${path}/resources`} to={`${path}/scope`} />
-                  <Redirect path={`${path}/toe`} to={`${path}/surface`} />
                   <Redirect to={`${path}/vulns`} />
                 </Switch>
               </div>
