@@ -49,6 +49,31 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test007.js,8,78,skims,004. Remote 
   21 |   });
      ^ Col 0
 "
+F004,lines,VULNERABLE_JS_APP/routes/testcases/test015.js,9,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+   1 | const {
+   2 |   execSync
+   3 | } = require(""child_process"");
+   4 | var express = require('express');
+   5 | var router = express.Router();
+   6 |
+   7 | router.get('/test015/:user', function (req, res) {
+   8 |   var user = req.params['user'];
+>  9 |   var stdout = execSync(""ls test/test_files/users/"" + user + ""/"").toString()
+  10 |
+  11 |   var user_files = [];
+  12 |   for (file of stdout.split('\n')) {
+  13 |     if (file) {
+  14 |       user_files.push(file);
+  15 |     }
+  16 |   }
+  17 |
+  18 |   var data = {
+  19 |     'user_files': user_files
+  20 |   };
+  21 |   res.json(data);
+     ^ Col 0
+"
 F004,lines,VULNERABLE_JS_APP/routes/testcases/test001.js,9,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    1 | const {
@@ -222,6 +247,31 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test011.js,16,78,skims,004. Remote
   24 |
   25 |     var data = {
   26 |       'user_files': user_files
+     ^ Col 0
+"
+F004,lines,VULNERABLE_JS_APP/routes/testcases/test016.js,30,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+  20 |       break;
+  21 |     case 'C':
+  22 |     case 'D':
+  23 |       user = param;
+  24 |       break;
+  25 |     default:
+  26 |       uer = ""bobs_your_uncle"";
+  27 |       break;
+  28 |   }
+  29 |
+> 30 |   exec(""ls test/test_files/users/"" + user + ""/"", (error, stdout, stderr) => {
+  31 |
+  32 |     for (file of stdout.split('\n')) {
+  33 |       if (file) {
+  34 |         user_files.push(file);
+  35 |       }
+  36 |     }
+  37 |
+  38 |     var data = {
+  39 |       'user_files': user_files
+  40 |     };
      ^ Col 0
 "
 F004,lines,VULNERABLE_JS_APP/routes/testcases/test014.js,31,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.

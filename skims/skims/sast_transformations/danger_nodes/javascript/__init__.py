@@ -23,6 +23,7 @@ def mark_sinks(
         syntax,
         {
             "exec",
+            "execSync",
         },
     )
 

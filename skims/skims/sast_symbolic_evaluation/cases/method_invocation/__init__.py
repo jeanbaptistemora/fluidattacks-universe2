@@ -74,6 +74,7 @@ BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set(
         "Encoding.UTF8.GetBytes",
         # javascript
         "child_process.exec",
+        "child_process.execSync",
         "decodeURI",
         "encodeURIComponent",
         "Object.values",
@@ -277,6 +278,7 @@ BY_OBJ_ARGS: Dict[str, Set[str]] = complete_attrs_on_dict(
         # javascrip
         "child_process": {
             "exec",
+            "execSync",
         },
     }
 )
