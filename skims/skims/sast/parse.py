@@ -39,7 +39,6 @@ from typing import (
     Dict,
     Iterable,
     Iterator,
-    List,
     Optional,
     Tuple,
 )
@@ -58,6 +57,9 @@ from utils.ctx import (
 )
 from utils.encodings import (
     json_dump,
+)
+from utils.fs import (
+    decide_language,
 )
 from utils.graph import (
     copy_ast,
@@ -271,25 +273,6 @@ def _build_ast_graph(
             )
 
     return _graph
-
-
-def decide_language(path: str) -> GraphShardMetadataLanguage:
-    language_extensions_map: Dict[str, List[str]] = {
-        GraphShardMetadataLanguage.CSHARP: [".cs"],
-        GraphShardMetadataLanguage.GO: [".go"],
-        GraphShardMetadataLanguage.JAVA: [".java"],
-        GraphShardMetadataLanguage.JAVASCRIPT: [".js", ".jsx"],
-        GraphShardMetadataLanguage.KOTLIN: [".kt", ".ktm", ".kts"],
-        GraphShardMetadataLanguage.TSX: [".ts", ".tsx"],
-    }
-    language = GraphShardMetadataLanguage.NOT_SUPPORTED
-
-    for lang, extensions in language_extensions_map.items():
-        if any([path.endswith(ext) for ext in extensions]):
-            language = lang
-            break
-
-    return language
 
 
 def parse_content(

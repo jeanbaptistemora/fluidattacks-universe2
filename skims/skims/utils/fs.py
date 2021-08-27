@@ -12,16 +12,23 @@ from glob import (
 from itertools import (
     chain,
 )
+from model.graph_model import (
+    GraphShardMetadataLanguage,
+)
 from operator import (
     attrgetter,
     methodcaller,
 )
 import os
+from pyparsing import (
+    Regex,
+)
 from typing import (
     Awaitable,
     Callable,
     Dict,
     Iterable,
+    List,
     Set,
     Tuple,
 )
@@ -31,6 +38,25 @@ from utils.concurrency import (
 from utils.logs import (
     log,
 )
+
+
+def decide_language(path: str) -> GraphShardMetadataLanguage:
+    language_extensions_map: Dict[str, List[str]] = {
+        GraphShardMetadataLanguage.CSHARP: [".cs"],
+        GraphShardMetadataLanguage.GO: [".go"],
+        GraphShardMetadataLanguage.JAVA: [".java"],
+        GraphShardMetadataLanguage.JAVASCRIPT: [".js", ".jsx"],
+        GraphShardMetadataLanguage.KOTLIN: [".kt", ".ktm", ".kts"],
+        GraphShardMetadataLanguage.TSX: [".ts", ".tsx"],
+    }
+    language = GraphShardMetadataLanguage.NOT_SUPPORTED
+
+    for lang, extensions in language_extensions_map.items():
+        if any([path.endswith(ext) for ext in extensions]):
+            language = lang
+            break
+
+    return language
 
 
 def generate_file_content(
@@ -93,7 +119,29 @@ async def get_file_raw_content(path: str, size: int = -1) -> bytes:
         return file_contents
 
 
-def get_non_upgradable_paths(paths: Set[str]) -> Set[str]:
+async def check_dependency_code(path: str) -> bool:
+    language: GraphShardMetadataLanguage = decide_language(path)
+
+    if language == GraphShardMetadataLanguage.JAVASCRIPT:
+        regex_exp = [
+            Regex(r"jQuery(.)*[Cc]opyright(.)*[Ll]icen"),
+            Regex(r"[Cc]opyright(.)*[Ll]icen(.)*[Jj][Qq]uery"),
+            Regex(r"[Aa]ngular[Jj][Ss](.)*[Gg]oogle(.)*[Ll]icen"),
+        ]
+    else:
+        return False
+
+    file_content = generate_file_content(path, size=200)
+    raw_content = await file_content()
+    content = raw_content.replace("\n", " ")
+
+    for regex in regex_exp:
+        for _ in regex.scanString(content):
+            return True
+    return False
+
+
+async def get_non_upgradable_paths(paths: Set[str]) -> Set[str]:
     nu_paths: Set[str] = set()
 
     intellisense_refs = {
@@ -103,24 +151,28 @@ def get_non_upgradable_paths(paths: Set[str]) -> Set[str]:
     }
 
     for path in paths:
-        if any(
-            path.startswith(intellisense_ref)
-            for intellisense_ref in intellisense_refs
-        ) or any(
-            matches_glob(f"/{path}", glob)
-            for glob in (
-                "*/Assets*/vendor/*",
-                "*/Assets*/lib/*",
-                "*/Assets*/js/*",
-                "*/Content*/jquery*",
-                "*/GoogleMapping*.js",
-                "*/Scripts*/bootstrap*",
-                "*/Scripts*/modernizr*",
-                "*/Scripts*/jquery*",
-                "*/Scripts*/popper*",
-                "*/Scripts*/vue*",
-                "*/wwwroot/lib*",
+        if (
+            any(
+                path.startswith(intellisense_ref)
+                for intellisense_ref in intellisense_refs
             )
+            or any(
+                matches_glob(f"/{path}", glob)
+                for glob in (
+                    "*/Assets*/vendor/*",
+                    "*/Assets*/lib/*",
+                    "*/Assets*/js/*",
+                    "*/Content*/jquery*",
+                    "*/GoogleMapping*.js",
+                    "*/Scripts*/bootstrap*",
+                    "*/Scripts*/modernizr*",
+                    "*/Scripts*/jquery*",
+                    "*/Scripts*/popper*",
+                    "*/Scripts*/vue*",
+                    "*/wwwroot/lib*",
+                )
+            )
+            or await check_dependency_code(path)
         ):
             nu_paths.add(path)
 
@@ -150,6 +202,7 @@ def get_non_verifiable_paths(paths: Set[str]) -> Set[str]:
                 "jasper",
                 "pdb",
                 "pyc",
+                "exe",
             }
             or (file_name, file_extension)
             in {
@@ -249,7 +302,9 @@ async def resolve_paths(
         )
 
         # Exclude non-upgradable paths
-        unique_nu_paths: Set[str] = get_non_upgradable_paths(unique_paths)
+        unique_nu_paths: Set[str] = await get_non_upgradable_paths(
+            unique_paths
+        )
         unique_paths.symmetric_difference_update(unique_nu_paths)
 
         # Exclude non-verifiable paths
