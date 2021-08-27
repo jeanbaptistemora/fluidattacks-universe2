@@ -33,7 +33,7 @@ from vulnerabilities import (
 )
 
 
-async def get_group_report_url(
+async def get_group_report_url(  # pylint: disable=too-many-return-statements
     *,
     report_type: str,
     group_name: str,
@@ -72,6 +72,15 @@ async def get_group_report_url(
                 lang="en",
                 passphrase=passphrase,
                 user_email=user_email,
+            )
+        if report_type == "DATA":
+            return await data_report.generate_new(
+                context=context,
+                findings_ord=findings_ord_new,
+                group=group_name,
+                group_description=description,
+                passphrase=passphrase,
+                requester_email=user_email,
             )
 
     else:
