@@ -2,6 +2,7 @@ interface IFormData {
   asm: boolean;
   comments: string;
   confirmation: string;
+  description: string;
   forces?: boolean;
   machine: boolean;
   reason: string;
@@ -13,6 +14,7 @@ interface IFormData {
 
 interface IGroupData {
   group: {
+    description: string;
     hasSquad: boolean;
     hasForces: boolean;
     hasMachine: boolean;

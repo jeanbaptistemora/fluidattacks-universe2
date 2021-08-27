@@ -77,6 +77,7 @@ const Services: React.FC<IServicesProps> = (
       void editGroupData({
         variables: {
           comments: values.comments,
+          description: values.description,
           groupName,
           hasASM: values.asm,
           hasMachine: values.machine,
@@ -133,6 +134,7 @@ const Services: React.FC<IServicesProps> = (
             asm: true,
             comments: "",
             confirmation: "",
+            description: data.group.description,
             machine: data.group.hasMachine,
             reason: "NONE",
             service: data.group.service,

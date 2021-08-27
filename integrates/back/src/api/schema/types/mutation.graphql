@@ -1048,6 +1048,8 @@ type Mutation {
   updateGroup(
     "Observations about the group update"
     comments: String!
+    "Description of the group"
+    description: String
     "Name of the group to be updated"
     groupName: String!
     """Whether to keep using ASM services. Caution: Setting this to False

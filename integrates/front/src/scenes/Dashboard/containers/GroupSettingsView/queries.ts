@@ -18,6 +18,7 @@ const GET_GROUP_DATA: DocumentNode = gql`
 const UPDATE_GROUP_DATA: DocumentNode = gql`
   mutation UpdateGroupData(
     $comments: String!
+    $description: String
     $groupName: String!
     $hasASM: Boolean!
     $hasMachine: Boolean!
@@ -28,6 +29,7 @@ const UPDATE_GROUP_DATA: DocumentNode = gql`
   ) {
     updateGroup(
       comments: $comments
+      description: $description
       groupName: $groupName
       hasSquad: $hasSquad
       hasAsm: $hasASM
