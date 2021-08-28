@@ -27869,6 +27869,2702 @@
           }
         ]
       }
+    },
+    {
+      "graph": {
+        "edges": {
+          "1": {
+            "2": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "6": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "100": {
+            "101": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "102": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "102": {
+            "103": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "104": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "105": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "105": {
+            "106": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "107": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "109": {
+            "110": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "130": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "131": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "11": {
+            "12": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "14": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "15": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "16": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "38": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "4"
+            }
+          },
+          "110": {
+            "111": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "113": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "111": {
+            "112": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "113": {
+            "114": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "115": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "115": {
+            "116": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "117": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "117": {
+            "118": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "122": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "118": {
+            "119": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "120": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "121": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "12": {
+            "13": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "122": {
+            "123": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "124": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "126": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "127": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "129": {
+              "label_ast": "AST",
+              "label_index": "4"
+            }
+          },
+          "124": {
+            "125": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "127": {
+            "128": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "131": {
+            "132": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "133": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "146": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "147": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "133": {
+            "134": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "136": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "134": {
+            "135": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "136": {
+            "137": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "138": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "138": {
+            "139": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "140": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "140": {
+            "141": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "142": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "143": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "143": {
+            "144": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "145": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "147": {
+            "148": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "171": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "172": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "148": {
+            "149": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "151": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "149": {
+            "150": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "151": {
+            "152": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "153": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "153": {
+            "154": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "155": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "155": {
+            "156": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "160": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "156": {
+            "157": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "158": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "159": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "16": {
+            "17": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "18": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "25": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "26": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "33": {
+              "label_ast": "AST",
+              "label_index": "4"
+            },
+            "34": {
+              "label_ast": "AST",
+              "label_index": "5"
+            },
+            "37": {
+              "label_ast": "AST",
+              "label_index": "6"
+            }
+          },
+          "160": {
+            "161": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "162": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "164": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "165": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "170": {
+              "label_ast": "AST",
+              "label_index": "4"
+            }
+          },
+          "162": {
+            "163": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "165": {
+            "166": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "166": {
+            "167": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "168": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "169": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "172": {
+            "173": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "174": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "198": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "199": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "174": {
+            "175": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "177": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "175": {
+            "176": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "177": {
+            "178": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "179": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "179": {
+            "180": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "181": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "18": {
+            "19": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "24": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "181": {
+            "182": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "183": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "184": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "184": {
+            "185": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "186": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "188": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "189": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "191": {
+              "label_ast": "AST",
+              "label_index": "4"
+            },
+            "192": {
+              "label_ast": "AST",
+              "label_index": "5"
+            },
+            "197": {
+              "label_ast": "AST",
+              "label_index": "6"
+            }
+          },
+          "186": {
+            "187": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "189": {
+            "190": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "19": {
+            "20": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "21": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "192": {
+            "193": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "193": {
+            "194": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "195": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "196": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "199": {
+            "200": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "0"
+            },
+            "210": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "2": {
+            "3": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "4": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "5": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "200": {
+            "201": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "205": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "201": {
+            "202": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "203": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "204": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "205": {
+            "206": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "207": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "209": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "207": {
+            "208": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "21": {
+            "22": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "23": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "26": {
+            "27": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "32": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "27": {
+            "28": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "29": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "29": {
+            "30": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "31": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "34": {
+            "35": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "36": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "38": {
+            "109": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "131": {
+              "label_ast": "AST",
+              "label_index": "4"
+            },
+            "147": {
+              "label_ast": "AST",
+              "label_index": "5"
+            },
+            "172": {
+              "label_ast": "AST",
+              "label_index": "6"
+            },
+            "199": {
+              "label_ast": "AST",
+              "label_index": "7"
+            },
+            "211": {
+              "label_ast": "AST",
+              "label_index": "8"
+            },
+            "39": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "40": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "1"
+            },
+            "93": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "40": {
+            "41": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "92": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "93": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            }
+          },
+          "41": {
+            "42": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "47": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "42": {
+            "43": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "44": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "44": {
+            "45": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "46": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "47": {
+            "48": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "49": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "49": {
+            "50": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "51": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "51": {
+            "52": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "53": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "58": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "53": {
+            "54": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "55": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "55": {
+            "56": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "57": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "58": {
+            "59": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "60": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "61": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "62": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "63": {
+              "label_ast": "AST",
+              "label_index": "4"
+            },
+            "64": {
+              "label_ast": "AST",
+              "label_index": "5"
+            },
+            "65": {
+              "label_ast": "AST",
+              "label_index": "6"
+            },
+            "66": {
+              "label_ast": "AST",
+              "label_index": "7"
+            },
+            "67": {
+              "label_ast": "AST",
+              "label_index": "8"
+            },
+            "68": {
+              "label_ast": "AST",
+              "label_index": "9"
+            },
+            "69": {
+              "label_ast": "AST",
+              "label_index": "10"
+            },
+            "70": {
+              "label_ast": "AST",
+              "label_index": "11"
+            },
+            "71": {
+              "label_ast": "AST",
+              "label_index": "12"
+            },
+            "72": {
+              "label_ast": "AST",
+              "label_index": "13"
+            },
+            "73": {
+              "label_ast": "AST",
+              "label_index": "14"
+            },
+            "74": {
+              "label_ast": "AST",
+              "label_index": "15"
+            },
+            "75": {
+              "label_ast": "AST",
+              "label_index": "16"
+            },
+            "76": {
+              "label_ast": "AST",
+              "label_index": "17"
+            },
+            "77": {
+              "label_ast": "AST",
+              "label_index": "18"
+            },
+            "78": {
+              "label_ast": "AST",
+              "label_index": "19"
+            },
+            "79": {
+              "label_ast": "AST",
+              "label_index": "20"
+            },
+            "80": {
+              "label_ast": "AST",
+              "label_index": "21"
+            },
+            "81": {
+              "label_ast": "AST",
+              "label_index": "22"
+            },
+            "82": {
+              "label_ast": "AST",
+              "label_index": "23"
+            },
+            "83": {
+              "label_ast": "AST",
+              "label_index": "24"
+            },
+            "84": {
+              "label_ast": "AST",
+              "label_index": "25"
+            },
+            "85": {
+              "label_ast": "AST",
+              "label_index": "26"
+            },
+            "86": {
+              "label_ast": "AST",
+              "label_index": "27"
+            },
+            "87": {
+              "label_ast": "AST",
+              "label_index": "28"
+            },
+            "88": {
+              "label_ast": "AST",
+              "label_index": "29"
+            },
+            "89": {
+              "label_ast": "AST",
+              "label_index": "30"
+            },
+            "90": {
+              "label_ast": "AST",
+              "label_index": "31"
+            },
+            "91": {
+              "label_ast": "AST",
+              "label_index": "32"
+            }
+          },
+          "6": {
+            "7": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "8": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "9": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "9": {
+            "10": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "11": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "212": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "93": {
+            "108": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "109": {
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always"
+            },
+            "94": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "95": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "95": {
+            "96": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "98": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "96": {
+            "97": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "98": {
+            "100": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "99": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          }
+        },
+        "nodes": {
+          "1": {
+            "label_c": 1,
+            "label_l": 1,
+            "label_type": "compilation_unit"
+          },
+          "10": {
+            "label_c": 13,
+            "label_l": 2,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "100": {
+            "label_c": 17,
+            "label_l": 8,
+            "label_type": "equals_value_clause"
+          },
+          "101": {
+            "label_c": 17,
+            "label_l": 8,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "102": {
+            "label_c": 19,
+            "label_field_arguments": "105",
+            "label_field_type": "104",
+            "label_l": 8,
+            "label_type": "object_creation_expression"
+          },
+          "103": {
+            "label_c": 19,
+            "label_l": 8,
+            "label_text": "new",
+            "label_type": "new"
+          },
+          "104": {
+            "label_c": 23,
+            "label_l": 8,
+            "label_text": "AesCryptoServiceProvider",
+            "label_type": "identifier"
+          },
+          "105": {
+            "label_c": 47,
+            "label_l": 8,
+            "label_type": "argument_list"
+          },
+          "106": {
+            "label_c": 47,
+            "label_l": 8,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "107": {
+            "label_c": 48,
+            "label_l": 8,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "108": {
+            "label_c": 49,
+            "label_l": 8,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "109": {
+            "label_c": 3,
+            "label_l": 9,
+            "label_type": "local_declaration_statement"
+          },
+          "11": {
+            "label_c": 5,
+            "label_field_body": "38",
+            "label_field_name": "15",
+            "label_field_parameters": "16",
+            "label_field_type": "14",
+            "label_l": 4,
+            "label_type": "method_declaration"
+          },
+          "110": {
+            "label_c": 3,
+            "label_field_type": "111",
+            "label_l": 9,
+            "label_type": "variable_declaration"
+          },
+          "111": {
+            "label_c": 3,
+            "label_l": 9,
+            "label_type": "implicit_type"
+          },
+          "112": {
+            "label_c": 3,
+            "label_l": 9,
+            "label_text": "var",
+            "label_type": "var"
+          },
+          "113": {
+            "label_c": 7,
+            "label_l": 9,
+            "label_type": "variable_declarator"
+          },
+          "114": {
+            "label_c": 7,
+            "label_l": 9,
+            "label_text": "encryptor",
+            "label_type": "identifier"
+          },
+          "115": {
+            "label_c": 17,
+            "label_l": 9,
+            "label_type": "equals_value_clause"
+          },
+          "116": {
+            "label_c": 17,
+            "label_l": 9,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "117": {
+            "label_c": 19,
+            "label_field_arguments": "122",
+            "label_field_function": "118",
+            "label_l": 9,
+            "label_sink_type": "F052",
+            "label_type": "invocation_expression"
+          },
+          "118": {
+            "label_c": 19,
+            "label_field_expression": "119",
+            "label_field_name": "121",
+            "label_l": 9,
+            "label_type": "member_access_expression"
+          },
+          "119": {
+            "label_c": 19,
+            "label_l": 9,
+            "label_text": "aes",
+            "label_type": "identifier"
+          },
+          "12": {
+            "label_c": 5,
+            "label_l": 4,
+            "label_type": "modifier"
+          },
+          "120": {
+            "label_c": 22,
+            "label_l": 9,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "121": {
+            "label_c": 23,
+            "label_l": 9,
+            "label_text": "CreateEncryptor",
+            "label_type": "identifier"
+          },
+          "122": {
+            "label_c": 38,
+            "label_l": 9,
+            "label_type": "argument_list"
+          },
+          "123": {
+            "label_c": 38,
+            "label_l": 9,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "124": {
+            "label_c": 39,
+            "label_l": 9,
+            "label_type": "argument"
+          },
+          "125": {
+            "label_c": 39,
+            "label_l": 9,
+            "label_text": "key",
+            "label_type": "identifier"
+          },
+          "126": {
+            "label_c": 42,
+            "label_l": 9,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "127": {
+            "label_c": 44,
+            "label_l": 9,
+            "label_type": "argument"
+          },
+          "128": {
+            "label_c": 44,
+            "label_l": 9,
+            "label_text": "initializationVector",
+            "label_type": "identifier"
+          },
+          "129": {
+            "label_c": 64,
+            "label_l": 9,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "13": {
+            "label_c": 5,
+            "label_l": 4,
+            "label_text": "public",
+            "label_type": "public"
+          },
+          "130": {
+            "label_c": 65,
+            "label_l": 9,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "131": {
+            "label_c": 3,
+            "label_l": 11,
+            "label_type": "local_declaration_statement"
+          },
+          "132": {
+            "label_c": 3,
+            "label_l": 11,
+            "label_text": "using",
+            "label_type": "using"
+          },
+          "133": {
+            "label_c": 9,
+            "label_field_type": "134",
+            "label_l": 11,
+            "label_type": "variable_declaration"
+          },
+          "134": {
+            "label_c": 9,
+            "label_l": 11,
+            "label_type": "implicit_type"
+          },
+          "135": {
+            "label_c": 9,
+            "label_l": 11,
+            "label_text": "var",
+            "label_type": "var"
+          },
+          "136": {
+            "label_c": 13,
+            "label_l": 11,
+            "label_type": "variable_declarator"
+          },
+          "137": {
+            "label_c": 13,
+            "label_l": 11,
+            "label_text": "aes2",
+            "label_type": "identifier"
+          },
+          "138": {
+            "label_c": 18,
+            "label_l": 11,
+            "label_type": "equals_value_clause"
+          },
+          "139": {
+            "label_c": 18,
+            "label_l": 11,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "14": {
+            "label_c": 12,
+            "label_l": 4,
+            "label_text": "void",
+            "label_type": "void_keyword"
+          },
+          "140": {
+            "label_c": 20,
+            "label_field_arguments": "143",
+            "label_field_type": "142",
+            "label_l": 11,
+            "label_type": "object_creation_expression"
+          },
+          "141": {
+            "label_c": 20,
+            "label_l": 11,
+            "label_text": "new",
+            "label_type": "new"
+          },
+          "142": {
+            "label_c": 24,
+            "label_l": 11,
+            "label_text": "AesCryptoServiceProvider",
+            "label_type": "identifier"
+          },
+          "143": {
+            "label_c": 48,
+            "label_l": 11,
+            "label_type": "argument_list"
+          },
+          "144": {
+            "label_c": 48,
+            "label_l": 11,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "145": {
+            "label_c": 49,
+            "label_l": 11,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "146": {
+            "label_c": 50,
+            "label_l": 11,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "147": {
+            "label_c": 6,
+            "label_l": 12,
+            "label_type": "local_declaration_statement"
+          },
+          "148": {
+            "label_c": 6,
+            "label_field_type": "149",
+            "label_l": 12,
+            "label_type": "variable_declaration"
+          },
+          "149": {
+            "label_c": 6,
+            "label_l": 12,
+            "label_type": "implicit_type"
+          },
+          "15": {
+            "label_c": 17,
+            "label_l": 4,
+            "label_text": "Encrypt",
+            "label_type": "identifier"
+          },
+          "150": {
+            "label_c": 6,
+            "label_l": 12,
+            "label_text": "var",
+            "label_type": "var"
+          },
+          "151": {
+            "label_c": 10,
+            "label_l": 12,
+            "label_type": "variable_declarator"
+          },
+          "152": {
+            "label_c": 10,
+            "label_l": 12,
+            "label_text": "encryptor",
+            "label_type": "identifier"
+          },
+          "153": {
+            "label_c": 20,
+            "label_l": 12,
+            "label_type": "equals_value_clause"
+          },
+          "154": {
+            "label_c": 20,
+            "label_l": 12,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "155": {
+            "label_c": 22,
+            "label_field_arguments": "160",
+            "label_field_function": "156",
+            "label_l": 12,
+            "label_sink_type": "F052",
+            "label_type": "invocation_expression"
+          },
+          "156": {
+            "label_c": 22,
+            "label_field_expression": "157",
+            "label_field_name": "159",
+            "label_l": 12,
+            "label_type": "member_access_expression"
+          },
+          "157": {
+            "label_c": 22,
+            "label_l": 12,
+            "label_text": "aes2",
+            "label_type": "identifier"
+          },
+          "158": {
+            "label_c": 26,
+            "label_l": 12,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "159": {
+            "label_c": 27,
+            "label_l": 12,
+            "label_text": "CreateEncryptor",
+            "label_type": "identifier"
+          },
+          "16": {
+            "label_c": 24,
+            "label_l": 4,
+            "label_type": "parameter_list"
+          },
+          "160": {
+            "label_c": 42,
+            "label_l": 12,
+            "label_type": "argument_list"
+          },
+          "161": {
+            "label_c": 42,
+            "label_l": 12,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "162": {
+            "label_c": 43,
+            "label_l": 12,
+            "label_type": "argument"
+          },
+          "163": {
+            "label_c": 43,
+            "label_l": 12,
+            "label_text": "key",
+            "label_type": "identifier"
+          },
+          "164": {
+            "label_c": 46,
+            "label_l": 12,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "165": {
+            "label_c": 48,
+            "label_l": 12,
+            "label_type": "argument"
+          },
+          "166": {
+            "label_c": 48,
+            "label_field_expression": "167",
+            "label_field_name": "169",
+            "label_l": 12,
+            "label_type": "member_access_expression"
+          },
+          "167": {
+            "label_c": 48,
+            "label_l": 12,
+            "label_text": "aes2",
+            "label_type": "identifier"
+          },
+          "168": {
+            "label_c": 52,
+            "label_l": 12,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "169": {
+            "label_c": 53,
+            "label_l": 12,
+            "label_text": "IV",
+            "label_type": "identifier"
+          },
+          "17": {
+            "label_c": 24,
+            "label_l": 4,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "170": {
+            "label_c": 55,
+            "label_l": 12,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "171": {
+            "label_c": 56,
+            "label_l": 12,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "172": {
+            "label_c": 3,
+            "label_l": 14,
+            "label_type": "local_declaration_statement"
+          },
+          "173": {
+            "label_c": 3,
+            "label_l": 14,
+            "label_text": "using",
+            "label_type": "using"
+          },
+          "174": {
+            "label_c": 9,
+            "label_field_type": "175",
+            "label_l": 14,
+            "label_type": "variable_declaration"
+          },
+          "175": {
+            "label_c": 9,
+            "label_l": 14,
+            "label_type": "implicit_type"
+          },
+          "176": {
+            "label_c": 9,
+            "label_l": 14,
+            "label_text": "var",
+            "label_type": "var"
+          },
+          "177": {
+            "label_c": 13,
+            "label_l": 14,
+            "label_type": "variable_declarator"
+          },
+          "178": {
+            "label_c": 13,
+            "label_l": 14,
+            "label_text": "cryptoStream",
+            "label_type": "identifier"
+          },
+          "179": {
+            "label_c": 26,
+            "label_l": 14,
+            "label_type": "equals_value_clause"
+          },
+          "18": {
+            "label_c": 25,
+            "label_field_name": "24",
+            "label_field_type": "19",
+            "label_l": 4,
+            "label_type": "parameter"
+          },
+          "180": {
+            "label_c": 26,
+            "label_l": 14,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "181": {
+            "label_c": 28,
+            "label_field_arguments": "184",
+            "label_field_type": "183",
+            "label_l": 14,
+            "label_type": "object_creation_expression"
+          },
+          "182": {
+            "label_c": 28,
+            "label_l": 14,
+            "label_text": "new",
+            "label_type": "new"
+          },
+          "183": {
+            "label_c": 32,
+            "label_l": 14,
+            "label_text": "CryptoStream",
+            "label_type": "identifier"
+          },
+          "184": {
+            "label_c": 44,
+            "label_l": 14,
+            "label_type": "argument_list"
+          },
+          "185": {
+            "label_c": 44,
+            "label_l": 14,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "186": {
+            "label_c": 45,
+            "label_l": 14,
+            "label_type": "argument"
+          },
+          "187": {
+            "label_c": 45,
+            "label_l": 14,
+            "label_text": "target",
+            "label_type": "identifier"
+          },
+          "188": {
+            "label_c": 51,
+            "label_l": 14,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "189": {
+            "label_c": 53,
+            "label_l": 14,
+            "label_type": "argument"
+          },
+          "19": {
+            "label_c": 25,
+            "label_field_rank": "21",
+            "label_field_type": "20",
+            "label_l": 4,
+            "label_type": "array_type"
+          },
+          "190": {
+            "label_c": 53,
+            "label_l": 14,
+            "label_text": "encryptor",
+            "label_type": "identifier"
+          },
+          "191": {
+            "label_c": 62,
+            "label_l": 14,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "192": {
+            "label_c": 64,
+            "label_l": 14,
+            "label_type": "argument"
+          },
+          "193": {
+            "label_c": 64,
+            "label_field_expression": "194",
+            "label_field_name": "196",
+            "label_l": 14,
+            "label_type": "member_access_expression"
+          },
+          "194": {
+            "label_c": 64,
+            "label_l": 14,
+            "label_text": "CryptoStreamMode",
+            "label_type": "identifier"
+          },
+          "195": {
+            "label_c": 80,
+            "label_l": 14,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "196": {
+            "label_c": 81,
+            "label_l": 14,
+            "label_text": "Write",
+            "label_type": "identifier"
+          },
+          "197": {
+            "label_c": 86,
+            "label_l": 14,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "198": {
+            "label_c": 87,
+            "label_l": 14,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "199": {
+            "label_c": 3,
+            "label_l": 15,
+            "label_type": "expression_statement"
+          },
+          "2": {
+            "label_c": 1,
+            "label_l": 1,
+            "label_type": "using_directive"
+          },
+          "20": {
+            "label_c": 25,
+            "label_l": 4,
+            "label_text": "byte",
+            "label_type": "predefined_type"
+          },
+          "200": {
+            "label_c": 3,
+            "label_field_arguments": "205",
+            "label_field_function": "201",
+            "label_l": 15,
+            "label_sink_type": "F008",
+            "label_type": "invocation_expression"
+          },
+          "201": {
+            "label_c": 3,
+            "label_field_expression": "202",
+            "label_field_name": "204",
+            "label_l": 15,
+            "label_type": "member_access_expression"
+          },
+          "202": {
+            "label_c": 3,
+            "label_l": 15,
+            "label_text": "cryptoStream",
+            "label_type": "identifier"
+          },
+          "203": {
+            "label_c": 15,
+            "label_l": 15,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "204": {
+            "label_c": 16,
+            "label_l": 15,
+            "label_text": "Write",
+            "label_type": "identifier"
+          },
+          "205": {
+            "label_c": 21,
+            "label_l": 15,
+            "label_type": "argument_list"
+          },
+          "206": {
+            "label_c": 21,
+            "label_l": 15,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "207": {
+            "label_c": 22,
+            "label_l": 15,
+            "label_type": "argument"
+          },
+          "208": {
+            "label_c": 22,
+            "label_l": 15,
+            "label_text": "data",
+            "label_type": "identifier"
+          },
+          "209": {
+            "label_c": 26,
+            "label_l": 15,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "21": {
+            "label_c": 29,
+            "label_l": 4,
+            "label_type": "array_rank_specifier"
+          },
+          "210": {
+            "label_c": 27,
+            "label_l": 15,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "211": {
+            "label_c": 2,
+            "label_l": 16,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "212": {
+            "label_c": 1,
+            "label_l": 17,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "22": {
+            "label_c": 29,
+            "label_l": 4,
+            "label_text": "[",
+            "label_type": "["
+          },
+          "23": {
+            "label_c": 30,
+            "label_l": 4,
+            "label_text": "]",
+            "label_type": "]"
+          },
+          "24": {
+            "label_c": 32,
+            "label_l": 4,
+            "label_text": "key",
+            "label_type": "identifier"
+          },
+          "25": {
+            "label_c": 35,
+            "label_l": 4,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "26": {
+            "label_c": 37,
+            "label_field_name": "32",
+            "label_field_type": "27",
+            "label_l": 4,
+            "label_type": "parameter"
+          },
+          "27": {
+            "label_c": 37,
+            "label_field_rank": "29",
+            "label_field_type": "28",
+            "label_l": 4,
+            "label_type": "array_type"
+          },
+          "28": {
+            "label_c": 37,
+            "label_l": 4,
+            "label_text": "byte",
+            "label_type": "predefined_type"
+          },
+          "29": {
+            "label_c": 41,
+            "label_l": 4,
+            "label_type": "array_rank_specifier"
+          },
+          "3": {
+            "label_c": 1,
+            "label_l": 1,
+            "label_text": "using",
+            "label_type": "using"
+          },
+          "30": {
+            "label_c": 41,
+            "label_l": 4,
+            "label_text": "[",
+            "label_type": "["
+          },
+          "31": {
+            "label_c": 42,
+            "label_l": 4,
+            "label_text": "]",
+            "label_type": "]"
+          },
+          "32": {
+            "label_c": 44,
+            "label_l": 4,
+            "label_text": "data",
+            "label_type": "identifier"
+          },
+          "33": {
+            "label_c": 48,
+            "label_l": 4,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "34": {
+            "label_c": 50,
+            "label_field_name": "36",
+            "label_field_type": "35",
+            "label_l": 4,
+            "label_type": "parameter"
+          },
+          "35": {
+            "label_c": 50,
+            "label_l": 4,
+            "label_text": "MemoryStream",
+            "label_type": "identifier"
+          },
+          "36": {
+            "label_c": 63,
+            "label_l": 4,
+            "label_text": "target",
+            "label_type": "identifier"
+          },
+          "37": {
+            "label_c": 69,
+            "label_l": 4,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "38": {
+            "label_c": 2,
+            "label_l": 5,
+            "label_type": "block"
+          },
+          "39": {
+            "label_c": 2,
+            "label_l": 5,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "4": {
+            "label_c": 7,
+            "label_l": 1,
+            "label_text": "System",
+            "label_type": "identifier"
+          },
+          "40": {
+            "label_c": 6,
+            "label_l": 6,
+            "label_type": "local_declaration_statement"
+          },
+          "41": {
+            "label_c": 6,
+            "label_field_type": "42",
+            "label_l": 6,
+            "label_type": "variable_declaration"
+          },
+          "42": {
+            "label_c": 6,
+            "label_field_rank": "44",
+            "label_field_type": "43",
+            "label_l": 6,
+            "label_type": "array_type"
+          },
+          "43": {
+            "label_c": 6,
+            "label_l": 6,
+            "label_text": "byte",
+            "label_type": "predefined_type"
+          },
+          "44": {
+            "label_c": 10,
+            "label_l": 6,
+            "label_type": "array_rank_specifier"
+          },
+          "45": {
+            "label_c": 10,
+            "label_l": 6,
+            "label_text": "[",
+            "label_type": "["
+          },
+          "46": {
+            "label_c": 11,
+            "label_l": 6,
+            "label_text": "]",
+            "label_type": "]"
+          },
+          "47": {
+            "label_c": 13,
+            "label_l": 6,
+            "label_type": "variable_declarator"
+          },
+          "48": {
+            "label_c": 13,
+            "label_l": 6,
+            "label_text": "initializationVector",
+            "label_type": "identifier"
+          },
+          "49": {
+            "label_c": 34,
+            "label_l": 6,
+            "label_type": "equals_value_clause"
+          },
+          "5": {
+            "label_c": 13,
+            "label_l": 1,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "50": {
+            "label_c": 34,
+            "label_l": 6,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "51": {
+            "label_c": 36,
+            "label_input_type": "F052",
+            "label_l": 6,
+            "label_type": "array_creation_expression"
+          },
+          "52": {
+            "label_c": 36,
+            "label_l": 6,
+            "label_text": "new",
+            "label_type": "new"
+          },
+          "53": {
+            "label_c": 40,
+            "label_field_rank": "55",
+            "label_field_type": "54",
+            "label_l": 6,
+            "label_type": "array_type"
+          },
+          "54": {
+            "label_c": 40,
+            "label_l": 6,
+            "label_text": "byte",
+            "label_type": "predefined_type"
+          },
+          "55": {
+            "label_c": 44,
+            "label_l": 6,
+            "label_type": "array_rank_specifier"
+          },
+          "56": {
+            "label_c": 44,
+            "label_l": 6,
+            "label_text": "[",
+            "label_type": "["
+          },
+          "57": {
+            "label_c": 45,
+            "label_l": 6,
+            "label_text": "]",
+            "label_type": "]"
+          },
+          "58": {
+            "label_c": 47,
+            "label_l": 6,
+            "label_type": "initializer_expression"
+          },
+          "59": {
+            "label_c": 47,
+            "label_l": 6,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "6": {
+            "label_c": 1,
+            "label_field_body": "9",
+            "label_field_name": "8",
+            "label_l": 2,
+            "label_type": "class_declaration"
+          },
+          "60": {
+            "label_c": 49,
+            "label_l": 6,
+            "label_text": "1",
+            "label_type": "integer_literal"
+          },
+          "61": {
+            "label_c": 50,
+            "label_l": 6,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "62": {
+            "label_c": 52,
+            "label_l": 6,
+            "label_text": "2",
+            "label_type": "integer_literal"
+          },
+          "63": {
+            "label_c": 53,
+            "label_l": 6,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "64": {
+            "label_c": 55,
+            "label_l": 6,
+            "label_text": "3",
+            "label_type": "integer_literal"
+          },
+          "65": {
+            "label_c": 56,
+            "label_l": 6,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "66": {
+            "label_c": 58,
+            "label_l": 6,
+            "label_text": "4",
+            "label_type": "integer_literal"
+          },
+          "67": {
+            "label_c": 59,
+            "label_l": 6,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "68": {
+            "label_c": 61,
+            "label_l": 6,
+            "label_text": "5",
+            "label_type": "integer_literal"
+          },
+          "69": {
+            "label_c": 62,
+            "label_l": 6,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "7": {
+            "label_c": 1,
+            "label_l": 2,
+            "label_text": "class",
+            "label_type": "class"
+          },
+          "70": {
+            "label_c": 64,
+            "label_l": 6,
+            "label_text": "6",
+            "label_type": "integer_literal"
+          },
+          "71": {
+            "label_c": 65,
+            "label_l": 6,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "72": {
+            "label_c": 67,
+            "label_l": 6,
+            "label_text": "7",
+            "label_type": "integer_literal"
+          },
+          "73": {
+            "label_c": 68,
+            "label_l": 6,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "74": {
+            "label_c": 70,
+            "label_l": 6,
+            "label_text": "8",
+            "label_type": "integer_literal"
+          },
+          "75": {
+            "label_c": 71,
+            "label_l": 6,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "76": {
+            "label_c": 73,
+            "label_l": 6,
+            "label_text": "9",
+            "label_type": "integer_literal"
+          },
+          "77": {
+            "label_c": 74,
+            "label_l": 6,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "78": {
+            "label_c": 76,
+            "label_l": 6,
+            "label_text": "10",
+            "label_type": "integer_literal"
+          },
+          "79": {
+            "label_c": 78,
+            "label_l": 6,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "8": {
+            "label_c": 7,
+            "label_l": 2,
+            "label_text": "cipher",
+            "label_type": "identifier"
+          },
+          "80": {
+            "label_c": 80,
+            "label_l": 6,
+            "label_text": "11",
+            "label_type": "integer_literal"
+          },
+          "81": {
+            "label_c": 82,
+            "label_l": 6,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "82": {
+            "label_c": 84,
+            "label_l": 6,
+            "label_text": "12",
+            "label_type": "integer_literal"
+          },
+          "83": {
+            "label_c": 86,
+            "label_l": 6,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "84": {
+            "label_c": 88,
+            "label_l": 6,
+            "label_text": "13",
+            "label_type": "integer_literal"
+          },
+          "85": {
+            "label_c": 90,
+            "label_l": 6,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "86": {
+            "label_c": 92,
+            "label_l": 6,
+            "label_text": "14",
+            "label_type": "integer_literal"
+          },
+          "87": {
+            "label_c": 94,
+            "label_l": 6,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "88": {
+            "label_c": 96,
+            "label_l": 6,
+            "label_text": "15",
+            "label_type": "integer_literal"
+          },
+          "89": {
+            "label_c": 98,
+            "label_l": 6,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "9": {
+            "label_c": 13,
+            "label_l": 2,
+            "label_type": "declaration_list"
+          },
+          "90": {
+            "label_c": 100,
+            "label_l": 6,
+            "label_text": "16",
+            "label_type": "integer_literal"
+          },
+          "91": {
+            "label_c": 103,
+            "label_l": 6,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "92": {
+            "label_c": 104,
+            "label_l": 6,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "93": {
+            "label_c": 3,
+            "label_l": 8,
+            "label_type": "local_declaration_statement"
+          },
+          "94": {
+            "label_c": 3,
+            "label_l": 8,
+            "label_text": "using",
+            "label_type": "using"
+          },
+          "95": {
+            "label_c": 9,
+            "label_field_type": "96",
+            "label_l": 8,
+            "label_type": "variable_declaration"
+          },
+          "96": {
+            "label_c": 9,
+            "label_l": 8,
+            "label_type": "implicit_type"
+          },
+          "97": {
+            "label_c": 9,
+            "label_l": 8,
+            "label_text": "var",
+            "label_type": "var"
+          },
+          "98": {
+            "label_c": 13,
+            "label_l": 8,
+            "label_type": "variable_declarator"
+          },
+          "99": {
+            "label_c": 13,
+            "label_l": 8,
+            "label_text": "aes",
+            "label_type": "identifier"
+          }
+        }
+      },
+      "metadata": {
+        "c_sharp": {
+          "classes": {
+            ".cipher": {
+              "attributes": [],
+              "fields": {},
+              "inherit": null,
+              "methods": {
+                ".Encrypt": {
+                  "attributes": [],
+                  "class_name": ".cipher",
+                  "n_id": "11",
+                  "name": "Encrypt",
+                  "parameters": {
+                    "data": {
+                      "attributes": [],
+                      "n_id": "26",
+                      "name": "data",
+                      "type_name": null
+                    },
+                    "key": {
+                      "attributes": [],
+                      "n_id": "18",
+                      "name": "key",
+                      "type_name": null
+                    },
+                    "target": {
+                      "attributes": [],
+                      "n_id": "34",
+                      "name": "target",
+                      "type_name": "MemoryStream"
+                    }
+                  },
+                  "return_type": "void",
+                  "static": false
+                }
+              },
+              "n_id": "6"
+            }
+          },
+          "package": ""
+        },
+        "go": {
+          "imports": [],
+          "package": "",
+          "sink_functions": {}
+        },
+        "java": {
+          "classes": {},
+          "package": ""
+        },
+        "language": "c_sharp"
+      },
+      "path": "skims/test/data/benchmark/nist/block_chaining_insecure.cs",
+      "syntax": {
+        "109": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "119",
+              "value": null
+            },
+            "symbol": "aes",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "125",
+              "value": null
+            },
+            "symbol": "key",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "128",
+              "value": null
+            },
+            "symbol": "initializationVector",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "117",
+              "value": null
+            },
+            "method": "CreateEncryptor",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "is_destructuring": false,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "110",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "encryptor",
+            "var_type": "implicit_type"
+          }
+        ],
+        "11": [
+          {
+            "is_destructuring": false,
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "18",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "key",
+            "var_type": "byte"
+          },
+          {
+            "is_destructuring": false,
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "26",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "data",
+            "var_type": "byte"
+          },
+          {
+            "is_destructuring": false,
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "34",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "target",
+            "var_type": "MemoryStream"
+          }
+        ],
+        "131": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "140",
+              "value": null
+            },
+            "object_type": "AesCryptoServiceProvider",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "is_destructuring": false,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "133",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "aes2",
+            "var_type": "implicit_type"
+          }
+        ],
+        "147": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "157",
+              "value": null
+            },
+            "symbol": "aes2",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "163",
+              "value": null
+            },
+            "symbol": "key",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "167",
+              "value": null
+            },
+            "symbol": "aes2",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "member": "IV",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "166",
+              "value": null
+            },
+            "type": "SyntaxStepMemberAccessExpression"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "155",
+              "value": null
+            },
+            "method": "CreateEncryptor",
+            "type": "SyntaxStepMethodInvocationChain"
+          },
+          {
+            "is_destructuring": false,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "148",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "encryptor",
+            "var_type": "implicit_type"
+          }
+        ],
+        "172": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "187",
+              "value": null
+            },
+            "symbol": "target",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "190",
+              "value": null
+            },
+            "symbol": "encryptor",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "194",
+              "value": null
+            },
+            "symbol": "CryptoStreamMode",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "member": "Write",
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "193",
+              "value": null
+            },
+            "type": "SyntaxStepMemberAccessExpression"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": -3,
+              "n_id": "181",
+              "value": null
+            },
+            "object_type": "CryptoStream",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "is_destructuring": false,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "174",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "cryptoStream",
+            "var_type": "implicit_type"
+          }
+        ],
+        "199": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "199",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "200": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "202",
+              "value": null
+            },
+            "symbol": "cryptoStream",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "208",
+              "value": null
+            },
+            "symbol": "data",
+            "type": "SyntaxStepSymbolLookup"
+          },
+          {
+            "current_instance": null,
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "200",
+              "value": null
+            },
+            "method": "Write",
+            "type": "SyntaxStepMethodInvocationChain"
+          }
+        ],
+        "38": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "38",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "40": [
+          {
+            "array_type": "byte",
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "51",
+              "value": null
+            },
+            "type": "SyntaxStepArrayInstantiation"
+          },
+          {
+            "is_destructuring": false,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "41",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "initializationVector",
+            "var_type": "array_type"
+          }
+        ],
+        "93": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "102",
+              "value": null
+            },
+            "object_type": "AesCryptoServiceProvider",
+            "type": "SyntaxStepObjectInstantiation"
+          },
+          {
+            "is_destructuring": false,
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "95",
+              "value": null
+            },
+            "modifiers": null,
+            "type": "SyntaxStepDeclaration",
+            "var": "aes",
+            "var_type": "implicit_type"
+          }
+        ]
+      }
     }
   ],
   "shards_by_language_class": {
@@ -27876,6 +30572,7 @@
       ".CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01": "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs",
       ".HouseController": "skims/test/data/benchmark/nist/HouseController.cs",
       ".StudentController": "skims/test/data/benchmark/nist/StudentController.cs",
+      ".cipher": "skims/test/data/benchmark/nist/block_chaining_insecure.cs",
       "SampleWebApi.Controllers.HouseController": "skims/test/data/benchmark/nist/HouseController.cs",
       "testcases.CWE89_SQL_Injection.CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01": "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs"
     },
@@ -27884,6 +30581,7 @@
   "shards_by_path": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": 0,
     "skims/test/data/benchmark/nist/HouseController.cs": 1,
-    "skims/test/data/benchmark/nist/StudentController.cs": 2
+    "skims/test/data/benchmark/nist/StudentController.cs": 2,
+    "skims/test/data/benchmark/nist/block_chaining_insecure.cs": 3
   }
 }

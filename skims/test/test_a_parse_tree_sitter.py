@@ -66,6 +66,7 @@ from utils.encodings import (
                 ),
                 "skims/test/data/benchmark/nist/StudentController.cs",
                 "skims/test/data/benchmark/nist/HouseController.cs",
+                "skims/test/data/benchmark/nist/block_chaining_insecure.cs",
             ),
             "nist",
         ),
