@@ -185,10 +185,10 @@
   },
   "F057": {
     "EN": {
-      "title": "057. Excessive privileges - Temporary Files"
+      "title": "057. Asymmetric denial of service - Content length"
     },
     "ES": {
-      "title": "057. Excessive privileges - Temporary Files"
+      "title": "057. Asymmetric denial of service - Content length"
     }
   },
   "F058": {
@@ -413,6 +413,14 @@
     },
     "ES": {
       "title": "133. Insecure encryption algorithm - Perfect Forward Secrecy"
+    }
+  },
+  "F320": {
+    "EN": {
+      "title": "320. Insecure service configuration - LDAP"
+    },
+    "ES": {
+      "title": "320. Insecure service configuration - LDAP"
     }
   },
   "F366": {

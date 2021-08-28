@@ -5175,7 +5175,7 @@ F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.jar,1,377,skims,117. Un
   15 | �MyJar.classPK��
      ^ Col 0
 "
-F057,lines,namespace/skims/test/data/lib_path/f031_cwe378/test.cs,10,378,skims,057. Excessive privileges - Temporary Files,Use of C# Path.GetTempFileName in skims/test/data/lib_path/f031_cwe378/test.cs,"
+F057,lines,namespace/skims/test/data/lib_path/f031_cwe378/test.cs,10,378,skims,057. Asymmetric denial of service - Content length,Use of C# Path.GetTempFileName in skims/test/data/lib_path/f031_cwe378/test.cs,"
    1 | using System;
    2 | using System.IO;
    3 |
@@ -5197,7 +5197,7 @@ F057,lines,namespace/skims/test/data/lib_path/f031_cwe378/test.cs,10,378,skims,0
   19 | }
      ^ Col 0
 "
-F057,lines,namespace/skims/test/data/lib_path/f031_cwe378/Test.java,6,378,skims,057. Excessive privileges - Temporary Files,Use of Java File.createTempFile in skims/test/data/lib_path/f031_cwe378/Test.java,"
+F057,lines,namespace/skims/test/data/lib_path/f031_cwe378/Test.java,6,378,skims,057. Asymmetric denial of service - Content length,Use of Java File.createTempFile in skims/test/data/lib_path/f031_cwe378/Test.java,"
    1 | import java.io.File;
    2 |
    3 | public class Test {
