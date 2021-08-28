@@ -3303,51 +3303,25 @@
       details: __empty__
 "057":
   en:
-    title: Excessive privileges - Temporary Files
+    title: Asymmetric denial of service - Content length
     description: >
-      Opening temporary files
-      without appropriate measures
-      or controls can leave the file,
-      its contents and any function
-      that consumes it vulnerable
-      to attack.
+      __empty__
     impact: >
-      - Get access to the created
-      temporary files.
-
-      - Tamper data contained
-      in the created temporary files.
+      __empty__
     recommendation: >
-      Create the temporary files
-      in a different directory
-      than the default
-      provided by the Operative system
-      and ensure it has 0600 permission mask.
+      __empty__
     threat: >
-      Anonymous attacker
-      with local access to the server.
+      __empty__
   es:
-    title: Excessive privileges - Temporary Files
+    title: Asymmetric denial of service - Content length
     description: >
-      Abrir archivos temporales
-      sin las medidas o controles adecuados
-      puede dejar el archivo, su contenido
-      y cualquier función que lo consuma
-      vulnerable a ataques.
+      __empty__
     impact: >
-      - Obtener acceso
-      a los archivos temporales creados.
-
-      - Manipular los datos contenidos
-      en los archivos temporales.
+      __empty__
     recommendation: >
-      Crear los archivos temporales
-      en un directorio diferente al provisto
-      por defecto en el sistema operativo
-      y asegurar que estos tienen una máscara
-      de permisos 0600.
+      __empty__
     threat: >
-      Atacante anónimo con acceso local al servidor.
+      __empty__
   category: Subvert Access
   score:
     base:
@@ -3363,101 +3337,10 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["095", "096", "186"]
+  requirements: ["266"]
   metadata:
     en:
-      details: |
-        This java method
-        has the following signature:
-
-        ```c
-        public static File createTempFile(
-          // The prefix string defines the files name;
-          // must be at least three characters long
-          String prefix,
-          // The suffix string defines the file's extension;
-          // if null the suffix ".tmp" will be used
-          String suffix,
-          // The directory in which the file is to be created.
-          // For default temporary-file directory null is to passed.
-          File directory,
-        )
-        ```
-
-        The first two arguments
-        do not affect security
-        of the created file.
-
-        In Linux,
-        files and directories
-        are different entities,
-        they have their own permissions
-        and are isolated from other files
-        and directories.
-
-        Protections you apply to the directory
-        do not affect the files inside of it.
-        For example,
-        if I protect the directory
-        I can prevent an attacker
-        from executing the `ls` command,
-        but nothing impedes the attacker
-        from executing `cat directory/file`.
-
-        To prevent access to the file
-        we must protect the file,
-        not the directory.
-
-        Additionally,
-        we make sure that permissions
-        are set atomically.
-        If we do not,
-        the following situation can happen:
-
-        - At moment **A**
-        we `File.createTempFile()` a file.
-        - At moment **B** we add
-        secure permissions to the file.
-
-        After moment **B** the file is secured.
-        However,
-        between moment **A** and moment **B**
-        the file has insecure permissions
-        and an attacker had enough opportunity
-        to get control over it.
-
-        ## Vulnerable implementation
-
-        The `java.io.File.createTempFile` method
-        creates files with write permissions
-        in groups and other:
-
-        ```c {6}
-
-        import java.io.File;
-
-        public class Test {
-          public static void main(String[] args){
-            try {
-              System.out.println(File.createTempFile("xxx", null));
-            }
-            catch (Exception e) {}
-          }
-        }
-
-        /*
-        * $ ls -al $(javac Test.java && java Test)
-        *
-        * -rw-r--r-- 1 fluid fluid 0 Aug 28 14:44 /tmp/xxx948760279845756007.tmp
-        */
-        ```
-
-        ## Secure implementation
-
-        - Use `java.nio.file.Files.createTempFile`.
-        - Use the `attrs` argument
-          (an optional list of file attributes
-          to set atomically when creating the file).
+      details: __empty__
 "058":
   en:
     title: Debugging enabled in production - APK
@@ -8947,44 +8830,162 @@
       details: __empty__
 "160":
   en:
-    title: Excessive privileges - Temporary files
+    title: Excessive privileges - Temporary Files
     description: >
-      __empty__
+      Opening temporary files
+      without appropriate measures
+      or controls can leave the file,
+      its contents and any function
+      that consumes it vulnerable
+      to attack.
     impact: >
-      __empty__
+      - Get access to the created
+      temporary files.
+
+      - Tamper data contained
+      in the created temporary files.
     recommendation: >
-      __empty__
+      Create the temporary files
+      in a different directory
+      than the default
+      provided by the Operative system
+      and ensure it has 0600 permission mask.
     threat: >
-      __empty__
+      Anonymous attacker
+      with local access to the server.
   es:
-    title: Excessive privileges - Temporary files
+    title: Excessive privileges - Temporary Files
     description: >
-      __empty__
+      Abrir archivos temporales
+      sin las medidas o controles adecuados
+      puede dejar el archivo, su contenido
+      y cualquier función que lo consuma
+      vulnerable a ataques.
     impact: >
-      __empty__
+      - Obtener acceso
+      a los archivos temporales creados.
+
+      - Manipular los datos contenidos
+      en los archivos temporales.
     recommendation: >
-      __empty__
+      Crear los archivos temporales
+      en un directorio diferente al provisto
+      por defecto en el sistema operativo
+      y asegurar que estos tienen una máscara
+      de permisos 0600.
     threat: >
-      __empty__
+      Atacante anónimo con acceso local al servidor.
   category: Subvert Access
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
-      user_interaction: "N"
+      attack_vector: "L"
+      attack_complexity: "H"
+      privileges_required: "H"
+      user_interaction: "R"
       scope: "U"
-      confidentiality: "N"
+      confidentiality: "L"
       integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: ["266"]
+      exploit_code_maturity: "P"
+      remediation_level: "U"
+      report_confidence: "C"
+  requirements: ["095", "096", "186"]
   metadata:
     en:
-      details: __empty__
+      details: |
+        This java method
+        has the following signature:
+
+        ```c
+        public static File createTempFile(
+          // The prefix string defines the files name;
+          // must be at least three characters long
+          String prefix,
+          // The suffix string defines the file's extension;
+          // if null the suffix ".tmp" will be used
+          String suffix,
+          // The directory in which the file is to be created.
+          // For default temporary-file directory null is to passed.
+          File directory,
+        )
+        ```
+
+        The first two arguments
+        do not affect security
+        of the created file.
+
+        In Linux,
+        files and directories
+        are different entities,
+        they have their own permissions
+        and are isolated from other files
+        and directories.
+
+        Protections you apply to the directory
+        do not affect the files inside of it.
+        For example,
+        if I protect the directory
+        I can prevent an attacker
+        from executing the `ls` command,
+        but nothing impedes the attacker
+        from executing `cat directory/file`.
+
+        To prevent access to the file
+        we must protect the file,
+        not the directory.
+
+        Additionally,
+        we make sure that permissions
+        are set atomically.
+        If we do not,
+        the following situation can happen:
+
+        - At moment **A**
+        we `File.createTempFile()` a file.
+        - At moment **B** we add
+        secure permissions to the file.
+
+        After moment **B** the file is secured.
+        However,
+        between moment **A** and moment **B**
+        the file has insecure permissions
+        and an attacker had enough opportunity
+        to get control over it.
+
+        ## Vulnerable implementation
+
+        The `java.io.File.createTempFile` method
+        creates files with write permissions
+        in groups and other:
+
+        ```c {6}
+
+        import java.io.File;
+
+        public class Test {
+          public static void main(String[] args){
+            try {
+              System.out.println(File.createTempFile("xxx", null));
+            }
+            catch (Exception e) {}
+          }
+        }
+
+        /*
+        * $ ls -al $(javac Test.java && java Test)
+        *
+        * -rw-r--r-- 1 fluid fluid 0 Aug 28 14:44 /tmp/xxx948760279845756007.tmp
+        */
+        ```
+
+        ## Secure implementation
+
+        - Use `java.nio.file.Files.createTempFile`.
+        - Use the `attrs` argument
+          (an optional list of file attributes
+          to set atomically when creating the file).
+
 "161":
   en:
     title: Missing secure obfuscation
