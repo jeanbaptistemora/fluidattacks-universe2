@@ -73,17 +73,17 @@ type Mutation {
 
   "Reports a blocking event"
   addEvent(
-    "What the analyst did after the event happened"
+    "What the hacker did after the event happened"
     actionAfterBlocking: ActionsAfterBlocking!
-    "What the analyst was doing just before the event happened"
+    "What the hacker was doing just before the event happened"
     actionBeforeBlocking: ActionsBeforeBlocking!
     "Where the event was present"
     accessibility: [EventAccessibility]!
     "Components involved or affected by the event, if applicable"
     affectedComponents: [AffectedComponents]
-    "Amount of time the analyst was blocked by the event, if applicable"
+    "Amount of time the hacker was blocked by the event, if applicable"
     blockingHours: String
-    "Where the analyst physically was when the event happened"
+    "Where the hacker physically was when the event happened"
     context: EventContext!
     "Comment laying out or explaining the event"
     detail: String!
@@ -376,17 +376,17 @@ type Mutation {
 
   "Adds a new blocking Event to the specified Group"
   createEvent(
-    "What the analyst did after the event happened"
+    "What the hacker did after the event happened"
     actionAfterBlocking: ActionsAfterBlocking!
-    "What the analyst was doing just before the event happened"
+    "What the hacker was doing just before the event happened"
     actionBeforeBlocking: ActionsBeforeBlocking!
     "Where the event was present"
     accessibility: [EventAccessibility]!
     "Components involved or affected by the event, if applicable"
     affectedComponents: [AffectedComponents]
-    "Amount of time the analyst was blocked by the event, if applicable"
+    "Amount of time the hacker was blocked by the event, if applicable"
     blockingHours: String
-    "Where the analyst physically was when the event happened"
+    "Where the hacker physically was when the event happened"
     context: EventContext!
     "Comment laying out or explaining the event"
     detail: String!

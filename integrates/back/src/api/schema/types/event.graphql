@@ -14,7 +14,7 @@ type Event {
   closingDate: String
   "Comment/consult array regarding the event"
   consulting: [Consult!]
-  "Where the analyst physically was when the event happened"
+  "Where the hacker physically was when the event happened"
   context: String
   "Comment laying out or explaining the event"
   detail: String

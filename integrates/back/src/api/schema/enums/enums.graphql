@@ -397,6 +397,8 @@ enum StakeholderRole {
   EXECUTIVE
   "System Owner"
   GROUP_MANAGER
+  "Hacker"
+  HACKER
   "Internal Manager"
   INTERNAL_MANAGER
   "Reattacker"
