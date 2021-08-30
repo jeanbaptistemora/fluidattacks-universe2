@@ -21,6 +21,7 @@ export const FormikAutocompleteText: React.FC<IAutocompleteTextProps> = ({
   field,
   focus,
   form,
+  placeholder,
   suggestions,
 }: IAutocompleteTextProps): JSX.Element => {
   const { name, onChange, value } = field;
@@ -48,6 +49,7 @@ export const FormikAutocompleteText: React.FC<IAutocompleteTextProps> = ({
         disabled={disabled}
         name={name}
         onChange={onChange}
+        placeholder={placeholder}
         type={"text"}
         value={value}
       />

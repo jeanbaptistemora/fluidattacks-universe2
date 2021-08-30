@@ -7,21 +7,13 @@ import { useParams } from "react-router-dom";
 import { GitRoots } from "./GitRoots";
 import { IPRoots } from "./IPRoots";
 import { GET_ROOTS } from "./queries";
-import type { IGitRootAttr, IIPRootAttr, IURLRootAttr, Root } from "./types";
+import type { Root } from "./types";
 import { URLRoots } from "./URLRoots";
+import { isGitRoot, isIPRoot, isURLRoot } from "./utils";
 
 import { GroupSettingsView } from "../GroupSettingsView";
 import { Have } from "utils/authz/Have";
 import { Logger } from "utils/logger";
-
-const isGitRoot = (root: Root): root is IGitRootAttr =>
-  root.__typename === "GitRoot";
-
-const isIPRoot = (root: Root): root is IIPRootAttr =>
-  root.__typename === "IPRoot";
-
-const isURLRoot = (root: Root): root is IURLRootAttr =>
-  root.__typename === "URLRoot";
 
 export const GroupScopeView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();

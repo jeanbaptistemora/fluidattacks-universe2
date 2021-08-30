@@ -19,6 +19,7 @@ interface IIPRootAttr {
   __typename: "IPRoot";
   address: string;
   id: string;
+  nickname: string;
   port: number;
 }
 
@@ -26,6 +27,7 @@ interface IURLRootAttr {
   __typename: "URLRoot";
   host: string;
   id: string;
+  nickname: string;
   path: string;
   port: number;
   protocol: "HTTP" | "HTTPS";

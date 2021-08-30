@@ -158,6 +158,14 @@ const DEACTIVATE_ROOT: DocumentNode = gql`
   }
 `;
 
+const MOVE_ROOT: DocumentNode = gql`
+  mutation MoveRoot($groupName: String!, $id: ID!, $targetId: ID!) {
+    moveRoot(groupName: $groupName, id: $id, targetId: $targetId) {
+      success
+    }
+  }
+`;
+
 export {
   ACTIVATE_ROOT,
   ADD_GIT_ROOT,
@@ -165,6 +173,7 @@ export {
   ADD_URL_ROOT,
   DEACTIVATE_ROOT,
   GET_ROOTS,
+  MOVE_ROOT,
   UPDATE_GIT_ENVIRONMENTS,
   UPDATE_GIT_ROOT,
 };

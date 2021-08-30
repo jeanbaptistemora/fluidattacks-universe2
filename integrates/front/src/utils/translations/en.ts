@@ -571,6 +571,8 @@ export const enTranslations: ResourceKey = {
             other: "Other",
             scope: "Out of scope",
           },
+          targetPlaceholder: "Search by nickname or address...",
+          targetRoot: "Target root",
           title: "Deactivate Root",
         },
         edit: "Edit root",
@@ -2435,6 +2437,7 @@ export const enTranslations: ResourceKey = {
       "Groups with any active Fluid Attacks service " +
       "can only have Hackers provided by Fluid Attacks",
     numeric: "This field can only contain numbers",
+    oneOf: "This field must be one of the suggested values",
     requireNickname: "Nickname already exist",
     required: "Required field",
     someRequired: "Select at least one value",
