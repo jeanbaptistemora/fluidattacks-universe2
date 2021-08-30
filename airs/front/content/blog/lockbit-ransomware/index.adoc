@@ -57,7 +57,7 @@ LockBit is launched by attackers through a PowerShell script,
 usually after compromising a network,
 for example,
 by link:../pass-cracking/[brute force] or link:../phishing/[phishing]
-(or because of one of your employees' will).
+(or at one of your employees' own will).
 This malicious software
 disables the security and information recovery programs
 as a preliminary step in an independent way.
@@ -73,7 +73,8 @@ via a custom key created by LockBit's proprietary decryption tool."
 LockBit changes the names of the file extensions
 on the target device
 to ".abcd"
-and in each affected folder creates a text file,
+and creates a text file
+in each affected folder,
 with instructions for the victim,
 called "Restore-My-Files.txt"
 (see Figure 1).
@@ -100,7 +101,8 @@ and even a version in which the Tor browser
 is no longer required.
 
 On the other hand,
-among the improvements of this malware reported later,
+among the improvements to this malware
+that were reported later,
 we can recognize its ability to disable the security prompts
 that users receive when an application tries to run as administrator.
 LockBit now has a configuration
@@ -162,7 +164,7 @@ that the LockBit group was demanding $50M as a ransom
 for a database of approximately 6TB.
 Do they really have all that data,
 and will they reveal it later?
-Or is it just nonsense?
+Or is it just a bluff?
 Has Accenture already made a payment?
 One thing that seems clear for now is that
 the attack's aftermath will be a bad reputation for this organization,
