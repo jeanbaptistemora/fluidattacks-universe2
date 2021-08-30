@@ -1,6 +1,6 @@
 import json
 import multiprocessing.pool
-from retry import (
+from retry import (  # type: ignore
     retry,
 )
 from toolbox import (

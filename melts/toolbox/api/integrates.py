@@ -4,7 +4,7 @@ import aiohttp
 import aiohttp.client_exceptions
 import asyncio
 import contextlib
-from frozendict import (
+from frozendict import (  # type: ignore
     frozendict,
 )
 import functools

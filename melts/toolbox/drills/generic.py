@@ -2,7 +2,7 @@ import boto3
 from datetime import (
     datetime,
 )
-from pytz import (
+from pytz import (  # type: ignore
     UTC,
 )
 from typing import (

@@ -2,6 +2,7 @@ include:
   - local: makes/forces/gitlab-ci.yaml
   - local: makes/integrates/gitlab-ci.yaml
   - local: makes/makes/gitlab-ci.yaml
+  - local: makes/melts/gitlab-ci.yaml
   - local: makes/skims/gitlab-ci.yaml
   - local: makes/sorts/gitlab-ci.yaml
 
