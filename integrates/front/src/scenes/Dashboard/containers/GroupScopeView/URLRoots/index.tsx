@@ -197,6 +197,7 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
           onClose={closeDeactivationModal}
           onUpdate={onUpdate}
           rootId={deactivationModal.rootId}
+          roots={roots}
         />
       ) : undefined}
     </React.Fragment>
