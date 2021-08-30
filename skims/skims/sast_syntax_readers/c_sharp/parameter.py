@@ -15,22 +15,24 @@ from utils import (
 def _get_var_type(args: SyntaxReaderArgs, type_id: str) -> str:
     type_node = args.graph.nodes[type_id]
 
-    if var_type_text := type_node.get("label_text"):
-        return var_type_text
+    if "label_text" in type_node:
+        return type_node["label_text"]
 
-    if array_type := type_node.get("label_field_type"):
-        return args.graph.nodes[array_type]["label_text"]
+    if type_node["label_type"] == "array_type":
+        return args.graph.nodes[type_node["label_field_type"]]["label_text"]
 
     raise MissingCaseHandling(args)
 
 
 def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
-    match = g.match_ast(args.graph, args.n_id, "__0__", "__1__")
-    type_id = match["__0__"]
-    identifier_id = match["__1__"]
-
-    if len(match) != 2 or identifier_id is None:
+    childs = g.adj_ast(args.graph, args.n_id)
+    if len(childs) > 2:
         raise MissingCaseHandling(args)
+
+    node = args.graph.nodes[args.n_id]
+
+    type_id = node.get("label_field_type")
+    identifier_id = node.get("label_field_name")
 
     yield SyntaxStepDeclaration(
         meta=SyntaxStepMeta.default(args.n_id),
