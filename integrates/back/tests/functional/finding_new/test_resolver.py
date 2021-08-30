@@ -160,10 +160,17 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["age"] == age
     assert result["data"]["finding"]["analyst"] == analyst
     assert (
+        result["data"]["finding"]["attackVectorDesc"]
+        == attack_vector_description
+    )
+    assert (
         result["data"]["finding"]["attackVectorDescription"]
         == attack_vector_description
     )
-    assert result["data"]["finding"]["bugTrackingSystemUrl"] == ""
+    assert result["data"]["finding"]["btsUrl"] == ("https://btsurl.test/test")
+    assert result["data"]["finding"]["bugTrackingSystemUrl"] == (
+        "https://btsurl.test/test"
+    )
     assert result["data"]["finding"]["closedVulnerabilities"] == 3
     assert (
         result["data"]["finding"]["compromisedAttributes"]
@@ -190,28 +197,33 @@ async def test_get_finding(populate: bool, email: str) -> None:
         f"group1-{finding_id}"
         in result["data"]["finding"]["evidence"]["animation"]["url"]
     )
+    assert result["data"]["finding"]["groupName"] == group_name
     assert result["data"]["finding"]["historicState"] == historic_state
     assert result["data"]["finding"]["id"] == identifier
+    assert result["data"]["finding"]["inputsVulns"] == inputs_vulnerabilities
     assert (
         result["data"]["finding"]["inputsVulnerabilities"]
         == inputs_vulnerabilities
     )
     assert result["data"]["finding"]["isExploitable"] == is_exploitable
     assert result["data"]["finding"]["lastVulnerability"] == last_vuln
+    assert result["data"]["finding"]["linesVulns"] == lines_vulnerabilities
     assert (
         result["data"]["finding"]["linesVulnerabilities"]
         == lines_vulnerabilities
     )
+    assert result["data"]["finding"]["newRemediated"] == remediated
     assert result["data"]["finding"]["observations"] == [
         {"content": "This is a test observations"}
     ]
     assert result["data"]["finding"]["openAge"] == open_age
     assert result["data"]["finding"]["openVulnerabilities"] == 5
+    assert result["data"]["finding"]["portsVulns"] == ports_vulnerabilities
     assert (
         result["data"]["finding"]["portsVulnerabilities"]
         == ports_vulnerabilities
     )
-    assert result["data"]["finding"]["groupName"] == group_name
+    assert result["data"]["finding"]["projectName"] == group_name
     assert result["data"]["finding"]["recommendation"] == recommendation
     assert result["data"]["finding"]["records"] == "[]"
     assert result["data"]["finding"]["releaseDate"] == release_date
@@ -229,6 +241,8 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["tracking"] == tracking
     assert result["data"]["finding"]["type"] == finding_type
     assert result["data"]["finding"]["verified"] == verified
+    assert result["data"]["finding"]["vulnsToReattack"] == []
+    assert result["data"]["finding"]["vulnerabilitiesToReattack"] == []
     vuln_ids: List[str] = [
         vuln["id"] for vuln in result["data"]["finding"]["vulnerabilities"]
     ]
@@ -359,10 +373,16 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["affectedSystems"] == affected_systems
     assert result["data"]["finding"]["age"] == age
     assert (
+        result["data"]["finding"]["attackVectorDesc"]
+        == attack_vector_description
+    )
+    assert (
         result["data"]["finding"]["attackVectorDescription"]
         == attack_vector_description
     )
-    assert result["data"]["finding"]["bugTrackingSystemUrl"] == ""
+    assert result["data"]["finding"]["bugTrackingSystemUrl"] == (
+        "https://btsurl.test/test"
+    )
     assert result["data"]["finding"]["closedVulnerabilities"] == 3
     assert (
         result["data"]["finding"]["compromisedAttributes"]
@@ -389,13 +409,16 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
         f"group1-{finding_id}"
         in result["data"]["finding"]["evidence"]["animation"]["url"]
     )
+    assert result["data"]["finding"]["groupName"] == group_name
     assert result["data"]["finding"]["id"] == identifier
+    assert result["data"]["finding"]["inputsVulns"] == inputs_vulnerabilities
     assert (
         result["data"]["finding"]["inputsVulnerabilities"]
         == inputs_vulnerabilities
     )
     assert result["data"]["finding"]["isExploitable"] == is_exploitable
     assert result["data"]["finding"]["lastVulnerability"] == last_vuln
+    assert result["data"]["finding"]["linesVulns"] == lines_vulnerabilities
     assert (
         result["data"]["finding"]["linesVulnerabilities"]
         == lines_vulnerabilities
@@ -407,7 +430,7 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
         result["data"]["finding"]["portsVulnerabilities"]
         == ports_vulnerabilities
     )
-    assert result["data"]["finding"]["groupName"] == group_name
+    assert result["data"]["finding"]["projectName"] == group_name
     assert result["data"]["finding"]["recommendation"] == recommendation
     assert result["data"]["finding"]["records"] == "[]"
     assert result["data"]["finding"]["releaseDate"] == release_date
@@ -424,6 +447,8 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["tracking"] == tracking
     assert result["data"]["finding"]["type"] == finding_type
     assert result["data"]["finding"]["verified"] == verified
+    assert result["data"]["finding"]["vulnsToReattack"] == []
+    assert result["data"]["finding"]["vulnerabilitiesToReattack"] == []
     vuln_ids: List[str] = [
         vuln["id"] for vuln in result["data"]["finding"]["vulnerabilities"]
     ]

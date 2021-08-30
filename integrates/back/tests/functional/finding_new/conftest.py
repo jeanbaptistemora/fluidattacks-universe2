@@ -36,6 +36,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         "findings_new": [
             {
                 "finding": Finding(
+                    bug_tracking_system_url="https://btsurl.test/test",
                     id="475041513",
                     group_name="group1",
                     evidences=FindingEvidences(

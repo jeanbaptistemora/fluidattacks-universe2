@@ -24,7 +24,9 @@ async def get_result(
                 affectedSystems
                 age
                 analyst
+                attackVectorDesc
                 attackVectorDescription
+                btsUrl
                 bugTrackingSystemUrl
                 closedVulnerabilities
                 compromisedAttributes
@@ -36,13 +38,20 @@ async def get_result(
                 cvssVersion
                 description
                 evidence
+                groupName
                 historicState
                 id
+                inputsVulns {{
+                    specific
+                }}
                 inputsVulnerabilities {{
                     specific
                 }}
                 isExploitable
                 lastVulnerability
+                linesVulns {{
+                    specific
+                }}
                 linesVulnerabilities {{
                     specific
                 }}
@@ -52,10 +61,13 @@ async def get_result(
                 }}
                 openAge
                 openVulnerabilities
+                portsVulns {{
+                    specific
+                }}
                 portsVulnerabilities {{
                     specific
                 }}
-                groupName
+                projectName
                 recommendation
                 records
                 releaseDate
@@ -74,6 +86,12 @@ async def get_result(
                 type
                 verified
                 vulnerabilities {{
+                    id
+                }}
+                vulnsToReattack {{
+                    id
+                }}
+                vulnerabilitiesToReattack {{
                     id
                 }}
                 zeroRisk {{
