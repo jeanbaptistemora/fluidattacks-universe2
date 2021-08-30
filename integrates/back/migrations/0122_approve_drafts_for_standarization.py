@@ -32,6 +32,13 @@ from aioextensions import (
     run,
 )
 import csv
+from custom_exceptions import (
+    AlreadyApproved,
+    AlreadySubmitted,
+    DraftWithoutVulns,
+    IncompleteDraft,
+    NotSubmitted,
+)
 from custom_types import (
     Finding as FindingType,
 )
@@ -108,10 +115,14 @@ async def process_draft(
             success = await findings_domain.submit_draft(
                 info_context, target_draft["id"], analyst_email
             )
-        except Exception as e:  # noqa
+        except (
+            AlreadyApproved,
+            AlreadySubmitted,
+            IncompleteDraft,
+        ) as ex:
             print(
                 f'   --- ERROR draft {target_draft["id"]} - '
-                f'"{target_draft["title"]}" NOT submitted: {str(e)}'
+                f'"{target_draft["title"]}" NOT submitted: {str(ex)}'
             )
         if not success:
             print(
@@ -125,10 +136,14 @@ async def process_draft(
             success = await findings_domain.approve_draft(
                 info_context, target_draft["id"], approver_email
             )
-        except Exception as e:  # noqa
+        except (
+            AlreadyApproved,
+            DraftWithoutVulns,
+            NotSubmitted,
+        ) as ex:
             print(
                 f'   --- ERROR draft {target_draft["id"]} - '
-                f'"{target_draft["title"]}" NOT submitted: {str(e)}'
+                f'"{target_draft["title"]}" NOT submitted: {str(ex)}'
             )
         print(
             f'   === draft {target_draft["id"]} - '
