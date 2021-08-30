@@ -30,21 +30,21 @@ import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { validTextField } from "utils/validations";
 
-const userLevelRoles: string[] = ["admin", "customer", "analyst"];
+const userLevelRoles: string[] = ["admin", "customer", "hacker"];
 const groupLevelRoles: string[] = [
-  "analyst",
-  "closer",
   "customer",
   "customeradmin",
   "executive",
-  "group_manager",
+  "hacker",
+  "reattacker",
   "resourcer",
   "reviewer",
+  "system_owner",
 ];
 const organizationLevelRoles: string[] = [
   "customeradmin",
   "customer",
-  "group_manager",
+  "system_owner",
 ];
 const MAX_RESPONSIBILITY_LENGTH: number = 50;
 

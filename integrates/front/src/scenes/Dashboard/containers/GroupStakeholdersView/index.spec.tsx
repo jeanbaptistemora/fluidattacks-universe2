@@ -97,7 +97,7 @@ describe("Group stakeholders view", (): void => {
                 lastLogin: "2017-10-29 13:40:37",
                 phoneNumber: "+573123210123",
                 responsibility: "Project Manager",
-                role: "analyst",
+                role: "hacker",
               },
             ],
           },
@@ -354,7 +354,7 @@ describe("Group stakeholders view", (): void => {
             groupName: "TEST",
             phoneNumber: "+573123210123",
             responsibility: "Project Manager",
-            role: "ANALYST",
+            role: "HACKER",
           },
         },
         result: {
@@ -371,7 +371,7 @@ describe("Group stakeholders view", (): void => {
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_grant_stakeholder_access_mutate" },
-      { action: "grant_group_level_role:analyst" },
+      { action: "grant_group_level_role:hacker" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
@@ -430,7 +430,7 @@ describe("Group stakeholders view", (): void => {
       .find("select")
       .findWhere((element: ReactWrapper): boolean => element.contains("Hacker"))
       .at(0);
-    select.simulate("change", { target: { name: "role", value: "ANALYST" } });
+    select.simulate("change", { target: { name: "role", value: "HACKER" } });
     const form: ReactWrapper = addUserModal.find("Formik").at(0);
     await act(async (): Promise<void> => {
       form.simulate("submit");
@@ -535,7 +535,7 @@ describe("Group stakeholders view", (): void => {
             groupName: "TEST",
             phoneNumber: "+573123210123",
             responsibility: "Project Manager",
-            role: "ANALYST",
+            role: "HACKER",
           },
         },
         result: {
@@ -552,7 +552,7 @@ describe("Group stakeholders view", (): void => {
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_update_group_stakeholder_mutate" },
-      { action: "grant_group_level_role:analyst" },
+      { action: "grant_group_level_role:hacker" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
@@ -611,7 +611,7 @@ describe("Group stakeholders view", (): void => {
       .find("select")
       .findWhere((element: ReactWrapper): boolean => element.contains("Hacker"))
       .at(0);
-    select.simulate("change", { target: { name: "role", value: "ANALYST" } });
+    select.simulate("change", { target: { name: "role", value: "HACKER" } });
     const form: ReactWrapper = editUserModal.find("Formik").at(0);
     await act(async (): Promise<void> => {
       form.simulate("submit");
@@ -644,7 +644,7 @@ describe("Group stakeholders view", (): void => {
             groupName: "TEST",
             phoneNumber: "+573123210123",
             responsibility: "Project Manager",
-            role: "ANALYST",
+            role: "HACKER",
           },
         },
         result: {
@@ -669,7 +669,7 @@ describe("Group stakeholders view", (): void => {
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_grant_stakeholder_access_mutate" },
-      { action: "grant_group_level_role:analyst" },
+      { action: "grant_group_level_role:hacker" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
@@ -728,7 +728,7 @@ describe("Group stakeholders view", (): void => {
       .find("select")
       .findWhere((element: ReactWrapper): boolean => element.contains("Hacker"))
       .at(0);
-    select.simulate("change", { target: { name: "role", value: "ANALYST" } });
+    select.simulate("change", { target: { name: "role", value: "HACKER" } });
     const form: ReactWrapper = addUserModal.find("Formik").at(0);
     await act(async (): Promise<void> => {
       form.simulate("submit");
@@ -826,7 +826,7 @@ describe("Group stakeholders view", (): void => {
             groupName: "TEST",
             phoneNumber: "+573123210123",
             responsibility: "Project Manager",
-            role: "ANALYST",
+            role: "HACKER",
           },
         },
         result: {
@@ -849,7 +849,7 @@ describe("Group stakeholders view", (): void => {
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "api_mutations_update_group_stakeholder_mutate" },
-      { action: "grant_group_level_role:analyst" },
+      { action: "grant_group_level_role:hacker" },
     ]);
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/groups/TEST/stakeholders"]}>
@@ -909,7 +909,7 @@ describe("Group stakeholders view", (): void => {
       .find("select")
       .findWhere((element: ReactWrapper): boolean => element.contains("Hacker"))
       .at(0);
-    select.simulate("change", { target: { name: "role", value: "ANALYST" } });
+    select.simulate("change", { target: { name: "role", value: "HACKER" } });
     const form: ReactWrapper = editUserModal.find("Formik").at(0);
     await act(async (): Promise<void> => {
       form.simulate("submit");
