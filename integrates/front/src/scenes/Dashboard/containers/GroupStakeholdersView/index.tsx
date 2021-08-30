@@ -7,16 +7,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
-import { selectFilter } from "react-bootstrap-table2-filter";
 import { useParams } from "react-router-dom";
 
-import { selectOptionsInvitation, selectOptionsRole } from "./filters";
 import { handleEditError, handleGrantError } from "./helpers";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { timeFromNow } from "components/DataTableNext/formatters";
-import type { IHeaderConfig } from "components/DataTableNext/types";
+import type {
+  IFilterProps,
+  IHeaderConfig,
+} from "components/DataTableNext/types";
+import { filterSearchText, filterSelect } from "components/DataTableNext/utils";
 import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
@@ -32,6 +34,7 @@ import type {
   IGetStakeholdersAttrs,
   IRemoveStakeholderAttr,
   IStakeholderAttrs,
+  IStakeholderDataSet,
   IUpdateGroupStakeholderAttr,
 } from "scenes/Dashboard/containers/GroupStakeholdersView/types";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
@@ -41,22 +44,6 @@ import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
-
-interface IStakeholderDataSet {
-  email: string;
-  firstLogin: string;
-  invitationState: string;
-  lastLogin: string;
-  organization: string;
-  phoneNumber: string;
-  groupName: string;
-  responsibility: string;
-  role: string;
-  invitationResend: React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  >;
-}
 
 const GroupStakeholdersView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
@@ -78,26 +65,16 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     setUserModalOpen(false);
   }, []);
 
-  const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>(
-    "stakeHoldersFilters",
-    false
-  );
+  const [isCustomFilterEnabled, setCustomFilterEnabled] =
+    useStoredState<boolean>("groupStakeholdersFilters", false);
 
-  const handleUpdateFilter: () => void = useCallback((): void => {
-    setFilterEnabled(!isFilterEnabled);
-  }, [isFilterEnabled, setFilterEnabled]);
+  const [searchTextFilter, setSearchTextFilter] = useState("");
+  const [roleFilter, setRoleFilter] = useState("");
+  const [invitationFilter, setInvitationFilter] = useState("");
 
-  const onFilterRole: (filterVal: string) => void = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("roleFilter", filterVal);
-  };
-
-  const onFilterInvitation: (filterVal: string) => void = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("invitationFilter", filterVal);
-  };
+  const handleUpdateCustomFilter: () => void = useCallback((): void => {
+    setCustomFilterEnabled(!isCustomFilterEnabled);
+  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
 
   const tableHeaders: IHeaderConfig[] = [
     {
@@ -107,12 +84,6 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     },
     {
       dataField: "role",
-      filter: selectFilter({
-        defaultValue: _.get(sessionStorage, "roleFilter"),
-        onFilter: onFilterRole,
-        options: selectOptionsRole,
-        placeholder: "ALL",
-      }),
       formatter: (value: string): string =>
         translate.t(`userModal.roles.${_.camelCase(value)}`, {
           defaultValue: "-",
@@ -143,12 +114,6 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     },
     {
       dataField: "invitationState",
-      filter: selectFilter({
-        defaultValue: _.get(sessionStorage, "invitationFilter"),
-        onFilter: onFilterInvitation,
-        options: selectOptionsInvitation,
-        placeholder: "ALL",
-      }),
       formatter: pointStatusFormatter,
       header: translate.t("searchFindings.usersTable.invitation"),
       width: "80px",
@@ -292,6 +257,120 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     }
   );
 
+  // Filters
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
+  const filterSearchtextStakeHolders: IStakeholderDataSet[] = filterSearchText(
+    stakeholdersList,
+    searchTextFilter
+  );
+
+  function onRoleChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    setRoleFilter(event.target.value);
+  }
+  const filterRoleStakeHolders: IStakeholderDataSet[] = filterSelect(
+    stakeholdersList,
+    roleFilter,
+    "role"
+  );
+
+  function onInvitationChange(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void {
+    setInvitationFilter(event.target.value);
+  }
+  const filterInvitationStakeHolders: IStakeholderDataSet[] = filterSelect(
+    stakeholdersList,
+    invitationFilter,
+    "invitationState"
+  );
+
+  const resultStakeHolders: IStakeholderDataSet[] = _.intersection(
+    filterSearchtextStakeHolders,
+    filterRoleStakeHolders,
+    filterInvitationStakeHolders
+  );
+
+  const customFilters: IFilterProps[] = [
+    {
+      defaultValue: roleFilter,
+      onChangeSelect: onRoleChange,
+      selectOptions: [
+        {
+          text: "Role",
+          value: "",
+        },
+        {
+          text: "Admin",
+          value: "admin",
+        },
+        {
+          text: "Hacker",
+          value: "analyst",
+        },
+        {
+          text: "Reattacker",
+          value: "closer",
+        },
+        {
+          text: "User",
+          value: "customer",
+        },
+        {
+          text: "User Manager",
+          value: "customeradmin",
+        },
+        {
+          text: "Executive",
+          value: "executive",
+        },
+        {
+          text: "System Owner",
+          value: "group_manager",
+        },
+        {
+          text: "Resourcer",
+          value: "resourcer",
+        },
+        {
+          text: "Reviewer",
+          value: "reviewer",
+        },
+      ],
+      tooltipId: "group.stakeHolders.filtersTooltips.role.id",
+      tooltipMessage: "group.stakeHolders.filtersTooltips.role",
+      type: "select",
+    },
+    {
+      defaultValue: invitationFilter,
+      onChangeSelect: onInvitationChange,
+      selectOptions: [
+        {
+          text: "Invitation",
+          value: "",
+        },
+        {
+          text: "Confirmed",
+          value: "CONFIRMED",
+        },
+        {
+          text: "Pending",
+          value: "PENDING",
+        },
+        {
+          text: "Unregistered",
+          value: "UNREGISTERED",
+        },
+      ],
+      tooltipId: "group.stakeHolders.filtersTooltips.invitation.id",
+      tooltipMessage: "group.stakeHolders.filtersTooltips.invitation",
+      type: "select",
+    },
+  ];
+
   return (
     <React.StrictMode>
       <div className={"tab-pane cont active"} id={"users"}>
@@ -363,14 +442,22 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
               <Col100>
                 <DataTableNext
                   bordered={true}
-                  dataset={stakeholdersList}
+                  customFilters={{
+                    customFiltersProps: customFilters,
+                    isCustomFilterEnabled,
+                    onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+                  }}
+                  customSearch={{
+                    customSearchDefault: searchTextFilter,
+                    isCustomSearchEnabled: true,
+                    onUpdateCustomSearch: onSearchTextChange,
+                  }}
+                  dataset={resultStakeHolders}
                   exportCsv={true}
                   headers={tableHeaders}
                   id={"tblUsers"}
-                  isFilterEnabled={isFilterEnabled}
-                  onUpdateEnableFilter={handleUpdateFilter}
                   pageSize={10}
-                  search={true}
+                  search={false}
                   selectionMode={{
                     clickToSelect: true,
                     hideSelectColumn:
