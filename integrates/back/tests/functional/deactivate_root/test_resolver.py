@@ -27,11 +27,11 @@ from typing import (
     ),
 )
 @pytest.mark.parametrize(
-    ("reason"),
+    ("reason", "other"),
     (
-        ("MOVED_TO_ANOTHER_ROOT"),
-        ("OUT_OF_SCOPE"),
-        ("REGISTERED_BY_MISTAKE"),
+        ("OTHER", "custom reason"),
+        ("OUT_OF_SCOPE", None),
+        ("REGISTERED_BY_MISTAKE", None),
     ),
 )
 async def test_deactivate_root(
@@ -39,6 +39,7 @@ async def test_deactivate_root(
     group_name: str,
     root_id: str,
     reason: str,
+    other: str,
 ) -> None:
     assert populate
     result = await get_result(
@@ -46,6 +47,7 @@ async def test_deactivate_root(
         group_name=group_name,
         identifier=root_id,
         reason=reason,
+        other=other,
     )
     assert "errors" not in result
     assert result["data"]["deactivateRoot"]["success"]
@@ -81,6 +83,7 @@ async def test_deactivate_root_fail(
         group_name=group_name,
         identifier=root_id,
         reason="REGISTERED_BY_MISTAKE",
+        other=None,
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"

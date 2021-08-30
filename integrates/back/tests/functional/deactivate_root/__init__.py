@@ -17,13 +17,15 @@ async def get_result(
     group_name: str,
     identifier: str,
     reason: str,
+    other: str,
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
             deactivateRoot(
                 groupName: "{group_name}",
                 id: "{identifier}",
-                reason: {reason}
+                reason: {reason},
+                other: "{other}"
             ) {{
                 success
             }}

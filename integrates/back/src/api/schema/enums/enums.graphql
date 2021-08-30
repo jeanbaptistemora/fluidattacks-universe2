@@ -467,8 +467,6 @@ enum URLProtocol {
 
 "Reasons to deactivate a Root enum definition"
 enum RootDeactivationReason {
-  "The Root was moved or encompassed by another"
-  MOVED_TO_ANOTHER_ROOT
   "Other reason not covered"
   OTHER
   "The Root is out of the scope for this group"
