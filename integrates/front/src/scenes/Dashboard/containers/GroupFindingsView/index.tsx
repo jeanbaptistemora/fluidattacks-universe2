@@ -378,8 +378,16 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           bordered={true}
           columnToggle={true}
           csvFilename={`${groupName}-findings-${currentDate}.csv`}
-          customFiltersProps={customFilters}
-          customSearchDefault={searchTextFilter}
+          customFilters={{
+            customFiltersProps: customFilters,
+            isCustomFilterEnabled,
+            onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+          }}
+          customSearch={{
+            customSearchDefault: searchTextFilter,
+            isCustomSearchEnabled: true,
+            onUpdateCustomSearch: onSearchTextChange,
+          }}
           dataset={resultFindings}
           defaultSorted={JSON.parse(_.get(sessionStorage, "findingSort", "{}"))}
           expandRow={{
@@ -405,10 +413,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           }
           headers={tableHeaders}
           id={"tblFindings"}
-          isCustomFilterEnabled={isCustomFilterEnabled}
           onColumnToggle={handleChange}
-          onUpdateCustomSearch={onSearchTextChange}
-          onUpdateEnableCustomFilter={handleUpdateCustomFilter}
           pageSize={10}
           rowEvents={{ onClick: goToFinding }}
           search={false}

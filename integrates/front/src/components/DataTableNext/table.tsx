@@ -59,15 +59,12 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   const { columnToggleProps, searchProps, baseProps } = toolkitProps;
   const {
     bordered,
+    customFilters,
+    customSearch,
     defaultSorted,
     expandRow,
     extraButtons,
-    customFiltersProps,
-    customSearchDefault,
-    onUpdateCustomSearch,
-    onUpdateEnableCustomFilter,
     onUpdateEnableFilter,
-    isCustomFilterEnabled,
     isFilterEnabled,
     pageSize,
     columnToggle = false,
@@ -78,6 +75,13 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     selectionMode,
     striped,
   } = tableProps;
+  const {
+    customFiltersProps,
+    isCustomFilterEnabled,
+    onUpdateEnableCustomFilter,
+  } = customFilters ?? {};
+  const { customSearchDefault, isCustomSearchEnabled, onUpdateCustomSearch } =
+    customSearch ?? {};
   const { t } = useTranslation();
 
   function handleUpdateEnableFilter(): void {
@@ -205,17 +209,18 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                     </TooltipWrapper>
                   </ButtonGroup>
                 )}
-                {!_.isUndefined(customSearchDefault) && (
-                  <ButtonGroup>
-                    <Col100>
-                      <SearchText
-                        defaultValue={customSearchDefault || ""}
-                        onChange={onUpdateCustomSearch}
-                        placeholder={t("dataTableNext.search")}
-                      />
-                    </Col100>
-                  </ButtonGroup>
-                )}
+                {!_.isUndefined(isCustomSearchEnabled) &&
+                  isCustomSearchEnabled && (
+                    <ButtonGroup>
+                      <Col100>
+                        <SearchText
+                          defaultValue={customSearchDefault ?? ""}
+                          onChange={onUpdateCustomSearch}
+                          placeholder={t("dataTableNext.search")}
+                        />
+                      </Col100>
+                    </ButtonGroup>
+                  )}
               </ButtonToolbarLeft>
             </TableOptionsColBtn>
           ) : undefined}

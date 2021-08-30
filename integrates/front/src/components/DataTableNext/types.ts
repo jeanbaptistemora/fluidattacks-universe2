@@ -35,22 +35,33 @@ interface IFilterProps {
   type: "date" | "select" | "text";
 }
 
+interface ICustomSearchProps {
+  isCustomSearchEnabled: boolean;
+  customSearchDefault: string;
+  onUpdateCustomSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+interface ICustomFiltersProps {
+  customFiltersProps: IFilterProps[];
+  isCustomFilterEnabled: boolean;
+  onUpdateEnableCustomFilter: () => void;
+}
+
 interface ITableProps {
   bodyContainer?: string;
   bordered: boolean;
   columnToggle?: boolean;
   csvFilename?: string;
-  customSearchDefault?: string;
+  customSearch?: ICustomSearchProps;
   dataset: any[];
   defaultSorted?: { dataField: string; order: SortOrder };
   expandRow?: BootstrapTableProps["expandRow"];
   exportCsv: boolean;
   extraButtons?: JSX.Element;
-  customFiltersProps?: IFilterProps[];
+  customFilters?: ICustomFiltersProps;
   headerContainer?: string;
   headers: IHeaderConfig[];
   id: string;
-  isCustomFilterEnabled?: boolean;
   isFilterEnabled?: boolean;
   onPageChange?: (arg1: number) => void;
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
@@ -60,8 +71,6 @@ interface ITableProps {
   selectionMode?: ISelectRowProps;
   striped?: boolean;
   onColumnToggle?: (arg1: string) => void;
-  onUpdateCustomSearch?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onUpdateEnableCustomFilter?: () => void;
   onUpdateEnableFilter?: () => void;
 }
 
