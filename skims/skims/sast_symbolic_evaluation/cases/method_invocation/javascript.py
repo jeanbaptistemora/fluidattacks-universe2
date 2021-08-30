@@ -57,6 +57,8 @@ def evaluate_required(args: EvaluatorArgs) -> None:
     returns = {
         "child_process": "child_process",
         "express": "core.Express",
+        "fs": "fs",
+        "path": "PlatformPath",
     }
     method: SyntaxStepMethodInvocation = args.syntax_step
     if method.method != "require":

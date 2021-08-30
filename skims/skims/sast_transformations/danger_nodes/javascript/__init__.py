@@ -26,6 +26,15 @@ def mark_sinks(
             "execSync",
         },
     )
+    mark_methods_sink(
+        FindingEnum.F063,
+        graph,
+        syntax,
+        {
+            "readFile",
+            "readFileSync",
+        },
+    )
 
 
 def mark_inputs(

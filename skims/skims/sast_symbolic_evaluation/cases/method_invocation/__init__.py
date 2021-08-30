@@ -78,6 +78,9 @@ BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set(
         "decodeURI",
         "encodeURIComponent",
         "Object.values",
+        "fs.readFile",
+        "fs.readFileSync",
+        "PlatformPath.join",
     }
 )
 STATIC_FINDING: Dict[str, Set[str]] = {
@@ -282,6 +285,13 @@ BY_OBJ_ARGS: Dict[str, Set[str]] = complete_attrs_on_dict(
         "child_process": {
             "exec",
             "execSync",
+        },
+        "fs": {
+            "readFile",
+            "readFileSync",
+        },
+        "PlatformPath": {
+            "join",
         },
     }
 )

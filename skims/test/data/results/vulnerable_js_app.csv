@@ -1,4 +1,220 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
+F063,lines,VULNERABLE_JS_APP/routes/testcases/test019.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in routes/testcases/test019.js,"
+   1 | var express = require('express');
+   2 | var router = express.Router();
+   3 | const fs = require('fs');
+   4 |
+   5 | router.get('/test019/:user/:fileName', function (req, res) {
+   6 |   var user = req.params['user'];
+   7 |   var fileName = req.params['fileName'];
+   8 |   var filePath = ""target/user_files/"" + user + ""/"" + fileName;
+>  9 |   fs.readFile(filePath, 'utf-8', (err, data) => {
+  10 |     if (err) {
+  11 |       res.status('404').json({
+  12 |         'error': 'file does not exists '
+  13 |       })
+  14 |     }
+  15 |     res.send(
+  16 |       data
+  17 |     )
+  18 |   })
+  19 | });
+  20 |
+  21 | module.exports = router;
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/routes/testcases/test020.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in routes/testcases/test020.js,"
+   1 | var express = require('express');
+   2 | var router = express.Router();
+   3 | const fs = require('fs');
+   4 |
+   5 | router.get('/test020/:user/:fileName', function (req, res) {
+   6 |   var user = req.params['user'];
+   7 |   var fileName = req.params['fileName'];
+   8 |   var filePath = `target/user_files/${user}/${fileName}`;
+>  9 |   fs.readFile(filePath, 'utf-8', (err, data) => {
+  10 |     if (err) {
+  11 |       res.status('404').json({
+  12 |         'error': 'file does not exists '
+  13 |       })
+  14 |     }
+  15 |     res.send(
+  16 |       data
+  17 |     )
+  18 |   })
+  19 | });
+  20 |
+  21 | module.exports = router;
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/routes/testcases/test021.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in routes/testcases/test021.js,"
+   1 | var express = require('express');
+   2 | var router = express.Router();
+   3 | const fs = require('fs');
+   4 |
+   5 | router.get('/test021/', function (req, res) {
+   6 |   var user = req.query['user'];
+   7 |   var fileName = req.query['fileName'];
+   8 |   var filePath = `target/user_files/${user}/${fileName}`;
+>  9 |   fs.readFile(filePath, 'utf-8', (err, data) => {
+  10 |     if (err) {
+  11 |       res.status('404').json({
+  12 |         'error': 'file does not exists '
+  13 |       })
+  14 |     }
+  15 |     res.send(
+  16 |       data
+  17 |     )
+  18 |   })
+  19 | });
+  20 |
+  21 | module.exports = router;
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/routes/testcases/test022.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in routes/testcases/test022.js,"
+   1 | var express = require('express');
+   2 | var router = express.Router();
+   3 | const fs = require('fs');
+   4 |
+   5 | router.get('/test022/', function (req, res) {
+   6 |   var user = req.query['user'];
+   7 |   var fileName = req.query['fileName'];
+   8 |   var filePath = `target/user_files/${user}/${fileName}.yaml`;
+>  9 |   fs.readFile(filePath, 'utf-8', (err, data) => {
+  10 |     if (err) {
+  11 |       res.status('404').json({
+  12 |         'error': 'file does not exists '
+  13 |       })
+  14 |     }
+  15 |     res.send(
+  16 |       data
+  17 |     )
+  18 |   })
+  19 | });
+  20 |
+  21 | module.exports = router;
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/routes/testcases/test023.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in routes/testcases/test023.js,"
+   1 | var express = require('express');
+   2 | var router = express.Router();
+   3 | const fs = require('fs');
+   4 |
+   5 | router.get('/test023/', function (req, res) {
+   6 |   var user = req.query['user'];
+   7 |   var fileName = req.query['fileName'];
+   8 |   var filePath = ""target/user_files/"" + user + ""/"" + fileName + "".yaml"";
+>  9 |   fs.readFile(filePath, 'utf-8', (err, data) => {
+  10 |     if (err) {
+  11 |       res.status('404').json({
+  12 |         'error': 'file does not exists '
+  13 |       })
+  14 |     }
+  15 |     res.send(
+  16 |       data
+  17 |     )
+  18 |   })
+  19 | });
+  20 |
+  21 | module.exports = router;
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/routes/testcases/test024.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in routes/testcases/test024.js,"
+   4 |
+   5 | router.get('/test024/', function (req, res) {
+   6 |   var user = req.query['user'];
+   7 |   var fileName = req.query['fileName'];
+   8 |   if (fileName.includes('..')) {
+   9 |     res.status(403).json({
+  10 |       ""error"": ""unauthorized user""
+  11 |     });
+  12 |   }
+  13 |   var filePath = ""target/user_files/"" + user + ""/"" + fileName + "".yaml"";
+> 14 |   fs.readFile(filePath, 'utf-8', (err, data) => {
+  15 |     if (err) {
+  16 |       res.status('404').json({
+  17 |         'error': 'file does not exists '
+  18 |       });
+  19 |     }
+  20 |     res.send(
+  21 |       data
+  22 |     );
+  23 |   })
+  24 | });
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/routes/testcases/test025.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in routes/testcases/test025.js,"
+   1 | var express = require('express');
+   2 | var router = express.Router();
+   3 | const fs = require('fs');
+   4 | const path = require('path');
+   5 |
+   6 | router.get('/test025/:user/:fileName', function (req, res) {
+   7 |   var user = req.params['user'];
+   8 |   var fileName = req.params['fileName'];
+   9 |   var filePath = path.join(""target"", ""user_files"", user, fileName);
+> 10 |   fs.readFile(filePath, 'utf-8', (err, data) => {
+  11 |     if (err) {
+  12 |       res.status('404').json({
+  13 |         'error': 'file does not exists '
+  14 |       })
+  15 |     }
+  16 |     res.send(
+  17 |       data
+  18 |     )
+  19 |   })
+  20 | });
+  21 |
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/routes/testcases/test026.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in routes/testcases/test026.js,"
+   1 | var express = require('express');
+   2 | var router = express.Router();
+   3 | const fs = require('fs');
+   4 | const path = require('path');
+   5 |
+   6 | router.get('/test026/:user/:fileName', function (req, res) {
+   7 |   var user = req.params['user'];
+   8 |   var fileName = req.params['fileName'];
+   9 |   var filePath = path.join(""target/user_files"", user, fileName);
+> 10 |   fs.readFile(filePath, 'utf-8', (err, data) => {
+  11 |     if (err) {
+  12 |       res.status('404').json({
+  13 |         'error': 'file does not exists '
+  14 |       })
+  15 |     }
+  16 |     res.send(
+  17 |       data
+  18 |     )
+  19 |   })
+  20 | });
+  21 |
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/routes/testcases/test027.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in routes/testcases/test027.js,"
+   1 | var express = require('express');
+   2 | var router = express.Router();
+   3 | const fs = require('fs');
+   4 | const path = require('path');
+   5 |
+   6 | router.get('/test027/:user/:fileName', function (req, res) {
+   7 |   var user = req.params['user'];
+   8 |   var fileName = req.params['fileName'];
+   9 |   var filePath = path.join(""target/user_files"", user, `${fileName}.yaml`);
+> 10 |   fs.readFile(filePath, 'utf-8', (err, data) => {
+  11 |     if (err) {
+  12 |       res.status('404').json({
+  13 |         'error': 'file does not exists '
+  14 |       })
+  15 |     }
+  16 |     res.send(
+  17 |       data
+  18 |     )
+  19 |   })
+  20 | });
+  21 |
+     ^ Col 0
+"
 F004,lines,VULNERABLE_JS_APP/routes/testcases/test005.js,7,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    1 | const process = require(""child_process"");
@@ -7,7 +223,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test005.js,7,78,skims,004. Remote 
    4 |
    5 | router.get('/test005/:user', function (req, res) {
    6 |   var user = req.params['user'];
->  7 |   process.exec(""ls test/test_files/users/"" + user + ""/"", (error, stdout, stderr) => {
+>  7 |   process.exec(""ls target/user_files/"" + user + ""/"", (error, stdout, stderr) => {
    8 |
    9 |     var user_files = [];
   10 |     for (file of stdout.split('\n')) {
@@ -33,7 +249,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test007.js,8,78,skims,004. Remote 
    5 | router.get('/test007', function (req, res) {
    6 |   let body = req.body;
    7 |
->  8 |   process.exec(""ls test/test_files/users/"" + body['user'] + ""/"", (error, stdout, stderr) => {
+>  8 |   process.exec(""ls target/user_files/"" + body['user'] + ""/"", (error, stdout, stderr) => {
    9 |
   10 |     var user_files = [];
   11 |     for (file of stdout.split('\n')) {
@@ -59,7 +275,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test015.js,9,78,skims,004. Remote 
    6 |
    7 | router.get('/test015/:user', function (req, res) {
    8 |   var user = req.params['user'];
->  9 |   var stdout = execSync(""ls test/test_files/users/"" + user + ""/"").toString()
+>  9 |   var stdout = execSync(""ls target/user_files/"" + user + ""/"").toString()
   10 |
   11 |   var user_files = [];
   12 |   for (file of stdout.split('\n')) {
@@ -84,7 +300,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test001.js,9,78,skims,004. Remote 
    6 |
    7 | router.get('/test001/:user', function (req, res) {
    8 |   var user = req.params['user'];
->  9 |   exec(""ls test/test_files/users/"" + user + ""/"", (error, stdout, stderr) => {
+>  9 |   exec(""ls target/user_files/"" + user + ""/"", (error, stdout, stderr) => {
   10 |
   11 |     var user_files = [];
   12 |     for (file of stdout.split('\n')) {
@@ -109,7 +325,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test003.js,9,78,skims,004. Remote 
    6 |
    7 | router.get('/test003/:user', function (req, res) {
    8 |   var user = req.params['user'];
->  9 |   exec(`ls test/test_files/users/${user}/`, (error, stdout, stderr) => {
+>  9 |   exec(`ls target/user_files/${user}/`, (error, stdout, stderr) => {
   10 |
   11 |     var user_files = [];
   12 |     for (file of stdout.split('\n')) {
@@ -134,7 +350,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test004.js,9,78,skims,004. Remote 
    6 |
    7 | router.get('/test004/', function (req, res) {
    8 |   var user = req.query.user;
->  9 |   exec(`ls test/test_files/users/${user}/`, (error, stdout, stderr) => {
+>  9 |   exec(`ls target/user_files/${user}/`, (error, stdout, stderr) => {
   10 |
   11 |     var user_files = [];
   12 |     for (file of stdout.split('\n')) {
@@ -161,7 +377,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test012.js,11,78,skims,004. Remote
    8 |   var user_files = [];
    9 |   var user = """";
   10 |   for (user of Object.values(req.params)) {
-> 11 |     exec(""ls test/test_files/users/"" + user + ""/"", (error, stdout, stderr) => {
+> 11 |     exec(""ls target/user_files/"" + user + ""/"", (error, stdout, stderr) => {
   12 |
   13 |       for (file of stdout.split('\n')) {
   14 |         if (file) {
@@ -186,7 +402,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test010.js,14,78,skims,004. Remote
   11 |     user = parameters['user'];
   12 |   }
   13 |   user = decodeURI(user);
-> 14 |   exec(`ls test/test_files/users/${user}/`, (error, stdout, stderr) => {
+> 14 |   exec(`ls target/user_files/${user}/`, (error, stdout, stderr) => {
   15 |
   16 |     var user_files = [];
   17 |     for (file of stdout.split('\n')) {
@@ -211,7 +427,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test013.js,15,78,skims,004. Remote
   12 |     user = paramValues[0];
   13 |   }
   14 |   if (user) {
-> 15 |     exec(""ls test/test_files/users/"" + user + ""/"", (error, stdout, stderr) => {
+> 15 |     exec(""ls target/user_files/"" + user + ""/"", (error, stdout, stderr) => {
   16 |
   17 |       for (file of stdout.split('\n')) {
   18 |         if (file) {
@@ -236,7 +452,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test011.js,16,78,skims,004. Remote
   13 |       break;
   14 |     }
   15 |   }
-> 16 |   exec(""ls test/test_files/users/"" + user + ""/"", (error, stdout, stderr) => {
+> 16 |   exec(""ls target/user_files/"" + user + ""/"", (error, stdout, stderr) => {
   17 |
   18 |     var user_files = [];
   19 |     for (file of stdout.split('\n')) {
@@ -261,7 +477,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test016.js,30,78,skims,004. Remote
   27 |       break;
   28 |   }
   29 |
-> 30 |   exec(""ls test/test_files/users/"" + user + ""/"", (error, stdout, stderr) => {
+> 30 |   exec(""ls target/user_files/"" + user + ""/"", (error, stdout, stderr) => {
   31 |
   32 |     for (file of stdout.split('\n')) {
   33 |       if (file) {
@@ -286,7 +502,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test014.js,31,78,skims,004. Remote
   28 |       break;
   29 |   }
   30 |
-> 31 |   exec(""ls test/test_files/users/"" + user + ""/"", (error, stdout, stderr) => {
+> 31 |   exec(""ls target/user_files/"" + user + ""/"", (error, stdout, stderr) => {
   32 |
   33 |     for (file of stdout.split('\n')) {
   34 |       if (file) {
