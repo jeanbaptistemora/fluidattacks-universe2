@@ -40,7 +40,7 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
-/lintPython/module/observesLastSuccess:
+/lintPython/module/observesJobLastSuccess:
   image: ghcr.io/fluidattacks/makes:21.09
   interruptible: true
   needs: []
@@ -55,13 +55,13 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
   script:
-    - m . /lintPython/module/observesLastSuccess
+    - m . /lintPython/module/observesJobLastSuccess
   stage: lint-code
   tags:
     - autoscaling
   variables:
     GIT_DEPTH: 1
-/lintPython/module/observesLastSuccessTests:
+/lintPython/module/observesJobLastSuccessTests:
   image: ghcr.io/fluidattacks/makes:21.09
   interruptible: true
   needs: []
@@ -76,7 +76,28 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
   script:
-    - m . /lintPython/module/observesLastSuccessTests
+    - m . /lintPython/module/observesJobLastSuccessTests
+  stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/lintPython/module/observesServiceBatchStability:
+  image: ghcr.io/fluidattacks/makes:21.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
+  script:
+    - m . /lintPython/module/observesServiceBatchStability
   stage: lint-code
   tags:
     - autoscaling

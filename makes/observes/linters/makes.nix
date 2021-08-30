@@ -18,19 +18,26 @@
         python = "3.8";
         src = "/observes/code_etl/tests";
       };
-      observesLastSuccess = {
+      observesJobLastSuccess = {
         extraSources = [
-          inputs.product.observes-env-code-etl-development
+          inputs.product.observes-env-job-last-success-runtime
         ];
         python = "3.8";
         src = "/observes/services/job_last_success/job_last_success";
       };
-      observesLastSuccessTests = {
+      observesJobLastSuccessTests = {
         extraSources = [
-          inputs.product.observes-env-code-etl-development
+          inputs.product.observes-env-job-last-success-runtime
         ];
         python = "3.8";
         src = "/observes/services/job_last_success/tests";
+      };
+      observesServiceBatchStability = {
+        extraSources = [
+          inputs.product.observes-env-service-batch-stability-runtime
+        ];
+        python = "3.8";
+        src = "/observes/services/batch_stability/batch_stability";
       };
     };
   };

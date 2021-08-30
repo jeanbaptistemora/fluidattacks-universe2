@@ -34,11 +34,15 @@ in
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintPython/module/observesLastSuccess";
+          output = "/lintPython/module/observesJobLastSuccess";
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintPython/module/observesLastSuccessTests";
+          output = "/lintPython/module/observesJobLastSuccessTests";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintPython/module/observesServiceBatchStability";
           gitlabExtra = gitlabLint;
         }
       ];

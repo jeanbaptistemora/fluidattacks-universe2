@@ -79,9 +79,6 @@ observes.lint.paginator:
 observes.lint.postgres-client:
   <<: *lint_job
 
-observes.lint.service-batch-stability:
-  <<: *lint_job
-
 observes.lint.service-jobs-scheduler:
   <<: *lint_job
 

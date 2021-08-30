@@ -116,7 +116,6 @@ observes.generic.tester
 observes.lint.architecture
 observes.lint.paginator
 observes.lint.postgres-client
-observes.lint.service-batch-stability
 observes.lint.service-jobs-scheduler
 observes.lint.service-migrate-tables
 observes.lint.service-timedoctor-tokens
