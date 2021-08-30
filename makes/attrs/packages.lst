@@ -145,7 +145,6 @@ observes.test.tap-csv
 observes.test.tap-gitlab
 observes.test.tap-mailchimp
 observes.test.tap-mixpanel
-reviews.lint
 reviews.runtime
 skims.bundle
 skims.config-development

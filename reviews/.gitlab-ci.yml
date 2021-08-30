@@ -26,8 +26,3 @@ makes.test.reviews:
   <<: *makes
   <<: *reviews_in_dev_branch
   stage: test-code
-
-reviews.lint:
-  <<: *makes
-  <<: *reviews_in_dev_branch
-  stage: lint-code
