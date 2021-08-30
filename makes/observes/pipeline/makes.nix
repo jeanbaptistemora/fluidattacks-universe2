@@ -26,7 +26,19 @@ in
       gitlabPath = "/makes/observes/gitlab-ci.yaml";
       jobs = [
         {
-          output = "/lintPython/dirOfModules/observes";
+          output = "/lintPython/module/observesCodeEtl";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintPython/module/observesCodeEtlTests";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintPython/module/observesLastSuccess";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintPython/module/observesLastSuccessTests";
           gitlabExtra = gitlabLint;
         }
       ];

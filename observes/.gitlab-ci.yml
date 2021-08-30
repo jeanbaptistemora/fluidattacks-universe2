@@ -73,9 +73,6 @@ include:
 observes.lint.architecture:
   <<: *lint_job
 
-observes.lint.job-last-success:
-  <<: *lint_job
-
 observes.lint.paginator:
   <<: *lint_job
 
