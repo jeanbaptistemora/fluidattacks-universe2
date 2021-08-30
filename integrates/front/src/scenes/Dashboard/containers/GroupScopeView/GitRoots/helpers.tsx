@@ -124,22 +124,6 @@ const handleActivationError = (
   });
 };
 
-const handleDeactivationError = (
-  graphQLErrors: readonly GraphQLError[]
-): void => {
-  graphQLErrors.forEach((error: GraphQLError): void => {
-    if (
-      error.message ===
-      "Exception - A root with open vulns can't be deactivated"
-    ) {
-      msgError(translate.t("group.scope.common.errors.hasOpenVulns"));
-    } else {
-      msgError(translate.t("groupAlerts.errorTextsad"));
-      Logger.error("Couldn't deactivate root", error);
-    }
-  });
-};
-
 const hasCheckedItem = (
   checkedItems: Record<string, boolean>,
   columnName: string
@@ -217,7 +201,6 @@ export {
   handleCreationError,
   handleUpdateError,
   handleActivationError,
-  handleDeactivationError,
   hasCheckedItem,
   useGitSubmit,
 };

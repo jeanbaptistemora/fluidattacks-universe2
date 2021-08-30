@@ -9,7 +9,7 @@ import { ManagementModal } from "./ManagementModal";
 import { Container } from "./styles";
 
 import { DeactivationModal } from "../deactivationModal";
-import { ACTIVATE_ROOT, ADD_URL_ROOT, DEACTIVATE_ROOT } from "../queries";
+import { ACTIVATE_ROOT, ADD_URL_ROOT } from "../queries";
 import type { IURLRootAttr } from "../types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
@@ -109,38 +109,6 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
   const closeDeactivationModal = useCallback((): void => {
     setDeactivationModal({ open: false, rootId: "" });
   }, []);
-  const [deactivateRoot] = useMutation(DEACTIVATE_ROOT, {
-    onCompleted: (): void => {
-      onUpdate();
-      closeDeactivationModal();
-    },
-    onError: ({ graphQLErrors }): void => {
-      graphQLErrors.forEach((error): void => {
-        if (
-          error.message ===
-          "Exception - A root with open vulns can't be deactivated"
-        ) {
-          msgError(t("group.scope.common.errors.hasOpenVulns"));
-        } else {
-          msgError(t("groupAlerts.errorTextsad"));
-          Logger.error("Couldn't deactivate url root", error);
-        }
-      });
-    },
-  });
-  const handleDeactivationSubmit = useCallback(
-    async (rootId: string, values: Record<string, string>): Promise<void> => {
-      await deactivateRoot({
-        variables: {
-          groupName,
-          id: rootId,
-          other: values.other,
-          reason: values.reason,
-        },
-      });
-    },
-    [deactivateRoot, groupName]
-  );
 
   const permissions = useAbility(authzPermissionsContext);
   const canUpdateRootState = permissions.can(
@@ -225,8 +193,9 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
       )}
       {deactivationModal.open ? (
         <DeactivationModal
+          groupName={groupName}
           onClose={closeDeactivationModal}
-          onSubmit={handleDeactivationSubmit}
+          onUpdate={onUpdate}
           rootId={deactivationModal.rootId}
         />
       ) : undefined}

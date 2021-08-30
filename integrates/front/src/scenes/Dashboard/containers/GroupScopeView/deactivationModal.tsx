@@ -1,7 +1,10 @@
+import { useMutation } from "@apollo/client";
 import { Field, Form, Formik } from "formik";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
+
+import { DEACTIVATE_ROOT } from "./queries";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
@@ -13,19 +16,42 @@ import {
   Row,
 } from "styles/styledComponents";
 import { FormikDropdown, FormikText } from "utils/forms/fields";
+import { Logger } from "utils/logger";
+import { msgError } from "utils/notifications";
 
 interface IDeactivationModalProps {
+  groupName: string;
   rootId: string;
   onClose: () => void;
-  onSubmit: (rootId: string, values: Record<string, string>) => Promise<void>;
+  onUpdate: () => void;
 }
 
 export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
+  groupName,
   rootId,
   onClose,
-  onSubmit,
+  onUpdate,
 }: IDeactivationModalProps): JSX.Element => {
   const { t } = useTranslation();
+
+  const [deactivateRoot] = useMutation(DEACTIVATE_ROOT, {
+    onCompleted: (): void => {
+      onUpdate();
+    },
+    onError: ({ graphQLErrors }): void => {
+      graphQLErrors.forEach((error): void => {
+        if (
+          error.message ===
+          "Exception - A root with open vulns can't be deactivated"
+        ) {
+          msgError(t("group.scope.common.errors.hasOpenVulns"));
+        } else {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.error("Couldn't deactivate root", error);
+        }
+      });
+    },
+  });
 
   const validations = object().shape({
     other: string().when("reason", {
@@ -37,9 +63,16 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
 
   const handleSubmit = useCallback(
     async (values: Record<string, string>): Promise<void> => {
-      await onSubmit(rootId, values);
+      await deactivateRoot({
+        variables: {
+          groupName,
+          id: rootId,
+          other: values.other,
+          reason: values.reason,
+        },
+      });
     },
-    [onSubmit, rootId]
+    [deactivateRoot, groupName, rootId]
   );
 
   return (

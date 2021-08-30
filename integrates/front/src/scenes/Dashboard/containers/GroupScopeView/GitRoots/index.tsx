@@ -13,7 +13,6 @@ import { renderEnvDescription } from "./envDescription";
 import {
   handleActivationError,
   handleCreationError,
-  handleDeactivationError,
   handleUpdateError,
   hasCheckedItem,
   useGitSubmit,
@@ -26,7 +25,6 @@ import { DeactivationModal } from "../deactivationModal";
 import {
   ACTIVATE_ROOT,
   ADD_GIT_ROOT,
-  DEACTIVATE_ROOT,
   UPDATE_GIT_ENVIRONMENTS,
   UPDATE_GIT_ROOT,
 } from "../queries";
@@ -176,17 +174,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     },
   });
 
-  const [deactivateRoot] = useMutation(DEACTIVATE_ROOT, {
-    onCompleted: (): void => {
-      onUpdate();
-      closeDeactivationModal();
-      setCurrentRow(undefined);
-    },
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      handleDeactivationError(graphQLErrors);
-    },
-  });
-
   // Event handlers
   const handleRowClick = useCallback(
     (_0: React.SyntheticEvent, row: IGitRootAttr): void => {
@@ -213,20 +200,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       await updateGitEnvs({ variables: { environmentUrls, groupName, id } });
     },
     [groupName, updateGitEnvs]
-  );
-
-  const handleDeactivationSubmit = useCallback(
-    async (rootId: string, values: Record<string, string>): Promise<void> => {
-      await deactivateRoot({
-        variables: {
-          groupName,
-          id: rootId,
-          other: values.other,
-          reason: values.reason,
-        },
-      });
-    },
-    [deactivateRoot, groupName]
   );
 
   function handleChange(columnName: string): void {
@@ -420,8 +393,9 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       )}
       {deactivationModal.open ? (
         <DeactivationModal
+          groupName={groupName}
           onClose={closeDeactivationModal}
-          onSubmit={handleDeactivationSubmit}
+          onUpdate={onUpdate}
           rootId={deactivationModal.rootId}
         />
       ) : undefined}
