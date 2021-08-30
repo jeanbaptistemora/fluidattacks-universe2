@@ -11,9 +11,6 @@ from charts import (
 from charts.colors import (
     RISK,
 )
-from collections import (
-    Counter,
-)
 from context import (
     FI_API_STATUS,
 )
@@ -30,7 +27,10 @@ from itertools import (
     groupby,
 )
 from typing import (
+    Any,
     cast,
+    Counter,
+    Dict,
     List,
     Tuple,
     Union,
@@ -38,7 +38,7 @@ from typing import (
 
 
 @alru_cache(maxsize=None, typed=True)
-async def get_data_one_group(group: str) -> Counter:
+async def get_data_one_group(group: str) -> Counter[str]:
     context = get_new_context()
     if FI_API_STATUS == "migration":
         group_findings_new_loader = context.group_findings_new
@@ -51,7 +51,7 @@ async def get_data_one_group(group: str) -> Counter:
                 for finding in group_findings_new
             ]
         )
-        counter = Counter(
+        counter: Counter[str] = Counter(
             {
                 f"{finding.id}/{finding.title}": open_age
                 for finding, open_age in zip(
@@ -84,13 +84,13 @@ async def get_data_one_group(group: str) -> Counter:
     return counter
 
 
-async def get_data_many_groups(groups: List[str]) -> Counter:
+async def get_data_many_groups(groups: List[str]) -> Counter[str]:
     groups_data = await collect(map(get_data_one_group, groups))
 
     return sum(groups_data, Counter())
 
 
-def format_data(counters: Counter) -> dict:
+def format_data(counters: Counter[str]) -> Dict[str, Any]:
     data: List[Tuple[str, int]] = [
         (title, open_age)
         for title, open_age in counters.most_common()

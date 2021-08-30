@@ -667,10 +667,13 @@ integrates.scheduler.reset_expired_accepted_findings:
     variables: [$integrates_scheduler_reset_expired_accepted_findings]
 
 integrates.scheduler.update_indicators:
-  <<: *integrates_schedulers
+  <<: *makes
+  interruptible: false
   only:
     refs: [schedules]
     variables: [$integrates_scheduler_update_indicators]
+  script: [./m integrates.scheduler.update-indicators.on-aws prod]
+  stage: scheduler
 
 integrates.scheduler.update_portfolios:
   <<: *integrates_schedulers

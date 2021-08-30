@@ -1091,12 +1091,9 @@ async def get_open_vulnerabilities(context: Any, group_name: str) -> int:
         [finding["finding_id"] for finding in group_findings]
     )
 
-    last_approved_status = await collect(
-        [
-            in_process(vulns_utils.get_last_status, vuln)
-            for vuln in findings_vulns
-        ]
-    )
+    last_approved_status = [
+        vulns_utils.get_last_status(vuln) for vuln in findings_vulns
+    ]
     open_vulnerabilities = 0
     for status in last_approved_status:
         if status == "open":
