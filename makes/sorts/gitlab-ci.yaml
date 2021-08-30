@@ -19,3 +19,45 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+/lintPython/module/sortsTests:
+  image: ghcr.io/fluidattacks/makes:21.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|sorts)/
+  script:
+    - m . /lintPython/module/sortsTests
+  stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/lintPython/module/sortsTraining:
+  image: ghcr.io/fluidattacks/makes:21.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|sorts)/
+  script:
+    - m . /lintPython/module/sortsTraining
+  stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1

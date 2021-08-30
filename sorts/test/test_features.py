@@ -15,7 +15,7 @@ from pandas import (
     DataFrame,
 )
 import pytest
-import pytz
+import pytz  # type: ignore
 from typing import (
     List,
 )

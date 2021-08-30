@@ -29,6 +29,14 @@ in
           output = "/lintPython/dirOfModules/sorts";
           gitlabExtra = gitlabLint;
         }
+        {
+          output = "/lintPython/module/sortsTests";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintPython/module/sortsTraining";
+          gitlabExtra = gitlabLint;
+        }
       ];
     };
   };
