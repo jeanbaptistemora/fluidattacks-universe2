@@ -8,11 +8,8 @@ from async_lru import (
 from charts import (
     utils,
 )
-from charts.colors import (
-    RISK,
-)
 from charts.generators.stacked_bar_chart.utils import (
-    DATE_FMT,
+    format_distribution_document,
     GroupDocumentData,
     translate_date,
 )
@@ -22,15 +19,10 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
-from decimal import (
-    Decimal,
-)
 from typing import (
-    cast,
     Dict,
     Iterable,
     List,
-    Union,
 )
 
 
@@ -115,87 +107,14 @@ async def get_many_groups_document(
     }
 
 
-def format_document(
-    document: Dict[str, Dict[datetime, float]],
-) -> dict:
-    return dict(
-        data=dict(
-            x="date",
-            columns=[
-                cast(List[Union[Decimal, str]], [name])
-                + [
-                    date.strftime(DATE_FMT)
-                    if name == "date"
-                    else Decimal(document[name][date]).quantize(Decimal("0.1"))
-                    for date in tuple(document["date"])[-12:]
-                ]
-                for name in document
-            ],
-            colors={
-                "Closed": RISK.more_passive,
-                "Accepted": RISK.agressive,
-                "Open": RISK.more_agressive,
-            },
-            groups=[
-                [
-                    "Closed",
-                    "Accepted",
-                    "Open",
-                ]
-            ],
-            type="bar",
-            order=None,
-            stack=dict(
-                normalize=True,
-            ),
-        ),
-        axis=dict(
-            x=dict(
-                tick=dict(
-                    centered=True,
-                    multiline=False,
-                    rotate=12,
-                ),
-                type="category",
-            ),
-            y=dict(
-                min=0,
-                padding=dict(
-                    bottom=0,
-                ),
-                label=dict(
-                    text="CVSSF",
-                    position="inner-top",
-                ),
-            ),
-        ),
-        grid=dict(
-            x=dict(
-                show=True,
-            ),
-            y=dict(
-                show=True,
-            ),
-        ),
-        legend=dict(
-            position="bottom",
-        ),
-        point=dict(
-            focus=dict(
-                expand=dict(
-                    enabled=True,
-                ),
-            ),
-            r=5,
-        ),
-    )
-
-
 async def generate_all() -> None:
+    y_label: str = "CVSSF"
     async for group in utils.iterate_groups():
         utils.json_dump(
-            document=format_document(
+            document=format_distribution_document(
                 document=await get_group_document(group),
+                y_label=y_label,
+                tick_format=False,
             ),
             entity="group",
             subject=group,
@@ -205,8 +124,10 @@ async def generate_all() -> None:
         utils.iterate_organizations_and_groups()
     ):
         utils.json_dump(
-            document=format_document(
+            document=format_distribution_document(
                 document=await get_many_groups_document(org_groups),
+                y_label=y_label,
+                tick_format=False,
             ),
             entity="organization",
             subject=org_id,
@@ -215,8 +136,10 @@ async def generate_all() -> None:
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
             utils.json_dump(
-                document=format_document(
+                document=format_distribution_document(
                     document=await get_many_groups_document(groups),
+                    y_label=y_label,
+                    tick_format=False,
                 ),
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",

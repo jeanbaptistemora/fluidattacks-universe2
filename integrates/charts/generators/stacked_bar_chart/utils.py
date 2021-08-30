@@ -4,6 +4,9 @@ from charts.colors import (
 from datetime import (
     datetime,
 )
+from decimal import (
+    Decimal,
+)
 from typing import (
     cast,
     Dict,
@@ -88,6 +91,85 @@ def format_document(
                 "Accepted": "line",
                 "Found": "line",
             },
+        ),
+        axis=dict(
+            x=dict(
+                tick=dict(
+                    centered=True,
+                    multiline=False,
+                    rotate=12,
+                ),
+                type="category",
+            ),
+            y=dict(
+                min=0,
+                padding=dict(
+                    bottom=0,
+                ),
+                label=dict(
+                    text=y_label,
+                    position="inner-top",
+                ),
+            ),
+        ),
+        grid=dict(
+            x=dict(
+                show=True,
+            ),
+            y=dict(
+                show=True,
+            ),
+        ),
+        legend=dict(
+            position="bottom",
+        ),
+        point=dict(
+            focus=dict(
+                expand=dict(
+                    enabled=True,
+                ),
+            ),
+            r=5,
+        ),
+        barChartYTickFormat=tick_format,
+    )
+
+
+def format_distribution_document(
+    document: Dict[str, Dict[datetime, float]],
+    y_label: str,
+    tick_format: bool = True,
+) -> dict:
+    return dict(
+        data=dict(
+            x="date",
+            columns=[
+                cast(List[Union[Decimal, str]], [name])
+                + [
+                    date.strftime(DATE_FMT)
+                    if name == "date"
+                    else Decimal(document[name][date]).quantize(Decimal("0.1"))
+                    for date in tuple(document["date"])[-12:]
+                ]
+                for name in document
+            ],
+            colors={
+                "Closed": RISK.more_passive,
+                "Accepted": RISK.agressive,
+                "Open": RISK.more_agressive,
+            },
+            groups=[
+                [
+                    "Closed",
+                    "Accepted",
+                    "Open",
+                ]
+            ],
+            type="bar",
+            order=None,
+            stack=dict(
+                normalize=True,
+            ),
         ),
         axis=dict(
             x=dict(
