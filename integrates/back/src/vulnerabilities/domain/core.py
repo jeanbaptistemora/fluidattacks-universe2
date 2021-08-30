@@ -746,13 +746,13 @@ def set_updated_manager_mail_content(
     for vuln_type in ["ports", "lines", "inputs"]:
         type_vulns = vulnerabilities.get(vuln_type)
         if type_vulns:
-            mail_content += "<br />".join(
+            mail_content += "\n".join(
                 [
                     f"- {list(vuln.values())[0]} ({list(vuln.values())[1]})"
                     for vuln in type_vulns
                 ]
             )
-            mail_content += "<br />"
+            mail_content += "\n"
     return mail_content
 
 
