@@ -452,32 +452,6 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
         group
     )
     (
-        remediated_over_time,
-        remediated_over_thirty_days,
-        remediated_over_ninety_days,
-    ) = await collect(
-        [
-            create_register_by_week(context, group),
-            create_register_by_week(
-                context,
-                group,
-                datetime.combine(
-                    datetime_utils.get_now_minus_delta(days=30),
-                    datetime.min.time(),
-                ),
-            ),
-            create_register_by_week(
-                context,
-                group,
-                datetime.combine(
-                    datetime_utils.get_now_minus_delta(days=90),
-                    datetime.min.time(),
-                ),
-            ),
-        ]
-    )
-
-    (
         remediate_critical,
         remediate_high,
         remediate_medium,
@@ -500,6 +474,31 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
             ),
             _get_group_indicators(group, context, findings),
             findings_domain.get_total_treatment_new(context, findings),
+        ]
+    )
+    (
+        remediated_over_time,
+        remediated_over_thirty_days,
+        remediated_over_ninety_days,
+    ) = await collect(
+        [
+            create_register_by_week(context, group),
+            create_register_by_week(
+                context,
+                group,
+                datetime.combine(
+                    datetime_utils.get_now_minus_delta(days=30),
+                    datetime.min.time(),
+                ),
+            ),
+            create_register_by_week(
+                context,
+                group,
+                datetime.combine(
+                    datetime_utils.get_now_minus_delta(days=90),
+                    datetime.min.time(),
+                ),
+            ),
         ]
     )
     indicators = {
@@ -697,8 +696,8 @@ async def update_group_indicators(group_name: str) -> None:
 
 async def update_indicators() -> None:
     """Update in dynamo indicators."""
-    groups = sorted(await groups_domain.get_active_groups())
-    await collect(map(update_group_indicators, groups), workers=48)
+    groups = sorted(await groups_domain.get_active_groups(), reverse=True)
+    await collect(map(update_group_indicators, groups), workers=24)
 
 
 async def main() -> None:

@@ -454,6 +454,25 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
     context = get_new_context()
     findings = await context.group_findings.load(group)
     (
+        remediate_critical,
+        remediate_high,
+        remediate_medium,
+        remediate_low,
+        _indicators,
+        total_treatment,
+    ) = await collect(
+        [
+            groups_domain.get_mean_remediate_severity(context, group, 9, 10),
+            groups_domain.get_mean_remediate_severity(context, group, 7, 8.9),
+            groups_domain.get_mean_remediate_severity(context, group, 4, 6.9),
+            groups_domain.get_mean_remediate_severity(
+                context, group, 0.1, 3.9
+            ),
+            _get_group_indicators(group, context, findings),
+            findings_domain.get_total_treatment(context, findings),
+        ]
+    )
+    (
         remediated_over_time,
         remediated_over_thirty_days,
         remediated_over_ninety_days,
@@ -476,26 +495,6 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
                     datetime.min.time(),
                 ),
             ),
-        ]
-    )
-
-    (
-        remediate_critical,
-        remediate_high,
-        remediate_medium,
-        remediate_low,
-        _indicators,
-        total_treatment,
-    ) = await collect(
-        [
-            groups_domain.get_mean_remediate_severity(context, group, 9, 10),
-            groups_domain.get_mean_remediate_severity(context, group, 7, 8.9),
-            groups_domain.get_mean_remediate_severity(context, group, 4, 6.9),
-            groups_domain.get_mean_remediate_severity(
-                context, group, 0.1, 3.9
-            ),
-            _get_group_indicators(group, context, findings),
-            findings_domain.get_total_treatment(context, findings),
         ]
     )
     indicators = {
@@ -693,8 +692,8 @@ async def update_group_indicators(group_name: str) -> None:
 
 async def update_indicators() -> None:
     """Update in dynamo indicators."""
-    groups = sorted(await groups_domain.get_active_groups())
-    await collect(map(update_group_indicators, groups), workers=48)
+    groups = sorted(await groups_domain.get_active_groups(), reverse=True)
+    await collect(map(update_group_indicators, groups), workers=24)
 
 
 async def main() -> None:
