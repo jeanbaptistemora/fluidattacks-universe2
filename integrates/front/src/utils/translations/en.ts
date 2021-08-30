@@ -653,6 +653,12 @@ export const enTranslations: ResourceKey = {
         url: "URL",
       },
     },
+    stakeHolders: {
+      filtersTooltips: {
+        invitation: "Filter by invitation",
+        role: "Filter by role",
+      },
+    },
     tabs: {
       analytics: {
         text: "Analytics",

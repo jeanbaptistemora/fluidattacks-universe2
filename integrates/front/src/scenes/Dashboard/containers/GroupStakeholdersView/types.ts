@@ -26,6 +26,22 @@ interface IGetStakeholdersAttrs {
   };
 }
 
+interface IStakeholderDataSet {
+  email: string;
+  firstLogin: string;
+  invitationState: string;
+  lastLogin: string;
+  organization: string;
+  phoneNumber: string;
+  groupName: string;
+  responsibility: string;
+  role: string;
+  invitationResend: React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  >;
+}
+
 interface IStakeholderAttrs {
   email: string;
   firstLogin: string;
@@ -52,5 +68,6 @@ export {
   IAddStakeholderAttr,
   IGetStakeholdersAttrs,
   IStakeholderAttrs,
+  IStakeholderDataSet,
   IUpdateGroupStakeholderAttr,
 };
