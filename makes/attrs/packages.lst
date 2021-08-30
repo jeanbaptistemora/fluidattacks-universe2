@@ -64,7 +64,6 @@ melts.bundle
 melts.config-development
 melts.config-runtime
 melts.lib
-melts.lint
 observes.env.code-etl.development
 observes.env.code-etl.runtime
 observes.env.gitlab-etl.development

@@ -49,11 +49,6 @@ makes.test.melts:
   <<: *in_master_branch_melts
   stage: test-code
 
-melts.lint:
-  <<: *makes
-  <<: *in_dev_branch_melts
-  stage: lint-code
-
 melts.test:
   <<: *makes
   <<: *in_dev_branch_melts
