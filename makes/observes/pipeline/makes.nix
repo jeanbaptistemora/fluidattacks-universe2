@@ -45,6 +45,10 @@ in
           output = "/lintPython/module/observesServiceBatchStability";
           gitlabExtra = gitlabLint;
         }
+        {
+          output = "/lintPython/module/observesServiceJobsScheduler";
+          gitlabExtra = gitlabLint;
+        }
       ];
     };
   };

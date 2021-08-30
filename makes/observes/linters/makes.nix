@@ -39,6 +39,13 @@
         python = "3.8";
         src = "/observes/services/batch_stability/batch_stability";
       };
+      observesServiceJobsScheduler = {
+        extraSources = [
+          inputs.product.observes-env-service-jobs-scheduler-runtime
+        ];
+        python = "3.8";
+        src = "/observes/services/jobs_scheduler/jobs_scheduler";
+      };
     };
   };
 }

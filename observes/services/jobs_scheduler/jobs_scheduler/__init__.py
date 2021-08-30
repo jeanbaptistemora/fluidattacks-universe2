@@ -13,7 +13,7 @@ from jobs_scheduler.conf import (
 from jobs_scheduler.cron import (
     match_cron,
 )
-import pytz
+import pytz  # type: ignore
 from returns.io import (
     impure,
 )
