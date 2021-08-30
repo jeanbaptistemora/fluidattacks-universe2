@@ -89,7 +89,6 @@ if FI_API_STATUS == "migration":
         "linesVulnerabilities", lines_vulnerabilities_new.resolve
     )
     FINDING.set_field("machineJobs", machine_jobs_new.resolve)
-    FINDING.set_field("newRemediated", remediated_new.resolve)
     FINDING.set_field("observations", observations_new.resolve)
     FINDING.set_field("openAge", open_age_new.resolve)
     FINDING.set_field("openVulnerabilities", open_vulnerabilities_new.resolve)
@@ -112,10 +111,13 @@ if FI_API_STATUS == "migration":
     )
     FINDING.set_field("zeroRisk", zero_risk_new.resolve)
     # --------------------------Deprecated fields------------------------------
-    FINDING.set_field("projectName", group_name_new.resolve)
+    FINDING.set_alias("attackVectorDesc", "attack_vector_description")
+    FINDING.set_alias("btsUrl", "bug_tracking_system_url")
     FINDING.set_field("inputsVulns", inputs_vulnerabilities_new.resolve)
     FINDING.set_field("linesVulns", lines_vulnerabilities_new.resolve)
+    FINDING.set_field("newRemediated", remediated_new.resolve)
     FINDING.set_field("portsVulns", ports_vulnerabilities_new.resolve)
+    FINDING.set_field("projectName", group_name_new.resolve)
     FINDING.set_field(
         "vulnsToReattack", vulnerabilities_to_reattack_new.resolve
     )
@@ -148,11 +150,10 @@ else:
     )
     FINDING.set_field("zeroRisk", zero_risk.resolve)
     # --------------------------Deprecated fields------------------------------
+    FINDING.set_alias("attackVectorDescription", "attack_vector_desc")
+    FINDING.set_alias("bugTrackingSystemUrl", "bts_url")
     FINDING.set_field("inputsVulns", inputs_vulnerabilities.resolve)
     FINDING.set_field("linesVulns", lines_vulnerabilities.resolve)
     FINDING.set_field("newRemediated", new_remediated.resolve)
     FINDING.set_field("portsVulns", ports_vulnerabilities.resolve)
     FINDING.set_field("vulnsToReattack", vulnerabilities_to_reattack.resolve)
-    # --------------------------Alias fields-----------------------------------
-    FINDING.set_alias("attackVectorDescription", "attack_vector_desc")
-    FINDING.set_alias("bugTrackingSystemUrl", "bts_url")
