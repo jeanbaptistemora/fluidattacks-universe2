@@ -157,4 +157,3 @@ skims.structure
 sorts.bundle
 sorts.config-development
 sorts.config-runtime
-sorts.lint

@@ -13,6 +13,12 @@
         src = "/sorts/sorts";
       };
     };
+    imports = {
+      sorts = {
+        config = "/sorts/setup.imports.cfg";
+        src = "/sorts/sorts";
+      };
+    };
     modules = {
       sortsTests = {
         extraSources = [

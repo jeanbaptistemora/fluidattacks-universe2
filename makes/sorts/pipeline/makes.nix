@@ -30,6 +30,10 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/lintPython/imports/sorts";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintPython/module/sortsTests";
           gitlabExtra = gitlabLint;
         }
