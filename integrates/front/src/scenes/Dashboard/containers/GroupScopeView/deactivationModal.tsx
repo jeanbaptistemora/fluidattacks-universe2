@@ -36,6 +36,7 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
 
   const [deactivateRoot] = useMutation(DEACTIVATE_ROOT, {
     onCompleted: (): void => {
+      onClose();
       onUpdate();
     },
     onError: ({ graphQLErrors }): void => {
