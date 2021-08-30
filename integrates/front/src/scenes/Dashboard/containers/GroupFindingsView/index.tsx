@@ -15,12 +15,6 @@ import { Trans } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { renderDescription } from "./description";
-import {
-  filterCurrentStatus,
-  filterReattack,
-  filterText,
-  filterWhere,
-} from "./filters";
 import { setReportType } from "./helpers";
 
 import { Button } from "components/Button";
@@ -31,6 +25,11 @@ import type {
   IFilterProps,
   IHeaderConfig,
 } from "components/DataTableNext/types";
+import {
+  filterSearchText,
+  filterSelect,
+  filterText,
+} from "components/DataTableNext/utils";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import AppstoreBadge from "resources/appstore_badge.svg";
@@ -279,7 +278,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   ): void {
     setSearchTextFilter(event.target.value);
   }
-  const filterSearchtextFindings: IFindingAttr[] = filterText(
+  const filterSearchtextFindings: IFindingAttr[] = filterSearchText(
     findings,
     searchTextFilter
   );
@@ -287,25 +286,28 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
     setCurrentStatusFilter(event.target.value);
   }
-  const filterCurrentStatusFindings: IFindingAttr[] = filterCurrentStatus(
+  const filterCurrentStatusFindings: IFindingAttr[] = filterSelect(
     findings,
-    currentStatusFilter
+    currentStatusFilter,
+    "state"
   );
 
   function onReattackChange(event: React.ChangeEvent<HTMLSelectElement>): void {
     setReattackFilter(event.target.value);
   }
-  const filterReattackFindings: IFindingAttr[] = filterReattack(
+  const filterReattackFindings: IFindingAttr[] = filterSelect(
     findings,
-    reattackFilter
+    reattackFilter,
+    "remediated"
   );
 
   function onWhereChange(event: React.ChangeEvent<HTMLInputElement>): void {
     setWhereFilter(event.target.value);
   }
-  const filterWhereFindings: IFindingAttr[] = filterWhere(
+  const filterWhereFindings: IFindingAttr[] = filterText(
     findings,
-    whereFilter
+    whereFilter,
+    "where"
   );
 
   const resultFindings: IFindingAttr[] = _.intersection(
