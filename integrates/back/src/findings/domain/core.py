@@ -1588,3 +1588,45 @@ async def get_oldest_no_treatment_findings(
         }
 
     return dict()
+
+
+async def get_oldest_no_treatment_findings_new(
+    context: Any,
+    findings: Tuple[Finding, ...],
+) -> Dict[str, str]:
+    """Get the finding with oldest "new treatment" vuln"""
+    finding_vulns_loader = context.finding_vulns_nzr
+    vulns = await finding_vulns_loader.load_many_chained(
+        [str(finding.id) for finding in findings]
+    )
+    new_vulns = [
+        {
+            **vuln,
+            "new_treatment_date": datetime_utils.get_from_str(
+                vuln["historic_treatment"][-1]["date"]
+            ),
+        }
+        for vuln in vulns
+        if vuln["historic_treatment"][-1]["treatment"] == "NEW"
+        and vuln["historic_state"][-1]["state"] == "open"
+    ]
+
+    if new_vulns:
+        oldest_new_vuln = sorted(
+            new_vulns, key=itemgetter("new_treatment_date"), reverse=False
+        )[0]
+        oldest_finding: Finding = next(
+            finding
+            for finding in findings
+            if finding.id == oldest_new_vuln["finding_id"]
+        )
+
+        return {
+            "oldest_name": oldest_finding.title,
+            "oldest_age": (
+                datetime_utils.get_now()
+                - oldest_new_vuln["new_treatment_date"]
+            ).days,
+        }
+
+    return {}

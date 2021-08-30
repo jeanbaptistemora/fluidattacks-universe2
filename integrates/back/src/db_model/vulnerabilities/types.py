@@ -70,7 +70,7 @@ class Vulnerability(NamedTuple):
 
 
 class VulnerabilityMetadataToUpdate(NamedTuple):
-    bts_url: Optional[str]
+    bug_tracking_system_url: Optional[str]
     commit: Optional[str]
     custom_severity: Optional[int]
     hash: Optional[int]

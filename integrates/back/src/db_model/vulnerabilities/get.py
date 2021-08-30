@@ -113,7 +113,7 @@ def _build_vulnerability(
         custom_severity=metadata.get("custom_severity", None),
         finding_id=metadata["finding_id"],
         hash=metadata.get("hash", None),
-        repo=metadata.get("bts_url", None),
+        repo=metadata.get("repo", None),
         specific=metadata["specific"],
         state=state,
         stream=metadata.get("stream", None),
