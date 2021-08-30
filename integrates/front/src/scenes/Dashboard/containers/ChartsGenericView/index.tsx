@@ -569,6 +569,24 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
               />
             </Col100>
           </RowCenter>
+          <RowCenter>
+            <Col100>
+              <Graphic
+                bsHeight={320}
+                className={"g1"}
+                documentName={"distributionOverTimeCvssf"}
+                documentType={"stackedBarChart"}
+                entity={entity}
+                generatorName={"generic"}
+                generatorType={"c3"}
+                reportMode={reportMode}
+                subject={subject}
+                title={translate.t(
+                  "analytics.stackedBarChart.distributionOverTimeCvssf.title"
+                )}
+              />
+            </Col100>
+          </RowCenter>
         </div>
       ) : undefined}
       {doesEntityMatch("organization", "portfolio") ? (
