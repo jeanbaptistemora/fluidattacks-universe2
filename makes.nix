@@ -16,6 +16,7 @@
     ./makes/forces/makes.nix
     ./makes/integrates/makes.nix
     ./makes/makes/makes.nix
+    ./makes/melts/makes.nix
     ./makes/skims/makes.nix
     ./makes/sorts/makes.nix
     ./makes/all/makes.nix
