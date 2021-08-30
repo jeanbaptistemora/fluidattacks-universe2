@@ -56,7 +56,7 @@ class Vulnerability(NamedTuple):
     uuid: str
     where: str
     type: VulnerabilityType
-    bts_url: Optional[str] = None
+    bug_tracking_system_url: Optional[str] = None
     commit: Optional[str] = None
     custom_severity: Optional[int] = None
     hash: Optional[int] = None

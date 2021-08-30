@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Aug 27, 2021, 09:38 AM",
+    "DateLastModified": "Aug 30, 2021, 10:07 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -355,7 +355,7 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "bts_url",
+          "AttributeName": "bug_tracking_system_url",
           "AttributeType": "S"
         },
         {
@@ -1629,7 +1629,7 @@
               "scenario": {
                 "S": "UNAUTHORIZED_USER_EXTRANET"
               },
-              "bts_url": {
+              "bug_tracking_system_url": {
                 "S": "https://btsurl.test/test"
               },
               "attack_vector_description": {
@@ -1657,7 +1657,7 @@
             "compromised_records",
             "risk",
             "scenario",
-            "bts_url",
+            "bug_tracking_system_url",
             "attack_vector_description"
           ]
         },
@@ -2013,7 +2013,7 @@
               "specific": {
                 "S": "44"
               },
-              "bts_url": {
+              "bug_tracking_system_url": {
                 "S": "https://gitlab.com/fluidattacks/product/-/issues/999"
               },
               "hash": {
@@ -2031,7 +2031,7 @@
             "repo",
             "where",
             "specific",
-            "bts_url",
+            "bug_tracking_system_url",
             "stream",
             "hash",
             "custom_severity"

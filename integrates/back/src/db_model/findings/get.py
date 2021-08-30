@@ -143,7 +143,7 @@ def _build_finding(
         analyst_email=metadata["analyst_email"],
         approval=approval,
         attack_vector_description=metadata["attack_vector_description"],
-        bts_url=metadata["bts_url"],
+        bug_tracking_system_url=metadata["bug_tracking_system_url"],
         compromised_attributes=metadata["compromised_attributes"],
         compromised_records=metadata["compromised_records"],
         creation=creation,

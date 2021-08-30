@@ -108,7 +108,7 @@ def _build_vulnerability(
         zero_risk = None
 
     return Vulnerability(
-        bts_url=metadata.get("bts_url", None),
+        bug_tracking_system_url=metadata.get("bug_tracking_system_url", None),
         commit=metadata.get("commit", None),
         custom_severity=metadata.get("custom_severity", None),
         finding_id=metadata["finding_id"],

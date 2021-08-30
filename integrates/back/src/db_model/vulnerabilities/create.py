@@ -25,7 +25,7 @@ async def create(*, vulnerability: Vulnerability) -> None:
         },
     )
     vulnerability_metadata = {
-        "bts_url": vulnerability.bts_url,
+        "bug_tracking_system_url": vulnerability.bug_tracking_system_url,
         "commit": vulnerability.commit,
         "custom_severity": vulnerability.custom_severity,
         "finding_id": vulnerability.finding_id,
