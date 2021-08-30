@@ -29,6 +29,10 @@ in
           output = "/lintPython/module/melts";
           gitlabExtra = gitlabLint;
         }
+        {
+          output = "/lintPython/module/meltsTests";
+          gitlabExtra = gitlabLint;
+        }
       ];
     };
   };
