@@ -114,7 +114,6 @@ observes.generic.linter
 observes.generic.runner
 observes.generic.tester
 observes.lint.architecture
-observes.lint.code-etl
 observes.lint.job-last-success
 observes.lint.paginator
 observes.lint.postgres-client

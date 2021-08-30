@@ -22,7 +22,7 @@ import os
 from ratelimiter import (
     RateLimiter,
 )
-import requests
+import requests  # type: ignore
 from typing import (
     Any,
     Callable,

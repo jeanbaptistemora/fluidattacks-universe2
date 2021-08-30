@@ -24,21 +24,10 @@
         - observes/code_etl/**/*
         - observes/common/**/*
 
-.lint_job: &lint_job
-  <<: *makes
-  <<: *dev_job
-  needs: []
-  stage: lint-code
-
 .test_job: &test_job
   <<: *makes
   <<: *dev_job
   stage: test-code
 
-observes.lint.code-etl:
-  <<: *lint_job
-
 observes.test.code-etl:
   <<: *test_job
-  needs:
-    - observes.lint.code-etl
