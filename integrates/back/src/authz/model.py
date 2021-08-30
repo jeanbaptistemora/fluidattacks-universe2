@@ -763,6 +763,10 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         tags={"forces"},
     ),
 )
+# Permission duplication for the new roles
+GROUP_LEVEL_ROLES["hacker"] = GROUP_LEVEL_ROLES["analyst"]
+GROUP_LEVEL_ROLES["reattacker"] = GROUP_LEVEL_ROLES["closer"]
+GROUP_LEVEL_ROLES["system_owner"] = GROUP_LEVEL_ROLES["group_manager"]
 
 # Map(role_name -> Map(actions|tags -> definition))
 GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
@@ -872,6 +876,16 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         **GROUP_LEVEL_ROLES["service_forces"],
     ),
 )
+# Permission duplication for the new roles
+GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS[
+    "hacker"
+] = GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS["analyst"]
+GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS[
+    "reattacker"
+] = GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS["closer"]
+GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS[
+    "system_owner"
+] = GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS["group_manager"]
 
 
 # Map(role_name -> Map(actions|tags -> definition))
@@ -950,6 +964,11 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         tags=set(),
     ),
 )
+# Permission duplication for the new roles
+ORGANIZATION_LEVEL_ROLES["system_owner"] = ORGANIZATION_LEVEL_ROLES[
+    "group_manager"
+]
+
 
 # Map(role_name -> Map(actions|tags -> definition))
 ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
@@ -997,6 +1016,10 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
         },
     ),
 )
+# Permission duplication for the new roles
+ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS[
+    "system_owner"
+] = ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS["group_manager"]
 
 
 # Map(role_name -> Map(actions|tags -> definition))
@@ -1038,6 +1061,8 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         tags=set(),
     ),
 )
+# Permission duplication for the new roles
+USER_LEVEL_ROLES["hacker"] = USER_LEVEL_ROLES["analyst"]
 
 # Map(role_name -> Map(actions|tags -> definition))
 USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
@@ -1081,6 +1106,10 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         },
     ),
 )
+# Permission duplication for the new roles
+USER_LEVEL_ROLES_FOR_FLUIDATTACKS[
+    "hacker"
+] = USER_LEVEL_ROLES_FOR_FLUIDATTACKS["analyst"]
 
 # Map(service -> feature)
 SERVICE_ATTRIBUTES: Dict[str, Set[str]] = dict(

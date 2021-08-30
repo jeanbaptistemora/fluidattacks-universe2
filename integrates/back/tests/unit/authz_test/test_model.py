@@ -25,9 +25,12 @@ pytestmark = [
                 "customeradmin",
                 "executive",
                 "group_manager",
+                "hacker",
+                "reattacker",
                 "resourcer",
                 "reviewer",
                 "service_forces",
+                "system_owner",
             ],
         ),
         (
@@ -40,9 +43,12 @@ pytestmark = [
                 "customeradmin",
                 "executive",
                 "group_manager",
+                "hacker",
+                "reattacker",
                 "resourcer",
                 "reviewer",
                 "service_forces",
+                "system_owner",
             ],
         ),
         (
@@ -51,6 +57,7 @@ pytestmark = [
                 "admin",
                 "analyst",
                 "customer",
+                "hacker",
             ],
         ),
         (
@@ -59,6 +66,7 @@ pytestmark = [
                 "admin",
                 "analyst",
                 "customer",
+                "hacker",
             ],
         ),
         (
