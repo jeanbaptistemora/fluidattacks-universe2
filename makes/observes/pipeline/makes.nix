@@ -46,6 +46,10 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/lintPython/imports/observesTapMixpanel";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintPython/module/observesCodeEtl";
           gitlabExtra = gitlabLint;
         }

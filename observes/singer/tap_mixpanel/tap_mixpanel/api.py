@@ -7,7 +7,7 @@ from functools import (
 from ratelimiter import (
     RateLimiter,
 )
-import requests
+import requests  # type: ignore
 import tempfile
 from typing import (
     Any,

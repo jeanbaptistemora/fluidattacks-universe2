@@ -122,8 +122,6 @@ observes.lint.tap-bugsnag
 observes.lint.tap-checkly
 observes.lint.tap-delighted
 observes.lint.tap-json
-observes.lint.tap-mailchimp
-observes.lint.tap-mixpanel
 observes.lint.tap-timedoctor
 observes.test.code-etl
 observes.test.postgres-client

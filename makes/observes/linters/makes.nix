@@ -20,6 +20,10 @@
         config = "/observes/singer/tap_mailchimp/tap_mailchimp/setup.imports.cfg";
         src = "/observes/singer/tap_mailchimp";
       };
+      observesTapMixpanel = {
+        config = "/observes/singer/tap_mixpanel/tap_mixpanel/setup.imports.cfg";
+        src = "/observes/singer/tap_mixpanel";
+      };
       observesServiceTimedoctorTokens = {
         config = "/observes/services/timedoctor_tokens/timedoctor_tokens/setup.imports.cfg";
         src = "/observes/services/timedoctor_tokens";
@@ -123,6 +127,16 @@
         extraSources = [ inputs.product.observes-env-tap-mailchimp-development ];
         python = "3.8";
         src = "/observes/singer/tap_mailchimp/tests";
+      };
+      observesTapMixpanel = {
+        extraSources = [ inputs.product.observes-env-tap-mixpanel-development ];
+        python = "3.8";
+        src = "/observes/singer/tap_mixpanel/tap_mixpanel";
+      };
+      observesTapMixpanelTests = {
+        extraSources = [ inputs.product.observes-env-tap-mixpanel-development ];
+        python = "3.8";
+        src = "/observes/singer/tap_mixpanel/tests";
       };
       observesTargetRedshift = {
         extraSources = [
