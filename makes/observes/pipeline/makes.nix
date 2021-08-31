@@ -30,6 +30,10 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/lintPython/imports/observesTapCsv";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintPython/module/observesCodeEtl";
           gitlabExtra = gitlabLint;
         }
@@ -67,6 +71,14 @@ in
         }
         {
           output = "/lintPython/module/observesStreamerZohoCrmTests";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintPython/module/observesTapCsv";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintPython/module/observesTapCsvTests";
           gitlabExtra = gitlabLint;
         }
         {

@@ -4,6 +4,10 @@
 {
   lintPython = {
     imports = {
+      observesTapCsv = {
+        config = "/observes/singer/tap_csv/setup.imports.cfg";
+        src = "/observes/singer/tap_csv";
+      };
       observesServiceTimedoctorTokens = {
         config = "/observes/services/timedoctor_tokens/timedoctor_tokens/setup.imports.cfg";
         src = "/observes/services/timedoctor_tokens";
@@ -72,6 +76,16 @@
         ];
         python = "3.8";
         src = "/observes/singer/streamer_zoho_crm/tests";
+      };
+      observesTapCsv = {
+        extraSources = [ inputs.product.observes-env-tap-csv-development ];
+        python = "3.8";
+        src = "/observes/singer/tap_csv/tap_csv";
+      };
+      observesTapCsvTests = {
+        extraSources = [ inputs.product.observes-env-tap-csv-development ];
+        python = "3.8";
+        src = "/observes/singer/tap_csv/tests";
       };
       observesTargetRedshift = {
         extraSources = [
