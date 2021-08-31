@@ -21,6 +21,7 @@ interface IIPRootAttr {
   id: string;
   nickname: string;
   port: number;
+  state: "ACTIVE" | "INACTIVE";
 }
 
 interface IURLRootAttr {
@@ -31,6 +32,7 @@ interface IURLRootAttr {
   path: string;
   port: number;
   protocol: "HTTP" | "HTTPS";
+  state: "ACTIVE" | "INACTIVE";
 }
 
 type Root = IGitRootAttr | IIPRootAttr | IURLRootAttr;

@@ -86,7 +86,7 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
   });
 
   const suggestions = roots
-    .filter((root): boolean => root.id !== rootId)
+    .filter((root): boolean => root.id !== rootId && root.state === "ACTIVE")
     .map(getRootDisplayName);
 
   const validations = object().shape({
