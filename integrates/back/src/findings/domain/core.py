@@ -10,6 +10,10 @@ from aioextensions import (
     schedule,
 )
 import authz
+from botocore.exceptions import (
+    ClientError,
+)
+import bugsnag
 from comments import (
     domain as comments_domain,
 )
@@ -25,6 +29,7 @@ from custom_exceptions import (
     InvalidDraftTitle,
     NotVerificationRequested,
     PermissionDenied,
+    UnavailabilityError,
     VulnNotFound,
 )
 from custom_types import (
@@ -903,7 +908,9 @@ async def list_findings_new(
     return cast(List[List[str]], findings_ids)
 
 
-async def mask_finding(context: Any, finding_id: str) -> bool:
+async def mask_finding(  # pylint: disable=too-many-locals
+    context: Any, finding_id: str
+) -> bool:
     finding = await findings_dal.get_finding(finding_id)
     finding = findings_utils.format_data(finding)
     historic_verification = cast(
@@ -971,7 +978,16 @@ async def mask_finding(context: Any, finding_id: str) -> bool:
         vulns_domain.mask_vuln(finding_id, str(vuln["UUID"])) for vuln in vulns
     ]
     mask_finding_coroutines.extend(mask_vulns_coroutines)
-    return all(await collect(mask_finding_coroutines))
+    try:
+        success = all(await collect(mask_finding_coroutines))
+    except ClientError as ex:
+        raise UnavailabilityError() from ex
+    finally:
+        if not success:
+            bugsnag.notify(
+                Exception("Failed to mask finding"), severity="Error"
+            )
+    return success
 
 
 async def mask_finding_new(  # pylint: disable=too-many-locals
