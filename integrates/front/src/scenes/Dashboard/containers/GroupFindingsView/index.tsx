@@ -215,7 +215,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     },
     {
       align: "center",
-      dataField: "locations",
+      dataField: "openVulnerabilities",
       header: "Locations",
       onSort: onSortState,
       visible: checkedItems.locations,
