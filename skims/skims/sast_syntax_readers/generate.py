@@ -78,6 +78,7 @@ from sast_syntax_readers.javascript import (
     formal_parameters as javascript_formal_parameters,
     function_declaration as javascript_function_declaration,
     if_statement as javascript_if_statement,
+    import_statement as javascript_import_statement,
     lexical_declaration as javascript_lexical_declaration,
     member_expression as javascript_member_expression,
     new_expression as javascript_new_expression,
@@ -888,6 +889,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "subscript_expression",
         },
         syntax_readers=(javascript_subscript_expression.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+        },
+        applicable_node_label_types={
+            "import_statement",
+        },
+        syntax_readers=(javascript_import_statement.reader,),
     ),
     *[
         Dispatcher(
