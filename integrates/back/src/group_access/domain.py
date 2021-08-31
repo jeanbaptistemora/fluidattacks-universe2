@@ -37,7 +37,7 @@ async def get_reattackers(group_name: str, active: bool = True) -> List[str]:
     return [
         str(user)
         for user, user_role in zip(users, user_roles)
-        if user_role in ["reattacker", "closer"]
+        if user_role in {"reattacker", "closer"}
     ]
 
 
@@ -93,7 +93,7 @@ async def list_group_managers(group: str) -> List[str]:
     managers = [
         user
         for user, role in zip(all_users, users_roles)
-        if role in ["system_owner", "group_manager"]
+        if role in {"system_owner", "group_manager"}
     ]
     return managers
 

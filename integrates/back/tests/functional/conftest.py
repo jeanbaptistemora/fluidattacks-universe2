@@ -129,6 +129,8 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
     reviewer_fluid_email: str = "reviewer@fluidattacks.com"
     service_forces_email: str = "service_forces@gmail.com"
     service_forces_fluid_email: str = "service_forces@fluidattacks.com"
+    system_owner_email: str = "system_owner@gmail.com"
+    system_owner_fluid_email: str = "system_owner@fluidattacks.com"
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
     return {
         "global_vars": {
@@ -152,6 +154,8 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
             "reviewer_fluid_email": reviewer_fluid_email,
             "service_forces_email": service_forces_email,
             "service_forces_fluid_email": service_forces_fluid_email,
+            "system_owner_email": system_owner_email,
+            "system_owner_fluid_email": system_owner_fluid_email,
             "FIN.H.060": "060. Insecure exceptions",
             "R359": "R359. Avoid using generic exceptions.",
         },
@@ -377,6 +381,28 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "push_tokens": [],
                     "is_registered": True,
                 },
+                {
+                    "email": system_owner_email,
+                    "first_login": "",
+                    "first_name": "",
+                    "last_login": "",
+                    "last_name": "",
+                    "legal_remember": False,
+                    "phone_number": "-",
+                    "push_tokens": [],
+                    "is_registered": True,
+                },
+                {
+                    "email": system_owner_fluid_email,
+                    "first_login": "",
+                    "first_name": "",
+                    "last_login": "",
+                    "last_name": "",
+                    "legal_remember": False,
+                    "phone_number": "-",
+                    "push_tokens": [],
+                    "is_registered": True,
+                },
             ],
             "orgs": [
                 {
@@ -403,6 +429,8 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                         reviewer_fluid_email,
                         service_forces_email,
                         service_forces_fluid_email,
+                        system_owner_email,
+                        system_owner_fluid_email,
                     ],
                     "groups": [
                         "group1",
@@ -584,6 +612,18 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "role": "service_forces",
                 },
                 {
+                    "level": "user",
+                    "subject": system_owner_email,
+                    "object": "self",
+                    "role": "system_owner",
+                },
+                {
+                    "level": "user",
+                    "subject": system_owner_fluid_email,
+                    "object": "self",
+                    "role": "system_owner",
+                },
+                {
                     "level": "group",
                     "subject": analyst_email,
                     "object": "group1",
@@ -702,6 +742,18 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "subject": service_forces_fluid_email,
                     "object": "group1",
                     "role": "service_forces",
+                },
+                {
+                    "level": "group",
+                    "subject": system_owner_email,
+                    "object": "group1",
+                    "role": "system_owner",
+                },
+                {
+                    "level": "group",
+                    "subject": system_owner_fluid_email,
+                    "object": "group1",
+                    "role": "system_owner",
                 },
                 {
                     "level": "organization",
@@ -822,6 +874,18 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "subject": service_forces_fluid_email,
                     "object": org_id,
                     "role": "service_forces",
+                },
+                {
+                    "level": "organization",
+                    "subject": system_owner_email,
+                    "object": org_id,
+                    "role": "system_owner",
+                },
+                {
+                    "level": "organization",
+                    "subject": system_owner_fluid_email,
+                    "object": org_id,
+                    "role": "system_owner",
                 },
             ],
         },

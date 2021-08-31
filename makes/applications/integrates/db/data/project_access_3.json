@@ -217,6 +217,24 @@
           }
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "has_access": {
+            "BOOL": true
+          },
+          "project_name": {
+            "S": "unittesting"
+          },
+          "responsibility": {
+            "S": "Test Owner"
+          },
+          "user_email": {
+            "S": "system_owner@fluidattacks.com"
+          }
+        }
+      }
     }
   ]
 }

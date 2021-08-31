@@ -614,7 +614,7 @@ async def _get_consult_users(
         analysts = [
             email
             for email, role in zip(users, roles)
-            if role in ["hacker", "analyst"]
+            if role in {"hacker", "analyst"}
         ]
 
         return [*recipients, *analysts]

@@ -319,7 +319,7 @@ def is_fluid_staff(email: str) -> bool:
 
 async def is_system_owner(email: str, group_name: str) -> bool:
     role: str = await authz.get_group_level_role(email, group_name)
-    return role in ["system_owner", "group_manager"]
+    return role in {"system_owner", "group_manager"}
 
 
 async def is_registered(email: str) -> bool:

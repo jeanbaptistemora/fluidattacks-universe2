@@ -335,6 +335,7 @@ async def test_organization() -> None:
         "integratesreviewer@fluidattacks.com",
         "integratesserviceforces@gmail.com",
         "integratesuser@gmail.com",
+        "system_owner@fluidattacks.com",
         "unittest2@fluidattacks.com",
     ]
 

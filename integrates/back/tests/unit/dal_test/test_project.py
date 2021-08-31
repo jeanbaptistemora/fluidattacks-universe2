@@ -15,7 +15,8 @@ pytestmark = [
 async def test_list_internal_managers() -> None:
     assert await list_internal_managers("oneshottest") == []
     assert await list_internal_managers("unittesting") == [
-        "unittest2@fluidattacks.com"
+        "unittest2@fluidattacks.com",
+        "system_owner@fluidattacks.com",
     ]
 
 

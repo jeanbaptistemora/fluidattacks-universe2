@@ -177,6 +177,15 @@ async def test_group() -> None:
             "role": "customeradmin",
         },
         {
+            "email": "system_owner@fluidattacks.com",
+            "firstLogin": "2021-08-28 11:54:12",
+            "invitationState": "CONFIRMED",
+            "lastLogin": "2021-08-30 13:40:37",
+            "phoneNumber": "-",
+            "responsibility": "Test Owner",
+            "role": "system_owner",
+        },
+        {
             "email": "continuoushacking@gmail.com",
             "firstLogin": "2018-02-28 11:54:12",
             "invitationState": "CONFIRMED",

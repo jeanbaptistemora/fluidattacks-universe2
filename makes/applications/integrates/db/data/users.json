@@ -429,6 +429,39 @@
             "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
           },
           "last_name": {
+            "S": "Owner"
+          },
+          "first_name": {
+            "S": "System"
+          },
+          "date_joined": {
+            "S": "2021-08-28 11:54:12"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "last_login": {
+            "S": "2021-08-30 13:40:37"
+          },
+          "email": {
+            "S": "system_owner@fluidattacks.com"
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": "fluid"
+          },
+          "organization": {
+            "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+          },
+          "last_name": {
             "S": "Closer"
           },
           "first_name": {
