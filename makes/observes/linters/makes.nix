@@ -46,6 +46,10 @@
         config = "/observes/singer/tap_csv/setup.imports.cfg";
         src = "/observes/singer/tap_csv";
       };
+      observesTapDelighted = {
+        config = "/observes/singer/tap_delighted/tap_delighted/setup.imports.cfg";
+        src = "/observes/singer/tap_delighted";
+      };
       observesTapFormstack = {
         config = "/observes/singer/tap_formstack/tap_formstack/setup.imports.cfg";
         src = "/observes/singer/tap_formstack";
@@ -148,6 +152,11 @@
         extraSources = [ inputs.product.observes-env-tap-csv-development ];
         python = "3.8";
         src = "/observes/singer/tap_csv/tests";
+      };
+      observesTapDelighted = {
+        extraSources = [ inputs.product.observes-env-tap-delighted-runtime ];
+        python = "3.8";
+        src = "/observes/singer/tap_delighted/tap_delighted";
       };
       observesTapFormstack = {
         extraSources = [ inputs.product.observes-env-tap-formstack-runtime ];

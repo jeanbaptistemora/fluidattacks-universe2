@@ -47,7 +47,7 @@ RawItems = RawApiResult[List[JsonObj]]
 
 def _wrap_manyreqs_error(
     request: Callable[[], DataType]
-) -> RawApiResult[DataType]:
+) -> RawApiResult[DataType]:  # type: ignore
     try:
         result = request()
         return IOSuccess(result)
@@ -67,13 +67,13 @@ _call_single_resource = pipe(_single_request, _wrap_manyreqs_error)
 _call_paged_resource = pipe(_paged_request, _wrap_manyreqs_error)
 
 
-def get_metrics(client: Client) -> RawItem:
+def get_metrics(client: Client) -> RawItem:  # type: ignore
     return _call_single_resource(
         lambda: delighted.Metrics.retrieve(client=client)
     )
 
 
-def list_bounced(client: Client, page: PageId) -> RawItems:
+def list_bounced(client: Client, page: PageId) -> RawItems:  # type: ignore
     LOG.debug("raw list_bounced %s", page)
     return _call_paged_resource(
         lambda: delighted.Bounce.all(
@@ -88,7 +88,7 @@ def list_people(client: Client) -> IO[Iterator[JsonObj]]:
     return IO(iter(pages))
 
 
-def list_surveys(client: Client, page: PageId) -> RawItems:
+def list_surveys(client: Client, page: PageId) -> RawItems:  # type: ignore
     return _call_paged_resource(
         lambda: delighted.SurveyResponse.all(
             client=client, page=page.page, per_page=page.per_page
@@ -96,7 +96,10 @@ def list_surveys(client: Client, page: PageId) -> RawItems:
     )
 
 
-def list_unsubscribed(client: Client, page: PageId) -> RawItems:
+def list_unsubscribed(
+    client: Client,
+    page: PageId,
+) -> RawItems:  # type: ignore
     return _call_paged_resource(
         lambda: delighted.Unsubscribe.all(
             client=client, page=page.page, per_page=page.per_page

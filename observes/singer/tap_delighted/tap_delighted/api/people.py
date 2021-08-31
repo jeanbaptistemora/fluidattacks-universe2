@@ -44,7 +44,7 @@ class BouncedPage(NamedTuple):
     @classmethod
     def new(cls, client: Client, page: PageId) -> IO[BouncedPage]:
         data = handle_rate_limit(lambda: raw.list_bounced(client, page), 5)
-        return data.unwrap().map(cls)
+        return data.unwrap().map(cls)  # type: ignore
 
 
 class UnsubscribedPage(NamedTuple):
@@ -55,7 +55,7 @@ class UnsubscribedPage(NamedTuple):
         data = handle_rate_limit(
             lambda: raw.list_unsubscribed(client, page), 5
         )
-        return data.unwrap().map(cls)
+        return data.unwrap().map(cls)  # type: ignore
 
 
 PageType = TypeVar("PageType", BouncedPage, UnsubscribedPage)
