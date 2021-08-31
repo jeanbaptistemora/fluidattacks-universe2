@@ -5,7 +5,6 @@ from aiodataloader import (
 )
 from aioextensions import (
     collect,
-    in_process,
     schedule,
 )
 import authz
@@ -832,12 +831,9 @@ async def get_closed_vulnerabilities_new(context: Any, group_name: str) -> int:
         [finding.id for finding in group_findings]
     )
 
-    last_approved_status = await collect(
-        [
-            in_process(vulns_utils.get_last_status, vuln)
-            for vuln in findings_vulns
-        ]
-    )
+    last_approved_status = [
+        vulns_utils.get_last_status(vuln) for vuln in findings_vulns
+    ]
     closed_vulnerabilities = 0
     for status in last_approved_status:
         if status == "closed":
@@ -1116,12 +1112,9 @@ async def get_open_vulnerabilities_new(
         [finding.id for finding in group_findings]
     )
 
-    last_approved_status = await collect(
-        [
-            in_process(vulns_utils.get_last_status, vuln)
-            for vuln in findings_vulns
-        ]
-    )
+    last_approved_status = [
+        vulns_utils.get_last_status(vuln) for vuln in findings_vulns
+    ]
     open_vulnerabilities = 0
     for status in last_approved_status:
         if status == "open":

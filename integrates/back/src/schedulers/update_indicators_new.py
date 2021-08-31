@@ -451,12 +451,12 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
     findings: Tuple[Finding, ...] = await context.group_findings_new.load(
         group
     )
+    _indicators = await _get_group_indicators(group, context, findings)
     (
         remediate_critical,
         remediate_high,
         remediate_medium,
         remediate_low,
-        _indicators,
         total_treatment,
     ) = await collect(
         [
@@ -472,7 +472,6 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
             groups_domain.get_mean_remediate_severity_new(
                 context, group, 0.1, 3.9
             ),
-            _get_group_indicators(group, context, findings),
             findings_domain.get_total_treatment_new(context, findings),
         ]
     )
@@ -696,8 +695,8 @@ async def update_group_indicators(group_name: str) -> None:
 
 async def update_indicators() -> None:
     """Update in dynamo indicators."""
-    groups = sorted(await groups_domain.get_active_groups(), reverse=True)
-    await collect(map(update_group_indicators, groups), workers=16)
+    groups = sorted(await groups_domain.get_active_groups())
+    await collect(map(update_group_indicators, groups), workers=8)
 
 
 async def main() -> None:
