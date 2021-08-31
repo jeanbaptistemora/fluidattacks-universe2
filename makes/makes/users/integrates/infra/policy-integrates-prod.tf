@@ -307,6 +307,7 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     resources = [
       "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-definition/default",
       "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/spot*",
+      "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/dedicated_soon",
       "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/dedicated_later",
     ]
   }
