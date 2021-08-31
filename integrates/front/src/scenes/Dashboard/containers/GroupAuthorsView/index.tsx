@@ -4,13 +4,15 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import type { ReactElement } from "react";
 import React, { useCallback, useState } from "react";
-import type { TableColumnFilterProps } from "react-bootstrap-table-next";
-import { textFilter } from "react-bootstrap-table2-filter";
 import { useParams } from "react-router-dom";
 
 import { DataTableNext } from "components/DataTableNext";
 import { commitFormatter } from "components/DataTableNext/formatters";
-import type { IHeaderConfig } from "components/DataTableNext/types";
+import type {
+  IFilterProps,
+  IHeaderConfig,
+} from "components/DataTableNext/types";
+import { filterSearchText, filterText } from "components/DataTableNext/utils";
 import styles from "scenes/Dashboard/containers/GroupAuthorsView/index.css";
 import { GET_BILL } from "scenes/Dashboard/containers/GroupAuthorsView/queries";
 import type {
@@ -33,6 +35,18 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
   );
 
   const [billDate, setBillDate] = useState(dateRange[0].toISOString());
+
+  const [isCustomFilterEnabled, setCustomFilterEnabled] =
+    useStoredState<boolean>("groupAuthorsFilters", false);
+
+  const [searchTextFilter, setSearchTextFilter] = useState("");
+  const [authorFilter, setAuthorFilter] = useState("");
+  const [groupsContributedFilter, setGroupsContributedFilter] = useState("");
+  const [repositoryFilter, setRepositoryFilter] = useState("");
+
+  const handleUpdateCustomFilter: () => void = useCallback((): void => {
+    setCustomFilterEnabled(!isCustomFilterEnabled);
+  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
 
   const formatText: (value: string) => ReactElement<Text> = (
     value: string
@@ -60,33 +74,10 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     []
   );
 
-  const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>(
-    "groupAuthorsFilters",
-    false
-  );
-
-  const handleUpdateFilter: () => void = useCallback((): void => {
-    setFilterEnabled(!isFilterEnabled);
-  }, [isFilterEnabled, setFilterEnabled]);
-
-  const onFilterGroupsContributed: TableColumnFilterProps["onFilter"] = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("groupsContributedFilter", filterVal);
-  };
-  const onFilterRepository: TableColumnFilterProps["onFilter"] = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("repositoryFilter", filterVal);
-  };
-
   const headersAuthorsTable: IHeaderConfig[] = [
     {
       align: "center",
       dataField: "actor",
-      filter: textFilter({
-        delay: 1000,
-      }),
       formatter: formatText,
       header: translate.t("group.authors.actor"),
       width: "40%",
@@ -95,11 +86,6 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "groups",
-      filter: textFilter({
-        defaultValue: _.get(sessionStorage, "groupsContributedFilter"),
-        delay: 1000,
-        onFilter: onFilterGroupsContributed,
-      }),
       formatter: formatText,
       header: translate.t("group.authors.groupsContributed"),
       width: "20%",
@@ -116,11 +102,6 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "repository",
-      filter: textFilter({
-        defaultValue: _.get(sessionStorage, "repositoryFilter"),
-        delay: 1000,
-        onFilter: onFilterRepository,
-      }),
       formatter: formatText,
       header: translate.t("group.authors.repository"),
       width: "20%",
@@ -145,6 +126,79 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
   }
 
   const dataset: IBillAuthor[] = (data as IData).group.bill.authors;
+
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
+  const filterSearchtextDataset: IBillAuthor[] = filterSearchText(
+    dataset,
+    searchTextFilter
+  );
+
+  function onAuthorChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    setAuthorFilter(event.target.value);
+  }
+  const filterAuthorDataset: IBillAuthor[] = filterText(
+    dataset,
+    authorFilter,
+    "actor"
+  );
+  function onGroupsContributedChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setGroupsContributedFilter(event.target.value);
+  }
+  const filterGroupsContributedDataset: IBillAuthor[] = filterText(
+    dataset,
+    groupsContributedFilter,
+    "groups"
+  );
+  function onRepositoryChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setRepositoryFilter(event.target.value);
+  }
+  const filterRepositoryDataset: IBillAuthor[] = filterText(
+    dataset,
+    repositoryFilter,
+    "repository"
+  );
+
+  const resultDataset: IBillAuthor[] = _.intersection(
+    filterSearchtextDataset,
+    filterAuthorDataset,
+    filterRepositoryDataset,
+    filterGroupsContributedDataset
+  );
+
+  const customFiltersProps: IFilterProps[] = [
+    {
+      defaultValue: authorFilter,
+      onChangeInput: onAuthorChange,
+      placeholder: "Author",
+      tooltipId: "group.findings.filtersTooltips.where.id",
+      tooltipMessage: "group.findings.filtersTooltips.where",
+      type: "text",
+    },
+    {
+      defaultValue: groupsContributedFilter,
+      onChangeInput: onGroupsContributedChange,
+      placeholder: "Groups Contributed",
+      tooltipId: "group.findings.filtersTooltips.where.id",
+      tooltipMessage: "group.findings.filtersTooltips.where",
+      type: "text",
+    },
+    {
+      defaultValue: repositoryFilter,
+      onChangeInput: onRepositoryChange,
+      placeholder: "Repository",
+      tooltipId: "group.findings.filtersTooltips.where.id",
+      tooltipMessage: "group.findings.filtersTooltips.where",
+      type: "text",
+    },
+  ];
 
   return (
     <React.StrictMode>
@@ -174,15 +228,23 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       </Row>
       <DataTableNext
         bordered={true}
-        dataset={dataset}
+        customFilters={{
+          customFiltersProps,
+          isCustomFilterEnabled,
+          onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+        }}
+        customSearch={{
+          customSearchDefault: searchTextFilter,
+          isCustomSearchEnabled: true,
+          onUpdateCustomSearch: onSearchTextChange,
+        }}
+        dataset={resultDataset}
         defaultSorted={{ dataField: "actor", order: "asc" }}
         exportCsv={true}
         headers={headersAuthorsTable}
         id={"tblAuthorsList"}
-        isFilterEnabled={isFilterEnabled}
-        onUpdateEnableFilter={handleUpdateFilter}
         pageSize={100}
-        search={true}
+        search={false}
         striped={true}
       />
     </React.StrictMode>
