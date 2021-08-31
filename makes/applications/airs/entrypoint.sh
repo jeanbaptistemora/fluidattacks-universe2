@@ -48,6 +48,13 @@ function compress_files {
 function sync_files {
   local src="${1}"
   local target="${2}"
+  local delete="${3:-true}"
+  local args=(
+    "${src}"
+    "${target}"
+    --acl private
+    --metadata-directive REPLACE
+  )
   declare -A content_encodings=(
     [css]=gzip
     [html]=gzip
@@ -63,25 +70,20 @@ function sync_files {
     [svg]=image/svg+xml
   )
 
-  for ext in "${!content_encodings[@]}"; do
-    content_encoding="${content_encodings[${ext}]}" \
-      && content_type="${content_types[${ext}]}" \
-      && aws s3 sync \
-        "${src}" \
-        "${target}" \
-        --acl private \
-        --delete \
-        --content-encoding "${content_encoding}" \
-        --content-type "${content_type}" \
-        --exclude '*' \
-        --include "*.${ext}" \
-        --metadata-directive REPLACE \
-      || return 1
-  done \
-    && aws s3 sync \
-      "${src}" \
-      "${target}" \
-      --delete \
+  if "${delete}" -eq 'true'; then
+    args+=(--delete)
+  fi \
+    && for ext in "${!content_encodings[@]}"; do
+      content_encoding="${content_encodings[${ext}]}" \
+        && content_type="${content_types[${ext}]}" \
+        && aws s3 sync "${args[@]}" \
+          --content-encoding "${content_encoding}" \
+          --content-type "${content_type}" \
+          --exclude '*' \
+          --include "*.${ext}" \
+        || return 1
+    done \
+    && aws s3 sync "${args[@]}" \
       --exclude '*.css' \
       --exclude '*.html' \
       --exclude '*.js' \
@@ -102,6 +104,7 @@ function deploy_eph {
   __envAirsBuild__ \
     && aws_login_dev airs \
     && compress_files "${src}/public" \
+    && sync_files "${src}/public" "s3://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" "false" \
     && sync_files "${src}/public" "s3://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
     && announce_to_bugsnag ephemeral
 }
@@ -112,6 +115,7 @@ function deploy_prod {
   __envAirsBuild__ \
     && aws_login_prod airs \
     && compress_files "${src}/public" \
+    && sync_files "${src}/public" 's3://fluidattacks.com' "false" \
     && sync_files "${src}/public" 's3://fluidattacks.com' \
     && announce_to_bugsnag production
 }
