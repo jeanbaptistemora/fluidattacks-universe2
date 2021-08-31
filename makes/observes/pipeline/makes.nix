@@ -26,6 +26,10 @@ in
       gitlabPath = "/makes/observes/gitlab-ci.yaml";
       jobs = [
         {
+          output = "/lintPython/imports/observesServiceTimedoctorTokens";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintPython/module/observesCodeEtl";
           gitlabExtra = gitlabLint;
         }
@@ -51,6 +55,10 @@ in
         }
         {
           output = "/lintPython/module/observesServiceMigrateTables";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintPython/module/observesServiceTimedoctorTokens";
           gitlabExtra = gitlabLint;
         }
         {

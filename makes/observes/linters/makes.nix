@@ -3,6 +3,12 @@
 }:
 {
   lintPython = {
+    imports = {
+      observesServiceTimedoctorTokens = {
+        config = "/observes/services/timedoctor_tokens/timedoctor_tokens/setup.imports.cfg";
+        src = "/observes/services/timedoctor_tokens";
+      };
+    };
     modules = {
       observesCodeEtl = {
         extraSources = [
@@ -73,6 +79,13 @@
         ];
         python = "3.8";
         src = "/observes/singer/target_redshift/target_redshift";
+      };
+      observesServiceTimedoctorTokens = {
+        extraSources = [
+          inputs.product.observes-env-service-timedoctor-tokens-runtime
+        ];
+        python = "3.8";
+        src = "/observes/services/timedoctor_tokens/timedoctor_tokens";
       };
     };
   };
