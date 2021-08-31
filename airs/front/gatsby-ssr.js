@@ -9,6 +9,15 @@ export const onRenderBody = (
   pluginOptions
 ) => {
   setHeadComponents([
+    // Disabling cache
+    <metadata
+      http-equiv={"Pragma"}
+      content={"no-cache"}
+    />,
+    <metadata
+      http-equiv={"cache-control"}
+      content={"no-cache, no-store, must-revalidate"}
+    />,
     <script
       id={"Cookiebot"}
       src={"https://consent.cookiebot.com/uc.js"}
