@@ -5,6 +5,9 @@ findings of groups that were deleted
 
 Related issue:
 https://gitlab.com/fluidattacks/product/-/issues/5244
+
+Execution Time:    2021-08-31 at 09:55:08 UTC-05
+Finalization Time: 2021-08-31 at 09:55:09 UTC-05
 """
 
 
@@ -21,7 +24,7 @@ from newutils import (
 )
 import time
 
-PROD: bool = False
+PROD: bool = True
 
 
 async def mask_finding(finding_id: str) -> bool:
