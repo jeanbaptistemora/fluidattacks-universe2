@@ -790,6 +790,26 @@ def get_updated_evidence_date_new(
     return updated_date
 
 
+async def get_where(loaders: Any, finding_id: str) -> str:
+    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr
+    vulnerabilities: List[VulnerabilityType] = await finding_vulns_loader.load(
+        finding_id
+    )
+    open_vulnerabilities = vulns_domain.filter_open_vulnerabilities(
+        vulnerabilities
+    )
+    return ", ".join(
+        sorted(
+            set(
+                map(
+                    lambda vulnerability: vulnerability["where"],
+                    open_vulnerabilities,
+                )
+            )
+        )
+    )
+
+
 async def has_access_to_finding(email: str, finding_id: str) -> bool:
     """Verify if the user has access to a finding submission."""
     finding = await get_finding(finding_id)
