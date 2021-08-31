@@ -202,6 +202,11 @@ def format_document(
             ),
             r=0,
         ),
+        spline=dict(
+            interpolation=dict(
+                type="monotone",
+            ),
+        ),
     )
 
 
