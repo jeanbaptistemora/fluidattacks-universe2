@@ -13,7 +13,6 @@ from custom_exceptions import (
 )
 from custom_types import (
     Comment as CommentType,
-    Finding as FindingType,
 )
 from datetime import (
     datetime,
@@ -127,17 +126,15 @@ async def list_comments(group_name: str, user_email: str) -> List[CommentType]:
         ]
     )
 
-    new_comments: List[CommentType] = []
     if enforcer(group_name, "handle_comment_scope"):
-        new_comments = comments
-    else:
-        new_comments = list(filter(_is_scope_comment, comments))
-    return new_comments
+        return comments
+
+    return list(filter(_is_scope_comment, comments))
 
 
 async def mask_comments(group_name: str) -> bool:
     comments = await get_comments(group_name)
-    are_comments_masked = all(
+    return all(
         await collect(
             [
                 delete_comment(
@@ -147,11 +144,10 @@ async def mask_comments(group_name: str) -> bool:
             ]
         )
     )
-    return are_comments_masked
 
 
 async def get_total_comments_date(
-    findings: List[Dict[str, FindingType]],
+    findings_ids: List[str],
     group_name: str,
     min_date: datetime,
 ) -> int:
@@ -167,7 +163,6 @@ async def get_total_comments_date(
         )
     )
 
-    findings_ids = [str(finding["finding_id"]) for finding in findings]
     findings_comments_len = len(
         filter_comments_date(
             await get_comments_for_ids("comment", findings_ids), min_date

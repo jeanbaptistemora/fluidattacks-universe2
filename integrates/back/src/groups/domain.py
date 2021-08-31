@@ -1509,7 +1509,7 @@ async def get_group_digest_stats(
         group_vulns, last_day
     )
     content["main"]["comments"] = await get_total_comments_date(
-        findings, group_name, last_day
+        findings_ids, group_name, last_day
     )
     content["main"]["remediation_time"] = int(
         await get_mean_remediate_non_treated(context, group_name)

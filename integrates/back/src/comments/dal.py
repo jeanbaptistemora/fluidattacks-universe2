@@ -90,14 +90,14 @@ async def get_comments(
 
 async def get_comments_for_ids(
     comment_type: str,
-    identifiers: List[str],
+    finding_ids: List[str],
 ) -> List[CommentType]:
     """Retrieve comments for several ids"""
     comments = await collect(
         get_comments(
             comment_type,
-            identifier,
+            finding_id,
         )
-        for identifier in identifiers
+        for finding_id in finding_ids
     )
     return list(chain.from_iterable(comments))

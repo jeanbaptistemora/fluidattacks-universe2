@@ -559,8 +559,9 @@ async def test_get_total_comments_date() -> None:
     context = get_new_context()
     group_findings_loader = context.group_findings
     findings = await group_findings_loader.load(group_name)
+    findings_ids = [str(finding["finding_id"]) for finding in findings]
     total_comments = await get_total_comments_date(
-        findings, group_name, last_day
+        findings_ids, group_name, last_day
     )
     assert total_comments == 5
 
