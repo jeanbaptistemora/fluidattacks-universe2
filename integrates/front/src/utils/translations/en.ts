@@ -309,6 +309,11 @@ export const enTranslations: ResourceKey = {
     authors: {
       actor: "Author",
       commit: "Commit",
+      filtersTooltips: {
+        actor: "Filter by author",
+        groupsContributed: "Filter by groups contributed",
+        repository: "Filter by repository",
+      },
       groupsContributed: "Groups Contributed",
       repository: "Repository",
       tableAdvice:
