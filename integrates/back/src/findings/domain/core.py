@@ -404,7 +404,6 @@ async def get_last_closed_vulnerability_info(
     context: Any, findings: List[Dict[str, FindingType]]
 ) -> Tuple[Decimal, VulnerabilityType]:
     """Get days since the last closed vulnerability"""
-    finding_vulns_loader = context.finding_vulns_nzr
     validate_findings = await collect(
         [validate_finding(finding=finding) for finding in findings]
     )
@@ -413,7 +412,7 @@ async def get_last_closed_vulnerability_info(
         for finding, is_valid in zip(findings, validate_findings)
         if is_valid
     ]
-    vulns = await finding_vulns_loader.load_many_chained(
+    vulns = await context.finding_vulns_nzr.load_many_chained(
         [str(finding["finding_id"]) for finding in validated_findings]
     )
     are_vuln_closed = [
@@ -1189,9 +1188,8 @@ async def total_vulnerabilities(
 ) -> Dict[str, int]:
     finding_id: str = str(finding_["finding_id"])
     finding = {"openVulnerabilities": 0, "closedVulnerabilities": 0}
-    finding_vulns_loader = context.finding_vulns_nzr
     if await validate_finding(finding=finding_):
-        vulnerabilities = await finding_vulns_loader.load(finding_id)
+        vulnerabilities = await context.finding_vulns_nzr.load(finding_id)
         last_approved_status = [
             vulns_utils.get_last_status(vuln) for vuln in vulnerabilities
         ]

@@ -803,12 +803,8 @@ async def get_attributes(
 
 
 async def get_closed_vulnerabilities(context: Any, group_name: str) -> int:
-    group_findings_loader = context.group_findings
-    group_findings_loader.clear(group_name)
-    finding_vulns_loader = context.finding_vulns_nzr
-
-    group_findings = await group_findings_loader.load(group_name)
-    findings_vulns = await finding_vulns_loader.load_many_chained(
+    group_findings = await context.group_findings.load(group_name)
+    findings_vulns = await context.finding_vulns_nzr.load_many_chained(
         [finding["finding_id"] for finding in group_findings]
     )
 
@@ -915,11 +911,8 @@ async def get_many_groups(groups_name: List[str]) -> List[GroupType]:
 async def get_mean_remediate(
     context: Any, group_name: str, min_date: Optional[date] = None
 ) -> Decimal:
-    group_findings_loader = context.group_findings
-    finding_vulns_loaders = context.finding_vulns
-
-    group_findings = await group_findings_loader.load(group_name)
-    vulns = await finding_vulns_loaders.load_many_chained(
+    group_findings = await context.group_findings.load(group_name)
+    vulns = await context.finding_vulns.load_many_chained(
         [str(finding["finding_id"]) for finding in group_findings]
     )
     return vulns_utils.get_mean_remediate_vulnerabilities(vulns, min_date)
@@ -1047,11 +1040,8 @@ async def get_mean_remediate_severity_new(
 
 
 async def get_open_finding(context: Any, group_name: str) -> int:
-    finding_vulns_loader = context.finding_vulns_nzr
-    group_findings_loader = context.group_findings
-
-    group_findings = await group_findings_loader.load(group_name)
-    vulns = await finding_vulns_loader.load_many_chained(
+    group_findings = await context.group_findings.load(group_name)
+    vulns = await context.finding_vulns_nzr.load_many_chained(
         [finding["finding_id"] for finding in group_findings]
     )
 
@@ -1059,6 +1049,7 @@ async def get_open_finding(context: Any, group_name: str) -> int:
     for vuln in vulns:
         finding_vulns_dict[vuln["finding_id"]].append(vuln)
     finding_vulns = list(finding_vulns_dict.values())
+
     return vulns_utils.get_open_findings(finding_vulns)
 
 

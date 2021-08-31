@@ -11,6 +11,7 @@ from charts import (
 from charts.generators.stacked_bar_chart.utils import (
     format_distribution_document,
     GroupDocumentData,
+    sum_distribution_many_groups,
     translate_date,
 )
 from dataloaders import (
@@ -77,34 +78,7 @@ async def get_many_groups_document(
         )
     )
 
-    for group_document in group_documents:
-        for name in group_document:
-            last_date = None
-            for date in all_dates:
-                if date in group_document[name]:
-                    last_date = date
-                elif last_date:
-                    group_document[name][date] = group_document[name][
-                        last_date
-                    ]
-                else:
-                    group_document[name][date] = 0
-
-    return {
-        name: {
-            date: sum(
-                group_document[name].get(date, 0)
-                for group_document in group_documents
-            )
-            for date in all_dates
-        }
-        for name in [
-            "date",
-            "Closed",
-            "Accepted",
-            "Open",
-        ]
-    }
+    return sum_distribution_many_groups(group_documents, all_dates)
 
 
 async def generate_all() -> None:

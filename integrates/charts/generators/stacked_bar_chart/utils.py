@@ -12,6 +12,7 @@ from typing import (
     Dict,
     List,
     NamedTuple,
+    Tuple,
     Union,
 )
 
@@ -212,3 +213,37 @@ def format_distribution_document(
         ),
         barChartYTickFormat=tick_format,
     )
+
+
+def sum_distribution_many_groups(
+    group_documents: Tuple[Dict[str, Dict[datetime, float]], ...],
+    all_dates: List[datetime],
+) -> Dict[str, Dict[datetime, float]]:
+    for group_document in group_documents:
+        for name in group_document:
+            last_date = None
+            for date in all_dates:
+                if date in group_document[name]:
+                    last_date = date
+                elif last_date:
+                    group_document[name][date] = group_document[name][
+                        last_date
+                    ]
+                else:
+                    group_document[name][date] = 0
+
+    return {
+        name: {
+            date: sum(
+                group_document[name].get(date, 0)
+                for group_document in group_documents
+            )
+            for date in all_dates
+        }
+        for name in [
+            "date",
+            "Closed",
+            "Accepted",
+            "Open",
+        ]
+    }
