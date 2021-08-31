@@ -26,6 +26,10 @@ in
       gitlabPath = "/makes/observes/gitlab-ci.yaml";
       jobs = [
         {
+          output = "/lintPython/imports/observesArch";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintPython/imports/observesServiceTimedoctorTokens";
           gitlabExtra = gitlabLint;
         }

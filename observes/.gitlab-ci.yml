@@ -70,9 +70,6 @@ include:
 
 # lint jobs
 
-observes.lint.architecture:
-  <<: *lint_job
-
 observes.lint.paginator:
   <<: *lint_job
 
