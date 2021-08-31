@@ -2,7 +2,7 @@ from __future__ import (
     annotations,
 )
 
-from deprecated import (
+from deprecated import (  # type: ignore
     deprecated,
 )
 import psycopg2 as postgres

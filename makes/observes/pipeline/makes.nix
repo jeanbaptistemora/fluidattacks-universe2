@@ -49,6 +49,10 @@ in
           output = "/lintPython/module/observesServiceJobsScheduler";
           gitlabExtra = gitlabLint;
         }
+        {
+          output = "/lintPython/module/observesServiceMigrateTables";
+          gitlabExtra = gitlabLint;
+        }
       ];
     };
   };

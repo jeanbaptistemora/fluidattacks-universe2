@@ -79,9 +79,6 @@ observes.lint.paginator:
 observes.lint.postgres-client:
   <<: *lint_job
 
-observes.lint.service-migrate-tables:
-  <<: *lint_job
-
 observes.lint.service-timedoctor-tokens:
   <<: *lint_job
 

@@ -46,6 +46,13 @@
         python = "3.8";
         src = "/observes/services/jobs_scheduler/jobs_scheduler";
       };
+      observesServiceMigrateTables = {
+        extraSources = [
+          inputs.product.observes-env-service-migrate-tables-runtime
+        ];
+        python = "3.8";
+        src = "/observes/services/migrate_tables/migrate_tables";
+      };
     };
   };
 }
