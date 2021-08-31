@@ -85,9 +85,6 @@ observes.lint.tap-checkly:
 observes.lint.tap-delighted:
   <<: *lint_job
 
-observes.lint.tap-formstack:
-  <<: *lint_job
-
 observes.lint.tap-json:
   <<: *lint_job
 

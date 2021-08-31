@@ -5,11 +5,11 @@ from . import (
     logs,
 )
 import argparse
-import dateutil.parser
+import dateutil.parser  # type: ignore
 import json
 import re
-import requests
-from requests.exceptions import (
+import requests  # type: ignore
+from requests.exceptions import (  # type: ignore
     ChunkedEncodingError,
     HTTPError,
 )

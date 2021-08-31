@@ -34,6 +34,10 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/lintPython/imports/observesTapFormstack";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintPython/module/observesCodeEtl";
           gitlabExtra = gitlabLint;
         }
@@ -79,6 +83,10 @@ in
         }
         {
           output = "/lintPython/module/observesTapCsvTests";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintPython/module/observesTapFormstack";
           gitlabExtra = gitlabLint;
         }
         {
