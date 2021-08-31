@@ -583,3 +583,32 @@ def filter_historic_date(
         if min_date and datetime_utils.get_from_str(entry["date"]) >= min_date
     ]
     return filtered
+
+
+async def get_total_treatment_date(
+    vulns: List[Dict[str, FindingType]],
+    min_date: datetime,
+) -> Dict[str, int]:
+    """Get the total treatment of all the vulns filtered by date"""
+    accepted_vuln: int = 0
+    accepted_undefined_submited_vuln: int = 0
+    accepted_undefined_approved_vuln: int = 0
+
+    for vuln in vulns:
+        filtered_historic_as_str = str(
+            filter_historic_date(
+                vuln.get("historic_treatment", [{}]), min_date
+            )
+        )
+        # Check if any of these states occurred in the period
+        if "'ACCEPTED'" in filtered_historic_as_str:
+            accepted_vuln += 1
+        if "SUBMITTED" in filtered_historic_as_str:
+            accepted_undefined_submited_vuln += 1
+        if "APPROVED" in filtered_historic_as_str:
+            accepted_undefined_approved_vuln += 1
+    return {
+        "accepted": accepted_vuln,
+        "accepted_undefined_submitted": accepted_undefined_submited_vuln,
+        "accepted_undefined_approved": accepted_undefined_approved_vuln,
+    }

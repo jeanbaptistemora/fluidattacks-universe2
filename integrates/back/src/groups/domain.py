@@ -1477,17 +1477,16 @@ async def get_group_digest_stats(
 
     group_findings_loader = context.group_findings
     findings = await group_findings_loader.load(group_name)
+    findings_ids = [str(finding["finding_id"]) for finding in findings]
 
     finding_vulns_loader = context.finding_vulns_nzr
-    vulns = await finding_vulns_loader.load_many_chained(
-        [str(finding["finding_id"]) for finding in findings]
-    )
+    group_vulns = await finding_vulns_loader.load_many_chained(findings_ids)
 
-    if len(vulns) == 0:
+    if len(group_vulns) == 0:
         LOGGER_CONSOLE.info(f"NO vulns at {group_name}", **NOEXTRA)
         return content
 
-    content["vulns_len"] = len(vulns)
+    content["vulns_len"] = len(group_vulns)
     last_day = datetime_utils.get_now_minus_delta(hours=24)
     oldest_finding = await findings_domain.get_oldest_no_treatment_findings(
         context, findings
@@ -1503,8 +1502,8 @@ async def get_group_digest_stats(
                 "severity": str(max_severity),
             }
         ]
-    treatments = await findings_domain.get_total_treatment_date(
-        context, findings, last_day
+    treatments = await vulns_utils.get_total_treatment_date(
+        group_vulns, last_day
     )
     content["treatments"]["temporary_applied"] = treatments.get("accepted", 0)
     content["treatments"]["eternal_requested"] = treatments.get(

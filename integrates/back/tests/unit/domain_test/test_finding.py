@@ -21,7 +21,6 @@ from findings.domain import (
     approve_draft,
     get_oldest_no_treatment_findings,
     get_total_reattacks_stats,
-    get_total_treatment_date,
     get_tracking_vulnerabilities,
     list_drafts,
     list_findings,
@@ -420,24 +419,6 @@ async def test_get_oldest_no_treatment_findings() -> None:
         "oldest_age": 256,
     }
     assert expected_output == oldest_findings
-
-
-@freeze_time("2018-12-27")
-async def test_get_total_treatment_stats() -> None:
-    group_name = "unittesting"
-    last_day = datetime_utils.get_now_minus_delta(hours=24)
-    context = get_new_context()
-    group_findings_loader = context.group_findings
-    findings = await group_findings_loader.load(group_name)
-    treatment_stats = await get_total_treatment_date(
-        context, findings, last_day
-    )
-    expected_output = {
-        "accepted": 3,
-        "accepted_undefined_submitted": 1,
-        "accepted_undefined_approved": 1,
-    }
-    assert expected_output == treatment_stats
 
 
 @freeze_time("2018-12-27")

@@ -1513,41 +1513,6 @@ async def get_total_reattacks_stats(  # pylint: disable=too-many-locals
     }
 
 
-async def get_total_treatment_date(
-    context: Any,
-    findings: List[Dict[str, FindingType]],
-    min_date: datetime,
-) -> Dict[str, int]:
-    """Get the total treatment of all the vulns filtered by date"""
-    accepted_vuln: int = 0
-    accepted_undefined_submited_vuln: int = 0
-    accepted_undefined_approved_vuln: int = 0
-    finding_vulns_loader = context.finding_vulns_nzr
-
-    vulns = await finding_vulns_loader.load_many_chained(
-        [str(finding["finding_id"]) for finding in findings]
-    )
-
-    for vuln in vulns:
-        filtered_historic_as_str = str(
-            vulns_utils.filter_historic_date(
-                vuln.get("historic_treatment", [{}]), min_date
-            )
-        )
-        # Check if any of these states occurred in the period
-        if "'ACCEPTED'" in filtered_historic_as_str:
-            accepted_vuln += 1
-        if "SUBMITTED" in filtered_historic_as_str:
-            accepted_undefined_submited_vuln += 1
-        if "APPROVED" in filtered_historic_as_str:
-            accepted_undefined_approved_vuln += 1
-    return {
-        "accepted": accepted_vuln,
-        "accepted_undefined_submitted": accepted_undefined_submited_vuln,
-        "accepted_undefined_approved": accepted_undefined_approved_vuln,
-    }
-
-
 async def get_oldest_no_treatment_findings(
     context: Any,
     findings: List[Dict[str, FindingType]],
