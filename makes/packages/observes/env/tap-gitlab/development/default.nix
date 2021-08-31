@@ -13,8 +13,5 @@ makeTemplate {
       })
       packages.observes.env.tap-gitlab.runtime
     ];
-    envUtils = [
-      "/makes/utils/lint-python"
-    ];
   };
 }

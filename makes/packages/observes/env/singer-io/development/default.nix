@@ -14,8 +14,5 @@ makeTemplate {
       })
       singer-io.runtime
     ];
-    envUtils = [
-      "/makes/utils/lint-python"
-    ];
   };
 }

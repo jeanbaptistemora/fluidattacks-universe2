@@ -40,10 +40,6 @@ observes.lint.tap-announcekit:
 
 observes.test.tap-announcekit:
   <<: *test_job
-  needs:
-    - observes.lint.tap-announcekit
 
 observes.fx-test.tap-announcekit:
   <<: *test_job
-  needs:
-    - observes.test.tap-announcekit

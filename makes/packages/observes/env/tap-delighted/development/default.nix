@@ -8,8 +8,5 @@ makeTemplate {
     envSources = [
       packages.observes.env.tap-delighted.runtime
     ];
-    envUtils = [
-      "/makes/utils/lint-python"
-    ];
   };
 }

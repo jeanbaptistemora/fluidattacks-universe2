@@ -8,8 +8,5 @@ makeTemplate {
     envSources = [
       packages.observes.env.tap-checkly.runtime
     ];
-    envUtils = [
-      "/makes/utils/lint-python"
-    ];
   };
 }

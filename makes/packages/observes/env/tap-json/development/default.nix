@@ -8,8 +8,5 @@ makeTemplate {
     envSources = [
       packages.observes.env.tap-json.runtime
     ];
-    envUtils = [
-      "/makes/utils/lint-python"
-    ];
   };
 }

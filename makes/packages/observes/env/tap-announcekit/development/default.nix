@@ -13,8 +13,5 @@ makeTemplate {
       })
       packages.observes.env.tap-announcekit.runtime
     ];
-    envUtils = [
-      "/makes/utils/lint-python"
-    ];
   };
 }

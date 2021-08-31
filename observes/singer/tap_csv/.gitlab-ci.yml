@@ -40,5 +40,3 @@ observes.lint.tap-csv:
 
 observes.test.tap-csv:
   <<: *test_job
-  needs:
-    - observes.lint.tap-csv

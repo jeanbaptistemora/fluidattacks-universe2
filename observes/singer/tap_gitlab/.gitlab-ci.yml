@@ -40,5 +40,3 @@ observes.lint.tap-gitlab:
 
 observes.test.tap-gitlab:
   <<: *test_job
-  needs:
-    - observes.lint.tap-gitlab

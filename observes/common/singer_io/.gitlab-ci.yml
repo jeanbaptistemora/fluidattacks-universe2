@@ -40,5 +40,3 @@ observes.lint.singer-io:
 
 observes.test.singer-io:
   <<: *test_job
-  needs:
-    - observes.lint.singer-io
