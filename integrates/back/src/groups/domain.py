@@ -1512,8 +1512,8 @@ async def get_group_digest_stats(
     content["treatments"]["eternal_approved"] = treatments.get(
         "accepted_undefined_approved", 0
     )
-    content["reattacks"] = await findings_domain.get_total_reattacks_stats(
-        context, findings, last_day
+    content["reattacks"] = await vulns_utils.get_total_reattacks_stats(
+        group_vulns, last_day
     )
     content["main"]["comments"] = await get_total_comments_date(
         findings, group_name, last_day

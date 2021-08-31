@@ -20,7 +20,6 @@ from findings.domain import (
     add_comment,
     approve_draft,
     get_oldest_no_treatment_findings,
-    get_total_reattacks_stats,
     get_tracking_vulnerabilities,
     list_drafts,
     list_findings,
@@ -32,9 +31,6 @@ from freezegun import (
 )
 from graphql.type import (
     GraphQLResolveInfo,
-)
-from newutils import (
-    datetime as datetime_utils,
 )
 import os
 import pytest
@@ -419,26 +415,3 @@ async def test_get_oldest_no_treatment_findings() -> None:
         "oldest_age": 256,
     }
     assert expected_output == oldest_findings
-
-
-@freeze_time("2018-12-27")
-async def test_get_total_reattacks_stats() -> None:
-    group_name = "unittesting"
-    last_day = datetime_utils.get_now_minus_delta(hours=24)
-    context = get_new_context()
-    group_findings_loader = context.group_findings
-    findings = await group_findings_loader.load(group_name)
-    reattacks_stats = await get_total_reattacks_stats(
-        context, findings, last_day
-    )
-    expected_output = {
-        "effective_reattacks": 0,
-        "effective_reattacks_total": 0,
-        "reattacks_requested": 2,
-        "last_requested_date": "2020-02-19 10:41:04",
-        "reattacks_executed": 1,
-        "reattacks_executed_total": 1,
-        "last_executed_date": "2020-02-19 10:41:04",
-        "pending_attacks": 1,
-    }
-    assert expected_output == reattacks_stats

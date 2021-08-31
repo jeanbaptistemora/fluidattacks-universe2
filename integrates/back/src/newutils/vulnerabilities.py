@@ -577,12 +577,11 @@ def filter_historic_date(
     min_date: datetime,
 ) -> HistoricType:
     """Filter historics since a given date"""
-    filtered = [
+    return [
         entry
         for entry in historic
         if min_date and datetime_utils.get_from_str(entry["date"]) >= min_date
     ]
-    return filtered
 
 
 async def get_total_treatment_date(
@@ -611,4 +610,65 @@ async def get_total_treatment_date(
         "accepted": accepted_vuln,
         "accepted_undefined_submitted": accepted_undefined_submited_vuln,
         "accepted_undefined_approved": accepted_undefined_approved_vuln,
+    }
+
+
+async def get_total_reattacks_stats(  # pylint: disable=too-many-locals
+    vulns: List[Dict[str, FindingType]],
+    min_date: datetime,
+) -> Dict[str, Union[int, str]]:
+    """Get the total reattacks of all the vulns"""
+    default_date: datetime = datetime_utils.get_from_str(
+        datetime_utils.DEFAULT_STR
+    )
+    reattacks_requested: int = 0
+    reattacks_executed: int = 0
+    reattacks_executed_total: int = 0  # No filtered by date
+    pending_attacks: int = 0
+    effective_reattacks: int = 0
+    effective_reattacks_total: int = 0  # No filtered by date
+    min_requested_date: datetime = default_date
+    min_executed_date: datetime = default_date
+
+    for vuln in vulns:
+        if vuln.get("last_requested_reattack_date", ""):
+            last_requested_reattack_date = datetime_utils.get_from_str(
+                vuln.get("last_requested_reattack_date", "")
+            )
+            # Get oldest reattack request date
+            min_requested_date = max(
+                min_requested_date, last_requested_reattack_date
+            )
+            if min_date and last_requested_reattack_date >= min_date:
+                reattacks_requested += 1
+        if vuln.get("last_reattack_date", ""):
+            # Increment totals, no date filtered
+            reattacks_executed_total += 1
+            if vuln.get("current_state", "") == "closed":
+                effective_reattacks_total += 1
+            # Get oldest executed reattack date
+            last_reattack_date = datetime_utils.get_from_str(
+                vuln.get("last_reattack_date", "")
+            )
+            min_executed_date = max(min_executed_date, last_reattack_date)
+            if min_date and last_reattack_date >= min_date:
+                reattacks_executed += 1
+                if vuln.get("current_state", "") == "closed":
+                    effective_reattacks += 1
+        if vuln.get("verification", "") == "Requested":
+            pending_attacks += 1
+
+    return {
+        "effective_reattacks": effective_reattacks,
+        "effective_reattacks_total": effective_reattacks_total,
+        "reattacks_requested": reattacks_requested,
+        "last_requested_date": datetime_utils.get_as_str(min_requested_date)
+        if min_requested_date != default_date
+        else "",
+        "reattacks_executed": reattacks_executed,
+        "reattacks_executed_total": reattacks_executed_total,
+        "last_executed_date": datetime_utils.get_as_str(min_executed_date)
+        if min_executed_date != default_date
+        else "",
+        "pending_attacks": pending_attacks,
     }
