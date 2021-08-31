@@ -24,6 +24,24 @@ const allowedDocumentTypes: string[] = [
   "textBox",
 ];
 const mergedDocuments: Record<string, IMergedCharts> = {
+  distributionOverTimeCvssf: {
+    alt: {
+      label: "Vulns",
+      tooltip: translate.t(
+        "analytics.stackedBarChart.distributionOverTimeCvssf.tooltip.vulnerabilities"
+      ),
+      url: "",
+    },
+    default: {
+      label: "Cvssf",
+      tooltip: translate.t(
+        "analytics.stackedBarChart.distributionOverTimeCvssf.tooltip.cvssf"
+      ),
+      url: "",
+    },
+    documentName: "distributionOverTime",
+    documentType: "stackedBarChart",
+  },
   meanTimeToRemediate: {
     alt: {
       label: "Non treated",

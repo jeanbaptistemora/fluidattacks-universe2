@@ -157,6 +157,10 @@ export const enTranslations: ResourceKey = {
       },
       distributionOverTimeCvssf: {
         title: "Distribution over the time",
+        tooltip: {
+          cvssf: "CVSSF",
+          vulnerabilities: "Vulnerabilities",
+        },
       },
       exposedOverTimeCvssf: {
         title: "Total Exposure",
