@@ -5,7 +5,7 @@ namespace: VULNERABLE_JS_APP
 output: skims/test/outputs/vulnerable_js_app.csv
 path:
   include:
-  - routes/
+  - server/routes/testcases/
   lib_path: false
   lib_root: true
 working_dir: ../vulnerable_js_app/

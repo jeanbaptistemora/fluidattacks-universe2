@@ -1,14 +1,14 @@
 finding,kind,what,where,cwe,stream,title,description,snippet
-F063,lines,VULNERABLE_JS_APP/routes/testcases/test019.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in routes/testcases/test019.js,"
-   1 | var express = require('express');
-   2 | var router = express.Router();
-   3 | const fs = require('fs');
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test019.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test019.js,"
+   1 | import { Router } from 'express';
+   2 | var router = Router();
+   3 | import { readFile } from 'fs';
    4 |
    5 | router.get('/test019/:user/:fileName', function (req, res) {
    6 |   var user = req.params['user'];
    7 |   var fileName = req.params['fileName'];
    8 |   var filePath = ""target/user_files/"" + user + ""/"" + fileName;
->  9 |   fs.readFile(filePath, 'utf-8', (err, data) => {
+>  9 |   readFile(filePath, 'utf-8', (err, data) => {
   10 |     if (err) {
   11 |       res.status('404').json({
   12 |         'error': 'file does not exists '
@@ -20,10 +20,10 @@ F063,lines,VULNERABLE_JS_APP/routes/testcases/test019.js,9,22,skims,063. Lack of
   18 |   })
   19 | });
   20 |
-  21 | module.exports = router;
+  21 | export default router;
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/routes/testcases/test020.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in routes/testcases/test020.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test020.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test020.js,"
    1 | var express = require('express');
    2 | var router = express.Router();
    3 | const fs = require('fs');
@@ -47,7 +47,7 @@ F063,lines,VULNERABLE_JS_APP/routes/testcases/test020.js,9,22,skims,063. Lack of
   21 | module.exports = router;
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/routes/testcases/test021.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in routes/testcases/test021.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test021.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test021.js,"
    1 | var express = require('express');
    2 | var router = express.Router();
    3 | const fs = require('fs');
@@ -71,7 +71,7 @@ F063,lines,VULNERABLE_JS_APP/routes/testcases/test021.js,9,22,skims,063. Lack of
   21 | module.exports = router;
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/routes/testcases/test022.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in routes/testcases/test022.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test022.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test022.js,"
    1 | var express = require('express');
    2 | var router = express.Router();
    3 | const fs = require('fs');
@@ -95,7 +95,7 @@ F063,lines,VULNERABLE_JS_APP/routes/testcases/test022.js,9,22,skims,063. Lack of
   21 | module.exports = router;
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/routes/testcases/test023.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in routes/testcases/test023.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test023.js,9,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test023.js,"
    1 | var express = require('express');
    2 | var router = express.Router();
    3 | const fs = require('fs');
@@ -119,7 +119,7 @@ F063,lines,VULNERABLE_JS_APP/routes/testcases/test023.js,9,22,skims,063. Lack of
   21 | module.exports = router;
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/routes/testcases/test024.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in routes/testcases/test024.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test024.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test024.js,"
    4 |
    5 | router.get('/test024/', function (req, res) {
    6 |   var user = req.query['user'];
@@ -143,17 +143,17 @@ F063,lines,VULNERABLE_JS_APP/routes/testcases/test024.js,14,22,skims,063. Lack o
   24 | });
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/routes/testcases/test025.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in routes/testcases/test025.js,"
-   1 | var express = require('express');
-   2 | var router = express.Router();
-   3 | const fs = require('fs');
-   4 | const path = require('path');
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test025.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test025.js,"
+   1 | import { Router } from 'express';
+   2 | var router = Router();
+   3 | import { readFile } from 'fs';
+   4 | import { join } from 'path';
    5 |
    6 | router.get('/test025/:user/:fileName', function (req, res) {
    7 |   var user = req.params['user'];
    8 |   var fileName = req.params['fileName'];
-   9 |   var filePath = path.join(""target"", ""user_files"", user, fileName);
-> 10 |   fs.readFile(filePath, 'utf-8', (err, data) => {
+   9 |   var filePath = join(""target"", ""user_files"", user, fileName);
+> 10 |   readFile(filePath, 'utf-8', (err, data) => {
   11 |     if (err) {
   12 |       res.status('404').json({
   13 |         'error': 'file does not exists '
@@ -167,7 +167,7 @@ F063,lines,VULNERABLE_JS_APP/routes/testcases/test025.js,10,22,skims,063. Lack o
   21 |
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/routes/testcases/test026.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in routes/testcases/test026.js,"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test026.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test026.js,"
    1 | var express = require('express');
    2 | var router = express.Router();
    3 | const fs = require('fs');
@@ -191,17 +191,17 @@ F063,lines,VULNERABLE_JS_APP/routes/testcases/test026.js,10,22,skims,063. Lack o
   21 |
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/routes/testcases/test027.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in routes/testcases/test027.js,"
-   1 | var express = require('express');
-   2 | var router = express.Router();
-   3 | const fs = require('fs');
-   4 | const path = require('path');
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test027.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test027.js,"
+   1 | import { Router } from 'express';
+   2 | var router = Router();
+   3 | import { readFile } from 'fs';
+   4 | import { join } from 'path';
    5 |
    6 | router.get('/test027/:user/:fileName', function (req, res) {
    7 |   var user = req.params['user'];
    8 |   var fileName = req.params['fileName'];
-   9 |   var filePath = path.join(""target/user_files"", user, `${fileName}.yaml`);
-> 10 |   fs.readFile(filePath, 'utf-8', (err, data) => {
+   9 |   var filePath = join(""target/user_files"", user, `${fileName}.yaml`);
+> 10 |   readFile(filePath, 'utf-8', (err, data) => {
   11 |     if (err) {
   12 |       res.status('404').json({
   13 |         'error': 'file does not exists '
@@ -215,7 +215,7 @@ F063,lines,VULNERABLE_JS_APP/routes/testcases/test027.js,10,22,skims,063. Lack o
   21 |
      ^ Col 0
 "
-F004,lines,VULNERABLE_JS_APP/routes/testcases/test005.js,7,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test005.js,7,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    1 | const process = require(""child_process"");
    2 | var express = require('express');
@@ -226,7 +226,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test005.js,7,78,skims,004. Remote 
 >  7 |   process.exec(""ls target/user_files/"" + user + ""/"", (error, stdout, stderr) => {
    8 |
    9 |     var user_files = [];
-  10 |     for (file of stdout.split('\n')) {
+  10 |     for (var file of stdout.split('\n')) {
   11 |       if (file) {
   12 |         user_files.push(file);
   13 |       }
@@ -240,7 +240,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test005.js,7,78,skims,004. Remote 
   21 | });
      ^ Col 0
 "
-F004,lines,VULNERABLE_JS_APP/routes/testcases/test007.js,8,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test007.js,8,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    1 | const process = require(""child_process"");
    2 | var express = require('express');
@@ -252,7 +252,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test007.js,8,78,skims,004. Remote 
 >  8 |   process.exec(""ls target/user_files/"" + body['user'] + ""/"", (error, stdout, stderr) => {
    9 |
   10 |     var user_files = [];
-  11 |     for (file of stdout.split('\n')) {
+  11 |     for (var file of stdout.split('\n')) {
   12 |       if (file) {
   13 |         user_files.push(file);
   14 |       }
@@ -265,57 +265,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test007.js,8,78,skims,004. Remote 
   21 |   });
      ^ Col 0
 "
-F004,lines,VULNERABLE_JS_APP/routes/testcases/test015.js,9,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
-","
-   1 | const {
-   2 |   execSync
-   3 | } = require(""child_process"");
-   4 | var express = require('express');
-   5 | var router = express.Router();
-   6 |
-   7 | router.get('/test015/:user', function (req, res) {
-   8 |   var user = req.params['user'];
->  9 |   var stdout = execSync(""ls target/user_files/"" + user + ""/"").toString()
-  10 |
-  11 |   var user_files = [];
-  12 |   for (file of stdout.split('\n')) {
-  13 |     if (file) {
-  14 |       user_files.push(file);
-  15 |     }
-  16 |   }
-  17 |
-  18 |   var data = {
-  19 |     'user_files': user_files
-  20 |   };
-  21 |   res.json(data);
-     ^ Col 0
-"
-F004,lines,VULNERABLE_JS_APP/routes/testcases/test001.js,9,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
-","
-   1 | const {
-   2 |   exec
-   3 | } = require(""child_process"");
-   4 | var express = require('express');
-   5 | var router = express.Router();
-   6 |
-   7 | router.get('/test001/:user', function (req, res) {
-   8 |   var user = req.params['user'];
->  9 |   exec(""ls target/user_files/"" + user + ""/"", (error, stdout, stderr) => {
-  10 |
-  11 |     var user_files = [];
-  12 |     for (file of stdout.split('\n')) {
-  13 |       if (file) {
-  14 |         user_files.push(file);
-  15 |       }
-  16 |     }
-  17 |
-  18 |     var data = {
-  19 |       'user_files': user_files
-  20 |     };
-  21 |     res.json(data);
-     ^ Col 0
-"
-F004,lines,VULNERABLE_JS_APP/routes/testcases/test003.js,9,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test003.js,9,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    1 | const {
    2 |   exec
@@ -328,7 +278,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test003.js,9,78,skims,004. Remote 
 >  9 |   exec(`ls target/user_files/${user}/`, (error, stdout, stderr) => {
   10 |
   11 |     var user_files = [];
-  12 |     for (file of stdout.split('\n')) {
+  12 |     for (var file of stdout.split('\n')) {
   13 |       if (file) {
   14 |         user_files.push(file);
   15 |       }
@@ -340,32 +290,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test003.js,9,78,skims,004. Remote 
   21 |     res.json(data);
      ^ Col 0
 "
-F004,lines,VULNERABLE_JS_APP/routes/testcases/test004.js,9,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
-","
-   1 | const {
-   2 |   exec
-   3 | } = require(""child_process"");
-   4 | var express = require('express');
-   5 | var router = express.Router();
-   6 |
-   7 | router.get('/test004/', function (req, res) {
-   8 |   var user = req.query.user;
->  9 |   exec(`ls target/user_files/${user}/`, (error, stdout, stderr) => {
-  10 |
-  11 |     var user_files = [];
-  12 |     for (file of stdout.split('\n')) {
-  13 |       if (file) {
-  14 |         user_files.push(file);
-  15 |       }
-  16 |     }
-  17 |
-  18 |     var data = {
-  19 |       'user_files': user_files
-  20 |     };
-  21 |     res.json(data);
-     ^ Col 0
-"
-F004,lines,VULNERABLE_JS_APP/routes/testcases/test012.js,11,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test012.js,11,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    1 | const {
    2 |   exec
@@ -376,10 +301,10 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test012.js,11,78,skims,004. Remote
    7 | router.get('/test012/:user', function (req, res) {
    8 |   var user_files = [];
    9 |   var user = """";
-  10 |   for (user of Object.values(req.params)) {
+  10 |   for (var user of Object.values(req.params)) {
 > 11 |     exec(""ls target/user_files/"" + user + ""/"", (error, stdout, stderr) => {
   12 |
-  13 |       for (file of stdout.split('\n')) {
+  13 |       for (var file of stdout.split('\n')) {
   14 |         if (file) {
   15 |           user_files.push(file);
   16 |         }
@@ -390,7 +315,82 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test012.js,11,78,skims,004. Remote
   21 |       };
      ^ Col 0
 "
-F004,lines,VULNERABLE_JS_APP/routes/testcases/test010.js,14,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test001.js,7,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+   1 | import { exec } from ""child_process"";
+   2 | import { Router } from 'express';
+   3 | var router = Router();
+   4 |
+   5 | router.get('/test001/:user', function (req, res) {
+   6 |   var user = req.params['user'];
+>  7 |   exec(""ls target/user_files/"" + user + ""/"", (error, stdout, stderr) => {
+   8 |
+   9 |     var user_files = [];
+  10 |     for (var file of stdout.split('\n')) {
+  11 |       if (file) {
+  12 |         user_files.push(file);
+  13 |       }
+  14 |     }
+  15 |
+  16 |     var data = {
+  17 |       'user_files': user_files
+  18 |     };
+  19 |     res.json(data);
+  20 |   });
+  21 | });
+     ^ Col 0
+"
+F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test004.js,7,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+   1 | import { exec } from ""child_process"";
+   2 | import { Router } from 'express';
+   3 | var router = Router();
+   4 |
+   5 | router.get('/test004/', function (req, res) {
+   6 |   var user = req.query.user;
+>  7 |   exec(`ls target/user_files/${user}/`, (error, stdout, stderr) => {
+   8 |
+   9 |     var user_files = [];
+  10 |     for (var file of stdout.split('\n')) {
+  11 |       if (file) {
+  12 |         user_files.push(file);
+  13 |       }
+  14 |     }
+  15 |
+  16 |     var data = {
+  17 |       'user_files': user_files
+  18 |     };
+  19 |     res.json(data);
+  20 |   });
+  21 | });
+     ^ Col 0
+"
+F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test015.js,7,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+   1 | import { execSync } from ""child_process"";
+   2 | import { Router } from 'express';
+   3 | var router = Router();
+   4 |
+   5 | router.get('/test015/:user', function (req, res) {
+   6 |   var user = req.params['user'];
+>  7 |   var stdout = execSync(""ls target/user_files/"" + user + ""/"").toString()
+   8 |
+   9 |   var user_files = [];
+  10 |   for (var file of stdout.split('\n')) {
+  11 |     if (file) {
+  12 |       user_files.push(file);
+  13 |     }
+  14 |   }
+  15 |
+  16 |   var data = {
+  17 |     'user_files': user_files
+  18 |   };
+  19 |   res.json(data);
+  20 | });
+  21 |
+     ^ Col 0
+"
+F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test010.js,14,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    4 | var express = require('express');
    5 | var router = express.Router();
@@ -405,7 +405,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test010.js,14,78,skims,004. Remote
 > 14 |   exec(`ls target/user_files/${user}/`, (error, stdout, stderr) => {
   15 |
   16 |     var user_files = [];
-  17 |     for (file of stdout.split('\n')) {
+  17 |     for (var file of stdout.split('\n')) {
   18 |       if (file) {
   19 |         user_files.push(file);
   20 |       }
@@ -415,7 +415,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test010.js,14,78,skims,004. Remote
   24 |       'user_files': user_files
      ^ Col 0
 "
-F004,lines,VULNERABLE_JS_APP/routes/testcases/test013.js,15,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test013.js,15,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    5 | var router = express.Router();
    6 |
@@ -429,7 +429,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test013.js,15,78,skims,004. Remote
   14 |   if (user) {
 > 15 |     exec(""ls target/user_files/"" + user + ""/"", (error, stdout, stderr) => {
   16 |
-  17 |       for (file of stdout.split('\n')) {
+  17 |       for (var file of stdout.split('\n')) {
   18 |         if (file) {
   19 |           user_files.push(file);
   20 |         }
@@ -440,12 +440,12 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test013.js,15,78,skims,004. Remote
   25 |       };
      ^ Col 0
 "
-F004,lines,VULNERABLE_JS_APP/routes/testcases/test011.js,16,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test011.js,16,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    6 |
    7 | router.get('/test011/:user', function (req, res) {
    8 |   var user = """";
-   9 |   for(key of Object.keys(req.params))
+   9 |   for(var key of Object.keys(req.params))
   10 |   {
   11 |     if (key == 'user'){
   12 |       user = req.params[key];
@@ -455,7 +455,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test011.js,16,78,skims,004. Remote
 > 16 |   exec(""ls target/user_files/"" + user + ""/"", (error, stdout, stderr) => {
   17 |
   18 |     var user_files = [];
-  19 |     for (file of stdout.split('\n')) {
+  19 |     for (var file of stdout.split('\n')) {
   20 |       if (file) {
   21 |         user_files.push(file);
   22 |       }
@@ -465,32 +465,32 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test011.js,16,78,skims,004. Remote
   26 |       'user_files': user_files
      ^ Col 0
 "
-F004,lines,VULNERABLE_JS_APP/routes/testcases/test016.js,30,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test016.js,28,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
-  20 |       break;
-  21 |     case 'C':
-  22 |     case 'D':
-  23 |       user = param;
-  24 |       break;
-  25 |     default:
-  26 |       uer = ""bobs_your_uncle"";
-  27 |       break;
-  28 |   }
+  18 |       break;
+  19 |     case 'C':
+  20 |     case 'D':
+  21 |       user = param;
+  22 |       break;
+  23 |     default:
+  24 |       uer = ""bobs_your_uncle"";
+  25 |       break;
+  26 |   }
+  27 |
+> 28 |   exec(""ls target/user_files/"" + user + ""/"", (error, stdout, stderr) => {
   29 |
-> 30 |   exec(""ls target/user_files/"" + user + ""/"", (error, stdout, stderr) => {
-  31 |
-  32 |     for (file of stdout.split('\n')) {
-  33 |       if (file) {
-  34 |         user_files.push(file);
-  35 |       }
-  36 |     }
-  37 |
-  38 |     var data = {
-  39 |       'user_files': user_files
-  40 |     };
+  30 |     for (var file of stdout.split('\n')) {
+  31 |       if (file) {
+  32 |         user_files.push(file);
+  33 |       }
+  34 |     }
+  35 |
+  36 |     var data = {
+  37 |       'user_files': user_files
+  38 |     };
      ^ Col 0
 "
-F004,lines,VULNERABLE_JS_APP/routes/testcases/test014.js,31,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test014.js,31,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
   21 |       break;
   22 |     case 'C':
@@ -504,7 +504,7 @@ F004,lines,VULNERABLE_JS_APP/routes/testcases/test014.js,31,78,skims,004. Remote
   30 |
 > 31 |   exec(""ls target/user_files/"" + user + ""/"", (error, stdout, stderr) => {
   32 |
-  33 |     for (file of stdout.split('\n')) {
+  33 |     for (var file of stdout.split('\n')) {
   34 |       if (file) {
   35 |         user_files.push(file);
   36 |       }
