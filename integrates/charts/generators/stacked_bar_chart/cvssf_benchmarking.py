@@ -81,7 +81,9 @@ async def get_group_data(*, group: str, loaders: Dataloaders) -> Counter[str]:
 
     counter: Counter[str] = Counter()
     for vulnerability in vulnerabilities:
-        severity: Decimal = finding_severity[str(vulnerability["finding_id"])]
+        severity: Decimal = utils.get_cvssf(
+            finding_severity[str(vulnerability["finding_id"])]
+        )
         counter.update({"total": severity})
         if vulnerability["current_state"] == "open":
             if vulnerability["historic_treatment"][-1]["treatment"] in {
@@ -248,6 +250,16 @@ def format_data(
                 ],
                 type="category",
                 tick=dict(multiline=False),
+            ),
+            y=dict(
+                min=0,
+                padding=dict(
+                    bottom=0,
+                ),
+                label=dict(
+                    text="CVSSF",
+                    position="inner-top",
+                ),
             ),
         ),
     )
