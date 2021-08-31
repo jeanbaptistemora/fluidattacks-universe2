@@ -118,7 +118,6 @@ observes.lint.postgres-client
 observes.lint.singer-io
 observes.lint.tap-announcekit
 observes.lint.tap-bugsnag
-observes.lint.tap-checkly
 observes.test.code-etl
 observes.test.postgres-client
 observes.test.singer-io

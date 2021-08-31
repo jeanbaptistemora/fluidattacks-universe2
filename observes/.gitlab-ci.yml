@@ -76,9 +76,6 @@ observes.lint.paginator:
 observes.lint.postgres-client:
   <<: *lint_job
 
-observes.lint.tap-checkly:
-  <<: *lint_job
-
 # scheduled jobs
 
 observes.scheduled.job.batch-stability:

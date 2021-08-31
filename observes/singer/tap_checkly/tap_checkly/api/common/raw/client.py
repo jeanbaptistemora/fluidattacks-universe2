@@ -2,7 +2,7 @@ from __future__ import (
     annotations,
 )
 
-import requests
+import requests  # type: ignore
 from returns.curry import (
     partial,
 )

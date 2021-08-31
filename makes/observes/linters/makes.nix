@@ -42,6 +42,10 @@
         ];
         src = "/observes/architecture";
       };
+      observesTapCheckly = {
+        config = "/observes/singer/tap_checkly/tap_checkly/setup.imports.cfg";
+        src = "/observes/singer/tap_checkly";
+      };
       observesTapCsv = {
         config = "/observes/singer/tap_csv/setup.imports.cfg";
         src = "/observes/singer/tap_csv";
@@ -142,6 +146,11 @@
         ];
         python = "3.8";
         src = "/observes/singer/streamer_zoho_crm/tests";
+      };
+      observesTapCheckly = {
+        extraSources = [ inputs.product.observes-env-tap-checkly-runtime ];
+        python = "3.8";
+        src = "/observes/singer/tap_checkly/tap_checkly";
       };
       observesTapCsv = {
         extraSources = [ inputs.product.observes-env-tap-csv-development ];

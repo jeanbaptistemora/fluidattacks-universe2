@@ -40,6 +40,27 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+/lintPython/imports/observesTapCheckly:
+  image: ghcr.io/fluidattacks/makes:21.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
+  script:
+    - m . /lintPython/imports/observesTapCheckly
+  stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
 /lintPython/imports/observesTapCsv:
   image: ghcr.io/fluidattacks/makes:21.09
   interruptible: true
@@ -413,6 +434,27 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
   script:
     - m . /lintPython/module/observesStreamerZohoCrmTests
+  stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/lintPython/module/observesTapCheckly:
+  image: ghcr.io/fluidattacks/makes:21.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
+  script:
+    - m . /lintPython/module/observesTapCheckly
   stage: lint-code
   tags:
     - autoscaling

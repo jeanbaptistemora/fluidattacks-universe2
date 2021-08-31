@@ -2,7 +2,7 @@ import logging
 from paginator import (
     PageId,
 )
-from requests.exceptions import (
+from requests.exceptions import (  # type: ignore
     HTTPError,
 )
 from returns.io import (
