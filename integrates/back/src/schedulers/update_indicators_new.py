@@ -697,7 +697,7 @@ async def update_group_indicators(group_name: str) -> None:
 async def update_indicators() -> None:
     """Update in dynamo indicators."""
     groups = sorted(await groups_domain.get_active_groups(), reverse=True)
-    await collect(map(update_group_indicators, groups), workers=24)
+    await collect(map(update_group_indicators, groups), workers=16)
 
 
 async def main() -> None:
