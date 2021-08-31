@@ -17,7 +17,6 @@ integrates.batch
 integrates.cache
 integrates.charts.documents
 integrates.charts.snapshots
-integrates.charts.snapshots.on-aws
 integrates.coverage
 integrates.db
 integrates.db.migration
