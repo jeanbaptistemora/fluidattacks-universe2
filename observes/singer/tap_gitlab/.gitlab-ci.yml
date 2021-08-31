@@ -24,19 +24,10 @@
         - observes/singer/tap_gitlab/**/*
         - observes/common/**/*
 
-.lint_job: &lint_job
-  <<: *makes
-  <<: *dev_job
-  needs: []
-  stage: lint-code
-
 .test_job: &test_job
   <<: *makes
   <<: *dev_job
   stage: test-code
-
-observes.lint.tap-gitlab:
-  <<: *lint_job
 
 observes.test.tap-gitlab:
   <<: *test_job

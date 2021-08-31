@@ -27,7 +27,7 @@ _IdType = TypeVar("_IdType")
 
 def get_until_end(
     start: PageId[_IdType],
-    getter: PageGetter[_IdType, PageResult[_IdType, _Data]],
+    getter: PageGetter[_IdType, PageResult[_IdType, _Data]],  # type: ignore
 ) -> Iterator[PageResult[_IdType, _Data]]:
     next_page_id: PageId[_IdType] = start
     while True:
@@ -43,11 +43,13 @@ def get_until_end(
 
 def io_get_until_end(
     start: PageId[_IdType],
-    getter: PageGetterIO[_IdType, PageResult[_IdType, _Data]],
+    getter: PageGetterIO[_IdType, PageResult[_IdType, _Data]],  # type: ignore
 ) -> IO[Iterator[PageResult[_IdType, _Data]]]:
     def _convert(
-        getter: PageGetterIO[_IdType, PageResult[_IdType, _Data]]
-    ) -> PageGetter[_IdType, PageResult[_IdType, _Data]]:
+        getter: PageGetterIO[  # type: ignore
+            _IdType, PageResult[_IdType, _Data]
+        ]
+    ) -> PageGetter[_IdType, PageResult[_IdType, _Data]]:  # type: ignore
         return lambda page: unsafe_perform_io(getter(page))
 
     return IO(get_until_end(start, _convert(getter)))

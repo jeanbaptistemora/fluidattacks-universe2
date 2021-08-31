@@ -12,6 +12,10 @@
         config = "/observes/singer/tap_formstack/tap_formstack/setup.imports.cfg";
         src = "/observes/singer/tap_formstack";
       };
+      observesTapGitlab = {
+        config = "/observes/singer/tap_gitlab/tap_gitlab/setup.imports.cfg";
+        src = "/observes/singer/tap_gitlab";
+      };
       observesServiceTimedoctorTokens = {
         config = "/observes/services/timedoctor_tokens/timedoctor_tokens/setup.imports.cfg";
         src = "/observes/services/timedoctor_tokens";
@@ -95,6 +99,16 @@
         extraSources = [ inputs.product.observes-env-tap-formstack-runtime ];
         python = "3.8";
         src = "/observes/singer/tap_formstack/tap_formstack";
+      };
+      observesTapGitlab = {
+        extraSources = [ inputs.product.observes-env-tap-gitlab-development ];
+        python = "3.8";
+        src = "/observes/singer/tap_gitlab/tap_gitlab";
+      };
+      observesTapGitlabTests = {
+        extraSources = [ inputs.product.observes-env-tap-gitlab-development ];
+        python = "3.8";
+        src = "/observes/singer/tap_gitlab/tests";
       };
       observesTargetRedshift = {
         extraSources = [

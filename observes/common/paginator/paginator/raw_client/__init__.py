@@ -11,11 +11,11 @@ from paginator.raw_client.handlers import (
 from paginator.raw_client.patch import (
     Patch,
 )
-import requests
-from requests.exceptions import (
+import requests  # type: ignore
+from requests.exceptions import (  # type: ignore
     HTTPError,
 )
-from requests.models import (
+from requests.models import (  # type: ignore
     Response,
 )
 from returns.io import (

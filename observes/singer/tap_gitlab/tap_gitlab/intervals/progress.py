@@ -159,7 +159,7 @@ class FProgressFactory(
         grouped = split_when(
             progress, lambda p1, p2: p1.completed != p2.completed
         )
-        compressed = tuple(
+        compressed = tuple(  # type: ignore
             ProgressInterval(
                 self.factory.factory.new_lopen(
                     group[0].interval().lower, group[-1].interval().upper
@@ -182,7 +182,7 @@ class FProgressFactory(
     ) -> FragmentedProgressInterval[_DataType]:
         p_intervals = fp_interval.progress_intervals
         final: OpenLeftInterval[_DataType] = p_intervals[-1].interval()
-        new_section = ProgressInterval(
+        new_section = ProgressInterval(  # type: ignore
             self.factory.factory.new_lopen(final.upper, point), False
         )
         return self.from_n_progress(p_intervals + (new_section,))

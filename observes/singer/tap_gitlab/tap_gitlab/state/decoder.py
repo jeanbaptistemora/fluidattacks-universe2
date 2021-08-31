@@ -4,7 +4,7 @@ from dataclasses import (
 from datetime import (
     datetime,
 )
-from dateutil import (
+from dateutil import (  # type: ignore
     parser,
 )
 from paginator.pages import (

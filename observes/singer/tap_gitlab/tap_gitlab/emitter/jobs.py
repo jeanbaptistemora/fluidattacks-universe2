@@ -80,7 +80,7 @@ class JobStreamEmitter:
         NTuple[ProgressInterval[OpenLeftInterval, JobStatePoint]], None
     ]:
         point = JobStatePoint(page.max_id, page.page)
-        data = tuple(
+        data = tuple(  # type: ignore
             (
                 ProgressInterval(
                     i_factory_2.new_lopen(interval.lower, point),

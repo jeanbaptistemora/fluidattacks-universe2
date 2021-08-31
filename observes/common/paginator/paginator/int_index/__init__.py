@@ -7,7 +7,7 @@ import asyncio
 from asyncio.events import (
     AbstractEventLoop,
 )
-from deprecated import (
+from deprecated import (  # type: ignore
     deprecated,
 )
 from paginator.int_index.objs import (

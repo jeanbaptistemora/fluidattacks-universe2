@@ -62,7 +62,7 @@ class PageRange(NamedTuple):
 
 def get_pages(
     page_range: PageRange,
-    getter: PageGetter[int, _Data],
+    getter: PageGetter[int, _Data],  # type: ignore
     limits: Limits = DEFAULT_LIMITS,
 ) -> Iterator[Maybe[_Data]]:
     @rate_limited(
@@ -85,7 +85,7 @@ def get_pages(
 
 def get_until_end(
     start: PageId[int],
-    getter: PageGetter[int, _Data],
+    getter: PageGetter[int, _Data],  # type: ignore
     pages_chunk: int,
 ) -> Iterator[_Data]:
     empty_page_retrieved = False

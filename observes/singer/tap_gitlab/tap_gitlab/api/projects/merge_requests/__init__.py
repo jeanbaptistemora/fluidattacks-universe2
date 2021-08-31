@@ -8,7 +8,7 @@ from datetime import (
     datetime,
     timedelta,
 )
-import dateutil.parser
+import dateutil.parser  # type: ignore
 from paginator.object_index import (
     io_get_until_end,
 )
