@@ -3,6 +3,7 @@ let securityHeaders = {
                               + "'self' "
                               + "'unsafe-inline' "
                               + "'unsafe-eval' "
+                              + "fluidattacks.matomo.cloud "
                               + "*.cloudflareinsights.com "
                               + "*.google-analytics.com; "
                               + "frame-ancestors "
