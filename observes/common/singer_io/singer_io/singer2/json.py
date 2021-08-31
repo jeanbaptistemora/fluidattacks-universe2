@@ -5,7 +5,7 @@ from __future__ import (
 from dataclasses import (
     dataclass,
 )
-from deprecated import (
+from deprecated import (  # type: ignore
     deprecated,
 )
 import json

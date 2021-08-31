@@ -7,7 +7,7 @@ from postgres_client.connection import (
     Credentials as DbCredentials,
     DatabaseID,
 )
-import requests
+import requests  # type: ignore
 from typing import (
     Any,
     AnyStr,

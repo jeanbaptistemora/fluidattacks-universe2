@@ -119,7 +119,6 @@ observes.lint.postgres-client
 observes.lint.service-migrate-tables
 observes.lint.service-timedoctor-tokens
 observes.lint.singer-io
-observes.lint.streamer-zoho-crm
 observes.lint.tap-announcekit
 observes.lint.tap-bugsnag
 observes.lint.tap-checkly

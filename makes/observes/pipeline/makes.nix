@@ -53,6 +53,14 @@ in
           output = "/lintPython/module/observesServiceMigrateTables";
           gitlabExtra = gitlabLint;
         }
+        {
+          output = "/lintPython/module/observesStreamerZohoCrm";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintPython/module/observesStreamerZohoCrmTests";
+          gitlabExtra = gitlabLint;
+        }
       ];
     };
   };

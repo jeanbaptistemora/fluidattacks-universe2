@@ -53,6 +53,20 @@
         python = "3.8";
         src = "/observes/services/migrate_tables/migrate_tables";
       };
+      observesStreamerZohoCrm = {
+        extraSources = [
+          inputs.product.observes-env-streamer-zoho-crm-runtime
+        ];
+        python = "3.8";
+        src = "/observes/singer/streamer_zoho_crm/streamer_zoho_crm";
+      };
+      observesStreamerZohoCrmTests = {
+        extraSources = [
+          inputs.product.observes-env-streamer-zoho-crm-development
+        ];
+        python = "3.8";
+        src = "/observes/singer/streamer_zoho_crm/tests";
+      };
     };
   };
 }

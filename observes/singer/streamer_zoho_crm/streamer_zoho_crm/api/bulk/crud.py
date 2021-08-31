@@ -3,7 +3,7 @@ import logging
 from ratelimiter import (
     RateLimiter,
 )
-import requests
+import requests  # type: ignore
 from streamer_zoho_crm.api.bulk.objs import (
     BulkData,
     BulkJob,

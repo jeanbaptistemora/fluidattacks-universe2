@@ -4,11 +4,11 @@ from dataclasses import (
 from datetime import (
     datetime,
 )
-from pyrfc3339 import (
+from pyrfc3339 import (  # type: ignore
     generate,
     parse as parse_rfc3339,
 )
-import pytz
+import pytz  # type: ignore
 from returns.io import (
     IO,
 )

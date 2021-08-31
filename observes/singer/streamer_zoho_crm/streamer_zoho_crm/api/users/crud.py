@@ -2,7 +2,7 @@ import logging
 from ratelimiter import (
     RateLimiter,
 )
-import requests
+import requests  # type: ignore
 from singer_io.singer2.json import (
     JsonEmitter,
     JsonFactory,

@@ -82,9 +82,6 @@ observes.lint.postgres-client:
 observes.lint.service-timedoctor-tokens:
   <<: *lint_job
 
-observes.lint.streamer-zoho-crm:
-  <<: *lint_job
-
 observes.lint.tap-checkly:
   <<: *lint_job
 
@@ -98,9 +95,6 @@ observes.lint.tap-json:
   <<: *lint_job
 
 observes.lint.tap-timedoctor:
-  <<: *lint_job
-
-observes.lint.target-redshift:
   <<: *lint_job
 
 # scheduled jobs
