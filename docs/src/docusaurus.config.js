@@ -9,6 +9,10 @@ module.exports = {
   organizationName: 'fluidattacks',
   projectName: 'product',
   themeConfig: {
+    matomo: {
+      matomoUrl: 'https://fluidattacks.matomo.cloud/',
+      siteId: '2',
+    },
     googleAnalytics: {
       trackingID: 'GTM-PCDDL8T',
       anonymizeIP: true,
@@ -128,5 +132,6 @@ module.exports = {
   ],
   plugins: [
     require.resolve('docusaurus-lunr-search'),
+    require.resolve('docusaurus-plugin-matomo'),
   ],
 };

@@ -11,6 +11,7 @@ makeNodeJsModules {
     "@mdx-js/react@1.6.22"
     "clsx@1.1.1"
     "docusaurus-lunr-search@2.1.14"
+    "docusaurus-plugin-matomo@0.0.3"
     "react-dom@16.14.0"
     "react@16.14.0"
   ];
