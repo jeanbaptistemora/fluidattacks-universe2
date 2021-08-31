@@ -54,6 +54,10 @@
         config = "/observes/singer/tap_gitlab/tap_gitlab/setup.imports.cfg";
         src = "/observes/singer/tap_gitlab";
       };
+      observesTapJson = {
+        config = "/observes/singer/tap_json/tap_json/setup.imports.cfg";
+        src = "/observes/singer/tap_json";
+      };
       observesTapMailchimp = {
         config = "/observes/singer/tap_mailchimp/tap_mailchimp/setup.imports.cfg";
         src = "/observes/singer/tap_mailchimp";
@@ -159,6 +163,11 @@
         extraSources = [ inputs.product.observes-env-tap-gitlab-development ];
         python = "3.8";
         src = "/observes/singer/tap_gitlab/tests";
+      };
+      observesTapJson = {
+        extraSources = [ inputs.product.observes-env-tap-json-development ];
+        python = "3.8";
+        src = "/observes/singer/tap_json/tap_json";
       };
       observesTapMailchimp = {
         extraSources = [ inputs.product.observes-env-tap-mailchimp-development ];

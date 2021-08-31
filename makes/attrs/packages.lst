@@ -120,7 +120,6 @@ observes.lint.tap-announcekit
 observes.lint.tap-bugsnag
 observes.lint.tap-checkly
 observes.lint.tap-delighted
-observes.lint.tap-json
 observes.test.code-etl
 observes.test.postgres-client
 observes.test.singer-io

@@ -46,6 +46,10 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/lintPython/imports/observesTapJson";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintPython/imports/observesTapMailchimp";
           gitlabExtra = gitlabLint;
         }
@@ -115,6 +119,10 @@ in
         }
         {
           output = "/lintPython/module/observesTapGitlabTests";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintPython/module/observesTapJson";
           gitlabExtra = gitlabLint;
         }
         {

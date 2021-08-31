@@ -82,9 +82,6 @@ observes.lint.tap-checkly:
 observes.lint.tap-delighted:
   <<: *lint_job
 
-observes.lint.tap-json:
-  <<: *lint_job
-
 # scheduled jobs
 
 observes.scheduled.job.batch-stability:

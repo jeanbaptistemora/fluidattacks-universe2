@@ -1,8 +1,8 @@
 import contextlib
-from dateutil.parser import (
+from dateutil.parser import (  # type: ignore
     parse as date_parser,
 )
-from dateutil.parser._parser import (
+from dateutil.parser._parser import (  # type: ignore
     ParserError,
 )
 import io
