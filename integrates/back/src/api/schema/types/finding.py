@@ -26,6 +26,7 @@ from api.resolvers.finding import (
     verified,
     vulnerabilities,
     vulnerabilities_to_reattack,
+    where,
     zero_risk,
 )
 from api.resolvers.finding_new import (
@@ -148,6 +149,7 @@ else:
     FINDING.set_field(
         "vulnerabilitiesToReattack", vulnerabilities_to_reattack.resolve
     )
+    FINDING.set_field("where", where.resolve)
     FINDING.set_field("zeroRisk", zero_risk.resolve)
     # --------------------------Deprecated fields------------------------------
     FINDING.set_alias("attackVectorDescription", "attack_vector_desc")
