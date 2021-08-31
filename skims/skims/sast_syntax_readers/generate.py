@@ -92,6 +92,7 @@ from sast_syntax_readers.javascript import (
     variable_declarator as javascript_variable_declarator,
 )
 from sast_syntax_readers.kotlin import (
+    assignment as kotlin_assignment,
     call_expression as kotlin_call_expression,
     if_expression as kotlin_if_expression,
     navigation_expression as kotlin_navigation_expression,
@@ -184,6 +185,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "assignment_statement",
         },
         syntax_readers=(go_assignment_statement.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.KOTLIN,
+        },
+        applicable_node_label_types={
+            "assignment",
+        },
+        syntax_readers=(kotlin_assignment.reader,),
     ),
     Dispatcher(
         applicable_languages={
