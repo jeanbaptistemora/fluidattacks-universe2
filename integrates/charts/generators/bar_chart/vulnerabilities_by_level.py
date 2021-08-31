@@ -11,9 +11,6 @@ from charts import (
 from charts.colors import (
     RISK,
 )
-from collections import (
-    Counter,
-)
 from context import (
     FI_API_STATUS,
 )
@@ -27,7 +24,10 @@ from operator import (
     itemgetter,
 )
 from typing import (
+    Any,
     cast,
+    Counter,
+    Dict,
     List,
     Tuple,
     Union,
@@ -35,7 +35,7 @@ from typing import (
 
 
 @alru_cache(maxsize=None, typed=True)
-async def get_data_one_group(group: str) -> Counter:
+async def get_data_one_group(group: str) -> Counter[str]:
     context = get_new_context()
     if FI_API_STATUS == "migration":
         group_findings_new_loader = context.group_findings_new
@@ -57,13 +57,13 @@ async def get_data_one_group(group: str) -> Counter:
     return Counter(filter(None, map(itemgetter("severity"), vulnerabilities)))
 
 
-async def get_data_many_groups(groups: List[str]) -> Counter:
+async def get_data_many_groups(groups: List[str]) -> Counter[str]:
     groups_data = await collect(map(get_data_one_group, groups))
 
     return sum(groups_data, Counter())
 
 
-def format_data(counters: Counter) -> dict:
+def format_data(counters: Counter[str]) -> Dict[str, Any]:
     data = counters.most_common()[:12]
 
     return dict(
