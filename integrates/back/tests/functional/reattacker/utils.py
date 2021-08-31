@@ -10,10 +10,10 @@ from typing import (
 
 async def get_result(
     data: Dict[str, Any],
-    stakeholder: str = "integratescloser@fluidattacks.com",
+    stakeholder: str = "integratesreattacker@fluidattacks.com",
     session_jwt: Optional[str] = None,
 ) -> Dict[str, Any]:
-    """Get result for reattacker/closer role."""
+    """Get result for reattacker role."""
     result = await get_graphql_result(data, stakeholder, session_jwt)
 
     return result

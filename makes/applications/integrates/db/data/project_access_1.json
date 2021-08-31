@@ -346,7 +346,7 @@
       "PutRequest": {
         "Item": {
           "responsibility": {
-            "S": "Test"
+            "S": "Test reattacker"
           },
           "project_name": {
             "S": "unittesting"
@@ -355,7 +355,7 @@
             "BOOL": true
           },
           "user_email": {
-            "S": "integratescloser@fluidattacks.com"
+            "S": "integratesreattacker@fluidattacks.com"
           }
         }
       }

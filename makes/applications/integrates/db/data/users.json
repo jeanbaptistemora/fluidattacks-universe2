@@ -462,7 +462,7 @@
             "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
           },
           "last_name": {
-            "S": "Closer"
+            "S": "Reattacker"
           },
           "first_name": {
             "S": "Integrates"
@@ -477,7 +477,7 @@
             "S": "2019-10-29 13:40:37"
           },
           "email": {
-            "S": "integratescloser@fluidattacks.com"
+            "S": "integratesreattacker@fluidattacks.com"
           },
           "registered": {
             "BOOL": true

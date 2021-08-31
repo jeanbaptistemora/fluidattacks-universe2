@@ -401,10 +401,10 @@ async def test_get_description() -> None:
 async def test_get_users() -> None:
     group_name = "unittesting"
     expected_output = [
-        "integratescloser@fluidattacks.com",
         "integratesserviceforces@gmail.com",
         "integratesmanager@gmail.com",
         "unittest@fluidattacks.com",
+        "integratesreattacker@fluidattacks.com",
         "unittest2@fluidattacks.com",
         "integratesexecutive@gmail.com",
         "integratescustomer@fluidattacks.com",
