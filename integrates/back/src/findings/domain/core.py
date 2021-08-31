@@ -1446,7 +1446,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     return all(success)
 
 
-async def get_oldest_no_treatment_findings(
+async def get_oldest_no_treatment(
     context: Any,
     findings: List[Dict[str, FindingType]],
 ) -> dict:
@@ -1488,7 +1488,7 @@ async def get_oldest_no_treatment_findings(
     return dict()
 
 
-async def get_oldest_no_treatment_findings_new(
+async def get_oldest_no_treatment_new(
     context: Any,
     findings: Tuple[Finding, ...],
 ) -> Dict[str, str]:

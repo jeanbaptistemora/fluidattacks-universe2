@@ -19,7 +19,7 @@ from findings import (
 from findings.domain import (
     add_comment,
     approve_draft,
-    get_oldest_no_treatment_findings,
+    get_oldest_no_treatment,
     get_tracking_vulnerabilities,
     list_drafts,
     list_findings,
@@ -409,7 +409,7 @@ async def test_get_oldest_no_treatment_findings() -> None:
     context = get_new_context()
     group_findings_loader = context.group_findings
     findings = await group_findings_loader.load(group_name)
-    oldest_findings = await get_oldest_no_treatment_findings(context, findings)
+    oldest_findings = await get_oldest_no_treatment(context, findings)
     expected_output = {
         "oldest_name": "037. Technical information leak",
         "oldest_age": 256,

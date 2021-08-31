@@ -61,8 +61,11 @@ from events import (
 from findings import (
     domain as findings_domain,
 )
-from findings.domain.core import (
+from findings.domain import (
     get_max_open_severity,
+    get_max_open_severity_new,
+    get_oldest_no_treatment,
+    get_oldest_no_treatment_new,
 )
 from group_access import (
     domain as group_access_domain,
@@ -1435,6 +1438,21 @@ async def get_remediation_rate(
     return remediation_rate
 
 
+async def get_remediation_rate_new(
+    context: Any,
+    group_name: str,
+) -> int:
+    """Percentage of closed vulns, ignoring treatments"""
+    remediation_rate: int = 0
+    open_vulns = await get_open_vulnerabilities_new(context, group_name)
+    closed_vulns = await get_closed_vulnerabilities_new(context, group_name)
+    if closed_vulns:
+        remediation_rate = int(
+            100 * closed_vulns / (open_vulns + closed_vulns)
+        )
+    return remediation_rate
+
+
 async def get_group_digest_stats(
     context: Any, group_name: str
 ) -> MailContentType:
@@ -1468,9 +1486,14 @@ async def get_group_digest_stats(
         "vulns_len": 0,
     }
 
-    group_findings_loader = context.group_findings
-    findings = await group_findings_loader.load(group_name)
-    findings_ids = [str(finding["finding_id"]) for finding in findings]
+    if FI_API_STATUS == "migration":
+        findings_loader = context.group_findings_new
+        findings: Tuple[Finding, ...] = await findings_loader.load(group_name)
+        findings_ids = [finding.id for finding in findings]
+    else:
+        findings_loader = context.group_findings
+        findings = await findings_loader.load(group_name)
+        findings_ids = [str(finding["finding_id"]) for finding in findings]
 
     finding_vulns_loader = context.finding_vulns_nzr
     group_vulns = await finding_vulns_loader.load_many_chained(findings_ids)
@@ -1481,20 +1504,48 @@ async def get_group_digest_stats(
 
     content["vulns_len"] = len(group_vulns)
     last_day = datetime_utils.get_now_minus_delta(hours=24)
-    oldest_finding = await findings_domain.get_oldest_no_treatment_findings(
-        context, findings
-    )
-    if oldest_finding:
-        max_severity, severest_finding = await get_max_open_severity(
-            context, findings
+
+    if FI_API_STATUS == "migration":
+        oldest_finding = await get_oldest_no_treatment_new(context, findings)
+        if oldest_finding:
+            max_severity, severest_finding = await get_max_open_severity_new(
+                context, findings
+            )
+            content["findings"] = [
+                {
+                    **oldest_finding,
+                    "severest_name": severest_finding.title
+                    if severest_finding
+                    else "",
+                    "severity": str(max_severity),
+                }
+            ]
+        content["main"]["remediation_time"] = int(
+            await get_mean_remediate_non_treated_new(context, group_name)
         )
-        content["findings"] = [
-            {
-                **oldest_finding,
-                "severest_name": severest_finding.get("finding", ""),
-                "severity": str(max_severity),
-            }
-        ]
+        content["main"]["remediation_rate"] = await get_remediation_rate_new(
+            context, group_name
+        )
+    else:
+        oldest_finding = await get_oldest_no_treatment(context, findings)
+        if oldest_finding:
+            max_severity, severest_finding = await get_max_open_severity(
+                context, findings
+            )
+            content["findings"] = [
+                {
+                    **oldest_finding,
+                    "severest_name": severest_finding.get("finding", ""),
+                    "severity": str(max_severity),
+                }
+            ]
+        content["main"]["remediation_time"] = int(
+            await get_mean_remediate_non_treated(context, group_name)
+        )
+        content["main"]["remediation_rate"] = await get_remediation_rate(
+            context, group_name
+        )
+
     treatments = await vulns_utils.get_total_treatment_date(
         group_vulns, last_day
     )
@@ -1510,12 +1561,6 @@ async def get_group_digest_stats(
     )
     content["main"]["comments"] = await get_total_comments_date(
         findings_ids, group_name, last_day
-    )
-    content["main"]["remediation_time"] = int(
-        await get_mean_remediate_non_treated(context, group_name)
-    )
-    content["main"]["remediation_rate"] = await get_remediation_rate(
-        context, group_name
     )
     unsolved = await events_domain.get_unsolved_events(group_name)
     new_events = await events_utils.filter_events_date(unsolved, last_day)
