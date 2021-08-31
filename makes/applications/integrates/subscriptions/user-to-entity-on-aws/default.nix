@@ -5,7 +5,7 @@ computeOnAws {
   attempts = 2;
   command = [ "./m" "integrates.subscriptions.user-to-entity" ];
   jobname = "integrates-subscriptions-user-to-entity";
-  jobqueue = "dedicated_later";
+  jobqueue = "dedicated_soon";
   name = "integrates-subscriptions-user-to-entity-on-aws";
   product = "integrates";
   secrets = [
