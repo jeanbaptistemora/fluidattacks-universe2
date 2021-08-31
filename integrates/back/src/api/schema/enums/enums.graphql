@@ -325,7 +325,8 @@ enum OrganizationRole {
   "Customer administrator"
   CUSTOMERADMIN
   "System Owner"
-  GROUP_MANAGER
+  GROUP_MANAGER @deprecated(reason: """This enum field will be removed soon.
+    Use `SYSTEM_OWNER` instead.""")
   "System Owner"
   SYSTEM_OWNER
 }
@@ -386,9 +387,11 @@ enum StakeholderRole {
   "Administrator"
   ADMIN
   "Hacker"
-  ANALYST
+  ANALYST @deprecated(reason: """This enum field will be removed soon.
+    Use `HACKER` instead.""")
   "Reattacker"
-  CLOSER
+  CLOSER @deprecated(reason: """This enum field will be removed soon.
+    Use `REATTACKER` instead.""")
   "Customer"
   CUSTOMER
   "Customer Administrator"
@@ -396,7 +399,8 @@ enum StakeholderRole {
   "Executive"
   EXECUTIVE
   "System Owner"
-  GROUP_MANAGER
+  GROUP_MANAGER @deprecated(reason: """This enum field will be removed soon.
+    Use `SYSTEM_OWNER` instead.""")
   "Hacker"
   HACKER
   "Internal Manager"

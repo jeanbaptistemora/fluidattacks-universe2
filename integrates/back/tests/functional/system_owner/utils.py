@@ -13,11 +13,11 @@ from typing import (
 
 async def get_result(
     data: Dict[str, Any],
-    stakeholder: str = "unittest2@fluidattacks.com",
+    stakeholder: str = "system_owner@fluidattacks.com",
     session_jwt: Optional[str] = None,
     context: Optional[Dataloaders] = None,
 ) -> Dict[str, Any]:
-    """Get result for system_owner/group_manager role."""
+    """Get result for system_owner role."""
     result = await get_graphql_result(data, stakeholder, session_jwt, context)
 
     return result
