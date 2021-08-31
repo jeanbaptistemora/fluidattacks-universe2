@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Aug 30, 2021, 10:07 AM",
+    "DateLastModified": "Aug 31, 2021, 12:05 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1442,7 +1442,7 @@
         {
           "FacetName": "finding_id",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "FIN#id",
+            "PartitionKeyAlias": "FIN_ID",
             "SortKeyAlias": "FIN#id"
           },
           "TableData": [
