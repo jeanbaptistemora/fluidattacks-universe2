@@ -67,6 +67,13 @@
         python = "3.8";
         src = "/observes/singer/streamer_zoho_crm/tests";
       };
+      observesTargetRedshift = {
+        extraSources = [
+          inputs.product.observes-env-target-redshift-runtime
+        ];
+        python = "3.8";
+        src = "/observes/singer/target_redshift/target_redshift";
+      };
     };
   };
 }

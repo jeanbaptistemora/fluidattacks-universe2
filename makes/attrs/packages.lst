@@ -116,7 +116,6 @@ observes.generic.tester
 observes.lint.architecture
 observes.lint.paginator
 observes.lint.postgres-client
-observes.lint.service-migrate-tables
 observes.lint.service-timedoctor-tokens
 observes.lint.singer-io
 observes.lint.tap-announcekit
@@ -130,7 +129,6 @@ observes.lint.tap-json
 observes.lint.tap-mailchimp
 observes.lint.tap-mixpanel
 observes.lint.tap-timedoctor
-observes.lint.target-redshift
 observes.test.code-etl
 observes.test.postgres-client
 observes.test.singer-io

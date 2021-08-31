@@ -61,6 +61,10 @@ in
           output = "/lintPython/module/observesStreamerZohoCrmTests";
           gitlabExtra = gitlabLint;
         }
+        {
+          output = "/lintPython/module/observesTargetRedshift";
+          gitlabExtra = gitlabLint;
+        }
       ];
     };
   };
