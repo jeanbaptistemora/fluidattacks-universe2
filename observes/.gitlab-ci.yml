@@ -88,9 +88,6 @@ observes.lint.tap-delighted:
 observes.lint.tap-json:
   <<: *lint_job
 
-observes.lint.tap-timedoctor:
-  <<: *lint_job
-
 # scheduled jobs
 
 observes.scheduled.job.batch-stability:
