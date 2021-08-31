@@ -16,6 +16,10 @@
         config = "/observes/singer/tap_gitlab/tap_gitlab/setup.imports.cfg";
         src = "/observes/singer/tap_gitlab";
       };
+      observesTapMailchimp = {
+        config = "/observes/singer/tap_mailchimp/tap_mailchimp/setup.imports.cfg";
+        src = "/observes/singer/tap_mailchimp";
+      };
       observesServiceTimedoctorTokens = {
         config = "/observes/services/timedoctor_tokens/timedoctor_tokens/setup.imports.cfg";
         src = "/observes/services/timedoctor_tokens";
@@ -109,6 +113,16 @@
         extraSources = [ inputs.product.observes-env-tap-gitlab-development ];
         python = "3.8";
         src = "/observes/singer/tap_gitlab/tests";
+      };
+      observesTapMailchimp = {
+        extraSources = [ inputs.product.observes-env-tap-mailchimp-development ];
+        python = "3.8";
+        src = "/observes/singer/tap_mailchimp/tap_mailchimp";
+      };
+      observesTapMailchimpTests = {
+        extraSources = [ inputs.product.observes-env-tap-mailchimp-development ];
+        python = "3.8";
+        src = "/observes/singer/tap_mailchimp/tests";
       };
       observesTargetRedshift = {
         extraSources = [
