@@ -331,14 +331,14 @@ def get_reattack_requesters_new(
         if verification.status == FindingVerificationStatus.REQUESTED and (
             [
                 vuln_id
-                for vuln_id in verification.vuln_uuids
+                for vuln_id in verification.vulnerability_ids
                 if vuln_id in vulnerability_ids
             ]
         ):
             vulnerability_ids = {
                 vuln_id
                 for vuln_id in vulnerability_ids
-                if vuln_id not in verification.vuln_uuids
+                if vuln_id not in verification.vulnerability_ids
             }
             users.add(verification.modified_by)
         if not vulnerability_ids:

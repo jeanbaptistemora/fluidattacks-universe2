@@ -15,5 +15,5 @@ def resolve(
     return bool(
         parent.verification
         and parent.verification.status == FindingVerificationStatus.REQUESTED
-        and not parent.verification.vuln_uuids
+        and not parent.verification.vulnerability_ids
     )

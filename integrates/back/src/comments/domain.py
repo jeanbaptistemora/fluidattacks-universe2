@@ -183,7 +183,7 @@ async def get_comments_new(
     verified = tuple(
         verification
         for verification in historic_verification
-        if verification.vuln_uuids
+        if verification.vulnerability_ids
     )
     if bool(verified):
         verification_comments_ids: Set[str] = {
@@ -193,7 +193,7 @@ async def get_comments_new(
         comments = [
             _fill_vuln_info(
                 cast(Dict[str, str], comment),
-                verification.vuln_uuids,
+                verification.vulnerability_ids,
                 vulns,
             )
             if comment["id"] == verification.comment_id

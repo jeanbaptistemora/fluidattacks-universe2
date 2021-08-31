@@ -111,7 +111,7 @@ def format_verification(verification_item: Item) -> FindingVerification:
         modified_by=verification_item["modified_by"],
         modified_date=verification_item["modified_date"],
         status=FindingVerificationStatus[verification_item["status"]],
-        vuln_uuids=verification_item["vuln_uuids"],
+        vulnerability_ids=verification_item["vulnerability_ids"],
     )
 
 
@@ -121,7 +121,7 @@ def format_verification_item(verification: FindingVerification) -> Item:
         "modified_by": verification.modified_by,
         "modified_date": verification.modified_date,
         "status": verification.status.value,
-        "vuln_uuids": verification.vuln_uuids,
+        "vulnerability_ids": verification.vulnerability_ids,
     }
 
 

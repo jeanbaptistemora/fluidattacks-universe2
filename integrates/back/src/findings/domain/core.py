@@ -1118,12 +1118,12 @@ async def request_vulnerabilities_verification_new(
     finding_id: str,
     user_info: Dict[str, str],
     justification: str,
-    vuln_uuids: Set[str],
+    vulnerability_ids: Set[str],
 ) -> None:
     finding_loader = context.loaders.finding_new
     finding: Finding = await finding_loader.load(finding_id)
     vulnerabilities = await vulns_domain.get_by_finding_and_uuids(
-        finding_id, vuln_uuids
+        finding_id, vulnerability_ids
     )
     vulnerabilities = [
         vulns_utils.validate_requested_verification(vuln)
@@ -1142,7 +1142,7 @@ async def request_vulnerabilities_verification_new(
         modified_by=user_email,
         modified_date=datetime_utils.get_iso_date(),
         status=FindingVerificationStatus.REQUESTED,
-        vuln_uuids=vuln_uuids,
+        vulnerability_ids=vulnerability_ids,
     )
     await findings_model.update_verification(
         group_name=finding.group_name,
@@ -1357,7 +1357,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     # we will just keep them open or close them
     # in either case, their historic_verification is updated to VERIFIED
     finding_vulns_loader = info.context.loaders.finding_vulns_all
-    vuln_uuids: List[str] = get_key_or_fallback(
+    vulnerability_ids: List[str] = get_key_or_fallback(
         parameters, "open_vulnerabilities", "open_vulns", []
     ) + get_key_or_fallback(
         parameters, "closed_vulnerabilities", "closed_vulns", []
@@ -1365,7 +1365,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     vulnerabilities = [
         vuln
         for vuln in await finding_vulns_loader.load(finding_id)
-        if vuln["id"] in vuln_uuids
+        if vuln["id"] in vulnerability_ids
     ]
     vulnerabilities = [
         vulns_utils.validate_verify(vuln) for vuln in vulnerabilities
@@ -1389,7 +1389,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
             status=FindingVerificationStatus.VERIFIED,
-            vuln_uuids=vuln_uuids,
+            vulnerability_ids=vulnerability_ids,
         )
         await findings_model.update_verification(
             group_name=finding_new.group_name,
@@ -1410,7 +1410,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
                 "date": today,
                 "status": "VERIFIED",
                 "user": user_email,
-                "vulns": vuln_uuids,
+                "vulns": vulnerability_ids,
             }
         )
         update_finding = await findings_dal.update(

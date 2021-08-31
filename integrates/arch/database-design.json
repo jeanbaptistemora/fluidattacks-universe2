@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Aug 31, 2021, 12:05 PM",
+    "DateLastModified": "Aug 31, 2021, 12:36 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -403,7 +403,7 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "vuln_uuids",
+          "AttributeName": "vulnerability_ids",
           "AttributeType": "SS"
         },
         {
@@ -1870,7 +1870,7 @@
               "comment_id": {
                 "N": "1558048727000"
               },
-              "vuln_uuids": {
+              "vulnerability_ids": {
                 "SS": [
                   "3098e835-833c-48f7-aa76-12ea884e871f"
                 ]
@@ -1882,7 +1882,7 @@
             "modified_date",
             "modified_by",
             "comment_id",
-            "vuln_uuids"
+            "vulnerability_ids"
           ]
         },
         {
@@ -1911,7 +1911,7 @@
               "comment_id": {
                 "N": "1558048727000"
               },
-              "vuln_uuids": {
+              "vulnerability_ids": {
                 "SS": [
                   "3098e835-833c-48f7-aa76-12ea884e871f"
                 ]
@@ -1923,7 +1923,7 @@
             "modified_date",
             "modified_by",
             "comment_id",
-            "vuln_uuids"
+            "vulnerability_ids"
           ]
         },
         {

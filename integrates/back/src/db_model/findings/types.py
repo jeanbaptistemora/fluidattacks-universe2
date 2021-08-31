@@ -34,7 +34,7 @@ class FindingVerification(NamedTuple):
     modified_by: str
     modified_date: str
     status: FindingVerificationStatus
-    vuln_uuids: Set[str]
+    vulnerability_ids: Set[str]
 
 
 class FindingEvidence(NamedTuple):
