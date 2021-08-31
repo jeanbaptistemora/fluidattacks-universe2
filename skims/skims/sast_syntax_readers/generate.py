@@ -93,6 +93,7 @@ from sast_syntax_readers.javascript import (
 )
 from sast_syntax_readers.kotlin import (
     call_expression as kotlin_call_expression,
+    if_expression as kotlin_if_expression,
     navigation_expression as kotlin_navigation_expression,
     object_declaration as kotlin_object_declaration,
     property_declaration as kotlin_property_declaration,
@@ -300,6 +301,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "if_statement",
         },
         syntax_readers=(java_if_statement.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.KOTLIN,
+        },
+        applicable_node_label_types={
+            "if_expression",
+        },
+        syntax_readers=(kotlin_if_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={
