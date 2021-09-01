@@ -19,6 +19,10 @@ class _SingleMessageException(CustomBaseException):
         return cls(cls.msg)
 
 
+class ErrorUploadingFileS3(_SingleMessageException):
+    msg: str = "Unable to upload file to S3 service"
+
+
 class ExpectedEscaperField(_SingleMessageException):
     msg: str = "Expected escaper field for vuln with source 'escape'"
 
@@ -61,6 +65,10 @@ class InvalidVulnWhere(_SingleMessageException):
 
 class UnableToSkimsQueue(_SingleMessageException):
     msg: str = "Unable to queue a verification request"
+
+
+class UnavailabilityError(_SingleMessageException):
+    msg: str = "AWS service unavailable, please retry"
 
 
 class AcceptionNotRequested(CustomBaseException):
@@ -153,15 +161,6 @@ class EmptyPoolName(CustomBaseException):
             f"Exception - There are no {entity} names available at the moment"
         )
         super(EmptyPoolName, self).__init__(msg)
-
-
-class ErrorUploadingFileS3(CustomBaseException):
-    """Exception to control upload of files in s3."""
-
-    def __init__(self) -> None:
-        """Constructor"""
-        msg = "Exception - Error Uploading File to S3"
-        super(ErrorUploadingFileS3, self).__init__(msg)
 
 
 class EventAlreadyClosed(CustomBaseException):
@@ -774,15 +773,6 @@ class ToeLinesNotFound(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - Toe lines has not been found"
         super(ToeLinesNotFound, self).__init__(msg)
-
-
-class UnavailabilityError(CustomBaseException):
-    """Unavailability for some ClienErrors"""
-
-    def __init__(self) -> None:
-        """Constructor"""
-        msg = "Service unavalible, please retry"
-        super(UnavailabilityError, self).__init__(msg)
 
 
 class UnexpectedUserRole(CustomBaseException):

@@ -26,7 +26,7 @@ class ConditionalCheckFailedException(DynamoDbBaseException):
 
 class UnavailabilityError(DynamoDbBaseException):
     def __init__(self) -> None:
-        msg = "Service unavalible, please retry"
+        msg = "Service unavailable, please retry"
         super(UnavailabilityError, self).__init__(msg)
 
 
