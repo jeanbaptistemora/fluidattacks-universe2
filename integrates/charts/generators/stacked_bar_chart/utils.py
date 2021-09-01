@@ -34,6 +34,20 @@ MONTH_TO_NUMBER = {
     "Dec": 12,
 }
 
+DISTRIBUTION_OVER_TIME: List[str] = [
+    "date",
+    "Closed",
+    "Accepted",
+    "Open",
+]
+
+RISK_OVER_TIME: List[str] = [
+    "date",
+    "Closed",
+    "Accepted",
+    "Found",
+]
+
 # Typing
 GroupDocumentData = NamedTuple(
     "GroupDocumentData",
