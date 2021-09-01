@@ -32,8 +32,6 @@ integrates.infra.front.apply
 integrates.infra.front.test
 integrates.infra.resources.apply
 integrates.infra.resources.test
-integrates.infra.secret-management.apply
-integrates.infra.secret-management.test
 integrates.kill
 integrates.mobile
 integrates.mobile.build.android

@@ -48,6 +48,10 @@ in
           gitlabExtra = gitlabDeployInfra;
         }
         {
+          output = "/deployTerraform/integratesSecrets";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
           output = "/lintPython/dirOfModules/integrates";
           gitlabExtra = gitlabLint;
         }
@@ -81,11 +85,19 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/lintTerraform/integratesSecrets";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/pipelineOnGitlab/integrates";
           gitlabExtra = gitlabLint;
         }
         {
           output = "/testTerraform/integratesBackups";
+          gitlabExtra = gitlabTestInfra;
+        }
+        {
+          output = "/testTerraform/integratesSecrets";
           gitlabExtra = gitlabTestInfra;
         }
       ];

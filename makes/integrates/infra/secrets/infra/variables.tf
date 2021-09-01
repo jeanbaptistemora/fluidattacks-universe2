@@ -1,6 +1,4 @@
 data "aws_caller_identity" "current" {}
-variable "aws_access_key" {}
-variable "aws_secret_key" {}
 
 data "aws_iam_policy_document" "okta-assume-role-policy-data" {
   statement {
@@ -22,8 +20,4 @@ data "aws_iam_policy_document" "okta-assume-role-policy-data" {
       ]
     }
   }
-}
-
-variable "region" {
-  default = "us-east-1"
 }

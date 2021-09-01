@@ -580,16 +580,6 @@ integrates.infra.resources.test:
   <<: *in_dev_branch_integrates
   stage: test-infra
 
-integrates.infra.secret-management.apply:
-  <<: *makes
-  <<: *in_master_branch_integrates
-  stage: deploy-infra
-
-integrates.infra.secret-management.test:
-  <<: *makes
-  <<: *in_dev_branch_integrates
-  stage: test-infra
-
 integrates.mobile.build.android:
   <<: *makes
   <<: *in_master_branch_integrates
