@@ -120,13 +120,30 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
       type,
     } = filter;
 
+    function handleChangeSelect(
+      event: React.ChangeEvent<HTMLSelectElement>
+    ): void {
+      event.stopPropagation();
+      if (onChangeSelect) {
+        onChangeSelect(event);
+      }
+    }
+    function handleChangeInput(
+      event: React.ChangeEvent<HTMLInputElement>
+    ): void {
+      event.stopPropagation();
+      if (onChangeInput) {
+        onChangeInput(event);
+      }
+    }
+
     if (type === "date")
       return (
-        <SelectDate defaultValue={defaultValue} onChange={onChangeInput} />
+        <SelectDate defaultValue={defaultValue} onChange={handleChangeInput} />
       );
     if (type === "select")
       return (
-        <Select defaultValue={defaultValue} onChange={onChangeSelect}>
+        <Select defaultValue={defaultValue} onChange={handleChangeSelect}>
           <option key={placeholder} value={""}>
             {t(placeholder)}
           </option>
@@ -143,7 +160,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     return (
       <SearchText
         defaultValue={defaultValue}
-        onChange={onChangeInput}
+        onChange={handleChangeInput}
         placeholder={t(`${placeholder}`)}
       />
     );

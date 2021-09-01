@@ -24,6 +24,24 @@ function filterText<T extends Record<string, any>>(
   );
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+function filterDate<T extends Record<string, any>>(
+  rows: T[],
+  currentDate: string,
+  dateColumnKey: string
+): T[] {
+  const selectedDate = new Date(currentDate);
+
+  return rows.filter((row: T): boolean => {
+    const reportDate = new Date(row[dateColumnKey]);
+
+    return _.isEmpty(currentDate)
+      ? true
+      : selectedDate.getUTCDate() === reportDate.getDate() &&
+          selectedDate.getUTCMonth() === reportDate.getMonth() &&
+          selectedDate.getUTCFullYear() === reportDate.getFullYear();
+  });
+}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function filterSearchText<T extends Record<string, any>>(
   rows: T[],
   searchText: string
@@ -39,4 +57,4 @@ function filterSearchText<T extends Record<string, any>>(
   );
 }
 
-export { filterSelect, filterSearchText, filterText };
+export { filterDate, filterSelect, filterSearchText, filterText };
