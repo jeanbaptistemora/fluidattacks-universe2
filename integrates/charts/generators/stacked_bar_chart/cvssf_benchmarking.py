@@ -197,35 +197,35 @@ def format_data(
         data=dict(
             columns=[
                 [
-                    "# Closed Vulnerabilities",
+                    "Closed",
                     organization.closed,
                     mean_cvssf.closed,
                     best_cvssf.closed,
                 ],
                 [
-                    "# Accepted Vulnerabilities",
+                    "Accepted",
                     organization.accepted,
                     mean_cvssf.accepted,
                     best_cvssf.accepted,
                 ],
                 [
-                    "# Open Vulnerabilities",
+                    "Open",
                     organization.open,
                     mean_cvssf.open,
                     best_cvssf.open,
                 ],
             ],
             colors={
-                "# Closed Vulnerabilities": RISK.more_passive,
-                "# Accepted Vulnerabilities": TREATMENT.passive,
-                "# Open Vulnerabilities": RISK.more_agressive,
+                "Closed": RISK.more_passive,
+                "Accepted": TREATMENT.passive,
+                "Open": RISK.more_agressive,
             },
             type="bar",
             groups=[
                 [
-                    "# Closed Vulnerabilities",
-                    "# Accepted Vulnerabilities",
-                    "# Open Vulnerabilities",
+                    "Closed",
+                    "Accepted",
+                    "Open",
                 ],
             ],
             order=None,
@@ -245,7 +245,7 @@ def format_data(
             x=dict(
                 categories=[
                     "My organization",
-                    "Average all organizations",
+                    "Average organization",
                     "Best organization",
                 ],
                 type="category",
@@ -257,7 +257,7 @@ def format_data(
                     bottom=0,
                 ),
                 label=dict(
-                    text="CVSSF",
+                    text="Severity (CVSSF)",
                     position="inner-top",
                 ),
             ),
