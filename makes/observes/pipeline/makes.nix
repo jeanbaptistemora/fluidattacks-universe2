@@ -2,6 +2,7 @@
 , ...
 }:
 let
+  gitlabBranchMaster = gitlabCi.rules.branch "master";
   gitlabBranchNotMaster = gitlabCi.rules.branchNot "master";
 
   gitlabTitleMatchingObserves = gitlabCi.rules.titleMatching "^(all|observes)";
@@ -13,10 +14,27 @@ let
     gitlabCi.rules.notTriggers
     gitlabTitleMatchingObserves
   ];
+  gitlabOnlyMaster = [
+    gitlabBranchMaster
+    gitlabCi.rules.notSchedules
+    gitlabCi.rules.notTriggers
+    gitlabTitleMatchingObserves
+  ];
 
+  gitlabDeployInfra = {
+    resource_group = "$CI_JOB_NAME";
+    rules = gitlabOnlyMaster;
+    stage = "deploy-infra";
+    tags = [ "autoscaling" ];
+  };
   gitlabLint = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
+    tags = [ "autoscaling" ];
+  };
+  gitlabTestInfra = {
+    rules = gitlabOnlyDev;
+    stage = "test-infra";
     tags = [ "autoscaling" ];
   };
 in
@@ -25,6 +43,10 @@ in
     observes = {
       gitlabPath = "/makes/observes/gitlab-ci.yaml";
       jobs = [
+        {
+          output = "/deployTerraform/observes";
+          gitlabExtra = gitlabDeployInfra;
+        }
         {
           output = "/lintPython/imports/observesArch";
           gitlabExtra = gitlabLint;
@@ -208,6 +230,14 @@ in
         {
           output = "/lintPython/module/observesTargetRedshift";
           gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintTerraform/observes";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/testTerraform/observes";
+          gitlabExtra = gitlabTestInfra;
         }
       ];
     };

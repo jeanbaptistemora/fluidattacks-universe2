@@ -6,7 +6,7 @@
     modules = {
       sorts = {
         setup = [ outputs."/secretsForAwsFromEnv/sortsDev" ];
-        src = "/sorts/infra";
+        src = "/makes/sorts/infra/infra";
         version = "0.14";
       };
     };
@@ -15,7 +15,7 @@
     modules = {
       sorts = {
         setup = [ outputs."/secretsForAwsFromEnv/sortsDev" ];
-        src = "/sorts/infra";
+        src = "/makes/sorts/infra/infra";
         version = "0.14";
       };
     };
@@ -24,7 +24,7 @@
     modules = {
       sorts = {
         setup = [ outputs."/secretsForAwsFromEnv/sortsDev" ];
-        src = "/sorts/infra";
+        src = "/makes/sorts/infra/infra";
         version = "0.14";
       };
     };

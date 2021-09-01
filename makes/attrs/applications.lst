@@ -93,8 +93,6 @@ observes.job.gitlab-etl.challenges
 observes.job.gitlab-etl.default
 observes.job.gitlab-etl.product
 observes.job.gitlab-etl.services
-observes.job.infra.apply
-observes.job.infra.test
 observes.job.timedoctor.new-grant-code
 observes.job.timedoctor.set-init-token
 observes.job.zoho-crm-etl

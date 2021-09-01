@@ -1,5 +1,5 @@
 terraform {
-  required_version = "~> 0.13.0"
+  required_version = "~> 0.14.0"
 
   required_providers {
     aws = {
@@ -18,14 +18,8 @@ terraform {
 
 }
 
-provider "aws" {
-  access_key = var.aws_access_key
-  secret_key = var.aws_secret_key
-  region     = var.region
-}
-
 module "external" {
-  source = "../../../makes/utils/terraform-modules/external-data"
+  source = "../../../../makes/utils/terraform-modules/external-data"
 
   aws_iam_roles = [
     "observes_dev",
