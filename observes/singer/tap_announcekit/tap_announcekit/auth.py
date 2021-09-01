@@ -1,5 +1,5 @@
 import base64
-from cachetools import (
+from cachetools import (  # type: ignore
     cached,
     LRUCache,
 )

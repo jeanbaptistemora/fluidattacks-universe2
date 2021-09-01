@@ -50,6 +50,10 @@
         config = "/observes/common/postgres_client/postgres_client/setup.imports.cfg";
         src = "/observes/common/postgres_client";
       };
+      observesTapAnnounceKit = {
+        config = "/observes/singer/tap_announcekit/tap_announcekit/setup.imports.cfg";
+        src = "/observes/singer/tap_announcekit";
+      };
       observesTapBugsnag = {
         config = "/observes/singer/tap_bugsnag/tap_bugsnag/setup.imports.cfg";
         src = "/observes/singer/tap_bugsnag";
@@ -179,6 +183,16 @@
         ];
         python = "3.8";
         src = "/observes/singer/streamer_zoho_crm/tests";
+      };
+      observesTapAnnounceKit = {
+        extraSources = [ inputs.product.observes-env-tap-announcekit-runtime ];
+        python = "3.8";
+        src = "/observes/singer/tap_announcekit/tap_announcekit";
+      };
+      observesTapAnnounceKitTests = {
+        extraSources = [ inputs.product.observes-env-tap-announcekit-development ];
+        python = "3.8";
+        src = "/observes/singer/tap_announcekit/tests";
       };
       observesTapBugsnag = {
         extraSources = [ inputs.product.observes-env-tap-bugsnag-runtime ];

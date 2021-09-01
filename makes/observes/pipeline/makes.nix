@@ -42,6 +42,10 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/lintPython/imports/observesTapAnnounceKit";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintPython/imports/observesTapBugsnag";
           gitlabExtra = gitlabLint;
         }
@@ -131,6 +135,14 @@ in
         }
         {
           output = "/lintPython/module/observesStreamerZohoCrmTests";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintPython/module/observesTapAnnounceKit";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintPython/module/observesTapAnnounceKitTests";
           gitlabExtra = gitlabLint;
         }
         {
