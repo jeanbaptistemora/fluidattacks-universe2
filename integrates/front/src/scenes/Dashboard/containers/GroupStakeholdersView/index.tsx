@@ -234,6 +234,22 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     return <div />;
   }
 
+  /**
+   * Helper role mapping function for display and sorting purposes, to be
+   * removed as soon as the old role values are migrated
+   */
+  const mapRoles = (role: string): string => {
+    if (role === "group_manager") {
+      return "system_owner";
+    } else if (role === "analyst") {
+      return "hacker";
+    } else if (role === "closer") {
+      return "reattacker";
+    }
+
+    return role;
+  };
+
   const stakeholdersList = data.group.stakeholders.map(
     (stakeholder: IStakeholderAttrs): IStakeholderDataSet => {
       function handleResendEmail(): void {
@@ -253,6 +269,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
             {translate.t("searchFindings.usersTable.resendEmail")}
           </Button>
         ),
+        role: mapRoles(stakeholder.role),
       };
     }
   );
@@ -263,6 +280,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
   ): void {
     setSearchTextFilter(event.target.value);
   }
+
   const filterSearchtextStakeHolders: IStakeholderDataSet[] = filterSearchText(
     stakeholdersList,
     searchTextFilter
@@ -301,15 +319,15 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
       placeholder: "Role",
       selectOptions: {
         admin: "Admin",
-        analyst: "Hacker",
-        closer: "Reattacker",
         customer: "User",
         customeradmin: "User Manager",
         executive: "Executive",
-        // eslint-disable-next-line camelcase
-        group_manager: "System Owner",
+        hacker: "Hacker",
+        reattacker: "Reattacker",
         resourcer: "Resourcer",
         reviewer: "Reviewer",
+        // eslint-disable-next-line camelcase
+        system_owner: "System Owner",
       },
       tooltipId: "group.stakeHolders.filtersTooltips.role.id",
       tooltipMessage: "group.stakeHolders.filtersTooltips.role",
