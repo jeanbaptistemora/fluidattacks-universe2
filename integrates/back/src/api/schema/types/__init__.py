@@ -73,6 +73,9 @@ from .toe_lines import (
 from .treatment import (
     TREATMENT,
 )
+from .treatment_summary import (
+    TREATMENT_SUMMARY,
+)
 from .verification import (
     VERIFICATION,
 )
@@ -112,6 +115,7 @@ TYPES: Tuple[ObjectType, ...] = (
     TOEINPUTS,
     TOELINES,
     TREATMENT,
+    TREATMENT_SUMMARY,
     VERIFICATION,
     VULNERABILITY,
 )

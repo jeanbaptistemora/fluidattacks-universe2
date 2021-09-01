@@ -71,6 +71,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             "remediated",
             "state",
             "tracking",
+            "treatment_summary",
             "verified",
             "vulnerabilities",
             "where",

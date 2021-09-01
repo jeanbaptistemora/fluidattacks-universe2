@@ -23,6 +23,7 @@ from api.resolvers.finding import (
     sorts,
     state,
     tracking,
+    treatment_summary,
     verified,
     vulnerabilities,
     vulnerabilities_to_reattack,
@@ -144,6 +145,7 @@ else:
     FINDING.set_field("sorts", sorts.resolve)
     FINDING.set_field("state", state.resolve)
     FINDING.set_field("tracking", tracking.resolve)
+    FINDING.set_field("treatmentSummary", treatment_summary.resolve)
     FINDING.set_field("verified", verified.resolve)
     FINDING.set_field("vulnerabilities", vulnerabilities.resolve)
     FINDING.set_field(
