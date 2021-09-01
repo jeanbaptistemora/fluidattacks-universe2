@@ -541,7 +541,6 @@ async def test_reject_draft() -> None:
 
 
 @pytest.mark.changes_db
-@freeze_time("2020-12-01")
 async def test_remove_finding() -> None:
     """Check for removeFinding mutation."""
     query = """
@@ -558,21 +557,8 @@ async def test_remove_finding() -> None:
     assert result["data"]["removeFinding"]["success"]
     finding = await findings_dal.get_finding("560175507")
     historic_state = finding["historic_state"]
-    assert historic_state == [
-        {
-            "analyst": "unittest@fluidattacks.com",
-            "date": "2019-02-04 12:46:10",
-            "source": "integrates",
-            "state": "CREATED",
-        },
-        {
-            "analyst": "integratesmanager@gmail.com",
-            "date": "2020-11-30 19:00:00",
-            "justification": "NOT_REQUIRED",
-            "source": "asm",
-            "state": "DELETED",
-        },
-    ]
+    assert historic_state[-1]["state"] == "DELETED"
+    assert historic_state[-1]["justification"] == "NOT_REQUIRED"
     with pytest.raises(FindingNotFound):
         assert await get_finding("560175507")
 

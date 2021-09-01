@@ -54,6 +54,7 @@ from db_model.findings.types import (
     Finding20Severity,
     Finding31Severity,
     FindingEvidence,
+    FindingEvidences,
     FindingMetadataToUpdate,
     FindingState,
     FindingVerification,
@@ -215,9 +216,9 @@ def cast_new_vulnerabilities(
 async def remove_finding(
     context: Any, finding_id: str, justification: str
 ) -> bool:
-    finding_data = await get_finding(finding_id)
+    finding = await get_finding(finding_id)
     submission_history = cast(
-        List[Dict[str, str]], finding_data.get("historicState", [{}])
+        List[Dict[str, str]], finding.get("historicState", [{}])
     )
     success = False
 
@@ -241,6 +242,14 @@ async def remove_finding(
         schedule(
             remove_vulnerabilities(context, finding_id, justification, analyst)
         )
+        group_name = get_key_or_fallback(finding, "groupName", "projectName")
+        file_names = await findings_dal.search_evidence(
+            f"{group_name}/{finding_id}"
+        )
+        await collect(
+            findings_dal.remove_evidence(file_name) for file_name in file_names
+        )
+        await findings_dal.update(finding_id, {"files": []})
     return success
 
 
@@ -268,6 +277,18 @@ async def remove_finding_new(
         remove_vulnerabilities(
             context, finding_id, justification.value, user_email
         )
+    )
+    file_names = await findings_dal.search_evidence(
+        f"{finding.group_name}/{finding.id}"
+    )
+    await collect(
+        findings_dal.remove_evidence(file_name) for file_name in file_names
+    )
+    metadata = FindingMetadataToUpdate(evidences=FindingEvidences())
+    await findings_model.update_medatada(
+        group_name=finding.group_name,
+        finding_id=finding.id,
+        metadata=metadata,
     )
 
 
