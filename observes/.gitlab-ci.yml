@@ -70,9 +70,6 @@ include:
 
 # lint jobs
 
-observes.lint.paginator:
-  <<: *lint_job
-
 observes.lint.postgres-client:
   <<: *lint_job
 

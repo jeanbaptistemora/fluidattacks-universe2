@@ -30,6 +30,10 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/lintPython/imports/observesCommonPaginator";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintPython/imports/observesServiceTimedoctorTokens";
           gitlabExtra = gitlabLint;
         }
@@ -75,6 +79,10 @@ in
         }
         {
           output = "/lintPython/module/observesCodeEtlTests";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintPython/module/observesCommonPaginator";
           gitlabExtra = gitlabLint;
         }
         {

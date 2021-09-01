@@ -113,7 +113,6 @@ observes.env.utils-logger.runtime.python
 observes.generic.linter
 observes.generic.runner
 observes.generic.tester
-observes.lint.paginator
 observes.lint.postgres-client
 observes.lint.singer-io
 observes.lint.tap-announcekit

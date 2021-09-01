@@ -42,6 +42,10 @@
         ];
         src = "/observes/architecture";
       };
+      observesCommonPaginator = {
+        config = "/observes/common/paginator/paginator/setup.imports.cfg";
+        src = "/observes/common/paginator";
+      };
       observesTapCheckly = {
         config = "/observes/singer/tap_checkly/tap_checkly/setup.imports.cfg";
         src = "/observes/singer/tap_checkly";
@@ -97,6 +101,13 @@
         ];
         python = "3.8";
         src = "/observes/code_etl/tests";
+      };
+      observesCommonPaginator = {
+        extraSources = [
+          inputs.product.observes-env-paginator-development
+        ];
+        python = "3.8";
+        src = "/observes/common/paginator/paginator";
       };
       observesJobLastSuccess = {
         extraSources = [
