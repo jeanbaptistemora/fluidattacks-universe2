@@ -71,24 +71,42 @@ let
       parsed = lib.strings.splitString "." raw;
     in
     {
-      standard_id = (builtins.head parsed);
-      definition_id = (builtins.head (builtins.tail parsed));
+      standardId = (builtins.head parsed);
+      definitionId = (builtins.head (builtins.tail parsed));
     };
   reqRef = data:
     let
-      standard = compliance.${data.standard_id};
-      standard_link = "/criteria/compliance/${data.standard_id}";
-      definition = standard.definitions.${data.definition_id};
+      standard = compliance.${data.standardId};
+      standardLink = "/criteria/compliance/${data.standardId}";
+      definition = standard.definitions.${data.definitionId};
     in
     builtins.concatStringsSep "" [
-      "- [${standard.title}-${data.definition_id}: ${definition.title}]"
-      "(${standard_link})"
+      "- [${standard.title}-${data.definitionId}: ${definition.title}]"
+      "(${standardLink})"
     ];
   refsForReq = refs:
     builtins.concatStringsSep "\n" (
       builtins.map reqRef (
         builtins.map reqRefParseData refs
       )
+    );
+
+  # Generate vulnerabilities list for a requirement
+  vulnHasReq = req: vuln:
+    builtins.any (x: x == req) vulnerabilities.${vuln}.requirements;
+  reqVuln = id:
+    let
+      title = vulnerabilities.${id}.en.title;
+    in
+    "- [${id}. ${title}](/criteria/vulnerabilities/${id})";
+  vulnsForReq = req:
+    let
+      vulns = builtins.attrNames (
+        lib.filterAttrs (id: _: vulnHasReq req id) vulnerabilities
+      );
+    in
+    builtins.concatStringsSep "\n" (
+      builtins.map reqVuln vulns
     );
 
   # Generate definitions list for a standard
@@ -190,6 +208,8 @@ let
       __argSummary__ = section "## Summary" src.en.summary;
       __argDescription__ = section "## Description" src.en.description;
       __argReferences__ = section "## References" (refsForReq src.references);
+      __argVulnerabilities__ =
+        section "## Vulnerabilities" (vulnsForReq __argCode__);
     };
     name = "docs-make-requirement-${__argCode__}";
     template = ./templates/requirement.md;
