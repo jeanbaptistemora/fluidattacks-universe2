@@ -321,20 +321,11 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     {
       defaultValue: currentStatusFilter,
       onChangeSelect: onStatusChange,
-      selectOptions: [
-        {
-          text: "Status",
-          value: "",
-        },
-        {
-          text: "Open",
-          value: "Open",
-        },
-        {
-          text: "Closed",
-          value: "Closed",
-        },
-      ],
+      placeholder: "Status",
+      selectOptions: {
+        Closed: "Closed",
+        Open: "Open",
+      },
       tooltipId: "group.findings.filtersTooltips.status.id",
       tooltipMessage: "group.findings.filtersTooltips.status",
       type: "select",
@@ -350,20 +341,11 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     {
       defaultValue: reattackFilter,
       onChangeSelect: onReattackChange,
-      selectOptions: [
-        {
-          text: "Reattack",
-          value: "",
-        },
-        {
-          text: "-",
-          value: "-",
-        },
-        {
-          text: "Pending",
-          value: "Pending",
-        },
-      ],
+      placeholder: "Reattack",
+      selectOptions: {
+        "-": "-",
+        Pending: "Pending",
+      },
       tooltipId: "group.findings.filtersTooltips.reattack.id",
       tooltipMessage: "group.findings.filtersTooltips.reattack",
       type: "select",

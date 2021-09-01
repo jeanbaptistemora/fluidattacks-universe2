@@ -298,48 +298,19 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     {
       defaultValue: roleFilter,
       onChangeSelect: onRoleChange,
-      selectOptions: [
-        {
-          text: "Role",
-          value: "",
-        },
-        {
-          text: "Admin",
-          value: "admin",
-        },
-        {
-          text: "Hacker",
-          value: "analyst",
-        },
-        {
-          text: "Reattacker",
-          value: "closer",
-        },
-        {
-          text: "User",
-          value: "customer",
-        },
-        {
-          text: "User Manager",
-          value: "customeradmin",
-        },
-        {
-          text: "Executive",
-          value: "executive",
-        },
-        {
-          text: "System Owner",
-          value: "group_manager",
-        },
-        {
-          text: "Resourcer",
-          value: "resourcer",
-        },
-        {
-          text: "Reviewer",
-          value: "reviewer",
-        },
-      ],
+      placeholder: "Role",
+      selectOptions: {
+        admin: "Admin",
+        analyst: "Hacker",
+        closer: "Reattacker",
+        customer: "User",
+        customeradmin: "User Manager",
+        executive: "Executive",
+        // eslint-disable-next-line camelcase
+        group_manager: "System Owner",
+        resourcer: "Resourcer",
+        reviewer: "Reviewer",
+      },
       tooltipId: "group.stakeHolders.filtersTooltips.role.id",
       tooltipMessage: "group.stakeHolders.filtersTooltips.role",
       type: "select",
@@ -347,24 +318,12 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     {
       defaultValue: invitationFilter,
       onChangeSelect: onInvitationChange,
-      selectOptions: [
-        {
-          text: "Invitation",
-          value: "",
-        },
-        {
-          text: "Confirmed",
-          value: "CONFIRMED",
-        },
-        {
-          text: "Pending",
-          value: "PENDING",
-        },
-        {
-          text: "Unregistered",
-          value: "UNREGISTERED",
-        },
-      ],
+      placeholder: "Invitation",
+      selectOptions: {
+        CONFIRMED: "Confirmed",
+        PENDING: "Pending",
+        UNREGISTERED: "Unregistered",
+      },
       tooltipId: "group.stakeHolders.filtersTooltips.invitation.id",
       tooltipMessage: "group.stakeHolders.filtersTooltips.invitation",
       type: "select",

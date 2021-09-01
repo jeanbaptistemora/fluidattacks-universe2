@@ -19,16 +19,11 @@ interface ISelectRowProps extends Omit<SelectRowProps<any>, "onSelectAll"> {
   ) => string[];
 }
 
-interface IFilterSelectOptions {
-  value: string;
-  text: string;
-}
-
 interface IFilterProps {
   defaultValue?: string;
   onChangeInput?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeSelect?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  selectOptions?: IFilterSelectOptions[];
+  selectOptions?: Record<string, number | string>;
   placeholder?: string;
   tooltipId: string;
   tooltipMessage: string;
@@ -103,7 +98,6 @@ interface ITableWrapperProps {
 
 export {
   ICustomToggleProps,
-  IFilterSelectOptions,
   IFilterProps,
   IHeaderConfig,
   ISelectRowProps,

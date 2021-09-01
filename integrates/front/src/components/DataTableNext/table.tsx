@@ -27,7 +27,6 @@ import style from "components/DataTableNext/index.css";
 import { SizePerPageRenderer } from "components/DataTableNext/sizePerPageRenderer";
 import type {
   IFilterProps,
-  IFilterSelectOptions,
   ITableWrapperProps,
 } from "components/DataTableNext/types";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -128,10 +127,13 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     if (type === "select")
       return (
         <Select defaultValue={defaultValue} onChange={onChangeSelect}>
-          {selectOptions?.map(
-            (option: IFilterSelectOptions): JSX.Element => (
-              <option key={option.text} value={option.value}>
-                {t(option.text)}
+          <option key={placeholder} value={""}>
+            {t(placeholder)}
+          </option>
+          {Object.entries(selectOptions ?? {}).map(
+            ([key, value]): JSX.Element => (
+              <option key={value} value={key}>
+                {t(value.toString())}
               </option>
             )
           )}
