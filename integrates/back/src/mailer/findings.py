@@ -60,9 +60,8 @@ async def send_mail_comment(
         email_context,
         COMMENTS_TAG,
         (
-            f"New "
-            f'{"observation" if type_ == "observation" else "comment"}'
-            f" in finding #{finding_id} for [{group_name}]"
+            f'New {"observation" if type_ == "observation" else "comment"}'
+            f" in [{finding_title}] for [{group_name}]"
         ),
         "new_comment",
     )
@@ -93,7 +92,7 @@ async def send_mail_remove_finding(
         recipients,
         mail_context,
         GENERAL_TAG,
-        f"Finding #{finding_id} in [{group_name}] was removed",
+        f"Finding removed [{finding_name}] in [{group_name}]",
         "delete_finding",
     )
 
@@ -122,7 +121,7 @@ async def send_mail_new_draft(
         recipients,
         email_context,
         GENERAL_TAG,
-        f"New draft submitted in [{group_name}] - [Finding#{finding_id}]",
+        f"Draft submitted [{finding_title}] in [{group_name}]",
         "new_draft",
     )
 
@@ -166,7 +165,7 @@ async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
         recipients,
         email_context,
         GENERAL_TAG,
-        f"Draft unsubmitted in [{group_name}] - #{draft_id}",
+        f"Draft unsubmitted [{finding_name}] in [{group_name}]",
         "unsubmitted_draft",
     )
 
@@ -197,6 +196,6 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
         recipients,
         mail_context,
         VERIFY_TAG,
-        f"New remediation in [{group_name}] - [Finding#{finding_id}]",
+        f"New remediation for [{finding_name}] in [{group_name}]",
         "remediate_finding",
     )
