@@ -7,6 +7,13 @@ function upload_sorts_results_to_s3 {
   local target="s3://sorts/features/"
 
   aws_login_prod 'sorts' \
+    && sops_export_vars 'sorts/secrets.yaml' \
+      'MIXPANEL_API_TOKEN_SORTS' \
+      'REDSHIFT_DATABASE' \
+      'REDSHIFT_HOST' \
+      'REDSHIFT_PASSWORD' \
+      'REDSHIFT_PORT' \
+      'REDSHIFT_USER' \
     && echo "[INFO] Uploading Sorts feature extraction results to S3" \
     && aws_s3_sync "${PWD}" "${target}" --exclude "*" --include "${group}*.csv" \
     && rm -rf "${group}"*".csv"
