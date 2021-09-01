@@ -696,6 +696,8 @@ type Mutation {
     groupName: String!
     "ID of the source root"
     id: ID!
+    "Name of the target group"
+    targetGroupName: String
     "ID of the target root"
     targetId: ID!
   ): SimplePayload!

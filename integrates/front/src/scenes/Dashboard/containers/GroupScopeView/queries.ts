@@ -160,7 +160,12 @@ const DEACTIVATE_ROOT: DocumentNode = gql`
 
 const MOVE_ROOT: DocumentNode = gql`
   mutation MoveRoot($groupName: String!, $id: ID!, $targetId: ID!) {
-    moveRoot(groupName: $groupName, id: $id, targetId: $targetId) {
+    moveRoot(
+      groupName: $groupName
+      id: $id
+      targetGroupName: $groupName
+      targetId: $targetId
+    ) {
       success
     }
   }
