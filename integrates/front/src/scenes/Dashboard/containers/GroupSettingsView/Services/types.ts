@@ -4,6 +4,7 @@ interface IFormData {
   confirmation: string;
   description: string;
   forces?: boolean;
+  language: string;
   machine: boolean;
   reason: string;
   organization?: string;
@@ -18,6 +19,7 @@ interface IGroupData {
     hasSquad: boolean;
     hasForces: boolean;
     hasMachine: boolean;
+    language: string;
     organization: {
       name: string;
     };

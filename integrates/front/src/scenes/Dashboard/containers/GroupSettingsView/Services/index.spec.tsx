@@ -231,10 +231,12 @@ describe("Services", (): void => {
           query: UPDATE_GROUP_DATA,
           variables: {
             comments: "",
+            description: "Integrates unit test project",
             groupName: "unittesting",
             hasASM: true,
             hasMachine: true,
             hasSquad: true,
+            language: "EN",
             reason: "NONE",
             service: "WHITE",
             subscription: "CONTINUOUS",
@@ -253,10 +255,12 @@ describe("Services", (): void => {
           query: UPDATE_GROUP_DATA,
           variables: {
             comments: "",
+            description: "Integrates unit test project",
             groupName: "unittesting",
             hasASM: true,
             hasMachine: false,
             hasSquad: false,
+            language: "EN",
             reason: "NONE",
             service: "WHITE",
             subscription: "CONTINUOUS",
@@ -275,10 +279,12 @@ describe("Services", (): void => {
           query: UPDATE_GROUP_DATA,
           variables: {
             comments: "",
+            description: "Integrates unit test project",
             groupName: "unittesting",
             hasASM: true,
             hasMachine: true,
             hasSquad: false,
+            language: "EN",
             reason: "NONE",
             service: "WHITE",
             subscription: "CONTINUOUS",
@@ -371,7 +377,7 @@ describe("Services", (): void => {
       wrapper.update();
 
       expect(wrapper).toHaveLength(1);
-      expect(msgSuccess).toHaveBeenCalledTimes(1);
+      expect(msgSuccess).toHaveBeenCalledTimes(0);
     });
 
     squadSwitch().simulate("click");
@@ -389,7 +395,7 @@ describe("Services", (): void => {
       wrapper.update();
 
       expect(wrapper).toHaveLength(1);
-      expect(msgSuccess).toHaveBeenCalledTimes(2);
+      expect(msgSuccess).toHaveBeenCalledTimes(0);
     });
 
     squadSwitch().simulate("click");
@@ -406,7 +412,7 @@ describe("Services", (): void => {
       const delay = 150;
       await wait(delay);
       wrapper.update();
-      const calls = 3;
+      const calls = 0;
 
       expect(wrapper).toHaveLength(1);
       expect(msgSuccess).toHaveBeenCalledTimes(calls);
