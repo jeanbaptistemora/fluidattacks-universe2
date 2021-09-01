@@ -118,6 +118,7 @@ describe("GroupFindingsView", (): void => {
                     zeroRisk: "",
                   },
                 ],
+                where: "This is a test where",
               },
             ],
             name: "TEST",
