@@ -11,6 +11,8 @@ from charts import (
 from charts.generators.stacked_bar_chart.utils import (
     format_document,
     GroupDocumentData,
+    RISK_OVER_TIME,
+    sum_over_time_many_groups,
     translate_date,
 )
 from dataloaders import (
@@ -83,43 +85,7 @@ async def get_many_groups_document(
         [get_group_document(group, days) for group in groups]
     )
 
-    all_dates: List[datetime] = sorted(
-        set(
-            date
-            for group_document in group_documents
-            for date in group_document["date"]
-        )
-    )
-
-    # fill missing dates with it's more near value to the left
-    for group_document in group_documents:
-        for name in group_document:
-            last_date = None
-            for date in all_dates:
-                if date in group_document[name]:
-                    last_date = date
-                elif last_date:
-                    group_document[name][date] = group_document[name][
-                        last_date
-                    ]
-                else:
-                    group_document[name][date] = 0
-
-    return {
-        name: {
-            date: sum(
-                group_document[name].get(date, 0)
-                for group_document in group_documents
-            )
-            for date in all_dates
-        }
-        for name in [
-            "date",
-            "Closed",
-            "Accepted",
-            "Found",
-        ]
-    }
+    return sum_over_time_many_groups(group_documents, RISK_OVER_TIME)
 
 
 async def generate_all() -> None:

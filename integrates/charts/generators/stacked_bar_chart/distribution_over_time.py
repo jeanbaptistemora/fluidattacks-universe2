@@ -9,9 +9,10 @@ from charts import (
     utils,
 )
 from charts.generators.stacked_bar_chart.utils import (
+    DISTRIBUTION_OVER_TIME,
     format_distribution_document,
     GroupDocumentData,
-    sum_distribution_many_groups,
+    sum_over_time_many_groups,
     translate_date,
 )
 from dataloaders import (
@@ -70,15 +71,7 @@ async def get_many_groups_document(
 ) -> Dict[str, Dict[datetime, float]]:
     group_documents = await collect(map(get_group_document, groups))
 
-    all_dates: List[datetime] = sorted(
-        set(
-            date
-            for group_document in group_documents
-            for date in group_document["date"]
-        )
-    )
-
-    return sum_distribution_many_groups(group_documents, all_dates)
+    return sum_over_time_many_groups(group_documents, DISTRIBUTION_OVER_TIME)
 
 
 async def generate_all() -> None:
