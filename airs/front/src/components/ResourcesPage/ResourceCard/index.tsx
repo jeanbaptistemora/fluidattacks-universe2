@@ -36,7 +36,8 @@ const ResourcesCard: React.FC<IProps> = ({
   <CardContainer className={cardType}>
     {cardType === "webinar-card" ? (
       <WebinarImageContainer className={image}>
-        <div className={"pa3"}>
+        <CloudImage alt={language} src={image} styles={"br3 br--top"} />
+        <div className={"pa3 top-0 absolute"}>
           <WebinarLanguage>{language}</WebinarLanguage>
         </div>
       </WebinarImageContainer>

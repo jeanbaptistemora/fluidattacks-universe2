@@ -89,7 +89,7 @@ const ResourcesPage: React.FC<IProps> = ({
         description={`${translate.t(
           "resources.cardsText.webinars.webinar1Description"
         )}`}
-        image={"bg-card1"}
+        image={"/resources/resource-card1n"}
         language={"ESP"}
         title={`${translate.t("resources.cardsText.webinars.webinar1Title")}`}
         urlCard={
@@ -104,7 +104,7 @@ const ResourcesPage: React.FC<IProps> = ({
         description={`${translate.t(
           "resources.cardsText.reports.report1Description"
         )}`}
-        image={"/resources/resource-card12_skdzks"}
+        image={"/resources/resource-card12n"}
         language={"Webinar cover ESP"}
         title={`${translate.t("resources.cardsText.reports.report1Title")}`}
         urlCard={"https://try.fluidattacks.com/report/state-of-attacks-2021/"}
@@ -117,7 +117,7 @@ const ResourcesPage: React.FC<IProps> = ({
         description={`${translate.t(
           "resources.cardsText.reports.report2Description"
         )}`}
-        image={"/resources/resource-card2_eopqaz"}
+        image={"/resources/resource-card2n"}
         language={"Webinar cover ESP"}
         title={`${translate.t("resources.cardsText.reports.report2Title")}`}
         urlCard={"https://report2020.fluidattacks.com/"}
@@ -130,7 +130,7 @@ const ResourcesPage: React.FC<IProps> = ({
         description={`${translate.t(
           "resources.cardsText.reports.report3Description"
         )}`}
-        image={"/resources/resource-card13_lkzcem"}
+        image={"/resources/resource-card13n"}
         language={"Webinar cover ESP"}
         title={`${translate.t("resources.cardsText.reports.report3Title")}`}
         urlCard={"https://fluidattacks.docsend.com/view/qkdsfs75j37k8atz"}
@@ -143,7 +143,7 @@ const ResourcesPage: React.FC<IProps> = ({
         description={`${translate.t(
           "resources.cardsText.webinars.webinar2Description"
         )}`}
-        image={"bg-card1"}
+        image={"/resources/resource-card1n"}
         language={"ESP"}
         title={`${translate.t("resources.cardsText.webinars.webinar2Title")}`}
         urlCard={
@@ -158,7 +158,7 @@ const ResourcesPage: React.FC<IProps> = ({
         description={`${translate.t(
           "resources.cardsText.webinars.webinar3Description"
         )}`}
-        image={"bg-card3"}
+        image={"/resources/resource-card3n"}
         language={"ESP"}
         title={`${translate.t("resources.cardsText.webinars.webinar3Title")}`}
         urlCard={
@@ -173,7 +173,7 @@ const ResourcesPage: React.FC<IProps> = ({
         description={`${translate.t(
           "resources.cardsText.eBooks.ebook1Description"
         )}`}
-        image={"/resources/resource-card5_qognfm"}
+        image={"/resources/resource-card5n"}
         language={"Webinar cover ESP"}
         title={`${translate.t("resources.cardsText.eBooks.ebook1Title")}`}
         urlCard={"https://landing.fluidattacks.com/us/ebook/"}
@@ -186,7 +186,7 @@ const ResourcesPage: React.FC<IProps> = ({
         description={`${translate.t(
           "resources.cardsText.webinars.webinar4Description"
         )}`}
-        image={"bg-card8"}
+        image={"/resources/resource-card8n"}
         language={"ENG"}
         title={`${translate.t("resources.cardsText.webinars.webinar4Title")}`}
         urlCard={
@@ -201,7 +201,7 @@ const ResourcesPage: React.FC<IProps> = ({
         description={`${translate.t(
           "resources.cardsText.webinars.webinar4Description"
         )}`}
-        image={"bg-card8"}
+        image={"/resources/resource-card8n"}
         language={"ESP"}
         title={`${translate.t("resources.cardsText.webinars.webinar4Title")}`}
         urlCard={
@@ -216,7 +216,7 @@ const ResourcesPage: React.FC<IProps> = ({
         description={`${translate.t(
           "resources.cardsText.webinars.webinar5Description"
         )}`}
-        image={"bg-card3"}
+        image={"/resources/resource-card3n"}
         language={"ESP"}
         title={`${translate.t("resources.cardsText.webinars.webinar5Title")}`}
         urlCard={
@@ -231,7 +231,7 @@ const ResourcesPage: React.FC<IProps> = ({
         description={`${translate.t(
           "resources.cardsText.webinars.webinar6Description"
         )}`}
-        image={"bg-card9"}
+        image={"/resources/resource-card9n"}
         language={"ESP"}
         title={`${translate.t("resources.cardsText.webinars.webinar6Title")}`}
         urlCard={
@@ -246,7 +246,7 @@ const ResourcesPage: React.FC<IProps> = ({
         description={`${translate.t(
           "resources.cardsText.webinars.webinar7Description"
         )}`}
-        image={"bg-card8"}
+        image={"/resources/resource-card8n"}
         language={"ENG"}
         title={`${translate.t("resources.cardsText.webinars.webinar7Title")}`}
         urlCard={
@@ -261,7 +261,7 @@ const ResourcesPage: React.FC<IProps> = ({
         description={`${translate.t(
           "resources.cardsText.webinars.webinar8Description"
         )}`}
-        image={"bg-card11"}
+        image={"/resources/resource-card11n"}
         language={"ESP"}
         title={`${translate.t("resources.cardsText.webinars.webinar8Title")}`}
         urlCard={"https://www.youtube.com/watch?reload=9&v=-KvvMD7EJAs"}
