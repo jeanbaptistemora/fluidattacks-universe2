@@ -428,6 +428,14 @@ def match_ast_group(
     return nodes
 
 
+def match_ast_group_d(
+    graph: Graph,
+    n_id: str,
+    label_type: str,
+) -> List[str]:
+    return match_ast_group(graph, n_id, label_type)[label_type]
+
+
 def get_ast_childs(
     graph: Graph,
     n_id: NId,
