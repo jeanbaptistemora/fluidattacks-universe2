@@ -1,5 +1,3 @@
-import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
-
 interface IGroupFindingsAttr {
   group: {
     findings: IFindingAttr[];
@@ -20,12 +18,13 @@ interface IFindingAttr {
   title: string;
   treatment: string;
   type: string;
+  treatmentSummary: {
+    accepted: number;
+    acceptedUndefined: number;
+    inProgress: number;
+    new: number;
+  };
   verified: boolean;
-  vulnerabilities: {
-    historicTreatment: IHistoricTreatment[];
-    where: string;
-    zeroRisk: string;
-  }[];
   where: string;
 }
 

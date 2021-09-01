@@ -17,17 +17,13 @@ const GET_FINDINGS: DocumentNode = gql`
         state
         isExploitable
         remediated
-        verified
-        vulnerabilities(state: "open") {
-          historicTreatment {
-            date
-            user
-            treatment
-          }
-          id
-          where
-          zeroRisk
+        treatmentSummary {
+          accepted
+          acceptedUndefined
+          inProgress
+          new
         }
+        verified
         where
       }
       name

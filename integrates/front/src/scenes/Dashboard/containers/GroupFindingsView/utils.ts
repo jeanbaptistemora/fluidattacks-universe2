@@ -1,51 +1,22 @@
-import { getLastTreatment } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
-import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import type { IFindingAttr } from "scenes/Dashboard/containers/GroupFindingsView/types";
 import { translate } from "utils/translations/translate";
 
-const formatTreatmentSummary: (
-  vulns: IFindingAttr["vulnerabilities"]
-) => string = (vulns: IFindingAttr["vulnerabilities"]): string => {
-  const zeroRisk: IFindingAttr["vulnerabilities"] = vulns.filter(
-    (vuln: IFindingAttr["vulnerabilities"][0]): boolean => {
-      return !["Confirmed", "Requested"].includes(vuln.zeroRisk);
-    }
-  );
-  const lastTreatments: IHistoricTreatment[] = zeroRisk.map(
-    (vuln: IFindingAttr["vulnerabilities"][0]): IHistoricTreatment =>
-      getLastTreatment(vuln.historicTreatment)
-  );
-  const inProgress: number = lastTreatments.filter(
-    (treatment: IHistoricTreatment): boolean =>
-      treatment.treatment === "IN_PROGRESS"
-  ).length;
-  const temporarilyAccepted: number = lastTreatments.filter(
-    (treatment: IHistoricTreatment): boolean =>
-      treatment.treatment === "ACCEPTED"
-  ).length;
-  const indefinitelyAccepted: number = lastTreatments.filter(
-    (treatment: IHistoricTreatment): boolean =>
-      treatment.treatment === "ACCEPTED_UNDEFINED"
-  ).length;
-
-  return `
-    ${translate.t("searchFindings.tabDescription.treatment.new")}: ${
-    lastTreatments.length -
-    inProgress -
-    temporarilyAccepted -
-    indefinitelyAccepted
-  },
-    ${translate.t(
-      "searchFindings.tabDescription.treatment.inProgress"
-    )}: ${inProgress},
-    ${translate.t(
-      "searchFindings.tabDescription.treatment.accepted"
-    )}: ${temporarilyAccepted},
-    ${translate.t(
-      "searchFindings.tabDescription.treatment.acceptedUndefined"
-    )}: ${indefinitelyAccepted}
-  `;
-};
+const formatTreatmentSummary: (finding: IFindingAttr) => string = (
+  finding: IFindingAttr
+): string => `
+${translate.t("searchFindings.tabDescription.treatment.new")}: ${
+  finding.treatmentSummary.new
+},
+${translate.t("searchFindings.tabDescription.treatment.inProgress")}: ${
+  finding.treatmentSummary.inProgress
+},
+${translate.t("searchFindings.tabDescription.treatment.accepted")}: ${
+  finding.treatmentSummary.accepted
+},
+${translate.t("searchFindings.tabDescription.treatment.acceptedUndefined")}: ${
+  finding.treatmentSummary.acceptedUndefined
+}
+`;
 
 const formatFindings: (dataset: IFindingAttr[]) => IFindingAttr[] = (
   dataset: IFindingAttr[]
@@ -57,9 +28,7 @@ const formatFindings: (dataset: IFindingAttr[]) => IFindingAttr[] = (
     };
     const state: string = translate.t(stateParameters[finding.state]);
     const treatment: string =
-      finding.state === "open"
-        ? formatTreatmentSummary(finding.vulnerabilities)
-        : "-";
+      finding.state === "open" ? formatTreatmentSummary(finding) : "-";
     const remediated: string = translate.t(
       Boolean(finding.remediated) || !finding.verified
         ? "group.findings.remediated.True"
