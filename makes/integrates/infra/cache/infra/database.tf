@@ -29,10 +29,11 @@ resource "aws_security_group" "main" {
 }
 
 resource "aws_elasticache_replication_group" "cache_db" {
+  # tflint-ignore: aws_elasticache_replication_group_default_parameter_group
+  parameter_group_name          = "default.redis6.x.cluster.on"
   replication_group_id          = "integrates-cache"
   replication_group_description = "Integrates Redis cache"
   node_type                     = "cache.t3.micro"
-  parameter_group_name          = "default.redis6.x.cluster.on"
   subnet_group_name             = aws_elasticache_subnet_group.cache_db.name
   automatic_failover_enabled    = true
   at_rest_encryption_enabled    = true

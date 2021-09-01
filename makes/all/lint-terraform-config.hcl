@@ -13,6 +13,7 @@ rule "aws_resource_missing_tags" {
     "management:product",
   ]
   exclude = [
+    "aws_elasticache_subnet_group",
     "aws_iam_instance_profile",
     "aws_iam_policy",
   ]

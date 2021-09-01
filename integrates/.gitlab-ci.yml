@@ -540,16 +540,6 @@ integrates.front.test:
     - cp out/integrates-front-test/coverage/lcov.info integrates/front/coverage.lcov
   stage: test-code
 
-integrates.infra.cache-db.apply:
-  <<: *makes
-  <<: *in_master_branch_integrates
-  stage: deploy-infra
-
-integrates.infra.cache-db.test:
-  <<: *makes
-  <<: *in_dev_branch_integrates
-  stage: test-infra
-
 integrates.infra.database.apply:
   <<: *makes
   <<: *in_master_branch_integrates
