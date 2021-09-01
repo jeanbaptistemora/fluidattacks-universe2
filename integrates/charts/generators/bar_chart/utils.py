@@ -57,7 +57,7 @@ def format_data(data: Tuple[Decimal, Decimal, Decimal]) -> Dict[str, Any]:
             x=dict(
                 categories=[
                     "My organization",
-                    "Average all organizations",
+                    "Average organization",
                     "Best organization",
                 ],
                 type="category",
@@ -66,6 +66,10 @@ def format_data(data: Tuple[Decimal, Decimal, Decimal]) -> Dict[str, Any]:
                 min=0,
                 padding=dict(
                     bottom=0,
+                ),
+                label=dict(
+                    text="Calendar days (less is better)",
+                    position="inner-top",
                 ),
             ),
         ),
