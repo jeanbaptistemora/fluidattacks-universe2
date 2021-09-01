@@ -38,6 +38,15 @@ def _expression(
         identifier_name = args.graph.nodes[left_id]["label_text"]
     elif left_type == "member_expression":
         identifier_name = build_js_member_expression_key(args.graph, left_id)
+    elif left_type == "subscript_expression":
+        subscript_attrs = args.graph.nodes[left_id]
+        _object_attrs = args.graph.nodes[subscript_attrs["label_field_object"]]
+        _index_attrs = args.graph.nodes[subscript_attrs["label_field_index"]]
+        if (object_name := _object_attrs.get("label_text")) and (
+            index_text := _index_attrs.get("label_text")
+        ):
+            index_text = index_text.replace('"', "").replace("'", "")
+            identifier_name = f"{object_name}.{index_text}"
     else:
         raise MissingCaseHandling(args)
 

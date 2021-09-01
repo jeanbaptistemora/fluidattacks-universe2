@@ -80,7 +80,9 @@ BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set(
         "Object.values",
         "fs.readFile",
         "fs.readFileSync",
-        "PlatformPath.join",
+        "fs.unlink",
+        "fs.unlinkSync",
+        "path.join",
     }
 )
 STATIC_FINDING: Dict[str, Set[str]] = {
@@ -289,8 +291,10 @@ BY_OBJ_ARGS: Dict[str, Set[str]] = complete_attrs_on_dict(
         "fs": {
             "readFile",
             "readFileSync",
+            "unlink",
+            "unlinkSync",
         },
-        "PlatformPath": {
+        "path": {
             "join",
         },
     }

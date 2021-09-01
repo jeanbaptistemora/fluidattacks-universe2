@@ -33,6 +33,8 @@ def mark_sinks(
         {
             "readFile",
             "readFileSync",
+            "unlink",
+            "unlinkSync",
         },
     )
 

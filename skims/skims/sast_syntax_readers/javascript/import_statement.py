@@ -16,6 +16,7 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
     module_name = args.graph.nodes[node_attrs["label_field_source"]][
         "label_text"
     ]
+    module_name = module_name.replace('"', "").replace("'", "")
 
     match = g.match_ast(args.graph, args.n_id, "import_clause")
     import_clause = match["import_clause"]

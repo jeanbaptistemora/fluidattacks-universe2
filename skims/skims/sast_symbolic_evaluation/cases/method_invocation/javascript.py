@@ -27,13 +27,9 @@ from utils.string import (
 )
 
 TFun = Callable[[EvaluatorArgs], None]
-RETURNS = {
-    "child_process": "child_process",
-    "express": "core.Express",
-}
 TYPES: Dict[str, Set[str]] = complete_attrs_on_dict(
     {
-        "core.Express.Router": {"get", "post", "put", "delete"},
+        "express.Router": {"get", "post", "put", "delete"},
     }
 )
 
@@ -54,19 +50,13 @@ def javascript_only(
 
 
 def evaluate_required(args: EvaluatorArgs) -> None:
-    returns = {
-        "child_process": "child_process",
-        "express": "core.Express",
-        "fs": "fs",
-        "path": "PlatformPath",
-    }
     method: SyntaxStepMethodInvocation = args.syntax_step
     if method.method != "require":
         return
 
     module: SyntaxStepLiteral = args.dependencies[0]
     if isinstance(module, SyntaxStepLiteral):
-        method.return_type = returns.get(module.value)
+        method.return_type = module.value
 
 
 @javascript_only
