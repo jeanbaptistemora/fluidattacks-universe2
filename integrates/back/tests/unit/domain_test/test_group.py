@@ -404,6 +404,7 @@ async def test_get_users() -> None:
         "integratesserviceforces@gmail.com",
         "integratesmanager@gmail.com",
         "unittest@fluidattacks.com",
+        "integrateshacker@fluidattacks.com",
         "integratesreattacker@fluidattacks.com",
         "unittest2@fluidattacks.com",
         "integratesexecutive@gmail.com",
@@ -411,7 +412,6 @@ async def test_get_users() -> None:
         "integratesresourcer@fluidattacks.com",
         "integratescustomer@gmail.com",
         "integratesuser@gmail.com",
-        "integratesanalyst@fluidattacks.com",
         "system_owner@fluidattacks.com",
         "continuoushacking@gmail.com",
         "integratesmanager@fluidattacks.com",
@@ -421,9 +421,9 @@ async def test_get_users() -> None:
     assert expected_output == await get_group_users(group_name)
 
 
-async def test_get_closers() -> None:
-    closers = await get_reattackers("oneshottest")
-    assert closers == ["integratesanalyst@fluidattacks.com"]
+async def test_get_reattackers() -> None:
+    reattackers = await get_reattackers("oneshottest")
+    assert reattackers == ["integrateshacker@fluidattacks.com"]
 
 
 @freeze_time("2019-10-01")

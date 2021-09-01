@@ -1,4 +1,4 @@
-from back.tests.functional.analyst.utils import (
+from back.tests.functional.hacker.utils import (
     get_result,
 )
 from dataloaders import (
@@ -134,7 +134,7 @@ async def test_me() -> None:  # pylint: disable=too-many-statements
     assert result["data"]["me"]["organizations"] == [{"name": org_name}]
     assert len(result["data"]["me"]["permissions"]) == 9
     assert not result["data"]["me"]["remember"]
-    assert result["data"]["me"]["role"] == "analyst"
+    assert result["data"]["me"]["role"] == "hacker"
     assert result["data"]["me"]["sessionExpiration"] == str(
         datetime.fromtimestamp(int_expiration_time)
     )
@@ -177,7 +177,7 @@ async def test_me() -> None:  # pylint: disable=too-many-statements
     result = await get_result(data, session_jwt=session_jwt, context=context)
     assert "errors" not in result
     assert len(result["data"]["me"]["permissions"]) == 90
-    assert result["data"]["me"]["role"] == "analyst"
+    assert result["data"]["me"]["role"] == "hacker"
 
     context = get_new_context()
     query = f"""{{
@@ -190,7 +190,7 @@ async def test_me() -> None:  # pylint: disable=too-many-statements
     result = await get_result(data, session_jwt=session_jwt, context=context)
     assert "errors" not in result
     assert len(result["data"]["me"]["permissions"]) == 0
-    assert result["data"]["me"]["role"] == "analyst"
+    assert result["data"]["me"]["role"] == "hacker"
 
     context = get_new_context()
     query = """

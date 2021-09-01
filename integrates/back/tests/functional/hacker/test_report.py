@@ -1,4 +1,4 @@
-from back.tests.functional.analyst.utils import (
+from back.tests.functional.hacker.utils import (
     get_result,
 )
 from dataloaders import (
@@ -28,7 +28,7 @@ async def test_report() -> None:
     assert "url" in result["data"]["report"]
     assert (
         result["data"]["report"]["url"] == "The report will be sent to "
-        "integratesanalyst@fluidattacks.com shortly"
+        "integrateshacker@fluidattacks.com shortly"
     )
 
     context = get_new_context()
@@ -47,7 +47,7 @@ async def test_report() -> None:
     assert "url" in result["data"]["report"]
     assert (
         result["data"]["report"]["url"] == "The report will be sent to "
-        "integratesanalyst@fluidattacks.com shortly"
+        "integrateshacker@fluidattacks.com shortly"
     )
 
     context = get_new_context()
@@ -65,5 +65,5 @@ async def test_report() -> None:
     assert "url" in result["data"]["report"]
     assert (
         result["data"]["report"]["url"] == "The report will be sent to "
-        "integratesanalyst@fluidattacks.com shortly"
+        "integrateshacker@fluidattacks.com shortly"
     )

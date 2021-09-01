@@ -13,7 +13,7 @@ from typing import (
 
 async def get_result(
     data: Dict[str, Any],
-    stakeholder: str = "integratesanalyst@fluidattacks.com",
+    stakeholder: str = "integrateshacker@fluidattacks.com",
     session_jwt: Optional[str] = None,
     context: Optional[Dataloaders] = None,
 ) -> Dict[str, Any]:

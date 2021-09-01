@@ -324,10 +324,10 @@ async def test_organization() -> None:
     expected_stakeholders = [
         "continuoushack2@gmail.com",
         "continuoushacking@gmail.com",
-        "integratesanalyst@fluidattacks.com",
         "integratescustomer@fluidattacks.com",
         "integratescustomer@gmail.com",
         "integratesexecutive@gmail.com",
+        "integrateshacker@fluidattacks.com",
         "integratesmanager@fluidattacks.com",
         "integratesmanager@gmail.com",
         "integratesreattacker@fluidattacks.com",

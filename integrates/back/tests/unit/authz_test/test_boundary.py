@@ -12,7 +12,7 @@ pytestmark = [
     [
         ["continuoushacking@gmail.com"],
         ["integratescustomer@gmail.com"],
-        ["integratesanalyst@fluidattacks.com"],
+        ["integrateshacker@fluidattacks.com"],
     ],
 )
 async def test_get_user_level_actions_model(email: str) -> None:
@@ -31,8 +31,8 @@ async def test_get_user_level_actions_model(email: str) -> None:
         ["continuoushacking@gmail.com", "UnItTeStInG"],
         ["continuoushacking@gmail.com", "unittesting"],
         ["continuoushacking@gmail.com", "oneshottest"],
-        ["integratesanalyst@fluidattacks.com", "unittesting"],
-        ["integratesanalyst@fluidattacks.com", "oneshottest"],
+        ["integrateshacker@fluidattacks.com", "unittesting"],
+        ["integrateshacker@fluidattacks.com", "oneshottest"],
         ["integratesuser@gmail.com", "unittesting"],
         ["integratesuser@gmail.com", "oneshottest"],
     ],

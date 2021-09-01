@@ -178,10 +178,10 @@ async def test_get_users() -> None:
     assert sorted(users) == [
         "continuoushack2@gmail.com",
         "continuoushacking@gmail.com",
-        "integratesanalyst@fluidattacks.com",
         "integratescustomer@fluidattacks.com",
         "integratescustomer@gmail.com",
         "integratesexecutive@gmail.com",
+        "integrateshacker@fluidattacks.com",
         "integratesmanager@fluidattacks.com",
         "integratesmanager@gmail.com",
         "integratesreattacker@fluidattacks.com",

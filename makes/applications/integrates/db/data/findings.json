@@ -1054,7 +1054,7 @@
                     "S": "VERIFIED"
                   },
                   "user": {
-                    "S": "integratesanalyst@fluidattacks.com"
+                    "S": "integrateshacker@fluidattacks.com"
                   },
                   "comment": {
                     "N": "1558048727111"

@@ -97,13 +97,13 @@
             "S": "user"
           },
           "subject": {
-            "S": "integratesanalyst@fluidattacks.com"
+            "S": "integrateshacker@fluidattacks.com"
           },
           "object": {
             "S": "self"
           },
           "role": {
-            "S": "analyst"
+            "S": "hacker"
           }
         }
       }
@@ -259,13 +259,13 @@
             "S": "group"
           },
           "subject": {
-            "S": "integratesanalyst@fluidattacks.com"
+            "S": "integrateshacker@fluidattacks.com"
           },
           "object": {
             "S": "unittesting"
           },
           "role": {
-            "S": "analyst"
+            "S": "hacker"
           }
         }
       }
@@ -277,7 +277,7 @@
             "S": "group"
           },
           "subject": {
-            "S": "integratesanalyst@fluidattacks.com"
+            "S": "integrateshacker@fluidattacks.com"
           },
           "object": {
             "S": "oneshottest"
