@@ -65,9 +65,9 @@ async def mutate(
                 findings_mail.send_mail_reject_draft(
                     info.context.loaders,
                     finding_id,
-                    str(finding.get("title", "")),
+                    finding["title"],
                     str(get_key_or_fallback(finding, fallback="")),
-                    str(finding.get("analyst", "")),
+                    finding["analyst"],
                     reviewer_email,
                 )
             )

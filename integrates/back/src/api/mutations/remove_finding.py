@@ -75,9 +75,9 @@ async def mutate(
         schedule(
             findings_mail.send_mail_remove_finding(
                 finding_id,
-                str(finding_data.get("finding", "")),
+                finding_data["title"],
                 group_name,
-                str(finding_data.get("analyst", "")),
+                finding_data["analyst"],
                 FindingStateJustification[justification],
             )
         )
