@@ -34,6 +34,10 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/lintPython/imports/observesCommonSingerIo";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintPython/imports/observesCommonPostgresClient";
           gitlabExtra = gitlabLint;
         }
@@ -95,6 +99,14 @@ in
         }
         {
           output = "/lintPython/module/observesCommonPaginator";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintPython/module/observesCommonSingerIo";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintPython/module/observesCommonSingerIoTests";
           gitlabExtra = gitlabLint;
         }
         {

@@ -50,6 +50,10 @@
         config = "/observes/common/postgres_client/postgres_client/setup.imports.cfg";
         src = "/observes/common/postgres_client";
       };
+      observesCommonSingerIo = {
+        config = "/observes/common/singer_io/singer_io/setup.imports.cfg";
+        src = "/observes/common/singer_io";
+      };
       observesTapAnnounceKit = {
         config = "/observes/singer/tap_announcekit/tap_announcekit/setup.imports.cfg";
         src = "/observes/singer/tap_announcekit";
@@ -134,6 +138,20 @@
         ];
         python = "3.8";
         src = "/observes/common/postgres_client/postgres_client";
+      };
+      observesCommonSingerIo = {
+        extraSources = [
+          inputs.product.observes-env-singer-io-development
+        ];
+        python = "3.8";
+        src = "/observes/common/singer_io/singer_io";
+      };
+      observesCommonSingerIoTests = {
+        extraSources = [
+          inputs.product.observes-env-singer-io-development
+        ];
+        python = "3.8";
+        src = "/observes/common/singer_io/tests";
       };
       observesJobLastSuccess = {
         extraSources = [

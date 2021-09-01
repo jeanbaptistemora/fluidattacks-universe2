@@ -61,6 +61,27 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+/lintPython/imports/observesCommonSingerIo:
+  image: ghcr.io/fluidattacks/makes:21.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
+  script:
+    - m . /lintPython/imports/observesCommonSingerIo
+  stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
 /lintPython/imports/observesServiceTimedoctorTokens:
   image: ghcr.io/fluidattacks/makes:21.09
   interruptible: true
@@ -413,6 +434,48 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
   script:
     - m . /lintPython/module/observesCommonPostgresClientTests
+  stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/lintPython/module/observesCommonSingerIo:
+  image: ghcr.io/fluidattacks/makes:21.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
+  script:
+    - m . /lintPython/module/observesCommonSingerIo
+  stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/lintPython/module/observesCommonSingerIoTests:
+  image: ghcr.io/fluidattacks/makes:21.09
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
+  script:
+    - m . /lintPython/module/observesCommonSingerIoTests
   stage: lint-code
   tags:
     - autoscaling
