@@ -2,6 +2,7 @@
 , ...
 }:
 let
+  gitlabBranchMaster = gitlabCi.rules.branch "master";
   gitlabBranchNotMaster = gitlabCi.rules.branchNot "master";
 
   gitlabTitleMatchingSorts = gitlabCi.rules.titleMatching "^(all|sorts)";
@@ -13,10 +14,27 @@ let
     gitlabCi.rules.notTriggers
     gitlabTitleMatchingSorts
   ];
+  gitlabOnlyMaster = [
+    gitlabBranchMaster
+    gitlabCi.rules.notSchedules
+    gitlabCi.rules.notTriggers
+    gitlabTitleMatchingSorts
+  ];
 
+  gitlabDeployInfra = {
+    resource_group = "$CI_JOB_NAME";
+    rules = gitlabOnlyMaster;
+    stage = "deploy-infra";
+    tags = [ "autoscaling" ];
+  };
   gitlabLint = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
+    tags = [ "autoscaling" ];
+  };
+  gitlabTestInfra = {
+    rules = gitlabOnlyDev;
+    stage = "test-infra";
     tags = [ "autoscaling" ];
   };
 in
@@ -25,6 +43,10 @@ in
     sorts = {
       gitlabPath = "/makes/sorts/gitlab-ci.yaml";
       jobs = [
+        {
+          output = "/deployTerraform/sorts";
+          gitlabExtra = gitlabDeployInfra;
+        }
         {
           output = "/lintPython/dirOfModules/sorts";
           gitlabExtra = gitlabLint;
@@ -40,6 +62,14 @@ in
         {
           output = "/lintPython/module/sortsTraining";
           gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintTerraform/sorts";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/testTerraform/sorts";
+          gitlabExtra = gitlabTestInfra;
         }
       ];
     };

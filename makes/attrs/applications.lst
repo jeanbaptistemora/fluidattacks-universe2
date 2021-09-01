@@ -149,8 +149,6 @@ skims.test.sdk
 sorts
 sorts.execute
 sorts.extract-features
-sorts.infra.deploy
-sorts.infra.test
 sorts.merge-features
 sorts.test
 sorts.train
