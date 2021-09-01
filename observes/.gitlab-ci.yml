@@ -3,7 +3,6 @@ include:
   - local: observes/code_etl/.gitlab-ci.yml
   - local: observes/infra/.gitlab-ci.yml
   - local: observes/singer/tap_announcekit/.gitlab-ci.yml
-  - local: observes/singer/tap_bugsnag/.gitlab-ci.yml
   - local: observes/singer/tap_csv/.gitlab-ci.yml
   - local: observes/singer/tap_gitlab/.gitlab-ci.yml
   - local: observes/singer/tap_mailchimp/.gitlab-ci.yml

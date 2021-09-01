@@ -6,7 +6,7 @@ from itertools import (
 from paginator.object_index import (
     PageResult,
 )
-from requests.models import (
+from requests.models import (  # type: ignore
     Response,
 )
 from returns.io import (

@@ -115,7 +115,6 @@ observes.generic.runner
 observes.generic.tester
 observes.lint.singer-io
 observes.lint.tap-announcekit
-observes.lint.tap-bugsnag
 observes.test.code-etl
 observes.test.postgres-client
 observes.test.singer-io

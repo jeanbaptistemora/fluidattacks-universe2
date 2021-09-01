@@ -9,10 +9,10 @@ from paginator.raw_client import (
 from paginator.raw_client.patch import (
     Patch,
 )
-from requests.exceptions import (
+from requests.exceptions import (  # type: ignore
     HTTPError,
 )
-from requests.models import (
+from requests.models import (  # type: ignore
     Response,
 )
 from tap_bugsnag.api.auth import (

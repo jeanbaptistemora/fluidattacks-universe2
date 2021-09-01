@@ -14,7 +14,7 @@ from paginator.pages import (
     PageResult,
 )
 import re
-from requests.models import (
+from requests.models import (  # type: ignore
     Response,
 )
 from returns.io import (
@@ -67,7 +67,7 @@ def from_response(response: Response) -> Maybe[PageResult[str, List[JsonObj]]]:
 
 def extract_page(
     get_all: Callable[[], IO[Iterator[PageResult[str, _Data]]]],
-    getter: PageGetterIO[str, PageResult[str, _Data]],
+    getter: PageGetterIO[str, PageResult[str, _Data]],  # type: ignore
     page: PageOrAll[str],
 ) -> IO[Iterator[_Data]]:
     if isinstance(page, AllPages):

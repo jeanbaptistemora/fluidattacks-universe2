@@ -50,6 +50,10 @@
         config = "/observes/common/postgres_client/postgres_client/setup.imports.cfg";
         src = "/observes/common/postgres_client";
       };
+      observesTapBugsnag = {
+        config = "/observes/singer/tap_bugsnag/tap_bugsnag/setup.imports.cfg";
+        src = "/observes/singer/tap_bugsnag";
+      };
       observesTapCheckly = {
         config = "/observes/singer/tap_checkly/tap_checkly/setup.imports.cfg";
         src = "/observes/singer/tap_checkly";
@@ -175,6 +179,11 @@
         ];
         python = "3.8";
         src = "/observes/singer/streamer_zoho_crm/tests";
+      };
+      observesTapBugsnag = {
+        extraSources = [ inputs.product.observes-env-tap-bugsnag-runtime ];
+        python = "3.8";
+        src = "/observes/singer/tap_bugsnag/tap_bugsnag";
       };
       observesTapCheckly = {
         extraSources = [ inputs.product.observes-env-tap-checkly-runtime ];

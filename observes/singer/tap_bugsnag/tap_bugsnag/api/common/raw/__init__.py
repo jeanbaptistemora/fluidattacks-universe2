@@ -11,7 +11,7 @@ from paginator.pages import (
 from paginator.raw_client import (
     RawClient,
 )
-from requests.models import (
+from requests.models import (  # type: ignore
     Response,
 )
 from returns.io import (
