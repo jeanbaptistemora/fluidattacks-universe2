@@ -92,6 +92,9 @@ from newutils import (
 from newutils.utils import (
     get_key_or_fallback,
 )
+from newutils.vulnerabilities import (
+    Treatments,
+)
 from operator import (
     itemgetter,
 )
@@ -781,6 +784,17 @@ def get_tracking_vulnerabilities(
         )
         for index, action in enumerate(tracking_actions)
     ]
+
+
+async def get_treatment_summary(loaders: Any, finding_id: str) -> Treatments:
+    finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr
+    vulnerabilities: List[VulnerabilityType] = await finding_vulns_loader.load(
+        finding_id
+    )
+    open_vulnerabilities = vulns_domain.filter_open_vulnerabilities(
+        vulnerabilities
+    )
+    return vulns_utils.get_treatments(open_vulnerabilities)
 
 
 def get_updated_evidence_date_new(
