@@ -153,7 +153,7 @@ export const enTranslations: ResourceKey = {
     },
     stackedBarChart: {
       cvssfBenchmarking: {
-        title: "Cvssf Benchmarking (by closing rate)",
+        title: "Remediation Rate Benchmarking",
       },
       distributionOverTimeCvssf: {
         title: "Distribution over the time",
