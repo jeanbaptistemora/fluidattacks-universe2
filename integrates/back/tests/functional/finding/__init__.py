@@ -72,6 +72,7 @@ async def get_result(
                 }}
                 openVulnerabilities
                 closedVulnerabilities
+                where
                 __typename
             }}
         }}

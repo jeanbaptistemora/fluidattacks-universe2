@@ -130,6 +130,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
             },
         ]
     }
+    where: str = "192.168.1.1"
     result: Dict[str, Any] = await get_result(
         user=email,
         finding=finding_id,
@@ -197,6 +198,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["observations"] == []
     assert result["data"]["finding"]["consulting"] == []
     assert result["data"]["finding"]["tracking"] == tracking.get("tracking")
+    assert result["data"]["finding"]["where"] == where
 
 
 @pytest.mark.asyncio
@@ -312,6 +314,7 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
             },
         ]
     }
+    where: str = "192.168.1.1"
     result: Dict[str, Any] = await get_result(
         user=email,
         finding=finding_id,
@@ -375,3 +378,4 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["risk"] == risk
     assert result["data"]["finding"]["type"] == finding_type
     assert result["data"]["finding"]["tracking"] == tracking.get("tracking")
+    assert result["data"]["finding"]["where"] == where
