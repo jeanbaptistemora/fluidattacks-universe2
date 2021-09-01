@@ -48,6 +48,10 @@ in
           gitlabExtra = gitlabDeployInfra;
         }
         {
+          output = "/deployTerraform/integratesFront";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
           output = "/deployTerraform/integratesResources";
           gitlabExtra = gitlabDeployInfra;
         }
@@ -89,6 +93,10 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/lintTerraform/integratesFront";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintTerraform/integratesResources";
           gitlabExtra = gitlabLint;
         }
@@ -102,6 +110,10 @@ in
         }
         {
           output = "/testTerraform/integratesBackups";
+          gitlabExtra = gitlabTestInfra;
+        }
+        {
+          output = "/testTerraform/integratesFront";
           gitlabExtra = gitlabTestInfra;
         }
         {

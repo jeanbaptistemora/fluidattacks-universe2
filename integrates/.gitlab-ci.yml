@@ -560,16 +560,6 @@ integrates.infra.database.test:
   <<: *in_dev_branch_integrates
   stage: test-infra
 
-integrates.infra.front.apply:
-  <<: *makes
-  <<: *in_master_branch_integrates
-  stage: deploy-infra
-
-integrates.infra.front.test:
-  <<: *makes
-  <<: *in_dev_branch_integrates
-  stage: test-infra
-
 integrates.mobile.build.android:
   <<: *makes
   <<: *in_master_branch_integrates
