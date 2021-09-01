@@ -570,16 +570,6 @@ integrates.infra.front.test:
   <<: *in_dev_branch_integrates
   stage: test-infra
 
-integrates.infra.resources.apply:
-  <<: *makes
-  <<: *in_master_branch_integrates
-  stage: deploy-infra
-
-integrates.infra.resources.test:
-  <<: *makes
-  <<: *in_dev_branch_integrates
-  stage: test-infra
-
 integrates.mobile.build.android:
   <<: *makes
   <<: *in_master_branch_integrates

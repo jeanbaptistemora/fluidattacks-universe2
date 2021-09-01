@@ -30,8 +30,6 @@ integrates.infra.database.apply
 integrates.infra.database.test
 integrates.infra.front.apply
 integrates.infra.front.test
-integrates.infra.resources.apply
-integrates.infra.resources.test
 integrates.kill
 integrates.mobile
 integrates.mobile.build.android
