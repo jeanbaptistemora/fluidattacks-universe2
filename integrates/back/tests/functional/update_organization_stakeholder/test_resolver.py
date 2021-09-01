@@ -47,7 +47,7 @@ async def test_update_organization_stakeholder(
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["analyst@gmail.com"],
+        ["hacker@gmail.com"],
         ["closer@gmail.com"],
         ["customer@gmail.com"],
     ],

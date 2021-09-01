@@ -18,7 +18,7 @@ from typing import (
     ["email"],
     [
         ["admin@gmail.com"],
-        ["analyst@gmail.com"],
+        ["hacker@gmail.com"],
         ["reviewer@gmail.com"],
     ],
 )  # pylint: disable=too-many-statements, too-many-locals

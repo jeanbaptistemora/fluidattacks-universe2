@@ -19,7 +19,7 @@ from typing import (
 async def test_grant_stakeholder_access(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group2"
-    stakeholder_email: str = "analyst@gmail.com"
+    stakeholder_email: str = "hacker@gmail.com"
     phone_number: str = "-"
     stakeholder_responsibility: str = "test"
     stakeholder_role: str = "EXECUTIVE"
@@ -44,7 +44,7 @@ async def test_grant_stakeholder_access(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["analyst@gmail.com"],
+        ["hacker@gmail.com"],
         ["closer@gmail.com"],
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],
@@ -59,7 +59,7 @@ async def test_grant_stakeholder_access_fail(
 ) -> None:
     assert populate
     group_name: str = "group2"
-    stakeholder_email: str = "analyst@gmail.com"
+    stakeholder_email: str = "hacker@gmail.com"
     phone_number: str = "-"
     stakeholder_responsibility: str = "test"
     stakeholder_role: str = "EXECUTIVE"

@@ -33,7 +33,7 @@ async def test_analyst(populate: bool) -> None:
     assert populate
     org_name: str = "TESTORG"
     result: Dict[str, Any] = await get_result(
-        user="analyst@gmail.com", org=org_name
+        user="hacker@gmail.com", org=org_name
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"

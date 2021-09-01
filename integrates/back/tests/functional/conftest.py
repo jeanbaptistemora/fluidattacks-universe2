@@ -111,8 +111,6 @@ TEST_GROUPS: Set[str] = {
 def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
     admin_email: str = "admin@gmail.com"
     admin_fluid_email: str = "admin@fluidattacks.com"
-    analyst_email: str = "analyst@gmail.com"
-    analyst_fluid_email: str = "analyst@fluidattacks.com"
     closer_email: str = "closer@gmail.com"
     closer_fluid_email: str = "closer@fluidattacks.com"
     customer_email: str = "customer@gmail.com"
@@ -123,6 +121,8 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
     executive_fluid_email: str = "executive@fluidattacks.com"
     group_manager_email: str = "group_manager@gmail.com"
     group_manager_fluid_email: str = "group_manager@fluidattacks.com"
+    hacker_email: str = "hacker@gmail.com"
+    hacker_fluid_email: str = "hacker@fluidattacks.com"
     resourcer_email: str = "resourcer@gmail.com"
     resourcer_fluid_email: str = "resourcer@fluidattacks.com"
     reviewer_email: str = "reviewer@gmail.com"
@@ -136,8 +136,8 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
         "global_vars": {
             "admin_email": admin_email,
             "admin_fluid_email": admin_fluid_email,
-            "analyst_email": analyst_email,
-            "analyst_fluid_email": analyst_fluid_email,
+            "hacker_email": hacker_email,
+            "hacker_fluid_email": hacker_fluid_email,
             "closer_email": closer_email,
             "closer_fluid_email": closer_fluid_email,
             "customer_email": customer_email,
@@ -184,7 +184,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "is_registered": True,
                 },
                 {
-                    "email": analyst_email,
+                    "email": hacker_email,
                     "first_login": "",
                     "first_name": "",
                     "last_login": "",
@@ -195,7 +195,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "is_registered": True,
                 },
                 {
-                    "email": analyst_fluid_email,
+                    "email": hacker_fluid_email,
                     "first_login": "",
                     "first_name": "",
                     "last_login": "",
@@ -411,8 +411,8 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                     "users": [
                         admin_email,
                         admin_fluid_email,
-                        analyst_email,
-                        analyst_fluid_email,
+                        hacker_email,
+                        hacker_fluid_email,
                         closer_email,
                         closer_fluid_email,
                         customer_email,
@@ -505,15 +505,15 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                 },
                 {
                     "level": "user",
-                    "subject": analyst_email,
+                    "subject": hacker_email,
                     "object": "self",
-                    "role": "analyst",
+                    "role": "hacker",
                 },
                 {
                     "level": "user",
-                    "subject": analyst_fluid_email,
+                    "subject": hacker_fluid_email,
                     "object": "self",
-                    "role": "analyst",
+                    "role": "hacker",
                 },
                 {
                     "level": "user",
@@ -625,21 +625,21 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                 },
                 {
                     "level": "group",
-                    "subject": analyst_email,
+                    "subject": hacker_email,
                     "object": "group1",
-                    "role": "analyst",
+                    "role": "hacker",
                 },
                 {
                     "level": "group",
-                    "subject": analyst_email,
+                    "subject": hacker_email,
                     "object": "group3",
-                    "role": "analyst",
+                    "role": "hacker",
                 },
                 {
                     "level": "group",
-                    "subject": analyst_fluid_email,
+                    "subject": hacker_fluid_email,
                     "object": "group1",
-                    "role": "analyst",
+                    "role": "hacker",
                 },
                 {
                     "level": "group",
@@ -769,15 +769,15 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                 },
                 {
                     "level": "organization",
-                    "subject": analyst_email,
+                    "subject": hacker_email,
                     "object": org_id,
-                    "role": "analyst",
+                    "role": "hacker",
                 },
                 {
                     "level": "organization",
-                    "subject": analyst_fluid_email,
+                    "subject": hacker_fluid_email,
                     "object": org_id,
-                    "role": "analyst",
+                    "role": "hacker",
                 },
                 {
                     "level": "organization",

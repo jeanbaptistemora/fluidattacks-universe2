@@ -258,7 +258,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["analyst@fluidattacks.com"],
+        ["hacker@fluidattacks.com"],
         ["closer@gmail.com"],
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],

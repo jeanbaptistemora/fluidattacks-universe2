@@ -34,7 +34,7 @@ async def test_reject_vulnerabilities_zero_risk(
 @pytest.mark.parametrize(
     ("email", "vuln_id"),
     (
-        ("analyst@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
+        ("hacker@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
         ("closer@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
         ("customer@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
         ("customeradmin@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),

@@ -37,7 +37,7 @@ async def test_update_organization_policies(
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["analyst@gmail.com"],
+        ["hacker@gmail.com"],
         ["closer@gmail.com"],
         ["customer@gmail.com"],
         ["group_manager@gmail.com"],

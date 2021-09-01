@@ -52,7 +52,7 @@ async def test_remove_files_fail_1(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["analyst@gmail.com"],
+        ["hacker@gmail.com"],
         ["closer@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],

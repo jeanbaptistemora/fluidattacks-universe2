@@ -41,7 +41,7 @@ async def test_add_group_tags(
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["analyst@gmail.com"],
+        ["hacker@gmail.com"],
         ["closer@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],

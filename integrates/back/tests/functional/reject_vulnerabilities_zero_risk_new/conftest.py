@@ -153,7 +153,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "historic_state": [
                     {
                         "date": "2018-04-07 19:45:11",
-                        "analyst": "analyst@gmail.com",
+                        "analyst": "hacker@gmail.com",
                         "source": "asm",
                         "state": "open",
                     },
@@ -177,7 +177,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "historic_state": [
                     {
                         "date": "2019-04-07 19:45:11",
-                        "analyst": "analyst@gmail.com",
+                        "analyst": "hacker@gmail.com",
                         "source": "asm",
                         "state": "open",
                     },
@@ -201,7 +201,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "historic_state": [
                     {
                         "date": "2020-04-07 19:45:11",
-                        "analyst": "analyst@gmail.com",
+                        "analyst": "hacker@gmail.com",
                         "source": "asm",
                         "state": "open",
                     },
@@ -225,7 +225,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "historic_state": [
                     {
                         "date": "2021-04-07 19:45:11",
-                        "analyst": "analyst@gmail.com",
+                        "analyst": "hacker@gmail.com",
                         "source": "integrates",
                         "state": "open",
                     },

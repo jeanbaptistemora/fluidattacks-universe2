@@ -15,7 +15,7 @@ from typing import (
     ("email", "vuln_id"),
     (
         ("admin@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce8"),
-        ("analyst@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce9"),
+        ("hacker@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce9"),
         ("closer@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
     ),
 )
@@ -38,7 +38,7 @@ async def test_vulnerabilities_verify_open(
 @pytest.mark.resolver_test_group("verify_vulnerabilities_request")
 @pytest.mark.parametrize(
     ("email", "closed_vulnerability"),
-    (("analyst@gmail.com", "fa4f847d-f76e-4a70-8942-0ddd183bf1b9"),),
+    (("hacker@gmail.com", "fa4f847d-f76e-4a70-8942-0ddd183bf1b9"),),
 )
 async def test_vulnerabilities_verify_closed(
     populate: bool,

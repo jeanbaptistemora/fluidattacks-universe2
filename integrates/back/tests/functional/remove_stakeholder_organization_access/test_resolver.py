@@ -35,7 +35,7 @@ async def test_remove_stakeholder_organization_access(
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["analyst@gmail.com"],
+        ["hacker@gmail.com"],
         ["closer@gmail.com"],
     ],
 )

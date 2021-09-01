@@ -29,7 +29,7 @@ async def test_analyst(populate: bool) -> None:
     assert populate
     org_name: str = "orgtest"
     result: Dict[str, Any] = await get_result(
-        user="analyst@gmail.com", org=org_name
+        user="hacker@gmail.com", org=org_name
     )
     assert "errors" not in result
     assert (

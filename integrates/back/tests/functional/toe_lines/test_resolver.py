@@ -14,7 +14,7 @@ from typing import (
     ["email"],
     [
         ["admin@fluidattacks.com"],
-        ["analyst@fluidattacks.com"],
+        ["hacker@fluidattacks.com"],
         ["closer@fluidattacks.com"],
         ["customer@fluidattacks.com"],
         ["customeradmin@fluidattacks.com"],
@@ -75,7 +75,7 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
     ["email"],
     [
         ["admin@gmail.com"],
-        ["analyst@gmail.com"],
+        ["hacker@gmail.com"],
         ["closer@gmail.com"],
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],

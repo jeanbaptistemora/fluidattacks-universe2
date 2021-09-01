@@ -14,7 +14,7 @@ from typing import (
     ["email", "event_id"],
     [
         ["admin@gmail.com", "418900971"],
-        ["analyst@gmail.com", "418900972"],
+        ["hacker@gmail.com", "418900972"],
     ],
 )
 async def test_remove_event_evidence(

@@ -38,7 +38,7 @@ async def test_remove_group_tag(
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["analyst@gmail.com"],
+        ["hacker@gmail.com"],
         ["closer@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],

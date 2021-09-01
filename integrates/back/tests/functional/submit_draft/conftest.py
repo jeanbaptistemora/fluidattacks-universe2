@@ -27,16 +27,14 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "historic_state": [
                     {
                         "date": "2018-04-07 19:45:11",
-                        "analyst": generic_data["global_vars"][
-                            "analyst_email"
-                        ],
+                        "analyst": generic_data["global_vars"]["hacker_email"],
                         "source": "source_path",
                         "state": "CREATED",
                     },
                 ],
                 "effect_solution": "solution",
                 "vulnerability": "vulnerability",
-                "analyst": generic_data["global_vars"]["analyst_email"],
+                "analyst": generic_data["global_vars"]["hacker_email"],
                 "cvss_version": "3.1",
                 "exploitability": 0.94,
                 "finding": generic_data["global_vars"]["FIN.H.060"],
@@ -96,9 +94,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "historic_state": [
                     {
                         "date": "2018-04-07 19:45:14",
-                        "analyst": generic_data["global_vars"][
-                            "analyst_email"
-                        ],
+                        "analyst": generic_data["global_vars"]["hacker_email"],
                         "source": "asm",
                         "state": "closed",
                     },

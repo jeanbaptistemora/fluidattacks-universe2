@@ -34,7 +34,7 @@ async def _get_vulns(finding_id: str) -> List[Dict[str, Any]]:
     ["email"],
     [
         ["admin@gmail.com"],
-        ["analyst@gmail.com"],
+        ["hacker@gmail.com"],
         ["closer@gmail.com"],
     ],
 )

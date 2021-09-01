@@ -1,6 +1,6 @@
 USERS_EMAILS = [
     ["admin@fluidattacks.com"],
-    ["analyst@fluidattacks.com"],
+    ["hacker@fluidattacks.com"],
     ["closer@fluidattacks.com"],
     ["customer@fluidattacks.com"],
     ["customeradmin@fluidattacks.com"],

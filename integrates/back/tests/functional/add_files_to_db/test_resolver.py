@@ -34,7 +34,7 @@ async def test_add_files_to_db(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["analyst@gmail.com"],
+        ["hacker@gmail.com"],
         ["closer@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],

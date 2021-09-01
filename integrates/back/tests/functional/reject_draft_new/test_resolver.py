@@ -33,7 +33,7 @@ async def test_reject_draft(
 @pytest.mark.parametrize(
     ["email", "finding_id"],
     [
-        ["analyst@gmail.com", "475041520"],
+        ["hacker@gmail.com", "475041520"],
         ["customer@gmail.com", "475041513"],
         ["executive@gmail.com", "475041520"],
     ],

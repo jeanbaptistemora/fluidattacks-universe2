@@ -33,7 +33,7 @@ async def test_remove_finding(
 @pytest.mark.parametrize(
     ["email", "finding_id"],
     [
-        ["analyst@gmail.com", "475041513"],
+        ["hacker@gmail.com", "475041513"],
         ["closer@gmail.com", "475041520"],
         ["executive@gmail.com", "475041520"],
     ],

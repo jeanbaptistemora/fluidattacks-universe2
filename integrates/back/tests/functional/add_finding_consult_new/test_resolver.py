@@ -14,7 +14,7 @@ from typing import (
     ["email"],
     [
         ["admin@gmail.com"],
-        ["analyst@gmail.com"],
+        ["hacker@gmail.com"],
         ["closer@gmail.com"],
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],
@@ -61,7 +61,7 @@ async def test_add_finding_consultant_fail(populate: bool, email: str) -> None:
     ["email"],
     [
         ["admin@gmail.com"],
-        ["analyst@gmail.com"],
+        ["hacker@gmail.com"],
         ["closer@gmail.com"],
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],
@@ -88,7 +88,7 @@ async def test_add_finding_consult_without_squad(
     ["email"],
     [
         ["admin@gmail.com"],
-        ["analyst@gmail.com"],
+        ["hacker@gmail.com"],
         ["reviewer@gmail.com"],
     ],
 )

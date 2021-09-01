@@ -58,7 +58,7 @@ async def test_add_git_root_fail_1(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["analyst@gmail.com"],
+        ["hacker@gmail.com"],
         ["closer@gmail.com"],
     ],
 )

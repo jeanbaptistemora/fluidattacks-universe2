@@ -14,7 +14,7 @@ from typing import (
     ["email", "event_id"],
     [
         ["admin@gmail.com", "418900971"],
-        ["analyst@gmail.com", "418900972"],
+        ["hacker@gmail.com", "418900972"],
         ["closer@gmail.com", "418900973"],
         ["resourcer@gmail.com", "418900974"],
         ["group_manager@gmail.com", "418900975"],

@@ -128,9 +128,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "historic_state": [
                     {
                         "date": "2018-04-07 19:45:14",
-                        "analyst": generic_data["global_vars"][
-                            "analyst_email"
-                        ],
+                        "analyst": generic_data["global_vars"]["hacker_email"],
                         "source": "asm",
                         "state": "closed",
                     },

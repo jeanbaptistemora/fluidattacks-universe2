@@ -21,7 +21,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "affected_components": "affected_components_test",
                 "action_after_blocking": "EXECUTE_OTHER_GROUP_SAME_CLIENT",
                 "action_before_blocking": "TEST_OTHER_PART_TOE",
-                "analyst": generic_data["global_vars"]["analyst_email"],
+                "analyst": generic_data["global_vars"]["hacker_email"],
                 "client": "Fluid",
                 "client_project": "group1",
                 "closer": "unittest",
@@ -30,16 +30,12 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "detail": "ASM unit test1",
                 "historic_state": [
                     {
-                        "analyst": generic_data["global_vars"][
-                            "analyst_email"
-                        ],
+                        "analyst": generic_data["global_vars"]["hacker_email"],
                         "date": "2018-06-27 07:00:00",
                         "state": "OPEN",
                     },
                     {
-                        "analyst": generic_data["global_vars"][
-                            "analyst_email"
-                        ],
+                        "analyst": generic_data["global_vars"]["hacker_email"],
                         "date": "2018-06-27 13:40:05",
                         "state": "CREATED",
                     },
@@ -59,7 +55,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "affected_components": "affected_components_test",
                 "action_after_blocking": "EXECUTE_OTHER_GROUP_SAME_CLIENT",
                 "action_before_blocking": "TEST_OTHER_PART_TOE",
-                "analyst": generic_data["global_vars"]["analyst_email"],
+                "analyst": generic_data["global_vars"]["hacker_email"],
                 "client": "Fluid",
                 "client_project": "group1",
                 "closer": "unittest",
@@ -68,16 +64,12 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "detail": "ASM unit test2",
                 "historic_state": [
                     {
-                        "analyst": generic_data["global_vars"][
-                            "analyst_email"
-                        ],
+                        "analyst": generic_data["global_vars"]["hacker_email"],
                         "date": "2018-06-27 07:00:00",
                         "state": "OPEN",
                     },
                     {
-                        "analyst": generic_data["global_vars"][
-                            "analyst_email"
-                        ],
+                        "analyst": generic_data["global_vars"]["hacker_email"],
                         "date": "2018-06-27 11:40:05",
                         "state": "CREATED",
                     },

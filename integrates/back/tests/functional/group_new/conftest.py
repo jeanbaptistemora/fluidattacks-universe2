@@ -408,12 +408,12 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     {
                         "date": "2018-04-08 19:45:11",
                         "treatment_manager": generic_data["global_vars"][
-                            "analyst_email"
+                            "hacker_email"
                         ],
                         "treatment": "ACCEPTED",
                         "justification": "justification",
                         "acceptance_date": "2018-04-08 19:45:11",
-                        "user": generic_data["global_vars"]["analyst_email"],
+                        "user": generic_data["global_vars"]["hacker_email"],
                     },
                 ],
                 "vuln_type": "ports",
@@ -436,12 +436,12 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     {
                         "date": "2018-04-08 19:45:11",
                         "treatment_manager": generic_data["global_vars"][
-                            "analyst_email"
+                            "hacker_email"
                         ],
                         "treatment": "ACCEPTED",
                         "justification": "justification",
                         "acceptance_date": "2018-04-08 19:45:11",
-                        "user": generic_data["global_vars"]["analyst_email"],
+                        "user": generic_data["global_vars"]["hacker_email"],
                     },
                 ],
                 "vuln_type": "ports",
@@ -464,12 +464,12 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     {
                         "date": "2018-04-08 19:45:11",
                         "treatment_manager": generic_data["global_vars"][
-                            "analyst_email"
+                            "hacker_email"
                         ],
                         "treatment": "ACCEPTED",
                         "justification": "justification",
                         "acceptance_date": "2018-04-08 19:45:11",
-                        "user": generic_data["global_vars"]["analyst_email"],
+                        "user": generic_data["global_vars"]["hacker_email"],
                     },
                 ],
                 "vuln_type": "ports",
@@ -523,7 +523,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "accessibility": "Repositorio",
                 "action_after_blocking": "EXECUTE_OTHER_GROUP_SAME_CLIENT",
                 "action_before_blocking": "TEST_OTHER_PART_TOE",
-                "analyst": generic_data["global_vars"]["analyst_email"],
+                "analyst": generic_data["global_vars"]["hacker_email"],
                 "client": "Fluid",
                 "client_project": "group1",
                 "closer": "unittest",
@@ -532,16 +532,12 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "event_id": "418900971",
                 "historic_state": [
                     {
-                        "analyst": generic_data["global_vars"][
-                            "analyst_email"
-                        ],
+                        "analyst": generic_data["global_vars"]["hacker_email"],
                         "date": "2018-06-27 07:00:00",
                         "state": "OPEN",
                     },
                     {
-                        "analyst": generic_data["global_vars"][
-                            "analyst_email"
-                        ],
+                        "analyst": generic_data["global_vars"]["hacker_email"],
                         "date": "2018-06-27 14:40:05",
                         "state": "CREATED",
                     },

@@ -34,7 +34,7 @@ async def test_update_forces_access_token(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["analyst@gmail.com"],
+        ["hacker@gmail.com"],
         ["closer@gmail.com"],
         ["executive@gmail.com"],
         ["resourcer@gmail.com"],

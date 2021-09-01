@@ -23,12 +23,12 @@ async def test_get_organization_ver_1(populate: bool, email: str) -> None:
     org_name: str = "orgtest"
     org_stakeholders: List[str] = [
         "admin@gmail.com",
-        "analyst@gmail.com",
         "closer@gmail.com",
         "customer@gmail.com",
         "customeradmin@gmail.com",
         "executive@gmail.com",
         "group_manager@gmail.com",
+        "hacker@gmail.com",
         "resourcer@gmail.com",
         "reviewer@gmail.com",
     ]
@@ -56,7 +56,7 @@ async def test_get_organization_ver_1(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["analyst@gmail.com"],
+        ["hacker@gmail.com"],
         ["closer@gmail.com"],
         ["customeradmin@gmail.com"],
         ["group_manager@gmail.com"],

@@ -36,7 +36,7 @@ async def test_remove_stakeholder_access(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["analyst@gmail.com"],
+        ["hacker@gmail.com"],
         ["closer@gmail.com"],
         ["customer@gmail.com"],
         ["executive@gmail.com"],
@@ -48,7 +48,7 @@ async def test_remove_stakeholder_access_fail(
     populate: bool, email: str
 ) -> None:
     assert populate
-    stakeholder_email: str = "analyst@gmail.com"
+    stakeholder_email: str = "hacker@gmail.com"
     group_name: str = "group1"
     result: Dict[str, Any] = await get_result(
         user=email,
