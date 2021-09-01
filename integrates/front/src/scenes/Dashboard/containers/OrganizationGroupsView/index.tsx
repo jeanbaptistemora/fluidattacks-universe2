@@ -5,20 +5,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
-import type { TableColumnFilterProps } from "react-bootstrap-table-next";
-import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
-
-import {
-  selectOptionsMachine,
-  selectOptionsService,
-  selectOptionsSquad,
-  selectOptionsSubscription,
-} from "./filters";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext/index";
-import type { IHeaderConfig } from "components/DataTableNext/types";
+import type {
+  IFilterProps,
+  IHeaderConfig,
+} from "components/DataTableNext/types";
+import { filterSearchText, filterText } from "components/DataTableNext/utils";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
@@ -119,85 +114,41 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       };
     });
 
-  const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>(
-    "organizationGroupsFilters",
-    false
-  );
+  const [isCustomFilterEnabled, setCustomFilterEnabled] =
+    useStoredState<boolean>("organizationGroupsCustomFilters", false);
 
-  const handleUpdateFilter: () => void = useCallback((): void => {
-    setFilterEnabled(!isFilterEnabled);
-  }, [isFilterEnabled, setFilterEnabled]);
+  const [searchTextFilter, setSearchTextFilter] = useState("");
+  const [groupNameFilter, setGroupNameFilter] = useState("");
+  const [subscriptionFilter, setSubscriptionFilter] = useState("");
+  const [serviceFilter, setServiceFilter] = useState("");
+  const [machineFilter, setMachineFilter] = useState("");
+  const [squadFilter, setSquadFilter] = useState("");
 
-  const onFilterGroupName: TableColumnFilterProps["onFilter"] = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("groupNameFilter", filterVal);
-  };
-  const onFilterSubscription: (filterVal: string) => void = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("subscriptionFilter", filterVal);
-  };
-  const onFilterService: (filterVal: string) => void = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("serviceFilter", filterVal);
-  };
-  const onFilterMachine: (filterVal: string) => void = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("machineFilter", filterVal);
-  };
-  const onFilterSquad: (filterVal: string) => void = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("squadFilter", filterVal);
-  };
+  const handleUpdateCustomFilter: () => void = useCallback((): void => {
+    setCustomFilterEnabled(!isCustomFilterEnabled);
+  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
 
   // Render Elements
   const tableHeaders: IHeaderConfig[] = [
     {
       align: "center",
       dataField: "name",
-      filter: textFilter({
-        defaultValue: _.get(sessionStorage, "groupNameFilter"),
-        delay: 1000,
-        onFilter: onFilterGroupName,
-      }),
       header: "Group Name",
     },
     { align: "center", dataField: "description", header: "Description" },
     {
       align: "center",
       dataField: "subscription",
-      filter: selectFilter({
-        defaultValue: _.get(sessionStorage, "subscriptionFilter"),
-        onFilter: onFilterSubscription,
-        options: selectOptionsSubscription,
-        placeholder: "ALL",
-      }),
       header: "Subscription",
     },
     {
       align: "center",
       dataField: "service",
-      filter: selectFilter({
-        defaultValue: _.get(sessionStorage, "serviceFilter"),
-        onFilter: onFilterService,
-        options: selectOptionsService,
-        placeholder: "ALL",
-      }),
       header: "Service",
     },
     {
       align: "left",
       dataField: "machine",
-      filter: selectFilter({
-        defaultValue: _.get(sessionStorage, "machineFilter"),
-        onFilter: onFilterMachine,
-        options: selectOptionsMachine,
-        placeholder: "ALL",
-      }),
       formatter: pointStatusFormatter,
       header: "Machine",
       width: "90px",
@@ -205,12 +156,6 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     {
       align: "left",
       dataField: "squad",
-      filter: selectFilter({
-        defaultValue: _.get(sessionStorage, "squadFilter"),
-        onFilter: onFilterSquad,
-        options: selectOptionsSquad,
-        placeholder: "ALL",
-      }),
       formatter: pointStatusFormatter,
       header: "Squad",
       width: "90px",
@@ -223,6 +168,135 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
           defaultValue: "-",
         }),
       header: "Role",
+    },
+  ];
+
+  const dataset: IGroupData[] = data
+    ? formatGroupData(data.organization.groups)
+    : [];
+
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
+  const filterSearchTextDataset: IGroupData[] = filterSearchText(
+    dataset,
+    searchTextFilter
+  );
+
+  function onGroupNameChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    setGroupNameFilter(event.target.value);
+  }
+  const filterGroupNameDataset: IGroupData[] = filterText(
+    dataset,
+    groupNameFilter,
+    "name"
+  );
+
+  function onSubscriptionChange(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void {
+    setSubscriptionFilter(event.target.value);
+  }
+  const filterSubscriptionDataset: IGroupData[] = filterText(
+    dataset,
+    subscriptionFilter,
+    "subscription"
+  );
+
+  function onServiceChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    setServiceFilter(event.target.value);
+  }
+  const filterServiceDataset: IGroupData[] = filterText(
+    dataset,
+    serviceFilter,
+    "service"
+  );
+
+  function onMachineChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    setMachineFilter(event.target.value);
+  }
+  const filterMachineDataset: IGroupData[] = filterText(
+    dataset,
+    machineFilter,
+    "machine"
+  );
+
+  function onSquadChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    setSquadFilter(event.target.value);
+  }
+  const filterSquadDataset: IGroupData[] = filterText(
+    dataset,
+    squadFilter,
+    "squad"
+  );
+
+  const resultDataset: IGroupData[] = _.intersection(
+    filterSearchTextDataset,
+    filterGroupNameDataset,
+    filterSubscriptionDataset,
+    filterServiceDataset,
+    filterMachineDataset,
+    filterSquadDataset
+  );
+
+  const customFiltersProps: IFilterProps[] = [
+    {
+      defaultValue: groupNameFilter,
+      onChangeInput: onGroupNameChange,
+      placeholder: "Group Name",
+      tooltipId: "organization.tabs.groups.filtersTooltips.groupName.id",
+      tooltipMessage: "organization.tabs.groups.filtersTooltips.groupName",
+      type: "text",
+    },
+    {
+      defaultValue: subscriptionFilter,
+      onChangeSelect: onSubscriptionChange,
+      placeholder: "Subscription",
+      selectOptions: {
+        Continuous: "Continuous",
+        Oneshot: "Oneshot",
+      },
+      tooltipId: "organization.tabs.groups.filtersTooltips.subscription.id",
+      tooltipMessage: "organization.tabs.groups.filtersTooltips.subscription",
+      type: "select",
+    },
+    {
+      defaultValue: serviceFilter,
+      onChangeSelect: onServiceChange,
+      placeholder: "Service",
+      selectOptions: {
+        Black: "Black",
+        White: "White",
+      },
+      tooltipId: "organization.tabs.groups.filtersTooltips.service.id",
+      tooltipMessage: "organization.tabs.groups.filtersTooltips.service",
+      type: "select",
+    },
+    {
+      defaultValue: machineFilter,
+      onChangeSelect: onMachineChange,
+      placeholder: "Machine",
+      selectOptions: {
+        Disabled: "Disabled",
+        Enabled: "Enabled",
+      },
+      tooltipId: "organization.tabs.groups.filtersTooltips.machine.id",
+      tooltipMessage: "organization.tabs.groups.filtersTooltips.machine",
+      type: "select",
+    },
+    {
+      defaultValue: squadFilter,
+      onChangeSelect: onSquadChange,
+      placeholder: "Squad",
+      selectOptions: {
+        Disabled: "Disabled",
+        Enabled: "Enabled",
+      },
+      tooltipId: "organization.tabs.groups.filtersTooltips.squad.id",
+      tooltipMessage: "organization.tabs.groups.filtersTooltips.squad",
+      type: "select",
     },
   ];
 
@@ -255,16 +329,24 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
               <Row>
                 <DataTableNext
                   bordered={true}
-                  dataset={formatGroupData(data.organization.groups)}
+                  customFilters={{
+                    customFiltersProps,
+                    isCustomFilterEnabled,
+                    onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+                  }}
+                  customSearch={{
+                    customSearchDefault: searchTextFilter,
+                    isCustomSearchEnabled: true,
+                    onUpdateCustomSearch: onSearchTextChange,
+                  }}
+                  dataset={resultDataset}
                   defaultSorted={{ dataField: "name", order: "asc" }}
                   exportCsv={false}
                   headers={tableHeaders}
                   id={"tblGroups"}
-                  isFilterEnabled={isFilterEnabled}
-                  onUpdateEnableFilter={handleUpdateFilter}
                   pageSize={10}
                   rowEvents={{ onClick: handleRowClick }}
-                  search={true}
+                  search={false}
                 />
               </Row>
             </Col100>

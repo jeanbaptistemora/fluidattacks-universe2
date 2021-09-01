@@ -900,6 +900,13 @@ export const enTranslations: ResourceKey = {
       groups: {
         disabled: "Disabled",
         enabled: "Enabled",
+        filtersTooltips: {
+          groupName: "Filter by group name",
+          machine: "Filter by machine",
+          service: "Filter by service",
+          squad: "Filter by squad",
+          subscription: "Filter by subscription",
+        },
         newGroup: {
           description: {
             text: "Description",
