@@ -127,6 +127,14 @@ module.exports = {
         policy: [{ userAgent: "*", allow: "/" }],
       },
     },
+    {
+      resolve: 'gatsby-plugin-matomo',
+      options: {
+        siteId: '1',
+        matomoUrl: 'https://fluidattacks.matomo.cloud/',
+        siteUrl: 'https://fluidattacks.com/'
+      }
+    },
     "gatsby-plugin-image",
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-preload-fonts",

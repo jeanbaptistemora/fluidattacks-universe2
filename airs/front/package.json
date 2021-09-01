@@ -38,6 +38,7 @@
     "gatsby-plugin-catch-links": "3.7.1",
     "gatsby-plugin-google-tagmanager": "3.7.1",
     "gatsby-plugin-image": "1.7.1",
+    "gatsby-plugin-matomo": "0.10.0",
     "gatsby-plugin-preload-fonts": "2.7.1",
     "gatsby-plugin-react-helmet": "4.7.1",
     "gatsby-plugin-robots-txt": "1.6.2",
