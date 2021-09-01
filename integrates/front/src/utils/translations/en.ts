@@ -4,7 +4,7 @@ export const enTranslations: ResourceKey = {
   analytics: {
     barChart: {
       mttrBenchmarking: {
-        title: "Mttr Benchmarking",
+        title: "MTTR Benchmarking",
         tooltip: {
           all: "All vulnerabilities",
           nonTreated: "Non treated vulnerabilities",
