@@ -503,7 +503,7 @@ async def get_max_open_severity(
     context: Any, findings: List[Dict[str, FindingType]]
 ) -> Tuple[Decimal, Dict[str, FindingType]]:
     total_vulns = await collect(
-        [total_vulnerabilities(context, fin) for fin in findings]
+        [total_vulnerabilities(context, fin) for fin in findings], workers=12
     )
     opened_findings = [
         finding

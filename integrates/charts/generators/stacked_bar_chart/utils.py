@@ -73,11 +73,11 @@ def format_document(
         data=dict(
             x="date",
             columns=[
-                cast(List[Union[float, str]], [name])
+                cast(List[Union[Decimal, str]], [name])
                 + [
                     date.strftime(DATE_FMT)
                     if name == "date"
-                    else document[name][date]
+                    else Decimal(document[name][date]).quantize(Decimal("0.1"))
                     for date in tuple(document["date"])[-12:]
                 ]
                 for name in document
@@ -215,10 +215,18 @@ def format_distribution_document(
     )
 
 
-def sum_distribution_many_groups(
+def sum_over_time_many_groups(
     group_documents: Tuple[Dict[str, Dict[datetime, float]], ...],
-    all_dates: List[datetime],
+    documents_names: List[str],
 ) -> Dict[str, Dict[datetime, float]]:
+    all_dates: List[datetime] = sorted(
+        set(
+            date
+            for group_document in group_documents
+            for date in group_document["date"]
+        )
+    )
+
     for group_document in group_documents:
         for name in group_document:
             last_date = None
@@ -240,10 +248,5 @@ def sum_distribution_many_groups(
             )
             for date in all_dates
         }
-        for name in [
-            "date",
-            "Closed",
-            "Accepted",
-            "Open",
-        ]
+        for name in documents_names
     }
