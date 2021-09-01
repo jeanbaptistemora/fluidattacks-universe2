@@ -54,7 +54,7 @@ async def _move_root(
 
     await roots_domain.deactivate_root(
         group_name=group_name,
-        other=None,
+        other=target_id,
         reason="MOVED_TO_ANOTHER_ROOT",
         root=source_root,
         user_email=user_email,

@@ -12,8 +12,7 @@ from custom_types import (
 )
 from db_model.roots.types import (
     GitRootItem,
-    IPRootItem,
-    URLRootItem,
+    RootItem,
 )
 from decorators import (
     concurrent_decorators,
@@ -37,10 +36,9 @@ from typing import (
 )
 
 
-@require_service_white
-async def deactivate_git_root(
+async def deactivate_root(
     info: GraphQLResolveInfo,
-    root: GitRootItem,
+    root: RootItem,
     user_email: str,
     **kwargs: Any,
 ) -> None:
@@ -50,47 +48,7 @@ async def deactivate_git_root(
         raise HasOpenVulns()
     await roots_domain.deactivate_root(
         group_name=kwargs["group_name"],
-        other=kwargs.get("other"),
-        reason=kwargs["reason"],
-        root=root,
-        user_email=user_email,
-    )
-
-
-@require_service_black
-async def deactivate_ip_root(
-    info: GraphQLResolveInfo,
-    root: IPRootItem,
-    user_email: str,
-    **kwargs: Any,
-) -> None:
-    if await roots_domain.has_open_vulns(
-        root, info.context.loaders, kwargs["group_name"]
-    ):
-        raise HasOpenVulns()
-    await roots_domain.deactivate_root(
-        group_name=kwargs["group_name"],
-        other=kwargs.get("other"),
-        reason=kwargs["reason"],
-        root=root,
-        user_email=user_email,
-    )
-
-
-@require_service_black
-async def deactivate_url_root(
-    info: GraphQLResolveInfo,
-    root: URLRootItem,
-    user_email: str,
-    **kwargs: Any,
-) -> None:
-    if await roots_domain.has_open_vulns(
-        root, info.context.loaders, kwargs["group_name"]
-    ):
-        raise HasOpenVulns()
-    await roots_domain.deactivate_root(
-        group_name=kwargs["group_name"],
-        other=kwargs.get("other"),
+        other=kwargs.get("other") if kwargs["reason"] == "OTHER" else None,
         reason=kwargs["reason"],
         root=root,
         user_email=user_email,
@@ -113,10 +71,12 @@ async def mutate(
     root = await root_loader.load((kwargs["group_name"], kwargs["id"]))
 
     if isinstance(root, GitRootItem):
-        await deactivate_git_root(info, root, user_email, **kwargs)
-    elif isinstance(root, IPRootItem):
-        await deactivate_ip_root(info, root, user_email, **kwargs)
+        await require_service_white(deactivate_root)(
+            info, root, user_email, **kwargs
+        )
     else:
-        await deactivate_url_root(info, root, user_email, **kwargs)
+        await require_service_black(deactivate_root)(
+            info, root, user_email, **kwargs
+        )
 
     return SimplePayload(success=True)
