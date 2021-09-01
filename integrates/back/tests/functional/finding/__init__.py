@@ -72,6 +72,12 @@ async def get_result(
                 }}
                 openVulnerabilities
                 closedVulnerabilities
+                treatmentSummary {{
+                    accepted
+                    acceptedUndefined
+                    inProgress
+                    new
+                }}
                 where
                 __typename
             }}

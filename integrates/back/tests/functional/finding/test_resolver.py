@@ -130,6 +130,12 @@ async def test_get_finding(populate: bool, email: str) -> None:
             },
         ]
     }
+    treatment_summary: Dict[str, int] = {
+        "accepted": 1,
+        "acceptedUndefined": 0,
+        "inProgress": 0,
+        "new": 0,
+    }
     where: str = "192.168.1.1"
     result: Dict[str, Any] = await get_result(
         user=email,
@@ -199,6 +205,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["consulting"] == []
     assert result["data"]["finding"]["tracking"] == tracking.get("tracking")
     assert result["data"]["finding"]["where"] == where
+    assert result["data"]["finding"]["treatmentSummary"] == treatment_summary
 
 
 @pytest.mark.asyncio
@@ -314,6 +321,12 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
             },
         ]
     }
+    treatment_summary: Dict[str, int] = {
+        "accepted": 1,
+        "acceptedUndefined": 0,
+        "inProgress": 0,
+        "new": 0,
+    }
     where: str = "192.168.1.1"
     result: Dict[str, Any] = await get_result(
         user=email,
@@ -379,3 +392,4 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["type"] == finding_type
     assert result["data"]["finding"]["tracking"] == tracking.get("tracking")
     assert result["data"]["finding"]["where"] == where
+    assert result["data"]["finding"]["treatmentSummary"] == treatment_summary
