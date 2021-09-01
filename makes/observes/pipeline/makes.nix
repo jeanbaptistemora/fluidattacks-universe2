@@ -34,6 +34,10 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/lintPython/imports/observesCommonPostgresClient";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintPython/imports/observesServiceTimedoctorTokens";
           gitlabExtra = gitlabLint;
         }
@@ -83,6 +87,14 @@ in
         }
         {
           output = "/lintPython/module/observesCommonPaginator";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintPython/module/observesCommonPostgresClient";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintPython/module/observesCommonPostgresClientTests";
           gitlabExtra = gitlabLint;
         }
         {

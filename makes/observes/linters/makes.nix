@@ -46,6 +46,10 @@
         config = "/observes/common/paginator/paginator/setup.imports.cfg";
         src = "/observes/common/paginator";
       };
+      observesCommonPostgresClient = {
+        config = "/observes/common/postgres_client/postgres_client/setup.imports.cfg";
+        src = "/observes/common/postgres_client";
+      };
       observesTapCheckly = {
         config = "/observes/singer/tap_checkly/tap_checkly/setup.imports.cfg";
         src = "/observes/singer/tap_checkly";
@@ -108,6 +112,20 @@
         ];
         python = "3.8";
         src = "/observes/common/paginator/paginator";
+      };
+      observesCommonPostgresClient = {
+        extraSources = [
+          inputs.product.observes-env-postgres-client-development
+        ];
+        python = "3.8";
+        src = "/observes/common/postgres_client/postgres_client";
+      };
+      observesCommonPostgresClientTests = {
+        extraSources = [
+          inputs.product.observes-env-postgres-client-development
+        ];
+        python = "3.8";
+        src = "/observes/common/postgres_client/postgres_client";
       };
       observesJobLastSuccess = {
         extraSources = [

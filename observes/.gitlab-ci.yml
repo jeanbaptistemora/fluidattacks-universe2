@@ -45,12 +45,6 @@ include:
       changes:
         - observes/*
 
-.lint_job: &lint_job
-  <<: *makes
-  <<: *observes_in_dev_branch
-  needs: []
-  stage: lint-code
-
 .scheduled: &scheduled
   <<: *makes
   only:
@@ -67,11 +61,6 @@ include:
 .scheduled_job_large: &scheduled_job_large
   <<: *scheduled
   tags: [autoscaling-large]
-
-# lint jobs
-
-observes.lint.postgres-client:
-  <<: *lint_job
 
 # scheduled jobs
 
