@@ -10,6 +10,7 @@ makeNodeJsModules {
     "@docusaurus/preset-classic@2.0.0-beta.0"
     "@mdx-js/react@1.6.22"
     "clsx@1.1.1"
+    "docusaurus-gtm-plugin@0.0.2"
     "docusaurus-lunr-search@2.1.14"
     "docusaurus-plugin-matomo@0.0.3"
     "react-dom@16.14.0"

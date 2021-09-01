@@ -13,10 +13,6 @@ module.exports = {
       matomoUrl: 'https://fluidattacks.matomo.cloud/',
       siteId: '2',
     },
-    googleAnalytics: {
-      trackingID: 'GTM-PCDDL8T',
-      anonymizeIP: true,
-    },
     colorMode: {
       defaultMode: 'light',
       disableSwitch: false,
@@ -131,6 +127,7 @@ module.exports = {
     ],
   ],
   plugins: [
+    [ require.resolve('docusaurus-gtm-plugin'), { id: 'GTM-PCDDL8T' } ],
     require.resolve('docusaurus-lunr-search'),
     require.resolve('docusaurus-plugin-matomo'),
   ],
