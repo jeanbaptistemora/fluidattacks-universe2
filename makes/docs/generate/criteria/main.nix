@@ -24,7 +24,7 @@ let
       projectPath "/makes/makes/criteria/src/compliance/data.yaml"));
 
   # Title and content
-  section = title: content:
+  section = { title, content }:
     if content != "__empty__" && content != ""
     then "${title}\n\n${content}"
     else "";
@@ -47,10 +47,10 @@ let
     };
 
   # True if a vulnerability has a requirement, false otherwise
-  hasRequirement = { requirement, vulnerability }:
+  hasRequirement = { requirementId, vulnerabilityId }:
     builtins.any
-      (x: x == requirement)
-      vulnerabilities.${vulnerability}.requirements;
+      (x: x == requirementId)
+      vulnerabilities.${vulnerabilityId}.requirements;
 
   # True if a requirement has a definition, false otherwise
   hasDefinition = { requirementId, standardId, definitionId }:
@@ -118,47 +118,80 @@ let
     fromJson (builtins.readFile (calculateCvss3 (vectorString vector)));
 
   # Requirements list for a vulnerability
-  vulnerabilityRequirements = reqs:
-    builtins.concatStringsSep "\n" (
-      builtins.map (id: linkRequirement { inherit id; }) reqs
+  vulnerabilityRequirements = vulnerabilityId:
+    let
+      requirements = vulnerabilities.${vulnerabilityId}.requirements;
+    in
+    builtins.concatStringsSep "\n" (builtins.map
+      (id: linkRequirement {
+        inherit id;
+      })
+      requirements
     );
 
   # Requirements list for a definition
-  reqsForDef = { standardId, definitionId }:
+  definitionRequirements = { standardId, definitionId }:
     let
-      filtered = builtins.attrNames (
-        lib.filterAttrs (requirementId: _: hasDefinition { inherit requirementId; inherit standardId; inherit definitionId; }) requirements
+      filtered = builtins.attrNames (lib.filterAttrs
+        (requirementId: _: hasDefinition {
+          inherit requirementId;
+          inherit standardId;
+          inherit definitionId;
+        })
+        requirements
       );
     in
-    builtins.concatStringsSep "\n" (
-      builtins.map (id: linkRequirement { prefix = "  - "; inherit id; }) filtered
+    builtins.concatStringsSep "\n" (builtins.map
+      (id: linkRequirement {
+        prefix = "  - ";
+        inherit id;
+      })
+      filtered
     );
 
   # References list for a requirement
-  refsForReq = refs:
+  requirementReferences = requirementId:
     let
-      parsed = builtins.map parseDefinition refs;
+      references = requirements.${requirementId}.references;
+      parsed = builtins.map parseDefinition references;
     in
-    builtins.concatStringsSep "\n" (
-      builtins.map (reference: with reference; linkStandardDefinition { inherit definitionId; inherit standardId; }) parsed
+    builtins.concatStringsSep "\n" (builtins.map
+      (reference: with reference; linkStandardDefinition {
+        inherit definitionId;
+        inherit standardId;
+      })
+      parsed
     );
 
   # Vulnerabilities list for a requirement
-  vulnsForReq = requirement:
+  requirementVulnerabilities = requirementId:
     let
-      filtered = builtins.attrNames (
-        lib.filterAttrs (vulnerability: _: hasRequirement { inherit requirement; inherit vulnerability; }) vulnerabilities
+      filtered = builtins.attrNames (lib.filterAttrs
+        (vulnerabilityId: _: hasRequirement {
+          inherit requirementId;
+          inherit vulnerabilityId;
+        })
+        vulnerabilities
       );
     in
-    builtins.concatStringsSep "\n" (
-      builtins.map (id: linkVulnerability { inherit id; }) filtered
+    builtins.concatStringsSep "\n" (builtins.map
+      (id: linkVulnerability {
+        inherit id;
+      })
+      filtered
     );
 
   # Definitions list and related requirements for a standard
   standardDef = { standardId, definitionId }:
     let
-      definition = linkDefinition { inherit standardId; inherit definitionId; };
-      requirements = reqsForDef { inherit standardId; inherit definitionId; };
+      definition = linkDefinition {
+        inherit standardId;
+        inherit definitionId;
+      };
+      requirements = definitionRequirements {
+        inherit standardId;
+        inherit definitionId;
+      };
       result =
         if requirements != ""
         then
@@ -173,8 +206,12 @@ let
     let
       definitions = builtins.attrNames compliance.${standardId}.definitions;
     in
-    builtins.concatStringsSep "\n" (
-      builtins.map (definitionId: standardDef { inherit standardId; inherit definitionId; }) definitions
+    builtins.concatStringsSep "\n" (builtins.map
+      (definitionId: standardDef {
+        inherit standardId;
+        inherit definitionId;
+      })
+      definitions
     );
 
   # Generate introduction indexes
@@ -227,11 +264,22 @@ let
       replace = {
         inherit __argCode__;
         __argTitle__ = src.en.title;
-        __argDescription__ = section "## Description" src.en.description;
-        __argImpact__ = section "## Impact" src.en.impact;
-        __argRecommendation__ =
-          section "## Recommendation" src.en.recommendation;
-        __argThreat__ = section "## Threat" src.en.threat;
+        __argDescription__ = section {
+          title = "## Description";
+          content = src.en.description;
+        };
+        __argImpact__ = section {
+          title = "## Impact";
+          content = src.en.impact;
+        };
+        __argRecommendation__ = section {
+          title = "## Recommendation";
+          content = src.en.recommendation;
+        };
+        __argThreat__ = section {
+          title = "## Threat";
+          content = src.en.threat;
+        };
         __argScoreBaseAttackVector__ = src.score.base.attack_vector;
         __argScoreBaseAttackComplexity__ = src.score.base.attack_complexity;
         __argScoreBasePrivilegesRequired__ = src.score.base.privileges_required;
@@ -251,9 +299,14 @@ let
         __argScoreTemporal__ = score.score.temporal;
         __argSeverityBase__ = score.severity.base;
         __argSeverityTemporal__ = score.severity.temporal;
-        __argDetails__ = section "## Details" src.metadata.en.details;
-        __argRequirements__ =
-          section "## Requirements" (vulnerabilityRequirements src.requirements);
+        __argDetails__ = section {
+          title = "## Details";
+          content = src.metadata.en.details;
+        };
+        __argRequirements__ = section {
+          title = "## Requirements";
+          content = (vulnerabilityRequirements __argCode__);
+        };
       };
       name = "docs-make-vulnerability-${__argCode__}";
       template = ./templates/vulnerability.md;
@@ -263,11 +316,22 @@ let
     replace = {
       inherit __argCode__;
       __argTitle__ = src.en.title;
-      __argSummary__ = section "## Summary" src.en.summary;
-      __argDescription__ = section "## Description" src.en.description;
-      __argReferences__ = section "## References" (refsForReq src.references);
-      __argVulnerabilities__ =
-        section "## Vulnerabilities" (vulnsForReq __argCode__);
+      __argSummary__ = section {
+        title = "## Summary";
+        content = src.en.summary;
+      };
+      __argDescription__ = section {
+        title = "## Description";
+        content = src.en.description;
+      };
+      __argReferences__ = section {
+        title = "## References";
+        content = (requirementReferences __argCode__);
+      };
+      __argVulnerabilities__ = section {
+        title = "## Vulnerabilities";
+        content = (requirementVulnerabilities __argCode__);
+      };
     };
     name = "docs-make-requirement-${__argCode__}";
     template = ./templates/requirement.md;
@@ -277,9 +341,14 @@ let
     replace = {
       inherit __argCode__;
       __argTitle__ = src.title;
-      __argDescription__ = section "## Description" src.en.description;
-      __argDefinitions__ =
-        section "## Definitions" (defsForStandard __argCode__);
+      __argDescription__ = section {
+        title = "## Description";
+        content = src.en.description;
+      };
+      __argDefinitions__ = section {
+        title = "## Definitions";
+        content = (defsForStandard __argCode__);
+      };
     };
     name = "docs-make-compliance-${__argCode__}";
     template = ./templates/compliance.md;
@@ -292,19 +361,13 @@ makeScript {
     __argIntroVulnerabilities__ = makeIntroVulnerabilities;
     __argIntroRequirements__ = makeIntroRequirements;
     __argIntroCompliance__ = makeIntroCompliance;
-    __argVulnerabilities__ = toBashMap (
-      lib.mapAttrs'
-        (
-          k: v: lib.nameValuePair (categoryPath k v) (makeVulnerability k v)
-        )
-        vulnerabilities
+    __argVulnerabilities__ = toBashMap (lib.mapAttrs'
+      (k: v: lib.nameValuePair (categoryPath k v) (makeVulnerability k v))
+      vulnerabilities
     );
-    __argRequirements__ = toBashMap (
-      lib.mapAttrs'
-        (
-          k: v: lib.nameValuePair (categoryPath k v) (makeRequirement k v)
-        )
-        requirements
+    __argRequirements__ = toBashMap (lib.mapAttrs'
+      (k: v: lib.nameValuePair (categoryPath k v) (makeRequirement k v))
+      requirements
     );
     __argCompliance__ = toBashMap (
       builtins.mapAttrs makeCompliance compliance
