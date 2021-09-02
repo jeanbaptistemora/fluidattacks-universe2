@@ -2,6 +2,7 @@ let securityHeaders = {
   "Content-Security-Policy" : "script-src "
                               + "'self' "
                               + "'unsafe-inline' "
+                              + "fluidattacks.matomo.cloud "
                               + "*.cloudflareinsights.com "
                               + "*.cookiebot.com "
                               + "*.google-analytics.com "
