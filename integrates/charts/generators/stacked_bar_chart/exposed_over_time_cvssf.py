@@ -9,7 +9,7 @@ from charts import (
     utils,
 )
 from charts.colors import (
-    SEVERITY,
+    RISK,
 )
 from charts.generators.stacked_bar_chart.utils import (
     DATE_FMT,
@@ -77,10 +77,12 @@ async def get_group_document(group: str) -> Dict[str, Dict[datetime, Decimal]]:
 
     return {
         "date": {datum.data_date: Decimal("0.0") for datum in data},
-        "Low": {datum.data_date: datum.low for datum in data},
-        "Medium": {datum.data_date: datum.medium for datum in data},
-        "High": {datum.data_date: datum.high for datum in data},
-        "Critical": {datum.data_date: datum.critical for datum in data},
+        "Exposure": {
+            datum.data_date: Decimal(
+                datum.low + datum.medium + datum.high + datum.critical
+            )
+            for datum in data
+        },
     }
 
 
@@ -122,10 +124,7 @@ async def get_many_groups_document(
         }
         for name in [
             "date",
-            "Low",
-            "Medium",
-            "High",
-            "Critical",
+            "Exposure",
         ]
     }
 
@@ -141,24 +140,18 @@ def format_document(
                 + [
                     date.strftime(DATE_FMT)
                     if name == "date"
-                    else Decimal(document[name][date]).quantize(Decimal("0.0"))
+                    else Decimal(document[name][date]).quantize(Decimal("0.1"))
                     for date in tuple(document["date"])[-12:]
                 ]
                 for name in document
             ],
             colors=dict(
-                Low=SEVERITY.low,
-                Medium=SEVERITY.medium,
-                High=SEVERITY.high,
-                Critical=SEVERITY.critical,
+                Exposure=RISK.more_agressive,
             ),
             type="area-spline",
             groups=[
                 [
-                    "Low",
-                    "Medium",
-                    "High",
-                    "Critical",
+                    "Exposure",
                 ]
             ],
             order=None,
