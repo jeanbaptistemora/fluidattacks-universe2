@@ -48,7 +48,7 @@ async def test_update_organization_stakeholder(
     ["email"],
     [
         ["hacker@gmail.com"],
-        ["closer@gmail.com"],
+        ["reattacker@gmail.com"],
         ["customer@gmail.com"],
     ],
 )

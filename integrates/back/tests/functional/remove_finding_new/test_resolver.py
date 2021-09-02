@@ -34,7 +34,7 @@ async def test_remove_finding(
     ["email", "finding_id"],
     [
         ["hacker@gmail.com", "475041513"],
-        ["closer@gmail.com", "475041520"],
+        ["reattacker@gmail.com", "475041520"],
         ["executive@gmail.com", "475041520"],
     ],
 )

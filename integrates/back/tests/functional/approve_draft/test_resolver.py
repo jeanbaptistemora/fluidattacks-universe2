@@ -38,7 +38,7 @@ async def test_approve_draft(
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],
         ["hacker@gmail.com"],
-        ["closer@gmail.com"],
+        ["reattacker@gmail.com"],
         ["executive@gmail.com"],
         ["resourcer@gmail.com"],
     ],

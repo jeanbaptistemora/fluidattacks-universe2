@@ -34,7 +34,7 @@ async def test_reject_draft(populate: bool, email: str, draft_id: str) -> None:
     ["email"],
     [
         ["hacker@gmail.com"],
-        ["closer@gmail.com"],
+        ["reattacker@gmail.com"],
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],
         ["executive@gmail.com"],

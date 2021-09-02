@@ -35,7 +35,7 @@ async def _get_vulns(finding_id: str) -> List[Dict[str, Any]]:
     [
         ["admin@gmail.com"],
         ["hacker@gmail.com"],
-        ["closer@gmail.com"],
+        ["reattacker@gmail.com"],
     ],
 )
 async def test_upload_file(populate: bool, email: str) -> None:

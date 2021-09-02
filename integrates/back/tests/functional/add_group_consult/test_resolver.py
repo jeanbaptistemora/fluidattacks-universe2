@@ -39,7 +39,7 @@ async def test_add_group_consult(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["closer@gmail.com"],
+        ["reattacker@gmail.com"],
         ["resourcer@gmail.com"],
     ],
 )

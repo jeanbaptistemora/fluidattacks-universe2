@@ -74,7 +74,7 @@ async def test_submit_organization_finding_policy_fail_1(
     ("email",),
     (
         ("hacker@gmail.com",),
-        ("closer@gmail.com",),
+        ("reattacker@gmail.com",),
     ),
 )
 async def test_submit_organization_finding_policy_fail_2(

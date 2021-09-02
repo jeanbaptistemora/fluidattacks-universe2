@@ -36,7 +36,7 @@ async def test_remove_stakeholder_organization_access(
     ["email"],
     [
         ["hacker@gmail.com"],
-        ["closer@gmail.com"],
+        ["reattacker@gmail.com"],
     ],
 )
 async def test_remove_stakeholder_organization_access_fail(

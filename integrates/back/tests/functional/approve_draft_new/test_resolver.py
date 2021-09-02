@@ -35,7 +35,7 @@ async def test_approve_draft(
     ["email", "finding_id"],
     [
         ["hacker@gmail.com", "475041513"],
-        ["closer@gmail.com", "475041513"],
+        ["reattacker@gmail.com", "475041513"],
         ["executive@gmail.com", "475041520"],
     ],
 )

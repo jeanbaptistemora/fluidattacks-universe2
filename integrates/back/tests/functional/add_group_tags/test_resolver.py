@@ -42,7 +42,7 @@ async def test_add_group_tags(
     ["email"],
     [
         ["hacker@gmail.com"],
-        ["closer@gmail.com"],
+        ["reattacker@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
     ],

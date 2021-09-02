@@ -31,7 +31,7 @@ async def test_update_severity(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["closer@gmail.com"],
+        ["reattacker@gmail.com"],
         ["executive@gmail.com"],
     ],
 )

@@ -23,12 +23,12 @@ async def test_get_organization_ver_1(populate: bool, email: str) -> None:
     org_name: str = "orgtest"
     org_stakeholders: List[str] = [
         "admin@gmail.com",
-        "closer@gmail.com",
         "customer@gmail.com",
         "customeradmin@gmail.com",
         "executive@gmail.com",
         "group_manager@gmail.com",
         "hacker@gmail.com",
+        "reattacker@gmail.com",
         "resourcer@gmail.com",
         "reviewer@gmail.com",
     ]
@@ -57,7 +57,7 @@ async def test_get_organization_ver_1(populate: bool, email: str) -> None:
     ["email"],
     [
         ["hacker@gmail.com"],
-        ["closer@gmail.com"],
+        ["reattacker@gmail.com"],
         ["customeradmin@gmail.com"],
         ["group_manager@gmail.com"],
     ],

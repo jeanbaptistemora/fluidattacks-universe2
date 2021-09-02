@@ -37,7 +37,7 @@ async def test_request_vulnerabilities_zero_risk(
     ("email", "vuln_id"),
     (
         ("hacker@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
-        ("closer@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
+        ("reattacker@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
         ("resourcer@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
         ("executive@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
         ("reviewer@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),

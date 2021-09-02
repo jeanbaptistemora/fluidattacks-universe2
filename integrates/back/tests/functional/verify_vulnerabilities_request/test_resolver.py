@@ -16,7 +16,7 @@ from typing import (
     (
         ("admin@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce8"),
         ("hacker@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce9"),
-        ("closer@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
+        ("reattacker@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
     ),
 )
 async def test_vulnerabilities_verify_open(

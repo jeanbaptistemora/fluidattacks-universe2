@@ -39,7 +39,7 @@ async def test_remove_group_tag(
     ["email"],
     [
         ["hacker@gmail.com"],
-        ["closer@gmail.com"],
+        ["reattacker@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
     ],

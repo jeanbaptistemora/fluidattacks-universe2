@@ -35,7 +35,7 @@ async def test_add_files(populate: bool, email: str) -> None:
     ["email"],
     [
         ["hacker@gmail.com"],
-        ["closer@gmail.com"],
+        ["reattacker@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
     ],

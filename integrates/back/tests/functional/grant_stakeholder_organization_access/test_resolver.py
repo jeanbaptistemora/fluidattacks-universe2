@@ -45,7 +45,7 @@ async def test_grant_stakeholder_organization_access(
     ["email"],
     [
         ["hacker@gmail.com"],
-        ["closer@gmail.com"],
+        ["reattacker@gmail.com"],
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],
     ],

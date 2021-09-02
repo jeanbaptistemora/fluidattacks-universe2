@@ -59,7 +59,7 @@ async def test_add_git_root_fail_1(populate: bool, email: str) -> None:
     ["email"],
     [
         ["hacker@gmail.com"],
-        ["closer@gmail.com"],
+        ["reattacker@gmail.com"],
     ],
 )
 async def test_add_git_root_fail_2(populate: bool, email: str) -> None:
