@@ -320,10 +320,9 @@ def filter_zero_risk_vulns(
     vulns_filter_non_confirm_zero = vulns_utils.filter_non_confirmed_zero_risk(
         vulns
     )
-    vulns_filter_non_request_zero = vulns_utils.filter_non_requested_zero_risk(
+    return vulns_utils.filter_non_requested_zero_risk(
         vulns_filter_non_confirm_zero
     )
-    return vulns_filter_non_request_zero
 
 
 async def get(
@@ -665,11 +664,10 @@ def get_severity_score_new(
 ) -> Decimal:
     if isinstance(severity, Finding31Severity):
         base_score = cvss_new.get_cvss3_basescore(severity)
-        cvss_temporal = cvss_new.get_cvss3_temporal(severity, base_score)
-    else:
-        base_score = cvss_new.get_cvss2_basescore(severity)
-        cvss_temporal = cvss_new.get_cvss2_temporal(severity, base_score)
-    return cvss_temporal
+        return cvss_new.get_cvss3_temporal(severity, base_score)
+
+    base_score = cvss_new.get_cvss2_basescore(severity)
+    return cvss_new.get_cvss2_temporal(severity, base_score)
 
 
 async def get_status(loaders: Any, finding_id: str) -> str:
@@ -715,13 +713,12 @@ async def get_total_treatment(
             in_progress_vuln += open_vuln
         else:
             undefined_treatment += open_vuln
-    treatment = {
+    return {
         "accepted": accepted_vuln,
         "acceptedUndefined": indefinitely_accepted_vuln,
         "inProgress": in_progress_vuln,
         "undefined": undefined_treatment,
     }
-    return treatment
 
 
 async def get_total_treatment_new(
@@ -755,13 +752,12 @@ async def get_total_treatment_new(
             in_progress_vuln += open_vuln
         else:
             undefined_treatment += open_vuln
-    treatment = {
+    return {
         "accepted": accepted_vuln,
         "acceptedUndefined": indefinitely_accepted_vuln,
         "inProgress": in_progress_vuln,
         "undefined": undefined_treatment,
     }
-    return treatment
 
 
 def get_tracking_vulnerabilities(
@@ -975,12 +971,12 @@ async def mask_finding(  # pylint: disable=too-many-locals
         "vulnerability",
         "records",
     ]
-    mask_finding_coroutines = []
-    mask_finding_coroutines.append(
+    mask_finding_coroutines = [
         findings_dal.update(
             finding_id, {attr: "Masked" for attr in attrs_to_mask}
         )
-    )
+    ]
+
     mask_finding_coroutines.append(
         mask_verification(finding_id, historic_verification)
     )
@@ -992,7 +988,6 @@ async def mask_finding(  # pylint: disable=too-many-locals
         findings_dal.remove_evidence(file_name)
         for file_name in list_evidences_files
     ]
-    mask_finding_coroutines.extend(evidence_s3_coroutines)
 
     evidence_dynamodb_coroutine = findings_dal.update(
         finding_id,
@@ -1024,8 +1019,10 @@ async def mask_finding(  # pylint: disable=too-many-locals
         vulns_domain.mask_vuln(finding_id, str(vuln["UUID"])) for vuln in vulns
     ]
     mask_finding_coroutines.extend(mask_vulns_coroutines)
+
     try:
         success = all(await collect(mask_finding_coroutines))
+        await collect(evidence_s3_coroutines)
     except ClientError as ex:
         raise UnavailabilityError() from ex
     finally:
@@ -1095,7 +1092,7 @@ async def mask_finding_new(  # pylint: disable=too-many-locals
         findings_dal.remove_evidence(file_name)
         for file_name in list_evidences_files
     ]
-    mask_finding_coroutines.extend(evidence_s3_coroutines)
+    mask_new_finding_coroutines.extend(evidence_s3_coroutines)
     comments_and_observations = await comments_domain.get(
         "comment", finding.id
     ) + await comments_domain.get("observation", finding.id)
@@ -1422,7 +1419,7 @@ async def validate_finding(
     """Validate if a finding is not deleted"""
     if not finding:
         non_optional_finding = await findings_dal.get_finding(str(finding_id))
-    return not is_deleted(finding if finding else non_optional_finding)
+    return not is_deleted(finding or non_optional_finding)
 
 
 async def verify_vulnerabilities(  # pylint: disable=too-many-locals

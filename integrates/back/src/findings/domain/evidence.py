@@ -107,7 +107,6 @@ async def remove_evidence(evidence_name: str, finding_id: str) -> bool:
     finding = await get_finding(finding_id)
     group_name = get_key_or_fallback(finding, "groupName", "projectName")
     files = cast(List[Dict[str, str]], finding.get("files", []))
-    success = False
 
     evidence: Dict[str, str] = next(
         (item for item in files if item["name"] == evidence_name), dict()
@@ -117,11 +116,10 @@ async def remove_evidence(evidence_name: str, finding_id: str) -> bool:
 
     evidence_id = str(evidence.get("file_url", ""))
     full_name = f"{group_name}/{finding_id}/{evidence_id}"
-    if await findings_dal.remove_evidence(full_name):
-        index = files.index(evidence)
-        del files[index]
-        success = await findings_dal.update(finding_id, {"files": files})
-    return success
+    await findings_dal.remove_evidence(full_name)
+    index = files.index(evidence)
+    del files[index]
+    return await findings_dal.update(finding_id, {"files": files})
 
 
 async def remove_evidence_new(
