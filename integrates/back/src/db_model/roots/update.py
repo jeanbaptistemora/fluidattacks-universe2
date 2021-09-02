@@ -11,6 +11,7 @@ from dynamodb import (
     historics,
     operations,
 )
+import simplejson as json  # type: ignore
 from typing import (
     Union,
 )
@@ -24,7 +25,7 @@ async def update_root_state(
 ) -> None:
     key_structure = TABLE.primary_key
     historic = historics.build_historic(
-        attributes=dict(state._asdict()),
+        attributes=json.loads(json.dumps(state)),
         historic_facet=TABLE.facets["git_root_historic_state"],
         key_structure=key_structure,
         key_values={

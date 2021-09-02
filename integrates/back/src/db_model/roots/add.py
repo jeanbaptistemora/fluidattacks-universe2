@@ -10,6 +10,7 @@ from dynamodb import (
     keys,
     operations,
 )
+import simplejson as json  # type: ignore
 
 
 async def add(*, root: RootItem) -> None:
@@ -26,7 +27,7 @@ async def add(*, root: RootItem) -> None:
     }
 
     historic_state = historics.build_historic(
-        attributes=dict(root.state._asdict()),
+        attributes=json.loads(json.dumps(root.state)),
         historic_facet=TABLE.facets["git_root_historic_state"],
         key_structure=key_structure,
         key_values={
