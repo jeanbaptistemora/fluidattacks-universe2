@@ -11,6 +11,9 @@ from context import (
     FI_ENVIRONMENT,
 )
 import contextlib
+from custom_exceptions import (
+    UnavailabilityError,
+)
 import io
 import logging
 import logging.config
@@ -79,16 +82,16 @@ async def list_files(bucket: str, name: Optional[str] = None) -> List[str]:
     return key_list
 
 
-async def remove_file(bucket: str, name: str) -> bool:
-    success: bool = False
+async def remove_file(bucket: str, name: str) -> None:
     async with aio_client() as client:
         try:
             response = await client.delete_object(Bucket=bucket, Key=name)
-            resp_code = response["ResponseMetadata"]["HTTPStatusCode"]
-            success = resp_code in [200, 204]
+            status_code = response["ResponseMetadata"]["HTTPStatusCode"]
+            if status_code not in [200, 204]:
+                raise UnavailabilityError()
         except ClientError as ex:
             LOGGER.exception(ex, extra={"extra": locals()})
-    return success
+            raise UnavailabilityError()
 
 
 async def sign_url(file_name: str, expire_mins: float, bucket: str) -> str:

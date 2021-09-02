@@ -146,7 +146,8 @@ async def list_append(
 
 
 async def remove_evidence(file_name: str) -> bool:
-    return await s3_ops.remove_file(FI_AWS_S3_BUCKET, file_name)
+    await s3_ops.remove_file(FI_AWS_S3_BUCKET, file_name)
+    return True
 
 
 async def save_evidence(file_object: object, file_name: str) -> bool:

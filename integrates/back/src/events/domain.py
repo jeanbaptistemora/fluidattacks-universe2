@@ -214,17 +214,9 @@ async def mask(event_id: str) -> bool:
         "evidence_file_date",
     ]
 
-    mask_events_coroutines = []
-    mask_events_coroutines.append(
+    mask_events_coroutines = [
         events_dal.update(event_id, {attr: "Masked" for attr in attrs_to_mask})
-    )
-
-    group_name = str(get_key_or_fallback(event, fallback=""))
-    evidence_prefix = f"{group_name}/{event_id}"
-    list_evidences = await events_dal.search_evidence(evidence_prefix)
-    mask_events_coroutines.extend(
-        [events_dal.remove_evidence(file_name) for file_name in list_evidences]
-    )
+    ]
 
     list_comments = await comments_domain.get("event", event_id)
     mask_events_coroutines.extend(
@@ -233,21 +225,28 @@ async def mask(event_id: str) -> bool:
             for comment in list_comments
         ]
     )
-    success = all(await collect(mask_events_coroutines))
-    return success
+
+    group_name = str(get_key_or_fallback(event, fallback=""))
+    evidence_prefix = f"{group_name}/{event_id}"
+    list_evidences = await events_dal.search_evidence(evidence_prefix)
+    # These coroutines return none instead of bool
+    mask_events_coroutines_none = [
+        events_dal.remove_evidence(file_name) for file_name in list_evidences
+    ]
+
+    await collect(mask_events_coroutines_none)
+    return all(await collect(mask_events_coroutines))
 
 
 async def remove_evidence(evidence_type: str, event_id: str) -> bool:
     event = await get_event(event_id)
     group_name = get_key_or_fallback(event)
-    success = False
 
     full_name = f"{group_name}/{event_id}/{event[evidence_type]}"
-    if await events_dal.remove_evidence(full_name):
-        success = await events_dal.update(
-            event_id, {evidence_type: None, f"{evidence_type}_date": None}
-        )
-    return success
+    await events_dal.remove_evidence(full_name)
+    return await events_dal.update(
+        event_id, {evidence_type: None, f"{evidence_type}_date": None}
+    )
 
 
 async def solve_event(
