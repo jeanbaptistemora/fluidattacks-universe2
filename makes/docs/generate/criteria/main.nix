@@ -12,6 +12,17 @@
 let
   lib = inputs.nixpkgs.lib;
 
+  # Model data
+  vulnerabilities = fromYaml (
+    builtins.readFile (
+      projectPath "/makes/makes/criteria/src/vulnerabilities/data.yaml"));
+  requirements = fromYaml (
+    builtins.readFile (
+      projectPath "/makes/makes/criteria/src/requirements/data.yaml"));
+  compliance = fromYaml (
+    builtins.readFile (
+      projectPath "/makes/makes/criteria/src/compliance/data.yaml"));
+
   # Title and content
   section = title: content:
     if content != "__empty__" && content != ""
@@ -25,18 +36,65 @@ let
     in
     "${category}/${id}";
 
-  # Extract model data
-  vulnerabilities = fromYaml (
-    builtins.readFile (
-      projectPath "/makes/makes/criteria/src/vulnerabilities/data.yaml"));
-  requirements = fromYaml (
-    builtins.readFile (
-      projectPath "/makes/makes/criteria/src/requirements/data.yaml"));
-  compliance = fromYaml (
-    builtins.readFile (
-      projectPath "/makes/makes/criteria/src/compliance/data.yaml"));
+  # Parse a reference to a definition
+  parseDefinition = reference:
+    let
+      parsed = lib.strings.splitString "." reference;
+    in
+    {
+      standardId = (builtins.head parsed);
+      definitionId = (builtins.head (builtins.tail parsed));
+    };
 
-  # Generate score and severity for a vulnerability
+  # True if a vulnerability has a requirement, false otherwise
+  hasRequirement = { requirement, vulnerability }:
+    builtins.any
+      (x: x == requirement)
+      vulnerabilities.${vulnerability}.requirements;
+
+  # True if a requirement has a definition, false otherwise
+  hasDefinition = { requirementId, standardId, definitionId }:
+    builtins.any
+      (x: x == "${standardId}.${definitionId}")
+      requirements.${requirementId}.references;
+
+  # Markdown links
+  link = { prefix ? "", body, path }:
+    "${prefix}[${body}](${path})";
+  linkRequirement = { prefix ? "- ", id }:
+    link {
+      inherit prefix;
+      body = "${id}. ${requirements.${id}.en.title}";
+      path = "/criteria/requirements/${id}";
+    };
+  linkVulnerability = { prefix ? "- ", id }:
+    link {
+      inherit prefix;
+      body = "${id}. ${vulnerabilities.${id}.en.title}";
+      path = "/criteria/vulnerabilities/${id}";
+    };
+  linkStandardDefinition = { prefix ? "- ", standardId, definitionId }:
+    let
+      standard = compliance.${standardId};
+      definition = standard.definitions.${definitionId};
+    in
+    link {
+      inherit prefix;
+      body = "${standard.title}-${definitionId}. ${definition.title}";
+      path = "/criteria/compliance/${standardId}";
+    };
+  linkDefinition = { prefix ? "- ", standardId, definitionId }:
+    let
+      standard = compliance.${standardId};
+      definition = standard.definitions.${definitionId};
+    in
+    link {
+      inherit prefix;
+      body = "${definitionId}. ${definition.title}";
+      path = definition.link;
+    };
+
+  # Score and severity for a vulnerability
   vectorString = vector:
     let
       AV = vector.base.attack_vector;
@@ -56,91 +114,67 @@ let
       "/AV:${AV}/AC:${AC}/PR:${PR}/UI:${UI}/S:${S}/C:${C}/I:${I}/A:${A}"
       "/E:${E}/RL:${RL}/RC:${RC}"
     ];
-  vulnScore = vector:
+  cvssScore = vector:
     fromJson (builtins.readFile (calculateCvss3 (vectorString vector)));
 
-  # Generate requirements list for a vulnerability
-  vulnReq = id:
-    "- [${id}. ${requirements.${id}.en.title}](/criteria/requirements/${id})";
-  reqsForVuln = reqs:
-    builtins.concatStringsSep "\n" (builtins.map vulnReq reqs);
+  # Requirements list for a vulnerability
+  vulnerabilityRequirements = reqs:
+    builtins.concatStringsSep "\n" (
+      builtins.map (id: linkRequirement { inherit id; }) reqs
+    );
 
-  # Generate references list for a requirement
-  reqRefParseData = raw:
+  # Requirements list for a definition
+  reqsForDef = { standardId, definitionId }:
     let
-      parsed = lib.strings.splitString "." raw;
+      filtered = builtins.attrNames (
+        lib.filterAttrs (requirementId: _: hasDefinition { inherit requirementId; inherit standardId; inherit definitionId; }) requirements
+      );
     in
-    {
-      standardId = (builtins.head parsed);
-      definitionId = (builtins.head (builtins.tail parsed));
-    };
-  reqRef = data:
-    let
-      standard = compliance.${data.standardId};
-      standardLink = "/criteria/compliance/${data.standardId}";
-      definition = standard.definitions.${data.definitionId};
-    in
-    builtins.concatStringsSep "" [
-      "- [${standard.title}-${data.definitionId}: ${definition.title}]"
-      "(${standardLink})"
-    ];
+    builtins.concatStringsSep "\n" (
+      builtins.map (id: linkRequirement { prefix = "  - "; inherit id; }) filtered
+    );
+
+  # References list for a requirement
   refsForReq = refs:
+    let
+      parsed = builtins.map parseDefinition refs;
+    in
     builtins.concatStringsSep "\n" (
-      builtins.map reqRef (
-        builtins.map reqRefParseData refs
-      )
+      builtins.map (reference: with reference; linkStandardDefinition { inherit definitionId; inherit standardId; }) parsed
     );
 
-  # Generate vulnerabilities list for a requirement
-  vulnHasReq = req: vuln:
-    builtins.any (x: x == req) vulnerabilities.${vuln}.requirements;
-  reqVuln = id:
+  # Vulnerabilities list for a requirement
+  vulnsForReq = requirement:
     let
-      title = vulnerabilities.${id}.en.title;
-    in
-    "- [${id}. ${title}](/criteria/vulnerabilities/${id})";
-  vulnsForReq = req:
-    let
-      vulns = builtins.attrNames (
-        lib.filterAttrs (id: _: vulnHasReq req id) vulnerabilities
+      filtered = builtins.attrNames (
+        lib.filterAttrs (vulnerability: _: hasRequirement { inherit requirement; inherit vulnerability; }) vulnerabilities
       );
     in
     builtins.concatStringsSep "\n" (
-      builtins.map reqVuln vulns
+      builtins.map (id: linkVulnerability { inherit id; }) filtered
     );
 
-  # Generate definitions list and related requirements for a standard
-  reqHasDef = req: std: def:
-    builtins.any (x: x == "${std}.${def}") requirements.${req}.references;
-  defReq = id:
+  # Definitions list and related requirements for a standard
+  standardDef = { standardId, definitionId }:
     let
-      title = requirements.${id}.en.title;
-    in
-    "  - [${id}. ${title}](/criteria/requirements/${id})";
-  reqsForDef = std: def:
-    let
-      reqs = builtins.attrNames (
-        lib.filterAttrs (id: _: reqHasDef id std def) requirements
-      );
-    in
-    builtins.concatStringsSep "\n" (
-      builtins.map defReq reqs
-    );
-  standardDef = stdId: defId: defData:
-    let
-      def = "- [${defId}. ${defData.title}](${defData.link})";
-      reqs = reqsForDef stdId defId;
+      definition = linkDefinition { inherit standardId; inherit definitionId; };
+      requirements = reqsForDef { inherit standardId; inherit definitionId; };
       result =
-        if reqs != ""
-        then builtins.concatStringsSep "\n" [ def reqs ]
-        else def;
+        if requirements != ""
+        then
+          builtins.concatStringsSep "\n" [
+            definition
+            requirements
+          ]
+        else definition;
     in
     result;
-  defsForStandard = stdId: defs:
+  defsForStandard = standardId:
+    let
+      definitions = builtins.attrNames compliance.${standardId}.definitions;
+    in
     builtins.concatStringsSep "\n" (
-      builtins.attrValues (
-        builtins.mapAttrs (standardDef stdId) defs
-      )
+      builtins.map (definitionId: standardDef { inherit standardId; inherit definitionId; }) definitions
     );
 
   # Generate introduction indexes
@@ -187,7 +221,7 @@ let
   # Generate a template for every md
   makeVulnerability = __argCode__: src:
     let
-      score = vulnScore src.score;
+      score = cvssScore src.score;
     in
     makeTemplate {
       replace = {
@@ -219,7 +253,7 @@ let
         __argSeverityTemporal__ = score.severity.temporal;
         __argDetails__ = section "## Details" src.metadata.en.details;
         __argRequirements__ =
-          section "## Requirements" (reqsForVuln src.requirements);
+          section "## Requirements" (vulnerabilityRequirements src.requirements);
       };
       name = "docs-make-vulnerability-${__argCode__}";
       template = ./templates/vulnerability.md;
@@ -245,7 +279,7 @@ let
       __argTitle__ = src.title;
       __argDescription__ = section "## Description" src.en.description;
       __argDefinitions__ =
-        section "## Definitions" (defsForStandard __argCode__ src.definitions);
+        section "## Definitions" (defsForStandard __argCode__);
     };
     name = "docs-make-compliance-${__argCode__}";
     template = ./templates/compliance.md;
