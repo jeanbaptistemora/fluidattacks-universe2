@@ -24,10 +24,6 @@ integrates.front
 integrates.front.deploy
 integrates.front.deploy.dev
 integrates.front.deploy.prod
-integrates.infra.cache-db.apply
-integrates.infra.cache-db.test
-integrates.infra.database.apply
-integrates.infra.database.test
 integrates.kill
 integrates.mobile
 integrates.mobile.build.android

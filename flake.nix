@@ -113,8 +113,6 @@
         makeTemplate = importUtility "make-template";
         nix = importUtility "nix";
         sslCerts = importUtility "ssl-certs";
-        terraformApply = importUtility "terraform-apply";
-        terraformTest = importUtility "terraform-test";
       };
     in
     { packages.x86_64-linux = attrs.packagesFlattened; };
