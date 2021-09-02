@@ -7,6 +7,7 @@ from .types import (
     FindingEvidences,
     FindingMetadataToUpdate,
     FindingState,
+    FindingTreatmentSummary,
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
 )
@@ -14,6 +15,7 @@ from .utils import (
     format_evidences_item,
     format_optional_verification_item,
     format_state_item,
+    format_treatment_summary_item,
     get_latest_verification,
 )
 from aioextensions import (
@@ -233,7 +235,11 @@ async def update_unreliable_indicators(
         values={"group_name": group_name, "id": finding_id},
     )
     unreliable_indicators = {
-        key: value.value if isinstance(value, Enum) else value
+        key: value.value
+        if isinstance(value, Enum)
+        else format_treatment_summary_item(value)
+        if isinstance(value, FindingTreatmentSummary)
+        else value
         for key, value in indicators._asdict().items()
         if value is not None
     }

@@ -8,6 +8,7 @@ from .types import (
     Finding,
     FindingEvidences,
     FindingState,
+    FindingTreatmentSummary,
     FindingUnreliableIndicators,
     FindingVerification,
 )
@@ -60,6 +61,17 @@ def format_state_item(state: FindingState) -> Item:
         "modified_date": state.modified_date,
         "source": state.source.value,
         "status": state.status.value,
+    }
+
+
+def format_treatment_summary_item(
+    treatment_summary: FindingTreatmentSummary,
+) -> Item:
+    return {
+        "accepted": treatment_summary.accepted,
+        "accepted_undefined": treatment_summary.accepted_undefined,
+        "in_progress": treatment_summary.in_progress,
+        "new": treatment_summary.new,
     }
 
 

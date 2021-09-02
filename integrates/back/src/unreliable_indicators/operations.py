@@ -16,13 +16,17 @@ from db_model.findings.enums import (
 )
 from db_model.findings.types import (
     Finding,
+    FindingTreatmentSummary,
     FindingUnreliableIndicatorsToUpdate,
 )
 from findings import (
     domain as findings_domain,
 )
+from newutils.vulnerabilities import (
+    Treatments,
+)
 from typing import (
-    cast,
+    Optional,
     Set,
 )
 from unreliable_indicators.enums import (
@@ -33,7 +37,30 @@ from unreliable_indicators.enums import (
 )
 
 
-async def update_finding_unreliable_indicators(
+def _format_unreliable_status(
+    status: Optional[str],
+) -> Optional[FindingStatus]:
+    unreliable_status = None
+    if status:
+        unreliable_status = FindingStatus[status.upper()]
+    return unreliable_status
+
+
+def _format_unreliable_treatment_summary(
+    treatment_summary: Optional[Treatments],
+) -> Optional[FindingTreatmentSummary]:
+    unreliable_treatment_summary = None
+    if treatment_summary:
+        unreliable_treatment_summary = FindingTreatmentSummary(
+            accepted=treatment_summary.ACCEPTED,
+            accepted_undefined=treatment_summary.ACCEPTED_UNDEFINED,
+            in_progress=treatment_summary.IN_PROGRESS,
+            new=treatment_summary.NEW,
+        )
+    return unreliable_treatment_summary
+
+
+async def update_finding_unreliable_indicators(  # noqa: C901
     loaders: Dataloaders,
     finding_id: str,
     attrs_to_update: Set[EntityAttr],
@@ -86,6 +113,11 @@ async def update_finding_unreliable_indicators(
             loaders, finding.id
         )
 
+    if EntityAttr.treatment_summary in attrs_to_update:
+        indicators[
+            EntityAttr.treatment_summary
+        ] = findings_domain.get_treatment_summary(loaders, finding.id)
+
     result = dict(zip(indicators.keys(), await collect(indicators.values())))
     indicators = FindingUnreliableIndicatorsToUpdate(
         unreliable_age=result.get(EntityAttr.age),
@@ -101,12 +133,13 @@ async def update_finding_unreliable_indicators(
             EntityAttr.open_vulnerabilities
         ),
         unreliable_report_date=result.get(EntityAttr.report_date),
-        unreliable_status=FindingStatus[
-            cast(str, result[EntityAttr.status]).upper()
-        ]
-        if result.get(EntityAttr.status)
-        else None,
+        unreliable_status=_format_unreliable_status(
+            result.get(EntityAttr.status)
+        ),
         unreliable_where=result.get(EntityAttr.where),
+        unreliable_treatment_summary=_format_unreliable_treatment_summary(
+            result.get(EntityAttr.treatment_summary)
+        ),
     )
     await findings_model.update_unreliable_indicators(
         group_name=finding.group_name,

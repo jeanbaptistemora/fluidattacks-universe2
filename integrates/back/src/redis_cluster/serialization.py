@@ -21,8 +21,8 @@ from db_model.findings.types import (
     FindingEvidence,
     FindingEvidences,
     FindingState,
+    FindingTreatmentSummary,
     FindingUnreliableIndicators,
-    FindingUnreliableTreatmentSummary,
     FindingVerification,
 )
 import safe_pickle
@@ -64,7 +64,7 @@ safe_pickle.register_namedtuple(FindingEvidence)
 safe_pickle.register_namedtuple(FindingEvidences)
 safe_pickle.register_namedtuple(FindingState)
 safe_pickle.register_namedtuple(FindingUnreliableIndicators)
-safe_pickle.register_namedtuple(FindingUnreliableTreatmentSummary)
+safe_pickle.register_namedtuple(FindingTreatmentSummary)
 safe_pickle.register_namedtuple(FindingVerification)
 safe_pickle.register_namedtuple(GitRootToeInput)
 safe_pickle.register_namedtuple(GitRootToeLines)
