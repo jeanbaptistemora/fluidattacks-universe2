@@ -4,12 +4,20 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
-import { dateFilter, selectFilter } from "react-bootstrap-table2-filter";
 import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
-import type { IHeaderConfig } from "components/DataTableNext/types";
+import type {
+  IFilterProps,
+  IHeaderConfig,
+} from "components/DataTableNext/types";
+import {
+  filterDate,
+  filterSearchText,
+  filterSelect,
+  filterText,
+} from "components/DataTableNext/utils";
 import { Modal } from "components/Modal";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { Execution } from "scenes/Dashboard/containers/GroupForcesView/execution";
@@ -53,38 +61,24 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     },
   };
 
-  const selectOptionsKind = { ALL: "ALL", DAST: "DAST", SAST: "SAST" };
-  const selectOptionsStatus = { Secure: "Secure", Vulnerable: "Vulnerable" };
-  const selectOptionsStrictness = { Strict: "Strict", Tolerant: "Tolerant" };
-
-  const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>(
-    "forcesExecutionFilters",
-    false
-  );
-
   const [currentRow, updateRow] = useState(defaultCurrentRow);
   const [isExecutionDetailsModalOpen, setExecutionDetailsModalOpen] =
     useState(false);
 
-  const handleUpdateFilter: () => void = useCallback((): void => {
-    setFilterEnabled(!isFilterEnabled);
-  }, [isFilterEnabled, setFilterEnabled]);
+  const [isCustomFilterEnabled, setCustomFilterEnabled] =
+    useStoredState<boolean>("groupForcesCustomFilters", false);
 
-  const onFilterKind: (filterVal: string) => void = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("kindForcesFilter", filterVal);
-  };
-  const onFilterStatus: (filterVal: string) => void = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("statusForcesFilter", filterVal);
-  };
-  const onStrictnessStatus: (filterVal: string) => void = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("strictnessForcesFilter", filterVal);
-  };
+  const [searchTextFilter, setSearchTextFilter] = useState("");
+  const [dateFilter, setDateFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
+  const [strictnessFilter, setStrictnessFilter] = useState("");
+  const [typeFilter, setTypeFilter] = useState("");
+  const [repositoryFilter, setRepositoryFilter] = useState("");
+
+  const handleUpdateCustomFilter: () => void = useCallback((): void => {
+    setCustomFilterEnabled(!isCustomFilterEnabled);
+  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
+
   const onSortState: (dataField: string, order: SortOrder) => void = (
     dataField: string,
     order: SortOrder
@@ -125,18 +119,12 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "date",
-      filter: dateFilter({}),
       header: translate.t("group.forces.date"),
       onSort: onSortState,
     },
     {
       align: "left",
       dataField: "status",
-      filter: selectFilter({
-        defaultValue: _.get(sessionStorage, "statusForcesFilter"),
-        onFilter: onFilterStatus,
-        options: selectOptionsStatus,
-      }),
       formatter: pointStatusFormatter,
       header: translate.t("group.forces.status.title"),
       onSort: onSortState,
@@ -153,11 +141,6 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "strictness",
-      filter: selectFilter({
-        defaultValue: _.get(sessionStorage, "strictnessForcesFilter"),
-        onFilter: onStrictnessStatus,
-        options: selectOptionsStrictness,
-      }),
       header: translate.t("group.forces.strictness.title"),
       onSort: onSortState,
       wrapped: true,
@@ -165,11 +148,6 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "kind",
-      filter: selectFilter({
-        defaultValue: _.get(sessionStorage, "kindForcesFilter"),
-        onFilter: onFilterKind,
-        options: selectOptionsKind,
-      }),
       header: translate.t("group.forces.kind.title"),
       onSort: onSortState,
       wrapped: true,
@@ -264,23 +242,155 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     order: "desc",
   });
 
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
+  const filterSearchTextExecutions: IExecution[] = filterSearchText(
+    executions,
+    searchTextFilter
+  );
+
+  function onDateChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    setDateFilter(event.target.value);
+  }
+  const filterDateExecutions: IExecution[] = filterDate(
+    executions,
+    dateFilter,
+    "date"
+  );
+
+  function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    setStatusFilter(event.target.value);
+  }
+  const filterStatusExecutions: IExecution[] = filterSelect(
+    executions,
+    statusFilter,
+    "status"
+  );
+
+  function onStrictnessChange(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void {
+    setStrictnessFilter(event.target.value);
+  }
+  const filterStrictnessExecutions: IExecution[] = filterSelect(
+    executions,
+    strictnessFilter,
+    "strictness"
+  );
+
+  function onTypeChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    setTypeFilter(event.target.value);
+  }
+  const filterTypeExecutions: IExecution[] = filterSelect(
+    executions,
+    typeFilter,
+    "kind"
+  );
+
+  function onRepositoryChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setRepositoryFilter(event.target.value);
+  }
+  const filterGroupNameExecutions: IExecution[] = filterText(
+    executions,
+    repositoryFilter,
+    "gitRepo"
+  );
+
+  const resultExecutions: IExecution[] = _.intersection(
+    filterSearchTextExecutions,
+    filterDateExecutions,
+    filterStatusExecutions,
+    filterStrictnessExecutions,
+    filterTypeExecutions,
+    filterGroupNameExecutions
+  );
+
+  const customFiltersProps: IFilterProps[] = [
+    {
+      defaultValue: dateFilter,
+      onChangeInput: onDateChange,
+      placeholder: "Date",
+      tooltipId: "group.forces.filtersTooltips.date.id",
+      tooltipMessage: "group.forces.filtersTooltips.date",
+      type: "date",
+    },
+    {
+      defaultValue: statusFilter,
+      onChangeSelect: onStatusChange,
+      placeholder: "Status",
+      selectOptions: {
+        Secure: "Secure",
+        Vulnerable: "Vulnerable",
+      },
+      tooltipId: "group.forces.filtersTooltips.status.id",
+      tooltipMessage: "group.forces.filtersTooltips.status",
+      type: "select",
+    },
+    {
+      defaultValue: strictnessFilter,
+      onChangeSelect: onStrictnessChange,
+      placeholder: "Strictness",
+      selectOptions: {
+        Strict: "Strict",
+        Tolerant: "Tolerant",
+      },
+      tooltipId: "group.forces.filtersTooltips.strictness.id",
+      tooltipMessage: "group.forces.filtersTooltips.strictness",
+      type: "select",
+    },
+    {
+      defaultValue: typeFilter,
+      onChangeSelect: onTypeChange,
+      placeholder: "Type",
+      selectOptions: {
+        ALL: "ALL",
+        DAST: "DAST",
+        SAST: "SAST",
+      },
+      tooltipId: "group.forces.filtersTooltips.kind.id",
+      tooltipMessage: "group.forces.filtersTooltips.kind",
+      type: "select",
+    },
+    {
+      defaultValue: repositoryFilter,
+      onChangeInput: onRepositoryChange,
+      placeholder: "Git Repository",
+      tooltipId: "group.forces.filtersTooltips.repository.id",
+      tooltipMessage: "group.forces.filtersTooltips.repository",
+      type: "text",
+    },
+  ];
+
   return (
     <React.StrictMode>
       <p>{translate.t("group.forces.tableAdvice")}</p>
       <DataTableNext
         bordered={true}
-        dataset={executions}
+        customFilters={{
+          customFiltersProps,
+          isCustomFilterEnabled,
+          onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+        }}
+        customSearch={{
+          customSearchDefault: searchTextFilter,
+          isCustomSearchEnabled: true,
+          onUpdateCustomSearch: onSearchTextChange,
+        }}
+        dataset={resultExecutions}
         defaultSorted={JSON.parse(
           _.get(sessionStorage, "forcesSort", initialSort)
         )}
         exportCsv={true}
         headers={headersExecutionTable}
         id={"tblForcesExecutions"}
-        isFilterEnabled={isFilterEnabled}
-        onUpdateEnableFilter={handleUpdateFilter}
         pageSize={100}
         rowEvents={{ onClick: openSeeExecutionDetailsModal }}
-        search={true}
+        search={false}
       />
       <Modal
         headerTitle={translate.t("group.forces.executionDetailsModal.title")}

@@ -519,6 +519,13 @@ export const enTranslations: ResourceKey = {
         close: "Close",
         title: "Execution Details",
       },
+      filtersTooltips: {
+        date: "Filter by date",
+        kind: "Filter by type",
+        repository: "Filter by repository",
+        status: "Filter by status",
+        strictness: "Filter by strictness",
+      },
       foundVulnerabilities: {
         accepted: "Accepted",
         exploitable: "Exploitable",
