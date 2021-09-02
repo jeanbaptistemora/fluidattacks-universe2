@@ -142,7 +142,7 @@ class FindingUnreliableIndicators(NamedTuple):
     unreliable_treatment_summary: FindingUnreliableTreatmentSummary = (
         FindingUnreliableTreatmentSummary()
     )
-    unreliable_wheres: Set[str] = set()
+    unreliable_where: str = ""
 
 
 class Finding(NamedTuple):
@@ -209,4 +209,4 @@ class FindingUnreliableIndicatorsToUpdate(NamedTuple):
     unreliable_treatment_summary: Optional[
         FindingUnreliableTreatmentSummary
     ] = None
-    unreliable_wheres: Optional[Set[str]] = None
+    unreliable_where: Optional[str] = None

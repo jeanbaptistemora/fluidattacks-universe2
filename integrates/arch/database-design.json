@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 01, 2021, 04:45 PM",
+    "DateLastModified": "Sep 02, 2021, 12:22 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -436,7 +436,7 @@
         },
         {
           "AttributeName": "unreliable_where",
-          "AttributeType": "SS"
+          "AttributeType": "S"
         },
         {
           "AttributeName": "unreliable_treatment_summary",
@@ -2090,10 +2090,7 @@
                 "S": "2021-02-15T14:01:16Z"
               },
               "unreliable_where": {
-                "SS": [
-                  "192.168.1.20",
-                  "192.168.1.20"
-                ]
+                "S": "192.168.1.20, 192.168.1.20"
               },
               "unreliable_treatment_summary": {
                 "M": {

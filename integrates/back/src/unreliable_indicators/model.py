@@ -82,6 +82,15 @@ ENTITIES = {
                     EntityDependency.upload_file,
                 }
             ),
+            EntityAttr.where: dict(
+                dependencies={
+                    EntityDependency.reject_vulnerabilities_zero_risk,
+                    EntityDependency.remove_vulnerability,
+                    EntityDependency.request_vulnerabilities_zero_risk,
+                    EntityDependency.update_vulnerability_commit,
+                    EntityDependency.upload_file,
+                }
+            ),
         },
     ),
 }

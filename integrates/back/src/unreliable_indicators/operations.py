@@ -81,6 +81,11 @@ async def update_finding_unreliable_indicators(
             loaders, finding.id
         )
 
+    if EntityAttr.where in attrs_to_update:
+        indicators[EntityAttr.where] = findings_domain.get_where(
+            loaders, finding.id
+        )
+
     result = dict(zip(indicators.keys(), await collect(indicators.values())))
     indicators = FindingUnreliableIndicatorsToUpdate(
         unreliable_age=result.get(EntityAttr.age),
@@ -101,6 +106,7 @@ async def update_finding_unreliable_indicators(
         ]
         if result.get(EntityAttr.status)
         else None,
+        unreliable_where=result.get(EntityAttr.where),
     )
     await findings_model.update_unreliable_indicators(
         group_name=finding.group_name,

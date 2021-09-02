@@ -20,6 +20,8 @@ class EntityAttr(Enum):
     open_vulnerabilities: str = "open_vulnerabilities"
     report_date: str = "report_date"
     status: str = "status"
+    treatment_summary: str = "treatment_summary"
+    where: str = "where"
 
 
 class EntityDependency(Enum):
@@ -31,5 +33,6 @@ class EntityDependency(Enum):
     request_vulnerabilities_zero_risk: str = (
         "request_vulnerabilities_zero_risk"
     )
+    update_vulnerability_commit: str = "update_vulnerability_commit"
     upload_file: str = "upload_file"
     verify_vulnerabilities_request: str = "verify_vulnerabilities_request"
