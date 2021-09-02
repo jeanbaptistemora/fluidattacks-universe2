@@ -94,6 +94,10 @@ let
       path = definition.link;
     };
 
+  # Markdown image
+  image = { title, path }:
+    "![${title}](${path})";
+
   # Score and severity for a vulnerability
   vectorString = vector:
     let
@@ -355,6 +359,15 @@ let
   makeCompliance = __argCode__: src: makeTemplate {
     replace = {
       inherit __argCode__;
+      __argLogo__ = image {
+        title = "logo";
+        path = builtins.concatStringsSep "" [
+          "https://res.cloudinary.com"
+          "/fluid-attacks/image/upload"
+          "/c_scale,w_256"
+          "/docs/criteria/compliance/logos/${__argCode__}.png"
+        ];
+      };
       __argTitle__ = src.title;
       __argDescription__ = section {
         title = "## Description";
