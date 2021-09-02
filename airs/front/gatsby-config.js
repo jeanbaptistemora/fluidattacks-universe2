@@ -131,8 +131,8 @@ module.exports = {
       resolve: 'gatsby-plugin-matomo',
       options: {
         siteId: '1',
-        matomoUrl: 'https://fluidattacks.matomo.cloud/',
-        siteUrl: 'https://fluidattacks.com/'
+        matomoUrl: 'https://fluidattacks.matomo.cloud',
+        siteUrl: 'https://fluidattacks.com',
       }
     },
     "gatsby-plugin-image",
