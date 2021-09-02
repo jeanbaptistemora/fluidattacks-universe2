@@ -218,7 +218,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
         ["customeradmin@gmail.com"],
         ["executive@gmail.com"],
         ["resourcer@gmail.com"],
-        ["group_manager@gmail.com"],
+        ["system_owner@gmail.com"],
         ["service_forces@gmail.com"],
     ],
 )  # pylint: disable=too-many-statements, too-many-locals

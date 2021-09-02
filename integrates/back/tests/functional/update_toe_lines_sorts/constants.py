@@ -5,7 +5,7 @@ USERS_EMAILS = [
     ["customer@fluidattacks.com"],
     ["customeradmin@fluidattacks.com"],
     ["executive@fluidattacks.com"],
-    ["group_manager@fluidattacks.com"],
+    ["system_owner@fluidattacks.com"],
     ["resourcer@fluidattacks.com"],
     ["reviewer@fluidattacks.com"],
 ]

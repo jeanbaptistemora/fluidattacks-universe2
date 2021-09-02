@@ -17,7 +17,7 @@ from typing import (
         ["hacker@gmail.com"],
         ["reattacker@gmail.com"],
         ["resourcer@gmail.com"],
-        ["group_manager@gmail.com"],
+        ["system_owner@gmail.com"],
     ],
 )
 async def test_add_event(populate: bool, email: str) -> None:

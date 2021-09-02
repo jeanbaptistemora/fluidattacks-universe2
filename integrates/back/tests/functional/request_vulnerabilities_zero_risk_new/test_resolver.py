@@ -16,7 +16,7 @@ from typing import (
         ("admin@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
         ("customer@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce11"),
         ("customeradmin@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce12"),
-        ("group_manager@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce13"),
+        ("system_owner@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce13"),
     ),
 )
 async def test_request_vulnerabilities_zero_risk(

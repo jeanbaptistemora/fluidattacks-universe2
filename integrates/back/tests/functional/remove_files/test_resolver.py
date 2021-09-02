@@ -34,7 +34,7 @@ async def test_remove_files(populate: bool, email: str) -> None:
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],
         ["executive@gmail.com"],
-        ["group_manager@gmail.com"],
+        ["system_owner@gmail.com"],
     ],
 )
 async def test_remove_files_fail_1(populate: bool, email: str) -> None:

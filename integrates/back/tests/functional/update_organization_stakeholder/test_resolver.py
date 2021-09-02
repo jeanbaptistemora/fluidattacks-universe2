@@ -15,7 +15,7 @@ from typing import (
     [
         ["admin@gmail.com"],
         ["customeradmin@gmail.com"],
-        ["group_manager@gmail.com"],
+        ["system_owner@gmail.com"],
     ],
 )
 async def test_update_organization_stakeholder(

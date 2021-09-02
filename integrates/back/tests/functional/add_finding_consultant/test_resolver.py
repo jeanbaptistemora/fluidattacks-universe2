@@ -19,7 +19,7 @@ from typing import (
         ["customer@gmail.com"],
         ["customeradmin@gmail.com"],
         ["executive@gmail.com"],
-        ["group_manager@gmail.com"],
+        ["system_owner@gmail.com"],
     ],
 )
 async def test_add_finding_consultant(populate: bool, email: str) -> None:

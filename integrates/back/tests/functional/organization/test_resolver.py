@@ -26,11 +26,11 @@ async def test_get_organization_ver_1(populate: bool, email: str) -> None:
         "customer@gmail.com",
         "customeradmin@gmail.com",
         "executive@gmail.com",
-        "group_manager@gmail.com",
         "hacker@gmail.com",
         "reattacker@gmail.com",
         "resourcer@gmail.com",
         "reviewer@gmail.com",
+        "system_owner@gmail.com",
     ]
     result: Dict[str, Any] = await get_result(user=email, org=org_id)
     groups: List[str] = [
@@ -59,7 +59,7 @@ async def test_get_organization_ver_1(populate: bool, email: str) -> None:
         ["hacker@gmail.com"],
         ["reattacker@gmail.com"],
         ["customeradmin@gmail.com"],
-        ["group_manager@gmail.com"],
+        ["system_owner@gmail.com"],
     ],
 )
 async def test_get_organization_ver_2(populate: bool, email: str) -> None:

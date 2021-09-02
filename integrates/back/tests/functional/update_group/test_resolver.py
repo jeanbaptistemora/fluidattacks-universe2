@@ -37,7 +37,7 @@ async def test_update_group(populate: bool, email: str) -> None:
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
         ["executive@gmail.com"],
-        ["group_manager@gmail.com"],
+        ["system_owner@gmail.com"],
     ],
 )
 async def test_update_group_fail(populate: bool, email: str) -> None:

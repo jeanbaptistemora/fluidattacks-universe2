@@ -40,7 +40,7 @@ async def test_update_organization_policies(
         ["hacker@gmail.com"],
         ["reattacker@gmail.com"],
         ["customer@gmail.com"],
-        ["group_manager@gmail.com"],
+        ["system_owner@gmail.com"],
     ],
 )
 async def test_update_organization_policies_fail(

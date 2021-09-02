@@ -38,7 +38,7 @@ async def test_reject_vulnerabilities_zero_risk(
         ("reattacker@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
         ("customer@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
         ("customeradmin@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
-        ("group_manager@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
+        ("system_owner@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
         ("resourcer@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
         ("executive@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
     ),
