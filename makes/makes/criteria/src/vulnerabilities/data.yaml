@@ -1248,7 +1248,7 @@
       exploit_code_maturity: "P"
       remediation_level: "U"
       report_confidence: "C"
-  requirements: ["134", "135", "185"]
+  requirements: ["134", "135", "185", "229", "264", "300"]
   metadata:
     en:
       details: __empty__
@@ -4731,7 +4731,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["266"]
+  requirements: ["134", "135", "185", "227", "229", "264", "300"]
   metadata:
     en:
       details: __empty__
@@ -5615,7 +5615,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["266"]
+  requirements: ["134", "135", "185", "227", "229", "264", "300"]
   metadata:
     en:
       details: __empty__
@@ -5830,7 +5830,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["266"]
+  requirements: ["134", "135", "185", "227", "229", "264", "300"]
   metadata:
     en:
       details: __empty__
@@ -12315,7 +12315,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["266"]
+  requirements: ["227", "228", "229", "235", "264", "319"]
   metadata:
     en:
       details: __empty__
@@ -12355,7 +12355,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["266"]
+  requirements: ["227", "229", "264", "319"]
   metadata:
     en:
       details: __empty__
@@ -12395,7 +12395,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["266"]
+  requirements: ["185", "227", "229", "264", "300", "319"]
   metadata:
     en:
       details: __empty__
@@ -12435,7 +12435,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["266"]
+  requirements: ["172", "185", "224","227", "229", "264", "300"]
   metadata:
     en:
       details: __empty__
@@ -12475,7 +12475,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["266"]
+  requirements: ["185", "224","227", "229", "264", "300", "319"]
   metadata:
     en:
       details: __empty__
@@ -12515,7 +12515,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["266"]
+  requirements: ["185", "224","227", "229", "264", "300", "319"]
   metadata:
     en:
       details: __empty__
@@ -12555,7 +12555,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["266"]
+  requirements: ["134", "142", "185", "224","227", "229", "264", "300"]
   metadata:
     en:
       details: __empty__
@@ -12595,7 +12595,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["266"]
+  requirements: ["185", "224", "229", "264", "300"]
   metadata:
     en:
       details: __empty__
@@ -12635,7 +12635,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["266"]
+  requirements: ["134", "135", "185", "224", "229", "264", "300"]
   metadata:
     en:
       details: __empty__
@@ -13595,7 +13595,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["266"]
+  requirements: ["134", "135", "185", "224", "229", "264", "300"]
   metadata:
     en:
       details: __empty__
@@ -13955,7 +13955,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["266"]
+  requirements: ["185", "224", "229", "264", "300"]
   metadata:
     en:
       details: __empty__
