@@ -185,8 +185,8 @@ let
       filtered
     );
 
-  # Definitions list and related requirements for a standard
-  standardDef = { standardId, definitionId }:
+  # Definition with requirements
+  definitionWithRequirements = { standardId, definitionId }:
     let
       definition = linkDefinition {
         inherit standardId;
@@ -206,12 +206,14 @@ let
         else definition;
     in
     result;
-  defsForStandard = standardId:
+
+  # Standard definitions with requirements
+  standardDefinitionsWithRequirements = standardId:
     let
       definitions = builtins.attrNames compliance.${standardId}.definitions;
     in
     builtins.concatStringsSep "\n" (builtins.map
-      (definitionId: standardDef {
+      (definitionId: definitionWithRequirements {
         inherit standardId;
         inherit definitionId;
       })
@@ -375,7 +377,7 @@ let
       };
       __argDefinitions__ = section {
         title = "## Definitions";
-        content = (defsForStandard __argCode__);
+        content = (standardDefinitionsWithRequirements __argCode__);
       };
     };
     name = "docs-make-compliance-${__argCode__}";
