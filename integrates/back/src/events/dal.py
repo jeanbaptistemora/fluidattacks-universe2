@@ -74,12 +74,12 @@ async def list_group_events(group_name: str) -> List[str]:
 
 
 async def save_evidence(file_object: object, file_name: str) -> bool:
-    return cast(
-        bool,
-        await s3_ops.upload_memory_file(
-            FI_AWS_S3_BUCKET, file_object, file_name
-        ),
+    await s3_ops.upload_memory_file(
+        FI_AWS_S3_BUCKET,
+        file_object,
+        file_name,
     )
+    return True
 
 
 async def search_evidence(file_name: str) -> List[str]:

@@ -121,19 +121,21 @@ async def get_vulns_execution(group_name: str, execution_id: str) -> Any:
 
 
 async def save_log_execution(file_object: object, file_name: str) -> bool:
-    return await s3_ops.upload_memory_file(
+    await s3_ops.upload_memory_file(
         FI_AWS_S3_FORCES_BUCKET,
         file_object,
         file_name,
     )
+    return True
 
 
 async def save_vulns_execution(file_object: object, file_name: str) -> bool:
-    return await s3_ops.upload_memory_file(
+    await s3_ops.upload_memory_file(
         FI_AWS_S3_FORCES_BUCKET,
         file_object,
         file_name,
     )
+    return True
 
 
 async def update_secret_token(group_name: str, secret: str) -> bool:

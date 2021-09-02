@@ -12,6 +12,7 @@ from context import (
 )
 import contextlib
 from custom_exceptions import (
+    ErrorUploadingFileS3,
     UnavailabilityError,
 )
 import io
@@ -48,19 +49,6 @@ OPTIONS = dict(
 if FI_ENVIRONMENT == "development":
     OPTIONS.pop("aws_session_token", None)
     OPTIONS["endpoint_url"] = "http://localhost:9000"
-
-
-async def _send_to_s3(
-    bucket: str, file_object: object, file_name: str
-) -> bool:
-    response: bool = False
-    async with aio_client() as client:
-        try:
-            await client.upload_fileobj(file_object, bucket, file_name)
-            response = True
-        except ClientError as ex:
-            LOGGER.exception(ex, extra={"extra": locals()})
-    return response
 
 
 @contextlib.asynccontextmanager
@@ -112,19 +100,25 @@ async def sign_url(file_name: str, expire_mins: float, bucket: str) -> str:
 
 async def upload_memory_file(
     bucket: str, file_object: object, file_name: str
-) -> bool:
+) -> None:
     valid_in_memory_files = (TemporaryFileWrapper, UploadFile)
-    success: bool = False
-    if isinstance(file_object, valid_in_memory_files):
-        bytes_object = io.BytesIO(await in_thread(file_object.file.read))
-        success = await _send_to_s3(
-            bucket, bytes_object, file_name.lstrip("/")
-        )
-    else:
+    if not isinstance(file_object, valid_in_memory_files):
         LOGGER.error(
             "Attempt to upload invalid memory file", extra={"extra": locals()}
         )
-    return success
+        raise ErrorUploadingFileS3()
+
+    bytes_object = io.BytesIO(await in_thread(file_object.file.read))
+    async with aio_client() as client:
+        try:
+            await client.upload_fileobj(
+                bytes_object,
+                bucket,
+                file_name.lstrip("/"),
+            )
+        except ClientError as ex:
+            LOGGER.exception(ex, extra={"extra": locals()})
+            raise UnavailabilityError()
 
 
 async def sing_upload_url(

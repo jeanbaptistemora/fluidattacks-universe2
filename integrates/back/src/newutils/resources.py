@@ -34,9 +34,12 @@ async def remove_file(file_name: str) -> None:
 
 
 async def save_file(file_object: object, file_name: str) -> bool:
-    return await s3_ops.upload_memory_file(
-        FI_AWS_S3_RESOURCES_BUCKET, file_object, file_name
+    await s3_ops.upload_memory_file(
+        FI_AWS_S3_RESOURCES_BUCKET,
+        file_object,
+        file_name,
     )
+    return True
 
 
 async def search_file(file_name: str) -> List[str]:

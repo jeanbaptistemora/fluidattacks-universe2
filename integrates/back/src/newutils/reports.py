@@ -1,9 +1,6 @@
 from context import (
     FI_AWS_S3_REPORTS_BUCKET,
 )
-from custom_exceptions import (
-    ErrorUploadingFileS3,
-)
 from custom_types import (
     Finding as FindingType,
 )
@@ -41,12 +38,11 @@ async def expose_bytes_as_url(
     uploaded_file = UploadFile(filename=file_name)
     await uploaded_file.write(content)
     await uploaded_file.seek(0)
-    if not await s3_ops.upload_memory_file(
+    await s3_ops.upload_memory_file(
         FI_AWS_S3_REPORTS_BUCKET,
         uploaded_file,
         file_name,
-    ):
-        raise ErrorUploadingFileS3()
+    )
     return await sign_url(path=file_name, minutes=ttl)
 
 
@@ -82,10 +78,9 @@ async def upload_report(file_name: str) -> str:
 async def upload_report_from_file_descriptor(report: Any) -> str:
     file_path = report.filename
     file_name: str = file_path.split("_")[-1]
-
-    if not await s3_ops.upload_memory_file(
-        FI_AWS_S3_REPORTS_BUCKET, report, file_name
-    ):
-        raise ErrorUploadingFileS3()
-
+    await s3_ops.upload_memory_file(
+        FI_AWS_S3_REPORTS_BUCKET,
+        report,
+        file_name,
+    )
     return file_name

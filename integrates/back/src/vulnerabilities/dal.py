@@ -9,9 +9,6 @@ from botocore.exceptions import (
 from context import (
     FI_AWS_S3_REPORTS_BUCKET as VULNS_BUCKET,
 )
-from custom_exceptions import (
-    ErrorUploadingFileS3,
-)
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
     Finding as FindingType,
@@ -275,8 +272,11 @@ async def update(
 async def upload_file(vuln_file: UploadFile) -> str:
     file_path = vuln_file.filename
     file_name = file_path.split("/")[-1]
-    if not await s3_ops.upload_memory_file(VULNS_BUCKET, vuln_file, file_name):
-        raise ErrorUploadingFileS3()
+    await s3_ops.upload_memory_file(
+        VULNS_BUCKET,
+        vuln_file,
+        file_name,
+    )
     return cast(str, file_name)
 
 
