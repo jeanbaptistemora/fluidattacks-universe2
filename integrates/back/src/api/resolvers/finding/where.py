@@ -35,5 +35,4 @@ async def resolve_no_cache(
     parent: Finding, info: GraphQLResolveInfo, **_kwargs: None
 ) -> str:
     finding_id: str = cast(Dict[str, str], parent)["id"]
-    where = await findings_domain.get_where(info.context.loaders, finding_id)
-    return where
+    return await findings_domain.get_where(info.context.loaders, finding_id)

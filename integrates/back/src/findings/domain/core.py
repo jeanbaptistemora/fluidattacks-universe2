@@ -831,6 +831,15 @@ def get_updated_evidence_date_new(
 
 
 async def get_where(loaders: Any, finding_id: str) -> str:
+    """
+    General locations of the Vulnerabilities. It is limited to 20 locations.
+    """
+    return ", ".join(await get_wheres(loaders, finding_id, limit=20))
+
+
+async def get_wheres(
+    loaders: Any, finding_id: str, limit: Optional[int] = None
+) -> List[str]:
     finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr
     vulnerabilities: List[VulnerabilityType] = await finding_vulns_loader.load(
         finding_id
@@ -838,16 +847,18 @@ async def get_where(loaders: Any, finding_id: str) -> str:
     open_vulnerabilities = vulns_domain.filter_open_vulnerabilities(
         vulnerabilities
     )
-    return ", ".join(
-        sorted(
-            set(
-                map(
-                    lambda vulnerability: vulnerability["where"],
-                    open_vulnerabilities,
-                )
+    wheres = sorted(
+        set(
+            map(
+                lambda vulnerability: vulnerability["where"],
+                open_vulnerabilities,
             )
         )
     )
+    if limit:
+        wheres = wheres[:limit]
+
+    return wheres
 
 
 async def has_access_to_finding(email: str, finding_id: str) -> bool:

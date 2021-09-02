@@ -120,7 +120,8 @@ type Finding {
   "Vulnerabilities that have been requested for a reattack"
   vulnsToReattack: [Vulnerability] @deprecated(reason: """This field will be
     removed after 2021/12/31. Use `vulnerabilitiesToReattack` instead.""")
-  "General locations of the Vulnerabilities, can be files, URLs or IPs"
+  """General locations of the Vulnerabilities, can be files, URLs or IPs.
+  It is limited to 20 locations."""
   where: String
   """List of requested and confirmed zero-risk vulnerabilities within the
   Finding"""
