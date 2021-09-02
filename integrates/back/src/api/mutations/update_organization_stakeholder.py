@@ -20,6 +20,9 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
+from newutils.utils import (
+    map_roles,
+)
 from organizations import (
     domain as orgs_domain,
 )
@@ -52,7 +55,7 @@ async def mutate(
 
     user_email: str = str(parameters.get("user_email"))
     new_phone_number: str = str(parameters.get("phone_number"))
-    new_role: str = str(parameters.get("role")).lower()
+    new_role: str = map_roles(str(parameters.get("role")).lower())
 
     if not await orgs_domain.has_user_access(organization_id, user_email):
         logs_utils.cloudwatch_log(

@@ -176,3 +176,16 @@ def get_present_key(
     raise KeyError(
         f"Couldn't find either {current_key} or {old_key} keys in the dict"
     )
+
+
+def map_roles(
+    role: str,
+) -> str:
+    """Maps old roles to their new equivalents"""
+    if role == "analyst":
+        return "hacker"
+    if role == "closer":
+        return "reattacker"
+    if role == "group_manager":
+        return "system_owner"
+    return role

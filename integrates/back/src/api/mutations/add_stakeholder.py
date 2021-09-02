@@ -29,6 +29,9 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
+from newutils.utils import (
+    map_roles,
+)
 from settings import (
     LOGGING,
 )
@@ -49,6 +52,7 @@ async def mutate(
     role: str,
     phone_number: str = "",
 ) -> AddStakeholderPayload:
+    role = map_roles(role)
     success: bool = False
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]

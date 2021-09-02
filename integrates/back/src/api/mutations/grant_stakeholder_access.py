@@ -31,6 +31,7 @@ from newutils import (
 )
 from newutils.utils import (
     get_key_or_fallback,
+    map_roles,
 )
 from redis_cluster.operations import (
     redis_del_by_deps,
@@ -62,7 +63,7 @@ async def mutate(
     success = False
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
-    new_user_role = role
+    new_user_role = map_roles(role)
     new_user_email = query_args.get("email", "")
     new_user_responsibility = query_args.get("responsibility", "-")
 

@@ -20,6 +20,9 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
+from newutils.utils import (
+    map_roles,
+)
 from organizations import (
     domain as orgs_domain,
 )
@@ -49,7 +52,7 @@ async def mutate(
 
     user_email = str(parameters.get("user_email"))
     user_phone_number = str(parameters.get("phone_number"))
-    user_role = str(parameters.get("role")).lower()
+    user_role = map_roles(str(parameters.get("role")).lower())
 
     user_added = await orgs_domain.add_user(
         organization_id, user_email, user_role
