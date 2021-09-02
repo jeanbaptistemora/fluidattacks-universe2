@@ -123,6 +123,13 @@ class Finding31CvssParameters(NamedTuple):
     mod_impact_factor_8: Decimal
 
 
+class FindingUnreliableTreatmentSummary(NamedTuple):
+    accepted: int = 0
+    accepted_undefined: int = 0
+    in_progress: int = 0
+    new: int = 0
+
+
 class FindingUnreliableIndicators(NamedTuple):
     unreliable_age: int = 0
     unreliable_closed_vulnerabilities: int = 0
@@ -132,6 +139,10 @@ class FindingUnreliableIndicators(NamedTuple):
     unreliable_open_vulnerabilities: int = 0
     unreliable_report_date: str = ""
     unreliable_status: FindingStatus = FindingStatus.CLOSED
+    unreliable_treatment_summary: FindingUnreliableTreatmentSummary = (
+        FindingUnreliableTreatmentSummary()
+    )
+    unreliable_wheres: Set[str] = set()
 
 
 class Finding(NamedTuple):
@@ -195,3 +206,7 @@ class FindingUnreliableIndicatorsToUpdate(NamedTuple):
     unreliable_open_vulnerabilities: Optional[int] = None
     unreliable_report_date: Optional[str] = None
     unreliable_status: Optional[FindingStatus] = None
+    unreliable_treatment_summary: Optional[
+        FindingUnreliableTreatmentSummary
+    ] = None
+    unreliable_wheres: Optional[Set[str]] = None
