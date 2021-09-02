@@ -72,12 +72,11 @@ async def add_forces_execution(
     with tempfile.NamedTemporaryFile() as vulns_file:
         vulns_file.write(json.dumps(vulnerabilities).encode("utf-8"))
         vulns_file.seek(os.SEEK_SET)
-        if await forces_dal.save_log_execution(
-            log, log_name
-        ) and await forces_dal.save_log_execution(vulns_file, vulns_name):
-            success = await forces_dal.add_execution(
-                group_name=group_name, **execution_attributes
-            )
+        await forces_dal.save_log_execution(log, log_name)
+        await forces_dal.save_log_execution(vulns_file, vulns_name)
+        success = await forces_dal.add_execution(
+            group_name=group_name, **execution_attributes
+        )
     return success
 
 

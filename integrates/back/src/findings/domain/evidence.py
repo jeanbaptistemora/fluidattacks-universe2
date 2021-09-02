@@ -155,7 +155,6 @@ async def update_evidence(
         get_key_or_fallback(finding, "groupName", "projectName", "")
     )
     today = datetime_utils.get_now_as_str()
-    success = False
 
     if evidence_type == "fileRecords":
         old_file_name: str = next(
@@ -177,32 +176,31 @@ async def update_evidence(
 
     evidence_id = f"{group_name}-{finding_id}-{evidence_type}"
     full_name = f"{group_name}/{finding_id}/{evidence_id}"
-    if await findings_dal.save_evidence(file, full_name):
-        evidence: Union[Dict[str, str], List[Optional[Any]]] = next(
-            (item for item in files if item["name"] == evidence_type), []
+    await findings_dal.save_evidence(file, full_name)
+    evidence: Union[Dict[str, str], List[Optional[Any]]] = next(
+        (item for item in files if item["name"] == evidence_type), []
+    )
+    if evidence:
+        index = files.index(cast(Dict[str, str], evidence))
+        return await findings_dal.update(
+            finding_id,
+            {
+                f"files[{index}].file_url": evidence_id,
+                f"files[{index}].upload_date": today,
+            },
         )
-        if evidence:
-            index = files.index(cast(Dict[str, str], evidence))
-            success = await findings_dal.update(
-                finding_id,
-                {
-                    f"files[{index}].file_url": evidence_id,
-                    f"files[{index}].upload_date": today,
-                },
-            )
-        else:
-            success = await findings_dal.list_append(
-                finding_id,
-                "files",
-                [
-                    {
-                        "name": evidence_type,
-                        "file_url": evidence_id,
-                        "upload_date": today,
-                    }
-                ],
-            )
-    return success
+
+    return await findings_dal.list_append(
+        finding_id,
+        "files",
+        [
+            {
+                "name": evidence_type,
+                "file_url": evidence_id,
+                "upload_date": today,
+            }
+        ],
+    )
 
 
 async def update_evidence_new(

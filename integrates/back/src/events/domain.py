@@ -289,8 +289,6 @@ async def update_evidence(
     update_date: datetime,
 ) -> bool:
     event = await get_event(event_id)
-    success = False
-
     if (
         cast(List[Dict[str, str]], event.get("historic_state", []))[-1].get(
             "state"
@@ -312,17 +310,14 @@ async def update_evidence(
     evidence_id = f"{group_name}-{event_id}-{evidence_type}{extension}"
     full_name = f"{group_name}/{event_id}/{evidence_id}"
 
-    if await events_dal.save_evidence(file, full_name):
-        success = await events_dal.update(
-            event_id,
-            {
-                evidence_type: evidence_id,
-                f"{evidence_type}_date": datetime_utils.get_as_str(
-                    update_date
-                ),
-            },
-        )
-    return success
+    await events_dal.save_evidence(file, full_name)
+    return await events_dal.update(
+        event_id,
+        {
+            evidence_type: evidence_id,
+            f"{evidence_type}_date": datetime_utils.get_as_str(update_date),
+        },
+    )
 
 
 async def validate_evidence(evidence_type: str, file: UploadFile) -> bool:
