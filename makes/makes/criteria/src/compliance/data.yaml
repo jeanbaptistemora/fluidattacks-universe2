@@ -51,9 +51,7 @@
       title: Inducing Account Lockout
       link: https://capec.mitre.org/data/definitions/2.html
     "3":
-      title: >
-        Using Leading 'Ghost' Character Sequences
-        to Bypass Input Filters
+      title: Using Leading 'Ghost' Character Sequences to Bypass Input Filters
       link: https://capec.mitre.org/data/definitions/3.html
     "4":
       title: Using Alternative IP Address Encodings
@@ -116,9 +114,7 @@
       title: Fuzzing
       link: https://capec.mitre.org/data/definitions/28.html
     "29":
-      title: >
-        Leveraging Time-of-Check and
-        Time-of-Use (TOCTOU) Race Conditions
+      title: Leveraging Time-of-Check and Time-of-Use (TOCTOU) Race Conditions
       link: https://capec.mitre.org/data/definitions/29.html
     "30":
       title: Hijacking a Privileged Thread of Execution
@@ -148,9 +144,7 @@
       title: Manipulating Opaque Client-based Data Tokens
       link: https://capec.mitre.org/data/definitions/39.html
     "41":
-      title: >
-        Using Meta-characters in E-mail
-        Headers to Inject Malicious Payloads
+      title: Using Meta-characters in E-mail Headers to Inject Malicious Payloads
       link: https://capec.mitre.org/data/definitions/41.html
     "42":
       title: MIME Conversion
@@ -286,7 +280,7 @@
       link: https://capec.mitre.org/data/definitions/442.html
     "475":
       title: Signature Spoofing by Improper Validation
-      link: https://capec.mitre.org/data/definitions/475.html  
+      link: https://capec.mitre.org/data/definitions/475.html
     "549":
       title: Local Execution of Code
       link: https://capec.mitre.org/data/definitions/549.html
@@ -310,7 +304,7 @@
       link: https://capec.mitre.org/data/definitions/619.html
     "654":
       title: Signal Strength Tracking
-      link: https://capec.mitre.org/data/definitions/654.html  
+      link: https://capec.mitre.org/data/definitions/654.html
   metadata: {}
 "003":
   title: CIS
@@ -349,17 +343,13 @@
       title: Encrypt Sensitive Data at Rest
       link: https://www.cisecurity.org/controls/
     "3_12":
-      title: >
-        Segment Data Processing
-        and Storage Based on Sensitivity
+      title: Segment Data Processing and Storage Based on Sensitivity
       link: https://www.cisecurity.org/controls/
     "4_1":
       title: Establish and Maintain a Secure Configuration Process
       link: https://www.cisecurity.org/controls/
     "4_2":
-      title: >
-        Establish and Maintain a Secure
-        Configuration Process for Network Infrastructure
+      title: Establish and Maintain a Secure Configuration Process for Network Infrastructure
       link: https://www.cisecurity.org/controls/
     "4_3":
       title: Configure Automatic Session Locking on Enterprise Assets
@@ -374,9 +364,7 @@
       title: Manage Default Accounts on Enterprise Assets and Software
       link: https://www.cisecurity.org/controls/
     "4_8":
-      title: >
-        Uninstall or Disable Unnecessary Services
-        on Enterprise Assets and Software
+      title: Uninstall or Disable Unnecessary Services on Enterprise Assets and Software
       link: https://www.cisecurity.org/controls/
     "5_1":
       title: Establish and Maintain an Inventory of Accounts
@@ -388,9 +376,7 @@
       title: Disable Dormant Accounts
       link: https://www.cisecurity.org/controls/
     "5_5":
-      title: >
-        Establish and Maintain
-        an Inventory of Service Accounts
+      title: Establish and Maintain an Inventory of Service Accounts
       link: https://www.cisecurity.org/controls/
     "6_2":
       title: Establish an Access Revoking Process
@@ -420,17 +406,13 @@
       title: Use DNS Filtering Services
       link: https://www.cisecurity.org/controls/
     "9_4":
-      title: >
-        Restrict Unnecessary or Unauthorized Browser
-        and Email Client Extensions
+      title: Restrict Unnecessary or Unauthorized Browser and Email Client Extensions
       link: https://www.cisecurity.org/controls/
     "9_6":
       title: Block Unnecessary File Types
       link: https://www.cisecurity.org/controls/
     "9_7":
-      title: >
-        Deploy and Maintain Email Server
-        Anti-Malware Protections
+      title: Deploy and Maintain Email Server Anti-Malware Protections
       link: https://www.cisecurity.org/controls/
     "10_6":
       title: Centrally Manage Anti-Malware Software
@@ -439,14 +421,10 @@
       title: Establish and Maintain a Secure Network Architecture
       link: https://www.cisecurity.org/controls/
     "12_6":
-      title: >
-        Use of Secure Network Management
-        and Communication Protocols 
+      title: Use of Secure Network Management and Communication Protocols 
       link: https://www.cisecurity.org/controls/
     "13_4":
-      title: >
-        Perform Traffic Filtering
-        Between Network Segments
+      title: Perform Traffic Filtering Between Network Segments
       link: https://www.cisecurity.org/controls/
     "13_9":
       title: Deploy Port-Level Access Control
@@ -455,29 +433,19 @@
       title: Perform Application Layer Filtering
       link: https://www.cisecurity.org/controls/
     "16_1":
-      title: >
-        Establish and Maintain a Secure
-        Application Development Process
+      title: Establish and Maintain a Secure Application Development Process
       link: https://www.cisecurity.org/controls/
     "16_4":
-      title: >
-        Establish and Manage an Inventory
-        of Third-Party Software Components
+      title: Establish and Manage an Inventory of Third-Party Software Components
       link: https://www.cisecurity.org/controls/
     "16_5":
-      title: >
-        Use Up-to-Date and Trusted
-        Third-Party Software Components
+      title: Use Up-to-Date and Trusted Third-Party Software Components
       link: https://www.cisecurity.org/controls/
     "16_10":
-      title: >
-        Apply Secure Design Principles
-        in Application Architectures
+      title: Apply Secure Design Principles in Application Architectures
       link: https://www.cisecurity.org/controls/
     "16_11":
-      title: >
-        Leverage Vetted Modules or Services
-        for Application Security Components
+      title: Leverage Vetted Modules or Services for Application Security Components
       link: https://www.cisecurity.org/controls/
   metadata: {}
 "004":
@@ -499,10 +467,7 @@
       title: Improper Input Validation
       link: https://cwe.mitre.org/data/definitions/20.html
     "22":
-      title: >
-        Improper Limitation
-        of a Pathname to a
-        Restricted Directory ('Path traversal')
+      title: Improper Limitation of a Pathname to a Restricted Directory ('Path traversal')
       link: https://cwe.mitre.org/data/definitions/22.html
     "23":
       title: Relative Path Traversal
@@ -514,52 +479,28 @@
       title: External Control of File Name or Path
       link: https://cwe.mitre.org/data/definitions/73.html
     "74":
-      title: >
-        Improper Neutralization
-        of Special Elements in
-        Output Used by a Downstream
-        Component ('Injection')
+      title: Improper Neutralization of Special Elements in Output Used by a Downstream Component ('Injection')
       link: https://cwe.mitre.org/data/definitions/74.html
     "78":
-      title: >
-        Improper Neutralization
-        of Special Elements used in an
-        OS Command ('OS Command Injection')
+      title: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')
       link: https://cwe.mitre.org/data/definitions/78.html
     "79":
-      title: >
-        Improper Neutralization
-        of Input During Web Page
-        Generation ('Cross-site Scripting')
+      title: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')
       link: https://cwe.mitre.org/data/definitions/79.html
     "80":
-      title: >
-        Improper Neutralization
-        of Script-Related HTML Tags
-        in a Web Page (Basic XSS)
+      title: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS)
       link: https://cwe.mitre.org/data/definitions/80.html
     "89":
-      title: >
-        Improper Neutralization
-        of Special Elements used
-        in an SQL Command ('SQL Injection')
+      title: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')
       link: https://cwe.mitre.org/data/definitions/89.html
     "94":
-      title: >
-        Improper Control of Generation
-        of Code ('Code Injection')
+      title: Improper Control of Generation of Code ('Code Injection')
       link: https://cwe.mitre.org/data/definitions/94.html
     "95":
-      title: >
-        Improper Neutralization
-        of Directives in Dynamically
-        Evaluated Code ('Eval Injection')
+      title: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')
       link: https://cwe.mitre.org/data/definitions/95.html
     "98":
-      title: >
-        Improper Control of Filename
-        for Include/Require Statement
-        in PHP Program ('PHP Remote File Inclusion')
+      title: Improper Control of Filename for Include/Require Statement in PHP Program ('PHP Remote File Inclusion')
       link: https://cwe.mitre.org/data/definitions/98.html
     "116":
       title: Improper Encoding or Escaping of Output
@@ -568,9 +509,7 @@
       title: Improper Output Neutralization for Logs
       link: https://cwe.mitre.org/data/definitions/117.html
     "120":
-      title: >
-        Buffer Copy without Checking
-        Size of Input ('Classic Buffer Overflow')
+      title: Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')
       link: https://cwe.mitre.org/data/definitions/120.html
     "134":
       title: Use of Externally-Controlled Format String
@@ -594,9 +533,7 @@
       title: Integer Overflow or Wraparound
       link: https://cwe.mitre.org/data/definitions/190.html
     "200":
-      title: >
-        Exposure of Sensitive Information
-        to an Unauthorized Actor
+      title: Exposure of Sensitive Information to an Unauthorized Actor
       link: https://cwe.mitre.org/data/definitions/200.html
     "203":
       title: Observable Discrepancy
@@ -608,24 +545,16 @@
       title: Observable Timing Discrepancy
       link: https://cwe.mitre.org/data/definitions/208.html
     "209":
-      title: >
-        Generation of Error Message
-        Containing Sensitive Information
+      title: Generation of Error Message Containing Sensitive Information
       link: https://cwe.mitre.org/data/definitions/209.html
     "210":
-      title: >
-        Self-generated Error Message
-        Containing Sensitive Information
+      title: Self-generated Error Message Containing Sensitive Information
       link: https://cwe.mitre.org/data/definitions/210.html
     "212":
-      title: >
-        Improper Removal of Sensitive
-        Information Before Storage or Transfer
+      title: Improper Removal of Sensitive Information Before Storage or Transfer
       link: https://cwe.mitre.org/data/definitions/212.html
     "213":
-      title: >
-        Exposure of Sensitive Information
-        Due to Incompatible Policies
+      title: Exposure of Sensitive Information Due to Incompatible Policies
       link: https://cwe.mitre.org/data/definitions/213.html
     "219":
       title: Storage of File with Sensitive Data Under Web Root
@@ -634,9 +563,7 @@
       title: Omission of Security-relevant Information
       link: https://cwe.mitre.org/data/definitions/223.html
     "226":
-      title: >
-        Sensitive Information in Resource
-        Not Removed Before Reuse
+      title: Sensitive Information in Resource Not Removed Before Reuse
       link: https://cwe.mitre.org/data/definitions/226.html
     "233":
       title: Improper Handling of Parameters
@@ -691,7 +618,7 @@
       link: https://cwe.mitre.org/data/definitions/297.html
     "298":
       title: Improper Validation of Certificate Expiration
-      link: https://cwe.mitre.org/data/definitions/298.html  
+      link: https://cwe.mitre.org/data/definitions/298.html
     "299":
       title: Improper Check for Certificate Revocation
       link: https://cwe.mitre.org/data/definitions/299.html
@@ -747,14 +674,10 @@
       title: Small Space of Random Values
       link: https://cwe.mitre.org/data/definitions/334.html
     "335":
-      title: >
-        Incorrect Usage of Seeds in
-        Pseudo-Random Number Generator (PRNG)
+      title: Incorrect Usage of Seeds in Pseudo-Random Number Generator (PRNG)
       link: https://cwe.mitre.org/data/definitions/335.html
     "338":
-      title: >
-        Use of Cryptographically Weak
-        Pseudo-Random Number Generator (PRNG)
+      title: Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)
       link: https://cwe.mitre.org/data/definitions/338.html
     "340":
       title: Generation of Predictable Numbers or Identifiers
@@ -769,9 +692,7 @@
       title: Improper Verification of Cryptographic Signature
       link: https://cwe.mitre.org/data/definitions/347.html
     "350":
-      title: >
-        Reliance on Reverse DNS Resolution
-        for a Security-Critical Action
+      title: Reliance on Reverse DNS Resolution for a Security-Critical Action
       link: https://cwe.mitre.org/data/definitions/350.html
     "352":
       title: Cross-Site Request Forgery (CSRF)
@@ -780,15 +701,10 @@
       title: Missing Support for Integrity Check
       link: https://cwe.mitre.org/data/definitions/353.html
     "359":
-      title: >
-        Exposure of Private Personal
-        Information to an Unauthorized Actor
+      title: Exposure of Private Personal Information to an Unauthorized Actor
       link: https://cwe.mitre.org/data/definitions/359.html
     "362":
-      title: >
-        Concurrent Execution
-        using Shared Resource with
-        Improper Synchronization ('Race Condition')
+      title: Concurrent Execution using Shared Resource with Improper Synchronization ('Race Condition')
       link: https://cwe.mitre.org/data/definitions/362.html
     "367":
       title: Time-of-check Time-of-use (TOCTOU) Race Condition
@@ -812,9 +728,7 @@
       title: Improper Resource Shutdown or Release
       link: https://cwe.mitre.org/data/definitions/404.html
     "409":
-      title: >
-        Improper Handling of Highly
-        Compressed Data (Data Amplification)
+      title: Improper Handling of Highly Compressed Data (Data Amplification)
       link: https://cwe.mitre.org/data/definitions/409.html
     "419":
       title: Unprotected Primary Channel
@@ -823,9 +737,7 @@
       title: Unrestricted Upload of File with Dangerous Type
       link: https://cwe.mitre.org/data/definitions/434.html
     "444":
-      title: >
-        Inconsistent Interpretation of
-        HTTP Requests ('HTTP Request Smuggling')
+      title: Inconsistent Interpretation of HTTP Requests ('HTTP Request Smuggling')
       link: https://cwe.mitre.org/data/definitions/444.html
     "451":
       title: User Interface (UI) Misrepresentation of Critical Information
@@ -849,9 +761,7 @@
       title: Download of Code Without Integrity Check
       link: https://cwe.mitre.org/data/definitions/494.html
     "497":
-      title: >
-        Exposure of Sensitive System Information
-        to an Unauthorized Control Sphere
+      title: Exposure of Sensitive System Information to an Unauthorized Control Sphere
       link: https://cwe.mitre.org/data/definitions/497.html
     "502":
       title: Deserialization of Untrusted Data
@@ -938,9 +848,7 @@
       title: External Control of Critical State Data
       link: https://cwe.mitre.org/data/definitions/642.html
     "643":
-      title: >
-        Improper Neutralization of Data
-        within XPath Expressions ('XPath Injection')
+      title: Improper Neutralization of Data within XPath Expressions ('XPath Injection')
       link: https://cwe.mitre.org/data/definitions/643.html
     "644":
       title: Improper Neutralization of HTTP Headers for Scripting Syntax
@@ -967,9 +875,7 @@
       title: Exposed Dangerous Method or Function
       link: https://cwe.mitre.org/data/definitions/749.html
     "757":
-      title: >
-        Selection of Less-Secure Algorithm
-        During Negotiation ('Algorithm Downgrade')
+      title: Selection of Less-Secure Algorithm During Negotiation ('Algorithm Downgrade')
       link: https://cwe.mitre.org/data/definitions/757.html
     "759":
       title: Use of a One-Way Hash without a Salt
@@ -1002,9 +908,7 @@
       title: Inclusion of Web Functionality from an Untrusted Source
       link: https://cwe.mitre.org/data/definitions/830.html
     "915":
-      title: >
-        Improperly Controlled Modification
-        of Dynamically-Determined Object Attributes
+      title: Improperly Controlled Modification of Dynamically-Determined Object Attributes
       link: https://cwe.mitre.org/data/definitions/915.html
     "916":
       title: Use of Password Hash With Insufficient Computational Effort
@@ -1016,9 +920,7 @@
       title: Insecure Storage of Sensitive Information
       link: https://cwe.mitre.org/data/definitions/922.html
     "923":
-      title: >
-        Improper Restriction of Communication
-        Channel to Intended Endpoints
+      title: Improper Restriction of Communication Channel to Intended Endpoints
       link: https://cwe.mitre.org/data/definitions/923.html
     "943":
       title: Improper Neutralization of Special Elements in Data Query Logic
@@ -1030,14 +932,10 @@
       title: Improper Restriction of Rendered UI Layers or Frames
       link: https://cwe.mitre.org/data/definitions/1021.html
     "1022":
-      title: >
-        Use of Web Link to Untrusted Target
-        with window.opener Access
+      title: Use of Web Link to Untrusted Target with window.opener Access
       link: https://cwe.mitre.org/data/definitions/1022.html
     "1085":
-      title: >
-        Invokable Control Element with
-        Excessive Volume of Commented-out Code
+      title: Invokable Control Element with Excessive Volume of Commented-out Code
       link: https://cwe.mitre.org/data/definitions/1085.html
     "1120":
       title: Excessive Code Complexity
@@ -1052,9 +950,7 @@
       title: Exposure of Sensitive Information Through Metadata
       link: https://cwe.mitre.org/data/definitions/1230.html
     "1233":
-      title: >
-        Improper Hardware Lock Protection
-        for Security Sensitive Controls
+      title: Improper Hardware Lock Protection for Security Sensitive Controls
       link: https://cwe.mitre.org/data/definitions/1233.html
     "1269":
       title: Product Released in Non-Release Configuration
@@ -1121,16 +1017,10 @@
       title: Processing which does not require identification
       link: https://gdpr-info.eu/art-11-gdpr/
     "13_1-3":
-      title: >
-        Information to be provided
-        where personal data are collected
-        from the data subject
+      title: Information to be provided where personal data are collected from the data subject
       link: https://gdpr-info.eu/art-13-gdpr/
     "14_1-4":
-      title: >
-        Information to be provided
-        where personal data have not been
-        obtained from the data subject
+      title: Information to be provided where personal data have not been obtained from the data subject
       link: https://gdpr-info.eu/art-14-gdpr/
     "15_1ag":
       title: Right of access by the data subject
@@ -1148,10 +1038,7 @@
       title: Right to restriction of processing
       link: https://gdpr-info.eu/art-18-gdpr/
     "19":
-      title: >
-        Notification obligation regarding
-        rectification or erasure of personal data
-        or restriction of processing
+      title: Notification obligation regarding rectification or erasure of personal data or restriction of processing
       link: https://gdpr-info.eu/art-19-gdpr/
     "20_1":
       title: Right to data portability
@@ -1178,31 +1065,16 @@
       title: Security of processing
       link: https://gdpr-info.eu/art-32-gdpr/
     "33_5":
-      title: >
-        Notification of a personal data breach
-        to the supervisory authority
+      title: Notification of a personal data breach to the supervisory authority
       link: https://gdpr-info.eu/art-33-gdpr/
     "89_2":
-      title: >
-        Safeguards and derogations relating
-        to processing for archiving purposes
-        in the public interest, scientific
-        or historical research purposes
-        or statistical purposes
+      title: Safeguards and derogations relating to processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes
       link: https://gdpr-info.eu/art-89-gdpr/
     "89_3":
-      title: >
-        Safeguards and derogations relating
-        to processing for archiving purposes
-        in the public interest,
-        scientific or historical research purposes
-        or statistical purposes
+      title: Safeguards and derogations relating to processing for archiving purposes in the public interest, scientific or historical research purposes or statistical purposes
       link: https://gdpr-info.eu/art-89-gdpr/
     "R6":
-      title: >
-        Ensuring a High Level of
-        Data Protection Despite
-        the Increased Exchange of Data
+      title: Ensuring a High Level of Data Protection Despite the Increased Exchange of Data
       link: https://gdpr-info.eu/recitals/no-6/
     "R7":
       title: The Framework is Based on Control and Certainty
@@ -1388,9 +1260,7 @@
       title: Electronic Access Controls
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-003-8.pdf
     "003-8_5_1":
-      title: >
-        Transient Cyber Asset and Removable
-        Media Malicious Code Risk Mitigation
+      title: Transient Cyber Asset and Removable Media Malicious Code Risk Mitigation
       link: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-003-8.pdf
     "004-6_R5":
       title: Access revocation
@@ -1495,9 +1365,7 @@
       title: Cryptographic Module Authentication
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
     "PL-4_1":
-      title: >
-        Social Media and External
-        Site/Applications Usage Restrictions
+      title: Social Media and External Site/Applications Usage Restrictions
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
     "SC-3":
       title: Security Function Isolation
@@ -2602,10 +2470,7 @@
       title: Remove development, test or custom application accounts
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
     "6_4_1":
-      title: >
-        Separate development
-        or test environments
-        from production environments
+      title: Separate development or test environments from production environments
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
     "6_4_3":
       title: Production data (live PANs) are not used for testing or development
@@ -2668,17 +2533,13 @@
       title: Require the user to re-authenticate (inactive)
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
     "8_2":
-      title: >
-        Ensure proper user-authentication
-        management for non-consumer users
+      title: Ensure proper user-authentication management for non-consumer users
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
     "8_2_1":
       title: Using strong cryptography
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
     "8_2_2":
-      title: >
-        Verify user identity before
-        modifying any authentication credential
+      title: Verify user identity before modifying any authentication credential
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
     "8_2_3":
       title: Passwords or passphrases must meet minimum requirements
@@ -2702,12 +2563,7 @@
       title: Database containing cardholder data
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
     "9_1_3":
-      title: >
-        Restrict physical access
-        to wireless access points, gateways,
-        handheld devices,
-        networking/communications hardware,
-        and telecommunication lines
+      title: Restrict physical access to wireless access points, gateways, handheld devices, networking/communications hardware, and telecommunication lines
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
     "9_8_2":
       title: Render cardholder data on electronic media unrecoverable
@@ -2716,9 +2572,7 @@
       title: Individual user accesses to cardholder data
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
     "10_2_2":
-      title: >
-        Actions taken by any individual
-        with root or administrative privileges
+      title: Actions taken by any individual with root or administrative privileges
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
     "10_2_3":
       title: Access to all audit trails
@@ -2761,11 +2615,8 @@
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
     "12_3_2":
       title:  Authentication for use of the technology
-      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf  
+      link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
     "12_3_8":
-      title: >
-        Automatic disconnect of sessions
-        for remote-access technologies
-        after a specific period of inactivity
+      title: Automatic disconnect of sessions for remote-access technologies after a specific period of inactivity
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
   metadata: {}

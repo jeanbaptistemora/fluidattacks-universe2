@@ -109,13 +109,37 @@ let
       builtins.map reqVuln vulns
     );
 
-  # Generate definitions list for a standard
-  standardDef = id: def:
-    "- [${id}. ${def.title}](${def.link})";
-  defsForStandard = defs:
+  # Generate definitions list and related requirements for a standard
+  reqHasDef = req: std: def:
+    builtins.any (x: x == "${std}.${def}") requirements.${req}.references;
+  defReq = id:
+    let
+      title = requirements.${id}.en.title;
+    in
+    "  - [${id}. ${title}](/criteria/requirements/${id})";
+  reqsForDef = std: def:
+    let
+      reqs = builtins.attrNames (
+        lib.filterAttrs (id: _: reqHasDef id std def) requirements
+      );
+    in
+    builtins.concatStringsSep "\n" (
+      builtins.map defReq reqs
+    );
+  standardDef = stdId: defId: defData:
+    let
+      def = "- [${defId}. ${defData.title}](${defData.link})";
+      reqs = reqsForDef stdId defId;
+      result =
+        if reqs != ""
+        then builtins.concatStringsSep "\n" [ def reqs ]
+        else def;
+    in
+    result;
+  defsForStandard = stdId: defs:
     builtins.concatStringsSep "\n" (
       builtins.attrValues (
-        builtins.mapAttrs standardDef defs
+        builtins.mapAttrs (standardDef stdId) defs
       )
     );
 
@@ -221,7 +245,7 @@ let
       __argTitle__ = src.title;
       __argDescription__ = section "## Description" src.en.description;
       __argDefinitions__ =
-        section "## Definitions" (defsForStandard src.definitions);
+        section "## Definitions" (defsForStandard __argCode__ src.definitions);
     };
     name = "docs-make-compliance-${__argCode__}";
     template = ./templates/compliance.md;
