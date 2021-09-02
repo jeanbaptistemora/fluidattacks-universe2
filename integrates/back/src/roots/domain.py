@@ -183,7 +183,9 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
 
     group = await group_loader.load(group_name)
     if not validations.is_git_unique(
-        url, await get_org_roots(context=context, org_id=group["organization"])
+        url,
+        branch,
+        await get_org_roots(context=context, org_id=group["organization"]),
     ):
         raise RepeatedRoot()
 
@@ -479,7 +481,9 @@ async def activate_root(
         )
 
         if isinstance(root, GitRootItem):
-            if not validations.is_git_unique(root.metadata.url, org_roots):
+            if not validations.is_git_unique(
+                root.metadata.url, root.metadata.branch, org_roots
+            ):
                 raise RepeatedRoot()
 
             await roots_model.update_root_state(

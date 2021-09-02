@@ -81,9 +81,9 @@ def validate_nickname_is_unique(
         raise RepeatedRootNickname()
 
 
-def is_git_unique(url: str, roots: Tuple[RootItem, ...]) -> bool:
-    return url not in tuple(
-        root.metadata.url
+def is_git_unique(url: str, branch: str, roots: Tuple[RootItem, ...]) -> bool:
+    return (url, branch) not in tuple(
+        (root.metadata.url, root.metadata.branch)
         for root in roots
         if isinstance(root, GitRootItem) and root.state.status == "ACTIVE"
     )
