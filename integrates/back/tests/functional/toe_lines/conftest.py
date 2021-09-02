@@ -5,6 +5,7 @@ from data_containers.toe_lines import (
     GitRootToeLines,
 )
 from db_model.roots.types import (
+    GitEnvironmentUrl,
     GitRootCloning,
     GitRootItem,
     GitRootMetadata,
@@ -37,8 +38,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     url="https://gitlab.com/fluidattacks/product",
                 ),
                 state=GitRootState(
-                    environment_urls=["https://test.com"],
                     environment="production",
+                    environment_urls=["https://test.com"],
+                    git_environment_urls=[
+                        GitEnvironmentUrl(url="https://test.com")
+                    ],
                     gitignore=["bower_components/*", "node_modules/*"],
                     includes_health_check=True,
                     modified_by="admin@gmail.com",
@@ -63,8 +67,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     url="https://gitlab.com/fluidattacks/asm_1",
                 ),
                 state=GitRootState(
-                    environment_urls=["https://test.com"],
                     environment="production",
+                    environment_urls=["https://test.com"],
+                    git_environment_urls=[
+                        GitEnvironmentUrl(url="https://test.com")
+                    ],
                     gitignore=["node_modules/*"],
                     includes_health_check=True,
                     modified_by="admin@gmail.com",

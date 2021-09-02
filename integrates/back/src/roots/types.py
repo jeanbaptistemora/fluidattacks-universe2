@@ -10,10 +10,15 @@ class GitRootCloningStatus(NamedTuple):
     status: str
 
 
+class GitEnvironmentUrl(NamedTuple):
+    url: str
+
+
 class GitRoot(NamedTuple):
     branch: str
     cloning_status: GitRootCloningStatus
     environment_urls: List[str]
+    git_environment_urls: List[GitEnvironmentUrl]
     environment: str
     gitignore: List[str]
     group_name: str

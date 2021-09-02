@@ -18,9 +18,14 @@ class GitRootCloning(NamedTuple):
     status: str
 
 
+class GitEnvironmentUrl(NamedTuple):
+    url: str
+
+
 class GitRootState(NamedTuple):
-    environment_urls: List[str]
     environment: str
+    environment_urls: List[str]
+    git_environment_urls: List[GitEnvironmentUrl]
     gitignore: List[str]
     includes_health_check: bool
     modified_by: str

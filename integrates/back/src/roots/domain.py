@@ -13,6 +13,7 @@ from db_model import (
     roots as roots_model,
 )
 from db_model.roots.types import (
+    GitEnvironmentUrl,
     GitRootCloning,
     GitRootItem,
     GitRootMetadata,
@@ -80,6 +81,7 @@ def format_root(root: RootItem) -> Root:
             ),
             environment=root.state.environment,
             environment_urls=root.state.environment_urls,
+            git_environment_urls=root.state.git_environment_urls,
             gitignore=root.state.gitignore,
             group_name=root.group_name,
             id=root.id,
@@ -199,8 +201,9 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
         id=str(uuid4()),
         metadata=GitRootMetadata(branch=branch, type="Git", url=url),
         state=GitRootState(
-            environment_urls=list(),
             environment=kwargs["environment"],
+            environment_urls=list(),
+            git_environment_urls=list(),
             gitignore=gitignore,
             includes_health_check=kwargs["includes_health_check"],
             modified_by=user_email,
@@ -358,8 +361,11 @@ async def update_git_environments(
         group_name=group_name,
         root_id=root_id,
         state=GitRootState(
-            environment_urls=environment_urls,
             environment=root.state.environment,
+            environment_urls=environment_urls,
+            git_environment_urls=[
+                GitEnvironmentUrl(url=item) for item in environment_urls
+            ],
             gitignore=root.state.gitignore,
             includes_health_check=root.state.includes_health_check,
             modified_by=user_email,
@@ -410,8 +416,12 @@ async def update_git_root(
         group_name=group_name,
         root_id=root_id,
         state=GitRootState(
-            environment_urls=root.state.environment_urls,
             environment=kwargs["environment"],
+            environment_urls=root.state.environment_urls,
+            git_environment_urls=[
+                GitEnvironmentUrl(url=item)
+                for item in root.state.environment_urls
+            ],
             gitignore=gitignore,
             includes_health_check=kwargs["includes_health_check"],
             modified_by=user_email,
@@ -490,8 +500,12 @@ async def activate_root(
                 group_name=group_name,
                 root_id=root.id,
                 state=GitRootState(
-                    environment_urls=root.state.environment_urls,
                     environment=root.state.environment,
+                    environment_urls=root.state.environment_urls,
+                    git_environment_urls=[
+                        GitEnvironmentUrl(url=item)
+                        for item in root.state.environment_urls
+                    ],
                     gitignore=root.state.gitignore,
                     includes_health_check=root.state.includes_health_check,
                     modified_by=user_email,
@@ -570,8 +584,12 @@ async def deactivate_root(
                 group_name=group_name,
                 root_id=root.id,
                 state=GitRootState(
-                    environment_urls=root.state.environment_urls,
                     environment=root.state.environment,
+                    environment_urls=root.state.environment_urls,
+                    git_environment_urls=[
+                        GitEnvironmentUrl(url=item)
+                        for item in root.state.environment_urls
+                    ],
                     gitignore=root.state.gitignore,
                     includes_health_check=root.state.includes_health_check,
                     modified_by=user_email,

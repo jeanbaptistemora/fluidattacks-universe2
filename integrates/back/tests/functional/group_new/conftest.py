@@ -19,6 +19,7 @@ from db_model.findings.types import (
     FindingVerification,
 )
 from db_model.roots.types import (
+    GitEnvironmentUrl,
     GitRootCloning,
     GitRootItem,
     GitRootMetadata,
@@ -493,8 +494,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     url="https://gitlab.com/fluidattacks/product",
                 ),
                 state=GitRootState(
-                    environment_urls=["https://.com"],
                     environment="production",
+                    environment_urls=["https://.com"],
+                    git_environment_urls=[
+                        GitEnvironmentUrl(url="https://test.com")
+                    ],
                     gitignore=["bower_components/*", "node_modules/*"],
                     includes_health_check=True,
                     modified_by="admin@gmail.com",

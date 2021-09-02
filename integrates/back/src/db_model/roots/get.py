@@ -17,6 +17,7 @@ from db_model import (
     TABLE,
 )
 from db_model.roots.types import (
+    GitEnvironmentUrl,
     GitRootCloning,
     GitRootItem,
     GitRootMetadata,
@@ -84,8 +85,12 @@ def _build_root(
                 url=metadata["url"],
             ),
             state=GitRootState(
-                environment_urls=state["environment_urls"],
                 environment=state["environment"],
+                environment_urls=state["environment_urls"],
+                git_environment_urls=[
+                    GitEnvironmentUrl(url=item)
+                    for item in state["environment_urls"]
+                ],
                 gitignore=state["gitignore"],
                 includes_health_check=state["includes_health_check"],
                 modified_by=state["modified_by"],

@@ -16,6 +16,12 @@ type GitRootCloningStatus {
   status: CloningStatus!
 }
 
+"Git Root environment url definition"
+type GitEnvironmentUrl {
+  "Environment url"
+  url: String!
+}
+
 "Git Root type definition"
 type GitRoot implements IRoot {
   "Repository branch to be tested"
@@ -26,6 +32,8 @@ type GitRoot implements IRoot {
   environment: String!
   "URLs to access the environment"
   environmentUrls: [String!]!
+  "URLs to access the environment"
+  gitEnvironmentUrls: [GitEnvironmentUrl]!
   "Repository paths to be ignored"
   gitignore: [String!]!
   "ID of the root"
