@@ -11,6 +11,6 @@ computeOnAws {
   secrets = [
     "PRODUCT_API_TOKEN"
   ];
-  timeout = 7200;
+  timeout = 3600;
   vcpus = 4;
 }
