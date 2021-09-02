@@ -575,6 +575,462 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test043.js,16,22,skims,063.
   26 |
      ^ Col 0
 "
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test044.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test044.js,"
+   5 |
+   6 | router.delete(""/test044/:user/:fileName"", function (req, res) {
+   7 |   var user = req.params[""user""];
+   8 |   var fileName = req.params[""fileName""];
+   9 |   var filePath = pathh.join(""target/user_files"", user, `${fileName}.yaml`);
+  10 |
+  11 |   let result = {
+  12 |     ok: false,
+  13 |   };
+  14 |   if (2 > -4) {
+> 15 |     fs.unlink(filePath, (err) => {
+  16 |       result.ok = true;
+  17 |       if (err) {
+  18 |         result[""ok""] = false;
+  19 |         result[""errors""] = [
+  20 |           {
+  21 |             message: err,
+  22 |           },
+  23 |         ];
+  24 |       }
+  25 |       res.json(result);
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test045.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test045.js,"
+   4 | const path = require(""path"");
+   5 |
+   6 | router.delete(""/test045/:user/:fileName"", function (req, res) {
+   7 |   var user = req.params[""user""];
+   8 |   var fileName = req.params[""fileName""];
+   9 |   var filePath = path.join(""target/user_files"", user, `${fileName}`);
+  10 |
+  11 |   let result = {
+  12 |     ok: false,
+  13 |   };
+> 14 |   fs.unlink(filePath, (error) => {
+  15 |     result.ok = true;
+  16 |     if (error) {
+  17 |       result[""ok""] = false;
+  18 |       result[""errors""] = [
+  19 |         {
+  20 |           message: error,
+  21 |         },
+  22 |       ];
+  23 |     }
+  24 |     res.send(result);
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test046.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test046.js,"
+   4 | var router = Router();
+   5 |
+   6 | router.delete(""/test046/:user/:fileName"", function (req, res) {
+   7 |   var user = req.params[""user""];
+   8 |   var fileName = req.params[""fileName""];
+   9 |   var filePath = join(""target/user_files"", user, fileName);
+  10 |
+  11 |   let result = {
+  12 |     ok: false,
+  13 |   };
+> 14 |   unlink(filePath, (error) => {
+  15 |     result.ok = true;
+  16 |     if (error) {
+  17 |       result[""ok""] = false;
+  18 |       result[""errors""] = [
+  19 |         {
+  20 |           message: error,
+  21 |         },
+  22 |       ];
+  23 |     }
+  24 |     res.send(result);
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test047.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test047.js,"
+   4 | var router = Router();
+   5 |
+   6 | router.delete(""/test047/:user/:fileName"", function (req, res) {
+   7 |   var user = req.params[""user""];
+   8 |   var fileName = req.params[""fileName""];
+   9 |   var filePath = pathh.join(""target/user_files"", user, fileName);
+  10 |
+  11 |   let result = {
+  12 |     ok: false,
+  13 |   };
+> 14 |   unlink(filePath, (error) => {
+  15 |     result.ok = true;
+  16 |     if (error) {
+  17 |       result[""ok""] = false;
+  18 |       result[""errors""] = [
+  19 |         {
+  20 |           message: error,
+  21 |         },
+  22 |       ];
+  23 |     }
+  24 |     res.json(result);
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test048.js,14,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test048.js,"
+   4 | var router = Router();
+   5 |
+   6 | router.delete(""/test048/:user/:fileName"", function (req, res) {
+   7 |   var user = req.params[""user""];
+   8 |   var fileName = req.params[""fileName""];
+   9 |   var filePath = join(""target/user_files"", user, fileName);
+  10 |
+  11 |   let result = {
+  12 |     ok: false,
+  13 |   };
+> 14 |   fs.unlink(filePath, (error) => {
+  15 |     result.ok = true;
+  16 |     if (error) {
+  17 |       result[""ok""] = false;
+  18 |       result[""errors""] = [
+  19 |         {
+  20 |           message: error,
+  21 |         },
+  22 |       ];
+  23 |     }
+  24 |     res.send(result);
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test049.js,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test049.js,"
+   5 |
+   6 | router.delete(""/test049/:user/:fileName"", function (req, res) {
+   7 |   var user = req.params[""user""];
+   8 |   var fileName = req.params[""fileName""];
+   9 |   var filePath = pathh.join(""target/user_files"", user, `${fileName}.yaml`);
+  10 |
+  11 |   let result = {
+  12 |     ok: false,
+  13 |   };
+  14 |   if (2 > -4) {
+> 15 |     fs.unlink(filePath, (error) => {
+  16 |       result.ok = true;
+  17 |       if (error) {
+  18 |         result[""ok""] = false;
+  19 |         result[""errors""] = [
+  20 |           {
+  21 |             message: error,
+  22 |           },
+  23 |         ];
+  24 |       }
+  25 |       res.json(result);
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test050.js,18,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test050.js,"
+   8 |
+   9 |   let user = body.user;
+  10 |   let file = body.fileName;
+  11 |   let payload = body.payload;
+  12 |   var filePath = join(""target/user_files"", user, file);
+  13 |
+  14 |   let result = {
+  15 |     ok: false,
+  16 |   };
+  17 |   try {
+> 18 |     writeFileSync(filePath, payload, ""utf8"");
+  19 |     result.ok = true;
+  20 |   } catch (error) {
+  21 |     result.ok = false;
+  22 |     result[""errors""] = [
+  23 |       {
+  24 |         message: error,
+  25 |       },
+  26 |     ];
+  27 |   }
+  28 |   res.json(result);
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test051.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test051.js,"
+   7 |   let body = req.body;
+   8 |
+   9 |   let user = body.user;
+  10 |   let file = body.fileName;
+  11 |   let payload = body.payload;
+  12 |
+  13 |   let result = {
+  14 |     ok: false,
+  15 |   };
+  16 |   try {
+> 17 |     fileSystem.writeFileSync(
+  18 |       `target/user_files/${user}/${file}`,
+  19 |       payload,
+  20 |       ""utf8""
+  21 |     );
+  22 |     result.ok = true;
+  23 |   } catch (error) {
+  24 |     result.ok = false;
+  25 |     result[""errors""] = [
+  26 |       {
+  27 |         message: error,
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test052.js,21,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test052.js,"
+  11 |   let payload = body.payload;
+  12 |
+  13 |   let result = {
+  14 |     ok: false,
+  15 |   };
+  16 |   let data = {
+  17 |     write: false,
+  18 |   };
+  19 |   if (data.write) {
+  20 |     try {
+> 21 |       fileSystem.writeFileSync(
+  22 |         `target/user_files/${user}/${file}`,
+  23 |         payload,
+  24 |         ""utf8""
+  25 |       );
+  26 |       result.ok = true;
+  27 |     } catch (error) {
+  28 |       result.ok = false;
+  29 |       result[""errors""] = [
+  30 |         {
+  31 |           message: error,
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test053.js,19,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test053.js,"
+   9 |   let user = body.user;
+  10 |   let file = body.fileName;
+  11 |   let payload = body.payload;
+  12 |
+  13 |   let result = {
+  14 |     ok: false,
+  15 |   };
+  16 |   let filePath = join(`target/user_files/${user}/`, `${file}` + "".yaml"");
+  17 |   if (53 > 43) {
+  18 |     try {
+> 19 |       fileSystem.writeFileSync(filePath, payload, ""utf8"");
+  20 |       result.ok = true;
+  21 |     } catch (error) {
+  22 |       result.ok = false;
+  23 |       result[""errors""] = [
+  24 |         {
+  25 |           message: error,
+  26 |         },
+  27 |       ];
+  28 |     }
+  29 |   }
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test054.js,19,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test054.js,"
+   9 |   let user = body.user;
+  10 |   let file = body.fileName;
+  11 |   let payload = body.payload;
+  12 |
+  13 |   let result = {
+  14 |     ok: false,
+  15 |   };
+  16 |   let filePath = join(`target/user_files/${user}/`, file + "".yaml"");
+  17 |   console.log(filePath);
+  18 |   try {
+> 19 |     fileSystem.writeFileSync(filePath, payload, ""utf8"");
+  20 |     result.ok = true;
+  21 |   } catch (error) {
+  22 |     result.ok = false;
+  23 |     result[""errors""] = [
+  24 |       {
+  25 |         message: error,
+  26 |       },
+  27 |     ];
+  28 |   }
+  29 |   res.json(result);
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test055.js,18,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test055.js,"
+   8 |
+   9 |   let user = body.user;
+  10 |   let file = body.fileName;
+  11 |   let payload = body.payload;
+  12 |
+  13 |   let result = {
+  14 |     ok: false,
+  15 |   };
+  16 |   let filePath = join(`target/user_files/${user}/`, file + "".yaml"");
+  17 |   try {
+> 18 |     fileSystem.writeFileSync(filePath, payload, ""utf8"");
+  19 |     result.ok = true;
+  20 |   } catch (error) {
+  21 |     result.ok = false;
+  22 |     result[""errors""] = [
+  23 |       {
+  24 |         message: error,
+  25 |       },
+  26 |     ];
+  27 |   }
+  28 |   res.json(result);
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test056.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test056.js,"
+   7 |   let body = req.body;
+   8 |
+   9 |   let user = body.user;
+  10 |   let file = body.fileName;
+  11 |   let payload = body.payload;
+  12 |   var filePath = join(""target/user_files"", user, file);
+  13 |
+  14 |   let result = {
+  15 |     ok: false,
+  16 |   };
+> 17 |   writeFile(filePath, payload, ""utf8"", (error) => {
+  18 |     result.ok = true;
+  19 |     if (error) {
+  20 |       result.ok = false;
+  21 |       result[""errors""] = [
+  22 |         {
+  23 |           message: error,
+  24 |         },
+  25 |       ];
+  26 |     }
+  27 |     res.json(result);
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test057.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test057.js,"
+   7 |   let body = req.body;
+   8 |
+   9 |   let user = body.user;
+  10 |   let file = body.fileName;
+  11 |   let payload = body.payload;
+  12 |
+  13 |   let result = {
+  14 |     ok: false,
+  15 |   };
+  16 |
+> 17 |   fileSystem.writeFile(
+  18 |     `target/user_files/${user}/${file}`,
+  19 |     payload,
+  20 |     ""utf8"",
+  21 |     (error) => {
+  22 |       result.ok = true;
+  23 |       if (error) {
+  24 |         result.ok = false;
+  25 |         result[""errors""] = [
+  26 |           {
+  27 |             message: error,
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test058.js,20,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test058.js,"
+  10 |   let file = body.fileName;
+  11 |   let payload = body.payload;
+  12 |
+  13 |   let result = {
+  14 |     ok: false,
+  15 |   };
+  16 |   let data = {
+  17 |     write: false,
+  18 |   };
+  19 |   if (data.write) {
+> 20 |     fileSystem.writeFile(
+  21 |       `target/user_files/${user}/${file}`,
+  22 |       payload,
+  23 |       ""utf8"",
+  24 |       function (error) {
+  25 |         result.ok = true;
+  26 |         if (errors) {
+  27 |           result.ok = false;
+  28 |           result[""errors""] = [
+  29 |             {
+  30 |               message: error,
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test059.js,18,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test059.js,"
+   8 |
+   9 |   let user = body.user;
+  10 |   let file = body.fileName;
+  11 |   let payload = body.payload;
+  12 |
+  13 |   let result = {
+  14 |     ok: false,
+  15 |   };
+  16 |   let filePath = join(`target/user_files/${user}/`, `${file}` + "".yaml"");
+  17 |   if (53 > 43) {
+> 18 |     fileSystem.writeFile(filePath, payload, ""utf8"", function (error) {
+  19 |       result.ok = true;
+  20 |       if (error) {
+  21 |         result.ok = false;
+  22 |         result[""errors""] = [
+  23 |           {
+  24 |             message: error,
+  25 |           },
+  26 |         ];
+  27 |       }
+  28 |       res.json(result);
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test060.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test060.js,"
+   7 |   let body = req.body;
+   8 |
+   9 |   let user = body.user;
+  10 |   let file = body.fileName;
+  11 |   let payload = body.payload;
+  12 |
+  13 |   let result = {
+  14 |     ok: false,
+  15 |   };
+  16 |   let filePath = join(`target/user_files/${user}/`, file + "".yaml"");
+> 17 |   fileSystem.writeFile(filePath, payload, ""utf8"", (error) => {
+  18 |     result.ok = true;
+  19 |     if (errors) {
+  20 |       result.ok = false;
+  21 |       result[""errors""] = [
+  22 |         {
+  23 |           message: error,
+  24 |         },
+  25 |       ];
+  26 |     }
+  27 |     res.json(result);
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test061.js,17,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test061.js,"
+   7 |   let body = req.body;
+   8 |
+   9 |   let user = body.user;
+  10 |   let file = body.fileName;
+  11 |   let payload = body.payload;
+  12 |
+  13 |   let result = {
+  14 |     ok: false,
+  15 |   };
+  16 |   let filePath = join(`target/user_files/${user}/`, file + "".yaml"");
+> 17 |   fileSystem.writeFile(filePath, payload, ""utf8"", (error) => {
+  18 |     result.ok = true;
+  19 |     if (error) {
+  20 |       result.ok = false;
+  21 |       result[""errors""] = [
+  22 |         {
+  23 |           message: error,
+  24 |         },
+  25 |       ];
+  26 |     }
+  27 |     res.json(result);
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test062.js,21,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test062.js,"
+  11 |
+  12 |   let userFiles = ""./target/user_files/"";
+  13 |   const testFolder = ""./target/user_files/"";
+  14 |
+  15 |   let result = {
+  16 |     ok: false,
+  17 |   };
+  18 |   let users = Array.from(fileSystem.readdirSync(userFiles).values());
+  19 |   if (users.includes(user)) {
+  20 |     let filePath = join(`target/user_files/${user}/`, file + "".yaml"");
+> 21 |     fileSystem.writeFile(filePath, payload, ""utf8"", (error) => {
+  22 |       result.ok = true;
+  23 |       if (error) {
+  24 |         result.ok = false;
+  25 |         result[""errors""] = [
+  26 |           {
+  27 |             message: error,
+  28 |           },
+  29 |         ];
+  30 |       }
+  31 |       res.json(result);
+     ^ Col 0
+"
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test005.js,7,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    1 | const process = require(""child_process"");
