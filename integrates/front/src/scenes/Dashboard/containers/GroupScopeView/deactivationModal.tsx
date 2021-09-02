@@ -159,9 +159,6 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
                       <option value={"REGISTERED_BY_MISTAKE"}>
                         {t("group.scope.common.deactivation.reason.mistake")}
                       </option>
-                      <option value={"MOVED_TO_ANOTHER_ROOT"}>
-                        {t("group.scope.common.deactivation.reason.moved")}
-                      </option>
                       <option value={"OTHER"}>
                         {t("group.scope.common.deactivation.reason.other")}
                       </option>
