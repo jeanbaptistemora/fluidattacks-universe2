@@ -75,6 +75,17 @@ def format_treatment_summary_item(
     }
 
 
+def format_treatment_summary(
+    treatment_summary_item: Item,
+) -> FindingTreatmentSummary:
+    return FindingTreatmentSummary(
+        accepted=int(treatment_summary_item["accepted"]),
+        accepted_undefined=int(treatment_summary_item["accepted_undefined"]),
+        in_progress=int(treatment_summary_item["in_progress"]),
+        new=int(treatment_summary_item["new"]),
+    )
+
+
 def format_unreliable_indicators_item(
     indicators: FindingUnreliableIndicators,
 ) -> Item:
@@ -93,6 +104,10 @@ def format_unreliable_indicators_item(
         ),
         "unreliable_report_date": indicators.unreliable_report_date,
         "unreliable_status": indicators.unreliable_status.value,
+        "unreliable_where": indicators.unreliable_where,
+        "unreliable_treatment_summary": format_treatment_summary_item(
+            indicators.unreliable_treatment_summary
+        ),
     }
 
 
@@ -114,6 +129,10 @@ def format_unreliable_indicators(
         ),
         unreliable_report_date=indicators_item["unreliable_report_date"],
         unreliable_status=FindingStatus[indicators_item["unreliable_status"]],
+        unreliable_where=indicators_item["unreliable_where"],
+        unreliable_treatment_summary=format_treatment_summary(
+            indicators_item["unreliable_treatment_summary"]
+        ),
     )
 
 
