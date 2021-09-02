@@ -23,6 +23,7 @@ const UPDATE_GROUP_DATA: DocumentNode = gql`
     $hasASM: Boolean!
     $hasMachine: Boolean!
     $hasSquad: Boolean!
+    $language: String
     $reason: UpdateGroupReason!
     $service: ServiceType!
     $subscription: SubscriptionType!
@@ -34,6 +35,7 @@ const UPDATE_GROUP_DATA: DocumentNode = gql`
       hasSquad: $hasSquad
       hasAsm: $hasASM
       hasMachine: $hasMachine
+      language: $language
       reason: $reason
       service: $service
       subscription: $subscription
