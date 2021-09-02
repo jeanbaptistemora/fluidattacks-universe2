@@ -37,7 +37,6 @@ from api.mutations import (
     handle_vulnerabilities_acceptation,
     invalidate_access_token,
     invalidate_cache,
-    move_root,
     reject_draft,
     reject_draft_new,
     reject_vulnerabilities_zero_risk,
@@ -153,7 +152,6 @@ MUTATION.set_field(
 )
 MUTATION.set_field("invalidateAccessToken", invalidate_access_token.mutate)
 MUTATION.set_field("invalidateCache", invalidate_cache.mutate)
-MUTATION.set_field("moveRoot", move_root.mutate)
 MUTATION.set_field("removeEventEvidence", remove_event_evidence.mutate)
 MUTATION.set_field("removeStakeholderAccess", remove_stakeholder_access.mutate)
 MUTATION.set_field(

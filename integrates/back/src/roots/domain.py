@@ -563,7 +563,6 @@ async def deactivate_root(
     user_email: str,
 ) -> None:
     new_status = "INACTIVE"
-    _other = other if reason == "OTHER" else None
 
     if root.state.status != new_status:
         if isinstance(root, GitRootItem):
@@ -578,7 +577,7 @@ async def deactivate_root(
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
                     nickname=root.state.nickname,
-                    other=_other,
+                    other=other,
                     reason=reason,
                     status=new_status,
                 ),
@@ -600,7 +599,7 @@ async def deactivate_root(
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
                     nickname=root.state.nickname,
-                    other=_other,
+                    other=other,
                     reason=reason,
                     status=new_status,
                 ),
@@ -614,7 +613,7 @@ async def deactivate_root(
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
                     nickname=root.state.nickname,
-                    other=_other,
+                    other=other,
                     reason=reason,
                     status=new_status,
                 ),
