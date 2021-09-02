@@ -29,9 +29,8 @@ async def upload_file(
     )
 
 
-async def remove_file(file_name: str) -> bool:
+async def remove_file(file_name: str) -> None:
     await s3_ops.remove_file(FI_AWS_S3_RESOURCES_BUCKET, file_name)
-    return True
 
 
 async def save_file(file_object: object, file_name: str) -> bool:

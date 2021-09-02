@@ -1188,18 +1188,12 @@ async def mask_resources(group_name: str) -> NamedTuple:
         group_name, ["environments", "files", "repositories"]
     )
     status: NamedTuple = namedtuple(  # NOSONAR
-        "status",
-        (
-            "are_files_removed files_result "
-            "environments_result repositories_result"
-        ),
+        "status", ("files_result environments_result repositories_result")
     )
     list_resources_files = await resources_utils.search_file(f"{group_name}/")
-    are_files_removed = all(
-        await collect(
-            resources_utils.remove_file(file_name)
-            for file_name in list_resources_files
-        )
+    await collect(
+        resources_utils.remove_file(file_name)
+        for file_name in list_resources_files
     )
 
     files_result = await update(
@@ -1232,16 +1226,14 @@ async def mask_resources(group_name: str) -> NamedTuple:
             ]
         },
     )
-    success = cast(
+    return cast(
         NamedTuple,
         status(
-            are_files_removed,
             files_result,
             environments_result,
             repositories_result,
         ),
     )
-    return success
 
 
 async def remove_all_users(context: Any, group: str) -> bool:
@@ -1253,12 +1245,11 @@ async def remove_all_users(context: Any, group: str) -> bool:
         ]
     )
     all_users = user_active + user_suspended
-    are_users_removed = all(
+    return all(
         await collect(
             [remove_user(context, group, user) for user in all_users]
         )
     )
-    return are_users_removed
 
 
 async def remove_resources(  # pylint: disable=too-many-locals
@@ -1302,7 +1293,7 @@ async def remove_resources(  # pylint: disable=too-many-locals
     are_resources_masked = all(
         list(cast(List[bool], await mask_resources(group_name)))
     )
-    response = all(
+    return all(
         [
             are_findings_masked,
             are_users_removed,
@@ -1311,7 +1302,6 @@ async def remove_resources(  # pylint: disable=too-many-locals
             are_resources_masked,
         ]
     )
-    return response
 
 
 async def remove_user(
@@ -1385,8 +1375,7 @@ async def validate_group_tags(group_name: str, tags: List[str]) -> List[str]:
     pattern = re.compile("^[a-z0-9]+(?:-[a-z0-9]+)*$")
     if await _has_repeated_tags(group_name, tags):
         raise RepeatedValues()
-    tags_validated = [tag for tag in tags if pattern.match(tag)]
-    return tags_validated
+    return [tag for tag in tags if pattern.match(tag)]
 
 
 async def after_complete_register(group_access: GroupAccessType) -> None:
