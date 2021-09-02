@@ -2342,7 +2342,6 @@ export const enTranslations: ResourceKey = {
     findingsGroup: "Findings by group",
     highSeverity: "High Severity",
     lowSeverity: "Low Severity",
-    meanRemediate: "Mean (average) days to remediate",
     mediumSeverity: "Medium Severity",
     openFindingsGroup: "Open findings by group",
     openVuln: "open vulns.",
