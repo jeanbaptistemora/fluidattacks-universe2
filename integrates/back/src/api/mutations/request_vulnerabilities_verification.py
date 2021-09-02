@@ -8,9 +8,9 @@ from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_asm,
+    require_continuous,
     require_finding_access,
     require_login,
-    require_service_white,
 )
 from findings import (
     domain as findings_domain,
@@ -35,7 +35,7 @@ from typing import (
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,
-    require_service_white,
+    require_continuous,
     require_asm,
     require_finding_access,
 )
