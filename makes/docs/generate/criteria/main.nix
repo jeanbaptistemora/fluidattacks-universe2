@@ -214,28 +214,40 @@ let
       definitions
     );
 
-  # Generate introduction indexes
-  categories = data: builtins.sort builtins.lessThan (lib.lists.unique (
-    builtins.map (x: x.category) (builtins.attrValues data)));
-  itemsByCategory = category: lib.attrsets.filterAttrs
-    (_: v: v.category == category);
-  linksByCategory = type: category: data:
-    "### ${category}\n" + builtins.concatStringsSep "\n" (
-      builtins.attrValues (builtins.mapAttrs
+  # Introduction indexes
+  categoryLinks = { type, category, data }:
+    let
+      filtered = lib.attrsets.filterAttrs (_: v: v.category == category) data;
+    in
+    "### ${category}\n" + builtins.concatStringsSep "\n" (builtins.attrValues (
+      builtins.mapAttrs
         (k: v: "- [${k}. ${v.en.title}](/criteria/${type}/${k})")
-        (itemsByCategory category data)
-      )
+        filtered
+    ));
+  index = { type, data }:
+    let
+      categories = builtins.sort builtins.lessThan (
+        lib.lists.unique (
+          builtins.map (x: x.category) (builtins.attrValues data)
+        )
+      );
+    in
+    builtins.concatStringsSep "\n" (builtins.map
+      (category: categoryLinks {
+        inherit type;
+        inherit category;
+        inherit data;
+      })
+      categories
     );
-  links = type: data: builtins.concatStringsSep "\n" (
-    builtins.map
-      (category: linksByCategory type category data)
-      (categories data)
-  );
 
   # Generate a template for every introduction
   makeIntroVulnerabilities = makeTemplate {
     replace = {
-      __argIndex__ = links "vulnerabilities" vulnerabilities;
+      __argIndex__ = index {
+        type = "vulnerabilities";
+        data = vulnerabilities;
+      };
     };
     name = "docs-make-intro-vulnerabilities";
     template = ./templates/intros/vulnerability.md;
@@ -243,7 +255,10 @@ let
   };
   makeIntroRequirements = makeTemplate {
     replace = {
-      __argIndex__ = links "requirements" requirements;
+      __argIndex__ = index {
+        type = "requirements";
+        data = requirements;
+      };
     };
     name = "docs-make-intro-requirements";
     template = ./templates/intros/requirement.md;
