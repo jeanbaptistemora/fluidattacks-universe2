@@ -23,6 +23,12 @@ from typing import (
     List,
     Tuple,
 )
+from unreliable_indicators.enums import (
+    EntityDependency,
+)
+from unreliable_indicators.operations import (
+    update_unreliable_indicators_by_deps,
+)
 from vulnerabilities import (
     domain as vulns_domain,
 )
@@ -77,6 +83,16 @@ async def reset_group_expired_accepted_findings(
                 user_email=historic_treatment[-1].get("user", ""),
                 date=datetime_utils.get_as_str(datetime_utils.get_now()),
             )
+
+    await collect(
+        [
+            update_unreliable_indicators_by_deps(
+                EntityDependency.reset_expired_accepted_findings,
+                finding_id=finding.id,
+            )
+            for finding in group_findings
+        ]
+    )
 
 
 async def reset_expired_accepted_findings() -> None:

@@ -2,6 +2,10 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.findings.types import (
+    Finding,
+    FindingTreatmentSummary,
+)
 from freezegun import (
     freeze_time,
 )
@@ -25,9 +29,8 @@ from vulnerabilities import (
 async def test_get_group(populate: bool) -> None:
     assert populate
     finding_id = "475041521"
-    context: Dataloaders = get_new_context()
-    finding_vulns_loader = context.finding_vulns
-    vulns = await finding_vulns_loader.load(finding_id)
+    loaders: Dataloaders = get_new_context()
+    vulns = await loaders.finding_vulns.load(finding_id)
     assert len(vulns) == 3
 
     accepted_expired = await vulns_domain.get_by_finding(
@@ -96,3 +99,15 @@ async def test_get_group(populate: bool) -> None:
     )
     assert historic_treatment[-1].get("acceptance_status") == "SUBMITTED"
     assert historic_treatment[-1].get("treatment") == "ACCEPTED_UNDEFINED"
+
+    loaders = get_new_context()
+    finding: Finding = await loaders.finding_new.load(finding_id)
+    assert (
+        finding.unreliable_indicators.unreliable_treatment_summary
+        == FindingTreatmentSummary(
+            accepted=0,
+            accepted_undefined=1,
+            in_progress=0,
+            new=2,
+        )
+    )
