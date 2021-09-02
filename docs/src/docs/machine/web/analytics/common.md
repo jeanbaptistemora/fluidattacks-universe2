@@ -224,14 +224,3 @@ against those that are open
 and if those vulnerabilities
 have low, medium, high or critical
 severities.
-
-## Mean (average) days to remediate
-
-![Mean Days To Remediate](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443230/docs/web/analytics/common/mean_average_days_to_remediate_eyfowf.png)
-
-Here you can see
-the average number of days
-that it takes for the users
-of the organization
-to solve a discovered vulnerability,
-categorized by severity.
