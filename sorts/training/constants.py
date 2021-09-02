@@ -87,7 +87,7 @@ MODELS: Dict[str, ModelType] = {
 }
 MODELS_DEFAULTS: Dict[ModelType, Dict[str, Union[str, int, float]]] = {
     LGBMClassifier: {
-        "learning_rate": 0.05,
+        "learning_rate": 0.1,
         "max_depth": 3,
         "subsample_for_bin": 20000,
     },
