@@ -110,7 +110,7 @@ describe("ActionButtons", (): void => {
       { action: "api_mutations_update_vulnerabilities_treatment_mutate" },
     ]);
     const mockedServices: PureAbility<string> = new PureAbility([
-      { action: "has_service_white" },
+      { action: "is_continuous" },
     ]);
     const contextWrapper: React.FC = ({ children }): JSX.Element => (
       <authzPermissionsContext.Provider value={mockedPermissions}>

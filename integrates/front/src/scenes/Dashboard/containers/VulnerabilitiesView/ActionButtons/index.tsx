@@ -76,7 +76,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
         onVerify={onVerify}
         openModal={openModal}
       />
-      <Have I={"has_service_white"}>
+      <Have I={"is_continuous"}>
         <ReattackVulnButton
           areVulnsSelected={areVulnsSelected}
           isEditing={isEditing}
