@@ -45,7 +45,7 @@ async def mutate(
         logs_utils.cloudwatch_log(
             info.context,
             (
-                "Security: Removed evidence " f"in finding {finding_id}"
+                f"Security: Removed evidence in finding {finding_id}"
             ),  # pragma: no cover
         )
     finding_loader = info.context.loaders.finding

@@ -77,7 +77,7 @@ async def remove_file(bucket: str, name: str) -> None:
                 raise UnavailabilityError()
         except ClientError as ex:
             LOGGER.exception(ex, extra={"extra": locals()})
-            raise UnavailabilityError()
+            raise UnavailabilityError() from ex
 
 
 async def sign_url(file_name: str, expire_mins: float, bucket: str) -> str:
@@ -92,7 +92,7 @@ async def sign_url(file_name: str, expire_mins: float, bucket: str) -> str:
             )
         except ClientError as ex:
             LOGGER.exception(ex, extra={"extra": locals()})
-            raise UnavailabilityError()
+            raise UnavailabilityError() from ex
 
 
 async def upload_memory_file(
@@ -115,7 +115,7 @@ async def upload_memory_file(
             )
         except ClientError as ex:
             LOGGER.exception(ex, extra={"extra": locals()})
-            raise UnavailabilityError()
+            raise UnavailabilityError() from ex
 
 
 async def sing_upload_url(
@@ -131,14 +131,13 @@ async def sing_upload_url(
     }
     async with aio_client() as client:
         try:
-            response = await client.generate_presigned_post(
+            return await client.generate_presigned_post(
                 bucket,
                 file_name,
                 Fields=None,
                 Conditions=params["conditions"],
                 ExpiresIn=expire_mins,
             )
-
         except ClientError as ex:
             LOGGER.exception(ex, extra={"extra": locals()})
-    return response
+            raise UnavailabilityError() from ex
