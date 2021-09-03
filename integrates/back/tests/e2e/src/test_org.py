@@ -23,7 +23,7 @@ def test_org_analytics(
     driver.get(f"{asm_endpoint}/orgs/okada/analytics")
     assert utils.wait_for_text(
         driver,
-        "Vulnerabilities over time",
+        "Severity over time",
         timeout,
     )
 
@@ -68,7 +68,7 @@ def test_org_portfolios(
     timeout: int,
 ) -> None:
     expected_charts: List[str] = [
-        "Vulnerabilities over time",
+        "Severity over time",
         "How many vulnerabilities are remediated (closed)?",
         "How many vulnerabilities are remediated and accepted?",
         "Findings by group",

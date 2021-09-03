@@ -2,6 +2,7 @@ import { translate } from "utils/translations/translate";
 
 interface IDocumentValues {
   label: string;
+  title: string;
   tooltip: string;
   url: string;
 }
@@ -27,6 +28,9 @@ const mergedDocuments: Record<string, IMergedCharts> = {
   distributionOverTimeCvssf: {
     alt: {
       label: "Vulns",
+      title: translate.t(
+        "analytics.stackedBarChart.distributionOverTimeCvssf.title"
+      ),
       tooltip: translate.t(
         "analytics.stackedBarChart.distributionOverTimeCvssf.tooltip.vulnerabilities"
       ),
@@ -34,6 +38,9 @@ const mergedDocuments: Record<string, IMergedCharts> = {
     },
     default: {
       label: "Cvssf",
+      title: translate.t(
+        "analytics.stackedBarChart.distributionOverTimeCvssf.title"
+      ),
       tooltip: translate.t(
         "analytics.stackedBarChart.distributionOverTimeCvssf.tooltip.cvssf"
       ),
@@ -45,6 +52,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
   meanTimeToRemediate: {
     alt: {
       label: "Non treated",
+      title: translate.t("analytics.textBox.meanTimeToRemediate.title"),
       tooltip: translate.t(
         "analytics.textBox.meanTimeToRemediate.tooltip.nonTreated"
       ),
@@ -52,6 +60,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
     },
     default: {
       label: "All",
+      title: translate.t("analytics.textBox.meanTimeToRemediate.title"),
       tooltip: translate.t("analytics.textBox.meanTimeToRemediate.tooltip.all"),
       url: "#mean-time-to-remediate-all-vulnerabilities",
     },
@@ -61,6 +70,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
   mttrBenchmarking: {
     alt: {
       label: "Non treated",
+      title: translate.t("analytics.barChart.mttrBenchmarking.title"),
       tooltip: translate.t(
         "analytics.barChart.mttrBenchmarking.tooltip.nonTreated"
       ),
@@ -68,6 +78,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
     },
     default: {
       label: "All",
+      title: translate.t("analytics.barChart.mttrBenchmarking.title"),
       tooltip: translate.t("analytics.barChart.mttrBenchmarking.tooltip.all"),
       url: "",
     },
@@ -77,6 +88,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
   riskOverTimeCvssf: {
     alt: {
       label: "Vulns",
+      title: translate.t("analytics.stackedBarChart.riskOverTime.altTitle"),
       tooltip: translate.t(
         "analytics.stackedBarChart.riskOverTime.tooltip.vulnerabilities"
       ),
@@ -84,6 +96,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
     },
     default: {
       label: "Cvssf",
+      title: translate.t("analytics.stackedBarChart.riskOverTime.title"),
       tooltip: translate.t(
         "analytics.stackedBarChart.riskOverTime.tooltip.cvssf"
       ),
@@ -95,6 +108,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
   topVulnerabilitiesCvssf: {
     alt: {
       label: "Vulns",
+      title: translate.t("analytics.barChart.topVulnerabilities.title"),
       tooltip: translate.t(
         "analytics.barChart.topVulnerabilities.tooltip.vulnerabilities"
       ),
@@ -102,6 +116,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
     },
     default: {
       label: "Cvssf",
+      title: translate.t("analytics.barChart.topVulnerabilities.title"),
       tooltip: translate.t(
         "analytics.barChart.topVulnerabilities.tooltip.cvssf"
       ),

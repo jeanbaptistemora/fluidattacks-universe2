@@ -94,7 +94,7 @@ def test_group_analytics(
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/analytics")
     assert utils.wait_for_text(
         driver,
-        "Vulnerabilities over time",
+        "Severity over time",
         timeout,
     )
 

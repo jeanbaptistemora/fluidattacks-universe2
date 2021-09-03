@@ -127,6 +127,7 @@ export const Graphic: React.FC<IGraphicProps> = (
 
   const [subjectName, setSubjectName] = useState(subject);
   const [currentDocumentName, setCurrentDocumentName] = useState(documentName);
+  const [currentTitle, setCurrentTitle] = useState(title);
   const [expanded, setExpanded] = useState(reportMode);
   const [fullScreen, setFullScreen] = useState(false);
   const [iframeState, setIframeState] = useState("loading");
@@ -190,7 +191,7 @@ export const Graphic: React.FC<IGraphicProps> = (
     }
   }
   function buildFileName(size: IComponentSizeProps): string {
-    return `${subjectName}-${title}-${size.width}x${size.height}.html`;
+    return `${subjectName}-${currentTitle}-${size.width}x${size.height}.html`;
   }
   function changeTothirtyDays(): void {
     setSubjectName(`${subject}_30`);
@@ -206,11 +207,13 @@ export const Graphic: React.FC<IGraphicProps> = (
   }
   function changeToDefault(): void {
     setCurrentDocumentName(documentName);
+    setCurrentTitle(title);
     frameOnRefresh();
   }
   function changeToAlternative(): void {
     if (_.includes(Object.keys(mergedDocuments), documentName)) {
       setCurrentDocumentName(mergedDocuments[documentName].documentName);
+      setCurrentTitle(mergedDocuments[documentName].alt.title);
       frameOnRefresh();
     }
   }
@@ -259,7 +262,7 @@ export const Graphic: React.FC<IGraphicProps> = (
         headerTitle={
           <div className={"w-100"}>
             <div className={styles.titleBar}>
-              {title}
+              {currentTitle}
               <ButtonToolbar className={"f5"}>
                 <FilterButton
                   changeToAll={changeToAll}
@@ -331,7 +334,7 @@ export const Graphic: React.FC<IGraphicProps> = (
             ref={modalBodyRef}
             scrolling={"no"}
             src={modalIframeSrc}
-            title={title}
+            title={currentTitle}
           />
         </div>
         {_.isUndefined(footer) ? undefined : (
@@ -351,7 +354,7 @@ export const Graphic: React.FC<IGraphicProps> = (
             <GraphicPanelCollapseHeader>
               <div className={styles.titleBar}>
                 <div className={"w-100 report-title"}>
-                  {title}
+                  {currentTitle}
                   {expanded &&
                     !reportMode &&
                     fullSize.width > minWidthToShowButtons && (
@@ -439,7 +442,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                    */
                   opacity: iframeState === "ready" ? 1 : 0,
                 }}
-                title={title}
+                title={currentTitle}
               />
               {iframeState !== "ready" && (
                 <div
