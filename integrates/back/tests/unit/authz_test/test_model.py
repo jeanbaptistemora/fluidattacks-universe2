@@ -167,6 +167,8 @@ def test_model_integrity_migrated_finding_permissions(
         "update_severity_new_mutate",
         "api_mutations_update_vulnerability_commit_mutate": "api_mutations_"
         "update_vulnerability_commit_new_mutate",
+        "api_mutations_update_vulnerabilities_treatment_mutate": "api_"
+        "mutations_update_vulnerabilities_treatment_new_mutate",
         "api_mutations_upload_file_mutate": "api_mutations_"
         "upload_file_new_mutate",
         "api_mutations_verify_vulnerabilities_request_mutate": "api_mutations_"

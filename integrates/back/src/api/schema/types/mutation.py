@@ -90,6 +90,7 @@ from api.mutations import (
     update_severity_new,
     update_toe_lines_sorts,
     update_vulnerabilities_treatment,
+    update_vulnerabilities_treatment_new,
     update_vulnerability_commit,
     update_vulnerability_commit_new,
     update_vulnerability_treatment,
@@ -269,7 +270,7 @@ if FI_API_STATUS == "migration":
     )
     MUTATION.set_field(
         "updateVulnerabilitiesTreatment",
-        update_vulnerabilities_treatment.mutate,
+        update_vulnerabilities_treatment_new.mutate,
     )
     MUTATION.set_field("uploadFile", upload_file_new.mutate)
     MUTATION.set_field(
@@ -293,9 +294,11 @@ if FI_API_STATUS == "migration":
     MUTATION.set_field(
         "requestZeroRiskVuln", request_vulnerabilities_zero_risk_new.mutate
     )
-    MUTATION.set_field("updateVulnCommit", update_vulnerability_commit.mutate)
     MUTATION.set_field(
-        "updateVulnsTreatment", update_vulnerabilities_treatment.mutate
+        "updateVulnCommit", update_vulnerability_commit_new.mutate
+    )
+    MUTATION.set_field(
+        "updateVulnsTreatment", update_vulnerabilities_treatment_new.mutate
     )
     MUTATION.set_field(
         "verifyRequestVuln", verify_vulnerabilities_request_new.mutate

@@ -1,14 +1,8 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from context import (
-    FI_API_STATUS,
-)
 from custom_types import (
     SimplePayload,
-)
-from db_model.findings.types import (
-    Finding,
 )
 from decorators import (
     concurrent_decorators,
@@ -48,14 +42,9 @@ async def mutate(
 ) -> SimplePayload:
     user_info = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
-    if FI_API_STATUS == "migration":
-        finding_new_loader = info.context.loaders.finding_new
-        finding: Finding = await finding_new_loader.load(finding_id)
-        group_name: str = finding.group_name
-    else:
-        finding_loader = info.context.loaders.finding
-        finding_data = await finding_loader.load(finding_id)
-        group_name = get_key_or_fallback(finding_data)
+    finding_loader = info.context.loaders.finding
+    finding_data = await finding_loader.load(finding_id)
+    group_name = get_key_or_fallback(finding_data)
     group_loader = info.context.loaders.group
     group = await group_loader.load(group_name)
     success: bool = await vulns_domain.update_vulnerabilities_treatment(
