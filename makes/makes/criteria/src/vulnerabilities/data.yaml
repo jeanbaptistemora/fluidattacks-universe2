@@ -3517,7 +3517,45 @@
   requirements: ["161" ,"266" ,"359"]
   metadata:
     en:
-      details: __empty__
+      details: |
+        ### Why
+
+        When capturing generic exceptions:
+
+        1. The complete error's traceability
+        is not obtained neither what it generated.
+        1. The errors do not receive a customized treatment.
+        1. When capturing generic exceptions,
+        dangerous exceptions like NullPointerException
+        could be captured too.
+        1. The capture's moment is not controlled,
+        an exception can occur in different moments
+        (in loadtime, when the code is tested,
+        when something unexpected occurs
+        in asyncronous operations with generic
+        or non-existent callbacks, etc).
+
+        Following links can support our points:
+
+        - [CWE-395](https://cwe.mitre.org/data/definitions/395.html)
+        - [CWE-396](https://cwe.mitre.org/data/definitions/396.html)
+        - [CWE-397](https://cwe.mitre.org/data/definitions/397.html)
+        - [ERR07-J. Do not throw RuntimeException, Exception, or Throwable](https://wiki.sei.cmu.edu/confluence/display/java/ERR07-J.+Do+not+throw+RuntimeException%2C+Exception%2C+or+Throwable)
+        - [Generic exceptions should never be thrown](https://rules.sonarsource.com/java/RSPEC-112)
+
+        The ideal thing to avoid these scenarios,
+        where generic exceptions are being captured,
+        is to use typified exceptions
+        together with dynamic tests where the coverage
+        of execution branches is being done.
+        This guarantees a proper handling
+        of all possible events.
+
+        Not all the reports necessarily have
+        a severe exploitation case,
+        where all the resources can be compromised.
+        This can be evidenced in its CVSS score
+        and the exploitability metric.
 "061":
   en:
     title: Errors without traceability
