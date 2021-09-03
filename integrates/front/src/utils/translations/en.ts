@@ -627,6 +627,12 @@ export const enTranslations: ResourceKey = {
             "We recommend you do not exclude any part of your repository. " +
             "Decide at your own risk.",
         },
+        filtersTooltips: {
+          branch: "Filter by branch",
+          state: "Filter by state",
+          status: "Filter by status",
+          url: "Filter by url",
+        },
         healthCheck: {
           accept: "I accept the additional costs derived from the healthcheck",
           confirm: "Would you like a health check for the existing code?",

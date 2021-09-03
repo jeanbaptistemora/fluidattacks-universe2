@@ -195,7 +195,17 @@ function useGitSubmit(
   );
 }
 
+function filterSelectStatus(
+  rows: IGitRootAttr[],
+  currentValue: string
+): IGitRootAttr[] {
+  return rows.filter((row: IGitRootAttr): boolean =>
+    _.isEmpty(currentValue) ? true : row.cloningStatus.status === currentValue
+  );
+}
+
 export {
+  filterSelectStatus,
   GitIgnoreAlert,
   gitModalSchema,
   handleCreationError,

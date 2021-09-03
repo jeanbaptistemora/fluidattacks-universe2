@@ -6,11 +6,11 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
-import { selectFilter } from "react-bootstrap-table2-filter";
 import { useTranslation } from "react-i18next";
 
 import { renderEnvDescription } from "./envDescription";
 import {
+  filterSelectStatus,
   handleActivationError,
   handleCreationError,
   handleUpdateError,
@@ -35,6 +35,12 @@ import type { IConfirmFn } from "components/ConfirmDialog";
 import { DataTableNext } from "components/DataTableNext";
 import { changeFormatter } from "components/DataTableNext/formatters";
 import { useRowExpand } from "components/DataTableNext/hooks/useRowExpand";
+import type { IFilterProps } from "components/DataTableNext/types";
+import {
+  filterSearchText,
+  filterSelect,
+  filterText,
+} from "components/DataTableNext/utils";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { Can } from "utils/authz/Can";
@@ -104,32 +110,18 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     localStorage
   );
 
-  const [isFilterEnabled, setFilterEnabled] = useStoredState<boolean>(
-    "rootFilters",
-    false
-  );
+  const [isCustomFilterEnabled, setCustomFilterEnabled] =
+    useStoredState<boolean>("rootsCustomFilters", false);
 
-  const onfilterStatus: (filterVal: string) => void = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("statusScopeFilter", filterVal);
-  };
+  const [searchTextFilter, setSearchTextFilter] = useState("");
+  const [urlFilter, setUrlFilter] = useState("");
+  const [branchFilter, setbranchFilter] = useState("");
+  const [stateFilter, setStateFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
 
-  const onFilterState: (filterVal: string) => void = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("stateScopeFilter", filterVal);
-  };
-
-  const selectOptionsStatus = {
-    FAILED: "Failed",
-    OK: "Ok",
-    UNKNOWN: "Unknown",
-  };
-  const selectOptionsState = {
-    ACTIVE: "Active",
-    INACTIVE: "Inactive",
-  };
+  const handleUpdateCustomFilter: () => void = useCallback((): void => {
+    setCustomFilterEnabled(!isCustomFilterEnabled);
+  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
 
   // GraphQL operations
   const [addGitRoot] = useMutation(ADD_GIT_ROOT, {
@@ -218,10 +210,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     }
   }
 
-  function handleUpdateFilter(): void {
-    setFilterEnabled(!isFilterEnabled);
-  }
-
   const { expandedRows, handleRowExpand, handleRowExpandAll } = useRowExpand({
     rowId: "id",
     rows: roots,
@@ -249,6 +237,99 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       {}
     );
 
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
+  const filterSearchTextRoots: IGitRootAttr[] = filterSearchText(
+    roots,
+    searchTextFilter
+  );
+
+  function onUrlChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    setUrlFilter(event.target.value);
+  }
+  const filterUrlRoots: IGitRootAttr[] = filterText(roots, urlFilter, "url");
+
+  function onBranchChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    setbranchFilter(event.target.value);
+  }
+  const filterBranchRoots: IGitRootAttr[] = filterText(
+    roots,
+    branchFilter,
+    "branch"
+  );
+
+  function onStateChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    setStateFilter(event.target.value);
+  }
+  const filterStateRoots: IGitRootAttr[] = filterSelect(
+    roots,
+    stateFilter,
+    "state"
+  );
+
+  function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    setStatusFilter(event.target.value);
+  }
+  const filterStatusRoots: IGitRootAttr[] = filterSelectStatus(
+    roots,
+    statusFilter
+  );
+
+  const resultExecutions: IGitRootAttr[] = _.intersection(
+    filterSearchTextRoots,
+    filterUrlRoots,
+    filterBranchRoots,
+    filterStateRoots,
+    filterStatusRoots
+  );
+
+  const customFiltersProps: IFilterProps[] = [
+    {
+      defaultValue: urlFilter,
+      onChangeInput: onUrlChange,
+      placeholder: "Url",
+      tooltipId: "group.scope.git.filtersTooltips.url.id",
+      tooltipMessage: "group.scope.git.filtersTooltips.url",
+      type: "text",
+    },
+    {
+      defaultValue: branchFilter,
+      onChangeInput: onBranchChange,
+      placeholder: "Branch",
+      tooltipId: "group.scope.git.filtersTooltips.branch.id",
+      tooltipMessage: "group.scope.git.filtersTooltips.branch",
+      type: "text",
+    },
+    {
+      defaultValue: stateFilter,
+      onChangeSelect: onStateChange,
+      placeholder: "State",
+      selectOptions: {
+        ACTIVE: "Active",
+        INACTIVE: "Inactive",
+      },
+      tooltipId: "group.scope.git.filtersTooltips.state.id",
+      tooltipMessage: "group.scope.git.filtersTooltips.state",
+      type: "select",
+    },
+    {
+      defaultValue: statusFilter,
+      onChangeSelect: onStatusChange,
+      placeholder: "Status",
+      selectOptions: {
+        FAILED: "Failed",
+        OK: "Ok",
+        UNKNOWN: "Unknown",
+      },
+      tooltipId: "group.scope.git.filtersTooltips.status.id",
+      tooltipMessage: "group.scope.git.filtersTooltips.status",
+      type: "select",
+    },
+  ];
+
   return (
     <React.Fragment>
       <h2>{t("group.scope.git.title")}</h2>
@@ -271,7 +352,17 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
               <DataTableNext
                 bordered={true}
                 columnToggle={true}
-                dataset={roots}
+                customFilters={{
+                  customFiltersProps,
+                  isCustomFilterEnabled,
+                  onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+                }}
+                customSearch={{
+                  customSearchDefault: searchTextFilter,
+                  isCustomSearchEnabled: true,
+                  onUpdateCustomSearch: onSearchTextChange,
+                }}
+                dataset={resultExecutions}
                 expandRow={{
                   expandByColumnOnly: true,
                   expanded: expandedRows,
@@ -312,12 +403,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                     align: "center",
                     changeFunction: handleStateUpdate,
                     dataField: "state",
-                    filter: selectFilter({
-                      defaultValue: _.get(sessionStorage, "stateScopeFilter"),
-                      onFilter: onFilterState,
-                      options: selectOptionsState,
-                      placeholder: "All",
-                    }),
                     formatter: canUpdateRootState
                       ? changeFormatter
                       : pointStatusFormatter,
@@ -328,12 +413,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                   {
                     align: "left",
                     dataField: "cloningStatus.status",
-                    filter: selectFilter({
-                      defaultValue: _.get(sessionStorage, "statusScopeFilter"),
-                      onFilter: onfilterStatus,
-                      options: selectOptionsStatus,
-                      placeholder: "All",
-                    }),
                     formatter: pointStatusFormatter,
                     header: t("group.scope.git.repo.cloning.status"),
                     visible: checkedItems["cloningStatus.status"],
@@ -341,12 +420,10 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                   },
                 ]}
                 id={"tblGitRoots"}
-                isFilterEnabled={isFilterEnabled}
                 onColumnToggle={handleChange}
-                onUpdateEnableFilter={handleUpdateFilter}
                 pageSize={10}
                 rowEvents={{ onClick: handleRowClick }}
-                search={true}
+                search={false}
                 striped={true}
               />
             </Container>
