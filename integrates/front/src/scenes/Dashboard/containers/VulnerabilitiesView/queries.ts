@@ -3,13 +3,13 @@ import type { DocumentNode } from "graphql";
 
 const VULNS_FRAGMENT: DocumentNode = gql`
   fragment vulnFields on Vulnerability {
-    analyst @include(if: $canRetrieveAnalyst)
     commitHash
     currentState
     cycles
     efficacy
     externalBugTrackingSystem
     findingId
+    hacker @include(if: $canRetrieveAnalyst)
     historicTreatment {
       acceptanceDate
       acceptanceStatus

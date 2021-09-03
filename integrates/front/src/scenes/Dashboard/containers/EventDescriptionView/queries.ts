@@ -7,10 +7,10 @@ const GET_EVENT_DESCRIPTION: DocumentNode = gql`
       accessibility
       affectation
       affectedComponents
-      analyst
       client
       detail
       eventStatus
+      hacker
       id
     }
   }

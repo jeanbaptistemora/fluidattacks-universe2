@@ -41,7 +41,7 @@ interface IEventDescriptionData {
     accessibility: string;
     affectation: string;
     affectedComponents: string;
-    analyst: string;
+    hacker: string;
     client: string;
     detail: string;
     eventStatus: string;
@@ -245,9 +245,9 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     <EditableField
                       alignField={"horizontalWide"}
                       component={FormikText}
-                      currentValue={data.event.analyst}
-                      label={translate.t("searchFindings.tabEvents.analyst")}
-                      name={"analyst"}
+                      currentValue={data.event.hacker}
+                      label={translate.t("searchFindings.tabEvents.hacker")}
+                      name={"hacker"}
                       renderAsEditable={false}
                       type={"text"}
                     />

@@ -38,13 +38,13 @@ describe("VulnerabilitiesView", (): void => {
           vulnerabilities: [
             {
               __typename: "Vulnerability",
-              analyst: "useranalyst@test.test",
               commitHash: "",
               currentState: "open",
               cycles: "",
               efficacy: "",
               externalBugTrackingSystem: "",
               findingId: "422286126",
+              hacker: "useranalyst@test.test",
               historicTreatment: [
                 {
                   acceptanceDate: "",
@@ -74,13 +74,13 @@ describe("VulnerabilitiesView", (): void => {
             },
             {
               __typename: "Vulnerability",
-              analyst: "useranalyst@test.test",
               commitHash: "",
               currentState: "open",
               cycles: "",
               efficacy: "",
               externalBugTrackingSystem: "",
               findingId: "422286126",
+              hacker: "useranalyst@test.test",
               historicTreatment: [
                 {
                   acceptanceDate: "",
@@ -112,13 +112,13 @@ describe("VulnerabilitiesView", (): void => {
           zeroRisk: [
             {
               __typename: "Vulnerability",
-              analyst: "useranalyst@test.test",
               commitHash: "",
               currentState: "open",
               cycles: "",
               efficacy: "",
               externalBugTrackingSystem: "",
               findingId: "422286126",
+              hacker: "useranalyst@test.test",
               historicTreatment: [
                 {
                   acceptanceDate: "",

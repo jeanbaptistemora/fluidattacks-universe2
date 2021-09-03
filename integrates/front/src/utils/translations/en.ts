@@ -1466,7 +1466,6 @@ export const enTranslations: ResourceKey = {
         toeUnstable: "Inestabilidad del ToE",
         vpnConnection: "Conectividad VPN",
       },
-      analyst: "Hacker",
       client: "Client",
       closingDate: "Closing date",
       comments: "Comments",

@@ -107,7 +107,7 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                   <ControlLabel>
                     <b>{translate.t("searchFindings.tabDescription.hacker")}</b>
                   </ControlLabel>
-                  <p className={"ma0"}>{dataset.analyst}</p>
+                  <p className={"ma0"}>{dataset.hacker}</p>
                 </FormGroup>
               </Col45>
             </Can>

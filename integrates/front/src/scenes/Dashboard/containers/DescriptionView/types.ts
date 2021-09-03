@@ -11,11 +11,11 @@ interface IHistoricTreatment {
 interface IFinding {
   actor: string;
   affectedSystems: string;
-  analyst?: string;
   attackVectorDescription: string;
   compromisedAttributes: string;
   compromisedRecords: number;
   description: string;
+  hacker?: string;
   id: string;
   openVulnerabilities: number;
   recommendation: string;

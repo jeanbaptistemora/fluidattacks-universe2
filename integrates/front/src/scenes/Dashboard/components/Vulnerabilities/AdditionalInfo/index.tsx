@@ -338,7 +338,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                   <Label>{t("searchFindings.tabDescription.hacker")}</Label>
                 </LabelField>
                 <InfoField>
-                  <Value value={vulnerability.analyst} />
+                  <Value value={vulnerability.hacker} />
                 </InfoField>
               </Row>
             ) : undefined}

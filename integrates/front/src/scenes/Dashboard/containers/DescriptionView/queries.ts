@@ -10,11 +10,11 @@ const GET_FINDING_DESCRIPTION: DocumentNode = gql`
     finding(identifier: $findingId) {
       actor
       affectedSystems
-      analyst @include(if: $canRetrieveAnalyst)
       attackVectorDescription
       compromisedAttributes
       compromisedRecords
       description
+      hacker @include(if: $canRetrieveAnalyst)
       id
       openVulnerabilities
       recommendation

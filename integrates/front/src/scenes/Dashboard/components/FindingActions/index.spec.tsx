@@ -33,7 +33,7 @@ describe("FindingActions", (): void => {
     expect(buttons).toHaveLength(0);
   });
 
-  it("should render analyst finding actions", (): void => {
+  it("should render hacker finding actions", (): void => {
     expect.hasAssertions();
 
     const mockedPermissions: PureAbility<string> = new PureAbility([
