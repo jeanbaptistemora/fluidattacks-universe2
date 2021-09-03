@@ -30,6 +30,11 @@ module "fluidattacks_ci" {
   enable_kms                             = true
   kms_deletion_window_in_days            = 30
   enable_manage_gitlab_token             = true
+  ami_filter = {
+    "name" : [
+      var.runner_ami,
+    ],
+  }
 
   # Cache
   cache_shared = true
@@ -115,6 +120,11 @@ module "fluidattacks_ci_large" {
   enable_kms                             = true
   kms_deletion_window_in_days            = 30
   enable_manage_gitlab_token             = true
+  ami_filter = {
+    "name" : [
+      var.runner_ami,
+    ],
+  }
 
   # Cache
   cache_shared = true
