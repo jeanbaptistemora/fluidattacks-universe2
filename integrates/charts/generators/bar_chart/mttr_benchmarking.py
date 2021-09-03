@@ -9,6 +9,7 @@ from charts import (
     utils,
 )
 from charts.generators.bar_chart.utils import (
+    Benchmarking,
     format_data,
     get_best_mttr,
     get_mean_organizations,
@@ -16,7 +17,6 @@ from charts.generators.bar_chart.utils import (
     get_vulnerability_reattacks,
     GROUP_CATEGORIES,
     ORGANIZATION_CATEGORIES,
-    OrganizationBenchmarking,
 )
 from context import (
     FI_API_STATUS,
@@ -49,7 +49,7 @@ from typing import (
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders
-) -> OrganizationBenchmarking:
+) -> Benchmarking:
     if FI_API_STATUS == "migration":
         group_findings_new: Tuple[
             Finding, ...
@@ -73,7 +73,7 @@ async def get_data_one_group(
     else:
         mttr = await get_mean_remediate(loaders, group.lower())
 
-    return OrganizationBenchmarking(
+    return Benchmarking(
         is_valid=number_of_reattacks > 10,
         subject=group.lower(),
         mttr=mttr,
@@ -84,9 +84,9 @@ async def get_data_one_group(
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_organization(
     *, organization_id: str, groups: Tuple[str, ...], loaders: Dataloaders
-) -> OrganizationBenchmarking:
+) -> Benchmarking:
 
-    groups_data: Tuple[OrganizationBenchmarking, ...] = await collect(
+    groups_data: Tuple[Benchmarking, ...] = await collect(
         [get_data_one_group(group=group, loaders=loaders) for group in groups]
     )
 
@@ -101,7 +101,7 @@ async def get_data_one_organization(
         group_data.number_of_reattacks for group_data in groups_data
     )
 
-    return OrganizationBenchmarking(
+    return Benchmarking(
         is_valid=number_of_reattacks > 1000,
         subject=organization_id,
         mttr=mttr,

@@ -32,7 +32,7 @@ GROUP_CATEGORIES: List[str] = [
 ]
 
 
-class OrganizationBenchmarking(NamedTuple):
+class Benchmarking(NamedTuple):
     is_valid: bool
     mttr: Decimal
     subject: str
@@ -90,9 +90,9 @@ def format_data(
 
 def get_valid_organizations(
     *,
-    organizations: Tuple[OrganizationBenchmarking, ...],
+    organizations: Tuple[Benchmarking, ...],
     subject: str,
-) -> List[OrganizationBenchmarking]:
+) -> List[Benchmarking]:
     return [
         organization
         for organization in organizations
@@ -102,9 +102,7 @@ def get_valid_organizations(
     ]
 
 
-def get_mean_organizations(
-    *, organizations: List[OrganizationBenchmarking]
-) -> Decimal:
+def get_mean_organizations(*, organizations: List[Benchmarking]) -> Decimal:
     return (
         Decimal(
             mean([organization.mttr for organization in organizations])
@@ -114,7 +112,7 @@ def get_mean_organizations(
     )
 
 
-def get_best_mttr(*, organizations: List[OrganizationBenchmarking]) -> Decimal:
+def get_best_mttr(*, organizations: List[Benchmarking]) -> Decimal:
     return (
         Decimal(
             min([organization.mttr for organization in organizations])
