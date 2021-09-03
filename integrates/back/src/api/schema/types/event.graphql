@@ -2,6 +2,8 @@
 type Event {
   "Where the event was present"
   accessibility: String
+  "Actions before getting blocked by an event"
+  actionBeforeBlocking: ActionsBeforeBlocking
   "Time spent solving the Event, in hours"
   affectation: String
   "Components involved or affected by the event, if applicable"

@@ -83,6 +83,7 @@ interface IEventsDataset {
   group: {
     events: {
       accessibility: string;
+      actionBeforeBlocking: string;
       affectedComponents: string;
       closingDate: string;
       detail: string;
