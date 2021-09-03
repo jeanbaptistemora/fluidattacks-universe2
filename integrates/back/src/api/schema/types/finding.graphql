@@ -7,7 +7,8 @@ type Finding {
   "Age of the Finding in days"
   age: Int
   "Hacker responsible for the Finding"
-  analyst: String
+  analyst: String @deprecated(reason: """This field will be removed
+  after 2022/03/02. Use `hacker` instead.""")
   "Attack vector description"
   attackVectorDesc: String @deprecated(reason: """This field will be removed
   after 2021/12/31. Use `attackVectorDescription` instead.""")
@@ -36,6 +37,8 @@ type Finding {
   evidence: GenericScalar
   "Name of the Group where the Finding is in"
   groupName: String
+  "Hacker responsible for the Finding"
+  hacker: String
   "Previous configurations of the Finding"
   historicState: [GenericScalar]
   "Finding Identifier"

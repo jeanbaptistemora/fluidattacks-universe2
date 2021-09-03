@@ -7,7 +7,8 @@ type Event {
   "Components involved or affected by the event, if applicable"
   affectedComponents: String
   "Hacker"
-  analyst: String
+  analyst: String @deprecated(reason: """This field will
+    be removed after 2022/03/02. Use `hacker` instead.""")
   "Client"
   client: String
   "Datetime of solving of the Event, in the format yyyy-MM-ddThh:mm:ssZ"
@@ -34,6 +35,8 @@ type Event {
   evidenceFileDate: String
   "Name of the group linked to the event"
   groupName: String
+  "Hacker"
+  hacker: String
   "List of historic configurations of the Event"
   historicState: [GenericScalar]
   "Identifier of the event"

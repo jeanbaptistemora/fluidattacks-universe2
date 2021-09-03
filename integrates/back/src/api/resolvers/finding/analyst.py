@@ -7,6 +7,9 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from newutils.utils import (
+    get_key_or_fallback,
+)
 from typing import (
     cast,
     Dict,
@@ -17,5 +20,7 @@ from typing import (
 async def resolve(
     parent: Finding, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> str:
-    analyst: str = cast(Dict[str, str], parent)["analyst"]
-    return analyst
+    hacker: str = get_key_or_fallback(
+        cast(Dict[str, str], parent), "hacker", "analyst"
+    )
+    return hacker

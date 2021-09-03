@@ -10,3 +10,4 @@ from ariadne import (
 
 EVENT = ObjectType("Event")
 EVENT.set_field("consulting", consulting.resolve)
+EVENT.set_alias("hacker", "analyst")

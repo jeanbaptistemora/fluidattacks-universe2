@@ -160,7 +160,7 @@ async def test_grant_stakeholder_access_2() -> None:
             phoneNumber: "3453453453"
             groupName: "unittesting",
             responsibility: "test",
-            role: ANALYST) {
+            role: HACKER) {
                 success
                 grantedStakeholder {
                     email
@@ -193,7 +193,7 @@ async def test_grant_stakeholder_access_3() -> None:
             phoneNumber: "3453453453"
             groupName: "unittesting",
             responsibility: "test",
-            role: ANALYST) {
+            role: HACKER) {
                 success
                 grantedStakeholder {
                     email
