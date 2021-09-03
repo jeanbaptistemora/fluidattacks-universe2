@@ -471,12 +471,27 @@ const Select = styled.select.attrs({
   className: `${style["form-control"]} black-40 border-box`,
 })``;
 
+const Small: StyledComponent<
+  "small",
+  Record<string, unknown>
+> = styled.small.attrs({
+  className: "justify-center ph1 pv0",
+})``;
+
 const SelectContainer = styled.div.attrs({
-  className: "flex-auto mh1",
+  className: "flex-auto mh1 mw6",
+})``;
+
+const InputText = styled.input.attrs({
+  className: `${style["form-control"]} black-40 border-box`,
 })``;
 
 const SearchText = styled.input.attrs({
   className: `${style["form-control"]} black-40 border-box`,
+})``;
+
+const SearchContainer = styled.div.attrs({
+  className: "ph1-5 w-100",
 })``;
 
 const SelectDate = styled.input.attrs({
@@ -621,6 +636,7 @@ export {
   Flex,
   FormGroup,
   HintFieldText,
+  InputText,
   GraphicButton,
   GraphicPanelCollapse,
   GraphicPanelCollapseBody,
@@ -647,6 +663,8 @@ export {
   RequiredField,
   Row,
   RowCenter,
+  SearchContainer,
+  Small,
   StickyContainer,
   SearchText,
   Select,

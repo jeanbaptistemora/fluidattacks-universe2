@@ -288,6 +288,7 @@ export const enTranslations: ResourceKey = {
     titleGeneric: "Confirm action",
   },
   dataTableNext: {
+    allOptions: "--All options--",
     filters: "Filters",
     more: "--More--",
     noDataIndication: "There is no data to display",

@@ -34,12 +34,14 @@ import {
   ButtonGroup,
   ButtonToolbarLeft,
   ButtonToolbarRow,
-  Col100,
   Filters,
+  InputText,
+  SearchContainer,
   SearchText,
   Select,
   SelectContainer,
   SelectDate,
+  Small,
   TableOptionsColBar,
   TableOptionsColBtn,
 } from "styles/styledComponents";
@@ -143,10 +145,17 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
       );
     if (type === "select")
       return (
-        <Select defaultValue={defaultValue} onChange={handleChangeSelect}>
-          <option key={placeholder} value={""}>
-            {t(placeholder)}
-          </option>
+        <Select
+          defaultValue={defaultValue === "" ? "__placeholder__" : defaultValue}
+          onChange={handleChangeSelect}
+        >
+          {defaultValue === "" ? (
+            <option disabled={true} hidden={true} value={"__placeholder__"}>
+              {t(placeholder)}
+            </option>
+          ) : (
+            <option value={""}>{t("dataTableNext.allOptions")}</option>
+          )}
           {Object.entries(selectOptions ?? {}).map(
             ([key, value]): JSX.Element => (
               <option key={value} value={key}>
@@ -158,7 +167,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
       );
 
     return (
-      <SearchText
+      <InputText
         defaultValue={defaultValue}
         onChange={handleChangeInput}
         placeholder={t(`${placeholder}`)}
@@ -169,7 +178,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   return (
     <div>
       <div className={`flex flex-wrap ${style.tableOptions}`}>
-        <div className={"w-80"}>
+        <div>
           {exportCsv ||
           columnToggle ||
           !_.isUndefined(isFilterEnabled) ||
@@ -231,13 +240,13 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                 {!_.isUndefined(isCustomSearchEnabled) &&
                   isCustomSearchEnabled && (
                     <ButtonGroup>
-                      <Col100>
+                      <SearchContainer>
                         <SearchText
                           defaultValue={customSearchDefault ?? ""}
                           onChange={onUpdateCustomSearch}
                           placeholder={t("dataTableNext.search")}
                         />
-                      </Col100>
+                      </SearchContainer>
                     </ButtonGroup>
                   )}
               </ButtonToolbarLeft>
@@ -246,13 +255,18 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           {!_.isUndefined(isCustomFilterEnabled) && isCustomFilterEnabled && (
             <Filters>
               {customFiltersProps?.map((filter: IFilterProps): JSX.Element => {
-                const { tooltipId, tooltipMessage } = filter;
+                const { tooltipId, tooltipMessage, placeholder = "" } = filter;
 
                 return (
                   <SelectContainer key={`container.${filter.tooltipId}`}>
-                    <TooltipWrapper id={tooltipId} message={t(tooltipMessage)}>
+                    <TooltipWrapper
+                      id={tooltipId}
+                      message={t(tooltipMessage)}
+                      placement={"top"}
+                    >
                       {filterOption(filter)}
                     </TooltipWrapper>
+                    <Small>{t(placeholder)}</Small>
                   </SelectContainer>
                 );
               })}

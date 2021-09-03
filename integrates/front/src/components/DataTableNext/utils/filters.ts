@@ -36,9 +36,9 @@ function filterDate<T extends Record<string, any>>(
 
     return _.isEmpty(currentDate)
       ? true
-      : selectedDate.getUTCDate() === reportDate.getDate() &&
-          selectedDate.getUTCMonth() === reportDate.getMonth() &&
-          selectedDate.getUTCFullYear() === reportDate.getFullYear();
+      : selectedDate.getUTCDate() === reportDate.getUTCDate() &&
+          selectedDate.getUTCMonth() === reportDate.getUTCMonth() &&
+          selectedDate.getUTCFullYear() === reportDate.getUTCFullYear();
   });
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
