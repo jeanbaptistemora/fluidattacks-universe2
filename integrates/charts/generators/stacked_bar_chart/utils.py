@@ -78,6 +78,21 @@ def translate_date(date_str: str) -> datetime:
     return datetime(int(date_year), MONTH_TO_NUMBER[date_month], int(date_day))
 
 
+def translate_date_last(date_str: str) -> datetime:
+    parts = date_str.replace(",", "").replace("- ", "").split(" ")
+
+    if len(parts) == 6:
+        date_year, date_month, date_day = parts[5], parts[3], parts[4]
+    elif len(parts) == 5:
+        date_year, date_month, date_day = parts[4], parts[2], parts[3]
+    elif len(parts) == 4:
+        date_year, date_month, date_day = parts[3], parts[0], parts[2]
+    else:
+        raise ValueError(f"Unexpected number of parts: {parts}")
+
+    return datetime(int(date_year), MONTH_TO_NUMBER[date_month], int(date_day))
+
+
 def format_document(
     document: Dict[str, Dict[datetime, float]],
     y_label: str,

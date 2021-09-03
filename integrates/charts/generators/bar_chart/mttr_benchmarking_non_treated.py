@@ -14,6 +14,7 @@ from charts.generators.bar_chart.utils import (
     get_mean_organizations,
     get_valid_organizations,
     get_vulnerability_reattacks,
+    ORGANIZATION_CATEGORIES,
     OrganizationBenchmarking,
 )
 from context import (
@@ -114,8 +115,9 @@ async def get_data_one_organization(
 
     return OrganizationBenchmarking(
         is_valid=sum(groups_reattacks_data) > 1000,
-        organization_id=organization_id,
+        subject=organization_id,
         mttr=mttr,
+        number_of_reattacks=sum(groups_reattacks_data),
     )
 
 
@@ -164,11 +166,12 @@ async def generate_all() -> None:
                     get_mean_organizations(
                         organizations=get_valid_organizations(
                             organizations=all_organizations_data,
-                            organization_id=org_id,
+                            subject=org_id,
                         )
                     ),
                     best_mttr,
                 ),
+                categories=ORGANIZATION_CATEGORIES,
             ),
             entity="organization",
             subject=org_id,

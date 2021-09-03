@@ -19,11 +19,24 @@ from typing import (
     Tuple,
 )
 
+ORGANIZATION_CATEGORIES: List[str] = [
+    "My organization",
+    "Average organization",
+    "Best organization",
+]
+
+GROUP_CATEGORIES: List[str] = [
+    "My group",
+    "Average group",
+    "Best group",
+]
+
 
 class OrganizationBenchmarking(NamedTuple):
     is_valid: bool
     mttr: Decimal
-    organization_id: str
+    subject: str
+    number_of_reattacks: int
 
 
 def get_vulnerability_reattacks(*, vulnerability: Vulnerability) -> int:
@@ -34,7 +47,9 @@ def get_vulnerability_reattacks(*, vulnerability: Vulnerability) -> int:
     )
 
 
-def format_data(data: Tuple[Decimal, Decimal, Decimal]) -> Dict[str, Any]:
+def format_data(
+    data: Tuple[Decimal, Decimal, Decimal], categories: List[str]
+) -> Dict[str, Any]:
 
     return dict(
         data=dict(
@@ -55,11 +70,7 @@ def format_data(data: Tuple[Decimal, Decimal, Decimal]) -> Dict[str, Any]:
         ),
         axis=dict(
             x=dict(
-                categories=[
-                    "My organization",
-                    "Average organization",
-                    "Best organization",
-                ],
+                categories=categories,
                 type="category",
             ),
             y=dict(
@@ -80,12 +91,12 @@ def format_data(data: Tuple[Decimal, Decimal, Decimal]) -> Dict[str, Any]:
 def get_valid_organizations(
     *,
     organizations: Tuple[OrganizationBenchmarking, ...],
-    organization_id: str,
+    subject: str,
 ) -> List[OrganizationBenchmarking]:
     return [
         organization
         for organization in organizations
-        if organization_id != organization.organization_id
+        if subject != organization.subject
         and organization.is_valid
         and organization.mttr != Decimal("Infinity")
     ]
