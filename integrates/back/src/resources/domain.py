@@ -1,9 +1,3 @@
-"""Domain functions for resources."""
-
-
-from aioextensions import (
-    collect,
-)
 from custom_exceptions import (
     InvalidFileSize,
 )
@@ -87,14 +81,8 @@ async def add_file(
         pass
     if validations.validate_file_name(uploaded_file.filename):
         group_files.extend(json_data)
-        success = all(
-            await collect(
-                [
-                    resources_utils.save_file(uploaded_file, file_id),
-                    groups_domain.update(group_name, {"files": group_files}),
-                ]
-            )
-        )
+        await resources_utils.save_file(uploaded_file, file_id)
+        success = groups_domain.update(group_name, {"files": group_files})
     return success
 
 

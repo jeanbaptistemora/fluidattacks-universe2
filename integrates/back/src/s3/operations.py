@@ -63,11 +63,9 @@ async def download_file(bucket: str, file_name: str, file_path: str) -> None:
 
 
 async def list_files(bucket: str, name: Optional[str] = None) -> List[str]:
-    key_list: List[str] = []
     async with aio_client() as client:
         resp = await client.list_objects_v2(Bucket=bucket, Prefix=name)
-        key_list = [item["Key"] for item in resp.get("Contents", [])]
-    return key_list
+        return [item["Key"] for item in resp.get("Contents", [])]
 
 
 async def remove_file(bucket: str, name: str) -> None:
@@ -83,10 +81,9 @@ async def remove_file(bucket: str, name: str) -> None:
 
 
 async def sign_url(file_name: str, expire_mins: float, bucket: str) -> str:
-    response: str = ""
     async with aio_client() as client:
         try:
-            response = str(
+            return str(
                 await client.generate_presigned_url(
                     "get_object",
                     Params={"Bucket": bucket, "Key": file_name},
@@ -95,7 +92,7 @@ async def sign_url(file_name: str, expire_mins: float, bucket: str) -> str:
             )
         except ClientError as ex:
             LOGGER.exception(ex, extra={"extra": locals()})
-    return response
+            raise UnavailabilityError()
 
 
 async def upload_memory_file(
