@@ -9,13 +9,14 @@ from charts import (
     utils,
 )
 from charts.generators.bar_chart.utils import (
+    Benchmarking,
     format_data,
     get_best_mttr,
     get_mean_organizations,
     get_valid_organizations,
     get_vulnerability_reattacks,
+    GROUP_CATEGORIES,
     ORGANIZATION_CATEGORIES,
-    OrganizationBenchmarking,
 )
 from context import (
     FI_API_STATUS,
@@ -32,6 +33,7 @@ from decimal import (
     ROUND_CEILING,
 )
 from groups.domain import (
+    get_alive_group_names,
     get_mean_remediate_non_treated,
     get_mean_remediate_non_treated_new,
 )
@@ -49,7 +51,9 @@ from typing import (
 
 
 @alru_cache(maxsize=None, typed=True)
-async def get_group_reattacks(*, group: str, loaders: Dataloaders) -> int:
+async def get_data_one_group(
+    *, group: str, loaders: Dataloaders
+) -> Benchmarking:
     if FI_API_STATUS == "migration":
         group_findings_new: Tuple[
             Finding, ...
@@ -70,65 +74,73 @@ async def get_group_reattacks(*, group: str, loaders: Dataloaders) -> int:
         if not is_accepted_undefined_vulnerability(vulnerability)
     ]
 
-    return sum(
+    number_of_reattacks: int = sum(
         get_vulnerability_reattacks(vulnerability=vulnerability)
         for vulnerability in vulnerabilities_excluding_permanently_accepted
+    )
+
+    if FI_API_STATUS == "migration":
+        mttr: Decimal = await get_mean_remediate_non_treated_new(
+            loaders, group.lower()
+        )
+    else:
+        mttr = await get_mean_remediate_non_treated(loaders, group.lower())
+
+    return Benchmarking(
+        is_valid=number_of_reattacks > 10,
+        subject=group.lower(),
+        mttr=mttr,
+        number_of_reattacks=number_of_reattacks,
     )
 
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_organization(
     *, organization_id: str, groups: Tuple[str, ...], loaders: Dataloaders
-) -> OrganizationBenchmarking:
-    if FI_API_STATUS == "migration":
-        groups_mttr_data = await collect(
-            [
-                get_mean_remediate_non_treated_new(loaders, group.lower())
-                for group in groups
-            ],
-            workers=24,
-        )
-    else:
-        groups_mttr_data = await collect(
-            [
-                get_mean_remediate_non_treated(loaders, group.lower())
-                for group in groups
-            ],
-            workers=24,
-        )
-
-    groups_reattacks_data = await collect(
-        [
-            get_group_reattacks(group=group.lower(), loaders=loaders)
-            for group in groups
-        ],
-        workers=24,
+) -> Benchmarking:
+    groups_data: Tuple[Benchmarking, ...] = await collect(
+        [get_data_one_group(group=group, loaders=loaders) for group in groups]
     )
 
     mttr: Decimal = (
-        Decimal(mean(groups_mttr_data)).to_integral_exact(
-            rounding=ROUND_CEILING
-        )
-        if groups_mttr_data
+        Decimal(
+            mean([group_data.mttr for group_data in groups_data])
+        ).to_integral_exact(rounding=ROUND_CEILING)
+        if groups_data
         else Decimal("Infinity")
     )
+    number_of_reattacks = sum(
+        group_data.number_of_reattacks for group_data in groups_data
+    )
 
-    return OrganizationBenchmarking(
-        is_valid=sum(groups_reattacks_data) > 1000,
+    return Benchmarking(
+        is_valid=number_of_reattacks > 1000,
         subject=organization_id,
         mttr=mttr,
-        number_of_reattacks=sum(groups_reattacks_data),
+        number_of_reattacks=number_of_reattacks,
     )
 
 
 async def generate_all() -> None:
     loaders: Dataloaders = get_new_context()
     organizations: List[Tuple[str, Tuple[str, ...]]] = []
+    groups: List[str] = sorted(await get_alive_group_names(), reverse=True)
 
     async for org_id, _, org_groups in (
         utils.iterate_organizations_and_groups()
     ):
         organizations.append((org_id, org_groups))
+
+    all_groups_data = await collect(
+        [
+            get_data_one_group(
+                group=group,
+                loaders=loaders,
+            )
+            for group in groups
+        ],
+        workers=24,
+    )
 
     all_organizations_data = await collect(
         [
@@ -149,6 +161,36 @@ async def generate_all() -> None:
             if organization.is_valid
         ]
     )
+
+    best_group_mttr = get_best_mttr(
+        organizations=[group for group in all_groups_data if group.is_valid]
+    )
+
+    async for group in utils.iterate_groups():
+        utils.json_dump(
+            document=format_data(
+                data=(
+                    Decimal(
+                        (
+                            await get_data_one_group(
+                                group=group,
+                                loaders=loaders,
+                            )
+                        ).mttr
+                    ).to_integral_exact(rounding=ROUND_CEILING),
+                    get_mean_organizations(
+                        organizations=get_valid_organizations(
+                            organizations=all_groups_data,
+                            subject=group,
+                        )
+                    ),
+                    best_group_mttr,
+                ),
+                categories=GROUP_CATEGORIES,
+            ),
+            entity="group",
+            subject=group,
+        )
 
     async for org_id, _, org_groups in (
         utils.iterate_organizations_and_groups()
