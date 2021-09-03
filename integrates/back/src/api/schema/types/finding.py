@@ -3,9 +3,9 @@
 
 from api.resolvers.finding import (
     age,
-    analyst,
     closed_vulnerabilities,
     consulting,
+    hacker,
     historic_state,
     inputs_vulnerabilities,
     last_vulnerability,
@@ -32,12 +32,12 @@ from api.resolvers.finding import (
 )
 from api.resolvers.finding_new import (
     age_new,
-    analyst_new,
     closed_vulnerabilities_new,
     consulting_new,
     current_state_new,
     evidence_new,
     group_name_new,
+    hacker_new,
     historic_state_new,
     inputs_vulnerabilities_new,
     is_exploitable_new,
@@ -80,7 +80,7 @@ if FI_API_STATUS == "migration":
     FINDING.set_field("currentState", current_state_new.resolve)
     FINDING.set_field("evidence", evidence_new.resolve)
     FINDING.set_field("groupName", group_name_new.resolve)
-    FINDING.set_field("hacker", analyst_new.resolve)
+    FINDING.set_field("hacker", hacker_new.resolve)
     FINDING.set_field("historicState", historic_state_new.resolve)
     FINDING.set_field(
         "inputsVulnerabilities", inputs_vulnerabilities_new.resolve
@@ -113,7 +113,7 @@ if FI_API_STATUS == "migration":
     )
     FINDING.set_field("zeroRisk", zero_risk_new.resolve)
     # --------------------------Deprecated fields------------------------------
-    FINDING.set_field("analyst", analyst_new.resolve)
+    FINDING.set_field("analyst", hacker_new.resolve)
     FINDING.set_alias("attackVectorDesc", "attack_vector_description")
     FINDING.set_alias("btsUrl", "bug_tracking_system_url")
     FINDING.set_field("inputsVulns", inputs_vulnerabilities_new.resolve)
@@ -129,7 +129,7 @@ else:
     FINDING.set_field("age", age.resolve)
     FINDING.set_field("closedVulnerabilities", closed_vulnerabilities.resolve)
     FINDING.set_field("consulting", consulting.resolve)
-    FINDING.set_field("hacker", analyst.resolve)
+    FINDING.set_field("hacker", hacker.resolve)
     FINDING.set_field("historicState", historic_state.resolve)
     FINDING.set_field("inputsVulnerabilities", inputs_vulnerabilities.resolve)
     FINDING.set_field("lastVulnerability", last_vulnerability.resolve)
@@ -155,7 +155,7 @@ else:
     FINDING.set_field("where", where.resolve)
     FINDING.set_field("zeroRisk", zero_risk.resolve)
     # --------------------------Deprecated fields------------------------------
-    FINDING.set_field("analyst", analyst.resolve)
+    FINDING.set_field("analyst", hacker.resolve)
     FINDING.set_alias("attackVectorDescription", "attack_vector_desc")
     FINDING.set_alias("bugTrackingSystemUrl", "bts_url")
     FINDING.set_field("inputsVulns", inputs_vulnerabilities.resolve)
