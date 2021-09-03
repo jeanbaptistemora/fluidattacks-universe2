@@ -32,10 +32,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 group_name="group1",
                 id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-                metadata=GitRootMetadata(
-                    type="Git",
-                    url="https://gitlab.com/fluidattacks/product",
-                ),
+                metadata=GitRootMetadata(type="Git"),
                 state=GitRootState(
                     branch="master",
                     environment="production",
@@ -51,6 +48,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     other=None,
                     reason=None,
                     status="INACTIVE",
+                    url="https://gitlab.com/fluidattacks/product",
                 ),
             ),
             GitRootItem(
@@ -61,10 +59,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ),
                 group_name="group1",
                 id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-                metadata=GitRootMetadata(
-                    type="Git",
-                    url="https://gitlab.com/fluidattacks/asm_1",
-                ),
+                metadata=GitRootMetadata(type="Git"),
                 state=GitRootState(
                     branch="master",
                     environment="production",
@@ -80,6 +75,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     other=None,
                     reason=None,
                     status="INACTIVE",
+                    url="https://gitlab.com/fluidattacks/asm_1",
                 ),
             ),
         ),

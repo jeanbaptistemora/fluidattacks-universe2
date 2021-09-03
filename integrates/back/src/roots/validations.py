@@ -83,7 +83,7 @@ def validate_nickname_is_unique(
 
 def is_git_unique(url: str, branch: str, roots: Tuple[RootItem, ...]) -> bool:
     return (url, branch) not in tuple(
-        (root.metadata.url, root.state.branch)
+        (root.state.url, root.state.branch)
         for root in roots
         if isinstance(root, GitRootItem) and root.state.status == "ACTIVE"
     )

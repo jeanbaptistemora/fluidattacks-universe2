@@ -8,7 +8,6 @@ from typing import (
 
 class GitRootMetadata(NamedTuple):
     type: str
-    url: str
 
 
 class GitRootCloning(NamedTuple):
@@ -34,6 +33,7 @@ class GitRootState(NamedTuple):
     other: Optional[str]
     reason: Optional[str]
     status: str
+    url: str
 
 
 class GitRootItem(NamedTuple):

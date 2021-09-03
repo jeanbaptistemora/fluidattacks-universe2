@@ -89,7 +89,7 @@ def format_root(root: RootItem) -> Root:
             last_cloning_status_update=root.cloning.modified_date,
             nickname=root.state.nickname,
             state=root.state.status,
-            url=root.metadata.url,
+            url=root.state.url,
         )
 
     if isinstance(root, IPRootItem):
@@ -131,14 +131,14 @@ async def _notify_health_check(
         await notifications_domain.request_health_check(
             branch=root.state.branch,
             group_name=group_name,
-            repo_url=root.metadata.url,
+            repo_url=root.state.url,
             requester_email=user_email,
         )
     else:
         await notifications_domain.cancel_health_check(
             branch=root.state.branch,
             group_name=group_name,
-            repo_url=root.metadata.url,
+            repo_url=root.state.url,
             requester_email=user_email,
         )
 
@@ -199,7 +199,7 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
         ),
         group_name=group_name,
         id=str(uuid4()),
-        metadata=GitRootMetadata(type="Git", url=url),
+        metadata=GitRootMetadata(type="Git"),
         state=GitRootState(
             branch=branch,
             environment_urls=list(),
@@ -213,6 +213,7 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
             other=None,
             reason=None,
             status="ACTIVE",
+            url=url,
         ),
     )
     await roots_model.add(root=root)
@@ -376,6 +377,7 @@ async def update_git_environments(
             other=None,
             reason=None,
             status=root.state.status,
+            url=root.state.url,
         ),
     )
 
@@ -396,14 +398,14 @@ async def update_git_root(
     enforcer = await authz.get_group_level_enforcer(user_email)
     if filter_changed and not enforcer(group_name, "update_git_root_filter"):
         raise PermissionDenied()
-    if not validations.is_exclude_valid(gitignore, root.metadata.url):
+    if not validations.is_exclude_valid(gitignore, root.state.url):
         raise InvalidRootExclusion()
 
     if root.state.status != "ACTIVE":
         raise InvalidParameter()
 
     nickname = _format_root_nickname(
-        kwargs.get("nickname", ""), root.metadata.url
+        kwargs.get("nickname", ""), root.state.url
     )
 
     validations.validate_nickname(nickname)
@@ -433,6 +435,7 @@ async def update_git_root(
             other=None,
             reason=None,
             status=root.state.status,
+            url=root.state.url,
         ),
     )
 
@@ -495,7 +498,7 @@ async def activate_root(
 
         if isinstance(root, GitRootItem):
             if not validations.is_git_unique(
-                root.metadata.url, root.state.branch, org_roots
+                root.state.url, root.state.branch, org_roots
             ):
                 raise RepeatedRoot()
 
@@ -518,6 +521,7 @@ async def activate_root(
                     other=None,
                     reason=None,
                     status=new_status,
+                    url=root.state.url,
                 ),
             )
 
@@ -525,7 +529,7 @@ async def activate_root(
                 await notifications_domain.request_health_check(
                     branch=root.state.branch,
                     group_name=group_name,
-                    repo_url=root.metadata.url,
+                    repo_url=root.state.url,
                     requester_email=user_email,
                 )
 
@@ -603,6 +607,7 @@ async def deactivate_root(
                     other=other,
                     reason=reason,
                     status=new_status,
+                    url=root.state.url,
                 ),
             )
 
@@ -610,7 +615,7 @@ async def deactivate_root(
                 await notifications_domain.cancel_health_check(
                     branch=root.state.branch,
                     group_name=group_name,
-                    repo_url=root.metadata.url,
+                    repo_url=root.state.url,
                     requester_email=user_email,
                 )
 

@@ -79,10 +79,7 @@ def _build_root(
             ),
             group_name=group_name,
             id=metadata[key_structure.sort_key].split("#")[1],
-            metadata=GitRootMetadata(
-                type=metadata["type"],
-                url=metadata["url"],
-            ),
+            metadata=GitRootMetadata(type=metadata["type"]),
             state=GitRootState(
                 branch=state.get("branch", metadata.get("branch", "")),
                 environment_urls=state["environment_urls"],
@@ -99,6 +96,7 @@ def _build_root(
                 other=state.get("other"),
                 reason=state.get("reason"),
                 status=state["status"],
+                url=state.get("url", metadata.get("url", "")),
             ),
         )
 
