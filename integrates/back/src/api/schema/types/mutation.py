@@ -90,6 +90,7 @@ from api.mutations import (
     update_toe_lines_sorts,
     update_vulnerabilities_treatment,
     update_vulnerability_commit,
+    update_vulnerability_commit_new,
     update_vulnerability_treatment,
     upload_file,
     upload_file_new,
@@ -266,7 +267,7 @@ if FI_API_STATUS == "migration":
     )
     MUTATION.set_field("updateSeverity", update_severity_new.mutate)
     MUTATION.set_field(
-        "updateVulnerabilityCommit", update_vulnerability_commit.mutate
+        "updateVulnerabilityCommit", update_vulnerability_commit_new.mutate
     )
     MUTATION.set_field(
         "updateVulnerabilitiesTreatment",
