@@ -1,3 +1,4 @@
+import { MatomoProvider, createInstance } from "@datapunt/matomo-tracker-react";
 import {
   disable as mixpanelDisable,
   init as mixpanelInit,
@@ -8,6 +9,7 @@ import { Provider as ReduxProvider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
+import { MatomoWrapper } from "components/MatomoWrapper";
 import { Dashboard } from "scenes/Dashboard";
 import { Login } from "scenes/Login";
 import store from "store";
@@ -26,33 +28,44 @@ import "tachyons-word-break/css/tachyons-word-break.min.css";
 
 const App: React.FC = (): JSX.Element => {
   const [user, setUser] = useState({ userEmail: "", userName: "" });
+  const matomoInstance = createInstance({
+    siteId: 3,
+    urlBase: "https://fluidattacks.matomo.cloud",
+  });
+  const isProduction = getEnvironment() === "production";
 
   return (
     <React.StrictMode>
-      <BugsnagErrorBoundary>
-        <BrowserRouter basename={"/"}>
-          <ApolloProvider>
-            <ReduxProvider store={store}>
-              <authzPermissionsContext.Provider value={userLevelPermissions}>
-                <secureStoreContext.Provider value={secureStore}>
-                  <authContext.Provider value={{ ...user, setUser }}>
-                    <Switch>
-                      <Route component={Login} exact={true} path={"/"} />
-                      <Route component={Dashboard} path={"/"} />
-                    </Switch>
-                  </authContext.Provider>
-                </secureStoreContext.Provider>
-              </authzPermissionsContext.Provider>
-            </ReduxProvider>
-          </ApolloProvider>
-        </BrowserRouter>
-        <ToastContainer
-          autoClose={5000}
-          closeOnClick={false}
-          hideProgressBar={true}
-          position={"top-right"}
-        />
-      </BugsnagErrorBoundary>
+      <MatomoProvider value={matomoInstance}>
+        <BugsnagErrorBoundary>
+          <BrowserRouter basename={"/"}>
+            <MatomoWrapper enabled={isProduction}>
+              <ApolloProvider>
+                <ReduxProvider store={store}>
+                  <authzPermissionsContext.Provider
+                    value={userLevelPermissions}
+                  >
+                    <secureStoreContext.Provider value={secureStore}>
+                      <authContext.Provider value={{ ...user, setUser }}>
+                        <Switch>
+                          <Route component={Login} exact={true} path={"/"} />
+                          <Route component={Dashboard} path={"/"} />
+                        </Switch>
+                      </authContext.Provider>
+                    </secureStoreContext.Provider>
+                  </authzPermissionsContext.Provider>
+                </ReduxProvider>
+              </ApolloProvider>
+            </MatomoWrapper>
+          </BrowserRouter>
+          <ToastContainer
+            autoClose={5000}
+            closeOnClick={false}
+            hideProgressBar={true}
+            position={"top-right"}
+          />
+        </BugsnagErrorBoundary>
+      </MatomoProvider>
     </React.StrictMode>
   );
 };

@@ -18,6 +18,8 @@
     "@bugsnag/plugin-react": "7.3.5",
     "@casl/ability": "4.1.6",
     "@casl/react": "2.1.1",
+    "@datapunt/matomo-tracker-react": "0.5.1",
+    "@datapunt/matomo-tracker-js": "0.5.1",
     "@fortawesome/fontawesome-svg-core": "1.2.34",
     "@fortawesome/free-brands-svg-icons": "5.15.2",
     "@fortawesome/free-solid-svg-icons": "5.15.2",

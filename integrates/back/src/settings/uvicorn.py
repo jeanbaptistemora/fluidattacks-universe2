@@ -42,6 +42,7 @@ class IntegratesWorker(  # pylint: disable=too-few-public-methods
                 "'self' "
                 "'unsafe-inline' "
                 "localhost:* "
+                "fluidattacks.matomo.cloud "
                 "cdn.announcekit.app "
                 "bam-cell.nr-data.net "
                 "bam.nr-data.net "
