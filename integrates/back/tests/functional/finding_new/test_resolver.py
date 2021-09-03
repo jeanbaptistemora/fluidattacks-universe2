@@ -91,7 +91,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
     is_exploitable: bool = False
     severity_score: float = 4.1
     report_date: str = "2018-04-01 00:45:00"
-    analyst: str = "test1@gmail.com"
+    hacker: str = "test1@gmail.com"
     current_state: str = "APPROVED"
     verified: bool = False
     ports_vulnerabilities: List[Any] = [
@@ -158,7 +158,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["actor"] == actor
     assert result["data"]["finding"]["affectedSystems"] == affected_systems
     assert result["data"]["finding"]["age"] == age
-    assert result["data"]["finding"]["analyst"] == analyst
+    assert result["data"]["finding"]["hacker"] == hacker
     assert (
         result["data"]["finding"]["attackVectorDesc"]
         == attack_vector_description

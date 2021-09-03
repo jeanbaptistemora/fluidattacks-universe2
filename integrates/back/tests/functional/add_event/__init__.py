@@ -23,7 +23,7 @@ async def get_result(
                 actionBeforeBlocking: DOCUMENT_GROUP,
                 accessibility: ENVIRONMENT,
                 context: CLIENT,
-                detail: "analyst create new event",
+                detail: "hacker create new event",
                 eventDate: "2020-02-01T00:00:00Z",
                 eventType: INCORRECT_MISSING_SUPPLIES
             ) {{

@@ -60,11 +60,11 @@ async def test_get_finding(populate: bool, email: str) -> None:
     is_exploitable: bool = False
     severity_score: float = 4.1
     report_date: str = ""
-    analyst: str = "test1@gmail.com"
+    hacker: str = "test1@gmail.com"
     historic_state: List[Any] = [
         {
             "date": release_date,
-            "analyst": analyst,
+            "analyst": hacker,
             "source": "source_path",
             "state": "APPROVED",
         }
@@ -158,7 +158,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["currentState"] == current_state
     assert result["data"]["finding"]["newRemediated"] == new_remediated
     assert result["data"]["finding"]["verified"] == verified
-    assert result["data"]["finding"]["analyst"] == analyst
+    assert result["data"]["finding"]["hacker"] == hacker
     assert (
         result["data"]["finding"]["portsVulnerabilities"]
         == ports_vulnerabilities

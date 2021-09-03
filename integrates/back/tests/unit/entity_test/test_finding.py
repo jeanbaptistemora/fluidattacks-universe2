@@ -97,7 +97,7 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
         "historicZeroRisk": [{"date": None, "status": None}],
         "currentState": "open",
         "currentApprovalStatus": "",
-        "analyst": "unittest@fluidattacks.com",
+        "hacker": "unittest@fluidattacks.com",
         "source": "asm",
         "vulnerabilityType": "lines",
         "zeroRisk": "",
@@ -156,7 +156,7 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
           isExploitable
           severityScore
           reportDate
-          analyst
+          hacker
           currentState
           newRemediated
           verified
@@ -180,7 +180,7 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
             }
             currentState
             currentApprovalStatus
-            analyst
+            hacker
             source
             vulnerabilityType
             zeroRisk
@@ -237,7 +237,7 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
     assert "isExploitable" in result["data"]["finding"]
     assert "severityScore" in result["data"]["finding"]
     assert "reportDate" in result["data"]["finding"]
-    assert "analyst" in result["data"]["finding"]
+    assert "hacker" in result["data"]["finding"]
     assert "currentState" in result["data"]["finding"]
     assert "newRemediated" in result["data"]["finding"]
     assert "verified" in result["data"]["finding"]

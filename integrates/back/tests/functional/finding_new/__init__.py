@@ -23,7 +23,7 @@ async def get_result(
                 actor
                 affectedSystems
                 age
-                analyst
+                hacker
                 attackVectorDesc
                 attackVectorDescription
                 btsUrl

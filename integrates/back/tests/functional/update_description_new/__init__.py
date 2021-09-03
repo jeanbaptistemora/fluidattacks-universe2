@@ -52,7 +52,7 @@ async def get_result(  # pylint: disable=too-many-locals
                     actor
                     affectedSystems
                     age
-                    analyst
+                    hacker
                     attackVectorDescription
                     bugTrackingSystemUrl
                     closedVulnerabilities

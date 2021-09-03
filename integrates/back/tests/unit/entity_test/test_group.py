@@ -45,7 +45,7 @@ async def test_group() -> None:
           hasSquad
           hasForces
           findings {
-              analyst
+              hacker
           }
           hasAsm
           openVulnerabilities
@@ -71,7 +71,7 @@ async def test_group() -> None:
             openVulnerabilities
           }
           events {
-            analyst
+            hacker
             detail
           }
           stakeholders {

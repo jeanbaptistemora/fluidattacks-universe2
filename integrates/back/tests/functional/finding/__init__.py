@@ -34,7 +34,7 @@ async def get_result(
                 currentState
                 newRemediated
                 verified
-                analyst
+                hacker
                 portsVulnerabilities {{
                     specific
                 }}

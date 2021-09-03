@@ -164,7 +164,7 @@ async def test_get_last_closing_date() -> None:
         ],
         "vuln_type": "inputs",
         "where": "https://example.com",
-        "analyst": "testanalyst@test.com",
+        "hacker": "testanalyst@test.com",
     }
 
     open_vulnerability = await vulns_dal.get(
@@ -190,7 +190,7 @@ async def test_is_vulnerability_closed() -> None:
         ],
         "vuln_type": "inputs",
         "where": "https://example.com",
-        "analyst": "testanalyst@test.com",
+        "hacker": "testanalyst@test.com",
     }
 
     open_vulnerability = await vulns_dal.get(
@@ -242,7 +242,7 @@ async def test_get_open_vulnerability_date() -> None:
         "historic_state": [{"date": "2019-01-08 16:01:26", "state": "closed"}],
         "vuln_type": "inputs",
         "where": "https://example.com",
-        "analyst": "testanalyst@test.com",
+        "hacker": "testanalyst@test.com",
     }
 
     open_vulnerability = await vulns_dal.get(

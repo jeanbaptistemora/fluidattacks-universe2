@@ -45,7 +45,7 @@ async def get_result(
                 userRole
                 maxOpenSeverity
                 maxOpenSeverityFinding {{
-                    analyst
+                    hacker
                 }}
                 stakeholders{{
                     email
@@ -74,10 +74,10 @@ async def get_result(
                     title
                 }}
                 lastClosedVulnerabilityFinding {{
-                    analyst
+                    hacker
                 }}
                 maxSeverityFinding {{
-                    analyst
+                    hacker
                 }}
                 __typename
             }}
