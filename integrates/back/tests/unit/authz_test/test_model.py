@@ -137,6 +137,8 @@ def test_model_integrity_migrated_finding_permissions(
         "approve_draft_new_mutate",
         "api_mutations_add_draft_mutate": "api_mutations_"
         "add_draft_new_mutate",
+        "api_mutations_handle_vulnerabilities_acceptation_mutate": "api_"
+        "mutations_handle_vulnerabilities_acceptation_new_mutate",
         "api_mutations_remove_finding_mutate": "api_mutations_"
         "remove_finding_new_mutate",
         "api_mutations_reject_draft_mutate": "api_mutations_"

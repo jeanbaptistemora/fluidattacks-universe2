@@ -35,6 +35,7 @@ from api.mutations import (
     grant_stakeholder_organization_access,
     handle_organization_finding_policy_acceptation,
     handle_vulnerabilities_acceptation,
+    handle_vulnerabilities_acceptation_new,
     invalidate_access_token,
     invalidate_cache,
     reject_draft,
@@ -147,10 +148,6 @@ MUTATION.set_field(
     "handleOrganizationFindingPolicyAcceptation",
     handle_organization_finding_policy_acceptation.mutate,
 )
-MUTATION.set_field(
-    "handleVulnerabilitiesAcceptation",
-    handle_vulnerabilities_acceptation.mutate,
-)
 MUTATION.set_field("invalidateAccessToken", invalidate_access_token.mutate)
 MUTATION.set_field("invalidateCache", invalidate_cache.mutate)
 MUTATION.set_field("removeEventEvidence", remove_event_evidence.mutate)
@@ -223,9 +220,6 @@ MUTATION.set_field(
     "handleOrgFindingPolicyAcceptation",
     handle_organization_finding_policy_acceptation.mutate,
 )
-MUTATION.set_field(
-    "handleVulnsAcceptation", handle_vulnerabilities_acceptation.mutate
-)
 MUTATION.set_field("editStakeholder", update_group_stakeholder.mutate)
 MUTATION.set_field("removeTag", remove_group_tag.mutate)
 MUTATION.set_field(
@@ -238,6 +232,10 @@ if FI_API_STATUS == "migration":
     MUTATION.set_field("approveDraft", approve_draft_new.mutate)
     MUTATION.set_field(
         "downloadVulnerabilityFile", download_vulnerability_file.mutate
+    )
+    MUTATION.set_field(
+        "handleVulnerabilitiesAcceptation",
+        handle_vulnerabilities_acceptation_new.mutate,
     )
     MUTATION.set_field("rejectDraft", reject_draft_new.mutate)
     MUTATION.set_field(
@@ -283,6 +281,9 @@ if FI_API_STATUS == "migration":
     MUTATION.set_field("deleteFinding", remove_finding_new.mutate)
     MUTATION.set_field("deleteVulnerability", remove_vulnerability_new.mutate)
     MUTATION.set_field(
+        "handleVulnsAcceptation", handle_vulnerabilities_acceptation_new.mutate
+    )
+    MUTATION.set_field(
         "rejectZeroRiskVuln", reject_vulnerabilities_zero_risk_new.mutate
     )
     MUTATION.set_field(
@@ -305,6 +306,10 @@ else:
     MUTATION.set_field("approveDraft", approve_draft.mutate)
     MUTATION.set_field(
         "downloadVulnerabilityFile", download_vulnerability_file.mutate
+    )
+    MUTATION.set_field(
+        "handleVulnerabilitiesAcceptation",
+        handle_vulnerabilities_acceptation.mutate,
     )
     MUTATION.set_field("rejectDraft", reject_draft.mutate)
     MUTATION.set_field(
@@ -346,6 +351,9 @@ else:
     MUTATION.set_field("createDraft", add_draft.mutate)
     MUTATION.set_field("deleteFinding", remove_finding.mutate)
     MUTATION.set_field("deleteVulnerability", remove_vulnerability.mutate)
+    MUTATION.set_field(
+        "handleVulnsAcceptation", handle_vulnerabilities_acceptation.mutate
+    )
     MUTATION.set_field(
         "rejectZeroRiskVuln", reject_vulnerabilities_zero_risk.mutate
     )
