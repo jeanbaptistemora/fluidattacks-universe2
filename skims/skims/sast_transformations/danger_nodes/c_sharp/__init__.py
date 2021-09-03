@@ -80,6 +80,14 @@ def mark_inputs(
             "byte",
         },
     )
+    mark_obj_inst_input(
+        findings.F320,
+        graph,
+        syntax,
+        {
+            *build_attr_paths("System", "DirectoryServices", "DirectoryEntry"),
+        },
+    )
 
 
 def mark_sinks(
@@ -154,6 +162,7 @@ def mark_sinks(
             "Exists",
         },
     )
+    mark_assignments_sink(findings.F320, graph, syntax, {"AuthenticationType"})
 
 
 def mark_metadata(

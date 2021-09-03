@@ -93,6 +93,12 @@ def go_evaluate_assignment(args: EvaluatorArgs) -> None:
 
 
 def evaluate(args: EvaluatorArgs) -> None:
+    danger_assignment = {
+        "AuthenticationTypes.None",
+    }
+    vulnerable_type = {
+        "DirectoryEntry",
+    }
     var, field = split_on_last_dot(args.syntax_step.var)
     args_danger = any(dep.meta.danger for dep in args.dependencies)
     if not args.syntax_step.meta.danger:
@@ -103,6 +109,12 @@ def evaluate(args: EvaluatorArgs) -> None:
     # modify the value of a field in an instance
     if var != "this":
         # pylint:disable=used-before-assignment
+        if (
+            (var_decl := lookup_var_dcl_by_name(args, var))
+            and var_decl.var_type in vulnerable_type
+            and args.dependencies.pop().expression in danger_assignment
+        ):
+            args.syntax_step.meta.danger = True
         if (var_decl := lookup_var_dcl_by_name(args, var)) and isinstance(
             var_decl.meta.value,
             JavaClassInstance,

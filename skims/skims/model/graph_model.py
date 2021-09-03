@@ -271,6 +271,7 @@ class SyntaxStepSubscriptExpression(NamedTuple):
 class SyntaxStepMemberAccessExpression(NamedTuple):
     meta: SyntaxStepMeta
     member: str
+    expression: str
 
     type: str = "SyntaxStepMemberAccessExpression"
 
@@ -476,6 +477,13 @@ GRAPH_VULNERABILITY_PARAMETERS: Dict[
         GraphVulnerabilityParameters(
             cwe=(90,),
             desc_key="F107.description",
+            desc_params={},
+        )
+    ),
+    core_model.FindingEnum.F320: (
+        GraphVulnerabilityParameters(
+            cwe=(90,),
+            desc_key="F320.title",
             desc_params={},
         )
     ),

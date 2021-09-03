@@ -6,6 +6,9 @@ from model.graph_model import (
 from sast_syntax_readers.types import (
     SyntaxReaderArgs,
 )
+from utils.graph.transformation import (
+    build_member_access_expression_key,
+)
 
 
 def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
@@ -18,4 +21,5 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
         member=args.graph.nodes[node_attrs["label_field_property"]].get(
             "label_text"
         ),
+        expression=build_member_access_expression_key(args.graph, args.n_id),
     )

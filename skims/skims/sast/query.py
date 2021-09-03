@@ -196,6 +196,10 @@ def query_f107(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
     return query(graph_db, core_model.FindingEnum.F107)
 
 
+def query_f320(graph_db: graph_model.GraphDB) -> core_model.Vulnerabilities:
+    return query(graph_db, core_model.FindingEnum.F320)
+
+
 QUERIES: graph_model.Queries = (
     (core_model.FindingEnum.F112, query_f001_java_sql),
     (core_model.FindingEnum.F001, query_f001_c_sharp_sql),
@@ -209,4 +213,5 @@ QUERIES: graph_model.Queries = (
     (core_model.FindingEnum.F089, query_f063_tb),
     (core_model.FindingEnum.F127, query_f063_tc),
     (core_model.FindingEnum.F107, query_f107),
+    (core_model.FindingEnum.F320, query_f320),
 )

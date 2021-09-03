@@ -25,9 +25,8 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
         "this_expression",
         ".",
     )
-    _, access_key = split_on_first_dot(
-        build_member_access_expression_key(args.graph, args.n_id)
-    )
+    expres = build_member_access_expression_key(args.graph, args.n_id)
+    _, access_key = split_on_first_dot(expres)
     if expression := match_access["__0__"]:
         dependence = args.generic(args.fork_n_id(expression))
     else:
@@ -39,4 +38,5 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
             [dependence],
         ),
         member=access_key,
+        expression=expres,
     )
