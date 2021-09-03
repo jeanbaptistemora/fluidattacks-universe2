@@ -7,7 +7,6 @@ from typing import (
 
 
 class GitRootMetadata(NamedTuple):
-    branch: str
     type: str
     url: str
 
@@ -23,8 +22,9 @@ class GitEnvironmentUrl(NamedTuple):
 
 
 class GitRootState(NamedTuple):
-    environment: str
+    branch: str
     environment_urls: List[str]
+    environment: str
     git_environment_urls: List[GitEnvironmentUrl]
     gitignore: List[str]
     includes_health_check: bool

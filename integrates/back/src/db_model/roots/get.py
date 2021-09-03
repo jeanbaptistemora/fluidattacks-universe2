@@ -80,13 +80,13 @@ def _build_root(
             group_name=group_name,
             id=metadata[key_structure.sort_key].split("#")[1],
             metadata=GitRootMetadata(
-                branch=metadata["branch"],
                 type=metadata["type"],
                 url=metadata["url"],
             ),
             state=GitRootState(
-                environment=state["environment"],
+                branch=state.get("branch", metadata.get("branch", "")),
                 environment_urls=state["environment_urls"],
+                environment=state["environment"],
                 git_environment_urls=[
                     GitEnvironmentUrl(url=item)
                     for item in state["environment_urls"]

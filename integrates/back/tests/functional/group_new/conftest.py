@@ -489,11 +489,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group1",
                 id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 metadata=GitRootMetadata(
-                    branch="master",
                     type="Git",
                     url="https://gitlab.com/fluidattacks/product",
                 ),
                 state=GitRootState(
+                    branch="master",
                     environment="production",
                     environment_urls=["https://.com"],
                     git_environment_urls=[

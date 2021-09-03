@@ -74,7 +74,7 @@ from uuid import (
 def format_root(root: RootItem) -> Root:
     if isinstance(root, GitRootItem):
         return GitRoot(
-            branch=root.metadata.branch,
+            branch=root.state.branch,
             cloning_status=GitRootCloningStatus(
                 status=root.cloning.status,
                 message=root.cloning.reason,
@@ -129,14 +129,14 @@ async def _notify_health_check(
 ) -> None:
     if request:
         await notifications_domain.request_health_check(
-            branch=root.metadata.branch,
+            branch=root.state.branch,
             group_name=group_name,
             repo_url=root.metadata.url,
             requester_email=user_email,
         )
     else:
         await notifications_domain.cancel_health_check(
-            branch=root.metadata.branch,
+            branch=root.state.branch,
             group_name=group_name,
             repo_url=root.metadata.url,
             requester_email=user_email,
@@ -199,10 +199,11 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
         ),
         group_name=group_name,
         id=str(uuid4()),
-        metadata=GitRootMetadata(branch=branch, type="Git", url=url),
+        metadata=GitRootMetadata(type="Git", url=url),
         state=GitRootState(
-            environment=kwargs["environment"],
+            branch=branch,
             environment_urls=list(),
+            environment=kwargs["environment"],
             git_environment_urls=list(),
             gitignore=gitignore,
             includes_health_check=kwargs["includes_health_check"],
@@ -361,8 +362,9 @@ async def update_git_environments(
         group_name=group_name,
         root_id=root_id,
         state=GitRootState(
-            environment=root.state.environment,
+            branch=root.state.branch,
             environment_urls=environment_urls,
+            environment=root.state.environment,
             git_environment_urls=[
                 GitEnvironmentUrl(url=item) for item in environment_urls
             ],
@@ -416,6 +418,7 @@ async def update_git_root(
         group_name=group_name,
         root_id=root_id,
         state=GitRootState(
+            branch=root.state.branch,
             environment=kwargs["environment"],
             environment_urls=root.state.environment_urls,
             git_environment_urls=[
@@ -492,7 +495,7 @@ async def activate_root(
 
         if isinstance(root, GitRootItem):
             if not validations.is_git_unique(
-                root.metadata.url, root.metadata.branch, org_roots
+                root.metadata.url, root.state.branch, org_roots
             ):
                 raise RepeatedRoot()
 
@@ -500,8 +503,9 @@ async def activate_root(
                 group_name=group_name,
                 root_id=root.id,
                 state=GitRootState(
-                    environment=root.state.environment,
+                    branch=root.state.branch,
                     environment_urls=root.state.environment_urls,
+                    environment=root.state.environment,
                     git_environment_urls=[
                         GitEnvironmentUrl(url=item)
                         for item in root.state.environment_urls
@@ -519,7 +523,7 @@ async def activate_root(
 
             if root.state.includes_health_check:
                 await notifications_domain.request_health_check(
-                    branch=root.metadata.branch,
+                    branch=root.state.branch,
                     group_name=group_name,
                     repo_url=root.metadata.url,
                     requester_email=user_email,
@@ -584,6 +588,7 @@ async def deactivate_root(
                 group_name=group_name,
                 root_id=root.id,
                 state=GitRootState(
+                    branch=root.state.branch,
                     environment=root.state.environment,
                     environment_urls=root.state.environment_urls,
                     git_environment_urls=[
@@ -603,7 +608,7 @@ async def deactivate_root(
 
             if root.state.includes_health_check:
                 await notifications_domain.cancel_health_check(
-                    branch=root.metadata.branch,
+                    branch=root.state.branch,
                     group_name=group_name,
                     repo_url=root.metadata.url,
                     requester_email=user_email,

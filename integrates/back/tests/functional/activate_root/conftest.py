@@ -39,11 +39,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group1",
                 id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 metadata=GitRootMetadata(
-                    branch="master",
                     type="Git",
                     url="https://gitlab.com/fluidattacks/product",
                 ),
                 state=GitRootState(
+                    branch="master",
                     environment="production",
                     environment_urls=["https://test.com"],
                     git_environment_urls=[
@@ -102,11 +102,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 group_name="group2",
                 id="702b81b3-d741-4699-9173-ecbc30bfb0cb",
                 metadata=GitRootMetadata(
-                    branch="master",
                     type="Git",
                     url="https://gitlab.com/fluidattacks/repo",
                 ),
                 state=GitRootState(
+                    branch="master",
                     environment="production",
                     environment_urls=["https://test.com"],
                     git_environment_urls=[
