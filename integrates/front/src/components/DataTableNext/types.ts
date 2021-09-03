@@ -97,6 +97,8 @@ interface ITableWrapperProps {
 }
 
 export {
+  ICustomFiltersProps,
+  ICustomSearchProps,
   ICustomToggleProps,
   IFilterProps,
   IHeaderConfig,

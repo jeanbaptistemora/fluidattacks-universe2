@@ -2,7 +2,7 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { useTranslation } from "react-i18next";
 
@@ -21,16 +21,9 @@ import { DataTableNext } from "components/DataTableNext";
 import { deleteFormatter } from "components/DataTableNext/formatters";
 import { filterFormatter } from "components/DataTableNext/headerFormatters/filterFormatter";
 import type {
-  IFilterProps,
   IHeaderConfig,
   ISelectRowProps,
 } from "components/DataTableNext/types";
-import {
-  filterDate,
-  filterSearchText,
-  filterSelect,
-  filterText,
-} from "components/DataTableNext/utils";
 import { DeleteVulnerabilityModal } from "scenes/Dashboard/components/RemoveVulnerability/index";
 import type {
   IVulnComponentProps,
@@ -38,8 +31,6 @@ import type {
 } from "scenes/Dashboard/components/Vulnerabilities/types";
 import {
   filterOutVulnerabilities,
-  filterTreatment,
-  filterTreatmentCurrentStatus,
   formatVulnerabilities,
   getNonSelectableVulnerabilitiesOnReattackIds,
   getNonSelectableVulnerabilitiesOnVerifyIds,
@@ -49,7 +40,6 @@ import { vulnerabilityInfo } from "scenes/Dashboard/components/Vulnerabilities/v
 import { Col100 } from "scenes/Dashboard/containers/ChartsGenericView/components/ChartCols";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
-import { useStoredState } from "utils/hooks";
 
 function usePreviousProps(value: boolean): boolean {
   const ref = useRef(false);
@@ -63,6 +53,8 @@ function usePreviousProps(value: boolean): boolean {
 
 export const VulnComponent: React.FC<IVulnComponentProps> = ({
   canDisplayAnalyst,
+  customFilters,
+  customSearch,
   findingId,
   findingState,
   groupName,
@@ -98,21 +90,6 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   const previousIsEditing = usePreviousProps(isEditing);
   const previousIsRequestingReattack = usePreviousProps(isRequestingReattack);
   const previousIsVerifyingRequest = usePreviousProps(isVerifyingRequest);
-
-  const [isCustomFilterEnabled, setCustomFilterEnabled] =
-    useStoredState<boolean>("locationsCustomFilters", false);
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [treatmentFilter, setTreatmentFilter] = useState("");
-  const [reportDateFilter, setReportDateFilter] = useState("");
-  const [tagFilter, setTagFilter] = useState("");
-  const [currentStatusFilter, setCurrentStatusFilter] = useState("");
-  const [treatmentCurrentStatusFilter, setTreatmentCurrentStatusFilter] =
-    useState("");
-  const [verificationFilter, setVerificationFilter] = useState("");
-
-  const handleUpdateCustomFilter: () => void = useCallback((): void => {
-    setCustomFilterEnabled(!isCustomFilterEnabled);
-  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
 
   function openAdditionalInfoModal(
     _0: React.FormEvent,
@@ -277,175 +254,13 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     return setColumnHelper(true, columnHelper);
   }
 
-  const vulnerabilitiesDataset = formatVulnerabilities(vulnerabilities);
-
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
-  }
-  const filterSearchTextVulnerabilities: IVulnRowAttr[] = filterSearchText(
-    vulnerabilitiesDataset,
-    searchTextFilter
-  );
-
-  function onTreatmentChange(
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): void {
-    setTreatmentFilter(event.target.value);
-  }
-  const filterTreatmentVulnerabilities: IVulnRowAttr[] = filterTreatment(
-    vulnerabilitiesDataset,
-    treatmentFilter
-  );
-  function onReportDateChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setReportDateFilter(event.target.value);
-  }
-  const filterReportDateVulnerabilities: IVulnRowAttr[] = filterDate(
-    vulnerabilitiesDataset,
-    reportDateFilter,
-    "reportDate"
-  );
-
-  function onTagChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    setTagFilter(event.target.value);
-  }
-  const filterTagVulnerabilities: IVulnRowAttr[] = filterText(
-    vulnerabilitiesDataset,
-    tagFilter,
-    "tag"
-  );
-
-  function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    setCurrentStatusFilter(event.target.value);
-  }
-  const filterCurrentStatusVulnerabilities: IVulnRowAttr[] = filterSelect(
-    vulnerabilitiesDataset,
-    currentStatusFilter,
-    "currentState"
-  );
-
-  function onTreatmentStatusChange(
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): void {
-    setTreatmentCurrentStatusFilter(event.target.value);
-  }
-  const filterTreatmentCurrentStatusVulnerabilities: IVulnRowAttr[] =
-    filterTreatmentCurrentStatus(
-      vulnerabilitiesDataset,
-      treatmentCurrentStatusFilter
-    );
-
-  function onVerificationChange(
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): void {
-    setVerificationFilter(event.target.value);
-  }
-  const filterVerificationVulnerabilities: IVulnRowAttr[] = filterSelect(
-    vulnerabilitiesDataset,
-    verificationFilter,
-    "verification"
-  );
-
-  const resultVulnerabilities: IVulnRowAttr[] = _.intersection(
-    filterSearchTextVulnerabilities,
-    filterTreatmentCurrentStatusVulnerabilities,
-    filterTreatmentVulnerabilities,
-    filterCurrentStatusVulnerabilities,
-    filterVerificationVulnerabilities,
-    filterReportDateVulnerabilities,
-    filterTagVulnerabilities
-  );
-
-  const customFiltersProps: IFilterProps[] = [
-    {
-      defaultValue: reportDateFilter,
-      onChangeInput: onReportDateChange,
-      placeholder: "Report date",
-      tooltipId: "searchFindings.tabVuln.vulnTable.dateTooltip.id",
-      tooltipMessage: "searchFindings.tabVuln.vulnTable.dateTooltip",
-      type: "date",
-    },
-    {
-      defaultValue: treatmentFilter,
-      onChangeSelect: onTreatmentChange,
-      placeholder: "Treatment",
-      /* eslint-disable sort-keys */
-      selectOptions: {
-        NEW: "searchFindings.tabDescription.treatment.new",
-        IN_PROGRESS: "searchFindings.tabDescription.treatment.inProgress",
-        ACCEPTED: "searchFindings.tabDescription.treatment.accepted",
-        ACCEPTED_UNDEFINED:
-          "searchFindings.tabDescription.treatment.acceptedUndefined",
-      },
-      /* eslint-enable sort-keys */
-      tooltipId: "searchFindings.tabVuln.vulnTable.treatmentsTooltip.id",
-      tooltipMessage: "searchFindings.tabVuln.vulnTable.treatmentsTooltip",
-      type: "select",
-    },
-    {
-      defaultValue: verificationFilter,
-      onChangeSelect: onVerificationChange,
-      placeholder: "Reattacks",
-      selectOptions: {
-        Requested: "searchFindings.tabVuln.requested",
-        Verified: "searchFindings.tabVuln.verified",
-      },
-      tooltipId: "searchFindings.tabVuln.vulnTable.reattacksTooltip.id",
-      tooltipMessage: "searchFindings.tabVuln.vulnTable.reattacksTooltip",
-      type: "select",
-    },
-    {
-      defaultValue: currentStatusFilter,
-      onChangeSelect: onStatusChange,
-      placeholder: "Status",
-      selectOptions: {
-        closed: "searchFindings.tabVuln.closed",
-        open: "searchFindings.tabVuln.open",
-      },
-      tooltipId: "searchFindings.tabVuln.statusTooltip.id",
-      tooltipMessage: "searchFindings.tabVuln.statusTooltip",
-      type: "select",
-    },
-    {
-      defaultValue: treatmentCurrentStatusFilter,
-      onChangeSelect: onTreatmentStatusChange,
-      placeholder: "Treatment Acceptation",
-      selectOptions: {
-        false: "Accepted",
-        true: "Pending",
-      },
-      tooltipId: "searchFindings.tabVuln.treatmentStatus.id",
-      tooltipMessage: "searchFindings.tabVuln.treatmentStatus",
-      type: "select",
-    },
-    {
-      defaultValue: tagFilter,
-      onChangeInput: onTagChange,
-      placeholder: "searchFindings.tabVuln.searchTag",
-      tooltipId: "searchFindings.tabVuln.tagTooltip.id",
-      tooltipMessage: "searchFindings.tabVuln.tagTooltip",
-      type: "text",
-    },
-  ];
-
   return (
     <React.StrictMode>
       <DataTableNext
         bordered={true}
-        customFilters={{
-          customFiltersProps,
-          isCustomFilterEnabled,
-          onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-        }}
-        customSearch={{
-          customSearchDefault: searchTextFilter,
-          isCustomSearchEnabled: true,
-          onUpdateCustomSearch: onSearchTextChange,
-        }}
-        dataset={resultVulnerabilities}
+        customFilters={customFilters}
+        customSearch={customSearch}
+        dataset={formatVulnerabilities(vulnerabilities)}
         defaultSorted={JSON.parse(
           _.get(sessionStorage, "vulnerabilitiesSort", "{}") as string
         )}

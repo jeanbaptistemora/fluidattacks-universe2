@@ -1,3 +1,7 @@
+import type {
+  ICustomFiltersProps,
+  ICustomSearchProps,
+} from "components/DataTableNext/types";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 
 interface IVulnRowAttr {
@@ -56,6 +60,8 @@ interface IVulnDataTypeAttr {
 
 interface IVulnComponentProps {
   canDisplayAnalyst: boolean;
+  customFilters?: ICustomFiltersProps;
+  customSearch?: ICustomSearchProps;
   findingId: string;
   findingState: "closed" | "open";
   groupName: string;

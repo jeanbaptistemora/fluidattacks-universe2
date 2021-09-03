@@ -13,6 +13,13 @@ import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
+import type { IFilterProps } from "components/DataTableNext/types";
+import {
+  filterDate,
+  filterSearchText,
+  filterSelect,
+  filterText,
+} from "components/DataTableNext/utils";
 import { Modal } from "components/Modal";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
@@ -21,6 +28,8 @@ import { UpdateDescription } from "scenes/Dashboard/components/Vulnerabilities/U
 import {
   filterCurrentStatus,
   filterOutVulnerabilities,
+  filterTreatment,
+  filterTreatmentCurrentStatus,
   filterZeroRisk,
   getNonSelectableVulnerabilitiesOnReattackIds,
   getNonSelectableVulnerabilitiesOnVerifyIds,
@@ -30,8 +39,8 @@ import { HandleAcceptationModal } from "scenes/Dashboard/containers/Vulnerabilit
 import { GET_FINDING_VULN_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import type { IGetFindingVulnInfoAttr } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
 import { isPendingToAcceptation } from "scenes/Dashboard/containers/VulnerabilitiesView/utils";
-import { ButtonToolbar } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
+import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
@@ -51,6 +60,21 @@ export const VulnsView: React.FC = (): JSX.Element => {
   );
 
   const [isOpen, setOpen] = useState(false);
+
+  const [isCustomFilterEnabled, setCustomFilterEnabled] =
+    useStoredState<boolean>("locationsCustomFilters", false);
+  const [searchTextFilter, setSearchTextFilter] = useState("");
+  const [treatmentFilter, setTreatmentFilter] = useState("");
+  const [reportDateFilter, setReportDateFilter] = useState("");
+  const [tagFilter, setTagFilter] = useState("");
+  const [currentStatusFilter, setCurrentStatusFilter] = useState("");
+  const [treatmentCurrentStatusFilter, setTreatmentCurrentStatusFilter] =
+    useState("");
+  const [verificationFilter, setVerificationFilter] = useState("");
+
+  const handleUpdateCustomFilter: () => void = useCallback((): void => {
+    setCustomFilterEnabled(!isCustomFilterEnabled);
+  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
 
   const [isHandleAcceptationModalOpen, setHandleAcceptationModalOpen] =
     useState(false);
@@ -117,6 +141,83 @@ export const VulnsView: React.FC = (): JSX.Element => {
   const vulnerabilities: IVulnRowAttr[] =
     data.finding.vulnerabilities.concat(zeroRiskVulns);
 
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
+  const filterSearchTextVulnerabilities: IVulnRowAttr[] = filterSearchText(
+    vulnerabilities,
+    searchTextFilter
+  );
+
+  function onTreatmentChange(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void {
+    setTreatmentFilter(event.target.value);
+  }
+  const filterTreatmentVulnerabilities: IVulnRowAttr[] = filterTreatment(
+    vulnerabilities,
+    treatmentFilter
+  );
+  function onReportDateChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setReportDateFilter(event.target.value);
+  }
+  const filterReportDateVulnerabilities: IVulnRowAttr[] = filterDate(
+    vulnerabilities,
+    reportDateFilter,
+    "reportDate"
+  );
+
+  function onTagChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    setTagFilter(event.target.value);
+  }
+  const filterTagVulnerabilities: IVulnRowAttr[] = filterText(
+    vulnerabilities,
+    tagFilter,
+    "tag"
+  );
+
+  function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    setCurrentStatusFilter(event.target.value);
+  }
+  const filterCurrentStatusVulnerabilities: IVulnRowAttr[] = filterSelect(
+    vulnerabilities,
+    currentStatusFilter,
+    "currentState"
+  );
+
+  function onTreatmentStatusChange(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void {
+    setTreatmentCurrentStatusFilter(event.target.value);
+  }
+  const filterTreatmentCurrentStatusVulnerabilities: IVulnRowAttr[] =
+    filterTreatmentCurrentStatus(vulnerabilities, treatmentCurrentStatusFilter);
+
+  function onVerificationChange(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void {
+    setVerificationFilter(event.target.value);
+  }
+  const filterVerificationVulnerabilities: IVulnRowAttr[] = filterSelect(
+    vulnerabilities,
+    verificationFilter,
+    "verification"
+  );
+
+  const resultVulnerabilities: IVulnRowAttr[] = _.intersection(
+    filterSearchTextVulnerabilities,
+    filterTreatmentCurrentStatusVulnerabilities,
+    filterTreatmentVulnerabilities,
+    filterCurrentStatusVulnerabilities,
+    filterVerificationVulnerabilities,
+    filterReportDateVulnerabilities,
+    filterTagVulnerabilities
+  );
+
   const isFindingReleased: boolean = !_.isEmpty(data.finding.releaseDate);
   function toggleModal(): void {
     setOpen(true);
@@ -129,7 +230,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
         remediationModalConfig.vulnerabilities;
       const newVulnerabilities: IVulnRowAttr[] = filterOutVulnerabilities(
         selectedVulnerabilities,
-        filterZeroRisk(vulnerabilities),
+        filterZeroRisk(resultVulnerabilities),
         getNonSelectableVulnerabilitiesOnReattackIds
       );
       if (selectedVulnerabilities.length > newVulnerabilities.length) {
@@ -152,7 +253,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
         remediationModalConfig.vulnerabilities;
       const newVulnerabilities: IVulnRowAttr[] = filterOutVulnerabilities(
         selectedVulnerabilities,
-        filterZeroRisk(vulnerabilities),
+        filterZeroRisk(resultVulnerabilities),
         getNonSelectableVulnerabilitiesOnVerifyIds
       );
       if (selectedVulnerabilities.length > newVulnerabilities.length) {
@@ -167,38 +268,118 @@ export const VulnsView: React.FC = (): JSX.Element => {
     }
   }
 
+  const customFiltersProps: IFilterProps[] = [
+    {
+      defaultValue: reportDateFilter,
+      onChangeInput: onReportDateChange,
+      placeholder: "Report date",
+      tooltipId: "searchFindings.tabVuln.vulnTable.dateTooltip.id",
+      tooltipMessage: "searchFindings.tabVuln.vulnTable.dateTooltip",
+      type: "date",
+    },
+    {
+      defaultValue: treatmentFilter,
+      onChangeSelect: onTreatmentChange,
+      placeholder: "Treatment",
+      /* eslint-disable sort-keys */
+      selectOptions: {
+        NEW: "searchFindings.tabDescription.treatment.new",
+        IN_PROGRESS: "searchFindings.tabDescription.treatment.inProgress",
+        ACCEPTED: "searchFindings.tabDescription.treatment.accepted",
+        ACCEPTED_UNDEFINED:
+          "searchFindings.tabDescription.treatment.acceptedUndefined",
+      },
+      /* eslint-enable sort-keys */
+      tooltipId: "searchFindings.tabVuln.vulnTable.treatmentsTooltip.id",
+      tooltipMessage: "searchFindings.tabVuln.vulnTable.treatmentsTooltip",
+      type: "select",
+    },
+    {
+      defaultValue: verificationFilter,
+      onChangeSelect: onVerificationChange,
+      placeholder: "Reattacks",
+      selectOptions: {
+        Requested: "searchFindings.tabVuln.requested",
+        Verified: "searchFindings.tabVuln.verified",
+      },
+      tooltipId: "searchFindings.tabVuln.vulnTable.reattacksTooltip.id",
+      tooltipMessage: "searchFindings.tabVuln.vulnTable.reattacksTooltip",
+      type: "select",
+    },
+    {
+      defaultValue: currentStatusFilter,
+      onChangeSelect: onStatusChange,
+      placeholder: "Status",
+      selectOptions: {
+        closed: "searchFindings.tabVuln.closed",
+        open: "searchFindings.tabVuln.open",
+      },
+      tooltipId: "searchFindings.tabVuln.statusTooltip.id",
+      tooltipMessage: "searchFindings.tabVuln.statusTooltip",
+      type: "select",
+    },
+    {
+      defaultValue: treatmentCurrentStatusFilter,
+      onChangeSelect: onTreatmentStatusChange,
+      placeholder: "Treatment Acceptation",
+      selectOptions: {
+        false: "Accepted",
+        true: "Pending",
+      },
+      tooltipId: "searchFindings.tabVuln.treatmentStatus.id",
+      tooltipMessage: "searchFindings.tabVuln.treatmentStatus",
+      type: "select",
+    },
+    {
+      defaultValue: tagFilter,
+      onChangeInput: onTagChange,
+      placeholder: "searchFindings.tabVuln.searchTag",
+      tooltipId: "searchFindings.tabVuln.tagTooltip.id",
+      tooltipMessage: "searchFindings.tabVuln.tagTooltip",
+      type: "text",
+    },
+  ];
+
   return (
     <React.StrictMode>
       <React.Fragment>
         <div>
           <div>
-            <ButtonToolbar>
-              <ActionButtons
-                areVulnerabilitiesPendingToAcceptation={isPendingToAcceptation(
-                  vulnerabilities
-                )}
-                areVulnsSelected={
-                  remediationModalConfig.vulnerabilities.length > 0
-                }
-                isEditing={isEditing}
-                isFindingReleased={isFindingReleased}
-                isOpen={isOpen}
-                isReattackRequestedInAllVuln={data.finding.remediated}
-                isRequestingReattack={isRequestingVerify}
-                isVerified={data.finding.verified}
-                isVerifying={isVerifying}
-                onEdit={toggleEdit}
-                onRequestReattack={toggleRequestVerify}
-                onVerify={toggleVerify}
-                openHandleAcceptation={toggleHandleAcceptationModal}
-                openModal={toggleModal}
-                state={data.finding.state}
-                subscription={data.group.subscription}
-              />
-            </ButtonToolbar>
+            <ActionButtons
+              areVulnerabilitiesPendingToAcceptation={isPendingToAcceptation(
+                resultVulnerabilities
+              )}
+              areVulnsSelected={
+                remediationModalConfig.vulnerabilities.length > 0
+              }
+              isEditing={isEditing}
+              isFindingReleased={isFindingReleased}
+              isOpen={isOpen}
+              isReattackRequestedInAllVuln={data.finding.remediated}
+              isRequestingReattack={isRequestingVerify}
+              isVerified={data.finding.verified}
+              isVerifying={isVerifying}
+              onEdit={toggleEdit}
+              onRequestReattack={toggleRequestVerify}
+              onVerify={toggleVerify}
+              openHandleAcceptation={toggleHandleAcceptationModal}
+              openModal={toggleModal}
+              state={data.finding.state}
+              subscription={data.group.subscription}
+            />
             <div>
               <VulnComponent
                 canDisplayAnalyst={canRetrieveAnalyst}
+                customFilters={{
+                  customFiltersProps,
+                  isCustomFilterEnabled,
+                  onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+                }}
+                customSearch={{
+                  customSearchDefault: searchTextFilter,
+                  isCustomSearchEnabled: true,
+                  onUpdateCustomSearch: onSearchTextChange,
+                }}
                 findingId={findingId}
                 findingState={data.finding.state}
                 groupName={groupName}
@@ -210,9 +391,9 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 vulnerabilities={
                   isRequestingVerify
                     ? filterZeroRisk(
-                        filterCurrentStatus(vulnerabilities, "open")
+                        filterCurrentStatus(resultVulnerabilities, "open")
                       )
-                    : filterZeroRisk(vulnerabilities)
+                    : filterZeroRisk(resultVulnerabilities)
                 }
               />
             </div>
@@ -237,7 +418,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
             groupName={groupName}
             handleCloseModal={toggleHandleAcceptationModal}
             refetchData={refetch}
-            vulns={vulnerabilities}
+            vulns={resultVulnerabilities}
           />
         ) : undefined}
         {isEditing ? (
