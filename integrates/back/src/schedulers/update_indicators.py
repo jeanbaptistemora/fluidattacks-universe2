@@ -4,6 +4,9 @@ from aioextensions import (
 from botocore.exceptions import (
     ClientError,
 )
+from calendar import (
+    monthrange,
+)
 from collections import (
     OrderedDict,
 )
@@ -68,7 +71,7 @@ class VulnerabilitiesStatusByTimeRange(NamedTuple):
     found_cvssf: Decimal
 
 
-class RegisterByWeek(NamedTuple):
+class RegisterByTime(NamedTuple):
     vulnerabilities: List[List[Dict[str, Union[str, Decimal]]]]
     vulnerabilities_cvssf: List[List[Dict[str, Union[str, Decimal]]]]
     exposed_cvssf: List[List[Dict[str, Union[str, Decimal]]]]
@@ -132,7 +135,7 @@ def get_severity(
 
 async def create_register_by_week(  # pylint: disable=too-many-locals
     context: Any, group: str, min_date: Optional[datetime] = None
-) -> RegisterByWeek:
+) -> RegisterByTime:
     """Create weekly vulnerabilities registry by group"""
     found: int = 0
     accepted: int = 0
@@ -266,10 +269,130 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
                 )
             )
 
-    return RegisterByWeek(
+    return RegisterByTime(
         vulnerabilities=create_data_format_chart(all_registers),
         vulnerabilities_cvssf=create_data_format_chart(all_registers_cvsff),
         exposed_cvssf=format_exposed_chart(all_registers_exposed_cvsff),
+    )
+
+
+async def create_register_by_month(  # pylint: disable=too-many-locals
+    *, context: Any, group: str
+) -> RegisterByTime:
+    found: int = 0
+    accepted: int = 0
+    closed: int = 0
+    found_cvssf = Decimal(0.0)
+    all_registers = OrderedDict()
+    all_registers_cvsff = OrderedDict()
+
+    findings: List[Dict[str, FindingType]] = await context.group_findings.load(
+        group
+    )
+    vulnerabilties = await context.finding_vulns_nzr.load_many_chained(
+        [finding["finding_id"] for finding in findings]
+    )
+    findings_dict: Dict[str, Dict[str, FindingType]] = {
+        str(finding["finding_id"]): finding for finding in findings
+    }
+    vulnerabilities_severity = [
+        get_severity(findings_dict=findings_dict, vulnerability=vulnerability)
+        for vulnerability in vulnerabilties
+    ]
+    historic_states = [
+        findings_utils.sort_historic_by_date(vulnerability["historic_state"])
+        for vulnerability in vulnerabilties
+    ]
+
+    if vulnerabilties:
+        first_day, last_day = get_first_dates(vulnerabilties)
+        first_day_last_week = get_last_vulnerabilities_date(vulnerabilties)
+        while first_day <= first_day_last_week:
+            result_vulns_by_month: VulnerabilitiesStatusByTimeRange = (
+                get_status_vulns_by_time_range(
+                    vulnerabilities=vulnerabilties,
+                    vulnerabilities_severity=vulnerabilities_severity,
+                    vulnerabilities_historic_states=historic_states,
+                    first_day=first_day,
+                    last_day=last_day,
+                    min_date=None,
+                )
+            )
+            found += result_vulns_by_month.found_vulnerabilities
+            found_cvssf += result_vulns_by_month.found_cvssf
+            week_dates = create_date(first_day)
+            if any(
+                [
+                    result_vulns_by_month.found_vulnerabilities,
+                    accepted != result_vulns_by_month.accepted_vulnerabilities,
+                    closed != result_vulns_by_month.closed_vulnerabilities,
+                ]
+            ):
+                all_registers[week_dates] = {
+                    "found": Decimal(found),
+                    "closed": Decimal(
+                        result_vulns_by_month.closed_vulnerabilities
+                    ),
+                    "accepted": Decimal(
+                        result_vulns_by_month.accepted_vulnerabilities
+                    ),
+                    "assumed_closed": Decimal(
+                        result_vulns_by_month.accepted_vulnerabilities
+                        + result_vulns_by_month.closed_vulnerabilities
+                    ),
+                    "opened": Decimal(
+                        found
+                        - result_vulns_by_month.closed_vulnerabilities
+                        - result_vulns_by_month.accepted_vulnerabilities
+                    ),
+                }
+                all_registers_cvsff[week_dates] = {
+                    "found": found_cvssf.quantize(Decimal("0.1")),
+                    "closed": result_vulns_by_month.closed_cvssf.quantize(
+                        Decimal("0.1")
+                    ),
+                    "accepted": result_vulns_by_month.accepted_cvssf.quantize(
+                        Decimal("0.1")
+                    ),
+                    "assumed_closed": (
+                        result_vulns_by_month.accepted_cvssf
+                        + result_vulns_by_month.closed_cvssf
+                    ).quantize(Decimal("0.1")),
+                    "opened": (
+                        found_cvssf
+                        - result_vulns_by_month.closed_cvssf
+                        - result_vulns_by_month.accepted_cvssf
+                    ).quantize(Decimal("0.1")),
+                }
+
+            accepted = result_vulns_by_month.accepted_vulnerabilities
+            closed = result_vulns_by_month.closed_vulnerabilities
+            first_day_ = datetime_utils.get_from_str(first_day)
+            first_day = datetime_utils.get_as_str(
+                datetime_utils.get_plus_delta(
+                    first_day_,
+                    days=monthrange(
+                        int(first_day_.strftime("%Y")),
+                        int(first_day_.strftime("%m")),
+                    )[1],
+                )
+            )
+            last_day_ = datetime_utils.get_from_str(last_day)
+            last_day_one = datetime_utils.get_plus_delta(last_day_, days=1)
+            last_day = datetime_utils.get_as_str(
+                datetime_utils.get_plus_delta(
+                    last_day_,
+                    days=monthrange(
+                        int(last_day_one.strftime("%Y")),
+                        int(last_day_one.strftime("%m")),
+                    )[1],
+                )
+            )
+
+    return RegisterByTime(
+        vulnerabilities=create_data_format_chart(all_registers),
+        vulnerabilities_cvssf=create_data_format_chart(all_registers_cvsff),
+        exposed_cvssf=[],
     )
 
 
@@ -280,6 +403,24 @@ def create_weekly_date(first_date: str) -> str:
         first_date_, days=(first_date_.isoweekday() - 1) % 7
     )
     end = datetime_utils.get_plus_delta(begin, days=6)
+    if begin.year != end.year:
+        date = "{0:%b} {0.day}, {0.year} - {1:%b} {1.day}, {1.year}"
+    elif begin.month != end.month:
+        date = "{0:%b} {0.day} - {1:%b} {1.day}, {1.year}"
+    else:
+        date = "{0:%b} {0.day} - {1.day}, {1.year}"
+    return date.format(begin, end)
+
+
+def create_date(first_date: str) -> str:
+    first_date_ = datetime_utils.get_from_str(first_date)
+    month_days: int = monthrange(
+        int(first_date_.strftime("%Y")), int(first_date_.strftime("%m"))
+    )[1]
+    begin = datetime_utils.get_minus_delta(
+        first_date_, days=(int(first_date_.strftime("%d")) - 1) % month_days
+    )
+    end = datetime_utils.get_plus_delta(begin, days=month_days - 1)
     if begin.year != end.year:
         date = "{0:%b} {0.day}, {0.year} - {1:%b} {1.day}, {1.year}"
     elif begin.month != end.month:
@@ -382,6 +523,26 @@ def get_date_last_vulns(vulns: List[Dict[str, FindingType]]) -> str:
     return first_day
 
 
+def get_last_vulnerabilities_date(vulns: List[Dict[str, FindingType]]) -> str:
+    last_date = max(
+        [
+            datetime_utils.get_from_str(
+                cast(List[Dict[str, str]], vuln["historic_state"])[-1]["date"]
+            )
+            for vuln in vulns
+        ]
+    )
+    day_month: int = int(last_date.strftime("%d"))
+    first_day_delta = datetime_utils.get_minus_delta(
+        last_date, days=day_month - 1
+    )
+    first_day = datetime.combine(
+        first_day_delta, datetime.min.time(), tzinfo=datetime_utils.TZ
+    )
+
+    return datetime_utils.get_as_str(first_day)
+
+
 def get_first_week_dates(
     vulns: List[Dict[str, FindingType]], min_date: Optional[datetime] = None
 ) -> Tuple[str, str]:
@@ -407,6 +568,43 @@ def get_first_week_dates(
         datetime.max.time().replace(microsecond=0),
         tzinfo=datetime_utils.TZ,
     )
+    return (
+        datetime_utils.get_as_str(first_day),
+        datetime_utils.get_as_str(last_day),
+    )
+
+
+def get_first_dates(
+    vulnerabilities: List[Dict[str, FindingType]]
+) -> Tuple[str, str]:
+    first_date = min(
+        [
+            datetime_utils.get_from_str(
+                cast(List[Dict[str, str]], vuln["historic_state"])[0]["date"]
+            )
+            for vuln in vulnerabilities
+        ]
+    )
+    day_month: int = int(first_date.strftime("%d"))
+    first_day_delta = datetime_utils.get_minus_delta(
+        first_date, days=day_month - 1
+    )
+    first_day = datetime.combine(
+        first_day_delta, datetime.min.time(), tzinfo=datetime_utils.TZ
+    )
+    last_day_delta = datetime_utils.get_plus_delta(
+        first_day,
+        days=monthrange(
+            int(first_date.strftime("%Y")), int(first_date.strftime("%m"))
+        )[1]
+        - 1,
+    )
+    last_day = datetime.combine(
+        last_day_delta,
+        datetime.max.time().replace(microsecond=0),
+        tzinfo=datetime_utils.TZ,
+    )
+
     return (
         datetime_utils.get_as_str(first_day),
         datetime_utils.get_as_str(last_day),
@@ -496,6 +694,9 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
             ),
         ]
     )
+    over_time_month: RegisterByTime = await create_register_by_month(
+        context=context, group=group
+    )
     indicators = {
         **_indicators,
         "mean_remediate_critical_severity": remediate_critical,
@@ -507,10 +708,14 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
         ),
         "total_treatment": total_treatment,
         "remediated_over_time": remediated_over_time.vulnerabilities[-24:],
+        "remediated_over_time_month": over_time_month.vulnerabilities[-24:],
         "remediated_over_time_cvssf": (
             remediated_over_time.vulnerabilities_cvssf[-24:]
         ),
         "exposed_over_time_cvssf": remediated_over_time.exposed_cvssf[-24:],
+        "remediated_over_time_month_cvssf": (
+            over_time_month.vulnerabilities_cvssf[-24:]
+        ),
         "remediated_over_time_30": remediated_over_thirty_days.vulnerabilities[
             -24:
         ],

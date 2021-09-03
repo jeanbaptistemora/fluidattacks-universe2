@@ -255,7 +255,7 @@ async def test_get_group_indicators() -> None:
     accepted = over_time[2][-1]["y"]
 
     assert isinstance(test_data, dict)
-    assert len(test_data) == 20
+    assert len(test_data) == 22
     assert test_data["max_open_severity"] == Decimal(6.3).quantize(
         Decimal("0.1")
     )
