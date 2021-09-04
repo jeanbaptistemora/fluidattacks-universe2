@@ -149,9 +149,8 @@ def build_member_access_expression_key(
     graph: graph_model.Graph,
     n_id: str,
 ) -> str:
-    keys = build_member_access_expression_isd(graph, n_id)
-    identifiers = tuple(graph.nodes[key]["label_text"] for key in keys)
-    return ".".join(identifiers)
+    mem_acces = "member_access_expression"
+    return ".".join(yield_c_sharp_nested_identifiers(graph, n_id, mem_acces))
 
 
 def build_qualified_name(graph: graph_model.Graph, qualified_id: str) -> str:

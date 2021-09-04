@@ -27234,7 +27234,7 @@
               "n_id": "363",
               "value": null
             },
-            "method": "Students.Where",
+            "method": "Students.Where.FirstOrDefault<Student>",
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
@@ -27872,7 +27872,7 @@
               "n_id": "67",
               "value": null
             },
-            "method": "Students.Include.Where.Select",
+            "method": "Students.Include.Where.Select.FirstOrDefault<StudentViewModel>",
             "type": "SyntaxStepMethodInvocationChain"
           },
           {
