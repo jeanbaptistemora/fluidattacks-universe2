@@ -56,7 +56,6 @@ from sast_syntax_readers.utils_generic import (
 )
 from typing import (
     Dict,
-    Iterator,
     List,
     NamedTuple,
     Optional,
@@ -539,17 +538,18 @@ def get_possible_syntax_steps_for_finding(
     return syntax_steps_map
 
 
-def get_possible_syntax_steps(
+def get_all_possible_syntax_steps(
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,
 ) -> PossibleSyntaxSteps:
-    syntax_steps_map: PossibleSyntaxSteps = {}
-    for shard in graph_db.shards:
-        syntax_steps_map[shard.path] = get_possible_syntax_steps_for_finding(
+    syntax_steps_map: PossibleSyntaxSteps = {
+        shard.path: get_possible_syntax_steps_for_finding(
             graph_db=graph_db,
             finding=finding,
             shard=shard,
         )
+        for shard in graph_db.shards
+    }
 
     if CTX.debug:
         output = get_debug_path(f"tree-sitter-syntax-steps-{finding.name}")
@@ -563,21 +563,3 @@ class PossibleSyntaxStepLinear(NamedTuple):
     finding: core_model.FindingEnum
     shard_path: str
     syntax_steps: graph_model.SyntaxSteps
-
-
-def get_possible_syntax_steps_linear(
-    graph_db: graph_model.GraphDB,
-    finding: core_model.FindingEnum,
-) -> Iterator[PossibleSyntaxStepLinear]:
-    yield from (
-        PossibleSyntaxStepLinear(
-            finding=finding,
-            shard_path=shard_path,
-            syntax_steps=syntax_steps,
-        )
-        for shard_path, syntax_steps_for_finding in (
-            get_possible_syntax_steps(graph_db, finding).items()
-        )
-        for syntax_steps_for_n_id in syntax_steps_for_finding.values()
-        for syntax_steps in syntax_steps_for_n_id.values()
-    )

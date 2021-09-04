@@ -7,12 +7,15 @@ from model import (
 )
 import os
 from sast_symbolic_evaluation.evaluate import (
-    get_possible_syntax_steps_linear,
+    get_all_possible_syntax_steps,
+    get_possible_syntax_steps_for_finding,
     PossibleSyntaxStepLinear,
+    PossibleSyntaxStepsForFinding,
 )
 from typing import (
     Dict,
     Iterator,
+    Optional,
     Set,
     Tuple,
 )
@@ -109,7 +112,7 @@ def _is_vulnerable(
 def get_vulnerabilities_from_syntax(
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,
-    syntax_steps: PossibleSyntaxStepLinear,
+    possible_syntax_steps: PossibleSyntaxStepLinear,
 ) -> core_model.Vulnerabilities:
     params = graph_model.GRAPH_VULNERABILITY_PARAMETERS[finding]
     return get_vulnerabilities_from_n_ids(
@@ -121,12 +124,12 @@ def get_vulnerabilities_from_syntax(
             (graph_shard, syntax_step.meta.n_id)
             for graph_shard in [
                 graph_db.shards[
-                    graph_db.shards_by_path[syntax_steps.shard_path]
+                    graph_db.shards_by_path[possible_syntax_steps.shard_path]
                 ],
             ]
-            for syntax_step in syntax_steps.syntax_steps
+            for syntax_step in possible_syntax_steps.syntax_steps
             if _is_vulnerable(
-                syntax_steps.finding,
+                possible_syntax_steps.finding,
                 syntax_step,
                 graph_shard.graph.nodes[syntax_step.meta.n_id],
             )
@@ -134,12 +137,53 @@ def get_vulnerabilities_from_syntax(
     )
 
 
+def specific_query_lazy(
+    graph_db: graph_model.GraphDB,
+    finding: core_model.FindingEnum,
+    shard: graph_model.GraphShard,
+    possible_steps_finding: Optional[PossibleSyntaxStepsForFinding] = None,
+) -> Iterator[core_model.Vulnerabilities]:
+
+    if possible_steps_finding is None:
+        possible_steps_finding = get_possible_syntax_steps_for_finding(
+            graph_db,
+            finding,
+            shard,
+        )
+
+    for syntax_steps_n_id in possible_steps_finding.values():
+        for syntax_steps in syntax_steps_n_id.values():
+            yield get_vulnerabilities_from_syntax(
+                graph_db,
+                finding,
+                PossibleSyntaxStepLinear(finding, shard.path, syntax_steps),
+            )
+
+
 def query_lazy(
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,
 ) -> Iterator[core_model.Vulnerabilities]:
-    for syntax_steps in get_possible_syntax_steps_linear(graph_db, finding):
-        yield get_vulnerabilities_from_syntax(graph_db, finding, syntax_steps)
+    if CTX.debug:
+        all_possible_steps = get_all_possible_syntax_steps(graph_db, finding)
+
+    for shard in graph_db.shards:
+        yield from specific_query_lazy(
+            graph_db,
+            finding,
+            shard,
+            all_possible_steps[shard.path] if CTX.debug else None,
+        )
+
+
+def specific_query(
+    graph_db: graph_model.GraphDB,
+    finding: core_model.FindingEnum,
+    shard: graph_model.GraphShard,
+) -> core_model.Vulnerabilities:
+    return tuple(
+        chain.from_iterable(specific_query_lazy(graph_db, finding, shard))
+    )
 
 
 def query(

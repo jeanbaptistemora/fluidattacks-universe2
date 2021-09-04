@@ -9,7 +9,7 @@ from sast.parse import (
     get_graph_db,
 )
 from sast_symbolic_evaluation.evaluate import (
-    get_possible_syntax_steps,
+    get_all_possible_syntax_steps,
 )
 from typing import (
     Tuple,
@@ -94,7 +94,7 @@ async def test_graph_generation(
 
     # Test SymEval
     syntax_steps = {
-        finding.name: get_possible_syntax_steps(graph_db, finding)
+        finding.name: get_all_possible_syntax_steps(graph_db, finding)
         for finding in core_model.FindingEnum
     }
     syntax_steps_as_json_str = json_dumps(
