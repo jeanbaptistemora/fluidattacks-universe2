@@ -8,6 +8,7 @@ from model import (
 import os
 from sast_symbolic_evaluation.evaluate import (
     get_possible_syntax_steps_linear,
+    PossibleSyntaxStepLinear,
 )
 from typing import (
     Dict,
@@ -105,36 +106,40 @@ def _is_vulnerable(
     return syntax_step.meta.danger is True and finding.name in sinks
 
 
+def get_vulnerabilities_from_syntax(
+    graph_db: graph_model.GraphDB,
+    finding: core_model.FindingEnum,
+    syntax_steps: PossibleSyntaxStepLinear,
+) -> core_model.Vulnerabilities:
+    params = graph_model.GRAPH_VULNERABILITY_PARAMETERS[finding]
+    return get_vulnerabilities_from_n_ids(
+        cwe=params.cwe,
+        desc_key=params.desc_key,
+        desc_params=params.desc_params,
+        finding=finding,
+        graph_shard_nodes=[
+            (graph_shard, syntax_step.meta.n_id)
+            for graph_shard in [
+                graph_db.shards[
+                    graph_db.shards_by_path[syntax_steps.shard_path]
+                ],
+            ]
+            for syntax_step in syntax_steps.syntax_steps
+            if _is_vulnerable(
+                syntax_steps.finding,
+                syntax_step,
+                graph_shard.graph.nodes[syntax_step.meta.n_id],
+            )
+        ],
+    )
+
+
 def query_lazy(
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,
 ) -> Iterator[core_model.Vulnerabilities]:
-    for syntax_steps in get_possible_syntax_steps_linear(
-        graph_db,
-        finding,
-    ):
-        params = graph_model.GRAPH_VULNERABILITY_PARAMETERS[finding]
-
-        yield get_vulnerabilities_from_n_ids(
-            cwe=params.cwe,
-            desc_key=params.desc_key,
-            desc_params=params.desc_params,
-            finding=finding,
-            graph_shard_nodes=[
-                (graph_shard, syntax_step.meta.n_id)
-                for graph_shard in [
-                    graph_db.shards[
-                        graph_db.shards_by_path[syntax_steps.shard_path]
-                    ],
-                ]
-                for syntax_step in syntax_steps.syntax_steps
-                if _is_vulnerable(
-                    syntax_steps.finding,
-                    syntax_step,
-                    graph_shard.graph.nodes[syntax_step.meta.n_id],
-                )
-            ],
-        )
+    for syntax_steps in get_possible_syntax_steps_linear(graph_db, finding):
+        yield get_vulnerabilities_from_syntax(graph_db, finding, syntax_steps)
 
 
 def query(
