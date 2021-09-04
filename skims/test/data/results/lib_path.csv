@@ -6802,6 +6802,40 @@ F012,lines,namespace/skims/test/data/lib_path/f001_jpa/java.java,46,89,skims,012
    56 | /*
       ^ Col 0
 "
+F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,9,90,skims,320. Insecure service configuration - LDAP,"Insecure service configuration - LDAP
+","
+   1 | stem;
+   2 | pher{
+   3 |
+   4 | c void Encrypt()
+   5 |
+   6 | ectoryEntry myDirectoryEntry = new DirectoryEntry(adPath);
+   7 | ctoryEntry.AuthenticationType = AuthenticationTypes.None;
+   8 |
+>  9 | oryEntry sndDirectoryEntry = new DirectoryEntry(adPath, ""u"", ""p"", AuthenticationTypes.None);
+  10 | rectoryEntry thrdDirectoryEntry = new DirectoryEntry(adPath, ""u"", ""p"", AuthenticationTypes.Secure);
+  11 |
+  12 |
+  13 |
+     ^ Col 8
+"
+F320,lines,namespace/skims/test/data/lib_root/f320/test.cs,7,90,skims,320. Insecure service configuration - LDAP,"Insecure service configuration - LDAP
+","
+   1 | using System;
+   2 | class cipher{
+   3 |
+   4 |    public void Encrypt()
+   5 |  {
+   6 |      DirectoryEntry myDirectoryEntry = new DirectoryEntry(adPath);
+>  7 |   myDirectoryEntry.AuthenticationType = AuthenticationTypes.None;
+   8 |
+   9 |   DirectoryEntry sndDirectoryEntry = new DirectoryEntry(adPath, ""u"", ""p"", AuthenticationTypes.None);
+  10 |       DirectoryEntry thrdDirectoryEntry = new DirectoryEntry(adPath, ""u"", ""p"", AuthenticationTypes.Secure);
+  11 |  }
+  12 |
+  13 | }
+     ^ Col 0
+"
 F085,lines,namespace/skims/test/data/lib_path/f085/react.jsx,6,922,skims,085. Sensitive data stored in client-side storage,Sensitive information storage in skims/test/data/lib_path/f085/react.jsx,"
   1 | localStorage.getItem('password');
   2 | localStorage.getItem('non-sensitive');
