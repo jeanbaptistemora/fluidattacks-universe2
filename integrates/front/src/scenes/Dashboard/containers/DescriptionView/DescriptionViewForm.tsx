@@ -101,7 +101,7 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
       <div>
         <div>
           <Row>
-            <Can do={"api_resolvers_finding_analyst_resolve"}>
+            <Can do={"api_resolvers_finding_hacker_resolve"}>
               <Col45>
                 <FormGroup>
                   <ControlLabel>

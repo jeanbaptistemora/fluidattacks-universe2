@@ -40,7 +40,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptationModalPro
       "api_resolvers_finding_historic_state_resolve"
     );
     const canRetrieveAnalyst: boolean = permissions.can(
-      "api_resolvers_vulnerability_analyst_resolve"
+      "api_resolvers_vulnerability_hacker_resolve"
     );
     const canRetrieveZeroRisk: boolean = permissions.can(
       "api_resolvers_finding_zero_risk_resolve"

@@ -46,7 +46,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
     },
     variables: {
       canRetrieveAnalyst: permissions.can(
-        "api_resolvers_finding_analyst_resolve"
+        "api_resolvers_finding_hacker_resolve"
       ),
       canRetrieveSorts: permissions.can("api_resolvers_finding_sorts_resolve"),
       findingId,

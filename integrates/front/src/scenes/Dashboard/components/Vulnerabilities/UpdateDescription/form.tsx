@@ -88,7 +88,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   const { userEmail }: IAuthContext = useContext(authContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canRetrieveAnalyst: boolean = permissions.can(
-    "api_resolvers_vulnerability_analyst_resolve"
+    "api_resolvers_vulnerability_hacker_resolve"
   );
   const canRetrieveZeroRisk: boolean = permissions.can(
     "api_resolvers_finding_zero_risk_resolve"

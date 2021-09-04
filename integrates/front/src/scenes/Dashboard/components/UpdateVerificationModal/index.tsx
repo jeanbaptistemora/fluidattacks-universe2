@@ -59,7 +59,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
   } = props;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canDisplayAnalyst: boolean = permissions.can(
-    "api_resolvers_finding_analyst_resolve"
+    "api_resolvers_finding_hacker_resolve"
   );
 
   // State management
@@ -77,7 +77,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
           query: GET_FINDING_VULN_INFO,
           variables: {
             canRetrieveAnalyst: permissions.can(
-              "api_resolvers_vulnerability_analyst_resolve"
+              "api_resolvers_vulnerability_hacker_resolve"
             ),
             canRetrieveZeroRisk: permissions.can(
               "api_resolvers_finding_zero_risk_resolve"
@@ -105,7 +105,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = (
           query: GET_FINDING_VULN_INFO,
           variables: {
             canRetrieveAnalyst: permissions.can(
-              "api_resolvers_vulnerability_analyst_resolve"
+              "api_resolvers_vulnerability_hacker_resolve"
             ),
             canRetrieveZeroRisk: permissions.can(
               "api_resolvers_finding_zero_risk_resolve"
