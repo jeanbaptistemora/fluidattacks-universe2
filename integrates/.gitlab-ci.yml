@@ -288,6 +288,9 @@ integrates.back.test.functional.grant_stakeholder_organization_access:
 integrates.back.test.functional.groups_with_forces:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.handle_vulnerabilities_acceptation_new:
+  <<: *integrates_back_test_functional_migration
+
 integrates.back.test.functional.internal_names:
   <<: *integrates_back_test_functional
 
