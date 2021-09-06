@@ -262,6 +262,12 @@ def format_data(
                 ),
             ),
         ),
+        tooltip=dict(
+            format=dict(
+                value=None,
+            ),
+        ),
+        normalizedToolTip=True,
     )
 
 

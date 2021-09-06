@@ -15,6 +15,11 @@ function render(dataDocument, height, width) {
     dataDocument.axis.y.tick = { format: (x) => (x % 1 === 0 ? x : '') };
   }
 
+  if (dataDocument.normalizedToolTip) {
+    const percentage = 100;
+    dataDocument.tooltip.format.value = (_datum, ratio) => `${ (ratio * percentage).toFixed(1) } %`;
+  }
+
   c3.generate({
     ...dataDocument,
     bindto: 'div',
