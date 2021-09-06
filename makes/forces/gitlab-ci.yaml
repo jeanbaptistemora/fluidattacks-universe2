@@ -1,5 +1,5 @@
 /deployTerraform/forces:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -19,7 +19,7 @@
   variables:
     GIT_DEPTH: 1
 /lintPython/module/forces:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
@@ -40,7 +40,7 @@
   variables:
     GIT_DEPTH: 1
 /lintPython/module/forcesTests:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
@@ -61,7 +61,7 @@
   variables:
     GIT_DEPTH: 1
 /lintTerraform/forces:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
@@ -82,7 +82,7 @@
   variables:
     GIT_DEPTH: 1
 /pipelineOnGitlab/forces:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
@@ -103,7 +103,7 @@
   variables:
     GIT_DEPTH: 1
 /testTerraform/forces:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:

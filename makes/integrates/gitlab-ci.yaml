@@ -1,5 +1,5 @@
 /deployTerraform/integratesBackups:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -19,7 +19,7 @@
   variables:
     GIT_DEPTH: 1
 /deployTerraform/integratesCache:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -39,7 +39,7 @@
   variables:
     GIT_DEPTH: 1
 /deployTerraform/integratesDatabase:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -59,7 +59,7 @@
   variables:
     GIT_DEPTH: 1
 /deployTerraform/integratesFront:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -79,7 +79,7 @@
   variables:
     GIT_DEPTH: 1
 /deployTerraform/integratesResources:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -99,7 +99,7 @@
   variables:
     GIT_DEPTH: 1
 /deployTerraform/integratesSecrets:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -119,7 +119,7 @@
   variables:
     GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
@@ -140,7 +140,7 @@
   variables:
     GIT_DEPTH: 1
 /lintPython/dirOfModules/integratesBackChartsGenerators:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
@@ -161,7 +161,7 @@
   variables:
     GIT_DEPTH: 1
 /lintPython/imports/integrates:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
@@ -182,7 +182,7 @@
   variables:
     GIT_DEPTH: 1
 /lintPython/module/integratesBackDeployPermissionsMatrix:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
@@ -203,7 +203,7 @@
   variables:
     GIT_DEPTH: 1
 /lintPython/module/integratesBackMigrations:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
@@ -224,7 +224,7 @@
   variables:
     GIT_DEPTH: 1
 /lintPython/module/integratesBackTestsE2e:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
@@ -245,7 +245,7 @@
   variables:
     GIT_DEPTH: 1
 /lintTerraform/integratesBackups:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
@@ -266,7 +266,7 @@
   variables:
     GIT_DEPTH: 1
 /lintTerraform/integratesCache:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
@@ -287,7 +287,7 @@
   variables:
     GIT_DEPTH: 1
 /lintTerraform/integratesDatabase:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
@@ -308,7 +308,7 @@
   variables:
     GIT_DEPTH: 1
 /lintTerraform/integratesFront:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
@@ -329,7 +329,7 @@
   variables:
     GIT_DEPTH: 1
 /lintTerraform/integratesResources:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
@@ -350,7 +350,7 @@
   variables:
     GIT_DEPTH: 1
 /lintTerraform/integratesSecrets:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
@@ -371,7 +371,7 @@
   variables:
     GIT_DEPTH: 1
 /pipelineOnGitlab/integrates:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
@@ -392,7 +392,7 @@
   variables:
     GIT_DEPTH: 1
 /testTerraform/integratesBackups:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
@@ -413,7 +413,7 @@
   variables:
     GIT_DEPTH: 1
 /testTerraform/integratesCache:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
@@ -434,7 +434,7 @@
   variables:
     GIT_DEPTH: 1
 /testTerraform/integratesDatabase:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
@@ -455,7 +455,7 @@
   variables:
     GIT_DEPTH: 1
 /testTerraform/integratesFront:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
@@ -476,7 +476,7 @@
   variables:
     GIT_DEPTH: 1
 /testTerraform/integratesResources:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
@@ -497,7 +497,7 @@
   variables:
     GIT_DEPTH: 1
 /testTerraform/integratesSecrets:
-  image: ghcr.io/fluidattacks/makes:21.09
+  image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
   needs: []
   rules:
