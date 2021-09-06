@@ -36,14 +36,14 @@ const PlansIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { title } = data.asciidoc.document;
   const {
     banner,
     description,
     keywords,
     phrase,
     slug,
-  } = data.asciidoc.pageAttributes;
+    title,
+  } = data.markdownRemark.frontmatter;
 
   return (
     <React.Fragment>
@@ -77,7 +77,7 @@ const PlansIndex: React.FC<IQueryData> = ({
               <BlackH2 className={"pv5"}>{phrase}</BlackH2>
               <PlansCards
                 dangerouslySetInnerHTML={{
-                  __html: data.asciidoc.html,
+                  __html: data.markdownRemark.html,
                 }}
               />
               <div className={"tc pv3"}>
@@ -97,20 +97,18 @@ export default PlansIndex;
 
 export const query: void = graphql`
   query PlansIndex($slug: String!) {
-    asciidoc(fields: { slug: { eq: $slug } }) {
-      document {
-        title
-      }
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       fields {
         slug
       }
-      pageAttributes {
+      frontmatter {
         description
         banner
         keywords
         phrase
         slug
+        title
       }
     }
   }
