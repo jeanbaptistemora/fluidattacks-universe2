@@ -108,24 +108,30 @@ def evaluate(args: EvaluatorArgs) -> None:
 
     # modify the value of a field in an instance
     if var != "this":
+        var_decl = lookup_var_dcl_by_name(args, var)
         # pylint:disable=used-before-assignment
         if (
-            (var_decl := lookup_var_dcl_by_name(args, var))
+            var_decl
             and var_decl.var_type in vulnerable_type
             and args.dependencies.pop().expression in danger_assignment
         ):
             args.syntax_step.meta.danger = True
-        if (var_decl := lookup_var_dcl_by_name(args, var)) and isinstance(
+        if var_decl and isinstance(
             var_decl.meta.value,
             JavaClassInstance,
         ):
             var_decl.meta.value.fields[field] = args.syntax_step
         elif args.current_instance and not field and lookup_field(args, var):
             args.current_instance.fields[var] = args.syntax_step
-        elif (
-            var_decl := lookup_var_dcl_by_name(args, var)
-        ) and field in BY_TYPE.get(var_decl.var_type, set()):
+        elif var_decl and field in BY_TYPE.get(var_decl.var_type, set()):
             var_decl.meta.danger = args.syntax_step.meta.danger
+        # in case it's a dictionary
+        elif (
+            var_decl
+            and var_decl.meta.value
+            and isinstance(var_decl.meta.value, dict)
+        ):
+            var_decl.meta.value[field] = args.dependencies[-1]
     elif args.current_instance and var == "this":
         _, field = split_on_last_dot(args.syntax_step.var)
         args.current_instance.fields[field] = args.syntax_step

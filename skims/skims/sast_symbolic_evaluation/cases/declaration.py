@@ -110,6 +110,8 @@ def _syntax_step_declaration_values(args: EvaluatorArgs) -> None:
         ):
             step.var_type = declaration.meta.value.class_name
         step.meta.value = args.dependencies[0].meta.value
+    elif args.dependencies:
+        step.meta.value = args.dependencies[-1].meta.value
 
     # Analyze if the case is a declaration of a previously called function
     prev_step = args.syntax_steps[args.syntax_step_index - 1]

@@ -767,30 +767,6 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test051.js,17,22,skims,063.
   27 |         message: error,
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test052.js,21,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test052.js,"
-  11 |   let payload = body.payload;
-  12 |
-  13 |   let result = {
-  14 |     ok: false,
-  15 |   };
-  16 |   let data = {
-  17 |     write: false,
-  18 |   };
-  19 |   if (data.write) {
-  20 |     try {
-> 21 |       fileSystem.writeFileSync(
-  22 |         `target/user_files/${user}/${file}`,
-  23 |         payload,
-  24 |         ""utf8""
-  25 |       );
-  26 |       result.ok = true;
-  27 |     } catch (error) {
-  28 |       result.ok = false;
-  29 |       result[""errors""] = [
-  30 |         {
-  31 |           message: error,
-     ^ Col 0
-"
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test053.js,19,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test053.js,"
    9 |   let user = body.user;
   10 |   let file = body.fileName;
@@ -911,30 +887,6 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test057.js,17,22,skims,063.
   27 |             message: error,
      ^ Col 0
 "
-F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test058.js,20,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test058.js,"
-  10 |   let file = body.fileName;
-  11 |   let payload = body.payload;
-  12 |
-  13 |   let result = {
-  14 |     ok: false,
-  15 |   };
-  16 |   let data = {
-  17 |     write: false,
-  18 |   };
-  19 |   if (data.write) {
-> 20 |     fileSystem.writeFile(
-  21 |       `target/user_files/${user}/${file}`,
-  22 |       payload,
-  23 |       ""utf8"",
-  24 |       function (error) {
-  25 |         result.ok = true;
-  26 |         if (errors) {
-  27 |           result.ok = false;
-  28 |           result[""errors""] = [
-  29 |             {
-  30 |               message: error,
-     ^ Col 0
-"
 F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test059.js,18,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test059.js,"
    8 |
    9 |   let user = body.user;
@@ -1029,6 +981,102 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test062.js,21,22,skims,063.
   29 |         ];
   30 |       }
   31 |       res.json(result);
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test063.js,20,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test063.js,"
+  10 |   let payload = body.payload;
+  11 |
+  12 |   let usersFiles = ""./target/user_files"";
+  13 |
+  14 |   let result = {
+  15 |     ok: false,
+  16 |   };
+  17 |   let users = Array.from(fileSystem.readdirSync(usersFiles).values());
+  18 |   if (users.includes(user)) {
+  19 |     let userFiles = Array.from(
+> 20 |       fileSystem.readdirSync(`${usersFiles}/${user}/`).values()
+  21 |     );
+  22 |     if (userFiles.includes(file)) {
+  23 |       let filePath = join(`target/user_files/${user}/`, file + "".yaml"");
+  24 |       fileSystem.writeFile(filePath, payload, ""utf8"", (error) => {
+  25 |         result.ok = true;
+  26 |         if (error) {
+  27 |           result.ok = false;
+  28 |           result[""errors""] = [
+  29 |             {
+  30 |               message: error,
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test063.js,24,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test063.js,"
+  14 |   let result = {
+  15 |     ok: false,
+  16 |   };
+  17 |   let users = Array.from(fileSystem.readdirSync(usersFiles).values());
+  18 |   if (users.includes(user)) {
+  19 |     let userFiles = Array.from(
+  20 |       fileSystem.readdirSync(`${usersFiles}/${user}/`).values()
+  21 |     );
+  22 |     if (userFiles.includes(file)) {
+  23 |       let filePath = join(`target/user_files/${user}/`, file + "".yaml"");
+> 24 |       fileSystem.writeFile(filePath, payload, ""utf8"", (error) => {
+  25 |         result.ok = true;
+  26 |         if (error) {
+  27 |           result.ok = false;
+  28 |           result[""errors""] = [
+  29 |             {
+  30 |               message: error,
+  31 |             },
+  32 |           ];
+  33 |         } else {
+  34 |           res.json(result);
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test070.js,10,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test070.js,"
+   1 | var express = require(""express"");
+   2 | var router = express.Router();
+   3 | const fs = require(""fs"");
+   4 |
+   5 | router.get(""/test070/"", function (req, res) {
+   6 |   var user = req.query[""user""];
+   7 |   var fileName = req.query[""fileName""];
+   8 |   var filePath = `target/user_files/${user}/${fileName}.yaml`;
+   9 |   if (user && fileName) {
+> 10 |     fs.readFile(filePath, ""utf-8"", (err, data) => {
+  11 |       if (err) {
+  12 |         res.status(""404"").json({
+  13 |           error: ""file does not exists "",
+  14 |         });
+  15 |       }
+  16 |       res.send(data);
+  17 |     });
+  18 |   } else {
+  19 |     res.status(""404"").json({
+  20 |       error: ""file does not exists "",
+  21 |     });
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test072.js,20,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test072.js,"
+  10 |   let payload = body.payload;
+  11 |
+  12 |   let usersFiles = ""./target/user_files"";
+  13 |
+  14 |   let result = {
+  15 |     ok: false,
+  16 |   };
+  17 |   let users = Array.from(fileSystem.readdirSync(usersFiles).values());
+  18 |   if (users.includes(user)) {
+  19 |     let filePath = join(`target/user_files/${user}/`, file + "".yaml"");
+> 20 |     fileSystem.writeFile(filePath, payload, ""utf8"", (error) => {
+  21 |       result.ok = true;
+  22 |       if (error) {
+  23 |         result.ok = false;
+  24 |         result[""errors""] = [
+  25 |           {
+  26 |             message: error,
+  27 |           },
+  28 |         ];
+  29 |       } else {
+  30 |         res.json(result);
      ^ Col 0
 "
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test005.js,7,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
@@ -1181,6 +1229,31 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test004.js,7,78,skims,004. 
   21 | });
      ^ Col 0
 "
+F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test017.js,11,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+   1 | import { exec } from ""child_process"";
+   2 | import { Router } from 'express';
+   3 | var router = Router();
+   4 |
+   5 | router.get('/test017/:user', function (req, res) {
+   6 |   var user = req.params['user'];
+   7 |   const data = {
+   8 |     keyA: user,
+   9 |     keyB: ""safe"",
+  10 |   };
+> 11 |   exec(""ls target/user_files/"" + data.keyA + ""/"", (error, stdout, stderr) => {
+  12 |
+  13 |     var user_files = [];
+  14 |     for (var file of stdout.split('\n')) {
+  15 |       if (file) {
+  16 |         user_files.push(file);
+  17 |       }
+  18 |     }
+  19 |
+  20 |     var data = {
+  21 |       'user_files': user_files
+     ^ Col 0
+"
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test015.js,7,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    1 | import { execSync } from ""child_process"";
@@ -1204,6 +1277,31 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test015.js,7,78,skims,004. 
   19 |   res.json(data);
   20 | });
   21 |
+     ^ Col 0
+"
+F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test071.js,12,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+   2 | import { Router } from ""express"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test071/:user"", function (req, res) {
+   6 |   var user = req.params[""user""];
+   7 |   var map64 = {
+   8 |     keyA: ""a_Value"",
+   9 |     keyB: user,
+  10 |     keyC: ""c_value"",
+  11 |   };
+> 12 |   exec(""ls target/user_files/"" + map64.keyB + ""/"", (error, stdout, stderr) => {
+  13 |     var user_files = [];
+  14 |     for (var file of stdout.split(""\n"")) {
+  15 |       if (file) {
+  16 |         user_files.push(file);
+  17 |       }
+  18 |     }
+  19 |
+  20 |     var data = {
+  21 |       user_files: user_files,
+  22 |     };
      ^ Col 0
 "
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test010.js,14,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
@@ -1254,6 +1352,31 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test013.js,15,78,skims,004.
   23 |       var data = {
   24 |         'user_files': user_files
   25 |       };
+     ^ Col 0
+"
+F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test066.js,16,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+   6 |   var user = req.params[""user""];
+   7 |   console.log(req.params);
+   8 |   var map64 = {
+   9 |     keyA: ""a_Value"",
+  10 |     keyB: ""safe"",
+  11 |     keyC: ""c_value"",
+  12 |   };
+  13 |   var param = user;
+  14 |   map64[""keyB""] = param;
+  15 |   user = map64.keyB;
+> 16 |   exec(""ls target/user_files/"" + user + ""/"", (error, stdout, stderr) => {
+  17 |     var user_files = [];
+  18 |     for (var file of stdout.split(""\n"")) {
+  19 |       if (file) {
+  20 |         user_files.push(file);
+  21 |       }
+  22 |     }
+  23 |
+  24 |     var data = {
+  25 |       user_files: user_files,
+  26 |     };
      ^ Col 0
 "
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test011.js,16,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.

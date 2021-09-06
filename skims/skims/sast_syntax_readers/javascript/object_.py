@@ -19,9 +19,9 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
         key_name = args.graph.nodes[pair_attrs["label_field_key"]][
             "label_text"
         ]
-        current_object[key_name] = args.generic(
-            args.fork_n_id(pair_attrs["label_field_value"])
-        )
+        value = args.generic(args.fork_n_id(pair_attrs["label_field_value"]))
+        yield value[-1]
+        current_object[key_name] = value[-1]
 
     yield SyntaxStepObjectInstantiation(
         meta=SyntaxStepMeta(
