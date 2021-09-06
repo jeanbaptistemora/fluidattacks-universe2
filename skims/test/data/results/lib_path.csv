@@ -5175,7 +5175,7 @@ F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.jar,1,377,skims,117. Un
   15 | �MyJar.classPK��
      ^ Col 0
 "
-F057,lines,namespace/skims/test/data/lib_path/f031_cwe378/test.cs,10,378,skims,057. Asymmetric denial of service - Content length,Use of C# Path.GetTempFileName in skims/test/data/lib_path/f031_cwe378/test.cs,"
+F160,lines,namespace/skims/test/data/lib_path/f160/test.cs,10,378,skims,160. Excessive privileges - Temporary Files,Use of C# Path.GetTempFileName in skims/test/data/lib_path/f160/test.cs,"
    1 | using System;
    2 | using System.IO;
    3 |
@@ -5197,7 +5197,7 @@ F057,lines,namespace/skims/test/data/lib_path/f031_cwe378/test.cs,10,378,skims,0
   19 | }
      ^ Col 0
 "
-F057,lines,namespace/skims/test/data/lib_path/f031_cwe378/Test.java,6,378,skims,057. Asymmetric denial of service - Content length,Use of Java File.createTempFile in skims/test/data/lib_path/f031_cwe378/Test.java,"
+F160,lines,namespace/skims/test/data/lib_path/f160/Test.java,6,378,skims,160. Excessive privileges - Temporary Files,Use of Java File.createTempFile in skims/test/data/lib_path/f160/Test.java,"
    1 | import java.io.File;
    2 |
    3 | public class Test {
@@ -5260,7 +5260,18 @@ F061,lines,namespace/skims/test/data/lib_path/f061/csharp.cs,12,390,skims,061. E
   19 | }
      ^ Col 0
 "
-F061,lines,namespace/skims/test/data/lib_path/f031_cwe378/Test.java,7,390,skims,061. Errors without traceability,Empty Java catch in skims/test/data/lib_path/f031_cwe378/Test.java,"
+F061,lines,namespace/skims/test/data/lib_path/f061/java.java,6,390,skims,061. Errors without traceability,Empty Java catch in skims/test/data/lib_path/f061/java.java,"
+  1 |
+  2 | static void main(String[] args) {
+  3 |  {
+  4 |  int value = 39 / 0;
+  5 |  int value = 39 / 0;
+> 6 | atch (ArithmeticException e) { /* Unhandled */ }
+  7 |
+  8 |
+    ^ Col 11
+"
+F061,lines,namespace/skims/test/data/lib_path/f160/Test.java,7,390,skims,061. Errors without traceability,Empty Java catch in skims/test/data/lib_path/f160/Test.java,"
    1 | mport java.io.File;
    2 |
    3 | ublic class Test {
@@ -5278,17 +5289,6 @@ F061,lines,namespace/skims/test/data/lib_path/f031_cwe378/Test.java,7,390,skims,
   15 | *
   16 | */
      ^ Col 1
-"
-F061,lines,namespace/skims/test/data/lib_path/f061/java.java,6,390,skims,061. Errors without traceability,Empty Java catch in skims/test/data/lib_path/f061/java.java,"
-  1 |
-  2 | static void main(String[] args) {
-  3 |  {
-  4 |  int value = 39 / 0;
-  5 |  int value = 39 / 0;
-> 6 | atch (ArithmeticException e) { /* Unhandled */ }
-  7 |
-  8 |
-    ^ Col 11
 "
 F061,lines,namespace/skims/test/data/lib_path/f061/javascript.js,5,390,skims,061. Errors without traceability,Empty Javascript catch in skims/test/data/lib_path/f061/javascript.js,"
   1 | try {
@@ -5524,25 +5524,6 @@ F060,lines,namespace/skims/test/data/lib_path/f060/csharp.cs,27,396,skims,060. I
   36 | }
      ^ Col 0
 "
-F060,lines,namespace/skims/test/data/lib_path/f031_cwe378/Test.java,7,396,skims,060. Insecure exceptions,Insecure Java exception in skims/test/data/lib_path/f031_cwe378/Test.java,"
-   1 | import java.io.File;
-   2 |
-   3 | public class Test {
-   4 |     public static void main(String[] args){
-   5 |         try {
-   6 |         System.out.println(File.createTempFile(""xxx"", null));
->  7 |         } catch (Exception e) {}
-   8 |     }
-   9 | }
-  10 |
-  11 | /*
-  12 |  * $ ls -al $(javac Test.java && java Test)
-  13 |  *
-  14 |  * -rw-r--r-- 1 kamado kamado 0 Aug 28 14:44 /tmp/xxx948760279845756007.tmp
-  15 |  *
-  16 |  */
-     ^ Col 0
-"
 F060,lines,namespace/skims/test/data/lib_path/f060/java.java,7,396,skims,060. Insecure exceptions,Insecure Java exception in skims/test/data/lib_path/f060/java.java,"
    1 | Test{
    2 | blic static void main(String[] args) {
@@ -5594,6 +5575,25 @@ F060,lines,namespace/skims/test/data/lib_path/f060/java.java,6,396,skims,060. In
    9 |
   10 |
      ^ Col 7
+"
+F060,lines,namespace/skims/test/data/lib_path/f160/Test.java,7,396,skims,060. Insecure exceptions,Insecure Java exception in skims/test/data/lib_path/f160/Test.java,"
+   1 | import java.io.File;
+   2 |
+   3 | public class Test {
+   4 |     public static void main(String[] args){
+   5 |         try {
+   6 |         System.out.println(File.createTempFile(""xxx"", null));
+>  7 |         } catch (Exception e) {}
+   8 |     }
+   9 | }
+  10 |
+  11 | /*
+  12 |  * $ ls -al $(javac Test.java && java Test)
+  13 |  *
+  14 |  * -rw-r--r-- 1 kamado kamado 0 Aug 28 14:44 /tmp/xxx948760279845756007.tmp
+  15 |  *
+  16 |  */
+     ^ Col 0
 "
 F060,lines,namespace/skims/test/data/lib_path/f060/python060.py,10,396,skims,060. Insecure exceptions,Insecure Python exception in skims/test/data/lib_path/f060/python060.py,"
    1 | # flake8: noqa

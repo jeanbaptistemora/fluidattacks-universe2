@@ -667,26 +667,6 @@ class FindingEnum(Enum):
             user_interaction=cvss3_model.UserInteraction.none,
         ),
     )
-    F057: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
-        code="F057",
-        cwe=378,
-        execution_queue=ExecutionQueue.control,
-        requirements=[186],
-        score=cvss3_model.Score(
-            attack_complexity=cvss3_model.AttackComplexity.high,
-            attack_vector=cvss3_model.AttackVector.local,
-            availability_impact=cvss3_model.AvailabilityImpact.none,
-            confidentiality_impact=cvss3_model.ConfidentialityImpact.low,
-            exploitability=cvss3_model.Exploitability.poc,
-            integrity_impact=cvss3_model.IntegrityImpact.low,
-            privileges_required=cvss3_model.PrivilegesRequired.high,
-            remediation_level=cvss3_model.RemediationLevel.unavailable,
-            report_confidence=cvss3_model.ReportConfidence.confirmed,
-            severity_scope=cvss3_model.SeverityScope.unchanged,
-            user_interaction=cvss3_model.UserInteraction.required,
-        ),
-    )
     F058: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F058",
@@ -1262,6 +1242,26 @@ class FindingEnum(Enum):
             integrity_impact=cvss3_model.IntegrityImpact.none,
             privileges_required=cvss3_model.PrivilegesRequired.none,
             remediation_level=cvss3_model.RemediationLevel.official_fix,
+            report_confidence=cvss3_model.ReportConfidence.confirmed,
+            severity_scope=cvss3_model.SeverityScope.unchanged,
+            user_interaction=cvss3_model.UserInteraction.required,
+        ),
+    )
+    F160: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F160",
+        cwe=378,
+        execution_queue=ExecutionQueue.control,
+        requirements=[95, 96, 186],
+        score=cvss3_model.Score(
+            attack_complexity=cvss3_model.AttackComplexity.high,
+            attack_vector=cvss3_model.AttackVector.local,
+            availability_impact=cvss3_model.AvailabilityImpact.none,
+            confidentiality_impact=cvss3_model.ConfidentialityImpact.low,
+            exploitability=cvss3_model.Exploitability.poc,
+            integrity_impact=cvss3_model.IntegrityImpact.low,
+            privileges_required=cvss3_model.PrivilegesRequired.high,
+            remediation_level=cvss3_model.RemediationLevel.unavailable,
             report_confidence=cvss3_model.ReportConfidence.confirmed,
             severity_scope=cvss3_model.SeverityScope.unchanged,
             user_interaction=cvss3_model.UserInteraction.required,

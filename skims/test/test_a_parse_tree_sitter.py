@@ -44,7 +44,7 @@ from utils.encodings import (
         ),
         (
             (
-                "skims/test/data/lib_path/f031_cwe378/Test.java",
+                "skims/test/data/lib_path/f160/Test.java",
                 "skims/test/data/lib_path/f063_path_traversal/Test.java",
             ),
             "findings",

@@ -14,880 +14,6 @@
             "6": {
               "label_ast": "AST",
               "label_index": "1"
-            },
-            "64": {
-              "label_ast": "AST",
-              "label_index": "2"
-            }
-          },
-          "11": {
-            "12": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "13": {
-              "label_ast": "AST",
-              "label_index": "1"
-            },
-            "63": {
-              "label_ast": "AST",
-              "label_index": "2"
-            }
-          },
-          "13": {
-            "14": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "17": {
-              "label_ast": "AST",
-              "label_index": "1"
-            },
-            "18": {
-              "label_ast": "AST",
-              "label_index": "2"
-            },
-            "19": {
-              "label_ast": "AST",
-              "label_index": "3"
-            },
-            "25": {
-              "label_ast": "AST",
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always",
-              "label_index": "4"
-            }
-          },
-          "14": {
-            "15": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "16": {
-              "label_ast": "AST",
-              "label_index": "1"
-            }
-          },
-          "19": {
-            "20": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "21": {
-              "label_ast": "AST",
-              "label_index": "1"
-            },
-            "24": {
-              "label_ast": "AST",
-              "label_index": "2"
-            }
-          },
-          "2": {
-            "3": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "4": {
-              "label_ast": "AST",
-              "label_index": "1"
-            },
-            "5": {
-              "label_ast": "AST",
-              "label_index": "2"
-            }
-          },
-          "21": {
-            "22": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "23": {
-              "label_ast": "AST",
-              "label_index": "1"
-            }
-          },
-          "25": {
-            "26": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "27": {
-              "label_ast": "AST",
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always",
-              "label_index": "1"
-            },
-            "62": {
-              "label_ast": "AST",
-              "label_index": "2"
-            }
-          },
-          "27": {
-            "28": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "29": {
-              "label_ast": "AST",
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always",
-              "label_index": "1"
-            },
-            "51": {
-              "label_ast": "AST",
-              "label_cfg": "CFG",
-              "label_cfg_maybe": "cfg_maybe",
-              "label_index": "2"
-            }
-          },
-          "29": {
-            "30": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "31": {
-              "label_ast": "AST",
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always",
-              "label_index": "1"
-            },
-            "50": {
-              "label_ast": "AST",
-              "label_index": "2"
-            }
-          },
-          "31": {
-            "32": {
-              "label_ast": "AST",
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always",
-              "label_index": "0"
-            },
-            "49": {
-              "label_ast": "AST",
-              "label_index": "1"
-            }
-          },
-          "32": {
-            "33": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "34": {
-              "label_ast": "AST",
-              "label_index": "1"
-            },
-            "35": {
-              "label_ast": "AST",
-              "label_index": "2"
-            },
-            "36": {
-              "label_ast": "AST",
-              "label_index": "3"
-            }
-          },
-          "36": {
-            "37": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "38": {
-              "label_ast": "AST",
-              "label_index": "1"
-            },
-            "48": {
-              "label_ast": "AST",
-              "label_index": "2"
-            }
-          },
-          "38": {
-            "39": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "40": {
-              "label_ast": "AST",
-              "label_index": "1"
-            },
-            "41": {
-              "label_ast": "AST",
-              "label_index": "2"
-            },
-            "42": {
-              "label_ast": "AST",
-              "label_index": "3"
-            }
-          },
-          "42": {
-            "43": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "44": {
-              "label_ast": "AST",
-              "label_index": "1"
-            },
-            "45": {
-              "label_ast": "AST",
-              "label_index": "2"
-            },
-            "46": {
-              "label_ast": "AST",
-              "label_index": "3"
-            },
-            "47": {
-              "label_ast": "AST",
-              "label_index": "4"
-            }
-          },
-          "51": {
-            "52": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "53": {
-              "label_ast": "AST",
-              "label_index": "1"
-            },
-            "54": {
-              "label_ast": "AST",
-              "label_index": "2"
-            },
-            "58": {
-              "label_ast": "AST",
-              "label_index": "3"
-            },
-            "59": {
-              "label_ast": "AST",
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always",
-              "label_index": "4"
-            }
-          },
-          "54": {
-            "55": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "57": {
-              "label_ast": "AST",
-              "label_index": "1"
-            }
-          },
-          "55": {
-            "56": {
-              "label_ast": "AST",
-              "label_index": "0"
-            }
-          },
-          "59": {
-            "60": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "61": {
-              "label_ast": "AST",
-              "label_index": "1"
-            }
-          },
-          "6": {
-            "10": {
-              "label_ast": "AST",
-              "label_index": "2"
-            },
-            "11": {
-              "label_ast": "AST",
-              "label_index": "3"
-            },
-            "7": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "9": {
-              "label_ast": "AST",
-              "label_index": "1"
-            }
-          },
-          "7": {
-            "8": {
-              "label_ast": "AST",
-              "label_index": "0"
-            }
-          }
-        },
-        "nodes": {
-          "1": {
-            "label_c": 1,
-            "label_l": 1,
-            "label_type": "program"
-          },
-          "10": {
-            "label_c": 14,
-            "label_l": 3,
-            "label_text": "Test",
-            "label_type": "identifier"
-          },
-          "11": {
-            "label_c": 19,
-            "label_l": 3,
-            "label_type": "class_body"
-          },
-          "12": {
-            "label_c": 19,
-            "label_l": 3,
-            "label_text": "{",
-            "label_type": "{"
-          },
-          "13": {
-            "label_c": 5,
-            "label_field_body": "25",
-            "label_field_name": "18",
-            "label_field_parameters": "19",
-            "label_field_type": "17",
-            "label_l": 4,
-            "label_type": "method_declaration"
-          },
-          "14": {
-            "label_c": 5,
-            "label_l": 4,
-            "label_type": "modifiers"
-          },
-          "15": {
-            "label_c": 5,
-            "label_l": 4,
-            "label_text": "public",
-            "label_type": "public"
-          },
-          "16": {
-            "label_c": 12,
-            "label_l": 4,
-            "label_text": "static",
-            "label_type": "static"
-          },
-          "17": {
-            "label_c": 19,
-            "label_l": 4,
-            "label_text": "void",
-            "label_type": "void_type"
-          },
-          "18": {
-            "label_c": 24,
-            "label_l": 4,
-            "label_text": "main",
-            "label_type": "identifier"
-          },
-          "19": {
-            "label_c": 28,
-            "label_l": 4,
-            "label_type": "formal_parameters"
-          },
-          "2": {
-            "label_c": 1,
-            "label_l": 1,
-            "label_type": "import_declaration"
-          },
-          "20": {
-            "label_c": 28,
-            "label_l": 4,
-            "label_text": "(",
-            "label_type": "("
-          },
-          "21": {
-            "label_c": 29,
-            "label_field_name": "23",
-            "label_field_type": "22",
-            "label_l": 4,
-            "label_type": "formal_parameter"
-          },
-          "22": {
-            "label_c": 29,
-            "label_l": 4,
-            "label_text": "String[]",
-            "label_type": "array_type"
-          },
-          "23": {
-            "label_c": 38,
-            "label_l": 4,
-            "label_text": "args",
-            "label_type": "identifier"
-          },
-          "24": {
-            "label_c": 42,
-            "label_l": 4,
-            "label_text": ")",
-            "label_type": ")"
-          },
-          "25": {
-            "label_c": 43,
-            "label_l": 4,
-            "label_type": "block"
-          },
-          "26": {
-            "label_c": 43,
-            "label_l": 4,
-            "label_text": "{",
-            "label_type": "{"
-          },
-          "27": {
-            "label_c": 9,
-            "label_field_body": "29",
-            "label_l": 5,
-            "label_type": "try_statement"
-          },
-          "28": {
-            "label_c": 9,
-            "label_l": 5,
-            "label_text": "try",
-            "label_type": "try"
-          },
-          "29": {
-            "label_c": 13,
-            "label_l": 5,
-            "label_type": "block"
-          },
-          "3": {
-            "label_c": 1,
-            "label_l": 1,
-            "label_text": "import",
-            "label_type": "import"
-          },
-          "30": {
-            "label_c": 13,
-            "label_l": 5,
-            "label_text": "{",
-            "label_type": "{"
-          },
-          "31": {
-            "label_c": 9,
-            "label_l": 6,
-            "label_type": "expression_statement"
-          },
-          "32": {
-            "label_c": 9,
-            "label_field_arguments": "36",
-            "label_field_name": "35",
-            "label_field_object": "33",
-            "label_l": 6,
-            "label_type": "method_invocation"
-          },
-          "33": {
-            "label_c": 9,
-            "label_l": 6,
-            "label_text": "System.out",
-            "label_type": "field_access"
-          },
-          "34": {
-            "label_c": 19,
-            "label_l": 6,
-            "label_text": ".",
-            "label_type": "."
-          },
-          "35": {
-            "label_c": 20,
-            "label_l": 6,
-            "label_text": "println",
-            "label_type": "identifier"
-          },
-          "36": {
-            "label_c": 27,
-            "label_l": 6,
-            "label_type": "argument_list"
-          },
-          "37": {
-            "label_c": 27,
-            "label_l": 6,
-            "label_text": "(",
-            "label_type": "("
-          },
-          "38": {
-            "label_c": 28,
-            "label_field_arguments": "42",
-            "label_field_name": "41",
-            "label_field_object": "39",
-            "label_l": 6,
-            "label_type": "method_invocation"
-          },
-          "39": {
-            "label_c": 28,
-            "label_l": 6,
-            "label_text": "File",
-            "label_type": "identifier"
-          },
-          "4": {
-            "label_c": 8,
-            "label_l": 1,
-            "label_text": "java.io.File",
-            "label_type": "scoped_identifier"
-          },
-          "40": {
-            "label_c": 32,
-            "label_l": 6,
-            "label_text": ".",
-            "label_type": "."
-          },
-          "41": {
-            "label_c": 33,
-            "label_l": 6,
-            "label_text": "createTempFile",
-            "label_type": "identifier"
-          },
-          "42": {
-            "label_c": 47,
-            "label_l": 6,
-            "label_type": "argument_list"
-          },
-          "43": {
-            "label_c": 47,
-            "label_l": 6,
-            "label_text": "(",
-            "label_type": "("
-          },
-          "44": {
-            "label_c": 48,
-            "label_l": 6,
-            "label_text": "\"xxx\"",
-            "label_type": "string_literal"
-          },
-          "45": {
-            "label_c": 53,
-            "label_l": 6,
-            "label_text": ",",
-            "label_type": ","
-          },
-          "46": {
-            "label_c": 55,
-            "label_l": 6,
-            "label_text": "null",
-            "label_type": "null_literal"
-          },
-          "47": {
-            "label_c": 59,
-            "label_l": 6,
-            "label_text": ")",
-            "label_type": ")"
-          },
-          "48": {
-            "label_c": 60,
-            "label_l": 6,
-            "label_text": ")",
-            "label_type": ")"
-          },
-          "49": {
-            "label_c": 61,
-            "label_l": 6,
-            "label_text": ";",
-            "label_type": ";"
-          },
-          "5": {
-            "label_c": 20,
-            "label_l": 1,
-            "label_text": ";",
-            "label_type": ";"
-          },
-          "50": {
-            "label_c": 9,
-            "label_l": 7,
-            "label_text": "}",
-            "label_type": "}"
-          },
-          "51": {
-            "label_c": 11,
-            "label_field_body": "59",
-            "label_l": 7,
-            "label_type": "catch_clause"
-          },
-          "52": {
-            "label_c": 11,
-            "label_l": 7,
-            "label_text": "catch",
-            "label_type": "catch"
-          },
-          "53": {
-            "label_c": 17,
-            "label_l": 7,
-            "label_text": "(",
-            "label_type": "("
-          },
-          "54": {
-            "label_c": 18,
-            "label_field_name": "57",
-            "label_l": 7,
-            "label_type": "catch_formal_parameter"
-          },
-          "55": {
-            "label_c": 18,
-            "label_l": 7,
-            "label_type": "catch_type"
-          },
-          "56": {
-            "label_c": 18,
-            "label_l": 7,
-            "label_text": "Exception",
-            "label_type": "type_identifier"
-          },
-          "57": {
-            "label_c": 28,
-            "label_l": 7,
-            "label_text": "e",
-            "label_type": "identifier"
-          },
-          "58": {
-            "label_c": 29,
-            "label_l": 7,
-            "label_text": ")",
-            "label_type": ")"
-          },
-          "59": {
-            "label_c": 31,
-            "label_l": 7,
-            "label_type": "block"
-          },
-          "6": {
-            "label_c": 1,
-            "label_field_body": "11",
-            "label_field_name": "10",
-            "label_l": 3,
-            "label_type": "class_declaration"
-          },
-          "60": {
-            "label_c": 31,
-            "label_l": 7,
-            "label_text": "{",
-            "label_type": "{"
-          },
-          "61": {
-            "label_c": 32,
-            "label_l": 7,
-            "label_text": "}",
-            "label_type": "}"
-          },
-          "62": {
-            "label_c": 5,
-            "label_l": 8,
-            "label_text": "}",
-            "label_type": "}"
-          },
-          "63": {
-            "label_c": 1,
-            "label_l": 9,
-            "label_text": "}",
-            "label_type": "}"
-          },
-          "64": {
-            "label_c": 1,
-            "label_l": 11,
-            "label_text": "/*\n * $ ls -al $(javac Test.java && java Test)\n *\n * -rw-r--r-- 1 kamado kamado 0 Aug 28 14:44 /tmp/xxx948760279845756007.tmp\n *\n */",
-            "label_type": "comment"
-          },
-          "7": {
-            "label_c": 1,
-            "label_l": 3,
-            "label_type": "modifiers"
-          },
-          "8": {
-            "label_c": 1,
-            "label_l": 3,
-            "label_text": "public",
-            "label_type": "public"
-          },
-          "9": {
-            "label_c": 8,
-            "label_l": 3,
-            "label_text": "class",
-            "label_type": "class"
-          }
-        }
-      },
-      "metadata": {
-        "c_sharp": {
-          "classes": {},
-          "package": ""
-        },
-        "go": {
-          "imports": [],
-          "package": "",
-          "sink_functions": {}
-        },
-        "java": {
-          "classes": {
-            ".Test": {
-              "attributes": null,
-              "fields": {},
-              "inherit": null,
-              "methods": {
-                ".main": {
-                  "attributes": null,
-                  "class_name": ".Test",
-                  "n_id": "13",
-                  "name": "main",
-                  "parameters": {
-                    "args": {
-                      "n_id": "21",
-                      "name": "args",
-                      "type_name": "String[]"
-                    }
-                  },
-                  "return_type": null,
-                  "static": true
-                }
-              },
-              "n_id": "6"
-            }
-          },
-          "package": ""
-        },
-        "language": "java"
-      },
-      "path": "skims/test/data/lib_path/f031_cwe378/Test.java",
-      "syntax": {
-        "13": [
-          {
-            "is_destructuring": false,
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "21",
-              "value": null
-            },
-            "modifiers": [],
-            "type": "SyntaxStepDeclaration",
-            "var": "args",
-            "var_type": "String[]"
-          }
-        ],
-        "25": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "25",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          }
-        ],
-        "27": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "27",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          }
-        ],
-        "29": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "29",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          }
-        ],
-        "31": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "31",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          }
-        ],
-        "32": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "44",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "xxx",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "46",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "null",
-            "value_type": "null"
-          },
-          {
-            "current_instance": {
-              "fields": {}
-            },
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "38",
-              "value": null
-            },
-            "method": "File.createTempFile",
-            "return_type": null,
-            "type": "SyntaxStepMethodInvocation"
-          },
-          {
-            "current_instance": {
-              "fields": {}
-            },
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "32",
-              "value": null
-            },
-            "method": "System.out.println",
-            "return_type": null,
-            "type": "SyntaxStepMethodInvocation"
-          }
-        ],
-        "51": [
-          {
-            "catch_type": "Exception",
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "56",
-              "value": null
-            },
-            "type": "SyntaxStepCatchClause",
-            "var": "e"
-          }
-        ],
-        "59": [
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "59",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          }
-        ]
-      }
-    },
-    {
-      "graph": {
-        "edges": {
-          "1": {
-            "2": {
-              "label_ast": "AST",
-              "label_index": "0"
-            },
-            "6": {
-              "label_ast": "AST",
-              "label_index": "1"
             }
           },
           "100": {
@@ -2434,16 +1560,890 @@
           }
         ]
       }
+    },
+    {
+      "graph": {
+        "edges": {
+          "1": {
+            "2": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "6": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "64": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "11": {
+            "12": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "13": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "63": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "13": {
+            "14": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "17": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "18": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "19": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "25": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "4"
+            }
+          },
+          "14": {
+            "15": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "16": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "19": {
+            "20": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "21": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "24": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "2": {
+            "3": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "4": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "5": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "21": {
+            "22": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "23": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "25": {
+            "26": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "27": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "1"
+            },
+            "62": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "27": {
+            "28": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "29": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "1"
+            },
+            "51": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_maybe": "cfg_maybe",
+              "label_index": "2"
+            }
+          },
+          "29": {
+            "30": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "31": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "1"
+            },
+            "50": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "31": {
+            "32": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "0"
+            },
+            "49": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "32": {
+            "33": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "34": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "35": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "36": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "36": {
+            "37": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "38": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "48": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "38": {
+            "39": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "40": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "41": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "42": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "42": {
+            "43": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "44": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "45": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "46": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "47": {
+              "label_ast": "AST",
+              "label_index": "4"
+            }
+          },
+          "51": {
+            "52": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "53": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "54": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "58": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "59": {
+              "label_ast": "AST",
+              "label_cfg": "CFG",
+              "label_cfg_always": "cfg_always",
+              "label_index": "4"
+            }
+          },
+          "54": {
+            "55": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "57": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "55": {
+            "56": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "59": {
+            "60": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "61": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "6": {
+            "10": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "11": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "7": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "9": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "7": {
+            "8": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          }
+        },
+        "nodes": {
+          "1": {
+            "label_c": 1,
+            "label_l": 1,
+            "label_type": "program"
+          },
+          "10": {
+            "label_c": 14,
+            "label_l": 3,
+            "label_text": "Test",
+            "label_type": "identifier"
+          },
+          "11": {
+            "label_c": 19,
+            "label_l": 3,
+            "label_type": "class_body"
+          },
+          "12": {
+            "label_c": 19,
+            "label_l": 3,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "13": {
+            "label_c": 5,
+            "label_field_body": "25",
+            "label_field_name": "18",
+            "label_field_parameters": "19",
+            "label_field_type": "17",
+            "label_l": 4,
+            "label_type": "method_declaration"
+          },
+          "14": {
+            "label_c": 5,
+            "label_l": 4,
+            "label_type": "modifiers"
+          },
+          "15": {
+            "label_c": 5,
+            "label_l": 4,
+            "label_text": "public",
+            "label_type": "public"
+          },
+          "16": {
+            "label_c": 12,
+            "label_l": 4,
+            "label_text": "static",
+            "label_type": "static"
+          },
+          "17": {
+            "label_c": 19,
+            "label_l": 4,
+            "label_text": "void",
+            "label_type": "void_type"
+          },
+          "18": {
+            "label_c": 24,
+            "label_l": 4,
+            "label_text": "main",
+            "label_type": "identifier"
+          },
+          "19": {
+            "label_c": 28,
+            "label_l": 4,
+            "label_type": "formal_parameters"
+          },
+          "2": {
+            "label_c": 1,
+            "label_l": 1,
+            "label_type": "import_declaration"
+          },
+          "20": {
+            "label_c": 28,
+            "label_l": 4,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "21": {
+            "label_c": 29,
+            "label_field_name": "23",
+            "label_field_type": "22",
+            "label_l": 4,
+            "label_type": "formal_parameter"
+          },
+          "22": {
+            "label_c": 29,
+            "label_l": 4,
+            "label_text": "String[]",
+            "label_type": "array_type"
+          },
+          "23": {
+            "label_c": 38,
+            "label_l": 4,
+            "label_text": "args",
+            "label_type": "identifier"
+          },
+          "24": {
+            "label_c": 42,
+            "label_l": 4,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "25": {
+            "label_c": 43,
+            "label_l": 4,
+            "label_type": "block"
+          },
+          "26": {
+            "label_c": 43,
+            "label_l": 4,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "27": {
+            "label_c": 9,
+            "label_field_body": "29",
+            "label_l": 5,
+            "label_type": "try_statement"
+          },
+          "28": {
+            "label_c": 9,
+            "label_l": 5,
+            "label_text": "try",
+            "label_type": "try"
+          },
+          "29": {
+            "label_c": 13,
+            "label_l": 5,
+            "label_type": "block"
+          },
+          "3": {
+            "label_c": 1,
+            "label_l": 1,
+            "label_text": "import",
+            "label_type": "import"
+          },
+          "30": {
+            "label_c": 13,
+            "label_l": 5,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "31": {
+            "label_c": 9,
+            "label_l": 6,
+            "label_type": "expression_statement"
+          },
+          "32": {
+            "label_c": 9,
+            "label_field_arguments": "36",
+            "label_field_name": "35",
+            "label_field_object": "33",
+            "label_l": 6,
+            "label_type": "method_invocation"
+          },
+          "33": {
+            "label_c": 9,
+            "label_l": 6,
+            "label_text": "System.out",
+            "label_type": "field_access"
+          },
+          "34": {
+            "label_c": 19,
+            "label_l": 6,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "35": {
+            "label_c": 20,
+            "label_l": 6,
+            "label_text": "println",
+            "label_type": "identifier"
+          },
+          "36": {
+            "label_c": 27,
+            "label_l": 6,
+            "label_type": "argument_list"
+          },
+          "37": {
+            "label_c": 27,
+            "label_l": 6,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "38": {
+            "label_c": 28,
+            "label_field_arguments": "42",
+            "label_field_name": "41",
+            "label_field_object": "39",
+            "label_l": 6,
+            "label_type": "method_invocation"
+          },
+          "39": {
+            "label_c": 28,
+            "label_l": 6,
+            "label_text": "File",
+            "label_type": "identifier"
+          },
+          "4": {
+            "label_c": 8,
+            "label_l": 1,
+            "label_text": "java.io.File",
+            "label_type": "scoped_identifier"
+          },
+          "40": {
+            "label_c": 32,
+            "label_l": 6,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "41": {
+            "label_c": 33,
+            "label_l": 6,
+            "label_text": "createTempFile",
+            "label_type": "identifier"
+          },
+          "42": {
+            "label_c": 47,
+            "label_l": 6,
+            "label_type": "argument_list"
+          },
+          "43": {
+            "label_c": 47,
+            "label_l": 6,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "44": {
+            "label_c": 48,
+            "label_l": 6,
+            "label_text": "\"xxx\"",
+            "label_type": "string_literal"
+          },
+          "45": {
+            "label_c": 53,
+            "label_l": 6,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "46": {
+            "label_c": 55,
+            "label_l": 6,
+            "label_text": "null",
+            "label_type": "null_literal"
+          },
+          "47": {
+            "label_c": 59,
+            "label_l": 6,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "48": {
+            "label_c": 60,
+            "label_l": 6,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "49": {
+            "label_c": 61,
+            "label_l": 6,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "5": {
+            "label_c": 20,
+            "label_l": 1,
+            "label_text": ";",
+            "label_type": ";"
+          },
+          "50": {
+            "label_c": 9,
+            "label_l": 7,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "51": {
+            "label_c": 11,
+            "label_field_body": "59",
+            "label_l": 7,
+            "label_type": "catch_clause"
+          },
+          "52": {
+            "label_c": 11,
+            "label_l": 7,
+            "label_text": "catch",
+            "label_type": "catch"
+          },
+          "53": {
+            "label_c": 17,
+            "label_l": 7,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "54": {
+            "label_c": 18,
+            "label_field_name": "57",
+            "label_l": 7,
+            "label_type": "catch_formal_parameter"
+          },
+          "55": {
+            "label_c": 18,
+            "label_l": 7,
+            "label_type": "catch_type"
+          },
+          "56": {
+            "label_c": 18,
+            "label_l": 7,
+            "label_text": "Exception",
+            "label_type": "type_identifier"
+          },
+          "57": {
+            "label_c": 28,
+            "label_l": 7,
+            "label_text": "e",
+            "label_type": "identifier"
+          },
+          "58": {
+            "label_c": 29,
+            "label_l": 7,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "59": {
+            "label_c": 31,
+            "label_l": 7,
+            "label_type": "block"
+          },
+          "6": {
+            "label_c": 1,
+            "label_field_body": "11",
+            "label_field_name": "10",
+            "label_l": 3,
+            "label_type": "class_declaration"
+          },
+          "60": {
+            "label_c": 31,
+            "label_l": 7,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "61": {
+            "label_c": 32,
+            "label_l": 7,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "62": {
+            "label_c": 5,
+            "label_l": 8,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "63": {
+            "label_c": 1,
+            "label_l": 9,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "64": {
+            "label_c": 1,
+            "label_l": 11,
+            "label_text": "/*\n * $ ls -al $(javac Test.java && java Test)\n *\n * -rw-r--r-- 1 kamado kamado 0 Aug 28 14:44 /tmp/xxx948760279845756007.tmp\n *\n */",
+            "label_type": "comment"
+          },
+          "7": {
+            "label_c": 1,
+            "label_l": 3,
+            "label_type": "modifiers"
+          },
+          "8": {
+            "label_c": 1,
+            "label_l": 3,
+            "label_text": "public",
+            "label_type": "public"
+          },
+          "9": {
+            "label_c": 8,
+            "label_l": 3,
+            "label_text": "class",
+            "label_type": "class"
+          }
+        }
+      },
+      "metadata": {
+        "c_sharp": {
+          "classes": {},
+          "package": ""
+        },
+        "go": {
+          "imports": [],
+          "package": "",
+          "sink_functions": {}
+        },
+        "java": {
+          "classes": {
+            ".Test": {
+              "attributes": null,
+              "fields": {},
+              "inherit": null,
+              "methods": {
+                ".main": {
+                  "attributes": null,
+                  "class_name": ".Test",
+                  "n_id": "13",
+                  "name": "main",
+                  "parameters": {
+                    "args": {
+                      "n_id": "21",
+                      "name": "args",
+                      "type_name": "String[]"
+                    }
+                  },
+                  "return_type": null,
+                  "static": true
+                }
+              },
+              "n_id": "6"
+            }
+          },
+          "package": ""
+        },
+        "language": "java"
+      },
+      "path": "skims/test/data/lib_path/f160/Test.java",
+      "syntax": {
+        "13": [
+          {
+            "is_destructuring": false,
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "21",
+              "value": null
+            },
+            "modifiers": [],
+            "type": "SyntaxStepDeclaration",
+            "var": "args",
+            "var_type": "String[]"
+          }
+        ],
+        "25": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "25",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "27": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "27",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "29": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "29",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "31": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "31",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ],
+        "32": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "44",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "xxx",
+            "value_type": "string"
+          },
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "46",
+              "value": null
+            },
+            "type": "SyntaxStepLiteral",
+            "value": "null",
+            "value_type": "null"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -2,
+              "n_id": "38",
+              "value": null
+            },
+            "method": "File.createTempFile",
+            "return_type": null,
+            "type": "SyntaxStepMethodInvocation"
+          },
+          {
+            "current_instance": {
+              "fields": {}
+            },
+            "meta": {
+              "danger": false,
+              "dependencies": -1,
+              "n_id": "32",
+              "value": null
+            },
+            "method": "System.out.println",
+            "return_type": null,
+            "type": "SyntaxStepMethodInvocation"
+          }
+        ],
+        "51": [
+          {
+            "catch_type": "Exception",
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "56",
+              "value": null
+            },
+            "type": "SyntaxStepCatchClause",
+            "var": "e"
+          }
+        ],
+        "59": [
+          {
+            "meta": {
+              "danger": false,
+              "dependencies": 0,
+              "n_id": "59",
+              "value": null
+            },
+            "type": "SyntaxStepNoOp"
+          }
+        ]
+      }
     }
   ],
   "shards_by_language_class": {
     "c_sharp": {},
     "java": {
-      ".Test": "skims/test/data/lib_path/f063_path_traversal/Test.java"
+      ".Test": "skims/test/data/lib_path/f160/Test.java"
     }
   },
   "shards_by_path": {
-    "skims/test/data/lib_path/f031_cwe378/Test.java": 0,
-    "skims/test/data/lib_path/f063_path_traversal/Test.java": 1
+    "skims/test/data/lib_path/f063_path_traversal/Test.java": 0,
+    "skims/test/data/lib_path/f160/Test.java": 1
   }
 }

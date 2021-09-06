@@ -183,14 +183,6 @@
       "title": "055. Insecure service configuration - ADB Backups"
     }
   },
-  "F057": {
-    "EN": {
-      "title": "057. Asymmetric denial of service - Content length"
-    },
-    "ES": {
-      "title": "057. Asymmetric denial of service - Content length"
-    }
-  },
   "F058": {
     "EN": {
       "title": "058. Debugging enabled in production - APK"
@@ -413,6 +405,14 @@
     },
     "ES": {
       "title": "133. Insecure encryption algorithm - Perfect Forward Secrecy"
+    }
+  },
+  "F160": {
+    "EN": {
+      "title": "160. Excessive privileges - Temporary Files"
+    },
+    "ES": {
+      "title": "160. Excessive privileges - Temporary Files"
     }
   },
   "F320": {

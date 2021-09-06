@@ -26,7 +26,7 @@ def java_file_create_temp_file(
                 yield shard, method_id
 
     translation_key = (
-        "src.lib_path.f031_cwe378.java_file_create_temp_file.description"
+        "src.lib_path.f160.java_file_create_temp_file.description"
     )
     return get_vulnerabilities_from_n_ids(
         cwe=("378",),
@@ -53,7 +53,7 @@ def c_sharp_file_create_temp_file(
                 yield shard, method_id
 
     translation_key = (
-        "src.lib_path.f031_cwe378.c_sharp_file_create_temp_file.description"
+        "src.lib_path.f160.c_sharp_file_create_temp_file.description"
     )
     return get_vulnerabilities_from_n_ids(
         cwe=("378",),
@@ -65,7 +65,7 @@ def c_sharp_file_create_temp_file(
 
 
 # Constants
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F057
+FINDING: core_model.FindingEnum = core_model.FindingEnum.F160
 QUERIES: graph_model.Queries = (
     (FINDING, java_file_create_temp_file),
     (FINDING, c_sharp_file_create_temp_file),

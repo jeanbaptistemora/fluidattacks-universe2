@@ -22,9 +22,9 @@
   "skims_control": {
     "availability": "ALWAYS",
     "findings": [
-      "F057",
       "F089",
-      "F127"
+      "F127",
+      "F160"
     ]
   },
   "skims_cookie": {
