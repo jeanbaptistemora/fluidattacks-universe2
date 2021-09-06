@@ -12,6 +12,7 @@ from charts.generators.stacked_bar_chart.utils import (
     format_document,
     GroupDocumentData,
     RISK_OVER_TIME,
+    RiskOverTime,
     sum_over_time_many_groups,
     translate_date,
     translate_date_last,
@@ -26,16 +27,9 @@ from typing import (
     Dict,
     Iterable,
     List,
-    NamedTuple,
     Optional,
     Tuple,
 )
-
-
-class RiskOverTime(NamedTuple):
-    monthly: Dict[str, Dict[datetime, float]]
-    weekly: Dict[str, Dict[datetime, float]]
-    should_use_monthly: bool
 
 
 @alru_cache(maxsize=None, typed=True)

@@ -100,6 +100,9 @@ async def _batch_load_fn(group_names: List[str]) -> List[GroupType]:
             remediated_over_time_cvssf=group.get(
                 "remediated_over_time_cvssf", []
             ),
+            remediated_over_time_month_cvssf=group.get(
+                "remediated_over_time_month_cvssf", []
+            ),
             remediated_over_time_cvssf_30=group.get(
                 "remediated_over_time_cvssf_30", []
             ),

@@ -61,6 +61,12 @@ GroupDocumentData = NamedTuple(
 )
 
 
+class RiskOverTime(NamedTuple):
+    monthly: Dict[str, Dict[datetime, float]]
+    weekly: Dict[str, Dict[datetime, float]]
+    should_use_monthly: bool
+
+
 def translate_date(date_str: str) -> datetime:
     # No, there is no smarter way because of locales and that weird format
 
