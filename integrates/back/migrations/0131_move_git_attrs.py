@@ -3,8 +3,8 @@
 This migration moves the branch and url attributes from the metadata to
 the state items on git roots
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-09-06 at 14:35:28 UTC-05
+Finalization Time: 2021-09-06 at 14:53:45 UTC-05
 """
 
 from aioextensions import (
