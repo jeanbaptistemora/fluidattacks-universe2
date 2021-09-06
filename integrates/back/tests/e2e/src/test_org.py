@@ -81,7 +81,6 @@ def test_org_portfolios(
         "Severity",
         "Days since last remediation",
         "Total vulnerabilities",
-        "Mean time to remediate",
     ]
     # Login
     utils.login(driver, asm_endpoint, credentials)

@@ -220,21 +220,6 @@ export const enTranslations: ResourceKey = {
           "Number of times your team used Forces to check for vulnerabilities.",
         title: "Service usage",
       },
-      meanTimeToRemediate: {
-        footer:
-          "Amount of time (in days) it takes to your team to fix a security vulnerability.",
-        title: "Mean time to remediate",
-        tooltip: {
-          all: "All vulnerabilities",
-          nonTreated: "Non treated vulnerabilities",
-        },
-      },
-      meanTimeToRemediateNonTreated: {
-        footer:
-          "Amount of time (in days) it takes to your team to fix a security vulnerability, " +
-          "excluding accepted vulnerabilities.",
-        title: "Mean time to remediate",
-      },
       totalTypes: {
         title: "Total types",
       },

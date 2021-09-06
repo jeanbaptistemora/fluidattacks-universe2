@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-component-props, fp/no-rest-parameters, react/jsx-props-no-spreading */
 import React, { useCallback, useState } from "react";
 
-import { Col100, Col25, Col50 } from "./components/ChartCols";
+import { Col100, Col25, Col33, Col50 } from "./components/ChartCols";
 
 import { Graphic } from "graphics/components/Graphic";
 import { ChartsGenericViewExtras } from "scenes/Dashboard/containers/ChartsGenericView/components/Extras";
@@ -143,7 +143,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
         {doesEntityMatch("group", "organization", "portfolio") ? (
           <React.Fragment>
             <RowCenter>
-              <Col50>
+              <Col33>
                 <Graphic
                   bsHeight={80}
                   className={"g3"}
@@ -159,8 +159,8 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                     "analytics.textBox.findingsBeingReattacked.title"
                   )}
                 />
-              </Col50>
-              <Col50>
+              </Col33>
+              <Col33>
                 <Graphic
                   bsHeight={80}
                   className={"g3"}
@@ -176,27 +176,8 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                     "analytics.textBox.daysSinceLastRemediation.title"
                   )}
                 />
-              </Col50>
-            </RowCenter>
-            <RowCenter>
-              <Col50>
-                <Graphic
-                  bsHeight={80}
-                  className={"g3"}
-                  documentName={"meanTimeToRemediate"}
-                  documentType={"textBox"}
-                  entity={entity}
-                  generatorName={"raw"}
-                  generatorType={"textBox"}
-                  infoLink={`${graphInfoLink}common`}
-                  reportMode={reportMode}
-                  subject={subject}
-                  title={translate.t(
-                    "analytics.textBox.meanTimeToRemediate.title"
-                  )}
-                />
-              </Col50>
-              <Col50>
+              </Col33>
+              <Col33>
                 <Graphic
                   bsHeight={80}
                   className={"g3"}
@@ -212,7 +193,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                     "analytics.textBox.totalVulnerabilities.title"
                   )}
                 />
-              </Col50>
+              </Col33>
             </RowCenter>
             <RowCenter>
               <Col50>

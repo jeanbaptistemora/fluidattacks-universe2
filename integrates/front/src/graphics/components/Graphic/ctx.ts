@@ -13,12 +13,7 @@ interface IMergedCharts {
   documentType: string;
 }
 
-const allowedDocumentNames: string[] = [
-  "meanTimeToRemediate",
-  "meanTimeToRemediateNonTreated",
-  "riskOverTime",
-  "riskOverTimeCvssf",
-];
+const allowedDocumentNames: string[] = ["riskOverTime", "riskOverTimeCvssf"];
 const allowedDocumentTypes: string[] = [
   "barChart",
   "stackedBarChart",
@@ -48,24 +43,6 @@ const mergedDocuments: Record<string, IMergedCharts> = {
     },
     documentName: "distributionOverTime",
     documentType: "stackedBarChart",
-  },
-  meanTimeToRemediate: {
-    alt: {
-      label: "Non treated",
-      title: translate.t("analytics.textBox.meanTimeToRemediate.title"),
-      tooltip: translate.t(
-        "analytics.textBox.meanTimeToRemediate.tooltip.nonTreated"
-      ),
-      url: "#mean-time-to-remediate-non-treated-vulnerabilities",
-    },
-    default: {
-      label: "All",
-      title: translate.t("analytics.textBox.meanTimeToRemediate.title"),
-      tooltip: translate.t("analytics.textBox.meanTimeToRemediate.tooltip.all"),
-      url: "#mean-time-to-remediate-all-vulnerabilities",
-    },
-    documentName: "meanTimeToRemediateNonTreated",
-    documentType: "textBox",
   },
   mttrBenchmarking: {
     alt: {
