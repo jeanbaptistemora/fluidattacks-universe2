@@ -1,5 +1,4 @@
-{ buildNodeRequirements
-, makes
+{ makes
 , nixpkgs
 , makeEntrypoint
 , packages
@@ -7,18 +6,13 @@
 , ...
 } @ _:
 let
-  nodeRequirements = buildNodeRequirements {
+  nodeJsModules = makes.makeNodeJsModules {
     name = "integrates-mobile-e2e-npm";
-    node = nixpkgs.nodejs-12_x;
-    requirements = {
-      direct = [
-        "appium@1.16.0"
-      ];
-      inherited = [
-        "fsevents@2.3.2"
-      ];
-    };
+    nodeJsVersion = "12";
+    packageJson = ./npm/package.json;
+    packageLockJson = ./npm/package-lock.json;
   };
+
   pythonRequirements = makes.makePythonPypiEnvironment {
     name = "integrates-mobile-e2e-pypi";
     sourcesYaml = ./pypi-sources.yaml;
@@ -31,7 +25,7 @@ makeEntrypoint {
       platformVersions = [ "29" ];
     }).androidsdk;
     envApkUrl = "https://d1ahtucjixef4r.cloudfront.net/Exponent-2.18.7.apk";
-    envIntegratesMobileE2eNpm = nodeRequirements;
+    envIntegratesMobileE2eNpm = nodeJsModules;
     envJava = nixpkgs.openjdk8_headless;
   };
   name = "integrates-mobile-e2e";
@@ -44,6 +38,7 @@ makeEntrypoint {
       packages.makes.kill-port
       packages.makes.wait
     ];
+    envNodeLibraries = [ "." ];
     envSources = [
       pythonRequirements
     ];

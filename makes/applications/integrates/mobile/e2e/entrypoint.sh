@@ -12,7 +12,7 @@ function main {
     && makes-kill-port "${port}" 4723 \
     && curl -sSo expoClient.apk '__envApkUrl__' \
     && echo '[INFO] Copying dependencies...' \
-    && copy __envIntegratesMobileE2eNpm__/node_modules node_modules \
+    && copy __envIntegratesMobileE2eNpm__ node_modules \
     && echo '[INFO] Looking for available android devices...' \
     && echo '[INFO] Make sure to enable USB debugging and set' \
       'your mobile device to file transfer mode' \
