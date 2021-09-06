@@ -81,7 +81,7 @@ def _build_root(
             id=metadata[key_structure.sort_key].split("#")[1],
             metadata=GitRootMetadata(type=metadata["type"]),
             state=GitRootState(
-                branch=state.get("branch", metadata.get("branch", "")),
+                branch=state["branch"],
                 environment_urls=state["environment_urls"],
                 environment=state["environment"],
                 git_environment_urls=[
@@ -96,7 +96,7 @@ def _build_root(
                 other=state.get("other"),
                 reason=state.get("reason"),
                 status=state["status"],
-                url=state.get("url", metadata.get("url", "")),
+                url=state["url"],
             ),
         )
 

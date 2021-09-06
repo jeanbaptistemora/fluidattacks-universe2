@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 02, 2021, 12:22 PM",
+    "DateLastModified": "Sep 03, 2021, 10:46 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1064,19 +1064,11 @@
               },
               "type": {
                 "S": "Git"
-              },
-              "branch": {
-                "S": "master"
-              },
-              "url": {
-                "S": "ssh://git@gitlab.com:fluidattacks/product"
               }
             }
           ],
           "NonKeyAttributes": [
-            "type",
-            "branch",
-            "url"
+            "type"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1101,6 +1093,12 @@
               },
               "modified_date": {
                 "S": "2021-02-15T14:01:16Z"
+              },
+              "branch": {
+                "S": "master"
+              },
+              "url": {
+                "S": "ssh://git@gitlab.com:fluidattacks/product"
               },
               "environment": {
                 "S": "production"
@@ -1134,6 +1132,8 @@
             "status",
             "reason",
             "modified_date",
+            "branch",
+            "url",
             "environment",
             "environment_urls",
             "gitignore",
@@ -1166,6 +1166,12 @@
               "modified_date": {
                 "S": "2021-02-15T14:01:16Z"
               },
+              "branch": {
+                "S": "master"
+              },
+              "url": {
+                "S": "ssh://git@gitlab.com:fluidattacks/product"
+              },
               "environment": {
                 "S": "production"
               },
@@ -1198,6 +1204,8 @@
             "status",
             "reason",
             "modified_date",
+            "branch",
+            "url",
             "environment",
             "environment_urls",
             "gitignore",

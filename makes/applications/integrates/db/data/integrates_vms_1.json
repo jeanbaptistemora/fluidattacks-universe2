@@ -11,12 +11,6 @@
           },
           "type": {
             "S": "Git"
-          },
-          "branch": {
-            "S": "master"
-          },
-          "url": {
-            "S": "https://gitlab.com/fluidattacks/product"
           }
         }
       }
@@ -64,6 +58,12 @@
           },
           "nickname": {
             "S": "product"
+          },
+          "branch": {
+            "S": "master"
+          },
+          "url": {
+            "S": "https://gitlab.com/fluidattacks/product"
           }
         }
       }
@@ -111,6 +111,12 @@
           },
           "nickname": {
             "S": "product"
+          },
+          "branch": {
+            "S": "master"
+          },
+          "url": {
+            "S": "https://gitlab.com/fluidattacks/product"
           }
         }
       }
@@ -168,12 +174,6 @@
           },
           "type": {
             "S": "Git"
-          },
-          "branch": {
-            "S": "develop"
-          },
-          "url": {
-            "S": "https://gitlab.com/fluidattacks/integrates"
           }
         }
       }
@@ -210,6 +210,12 @@
           },
           "nickname": {
             "S": "integrates_1"
+          },
+          "branch": {
+            "S": "develop"
+          },
+          "url": {
+            "S": "https://gitlab.com/fluidattacks/integrates"
           }
         }
       }
@@ -295,6 +301,12 @@
           },
           "nickname": {
             "S": "integrates_1"
+          },
+          "branch": {
+            "S": "develop"
+          },
+          "url": {
+            "S": "https://gitlab.com/fluidattacks/integrates"
           }
         }
       }
