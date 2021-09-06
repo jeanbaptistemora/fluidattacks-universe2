@@ -66,6 +66,7 @@ def format_data(
             colors={
                 "Mean time to remediate": RISK.neutral,
             },
+            labels=True,
             type="bar",
         ),
         axis=dict(

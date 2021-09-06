@@ -41,3 +41,8 @@ p, ol, ul {
 .c3-area {
   opacity: 1 !important;
 }
+
+.c3-texts text {
+  transform: translate(0, 20px);
+  fill: white !important;
+}
