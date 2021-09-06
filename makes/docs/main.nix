@@ -16,6 +16,8 @@ makeScript {
       outputs."/docs/generate/criteria"
       (makeNodeJsVersion "12")
     ];
+    nodeBin = [ outputs."/docs/runtime" ];
+    nodeModule = [ "./node_modules" ];
   };
   entrypoint = ./entrypoint.sh;
 }
