@@ -32,7 +32,7 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
 ): JSX.Element => {
   const { isOpen, isUploading, onClose, onSubmit } = props;
 
-  const MAX_FILE_SIZE: number = 300;
+  const MAX_FILE_SIZE: number = 5000;
   const maxFileSize: Validator = isValidFileSize(MAX_FILE_SIZE);
 
   const addFilesModalSchema = object().shape({
@@ -80,9 +80,6 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
                 <div>
                   <label>
                     <RequiredField>{"*"} </RequiredField>
-                    {translate.t("validations.fileSize", {
-                      count: MAX_FILE_SIZE,
-                    })}
                   </label>
                   <Field
                     component={FormikFileInput}

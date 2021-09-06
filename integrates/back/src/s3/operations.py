@@ -126,7 +126,7 @@ async def sing_upload_url(
             {"acl": "private"},
             {"bucket": bucket},
             ["starts-with", "$key", file_name],
-            ["content-length-range", 1, 314572800],
+            ["content-length-range", 1, 5368709120],
         ]
     }
     async with aio_client() as client:
