@@ -115,16 +115,16 @@ def format_unreliable_indicators(
     indicators_item: Item,
 ) -> FindingUnreliableIndicators:
     return FindingUnreliableIndicators(
-        unreliable_age=indicators_item["unreliable_age"],
-        unreliable_closed_vulnerabilities=(
+        unreliable_age=int(indicators_item["unreliable_age"]),
+        unreliable_closed_vulnerabilities=int(
             indicators_item["unreliable_closed_vulnerabilities"]
         ),
         unreliable_is_verified=indicators_item["unreliable_is_verified"],
-        unreliable_last_vulnerability=(
+        unreliable_last_vulnerability=int(
             indicators_item["unreliable_last_vulnerability"]
         ),
-        unreliable_open_age=indicators_item["unreliable_open_age"],
-        unreliable_open_vulnerabilities=(
+        unreliable_open_age=int(indicators_item["unreliable_open_age"]),
+        unreliable_open_vulnerabilities=int(
             indicators_item["unreliable_open_vulnerabilities"]
         ),
         unreliable_report_date=indicators_item["unreliable_report_date"],

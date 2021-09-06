@@ -21,6 +21,7 @@ from typing import (
     cast,
     Dict,
     List,
+    Set,
     Tuple,
 )
 from unreliable_indicators.enums import (
@@ -50,6 +51,7 @@ async def reset_group_expired_accepted_findings(
             )
         )
     )
+    findings_to_update: Set[str] = set()
 
     for vuln in vulns:
         finding_id = cast(str, vuln.get("finding_id"))
@@ -75,6 +77,7 @@ async def reset_group_expired_accepted_findings(
             <= datetime_utils.get_from_str(today)
         )
         if is_accepted_expired or is_undefined_accepted_expired:
+            findings_to_update.add(finding_id)
             updated_values = {"treatment": "NEW"}
             await vulns_domain.add_vulnerability_treatment(
                 finding_id=finding_id,
@@ -88,9 +91,9 @@ async def reset_group_expired_accepted_findings(
         [
             update_unreliable_indicators_by_deps(
                 EntityDependency.reset_expired_accepted_findings,
-                finding_id=finding.id,
+                finding_id=finding_id,
             )
-            for finding in group_findings
+            for finding_id in findings_to_update
         ]
     )
 

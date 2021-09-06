@@ -145,7 +145,7 @@ def _build_finding(
         attack_vector_description=metadata["attack_vector_description"],
         bug_tracking_system_url=metadata["bug_tracking_system_url"],
         compromised_attributes=metadata["compromised_attributes"],
-        compromised_records=metadata["compromised_records"],
+        compromised_records=int(metadata["compromised_records"]),
         creation=creation,
         cvss_version=metadata["cvss_version"],
         description=metadata["description"],
