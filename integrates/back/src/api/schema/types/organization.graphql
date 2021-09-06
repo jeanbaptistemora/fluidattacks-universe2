@@ -28,4 +28,6 @@ type Organization {
     be removed after 2021/12/20. Use `groups` instead.""")
   "Users who have access to the organization"
   stakeholders: [Stakeholder]
+  "Role of the current user within the organization"
+  userRole: String
 }
