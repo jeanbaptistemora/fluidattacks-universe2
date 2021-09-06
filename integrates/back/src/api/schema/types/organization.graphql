@@ -23,6 +23,8 @@ type Organization {
   minAcceptanceSeverity: Float!
   "Name of the organization"
   name: String!
+  "Permissions of the current user within the organization"
+  permissions: [String]
   "Groups belonging to the organization"
   projects: [Group] @deprecated(reason: """This field will
     be removed after 2021/12/20. Use `groups` instead.""")
