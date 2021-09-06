@@ -425,8 +425,6 @@ def should_process_event(
         )
     )
 
-    LOGGER_CONSOLE.info(f"- {locals()}", **NOEXTRA)
-
     return success
 
 
@@ -530,7 +528,9 @@ async def get_digest_stats(
 async def trigger_user_to_entity_report() -> None:
     bot_time: datetime = datetime.utcnow()
 
-    LOGGER_CONSOLE.info(f"UTC datetime: {bot_time}", **NOEXTRA)
+    LOGGER_CONSOLE.info(
+        f"UTC datetime: {datetime_utils.get_as_str(bot_time)}", **NOEXTRA
+    )
 
     subscriptions = await get_subscriptions_to_entity_report(
         audience="user",
@@ -546,7 +546,15 @@ async def trigger_user_to_entity_report() -> None:
     ):
         digest_stats = await get_digest_stats(loaders, subscriptions)
 
-    LOGGER_CONSOLE.info(f"Subscriptions: {locals()}", **NOEXTRA)
+    LOGGER_CONSOLE.info(
+        "- subscriptions loaded",
+        extra={
+            "extra": {
+                "length": len(subscriptions),
+                "sample": subscriptions[:1],
+            }
+        },
+    )
 
     for subscription in subscriptions:
         event_period: Decimal = subscription["period"]
@@ -568,7 +576,10 @@ async def trigger_user_to_entity_report() -> None:
                 event_frequency=event_frequency,
                 report_entity=report_entity,
             ):
-                LOGGER_CONSOLE.info("- processing event", **NOEXTRA)
+                LOGGER_CONSOLE.info(
+                    "- subscription to be processed",
+                    extra={"extra": {"subscription": subscription}},
+                )
                 await send_user_to_entity_report(
                     event_frequency=event_frequency,
                     report_entity=report_entity,
@@ -580,7 +591,7 @@ async def trigger_user_to_entity_report() -> None:
         else:
             LOGGER_CONSOLE.warning(
                 "- can not be subscribed, unsubscribing",
-                **NOEXTRA,
+                extra={"extra": {"subscription": subscription}},
             )
             # Unsubscribe this user, he won't even notice as he no longer
             #   has access to the requested resource
