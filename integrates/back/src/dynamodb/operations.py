@@ -231,24 +231,28 @@ async def update_item(
     attrs_to_remove = ",".join(
         f"#{attr}" for attr, value in item.items() if value is None
     )
-    update_expressions = []
-    if attrs_to_update:
-        update_expressions.append(f"SET {attrs_to_update}")
-    if attrs_to_remove:
-        update_expressions.append(f"REMOVE {attrs_to_remove}")
 
     async with aioboto3.resource(**RESOURCE_OPTIONS) as resource:
         table_resource: CustomTableResource = await resource.Table(table.name)
-        args = {
+        base_args: Dict[str, Any] = {
             "ConditionExpression": condition_expression,
             "ExpressionAttributeNames": attr_names,
-            "ExpressionAttributeValues": attr_values,
             "Key": {
                 key_structure.partition_key: key.partition_key,
                 key_structure.sort_key: key.sort_key,
             },
-            "UpdateExpression": " ".join(update_expressions),
+            "UpdateExpression": " ".join(
+                (
+                    f"SET {attrs_to_update}" if attrs_to_update else "",
+                    f"REMOVE {attrs_to_remove}" if attrs_to_remove else "",
+                )
+            ),
         }
+        args = (
+            {**base_args, "ExpressionAttributeValues": attr_values}
+            if attrs_to_update
+            else base_args
+        )
 
         try:
             await table_resource.update_item(**_exclude_none(args=args))
