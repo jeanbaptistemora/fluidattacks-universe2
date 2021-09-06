@@ -88,6 +88,8 @@ type Group {
   openVulnerabilities: Int
   "Organization to which the group belongs"
   organization: String!
+  "Permissions of the current user within the group"
+  permissions: [String]
   "Group roots, can be IP, URL or Git Roots"
   roots: [Root!]
   "Black or White box type of hacking service"

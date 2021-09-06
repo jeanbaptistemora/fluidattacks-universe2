@@ -20,6 +20,7 @@ from api.resolvers.group import (
     max_severity_finding_new,
     max_severity_new,
     organization,
+    permissions,
     roots,
     service_attributes,
     stakeholders,
@@ -44,6 +45,7 @@ GROUP.set_field("events", events.resolve)
 GROUP.set_field("forcesToken", forces_token.resolve)
 GROUP.set_field("organization", organization.resolve)
 GROUP.set_field("roots", roots.resolve)
+GROUP.set_field("permissions", permissions.resolve)
 GROUP.set_field("serviceAttributes", service_attributes.resolve)
 GROUP.set_field("stakeholders", stakeholders.resolve)
 GROUP.set_field("toeInputs", toe_inputs.resolve)
