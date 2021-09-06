@@ -95,6 +95,7 @@ TEST_GROUPS: Set[str] = {
     "update_severity",
     "update_severity_new",
     "update_toe_lines_sorts",
+    "update_vulnerabilities_treatment_new",
     "update_vulnerability_commit",
     "update_vulnerability_commit_new",
     "update_vulnerability_treatment",
@@ -411,6 +412,7 @@ def generic_data() -> Dict[str, Any]:  # pylint: disable=too-many-locals
                         "group3",
                     ],
                     "policy": {},
+                    "max_acceptance_days": 7,
                 },
             ],
             "groups": [

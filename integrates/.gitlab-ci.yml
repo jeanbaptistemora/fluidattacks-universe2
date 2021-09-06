@@ -450,6 +450,9 @@ integrates.back.test.functional.update_severity_new:
 integrates.back.test.functional.update_toe_lines_sorts:
   <<: *integrates_back_test_functional
 
+integrates.back.test.functional.update_vulnerabilities_treatment_new:
+  <<: *integrates_back_test_functional_migration
+
 integrates.back.test.functional.update_vulnerability_commit:
   <<: *integrates_back_test_functional
 
