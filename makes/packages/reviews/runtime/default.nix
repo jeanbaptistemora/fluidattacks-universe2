@@ -17,13 +17,8 @@ makeTemplate {
     envPythonPaths = [
       (path "/reviews/src")
     ];
-    envNodeBinaries = [
-      packages.makes.commitlint
-    ];
-    envNodeLibraries = [
-      packages.makes.commitlint
-    ];
     envSources = [
+      (packages.makes.commitlint)
       (makes.makePythonPypiEnvironment {
         name = "reviews-runtime";
         sourcesYaml = ./pypi-sources.yaml;
