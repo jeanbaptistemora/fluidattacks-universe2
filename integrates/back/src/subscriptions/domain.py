@@ -11,7 +11,9 @@ from authz import (
 import base64
 import botocore.exceptions
 from context import (
+    FI_ENVIRONMENT,
     FI_MAIL_REVIEWERS,
+    FI_TEST_PROJECTS,
 )
 from custom_types import (
     MailContent,
@@ -270,6 +272,14 @@ async def send_digest_report(
     loaders: Dataloaders = None,
 ) -> None:
     groups = await groups_domain.get_groups_by_user(user_email)
+
+    if FI_ENVIRONMENT == "production":
+        groups = [
+            group
+            for group in groups
+            if group not in FI_TEST_PROJECTS.split(",")
+        ]
+
     LOGGER_CONSOLE.info(
         f"- groups for the user {user_email}: {str(groups)}", **NOEXTRA
     )
@@ -498,6 +508,13 @@ async def get_digest_stats(
         ]
     )
     digest_groups = set(itertools.chain.from_iterable(digest_groups))
+
+    if FI_ENVIRONMENT == "production":
+        digest_groups = {
+            group
+            for group in digest_groups
+            if group not in FI_TEST_PROJECTS.split(",")
+        }
 
     LOGGER_CONSOLE.info(
         f"Digest: get stats for groups: {str(digest_groups)}", **NOEXTRA
