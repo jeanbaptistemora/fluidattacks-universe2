@@ -316,6 +316,7 @@ class GraphShardMetadataClassMethod(NamedTuple):
     parameters: Optional[Dict[str, GraphShardMetadataParameter]] = None
     return_type: Optional[str] = None
     static: bool = False
+    attributes: Optional[List[str]] = None
 
 
 class GraphShardMetadataCSharpMethod(NamedTuple):

@@ -6601,6 +6601,7 @@
               "inherit": "HttpServlet",
               "methods": {
                 ".doGet": {
+                  "attributes": null,
                   "class_name": ".BenchmarkTest00001",
                   "n_id": "62",
                   "name": "doGet",
@@ -6620,6 +6621,7 @@
                   "static": false
                 },
                 ".doPost": {
+                  "attributes": null,
                   "class_name": ".BenchmarkTest00001",
                   "n_id": "223",
                   "name": "doPost",
@@ -6654,6 +6656,7 @@
               "inherit": "HttpServlet",
               "methods": {
                 ".doGet": {
+                  "attributes": null,
                   "class_name": ".BenchmarkTest00001",
                   "n_id": "62",
                   "name": "doGet",
@@ -6673,6 +6676,7 @@
                   "static": false
                 },
                 ".doPost": {
+                  "attributes": null,
                   "class_name": ".BenchmarkTest00001",
                   "n_id": "223",
                   "name": "doPost",
@@ -11773,6 +11777,7 @@
               "inherit": "HttpServlet",
               "methods": {
                 ".doGet": {
+                  "attributes": null,
                   "class_name": ".BenchmarkTest00008",
                   "n_id": "62",
                   "name": "doGet",
@@ -11792,6 +11797,7 @@
                   "static": false
                 },
                 ".doPost": {
+                  "attributes": null,
                   "class_name": ".BenchmarkTest00008",
                   "n_id": "98",
                   "name": "doPost",
@@ -11826,6 +11832,7 @@
               "inherit": "HttpServlet",
               "methods": {
                 ".doGet": {
+                  "attributes": null,
                   "class_name": ".BenchmarkTest00008",
                   "n_id": "62",
                   "name": "doGet",
@@ -11845,6 +11852,7 @@
                   "static": false
                 },
                 ".doPost": {
+                  "attributes": null,
                   "class_name": ".BenchmarkTest00008",
                   "n_id": "98",
                   "name": "doPost",
@@ -19883,6 +19891,7 @@
               "inherit": "HttpServlet",
               "methods": {
                 ".doGet": {
+                  "attributes": null,
                   "class_name": ".BenchmarkTest00167",
                   "n_id": "62",
                   "name": "doGet",
@@ -19902,6 +19911,7 @@
                   "static": false
                 },
                 ".doPost": {
+                  "attributes": null,
                   "class_name": ".BenchmarkTest00167",
                   "n_id": "98",
                   "name": "doPost",
@@ -19936,6 +19946,7 @@
               "inherit": "HttpServlet",
               "methods": {
                 ".doGet": {
+                  "attributes": null,
                   "class_name": ".BenchmarkTest00167",
                   "n_id": "62",
                   "name": "doGet",
@@ -19955,6 +19966,7 @@
                   "static": false
                 },
                 ".doPost": {
+                  "attributes": null,
                   "class_name": ".BenchmarkTest00167",
                   "n_id": "98",
                   "name": "doPost",

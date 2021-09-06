@@ -17727,6 +17727,7 @@
                   "static": false
                 },
                 ".HouseController_2": {
+                  "attributes": [],
                   "class_name": ".HouseController",
                   "n_id": "143",
                   "name": ".HouseController_2",
@@ -17903,6 +17904,7 @@
                   "static": false
                 },
                 ".HouseController_2": {
+                  "attributes": [],
                   "class_name": ".HouseController",
                   "n_id": "143",
                   "name": ".HouseController_2",
@@ -26708,6 +26710,7 @@
                   "static": false
                 },
                 ".StudentController_0": {
+                  "attributes": [],
                   "class_name": ".StudentController",
                   "n_id": "12",
                   "name": ".StudentController_0",

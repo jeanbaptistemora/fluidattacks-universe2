@@ -10377,6 +10377,7 @@
               "inherit": null,
               "methods": {
                 ".createRandom": {
+                  "attributes": null,
                   "class_name": ".App",
                   "n_id": "13",
                   "name": "createRandom",
@@ -10385,6 +10386,7 @@
                   "static": false
                 },
                 ".main": {
+                  "attributes": null,
                   "class_name": ".App",
                   "n_id": "60",
                   "name": "main",
@@ -10399,6 +10401,7 @@
                   "static": true
                 },
                 ".test_01": {
+                  "attributes": null,
                   "class_name": ".App",
                   "n_id": "177",
                   "name": "test_01",
@@ -10407,6 +10410,7 @@
                   "static": false
                 },
                 ".test_02": {
+                  "attributes": null,
                   "class_name": ".App",
                   "n_id": "272",
                   "name": "test_02",
@@ -10415,6 +10419,7 @@
                   "static": false
                 },
                 ".test_03": {
+                  "attributes": null,
                   "class_name": ".App",
                   "n_id": "355",
                   "name": "test_03",
@@ -10423,6 +10428,7 @@
                   "static": false
                 },
                 ".test_04": {
+                  "attributes": null,
                   "class_name": ".App",
                   "n_id": "450",
                   "name": "test_04",
@@ -10431,6 +10437,7 @@
                   "static": false
                 },
                 ".test_05": {
+                  "attributes": null,
                   "class_name": ".App",
                   "n_id": "514",
                   "name": "test_05",
@@ -10439,6 +10446,7 @@
                   "static": false
                 },
                 ".test_06": {
+                  "attributes": null,
                   "class_name": ".App",
                   "n_id": "605",
                   "name": "test_06",
@@ -10447,6 +10455,7 @@
                   "static": false
                 },
                 ".test_07": {
+                  "attributes": null,
                   "class_name": ".App",
                   "n_id": "700",
                   "name": "test_07",
@@ -10455,6 +10464,7 @@
                   "static": false
                 },
                 ".test_08": {
+                  "attributes": null,
                   "class_name": ".App",
                   "n_id": "783",
                   "name": "test_08",
@@ -10463,6 +10473,7 @@
                   "static": false
                 },
                 ".test_09": {
+                  "attributes": null,
                   "class_name": ".App",
                   "n_id": "859",
                   "name": "test_09",
@@ -15465,6 +15476,7 @@
               "inherit": null,
               "methods": {
                 ".User_1": {
+                  "attributes": null,
                   "class_name": ".User",
                   "n_id": "30",
                   "name": null,
@@ -15479,6 +15491,7 @@
                   "static": false
                 },
                 ".User_2": {
+                  "attributes": null,
                   "class_name": ".User",
                   "n_id": "54",
                   "name": null,
@@ -15498,6 +15511,7 @@
                   "static": false
                 },
                 ".User_3": {
+                  "attributes": null,
                   "class_name": ".User",
                   "n_id": "86",
                   "name": null,
@@ -15522,6 +15536,7 @@
                   "static": false
                 },
                 ".getName": {
+                  "attributes": null,
                   "class_name": ".User",
                   "n_id": "127",
                   "name": "getName",
@@ -15530,6 +15545,7 @@
                   "static": false
                 },
                 ".getUserId": {
+                  "attributes": null,
                   "class_name": ".User",
                   "n_id": "164",
                   "name": "getUserId",
@@ -15538,6 +15554,7 @@
                   "static": false
                 },
                 ".setLastName": {
+                  "attributes": null,
                   "class_name": ".User",
                   "n_id": "213",
                   "name": "setLastName",
@@ -15552,6 +15569,7 @@
                   "static": false
                 },
                 ".setName": {
+                  "attributes": null,
                   "class_name": ".User",
                   "n_id": "143",
                   "name": "setName",
@@ -15566,6 +15584,7 @@
                   "static": false
                 },
                 ".setUserId": {
+                  "attributes": null,
                   "class_name": ".User",
                   "n_id": "193",
                   "name": "setUserId",

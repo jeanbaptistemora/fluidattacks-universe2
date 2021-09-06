@@ -716,6 +716,7 @@
               "inherit": null,
               "methods": {
                 ".main": {
+                  "attributes": null,
                   "class_name": ".Test",
                   "n_id": "13",
                   "name": "main",
@@ -2153,6 +2154,7 @@
               "inherit": null,
               "methods": {
                 ".doPost": {
+                  "attributes": null,
                   "class_name": ".Test",
                   "n_id": "13",
                   "name": "doPost",
