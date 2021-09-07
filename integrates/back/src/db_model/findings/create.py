@@ -1,5 +1,6 @@
 from .types import (
     Finding,
+    Finding31Severity,
 )
 from .utils import (
     format_evidences_item,
@@ -59,6 +60,9 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
         values={"group_name": finding.group_name, "id": finding.id},
     )
     metadata_evidences_item = format_evidences_item(finding.evidences)
+    cvss_version = (
+        "3.1" if isinstance(finding.severity, Finding31Severity) else "2.0"
+    )
     finding_metadata = {
         "actor": finding.actor,
         "affected_systems": finding.affected_systems,
@@ -67,7 +71,7 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
         "bug_tracking_system_url": finding.bug_tracking_system_url,
         "compromised_attributes": finding.compromised_attributes,
         "compromised_records": finding.compromised_records,
-        "cvss_version": finding.cvss_version,
+        "cvss_version": cvss_version,
         "description": finding.description,
         "evidences": metadata_evidences_item,
         "group_name": finding.group_name,

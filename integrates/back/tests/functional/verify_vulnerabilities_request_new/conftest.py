@@ -45,7 +45,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=FindingStateStatus.CREATED,
                     ),
                     title="001. SQL injection - C Sharp SQL API",
-                    cvss_version="3.1",
                     compromised_attributes="Clave plana",
                     compromised_records=12,
                     risk="This is pytest created draft",

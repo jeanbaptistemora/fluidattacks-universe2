@@ -178,7 +178,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=FindingStateStatus.CREATED,
                     ),
                     title="060. Insecure exceptions",
-                    cvss_version="3.1",
                     compromised_attributes="Clave plana",
                     compromised_records=12,
                     risk="This is pytest created draft",

@@ -35,6 +35,7 @@ from api.resolvers.finding_new import (
     closed_vulnerabilities_new,
     consulting_new,
     current_state_new,
+    cvss_version_new,
     evidence_new,
     group_name_new,
     hacker_new,
@@ -78,6 +79,7 @@ if FI_API_STATUS == "migration":
     )
     FINDING.set_field("consulting", consulting_new.resolve)
     FINDING.set_field("currentState", current_state_new.resolve)
+    FINDING.set_field("cvssVersion", cvss_version_new.resolve)
     FINDING.set_field("evidence", evidence_new.resolve)
     FINDING.set_field("groupName", group_name_new.resolve)
     FINDING.set_field("hacker", hacker_new.resolve)
