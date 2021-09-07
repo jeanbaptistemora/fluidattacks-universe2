@@ -156,7 +156,7 @@ export const enTranslations: ResourceKey = {
         title: "Remediation Rate Benchmarking",
       },
       distributionOverTimeCvssf: {
-        title: "Distribution over the time",
+        title: "Distribution over time",
         tooltip: {
           cvssf: "CVSSF",
           vulnerabilities: "Vulnerabilities",
