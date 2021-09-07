@@ -21,14 +21,14 @@ const SubscribeIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { title } = data.asciidoc.document;
   const {
     description,
     keywords,
     slug,
     subtext,
     subtitle,
-  } = data.asciidoc.pageAttributes;
+    title,
+  } = data.markdownRemark.frontmatter;
 
   return (
     <React.Fragment>
@@ -85,16 +85,14 @@ export default SubscribeIndex;
 
 export const query: void = graphql`
   query SubscribeIndex($slug: String!) {
-    asciidoc(fields: { slug: { eq: $slug } }) {
-      document {
-        title
-      }
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       fields {
         slug
       }
-      pageAttributes {
+      frontmatter {
         description
         keywords
+        title
       }
     }
   }
