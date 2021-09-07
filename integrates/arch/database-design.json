@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 07, 2021, 08:30 AM",
+    "DateLastModified": "Sep 07, 2021, 09:35 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1813,11 +1813,139 @@
           },
           "TableData": [
             {
-              "pk": {
-                "S": "FIN#475041513"
+              "sk": {
+                "S": "FIN#422286126"
               },
+              "pk": {
+                "S": "FIN_ID"
+              }
+            },
+            {
+              "sk": {
+                "S": "FIN#436712859"
+              },
+              "pk": {
+                "S": "FIN_ID"
+              }
+            },
+            {
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "pk": {
+                "S": "FIN_ID"
+              }
+            },
+            {
+              "sk": {
+                "S": "FIN#457497316"
+              },
+              "pk": {
+                "S": "FIN_ID"
+              }
+            },
+            {
+              "sk": {
+                "S": "FIN#457497318"
+              },
+              "pk": {
+                "S": "FIN_ID"
+              }
+            },
+            {
+              "sk": {
+                "S": "FIN#463461507"
+              },
+              "pk": {
+                "S": "FIN_ID"
+              }
+            },
+            {
+              "sk": {
+                "S": "FIN#463558592"
+              },
+              "pk": {
+                "S": "FIN_ID"
+              }
+            },
+            {
               "sk": {
                 "S": "FIN#475041513"
+              },
+              "pk": {
+                "S": "FIN_ID"
+              }
+            },
+            {
+              "sk": {
+                "S": "FIN#475041524"
+              },
+              "pk": {
+                "S": "FIN_ID"
+              }
+            },
+            {
+              "sk": {
+                "S": "FIN#475041535"
+              },
+              "pk": {
+                "S": "FIN_ID"
+              }
+            },
+            {
+              "sk": {
+                "S": "FIN#560175507"
+              },
+              "pk": {
+                "S": "FIN_ID"
+              }
+            },
+            {
+              "sk": {
+                "S": "FIN#683100860"
+              },
+              "pk": {
+                "S": "FIN_ID"
+              }
+            },
+            {
+              "sk": {
+                "S": "FIN#818828206"
+              },
+              "pk": {
+                "S": "FIN_ID"
+              }
+            },
+            {
+              "sk": {
+                "S": "FIN#836530833"
+              },
+              "pk": {
+                "S": "FIN_ID"
+              }
+            },
+            {
+              "sk": {
+                "S": "FIN#988493279"
+              },
+              "pk": {
+                "S": "FIN_ID"
+              }
+            },
+            {
+              "sk": {
+                "S": "FIN#991607942"
+              },
+              "pk": {
+                "S": "FIN_ID"
+              }
+            },
+            {
+              "sk": {
+                "S": "FIN#997868246"
+              },
+              "pk": {
+                "S": "FIN_ID"
               }
             }
           ],
@@ -2362,10 +2490,18 @@
               },
               "unreliable_treatment_summary": {
                 "M": {
-                  "accepted": 0,
-                  "accepted_undefined": 1,
-                  "in_progress": 2,
-                  "new": 3
+                  "accepted": {
+                    "N": "0"
+                  },
+                  "accepted_undefined": {
+                    "N": "1"
+                  },
+                  "in_progress": {
+                    "N": "1"
+                  },
+                  "new": {
+                    "N": "3"
+                  }
                 }
               }
             }
