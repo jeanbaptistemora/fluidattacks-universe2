@@ -2,6 +2,7 @@ from contextlib import (
     suppress,
 )
 from model.graph_model import (
+    SyntaxStepMemberAccessExpression,
     SyntaxStepMeta,
 )
 from sast_symbolic_evaluation.decorators import (
@@ -24,11 +25,17 @@ from typing import (
     Set,
 )
 from utils.string import (
+    split_on_first_dot,
     split_on_last_dot,
 )
 
+# var type and vulnerable assignment
+vuln_assign: Dict[str, Set[str]] = {
+    "DirectoryEntry": {"AuthenticationTypes.None"},
+}
+
 # assignment of fields that make the object vulnerable
-BY_TYPE: Dict[str, Set[str]] = complete_attrs_on_dict(
+vuln_field_access: Dict[str, Set[str]] = complete_attrs_on_dict(
     {
         "System.Data.SqlClient.SqlCommand": {
             "CommandText",
@@ -119,38 +126,31 @@ def javscript_evaluate_assignment(args: EvaluatorArgs) -> None:
 
 
 def evaluate(args: EvaluatorArgs) -> None:
-    danger_assignment = {
-        "AuthenticationTypes.None",
-    }
-    vulnerable_type = {
-        "DirectoryEntry",
-    }
-    var, field = split_on_last_dot(args.syntax_step.var)
-    args_danger = any(dep.meta.danger for dep in args.dependencies)
-    if not args.syntax_step.meta.danger:
-        args.syntax_step.meta.danger = args_danger
-
     go_evaluate_assignment(args)
     javscript_evaluate_assignment(args)
+
+    var, field = split_on_first_dot(args.syntax_step.var)
+    [dependency] = args.dependencies
+
+    if not args.syntax_step.meta.danger:
+        args.syntax_step.meta.danger = dependency.meta.danger
+
     # modify the value of a field in an instance
-    if var != "this":
-        var_decl = lookup_var_dcl_by_name(args, var)
-        # pylint:disable=used-before-assignment
-        if (
-            var_decl
-            and var_decl.var_type in vulnerable_type
-            and args.dependencies.pop().expression in danger_assignment
-        ):
-            args.syntax_step.meta.danger = True
-        if var_decl and isinstance(
-            var_decl.meta.value,
-            JavaClassInstance,
-        ):
-            var_decl.meta.value.fields[field] = args.syntax_step
-        elif args.current_instance and not field and lookup_field(args, var):
+
+    if args.current_instance:
+        if var == "this":
+            args.current_instance.fields[field] = args.syntax_step
+        elif not field and lookup_field(args, var):
             args.current_instance.fields[var] = args.syntax_step
-        elif var_decl and field in BY_TYPE.get(var_decl.var_type, set()):
-            var_decl.meta.danger = args.syntax_step.meta.danger
-    elif args.current_instance and var == "this":
-        _, field = split_on_last_dot(args.syntax_step.var)
-        args.current_instance.fields[field] = args.syntax_step
+
+    elif v_dcl := lookup_var_dcl_by_name(args, var):
+        if isinstance(v_dcl.meta.value, JavaClassInstance):
+            v_dcl.meta.value.fields[field] = args.syntax_step
+
+        if isinstance(
+            dependency, SyntaxStepMemberAccessExpression
+        ) and dependency.expression in vuln_assign.get(v_dcl.var_type, set()):
+            args.syntax_step.meta.danger = True
+
+        if field in vuln_field_access.get(v_dcl.var_type, set()):
+            v_dcl.meta.danger = args.syntax_step.meta.danger
