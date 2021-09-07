@@ -43,6 +43,6 @@ p, ol, ul {
 }
 
 .c3-texts text {
-  transform: translate(0, 20px);
+  transform: translate(0, 15px);
   fill: white !important;
 }
