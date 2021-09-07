@@ -161,6 +161,12 @@ async def update_medatada(
         for key, value in metadata._asdict().items()
         if value is not None
     }
+    if "severity" in metadata_item:
+        metadata_item["cvss_version"] = (
+            "3.1"
+            if isinstance(metadata.severity, Finding31Severity)
+            else "2.0"
+        )
     condition_expression = Attr(key_structure.partition_key).exists()
     await operations.update_item(
         condition_expression=condition_expression,

@@ -182,7 +182,6 @@ class FindingMetadataToUpdate(NamedTuple):
     attack_vector_description: Optional[str] = None
     compromised_attributes: Optional[str] = None
     compromised_records: Optional[int] = None
-    cvss_version: Optional[str] = None
     description: Optional[str] = None
     evidences: Optional[FindingEvidences] = None
     recommendation: Optional[str] = None
