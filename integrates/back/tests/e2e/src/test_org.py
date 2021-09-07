@@ -16,16 +16,30 @@ def test_org_analytics(
     asm_endpoint: str,
     timeout: int,
 ) -> None:
+    expected_charts: List[str] = [
+        "Remediation Rate Benchmarking",
+        "MTTR Benchmarking",
+        "Severity over time",
+        "Distribution over time",
+        "Vulnerabilities treatment",
+        "Total types",
+        "Severity",
+        "Days since last remediation",
+        "Total vulnerabilities",
+    ]
+
     # Login
     utils.login(driver, asm_endpoint, credentials)
 
     # Enter Analytics
     driver.get(f"{asm_endpoint}/orgs/okada/analytics")
-    assert utils.wait_for_text(
-        driver,
-        "Severity over time",
-        timeout,
-    )
+
+    for expected_chart in expected_charts:
+        assert utils.wait_for_text(
+            driver,
+            expected_chart,
+            timeout,
+        )
 
 
 def test_org_groups(
