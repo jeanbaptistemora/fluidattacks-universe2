@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 07, 2021, 04:19 PM",
+    "DateLastModified": "Sep 07, 2021, 05:09 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -368,7 +368,7 @@
         },
         {
           "AttributeName": "comment_id",
-          "AttributeType": "N"
+          "AttributeType": "S"
         },
         {
           "AttributeName": "unreliable_last_vulnerability",
@@ -6348,28 +6348,174 @@
           },
           "TableData": [
             {
+              "sk": {
+                "S": "GROUP#asgard"
+              },
+              "pk": {
+                "S": "FIN#436712859#VERIFICATION"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#asgard"
+              },
+              "pk": {
+                "S": "FIN#683100860#VERIFICATION"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#asgard"
+              },
+              "pk": {
+                "S": "FIN#997868246#VERIFICATION"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#continuoustesting"
+              },
+              "pk": {
+                "S": "FIN#475041524#VERIFICATION"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#continuoustesting"
+              },
+              "pk": {
+                "S": "FIN#836530833#VERIFICATION"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#continuoustesting"
+              },
+              "pk": {
+                "S": "FIN#991607942#VERIFICATION"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#lubbock"
+              },
+              "pk": {
+                "S": "FIN#818828206#VERIFICATION"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#oneshottest"
+              },
+              "pk": {
+                "S": "FIN#457497318#VERIFICATION"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#oneshottest"
+              },
               "pk": {
                 "S": "FIN#475041513#VERIFICATION"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#oneshottest"
               },
+              "pk": {
+                "S": "FIN#475041535#VERIFICATION"
+              }
+            },
+            {
               "sk": {
                 "S": "GROUP#unittesting"
               },
-              "status": {
-                "S": "REQUESTED"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
+              "pk": {
+                "S": "FIN#422286126#VERIFICATION"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
               },
               "modified_by": {
-                "S": "analyst@fluidatttacks.com"
-              },
-              "comment_id": {
-                "N": "1558048727000"
+                "S": "integrateshacker@fluidattacks.com"
               },
               "vulnerability_ids": {
                 "SS": [
-                  "3098e835-833c-48f7-aa76-12ea884e871f"
+                  "15375781-31f2-4953-ac77-f31134225747"
                 ]
+              },
+              "pk": {
+                "S": "FIN#436992569#VERIFICATION"
+              },
+              "modified_date": {
+                "S": "2020-02-21T15:41:04+00:00"
+              },
+              "comment_id": {
+                "S": "1558048727111"
+              },
+              "status": {
+                "S": "VERIFIED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "pk": {
+                "S": "FIN#457497316#VERIFICATION"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "pk": {
+                "S": "FIN#463461507#VERIFICATION"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "modified_by": {
+                "S": "integratesuser@gmail.com"
+              },
+              "vulnerability_ids": {
+                "SS": [
+                  "3bcdb384-5547-4170-a0b6-3b397a245465",
+                  "74632c0c-db08-47c2-b013-c70e5b67c49f"
+                ]
+              },
+              "pk": {
+                "S": "FIN#463558592#VERIFICATION"
+              },
+              "modified_date": {
+                "S": "2020-01-19T15:41:04+00:00"
+              },
+              "comment_id": {
+                "S": "1558048727999"
+              },
+              "status": {
+                "S": "REQUESTED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "pk": {
+                "S": "FIN#560175507#VERIFICATION"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "pk": {
+                "S": "FIN#988493279#VERIFICATION"
               }
             }
           ],
@@ -6408,7 +6554,7 @@
                 "S": "analyst@fluidatttacks.com"
               },
               "comment_id": {
-                "N": "1558048727000"
+                "S": "1558048727000"
               },
               "vulnerability_ids": {
                 "SS": [
@@ -6702,7 +6848,7 @@
                 "S": "test@fluidattacks.com"
               },
               "comment_id": {
-                "N": "1558048727999"
+                "S": "1558048727999"
               }
             },
             {
@@ -6722,7 +6868,7 @@
                 "S": "test@fluidattacks.com"
               },
               "comment_id": {
-                "N": "1558048728000"
+                "S": "1558048728000"
               }
             }
           ],
@@ -6872,7 +7018,7 @@
                 "S": "test@fluidattacks.com"
               },
               "comment_id": {
-                "N": "1558048728000"
+                "S": "1558048728000"
               }
             }
           ],
