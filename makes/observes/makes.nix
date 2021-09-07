@@ -1,5 +1,6 @@
 {
   imports = [
+    ./common/paginator/makes.nix
     ./infra/makes.nix
     ./linters/makes.nix
     ./pipeline/makes.nix
