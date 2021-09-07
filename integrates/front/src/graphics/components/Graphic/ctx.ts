@@ -51,13 +51,13 @@ const mergedDocuments: Record<string, IMergedCharts> = {
       tooltip: translate.t(
         "analytics.barChart.mttrBenchmarking.tooltip.nonTreated"
       ),
-      url: "",
+      url: "#mean-time-to-remediate-non-treated-vulnerabilities",
     },
     default: {
       label: "All",
       title: translate.t("analytics.barChart.mttrBenchmarking.title"),
       tooltip: translate.t("analytics.barChart.mttrBenchmarking.tooltip.all"),
-      url: "",
+      url: "#mean-time-to-remediate-all-vulnerabilities",
     },
     documentName: "mttrBenchmarkingNonTreated",
     documentType: "barChart",

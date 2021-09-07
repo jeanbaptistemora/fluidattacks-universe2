@@ -49,6 +49,45 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
   return (
     <React.StrictMode>
       <div className={`center ${reportClassName}`.trim()}>
+        {doesEntityMatch("organization") ? (
+          <RowCenter>
+            <Col100>
+              <Graphic
+                bsHeight={320}
+                className={"g1"}
+                documentName={"cvssfBenchmarking"}
+                documentType={"stackedBarChart"}
+                entity={entity}
+                generatorName={"generic"}
+                generatorType={"c3"}
+                reportMode={reportMode}
+                subject={subject}
+                title={translate.t(
+                  "analytics.stackedBarChart.cvssfBenchmarking.title"
+                )}
+              />
+            </Col100>
+          </RowCenter>
+        ) : undefined}
+        {doesEntityMatch("group", "organization") ? (
+          <RowCenter>
+            <Col100>
+              <Graphic
+                bsHeight={320}
+                className={"g1"}
+                documentName={"mttrBenchmarking"}
+                documentType={"barChart"}
+                entity={entity}
+                generatorName={"generic"}
+                generatorType={"c3"}
+                infoLink={`${graphInfoLink}common`}
+                reportMode={reportMode}
+                subject={subject}
+                title={translate.t("analytics.barChart.mttrBenchmarking.title")}
+              />
+            </Col100>
+          </RowCenter>
+        ) : undefined}
         {doesEntityMatch("group", "organization", "portfolio") ? (
           <React.Fragment>
             <RowCenter>
@@ -574,26 +613,6 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
           </RowCenter>
         </div>
       ) : undefined}
-      {doesEntityMatch("group", "organization") ? (
-        <div className={reportClassName}>
-          <RowCenter>
-            <Col100>
-              <Graphic
-                bsHeight={320}
-                className={"g1"}
-                documentName={"mttrBenchmarking"}
-                documentType={"barChart"}
-                entity={entity}
-                generatorName={"generic"}
-                generatorType={"c3"}
-                reportMode={reportMode}
-                subject={subject}
-                title={translate.t("analytics.barChart.mttrBenchmarking.title")}
-              />
-            </Col100>
-          </RowCenter>
-        </div>
-      ) : undefined}
       {doesEntityMatch("group") ? (
         <div className={reportClassName}>
           <RowCenter>
@@ -753,28 +772,6 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
               </Col50>
             </RowCenter>
           </div>
-        </div>
-      ) : undefined}
-      {doesEntityMatch("organization") ? (
-        <div className={reportClassName}>
-          <RowCenter>
-            <Col100>
-              <Graphic
-                bsHeight={320}
-                className={"g1"}
-                documentName={"cvssfBenchmarking"}
-                documentType={"stackedBarChart"}
-                entity={entity}
-                generatorName={"generic"}
-                generatorType={"c3"}
-                reportMode={reportMode}
-                subject={subject}
-                title={translate.t(
-                  "analytics.stackedBarChart.cvssfBenchmarking.title"
-                )}
-              />
-            </Col100>
-          </RowCenter>
         </div>
       ) : undefined}
       {reportMode ? undefined : <ChartsGenericViewExtras {...props} />}
