@@ -1061,6 +1061,8 @@ type Mutation {
     hasMachine: Boolean!
     "Whether to keep the Squad plan enabled within the group"
     hasSquad: Boolean!
+    "Language of the group"
+    language: String
     "Reason for the downgrade in services if applicable"
     reason: UpdateGroupReason!
     "Enables either Black or White box type of hacking service"
