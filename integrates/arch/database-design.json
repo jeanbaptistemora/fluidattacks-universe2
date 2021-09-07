@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 07, 2021, 12:00 PM",
+    "DateLastModified": "Sep 07, 2021, 02:16 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -5244,23 +5244,289 @@
           },
           "TableData": [
             {
-              "pk": {
-                "S": "FIN#475041513#APPROVAL"
-              },
               "sk": {
-                "S": "GROUP#unittesting"
+                "S": "GROUP#asgard"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#436712859#APPROVAL"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2020-08-02T01:45:11+00:00"
               },
               "status": {
                 "S": "APPROVED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#asgard"
               },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "source": {
-                "S": "integrates"
+              "pk": {
+                "S": "FIN#683100860#APPROVAL"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#asgard"
               },
               "modified_by": {
-                "S": "analyst@fluidatttacks.com"
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#997868246#APPROVAL"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2018-05-02T01:45:11+00:00"
+              },
+              "status": {
+                "S": "APPROVED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#continuoustesting"
+              },
+              "pk": {
+                "S": "FIN#475041524#APPROVAL"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#continuoustesting"
+              },
+              "pk": {
+                "S": "FIN#836530833#APPROVAL"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#continuoustesting"
+              },
+              "pk": {
+                "S": "FIN#991607942#APPROVAL"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#lubbock"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#818828206#APPROVAL"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2019-11-24T05:00:00+00:00"
+              },
+              "status": {
+                "S": "APPROVED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#oneshottest"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#457497318#APPROVAL"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2018-11-29T05:00:00+00:00"
+              },
+              "status": {
+                "S": "APPROVED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#oneshottest"
+              },
+              "pk": {
+                "S": "FIN#475041513#APPROVAL"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#oneshottest"
+              },
+              "pk": {
+                "S": "FIN#475041535#APPROVAL"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#422286126#APPROVAL"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2018-07-09T05:00:00+00:00"
+              },
+              "status": {
+                "S": "APPROVED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#436992569#APPROVAL"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2019-04-08T05:00:00+00:00"
+              },
+              "status": {
+                "S": "APPROVED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#457497316#APPROVAL"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2018-11-27T05:00:00+00:00"
+              },
+              "status": {
+                "S": "APPROVED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#463461507#APPROVAL"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2019-01-10T05:00:00+00:00"
+              },
+              "status": {
+                "S": "APPROVED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#463558592#APPROVAL"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2018-12-17T05:00:00+00:00"
+              },
+              "status": {
+                "S": "APPROVED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "pk": {
+                "S": "FIN#560175507#APPROVAL"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#988493279#APPROVAL"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2019-04-08T00:45:15+00:00"
+              },
+              "status": {
+                "S": "APPROVED"
               }
             }
           ],

@@ -28,6 +28,7 @@ function populate {
   fi \
     && if test "${api_status}" == 'migration'; then
       included_facets+=(
+        finding_approval
         finding_id
         finding_metadata
         finding_state
