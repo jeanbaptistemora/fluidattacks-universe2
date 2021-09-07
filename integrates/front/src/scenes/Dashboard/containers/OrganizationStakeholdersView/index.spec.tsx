@@ -14,7 +14,7 @@ import wait from "waait";
 import waitForExpect from "wait-for-expect";
 
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal/index";
-import { GET_USER } from "scenes/Dashboard/components/AddUserModal/queries";
+import { GET_STAKEHOLDER } from "scenes/Dashboard/components/AddUserModal/queries";
 import { OrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView";
 import {
   ADD_STAKEHOLDER_MUTATION,
@@ -181,7 +181,7 @@ describe("Organization users view", (): void => {
       },
       {
         request: {
-          query: GET_USER,
+          query: GET_STAKEHOLDER,
           variables: {
             entity: "ORGANIZATION",
             groupName: "-",

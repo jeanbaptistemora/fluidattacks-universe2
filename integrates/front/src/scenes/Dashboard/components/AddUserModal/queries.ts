@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
-export const GET_USER: DocumentNode = gql`
+export const GET_STAKEHOLDER: DocumentNode = gql`
   query GetStakeholderDataQuery(
     $entity: StakeholderEntity!
     $organizationId: String

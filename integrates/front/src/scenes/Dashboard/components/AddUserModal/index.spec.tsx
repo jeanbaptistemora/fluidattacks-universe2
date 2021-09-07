@@ -14,7 +14,7 @@ import { act } from "react-dom/test-utils";
 import wait from "waait";
 
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
-import { GET_USER } from "scenes/Dashboard/components/AddUserModal/queries";
+import { GET_STAKEHOLDER } from "scenes/Dashboard/components/AddUserModal/queries";
 import type { IAddStakeholderModalProps } from "scenes/Dashboard/components/AddUserModal/types";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError } from "utils/notifications";
@@ -59,7 +59,7 @@ describe("Add user modal", (): void => {
   const mocks: MockedResponse[] = [
     {
       request: {
-        query: GET_USER,
+        query: GET_STAKEHOLDER,
         variables: {
           entity: "GROUP",
           groupName: "TEST",
@@ -80,7 +80,7 @@ describe("Add user modal", (): void => {
     },
     {
       request: {
-        query: GET_USER,
+        query: GET_STAKEHOLDER,
         variables: {
           entity: "GROUP",
           groupName: "TEST",
@@ -104,7 +104,7 @@ describe("Add user modal", (): void => {
   const mockError: MockedResponse[] = [
     {
       request: {
-        query: GET_USER,
+        query: GET_STAKEHOLDER,
         variables: {
           entity: "GROUP",
           groupName: "TEST",
@@ -118,7 +118,7 @@ describe("Add user modal", (): void => {
     },
     {
       request: {
-        query: GET_USER,
+        query: GET_STAKEHOLDER,
         variables: {
           entity: "GROUP",
           groupName: "TEST",

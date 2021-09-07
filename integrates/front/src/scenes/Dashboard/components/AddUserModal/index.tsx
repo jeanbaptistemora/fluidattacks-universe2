@@ -10,7 +10,7 @@ import { getNewInitialValues, getUserData } from "./helpers";
 
 import { Button } from "components/Button/index";
 import { Modal } from "components/Modal";
-import { GET_USER } from "scenes/Dashboard/components/AddUserModal/queries";
+import { GET_STAKEHOLDER } from "scenes/Dashboard/components/AddUserModal/queries";
 import type {
   IAddStakeholderModalProps,
   IStakeholderAttrs,
@@ -72,7 +72,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = (
     organizationModal
   );
 
-  const [getUser, { data }] = useLazyQuery<IStakeholderAttrs>(GET_USER, {
+  const [getUser, { data }] = useLazyQuery<IStakeholderAttrs>(GET_STAKEHOLDER, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         if (error.message !== "Access denied or stakeholder not found") {
