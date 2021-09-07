@@ -168,16 +168,16 @@ async def test_me() -> None:  # pylint: disable=too-many-statements
 
     context = get_new_context()
     query = f"""{{
-        me(callerOrigin: "API") {{
-            permissions(entity: GROUP, identifier: "{group_name}")
-            role(entity: GROUP, identifier: "{group_name}")
+        group(groupName:"{group_name}"){{
+            userRole
+            permissions
         }}
     }}"""
     data = {"query": query}
     result = await get_result(data, session_jwt=session_jwt, context=context)
     assert "errors" not in result
-    assert len(result["data"]["me"]["permissions"]) == 94
-    assert result["data"]["me"]["role"] == "hacker"
+    assert len(result["data"]["group"]["permissions"]) == 94
+    assert result["data"]["group"]["userRole"] == "hacker"
 
     context = get_new_context()
     query = f"""{{
