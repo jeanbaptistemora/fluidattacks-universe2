@@ -1,8 +1,0 @@
-:page-slug: about-us/people/
-:page-category: about-us
-:page-description: We're a pentesting company with a team of ethical hackers focused on the detection of vulnerabilities on web applications with 20 years of experience.
-:page-keywords: Fluid Attacks, Team, People, Profiles, Experience, Members, Ethical Hackers, Pentesting, Web Application
-:page-banner: people-bg
-:page-template: about-us/people
-
-= People

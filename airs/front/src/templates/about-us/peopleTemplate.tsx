@@ -34,9 +34,13 @@ const PeopleIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { title } = data.asciidoc.document;
-
-  const { banner, description, keywords, slug } = data.asciidoc.pageAttributes;
+  const {
+    banner,
+    description,
+    keywords,
+    slug,
+    title,
+  } = data.markdownRemark.frontmatter;
   const metaImage: string =
     "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632545/airs/about-us/people/cover-people_lxsx5t.png";
 
@@ -79,19 +83,17 @@ export default PeopleIndex;
 
 export const query: void = graphql`
   query PeoplePage($slug: String!) {
-    asciidoc(fields: { slug: { eq: $slug } }) {
-      document {
-        title
-      }
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       fields {
         slug
       }
-      pageAttributes {
+      frontmatter {
         banner
         description
         keywords
         slug
+        title
       }
     }
   }
