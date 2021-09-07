@@ -237,6 +237,10 @@ in
           gitlabExtra = gitlabTestCode;
         }
         {
+          output = "/makes/criteria/unreferenced";
+          gitlabExtra = gitlabTestCode;
+        }
+        {
           output = "/pipelineOnGitlab/makes";
           gitlabExtra = gitlabLint;
         }

@@ -819,6 +819,27 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+/makes/criteria/unreferenced:
+  image: ghcr.io/fluidattacks/makes:21.10
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|makes)/
+  script:
+    - m . /makes/criteria/unreferenced
+  stage: test-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
 /pipelineOnGitlab/makes:
   image: ghcr.io/fluidattacks/makes:21.10
   interruptible: true
