@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 07, 2021, 10:51 AM",
+    "DateLastModified": "Sep 07, 2021, 12:00 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -4834,26 +4834,394 @@
           },
           "TableData": [
             {
-              "pk": {
-                "S": "FIN#475041513#STATE"
-              },
               "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "status": {
-                "S": "CREATED"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
+                "S": "GROUP#asgard"
               },
               "modified_by": {
-                "S": "analyst@fluidatttacks.com"
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#436712859#STATE"
               },
               "source": {
-                "S": "integrates"
+                "S": "ASM"
               },
               "justification": {
                 "S": "NO_JUSTIFICATION"
+              },
+              "modified_date": {
+                "S": "2020-08-02T01:45:11+00:00"
+              },
+              "status": {
+                "S": "APPROVED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#asgard"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#683100860#STATE"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "modified_date": {
+                "S": "2018-05-02T00:45:11+00:00"
+              },
+              "status": {
+                "S": "SUBMITTED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#asgard"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#997868246#STATE"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "modified_date": {
+                "S": "2018-05-02T01:45:11+00:00"
+              },
+              "status": {
+                "S": "APPROVED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#continuoustesting"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "pk": {
+                "S": "FIN#475041524#STATE"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "modified_date": {
+                "S": "2019-02-04T17:46:10+00:00"
+              },
+              "status": {
+                "S": "CREATED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#continuoustesting"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#836530833#STATE"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "modified_date": {
+                "S": "2019-11-22T20:10:04+00:00"
+              },
+              "status": {
+                "S": "SUBMITTED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#continuoustesting"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#991607942#STATE"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "justification": {
+                "S": "DUPLICATED"
+              },
+              "modified_date": {
+                "S": "2019-11-22T20:10:56+00:00"
+              },
+              "status": {
+                "S": "DELETED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#lubbock"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#818828206#STATE"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "modified_date": {
+                "S": "2019-11-24T05:00:00+00:00"
+              },
+              "status": {
+                "S": "APPROVED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#oneshottest"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#457497318#STATE"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "modified_date": {
+                "S": "2018-11-29T05:00:00+00:00"
+              },
+              "status": {
+                "S": "APPROVED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#oneshottest"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#475041513#STATE"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "modified_date": {
+                "S": "2018-04-08T00:45:11+00:00"
+              },
+              "status": {
+                "S": "SUBMITTED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#oneshottest"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "pk": {
+                "S": "FIN#475041535#STATE"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "modified_date": {
+                "S": "2019-02-04T17:46:10+00:00"
+              },
+              "status": {
+                "S": "CREATED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#422286126#STATE"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "modified_date": {
+                "S": "2018-07-09T05:00:00+00:00"
+              },
+              "status": {
+                "S": "APPROVED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#436992569#STATE"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "modified_date": {
+                "S": "2019-04-08T05:00:00+00:00"
+              },
+              "status": {
+                "S": "APPROVED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#457497316#STATE"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "modified_date": {
+                "S": "2018-11-27T05:00:00+00:00"
+              },
+              "status": {
+                "S": "APPROVED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#463461507#STATE"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "modified_date": {
+                "S": "2019-01-10T05:00:00+00:00"
+              },
+              "status": {
+                "S": "APPROVED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#463558592#STATE"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "modified_date": {
+                "S": "2018-12-17T05:00:00+00:00"
+              },
+              "status": {
+                "S": "APPROVED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "pk": {
+                "S": "FIN#560175507#STATE"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "modified_date": {
+                "S": "2019-02-04T17:46:10+00:00"
+              },
+              "status": {
+                "S": "CREATED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#988493279#STATE"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "modified_date": {
+                "S": "2019-04-08T00:45:15+00:00"
+              },
+              "status": {
+                "S": "APPROVED"
               }
             }
           ],
