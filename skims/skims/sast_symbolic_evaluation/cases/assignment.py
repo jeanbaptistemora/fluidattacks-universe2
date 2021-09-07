@@ -1,3 +1,6 @@
+from contextlib import (
+    suppress,
+)
 from model.graph_model import (
     GraphShardMetadataLanguage,
     SyntaxStepMeta,
@@ -92,6 +95,32 @@ def go_evaluate_assignment(args: EvaluatorArgs) -> None:
             args.syntax_step.meta.value = args.dependencies[0].meta.value
 
 
+def javscript_evaluate_assignment(args: EvaluatorArgs) -> bool:
+    var, field = split_on_last_dot(args.syntax_step.var)
+    var_decl = lookup_var_dcl_by_name(args, var)
+    if (
+        var_decl
+        and var_decl.meta.value
+        and isinstance(var_decl.meta.value, dict)
+    ):
+        var_decl.meta.value[field] = args.dependencies[-1]
+        return True
+    if (
+        var_decl
+        and var_decl.meta.value
+        and isinstance(var_decl.meta.value, list)
+    ):
+        with suppress(ValueError):
+            index = int(field)
+            if len(var_decl.meta.value) < index + 1:
+                while len(var_decl.meta.value) < index + 1:
+                    var_decl.meta.value.append(None)
+            var_decl.meta.value[index] = args.dependencies[-1]
+        return True
+
+    return False
+
+
 def evaluate(args: EvaluatorArgs) -> None:
     danger_assignment = {
         "AuthenticationTypes.None",
@@ -105,7 +134,7 @@ def evaluate(args: EvaluatorArgs) -> None:
         args.syntax_step.meta.danger = args_danger
 
     go_evaluate_assignment(args)
-
+    javscript_evaluate_assignment(args)
     # modify the value of a field in an instance
     if var != "this":
         var_decl = lookup_var_dcl_by_name(args, var)
@@ -125,13 +154,6 @@ def evaluate(args: EvaluatorArgs) -> None:
             args.current_instance.fields[var] = args.syntax_step
         elif var_decl and field in BY_TYPE.get(var_decl.var_type, set()):
             var_decl.meta.danger = args.syntax_step.meta.danger
-        # in case it's a dictionary
-        elif (
-            var_decl
-            and var_decl.meta.value
-            and isinstance(var_decl.meta.value, dict)
-        ):
-            var_decl.meta.value[field] = args.dependencies[-1]
     elif args.current_instance and var == "this":
         _, field = split_on_last_dot(args.syntax_step.var)
         args.current_instance.fields[field] = args.syntax_step

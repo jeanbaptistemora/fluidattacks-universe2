@@ -1,6 +1,9 @@
 from model import (
     core_model,
 )
+from model.graph_model import (
+    SyntaxStep,
+)
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
     LookedUpClass,
@@ -87,3 +90,12 @@ def attempt_java_looked_up_class(args: EvaluatorArgs) -> bool:
             return True
 
     return False
+
+
+def list_add(args: EvaluatorArgs, dcl: SyntaxStep) -> None:
+    dcl.meta.value.append(args.dependencies[0])
+
+
+def list_remove(args: EvaluatorArgs, dcl: SyntaxStep) -> None:
+    index = int(args.dependencies[0].meta.value)
+    dcl.meta.value.pop(index)

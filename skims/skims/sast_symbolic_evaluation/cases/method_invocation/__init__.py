@@ -9,8 +9,15 @@ from sast_symbolic_evaluation.cases.method_invocation.java import (
     attempt_java_looked_up_class,
     attempt_java_security_msgdigest,
     attempt_java_util_properties_methods,
+    list_add as java_list_add,
+    list_remove as java_list_remove,
 )
 from sast_symbolic_evaluation.cases.method_invocation.javascript import (
+    list_concat as javascript_list_concat,
+    list_get as javascript_list_get,
+    list_pop as javascript_list_pop,
+    list_push as javascript_list_push,
+    list_shift as javascript_list_shift,
     process as javascript_process,
 )
 from sast_symbolic_evaluation.lookup import (
@@ -862,12 +869,14 @@ def analyze_method_invocation_values_list(
     dcl: graph_model.SyntaxStep,
     method_path: str,
 ) -> None:
-    if method_path == "add":
-        dcl.meta.value.append(args.dependencies[0])
-    elif method_path == "remove":
-        index = int(args.dependencies[0].meta.value)
-        dcl.meta.value.pop(index)
-    elif method_path == "get":
-        index = int(args.dependencies[0].meta.value)
-        args.syntax_step.meta.value = dcl.meta.value[index]
-        args.syntax_step.meta.danger = dcl.meta.value[index].meta.danger
+    methods = {
+        "add": java_list_add,
+        "remove": java_list_remove,
+        "get": javascript_list_get,
+        "pop": javascript_list_pop,
+        "shift": javascript_list_shift,
+        "push": javascript_list_push,
+        "concat": javascript_list_concat,
+    }
+    if method := methods.get(method_path):
+        method(args, dcl)

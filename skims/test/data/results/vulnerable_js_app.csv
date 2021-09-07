@@ -1079,6 +1079,78 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test072.js,20,22,skims,063.
   30 |         res.json(result);
      ^ Col 0
 "
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test073.js,16,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test073.js,"
+   6 |   var user = req.params[""user""];
+   7 |   var bar = ""alsosafe"";
+   8 |   var valuesList = [];
+   9 |   valuesList.push(""safe"");
+  10 |   valuesList.push(user);
+  11 |   valuesList.push(""moresafe"");
+  12 |   bar = valuesList[1];
+  13 |
+  14 |   let userFiles = ""./target/user_files/"";
+  15 |   var filePath = userFiles + bar;
+> 16 |   fs.readdir(filePath, (error, files) => {
+  17 |     if (error) {
+  18 |       res.status(""404"").json({
+  19 |         error: `the file ${filePath} does no exist`,
+  20 |       });
+  21 |     } else {
+  22 |       res.json({ user_files: files });
+  23 |     }
+  24 |   });
+  25 | });
+  26 |
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test075.js,20,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test075.js,"
+  10 |   let list75 = [""safe"", ""safe"", _user, _fileName];
+  11 |   list75.shift();
+  12 |   list75.push(""safe"");
+  13 |   var fileName = list75[2];
+  14 |   var user = list75[1];
+  15 |   var filePath = pathh.join(""target/user_files"", user, fileName);
+  16 |
+  17 |   let result = {
+  18 |     ok: false,
+  19 |   };
+> 20 |   unlink(filePath, (error) => {
+  21 |     result.ok = true;
+  22 |     if (error) {
+  23 |       result[""ok""] = false;
+  24 |       result[""errors""] = [
+  25 |         {
+  26 |           message: error,
+  27 |         },
+  28 |       ];
+  29 |     }
+  30 |     res.json(result);
+     ^ Col 0
+"
+F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test076.js,23,22,skims,063. Lack of data validation - Path Traversal,Path traversal in server/routes/testcases/test076.js,"
+  13 |   list76A.push(""safe"");
+  14 |   list76B.pop();
+  15 |   let list76C = list76A.concat(list76B);
+  16 |   var fileName = list76C[2];
+  17 |   var user = list76C[0];
+  18 |   var filePath = pathh.join(""target/user_files"", user, fileName);
+  19 |
+  20 |   let result = {
+  21 |     ok: false,
+  22 |   };
+> 23 |   unlink(filePath, (error) => {
+  24 |     result.ok = true;
+  25 |     if (error) {
+  26 |       result[""ok""] = false;
+  27 |       result[""errors""] = [
+  28 |         {
+  29 |           message: error,
+  30 |         },
+  31 |       ];
+  32 |     }
+  33 |     res.json(result);
+     ^ Col 0
+"
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test005.js,7,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    1 | const process = require(""child_process"");
@@ -1329,6 +1401,31 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test010.js,14,78,skims,004.
   24 |       'user_files': user_files
      ^ Col 0
 "
+F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test074.js,15,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+   5 | router.get(""/test074/:user"", function (req, res) {
+   6 |   var user = req.params[""user""];
+   7 |   var map64 = {
+   8 |     keyA: ""a_Value"",
+   9 |     keyB: ""safe"",
+  10 |     keyC: ""c_value"",
+  11 |   };
+  12 |   var param = user;
+  13 |   map64.keyB = param;
+  14 |   user = map64[""keyB""];
+> 15 |   exec(""ls target/user_files/"" + user + ""/"", (error, stdout, stderr) => {
+  16 |     var user_files = [];
+  17 |     for (var file of stdout.split(""\n"")) {
+  18 |       if (file) {
+  19 |         user_files.push(file);
+  20 |       }
+  21 |     }
+  22 |
+  23 |     var data = {
+  24 |       user_files: user_files,
+  25 |     };
+     ^ Col 0
+"
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test013.js,15,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    5 | var router = express.Router();
@@ -1402,6 +1499,31 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test011.js,16,78,skims,004.
   24 |
   25 |     var data = {
   26 |       'user_files': user_files
+     ^ Col 0
+"
+F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test065.js,17,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+   7 |   var parameters = req.params;
+   8 |   if (req.params[""user""] != undefined) {
+   9 |     user = parameters[""user""];
+  10 |   }
+  11 |   let allowed = [""a"", user];
+  12 |   allowed.pop();
+  13 |   allowed[1] = ""safe"";
+  14 |   allowed.pop();
+  15 |   allowed[1] = user;
+  16 |   var param = decodeURI(allowed[1]);
+> 17 |   exec(`ls target/user_files/${param}/`, (error, stdout, stderr) => {
+  18 |     var user_files = [];
+  19 |     for (var file of stdout.split(""\n"")) {
+  20 |       if (file) {
+  21 |         user_files.push(file);
+  22 |       }
+  23 |     }
+  24 |
+  25 |     var data = {
+  26 |       user_files: user_files,
+  27 |     };
      ^ Col 0
 "
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test016.js,28,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
