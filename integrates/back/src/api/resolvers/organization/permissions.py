@@ -46,8 +46,6 @@ async def resolve(parent: Organization, info: GraphQLResolveInfo) -> Set[str]:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
     org_id: str = cast(str, parent["id"])
-    print("holi")
-    LOGGER.info("holu")
 
     permissions: Set[str] = await _get_org_permissions(
         user_email, org_id, with_cache=True
