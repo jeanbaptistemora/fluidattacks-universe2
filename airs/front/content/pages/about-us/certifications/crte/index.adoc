@@ -4,7 +4,7 @@
 :page-certificationlogo: logo-crte
 :page-alt: Logo CRTE
 :page-certification: yes
-:page-certificationid: 006
+:page-certificationid: 007
 
 = Certified Red Teaming Expert
 

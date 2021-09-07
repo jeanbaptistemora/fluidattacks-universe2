@@ -4,7 +4,7 @@
 :page-certificationlogo: logo-emapt
 :page-alt: Logo emapt
 :page-certification: yes
-:page-certificationid: 009
+:page-certificationid: 010
 
 = eLearnSecurity Mobile Application Penetration Tester
 

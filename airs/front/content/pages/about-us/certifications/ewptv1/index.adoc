@@ -4,7 +4,7 @@
 :page-certificationlogo: logo-ewptv1
 :page-alt: Logo ewptv1
 :page-certification: yes
-:page-certificationid: 010
+:page-certificationid: 011
 
 = eLearnSecurity Web Application Penetration Tester
 

@@ -4,7 +4,7 @@
 :page-certificationlogo: logo-ecxd
 :page-alt: Logo eCXD
 :page-certification: yes
-:page-certificationid: 011
+:page-certificationid: 012
 
 = eLearnSecurity Certified eXploit Developer
 
