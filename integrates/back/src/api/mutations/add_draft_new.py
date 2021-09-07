@@ -17,15 +17,15 @@ from decorators import (
 from findings import (
     domain as findings_domain,
 )
+from findings.types import (
+    FindingDraftToAdd,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils import (
     logs as logs_utils,
     token as token_utils,
-)
-from newutils.utils import (
-    duplicate_dict_keys,
 )
 from typing import (
     Any,
@@ -49,15 +49,21 @@ async def mutate(
     try:
         user_info = await token_utils.get_jwt_content(info.context)
         user_email = user_info["user_email"]
-        if (
-            "attack_vector_desc" in kwargs
-            or "attack_vector_description" in kwargs
-        ):
-            kwargs = duplicate_dict_keys(
-                kwargs, "attack_vector_description", "attack_vector_desc"
-            )
+        draft_info = FindingDraftToAdd(
+            affected_systems=kwargs.get("affected_systems"),
+            analyst_email=user_email,
+            attack_vector_description=kwargs.get("attack_vector_description")
+            or kwargs.get("attack_vector_desc"),
+            description=kwargs.get("description"),
+            recommendation=kwargs.get("recommendation"),
+            requirements=kwargs.get("requirements"),
+            risk=kwargs.get("risk"),
+            threat=kwargs.get("threat"),
+            title=title,
+            type=kwargs.get("type"),
+        )
         await findings_domain.add_draft_new(
-            info.context, group_name, title, user_email, **kwargs
+            info.context, group_name, user_email, draft_info
         )
         logs_utils.cloudwatch_log(
             info.context,

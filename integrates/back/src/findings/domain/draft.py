@@ -33,6 +33,9 @@ from findings import (
     dal as findings_dal,
     domain as findings_domain,
 )
+from findings.types import (
+    FindingDraftToAdd,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -42,9 +45,6 @@ from newutils import (
     requests as requests_utils,
     token as token_utils,
     vulnerabilities as vulns_utils,
-)
-from newutils.utils import (
-    get_key_or_fallback,
 )
 from typing import (
     Any,
@@ -200,20 +200,21 @@ async def add_draft(
 
 
 async def add_draft_new(
-    context: Any, group_name: str, title: str, user_email: str, **kwargs: Any
+    context: Any,
+    group_name: str,
+    user_email: str,
+    draft_info: FindingDraftToAdd,
 ) -> None:
-    if not findings_utils.is_valid_finding_title(title):
+    if not findings_utils.is_valid_finding_title(draft_info.title):
         raise InvalidDraftTitle()
 
     group_name = group_name.lower()
     finding_id = str(uuid.uuid4())
     draft = Finding(
-        affected_systems=kwargs.get("affected_systems", ""),
+        affected_systems=draft_info.affected_systems,
         analyst_email=user_email,
-        attack_vector_description=get_key_or_fallback(
-            kwargs, "attack_vector_description", "attack_vector_desc", ""
-        ),
-        description=kwargs.get("description", ""),
+        attack_vector_description=draft_info.attack_vector_description,
+        description=draft_info.description,
         group_name=group_name,
         id=finding_id,
         state=FindingState(
@@ -222,12 +223,12 @@ async def add_draft_new(
             source=requests_utils.get_source_new(context),
             status=FindingStateStatus.CREATED,
         ),
-        risk=kwargs.get("risk", ""),
-        recommendation=kwargs.get("recommendation", ""),
-        requirements=kwargs.get("requirements", ""),
-        title=title,
-        threat=kwargs.get("threat", ""),
-        type=kwargs.get("type", ""),
+        risk=draft_info.risk,
+        recommendation=draft_info.recommendation,
+        requirements=draft_info.requirements,
+        title=draft_info.title,
+        threat=draft_info.threat,
+        type=draft_info.type,
     )
     await findings_model.add(finding=draft)
 
