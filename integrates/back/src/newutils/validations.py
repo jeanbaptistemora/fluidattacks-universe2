@@ -5,6 +5,9 @@ from custom_exceptions import (
     InvalidField,
     InvalidFieldLength,
 )
+from db_model.findings.enums import (
+    FindingCvssVersion,
+)
 from db_model.findings.types import (
     Finding20Severity,
     Finding31Severity,
@@ -103,13 +106,13 @@ def validate_group_name(group_name: str) -> None:
 def validate_missing_severity_field_names(
     field_names: Set[str], css_version: str
 ) -> None:
-    if css_version == "2.0":
+    if css_version == FindingCvssVersion.V20.value:
         missing_field_names = {
             utils.snakecase_to_camelcase(field)
             for field in Finding20Severity._fields
             if field not in field_names
         }
-    elif css_version == "3.1":
+    elif css_version == FindingCvssVersion.V31.value:
         missing_field_names = {
             utils.snakecase_to_camelcase(field)
             for field in Finding31Severity._fields

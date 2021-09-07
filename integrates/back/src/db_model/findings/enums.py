@@ -3,6 +3,16 @@ from enum import (
 )
 
 
+class FindingCvssVersion(Enum):
+    V31: str = "3.1"
+    V20: str = "2.0"
+
+
+class FindingSorts(Enum):
+    NO: str = "NO"
+    YES: str = "YES"
+
+
 class FindingStateJustification(Enum):
     DUPLICATED: str = "DUPLICATED"
     FALSE_POSITIVE: str = "FALSE_POSITIVE"
@@ -16,11 +26,6 @@ class FindingStateStatus(Enum):
     DELETED: str = "DELETED"
     REJECTED: str = "REJECTED"
     SUBMITTED: str = "SUBMITTED"
-
-
-class FindingSorts(Enum):
-    NO: str = "NO"
-    YES: str = "YES"
 
 
 class FindingStatus(Enum):

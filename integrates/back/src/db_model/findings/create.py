@@ -1,3 +1,6 @@
+from .enums import (
+    FindingCvssVersion,
+)
 from .types import (
     Finding,
     Finding31Severity,
@@ -33,7 +36,7 @@ from dynamodb.exceptions import (
 
 
 async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
-    if not finding.state.status == FindingStateStatus.CREATED:
+    if finding.state.status != FindingStateStatus.CREATED:
         raise InvalidStateStatus()
     key_structure = TABLE.primary_key
     id_key = keys.build_key(
@@ -61,7 +64,9 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
     )
     metadata_evidences_item = format_evidences_item(finding.evidences)
     cvss_version = (
-        "3.1" if isinstance(finding.severity, Finding31Severity) else "2.0"
+        FindingCvssVersion.V31
+        if isinstance(finding.severity, Finding31Severity)
+        else FindingCvssVersion.V20
     )
     finding_metadata = {
         "actor": finding.actor,
@@ -71,7 +76,7 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
         "bug_tracking_system_url": finding.bug_tracking_system_url,
         "compromised_attributes": finding.compromised_attributes,
         "compromised_records": finding.compromised_records,
-        "cvss_version": cvss_version,
+        "cvss_version": cvss_version.value,
         "description": finding.description,
         "evidences": metadata_evidences_item,
         "group_name": finding.group_name,
@@ -159,10 +164,7 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
         **format_optional_state_item(None),
     }
     items.append(submission)
+    items.append(verification)
     if finding.verification:
-        items.append(verification)
         items.append(historic_verification)
-    else:
-        items.append(verification)
-
     await operations.batch_write_item(items=tuple(items), table=TABLE)

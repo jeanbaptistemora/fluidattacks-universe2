@@ -13,6 +13,9 @@ from custom_types import (
     SimpleFindingPayload,
     SimplePayload,
 )
+from db_model.findings.enums import (
+    FindingCvssVersion,
+)
 from db_model.findings.types import (
     Finding,
     Finding20Severity,
@@ -75,7 +78,7 @@ async def mutate(
         validations.validate_missing_severity_field_names(
             set(cvss_fields.keys()), cvss_version
         )
-        if cvss_version == "2.0":
+        if cvss_version == FindingCvssVersion.V20.value:
             severity = Finding20Severity(
                 access_complexity=cvss_fields["access_complexity"],
                 access_vector=cvss_fields["access_vector"],
@@ -98,7 +101,7 @@ async def mutate(
                 integrity_requirement=cvss_fields["integrity_requirement"],
                 resolution_level=cvss_fields["resolution_level"],
             )
-        elif cvss_version == "3.1":
+        elif cvss_version == FindingCvssVersion.V31.value:
             severity = Finding31Severity(
                 attack_complexity=cvss_fields["attack_complexity"],
                 attack_vector=cvss_fields["attack_vector"],

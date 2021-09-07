@@ -1,4 +1,5 @@
 from .enums import (
+    FindingCvssVersion,
     FindingStateStatus,
 )
 from .types import (
@@ -119,12 +120,11 @@ async def update_historic_verification(  # pylint: disable=too-many-locals
         item=latest_item,
         table=TABLE,
     )
-    operation_coroutines = []
-    operation_coroutines.append(
+    operation_coroutines = [
         operations.batch_write_item(
             items=tuple(verification_items), table=TABLE
         )
-    )
+    ]
     verifications_to_remove = [
         current_verification_key
         for current_verification_key in current_verification_keys
@@ -162,11 +162,12 @@ async def update_medatada(
         if value is not None
     }
     if "severity" in metadata_item:
-        metadata_item["cvss_version"] = (
-            "3.1"
+        cvss_version = (
+            FindingCvssVersion.V31
             if isinstance(metadata.severity, Finding31Severity)
-            else "2.0"
+            else FindingCvssVersion.V20
         )
+        metadata_item["cvss_version"] = cvss_version.value
     condition_expression = Attr(key_structure.partition_key).exists()
     await operations.update_item(
         condition_expression=condition_expression,

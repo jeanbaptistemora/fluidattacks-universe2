@@ -1,4 +1,5 @@
 from .enums import (
+    FindingCvssVersion,
     FindingSorts,
     FindingStateStatus,
 )
@@ -114,7 +115,7 @@ def _build_finding(
         )
     )
 
-    if metadata["cvss_version"] == "3.1":
+    if metadata["cvss_version"] == FindingCvssVersion.V31.value:
         severity: Union[
             Finding20Severity, Finding31Severity
         ] = Finding31Severity(
