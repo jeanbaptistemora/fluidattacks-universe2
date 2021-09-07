@@ -130,7 +130,7 @@ def get_best_organization(
             organizations,
             key=lambda organization: Decimal(
                 organization.closed / organization.total
-            ).quantize(Decimal("0.1"))
+            ).quantize(Decimal("0.0001"))
             if organization.total > Decimal("0.0")
             else Decimal("0.0"),
         )
