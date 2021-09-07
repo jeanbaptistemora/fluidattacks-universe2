@@ -24,12 +24,20 @@ type Organization {
   "Name of the organization"
   name: String!
   "Permissions of the current user within the organization"
-  permissions: [String]
+  permissions(
+    """Identifier of the entity, if left empty it defaults to the
+    Organization identifier"""
+    identifier: String
+  ): [String]
   "Groups belonging to the organization"
   projects: [Group] @deprecated(reason: """This field will
     be removed after 2021/12/20. Use `groups` instead.""")
   "Users who have access to the organization"
   stakeholders: [Stakeholder]
   "Role of the current user within the organization"
-  userRole: String
+  userRole(
+    """Identifier of the entity, if left empty it defaults to the
+    Organization identifier"""
+    identifier: String
+  ): String
 }
