@@ -33,6 +33,7 @@ function populate {
         finding_id
         finding_metadata
         finding_state
+        finding_submission
       ) \
       excluded_data_files+=(
         findings

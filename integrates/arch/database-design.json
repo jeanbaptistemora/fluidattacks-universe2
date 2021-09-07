@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 07, 2021, 03:57 PM",
+    "DateLastModified": "Sep 07, 2021, 04:19 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -5957,23 +5957,334 @@
           },
           "TableData": [
             {
-              "pk": {
-                "S": "FIN#475041513#SUBMISSION"
-              },
               "sk": {
-                "S": "GROUP#unittesting"
+                "S": "GROUP#asgard"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#436712859#SUBMISSION"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2020-08-02T00:45:11+00:00"
               },
               "status": {
                 "S": "SUBMITTED"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "source": {
-                "S": "integrates"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#asgard"
               },
               "modified_by": {
-                "S": "analyst@fluidatttacks.com"
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#683100860#SUBMISSION"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2018-05-02T00:45:11+00:00"
+              },
+              "status": {
+                "S": "SUBMITTED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#asgard"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#997868246#SUBMISSION"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2018-05-02T00:45:11+00:00"
+              },
+              "status": {
+                "S": "SUBMITTED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#continuoustesting"
+              },
+              "pk": {
+                "S": "FIN#475041524#SUBMISSION"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#continuoustesting"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#836530833#SUBMISSION"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2019-11-22T20:10:04+00:00"
+              },
+              "status": {
+                "S": "SUBMITTED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#continuoustesting"
+              },
+              "pk": {
+                "S": "FIN#991607942#SUBMISSION"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#lubbock"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#818828206#SUBMISSION"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2019-11-23T00:45:11+00:00"
+              },
+              "status": {
+                "S": "SUBMITTED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#oneshottest"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#457497318#SUBMISSION"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2018-04-08T00:45:11+00:00"
+              },
+              "status": {
+                "S": "SUBMITTED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#oneshottest"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#475041513#SUBMISSION"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2018-04-08T00:45:11+00:00"
+              },
+              "status": {
+                "S": "SUBMITTED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#oneshottest"
+              },
+              "pk": {
+                "S": "FIN#475041535#SUBMISSION"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#422286126#SUBMISSION"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2018-04-08T00:45:11+00:00"
+              },
+              "status": {
+                "S": "SUBMITTED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#436992569#SUBMISSION"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2019-04-08T00:45:11+00:00"
+              },
+              "status": {
+                "S": "SUBMITTED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#457497316#SUBMISSION"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2018-04-08T00:45:11+00:00"
+              },
+              "status": {
+                "S": "SUBMITTED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#463461507#SUBMISSION"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2018-04-08T00:45:11+00:00"
+              },
+              "status": {
+                "S": "SUBMITTED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#463558592#SUBMISSION"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2018-04-08T00:45:11+00:00"
+              },
+              "status": {
+                "S": "SUBMITTED"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "pk": {
+                "S": "FIN#560175507#SUBMISSION"
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "pk": {
+                "S": "FIN#988493279#SUBMISSION"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2019-04-08T00:45:11+00:00"
+              },
+              "status": {
+                "S": "SUBMITTED"
               }
             }
           ],
