@@ -155,7 +155,7 @@ async def _get_service_policies(group: str) -> List[ServicePolicy]:
         (service == "BLACK" and has_asm, "service_black"),
         (service == "WHITE" and has_asm, "service_white"),
         (
-            type_ == "continuous" and has_asm and has_squad and has_forces,
+            type_ == "continuous" and has_asm and has_forces,
             "forces",
         ),
         (type_ == "continuous" and has_asm and has_squad, "squad"),
