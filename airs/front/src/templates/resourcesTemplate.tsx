@@ -27,8 +27,12 @@ const ResourcesIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { title } = data.asciidoc.document;
-  const { description, keywords, slug } = data.asciidoc.pageAttributes;
+  const {
+    description,
+    keywords,
+    slug,
+    title,
+  } = data.markdownRemark.frontmatter;
 
   return (
     <React.Fragment>
@@ -61,19 +65,16 @@ export default ResourcesIndex;
 
 export const query: void = graphql`
   query ResourcesIndex($slug: String!) {
-    asciidoc(fields: { slug: { eq: $slug } }) {
-      document {
-        title
-      }
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       fields {
         slug
       }
-      pageAttributes {
-        banner
+      frontmatter {
         keywords
         phrase
         slug
+        title
       }
     }
   }
