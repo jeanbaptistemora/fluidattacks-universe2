@@ -53,8 +53,12 @@ const SolutionsIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { title } = data.asciidoc.document;
-  const { description, keywords, slug } = data.asciidoc.pageAttributes;
+  const {
+    description,
+    keywords,
+    slug,
+    title,
+  } = data.markdownRemark.frontmatter;
 
   return (
     <React.Fragment>
@@ -171,19 +175,17 @@ export default SolutionsIndex;
 
 export const query: void = graphql`
   query SolutionsIndex($slug: String!) {
-    asciidoc(fields: { slug: { eq: $slug } }) {
-      document {
-        title
-      }
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       fields {
         slug
       }
-      pageAttributes {
+      frontmatter {
         banner
         description
         keywords
         slug
+        title
       }
     }
   }

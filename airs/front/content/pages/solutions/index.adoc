@@ -1,7 +1,0 @@
-:page-slug: solutions/
-:page-description: At Fluid Attacks, we have various security solutions for evaluating your systems and detecting flaws and vulnerabilities that could put your company at risk.
-:page-keywords: Fluid Attacks, Solutions, DevSecOps, Security Testing, Pentesting, Ethical Hacking, Red Teaming, Attack Simulation
-:page-template: solutions
-:page-banner: bg-solutions
-
-= Solutions
