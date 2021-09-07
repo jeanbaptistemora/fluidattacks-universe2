@@ -185,6 +185,14 @@
     <div class="numbers">
       {%- if groups_len > 1 %}
         <div>
+          <h3>{{ group_age['oldest_age'] }}</h3>
+          <p><strong>{{ group_age['oldest_group'] }}</strong> is the <strong>oldest</strong> group among your subscribed (days)</p>
+        </div>
+        <div>
+          <h3>{{ group_age['youngest_age'] }}</h3>
+          <p><strong>{{ group_age['newest_group'] }}</strong> is the <strong>newest</strong> group among your subscribed (days)</p>
+        </div>
+        <div>
           <h3>{{ remediation_rate['min'] }}%</h3>
           <p><strong>{{ remediation_rate['min_group'] }}</strong> has the <strong>minimum</strong> remediation rate</p>
         </div>
