@@ -2,6 +2,7 @@ from contextlib import (
     suppress,
 )
 from model.graph_model import (
+    SyntaxStepLiteral,
     SyntaxStepMemberAccessExpression,
     SyntaxStepMeta,
 )
@@ -21,6 +22,7 @@ from sast_symbolic_evaluation.utils_generic import (
     lookup_var_dcl_by_name,
 )
 from typing import (
+    Any,
     Dict,
     Set,
 )
@@ -32,6 +34,15 @@ from utils.string import (
 # var type and vulnerable assignment
 vuln_assign: Dict[str, Set[str]] = {
     "DirectoryEntry": {"AuthenticationTypes.None"},
+}
+
+vuln_literal: Dict[str, Set[Any]] = {
+    "Password.RequireDigit": {False},
+    "Password.RequiredLength": {0, 1, 2, 3, 4, 5, 6, 7},
+    "Password.RequireNonAlphanumeric": {False},
+    "Password.RequireUppercase": {False},
+    "Password.RequireLowercase": {False},
+    "Password.RequiredUniqueChars": {0, 1, 2, 3, 4, 5},
 }
 
 # assignment of fields that make the object vulnerable
@@ -150,6 +161,13 @@ def evaluate(args: EvaluatorArgs) -> None:
         if isinstance(
             dependency, SyntaxStepMemberAccessExpression
         ) and dependency.expression in vuln_assign.get(v_dcl.var_type, set()):
+            args.syntax_step.meta.danger = True
+
+        if (
+            isinstance(dependency, SyntaxStepLiteral)
+            and v_dcl.meta.danger
+            and dependency.meta.value in vuln_literal.get(field, set())
+        ):
             args.syntax_step.meta.danger = True
 
         if field in vuln_field_access.get(v_dcl.var_type, set()):
