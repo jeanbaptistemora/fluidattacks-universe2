@@ -525,6 +525,71 @@ async def get_digest_stats(
     )
 
 
+async def unsubscribe_user_to_entity_report(
+    *,
+    report_entity: str,
+    report_subject: str,
+    user_email: str,
+) -> bool:
+    return await subscriptions_dal.unsubscribe_user_to_entity_report(
+        report_entity=report_entity,
+        report_subject=report_subject,
+        user_email=user_email,
+    )
+
+
+async def _process_subscription(
+    *,
+    bot_time: datetime,
+    digest_stats: Union[Tuple[MailContent], Tuple],
+    loaders: Dataloaders,
+    subscription: Dict[Any, Any],
+) -> None:
+    event_period: Decimal = subscription["period"]
+    event_frequency: str = period_to_frequency(period=event_period)
+    user_email: str = subscription["pk"]["email"]
+    report_entity: str = subscription["sk"]["entity"]
+    report_subject: str = subscription["sk"]["subject"]
+
+    # A user may be subscribed but now he does not have access to the
+    #   group or organization, so let's handle this case
+    if await can_subscribe_user_to_entity_report(
+        report_entity=report_entity,
+        report_subject=report_subject,
+        user_email=user_email,
+    ):
+        # The processor is expected to run every hour
+        if should_process_event(
+            bot_time=bot_time,
+            event_frequency=event_frequency,
+            report_entity=report_entity,
+        ):
+            LOGGER_CONSOLE.info(
+                "- subscription to be processed",
+                extra={"extra": {"subscription": subscription}},
+            )
+            await send_user_to_entity_report(
+                event_frequency=event_frequency,
+                report_entity=report_entity,
+                report_subject=report_subject,
+                user_email=user_email,
+                digest_stats=digest_stats,
+                loaders=loaders,
+            )
+    else:
+        LOGGER_CONSOLE.warning(
+            "- can not be subscribed, unsubscribing",
+            extra={"extra": {"subscription": subscription}},
+        )
+        # Unsubscribe this user, he won't even notice as he no longer
+        #   has access to the requested resource
+        await unsubscribe_user_to_entity_report(
+            report_entity=report_entity,
+            report_subject=report_subject,
+            user_email=user_email,
+        )
+
+
 async def trigger_user_to_entity_report() -> None:
     bot_time: datetime = datetime.utcnow()
 
@@ -556,62 +621,14 @@ async def trigger_user_to_entity_report() -> None:
         },
     )
 
-    for subscription in subscriptions:
-        event_period: Decimal = subscription["period"]
-        event_frequency: str = period_to_frequency(period=event_period)
-        user_email: str = subscription["pk"]["email"]
-        report_entity: str = subscription["sk"]["entity"]
-        report_subject: str = subscription["sk"]["subject"]
-
-        # A user may be subscribed but now he does not have access to the
-        #   group or organization, so let's handle this case
-        if await can_subscribe_user_to_entity_report(
-            report_entity=report_entity,
-            report_subject=report_subject,
-            user_email=user_email,
-        ):
-            # The processor is expected to run every hour
-            if should_process_event(
-                bot_time=bot_time,
-                event_frequency=event_frequency,
-                report_entity=report_entity,
-            ):
-                LOGGER_CONSOLE.info(
-                    "- subscription to be processed",
-                    extra={"extra": {"subscription": subscription}},
-                )
-                await send_user_to_entity_report(
-                    event_frequency=event_frequency,
-                    report_entity=report_entity,
-                    report_subject=report_subject,
-                    user_email=user_email,
-                    digest_stats=digest_stats,
-                    loaders=loaders,
-                )
-        else:
-            LOGGER_CONSOLE.warning(
-                "- can not be subscribed, unsubscribing",
-                extra={"extra": {"subscription": subscription}},
-            )
-            # Unsubscribe this user, he won't even notice as he no longer
-            #   has access to the requested resource
-            await unsubscribe_user_to_entity_report(
-                report_entity=report_entity,
-                report_subject=report_subject,
-                user_email=user_email,
-            )
-
-
-async def unsubscribe_user_to_entity_report(
-    *,
-    report_entity: str,
-    report_subject: str,
-    user_email: str,
-) -> bool:
-    return await subscriptions_dal.unsubscribe_user_to_entity_report(
-        report_entity=report_entity,
-        report_subject=report_subject,
-        user_email=user_email,
+    await collect(
+        _process_subscription(
+            bot_time=bot_time,
+            digest_stats=digest_stats,
+            loaders=loaders,
+            subscription=subscription,
+        )
+        for subscription in subscriptions
     )
 
 
