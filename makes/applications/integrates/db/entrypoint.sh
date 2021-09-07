@@ -6,7 +6,19 @@ function populate {
   local db_design='__envNewDbDesign__/database-design.json'
   local TMP_ITEMS='.tmp_integrates_vms'
   local i=0
-  local included_facets=()
+  local included_facets=(
+    "git_root_metadata"
+    "git_root_state"
+    "git_root_historic_state"
+    "git_root_cloning"
+    "git_root_historic_cloning"
+    "ip_root_metadata"
+    "ip_root_state"
+    "ip_root_historic_state"
+    "url_root_metadata"
+    "url_root_state"
+    "url_root_historic_state"
+  )
   local excluded_data_files=()
   local facets=''
 
