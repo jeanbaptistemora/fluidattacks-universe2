@@ -4287,6 +4287,57 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test.go,22,310 + 327,skims,05
   23 | }
      ^ Col 0
 "
+F052,lines,namespace/skims/test/data/lib_root/f052/test_keys.cs,12,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_root/f052/test_keys.cs,"
+   1 | using System;
+   2 | class cipher{
+   3 |
+   4 |    public void Encrypt()
+   5 |  {
+   6 |       var rsa1 = new RSACryptoServiceProvider();
+   7 |   var dsa1 = new DSACng();
+   8 |       var dsa2 = new DSACng(2048);
+   9 |   var dsa3 = new DSACng(1024);
+  10 |       var rsa1 = new RSACryptoServiceProvider(2048);
+  11 |       var rsa2 = new RSACng();
+> 12 |       var rsa2 = new RSACng(1024);
+  13 |  }
+  14 | }
+     ^ Col 0
+"
+F052,lines,namespace/skims/test/data/lib_root/f052/test_keys.cs,9,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_root/f052/test_keys.cs,"
+   1 | using System;
+   2 | class cipher{
+   3 |
+   4 |    public void Encrypt()
+   5 |  {
+   6 |       var rsa1 = new RSACryptoServiceProvider();
+   7 |   var dsa1 = new DSACng();
+   8 |       var dsa2 = new DSACng(2048);
+>  9 |   var dsa3 = new DSACng(1024);
+  10 |       var rsa1 = new RSACryptoServiceProvider(2048);
+  11 |       var rsa2 = new RSACng();
+  12 |       var rsa2 = new RSACng(1024);
+  13 |  }
+  14 | }
+     ^ Col 0
+"
+F052,lines,namespace/skims/test/data/lib_root/f052/test_keys.cs,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_root/f052/test_keys.cs,"
+   1 | using System;
+   2 | class cipher{
+   3 |
+   4 |    public void Encrypt()
+   5 |  {
+>  6 |       var rsa1 = new RSACryptoServiceProvider();
+   7 |   var dsa1 = new DSACng();
+   8 |       var dsa2 = new DSACng(2048);
+   9 |   var dsa3 = new DSACng(1024);
+  10 |       var rsa1 = new RSACryptoServiceProvider(2048);
+  11 |       var rsa2 = new RSACng();
+  12 |       var rsa2 = new RSACng(1024);
+  13 |  }
+  14 | }
+     ^ Col 0
+"
 F052,lines,namespace/skims/test/data/lib_root/f052/test_rsa.cs,10,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_root/f052/test_rsa.cs,"
    1 | using System;
    2 | class jwtbuild {
@@ -4301,6 +4352,36 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test_rsa.cs,10,310 + 327,skim
   11 |    }
   12 | }
      ^ Col 0
+"
+F052,lines,namespace/skims/test/data/lib_root/f052/test_rsa.cs,9,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_root/f052/test_rsa.cs,"
+   1 | ystem;
+   2 | wtbuild {
+   3 |
+   4 | ic static void Main() {
+   5 |
+   6 | CryptoServiceProvider RSA2 = new RSACryptoServiceProvider();
+   7 | ryptedData = RSA2.Encrypt(dataToEncrypt, true);
+   8 |
+>  9 | CryptoServiceProvider RSA3 = new RSACryptoServiceProvider();
+  10 |  = RSA3.Encrypt(dataToEncrypt, false);
+  11 |
+  12 |
+     ^ Col 7
+"
+F052,lines,namespace/skims/test/data/lib_root/f052/test_rsa.cs,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_root/f052/test_rsa.cs,"
+   1 | ystem;
+   2 | wtbuild {
+   3 |
+   4 | ic static void Main() {
+   5 |
+>  6 | CryptoServiceProvider RSA2 = new RSACryptoServiceProvider();
+   7 | ryptedData = RSA2.Encrypt(dataToEncrypt, true);
+   8 |
+   9 | CryptoServiceProvider RSA3 = new RSACryptoServiceProvider();
+  10 |  = RSA3.Encrypt(dataToEncrypt, false);
+  11 |
+  12 |
+     ^ Col 7
 "
 F052,lines,namespace/skims/test/data/lib_path/f052/csharp.cs,14,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure hashing function in skims/test/data/lib_path/f052/csharp.cs,"
    1 | ng System.Security.Cryptography;
