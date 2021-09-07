@@ -1,6 +1,7 @@
 from contextlib import (
     suppress,
 )
+import itertools
 from lib_root import (
     yield_go_member_access,
     yield_go_object_creation,
@@ -459,6 +460,7 @@ def csharp_insecure_cipher(
         "TripleDESCryptoServiceProvider",
         "RC2",
         "RC2CryptoServiceProvider",
+        "DSACryptoServiceProvider",
     }
 
     def n_ids() -> graph_model.GraphShardNodes:
@@ -587,6 +589,45 @@ def csharp_rsa_secure_mode(
                         == "false"
                     ):
                         yield shard, member
+
+    return get_vulnerabilities_from_n_ids(
+        cwe=("310", "327"),
+        desc_key="src.lib_path.f052.insecure_cipher.description",
+        desc_params=dict(lang="CSharp"),
+        finding=FINDING,
+        graph_shard_nodes=n_ids(),
+    )
+
+
+def csharp_insecure_keys(
+    graph_db: graph_model.GraphDB,
+) -> core_model.Vulnerabilities:
+
+    ciphers = {
+        "RSACryptoServiceProvider",
+        "DSACng",
+        "RSACng",
+    }
+
+    def n_ids() -> graph_model.GraphShardNodes:
+        for shard, member in itertools.chain(
+            _csharp_yield_object_creation(graph_db, ciphers),
+        ):
+            args_list = g.get_ast_childs(shard.graph, member, "argument_list")
+            keys = g.get_ast_childs(
+                shard.graph, args_list[0], "integer_literal", depth=2
+            )
+            if keys:
+                for key in keys:
+                    if int(shard.graph.nodes[key].get("label_text")) < 2048:
+                        yield shard, member
+            else:
+                object_name = g.match_ast(shard.graph, member)["__1__"]
+                if (
+                    shard.graph.nodes[object_name].get("label_text")
+                    == "RSACryptoServiceProvider"
+                ):
+                    yield shard, member
 
     return get_vulnerabilities_from_n_ids(
         cwe=("310", "327"),
