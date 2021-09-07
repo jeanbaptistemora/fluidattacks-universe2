@@ -31,7 +31,7 @@ import { OrganizationGroups } from "scenes/Dashboard/containers/OrganizationGrou
 import { OrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView/index";
 import { OrganizationPortfolios } from "scenes/Dashboard/containers/OrganizationPortfoliosView/index";
 import { OrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView/index";
-import { GET_USER_PERMISSIONS } from "scenes/Dashboard/queries";
+import { GET_ORG_LEVEL_PERMISSIONS } from "scenes/Dashboard/queries";
 import globalStyle from "styles/global.css";
 import {
   Col100,
@@ -88,21 +88,21 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
     },
   });
 
-  useQuery(GET_USER_PERMISSIONS, {
+  useQuery(GET_ORG_LEVEL_PERMISSIONS, {
     onCompleted: (permData: IOrganizationPermission): void => {
       if (!_.isUndefined(permData)) {
-        if (_.isEmpty(permData.me.permissions)) {
+        if (_.isEmpty(permData.organization.permissions)) {
           Logger.error(
             "Empty permissions",
-            JSON.stringify(permData.me.permissions)
+            JSON.stringify(permData.organization.permissions)
           );
         }
         permissions.update(
-          permData.me.permissions.map((action: string):
+          permData.organization.permissions.map((action: string):
             | ClaimRawRule<string>
             | LegacyClaimRawRule<string> => ({ action }))
         );
-        setUserRole(permData.me.role);
+        setUserRole(permData.organization.userRole);
       }
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -115,7 +115,6 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
     },
     skip: basicData === undefined,
     variables: {
-      entity: "ORGANIZATION",
       identifier: basicData?.organizationId.id,
     },
   });

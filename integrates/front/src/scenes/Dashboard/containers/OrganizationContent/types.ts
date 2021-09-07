@@ -3,9 +3,9 @@ interface IOrganizationContent {
 }
 
 interface IOrganizationPermission {
-  me: {
+  organization: {
     permissions: string[];
-    role: string | undefined;
+    userRole: string | undefined;
   };
 }
 

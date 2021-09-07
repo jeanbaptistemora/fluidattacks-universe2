@@ -40,6 +40,26 @@ const GET_USER_PERMISSIONS: DocumentNode = gql`
   }
 `;
 
+const GET_ORG_LEVEL_PERMISSIONS: DocumentNode = gql`
+  query GetOrgLevelPermissions($identifier: String!) {
+    organization(organizationId: $identifier) {
+      name
+      permissions(identifier: $identifier)
+      userRole(identifier: $identifier)
+    }
+  }
+`;
+
+const GET_GROUP_LEVEL_PERMISSIONS: DocumentNode = gql`
+  query GetGroupLevelPermissions($identifier: String!) {
+    group(groupName: $identifier) {
+      name
+      permissions
+      userRole
+    }
+  }
+`;
+
 const GET_USER: DocumentNode = gql`
   query GetUser {
     me(callerOrigin: "FRONT") {
@@ -60,4 +80,6 @@ export {
   ADD_STAKEHOLDER_MUTATION,
   GET_USER,
   GET_USER_PERMISSIONS,
+  GET_ORG_LEVEL_PERMISSIONS,
+  GET_GROUP_LEVEL_PERMISSIONS,
 };

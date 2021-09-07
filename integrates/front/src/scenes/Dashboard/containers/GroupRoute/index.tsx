@@ -20,7 +20,7 @@ import type {
   IGroupData,
   IGroupRoute,
 } from "scenes/Dashboard/containers/GroupRoute/types";
-import { GET_USER_PERMISSIONS } from "scenes/Dashboard/queries";
+import { GET_GROUP_LEVEL_PERMISSIONS } from "scenes/Dashboard/queries";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -46,22 +46,24 @@ const GroupRoute: React.FC<IGroupRoute> = (props: IGroupRoute): JSX.Element => {
   useEffect(onGroupChange, [attributes, permissions, groupName]);
 
   // GraphQL operations
-  useQuery(GET_USER_PERMISSIONS, {
+  useQuery(GET_GROUP_LEVEL_PERMISSIONS, {
     onCompleted: (permData: {
-      me: { permissions: string[]; role: string | undefined };
+      group: { permissions: string[]; userRole: string | undefined };
     }): void => {
       permissions.update(
-        permData.me.permissions.map((action: string): { action: string } => ({
+        permData.group.permissions.map((action: string): {
+          action: string;
+        } => ({
           action,
         }))
       );
-      if (permData.me.permissions.length === 0) {
+      if (permData.group.permissions.length === 0) {
         Logger.error(
           "Empty permissions",
-          JSON.stringify(permData.me.permissions)
+          JSON.stringify(permData.group.permissions)
         );
       }
-      setUserRole(permData.me.role);
+      setUserRole(permData.group.userRole);
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((permissionsError: GraphQLError): void => {
@@ -69,7 +71,6 @@ const GroupRoute: React.FC<IGroupRoute> = (props: IGroupRoute): JSX.Element => {
       });
     },
     variables: {
-      entity: "GROUP",
       identifier: groupName.toLowerCase(),
     },
   });
