@@ -29,7 +29,7 @@ async def get_data_group(group: str) -> PortfoliosGroupsInfo:
 
     return PortfoliosGroupsInfo(
         group_name=group.lower(),
-        value=treatment.get("acceptedUndefined", 0),
+        value=treatment.get("undefined", 0),
     )
 
 
