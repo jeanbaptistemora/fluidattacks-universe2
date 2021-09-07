@@ -13,12 +13,12 @@ interface IMergedCharts {
   documentType: string;
 }
 
-const allowedDocumentNames: string[] = ["riskOverTime", "riskOverTimeCvssf"];
-const allowedDocumentTypes: string[] = [
-  "barChart",
-  "stackedBarChart",
-  "textBox",
+const allowedDocumentNames: string[] = [
+  "meanTimeToRemediate",
+  "riskOverTime",
+  "riskOverTimeCvssf",
 ];
+const allowedDocumentTypes: string[] = ["barChart", "stackedBarChart"];
 const mergedDocuments: Record<string, IMergedCharts> = {
   distributionOverTimeCvssf: {
     alt: {

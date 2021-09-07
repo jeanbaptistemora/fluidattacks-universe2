@@ -91,6 +91,7 @@ def test_org_portfolios(
         "Vulnerabilities treatment",
         "Vulnerabilities by group",
         "Open vulnerabilities by group",
+        "Mean (average) days to remediate",
         "Treatmentless by group",
         "Severity",
         "Days since last remediation",

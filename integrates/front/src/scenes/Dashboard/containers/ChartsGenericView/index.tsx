@@ -577,6 +577,22 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
               <Graphic
                 bsHeight={320}
                 className={"g1"}
+                documentName={"meanTimeToRemediate"}
+                documentType={"barChart"}
+                entity={entity}
+                generatorName={"generic"}
+                generatorType={"c3"}
+                reportMode={reportMode}
+                subject={subject}
+                title={translate.t("tagIndicator.meanRemediate")}
+              />
+            </Col100>
+          </RowCenter>
+          <RowCenter>
+            <Col100>
+              <Graphic
+                bsHeight={320}
+                className={"g1"}
                 documentName={"exposedOverTimeCvssf"}
                 documentType={"stackedBarChart"}
                 entity={entity}

@@ -297,13 +297,6 @@ label {
   height: 162px;
 }
 
-:global .g4 {
-  background-color: #fff;
-  border: 1px solid transparent;
-  border-color: #ddd;
-  height: 322px;
-}
-
 :global .suscribeDropdownBtn {
   width: 260px;
 }
