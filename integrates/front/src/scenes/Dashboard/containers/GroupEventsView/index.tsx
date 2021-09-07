@@ -196,6 +196,14 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     },
     {
       align: "center",
+      dataField: "actionBeforeBlocking",
+      header: translate.t("searchFindings.tabEvents.actionBeforeBlocking"),
+      onSort: onSortState,
+      width: "50%",
+      wrapped: true,
+    },
+    {
+      align: "center",
       dataField: "eventType",
       filter: selectFilter({
         defaultValue: _.get(sessionStorage, "eventTypeFilter"),

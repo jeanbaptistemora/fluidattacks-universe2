@@ -1437,6 +1437,13 @@ export const enTranslations: ResourceKey = {
     },
     tabEvents: {
       accessibility: "Accessibility",
+      actionBeforeBlocking: "Action before blocking",
+      actionBeforeBlockingValues: {
+        documentGroup: "Document group",
+        none: "None",
+        other: "Other",
+        testOtherPartToe: "Test other part ToE",
+      },
       affectation: "Affectation",
       affectedComponents: "Affected components",
       affectedComponentsValues: {

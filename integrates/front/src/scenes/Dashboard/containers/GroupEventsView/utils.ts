@@ -1,4 +1,5 @@
 import {
+  castActionBeforeBlocking,
   castAffectedComponents,
   castEventStatus,
   castEventType,
@@ -8,6 +9,7 @@ import { translate } from "utils/translations/translate";
 
 interface IEventConfig {
   accessibility: string;
+  actionBeforeBlocking: string;
   affectedComponents: string;
   eventStatus: string;
   eventType: string;
@@ -25,10 +27,14 @@ export const formatEvents: (dataset: IEventConfig[]) => IEventConfig[] = (
     const affectedComponents: string = translate.t(
       castAffectedComponents(event.affectedComponents)
     );
+    const actionBeforeBlocking: string = translate.t(
+      castActionBeforeBlocking(event.actionBeforeBlocking)
+    );
 
     return {
       ...event,
       accessibility,
+      actionBeforeBlocking,
       affectedComponents,
       eventStatus,
       eventType,

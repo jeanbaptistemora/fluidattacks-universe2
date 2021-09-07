@@ -36,6 +36,7 @@ async def _batch_load_fn(event_ids: List[str]) -> List[EventType]:
         group_name: str = get_key_or_fallback(event, fallback="")
         events[event_id] = dict(
             accessibility=event.get("accessibility", ""),
+            action_before_blocking=event.get("action_before_blocking", ""),
             affectation=history[-1].get("affectation", ""),
             affected_components=event.get("affected_components", ""),
             analyst=event.get("analyst", ""),

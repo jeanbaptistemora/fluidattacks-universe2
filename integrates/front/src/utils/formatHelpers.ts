@@ -1,5 +1,22 @@
 import { translate } from "utils/translations/translate";
 
+const castActionBeforeBlocking: (field: string) => string = (
+  field: string
+): string => {
+  const eventActionsBeforeBlocking: Record<string, string> = {
+    DOCUMENT_GROUP:
+      "searchFindings.tabEvents.actionBeforeBlockingValues.documentGroup",
+    NONE: "searchFindings.tabEvents.actionBeforeBlockingValues.none",
+    OTHER: "searchFindings.tabEvents.actionBeforeBlockingValues.other",
+    TEST_OTHER_PART_TOE:
+      "searchFindings.tabEvents.actionBeforeBlockingValues.testOtherPartToe",
+  };
+
+  return eventActionsBeforeBlocking[field]
+    ? eventActionsBeforeBlocking[field]
+    : "-";
+};
+
 const castAffectedComponents: (field: string) => string = (
   field: string
 ): string => {
@@ -152,6 +169,7 @@ const formatTreatment: (treatment: string, findingState: string) => string = (
 };
 
 export {
+  castActionBeforeBlocking,
   castAffectedComponents,
   castEventType,
   castEventStatus,
