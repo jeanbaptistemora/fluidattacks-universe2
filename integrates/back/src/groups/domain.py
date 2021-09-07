@@ -33,6 +33,7 @@ from custom_exceptions import (
 from custom_types import (
     Group as GroupType,
     GroupAccess as GroupAccessType,
+    Historic as HistoricType,
     Invitation as InvitationType,
     MailContent as MailContentType,
     User as UserType,
@@ -1433,12 +1434,13 @@ async def get_remediation_rate_new(
     return remediation_rate
 
 
-async def get_group_digest_stats(
+async def get_group_digest_stats(  # pylint: disable=too-many-locals
     context: Any, group_name: str
 ) -> MailContentType:
     content: MailContentType = {
         "group": group_name,
         "main": {
+            "group_age": 0,
             "remediation_rate": 0,
             "remediation_time": 0,
             "comments": 0,
@@ -1526,6 +1528,14 @@ async def get_group_digest_stats(
             context, group_name
         )
 
+    historic_config = (
+        await get_attributes(group_name, ["historic_configuration"])
+    )["historic_configuration"]
+    historic_config_date = datetime_utils.get_from_str(
+        cast(HistoricType, historic_config)[0]["date"]
+    )
+    group_age = (datetime_utils.get_now() - historic_config_date).days
+    content["main"]["group_age"] = group_age
     treatments = await vulns_utils.get_total_treatment_date(
         group_vulns, last_day
     )
@@ -1567,6 +1577,12 @@ def process_user_digest_stats(
 
     total: MailContentType = {
         "groups_len": len(groups_stats),
+        "group_age": {
+            "oldest_age": 0,
+            "oldest_group": groups_stats[0]["group"],
+            "youngest_age": groups_stats[0]["main"]["group_age"],
+            "newest_group": groups_stats[0]["group"],
+        },
         "remediation_rate": {
             "max": 0,
             "max_group": groups_stats[0]["group"],
@@ -1590,6 +1606,9 @@ def process_user_digest_stats(
         treatments.update(stat["treatments"])
         events.update(stat["events"])
         # Get highest among groups
+        if stat["main"]["group_age"] > total["group_age"]["oldest_age"]:
+            total["group_age"]["oldest_age"] = stat["main"]["group_age"]
+            total["group_age"]["oldest_group"] = stat["group"]
         if stat["main"]["remediation_rate"] > total["remediation_rate"]["max"]:
             total["remediation_rate"]["max"] = stat["main"]["remediation_rate"]
             total["remediation_rate"]["max_group"] = stat["group"]
@@ -1597,6 +1616,9 @@ def process_user_digest_stats(
             total["remediation_time"]["max"] = stat["main"]["remediation_time"]
             total["remediation_time"]["max_group"] = stat["group"]
         # Get lowest among groups
+        if stat["main"]["group_age"] < total["group_age"]["youngest_age"]:
+            total["group_age"]["youngest_age"] = stat["main"]["group_age"]
+            total["group_age"]["newest_group"] = stat["group"]
         if stat["main"]["remediation_rate"] < total["remediation_rate"]["min"]:
             total["remediation_rate"]["min"] = stat["main"]["remediation_rate"]
             total["remediation_rate"]["min_group"] = stat["group"]

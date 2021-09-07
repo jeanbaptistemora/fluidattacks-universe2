@@ -575,6 +575,7 @@ async def test_get_group_digest_stats() -> None:
     expected_output = {
         "group": group_name,
         "main": {
+            "group_age": 356,
             "remediation_rate": 19,
             "remediation_time": 514,
             "comments": 0,
