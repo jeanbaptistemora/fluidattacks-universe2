@@ -4,7 +4,7 @@
 :page-certificationlogo: logo-oswp
 :page-alt: Logo OSWP
 :page-certification: yes
-:page-certificationid: 004
+:page-certificationid: 005
 
 = Offensive Security Wireless Professional
 

@@ -4,7 +4,7 @@
 :page-certificationlogo: logo-osce
 :page-alt: Logo OSCE
 :page-certification: yes
-:page-certificationid: 001
+:page-certificationid: 002
 
 = Offensive Security Certified Expert
 

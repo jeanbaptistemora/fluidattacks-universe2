@@ -4,7 +4,7 @@
 :page-certificationlogo: logo-oscp
 :page-alt: Logo OSCP
 :page-certification: yes
-:page-certificationid: 005
+:page-certificationid: 006
 
 = Offensive Security Certified Professional
 
