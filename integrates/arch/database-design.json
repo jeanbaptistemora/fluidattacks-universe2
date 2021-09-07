@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 07, 2021, 09:35 AM",
+    "DateLastModified": "Sep 07, 2021, 10:51 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1961,176 +1961,2841 @@
           },
           "TableData": [
             {
-              "pk": {
-                "S": "FIN#475041513"
+              "severity": {
+                "M": {
+                  "attack_complexity": {
+                    "N": "0.87"
+                  },
+                  "integrity_impact": {
+                    "N": "0.57"
+                  },
+                  "integrity_requirement": {
+                    "N": "1.6"
+                  },
+                  "modified_confidentiality_impact": {
+                    "N": "0"
+                  },
+                  "modified_user_interaction": {
+                    "N": "0.33"
+                  },
+                  "modified_severity_scope": {
+                    "N": "0"
+                  },
+                  "modified_availability_impact": {
+                    "N": "0"
+                  },
+                  "report_confidence": {
+                    "N": "0.48"
+                  },
+                  "modified_integrity_impact": {
+                    "N": "0.56"
+                  },
+                  "attack_vector": {
+                    "N": "0.32"
+                  },
+                  "modified_attack_complexity": {
+                    "N": "0.27"
+                  },
+                  "privileges_required": {
+                    "N": "0.83"
+                  },
+                  "availability_impact": {
+                    "N": "0"
+                  },
+                  "modified_privileges_required": {
+                    "N": "0.62"
+                  },
+                  "confidentiality_requirement": {
+                    "N": "1"
+                  },
+                  "modified_attack_vector": {
+                    "N": "0.62"
+                  },
+                  "user_interaction": {
+                    "N": "0.95"
+                  },
+                  "confidentiality_impact": {
+                    "N": "0"
+                  },
+                  "exploitability": {
+                    "N": "0.93"
+                  },
+                  "remediation_level": {
+                    "N": "0.34"
+                  },
+                  "severity_scope": {
+                    "N": "0"
+                  },
+                  "availability_requirement": {
+                    "N": "1"
+                  }
+                }
               },
-              "sk": {
-                "S": "GROUP#unittesting"
+              "requirements": {
+                "S": "REQ.273. Todas las estaciones de trabajo en producción deben contar con una suite de seguridad inalterable (Anti-virus, Antispyware, Host Firewall, Host-IDS, Host-IPS)."
+              },
+              "group_name": {
+                "S": "asgard"
               },
               "description": {
-                "S": "I just have updated the description"
+                "S": "Es posible conectar dispositivos USB al equipo que permiten infectarlo con software malicioso."
+              },
+              "recommendation": {
+                "S": "- Establecer controles de acceso físico que impidan la conexión de dispositivos periféricos no autorizados.\n- Instalar una suite de seguridad apropiada en las estaciones de trabajo que mitigue el riesgo de infección con software malicioso."
+              },
+              "title": {
+                "S": "104. USB flash drive attacks"
               },
               "type": {
                 "S": "SECURITY"
+              },
+              "actor": {
+                "S": "ANYONE_INTERNET"
+              },
+              "analyst_email": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "bug_tracking_system_url": {
+                "S": ""
+              },
+              "cvss_version": {
+                "S": "3.1"
+              },
+              "affected_systems": {
+                "S": "System"
+              },
+              "compromised_attributes": {
+                "S": "Server"
+              },
+              "scenario": {
+                "S": "ANONYMOUS_INTERNET"
+              },
+              "sk": {
+                "S": "GROUP#asgard"
+              },
+              "compromised_records": {
+                "N": "12"
+              },
+              "risk": {
+                "S": ""
+              },
+              "pk": {
+                "S": "FIN#436712859"
+              },
+              "id": {
+                "S": "436712859"
+              },
+              "threat": {
+                "S": "This is a treat."
+              },
+              "evidences": {
+                "M": {}
+              },
+              "sorts": {
+                "S": "NO"
+              },
+              "attack_vector_description": {
+                "S": "This is an attack vector"
+              }
+            },
+            {
+              "severity": {
+                "M": {
+                  "attack_complexity": {
+                    "N": "0.77"
+                  },
+                  "integrity_impact": {
+                    "N": "0.33"
+                  },
+                  "integrity_requirement": {
+                    "N": "1.6"
+                  },
+                  "modified_confidentiality_impact": {
+                    "N": "0"
+                  },
+                  "modified_user_interaction": {
+                    "N": "0.85"
+                  },
+                  "modified_severity_scope": {
+                    "N": "0"
+                  },
+                  "modified_availability_impact": {
+                    "N": "0"
+                  },
+                  "report_confidence": {
+                    "N": "0.88"
+                  },
+                  "modified_integrity_impact": {
+                    "N": "0.22"
+                  },
+                  "attack_vector": {
+                    "N": "0.62"
+                  },
+                  "modified_attack_complexity": {
+                    "N": "0.77"
+                  },
+                  "privileges_required": {
+                    "N": "0.43"
+                  },
+                  "availability_impact": {
+                    "N": "0"
+                  },
+                  "modified_privileges_required": {
+                    "N": "0.62"
+                  },
+                  "confidentiality_requirement": {
+                    "N": "1"
+                  },
+                  "modified_attack_vector": {
+                    "N": "0.62"
+                  },
+                  "user_interaction": {
+                    "N": "0.85"
+                  },
+                  "confidentiality_impact": {
+                    "N": "0"
+                  },
+                  "exploitability": {
+                    "N": "0.91"
+                  },
+                  "remediation_level": {
+                    "N": "0.97"
+                  },
+                  "severity_scope": {
+                    "N": "0"
+                  },
+                  "availability_requirement": {
+                    "N": "1"
+                  }
+                }
+              },
+              "requirements": {
+                "S": "R262. Los componentes provistos por terceros deben corresponder a versiones estables, probadas y actualizadas."
+              },
+              "group_name": {
+                "S": "asgard"
+              },
+              "description": {
+                "S": "Se encuentra software desactualizado con vulnerabilidades."
+              },
+              "recommendation": {
+                "S": "Actualizar el software afectado a sus versiones recomendadas por el fabricante."
+              },
+              "title": {
+                "S": "011. Use of software with known vulnerabilities"
+              },
+              "type": {
+                "S": "SECURITY"
+              },
+              "actor": {
+                "S": "ANYONE_INTERNET"
+              },
+              "analyst_email": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "bug_tracking_system_url": {
+                "S": ""
+              },
+              "cvss_version": {
+                "S": "3.1"
+              },
+              "affected_systems": {
+                "S": "Front"
+              },
+              "compromised_attributes": {
+                "S": "Login"
+              },
+              "scenario": {
+                "S": "UNAUTHORIZED_USER_EXTRANET"
+              },
+              "sk": {
+                "S": "GROUP#asgard"
+              },
+              "compromised_records": {
+                "N": "12"
+              },
+              "risk": {
+                "S": ""
+              },
+              "pk": {
+                "S": "FIN#683100860"
+              },
+              "id": {
+                "S": "683100860"
+              },
+              "threat": {
+                "S": "This is a treat."
+              },
+              "evidences": {
+                "M": {}
+              },
+              "sorts": {
+                "S": "NO"
+              },
+              "attack_vector_description": {
+                "S": "This is an attack vector"
+              }
+            },
+            {
+              "severity": {
+                "M": {
+                  "attack_complexity": {
+                    "N": "0.87"
+                  },
+                  "integrity_impact": {
+                    "N": "0.53"
+                  },
+                  "integrity_requirement": {
+                    "N": "2.6"
+                  },
+                  "modified_confidentiality_impact": {
+                    "N": "0"
+                  },
+                  "modified_user_interaction": {
+                    "N": "0.45"
+                  },
+                  "modified_severity_scope": {
+                    "N": "0"
+                  },
+                  "modified_availability_impact": {
+                    "N": "0"
+                  },
+                  "report_confidence": {
+                    "N": "0.58"
+                  },
+                  "modified_integrity_impact": {
+                    "N": "0.28"
+                  },
+                  "attack_vector": {
+                    "N": "0.62"
+                  },
+                  "modified_attack_complexity": {
+                    "N": "0.77"
+                  },
+                  "privileges_required": {
+                    "N": "0.83"
+                  },
+                  "availability_impact": {
+                    "N": "0"
+                  },
+                  "modified_privileges_required": {
+                    "N": "0.62"
+                  },
+                  "confidentiality_requirement": {
+                    "N": "1"
+                  },
+                  "modified_attack_vector": {
+                    "N": "0.62"
+                  },
+                  "user_interaction": {
+                    "N": "0.85"
+                  },
+                  "confidentiality_impact": {
+                    "N": "0"
+                  },
+                  "exploitability": {
+                    "N": "0.93"
+                  },
+                  "remediation_level": {
+                    "N": "0.34"
+                  },
+                  "severity_scope": {
+                    "N": "0"
+                  },
+                  "availability_requirement": {
+                    "N": "1"
+                  }
+                }
+              },
+              "requirements": {
+                "S": "R040. El sistema debe validar que el formato (estructura) de los archivos corresponda con su extensión.\nR041. El sistema debe validar que el contenido de los archivos transferidos hacia el mismo sistema esté libre de código malicioso."
+              },
+              "group_name": {
+                "S": "asgard"
+              },
+              "description": {
+                "S": "El sistema de carga de archivos permite cargar archivos con doble extensión y extensiones inseguras como (.html, .php, .exe), tampoco se valida si el archivo está libre de código malicioso o no."
+              },
+              "recommendation": {
+                "S": "- Validar con expresiones regulares que el archivo corresponda con una sola extensión\n- Validar con un antivirus que el archivo no contenga ningún tipo de código malicioso.\n- Validar que el Content Type corresponda a la extension del archivo antes de subirlo al servidor"
+              },
+              "title": {
+                "S": "027. Insecure file upload"
+              },
+              "type": {
+                "S": "SECURITY"
+              },
+              "actor": {
+                "S": "ANYONE_INTERNET"
+              },
+              "analyst_email": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "bug_tracking_system_url": {
+                "S": ""
+              },
+              "cvss_version": {
+                "S": "3.1"
+              },
+              "affected_systems": {
+                "S": "Cloud storage"
+              },
+              "compromised_attributes": {
+                "S": "Login"
+              },
+              "scenario": {
+                "S": "ANONYMOUS_INTERNET"
+              },
+              "sk": {
+                "S": "GROUP#asgard"
+              },
+              "compromised_records": {
+                "N": "12"
+              },
+              "risk": {
+                "S": ""
+              },
+              "pk": {
+                "S": "FIN#997868246"
+              },
+              "id": {
+                "S": "997868246"
+              },
+              "threat": {
+                "S": "This is a treat."
+              },
+              "evidences": {
+                "M": {}
+              },
+              "sorts": {
+                "S": "NO"
+              },
+              "attack_vector_description": {
+                "S": "This is an attack vector"
+              }
+            },
+            {
+              "severity": {
+                "M": {
+                  "attack_complexity": {
+                    "N": "0.44"
+                  },
+                  "integrity_impact": {
+                    "N": "0.22"
+                  },
+                  "integrity_requirement": {
+                    "N": "1"
+                  },
+                  "modified_confidentiality_impact": {
+                    "N": "0.22"
+                  },
+                  "modified_user_interaction": {
+                    "N": "0.62"
+                  },
+                  "modified_severity_scope": {
+                    "N": "0"
+                  },
+                  "modified_availability_impact": {
+                    "N": "0.22"
+                  },
+                  "report_confidence": {
+                    "N": "1"
+                  },
+                  "modified_integrity_impact": {
+                    "N": "0"
+                  },
+                  "attack_vector": {
+                    "N": "0.2"
+                  },
+                  "modified_attack_complexity": {
+                    "N": "0.44"
+                  },
+                  "privileges_required": {
+                    "N": "0.62"
+                  },
+                  "availability_impact": {
+                    "N": "0.22"
+                  },
+                  "modified_privileges_required": {
+                    "N": "0.27"
+                  },
+                  "confidentiality_requirement": {
+                    "N": "0.5"
+                  },
+                  "modified_attack_vector": {
+                    "N": "0.85"
+                  },
+                  "user_interaction": {
+                    "N": "0.85"
+                  },
+                  "confidentiality_impact": {
+                    "N": "0.22"
+                  },
+                  "exploitability": {
+                    "N": "0.94"
+                  },
+                  "remediation_level": {
+                    "N": "0.95"
+                  },
+                  "severity_scope": {
+                    "N": "0"
+                  },
+                  "availability_requirement": {
+                    "N": "0.5"
+                  }
+                }
+              },
+              "requirements": {
+                "S": "REQ.0229. El sistema debe solicitar a cualquier actor que intenta autenticarse, como mínimo un nombre de usuario y una contraseña."
+              },
+              "group_name": {
+                "S": "continuoustesting"
+              },
+              "description": {
+                "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos."
+              },
+              "recommendation": {
+                "S": "Implementar un doble factor de autenticación ya sea por software o hardware para incrementar el nivel de protección de la autenticación de los recursos críticos."
+              },
+              "title": {
+                "S": "081. Lack of multi-factor authentication"
+              },
+              "type": {
+                "S": "SECURITY"
+              },
+              "actor": {
+                "S": "SOME_CUSTOMERS"
+              },
+              "analyst_email": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "bug_tracking_system_url": {
+                "S": ""
+              },
+              "cvss_version": {
+                "S": "3.1"
+              },
+              "affected_systems": {
+                "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos"
+              },
+              "compromised_attributes": {
+                "S": ""
+              },
+              "scenario": {
+                "S": "ANONYMOUS_INTRANET"
+              },
+              "sk": {
+                "S": "GROUP#continuoustesting"
+              },
+              "compromised_records": {
+                "N": "0"
+              },
+              "risk": {
+                "S": ""
+              },
+              "pk": {
+                "S": "FIN#475041524"
+              },
+              "id": {
+                "S": "475041524"
+              },
+              "threat": {
+                "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos."
               },
               "evidences": {
                 "M": {
                   "evidence1": {
                     "M": {
                       "modified_date": {
-                        "S": "2021-02-15T14:01:16Z"
+                        "S": "2019-02-04T17:46:10+00:00"
                       },
                       "description": {
-                        "S": "Evidence description"
+                        "S": "Evidencia"
                       },
                       "url": {
-                        "S": "unittesting-463558592-evidence_route_1"
+                        "S": "unittesting-475041513-evidence_route_1.png"
+                      }
+                    }
+                  },
+                  "evidence2": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2019-02-04T17:46:10+00:00"
+                      },
+                      "description": {
+                        "S": "AAAAAAAAAAAA"
+                      },
+                      "url": {
+                        "S": "unittesting-475041513-evidence_route_2.jpg"
                       }
                     }
                   }
                 }
               },
-              "recommendation": {
-                "S": "solution"
-              },
-              "requirements": {
-                "S": "REQ.0132. Passwords (phrase type) must be at least 3 words long."
-              },
-              "threat": {
-                "S": "Updated threat"
-              },
-              "affected_systems": {
-                "S": "Server bWAPP"
-              },
-              "analyst_email": {
-                "S": "finding@gmail.com"
-              },
-              "cvss_version": {
-                "S": "3.1"
-              },
-              "title": {
-                "S": "F051. Weak passwords reversed"
-              },
-              "id": {
-                "S": "475041513"
-              },
               "sorts": {
                 "S": "NO"
               },
-              "actor": {
-                "S": "ANYONE_INTERNET"
-              },
-              "compromised_attributes": {
-                "S": "Clave plana"
-              },
-              "group_name": {
-                "S": "unittesting"
-              },
+              "attack_vector_description": {
+                "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos"
+              }
+            },
+            {
               "severity": {
                 "M": {
-                  "access_complexity": {
-                    "N": "0.77"
-                  },
-                  "access_vector": {
-                    "N": "0.62"
-                  },
-                  "authentication": {
-                    "N": "0.704"
-                  },
-                  "availability_impact": {
-                    "N": "1"
-                  },
-                  "availability_requirement": {
-                    "N": "0.5"
-                  },
-                  "collateral_damage_potential": {
-                    "N": "0.62"
-                  },
-                  "confidence_level": {
-                    "N": "0.92"
-                  },
-                  "confidentiality_impact": {
-                    "N": "0.62"
-                  },
-                  "confidentiality_requirement": {
-                    "N": "0.62"
-                  },
-                  "exploitability": {
-                    "N": "0.91"
-                  },
-                  "finding_distribution": {
-                    "N": "0"
-                  },
-                  "integrity_impact": {
-                    "N": "0.275"
-                  },
-                  "integrity_requirement": {
-                    "N": "0.5"
-                  },
-                  "resolution_level": {
-                    "N": "0"
-                  },
                   "attack_complexity": {
                     "N": "0.77"
                   },
-                  "attack_vector": {
-                    "N": "0.95"
+                  "integrity_impact": {
+                    "N": "0.22"
                   },
-                  "modified_attack_complexity": {
-                    "N": "0.95"
-                  },
-                  "modified_attack_vector": {
-                    "N": "0.62"
-                  },
-                  "modified_availability_impact": {
-                    "N": "0.95"
+                  "integrity_requirement": {
+                    "N": "1"
                   },
                   "modified_confidentiality_impact": {
                     "N": "0"
                   },
+                  "modified_user_interaction": {
+                    "N": "0.85"
+                  },
+                  "modified_severity_scope": {
+                    "N": "0"
+                  },
+                  "modified_availability_impact": {
+                    "N": "0"
+                  },
+                  "report_confidence": {
+                    "N": "1"
+                  },
                   "modified_integrity_impact": {
+                    "N": "0"
+                  },
+                  "attack_vector": {
+                    "N": "0.85"
+                  },
+                  "modified_attack_complexity": {
+                    "N": "0.77"
+                  },
+                  "privileges_required": {
+                    "N": "0.85"
+                  },
+                  "availability_impact": {
+                    "N": "0.22"
+                  },
+                  "modified_privileges_required": {
+                    "N": "0"
+                  },
+                  "confidentiality_requirement": {
+                    "N": "1"
+                  },
+                  "modified_attack_vector": {
+                    "N": "0.85"
+                  },
+                  "user_interaction": {
+                    "N": "0.85"
+                  },
+                  "confidentiality_impact": {
+                    "N": "0.22"
+                  },
+                  "exploitability": {
+                    "N": "1"
+                  },
+                  "remediation_level": {
+                    "N": "1"
+                  },
+                  "severity_scope": {
+                    "N": "0"
+                  },
+                  "availability_requirement": {
+                    "N": "1"
+                  }
+                }
+              },
+              "requirements": {
+                "S": "REQ.0265. El sistema debe restringir el acceso a funciones del sistema que ejecutan procesos críticos de negocio. sólo permitirá acceso a usuarios autorizados.\nREQ.0266. La organización debe deshabilitar las funciones inseguras de un sistema. (hardening de sistemas)"
+              },
+              "group_name": {
+                "S": "continuoustesting"
+              },
+              "description": {
+                "S": "Se ejecutan comandos en la consola del servidor gracias a peticiones mal configuradas, software desactualizado, funciones inseguras."
+              },
+              "recommendation": {
+                "S": "- Asegurarse de que ninguna petición utilice funciones inseguras que ejecuten comando en el sistema operativo.\n- Asegurarse de que los componentes de la aplicación estén actualizados ya que estos pueden permitir ejecutar comandos gracias a múltiples vulnerabilidades."
+              },
+              "title": {
+                "S": "004. Remote command execution"
+              },
+              "type": {
+                "S": "SECURITY"
+              },
+              "actor": {
+                "S": ""
+              },
+              "analyst_email": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "bug_tracking_system_url": {
+                "S": ""
+              },
+              "cvss_version": {
+                "S": "3.1"
+              },
+              "affected_systems": {
+                "S": ""
+              },
+              "compromised_attributes": {
+                "S": ""
+              },
+              "scenario": {
+                "S": ""
+              },
+              "sk": {
+                "S": "GROUP#continuoustesting"
+              },
+              "compromised_records": {
+                "N": "0"
+              },
+              "risk": {
+                "S": ""
+              },
+              "pk": {
+                "S": "FIN#836530833"
+              },
+              "id": {
+                "S": "836530833"
+              },
+              "threat": {
+                "S": ""
+              },
+              "evidences": {
+                "M": {
+                  "animation": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2019-11-22T20:08:11+00:00"
+                      },
+                      "description": {
+                        "S": ""
+                      },
+                      "url": {
+                        "S": "continuoustesting-836530833-download.png"
+                      }
+                    }
+                  }
+                }
+              },
+              "sorts": {
+                "S": "NO"
+              },
+              "attack_vector_description": {
+                "S": ""
+              }
+            },
+            {
+              "severity": {
+                "M": {
+                  "attack_complexity": {
+                    "N": "0.0"
+                  },
+                  "integrity_impact": {
+                    "N": "0.0"
+                  },
+                  "integrity_requirement": {
+                    "N": "0.0"
+                  },
+                  "modified_confidentiality_impact": {
+                    "N": "0.0"
+                  },
+                  "modified_user_interaction": {
+                    "N": "0.0"
+                  },
+                  "modified_severity_scope": {
+                    "N": "0.0"
+                  },
+                  "modified_availability_impact": {
+                    "N": "0.0"
+                  },
+                  "report_confidence": {
+                    "N": "0.0"
+                  },
+                  "modified_integrity_impact": {
+                    "N": "0.0"
+                  },
+                  "attack_vector": {
+                    "N": "0.0"
+                  },
+                  "modified_attack_complexity": {
+                    "N": "0.0"
+                  },
+                  "privileges_required": {
+                    "N": "0.0"
+                  },
+                  "availability_impact": {
+                    "N": "0.0"
+                  },
+                  "modified_privileges_required": {
+                    "N": "0.0"
+                  },
+                  "confidentiality_requirement": {
+                    "N": "0.0"
+                  },
+                  "modified_attack_vector": {
+                    "N": "0.0"
+                  },
+                  "user_interaction": {
+                    "N": "0.0"
+                  },
+                  "confidentiality_impact": {
+                    "N": "0.0"
+                  },
+                  "exploitability": {
+                    "N": "0"
+                  },
+                  "remediation_level": {
+                    "N": "0.0"
+                  },
+                  "severity_scope": {
+                    "N": "0.0"
+                  },
+                  "availability_requirement": {
+                    "N": "0.0"
+                  }
+                }
+              },
+              "requirements": {
+                "S": "REQ.0072. El tiempo de respuesta con la concurrencia máxima esperada debe ser de no más de 5 segundos."
+              },
+              "group_name": {
+                "S": "continuoustesting"
+              },
+              "description": {
+                "S": "Se genera la caída del servidor como resultado de ataques de amplificación, en donde una petición genera múltiples respuestas."
+              },
+              "recommendation": {
+                "S": "Definir un time-out cuando una consulta o una búsqueda se está demorando mucho en procesar la información."
+              },
+              "title": {
+                "S": "002. Asymmetric denial of service"
+              },
+              "type": {
+                "S": "SECURITY"
+              },
+              "actor": {
+                "S": ""
+              },
+              "analyst_email": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "bug_tracking_system_url": {
+                "S": ""
+              },
+              "cvss_version": {
+                "S": "3.1"
+              },
+              "affected_systems": {
+                "S": ""
+              },
+              "compromised_attributes": {
+                "S": ""
+              },
+              "scenario": {
+                "S": ""
+              },
+              "sk": {
+                "S": "GROUP#continuoustesting"
+              },
+              "compromised_records": {
+                "N": "0"
+              },
+              "risk": {
+                "S": ""
+              },
+              "pk": {
+                "S": "FIN#991607942"
+              },
+              "id": {
+                "S": "991607942"
+              },
+              "threat": {
+                "S": ""
+              },
+              "evidences": {
+                "M": {}
+              },
+              "sorts": {
+                "S": "NO"
+              },
+              "attack_vector_description": {
+                "S": ""
+              }
+            },
+            {
+              "severity": {
+                "M": {
+                  "attack_complexity": {
+                    "N": "0.0"
+                  },
+                  "integrity_impact": {
+                    "N": "0.0"
+                  },
+                  "integrity_requirement": {
+                    "N": "0.0"
+                  },
+                  "modified_confidentiality_impact": {
+                    "N": "0.0"
+                  },
+                  "modified_user_interaction": {
+                    "N": "0.0"
+                  },
+                  "modified_severity_scope": {
+                    "N": "0.0"
+                  },
+                  "modified_availability_impact": {
+                    "N": "0.0"
+                  },
+                  "report_confidence": {
+                    "N": "0.0"
+                  },
+                  "modified_integrity_impact": {
+                    "N": "0.0"
+                  },
+                  "attack_vector": {
+                    "N": "0.0"
+                  },
+                  "modified_attack_complexity": {
+                    "N": "0.0"
+                  },
+                  "privileges_required": {
+                    "N": "0.0"
+                  },
+                  "availability_impact": {
+                    "N": "0.0"
+                  },
+                  "modified_privileges_required": {
+                    "N": "0.0"
+                  },
+                  "confidentiality_requirement": {
+                    "N": "0.0"
+                  },
+                  "modified_attack_vector": {
+                    "N": "0.0"
+                  },
+                  "user_interaction": {
+                    "N": "0.0"
+                  },
+                  "confidentiality_impact": {
+                    "N": "0.0"
+                  },
+                  "exploitability": {
+                    "N": "0"
+                  },
+                  "remediation_level": {
+                    "N": "0.0"
+                  },
+                  "severity_scope": {
+                    "N": "0.0"
+                  },
+                  "availability_requirement": {
+                    "N": "0.0"
+                  }
+                }
+              },
+              "requirements": {
+                "S": "REQ.0169. Debe usarse construcciones parametrizadas o procedimientos almacenados parametrizados para la creación dinámica de sentencias (ej: java.sql.PreparedStatement)"
+              },
+              "group_name": {
+                "S": "lubbock"
+              },
+              "description": {
+                "S": "Se generan sentencias SQL dinámicas sin la validación requerida de datos y sin utilizar sentencias parametrizadas o procedimientos almacenados."
+              },
+              "recommendation": {
+                "S": "Realizar las consultas a la base de datos por medio de sentencias o procedimientos parametrizados."
+              },
+              "title": {
+                "S": "001. SQL injection - C Sharp SQL API"
+              },
+              "type": {
+                "S": "SECURITY"
+              },
+              "actor": {
+                "S": ""
+              },
+              "analyst_email": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "bug_tracking_system_url": {
+                "S": ""
+              },
+              "cvss_version": {
+                "S": "3.1"
+              },
+              "affected_systems": {
+                "S": ""
+              },
+              "compromised_attributes": {
+                "S": ""
+              },
+              "scenario": {
+                "S": ""
+              },
+              "sk": {
+                "S": "GROUP#lubbock"
+              },
+              "compromised_records": {
+                "N": "0"
+              },
+              "risk": {
+                "S": ""
+              },
+              "pk": {
+                "S": "FIN#818828206"
+              },
+              "id": {
+                "S": "818828206"
+              },
+              "threat": {
+                "S": ""
+              },
+              "evidences": {
+                "M": {}
+              },
+              "sorts": {
+                "S": "NO"
+              },
+              "attack_vector_description": {
+                "S": ""
+              }
+            },
+            {
+              "severity": {
+                "M": {
+                  "attack_complexity": {
+                    "N": "0.44"
+                  },
+                  "integrity_impact": {
+                    "N": "0.22"
+                  },
+                  "integrity_requirement": {
+                    "N": "1"
+                  },
+                  "modified_confidentiality_impact": {
+                    "N": "0.22"
+                  },
+                  "modified_user_interaction": {
+                    "N": "0.85"
+                  },
+                  "modified_severity_scope": {
+                    "N": "0"
+                  },
+                  "modified_availability_impact": {
+                    "N": "0.22"
+                  },
+                  "report_confidence": {
+                    "N": "0.92"
+                  },
+                  "modified_integrity_impact": {
+                    "N": "0.22"
+                  },
+                  "attack_vector": {
+                    "N": "0.62"
+                  },
+                  "modified_attack_complexity": {
+                    "N": "0.44"
+                  },
+                  "privileges_required": {
+                    "N": "0.62"
+                  },
+                  "availability_impact": {
                     "N": "0.22"
                   },
                   "modified_privileges_required": {
                     "N": "0.62"
                   },
-                  "modified_user_interaction": {
+                  "confidentiality_requirement": {
+                    "N": "1"
+                  },
+                  "modified_attack_vector": {
+                    "N": "0.62"
+                  },
+                  "user_interaction": {
                     "N": "0.85"
                   },
-                  "privileges_required": {
+                  "confidentiality_impact": {
+                    "N": "0.22"
+                  },
+                  "exploitability": {
+                    "N": "0.94"
+                  },
+                  "remediation_level": {
+                    "N": "0.96"
+                  },
+                  "severity_scope": {
+                    "N": "0"
+                  },
+                  "availability_requirement": {
+                    "N": "1"
+                  }
+                }
+              },
+              "requirements": {
+                "S": "REQ.0077. La aplicación no debe revelar detalles del sistema interno como stack traces, fragmentos de sentencias SQL y nombres de base de datos o tablas.\r\nREQ.0176. El sistema debe restringir el acceso a objetos del sistema que tengan contenido sensible. Sólo permitirá su acceso a usuarios autorizados."
+              },
+              "group_name": {
+                "S": "oneshottest"
+              },
+              "description": {
+                "S": "Descripción de fuga de información técnica"
+              },
+              "recommendation": {
+                "S": "Eliminar el banner de los servicios con fuga de información, Verificar que los encabezados HTTP no expongan ningún nombre o versión."
+              },
+              "title": {
+                "S": "037. Technical information leak"
+              },
+              "type": {
+                "S": "HYGIENE"
+              },
+              "actor": {
+                "S": "ANYONE_INTERNET"
+              },
+              "analyst_email": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "bug_tracking_system_url": {
+                "S": ""
+              },
+              "cvss_version": {
+                "S": "3.1"
+              },
+              "affected_systems": {
+                "S": "Sistema"
+              },
+              "compromised_attributes": {
+                "S": ""
+              },
+              "scenario": {
+                "S": "AUTHORIZED_USER_INTERNET"
+              },
+              "sk": {
+                "S": "GROUP#oneshottest"
+              },
+              "compromised_records": {
+                "N": "0"
+              },
+              "risk": {
+                "S": ""
+              },
+              "pk": {
+                "S": "FIN#457497318"
+              },
+              "id": {
+                "S": "457497318"
+              },
+              "threat": {
+                "S": "Amenaza."
+              },
+              "evidences": {
+                "M": {
+                  "evidence3": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2018-11-29T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "1"
+                      },
+                      "url": {
+                        "S": "oneshottest-457497318-evidence_route_3"
+                      }
+                    }
+                  },
+                  "evidence1": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2018-11-29T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "Comentario"
+                      },
+                      "url": {
+                        "S": "oneshottest-457497318-evidence_route_1"
+                      }
+                    }
+                  },
+                  "evidence2": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2018-11-29T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "test"
+                      },
+                      "url": {
+                        "S": "oneshottest-457497318-evidence_route_2"
+                      }
+                    }
+                  }
+                }
+              },
+              "sorts": {
+                "S": "NO"
+              },
+              "attack_vector_description": {
+                "S": "Descripción"
+              }
+            },
+            {
+              "severity": {
+                "M": {
+                  "attack_complexity": {
+                    "N": "0.44"
+                  },
+                  "integrity_impact": {
+                    "N": "0.22"
+                  },
+                  "integrity_requirement": {
+                    "N": "1"
+                  },
+                  "modified_confidentiality_impact": {
+                    "N": "0.22"
+                  },
+                  "modified_user_interaction": {
                     "N": "0.62"
                   },
                   "modified_severity_scope": {
                     "N": "0"
                   },
-                  "remediation_level": {
-                    "N": "0.97"
+                  "modified_availability_impact": {
+                    "N": "0.22"
                   },
                   "report_confidence": {
+                    "N": "1"
+                  },
+                  "modified_integrity_impact": {
+                    "N": "0"
+                  },
+                  "attack_vector": {
+                    "N": "0.2"
+                  },
+                  "modified_attack_complexity": {
+                    "N": "0.44"
+                  },
+                  "privileges_required": {
+                    "N": "0.62"
+                  },
+                  "availability_impact": {
+                    "N": "0.22"
+                  },
+                  "modified_privileges_required": {
+                    "N": "0.27"
+                  },
+                  "confidentiality_requirement": {
+                    "N": "0.5"
+                  },
+                  "modified_attack_vector": {
+                    "N": "0.85"
+                  },
+                  "user_interaction": {
+                    "N": "0.85"
+                  },
+                  "confidentiality_impact": {
+                    "N": "0.22"
+                  },
+                  "exploitability": {
+                    "N": "0.94"
+                  },
+                  "remediation_level": {
                     "N": "0.95"
                   },
                   "severity_scope": {
                     "N": "0"
                   },
-                  "user_interaction": {
-                    "N": "0.85"
+                  "availability_requirement": {
+                    "N": "0.5"
                   }
                 }
               },
+              "requirements": {
+                "S": "REQ.0229. El sistema debe solicitar a cualquier actor que intenta autenticarse, como mínimo un nombre de usuario y una contraseña."
+              },
+              "group_name": {
+                "S": "oneshottest"
+              },
+              "description": {
+                "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos."
+              },
+              "recommendation": {
+                "S": "Implementar un doble factor de autenticación ya sea por software o hardware para incrementar el nivel de protección de la autenticación de los recursos críticos."
+              },
+              "title": {
+                "S": "081. Lack of multi-factor authentication"
+              },
+              "type": {
+                "S": "SECURITY"
+              },
+              "actor": {
+                "S": "SOME_CUSTOMERS"
+              },
+              "analyst_email": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "bug_tracking_system_url": {
+                "S": ""
+              },
+              "cvss_version": {
+                "S": "3.1"
+              },
+              "affected_systems": {
+                "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos"
+              },
+              "compromised_attributes": {
+                "S": ""
+              },
+              "scenario": {
+                "S": "ANONYMOUS_INTRANET"
+              },
+              "sk": {
+                "S": "GROUP#oneshottest"
+              },
               "compromised_records": {
-                "N": "2"
+                "N": "0"
               },
               "risk": {
-                "S": "Probability that user probability compromising the application"
+                "S": ""
+              },
+              "pk": {
+                "S": "FIN#475041513"
+              },
+              "id": {
+                "S": "475041513"
+              },
+              "threat": {
+                "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos."
+              },
+              "evidences": {
+                "M": {
+                  "evidence1": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2018-04-08T00:43:18+00:00"
+                      },
+                      "description": {
+                        "S": "Evidencia"
+                      },
+                      "url": {
+                        "S": "oneshottest-475041513-evidence_route_1"
+                      }
+                    }
+                  },
+                  "evidence2": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2018-04-08T00:43:18+00:00"
+                      },
+                      "description": {
+                        "S": "AAAAAAAAAAAA"
+                      },
+                      "url": {
+                        "S": "oneshottest-475041513-evidence_route_2"
+                      }
+                    }
+                  }
+                }
+              },
+              "sorts": {
+                "S": "NO"
+              },
+              "attack_vector_description": {
+                "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos"
+              }
+            },
+            {
+              "severity": {
+                "M": {
+                  "attack_complexity": {
+                    "N": "0.44"
+                  },
+                  "integrity_impact": {
+                    "N": "0.22"
+                  },
+                  "integrity_requirement": {
+                    "N": "1"
+                  },
+                  "modified_confidentiality_impact": {
+                    "N": "0.22"
+                  },
+                  "modified_user_interaction": {
+                    "N": "0.62"
+                  },
+                  "modified_severity_scope": {
+                    "N": "0"
+                  },
+                  "modified_availability_impact": {
+                    "N": "0.22"
+                  },
+                  "report_confidence": {
+                    "N": "1"
+                  },
+                  "modified_integrity_impact": {
+                    "N": "0"
+                  },
+                  "attack_vector": {
+                    "N": "0.2"
+                  },
+                  "modified_attack_complexity": {
+                    "N": "0.44"
+                  },
+                  "privileges_required": {
+                    "N": "0.62"
+                  },
+                  "availability_impact": {
+                    "N": "0.22"
+                  },
+                  "modified_privileges_required": {
+                    "N": "0.27"
+                  },
+                  "confidentiality_requirement": {
+                    "N": "0.5"
+                  },
+                  "modified_attack_vector": {
+                    "N": "0.85"
+                  },
+                  "user_interaction": {
+                    "N": "0.85"
+                  },
+                  "confidentiality_impact": {
+                    "N": "0.22"
+                  },
+                  "exploitability": {
+                    "N": "0.94"
+                  },
+                  "remediation_level": {
+                    "N": "0.95"
+                  },
+                  "severity_scope": {
+                    "N": "0"
+                  },
+                  "availability_requirement": {
+                    "N": "0.5"
+                  }
+                }
+              },
+              "requirements": {
+                "S": "REQ.0229. El sistema debe solicitar a cualquier actor que intenta autenticarse, como mínimo un nombre de usuario y una contraseña."
+              },
+              "group_name": {
+                "S": "oneshottest"
+              },
+              "description": {
+                "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos."
+              },
+              "recommendation": {
+                "S": "Implementar un doble factor de autenticación ya sea por software o hardware para incrementar el nivel de protección de la autenticación de los recursos críticos."
+              },
+              "title": {
+                "S": "081. Lack of multi-factor authentication"
+              },
+              "type": {
+                "S": "SECURITY"
+              },
+              "actor": {
+                "S": "SOME_CUSTOMERS"
+              },
+              "analyst_email": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "bug_tracking_system_url": {
+                "S": ""
+              },
+              "cvss_version": {
+                "S": "3.1"
+              },
+              "affected_systems": {
+                "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos"
+              },
+              "compromised_attributes": {
+                "S": ""
+              },
+              "scenario": {
+                "S": "ANONYMOUS_INTRANET"
+              },
+              "sk": {
+                "S": "GROUP#oneshottest"
+              },
+              "compromised_records": {
+                "N": "0"
+              },
+              "risk": {
+                "S": ""
+              },
+              "pk": {
+                "S": "FIN#475041535"
+              },
+              "id": {
+                "S": "475041535"
+              },
+              "threat": {
+                "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos."
+              },
+              "evidences": {
+                "M": {
+                  "evidence1": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2019-02-04T17:46:10+00:00"
+                      },
+                      "description": {
+                        "S": "Evidencia"
+                      },
+                      "url": {
+                        "S": "oneshottest-475041535-evidence_route_1"
+                      }
+                    }
+                  },
+                  "evidence2": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2019-02-04T17:46:10+00:00"
+                      },
+                      "description": {
+                        "S": "AAAAAAAAA"
+                      },
+                      "url": {
+                        "S": "oneshottest-475041535-evidence_route_2"
+                      }
+                    }
+                  }
+                }
+              },
+              "sorts": {
+                "S": "NO"
+              },
+              "attack_vector_description": {
+                "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos"
+              }
+            },
+            {
+              "severity": {
+                "M": {
+                  "attack_complexity": {
+                    "N": "0.77"
+                  },
+                  "integrity_impact": {
+                    "N": "0.22"
+                  },
+                  "integrity_requirement": {
+                    "N": "1"
+                  },
+                  "modified_confidentiality_impact": {
+                    "N": "0"
+                  },
+                  "modified_user_interaction": {
+                    "N": "0.85"
+                  },
+                  "modified_severity_scope": {
+                    "N": "0"
+                  },
+                  "modified_availability_impact": {
+                    "N": "0"
+                  },
+                  "report_confidence": {
+                    "N": "0.92"
+                  },
+                  "modified_integrity_impact": {
+                    "N": "0.22"
+                  },
+                  "attack_vector": {
+                    "N": "0.62"
+                  },
+                  "modified_attack_complexity": {
+                    "N": "0.77"
+                  },
+                  "privileges_required": {
+                    "N": "0.62"
+                  },
+                  "availability_impact": {
+                    "N": "0"
+                  },
+                  "modified_privileges_required": {
+                    "N": "0.62"
+                  },
+                  "confidentiality_requirement": {
+                    "N": "1"
+                  },
+                  "modified_attack_vector": {
+                    "N": "0.62"
+                  },
+                  "user_interaction": {
+                    "N": "0.85"
+                  },
+                  "confidentiality_impact": {
+                    "N": "0"
+                  },
+                  "exploitability": {
+                    "N": "0.91"
+                  },
+                  "remediation_level": {
+                    "N": "0.97"
+                  },
+                  "severity_scope": {
+                    "N": "0"
+                  },
+                  "availability_requirement": {
+                    "N": "1"
+                  }
+                }
+              },
+              "requirements": {
+                "S": "R359. Avoid using generic exceptions."
+              },
+              "group_name": {
+                "S": "unittesting"
+              },
+              "description": {
+                "S": "The source code uses generic exceptions to handle unexpected errors. Catching generic exceptions obscures the problem that caused the error and promotes a generic way to handle different categories or sources of error. This may cause security vulnerabilities to materialize, as some special flows go unnoticed."
+              },
+              "recommendation": {
+                "S": "Implement password politicies with the best practicies for strong passwords."
+              },
+              "title": {
+                "S": "060. Insecure exceptions"
+              },
+              "type": {
+                "S": "SECURITY"
+              },
+              "actor": {
+                "S": "ANYONE_INTERNET"
+              },
+              "analyst_email": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "bug_tracking_system_url": {
+                "S": ""
+              },
+              "cvss_version": {
+                "S": "3.1"
+              },
+              "affected_systems": {
+                "S": "Server bWAPP\nAnother Server"
+              },
+              "compromised_attributes": {
+                "S": "Clave plana\nLogin"
               },
               "scenario": {
                 "S": "UNAUTHORIZED_USER_EXTRANET"
               },
-              "bug_tracking_system_url": {
-                "S": "https://btsurl.test/test"
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "compromised_records": {
+                "N": "12"
+              },
+              "risk": {
+                "S": ""
+              },
+              "pk": {
+                "S": "FIN#422286126"
+              },
+              "id": {
+                "S": "422286126"
+              },
+              "threat": {
+                "S": "A attack can get passwords  of users and He can impersonate them or used the credentials for practices maliciosus."
+              },
+              "evidences": {
+                "M": {
+                  "exploitation": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2018-07-09T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": ""
+                      },
+                      "url": {
+                        "S": "unittesting-422286126-exploitation.png"
+                      }
+                    }
+                  },
+                  "records": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2018-07-09T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": ""
+                      },
+                      "url": {
+                        "S": "unittesting-422286126-evidence_file.csv"
+                      }
+                    }
+                  },
+                  "evidence1": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2018-07-09T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "this is a test description"
+                      },
+                      "url": {
+                        "S": "unittesting-422286126-evidence_route_1.png"
+                      }
+                    }
+                  },
+                  "evidence2": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2018-07-09T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "exception"
+                      },
+                      "url": {
+                        "S": "unittesting-422286126-evidence_route_2.jpg"
+                      }
+                    }
+                  },
+                  "evidence3": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2018-07-09T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "update testing"
+                      },
+                      "url": {
+                        "S": "unittesting-422286126-evidence_route_3.png"
+                      }
+                    }
+                  },
+                  "evidence4": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2018-07-09T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "changed for testing purposesese"
+                      },
+                      "url": {
+                        "S": "unittesting-422286126-evidence_route_4.png"
+                      }
+                    }
+                  },
+                  "evidence5": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2018-07-09T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "yes, it does."
+                      },
+                      "url": {
+                        "S": "unittesting-422286126-evidence_route_5.png"
+                      }
+                    }
+                  },
+                  "animation": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2018-07-09T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": ""
+                      },
+                      "url": {
+                        "S": "unittesting-422286126-animation.gif"
+                      }
+                    }
+                  }
+                }
+              },
+              "sorts": {
+                "S": "NO"
               },
               "attack_vector_description": {
-                "S": "This is an updated attack vector"
+                "S": "This is an attack vector"
+              }
+            },
+            {
+              "severity": {
+                "M": {
+                  "attack_complexity": {
+                    "N": "0.44"
+                  },
+                  "integrity_impact": {
+                    "N": "0"
+                  },
+                  "integrity_requirement": {
+                    "N": "0.5"
+                  },
+                  "modified_confidentiality_impact": {
+                    "N": "0"
+                  },
+                  "modified_user_interaction": {
+                    "N": "0.85"
+                  },
+                  "modified_severity_scope": {
+                    "N": "0"
+                  },
+                  "modified_availability_impact": {
+                    "N": "0"
+                  },
+                  "report_confidence": {
+                    "N": "0.96"
+                  },
+                  "modified_integrity_impact": {
+                    "N": "0"
+                  },
+                  "attack_vector": {
+                    "N": "0.62"
+                  },
+                  "modified_attack_complexity": {
+                    "N": "0.77"
+                  },
+                  "privileges_required": {
+                    "N": "0.85"
+                  },
+                  "availability_impact": {
+                    "N": "0.22"
+                  },
+                  "modified_privileges_required": {
+                    "N": "0.85"
+                  },
+                  "confidentiality_requirement": {
+                    "N": "1.5"
+                  },
+                  "modified_attack_vector": {
+                    "N": "0.85"
+                  },
+                  "user_interaction": {
+                    "N": "0.62"
+                  },
+                  "confidentiality_impact": {
+                    "N": "0"
+                  },
+                  "exploitability": {
+                    "N": "0.97"
+                  },
+                  "remediation_level": {
+                    "N": "0.97"
+                  },
+                  "severity_scope": {
+                    "N": "1"
+                  },
+                  "availability_requirement": {
+                    "N": "1.5"
+                  }
+                }
+              },
+              "requirements": {
+                "S": "REQ.0176. El sistema debe restringir el acceso a objetos del sistema que tengan contenido sensible. Sólo permitirá su acceso a usuarios autorizados."
+              },
+              "group_name": {
+                "S": "unittesting"
+              },
+              "description": {
+                "S": "Se obtiene información de negocio, como:\r\n- Lista de usuarios\r\n- Información estratégica\r\n- Información de empleados\r\n- Información de clientes\r\n- Información de proveedores"
+              },
+              "recommendation": {
+                "S": "De acuerdo a la clasificación de la información encontrada, establecer los controles necesarios para que la información sea accesible sólo a las personas indicadas."
+              },
+              "title": {
+                "S": "038. Business information leak"
+              },
+              "type": {
+                "S": "SECURITY"
+              },
+              "actor": {
+                "S": "ANYONE_INTERNET"
+              },
+              "analyst_email": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "bug_tracking_system_url": {
+                "S": ""
+              },
+              "cvss_version": {
+                "S": "3.1"
+              },
+              "affected_systems": {
+                "S": "System"
+              },
+              "compromised_attributes": {
+                "S": "Apellido(s)\nArchivo(s)\nCódigo de identificación"
+              },
+              "scenario": {
+                "S": "Escaneo de Infraestructura"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "compromised_records": {
+                "N": "5"
+              },
+              "risk": {
+                "S": ""
+              },
+              "pk": {
+                "S": "FIN#436992569"
+              },
+              "id": {
+                "S": "436992569"
+              },
+              "threat": {
+                "S": "Risk."
+              },
+              "evidences": {
+                "M": {
+                  "exploitation": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2019-04-08T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": ""
+                      },
+                      "url": {
+                        "S": "unittesting-436992569-exploitation.png"
+                      }
+                    }
+                  },
+                  "evidence1": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2019-04-08T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "Comm1"
+                      },
+                      "url": {
+                        "S": "unittesting-436992569-evidence_route_1.png"
+                      }
+                    }
+                  },
+                  "evidence2": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2019-04-08T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "Comm2"
+                      },
+                      "url": {
+                        "S": "unittesting-436992569-evidence_route_2.jpg"
+                      }
+                    }
+                  },
+                  "evidence3": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2019-04-08T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "Comm3"
+                      },
+                      "url": {
+                        "S": "unittesting-436992569-evidence_route_3.png"
+                      }
+                    }
+                  },
+                  "evidence4": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2019-04-08T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "Comm4"
+                      },
+                      "url": {
+                        "S": "unittesting-436992569-evidence_route_4.png"
+                      }
+                    }
+                  },
+                  "evidence5": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2019-04-08T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "Comm5"
+                      },
+                      "url": {
+                        "S": "unittesting-436992569-evidence_route_5.png"
+                      }
+                    }
+                  },
+                  "animation": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2019-04-08T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": ""
+                      },
+                      "url": {
+                        "S": "unittesting-436992569-animation.png"
+                      }
+                    }
+                  }
+                }
+              },
+              "sorts": {
+                "S": "NO"
+              },
+              "attack_vector_description": {
+                "S": "- Atack vector"
+              }
+            },
+            {
+              "severity": {
+                "M": {
+                  "attack_complexity": {
+                    "N": "0.44"
+                  },
+                  "integrity_impact": {
+                    "N": "0.22"
+                  },
+                  "integrity_requirement": {
+                    "N": "1"
+                  },
+                  "modified_confidentiality_impact": {
+                    "N": "0.22"
+                  },
+                  "modified_user_interaction": {
+                    "N": "0.85"
+                  },
+                  "modified_severity_scope": {
+                    "N": "0"
+                  },
+                  "modified_availability_impact": {
+                    "N": "0.22"
+                  },
+                  "report_confidence": {
+                    "N": "0.92"
+                  },
+                  "modified_integrity_impact": {
+                    "N": "0.22"
+                  },
+                  "attack_vector": {
+                    "N": "0.62"
+                  },
+                  "modified_attack_complexity": {
+                    "N": "0.44"
+                  },
+                  "privileges_required": {
+                    "N": "0.62"
+                  },
+                  "availability_impact": {
+                    "N": "0.22"
+                  },
+                  "modified_privileges_required": {
+                    "N": "0.62"
+                  },
+                  "confidentiality_requirement": {
+                    "N": "1"
+                  },
+                  "modified_attack_vector": {
+                    "N": "0.62"
+                  },
+                  "user_interaction": {
+                    "N": "0.85"
+                  },
+                  "confidentiality_impact": {
+                    "N": "0.22"
+                  },
+                  "exploitability": {
+                    "N": "0.94"
+                  },
+                  "remediation_level": {
+                    "N": "0.96"
+                  },
+                  "severity_scope": {
+                    "N": "0"
+                  },
+                  "availability_requirement": {
+                    "N": "1"
+                  }
+                }
+              },
+              "requirements": {
+                "S": "REQ.0077. La aplicación no debe revelar detalles del sistema interno como stack traces, fragmentos de sentencias SQL y nombres de base de datos o tablas.\r\nREQ.0176. El sistema debe restringir el acceso a objetos del sistema que tengan contenido sensible. Sólo permitirá su acceso a usuarios autorizados."
+              },
+              "group_name": {
+                "S": "unittesting"
+              },
+              "description": {
+                "S": "Descripción de fuga de información técnica"
+              },
+              "recommendation": {
+                "S": "Eliminar el banner de los servicios con fuga de información, Verificar que los encabezados HTTP no expongan ningún nombre o versión."
+              },
+              "title": {
+                "S": "037. Technical information leak"
+              },
+              "type": {
+                "S": "HYGIENE"
+              },
+              "actor": {
+                "S": "ANYONE_INTERNET"
+              },
+              "analyst_email": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "bug_tracking_system_url": {
+                "S": ""
+              },
+              "cvss_version": {
+                "S": "3.1"
+              },
+              "affected_systems": {
+                "S": "Sistema"
+              },
+              "compromised_attributes": {
+                "S": ""
+              },
+              "scenario": {
+                "S": "AUTHORIZED_USER_INTERNET"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "compromised_records": {
+                "N": "0"
+              },
+              "risk": {
+                "S": ""
+              },
+              "pk": {
+                "S": "FIN#457497316"
+              },
+              "id": {
+                "S": "457497316"
+              },
+              "threat": {
+                "S": "Amenaza."
+              },
+              "evidences": {
+                "M": {
+                  "evidence3": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2018-11-27T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "Comentario"
+                      },
+                      "url": {
+                        "S": "unittesting-457497316-evidence_route_3.png"
+                      }
+                    }
+                  },
+                  "evidence2": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2018-11-27T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "test"
+                      },
+                      "url": {
+                        "S": "unittesting-457497316-evidence_route_2.jpg"
+                      }
+                    }
+                  }
+                }
+              },
+              "sorts": {
+                "S": "NO"
+              },
+              "attack_vector_description": {
+                "S": "Descripción"
+              }
+            },
+            {
+              "severity": {
+                "M": {
+                  "attack_complexity": {
+                    "N": "0.44"
+                  },
+                  "integrity_impact": {
+                    "N": "0"
+                  },
+                  "integrity_requirement": {
+                    "N": "1"
+                  },
+                  "modified_confidentiality_impact": {
+                    "N": "0.22"
+                  },
+                  "modified_user_interaction": {
+                    "N": "0.62"
+                  },
+                  "modified_severity_scope": {
+                    "N": "0"
+                  },
+                  "modified_availability_impact": {
+                    "N": "0.22"
+                  },
+                  "report_confidence": {
+                    "N": "0.96"
+                  },
+                  "modified_integrity_impact": {
+                    "N": "0"
+                  },
+                  "attack_vector": {
+                    "N": "0.62"
+                  },
+                  "modified_attack_complexity": {
+                    "N": "0.44"
+                  },
+                  "privileges_required": {
+                    "N": "0.85"
+                  },
+                  "availability_impact": {
+                    "N": "0.22"
+                  },
+                  "modified_privileges_required": {
+                    "N": "0.85"
+                  },
+                  "confidentiality_requirement": {
+                    "N": "1.5"
+                  },
+                  "modified_attack_vector": {
+                    "N": "0.62"
+                  },
+                  "user_interaction": {
+                    "N": "0.62"
+                  },
+                  "confidentiality_impact": {
+                    "N": "0.22"
+                  },
+                  "exploitability": {
+                    "N": "0.94"
+                  },
+                  "remediation_level": {
+                    "N": "0.95"
+                  },
+                  "severity_scope": {
+                    "N": "0"
+                  },
+                  "availability_requirement": {
+                    "N": "1"
+                  }
+                }
+              },
+              "requirements": {
+                "S": "REQ.0173. El sistema debe descartar toda la informacion potencialmente insegura que sea recibida por entradas de datos."
+              },
+              "group_name": {
+                "S": "unittesting"
+              },
+              "description": {
+                "S": "La aplicaciofectada permite la inyeccio de coo XML que es ejecutado de forma remota y permite la exfiltracio de archivos o ejecucioemota de comandos en el servidor."
+              },
+              "recommendation": {
+                "S": "Filtrar la informacioue recibe y envia la aplicacioor medio de listas blancas"
+              },
+              "title": {
+                "S": "083. XML injection (XXE)"
+              },
+              "type": {
+                "S": "SECURITY"
+              },
+              "actor": {
+                "S": "ANY_EMPLOYEE"
+              },
+              "analyst_email": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "bug_tracking_system_url": {
+                "S": ""
+              },
+              "cvss_version": {
+                "S": "3.1"
+              },
+              "affected_systems": {
+                "S": "test"
+              },
+              "compromised_attributes": {
+                "S": "0"
+              },
+              "scenario": {
+                "S": "ANONYMOUS_INTERNET"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "compromised_records": {
+                "N": "1"
+              },
+              "risk": {
+                "S": ""
+              },
+              "pk": {
+                "S": "FIN#463461507"
+              },
+              "id": {
+                "S": "463461507"
+              },
+              "threat": {
+                "S": "<i>test</i>"
+              },
+              "evidences": {
+                "M": {
+                  "evidence2": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2019-01-10T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "A2 test"
+                      },
+                      "url": {
+                        "S": "unittesting-463461507-evidence_route_2.jpg"
+                      }
+                    }
+                  },
+                  "evidence3": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2019-01-10T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "123A"
+                      },
+                      "url": {
+                        "S": "unittesting-463461507-evidence_route_3.png"
+                      }
+                    }
+                  },
+                  "evidence4": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2019-01-10T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "AAA1"
+                      },
+                      "url": {
+                        "S": "unittesting-463461507-evidence_route_4.png"
+                      }
+                    }
+                  },
+                  "evidence5": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2019-01-10T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "sdasdasda"
+                      },
+                      "url": {
+                        "S": "unittesting-463461507-evidence_route_5.png"
+                      }
+                    }
+                  }
+                }
+              },
+              "sorts": {
+                "S": "NO"
+              },
+              "attack_vector_description": {
+                "S": "Test attack vector."
+              }
+            },
+            {
+              "severity": {
+                "M": {
+                  "attack_complexity": {
+                    "N": "0.44"
+                  },
+                  "integrity_impact": {
+                    "N": "0.22"
+                  },
+                  "integrity_requirement": {
+                    "N": "1.5"
+                  },
+                  "modified_confidentiality_impact": {
+                    "N": "0.56"
+                  },
+                  "modified_user_interaction": {
+                    "N": "0.62"
+                  },
+                  "modified_severity_scope": {
+                    "N": "0"
+                  },
+                  "modified_availability_impact": {
+                    "N": "0"
+                  },
+                  "report_confidence": {
+                    "N": "0.96"
+                  },
+                  "modified_integrity_impact": {
+                    "N": "0.22"
+                  },
+                  "attack_vector": {
+                    "N": "0.62"
+                  },
+                  "modified_attack_complexity": {
+                    "N": "0.44"
+                  },
+                  "privileges_required": {
+                    "N": "0.62"
+                  },
+                  "availability_impact": {
+                    "N": "0"
+                  },
+                  "modified_privileges_required": {
+                    "N": "0.62"
+                  },
+                  "confidentiality_requirement": {
+                    "N": "1"
+                  },
+                  "modified_attack_vector": {
+                    "N": "0.62"
+                  },
+                  "user_interaction": {
+                    "N": "0.62"
+                  },
+                  "confidentiality_impact": {
+                    "N": "0.56"
+                  },
+                  "exploitability": {
+                    "N": "0.91"
+                  },
+                  "remediation_level": {
+                    "N": "0.95"
+                  },
+                  "severity_scope": {
+                    "N": "0"
+                  },
+                  "availability_requirement": {
+                    "N": "1"
+                  }
+                }
+              },
+              "requirements": {
+                "S": "REQ.0174. La aplicación debe garantizar que las peticiones que ejecuten transacciones no sigan un patrón discernible."
+              },
+              "group_name": {
+                "S": "unittesting"
+              },
+              "description": {
+                "S": "La aplicación permite engañar a un usuario autenticado por medio de links manipulados para ejecutar acciones sobre la aplicación sin su consentimiento.."
+              },
+              "recommendation": {
+                "S": "Hacer uso de tokens en los formularios para la verificación de las peticiones realizadas por usuarios legítimos.\r\n"
+              },
+              "title": {
+                "S": "007. Cross-site request forgery"
+              },
+              "type": {
+                "S": "SECURITY"
+              },
+              "actor": {
+                "S": "ANY_COSTUMER"
+              },
+              "analyst_email": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "bug_tracking_system_url": {
+                "S": ""
+              },
+              "cvss_version": {
+                "S": "3.1"
+              },
+              "affected_systems": {
+                "S": "test"
+              },
+              "compromised_attributes": {
+                "S": ""
+              },
+              "scenario": {
+                "S": "AUTHORIZED_USER_EXTRANET"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "compromised_records": {
+                "N": "0"
+              },
+              "risk": {
+                "S": ""
+              },
+              "pk": {
+                "S": "FIN#463558592"
+              },
+              "id": {
+                "S": "463558592"
+              },
+              "threat": {
+                "S": "Test."
+              },
+              "evidences": {
+                "M": {
+                  "evidence1": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2018-12-17T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "test"
+                      },
+                      "url": {
+                        "S": "unittesting-463558592-evidence_route_1.png"
+                      }
+                    }
+                  },
+                  "evidence2": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2018-12-17T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "Test2"
+                      },
+                      "url": {
+                        "S": "unittesting-463558592-evidence_route_2.jpg"
+                      }
+                    }
+                  },
+                  "evidence3": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2018-12-17T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "Test3"
+                      },
+                      "url": {
+                        "S": "unittesting-463558592-evidence_route_3.png"
+                      }
+                    }
+                  },
+                  "evidence4": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2018-12-17T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "An error"
+                      },
+                      "url": {
+                        "S": "unittesting-463558592-evidence_route_4.png"
+                      }
+                    }
+                  },
+                  "evidence5": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2018-12-17T05:00:00+00:00"
+                      },
+                      "description": {
+                        "S": "4"
+                      },
+                      "url": {
+                        "S": "unittesting-463558592-evidence_route_5.png"
+                      }
+                    }
+                  }
+                }
+              },
+              "sorts": {
+                "S": "NO"
+              },
+              "attack_vector_description": {
+                "S": "test"
+              }
+            },
+            {
+              "severity": {
+                "M": {
+                  "attack_complexity": {
+                    "N": "0.44"
+                  },
+                  "integrity_impact": {
+                    "N": "0"
+                  },
+                  "integrity_requirement": {
+                    "N": "1"
+                  },
+                  "modified_confidentiality_impact": {
+                    "N": "0.22"
+                  },
+                  "modified_user_interaction": {
+                    "N": "0.62"
+                  },
+                  "modified_severity_scope": {
+                    "N": "0"
+                  },
+                  "modified_availability_impact": {
+                    "N": "0.22"
+                  },
+                  "report_confidence": {
+                    "N": "0.96"
+                  },
+                  "modified_integrity_impact": {
+                    "N": "0"
+                  },
+                  "attack_vector": {
+                    "N": "0.62"
+                  },
+                  "modified_attack_complexity": {
+                    "N": "0.44"
+                  },
+                  "privileges_required": {
+                    "N": "0.85"
+                  },
+                  "availability_impact": {
+                    "N": "0.22"
+                  },
+                  "modified_privileges_required": {
+                    "N": "0.85"
+                  },
+                  "confidentiality_requirement": {
+                    "N": "1.5"
+                  },
+                  "modified_attack_vector": {
+                    "N": "0.62"
+                  },
+                  "user_interaction": {
+                    "N": "0.62"
+                  },
+                  "confidentiality_impact": {
+                    "N": "0.22"
+                  },
+                  "exploitability": {
+                    "N": "0.94"
+                  },
+                  "remediation_level": {
+                    "N": "0.95"
+                  },
+                  "severity_scope": {
+                    "N": "0"
+                  },
+                  "availability_requirement": {
+                    "N": "1"
+                  }
+                }
+              },
+              "requirements": {
+                "S": "REQ.0173. El sistema debe descartar toda la informacion potencialmente insegura que sea recibida por entradas de datos."
+              },
+              "group_name": {
+                "S": "unittesting"
+              },
+              "description": {
+                "S": "La aplicación afectada permite la inyeccio de coo XML que es ejecutado de forma remota y permite la exfiltracio de archivos o ejecucioemota de comandos en el servidor."
+              },
+              "recommendation": {
+                "S": "Filtrar la informacioue recibe y envia la aplicacion medio de listas blancas"
+              },
+              "title": {
+                "S": "006. Authentication mechanism absence or evasion"
+              },
+              "type": {
+                "S": "SECURITY"
+              },
+              "actor": {
+                "S": "ANY_EMPLOYEE"
+              },
+              "analyst_email": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "bug_tracking_system_url": {
+                "S": ""
+              },
+              "cvss_version": {
+                "S": "3.1"
+              },
+              "affected_systems": {
+                "S": "test"
+              },
+              "compromised_attributes": {
+                "S": "0"
+              },
+              "scenario": {
+                "S": "ANONYMOUS_INTERNET"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "compromised_records": {
+                "N": "1"
+              },
+              "risk": {
+                "S": ""
+              },
+              "pk": {
+                "S": "FIN#560175507"
+              },
+              "id": {
+                "S": "560175507"
+              },
+              "threat": {
+                "S": "<i>test</i>"
+              },
+              "evidences": {
+                "M": {}
+              },
+              "sorts": {
+                "S": "NO"
+              },
+              "attack_vector_description": {
+                "S": "Test attack vector."
+              }
+            },
+            {
+              "severity": {
+                "M": {
+                  "attack_complexity": {
+                    "N": "0.77"
+                  },
+                  "integrity_impact": {
+                    "N": "0.22"
+                  },
+                  "integrity_requirement": {
+                    "N": "1"
+                  },
+                  "modified_confidentiality_impact": {
+                    "N": "0"
+                  },
+                  "modified_user_interaction": {
+                    "N": "0.85"
+                  },
+                  "modified_severity_scope": {
+                    "N": "0"
+                  },
+                  "modified_availability_impact": {
+                    "N": "0"
+                  },
+                  "report_confidence": {
+                    "N": "0.96"
+                  },
+                  "modified_integrity_impact": {
+                    "N": "0"
+                  },
+                  "attack_vector": {
+                    "N": "0.85"
+                  },
+                  "modified_attack_complexity": {
+                    "N": "0.77"
+                  },
+                  "privileges_required": {
+                    "N": "0.85"
+                  },
+                  "availability_impact": {
+                    "N": "0.22"
+                  },
+                  "modified_privileges_required": {
+                    "N": "0.62"
+                  },
+                  "confidentiality_requirement": {
+                    "N": "1.5"
+                  },
+                  "modified_attack_vector": {
+                    "N": "0.55"
+                  },
+                  "user_interaction": {
+                    "N": "0.85"
+                  },
+                  "confidentiality_impact": {
+                    "N": "0.22"
+                  },
+                  "exploitability": {
+                    "N": "0.94"
+                  },
+                  "remediation_level": {
+                    "N": "0.95"
+                  },
+                  "severity_scope": {
+                    "N": "0"
+                  },
+                  "availability_requirement": {
+                    "N": "0.5"
+                  }
+                }
+              },
+              "requirements": {
+                "S": "REQ.0266. La organización debe deshabilitar las funciones inseguras de un sistema. (hardening de sistemas)"
+              },
+              "group_name": {
+                "S": "unittesting"
+              },
+              "description": {
+                "S": "Funcionalidad insegura description"
+              },
+              "recommendation": {
+                "S": "-"
+              },
+              "title": {
+                "S": "014. Insecure functionality"
+              },
+              "type": {
+                "S": "SECURITY"
+              },
+              "actor": {
+                "S": ""
+              },
+              "analyst_email": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "bug_tracking_system_url": {
+                "S": ""
+              },
+              "cvss_version": {
+                "S": "3.1"
+              },
+              "affected_systems": {
+                "S": ""
+              },
+              "compromised_attributes": {
+                "S": ""
+              },
+              "scenario": {
+                "S": ""
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "compromised_records": {
+                "N": "0"
+              },
+              "risk": {
+                "S": ""
+              },
+              "pk": {
+                "S": "FIN#988493279"
+              },
+              "id": {
+                "S": "988493279"
+              },
+              "threat": {
+                "S": ""
+              },
+              "evidences": {
+                "M": {
+                  "exploitation": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2019-04-08T00:45:15+00:00"
+                      },
+                      "description": {
+                        "S": ""
+                      },
+                      "url": {
+                        "S": "unittesting-988493279-exploitation.png"
+                      }
+                    }
+                  }
+                }
+              },
+              "sorts": {
+                "S": "NO"
+              },
+              "attack_vector_description": {
+                "S": ""
               }
             }
           ],

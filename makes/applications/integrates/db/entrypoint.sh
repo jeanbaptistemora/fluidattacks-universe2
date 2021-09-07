@@ -29,6 +29,7 @@ function populate {
     && if test "${api_status}" == 'migration'; then
       included_facets+=(
         "finding_id"
+        "finding_metadata"
       ) \
       excluded_data_files+=(
         "findings"
