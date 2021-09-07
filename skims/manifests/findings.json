@@ -415,6 +415,14 @@
       "title": "160. Excessive privileges - Temporary Files"
     }
   },
+  "F211": {
+    "EN": {
+      "title": "211. Asymmetric denial of service - ReDoS"
+    },
+    "ES": {
+      "title": "211. Asymmetric denial of service - ReDoS"
+    }
+  },
   "F320": {
     "EN": {
       "title": "320. Insecure service configuration - LDAP"
