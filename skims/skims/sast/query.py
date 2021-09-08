@@ -9,8 +9,10 @@ import os
 from sast_symbolic_evaluation.evaluate import (
     get_all_possible_syntax_steps,
     get_possible_syntax_steps_for_finding,
+    get_possible_syntax_steps_for_n_id,
     PossibleSyntaxStepLinear,
     PossibleSyntaxStepsForFinding,
+    PossibleSyntaxStepsForUntrustedNId,
 )
 from typing import (
     Dict,
@@ -137,7 +139,18 @@ def get_vulnerabilities_from_syntax(
     )
 
 
-def specific_query_lazy(
+def shard_n_id_query_lazy(
+    graph_db: graph_model.GraphDB,
+    finding: core_model.FindingEnum,
+    shard: graph_model.GraphShard,
+    syntax_steps_n_id: PossibleSyntaxStepsForUntrustedNId,
+) -> Iterator[core_model.Vulnerabilities]:
+    for syntax_steps in syntax_steps_n_id.values():
+        steps = PossibleSyntaxStepLinear(finding, shard.path, syntax_steps)
+        yield get_vulnerabilities_from_syntax(graph_db, finding, steps)
+
+
+def shard_query_lazy(
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,
     shard: graph_model.GraphShard,
@@ -146,18 +159,41 @@ def specific_query_lazy(
 
     if possible_steps_finding is None:
         possible_steps_finding = get_possible_syntax_steps_for_finding(
-            graph_db,
-            finding,
-            shard,
+            graph_db, finding, shard
         )
 
-    for syntax_steps_n_id in possible_steps_finding.values():
-        for syntax_steps in syntax_steps_n_id.values():
-            yield get_vulnerabilities_from_syntax(
-                graph_db,
-                finding,
-                PossibleSyntaxStepLinear(finding, shard.path, syntax_steps),
-            )
+    for steps_n_id in possible_steps_finding.values():
+        yield from shard_n_id_query_lazy(graph_db, finding, shard, steps_n_id)
+
+
+def shard_n_id_query(
+    graph_db: graph_model.GraphDB,
+    finding: core_model.FindingEnum,
+    shard: graph_model.GraphShard,
+    n_id: str,
+) -> core_model.Vulnerabilities:
+    steps = get_possible_syntax_steps_for_n_id(
+        graph_db,
+        finding=finding,
+        n_id=n_id,
+        shard=shard,
+        only_sinks=True,
+    )
+    return tuple(
+        chain.from_iterable(
+            shard_n_id_query_lazy(graph_db, finding, shard, steps)
+        )
+    )
+
+
+def shard_query(
+    graph_db: graph_model.GraphDB,
+    finding: core_model.FindingEnum,
+    shard: graph_model.GraphShard,
+) -> core_model.Vulnerabilities:
+    return tuple(
+        chain.from_iterable(shard_query_lazy(graph_db, finding, shard))
+    )
 
 
 def query_lazy(
@@ -168,22 +204,12 @@ def query_lazy(
         all_possible_steps = get_all_possible_syntax_steps(graph_db, finding)
 
     for shard in graph_db.shards:
-        yield from specific_query_lazy(
+        yield from shard_query_lazy(
             graph_db,
             finding,
             shard,
             all_possible_steps[shard.path] if CTX.debug else None,
         )
-
-
-def specific_query(
-    graph_db: graph_model.GraphDB,
-    finding: core_model.FindingEnum,
-    shard: graph_model.GraphShard,
-) -> core_model.Vulnerabilities:
-    return tuple(
-        chain.from_iterable(specific_query_lazy(graph_db, finding, shard))
-    )
 
 
 def query(
