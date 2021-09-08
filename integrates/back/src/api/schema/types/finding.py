@@ -62,6 +62,7 @@ from api.resolvers.finding_new import (
     verified_new,
     vulnerabilities_new,
     vulnerabilities_to_reattack_new,
+    where_new,
     zero_risk_new,
 )
 from ariadne import (
@@ -115,6 +116,7 @@ if FI_API_STATUS == "migration":
     FINDING.set_field(
         "vulnerabilitiesToReattack", vulnerabilities_to_reattack_new.resolve
     )
+    FINDING.set_field("where", where_new.resolve)
     FINDING.set_field("zeroRisk", zero_risk_new.resolve)
     # --------------------------Deprecated fields------------------------------
     FINDING.set_field("analyst", hacker_new.resolve)
