@@ -427,7 +427,7 @@
         <img alt="Findings logo"
           src="https://mcusercontent.com/a32e6c9ce2902c975d3ea510c/images/48b502a4-b33f-4a29-be67-66e87147d669.png">
         <h4>
-          Oldest and Severest Findings
+          Oldest and Most Severe Findings
           <span style="display: none;">{{ hash }}</span>
         </h4>
       </div>
@@ -466,7 +466,7 @@
                       text-overflow: ellipsis !important;
                       font-size: 14px;">
                 {%- if finding['oldest_name'] == finding['severest_name'] -%}
-                &nbsp;&nbsp;(also the severest)
+                &nbsp;&nbsp;(also the most severe)
                 {%- else %}
                 {{ finding['severest_name']|truncate(60, True, '...', 3) }}
                 {%- endif -%}
