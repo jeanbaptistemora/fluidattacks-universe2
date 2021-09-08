@@ -461,6 +461,9 @@ BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
             "System.Web.HttpResponse": {
                 "Write",
             },
+            "Response": {
+                "send",
+            },
         }
     ),
     core_model.FindingEnum.F089.name: complete_attrs_on_dict(

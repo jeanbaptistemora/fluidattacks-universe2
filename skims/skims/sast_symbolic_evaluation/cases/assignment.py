@@ -130,7 +130,7 @@ def evaluate(args: EvaluatorArgs) -> None:
     javscript_evaluate_assignment(args)
 
     var, field = split_on_first_dot(args.syntax_step.var)
-    [dependency] = args.dependencies
+    dependency = args.dependencies[0]
 
     if not args.syntax_step.meta.danger:
         args.syntax_step.meta.danger = dependency.meta.danger

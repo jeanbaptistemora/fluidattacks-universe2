@@ -21,8 +21,8 @@ makeEntrypoint {
       sha256 = "gVY9VPo0+2xHdbME61MH/JaMP8pyqWh5k7im3O8hNAc=";
     };
     envVulnerableJsAppRepo = fetchzip {
-      url = "https://github.com/fluidattacks/vulnerable_js_app/archive/670f73241e8ed2e8153d11bada6f0765c58b4f73.tar.gz";
-      sha256 = "1lvyxzd96icc2z6ld4aw4n7albh0yfw67sjpk35dcrc2pcps1mrb";
+      url = "https://github.com/fluidattacks/vulnerable_js_app/archive/d9c62c77accc8151e1a636134dbee91f2d9f3f12.tar.gz";
+      sha256 = "1kijp5b8sjkvha6zlwh4lxzj6l8vfzzb6qijgvv00diq6b01yapf";
     };
   };
   name = "skims-test";
