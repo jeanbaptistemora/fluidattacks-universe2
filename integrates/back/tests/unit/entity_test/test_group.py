@@ -963,12 +963,14 @@ async def test_update_git_root() -> None:
     query = """
       mutation {
         updateGitRoot(
+          branch: "develop"
           environment: "staging"
           gitignore: []
           groupName: "unittesting"
           id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
           includesHealthCheck: false
           nickname: "randomNick"
+          url: "https://gitlab.com/fluidattacks/integrates"
         ) {
           success
         }
@@ -984,12 +986,14 @@ async def test_update_git_root_nonexistent() -> None:
     query = """
       mutation {
         updateGitRoot(
+          branch: ""
           environment: "Test"
           gitignore: []
           groupName: "unittesting"
           id: "some-thing"
           includesHealthCheck: false
           nickname: "unique2"
+          url: ""
         ) {
           success
         }

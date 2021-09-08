@@ -382,37 +382,56 @@ async def update_git_environments(
     )
 
 
+async def has_open_vulns(
+    root: GitRootItem, context: Any, group_name: str
+) -> bool:
+    return await roots_dal.has_open_vulns(
+        nickname=root.state.nickname, context=context, group_name=group_name
+    )
+
+
 async def update_git_root(
     context: Any, user_email: str, **kwargs: Any
 ) -> None:
     root_id: str = kwargs["id"]
     group_name: str = kwargs["group_name"]
-    root_loader: DataLoader = context.root
-    root = await root_loader.load((group_name, root_id))
+    root = await context.root.load((group_name, root_id))
 
     if not isinstance(root, GitRootItem):
         raise InvalidParameter()
 
+    if root.state.status != "ACTIVE":
+        raise InvalidParameter()
+
+    url: str = kwargs["url"]
+    branch: str = kwargs["branch"]
+    if url != root.state.url or branch != root.state.branch:
+        if has_open_vulns(root, context, group_name):
+            raise InvalidParameter()
+        group = await context.group.load(group_name)
+        if not validations.is_git_unique(
+            url,
+            branch,
+            await get_org_roots(context=context, org_id=group["organization"]),
+        ):
+            raise RepeatedRoot()
+
     gitignore = kwargs["gitignore"]
-    filter_changed: bool = gitignore != root.state.gitignore
     enforcer = await authz.get_group_level_enforcer(user_email)
-    if filter_changed and not enforcer(group_name, "update_git_root_filter"):
+    if gitignore != root.state.gitignore and not enforcer(
+        group_name, "update_git_root_filter"
+    ):
         raise PermissionDenied()
     if not validations.is_exclude_valid(gitignore, root.state.url):
         raise InvalidRootExclusion()
 
-    if root.state.status != "ACTIVE":
-        raise InvalidParameter()
-
     nickname = _format_root_nickname(
         kwargs.get("nickname", ""), root.state.url
     )
-
     validations.validate_nickname(nickname)
-    group_roots_loader = context.group_roots
     validations.validate_nickname_is_unique(
         nickname,
-        await group_roots_loader.load(group_name),
+        await context.group_roots.load(group_name),
         old_nickname=root.state.nickname,
     )
 
@@ -420,7 +439,7 @@ async def update_git_root(
         group_name=group_name,
         root_id=root_id,
         state=GitRootState(
-            branch=root.state.branch,
+            branch=branch,
             environment=kwargs["environment"],
             environment_urls=root.state.environment_urls,
             git_environment_urls=[
@@ -435,7 +454,7 @@ async def update_git_root(
             other=None,
             reason=None,
             status=root.state.status,
-            url=root.state.url,
+            url=url,
         ),
     )
 
@@ -473,14 +492,6 @@ async def update_root_cloning_status(
         ),
         group_name=group_name,
         root_id=root_id,
-    )
-
-
-async def has_open_vulns(
-    root: GitRootItem, context: Any, group_name: str
-) -> bool:
-    return await roots_dal.has_open_vulns(
-        nickname=root.state.nickname, context=context, group_name=group_name
     )
 
 
