@@ -223,6 +223,55 @@ def get_last_status(vuln: Dict[str, FindingType]) -> str:
     return historic_state[-1].get("state", "")
 
 
+def get_mean_remediate_vulnerabilities_cvssf(
+    vulns: List[Dict[str, FindingType]],
+    finding_cvssf: Dict[str, Decimal],
+    min_date: Optional[datetype] = None,
+) -> Decimal:
+    total_days: Decimal = Decimal("0.0")
+    open_vuln_dates = [
+        get_open_vulnerability_date(vuln, min_date) for vuln in vulns
+    ]
+    filtered_open_vuln_dates = [vuln for vuln in open_vuln_dates if vuln]
+    closed_vuln_dates: List[Tuple[Optional[datetype], Decimal]] = [
+        (
+            get_last_closing_date(vuln, min_date),
+            finding_cvssf[vuln["finding_id"]],
+        )
+        for vuln, open_vuln in zip(vulns, open_vuln_dates)
+        if open_vuln
+    ]
+    for index, closed_vuln_date in enumerate(closed_vuln_dates):
+        if closed_vuln_date[0] is not None:
+            total_days += Decimal(
+                (closed_vuln_date[0] - filtered_open_vuln_dates[index]).days
+                * closed_vuln_date[1]
+            )
+        else:
+            current_day = datetime_utils.get_now().date()
+            total_days += Decimal(
+                (current_day - filtered_open_vuln_dates[index]).days
+                * closed_vuln_date[1]
+            )
+    total_cvssf: Decimal = Decimal(
+        sum(
+            [
+                finding_cvssf[vuln["finding_id"]]
+                for vuln, open_date in zip(vulns, open_vuln_dates)
+                if open_date
+            ]
+        )
+    )
+    if total_cvssf:
+        mean_vulnerabilities = Decimal(total_days / total_cvssf).quantize(
+            Decimal("0.001")
+        )
+    else:
+        mean_vulnerabilities = Decimal(0).quantize(Decimal("0.1"))
+
+    return mean_vulnerabilities
+
+
 def get_mean_remediate_vulnerabilities(
     vulns: List[Dict[str, FindingType]], min_date: Optional[datetype] = None
 ) -> Decimal:

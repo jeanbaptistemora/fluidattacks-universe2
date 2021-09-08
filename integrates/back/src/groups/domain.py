@@ -980,6 +980,37 @@ async def get_mean_remediate_non_treated_new(
     )
 
 
+async def get_mean_remediate_severity_cvssf(
+    loaders: Any,
+    group_name: str,
+    min_severity: Decimal,
+    max_severity: Decimal,
+    min_date: Optional[date] = None,
+) -> Decimal:
+    group_findings = await loaders.group_findings.load(group_name.lower())
+    group_findings_ids = [
+        finding["finding_id"]
+        for finding in group_findings
+        if (
+            min_severity
+            <= Decimal(finding.get("cvss_temporal", 0))
+            <= max_severity
+        )
+    ]
+    finding_cvssf: Dict[str, Decimal] = {
+        str(finding["finding_id"]): vulns_utils.get_cvssf(
+            Decimal(finding.get("cvss_temporal", 0.0))
+        )
+        for finding in group_findings
+    }
+    findings_vulns = await loaders.finding_vulns_nzr.load_many_chained(
+        group_findings_ids
+    )
+    return vulns_utils.get_mean_remediate_vulnerabilities_cvssf(
+        findings_vulns, finding_cvssf, min_date
+    )
+
+
 async def get_mean_remediate_severity(
     context: Any,
     group_name: str,
