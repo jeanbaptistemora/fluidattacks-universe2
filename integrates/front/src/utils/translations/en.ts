@@ -347,6 +347,12 @@ export const enTranslations: ResourceKey = {
         editTooltip: "Modify the evidence for this event",
         noData: "There are no evidences",
       },
+      filtersTooltips: {
+        closingDate: "Filter by closing date",
+        date: "Filter by date",
+        status: "Filter by status",
+        type: "Filter by type",
+      },
       form: {
         accessibility: {
           environment: "Environment",

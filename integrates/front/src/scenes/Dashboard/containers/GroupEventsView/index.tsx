@@ -23,7 +23,11 @@ import type {
   IFilterProps,
   IHeaderConfig,
 } from "components/DataTableNext/types";
-import { filterSearchText, filterSelect } from "components/DataTableNext/utils";
+import {
+  filterDate,
+  filterSearchText,
+  filterSelect,
+} from "components/DataTableNext/utils";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
@@ -31,7 +35,10 @@ import {
   ADD_EVENT_MUTATION,
   GET_EVENTS,
 } from "scenes/Dashboard/containers/GroupEventsView/queries";
-import { formatEvents } from "scenes/Dashboard/containers/GroupEventsView/utils";
+import {
+  filterClosingDate,
+  formatEvents,
+} from "scenes/Dashboard/containers/GroupEventsView/utils";
 import type { IEventConfig } from "scenes/Dashboard/containers/GroupEventsView/utils";
 import globalStyle from "styles/global.css";
 import {
@@ -142,6 +149,8 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   const [searchTextFilter, setSearchTextFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
+  const [dateFilter, setDateFilter] = useState("");
+  const [closingDateFilter, setClosingDateFilter] = useState("");
 
   const handleUpdateCustomFilter: () => void = useCallback((): void => {
     setCustomFilterEnabled(!isCustomFilterEnabled);
@@ -385,20 +394,49 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     "eventType"
   );
 
+  function onDateChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    setDateFilter(event.target.value);
+  }
+  const filterDateResult: IEventConfig[] = filterDate(
+    dataset,
+    dateFilter,
+    "eventDate"
+  );
+
+  function onClosingDateChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setClosingDateFilter(event.target.value);
+  }
+  const filterClosingDateResult: IEventConfig[] = filterClosingDate(
+    dataset,
+    closingDateFilter
+  );
+
   const resultDataset: IEventConfig[] = _.intersection(
     filterSearchtextResult,
     filterStatusResult,
-    filterTypeResult
+    filterTypeResult,
+    filterDateResult,
+    filterClosingDateResult
   );
 
   const customFiltersProps: IFilterProps[] = [
+    {
+      defaultValue: dateFilter,
+      onChangeInput: onDateChange,
+      placeholder: "Date",
+      tooltipId: "group.events.filtersTooltips.date.id",
+      tooltipMessage: "group.events.filtersTooltips.date",
+      type: "date",
+    },
     {
       defaultValue: typeFilter,
       onChangeSelect: onTypeChange,
       placeholder: "Type",
       selectOptions: optionType,
-      tooltipId: "group.findings.filtersTooltips.status.id",
-      tooltipMessage: "group.findings.filtersTooltips.status",
+      tooltipId: "group.events.filtersTooltips.type.id",
+      tooltipMessage: "group.events.filtersTooltips.type",
       type: "select",
     },
     {
@@ -409,9 +447,17 @@ const GroupEventsView: React.FC = (): JSX.Element => {
         Solved: "Solved",
         Unsolved: "Unsolved",
       },
-      tooltipId: "group.findings.filtersTooltips.status.id",
-      tooltipMessage: "group.findings.filtersTooltips.status",
+      tooltipId: "group.events.filtersTooltips.status.id",
+      tooltipMessage: "group.events.filtersTooltips.status",
       type: "select",
+    },
+    {
+      defaultValue: closingDateFilter,
+      onChangeInput: onClosingDateChange,
+      placeholder: "Closing date",
+      tooltipId: "group.events.filtersTooltips.closingDate.id",
+      tooltipMessage: "group.events.filtersTooltips.closingDate",
+      type: "date",
     },
   ];
 

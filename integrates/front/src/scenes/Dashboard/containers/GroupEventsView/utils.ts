@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 import {
   castActionBeforeBlocking,
   castAffectedComponents,
@@ -7,7 +9,7 @@ import {
 } from "utils/formatHelpers";
 import { translate } from "utils/translations/translate";
 
-export interface IEventConfig {
+interface IEventConfig {
   accessibility: string;
   actionBeforeBlocking: string;
   affectedComponents: string;
@@ -15,7 +17,7 @@ export interface IEventConfig {
   eventType: string;
 }
 
-export const formatEvents: (dataset: IEventConfig[]) => IEventConfig[] = (
+const formatEvents: (dataset: IEventConfig[]) => IEventConfig[] = (
   dataset: IEventConfig[]
 ): IEventConfig[] =>
   dataset.map((event: IEventConfig): IEventConfig => {
@@ -40,3 +42,25 @@ export const formatEvents: (dataset: IEventConfig[]) => IEventConfig[] = (
       eventType,
     };
   });
+
+function filterClosingDate(
+  rows: IEventConfig[],
+  currentDate: string
+): IEventConfig[] {
+  const selectedDate = new Date(currentDate);
+
+  return rows.filter(
+    (row: IEventConfig & { closingDate?: string }): boolean => {
+      if (currentDate !== "" && row.closingDate === "-") return false;
+      const reportDate = new Date(row.closingDate ?? "");
+
+      return _.isEmpty(currentDate)
+        ? true
+        : selectedDate.getUTCDate() === reportDate.getUTCDate() &&
+            selectedDate.getUTCMonth() === reportDate.getUTCMonth() &&
+            selectedDate.getUTCFullYear() === reportDate.getUTCFullYear();
+    }
+  );
+}
+
+export { filterClosingDate, formatEvents, IEventConfig };
