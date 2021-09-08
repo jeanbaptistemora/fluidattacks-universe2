@@ -15,6 +15,7 @@ from db_model.findings.types import (
     FindingEvidences,
     FindingState,
     FindingStatus,
+    FindingTreatmentSummary,
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
 )
@@ -169,6 +170,12 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     unreliable_open_vulnerabilities=5,
                     unreliable_report_date="2018-04-01T05:45:00+00:00",
                     unreliable_status=FindingStatus.OPEN,
+                    unreliable_treatment_summary=FindingTreatmentSummary(
+                        accepted=1,
+                        accepted_undefined=2,
+                        in_progress=3,
+                        new=4,
+                    ),
                 ),
             },
         ],

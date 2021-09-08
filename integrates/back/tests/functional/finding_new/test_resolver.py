@@ -151,6 +151,12 @@ async def test_get_finding(populate: bool, email: str) -> None:
             "justification": "justification",
         },
     ]
+    treatment_summary: Dict[str, int] = {
+        "accepted": 1,
+        "acceptedUndefined": 2,
+        "inProgress": 3,
+        "new": 4,
+    }
     result: Dict[str, Any] = await get_result(
         user=email, finding_id=finding_id
     )
@@ -239,6 +245,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["threat"] == threat
     assert result["data"]["finding"]["title"] == title
     assert result["data"]["finding"]["tracking"] == tracking
+    assert result["data"]["finding"]["treatmentSummary"] == treatment_summary
     assert result["data"]["finding"]["type"] == finding_type
     assert result["data"]["finding"]["verified"] == verified
     assert result["data"]["finding"]["vulnsToReattack"] == []
@@ -365,6 +372,12 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
             "justification": "justification",
         },
     ]
+    treatment_summary: Dict[str, int] = {
+        "accepted": 1,
+        "acceptedUndefined": 2,
+        "inProgress": 3,
+        "new": 4,
+    }
     result: Dict[str, Any] = await get_result(
         user=email, finding_id=finding_id
     )
@@ -445,6 +458,7 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["threat"] == threat
     assert result["data"]["finding"]["title"] == title
     assert result["data"]["finding"]["tracking"] == tracking
+    assert result["data"]["finding"]["treatmentSummary"] == treatment_summary
     assert result["data"]["finding"]["type"] == finding_type
     assert result["data"]["finding"]["verified"] == verified
     assert result["data"]["finding"]["vulnsToReattack"] == []

@@ -83,6 +83,12 @@ async def get_result(
                 threat
                 title
                 tracking
+                treatmentSummary {{
+                    accepted
+                    acceptedUndefined
+                    inProgress
+                    new
+                }}
                 type
                 verified
                 vulnerabilities {{
@@ -97,6 +103,7 @@ async def get_result(
                 zeroRisk {{
                     id
                 }}
+                where
                 __typename
             }}
         }}
