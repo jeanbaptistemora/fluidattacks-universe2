@@ -427,7 +427,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
               />
             </Col100>
           </RowCenter>
-          <Row>
+          <RowCenter>
             <Col50>
               <Graphic
                 bsHeight={160}
@@ -443,8 +443,22 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 title={translate.t("tagIndicator.undefinedTitle")}
               />
             </Col50>
-            <Col50 />
-          </Row>
+            <Col50>
+              <Graphic
+                bsHeight={160}
+                className={"g2"}
+                documentName={"vulnerabilitiesByTreatments"}
+                documentType={"pieChart"}
+                entity={entity}
+                generatorName={"generic"}
+                generatorType={"c3"}
+                infoLink={`${graphInfoLink}common#vulnerabilities-by-treatment`}
+                reportMode={reportMode}
+                subject={subject}
+                title={translate.t("tagIndicator.vulnerabilitiesByTreatments")}
+              />
+            </Col50>
+          </RowCenter>
         </div>
       ) : undefined}
       {doesEntityMatch("group", "organization", "portfolio") ? (
@@ -502,23 +516,27 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
               />
             </Col100>
           </RowCenter>
-          <Row>
-            <Col50>
-              <Graphic
-                bsHeight={160}
-                className={"g2"}
-                documentName={"vulnerabilitiesByTreatments"}
-                documentType={"pieChart"}
-                entity={entity}
-                generatorName={"generic"}
-                generatorType={"c3"}
-                infoLink={`${graphInfoLink}common#vulnerabilities-by-treatment`}
-                reportMode={reportMode}
-                subject={subject}
-                title={translate.t("tagIndicator.vulnerabilitiesByTreatments")}
-              />
-            </Col50>
-          </Row>
+          {doesEntityMatch("group", "organization") ? (
+            <Row>
+              <Col50>
+                <Graphic
+                  bsHeight={160}
+                  className={"g2"}
+                  documentName={"vulnerabilitiesByTreatments"}
+                  documentType={"pieChart"}
+                  entity={entity}
+                  generatorName={"generic"}
+                  generatorType={"c3"}
+                  infoLink={`${graphInfoLink}common#vulnerabilities-by-treatment`}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t(
+                    "tagIndicator.vulnerabilitiesByTreatments"
+                  )}
+                />
+              </Col50>
+            </Row>
+          ) : undefined}
           <RowCenter>
             <Col100>
               <Graphic
