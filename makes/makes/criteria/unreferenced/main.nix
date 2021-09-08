@@ -9,6 +9,11 @@ let
   lib = inputs.nixpkgs.lib;
 
   # Load data
+  compliance = fromYaml (
+    builtins.readFile (
+      projectPath "/makes/makes/criteria/src/compliance/data.yaml"
+    )
+  );
   requirements = fromYaml (
     builtins.readFile (
       projectPath "/makes/makes/criteria/src/requirements/data.yaml"
@@ -20,39 +25,47 @@ let
     )
   );
 
+  # List of all definitions in <standard>.<definition> format
+  definitions =
+    let
+      standardDefinitions = id: builtins.map
+        (def: "${id}.${def}")
+        (builtins.attrNames compliance.${id}.definitions);
+    in
+    lib.flatten (
+      builtins.attrValues (
+        builtins.mapAttrs (id: _: standardDefinitions id) compliance
+      )
+    );
+
   # List of referenced items
-  references = { field, data }: lib.lists.unique (
+  referenced = { field, data }: lib.lists.unique (
     lib.lists.flatten (
       builtins.map (x: x.${field}) (builtins.attrValues data)
     )
   );
 
-  # True if item id exists in data, false otherwise
-  isReferenced = { id, data }:
-    builtins.any (item: item == id) data;
-
   # List of unreferenced items
-  unreferenced = { field, referencedData, data }:
-    builtins.attrNames (
-      lib.filterAttrs
-        (id: _: ! isReferenced {
-          inherit id;
-          data = references {
-            inherit field;
-            data = referencedData;
-          };
-        })
-        data
-    );
+  unreferenced = { referencedItems, items }:
+    lib.subtractLists referencedItems items;
 
   # JSON output
   output = makeDerivation {
     env = {
       envUnreferenced = builtins.toJSON {
+        compliance = unreferenced {
+          referencedItems = referenced {
+            field = "references";
+            data = requirements;
+          };
+          items = definitions;
+        };
         requirements = unreferenced {
-          field = "requirements";
-          referencedData = vulnerabilities;
-          data = requirements;
+          referencedItems = referenced {
+            field = "requirements";
+            data = vulnerabilities;
+          };
+          items = builtins.attrNames requirements;
         };
       };
     };
