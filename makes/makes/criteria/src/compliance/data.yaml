@@ -1180,7 +1180,7 @@
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
     "9_2_2":
       title: User Access Provisioning
-      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
+      link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-x2:v1:en
     "9_2_3":
       title: Management of Privileged Access Rights
       link: https://www.iso.org/obp/ui/#iso:std:iso-iec:27001:ed-2:v1:en
@@ -2619,4 +2619,35 @@
     "12_3_8":
       title: Automatic disconnect of sessions for remote-access technologies after a specific period of inactivity
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
+  metadata: {}
+"015":
+  title: SOC2 ®
+  en:
+    description: >
+      These reports are intended
+      to meet the needs of a broad range
+      of users that need detailed information
+      and assurance about the controls
+      at a service organization relevant to security,
+      availability, and processing integrity
+      of the systems the service organization uses
+      to process users’ data and the confidentiality
+      and privacy of the information processed
+      by these systems. The version used
+      in this section is 2017 Trust Services Criteria
+      for Security, Availability, Processing Integrity,
+      Confidentiality, and Privacy,
+      last revisions made in March 2020.
+  es:
+    description: __empty__
+  definitions:
+    "CC2_3":
+      title: Communication and Information
+      link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
+    "CC5_1":
+      title: Control Activities
+      link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
+    "CC5_2":
+      title: Control Activities
+      link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
   metadata: {}

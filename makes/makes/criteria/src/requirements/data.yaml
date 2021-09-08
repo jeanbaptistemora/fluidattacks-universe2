@@ -1144,6 +1144,8 @@
     - "014.2_2_4"
     - "014.6_2"
     - "014.6_3"
+    - "015.CC5_1"
+    - "015.CC5_2"
   metadata: {}
 "072":
   en:
@@ -1644,7 +1646,7 @@
     description: __empty__
   category: Certificates
   references:
-    - "004.295" 
+    - "004.295"
     - "004.298"
     - "004.299"
     - "012.V9_2_4"
@@ -5334,7 +5336,7 @@
     - "012.V8_1_4"
     - "012.V11_1_2"
     - "012.V11_1_8"
-    - "012.V13_2_4"    
+    - "012.V13_2_4"
     - "013.A2"
     - "014.6_5_10"
   metadata: {}
@@ -5460,7 +5462,7 @@
   references:
     - "002.619"
     - "003.12_2"
-    - "010.AC-18_5"  
+    - "010.AC-18_5"
   metadata: {}
 "250":
   en:
@@ -6771,9 +6773,9 @@
   en:
     title: Notify third parties of changes
     summary: >
-      El sistema debe notificar a terceros
-      cuando rectifica o borra
-      información personal compartida.
+      The system must notify third parties
+      when it rectifies or erases
+      shared personal information.
     description: >
       Systems usually request information
       from their users,
@@ -6794,7 +6796,9 @@
   es:
     title: Notificar cambios a terceros
     summary: >
-
+      El sistema debe notificar a terceros
+      cuando rectifica o borra
+      información personal compartida.
     description: >
       Los sistemas suelen solicitar información
       de sus usuarios,
@@ -6818,6 +6822,7 @@
     - "006.19"
     - "006.89_3"
     - "008.18_1_4"
+    - "015.CC2_3"
   metadata: {}
 "319":
   en:
