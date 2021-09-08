@@ -26,8 +26,7 @@ LOG = logging.getLogger(__name__)
 @click.command()
 @click.option("--out", type=click.File("w+"), default=sys.stdout)
 def get_api_schema(out: IO_FILE[str]) -> IO[None]:
-    # schema is public no need for real creds
-    return utils.get_api_schema(Creds("", ""), out)
+    return utils.get_api_schema(out)
 
 
 @click.command()
@@ -43,9 +42,8 @@ def update_schema(
 
     with open_schema() as schema_file:
         if not api_schema:
-            # schema is public no need for real creds
             LOG.info("Getting current schema")
-            utils.get_api_schema(Creds("", ""), schema_file)
+            utils.get_api_schema(schema_file)
         schema_file.seek(0)
         LOG.info("Generating code")
         return utils.gen_schema_code(schema_file, out)

@@ -16,17 +16,14 @@ import sys
 from tap_announcekit.api import (
     API_ENDPOINT,
 )
-from tap_announcekit.auth import (
-    Creds,
-)
 from typing import (
     IO as IO_FILE,
     Optional,
 )
 
 
-def get_api_schema(creds: Creds, target: IO_FILE[str]) -> IO[None]:
-    endpoint = HTTPEndpoint(API_ENDPOINT, creds.basic_auth_header())
+def get_api_schema(target: IO_FILE[str]) -> IO[None]:
+    endpoint = HTTPEndpoint(API_ENDPOINT)
     data = endpoint(
         introspection.query,
         introspection.variables(
