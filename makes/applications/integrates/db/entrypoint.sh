@@ -31,6 +31,7 @@ function populate {
         finding_approval
         finding_creation
         finding_historic_state
+        finding_historic_verification
         finding_id
         finding_metadata
         finding_state
