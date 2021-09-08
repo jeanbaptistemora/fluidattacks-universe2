@@ -1,11 +1,12 @@
-import functools
 from model.graph_model import (
-    GraphShardMetadataLanguage,
     SyntaxStep,
     SyntaxStepDeclaration,
     SyntaxStepLambdaExpression,
     SyntaxStepLiteral,
     SyntaxStepMethodInvocation,
+)
+from sast_symbolic_evaluation.decorators import (
+    javascript_only,
 )
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
@@ -18,36 +19,18 @@ from sast_syntax_readers.utils_generic import (
     get_dependencies,
 )
 from typing import (
-    Callable,
     Dict,
-    Optional,
     Set,
 )
 from utils.string import (
     split_on_first_dot,
 )
 
-TFun = Callable[[EvaluatorArgs], None]
 TYPES: Dict[str, Set[str]] = complete_attrs_on_dict(
     {
         "express.Router": {"get", "post", "put", "delete"},
     }
 )
-
-
-def javascript_only(
-    func: TFun,
-) -> Callable[[EvaluatorArgs], Optional[TFun]]:
-    @functools.wraps(func)
-    def wrapper_decorator(args: EvaluatorArgs) -> Optional[TFun]:
-        if (
-            args.shard.metadata.language
-            != GraphShardMetadataLanguage.JAVASCRIPT
-        ):
-            return None
-        return func(args)
-
-    return wrapper_decorator
 
 
 def evaluate_required(args: EvaluatorArgs) -> None:

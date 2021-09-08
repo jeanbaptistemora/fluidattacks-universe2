@@ -2,8 +2,11 @@ from contextlib import (
     suppress,
 )
 from model.graph_model import (
-    GraphShardMetadataLanguage,
     SyntaxStepMeta,
+)
+from sast_symbolic_evaluation.decorators import (
+    go_only,
+    javascript_only,
 )
 from sast_symbolic_evaluation.lookup import (
     lookup_field,
@@ -58,12 +61,9 @@ BY_TYPE: Dict[str, Set[str]] = complete_attrs_on_dict(
 )
 
 
+@go_only
 def go_evaluate_assignment(args: EvaluatorArgs) -> None:
-    if (
-        args.shard.metadata.language == GraphShardMetadataLanguage.GO
-        and len(args.dependencies) == 1
-        and (dep := args.dependencies[0])
-    ):
+    if len(args.dependencies) == 1 and (dep := args.dependencies[0]):
         # If the variable is a structure
         if (
             var_decl := lookup_var_dcl_by_name(args, args.syntax_step.var)
@@ -95,7 +95,8 @@ def go_evaluate_assignment(args: EvaluatorArgs) -> None:
             args.syntax_step.meta.value = args.dependencies[0].meta.value
 
 
-def javscript_evaluate_assignment(args: EvaluatorArgs) -> bool:
+@javascript_only
+def javscript_evaluate_assignment(args: EvaluatorArgs) -> None:
     var, field = split_on_last_dot(args.syntax_step.var)
     var_decl = lookup_var_dcl_by_name(args, var)
     if (
@@ -104,8 +105,7 @@ def javscript_evaluate_assignment(args: EvaluatorArgs) -> bool:
         and isinstance(var_decl.meta.value, dict)
     ):
         var_decl.meta.value[field] = args.dependencies[-1]
-        return True
-    if (
+    elif (
         var_decl
         and var_decl.meta.value
         and isinstance(var_decl.meta.value, list)
@@ -116,9 +116,6 @@ def javscript_evaluate_assignment(args: EvaluatorArgs) -> bool:
                 while len(var_decl.meta.value) < index + 1:
                     var_decl.meta.value.append(None)
             var_decl.meta.value[index] = args.dependencies[-1]
-        return True
-
-    return False
 
 
 def evaluate(args: EvaluatorArgs) -> None:
