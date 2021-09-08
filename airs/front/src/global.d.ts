@@ -57,9 +57,11 @@ interface IQueryData {
         cveid: string;
         date: string;
         description: string;
+        image: string;
         keywords: string;
         phrase: string;
         slug: string;
+        solution: string;
         subtext: string;
         subtitle: string;
         product: string;
@@ -153,8 +155,10 @@ interface IData {
             cveid: string;
             date: string;
             description: string;
+            image: string;
             keywords: string;
             slug: string;
+            solution: string;
             subtext: string;
             subtitle: string;
             product: string;
