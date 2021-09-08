@@ -468,7 +468,7 @@ def get_by_time_range(
         )
     ):
         return VulnerabilityStatusByTimeRange(
-            vulnerabilities=1, cvssf=get_cssvf(severity)
+            vulnerabilities=1, cvssf=vulns_utils.get_cvssf(severity)
         )
     return VulnerabilityStatusByTimeRange(
         vulnerabilities=0, cvssf=Decimal("0.0")
@@ -495,7 +495,7 @@ def get_closed_vulnerabilities(
         )
     ):
         return VulnerabilityStatusByTimeRange(
-            vulnerabilities=1, cvssf=get_cssvf(severity)
+            vulnerabilities=1, cvssf=vulns_utils.get_cvssf(severity)
         )
     return VulnerabilityStatusByTimeRange(
         vulnerabilities=0, cvssf=Decimal("0.0")
@@ -820,12 +820,6 @@ def get_exposed_cvssf_by_time_range(
     )
 
 
-def get_cssvf(severity: Decimal) -> Decimal:
-    return Decimal(pow(Decimal("4.0"), severity - Decimal("4.0"))).quantize(
-        Decimal("0.001")
-    )
-
-
 def get_found_vulnerabilities(
     vulnerability: Dict[str, VulnerabilityType],
     historic_state: HistoricType,
@@ -841,11 +835,12 @@ def get_found_vulnerabilities(
         and last_state["state"] == "DELETED"
     ):
         return VulnerabilityStatusByTimeRange(
-            vulnerabilities=-1, cvssf=(get_cssvf(severity) * Decimal("-1.0"))
+            vulnerabilities=-1,
+            cvssf=(vulns_utils.get_cvssf(severity) * Decimal("-1.0")),
         )
     if first_day <= historic_state[0]["date"] <= last_day:
         return VulnerabilityStatusByTimeRange(
-            vulnerabilities=1, cvssf=get_cssvf(severity)
+            vulnerabilities=1, cvssf=vulns_utils.get_cvssf(severity)
         )
     return VulnerabilityStatusByTimeRange(
         vulnerabilities=0, cvssf=Decimal("0.0")
@@ -879,7 +874,7 @@ def get_exposed_cvssf(
         and states[-1]["date"] <= last_day
         and states[-1]["state"] == "open"
     ):
-        cvssf = get_cssvf(severity)
+        cvssf = vulns_utils.get_cvssf(severity)
 
     return CvssfExposureByTimeRange(
         low=cvssf if severity_level == "low" else Decimal("0.0"),

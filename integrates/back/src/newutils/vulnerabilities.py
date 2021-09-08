@@ -273,6 +273,12 @@ def get_open_findings(
     return len(open_findings)
 
 
+def get_cvssf(severity: Decimal) -> Decimal:
+    return Decimal(pow(Decimal("4.0"), severity - Decimal("4.0"))).quantize(
+        Decimal("0.001")
+    )
+
+
 def get_open_vulnerability_date(
     vulnerability: Dict[str, FindingType], min_date: Optional[datetype] = None
 ) -> Optional[datetype]:
