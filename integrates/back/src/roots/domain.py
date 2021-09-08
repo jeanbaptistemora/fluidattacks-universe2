@@ -3,6 +3,7 @@ from aiodataloader import (
 )
 import authz
 from custom_exceptions import (
+    HasOpenVulns,
     InvalidParameter,
     InvalidRootExclusion,
     PermissionDenied,
@@ -406,8 +407,8 @@ async def update_git_root(
     url: str = kwargs["url"]
     branch: str = kwargs["branch"]
     if url != root.state.url or branch != root.state.branch:
-        if has_open_vulns(root, context, group_name):
-            raise InvalidParameter()
+        if await has_open_vulns(root, context, group_name):
+            raise HasOpenVulns()
         group = await context.group.load(group_name)
         if not validations.is_git_unique(
             url,

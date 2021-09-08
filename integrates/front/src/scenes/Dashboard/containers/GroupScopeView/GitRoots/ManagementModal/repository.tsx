@@ -29,7 +29,6 @@ import { checked, required } from "utils/validations";
 
 interface IRepositoryProps {
   initialValues: IGitRootAttr;
-  isEditing: boolean;
   nicknames: string[];
   onClose: () => void;
   onSubmit: (values: IGitRootAttr) => Promise<void>;
@@ -37,7 +36,6 @@ interface IRepositoryProps {
 
 const Repository: React.FC<IRepositoryProps> = ({
   initialValues,
-  isEditing,
   nicknames,
   onClose,
   onSubmit,
@@ -96,12 +94,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                       <RequiredField>{"*"}&nbsp;</RequiredField>
                       {t("group.scope.git.repo.url")}
                     </ControlLabel>
-                    <Field
-                      component={FormikText}
-                      disabled={isEditing}
-                      name={"url"}
-                      type={"text"}
-                    />
+                    <Field component={FormikText} name={"url"} type={"text"} />
                   </div>
                   <div className={"w-30"}>
                     <ControlLabel>
@@ -110,7 +103,6 @@ const Repository: React.FC<IRepositoryProps> = ({
                     </ControlLabel>
                     <Field
                       component={FormikText}
-                      disabled={isEditing}
                       name={"branch"}
                       type={"text"}
                     />
@@ -194,10 +186,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                       {t("group.scope.git.filter.exclude")}
                     </ControlLabel>
                   </TooltipWrapper>
-                  <QuestionButton
-                    // eslint-disable-next-line react/forbid-component-props
-                    onClick={goToDocumentation}
-                  >
+                  <QuestionButton onClick={goToDocumentation}>
                     <FontAwesomeIcon icon={faQuestionCircle} />
                   </QuestionButton>
                   <GitIgnoreAlert gitignore={values.gitignore} />

@@ -75,7 +75,6 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
           <Route path={"/repository"}>
             <Repository
               initialValues={initialValues}
-              isEditing={isEditing}
               nicknames={nicknames}
               onClose={onClose}
               onSubmit={onSubmitRepo}

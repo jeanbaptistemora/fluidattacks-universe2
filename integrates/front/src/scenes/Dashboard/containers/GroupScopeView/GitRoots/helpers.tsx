@@ -99,11 +99,16 @@ const handleUpdateError = (
   scope: "envs" | "root"
 ): void => {
   graphQLErrors.forEach((error: GraphQLError): void => {
-    if (error.message === "Exception - Error empty value is not valid") {
-      msgError(translate.t("group.scope.git.errors.invalid"));
-    } else {
-      msgError(translate.t("groupAlerts.errorTextsad"));
-      Logger.error(`Couldn't update git ${scope}`, error);
+    switch (error.message) {
+      case "Exception - Error empty value is not valid":
+        msgError(translate.t("group.scope.git.errors.invalid"));
+        break;
+      case "Exception - A root with open vulns can't be deactivated":
+        msgError(translate.t("group.scope.common.errors.hasOpenVulns"));
+        break;
+      default:
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        Logger.error(`Couldn't update git ${scope}`, error);
     }
   });
 };
