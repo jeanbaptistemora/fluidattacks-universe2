@@ -122,6 +122,8 @@ data "aws_iam_policy_document" "prod-policy-data" {
   statement {
     effect = "Allow"
     actions = [
+      "cloudwatch:*",
+      "redshift:*",
       "redshift-data:*",
     ]
     resources = ["*"]
