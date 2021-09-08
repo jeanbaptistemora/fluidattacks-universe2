@@ -59,9 +59,9 @@ async def get_remediated_findings() -> None:
     if findings:
         try:
             mail_to = [FI_MAIL_PROJECTS]
-            context: MailContentType = {"findings": list(), "total": 0}
+            mail_context: MailContentType = {"findings": list(), "total": 0}
             for finding in findings:
-                cast(List[Dict[str, str]], context["findings"]).append(
+                cast(List[Dict[str, str]], mail_context["findings"]).append(
                     {
                         "finding_name": finding["title"],
                         "finding_url": (
@@ -72,9 +72,9 @@ async def get_remediated_findings() -> None:
                         "group": str.upper(str(get_key_or_fallback(finding))),
                     }
                 )
-            context["total"] = len(findings)
+            mail_context["total"] = len(findings)
             scheduler_send_mail(
-                findings_mail.send_mail_new_remediated, mail_to, context
+                findings_mail.send_mail_new_remediated, mail_to, mail_context
             )
         except (TypeError, KeyError) as ex:
             LOGGER.exception(ex, extra={"extra": locals()})

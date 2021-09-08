@@ -87,9 +87,9 @@ def calculate_tag_indicators(
 
 
 async def update_organization_indicators(
-    context: Dataloaders, org_name: str, groups: List[str]
+    loaders: Dataloaders, org_name: str, groups: List[str]
 ) -> Tuple[bool, List[str]]:
-    group_findings_loader = context.group_findings_new
+    group_findings_loader = loaders.group_findings_new
     success: List[bool] = []
     updated_tags: List[str] = []
     indicator_list: List[str] = [
@@ -134,12 +134,12 @@ async def update_organization_indicators(
 
 async def update_portfolios() -> None:
     """Update portfolios metrics"""
-    context: Dataloaders = get_new_context()
-    group_loader = context.group
+    loaders: Dataloaders = get_new_context()
+    group_loader = loaders.group
     async for _, org_name, org_groups in (
         orgs_domain.iterate_organizations_and_groups()
     ):
-        org_tags = await context.organization_tags.load(org_name)
+        org_tags = await loaders.organization_tags.load(org_name)
         org_groups_attrs = await group_loader.load_many(list(org_groups))
         tag_groups: List[str] = [
             str(group["name"])
@@ -149,7 +149,7 @@ async def update_portfolios() -> None:
             and group["tags"]
         ]
         success, updated_tags = await update_organization_indicators(
-            context, org_name, tag_groups
+            loaders, org_name, tag_groups
         )
         if success:
             deleted_tags = [

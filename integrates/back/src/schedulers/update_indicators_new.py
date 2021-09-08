@@ -128,7 +128,7 @@ def format_exposed_chart(
 
 
 async def create_register_by_week(  # pylint: disable=too-many-locals
-    context: Dataloaders, group: str, min_date: Optional[datetime] = None
+    loaders: Dataloaders, group: str, min_date: Optional[datetime] = None
 ) -> RegisterByTime:
     """Create weekly vulnerabilities registry by group"""
     found: int = 0
@@ -140,10 +140,10 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
     all_registers_cvsff = OrderedDict()
     all_registers_exposed_cvsff = OrderedDict()
 
-    findings: Tuple[Finding, ...] = await context.group_findings_new.load(
+    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
         group
     )
-    vulns = await context.finding_vulns_nzr.load_many_chained(
+    vulns = await loaders.finding_vulns_nzr.load_many_chained(
         [finding.id for finding in findings]
     )
     findings_severity: Dict[str, Decimal] = {
@@ -272,7 +272,7 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
 
 
 async def create_register_by_month(  # pylint: disable=too-many-locals
-    *, context: Dataloaders, group: str
+    *, loaders: Dataloaders, group: str
 ) -> RegisterByTime:
     found: int = 0
     accepted: int = 0
@@ -281,10 +281,10 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
     all_registers = OrderedDict()
     all_registers_cvsff = OrderedDict()
 
-    findings: Tuple[Finding, ...] = await context.group_findings_new.load(
+    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
         group
     )
-    vulnerabilties = await context.finding_vulns_nzr.load_many_chained(
+    vulnerabilties = await loaders.finding_vulns_nzr.load_many_chained(
         [finding.id for finding in findings]
     )
     findings_severity: Dict[str, Decimal] = {
@@ -611,7 +611,7 @@ def get_first_dates(
 
 
 async def _get_group_indicators(
-    group: str, context: Dataloaders, findings: Tuple[Finding, ...]
+    group: str, loaders: Dataloaders, findings: Tuple[Finding, ...]
 ) -> Dict[str, object]:
     (
         (last_closing_vuln_days, last_closing_vuln),
@@ -622,12 +622,12 @@ async def _get_group_indicators(
     ) = await collect(
         (
             findings_domain.get_last_closed_vulnerability_info_new(
-                context, findings
+                loaders, findings
             ),
-            findings_domain.get_max_open_severity_new(context, findings),
-            groups_domain.get_mean_remediate_new(context, group),
-            groups_domain.get_closed_vulnerabilities_new(context, group),
-            groups_domain.get_open_finding_new(context, group),
+            findings_domain.get_max_open_severity_new(loaders, findings),
+            groups_domain.get_mean_remediate_new(loaders, group),
+            groups_domain.get_closed_vulnerabilities_new(loaders, group),
+            groups_domain.get_open_finding_new(loaders, group),
         )
     )
 
@@ -648,11 +648,11 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
     LOGGER_CONSOLE.info(
         "Getting group indicator", extra={"extra": {"group_name": group}}
     )
-    context: Dataloaders = get_new_context()
-    findings: Tuple[Finding, ...] = await context.group_findings_new.load(
+    loaders: Dataloaders = get_new_context()
+    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
         group
     )
-    _indicators = await _get_group_indicators(group, context, findings)
+    _indicators = await _get_group_indicators(group, loaders, findings)
     (
         remediate_critical,
         remediate_high,
@@ -662,18 +662,18 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
     ) = await collect(
         [
             groups_domain.get_mean_remediate_severity_new(
-                context, group, 9, 10
+                loaders, group, 9, 10
             ),
             groups_domain.get_mean_remediate_severity_new(
-                context, group, 7, 8.9
+                loaders, group, 7, 8.9
             ),
             groups_domain.get_mean_remediate_severity_new(
-                context, group, 4, 6.9
+                loaders, group, 4, 6.9
             ),
             groups_domain.get_mean_remediate_severity_new(
-                context, group, 0.1, 3.9
+                loaders, group, 0.1, 3.9
             ),
-            findings_domain.get_total_treatment_new(context, findings),
+            findings_domain.get_total_treatment_new(loaders, findings),
         ]
     )
     (
@@ -682,9 +682,9 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
         remediated_over_ninety_days,
     ) = await collect(
         [
-            create_register_by_week(context, group),
+            create_register_by_week(loaders, group),
             create_register_by_week(
-                context,
+                loaders,
                 group,
                 datetime.combine(
                     datetime_utils.get_now_minus_delta(days=30),
@@ -692,7 +692,7 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
                 ),
             ),
             create_register_by_week(
-                context,
+                loaders,
                 group,
                 datetime.combine(
                     datetime_utils.get_now_minus_delta(days=90),
@@ -702,7 +702,7 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
         ]
     )
     over_time_month: RegisterByTime = await create_register_by_month(
-        context=context, group=group
+        loaders=loaders, group=group
     )
     indicators = {
         **_indicators,
@@ -711,7 +711,7 @@ async def get_group_indicators(group: str) -> Dict[str, object]:
         "mean_remediate_low_severity": remediate_low,
         "mean_remediate_medium_severity": remediate_medium,
         "open_vulnerabilities": (
-            await groups_domain.get_open_vulnerabilities_new(context, group)
+            await groups_domain.get_open_vulnerabilities_new(loaders, group)
         ),
         "total_treatment": total_treatment,
         "remediated_over_time": remediated_over_time.vulnerabilities[-24:],

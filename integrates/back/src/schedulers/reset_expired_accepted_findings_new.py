@@ -36,10 +36,10 @@ from vulnerabilities import (
 
 
 async def reset_group_expired_accepted_findings(
-    context: Dataloaders, group_name: str, today: str
+    loaders: Dataloaders, group_name: str, today: str
 ) -> None:
-    finding_vulns_loader = context.finding_vulns
-    group_findings_loader = context.group_findings_new
+    finding_vulns_loader = loaders.finding_vulns
+    group_findings_loader = loaders.group_findings_new
 
     group_findings: Tuple[Finding] = await group_findings_loader.load(
         group_name
@@ -101,11 +101,11 @@ async def reset_group_expired_accepted_findings(
 async def reset_expired_accepted_findings() -> None:
     """Update treatment if acceptance date expires"""
     today = datetime_utils.get_now_as_str()
-    context: Dataloaders = get_new_context()
+    loaders: Dataloaders = get_new_context()
     groups = await groups_domain.get_active_groups()
     await collect(
         [
-            reset_group_expired_accepted_findings(context, group_name, today)
+            reset_group_expired_accepted_findings(loaders, group_name, today)
             for group_name in groups
         ],
         workers=40,
