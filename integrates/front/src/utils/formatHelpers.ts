@@ -91,7 +91,12 @@ const castEventStatus: (field: string) => string = (field: string): string => {
 const formatAccessibility: (field: string) => string = (
   field: string
 ): string => {
-  return field ? field : "-";
+  const eventAccessibility: Record<string, string> = {
+    Ambiente: "group.events.form.accessibility.environment",
+    Repositorio: "group.events.form.accessibility.repository",
+  };
+
+  return eventAccessibility[field] ? eventAccessibility[field] : "-";
 };
 
 const formatDropdownField: (field: string) => string = (
