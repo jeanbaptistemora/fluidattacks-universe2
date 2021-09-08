@@ -66,7 +66,7 @@ const GET_USER: DocumentNode = gql`
       isConcurrentSession
       permissions(entity: USER)
       remember
-      role(entity: USER)
+      role
       sessionExpiration
       userEmail
       userName

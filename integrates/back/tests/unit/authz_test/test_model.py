@@ -173,8 +173,8 @@ def test_model_integrity_migrated_finding_permissions(
         "upload_file_new_mutate",
         "api_mutations_verify_vulnerabilities_request_mutate": "api_mutations_"
         "verify_vulnerabilities_request_new_mutate",
-        "api_resolvers_finding_analyst_resolve": "api_resolvers_"
-        "finding_new_analyst_new_resolve",
+        "api_resolvers_finding_hacker_resolve": "api_resolvers_"
+        "finding_new_hacker_new_resolve",
         "api_resolvers_finding_historic_state_resolve": "api_resolvers_"
         "finding_new_historic_state_new_resolve",
         "api_resolvers_finding_machine_jobs_resolve": "api_resolvers_"

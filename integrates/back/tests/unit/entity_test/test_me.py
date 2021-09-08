@@ -31,7 +31,7 @@ async def test_me() -> None:
                 }
             }
             remember
-            role(entity: USER)
+            role
             permissions(entity: USER)
             callerOrigin
             __typename

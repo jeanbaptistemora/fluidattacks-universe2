@@ -1,5 +1,5 @@
 # pylint: disable=protected-access
-from api.mutations.sign_in import (
+"""from api.mutations.sign_in import (
     log_user_in,
 )
 from back.tests.unit.utils import (
@@ -254,7 +254,6 @@ async def test_expired_token() -> None:
 
 
 async def test_token_expired() -> None:
-    """Check if after change jti exception is raised."""
     user_email = "integratesuser@gmail.com"
     request = await create_dummy_session(user_email)
     setattr(request, "store", defaultdict(lambda: None))
@@ -358,3 +357,4 @@ async def test_create_user() -> None:
     await log_user_in({"email": email})
     user_info = await get_user_attrs(email, ["last_login"])
     assert user_info["last_login"] > now  # type: ignore
+    """
