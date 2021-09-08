@@ -17,8 +17,8 @@ from utils.graph.transformation import (
 )
 
 
-def csharp_get_variable_value(
-    graph: graph_model.GraphShard, name_var: str
+def csharp_get_variable_attribute(
+    graph: graph_model.GraphShard, name_var: str, attribute: str
 ) -> str:
     for member in g.filter_nodes(
         graph,
@@ -31,7 +31,7 @@ def csharp_get_variable_value(
         if graph.nodes[pred].get("label_type") == "variable_declarator":
             declaration_node = g.match_ast(graph, pred, "__0__")["__1__"]
             value_node = g.match_ast(graph, declaration_node, "__0__")["__1__"]
-            return graph.nodes[value_node].get("label_text")
+            return graph.nodes[value_node].get(attribute)
     return ""
 
 
