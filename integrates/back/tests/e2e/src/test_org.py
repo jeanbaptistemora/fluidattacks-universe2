@@ -87,7 +87,6 @@ def test_org_portfolios(
         "How many vulnerabilities are remediated and accepted?",
         "Findings by group",
         "Open findings by group",
-        "Vulnerabilities status",
         "Vulnerabilities treatment",
         "Vulnerabilities by group",
         "Open vulnerabilities by group",

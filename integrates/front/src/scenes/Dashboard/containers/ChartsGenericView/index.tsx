@@ -132,21 +132,6 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 <Graphic
                   bsHeight={160}
                   className={"g2"}
-                  documentName={"status"}
-                  documentType={"pieChart"}
-                  entity={entity}
-                  generatorName={"generic"}
-                  generatorType={"c3"}
-                  infoLink={`${graphInfoLink}common#vulnerabilities-status`}
-                  reportMode={reportMode}
-                  subject={subject}
-                  title={translate.t("analytics.pieChart.status.title")}
-                />
-              </Col50>
-              <Col50>
-                <Graphic
-                  bsHeight={160}
-                  className={"g2"}
                   documentName={"treatment"}
                   documentType={"pieChart"}
                   entity={entity}
@@ -156,6 +141,21 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                   reportMode={reportMode}
                   subject={subject}
                   title={translate.t("analytics.pieChart.treatment.title")}
+                />
+              </Col50>
+              <Col50>
+                <Graphic
+                  bsHeight={160}
+                  className={"g2"}
+                  documentName={"vulnerabilitiesByType"}
+                  documentType={"pieChart"}
+                  entity={entity}
+                  generatorName={"generic"}
+                  generatorType={"c3"}
+                  infoLink={`${graphInfoLink}common#vulnerabilities-by-type`}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t("tagIndicator.vulnerabilitiesByType")}
                 />
               </Col50>
             </RowCenter>
@@ -502,7 +502,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
               />
             </Col100>
           </RowCenter>
-          <RowCenter>
+          <Row>
             <Col50>
               <Graphic
                 bsHeight={160}
@@ -518,22 +518,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 title={translate.t("tagIndicator.vulnerabilitiesByTreatments")}
               />
             </Col50>
-            <Col50>
-              <Graphic
-                bsHeight={160}
-                className={"g2"}
-                documentName={"vulnerabilitiesByType"}
-                documentType={"pieChart"}
-                entity={entity}
-                generatorName={"generic"}
-                generatorType={"c3"}
-                infoLink={`${graphInfoLink}common#vulnerabilities-by-type`}
-                reportMode={reportMode}
-                subject={subject}
-                title={translate.t("tagIndicator.vulnerabilitiesByType")}
-              />
-            </Col50>
-          </RowCenter>
+          </Row>
           <RowCenter>
             <Col100>
               <Graphic

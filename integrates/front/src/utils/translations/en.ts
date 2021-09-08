@@ -89,13 +89,6 @@ export const enTranslations: ResourceKey = {
         },
         title: "Active resources distribution",
       },
-      status: {
-        footer: {
-          intro:
-            "Ratio between open and closed vulnerabilities, ignoring treatments.",
-        },
-        title: "Vulnerabilities status",
-      },
       treatment: {
         footer: {
           accepted:
