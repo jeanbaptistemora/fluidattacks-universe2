@@ -7,7 +7,7 @@ import {
 } from "utils/formatHelpers";
 import { translate } from "utils/translations/translate";
 
-interface IEventConfig {
+export interface IEventConfig {
   accessibility: string;
   actionBeforeBlocking: string;
   affectedComponents: string;

@@ -9,7 +9,6 @@ import { track } from "mixpanel-browser";
 import type { Moment } from "moment";
 import React, { useCallback, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
-import { selectFilter } from "react-bootstrap-table2-filter";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 import type { Validator } from "redux-form";
 import type { ConfigurableValidator } from "revalidate";
@@ -20,7 +19,11 @@ import { handleCreationError, handleFileListUpload } from "./helpers";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
-import type { IHeaderConfig } from "components/DataTableNext/types";
+import type {
+  IFilterProps,
+  IHeaderConfig,
+} from "components/DataTableNext/types";
+import { filterSearchText, filterSelect } from "components/DataTableNext/utils";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
@@ -29,6 +32,7 @@ import {
   GET_EVENTS,
 } from "scenes/Dashboard/containers/GroupEventsView/queries";
 import { formatEvents } from "scenes/Dashboard/containers/GroupEventsView/utils";
+import type { IEventConfig } from "scenes/Dashboard/containers/GroupEventsView/utils";
 import globalStyle from "styles/global.css";
 import {
   ButtonToolbar,
@@ -49,6 +53,7 @@ import {
   FormikText,
   FormikTextArea,
 } from "utils/forms/fields";
+import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -106,10 +111,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
   const { url } = useRouteMatch();
 
-  const selectOptionsStatus = {
-    Solved: "Solved",
-    Unsolved: "Unsolved",
-  };
   const selectOptionType = {
     [translate.t("group.events.form.type.specialAttack")]: translate.t(
       castEventType("AUTHORIZATION_SPECIAL_ATTACK")
@@ -135,22 +136,23 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   };
   const [optionType, setOptionType] = useState(selectOptionType);
 
+  const [isCustomFilterEnabled, setCustomFilterEnabled] =
+    useStoredState<boolean>("groupEventsFilters", false);
+
+  const [searchTextFilter, setSearchTextFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
+  const [typeFilter, setTypeFilter] = useState("");
+
+  const handleUpdateCustomFilter: () => void = useCallback((): void => {
+    setCustomFilterEnabled(!isCustomFilterEnabled);
+  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
+
   const onSortState: (dataField: string, order: SortOrder) => void = (
     dataField: string,
     order: SortOrder
   ): void => {
     const newSorted = { dataField, order };
     sessionStorage.setItem("eventSort", JSON.stringify(newSorted));
-  };
-  const onFilterStatus: (filterVal: string) => void = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("eventStatusFilter", filterVal);
-  };
-  const onFilterType: (filterVal: string) => void = (
-    filterVal: string
-  ): void => {
-    sessionStorage.setItem("eventTypeFilter", filterVal);
   };
 
   const tableHeaders: IHeaderConfig[] = [
@@ -205,11 +207,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     {
       align: "center",
       dataField: "eventType",
-      filter: selectFilter({
-        defaultValue: _.get(sessionStorage, "eventTypeFilter"),
-        onFilter: onFilterType,
-        options: optionType,
-      }),
       header: translate.t("searchFindings.tabEvents.type"),
       onSort: onSortState,
       width: "20%",
@@ -218,11 +215,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     {
       align: "left",
       dataField: "eventStatus",
-      filter: selectFilter({
-        defaultValue: _.get(sessionStorage, "eventStatusFilter"),
-        onFilter: onFilterStatus,
-        options: selectOptionsStatus,
-      }),
       formatter: pointStatusFormatter,
       header: translate.t("searchFindings.tabEvents.status"),
       onSort: onSortState,
@@ -362,6 +354,66 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     file: undefined as unknown as FileList,
     image: undefined as unknown as FileList,
   };
+
+  const dataset = formatEvents(data.group.events);
+
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
+  const filterSearchtextResult: IEventConfig[] = filterSearchText(
+    dataset,
+    searchTextFilter
+  );
+
+  function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    setStatusFilter(event.target.value);
+  }
+  const filterStatusResult: IEventConfig[] = filterSelect(
+    dataset,
+    statusFilter,
+    "eventStatus"
+  );
+
+  function onTypeChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    setTypeFilter(event.target.value);
+  }
+  const filterTypeResult: IEventConfig[] = filterSelect(
+    dataset,
+    typeFilter,
+    "eventType"
+  );
+
+  const resultDataset: IEventConfig[] = _.intersection(
+    filterSearchtextResult,
+    filterStatusResult,
+    filterTypeResult
+  );
+
+  const customFiltersProps: IFilterProps[] = [
+    {
+      defaultValue: typeFilter,
+      onChangeSelect: onTypeChange,
+      placeholder: "Type",
+      selectOptions: optionType,
+      tooltipId: "group.findings.filtersTooltips.status.id",
+      tooltipMessage: "group.findings.filtersTooltips.status",
+      type: "select",
+    },
+    {
+      defaultValue: statusFilter,
+      onChangeSelect: onStatusChange,
+      placeholder: "Status",
+      selectOptions: {
+        Solved: "Solved",
+        Unsolved: "Unsolved",
+      },
+      tooltipId: "group.findings.filtersTooltips.status.id",
+      tooltipMessage: "group.findings.filtersTooltips.status",
+      type: "select",
+    },
+  ];
 
   return (
     <React.StrictMode>
@@ -845,14 +897,24 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       <p>{translate.t("searchFindings.tabEvents.tableAdvice")}</p>
       <DataTableNext
         bordered={true}
-        dataset={formatEvents(data.group.events)}
+        customFilters={{
+          customFiltersProps,
+          isCustomFilterEnabled,
+          onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+        }}
+        customSearch={{
+          customSearchDefault: searchTextFilter,
+          isCustomSearchEnabled: true,
+          onUpdateCustomSearch: onSearchTextChange,
+        }}
+        dataset={resultDataset}
         defaultSorted={JSON.parse(_.get(sessionStorage, "eventSort", "{}"))}
         exportCsv={true}
         headers={tableHeaders}
         id={"tblEvents"}
         pageSize={10}
         rowEvents={{ onClick: goToEvent }}
-        search={true}
+        search={false}
       />
     </React.StrictMode>
   );
