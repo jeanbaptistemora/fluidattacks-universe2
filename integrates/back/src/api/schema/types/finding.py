@@ -58,6 +58,7 @@ from api.resolvers.finding_new import (
     sorts_new,
     status_new,
     tracking_new,
+    treatment_summary_new,
     verified_new,
     vulnerabilities_new,
     vulnerabilities_to_reattack_new,
@@ -108,6 +109,7 @@ if FI_API_STATUS == "migration":
     FINDING.set_field("sorts", sorts_new.resolve)
     FINDING.set_field("state", status_new.resolve)
     FINDING.set_field("tracking", tracking_new.resolve)
+    FINDING.set_field("treatmentSummary", treatment_summary_new.resolve)
     FINDING.set_field("verified", verified_new.resolve)
     FINDING.set_field("vulnerabilities", vulnerabilities_new.resolve)
     FINDING.set_field(
