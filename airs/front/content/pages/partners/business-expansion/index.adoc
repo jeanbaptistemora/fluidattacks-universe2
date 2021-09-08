@@ -1,0 +1,18 @@
+:page-slug: partners/business-expansion/
+:page-description: Our partners allow us to complete our portfolio and offer better security testing services. Get to know them and become one of them.
+:page-keywords: Fluid Attacks, Partners, Services, Security Testing, Software Development, Pentesting, Ethical Hacking
+:page-partnerlogo: logo-business-expansion
+:page-alt: Logo Business Expansion
+:page-partner: yes
+
+= Business Expansion
+
+link:https://bexcpartners.com/?page_id=6817&lang=en[Business Expansion] is a specialized consulting firm
+founded in 2018.
+Their purpose is to promote the expansion of medium and large companies
+in Mexico and Latin America.
+They are always looking for the best way to advise their clients
+for the expansion of their businesses.
+Thus,
+they have become a high-level consulting alternative for companies,
+far from the high costs of a global firm.
