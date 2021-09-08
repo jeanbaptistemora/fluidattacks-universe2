@@ -32,7 +32,7 @@ let
         (def: "${id}.${def}")
         (builtins.attrNames compliance.${id}.definitions);
     in
-    lib.flatten (
+    lib.lists.flatten (
       builtins.attrValues (
         builtins.mapAttrs (id: _: standardDefinitions id) compliance
       )
@@ -47,7 +47,7 @@ let
 
   # List of unreferenced items
   unreferenced = { referencedItems, items }:
-    lib.subtractLists referencedItems items;
+    lib.lists.subtractLists referencedItems items;
 
   # JSON output
   output = makeDerivation {
