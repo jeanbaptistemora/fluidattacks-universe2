@@ -582,6 +582,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"c3"}
+                infoLink={`${graphInfoLink}common#mean-average-days-to-remediate`}
                 reportMode={reportMode}
                 subject={subject}
                 title={translate.t("tagIndicator.meanRemediate")}
