@@ -23,13 +23,6 @@ function extract_features {
         && return 0
     fi \
     && echo '[INFO] Running sorts:' \
-    && sops_export_vars 'sorts/secrets.yaml' \
-      'MIXPANEL_API_TOKEN_SORTS' \
-      'REDSHIFT_DATABASE' \
-      'REDSHIFT_HOST' \
-      'REDSHIFT_PASSWORD' \
-      'REDSHIFT_PORT' \
-      'REDSHIFT_USER' \
     && if sorts --get-file-data "groups/${group}"; then
       echo "[INFO] Succesfully processed: ${group}" \
         && success='true'
@@ -45,7 +38,14 @@ function extract_features {
 function main {
   local groups_file
 
-  use_git_repo_services \
+  aws_login_prod 'sorts' \
+    && sops_export_vars 'sorts/secrets.yaml' \
+      'REDSHIFT_DATABASE' \
+      'REDSHIFT_HOST' \
+      'REDSHIFT_PASSWORD' \
+      'REDSHIFT_PORT' \
+      'REDSHIFT_USER' \
+    && use_git_repo_services \
     && groups_file="$(mktemp)" \
     && ls -1 groups > "${groups_file}" \
     && execute_chunk_parallel extract_features "${groups_file}"
