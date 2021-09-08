@@ -18,7 +18,12 @@ type Me {
   "If true, the legal notice modal won't appear after every ASM login"
   remember: Boolean
   "Gets the user-level role of the current stakeholder/user"
-  role: String
+  role(
+    "Entity to check for level permissions"
+    entity: Entity!
+    "Identifier of the provided entity. Not needed if the entity is USER"
+    identifier: String
+  ): String
   """Unix timestamp representing the moment where the user's API access
   token will expire"""
   sessionExpiration: String

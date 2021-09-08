@@ -1,5 +1,5 @@
 # pylint: disable=protected-access
-"""from api.mutations.sign_in import (
+from api.mutations.sign_in import (
     log_user_in,
 )
 from back.tests.unit.utils import (
@@ -357,4 +357,3 @@ async def test_create_user() -> None:
     await log_user_in({"email": email})
     user_info = await get_user_attrs(email, ["last_login"])
     assert user_info["last_login"] > now  # type: ignore
-    """

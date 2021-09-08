@@ -109,7 +109,7 @@ async def test_me() -> None:  # pylint: disable=too-many-statements
             }}
             permissions(entity: USER)
             remember
-            role
+            role(entity: USER)
             sessionExpiration
             subscriptionsToEntityReport{{
                 entity
@@ -218,7 +218,7 @@ async def test_me() -> None:  # pylint: disable=too-many-statements
             }}
             permissions(entity: USER)
             remember
-            role
+            role(entity: USER)
             sessionExpiration
             subscriptionsToEntityReport{{
                 entity
