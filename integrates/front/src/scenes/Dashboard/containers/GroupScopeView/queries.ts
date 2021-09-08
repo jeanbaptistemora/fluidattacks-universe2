@@ -86,20 +86,24 @@ const UPDATE_GIT_ENVIRONMENTS: DocumentNode = gql`
 
 const UPDATE_GIT_ROOT: DocumentNode = gql`
   mutation UpdateGitRoot(
+    $branch: String!
     $environment: String!
     $gitignore: [String!]!
     $groupName: String!
     $id: ID!
     $includesHealthCheck: Boolean!
     $nickname: String!
+    $url: String!
   ) {
     updateGitRoot(
+      branch: $branch
       environment: $environment
       gitignore: $gitignore
       groupName: $groupName
       id: $id
       includesHealthCheck: $includesHealthCheck
       nickname: $nickname
+      url: $url
     ) {
       success
     }

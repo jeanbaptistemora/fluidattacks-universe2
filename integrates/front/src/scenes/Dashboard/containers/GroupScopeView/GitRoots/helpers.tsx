@@ -180,12 +180,14 @@ function useGitSubmit(
           track("EditGitRoot");
           await updateGitRoot({
             variables: {
+              branch,
               environment,
               gitignore,
               groupName,
               id,
               includesHealthCheck,
               nickname,
+              url,
             },
           });
         }

@@ -1032,6 +1032,8 @@ type Mutation {
 
   "Updates a Group's Git root and its attributes"
   updateGitRoot(
+    "Repository branch to be tested"
+    branch: String
     "Kind of environment to test. E.g. Production, QA, Dev, etc..."
     environment: String!
     "Repository paths to be ignored"
@@ -1044,6 +1046,8 @@ type Mutation {
     includesHealthCheck: Boolean!
     "Nickname of the repository"
     nickname: String
+    "Repository URL"
+    url: String
   ): SimplePayload!
 
   "Updates a group's services and parameters"
