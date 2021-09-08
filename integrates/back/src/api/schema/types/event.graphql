@@ -2,6 +2,8 @@
 type Event {
   "Where the event was present"
   accessibility: String
+  "Actions after getting blocked by an event"
+  actionAfterBlocking: ActionsAfterBlocking
   "Actions before getting blocked by an event"
   actionBeforeBlocking: ActionsBeforeBlocking
   "Time spent solving the Event, in hours"
