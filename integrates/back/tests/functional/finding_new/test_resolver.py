@@ -160,6 +160,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
     result: Dict[str, Any] = await get_result(
         user=email, finding_id=finding_id
     )
+    where: str = "192.168.1.2"
     assert "errors" not in result
     assert result["data"]["finding"]["actor"] == actor
     assert result["data"]["finding"]["affectedSystems"] == affected_systems
@@ -258,6 +259,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["zeroRisk"] == [
         {"id": "7771bc87-8633-4a4a-8d8e-7dae0ca57e7a"}
     ]
+    assert result["data"]["finding"]["where"] == where
 
 
 @pytest.mark.asyncio
@@ -378,6 +380,7 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
         "inProgress": 3,
         "new": 4,
     }
+    where: str = "192.168.1.2"
     result: Dict[str, Any] = await get_result(
         user=email, finding_id=finding_id
     )
@@ -466,5 +469,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     vuln_ids: List[str] = [
         vuln["id"] for vuln in result["data"]["finding"]["vulnerabilities"]
     ]
+    assert result["data"]["finding"]["where"] == where
     assert open_vuln in vuln_ids
     assert closed_vuln in vuln_ids
