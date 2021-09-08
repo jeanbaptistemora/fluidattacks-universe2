@@ -30,6 +30,7 @@ function populate {
       included_facets+=(
         finding_approval
         finding_creation
+        finding_historic_state
         finding_id
         finding_metadata
         finding_state
