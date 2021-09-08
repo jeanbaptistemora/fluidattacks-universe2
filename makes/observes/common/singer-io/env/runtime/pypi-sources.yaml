@@ -1,0 +1,76 @@
+closure:
+  attrs: 21.2.0
+  deprecated: 1.2.12
+  jsonschema: 3.2.0
+  pyrfc3339: "1.1"
+  pyrsistent: 0.18.0
+  pytz: "2021.1"
+  returns: 0.16.0
+  six: 1.16.0
+  typing-extensions: 3.10.0.0
+  wrapt: 1.12.1
+links:
+  - name: attrs-21.2.0-py2.py3-none-any.whl
+    sha256: 1cdh2v3scv9mi00195khsch3y6l8wvq0rmjsjmxdn85cv3b917hl
+    url: https://files.pythonhosted.org/packages/20/a9/ba6f1cd1a1517ff022b35acd6a7e4246371dfab08b8e42b829b6d07913cc/attrs-21.2.0-py2.py3-none-any.whl
+  - name: attrs-21.2.0.tar.gz
+    sha256: 1yzmwi5d197p0qhl7rl4xi9q1w8mk9i3zn6hrl22knbcrb1slspg
+    url: https://files.pythonhosted.org/packages/ed/d6/3ebca4ca65157c12bd08a63e20ac0bdc21ac7f3694040711f9fd073c0ffb/attrs-21.2.0.tar.gz
+  - name: Deprecated-1.2.12-py2.py3-none-any.whl
+    sha256: 0wf7zz42ksvy2d6r00hpksdrcbk4z2jf1p8a6gl6dg5mnrljsi88
+    url: https://files.pythonhosted.org/packages/fb/73/994edfcba74443146c84b91921fcc269374354118d4f452fb0c54c1cbb12/Deprecated-1.2.12-py2.py3-none-any.whl
+  - name: Deprecated-1.2.12.tar.gz
+    sha256: 18dwgmp3dx5x9qyivmkpj6iqvq6liwh31vw18j3nia9ig7gf4bbd
+    url: https://files.pythonhosted.org/packages/52/ab/30ae1f10e27385b3d2a4120b8edbcb187ba9ae2c4daf811f4f823aa4f0e2/Deprecated-1.2.12.tar.gz
+  - name: jsonschema-3.2.0-py2.py3-none-any.whl
+    sha256: 0qyidiicwn27ya7r4q7cjbra8gna5vkwnfg1kkp7nmvg47w3qnsf
+    url: https://files.pythonhosted.org/packages/c5/8f/51e89ce52a085483359217bc72cdbf6e75ee595d5b1d4b5ade40c7e018b8/jsonschema-3.2.0-py2.py3-none-any.whl
+  - name: jsonschema-3.2.0.tar.gz
+    sha256: 0ykr61yiiizgvm3bzipa3l73rvj49wmrybbfwhvpgk3pscl5pa68
+    url: https://files.pythonhosted.org/packages/69/11/a69e2a3c01b324a77d3a7c0570faa372e8448b666300c4117a516f8b1212/jsonschema-3.2.0.tar.gz
+  - name: pyRFC3339-1.1-py2.py3-none-any.whl
+    sha256: 1x16m41b9z3c517jw7qfqrn7rrk566w3hixvh32hj1s77fw6q6b7
+    url: https://files.pythonhosted.org/packages/c1/7a/725f5c16756ec6211b1e7eeac09f469084595513917ea069bc023c40a5e2/pyRFC3339-1.1-py2.py3-none-any.whl
+  - name: pyRFC3339-1.1.tar.gz
+    sha256: 06jv7ar7lpvvk0dixzwdr3wgm0g1lipxs429s2z7knwwa7hwpf41
+    url: https://files.pythonhosted.org/packages/00/52/75ea0ae249ba885c9429e421b4f94bc154df68484847f1ac164287d978d7/pyRFC3339-1.1.tar.gz
+  - name: pyrsistent-0.18.0-cp38-cp38-macosx_10_9_x86_64.whl
+    sha256: 09rlz0qwiakjwivimjqaz8ma7qpvvqxvnn5yzz92qkw6qv198bkp
+    url: https://files.pythonhosted.org/packages/25/c8/fc1cf625433aae3305cc492b035ac41a1be5ed4b01e2aac46b8d0dd79847/pyrsistent-0.18.0-cp38-cp38-macosx_10_9_x86_64.whl
+  - name: pyrsistent-0.18.0-cp38-cp38-manylinux1_i686.whl
+    sha256: 1vxxxc450nwy44dh7g104ysq0a4cxxwsxjpd0mz376d61wrgzaf1
+    url: https://files.pythonhosted.org/packages/7b/25/c8291eb3cfd066f8d4a534604de720b1be7517182056dabaecc63384e8e1/pyrsistent-0.18.0-cp38-cp38-manylinux1_i686.whl
+  - name: pyrsistent-0.18.0-cp38-cp38-manylinux1_x86_64.whl
+    sha256: 0334cfr8qq3lhkhh5jiclrsz5id8axlip2hlwvdd0ps1gbrswg6d
+    url: https://files.pythonhosted.org/packages/3d/5b/1514e921fd749e53ecfeb7cf65ba7d8946123f25de18bf7b7f4ad17226cc/pyrsistent-0.18.0-cp38-cp38-manylinux1_x86_64.whl
+  - name: pyrsistent-0.18.0.tar.gz
+    sha256: 0jzbc3m427wg3r6vxgmcw5517fqpnpakidm7885r1hpq2q97hg3p
+    url: https://files.pythonhosted.org/packages/f4/d7/0fa558c4fb00f15aabc6d42d365fcca7a15fcc1091cd0f5784a14f390b7f/pyrsistent-0.18.0.tar.gz
+  - name: pytz-2021.1-py2.py3-none-any.whl
+    sha256: 1607gl2x9290ks5sa6dvqw9dgg1kwdf9fj9xcb9jw19nfwzcw47b
+    url: https://files.pythonhosted.org/packages/70/94/784178ca5dd892a98f113cdd923372024dc04b8d40abe77ca76b5fb90ca6/pytz-2021.1-py2.py3-none-any.whl
+  - name: pytz-2021.1.tar.gz
+    sha256: 1nn459q7zg20n75akxl3ljkykgw1ydc8nb05rx1y4f5zjh4ak943
+    url: https://files.pythonhosted.org/packages/b0/61/eddc6eb2c682ea6fd97a7e1018a6294be80dba08fa28e7a3570148b4612d/pytz-2021.1.tar.gz
+  - name: returns-0.16.0-py3-none-any.whl
+    sha256: 0amw125x7wnf6gqlfga4y29wjy48xlscxdk96kdcian5p3vl8x9v
+    url: https://files.pythonhosted.org/packages/ff/e6/c66f2dfd12cd47e0efb54c0aefd35f0bbad0242fbaefe52310ebf71f010b/returns-0.16.0-py3-none-any.whl
+  - name: returns-0.16.0.tar.gz
+    sha256: 1dq0z348xyjkba8whdqgplkgf1mvw1ydaz4wijc8g7783npplwdc
+    url: https://files.pythonhosted.org/packages/52/ad/a312c66697e1be62dc50144ad491ec43ee08c0f4090a635c8a34c88cbd3a/returns-0.16.0.tar.gz
+  - name: six-1.16.0-py2.py3-none-any.whl
+    sha256: 0m02dsi8lvrjf4bi20ab6lm7rr6krz7pg6lzk3xjs2l9hqfjzfwa
+    url: https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875f2abbb91bd84cf2dc52d792b5a01506781dbcf25c91daf11/six-1.16.0-py2.py3-none-any.whl
+  - name: six-1.16.0.tar.gz
+    sha256: 09n9qih9rpj95q3r4a40li7hk6swma11syvgwdc68qm1fxsc6q8y
+    url: https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz
+  - name: typing_extensions-3.10.0.0-py3-none-any.whl
+    sha256: 112ar7s85msx9r0hmkl3j9x979y8m8wzzw0wwjdck43d13v874vp
+    url: https://files.pythonhosted.org/packages/2e/35/6c4fff5ab443b57116cb1aad46421fb719bed2825664e8fe77d66d99bcbc/typing_extensions-3.10.0.0-py3-none-any.whl
+  - name: typing_extensions-3.10.0.0.tar.gz
+    sha256: 0hpkrp39w58f6lc6r0jhn97qhcp95z49vyan0ryj2x4ihibz3djh
+    url: https://files.pythonhosted.org/packages/aa/55/62e2d4934c282a60b4243a950c9dbfa01ae7cac0e8d6c0b5315b87432c81/typing_extensions-3.10.0.0.tar.gz
+  - name: wrapt-1.12.1.tar.gz
+    sha256: 1mwpkdnqxf0yxj1a0hsnl06lf287qi5ap7309wm37x45zf0zlbxn
+    url: https://files.pythonhosted.org/packages/82/f7/e43cefbe88c5fd371f4cf0cf5eb3feccd07515af9fd6cf7dbf1d1793a797/wrapt-1.12.1.tar.gz
+python: "3.8"
