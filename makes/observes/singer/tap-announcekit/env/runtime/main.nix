@@ -1,11 +1,12 @@
-{ makePythonPypiEnvironment
+{ inputs
+, makePythonPypiEnvironment
 , makeSearchPaths
 , outputs
 , projectPath
 , ...
 }:
 let
-  self = projectPath "/observes/singer/tap_announcekit";
+  self = projectPath inputs.observesIndex.taps.announcekit;
   py_env = makePythonPypiEnvironment {
     name = "observes-env-tap-announcekit-runtime";
     sourcesYaml = ./pypi-sources.yaml;

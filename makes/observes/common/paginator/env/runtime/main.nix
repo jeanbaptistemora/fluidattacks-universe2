@@ -1,10 +1,11 @@
-{ makePythonPypiEnvironment
+{ inputs
+, makePythonPypiEnvironment
 , makeSearchPaths
 , projectPath
 , ...
 }:
 let
-  self = projectPath "/observes/common/paginator";
+  self = projectPath inputs.observesIndex.common.paginator;
   py_env = makePythonPypiEnvironment {
     name = "observes-paginator-run-env";
     sourcesYaml = ./pypi-sources.yaml;

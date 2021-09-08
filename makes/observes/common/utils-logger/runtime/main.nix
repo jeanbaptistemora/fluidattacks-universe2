@@ -1,10 +1,11 @@
-{ makePythonPypiEnvironment
+{ inputs
+, makePythonPypiEnvironment
 , makeSearchPaths
 , projectPath
 , ...
 }:
 let
-  self = projectPath "/observes/common/utils_logger";
+  self = projectPath inputs.observesIndex.common.utilsLogger;
   py_env = makePythonPypiEnvironment {
     name = "observes-utils-logger-env-run";
     sourcesYaml = ./pypi-sources.yaml;

@@ -29,5 +29,6 @@
       sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
     };
     product = import (projectPath "/");
+    observesIndex = import ./observes/architecture/index.nix;
   };
 }
