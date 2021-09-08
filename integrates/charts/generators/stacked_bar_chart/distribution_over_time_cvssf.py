@@ -81,7 +81,6 @@ async def generate_all() -> None:
             document=format_distribution_document(
                 document=await get_group_document(group),
                 y_label=y_label,
-                tick_format=False,
             ),
             entity="group",
             subject=group,
@@ -94,7 +93,6 @@ async def generate_all() -> None:
             document=format_distribution_document(
                 document=await get_many_groups_document(org_groups),
                 y_label=y_label,
-                tick_format=False,
             ),
             entity="organization",
             subject=org_id,
@@ -106,7 +104,6 @@ async def generate_all() -> None:
                 document=format_distribution_document(
                     document=await get_many_groups_document(groups),
                     y_label=y_label,
-                    tick_format=False,
                 ),
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",

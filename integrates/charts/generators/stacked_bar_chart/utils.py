@@ -174,7 +174,6 @@ def format_document(
 def format_distribution_document(
     document: Dict[str, Dict[datetime, float]],
     y_label: str,
-    tick_format: bool = True,
 ) -> dict:
     return dict(
         data=dict(
@@ -246,7 +245,6 @@ def format_distribution_document(
             ),
             r=5,
         ),
-        barChartYTickFormat=tick_format,
     )
 
 
