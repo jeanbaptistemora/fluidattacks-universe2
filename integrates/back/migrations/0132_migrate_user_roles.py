@@ -14,7 +14,9 @@ from aioextensions import (
     collect,
     run,
 )
-import authz
+from aiohttp.client_exceptions import (
+    ClientError,
+)
 from custom_types import (
     User as UserType,
 )
@@ -47,11 +49,56 @@ async def get_all_users(
     return cast(List[UserType], items)
 
 
+async def update(
+    subject: str, object_param: str, data: Dict[str, str]
+) -> bool:
+    """Manually updates db data"""
+    success = False
+    set_expression = ""
+    remove_expression = ""
+    expression_names = {}
+    expression_values = {}
+    for attr, value in data.items():
+        if value is None:
+            remove_expression += f"#{attr}, "
+            expression_names.update({f"#{attr}": attr})
+        else:
+            set_expression += f"#{attr} = :{attr}, "
+            expression_names.update({f"#{attr}": attr})
+            expression_values.update({f":{attr}": value})
+
+    if set_expression:
+        set_expression = f'SET {set_expression.strip(", ")}'
+    if remove_expression:
+        remove_expression = f'REMOVE {remove_expression.strip(", ")}'
+
+    update_attrs = {
+        "Key": {
+            "subject": subject,
+            "object": object_param,
+        },
+        "UpdateExpression": f"{set_expression} {remove_expression}".strip(),
+    }
+    if expression_values:
+        update_attrs.update({"ExpressionAttributeValues": expression_values})
+    if expression_names:
+        update_attrs.update({"ExpressionAttributeNames": expression_names})
+    try:
+        success = await dynamodb_ops.update_item(TABLE_NAME, update_attrs)
+    except ClientError as ex:
+        print(f"- ERROR: {ex}")
+    return success
+
+
 async def process_user(user: Dict[str, str], new_role: str) -> bool:
     success = False
     if PROD:
-        success = await authz.grant_group_level_role(
-            user["subject"], user["object"], new_role
+        success = await update(
+            user["subject"],
+            user["object"],
+            {
+                "role": f"{new_role}",
+            },
         )
     return success
 
@@ -78,9 +125,9 @@ async def main() -> None:
         user for user in authz_users if user.get("role", "") == "group_manager"
     ]
 
-    migrate_roles(analyst_users, "analyst", "hacker")
-    migrate_roles(closer_users, "closer", "reattacker")
-    migrate_roles(gm_users, "group_manager", "system_owner")
+    await migrate_roles(analyst_users, "analyst", "hacker")
+    await migrate_roles(closer_users, "closer", "reattacker")
+    await migrate_roles(gm_users, "group_manager", "system_owner")
 
 
 if __name__ == "__main__":
