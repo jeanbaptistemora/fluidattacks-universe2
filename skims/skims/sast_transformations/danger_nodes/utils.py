@@ -17,7 +17,7 @@ from utils.string import (
 )
 
 
-def _append_label(
+def append_label(
     graph: graph_model.Graph,
     n_id: str,
     label: str,
@@ -39,7 +39,7 @@ def _append_label_input(
     n_id: str,
     finding: core_model.FindingEnum,
 ) -> None:
-    _append_label(graph, n_id, "label_input_type", finding)
+    append_label(graph, n_id, "label_input_type", finding)
 
 
 def _append_label_sink(
@@ -47,7 +47,7 @@ def _append_label_sink(
     n_id: str,
     finding: core_model.FindingEnum,
 ) -> None:
-    _append_label(graph, n_id, "label_sink_type", finding)
+    append_label(graph, n_id, "label_sink_type", finding)
 
 
 def _mark_array(
