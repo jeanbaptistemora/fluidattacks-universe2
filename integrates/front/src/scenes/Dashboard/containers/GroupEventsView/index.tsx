@@ -141,6 +141,27 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       castEventType("OTHER")
     ),
   };
+  const eventActionsBeforeBlocking: Record<string, string> = {
+    [translate.t(
+      "searchFindings.tabEvents.actionBeforeBlockingValues.documentGroup"
+    )]: "searchFindings.tabEvents.actionBeforeBlockingValues.documentGroup",
+    [translate.t("searchFindings.tabEvents.actionBeforeBlockingValues.none")]:
+      "searchFindings.tabEvents.actionBeforeBlockingValues.none",
+    [translate.t("searchFindings.tabEvents.actionBeforeBlockingValues.other")]:
+      "searchFindings.tabEvents.actionBeforeBlockingValues.other",
+    [translate.t(
+      "searchFindings.tabEvents.actionBeforeBlockingValues.testOtherPartToe"
+    )]: "searchFindings.tabEvents.actionBeforeBlockingValues.testOtherPartToe",
+    "-": "-",
+  };
+  const accessibilityOptions: Record<string, string> = {
+    [translate.t("group.events.form.accessibility.environment")]:
+      "group.events.form.accessibility.environment",
+    [translate.t("group.events.form.accessibility.repository")]:
+      "group.events.form.accessibility.repository",
+    "-": "-",
+  };
+
   const [optionType, setOptionType] = useState(selectOptionType);
 
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
@@ -151,6 +172,8 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   const [typeFilter, setTypeFilter] = useState("");
   const [dateFilter, setDateFilter] = useState("");
   const [closingDateFilter, setClosingDateFilter] = useState("");
+  const [actBefBlockFilter, setActBefBlockFilter] = useState("");
+  const [accessibilityFilter, setAccessibilityFilter] = useState("");
 
   const handleUpdateCustomFilter: () => void = useCallback((): void => {
     setCustomFilterEnabled(!isCustomFilterEnabled);
@@ -413,12 +436,36 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     closingDateFilter
   );
 
+  function onActBefBlockChange(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void {
+    setActBefBlockFilter(event.target.value);
+  }
+  const filterActBefBlockResult: IEventConfig[] = filterSelect(
+    dataset,
+    actBefBlockFilter,
+    "actionBeforeBlocking"
+  );
+
+  function onAccessibilityChange(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void {
+    setAccessibilityFilter(event.target.value);
+  }
+  const filterAccessibilityResult: IEventConfig[] = filterSelect(
+    dataset,
+    accessibilityFilter,
+    "accessibility"
+  );
+
   const resultDataset: IEventConfig[] = _.intersection(
     filterSearchtextResult,
     filterStatusResult,
     filterTypeResult,
     filterDateResult,
-    filterClosingDateResult
+    filterClosingDateResult,
+    filterActBefBlockResult,
+    filterAccessibilityResult
   );
 
   const customFiltersProps: IFilterProps[] = [
@@ -429,6 +476,24 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       tooltipId: "group.events.filtersTooltips.date.id",
       tooltipMessage: "group.events.filtersTooltips.date",
       type: "date",
+    },
+    {
+      defaultValue: accessibilityFilter,
+      onChangeSelect: onAccessibilityChange,
+      placeholder: "Accessibility",
+      selectOptions: accessibilityOptions,
+      tooltipId: "group.events.filtersTooltips.accessibility.id",
+      tooltipMessage: "group.events.filtersTooltips.accessibility",
+      type: "select",
+    },
+    {
+      defaultValue: actBefBlockFilter,
+      onChangeSelect: onActBefBlockChange,
+      placeholder: "Action before blocking",
+      selectOptions: eventActionsBeforeBlocking,
+      tooltipId: "group.events.filtersTooltips.actBefBlock.id",
+      tooltipMessage: "group.events.filtersTooltips.actBefBlock",
+      type: "select",
     },
     {
       defaultValue: typeFilter,

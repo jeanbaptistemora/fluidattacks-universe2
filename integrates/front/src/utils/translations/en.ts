@@ -348,6 +348,8 @@ export const enTranslations: ResourceKey = {
         noData: "There are no evidences",
       },
       filtersTooltips: {
+        accessibility: "Filter by accessibility",
+        actBefBlock: "Filter by action before blocking",
         closingDate: "Filter by closing date",
         date: "Filter by date",
         status: "Filter by status",
