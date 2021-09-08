@@ -6041,6 +6041,48 @@ F070,lines,namespace/skims/test/data/lib_root/f070_wildcard_import/Test.java,1,3
   9 | public class Test { }
     ^ Col 0
 "
+F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,13,405,skims,211. Asymmetric denial of service - ReDoS,"Asymmetric denial of service - ReDoS
+","
+   1 | using System.Text.RegularExpressions;
+   2 | namespace Controllers
+   3 | {
+   4 |     public class Controller : Controller
+   5 |     {
+   6 |         public IActionResult Validate(string regex, string input)
+   7 |         {
+   8 |             var expreg = @""\b(?<word>\w+)\s+(\k<word>)\b"";
+   9 |
+  10 |             Regex reg = new Regex(pat, RegexOptions.IgnoreCase);
+  11 |
+  12 |             bool match = reg.IsMatch(""testing"", @""\b(?<word>\w+)\s+(\k<word>)\b"");
+> 13 |             bool match2 = reg.IsMatch(input, expreg);
+  14 |             bool match3 = reg.IsMatch(input, reg.Escape(regex));
+  15 |         }
+  16 |     }
+  17 | }
+     ^ Col 0
+"
+F211,lines,namespace/skims/test/data/lib_root/f211/test.cs,12,405,skims,211. Asymmetric denial of service - ReDoS,"Asymmetric denial of service - ReDoS
+","
+   1 | using System.Text.RegularExpressions;
+   2 | namespace Controllers
+   3 | {
+   4 |     public class Controller : Controller
+   5 |     {
+   6 |         public IActionResult Validate(string regex, string input)
+   7 |         {
+   8 |             var expreg = @""\b(?<word>\w+)\s+(\k<word>)\b"";
+   9 |
+  10 |             Regex reg = new Regex(pat, RegexOptions.IgnoreCase);
+  11 |
+> 12 |             bool match = reg.IsMatch(""testing"", @""\b(?<word>\w+)\s+(\k<word>)\b"");
+  13 |             bool match2 = reg.IsMatch(input, expreg);
+  14 |             bool match3 = reg.IsMatch(input, reg.Escape(regex));
+  15 |         }
+  16 |     }
+  17 | }
+     ^ Col 0
+"
 F073,lines,namespace/skims/test/data/lib_path/f073/Test.cs,22,478,skims,073. Conditional statement without a default option,Switch without default in skims/test/data/lib_path/f073/Test.cs,"
   12 |               Console.WriteLine(""Case 1"");
   13 |               break;
