@@ -31,6 +31,12 @@ GROUP_CATEGORIES: List[str] = [
     "Best group",
 ]
 
+PORTFOLIO_CATEGORIES: List[str] = [
+    "My portfolio",
+    "Average portfolio",
+    "Best portfolio",
+]
+
 
 class Benchmarking(NamedTuple):
     is_valid: bool
