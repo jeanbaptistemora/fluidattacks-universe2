@@ -66,5 +66,5 @@ def get_vulnerable_lines(group: str) -> List[str]:
     return [
         vuln.where
         for vuln in vulnerabilities
-        if vuln.kind == VulnerabilityKindEnum.LINES and vuln.source != "skims"
+        if vuln.kind == VulnerabilityKindEnum.LINES
     ]
