@@ -287,11 +287,9 @@ async def send_digest_report(
     mail_contents: Union[Tuple[MailContent], Tuple]
     if digest_stats:
         mail_contents = tuple(
-            [
-                group_stats
-                for group_stats in digest_stats
-                if group_stats["group"] in groups
-            ]
+            group_stats
+            for group_stats in digest_stats
+            if group_stats["group"] in groups
         )
     elif loaders:
         mail_contents = await collect(
@@ -394,9 +392,9 @@ def should_process_event(
 
     success: bool = (
         (
-            # Tuesday to Saturday @ 8 GMT
+            # Tuesday to Saturday @ 9 GMT
             report_entity.lower() == "digest"
-            and bot_time_hour == 8
+            and bot_time_hour == 9
             and 1 <= bot_time_weekday <= 5
         )
         or (
