@@ -878,11 +878,8 @@ async def get_vulnerabilities_with_pending_attacks(
             [str(finding["finding_id"]) for finding in findings]
         )
     return sum(
-        [
-            1
-            for vulnerability in vulnerabilities
-            if vulnerability["verification"] == "Requested"
-        ]
+        vulnerability["verification"] == "Requested"
+        for vulnerability in vulnerabilities
     )
 
 
@@ -1108,20 +1105,16 @@ async def get_open_vulnerabilities(context: Any, group_name: str) -> int:
     last_approved_status = [
         vulns_utils.get_last_status(vuln) for vuln in findings_vulns
     ]
-    open_vulnerabilities = 0
-    for status in last_approved_status:
-        if status == "open":
-            open_vulnerabilities += 1
-    return open_vulnerabilities
+    return last_approved_status.count("open")
 
 
 async def get_open_vulnerabilities_new(
-    context: Any,
+    loaders: Any,
     group_name: str,
 ) -> int:
-    group_findings_loader = context.group_findings_new
+    group_findings_loader = loaders.group_findings_new
     group_findings_loader.clear(group_name)
-    finding_vulns_loader = context.finding_vulns_nzr
+    finding_vulns_loader = loaders.finding_vulns_nzr
 
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name
@@ -1133,11 +1126,7 @@ async def get_open_vulnerabilities_new(
     last_approved_status = [
         vulns_utils.get_last_status(vuln) for vuln in findings_vulns
     ]
-    open_vulnerabilities = 0
-    for status in last_approved_status:
-        if status == "open":
-            open_vulnerabilities += 1
-    return open_vulnerabilities
+    return last_approved_status.count("open")
 
 
 async def invite_to_group(
@@ -1260,7 +1249,7 @@ async def mask_resources(group_name: str) -> NamedTuple:
     )
 
 
-async def remove_all_users(context: Any, group: str) -> bool:
+async def remove_all_users(loaders: Any, group: str) -> bool:
     """Remove user access to group"""
     user_active, user_suspended = await collect(
         [
@@ -1271,33 +1260,33 @@ async def remove_all_users(context: Any, group: str) -> bool:
     all_users = user_active + user_suspended
     return all(
         await collect(
-            [remove_user(context, group, user) for user in all_users]
+            [remove_user(loaders, group, user) for user in all_users]
         )
     )
 
 
 async def remove_resources(  # pylint: disable=too-many-locals
-    context: Any, group_name: str
+    loaders: Any, group_name: str
 ) -> bool:
-    are_users_removed = await remove_all_users(context, group_name)
+    are_users_removed = await remove_all_users(loaders, group_name)
     if FI_API_STATUS == "migration":
-        group_drafts_loader: DataLoader = context.group_drafts_new
+        group_drafts_loader: DataLoader = loaders.group_drafts_new
         drafts: Tuple[Finding, ...] = await group_drafts_loader.load(
             group_name
         )
-        group_all_findings_loader: DataLoader = context.group_findings_all_new
+        group_all_findings_loader: DataLoader = loaders.group_findings_all_new
         all_findings: Tuple[
             Finding, ...
         ] = await group_all_findings_loader.load(group_name)
         are_findings_masked = all(
             await collect(
-                findings_domain.mask_finding_new(context, finding)
+                findings_domain.mask_finding_new(loaders, finding)
                 for finding in drafts + all_findings
             )
         )
     else:
         group_findings = await findings_domain.list_findings(
-            context, [group_name], include_deleted=True
+            loaders, [group_name], include_deleted=True
         )
         group_drafts = await findings_domain.list_drafts(
             [group_name], include_deleted=True
@@ -1305,7 +1294,7 @@ async def remove_resources(  # pylint: disable=too-many-locals
         findings_and_drafts = group_findings[0] + group_drafts[0]
         are_findings_masked = all(
             await collect(
-                findings_domain.mask_finding(context, finding_id)
+                findings_domain.mask_finding(loaders, finding_id)
                 for finding_id in findings_and_drafts
             )
         )
@@ -1329,12 +1318,12 @@ async def remove_resources(  # pylint: disable=too-many-locals
 
 
 async def remove_user(
-    context: Any, group_name: str, email: str, check_org_access: bool = True
+    loaders: Any, group_name: str, email: str, check_org_access: bool = True
 ) -> bool:
     """Remove user access to group"""
     success: bool = await group_access_domain.remove_access(email, group_name)
     if success and check_org_access:
-        group_loader = context.group
+        group_loader = loaders.group
         group = await group_loader.load(group_name)
         org_id = group["organization"]
 
@@ -1443,13 +1432,13 @@ async def get_remediation_rate(
 
 
 async def get_remediation_rate_new(
-    context: Any,
+    loaders: Any,
     group_name: str,
 ) -> int:
     """Percentage of closed vulns, ignoring treatments"""
     remediation_rate: int = 0
-    open_vulns = await get_open_vulnerabilities_new(context, group_name)
-    closed_vulns = await get_closed_vulnerabilities_new(context, group_name)
+    open_vulns = await get_open_vulnerabilities_new(loaders, group_name)
+    closed_vulns = await get_closed_vulnerabilities_new(loaders, group_name)
     if closed_vulns:
         remediation_rate = int(
             100 * closed_vulns / (open_vulns + closed_vulns)
@@ -1458,7 +1447,7 @@ async def get_remediation_rate_new(
 
 
 async def get_group_digest_stats(  # pylint: disable=too-many-locals
-    context: Any, group_name: str
+    loaders: Any, group_name: str
 ) -> MailContentType:
     content: MailContentType = {
         "group": group_name,
@@ -1492,15 +1481,15 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
     }
 
     if FI_API_STATUS == "migration":
-        findings_loader = context.group_findings_new
+        findings_loader = loaders.group_findings_new
         findings: Tuple[Finding, ...] = await findings_loader.load(group_name)
         findings_ids = [finding.id for finding in findings]
     else:
-        findings_loader = context.group_findings
+        findings_loader = loaders.group_findings
         findings = await findings_loader.load(group_name)
         findings_ids = [str(finding["finding_id"]) for finding in findings]
 
-    finding_vulns_loader = context.finding_vulns_nzr
+    finding_vulns_loader = loaders.finding_vulns_nzr
     group_vulns = await finding_vulns_loader.load_many_chained(findings_ids)
 
     if len(group_vulns) == 0:
@@ -1511,10 +1500,10 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
     last_day = datetime_utils.get_now_minus_delta(hours=24)
 
     if FI_API_STATUS == "migration":
-        oldest_finding = await get_oldest_no_treatment_new(context, findings)
+        oldest_finding = await get_oldest_no_treatment_new(loaders, findings)
         if oldest_finding:
             max_severity, severest_finding = await get_max_open_severity_new(
-                context, findings
+                loaders, findings
             )
             content["findings"] = [
                 {
@@ -1526,16 +1515,16 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
                 }
             ]
         content["main"]["remediation_time"] = int(
-            await get_mean_remediate_non_treated_new(context, group_name)
+            await get_mean_remediate_non_treated_new(loaders, group_name)
         )
         content["main"]["remediation_rate"] = await get_remediation_rate_new(
-            context, group_name
+            loaders, group_name
         )
     else:
-        oldest_finding = await get_oldest_no_treatment(context, findings)
+        oldest_finding = await get_oldest_no_treatment(loaders, findings)
         if oldest_finding:
             max_severity, severest_finding = await get_max_open_severity(
-                context, findings
+                loaders, findings
             )
             content["findings"] = [
                 {
@@ -1545,10 +1534,10 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
                 }
             ]
         content["main"]["remediation_time"] = int(
-            await get_mean_remediate_non_treated(context, group_name)
+            await get_mean_remediate_non_treated(loaders, group_name)
         )
         content["main"]["remediation_rate"] = await get_remediation_rate(
-            context, group_name
+            loaders, group_name
         )
 
     historic_config = (
@@ -1590,7 +1579,7 @@ def process_user_digest_stats(
     # Filter out those groups with no vulns
     groups_stats: Tuple[MailContentType] = cast(
         Tuple[MailContentType],
-        tuple([group for group in group_stats_all if group["vulns_len"] > 0]),
+        tuple(group for group in group_stats_all if group["vulns_len"] > 0),
     )
 
     if len(groups_stats) == 0:
