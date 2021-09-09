@@ -16,8 +16,10 @@ data "local_file" "init_worker" {
 #
 
 variable "runner_ami" {
-  type    = string
-  default = "amzn2-ami-hvm-2.0.20210721.2-x86_64-ebs"
+  type = map(list(string))
+  default = {
+    "name" = ["amzn2-ami-hvm-2.0.20210721.2-x86_64-ebs"]
+  }
 }
 
 variable "off_peak_periods" {

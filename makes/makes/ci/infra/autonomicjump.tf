@@ -1,6 +1,6 @@
 module "autonomicjump_ci_cache" {
   source  = "npalm/gitlab-runner/aws//modules/cache"
-  version = "4.28.0"
+  version = "4.30.0"
 
   environment             = "autonomicjump-ci-cache"
   cache_bucket_versioning = false
@@ -20,7 +20,7 @@ module "autonomicjump_ci_cache" {
 
 module "autonomicjump_ci" {
   source   = "npalm/gitlab-runner/aws"
-  version  = "4.28.0"
+  version  = "4.30.0"
   for_each = toset(["1"])
 
   # AWS
@@ -30,11 +30,8 @@ module "autonomicjump_ci" {
   enable_kms                             = true
   kms_deletion_window_in_days            = 30
   enable_manage_gitlab_token             = true
-  ami_filter = {
-    "name" : [
-      var.runner_ami,
-    ],
-  }
+  enable_cloudwatch_logging              = false
+  ami_filter                             = var.runner_ami
 
   # Cache
   cache_shared = true
@@ -43,10 +40,6 @@ module "autonomicjump_ci" {
     policy = module.autonomicjump_ci_cache.policy_arn
     bucket = module.autonomicjump_ci_cache.bucket
   }
-
-  # Logs
-  cloudwatch_logging_retention_in_days = 365
-  enable_cloudwatch_logging            = true
 
   # Runner
   instance_type                     = "c5a.large"
@@ -84,7 +77,7 @@ module "autonomicjump_ci" {
   runners_image                 = "docker"
   runners_limit                 = 1000
   runners_max_builds            = 15
-  runners_monitoring            = true
+  runners_monitoring            = false
   runners_name                  = "autonomicjump-ci-${each.key}"
   runners_output_limit          = 4096
   runners_privileged            = false
@@ -101,6 +94,7 @@ module "autonomicjump_ci" {
     name_runner_agent_instance  = "autonomicjump-ci-runner-${each.key}",
     name_docker_machine_runners = "autonomicjump-ci-worker-${each.key}",
     name_sg                     = "",
+    name_iam_objects            = "",
   }
   tags = {
     "management:type"    = "production"

@@ -1,6 +1,6 @@
 module "fluidattacks_ci_cache" {
   source  = "npalm/gitlab-runner/aws//modules/cache"
-  version = "4.28.0"
+  version = "4.30.0"
 
   environment             = "fluidattacks-ci-cache"
   cache_bucket_versioning = false
@@ -20,7 +20,7 @@ module "fluidattacks_ci_cache" {
 
 module "fluidattacks_ci" {
   source   = "npalm/gitlab-runner/aws"
-  version  = "4.28.0"
+  version  = "4.30.0"
   for_each = toset(["1", "2", "3"])
 
   # AWS
@@ -30,11 +30,8 @@ module "fluidattacks_ci" {
   enable_kms                             = true
   kms_deletion_window_in_days            = 30
   enable_manage_gitlab_token             = true
-  ami_filter = {
-    "name" : [
-      var.runner_ami,
-    ],
-  }
+  enable_cloudwatch_logging              = false
+  ami_filter                             = var.runner_ami
 
   # Cache
   cache_shared = true
@@ -43,10 +40,6 @@ module "fluidattacks_ci" {
     policy = module.fluidattacks_ci_cache.policy_arn
     bucket = module.fluidattacks_ci_cache.bucket
   }
-
-  # Logs
-  cloudwatch_logging_retention_in_days = 365
-  enable_cloudwatch_logging            = true
 
   # Runner
   instance_type                     = "c5a.large"
@@ -84,7 +77,7 @@ module "fluidattacks_ci" {
   runners_image                 = "docker"
   runners_limit                 = 1000
   runners_max_builds            = 15
-  runners_monitoring            = true
+  runners_monitoring            = false
   runners_name                  = "fluidattacks-ci-${each.key}"
   runners_output_limit          = 4096
   runners_privileged            = false
@@ -101,6 +94,7 @@ module "fluidattacks_ci" {
     name_runner_agent_instance  = "fluidattacks-ci-runner-${each.key}",
     name_docker_machine_runners = "fluidattacks-ci-worker-${each.key}",
     name_sg                     = "",
+    name_iam_objects            = "",
   }
   tags = {
     "management:type"    = "production"
@@ -110,7 +104,7 @@ module "fluidattacks_ci" {
 
 module "fluidattacks_ci_large" {
   source   = "npalm/gitlab-runner/aws"
-  version  = "4.28.0"
+  version  = "4.30.0"
   for_each = toset(["1"])
 
   # AWS
@@ -120,11 +114,8 @@ module "fluidattacks_ci_large" {
   enable_kms                             = true
   kms_deletion_window_in_days            = 30
   enable_manage_gitlab_token             = true
-  ami_filter = {
-    "name" : [
-      var.runner_ami,
-    ],
-  }
+  enable_cloudwatch_logging              = false
+  ami_filter                             = var.runner_ami
 
   # Cache
   cache_shared = true
@@ -133,10 +124,6 @@ module "fluidattacks_ci_large" {
     policy = module.fluidattacks_ci_cache.policy_arn
     bucket = module.fluidattacks_ci_cache.bucket
   }
-
-  # Logs
-  cloudwatch_logging_retention_in_days = 365
-  enable_cloudwatch_logging            = true
 
   # Runner
   instance_type                     = "c5a.large"
@@ -173,7 +160,7 @@ module "fluidattacks_ci_large" {
   runners_image                 = "docker"
   runners_limit                 = 1000
   runners_max_builds            = 15
-  runners_monitoring            = true
+  runners_monitoring            = false
   runners_name                  = "fluidattacks-ci-large-${each.key}"
   runners_output_limit          = 4096
   runners_privileged            = false
@@ -190,6 +177,7 @@ module "fluidattacks_ci_large" {
     name_runner_agent_instance  = "fluidattacks-ci-large-runner-${each.key}",
     name_docker_machine_runners = "fluidattacks-ci-large-worker-${each.key}",
     name_sg                     = "",
+    name_iam_objects            = "",
   }
   tags = {
     "management:type"    = "production"
