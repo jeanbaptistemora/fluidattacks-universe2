@@ -6,6 +6,7 @@ const GET_EVENTS: DocumentNode = gql`
     group(groupName: $groupName) {
       events {
         accessibility
+        actionAfterBlocking
         actionBeforeBlocking
         affectedComponents
         eventDate

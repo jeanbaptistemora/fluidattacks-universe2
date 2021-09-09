@@ -194,6 +194,14 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     },
     {
       align: "center",
+      dataField: "actionAfterBlocking",
+      header: translate.t("searchFindings.tabEvents.actionAfterBlocking"),
+      onSort: onSortState,
+      width: "50%",
+      wrapped: true,
+    },
+    {
+      align: "center",
       dataField: "actionBeforeBlocking",
       header: translate.t("searchFindings.tabEvents.actionBeforeBlocking"),
       onSort: onSortState,
