@@ -13,11 +13,18 @@ from dataloaders import (
 from db_model.roots.types import (
     GitRootItem,
 )
+from groups import (
+    domain as groups_domain,
+)
+from organizations import (
+    domain as orgs_domain,
+)
 from typing import (
     Any,
     Dict,
     List,
     NamedTuple,
+    Set,
 )
 
 Resources = NamedTuple(
@@ -65,11 +72,13 @@ def format_resources(roots: List[GitRootItem]) -> Resources:
 
 
 async def generate_all() -> None:
+    alive_groups: Set[str] = set(
+        sorted(await groups_domain.get_alive_group_names())
+    )
     async for org_id, org_name, org_groups in (
         utils.iterate_organizations_and_groups()
     ):
         context = get_new_context()
-        loader = context.group_roots
         grouped_roots = [
             [
                 root
@@ -77,7 +86,7 @@ async def generate_all() -> None:
                 if isinstance(root, GitRootItem)
                 and root.state.status == "ACTIVE"
             ]
-            for group_roots in await loader.load_many(org_groups)
+            for group_roots in await context.group_roots.load_many(org_groups)
         ]
         org_roots = [
             root for group_roots in grouped_roots for root in group_roots
@@ -89,7 +98,21 @@ async def generate_all() -> None:
             subject=org_id,
         )
 
-        for group_name, group_roots in zip(org_groups, grouped_roots):
+        all_org_groups = await orgs_domain.get_groups(org_id)
+        valid_org_groups = alive_groups.intersection(all_org_groups)
+        grouped_roots = [
+            [
+                root
+                for root in group_roots
+                if isinstance(root, GitRootItem)
+                and root.state.status == "ACTIVE"
+            ]
+            for group_roots in await context.group_roots.load_many(
+                valid_org_groups
+            )
+        ]
+
+        for group_name, group_roots in zip(valid_org_groups, grouped_roots):
             utils.json_dump(
                 document=format_data(
                     data=format_resources(group_roots),
@@ -99,12 +122,21 @@ async def generate_all() -> None:
             )
 
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
-            set_groups = set(groups)
+            grouped_portfolios_roots = [
+                [
+                    root
+                    for root in group_roots
+                    if isinstance(root, GitRootItem)
+                    and root.state.status == "ACTIVE"
+                ]
+                for group_roots in await context.group_roots.load_many(
+                    list(groups)
+                )
+            ]
             portfolio_roots = [
                 root
-                for group_roots in grouped_roots
-                for group_name, root in zip(org_groups, group_roots)
-                if group_name in set_groups
+                for group_roots in grouped_portfolios_roots
+                for root in group_roots
             ]
             utils.json_dump(
                 document=format_data(data=format_resources(portfolio_roots)),
