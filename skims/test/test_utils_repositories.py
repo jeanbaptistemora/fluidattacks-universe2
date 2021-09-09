@@ -49,8 +49,8 @@ def test_get_diff() -> None:
         str(
             get_diff(
                 repo,
-                rev_a="0d057c386a062bfcb79f4d62a1494354a17b86de",
-                rev_b="53787d7d48ec256fd592f9b05bff59b53f83284c",
+                rev_a="4db24690eb0381bb4645a2617eda2fd26d511e74",
+                rev_b="992a60f0eead2898726d02c89077afecdce68e61",
             ),
         )
         == textwrap.dedent(
@@ -70,8 +70,7 @@ def test_get_diff() -> None:
 def test_rebase() -> None:
     repo = get_repo(".")
 
-    # https://gitlab.com/fluidattacks/product/-/commit/2aa90d5
-    rev = "2aa90d52561c24ea3cee4e5e1abb8686f7655068"
+    rev = "1a5763f0ea8aa867ba459c629c42919243a89521"
     rebase_ = partial(rebase, repo, rev_a=f"{rev}~1", rev_b=rev)
 
     # This is the original file
@@ -94,22 +93,20 @@ def test_rebase() -> None:
     assert rebase(
         repo, path=path, line=65, rev_a=f"{rev}~10", rev_b="HEAD"
     ) == RebaseResult(
-        # Up to the parent of 2aa90d52561c24ea3cee4e5e1abb8686f7655068
+        # Up to the parent of 1a5763f0ea8aa867ba459c629c42919243a89521
         # Which is the commit before the line was modified
         path=path,
         line=65,
-        rev="8deeafc8296e743ea31aef3fbc94aafdcfea509c",
+        rev="5d7f7915544aa5c9fba828331ed9f200f5ac5ed1",
     )
 
     # The file was deleted, we cannot rebase
-    # https://gitlab.com/fluidattacks/product/-/commit/ca8916e
-    rev = "ca8916ee4c68596ba7c6edaf70d08b585b775f77"
+    rev = "e96763322ba55cc62684303cf1589870220825fa"
     path = "airs/content/pages/products/rules/findings/hygiene/037/index.adoc"
     assert None is rebase(repo, path=path, line=1, rev_a=f"{rev}~1", rev_b=rev)
 
     # The file was renamed, path is changed, line not
-    # https://gitlab.com/fluidattacks/product/-/commit/72a8ce1
-    rev = "72a8ce1ddaf4fb61579c35292340da6caf63af23"
+    rev = "2d1a923747b0f26f41c3f23e104598fefd4de6eb"
     path_a = "skims/skims/core/entrypoint.py"
     path_b = "skims/skims/core/scan.py"
     assert RebaseResult(path=path_b, line=10, rev=rev) == rebase(
