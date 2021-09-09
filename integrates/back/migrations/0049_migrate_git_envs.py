@@ -156,7 +156,7 @@ async def update_envs(group_name: str) -> None:
                 if STAGE != "test":
                     envs: List[str] = get_envs_by_group(group_name)
                     await roots_domain.update_git_environments(
-                        context=context,
+                        loaders=context,
                         user_email="",
                         group_name=group_name,
                         root_id=matching_root["sk"],

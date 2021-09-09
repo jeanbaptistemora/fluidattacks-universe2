@@ -264,7 +264,7 @@ async def main() -> None:
         chain.from_iterable(
             await collect(
                 [
-                    get_org_roots(context=loaders, org_id=org_id)
+                    get_org_roots(loaders=loaders, org_id=org_id)
                     for org_id in organizations_ids
                 ]
             )

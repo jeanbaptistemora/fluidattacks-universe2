@@ -114,13 +114,12 @@ def format_root(root: RootItem) -> Root:
 
 
 @newrelic.agent.function_trace()
-async def get_org_roots(*, context: Any, org_id: str) -> Tuple[RootItem, ...]:
+async def get_org_roots(*, loaders: Any, org_id: str) -> Tuple[RootItem, ...]:
     org_groups = await orgs_domain.get_groups(org_id)
-    group_roots_loader = context.group_roots
 
     return tuple(
         root
-        for group_roots in await group_roots_loader.load_many(org_groups)
+        for group_roots in await loaders.group_roots.load_many(org_groups)
         for root in group_roots
     )
 
@@ -157,8 +156,7 @@ def _format_git_repo_url(raw_url: str) -> str:
     return unquote(url).rstrip(" /")
 
 
-async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
-    group_loader = context.group
+async def add_git_root(loaders: Any, user_email: str, **kwargs: Any) -> None:
     group_name: str = kwargs["group_name"].lower()
     url: str = _format_git_repo_url(kwargs["url"])
     branch: str = kwargs["branch"].rstrip()
@@ -168,9 +166,8 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
     enforcer = await authz.get_group_level_enforcer(user_email)
 
     validations.validate_nickname(nickname)
-    group_roots_loader = context.group_roots
     validations.validate_nickname_is_unique(
-        nickname, await group_roots_loader.load(group_name)
+        nickname, await loaders.group_roots.load(group_name)
     )
 
     if gitignore and not enforcer(group_name, "update_git_root_filter"):
@@ -184,11 +181,11 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
     ):
         raise InvalidParameter()
 
-    group = await group_loader.load(group_name)
+    group = await loaders.group.load(group_name)
     if not validations.is_git_unique(
         url,
         branch,
-        await get_org_roots(context=context, org_id=group["organization"]),
+        await get_org_roots(loaders=loaders, org_id=group["organization"]),
     ):
         raise RepeatedRoot()
 
@@ -228,8 +225,7 @@ async def add_git_root(context: Any, user_email: str, **kwargs: Any) -> None:
         )
 
 
-async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
-    group_loader = context.group
+async def add_ip_root(loaders: Any, user_email: str, **kwargs: Any) -> None:
     group_name: str = kwargs["group_name"].lower()
     address: str = kwargs["address"]
     port = str(kwargs["port"])
@@ -240,20 +236,19 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
     if not is_valid:
         raise InvalidParameter()
 
-    group = await group_loader.load(group_name)
+    group = await loaders.group.load(group_name)
 
     if not validations.is_ip_unique(
         address,
         port,
-        await get_org_roots(context=context, org_id=group["organization"]),
+        await get_org_roots(loaders=loaders, org_id=group["organization"]),
     ):
         raise RepeatedRoot()
 
     nickname = kwargs["nickname"]
     validations.validate_nickname(nickname)
-    group_roots_loader = context.group_roots
     validations.validate_nickname_is_unique(
-        nickname, await group_roots_loader.load(group_name)
+        nickname, await loaders.group_roots.load(group_name)
     )
 
     root = IPRootItem(
@@ -272,7 +267,7 @@ async def add_ip_root(context: Any, user_email: str, **kwargs: Any) -> None:
     await roots_model.add(root=root)
 
 
-async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
+async def add_url_root(loaders: Any, user_email: str, **kwargs: Any) -> None:
     group_name: str = kwargs["group_name"].lower()
 
     try:
@@ -291,22 +286,21 @@ async def add_url_root(context: Any, user_email: str, **kwargs: Any) -> None:
     default_port = "443" if url_attributes.scheme == "https" else "80"
     port = url_attributes.port if url_attributes.port else default_port
     protocol: str = url_attributes.scheme.upper()
-    group = await context.group.load(group_name)
+    group = await loaders.group.load(group_name)
 
     if not validations.is_url_unique(
         host,
         path,
         port,
         protocol,
-        await get_org_roots(context=context, org_id=group["organization"]),
+        await get_org_roots(loaders=loaders, org_id=group["organization"]),
     ):
         raise RepeatedRoot()
 
     nickname = kwargs["nickname"]
     validations.validate_nickname(nickname)
-    group_roots_loader = context.group_roots
     validations.validate_nickname_is_unique(
-        nickname, await group_roots_loader.load(group_name)
+        nickname, await loaders.group_roots.load(group_name)
     )
 
     root = URLRootItem(
@@ -342,14 +336,14 @@ def _format_root_nickname(nickname: str, url: str) -> str:
 
 
 async def update_git_environments(
-    context: Any,
+    loaders: Any,
     user_email: str,
     group_name: str,
     root_id: str,
     environment_urls: List[str],
 ) -> None:
-    root_loader: DataLoader = context.root
-    root = await root_loader.load((group_name, root_id))
+    root_loader: DataLoader = loaders.root
+    root: RootItem = await root_loader.load((group_name, root_id))
 
     if not isinstance(root, GitRootItem):
         raise InvalidParameter()
@@ -384,19 +378,19 @@ async def update_git_environments(
 
 
 async def has_open_vulns(
-    root: GitRootItem, context: Any, group_name: str
+    root: GitRootItem, loaders: Any, group_name: str
 ) -> bool:
     return await roots_dal.has_open_vulns(
-        nickname=root.state.nickname, context=context, group_name=group_name
+        nickname=root.state.nickname, loaders=loaders, group_name=group_name
     )
 
 
 async def update_git_root(
-    context: Any, user_email: str, **kwargs: Any
+    loaders: Any, user_email: str, **kwargs: Any
 ) -> None:
     root_id: str = kwargs["id"]
     group_name: str = kwargs["group_name"]
-    root = await context.root.load((group_name, root_id))
+    root: RootItem = await loaders.root.load((group_name, root_id))
 
     if not isinstance(root, GitRootItem):
         raise InvalidParameter()
@@ -407,13 +401,13 @@ async def update_git_root(
     url: str = kwargs["url"]
     branch: str = kwargs["branch"]
     if url != root.state.url or branch != root.state.branch:
-        if await has_open_vulns(root, context, group_name):
+        if await has_open_vulns(root, loaders, group_name):
             raise HasOpenVulns()
-        group = await context.group.load(group_name)
+        group = await loaders.group.load(group_name)
         if not validations.is_git_unique(
             url,
             branch,
-            await get_org_roots(context=context, org_id=group["organization"]),
+            await get_org_roots(loaders=loaders, org_id=group["organization"]),
         ):
             raise RepeatedRoot()
 
@@ -432,7 +426,7 @@ async def update_git_root(
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
         nickname,
-        await context.group_roots.load(group_name),
+        await loaders.group_roots.load(group_name),
         old_nickname=root.state.nickname,
     )
 
@@ -472,15 +466,14 @@ async def update_git_root(
 
 
 async def update_root_cloning_status(
-    context: Any,
+    loaders: Any,
     group_name: str,
     root_id: str,
     status: str,
     message: str,
 ) -> None:
     validation_utils.validate_field_length(message, 400)
-    root_loader: DataLoader = context.root
-    root = await root_loader.load((group_name, root_id))
+    root: RootItem = await loaders.root.load((group_name, root_id))
 
     if not isinstance(root, GitRootItem):
         raise InvalidParameter()
@@ -497,15 +490,15 @@ async def update_root_cloning_status(
 
 
 async def activate_root(
-    *, context: Any, group_name: str, root: RootItem, user_email: str
+    *, loaders: Any, group_name: str, root: RootItem, user_email: str
 ) -> None:
     new_status = "ACTIVE"
 
     if root.state.status != new_status:
-        group_loader: DataLoader = context.group
+        group_loader: DataLoader = loaders.group
         group = await group_loader.load(group_name)
         org_roots = await get_org_roots(
-            context=context, org_id=group["organization"]
+            loaders=loaders, org_id=group["organization"]
         )
 
         if isinstance(root, GitRootItem):
@@ -661,13 +654,16 @@ async def deactivate_root(
 
 
 async def update_root_state(
-    context: Any, user_email: str, group_name: str, root_id: str, state: str
+    loaders: Any,
+    user_email: str,
+    group_name: str,
+    root_id: str,
+    state: str,
 ) -> None:
-    root_loader: DataLoader = context.root
-    root = await root_loader.load((group_name, root_id))
+    root: RootItem = await loaders.root.load((group_name, root_id))
     if state == "ACTIVE":
         await activate_root(
-            context=context,
+            loaders=loaders,
             group_name=group_name,
             root=root,
             user_email=user_email,
@@ -701,10 +697,9 @@ def get_root_id_by_filename(
 
 @newrelic.agent.function_trace()
 async def get_last_status_update(
-    context: Any, root_id: str, current_status: str
+    loaders: Any, root_id: str, current_status: str
 ) -> str:
-    root_states_loader = context.root_states
-    historic_state: Tuple[RootState, ...] = await root_states_loader.load(
+    historic_state: Tuple[RootState, ...] = await loaders.root_states.load(
         root_id
     )
 

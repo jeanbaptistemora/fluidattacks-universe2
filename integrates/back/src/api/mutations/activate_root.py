@@ -42,7 +42,7 @@ async def activate_git_root(
     **kwargs: Any,
 ) -> None:
     await roots_domain.activate_root(
-        context=info.context.loaders,
+        loaders=info.context.loaders,
         group_name=kwargs["group_name"],
         root=root,
         user_email=user_email,
@@ -57,7 +57,7 @@ async def activate_ip_root(
     **kwargs: Any,
 ) -> None:
     await roots_domain.activate_root(
-        context=info.context.loaders,
+        loaders=info.context.loaders,
         group_name=kwargs["group_name"],
         root=root,
         user_email=user_email,
@@ -72,7 +72,7 @@ async def activate_url_root(
     **kwargs: Any,
 ) -> None:
     await roots_domain.activate_root(
-        context=info.context.loaders,
+        loaders=info.context.loaders,
         group_name=kwargs["group_name"],
         root=root,
         user_email=user_email,

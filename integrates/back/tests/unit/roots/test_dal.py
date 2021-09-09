@@ -63,7 +63,7 @@ async def test_has_open_vulns(
 
     result = await roots_dal.has_open_vulns(
         nickname="product",
-        context=MockedContext(group_drafts=MockedDraftsLoader()),
+        loaders=MockedContext(group_drafts=MockedDraftsLoader()),
         group_name="",
     )
     assert result == expected_result
@@ -93,7 +93,7 @@ async def test_has_open_draft_vulns(monkeypatch: MonkeyPatch) -> None:
 
     result = await roots_dal.has_open_vulns(
         nickname="product",
-        context=MockedContext(group_drafts=MockedDraftsLoader()),
+        loaders=MockedContext(group_drafts=MockedDraftsLoader()),
         group_name="",
     )
     assert not result
