@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "bugsnag-build-reporter": "1.0.3"
+  }
+}
