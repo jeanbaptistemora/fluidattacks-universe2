@@ -6,8 +6,8 @@ This migration will map some old user roles to the following:
  - Closer        -> Reattacker
  - Group Manager -> System Owner
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-09-09 at 14:01:08 UTC-05
+Finalization Time: 2021-09-09 at 14:02:13 UTC-05
 """
 
 from aioextensions import (
@@ -31,9 +31,9 @@ from typing import (
 )
 
 # Constants
-PROD: bool = False
+PROD: bool = True
 
-TABLE_NAME: str = "fi_authz"
+AUTHZ_TABLE: str = "fi_authz"
 
 
 async def get_all_users(
@@ -45,7 +45,7 @@ async def get_all_users(
         scan_attrs["FilterExpression"] = filtering_exp
     if data_attr:
         scan_attrs["ProjectionExpression"] = data_attr
-    items = await dynamodb_ops.scan(TABLE_NAME, scan_attrs)
+    items = await dynamodb_ops.scan(AUTHZ_TABLE, scan_attrs)
     return cast(List[UserType], items)
 
 
@@ -84,7 +84,7 @@ async def update(
     if expression_names:
         update_attrs.update({"ExpressionAttributeNames": expression_names})
     try:
-        success = await dynamodb_ops.update_item(TABLE_NAME, update_attrs)
+        success = await dynamodb_ops.update_item(AUTHZ_TABLE, update_attrs)
     except ClientError as ex:
         print(f"- ERROR: {ex}")
     return success
