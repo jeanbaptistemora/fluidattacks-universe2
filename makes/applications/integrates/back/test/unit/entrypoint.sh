@@ -17,7 +17,7 @@ function main {
 
   source __envIntegratesEnv__ dev "${api_status}" \
     && DAEMON=true integrates-cache \
-    && DAEMON=true integrates-db \
+    && DAEMON=true integrates-db integratesmanager@gmail.com "${api_status}" \
     && DAEMON=true integrates-storage \
     && pushd integrates \
     && export BATCH_BIN='__envBatchBin__' \
