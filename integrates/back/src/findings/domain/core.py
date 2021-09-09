@@ -471,11 +471,11 @@ async def get_last_closed_vulnerability_info(
 
 
 async def get_last_closed_vulnerability_info_new(
-    context: Any,
+    loaders: Any,
     findings: Tuple[Finding, ...],
 ) -> Tuple[Decimal, VulnerabilityType]:
     """Get days since the last closed vulnerability"""
-    finding_vulns_loader = context.finding_vulns_nzr
+    finding_vulns_loader = loaders.finding_vulns_nzr
     valid_findings_ids = [
         finding.id for finding in findings if not is_deleted_new(finding)
     ]
@@ -550,10 +550,10 @@ async def get_max_open_severity(
 
 
 async def get_max_open_severity_new(
-    context: Any, findings: Tuple[Finding, ...]
+    loaders: Any, findings: Tuple[Finding, ...]
 ) -> Tuple[Decimal, Optional[Finding]]:
     total_vulns = await collect(
-        [total_vulnerabilities_new(context, finding) for finding in findings]
+        [total_vulnerabilities_new(loaders, finding) for finding in findings]
     )
     opened_findings = [
         finding
@@ -614,14 +614,14 @@ async def get_pending_verification_findings(
 
 
 async def get_pending_verification_findings_new(
-    context: Any,
+    loaders: Any,
     group_name: str,
 ) -> List[Dict[str, str]]:
     """Gets findings pending for verification"""
-    findings_ids = await list_findings_new(context, [group_name])
+    findings_ids = await list_findings_new(loaders, [group_name])
     are_pending_verifications = await collect(
         [
-            is_pending_verification_new(context, finding_id)
+            is_pending_verification_new(loaders, finding_id)
             for finding_id in findings_ids[0]
         ]
     )
@@ -632,7 +632,7 @@ async def get_pending_verification_findings_new(
         )
         if are_pending_verification
     ]
-    findings_loader = context.finding_new
+    findings_loader = loaders.finding_new
     findings_to_verify: Tuple[
         Finding, ...
     ] = await findings_loader.load_many_chained(pending_to_verify_ids)
@@ -722,14 +722,14 @@ async def get_total_treatment(
 
 
 async def get_total_treatment_new(
-    context: Any, findings: Tuple[Finding, ...]
+    loaders: Any, findings: Tuple[Finding, ...]
 ) -> Dict[str, int]:
     """Get the total vulnerability treatment of all the findings"""
     accepted_vuln: int = 0
     indefinitely_accepted_vuln: int = 0
     in_progress_vuln: int = 0
     undefined_treatment: int = 0
-    finding_vulns_loader = context.finding_vulns_nzr
+    finding_vulns_loader = loaders.finding_vulns_nzr
 
     valid_findings = [
         finding for finding in findings if not is_deleted_new(finding)
@@ -891,14 +891,14 @@ async def is_pending_verification(context: Any, finding_id: str) -> bool:
 
 
 async def is_pending_verification_new(
-    context: Any,
+    loaders: Any,
     finding_id: str,
 ) -> bool:
     # Validate if finding exists
-    finding_loader = context.finding_new
+    finding_loader = loaders.finding_new
     await finding_loader.load(finding_id)
 
-    finding_vulns_loader = context.finding_vulns_nzr
+    finding_vulns_loader = loaders.finding_vulns_nzr
     vulns = await finding_vulns_loader.load(finding_id)
     open_vulns = vulns_utils.filter_open_vulns(vulns)
     reattack_requested = [
@@ -930,15 +930,15 @@ async def list_findings(
 
 
 async def list_findings_new(
-    context: Any,
+    loaders: Any,
     group_names: List[str],
     include_deleted: bool = False,
 ) -> List[List[str]]:
     """Returns a list of the list of finding ids associated with the groups"""
     group_findings_loader = (
-        context.group_findings_all_new
+        loaders.group_findings_all_new
         if include_deleted
-        else context.group_findings_new
+        else loaders.group_findings_new
     )
     findings: Tuple[
         Tuple[Finding, ...], ...
@@ -1034,7 +1034,7 @@ async def mask_finding(  # pylint: disable=too-many-locals
 
 
 async def mask_finding_new(  # pylint: disable=too-many-locals
-    context: Any, finding: Finding
+    loaders: Any, finding: Finding
 ) -> bool:
     mask_finding_coroutines = []
     mask_new_finding_coroutines = []
@@ -1067,7 +1067,7 @@ async def mask_finding_new(  # pylint: disable=too-many-locals
         )
     )
     finding_historic_verification_loader = (
-        context.finding_historic_verification_new
+        loaders.finding_historic_verification_new
     )
     finding_historic_verification: Tuple[
         FindingVerification, ...
@@ -1101,7 +1101,7 @@ async def mask_finding_new(  # pylint: disable=too-many-locals
         for comment in comments_and_observations
     ]
     mask_finding_coroutines.extend(comments_coroutines)
-    finding_all_vulns_loader = context.finding_vulns_all
+    finding_all_vulns_loader = loaders.finding_vulns_all
     vulns = await finding_all_vulns_loader.load(finding.id)
     mask_vulns_coroutines = [
         vulns_domain.mask_vuln(finding.id, str(vuln["UUID"])) for vuln in vulns
@@ -1284,10 +1284,10 @@ async def total_vulnerabilities(
 
 
 async def total_vulnerabilities_new(
-    context: Any, finding: Finding
+    loaders: Any, finding: Finding
 ) -> Dict[str, int]:
     finding_stats = {"openVulnerabilities": 0, "closedVulnerabilities": 0}
-    finding_vulns_loader = context.finding_vulns_nzr
+    finding_vulns_loader = loaders.finding_vulns_nzr
     if not is_deleted_new(finding):
         vulns = await finding_vulns_loader.load(finding.id)
         last_approved_status = await collect(
@@ -1337,7 +1337,7 @@ async def update_description(
 
 
 async def update_description_new(
-    context: Any, finding_id: str, description: FindingDescriptionToUpdate
+    loaders: Any, finding_id: str, description: FindingDescriptionToUpdate
 ) -> None:
     validations.validate_fields(
         list(filter(None, description._asdict().values()))
@@ -1348,7 +1348,7 @@ async def update_description_new(
     ):
         raise InvalidDraftTitle()
 
-    finding_loader = context.loaders.finding_new
+    finding_loader = loaders.finding_new
     finding: Finding = await finding_loader.load(finding_id)
     metadata = FindingMetadataToUpdate(
         actor=description.actor,
@@ -1374,11 +1374,11 @@ async def update_description_new(
 
 
 async def update_severity_new(
-    context: Any,
+    loaders: Any,
     finding_id: str,
     severity: Union[Finding20Severity, Finding31Severity],
 ) -> None:
-    finding_loader = context.loaders.finding_new
+    finding_loader = loaders.finding_new
     finding: Finding = await finding_loader.load(finding_id)
     if isinstance(severity, Finding31Severity):
         privileges = cvss.calculate_privileges(
@@ -1520,11 +1520,11 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
 
 
 async def get_oldest_no_treatment(
-    context: Any,
+    loaders: Any,
     findings: List[Dict[str, FindingType]],
 ) -> dict:
     """Get the finding with oldest "new treatment" vuln"""
-    finding_vulns_loader = context.finding_vulns_nzr
+    finding_vulns_loader = loaders.finding_vulns_nzr
     vulns = await finding_vulns_loader.load_many_chained(
         [str(finding["finding_id"]) for finding in findings]
     )
@@ -1562,11 +1562,11 @@ async def get_oldest_no_treatment(
 
 
 async def get_oldest_no_treatment_new(
-    context: Any,
+    loaders: Any,
     findings: Tuple[Finding, ...],
 ) -> Dict[str, str]:
     """Get the finding with oldest "new treatment" vuln"""
-    finding_vulns_loader = context.finding_vulns_nzr
+    finding_vulns_loader = loaders.finding_vulns_nzr
     vulns = await finding_vulns_loader.load_many_chained(
         [str(finding.id) for finding in findings]
     )

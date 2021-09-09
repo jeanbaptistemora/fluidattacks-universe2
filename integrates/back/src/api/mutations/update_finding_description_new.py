@@ -77,7 +77,7 @@ async def mutate(
             type=kwargs.get("finding_type"),
         )
         await findings_domain.update_description_new(
-            info.context, finding_id, description
+            info.context.loaders, finding_id, description
         )
         redis_del_by_deps_soon(
             "update_finding_description",
