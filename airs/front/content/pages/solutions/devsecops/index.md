@@ -5,7 +5,7 @@ description: Fluid Attacks integrates security in your development and operation
 keywords: Fluid Attacks, Solutions, DevSecOps, DevOps, Ethical Hacking, SDLC, Security
 image: devsecops
 solution: We offer the integration of security into the development + operations (DevOps) methodology during Software Development Lifecycle (SDLC). In DevSecOps, all team members involved in software development become responsible for security. As opposed to other companies’ approach, at Fluid Attacks, we are not entirely dependent on tools and place more value on our ethical hackers’ skills to ensure greater accuracy in testing. We recognize that speed without precision is useless. Our security solutions can help optimize your development process from the first uploaded commit and continue after the application is in production.
-template: mdSolution
+template: solution
 ---
 
 <div class="sect2">

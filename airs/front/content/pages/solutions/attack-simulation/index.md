@@ -5,7 +5,7 @@ description: Our certified team of ethical hackers understands malicious intenti
 keywords: Fluid Attacks, Solutions, Attack Simulation, Ethical Hacking, Cyberattack, Security, Vulnerability
 image: attack-simulation
 solution: Simulating an attack scenario can be the best way to discover whether an organization’s information system and defense staff are ready to identify, respond to, and prevent real threats. Current malicious hackers and malware follow specific procedures which our certified team of ethical hackers has the ability to understand and implement in every controlled simulation. Through this solution, in which our team strictly assumes the role of the attacker, you will find out what the weaknesses of your company are in terms of cybersecurity, and consequently achieve the first step to strengthening your IT systems’ controls and enhancing their security.
-template: mdSolution
+template: solution
 ---
 
 <div class="sect2">

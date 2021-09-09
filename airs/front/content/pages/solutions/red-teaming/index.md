@@ -5,7 +5,7 @@ description: At Fluid Attacks, we are a certified Red Team specialized in testin
 keywords: Fluid Attacks, Solutions, Read Team, Red Teaming, Ethical Hacking, Security, Vulnerability
 image: red-teaming
 solution: Fluid Attacks is 100% a Red Team. Our core is testing and attacking infrastructures, applications, and source codes to find vulnerabilities that may pose risks to the assets of the owners and users of those systems. Our certified ethical hackers, continuously aiming to discover and employ novel tools and approaches, simulate cybercriminal attacks on your company’s information technology to assess its security controls and status. Based on these findings, we can then provide you with advice to determine the best ways to resolve your systems’ weaknesses and improve your protection against the countless, constant internal and external threats in cybersecurity.
-template: mdSolution
+template: solution
 ---
 
 <div class="sect2">

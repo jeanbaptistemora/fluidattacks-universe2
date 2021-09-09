@@ -5,7 +5,7 @@ description: The Ethical Hacking solution consists of our team thoroughly evalua
 keywords: Fluid Attacks, Solutions, Ethical Hacking, Security, Continuous Hacking, Vulnerability
 image: ethical-hacking
 solution: Fluid Attacks’ Ethical Hacking solution consists of attacking diverse systems with the aim of discovering vulnerabilities that could be exploited by malicious hackers to generate significant damage to a company. Our certified ethical hackers use methods and tools in a similar way to unethical hackers. However, the difference is that our hackers first obtain your permission and then access your IT infrastructure, applications, or source code in order to collect and analyze information that can be useful to improve your organization’s data protection and defense.
-template: mdSolution
+template: solution
 ---
 
 <div class="sect2">

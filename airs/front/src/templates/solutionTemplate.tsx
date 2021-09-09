@@ -37,7 +37,7 @@ import {
 import { translate } from "../utils/translations/translate";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
-const MdSolutionIndex: React.FC<IQueryData> = ({
+const SolutionIndex: React.FC<IQueryData> = ({
   data,
   pageContext,
 }: IQueryData): JSX.Element => {
@@ -161,10 +161,10 @@ const MdSolutionIndex: React.FC<IQueryData> = ({
   );
 };
 
-export default MdSolutionIndex;
+export default SolutionIndex;
 
 export const query: void = graphql`
-  query MdSolutionIndex($slug: String!) {
+  query SolutionIndex($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       fields {
