@@ -32,6 +32,7 @@ function main {
     && export INTEGRATES_CHARTS_LOGO_PATH='__envIntegrates__/back/src/reports/resources/themes/logo.png' \
     && export INTEGRATES_MAILER_TEMPLATES='__envIntegrates__/back/src/mailer/email_templates' \
     && export STARTDIR="${PWD}" \
+    && export TZ=UTC \
     && if ! test -e 'integrates'; then
       # Kubernetes specific
       mkdir 'integrates' \
