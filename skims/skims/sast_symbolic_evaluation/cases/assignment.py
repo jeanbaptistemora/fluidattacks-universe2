@@ -134,6 +134,9 @@ def javscript_evaluate_assignment(args: EvaluatorArgs) -> None:
                 while len(var_decl.meta.value) < index + 1:
                     var_decl.meta.value.append(None)
             var_decl.meta.value[index] = args.dependencies[-1]
+            var_decl.meta.danger = any(
+                x.meta.danger for x in var_decl.meta.value if x
+            )
 
 
 def evaluate(args: EvaluatorArgs) -> None:

@@ -1,5 +1,6 @@
 from model.graph_model import (
     SyntaxStepDeclaration,
+    SyntaxStepLiteral,
     SyntaxStepMeta,
     SyntaxStepsLazy,
 )
@@ -8,6 +9,7 @@ from sast_syntax_readers.types import (
 )
 from typing import (
     List,
+    Optional,
 )
 from utils import (
     graph as g,
@@ -31,17 +33,20 @@ def reader(args: SyntaxReaderArgs) -> SyntaxStepsLazy:
         )["shorthand_property_identifier_pattern"]
 
     for var_id in variable_ids:
+        assignment = []
+        var_type: Optional[str] = None
+        if value_id := node_attrs.get("label_field_value"):
+            value = args.generic(args.fork_n_id(value_id))
+            if value and isinstance(value[0], SyntaxStepLiteral):
+                var_type = value[0].value_type
+            assignment.append(value)
+
         yield SyntaxStepDeclaration(
             meta=SyntaxStepMeta.default(
                 args.n_id,
-                [
-                    args.generic(
-                        args.fork_n_id(node_attrs["label_field_value"])
-                    ),
-                ]
-                if "label_field_value" in node_attrs
-                else [],
+                assignment,
             ),
             var=args.graph.nodes[var_id]["label_text"],
+            var_type=var_type,
             is_destructuring=is_destructuring,
         )

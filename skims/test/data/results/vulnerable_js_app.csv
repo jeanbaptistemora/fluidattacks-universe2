@@ -1700,6 +1700,31 @@ F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test083.js,18,79,skims,008.
   28 | });
      ^ Col 0
 "
+F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test079.js,18,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+   8 |   var string_name = """";
+   9 |   data.push(""safe"");
+  10 |   data.push(param);
+  11 |
+  12 |   for (var user of data) {
+  13 |     string_name = string_name.concat(user);
+  14 |   }
+  15 |
+  16 |   res.setHeader(""Content-Type"", ""text/html"");
+  17 |   res.setHeader(""X-XSS-Protection"", ""0"");
+> 18 |   res.send(
+  19 |     `
+  20 |     <!DOCTYPE html>
+  21 |     <html>
+  22 |       <body>
+  23 |         <h1>Hello ${string_name}</h1>
+  24 |       </body>
+  25 |     </html>
+  26 | `
+  27 |   );
+  28 | });
+     ^ Col 0
+"
 F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test084.js,20,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
   10 |     keyB: param,

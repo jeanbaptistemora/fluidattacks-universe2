@@ -202,6 +202,7 @@ BY_OBJ: Dict[str, Set[str]] = complete_attrs_on_dict(
         "string": {
             "Split",
             "Replace",
+            "concat",
         },
         "java.lang.StringBuilder": {
             "append",
@@ -317,6 +318,9 @@ BY_OBJ_ARGS: Dict[str, Set[str]] = complete_attrs_on_dict(
         "child_process": {
             "exec",
             "execSync",
+        },
+        "string": {
+            "concat",
         },
         "fs": {
             "readFile",

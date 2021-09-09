@@ -67734,7 +67734,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "z",
-            "var_type": null
+            "var_type": "number"
           }
         ],
         "1047": [
@@ -67817,7 +67817,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "x",
-            "var_type": null
+            "var_type": "number"
           }
         ],
         "1060": [
@@ -68184,7 +68184,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "chuck",
-            "var_type": null
+            "var_type": "number"
           }
         ],
         "113": [
@@ -68210,7 +68210,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "y",
-            "var_type": null
+            "var_type": "number"
           }
         ],
         "1134": [
@@ -68843,7 +68843,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "x",
-            "var_type": null
+            "var_type": "number"
           }
         ],
         "1289": [
@@ -69009,7 +69009,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "y",
-            "var_type": null
+            "var_type": "number"
           }
         ],
         "1362": [
@@ -69153,7 +69153,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "i",
-            "var_type": null
+            "var_type": "number"
           }
         ],
         "175": [
@@ -69573,7 +69573,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "number",
-            "var_type": null
+            "var_type": "number"
           }
         ],
         "28": [
@@ -69778,7 +69778,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "result",
-            "var_type": null
+            "var_type": "string"
           }
         ],
         "33": [
@@ -69815,7 +69815,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "i",
-            "var_type": null
+            "var_type": "number"
           }
         ],
         "343": [
@@ -70200,7 +70200,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "responseSize",
-            "var_type": null
+            "var_type": "number"
           }
         ],
         "518": [
@@ -70538,7 +70538,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "triangle",
-            "var_type": null
+            "var_type": "number"
           }
         ],
         "59": [
@@ -70964,7 +70964,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "iterable",
-            "var_type": null
+            "var_type": "number"
           }
         ],
         "692": [
@@ -71146,7 +71146,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "i",
-            "var_type": null
+            "var_type": "number"
           },
           {
             "meta": {
@@ -71517,7 +71517,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "expr",
-            "var_type": null
+            "var_type": "string"
           }
         ],
         "832": [
@@ -72167,7 +72167,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "n",
-            "var_type": null
+            "var_type": "number"
           }
         ],
         "974": [
@@ -72193,7 +72193,7 @@
             "modifiers": null,
             "type": "SyntaxStepDeclaration",
             "var": "x",
-            "var_type": null
+            "var_type": "number"
           }
         ],
         "98": [

@@ -94,8 +94,10 @@ def attempt_java_looked_up_class(args: EvaluatorArgs) -> bool:
 
 def list_add(args: EvaluatorArgs, dcl: SyntaxStep) -> None:
     dcl.meta.value.append(args.dependencies[0])
+    dcl.meta.danger = any(x.meta.danger for x in dcl.meta.value if x)
 
 
 def list_remove(args: EvaluatorArgs, dcl: SyntaxStep) -> None:
     index = int(args.dependencies[0].meta.value)
     dcl.meta.value.pop(index)
+    dcl.meta.danger = any(x.meta.danger for x in dcl.meta.value if x)
