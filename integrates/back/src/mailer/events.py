@@ -20,14 +20,14 @@ from typing import (
 
 async def send_mail_comment(
     *,
-    context: Any,
+    loaders: Any,
     comment_data: CommentType,
     event_id: str,
     recipients: List[str],
     group_name: str,
     user_mail: str,
 ) -> None:
-    org_name = await get_organization_name(context, group_name)
+    org_name = await get_organization_name(loaders, group_name)
 
     email_context: MailContentType = {
         "comment": comment_data["content"].splitlines(),

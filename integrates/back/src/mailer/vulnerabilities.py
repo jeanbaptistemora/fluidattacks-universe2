@@ -15,18 +15,18 @@ from typing import (
 
 async def send_mail_updated_treatment(
     *,
-    context: Any,
+    loaders: Any,
     finding_id: str,
     finding_title: str,
     group_name: str,
     treatment: str,
     vulnerabilities: str,
 ) -> None:
-    group_loader = context.group
+    group_loader = loaders.group
     group = await group_loader.load(group_name)
     org_id = group["organization"]
 
-    organization_loader = context.organization
+    organization_loader = loaders.organization
     organization = await organization_loader.load(org_id)
     org_name = organization["name"]
 

@@ -758,7 +758,7 @@ def set_updated_manager_mail_content(
 
 async def should_send_update_treatment(
     *,
-    context: Any,
+    loaders: Any,
     finding_id: str,
     finding_title: str,
     group_name: str,
@@ -776,7 +776,7 @@ async def should_send_update_treatment(
         )
         schedule(
             vulns_mail.send_mail_updated_treatment(
-                context=context,
+                loaders=loaders,
                 finding_id=finding_id,
                 finding_title=finding_title,
                 group_name=group_name,

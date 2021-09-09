@@ -29,7 +29,7 @@ from typing import (
 
 async def send_mail_comment(
     *,
-    context: Any,
+    loaders: Any,
     comment_data: CommentType,
     user_mail: str,
     finding_id: str,
@@ -38,7 +38,7 @@ async def send_mail_comment(
     group_name: str,
     is_finding_released: bool,
 ) -> None:
-    org_name = await get_organization_name(context, group_name)
+    org_name = await get_organization_name(loaders, group_name)
     type_: str = comment_data["comment_type"]
     email_context: MailContentType = {
         "comment": comment_data["content"].splitlines(),

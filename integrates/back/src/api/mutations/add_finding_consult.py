@@ -71,7 +71,7 @@ async def send_finding_consult_mail(
     is_finding_released: bool,
 ) -> None:
     await findings_mail.send_mail_comment(
-        context=info.context.loaders,
+        loaders=info.context.loaders,
         comment_data=comment_data,
         user_mail=user_email,
         finding_id=finding_id,

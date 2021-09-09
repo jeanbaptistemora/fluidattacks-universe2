@@ -40,9 +40,9 @@ async def get_group_report_url(  # pylint: disable=too-many-return-statements
     passphrase: str,
     user_email: str,
 ) -> Optional[str]:
-    context = get_new_context()
+    loaders = get_new_context()
     if FI_API_STATUS == "migration":
-        group_findings_new_loader = context.group_findings_new
+        group_findings_new_loader = loaders.group_findings_new
         group_findings_new: Tuple[
             Finding, ...
         ] = await group_findings_new_loader.load(group_name)
@@ -58,14 +58,14 @@ async def get_group_report_url(  # pylint: disable=too-many-return-statements
 
         if report_type == "XLS":
             return await technical_report.generate_xls_file_new(
-                context,
+                loaders,
                 findings_ord=findings_ord_new,
                 group_name=group_name,
                 passphrase=passphrase,
             )
         if report_type == "PDF":
             return await technical_report.generate_pdf_file_new(
-                context=context,
+                context=loaders,
                 description=description,
                 findings_ord=findings_ord_new,
                 group_name=group_name,
@@ -75,7 +75,7 @@ async def get_group_report_url(  # pylint: disable=too-many-return-statements
             )
         if report_type == "DATA":
             return await data_report.generate_new(
-                context=context,
+                context=loaders,
                 findings_ord=findings_ord_new,
                 group=group_name,
                 group_description=description,
@@ -85,13 +85,13 @@ async def get_group_report_url(  # pylint: disable=too-many-return-statements
 
     else:
         group_findings = await findings_domain.list_findings(
-            context, [group_name]
+            loaders, [group_name]
         )
         findings = await findings_domain.get_findings_async(group_findings[0])
         format_vulns = await collect(
             [
                 vulns_domain.get_open_vuln_by_type(
-                    context, str(finding["findingId"])
+                    loaders, str(finding["findingId"])
                 )
                 for finding in findings
             ]
@@ -113,14 +113,14 @@ async def get_group_report_url(  # pylint: disable=too-many-return-statements
 
         if report_type == "XLS":
             return await technical_report.generate_xls_file(
-                context,
+                loaders,
                 findings_ord=findings_ord,
                 group_name=group_name,
                 passphrase=passphrase,
             )
         if report_type == "PDF":
             return await technical_report.generate_pdf_file(
-                context=context,
+                context=loaders,
                 description=description,
                 findings_ord=findings_ord,
                 group_name=group_name,
@@ -130,7 +130,7 @@ async def get_group_report_url(  # pylint: disable=too-many-return-statements
             )
         if report_type == "DATA":
             return await data_report.generate(
-                context=context,
+                context=loaders,
                 findings_ord=findings_ord,
                 group=group_name,
                 group_description=description,

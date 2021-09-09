@@ -339,13 +339,13 @@ def is_vulnerabilities_treatment_changed(
 
 
 async def send_treatment_change_mail(
-    context: Any,
+    loaders: Any,
     finding_id: str,
     finding_title: str,
     group_name: str,
     min_date: Datetime,
 ) -> bool:
-    finding_vulns_loader = context.finding_vulns_nzr
+    finding_vulns_loader = loaders.finding_vulns_nzr
     vulns = await finding_vulns_loader.load(finding_id)
     changes = list(
         filter(None, [get_treatment_change(vuln, min_date) for vuln in vulns])
@@ -356,7 +356,7 @@ async def send_treatment_change_mail(
             change for change in changes if change[0] == treatment
         ]
         await should_send_update_treatment(
-            context=context,
+            loaders=loaders,
             finding_id=finding_id,
             finding_title=finding_title,
             group_name=group_name,

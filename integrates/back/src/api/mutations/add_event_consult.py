@@ -53,7 +53,7 @@ async def send_event_consult_mail(
     group_name: str,
 ) -> None:
     await events_mail.send_mail_comment(
-        context=info.context.loaders,
+        loaders=info.context.loaders,
         comment_data=comment_data,
         event_id=event_id,
         recipients=await get_users_subscribed_to_consult(
