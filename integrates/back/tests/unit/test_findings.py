@@ -4,6 +4,12 @@ from back.tests.unit import (
 from collections import (
     OrderedDict,
 )
+from dataloaders import (
+    get_new_context,
+)
+from db_model.findings.types import (
+    FindingVerification,
+)
 from findings.dal import (
     get_finding,
 )
@@ -17,9 +23,13 @@ from newutils.findings import (
 )
 from newutils.vulnerabilities import (
     get_reattack_requesters,
+    get_reattack_requesters_new,
 )
 import os
 import pytest
+from typing import (
+    Tuple,
+)
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -172,5 +182,18 @@ async def test_get_reattack_requesters() -> None:
     recipients = get_reattack_requesters(
         finding.get("historic_verification", []),
         ["3bcdb384-5547-4170-a0b6-3b397a245465"],
+    )
+    assert recipients == ["integratesuser@gmail.com"]
+
+
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+async def test_get_reattack_requesters_new() -> None:
+    loaders = get_new_context()
+    historic_verification: Tuple[
+        FindingVerification, ...
+    ] = await loaders.finding_historic_verification_new.load("463558592")
+    recipients = get_reattack_requesters_new(
+        historic_verification,
+        {"3bcdb384-5547-4170-a0b6-3b397a245465"},
     )
     assert recipients == ["integratesuser@gmail.com"]
