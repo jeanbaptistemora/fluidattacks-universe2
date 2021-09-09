@@ -1,4 +1,8 @@
 # pylint: skip-file
+
+from dataclasses import (
+    dataclass,
+)
 from datetime import (
     datetime,
 )
@@ -34,7 +38,7 @@ class UnsupportedMultipleType(Exception):
     pass
 
 
-def to_json(proj: Project) -> JsonObj:
+def _to_json(proj: Project) -> JsonObj:
     json: Dict[str, Primitive] = {
         "proj_id": proj.proj_id.proj_id,
         "encoded_id": proj.encoded_id,
@@ -73,7 +77,7 @@ primitive_jschema_map = {
 }
 
 
-def type_jschema_map(ptype: Type[Any], optional: bool) -> JsonObj:
+def _type_jschema_map(ptype: Type[Any], optional: bool) -> JsonObj:
     extended_map = primitive_jschema_map.copy()
     extended_map[ProjectId] = "string"
     extended_map[datetime] = "string"
@@ -92,19 +96,30 @@ def type_jschema_map(ptype: Type[Any], optional: bool) -> JsonObj:
     raise UnexpectedType(f"{ptype} {type(ptype)}")
 
 
-def to_jschema_type(ptype: Type[Any]) -> JsonObj:
+def _to_jschema_type(ptype: Type[Any]) -> JsonObj:
     if get_origin(ptype) is Union:
         var_types = get_args(ptype)
         single_type = list(filter(lambda x: x != type(None), var_types))
         if len(single_type) > 1:
             raise UnsupportedMultipleType(single_type)
-        return type_jschema_map(single_type[0], None in var_types)
-    return type_jschema_map(ptype, False)
+        return _type_jschema_map(single_type[0], None in var_types)
+    return _type_jschema_map(ptype, False)
 
 
-def project_schema() -> JsonObj:
+def _project_schema() -> JsonObj:
     props = {
-        key: JsonValue(to_jschema_type(str_type))
+        key: JsonValue(_to_jschema_type(str_type))
         for key, str_type in Project.__annotations__.items()
     }
     return {"properties": JsonValue(props)}
+
+
+@dataclass(frozen=True)
+class ProjectEncoder:
+    @staticmethod
+    def to_json(project: Project) -> JsonObj:
+        return _to_json(project)
+
+    @staticmethod
+    def schema() -> JsonObj:
+        return _project_schema()

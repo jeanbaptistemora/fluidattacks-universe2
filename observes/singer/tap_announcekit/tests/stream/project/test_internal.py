@@ -5,7 +5,7 @@ from tap_announcekit.stream.project._builders import (
     proj_query,
 )
 from tap_announcekit.stream.project._encode import (
-    project_schema,
+    ProjectEncoder,
 )
 
 
@@ -14,5 +14,5 @@ def test_query() -> None:
 
 
 def test_proj_schema() -> None:
-    schema = project_schema()
+    schema = ProjectEncoder.schema()
     JsonSchemaFactory.from_json(schema)
