@@ -812,17 +812,13 @@ async def get_closed_vulnerabilities(context: Any, group_name: str) -> int:
     last_approved_status = [
         vulns_utils.get_last_status(vuln) for vuln in findings_vulns
     ]
-    closed_vulnerabilities = 0
-    for status in last_approved_status:
-        if status == "closed":
-            closed_vulnerabilities += 1
-    return closed_vulnerabilities
+    return last_approved_status.count("closed")
 
 
-async def get_closed_vulnerabilities_new(context: Any, group_name: str) -> int:
-    group_findings_loader = context.group_findings_new
+async def get_closed_vulnerabilities_new(loaders: Any, group_name: str) -> int:
+    group_findings_loader = loaders.group_findings_new
     group_findings_loader.clear(group_name)
-    finding_vulns_loader = context.finding_vulns_nzr
+    finding_vulns_loader = loaders.finding_vulns_nzr
 
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name
@@ -834,11 +830,7 @@ async def get_closed_vulnerabilities_new(context: Any, group_name: str) -> int:
     last_approved_status = [
         vulns_utils.get_last_status(vuln) for vuln in findings_vulns
     ]
-    closed_vulnerabilities = 0
-    for status in last_approved_status:
-        if status == "closed":
-            closed_vulnerabilities += 1
-    return closed_vulnerabilities
+    return last_approved_status.count("closed")
 
 
 async def get_description(group_name: str) -> str:
@@ -920,12 +912,12 @@ async def get_mean_remediate(
 
 
 async def get_mean_remediate_new(
-    context: Any,
+    loaders: Any,
     group_name: str,
     min_date: Optional[date] = None,
 ) -> Decimal:
-    group_findings_loader = context.group_findings_new
-    finding_vulns_loaders = context.finding_vulns
+    group_findings_loader = loaders.group_findings_new
+    finding_vulns_loaders = loaders.finding_vulns
 
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name
@@ -1041,15 +1033,15 @@ async def get_mean_remediate_severity(
 
 
 async def get_mean_remediate_severity_new(
-    context: Any,
+    loaders: Any,
     group_name: str,
     min_severity: float,
     max_severity: float,
     min_date: Optional[date] = None,
 ) -> Decimal:
     """Get mean time to remediate"""
-    finding_vulns_loader = context.finding_vulns_nzr
-    group_findings_loader = context.group_findings_new
+    finding_vulns_loader = loaders.finding_vulns_nzr
+    group_findings_loader = loaders.group_findings_new
 
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name.lower()
@@ -1085,9 +1077,9 @@ async def get_open_finding(context: Any, group_name: str) -> int:
     return vulns_utils.get_open_findings(finding_vulns)
 
 
-async def get_open_finding_new(context: Any, group_name: str) -> int:
-    finding_vulns_loader = context.finding_vulns_nzr
-    group_findings_loader = context.group_findings_new
+async def get_open_finding_new(loaders: Any, group_name: str) -> int:
+    finding_vulns_loader = loaders.finding_vulns_nzr
+    group_findings_loader = loaders.group_findings_new
 
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name
