@@ -16,6 +16,12 @@ import type { BaseSchema } from "yup";
 import { array, lazy, object } from "yup";
 
 import { handleCreationError, handleFileListUpload } from "./helpers";
+import {
+  accessibilityOptions,
+  afectCompsOptions,
+  eventActionsBeforeBlocking,
+  selectOptionType,
+} from "./selectOptions";
 
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
@@ -119,50 +125,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
   const { url } = useRouteMatch();
 
-  const selectOptionType = {
-    [translate.t("group.events.form.type.specialAttack")]: translate.t(
-      castEventType("AUTHORIZATION_SPECIAL_ATTACK")
-    ),
-    [translate.t("group.events.form.type.toeChange")]: translate.t(
-      castEventType("CLIENT_APPROVES_CHANGE_TOE")
-    ),
-    [translate.t(castEventType("CLIENT_DETECTS_ATTACK"))]: translate.t(
-      castEventType("CLIENT_DETECTS_ATTACK")
-    ),
-    [translate.t("group.events.form.type.highAvailability")]: translate.t(
-      castEventType("HIGH_AVAILABILITY_APPROVAL")
-    ),
-    [translate.t("group.events.form.type.missingSupplies")]: translate.t(
-      castEventType("INCORRECT_MISSING_SUPPLIES")
-    ),
-    [translate.t("group.events.form.type.toeDiffers")]: translate.t(
-      castEventType("TOE_DIFFERS_APPROVED")
-    ),
-    [translate.t("group.events.form.other")]: translate.t(
-      castEventType("OTHER")
-    ),
-  };
-  const eventActionsBeforeBlocking: Record<string, string> = {
-    [translate.t(
-      "searchFindings.tabEvents.actionBeforeBlockingValues.documentGroup"
-    )]: "searchFindings.tabEvents.actionBeforeBlockingValues.documentGroup",
-    [translate.t("searchFindings.tabEvents.actionBeforeBlockingValues.none")]:
-      "searchFindings.tabEvents.actionBeforeBlockingValues.none",
-    [translate.t("searchFindings.tabEvents.actionBeforeBlockingValues.other")]:
-      "searchFindings.tabEvents.actionBeforeBlockingValues.other",
-    [translate.t(
-      "searchFindings.tabEvents.actionBeforeBlockingValues.testOtherPartToe"
-    )]: "searchFindings.tabEvents.actionBeforeBlockingValues.testOtherPartToe",
-    "-": "-",
-  };
-  const accessibilityOptions: Record<string, string> = {
-    [translate.t("group.events.form.accessibility.environment")]:
-      "group.events.form.accessibility.environment",
-    [translate.t("group.events.form.accessibility.repository")]:
-      "group.events.form.accessibility.repository",
-    "-": "-",
-  };
-
   const [optionType, setOptionType] = useState(selectOptionType);
 
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
@@ -175,6 +137,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   const [closingDateFilter, setClosingDateFilter] = useState("");
   const [actBefBlockFilter, setActBefBlockFilter] = useState("");
   const [accessibilityFilter, setAccessibilityFilter] = useState("");
+  const [afectCompsFilter, setAfectCompsFilter] = useState("");
 
   const handleUpdateCustomFilter: () => void = useCallback((): void => {
     setCustomFilterEnabled(!isCustomFilterEnabled);
@@ -459,6 +422,17 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     "accessibility"
   );
 
+  function onAfectCompsChange(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void {
+    setAfectCompsFilter(event.target.value);
+  }
+  const filterAfectCompsResult: IEventConfig[] = filterSelect(
+    dataset,
+    afectCompsFilter,
+    "affectedComponents"
+  );
+
   const resultDataset: IEventConfig[] = _.intersection(
     filterSearchtextResult,
     filterStatusResult,
@@ -466,7 +440,8 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     filterDateResult,
     filterClosingDateResult,
     filterActBefBlockResult,
-    filterAccessibilityResult
+    filterAccessibilityResult,
+    filterAfectCompsResult
   );
 
   const customFiltersProps: IFilterProps[] = [
@@ -485,6 +460,15 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       selectOptions: accessibilityOptions,
       tooltipId: "group.events.filtersTooltips.accessibility.id",
       tooltipMessage: "group.events.filtersTooltips.accessibility",
+      type: "select",
+    },
+    {
+      defaultValue: afectCompsFilter,
+      onChangeSelect: onAfectCompsChange,
+      placeholder: "Affected components",
+      selectOptions: afectCompsOptions,
+      tooltipId: "group.events.filtersTooltips.affectedComponents.id",
+      tooltipMessage: "group.events.filtersTooltips.affectedComponents",
       type: "select",
     },
     {

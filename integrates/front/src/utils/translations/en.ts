@@ -356,6 +356,7 @@ export const enTranslations: ResourceKey = {
       filtersTooltips: {
         accessibility: "Filter by accessibility",
         actBefBlock: "Filter by action before blocking",
+        affectedComponents: "Filter by affected components",
         closingDate: "Filter by closing date",
         date: "Filter by date",
         status: "Filter by status",
