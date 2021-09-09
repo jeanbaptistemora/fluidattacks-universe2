@@ -171,7 +171,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         },
         tags=set(),
     ),
-    analyst=dict(
+    hacker=dict(
         actions={
             "api_mutations_add_draft_mutate",
             "api_mutations_add_draft_new_mutate",
@@ -270,7 +270,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "drills",
         },
     ),
-    closer=dict(
+    reattacker=dict(
         actions={
             "api_mutations_add_draft_mutate",
             "api_mutations_add_draft_new_mutate",
@@ -554,7 +554,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         },
         tags=set(),
     ),
-    group_manager=dict(
+    system_owner=dict(
         actions={
             "api_resolvers_group_forces_token_resolve",
             "api_mutations_update_forces_access_token_mutate",
@@ -793,10 +793,10 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         tags={"forces"},
     ),
 )
-# Permission duplication for the new roles
-GROUP_LEVEL_ROLES["hacker"] = GROUP_LEVEL_ROLES["analyst"]
-GROUP_LEVEL_ROLES["reattacker"] = GROUP_LEVEL_ROLES["closer"]
-GROUP_LEVEL_ROLES["system_owner"] = GROUP_LEVEL_ROLES["group_manager"]
+# Permission duplication for the old roles
+GROUP_LEVEL_ROLES["analyst"] = GROUP_LEVEL_ROLES["hacker"]
+GROUP_LEVEL_ROLES["closer"] = GROUP_LEVEL_ROLES["reattacker"]
+GROUP_LEVEL_ROLES["group_manager"] = GROUP_LEVEL_ROLES["system_owner"]
 
 # Map(role_name -> Map(actions|tags -> definition))
 GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
@@ -813,19 +813,19 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             *GROUP_LEVEL_ROLES["admin"]["tags"],
         },
     ),
-    analyst=dict(
+    hacker=dict(
         actions={
-            *GROUP_LEVEL_ROLES["analyst"]["actions"],
+            *GROUP_LEVEL_ROLES["hacker"]["actions"],
             "api_resolvers_git_root_toe_lines_resolve",
             "api_resolvers_group_toe_inputs_resolve",
         },
         tags={
-            *GROUP_LEVEL_ROLES["analyst"]["tags"],
+            *GROUP_LEVEL_ROLES["hacker"]["tags"],
         },
     ),
-    closer=dict(
+    reattacker=dict(
         actions={
-            *GROUP_LEVEL_ROLES["closer"]["actions"],
+            *GROUP_LEVEL_ROLES["reattacker"]["actions"],
             "api_mutations_submit_machine_job_mutate",
             "api_resolvers_finding_machine_jobs_resolve",
             "api_resolvers_finding_new_machine_jobs_new_resolve",
@@ -833,7 +833,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_group_toe_inputs_resolve",
         },
         tags={
-            *GROUP_LEVEL_ROLES["closer"]["tags"],
+            *GROUP_LEVEL_ROLES["reattacker"]["tags"],
         },
     ),
     customer=dict(
@@ -866,9 +866,9 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             *GROUP_LEVEL_ROLES["executive"]["tags"],
         },
     ),
-    group_manager=dict(
+    system_owner=dict(
         actions={
-            *GROUP_LEVEL_ROLES["group_manager"]["actions"],
+            *GROUP_LEVEL_ROLES["system_owner"]["actions"],
             "api_mutations_submit_machine_job_mutate",
             "api_resolvers_finding_machine_jobs_resolve",
             "api_resolvers_finding_new_machine_jobs_new_resolve",
@@ -878,7 +878,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_group_toe_inputs_resolve",
         },
         tags={
-            *GROUP_LEVEL_ROLES["group_manager"]["tags"],
+            *GROUP_LEVEL_ROLES["system_owner"]["tags"],
         },
     ),
     resourcer=dict(
@@ -907,16 +907,16 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         **GROUP_LEVEL_ROLES["service_forces"],
     ),
 )
-# Permission duplication for the new roles
+# Permission duplication for the old roles
 GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS[
-    "hacker"
-] = GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS["analyst"]
+    "analyst"
+] = GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS["hacker"]
 GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS[
-    "reattacker"
-] = GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS["closer"]
+    "closer"
+] = GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS["reattacker"]
 GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS[
-    "system_owner"
-] = GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS["group_manager"]
+    "group_manager"
+] = GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS["system_owner"]
 
 
 # Map(role_name -> Map(actions|tags -> definition))
@@ -972,7 +972,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         },
         tags=set(),
     ),
-    group_manager=dict(
+    system_owner=dict(
         actions={
             "api_mutations_add_org_finding_policy_mutate",
             "api_mutations_add_organization_finding_policy_mutate",
@@ -995,9 +995,9 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         tags=set(),
     ),
 )
-# Permission duplication for the new roles
-ORGANIZATION_LEVEL_ROLES["system_owner"] = ORGANIZATION_LEVEL_ROLES[
-    "group_manager"
+# Permission duplication for the old roles
+ORGANIZATION_LEVEL_ROLES["group_manager"] = ORGANIZATION_LEVEL_ROLES[
+    "system_owner"
 ]
 
 
@@ -1037,23 +1037,23 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
             *ORGANIZATION_LEVEL_ROLES["customeradmin"]["tags"],
         },
     ),
-    group_manager=dict(
+    system_owner=dict(
         actions={
-            *ORGANIZATION_LEVEL_ROLES["group_manager"]["actions"],
+            *ORGANIZATION_LEVEL_ROLES["system_owner"]["actions"],
             "api_mutations_add_group_mutate",
             "api_mutations_create_group_mutate",
             "grant_organization_level_role:group_manager",
             "grant_organization_level_role:system_owner",
         },
         tags={
-            *ORGANIZATION_LEVEL_ROLES["group_manager"]["tags"],
+            *ORGANIZATION_LEVEL_ROLES["system_owner"]["tags"],
         },
     ),
 )
-# Permission duplication for the new roles
+# Permission duplication for the old roles
 ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS[
-    "system_owner"
-] = ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS["group_manager"]
+    "group_manager"
+] = ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS["system_owner"]
 
 
 # Map(role_name -> Map(actions|tags -> definition))
@@ -1081,7 +1081,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         },
         tags=set(),
     ),
-    analyst=dict(
+    hacker=dict(
         actions={
             "api_resolvers_query_internal_names_resolve",
         },
@@ -1096,8 +1096,8 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
         tags=set(),
     ),
 )
-# Permission duplication for the new roles
-USER_LEVEL_ROLES["hacker"] = USER_LEVEL_ROLES["analyst"]
+# Permission duplication for the old roles
+USER_LEVEL_ROLES["analyst"] = USER_LEVEL_ROLES["hacker"]
 
 # Map(role_name -> Map(actions|tags -> definition))
 USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
@@ -1110,9 +1110,9 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             *USER_LEVEL_ROLES["admin"]["tags"],
         },
     ),
-    analyst=dict(
+    hacker=dict(
         actions={
-            *USER_LEVEL_ROLES["analyst"]["actions"],
+            *USER_LEVEL_ROLES["hacker"]["actions"],
             "api_mutations_add_group_mutate",
             "api_mutations_add_organization_mutate",
             "api_mutations_create_group_mutate",
@@ -1141,10 +1141,10 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
         },
     ),
 )
-# Permission duplication for the new roles
+# Permission duplication for the old roles
 USER_LEVEL_ROLES_FOR_FLUIDATTACKS[
-    "hacker"
-] = USER_LEVEL_ROLES_FOR_FLUIDATTACKS["analyst"]
+    "analyst"
+] = USER_LEVEL_ROLES_FOR_FLUIDATTACKS["hacker"]
 
 # Map(service -> feature)
 SERVICE_ATTRIBUTES: Dict[str, Set[str]] = dict(
