@@ -59,7 +59,7 @@ interface IVulnDataTypeAttr {
 }
 
 interface IVulnComponentProps {
-  canDisplayAnalyst: boolean;
+  canDisplayHacker: boolean;
   customFilters?: ICustomFiltersProps;
   customSearch?: ICustomSearchProps;
   findingId: string;

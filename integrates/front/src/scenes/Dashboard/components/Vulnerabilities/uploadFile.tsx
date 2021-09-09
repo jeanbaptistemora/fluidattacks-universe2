@@ -112,7 +112,7 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
         {
           query: GET_FINDING_VULN_INFO,
           variables: {
-            canRetrieveAnalyst: permissions.can(
+            canRetrieveHacker: permissions.can(
               "api_resolvers_vulnerability_hacker_resolve"
             ),
             canRetrieveZeroRisk: permissions.can(

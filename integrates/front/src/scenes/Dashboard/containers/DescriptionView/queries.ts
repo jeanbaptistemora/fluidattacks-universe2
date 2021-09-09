@@ -3,7 +3,7 @@ import type { DocumentNode } from "graphql";
 
 const GET_FINDING_DESCRIPTION: DocumentNode = gql`
   query GetFindingDescription(
-    $canRetrieveAnalyst: Boolean!
+    $canRetrieveHacker: Boolean!
     $canRetrieveSorts: Boolean!
     $findingId: String!
   ) {
@@ -14,7 +14,7 @@ const GET_FINDING_DESCRIPTION: DocumentNode = gql`
       compromisedAttributes
       compromisedRecords
       description
-      hacker @include(if: $canRetrieveAnalyst)
+      hacker @include(if: $canRetrieveHacker)
       id
       openVulnerabilities
       recommendation

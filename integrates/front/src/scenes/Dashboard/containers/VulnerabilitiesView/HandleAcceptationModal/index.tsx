@@ -39,7 +39,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptationModalPro
     const canGetHistoricState: boolean = permissions.can(
       "api_resolvers_finding_historic_state_resolve"
     );
-    const canRetrieveAnalyst: boolean = permissions.can(
+    const canRetrieveHacker: boolean = permissions.can(
       "api_resolvers_vulnerability_hacker_resolve"
     );
     const canRetrieveZeroRisk: boolean = permissions.can(
@@ -84,7 +84,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptationModalPro
       acceptationProps(
         refetchData,
         handleCloseModal,
-        canRetrieveAnalyst,
+        canRetrieveHacker,
         canRetrieveZeroRisk,
         findingId,
         groupName
@@ -95,7 +95,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptationModalPro
       confirmZeroRiskProps(
         refetchData,
         handleCloseModal,
-        canRetrieveAnalyst,
+        canRetrieveHacker,
         canRetrieveZeroRisk,
         findingId,
         groupName,
@@ -107,7 +107,7 @@ const HandleAcceptationModal: React.FC<IHandleVulnerabilitiesAcceptationModalPro
       rejectZeroRiskProps(
         refetchData,
         handleCloseModal,
-        canRetrieveAnalyst,
+        canRetrieveHacker,
         canRetrieveZeroRisk,
         findingId,
         groupName,

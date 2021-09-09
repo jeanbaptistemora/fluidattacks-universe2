@@ -14,7 +14,7 @@ import { getLastTreatment } from "scenes/Dashboard/components/Vulnerabilities/Up
 import { ButtonToolbar } from "styles/styledComponents";
 
 interface IAdditionalInfoProps {
-  canDisplayAnalyst: boolean;
+  canDisplayHacker: boolean;
   vulnerability: IVulnRowAttr;
   onClose: () => void;
 }
@@ -89,7 +89,7 @@ const Status: StyledComponent<
 })``;
 
 const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
-  canDisplayAnalyst,
+  canDisplayHacker,
   vulnerability,
   onClose,
 }: IAdditionalInfoProps): JSX.Element => {
@@ -332,7 +332,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                 )}
               </div>
             </Row>
-            {canDisplayAnalyst ? (
+            {canDisplayHacker ? (
               <Row>
                 <LabelField>
                   <Label>{t("searchFindings.tabDescription.hacker")}</Label>

@@ -33,7 +33,7 @@ interface IFindingDescriptionData {
 }
 
 interface IFindingDescriptionVars {
-  canRetrieveAnalyst: boolean;
+  canRetrieveHacker: boolean;
   canRetrieveSorts: boolean;
   findingId: string;
   groupName: string;

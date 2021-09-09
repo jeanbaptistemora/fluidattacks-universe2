@@ -23,7 +23,7 @@ describe("update verification component", (): void => {
     request: {
       query: GET_FINDING_VULN_INFO,
       variables: {
-        canRetrieveAnalyst: false,
+        canRetrieveHacker: false,
         canRetrieveZeroRisk: false,
         findingId: "",
         groupName: "",

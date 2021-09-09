@@ -52,7 +52,7 @@ function usePreviousProps(value: boolean): boolean {
 }
 
 export const VulnComponent: React.FC<IVulnComponentProps> = ({
-  canDisplayAnalyst,
+  canDisplayHacker,
   customFilters,
   customSearch,
   findingId,
@@ -283,7 +283,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
       />
       {setColumn()}
       <AdditionalInformation
-        canDisplayAnalyst={canDisplayAnalyst}
+        canDisplayHacker={canDisplayHacker}
         canRemoveVulnsTags={canRemoveVulnsTags}
         canRequestZeroRiskVuln={canRequestZeroRiskVuln}
         canUpdateVulnsTreatment={canUpdateVulnsTreatment}

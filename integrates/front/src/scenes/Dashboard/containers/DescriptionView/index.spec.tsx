@@ -42,7 +42,7 @@ describe("Finding Description", (): void => {
     finding,
   };
   const findingDescriptionVars: IFindingDescriptionVars = {
-    canRetrieveAnalyst: false,
+    canRetrieveHacker: false,
     canRetrieveSorts: false,
     findingId: "413372600",
     groupName: "TEST",

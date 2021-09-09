@@ -87,7 +87,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
 }: IUpdateTreatmentModalProps): JSX.Element => {
   const { userEmail }: IAuthContext = useContext(authContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const canRetrieveAnalyst: boolean = permissions.can(
+  const canRetrieveHacker: boolean = permissions.can(
     "api_resolvers_vulnerability_hacker_resolve"
   );
   const canRetrieveZeroRisk: boolean = permissions.can(
@@ -153,7 +153,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         {
           query: GET_FINDING_VULN_INFO,
           variables: {
-            canRetrieveAnalyst,
+            canRetrieveHacker,
             canRetrieveZeroRisk,
             findingId,
             groupName,
@@ -189,7 +189,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       {
         query: GET_FINDING_VULN_INFO,
         variables: {
-          canRetrieveAnalyst,
+          canRetrieveHacker,
           canRetrieveZeroRisk,
           findingId,
           groupName,
@@ -266,7 +266,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         {
           query: GET_FINDING_VULN_INFO,
           variables: {
-            canRetrieveAnalyst,
+            canRetrieveHacker,
             canRetrieveZeroRisk,
             findingId,
             groupName,

@@ -148,7 +148,7 @@ describe("VulnComponent", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <VulnComponent
-        canDisplayAnalyst={false}
+        canDisplayHacker={false}
         findingId={"480857698"}
         findingState={"open"}
         groupName={"test"}
@@ -201,7 +201,7 @@ describe("VulnComponent", (): void => {
     const { t } = useTranslation();
     const wrapper: ReactWrapper = mount(
       <VulnComponent
-        canDisplayAnalyst={false}
+        canDisplayHacker={false}
         findingId={"480857698"}
         findingState={"open"}
         groupName={"test"}

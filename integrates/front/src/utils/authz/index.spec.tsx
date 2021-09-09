@@ -22,9 +22,9 @@ describe("Authorization", (): void => {
   it("should render", (): void => {
     expect.hasAssertions();
 
-    userLevelPermissions.update([{ action: "resolve_analyst" }]);
+    userLevelPermissions.update([{ action: "resolve_hacker" }]);
     const wrapper: ReactWrapper = mount(
-      <Can do={"resolve_analyst"}>
+      <Can do={"resolve_hacker"}>
         <p>{"someone@fluidattacks.com"}</p>
       </Can>,
       {
@@ -61,7 +61,7 @@ describe("Authorization", (): void => {
 
     userLevelPermissions.update([]);
     const wrapper: ReactWrapper = mount(
-      <Can do={"resolve_analyst"}>
+      <Can do={"resolve_hacker"}>
         <p>{"someone@fluidattacks.com"}</p>
       </Can>,
       {

@@ -47,7 +47,7 @@ const onTreatmentChangeHelper = (
 const acceptationProps = (
   refetchData: () => void,
   handleCloseModal: () => void,
-  canRetrieveAnalyst: boolean,
+  canRetrieveHacker: boolean,
   canRetrieveZeroRisk: boolean,
   findingId: string,
   groupName: string
@@ -89,7 +89,7 @@ const acceptationProps = (
       {
         query: GET_FINDING_VULN_INFO,
         variables: {
-          canRetrieveAnalyst,
+          canRetrieveHacker,
           canRetrieveZeroRisk,
           findingId,
           groupName,
@@ -102,7 +102,7 @@ const acceptationProps = (
 const confirmZeroRiskProps = (
   refetchData: () => void,
   handleCloseModal: () => void,
-  canRetrieveAnalyst: boolean,
+  canRetrieveHacker: boolean,
   canRetrieveZeroRisk: boolean,
   findingId: string,
   groupName: string,
@@ -136,7 +136,7 @@ const confirmZeroRiskProps = (
       {
         query: GET_FINDING_VULN_INFO,
         variables: {
-          canRetrieveAnalyst,
+          canRetrieveHacker,
           canRetrieveZeroRisk,
           findingId,
           groupName,
@@ -156,7 +156,7 @@ const confirmZeroRiskProps = (
 const rejectZeroRiskProps = (
   refetchData: () => void,
   handleCloseModal: () => void,
-  canRetrieveAnalyst: boolean,
+  canRetrieveHacker: boolean,
   canRetrieveZeroRisk: boolean,
   findingId: string,
   groupName: string,
@@ -190,7 +190,7 @@ const rejectZeroRiskProps = (
       {
         query: GET_FINDING_VULN_INFO,
         variables: {
-          canRetrieveAnalyst,
+          canRetrieveHacker,
           canRetrieveZeroRisk,
           findingId,
           groupName,

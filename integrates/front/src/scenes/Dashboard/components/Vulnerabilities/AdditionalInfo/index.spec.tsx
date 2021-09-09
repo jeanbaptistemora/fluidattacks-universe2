@@ -66,7 +66,7 @@ describe("AdditionalInfo", (): void => {
 
     const wrapper: ReactWrapper = mount(
       <AdditionalInfo
-        canDisplayAnalyst={false}
+        canDisplayHacker={false}
         onClose={jest.fn()}
         vulnerability={formatVulnerabilities([mockVuln])[0]}
       />

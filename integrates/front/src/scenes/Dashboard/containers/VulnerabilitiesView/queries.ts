@@ -9,7 +9,7 @@ const VULNS_FRAGMENT: DocumentNode = gql`
     efficacy
     externalBugTrackingSystem
     findingId
-    hacker @include(if: $canRetrieveAnalyst)
+    hacker @include(if: $canRetrieveHacker)
     historicTreatment {
       acceptanceDate
       acceptanceStatus
@@ -38,7 +38,7 @@ const VULNS_FRAGMENT: DocumentNode = gql`
 
 export const GET_FINDING_VULN_INFO: DocumentNode = gql`
   query GetFindingVulnInfo(
-    $canRetrieveAnalyst: Boolean!
+    $canRetrieveHacker: Boolean!
     $canRetrieveZeroRisk: Boolean!
     $findingId: String!
     $groupName: String!
