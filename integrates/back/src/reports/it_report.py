@@ -98,12 +98,12 @@ class ITReport:
         self,
         data: List[Dict[str, FindingType]],
         group_name: str,
-        context: Any,
+        loaders: Any,
         lang: str = "es",
     ) -> None:
         """Initialize variables."""
         self.data = data
-        self.finding_vulns_loader = context.finding_vulns_nzr
+        self.finding_vulns_loader = loaders.finding_vulns_nzr
         self.group_name = group_name
         self.lang = lang
 
@@ -503,15 +503,15 @@ class ITReportNew:
         self,
         data: Tuple[Finding, ...],
         group_name: str,
-        context: Any,
+        loaders: Any,
         lang: str = "es",
     ) -> None:
         """Initialize variables."""
         self.data = data
         self.finding_historic_verification_loader = (
-            context.finding_historic_verification_new
+            loaders.finding_historic_verification_new
         )
-        self.finding_vulns_loader = context.finding_vulns_nzr
+        self.finding_vulns_loader = loaders.finding_vulns_nzr
         self.group_name = group_name
         self.lang = lang
 

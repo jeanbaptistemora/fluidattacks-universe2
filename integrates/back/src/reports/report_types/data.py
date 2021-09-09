@@ -56,7 +56,7 @@ async def _append_evidences(
 
 async def _append_pdf_report(
     *,
-    context: Any,
+    loaders: Any,
     directory: str,
     findings_ord: List[Dict[str, FindingType]],
     group: str,
@@ -66,7 +66,7 @@ async def _append_pdf_report(
 ) -> None:
     # Generate the PDF report
     report_filename = await technical_report.generate_pdf_file(
-        context=context,
+        loaders=loaders,
         description=group_description,
         findings_ord=findings_ord,
         group_name=group,
@@ -81,7 +81,7 @@ async def _append_pdf_report(
 
 async def _append_pdf_report_new(
     *,
-    context: Any,
+    loaders: Any,
     directory: str,
     findings_ord: Tuple[Finding, ...],
     group: str,
@@ -91,7 +91,7 @@ async def _append_pdf_report_new(
 ) -> None:
     # Generate the PDF report
     report_filename = await technical_report.generate_pdf_file_new(
-        context=context,
+        loaders=loaders,
         description=group_description,
         findings_ord=findings_ord,
         group_name=group,
@@ -105,14 +105,14 @@ async def _append_pdf_report_new(
 
 
 async def _append_xls_report(
-    context: Any,
+    loaders: Any,
     directory: str,
     findings_ord: List[Dict[str, FindingType]],
     group_name: str,
     passphrase: str,
 ) -> None:
     report_filename = await technical_report.generate_xls_file(
-        context,
+        loaders,
         findings_ord=findings_ord,
         group_name=group_name,
         passphrase=passphrase,
@@ -123,14 +123,14 @@ async def _append_xls_report(
 
 
 async def _append_xls_report_new(
-    context: Any,
+    loaders: Any,
     directory: str,
     findings_ord: Tuple[Finding, ...],
     group_name: str,
     passphrase: str,
 ) -> None:
     report_filename = await technical_report.generate_xls_file_new(
-        context,
+        loaders,
         findings_ord=findings_ord,
         group_name=group_name,
         passphrase=passphrase,
@@ -192,7 +192,7 @@ def _get_directory_contents(directory: str) -> List[str]:
 
 async def generate(
     *,
-    context: Any,
+    loaders: Any,
     findings_ord: List[Dict[str, FindingType]],
     group: str,
     group_description: str,
@@ -201,7 +201,7 @@ async def generate(
 ) -> str:
     with tempfile.TemporaryDirectory() as directory:
         await _append_pdf_report(
-            context=context,
+            loaders=loaders,
             directory=directory,
             findings_ord=findings_ord,
             group=group,
@@ -210,7 +210,7 @@ async def generate(
             requester_email=requester_email,
         )
         await _append_xls_report(
-            context,
+            loaders,
             directory=directory,
             findings_ord=findings_ord,
             group_name=group,
@@ -228,7 +228,7 @@ async def generate(
 
 async def generate_new(
     *,
-    context: Any,
+    loaders: Any,
     findings_ord: Tuple[Finding, ...],
     group: str,
     group_description: str,
@@ -237,7 +237,7 @@ async def generate_new(
 ) -> str:
     with tempfile.TemporaryDirectory() as directory:
         await _append_pdf_report_new(
-            context=context,
+            loaders=loaders,
             directory=directory,
             findings_ord=findings_ord,
             group=group,
@@ -246,7 +246,7 @@ async def generate_new(
             requester_email=requester_email,
         )
         await _append_xls_report_new(
-            context,
+            loaders,
             directory=directory,
             findings_ord=findings_ord,
             group_name=group,

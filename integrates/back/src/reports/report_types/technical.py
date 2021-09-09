@@ -207,7 +207,7 @@ async def download_evidences_for_pdf_new(
 
 async def generate_pdf_file(
     *,
-    context: Any,
+    loaders: Any,
     description: str,
     findings_ord: List[Dict[str, FindingType]],
     group_name: str,
@@ -222,7 +222,7 @@ async def generate_pdf_file(
         await download_evidences_for_pdf(findings_ord, tempdir)
         convert_evidences_to_png(findings_ord, tempdir, group_name)
         await pdf_maker.tech(
-            findings_ord, group_name, description, user_email, context
+            findings_ord, group_name, description, user_email, loaders
         )
     report_filename = await secure_pdf.create_full(
         user_email, pdf_maker.out_name, group_name
@@ -232,7 +232,7 @@ async def generate_pdf_file(
 
 async def generate_pdf_file_new(
     *,
-    context: Any,
+    loaders: Any,
     description: str,
     findings_ord: Tuple[Finding, ...],
     group_name: str,
@@ -256,7 +256,7 @@ async def generate_pdf_file_new(
             group_name,
             description,
             user_email,
-            context,
+            loaders,
         )
     report_filename = await secure_pdf.create_full(
         user_email, pdf_maker.out_name, group_name
@@ -265,13 +265,13 @@ async def generate_pdf_file_new(
 
 
 async def generate_xls_file(
-    context: Any,
+    loaders: Any,
     findings_ord: List[Dict[str, FindingType]],
     group_name: str,
     passphrase: str,
 ) -> str:
     it_report = ITReport(
-        data=findings_ord, group_name=group_name, context=context
+        data=findings_ord, group_name=group_name, loaders=loaders
     )
     await it_report.create()
     filepath = it_report.result_filename
@@ -290,13 +290,13 @@ async def generate_xls_file(
 
 
 async def generate_xls_file_new(
-    context: Any,
+    loaders: Any,
     findings_ord: Tuple[Finding, ...],
     group_name: str,
     passphrase: str,
 ) -> str:
     it_report = ITReportNew(
-        data=findings_ord, group_name=group_name, context=context
+        data=findings_ord, group_name=group_name, loaders=loaders
     )
     await it_report.create()
     filepath = it_report.result_filename

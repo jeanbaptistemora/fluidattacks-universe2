@@ -65,7 +65,7 @@ async def get_group_report_url(  # pylint: disable=too-many-return-statements
             )
         if report_type == "PDF":
             return await technical_report.generate_pdf_file_new(
-                context=loaders,
+                loaders=loaders,
                 description=description,
                 findings_ord=findings_ord_new,
                 group_name=group_name,
@@ -75,7 +75,7 @@ async def get_group_report_url(  # pylint: disable=too-many-return-statements
             )
         if report_type == "DATA":
             return await data_report.generate_new(
-                context=loaders,
+                loaders=loaders,
                 findings_ord=findings_ord_new,
                 group=group_name,
                 group_description=description,
@@ -120,7 +120,7 @@ async def get_group_report_url(  # pylint: disable=too-many-return-statements
             )
         if report_type == "PDF":
             return await technical_report.generate_pdf_file(
-                context=loaders,
+                loaders=loaders,
                 description=description,
                 findings_ord=findings_ord,
                 group_name=group_name,
@@ -130,7 +130,7 @@ async def get_group_report_url(  # pylint: disable=too-many-return-statements
             )
         if report_type == "DATA":
             return await data_report.generate(
-                context=loaders,
+                loaders=loaders,
                 findings_ord=findings_ord,
                 group=group_name,
                 group_description=description,

@@ -570,7 +570,7 @@ class CreatorPDF:
         group: str,
         description: str,
         user: str,
-        context: Any,
+        loaders: Any,
     ) -> None:
         """Add group information."""
         words = self.wordlist[self.lang]
@@ -580,7 +580,7 @@ class CreatorPDF:
         version = "v1.0"
         team_mail = "engineering@fluidattacks.com"
         main_pie_filename = self.make_pie_finding(findings, group, words)
-        finding_vulns_loader = context.finding_vulns_nzr
+        finding_vulns_loader = loaders.finding_vulns_nzr
         vulnerabilities = await finding_vulns_loader.load_many(
             [finding["findingId"] for finding in findings]
         )
@@ -753,10 +753,10 @@ class CreatorPDF:
         group: str,
         description: str,
         user: str,
-        context: Any,
+        loaders: Any,
     ) -> None:
         """Create the template to render and apply the context."""
-        await self.fill_group(data, group, description, user, context)
+        await self.fill_group(data, group, description, user, loaders)
         self.out_name = f"{str(uuid.uuid4())}.pdf"
         searchpath = self.path
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
