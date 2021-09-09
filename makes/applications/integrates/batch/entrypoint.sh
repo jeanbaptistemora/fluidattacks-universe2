@@ -20,6 +20,9 @@ function main {
     && pushd integrates \
     && python3 -m back.src.batch.dispatch "${@:3}" \
     && popd \
+    && if test "${env}" == 'test'; then
+      rm -rf integrates
+    fi \
     || return 1
 }
 
