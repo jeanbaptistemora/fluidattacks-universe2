@@ -1438,6 +1438,14 @@ export const enTranslations: ResourceKey = {
     },
     tabEvents: {
       accessibility: "Accessibility",
+      actionAfterBlocking: "Action after blocking",
+      actionAfterBlockingValues: {
+        none: "None",
+        other: "Other",
+        otherOther: "Execute another group of a different client",
+        otherSame: "Execute another group of the same client",
+        training: "Training",
+      },
       actionBeforeBlocking: "Action before blocking",
       actionBeforeBlockingValues: {
         documentGroup: "Document group",

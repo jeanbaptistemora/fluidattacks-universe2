@@ -95,6 +95,7 @@ interface IEventsDataset {
   group: {
     events: {
       accessibility: string;
+      actionAfterBlocking: string;
       actionBeforeBlocking: string;
       affectedComponents: string;
       closingDate: string;

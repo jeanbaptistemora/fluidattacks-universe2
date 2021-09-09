@@ -1,10 +1,34 @@
 import { translate } from "utils/translations/translate";
 
+const castActionAfterBlocking: (field: string) => string = (
+  field: string
+): string => {
+  const eventActionsAfterBlocking: Record<string, string> = {
+    EXECUTE_OTHER_GROUP_OTHER_CLIENT:
+      "searchFindings.tabEvents.actionAfterBlockingValues.otherOther",
+    EXECUTE_OTHER_GROUP_SAME_CLIENT:
+      "searchFindings.tabEvents.actionAfterBlockingValues.otherSame",
+    EXECUTE_OTHER_PROJECT_OTHER_CLIENT:
+      "searchFindings.tabEvents.actionAfterBlockingValues.otherOther",
+    EXECUTE_OTHER_PROJECT_SAME_CLIENT:
+      "searchFindings.tabEvents.actionAfterBlockingValues.otherSame",
+    NONE: "searchFindings.tabEvents.actionAfterBlockingValues.none",
+    OTHER: "searchFindings.tabEvents.actionAfterBlockingValues.other",
+    TRAINING: "searchFindings.tabEvents.actionAfterBlockingValues.training",
+  };
+
+  return eventActionsAfterBlocking[field]
+    ? eventActionsAfterBlocking[field]
+    : "-";
+};
+
 const castActionBeforeBlocking: (field: string) => string = (
   field: string
 ): string => {
   const eventActionsBeforeBlocking: Record<string, string> = {
     DOCUMENT_GROUP:
+      "searchFindings.tabEvents.actionBeforeBlockingValues.documentGroup",
+    DOCUMENT_PROJECT:
       "searchFindings.tabEvents.actionBeforeBlockingValues.documentGroup",
     NONE: "searchFindings.tabEvents.actionBeforeBlockingValues.none",
     OTHER: "searchFindings.tabEvents.actionBeforeBlockingValues.other",
@@ -174,6 +198,7 @@ const formatTreatment: (treatment: string, findingState: string) => string = (
 };
 
 export {
+  castActionAfterBlocking,
   castActionBeforeBlocking,
   castAffectedComponents,
   castEventType,

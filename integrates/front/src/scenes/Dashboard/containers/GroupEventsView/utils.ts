@@ -11,6 +11,7 @@ import { translate } from "utils/translations/translate";
 
 interface IEventConfig {
   accessibility: string;
+  actionAfterBlocking: string;
   actionBeforeBlocking: string;
   affectedComponents: string;
   eventStatus: string;
