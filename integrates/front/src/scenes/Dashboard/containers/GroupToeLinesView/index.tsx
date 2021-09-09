@@ -213,7 +213,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
   const getSortsRiskLevel = (toeLinesAttr: IToeLinesAttr): string =>
     toeLinesAttr.sortsRiskLevel
       ? `${toeLinesAttr.sortsRiskLevel.toString()} %`
-      : "-";
+      : "n/a";
   const toeLines: IToeLinesData[] = roots.reduce(
     (acc: IToeLinesData[], root: IGitRootAttr): IToeLinesData[] =>
       acc.concat(
