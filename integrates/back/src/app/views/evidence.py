@@ -74,6 +74,7 @@ async def get_evidence(request: Request) -> Response:
         "customeradmin",
         "executive",
         "group_manager",
+        "hacker",
         "reattacker",
         "resourcer",
         "reviewer",
