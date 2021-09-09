@@ -1,18 +1,36 @@
+# pylint: skip-file
+from datetime import (
+    datetime,
+)
+from returns.maybe import (
+    Maybe,
+)
 from singer_io.singer2.json import (
     JsonFactory,
     JsonObj,
+    JsonValFactory,
     JsonValue,
     Primitive,
 )
 from tap_announcekit.stream.project._objs import (
     Project,
+    ProjectId,
 )
 from typing import (
+    Any,
     Dict,
+    get_args,
+    get_origin,
+    Type,
+    Union,
 )
 
 
 class UnexpectedType(Exception):
+    pass
+
+
+class UnsupportedMultipleType(Exception):
     pass
 
 
@@ -47,20 +65,41 @@ def to_json(proj: Project) -> JsonObj:
     return JsonFactory.from_prim_dict(json)
 
 
-def to_jschema_type(ptype: str) -> JsonObj:
-    if ptype == "bool":
-        return JsonFactory.from_prim_dict({"type": "boolean"})
-    if ptype == "float":
-        return JsonFactory.from_prim_dict({"type": "number"})
-    if ptype == "int":
-        return JsonFactory.from_prim_dict({"type": "integer"})
-    if ptype in ("EmptyStr", "str"):
-        return JsonFactory.from_prim_dict({"type": "string"})
-    if ptype == "datetime":
-        return JsonFactory.from_prim_dict(
-            {"type": "string", "format": "date-time"}
-        )
-    raise UnexpectedType(ptype)
+primitive_jschema_map = {
+    bool: "boolean",
+    float: "number",
+    int: "integer",
+    str: "string",
+}
+
+
+def type_jschema_map(ptype: Type[Any], optional: bool) -> JsonObj:
+    extended_map = primitive_jschema_map.copy()
+    extended_map[ProjectId] = "string"
+    extended_map[datetime] = "string"
+    schema_type = Maybe.from_optional(extended_map.get(ptype)).map(
+        lambda x: JsonValFactory.from_list([x, "null"])
+        if optional
+        else JsonValue(x)
+    )
+    if schema_type.value_or(None):
+        if ptype == datetime:
+            return {
+                "type": schema_type.unwrap(),
+                "format": JsonValue("date-time"),
+            }
+        return {"type": schema_type.unwrap()}
+    raise UnexpectedType(f"{ptype} {type(ptype)}")
+
+
+def to_jschema_type(ptype: Type[Any]) -> JsonObj:
+    if get_origin(ptype) is Union:
+        var_types = get_args(ptype)
+        single_type = list(filter(lambda x: x != type(None), var_types))
+        if len(single_type) > 1:
+            raise UnsupportedMultipleType(single_type)
+        return type_jschema_map(single_type[0], None in var_types)
+    return type_jschema_map(ptype, False)
 
 
 def project_schema() -> JsonObj:

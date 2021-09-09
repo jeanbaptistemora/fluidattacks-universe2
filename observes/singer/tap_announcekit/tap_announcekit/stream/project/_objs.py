@@ -16,8 +16,9 @@ class _ProjectId:
 
 @dataclass(frozen=True)
 class ProjectId(_ProjectId):
-    def __init__(self, proj: _ProjectId) -> None:
-        object.__setattr__(self, "id", proj)
+    def __init__(self, obj: _ProjectId) -> None:
+        for key, val in obj.__dict__.items():
+            object.__setattr__(self, key, val)
 
 
 JsonStr = str

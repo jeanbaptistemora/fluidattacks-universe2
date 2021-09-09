@@ -1,4 +1,3 @@
-import pytest
 from singer_io.singer2.json_schema import (
     JsonSchemaFactory,
 )
@@ -14,7 +13,6 @@ def test_query() -> None:
     proj_query("1234")
 
 
-@pytest.mark.xfail(reason="in development")
 def test_proj_schema() -> None:
     schema = project_schema()
     JsonSchemaFactory.from_json(schema)
