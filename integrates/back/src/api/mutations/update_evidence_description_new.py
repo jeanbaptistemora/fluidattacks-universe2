@@ -44,7 +44,7 @@ async def mutate(
 ) -> SimplePayload:
     try:
         await findings_domain.update_evidence_description_new(
-            info.context, finding_id, evidence_id, description
+            info.context.loaders, finding_id, evidence_id, description
         )
         redis_del_by_deps_soon(
             "update_evidence_description",

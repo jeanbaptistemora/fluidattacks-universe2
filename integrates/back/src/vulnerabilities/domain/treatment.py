@@ -368,7 +368,7 @@ async def send_treatment_change_mail(
 
 async def update_vulnerabilities_treatment(
     *,
-    context: Any,
+    loaders: Any,
     finding_id: str,
     updated_values: Dict[str, str],
     organization_id: str,
@@ -377,7 +377,7 @@ async def update_vulnerabilities_treatment(
     vulnerability_id: str,
     group_name: str,
 ) -> bool:
-    finding_vulns_loader = context.finding_vulns_all
+    finding_vulns_loader = loaders.finding_vulns_all
     success: bool = False
     if updated_values.get("treatment") in {"ACCEPTED_UNDEFINED", "ACCEPTED"}:
         updated_values["treatment_manager"] = user_email
@@ -410,7 +410,7 @@ async def update_vulnerabilities_treatment(
                     List[Dict[str, str]], vulnerability["historic_treatment"]
                 ),
             },
-            context,
+            loaders,
             organization_id,
             updated_values,
         ):

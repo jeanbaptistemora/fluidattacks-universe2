@@ -587,7 +587,7 @@ async def test_update_group_attrs(
     expected: bool,
 ) -> None:
     assert expected == await update_group_attrs(
-        context=get_new_context(),
+        loaders=get_new_context(),
         comments="",
         group_name=group_name,
         subscription=subscription,

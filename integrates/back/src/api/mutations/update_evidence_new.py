@@ -49,7 +49,7 @@ async def mutate(
         finding_id: str = kwargs["finding_id"]
         evidence_id: str = kwargs["evidence_id"]
         await findings_domain.update_evidence_new(
-            info.context, finding_id, evidence_id, file
+            info.context.loaders, finding_id, evidence_id, file
         )
         redis_del_by_deps_soon(
             "update_evidence",

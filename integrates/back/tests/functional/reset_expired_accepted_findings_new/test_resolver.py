@@ -100,7 +100,6 @@ async def test_get_group(populate: bool) -> None:
     assert historic_treatment[-1].get("acceptance_status") == "SUBMITTED"
     assert historic_treatment[-1].get("treatment") == "ACCEPTED_UNDEFINED"
 
-    loaders = get_new_context()
     finding: Finding = await loaders.finding_new.load(finding_id)
     assert (
         finding.unreliable_indicators.unreliable_treatment_summary

@@ -43,7 +43,7 @@ async def mutate(
 ) -> SimpleFindingPayload:
     try:
         await findings_domain.remove_evidence_new(
-            info.context, evidence_id, finding_id
+            info.context.loaders, evidence_id, finding_id
         )
         redis_del_by_deps_soon(
             "remove_finding_evidence",

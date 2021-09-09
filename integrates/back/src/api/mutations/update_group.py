@@ -65,7 +65,7 @@ async def mutate(  # pylint: disable=too-many-arguments
 
     try:
         success = await groups_domain.update_group_attrs(
-            context=loaders,
+            loaders=loaders,
             comments=comments,
             group_name=group_name,
             has_squad=has_squad,

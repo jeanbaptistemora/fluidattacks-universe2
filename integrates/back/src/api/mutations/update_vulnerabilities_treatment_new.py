@@ -65,7 +65,7 @@ async def mutate(
             finding.severity
         )
         success: bool = await vulns_domain.update_vulnerabilities_treatment(
-            context=info.context.loaders,
+            loaders=info.context.loaders,
             finding_id=finding_id,
             updated_values=parameters,
             organization_id=group["organization"],

@@ -51,7 +51,7 @@ async def mutate(
         requester_email = user_info["user_email"]
         success = False
         success = await groups_domain.update_group_attrs(
-            context=loaders,
+            loaders=loaders,
             comments="",
             group_name=group_name,
             has_machine=False,

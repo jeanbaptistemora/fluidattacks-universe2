@@ -123,9 +123,9 @@ async def remove_evidence(evidence_name: str, finding_id: str) -> bool:
 
 
 async def remove_evidence_new(
-    context: Any, evidence_id: str, finding_id: str
+    loaders: Any, evidence_id: str, finding_id: str
 ) -> None:
-    finding_loader = context.loaders.finding_new
+    finding_loader = loaders.finding_new
     finding: Finding = await finding_loader.load(finding_id)
     evidence: Optional[FindingEvidence] = getattr(
         finding.evidences, EVIDENCE_NAMES[evidence_id]
@@ -204,10 +204,10 @@ async def update_evidence(
 
 
 async def update_evidence_new(
-    context: Any, finding_id: str, evidence_id: str, file: UploadFile
+    loaders: Any, finding_id: str, evidence_id: str, file: UploadFile
 ) -> None:
     await validate_evidence(evidence_id, file)
-    finding_loader = context.loaders.finding_new
+    finding_loader = loaders.finding_new
     finding: Finding = await finding_loader.load(finding_id)
     filename = f"{finding.group_name}-{finding.id}-{evidence_id}"
     full_name = f"{finding.group_name}/{finding.id}/{filename}"
@@ -271,10 +271,10 @@ async def update_evidence_description(
 
 
 async def update_evidence_description_new(
-    context: Any, finding_id: str, evidence_id: str, description: str
+    loaders: Any, finding_id: str, evidence_id: str, description: str
 ) -> None:
     validations.validate_fields([description])
-    finding_loader = context.loaders.finding_new
+    finding_loader = loaders.finding_new
     finding: Finding = await finding_loader.load(finding_id)
     evidence: Optional[FindingEvidence] = getattr(
         finding.evidences, EVIDENCE_NAMES[evidence_id]

@@ -671,7 +671,7 @@ async def remove_group(
 
 async def update_group_attrs(
     *,
-    context: Any,
+    loaders: Any,
     comments: str,
     group_name: str,
     has_squad: bool,
@@ -725,11 +725,11 @@ async def update_group_attrs(
         )
 
     if not has_asm:
-        group_loader = context.group
+        group_loader = loaders.group
         group = await group_loader.load(group_name)
         org_id = group["organization"]
         success = success and await remove_group(
-            context, group_name, requester_email, org_id
+            loaders, group_name, requester_email, org_id
         )
 
     if success and has_asm:

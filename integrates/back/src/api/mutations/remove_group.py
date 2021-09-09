@@ -49,7 +49,7 @@ async def mutate(
 
     try:
         success = await groups_domain.update_group_attrs(
-            context=loaders,
+            loaders=loaders,
             comments="",
             group_name=group_name,
             has_machine=False,
