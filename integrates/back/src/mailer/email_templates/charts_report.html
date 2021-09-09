@@ -1,5 +1,5 @@
 {% extends "layouts/common.html" %}
-{% from 'layouts/components/forms.html' import banner_group, go_to_button, analytics_image %}
+{% from 'layouts/components/forms.html' import banner_group, go_to_button, analytics_image, charts_report_button %}
 
 {% block layout %}
 <div class="container">
@@ -24,9 +24,10 @@
     <p></p>
     <p>Regards,<br>
       Fluid Attacks Team</p>
-    {{ go_to_button('Download report', image_src) }}
-    <p></p>
-    {{ go_to_button('Go Live', live_report_url) }}
+      <table style="width: 50%; margin: auto;">
+        {{ charts_report_button('Download', image_src) }}
+        {{ charts_report_button('Live', live_report_url) }}
+      </table>
     <br />
   </div>
 

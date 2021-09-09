@@ -7,6 +7,15 @@
 </div>
 {% endmacro %}
 
+{# Customized button for charts report use #}
+{% macro charts_report_button(text, url) %}
+<td style="text-align: -webkit-center;">
+  <a id="download" class="pa3 dim fixed-w-150" title="{{ text }}" href="{{ url }}" target="_blank" rel="noopener noreferrer">
+    {{ text }}
+  </a>
+</td>
+{% endmacro %}
+
 {# Image section for analytics report #}
 {# Not the same as other imgs, due to a bug in safari with flexbox #}
 {% macro analytics_image(url, size) %}
