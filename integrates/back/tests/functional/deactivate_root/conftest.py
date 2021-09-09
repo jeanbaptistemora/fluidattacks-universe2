@@ -60,14 +60,14 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             IPRootItem(
                 group_name="group2",
                 id="83cadbdc-23f3-463a-9421-f50f8d0cb1e5",
-                metadata=IPRootMetadata(
-                    address="192.168.1.1", port="8080", type="IP"
-                ),
+                metadata=IPRootMetadata(type="IP"),
                 state=IPRootState(
+                    address="192.168.1.1",
                     modified_by=test_email,
                     modified_date=test_date,
                     nickname="deactivate_ip_1",
                     other=None,
+                    port="8080",
                     reason=None,
                     status=test_status,
                 ),
@@ -121,17 +121,15 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             IPRootItem(
                 group_name="group1",
                 id="44db9bee-c97d-4161-98c6-f124d7dc9a41",
-                metadata=IPRootMetadata(
+                metadata=IPRootMetadata(type="IP"),
+                state=IPRootState(
                     # FP: local testing
                     address="192.168.1.2",  # NOSONAR
-                    port="8080",
-                    type="IP",
-                ),
-                state=IPRootState(
                     modified_by=test_email,
                     modified_date=test_date,
                     nickname="deactivate_ip_2",
                     other=None,
+                    port="8080",
                     reason=None,
                     status=test_status,
                 ),

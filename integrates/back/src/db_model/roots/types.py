@@ -45,16 +45,16 @@ class GitRootItem(NamedTuple):
 
 
 class IPRootMetadata(NamedTuple):
-    address: str
     type: str
-    port: str
 
 
 class IPRootState(NamedTuple):
+    address: str
     modified_by: str
     modified_date: str
     nickname: str
     other: Optional[str]
+    port: str
     reason: Optional[str]
     status: str
 

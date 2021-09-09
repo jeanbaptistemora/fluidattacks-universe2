@@ -104,16 +104,14 @@ def _build_root(
         return IPRootItem(
             group_name=group_name,
             id=metadata[key_structure.sort_key].split("#")[1],
-            metadata=IPRootMetadata(
-                address=metadata["address"],
-                port=metadata["port"],
-                type=metadata["type"],
-            ),
+            metadata=IPRootMetadata(type=metadata["type"]),
             state=IPRootState(
+                address=state.get("address", metadata.get("address", "")),
                 modified_by=state["modified_by"],
                 modified_date=state["modified_date"],
                 nickname=state["nickname"],
                 other=state.get("other"),
+                port=state.get("port", metadata.get("port", "")),
                 reason=state.get("reason"),
                 status=state["status"],
             ),

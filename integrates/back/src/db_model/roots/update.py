@@ -44,7 +44,7 @@ async def update_git_root_cloning(
 ) -> None:
     key_structure = TABLE.primary_key
     historic = historics.build_historic(
-        attributes=dict(cloning._asdict()),
+        attributes=json.loads(json.dumps(cloning)),
         historic_facet=TABLE.facets["git_root_historic_cloning"],
         key_structure=key_structure,
         key_values={

@@ -23,7 +23,7 @@ async def add(*, root: RootItem) -> None:
     initial_metadata = {
         key_structure.partition_key: metadata_key.partition_key,
         key_structure.sort_key: metadata_key.sort_key,
-        **dict(root.metadata._asdict()),
+        **json.loads(json.dumps(root.metadata)),
     }
 
     historic_state = historics.build_historic(
@@ -42,7 +42,7 @@ async def add(*, root: RootItem) -> None:
 
     if isinstance(root, GitRootItem):
         historic_cloning = historics.build_historic(
-            attributes=dict(root.cloning._asdict()),
+            attributes=json.loads(json.dumps(root.cloning)),
             historic_facet=TABLE.facets["git_root_historic_cloning"],
             key_structure=key_structure,
             key_values={

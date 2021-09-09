@@ -95,10 +95,10 @@ def format_root(root: RootItem) -> Root:
 
     if isinstance(root, IPRootItem):
         return IPRoot(
-            address=root.metadata.address,
+            address=root.state.address,
             id=root.id,
             nickname=root.state.nickname,
-            port=root.metadata.port,
+            port=root.state.port,
             state=root.state.status,
         )
 
@@ -254,12 +254,14 @@ async def add_ip_root(loaders: Any, user_email: str, **kwargs: Any) -> None:
     root = IPRootItem(
         group_name=group_name,
         id=str(uuid4()),
-        metadata=IPRootMetadata(address=address, port=port, type="IP"),
+        metadata=IPRootMetadata(type="IP"),
         state=IPRootState(
+            address=address,
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
             nickname=nickname,
             other=None,
+            port=port,
             reason=None,
             status="ACTIVE",
         ),
@@ -540,7 +542,7 @@ async def activate_root(
 
         elif isinstance(root, IPRootItem):
             if not validations.is_ip_unique(
-                root.metadata.address, root.metadata.port, org_roots
+                root.state.address, root.state.port, org_roots
             ):
                 raise RepeatedRoot()
 
@@ -548,10 +550,12 @@ async def activate_root(
                 group_name=group_name,
                 root_id=root.id,
                 state=IPRootState(
+                    address=root.state.address,
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
                     nickname=root.state.nickname,
                     other=None,
+                    port=root.state.port,
                     reason=None,
                     status=new_status,
                 ),
@@ -629,10 +633,12 @@ async def deactivate_root(
                 group_name=group_name,
                 root_id=root.id,
                 state=IPRootState(
+                    address=root.state.address,
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
                     nickname=root.state.nickname,
                     other=other,
+                    port=root.state.port,
                     reason=reason,
                     status=new_status,
                 ),
