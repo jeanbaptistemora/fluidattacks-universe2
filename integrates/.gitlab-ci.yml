@@ -493,6 +493,12 @@ integrates.back.test.unit:
       - integrates/coverage.xml
     expire_in: 1 week
 
+integrates.back.test.unit.migration:
+  <<: *makes
+  <<: *in_dev_branch_integrates
+  stage: test-code
+  script: ./m integrates.back.test.unit migration
+
 integrates.back.schema.lint:
   <<: *makes
   <<: *in_dev_branch_integrates
