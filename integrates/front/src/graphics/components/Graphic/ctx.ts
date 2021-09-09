@@ -15,6 +15,7 @@ interface IMergedCharts {
 
 const allowedDocumentNames: string[] = [
   "meanTimeToRemediate",
+  "meanTimeToRemediateCvssf",
   "riskOverTime",
   "riskOverTimeCvssf",
 ];
@@ -43,6 +44,26 @@ const mergedDocuments: Record<string, IMergedCharts> = {
     },
     documentName: "distributionOverTime",
     documentType: "stackedBarChart",
+  },
+  meanTimeToRemediateCvssf: {
+    alt: {
+      label: "MTTR",
+      title: translate.t("tagIndicator.meanRemediate"),
+      tooltip: translate.t(
+        "analytics.barChart.meanTimeToRemediate.tooltip.alt"
+      ),
+      url: "",
+    },
+    default: {
+      label: "MTTR & Cvssf",
+      title: translate.t("tagIndicator.meanRemediate"),
+      tooltip: translate.t(
+        "analytics.barChart.meanTimeToRemediate.tooltip.default"
+      ),
+      url: "",
+    },
+    documentName: "meanTimeToRemediate",
+    documentType: "barChart",
   },
   mttrBenchmarking: {
     alt: {

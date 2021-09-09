@@ -3,6 +3,12 @@ import type { ResourceKey } from "i18next";
 export const enTranslations: ResourceKey = {
   analytics: {
     barChart: {
+      meanTimeToRemediate: {
+        tooltip: {
+          alt: "Mean time to remediate",
+          default: "Mean time to remediate & CVSSF",
+        },
+      },
       mttrBenchmarking: {
         title: "MTTR Benchmarking",
         tooltip: {
