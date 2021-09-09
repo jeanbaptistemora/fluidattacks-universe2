@@ -41,12 +41,12 @@ def build_results_csv(
         ],
         axis=1,
     )
-    errort: float = 5 + 5 * np.random.rand(
+    error: float = 5 + 5 * np.random.rand(
         len(result_df),
     )
-    result_df["prob_vuln"] = round(result_df.prob_vuln * 100 - errort, 1)
+    result_df["prob_vuln"] = round(result_df.prob_vuln * 100 - error, 1)
     sorted_files: DataFrame = (
-        result_df[result_df.pred == 1]
+        result_df[result_df.prob_vuln >= 0]
         .sort_values(by="prob_vuln", ascending=False)
         .reset_index(drop=True)[[scope, "prob_vuln"]]
     )
