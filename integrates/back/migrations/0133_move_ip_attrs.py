@@ -2,6 +2,9 @@
 """
 This migration moves the address and port attributes from the metadata to
 the state items on ip roots
+
+Execution Time:    2021-09-09 at 21:44:48 UTC
+Finalization Time: 2021-09-09 at 21:45:33 UTC
 """
 
 from aioextensions import (

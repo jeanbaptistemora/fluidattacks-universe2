@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 08, 2021, 12:18 PM",
+    "DateLastModified": "Sep 09, 2021, 05:01 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1436,20 +1436,11 @@
               },
               "type": {
                 "S": "IP"
-              },
-              "address": {
-                "S": "127.0.0.1"
-              },
-              "port": {
-                "S": "8080"
               }
             }
           ],
           "NonKeyAttributes": [
-            "type",
-            "repo",
-            "address",
-            "port"
+            "type"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1469,17 +1460,23 @@
               "sk": {
                 "S": "GROUP#oneshottest"
               },
-              "modified_by": {
-                "S": "jdoe@fluidattacks.com"
+              "status": {
+                "S": "ACTIVE"
               },
               "modified_date": {
                 "S": "2020-11-19T13:44:37+00:00"
               },
+              "modified_by": {
+                "S": "jdoe@fluidattacks.com"
+              },
               "nickname": {
                 "S": "ip_root_1"
               },
-              "status": {
-                "S": "ACTIVE"
+              "address": {
+                "S": "127.0.0.1"
+              },
+              "port": {
+                "S": "8080"
               }
             }
           ],
@@ -1489,6 +1486,8 @@
             "modified_date",
             "modified_by",
             "nickname",
+            "address",
+            "port",
             "other"
           ],
           "DataAccess": {
@@ -1509,17 +1508,23 @@
               "sk": {
                 "S": "STATE#2020-11-19T13:44:37+00:00"
               },
-              "modified_by": {
-                "S": "jdoe@fluidattacks.com"
+              "status": {
+                "S": "ACTIVE"
               },
               "modified_date": {
                 "S": "2020-11-19T13:44:37+00:00"
               },
+              "modified_by": {
+                "S": "jdoe@fluidattacks.com"
+              },
               "nickname": {
                 "S": "ip_root_1"
               },
-              "status": {
-                "S": "ACTIVE"
+              "address": {
+                "S": "127.0.0.1"
+              },
+              "port": {
+                "S": "8080"
               }
             }
           ],
@@ -1529,6 +1534,8 @@
             "modified_date",
             "modified_by",
             "nickname",
+            "address",
+            "port",
             "other"
           ],
           "DataAccess": {
