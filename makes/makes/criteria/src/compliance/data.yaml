@@ -2621,7 +2621,7 @@
       link: https://www.pcisecuritystandards.org/documents/PCI_DSS_v3-2-1.pdf
   metadata: {}
 "015":
-  title: SOC2 ®
+  title: SOC2®
   en:
     description: >
       These reports are intended
@@ -2649,5 +2649,29 @@
       link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
     "CC5_2":
       title: Control Activities
+      link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
+    "CC6_1":
+      title: Logical and Physical Access Controls
+      link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
+    "CC6_2":
+      title: Logical and Physical Access Controls
+      link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
+    "CC6_3":
+      title: Logical and Physical Access Controls
+      link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
+    "CC6_4":
+      title: Logical and Physical Access Controls
+      link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
+    "CC6_5":
+      title: Logical and Physical Access Controls
+      link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
+    "CC6_6":
+      title: Logical and Physical Access Controls
+      link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
+    "CC6_7":
+      title: Logical and Physical Access Controls
+      link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
+    "CC6_8":
+      title: Logical and Physical Access Controls
       link: https://www.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf
   metadata: {}
