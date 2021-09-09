@@ -9,11 +9,13 @@ from authz import (
     get_group_level_role,
 )
 import base64
-import botocore.exceptions
 from context import (
     FI_ENVIRONMENT,
     FI_MAIL_REVIEWERS,
     FI_TEST_PROJECTS,
+)
+from custom_exceptions import (
+    SnapshotNotFound,
 )
 from custom_types import (
     MailContent,
@@ -225,44 +227,42 @@ async def send_analytics_report(
             ext="png",
             ttl=604800,  # seven days
         )
-    except botocore.exceptions.ClientError as ex:
-        LOGGER_CONSOLE.exception(f"{ex}", **NOEXTRA)
+    except SnapshotNotFound as ex:
+        LOGGER_CONSOLE.exception(ex, **NOEXTRA)
         LOGGER_ERRORS.exception(
             ex,
             extra={
                 "extra": dict(
                     report_entity=report_entity,
                     report_subject=report_subject,
+                    user_email=user_email,
                 )
             },
         )
-    else:
-        report_entity = report_entity.lower()
-        if report_entity == "organization":
-            report_subject = await orgs_domain.get_name_by_id(report_subject)
-        elif report_entity == "portfolio":
-            report_subject = report_subject.split("PORTFOLIO#")[-1]
+        return
 
-        report_subject = report_subject.lower()
+    report_entity = report_entity.lower()
+    if report_entity == "organization":
+        report_subject = await orgs_domain.get_name_by_id(report_subject)
+    elif report_entity == "portfolio":
+        report_subject = report_subject.split("PORTFOLIO#")[-1]
 
-        LOGGER_CONSOLE.info("- sending analytics email", **NOEXTRA)
+    report_subject = report_subject.lower()
 
-        await analytics_mail.send_mail_analytics(
-            user_email,
-            date=datetime_utils.get_as_str(
-                datetime_utils.get_now(), "%Y/%m/%d"
-            ),
-            frequency_title=event_frequency.title(),
-            frequency_lower=event_frequency.lower(),
-            image_src=image_url,
-            report_entity=report_entity,
-            report_subject=report_subject,
-            report_subject_title=report_subject.title(),
-            report_entity_percent=quote_plus(translate_entity(report_entity)),
-            report_subject_percent=quote_plus(report_subject),
-        )
+    await analytics_mail.send_mail_analytics(
+        user_email,
+        date=datetime_utils.get_as_str(datetime_utils.get_now(), "%Y/%m/%d"),
+        frequency_title=event_frequency.title(),
+        frequency_lower=event_frequency.lower(),
+        image_src=image_url,
+        report_entity=report_entity,
+        report_subject=report_subject,
+        report_subject_title=report_subject.title(),
+        report_entity_percent=quote_plus(translate_entity(report_entity)),
+        report_subject_percent=quote_plus(report_subject),
+    )
 
-        LOGGER_CONSOLE.info("- analytics email sent", **NOEXTRA)
+    LOGGER_CONSOLE.info("- analytics email sent", **NOEXTRA)
 
 
 async def send_digest_report(

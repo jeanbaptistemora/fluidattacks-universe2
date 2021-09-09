@@ -1,3 +1,6 @@
+from aiohttp.client_exceptions import (
+    ClientPayloadError,
+)
 from botocore.exceptions import (
     ClientError,
 )
@@ -7,14 +10,25 @@ from context import (
 )
 from custom_exceptions import (
     DocumentNotFound,
+    SnapshotNotFound,
 )
 import io
+import logging
+import logging.config
 from newutils import (
     apm,
 )
 from s3.operations import (
     aio_client,
 )
+from settings import (
+    LOGGING,
+)
+
+logging.config.dictConfig(LOGGING)
+
+# Constants
+LOGGER = logging.getLogger(__name__)
 
 
 @apm.trace()
@@ -45,7 +59,11 @@ async def get_snapshot(key: str) -> bytes:
 
         # Stream the download to an in-memory buffer
         async with aio_client() as client:
-            await client.download_fileobj(BUCKET_ANALYTICS, key, stream)
+            try:
+                await client.download_fileobj(BUCKET_ANALYTICS, key, stream)
+            except (ClientError, ClientPayloadError) as ex:
+                LOGGER.exception(ex, extra=dict(extra=locals()))
+                raise SnapshotNotFound() from ex
 
         # Return pointer to begin-of-file
         stream.seek(0)

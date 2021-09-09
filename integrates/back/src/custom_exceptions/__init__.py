@@ -63,6 +63,10 @@ class InvalidVulnWhere(_SingleMessageException):
     msg: str = "Vulnerability where should match: ^(?!=)+[^/]+/.+$"
 
 
+class SnapshotNotFound(_SingleMessageException):
+    msg: str = "Snapshot not found in analytics bucket"
+
+
 class UnableToSkimsQueue(_SingleMessageException):
     msg: str = "Unable to queue a verification request"
 
