@@ -2,6 +2,9 @@
 from _pytest.monkeypatch import (
     MonkeyPatch,
 )
+from back.tests.unit import (
+    MIGRATION,
+)
 from collections import (
     OrderedDict,
 )
@@ -121,6 +124,7 @@ def test_create_weekly_date() -> None:
     assert test_data == expected_output
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 async def test_get_accepted_vulns() -> None:
     context = get_new_context()
     last_day = "2019-06-30 23:59:59"
@@ -159,6 +163,7 @@ async def test_get_accepted_vulns() -> None:
     assert test_data == expected_output
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 async def test_get_by_time_range() -> None:
     context = get_new_context()
     last_day = "2020-09-09 23:59:59"
@@ -179,6 +184,7 @@ async def test_get_by_time_range() -> None:
     assert test_data.vulnerabilities == expected_output
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 async def test_create_register_by_week() -> None:
     context = get_new_context()
     group_name = "unittesting"
@@ -240,6 +246,7 @@ async def test_get_date_last_vulns() -> None:
     assert test_data == expected_output
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 async def test_get_group_indicators() -> None:
     group_name = "unittesting"
     findings = await get_findings_by_group(group_name)

@@ -1,3 +1,6 @@
+from back.tests.unit import (
+    MIGRATION,
+)
 from back.tests.unit.utils import (
     create_dummy_session,
 )
@@ -14,6 +17,7 @@ pytestmark = [
 ]
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 async def test_list_comments() -> None:
     finding_id = "422286126"
     user_email = "unittest@fluidattacks.com"

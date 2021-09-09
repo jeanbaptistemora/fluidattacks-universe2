@@ -4,6 +4,9 @@ from api.schema import (
 from ariadne import (
     graphql,
 )
+from back.tests.unit import (
+    MIGRATION,
+)
 from back.tests.unit.utils import (
     create_dummy_session,
 )
@@ -56,6 +59,7 @@ async def _get_result(
     return result
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @freeze_time("2020-12-01")
 async def test_finding_age() -> None:
     """Check for finding age."""
@@ -540,6 +544,7 @@ async def test_reject_draft() -> None:
     assert result["data"]["rejectDraft"]
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @pytest.mark.changes_db
 async def test_remove_finding() -> None:
     """Check for removeFinding mutation."""
@@ -563,6 +568,7 @@ async def test_remove_finding() -> None:
         assert await get_finding("560175507")
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @pytest.mark.changes_db
 async def test_approve_draft() -> None:
     """Check for approveDraft mutation."""
@@ -645,6 +651,7 @@ async def test_submit_draft() -> None:
     assert result["errors"][0]["message"] == expected_error
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @pytest.mark.changes_db
 async def test_filter_deleted_findings() -> None:
     """Check if vuln of removed vulns are filtered out."""

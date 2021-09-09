@@ -1,6 +1,9 @@
 from aioextensions import (
     collect,
 )
+from back.tests.unit import (
+    MIGRATION,
+)
 from back.tests.unit.utils import (
     create_dummy_session,
 )
@@ -139,6 +142,7 @@ async def test_get_vulnerabilities_with_pending_attacks() -> None:
     assert test_data == expected_output
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 async def test_get_last_closing_vuln() -> None:
     findings_to_get = ["463558592", "422286126"]
     context = get_new_context()
@@ -202,6 +206,7 @@ async def test_is_vulnerability_closed() -> None:
     assert not is_vulnerability_closed(open_vulnerability[0])
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 async def test_get_max_open_severity() -> None:
     findings_to_get = ["463558592", "422286126"]
     findings = await collect(
@@ -212,6 +217,7 @@ async def test_get_max_open_severity() -> None:
     assert test_data[1]["finding_id"] == "463558592"
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 async def test_get_open_vulnerabilities() -> None:
     group_name = "unittesting"
     expected_output = 29
@@ -219,6 +225,7 @@ async def test_get_open_vulnerabilities() -> None:
     assert open_vulns == expected_output
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 async def test_get_closed_vulnerabilities() -> None:
     group_name = "unittesting"
     expected_output = 7
@@ -228,6 +235,7 @@ async def test_get_closed_vulnerabilities() -> None:
     assert closed_vulnerabilities == expected_output
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 async def test_get_open_finding() -> None:
     group_name = "unittesting"
     expected_output = 5
@@ -258,6 +266,7 @@ async def test_get_open_vulnerability_date() -> None:
     assert test_data is None
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @freeze_time("2020-12-01")
 async def test_get_mean_remediate() -> None:
     context = get_new_context()
@@ -284,6 +293,7 @@ async def test_get_mean_remediate() -> None:
     ) == Decimal("0.0")
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 async def test_get_total_treatment() -> None:
     context = get_new_context()
     findings_to_get = ["463558592", "422286126"]
@@ -427,6 +437,7 @@ async def test_get_reattackers() -> None:
     assert reattackers == ["integrateshacker@fluidattacks.com"]
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @freeze_time("2019-10-01")
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
@@ -455,6 +466,7 @@ async def test_get_mean_remediate_severity_low(
     assert mean_remediate_low_severity == expected_output
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @freeze_time("2019-11-01")
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
@@ -483,6 +495,7 @@ async def test_get_mean_remediate_severity_medium(
     assert mean_remediate_medium_severity == expected_output
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @freeze_time("2019-10-01")
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
@@ -511,6 +524,7 @@ async def test_get_mean_remediate_severity_medium_cvssf(
     assert mean_remediate_medium_severity == expected_output
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @freeze_time("2019-10-01")
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
@@ -600,6 +614,7 @@ async def test_update_group_attrs(
     )
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 async def test_get_pending_verification_findings() -> None:
     group_name = "unittesting"
     context = get_new_context()
@@ -610,6 +625,7 @@ async def test_get_pending_verification_findings() -> None:
     assert "project_name" in findings[0]
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @freeze_time("2018-12-27")
 async def test_get_total_comments_date() -> None:
     group_name = "unittesting"
@@ -624,6 +640,7 @@ async def test_get_total_comments_date() -> None:
     assert total_comments == 5
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @freeze_time("2021-05-12")
 async def test_get_group_digest_stats() -> None:
     group_name = "unittesting"

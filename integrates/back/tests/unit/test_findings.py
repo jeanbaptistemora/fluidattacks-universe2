@@ -1,3 +1,6 @@
+from back.tests.unit import (
+    MIGRATION,
+)
 from collections import (
     OrderedDict,
 )
@@ -23,6 +26,7 @@ pytestmark = [
 ]
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 async def test_get_evidence() -> None:
     finding = await get_finding("422286126")
     name = "test_name"
@@ -92,6 +96,7 @@ async def test_get_records_from_file() -> None:
     assert test_data == expected_output
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 async def test_format_data() -> None:
     finding_id = "422286126"
     finding_to_test = await get_finding(finding_id)
@@ -161,6 +166,7 @@ async def test_format_data() -> None:
     assert sorted(test_data) == sorted(expected_keys)
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 async def test_get_reattack_requesters() -> None:
     finding = await get_finding("463558592")
     recipients = get_reattack_requesters(

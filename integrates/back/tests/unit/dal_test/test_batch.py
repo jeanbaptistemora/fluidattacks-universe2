@@ -1,3 +1,6 @@
+from back.tests.unit import (
+    MIGRATION,
+)
 from batch import (
     dal as batch_dal,
 )
@@ -12,6 +15,7 @@ pytestmark = [
 ]
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 async def test_get_actions() -> None:
     all_actions = await batch_dal.get_actions()
     assert isinstance(all_actions, list)

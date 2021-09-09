@@ -1,3 +1,6 @@
+from back.tests.unit import (
+    MIGRATION,
+)
 from back.tests.unit.utils import (
     create_dummy_session,
 )
@@ -237,6 +240,7 @@ async def test_add_comment() -> None:
     )
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @pytest.mark.changes_db
 async def test_mask_finding() -> None:
     finding_id = "475041524"
@@ -344,6 +348,7 @@ async def test_validate_number_acceptations() -> None:
         )
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @pytest.mark.changes_db
 @freeze_time("2019-12-01")
 async def test_approve_draft() -> None:
@@ -371,6 +376,7 @@ async def test_approve_draft() -> None:
             assert treatment_info["date"] == release_date
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 async def test_list_findings() -> None:
     context = get_new_context()
     group_name = "unittesting"
@@ -386,6 +392,7 @@ async def test_list_findings() -> None:
     assert expected_output == test_data[0]
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 async def test_list_drafts() -> None:
     group_name = "unittesting"
     test_data = await list_drafts([group_name])
@@ -393,6 +400,7 @@ async def test_list_drafts() -> None:
     assert expected_output == test_data[0]
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 async def test_list_drafts_deleted() -> None:
     groups_name = ["continuoustesting"]
     test_data = await list_drafts(groups_name)
@@ -403,6 +411,7 @@ async def test_list_drafts_deleted() -> None:
     assert sorted(expected_output) == sorted(test_data[0])
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @freeze_time("2021-05-27")
 async def test_get_oldest_no_treatment_findings() -> None:
     group_name = "oneshottest"

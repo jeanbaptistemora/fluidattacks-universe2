@@ -1,3 +1,6 @@
+from back.tests.unit import (
+    MIGRATION,
+)
 from custom_exceptions import (
     FindingNotFound,
 )
@@ -17,6 +20,7 @@ pytestmark = [
 ]
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 async def test_has_access_to_finding() -> None:
     wrong_data = ["unittest@fluidattacks.com", "000000000"]
     right_data = ["unittest@fluidattacks.com", "560175507"]
