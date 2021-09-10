@@ -76,7 +76,7 @@ async def mutate(
                 finding.id,
                 finding.title,
                 finding.group_name,
-                finding.analyst_email,
+                finding.hacker_email,
                 state_justification,
             )
         )

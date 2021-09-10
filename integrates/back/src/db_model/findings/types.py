@@ -146,7 +146,7 @@ class FindingUnreliableIndicators(NamedTuple):
 
 
 class Finding(NamedTuple):
-    analyst_email: str
+    hacker_email: str
     group_name: str
     id: str
     state: FindingState

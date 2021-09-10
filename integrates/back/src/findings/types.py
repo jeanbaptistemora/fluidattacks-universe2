@@ -25,9 +25,9 @@ class FindingDescriptionToUpdate(NamedTuple):
 
 class FindingDraftToAdd(NamedTuple):
     affected_systems: Optional[str] = None
-    analyst_email: Optional[str] = None
     attack_vector_description: Optional[str] = None
     description: Optional[str] = None
+    hacker_email: Optional[str] = None
     risk: Optional[str] = None
     recommendation: Optional[str] = None
     requirements: Optional[str] = None

@@ -70,7 +70,7 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
     )
     finding_metadata = {
         "affected_systems": finding.affected_systems,
-        "analyst_email": finding.analyst_email,
+        "analyst_email": finding.hacker_email,
         "attack_vector_description": finding.attack_vector_description,
         "bug_tracking_system_url": finding.bug_tracking_system_url,
         "compromised_attributes": finding.compromised_attributes,

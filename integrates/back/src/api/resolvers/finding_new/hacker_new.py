@@ -13,4 +13,4 @@ from graphql.type.definition import (
 def resolve(
     parent: Finding, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> str:
-    return parent.analyst_email
+    return parent.hacker_email

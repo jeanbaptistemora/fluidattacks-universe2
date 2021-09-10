@@ -50,9 +50,9 @@ async def mutate(
     _parent: None, info: GraphQLResolveInfo, finding_id: str
 ) -> SimplePayload:
     user_info = await token_utils.get_jwt_content(info.context)
-    analyst_email = user_info["user_email"]
+    hacker_email = user_info["user_email"]
     success = await findings_domain.submit_draft(
-        info.context, finding_id, analyst_email
+        info.context, finding_id, hacker_email
     )
 
     if success:
@@ -70,7 +70,7 @@ async def mutate(
                 finding_id,
                 finding["title"],
                 str(get_key_or_fallback(finding, fallback="")),
-                analyst_email,
+                hacker_email,
             )
         )
     return SimplePayload(success=success)

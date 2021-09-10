@@ -50,7 +50,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     risk="This is pytest created draft",
                     recommendation="Updated recommendation",
                     description="I just have updated the description",
-                    analyst_email="test1@gmail.com",
+                    hacker_email="test1@gmail.com",
                     severity=Finding31Severity(
                         attack_complexity=Decimal("0.44"),
                         attack_vector=Decimal("0.2"),

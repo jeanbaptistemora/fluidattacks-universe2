@@ -140,7 +140,7 @@ def _build_finding(
 
     return Finding(
         affected_systems=metadata["affected_systems"],
-        analyst_email=metadata["analyst_email"],
+        hacker_email=metadata["analyst_email"],
         approval=approval,
         attack_vector_description=metadata["attack_vector_description"],
         bug_tracking_system_url=metadata["bug_tracking_system_url"],

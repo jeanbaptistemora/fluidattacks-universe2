@@ -51,7 +51,7 @@ async def mutate(
         user_email = user_info["user_email"]
         draft_info = FindingDraftToAdd(
             affected_systems=kwargs.get("affected_systems"),
-            analyst_email=user_email,
+            hacker_email=user_email,
             attack_vector_description=kwargs.get("attack_vector_description")
             or kwargs.get("attack_vector_desc"),
             description=kwargs.get("description"),

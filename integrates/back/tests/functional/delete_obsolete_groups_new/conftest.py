@@ -183,7 +183,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     risk="This is pytest created draft",
                     recommendation="Updated recommendation",
                     description="I just have updated the description",
-                    analyst_email=generic_data["global_vars"]["admin_email"],
+                    hacker_email=generic_data["global_vars"]["admin_email"],
                     severity=Finding31Severity(
                         attack_complexity=Decimal("0.44"),
                         attack_vector=Decimal("0.2"),
