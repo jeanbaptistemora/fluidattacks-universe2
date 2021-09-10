@@ -26,6 +26,9 @@ def csharp_weak_credential_policy(
             graph_model.GraphShardMetadataLanguage.CSHARP,
         ):
             for syntax_steps in shard.syntax.values():
+                if len(syntax_steps) == 0:  # handle missing syntax case
+                    continue
+
                 *dependecies, invocation_step = syntax_steps
                 if (
                     invocation_step.type != "SyntaxStepMethodInvocationChain"
