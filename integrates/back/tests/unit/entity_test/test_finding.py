@@ -142,7 +142,6 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
           lastVulnerability
           historicState
           title
-          scenario
           description
           requirements
           attackVectorDescription
@@ -221,7 +220,6 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
     )
     assert "historicState" in result["data"]["finding"]
     assert "title" in result["data"]["finding"]
-    assert "scenario" in result["data"]["finding"]
     assert "description" in result["data"]["finding"]
     assert "requirements" in result["data"]["finding"]
     assert "attackVectorDescription" in result["data"]["finding"]
@@ -475,7 +473,6 @@ async def test_update_description() -> None:
             $findingId: String!,
             $recommendation: String!,
             $requirements: String!,
-            $scenario: String!,
             $threat: String!,
             $title: String!,
             $type: String
@@ -489,7 +486,6 @@ async def test_update_description() -> None:
             recommendation: $recommendation,
             recordsNumber: $compromisedRecords,
             requirements: $requirements,
-            scenario: $scenario,
             threat: $threat,
             title: $title,
             findingType: $type
@@ -508,7 +504,6 @@ async def test_update_description() -> None:
         "recommendation": "Updated recommendation",
         "requirements": "REQ.0132. Passwords (phrase type) "
         "must be at least 3 words long.",
-        "scenario": "UNAUTHORIZED_USER_EXTRANET",
         "threat": "Updated threat",
         "title": "051. Weak passwords reversed",
         "type": "SECURITY",

@@ -1368,7 +1368,6 @@ async def update_description_new(
         recommendation=description.recommendation,
         requirements=description.requirements,
         risk=description.risk,
-        scenario=description.sorts,
         sorts=description.sorts,
         threat=description.threat,
         title=description.title,

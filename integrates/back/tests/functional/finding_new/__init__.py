@@ -72,7 +72,6 @@ async def get_result(
                 reportDate
                 requirements
                 risk
-                scenario
                 severity
                 severityScore
                 sorts

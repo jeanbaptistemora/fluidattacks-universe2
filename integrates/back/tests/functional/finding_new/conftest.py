@@ -119,7 +119,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     threat="Updated threat",
                     affected_systems="Server bWAPP",
                     attack_vector_description="This is an updated attack vector",
-                    scenario="UNAUTHORIZED_USER_EXTRANET",
                 ),
                 "historic_state": [
                     FindingState(

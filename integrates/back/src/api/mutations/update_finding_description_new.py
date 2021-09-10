@@ -67,7 +67,6 @@ async def mutate(
             recommendation=kwargs["recommendation"],
             requirements=kwargs["requirements"],
             risk=kwargs.get("risk"),
-            scenario=kwargs["scenario"],
             sorts=FindingSorts[kwargs["sorts"]]
             if kwargs.get("sorts")
             else None,

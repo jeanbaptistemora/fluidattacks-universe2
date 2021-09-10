@@ -150,7 +150,6 @@ def _build_finding(
         evidences=evidences,
         group_name=metadata["group_name"],
         id=metadata["id"],
-        scenario=metadata["scenario"],
         severity=severity,
         sorts=FindingSorts[metadata["sorts"]],
         submission=submission,

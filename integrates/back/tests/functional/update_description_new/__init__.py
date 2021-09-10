@@ -24,7 +24,6 @@ async def get_result(  # pylint: disable=too-many-locals
     requirements: str = (
         "REQ.0132. Passwords (phrase type) must be at least 3 words long."
     )
-    scenario: str = "UNAUTHORIZED_USER_EXTRANET"
     sorts: str = "YES"
     threat: str = "Updated threat"
     title: str = "051. Weak passwords reversed"
@@ -40,7 +39,6 @@ async def get_result(  # pylint: disable=too-many-locals
                 recommendation: "{recommendation}",
                 recordsNumber: {records_number},
                 requirements: "{requirements}",
-                scenario: "{scenario}",
                 sorts: {sorts},
                 threat: "{threat}",
                 title: "{title}",
@@ -85,7 +83,6 @@ async def get_result(  # pylint: disable=too-many-locals
                     reportDate
                     requirements
                     risk
-                    scenario
                     severity
                     severityScore
                     state

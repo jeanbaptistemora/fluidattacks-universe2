@@ -159,7 +159,6 @@ class Finding(NamedTuple):
     compromised_records: int = 0
     description: str = ""
     evidences: FindingEvidences = FindingEvidences()
-    scenario: str = ""
     severity: Union[Finding20Severity, Finding31Severity] = Finding31Severity()
     sorts: FindingSorts = FindingSorts.NO
     submission: Optional[FindingState] = None
@@ -184,7 +183,6 @@ class FindingMetadataToUpdate(NamedTuple):
     recommendation: Optional[str] = None
     requirements: Optional[str] = None
     risk: Optional[str] = None
-    scenario: Optional[str] = None
     severity: Optional[Union[Finding20Severity, Finding31Severity]] = None
     sorts: Optional[FindingSorts] = None
     threat: Optional[str] = None

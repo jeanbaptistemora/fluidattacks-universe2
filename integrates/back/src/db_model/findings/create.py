@@ -79,7 +79,6 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
         "evidences": metadata_evidences_item,
         "group_name": finding.group_name,
         "id": finding.id,
-        "scenario": finding.scenario,
         "severity": finding.severity._asdict(),
         "sorts": finding.sorts.value,
         "risk": finding.risk,
