@@ -11,7 +11,6 @@ import authz
 import bugsnag
 from collections import (
     Counter,
-    defaultdict,
     namedtuple,
 )
 from context import (
@@ -1060,36 +1059,25 @@ async def get_mean_remediate_severity_new(
     )
 
 
-async def get_open_finding(context: Any, group_name: str) -> int:
-    group_findings = await context.group_findings.load(group_name)
-    vulns = await context.finding_vulns_nzr.load_many_chained(
-        [finding["finding_id"] for finding in group_findings]
+async def get_open_finding(loaders: Any, group_name: str) -> int:
+    group_findings = await loaders.group_findings.load(group_name)
+    finding_status = await collect(
+        findings_domain.get_status(loaders, finding["id"])
+        for finding in group_findings
     )
-
-    finding_vulns_dict = defaultdict(list)
-    for vuln in vulns:
-        finding_vulns_dict[vuln["finding_id"]].append(vuln)
-    finding_vulns = list(finding_vulns_dict.values())
-
-    return vulns_utils.get_open_findings(finding_vulns)
+    return finding_status.count("open")
 
 
-async def get_open_finding_new(loaders: Any, group_name: str) -> int:
-    finding_vulns_loader = loaders.finding_vulns_nzr
+async def get_open_findings_new(loaders: Any, group_name: str) -> int:
     group_findings_loader = loaders.group_findings_new
-
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
         group_name
     )
-    vulns = await finding_vulns_loader.load_many_chained(
-        [finding.id for finding in group_findings]
+    finding_status = await collect(
+        findings_domain.get_status(loaders, finding.id)
+        for finding in group_findings
     )
-
-    finding_vulns_dict = defaultdict(list)
-    for vuln in vulns:
-        finding_vulns_dict[vuln["finding_id"]].append(vuln)
-    finding_vulns = list(finding_vulns_dict.values())
-    return vulns_utils.get_open_findings(finding_vulns)
+    return finding_status.count("open")
 
 
 async def get_open_vulnerabilities(context: Any, group_name: str) -> int:

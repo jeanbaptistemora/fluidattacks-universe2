@@ -308,20 +308,6 @@ def get_mean_remediate_vulnerabilities(
     return mean_vulnerabilities.to_integral_exact(rounding=ROUND_CEILING)
 
 
-def get_open_findings(
-    finding_vulns: List[List[Dict[str, FindingType]]]
-) -> int:
-    last_approved_status = [
-        get_last_status(vuln) for vulns in finding_vulns for vuln in vulns
-    ]
-    open_findings = [
-        vulns
-        for vulns, last_approved in zip(finding_vulns, last_approved_status)
-        if [vuln for vuln in vulns if last_approved == "open"]
-    ]
-    return len(open_findings)
-
-
 def get_cvssf(severity: Decimal) -> Decimal:
     return Decimal(pow(Decimal("4.0"), severity - Decimal("4.0"))).quantize(
         Decimal("0.001")

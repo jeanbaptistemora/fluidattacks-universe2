@@ -627,7 +627,7 @@ async def _get_group_indicators(
             findings_domain.get_max_open_severity_new(loaders, findings),
             groups_domain.get_mean_remediate_new(loaders, group),
             groups_domain.get_closed_vulnerabilities_new(loaders, group),
-            groups_domain.get_open_finding_new(loaders, group),
+            groups_domain.get_open_findings_new(loaders, group),
         )
     )
 
