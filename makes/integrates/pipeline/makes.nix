@@ -68,6 +68,10 @@ in
           gitlabExtra = gitlabDeployInfra;
         }
         {
+          output = "/integrates/linters/back/schema";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintPython/dirOfModules/integrates";
           gitlabExtra = gitlabLint;
         }

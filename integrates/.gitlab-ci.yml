@@ -499,11 +499,6 @@ integrates.back.test.unit.migration:
   stage: test-code
   script: ./m integrates.back.test.unit migration
 
-integrates.back.schema.lint:
-  <<: *makes
-  <<: *in_dev_branch_integrates
-  stage: lint-code
-
 integrates.back.structure:
   <<: *makes
   <<: *in_dev_branch_integrates
