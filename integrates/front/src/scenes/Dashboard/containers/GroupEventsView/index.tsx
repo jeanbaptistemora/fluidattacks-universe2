@@ -19,6 +19,7 @@ import { handleCreationError, handleFileListUpload } from "./helpers";
 import {
   accessibilityOptions,
   afectCompsOptions,
+  eventActionsAfterBlocking,
   eventActionsBeforeBlocking,
   selectOptionType,
 } from "./selectOptions";
@@ -136,6 +137,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   const [dateFilter, setDateFilter] = useState("");
   const [closingDateFilter, setClosingDateFilter] = useState("");
   const [actBefBlockFilter, setActBefBlockFilter] = useState("");
+  const [actAfterBlockFilter, setActAfterBlockFilter] = useState("");
   const [accessibilityFilter, setAccessibilityFilter] = useState("");
   const [afectCompsFilter, setAfectCompsFilter] = useState("");
 
@@ -419,6 +421,17 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     "actionBeforeBlocking"
   );
 
+  function onActAfterBlockChange(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void {
+    setActAfterBlockFilter(event.target.value);
+  }
+  const filterActAfterBlockResult: IEventConfig[] = filterSelect(
+    dataset,
+    actAfterBlockFilter,
+    "actionAfterBlocking"
+  );
+
   function onAccessibilityChange(
     event: React.ChangeEvent<HTMLSelectElement>
   ): void {
@@ -449,7 +462,8 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     filterClosingDateResult,
     filterActBefBlockResult,
     filterAccessibilityResult,
-    filterAfectCompsResult
+    filterAfectCompsResult,
+    filterActAfterBlockResult
   );
 
   const customFiltersProps: IFilterProps[] = [
@@ -477,6 +491,15 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       selectOptions: afectCompsOptions,
       tooltipId: "group.events.filtersTooltips.affectedComponents.id",
       tooltipMessage: "group.events.filtersTooltips.affectedComponents",
+      type: "select",
+    },
+    {
+      defaultValue: actAfterBlockFilter,
+      onChangeSelect: onActAfterBlockChange,
+      placeholder: "Action after blocking",
+      selectOptions: eventActionsAfterBlocking,
+      tooltipId: "group.events.filtersTooltips.actAfterBlock.id",
+      tooltipMessage: "group.events.filtersTooltips.actAfterBlock",
       type: "select",
     },
     {

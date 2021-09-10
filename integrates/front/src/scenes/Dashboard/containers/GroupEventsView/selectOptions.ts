@@ -26,14 +26,29 @@ const eventActionsBeforeBlocking: Record<string, string> = {
   [translate.t(
     "searchFindings.tabEvents.actionBeforeBlockingValues.documentGroup"
   )]: "searchFindings.tabEvents.actionBeforeBlockingValues.documentGroup",
+  [translate.t(
+    "searchFindings.tabEvents.actionBeforeBlockingValues.testOtherPartToe"
+  )]: "searchFindings.tabEvents.actionBeforeBlockingValues.testOtherPartToe",
   [translate.t("searchFindings.tabEvents.actionBeforeBlockingValues.none")]:
     "searchFindings.tabEvents.actionBeforeBlockingValues.none",
   [translate.t("searchFindings.tabEvents.actionBeforeBlockingValues.other")]:
     "searchFindings.tabEvents.actionBeforeBlockingValues.other",
+};
+const eventActionsAfterBlocking: Record<string, string> = {
   [translate.t(
-    "searchFindings.tabEvents.actionBeforeBlockingValues.testOtherPartToe"
-  )]: "searchFindings.tabEvents.actionBeforeBlockingValues.testOtherPartToe",
-  "-": "-",
+    "searchFindings.tabEvents.actionAfterBlockingValues.otherOther"
+  )]: "searchFindings.tabEvents.actionAfterBlockingValues.otherOther",
+  [translate.t("searchFindings.tabEvents.actionAfterBlockingValues.otherSame")]:
+    "searchFindings.tabEvents.actionAfterBlockingValues.otherSame",
+  [translate.t(
+    "searchFindings.tabEvents.actionAfterBlockingValues.otherOther"
+  )]: "searchFindings.tabEvents.actionAfterBlockingValues.otherOther",
+  [translate.t("searchFindings.tabEvents.actionAfterBlockingValues.training")]:
+    "searchFindings.tabEvents.actionAfterBlockingValues.training",
+  [translate.t("searchFindings.tabEvents.actionAfterBlockingValues.none")]:
+    "searchFindings.tabEvents.actionAfterBlockingValues.none",
+  [translate.t("searchFindings.tabEvents.actionAfterBlockingValues.other")]:
+    "searchFindings.tabEvents.actionAfterBlockingValues.other",
 };
 const accessibilityOptions: Record<string, string> = {
   [translate.t("group.events.form.accessibility.environment")]:
@@ -42,7 +57,6 @@ const accessibilityOptions: Record<string, string> = {
     "group.events.form.accessibility.repository",
   "-": "-",
 };
-
 const afectCompsOptions: Record<string, string> = {
   [translate.t(
     "searchFindings.tabEvents.affectedComponentsValues.clientStation"
@@ -101,6 +115,7 @@ const afectCompsOptions: Record<string, string> = {
 export {
   accessibilityOptions,
   afectCompsOptions,
+  eventActionsAfterBlocking,
   eventActionsBeforeBlocking,
   selectOptionType,
 };
