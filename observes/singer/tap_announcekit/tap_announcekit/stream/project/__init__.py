@@ -10,6 +10,7 @@ from sgqlc.endpoint.http import (
 from singer_io.singer2 import (
     SingerEmitter,
     SingerRecord,
+    SingerSchema,
 )
 from tap_announcekit.stream.project import (
     _builders,
@@ -32,12 +33,21 @@ class ProjectStream:
     emitter: SingerEmitter
     stream_name: str = "project"
 
+    def schema(self) -> SingerSchema:
+        return SingerSchema(
+            self.stream_name, ProjectEncoder.schema(), frozenset([])
+        )
+
     def to_singer(self, proj: Project) -> SingerRecord:
         data = ProjectEncoder.to_json(proj)
         return SingerRecord(self.stream_name, data)
 
     def get_projs(self, projs: Iterator[ProjectId]) -> IO[Iterator[Project]]:
         return _builders.get_projs(self.client, projs)
+
+    def emit_schema(self) -> IO[None]:
+        self.emitter.emit_schema(self.schema())
+        return IO(None)
 
     def emit(self, projs: Iterator[Project]) -> IO[None]:
         for proj in projs:

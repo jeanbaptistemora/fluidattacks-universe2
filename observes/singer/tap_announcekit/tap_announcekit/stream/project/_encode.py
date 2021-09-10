@@ -16,6 +16,10 @@ from singer_io.singer2.json import (
     JsonValue,
     Primitive,
 )
+from singer_io.singer2.json_schema import (
+    JsonSchema,
+    JsonSchemaFactory,
+)
 from tap_announcekit.stream.project._objs import (
     Project,
     ProjectId,
@@ -106,12 +110,12 @@ def _to_jschema_type(ptype: Type[Any]) -> JsonObj:
     return _type_jschema_map(ptype, False)
 
 
-def _project_schema() -> JsonObj:
+def _project_schema() -> JsonSchema:
     props = {
         key: JsonValue(_to_jschema_type(str_type))
         for key, str_type in Project.__annotations__.items()
     }
-    return {"properties": JsonValue(props)}
+    return JsonSchemaFactory.from_json({"properties": JsonValue(props)})
 
 
 @dataclass(frozen=True)
@@ -121,5 +125,5 @@ class ProjectEncoder:
         return _to_json(project)
 
     @staticmethod
-    def schema() -> JsonObj:
+    def schema() -> JsonSchema:
         return _project_schema()

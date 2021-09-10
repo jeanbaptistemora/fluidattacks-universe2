@@ -1,6 +1,3 @@
-from singer_io.singer2.json_schema import (
-    JsonSchemaFactory,
-)
 from tap_announcekit.stream.project._builders import (
     proj_query,
 )
@@ -14,5 +11,4 @@ def test_query() -> None:
 
 
 def test_proj_schema() -> None:
-    schema = ProjectEncoder.schema()
-    JsonSchemaFactory.from_json(schema)
+    ProjectEncoder.schema()
