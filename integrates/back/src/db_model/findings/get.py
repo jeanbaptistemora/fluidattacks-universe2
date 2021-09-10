@@ -139,7 +139,6 @@ def _build_finding(
     )
 
     return Finding(
-        actor=metadata["actor"],
         affected_systems=metadata["affected_systems"],
         analyst_email=metadata["analyst_email"],
         approval=approval,

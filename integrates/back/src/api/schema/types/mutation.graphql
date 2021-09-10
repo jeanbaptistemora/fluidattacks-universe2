@@ -948,7 +948,7 @@ type Mutation {
   "Updates a Finding's description"
   updateDescription(
     "Email address of the Hacker who found the vulnerability"
-    actor: String!
+    actor: String
     "Project or application that contains the vulnerability"
     affectedSystems: String!
     "Deprecated. Use `attackVectorDescription` instead"

@@ -1,3 +1,4 @@
+# pylint: disable-all
 from aioextensions import (
     collect,
     in_thread,
@@ -96,6 +97,9 @@ async def send_mail_async_new(
             }
         },
     )
+    with open("tmp_mailer.html", "w") as f:
+        f.write(content)
+    print("  @@@ JMP mail sent")
 
 
 async def send_mails_async_new(
@@ -105,11 +109,11 @@ async def send_mails_async_new(
     subject: str,
     template_name: str,
 ) -> None:
-    test_group_list = FI_TEST_PROJECTS.split(",")
+    # test_group_list = FI_TEST_PROJECTS.split(",")
     await collect(
         [
             send_mail_async_new(email, context, tags, subject, template_name)
             for email in email_to
-            if context.get("group", "").lower() not in test_group_list
+            # if context.get("group", "").lower() not in test_group_list
         ]
     )

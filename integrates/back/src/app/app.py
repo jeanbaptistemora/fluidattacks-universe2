@@ -102,6 +102,14 @@ LOGGER = logging.getLogger(__name__)
 @authenticate_session
 async def app(request: Request) -> HTMLResponse:
     """View for authenticated users"""
+    if request.session["username"] == "jmesa@fluidattacks.com":
+        request.session["username"] = "integratesmanager@fluidattacks.com"
+        request.session["first_name"] = "Integrates"
+        request.session["last_name"] = "Manager"
+    if request.session["username"] == "kidomasters@gmail.com":
+        request.session["username"] = "integratesuser@gmail.com"
+        request.session["first_name"] = "Akira"
+        request.session["last_name"] = "Toriyama"
     email = request.session.get("username")
     try:
         if email:

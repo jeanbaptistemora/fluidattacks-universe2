@@ -117,7 +117,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     affected_systems="system1",
                     attack_vector_description="This is an updated attack vector",
                     scenario="UNAUTHORIZED_USER_EXTRANET",
-                    actor="SOME_CUSTOMERS",
                 ),
                 "historic_state": [
                     FindingState(
@@ -216,7 +215,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     affected_systems="system2",
                     attack_vector_description="This is an updated attack vector",
                     scenario="UNAUTHORIZED_USER_EXTRANET",
-                    actor="SOME_CUSTOMERS",
                 ),
                 "historic_state": [
                     FindingState(
@@ -341,7 +339,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     affected_systems="system2",
                     attack_vector_description="This is an updated attack vector",
                     scenario="UNAUTHORIZED_USER_EXTRANET",
-                    actor="SOME_CUSTOMERS",
                 ),
                 "historic_state": [],
                 "historic_verification": [

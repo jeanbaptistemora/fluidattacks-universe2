@@ -57,7 +57,6 @@ async def mutate(
     try:
         finding_loader = info.context.loaders.finding_new
         description = FindingDescriptionToUpdate(
-            actor=kwargs["actor"],
             affected_systems=kwargs["affected_systems"],
             attack_vector_description=get_key_or_fallback(
                 kwargs, "attack_vector_description", "attack_vector_desc"

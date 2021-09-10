@@ -82,7 +82,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     affected_systems="Server bWAPP",
                     attack_vector_description="This is an updated attack vector",
                     scenario="UNAUTHORIZED_USER_EXTRANET",
-                    actor="ANYONE_INTERNET",
                     evidences=FindingEvidences(
                         evidence1=FindingEvidence(
                             description="evidence1",

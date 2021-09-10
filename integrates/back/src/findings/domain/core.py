@@ -1351,7 +1351,6 @@ async def update_description_new(
     finding_loader = loaders.finding_new
     finding: Finding = await finding_loader.load(finding_id)
     metadata = FindingMetadataToUpdate(
-        actor=description.actor,
         affected_systems=description.affected_systems,
         attack_vector_description=description.attack_vector_description,
         compromised_attributes=description.compromised_attributes,

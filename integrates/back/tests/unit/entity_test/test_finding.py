@@ -143,7 +143,6 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
           historicState
           title
           scenario
-          actor
           description
           requirements
           attackVectorDescription
@@ -224,7 +223,6 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
     assert "historicState" in result["data"]["finding"]
     assert "title" in result["data"]["finding"]
     assert "scenario" in result["data"]["finding"]
-    assert "actor" in result["data"]["finding"]
     assert "description" in result["data"]["finding"]
     assert "requirements" in result["data"]["finding"]
     assert "attackVectorDescription" in result["data"]["finding"]
@@ -471,7 +469,6 @@ async def test_update_description() -> None:
     """Check for updateDescription mutation."""
     query = """
         mutation UpdateFindingDescription(
-            $actor: String!,
             $affectedSystems: String!,
             $attackVectorDescription: String!,
             $compromisedAttributes: String,
@@ -486,7 +483,6 @@ async def test_update_description() -> None:
             $type: String
         ){
             updateDescription(
-            actor: $actor,
             affectedSystems: $affectedSystems,
             attackVectorDescription: $attackVectorDescription,
             description: $description,
@@ -505,7 +501,6 @@ async def test_update_description() -> None:
         }
     """
     variables = {
-        "actor": "ANYONE_INTERNET",
         "affectedSystems": "Server bWAPP",
         "attackVectorDescription": "This is an updated attack vector",
         "compromisedAttributes": "Clave plana",

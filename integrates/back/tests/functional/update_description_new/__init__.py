@@ -15,7 +15,6 @@ async def get_result(  # pylint: disable=too-many-locals
     user: str,
 ) -> Dict[str, Any]:
     finding_id: str = "475041513"
-    actor: str = "ANYONE_INTERNET"
     affected_systems: str = "edited affected_systems"
     attack_vector_description: str = "This is an updated attack vector"
     records: str = "Clave plana"
@@ -33,7 +32,6 @@ async def get_result(  # pylint: disable=too-many-locals
     query: str = f"""
         mutation {{
             updateDescription(
-                actor: "{actor}",
                 affectedSystems: "{affected_systems}",
                 attackVectorDescription: "{attack_vector_description}",
                 description: "{description}",
@@ -49,7 +47,6 @@ async def get_result(  # pylint: disable=too-many-locals
                 findingType: "{finding_type}"
             ) {{
                 finding {{
-                    actor
                     affectedSystems
                     age
                     hacker

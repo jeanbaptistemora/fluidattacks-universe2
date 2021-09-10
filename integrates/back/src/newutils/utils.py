@@ -64,7 +64,6 @@ async def filter_findings_new(
 
     def satisfies_filter(finding: Finding) -> bool:
         filter_finding_value = {
-            "actor": finding.actor,
             "affectedSystems": finding.affected_systems,
             "verified": finding.unreliable_indicators.unreliable_is_verified,
         }

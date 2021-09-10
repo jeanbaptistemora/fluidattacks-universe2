@@ -56,7 +56,6 @@ async def get_result(
                 findings(
                     filters: {{
                         affectedSystems: "system1",
-                        actor: "SOME_CUSTOMERS",
                         verified: false
                     }}
                 ) {{

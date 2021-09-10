@@ -211,7 +211,7 @@ async def test_group_filtered() -> None:
     query = """
       query {
         group(groupName: "unittesting"){
-          findings(filters: {affectedSystems: "test", actor: "ANY_EMPLOYEE"}) {
+          findings(filters: {affectedSystems: "test"}) {
             id
           }
         }
@@ -220,7 +220,7 @@ async def test_group_filtered() -> None:
     data = {"query": query}
     result = await _get_result_async(data)
     assert "errors" not in result
-    assert len(result["data"]["group"]["findings"]) == 1
+    assert len(result["data"]["group"]["findings"]) == 2
     assert result["data"]["group"]["findings"][0]["id"] == "463461507"
 
 

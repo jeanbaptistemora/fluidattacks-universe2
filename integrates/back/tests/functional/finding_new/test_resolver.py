@@ -106,7 +106,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     finding_id: str = "475041513"
     title: str = "001. SQL injection - C Sharp SQL API"
     scenario: str = "UNAUTHORIZED_USER_EXTRANET"
-    actor: str = "ANYONE_INTERNET"
     description: str = "I just have updated the description"
     requirements: str = (
         "REQ.0132. Passwords (phrase type) must be at least 3 words long."
@@ -162,7 +161,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     )
     where: str = "192.168.1.2"
     assert "errors" not in result
-    assert result["data"]["finding"]["actor"] == actor
     assert result["data"]["finding"]["affectedSystems"] == affected_systems
     assert result["data"]["finding"]["age"] == age
     assert result["data"]["finding"]["hacker"] == hacker
@@ -329,7 +327,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     finding_id: str = "475041513"
     title: str = "001. SQL injection - C Sharp SQL API"
     scenario: str = "UNAUTHORIZED_USER_EXTRANET"
-    actor: str = "ANYONE_INTERNET"
     description: str = "I just have updated the description"
     requirements: str = (
         "REQ.0132. Passwords (phrase type) must be at least 3 words long."
@@ -385,7 +382,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
         user=email, finding_id=finding_id
     )
     assert "errors" in result
-    assert result["data"]["finding"]["actor"] == actor
     assert result["data"]["finding"]["affectedSystems"] == affected_systems
     assert result["data"]["finding"]["age"] == age
     assert (
