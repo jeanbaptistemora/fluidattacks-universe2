@@ -233,6 +233,24 @@ async def test_get_by_time_range() -> None:
     assert test_data.vulnerabilities == expected_output
 
 
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+async def test_get_by_time_range_new() -> None:
+    loaders = get_new_context()
+    last_day = "2020-09-09 23:59:59"
+    vulnerability = (await get_vuln("80d6a69f-a376-46be-98cd-2fdedcffdcc0"))[0]
+    finding: Finding = await loaders.finding_new.load(
+        vulnerability["finding_id"]
+    )
+    vulnerability_severity = get_severity_score_new(finding.severity)
+    test_data = update_indicators_new.get_by_time_range(
+        findings_utils.sort_historic_by_date(vulnerability["historic_state"]),
+        vulnerability_severity,
+        last_day,
+    )
+    expected_output = 1
+    assert test_data.vulnerabilities == expected_output
+
+
 @pytest.mark.skipif(MIGRATION, reason="Finding migration")
 async def test_create_register_by_week() -> None:
     context = get_new_context()
