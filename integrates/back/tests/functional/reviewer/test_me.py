@@ -112,7 +112,7 @@ async def test_me() -> None:
             }}
             permissions(entity: USER)
             remember
-            role(entity: USER)
+            role
             sessionExpiration
             subscriptionsToEntityReport{{
                 entity
@@ -213,7 +213,7 @@ async def test_me() -> None:
             }}
             permissions(entity: USER)
             remember
-            role(entity: USER)
+            role
             sessionExpiration
             subscriptionsToEntityReport{{
                 entity

@@ -10,16 +10,25 @@ from graphql.type.definition import (
 )
 from typing import (
     cast,
-    Tuple,
 )
 
 
 async def resolve(parent: Me, _info: GraphQLResolveInfo, **kwargs: str) -> str:
+    # As Entity is no longer a required arg, this check is needed to keep
+    # backwards compatibility while enforcing the need for a non-null
+    # identifier if the entity is not USER
+    if (
+        "entity" in kwargs
+        and kwargs.get("entity") != "USER"
+        and "identifier" not in kwargs
+    ):
+        raise InvalidParameter()
+
     user_email: str = cast(str, parent["user_email"])
-    entity: str = kwargs["entity"]
+    entity: str = kwargs.get("entity", "USER")
     identifier: str = kwargs.get("identifier", "")
     role = ""
-    group_entities: Tuple = ("GROUP", "PROJECT")
+    group_entities = {"GROUP", "PROJECT"}
 
     if entity == "USER":
         role = await authz.get_user_level_role(user_email)

@@ -19,8 +19,11 @@ type Me {
   remember: Boolean
   "Gets the user-level role of the current stakeholder/user"
   role(
-    "Entity to check for level permissions"
-    entity: Entity!
+    """Entity to check for level permissions. If none is provided it defaults
+    to USER. This is intended as in the near future, only user-level roles
+    will be able to be queried through this field. To query for group and
+    org-level roles, check the `userRole` field in those entities"""
+    entity: Entity
     "Identifier of the provided entity. Not needed if the entity is USER"
     identifier: String
   ): String
