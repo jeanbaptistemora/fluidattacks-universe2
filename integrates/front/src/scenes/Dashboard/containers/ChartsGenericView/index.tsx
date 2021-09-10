@@ -69,27 +69,27 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = (
             </Col100>
           </RowCenter>
         ) : undefined}
-        {doesEntityMatch("group", "organization") ? (
-          <RowCenter>
-            <Col100>
-              <Graphic
-                bsHeight={320}
-                className={"g1"}
-                documentName={"mttrBenchmarking"}
-                documentType={"barChart"}
-                entity={entity}
-                generatorName={"generic"}
-                generatorType={"c3"}
-                infoLink={`${graphInfoLink}common`}
-                reportMode={reportMode}
-                subject={subject}
-                title={translate.t("analytics.barChart.mttrBenchmarking.title")}
-              />
-            </Col100>
-          </RowCenter>
-        ) : undefined}
         {doesEntityMatch("group", "organization", "portfolio") ? (
           <React.Fragment>
+            <RowCenter>
+              <Col100>
+                <Graphic
+                  bsHeight={320}
+                  className={"g1"}
+                  documentName={"mttrBenchmarking"}
+                  documentType={"barChart"}
+                  entity={entity}
+                  generatorName={"generic"}
+                  generatorType={"c3"}
+                  infoLink={`${graphInfoLink}common`}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={translate.t(
+                    "analytics.barChart.mttrBenchmarking.title"
+                  )}
+                />
+              </Col100>
+            </RowCenter>
             <RowCenter>
               <Col100>
                 <Graphic
