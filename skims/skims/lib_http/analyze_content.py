@@ -158,8 +158,8 @@ def get_check_ctx(url: URLContext) -> ContentCheckCtx:
 
 CHECKS: Dict[
     core_model.FindingEnum,
-    Callable[[ContentCheckCtx], core_model.Vulnerabilities],
+    List[Callable[[ContentCheckCtx], core_model.Vulnerabilities]],
 ] = {
-    core_model.FindingEnum.F036: _view_state,
-    core_model.FindingEnum.F086: _sub_resource_integrity,
+    core_model.FindingEnum.F036: [_view_state],
+    core_model.FindingEnum.F086: [_sub_resource_integrity],
 }

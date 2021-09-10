@@ -480,16 +480,16 @@ def get_check_ctx(url: URLContext) -> HeaderCheckCtx:
 
 CHECKS: Dict[
     core_model.FindingEnum,
-    Callable[[HeaderCheckCtx], core_model.Vulnerabilities],
+    List[Callable[[HeaderCheckCtx], core_model.Vulnerabilities]],
 ] = {
-    core_model.FindingEnum.F015: _www_authenticate,
-    core_model.FindingEnum.F023: _location,
-    core_model.FindingEnum.F128: _set_cookie_httponly,
-    core_model.FindingEnum.F129: _set_cookie_samesite,
-    core_model.FindingEnum.F130: _set_cookie_secure,
-    core_model.FindingEnum.F043: _content_security_policy,
-    core_model.FindingEnum.F071: _referrer_policy,
-    core_model.FindingEnum.F131: _strict_transport_security,
-    core_model.FindingEnum.F132: _x_content_type_options,
-    core_model.FindingEnum.F064: _date,
+    core_model.FindingEnum.F015: [_www_authenticate],
+    core_model.FindingEnum.F023: [_location],
+    core_model.FindingEnum.F128: [_set_cookie_httponly],
+    core_model.FindingEnum.F129: [_set_cookie_samesite],
+    core_model.FindingEnum.F130: [_set_cookie_secure],
+    core_model.FindingEnum.F043: [_content_security_policy],
+    core_model.FindingEnum.F071: [_referrer_policy],
+    core_model.FindingEnum.F131: [_strict_transport_security],
+    core_model.FindingEnum.F132: [_x_content_type_options],
+    core_model.FindingEnum.F064: [_date],
 }

@@ -30,6 +30,7 @@ from typing import (
     Any,
     Callable,
     Dict,
+    List,
     Optional,
     Set,
     Tuple,
@@ -62,7 +63,7 @@ CHECKS: Tuple[
         Callable[[URLContext], Any],
         Dict[
             core_model.FindingEnum,
-            Callable[[Any], core_model.Vulnerabilities],
+            List[Callable[[Any], core_model.Vulnerabilities]],
         ],
     ],
     ...,
@@ -83,10 +84,11 @@ async def analyze_one(
     await log("info", "Analyzing http %s of %s: %s", index, unique_count, url)
 
     for get_check_ctx, checks in CHECKS:
-        for finding, check in checks.items():
+        for finding, check_list in checks.items():
             if finding in CTX.config.checks:
-                for vulnerability in check(get_check_ctx(url)):
-                    await stores[vulnerability.finding].store(vulnerability)
+                for check in check_list:
+                    for vuln in check(get_check_ctx(url)):
+                        await stores[vuln.finding].store(vuln)
 
 
 @rate_limited(rpm=LIB_HTTP_DEFAULT)
