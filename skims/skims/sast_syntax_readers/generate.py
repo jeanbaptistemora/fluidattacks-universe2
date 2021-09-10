@@ -89,6 +89,7 @@ from sast_syntax_readers.javascript import (
     switch_default as javascript_switch_default,
     switch_statement as javascript_switch_statement,
     template_string as javascript_template_string,
+    ternary_expression as javascript_ternary_expression,
     variable_declaration as javascript_variable_declaration,
     variable_declarator as javascript_variable_declarator,
 )
@@ -711,6 +712,15 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             "using_statement",
         },
         syntax_readers=(c_sharp_using_statement.reader,),
+    ),
+    Dispatcher(
+        applicable_languages={
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+        },
+        applicable_node_label_types={
+            "ternary_expression",
+        },
+        syntax_readers=(javascript_ternary_expression.reader,),
     ),
     Dispatcher(
         applicable_languages={

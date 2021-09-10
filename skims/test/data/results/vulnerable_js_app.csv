@@ -1251,6 +1251,31 @@ F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test012.js,11,78,skims,004.
   21 |       };
      ^ Col 0
 "
+F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test068.js,10,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+   1 | import { exec } from ""child_process"";
+   2 | import { Router } from ""express"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test068/:user"", function (req, res) {
+   6 |   var param = req.params[""user""];
+   7 |
+   8 |   var num = 196;
+   9 |   var user = 500 / 42 + num > 200 ? param : ""safe"";
+> 10 |   exec(""ls target/user_files/"" + user + ""/"", (error, stdout, stderr) => {
+  11 |     var user_files = [];
+  12 |     for (var file of stdout.split(""\n"")) {
+  13 |       if (file) {
+  14 |         user_files.push(file);
+  15 |       }
+  16 |     }
+  17 |
+  18 |     var data = {
+  19 |       user_files: user_files,
+  20 |     };
+  21 |     res.json(data);
+     ^ Col 0
+"
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test001.js,7,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    1 | import { exec } from ""child_process"";
@@ -1600,6 +1625,31 @@ F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test077.js,8,79,skims,008. 
   20 | export default router;
      ^ Col 0
 "
+F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test092.js,10,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 |
+   4 | router.get(""/test092/:user"", function (req, res) {
+   5 |   var param = req.params[""user""];
+   6 |
+   7 |   var user = param ? param : ""Jane Doe"";
+   8 |   res.setHeader(""Content-Type"", ""text/html"");
+   9 |   res.setHeader(""X-XSS-Protection"", ""0"");
+> 10 |   res.send(
+  11 |     `
+  12 |     <!DOCTYPE html>
+  13 |     <html>
+  14 |       <body>
+  15 |         <h1>Hello ${user}</h1>
+  16 |       </body>
+  17 |     </html>
+  18 | `
+  19 |   );
+  20 | });
+  21 |
+     ^ Col 0
+"
 F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test080.js,9,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
    1 | var express = require(""express"");
@@ -1650,6 +1700,31 @@ F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test087.js,12,79,skims,008.
   22 | });
      ^ Col 0
 "
+F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test093.js,12,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+   2 | var router = Router();
+   3 |
+   4 | router.get(""/test093/:user"", function (req, res) {
+   5 |   var param = req.params[""user""];
+   6 |   var user = ""Mr"";
+   7 |   if (param) {
+   8 |     user = user + param;
+   9 |   }
+  10 |   res.setHeader(""Content-Type"", ""text/html"");
+  11 |   res.setHeader(""X-XSS-Protection"", ""0"");
+> 12 |   res.send(
+  13 |     `
+  14 |     <!DOCTYPE html>
+  15 |     <html>
+  16 |       <body>
+  17 |         <h1>Hello ${user}</h1>
+  18 |       </body>
+  19 |     </html>
+  20 | `
+  21 |   );
+  22 | });
+     ^ Col 0
+"
 F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test078.js,13,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
    3 |
@@ -1658,6 +1733,31 @@ F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test078.js,13,79,skims,008.
    6 |
    7 |   var user = ""Jane Doe"";
    8 |   if (32 > 31) {
+   9 |     user = param;
+  10 |   }
+  11 |   res.setHeader(""Content-Type"", ""text/html"");
+  12 |   res.setHeader(""X-XSS-Protection"", ""0"");
+> 13 |   res.send(
+  14 |     `
+  15 |     <!DOCTYPE html>
+  16 |     <html>
+  17 |       <body>
+  18 |         <h1>Hello ${user}</h1>
+  19 |       </body>
+  20 |     </html>
+  21 | `
+  22 |   );
+  23 | });
+     ^ Col 0
+"
+F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test091.js,13,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+   3 |
+   4 | router.get(""/test091/:user"", function (req, res) {
+   5 |   var params = req.params;
+   6 |   let param = params[""user""];
+   7 |   var user = """";
+   8 |   if (param != undefined) {
    9 |     user = param;
   10 |   }
   11 |   res.setHeader(""Content-Type"", ""text/html"");
@@ -1723,6 +1823,31 @@ F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test079.js,18,79,skims,008.
   26 | `
   27 |   );
   28 | });
+     ^ Col 0
+"
+F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test090.js,19,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+   9 |   }
+  10 |   let allowed = [""a"", user];
+  11 |   allowed.pop();
+  12 |   allowed[1] = ""safe"";
+  13 |   allowed.pop();
+  14 |   allowed[1] = user;
+  15 |   var user = decodeURI(allowed[1]);
+  16 |
+  17 |   res.setHeader(""Content-Type"", ""text/html"");
+  18 |   res.setHeader(""X-XSS-Protection"", ""0"");
+> 19 |   res.send(
+  20 |     `
+  21 |     <!DOCTYPE html>
+  22 |     <html>
+  23 |       <body>
+  24 |         <h1>Hello ${user}</h1>
+  25 |       </body>
+  26 |     </html>
+  27 | `
+  28 |   );
+  29 | });
      ^ Col 0
 "
 F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test084.js,20,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
@@ -1823,5 +1948,30 @@ F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test081.js,29,79,skims,008.
   37 | `
   38 |   );
   39 | });
+     ^ Col 0
+"
+F008,lines,VULNERABLE_JS_APP/server/routes/testcases/test095.js,30,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+  20 |     case ""D"":
+  21 |       user = param;
+  22 |       break;
+  23 |     default:
+  24 |       uer = ""Danny"";
+  25 |       break;
+  26 |   }
+  27 |
+  28 |   res.setHeader(""Content-Type"", ""text/html"");
+  29 |   res.setHeader(""X-XSS-Protection"", ""0"");
+> 30 |   res.send(
+  31 |     `
+  32 |     <!DOCTYPE html>
+  33 |     <html>
+  34 |       <body>
+  35 |         <h1>Hello ${user}</h1>
+  36 |       </body>
+  37 |     </html>
+  38 | `
+  39 |   );
+  40 | });
      ^ Col 0
 "
