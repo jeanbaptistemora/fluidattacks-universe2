@@ -82,7 +82,7 @@ async def send_mail_remove_finding(
     }
     recipients = FI_MAIL_REVIEWERS.split(",")
     mail_context = {
-        "analyst_email": discoverer_email,
+        "hacker_email": discoverer_email,
         "finding_name": finding_name,
         "finding_id": finding_id,
         "justification": justification_dict[justification],
@@ -102,12 +102,12 @@ async def send_mail_new_draft(
     finding_id: str,
     finding_title: str,
     group_name: str,
-    analyst_email: str,
+    hacker_email: str,
 ) -> None:
     org_name = await get_organization_name(context, group_name)
     recipients = FI_MAIL_REVIEWERS.split(",")
     email_context: MailContentType = {
-        "analyst_email": analyst_email,
+        "hacker_email": hacker_email,
         "finding_id": finding_id,
         "finding_name": finding_title,
         "finding_url": (

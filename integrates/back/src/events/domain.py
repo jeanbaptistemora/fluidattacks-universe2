@@ -90,7 +90,7 @@ async def add_comment(
 
 async def add_event(  # pylint: disable=too-many-locals
     loaders: Any,
-    analyst_email: str,
+    hacker_email: str,
     group_name: str,
     file: Optional[UploadFile] = None,
     image: Optional[UploadFile] = None,
@@ -116,16 +116,16 @@ async def add_event(  # pylint: disable=too-many-locals
     event_attrs.update(
         {
             "accessibility": " ".join(list(set(event_attrs["accessibility"]))),
-            "analyst": analyst_email,
+            "analyst": hacker_email,
             "client": org_id,
             "historic_state": [
                 {
-                    "analyst": analyst_email,
+                    "analyst": hacker_email,
                     "date": datetime_utils.get_as_str(event_date),
                     "state": "OPEN",
                 },
                 {
-                    "analyst": analyst_email,
+                    "analyst": hacker_email,
                     "date": datetime_utils.get_as_str(today),
                     "state": "CREATED",
                 },
@@ -250,7 +250,7 @@ async def remove_evidence(evidence_type: str, event_id: str) -> bool:
 
 
 async def solve_event(
-    event_id: str, affectation: str, analyst_email: str, date: datetime
+    event_id: str, affectation: str, hacker_email: str, date: datetime
 ) -> bool:
     event = await get_event(event_id)
     success = False
@@ -267,13 +267,13 @@ async def solve_event(
     history = cast(List[Dict[str, str]], event.get("historic_state", []))
     history += [
         {
-            "analyst": analyst_email,
+            "analyst": hacker_email,
             "date": datetime_utils.get_as_str(date),
             "state": "CLOSED",
         },
         {
             "affectation": affectation,
-            "analyst": analyst_email,
+            "analyst": hacker_email,
             "date": datetime_utils.get_as_str(today),
             "state": "SOLVED",
         },

@@ -627,13 +627,13 @@ async def _get_consult_users(
         roles: List[str] = await collect(
             [get_group_level_role(email, group_name) for email in users]
         )
-        analysts = [
+        hackers = [
             email
             for email, role in zip(users, roles)
             if role in {"hacker", "analyst"}
         ]
 
-        return [*recipients, *analysts]
+        return [*recipients, *hackers]
 
     return [*recipients, *users]
 

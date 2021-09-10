@@ -166,10 +166,10 @@ async def add_draft(
     group_name = group_name.lower()
     creation_date = datetime_utils.get_now_as_str()
     user_data = cast(UserType, await token_utils.get_jwt_content(info.context))
-    analyst_email = str(user_data.get("user_email", ""))
+    hacker_email = str(user_data.get("user_email", ""))
     source = requests_utils.get_source(info.context)
     submission_history = {
-        "analyst": analyst_email,
+        "analyst": hacker_email,
         "date": creation_date,
         "source": source,
         "state": "CREATED",
@@ -185,7 +185,7 @@ async def add_draft(
     finding_attrs = kwargs.copy()
     finding_attrs.update(
         {
-            "analyst": analyst_email,
+            "analyst": hacker_email,
             "cvss_version": "3.1",
             "exploitability": 0,
             "files": [],
@@ -323,7 +323,7 @@ async def reject_draft_new(
 
 
 async def submit_draft(  # pylint: disable=too-many-locals
-    context: Any, finding_id: str, analyst_email: str
+    context: Any, finding_id: str, hacker_email: str
 ) -> bool:
     success = False
     finding_vulns_loader = context.loaders.finding_vulns
@@ -344,7 +344,7 @@ async def submit_draft(  # pylint: disable=too-many-locals
                 history = cast(List[Dict[str, str]], finding["historic_state"])
                 history.append(
                     {
-                        "analyst": analyst_email,
+                        "analyst": hacker_email,
                         "date": report_date,
                         "source": source,
                         "state": "SUBMITTED",

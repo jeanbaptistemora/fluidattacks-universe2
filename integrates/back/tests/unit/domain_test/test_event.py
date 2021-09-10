@@ -63,7 +63,7 @@ async def test_add_event() -> None:
     }
     assert await events_domain.add_event(
         get_new_context(),
-        analyst_email="unittesting@fluidattacks.com",
+        hacker_email="unittesting@fluidattacks.com",
         group_name="unittesting",
         **attrs,
     )
@@ -92,7 +92,7 @@ async def test_add_event_file_image() -> None:
             )
             test_data = await events_domain.add_event(
                 get_new_context(),
-                analyst_email="unittesting@fluidattacks.com",
+                hacker_email="unittesting@fluidattacks.com",
                 group_name="unittesting",
                 file=uploaded_file,
                 image=uploaded_image,
@@ -108,7 +108,7 @@ async def test_solve_event() -> None:
     assert await events_domain.solve_event(
         event_id="538745942",
         affectation=1,
-        analyst_email="unittesting@fluidattacks.com",
+        hacker_email="unittesting@fluidattacks.com",
         date=parse_datetime("2019-12-09T05:00:00.000Z"),
     )
     event = await events_domain.get_event("538745942")
@@ -117,7 +117,7 @@ async def test_solve_event() -> None:
         assert await events_domain.solve_event(
             event_id="538745942",
             affectation=1,
-            analyst_email="unittesting@fluidattacks.com",
+            hacker_email="unittesting@fluidattacks.com",
             date=parse_datetime("2019-12-09T05:00:00.000Z"),
         )
 

@@ -45,9 +45,9 @@ async def mutate(
     date: datetime,
 ) -> SimplePayload:
     user_info = await token_utils.get_jwt_content(info.context)
-    analyst_email = user_info["user_email"]
+    hacker_email = user_info["user_email"]
     success = await events_domain.solve_event(
-        event_id, affectation, analyst_email, date
+        event_id, affectation, hacker_email, date
     )
 
     if success:
