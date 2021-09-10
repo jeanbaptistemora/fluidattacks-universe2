@@ -17,11 +17,17 @@ from data_containers.toe_lines import (
 from dataloaders import (
     get_new_context,
 )
+from db_model.findings.types import (
+    Finding,
+)
 from decimal import (
     Decimal,
 )
 from findings.domain import (
     get_findings_by_group,
+)
+from findings.domain.core import (
+    get_severity_score_new,
 )
 from freezegun import (
     freeze_time,
@@ -52,6 +58,7 @@ from schedulers import (
     toe_inputs_etl,
     toe_lines_etl,
     update_indicators,
+    update_indicators_new,
 )
 import shutil
 from toe.inputs import (
@@ -59,6 +66,10 @@ from toe.inputs import (
 )
 from toe.lines import (
     domain as toe_lines_domain,
+)
+from typing import (
+    Dict,
+    Tuple,
 )
 from unittest.mock import (
     patch,
@@ -155,6 +166,44 @@ async def test_get_accepted_vulns() -> None:
             for vulnerability, historic_state, severity in zip(
                 vulns,
                 vulnerabilities_historic_states,
+                vulnerabilities_severity,
+            )
+        ]
+    )
+    expected_output = 2
+    assert test_data == expected_output
+
+
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+async def test_get_accepted_vulns_new() -> None:
+    loaders = get_new_context()
+    last_day = "2019-06-30 23:59:59"
+    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
+        "unittesting"
+    )
+    vulnerabilties = await loaders.finding_vulns_nzr.load_many_chained(
+        [finding.id for finding in findings]
+    )
+    findings_severity: Dict[str, Decimal] = {
+        finding.id: get_severity_score_new(finding.severity)
+        for finding in findings
+    }
+    vulnerabilities_severity = [
+        findings_severity[str(vulnerability["finding_id"])]
+        for vulnerability in vulnerabilties
+    ]
+    historic_states = [
+        findings_utils.sort_historic_by_date(vulnerability["historic_state"])
+        for vulnerability in vulnerabilties
+    ]
+    test_data = sum(
+        [
+            update_indicators_new.get_accepted_vulns(
+                vulnerability, historic_state, severity, last_day
+            ).vulnerabilities
+            for vulnerability, historic_state, severity in zip(
+                vulnerabilties,
+                historic_states,
                 vulnerabilities_severity,
             )
         ]
