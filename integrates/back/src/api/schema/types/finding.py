@@ -121,7 +121,6 @@ if FI_API_STATUS == "migration":
     # --------------------------Deprecated fields------------------------------
     FINDING.set_field("analyst", hacker_new.resolve)
     FINDING.set_alias("attackVectorDesc", "attack_vector_description")
-    FINDING.set_alias("btsUrl", "bug_tracking_system_url")
     FINDING.set_field("inputsVulns", inputs_vulnerabilities_new.resolve)
     FINDING.set_field("linesVulns", lines_vulnerabilities_new.resolve)
     FINDING.set_field("newRemediated", remediated_new.resolve)

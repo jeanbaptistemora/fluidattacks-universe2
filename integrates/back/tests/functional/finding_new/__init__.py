@@ -25,8 +25,6 @@ async def get_result(
                 hacker
                 attackVectorDesc
                 attackVectorDescription
-                btsUrl
-                bugTrackingSystemUrl
                 closedVulnerabilities
                 compromisedAttributes
                 compromisedRecords

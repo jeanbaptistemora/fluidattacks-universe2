@@ -151,7 +151,6 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
           affectedSystems
           compromisedAttributes
           compromisedRecords
-          bugTrackingSystemUrl
           risk
           remediated
           type
@@ -231,7 +230,6 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
     assert "affectedSystems" in result["data"]["finding"]
     assert "compromisedAttributes" in result["data"]["finding"]
     assert "compromisedRecords" in result["data"]["finding"]
-    assert "bugTrackingSystemUrl" in result["data"]["finding"]
     assert "risk" in result["data"]["finding"]
     assert "remediated" in result["data"]["finding"]
     assert "type" in result["data"]["finding"]

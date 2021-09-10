@@ -154,7 +154,6 @@ class Finding(NamedTuple):
     affected_systems: str = ""
     attack_vector_description: str = ""
     approval: Optional[FindingState] = None
-    bug_tracking_system_url: str = ""
     compromised_attributes: str = ""
     creation: Optional[FindingState] = None
     compromised_records: int = 0

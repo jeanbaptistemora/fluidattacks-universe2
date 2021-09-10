@@ -51,7 +51,6 @@ async def get_result(  # pylint: disable=too-many-locals
                     age
                     hacker
                     attackVectorDescription
-                    bugTrackingSystemUrl
                     closedVulnerabilities
                     compromisedAttributes
                     compromisedRecords
