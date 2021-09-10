@@ -106,7 +106,7 @@ function deploy_eph {
     && compress_files "${src}/public" \
     && sync_files "${src}/public" "s3://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" "false" \
     && sync_files "${src}/public" "s3://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
-    && source_map_uploader 6d0d7e66955855de59cfff659e6edf31 \
+    && makes-bugsnag-source-map-uploader 6d0d7e66955855de59cfff659e6edf31 \
       "https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" "${src}/public" \
     && announce_to_bugsnag ephemeral
 }
@@ -119,7 +119,7 @@ function deploy_prod {
     && compress_files "${src}/public" \
     && sync_files "${src}/public" 's3://fluidattacks.com' "false" \
     && sync_files "${src}/public" 's3://fluidattacks.com' \
-    && source_map_uploader 6d0d7e66955855de59cfff659e6edf31 \
+    && makes-bugsnag-source-map-uploader 6d0d7e66955855de59cfff659e6edf31 \
       "https://fluidattacks.com/" "${src}/public/" \
     && announce_to_bugsnag production
 }

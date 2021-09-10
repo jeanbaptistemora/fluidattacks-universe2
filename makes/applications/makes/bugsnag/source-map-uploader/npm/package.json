@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@bugsnag/source-maps": "2.3.0"
+  }
+}

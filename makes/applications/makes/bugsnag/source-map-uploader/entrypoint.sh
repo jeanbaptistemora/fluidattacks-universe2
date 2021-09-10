@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-function source_map_uploader {
+function main {
   local api_key="${1}"
   local base_url="${2}"
   local directory="${3}"
@@ -11,3 +11,5 @@ function source_map_uploader {
     --base-url "${base_url}" \
     --directory "${directory}"
 }
+
+main "${@}"

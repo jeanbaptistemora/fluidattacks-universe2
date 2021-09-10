@@ -20,10 +20,10 @@ makeEntrypoint {
       nixpkgs.python37
       nixpkgs.utillinux
       packages.makes.announce.bugsnag
+      packages.makes.bugsnag.source-map-uploader
     ];
     envUtils = [
       "/makes/utils/aws"
-      "/makes/utils/source-map-uploader"
     ];
   };
   template = path "/makes/applications/airs/entrypoint.sh";
