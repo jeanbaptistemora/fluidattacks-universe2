@@ -72,6 +72,10 @@ in
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/integrates/linters/charts";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintPython/dirOfModules/integrates";
           gitlabExtra = gitlabLint;
         }

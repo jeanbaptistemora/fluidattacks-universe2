@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  pushd "${envGraphsSrc}" \
+  pushd "${envSrc}" \
     && eslint --config .eslintrc . \
     && popd \
     && touch "${out}" \

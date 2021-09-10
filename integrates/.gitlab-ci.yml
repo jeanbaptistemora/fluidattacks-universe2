@@ -99,11 +99,6 @@ integrates.charts.documents-prod-schedule:
   parallel: 14
   script: [./m integrates.charts.documents prod]
 
-integrates.charts.lint:
-  <<: *makes
-  <<: *in_dev_branch_integrates
-  stage: lint-code
-
 integrates.charts.snapshots-prod:
   <<: *makes
   needs: [integrates.charts.documents-prod-schedule]
