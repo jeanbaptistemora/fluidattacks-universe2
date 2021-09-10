@@ -14,6 +14,8 @@ from typing import (
     Dict,
 )
 
+USER_ENV_VAR = "ANNOUNCEKIT_USER"
+PASSWD_ENV_VAR = "ANNOUNCEKIT_PASSWD"
 # maxsize can be float but int is inferred
 _cache: LRUCache = LRUCache(maxsize=cast(int, float("inf")))
 
@@ -38,4 +40,4 @@ class Creds:
 @cached(cache=_cache)
 def get_creds() -> Creds:
     # environ returns IO type; inf. cache ensures purity
-    return Creds(environ["ANNOUNCEKIT_USER"], environ["ANNOUNCEKIT_PASSWD"])
+    return Creds(environ[USER_ENV_VAR], environ[PASSWD_ENV_VAR])

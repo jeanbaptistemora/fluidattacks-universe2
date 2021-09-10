@@ -22,3 +22,8 @@ class ApiClient(_ApiClient):
         obj = _ApiClient(HTTPEndpoint(API_ENDPOINT, creds.basic_auth_header()))
         for key, val in obj.__dict__.items():
             object.__setattr__(self, key, val)
+
+
+__all__ = [
+    "Creds",
+]
