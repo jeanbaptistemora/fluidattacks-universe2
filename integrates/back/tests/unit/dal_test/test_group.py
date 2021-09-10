@@ -3,7 +3,7 @@ from group_access.dal import (
     update as update_access,
 )
 from group_access.domain import (
-    list_internal_managers,
+    list_internal_owners,
 )
 import pytest
 
@@ -13,8 +13,8 @@ pytestmark = [
 
 
 async def test_list_internal_managers() -> None:
-    assert await list_internal_managers("oneshottest") == []
-    assert await list_internal_managers("unittesting") == [
+    assert await list_internal_owners("oneshottest") == []
+    assert await list_internal_owners("unittesting") == [
         "unittest2@fluidattacks.com",
         "system_owner@fluidattacks.com",
     ]

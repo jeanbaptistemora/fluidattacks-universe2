@@ -31,7 +31,7 @@
             "S": "unittesting"
           },
           "role": {
-            "S": "group_manager"
+            "S": "system_owner"
           }
         }
       }
@@ -121,7 +121,7 @@
             "S": "self"
           },
           "role": {
-            "S": "analyst"
+            "S": "hacker"
           }
         }
       }
@@ -139,7 +139,7 @@
             "S": "self"
           },
           "role": {
-            "S": "analyst"
+            "S": "hacker"
           }
         }
       }
@@ -283,7 +283,7 @@
             "S": "oneshottest"
           },
           "role": {
-            "S": "closer"
+            "S": "reattacker"
           }
         }
       }
@@ -391,7 +391,7 @@
             "S": "org#f2e2777d-a168-4bea-93cd-d79142b294d2"
           },
           "role": {
-            "S": "group_manager"
+            "S": "system_owner"
           }
         }
       }

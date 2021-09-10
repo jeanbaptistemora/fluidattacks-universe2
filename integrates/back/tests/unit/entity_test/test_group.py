@@ -147,7 +147,7 @@ async def test_group() -> None:
             "lastLogin": "2019-10-29 13:40:37",
             "phoneNumber": "-",
             "responsibility": "Tester",
-            "role": "group_manager",
+            "role": "system_owner",
         },
         {
             "email": "integratesexecutive@gmail.com",

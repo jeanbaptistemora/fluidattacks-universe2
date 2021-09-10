@@ -551,7 +551,7 @@ async def add_group(  # pylint: disable=too-many-arguments,too-many-locals
                                     user_email, group_name, True
                                 ),
                                 authz.grant_group_level_role(
-                                    user_email, group_name, "group_manager"
+                                    user_email, group_name, "system_owner"
                                 ),
                             )
                         )

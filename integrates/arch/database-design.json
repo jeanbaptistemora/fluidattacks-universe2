@@ -517,7 +517,7 @@
                 "S": "ORG#okada"
               },
               "role": {
-                "S": "group_manager"
+                "S": "system_owner"
               },
               "subscription_period": {
                 "N": "86400"
@@ -547,7 +547,7 @@
                 "S": "GROUP#unittesting"
               },
               "role": {
-                "S": "group_manager"
+                "S": "system_owner"
               },
               "responsibility": {
                 "S": "Product owner"

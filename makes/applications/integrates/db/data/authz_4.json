@@ -193,7 +193,7 @@
             "S": "deleteimamura"
           },
           "role": {
-            "S": "analyst"
+            "S": "hacker"
           }
         }
       }
@@ -229,7 +229,7 @@
             "S": "deleteimamura"
           },
           "role": {
-            "S": "analyst"
+            "S": "hacker"
           }
         }
       }

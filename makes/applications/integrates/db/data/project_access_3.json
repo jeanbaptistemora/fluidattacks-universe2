@@ -171,7 +171,7 @@
                 "S": "delete"
               },
               "role": {
-                "S": "analyst"
+                "S": "hacker"
               },
               "url_token": {
                 "S": "unknown"
@@ -208,7 +208,7 @@
                 "S": " no delete"
               },
               "role": {
-                "S": "analyst"
+                "S": "hacker"
               },
               "url_token": {
                 "S": "unknown"

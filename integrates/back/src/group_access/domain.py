@@ -82,7 +82,7 @@ async def get_users_to_notify(
     ]
 
 
-async def list_group_managers(group: str) -> List[str]:
+async def list_system_owners(group: str) -> List[str]:
     users_active, users_inactive = await collect(
         [get_group_users(group, True), get_group_users(group, False)]
     )
@@ -98,8 +98,8 @@ async def list_group_managers(group: str) -> List[str]:
     return managers
 
 
-async def list_internal_managers(group_name: str) -> List[str]:
-    all_managers = await list_group_managers(group_name)
+async def list_internal_owners(group_name: str) -> List[str]:
+    all_managers = await list_system_owners(group_name)
     internal_managers = [
         user for user in all_managers if user.endswith("@fluidattacks.com")
     ]

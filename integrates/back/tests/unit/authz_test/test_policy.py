@@ -59,9 +59,7 @@ async def test_get_group_level_role() -> None:
 
 
 async def test_get_user_level_role() -> None:
-    assert (
-        await get_user_level_role("continuoushacking@gmail.com") == "analyst"
-    )
+    assert await get_user_level_role("continuoushacking@gmail.com") == "hacker"
     assert (
         await get_user_level_role("integrateshacker@fluidattacks.com")
         == "hacker"

@@ -49,7 +49,7 @@ async def test_add_group() -> None:
     users = await group_access_domain.get_group_users(group)
     assert (
         await authz.get_organization_level_role(users[0], org_id)
-        == "group_manager"
+        == "system_owner"
     )
 
 
@@ -59,10 +59,9 @@ async def test_add_user() -> None:
     user = "org_testgroupmanager2@gmail.com"
     assert not await orgs_domain.has_user_access(org_id, user)
 
-    await orgs_domain.add_user(org_id, user, "group_manager")
+    await orgs_domain.add_user(org_id, user, "system_owner")
     assert (
-        await authz.get_organization_level_role(user, org_id)
-        == "group_manager"
+        await authz.get_organization_level_role(user, org_id) == "system_owner"
     )
 
     groups = await orgs_domain.get_groups(org_id)
