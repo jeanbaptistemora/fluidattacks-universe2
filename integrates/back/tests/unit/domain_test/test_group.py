@@ -500,18 +500,18 @@ async def test_get_mean_remediate_severity_medium(
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
     (
-        (None, Decimal("147.823")),
+        (0, Decimal("147.823")),
         (30, Decimal("0")),
         (90, Decimal("0")),
     ),
 )
 async def test_get_mean_remediate_severity_medium_cvssf(
-    min_days: Optional[int], expected_output: Decimal
+    min_days: int, expected_output: Decimal
 ) -> None:
     context = get_new_context()
     group_name = "unittesting"
-    min_severity = 4
-    max_severity = 6.9
+    min_severity = Decimal("4")
+    max_severity = Decimal("6.9")
     mean_remediate_medium_severity = await get_mean_remediate_severity_cvssf(
         context,
         group_name,
@@ -529,13 +529,13 @@ async def test_get_mean_remediate_severity_medium_cvssf(
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
     (
-        (None, Decimal("11.269")),
+        (0, Decimal("11.269")),
         (30, Decimal("10.658")),
         (90, Decimal("11.269")),
     ),
 )
 async def test_get_mean_remediate_severity_low_cvssf(
-    min_days: Optional[int], expected_output: Decimal
+    min_days: int, expected_output: Decimal
 ) -> None:
     context = get_new_context()
     group_name = "unittesting"

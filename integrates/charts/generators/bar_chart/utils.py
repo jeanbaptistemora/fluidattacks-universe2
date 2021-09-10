@@ -38,6 +38,17 @@ PORTFOLIO_CATEGORIES: List[str] = [
 ]
 
 
+Remediate = NamedTuple(
+    "Remediate",
+    [
+        ("critical_severity", Decimal),
+        ("high_severity", Decimal),
+        ("medium_severity", Decimal),
+        ("low_severity", Decimal),
+    ],
+)
+
+
 class Benchmarking(NamedTuple):
     is_valid: bool
     mttr: Decimal

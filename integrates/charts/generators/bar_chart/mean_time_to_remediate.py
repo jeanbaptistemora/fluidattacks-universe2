@@ -11,6 +11,9 @@ from charts import (
 from charts.colors import (
     RISK,
 )
+from charts.generators.bar_chart.utils import (
+    Remediate,
+)
 from context import (
     FI_API_STATUS,
 )
@@ -36,18 +39,7 @@ from statistics import (
 )
 from typing import (
     List,
-    NamedTuple,
     Optional,
-)
-
-Remediate = NamedTuple(
-    "Remediate",
-    [
-        ("critical_severity", Decimal),
-        ("high_severity", Decimal),
-        ("medium_severity", Decimal),
-        ("low_severity", Decimal),
-    ],
 )
 
 
