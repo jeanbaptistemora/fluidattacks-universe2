@@ -13,7 +13,6 @@ import {
   ButtonToolbar,
   Col40,
   GroupScopeText,
-  LastGroupSetting,
   Row,
 } from "styles/styledComponents";
 import { Logger } from "utils/logger";
@@ -62,23 +61,21 @@ const Unsubscribe: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <LastGroupSetting>
-        <Row>
-          <h2>{t("searchFindings.servicesTable.unsubscribe.title")}</h2>
-        </Row>
-        <Row>
-          <GroupScopeText>
-            {t("searchFindings.servicesTable.unsubscribe.warning")}
-          </GroupScopeText>
-          <Col40>
-            <ButtonToolbar>
-              <Button onClick={handleChange}>
-                {t("searchFindings.servicesTable.unsubscribe.button")}
-              </Button>
-            </ButtonToolbar>
-          </Col40>
-        </Row>
-      </LastGroupSetting>
+      <Row>
+        <h2>{t("searchFindings.servicesTable.unsubscribe.title")}</h2>
+      </Row>
+      <Row>
+        <GroupScopeText>
+          {t("searchFindings.servicesTable.unsubscribe.warning")}
+        </GroupScopeText>
+        <Col40>
+          <ButtonToolbar>
+            <Button onClick={handleChange}>
+              {t("searchFindings.servicesTable.unsubscribe.button")}
+            </Button>
+          </ButtonToolbar>
+        </Col40>
+      </Row>
       <UnsubscribeModal
         groupName={groupName}
         isOpen={isModalOpen}

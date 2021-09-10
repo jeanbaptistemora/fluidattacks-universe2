@@ -14,13 +14,7 @@ import { FluidIcon } from "components/FluidIcon";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { EditGroupInformationModal } from "scenes/Dashboard/components/EditGroupInformationModal";
 import { GET_GROUP_DATA } from "scenes/Dashboard/containers/GroupSettingsView/queries";
-import {
-  ButtonToolbar,
-  Col40,
-  Col60,
-  LastGroupSetting,
-  Row,
-} from "styles/styledComponents";
+import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
@@ -103,56 +97,54 @@ const GroupInformation: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <LastGroupSetting>
-        <Row>
-          {/* eslint-disable-next-line react/forbid-component-props */}
-          <Col60 className={"pa0"}>
-            <h2>{translate.t("searchFindings.infoTable.title")}</h2>
-          </Col60>
-          {/* eslint-disable-next-line react/forbid-component-props */}
-          <Col40>
-            <ButtonToolbar>
-              <Can do={"api_mutations_update_group_stakeholder_mutate"}>
-                <TooltipWrapper
-                  displayClass={"dib"}
-                  id={"searchFindings.tabUsers.editButton.tooltip.id"}
-                  message={translate.t(
-                    "searchFindings.tabResources.information.btnTooltip"
+      <Row>
+        {/* eslint-disable-next-line react/forbid-component-props */}
+        <Col60 className={"pa0"}>
+          <h2>{translate.t("searchFindings.infoTable.title")}</h2>
+        </Col60>
+        {/* eslint-disable-next-line react/forbid-component-props */}
+        <Col40>
+          <ButtonToolbar>
+            <Can do={"api_mutations_update_group_stakeholder_mutate"}>
+              <TooltipWrapper
+                displayClass={"dib"}
+                id={"searchFindings.tabUsers.editButton.tooltip.id"}
+                message={translate.t(
+                  "searchFindings.tabResources.information.btnTooltip"
+                )}
+              >
+                <Button
+                  disabled={permissions.cannot(
+                    "api_mutations_update_group_mutate"
                   )}
+                  id={"editGroup"}
+                  onClick={openEditGroupInformationModal}
                 >
-                  <Button
-                    disabled={permissions.cannot(
-                      "api_mutations_update_group_mutate"
-                    )}
-                    id={"editGroup"}
-                    onClick={openEditGroupInformationModal}
-                  >
-                    <FluidIcon icon={"edit"} />
-                    &nbsp;
-                    {translate.t("searchFindings.tabUsers.editButton.text")}
-                  </Button>
-                </TooltipWrapper>
-              </Can>
-            </ButtonToolbar>
-          </Col40>
-        </Row>
-        <DataTableNext
-          bordered={true}
-          dataset={attributesDataset}
-          exportCsv={false}
-          headers={tableHeaders}
-          id={"tblGroupInfo"}
-          pageSize={10}
-          search={false}
-          striped={true}
-        />
-        <EditGroupInformationModal
-          initialValues={formatDataSet(attributesDataset)}
-          isOpen={isGroupSettingsModalOpen}
-          onClose={closeEditGroupInformationModal}
-          onSubmit={closeEditGroupInformationModal}
-        />
-      </LastGroupSetting>
+                  <FluidIcon icon={"edit"} />
+                  &nbsp;
+                  {translate.t("searchFindings.tabUsers.editButton.text")}
+                </Button>
+              </TooltipWrapper>
+            </Can>
+          </ButtonToolbar>
+        </Col40>
+      </Row>
+      <DataTableNext
+        bordered={true}
+        dataset={attributesDataset}
+        exportCsv={false}
+        headers={tableHeaders}
+        id={"tblGroupInfo"}
+        pageSize={10}
+        search={false}
+        striped={true}
+      />
+      <EditGroupInformationModal
+        initialValues={formatDataSet(attributesDataset)}
+        isOpen={isGroupSettingsModalOpen}
+        onClose={closeEditGroupInformationModal}
+        onSubmit={closeEditGroupInformationModal}
+      />
     </React.StrictMode>
   );
 };

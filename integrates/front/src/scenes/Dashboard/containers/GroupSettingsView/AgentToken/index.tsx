@@ -6,9 +6,9 @@ import { Button } from "components/Button";
 import { APITokenForcesModal } from "scenes/Dashboard/components/APITokenForcesModal";
 import {
   ButtonToolbar,
-  Flex,
+  Col40,
   GroupScopeText,
-  LastGroupSetting,
+  Row,
 } from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
 
@@ -26,31 +26,33 @@ const AgentToken: React.FC<IServicesProps> = (
 
   return (
     <React.StrictMode>
-      <LastGroupSetting>
-        <Flex>
-          <h2>{translate.t("searchFindings.agentTokenSection.title")}</h2>
-        </Flex>
+      <Row>
+        <h2>{translate.t("searchFindings.agentTokenSection.title")}</h2>
+      </Row>
+      <Row>
         <GroupScopeText>
           {t("searchFindings.agentTokenSection.about")}
         </GroupScopeText>
-        <ButtonToolbar>
-          <a
-            href={"https://docs.fluidattacks.com/machine/agent/installation/"}
-            rel={"noopener noreferrer"}
-            target={"_blank"}
-          >
-            <Button>{t("searchFindings.agentTokenSection.install")}</Button>
-          </a>
-          <Button onClick={handleChange}>
-            {t("searchFindings.agentTokenSection.generate")}
-          </Button>
-        </ButtonToolbar>
-        <APITokenForcesModal
-          groupName={groupName}
-          onClose={handleChange}
-          open={isModalOpen}
-        />
-      </LastGroupSetting>
+        <Col40>
+          <ButtonToolbar>
+            <a
+              href={"https://docs.fluidattacks.com/machine/agent/installation/"}
+              rel={"noopener noreferrer"}
+              target={"_blank"}
+            >
+              <Button>{t("searchFindings.agentTokenSection.install")}</Button>
+            </a>
+            <Button onClick={handleChange}>
+              {t("searchFindings.agentTokenSection.generate")}
+            </Button>
+          </ButtonToolbar>
+        </Col40>
+      </Row>
+      <APITokenForcesModal
+        groupName={groupName}
+        onClose={handleChange}
+        open={isModalOpen}
+      />
     </React.StrictMode>
   );
 };
