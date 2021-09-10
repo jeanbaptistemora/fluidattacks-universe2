@@ -110,10 +110,10 @@ def is_url_unique(
 ) -> bool:
     return (host, path, port, protocol) not in tuple(
         (
-            root.metadata.host,
-            root.metadata.path,
-            root.metadata.port,
-            root.metadata.protocol,
+            root.state.host,
+            root.state.path,
+            root.state.port,
+            root.state.protocol,
         )
         for root in roots
         if isinstance(root, URLRootItem) and root.state.status == "ACTIVE"

@@ -67,18 +67,18 @@ class IPRootItem(NamedTuple):
 
 
 class URLRootMetadata(NamedTuple):
-    host: str
-    path: str
-    port: str
-    protocol: str
     type: str
 
 
 class URLRootState(NamedTuple):
+    host: str
     modified_by: str
     modified_date: str
     nickname: str
     other: Optional[str]
+    path: str
+    port: str
+    protocol: str
     reason: Optional[str]
     status: str
 

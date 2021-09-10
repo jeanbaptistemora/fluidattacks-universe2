@@ -103,12 +103,12 @@ def format_root(root: RootItem) -> Root:
         )
 
     return URLRoot(
-        host=root.metadata.host,
+        host=root.state.host,
         id=root.id,
         nickname=root.state.nickname,
-        path=root.metadata.path,
-        port=root.metadata.port,
-        protocol=root.metadata.protocol,
+        path=root.state.path,
+        port=root.state.port,
+        protocol=root.state.protocol,
         state=root.state.status,
     )
 
@@ -308,14 +308,16 @@ async def add_url_root(loaders: Any, user_email: str, **kwargs: Any) -> None:
     root = URLRootItem(
         group_name=group_name,
         id=str(uuid4()),
-        metadata=URLRootMetadata(
-            host=host, path=path, port=port, protocol=protocol, type="URL"
-        ),
+        metadata=URLRootMetadata(type="URL"),
         state=URLRootState(
+            host=host,
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
             nickname=nickname,
             other=None,
+            path=path,
+            port=port,
+            protocol=protocol,
             reason=None,
             status="ACTIVE",
         ),
@@ -563,10 +565,10 @@ async def activate_root(
 
         else:
             if not validations.is_url_unique(
-                root.metadata.host,
-                root.metadata.path,
-                root.metadata.port,
-                root.metadata.protocol,
+                root.state.host,
+                root.state.path,
+                root.state.port,
+                root.state.protocol,
                 org_roots,
             ):
                 raise RepeatedRoot()
@@ -575,10 +577,14 @@ async def activate_root(
                 group_name=group_name,
                 root_id=root.id,
                 state=URLRootState(
+                    host=root.state.host,
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
                     nickname=root.state.nickname,
                     other=None,
+                    path=root.state.path,
+                    port=root.state.port,
+                    protocol=root.state.protocol,
                     reason=None,
                     status=new_status,
                 ),
@@ -649,10 +655,14 @@ async def deactivate_root(
                 group_name=group_name,
                 root_id=root.id,
                 state=URLRootState(
+                    host=root.state.host,
                     modified_by=user_email,
                     modified_date=datetime_utils.get_iso_date(),
                     nickname=root.state.nickname,
                     other=other,
+                    path=root.state.path,
+                    port=root.state.port,
+                    protocol=root.state.protocol,
                     reason=reason,
                     status=new_status,
                 ),
