@@ -16,5 +16,6 @@ makeDerivation {
       nixpkgs.bash
       nixpkgs.nodejs
     ];
+    envSources = [ packages.integrates.front.config.dev-runtime-env ];
   };
 }

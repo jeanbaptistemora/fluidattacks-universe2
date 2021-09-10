@@ -9,9 +9,13 @@ function main {
   mkdir -p "${out}/output" \
     && copy "${envIntegratesFront}" front \
     && pushd front \
-    && copy "${envSetupIntegratesFrontDevRuntime}/node_modules" node_modules \
+    && copy "${envSetupIntegratesFrontDevRuntime}" node_modules \
+    && for bin in webpack webpack-cli; do
+      copy "$(realpath "node_modules/.bin/${bin}")" "node_modules/.bin/${bin}2" \
+        && mv "node_modules/.bin/${bin}"{2,}
+    done \
     && tcm src/ --silent \
-    && webpack \
+    && webpack-cli \
       --config webpack.prod.config.ts \
       --env CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}" \
       --env CI_COMMIT_SHA="${CI_COMMIT_SHA}" \

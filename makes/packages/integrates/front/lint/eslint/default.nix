@@ -16,5 +16,6 @@ makeDerivation {
       nixpkgs.nodejs
     ];
     envUtils = [ "/makes/utils/lint-typescript" ];
+    envSources = [ packages.integrates.front.config.dev-runtime-env ];
   };
 }

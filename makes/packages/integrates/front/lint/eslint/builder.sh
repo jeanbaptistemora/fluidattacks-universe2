@@ -2,10 +2,10 @@
 
 function main {
   copy "${envSrcIntegratesFront}" "${out}" \
-    && copy "${envSetupIntegratesFrontDevRuntime}/node_modules" "${out}/node_modules" \
+    && copy "${envSetupIntegratesFrontDevRuntime}" "${out}/node_modules" \
     && pushd "${out}" \
-    && ./node_modules/.bin/tcm src/ --silent \
-    && ./node_modules/.bin/tsc -p tsconfig.json \
+    && tcm src/ --silent \
+    && tsc -p tsconfig.json \
     && lint_typescript "${out}" "${out}" \
     && popd \
     || return 1

@@ -20,8 +20,6 @@ makeDerivation {
     envPaths = [
       nixpkgs.patch
     ];
-    envNodeBinaries = [
-      packages.integrates.front.config.dev-runtime
-    ];
+    envSources = [ packages.integrates.front.config.dev-runtime-env ];
   };
 }
