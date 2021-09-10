@@ -375,6 +375,59 @@ async def test_get_group_indicators() -> None:
     )
 
 
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+async def test_get_group_indicators_new() -> None:
+    loaders = get_new_context()
+    group_name = "unittesting"
+    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
+        group_name
+    )
+    vulnerabilties = await loaders.finding_vulns_nzr.load_many_chained(
+        [finding.id for finding in findings]
+    )
+    test_data = await update_indicators_new.get_group_indicators(group_name)
+    over_time = [
+        element[-12:] for element in test_data["remediated_over_time"]
+    ]
+    found = over_time[0][-1]["y"]
+    closed = over_time[1][-1]["y"]
+    accepted = over_time[2][-1]["y"]
+
+    assert isinstance(test_data, dict)
+    assert len(test_data) == 22
+    assert test_data["max_open_severity"] == Decimal(6.3).quantize(
+        Decimal("0.1")
+    )
+    assert test_data["open_findings"] == 5
+    assert found == len(
+        [
+            vulnerability
+            for vulnerability in vulnerabilties
+            if vulnerability["historic_state"][-1].get("state") != "DELETED"
+        ]
+    )
+    assert accepted == len(
+        [
+            vulnerability
+            for vulnerability in vulnerabilties
+            if (
+                vulnerability.get("historic_treatment", [{}])[-1].get(
+                    "treatment"
+                )
+                in {"ACCEPTED", "ACCEPTED_UNDEFINED"}
+                and vulnerability["historic_state"][-1].get("state") == "open"
+            )
+        ]
+    )
+    assert closed == len(
+        [
+            vulnerability
+            for vulnerability in vulnerabilties
+            if vulnerability["historic_state"][-1].get("state") == "closed"
+        ]
+    )
+
+
 @pytest.mark.changes_db
 @freeze_time("2019-12-01")
 async def test_delete_obsolete_orgs() -> None:
