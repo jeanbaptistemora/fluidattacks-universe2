@@ -128,7 +128,10 @@ async def batch_write_item(*, items: Tuple[Item, ...], table: Table) -> None:
         async with table_resource.batch_writer() as batch_writer:
             try:
                 await aioextensions.collect(
-                    tuple(batch_writer.put_item(Item=item) for item in items)
+                    tuple(
+                        batch_writer.put_item(Item=_exclude_none(args=item))
+                        for item in items
+                    )
                 )
             except ClientError as error:
                 handle_error(error=error)
