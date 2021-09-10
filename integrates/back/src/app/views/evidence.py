@@ -5,6 +5,9 @@ import authz
 from context import (
     FI_AWS_S3_BUCKET,
 )
+from dataloaders import (
+    get_new_context,
+)
 from events.domain import (
     has_access_to_event,
 )
@@ -61,6 +64,7 @@ async def enforce_group_level_role(
 
 
 async def get_evidence(request: Request) -> Response:
+    loaders = get_new_context()
     group_name = request.path_params["group_name"]
     finding_id = request.path_params["finding_id"]
     file_id = request.path_params["file_id"]
@@ -87,7 +91,7 @@ async def get_evidence(request: Request) -> Response:
     username = request.session["username"]
     if (
         evidence_type in ["drafts", "findings", "vulns"]
-        and await has_access_to_finding(username, finding_id)
+        and await has_access_to_finding(loaders, username, finding_id)
     ) or (
         evidence_type == "events"
         and await has_access_to_event(username, finding_id)

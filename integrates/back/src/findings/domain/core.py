@@ -857,11 +857,20 @@ async def get_wheres(
     return wheres
 
 
-async def has_access_to_finding(email: str, finding_id: str) -> bool:
+async def has_access_to_finding(
+    loaders: Any, email: str, finding_id: str
+) -> bool:
     """Verify if the user has access to a finding submission."""
-    finding = await get_finding(finding_id)
-    group = cast(str, finding.get("projectName", ""))
-    return await authz.has_access_to_group(email, group)
+    has_access = False
+    if FI_API_STATUS == "migration":
+        finding: Finding = await loaders.finding_new.load(finding_id)
+        has_access = await authz.has_access_to_group(email, finding.group_name)
+    else:
+        finding = await get_finding(finding_id)
+        group = cast(str, finding.get("projectName", ""))
+        has_access = await authz.has_access_to_group(email, group)
+
+    return has_access
 
 
 def is_deleted(finding: Dict[str, FindingType]) -> bool:
