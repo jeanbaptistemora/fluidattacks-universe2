@@ -32,9 +32,13 @@ const CompliancesIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { title } = data.asciidoc.document;
-
-  const { description, keywords, phrase, slug } = data.asciidoc.pageAttributes;
+  const {
+    description,
+    keywords,
+    phrase,
+    slug,
+    title,
+  } = data.markdownRemark.frontmatter;
 
   return (
     <React.Fragment>
@@ -65,7 +69,7 @@ const CompliancesIndex: React.FC<IQueryData> = ({
             </div>
             <CompliancesGrid
               dangerouslySetInnerHTML={{
-                __html: data.asciidoc.html,
+                __html: data.markdownRemark.html,
               }}
             />
           </MarkedTitleContainer>
@@ -79,20 +83,18 @@ export default CompliancesIndex;
 
 export const query: void = graphql`
   query CompliancesIndex($slug: String!) {
-    asciidoc(fields: { slug: { eq: $slug } }) {
-      document {
-        title
-      }
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       fields {
         slug
       }
-      pageAttributes {
+      frontmatter {
         description
         banner
         keywords
         phrase
         slug
+        title
       }
     }
   }
