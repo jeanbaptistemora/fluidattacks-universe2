@@ -82,8 +82,10 @@ sorts.test:
 sorts.execute:
   <<: *makes
   <<: *sorts_in_schedule_execute
-  stage: test-code
   interruptible: false
+  parallel: 15
+  stage: test-code
+  tags: [autoscaling-large]
 
 # Sorts extract features scheduled pipeline
 sorts.extract-features:
