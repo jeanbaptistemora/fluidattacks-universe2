@@ -2,6 +2,9 @@
 """
 This migration moves the host, path, port and protocol attributes from the
 metadata to the state items on url roots
+
+Execution Time:    2021-09-10 at 16:35:36 UTC
+Finalization Time: 2021-09-10 at 16:37:02 UTC
 """
 
 from aioextensions import (

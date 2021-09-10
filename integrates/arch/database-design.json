@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 09, 2021, 08:39 PM",
+    "DateLastModified": "Sep 10, 2021, 11:49 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1554,27 +1554,11 @@
               },
               "type": {
                 "S": "URL"
-              },
-              "host": {
-                "S": "app.fluidattacks.com"
-              },
-              "path": {
-                "S": "/"
-              },
-              "port": {
-                "S": "443"
-              },
-              "protocol": {
-                "S": "HTTPS"
               }
             }
           ],
           "NonKeyAttributes": [
-            "type",
-            "port",
-            "host",
-            "path",
-            "protocol"
+            "type"
           ],
           "DataAccess": {
             "MySql": {}
@@ -1594,17 +1578,29 @@
               "sk": {
                 "S": "GROUP#oneshottest"
               },
-              "modified_by": {
-                "S": "jdoe@fluidattacks.com"
+              "status": {
+                "S": "ACTIVE"
               },
               "modified_date": {
                 "S": "2020-11-19T13:45:55+00:00"
               },
+              "modified_by": {
+                "S": "jdoe@fluidattacks.com"
+              },
               "nickname": {
                 "S": "url_root_1"
               },
-              "status": {
-                "S": "ACTIVE"
+              "port": {
+                "S": "443"
+              },
+              "host": {
+                "S": "app.fluidattacks.com"
+              },
+              "path": {
+                "S": "/"
+              },
+              "protocol": {
+                "S": "HTTPS"
               }
             }
           ],
@@ -1614,6 +1610,10 @@
             "modified_date",
             "modified_by",
             "nickname",
+            "port",
+            "host",
+            "path",
+            "protocol",
             "other"
           ],
           "DataAccess": {
@@ -1634,17 +1634,29 @@
               "sk": {
                 "S": "STATE#2020-11-19T13:45:55+00:00"
               },
-              "modified_by": {
-                "S": "jdoe@fluidattacks.com"
+              "status": {
+                "S": "ACTIVE"
               },
               "modified_date": {
                 "S": "2020-11-19T13:45:55+00:00"
               },
+              "modified_by": {
+                "S": "jdoe@fluidattacks.com"
+              },
               "nickname": {
                 "S": "url_root_1"
               },
-              "status": {
-                "S": "ACTIVE"
+              "port": {
+                "S": "443"
+              },
+              "host": {
+                "S": "app.fluidattacks.com"
+              },
+              "path": {
+                "S": "/"
+              },
+              "protocol": {
+                "S": "HTTPS"
               }
             }
           ],
@@ -1654,6 +1666,10 @@
             "modified_date",
             "modified_by",
             "nickname",
+            "port",
+            "host",
+            "path",
+            "protocol",
             "other"
           ],
           "DataAccess": {
