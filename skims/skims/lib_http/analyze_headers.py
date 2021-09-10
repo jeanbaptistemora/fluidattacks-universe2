@@ -9,6 +9,7 @@ from http_headers import (
     referrer_policy,
     set_cookie,
     strict_transport_security,
+    upgrade_insecure_requests,
     www_authenticate,
     x_content_type_options,
 )
@@ -183,14 +184,6 @@ def _content_security_policy_script_src(
         locations.append("content_security_policy.missing_script_src")
 
 
-def _content_security_policy_upgrade_insecure_requests(
-    locations: Locations,
-    header: Header,
-) -> None:
-    if "upgrade-insecure-requests" not in header.directives:
-        locations.append("content_security_policy.missing_upgrade_insecure")
-
-
 def _content_security_policy(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
@@ -202,7 +195,6 @@ def _content_security_policy(
         _content_security_policy_frame_acestors(locations, header)
         _content_security_policy_object_src(locations, header)
         _content_security_policy_script_src(locations, header)
-        _content_security_policy_upgrade_insecure_requests(locations, header)
     else:
         locations.append("content_security_policy.missing")
 
@@ -210,6 +202,27 @@ def _content_security_policy(
         locations=locations,
         finding=core_model.FindingEnum.F043,
         header=header,
+        ctx=ctx,
+    )
+
+
+def _upgrade_insecure_requests(
+    ctx: HeaderCheckCtx,
+) -> core_model.Vulnerabilities:
+    locations = Locations(locations=[])
+    head: Optional[Header] = None
+
+    if not ctx.headers_parsed.get("UpgradeInsecureRequestsHeader"):
+        if (
+            not (head := ctx.headers_parsed.get("ContentSecurityPolicyHeader"))
+            or "upgrade-insecure-requests" not in head.directives
+        ):
+            locations.append("upgrade_insecure_requests.missing")
+
+    return _create_vulns(
+        locations=locations,
+        finding=core_model.FindingEnum.F043,
+        header=head,
         ctx=ctx,
     )
 
@@ -465,6 +478,7 @@ def get_check_ctx(url: URLContext) -> HeaderCheckCtx:
                 referrer_policy.parse(line),
                 set_cookie.parse(line),
                 strict_transport_security.parse(line),
+                upgrade_insecure_requests.parse(line),
                 www_authenticate.parse(line),
                 x_content_type_options.parse(line),
             ]
@@ -487,7 +501,10 @@ CHECKS: Dict[
     core_model.FindingEnum.F128: [_set_cookie_httponly],
     core_model.FindingEnum.F129: [_set_cookie_samesite],
     core_model.FindingEnum.F130: [_set_cookie_secure],
-    core_model.FindingEnum.F043: [_content_security_policy],
+    core_model.FindingEnum.F043: [
+        _content_security_policy,
+        _upgrade_insecure_requests,
+    ],
     core_model.FindingEnum.F071: [_referrer_policy],
     core_model.FindingEnum.F131: [_strict_transport_security],
     core_model.FindingEnum.F132: [_x_content_type_options],

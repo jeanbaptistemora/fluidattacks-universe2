@@ -45,6 +45,11 @@ class ReferrerPolicyHeader(NamedTuple):
     values: List[str]
 
 
+class UpgradeInsecureRequestsHeader(NamedTuple):
+    name: str
+    value: str
+
+
 class WWWAuthenticate(NamedTuple):
     name: str
 
@@ -75,6 +80,7 @@ Header = Optional[
         DateHeader,
         ReferrerPolicyHeader,
         StrictTransportSecurityHeader,
+        UpgradeInsecureRequestsHeader,
         XXSSProtectionHeader,
         XContentTypeOptionsHeader,
         XFrameOptionsHeader,
