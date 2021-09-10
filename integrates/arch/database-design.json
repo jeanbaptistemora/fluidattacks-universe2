@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 10, 2021, 11:49 AM",
+    "DateLastModified": "Sep 10, 2021, 02:52 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -348,10 +348,6 @@
         },
         {
           "AttributeName": "scenario",
-          "AttributeType": "S"
-        },
-        {
-          "AttributeName": "bug_tracking_system_url",
           "AttributeType": "S"
         },
         {
@@ -2071,9 +2067,6 @@
               "analyst_email": {
                 "S": "integratesmanager@gmail.com"
               },
-              "bug_tracking_system_url": {
-                "S": ""
-              },
               "cvss_version": {
                 "S": "3.1"
               },
@@ -2205,9 +2198,6 @@
               },
               "analyst_email": {
                 "S": "integratesmanager@gmail.com"
-              },
-              "bug_tracking_system_url": {
-                "S": ""
               },
               "cvss_version": {
                 "S": "3.1"
@@ -2341,9 +2331,6 @@
               "analyst_email": {
                 "S": "integratesmanager@gmail.com"
               },
-              "bug_tracking_system_url": {
-                "S": ""
-              },
               "cvss_version": {
                 "S": "3.1"
               },
@@ -2475,9 +2462,6 @@
               },
               "analyst_email": {
                 "S": "unittest@fluidattacks.com"
-              },
-              "bug_tracking_system_url": {
-                "S": ""
               },
               "cvss_version": {
                 "S": "3.1"
@@ -2638,9 +2622,6 @@
               "analyst_email": {
                 "S": "integratesmanager@gmail.com"
               },
-              "bug_tracking_system_url": {
-                "S": ""
-              },
               "cvss_version": {
                 "S": "3.1"
               },
@@ -2787,9 +2768,6 @@
               "analyst_email": {
                 "S": "integratesmanager@gmail.com"
               },
-              "bug_tracking_system_url": {
-                "S": ""
-              },
               "cvss_version": {
                 "S": "3.1"
               },
@@ -2922,9 +2900,6 @@
               "analyst_email": {
                 "S": "integratesmanager@gmail.com"
               },
-              "bug_tracking_system_url": {
-                "S": ""
-              },
               "cvss_version": {
                 "S": "3.1"
               },
@@ -3056,9 +3031,6 @@
               },
               "analyst_email": {
                 "S": "unittest@fluidattacks.com"
-              },
-              "bug_tracking_system_url": {
-                "S": ""
               },
               "cvss_version": {
                 "S": "3.1"
@@ -3232,9 +3204,6 @@
               "analyst_email": {
                 "S": "unittest@fluidattacks.com"
               },
-              "bug_tracking_system_url": {
-                "S": ""
-              },
               "cvss_version": {
                 "S": "3.1"
               },
@@ -3394,9 +3363,6 @@
               "analyst_email": {
                 "S": "unittest@fluidattacks.com"
               },
-              "bug_tracking_system_url": {
-                "S": ""
-              },
               "cvss_version": {
                 "S": "3.1"
               },
@@ -3555,9 +3521,6 @@
               },
               "analyst_email": {
                 "S": "unittest@fluidattacks.com"
-              },
-              "bug_tracking_system_url": {
-                "S": ""
               },
               "cvss_version": {
                 "S": "3.1"
@@ -3796,9 +3759,6 @@
               "analyst_email": {
                 "S": "unittest@fluidattacks.com"
               },
-              "bug_tracking_system_url": {
-                "S": ""
-              },
               "cvss_version": {
                 "S": "3.1"
               },
@@ -4023,9 +3983,6 @@
               "analyst_email": {
                 "S": "unittest@fluidattacks.com"
               },
-              "bug_tracking_system_url": {
-                "S": ""
-              },
               "cvss_version": {
                 "S": "3.1"
               },
@@ -4184,9 +4141,6 @@
               },
               "analyst_email": {
                 "S": "unittest@fluidattacks.com"
-              },
-              "bug_tracking_system_url": {
-                "S": ""
               },
               "cvss_version": {
                 "S": "3.1"
@@ -4372,9 +4326,6 @@
               },
               "analyst_email": {
                 "S": "unittest@fluidattacks.com"
-              },
-              "bug_tracking_system_url": {
-                "S": ""
               },
               "cvss_version": {
                 "S": "3.1"
@@ -4574,9 +4525,6 @@
               "analyst_email": {
                 "S": "unittest@fluidattacks.com"
               },
-              "bug_tracking_system_url": {
-                "S": ""
-              },
               "cvss_version": {
                 "S": "3.1"
               },
@@ -4709,9 +4657,6 @@
               "analyst_email": {
                 "S": "integratesmanager@gmail.com"
               },
-              "bug_tracking_system_url": {
-                "S": ""
-              },
               "cvss_version": {
                 "S": "3.1"
               },
@@ -4786,7 +4731,6 @@
             "compromised_records",
             "risk",
             "scenario",
-            "bug_tracking_system_url",
             "attack_vector_description"
           ],
           "DataAccess": {
@@ -8492,9 +8436,6 @@
               "specific": {
                 "S": "44"
               },
-              "bug_tracking_system_url": {
-                "S": "https://gitlab.com/fluidattacks/product/-/issues/999"
-              },
               "hash": {
                 "N": "-5062864885113993914"
               },
@@ -8510,7 +8451,6 @@
             "repo",
             "where",
             "specific",
-            "bug_tracking_system_url",
             "stream",
             "hash",
             "custom_severity"
