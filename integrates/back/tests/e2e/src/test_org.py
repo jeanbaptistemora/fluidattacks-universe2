@@ -82,6 +82,7 @@ def test_org_portfolios(
     timeout: int,
 ) -> None:
     expected_charts: List[str] = [
+        "MTTR Benchmarking",
         "Severity over time",
         "How many vulnerabilities are remediated (closed)?",
         "How many vulnerabilities are remediated and accepted?",
