@@ -662,7 +662,27 @@
   requirements: ["145", "156", "266"]
   metadata:
     en:
-      details: __empty__
+      details: |
+        ### Why
+
+        When secret credentials are compromised,
+        we always generate a vulnerability report
+        either the credentials are mocks,
+        or are functional only in specific scenarios
+        such as local environments.
+        The risk of this scenario is usually considered in the severity tab.
+        For local environment credentials the risk is low but not zero.
+
+        Hence to solve this vulnerabilty
+        we recommend to remove the credentials from the source code,
+        change the compromised credentials
+        and ideally remove the credentials from the git log.
+        In some cases the last recommendation cannot be applied
+        to avoid tracebility issues.
+        If that's the case,
+        in addition to removing the credentials from the code,
+        we require a customer confirmation
+        that the credentials were changed to close the vulnerability.
 "010":
   en:
     title: Stored cross-site scripting (XSS)
@@ -1251,7 +1271,27 @@
   requirements: ["134", "135", "185", "229", "264", "300"]
   metadata:
     en:
-      details: __empty__
+      details: |
+        ### Why
+
+        When secret credentials are compromised,
+        we always generate a vulnerability report
+        either the credentials are mocks,
+        or are functional only in specific scenarios
+        such as local environments.
+        The risk of this scenario is usually considered in the severity tab.
+        For local environment credentials the risk is low but not zero.
+
+        Hence to solve this vulnerabilty
+        we recommend to remove the credentials from the source code,
+        change the compromised credentials
+        and ideally remove the credentials from the git log.
+        In some cases the last recommendation cannot be applied
+        to avoid tracebility issues.
+        If that's the case,
+        in addition to removing the credentials from the code,
+        we require a customer confirmation
+        that the credentials were changed to close the vulnerability.
 "021":
   en:
     title: XPath injection
@@ -3528,17 +3568,17 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
-      privileges_required: "N"
+      attack_complexity: "H"
+      privileges_required: "L"
       user_interaction: "N"
       scope: "U"
       confidentiality: "N"
-      integrity: "N"
+      integrity: "L"
       availability: "N"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
   requirements: ["161" ,"266" ,"359"]
   metadata:
     en:
@@ -17378,6 +17418,206 @@
       remediation_level: "U"
       report_confidence: "C"
   requirements: ["145" ,"156" ,"266"]
+  metadata:
+    en:
+      details: __empty__
+"368":
+  en:
+    title: Unrestricted access between network segments - StrictHostKeyChecking
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  category: Subvert Access
+  es:
+    title: Unrestricted access between network segments - StrictHostKeyChecking
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: ["266"]
+  metadata:
+    en:
+      details: __empty__
+"369":
+  en:
+    title: Insecure object reference - User deletion
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  category: Subvert Access
+  es:
+    title: Insecure object reference - User deletion
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: ["266"]
+  metadata:
+    en:
+      details: __empty__
+"370":
+  en:
+    title: Authentication mechanism absence or evasion - Security Image
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  category: Subvert Access
+  es:
+    title: Authentication mechanism absence or evasion - Security Image
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: ["266"]
+  metadata:
+    en:
+      details: __empty__
+"372":
+  en:
+    title: DOM-Based cross-site scripting (XSS)
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  category: Inject Unexpected
+  es:
+    title: DOM-Based cross-site scripting (XSS)
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: ["266"]
+  metadata:
+    en:
+      details: __empty__
+"373":
+  en:
+    title: Insecure exceptions - skipMissingProperties
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  category: Abuse Functionality
+  es:
+    title: Insecure exceptions - skipMissingProperties
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: ["266"]
   metadata:
     en:
       details: __empty__
