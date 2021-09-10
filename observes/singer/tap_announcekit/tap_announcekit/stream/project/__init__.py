@@ -4,13 +4,13 @@ from dataclasses import (
 from returns.io import (
     IO,
 )
-from sgqlc.endpoint.http import (
-    HTTPEndpoint,
-)
 from singer_io.singer2 import (
     SingerEmitter,
     SingerRecord,
     SingerSchema,
+)
+from tap_announcekit.api import (
+    ApiClient,
 )
 from tap_announcekit.stream.project import (
     _builders,
@@ -29,7 +29,7 @@ from typing import (
 
 @dataclass(frozen=True)
 class ProjectStream:
-    client: HTTPEndpoint
+    client: ApiClient
     emitter: SingerEmitter
     stream_name: str = "project"
 
@@ -43,7 +43,7 @@ class ProjectStream:
         return SingerRecord(self.stream_name, data)
 
     def get_projs(self, projs: Iterator[ProjectId]) -> IO[Iterator[Project]]:
-        return _builders.get_projs(self.client, projs)
+        return _builders.get_projs(self.client.endpoint, projs)
 
     def emit_schema(self) -> IO[None]:
         self.emitter.emit_schema(self.schema())

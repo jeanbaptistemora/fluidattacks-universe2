@@ -8,11 +8,11 @@ from tap_announcekit.api import (
     API_ENDPOINT,
     gql_schema,
 )
+from tap_announcekit.api.auth import (
+    get_creds,
+)
 from tap_announcekit.api.gql_schema import (
     User,
-)
-from tap_announcekit.auth import (
-    get_creds,
 )
 
 

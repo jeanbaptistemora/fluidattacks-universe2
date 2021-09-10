@@ -11,7 +11,7 @@ import sys
 from tap_announcekit import (
     utils,
 )
-from tap_announcekit.auth import (
+from tap_announcekit.api.auth import (
     Creds,
 )
 import tempfile
