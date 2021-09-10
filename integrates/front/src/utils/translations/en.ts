@@ -458,6 +458,7 @@ export const enTranslations: ResourceKey = {
       filtersTooltips: {
         reattack: "Filter by reattack",
         status: "Filter by status",
+        type: "Filter by type",
         where: "Filter by text on 'Where' column",
       },
       helpLabel: "Click on a finding to see more details",

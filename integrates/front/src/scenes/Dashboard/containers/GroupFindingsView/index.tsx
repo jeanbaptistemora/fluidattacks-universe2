@@ -117,6 +117,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const [currentStatusFilter, setCurrentStatusFilter] = useState("");
   const [reattackFilter, setReattackFilter] = useState("");
   const [whereFilter, setWhereFilter] = useState("");
+  const [typeFilter, setTypeFilter] = useState("");
 
   const handleChange: (columnName: string) => void = useCallback(
     (columnName: string): void => {
@@ -267,6 +268,14 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const findings: IFindingAttr[] =
     data === undefined ? [] : formatFindings(data.group.findings);
 
+  const typesArray = findings.map((find: IFindingAttr): string[] => [
+    find.title,
+    find.title,
+  ]);
+  const typesOptions = Object.fromEntries(
+    _.sortBy(typesArray, (arr): string => arr[0])
+  );
+
   const { expandedRows, handleRowExpand, handleRowExpandAll } = useRowExpand({
     rowId: "id",
     rows: findings,
@@ -301,6 +310,15 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     "remediated"
   );
 
+  function onTypeChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    setTypeFilter(event.target.value);
+  }
+  const filterTypeFindings: IFindingAttr[] = filterSelect(
+    findings,
+    typeFilter,
+    "title"
+  );
+
   function onWhereChange(event: React.ChangeEvent<HTMLInputElement>): void {
     setWhereFilter(event.target.value);
   }
@@ -314,10 +332,20 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     filterSearchtextFindings,
     filterCurrentStatusFindings,
     filterReattackFindings,
-    filterWhereFindings
+    filterWhereFindings,
+    filterTypeFindings
   );
 
   const customFilters: IFilterProps[] = [
+    {
+      defaultValue: typeFilter,
+      onChangeSelect: onTypeChange,
+      placeholder: "Type",
+      selectOptions: typesOptions,
+      tooltipId: "group.findings.filtersTooltips.type.id",
+      tooltipMessage: "group.findings.filtersTooltips.type",
+      type: "select",
+    },
     {
       defaultValue: currentStatusFilter,
       onChangeSelect: onStatusChange,
