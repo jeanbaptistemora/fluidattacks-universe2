@@ -11,7 +11,9 @@ makeEntrypoint {
       packages.sorts.config-runtime
     ];
     envUtils = [
+      "/makes/utils/aws"
       "/makes/utils/git"
+      "/makes/utils/sops"
     ];
   };
   template = path "/makes/applications/sorts/execute/entrypoint.sh";
