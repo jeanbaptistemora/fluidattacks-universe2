@@ -265,6 +265,20 @@ async def test_create_register_by_week() -> None:
         assert item[0] is not None
 
 
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+async def test_create_register_by_week_new() -> None:
+    loaders = get_new_context()
+    group_name = "unittesting"
+    test_data = await update_indicators_new.create_register_by_week(
+        loaders, group_name
+    )
+    assert isinstance(test_data.vulnerabilities, list)
+    for item in test_data.vulnerabilities:
+        assert isinstance(item, list)
+        assert isinstance(item[0], dict)
+        assert item[0] is not None
+
+
 def test_create_data_format_chart() -> None:
     registers = OrderedDict(
         [
