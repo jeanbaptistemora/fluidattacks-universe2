@@ -288,6 +288,14 @@ def add_f043_dast_sts_rules() -> None:
     )
 
 
+def add_f043_dast_upgrade_insecure() -> None:
+    _add_headers(
+        "f043_dast_upgrade_insecure",
+        "upgrade-insecure-requests",
+        ["1"],
+    )
+
+
 def add_f043_dast_xcto() -> None:
     _add_headers(
         "f043_dast_xcto",
@@ -356,6 +364,7 @@ add_f042_secure()
 add_f043_dast_csp_rules()
 add_f043_dast_rp_rules()
 add_f043_dast_sts_rules()
+add_f043_dast_upgrade_insecure()
 add_f043_dast_xcto()
 add_f043_dast_xfo()
 add_f064_server_clock()
