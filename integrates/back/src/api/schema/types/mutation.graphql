@@ -971,7 +971,7 @@ type Mutation {
     "Other risks opened by the exploit"
     risk: String
     "Scenario"
-    scenario: String!
+    scenario: String
     "Did Sorts guide you to the file where the vulnerability was found?"
     sorts: Sorts
     "Actor and scenery where the vulnerability can be exploited"
