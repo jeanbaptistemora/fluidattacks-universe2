@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 10, 2021, 06:39 PM",
+    "DateLastModified": "Sep 10, 2021, 07:15 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -344,10 +344,6 @@
         },
         {
           "AttributeName": "risk",
-          "AttributeType": "S"
-        },
-        {
-          "AttributeName": "scenario",
           "AttributeType": "S"
         },
         {
@@ -1983,9 +1979,6 @@
               "compromised_attributes": {
                 "S": "Server"
               },
-              "scenario": {
-                "S": "ANONYMOUS_INTERNET"
-              },
               "sk": {
                 "S": "GROUP#asgard"
               },
@@ -2114,9 +2107,6 @@
               },
               "compromised_attributes": {
                 "S": "Login"
-              },
-              "scenario": {
-                "S": "UNAUTHORIZED_USER_EXTRANET"
               },
               "sk": {
                 "S": "GROUP#asgard"
@@ -2247,9 +2237,6 @@
               "compromised_attributes": {
                 "S": "Login"
               },
-              "scenario": {
-                "S": "ANONYMOUS_INTERNET"
-              },
               "sk": {
                 "S": "GROUP#asgard"
               },
@@ -2378,9 +2365,6 @@
               },
               "compromised_attributes": {
                 "S": ""
-              },
-              "scenario": {
-                "S": "ANONYMOUS_INTRANET"
               },
               "sk": {
                 "S": "GROUP#continuoustesting"
@@ -2538,9 +2522,6 @@
               "compromised_attributes": {
                 "S": ""
               },
-              "scenario": {
-                "S": ""
-              },
               "sk": {
                 "S": "GROUP#continuoustesting"
               },
@@ -2684,9 +2665,6 @@
               "compromised_attributes": {
                 "S": ""
               },
-              "scenario": {
-                "S": ""
-              },
               "sk": {
                 "S": "GROUP#continuoustesting"
               },
@@ -2814,9 +2792,6 @@
                 "S": ""
               },
               "compromised_attributes": {
-                "S": ""
-              },
-              "scenario": {
                 "S": ""
               },
               "sk": {
@@ -2947,9 +2922,6 @@
               },
               "compromised_attributes": {
                 "S": ""
-              },
-              "scenario": {
-                "S": "AUTHORIZED_USER_INTERNET"
               },
               "sk": {
                 "S": "GROUP#oneshottest"
@@ -3120,9 +3092,6 @@
               "compromised_attributes": {
                 "S": ""
               },
-              "scenario": {
-                "S": "ANONYMOUS_INTRANET"
-              },
               "sk": {
                 "S": "GROUP#oneshottest"
               },
@@ -3279,9 +3248,6 @@
               "compromised_attributes": {
                 "S": ""
               },
-              "scenario": {
-                "S": "ANONYMOUS_INTRANET"
-              },
               "sk": {
                 "S": "GROUP#oneshottest"
               },
@@ -3437,9 +3403,6 @@
               },
               "compromised_attributes": {
                 "S": "Clave plana\nLogin"
-              },
-              "scenario": {
-                "S": "UNAUTHORIZED_USER_EXTRANET"
               },
               "sk": {
                 "S": "GROUP#unittesting"
@@ -3675,9 +3638,6 @@
               "compromised_attributes": {
                 "S": "Apellido(s)\nArchivo(s)\nCódigo de identificación"
               },
-              "scenario": {
-                "S": "Escaneo de Infraestructura"
-              },
               "sk": {
                 "S": "GROUP#unittesting"
               },
@@ -3899,9 +3859,6 @@
               "compromised_attributes": {
                 "S": ""
               },
-              "scenario": {
-                "S": "AUTHORIZED_USER_INTERNET"
-              },
               "sk": {
                 "S": "GROUP#unittesting"
               },
@@ -4057,9 +4014,6 @@
               },
               "compromised_attributes": {
                 "S": "0"
-              },
-              "scenario": {
-                "S": "ANONYMOUS_INTERNET"
               },
               "sk": {
                 "S": "GROUP#unittesting"
@@ -4242,9 +4196,6 @@
               },
               "compromised_attributes": {
                 "S": ""
-              },
-              "scenario": {
-                "S": "AUTHORIZED_USER_EXTRANET"
               },
               "sk": {
                 "S": "GROUP#unittesting"
@@ -4441,9 +4392,6 @@
               "compromised_attributes": {
                 "S": "0"
               },
-              "scenario": {
-                "S": "ANONYMOUS_INTERNET"
-              },
               "sk": {
                 "S": "GROUP#unittesting"
               },
@@ -4573,9 +4521,6 @@
               "compromised_attributes": {
                 "S": ""
               },
-              "scenario": {
-                "S": ""
-              },
               "sk": {
                 "S": "GROUP#unittesting"
               },
@@ -4637,7 +4582,6 @@
             "severity",
             "compromised_records",
             "risk",
-            "scenario",
             "attack_vector_description"
           ]
         },
