@@ -1366,7 +1366,6 @@ async def update_description_new(
         compromised_records=description.compromised_records,
         description=description.description,
         recommendation=description.recommendation,
-        requirements=description.requirements,
         risk=description.risk,
         sorts=description.sorts,
         threat=description.threat,

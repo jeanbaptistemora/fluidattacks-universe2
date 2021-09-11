@@ -181,7 +181,6 @@ class FindingMetadataToUpdate(NamedTuple):
     description: Optional[str] = None
     evidences: Optional[FindingEvidences] = None
     recommendation: Optional[str] = None
-    requirements: Optional[str] = None
     risk: Optional[str] = None
     severity: Optional[Union[Finding20Severity, Finding31Severity]] = None
     sorts: Optional[FindingSorts] = None

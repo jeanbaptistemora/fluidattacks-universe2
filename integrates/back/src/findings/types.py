@@ -14,7 +14,6 @@ class FindingDescriptionToUpdate(NamedTuple):
     compromised_records: Optional[int] = None
     description: Optional[str] = None
     recommendation: Optional[str] = None
-    requirements: Optional[str] = None
     risk: Optional[str] = None
     scenario: Optional[str] = None
     sorts: Optional[FindingSorts] = None

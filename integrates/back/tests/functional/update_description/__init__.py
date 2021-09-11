@@ -22,9 +22,6 @@ async def get_result(  # pylint: disable=too-many-locals
     records_number: int = 12
     description: str = "I just have updated the description"
     recommendation: str = "Updated recommendation"
-    requirements: str = (
-        "REQ.0132. Passwords (phrase type) must be at least 3 words long."
-    )
     scenario: str = "UNAUTHORIZED_USER_EXTRANET"
     threat: str = "Updated threat"
     title: str = "051. Weak passwords reversed"
@@ -40,7 +37,6 @@ async def get_result(  # pylint: disable=too-many-locals
                 records: "{records}",
                 recommendation: "{recommendation}",
                 recordsNumber: {records_number},
-                requirements: "{requirements}",
                 scenario: "{scenario}",
                 threat: "{threat}",
                 title: "{title}",

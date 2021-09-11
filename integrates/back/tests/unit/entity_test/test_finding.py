@@ -472,7 +472,6 @@ async def test_update_description() -> None:
             $description: String!,
             $findingId: String!,
             $recommendation: String!,
-            $requirements: String!,
             $threat: String!,
             $title: String!,
             $type: String
@@ -485,7 +484,6 @@ async def test_update_description() -> None:
             records: $compromisedAttributes,
             recommendation: $recommendation,
             recordsNumber: $compromisedRecords,
-            requirements: $requirements,
             threat: $threat,
             title: $title,
             findingType: $type
@@ -502,8 +500,6 @@ async def test_update_description() -> None:
         "description": "I just have updated the description",
         "findingId": "422286126",
         "recommendation": "Updated recommendation",
-        "requirements": "REQ.0132. Passwords (phrase type) "
-        "must be at least 3 words long.",
         "threat": "Updated threat",
         "title": "051. Weak passwords reversed",
         "type": "SECURITY",

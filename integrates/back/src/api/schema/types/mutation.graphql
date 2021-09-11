@@ -966,8 +966,6 @@ type Mutation {
     records: String
     "Number of compromised records"
     recordsNumber: Int!
-    "Rules that are broken and lead to the existence of the vulnerability"
-    requirements: String!
     "Other risks opened by the exploit"
     risk: String
     "Scenario"

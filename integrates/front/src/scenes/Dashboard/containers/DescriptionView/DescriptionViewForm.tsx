@@ -34,7 +34,6 @@ import {
 
 const MAX_TITLE_LENGTH = 90;
 const MAX_DESCRIPTION_LENGTH = 500;
-const MAX_REQUIREMENTS_LENGTH = 500;
 const MAX_IMPACTS_LENGTH = 300;
 const MAX_AFFECTED_SYSTEMS_LENGTH = 200;
 const MAX_THREAT_LENGTH = 300;
@@ -42,9 +41,6 @@ const MAX_RECOMENDATION_LENGTH = 300;
 const maxTitleLength: ConfigurableValidator = maxLength(MAX_TITLE_LENGTH);
 const maxDescriptionLength: ConfigurableValidator = maxLength(
   MAX_DESCRIPTION_LENGTH
-);
-const maxRequirementsLength: ConfigurableValidator = maxLength(
-  MAX_REQUIREMENTS_LENGTH
 );
 const maxImpactsLength: ConfigurableValidator = maxLength(MAX_IMPACTS_LENGTH);
 const maxAffectedSystemsLength: ConfigurableValidator = maxLength(
@@ -181,33 +177,23 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
           </Row>
           <Row>
             <Col100>
-              <Can
-                do={"api_mutations_update_finding_description_mutate"}
-                passThrough={true}
-              >
-                {(canEdit: boolean): JSX.Element => (
-                  <EditableField
-                    component={FormikTextArea}
-                    currentValue={dataset.requirements}
-                    id={"searchFindings.tabDescription.requirements.tooltip"}
-                    label={translate.t(
-                      "searchFindings.tabDescription.requirements.text"
-                    )}
-                    name={"requirements"}
-                    renderAsEditable={isEditing}
-                    tooltip={translate.t(
-                      "searchFindings.tabDescription.requirements.tooltip"
-                    )}
-                    type={"text"}
-                    validate={composeValidators([
-                      required,
-                      validTextField,
-                      maxRequirementsLength,
-                    ])}
-                    visibleWhileEditing={canEdit}
-                  />
+              <TooltipWrapper
+                id={"searchFindings.tabDescription.requirements.tooltip.id"}
+                message={translate.t(
+                  "searchFindings.tabDescription.requirements.tooltip"
                 )}
-              </Can>
+              >
+                <FormGroup>
+                  <ControlLabel>
+                    <b>
+                      {translate.t(
+                        "searchFindings.tabDescription.requirements.text"
+                      )}
+                    </b>
+                  </ControlLabel>
+                  <p className={"ma0 ws-pre-wrap"}>{dataset.requirements}</p>
+                </FormGroup>
+              </TooltipWrapper>
             </Col100>
           </Row>
           <Row>
