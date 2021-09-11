@@ -50,8 +50,18 @@ async def _get_permissions(
 async def resolve(
     parent: Me, _info: GraphQLResolveInfo, **kwargs: str
 ) -> Set[str]:
+    # As Entity is no longer a required arg, this check is needed to keep
+    # backwards compatibility while enforcing the need for a non-null
+    # identifier if the entity is not USER
+    if (
+        "entity" in kwargs
+        and kwargs.get("entity") != "USER"
+        and "identifier" not in kwargs
+    ):
+        raise InvalidParameter()
+
     user_email: str = cast(str, parent["user_email"])
-    entity: str = kwargs["entity"]
+    entity: str = kwargs.get("entity", "USER")
     identifier: str = kwargs.get("identifier", "")
 
     permissions: Set[str] = await _get_permissions(

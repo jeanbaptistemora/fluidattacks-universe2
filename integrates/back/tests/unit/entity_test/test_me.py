@@ -32,7 +32,7 @@ async def test_me() -> None:
             }
             remember
             role
-            permissions(entity: USER)
+            permissions
             callerOrigin
             __typename
         }

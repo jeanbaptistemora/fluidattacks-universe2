@@ -106,7 +106,7 @@ async def test_me() -> None:  # pylint: disable=too-many-statements
             organizations {{
                 name
             }}
-            permissions(entity: USER)
+            permissions
             remember
             role
             sessionExpiration
@@ -207,7 +207,7 @@ async def test_me() -> None:  # pylint: disable=too-many-statements
             organizations {{
                 name
             }}
-            permissions(entity: USER)
+            permissions
             remember
             role
             sessionExpiration

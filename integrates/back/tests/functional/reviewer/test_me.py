@@ -110,7 +110,7 @@ async def test_me() -> None:
             organizations {{
                 name
             }}
-            permissions(entity: USER)
+            permissions
             remember
             role
             sessionExpiration
@@ -211,7 +211,7 @@ async def test_me() -> None:
             organizations {{
                 name
             }}
-            permissions(entity: USER)
+            permissions
             remember
             role
             sessionExpiration

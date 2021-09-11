@@ -64,7 +64,7 @@ const GET_USER: DocumentNode = gql`
   query GetUser {
     me(callerOrigin: "FRONT") {
       isConcurrentSession
-      permissions(entity: USER)
+      permissions
       remember
       role
       sessionExpiration
