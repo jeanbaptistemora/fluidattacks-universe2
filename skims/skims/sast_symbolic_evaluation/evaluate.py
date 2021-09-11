@@ -57,7 +57,6 @@ from sast_syntax_readers.utils_generic import (
 from typing import (
     Dict,
     List,
-    NamedTuple,
     Optional,
     Tuple,
 )
@@ -557,9 +556,3 @@ def get_all_possible_syntax_steps(
             json_dump(syntax_steps_map, handle, indent=2, sort_keys=True)
 
     return syntax_steps_map
-
-
-class PossibleSyntaxStepLinear(NamedTuple):
-    finding: core_model.FindingEnum
-    shard_path: str
-    syntax_steps: graph_model.SyntaxSteps

@@ -10,7 +10,6 @@ from sast_symbolic_evaluation.evaluate import (
     get_all_possible_syntax_steps,
     get_possible_syntax_steps_for_finding,
     get_possible_syntax_steps_for_n_id,
-    PossibleSyntaxStepLinear,
     PossibleSyntaxStepsForFinding,
     PossibleSyntaxStepsForUntrustedNId,
 )
@@ -114,7 +113,8 @@ def _is_vulnerable(
 def get_vulnerabilities_from_syntax(
     graph_db: graph_model.GraphDB,
     finding: core_model.FindingEnum,
-    possible_syntax_steps: PossibleSyntaxStepLinear,
+    shard: graph_model.GraphShard,
+    possible_syntax_steps: graph_model.SyntaxSteps,
 ) -> core_model.Vulnerabilities:
     params = graph_model.GRAPH_VULNERABILITY_PARAMETERS[finding]
     return get_vulnerabilities_from_n_ids(
@@ -125,13 +125,11 @@ def get_vulnerabilities_from_syntax(
         graph_shard_nodes=[
             (graph_shard, syntax_step.meta.n_id)
             for graph_shard in [
-                graph_db.shards[
-                    graph_db.shards_by_path[possible_syntax_steps.shard_path]
-                ],
+                graph_db.shards[graph_db.shards_by_path[shard.path]],
             ]
-            for syntax_step in possible_syntax_steps.syntax_steps
+            for syntax_step in possible_syntax_steps
             if _is_vulnerable(
-                possible_syntax_steps.finding,
+                finding,
                 syntax_step,
                 graph_shard.graph.nodes[syntax_step.meta.n_id],
             )
@@ -145,9 +143,8 @@ def shard_n_id_query_lazy(
     shard: graph_model.GraphShard,
     syntax_steps_n_id: PossibleSyntaxStepsForUntrustedNId,
 ) -> Iterator[core_model.Vulnerabilities]:
-    for syntax_steps in syntax_steps_n_id.values():
-        steps = PossibleSyntaxStepLinear(finding, shard.path, syntax_steps)
-        yield get_vulnerabilities_from_syntax(graph_db, finding, steps)
+    for steps in syntax_steps_n_id.values():
+        yield get_vulnerabilities_from_syntax(graph_db, finding, shard, steps)
 
 
 def shard_query_lazy(
