@@ -6368,6 +6368,46 @@ F073,lines,namespace/skims/test/data/lib_root/f073/kotlin.kt,20,478,skims,073. C
   30 |             print(""Default case 2"")
      ^ Col 0
 "
+F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,13,521,skims,035. Weak credential policy,"The system credential policy is not compliant with security regulations.
+","
+   1 | ï»¿public class Startup
+   2 | {
+   3 |     public void start(IServiceCollection services)
+   4 |     {
+   5 |         services.Configure<IdentityOptions>( options =>
+   6 |         {
+   7 |             options.Password.RequireDigit = true;
+   8 |             options.Password.RequireDigit = false;
+   9 |             options.Password.RequiredLength = 8;
+  10 |             options.Password.RequireNonAlphanumeric = true;
+  11 |             options.Password.RequireUppercase = true;
+  12 |             options.Password.RequireLowercase = true;
+> 13 |             options.Password.RequiredUniqueChars = 5;
+  14 |         });
+  15 |     }
+  16 | }
+     ^ Col 0
+"
+F035,lines,namespace/skims/test/data/lib_root/f035/Test.cs,8,521,skims,035. Weak credential policy,"The system credential policy is not compliant with security regulations.
+","
+   1 | ï»¿public class Startup
+   2 | {
+   3 |     public void start(IServiceCollection services)
+   4 |     {
+   5 |         services.Configure<IdentityOptions>( options =>
+   6 |         {
+   7 |             options.Password.RequireDigit = true;
+>  8 |             options.Password.RequireDigit = false;
+   9 |             options.Password.RequiredLength = 8;
+  10 |             options.Password.RequireNonAlphanumeric = true;
+  11 |             options.Password.RequireUppercase = true;
+  12 |             options.Password.RequireLowercase = true;
+  13 |             options.Password.RequiredUniqueChars = 5;
+  14 |         });
+  15 |     }
+  16 | }
+     ^ Col 0
+"
 F042,lines,namespace/skims/test/data/lib_root/f042/test.cs,15,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
    2 |  System;
