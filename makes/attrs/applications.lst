@@ -71,6 +71,7 @@ observes.bin.tap-toe-files
 observes.bin.tap-zoho-analytics
 observes.bin.update-project-variable
 observes.fx-test.tap-announcekit
+observes.job.announcekit.etl
 observes.job.announcekit.update-schema
 observes.job.batch-stability
 observes.job.bugsnag-etl
