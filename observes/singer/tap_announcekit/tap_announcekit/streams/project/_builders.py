@@ -30,6 +30,9 @@ from tap_announcekit.streams.project._objs import (
     Project,
     ProjectId,
 )
+from tap_announcekit.utils import (
+    new_iter,
+)
 from typing import (
     Any,
     Iterator,
@@ -96,8 +99,8 @@ def get_project(client: HTTPEndpoint, proj_id: ProjectId) -> IO[Project]:
 def get_projs(
     client: HTTPEndpoint, projs: IO[Iterator[ProjectId]]
 ) -> IO[Iterator[Project]]:
-    return projs.map(
-        lambda ids: iter(
+    return projs.bind(
+        lambda ids: new_iter(
             unsafe_perform_io(get_project(client, proj)) for proj in ids
         )
     )

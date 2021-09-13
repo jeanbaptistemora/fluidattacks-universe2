@@ -18,8 +18,22 @@ from tap_announcekit.api import (
 )
 from typing import (
     IO as IO_FILE,
+    Iterator,
+    List,
     Optional,
+    TypeVar,
+    Union,
 )
+
+DataType = TypeVar("DataType")
+
+
+def new_iter(
+    raw: Union[Iterator[DataType], List[DataType]]
+) -> IO[Iterator[DataType]]:
+    if isinstance(raw, list):
+        return IO(iter(raw))
+    return IO(raw)
 
 
 def get_api_schema(target: IO_FILE[str]) -> IO[None]:

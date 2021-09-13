@@ -22,6 +22,9 @@ from tap_announcekit.streams.project import (
     ProjectId,
     ProjectStream,
 )
+from tap_announcekit.utils import (
+    new_iter,
+)
 from typing import (
     Any,
     List,
@@ -49,15 +52,17 @@ class StreamSelector:
 @dataclass(frozen=True)
 class Streamer:
     creds: Creds
-    selection: StreamSelector
+    selection: SupportedStream
+    proj: ProjectId
 
     def start(self) -> IO[None]:
         client = ApiClient(self.creds)
 
-        if self.selection.stream == SupportedStream.PROJECTS:
+        if self.selection == SupportedStream.PROJECTS:
             proj_stream = ProjectStream(client)
             emitter = StreamEmitter(
-                SingerEmitter(), proj_stream.to_stream([ProjectId("test_id")])
+                SingerEmitter(),
+                proj_stream.to_stream(new_iter([self.proj])),
             )
             return emitter.emit()
         return IO(None)

@@ -27,6 +27,9 @@ from tap_announcekit.streams.project._objs import (
     Project,
     ProjectId,
 )
+from tap_announcekit.utils import (
+    new_iter,
+)
 from typing import (
     Iterator,
 )
@@ -51,10 +54,12 @@ class ProjectStream:
     ) -> IO[Iterator[Project]]:
         return _builders.get_projs(self.client.endpoint, projs)
 
-    def to_stream(self, proj_ids: IO[Iterator[ProjectId]]) -> IO[Stream]:
+    def to_stream(self, proj_ids: IO[Iterator[ProjectId]]) -> Stream:
         projs = self.get_projs(proj_ids)
-        records = (self.to_singer(proj) for proj in unsafe_perform_io(projs))
-        return IO(Stream(self.schema(), records))
+        records = new_iter(
+            self.to_singer(proj) for proj in unsafe_perform_io(projs)
+        )
+        return Stream(self.schema(), records)
 
 
 __all__ = [
