@@ -24,10 +24,12 @@ from sast_transformations.control_flow.common import (
 from sast_transformations.control_flow.types import (
     EdgeAttrs,
     Stack,
+    Walker,
 )
 from typing import (
     List,
     Optional,
+    Tuple,
 )
 from utils import (
     graph as g,
@@ -146,8 +148,10 @@ def _generic(
 
     stack.append(dict(type=n_attrs_label_type))
 
-    if walker := WALKERS.get(n_attrs_label_type):
-        walker(graph, n_id, stack)  # type: ignore
+    for walker in java_walkers:
+        if n_attrs_label_type in walker.applicable_node_label_types:
+            walker.walk_fun(graph, n_id, stack)
+            break
     else:
         with suppress(IndexError):
             # pylint: disable=used-before-assignment
@@ -157,84 +161,61 @@ def _generic(
     stack.pop()
 
 
-_walkers_tuple = (
-    (
-        {
+java_walkers: Tuple[Walker, ...] = (
+    Walker(
+        applicable_node_label_types={
             "block",
             "constructor_body",
             "expression_statement",
             "resource_specification",
         },
-        partial(
-            step_by_step,
-            _generic=_generic,
-        ),
+        walk_fun=partial(step_by_step, _generic=_generic),
     ),
-    (
-        {
-            "catch_clause",
-            "finally_clause",
-        },
-        partial(catch_statement, _generic=_generic),
+    Walker(
+        applicable_node_label_types={"catch_clause", "finally_clause"},
+        walk_fun=partial(catch_statement, _generic=_generic),
     ),
-    (
-        {
+    Walker(
+        applicable_node_label_types={
             "for_statement",
             "enhanced_for_statement",
             "while_statement",
             "do_statement",
         },
-        partial(loop_statement, _generic=_generic),
+        walk_fun=partial(loop_statement, _generic=_generic),
     ),
-    (
-        {
-            "if_statement",
-        },
-        partial(if_statement, _generic=_generic),
+    Walker(
+        applicable_node_label_types={"if_statement"},
+        walk_fun=partial(if_statement, _generic=_generic),
     ),
-    (
-        {
-            "switch_expression",
-        },
-        _switch_expression,
+    Walker(
+        applicable_node_label_types={"switch_expression"},
+        walk_fun=_switch_expression,
     ),
-    (
-        {
-            "method_invocation",
-        },
-        _method_invocation,
+    Walker(
+        applicable_node_label_types={"method_invocation"},
+        walk_fun=_method_invocation,
     ),
-    (
-        {
-            "lambda_expression",
-        },
-        _lambda_expression,
+    Walker(
+        applicable_node_label_types={"lambda_expression"},
+        walk_fun=_lambda_expression,
     ),
-    (
-        {
+    Walker(
+        applicable_node_label_types={
             "constructor_declaration",
             "method_declaration",
         },
-        partial(link_to_last_node, _generic=_generic),
+        walk_fun=partial(link_to_last_node, _generic=_generic),
     ),
-    (
-        {
-            "try_statement",
-        },
-        partial(try_statement, _generic=_generic),
+    Walker(
+        applicable_node_label_types={"try_statement"},
+        walk_fun=partial(try_statement, _generic=_generic),
     ),
-    (
-        {
-            "try_with_resources_statement",
-        },
-        try_with_resources_statement,
+    Walker(
+        applicable_node_label_types={"try_with_resources_statement"},
+        walk_fun=try_with_resources_statement,
     ),
 )
-WALKERS = {
-    node_type: walker
-    for types, walker in _walkers_tuple
-    for node_type in types
-}
 
 
 def add(graph: graph_model.Graph) -> None:
