@@ -99,31 +99,6 @@ F034,lines,OWASP/src/App.java,55,330,skims,034. Insecure generation of random nu
    65 |
       ^ Col 0
 "
-F034,lines,OWASP/src/App.java,76,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
-","
-   66 |     public void test_05() {
-   67 |         HttpServletRequest request = new HttpServletRequest();
-   68 |         String cookieName = ""testInstanceReference"";
-   69 |
-   70 |         // this should initialize a new instance to be used in subsequent statements
-   71 |         User currentUser = new User(""Jane Doe"");
-   72 |
-   73 |         currentUser.setUserId(Generate.createRandom());
-   74 |
-   75 |         String cookieKey = currentUser.getUserId();
->  76 |         request.getSession().setAttribute(cookieName, cookieKey);
-   77 |     }
-   78 |
-   79 |     public void test_06() {
-   80 |         HttpServletRequest request = new HttpServletRequest();
-   81 |
-   82 |         String cookieName = ""testInstanceReference"";
-   83 |         int rand = new java.util.Random().nextFloat();
-   84 |
-   85 |         User currentUser = new User(""Jane"", Float.toString(rand));
-   86 |         String cookieKey = currentUser.lastName;
-      ^ Col 0
-"
 F034,lines,OWASP/src/App.java,88,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
 ","
    78 |
@@ -172,30 +147,5 @@ F034,lines,OWASP/src/App.java,98,330,skims,034. Insecure generation of random nu
   106 |
   107 |         request.getSession().setAttribute(""testInstanceReference"", currentUser.getUserId());
   108 |     }
-      ^ Col 0
-"
-F034,lines,OWASP/src/App.java,107,330,skims,034. Insecure generation of random numbers,"The system uses insecure functions, insufficient ranges or low-entropy components to generate random numbers.
-","
-   97 |
-   98 |         request.getSession().setAttribute(""testInstanceReference"", currentUser.lastName);
-   99 |     }
-  100 |
-  101 |     public void test_08() {
-  102 |         HttpServletRequest request = new HttpServletRequest();
-  103 |
-  104 |         User currentUser = new User(""Jane"", ""Doe"", ""xxxxxxxxxx"");
-  105 |         currentUser.userId = this.createRandom();
-  106 |
-> 107 |         request.getSession().setAttribute(""testInstanceReference"", currentUser.getUserId());
-  108 |     }
-  109 |
-  110 |     public void test_09() {
-  111 |         HttpServletRequest request = new HttpServletRequest();
-  112 |
-  113 |         String file = request.getParamert(""xxxxxxxxxx"");
-  114 |         Generate.readFile(file);
-  115 |         User currentUser = new User(""Jane"", ""Doe"", ""xxxxxxxxxxxxx"");
-  116 |
-  117 |         request.getSession().setAttribute(""testInstanceReference"", currentUser.lastName);
       ^ Col 0
 "

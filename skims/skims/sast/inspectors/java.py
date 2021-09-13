@@ -208,18 +208,21 @@ def _get_metadata_class_methods(
                 )
 
                 _name = graph.nodes[match["identifier"]]["label_text"]
-                match_static = g.match_ast(
-                    graph,
-                    match["modifiers"],
-                    "static",
-                )
+                static = False
+                if match["modifiers"]:
+                    match_static = g.match_ast(
+                        graph,
+                        match["modifiers"],
+                        "static",
+                    )
+                    static = bool(match_static["static"])
                 methods[
                     "." + _name
                 ] = graph_model.GraphShardMetadataClassMethod(
                     c_id,
                     class_name,
                     name=_name,
-                    static=bool(match_static["static"]),
+                    static=static,
                     parameters={
                         param.name: param
                         for param in _get_metadata_method_parameters(
@@ -229,14 +232,15 @@ def _get_metadata_class_methods(
                     },
                 )
             elif graph.nodes[c_id]["label_type"] == "constructor_declaration":
-                identifier_id = graph.nodes[c_id]["label_field_name"]
                 p_id = graph.nodes[c_id]["label_field_parameters"]
                 params = g.match_ast_group(graph, p_id, "formal_parameter")
                 if not params["formal_parameter"]:
                     params_length = 0
                 else:
                     params_length = len(params["formal_parameter"])
-                constructor = graph.nodes[identifier_id]["label_text"]
+                constructor = graph.nodes[
+                    graph.nodes[c_id]["label_field_name"]
+                ]["label_text"]
                 name = f".{constructor}_{params_length}"
                 methods[name] = graph_model.GraphShardMetadataClassMethod(
                     c_id,

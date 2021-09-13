@@ -5182,7 +5182,7 @@
             "label_c": 9,
             "label_field_declarator": "189",
             "label_field_type": "188",
-            "label_input_type": "F004,F008,F021,F034,F042,F063,F089,F107,F112",
+            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 26,
             "label_type": "local_variable_declaration"
           },
@@ -5314,6 +5314,7 @@
             "label_c": 20,
             "label_field_arguments": "208",
             "label_field_type": "207",
+            "label_input_type": "F034",
             "label_l": 28,
             "label_type": "object_creation_expression"
           },
@@ -5835,7 +5836,7 @@
             "label_c": 9,
             "label_field_declarator": "284",
             "label_field_type": "283",
-            "label_input_type": "F004,F008,F021,F034,F042,F063,F089,F107,F112",
+            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 38,
             "label_type": "local_variable_declaration"
           },
@@ -5887,6 +5888,7 @@
             "label_c": 22,
             "label_field_arguments": "32",
             "label_field_type": "31",
+            "label_input_type": "F034",
             "label_l": 5,
             "label_type": "object_creation_expression"
           },
@@ -5969,6 +5971,7 @@
             "label_c": 20,
             "label_field_arguments": "303",
             "label_field_type": "302",
+            "label_input_type": "F034",
             "label_l": 40,
             "label_type": "object_creation_expression"
           },
@@ -6398,7 +6401,7 @@
             "label_c": 9,
             "label_field_declarator": "367",
             "label_field_type": "366",
-            "label_input_type": "F004,F008,F021,F034,F042,F063,F089,F107,F112",
+            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 48,
             "label_type": "local_variable_declaration"
           },
@@ -6524,6 +6527,7 @@
             "label_c": 20,
             "label_field_arguments": "386",
             "label_field_type": "385",
+            "label_input_type": "F034",
             "label_l": 50,
             "label_type": "object_creation_expression"
           },
@@ -7049,7 +7053,7 @@
             "label_c": 9,
             "label_field_declarator": "462",
             "label_field_type": "461",
-            "label_input_type": "F004,F008,F021,F034,F042,F063,F089,F107,F112",
+            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 59,
             "label_type": "local_variable_declaration"
           },
@@ -7482,7 +7486,7 @@
             "label_c": 9,
             "label_field_declarator": "526",
             "label_field_type": "525",
-            "label_input_type": "F004,F008,F021,F034,F042,F063,F089,F107,F112",
+            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 67,
             "label_type": "local_variable_declaration"
           },
@@ -8103,7 +8107,7 @@
             "label_c": 9,
             "label_field_declarator": "617",
             "label_field_type": "616",
-            "label_input_type": "F004,F008,F021,F034,F042,F063,F089,F107,F112",
+            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 80,
             "label_type": "local_variable_declaration"
           },
@@ -8280,6 +8284,7 @@
             "label_c": 20,
             "label_field_arguments": "643",
             "label_field_type": "642",
+            "label_input_type": "F034",
             "label_l": 83,
             "label_type": "object_creation_expression"
           },
@@ -8753,7 +8758,7 @@
             "label_c": 9,
             "label_field_declarator": "712",
             "label_field_type": "711",
-            "label_input_type": "F004,F008,F021,F034,F042,F063,F089,F107,F112",
+            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 92,
             "label_type": "local_variable_declaration"
           },
@@ -8873,6 +8878,7 @@
             "label_c": 20,
             "label_field_arguments": "731",
             "label_field_type": "730",
+            "label_input_type": "F034",
             "label_l": 94,
             "label_type": "object_creation_expression"
           },
@@ -9154,7 +9160,7 @@
             "label_c": 9,
             "label_field_declarator": "79",
             "label_field_type": "78",
-            "label_input_type": "F004,F008,F021,F034,F042,F063,F089,F107,F112",
+            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 10,
             "label_type": "local_variable_declaration"
           },
@@ -9311,7 +9317,7 @@
             "label_c": 9,
             "label_field_declarator": "795",
             "label_field_type": "794",
-            "label_input_type": "F004,F008,F021,F034,F042,F063,F089,F107,F112",
+            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 102,
             "label_type": "local_variable_declaration"
           },
@@ -9825,7 +9831,7 @@
             "label_c": 9,
             "label_field_declarator": "871",
             "label_field_type": "870",
-            "label_input_type": "F004,F008,F021,F034,F042,F063,F089,F107,F112",
+            "label_input_type": "F004,F008,F021,F042,F063,F089,F107,F112",
             "label_l": 111,
             "label_type": "local_variable_declaration"
           },
@@ -10331,6 +10337,7 @@
             "label_c": 22,
             "label_field_arguments": "98",
             "label_field_type": "97",
+            "label_input_type": "F034",
             "label_l": 12,
             "label_type": "object_creation_expression"
           },

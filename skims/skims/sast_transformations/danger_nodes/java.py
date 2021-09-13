@@ -25,7 +25,6 @@ def mark_inputs(
         findings.F004,
         findings.F008,
         findings.F021,
-        findings.F034,
         findings.F042,
         findings.F063,
         findings.F089,
@@ -57,12 +56,28 @@ def mark_inputs(
             "java.security.MessageDigest.getInstance",
         },
     )
+    mark_methods_input(
+        findings.F034,
+        graph,
+        syntax,
+        {
+            "java.lang.Math.random",
+        },
+    )
     mark_obj_inst_input(
         findings.F052,
         graph,
         syntax,
         {
             *build_attr_paths("java", "util", "Properties"),
+        },
+    )
+    mark_obj_inst_input(
+        findings.F034,
+        graph,
+        syntax,
+        {
+            *build_attr_paths("java", "util", "Random"),
         },
     )
 
