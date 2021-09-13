@@ -18,7 +18,6 @@ from sast_transformations.control_flow.types import (
 from typing import (
     Callable,
     Dict,
-    List,
     Optional,
 )
 from utils import (
@@ -36,7 +35,7 @@ GenericType = Callable[
     [
         Graph,
         str,
-        List[Stack],
+        Stack,
         NamedArg(EdgeAttrs, "edge_attrs"),  # noqa
     ],
     None,
@@ -93,6 +92,7 @@ def step_by_step(
         if next_id := get_next_id(stack):
             graph.add_edge(n_id, next_id, **g.ALWAYS)
         return
+
     # Link to the first statement in the block
     graph.add_edge(n_id, stmt_ids[0], **g.ALWAYS)
 

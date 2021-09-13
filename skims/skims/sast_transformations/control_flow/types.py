@@ -2,7 +2,6 @@ from model.graph_model import (
     Graph,
 )
 from typing import (
-    Any,
     Callable,
     Dict,
     List,
@@ -11,7 +10,7 @@ from typing import (
 )
 
 EdgeAttrs = Dict[str, str]
-Frame = Any  # will add types once I discover the pattern
+Frame = Dict[str, str]  # {type: node_type, next_id: n_id}
 Stack = List[Frame]
 
 
