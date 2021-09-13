@@ -16,7 +16,7 @@ type Finding {
   attackVectorDescription: String
   "External Bug Tracking System URL"
   btsUrl: String @deprecated(reason: """This field will be removed
-  after 2021/12/31. Use `bugTrackingSystemUrl` instead.""")
+  after 2022/02/23. Use `bugTrackingSystemUrl` instead.""")
   "External Bug Tracking System URL"
   bugTrackingSystemUrl: String
   "Quantity of closed vulnerabilities within the Finding"
@@ -47,7 +47,7 @@ type Finding {
   inputsVulnerabilities: [Vulnerability]
   "Inputs Vulnerabilities"
   inputsVulns: [Vulnerability] @deprecated(reason: """This field will be
-    removed after 2021/12/31. Use `inputsVulnerabilities` instead.""")
+    removed after 2022/02/06. Use `inputsVulnerabilities` instead.""")
   "Is the Finding still exploitable?"
   isExploitable: Boolean
   "Time in days since the last closed vulnerability in this Finding"
@@ -56,7 +56,7 @@ type Finding {
   linesVulnerabilities: [Vulnerability]
   "Lines vulnerabilities"
   linesVulns: [Vulnerability] @deprecated(reason: """This field will be
-    removed after 2021/12/31. Use `linesVulnerabilities` instead.""")
+    removed after 2022/02/06. Use `linesVulnerabilities` instead.""")
   "Machine (Skims) checks and tests associated with this Finding"
   machineJobs: [MachineJob]
   "Re-attacks requested in all locations"
@@ -72,10 +72,10 @@ type Finding {
   portsVulnerabilities: [Vulnerability]
   "Ports vulnerabilities"
   portsVulns: [Vulnerability] @deprecated(reason: """This field will be
-    removed after 2021/12/31. Use `portsVulnerabilities` instead.""")
+    removed after 2022/02/06. Use `portsVulnerabilities` instead.""")
   "Deprecated. Use `groupName` instead"
   projectName: String @deprecated(reason: """This field will
-    be removed after 2021/12/20. Use `groupName` instead.""")
+    be removed after 2022/01/13. Use `groupName` instead.""")
   "Recommended course of action to close the vulnerabilities"
   recommendation: String
   """Information that was compromised or disclosed by exploiting the
@@ -122,7 +122,7 @@ type Finding {
   vulnerabilitiesToReattack: [Vulnerability]
   "Vulnerabilities that have been requested for a reattack"
   vulnsToReattack: [Vulnerability] @deprecated(reason: """This field will be
-    removed after 2021/12/31. Use `vulnerabilitiesToReattack` instead.""")
+    removed after 2022/02/06. Use `vulnerabilitiesToReattack` instead.""")
   """General locations of the Vulnerabilities, can be files, URLs or IPs.
   It is limited to 20 locations."""
   where: String

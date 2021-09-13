@@ -47,7 +47,7 @@ type Event {
   id: String
   "Name of the group linked to the event"
   projectName: String @deprecated(reason: """This field will
-    be removed after 2021/12/20. Use `groupName` instead.""")
+    be removed after 2022/02/13. Use `groupName` instead.""")
   "Type of hacking subscription"
   subscription: String
 }

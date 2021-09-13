@@ -8,7 +8,7 @@ type ForcesExecutions {
   groupName: String
   "Deprecated. Use `groupName` instead"
   projectName: String @deprecated(reason: """This field will
-    be removed after 2021/12/20. Use `groupName` instead.""")
+    be removed after 2022/01/13. Use `groupName` instead.""")
   "End date of the query interval in yyyy-mm-ddThh:mm:ssZ format"
   toDate: String
 }

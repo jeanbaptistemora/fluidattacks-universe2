@@ -252,7 +252,7 @@ type Mutation {
     "Tags that will be related to this finding policy"
     tags: [String]
   ): SimplePayload! @deprecated(reason: """This mutation will be removed after
-  2021/12/20. Use `addOrganizationFindingPolicy` instead.""")
+  2022/01/13. Use `addOrganizationFindingPolicy` instead.""")
 
   "Adds a new Organization"
   addOrganization(
@@ -280,7 +280,7 @@ type Mutation {
     "Deprecated. Use `groupName` instead"
     projectName: String!
   ): AddConsultPayload! @deprecated(reason: """This mutation
-    will be removed after 2021/12/20. Use `addGroupConsult` instead.""")
+    will be removed after 2022/01/13. Use `addGroupConsult` instead.""")
 
   "Authenticates an user from the mobile ASM app"
   addPushToken(
@@ -308,7 +308,7 @@ type Mutation {
     "Tags to add in list format with the tags enclosed in quotes"
     tags: JSONString
   ): SimpleGroupPayload! @deprecated(reason: """This mutation will be removed
-      after 2021/12/31. Use `addGroupTags` instead.""")
+      after 2022/01/28. Use `addGroupTags` instead.""")
 
   "Adds the URL of the environment to be tested"
   addUrlRoot(
@@ -345,7 +345,7 @@ type Mutation {
     "Vulnerabilities to confirm"
     vulnerabilities: [String]!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
-      after 2021/12/31. Use `confirmVulnerabilitiesZeroRisk` instead.""")
+      after 2022/01/26. Use `confirmVulnerabilitiesZeroRisk` instead.""")
 
   "Adds a new draft Finding to the specified Group"
   createDraft(
@@ -372,7 +372,7 @@ type Mutation {
     "Draft Finding type"
     type: FindingType
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
-      after 2021/12/31. Use `addDraft` instead.""")
+      after 2022/01/15. Use `addDraft` instead.""")
 
   "Adds a new blocking Event to the specified Group"
   createEvent(
@@ -403,7 +403,7 @@ type Mutation {
     "Deprecated. Use `groupName` instead"
     projectName: String
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
-      after 2021/12/31. Use `addEvent` instead.""")
+      after 2022/01/16. Use `addEvent` instead.""")
 
   "Adds a new group to the specified organization"
   createGroup(
@@ -424,14 +424,14 @@ type Mutation {
     "Enables either continuous or one-shot hacking within the group"
     subscription: SubscriptionType
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
-      after 2021/12/31. Use `addGroup` instead.""")
+      after 2022/01/15. Use `addGroup` instead.""")
 
   "Adds a new Organization"
   createOrganization(
     "Name of the new Organization. Must come from an Internal Names whitelist"
     name: String!
   ): AddOrganizationPayload!
-    @deprecated(reason: """This mutation will be removed after 2021/12/31.
+    @deprecated(reason: """This mutation will be removed after 2022/01/16.
     Use `addOrganization` instead.""")
 
   "Adds a new Group to the specified Organization"
@@ -454,7 +454,7 @@ type Mutation {
     hasForces: Boolean
   ): SimplePayload!
     @deprecated(reason: """This mutation will be removed
-    after 2021/12/20. Use `addGroup` instead.""")
+    after 2022/01/15. Use `addGroup` instead.""")
 
   "Disables the specified Finding policy"
   deactivateOrgFindingPolicy(
@@ -463,7 +463,7 @@ type Mutation {
     "Name of the organization the finding policy is associated with"
     organizationName: String!
   ): SimplePayload!  @deprecated(reason: """This mutation will be removed
-    after 2021/12/31. Use `deactivateOrganizationFindingPolicy` instead.""")
+    after 2022/01/23. Use `deactivateOrganizationFindingPolicy` instead.""")
 
   "Disables the specified Finding policy"
   deactivateOrganizationFindingPolicy(
@@ -492,7 +492,7 @@ type Mutation {
     "Justification of the removal"
     justification: RemoveFindingJustification!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2021/12/31. Use `removeFinding` instead.""")
+    after 2022/01/16. Use `removeFinding` instead.""")
 
   "Removes tags from vulnerabilities"
   deleteTags(
@@ -504,7 +504,7 @@ type Mutation {
     "Tag to remove"
     tag: String
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2021/12/31. Use `removeTags` instead.""")
+    after 2022/01/17. Use `removeTags` instead.""")
 
   "Removes/deletes a vulnerability within a finding"
   deleteVulnerability(
@@ -515,7 +515,7 @@ type Mutation {
     "Justification for the removal"
     justification: RemoveVulnerabilityJustification!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2021/12/31. Use `removeVulnerability` instead.""")
+    after 2022/01/19. Use `removeVulnerability` instead.""")
 
   "Downloads an evidence file associated with an Event"
   downloadEventFile(
@@ -541,7 +541,7 @@ type Mutation {
     findingId: String!
   ): DownloadFilePayload!
     @deprecated(reason: """This mutation will be removed
-    after 2021/12/31. Use `downloadVulnerabilityFile` instead.""")
+    after 2022/01/19. Use `downloadVulnerabilityFile` instead.""")
 
   "Downloads a yaml file with all the vulnerabilities of this finding"
   downloadVulnerabilityFile(
@@ -575,7 +575,7 @@ type Mutation {
     "Enables either continuous or one-shot hacking within the group"
     subscription: SubscriptionType!
   ): SimplePayload! @deprecated(reason: """This mutation will be
-    removed after 2021/12/31. Use `updateGroup` instead.""")
+    removed after 2022/01/28. Use `updateGroup` instead.""")
 
   "Updates stakeholder info at the Group level"
   editStakeholder(
@@ -592,7 +592,7 @@ type Mutation {
     "Phone number of the stakeholder preceded by its call sign"
     phoneNumber: String!
   ): UpdateStakeholderPayload! @deprecated(reason: """This mutation will be
-    removed after 2021/12/31. Use `updateGroupStakeholder` instead.""")
+    removed after 2022/01/27. Use `updateGroupStakeholder` instead.""")
 
   "Updates stakeholder info at the Organization level"
   editStakeholderOrganization(
@@ -605,7 +605,7 @@ type Mutation {
     "Email address of the stakeholder to update"
     userEmail: String!
   ): UpdateStakeholderPayload! @deprecated(reason: """This mutation will be
-    removed after 2021/12/31. Use `updateOrganizationStakeholder` instead.""")
+    removed after 2022/01/28. Use `updateOrganizationStakeholder` instead.""")
 
   "Grants a stakeholder access to a Group"
   grantStakeholderAccess(
@@ -644,7 +644,7 @@ type Mutation {
     "Whether the finding policy status is submitted, approved or rejected"
     status: OrganizationFindingPolicy!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed after
-   2021/12/31. Use `handleOrganizationFindingPolicyAcceptation` instead.""")
+   2022/01/24. Use `handleOrganizationFindingPolicyAcceptation` instead.""")
 
   "Handles submission, acceptation or rejection of a Finding policy"
   handleOrganizationFindingPolicyAcceptation(
@@ -679,7 +679,7 @@ type Mutation {
     "List of identifiers of the vulnerabilities to be rejected"
     rejectedVulns: [String]!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2021/12/31. Use `handleVulnerabilitiesAcceptation` instead.""")
+    after 2022/01/19. Use `handleVulnerabilitiesAcceptation` instead.""")
 
   "Revokes the current user's API access token"
   invalidateAccessToken: SimplePayload!
@@ -727,7 +727,7 @@ type Mutation {
     "List of rejected Vulnerabilities"
     vulnerabilities: [String]!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2021/12/31. Use `rejectVulnerabilitiesZeroRisk` instead.""")
+    after 2022/01/27. Use `rejectVulnerabilitiesZeroRisk` instead.""")
 
   "Removes evidence from an Event"
   removeEventEvidence(
@@ -808,7 +808,7 @@ type Mutation {
     "Tag to remove"
     tag: String!
   ): SimpleGroupPayload! @deprecated(reason: """This mutation will be removed
-    after 2021/12/31. Use `removeGroupTag` instead.""")
+    after 2022/01/28. Use `removeGroupTag` instead.""")
 
   "Removes tags from vulnerabilities"
   removeTags(
@@ -840,7 +840,7 @@ type Mutation {
     "List of Vulnerabilities to be reattacked"
     vulnerabilities: [String]!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2021/12/31. Use `requestVulnerabilitiesVerification` instead.""")
+    after 2022/01/27. Use `requestVulnerabilitiesVerification` instead.""")
 
   "Requests a reattack on the provided Vulnerabilities"
   requestVulnerabilitiesVerification(
@@ -871,7 +871,7 @@ type Mutation {
     "List of Vulnerabilities to be requested for a zero risk"
     vulnerabilities: [String]!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2021/12/31. Use `requestVulnerabilitiesZeroRisk` instead.""")
+    after 2022/01/26. Use `requestVulnerabilitiesZeroRisk` instead.""")
 
   "Signs an user in"
   signIn(

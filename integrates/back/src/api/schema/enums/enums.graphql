@@ -7,11 +7,11 @@ enum ActionsAfterBlocking {
   "The hacker started working on another group from another client"
   EXECUTE_OTHER_PROJECT_OTHER_CLIENT
     @deprecated(reason: """This enum field  will be removed
-    after 2021/12/20. Use `EXECUTE_OTHER_GROUP_OTHER_CLIENT` instead.""")
+    after 2022/01/13. Use `EXECUTE_OTHER_GROUP_OTHER_CLIENT` instead.""")
   "The hacker started working on another group from the same client"
   EXECUTE_OTHER_PROJECT_SAME_CLIENT
     @deprecated(reason: """This enum field  will be removed
-    after 2021/12/20. Use `EXECUTE_OTHER_GROUP_SAME_CLIENT` instead.""")
+    after 2022/01/13. Use `EXECUTE_OTHER_GROUP_SAME_CLIENT` instead.""")
   "The hacker stopped their work"
   NONE
   "The hacker started doing something else"
@@ -26,7 +26,7 @@ enum ActionsBeforeBlocking {
   DOCUMENT_GROUP
   "Document group"
   DOCUMENT_PROJECT @deprecated(reason: """This enum field  will
-    be removed after 2021/12/20. Use `DOCUMENT_GROUP` instead.""")
+    be removed after 2022/01/13. Use `DOCUMENT_GROUP` instead.""")
   "None"
   NONE
   "Other"
@@ -137,10 +137,10 @@ enum UpdateGroupReason {
   OTHER
   "Client decided to end the security testing"
   PROJECT_FINALIZATION @deprecated(reason: """This enum field
-    will be removed after 2021/12/20. Use `GROUP_FINALIZATION` instead.""")
+    will be removed after 2022/01/13. Use `GROUP_FINALIZATION` instead.""")
   "Client decided to put on hold the security testing"
   PROJECT_SUSPENSION @deprecated(reason: """This enum field
-    will be removed after 2021/12/20. Use `GROUP_SUSPENSION` instead.""")
+    will be removed after 2022/01/13. Use `GROUP_SUSPENSION` instead.""")
 }
 
 "Entity enum definition"
@@ -151,7 +151,7 @@ enum Entity {
   ORGANIZATION
   "Group"
   PROJECT @deprecated(reason: """This enum field  will be
-    removed after 2021/12/20. Use `GROUP` instead.""")
+    removed after 2022/01/13. Use `GROUP` instead.""")
   "User"
   USER
 }
@@ -379,7 +379,7 @@ enum StakeholderEntity {
   ORGANIZATION
   "Group"
   PROJECT @deprecated(reason: """This enum field  will be
-    removed after 2021/12/20. Use `GROUP` instead.""")
+    removed after 2022/01/13. Use `GROUP` instead.""")
 }
 
 "Stakeholder role enum definition"

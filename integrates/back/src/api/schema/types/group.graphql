@@ -37,17 +37,17 @@ type Group {
   hasAsm: Boolean
   "State of the Squad plan within the Group"
   hasDrills: Boolean @deprecated(reason: """This field will
-    be removed after 2021/12/20. Use `hasSquad` instead.""")
+    be removed after 2022/01/13. Use `hasSquad` instead.""")
   "State of the CI/CD agent Forces"
   hasForces: Boolean
   "State of ASM services. Either true or the Group will be deleted soon"
   hasIntegrates: Boolean @deprecated(reason: """This field
-    will be removed after 2021/12/20. Use `hasAsm` instead.""")
+    will be removed after 2022/01/13. Use `hasAsm` instead.""")
   "State of the Machine plan within the Group"
   hasMachine: Boolean
   "State of the Machine plan within the Group"
   hasSkims: Boolean @deprecated(reason: """This field will
-    be removed after 2021/12/20. Use `hasMachine` instead.""")
+    be removed after 2022/01/13.. Use `hasMachine` instead.""")
   "State of the Squad plan within the Group"
   hasSquad: Boolean
   "Language in which findings should be reported"
@@ -58,10 +58,10 @@ type Group {
   lastClosedVulnerabilityFinding: Finding
   "Time since last closed vulnerability in days"
   lastClosingVuln: Int @deprecated(reason: """This field will
-    be removed after 2021/12/31. Use `lastClosedVulnerability` instead.""")
+    be removed after 2022/02/06. Use `lastClosedVulnerability` instead.""")
   "Identifier of the last closed finding"
   lastClosingVulnFinding: Finding @deprecated(reason: """This field will be
-    removed after 2021/12/31. Use `lastClosedVulnerabilityFinding` instead.""")
+    removed after 2022/02/06. Use `lastClosedVulnerabilityFinding` instead.""")
   "Current highest severity of an open vulnerability in the group"
   maxOpenSeverity: Float
   "Current open vulnerability with the highest severity"
