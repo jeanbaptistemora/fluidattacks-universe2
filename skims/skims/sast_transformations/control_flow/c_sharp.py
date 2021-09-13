@@ -33,7 +33,7 @@ from utils import (
 )
 
 
-def switch_statement(
+def _switch_statement(
     graph: Graph,
     n_id: str,
     stack: Stack,
@@ -73,7 +73,7 @@ def switch_statement(
         _generic(graph, stmt_ids[-1], stack, edge_attrs=g.ALWAYS)
 
 
-def using_statement(
+def _using_statement(
     graph: Graph,
     n_id: str,
     stack: Stack,
@@ -152,13 +152,13 @@ c_sharp_walkers: Tuple[Walker, ...] = (
         applicable_node_label_types={
             "switch_statement",
         },
-        walk_fun=switch_statement,
+        walk_fun=_switch_statement,
     ),
     Walker(
         applicable_node_label_types={
             "using_statement",
         },
-        walk_fun=using_statement,
+        walk_fun=_using_statement,
     ),
     Walker(
         applicable_node_label_types={"catch_clause", "finally_clause"},
