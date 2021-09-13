@@ -6,6 +6,7 @@ import { Environments } from "./environments";
 import { Repository } from "./repository";
 
 import type { IGitRootAttr } from "../../types";
+import { ConfirmDialog } from "components/ConfirmDialog";
 import { Modal } from "components/Modal";
 import { ContentTab } from "scenes/Dashboard/components/ContentTab";
 import { TabsContainer } from "styles/styledComponents";
@@ -73,13 +74,41 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
         ) : undefined}
         <Switch>
           <Route path={"/repository"}>
-            <Repository
-              initialValues={initialValues}
-              isEditing={isEditing}
-              nicknames={nicknames}
-              onClose={onClose}
-              onSubmit={onSubmitRepo}
-            />
+            <ConfirmDialog
+              message={t("group.scope.git.confirmBranch")}
+              title={t("group.scope.common.confirm")}
+            >
+              {(confirm): React.ReactNode => {
+                async function confirmAndSubmit(
+                  values: IGitRootAttr
+                ): Promise<void> {
+                  if (isEditing && values.branch !== initialValues.branch) {
+                    return new Promise((resolve): void => {
+                      confirm(
+                        (): void => {
+                          resolve(onSubmitRepo(values));
+                        },
+                        (): void => {
+                          resolve();
+                        }
+                      );
+                    });
+                  }
+
+                  return onSubmitRepo(values);
+                }
+
+                return (
+                  <Repository
+                    initialValues={initialValues}
+                    isEditing={isEditing}
+                    nicknames={nicknames}
+                    onClose={onClose}
+                    onSubmit={confirmAndSubmit}
+                  />
+                );
+              }}
+            </ConfirmDialog>
           </Route>
           <Route path={"/environments"}>
             <Environments

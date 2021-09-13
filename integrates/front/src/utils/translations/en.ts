@@ -576,7 +576,7 @@ export const enTranslations: ResourceKey = {
         addTooltip: "Add a new git root to this group",
         changeWarning:
           "This is a change in the scope of the test service, which may involve closing or reporting new vulnerabilities.",
-        confirm: "Confirm state change",
+        confirm: "Confirm change",
         deactivation: {
           other: "Which?",
           reason: {
@@ -608,6 +608,7 @@ export const enTranslations: ResourceKey = {
         state: "State",
       },
       git: {
+        confirmBranch: "Make sure the new branch is equivalent to the old one",
         envUrls: "Environment URLs",
         errors: {
           invalid: "Repository URL or branch are not valid",
