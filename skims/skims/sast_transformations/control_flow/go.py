@@ -18,54 +18,14 @@ from sast_transformations.control_flow.common import (
 from sast_transformations.control_flow.types import (
     EdgeAttrs,
     Stack,
+    Walker,
+)
+from typing import (
+    Tuple,
 )
 from utils import (
     graph as g,
 )
-
-
-def _generic(
-    graph: Graph,
-    n_id: str,
-    stack: Stack,
-    *,
-    edge_attrs: EdgeAttrs,
-) -> None:
-    n_attrs = graph.nodes[n_id]
-    n_attrs_label_type = n_attrs["label_type"]
-    stack.append(dict(type=n_attrs_label_type))
-
-    walkers = (
-        (
-            {"block"},
-            partial(step_by_step, _generic=_generic),
-        ),
-        (
-            {"function_declaration", "method_declaration"},
-            partial(link_to_last_node, _generic=_generic),
-        ),
-        (
-            {"if_statement"},
-            partial(if_statement, _generic=_generic),
-        ),
-        (
-            {"for_statement"},
-            partial(loop_statement, _generic=_generic),
-        ),
-        (
-            {"expression_switch_statement", "type_switch_statement"},
-            _switch_statement,
-        ),
-    )
-    for types, walker in walkers:
-        if n_attrs_label_type in types:
-            walker(graph, n_id, stack)  # type: ignore
-            break
-    else:
-        if (next_id := stack[-2].pop("next_id", None)) and n_id != next_id:
-            graph.add_edge(n_id, next_id, **edge_attrs)
-
-    stack.pop()
 
 
 def _switch_statement(graph: Graph, n_id: str, stack: Stack) -> None:
@@ -102,6 +62,58 @@ def _switch_statement(graph: Graph, n_id: str, stack: Stack) -> None:
 
             propagate_next_id_from_parent(stack)
             _generic(graph, case_steps[-1], stack, edge_attrs=g.ALWAYS)
+
+
+def _generic(
+    graph: Graph,
+    n_id: str,
+    stack: Stack,
+    *,
+    edge_attrs: EdgeAttrs,
+) -> None:
+    n_attrs = graph.nodes[n_id]
+    n_attrs_label_type = n_attrs["label_type"]
+    stack.append(dict(type=n_attrs_label_type))
+
+    for walker in go_walkers:
+        if n_attrs_label_type in walker.applicable_node_label_types:
+            walker.walk_fun(graph, n_id, stack)
+            break
+    else:
+        if (next_id := stack[-2].pop("next_id", None)) and n_id != next_id:
+            graph.add_edge(n_id, next_id, **edge_attrs)
+
+    stack.pop()
+
+
+go_walkers: Tuple[Walker, ...] = (
+    Walker(
+        applicable_node_label_types={"block"},
+        walk_fun=partial(step_by_step, _generic=_generic),
+    ),
+    Walker(
+        applicable_node_label_types={
+            "function_declaration",
+            "method_declaration",
+        },
+        walk_fun=partial(link_to_last_node, _generic=_generic),
+    ),
+    Walker(
+        applicable_node_label_types={"if_statement"},
+        walk_fun=partial(if_statement, _generic=_generic),
+    ),
+    Walker(
+        applicable_node_label_types={"for_statement"},
+        walk_fun=partial(loop_statement, _generic=_generic),
+    ),
+    Walker(
+        applicable_node_label_types={
+            "expression_switch_statement",
+            "type_switch_statement",
+        },
+        walk_fun=_switch_statement,
+    ),
+)
 
 
 def add(graph: Graph) -> None:
