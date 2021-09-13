@@ -4,7 +4,7 @@ metadata:
   name: integrates-master
   namespace: production
 spec:
-  replicas: 20
+  replicas: 5
   selector:
     matchLabels:
       app: integrates-master
@@ -24,6 +24,7 @@ spec:
       containers:
         - name: integrates
           image: nixos/nix@sha256:d9bb3b85b846eb0b6c5204e0d76639dff72c7871fb68f5d4edcfbb727f8a5653
+          imagePullPolicy: Always
           command: [sh]
           args:
             - -c

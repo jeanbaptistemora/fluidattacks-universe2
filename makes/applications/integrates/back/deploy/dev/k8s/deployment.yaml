@@ -91,7 +91,6 @@ spec:
             - -c
             - wget -O - fluidattacks.com/install/integrates-cache | sh /dev/stdin "${CI_COMMIT_SHA}" &&
               integrates-cache
-          imagePullPolicy: Always
           resources:
             requests:
               cpu: 600m
