@@ -192,10 +192,7 @@ class Queries:
             query MeltsGetMe {
                 me {
                     accessToken
-                    role (entity: USER)
-                    projects {
-                        name
-                    }
+                    role
                 }
             }
             """
