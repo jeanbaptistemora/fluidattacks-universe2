@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 13, 2021, 11:11 AM",
+    "DateLastModified": "Sep 13, 2021, 12:52 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1960,9 +1960,6 @@
               "title": {
                 "S": "104. USB flash drive attacks"
               },
-              "type": {
-                "S": "SECURITY"
-              },
               "analyst_email": {
                 "S": "integratesmanager@gmail.com"
               },
@@ -2085,9 +2082,6 @@
               },
               "title": {
                 "S": "011. Use of software with known vulnerabilities"
-              },
-              "type": {
-                "S": "SECURITY"
               },
               "analyst_email": {
                 "S": "integratesmanager@gmail.com"
@@ -2212,9 +2206,6 @@
               "title": {
                 "S": "027. Insecure file upload"
               },
-              "type": {
-                "S": "SECURITY"
-              },
               "analyst_email": {
                 "S": "integratesmanager@gmail.com"
               },
@@ -2337,9 +2328,6 @@
               },
               "title": {
                 "S": "081. Lack of multi-factor authentication"
-              },
-              "type": {
-                "S": "SECURITY"
               },
               "analyst_email": {
                 "S": "unittest@fluidattacks.com"
@@ -2491,9 +2479,6 @@
               "title": {
                 "S": "004. Remote command execution"
               },
-              "type": {
-                "S": "SECURITY"
-              },
               "analyst_email": {
                 "S": "integratesmanager@gmail.com"
               },
@@ -2631,9 +2616,6 @@
               "title": {
                 "S": "002. Asymmetric denial of service"
               },
-              "type": {
-                "S": "SECURITY"
-              },
               "analyst_email": {
                 "S": "integratesmanager@gmail.com"
               },
@@ -2757,9 +2739,6 @@
               "title": {
                 "S": "001. SQL injection - C Sharp SQL API"
               },
-              "type": {
-                "S": "SECURITY"
-              },
               "analyst_email": {
                 "S": "integratesmanager@gmail.com"
               },
@@ -2882,9 +2861,6 @@
               },
               "title": {
                 "S": "037. Technical information leak"
-              },
-              "type": {
-                "S": "HYGIENE"
               },
               "analyst_email": {
                 "S": "unittest@fluidattacks.com"
@@ -3049,9 +3025,6 @@
               "title": {
                 "S": "081. Lack of multi-factor authentication"
               },
-              "type": {
-                "S": "SECURITY"
-              },
               "analyst_email": {
                 "S": "unittest@fluidattacks.com"
               },
@@ -3202,9 +3175,6 @@
               "title": {
                 "S": "081. Lack of multi-factor authentication"
               },
-              "type": {
-                "S": "SECURITY"
-              },
               "analyst_email": {
                 "S": "unittest@fluidattacks.com"
               },
@@ -3354,9 +3324,6 @@
               },
               "title": {
                 "S": "060. Insecure exceptions"
-              },
-              "type": {
-                "S": "SECURITY"
               },
               "analyst_email": {
                 "S": "unittest@fluidattacks.com"
@@ -3586,9 +3553,6 @@
               "title": {
                 "S": "038. Business information leak"
               },
-              "type": {
-                "S": "SECURITY"
-              },
               "analyst_email": {
                 "S": "unittest@fluidattacks.com"
               },
@@ -3804,9 +3768,6 @@
               "title": {
                 "S": "037. Technical information leak"
               },
-              "type": {
-                "S": "HYGIENE"
-              },
               "analyst_email": {
                 "S": "unittest@fluidattacks.com"
               },
@@ -3956,9 +3917,6 @@
               },
               "title": {
                 "S": "083. XML injection (XXE)"
-              },
-              "type": {
-                "S": "SECURITY"
               },
               "analyst_email": {
                 "S": "unittest@fluidattacks.com"
@@ -4135,9 +4093,6 @@
               },
               "title": {
                 "S": "007. Cross-site request forgery"
-              },
-              "type": {
-                "S": "SECURITY"
               },
               "analyst_email": {
                 "S": "unittest@fluidattacks.com"
@@ -4328,9 +4283,6 @@
               "title": {
                 "S": "006. Authentication mechanism absence or evasion"
               },
-              "type": {
-                "S": "SECURITY"
-              },
               "analyst_email": {
                 "S": "unittest@fluidattacks.com"
               },
@@ -4454,9 +4406,6 @@
               "title": {
                 "S": "014. Insecure functionality"
               },
-              "type": {
-                "S": "SECURITY"
-              },
               "analyst_email": {
                 "S": "integratesmanager@gmail.com"
               },
@@ -4511,7 +4460,6 @@
           ],
           "NonKeyAttributes": [
             "description",
-            "type",
             "evidences",
             "recommendation",
             "requirements",
