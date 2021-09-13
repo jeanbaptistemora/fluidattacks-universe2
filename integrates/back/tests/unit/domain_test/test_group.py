@@ -18,6 +18,9 @@ from datetime import (
     datetime,
     timedelta,
 )
+from db_model.findings.types import (
+    Finding,
+)
 from decimal import (
     Decimal,
 )
@@ -29,6 +32,7 @@ from findings import (
 )
 from findings.domain import (
     get_last_closed_vulnerability_info,
+    get_last_closed_vulnerability_info_new,
     get_max_open_severity,
     get_pending_verification_findings,
     get_total_treatment,
@@ -90,6 +94,7 @@ from settings import (
 import time
 from typing import (
     Optional,
+    Tuple,
 )
 from vulnerabilities import (
     dal as vulns_dal,
@@ -150,6 +155,22 @@ async def test_get_last_closing_vuln() -> None:
         findings_dal.get_finding(finding_id) for finding_id in findings_to_get
     )
     test_data = await get_last_closed_vulnerability_info(context, findings)
+    tzn = timezone(TIME_ZONE)
+    actual_date = datetime.now(tz=tzn).date()
+    initial_date = datetime(2019, 1, 15).date()
+    assert test_data[0] == (actual_date - initial_date).days
+    assert test_data[1]["UUID"] == "242f848c-148a-4028-8e36-c7d995502590"
+    assert test_data[1]["finding_id"] == "463558592"
+
+
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+async def test_get_last_closing_vuln_new() -> None:
+    findings_to_get = ["463558592", "422286126"]
+    loaders = get_new_context()
+    findings: Tuple[Finding, ...] = await loaders.finding_new.load_many(
+        findings_to_get
+    )
+    test_data = await get_last_closed_vulnerability_info_new(loaders, findings)
     tzn = timezone(TIME_ZONE)
     actual_date = datetime.now(tz=tzn).date()
     initial_date = datetime(2019, 1, 15).date()

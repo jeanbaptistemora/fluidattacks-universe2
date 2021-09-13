@@ -25,8 +25,6 @@ from decimal import (
 )
 from findings.domain import (
     get_findings_by_group,
-)
-from findings.domain.core import (
     get_severity_score_new,
 )
 from freezegun import (

@@ -26,15 +26,13 @@ from findings.domain import (
     add_comment,
     approve_draft,
     get_oldest_no_treatment,
+    get_oldest_no_treatment_new,
     get_tracking_vulnerabilities,
     list_drafts,
     list_findings,
+    list_findings_new,
     mask_finding,
     validate_evidence,
-)
-from findings.domain.core import (
-    get_oldest_no_treatment_new,
-    list_findings_new,
 )
 from freezegun import (
     freeze_time,
