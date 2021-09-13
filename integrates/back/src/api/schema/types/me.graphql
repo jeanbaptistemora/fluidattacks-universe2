@@ -8,17 +8,8 @@ type Me {
   isConcurrentSession: Boolean
   "List of Organizations the user is a member of"
   organizations: [Organization!]
-  "Get level permissions according to the provided entity"
-  permissions(
-    """Entity to check for level permissions. If none is provided it defaults
-    to USER. This is intended as in the near future, only user-level
-    permissions will be able to be queried through this field. To query for
-    group and org-level permissions, check the `permissions` field in those
-    entities"""
-    entity: Entity
-    "Identifier of the provided entity. Not needed if the entity is USER"
-    identifier: String
-  ): [String]
+  "Gets the  user-level permissions of the current stakeholder/user"
+  permissions: [String]
   "If true, the legal notice modal won't appear after every ASM login"
   remember: Boolean
   "Gets the user-level role of the current stakeholder/user"

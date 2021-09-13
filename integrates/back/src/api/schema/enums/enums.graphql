@@ -143,19 +143,6 @@ enum UpdateGroupReason {
     will be removed after 2022/01/13. Use `GROUP_SUSPENSION` instead.""")
 }
 
-"Entity enum definition"
-enum Entity {
-  "Group"
-  GROUP
-  "Organization"
-  ORGANIZATION
-  "Group"
-  PROJECT @deprecated(reason: """This enum field  will be
-    removed after 2022/01/13. Use `GROUP` instead.""")
-  "User"
-  USER
-}
-
 "Where the event was present"
 enum EventAccessibility {
   "Client Environment"

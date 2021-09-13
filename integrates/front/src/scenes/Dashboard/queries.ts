@@ -30,16 +30,6 @@ const ADD_STAKEHOLDER_MUTATION: DocumentNode = gql`
   }
 `;
 
-const GET_USER_PERMISSIONS: DocumentNode = gql`
-  query GetPermissions($entity: Entity!, $identifier: String) {
-    me(callerOrigin: "FRONT") {
-      permissions(entity: $entity, identifier: $identifier)
-      role(entity: $entity, identifier: $identifier)
-      userEmail
-    }
-  }
-`;
-
 const GET_ORG_LEVEL_PERMISSIONS: DocumentNode = gql`
   query GetOrgLevelPermissions($identifier: String!) {
     organization(organizationId: $identifier) {
@@ -79,7 +69,6 @@ export {
   ACKNOWLEDGE_CONCURRENT_SESSION,
   ADD_STAKEHOLDER_MUTATION,
   GET_USER,
-  GET_USER_PERMISSIONS,
   GET_ORG_LEVEL_PERMISSIONS,
   GET_GROUP_LEVEL_PERMISSIONS,
 };
