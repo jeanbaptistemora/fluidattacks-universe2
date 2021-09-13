@@ -16,6 +16,9 @@ from datetime import (
     datetime,
     timedelta,
 )
+from db_model.findings.types import (
+    Finding,
+)
 from findings import (
     dal as findings_dal,
 )
@@ -30,6 +33,7 @@ from findings.domain import (
     validate_evidence,
 )
 from findings.domain.core import (
+    get_oldest_no_treatment_new,
     list_findings_new,
 )
 from freezegun import (
@@ -44,6 +48,9 @@ from starlette.datastructures import (
     UploadFile,
 )
 import time
+from typing import (
+    Tuple,
+)
 from vulnerabilities.domain import (
     list_vulnerabilities_async,
     validate_treatment_change,
@@ -438,6 +445,22 @@ async def test_get_oldest_no_treatment_findings() -> None:
     group_findings_loader = context.group_findings
     findings = await group_findings_loader.load(group_name)
     oldest_findings = await get_oldest_no_treatment(context, findings)
+    expected_output = {
+        "oldest_name": "037. Technical information leak",
+        "oldest_age": 256,
+    }
+    assert expected_output == oldest_findings
+
+
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+@freeze_time("2021-05-27")
+async def test_get_oldest_no_treatment_findings_new() -> None:
+    group_name = "oneshottest"
+    loaders = get_new_context()
+    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
+        group_name
+    )
+    oldest_findings = await get_oldest_no_treatment_new(loaders, findings)
     expected_output = {
         "oldest_name": "037. Technical information leak",
         "oldest_age": 256,
