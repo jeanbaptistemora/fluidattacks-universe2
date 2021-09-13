@@ -11,6 +11,7 @@ import { Button } from "components/Button";
 import { SwitchButton } from "components/SwitchButton";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
+  Alert,
   ButtonToolbar,
   Col100,
   ControlLabel,
@@ -29,6 +30,7 @@ import { checked, required } from "utils/validations";
 
 interface IRepositoryProps {
   initialValues: IGitRootAttr;
+  isEditing: boolean;
   nicknames: string[];
   onClose: () => void;
   onSubmit: (values: IGitRootAttr) => Promise<void>;
@@ -36,6 +38,7 @@ interface IRepositoryProps {
 
 const Repository: React.FC<IRepositoryProps> = ({
   initialValues,
+  isEditing,
   nicknames,
   onClose,
   onSubmit,
@@ -108,6 +111,9 @@ const Repository: React.FC<IRepositoryProps> = ({
                     />
                   </div>
                 </div>
+                {isEditing && values.branch !== initialValues.branch ? (
+                  <Alert>{t("group.scope.common.changeWarning")}</Alert>
+                ) : undefined}
                 <br />
                 {isDuplicated(values.url) ? (
                   <React.Fragment>

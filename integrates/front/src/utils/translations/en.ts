@@ -574,6 +574,8 @@ export const enTranslations: ResourceKey = {
       common: {
         add: "Add new root",
         addTooltip: "Add a new git root to this group",
+        changeWarning:
+          "This is a change in the scope of the test service, which may involve closing or reporting new vulnerabilities.",
         confirm: "Confirm state change",
         deactivation: {
           other: "Which?",

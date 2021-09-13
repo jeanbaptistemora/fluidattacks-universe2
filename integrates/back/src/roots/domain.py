@@ -404,7 +404,7 @@ async def update_git_root(
 
     url: str = kwargs["url"]
     branch: str = kwargs["branch"]
-    if url != root.state.url or branch != root.state.branch:
+    if url != root.state.url:
         if await has_open_vulns(root, loaders, group_name):
             raise HasOpenVulns()
         group = await loaders.group.load(group_name)
