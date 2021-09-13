@@ -123,11 +123,8 @@ async def get_group_level_role(
             query SkimsGetGroupLevelRole(
                 $group: String!
             ) {
-                me {
-                    role(
-                        entity: PROJECT
-                        identifier: $group
-                    )
+                group(groupName: $group){
+                    userRole
                 }
             }
         """,
@@ -137,7 +134,7 @@ async def get_group_level_role(
         ),
     )
 
-    role: str = result["data"]["me"]["role"] or "none"
+    role: str = result["data"]["group"]["userRole"] or "none"
 
     return role
 
@@ -163,7 +160,7 @@ async def get_group_findings(
             query SkimsGetGroupFindings(
                 $group: String!
             ) {
-                project(projectName: $group) {
+                group(groupName: $group) {
                     drafts {
                         id
                         title
@@ -187,8 +184,8 @@ async def get_group_findings(
             title=finding["title"],
         )
         for finding in (
-            result["data"]["project"]["findings"]
-            + result["data"]["project"]["drafts"]
+            result["data"]["group"]["findings"]
+            + result["data"]["group"]["drafts"]
         )
     ]
 
@@ -205,7 +202,7 @@ async def get_group_language(group: str) -> core_model.LocalesEnum:
     result = await _execute(
         query="""
             query SkimsGetGroupLanguage($group: String!) {
-                project(projectName: $group) {
+                group(groupName: $group) {
                     language
                 }
             }
@@ -214,7 +211,7 @@ async def get_group_language(group: str) -> core_model.LocalesEnum:
         variables=dict(group=group),
     )
 
-    return core_model.LocalesEnum(result["data"]["project"]["language"])
+    return core_model.LocalesEnum(result["data"]["group"]["language"])
 
 
 class ResultGetGroupRoots(NamedTuple):
@@ -232,7 +229,7 @@ async def get_group_roots(
             query SkimsGetGroupRoots(
                 $group: String!
             ) {
-                project(projectName: $group) {
+                group(groupName: $group) {
                     roots {
                         ... on GitRoot {
                             environmentUrls
@@ -253,7 +250,7 @@ async def get_group_roots(
             environment_urls=root["environmentUrls"],
             nickname=root["nickname"],
         )
-        for root in result["data"]["project"]["roots"]
+        for root in result["data"]["group"]["roots"]
     )
 
 
@@ -423,7 +420,7 @@ async def do_create_draft(
 ) -> bool:
     result = await _execute(
         query="""
-            mutation SkimsDoCreateDraft(
+            mutation SkimsDoAddDraft(
                 $affected_systems: String
                 $impact: String
                 $description: String
@@ -434,11 +431,11 @@ async def do_create_draft(
                 $title: String!
                 $type: FindingType
             ) {
-                createDraft(
+                addDraft(
                     affectedSystems: $affected_systems
                     attackVectorDesc: $impact
                     description: $description
-                    projectName: $group
+                    groupName: $group
                     recommendation: $recommendation
                     requirements: $requirements
                     threat: $threat
@@ -449,7 +446,7 @@ async def do_create_draft(
                 }
             }
         """,
-        operation="SkimsDoCreateDraft",
+        operation="SkimsDoAddDraft",
         variables=dict(
             affected_systems=affected_systems,
             description=t(finding.value.description),
@@ -466,7 +463,7 @@ async def do_create_draft(
         ),
     )
 
-    success: bool = result["data"]["createDraft"]["success"]
+    success: bool = result["data"]["addDraft"]["success"]
 
     if not success:
         raise RetryAndFinallyReturn(success)
@@ -483,10 +480,10 @@ async def do_delete_finding(
 
     result = await _execute(
         query="""
-            mutation SkimsDoDeleteFinding(
+            mutation SkimsDoRemoveFinding(
                 $finding_id: String!
             ) {
-                deleteFinding(
+                removeFinding(
                     findingId: $finding_id
                     justification: NOT_REQUIRED
                 ) {
@@ -494,15 +491,15 @@ async def do_delete_finding(
                 }
             }
         """,
-        operation="SkimsDoDeleteFinding",
+        operation="SkimsDoRemoveFinding",
         variables=dict(
             finding_id=finding_id,
         ),
     )
 
-    success: bool = result["data"]["deleteFinding"]["success"]
+    success: bool = result["data"]["removeFinding"]["success"]
 
-    await log("warn", "Deleting finding: %s, success: %s", finding_id, success)
+    await log("warn", "Removing finding: %s, success: %s", finding_id, success)
 
     if not success:
         raise RetryAndFinallyReturn(success)
@@ -748,11 +745,11 @@ async def do_update_vulnerability_commit(
                 $vuln_what: String!
                 $vuln_where: String!
             ) {
-                updateVulnCommit(
-                    vulnCommit: $vuln_commit
-                    vulnId: $vuln_id
-                    vulnWhere: $vuln_what
-                    vulnSpecific: $vuln_where
+                updateVulnerabilityCommit(
+                    vulnerabilityCommit: $vuln_commit
+                    vulnerabilityId: $vuln_id
+                    vulnerabilityWhere: $vuln_what
+                    vulnerabilitySpecific: $vuln_where
                 ) {
                     success
                 }
@@ -767,7 +764,7 @@ async def do_update_vulnerability_commit(
         ),
     )
 
-    success: bool = result["data"]["updateVulnCommit"]["success"]
+    success: bool = result["data"]["updateVulnerabilityCommit"]["success"]
 
     if not success:
         raise RetryAndFinallyReturn(success)
@@ -833,11 +830,11 @@ async def do_verify_request_vuln(
                 $open_vulnerabilities: [String]!
                 $closed_vulnerabilities: [String]!
             ) {
-                verifyRequestVuln(
-                    closedVulns: $closed_vulnerabilities
+                verifyVulnerabilitiesRequest(
+                    closedVulnerabilities: $closed_vulnerabilities
                     findingId: $finding_id
                     justification: $justification
-                    openVulns: $open_vulnerabilities
+                    openVulnerabilities: $open_vulnerabilities
                 ) {
                     success
                 }
@@ -852,7 +849,7 @@ async def do_verify_request_vuln(
         ),
     )
 
-    success: bool = result["data"]["verifyRequestVuln"]["success"]
+    success: bool = result["data"]["verifyVulnerabilitiesRequest"]["success"]
 
     if not success:
         raise RetryAndFinallyReturn(success)
