@@ -57,7 +57,6 @@ async def mutate(
             description=kwargs.get("description"),
             recommendation=kwargs.get("recommendation"),
             requirements=kwargs.get("requirements"),
-            risk=kwargs.get("risk"),
             threat=kwargs.get("threat"),
             title=title,
             type=kwargs.get("type"),

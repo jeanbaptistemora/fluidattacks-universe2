@@ -71,7 +71,6 @@ async def get_result(
                 remediated
                 reportDate
                 requirements
-                risk
                 severity
                 severityScore
                 sorts

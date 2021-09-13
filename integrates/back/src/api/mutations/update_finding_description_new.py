@@ -65,7 +65,6 @@ async def mutate(
             compromised_records=kwargs["records_number"],
             description=kwargs["description"],
             recommendation=kwargs["recommendation"],
-            risk=kwargs.get("risk"),
             sorts=FindingSorts[kwargs["sorts"]]
             if kwargs.get("sorts")
             else None,

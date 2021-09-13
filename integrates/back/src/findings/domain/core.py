@@ -1065,7 +1065,6 @@ async def mask_finding_new(  # pylint: disable=too-many-locals
         description=masked_msg,
         evidences=new_evidences,
         recommendation=masked_msg,
-        risk=masked_msg,
         threat=masked_msg,
     )
     mask_new_finding_coroutines.append(
@@ -1366,7 +1365,6 @@ async def update_description_new(
         compromised_records=description.compromised_records,
         description=description.description,
         recommendation=description.recommendation,
-        risk=description.risk,
         sorts=description.sorts,
         threat=description.threat,
         title=description.title,

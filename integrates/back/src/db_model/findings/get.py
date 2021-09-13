@@ -155,7 +155,6 @@ def _build_finding(
         submission=submission,
         recommendation=metadata["recommendation"],
         requirements=metadata["requirements"],
-        risk=metadata["risk"],
         title=metadata["title"],
         threat=metadata["threat"],
         type=metadata["type"],

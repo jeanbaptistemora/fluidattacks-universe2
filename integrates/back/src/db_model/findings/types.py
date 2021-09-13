@@ -164,7 +164,6 @@ class Finding(NamedTuple):
     submission: Optional[FindingState] = None
     recommendation: str = ""
     requirements: str = ""
-    risk: str = ""
     threat: str = ""
     type: str = ""
     unreliable_indicators: FindingUnreliableIndicators = (
@@ -181,7 +180,6 @@ class FindingMetadataToUpdate(NamedTuple):
     description: Optional[str] = None
     evidences: Optional[FindingEvidences] = None
     recommendation: Optional[str] = None
-    risk: Optional[str] = None
     severity: Optional[Union[Finding20Severity, Finding31Severity]] = None
     sorts: Optional[FindingSorts] = None
     threat: Optional[str] = None

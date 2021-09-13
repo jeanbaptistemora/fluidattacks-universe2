@@ -115,7 +115,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     affected_systems: str = "Server bWAPP"
     compromised_attributes: str = "Clave plana"
     records_number: int = 12
-    risk: str = "This is pytest created draft"
     finding_type: str = "SECURITY"
     tracking: List[Dict[str, Any]] = [
         {
@@ -230,7 +229,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["remediated"] == remediated
     assert result["data"]["finding"]["reportDate"] == report_date
     assert result["data"]["finding"]["requirements"] == requirements
-    assert result["data"]["finding"]["risk"] == risk
     assert result["data"]["finding"]["severity"] == severity
     assert result["data"]["finding"]["severityScore"] == severity_score
     assert result["data"]["finding"]["sorts"] == "NO"
@@ -330,7 +328,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     affected_systems: str = "Server bWAPP"
     compromised_attributes: str = "Clave plana"
     records_number: int = 12
-    risk: str = "This is pytest created draft"
     finding_type: str = "SECURITY"
     tracking: List[Dict[str, Any]] = [
         {
@@ -439,7 +436,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["remediated"] == remediated
     assert result["data"]["finding"]["reportDate"] == report_date
     assert result["data"]["finding"]["requirements"] == requirements
-    assert result["data"]["finding"]["risk"] == risk
     assert result["data"]["finding"]["severity"] == severity
     assert result["data"]["finding"]["severityScore"] == severity_score
     assert result["data"]["finding"]["state"] == state

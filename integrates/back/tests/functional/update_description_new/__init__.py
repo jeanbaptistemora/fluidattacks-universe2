@@ -78,7 +78,6 @@ async def get_result(  # pylint: disable=too-many-locals
                     remediated
                     reportDate
                     requirements
-                    risk
                     severity
                     severityScore
                     state

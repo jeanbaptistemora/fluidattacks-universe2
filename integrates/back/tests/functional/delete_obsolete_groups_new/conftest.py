@@ -180,7 +180,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     title="060. Insecure exceptions",
                     compromised_attributes="Clave plana",
                     compromised_records=12,
-                    risk="This is pytest created draft",
                     recommendation="Updated recommendation",
                     description="I just have updated the description",
                     hacker_email=generic_data["global_vars"]["admin_email"],

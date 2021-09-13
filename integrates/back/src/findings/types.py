@@ -14,7 +14,6 @@ class FindingDescriptionToUpdate(NamedTuple):
     compromised_records: Optional[int] = None
     description: Optional[str] = None
     recommendation: Optional[str] = None
-    risk: Optional[str] = None
     scenario: Optional[str] = None
     sorts: Optional[FindingSorts] = None
     threat: Optional[str] = None
@@ -27,7 +26,6 @@ class FindingDraftToAdd(NamedTuple):
     attack_vector_description: Optional[str] = None
     description: Optional[str] = None
     hacker_email: Optional[str] = None
-    risk: Optional[str] = None
     recommendation: Optional[str] = None
     requirements: Optional[str] = None
     title: Optional[str] = None

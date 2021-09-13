@@ -223,7 +223,6 @@ async def add_draft_new(
             source=requests_utils.get_source_new(context),
             status=FindingStateStatus.CREATED,
         ),
-        risk=draft_info.risk,
         recommendation=draft_info.recommendation,
         requirements=draft_info.requirements,
         title=draft_info.title,
