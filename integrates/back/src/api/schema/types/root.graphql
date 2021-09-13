@@ -49,7 +49,7 @@ type GitRoot implements IRoot {
     @deprecated(
       reason: """
       This field will be removed
-      after 2021/12/20. Use `lastStateStatusUpdate`.
+      after 2022/02/03. Use `lastStateStatusUpdate`.
       """
     )
   "Nickname for the repository"

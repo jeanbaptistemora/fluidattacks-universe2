@@ -18,5 +18,5 @@ type ToeInputs {
   vulnerabilities: String
   "Vulnerabilities found"
   vulns: String @deprecated(reason: """This field will be removed after
-    2021/12/31. Use `vulnerabilities` instead.""")
+    2022/02/05. Use `vulnerabilities` instead.""")
 }

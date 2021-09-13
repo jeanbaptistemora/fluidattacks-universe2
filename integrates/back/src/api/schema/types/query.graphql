@@ -85,7 +85,7 @@ type Query {
   project(
     "Name of the project to query"
     projectName: String!
-  ): Group @deprecated(reason: """This query will be removed after 2021/12/20.
+  ): Group @deprecated(reason: """This query will be removed after 2022/01/22.
     Use `group` instead.""")
 
   "Report entity"
@@ -133,7 +133,7 @@ type Query {
     "Email address of the user to query"
     userEmail: String!
   ): [Group]
-    @deprecated(reason: """This query will be removed after 2021/12/31.
+    @deprecated(reason: """This query will be removed after 2022/01/22.
     Use `listUserGroups` instead.""")
 
   "List projects a user is subscribed to"
@@ -141,7 +141,7 @@ type Query {
     "Email address of the user to query"
     userEmail: String!
   ): [Group] @deprecated(reason: """This query will be removed
-    after 2021/12/31. Use `listUserGroups` instead.""")
+    after 2022/01/22. Use `listUserGroups` instead.""")
 
   "Gets vulnerabilities pending to reattack"
   vulnerabilitiesToReattack(
@@ -160,6 +160,6 @@ type Query {
     "Name of the group to which the vulnerabilities belong to"
     group: String
   ): [Vulnerability]
-    @deprecated(reason: """This query will be removed after 2021/12/31. Use
+    @deprecated(reason: """This query will be removed after 2022/02/06. Use
     `vulnerabilitiesToReattack` instead.""")
 }

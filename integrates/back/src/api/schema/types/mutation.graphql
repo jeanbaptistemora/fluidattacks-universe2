@@ -1137,7 +1137,7 @@ type Mutation {
     state: ResourceState!
   ): SimplePayload!
     @deprecated(reason: """This mutation will be removed
-    after 2021/12/20. Use `activateRoot` or `deactivateRoot` instead.""")
+    after 2022/01/19. Use `activateRoot` or `deactivateRoot` instead.""")
 
   "Updates the severity of a Finding"
   updateSeverity(
@@ -1225,7 +1225,7 @@ type Mutation {
     "Identifier of the Vulnerability to update"
     vulnerabilityId: ID!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2021/12/31. Use `updateVulnerabilityTreatment` instead.""")
+    after 2022/01/23. Use `updateVulnerabilityTreatment` instead.""")
 
   "Updates Vulnerability commit data"
   updateVulnCommit(
@@ -1239,7 +1239,7 @@ type Mutation {
     a field or a port"""
     vulnSpecific: String!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2021/12/31. Use `updateVulnerabilityCommit` instead.""")
+    after 2022/01/23. Use `updateVulnerabilityCommit` instead.""")
 
   "Updates the treatment of a single Vulnerability"
   updateVulnerabilitiesTreatment(
@@ -1301,7 +1301,7 @@ type Mutation {
     "Identifier of the Vulnerability to update"
     vulnerabilityId: ID!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2021/12/20. Use `updateVulnerabilitiesTreatment` instead.""")
+    after 2022/01/22. Use `updateVulnerabilitiesTreatment` instead.""")
 
   "Uploads a file describing a Vulnerability to a Finding"
   uploadFile(
@@ -1322,7 +1322,7 @@ type Mutation {
     "List of vulnerabilities that were confirmed closed"
     closedVulns: [String]!
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2021/12/20. Use `verifyVulnerabilitiesRequest` instead.""")
+    after 2022/01/21. Use `verifyVulnerabilitiesRequest` instead.""")
 
   "To verify if the vulnerabilities still remain open or were closed"
   verifyVulnerabilitiesRequest(

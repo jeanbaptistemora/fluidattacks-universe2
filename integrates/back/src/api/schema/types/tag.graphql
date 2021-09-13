@@ -8,7 +8,7 @@ type Tag {
   """Days since last remediation of a vulnerability in the groups where the tag
   is present"""
   lastClosingVuln: Float @deprecated(reason: """This field will
-    be removed after 2021/12/31. Use `lastClosedVulnerability` instead.""")
+    be removed after 2022/02/06. Use `lastClosedVulnerability` instead.""")
   """Maximum severity of a currently open vulnerability in the groups where
   the tag is present"""
   maxOpenSeverity: Float
@@ -36,5 +36,5 @@ type Tag {
   organization: String
   "Groups where the tag is present"
   projects: [Group] @deprecated(reason: """This field will
-    be removed after 2021/12/20. Use `groups` instead.""")
+    be removed after 2022/01/13. Use `groups` instead.""")
 }
