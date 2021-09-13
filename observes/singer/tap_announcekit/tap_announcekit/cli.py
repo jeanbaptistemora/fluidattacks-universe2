@@ -8,8 +8,8 @@ from returns.maybe import (
     Maybe,
 )
 import sys
-from tap_announcekit import (
-    utils,
+from tap_announcekit.api import (
+    cli as utils,
 )
 from tap_announcekit.api.auth import (
     Creds,
