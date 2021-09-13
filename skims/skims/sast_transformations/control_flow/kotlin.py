@@ -21,9 +21,11 @@ from sast_transformations.control_flow.common import (
 from sast_transformations.control_flow.types import (
     EdgeAttrs,
     Stack,
+    Walker,
 )
 from typing import (
     Optional,
+    Tuple,
 )
 from utils import (
     graph as g,
@@ -41,39 +43,9 @@ def _generic(
     n_attrs_label_type = n_attrs["label_type"]
     stack.append(dict(type=n_attrs_label_type))
 
-    walkers = (
-        (
-            {"class_body"},
-            partial(_class_statements, _generic=_generic),
-        ),
-        (
-            {"for_statement", "while_statement"},
-            partial(_loop_statement, _generic=_generic),
-        ),
-        (
-            {"function_body", "statements"},
-            partial(step_by_step, _generic=_generic),
-        ),
-        (
-            {"class_declaration", "function_declaration", "companion_object"},
-            partial(link_to_last_node, _generic=_generic),
-        ),
-        (
-            {"if_expression"},
-            partial(_if_statement, _generic=_generic),
-        ),
-        (
-            {"try_catch_expression"},
-            partial(_try_catch_statement, _generic=_generic),
-        ),
-        (
-            {"when_expression"},
-            partial(_when_statement, _generic=_generic),
-        ),
-    )
-    for types, walker in walkers:
-        if n_attrs_label_type in types:
-            walker(graph, n_id, stack)
+    for walker in kotlin_walkers:
+        if n_attrs_label_type in walker.applicable_node_label_types:
+            walker.walk_fun(graph, n_id, stack)
             break
     else:
         if (next_id := stack[-2].pop("next_id", None)) and n_id != next_id:
@@ -213,6 +185,42 @@ def _when_statement(
                     _generic(
                         graph, option_stmts[-1], stack, edge_attrs=g.ALWAYS
                     )
+
+
+kotlin_walkers: Tuple[Walker, ...] = (
+    Walker(
+        applicable_node_label_types={"class_body"},
+        walk_fun=partial(_class_statements, _generic=_generic),
+    ),
+    Walker(
+        applicable_node_label_types={"for_statement", "while_statement"},
+        walk_fun=partial(_loop_statement, _generic=_generic),
+    ),
+    Walker(
+        applicable_node_label_types={"function_body", "statements"},
+        walk_fun=partial(step_by_step, _generic=_generic),
+    ),
+    Walker(
+        applicable_node_label_types={
+            "class_declaration",
+            "function_declaration",
+            "companion_object",
+        },
+        walk_fun=partial(link_to_last_node, _generic=_generic),
+    ),
+    Walker(
+        applicable_node_label_types={"if_expression"},
+        walk_fun=partial(_if_statement, _generic=_generic),
+    ),
+    Walker(
+        applicable_node_label_types={"try_catch_expression"},
+        walk_fun=partial(_try_catch_statement, _generic=_generic),
+    ),
+    Walker(
+        applicable_node_label_types={"when_expression"},
+        walk_fun=partial(_when_statement, _generic=_generic),
+    ),
+)
 
 
 def add(graph: Graph) -> None:
