@@ -13,6 +13,7 @@ makeEntrypoint {
     envPaths = [
       nixpkgs.nodejs
     ];
+    envSources = [ packages.integrates.front.config.dev-runtime-env ];
   };
   template = path "/makes/applications/integrates/front/entrypoint.sh";
 }
