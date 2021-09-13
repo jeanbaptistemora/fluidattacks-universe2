@@ -1,9 +1,15 @@
+# pylint: skip-file
+import click
 from dataclasses import (
     dataclass,
 )
 import json
+import logging
 from returns.io import (
     IO,
+)
+from returns.maybe import (
+    Maybe,
 )
 from sgqlc import (
     codegen,
@@ -16,13 +22,16 @@ import sys
 from tap_announcekit.api import (
     API_ENDPOINT,
 )
+import tempfile
 from typing import (
     IO as IO_FILE,
     Optional,
 )
 
+LOG = logging.getLogger(__name__)
 
-def get_api_schema(target: IO_FILE[str]) -> IO[None]:
+
+def _get_api_schema(target: IO_FILE[str]) -> IO[None]:
     endpoint = HTTPEndpoint(API_ENDPOINT)
     data = endpoint(
         introspection.query,
@@ -53,8 +62,34 @@ class ArgsAdapter:
         object.__setattr__(self, "docstrings", docstrings)
 
 
-def gen_schema_code(
+def _gen_schema_code(
     api_schema: IO_FILE[str], output_code: IO_FILE[str]
 ) -> IO[None]:
     codegen.schema.handle_command(ArgsAdapter(api_schema, output_code))
     return IO(None)
+
+
+@click.command()
+@click.option("--out", type=click.File("w+"), default=sys.stdout)
+def get_api_schema(out: IO_FILE[str]) -> IO[None]:
+    return _get_api_schema(out)
+
+
+@click.command()
+@click.option("--api-schema", type=click.File("r"), default=None)
+@click.option("--out", type=click.File("w+"), default=sys.stdout)
+def update_schema(
+    api_schema: Optional[IO_FILE[str]], out: IO_FILE[str]
+) -> IO[None]:
+    def open_schema() -> IO_FILE[str]:
+        return Maybe.from_optional(api_schema).or_else_call(
+            lambda: tempfile.NamedTemporaryFile("w+")
+        )
+
+    with open_schema() as schema_file:
+        if not api_schema:
+            LOG.info("Getting current schema")
+            _get_api_schema(schema_file)
+        schema_file.seek(0)
+        LOG.info("Generating code")
+        return _gen_schema_code(schema_file, out)
