@@ -23,6 +23,10 @@ from sast_transformations.control_flow.common import (
 from sast_transformations.control_flow.types import (
     EdgeAttrs,
     Stack,
+    Walker,
+)
+from typing import (
+    Tuple,
 )
 from utils import (
     graph as g,
@@ -107,69 +111,10 @@ def _generic(
     n_attrs_label_type = n_attrs["label_type"]
 
     stack.append(dict(type=n_attrs_label_type))
-    walkers = (
-        (
-            {
-                "block",
-                "constructor_body",
-                "expression_statement",
-            },
-            partial(step_by_step, _generic=_generic),
-        ),
-        (
-            {
-                "constructor_declaration",
-                "method_declaration",
-            },
-            partial(link_to_last_node, _generic=_generic),
-        ),
-        (
-            {
-                "switch_statement",
-            },
-            switch_statement,
-        ),
-        (
-            {
-                "using_statement",
-            },
-            using_statement,
-        ),
-        (
-            {"catch_clause", "finally_clause"},
-            partial(catch_statement, _generic=_generic),
-        ),
-        (
-            {
-                "if_statement",
-            },
-            partial(if_statement, _generic=_generic),
-        ),
-        (
-            {
-                "try_statement",
-            },
-            partial(try_statement, _generic=_generic),
-        ),
-        (
-            {
-                "for_statement",
-                "do_statement",
-                "while_statement",
-                "for_each_statement",
-            },
-            partial(loop_statement, _generic=_generic),
-        ),
-        (
-            {
-                "lambda_expression",
-            },
-            _lambda_expression,
-        ),
-    )
-    for types, walker in walkers:
-        if n_attrs_label_type in types:
-            walker(graph, n_id, stack)  # type: ignore
+
+    for walker in c_sharp_walkers:
+        if n_attrs_label_type in walker.applicable_node_label_types:
+            walker.walk_fun(graph, n_id, stack)
             break
     else:
         with suppress(IndexError):
@@ -185,6 +130,68 @@ def _generic(
                     graph.add_edge(n_id, next_id, **edge_attrs)
 
     stack.pop()
+
+
+c_sharp_walkers: Tuple[Walker, ...] = (
+    Walker(
+        applicable_node_label_types={
+            "block",
+            "constructor_body",
+            "expression_statement",
+        },
+        walk_fun=partial(step_by_step, _generic=_generic),
+    ),
+    Walker(
+        applicable_node_label_types={
+            "constructor_declaration",
+            "method_declaration",
+        },
+        walk_fun=partial(link_to_last_node, _generic=_generic),
+    ),
+    Walker(
+        applicable_node_label_types={
+            "switch_statement",
+        },
+        walk_fun=switch_statement,
+    ),
+    Walker(
+        applicable_node_label_types={
+            "using_statement",
+        },
+        walk_fun=using_statement,
+    ),
+    Walker(
+        applicable_node_label_types={"catch_clause", "finally_clause"},
+        walk_fun=partial(catch_statement, _generic=_generic),
+    ),
+    Walker(
+        applicable_node_label_types={
+            "if_statement",
+        },
+        walk_fun=partial(if_statement, _generic=_generic),
+    ),
+    Walker(
+        applicable_node_label_types={
+            "try_statement",
+        },
+        walk_fun=partial(try_statement, _generic=_generic),
+    ),
+    Walker(
+        applicable_node_label_types={
+            "for_statement",
+            "do_statement",
+            "while_statement",
+            "for_each_statement",
+        },
+        walk_fun=partial(loop_statement, _generic=_generic),
+    ),
+    Walker(
+        applicable_node_label_types={
+            "lambda_expression",
+        },
+        walk_fun=_lambda_expression,
+    ),
+)
 
 
 def add(graph: Graph) -> None:
