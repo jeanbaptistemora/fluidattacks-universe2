@@ -273,7 +273,7 @@ async def request_vulnerability_zero_risk(
         finding_new_loader: DataLoader = info.context.loaders.finding_new
         finding_new: Finding = await finding_new_loader.load(finding_id)
         finding_title = finding_new.title
-        finding_type = finding_new.type
+        finding_type = ""
         group_name = finding_new.group_name
     else:
         finding_loader: DataLoader = info.context.loaders.finding

@@ -165,7 +165,6 @@ class Finding(NamedTuple):
     recommendation: str = ""
     requirements: str = ""
     threat: str = ""
-    type: str = ""
     unreliable_indicators: FindingUnreliableIndicators = (
         FindingUnreliableIndicators()
     )
@@ -184,7 +183,6 @@ class FindingMetadataToUpdate(NamedTuple):
     sorts: Optional[FindingSorts] = None
     threat: Optional[str] = None
     title: Optional[str] = None
-    type: Optional[str] = None
 
 
 class FindingUnreliableIndicatorsToUpdate(NamedTuple):

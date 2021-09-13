@@ -115,7 +115,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     affected_systems: str = "Server bWAPP"
     compromised_attributes: str = "Clave plana"
     records_number: int = 12
-    finding_type: str = "SECURITY"
     tracking: List[Dict[str, Any]] = [
         {
             "cycle": 0,
@@ -237,7 +236,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["title"] == title
     assert result["data"]["finding"]["tracking"] == tracking
     assert result["data"]["finding"]["treatmentSummary"] == treatment_summary
-    assert result["data"]["finding"]["type"] == finding_type
     assert result["data"]["finding"]["verified"] == verified
     assert result["data"]["finding"]["vulnsToReattack"] == []
     assert result["data"]["finding"]["vulnerabilitiesToReattack"] == []
@@ -328,7 +326,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     affected_systems: str = "Server bWAPP"
     compromised_attributes: str = "Clave plana"
     records_number: int = 12
-    finding_type: str = "SECURITY"
     tracking: List[Dict[str, Any]] = [
         {
             "cycle": 0,
@@ -443,7 +440,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["title"] == title
     assert result["data"]["finding"]["tracking"] == tracking
     assert result["data"]["finding"]["treatmentSummary"] == treatment_summary
-    assert result["data"]["finding"]["type"] == finding_type
     assert result["data"]["finding"]["verified"] == verified
     assert result["data"]["finding"]["vulnsToReattack"] == []
     assert result["data"]["finding"]["vulnerabilitiesToReattack"] == []

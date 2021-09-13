@@ -97,7 +97,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         report_confidence=Decimal("1"),
                         user_interaction=Decimal("0.85"),
                     ),
-                    type="SECURITY",
                     requirements="R359. Avoid using generic exceptions.",
                     threat="Autenticated attacker from the Internet.",
                     affected_systems="system1",

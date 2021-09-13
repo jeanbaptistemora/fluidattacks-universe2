@@ -85,7 +85,6 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
         "requirements": finding.requirements,
         "title": finding.title,
         "threat": finding.threat,
-        "type": finding.type,
     }
     initial_metadata = {
         key_structure.partition_key: metadata_key.partition_key,

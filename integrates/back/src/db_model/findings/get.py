@@ -157,7 +157,6 @@ def _build_finding(
         requirements=metadata["requirements"],
         title=metadata["title"],
         threat=metadata["threat"],
-        type=metadata["type"],
         state=state,
         unreliable_indicators=unreliable_indicators,
         verification=verification,
