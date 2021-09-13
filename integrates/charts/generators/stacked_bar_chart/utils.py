@@ -48,6 +48,11 @@ RISK_OVER_TIME: List[str] = [
     "Found",
 ]
 
+EXPOSED_OVER_TIME: List[str] = [
+    "date",
+    "Exposure",
+]
+
 # Typing
 GroupDocumentData = NamedTuple(
     "GroupDocumentData",

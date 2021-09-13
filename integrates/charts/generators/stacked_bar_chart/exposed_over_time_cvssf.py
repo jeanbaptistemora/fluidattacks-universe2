@@ -13,6 +13,8 @@ from charts.colors import (
 )
 from charts.generators.stacked_bar_chart.utils import (
     DATE_FMT,
+    EXPOSED_OVER_TIME,
+    sum_over_time_many_groups,
     translate_date,
 )
 from dataloaders import (
@@ -91,42 +93,7 @@ async def get_many_groups_document(
 ) -> Dict[str, Dict[datetime, Decimal]]:
     group_documents = await collect(map(get_group_document, groups))
 
-    all_dates: List[datetime] = sorted(
-        set(
-            date
-            for group_document in group_documents
-            for date in group_document["date"]
-        )
-    )
-
-    for group_document in group_documents:
-        for name in group_document:
-            last_date = None
-            for date in all_dates:
-                if date in group_document[name]:
-                    last_date = date
-                elif last_date:
-                    group_document[name][date] = group_document[name][
-                        last_date
-                    ]
-                else:
-                    group_document[name][date] = 0
-
-    return {
-        name: {
-            date: Decimal(
-                sum(
-                    group_document[name].get(date, 0)
-                    for group_document in group_documents
-                )
-            )
-            for date in all_dates
-        }
-        for name in [
-            "date",
-            "Exposure",
-        ]
-    }
+    return sum_over_time_many_groups(group_documents, EXPOSED_OVER_TIME)
 
 
 def format_document(
