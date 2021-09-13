@@ -25,7 +25,7 @@ from tap_announcekit.api import (
 from tap_announcekit.api.gql_schema import (
     Project as RawProject,
 )
-from tap_announcekit.stream.project._objs import (
+from tap_announcekit.streams.project._objs import (
     _Project,
     Project,
     ProjectId,
@@ -94,9 +94,10 @@ def get_project(client: HTTPEndpoint, proj_id: ProjectId) -> IO[Project]:
 
 
 def get_projs(
-    client: HTTPEndpoint, projs: Iterator[ProjectId]
+    client: HTTPEndpoint, projs: IO[Iterator[ProjectId]]
 ) -> IO[Iterator[Project]]:
-    results = iter(
-        unsafe_perform_io(get_project(client, proj)) for proj in projs
+    return projs.map(
+        lambda ids: iter(
+            unsafe_perform_io(get_project(client, proj)) for proj in ids
+        )
     )
-    return IO(results)

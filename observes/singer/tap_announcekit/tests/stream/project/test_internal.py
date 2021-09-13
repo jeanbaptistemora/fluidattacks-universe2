@@ -1,7 +1,7 @@
-from tap_announcekit.stream.project._builders import (
+from tap_announcekit.streams.project._builders import (
     proj_query,
 )
-from tap_announcekit.stream.project._encode import (
+from tap_announcekit.streams.project._encode import (
     ProjectEncoder,
 )
 

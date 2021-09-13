@@ -20,7 +20,7 @@ from singer_io.singer2.json_schema import (
     JsonSchema,
     JsonSchemaFactory,
 )
-from tap_announcekit.stream.project._objs import (
+from tap_announcekit.streams.project._objs import (
     Project,
     ProjectId,
 )

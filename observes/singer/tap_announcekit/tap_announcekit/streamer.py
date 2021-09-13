@@ -16,6 +16,10 @@ from tap_announcekit.api import (
     Creds,
 )
 from tap_announcekit.stream import (
+    StreamEmitter,
+)
+from tap_announcekit.streams.project import (
+    ProjectId,
     ProjectStream,
 )
 from typing import (
@@ -48,10 +52,12 @@ class Streamer:
     selection: StreamSelector
 
     def start(self) -> IO[None]:
-        emitter = SingerEmitter()
         client = ApiClient(self.creds)
 
         if self.selection.stream == SupportedStream.PROJECTS:
-            proj_stream = ProjectStream(client, emitter)
-            proj_stream.emit_schema()
+            proj_stream = ProjectStream(client)
+            emitter = StreamEmitter(
+                SingerEmitter(), proj_stream.to_stream([ProjectId("test_id")])
+            )
+            return emitter.emit()
         return IO(None)

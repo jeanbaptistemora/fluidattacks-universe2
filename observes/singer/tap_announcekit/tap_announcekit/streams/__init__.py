@@ -1,4 +1,4 @@
-from tap_announcekit.stream.project import (
+from tap_announcekit.streams.project import (
     ProjectStream,
 )
 
