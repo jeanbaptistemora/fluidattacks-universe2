@@ -23,9 +23,11 @@ from sast_transformations.control_flow.common import (
 from sast_transformations.control_flow.types import (
     EdgeAttrs,
     Stack,
+    Walker,
 )
 from typing import (
     Optional,
+    Tuple,
 )
 from utils import (
     graph as g,
@@ -53,7 +55,7 @@ def _next_declaration(
                 graph.add_edge(n_id, next_id, **edge_attrs)
 
 
-def function_declaration(
+def _function_declaration(
     graph: Graph,
     n_id: str,
     stack: Stack,
@@ -71,7 +73,7 @@ def function_declaration(
             _next_declaration(graph, n_id, stack, edge_attrs=g.ALWAYS)
 
 
-def if_statement(
+def _if_statement(
     graph: Graph,
     n_id: str,
     stack: Stack,
@@ -119,7 +121,7 @@ def if_statement(
             graph.add_edge(n_id, next_id, **g.FALSE)
 
 
-def switch_statement(
+def _switch_statement(
     graph: Graph,
     n_id: str,
     stack: Stack,
@@ -164,66 +166,10 @@ def _generic(
     n_attrs_label_type = n_attrs["label_type"]
 
     stack.append(dict(type=n_attrs_label_type))
-    walkers = (
-        (
-            {
-                "statement_block",
-                "expression_statement",
-                "program",
-            },
-            partial(step_by_step, _generic=_generic),
-        ),
-        (
-            {"catch_clause", "finally_clause"},
-            partial(catch_statement, _generic=_generic),
-        ),
-        (
-            {
-                "if_statement",
-            },
-            if_statement,
-        ),
-        (
-            {
-                "function_declaration",
-            },
-            function_declaration,
-        ),
-        (
-            {
-                "switch_statement",
-            },
-            switch_statement,
-        ),
-        (
-            {
-                "try_statement",
-            },
-            partial(
-                try_statement,
-                _generic=_generic,
-                language=GraphShardMetadataLanguage.JAVASCRIPT,
-            ),
-        ),
-        (
-            {
-                "for_statement",
-                "do_statement",
-                "while_statement",
-                "for_each_statement",
-                "for_in_statement",
-                "for_of_statement",
-            },
-            partial(
-                loop_statement,
-                _generic=_generic,
-                language=GraphShardMetadataLanguage.JAVASCRIPT,
-            ),
-        ),
-    )
-    for types, walker in walkers:
-        if n_attrs_label_type in types:
-            walker(graph, n_id, stack)  # type: ignore
+
+    for walker in javascript_walkers:
+        if n_attrs_label_type in walker.applicable_node_label_types:
+            walker.walk_fun(graph, n_id, stack)
             break
     else:
         _next_declaration(graph, n_id, stack, edge_attrs=edge_attrs)
@@ -231,7 +177,7 @@ def _generic(
     stack.pop()
 
 
-def unnamed_function(graph: Graph, n_id: str, stack: Stack) -> None:
+def _unnamed_function(graph: Graph, n_id: str, stack: Stack) -> None:
     current_node_adj = g.adj_cfg(graph, n_id)
     node_attrs = graph.nodes[n_id]
     if "label_field_body" not in node_attrs:
@@ -276,6 +222,57 @@ def unnamed_function(graph: Graph, n_id: str, stack: Stack) -> None:
         break
 
 
+javascript_walkers: Tuple[Walker, ...] = (
+    Walker(
+        applicable_node_label_types={
+            "statement_block",
+            "expression_statement",
+            "program",
+        },
+        walk_fun=partial(step_by_step, _generic=_generic),
+    ),
+    Walker(
+        applicable_node_label_types={"catch_clause", "finally_clause"},
+        walk_fun=partial(catch_statement, _generic=_generic),
+    ),
+    Walker(
+        applicable_node_label_types={"if_statement"},
+        walk_fun=_if_statement,
+    ),
+    Walker(
+        applicable_node_label_types={"function_declaration"},
+        walk_fun=_function_declaration,
+    ),
+    Walker(
+        applicable_node_label_types={"switch_statement"},
+        walk_fun=_switch_statement,
+    ),
+    Walker(
+        applicable_node_label_types={"try_statement"},
+        walk_fun=partial(
+            try_statement,
+            _generic=_generic,
+            language=GraphShardMetadataLanguage.JAVASCRIPT,
+        ),
+    ),
+    Walker(
+        applicable_node_label_types={
+            "for_statement",
+            "do_statement",
+            "while_statement",
+            "for_each_statement",
+            "for_in_statement",
+            "for_of_statement",
+        },
+        walk_fun=partial(
+            loop_statement,
+            _generic=_generic,
+            language=GraphShardMetadataLanguage.JAVASCRIPT,
+        ),
+    ),
+)
+
+
 def add(graph: Graph) -> None:
     _generic(graph, g.ROOT_NODE, stack=[], edge_attrs=g.ALWAYS)
 
@@ -284,4 +281,4 @@ def add(graph: Graph) -> None:
         if g.pred_has_labels(label_type="arrow_function")(
             node
         ) or g.pred_has_labels(label_type="function")(node):
-            unnamed_function(graph, n_id, [])
+            _unnamed_function(graph, n_id, [])
