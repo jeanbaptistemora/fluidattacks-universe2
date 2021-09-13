@@ -59,7 +59,6 @@ async def mutate(
             requirements=kwargs.get("requirements"),
             threat=kwargs.get("threat"),
             title=title,
-            type=kwargs.get("type"),
         )
         await findings_domain.add_draft_new(
             info.context, group_name, user_email, draft_info

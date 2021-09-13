@@ -23,7 +23,6 @@ async def get_result(
     risk: str = "This is pytest created draft"
     threat: str = "Attacker"
     title: str = "001. SQL injection - C Sharp SQL API"
-    draft_type: str = "SECURITY"
     query: str = f"""
         mutation {{
             addDraft(
@@ -36,7 +35,6 @@ async def get_result(
                 risk: "{risk}",
                 threat: "{threat}",
                 title: "{title}",
-                type: {draft_type},
             ) {{
                 success
             }}

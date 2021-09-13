@@ -1368,7 +1368,6 @@ async def update_description_new(
         sorts=description.sorts,
         threat=description.threat,
         title=description.title,
-        type=description.type,
     )
     await findings_model.update_medatada(
         group_name=finding.group_name,

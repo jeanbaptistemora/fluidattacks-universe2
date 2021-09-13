@@ -227,7 +227,6 @@ async def add_draft_new(
         requirements=draft_info.requirements,
         title=draft_info.title,
         threat=draft_info.threat,
-        type=draft_info.type,
     )
     await findings_model.add(finding=draft)
 

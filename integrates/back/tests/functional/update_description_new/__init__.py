@@ -84,7 +84,6 @@ async def get_result(  # pylint: disable=too-many-locals
                     threat
                     title
                     tracking
-                    type
                     verified
                     vulnerabilities {{
                         id
