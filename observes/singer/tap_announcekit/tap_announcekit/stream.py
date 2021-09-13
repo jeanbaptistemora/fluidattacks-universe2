@@ -11,6 +11,9 @@ from singer_io.singer2 import (
 from singer_io.singer2.emitter import (
     SingerEmitter,
 )
+from singer_io.singer2.json import (
+    DictFactory,
+)
 from typing import (
     Iterator,
 )
@@ -30,6 +33,9 @@ class StreamEmitter:
     def _emit(self, items: Iterator[SingerRecord]) -> IO[None]:
         self.emitter.emit_schema(self.stream.schema)
         for item in items:
+            self.stream.schema.schema.validate(
+                DictFactory.from_json(item.record)
+            )
             self.emitter.emit_record(item)
         return IO(None)
 

@@ -15,8 +15,8 @@ class ActionSource(sgqlc.types.Enum):
 
 
 Boolean = sgqlc.types.Boolean
-
-Date = sgqlc.types.datetime.Date
+# In various cases the infered type Date should be DateTime
+Date = sgqlc.types.datetime.DateTime
 
 
 class ExternalUserSortField(sgqlc.types.Enum):
