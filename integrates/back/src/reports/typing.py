@@ -166,7 +166,6 @@ class PdfFindingInfo(NamedTuple):  # pylint: disable=too-few-public-methods
     open_vulnerabilities: int
     recommendation: str
     requirements: str
-    risk: str
     severity_score: Decimal
     state: str
     title: str

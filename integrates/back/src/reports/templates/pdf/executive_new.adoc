@@ -86,9 +86,6 @@
 ===== {{threat_title}}
 {{finding.threat + "\n"}}
 
-===== {{risk_title}}
-{{finding.risk + "\n"}}
-
 ===== {{attack_vector_title}}
 {{finding.attack_vector_description  + "\n"}}
 
