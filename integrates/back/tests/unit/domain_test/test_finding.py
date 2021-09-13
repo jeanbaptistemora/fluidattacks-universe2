@@ -10,6 +10,7 @@ from custom_exceptions import (
     InvalidNumberAcceptations,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from datetime import (
@@ -32,6 +33,7 @@ from findings.domain import (
     list_findings,
     list_findings_new,
     mask_finding,
+    mask_finding_new,
     validate_evidence,
 )
 from freezegun import (
@@ -263,6 +265,31 @@ async def test_mask_finding() -> None:
     assert finding.get("files", [{}])[-1].get("file_url", "") == "Masked"
     assert finding.get("effect_solution", "") == "Masked"
     assert finding.get("affected_systems", "") == "Masked"
+
+
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+@pytest.mark.changes_db
+async def test_mask_finding_new() -> None:
+    finding_id = "475041524"
+    loaders: Dataloaders = get_new_context()
+    finding: Finding = await loaders.finding_new.load(finding_id)
+    success = await mask_finding_new(loaders, finding)
+    assert isinstance(success, bool)
+    assert success == True
+
+    masked_msg = "Masked"
+    loaders.finding_new.clear(finding_id)
+    masked_finding: Finding = await loaders.finding_new.load(finding_id)
+    assert masked_finding.affected_systems == masked_msg
+    assert masked_finding.attack_vector_description == masked_msg
+    assert masked_finding.compromised_attributes == masked_msg
+    assert masked_finding.description == masked_msg
+    assert masked_finding.recommendation == masked_msg
+    assert masked_finding.threat == masked_msg
+    assert masked_finding.evidences.evidence1.description == masked_msg
+    assert masked_finding.evidences.evidence1.url == masked_msg
+    assert masked_finding.evidences.evidence2.description == masked_msg
+    assert masked_finding.evidences.evidence2.url == masked_msg
 
 
 async def test_validate_evidence_records() -> None:
