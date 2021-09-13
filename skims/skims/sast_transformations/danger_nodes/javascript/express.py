@@ -24,6 +24,7 @@ FINDINGS = {
     FindingEnum.F004,
     FindingEnum.F008,
     FindingEnum.F021,
+    FindingEnum.F042,
     FindingEnum.F063,
     FindingEnum.F107,
 }

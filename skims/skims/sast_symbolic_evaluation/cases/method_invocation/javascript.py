@@ -171,3 +171,13 @@ def list_concat(args: EvaluatorArgs, dcl: SyntaxStep) -> None:
     args.syntax_step.meta.danger = any(
         x.meta.danger for x in args.syntax_step.meta.value if x
     )
+
+
+@javascript_only
+def process_cookie(args: EvaluatorArgs) -> None:
+    for _arg in args.dependencies:
+        _arg_value = _arg.meta.value
+        if not isinstance(_arg_value, dict):
+            continue
+        if _secure := _arg_value.get("secure"):
+            args.syntax_step.meta.danger = _secure.meta.value is False

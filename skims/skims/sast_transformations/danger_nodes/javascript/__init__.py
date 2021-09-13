@@ -35,6 +35,14 @@ def mark_sinks(
         },
     )
     mark_methods_sink(
+        FindingEnum.F042,
+        graph,
+        syntax,
+        {
+            "cookie",
+        },
+    )
+    mark_methods_sink(
         FindingEnum.F063,
         graph,
         syntax,

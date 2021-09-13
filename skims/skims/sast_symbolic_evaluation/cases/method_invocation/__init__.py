@@ -19,6 +19,7 @@ from sast_symbolic_evaluation.cases.method_invocation.javascript import (
     list_push as javascript_list_push,
     list_shift as javascript_list_shift,
     process as javascript_process,
+    process_cookie as javascript_process_cookie,
 )
 from sast_symbolic_evaluation.lookup import (
     lookup_class,
@@ -90,6 +91,7 @@ BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set(
         "fs.unlink",
         "fs.unlinkSync",
         "path.join",
+        "path.resolve",
         "fs.writeFile",
         "fs.writeFileSync",
         "fs.readdir",
@@ -489,6 +491,15 @@ BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
         }
     ),
 }
+BY_TYPE_HANDLER = complete_attrs_on_dict(
+    {
+        "Response": {
+            "cookie": {
+                javascript_process_cookie,
+            },
+        },
+    }
+)
 
 
 def evaluate(args: EvaluatorArgs) -> None:
@@ -679,6 +690,26 @@ def attempt_by_type(args: EvaluatorArgs, method: str) -> bool:
     return False
 
 
+def attemp_by_type_handler(args: EvaluatorArgs, method: str) -> bool:
+    method_var, method_path = split_on_first_dot(method)
+
+    method_var_decl = lookup_var_dcl_by_name(args, method_var)
+    if (
+        method_var_decl
+        and method_var_decl.var_type_base
+        and (
+            handlers := BY_TYPE_HANDLER.get(
+                method_var_decl.var_type_base, {}
+            ).get(method_path)
+        )
+    ):
+        for handler in handlers:
+            handler(args)
+        return True
+
+    return False
+
+
 def attempt_the_old_way(args: EvaluatorArgs) -> bool:
     # Analyze if the method itself is untrusted
     method = args.syntax_step.method
@@ -703,6 +734,7 @@ def analyze_method_invocation(args: EvaluatorArgs, method: str) -> None:
         or attempt_by_type(args, method)
         or analyze_method_invocation_local(args, method)
         or analyze_method_invocation_external(args, method)
+        or attemp_by_type_handler(args, method)
     )
 
 

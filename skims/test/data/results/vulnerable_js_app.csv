@@ -1151,6 +1151,104 @@ F063,lines,VULNERABLE_JS_APP/server/routes/testcases/test076.js,23,22,skims,063.
   33 |     res.json(result);
      ^ Col 0
 "
+F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test097.js,6,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 |
+   4 | router.get(""/test097/"", function (req, res) {
+   5 |   var secure = false;
+>  6 |   res.cookie(""SomeCookie"", ""Some Value"", { secure: secure, httpOnly: true });
+   7 |   res.setHeader(""Content-Type"", ""text/html"");
+   8 |   res.send(
+   9 |     `
+  10 |     <!DOCTYPE html>
+  11 |     <html>
+  12 |       <body>
+  13 |         <h1>Hello Jane Doe</h1>
+  14 |       </body>
+  15 |     </html>
+  16 | `
+  17 |   );
+  18 | });
+  19 |
+  20 | export default router;
+     ^ Col 0
+"
+F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test098.js,10,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 |
+   4 | router.get(""/test098/"", function (req, res) {
+   5 |   var map98 = {
+   6 |     keyA: ""some value"",
+   7 |     keyB: false,
+   8 |     keyC: ""safe"",
+   9 |   };
+> 10 |   res.cookie(""SomeCookie"", ""Some Value"", {
+  11 |     secure: map98.keyB,
+  12 |     httpOnly: true,
+  13 |   });
+  14 |   res.setHeader(""Content-Type"", ""text/html"");
+  15 |   res.send(
+  16 |     `
+  17 |     <!DOCTYPE html>
+  18 |     <html>
+  19 |       <body>
+  20 |         <h1>Hello Jane Doe</h1>
+  21 |       </body>
+     ^ Col 0
+"
+F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test099.js,6,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 |
+   4 | router.get(""/test099/"", function (req, res) {
+   5 |   var _secure = 1 != 1;
+>  6 |   res.cookie(""SomeCookie"", ""Some Value"", { secure: _secure, httpOnly: true });
+   7 |   res.setHeader(""Content-Type"", ""text/html"");
+   8 |   res.send(
+   9 |     `
+  10 |     <!DOCTYPE html>
+  11 |     <html>
+  12 |       <body>
+  13 |         <h1>Hello Jane Doe</h1>
+  14 |       </body>
+  15 |     </html>
+  16 | `
+  17 |   );
+  18 | });
+  19 |
+  20 | export default router;
+     ^ Col 0
+"
+F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test100.js,9,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
+","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 |
+   4 | router.get(""/test100/"", function (req, res) {
+   5 |   let list100 = [""safe"", ""safe"", false, ""safe""];
+   6 |   list100.shift();
+   7 |   list100.push(""safe"");
+   8 |   var _secure = list100[1];
+>  9 |   res.cookie(""SomeCookie"", ""Some Value"", { secure: _secure, httpOnly: true });
+  10 |   res.setHeader(""Content-Type"", ""text/html"");
+  11 |   res.send(
+  12 |     `
+  13 |     <!DOCTYPE html>
+  14 |     <html>
+  15 |       <body>
+  16 |         <h1>Hello Jane Doe</h1>
+  17 |       </body>
+  18 |     </html>
+  19 | `
+  20 |   );
+  21 | });
+     ^ Col 0
+"
 F004,lines,VULNERABLE_JS_APP/server/routes/testcases/test005.js,7,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
 ","
    1 | const process = require(""child_process"");
