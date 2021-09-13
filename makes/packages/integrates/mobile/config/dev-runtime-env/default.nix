@@ -3,7 +3,7 @@
 , path
 , ...
 }:
-makes.makeNodeJsModules {
+makes.makeNodeJsEnvironment {
   name = "integrates-mobile-dev-runtime";
   nodeJsVersion = "12";
   searchPaths.bin = [

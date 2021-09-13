@@ -3,7 +3,7 @@
 function main {
 
   copy "${envSrcIntegratesMobile}" "${out}" \
-    && copy "${envSetupIntegratesMobileDevRuntime}/node_modules" "${out}/node_modules" \
+    && copy "${envSetupIntegratesMobileDevRuntime}" "${out}/node_modules" \
     && pushd "${out}" \
     && npm test \
     && popd \

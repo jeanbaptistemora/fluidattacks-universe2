@@ -19,6 +19,7 @@ makeEntrypoint {
       nixpkgs.openssl
       packages.makes.announce.bugsnag
     ];
+    envSources = [ packages.integrates.mobile.config.dev-runtime-env ];
     envUtils = [
       "/makes/utils/aws"
       "/makes/utils/sops"

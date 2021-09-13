@@ -40,7 +40,7 @@ function main {
       && sops_export_vars __envSecretsProd__ "${secrets[@]}" \
       && pushd integrates/mobile \
       && echo '[INFO] Copying dependencies...' \
-      && copy __envSetupIntegratesMobileDevRuntime__/node_modules node_modules \
+      && copy __envSetupIntegratesMobileDevRuntime__ node_modules \
       && echo "${GOOGLE_SERVICES_APP}" > google-services.json \
       && EXPO_ANDROID_KEYSTORE_PASSWORD=${EXPO_PASS} \
       && EXPO_ANDROID_KEY_PASSWORD=${EXPO_PASS} \

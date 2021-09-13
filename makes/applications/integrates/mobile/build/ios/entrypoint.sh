@@ -21,7 +21,7 @@ function main {
     && EXPO_IOS_DIST_P12_PASSWORD="${APPLE_DIST_CERT_PASSWORD}" \
     && pushd integrates/mobile \
     && echo '[INFO] Copying dependencies...' \
-    && copy __envIntegratesMobileDevRuntime__/node_modules node_modules \
+    && copy __envIntegratesMobileDevRuntime__ node_modules \
     && echo "[INFO] Using NodeJS $(node -v)" \
     && npx --no-install expo login \
       --username "${EXPO_USER}" \

@@ -21,6 +21,7 @@ makeEntrypoint {
       "/makes/utils/aws"
       "/makes/utils/sops"
     ];
+    envSources = [ packages.integrates.mobile.config.dev-runtime-env ];
   };
   template = path "/makes/applications/integrates/mobile/entrypoint.sh";
 }

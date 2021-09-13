@@ -61,7 +61,7 @@ function main {
     && pinned_pk="$(get_fluidattacks_pk)" \
     && pushd integrates/mobile \
     && echo '[INFO] Copying dependencies...' \
-    && copy "__envSetupIntegratesMobileDevRuntime__/node_modules" node_modules \
+    && copy "__envSetupIntegratesMobileDevRuntime__" node_modules \
     && echo "${GOOGLE_SERVICES_APP}" > google-services.json \
     && npx --no-install expo login \
       --username "${EXPO_USER}" \

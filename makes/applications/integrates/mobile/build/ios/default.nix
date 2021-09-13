@@ -15,6 +15,7 @@ makeEntrypoint {
       nixpkgs.curl
       nixpkgs.nodejs-12_x
     ];
+    envSources = [ packages.integrates.mobile.config.dev-runtime-env ];
     envUtils = [
       "/makes/utils/aws"
       "/makes/utils/sops"

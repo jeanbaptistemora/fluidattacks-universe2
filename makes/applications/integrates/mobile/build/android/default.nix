@@ -27,6 +27,7 @@ makeEntrypoint {
       "/makes/utils/git"
       "/makes/utils/sops"
     ];
+    envSources = [ packages.integrates.mobile.config.dev-runtime-env ];
   };
   template = path "/makes/applications/integrates/mobile/build/android/entrypoint.sh";
 }

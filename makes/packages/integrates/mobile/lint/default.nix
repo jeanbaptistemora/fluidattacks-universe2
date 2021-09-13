@@ -16,6 +16,7 @@ makeDerivation {
       nixpkgs.bash
       nixpkgs.nodejs-12_x
     ];
+    envSources = [ packages.integrates.mobile.config.dev-runtime-env ];
     envUtils = [ "/makes/utils/lint-typescript" ];
   };
 }
