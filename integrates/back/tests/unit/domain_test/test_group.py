@@ -37,6 +37,9 @@ from findings.domain import (
     get_pending_verification_findings,
     get_total_treatment,
 )
+from findings.domain.core import (
+    get_max_open_severity_new,
+)
 from freezegun import (
     freeze_time,
 )
@@ -236,6 +239,18 @@ async def test_get_max_open_severity() -> None:
     test_data = await get_max_open_severity(get_new_context(), findings)
     assert test_data[0] == Decimal(4.3).quantize(Decimal("0.1"))
     assert test_data[1]["finding_id"] == "463558592"
+
+
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+async def test_get_max_open_severity_new() -> None:
+    findings_to_get = ["463558592", "422286126"]
+    loaders = get_new_context()
+    findings: Tuple[Finding, ...] = await loaders.finding_new.load_many(
+        findings_to_get
+    )
+    test_data = await get_max_open_severity_new(loaders, findings)
+    assert test_data[0] == Decimal(4.3).quantize(Decimal("0.1"))
+    assert test_data[1].id == "463558592"
 
 
 @pytest.mark.skipif(MIGRATION, reason="Finding migration")
