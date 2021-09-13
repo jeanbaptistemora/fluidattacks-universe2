@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 10, 2021, 07:15 PM",
+    "DateLastModified": "Sep 13, 2021, 11:11 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -341,10 +341,6 @@
         {
           "AttributeName": "compromised_records",
           "AttributeType": "N"
-        },
-        {
-          "AttributeName": "risk",
-          "AttributeType": "S"
         },
         {
           "AttributeName": "attack_vector_description",
@@ -1985,9 +1981,6 @@
               "compromised_records": {
                 "N": "12"
               },
-              "risk": {
-                "S": ""
-              },
               "pk": {
                 "S": "FIN#436712859"
               },
@@ -2113,9 +2106,6 @@
               },
               "compromised_records": {
                 "N": "12"
-              },
-              "risk": {
-                "S": ""
               },
               "pk": {
                 "S": "FIN#683100860"
@@ -2243,9 +2233,6 @@
               "compromised_records": {
                 "N": "12"
               },
-              "risk": {
-                "S": ""
-              },
               "pk": {
                 "S": "FIN#997868246"
               },
@@ -2371,9 +2358,6 @@
               },
               "compromised_records": {
                 "N": "0"
-              },
-              "risk": {
-                "S": ""
               },
               "pk": {
                 "S": "FIN#475041524"
@@ -2528,9 +2512,6 @@
               "compromised_records": {
                 "N": "0"
               },
-              "risk": {
-                "S": ""
-              },
               "pk": {
                 "S": "FIN#836530833"
               },
@@ -2671,9 +2652,6 @@
               "compromised_records": {
                 "N": "0"
               },
-              "risk": {
-                "S": ""
-              },
               "pk": {
                 "S": "FIN#991607942"
               },
@@ -2800,9 +2778,6 @@
               "compromised_records": {
                 "N": "0"
               },
-              "risk": {
-                "S": ""
-              },
               "pk": {
                 "S": "FIN#818828206"
               },
@@ -2928,9 +2903,6 @@
               },
               "compromised_records": {
                 "N": "0"
-              },
-              "risk": {
-                "S": ""
               },
               "pk": {
                 "S": "FIN#457497318"
@@ -3098,9 +3070,6 @@
               "compromised_records": {
                 "N": "0"
               },
-              "risk": {
-                "S": ""
-              },
               "pk": {
                 "S": "FIN#475041513"
               },
@@ -3254,9 +3223,6 @@
               "compromised_records": {
                 "N": "0"
               },
-              "risk": {
-                "S": ""
-              },
               "pk": {
                 "S": "FIN#475041535"
               },
@@ -3409,9 +3375,6 @@
               },
               "compromised_records": {
                 "N": "12"
-              },
-              "risk": {
-                "S": ""
               },
               "pk": {
                 "S": "FIN#422286126"
@@ -3644,9 +3607,6 @@
               "compromised_records": {
                 "N": "5"
               },
-              "risk": {
-                "S": ""
-              },
               "pk": {
                 "S": "FIN#436992569"
               },
@@ -3865,9 +3825,6 @@
               "compromised_records": {
                 "N": "0"
               },
-              "risk": {
-                "S": ""
-              },
               "pk": {
                 "S": "FIN#457497316"
               },
@@ -4020,9 +3977,6 @@
               },
               "compromised_records": {
                 "N": "1"
-              },
-              "risk": {
-                "S": ""
               },
               "pk": {
                 "S": "FIN#463461507"
@@ -4202,9 +4156,6 @@
               },
               "compromised_records": {
                 "N": "0"
-              },
-              "risk": {
-                "S": ""
               },
               "pk": {
                 "S": "FIN#463558592"
@@ -4398,9 +4349,6 @@
               "compromised_records": {
                 "N": "1"
               },
-              "risk": {
-                "S": ""
-              },
               "pk": {
                 "S": "FIN#560175507"
               },
@@ -4527,9 +4475,6 @@
               "compromised_records": {
                 "N": "0"
               },
-              "risk": {
-                "S": ""
-              },
               "pk": {
                 "S": "FIN#988493279"
               },
@@ -4581,7 +4526,6 @@
             "group_name",
             "severity",
             "compromised_records",
-            "risk",
             "attack_vector_description"
           ]
         },
