@@ -5,6 +5,7 @@ from model.graph_model import (
     SyntaxStepLiteral,
     SyntaxStepMemberAccessExpression,
     SyntaxStepMeta,
+    SyntaxStepSymbolLookup,
 )
 from sast_symbolic_evaluation.decorators import (
     go_only,
@@ -20,6 +21,7 @@ from sast_symbolic_evaluation.types import (
 from sast_symbolic_evaluation.utils_generic import (
     complete_attrs_on_dict,
     lookup_var_dcl_by_name,
+    lookup_var_value,
 )
 from typing import (
     Any,
@@ -146,32 +148,40 @@ def evaluate(args: EvaluatorArgs) -> None:
     var, field = split_on_first_dot(args.syntax_step.var)
     dependency = args.dependencies[0]
 
-    if not args.syntax_step.meta.danger:
-        args.syntax_step.meta.danger = dependency.meta.danger
+    basic_evaluation(args, var, field)
 
-    # modify the value of a field in an instance
+    if v_dcl := lookup_var_dcl_by_name(args, var):
+        if isinstance(v_dcl.meta.value, JavaClassInstance):
+            v_dcl.meta.value.fields[field] = args.syntax_step
+        elif isinstance(
+            dependency, SyntaxStepMemberAccessExpression
+        ) and dependency.expression in vuln_assign.get(v_dcl.var_type, set()):
+            args.syntax_step.meta.danger = True
+        elif (
+            isinstance(dependency, SyntaxStepLiteral)
+            and v_dcl.meta.danger
+            and dependency.meta.value in vuln_literal.get(field, set())
+        ):
+            args.syntax_step.meta.danger = True
+        elif isinstance(
+            dependency, SyntaxStepSymbolLookup
+        ) and lookup_var_value(
+            args, args.dependencies[0].symbol
+        ) in vuln_assign.get(
+            v_dcl.var_type, set()
+        ):
+            args.syntax_step.meta.danger = True
+
+        if field in vuln_field_access.get(v_dcl.var_type, set()):
+            v_dcl.meta.danger = args.syntax_step.meta.danger
+
+
+def basic_evaluation(args: EvaluatorArgs, var: str, field: str) -> None:
+    if not args.syntax_step.meta.danger:
+        args.syntax_step.meta.danger = args.dependencies[0].meta.danger
 
     if args.current_instance:
         if var == "this":
             args.current_instance.fields[field] = args.syntax_step
         elif not field and lookup_field(args, var):
             args.current_instance.fields[var] = args.syntax_step
-
-    elif v_dcl := lookup_var_dcl_by_name(args, var):
-        if isinstance(v_dcl.meta.value, JavaClassInstance):
-            v_dcl.meta.value.fields[field] = args.syntax_step
-
-        if isinstance(
-            dependency, SyntaxStepMemberAccessExpression
-        ) and dependency.expression in vuln_assign.get(v_dcl.var_type, set()):
-            args.syntax_step.meta.danger = True
-
-        if (
-            isinstance(dependency, SyntaxStepLiteral)
-            and v_dcl.meta.danger
-            and dependency.meta.value in vuln_literal.get(field, set())
-        ):
-            args.syntax_step.meta.danger = True
-
-        if field in vuln_field_access.get(v_dcl.var_type, set()):
-            v_dcl.meta.danger = args.syntax_step.meta.danger

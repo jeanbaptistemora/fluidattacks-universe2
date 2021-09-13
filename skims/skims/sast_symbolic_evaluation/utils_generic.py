@@ -4,6 +4,9 @@ from model import (
 from sast_symbolic_evaluation.types import (
     EvaluatorArgs,
 )
+from sast_syntax_readers.utils_generic import (
+    get_dependencies,
+)
 from typing import (
     Any,
     Dict,
@@ -14,6 +17,24 @@ from typing import (
 from utils.string import (
     build_attr_paths,
 )
+
+
+def lookup_var_value(args: EvaluatorArgs, var_name: str) -> str:
+    step_ind = 0
+    for syntax_step in args.syntax_steps:
+        if (
+            isinstance(syntax_step, graph_model.SyntaxStepAssignment)
+            and syntax_step.var == var_name
+        ):
+            depend = get_dependencies(step_ind, args.syntax_steps)[0]
+            if isinstance(
+                depend, graph_model.SyntaxStepMemberAccessExpression
+            ):
+                return depend.expression
+            if isinstance(depend, graph_model.SyntaxStepLiteral):
+                return depend.value
+        step_ind += 1
+    return ""
 
 
 def lookup_vars(
