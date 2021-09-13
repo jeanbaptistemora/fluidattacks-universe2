@@ -525,13 +525,13 @@ async def test_get_mean_remediate_severity_medium_cvssf(
 
 
 @pytest.mark.skipif(MIGRATION, reason="Finding migration")
-@freeze_time("2019-10-01")
+@freeze_time("2019-09-30")
 @pytest.mark.parametrize(
     ("min_days", "expected_output"),
     (
-        (0, Decimal("11.269")),
-        (30, Decimal("10.658")),
-        (90, Decimal("11.269")),
+        (0, Decimal("43.020")),
+        (30, Decimal("9.782")),
+        (90, Decimal("10.389")),
     ),
 )
 async def test_get_mean_remediate_severity_low_cvssf(
@@ -539,8 +539,8 @@ async def test_get_mean_remediate_severity_low_cvssf(
 ) -> None:
     context = get_new_context()
     group_name = "unittesting"
-    min_severity = 0.1
-    max_severity = 3.9
+    min_severity = Decimal("0.1")
+    max_severity = Decimal("3.9")
     mean_remediate_low_severity = await get_mean_remediate_severity_cvssf(
         context,
         group_name,

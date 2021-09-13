@@ -1015,13 +1015,17 @@ async def get_mean_remediate_severity_cvssf(
         for finding in group_findings
         if (
             min_severity
-            <= Decimal(finding.get("cvss_temporal", 0))
+            <= Decimal(finding.get("cvss_temporal", "0.0")).quantize(
+                Decimal("0.1")
+            )
             <= max_severity
         )
     ]
     finding_cvssf: Dict[str, Decimal] = {
         str(finding["finding_id"]): vulns_utils.get_cvssf(
-            Decimal(finding.get("cvss_temporal", 0.0))
+            Decimal(finding.get("cvss_temporal", "0.0")).quantize(
+                Decimal("0.1")
+            )
         )
         for finding in group_findings
     }
