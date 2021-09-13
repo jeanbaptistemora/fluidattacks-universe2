@@ -17,7 +17,7 @@ async def send_mail_analytics(*email_to: str, **context: str) -> None:
     context = cast(MailContentType, context)
     context["live_report_url"] = (
         f'{BASE_URL}/{context["report_entity_percent"]}s/'
-        f'{context["report_subject_percent"]}'
+        f'{context["report_subject_percent"]}/analytics'
     )
     await send_mails_async_new(
         list(email_to),
