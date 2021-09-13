@@ -51,6 +51,77 @@ String = sgqlc.types.String
 ########################################################################
 # Input Objects
 ########################################################################
+class AnalyticsInput(sgqlc.types.Input):
+    __schema__ = gql_schema
+    __field_names__ = (
+        "project_id",
+        "start_date",
+        "end_date",
+        "dimensions",
+        "metrics",
+        "event_type",
+        "post_id",
+        "widget_id",
+        "feed_id",
+        "client_country",
+        "client_locale",
+        "client_device",
+        "sort_by",
+        "sort_desc",
+        "user_filter",
+        "limit",
+        "offset",
+    )
+    project_id = sgqlc.types.Field(
+        sgqlc.types.non_null(ID), graphql_name="project_id"
+    )
+    start_date = sgqlc.types.Field(
+        sgqlc.types.non_null(Date), graphql_name="start_date"
+    )
+    end_date = sgqlc.types.Field(
+        sgqlc.types.non_null(Date), graphql_name="end_date"
+    )
+    dimensions = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(String)),
+        graphql_name="dimensions",
+    )
+    metrics = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(String)),
+        graphql_name="metrics",
+    )
+    event_type = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(String)),
+        graphql_name="event_type",
+    )
+    post_id = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(Int)), graphql_name="post_id"
+    )
+    widget_id = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(Int)),
+        graphql_name="widget_id",
+    )
+    feed_id = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(Int)), graphql_name="feed_id"
+    )
+    client_country = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(String)),
+        graphql_name="client_country",
+    )
+    client_locale = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(String)),
+        graphql_name="client_locale",
+    )
+    client_device = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(String)),
+        graphql_name="client_device",
+    )
+    sort_by = sgqlc.types.Field(String, graphql_name="sort_by")
+    sort_desc = sgqlc.types.Field(Boolean, graphql_name="sort_desc")
+    user_filter = sgqlc.types.Field(JSONObject, graphql_name="user_filter")
+    limit = sgqlc.types.Field(Int, graphql_name="limit")
+    offset = sgqlc.types.Field(Int, graphql_name="offset")
+
+
 class LocaleEntryInput(sgqlc.types.Input):
     __schema__ = gql_schema
     __field_names__ = ("key", "value")
@@ -193,6 +264,40 @@ class AnalyticsPostItem(sgqlc.types.Type):
     comment = sgqlc.types.Field(
         sgqlc.types.non_null(Int), graphql_name="comment"
     )
+
+
+class AnalyticsReport(sgqlc.types.Type):
+    __schema__ = gql_schema
+    __field_names__ = (
+        "start_date",
+        "end_date",
+        "sort_by",
+        "sort_desc",
+        "headers",
+        "rows",
+    )
+    start_date = sgqlc.types.Field(
+        sgqlc.types.non_null(Date), graphql_name="start_date"
+    )
+    end_date = sgqlc.types.Field(
+        sgqlc.types.non_null(Date), graphql_name="end_date"
+    )
+    sort_by = sgqlc.types.Field(String, graphql_name="sort_by")
+    sort_desc = sgqlc.types.Field(Boolean, graphql_name="sort_desc")
+    headers = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null("AnalyticsReportHeader")),
+        graphql_name="headers",
+    )
+    rows = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.list_of(String)), graphql_name="rows"
+    )
+
+
+class AnalyticsReportHeader(sgqlc.types.Type):
+    __schema__ = gql_schema
+    __field_names__ = ("name", "type")
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+    type = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="type")
 
 
 class Auditlog(sgqlc.types.Type):
@@ -763,6 +868,8 @@ class Mutation(sgqlc.types.Type):
         "remove_project_segment",
         "save_post",
         "delete_post",
+        "update_post_locale",
+        "delete_post_locale",
         "save_feed",
         "verify_cname",
         "ensure_widget",
@@ -1711,6 +1818,86 @@ class Mutation(sgqlc.types.Type):
                     sgqlc.types.Arg(
                         sgqlc.types.non_null(ID),
                         graphql_name="post_id",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    update_post_locale = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean),
+        graphql_name="updatePostLocale",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "project_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID),
+                        graphql_name="project_id",
+                        default=None,
+                    ),
+                ),
+                (
+                    "post_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID),
+                        graphql_name="post_id",
+                        default=None,
+                    ),
+                ),
+                (
+                    "locale_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String),
+                        graphql_name="locale_id",
+                        default=None,
+                    ),
+                ),
+                (
+                    "title",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String),
+                        graphql_name="title",
+                        default=None,
+                    ),
+                ),
+                (
+                    "body",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String),
+                        graphql_name="body",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    delete_post_locale = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean),
+        graphql_name="deletePostLocale",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "project_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID),
+                        graphql_name="project_id",
+                        default=None,
+                    ),
+                ),
+                (
+                    "post_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID),
+                        graphql_name="post_id",
+                        default=None,
+                    ),
+                ),
+                (
+                    "locale_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String),
+                        graphql_name="locale_id",
                         default=None,
                     ),
                 ),
@@ -3237,6 +3424,7 @@ class Query(sgqlc.types.Type):
         "analytics",
         "analytics_chart",
         "analytics_post",
+        "analyticsv2",
         "image",
         "check_subscription_plan",
         "plans",
@@ -3834,6 +4022,22 @@ class Query(sgqlc.types.Type):
             )
         ),
     )
+    analyticsv2 = sgqlc.types.Field(
+        sgqlc.types.non_null(AnalyticsReport),
+        graphql_name="analyticsv2",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "input",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(AnalyticsInput),
+                        graphql_name="input",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
     image = sgqlc.types.Field(
         sgqlc.types.non_null(Image),
         graphql_name="image",
@@ -4306,4 +4510,4 @@ class Widget(sgqlc.types.Type):
 ########################################################################
 gql_schema.query_type = Query
 gql_schema.mutation_type = Mutation
-gql_schema.subscription_type = None
+gql_schema.subscription_type = Subscription
