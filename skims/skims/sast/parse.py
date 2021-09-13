@@ -35,7 +35,6 @@ from tree_sitter import (
     Tree,
 )
 from typing import (
-    Any,
     Dict,
     Iterable,
     Iterator,
@@ -92,14 +91,14 @@ Language.build_library(
 
 def get_fields(source: str) -> Dict[str, Tuple[str, ...]]:
     with open(f"{source}/src/node-types.json") as handle:
-        java_fields: Dict[str, Tuple[str, ...]] = {
+        language_fields: Dict[str, Tuple[str, ...]] = {
             node["type"]: fields
             for node in json.load(handle)
             for fields in [tuple(node.get("fields", {}))]
             if fields
         }
 
-    return java_fields
+    return language_fields
 
 
 class ParsingError(Exception):
@@ -122,11 +121,11 @@ def hash_node(node: Node) -> int:
     return hash((node.end_point, node.start_point, node.type))
 
 
-def _is_final_node(obj: Any, language: GraphShardMetadataLanguage) -> bool:
+def _is_final_node(node: Node, language: GraphShardMetadataLanguage) -> bool:
     return (
         (
             language == GraphShardMetadataLanguage.CSHARP
-            and obj.type
+            and node.type
             in {
                 "string_literal",
                 "boolean_literal",
@@ -141,7 +140,7 @@ def _is_final_node(obj: Any, language: GraphShardMetadataLanguage) -> bool:
         )
         or (
             language == GraphShardMetadataLanguage.GO
-            and obj.type
+            and node.type
             in {
                 "interface_type",
                 "interpreted_string_literal",
@@ -149,7 +148,7 @@ def _is_final_node(obj: Any, language: GraphShardMetadataLanguage) -> bool:
         )
         or (
             language == GraphShardMetadataLanguage.JAVA
-            and obj.type
+            and node.type
             in {
                 "array_type",
                 "character_literal",
@@ -165,7 +164,7 @@ def _is_final_node(obj: Any, language: GraphShardMetadataLanguage) -> bool:
         )
         or (
             language == GraphShardMetadataLanguage.JAVASCRIPT
-            and obj.type
+            and node.type
             in {
                 "this",
                 "super",
@@ -181,7 +180,7 @@ def _is_final_node(obj: Any, language: GraphShardMetadataLanguage) -> bool:
         )
         or (
             language == GraphShardMetadataLanguage.TSX
-            and obj.type
+            and node.type
             in {
                 "this",
                 "super",
@@ -197,7 +196,7 @@ def _is_final_node(obj: Any, language: GraphShardMetadataLanguage) -> bool:
         )
         or (
             language == GraphShardMetadataLanguage.KOTLIN
-            and obj.type in {"boolean_literal", "line_string_literal"}
+            and node.type in {"boolean_literal", "line_string_literal"}
         )
     )
 
@@ -205,74 +204,62 @@ def _is_final_node(obj: Any, language: GraphShardMetadataLanguage) -> bool:
 def _build_ast_graph(
     content: bytes,
     language: GraphShardMetadataLanguage,
-    obj: Any,
+    node: Node,
+    counter: Iterator[str],
+    graph: Graph,
     *,
-    _counter: Optional[Iterator[str]] = None,
     _edge_index: Optional[str] = None,
-    _graph: Optional[Graph] = None,
     _parent: Optional[str] = None,
     _parent_fields: Optional[Dict[int, str]] = None,
 ) -> Graph:
-    # Handle first level of recurssion, where _graph is None
-    _counter = map(str, count(1)) if _counter is None else _counter
-    _graph = Graph() if _graph is None else _graph
-
-    if isinstance(obj, Tree):
-        return _build_ast_graph(content, language, obj.root_node)
-
-    if not isinstance(obj, Node):
+    if not isinstance(node, Node):
         raise NotImplementedError()
 
-    if obj.has_error:
+    if node.has_error:
         raise ParsingError()
 
-    n_id = next(_counter)
+    n_id = next(counter)
+    raw_l, raw_c = node.start_point
 
-    _graph.add_node(
-        n_id,
-        label_c=obj.start_point[1] + 1,
-        label_l=obj.start_point[0] + 1,
-        label_type=obj.type,
+    graph.add_node(
+        n_id, label_l=raw_l + 1, label_c=raw_c + 1, label_type=node.type
     )
 
     if _parent is not None:
-        _graph.add_edge(
-            _parent,
-            n_id,
-            label_ast="AST",
-            label_index=_edge_index,
-        )
+        graph.add_edge(_parent, n_id, label_ast="AST", label_index=_edge_index)
 
-        if field := (_parent_fields or {}).get(hash_node(obj)):
-            _graph.nodes[_parent][f"label_field_{field}"] = n_id
+        # if the node is a parent field acording node_type file, associate id
+        # example node-types files at https://github.com/
+        # tree-sitter/tree-sitter-c-sharp/blob/master/src/node-types.json
+        # tree-sitter/tree-sitter-java/blob/master/src/node-types.json
+        if field := (_parent_fields or {}).get(hash_node(node)):
+            graph.nodes[_parent][f"label_field_{field}"] = n_id
 
-    if not obj.children or _is_final_node(obj, language):
+    if not node.children or _is_final_node(node, language):
         # Consider it a final node, extract the text from it
-        node_content = content[obj.start_byte : obj.end_byte].decode("latin-1")
-        _graph.nodes[n_id]["label_text"] = node_content
-    elif language != GraphShardMetadataLanguage.NOT_SUPPORTED:
-        parent_fields: Dict[int, str] = {}
-        parent_fields = {
-            hash_node(child): field
-            for field in FIELDS_BY_LANGAUGE[language].get(obj.type, ())
-            for child in [obj.child_by_field_name(field)]
-            if child
-        }
+        node_content = content[node.start_byte : node.end_byte]
+        graph.nodes[n_id]["label_text"] = node_content.decode("latin-1")
 
+    elif language != GraphShardMetadataLanguage.NOT_SUPPORTED:
         # It's not a final node, recurse
-        for edge_index, child in enumerate(obj.children):
+        for edge_index, child in enumerate(node.children):
             _build_ast_graph(
                 content,
                 language,
                 child,
-                _counter=_counter,
+                counter,
+                graph,
                 _edge_index=str(edge_index),
-                _graph=_graph,
                 _parent=n_id,
-                _parent_fields=parent_fields,
+                _parent_fields={
+                    hash_node(child): fld
+                    for fld in FIELDS_BY_LANGAUGE[language].get(node.type, ())
+                    for child in [node.child_by_field_name(fld)]
+                    if child
+                },
             )
 
-    return _graph
+    return graph
 
 
 def parse_content(
@@ -291,8 +278,10 @@ def _parse_one_cached(
     _: int,
 ) -> GraphShardCacheable:
     raw_tree: Tree = parse_content(content, language)
+    node: Node = raw_tree.root_node
 
-    graph: Graph = _build_ast_graph(content, language, raw_tree)
+    counter = map(str, count(1))
+    graph: Graph = _build_ast_graph(content, language, node, counter, Graph())
     control_flow.add(graph, language)
     syntax = generate_syntax_readers.read_from_graph(graph, language)
     danger_nodes.mark(graph, language, syntax)
