@@ -56,7 +56,7 @@ async def _delete_groups(
             for group_to_delete in groups_to_delete
         ]
     )
-    success = all(
+    return all(
         await collect(
             [
                 groups_domain.remove_group(
@@ -68,7 +68,6 @@ async def _delete_groups(
             ]
         )
     )
-    return success
 
 
 async def _remove_group_pending_deletion_dates(
@@ -81,7 +80,7 @@ async def _remove_group_pending_deletion_dates(
             group.get("pending_deletion_date") and group not in obsolete_groups
         )
     ]
-    success = all(
+    return all(
         await collect(
             [
                 groups_domain.update_pending_deletion_date(
@@ -91,7 +90,6 @@ async def _remove_group_pending_deletion_dates(
             ]
         )
     )
-    return success
 
 
 async def _set_group_pending_deletion_dates(

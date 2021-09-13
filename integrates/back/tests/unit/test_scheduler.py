@@ -52,6 +52,7 @@ import pytest
 from schedulers import (
     delete_imamura_stakeholders,
     delete_obsolete_groups,
+    delete_obsolete_groups_new,
     delete_obsolete_orgs,
     toe_inputs_etl,
     toe_lines_etl,
@@ -494,6 +495,7 @@ async def test_remove_imamura_stakeholders() -> None:
     assert noremove_stakeholder_exists
 
 
+@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @pytest.mark.changes_db
 async def test_remove_obsolete_groups() -> None:
     group_attributes = {
@@ -520,6 +522,52 @@ async def test_remove_obsolete_groups() -> None:
         assert expected_group in alive_groups
 
     await delete_obsolete_groups.main()
+
+    alive_groups = await groups_domain.get_alive_groups(group_attributes)
+    assert len(alive_groups) == 12
+    groups = await groups_domain.get_all(group_attributes)
+    setpendingdeletion = [
+        group
+        for group in groups
+        if get_key_or_fallback(group) == "setpendingdeletion"
+    ][0]
+    assert setpendingdeletion["project_status"] == "SUSPENDED"
+    assert "pending_deletion_date" in setpendingdeletion
+    deletegroup = [
+        group
+        for group in groups
+        if get_key_or_fallback(group) == "deletegroup"
+    ][0]
+    assert deletegroup["project_status"] == "DELETED"
+
+
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+@pytest.mark.changes_db
+async def test_remove_obsolete_groups_new() -> None:
+    group_attributes = {
+        "project_name",
+        "project_status",
+        "pending_deletion_date",
+    }
+    alive_groups = await groups_domain.get_alive_groups(group_attributes)
+    assert len(alive_groups) == 13
+    expected_groups = [
+        {
+            "project_status": "SUSPENDED",
+            "group_name": "setpendingdeletion",
+            "project_name": "setpendingdeletion",
+        },
+        {
+            "group_name": "deletegroup",
+            "project_name": "deletegroup",
+            "project_status": "ACTIVE",
+            "pending_deletion_date": "2020-12-22 14:36:29",
+        },
+    ]
+    for expected_group in expected_groups:
+        assert expected_group in alive_groups
+
+    await delete_obsolete_groups_new.main()
 
     alive_groups = await groups_domain.get_alive_groups(group_attributes)
     assert len(alive_groups) == 12
