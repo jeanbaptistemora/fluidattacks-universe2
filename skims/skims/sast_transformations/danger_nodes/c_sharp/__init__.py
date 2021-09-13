@@ -88,6 +88,18 @@ def mark_inputs(
             *build_attr_paths("System", "DirectoryServices", "DirectoryEntry"),
         },
     )
+    mark_obj_inst_input(
+        findings.F035,
+        graph,
+        syntax,
+        {
+            *build_attr_paths(
+                "Microsoft",
+                "EntityFrameworkCore",
+                "DbContextOptionsBuilder",
+            ),
+        },
+    )
 
 
 def mark_sinks(
@@ -163,6 +175,14 @@ def mark_sinks(
         },
     )
     mark_assignments_sink(findings.F320, graph, syntax, {"AuthenticationType"})
+    mark_methods_sink(
+        findings.F035,
+        graph,
+        syntax,
+        {
+            "UseSqlServer",
+        },
+    )
 
 
 def mark_metadata(

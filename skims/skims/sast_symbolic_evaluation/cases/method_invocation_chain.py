@@ -11,10 +11,12 @@ from sast_symbolic_evaluation.types import (
 )
 from sast_symbolic_evaluation.utils_generic import (
     lookup_var_dcl_by_name,
+    lookup_var_value,
 )
 
 
 def evaluate(args: EvaluatorArgs) -> None:
+    eval_f035(args)
     # pylint: disable=expression-not-assigned
     (
         attempt_java_this_get_class(args)
@@ -144,3 +146,25 @@ def attempt_as_object_instantiation(args: EvaluatorArgs) -> bool:
         return True
 
     return False
+
+
+def eval_f035(args: EvaluatorArgs) -> None:
+    assigned = False
+    if args.dependencies:
+        if isinstance(
+            args.dependencies[0], graph_model.SyntaxStepLiteral
+        ) and isinstance(args.dependencies[0].meta.value, str):
+            con_string = args.dependencies[0].meta.value
+            assigned = True
+        elif isinstance(
+            args.dependencies[0], graph_model.SyntaxStepSymbolLookup
+        ):
+            con_string = lookup_var_value(args, args.dependencies[0].symbol)
+            assigned = True
+        if assigned:
+            for argument in con_string.split(";"):
+                if (
+                    argument.split("=")[0] == "Password"
+                    and len(argument.split("=")[1]) == 0
+                ):
+                    args.syntax_step.meta.danger = True
