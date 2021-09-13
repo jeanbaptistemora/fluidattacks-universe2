@@ -10,15 +10,8 @@ from typing import (
 
 
 @dataclass(frozen=True)
-class _ProjectId:
+class ProjectId:
     proj_id: str
-
-
-@dataclass(frozen=True)
-class ProjectId(_ProjectId):
-    def __init__(self, obj: _ProjectId) -> None:
-        for key, val in obj.__dict__.items():
-            object.__setattr__(self, key, val)
 
 
 JsonStr = str

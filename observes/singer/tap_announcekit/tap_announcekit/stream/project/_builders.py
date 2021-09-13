@@ -27,7 +27,6 @@ from tap_announcekit.api.gql_schema import (
 )
 from tap_announcekit.stream.project._objs import (
     _Project,
-    _ProjectId,
     Project,
     ProjectId,
 )
@@ -40,10 +39,6 @@ LOG = logging.getLogger(__name__)
 JsonStr = str
 
 
-def _new_proj_id(proj_id: str) -> ProjectId:
-    return ProjectId(_ProjectId(proj_id))
-
-
 def _to_datetime(raw: Any) -> datetime:
     if isinstance(raw, datetime):
         return raw
@@ -52,7 +47,7 @@ def _to_datetime(raw: Any) -> datetime:
 
 def to_proj(raw: RawProject) -> Project:
     draft = _Project(
-        _new_proj_id(to_primitive(raw.id, str)),
+        ProjectId(to_primitive(raw.id, str)),
         to_primitive(raw.encoded_id, str),
         to_primitive(raw.name, str),
         to_primitive(raw.slug, str),
