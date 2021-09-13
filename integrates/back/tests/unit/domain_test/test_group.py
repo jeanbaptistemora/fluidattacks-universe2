@@ -34,11 +34,9 @@ from findings.domain import (
     get_last_closed_vulnerability_info,
     get_last_closed_vulnerability_info_new,
     get_max_open_severity,
+    get_max_open_severity_new,
     get_pending_verification_findings,
     get_total_treatment,
-)
-from findings.domain.core import (
-    get_max_open_severity_new,
 )
 from freezegun import (
     freeze_time,
@@ -70,6 +68,7 @@ from groups.domain import (
     get_mean_remediate_severity_cvssf,
     get_open_finding,
     get_open_vulnerabilities,
+    get_open_vulnerabilities_new,
     get_vulnerabilities_with_pending_attacks,
     is_alive,
     update_group_attrs,
@@ -258,6 +257,16 @@ async def test_get_open_vulnerabilities() -> None:
     group_name = "unittesting"
     expected_output = 29
     open_vulns = await get_open_vulnerabilities(get_new_context(), group_name)
+    assert open_vulns == expected_output
+
+
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+async def test_get_open_vulnerabilities_new() -> None:
+    group_name = "unittesting"
+    expected_output = 29
+    open_vulns = await get_open_vulnerabilities_new(
+        get_new_context(), group_name
+    )
     assert open_vulns == expected_output
 
 
