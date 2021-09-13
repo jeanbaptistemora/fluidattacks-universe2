@@ -8,8 +8,8 @@ from async_lru import (
 from charts import (
     utils,
 )
-from charts.colors import (
-    RISK,
+from charts.generators.bar_chart.utils import (
+    format_vulnerabilities_by_data,
 )
 from context import (
     FI_API_STATUS,
@@ -24,13 +24,9 @@ from operator import (
     itemgetter,
 )
 from typing import (
-    Any,
-    cast,
     Counter,
-    Dict,
     List,
     Tuple,
-    Union,
 )
 
 
@@ -63,48 +59,13 @@ async def get_data_many_groups(groups: List[str]) -> Counter[str]:
     return sum(groups_data, Counter())
 
 
-def format_data(counters: Counter[str]) -> Dict[str, Any]:
-    data = counters.most_common()[:12]
-
-    return dict(
-        data=dict(
-            columns=[
-                cast(List[Union[int, str]], ["Level"])
-                + [value for _, value in data],
-            ],
-            colors={
-                "Level": RISK.neutral,
-            },
-            type="bar",
-        ),
-        legend=dict(
-            position="bottom",
-        ),
-        axis=dict(
-            x=dict(
-                categories=[str(key) for key, _ in data],
-                type="category",
-                tick=dict(
-                    rotate=utils.TICK_ROTATION,
-                    multiline=False,
-                ),
-            ),
-            y=dict(
-                min=0,
-                padding=dict(
-                    bottom=0,
-                ),
-            ),
-        ),
-        barChartYTickFormat=True,
-    )
-
-
 async def generate_all() -> None:
+    column: str = "Level"
     async for group in utils.iterate_groups():
         utils.json_dump(
-            document=format_data(
+            document=format_vulnerabilities_by_data(
                 counters=await get_data_one_group(group),
+                column=column,
             ),
             entity="group",
             subject=group,
@@ -114,8 +75,9 @@ async def generate_all() -> None:
         utils.iterate_organizations_and_groups()
     ):
         utils.json_dump(
-            document=format_data(
+            document=format_vulnerabilities_by_data(
                 counters=await get_data_many_groups(list(org_groups)),
+                column=column,
             ),
             entity="organization",
             subject=org_id,
@@ -124,8 +86,9 @@ async def generate_all() -> None:
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
             utils.json_dump(
-                document=format_data(
+                document=format_vulnerabilities_by_data(
                     counters=await get_data_many_groups(groups),
+                    column=column,
                 ),
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
