@@ -5,9 +5,9 @@ metadata:
   namespace: production
 spec:
   # Max replica number based on ./autoscaling.yaml.
-  # Every deployment will scale replicas to 25,
+  # Every deployment will scale replicas,
   # and then HPA will resize it.
-  replicas: 25
+  replicas: 50
   selector:
     matchLabels:
       app: integrates-master
@@ -44,11 +44,11 @@ spec:
             #   kubectl get pod -n production
             #   kubectl describe pod -n production <pod>
             requests:
-              cpu: 3000m
-              memory: 6000Mi
+              cpu: 1000m
+              memory: 2000Mi
             limits:
-              cpu: 4000m
-              memory: 7800Mi
+              cpu: 2000m
+              memory: 3800Mi
           env:
             - name: INSTANA_AGENT_HOST
               valueFrom:
