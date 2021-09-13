@@ -1,6 +1,9 @@
 from charts.colors import (
     RISK,
 )
+from charts.utils import (
+    TICK_ROTATION,
+)
 from custom_types import (
     Vulnerability,
 )
@@ -13,10 +16,13 @@ from statistics import (
 )
 from typing import (
     Any,
+    cast,
+    Counter,
     Dict,
     List,
     NamedTuple,
     Tuple,
+    Union,
 )
 
 ORGANIZATION_CATEGORIES: List[str] = [
@@ -137,4 +143,43 @@ def get_best_mttr(*, organizations: List[Benchmarking]) -> Decimal:
         ).to_integral_exact(rounding=ROUND_CEILING)
         if organizations
         else Decimal("0")
+    )
+
+
+def format_vulnerabilities_by_data(
+    counters: Counter[str], column: str
+) -> Dict[str, Any]:
+    data = counters.most_common()[:12]
+
+    return dict(
+        data=dict(
+            columns=[
+                cast(List[Union[int, str]], [column])
+                + [value for _, value in data],
+            ],
+            colors={
+                column: RISK.neutral,
+            },
+            type="bar",
+        ),
+        legend=dict(
+            position="bottom",
+        ),
+        axis=dict(
+            x=dict(
+                categories=[key for key, _ in data],
+                type="category",
+                tick=dict(
+                    rotate=TICK_ROTATION,
+                    multiline=False,
+                ),
+            ),
+            y=dict(
+                min=0,
+                padding=dict(
+                    bottom=0,
+                ),
+            ),
+        ),
+        barChartYTickFormat=True,
     )
