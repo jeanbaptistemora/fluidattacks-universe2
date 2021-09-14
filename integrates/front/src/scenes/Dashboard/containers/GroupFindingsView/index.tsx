@@ -26,6 +26,7 @@ import type {
   IHeaderConfig,
 } from "components/DataTableNext/types";
 import {
+  filterLastNumber,
   filterSearchText,
   filterSelect,
   filterText,
@@ -118,6 +119,8 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const [reattackFilter, setReattackFilter] = useState("");
   const [whereFilter, setWhereFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
+  const [ageFilter, setAgeFilter] = useState("");
+  const [lastReportFilter, setLastReportFilter] = useState("");
 
   const handleChange: (columnName: string) => void = useCallback(
     (columnName: string): void => {
@@ -328,15 +331,45 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     "where"
   );
 
+  function onAgeChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    setAgeFilter(event.target.value);
+  }
+  const filterAgeFindings: IFindingAttr[] = filterLastNumber(
+    findings,
+    ageFilter,
+    "age"
+  );
+
+  function onLastReportChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setLastReportFilter(event.target.value);
+  }
+  const filterLastReportFindings: IFindingAttr[] = filterLastNumber(
+    findings,
+    lastReportFilter,
+    "lastVulnerability"
+  );
+
   const resultFindings: IFindingAttr[] = _.intersection(
     filterSearchtextFindings,
     filterCurrentStatusFindings,
     filterReattackFindings,
     filterWhereFindings,
-    filterTypeFindings
+    filterTypeFindings,
+    filterAgeFindings,
+    filterLastReportFindings
   );
 
   const customFilters: IFilterProps[] = [
+    {
+      defaultValue: lastReportFilter,
+      onChangeInput: onLastReportChange,
+      placeholder: "Last report (last N days)",
+      tooltipId: "group.findings.filtersTooltips.lastReport.id",
+      tooltipMessage: "group.findings.filtersTooltips.lastReport",
+      type: "number",
+    },
     {
       defaultValue: typeFilter,
       onChangeSelect: onTypeChange,
@@ -357,6 +390,14 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       tooltipId: "group.findings.filtersTooltips.status.id",
       tooltipMessage: "group.findings.filtersTooltips.status",
       type: "select",
+    },
+    {
+      defaultValue: ageFilter,
+      onChangeInput: onAgeChange,
+      placeholder: "Age (last N days)",
+      tooltipId: "group.findings.filtersTooltips.age.id",
+      tooltipMessage: "group.findings.filtersTooltips.age",
+      type: "number",
     },
     {
       defaultValue: whereFilter,
