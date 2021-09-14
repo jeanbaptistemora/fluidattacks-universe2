@@ -35,6 +35,7 @@ import {
   ButtonToolbarLeft,
   ButtonToolbarRow,
   Filters,
+  InputNumber,
   InputText,
   SearchContainer,
   SearchText,
@@ -164,6 +165,16 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
             )
           )}
         </Select>
+      );
+    if (type === "number")
+      return (
+        <InputNumber
+          defaultValue={defaultValue}
+          min={0}
+          onChange={handleChangeInput}
+          placeholder={t(`${placeholder}`)}
+          type={"number"}
+        />
       );
 
     return (

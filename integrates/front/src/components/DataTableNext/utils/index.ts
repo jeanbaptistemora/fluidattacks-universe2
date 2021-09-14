@@ -3,6 +3,7 @@ export { customizeColumns } from "components/DataTableNext/utils/customizeColumn
 
 export {
   filterDate,
+  filterLastNumber,
   filterSearchText,
   filterSelect,
   filterText,

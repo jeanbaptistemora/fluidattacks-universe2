@@ -56,5 +56,23 @@ function filterSearchText<T extends Record<string, any>>(
         )
   );
 }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function filterLastNumber<T extends Record<string, any>>(
+  rows: T[],
+  currentNumber: string,
+  columnKey: string
+): T[] {
+  return rows.filter((row: T): boolean =>
+    _.isEmpty(currentNumber)
+      ? true
+      : Number(row[columnKey]) <= Number(currentNumber)
+  );
+}
 
-export { filterDate, filterSelect, filterSearchText, filterText };
+export {
+  filterDate,
+  filterLastNumber,
+  filterSelect,
+  filterSearchText,
+  filterText,
+};

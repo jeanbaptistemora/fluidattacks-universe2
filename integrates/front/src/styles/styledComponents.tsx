@@ -486,6 +486,10 @@ const InputText = styled.input.attrs({
   className: `${style["form-control"]} black-40 border-box`,
 })``;
 
+const InputNumber = styled.input.attrs({
+  className: `${style["form-control"]} black-40 border-box`,
+})``;
+
 const SearchText = styled.input.attrs({
   className: `${style["form-control"]} black-40 border-box`,
 })``;
@@ -636,6 +640,7 @@ export {
   Flex,
   FormGroup,
   HintFieldText,
+  InputNumber,
   InputText,
   GraphicButton,
   GraphicPanelCollapse,

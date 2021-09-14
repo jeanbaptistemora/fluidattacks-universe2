@@ -27,7 +27,7 @@ interface IFilterProps {
   placeholder?: string;
   tooltipId: string;
   tooltipMessage: string;
-  type: "date" | "select" | "text";
+  type: "date" | "number" | "select" | "text";
 }
 
 interface ICustomSearchProps {
