@@ -6,6 +6,9 @@ This migration sets all toe's sorts_risk_level attribute
 with negative or zero values to -1 so, after executing the
 sorts_execute_for_toes scheduler, we can differentiate
 between non-analyzed files and 0% risk analized files
+
+Execution Time:    2021-09-14 at 09:23:02 UTC-05
+Finalization Time: 2021-09-14 at 11:15:28 UTC-05
 """
 
 
