@@ -3,16 +3,16 @@ from toolbox.api.exceptions import (
 )
 from toolbox.utils.integrates import (
     get_group_language,
-    get_project_repos,
-    get_projects_with_forces,
+    get_group_repos,
+    get_groups_with_forces,
     has_drills,
     has_forces,
 )
 
 
-def test_get_projects_with_forces() -> None:
-    projects = get_projects_with_forces()
-    assert "continuoustest" in projects
+def test_get_groups_with_forces() -> None:
+    groups = get_groups_with_forces()
+    assert "continuoustest" in groups
 
 
 def test_has_forces() -> None:
@@ -26,9 +26,9 @@ def test_has_forces() -> None:
 
 
 def test_get_repos() -> None:
-    repos = get_project_repos("continuoustest")
+    repos = get_group_repos("continuoustest")
     assert not repos
-    assert not get_project_repos("undefined")
+    assert not get_group_repos("undefined")
 
 
 def test_get_group_language() -> None:

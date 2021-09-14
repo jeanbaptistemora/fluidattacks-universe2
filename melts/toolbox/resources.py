@@ -374,14 +374,14 @@ def repo_cloning(subs: str, repo_name: str) -> bool:
     if repo_name == "*":
         repositories = list(
             root
-            for root in repo_request.data["project"]["roots"]
+            for root in repo_request.data["group"]["roots"]
             if root["state"] == "ACTIVE"
         )
         manage_repo_diffs(repositories)
     else:
         repositories = list(
             root
-            for root in repo_request.data["project"]["roots"]
+            for root in repo_request.data["group"]["roots"]
             if root["state"] == "ACTIVE" and root["nickname"] == repo_name
         )
         if not repositories:

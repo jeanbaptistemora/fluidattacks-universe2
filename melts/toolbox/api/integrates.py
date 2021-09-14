@@ -200,24 +200,23 @@ class Queries:
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
-    def project(
+    def group(
         api_token: str,
-        project_name: str,
+        group_name: str,
         with_drafts: bool = False,
         with_findings: bool = False,
     ) -> Response:
-        """Get a project."""
+        """Get a group."""
         LOGGER.debug(
-            "Query.project(project_name=%s, with_drafts=%s,"
-            " with_findings=%s)",
-            project_name,
+            "Query.group(group_name=%s, with_drafts=%s," " with_findings=%s)",
+            group_name,
             with_drafts,
             with_findings,
         )
         body: str = """
-            query MeltsGetProject($projectName: String!, $withDrafts: Boolean!,
+            query MeltsGetGroup($groupName: String!, $withDrafts: Boolean!,
                              $withFindings: Boolean!) {
-                project(projectName: $projectName) {
+                group(groupName: $groupName) {
                     drafts @include(if: $withDrafts) {
                         id @include(if: $withDrafts)
                         title @include(if: $withDrafts)
@@ -230,20 +229,20 @@ class Queries:
             }
             """
         params: dict = {
-            "projectName": project_name,
+            "groupName": group_name,
             "withDrafts": with_drafts,
             "withFindings": with_findings,
         }
-        return request(api_token, body, params, operation="MeltsGetProject")
+        return request(api_token, body, params, operation="MeltsGetGroup")
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
-    def wheres(api_token: str, project_name: str) -> Response:
-        """Get all the open, code wheres from a project."""
-        LOGGER.debug("Query.project(project_name=%s)", project_name)
+    def wheres(api_token: str, group_name: str) -> Response:
+        """Get all the open, code wheres from a group."""
+        LOGGER.debug("Query.group(group_name=%s)", group_name)
         body: str = """
-            query MeltsGetWheres($projectName: String!) {
-                project(projectName: $projectName) {
+            query MeltsGetWheres($groupName: String!) {
+                group(groupName: $groupName) {
                     findings {
                         id
                         vulnerabilities(state: "open") {
@@ -255,7 +254,7 @@ class Queries:
             }
             """
         params: dict = {
-            "projectName": project_name,
+            "groupName": group_name,
         }
         return request(api_token, body, params, operation="MeltsGetWheres")
 
@@ -278,7 +277,7 @@ class Queries:
                     closedVulnerabilities @include(if: $withVulns)
                     description
                     openVulnerabilities @include(if: $withVulns)
-                    projectName
+                    groupName
                     recommendation
                     releaseDate
                     severityScore
@@ -307,26 +306,26 @@ class Queries:
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
-    def resources(api_token: str, project_name: str) -> Response:
-        """Get the project repositories"""
-        LOGGER.debug("Query.finding(project_name=%s", project_name)
+    def resources(api_token: str, group_name: str) -> Response:
+        """Get the group repositories"""
+        LOGGER.debug("Query.finding(group_name=%s", group_name)
         body: str = """
-        query MeltsGetResources($projectName: String!) {
-            resources (projectName: $projectName) {
+        query MeltsGetResources($groupName: String!) {
+            resources (groupName: $groupName) {
                 repositories
             }
         }
         """
-        params: dict = {"projectName": project_name}
+        params: dict = {"groupName": group_name}
         return request(api_token, body, params, operation="MeltsGetResources")
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
-    def git_roots(api_token: str, project_name: str) -> Response:
-        """Get project git roots"""
+    def git_roots(api_token: str, group_name: str) -> Response:
+        """Get group git roots"""
         query = """
-            query MeltsGetGitRoots($projectName: String!) {
-              project(projectName: $projectName){
+            query MeltsGetGitRoots($groupName: String!) {
+              group(groupName: $groupName){
                 roots {
                   ...on GitRoot{
                     id
@@ -340,16 +339,16 @@ class Queries:
               }
             }
         """
-        params: dict = {"projectName": project_name}
+        params: dict = {"groupName": group_name}
         return request(api_token, query, params, operation="MeltsGetGitRoots")
 
     @staticmethod
     @functools.lru_cache(maxsize=CACHE_SIZE, typed=True)
-    def git_roots_filter(api_token: str, project_name: str) -> Response:
-        """Get project git roots"""
+    def git_roots_filter(api_token: str, group_name: str) -> Response:
+        """Get group git roots"""
         query = """
-            query MeltsGetGitRootsFilter($projectName: String!) {
-              project(projectName: $projectName){
+            query MeltsGetGitRootsFilter($groupName: String!) {
+              group(groupName: $groupName){
                 roots {
                   ...on GitRoot{
                     id
@@ -361,7 +360,7 @@ class Queries:
               }
             }
         """
-        params: dict = {"projectName": project_name}
+        params: dict = {"groupName": group_name}
         return request(
             api_token,
             query,
@@ -370,17 +369,17 @@ class Queries:
         )
 
     @staticmethod
-    def get_group_info(api_token: str, project_name: str) -> Response:
+    def get_group_info(api_token: str, group_name: str) -> Response:
         query = """
-            query MeltsGetGroupLanguage($projectName: String!) {
-              project(projectName: $projectName){
+            query MeltsGetGroupLanguage($groupName: String!) {
+              group(groupName: $groupName){
                 hasForces
                 language
                 hasDrills
               }
             }
         """
-        params: dict = {"projectName": project_name}
+        params: dict = {"groupName": group_name}
         return request(
             api_token,
             query,
@@ -389,7 +388,7 @@ class Queries:
         )
 
     @staticmethod
-    def get_projects_with_forces(api_token: str) -> Response:
+    def get_groups_with_forces(api_token: str) -> Response:
         query = """
             query MeltsListGroupsWithForces{
               groupsWithForces
@@ -405,7 +404,7 @@ class Queries:
     def get_forces_token(api_token: str, group_name: str) -> Response:
         query = """
             query MeltsGetForcesToken($groupName: String!) {
-              project(projectName: $groupName){
+              group(groupName: $groupName){
                 forcesToken
               }
             }
@@ -546,7 +545,7 @@ __all__: List[str] = ["request", "request", "Queries", "Mutations"]
 
 def clear_cache() -> None:
     Queries.me.cache_clear()
-    Queries.project.cache_clear()
+    Queries.group.cache_clear()
     Queries.finding.cache_clear()
     Queries.resources.cache_clear()
     Queries.wheres.cache_clear()

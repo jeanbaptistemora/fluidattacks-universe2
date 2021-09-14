@@ -68,7 +68,7 @@ def misc_management(  # pylint: disable=too-many-arguments
             )
         )
     elif groups_with_forces:
-        success = utils.integrates.get_projects_with_forces_json_str()
+        success = utils.integrates.get_groups_with_forces_json_str()
     elif get_group_language:
         print(utils.integrates.get_group_language(group))
         success = True

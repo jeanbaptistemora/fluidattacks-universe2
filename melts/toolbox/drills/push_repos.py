@@ -94,7 +94,7 @@ def get_root_upload_dates(subs: str) -> Dict[str, str]:
 
     return {
         root["nickname"]: root["lastCloningStatusUpdate"]
-        for root in response.data["project"]["roots"]
+        for root in response.data["group"]["roots"]
     }
 
 

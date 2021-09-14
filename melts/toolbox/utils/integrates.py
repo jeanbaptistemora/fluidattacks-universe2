@@ -33,16 +33,16 @@ else:
     DELAY = 2
 
 
-def get_project_repos(project: str) -> List:
-    """Return the repositories for a project."""
+def get_group_repos(group: str) -> List:
+    """Return the repositories for a group."""
     repositories: List[str] = []
     response = api.integrates.Queries.resources(
-        api_token=API_TOKEN, project_name=project
+        api_token=API_TOKEN, group_name=group
     )
     if response.ok:
         repositories = json.loads(response.data["resources"]["repositories"])
     else:
-        LOGGER.error("An error has occurred querying the %s group", project)
+        LOGGER.error("An error has occurred querying the %s group", group)
         LOGGER.error(response.errors)
 
     return repositories
@@ -54,7 +54,7 @@ def get_filter_rules(group: str) -> List[Dict[str, Any]]:
         LOGGER.error("An error has occurred querying the %s group", group)
         LOGGER.error(filter_request.errors)
         return list()
-    return filter_request.data["project"]["roots"]
+    return filter_request.data["group"]["roots"]
 
 
 @retry(IntegratesError, tries=RETRIES, delay=DELAY)
@@ -63,12 +63,12 @@ def has_forces(group: str) -> bool:
     if not response.ok:
         raise IntegratesError(response.errors)
 
-    return response.data["project"]["hasForces"]
+    return response.data["group"]["hasForces"]
 
 
 @retry(IntegratesError, tries=RETRIES, delay=DELAY)
-def get_projects_with_forces() -> List[str]:
-    response = api.integrates.Queries.get_projects_with_forces(API_TOKEN)
+def get_groups_with_forces() -> List[str]:
+    response = api.integrates.Queries.get_groups_with_forces(API_TOKEN)
 
     if not response.ok:
         raise IntegratesError(response.errors)
@@ -76,8 +76,8 @@ def get_projects_with_forces() -> List[str]:
     return response.data["groupsWithForces"]
 
 
-def get_projects_with_forces_json_str() -> bool:
-    print(json.dumps(get_projects_with_forces()))
+def get_groups_with_forces_json_str() -> bool:
+    print(json.dumps(get_groups_with_forces()))
     return True
 
 
@@ -88,7 +88,7 @@ def get_group_language(group: str) -> str:
         LOGGER.error("An error has occurred querying the %s group", group)
         raise IntegratesError(response.errors)
 
-    return response.data["project"]["language"]
+    return response.data["group"]["language"]
 
 
 @retry(IntegratesError, tries=RETRIES, delay=DELAY)
@@ -97,7 +97,7 @@ def has_drills(group: str) -> bool:
     if not response.ok:
         raise IntegratesError(response.errors)
 
-    return response.data["project"]["hasDrills"]
+    return response.data["group"]["hasDrills"]
 
 
 @retry(IntegratesError, tries=RETRIES, delay=DELAY)
@@ -106,7 +106,7 @@ def get_forces_token(group: str) -> str:
     if not response.ok:
         raise IntegratesError(response.errors)
 
-    return response.data["project"]["forcesToken"]
+    return response.data["group"]["forcesToken"]
 
 
 def filter_groups_with_forces(groups: Tuple[str, ...]) -> Tuple[str, ...]:
