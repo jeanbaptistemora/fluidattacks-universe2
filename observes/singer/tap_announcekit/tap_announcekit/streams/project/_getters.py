@@ -11,9 +11,6 @@ from returns.io import (
 from returns.unsafe import (
     unsafe_perform_io,
 )
-from sgqlc.endpoint.http import (
-    HTTPEndpoint,
-)
 from sgqlc.operation import (
     Operation,
 )
@@ -24,6 +21,9 @@ from singer_io.singer2.json import (
 )
 from tap_announcekit.api import (
     gql_schema,
+)
+from tap_announcekit.api.client import (
+    ApiClient,
 )
 from tap_announcekit.api.gql_schema import (
     Project as RawProject,
@@ -93,17 +93,17 @@ def _proj_query(proj_id: str) -> Operation:
     return operation
 
 
-def _get_project(client: HTTPEndpoint, proj_id: ProjectId) -> IO[Project]:
+def _get_project(client: ApiClient, proj_id: ProjectId) -> IO[Project]:
     operation = _proj_query(proj_id.proj_id)
     LOG.debug("operation: %s", operation)
-    data = client(operation)
+    data = client.endpoint(operation)
     LOG.debug("raw: %s", data)
     raw: RawProject = (operation + data).project
     return IO(_to_proj(raw))
 
 
 def _get_projs(
-    client: HTTPEndpoint, projs: IO[Iterator[ProjectId]]
+    client: ApiClient, projs: IO[Iterator[ProjectId]]
 ) -> IO[Iterator[Project]]:
     return projs.bind(
         lambda ids: new_iter(
@@ -115,7 +115,7 @@ def _get_projs(
 class ProjectGetters:
     # pylint: disable=too-few-public-methods
     @staticmethod
-    def getter(client: HTTPEndpoint) -> StreamGetter[ProjectId, Project]:
+    def getter(client: ApiClient) -> StreamGetter[ProjectId, Project]:
         return StreamGetter(
             partial(_get_project, client), partial(_get_projs, client)
         )

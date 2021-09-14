@@ -4,8 +4,8 @@ from returns.io import (
 from returns.unsafe import (
     unsafe_perform_io,
 )
-from sgqlc.endpoint.http import (
-    HTTPEndpoint,
+from tap_announcekit.api.client import (
+    ApiClient,
 )
 from tap_announcekit.stream import (
     Stream,
@@ -32,7 +32,7 @@ class ProjectStreams:
     # pylint: disable=too-few-public-methods
     @staticmethod
     def stream(
-        client: HTTPEndpoint,
+        client: ApiClient,
         proj_ids: IO[Iterator[ProjectId]],
         name: str = "project",
     ) -> Stream:

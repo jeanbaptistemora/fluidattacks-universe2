@@ -15,12 +15,12 @@ from sgqlc import (
     codegen,
     introspection,
 )
-from sgqlc.endpoint.http import (
-    HTTPEndpoint,
-)
 import sys
-from tap_announcekit.api import (
-    API_ENDPOINT,
+from tap_announcekit.api.auth import (
+    Creds,
+)
+from tap_announcekit.api.client import (
+    ApiClient,
 )
 import tempfile
 from typing import (
@@ -32,8 +32,8 @@ LOG = logging.getLogger(__name__)
 
 
 def _get_api_schema(target: IO_FILE[str]) -> IO[None]:
-    endpoint = HTTPEndpoint(API_ENDPOINT)
-    data = endpoint(
+    client = ApiClient(Creds("", ""))
+    data = client.endpoint(
         introspection.query,
         introspection.variables(
             include_description=False,
