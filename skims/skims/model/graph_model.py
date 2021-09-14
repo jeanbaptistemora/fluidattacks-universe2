@@ -493,13 +493,6 @@ GRAPH_VULNERABILITY_PARAMETERS: Dict[
             desc_params={},
         )
     ),
-    core_model.FindingEnum.F035: (
-        GraphVulnerabilityParameters(
-            cwe=(521,),
-            desc_key="F035.description",
-            desc_params={},
-        )
-    ),
 }
 
 
