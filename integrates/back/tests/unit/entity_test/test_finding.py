@@ -18,6 +18,12 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.findings.enums import (
+    FindingStateStatus,
+)
+from db_model.findings.types import (
+    Finding,
+)
 from findings import (
     dal as findings_dal,
 )
@@ -48,13 +54,11 @@ pytestmark = pytest.mark.asyncio
 async def _get_result(
     data: Dict[str, Any],
     user: str = "integratesmanager@gmail.com",
-    context: Optional[Dataloaders] = None,
+    loaders: Optional[Dataloaders] = None,
 ) -> Dict[str, Any]:
     """Get result."""
     request = await create_dummy_session(username=user)
-    request = apply_context_attrs(
-        request, loaders=context if context else get_new_context()
-    )
+    request = apply_context_attrs(request, loaders or get_new_context())
     _, result = await graphql(SCHEMA, data, context_value=request)
     return result
 
@@ -552,6 +556,36 @@ async def test_remove_finding() -> None:
         assert await get_finding("560175507")
 
 
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+@pytest.mark.changes_db
+async def test_remove_finding_new() -> None:
+    """Check for removeFinding mutation."""
+    finding_id = "560175507"
+    loaders: Dataloaders = get_new_context()
+    finding: Finding = await loaders.finding_new.load(finding_id)
+    assert finding.state.status == FindingStateStatus.CREATED
+
+    query = f"""
+      mutation {{
+        removeFinding(
+          findingId: "{finding_id}"
+          justification: NOT_REQUIRED
+        ) {{
+          success
+        }}
+      }}
+    """
+    data = {"query": query}
+    result = await _get_result(data)
+    assert "errors" not in result
+    assert "success" in result["data"]["removeFinding"]
+    assert result["data"]["removeFinding"]["success"]
+
+    loaders.finding_new.clear(finding_id)
+    with pytest.raises(FindingNotFound):
+        assert await loaders.finding_new.load(finding_id)
+
+
 @pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @pytest.mark.changes_db
 async def test_approve_draft() -> None:
@@ -646,15 +680,15 @@ async def test_filter_deleted_findings() -> None:
         }
       }
     """
-    context = get_new_context()
-    open_vulns = await get_open_vulnerabilities(context, "unittesting")
+    loaders: Dataloaders = get_new_context()
+    open_vulns = await get_open_vulnerabilities(loaders, "unittesting")
 
     data = {"query": mutation}
-    result = await _get_result(data, context=context)
+    result = await _get_result(data, loaders=loaders)
     assert "errors" not in result
     assert "success" in result["data"]["removeFinding"]
     assert result["data"]["removeFinding"]["success"]
-    assert await get_open_vulnerabilities(context, "unittesting") < open_vulns
+    assert await get_open_vulnerabilities(loaders, "unittesting") < open_vulns
 
 
 async def test_non_existing_finding() -> None:
