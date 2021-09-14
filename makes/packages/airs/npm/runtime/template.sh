@@ -12,3 +12,9 @@ function install_fontawesome_pro {
 
   npm install "${options}" "${deps[@]}"
 }
+
+function install_scripts {
+  : \
+    && rm -rf node_modules/sharp \
+    && npm install --ignore-scripts=false
+}

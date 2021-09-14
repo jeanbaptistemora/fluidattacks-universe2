@@ -1,8 +1,9 @@
 airs.adoc.linter
-airs.fontawesome
 airs.lint.content
 airs.lint.styles
 airs.npm
+airs.npm.env
+airs.npm.runtime
 forces.bundle
 forces.config-development
 forces.config-runtime

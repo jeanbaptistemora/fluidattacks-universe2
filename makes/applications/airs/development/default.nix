@@ -18,7 +18,7 @@ makeEntrypoint {
       nixpkgs.utillinux
     ];
     envSources = [
-      packages.airs.fontawesome
+      packages.airs.npm.runtime
     ];
     envUtils = [
       "/makes/utils/aws"

@@ -3,7 +3,7 @@
 function main {
   copy "${envAirsFront}" front \
     && pushd front \
-    && copy "${envAirsNpm}/node_modules" 'node_modules' \
+    && copy "${envAirsNpm}" 'node_modules' \
     && HOME=. ./node_modules/.bin/stylelint '**/*.scss' \
     && popd \
     && touch "${out}" \

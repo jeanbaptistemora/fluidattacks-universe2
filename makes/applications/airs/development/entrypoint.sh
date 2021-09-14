@@ -13,7 +13,7 @@ function main {
       GATSBY_ALGOLIA_SEARCH_KEY \
       ALGOLIA_ADMIN_KEY \
     && pushd "${src}" \
-    && npm install \
+    && install_scripts \
     && install_fontawesome_pro --no-save \
     && popd \
     && npm run develop --prefix airs/front/

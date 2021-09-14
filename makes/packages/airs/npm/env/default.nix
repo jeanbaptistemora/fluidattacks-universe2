@@ -2,7 +2,7 @@
 , path
 , ...
 }:
-makes.makeNodeJsModules {
+makes.makeNodeJsEnvironment {
   name = "airs-npm";
   nodeJsVersion = "12";
   packageJson = path "/airs/front/package.json";

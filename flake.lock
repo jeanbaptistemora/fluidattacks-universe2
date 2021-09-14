@@ -19,11 +19,11 @@
     "makesSource": {
       "flake": false,
       "locked": {
-        "lastModified": 1631563411,
-        "narHash": "sha256-43cqS0Ym8+LuZ25Q1++VsPrgySh+npC4tjWWGxdfcIE=",
+        "lastModified": 1631652840,
+        "narHash": "sha256-n4r4cFz5IpdUQYj2ISj0S1bZBwhMtexJ11ThCHt6Ct8=",
         "owner": "fluidattacks",
         "repo": "makes",
-        "rev": "42c36942fcf0592cbcbec4be51becaff3f877c11",
+        "rev": "8eaa4ccaa51e482df8e39f108db51ba03941d7b5",
         "type": "github"
       },
       "original": {

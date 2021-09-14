@@ -15,5 +15,6 @@ makeDerivation {
     envPaths = [
       nixpkgs.findutils
     ];
+    envSources = [ packages.airs.npm.env ];
   };
 }
