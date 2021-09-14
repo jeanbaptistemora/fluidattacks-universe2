@@ -37,6 +37,7 @@ from findings.domain import (
     get_max_open_severity_new,
     get_pending_verification_findings,
     get_total_treatment,
+    get_total_treatment_new,
 )
 from freezegun import (
     freeze_time,
@@ -397,6 +398,23 @@ async def test_get_total_treatment() -> None:
         findings_dal.get_finding(finding_id) for finding_id in findings_to_get
     )
     test_data = await get_total_treatment(context, findings)
+    expected_output = {
+        "inProgress": 1,
+        "accepted": 1,
+        "acceptedUndefined": 0,
+        "undefined": 0,
+    }
+    assert test_data == expected_output
+
+
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+async def test_get_total_treatment_new() -> None:
+    loaders = get_new_context()
+    findings_to_get = ["463558592", "422286126"]
+    findings: Tuple[Finding, ...] = await loaders.finding_new.load_many(
+        findings_to_get
+    )
+    test_data = await get_total_treatment_new(loaders, findings)
     expected_output = {
         "inProgress": 1,
         "accepted": 1,
