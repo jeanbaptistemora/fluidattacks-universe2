@@ -26,6 +26,7 @@ from findings import (
 from findings.domain import (
     add_comment,
     approve_draft,
+    approve_draft_new,
     get_oldest_no_treatment,
     get_oldest_no_treatment_new,
     get_tracking_vulnerabilities,
@@ -42,10 +43,16 @@ from freezegun import (
 from graphql.type import (
     GraphQLResolveInfo,
 )
+from newutils import (
+    datetime as datetime_utils,
+)
 import os
 import pytest
 from starlette.datastructures import (
     UploadFile,
+)
+from starlette.responses import (
+    Response,
 )
 import time
 from typing import (
@@ -409,6 +416,33 @@ async def test_approve_draft() -> None:
             assert state_info["date"] == release_date
         for treatment_info in vuln["historic_treatment"]:
             assert treatment_info["date"] == release_date
+
+
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+@pytest.mark.changes_db
+@freeze_time("2019-12-01")
+async def test_approve_draft_new() -> None:
+    finding_id = "475041513"
+    user_email = "unittest@fluidattacks.com"
+    context: Response = await create_dummy_session(user_email)
+    approval_date = await approve_draft_new(context, finding_id, user_email)
+
+    expected_date = "2019-11-30 19:00:00"
+    assert isinstance(approval_date, str)
+    assert approval_date == datetime_utils.get_as_utc_iso_format(
+        datetime_utils.get_from_str(expected_date)
+    )
+    all_vulns = await list_vulnerabilities_async(
+        [finding_id],
+        should_list_deleted=True,
+        include_requested_zero_risk=True,
+        include_confirmed_zero_risk=True,
+    )
+    for vuln in all_vulns:
+        for state_info in vuln["historic_state"]:
+            assert state_info["date"] == expected_date
+        for treatment_info in vuln["historic_treatment"]:
+            assert treatment_info["date"] == expected_date
 
 
 @pytest.mark.skipif(MIGRATION, reason="Finding migration")
