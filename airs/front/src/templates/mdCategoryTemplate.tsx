@@ -30,7 +30,7 @@ import {
 } from "../styles/styledComponents";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
-const CategoryIndex: React.FC<IQueryData> = ({
+const MdCategoryIndex: React.FC<IQueryData> = ({
   data,
   pageContext,
 }: IQueryData): JSX.Element => {
@@ -38,15 +38,16 @@ const CategoryIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { title } = data.asciidoc.document;
   const {
     banner,
     description,
     image,
     keywords,
     slug,
+    defaux,
     definition,
-  } = data.asciidoc.pageAttributes;
+    title,
+  } = data.markdownRemark.frontmatter;
 
   return (
     <React.Fragment>
@@ -82,6 +83,7 @@ const CategoryIndex: React.FC<IQueryData> = ({
                         {definition}
                         <br />
                         <br />
+                        {defaux}
                       </LittleBlackParagraph>
                     </div>
                   </div>
@@ -94,7 +96,7 @@ const CategoryIndex: React.FC<IQueryData> = ({
                 <FlexCenterItemsContainer
                   className={"solution-benefits flex-wrap"}
                   dangerouslySetInnerHTML={{
-                    __html: data.asciidoc.html,
+                    __html: data.markdownRemark.html,
                   }}
                 />
               </FullWidthContainer>
@@ -107,25 +109,24 @@ const CategoryIndex: React.FC<IQueryData> = ({
   );
 };
 
-export default CategoryIndex;
+export default MdCategoryIndex;
 
 export const query: void = graphql`
-  query CategoryIndex($slug: String!) {
-    asciidoc(fields: { slug: { eq: $slug } }) {
-      document {
-        title
-      }
+  query MdCategoryIndex($slug: String!) {
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       fields {
         slug
       }
-      pageAttributes {
+      frontmatter {
         description
         image
         banner
+        defaux
         definition
         keywords
         slug
+        title
       }
     }
   }
