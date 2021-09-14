@@ -639,6 +639,35 @@ async def test_get_mean_remediate_severity_medium(
     assert mean_remediate_medium_severity == expected_output
 
 
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+@freeze_time("2019-11-01")
+@pytest.mark.parametrize(
+    ("min_days", "expected_output"),
+    (
+        (None, Decimal("154")),
+        (30, Decimal("0")),
+        (90, Decimal("0")),
+    ),
+)
+async def test_get_mean_remediate_severity_medium_new(
+    min_days: Optional[int], expected_output: Decimal
+) -> None:
+    loaders = get_new_context()
+    group_name = "unittesting"
+    min_severity = 4
+    max_severity = 6.9
+    mean_remediate_medium_severity = await get_mean_remediate_severity_new(
+        loaders,
+        group_name,
+        min_severity,
+        max_severity,
+        (datetime.now() - timedelta(days=min_days)).date()
+        if min_days
+        else None,
+    )
+    assert mean_remediate_medium_severity == expected_output
+
+
 @pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @freeze_time("2019-10-01")
 @pytest.mark.parametrize(
