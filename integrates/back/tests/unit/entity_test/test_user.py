@@ -79,7 +79,7 @@ async def test_user_list_groups() -> None:
     """Check for user."""
     query = """
         query {
-            userListGroups(userEmail: "continuoushacking@gmail.com") {
+            listUserGroups(userEmail: "continuoushacking@gmail.com") {
                 name
             }
         }
@@ -88,7 +88,7 @@ async def test_user_list_groups() -> None:
     request = await create_dummy_session()
     _, result = await graphql(SCHEMA, data, context_value=request)
     assert "errors" not in result
-    assert result["data"]["userListGroups"][0]["name"] == "asgard"
+    assert result["data"]["listUserGroups"][0]["name"] == "asgard"
 
 
 @pytest.mark.changes_db
