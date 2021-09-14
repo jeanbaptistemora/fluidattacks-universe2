@@ -20,7 +20,7 @@ from tap_announcekit.stream import (
 )
 from tap_announcekit.streams.project import (
     ProjectId,
-    ProjectStream,
+    ProjectStreams,
 )
 from tap_announcekit.utils import (
     new_iter,
@@ -59,10 +59,12 @@ class Streamer:
         client = ApiClient(self.creds)
 
         if self.selection == SupportedStream.PROJECTS:
-            proj_stream = ProjectStream(client)
+            proj_stream = ProjectStreams.stream(
+                client.endpoint, new_iter([self.proj])
+            )
             emitter = StreamEmitter(
                 SingerEmitter(),
-                proj_stream.to_stream(new_iter([self.proj])),
+                proj_stream,
             )
             return emitter.emit()
         return IO(None)

@@ -1,5 +1,5 @@
 from tap_announcekit.streams.project import (
-    ProjectStream,
+    ProjectStreams,
 )
 
-__all__ = ["ProjectStream"]
+__all__ = ["ProjectStreams"]

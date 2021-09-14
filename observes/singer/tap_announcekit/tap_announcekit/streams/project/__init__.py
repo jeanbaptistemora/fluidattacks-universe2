@@ -1,27 +1,18 @@
-from dataclasses import (
-    dataclass,
-)
 from returns.io import (
     IO,
 )
 from returns.unsafe import (
     unsafe_perform_io,
 )
-from singer_io.singer2 import (
-    SingerRecord,
-    SingerSchema,
-)
-from tap_announcekit.api import (
-    ApiClient,
+from sgqlc.endpoint.http import (
+    HTTPEndpoint,
 )
 from tap_announcekit.stream import (
     Stream,
 )
 from tap_announcekit.streams.project import (
-    _builders,
-)
-from tap_announcekit.streams.project._encode import (
-    ProjectEncoder,
+    _getters,
+    _singer,
 )
 from tap_announcekit.streams.project._objs import (
     Project,
@@ -35,31 +26,20 @@ from typing import (
 )
 
 
-@dataclass(frozen=True)
-class ProjectStream:
-    client: ApiClient
-    stream_name: str = "project"
-
-    def schema(self) -> SingerSchema:
-        return SingerSchema(
-            self.stream_name, ProjectEncoder.schema(), frozenset([])
-        )
-
-    def to_singer(self, proj: Project) -> SingerRecord:
-        data = ProjectEncoder.to_json(proj)
-        return SingerRecord(self.stream_name, data)
-
-    def get_projs(
-        self, projs: IO[Iterator[ProjectId]]
-    ) -> IO[Iterator[Project]]:
-        return _builders.get_projs(self.client.endpoint, projs)
-
-    def to_stream(self, proj_ids: IO[Iterator[ProjectId]]) -> Stream:
-        projs = self.get_projs(proj_ids)
+class ProjectStreams:
+    # pylint: disable=too-few-public-methods
+    @staticmethod
+    def stream(
+        client: HTTPEndpoint,
+        proj_ids: IO[Iterator[ProjectId]],
+        name: str = "project",
+    ) -> Stream:
+        getter = _getters.getter(client)
+        projs = getter.get_iter(proj_ids)
         records = new_iter(
-            self.to_singer(proj) for proj in unsafe_perform_io(projs)
+            _singer.to_singer(name, proj) for proj in unsafe_perform_io(projs)
         )
-        return Stream(self.schema(), records)
+        return Stream(_singer.schema(name), records)
 
 
 __all__ = [
