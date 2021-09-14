@@ -221,7 +221,7 @@ async def update_finding_policy_in_groups(
             finding.id
             for finding in findings_new
             if finding_name.lower().endswith(
-                finding["title"].split(".")[0].lower()
+                finding.title.split(".")[0].lower()
             )
         ]
     else:
