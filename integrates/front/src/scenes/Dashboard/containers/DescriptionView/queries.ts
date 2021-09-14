@@ -42,7 +42,6 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
     $scenario: String!
     $sorts: Sorts!
     $threat: String!
-    $title: String!
     $type: String
   ) {
     updateDescription(
@@ -57,7 +56,6 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
       scenario: $scenario
       sorts: $sorts
       threat: $threat
-      title: $title
       findingType: $type
     ) {
       success

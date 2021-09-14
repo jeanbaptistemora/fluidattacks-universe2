@@ -974,8 +974,6 @@ type Mutation {
     sorts: Sorts
     "Actor and scenery where the vulnerability can be exploited"
     threat: String!
-    "Finding number and name"
-    title: String!
     "Draft Finding type"
     findingType: String
   ): SimpleFindingPayload!

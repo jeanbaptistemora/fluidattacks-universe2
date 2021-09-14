@@ -134,12 +134,6 @@ describe("Finding Description", (): void => {
     expect(editingComponents).toHaveLength(2);
     expect(fieldsAsEditable).toHaveLength(EXPECTED_LENGTH);
 
-    const titleInput: ReactWrapper = wrapper
-      .find({ name: "title", type: "text" })
-      .at(0)
-      .find("input");
-    titleInput.simulate("change", { target: { value: "test" } });
-
     editButton.simulate("click");
     const editingComponentsAfterClick: ReactWrapper = wrapper.find({
       isEditing: true,

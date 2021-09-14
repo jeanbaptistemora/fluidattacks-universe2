@@ -20,7 +20,6 @@ import { Can } from "utils/authz/Can";
 import {
   EditableField,
   FormikDropdown,
-  FormikText,
   FormikTextArea,
 } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
@@ -28,17 +27,14 @@ import {
   composeValidators,
   maxLength,
   required,
-  validDraftTitle,
   validTextField,
 } from "utils/validations";
 
-const MAX_TITLE_LENGTH = 90;
 const MAX_DESCRIPTION_LENGTH = 500;
 const MAX_IMPACTS_LENGTH = 300;
 const MAX_AFFECTED_SYSTEMS_LENGTH = 200;
 const MAX_THREAT_LENGTH = 300;
 const MAX_RECOMENDATION_LENGTH = 300;
-const maxTitleLength: ConfigurableValidator = maxLength(MAX_TITLE_LENGTH);
 const maxDescriptionLength: ConfigurableValidator = maxLength(
   MAX_DESCRIPTION_LENGTH
 );
@@ -126,18 +122,7 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                           )}
                         </b>
                       </ControlLabel>
-                      <br />
-                      <Field
-                        component={FormikText}
-                        name={"title"}
-                        type={"text"}
-                        validate={composeValidators([
-                          required,
-                          validDraftTitle,
-                          validTextField,
-                          maxTitleLength,
-                        ])}
-                      />
+                      <p className={"ma0"}>{dataset.title}</p>
                     </FormGroup>
                   </TooltipWrapper>
                 </Col100>

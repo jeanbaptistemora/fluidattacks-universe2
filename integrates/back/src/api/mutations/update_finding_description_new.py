@@ -69,7 +69,6 @@ async def mutate(
             if kwargs.get("sorts")
             else None,
             threat=kwargs["threat"],
-            title=kwargs["title"],
         )
         await findings_domain.update_description_new(
             info.context.loaders, finding_id, description

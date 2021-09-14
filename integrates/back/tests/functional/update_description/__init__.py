@@ -24,7 +24,6 @@ async def get_result(  # pylint: disable=too-many-locals
     recommendation: str = "Updated recommendation"
     scenario: str = "UNAUTHORIZED_USER_EXTRANET"
     threat: str = "Updated threat"
-    title: str = "051. Weak passwords reversed"
     finding_type: str = "SECURITY"
     query: str = f"""
         mutation {{
@@ -39,7 +38,6 @@ async def get_result(  # pylint: disable=too-many-locals
                 recordsNumber: {records_number},
                 scenario: "{scenario}",
                 threat: "{threat}",
-                title: "{title}",
                 findingType: "{finding_type}"
             ) {{
                 success
