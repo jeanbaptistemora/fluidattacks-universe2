@@ -6516,6 +6516,30 @@ F074,lines,namespace/skims/test/data/lib_root/f074/Test.java,10,615,skims,074. C
   17 | }
      ^ Col 0
 "
+F074,lines,namespace/skims/test/data/lib_root/f074/test.cs,2,615,skims,074. Commented-out code,Commented code,"
+   1 | //normal comment
+>  2 | // int CTE = 3;
+   3 | /*
+   4 |    This comment should
+   5 |    not be detected.
+   6 | */
+   7 | namespace Controllers
+   8 | {
+   9 |     public class Calculate
+  10 |     {
+  11 |         public static int Sum(int num1, int num2)
+  12 |         {
+  13 |             /*
+  14 |             if(a < 4){
+  15 |                 return 0;
+  16 |             }
+  17 |             */
+  18 |             int total;
+  19 |             //THis is a sum
+  20 |             total = num1 + num2;
+  21 |             return total;
+     ^ Col 0
+"
 F074,lines,namespace/skims/test/data/lib_root/f074/Test.java,2,615,skims,074. Commented-out code,Commented code,"
    1 | //normal comment
 >  2 | // int CTE = 3;
@@ -6534,6 +6558,30 @@ F074,lines,namespace/skims/test/data/lib_root/f074/Test.java,2,615,skims,074. Co
   15 |         return a + b;
   16 |     }
   17 | }
+     ^ Col 0
+"
+F074,lines,namespace/skims/test/data/lib_root/f074/test.cs,13,615,skims,074. Commented-out code,Commented code,"
+   3 | /*
+   4 |    This comment should
+   5 |    not be detected.
+   6 | */
+   7 | namespace Controllers
+   8 | {
+   9 |     public class Calculate
+  10 |     {
+  11 |         public static int Sum(int num1, int num2)
+  12 |         {
+> 13 |             /*
+  14 |             if(a < 4){
+  15 |                 return 0;
+  16 |             }
+  17 |             */
+  18 |             int total;
+  19 |             //THis is a sum
+  20 |             total = num1 + num2;
+  21 |             return total;
+  22 |         }
+  23 |     }
      ^ Col 0
 "
 F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,10,749,skims,366. Inappropriate coding practices - Transparency Conflict,"Inappropriate coding practices - Transparency Conflict
