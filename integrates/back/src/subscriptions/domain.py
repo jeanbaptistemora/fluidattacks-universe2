@@ -264,10 +264,6 @@ async def _send_digest_report(
             if group not in FI_TEST_PROJECTS.split(",")
         ]
 
-    LOGGER_CONSOLE.info(
-        f"- groups for the user {user_email}: {str(groups)}", **NOEXTRA
-    )
-
     mail_contents: Union[Tuple[MailContent], Tuple]
     if digest_stats:
         mail_contents = tuple(
@@ -281,17 +277,20 @@ async def _send_digest_report(
             for group in groups
         )
     else:
-        LOGGER_CONSOLE.info("- digest email NOT sent", **NOEXTRA)
+        LOGGER_CONSOLE.info(
+            f"- digest email NOT sent for {user_email}", **NOEXTRA
+        )
         return
 
     user_stats = groups_domain.process_user_digest_stats(mail_contents)
 
     if user_stats["groups_len"] == 0:
-        LOGGER_CONSOLE.warning("- NO available info for user", **NOEXTRA)
+        LOGGER_CONSOLE.warning(
+            f"- NO available info for {user_email}", **NOEXTRA
+        )
         return
 
     await groups_mail.send_mail_daily_digest([user_email], user_stats)
-    LOGGER_CONSOLE.info("- digest email sent", **NOEXTRA)
 
 
 async def _send_user_to_entity_report(
@@ -568,8 +567,22 @@ async def trigger_user_to_entity_report() -> None:
         f"UTC datetime: {datetime_utils.get_as_str(bot_time)}", **NOEXTRA
     )
 
-    subscriptions = await get_subscriptions_to_entity_report(
-        audience="user",
+    subscriptions = [
+        subscription
+        for subscription in await get_subscriptions_to_entity_report(
+            audience="user",
+        )
+        if subscription["sk"]["entity"] != "comments"
+    ]
+
+    LOGGER_CONSOLE.info(
+        "- subscriptions loaded",
+        extra={
+            "extra": {
+                "length": len(subscriptions),
+                "sample": subscriptions[:1],
+            }
+        },
     )
 
     # Prepare digest stats for any group with a subscriber
@@ -581,16 +594,6 @@ async def trigger_user_to_entity_report() -> None:
         report_entity="DIGEST",
     ):
         digest_stats = await _get_digest_stats(loaders, subscriptions)
-
-    LOGGER_CONSOLE.info(
-        "- subscriptions loaded",
-        extra={
-            "extra": {
-                "length": len(subscriptions),
-                "sample": subscriptions[:1],
-            }
-        },
-    )
 
     await collect(
         _process_subscription(
