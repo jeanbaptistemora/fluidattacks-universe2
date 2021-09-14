@@ -37,16 +37,16 @@ SHIELD: Callable[[TFun], TFun] = shield(
 
 
 @SHIELD
-async def get_findings(project: str, **kwargs: str) -> List[str]:
+async def get_findings(group: str, **kwargs: str) -> List[str]:
     """
     Returns the findings of a group.
 
     :param client: gql Client.
-    :param project: Project name.
+    :param group: Group name.
     """
     query = """
-        query ForcesDoGetProjectFindings($project_name: String!) {
-          project (projectName: $project_name) {
+        query ForcesDoGetGroupFindings($group_name: String!) {
+          group (groupName: $group_name) {
             findings {
               id
             }
@@ -54,11 +54,11 @@ async def get_findings(project: str, **kwargs: str) -> List[str]:
         }
         """
 
-    params = {"project_name": project}
+    params = {"group_name": group}
     result: Dict[str, Dict[str, List[Any]]] = (
         await execute(
             query=query,
-            operation_name="ForcesDoGetProjectFindings",
+            operation_name="ForcesDoGetGroupFindings",
             variables=params,
             default=dict(),
             **kwargs,
@@ -68,7 +68,7 @@ async def get_findings(project: str, **kwargs: str) -> List[str]:
 
     findings: List[str] = [
         group["id"]
-        for group in (result.get("project", dict()) or {}).get("findings", [])
+        for group in (result.get("group", dict()) or {}).get("findings", [])
     ]
 
     return findings
@@ -156,16 +156,16 @@ async def get_finding(finding: str, **kwargs: str) -> Dict[str, Any]:
 
 
 async def vulns_generator(
-    project: str, **kwargs: str
+    group: str, **kwargs: str
 ) -> AsyncGenerator[
     Dict[str, Union[str, List[Dict[str, Dict[str, Any]]]]], None
 ]:
     """
-    Returns a generator with all the vulnerabilities of a project.
+    Returns a generator with all the vulnerabilities of a group.
 
-    :param project: Project Name.
+    :param group: Group Name.
     """
-    findings = await get_findings(project, **kwargs)
+    findings = await get_findings(group, **kwargs)
     vulns_futures = [get_vulnerabilities(fin, **kwargs) for fin in findings]
     for vulnerabilities in asyncio.as_completed(vulns_futures):
         for vuln in await vulnerabilities:
@@ -175,7 +175,7 @@ async def vulns_generator(
 
 @SHIELD
 async def upload_report(
-    project: str,
+    group: str,
     report: Dict[str, Any],
     log_file: str,
     git_metadata: Dict[str, str],
@@ -184,7 +184,7 @@ async def upload_report(
     """
     Upload report execution to Integrates.
 
-    :param project: Subscription name.
+    :param group: Subscription name.
     :param execution_id: ID of forces execution.
     :param exit_code: Exit code.
     :param report: Forces execution report.
@@ -195,7 +195,7 @@ async def upload_report(
     """
     query = """
         mutation ForcesDoUploadReport(
-            $project_name: String!
+            $group_name: String!
             $execution_id: String!
             $date: DateTime!
             $exit_code: String!
@@ -211,7 +211,7 @@ async def upload_report(
             $accepted: [ExploitResultInput!]
         ) {
             addForcesExecution(
-                projectName: $project_name
+                groupName: $group_name
                 execution_id: $execution_id
                 date: $date
                 exitCode: $exit_code
@@ -253,7 +253,7 @@ async def upload_report(
             accepted_vulns.append(vuln_state)
 
     params: Dict[str, Any] = {
-        "project_name": project,
+        "group_name": group,
         "execution_id": kwargs.pop("execution_id"),
         "date": kwargs.pop(
             "date", datetime.utcnow()
@@ -282,12 +282,12 @@ async def upload_report(
 
 
 @SHIELD
-async def get_projects_access(**kwargs: Any) -> List[Dict[str, str]]:
+async def get_groups_access(**kwargs: Any) -> List[Dict[str, str]]:
     query = """
-        query ForcesGetMeProjects {
+        query ForcesGetMeGroups {
           me {
             organizations {
-              projects {
+              groups {
                 name
                 userRole
               }
@@ -300,7 +300,7 @@ async def get_projects_access(**kwargs: Any) -> List[Dict[str, str]]:
             str, Dict[str, List[Dict[str, List[Dict[str, str]]]]]
         ] = await execute(
             query,
-            operation_name="ForcesGetMeProjects",
+            operation_name="ForcesGetMeGroups",
             **kwargs,
         )
     except ApiError as exc:
@@ -315,14 +315,14 @@ async def get_projects_access(**kwargs: Any) -> List[Dict[str, str]]:
     return list(
         group
         for organization in response["me"]["organizations"]
-        for group in organization["projects"]
+        for group in organization["groups"]
     )
 
 
 async def get_git_remotes(group: str, **kwargs: Any) -> List[Dict[str, str]]:
     query = """
         query ForcesGetGitRoots($group: String!) {
-          project(projectName: $group){
+          group(groupName: $group){
             roots {
               ...on GitRoot{
                 url
@@ -340,12 +340,12 @@ async def get_git_remotes(group: str, **kwargs: Any) -> List[Dict[str, str]]:
         **kwargs,
     )
 
-    return response["project"]["roots"]
+    return response["group"]["roots"]
 
 
 async def get_forces_user(**kwargs: Any) -> Optional[str]:
-    projects = await get_projects_access(**kwargs)
-    for group in projects:
+    groups = await get_groups_access(**kwargs)
+    for group in groups:
         if group["userRole"] == "service_forces":
             return group["name"]
     return None

@@ -9,7 +9,7 @@ async def test_session(test_token: str, test_group: str) -> None:
     async with session(api_token=test_token) as client:
         query = """
             query ForcesDoTestGetGroup($name: String!){
-                project(projectName: $name){
+                group(groupName: $name){
                     name
                 }
             }
@@ -20,4 +20,4 @@ async def test_session(test_token: str, test_group: str) -> None:
             operation="ForcesDoTestGetGroup",
         )
         result = (await response.json()).get("data")
-        assert result["project"]["name"] == test_group
+        assert result["group"]["name"] == test_group

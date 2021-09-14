@@ -85,7 +85,7 @@ async def entrypoint(
     execution_id = str(uuid.uuid4()).replace("-", "")
     await log("info", "Success execution: %s", exit_code == 0)
     await upload_report(
-        project=config.group,
+        group=config.group,
         execution_id=execution_id,
         exit_code=str(exit_code),
         report=report,
