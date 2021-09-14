@@ -816,7 +816,6 @@ async def get_closed_vulnerabilities(context: Any, group_name: str) -> int:
 
 async def get_closed_vulnerabilities_new(loaders: Any, group_name: str) -> int:
     group_findings_loader = loaders.group_findings_new
-    group_findings_loader.clear(group_name)
     finding_vulns_loader = loaders.finding_vulns_nzr
 
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
@@ -1120,7 +1119,6 @@ async def get_open_findings_new(loaders: Any, group_name: str) -> int:
 
 async def get_open_vulnerabilities(context: Any, group_name: str) -> int:
     group_findings_loader = context.group_findings
-    group_findings_loader.clear(group_name)
     finding_vulns_loader = context.finding_vulns_nzr
 
     group_findings = await group_findings_loader.load(group_name)
@@ -1139,7 +1137,6 @@ async def get_open_vulnerabilities_new(
     group_name: str,
 ) -> int:
     group_findings_loader = loaders.group_findings_new
-    group_findings_loader.clear(group_name)
     finding_vulns_loader = loaders.finding_vulns_nzr
 
     group_findings: Tuple[Finding, ...] = await group_findings_loader.load(

@@ -35,6 +35,7 @@ from freezegun import (
 )
 from groups.domain import (
     get_open_vulnerabilities,
+    get_open_vulnerabilities_new,
 )
 import json
 import os
@@ -604,7 +605,7 @@ async def test_approve_draft() -> None:
 
 @pytest.mark.skipif(not MIGRATION, reason="Finding migration")
 @pytest.mark.changes_db
-async def test_approve_draft() -> None:
+async def test_approve_draft_new() -> None:
     """Check for approveDraft mutation."""
     query = """
       mutation {
@@ -704,6 +705,34 @@ async def test_filter_deleted_findings() -> None:
     assert "success" in result["data"]["removeFinding"]
     assert result["data"]["removeFinding"]["success"]
     assert await get_open_vulnerabilities(loaders, "unittesting") < open_vulns
+
+
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+@pytest.mark.changes_db
+async def test_filter_deleted_findings_new() -> None:
+    """Check if vulns of removed findings are filtered out"""
+    finding_id = "988493279"
+    group_name = "unittesting"
+    mutation = f"""
+      mutation {{
+        removeFinding(
+          findingId: "{finding_id}", justification: NOT_REQUIRED
+        ) {{
+          success
+        }}
+      }}
+    """
+    loaders: Dataloaders = get_new_context()
+    open_vulns = await get_open_vulnerabilities_new(loaders, group_name)
+
+    data = {"query": mutation}
+    result = await _get_result(data, loaders=loaders)
+    assert "errors" not in result
+    assert "success" in result["data"]["removeFinding"]
+    assert result["data"]["removeFinding"]["success"]
+    loaders.group_findings_new.clear(group_name)
+    loaders.group_findings_all_new.clear(group_name)
+    assert await get_open_vulnerabilities_new(loaders, group_name) < open_vulns
 
 
 async def test_non_existing_finding() -> None:
