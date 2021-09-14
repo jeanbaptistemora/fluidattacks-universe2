@@ -211,7 +211,7 @@ const GroupToeLinesView: React.FC = (): JSX.Element => {
   const getPendingLines = (toeLinesAttr: IToeLinesAttr): number =>
     toeLinesAttr.loc - toeLinesAttr.testedLines;
   const getSortsRiskLevel = (toeLinesAttr: IToeLinesAttr): string =>
-    toeLinesAttr.sortsRiskLevel
+    parseInt(toeLinesAttr.sortsRiskLevel, 10) < 0
       ? `${toeLinesAttr.sortsRiskLevel.toString()} %`
       : "n/a";
   const toeLines: IToeLinesData[] = roots.reduce(
