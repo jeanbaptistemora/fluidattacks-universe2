@@ -50,14 +50,16 @@ async def mutate(
         user_info = await token_utils.get_jwt_content(info.context)
         user_email = user_info["user_email"]
         draft_info = FindingDraftToAdd(
-            affected_systems=kwargs.get("affected_systems"),
+            affected_systems=kwargs.get("affected_systems", ""),
             hacker_email=user_email,
-            attack_vector_description=kwargs.get("attack_vector_description")
-            or kwargs.get("attack_vector_desc"),
-            description=kwargs.get("description"),
-            recommendation=kwargs.get("recommendation"),
-            requirements=kwargs.get("requirements"),
-            threat=kwargs.get("threat"),
+            attack_vector_description=kwargs.get(
+                "attack_vector_description", ""
+            )
+            or kwargs.get("attack_vector_desc", ""),
+            description=kwargs.get("description", ""),
+            recommendation=kwargs.get("recommendation", ""),
+            requirements=kwargs.get("requirements", ""),
+            threat=kwargs.get("threat", ""),
             title=title,
         )
         await findings_domain.add_draft_new(

@@ -20,11 +20,11 @@ class FindingDescriptionToUpdate(NamedTuple):
 
 
 class FindingDraftToAdd(NamedTuple):
-    affected_systems: Optional[str] = None
-    attack_vector_description: Optional[str] = None
-    description: Optional[str] = None
-    hacker_email: Optional[str] = None
-    recommendation: Optional[str] = None
-    requirements: Optional[str] = None
-    title: Optional[str] = None
-    threat: Optional[str] = None
+    affected_systems: str
+    attack_vector_description: str
+    description: str
+    hacker_email: str
+    recommendation: str
+    requirements: str
+    title: str
+    threat: str
