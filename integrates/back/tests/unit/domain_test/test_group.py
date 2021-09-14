@@ -64,7 +64,9 @@ from groups.domain import (
     get_description,
     get_group_digest_stats,
     get_mean_remediate,
+    get_mean_remediate_new,
     get_mean_remediate_non_treated,
+    get_mean_remediate_non_treated_new,
     get_mean_remediate_severity,
     get_mean_remediate_severity_cvssf,
     get_open_finding,
@@ -354,6 +356,35 @@ async def test_get_mean_remediate() -> None:
         "82.0"
     )
     assert await get_mean_remediate_non_treated(
+        context, group_name, min_date
+    ) == Decimal("0.0")
+
+
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+@freeze_time("2020-12-01")
+async def test_get_mean_remediate_new() -> None:
+    context = get_new_context()
+    group_name = "unittesting"
+    assert await get_mean_remediate_new(context, group_name) == Decimal(
+        "383.0"
+    )
+    assert await get_mean_remediate_non_treated_new(
+        context, group_name
+    ) == Decimal("385.0")
+
+    min_date = datetime_utils.get_now_minus_delta(days=30).date()
+    assert await get_mean_remediate_new(
+        context, group_name, min_date
+    ) == Decimal("0.0")
+    assert await get_mean_remediate_non_treated_new(
+        context, group_name, min_date
+    ) == Decimal("0.0")
+
+    min_date = datetime_utils.get_now_minus_delta(days=90).date()
+    assert await get_mean_remediate_new(
+        context, group_name, min_date
+    ) == Decimal("82.0")
+    assert await get_mean_remediate_non_treated_new(
         context, group_name, min_date
     ) == Decimal("0.0")
 
