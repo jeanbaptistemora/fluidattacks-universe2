@@ -34,7 +34,6 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { title } = data.asciidoc.document;
   const {
     banner,
     definition,
@@ -42,7 +41,8 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
     image,
     keywords,
     slug,
-  } = data.asciidoc.pageAttributes;
+    title,
+  } = data.markdownRemark.frontmatter;
 
   const currentService =
     slug === "services/continuous-hacking/"
@@ -70,7 +70,7 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
 
           <ServicePage
             banner={banner}
-            content={data.asciidoc.html}
+            content={data.markdownRemark.html}
             definition={definition}
             image={currentService.serviceImage}
             isContinuous={currentService.isContinuous}
@@ -87,21 +87,19 @@ export default ContinuousHackingIndex;
 
 export const query: void = graphql`
   query ContinuousHackingIndex($slug: String!) {
-    asciidoc(fields: { slug: { eq: $slug } }) {
-      document {
-        title
-      }
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       fields {
         slug
       }
-      pageAttributes {
+      frontmatter {
         banner
         image
         definition
         description
         keywords
         slug
+        title
       }
     }
   }
