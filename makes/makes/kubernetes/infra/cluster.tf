@@ -35,7 +35,7 @@ module "eks" {
       public_ip               = true
 
       asg_min_size = 1
-      asg_max_size = 50
+      asg_max_size = 100
 
       root_volume_type = "gp3"
       root_volume_size = 50
@@ -61,13 +61,13 @@ module "eks" {
     },
     {
       name                    = "production"
-      override_instance_types = ["c5.xlarge", "c5a.xlarge", "c5d.xlarge", "c5ad.xlarge"]
+      override_instance_types = ["c5.large", "c5a.large", "c5d.large", "c5ad.large"]
       kubelet_extra_args      = "--node-labels=node.kubernetes.io/lifecycle=spot"
       kubelet_extra_args      = "--node-labels=worker_group=production"
       public_ip               = true
 
       asg_min_size = 1
-      asg_max_size = 24 # 20 for integrates + 2 times 10% for rollout
+      asg_max_size = 100
 
       root_volume_type = "gp3"
       root_volume_size = 50
