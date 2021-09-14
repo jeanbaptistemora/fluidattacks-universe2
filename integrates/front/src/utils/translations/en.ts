@@ -457,6 +457,8 @@ export const enTranslations: ResourceKey = {
         tooltip: "Export to a comma-separated values file",
       },
       filtersTooltips: {
+        age: "Filter by age",
+        lastReport: "Filter by last report",
         reattack: "Filter by reattack",
         status: "Filter by status",
         type: "Filter by type",
