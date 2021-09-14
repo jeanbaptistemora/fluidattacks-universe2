@@ -60,6 +60,7 @@ from groups.domain import (
     get_active_groups,
     get_alive_group_names,
     get_closed_vulnerabilities,
+    get_closed_vulnerabilities_new,
     get_description,
     get_group_digest_stats,
     get_mean_remediate,
@@ -275,6 +276,16 @@ async def test_get_closed_vulnerabilities() -> None:
     group_name = "unittesting"
     expected_output = 7
     closed_vulnerabilities = await get_closed_vulnerabilities(
+        get_new_context(), group_name
+    )
+    assert closed_vulnerabilities == expected_output
+
+
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+async def test_get_closed_vulnerabilities_new() -> None:
+    group_name = "unittesting"
+    expected_output = 7
+    closed_vulnerabilities = await get_closed_vulnerabilities_new(
         get_new_context(), group_name
     )
     assert closed_vulnerabilities == expected_output
