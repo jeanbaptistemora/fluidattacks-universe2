@@ -39,7 +39,7 @@ SyntaxReaders = Tuple[SyntaxReader, ...]
 class Dispatcher(NamedTuple):
     applicable_languages: Set[graph_model.GraphShardMetadataLanguage]
     applicable_node_label_types: Set[str]
-    syntax_readers: SyntaxReaders
+    syntax_reader: SyntaxReader
 
 
 Dispatchers = Tuple[Dispatcher, ...]
