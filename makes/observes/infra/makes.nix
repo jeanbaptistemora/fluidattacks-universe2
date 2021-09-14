@@ -5,7 +5,7 @@
   deployTerraform = {
     modules = {
       observes = {
-        setup = [ outputs."/secretsForAwsFromEnv/observesDev" ];
+        setup = [ outputs."/secretsForAwsFromEnv/observesProd" ];
         src = "/makes/observes/infra/infra";
         version = "0.14";
       };
