@@ -13,7 +13,7 @@
 :about1: Cybersecurity Editor
 :source: https://unsplash.com/photos/HAFZE_xZR4o
 
-= Please Think Like a Hacker!
+= Think Like a Hacker!
 
 Already a decade ago,
 link:https://www.csoonline.com/article/2622041/to-beat-hackers--you-have-to-think-like-them.html[columnist Roger A. Grimes commented as follows]:
@@ -38,14 +38,14 @@ The best antihackers are hackers themselves,"
 said Grimes.
 (In fact,
 this is `Fluid Attacks'` core,
-working with ethical hackers on behalf of client companies' cybersecurity.)
+employing ethical hackers on behalf of client companies' cybersecurity.)
 
 Related to these observations,
 this time,
 I took as the primary reference for this blog post
 link:https://sloanreview.mit.edu/article/to-improve-cybersecurity-think-like-a-hacker/[the research conducted by Esteves, Ramalho, and de Haro],
 published in 2017 in the link:https://sloanreview.mit.edu/[MIT Sloan Management Review].
-In few words,
+Basically,
 they surveyed 23 experienced hackers and,
 from the collected data,
 created a framework to help organizations respond to cyberattack threats.
@@ -66,7 +66,7 @@ Among the first characteristics of hackers
 mentioned by the referenced authors,
 we have their high intellectual capacity,
 their supporting knowledge in computer science,
-and their tendency to feel pleasure in taking risks.
+and their tendency to enjoy taking risks.
 When it comes to malicious hackers specifically,
 they are often attracted
 by the idea of making thousands or millions of dollars
@@ -138,7 +138,7 @@ characteristics such as social and persuasive skills
 also stand out in some hackers.
 
 In the second step (scanning and testing),
-the authors mention attackers bent on making progress.
+hackers are bent on making progress.
 Their advancement with unauthorized access can be facilitated
 by the vulnerabilities they detect with scanning tools
 in apps on the systems.
@@ -147,12 +147,10 @@ though they may be small,
 can contribute to opening an even bigger hole.
 
 In the third step (gaining access),
-we find an intrusion in progress;
-after,
-in the previous step,
-the hackers defined the potential vulnerability paths
+hackers intrude into the system
+after having defined the potential vulnerability paths
 to follow or exploit.
-As Roldan said that time,
+As Roldan said in his presentation,
 hackers can use public exploits or craft their own.
 They can abuse authorization flaws,
 crack credentials,
@@ -161,12 +159,13 @@ From there,
 they exfiltrate as much information as possible,
 abuse privileges,
 and access other domains with lateral movement.
+
 Then,
 according to the authors,
 in the final step (maintaining access),
 "hackers try to retain their ownership of the system
 and access for future attacks while remaining unnoticed."
-At that time,
+At this stage,
 it is common for hackers to erase traces and evidence to avoid detection.
 
 == How can all this help us?
