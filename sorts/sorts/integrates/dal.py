@@ -53,11 +53,11 @@ def get_vulnerabilities(group: str) -> List[Vulnerability]:
             query SortsGetVulnerabilities(
                 $group: String!
             ) {
-                project(projectName: $group) {
+                group(groupName: $group) {
                     findings {
                         id
                         vulnerabilities(state: "open") {
-                            vulnType
+                            vulnerabilityType
                             where
                             historicState
                         }
@@ -74,11 +74,11 @@ def get_vulnerabilities(group: str) -> List[Vulnerability]:
     if result:
         vulnerabilities = [
             Vulnerability(
-                kind=VulnerabilityKindEnum(vuln["vulnType"]),
+                kind=VulnerabilityKindEnum(vuln["vulnerabilityType"]),
                 source=vuln["historicState"][0]["source"],
                 where=vuln["where"],
             )
-            for finding in result["project"]["findings"]
+            for finding in result["group"]["findings"]
             for vuln in finding["vulnerabilities"]
         ]
     return vulnerabilities
@@ -105,7 +105,7 @@ def get_toe_lines_sorts(group_name: str) -> List[ToeLines]:
     result = _execute(
         query="""
             query GetToeLines($group_name: String!) {
-                group: project(projectName: $group_name) {
+                group(groupName: $group_name) {
                     name
                     roots {
                         ... on GitRoot {
