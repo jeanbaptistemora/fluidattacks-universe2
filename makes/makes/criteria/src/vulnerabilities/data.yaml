@@ -10971,7 +10971,7 @@
       exploit_code_maturity: "X"
       remediation_level: "X"
       report_confidence: "X"
-  requirements: ["266"]
+  requirements: ["373"]
   metadata:
     en:
       details: __empty__
