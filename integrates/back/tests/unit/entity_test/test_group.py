@@ -1065,13 +1065,13 @@ async def test_update_root_cloning_status_nonexistent() -> None:
 
 
 @pytest.mark.changes_db
-async def test_update_root_state() -> None:
+async def test_deactivate_root() -> None:
     query = """
       mutation {
-        updateRootState(
+        deactivateRoot(
           groupName: "unittesting"
           id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
-          state: INACTIVE
+          reason: OTHER
         ) {
           success
         }
@@ -1080,16 +1080,16 @@ async def test_update_root_state() -> None:
     result = await _get_result_async({"query": query})
 
     assert "errors" not in result
-    assert result["data"]["updateRootState"]["success"]
+    assert result["data"]["deactivateRoot"]["success"]
 
 
-async def test_update_root_state_nonexistent() -> None:
+async def test_deactivate_root_nonexistent() -> None:
     query = """
       mutation {
-        updateRootState(
+        deactivateRoot(
           groupName: "unittesting"
           id: "some-thing"
-          state: INACTIVE
+          reason: OTHER
         ) {
           success
         }
