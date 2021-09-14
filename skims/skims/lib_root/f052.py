@@ -32,28 +32,12 @@ from utils import (
 from utils.graph.transformation import (
     build_member_access_expression_key,
 )
+from utils.languages.java import (
+    is_cipher_vulnerable as java_cipher_vulnerable,
+)
 from utils.string import (
     complete_attrs_on_set,
 )
-
-
-def _vuln_cipher_get_instance(transformation: str) -> bool:
-    alg, mode, pad, *_ = (
-        transformation.lower().replace('"', "") + "///"
-    ).split("/", 3)
-
-    return any(
-        (
-            alg == "aes" and mode == "ecb",
-            alg == "aes" and mode == "cbc" and pad and pad != "nopadding",
-            alg == "blowfish",
-            alg == "des",
-            alg == "desede",
-            alg == "rc2",
-            alg == "rc4",
-            alg == "rsa" and "oaep" not in pad,
-        )
-    )
 
 
 def _csharp_yield_member_access(
@@ -123,7 +107,7 @@ def _javax_yield_insecure_ciphers(
         is_cipher_vulnerable: bool = (
             method_name in ciphers
             and param_text
-            and _vuln_cipher_get_instance(param_text)
+            and java_cipher_vulnerable(param_text)
         )
         is_ssl_cipher_vulnerable: bool = (
             method_name in ssl_ciphers

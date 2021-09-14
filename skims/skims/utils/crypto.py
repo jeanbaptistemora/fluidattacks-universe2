@@ -6,6 +6,7 @@ import hashlib
 import hmac
 from typing import (
     Dict,
+    Optional,
 )
 from utils.ctx import (
     CIPHER_SUITES_PATH,
@@ -64,6 +65,24 @@ def is_open_ssl_cipher_suite_vulnerable(identifier: str) -> bool:
     safe: bool = _CIPHER_SUITES_OPEN_SSL.get(identifier.lower(), True)
 
     return not safe
+
+
+def is_vulnerable_cipher(
+    alg: str, mode: str, pad: Optional[str] = None
+) -> bool:
+    pad = pad or ""
+    return any(
+        (
+            alg == "aes" and mode == "ecb",
+            alg == "aes" and mode == "cbc" and pad and pad != "nopadding",
+            alg == "blowfish",
+            alg == "des",
+            alg == "desede",
+            alg == "rc2",
+            alg == "rc4",
+            alg == "rsa" and "oaep" not in pad,
+        )
+    )
 
 
 # Side effects

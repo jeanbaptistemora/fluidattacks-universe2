@@ -34,7 +34,7 @@ AppendLabelType = Callable[
 ]
 
 
-def _append_label_input(
+def append_label_input(
     graph: graph_model.Graph,
     n_id: str,
     finding: core_model.FindingEnum,
@@ -76,7 +76,7 @@ def mark_array_input(
         graph,
         graph_syntax,
         types,
-        _append_label_input,
+        append_label_input,
     )
 
 
@@ -95,7 +95,7 @@ def mark_function_arg(
                     and syntax_step.modifiers.intersection(dangerous_types)
                 )
             ):
-                _append_label_input(graph, syntax_step.meta.n_id, finding)
+                append_label_input(graph, syntax_step.meta.n_id, finding)
 
 
 def _mark_methods(
@@ -160,7 +160,7 @@ def mark_methods_input(
         graph,
         graph_syntax,
         methods,
-        _append_label_input,
+        append_label_input,
     )
 
 
@@ -208,7 +208,7 @@ def mark_obj_inst_input(
         graph,
         graph_syntax,
         types,
-        _append_label_input,
+        append_label_input,
     )
 
 

@@ -3,7 +3,7 @@ from model import (
     graph_model,
 )
 from sast_transformations.danger_nodes.utils import (
-    _append_label_input,
+    append_label_input,
 )
 from utils.string import (
     complete_attrs_on_set,
@@ -59,4 +59,4 @@ def mark_metadata(
         )
         for _parameter in parameters:
             for finding in FINDINGS:
-                _append_label_input(graph, _parameter.n_id, finding)
+                append_label_input(graph, _parameter.n_id, finding)

@@ -16,7 +16,7 @@ from sast_syntax_readers.utils_generic import (
     get_dependencies_with_index,
 )
 from sast_transformations.danger_nodes.utils import (
-    _append_label_input,
+    append_label_input,
 )
 
 FINDINGS = {
@@ -74,9 +74,9 @@ def mark_requests(
 
                 for finding in FINDINGS:
                     with suppress(AttributeError, TypeError):
-                        _append_label_input(graph, req[1].meta.n_id, finding)
+                        append_label_input(graph, req[1].meta.n_id, finding)
                     with suppress(AttributeError, TypeError):
-                        _append_label_input(graph, res[1].meta.n_id, finding)
+                        append_label_input(graph, res[1].meta.n_id, finding)
 
                 # add the type to the parameters, the type is only known
                 # at runtime
