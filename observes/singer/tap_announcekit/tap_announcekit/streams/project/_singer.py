@@ -10,10 +10,14 @@ from tap_announcekit.streams.project._objs import (
 )
 
 
-def schema(stream_name: str) -> SingerSchema:
-    return SingerSchema(stream_name, ProjectEncoder.schema(), frozenset([]))
+class ProjectSingerUtils:
+    @staticmethod
+    def schema(stream_name: str) -> SingerSchema:
+        return SingerSchema(
+            stream_name, ProjectEncoder.schema(), frozenset([])
+        )
 
-
-def to_singer(stream_name: str, proj: Project) -> SingerRecord:
-    data = ProjectEncoder.to_json(proj)
-    return SingerRecord(stream_name, data)
+    @staticmethod
+    def to_singer(stream_name: str, proj: Project) -> SingerRecord:
+        data = ProjectEncoder.to_json(proj)
+        return SingerRecord(stream_name, data)

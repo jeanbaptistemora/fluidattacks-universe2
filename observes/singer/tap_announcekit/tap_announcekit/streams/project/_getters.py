@@ -112,7 +112,10 @@ def _get_projs(
     )
 
 
-def getter(client: HTTPEndpoint) -> StreamGetter[ProjectId, Project]:
-    return StreamGetter(
-        partial(_get_project, client), partial(_get_projs, client)
-    )
+class ProjectGetters:
+    # pylint: disable=too-few-public-methods
+    @staticmethod
+    def getter(client: HTTPEndpoint) -> StreamGetter[ProjectId, Project]:
+        return StreamGetter(
+            partial(_get_project, client), partial(_get_projs, client)
+        )
