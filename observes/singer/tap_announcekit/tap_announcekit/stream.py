@@ -4,6 +4,9 @@ from dataclasses import (
 from returns.io import (
     IO,
 )
+from returns.primitives.hkt import (
+    SupportsKind2,
+)
 from singer_io.singer2 import (
     SingerRecord,
     SingerSchema,
@@ -14,9 +17,41 @@ from singer_io.singer2.emitter import (
 from singer_io.singer2.json import (
     DictFactory,
 )
-from typing import (
-    Iterator,
+from tap_announcekit.utils import (
+    Patch,
 )
+from typing import (
+    Callable,
+    Iterator,
+    TypeVar,
+)
+
+DataIdType = TypeVar("DataIdType")
+DataType = TypeVar("DataType")
+
+
+@dataclass(frozen=True)
+class StreamGetter(SupportsKind2["StreamGetter", DataIdType, DataType]):
+    _get: Patch[Callable[[DataIdType], IO[DataType]]]
+    _get_iter: Patch[
+        Callable[[IO[Iterator[DataIdType]]], IO[Iterator[DataType]]]
+    ]
+
+    def __init__(
+        self,
+        get: Callable[[DataIdType], IO[DataType]],
+        get_iter: Callable[[IO[Iterator[DataIdType]]], IO[Iterator[DataType]]],
+    ) -> None:
+        object.__setattr__(self, "_get", Patch(get))
+        object.__setattr__(self, "_get_iter", Patch(get_iter))
+
+    def get(self, item: DataIdType) -> IO[DataType]:
+        return self._get.unwrap(item)
+
+    def get_iter(
+        self, items: IO[Iterator[DataIdType]]
+    ) -> IO[Iterator[DataType]]:
+        return self._get_iter.unwrap(items)
 
 
 @dataclass(frozen=True)

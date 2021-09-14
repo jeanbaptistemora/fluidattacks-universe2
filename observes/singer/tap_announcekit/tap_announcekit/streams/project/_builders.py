@@ -2,6 +2,9 @@ from datetime import (
     datetime,
 )
 import logging
+from returns.curry import (
+    partial,
+)
 from returns.io import (
     IO,
 )
@@ -24,6 +27,9 @@ from tap_announcekit.api import (
 )
 from tap_announcekit.api.gql_schema import (
     Project as RawProject,
+)
+from tap_announcekit.stream import (
+    StreamGetter,
 )
 from tap_announcekit.streams.project._objs import (
     _Project,
@@ -103,4 +109,10 @@ def get_projs(
         lambda ids: new_iter(
             unsafe_perform_io(get_project(client, proj)) for proj in ids
         )
+    )
+
+
+def getter(client: HTTPEndpoint) -> StreamGetter[ProjectId, Project]:
+    return StreamGetter(
+        partial(get_project, client), partial(get_projs, client)
     )
