@@ -68,11 +68,14 @@ async def get_data_many_groups(groups: List[str]) -> Counter[str]:
 
 async def generate_all() -> None:
     column: str = "Tag"
+    number_of_categories: int = 12
     async for group in utils.iterate_groups():
         utils.json_dump(
             document=format_vulnerabilities_by_data(
                 counters=await get_data_one_group(group),
                 column=column,
+                tick_rotation=utils.TICK_ROTATION,
+                categories=number_of_categories,
             ),
             entity="group",
             subject=group,
@@ -85,6 +88,8 @@ async def generate_all() -> None:
             document=format_vulnerabilities_by_data(
                 counters=await get_data_many_groups(list(org_groups)),
                 column=column,
+                tick_rotation=utils.TICK_ROTATION,
+                categories=number_of_categories,
             ),
             entity="organization",
             subject=org_id,
@@ -96,6 +101,8 @@ async def generate_all() -> None:
                 document=format_vulnerabilities_by_data(
                     counters=await get_data_many_groups(groups),
                     column=column,
+                    tick_rotation=utils.TICK_ROTATION,
+                    categories=number_of_categories,
                 ),
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",

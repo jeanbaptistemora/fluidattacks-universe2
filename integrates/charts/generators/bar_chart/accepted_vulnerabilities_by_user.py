@@ -8,8 +8,8 @@ from async_lru import (
 from charts import (
     utils,
 )
-from charts.colors import (
-    RISK,
+from charts.generators.bar_chart.utils import (
+    format_vulnerabilities_by_data,
 )
 from context import (
     FI_API_STATUS,
@@ -21,11 +21,9 @@ from db_model.findings.types import (
     Finding,
 )
 from typing import (
-    cast,
     Counter,
     List,
     Tuple,
-    Union,
 )
 
 
@@ -65,48 +63,17 @@ async def get_data_many_groups(groups: List[str]) -> Counter[str]:
     return sum(groups_data, Counter())
 
 
-def format_data(counters: Counter) -> dict:
-    data = counters.most_common()[:10]
-
-    return dict(
-        data=dict(
-            columns=[
-                cast(List[Union[int, str]], ["# Accepted vulnerabilities"])
-                + [accepted_vulns for _, accepted_vulns in data],
-            ],
-            colors={
-                "# Accepted vulnerabilities": RISK.neutral,
-            },
-            type="bar",
-        ),
-        legend=dict(
-            position="bottom",
-        ),
-        axis=dict(
-            x=dict(
-                categories=[user for user, _ in data],
-                type="category",
-                tick=dict(
-                    rotate=12,
-                    multiline=False,
-                ),
-            ),
-            y=dict(
-                min=0,
-                padding=dict(
-                    bottom=0,
-                ),
-            ),
-        ),
-        barChartYTickFormat=True,
-    )
-
-
 async def generate_all() -> None:
+    column: str = "# Accepted vulnerabilities"
+    number_of_categories: int = 10
+    tick_rotation: int = 12
     async for group in utils.iterate_groups():
         utils.json_dump(
-            document=format_data(
+            document=format_vulnerabilities_by_data(
                 counters=await get_data_one_group(group),
+                column=column,
+                tick_rotation=tick_rotation,
+                categories=number_of_categories,
             ),
             entity="group",
             subject=group,
@@ -116,8 +83,11 @@ async def generate_all() -> None:
         utils.iterate_organizations_and_groups()
     ):
         utils.json_dump(
-            document=format_data(
+            document=format_vulnerabilities_by_data(
                 counters=await get_data_many_groups(list(org_groups)),
+                column=column,
+                tick_rotation=tick_rotation,
+                categories=number_of_categories,
             ),
             entity="organization",
             subject=org_id,
@@ -126,8 +96,11 @@ async def generate_all() -> None:
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
             utils.json_dump(
-                document=format_data(
+                document=format_vulnerabilities_by_data(
                     counters=await get_data_many_groups(groups),
+                    column=column,
+                    tick_rotation=tick_rotation,
+                    categories=number_of_categories,
                 ),
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",

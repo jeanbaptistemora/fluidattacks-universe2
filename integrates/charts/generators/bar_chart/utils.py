@@ -1,9 +1,6 @@
 from charts.colors import (
     RISK,
 )
-from charts.utils import (
-    TICK_ROTATION,
-)
 from custom_types import (
     Vulnerability,
 )
@@ -147,9 +144,9 @@ def get_best_mttr(*, organizations: List[Benchmarking]) -> Decimal:
 
 
 def format_vulnerabilities_by_data(
-    counters: Counter[str], column: str
+    *, counters: Counter[str], column: str, tick_rotation: int, categories: int
 ) -> Dict[str, Any]:
-    data = counters.most_common()[:12]
+    data = counters.most_common()[:categories]
 
     return dict(
         data=dict(
@@ -170,7 +167,7 @@ def format_vulnerabilities_by_data(
                 categories=[key for key, _ in data],
                 type="category",
                 tick=dict(
-                    rotate=TICK_ROTATION,
+                    rotate=tick_rotation,
                     multiline=False,
                 ),
             ),
