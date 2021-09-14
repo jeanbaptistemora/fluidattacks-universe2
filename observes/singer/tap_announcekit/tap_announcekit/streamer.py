@@ -59,9 +59,7 @@ class Streamer:
         client = ApiClient(self.creds)
 
         if self.selection == SupportedStream.PROJECTS:
-            proj_stream = ProjectStreams.stream(
-                client.endpoint, new_iter([self.proj])
-            )
+            proj_stream = ProjectStreams.stream(client, new_iter([self.proj]))
             emitter = StreamEmitter(
                 SingerEmitter(),
                 proj_stream,

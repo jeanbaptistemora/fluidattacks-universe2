@@ -11,19 +11,14 @@ from returns.io import (
 from returns.unsafe import (
     unsafe_perform_io,
 )
-from sgqlc.operation import (
-    Operation,
-)
 from singer_io.singer2.json import (
     InvalidType,
     to_opt_primitive,
     to_primitive,
 )
-from tap_announcekit.api import (
-    gql_schema,
-)
 from tap_announcekit.api.client import (
     ApiClient,
+    Query,
 )
 from tap_announcekit.api.gql_schema import (
     Project as RawProject,
@@ -83,23 +78,26 @@ def _to_proj(raw: RawProject) -> Project:
     return Project(draft)
 
 
-def _proj_query(proj_id: str) -> Operation:
-    operation = Operation(gql_schema.Query)
-    proj = operation.project(project_id=proj_id)
+def _select_proj_fields(proj_id: str, query: Query) -> IO[None]:
+    proj = query.raw.project(project_id=proj_id)
     # select fields
     for attr, _ in _Project.__annotations__.items():
         _attr = "id" if attr == "proj_id" else attr
         getattr(proj, _attr)()
-    return operation
+    return IO(None)
+
+
+def _proj_query(proj_id: str) -> IO[Query]:
+    query = ApiClient.new_query()
+    query.bind(partial(_select_proj_fields, proj_id))
+    return query
 
 
 def _get_project(client: ApiClient, proj_id: ProjectId) -> IO[Project]:
-    operation = _proj_query(proj_id.proj_id)
-    LOG.debug("operation: %s", operation)
-    data = client.endpoint(operation)
-    LOG.debug("raw: %s", data)
-    raw: RawProject = (operation + data).project
-    return IO(_to_proj(raw))
+    query = _proj_query(proj_id.proj_id)
+    LOG.debug("query: %s", query)
+    raw: IO[RawProject] = client.get(query)
+    return raw.map(_to_proj)
 
 
 def _get_projs(

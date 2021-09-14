@@ -13,7 +13,6 @@ from returns.maybe import (
 )
 from sgqlc import (
     codegen,
-    introspection,
 )
 import sys
 from tap_announcekit.api.auth import (
@@ -33,13 +32,7 @@ LOG = logging.getLogger(__name__)
 
 def _get_api_schema(target: IO_FILE[str]) -> IO[None]:
     client = ApiClient(Creds("", ""))
-    data = client.endpoint(
-        introspection.query,
-        introspection.variables(
-            include_description=False,
-            include_deprecated=False,
-        ),
-    )
+    data = client.introspection_data()
     json.dump(data, target, sort_keys=True, indent=4, default=str)
     target.write("\n")
     if data.get("errors"):
