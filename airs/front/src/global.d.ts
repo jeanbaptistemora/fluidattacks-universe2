@@ -56,6 +56,7 @@ interface IQueryData {
         codename: string;
         cveid: string;
         date: string;
+        defaux: string;
         definition: string;
         description: string;
         image: string;
@@ -155,6 +156,7 @@ interface IData {
             codename: string;
             cveid: string;
             date: string;
+            defaux: string;
             definition: string;
             description: string;
             image: string;
