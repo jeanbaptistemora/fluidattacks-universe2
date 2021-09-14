@@ -1,5 +1,7 @@
 import { useLazyQuery, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import {
   faFileArchive,
   faFileExcel,
@@ -31,6 +33,7 @@ import {
   filterSelect,
   filterText,
 } from "components/DataTableNext/utils";
+import { FluidIcon } from "components/FluidIcon";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import AppstoreBadge from "resources/appstore_badge.svg";
@@ -52,6 +55,7 @@ import {
   Row,
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
+import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -69,6 +73,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const currentDate: string = formattingDate.slice(0, FORMATTING_DATE_INDEX);
 
   const { groupName } = useParams<{ groupName: string }>();
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { push } = useHistory();
   const { url } = useRouteMatch();
 
@@ -115,6 +120,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     useStoredState<boolean>("findingsCustomFilters", false);
 
   const [searchTextFilter, setSearchTextFilter] = useState("");
+  const [currentRow, setCurrentRow] = useState<Dictionary<string>>({});
   const [currentStatusFilter, setCurrentStatusFilter] = useState("");
   const [reattackFilter, setReattackFilter] = useState("");
   const [whereFilter, setWhereFilter] = useState("");
@@ -423,6 +429,24 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
+      <Row>
+        <Col100>
+          <ButtonToolbar>
+            <Can do={"api_mutations_remove_finding_mutate"}>
+              <TooltipWrapper
+                displayClass={"dib"}
+                id={"searchFindings.delete.btn.tooltip"}
+                message={translate.t("searchFindings.delete.btn.tooltip")}
+              >
+                <Button disabled={_.isEmpty(currentRow)}>
+                  <FluidIcon icon={"delete"} />
+                  &nbsp;{translate.t("searchFindings.delete.btn.text")}
+                </Button>
+              </TooltipWrapper>
+            </Can>
+          </ButtonToolbar>
+        </Col100>
+      </Row>
       <TooltipWrapper
         id={"group.findings.help"}
         message={translate.t("group.findings.helpLabel")}
@@ -470,6 +494,14 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           pageSize={10}
           rowEvents={{ onClick: goToFinding }}
           search={false}
+          selectionMode={{
+            clickToSelect: true,
+            hideSelectColumn: permissions.cannot(
+              "api_mutations_remove_finding_mutate"
+            ),
+            mode: "radio",
+            onSelect: setCurrentRow,
+          }}
           striped={true}
         />
       </TooltipWrapper>
