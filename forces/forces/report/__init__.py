@@ -142,7 +142,7 @@ async def generate_report(
         if config.repository_name and not filter_repo(vuln, kind, repo_name):
             continue
 
-        vuln_type = "SAST" if vuln["vulnType"] == "lines" else "DAST"
+        vuln_type = "SAST" if vuln["vulnerabilityType"] == "lines" else "DAST"
 
         _summary_dict[state]["total"] += 1
         if kind == "all":

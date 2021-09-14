@@ -96,7 +96,7 @@ async def get_vulnerabilities(
               historicZeroRisk{
                 status
               }
-              vulnType
+              vulnerabilityType
               where
               specific
             }
