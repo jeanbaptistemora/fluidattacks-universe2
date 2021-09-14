@@ -171,7 +171,7 @@ async def test_me() -> None:  # pylint: disable=too-many-statements
     data = {"query": query}
     result = await get_result(data, session_jwt=session_jwt, context=context)
     assert "errors" not in result
-    assert len(result["data"]["group"]["permissions"]) == 62
+    assert len(result["data"]["group"]["permissions"]) == 60
     assert result["data"]["group"]["userRole"] == "customer"
 
     context = get_new_context()
