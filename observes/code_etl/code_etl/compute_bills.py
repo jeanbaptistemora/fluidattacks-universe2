@@ -55,13 +55,13 @@ MonthData = Dict[str, Dict[str, List[Any]]]
 @RateLimiter(max_calls=60, period=60)
 def get_group_org(token: str, group: str) -> Optional[str]:
     query = """
-        query ObservesGetGroupOrganization($projectName: String!){
-            project(projectName: $projectName){
+        query ObservesGetGroupOrganization($groupName: String!){
+            group(groupName: $groupName){
                     organization
             }
         }
     """
-    variables = {"projectName": group}
+    variables = {"groupName": group}
     json_data = {
         "query": query,
         "variables": variables,
@@ -73,8 +73,8 @@ def get_group_org(token: str, group: str) -> Optional[str]:
     )
     data = result.json()
     LOG.debug("Group: %s; \nResponse: %s", group, json.dumps(data, indent=4))
-    if data["data"]["project"]:
-        return data["data"]["project"]["organization"]
+    if data["data"]["group"]:
+        return data["data"]["group"]["organization"]
     return None
 
 
