@@ -68,6 +68,7 @@ from groups.domain import (
     get_mean_remediate_severity,
     get_mean_remediate_severity_cvssf,
     get_open_finding,
+    get_open_findings_new,
     get_open_vulnerabilities,
     get_open_vulnerabilities_new,
     get_vulnerabilities_with_pending_attacks,
@@ -296,6 +297,14 @@ async def test_get_open_finding() -> None:
     group_name = "unittesting"
     expected_output = 5
     open_findings = await get_open_finding(get_new_context(), group_name)
+    assert open_findings == expected_output
+
+
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+async def test_get_open_findings_new() -> None:
+    group_name = "unittesting"
+    expected_output = 5
+    open_findings = await get_open_findings_new(get_new_context(), group_name)
     assert open_findings == expected_output
 
 
