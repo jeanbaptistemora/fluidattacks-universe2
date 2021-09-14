@@ -30,7 +30,7 @@ def get_subs_unverified_findings(group: str = "all") -> Response:
         name
         findings(filters: {verified: False}) {
             id
-            vulnsToReattack {
+            vulnerabilitiesToReattack {
                 id
                 historicVerification {
                     status, date
@@ -95,7 +95,7 @@ def to_reattack(group: str = "all") -> Dict[str, Any]:
         filter(
             lambda info: info.get("findings")
             and [
-                finding.get("vulnsToReattack")
+                finding.get("vulnerabilitiesToReattack")
                 for finding in info.get("findings", [{}])
             ],
             projects_info,
@@ -108,7 +108,7 @@ def to_reattack(group: str = "all") -> Dict[str, Any]:
             # Order vulnerabilities by date
             finding["vulnerabilities"] = list(
                 sorted(
-                    finding["vulnsToReattack"],
+                    finding["vulnerabilitiesToReattack"],
                     key=lambda x: x["historicVerification"][-1]["date"]
                     if x["historicVerification"]
                     else "2000-01-01 00:00:00",

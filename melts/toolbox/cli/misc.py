@@ -73,7 +73,7 @@ def misc_management(  # pylint: disable=too-many-arguments
         print(utils.integrates.get_group_language(group))
         success = True
     elif has_drills:
-        success = utils.integrates.has_drills(group)
+        success = utils.integrates.has_squad(group)
     elif get_forces_token:
         print(utils.integrates.get_forces_token(group))
         success = True

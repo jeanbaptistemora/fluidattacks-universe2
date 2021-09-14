@@ -246,7 +246,7 @@ class Queries:
                     findings {
                         id
                         vulnerabilities(state: "open") {
-                            vulnType
+                            vulnerabilityType
                             where
                         }
                     }
@@ -291,7 +291,7 @@ class Queries:
                             user
                         }
                         id @include(if: $withVulns)
-                        vulnType @include(if: $withVulns)
+                        vulnerabilityType @include(if: $withVulns)
                         where @include(if: $withVulns)
                         specific @include(if: $withVulns)
                     }
@@ -375,7 +375,7 @@ class Queries:
               group(groupName: $groupName){
                 hasForces
                 language
-                hasDrills
+                hasSquad
               }
             }
         """

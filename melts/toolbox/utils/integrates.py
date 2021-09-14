@@ -92,12 +92,12 @@ def get_group_language(group: str) -> str:
 
 
 @retry(IntegratesError, tries=RETRIES, delay=DELAY)
-def has_drills(group: str) -> bool:
+def has_squad(group: str) -> bool:
     response = api.integrates.Queries.get_group_info(API_TOKEN, group)
     if not response.ok:
         raise IntegratesError(response.errors)
 
-    return response.data["group"]["hasDrills"]
+    return response.data["group"]["hasSquad"]
 
 
 @retry(IntegratesError, tries=RETRIES, delay=DELAY)

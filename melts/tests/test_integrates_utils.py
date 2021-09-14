@@ -5,8 +5,8 @@ from toolbox.utils.integrates import (
     get_group_language,
     get_group_repos,
     get_groups_with_forces,
-    has_drills,
     has_forces,
+    has_squad,
 )
 
 
@@ -42,9 +42,9 @@ def test_get_group_language() -> None:
 
 
 def test_has_drills() -> None:
-    assert has_drills("continuoustest")
+    assert has_squad("continuoustest")
     try:
-        assert has_drills("undefined")
+        assert has_squad("undefined")
     except IntegratesError:
         assert True
     else:
