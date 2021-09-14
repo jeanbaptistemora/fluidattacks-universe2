@@ -605,6 +605,24 @@ async def test_approve_draft() -> None:
     )
 
 
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+@pytest.mark.changes_db
+async def test_approve_draft() -> None:
+    """Check for approveDraft mutation."""
+    query = """
+      mutation {
+        approveDraft(draftId: "836530833") {
+          success
+        }
+      }
+    """
+    data = {"query": query}
+    result = await _get_result(data)
+    assert "errors" in result
+    error_msg = "Exception - The draft has not been submitted yet"
+    assert result["errors"][0]["message"] == error_msg
+
+
 @pytest.mark.changes_db
 async def test_create_draft() -> None:
     """Check for addDraft mutation."""
