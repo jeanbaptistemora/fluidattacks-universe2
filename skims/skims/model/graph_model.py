@@ -289,6 +289,13 @@ class SyntaxStepTemplateString(NamedTuple):
     type: str = "SyntaxStepTemplateString"
 
 
+class SyntaxStepNamedArgument(NamedTuple):
+    meta: SyntaxStepMeta
+    var: str
+
+    type: str = "SyntaxStepNamedArgument"
+
+
 class Graph(nx.DiGraph):
     pass
 
