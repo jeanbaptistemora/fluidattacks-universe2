@@ -4,15 +4,12 @@ from dataclasses import (
 from datetime import (
     datetime,
 )
+from tap_announcekit.streams.id_objs import (
+    ProjectId,
+)
 from typing import (
     Optional,
 )
-
-
-@dataclass(frozen=True)
-class ProjectId:
-    proj_id: str
-
 
 JsonStr = str
 
@@ -50,3 +47,8 @@ class Project(_Project):
     def __init__(self, obj: _Project) -> None:
         for key, val in obj.__dict__.items():
             object.__setattr__(self, key, val)
+
+
+__all__ = [
+    "ProjectId",
+]
