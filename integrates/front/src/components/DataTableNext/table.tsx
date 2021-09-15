@@ -36,7 +36,9 @@ import {
   ButtonToolbarRow,
   Filters,
   InputNumber,
+  InputRange,
   InputText,
+  RangeContainer,
   SearchContainer,
   SearchText,
   Select,
@@ -118,6 +120,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
       defaultValue,
       onChangeSelect,
       onChangeInput,
+      rangeProps,
       selectOptions,
       placeholder = "",
       type,
@@ -137,6 +140,18 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
       event.stopPropagation();
       if (onChangeInput) {
         onChangeInput(event);
+      }
+    }
+    function handleChangeMax(event: React.ChangeEvent<HTMLInputElement>): void {
+      event.stopPropagation();
+      if (rangeProps?.onChangeMax) {
+        rangeProps.onChangeMax(event);
+      }
+    }
+    function handleChangeMin(event: React.ChangeEvent<HTMLInputElement>): void {
+      event.stopPropagation();
+      if (rangeProps?.onChangeMin) {
+        rangeProps.onChangeMin(event);
       }
     }
 
@@ -175,6 +190,32 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           placeholder={t(`${placeholder}`)}
           type={"number"}
         />
+      );
+    if (type === "range")
+      return (
+        <RangeContainer>
+          <InputRange
+            defaultValue={rangeProps?.defaultValue.min}
+            onChange={handleChangeMin}
+            placeholder={"Min"}
+            step={rangeProps?.step}
+            type={"number"}
+          />
+          <div>
+            <FontAwesomeIcon
+              className={" h-100 mvh-auto"}
+              color={"gray"}
+              icon={faMinus}
+            />
+          </div>
+          <InputRange
+            defaultValue={rangeProps?.defaultValue.max}
+            onChange={handleChangeMax}
+            placeholder={"Max"}
+            step={rangeProps?.step}
+            type={"number"}
+          />
+        </RangeContainer>
       );
 
     return (

@@ -496,7 +496,7 @@ const InputText = styled.input.attrs({
 })``;
 
 const InputRange = styled.input.attrs({
-  className: `${style["form-control"]} black-40 border-box mw3`,
+  className: `${style["form-control"]} black-40 border-box mw4`,
 })``;
 
 const InputNumber = styled.input.attrs({
