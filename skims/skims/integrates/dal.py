@@ -307,7 +307,7 @@ async def get_finding_vulnerabilities(
                         id
                         specific
                         stream
-                        vulnType
+                        vulnerabilityType
                         where
                     }
                 }
@@ -321,7 +321,9 @@ async def get_finding_vulnerabilities(
 
     store: EphemeralStore = get_ephemeral_store()
     for vulnerability in result["data"]["finding"]["vulnerabilities"]:
-        kind = core_model.VulnerabilityKindEnum(vulnerability["vulnType"])
+        kind = core_model.VulnerabilityKindEnum(
+            vulnerability["vulnerabilityType"]
+        )
         namespace, what = core_model.Vulnerability.what_from_integrates(
             kind=kind,
             what_on_integrates=vulnerability["where"],
@@ -433,7 +435,7 @@ async def do_create_draft(
             ) {
                 addDraft(
                     affectedSystems: $affected_systems
-                    attackVectorDesc: $impact
+                    attackVectorDescription: $impact
                     description: $description
                     groupName: $group
                     recommendation: $recommendation
@@ -824,7 +826,7 @@ async def do_verify_request_vuln(
 ) -> bool:
     result = await _execute(
         query="""
-            mutation SkimsDoVerifyRequestVuln(
+            mutation SkimsDoVerifyRequestVulnerabilities(
                 $finding_id: String!
                 $justification: String!
                 $open_vulnerabilities: [String]!
@@ -840,7 +842,7 @@ async def do_verify_request_vuln(
                 }
             }
         """,
-        operation="SkimsDoVerifyRequestVuln",
+        operation="SkimsDoVerifyRequestVulnerabilities",
         variables=dict(
             closed_vulnerabilities=closed_vulnerabilities,
             finding_id=finding_id,
