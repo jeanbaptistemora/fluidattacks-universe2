@@ -104,7 +104,6 @@
         lintTypescript = importUtility "lint-typescript";
         makeDerivation = importUtility "make-derivation";
         makeEntrypoint = importUtility "make-entrypoint";
-        makeOci = importUtility "make-oci";
         makeSearchPaths = importUtility "make-search-paths";
         makeTemplate = importUtility "make-template";
         nix = importUtility "nix";
