@@ -63,7 +63,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const { t } = useTranslation();
 
   const canUpdateRootState: boolean = permissions.can(
-    "api_mutations_update_root_state_mutate"
+    "api_mutations_activate_root_mutate"
   );
   const nicknames: string[] = roots
     .filter((root): boolean => root.state === "ACTIVE")

@@ -112,7 +112,7 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
 
   const permissions = useAbility(authzPermissionsContext);
   const canUpdateRootState = permissions.can(
-    "api_mutations_update_root_state_mutate"
+    "api_mutations_activate_root_mutate"
   );
 
   return (
