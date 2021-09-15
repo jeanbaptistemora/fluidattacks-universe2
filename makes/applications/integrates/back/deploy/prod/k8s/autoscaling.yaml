@@ -10,4 +10,4 @@ spec:
     name: integrates-master
   minReplicas: 5
   maxReplicas: 50
-  targetCPUUtilizationPercentage: 50
+  targetCPUUtilizationPercentage: 60
