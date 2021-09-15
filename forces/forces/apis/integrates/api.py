@@ -212,7 +212,7 @@ async def upload_report(
         ) {
             addForcesExecution(
                 groupName: $group_name
-                execution_id: $execution_id
+                executionId: $execution_id
                 date: $date
                 exitCode: $exit_code
                 gitBranch: $git_branch
