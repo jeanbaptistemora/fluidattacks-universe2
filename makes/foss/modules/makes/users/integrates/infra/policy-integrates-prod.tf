@@ -106,33 +106,6 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     ]
   }
 
-  # Lambda
-  statement {
-    effect  = "Allow"
-    actions = ["lambda:*"]
-    resources = [
-      "arn:aws:lambda:${var.region}:${data.aws_caller_identity.current.account_id}:function:integrates-*"
-    ]
-  }
-  statement {
-    effect = "Allow"
-    actions = [
-      "lambda:UpdateEventSourceMapping",
-      "lambda:ListEventSourceMappings",
-      "lambda:GetEventSourceMapping",
-      "lambda:DeleteEventSourceMapping",
-      "lambda:CreateEventSourceMapping"
-    ]
-    resources = ["*"]
-  }
-  statement {
-    effect  = "Allow"
-    actions = ["logs:*"]
-    resources = [
-      "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/integrates-*"
-    ]
-  }
-
   # KMS
   statement {
     effect = "Allow"
