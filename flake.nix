@@ -95,7 +95,6 @@
         ];
 
         # Makes utilities
-        buildNodeRequirements = importUtility "build-node-requirements";
         buildPythonLambda = importUtility "build-python-lambda";
         buildPythonPackage = importUtility "build-python-package";
         buildPythonRequirements = importUtility "build-python-requirements";
