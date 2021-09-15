@@ -46,7 +46,7 @@ in
 {
   pipelines = {
     skims = {
-      gitlabPath = "/makes/skims/gitlab-ci.yaml";
+      gitlabPath = "/makes/foss/modules/skims/gitlab-ci.yaml";
       jobs = [
         {
           output = "/deployContainerImage/skimsProd";
