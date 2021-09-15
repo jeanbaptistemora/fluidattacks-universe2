@@ -23,7 +23,7 @@ in
 {
   pipelines = {
     melts = {
-      gitlabPath = "/makes/melts/gitlab-ci.yaml";
+      gitlabPath = "/makes/foss/modules/melts/gitlab-ci.yaml";
       jobs = [
         {
           output = "/lintPython/module/melts";
