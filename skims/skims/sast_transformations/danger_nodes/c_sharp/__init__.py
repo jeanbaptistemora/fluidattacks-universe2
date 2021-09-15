@@ -183,6 +183,14 @@ def mark_sinks(
             "UseSqlServer",
         },
     )
+    mark_methods_sink(
+        findings.F008,
+        graph,
+        syntax,
+        {
+            "AddHeader",
+        },
+    )
 
 
 def mark_metadata(

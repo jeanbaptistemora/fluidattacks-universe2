@@ -466,6 +466,7 @@ BY_TYPE_ARGS_PROPAG_FINDING: Dict[str, Dict[str, Set[str]]] = {
             },
             "System.Web.HttpResponse": {
                 "Write",
+                "AddHeader",
             },
             "Response": {
                 "send",
