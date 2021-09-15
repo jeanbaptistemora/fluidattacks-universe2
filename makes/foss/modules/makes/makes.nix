@@ -1,12 +1,12 @@
 # https://github.com/fluidattacks/makes
-{ inputs
+{ outputs
 , ...
 }:
 {
   deployContainerImage = {
     images = {
       makesProd = {
-        src = inputs.product.makes-oci;
+        src = outputs."/makes/container";
         registry = "registry.gitlab.com";
         tag = "fluidattacks/product/makes:latest";
       };

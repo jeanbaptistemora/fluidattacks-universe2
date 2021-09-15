@@ -125,7 +125,6 @@ skims.bundle
 skims.config-development
 skims.config-runtime
 skims.config-sdk
-skims.oci-build
 skims.structure
 sorts.bundle
 sorts.config-development

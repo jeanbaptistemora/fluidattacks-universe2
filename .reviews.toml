@@ -19,8 +19,8 @@ platform = 'gitlab'
   [tests.pr_message_syntax]
     fail = true
     close_pr = true
-    config = "makes/all/lint-git-commit-msg-config.js"
-    parser = "makes/all/lint-git-commit-msg-parser.js"
+    config = "makes/foss/modules/all/lint-git-commit-msg-config.js"
+    parser = "makes/foss/modules/all/lint-git-commit-msg-parser.js"
 
   [tests.branch_equals_to_user]
     fail = true

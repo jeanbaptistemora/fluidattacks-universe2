@@ -10,7 +10,7 @@
   deployContainerImage = {
     images = {
       skimsProd = {
-        src = inputs.product.skims-oci-build;
+        src = outputs."/skims/container";
         registry = "registry.gitlab.com";
         tag = "fluidattacks/product/skims:latest";
       };
