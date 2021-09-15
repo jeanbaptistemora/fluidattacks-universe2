@@ -758,6 +758,35 @@ async def test_get_mean_remediate_severity_low_cvssf(
     assert mean_remediate_low_severity == expected_output
 
 
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+@freeze_time("2019-09-30")
+@pytest.mark.parametrize(
+    ("min_days", "expected_output"),
+    (
+        (0, Decimal("43.020")),
+        (30, Decimal("9.782")),
+        (90, Decimal("10.389")),
+    ),
+)
+async def test_get_mean_remediate_severity_low_cvssf_new(
+    min_days: int, expected_output: Decimal
+) -> None:
+    loaders = get_new_context()
+    group_name = "unittesting"
+    min_severity = Decimal("0.1")
+    max_severity = Decimal("3.9")
+    mean_remediate_low_severity = await get_mean_remediate_severity_cvssf_new(
+        loaders,
+        group_name,
+        min_severity,
+        max_severity,
+        (datetime.now() - timedelta(days=min_days)).date()
+        if min_days
+        else None,
+    )
+    assert mean_remediate_low_severity == expected_output
+
+
 @pytest.mark.changes_db
 async def test_create_group_not_user_admin() -> None:
     await names_domain.create("NEWAVAILABLENAME", "group")
