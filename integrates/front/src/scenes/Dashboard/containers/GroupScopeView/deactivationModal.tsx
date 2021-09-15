@@ -9,6 +9,7 @@ import type { Root } from "./types";
 import { isGitRoot, isIPRoot } from "./utils";
 
 import { Button } from "components/Button";
+import { ConfirmDialog } from "components/ConfirmDialog";
 import { Modal } from "components/Modal";
 import {
   ButtonToolbar,
@@ -138,72 +139,87 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
         onEsc={onClose}
         open={true}
       >
-        <Formik
-          initialValues={{ other: "", reason: "", targetRoot: "" }}
-          onSubmit={handleSubmit}
-          validationSchema={validations}
-        >
-          {({ dirty, isSubmitting, values }): JSX.Element => (
-            <Form>
-              <Row>
-                <Col100>
-                  <FormGroup>
-                    <ControlLabel>
-                      {t("group.scope.common.deactivation.reason.label")}
-                    </ControlLabel>
-                    <Field component={FormikDropdown} name={"reason"}>
-                      <option value={""} />
-                      <option value={"OUT_OF_SCOPE"}>
-                        {t("group.scope.common.deactivation.reason.scope")}
-                      </option>
-                      <option value={"REGISTERED_BY_MISTAKE"}>
-                        {t("group.scope.common.deactivation.reason.mistake")}
-                      </option>
-                      <option value={"OTHER"}>
-                        {t("group.scope.common.deactivation.reason.other")}
-                      </option>
-                    </Field>
-                  </FormGroup>
-                  {values.reason === "OTHER" ? (
-                    <FormGroup>
-                      <ControlLabel>
-                        {t("group.scope.common.deactivation.other")}
-                      </ControlLabel>
-                      <Field component={FormikText} name={"other"} />
-                    </FormGroup>
-                  ) : undefined}
-                  {values.reason === "MOVED_TO_ANOTHER_ROOT" ? (
-                    <FormGroup>
-                      <ControlLabel>
-                        {t("group.scope.common.deactivation.targetRoot")}
-                      </ControlLabel>
-                      <Field
-                        component={FormikAutocompleteText}
-                        name={"targetRoot"}
-                        placeholder={t(
-                          "group.scope.common.deactivation.targetPlaceholder"
-                        )}
-                        suggestions={suggestions}
-                      />
-                    </FormGroup>
-                  ) : undefined}
-                </Col100>
-              </Row>
-              <Row>
-                <Col100>
-                  <ButtonToolbar>
-                    <Button onClick={onClose}>
-                      {t("confirmmodal.cancel")}
-                    </Button>
-                    <Button disabled={!dirty || isSubmitting} type={"submit"}>
-                      {t("confirmmodal.proceed")}
-                    </Button>
-                  </ButtonToolbar>
-                </Col100>
-              </Row>
-            </Form>
-          )}
-        </Formik>
+        <ConfirmDialog message={""} title={""}>
+          {(): React.ReactNode => {
+            return (
+              <Formik
+                initialValues={{ other: "", reason: "", targetRoot: "" }}
+                onSubmit={handleSubmit}
+                validationSchema={validations}
+              >
+                {({ dirty, isSubmitting, values }): JSX.Element => (
+                  <Form>
+                    <Row>
+                      <Col100>
+                        <FormGroup>
+                          <ControlLabel>
+                            {t("group.scope.common.deactivation.reason.label")}
+                          </ControlLabel>
+                          <Field component={FormikDropdown} name={"reason"}>
+                            <option value={""} />
+                            <option value={"OUT_OF_SCOPE"}>
+                              {t(
+                                "group.scope.common.deactivation.reason.scope"
+                              )}
+                            </option>
+                            <option value={"REGISTERED_BY_MISTAKE"}>
+                              {t(
+                                "group.scope.common.deactivation.reason.mistake"
+                              )}
+                            </option>
+                            <option value={"OTHER"}>
+                              {t(
+                                "group.scope.common.deactivation.reason.other"
+                              )}
+                            </option>
+                          </Field>
+                        </FormGroup>
+                        {values.reason === "OTHER" ? (
+                          <FormGroup>
+                            <ControlLabel>
+                              {t("group.scope.common.deactivation.other")}
+                            </ControlLabel>
+                            <Field component={FormikText} name={"other"} />
+                          </FormGroup>
+                        ) : undefined}
+                        {values.reason === "MOVED_TO_ANOTHER_ROOT" ? (
+                          <FormGroup>
+                            <ControlLabel>
+                              {t("group.scope.common.deactivation.targetRoot")}
+                            </ControlLabel>
+                            <Field
+                              component={FormikAutocompleteText}
+                              name={"targetRoot"}
+                              placeholder={t(
+                                "group.scope.common.deactivation.targetPlaceholder"
+                              )}
+                              suggestions={suggestions}
+                            />
+                          </FormGroup>
+                        ) : undefined}
+                      </Col100>
+                    </Row>
+                    <Row>
+                      <Col100>
+                        <ButtonToolbar>
+                          <Button onClick={onClose}>
+                            {t("confirmmodal.cancel")}
+                          </Button>
+                          <Button
+                            disabled={!dirty || isSubmitting}
+                            type={"submit"}
+                          >
+                            {t("confirmmodal.proceed")}
+                          </Button>
+                        </ButtonToolbar>
+                      </Col100>
+                    </Row>
+                  </Form>
+                )}
+              </Formik>
+            );
+          }}
+        </ConfirmDialog>
       </Modal>
     </React.StrictMode>
   );
