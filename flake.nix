@@ -96,14 +96,11 @@
 
         # Makes utilities
         buildPythonLambda = importUtility "build-python-lambda";
-        buildPythonPackage = importUtility "build-python-package";
-        buildPythonRequirements = importUtility "build-python-requirements";
         buildRubyRequirement = importUtility "build-ruby-requirement";
         bundleClosure = importUtility "bundle-closure";
         computeOnAws = importUtility "compute-on-aws";
         fetchurl = nixpkgs.fetchurl;
         fetchzip = nixpkgs.fetchzip;
-        getPackageJsonDeps = importUtility "get-package-json-deps";
         lintTypescript = importUtility "lint-typescript";
         makeDerivation = importUtility "make-derivation";
         makeEntrypoint = importUtility "make-entrypoint";
