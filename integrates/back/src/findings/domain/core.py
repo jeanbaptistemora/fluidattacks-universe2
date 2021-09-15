@@ -615,35 +615,24 @@ async def get_pending_verification_findings(
 async def get_pending_verification_findings_new(
     loaders: Any,
     group_name: str,
-) -> List[Dict[str, str]]:
+) -> Tuple[Finding, ...]:
     """Gets findings pending for verification"""
-    findings_ids = await list_findings_new(loaders, [group_name])
+    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
+        group_name
+    )
     are_pending_verifications = await collect(
         [
-            is_pending_verification_new(loaders, finding_id)
-            for finding_id in findings_ids[0]
+            is_pending_verification_new(loaders, finding.id)
+            for finding in findings
         ]
     )
-    pending_to_verify_ids = [
-        finding_id
-        for finding_id, are_pending_verification in zip(
-            findings_ids[0], are_pending_verifications
+    return tuple(
+        finding
+        for finding, are_pending_verification in zip(
+            findings, are_pending_verifications
         )
         if are_pending_verification
-    ]
-    findings_loader = loaders.finding_new
-    findings_to_verify: Tuple[
-        Finding, ...
-    ] = await findings_loader.load_many_chained(pending_to_verify_ids)
-    pending_to_verify = await collect(
-        {
-            "title": finding.title,
-            "id": finding.id,
-            "group_name": finding.group_name,
-        }
-        for finding in findings_to_verify
     )
-    return cast(List[Dict[str, str]], pending_to_verify)
 
 
 async def get_report_date_new(loaders: Any, finding_id: str) -> Optional[str]:
@@ -902,10 +891,6 @@ async def is_pending_verification_new(
     loaders: Any,
     finding_id: str,
 ) -> bool:
-    # Validate if finding exists
-    finding_loader = loaders.finding_new
-    await finding_loader.load(finding_id)
-
     finding_vulns_loader = loaders.finding_vulns_nzr
     vulns = await finding_vulns_loader.load(finding_id)
     open_vulns = vulns_utils.filter_open_vulns(vulns)
