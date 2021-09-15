@@ -46,7 +46,6 @@ makes.dev.melts
 makes.dev.observes.tap-mixpanel
 makes.dev.skims
 makes.dev.vscode
-makes.oci
 makes.python.safe-pickle
 makes.test
 makes.test.airs

@@ -1,10 +1,10 @@
-{ makeDerivation
-, makeOci
-, nixpkgs
-, path
+{ inputs
+, makeDerivation
+, makeContainerImage
+, projectPath
 , ...
 }:
-makeOci {
+makeContainerImage {
   config = {
     Env = [
       "GIT_SSL_CAINFO=/etc/ssl/certs/ca-bundle.crt"
@@ -19,9 +19,9 @@ makeOci {
     User = "makes:makes";
     WorkingDir = "/product";
   };
-  contents = [
+  layers = [
     (makeDerivation {
-      arguments = {
+      env = {
         envEtcGroup = ''
           makes:x:0:
           nobody:x:65534:
@@ -37,27 +37,25 @@ makeOci {
           session required pam_unix.so
         '';
         envEtcPasswd = ''
-          makes:x:0:0::/home/makes:${nixpkgs.bash}/bin/bash
+          makes:x:0:0::/home/makes:${inputs.nixpkgs.bash}/bin/bash
           nobody:x:65534:65534:nobody:/nonexistent:/bin/false
         '';
         envEtcShadow = ''
           makes:!x:::::::
           nobody:!x:::::::
         '';
-        envSrc = path "/";
+        envSrc = projectPath "/";
       };
-      builder = path "/makes/packages/makes/oci/builder.sh";
+      builder = ./builder.sh;
       name = "makes-oci-customization-layer";
-      searchPaths = {
-        envPaths = [ nixpkgs.coreutils ];
-      };
+      searchPaths.bin = [ inputs.nixpkgs.coreutils ];
     })
-    nixpkgs.bash
-    nixpkgs.cacert
-    nixpkgs.coreutils
-    nixpkgs.git
-    nixpkgs.gnutar
-    nixpkgs.gzip
-    nixpkgs.nix
+    inputs.nixpkgs.bash
+    inputs.nixpkgs.cacert
+    inputs.nixpkgs.coreutils
+    inputs.nixpkgs.git
+    inputs.nixpkgs.gnutar
+    inputs.nixpkgs.gzip
+    inputs.nixpkgs.nix
   ];
 }
