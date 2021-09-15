@@ -36,6 +36,7 @@ from findings.domain import (
     get_max_open_severity,
     get_max_open_severity_new,
     get_pending_verification_findings,
+    get_pending_verification_findings_new,
     get_total_treatment,
     get_total_treatment_new,
 )
@@ -857,6 +858,17 @@ async def test_get_pending_verification_findings() -> None:
     assert "finding" in findings[0]
     assert "finding_id" in findings[0]
     assert "project_name" in findings[0]
+
+
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+async def test_get_pending_verification_findings_new() -> None:
+    group_name = "unittesting"
+    loaders = get_new_context()
+    findings = await get_pending_verification_findings_new(loaders, group_name)
+    assert len(findings) >= 1
+    assert findings[0].title == "038. Business information leak"
+    assert findings[0].id == "436992569"
+    assert findings[0].group_name == "unittesting"
 
 
 @pytest.mark.skipif(MIGRATION, reason="Finding migration")
