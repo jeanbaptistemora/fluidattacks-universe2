@@ -6607,6 +6607,28 @@ F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,10,749,skims,366. Ina
   19 | }
      ^ Col 0
 "
+F008,lines,namespace/skims/test/data/lib_root/f008/test.cs,8,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
+","
+   1 | namespace Controllers
+   2 | {
+   3 |     public class Calculate
+   4 |     {
+   5 |         public static void ProcessRequest(HttpRequest req, HttpResponse res)
+   6 |         {
+   7 |             string name = req.QueryString[""name""];
+>  8 |             res.Write(""Hello "" + name);
+   9 |
+  10 |             string value = req.QueryString[""value""];
+  11 |             if (value == null || !Regex.IsMatch(value, ""^[a-zA-Z0-9]+$""))
+  12 |             {
+  13 |               throw new InvalidOperationException(""Invalid value"");
+  14 |             }
+  15 |             res.AddHeader(""X-Header"", value);
+  16 |         }
+  17 |     }
+  18 | }
+     ^ Col 0
+"
 F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,4,798,skims,009. Sensitive information in source code,AWS credential in skims/test/data/lib_path/f009/java.properties,"
    1 | bda.credentials2.key       = AKIA0000000000000000
    2 | zon.aws.accesskey          = AKIA0000000000000000
