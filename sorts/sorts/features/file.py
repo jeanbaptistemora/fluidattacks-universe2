@@ -1,6 +1,9 @@
 from category_encoders import (
     BinaryEncoder,
 )
+from cryptography.fernet import (
+    Fernet,
+)
 from datetime import (
     datetime,
 )
@@ -209,6 +212,12 @@ def get_unique_authors(git_metrics: GitMetrics) -> List[str]:
     return authors_history
 
 
+def encrypt_column_values(value: str) -> str:
+    fernet = Fernet(Fernet.generate_key())
+
+    return fernet.encrypt(value.encode()).decode()
+
+
 def extract_features(training_df: DataFrame) -> bool:
     """Extract features from the file Git history and add them to the DF"""
     success: bool = True
@@ -225,6 +234,14 @@ def extract_features(training_df: DataFrame) -> bool:
             )
             training_df.reset_index(inplace=True, drop=True)
             encode_extensions(training_df)
+
+            training_df["file"] = training_df["file"].apply(
+                encrypt_column_values
+            )
+            training_df["repo"] = training_df["repo"].apply(
+                encrypt_column_values
+            )
+
             log(
                 "info",
                 "Features extracted after %.2f seconds",
