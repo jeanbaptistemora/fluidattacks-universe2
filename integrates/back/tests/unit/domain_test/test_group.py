@@ -886,6 +886,22 @@ async def test_get_total_comments_date() -> None:
     assert total_comments == 5
 
 
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+@freeze_time("2018-12-27")
+async def test_get_total_comments_date_new() -> None:
+    group_name = "unittesting"
+    last_day = datetime_utils.get_now_minus_delta(hours=24)
+    loaders = get_new_context()
+    findings: Tuple[Finding, ...] = await loaders.group_findings_new.load(
+        group_name
+    )
+    findings_ids = list(map(lambda finding: finding.id, findings))
+    total_comments = await get_total_comments_date(
+        findings_ids, group_name, last_day
+    )
+    assert total_comments == 5
+
+
 @pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @freeze_time("2021-05-12")
 async def test_get_group_digest_stats() -> None:
