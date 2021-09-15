@@ -273,7 +273,7 @@ class Queries:
         body: str = """
             query MeltsGetFinding($identifier: String!, $withVulns: Boolean!) {
                 finding(identifier: $identifier) {
-                    attackVectorDesc
+                    attackVectorDescription
                     closedVulnerabilities @include(if: $withVulns)
                     description
                     openVulnerabilities @include(if: $withVulns)
