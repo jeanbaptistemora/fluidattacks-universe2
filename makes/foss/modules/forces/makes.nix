@@ -1,6 +1,5 @@
 # https://github.com/fluidattacks/forces
-{ config
-, inputs
+{ inputs
 , outputs
 , ...
 }:
@@ -11,12 +10,12 @@
   deployContainerImage = {
     images = {
       forcesDev = {
-        src = config.inputs.product.forces-oci-build;
+        src = outputs."/forces/container";
         registry = "docker.io";
         tag = "fluidattacks/forces:$CI_COMMIT_REF_NAME";
       };
       forcesProd = {
-        src = config.inputs.product.forces-oci-build;
+        src = outputs."/forces/container";
         registry = "docker.io";
         tag = "fluidattacks/forces:new";
       };

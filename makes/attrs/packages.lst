@@ -7,7 +7,6 @@ airs.npm.runtime
 forces.bundle
 forces.config-development
 forces.config-runtime
-forces.oci-build
 integrates.back.certs.development
 integrates.back.env
 integrates.back.probes.lib
