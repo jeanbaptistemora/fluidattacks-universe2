@@ -28,7 +28,6 @@ integrates.front.lint
 integrates.front.lint.eslint
 integrates.front.lint.stylelint
 integrates.front.test
-integrates.lambda.send-mail-notification
 integrates.mobile.config.dev-runtime
 integrates.mobile.config.dev-runtime-env
 integrates.mobile.lint

@@ -39,9 +39,3 @@ module "s3" {
 module "sqs" {
   source = "./sqs"
 }
-
-module "lambda" {
-  source                                = "./lambda"
-  sqs_id                                = module.sqs.sqs_id
-  aws_lambda_send_mail_notification_zip = var.aws_lambda_send_mail_notification_zip
-}
