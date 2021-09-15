@@ -15,7 +15,6 @@
     ./makes/foss/modules/makes.nix
 
     ./makes/forces/makes.nix
-    ./makes/integrates/makes.nix
     ./makes/makes/makes.nix
     ./makes/melts/makes.nix
     ./makes/observes/makes.nix

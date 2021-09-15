@@ -10,7 +10,7 @@
           outputs."/secretsForEnvFromSops/integratesFrontProd"
           outputs."/secretsForTerraformFromEnv/integratesFront"
         ];
-        src = "/makes/integrates/infra/front/infra";
+        src = "/makes/foss/modules/integrates/infra/front/infra";
         version = "0.14";
       };
     };
@@ -23,7 +23,7 @@
           outputs."/secretsForEnvFromSops/integratesFrontDev"
           outputs."/secretsForTerraformFromEnv/integratesFront"
         ];
-        src = "/makes/integrates/infra/front/infra";
+        src = "/makes/foss/modules/integrates/infra/front/infra";
         version = "0.14";
       };
     };
@@ -51,7 +51,7 @@
           outputs."/secretsForEnvFromSops/integratesFrontDev"
           outputs."/secretsForTerraformFromEnv/integratesFront"
         ];
-        src = "/makes/integrates/infra/front/infra";
+        src = "/makes/foss/modules/integrates/infra/front/infra";
         version = "0.14";
       };
     };

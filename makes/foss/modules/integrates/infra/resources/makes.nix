@@ -10,7 +10,7 @@
           outputs."/envVarsForTerraform/integratesResources"
           outputs."/secretsForAwsFromEnv/integratesDev"
         ];
-        src = "/makes/integrates/infra/resources/infra";
+        src = "/makes/foss/modules/integrates/infra/resources/infra";
         version = "0.14";
       };
     };
@@ -28,7 +28,7 @@
           outputs."/envVarsForTerraform/integratesResources"
           outputs."/secretsForAwsFromEnv/integratesDev"
         ];
-        src = "/makes/integrates/infra/resources/infra";
+        src = "/makes/foss/modules/integrates/infra/resources/infra";
         version = "0.14";
       };
     };
@@ -40,7 +40,7 @@
           outputs."/envVarsForTerraform/integratesResources"
           outputs."/secretsForAwsFromEnv/integratesDev"
         ];
-        src = "/makes/integrates/infra/resources/infra";
+        src = "/makes/foss/modules/integrates/infra/resources/infra";
         version = "0.14";
       };
     };
