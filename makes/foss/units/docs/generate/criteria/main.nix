@@ -15,13 +15,13 @@ let
   # Model data
   vulnerabilities = fromYaml (
     builtins.readFile (
-      projectPath "/makes/makes/criteria/src/vulnerabilities/data.yaml"));
+      projectPath "/makes/foss/modules/makes/criteria/src/vulnerabilities/data.yaml"));
   requirements = fromYaml (
     builtins.readFile (
-      projectPath "/makes/makes/criteria/src/requirements/data.yaml"));
+      projectPath "/makes/foss/modules/makes/criteria/src/requirements/data.yaml"));
   compliance = fromYaml (
     builtins.readFile (
-      projectPath "/makes/makes/criteria/src/compliance/data.yaml"));
+      projectPath "/makes/foss/modules/makes/criteria/src/compliance/data.yaml"));
 
   # Title and content
   section = { title, content }:

@@ -50,8 +50,8 @@ makeTemplate {
       })
       (makeTemplate {
         arguments = {
-          envCriteriaRequirements = path "/makes/makes/criteria/src/requirements/data.yaml";
-          envCriteriaVulnerabilities = path "/makes/makes/criteria/src/vulnerabilities/data.yaml";
+          envCriteriaRequirements = path "/makes/foss/modules/makes/criteria/src/requirements/data.yaml";
+          envCriteriaVulnerabilities = path "/makes/foss/modules/makes/criteria/src/vulnerabilities/data.yaml";
           envSkimsProcessGroupOnAws = applications.skims.process-group-on-aws;
           envSrcSkimsStatic = path "/skims/static";
           envSrcSkimsVendor = path "/skims/vendor";
