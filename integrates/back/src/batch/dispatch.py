@@ -8,6 +8,9 @@ from batch.dal import (
 from batch.handle_finding_policy import (
     handle_finding_policy,
 )
+from batch.handle_virus_scan import (
+    handle_virus_scan,
+)
 from batch.report import (
     generate_report,
 )
@@ -50,6 +53,8 @@ async def main() -> None:
             await move_root(item=item)
         elif action == "handle_finding_policy":
             await handle_finding_policy(item=item)
+        elif action == "handle_virus_scan":
+            await handle_virus_scan(item=item)
         else:
             LOGGER.error("Invalid action", extra=dict(extra=locals()))
             await delete_action(

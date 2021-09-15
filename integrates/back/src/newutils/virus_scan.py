@@ -31,7 +31,8 @@ LOGGER = logging.getLogger(__name__)
 
 def scan_file(
     target_file: UploadFile, user_email: str, group_name: str
-) -> None:
+) -> bool:
+    success = False
     if FI_ENVIRONMENT == "production":
         payload_data = {
             "group_name": group_name,
@@ -52,9 +53,13 @@ def scan_file(
             )
             tmp_file.close()
             file_object.seek(0)
-            if not api_response.clean_result:
+            if api_response.clean_result:
+                success = True
+            elif not api_response.clean_result:
                 LOGGER.error("File infected", extra={"extra": payload_data})
                 raise FileInfected()
         except ApiException as api_error:
             LOGGER.exception(api_error, extra={"extra": payload_data})
             file_object.seek(0)
+
+    return success
