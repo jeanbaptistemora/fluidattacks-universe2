@@ -460,6 +460,7 @@ export const enTranslations: ResourceKey = {
         age: "Filter by age",
         lastReport: "Filter by last report",
         reattack: "Filter by reattack",
+        severity: "Filter by severity",
         status: "Filter by status",
         type: "Filter by type",
         where: "Filter by text on 'Where' column",

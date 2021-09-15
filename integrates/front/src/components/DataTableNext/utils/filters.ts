@@ -69,9 +69,28 @@ function filterLastNumber<T extends Record<string, any>>(
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function filterRange<T extends Record<string, any>>(
+  rows: T[],
+  currentRange: { min: string; max: string },
+  columnKey: string
+): T[] {
+  return rows.filter((row: T): boolean => {
+    const minRange = _.isEmpty(currentRange.min)
+      ? true
+      : Number(row[columnKey]) >= Number(currentRange.min);
+    const maxRange = _.isEmpty(currentRange.max)
+      ? true
+      : Number(row[columnKey]) <= Number(currentRange.max);
+
+    return minRange && maxRange;
+  });
+}
+
 export {
   filterDate,
   filterLastNumber,
+  filterRange,
   filterSelect,
   filterSearchText,
   filterText,

@@ -425,6 +425,15 @@ const QuestionButton: StyledComponent<
   })
 )``;
 
+const RangeContainer: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "flex flex-wrap",
+})``;
+
 const RemoveItem: StyledComponent<
   "div",
   Record<string, unknown>
@@ -484,6 +493,10 @@ const SelectContainer = styled.div.attrs({
 
 const InputText = styled.input.attrs({
   className: `${style["form-control"]} black-40 border-box`,
+})``;
+
+const InputRange = styled.input.attrs({
+  className: `${style["form-control"]} black-40 border-box mw3`,
 })``;
 
 const InputNumber = styled.input.attrs({
@@ -641,6 +654,7 @@ export {
   FormGroup,
   HintFieldText,
   InputNumber,
+  InputRange,
   InputText,
   GraphicButton,
   GraphicPanelCollapse,
@@ -663,6 +677,7 @@ export {
   ProgressBar,
   GroupScopeText,
   QuestionButton,
+  RangeContainer,
   RemoveItem,
   RemoveTag,
   RequiredField,
