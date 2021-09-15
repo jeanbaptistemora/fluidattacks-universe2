@@ -12,6 +12,7 @@ from back.tests.unit.utils import (
 )
 from custom_exceptions import (
     FindingNotFound,
+    NotSubmitted,
 )
 from dataloaders import (
     apply_context_attrs,
@@ -617,8 +618,7 @@ async def test_approve_draft_new() -> None:
     data = {"query": query}
     result = await _get_result(data)
     assert "errors" in result
-    error_msg = "Exception - The draft has not been submitted yet"
-    assert result["errors"][0]["message"] == error_msg
+    assert result["errors"][0]["message"] == str(NotSubmitted())
 
 
 @pytest.mark.changes_db
