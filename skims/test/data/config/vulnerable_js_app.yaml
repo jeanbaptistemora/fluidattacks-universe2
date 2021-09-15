@@ -2,6 +2,7 @@ checks:
 - F004
 - F008
 - F042
+- F052
 - F063
 namespace: VULNERABLE_JS_APP
 output: skims/test/outputs/vulnerable_js_app.csv

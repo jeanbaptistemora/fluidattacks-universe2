@@ -3807,6 +3807,29 @@ F052,lines,namespace/skims/test/data/lib_path/f052/java.java,37,310 + 327,skims,
   42 |
      ^ Col 17
 "
+F052,lines,namespace/skims/test/data/lib_path/f052/javascript.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/javascript.js,"
+   1 | const crypto = require(""crypto"");
+   2 |
+   3 | let keyString = ""*4wQZgn+U2RW_mb="";
+   4 | const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
+   5 |
+>  6 | const cipher = crypto.createCipheriv(""des-ecb"", key, """");
+   7 |
+   8 | let encrypted = """";
+   9 | cipher.on(""readable"", () => {
+  10 |   let chunk;
+  11 |   while (null !== (chunk = cipher.read())) {
+  12 |     encrypted += chunk.toString(""hex"");
+  13 |   }
+  14 | });
+  15 | cipher.on(""end"", () => {
+  16 |   console.log(encrypted);
+  17 | });
+  18 |
+  19 | cipher.write(""some clear text data"");
+  20 | cipher.end();
+     ^ Col 0
+"
 F052,lines,namespace/skims/test/data/lib_path/f052/kotlin.kt,14,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in skims/test/data/lib_path/f052/kotlin.kt,"
    4 | .security.NoSuchAlgorithmException
    5 | .security.spec.ECGenParameterSpec

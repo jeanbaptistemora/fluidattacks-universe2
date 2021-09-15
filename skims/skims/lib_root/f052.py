@@ -676,11 +676,11 @@ def javascript_insecure_cipher(
                         shard.syntax,
                         {"createCipheriv", "createDecipheriv"},
                     )
-                    yield from shard_n_id_query(graph_db, FINDING, shard, "1")
+                    yield shard_n_id_query(graph_db, FINDING, shard, "1")
 
     return tuple(
         chain.from_iterable(
-            tuple(find_vulns(shard))
+            chain.from_iterable(find_vulns(shard))
             for shard in graph_db.shards_by_language(
                 graph_model.GraphShardMetadataLanguage.JAVASCRIPT
             )
@@ -825,6 +825,7 @@ QUERIES: graph_model.Queries = (
     (FINDING, java_insecure_hash),
     (FINDING, java_insecure_key),
     (FINDING, java_insecure_pass),
+    (FINDING, javascript_insecure_cipher),
     (FINDING, kotlin_insecure_cipher),
     (FINDING, kotlin_insecure_hash),
     (FINDING, kotlin_insecure_key),
