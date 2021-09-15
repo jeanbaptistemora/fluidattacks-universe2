@@ -96,7 +96,6 @@
 
         # Makes utilities
         buildRubyRequirement = importUtility "build-ruby-requirement";
-        bundleClosure = importUtility "bundle-closure";
         computeOnAws = importUtility "compute-on-aws";
         fetchurl = nixpkgs.fetchurl;
         fetchzip = nixpkgs.fetchzip;

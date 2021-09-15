@@ -4,7 +4,6 @@ airs.lint.styles
 airs.npm
 airs.npm.env
 airs.npm.runtime
-forces.bundle
 forces.config-development
 forces.config-runtime
 integrates.back.certs.development
@@ -58,7 +57,6 @@ makes.test.observes
 makes.test.reviews
 makes.test.skims
 makes.test.sorts
-melts.bundle
 melts.config-development
 melts.config-runtime
 melts.lib
@@ -120,11 +118,9 @@ observes.test.tap-gitlab
 observes.test.tap-mailchimp
 observes.test.tap-mixpanel
 reviews.runtime
-skims.bundle
 skims.config-development
 skims.config-runtime
 skims.config-sdk
 skims.structure
-sorts.bundle
 sorts.config-development
 sorts.config-runtime
