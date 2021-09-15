@@ -902,7 +902,6 @@ async def test_get_total_comments_date_new() -> None:
     assert total_comments == 5
 
 
-@pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @freeze_time("2021-05-12")
 async def test_get_group_digest_stats() -> None:
     group_name = "unittesting"
