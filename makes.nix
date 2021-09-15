@@ -13,9 +13,6 @@
   extendingMakesDir = "/makes/foss/units";
   imports = [
     ./makes/foss/modules/makes.nix
-
-    ./makes/reviews/makes.nix
-    ./makes/all/makes.nix
   ];
   inputs = {
     nixpkgs = fetchNixpkgs {

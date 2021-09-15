@@ -23,8 +23,8 @@
   lintGitCommitMsg = {
     branch = "master";
     enable = true;
-    config = "/makes/all/lint-git-commit-msg-config.js";
-    parser = "/makes/all/lint-git-commit-msg-parser.js";
+    config = "/makes/foss/modules/all/lint-git-commit-msg-config.js";
+    parser = "/makes/foss/modules/all/lint-git-commit-msg-parser.js";
   };
   lintGitMailMap = {
     enable = true;
@@ -34,6 +34,6 @@
     targets = [ "/" ];
   };
   lintTerraform = {
-    config = "/makes/all/lint-terraform-config.hcl";
+    config = "/makes/foss/modules/all/lint-terraform-config.hcl";
   };
 }
