@@ -29,6 +29,7 @@ import type {
 } from "components/DataTableNext/types";
 import {
   filterLastNumber,
+  filterRange,
   filterSearchText,
   filterSelect,
   filterText,
@@ -127,6 +128,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const [typeFilter, setTypeFilter] = useState("");
   const [ageFilter, setAgeFilter] = useState("");
   const [lastReportFilter, setLastReportFilter] = useState("");
+  const [severityFilter, setSeverityFilter] = useState({ max: "", min: "" });
 
   const handleChange: (columnName: string) => void = useCallback(
     (columnName: string): void => {
@@ -357,6 +359,24 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     "lastVulnerability"
   );
 
+  function onSeverityMinChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSeverityFilter({ ...severityFilter, min: event.target.value });
+  }
+
+  function onSeverityMaxChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSeverityFilter({ ...severityFilter, max: event.target.value });
+  }
+
+  const filterSeverityFindings: IFindingAttr[] = filterRange(
+    findings,
+    severityFilter,
+    "severityScore"
+  );
+
   const resultFindings: IFindingAttr[] = _.intersection(
     filterSearchtextFindings,
     filterCurrentStatusFindings,
@@ -364,7 +384,8 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     filterWhereFindings,
     filterTypeFindings,
     filterAgeFindings,
-    filterLastReportFindings
+    filterLastReportFindings,
+    filterSeverityFindings
   );
 
   const customFilters: IFilterProps[] = [
@@ -396,6 +417,20 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       tooltipId: "group.findings.filtersTooltips.status.id",
       tooltipMessage: "group.findings.filtersTooltips.status",
       type: "select",
+    },
+    {
+      defaultValue: "",
+      onChangeInput: onAgeChange,
+      placeholder: "Severity (range)",
+      rangeProps: {
+        defaultValue: severityFilter,
+        onChangeMax: onSeverityMaxChange,
+        onChangeMin: onSeverityMinChange,
+        step: 0.1,
+      },
+      tooltipId: "group.findings.filtersTooltips.severity.id",
+      tooltipMessage: "group.findings.filtersTooltips.severity",
+      type: "range",
     },
     {
       defaultValue: ageFilter,
