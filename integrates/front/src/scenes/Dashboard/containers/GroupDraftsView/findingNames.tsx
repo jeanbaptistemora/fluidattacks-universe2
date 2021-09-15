@@ -147,7 +147,7 @@ async function getFindingNames(
   const branchRef: string = "master";
 
   const vulnsFileId: string =
-    "makes%2Fmakes%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml";
+    "makes%2Ffoss%2Fmodules%2Fmakes%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml";
   const vulnsResponseFile: Response = await fetch(
     `${baseUrl}/${vulnsFileId}/raw?ref=${branchRef}`
   );
@@ -160,7 +160,7 @@ async function getFindingNames(
   }
 
   const requirementsFileId: string =
-    "makes%2Fmakes%2Fcriteria%2Fsrc%2Frequirements%2Fdata.yaml";
+    "makes%2Ffoss%2Fmodules%2Fmakes%2Fcriteria%2Fsrc%2Frequirements%2Fdata.yaml";
   const requirementsResponseFile: Response = await fetch(
     `${baseUrl}/${requirementsFileId}/raw?ref=${branchRef}`
   );
