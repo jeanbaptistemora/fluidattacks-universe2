@@ -115,6 +115,8 @@ BY_ARGS_PROPAGATION: Set[str] = complete_attrs_on_set(
         "fs.createWriteStream",
         "fs.exists",
         "fs.existsSync",
+        "crypto.createCipheriv",
+        "crypto.createDecipheriv",
     }
 )
 STATIC_FINDING: Dict[str, Set[str]] = {

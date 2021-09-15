@@ -71,6 +71,9 @@ def is_vulnerable_cipher(
     alg: str, mode: str, pad: Optional[str] = None
 ) -> bool:
     pad = pad or ""
+    alg = alg.lower()
+    mode = mode.lower()
+    pad = pad.lower()
     return any(
         (
             alg == "aes" and mode == "ecb",
