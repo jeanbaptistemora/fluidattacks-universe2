@@ -18,7 +18,6 @@
     ./makes/makes/makes.nix
     ./makes/melts/makes.nix
     ./makes/reviews/makes.nix
-    ./makes/sorts/makes.nix
     ./makes/all/makes.nix
   ];
   inputs = {
