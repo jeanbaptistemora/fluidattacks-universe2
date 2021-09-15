@@ -7,6 +7,9 @@ from context import (
     FI_MANDRILL_API_KEY,
     FI_TEST_PROJECTS,
 )
+from custom_exceptions import (
+    UnableToSendMail,
+)
 from custom_types import (
     MailContent as MailContentType,
 )
@@ -24,6 +27,9 @@ from newutils import (
 from settings import (
     LOGGING,
 )
+from simplejson.errors import (  # type: ignore
+    JSONDecodeError,
+)
 from typing import (
     Any,
     List,
@@ -39,6 +45,7 @@ logging.config.dictConfig(LOGGING)
 COMMENTS_TAG: List[str] = ["comments"]
 DIGEST_TAG = ["digest"]
 GENERAL_TAG: List[str] = ["general"]
+LOGGER_ERRORS = logging.getLogger(__name__)
 LOGGER_TRANSACTIONAL = logging.getLogger("transactional")
 TEMPLATES = Environment(
     loader=FileSystemLoader(FI_EMAIL_TEMPLATES), autoescape=True
@@ -84,18 +91,32 @@ async def send_mail_async_new(
         "tags": tags,
         "to": [{"email": email_to, "name": first_name, "type": "to"}],
     }
-    mandrill_client.messages.send(message=message)
-    await log(
-        "[mailer]: mail sent",
-        extra={
-            "extra": {
-                "email_to": email_to,
-                "template": template_name,
-                "subject": subject,
-                "tags": json.dumps(tags),
-            }
-        },
-    )
+    try:
+        mandrill_client.messages.send(message=message)
+        await log(
+            "[mailer]: mail sent",
+            extra={
+                "extra": {
+                    "email_to": email_to,
+                    "template": template_name,
+                    "subject": subject,
+                    "tags": json.dumps(tags),
+                }
+            },
+        )
+    except JSONDecodeError as ex:
+        LOGGER_ERRORS.exception(
+            ex,
+            extra={
+                "extra": {
+                    "email_to": email_to,
+                    "template": template_name,
+                    "subject": subject,
+                    "context": context,
+                }
+            },
+        )
+        raise UnableToSendMail() from ex
 
 
 async def send_mails_async_new(

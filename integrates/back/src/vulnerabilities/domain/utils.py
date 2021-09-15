@@ -1,6 +1,6 @@
 import authz
 from custom_exceptions import (
-    AcceptionNotRequested,
+    AcceptationNotRequested,
     InvalidTreatmentManager,
 )
 from custom_types import (
@@ -58,7 +58,7 @@ def compare_historic_treatments(
 def validate_acceptation(vuln: Dict[str, Finding]) -> Dict[str, Finding]:
     historic_treatment = cast(Historic, vuln.get("historic_treatment", [{}]))
     if historic_treatment[-1].get("acceptance_status") != "SUBMITTED":
-        raise AcceptionNotRequested()
+        raise AcceptationNotRequested()
     return vuln
 
 

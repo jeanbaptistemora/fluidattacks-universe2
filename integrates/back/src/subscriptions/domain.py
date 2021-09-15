@@ -16,6 +16,7 @@ from context import (
 )
 from custom_exceptions import (
     SnapshotNotFound,
+    UnableToSendMail,
 )
 from custom_types import (
     MailContent,
@@ -538,14 +539,19 @@ async def _process_subscription(
                 "- subscription to be processed",
                 extra={"extra": {"subscription": subscription}},
             )
-            await _send_user_to_entity_report(
-                event_frequency=event_frequency,
-                report_entity=report_entity,
-                report_subject=report_subject,
-                user_email=user_email,
-                digest_stats=digest_stats,
-                loaders=loaders,
-            )
+            try:
+                await _send_user_to_entity_report(
+                    event_frequency=event_frequency,
+                    report_entity=report_entity,
+                    report_subject=report_subject,
+                    user_email=user_email,
+                    digest_stats=digest_stats,
+                    loaders=loaders,
+                )
+            except UnableToSendMail as ex:
+                LOGGER_ERRORS.exception(
+                    ex, extra={"extra": {"subscription": subscription}}
+                )
     else:
         LOGGER_CONSOLE.warning(
             "- can not be subscribed, unsubscribing",

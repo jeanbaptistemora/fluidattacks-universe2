@@ -71,17 +71,21 @@ class UnableToSkimsQueue(_SingleMessageException):
     msg: str = "Unable to queue a verification request"
 
 
+class UnableToSendMail(_SingleMessageException):
+    msg: str = "Unable to send mail message"
+
+
 class UnavailabilityError(_SingleMessageException):
     msg: str = "AWS service unavailable, please retry"
 
 
-class AcceptionNotRequested(CustomBaseException):
+class AcceptationNotRequested(CustomBaseException):
     """Exception to control if acceptation is not valid"""
 
     def __init__(self) -> None:
         """Constructor"""
         msg = "Exception - It cant handle acceptation without being requested"
-        super(AcceptionNotRequested, self).__init__(msg)
+        super(AcceptationNotRequested, self).__init__(msg)
 
 
 class AlreadyApproved(CustomBaseException):
