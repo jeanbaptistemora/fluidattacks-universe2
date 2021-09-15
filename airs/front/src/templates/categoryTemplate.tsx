@@ -30,7 +30,7 @@ import {
 } from "../styles/styledComponents";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
-const MdCategoryIndex: React.FC<IQueryData> = ({
+const CategoryIndex: React.FC<IQueryData> = ({
   data,
   pageContext,
 }: IQueryData): JSX.Element => {
@@ -109,10 +109,10 @@ const MdCategoryIndex: React.FC<IQueryData> = ({
   );
 };
 
-export default MdCategoryIndex;
+export default CategoryIndex;
 
 export const query: void = graphql`
-  query MdCategoryIndex($slug: String!) {
+  query CategoryIndex($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       fields {

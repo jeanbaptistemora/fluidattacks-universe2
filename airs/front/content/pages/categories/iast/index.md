@@ -4,7 +4,7 @@ title: IAST
 description: Here at Fluid Attacks, we combine the advantages of SAST and DAST to work with a very accurate Interactive Application Security Testing (IAST) technique.
 keywords: Fluid Attacks, Techniques, IAST, Interactive, Application, Security, Testing, Ethical Hacking
 banner: iast-bg
-template: mdCategory
+template: category
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619634643/airs/categories/cover-iast_yqqggs.webp
 definition: Fluid Attacks’ Interactive Application Security Testing (IAST) is a technique that combines the advantages of the SAST and DAST techniques to enhance the accuracy of security testing. In relation to SAST, we reach coverage of  the entire application code, and with regard to DAST, we get confirmation of exploitability. The IAST technique takes both an internal and external look at the running application, identifying exploitable and non-exploitable vulnerabilities and pointing them out in the application code. During the automated and manual testing, working with IAST means continuously analyzing your application, with real-time feedback, covering source code, control and data flows, configurations, and various components’ interactions in your CI, QA or production environment.
 ---

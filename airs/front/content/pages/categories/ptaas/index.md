@@ -4,7 +4,7 @@ title: Penetration Testing as a Service
 description: We offer you PTaaS as a continuous evaluation of systems using automatic and manual techniques and providing real-time vulnerability reports via our platform.
 keywords: PTaaS, Penetration, Testing, Pentesting, Service, Cybersecurity, Vulnerability, Ethical Hacking
 banner: ptaas-bg
-template: mdCategory
+template: category
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619634639/airs/categories/cover-ptaas_dms6yo.webp
 definition: Fluid Attacks is happy to offer you the widespread Penetration Testing as a Service (PTaaS) model to address your cybersecurity needs in an ever-changing attack vectors environment. For your convenience, it is supported by our Attack Surface Manager (ASM). Additionally, it is connected to our leading Continuous Hacking service in order to go beyond the traditional Penetration Testing, a point-in-time evaluation. In PTaaS, we perform analyses that keep pace with the constant development and changes in your infrastructure and applications. This model provides our customers comprehensive and up-to-date information about the findings achieved in a pentest that combines world-class hackers' know-how and machines' speed. By quickly obtaining extensive details from a non-static report about the detected vulnerabilities, and after carrying out the proper prioritization, you can immediately proceed with their remediation.
 ---

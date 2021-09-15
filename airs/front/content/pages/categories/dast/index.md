@@ -4,7 +4,7 @@ title: DAST
 description: Here at Fluid Attacks, we perform Dynamic Application Security Testing (DAST) to detect security vulnerabilities in running software as soon as possible.
 keywords: Fluid Attacks, Techniques, DAST, Dynamic, Application, Security, Testing, Ethical Hacking
 banner: dast-bg
-template: mdCategory
+template: category
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619634644/airs/categories/cover-dast_qaboy9.webp
 definition: Fluid Attacks’ Dynamic Application Security Testing (DAST) detects known and zero-day security vulnerabilities in your applications while they are running. This form of black-box testing (not requiring access to the source code), aims to rapidly find weaknesses in your software that could be exploited by malicious hackers. DAST is a technique with good results detecting flaws related to data, deployment configuration and the business logic of the applications, and it works independently of the language in which the software was developed. All automatic DAST is supported by the manual pentesting work of our experienced red team members who are continuously improving testing technologies and methodologies.
 ---
