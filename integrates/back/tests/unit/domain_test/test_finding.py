@@ -30,6 +30,7 @@ from findings.domain import (
     get_oldest_no_treatment,
     get_oldest_no_treatment_new,
     get_tracking_vulnerabilities,
+    get_treatment_summary,
     list_drafts,
     list_findings,
     mask_finding,
@@ -44,6 +45,9 @@ from graphql.type import (
 )
 from newutils import (
     datetime as datetime_utils,
+)
+from newutils.vulnerabilities import (
+    Treatments,
 )
 import os
 import pytest
@@ -507,4 +511,18 @@ async def test_get_oldest_no_treatment_findings_new() -> None:
         "oldest_name": "037. Technical information leak",
         "oldest_age": 256,
     }
+    assert expected_output == oldest_findings
+
+
+@freeze_time("2021-05-27")
+async def test_get_treatment_summary() -> None:
+    loaders = get_new_context()
+    finding_id = "475041513"
+    oldest_findings = await get_treatment_summary(loaders, finding_id)
+    expected_output = Treatments(
+        ACCEPTED=0,
+        ACCEPTED_UNDEFINED=0,
+        IN_PROGRESS=0,
+        NEW=1,
+    )
     assert expected_output == oldest_findings
