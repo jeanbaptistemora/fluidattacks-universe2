@@ -48,8 +48,8 @@ def get_finding_severity(findings: List[Finding], finding_id: str) -> Decimal:
             finding
             for finding in findings
             if finding["finding_id"] == finding_id
-        ).get("cvss_temporal", 0.0)
-    )
+        ).get("cvss_temporal", "0.0")
+    ).quantize(Decimal("0.1"))
 
 
 def get_finding_severity_new(

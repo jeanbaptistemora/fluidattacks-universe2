@@ -70,8 +70,8 @@ async def get_group_data(*, group: str, loaders: Dataloaders) -> Counter[str]:
         finding_severity.update(
             {
                 str(finding["finding_id"]): Decimal(
-                    finding.get("cvss_temporal", 0.0)
-                )
+                    finding.get("cvss_temporal", "0.0")
+                ).quantize(Decimal("0.1"))
                 for finding in group_findings
             }
         )

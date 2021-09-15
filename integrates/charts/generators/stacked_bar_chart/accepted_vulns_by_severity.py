@@ -21,6 +21,9 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
+from decimal import (
+    Decimal,
+)
 from findings import (
     domain as findings_domain,
 )
@@ -35,12 +38,12 @@ from typing import (
 )
 
 
-def get_severity_level(severity: float) -> str:
-    if severity <= 3.9:
+def get_severity_level(severity: Decimal) -> str:
+    if severity <= Decimal("3.9"):
         return "low_severity"
-    if 4 <= severity <= 6.9:
+    if 4 <= severity <= Decimal("6.9"):
         return "medium_severity"
-    if 7 <= severity <= 8.9:
+    if 7 <= severity <= Decimal("8.9"):
         return "high_severity"
 
     return "critical_severity"
@@ -57,7 +60,7 @@ async def get_data_one_group(group: str) -> Counter[str]:
         finding_ids = [finding.id for finding in group_findings_new]
         finding_severity_levels = [
             get_severity_level(
-                float(findings_domain.get_severity_score_new(finding.severity))
+                findings_domain.get_severity_score_new(finding.severity)
             )
             for finding in group_findings_new
         ]
@@ -66,7 +69,11 @@ async def get_data_one_group(group: str) -> Counter[str]:
         group_findings = await group_findings_loader.load(group.lower())
         finding_ids = [finding["finding_id"] for finding in group_findings]
         finding_severity_levels = [
-            get_severity_level(float(finding.get("cvss_temporal", 0.0)))
+            get_severity_level(
+                Decimal(finding.get("cvss_temporal", "0.0")).quantize(
+                    Decimal("0.1")
+                )
+            )
             for finding in group_findings
         ]
 
