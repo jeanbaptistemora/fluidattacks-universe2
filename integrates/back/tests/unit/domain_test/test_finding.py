@@ -32,7 +32,6 @@ from findings.domain import (
     get_tracking_vulnerabilities,
     list_drafts,
     list_findings,
-    list_findings_new,
     mask_finding,
     mask_finding_new,
     validate_evidence,
@@ -459,22 +458,6 @@ async def test_list_findings() -> None:
         "457497316",
     ]
     assert expected_output == test_data[0]
-
-
-@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
-async def test_list_findings_new() -> None:
-    context = get_new_context()
-    group_name = "unittesting"
-    test_data = await list_findings_new(context, [group_name])
-    expected_output = [
-        "988493279",
-        "422286126",
-        "436992569",
-        "463461507",
-        "463558592",
-        "457497316",
-    ]
-    assert sorted(expected_output) == sorted(test_data[0])
 
 
 @pytest.mark.skipif(MIGRATION, reason="Finding migration")

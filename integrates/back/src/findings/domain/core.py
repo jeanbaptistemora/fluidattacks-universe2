@@ -922,27 +922,6 @@ async def list_findings(
     return cast(List[List[str]], findings)
 
 
-async def list_findings_new(
-    loaders: Any,
-    group_names: List[str],
-    include_deleted: bool = False,
-) -> List[List[str]]:
-    """Returns a list of the list of finding ids associated with the groups"""
-    group_findings_loader = (
-        loaders.group_findings_all_new
-        if include_deleted
-        else loaders.group_findings_new
-    )
-    findings: Tuple[
-        Tuple[Finding, ...], ...
-    ] = await group_findings_loader.load_many(group_names)
-    findings_ids = [
-        list(map(lambda finding: finding.id, group_findings))
-        for group_findings in findings
-    ]
-    return cast(List[List[str]], findings_ids)
-
-
 async def mask_finding(  # pylint: disable=too-many-locals
     context: Any, finding_id: str
 ) -> bool:
