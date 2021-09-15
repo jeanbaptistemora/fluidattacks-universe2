@@ -21,6 +21,7 @@ from singer_io.singer2.json_schema import (
     JsonSchemaFactory,
 )
 from tap_announcekit.streams.project._objs import (
+    ImageId,
     Project,
     ProjectId,
 )
@@ -56,12 +57,11 @@ def _to_json(proj: Project) -> JsonObj:
         "is_feedback_enabled": proj.is_feedback_enabled,
         "is_demo": proj.is_demo,
         "is_readonly": proj.is_readonly,
-        "image_id": proj.image_id,
-        "favicon_id": proj.favicon_id,
+        "image_id": proj.image_id.img_id if proj.image_id else None,
+        "favicon_id": proj.favicon_id.img_id if proj.favicon_id else None,
         "created_at": proj.created_at.isoformat(),
         "ga_property": proj.ga_property,
         "avatar": proj.avatar,
-        "favicon": proj.favicon,
         "locale": proj.locale,
         "uses_new_feed_hostname": proj.uses_new_feed_hostname,
         "payment_gateway": proj.payment_gateway,
@@ -84,6 +84,7 @@ primitive_jschema_map = {
 def _type_jschema_map(ptype: Type[Any], optional: bool) -> JsonObj:
     extended_map = primitive_jschema_map.copy()
     extended_map[ProjectId] = "string"
+    extended_map[ImageId] = "string"
     extended_map[datetime] = "string"
     schema_type = Maybe.from_optional(extended_map.get(ptype)).map(
         lambda x: JsonValFactory.from_list([x, "null"])

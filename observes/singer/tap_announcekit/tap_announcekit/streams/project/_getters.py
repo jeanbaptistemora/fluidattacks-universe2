@@ -26,6 +26,9 @@ from tap_announcekit.api.gql_schema import (
 from tap_announcekit.stream import (
     StreamGetter,
 )
+from tap_announcekit.streams.id_objs import (
+    ImageId,
+)
 from tap_announcekit.streams.project._objs import (
     _Project,
     Project,
@@ -50,6 +53,8 @@ def _to_datetime(raw: Any) -> datetime:
 
 
 def _to_proj(raw: RawProject) -> Project:
+    raw_image_id = to_opt_primitive(raw.image_id, str)
+    raw_favicon_id = to_opt_primitive(raw.favicon_id, str)
     draft = _Project(
         ProjectId(to_primitive(raw.id, str)),
         to_primitive(raw.encoded_id, str),
@@ -63,12 +68,11 @@ def _to_proj(raw: RawProject) -> Project:
         to_primitive(raw.is_feedback_enabled, bool),
         to_primitive(raw.is_demo, bool),
         to_primitive(raw.is_readonly, bool),
-        to_opt_primitive(raw.image_id, str),
-        to_opt_primitive(raw.favicon_id, str),
+        ImageId(raw_image_id) if raw_image_id else None,
+        ImageId(raw_favicon_id) if raw_favicon_id else None,
         _to_datetime(raw.created_at),
         to_opt_primitive(raw.ga_property, str),
         to_primitive(raw.avatar, str),
-        to_opt_primitive(raw.favicon, str),
         to_primitive(raw.locale, str),
         to_opt_primitive(raw.uses_new_feed_hostname, bool),
         to_primitive(raw.payment_gateway, str),

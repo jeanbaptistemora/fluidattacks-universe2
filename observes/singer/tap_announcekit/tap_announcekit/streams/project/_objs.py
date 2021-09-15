@@ -5,6 +5,7 @@ from datetime import (
     datetime,
 )
 from tap_announcekit.streams.id_objs import (
+    ImageId,
     ProjectId,
 )
 from typing import (
@@ -29,12 +30,11 @@ class _Project:
     is_feedback_enabled: bool
     is_demo: bool
     is_readonly: bool
-    image_id: Optional[str]
-    favicon_id: Optional[str]
+    image_id: Optional[ImageId]
+    favicon_id: Optional[ImageId]
     created_at: datetime
     ga_property: Optional[str]
     avatar: str
-    favicon: Optional[str]
     locale: str
     uses_new_feed_hostname: Optional[bool]
     payment_gateway: str
@@ -50,5 +50,6 @@ class Project(_Project):
 
 
 __all__ = [
+    "ImageId",
     "ProjectId",
 ]
