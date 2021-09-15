@@ -95,7 +95,6 @@
         ];
 
         # Makes utilities
-        buildPythonLambda = importUtility "build-python-lambda";
         buildRubyRequirement = importUtility "build-ruby-requirement";
         bundleClosure = importUtility "bundle-closure";
         computeOnAws = importUtility "compute-on-aws";
