@@ -1,4 +1,5 @@
 cachetools: "4.2.2"
-click: "7.1.2"
+click: "8.0.1"
 returns: "0.16.0"
 sgqlc: "14.0"
+types-cachetools: "4.2.0"
