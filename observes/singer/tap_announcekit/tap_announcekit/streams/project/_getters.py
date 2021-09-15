@@ -96,7 +96,7 @@ def _proj_query(proj_id: str) -> IO[Query]:
 def _get_project(client: ApiClient, proj_id: ProjectId) -> IO[Project]:
     query = _proj_query(proj_id.proj_id)
     LOG.debug("query: %s", query)
-    raw: IO[RawProject] = client.get(query)
+    raw: IO[RawProject] = client.get(query).map(lambda q: q.project)
     return raw.map(_to_proj)
 
 
