@@ -10,9 +10,10 @@
     name = "fluidattacks";
     pubKey = "fluidattacks.cachix.org-1:upiUCP8kWnr7NxVSJtTOM+SBqL0pZhZnUoqPG04sBv0=";
   };
+  extendingMakesDir = "/makes/foss/units";
   imports = [
-    ./makes/airs/makes.nix
-    ./makes/docs/makes.nix
+    ./makes/foss/modules/makes.nix
+
     ./makes/forces/makes.nix
     ./makes/integrates/makes.nix
     ./makes/makes/makes.nix
@@ -29,6 +30,5 @@
       sha256 = "1dkwcsgwyi76s1dqbrxll83a232h9ljwn4cps88w9fam68rf8qv3";
     };
     product = import (projectPath "/");
-    observesIndex = import ./observes/architecture/index.nix;
   };
 }

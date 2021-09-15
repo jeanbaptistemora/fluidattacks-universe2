@@ -5,7 +5,7 @@
   ];
   lintMarkdown = {
     docs = {
-      config = "/makes/docs/config/markdown.rb";
+      config = "/makes/foss/modules/docs/config/markdown.rb";
       targets = [ "/docs/src/docs" ];
     };
   };

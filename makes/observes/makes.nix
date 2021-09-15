@@ -5,6 +5,9 @@
     ./linters/makes.nix
     ./pipeline/makes.nix
   ];
+  inputs = {
+    observesIndex = import ./observes/architecture/index.nix;
+  };
   secretsForAwsFromEnv = {
     observesDev = {
       accessKeyId = "OBSERVES_DEV_AWS_ACCESS_KEY_ID";
