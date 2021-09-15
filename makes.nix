@@ -17,7 +17,6 @@
     ./makes/forces/makes.nix
     ./makes/makes/makes.nix
     ./makes/melts/makes.nix
-    ./makes/observes/makes.nix
     ./makes/reviews/makes.nix
     ./makes/skims/makes.nix
     ./makes/sorts/makes.nix

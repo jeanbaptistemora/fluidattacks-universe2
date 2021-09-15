@@ -6,7 +6,7 @@
     modules = {
       observes = {
         setup = [ outputs."/secretsForAwsFromEnv/observesProd" ];
-        src = "/makes/observes/infra/infra";
+        src = "/makes/foss/modules/observes/infra/infra";
         version = "0.14";
       };
     };
@@ -15,7 +15,7 @@
     modules = {
       observes = {
         setup = [ outputs."/secretsForAwsFromEnv/observesDev" ];
-        src = "/makes/observes/infra/infra";
+        src = "/makes/foss/modules/observes/infra/infra";
         version = "0.14";
       };
     };
@@ -24,7 +24,7 @@
     modules = {
       observes = {
         setup = [ outputs."/secretsForAwsFromEnv/observesDev" ];
-        src = "/makes/observes/infra/infra";
+        src = "/makes/foss/modules/observes/infra/infra";
         version = "0.14";
       };
     };
