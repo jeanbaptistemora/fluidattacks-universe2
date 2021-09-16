@@ -950,7 +950,6 @@ async def mask_finding(  # pylint: disable=too-many-locals
         "attack_vector_desc",
         "effect_solution",
         "related_findings",
-        "risk",
         "threat",
         "treatment",
         "treatment_manager",

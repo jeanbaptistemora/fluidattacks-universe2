@@ -18,7 +18,6 @@ async def get_result(
     group: str = "group1"
     recommendation: str = "Solve this finding"
     requirements: str = "REQ.0001. Apply filters"
-    risk: str = "This is pytest created draft"
     threat: str = "Attacker"
     title: str = "001. SQL injection - C Sharp SQL API"
     draft_type: str = "SECURITY"
@@ -29,7 +28,6 @@ async def get_result(
                 groupName: "{group}",
                 recommendation: "{recommendation}",
                 requirements: "{requirements}",
-                risk: "{risk}",
                 threat: "{threat}",
                 title: "{title}",
                 type: {draft_type}

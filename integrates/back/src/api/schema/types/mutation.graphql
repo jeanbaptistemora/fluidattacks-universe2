@@ -57,8 +57,6 @@ type Mutation {
     reportConfidence: String
     "Rules that are broken and lead to the existence of the vulnerability"
     requirements: String
-    "Other risks opened by the exploit"
-    risk: String
     "Security scope of the affected resources by the exploited vulnerabilities"
     severityScope: String
     "Actor and scenery where the vulnerability can be exploited"
@@ -363,8 +361,6 @@ type Mutation {
     recommendation: String
     "Rules that are broken and lead to the existence of the vulnerability"
     requirements: String
-    "Other risks opened by the exploit"
-    risk: String
     "Actor and scenery where the vulnerability can be exploited"
     threat: String
     "Finding number and name"
@@ -966,8 +962,6 @@ type Mutation {
     records: String
     "Number of compromised records"
     recordsNumber: Int!
-    "Other risks opened by the exploit"
-    risk: String
     "Scenario"
     scenario: String
     "Did Sorts guide you to the file where the vulnerability was found?"

@@ -62,7 +62,6 @@ async def get_result(
                 compromisedAttributes
                 compromisedRecords
                 bugTrackingSystemUrl
-                risk
                 type
                 tracking
                 observations{{

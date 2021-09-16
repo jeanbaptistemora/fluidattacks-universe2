@@ -174,7 +174,6 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
           affectedSystems
           compromisedAttributes
           compromisedRecords
-          risk
           remediated
           type
           age
@@ -252,7 +251,6 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
     assert "affectedSystems" in result["data"]["finding"]
     assert "compromisedAttributes" in result["data"]["finding"]
     assert "compromisedRecords" in result["data"]["finding"]
-    assert "risk" in result["data"]["finding"]
     assert "remediated" in result["data"]["finding"]
     assert "type" in result["data"]["finding"]
     assert "age" in result["data"]["finding"]
@@ -648,7 +646,6 @@ async def test_create_draft() -> None:
             $groupName: String!,
             $recommendation: String,
             $requirements: String,
-            $risk: String,
             $threat: String,
             $title: String!,
             $type: FindingType
@@ -658,7 +655,6 @@ async def test_create_draft() -> None:
             groupName: $groupName,
             recommendation: $recommendation,
             requirements: $requirements,
-            risk: $risk,
             threat: $threat,
             title: $title,
             type: $type
@@ -672,7 +668,6 @@ async def test_create_draft() -> None:
         "groupName": "UNITTESTING",
         "recommendation": "Solve this finding",
         "requirements": "REQ.0001. Apply filters",
-        "risk": "Losing money",
         "threat": "Attacker",
         "title": "001. SQL injection - C Sharp SQL API",
         "type": "SECURITY",

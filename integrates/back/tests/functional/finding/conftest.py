@@ -72,7 +72,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "title": "001. SQL injection - C Sharp SQL API",
                 "compromised_attributes": "Clave plana",
                 "bts": "",
-                "risk": "This is pytest created draft",
                 "vulnerability": "I just have updated the description",
                 "analyst": "test1@gmail.com",
                 "cvss_version": "3.1",
