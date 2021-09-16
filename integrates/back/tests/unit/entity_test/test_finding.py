@@ -84,6 +84,24 @@ async def test_finding_age() -> None:
     assert result["data"]["finding"]["openAge"] == 332
 
 
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+async def test_finding_age_new() -> None:
+    """Check for finding age."""
+    query = """{
+      finding(identifier: "422286126"){
+          age
+          lastVulnerability
+          openAge
+      }
+    }"""
+    data = {"query": query}
+    result = await _get_result(data)
+    assert "errors" not in result
+    assert result["data"]["finding"]["age"] == 613
+    assert result["data"]["finding"]["lastVulnerability"] == 613
+    assert result["data"]["finding"]["openAge"] == 613
+
+
 async def test_finding() -> None:  # pylint: disable=too-many-statements
     """Check for finding query."""
     expected_vuln = {
