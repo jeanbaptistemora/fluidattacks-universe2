@@ -585,6 +585,8 @@ export const enTranslations: ResourceKey = {
           targetPlaceholder: "Search by nickname or address...",
           targetRoot: "Target root",
           title: "Deactivate Root",
+          warning:
+            "Deactivating this root takes it out of scope, therefore it will no longer be tested.",
         },
         edit: "Edit root",
         editTooltip: "Edit the selected git root",

@@ -717,6 +717,19 @@ describe("GroupScopeView", (): void => {
         wrapper.update();
       });
 
+      const proceedButton = wrapper
+        .find("ConfirmDialog")
+        .find("Modal")
+        .find("Button")
+        .at(1);
+      proceedButton.simulate("click");
+
+      await act(async (): Promise<void> => {
+        const delay: number = 100;
+        await wait(delay);
+        wrapper.update();
+      });
+
       expect(getStateSwitch().prop("checked")).toStrictEqual(false);
     }
   );

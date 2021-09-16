@@ -139,12 +139,38 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
         onEsc={onClose}
         open={true}
       >
-        <ConfirmDialog message={""} title={""}>
-          {(): React.ReactNode => {
+        <ConfirmDialog
+          message={t("group.scope.common.deactivation.warning")}
+          title={t("group.scope.common.confirm")}
+        >
+          {(confirm): React.ReactNode => {
+            async function confirmAndSubmit(
+              values: Record<string, string>
+            ): Promise<void> {
+              if (
+                ["OUT_OF_SCOPE", "REGISTERED_BY_MISTAKE"].includes(
+                  values.reason
+                )
+              ) {
+                return new Promise((resolve): void => {
+                  confirm(
+                    (): void => {
+                      resolve(handleSubmit(values));
+                    },
+                    (): void => {
+                      resolve();
+                    }
+                  );
+                });
+              }
+
+              return handleSubmit(values);
+            }
+
             return (
               <Formik
                 initialValues={{ other: "", reason: "", targetRoot: "" }}
-                onSubmit={handleSubmit}
+                onSubmit={confirmAndSubmit}
                 validationSchema={validations}
               >
                 {({ dirty, isSubmitting, values }): JSX.Element => (
