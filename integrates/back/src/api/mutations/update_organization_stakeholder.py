@@ -54,8 +54,8 @@ async def mutate(
     requester_email = requester_data["user_email"]
 
     user_email: str = str(parameters.get("user_email"))
-    new_phone_number: str = str(parameters.get("phone_number"))
     new_role: str = map_roles(str(parameters.get("role")).lower())
+    new_phone_number: str = parameters.get("phone_number", "")
 
     if not await orgs_domain.has_user_access(organization_id, user_email):
         logs_utils.cloudwatch_log(
@@ -66,7 +66,8 @@ async def mutate(
         )
         raise UserNotInOrganization()
 
-    if await orgs_domain.add_user(organization_id, user_email, new_role):
+    success = await orgs_domain.add_user(organization_id, user_email, new_role)
+    if new_phone_number:
         success = await users_domain.update_user_information(
             info.context,
             {
