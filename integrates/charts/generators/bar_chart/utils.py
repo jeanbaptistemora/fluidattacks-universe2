@@ -109,17 +109,17 @@ def format_data(
     )
 
 
-def get_valid_organizations(
+def get_valid_subjects(
     *,
-    organizations: Tuple[Benchmarking, ...],
+    all_subjects: Tuple[Benchmarking, ...],
     subject: str,
 ) -> List[Benchmarking]:
     return [
-        organization
-        for organization in organizations
-        if subject != organization.subject
-        and organization.is_valid
-        and organization.mttr != Decimal("Infinity")
+        _subject
+        for _subject in all_subjects
+        if subject != _subject.subject
+        and _subject.is_valid
+        and _subject.mttr != Decimal("Infinity")
     ]
 
 
@@ -133,12 +133,12 @@ def get_mean_organizations(*, organizations: List[Benchmarking]) -> Decimal:
     )
 
 
-def get_best_mttr(*, organizations: List[Benchmarking]) -> Decimal:
+def get_best_mttr(*, subjects: List[Benchmarking]) -> Decimal:
     return (
-        Decimal(
-            min([organization.mttr for organization in organizations])
-        ).to_integral_exact(rounding=ROUND_CEILING)
-        if organizations
+        Decimal(min([subject.mttr for subject in subjects])).to_integral_exact(
+            rounding=ROUND_CEILING
+        )
+        if subjects
         else Decimal("0")
     )
 

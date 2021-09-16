@@ -13,7 +13,7 @@ from charts.generators.bar_chart.utils import (
     format_data,
     get_best_mttr,
     get_mean_organizations,
-    get_valid_organizations,
+    get_valid_subjects,
     get_vulnerability_reattacks,
     GROUP_CATEGORIES,
     ORGANIZATION_CATEGORIES,
@@ -161,7 +161,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
     )
 
     best_mttr = get_best_mttr(
-        organizations=[
+        subjects=[
             organization
             for organization in all_organizations_data
             if organization.is_valid
@@ -169,11 +169,11 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
     )
 
     best_group_mttr = get_best_mttr(
-        organizations=[group for group in all_groups_data if group.is_valid]
+        subjects=[group for group in all_groups_data if group.is_valid]
     )
 
     best_portfolio_mttr = get_best_mttr(
-        organizations=[
+        subjects=[
             portfolio
             for portfolio in all_portfolios_data
             if portfolio.is_valid
@@ -193,8 +193,8 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                         ).mttr
                     ).to_integral_exact(rounding=ROUND_CEILING),
                     get_mean_organizations(
-                        organizations=get_valid_organizations(
-                            organizations=all_groups_data,
+                        organizations=get_valid_subjects(
+                            all_subjects=all_groups_data,
                             subject=group,
                         )
                     ),
@@ -220,8 +220,8 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                         )
                     ).mttr,
                     get_mean_organizations(
-                        organizations=get_valid_organizations(
-                            organizations=all_organizations_data,
+                        organizations=get_valid_subjects(
+                            all_subjects=all_organizations_data,
                             subject=org_id,
                         )
                     ),
@@ -246,8 +246,8 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                             )
                         ).mttr,
                         get_mean_organizations(
-                            organizations=get_valid_organizations(
-                                organizations=all_portfolios_data,
+                            organizations=get_valid_subjects(
+                                all_subjects=all_portfolios_data,
                                 subject=portfolio,
                             )
                         ),
