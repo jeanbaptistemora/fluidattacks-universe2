@@ -39,7 +39,7 @@ async def test_deactivate_root(
     group_name: str,
     root_id: str,
     reason: str,
-    other: str,
+    other: Optional[str],
 ) -> None:
     assert populate
     result = await get_result(

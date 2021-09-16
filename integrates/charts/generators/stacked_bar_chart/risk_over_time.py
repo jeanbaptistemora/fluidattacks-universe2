@@ -34,7 +34,7 @@ from typing import (
 
 @alru_cache(maxsize=None, typed=True)
 async def get_group_document(  # pylint: disable=too-many-locals
-    group: str, days: Optional[int] = None
+    group: str, days: int
 ) -> RiskOverTime:
     data: List[GroupDocumentData] = []
     data_monthly: List[GroupDocumentData] = []
@@ -107,11 +107,11 @@ async def get_group_document(  # pylint: disable=too-many-locals
                 )
             )
 
+    weekly_data_size: int = len(
+        group_data[data_name][0] if group_data[data_name] else []
+    )
     return RiskOverTime(
-        should_use_monthly=False
-        if days
-        else len(group_data[data_name][0] if group_data[data_name] else [])
-        > 12,
+        should_use_monthly=False if days else weekly_data_size > 12,
         monthly={
             "date": {datum.date: 0 for datum in data_monthly},
             "Closed": {datum.date: datum.closed for datum in data_monthly},
@@ -153,53 +153,21 @@ async def get_many_groups_document(
 
 async def generate_all() -> None:
     y_label: str = "Vulnerabilities"
-    async for group in utils.iterate_groups():
-        group_document: RiskOverTime = await get_group_document(group)
-        utils.json_dump(
-            document=format_document(
-                document=group_document.monthly
-                if group_document.should_use_monthly
-                else group_document.weekly,
-                y_label=y_label,
-            ),
-            entity="group",
-            subject=group,
-        )
-
-    async for org_id, _, org_groups in (
-        utils.iterate_organizations_and_groups()
-    ):
-        utils.json_dump(
-            document=format_document(
-                document=await get_many_groups_document(org_groups),
-                y_label=y_label,
-            ),
-            entity="organization",
-            subject=org_id,
-        )
-
-    async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
-        for portfolio, groups in await utils.get_portfolios_groups(org_name):
-            utils.json_dump(
-                document=format_document(
-                    document=await get_many_groups_document(groups),
-                    y_label=y_label,
-                ),
-                entity="portfolio",
-                subject=f"{org_id}PORTFOLIO#{portfolio}",
-            )
-
-    # Limit days
-    list_days: List[int] = [30, 90]
+    list_days: List[int] = [0, 30, 90]
     for days in list_days:
         async for group in utils.iterate_groups():
+            group_document: RiskOverTime = await get_group_document(
+                group, days
+            )
             utils.json_dump(
                 document=format_document(
-                    document=(await get_group_document(group, days)).weekly,
+                    document=group_document.monthly
+                    if group_document.should_use_monthly
+                    else group_document.weekly,
                     y_label=y_label,
                 ),
                 entity="group",
-                subject=f"{group}_{days}",
+                subject=group + utils.get_subject_days(days),
             )
 
         async for org_id, _, org_groups in (
@@ -211,7 +179,7 @@ async def generate_all() -> None:
                     y_label=y_label,
                 ),
                 entity="organization",
-                subject=f"{org_id}_{days}",
+                subject=org_id + utils.get_subject_days(days),
             )
 
         async for org_id, org_name, _ in (
@@ -226,7 +194,8 @@ async def generate_all() -> None:
                         y_label=y_label,
                     ),
                     entity="portfolio",
-                    subject=f"{org_id}PORTFOLIO#{portfolio}_{days}",
+                    subject=f"{org_id}PORTFOLIO#{portfolio}"
+                    + utils.get_subject_days(days),
                 )
 
 

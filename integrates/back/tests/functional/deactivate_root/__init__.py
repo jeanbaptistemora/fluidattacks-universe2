@@ -17,7 +17,7 @@ async def get_result(
     group_name: str,
     identifier: str,
     reason: str,
-    other: str,
+    other: Optional[str],
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{

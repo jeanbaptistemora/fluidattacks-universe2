@@ -101,11 +101,12 @@ async def get_group_document(  # pylint: disable=too-many-locals
                 )
             )
 
+    weekly_data_size: int = len(
+        group_data[data_name][0] if group_data[data_name] else []
+    )
+    should_use_monthly: bool = False if days else weekly_data_size > 12
     return RiskOverTime(
-        should_use_monthly=False
-        if days
-        else len(group_data[data_name][0] if group_data[data_name] else [])
-        > 12,
+        should_use_monthly=should_use_monthly,
         monthly={
             "date": {datum.date: 0 for datum in data_monthly},
             "Closed": {datum.date: datum.closed for datum in data_monthly},
