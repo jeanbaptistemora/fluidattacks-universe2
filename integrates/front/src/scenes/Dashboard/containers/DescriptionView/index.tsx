@@ -11,12 +11,14 @@ import { useParams } from "react-router-dom";
 import { DescriptionViewForm } from "scenes/Dashboard/containers/DescriptionView/DescriptionViewForm";
 import {
   GET_FINDING_DESCRIPTION,
+  GET_LANGUAGE,
   UPDATE_DESCRIPTION_MUTATION,
 } from "scenes/Dashboard/containers/DescriptionView/queries";
 import type {
   IFinding,
   IFindingDescriptionData,
   IFindingDescriptionVars,
+  ILanguageData,
 } from "scenes/Dashboard/containers/DescriptionView/types";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
@@ -52,6 +54,16 @@ const DescriptionView: React.FC = (): JSX.Element => {
       findingId,
       groupName,
     },
+  });
+
+  const { data: groupData } = useQuery<ILanguageData>(GET_LANGUAGE, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        Logger.warning("An error occurred loading group language", error);
+      });
+    },
+    variables: { groupName },
   });
 
   const [updateDescription] = useMutation(UPDATE_DESCRIPTION_MUTATION, {
@@ -116,6 +128,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
       >
         <DescriptionViewForm
           data={data}
+          groupLanguage={groupData?.language}
           isEditing={isEditing}
           setEditing={setEditing}
         />

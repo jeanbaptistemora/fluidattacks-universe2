@@ -1,6 +1,8 @@
 import { Field, Form, useFormikContext } from "formik";
+import yaml from "js-yaml";
 import _ from "lodash";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import type { ReactElement } from "react";
 import type { ConfigurableValidator } from "revalidate";
 
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -9,6 +11,10 @@ import type {
   IFinding,
   IFindingDescriptionData,
 } from "scenes/Dashboard/containers/DescriptionView/types";
+import type {
+  IRequirementData,
+  IVulnData,
+} from "scenes/Dashboard/containers/GroupDraftsView/types";
 import {
   Col100,
   Col45,
@@ -50,17 +56,28 @@ const maxRecommendationLength: ConfigurableValidator = maxLength(
 interface IDescriptionViewFormProps {
   data: IFindingDescriptionData | undefined;
   isEditing: boolean;
+  groupLanguage: string | undefined;
   setEditing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
   data,
   isEditing,
+  groupLanguage,
   setEditing,
 }: IDescriptionViewFormProps): JSX.Element => {
   const { dirty, resetForm, submitForm } = useFormikContext();
 
   const isDescriptionPristine = !dirty;
+
+  const criteriaIdSlice: number = 3;
+  const baseUrl: string =
+    "https://gitlab.com/api/v4/projects/20741933/repository/files";
+  const branchRef: string = "master";
+  const baseReqsUrl: string =
+    "https://docs.fluidattacks.com/criteria/requirements/";
+
+  const [reqsList, setReqsList] = useState<string[]>([]);
 
   const toggleEdit: () => void = useCallback((): void => {
     if (!isDescriptionPristine) {
@@ -74,6 +91,63 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
       void submitForm();
     }
   }, [isDescriptionPristine, submitForm]);
+
+  const findingNumber = data?.finding.title.slice(0, criteriaIdSlice);
+
+  function getRequirementsText(
+    requirements: string[],
+    language: string | undefined,
+    criteriaData: Record<string, IRequirementData> | undefined
+  ): string[] {
+    if (criteriaData === undefined) {
+      return requirements;
+    }
+    const requirementsSummaries: string[] = requirements.map(
+      (key: string): string => {
+        const summary =
+          language === "ES"
+            ? criteriaData[key].es.summary
+            : criteriaData[key].en.summary;
+
+        return `${key}. ${summary}`;
+      }
+    );
+
+    return requirementsSummaries;
+  }
+
+  useEffect((): void => {
+    async function fetchData(): Promise<void> {
+      const vulnsFileId: string =
+        "makes%2Ffoss%2Fmodules%2Fmakes%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml";
+      const vulnsResponseFile: Response = await fetch(
+        `${baseUrl}/${vulnsFileId}/raw?ref=${branchRef}`
+      );
+      const vulnsYamlFile: string = await vulnsResponseFile.text();
+      const vulnsData = vulnsYamlFile
+        ? (yaml.load(vulnsYamlFile) as Record<string, IVulnData>)
+        : undefined;
+
+      const requirementsFileId: string =
+        "makes%2Ffoss%2Fmodules%2Fmakes%2Fcriteria%2Fsrc%2Frequirements%2Fdata.yaml";
+      const requirementsResponseFile: Response = await fetch(
+        `${baseUrl}/${requirementsFileId}/raw?ref=${branchRef}`
+      );
+      const requirementsYamlFile: string =
+        await requirementsResponseFile.text();
+      const requirementsData = requirementsYamlFile
+        ? (yaml.load(requirementsYamlFile) as Record<string, IRequirementData>)
+        : undefined;
+
+      if (!_.isNil(vulnsData) && !_.isNil(findingNumber)) {
+        const { requirements } = vulnsData[findingNumber];
+        setReqsList(
+          getRequirementsText(requirements, groupLanguage, requirementsData)
+        );
+      }
+    }
+    void fetchData();
+  }, [findingNumber, groupLanguage, setReqsList]);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -176,7 +250,27 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                       )}
                     </b>
                   </ControlLabel>
-                  <p className={"ma0 ws-pre-wrap"}>{dataset.requirements}</p>
+                  {reqsList.length === 0 ? (
+                    <p>{"Loading requirements..."}</p>
+                  ) : (
+                    <p className={"ws-pre-wrap"}>
+                      {reqsList.map((req: string): ReactElement => {
+                        return (
+                          <a
+                            href={`${baseReqsUrl}${req.slice(
+                              0,
+                              criteriaIdSlice
+                            )}`}
+                            key={req}
+                            rel={"noopener noreferrer"}
+                            target={"_blank"}
+                          >
+                            {req}
+                          </a>
+                        );
+                      })}
+                    </p>
+                  )}
                 </FormGroup>
               </TooltipWrapper>
             </Col100>

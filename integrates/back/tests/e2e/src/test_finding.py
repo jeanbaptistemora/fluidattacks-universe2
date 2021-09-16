@@ -34,7 +34,7 @@ def test_finding_description(
     description.click()
     assert utils.wait_for_text(
         driver,
-        "R359. Avoid using generic exceptions.",
+        "359. The system should use typified exceptions instead of generic",
         timeout,
     )
 

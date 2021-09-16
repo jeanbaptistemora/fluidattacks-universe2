@@ -27,6 +27,14 @@ const GET_FINDING_DESCRIPTION: DocumentNode = gql`
   }
 `;
 
+const GET_LANGUAGE: DocumentNode = gql`
+  query GetLanguageQuery($groupName: String!) {
+    group(groupName: $groupName) {
+      language
+    }
+  }
+`;
+
 const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
   mutation UpdateFindingDescription(
     $affectedSystems: String!
@@ -57,4 +65,4 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
   }
 `;
 
-export { GET_FINDING_DESCRIPTION, UPDATE_DESCRIPTION_MUTATION };
+export { GET_FINDING_DESCRIPTION, GET_LANGUAGE, UPDATE_DESCRIPTION_MUTATION };

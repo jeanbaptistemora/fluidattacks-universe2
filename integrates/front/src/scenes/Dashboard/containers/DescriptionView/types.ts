@@ -37,9 +37,14 @@ interface IFindingDescriptionVars {
   groupName: string;
 }
 
+interface ILanguageData {
+  language: string;
+}
+
 export {
   IHistoricTreatment,
   IFinding,
   IFindingDescriptionData,
   IFindingDescriptionVars,
+  ILanguageData,
 };
