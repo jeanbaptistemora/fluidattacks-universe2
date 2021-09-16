@@ -1,6 +1,6 @@
 # pylint: disable=invalid-name
 """
-This migration updates drills service to false on finished groups
+This migration updates active services to false on deleted groups
 
 Execution Time:
 Finalization Time:
@@ -37,6 +37,10 @@ async def update_group(group_name: str) -> bool:
                     {
                         **historic_config[-1],
                         "has_drills": False,
+                        "has_forces": False,
+                        "has_machine": False,
+                        "has_skims": False,
+                        "has_squad": False,
                     },
                 ],
                 "project_status": "DELETED",
