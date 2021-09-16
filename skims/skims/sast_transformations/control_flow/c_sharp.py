@@ -11,14 +11,14 @@ from more_itertools import (
     pairwise,
 )
 from sast_transformations.control_flow.common import (
-    catch_statement,
-    if_statement,
-    link_to_last_node,
-    loop_statement,
+    catch_statement as common_catch_statement,
+    if_statement as common_if_statement,
+    link_to_last_node as common_link_to_last_node,
+    loop_statement as common_loop_statement,
     propagate_next_id_from_parent,
     set_next_id,
-    step_by_step,
-    try_statement,
+    step_by_step as common_step_by_step,
+    try_statement as common_try_statement,
 )
 from sast_transformations.control_flow.types import (
     EdgeAttrs,
@@ -33,7 +33,7 @@ from utils import (
 )
 
 
-def _switch_statement(
+def switch_statement(
     graph: Graph,
     n_id: str,
     stack: Stack,
@@ -66,14 +66,14 @@ def _switch_statement(
         for stmt_a_id, stmt_b_id in pairwise(stmt_ids):
             # Mark as next_id the next statement in chain
             set_next_id(stack, stmt_b_id)
-            _generic(graph, stmt_a_id, stack, edge_attrs=g.ALWAYS)
+            generic(graph, stmt_a_id, stack, edge_attrs=g.ALWAYS)
 
         # Link recursively the last statement in the block
         propagate_next_id_from_parent(stack)
-        _generic(graph, stmt_ids[-1], stack, edge_attrs=g.ALWAYS)
+        generic(graph, stmt_ids[-1], stack, edge_attrs=g.ALWAYS)
 
 
-def _using_statement(
+def using_statement(
     graph: Graph,
     n_id: str,
     stack: Stack,
@@ -81,12 +81,12 @@ def _using_statement(
     match = g.match_ast(graph, n_id, "block")
     if block_id := match["block"]:
         graph.add_edge(n_id, block_id, **g.ALWAYS)
-        _generic(graph, block_id, stack, edge_attrs=g.ALWAYS)
+        generic(graph, block_id, stack, edge_attrs=g.ALWAYS)
     propagate_next_id_from_parent(stack)
-    link_to_last_node(graph, n_id, stack, _generic=_generic)
+    common_link_to_last_node(graph, n_id, stack, _generic=generic)
 
 
-def _lambda_expression(
+def lambda_expression(
     graph: Graph,
     n_id: str,
     stack: Stack,
@@ -97,7 +97,7 @@ def _lambda_expression(
 
     body_id = node_attrs["label_field_body"]
     graph.add_edge(n_id, body_id, **g.ALWAYS)
-    _generic(graph, body_id, stack, edge_attrs=g.ALWAYS)
+    generic(graph, body_id, stack, edge_attrs=g.ALWAYS)
 
 
 def _next_declaration(
@@ -127,7 +127,7 @@ def _next_declaration(
                 graph.add_edge(n_id, next_id, **edge_attrs)
 
 
-def _generic(
+def generic(
     graph: Graph,
     n_id: str,
     stack: Stack,
@@ -139,7 +139,7 @@ def _generic(
 
     stack.append(dict(type=n_attrs_label_type))
 
-    for walker in c_sharp_walkers:
+    for walker in CSHARP_WALKERS:
         if n_attrs_label_type in walker.applicable_node_label_types:
             walker.walk_fun(graph, n_id, stack)
             break
@@ -151,49 +151,49 @@ def _generic(
     stack.pop()
 
 
-c_sharp_walkers: Tuple[Walker, ...] = (
+CSHARP_WALKERS: Tuple[Walker, ...] = (
     Walker(
         applicable_node_label_types={
             "block",
             "constructor_body",
             "expression_statement",
         },
-        walk_fun=partial(step_by_step, _generic=_generic),
+        walk_fun=partial(common_step_by_step, _generic=generic),
     ),
     Walker(
         applicable_node_label_types={
             "constructor_declaration",
             "method_declaration",
         },
-        walk_fun=partial(link_to_last_node, _generic=_generic),
+        walk_fun=partial(common_link_to_last_node, _generic=generic),
     ),
     Walker(
         applicable_node_label_types={
             "switch_statement",
         },
-        walk_fun=_switch_statement,
+        walk_fun=switch_statement,
     ),
     Walker(
         applicable_node_label_types={
             "using_statement",
         },
-        walk_fun=_using_statement,
+        walk_fun=using_statement,
     ),
     Walker(
         applicable_node_label_types={"catch_clause", "finally_clause"},
-        walk_fun=partial(catch_statement, _generic=_generic),
+        walk_fun=partial(common_catch_statement, _generic=generic),
     ),
     Walker(
         applicable_node_label_types={
             "if_statement",
         },
-        walk_fun=partial(if_statement, _generic=_generic),
+        walk_fun=partial(common_if_statement, _generic=generic),
     ),
     Walker(
         applicable_node_label_types={
             "try_statement",
         },
-        walk_fun=partial(try_statement, _generic=_generic),
+        walk_fun=partial(common_try_statement, _generic=generic),
     ),
     Walker(
         applicable_node_label_types={
@@ -202,13 +202,13 @@ c_sharp_walkers: Tuple[Walker, ...] = (
             "while_statement",
             "for_each_statement",
         },
-        walk_fun=partial(loop_statement, _generic=_generic),
+        walk_fun=partial(common_loop_statement, _generic=generic),
     ),
     Walker(
         applicable_node_label_types={
             "lambda_expression",
         },
-        walk_fun=_lambda_expression,
+        walk_fun=lambda_expression,
     ),
 )
 
@@ -226,4 +226,4 @@ def add(graph: Graph) -> None:
         graph.nodes,
         predicate=_predicate,
     ):
-        _generic(graph, n_id, stack=[], edge_attrs=g.ALWAYS)
+        generic(graph, n_id, stack=[], edge_attrs=g.ALWAYS)
