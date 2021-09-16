@@ -11,12 +11,11 @@ from more_itertools import (
     pairwise,
 )
 from sast_transformations.control_flow.common import (
-    GenericType,
     get_next_id,
-    link_to_last_node,
+    link_to_last_node as common_link_to_last_node,
     propagate_next_id_from_parent,
     set_next_id,
-    step_by_step,
+    step_by_step as common_step_by_step,
 )
 from sast_transformations.control_flow.types import (
     EdgeAttrs,
@@ -32,7 +31,34 @@ from utils import (
 )
 
 
-def _generic(
+def _next_declaration(
+    graph: Graph,
+    n_id: str,
+    stack: Stack,
+    *,
+    edge_attrs: EdgeAttrs,
+) -> None:
+    with suppress(IndexError):
+        # check if a following stmt is pending in parent entry of the stack
+        next_id = stack[-2].pop("next_id", None)
+
+        # if there was a following stament, it does not have the current one
+        # as child and they are not the same
+        if (
+            next_id
+            and n_id != next_id
+            and n_id not in g.adj_cfg(graph, next_id)
+        ):
+            # check that the next node is not already part of this cfg branch
+            for statement in g.pred_cfg_lazy(graph, n_id, depth=-1):
+                if statement == next_id:
+                    break
+            else:
+                # add following statement to cfg
+                graph.add_edge(n_id, next_id, **edge_attrs)
+
+
+def generic(
     graph: Graph,
     n_id: str,
     stack: Stack,
@@ -41,22 +67,22 @@ def _generic(
 ) -> None:
     n_attrs = graph.nodes[n_id]
     n_attrs_label_type = n_attrs["label_type"]
+
     stack.append(dict(type=n_attrs_label_type))
 
-    for walker in kotlin_walkers:
+    for walker in KOTLIN_WALKERS:
         if n_attrs_label_type in walker.applicable_node_label_types:
             walker.walk_fun(graph, n_id, stack)
             break
     else:
-        if (next_id := stack[-2].pop("next_id", None)) and n_id != next_id:
-            graph.add_edge(n_id, next_id, **edge_attrs)
+        # if there is no walker for the expression, stop the recursion
+        # the only thing left is to check if there is a cfg statement following
+        _next_declaration(graph, n_id, stack, edge_attrs=edge_attrs)
 
     stack.pop()
 
 
-def _class_statements(
-    graph: Graph, n_id: str, stack: Stack, *, _generic: GenericType
-) -> None:
+def class_statements(graph: Graph, n_id: str, stack: Stack) -> None:
     stmt_ids = [
         node
         for node in g.adj_ast(graph, n_id)
@@ -82,17 +108,15 @@ def _class_statements(
         for stmt_a_id, stmt_b_id in pairwise(stmt_ids):
             # Mark as next_id the next statement in chain
             set_next_id(stack, stmt_b_id)
-            _generic(graph, stmt_a_id, stack, edge_attrs=g.ALWAYS)
+            generic(graph, stmt_a_id, stack, edge_attrs=g.ALWAYS)
 
         # Link recursively the last statement in the block
         with suppress(IndexError):
             propagate_next_id_from_parent(stack)
-        _generic(graph, stmt_ids[-1], stack, edge_attrs=g.ALWAYS)
+        generic(graph, stmt_ids[-1], stack, edge_attrs=g.ALWAYS)
 
 
-def _loop_statement(
-    graph: Graph, n_id: str, stack: Stack, *, _generic: GenericType
-) -> None:
+def loop_statement(graph: Graph, n_id: str, stack: Stack) -> None:
     if next_id := get_next_id(stack):
         graph.add_edge(n_id, next_id, **g.FALSE)
 
@@ -100,12 +124,10 @@ def _loop_statement(
     if statements:
         graph.add_edge(n_id, statements[0], **g.TRUE)
         propagate_next_id_from_parent(stack)
-        _generic(graph, statements[0], stack, edge_attrs=g.ALWAYS)
+        generic(graph, statements[0], stack, edge_attrs=g.ALWAYS)
 
 
-def _if_statement(
-    graph: Graph, n_id: str, stack: Stack, *, _generic: GenericType
-) -> None:
+def if_statement(graph: Graph, n_id: str, stack: Stack) -> None:
     match = g.match_ast_group(
         graph, n_id, "if", "else", "control_structure_body"
     )
@@ -114,7 +136,7 @@ def _if_statement(
         if if_stmts:
             graph.add_edge(n_id, if_stmts[0], **g.TRUE)
             propagate_next_id_from_parent(stack)
-            _generic(graph, if_stmts[0], stack, edge_attrs=g.ALWAYS)
+            generic(graph, if_stmts[0], stack, edge_attrs=g.ALWAYS)
     if (
         match["else"]
         and (if_else_blocks := match["control_structure_body"])
@@ -124,12 +146,10 @@ def _if_statement(
         if else_stmts:
             graph.add_edge(n_id, else_stmts[0], **g.FALSE)
             propagate_next_id_from_parent(stack)
-            _generic(graph, else_stmts[0], stack, edge_attrs=g.ALWAYS)
+            generic(graph, else_stmts[0], stack, edge_attrs=g.ALWAYS)
 
 
-def _try_catch_statement(
-    graph: Graph, n_id: str, stack: Stack, *, _generic: GenericType
-) -> None:
+def try_catch_statement(graph: Graph, n_id: str, stack: Stack) -> None:
     def _set_next_id(stack: Stack, next_id: Optional[str]) -> None:
         if next_id:
             set_next_id(stack, next_id)
@@ -147,13 +167,13 @@ def _try_catch_statement(
         if finally_block := finally_actions["statements"]:
             next_id = finally_block
             propagate_next_id_from_parent(stack)
-            _generic(graph, finally_block, stack, edge_attrs=g.ALWAYS)
+            generic(graph, finally_block, stack, edge_attrs=g.ALWAYS)
 
     if match["statements"]:
         try_block_id = match["statements"][0]
         graph.add_edge(n_id, try_block_id, **g.ALWAYS)
         _set_next_id(stack, next_id)
-        _generic(graph, try_block_id, stack, edge_attrs=g.ALWAYS)
+        generic(graph, try_block_id, stack, edge_attrs=g.ALWAYS)
 
     if match["catch_block"]:
         for catch_id in match["catch_block"]:
@@ -161,12 +181,10 @@ def _try_catch_statement(
             if catch_block := catch_actions["statements"]:
                 graph.add_edge(n_id, catch_block, **g.MAYBE)
                 _set_next_id(stack, next_id)
-                _generic(graph, catch_block, stack, edge_attrs=g.ALWAYS)
+                generic(graph, catch_block, stack, edge_attrs=g.ALWAYS)
 
 
-def _when_statement(
-    graph: Graph, n_id: str, stack: Stack, *, _generic: GenericType
-) -> None:
+def when_statement(graph: Graph, n_id: str, stack: Stack) -> None:
     match = g.match_ast_group(graph, n_id, "when_entry")
     if when_options := match["when_entry"]:
         for option in when_options:
@@ -179,26 +197,26 @@ def _when_statement(
                         (option, *option_stmts)
                     ):
                         set_next_id(stack, step_b_id)
-                        _generic(graph, step_a_id, stack, edge_attrs=g.ALWAYS)
+                        generic(graph, step_a_id, stack, edge_attrs=g.ALWAYS)
 
                     propagate_next_id_from_parent(stack)
-                    _generic(
+                    generic(
                         graph, option_stmts[-1], stack, edge_attrs=g.ALWAYS
                     )
 
 
-kotlin_walkers: Tuple[Walker, ...] = (
+KOTLIN_WALKERS: Tuple[Walker, ...] = (
     Walker(
         applicable_node_label_types={"class_body"},
-        walk_fun=partial(_class_statements, _generic=_generic),
+        walk_fun=class_statements,
     ),
     Walker(
         applicable_node_label_types={"for_statement", "while_statement"},
-        walk_fun=partial(_loop_statement, _generic=_generic),
+        walk_fun=loop_statement,
     ),
     Walker(
         applicable_node_label_types={"function_body", "statements"},
-        walk_fun=partial(step_by_step, _generic=_generic),
+        walk_fun=partial(common_step_by_step, _generic=generic),
     ),
     Walker(
         applicable_node_label_types={
@@ -206,19 +224,19 @@ kotlin_walkers: Tuple[Walker, ...] = (
             "function_declaration",
             "companion_object",
         },
-        walk_fun=partial(link_to_last_node, _generic=_generic),
+        walk_fun=partial(common_link_to_last_node, _generic=generic),
     ),
     Walker(
         applicable_node_label_types={"if_expression"},
-        walk_fun=partial(_if_statement, _generic=_generic),
+        walk_fun=if_statement,
     ),
     Walker(
         applicable_node_label_types={"try_catch_expression"},
-        walk_fun=partial(_try_catch_statement, _generic=_generic),
+        walk_fun=try_catch_statement,
     ),
     Walker(
         applicable_node_label_types={"when_expression"},
-        walk_fun=partial(_when_statement, _generic=_generic),
+        walk_fun=when_statement,
     ),
 )
 
@@ -236,4 +254,4 @@ def add(graph: Graph) -> None:
         graph.nodes,
         predicate=_predicate,
     ):
-        _generic(graph, n_id, stack=[], edge_attrs=g.ALWAYS)
+        generic(graph, n_id, stack=[], edge_attrs=g.ALWAYS)
