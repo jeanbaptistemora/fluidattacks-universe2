@@ -1,3 +1,6 @@
+from contextlib import (
+    suppress,
+)
 from functools import (
     partial,
 )
@@ -8,12 +11,12 @@ from more_itertools import (
     pairwise,
 )
 from sast_transformations.control_flow.common import (
-    if_statement,
-    link_to_last_node,
-    loop_statement,
+    if_statement as common_if_statement,
+    link_to_last_node as common_link_to_last_node,
+    loop_statement as common_loop_statement,
     propagate_next_id_from_parent,
     set_next_id,
-    step_by_step,
+    step_by_step as common_step_by_step,
 )
 from sast_transformations.control_flow.types import (
     EdgeAttrs,
@@ -28,7 +31,7 @@ from utils import (
 )
 
 
-def _switch_statement(graph: Graph, n_id: str, stack: Stack) -> None:
+def switch_statement(graph: Graph, n_id: str, stack: Stack) -> None:
     switch_flow = tuple(
         (c_id, graph.nodes[c_id]) for c_id in g.adj_ast(graph, n_id)
     )
@@ -58,13 +61,40 @@ def _switch_statement(graph: Graph, n_id: str, stack: Stack) -> None:
         if case_steps:
             for step_a_id, step_b_id in pairwise((case_id, *case_steps)):
                 set_next_id(stack, step_b_id)
-                _generic(graph, step_a_id, stack, edge_attrs=g.ALWAYS)
+                generic(graph, step_a_id, stack, edge_attrs=g.ALWAYS)
 
             propagate_next_id_from_parent(stack)
-            _generic(graph, case_steps[-1], stack, edge_attrs=g.ALWAYS)
+            generic(graph, case_steps[-1], stack, edge_attrs=g.ALWAYS)
 
 
-def _generic(
+def _next_declaration(
+    graph: Graph,
+    n_id: str,
+    stack: Stack,
+    *,
+    edge_attrs: EdgeAttrs,
+) -> None:
+    with suppress(IndexError):
+        # check if a following stmt is pending in parent entry of the stack
+        next_id = stack[-2].pop("next_id", None)
+
+        # if there was a following stament, it does not have the current one
+        # as child and they are not the same
+        if (
+            next_id
+            and n_id != next_id
+            and n_id not in g.adj_cfg(graph, next_id)
+        ):
+            # check that the next node is not already part of this cfg branch
+            for statement in g.pred_cfg_lazy(graph, n_id, depth=-1):
+                if statement == next_id:
+                    break
+            else:
+                # add following statement to cfg
+                graph.add_edge(n_id, next_id, **edge_attrs)
+
+
+def generic(
     graph: Graph,
     n_id: str,
     stack: Stack,
@@ -73,45 +103,47 @@ def _generic(
 ) -> None:
     n_attrs = graph.nodes[n_id]
     n_attrs_label_type = n_attrs["label_type"]
+
     stack.append(dict(type=n_attrs_label_type))
 
-    for walker in go_walkers:
+    for walker in GO_WALKERS:
         if n_attrs_label_type in walker.applicable_node_label_types:
             walker.walk_fun(graph, n_id, stack)
             break
     else:
-        if (next_id := stack[-2].pop("next_id", None)) and n_id != next_id:
-            graph.add_edge(n_id, next_id, **edge_attrs)
+        # if there is no walker for the expression, stop the recursion
+        # the only thing left is to check if there is a cfg statement following
+        _next_declaration(graph, n_id, stack, edge_attrs=edge_attrs)
 
     stack.pop()
 
 
-go_walkers: Tuple[Walker, ...] = (
+GO_WALKERS: Tuple[Walker, ...] = (
     Walker(
         applicable_node_label_types={"block"},
-        walk_fun=partial(step_by_step, _generic=_generic),
+        walk_fun=partial(common_step_by_step, _generic=generic),
     ),
     Walker(
         applicable_node_label_types={
             "function_declaration",
             "method_declaration",
         },
-        walk_fun=partial(link_to_last_node, _generic=_generic),
+        walk_fun=partial(common_link_to_last_node, _generic=generic),
     ),
     Walker(
         applicable_node_label_types={"if_statement"},
-        walk_fun=partial(if_statement, _generic=_generic),
+        walk_fun=partial(common_if_statement, _generic=generic),
     ),
     Walker(
         applicable_node_label_types={"for_statement"},
-        walk_fun=partial(loop_statement, _generic=_generic),
+        walk_fun=partial(common_loop_statement, _generic=generic),
     ),
     Walker(
         applicable_node_label_types={
             "expression_switch_statement",
             "type_switch_statement",
         },
-        walk_fun=_switch_statement,
+        walk_fun=switch_statement,
     ),
 )
 
@@ -127,4 +159,4 @@ def add(graph: Graph) -> None:
         graph.nodes,
         predicate=_predicate,
     ):
-        _generic(graph, n_id, stack=[], edge_attrs=g.ALWAYS)
+        generic(graph, n_id, stack=[], edge_attrs=g.ALWAYS)
