@@ -346,43 +346,43 @@ def _process_digest_treatments(
     )[:3]
     treatments.update(temporary)
 
-    # Get groups with most eternal requested
-    eternal_requested: MailContentType = {
-        "groups_eternal_requested": list(),
+    # Get groups with most permanent requested
+    permanent_requested: MailContentType = {
+        "groups_permanent_requested": list(),
     }
-    groups_eternal_requested = [
+    groups_permanent_requested = [
         {
-            "eternal_requested": group["treatments"]["eternal_requested"],
+            "permanent_requested": group["treatments"]["permanent_requested"],
             "group": group["group"],
         }
         for group in groups_stats
-        if group["treatments"]["eternal_requested"]
+        if group["treatments"]["permanent_requested"]
     ]
-    eternal_requested["groups_eternal_requested"] = sorted(
-        groups_eternal_requested,
-        key=itemgetter("eternal_requested"),
+    permanent_requested["groups_permanent_requested"] = sorted(
+        groups_permanent_requested,
+        key=itemgetter("permanent_requested"),
         reverse=True,
     )[:3]
-    treatments.update(eternal_requested)
+    treatments.update(permanent_requested)
 
-    # Get groups with most eternal approved
-    eternal_approved: MailContentType = {
-        "groups_eternal_approved": list(),
+    # Get groups with most permanent approved
+    permanent_approved: MailContentType = {
+        "groups_permanent_approved": list(),
     }
-    groups_eternal_approved = [
+    groups_permanent_approved = [
         {
-            "eternal_approved": group["treatments"]["eternal_approved"],
+            "permanent_approved": group["treatments"]["permanent_approved"],
             "group": group["group"],
         }
         for group in groups_stats
-        if group["treatments"]["eternal_approved"]
+        if group["treatments"]["permanent_approved"]
     ]
-    eternal_approved["groups_eternal_approved"] = sorted(
-        groups_eternal_approved,
-        key=itemgetter("eternal_approved"),
+    permanent_approved["groups_permanent_approved"] = sorted(
+        groups_permanent_approved,
+        key=itemgetter("permanent_approved"),
         reverse=True,
     )[:3]
-    treatments.update(eternal_approved)
+    treatments.update(permanent_approved)
 
     return treatments
 
@@ -1492,8 +1492,8 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
         },
         "treatments": {
             "temporary_applied": 0,
-            "eternal_requested": 0,
-            "eternal_approved": 0,
+            "permanent_requested": 0,
+            "permanent_approved": 0,
         },
         "events": {
             "unsolved": 0,
@@ -1575,10 +1575,10 @@ async def get_group_digest_stats(  # pylint: disable=too-many-locals
         group_vulns, last_day
     )
     content["treatments"]["temporary_applied"] = treatments.get("accepted", 0)
-    content["treatments"]["eternal_requested"] = treatments.get(
+    content["treatments"]["permanent_requested"] = treatments.get(
         "accepted_undefined_submitted", 0
     )
-    content["treatments"]["eternal_approved"] = treatments.get(
+    content["treatments"]["permanent_approved"] = treatments.get(
         "accepted_undefined_approved", 0
     )
     content["reattacks"] = await vulns_utils.get_total_reattacks_stats(

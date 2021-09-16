@@ -348,11 +348,11 @@
           {%- if 'groups_temporary' in treatments %}
             <div style="height: {{ treatments['groups_temporary']|length * 5 }}px;"></div>
           {%- endif %}
-          {%- if 'groups_eternal_requested' in treatments %}
-            <div style="height: {{ treatments['groups_eternal_requested']|length * 5 }}px;"></div>
+          {%- if 'groups_permanent_requested' in treatments %}
+            <div style="height: {{ treatments['groups_permanent_requested']|length * 5 }}px;"></div>
           {%- endif %}
-          {%- if 'groups_eternal_approved' in treatments %}
-            <div style="height: {{ treatments['groups_eternal_approved']|length * 5 }}px;"></div>
+          {%- if 'groups_permanent_approved' in treatments %}
+            <div style="height: {{ treatments['groups_permanent_approved']|length * 5 }}px;"></div>
           {%- endif %}
         </div>
         <img alt="Treatments logo"
@@ -379,42 +379,42 @@
             <span>No temporary treatments</span>
           {%- endif %}
         </div>
-        <!-- ETERNAL REQUESTED -->
+        <!-- PERMANENT REQUESTED -->
         <div>
-          {%- if treatments['eternal_requested'] > 0 %}
-            <span>Eternal treatments requested</span>
-            <span class="content-number">{{ treatments['eternal_requested'] }}</span>
-            {%- if 'groups_eternal_requested' in treatments %}
-              {%- for group in treatments['groups_eternal_requested'] %}
+          {%- if treatments['permanent_requested'] > 0 %}
+            <span>Permanent treatments requested</span>
+            <span class="content-number">{{ treatments['permanent_requested'] }}</span>
+            {%- if 'groups_permanent_requested' in treatments %}
+              {%- for group in treatments['groups_permanent_requested'] %}
                 <p style="padding: 0 1rem;">
                   <strong>{{ group['group'] }}</strong>
-                  {%- if treatments['groups_eternal_requested']|length > 1 %}
-                    {{ group['eternal_requested'] }}
+                  {%- if treatments['groups_permanent_requested']|length > 1 %}
+                    {{ group['permanent_requested'] }}
                   {%- endif %}
                 </p>
               {%- endfor %}
             {%- endif %}
           {%- else %}
-            <span>No eternal treatments requested</span>
+            <span>No permanent treatments requested</span>
           {%- endif %}
         </div>
-        <!-- ETERNAL APPROVED -->
+        <!-- PERMANENT APPROVED -->
         <div>
-          {%- if treatments['eternal_approved'] > 0 %}
-            <span>Eternal treatments approved</span>
-            <span class="content-number">{{ treatments['eternal_approved'] }}</span>
-            {%- if 'groups_eternal_approved' in treatments %}
-              {%- for group in treatments['groups_eternal_approved'] %}
+          {%- if treatments['permanent_approved'] > 0 %}
+            <span>Permanent treatments approved</span>
+            <span class="content-number">{{ treatments['permanent_approved'] }}</span>
+            {%- if 'groups_permanent_approved' in treatments %}
+              {%- for group in treatments['groups_permanent_approved'] %}
                 <p style="padding: 0 1rem;">
                   <strong>{{ group['group'] }}</strong>
-                  {%- if treatments['groups_eternal_approved']|length > 1 %}
-                    {{ group['eternal_approved'] }}
+                  {%- if treatments['groups_permanent_approved']|length > 1 %}
+                    {{ group['permanent_approved'] }}
                   {%- endif %}
                 </p>
               {%- endfor %}
             {%- endif %}
           {%- else %}
-            <span>No eternal treatments approved</span>
+            <span>No permanent treatments approved</span>
           {%- endif %}
         </div>
       </div>

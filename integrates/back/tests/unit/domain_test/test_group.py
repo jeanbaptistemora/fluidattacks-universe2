@@ -927,8 +927,8 @@ async def test_get_group_digest_stats() -> None:
         },
         "treatments": {
             "temporary_applied": 0,
-            "eternal_requested": 0,
-            "eternal_approved": 0,
+            "permanent_requested": 0,
+            "permanent_approved": 0,
         },
         "events": {
             "unsolved": 3,
