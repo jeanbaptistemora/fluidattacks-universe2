@@ -2,8 +2,8 @@ import itertools
 from lib_root import (
     csharp_get_variable_attribute,
 )
-from lib_root.f052 import (
-    _csharp_yield_object_creation,
+from lib_root.f052.c_sharp import (
+    _yield_object_creation as c_sharp_yield_object_creation,
 )
 from model import (
     core_model,
@@ -29,7 +29,7 @@ def csharp_vuln_regular_expression(
     def n_ids() -> graph_model.GraphShardNodes:
         regex_methods = {"IsMatch", "Match", "Matches"}
         for shard, node in itertools.chain(
-            _csharp_yield_object_creation(
+            c_sharp_yield_object_creation(
                 graph_db,
                 {
                     "Regex",

@@ -1,7 +1,7 @@
 import itertools
-from lib_root.f052 import (
-    _csharp_yield_member_access,
-    _csharp_yield_object_creation,
+from lib_root.f052.c_sharp import (
+    _yield_member_access as c_sharp_yield_member_access,
+    _yield_object_creation as c_sharp_yield_object_creation,
 )
 from model import (
     core_model,
@@ -82,8 +82,8 @@ def csharp_jwt_signed(
 
     def n_ids() -> graph_model.GraphShardNodes:
         for shard, member in itertools.chain(
-            _csharp_yield_member_access(graph_db, object_name),
-            _csharp_yield_object_creation(graph_db, object_name),
+            c_sharp_yield_member_access(graph_db, object_name),
+            c_sharp_yield_object_creation(graph_db, object_name),
         ):
             if not check_pred(shard.graph, elem_jwt=member):
                 yield shard, member
