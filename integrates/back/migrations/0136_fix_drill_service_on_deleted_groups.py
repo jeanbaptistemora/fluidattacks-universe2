@@ -2,8 +2,8 @@
 """
 This migration updates active services to false on deleted groups
 
-Execution Time:
-Finalization Time:
+Execution Time:    2021-09-16 at 19:19:01 UTCUTC
+Finalization Time: 2021-09-16 at 19:19:03 UTCUTC
 """
 
 from aioextensions import (
@@ -17,7 +17,7 @@ from groups.dal import (
 import time
 
 # Constants
-PROD: bool = False
+PROD: bool = True
 
 
 async def update_group(group_name: str) -> bool:
