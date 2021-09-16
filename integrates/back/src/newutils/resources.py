@@ -1,6 +1,7 @@
 from context import (
     FI_AWS_S3_RESOURCES_BUCKET,
 )
+import io
 from s3 import (
     operations as s3_ops,
 )
@@ -43,3 +44,15 @@ async def save_file(file_object: object, file_name: str) -> None:
 
 async def search_file(file_name: str) -> List[str]:
     return await s3_ops.list_files(FI_AWS_S3_RESOURCES_BUCKET, file_name)
+
+
+async def get_file(file_name: str, group_name: str) -> io.BytesIO:
+    file_path = f"{group_name}/{file_name}"
+    bytes_file = io.BytesIO(
+        await s3_ops.download_file(
+            FI_AWS_S3_RESOURCES_BUCKET,
+            file_path,
+            f"/{file_name}",
+        )
+    )
+    return bytes_file
