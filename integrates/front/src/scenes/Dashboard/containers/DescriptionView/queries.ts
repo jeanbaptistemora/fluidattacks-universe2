@@ -8,7 +8,6 @@ const GET_FINDING_DESCRIPTION: DocumentNode = gql`
     $findingId: String!
   ) {
     finding(identifier: $findingId) {
-      actor
       affectedSystems
       attackVectorDescription
       compromisedAttributes
@@ -31,7 +30,6 @@ const GET_FINDING_DESCRIPTION: DocumentNode = gql`
 
 const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
   mutation UpdateFindingDescription(
-    $actor: String!
     $affectedSystems: String!
     $attackVectorDescription: String!
     $compromisedAttributes: String
@@ -45,7 +43,6 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
     $type: String
   ) {
     updateDescription(
-      actor: $actor
       affectedSystems: $affectedSystems
       attackVectorDescription: $attackVectorDescription
       description: $description

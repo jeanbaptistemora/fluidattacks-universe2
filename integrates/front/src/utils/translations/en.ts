@@ -1276,16 +1276,6 @@ export const enTranslations: ResourceKey = {
       acceptationJustification: "Acceptation Justification",
       acceptationUser: "Acceptation User",
       action: "Action",
-      actor: {
-        anyCustomer: "Any customer of the organization",
-        anyEmployee: "Any employee of the organization",
-        anyInternet: "Anyone on Internet",
-        anyStation: "Anyone with access to the station",
-        oneEmployee: "Only one employee",
-        someCustomer: "Only some customers of the organization",
-        someEmployee: "Only some employees",
-        title: "Actor",
-      },
       affectedSystems: {
         text: "Affected systems",
         tooltip: "Project or application that contains the vulnerability",

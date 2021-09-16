@@ -21,7 +21,6 @@ import { authzPermissionsContext } from "utils/authz/config";
 
 describe("Finding Description", (): void => {
   const finding: IFinding = {
-    actor: "ANY_EMPLOYEE",
     affectedSystems: "BWAPP Server",
     attackVectorDescription: "Run a reverse shell",
     compromisedAttributes: "Server files",

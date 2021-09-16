@@ -132,10 +132,6 @@ const formatDropdownField: (field: string) => string = (
       "searchFindings.tabDescription.treatment.acceptedUndefined",
     ANONYMOUS_INTERNET: "searchFindings.tabDescription.scenario.anonInter",
     ANONYMOUS_INTRANET: "searchFindings.tabDescription.scenario.anonIntra",
-    ANYONE_INTERNET: "searchFindings.tabDescription.actor.anyInternet",
-    ANYONE_WORKSTATION: "searchFindings.tabDescription.actor.anyStation",
-    ANY_CUSTOMER: "searchFindings.tabDescription.actor.anyCustomer",
-    ANY_EMPLOYEE: "searchFindings.tabDescription.actor.anyEmployee",
     APPLICATIONS: "searchFindings.tabDescription.ambit.applications",
     AUTHORIZED_USER_EXTRANET:
       "searchFindings.tabDescription.scenario.authExtra",
@@ -147,10 +143,7 @@ const formatDropdownField: (field: string) => string = (
     INFRASTRUCTURE: "searchFindings.tabDescription.ambit.infra",
     IN_PROGRESS: "searchFindings.tabDescription.treatment.inProgress",
     NEW: "searchFindings.tabDescription.treatment.new",
-    ONE_EMPLOYEE: "searchFindings.tabDescription.actor.oneEmployee",
     REJECTED: "searchFindings.tabDescription.treatment.rejected",
-    SOME_CUSTOMERS: "searchFindings.tabDescription.actor.someCustomer",
-    SOME_EMPLOYEES: "searchFindings.tabDescription.actor.someEmployee",
     SOURCE_CODE: "searchFindings.tabDescription.ambit.sourcecode",
     UNAUTHORIZED_USER_EXTRANET:
       "searchFindings.tabDescription.scenario.unauthExtra",

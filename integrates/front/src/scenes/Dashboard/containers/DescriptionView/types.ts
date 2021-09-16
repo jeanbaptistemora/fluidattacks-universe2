@@ -9,7 +9,6 @@ interface IHistoricTreatment {
 }
 
 interface IFinding {
-  actor: string;
   affectedSystems: string;
   attackVectorDescription: string;
   compromisedAttributes: string;
