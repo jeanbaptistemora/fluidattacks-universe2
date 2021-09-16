@@ -14024,7 +14024,7 @@
       details: __empty__
 "284":
   en:
-    title: Non-encrypted confidential information - Basic
+    title: Non-encrypted confidential information - Base 64
     description: >
       __empty__
     impact: >
@@ -14034,7 +14034,7 @@
     threat: >
       __empty__
   es:
-    title: Non-encrypted confidential information - Basic
+    title: Non-encrypted confidential information - Base 64
     description: >
       __empty__
     impact: >
