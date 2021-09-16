@@ -3,6 +3,9 @@ from dataclasses import (
     dataclass,
     field,
 )
+from enum import (
+    Enum,
+)
 from jsonschema import (
     Draft4Validator,
 )
@@ -18,11 +21,23 @@ from singer_io.singer2.json import (
     DictFactory,
     JsonFactory,
     JsonObj,
+    JsonValue,
+    PrimitiveTypes,
 )
 from typing import (
     Any,
     Dict,
 )
+
+
+class SupportedType(Enum):
+    array = "array"
+    boolean = "boolean"
+    integer = "integer"
+    null = "null"
+    number = "number"
+    object = "object"
+    string = "string"
 
 
 @dataclass(frozen=True)
@@ -52,8 +67,8 @@ class JsonSchema(_JsonSchema):
 
 @dataclass(frozen=True)
 class JsonSchemaFactory:
-    @classmethod
-    def from_dict(cls, raw_dict: Dict[str, Any]) -> JsonSchema:
+    @staticmethod
+    def from_dict(raw_dict: Dict[str, Any]) -> JsonSchema:
         Draft4Validator.check_schema(raw_dict)
         validator = Draft4Validator(raw_dict)
         draft = _JsonSchema(raw_dict, validator)
@@ -68,3 +83,16 @@ class JsonSchemaFactory:
     def from_json(cls, json_obj: JsonObj) -> JsonSchema:
         raw = DictFactory.from_json(json_obj)
         return cls.from_dict(raw)
+
+    @classmethod
+    def from_prim_type(cls, ptype: PrimitiveTypes) -> JsonSchema:
+        encode_type = {
+            bool: SupportedType.boolean,
+            int: SupportedType.integer,
+            type(None): SupportedType.null,
+            float: SupportedType.number,
+            str: SupportedType.string,
+        }
+        return JsonSchema(
+            cls.from_json({"type": JsonValue(encode_type[ptype].value)})
+        )

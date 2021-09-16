@@ -42,6 +42,13 @@ def _is_str(obj: Any) -> str:
 
 
 PrimitiveType = TypeVar("PrimitiveType", str, int, float, bool)
+PrimitiveTypes = Union[
+    Type[str],
+    Type[int],
+    Type[float],
+    Type[bool],
+    Type[None],
+]
 
 
 def to_primitive(raw: Any, prim_type: Type[PrimitiveType]) -> PrimitiveType:
