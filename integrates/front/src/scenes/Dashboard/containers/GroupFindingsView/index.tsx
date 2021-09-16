@@ -1,4 +1,4 @@
-import { useLazyQuery, useQuery } from "@apollo/client";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
@@ -8,6 +8,7 @@ import {
   faFilePdf,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
@@ -19,6 +20,7 @@ import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 import { renderDescription } from "./description";
 import { setReportType } from "./helpers";
 
+import { REMOVE_FINDING_MUTATION } from "../FindingContent/queries";
 import { Button } from "components/Button";
 import { DataTableNext } from "components/DataTableNext";
 import { limitFormatter } from "components/DataTableNext/formatters";
@@ -53,14 +55,18 @@ import {
   ButtonToolbar,
   ButtonToolbarCenter,
   Col100,
+  ControlLabel,
+  FormGroup,
   Row,
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
+import { FormikDropdown } from "utils/forms/fields";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
+import { composeValidators, required } from "utils/validations";
 
 const GroupFindingsView: React.FC = (): JSX.Element => {
   const TIMEZONE_OFFSET = 60000;
@@ -75,6 +81,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   const { groupName } = useParams<{ groupName: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const { replace } = useHistory();
   const { push } = useHistory();
   const { url } = useRouteMatch();
 
@@ -129,6 +136,13 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const [ageFilter, setAgeFilter] = useState("");
   const [lastReportFilter, setLastReportFilter] = useState("");
   const [severityFilter, setSeverityFilter] = useState({ max: "", min: "" });
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const openDeleteModal: () => void = useCallback((): void => {
+    setDeleteModalOpen(true);
+  }, []);
+  const closeDeleteModal: () => void = useCallback((): void => {
+    setDeleteModalOpen(false);
+  }, []);
 
   const handleChange: (columnName: string) => void = useCallback(
     (columnName: string): void => {
@@ -388,6 +402,40 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     filterSeverityFindings
   );
 
+  const [removeFinding, { loading: deleting }] = useMutation(
+    REMOVE_FINDING_MUTATION,
+    {
+      onCompleted: (result: { removeFinding: { success: boolean } }): void => {
+        if (result.removeFinding.success) {
+          const findingId = currentRow.id;
+          msgSuccess(
+            translate.t("searchFindings.findingDeleted", { findingId }),
+            translate.t("group.drafts.titleSuccess")
+          );
+          replace(`/groups/${groupName}/vulns`);
+        }
+      },
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          msgError(translate.t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred deleting finding", error);
+        });
+      },
+    }
+  );
+
+  const handleDelete: (values: Record<string, unknown>) => void = useCallback(
+    (values: Record<string, unknown>): void => {
+      const findingId = currentRow.id;
+      // Exception: FP(void operator is necessary)
+      // eslint-disable-next-line
+      void removeFinding({ //NOSONAR
+        variables: { findingId, justification: values.justification },
+      });
+    },
+    [currentRow.id, removeFinding]
+  );
+
   const customFilters: IFilterProps[] = [
     {
       defaultValue: lastReportFilter,
@@ -473,7 +521,10 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                 id={"searchFindings.delete.btn.tooltip"}
                 message={translate.t("searchFindings.delete.btn.tooltip")}
               >
-                <Button disabled={_.isEmpty(currentRow)}>
+                <Button
+                  disabled={_.isEmpty(currentRow) || deleting}
+                  onClick={openDeleteModal}
+                >
                   <FluidIcon icon={"delete"} />
                   &nbsp;{translate.t("searchFindings.delete.btn.text")}
                 </Button>
@@ -636,6 +687,55 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
             </ButtonToolbar>
           </Col100>
         </Row>
+      </Modal>
+      <Modal
+        headerTitle={translate.t("searchFindings.delete.title")}
+        onEsc={closeDeleteModal}
+        open={isDeleteModalOpen}
+      >
+        <Formik
+          enableReinitialize={true}
+          initialValues={{}}
+          name={"removeFinding"}
+          onSubmit={handleDelete}
+        >
+          <Form id={"removeFinding"}>
+            <FormGroup>
+              <ControlLabel>
+                {translate.t("searchFindings.delete.justif.label")}
+              </ControlLabel>
+              <Field
+                component={FormikDropdown}
+                name={"justification"}
+                validate={composeValidators([required])}
+              >
+                <option value={""} />
+                <option value={"DUPLICATED"}>
+                  {translate.t("searchFindings.delete.justif.duplicated")}
+                </option>
+                <option value={"FALSE_POSITIVE"}>
+                  {translate.t("searchFindings.delete.justif.falsePositive")}
+                </option>
+                <option value={"NOT_REQUIRED"}>
+                  {translate.t("searchFindings.delete.justif.notRequired")}
+                </option>
+              </Field>
+            </FormGroup>
+            <hr />
+            <Row>
+              <Col100>
+                <ButtonToolbar>
+                  <Button onClick={closeDeleteModal}>
+                    {translate.t("confirmmodal.cancel")}
+                  </Button>
+                  <Button type={"submit"}>
+                    {translate.t("confirmmodal.proceed")}
+                  </Button>
+                </ButtonToolbar>
+              </Col100>
+            </Row>
+          </Form>
+        </Formik>
       </Modal>
     </React.StrictMode>
   );
