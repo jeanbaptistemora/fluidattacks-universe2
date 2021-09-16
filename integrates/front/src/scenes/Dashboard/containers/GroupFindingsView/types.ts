@@ -17,7 +17,6 @@ interface IFindingAttr {
   state: string;
   title: string;
   treatment: string;
-  type: string;
   treatmentSummary: {
     accepted: number;
     acceptedUndefined: number;

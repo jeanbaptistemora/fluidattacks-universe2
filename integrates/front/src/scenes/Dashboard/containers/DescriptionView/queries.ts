@@ -22,7 +22,6 @@ const GET_FINDING_DESCRIPTION: DocumentNode = gql`
       state
       threat
       title
-      type
     }
   }
 `;
@@ -46,7 +45,6 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
     $recommendation: String!
     $sorts: Sorts!
     $threat: String!
-    $type: String
   ) {
     updateDescription(
       affectedSystems: $affectedSystems
@@ -58,7 +56,6 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
       recordsNumber: $compromisedRecords
       sorts: $sorts
       threat: $threat
-      findingType: $type
     ) {
       success
     }

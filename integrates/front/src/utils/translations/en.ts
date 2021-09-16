@@ -1409,11 +1409,6 @@ export const enTranslations: ResourceKey = {
       treatmentHistoric: "Historic Treatment",
       treatmentJust: "Treatment justification",
       treatmentMgr: "Treatment manager",
-      type: {
-        hygiene: "Hygiene",
-        security: "Security",
-        title: "Finding type",
-      },
       updateVulnerabilities: "Update Vulnerabilities",
       updateVulnerabilitiesTooltip:
         "Modify the existing vulnerabilities using the selected yaml file",

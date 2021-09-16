@@ -23,7 +23,6 @@ interface IFinding {
   state: "closed" | "open";
   threat: string;
   title: string;
-  type: string;
 }
 
 interface IFindingDescriptionData {

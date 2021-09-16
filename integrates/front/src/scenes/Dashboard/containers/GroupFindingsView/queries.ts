@@ -8,7 +8,6 @@ const GET_FINDINGS: DocumentNode = gql`
         id
         age
         lastVulnerability
-        type
         title
         description
         severityScore

@@ -11,7 +11,6 @@ interface IGroupDraftsAttr {
       reportDate: string;
       severityScore: number;
       title: string;
-      type: string;
     }[];
     language: string;
     name: string;
