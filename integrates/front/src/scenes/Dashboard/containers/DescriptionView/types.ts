@@ -19,7 +19,6 @@ interface IFinding {
   openVulnerabilities: number;
   recommendation: string;
   requirements: string;
-  scenario: string;
   sorts: string;
   state: "closed" | "open";
   threat: string;

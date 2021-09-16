@@ -30,7 +30,6 @@ describe("Finding Description", (): void => {
     openVulnerabilities: 0,
     recommendation: "Use good security practices and standards",
     requirements: "REQ.0265. System must restrict access",
-    scenario: "ANONYMOUS_INTERNET",
     sorts: "No",
     state: "open",
     threat: "External attack",

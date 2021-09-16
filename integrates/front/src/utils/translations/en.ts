@@ -1372,17 +1372,6 @@ export const enTranslations: ResourceKey = {
         text: "Save",
         tooltip: "Save changes",
       },
-      scenario: {
-        anonInter: "Anonymous from Internet",
-        anonIntra: "Anonymous from Intranet",
-        authExtra: "Authorized Extranet user",
-        authInter: "Authorized Internet user",
-        authIntra: "Authorized Intranet user",
-        title: "Scenario",
-        unauthExtra: "Unauthorized Extranet user",
-        unauthInter: "Unauthorized Internet user",
-        unauthIntra: "Unauthorized Intranet user",
-      },
       severity: "Severity",
       sorts: {
         text: "Sorts",

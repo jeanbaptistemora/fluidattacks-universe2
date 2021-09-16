@@ -18,7 +18,6 @@ const GET_FINDING_DESCRIPTION: DocumentNode = gql`
       openVulnerabilities
       recommendation
       requirements
-      scenario
       sorts @include(if: $canRetrieveSorts)
       state
       threat
@@ -37,7 +36,6 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
     $description: String!
     $findingId: String!
     $recommendation: String!
-    $scenario: String!
     $sorts: Sorts!
     $threat: String!
     $type: String
@@ -50,7 +48,6 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
       records: $compromisedAttributes
       recommendation: $recommendation
       recordsNumber: $compromisedRecords
-      scenario: $scenario
       sorts: $sorts
       threat: $threat
       findingType: $type

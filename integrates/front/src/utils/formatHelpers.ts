@@ -130,27 +130,13 @@ const formatDropdownField: (field: string) => string = (
     ACCEPTED: "searchFindings.tabDescription.treatment.accepted",
     ACCEPTED_UNDEFINED:
       "searchFindings.tabDescription.treatment.acceptedUndefined",
-    ANONYMOUS_INTERNET: "searchFindings.tabDescription.scenario.anonInter",
-    ANONYMOUS_INTRANET: "searchFindings.tabDescription.scenario.anonIntra",
     APPLICATIONS: "searchFindings.tabDescription.ambit.applications",
-    AUTHORIZED_USER_EXTRANET:
-      "searchFindings.tabDescription.scenario.authExtra",
-    AUTHORIZED_USER_INTERNET:
-      "searchFindings.tabDescription.scenario.authInter",
-    AUTHORIZED_USER_INTRANET:
-      "searchFindings.tabDescription.scenario.authIntra",
     DATABASES: "searchFindings.tabDescription.ambit.databases",
     INFRASTRUCTURE: "searchFindings.tabDescription.ambit.infra",
     IN_PROGRESS: "searchFindings.tabDescription.treatment.inProgress",
     NEW: "searchFindings.tabDescription.treatment.new",
     REJECTED: "searchFindings.tabDescription.treatment.rejected",
     SOURCE_CODE: "searchFindings.tabDescription.ambit.sourcecode",
-    UNAUTHORIZED_USER_EXTRANET:
-      "searchFindings.tabDescription.scenario.unauthExtra",
-    UNAUTHORIZED_USER_INTERNET:
-      "searchFindings.tabDescription.scenario.unauthInter",
-    UNAUTHORIZED_USER_INTRANET:
-      "searchFindings.tabDescription.scenario.unauthIntra",
   };
 
   return translationParameters[field];
