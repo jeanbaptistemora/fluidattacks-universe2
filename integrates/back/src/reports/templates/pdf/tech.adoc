@@ -93,11 +93,6 @@ If you are reading this report and you are not {{user}}, you are not authorized 
 ===== {{threat_title}}
 {{fin.get('threat', '-') + "\n"}}
 
-{% if 'risk' in fin %}
-===== {{risk_title}}
-{{fin['risk'] + "\n"}}
-{% endif %}
-
 {% if "attackVectorDesc" in fin %}
 ===== {{attack_vector_title}}
 {{fin['attackVectorDesc'] + "\n"}}

@@ -249,7 +249,6 @@ class PDFWordlistEn(Wordlist):
     TREATMENT_TITLE: WordlistItem = WordlistItem(
         "treatment_title", "Treatment"
     )
-    RISK_TITLE: WordlistItem = WordlistItem("risk_title", "Risk")
     EVIDENCE_TITLE: WordlistItem = WordlistItem("evidence_title", "Evidences")
     COMPROMISED_SYSTEM_TITLE: WordlistItem = WordlistItem(
         "compromised_system_title", "Compromised System"
