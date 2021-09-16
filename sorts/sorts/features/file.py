@@ -218,6 +218,20 @@ def encrypt_column_values(value: str) -> str:
     return fernet.encrypt(value.encode()).decode()
 
 
+def format_dataset(training_df: DataFrame) -> DataFrame:
+    training_df.drop(
+        training_df[training_df["file_age"] == -1].index, inplace=True
+    )
+    training_df.reset_index(inplace=True, drop=True)
+    encode_extensions(training_df)
+
+    # Encode string-like columns
+    training_df["file"] = training_df["file"].apply(encrypt_column_values)
+    training_df["repo"] = training_df["repo"].apply(encrypt_column_values)
+
+    return training_df
+
+
 def extract_features(training_df: DataFrame) -> bool:
     """Extract features from the file Git history and add them to the DF"""
     success: bool = True
@@ -226,21 +240,12 @@ def extract_features(training_df: DataFrame) -> bool:
         with tempfile.TemporaryDirectory() as tmp_dir:
             get_repositories_log(tmp_dir, training_df["repo"].unique())
             tqdm.pandas()
+
+            # Get features into dataset
             training_df[FILE_FEATURES] = training_df.progress_apply(
                 get_features, args=(tmp_dir,), axis=1, result_type="expand"
             )
-            training_df.drop(
-                training_df[training_df["file_age"] == -1].index, inplace=True
-            )
-            training_df.reset_index(inplace=True, drop=True)
-            encode_extensions(training_df)
-
-            training_df["file"] = training_df["file"].apply(
-                encrypt_column_values
-            )
-            training_df["repo"] = training_df["repo"].apply(
-                encrypt_column_values
-            )
+            format_dataset(training_df)
 
             log(
                 "info",
