@@ -95,7 +95,7 @@ Run each command in a different terminal:
 Run each command in a different terminal:
 
 ```bash
-./m integrates.front
+m . /integrates/front
 ```
 
 ## Local mobile application

@@ -53,7 +53,7 @@ slug: /development/front-technologies
 1. Start the development server
 
     ```bash
-    ./build.sh integrates.front
+    m . /integrates/front
     ```
 
     The changes will be reflected
