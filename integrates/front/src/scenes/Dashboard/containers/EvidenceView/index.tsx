@@ -5,12 +5,12 @@ import type { ApolloError } from "@apollo/client";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
+import type { FieldValidator } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
 import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
-import type { Validator } from "redux-form";
 
 import {
   handleUpdateDescriptionError,
@@ -149,7 +149,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
   };
 
   const MAX_FILE_SIZE = 10;
-  const maxFileSize: Validator = isValidFileSize(MAX_FILE_SIZE);
+  const maxFileSize: FieldValidator = isValidFileSize(MAX_FILE_SIZE);
 
   return (
     <React.StrictMode>

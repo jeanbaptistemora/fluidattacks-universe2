@@ -1,7 +1,7 @@
 import { Field, Form, Formik } from "formik";
+import type { FieldValidator } from "formik";
 import _ from "lodash";
 import React from "react";
-import type { Validator } from "redux-form";
 import type { ConfigurableValidator } from "revalidate";
 import { mixed, object, string } from "yup";
 
@@ -33,7 +33,7 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
   const { isOpen, isUploading, onClose, onSubmit } = props;
 
   const MAX_FILE_SIZE: number = 5000;
-  const maxFileSize: Validator = isValidFileSize(MAX_FILE_SIZE);
+  const maxFileSize: FieldValidator = isValidFileSize(MAX_FILE_SIZE);
 
   const addFilesModalSchema = object().shape({
     description: string().required(translate.t("validations.required")),
@@ -85,7 +85,7 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (
                     component={FormikFileInput}
                     id={"file"}
                     name={"file"}
-                    validate={composeValidators([maxFileSize])}
+                    validate={maxFileSize}
                   />
                 </div>
                 <div>

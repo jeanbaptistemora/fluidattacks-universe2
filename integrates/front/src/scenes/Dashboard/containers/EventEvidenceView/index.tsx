@@ -6,11 +6,11 @@ import type { ApolloError } from "@apollo/client";
 import { faFile, faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
+import type { FieldValidator } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
-import type { Validator } from "redux-form";
 
 import {
   checkNotEmptyOrEditing,
@@ -140,7 +140,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
 
   const showEmpty: boolean = _.isEmpty(data.event.evidence) || isRefetching;
   const MAX_FILE_SIZE = 10;
-  const maxFileSize: Validator = isValidFileSize(MAX_FILE_SIZE);
+  const maxFileSize: FieldValidator = isValidFileSize(MAX_FILE_SIZE);
 
   return (
     <React.StrictMode>

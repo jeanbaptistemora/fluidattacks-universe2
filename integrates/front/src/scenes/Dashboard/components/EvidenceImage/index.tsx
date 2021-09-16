@@ -1,7 +1,7 @@
 import { Field } from "formik";
+import type { FieldValidator } from "formik";
 import _ from "lodash";
 import React, { cloneElement, useCallback } from "react";
-import type { Validator } from "redux-form";
 
 import { Button } from "components/Button/index";
 import { FluidIcon } from "components/FluidIcon";
@@ -31,7 +31,7 @@ interface IEvidenceImageProps {
   isEditing: boolean;
   isRemovable?: boolean;
   name: string;
-  validate?: Validator | Validator[] | unknown;
+  validate?: FieldValidator | FieldValidator[] | unknown;
   onClick: () => void;
   onDelete?: () => void;
 }

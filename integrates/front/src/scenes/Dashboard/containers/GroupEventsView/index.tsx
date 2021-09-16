@@ -3,6 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
+import type { FieldValidator } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import { track } from "mixpanel-browser";
@@ -10,7 +11,6 @@ import type { Moment } from "moment";
 import React, { useCallback, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
-import type { Validator } from "redux-form";
 import type { ConfigurableValidator } from "revalidate";
 import type { BaseSchema } from "yup";
 import { array, lazy, object } from "yup";
@@ -288,7 +288,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   }, []);
 
   const MAX_FILE_SIZE = 10;
-  const maxFileSize: Validator = isValidFileSize(MAX_FILE_SIZE);
+  const maxFileSize: FieldValidator = isValidFileSize(MAX_FILE_SIZE);
 
   const { data, refetch } = useQuery(GET_EVENTS, {
     onCompleted: handleQryResult,
