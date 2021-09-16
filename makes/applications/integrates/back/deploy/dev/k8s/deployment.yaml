@@ -4,7 +4,7 @@ metadata:
   name: integrates-${CI_COMMIT_REF_NAME}
   namespace: development
 spec:
-  replicas: 1
+  replicas: ${REPLICAS}
   selector:
     matchLabels:
       app: integrates-${CI_COMMIT_REF_NAME}

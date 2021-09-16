@@ -13,6 +13,7 @@ makeEntrypoint {
       nixpkgs.envsubst
       nixpkgs.kubectl
       nixpkgs.utillinux
+      nixpkgs.yq
     ];
     envUtils = [
       "/makes/utils/aws"
