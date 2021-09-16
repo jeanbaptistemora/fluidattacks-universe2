@@ -215,22 +215,15 @@ export const enTranslations: ResourceKey = {
         title: "Service status",
       },
       forcesUsage: {
-        footer:
-          "Number of times your team used Forces to check for vulnerabilities.",
         title: "Service usage",
       },
       totalTypes: {
         title: "Total types",
       },
       totalVulnerabilities: {
-        footer:
-          "Vulnerabilities are the minimum units of risk. " +
-          "They are tied to a system, and a specific location within that system.",
         title: "Total vulnerabilities",
       },
       vulnsWithUndefinedTreatment: {
-        footer:
-          "Number of vulnerabilities without a remediation plan specified by one of your managers.",
         title: "Vulnerabilities with not-defined treatment",
       },
     },
