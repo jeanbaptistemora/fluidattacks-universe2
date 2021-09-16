@@ -7,6 +7,10 @@ function main {
     && pushd integrates/front \
     && rm -rf node_modules \
     && copy __argSetupIntegratesFrontDevRuntime__ node_modules \
+    && for bin in webpack webpack-cli; do
+      copy "$(realpath "node_modules/.bin/${bin}")" "node_modules/.bin/${bin}2" \
+        && mv "node_modules/.bin/${bin}"{2,}
+    done \
     && npm start \
     && popd \
     || return 1

@@ -10,7 +10,10 @@ makeScript {
   entrypoint = ./entrypoint.sh;
   name = "integrates-front";
   searchPaths = {
-    bin = [ inputs.nixpkgs.nodejs ];
+    bin = [
+      inputs.nixpkgs.bash
+      inputs.nixpkgs.nodejs
+    ];
     source = [ inputs.product.integrates-front-config-dev-runtime-env ];
   };
 }
