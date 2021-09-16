@@ -61,6 +61,7 @@ ENTITIES: Dict[str, Dict[str, Set[str]]] = dict(
             "historic_state",
             "inputs_vulnerabilities",
             "last_vulnerability",
+            "last_vulnerability_report_date",
             "lines_vulnerabilities",
             "new_remediated",
             "observations",

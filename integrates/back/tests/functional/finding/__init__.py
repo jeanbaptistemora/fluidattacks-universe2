@@ -25,6 +25,7 @@ async def get_result(
                 cvssVersion
                 state
                 lastVulnerability
+                lastVulnerabilityReportDate
                 remediated
                 age
                 isExploitable

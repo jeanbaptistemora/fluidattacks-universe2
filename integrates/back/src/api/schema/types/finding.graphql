@@ -52,6 +52,8 @@ type Finding {
   isExploitable: Boolean
   "Time in days since the last closed vulnerability in this Finding"
   lastVulnerability: Int
+  "Report date of the last vulnerability in this Finding"
+  lastVulnerabilityReportDate: String
   "Lines vulnerabilities"
   linesVulnerabilities: [Vulnerability]
   "Lines vulnerabilities"
