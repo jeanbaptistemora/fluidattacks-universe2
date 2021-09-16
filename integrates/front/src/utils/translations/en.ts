@@ -574,6 +574,8 @@ export const enTranslations: ResourceKey = {
           "This is a change in the scope of the test service, which may involve closing or reporting new vulnerabilities.",
         confirm: "Confirm change",
         deactivation: {
+          confirm:
+            "Deactivating this root takes it out of scope, therefore it will no longer be tested.",
           other: "Which?",
           reason: {
             label: "Reason",
@@ -586,7 +588,7 @@ export const enTranslations: ResourceKey = {
           targetRoot: "Target root",
           title: "Deactivate Root",
           warning:
-            "Deactivating this root takes it out of scope, therefore it will no longer be tested.",
+            "Adding this root to the scope again will count it as new. No history or other associated data will be kept.",
         },
         edit: "Edit root",
         editTooltip: "Edit the selected git root",

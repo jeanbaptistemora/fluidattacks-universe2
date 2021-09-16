@@ -12,6 +12,7 @@ import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Modal } from "components/Modal";
 import {
+  Alert,
   ButtonToolbar,
   Col100,
   ControlLabel,
@@ -140,7 +141,7 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
         open={true}
       >
         <ConfirmDialog
-          message={t("group.scope.common.deactivation.warning")}
+          message={t("group.scope.common.deactivation.confirm")}
           title={t("group.scope.common.confirm")}
         >
           {(confirm): React.ReactNode => {
@@ -222,6 +223,13 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
                               suggestions={suggestions}
                             />
                           </FormGroup>
+                        ) : undefined}
+                        {["OUT_OF_SCOPE", "REGISTERED_BY_MISTAKE"].includes(
+                          values.reason
+                        ) ? (
+                          <Alert>
+                            {t("group.scope.common.deactivation.warning")}
+                          </Alert>
                         ) : undefined}
                       </Col100>
                     </Row>
