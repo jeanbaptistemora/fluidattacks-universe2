@@ -37,7 +37,6 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
     $remediationLevel: String
     $reportConfidence: String
     $requirements: String
-    $risk: String
     $severityScope: String
     $threat: String
     $title: String!
@@ -58,7 +57,6 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
       remediationLevel: $remediationLevel
       reportConfidence: $reportConfidence
       requirements: $requirements
-      risk: $risk
       severityScope: $severityScope
       threat: $threat
       title: $title
