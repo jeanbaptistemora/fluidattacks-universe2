@@ -4,10 +4,7 @@ metadata:
   name: integrates-master
   namespace: production
 spec:
-  # Max replica number based on ./autoscaling.yaml.
-  # Every deployment will scale replicas,
-  # and then HPA will resize it.
-  replicas: 50
+  replicas: ${REPLICAS}
   selector:
     matchLabels:
       app: integrates-master
