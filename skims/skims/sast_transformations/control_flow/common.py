@@ -102,9 +102,11 @@ def step_by_step(
         set_next_id(stack, stmt_b_id)
         _generic(graph, stmt_a_id, stack, edge_attrs=g.ALWAYS)
 
-    # Link recursively the last statement in the block
+    # Put the next element after the block in the stack, if exists
     with suppress(IndexError):
         propagate_next_id_from_parent(stack)
+
+    # Analyze last statment in the current block
     _generic(graph, stmt_ids[-1], stack, edge_attrs=g.ALWAYS)
 
 

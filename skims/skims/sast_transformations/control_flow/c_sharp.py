@@ -100,6 +100,33 @@ def _lambda_expression(
     _generic(graph, body_id, stack, edge_attrs=g.ALWAYS)
 
 
+def _next_declaration(
+    graph: Graph,
+    n_id: str,
+    stack: Stack,
+    *,
+    edge_attrs: EdgeAttrs,
+) -> None:
+    with suppress(IndexError):
+        # check if a following stmt is pending in parent entry of the stack
+        next_id = stack[-2].pop("next_id", None)
+
+        # if there was a following stament, it does not have the current one
+        # as child and they are not the same
+        if (
+            next_id
+            and n_id != next_id
+            and n_id not in g.adj_cfg(graph, next_id)
+        ):
+            # check that the next node is not already part of this cfg branch
+            for statement in g.pred_cfg_lazy(graph, n_id, depth=-1):
+                if statement == next_id:
+                    break
+            else:
+                # add following statement to cfg
+                graph.add_edge(n_id, next_id, **edge_attrs)
+
+
 def _generic(
     graph: Graph,
     n_id: str,
@@ -117,17 +144,9 @@ def _generic(
             walker.walk_fun(graph, n_id, stack)
             break
     else:
-        with suppress(IndexError):
-            if (
-                (next_id := stack[-2].pop("next_id", None))
-                and n_id != next_id
-                and n_id not in g.adj_cfg(graph, next_id)
-            ):
-                for statement in g.pred_cfg_lazy(graph, n_id, depth=-1):
-                    if statement == next_id:
-                        break
-                else:
-                    graph.add_edge(n_id, next_id, **edge_attrs)
+        # if there is no walker for the expression, stop the recursion
+        # the only thing left is to check if there is a cfg statement following
+        _next_declaration(graph, n_id, stack, edge_attrs=edge_attrs)
 
     stack.pop()
 
