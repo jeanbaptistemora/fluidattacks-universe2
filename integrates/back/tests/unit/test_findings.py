@@ -127,7 +127,6 @@ async def test_format_data() -> None:
         "severity",
         "cvssBasescore",
         "userInteraction",
-        "actor",
         "cvssEnv",
         "privilegesRequired",
         "interested",

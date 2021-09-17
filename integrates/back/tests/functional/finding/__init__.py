@@ -52,7 +52,6 @@ async def get_result(
                 evidence
                 title
                 scenario
-                actor
                 description
                 requirements
                 attackVectorDescription

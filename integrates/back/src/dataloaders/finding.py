@@ -37,7 +37,6 @@ async def _batch_load_fn(
         )
         finding_id: str = cast(str, finding["findingId"])
         findings[finding_id] = dict(
-            actor=finding.get("actor", ""),
             affected_systems=finding.get("affectedSystems", ""),
             analyst=finding.get("analyst", ""),
             attack_vector_desc=finding.get("attackVectorDesc", ""),

@@ -1,7 +1,5 @@
 "Finding type definition"
 type Finding {
-  "Actor"
-  actor: String
   "Project or application that contains the vulnerability"
   affectedSystems: String
   "Age of the Finding in days"

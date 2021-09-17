@@ -611,9 +611,6 @@
           "test_type": {
             "S": "SOURCE_CODE"
           },
-          "actor": {
-            "S": "ANYONE_INTERNET"
-          },
           "cvss_version": {
             "S": "3.1"
           },
