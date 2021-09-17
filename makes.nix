@@ -6,9 +6,11 @@
 }:
 {
   cache = {
-    enable = true;
-    name = "fluidattacks";
-    pubKey = "fluidattacks.cachix.org-1:upiUCP8kWnr7NxVSJtTOM+SBqL0pZhZnUoqPG04sBv0=";
+    readAndWrite = {
+      enable = true;
+      name = "fluidattacks";
+      pubKey = "fluidattacks.cachix.org-1:upiUCP8kWnr7NxVSJtTOM+SBqL0pZhZnUoqPG04sBv0=";
+    };
   };
   extendingMakesDir = "/makes/foss/units";
   imports = [
