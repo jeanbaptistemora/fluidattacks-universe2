@@ -114,7 +114,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     useStoredState<boolean>("rootsCustomFilters", false);
 
   const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [urlFilter, setUrlFilter] = useState("");
+  const [nicknameFilter, setNicknameFilter] = useState("");
   const [branchFilter, setbranchFilter] = useState("");
   const [stateFilter, setStateFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
@@ -247,10 +247,14 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     searchTextFilter
   );
 
-  function onUrlChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    setUrlFilter(event.target.value);
+  function onNicknameChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    setNicknameFilter(event.target.value);
   }
-  const filterUrlRoots: IGitRootAttr[] = filterText(roots, urlFilter, "url");
+  const filterNicknameRoots: IGitRootAttr[] = filterText(
+    roots,
+    nicknameFilter,
+    "nickname"
+  );
 
   function onBranchChange(event: React.ChangeEvent<HTMLInputElement>): void {
     setbranchFilter(event.target.value);
@@ -280,7 +284,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
 
   const resultExecutions: IGitRootAttr[] = _.intersection(
     filterSearchTextRoots,
-    filterUrlRoots,
+    filterNicknameRoots,
     filterBranchRoots,
     filterStateRoots,
     filterStatusRoots
@@ -288,11 +292,11 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
 
   const customFiltersProps: IFilterProps[] = [
     {
-      defaultValue: urlFilter,
-      onChangeInput: onUrlChange,
-      placeholder: "Url",
-      tooltipId: "group.scope.git.filtersTooltips.url.id",
-      tooltipMessage: "group.scope.git.filtersTooltips.url",
+      defaultValue: nicknameFilter,
+      onChangeInput: onNicknameChange,
+      placeholder: "Nickname",
+      tooltipId: "group.scope.git.filtersTooltips.nickname.id",
+      tooltipMessage: "group.scope.git.filtersTooltips.nickname",
       type: "text",
     },
     {

@@ -584,9 +584,9 @@ export const enTranslations: ResourceKey = {
         },
         filtersTooltips: {
           branch: "Filter by branch",
+          nickname: "Filter by nickname",
           state: "Filter by state",
           status: "Filter by status",
-          url: "Filter by url",
         },
         healthCheck: {
           accept: "I accept the additional costs derived from the healthcheck",
