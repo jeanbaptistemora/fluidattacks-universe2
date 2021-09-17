@@ -1,6 +1,3 @@
-from aioextensions import (
-    schedule,
-)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -13,7 +10,6 @@ from custom_exceptions import (
 )
 from custom_types import (
     AddStakeholderPayload,
-    MailContent,
 )
 from decorators import (
     concurrent_decorators,
@@ -28,9 +24,6 @@ from groups import (
 )
 import logging
 import logging.config
-from mailer import (
-    groups as groups_mail,
-)
 from newutils import (
     logs as logs_utils,
     token as token_utils,
@@ -82,9 +75,6 @@ async def mutate(
             logs_utils.cloudwatch_log(
                 info.context, f"Security: Added stakeholder {email}"
             )
-            mail_to = [email]
-            context: MailContent = {"admin": email}
-            schedule(groups_mail.send_mail_access_granted(mail_to, context))
             # Update org stakeholder cache
             org_id: str = await orgs_domain.get_id_by_name(FI_DEFAULT_ORG)
             await redis_del_by_deps(
