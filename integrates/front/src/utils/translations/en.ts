@@ -26,12 +26,6 @@ export const enTranslations: ResourceKey = {
     },
     disjointForceDirectedGraph: {
       whereToFindings: {
-        footer: {
-          grey: "Each grey dot represents a resource (IP, URL, or repository).",
-          redAndGreen:
-            "Red and green dots represent the open and closed findings for that system, respectively.",
-          size: "Size and darkness are proportional to the security impact on that system.",
-        },
         title: "Systems Risk",
       },
     },
@@ -40,15 +34,6 @@ export const enTranslations: ResourceKey = {
     },
     gauge: {
       forcesBuildsRisk: {
-        footer: {
-          intro:
-            "Risk is proportional to the number of vulnerable changes introduced into your system:",
-          preventedVulnerableBuilds:
-            "Forces in strict mode stops those security issues from " +
-            "being delivered to your end users.",
-          vulnerableBuilds:
-            "A build is considered vulnerable if it contains security issues.",
-        },
         title: "Builds risk",
       },
       forcesSecurityCommitment: {
@@ -82,32 +67,9 @@ export const enTranslations: ResourceKey = {
     },
     pieChart: {
       resources: {
-        footer: {
-          environments:
-            "Environment: A URL or IP pointing to an instance of your system.",
-          final:
-            "The maximum benefit is reached when every environment has" +
-            " its full source-code available for us to test it.",
-          intro: "Resources can be of two types: Repository and Environment.",
-          repositories:
-            "Repository: The associated source-code of the environment " +
-            "and (ideally) its infrastructure.",
-        },
         title: "Active resources distribution",
       },
       treatment: {
-        footer: {
-          accepted:
-            "Temporarily accepted: A manager decided to coexist with the risk temporarily.",
-          inProgress:
-            "In progress: The system is currently being hardened by your developers.",
-          intro:
-            "In ASM, you can plan and manage the remediation of security findings:",
-          notDefined:
-            "Not defined: New vulnerabilities go here until one of your managers generates an action plan.",
-          permanently:
-            "Permanently accepted: A vulnerability that will never be remediated.",
-        },
         title: "Vulnerabilities treatment",
       },
     },
@@ -175,21 +137,15 @@ export const enTranslations: ResourceKey = {
     },
     textBox: {
       daysSinceLastRemediation: {
-        footer: "Days since a finding was effectively closed.",
         title: "Days since last remediation",
       },
       findingsBeingReattacked: {
         title: "Vulnerabilities being re-attacked",
       },
       forcesAutomatizedVulns: {
-        footer:
-          "Forces performs security testing of your source-code, deployed environment and infrastructure. " +
-          "Single units of security problems found are displayed here.",
         title: "Automatized Vulnerabilities",
       },
       forcesRepositoriesAndBranches: {
-        footer:
-          "You can run Forces in any of your repositories at any of its versions (commits or branches).",
         title: "Repositories and branches",
       },
       forcesStatus: {
