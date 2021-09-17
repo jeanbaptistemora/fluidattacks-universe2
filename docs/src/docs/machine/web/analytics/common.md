@@ -187,9 +187,9 @@ and then this vulnerability
 would fall under those
 that changed treatment three times.
 
-## Vulnerabilities by type
+## Vulnerabilities by source
 
-![Vulns By Type](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443230/docs/web/analytics/common/vulns_by_type_x6vnga.png)
+![Vulns By Source](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443230/docs/web/analytics/common/vulns_by_type_x6vnga.png)
 
 These are the vulnerabilities
 categorized based on
