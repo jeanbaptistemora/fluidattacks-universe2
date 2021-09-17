@@ -31,6 +31,16 @@ def csharp_get_variable_attribute(
         if graph.nodes[pred].get("label_type") == "variable_declarator":
             declaration_node = g.match_ast(graph, pred, "__0__")["__1__"]
             value_node = g.match_ast(graph, declaration_node, "__0__")["__1__"]
+            if (
+                graph.nodes[value_node].get("label_type")
+                == "invocation_expression"
+            ):
+                if attribute == "label_text":
+                    return build_member_access_expression_key(
+                        graph, g.match_ast(graph, value_node, "__0__")["__0__"]
+                    )
+                if attribute == "label_type":
+                    return graph.nodes[value_node].get("label_type")
             return graph.nodes[value_node].get(attribute)
     return ""
 
