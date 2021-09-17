@@ -431,6 +431,14 @@
       "title": "320. Insecure service configuration - LDAP"
     }
   },
+  "F338": {
+    "EN": {
+      "title": "338. Insecure service configuration - Salt"
+    },
+    "ES": {
+      "title": "338. Insecure service configuration - Salt"
+    }
+  },
   "F366": {
     "EN": {
       "title": "366. Inappropriate coding practices - Transparency Conflict"
