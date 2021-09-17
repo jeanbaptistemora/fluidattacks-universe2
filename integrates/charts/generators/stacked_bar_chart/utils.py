@@ -250,6 +250,12 @@ def format_distribution_document(
             ),
             r=5,
         ),
+        tooltip=dict(
+            format=dict(
+                value=None,
+            ),
+        ),
+        normalizedToolTip=True,
     )
 
 

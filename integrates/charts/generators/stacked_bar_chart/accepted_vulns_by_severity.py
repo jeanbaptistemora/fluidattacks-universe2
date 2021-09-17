@@ -146,6 +146,12 @@ def format_data(data: Counter[str]) -> Dict[str, Any]:
                 tick=dict(multiline=False),
             ),
         ),
+        tooltip=dict(
+            format=dict(
+                value=None,
+            ),
+        ),
+        normalizedToolTip=True,
     )
 
 
