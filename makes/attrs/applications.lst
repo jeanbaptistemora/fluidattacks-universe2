@@ -20,7 +20,6 @@ integrates.charts.snapshots
 integrates.coverage
 integrates.db
 integrates.db.migration
-integrates.front
 integrates.front.deploy
 integrates.front.deploy.dev
 integrates.front.deploy.prod
