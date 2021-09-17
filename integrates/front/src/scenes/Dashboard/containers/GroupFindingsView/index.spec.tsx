@@ -19,6 +19,10 @@ import { GET_FINDINGS } from "scenes/Dashboard/containers/GroupFindingsView/quer
 import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 
+const DEFAULT_DATE = 1571237918000;
+
+jest.spyOn(Date, "now").mockImplementation((): number => DEFAULT_DATE);
+
 describe("GroupFindingsView", (): void => {
   const apolloDataMock: readonly MockedResponse[] = [
     {
@@ -40,6 +44,7 @@ describe("GroupFindingsView", (): void => {
                 id: "438679960",
                 isExploitable: true,
                 lastVulnerability: 33,
+                lastVulnerabilityReportDate: "2019-09-13T14:58:38+00:00",
                 openVulnerabilities: 6,
                 remediated: false,
                 severityScore: 2.9,
@@ -97,6 +102,7 @@ describe("GroupFindingsView", (): void => {
                 id: "438679960",
                 isExploitable: true,
                 lastVulnerability: 33,
+                lastVulnerabilityReportDate: "2019-09-13T14:58:38+00:00",
                 openAge: 99,
                 openVulnerabilities: 6,
                 remediated: false,
@@ -267,6 +273,7 @@ describe("GroupFindingsView", (): void => {
 
     const tableHeader: ReactWrapper = findingTable.find("Header");
 
+    expect(tableHeader.text()).toContain("Last report");
     expect(tableHeader.text()).toContain("Age");
     expect(tableHeader.text()).toContain("Type");
     expect(tableHeader.text()).toContain("Severity");
@@ -276,6 +283,7 @@ describe("GroupFindingsView", (): void => {
 
     const firstRow: ReactWrapper = findingTable.find("Body").find("tr");
 
+    expect(firstRow.text()).toContain("33");
     expect(firstRow.text()).toContain("252");
     expect(firstRow.text()).toContain("038. Business information leak");
     expect(firstRow.text()).toContain("2.9");

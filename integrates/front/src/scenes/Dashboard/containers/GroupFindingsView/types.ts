@@ -10,6 +10,7 @@ interface IFindingAttr {
   id: string;
   isExploitable: string;
   lastVulnerability: number;
+  lastVulnerabilityReportDate: string;
   openVulnerabilities: number;
   name: string;
   remediated: string;

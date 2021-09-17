@@ -71,6 +71,7 @@ import { composeValidators, required } from "utils/validations";
 const GroupFindingsView: React.FC = (): JSX.Element => {
   const TIMEZONE_OFFSET = 60000;
   const FORMATTING_DATE_INDEX = 19;
+  const ONE_DAY = 86400000;
 
   const now: Date = new Date();
   const timeSoFar: number = Date.now();
@@ -190,6 +191,15 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     },
     []
   );
+  const formatReport: (date: string) => number = (date: string): number => {
+    if (_.isEmpty(date)) {
+      return 0;
+    }
+    const dateObj: Date = new Date(date);
+    const difference = timeSoFar - dateObj.getTime();
+
+    return Math.floor(difference / ONE_DAY);
+  };
   const onSortState: (dataField: string, order: SortOrder) => void = (
     dataField: string,
     order: SortOrder
@@ -201,7 +211,8 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const tableHeaders: IHeaderConfig[] = [
     {
       align: "center",
-      dataField: "lastVulnerability",
+      dataField: "lastVulnerabilityReportDate",
+      formatter: formatReport,
       header: "Last report",
       onSort: onSortState,
       visible: checkedItems.lastVulnerability,
