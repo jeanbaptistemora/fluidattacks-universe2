@@ -8,15 +8,12 @@ from singer_io.singer2.json import (
 )
 from singer_io.singer2.json_schema import (
     JsonSchema,
-    JsonSchemaFactory,
 )
-from tap_announcekit.jschema import (
-    ObjEncoder,
+from tap_announcekit.streams._obj_encoder import (
+    StreamsObjsEncoder,
 )
 from tap_announcekit.streams.project._objs import (
-    ImageId,
     Project,
-    ProjectId,
 )
 from typing import (
     Dict,
@@ -53,15 +50,11 @@ def _to_json(proj: Project) -> JsonObj:
     return JsonFactory.from_prim_dict(json)
 
 
+_encoder = StreamsObjsEncoder.encoder()
+
+
 def _project_schema() -> JsonSchema:
-    str_type = JsonSchemaFactory.from_prim_type(str).to_json()
-    encoder = ObjEncoder(
-        {
-            ProjectId: str_type,
-            ImageId: str_type,
-        }
-    )
-    return encoder.to_jschema(Project.__annotations__)
+    return _encoder.to_jschema(Project.__annotations__)
 
 
 @dataclass(frozen=True)
