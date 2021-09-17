@@ -1,22 +1,17 @@
-# pylint: skip-file
-
 from dataclasses import (
     dataclass,
-)
-from datetime import (
-    datetime,
 )
 from singer_io.singer2.json import (
     JsonFactory,
     JsonObj,
-    JsonValFactory,
-    JsonValue,
     Primitive,
 )
 from singer_io.singer2.json_schema import (
     JsonSchema,
     JsonSchemaFactory,
-    SupportedType,
+)
+from tap_announcekit.jschema import (
+    ObjEncoder,
 )
 from tap_announcekit.streams.project._objs import (
     ImageId,
@@ -24,21 +19,8 @@ from tap_announcekit.streams.project._objs import (
     ProjectId,
 )
 from typing import (
-    Any,
     Dict,
-    get_args,
-    get_origin,
-    Type,
-    Union,
 )
-
-
-class UnexpectedType(Exception):
-    pass
-
-
-class UnsupportedMultipleType(Exception):
-    pass
 
 
 def _to_json(proj: Project) -> JsonObj:
@@ -71,47 +53,15 @@ def _to_json(proj: Project) -> JsonObj:
     return JsonFactory.from_prim_dict(json)
 
 
-primitive_jschema_map = {
-    bool: "boolean",
-    float: "number",
-    int: "integer",
-    str: "string",
-}
-
-
-def _to_jschema(ptype: Type[Any]) -> JsonObj:
-    if ptype in (ProjectId, ImageId):
-        return JsonSchemaFactory.from_prim_type(str).to_json()
-    elif ptype in (datetime,):
-        return JsonSchemaFactory.datetime_schema().to_json()
-    return JsonSchemaFactory.from_prim_type(ptype).to_json()
-
-
-def _to_jschema_optional(ptype: Type[Any], optional: bool) -> JsonObj:
-    jschema = _to_jschema(ptype).copy()
-    if optional:
-        jschema["type"] = JsonValFactory.from_list(
-            [jschema["type"].to_primitive(str), SupportedType.null.value]
-        )
-    return jschema
-
-
-def _to_jschema_type(ptype: Type[Any]) -> JsonObj:
-    if get_origin(ptype) is Union:
-        var_types = get_args(ptype)
-        single_type = list(filter(lambda x: x != type(None), var_types))
-        if len(single_type) > 1:
-            raise UnsupportedMultipleType(single_type)
-        return _to_jschema_optional(single_type[0], None in var_types)
-    return _to_jschema_optional(ptype, False)
-
-
 def _project_schema() -> JsonSchema:
-    props = {
-        key: JsonValue(_to_jschema_type(str_type))
-        for key, str_type in Project.__annotations__.items()
-    }
-    return JsonSchemaFactory.from_json({"properties": JsonValue(props)})
+    str_type = JsonSchemaFactory.from_prim_type(str).to_json()
+    encoder = ObjEncoder(
+        {
+            ProjectId: str_type,
+            ImageId: str_type,
+        }
+    )
+    return encoder.to_jschema(Project.__annotations__)
 
 
 @dataclass(frozen=True)
