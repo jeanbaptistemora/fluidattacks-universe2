@@ -312,12 +312,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     _.sortBy(typesArray, (arr): string => arr[0])
   );
 
-  const { expandedRows, handleRowExpand, handleRowExpandAll } = useRowExpand({
-    rowId: "id",
-    rows: findings,
-    storageKey: "findingExpandedRows",
-  });
-
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
@@ -412,6 +406,12 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     filterLastReportFindings,
     filterSeverityFindings
   );
+
+  const { expandedRows, handleRowExpand, handleRowExpandAll } = useRowExpand({
+    rowId: "id",
+    rows: resultFindings,
+    storageKey: "findingExpandedRows",
+  });
 
   const [removeFinding, { loading: deleting }] = useMutation(
     REMOVE_FINDING_MUTATION,
