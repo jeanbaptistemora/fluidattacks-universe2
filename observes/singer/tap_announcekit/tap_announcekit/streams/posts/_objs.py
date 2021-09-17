@@ -7,7 +7,6 @@ from datetime import (
 from tap_announcekit.streams.id_objs import (
     ImageId,
     PostId,
-    ProjectId,
     UserId,
 )
 from typing import (
@@ -21,7 +20,6 @@ JsonStr = str
 class _Post:
     # pylint: disable=too-many-instance-attributes
     obj_id: PostId
-    project_id: ProjectId
     user_id: Optional[UserId]
     created_at: datetime
     visible_at: datetime

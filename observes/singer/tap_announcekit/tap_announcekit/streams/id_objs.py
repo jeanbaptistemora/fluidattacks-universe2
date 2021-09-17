@@ -24,11 +24,15 @@ class ProjectId:
 
 @dataclass(frozen=True)
 class PostId:
+    proj: ProjectId
     post_id: str
 
     @staticmethod
-    def from_any(raw: Any) -> PostId:
-        return PostId(to_primitive(raw, str))
+    def from_any(proj: Any, post: Any) -> PostId:
+        return PostId(
+            ProjectId.from_any(proj),
+            to_primitive(post, str),
+        )
 
 
 @dataclass(frozen=True)
