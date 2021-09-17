@@ -6,9 +6,6 @@ from dataclasses import (
 from datetime import (
     datetime,
 )
-from returns.maybe import (
-    Maybe,
-)
 from singer_io.singer2.json import (
     JsonFactory,
     JsonObj,
@@ -19,6 +16,7 @@ from singer_io.singer2.json import (
 from singer_io.singer2.json_schema import (
     JsonSchema,
     JsonSchemaFactory,
+    SupportedType,
 )
 from tap_announcekit.streams.project._objs import (
     ImageId,
@@ -81,24 +79,21 @@ primitive_jschema_map = {
 }
 
 
-def _type_jschema_map(ptype: Type[Any], optional: bool) -> JsonObj:
-    extended_map = primitive_jschema_map.copy()
-    extended_map[ProjectId] = "string"
-    extended_map[ImageId] = "string"
-    extended_map[datetime] = "string"
-    schema_type = Maybe.from_optional(extended_map.get(ptype)).map(
-        lambda x: JsonValFactory.from_list([x, "null"])
-        if optional
-        else JsonValue(x)
-    )
-    if schema_type.value_or(None):
-        if ptype == datetime:
-            return {
-                "type": schema_type.unwrap(),
-                "format": JsonValue("date-time"),
-            }
-        return {"type": schema_type.unwrap()}
-    raise UnexpectedType(f"{ptype} {type(ptype)}")
+def _to_jschema(ptype: Type[Any]) -> JsonObj:
+    if ptype in (ProjectId, ImageId):
+        return JsonSchemaFactory.from_prim_type(str).to_json()
+    elif ptype in (datetime,):
+        return JsonSchemaFactory.datetime_schema().to_json()
+    return JsonSchemaFactory.from_prim_type(ptype).to_json()
+
+
+def _to_jschema_optional(ptype: Type[Any], optional: bool) -> JsonObj:
+    jschema = _to_jschema(ptype).copy()
+    if optional:
+        jschema["type"] = JsonValFactory.from_list(
+            [jschema["type"].to_primitive(str), SupportedType.null.value]
+        )
+    return jschema
 
 
 def _to_jschema_type(ptype: Type[Any]) -> JsonObj:
@@ -107,8 +102,8 @@ def _to_jschema_type(ptype: Type[Any]) -> JsonObj:
         single_type = list(filter(lambda x: x != type(None), var_types))
         if len(single_type) > 1:
             raise UnsupportedMultipleType(single_type)
-        return _type_jschema_map(single_type[0], None in var_types)
-    return _type_jschema_map(ptype, False)
+        return _to_jschema_optional(single_type[0], None in var_types)
+    return _to_jschema_optional(ptype, False)
 
 
 def _project_schema() -> JsonSchema:

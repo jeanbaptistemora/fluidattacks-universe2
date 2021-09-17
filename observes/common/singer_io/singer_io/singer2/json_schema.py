@@ -65,6 +65,15 @@ class JsonSchema(_JsonSchema):
             return Failure(error)
 
 
+_encode_type = {
+    bool: SupportedType.boolean,
+    int: SupportedType.integer,
+    type(None): SupportedType.null,
+    float: SupportedType.number,
+    str: SupportedType.string,
+}
+
+
 @dataclass(frozen=True)
 class JsonSchemaFactory:
     @staticmethod
@@ -86,13 +95,14 @@ class JsonSchemaFactory:
 
     @classmethod
     def from_prim_type(cls, ptype: PrimitiveTypes) -> JsonSchema:
-        encode_type = {
-            bool: SupportedType.boolean,
-            int: SupportedType.integer,
-            type(None): SupportedType.null,
-            float: SupportedType.number,
-            str: SupportedType.string,
-        }
         return JsonSchema(
-            cls.from_json({"type": JsonValue(encode_type[ptype].value)})
+            cls.from_json({"type": JsonValue(_encode_type[ptype].value)})
         )
+
+    @classmethod
+    def datetime_schema(cls) -> JsonSchema:
+        json = {
+            "type": JsonValue(_encode_type[str].value),
+            "format": JsonValue("date-time"),
+        }
+        return cls.from_json(json)
