@@ -5183,7 +5183,8 @@
       to cause account lockouts,
       effectively blocking users
       from accessing the system.
-    impact: __empty__
+    impact: >
+      Avoid the access of valid users to the application
     recommendation: >
       Avoid blocking users' accounts
       as a mechanism of protection,
@@ -5198,7 +5199,8 @@
       Es posible bloquear
       las cuentas de los usuarios,
       evitando que accedan al sistema.
-    impact: __empty__
+    impact: >
+      Impedir el acceso de usuarios válidos a la aplicación
     recommendation: >
       Evitar bloquear las cuentas
       de los usuarios
@@ -5219,12 +5221,12 @@
       scope: "U"
       confidentiality: "N"
       integrity: "N"
-      availability: "N"
+      availability: "L"
     temporal:
-      exploit_code_maturity: "X"
-      remediation_level: "X"
-      report_confidence: "X"
-  requirements: ["266"]
+      exploit_code_maturity: "H"
+      remediation_level: "U"
+      report_confidence: "C"
+  requirements: ["226"]
   metadata:
     en:
       details: __empty__
@@ -17826,3 +17828,43 @@
     en:
       details: |
         https://mobile-security.gitbook.io/mobile-security-testing-guide/android-testing-guide/0x05j-testing-resiliency-against-reverse-engineering#owasp-masvs
+"379":
+  en:
+    title: Non-encrypted confidential information - Hexadecimal
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  category: Collect Information
+  es:
+    title: Non-encrypted confidential information - Hexadecimal
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: ["266"]
+  metadata:
+    en:
+      details: __empty__
