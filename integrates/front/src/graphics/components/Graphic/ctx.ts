@@ -47,7 +47,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
   },
   meanTimeToRemediateCvssf: {
     alt: {
-      label: "MTTR",
+      label: "Days",
       title: translate.t("tagIndicator.meanRemediate"),
       tooltip: translate.t(
         "analytics.barChart.meanTimeToRemediate.tooltip.alt"
@@ -55,7 +55,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
       url: "",
     },
     default: {
-      label: "MTTR & Cvssf",
+      label: "CVSSF",
       title: translate.t("tagIndicator.meanRemediate"),
       tooltip: translate.t(
         "analytics.barChart.meanTimeToRemediate.tooltip.default"
