@@ -1568,3 +1568,16 @@ async def get_oldest_no_treatment_new(
         }
 
     return {}
+
+
+async def get_oldest_open_vulnerability_report_date(
+    context: Any, finding_id: str
+) -> str:
+    open_date = ""
+    finding_vulns_loader = context.finding_vulns_nzr
+    vulns = await finding_vulns_loader.load(finding_id)
+    open_vulns = vulns_utils.filter_open_vulns(vulns)
+    report_dates = vulns_utils.get_report_dates(open_vulns)
+    if report_dates:
+        open_date = datetime_utils.get_as_utc_iso_format(min(report_dates))
+    return open_date

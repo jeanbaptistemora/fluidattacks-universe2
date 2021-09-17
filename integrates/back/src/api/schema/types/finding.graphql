@@ -64,6 +64,8 @@ type Finding {
     will be removed after 2021/12/20. Use `remediated` instead.""")
   "Consults/Comments about the Finding"
   observations: [Consult]
+  "Report date of the oldest open vulnerability in this Finding"
+  oldestOpenVulnerabilityReportDate: String
   "Age of the oldest open vulnerability in the Finding in days"
   openAge: Int
   "Quantity of remaining open vulnerabilities"

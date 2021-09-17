@@ -56,6 +56,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
     state: str = "open"
     last_vuln: int = 1087
     last_vuln_report_date: str = "2018-04-08T00:45:11+00:00"
+    oldest_open_vuln_report_date: str = "2018-04-08T00:45:11+00:00"
     remediated: bool = False
     age: int = 1087
     is_exploitable: bool = False
@@ -203,6 +204,10 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["bugTrackingSystemUrl"] == ""
     assert result["data"]["finding"]["type"] == finding_type
     assert result["data"]["finding"]["observations"] == []
+    assert (
+        result["data"]["finding"]["oldestOpenVulnerabilityReportDate"]
+        == oldest_open_vuln_report_date
+    )
     assert result["data"]["finding"]["consulting"] == []
     assert result["data"]["finding"]["tracking"] == tracking.get("tracking")
     assert result["data"]["finding"]["where"] == where
@@ -257,6 +262,7 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     state: str = "open"
     last_vuln: int = 1087
     last_vuln_report_date: str = "2018-04-08T00:45:11+00:00"
+    oldest_open_vuln_report_date: str = "2018-04-08T00:45:11+00:00"
     remediated: bool = False
     age: int = 1087
     is_exploitable: bool = False
@@ -391,6 +397,10 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["compromisedAttributes"] == records
     assert result["data"]["finding"]["compromisedRecords"] == records_number
     assert result["data"]["finding"]["bugTrackingSystemUrl"] == ""
+    assert (
+        result["data"]["finding"]["oldestOpenVulnerabilityReportDate"]
+        == oldest_open_vuln_report_date
+    )
     assert result["data"]["finding"]["type"] == finding_type
     assert result["data"]["finding"]["tracking"] == tracking.get("tracking")
     assert result["data"]["finding"]["where"] == where

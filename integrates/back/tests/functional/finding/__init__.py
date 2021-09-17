@@ -66,6 +66,7 @@ async def get_result(
                 observations{{
                     content
                 }}
+                oldestOpenVulnerabilityReportDate
                 vulnerabilities{{
                     id
                 }}
