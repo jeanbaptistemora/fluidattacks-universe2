@@ -13,7 +13,7 @@ from utils import (
 )
 
 
-def go_float_currency(
+def float_currency(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:
@@ -59,11 +59,6 @@ def go_float_currency(
         cwe=("197",),
         desc_key="F109.description",
         desc_params={},
-        finding=FINDING,
+        finding=core_model.FindingEnum.F109,
         graph_shard_nodes=n_ids(),
     )
-
-
-# Constants
-FINDING: core_model.FindingEnum = core_model.FindingEnum.F109
-QUERIES: graph_model.Queries = ((FINDING, go_float_currency),)

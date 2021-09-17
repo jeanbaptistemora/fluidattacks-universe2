@@ -7,7 +7,7 @@ from lib_path.common import (
 from lib_root import (
     f001_jpa,
     f009,
-    f014_float_currency,
+    f014,
     f017,
     f022,
     f035,
@@ -56,7 +56,7 @@ from utils.logs import (
 QUERIES: graph_model.Queries = (
     *f001_jpa.QUERIES,
     *f009.QUERIES,
-    *f014_float_currency.QUERIES,
+    *f014.QUERIES,
     *f017.QUERIES,
     *f022.QUERIES,
     *f035.QUERIES,
