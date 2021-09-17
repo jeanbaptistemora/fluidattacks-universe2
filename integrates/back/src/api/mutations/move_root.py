@@ -16,6 +16,7 @@ from custom_types import (
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
+    rename_kwargs,
     require_login,
 )
 from graphql.type.definition import (
@@ -30,7 +31,6 @@ from roots import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -69,22 +69,26 @@ async def _move_root(
 
 @convert_kwargs_to_snake_case
 @concurrent_decorators(require_login, enforce_group_level_auth_async)
+@rename_kwargs({"group_name": "source_group", "target_group": "group_name"})
+@enforce_group_level_auth_async
+@rename_kwargs({"group_name": "target_group", "source_group": "group_name"})
 async def mutate(
     _parent: None, info: GraphQLResolveInfo, **kwargs: Any
 ) -> SimplePayload:
-    user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
-    user_email: str = user_info["user_email"]
+    user_info = await token_utils.get_jwt_content(info.context)
+    user_email = user_info["user_email"]
 
     await _move_root(
         info.context.loaders,
         user_email,
         kwargs["group_name"],
         kwargs["id"],
-        kwargs["target_id"],
+        kwargs["target_group"],
     )
     logs_utils.cloudwatch_log(
         info.context,
-        f'Security: Moved a root in {kwargs["group_name"].lower()}',
+        f'Security: Moved a root from {kwargs["group_name"].lower()} to '
+        f'{kwargs["target_group"].lower()}',
     )
 
     return SimplePayload(success=True)
