@@ -1,0 +1,40 @@
+/airs/eph:
+  image: ghcr.io/fluidattacks/makes:21.10
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|airs)/
+  script:
+    - m . /airs/eph
+  stage: deploy-app
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+/airs/prod:
+  image: ghcr.io/fluidattacks/makes:21.10
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH != "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|airs)/
+  script:
+    - m . /airs/prod
+  stage: deploy-app
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1

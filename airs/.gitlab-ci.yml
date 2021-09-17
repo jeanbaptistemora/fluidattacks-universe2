@@ -64,27 +64,6 @@ airs.lint.styles:
   <<: *in_dev_branch_airs
   stage: lint-code
 
-airs.deploy.ephemeral:
-  <<: *makes
-  <<: *in_dev_branch_airs
-  script:
-    - ./m airs eph
-  stage: deploy-app
-  environment:
-    name: ephemeral/${CI_COMMIT_REF_NAME}
-    url: https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}/
-  cache:
-    key: ${CI_JOB_NAME}-${CI_COMMIT_REF_SLUG}
-    paths:
-    - airs/front/.cache/
-
-airs.deploy.production:
-  <<: *makes
-  <<: *in_master_branch_airs
-  script:
-    - ./m airs prod
-  stage: deploy-app
-
 makes.test.airs:
   <<: *makes
   <<: *in_master_branch_airs
