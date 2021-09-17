@@ -210,12 +210,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     }
   }
 
-  const { expandedRows, handleRowExpand, handleRowExpandAll } = useRowExpand({
-    rowId: "id",
-    rows: roots,
-    storageKey: "gitRootsExpandedRows",
-  });
-
   const rootsGroupedByEnvs = roots
     .filter(
       (root): boolean =>
@@ -289,6 +283,12 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     filterStateRoots,
     filterStatusRoots
   );
+
+  const { expandedRows, handleRowExpand, handleRowExpandAll } = useRowExpand({
+    rowId: "id",
+    rows: resultExecutions,
+    storageKey: "gitRootsExpandedRows",
+  });
 
   const customFiltersProps: IFilterProps[] = [
     {
