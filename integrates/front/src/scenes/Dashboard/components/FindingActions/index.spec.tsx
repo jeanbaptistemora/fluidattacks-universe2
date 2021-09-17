@@ -22,7 +22,6 @@ describe("FindingActions", (): void => {
         isDraft={false}
         loading={false}
         onApprove={jest.fn()}
-        onDelete={jest.fn()}
         onReject={jest.fn()}
         onSubmit={jest.fn()}
       />
@@ -46,7 +45,6 @@ describe("FindingActions", (): void => {
         isDraft={false}
         loading={false}
         onApprove={jest.fn()}
-        onDelete={jest.fn()}
         onReject={jest.fn()}
         onSubmit={jest.fn()}
       />,
@@ -58,8 +56,7 @@ describe("FindingActions", (): void => {
     const buttons: ReactWrapper = wrapper.find("Button");
 
     expect(wrapper).toHaveLength(1);
-    expect(buttons).toHaveLength(1);
-    expect(buttons.text()).toContain("Delete");
+    expect(buttons).toHaveLength(0);
   });
 
   it("should render author draft actions", (): void => {
@@ -76,7 +73,6 @@ describe("FindingActions", (): void => {
         isDraft={true}
         loading={false}
         onApprove={jest.fn()}
-        onDelete={jest.fn()}
         onReject={jest.fn()}
         onSubmit={jest.fn()}
       />,
@@ -88,9 +84,8 @@ describe("FindingActions", (): void => {
     const buttons: ReactWrapper = wrapper.find("Button");
 
     expect(wrapper).toHaveLength(1);
-    expect(buttons).toHaveLength(2);
+    expect(buttons).toHaveLength(1);
     expect(buttons.at(0).text()).toContain("Submit");
-    expect(buttons.at(1).text()).toContain("Delete");
   });
 
   it("should render approver draft actions", (): void => {
@@ -108,7 +103,6 @@ describe("FindingActions", (): void => {
         isDraft={true}
         loading={false}
         onApprove={jest.fn()}
-        onDelete={jest.fn()}
         onReject={jest.fn()}
         onSubmit={jest.fn()}
       />,
@@ -118,13 +112,12 @@ describe("FindingActions", (): void => {
       }
     );
     const buttons: ReactWrapper = wrapper.find("Button");
-    const BUTTONS_LENGTH: number = 3;
+    const BUTTONS_LENGTH: number = 2;
 
     expect(wrapper).toHaveLength(1);
     expect(buttons).toHaveLength(BUTTONS_LENGTH);
     expect(buttons.at(0).text()).toContain("Approve");
     expect(buttons.at(1).text()).toContain("Reject");
-    expect(buttons.at(2).text()).toContain("Delete");
   });
 
   it("should disable approve button", (): void => {
@@ -140,7 +133,6 @@ describe("FindingActions", (): void => {
         isDraft={true}
         loading={false}
         onApprove={jest.fn()}
-        onDelete={jest.fn()}
         onReject={jest.fn()}
         onSubmit={jest.fn()}
       />,

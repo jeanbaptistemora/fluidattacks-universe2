@@ -271,33 +271,24 @@ describe("FindingContent", (): void => {
     });
     const deleteButton: ReactWrapper = wrapper.find("button").at(0);
 
-    expect(deleteButton).toHaveLength(1);
-
-    deleteButton.simulate("click");
-
-    expect(wrapper.text()).toContain("Delete Finding");
+    expect(deleteButton).toHaveLength(0);
 
     await act(async (): Promise<void> => {
       await wait(0);
       wrapper.update();
     });
-
-    expect(wrapper.text()).toContain("It is a false positive");
 
     const cancelButton: ReactWrapper = wrapper
       .find("Modal")
       .find("button")
       .at(0);
 
-    expect(cancelButton).toHaveLength(1);
+    expect(cancelButton).toHaveLength(0);
 
-    cancelButton.simulate("click");
     await act(async (): Promise<void> => {
       await wait(0);
       wrapper.update();
     });
-
-    expect(wrapper.find("Modal").at(0).prop("open")).toStrictEqual(false);
   });
 
   it("should submit draft", async (): Promise<void> => {
@@ -783,20 +774,12 @@ describe("FindingContent", (): void => {
     });
     const deleteButton: ReactWrapper = wrapper.find("button").at(0);
 
-    expect(deleteButton).toHaveLength(1);
+    expect(deleteButton).toHaveLength(0);
 
-    deleteButton.simulate("click");
     await act(async (): Promise<void> => {
       await wait(0);
       wrapper.update();
     });
-    wrapper.find("select").simulate("change", {
-      target: { name: "justification", value: "DUPLICATED" },
-    });
-    const justificationForm: ReactWrapper = wrapper
-      .find("Formik")
-      .find({ name: "removeFinding" });
-    justificationForm.simulate("submit");
     await act(async (): Promise<void> => {
       const delay = 150;
       await wait(delay);
@@ -804,7 +787,6 @@ describe("FindingContent", (): void => {
     });
 
     expect(msgSuccess).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
-    expect(mockHistoryReplace).toHaveBeenCalledWith("/groups/TEST/vulns");
   });
 
   it("should handle deletion errors", async (): Promise<void> => {
@@ -850,20 +832,12 @@ describe("FindingContent", (): void => {
     });
     const deleteButton: ReactWrapper = wrapper.find("button").at(0);
 
-    expect(deleteButton).toHaveLength(1);
+    expect(deleteButton).toHaveLength(0);
 
-    deleteButton.simulate("click");
     await act(async (): Promise<void> => {
       await wait(0);
       wrapper.update();
     });
-    wrapper.find("select").simulate("change", {
-      target: { name: "justification", value: "DUPLICATED" },
-    });
-    const justificationForm: ReactWrapper = wrapper
-      .find("Formik")
-      .find({ name: "removeFinding" });
-    justificationForm.simulate("submit");
     await act(async (): Promise<void> => {
       await wait(0);
     });
