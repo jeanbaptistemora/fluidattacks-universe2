@@ -10,5 +10,5 @@ def test_query() -> None:
     _proj_query("1234")
 
 
-def test_proj_schema() -> None:
+def test_schema() -> None:
     ProjectEncoder.schema()
