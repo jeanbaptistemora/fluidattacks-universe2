@@ -23,10 +23,8 @@ from typing import (
 def _to_json(obj: Post) -> JsonObj:
     json: Dict[str, Primitive] = {
         "obj_id": obj.obj_id.post_id,
-        "project_id": obj.project_id,
-        "user_id": obj.user_id,
-        "project": obj.project.proj_id,
-        "user": obj.user.user_id if obj.user else None,
+        "project_id": obj.project_id.proj_id,
+        "user_id": obj.user_id.user_id if obj.user_id else None,
         "created_at": obj.created_at.isoformat(),
         "visible_at": obj.visible_at.isoformat(),
         "image_id": obj.image_id.img_id if obj.image_id else None,

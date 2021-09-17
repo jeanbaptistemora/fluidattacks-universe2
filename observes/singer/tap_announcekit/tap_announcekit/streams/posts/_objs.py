@@ -21,10 +21,8 @@ JsonStr = str
 class _Post:
     # pylint: disable=too-many-instance-attributes
     obj_id: PostId
-    project_id: str
-    user_id: Optional[str]
-    project: ProjectId
-    user: Optional[UserId]
+    project_id: ProjectId
+    user_id: Optional[UserId]
     created_at: datetime
     visible_at: datetime
     image_id: Optional[ImageId]
