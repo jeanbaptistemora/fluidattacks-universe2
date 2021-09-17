@@ -2315,7 +2315,7 @@ export const enTranslations: ResourceKey = {
     vulnerabilitiesByLevel: "Vulnerabilities by level",
     vulnerabilitiesByTag: "Vulnerabilities by tag",
     vulnerabilitiesByTreatments: "Vulnerabilities by treatments",
-    vulnerabilitiesByType: "Vulnerabilities by type",
+    vulnerabilitiesByType: "Vulnerabilities by source",
     vulnsGroups: "Vulnerabilities by group",
   },
   updateAccessToken: {

@@ -17,7 +17,7 @@ function render(dataDocument, height, width) {
 
   if (dataDocument.normalizedToolTip) {
     const percentage = 100;
-    dataDocument.tooltip.format.value = (_datum, ratio) => `${ (ratio * percentage).toFixed(1) } %`;
+    dataDocument.tooltip.format.value = (_datum, ratio) => `${ (ratio * percentage).toFixed(2) } %`;
   }
 
   c3.generate({
