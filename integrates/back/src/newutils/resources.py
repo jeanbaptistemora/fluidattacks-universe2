@@ -1,10 +1,10 @@
 from context import (
     FI_AWS_S3_RESOURCES_BUCKET,
 )
-import io
 from s3 import (
     operations as s3_ops,
 )
+import tempfile
 from typing import (
     Dict,
     List,
@@ -46,13 +46,13 @@ async def search_file(file_name: str) -> List[str]:
     return await s3_ops.list_files(FI_AWS_S3_RESOURCES_BUCKET, file_name)
 
 
-async def get_file(file_name: str, group_name: str) -> io.BytesIO:
-    file_path = f"{group_name}/{file_name}"
-    bytes_file = io.BytesIO(
+async def get_file(file_name: str, group_name: str) -> str:
+    file = f"{group_name}/{file_name}"
+    with tempfile.TemporaryDirectory() as download_path:
         await s3_ops.download_file(
             FI_AWS_S3_RESOURCES_BUCKET,
-            file_path,
-            f"/{file_name}",
+            file,
+            download_path,
         )
-    )
-    return bytes_file
+        file_path = f"{download_path}/{file_name}"
+    return file_path

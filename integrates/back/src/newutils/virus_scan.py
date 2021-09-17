@@ -1,13 +1,7 @@
 import cloudmersive_virus_api_client
-from cloudmersive_virus_api_client.rest import (
-    ApiException,
-)
 from context import (
     FI_CLOUDMERSIVE_API_KEY,
     FI_ENVIRONMENT,
-)
-from custom_exceptions import (
-    FileInfected,
 )
 import logging
 from settings import (
@@ -40,26 +34,21 @@ def scan_file(
             "target_file_name": target_file.filename,
         }
         file_object = target_file.file
-        try:
-            tmp_file = tempfile.NamedTemporaryFile()
-            tmp_file.write(file_object.read())
-            tmp_file.flush()
-            api_response = API_CLIENT.scan_file_advanced(
-                tmp_file.name,
-                allow_executables=True,
-                allow_macros=True,
-                allow_scripts=True,
-                allow_invalid_files=True,
-            )
-            tmp_file.close()
-            file_object.seek(0)
-            if api_response.clean_result:
-                success = True
-            elif not api_response.clean_result:
-                LOGGER.error("File infected", extra={"extra": payload_data})
-                raise FileInfected()
-        except ApiException as api_error:
-            LOGGER.exception(api_error, extra={"extra": payload_data})
-            file_object.seek(0)
+        tmp_file = tempfile.NamedTemporaryFile()
+        tmp_file.write(file_object.read())
+        tmp_file.flush()
+        api_response = API_CLIENT.scan_file_advanced(
+            tmp_file.name,
+            allow_executables=True,
+            allow_macros=True,
+            allow_scripts=True,
+            allow_invalid_files=True,
+        )
+        tmp_file.close()
+        file_object.seek(0)
+        if api_response.clean_result:
+            success = True
+        elif not api_response.clean_result:
+            LOGGER.error("File infected", extra={"extra": payload_data})
 
     return success

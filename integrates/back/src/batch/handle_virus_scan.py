@@ -37,9 +37,11 @@ async def handle_virus_scan(*, item: BatchProcessing) -> None:
     resource_file = await resources_utils.get_file(
         item.entity, item.additional_info
     )
-    scanned_file_result = virus_scan.scan_file(
-        resource_file, item.subject, item.additional_info
-    )
+
+    with open(resource_file, "r") as file:
+        scanned_file_result = virus_scan.scan_file(
+            file, user_email, group_name
+        )
 
     if scanned_file_result:
         await resources_domain.update_group_files(
@@ -51,8 +53,8 @@ async def handle_virus_scan(*, item: BatchProcessing) -> None:
 
     await delete_action(
         action_name=item.action_name,
-        additional_info=item.additional_info,
-        entity=item.entity,
-        subject=item.subject,
+        additional_info=group_name,
+        entity=file_name,
+        subject=user_email,
         time=item.time,
     )

@@ -261,6 +261,7 @@ async def put_action_to_batch(
     subject: str,
     time: str,
     additional_info: str,
+    queue: str = "spot_soon",
 ) -> bool:
     if FI_ENVIRONMENT == "development":
         return True
@@ -274,7 +275,7 @@ async def put_action_to_batch(
         async with aioboto3.client(**resource_options) as batch:
             await batch.submit_job(
                 jobName=f"integrates-{action_name}",
-                jobQueue="spot_soon",
+                jobQueue=queue,
                 jobDefinition="default",
                 containerOverrides={
                     "vcpus": 2,
@@ -320,6 +321,7 @@ async def put_action(
     entity: str,
     subject: str,
     additional_info: str,
+    queue: str = "spot_soon",
 ) -> bool:
     time: str = str(get_as_epoch(get_now()))
     action = dict(
@@ -332,6 +334,9 @@ async def put_action(
 
     return all(
         await collect(
-            (put_action_to_batch(**action), put_action_to_dynamodb(**action))
+            (
+                put_action_to_batch(**action, queue=queue),
+                put_action_to_dynamodb(**action),
+            )
         )
     )
