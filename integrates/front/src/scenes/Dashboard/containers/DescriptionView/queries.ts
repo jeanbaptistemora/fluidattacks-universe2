@@ -29,6 +29,7 @@ const GET_FINDING_DESCRIPTION: DocumentNode = gql`
 const GET_LANGUAGE: DocumentNode = gql`
   query GetLanguageQuery($groupName: String!) {
     group(groupName: $groupName) {
+      name
       language
     }
   }
