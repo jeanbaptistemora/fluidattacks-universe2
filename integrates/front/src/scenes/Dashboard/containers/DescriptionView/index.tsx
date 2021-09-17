@@ -36,6 +36,17 @@ const DescriptionView: React.FC = (): JSX.Element => {
   const [isEditing, setEditing] = useState(false);
 
   // GraphQL operations
+  const { data: groupData } = useQuery<ILanguageData>(GET_LANGUAGE, {
+    fetchPolicy: "no-cache",
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(translate.t("groupAlerts.errorTextsad"));
+        Logger.warning("An error occurred loading group language", error);
+      });
+    },
+    variables: { groupName },
+  });
+
   const { data, refetch } = useQuery<
     IFindingDescriptionData,
     IFindingDescriptionVars
@@ -46,6 +57,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
         Logger.warning("An error occurred loading finding description", error);
       });
     },
+    skip: groupData === undefined,
     variables: {
       canRetrieveHacker: permissions.can(
         "api_resolvers_finding_hacker_resolve"
@@ -54,16 +66,6 @@ const DescriptionView: React.FC = (): JSX.Element => {
       findingId,
       groupName,
     },
-  });
-
-  const { data: groupData } = useQuery<ILanguageData>(GET_LANGUAGE, {
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(translate.t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred loading group language", error);
-      });
-    },
-    variables: { groupName },
   });
 
   const [updateDescription] = useMutation(UPDATE_DESCRIPTION_MUTATION, {
@@ -128,7 +130,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
       >
         <DescriptionViewForm
           data={data}
-          groupLanguage={groupData?.language}
+          groupLanguage={groupData?.group.language}
           isEditing={isEditing}
           setEditing={setEditing}
         />

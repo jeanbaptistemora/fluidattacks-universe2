@@ -12,11 +12,15 @@ import { MemoryRouter, Route } from "react-router-dom";
 import wait from "waait";
 
 import { DescriptionView } from "scenes/Dashboard/containers/DescriptionView";
-import { GET_FINDING_DESCRIPTION } from "scenes/Dashboard/containers/DescriptionView/queries";
+import {
+  GET_FINDING_DESCRIPTION,
+  GET_LANGUAGE,
+} from "scenes/Dashboard/containers/DescriptionView/queries";
 import type {
   IFinding,
   IFindingDescriptionData,
   IFindingDescriptionVars,
+  ILanguageData,
 } from "scenes/Dashboard/containers/DescriptionView/types";
 import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -113,6 +117,12 @@ describe("Finding Description", (): void => {
     threat: "External attack",
     title: "004. Remote command execution",
   };
+  const language: ILanguageData = {
+    group: {
+      language: "EN",
+    },
+  };
+  const groupName = "TEST";
   const findingDescriptionData: IFindingDescriptionData = {
     finding,
   };
@@ -131,6 +141,15 @@ describe("Finding Description", (): void => {
       data: findingDescriptionData,
     },
   };
+  const languageQuery: Readonly<MockedResponse> = {
+    request: {
+      query: GET_LANGUAGE,
+      variables: { groupName },
+    },
+    result: {
+      data: language,
+    },
+  };
 
   it("should return a function", (): void => {
     expect.hasAssertions();
@@ -143,7 +162,10 @@ describe("Finding Description", (): void => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/413372600/description"]}>
         <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={[descriptionQuery]}>
+          <MockedProvider
+            addTypename={false}
+            mocks={[languageQuery, descriptionQuery]}
+          >
             <Route
               component={DescriptionView}
               path={"/:groupName/vulns/:findingId/description"}
@@ -177,7 +199,10 @@ describe("Finding Description", (): void => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/TEST/vulns/413372600/description"]}>
         <Provider store={store}>
-          <MockedProvider addTypename={false} mocks={[descriptionQuery]}>
+          <MockedProvider
+            addTypename={false}
+            mocks={[languageQuery, descriptionQuery]}
+          >
             <authzPermissionsContext.Provider value={mockedPermissions}>
               <Route
                 component={DescriptionView}

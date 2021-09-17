@@ -37,7 +37,9 @@ interface IFindingDescriptionVars {
 }
 
 interface ILanguageData {
-  language: string;
+  group: {
+    language: string;
+  };
 }
 
 export {
