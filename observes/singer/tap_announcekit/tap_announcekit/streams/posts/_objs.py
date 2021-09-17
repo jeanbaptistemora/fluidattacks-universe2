@@ -5,6 +5,7 @@ from datetime import (
     datetime,
 )
 from tap_announcekit.streams.id_objs import (
+    ImageId,
     PostId,
     ProjectId,
     UserId,
@@ -26,7 +27,7 @@ class _Post:
     user: Optional[UserId]
     created_at: datetime
     visible_at: datetime
-    image_id: Optional[str]
+    image_id: Optional[ImageId]
     expire_at: Optional[datetime]
     updated_at: datetime
     is_draft: bool
