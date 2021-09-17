@@ -1,3 +1,4 @@
+import "tachyons";
 import { Parameters } from "@storybook/api";
 
 const parameters: Parameters = {
