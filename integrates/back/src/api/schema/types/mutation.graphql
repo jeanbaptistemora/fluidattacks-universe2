@@ -960,8 +960,6 @@ type Mutation {
     records: String
     "Number of compromised records"
     recordsNumber: Int!
-    "Scenario"
-    scenario: String
     "Did Sorts guide you to the file where the vulnerability was found?"
     sorts: Sorts
     "Actor and scenery where the vulnerability can be exploited"

@@ -60,7 +60,6 @@ async def _batch_load_fn(
             remediated=finding.get("remediated", False),
             repo_nickname=finding.get("repo_nickname", ""),
             requirements=finding.get("requirements", ""),
-            scenario=finding.get("scenario", ""),
             sorts=finding.get("sorts", None),
             severity=finding.get("severity", ""),
             severity_score=finding.get("severityCvss", 0.0),

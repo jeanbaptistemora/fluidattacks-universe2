@@ -160,7 +160,6 @@ async def test_format_data() -> None:
         "subscription",
         "effectSolution",
         "reportLevel",
-        "scenario",
         "severityCvss",
         "modifiedAvailabilityImpact",
         "vulnerability",

@@ -110,7 +110,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "access_vector": 0.395,
                 "modified_privileges_required": 0.27,
                 "modified_attack_vector": 0.85,
-                "scenario": "UNAUTHORIZED_USER_EXTRANET",
                 "records_number": "12",
                 "records": "Clave plana",
                 "finding_distribution": 0,

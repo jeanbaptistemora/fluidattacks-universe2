@@ -91,8 +91,6 @@ type Finding {
   reportDate: String
   "Rules that are broken and lead to the existence of the vulnerability"
   requirements: String
-  "Scenario"
-  scenario: String
   "CVSS Score"
   severity: GenericScalar
   "Security scope of the affected resources by the exploited vulnerabilities"

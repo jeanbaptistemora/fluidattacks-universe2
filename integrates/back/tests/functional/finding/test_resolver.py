@@ -84,7 +84,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     closed_vuln: str = "be09edb7-cd5c-47ed-bee4-97c645acdce8"
     finding_id: str = "475041513"
     title: str = "001. SQL injection - C Sharp SQL API"
-    scenario: str = "UNAUTHORIZED_USER_EXTRANET"
     description: str = "I just have updated the description"
     requirements: str = (
         "REQ.0132. Passwords (phrase type) must be at least 3 words long."
@@ -189,7 +188,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
         in result["data"]["finding"]["evidence"]["animation"]["url"]
     )
     assert result["data"]["finding"]["title"] == title
-    assert result["data"]["finding"]["scenario"] == scenario
     assert result["data"]["finding"]["description"] == description
     assert result["data"]["finding"]["requirements"] == requirements
     assert (
@@ -281,7 +279,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     closed_vuln: str = "be09edb7-cd5c-47ed-bee4-97c645acdce8"
     finding_id: str = "475041513"
     title: str = "001. SQL injection - C Sharp SQL API"
-    scenario: str = "UNAUTHORIZED_USER_EXTRANET"
     description: str = "I just have updated the description"
     requirements: str = (
         "REQ.0132. Passwords (phrase type) must be at least 3 words long."
@@ -384,7 +381,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
         in result["data"]["finding"]["evidence"]["animation"]["url"]
     )
     assert result["data"]["finding"]["title"] == title
-    assert result["data"]["finding"]["scenario"] == scenario
     assert result["data"]["finding"]["description"] == description
     assert result["data"]["finding"]["requirements"] == requirements
     assert (

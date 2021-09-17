@@ -51,7 +51,6 @@ async def get_result(
                 records
                 evidence
                 title
-                scenario
                 description
                 requirements
                 attackVectorDescription

@@ -584,9 +584,6 @@
           "modified_attack_vector": {
             "N": "0.62"
           },
-          "scenario": {
-            "S": "UNAUTHORIZED_USER_EXTRANET"
-          },
           "records_number": {
             "S": "12"
           },

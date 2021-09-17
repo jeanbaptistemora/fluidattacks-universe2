@@ -21,7 +21,6 @@ async def get_result(  # pylint: disable=too-many-locals
     records_number: int = 12
     description: str = "I just have updated the description"
     recommendation: str = "Updated recommendation"
-    scenario: str = "UNAUTHORIZED_USER_EXTRANET"
     threat: str = "Updated threat"
     finding_type: str = "SECURITY"
     query: str = f"""
@@ -34,7 +33,6 @@ async def get_result(  # pylint: disable=too-many-locals
                 records: "{records}",
                 recommendation: "{recommendation}",
                 recordsNumber: {records_number},
-                scenario: "{scenario}",
                 threat: "{threat}",
                 findingType: "{finding_type}"
             ) {{
