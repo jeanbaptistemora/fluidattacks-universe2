@@ -48,7 +48,7 @@ import vectorPhysicalIcon from "resources/vector_physical.svg";
 import verifiedIcon from "resources/verified.svg";
 import vulnerabilitiesIcon from "resources/vulnerabilities.svg";
 
-const getIcon: Record<string, string> = {
+const icons = {
   authors: authorsIcon,
   availabilityHigh: avabilityHighIcon,
   availabilityLow: avabilityLowIcon,
@@ -96,9 +96,9 @@ const getIcon: Record<string, string> = {
   vulnerabilities: vulnerabilitiesIcon,
 };
 
-interface IFluidIconProps {
+export interface IFluidIconProps {
   height?: string;
-  icon: string;
+  icon: keyof typeof icons;
   width?: string;
 }
 
@@ -119,7 +119,7 @@ export const FluidIcon: React.FC<IFluidIconProps> = (
 
   return (
     <div className={style.container}>
-      <ReactSVG beforeInjection={setStyles} src={getIcon[icon]} />
+      <ReactSVG beforeInjection={setStyles} src={icons[icon]} />
     </div>
   );
 };
