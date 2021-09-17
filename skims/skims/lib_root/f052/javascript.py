@@ -10,6 +10,8 @@ from model.graph_model import (
     GraphDB,
     GraphShard,
     GraphShardMetadataLanguage,
+    SyntaxStepMethodInvocation,
+    SyntaxSteps,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
@@ -29,8 +31,72 @@ from utils.languages.javascript import (
     is_cipher_vulnerable as javascript_cipher_vulnerable,
 )
 from utils.string import (
+    build_attr_paths,
+    split_on_first_dot,
     split_on_last_dot,
 )
+
+
+def _test_native_cipher(
+    graph_db: GraphDB,
+    shard: GraphShard,
+    syntax_steps: SyntaxSteps,
+    step_index: int,
+    invocation_step: SyntaxStepMethodInvocation,
+) -> Iterator[Vulnerability]:
+    _, method = split_on_last_dot(invocation_step.method)
+    if method not in {"createCipheriv", "createDecipheriv"}:
+        return
+    dependencies = get_dependencies(step_index, syntax_steps)
+    algorithm = dependencies[-1]
+    if (
+        # pylint: disable=used-before-assignment
+        algorithm.type == "SyntaxStepLiteral"
+        and (algorithm_value := algorithm.value)
+        and javascript_cipher_vulnerable(algorithm_value)
+    ):
+        yield get_vulnerabilities_from_n_ids(
+            cwe=("310", "327"),
+            desc_key=("src.lib_path.f052.insecure_cipher.description"),
+            desc_params=dict(lang="JavaScript"),
+            finding=FINDING,
+            graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
+        )
+    elif algorithm.type == "SyntaxStepSymbolLookup":
+        append_label_input(shard.graph, "1", FINDING)
+        mark_methods_sink(
+            FINDING,
+            shard.graph,
+            shard.syntax,
+            {"createCipheriv", "createDecipheriv"},
+        )
+        yield shard_n_id_query(graph_db, FINDING, shard, "1")
+    else:
+        return
+
+
+def _test_crypto_js(
+    shard: GraphShard,
+    invocation_step: SyntaxStepMethodInvocation,
+) -> Iterator[Vulnerability]:
+    _methods = [
+        ("crypto-js", "DES", "encrypt"),
+        ("crypto-js", "RC4", "encrypt"),
+    ]
+    methods = set(
+        chain.from_iterable(build_attr_paths(*method) for method in _methods)
+    )
+    _, method = split_on_first_dot(invocation_step.method)
+    if method not in methods:
+        return
+        yield  # pylint: disable=unreachable
+    yield get_vulnerabilities_from_n_ids(
+        cwe=("310", "327"),
+        desc_key=("src.lib_path.f052.insecure_cipher.description"),
+        desc_params=dict(lang="JavaScript"),
+        finding=FINDING,
+        graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
+    )
 
 
 def insecure_cipher(
@@ -43,35 +109,14 @@ def insecure_cipher(
             for index, invocation_step in enumerate(syntax_steps):
                 if invocation_step.type != "SyntaxStepMethodInvocation":
                     continue
-                _, method = split_on_last_dot(invocation_step.method)
-                if method not in {"createCipheriv", "createDecipheriv"}:
-                    continue
-                dependencies = get_dependencies(index, syntax_steps)
-                algorithm = dependencies[-1]
-                if (
-                    # pylint: disable=used-before-assignment
-                    algorithm.type == "SyntaxStepLiteral"
-                    and (algorithm_value := algorithm.value)
-                    and javascript_cipher_vulnerable(algorithm_value)
-                ):
-                    yield get_vulnerabilities_from_n_ids(
-                        cwe=("310", "327"),
-                        desc_key=(
-                            "src.lib_path.f052.insecure_cipher.description"
-                        ),
-                        desc_params=dict(lang="JavaScript"),
-                        finding=FINDING,
-                        graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
-                    )
-                elif algorithm.type == "SyntaxStepSymbolLookup":
-                    append_label_input(shard.graph, "1", FINDING)
-                    mark_methods_sink(
-                        FINDING,
-                        shard.graph,
-                        shard.syntax,
-                        {"createCipheriv", "createDecipheriv"},
-                    )
-                    yield shard_n_id_query(graph_db, FINDING, shard, "1")
+                yield from _test_native_cipher(
+                    graph_db,
+                    shard,
+                    syntax_steps,
+                    index,
+                    invocation_step,
+                )
+                yield from _test_crypto_js(shard, invocation_step)
 
     return tuple(
         chain.from_iterable(

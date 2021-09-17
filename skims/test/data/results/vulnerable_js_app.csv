@@ -1162,6 +1162,42 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test110.js,8,310 + 327,skim
   21 |     res.json({ encrypted: encrypted });
      ^ Col 0
 "
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test115.js,11,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in server/routes/testcases/test115.js,"
+   1 | import { Router } from ""express"";
+   2 | var CryptoJS = require(""crypto-js"");
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test115/:target"", function (req, res) {
+   6 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   7 |
+   8 |   let parameters = req.params;
+   9 |   let target = parameters[""target""];
+  10 |
+> 11 |   let encrypted = CryptoJS.DES.encrypt(target, keyString).toString();
+  12 |   res.json({ encrypted: encrypted });
+  13 | });
+  14 |
+  15 | export default router;
+     ^ Col 0
+"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test116.js,11,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in server/routes/testcases/test116.js,"
+   1 | import { Router } from ""express"";
+   2 | var CryptoJS = require(""crypto-js"");
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test116/:target"", function (req, res) {
+   6 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   7 |
+   8 |   let parameters = req.params;
+   9 |   let target = parameters[""target""];
+  10 |
+> 11 |   let encrypted = CryptoJS.RC4.encrypt(target, keyString).toString();
+  12 |   res.json({ encrypted: encrypted });
+  13 | });
+  14 |
+  15 | export default router;
+     ^ Col 0
+"
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test104.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
 ","
    1 | import { Router } from ""express"";
@@ -1360,6 +1396,56 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test112.js,9,328,skims,052.
   19 |     }
   20 |   });
   21 |   cipher.on(""end"", () => {
+     ^ Col 0
+"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test117.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+","
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test117/:target"", function (req, res) {
+   6 |   const algorithm = ""bf-ecb"";
+   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   8 |   const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
+>  9 |   const cipher = crypto.createCipheriv(algorithm, key, """");
+  10 |
+  11 |   let parameters = req.params;
+  12 |   let target = parameters[""target""];
+  13 |
+  14 |   let encrypted = """";
+  15 |   cipher.on(""readable"", () => {
+  16 |     let chunk;
+  17 |     while (null !== (chunk = cipher.read())) {
+  18 |       encrypted += chunk.toString(""hex"");
+  19 |     }
+  20 |   });
+  21 |   cipher.on(""end"", () => {
+     ^ Col 0
+"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test118.js,10,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+","
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test118/:target"", function (req, res) {
+   6 |   const algorithm = ""bf-cbc"";
+   7 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   8 |   const iv = Buffer.alloc(8);
+   9 |   const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
+> 10 |   const cipher = crypto.createCipheriv(algorithm, key, iv);
+  11 |
+  12 |   let parameters = req.params;
+  13 |   let target = parameters[""target""];
+  14 |
+  15 |   let encrypted = """";
+  16 |   cipher.on(""readable"", () => {
+  17 |     let chunk;
+  18 |     while (null !== (chunk = cipher.read())) {
+  19 |       encrypted += chunk.toString(""hex"");
+  20 |     }
+  21 |   });
      ^ Col 0
 "
 F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test097.js,6,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.

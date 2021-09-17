@@ -79,6 +79,7 @@ def is_vulnerable_cipher(
             alg == "aes" and mode == "ecb",
             alg == "aes" and mode == "cbc" and pad and pad != "nopadding",
             alg == "blowfish",
+            alg == "bf",
             alg == "des",
             alg == "desede",
             alg == "rc2",
