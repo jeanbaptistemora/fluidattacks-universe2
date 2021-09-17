@@ -8,15 +8,11 @@ from model.graph_model import (
 from more_itertools import (
     pairwise,
 )
-from mypy_extensions import (
-    NamedArg,
-)
 from sast_transformations.control_flow.types import (
-    EdgeAttrs,
+    GenericType,
     Stack,
 )
 from typing import (
-    Callable,
     Dict,
     Optional,
 )
@@ -29,17 +25,6 @@ BLOCK_NAME: Dict[GraphShardMetadataLanguage, str] = {
     GraphShardMetadataLanguage.JAVA: "block",
     GraphShardMetadataLanguage.CSHARP: "block",
 }
-
-# Constants
-GenericType = Callable[
-    [
-        Graph,
-        str,
-        Stack,
-        NamedArg(EdgeAttrs, "edge_attrs"),  # noqa
-    ],
-    None,
-]
 
 
 def get_next_id(stack: Stack) -> Optional[str]:
@@ -70,7 +55,6 @@ def step_by_step(
     graph: Graph,
     n_id: str,
     stack: Stack,
-    *,
     _generic: GenericType,
 ) -> None:
     # Statements = step1 step2 ...
@@ -116,7 +100,6 @@ def link_to_last_node(
     graph: Graph,
     n_id: str,
     stack: Stack,
-    *,
     _generic: GenericType,
 ) -> None:
     # Link directly to the child statements
@@ -131,7 +114,6 @@ def if_statement(
     graph: Graph,
     n_id: str,
     stack: Stack,
-    *,
     _generic: GenericType,
 ) -> None:
     # if ( __0__ ) __1__ else __2__
@@ -180,7 +162,6 @@ def try_statement(
     graph: Graph,
     n_id: str,
     stack: Stack,
-    *,
     _generic: GenericType,
     last_node: Optional[str] = None,
     language: Optional[GraphShardMetadataLanguage] = None,
@@ -215,7 +196,6 @@ def catch_statement(
     graph: Graph,
     n_id: str,
     stack: Stack,
-    *,
     _generic: GenericType,
 ) -> None:
     propagate_next_id_from_parent(stack)
@@ -226,7 +206,6 @@ def loop_statement(
     graph: Graph,
     n_id: str,
     stack: Stack,
-    *,
     _generic: GenericType,
     language: Optional[GraphShardMetadataLanguage] = None,
 ) -> None:
