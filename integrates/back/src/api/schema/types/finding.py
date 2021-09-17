@@ -171,7 +171,6 @@ else:
     # --------------------------Deprecated fields------------------------------
     FINDING.set_field("analyst", hacker.resolve)
     FINDING.set_alias("attackVectorDescription", "attack_vector_desc")
-    FINDING.set_alias("bugTrackingSystemUrl", "bts_url")
     FINDING.set_field("inputsVulns", inputs_vulnerabilities.resolve)
     FINDING.set_field("linesVulns", lines_vulnerabilities.resolve)
     FINDING.set_field("newRemediated", new_remediated.resolve)

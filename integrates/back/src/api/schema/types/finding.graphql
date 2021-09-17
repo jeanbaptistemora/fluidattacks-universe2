@@ -12,11 +12,6 @@ type Finding {
   after 2021/12/31. Use `attackVectorDescription` instead.""")
   "Malicious actions that can be performed by exploiting the vulnerability"
   attackVectorDescription: String
-  "External Bug Tracking System URL"
-  btsUrl: String @deprecated(reason: """This field will be removed
-  after 2022/02/23. Use `bugTrackingSystemUrl` instead.""")
-  "External Bug Tracking System URL"
-  bugTrackingSystemUrl: String
   "Quantity of closed vulnerabilities within the Finding"
   closedVulnerabilities: Int
   "Compromised client DB attributes extracted through the vulnerability"

@@ -59,7 +59,6 @@ async def get_result(
                 affectedSystems
                 compromisedAttributes
                 compromisedRecords
-                bugTrackingSystemUrl
                 type
                 tracking
                 observations{{
