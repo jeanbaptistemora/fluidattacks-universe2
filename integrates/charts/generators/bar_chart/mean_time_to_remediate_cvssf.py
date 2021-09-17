@@ -170,6 +170,10 @@ def format_data(data: Remediate) -> Dict[str, Any]:
                 padding=dict(
                     bottom=0,
                 ),
+                label=dict(
+                    text="CVSSF",
+                    position="inner-top",
+                ),
             ),
         ),
         barChartYTickFormat=True,
