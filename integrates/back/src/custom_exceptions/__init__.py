@@ -532,6 +532,15 @@ class InvalidRange(CustomBaseException):
         super(InvalidRange, self).__init__(msg)
 
 
+class InvalidRoleProvided(CustomBaseException):
+    """Exception to control that users only grant roles they're allowed to."""
+
+    def __init__(self, role: str) -> None:
+        """Constructor"""
+        msg = f"Invalid role or not enough permissions to grant role: {role}"
+        super(InvalidRoleProvided, self).__init__(f"Exception - {msg}")
+
+
 class InvalidRootExclusion(CustomBaseException):
     """Exception to control exclusion paths"""
 

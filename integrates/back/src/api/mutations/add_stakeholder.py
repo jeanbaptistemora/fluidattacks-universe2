@@ -5,6 +5,12 @@ from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 import authz
+from context import (
+    FI_DEFAULT_ORG,
+)
+from custom_exceptions import (
+    InvalidRoleProvided,
+)
 from custom_types import (
     AddStakeholderPayload,
     MailContent,
@@ -31,6 +37,12 @@ from newutils import (
 )
 from newutils.utils import (
     map_roles,
+)
+from organizations import (
+    domain as orgs_domain,
+)
+from redis_cluster.operations import (
+    redis_del_by_deps,
 )
 from settings import (
     LOGGING,
@@ -73,6 +85,12 @@ async def mutate(
             mail_to = [email]
             context: MailContent = {"admin": email}
             schedule(groups_mail.send_mail_access_granted(mail_to, context))
+            # Update org stakeholder cache
+            org_id: str = await orgs_domain.get_id_by_name(FI_DEFAULT_ORG)
+            await redis_del_by_deps(
+                "add_stakeholder",
+                organization_id=org_id,
+            )
             success = True
         else:
             LOGGER.error(
@@ -90,4 +108,5 @@ async def mutate(
                 }
             },
         )
+        raise InvalidRoleProvided(role=role)
     return AddStakeholderPayload(success=success, email=email)
