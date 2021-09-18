@@ -1,6 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
+import type { IFindingData } from "./types";
+
 import { Col50, Row } from "styles/styledComponents";
 
 interface IDescriptionProps {
@@ -80,7 +82,7 @@ export const renderDescription = ({
   openAge,
   remediated,
   treatment,
-}: IDescriptionProps): JSX.Element => (
+}: IFindingData): JSX.Element => (
   <Description
     description={description}
     isExploitable={isExploitable}

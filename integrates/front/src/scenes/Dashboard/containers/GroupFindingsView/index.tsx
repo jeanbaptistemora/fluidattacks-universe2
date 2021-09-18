@@ -19,6 +19,7 @@ import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 
 import { renderDescription } from "./description";
 import { setReportType } from "./helpers";
+import { formatFindings, formatState } from "./utils";
 
 import { REMOVE_FINDING_MUTATION } from "../FindingContent/queries";
 import { Button } from "components/Button";
@@ -41,7 +42,6 @@ import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import AppstoreBadge from "resources/appstore_badge.svg";
 import GoogleplayBadge from "resources/googleplay_badge.svg";
-import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import {
   GET_FINDINGS,
   REQUEST_GROUP_REPORT,
@@ -50,7 +50,6 @@ import type {
   IFindingAttr,
   IGroupFindingsAttr,
 } from "scenes/Dashboard/containers/GroupFindingsView/types";
-import { formatFindings } from "scenes/Dashboard/containers/GroupFindingsView/utils";
 import {
   ButtonToolbar,
   ButtonToolbarCenter,
@@ -71,7 +70,6 @@ import { composeValidators, required } from "utils/validations";
 const GroupFindingsView: React.FC = (): JSX.Element => {
   const TIMEZONE_OFFSET = 60000;
   const FORMATTING_DATE_INDEX = 19;
-  const ONE_DAY = 86400000;
 
   const now: Date = new Date();
   const timeSoFar: number = Date.now();
@@ -114,7 +112,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     "tableSet",
     {
       age: false,
-      lastVulnerability: true,
+      lastReport: true,
       locations: true,
       remediated: false,
       severityScore: true,
@@ -191,15 +189,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     },
     []
   );
-  const formatReport: (date: string) => number = (date: string): number => {
-    if (_.isEmpty(date)) {
-      return 0;
-    }
-    const dateObj: Date = new Date(date);
-    const difference = timeSoFar - dateObj.getTime();
 
-    return Math.floor(difference / ONE_DAY);
-  };
   const onSortState: (dataField: string, order: SortOrder) => void = (
     dataField: string,
     order: SortOrder
@@ -211,11 +201,10 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const tableHeaders: IHeaderConfig[] = [
     {
       align: "center",
-      dataField: "lastVulnerabilityReportDate",
-      formatter: formatReport,
+      dataField: "lastReport",
       header: "Last report",
       onSort: onSortState,
-      visible: checkedItems.lastVulnerability,
+      visible: checkedItems.lastReport,
     },
     {
       align: "center",
@@ -228,7 +217,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     {
       align: "left",
       dataField: "state",
-      formatter: pointStatusFormatter,
+      formatter: formatState,
       header: "Status",
       onSort: onSortState,
       visible: checkedItems.state,
@@ -375,7 +364,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const filterLastReportFindings: IFindingAttr[] = filterLastNumber(
     findings,
     lastReportFilter,
-    "lastVulnerability"
+    "lastReport"
   );
 
   function onSeverityMinChange(
