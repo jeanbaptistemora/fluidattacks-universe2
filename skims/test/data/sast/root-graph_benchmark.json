@@ -2219,10 +2219,6 @@
             }
           },
           "509": {
-            "508": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
-            },
             "510": {
               "label_ast": "AST",
               "label_index": "0"
@@ -2613,10 +2609,6 @@
             }
           },
           "576": {
-            "575": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
-            },
             "577": {
               "label_ast": "AST",
               "label_index": "0"
@@ -15601,10 +15593,6 @@
             }
           },
           "639": {
-            "638": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
-            },
             "640": {
               "label_ast": "AST",
               "label_index": "0"

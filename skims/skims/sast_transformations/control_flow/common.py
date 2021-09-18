@@ -62,6 +62,8 @@ def propagate_next_id_from_parent(
         set_next_id(stack, next_id)
     elif default_id:
         set_next_id(stack, default_id)
+    else:
+        stack[-1].pop("next_id", None)
 
 
 def step_by_step(

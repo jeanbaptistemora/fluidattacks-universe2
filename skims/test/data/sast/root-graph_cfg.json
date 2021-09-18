@@ -3843,10 +3843,6 @@
             }
           },
           "1698": {
-            "1686": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
-            },
             "1699": {
               "label_ast": "AST",
               "label_index": "0"
@@ -4181,10 +4177,6 @@
             }
           },
           "214": {
-            "213": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
-            },
             "215": {
               "label_ast": "AST",
               "label_index": "0"
@@ -31286,10 +31278,6 @@
             }
           },
           "1967": {
-            "1967": {
-              "label_cfg": "CFG",
-              "label_cfg_false": "cfg_false"
-            },
             "1968": {
               "label_ast": "AST",
               "label_index": "0"
@@ -31340,10 +31328,6 @@
             }
           },
           "1972": {
-            "1967": {
-              "label_cfg": "CFG",
-              "label_cfg_always": "cfg_always"
-            },
             "1973": {
               "label_ast": "AST",
               "label_index": "0"
