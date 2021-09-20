@@ -131,13 +131,12 @@ class FindingTreatmentSummary(NamedTuple):
 
 
 class FindingUnreliableIndicators(NamedTuple):
-    unreliable_age: int = 0
     unreliable_closed_vulnerabilities: int = 0
     unreliable_is_verified: bool = True
-    unreliable_last_vulnerability: int = 0
-    unreliable_open_age: int = 0
+    unreliable_newest_vulnerability_report_date: str = ""
+    unreliable_oldest_open_vulnerability_report_date: str = ""
+    unreliable_oldest_vulnerability_report_date: str = ""
     unreliable_open_vulnerabilities: int = 0
-    unreliable_report_date: str = ""
     unreliable_status: FindingStatus = FindingStatus.CLOSED
     unreliable_treatment_summary: FindingTreatmentSummary = (
         FindingTreatmentSummary()
@@ -186,13 +185,12 @@ class FindingMetadataToUpdate(NamedTuple):
 
 
 class FindingUnreliableIndicatorsToUpdate(NamedTuple):
-    unreliable_age: Optional[int] = None
     unreliable_closed_vulnerabilities: Optional[int] = None
     unreliable_is_verified: Optional[bool] = None
-    unreliable_last_vulnerability: Optional[int] = None
-    unreliable_open_age: Optional[int] = None
+    unreliable_newest_vulnerability_report_date: Optional[str] = None
+    unreliable_oldest_open_vulnerability_report_date: Optional[str] = None
+    unreliable_oldest_vulnerability_report_date: Optional[str] = None
     unreliable_open_vulnerabilities: Optional[int] = None
-    unreliable_report_date: Optional[str] = None
     unreliable_status: Optional[FindingStatus] = None
     unreliable_treatment_summary: Optional[FindingTreatmentSummary] = None
     unreliable_where: Optional[str] = None

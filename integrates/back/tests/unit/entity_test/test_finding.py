@@ -97,9 +97,9 @@ async def test_finding_age_new() -> None:
     data = {"query": query}
     result = await _get_result(data)
     assert "errors" not in result
-    assert result["data"]["finding"]["age"] == 613
-    assert result["data"]["finding"]["lastVulnerability"] == 613
-    assert result["data"]["finding"]["openAge"] == 613
+    assert result["data"]["finding"]["age"] == 626
+    assert result["data"]["finding"]["lastVulnerability"] == 626
+    assert result["data"]["finding"]["openAge"] == 626
 
 
 async def test_finding() -> None:  # pylint: disable=too-many-statements

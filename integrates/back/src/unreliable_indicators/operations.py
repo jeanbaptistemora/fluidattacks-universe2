@@ -68,11 +68,6 @@ async def update_finding_unreliable_indicators(  # noqa: C901
     finding: Finding = await loaders.finding_new.load(finding_id)
     indicators = dict()
 
-    if EntityAttr.age in attrs_to_update:
-        indicators[EntityAttr.age] = findings_domain.get_finding_age(
-            loaders, finding.id
-        )
-
     if EntityAttr.closed_vulnerabilities in attrs_to_update:
         indicators[
             EntityAttr.closed_vulnerabilities
@@ -83,13 +78,24 @@ async def update_finding_unreliable_indicators(  # noqa: C901
             loaders, finding.id
         )
 
-    if EntityAttr.last_vulnerability in attrs_to_update:
+    if EntityAttr.newest_vulnerability_report_date in attrs_to_update:
         indicators[
-            EntityAttr.last_vulnerability
-        ] = findings_domain.get_finding_last_vuln_report(loaders, finding.id)
+            EntityAttr.newest_vulnerability_report_date
+        ] = findings_domain.get_newest_vulnerability_report_date(
+            loaders, finding.id
+        )
 
-    if EntityAttr.open_age in attrs_to_update:
-        indicators[EntityAttr.open_age] = findings_domain.get_finding_open_age(
+    if EntityAttr.oldest_open_vulnerability_report_date in attrs_to_update:
+        indicators[
+            EntityAttr.oldest_open_vulnerability_report_date
+        ] = findings_domain.get_oldest_open_vulnerability_report_date(
+            loaders, finding.id
+        )
+
+    if EntityAttr.oldest_vulnerability_report_date in attrs_to_update:
+        indicators[
+            EntityAttr.oldest_vulnerability_report_date
+        ] = findings_domain.get_oldest_vulnerability_report_date(
             loaders, finding.id
         )
 
@@ -97,11 +103,6 @@ async def update_finding_unreliable_indicators(  # noqa: C901
         indicators[
             EntityAttr.open_vulnerabilities
         ] = findings_domain.get_open_vulnerabilities(loaders, finding.id)
-
-    if EntityAttr.report_date in attrs_to_update:
-        indicators[
-            EntityAttr.report_date
-        ] = findings_domain.get_report_date_new(loaders, finding.id)
 
     if EntityAttr.status in attrs_to_update:
         indicators[EntityAttr.status] = findings_domain.get_status(
@@ -120,19 +121,22 @@ async def update_finding_unreliable_indicators(  # noqa: C901
 
     result = dict(zip(indicators.keys(), await collect(indicators.values())))
     indicators = FindingUnreliableIndicatorsToUpdate(
-        unreliable_age=result.get(EntityAttr.age),
         unreliable_closed_vulnerabilities=result.get(
             EntityAttr.closed_vulnerabilities
         ),
         unreliable_is_verified=result.get(EntityAttr.is_verified),
-        unreliable_last_vulnerability=result.get(
-            EntityAttr.last_vulnerability
+        unreliable_newest_vulnerability_report_date=result.get(
+            EntityAttr.newest_vulnerability_report_date
         ),
-        unreliable_open_age=result.get(EntityAttr.open_age),
+        unreliable_oldest_open_vulnerability_report_date=result.get(
+            EntityAttr.oldest_open_vulnerability_report_date
+        ),
+        unreliable_oldest_vulnerability_report_date=result.get(
+            EntityAttr.oldest_vulnerability_report_date
+        ),
         unreliable_open_vulnerabilities=result.get(
             EntityAttr.open_vulnerabilities
         ),
-        unreliable_report_date=result.get(EntityAttr.report_date),
         unreliable_status=_format_unreliable_status(
             result.get(EntityAttr.status)
         ),

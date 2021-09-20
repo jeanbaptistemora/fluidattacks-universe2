@@ -521,20 +521,6 @@ async def get_is_verified(loaders: Any, finding_id: str) -> bool:
     return len(remediated_vulns) == 0
 
 
-async def get_last_vulnerability_report_date(
-    context: Any, finding_id: str
-) -> str:
-    last_vulnerability_report_date = ""
-    finding_vulns_loader = context.finding_vulns_nzr
-    vulns = await finding_vulns_loader.load(finding_id)
-    report_dates = vulns_utils.get_report_dates(vulns)
-    if report_dates:
-        last_vulnerability_report_date = datetime_utils.get_as_utc_iso_format(
-            max(report_dates)
-        )
-    return last_vulnerability_report_date
-
-
 async def get_max_open_severity(
     context: Any, findings: List[Dict[str, FindingType]]
 ) -> Tuple[Decimal, Dict[str, FindingType]]:
@@ -590,6 +576,20 @@ async def get_max_open_severity_new(
         max_severity = Decimal(0).quantize(Decimal("0.1"))
         max_severity_finding = None
     return max_severity, max_severity_finding
+
+
+async def get_newest_vulnerability_report_date(
+    context: Any, finding_id: str
+) -> str:
+    last_vulnerability_report_date = ""
+    finding_vulns_loader = context.finding_vulns_nzr
+    vulns = await finding_vulns_loader.load(finding_id)
+    report_dates = vulns_utils.get_report_dates(vulns)
+    if report_dates:
+        last_vulnerability_report_date = datetime_utils.get_as_utc_iso_format(
+            max(report_dates)
+        )
+    return last_vulnerability_report_date
 
 
 async def get_open_vulnerabilities(loaders: Any, finding_id: str) -> int:

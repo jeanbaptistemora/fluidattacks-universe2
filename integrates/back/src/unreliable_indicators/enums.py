@@ -12,13 +12,14 @@ class EntityId(Enum):
 
 
 class EntityAttr(Enum):
-    age: str = "age"
     closed_vulnerabilities: str = "closed_vulnerabilities"
     is_verified: str = "is_verified"
-    last_vulnerability: str = "last_vulnerability"
-    open_age: str = "open_age"
+    newest_vulnerability_report_date: str = "last_vulnerability_report_date"
+    oldest_open_vulnerability_report_date: str = (
+        "oldest_open_vulnerability_report_date"
+    )
+    oldest_vulnerability_report_date: str = "oldest_vulnerability_report_date"
     open_vulnerabilities: str = "open_vulnerabilities"
-    report_date: str = "report_date"
     status: str = "status"
     treatment_summary: str = "treatment_summary"
     where: str = "where"

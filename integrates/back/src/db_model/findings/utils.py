@@ -90,19 +90,22 @@ def format_unreliable_indicators_item(
     indicators: FindingUnreliableIndicators,
 ) -> Item:
     return {
-        "unreliable_age": indicators.unreliable_age,
         "unreliable_closed_vulnerabilities": (
             indicators.unreliable_closed_vulnerabilities
         ),
         "unreliable_is_verified": indicators.unreliable_is_verified,
-        "unreliable_last_vulnerability": (
-            indicators.unreliable_last_vulnerability
+        "unreliable_newest_vulnerability_report_date": (
+            indicators.unreliable_newest_vulnerability_report_date
         ),
-        "unreliable_open_age": indicators.unreliable_open_age,
+        "unreliable_oldest_open_vulnerability_report_date": (
+            indicators.unreliable_oldest_open_vulnerability_report_date
+        ),
+        "unreliable_oldest_vulnerability_report_date": (
+            indicators.unreliable_oldest_vulnerability_report_date
+        ),
         "unreliable_open_vulnerabilities": (
             indicators.unreliable_open_vulnerabilities
         ),
-        "unreliable_report_date": indicators.unreliable_report_date,
         "unreliable_status": indicators.unreliable_status.value,
         "unreliable_where": indicators.unreliable_where,
         "unreliable_treatment_summary": format_treatment_summary_item(
@@ -115,19 +118,22 @@ def format_unreliable_indicators(
     indicators_item: Item,
 ) -> FindingUnreliableIndicators:
     return FindingUnreliableIndicators(
-        unreliable_age=int(indicators_item["unreliable_age"]),
         unreliable_closed_vulnerabilities=int(
             indicators_item["unreliable_closed_vulnerabilities"]
         ),
         unreliable_is_verified=indicators_item["unreliable_is_verified"],
-        unreliable_last_vulnerability=int(
-            indicators_item["unreliable_last_vulnerability"]
+        unreliable_newest_vulnerability_report_date=(
+            indicators_item["unreliable_newest_vulnerability_report_date"]
         ),
-        unreliable_open_age=int(indicators_item["unreliable_open_age"]),
+        unreliable_oldest_open_vulnerability_report_date=(
+            indicators_item["unreliable_oldest_open_vulnerability_report_date"]
+        ),
+        unreliable_oldest_vulnerability_report_date=(
+            indicators_item["unreliable_oldest_vulnerability_report_date"]
+        ),
         unreliable_open_vulnerabilities=int(
             indicators_item["unreliable_open_vulnerabilities"]
         ),
-        unreliable_report_date=indicators_item["unreliable_report_date"],
         unreliable_status=FindingStatus[indicators_item["unreliable_status"]],
         unreliable_where=indicators_item["unreliable_where"],
         unreliable_treatment_summary=format_treatment_summary(

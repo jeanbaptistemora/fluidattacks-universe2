@@ -86,7 +86,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
     state: str = "open"
     last_vuln: int = 94
     remediated: bool = False
-    age: int = 1087
+    age: int = 1094
     open_age: int = 400
     is_exploitable: bool = False
     severity_score: float = 4.1
@@ -297,7 +297,7 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     state: str = "open"
     last_vuln: int = 94
     remediated: bool = False
-    age: int = 1087
+    age: int = 1094
     open_age: int = 400
     is_exploitable: bool = False
     severity_score: float = 4.1

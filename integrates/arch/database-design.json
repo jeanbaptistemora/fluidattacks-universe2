@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Sep 13, 2021, 12:52 PM",
+    "DateLastModified": "Sep 20, 2021, 02:27 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -355,18 +355,6 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "unreliable_last_vulnerability",
-          "AttributeType": "N"
-        },
-        {
-          "AttributeName": "unreliable_age",
-          "AttributeType": "N"
-        },
-        {
-          "AttributeName": "unreliable_open_age",
-          "AttributeType": "N"
-        },
-        {
           "AttributeName": "unreliable_closed_vulnerabilities",
           "AttributeType": "N"
         },
@@ -380,10 +368,6 @@
         },
         {
           "AttributeName": "unreliable_status",
-          "AttributeType": "S"
-        },
-        {
-          "AttributeName": "unreliable_report_date",
           "AttributeType": "S"
         },
         {
@@ -425,6 +409,18 @@
         {
           "AttributeName": "unreliable_treatment_summary",
           "AttributeType": "M"
+        },
+        {
+          "AttributeName": "unreliable_newest_vulnerability_report_date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "unreliable_oldest_open_vulnerability_report_date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "unreliable_oldest_vulnerability_report_date",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -7242,8 +7238,8 @@
               "unreliable_where": {
                 "S": ""
               },
-              "unreliable_last_vulnerability": {
-                "N": "0"
+              "unreliable_newest_vulnerability_report_date": {
+                "S": ""
               },
               "unreliable_open_vulnerabilities": {
                 "N": "0"
@@ -7267,23 +7263,20 @@
                   }
                 }
               },
-              "unreliable_age": {
-                "N": "0"
+              "unreliable_oldest_vulnerability_report_date": {
+                "S": ""
               },
               "pk": {
                 "S": "FIN#436712859#UNRELIABLEINDICATORS"
               },
+              "unreliable_oldest_open_vulnerability_report_date": {
+                "S": ""
+              },
               "unreliable_closed_vulnerabilities": {
                 "N": "0"
               },
               "unreliable_is_verified": {
                 "BOOL": true
-              },
-              "unreliable_open_age": {
-                "N": "0"
-              },
-              "unreliable_report_date": {
-                "S": ""
               },
               "unreliable_status": {
                 "S": "CLOSED"
@@ -7293,8 +7286,8 @@
               "unreliable_where": {
                 "S": ""
               },
-              "unreliable_last_vulnerability": {
-                "N": "0"
+              "unreliable_newest_vulnerability_report_date": {
+                "S": ""
               },
               "unreliable_open_vulnerabilities": {
                 "N": "0"
@@ -7318,23 +7311,20 @@
                   }
                 }
               },
-              "unreliable_age": {
-                "N": "0"
+              "unreliable_oldest_vulnerability_report_date": {
+                "S": ""
               },
               "pk": {
                 "S": "FIN#683100860#UNRELIABLEINDICATORS"
               },
+              "unreliable_oldest_open_vulnerability_report_date": {
+                "S": ""
+              },
               "unreliable_closed_vulnerabilities": {
                 "N": "0"
               },
               "unreliable_is_verified": {
                 "BOOL": true
-              },
-              "unreliable_open_age": {
-                "N": "0"
-              },
-              "unreliable_report_date": {
-                "S": ""
               },
               "unreliable_status": {
                 "S": "CLOSED"
@@ -7344,8 +7334,8 @@
               "unreliable_where": {
                 "S": ""
               },
-              "unreliable_last_vulnerability": {
-                "N": "0"
+              "unreliable_newest_vulnerability_report_date": {
+                "S": ""
               },
               "unreliable_open_vulnerabilities": {
                 "N": "0"
@@ -7369,23 +7359,20 @@
                   }
                 }
               },
-              "unreliable_age": {
-                "N": "0"
+              "unreliable_oldest_vulnerability_report_date": {
+                "S": ""
               },
               "pk": {
                 "S": "FIN#997868246#UNRELIABLEINDICATORS"
               },
+              "unreliable_oldest_open_vulnerability_report_date": {
+                "S": ""
+              },
               "unreliable_closed_vulnerabilities": {
                 "N": "0"
               },
               "unreliable_is_verified": {
                 "BOOL": true
-              },
-              "unreliable_open_age": {
-                "N": "0"
-              },
-              "unreliable_report_date": {
-                "S": ""
               },
               "unreliable_status": {
                 "S": "CLOSED"
@@ -7395,8 +7382,8 @@
               "unreliable_where": {
                 "S": ""
               },
-              "unreliable_last_vulnerability": {
-                "N": "0"
+              "unreliable_newest_vulnerability_report_date": {
+                "S": ""
               },
               "unreliable_open_vulnerabilities": {
                 "N": "0"
@@ -7420,23 +7407,20 @@
                   }
                 }
               },
-              "unreliable_age": {
-                "N": "0"
+              "unreliable_oldest_vulnerability_report_date": {
+                "S": ""
               },
               "pk": {
                 "S": "FIN#475041524#UNRELIABLEINDICATORS"
               },
+              "unreliable_oldest_open_vulnerability_report_date": {
+                "S": ""
+              },
               "unreliable_closed_vulnerabilities": {
                 "N": "0"
               },
               "unreliable_is_verified": {
                 "BOOL": true
-              },
-              "unreliable_open_age": {
-                "N": "0"
-              },
-              "unreliable_report_date": {
-                "S": ""
               },
               "unreliable_status": {
                 "S": "CLOSED"
@@ -7446,8 +7430,8 @@
               "unreliable_where": {
                 "S": ""
               },
-              "unreliable_last_vulnerability": {
-                "N": "0"
+              "unreliable_newest_vulnerability_report_date": {
+                "S": ""
               },
               "unreliable_open_vulnerabilities": {
                 "N": "0"
@@ -7471,23 +7455,20 @@
                   }
                 }
               },
-              "unreliable_age": {
-                "N": "0"
+              "unreliable_oldest_vulnerability_report_date": {
+                "S": ""
               },
               "pk": {
                 "S": "FIN#836530833#UNRELIABLEINDICATORS"
               },
+              "unreliable_oldest_open_vulnerability_report_date": {
+                "S": ""
+              },
               "unreliable_closed_vulnerabilities": {
                 "N": "0"
               },
               "unreliable_is_verified": {
                 "BOOL": true
-              },
-              "unreliable_open_age": {
-                "N": "0"
-              },
-              "unreliable_report_date": {
-                "S": ""
               },
               "unreliable_status": {
                 "S": "CLOSED"
@@ -7497,8 +7478,8 @@
               "unreliable_where": {
                 "S": ""
               },
-              "unreliable_last_vulnerability": {
-                "N": "0"
+              "unreliable_newest_vulnerability_report_date": {
+                "S": ""
               },
               "unreliable_open_vulnerabilities": {
                 "N": "0"
@@ -7522,23 +7503,20 @@
                   }
                 }
               },
-              "unreliable_age": {
-                "N": "0"
+              "unreliable_oldest_vulnerability_report_date": {
+                "S": ""
               },
               "pk": {
                 "S": "FIN#991607942#UNRELIABLEINDICATORS"
+              },
+              "unreliable_oldest_open_vulnerability_report_date": {
+                "S": ""
               },
               "unreliable_closed_vulnerabilities": {
                 "N": "0"
               },
               "unreliable_is_verified": {
                 "BOOL": true
-              },
-              "unreliable_open_age": {
-                "N": "0"
-              },
-              "unreliable_report_date": {
-                "S": ""
               },
               "unreliable_status": {
                 "S": "CLOSED"
@@ -7548,8 +7526,8 @@
               "unreliable_where": {
                 "S": ""
               },
-              "unreliable_last_vulnerability": {
-                "N": "635"
+              "unreliable_newest_vulnerability_report_date": {
+                "S": "2019-12-12T13:45:48+00:00"
               },
               "unreliable_open_vulnerabilities": {
                 "N": "0"
@@ -7573,23 +7551,20 @@
                   }
                 }
               },
-              "unreliable_age": {
-                "N": "635"
+              "unreliable_oldest_vulnerability_report_date": {
+                "S": "2019-12-12T13:45:48+00:00"
               },
               "pk": {
                 "S": "FIN#818828206#UNRELIABLEINDICATORS"
+              },
+              "unreliable_oldest_open_vulnerability_report_date": {
+                "S": ""
               },
               "unreliable_closed_vulnerabilities": {
                 "N": "1"
               },
               "unreliable_is_verified": {
                 "BOOL": true
-              },
-              "unreliable_open_age": {
-                "N": "0"
-              },
-              "unreliable_report_date": {
-                "S": "2019-12-12T13:45:48+00:00"
               },
               "unreliable_status": {
                 "S": "CLOSED"
@@ -7599,8 +7574,8 @@
               "unreliable_where": {
                 "S": "192.168.1.9"
               },
-              "unreliable_last_vulnerability": {
-                "N": "360"
+              "unreliable_newest_vulnerability_report_date": {
+                "S": "2020-09-12T13:45:48+00:00"
               },
               "unreliable_open_vulnerabilities": {
                 "N": "1"
@@ -7624,23 +7599,20 @@
                   }
                 }
               },
-              "unreliable_age": {
-                "N": "360"
+              "unreliable_oldest_vulnerability_report_date": {
+                "S": "2020-09-12T13:45:48+00:00"
               },
               "pk": {
                 "S": "FIN#457497318#UNRELIABLEINDICATORS"
+              },
+              "unreliable_oldest_open_vulnerability_report_date": {
+                "S": "2020-09-12T13:45:48+00:00"
               },
               "unreliable_closed_vulnerabilities": {
                 "N": "0"
               },
               "unreliable_is_verified": {
                 "BOOL": true
-              },
-              "unreliable_open_age": {
-                "N": "360"
-              },
-              "unreliable_report_date": {
-                "S": "2020-09-12T13:45:48+00:00"
               },
               "unreliable_status": {
                 "S": "OPEN"
@@ -7650,8 +7622,8 @@
               "unreliable_where": {
                 "S": "path/to/file4.ext"
               },
-              "unreliable_last_vulnerability": {
-                "N": "879"
+              "unreliable_newest_vulnerability_report_date": {
+                "S": "2019-04-12T13:45:48+00:00"
               },
               "unreliable_open_vulnerabilities": {
                 "N": "1"
@@ -7675,23 +7647,20 @@
                   }
                 }
               },
-              "unreliable_age": {
-                "N": "879"
+              "unreliable_oldest_vulnerability_report_date": {
+                "S": "2019-04-12T13:45:48+00:00"
               },
               "pk": {
                 "S": "FIN#475041513#UNRELIABLEINDICATORS"
+              },
+              "unreliable_oldest_open_vulnerability_report_date": {
+                "S": "2019-04-12T13:45:48+00:00"
               },
               "unreliable_closed_vulnerabilities": {
                 "N": "1"
               },
               "unreliable_is_verified": {
                 "BOOL": true
-              },
-              "unreliable_open_age": {
-                "N": "879"
-              },
-              "unreliable_report_date": {
-                "S": "2019-04-12T13:45:48+00:00"
               },
               "unreliable_status": {
                 "S": "OPEN"
@@ -7701,8 +7670,8 @@
               "unreliable_where": {
                 "S": ""
               },
-              "unreliable_last_vulnerability": {
-                "N": "0"
+              "unreliable_newest_vulnerability_report_date": {
+                "S": ""
               },
               "unreliable_open_vulnerabilities": {
                 "N": "0"
@@ -7726,23 +7695,20 @@
                   }
                 }
               },
-              "unreliable_age": {
-                "N": "0"
+              "unreliable_oldest_vulnerability_report_date": {
+                "S": ""
               },
               "pk": {
                 "S": "FIN#475041535#UNRELIABLEINDICATORS"
+              },
+              "unreliable_oldest_open_vulnerability_report_date": {
+                "S": ""
               },
               "unreliable_closed_vulnerabilities": {
                 "N": "0"
               },
               "unreliable_is_verified": {
                 "BOOL": true
-              },
-              "unreliable_open_age": {
-                "N": "0"
-              },
-              "unreliable_report_date": {
-                "S": ""
               },
               "unreliable_status": {
                 "S": "CLOSED"
@@ -7752,8 +7718,8 @@
               "unreliable_where": {
                 "S": "test/data/lib_path/f060/csharp.cs"
               },
-              "unreliable_last_vulnerability": {
-                "N": "613"
+              "unreliable_newest_vulnerability_report_date": {
+                "S": "2020-01-03T17:46:10+00:00"
               },
               "unreliable_open_vulnerabilities": {
                 "N": "1"
@@ -7777,23 +7743,20 @@
                   }
                 }
               },
-              "unreliable_age": {
-                "N": "613"
+              "unreliable_oldest_vulnerability_report_date": {
+                "S": "2020-01-03T17:46:10+00:00"
               },
               "pk": {
                 "S": "FIN#422286126#UNRELIABLEINDICATORS"
+              },
+              "unreliable_oldest_open_vulnerability_report_date": {
+                "S": "2020-01-03T17:46:10+00:00"
               },
               "unreliable_closed_vulnerabilities": {
                 "N": "0"
               },
               "unreliable_is_verified": {
                 "BOOL": true
-              },
-              "unreliable_open_age": {
-                "N": "613"
-              },
-              "unreliable_report_date": {
-                "S": "2020-01-03T17:46:10+00:00"
               },
               "unreliable_status": {
                 "S": "OPEN"
@@ -7803,8 +7766,8 @@
               "unreliable_where": {
                 "S": "192.168.1.10, 192.168.1.12, 192.168.1.13, 192.168.1.14, 192.168.1.15, 192.168.1.16, 192.168.1.17, 192.168.1.2, 192.168.1.3, 192.168.1.4, 192.168.1.5, 192.168.1.6, 192.168.1.7, 192.168.1.8, 192.168.1.9, 192.168.100.101, 192.168.100.104, 192.168.100.105, 192.168.100.108, 192.168.100.111"
               },
-              "unreliable_last_vulnerability": {
-                "N": "722"
+              "unreliable_newest_vulnerability_report_date": {
+                "S": "2019-09-16T21:01:24+00:00"
               },
               "unreliable_open_vulnerabilities": {
                 "N": "24"
@@ -7828,23 +7791,20 @@
                   }
                 }
               },
-              "unreliable_age": {
-                "N": "739"
+              "unreliable_oldest_vulnerability_report_date": {
+                "S": "2019-08-30T14:30:13+00:00"
               },
               "pk": {
                 "S": "FIN#436992569#UNRELIABLEINDICATORS"
+              },
+              "unreliable_oldest_open_vulnerability_report_date": {
+                "S": "2019-08-30T14:30:13+00:00"
               },
               "unreliable_closed_vulnerabilities": {
                 "N": "4"
               },
               "unreliable_is_verified": {
                 "BOOL": false
-              },
-              "unreliable_open_age": {
-                "N": "739"
-              },
-              "unreliable_report_date": {
-                "S": "2019-08-30T14:30:13+00:00"
               },
               "unreliable_status": {
                 "S": "OPEN"
@@ -7854,8 +7814,8 @@
               "unreliable_where": {
                 "S": ""
               },
-              "unreliable_last_vulnerability": {
-                "N": "1015"
+              "unreliable_newest_vulnerability_report_date": {
+                "S": "2018-11-27T19:54:08+00:00"
               },
               "unreliable_open_vulnerabilities": {
                 "N": "0"
@@ -7879,23 +7839,20 @@
                   }
                 }
               },
-              "unreliable_age": {
-                "N": "1015"
+              "unreliable_oldest_vulnerability_report_date": {
+                "S": "2018-11-27T19:54:08+00:00"
               },
               "pk": {
                 "S": "FIN#457497316#UNRELIABLEINDICATORS"
+              },
+              "unreliable_oldest_open_vulnerability_report_date": {
+                "S": ""
               },
               "unreliable_closed_vulnerabilities": {
                 "N": "1"
               },
               "unreliable_is_verified": {
                 "BOOL": true
-              },
-              "unreliable_open_age": {
-                "N": "0"
-              },
-              "unreliable_report_date": {
-                "S": "2018-11-27T19:54:08+00:00"
               },
               "unreliable_status": {
                 "S": "CLOSED"
@@ -7905,8 +7862,8 @@
               "unreliable_where": {
                 "S": "192.168.1.18, 192.168.100.105"
               },
-              "unreliable_last_vulnerability": {
-                "N": "725"
+              "unreliable_newest_vulnerability_report_date": {
+                "S": "2019-09-13T14:58:38+00:00"
               },
               "unreliable_open_vulnerabilities": {
                 "N": "2"
@@ -7930,23 +7887,20 @@
                   }
                 }
               },
-              "unreliable_age": {
-                "N": "726"
+              "unreliable_oldest_vulnerability_report_date": {
+                "S": "2019-09-12T13:45:48+00:00"
               },
               "pk": {
                 "S": "FIN#463461507#UNRELIABLEINDICATORS"
+              },
+              "unreliable_oldest_open_vulnerability_report_date": {
+                "S": "2019-09-12T13:45:48+00:00"
               },
               "unreliable_closed_vulnerabilities": {
                 "N": "0"
               },
               "unreliable_is_verified": {
                 "BOOL": true
-              },
-              "unreliable_open_age": {
-                "N": "726"
-              },
-              "unreliable_report_date": {
-                "S": "2019-09-12T13:45:48+00:00"
               },
               "unreliable_status": {
                 "S": "OPEN"
@@ -7956,8 +7910,8 @@
               "unreliable_where": {
                 "S": "path/to/file2.ext"
               },
-              "unreliable_last_vulnerability": {
-                "N": "966"
+              "unreliable_newest_vulnerability_report_date": {
+                "S": "2019-01-15T16:04:14+00:00"
               },
               "unreliable_open_vulnerabilities": {
                 "N": "1"
@@ -7981,23 +7935,20 @@
                   }
                 }
               },
-              "unreliable_age": {
-                "N": "966"
+              "unreliable_oldest_vulnerability_report_date": {
+                "S": "2019-01-15T15:43:39+00:00"
               },
               "pk": {
                 "S": "FIN#463558592#UNRELIABLEINDICATORS"
+              },
+              "unreliable_oldest_open_vulnerability_report_date": {
+                "S": "2019-01-15T15:43:39+00:00"
               },
               "unreliable_closed_vulnerabilities": {
                 "N": "1"
               },
               "unreliable_is_verified": {
                 "BOOL": true
-              },
-              "unreliable_open_age": {
-                "N": "966"
-              },
-              "unreliable_report_date": {
-                "S": "2019-01-15T15:43:39+00:00"
               },
               "unreliable_status": {
                 "S": "OPEN"
@@ -8007,8 +7958,8 @@
               "unreliable_where": {
                 "S": ""
               },
-              "unreliable_last_vulnerability": {
-                "N": "0"
+              "unreliable_newest_vulnerability_report_date": {
+                "S": ""
               },
               "unreliable_open_vulnerabilities": {
                 "N": "0"
@@ -8032,23 +7983,20 @@
                   }
                 }
               },
-              "unreliable_age": {
-                "N": "0"
+              "unreliable_oldest_vulnerability_report_date": {
+                "S": ""
               },
               "pk": {
                 "S": "FIN#560175507#UNRELIABLEINDICATORS"
+              },
+              "unreliable_oldest_open_vulnerability_report_date": {
+                "S": ""
               },
               "unreliable_closed_vulnerabilities": {
                 "N": "0"
               },
               "unreliable_is_verified": {
                 "BOOL": true
-              },
-              "unreliable_open_age": {
-                "N": "0"
-              },
-              "unreliable_report_date": {
-                "S": ""
               },
               "unreliable_status": {
                 "S": "CLOSED"
@@ -8058,8 +8006,8 @@
               "unreliable_where": {
                 "S": "192.168.1.19"
               },
-              "unreliable_last_vulnerability": {
-                "N": "883"
+              "unreliable_newest_vulnerability_report_date": {
+                "S": "2019-04-08T00:45:15+00:00"
               },
               "unreliable_open_vulnerabilities": {
                 "N": "1"
@@ -8083,11 +8031,14 @@
                   }
                 }
               },
-              "unreliable_age": {
-                "N": "883"
+              "unreliable_oldest_vulnerability_report_date": {
+                "S": "2019-04-08T00:45:15+00:00"
               },
               "pk": {
                 "S": "FIN#988493279#UNRELIABLEINDICATORS"
+              },
+              "unreliable_oldest_open_vulnerability_report_date": {
+                "S": "2019-04-08T00:45:15+00:00"
               },
               "unreliable_closed_vulnerabilities": {
                 "N": "1"
@@ -8095,28 +8046,21 @@
               "unreliable_is_verified": {
                 "BOOL": true
               },
-              "unreliable_open_age": {
-                "N": "883"
-              },
-              "unreliable_report_date": {
-                "S": "2019-04-08T00:45:15+00:00"
-              },
               "unreliable_status": {
                 "S": "OPEN"
               }
             }
           ],
           "NonKeyAttributes": [
-            "unreliable_last_vulnerability",
-            "unreliable_age",
-            "unreliable_open_age",
             "unreliable_closed_vulnerabilities",
             "unreliable_is_verified",
             "unreliable_open_vulnerabilities",
             "unreliable_status",
-            "unreliable_report_date",
             "unreliable_where",
-            "unreliable_treatment_summary"
+            "unreliable_treatment_summary",
+            "unreliable_newest_vulnerability_report_date",
+            "unreliable_oldest_open_vulnerability_report_date",
+            "unreliable_oldest_vulnerability_report_date"
           ]
         },
         {

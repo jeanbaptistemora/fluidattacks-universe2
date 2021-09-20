@@ -16,9 +16,10 @@ def resolve(
     parent: Finding, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> str:
     report_date = ""
-    if parent.unreliable_indicators.unreliable_report_date:
+    unreliable_indicators = parent.unreliable_indicators
+    if unreliable_indicators.unreliable_oldest_vulnerability_report_date:
         date = datetime.fromisoformat(
-            parent.unreliable_indicators.unreliable_report_date
+            unreliable_indicators.unreliable_oldest_vulnerability_report_date
         )
         report_date = datetime_utils.get_as_str(date)
     return report_date
