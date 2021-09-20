@@ -202,9 +202,6 @@ integrates.back.test.functional.add_draft_new:
 integrates.back.test.functional.add_event:
   <<: *integrates_back_test_functional
 
-integrates.back.test.functional.add_files:
-  <<: *integrates_back_test_functional
-
 integrates.back.test.functional.add_files_to_db:
   <<: *integrates_back_test_functional
 

@@ -12,7 +12,6 @@ TEST_GROUPS: Set[str] = {
     "add_draft_new",
     "add_event",
     "add_event_consult",
-    "add_files",
     "add_files_to_db",
     "add_finding_consult",
     "add_finding_consult_new",

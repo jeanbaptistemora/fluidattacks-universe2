@@ -61,7 +61,7 @@ async def test_get_resources() -> None:
 
 @pytest.mark.changes_db
 async def test_add_files() -> None:
-    """Check for addFiles mutation."""
+    """Check for SignPostUrlMutation mutation."""
     filename = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(filename, "../mock/test-anim.gif")
     with open(filename, "rb") as test_file:

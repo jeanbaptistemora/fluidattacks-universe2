@@ -14,10 +14,10 @@ import wait from "waait";
 import type { IFilesProps } from "scenes/Dashboard/containers/GroupSettingsView/Files";
 import { Files } from "scenes/Dashboard/containers/GroupSettingsView/Files";
 import {
+  ADD_FILES_TO_DB_MUTATION,
   DOWNLOAD_FILE_MUTATION,
   GET_FILES,
   REMOVE_FILE_MUTATION,
-  UPLOAD_FILE_MUTATION,
 } from "scenes/Dashboard/containers/GroupSettingsView/queries";
 import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -112,9 +112,8 @@ describe("Files", (): void => {
     const mocksMutation: readonly MockedResponse[] = [
       {
         request: {
-          query: UPLOAD_FILE_MUTATION,
+          query: ADD_FILES_TO_DB_MUTATION,
           variables: {
-            file,
             filesData: JSON.stringify([
               {
                 description: "Test description",
@@ -124,7 +123,7 @@ describe("Files", (): void => {
             groupName: "TEST",
           },
         },
-        result: { data: { addFiles: { success: true } } },
+        result: { data: { addFilesToDb: { success: true } } },
       },
     ];
     const mockedPermissions: PureAbility<string> = new PureAbility([
@@ -362,9 +361,8 @@ describe("Files", (): void => {
     const mocksMutation: readonly MockedResponse[] = [
       {
         request: {
-          query: UPLOAD_FILE_MUTATION,
+          query: ADD_FILES_TO_DB_MUTATION,
           variables: {
-            file,
             filesData: JSON.stringify([
               {
                 description: "Test description",
