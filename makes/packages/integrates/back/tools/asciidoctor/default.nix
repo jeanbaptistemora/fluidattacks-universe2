@@ -1,9 +1,14 @@
-{ buildRubyRequirement
-, nixpkgs
+{ makes
 , ...
 }:
-buildRubyRequirement {
+makes.makeRubyGemsEnvironment {
   name = "integrates-tools-asciidoctor";
-  ruby = nixpkgs.ruby_2_6;
-  requirement = "asciidoctor:2.0.10";
+  ruby = "2.6";
+  rubyGems = [
+    {
+      name = "asciidoctor";
+      version = "2.0.10";
+      sha256 = "1b2ajs3sabl0s27r7lhwkacw0yn0zfk4jpmidg9l8lzp2qlgjgbz";
+    }
+  ];
 }

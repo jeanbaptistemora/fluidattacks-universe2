@@ -2,7 +2,6 @@
 
 function main {
   local ruby_gems=(
-    __envToolsAsciidoctor__
     __envToolsAsciidoctorPdf__
     __envToolsConcurrentRuby__
   )
