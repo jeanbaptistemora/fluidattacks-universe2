@@ -16,6 +16,14 @@ from training.redshift import (
 )
 
 
+def backup_dataset(dataset_filename: str, backup_filename: str) -> None:
+    """Makes a copy of current dataset before generating the new one"""
+    S3_BUCKET.copy(
+        {"Bucket": "sorts", "Key": f"training/{dataset_filename}"},
+        f"training/{backup_filename}",
+    )
+
+
 def main() -> None:
     with tempfile.TemporaryDirectory() as tmpdir:
         for obj in S3_BUCKET.objects.filter(Prefix="features"):
@@ -24,8 +32,14 @@ def main() -> None:
             S3_BUCKET.download_file(obj.key, local_file)
 
         merged_filename: str = "binary_encoded_training_data.csv"
+        backup_filename: str = merged_filename.replace(".csv", "_prev.csv")
         local_merged_file: str = os.path.join(tmpdir, merged_filename)
         remote_merged_file: str = f"training/{merged_filename}"
+
+        # Save current versions as prev one
+        backup_dataset(merged_filename, backup_filename)
+
+        # Merge groups features
         merged_features: DataFrame = pd.DataFrame()
         redshift.delete("features")
         for file in os.listdir(tmpdir):
