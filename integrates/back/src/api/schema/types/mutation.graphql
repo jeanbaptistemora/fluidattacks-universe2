@@ -6,7 +6,7 @@ type Mutation {
     remember: Boolean
   ): SimplePayload!
 
-  """Acknowledges termination of concurrent session"""
+  "Acknowledges termination of concurrent session"
   acknowledgeConcurrentSession: SimplePayload!
 
   "Activate a root and make its content available for security analyses"
@@ -106,19 +106,6 @@ type Mutation {
     "Identifier of the comment it is replying to. 0 otherwise"
     parent: GenericScalar!
   ): AddConsultPayload!
-
-  "Deprecated. Use signPostUrl instead"
-  addFiles(
-    "The file object itself"
-    file: Upload!
-    "A JSON with description and fileName keys"
-    filesData: JSONString!
-    "Deprecated. Use `groupName` instead"
-    projectName: String
-    "Name of the Group to upload the File to"
-    groupName: String
-  ): SimplePayload! @deprecated(reason: """This mutation will be removed after
-  2022/02/24. Use `signPostUrl` and `addFilesToDb` instead.""")
 
   "Adds files to a Group's scope view"
   addFilesToDb(
@@ -286,8 +273,7 @@ type Mutation {
     token: String!
   ): SimplePayload
 
-  """Adds a new Stakeholder to ASM. Extra permissions might be needed to access
-  Organizations and Groups"""
+  "Adds a new Stakeholder to the default ASM organization"
   addStakeholder(
     "Email address of the new stakeholder"
     email: String!

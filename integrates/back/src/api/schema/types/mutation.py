@@ -9,7 +9,6 @@ from api.mutations import (
     add_draft_new,
     add_event,
     add_event_consult,
-    add_files,
     add_files_to_db,
     add_finding_consult,
     add_forces_execution,
@@ -114,7 +113,6 @@ MUTATION.set_field(
 MUTATION.set_field("activateRoot", activate_root.mutate)
 MUTATION.set_field("addEvent", add_event.mutate)
 MUTATION.set_field("addEventConsult", add_event_consult.mutate)
-MUTATION.set_field("addFiles", add_files.mutate)
 MUTATION.set_field("addFilesToDb", add_files_to_db.mutate)
 MUTATION.set_field("addFindingConsult", add_finding_consult.mutate)
 MUTATION.set_field("addForcesExecution", add_forces_execution.mutate)
