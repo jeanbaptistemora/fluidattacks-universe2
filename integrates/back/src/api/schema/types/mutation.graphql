@@ -225,18 +225,6 @@ type Mutation {
     port: Int!
   ): SimplePayload!
 
-  """Adds a Finding policy to the Organization. Approval is still needed for
-  enactment"""
-  addOrgFindingPolicy(
-    "Name of the Finding to be associated with the policy"
-    findingName: String!
-    "Name of the Organization relevant to the finding policy"
-    organizationName: String!
-    "Tags that will be related to this finding policy"
-    tags: [String]
-  ): SimplePayload! @deprecated(reason: """This mutation will be removed after
-  2022/01/13. Use `addOrganizationFindingPolicy` instead.""")
-
   "Adds a new Organization"
   addOrganization(
     "Name of the new Organization. Must come from an Internal Names whitelist"
@@ -254,17 +242,6 @@ type Mutation {
     tags: [String]
   ): SimplePayload!
 
-  "Adds a consult/comment to a Group"
-  addProjectConsult(
-    "Content of the comment itself"
-    content: String!
-    "Identifier of the comment it is replying to. 0 otherwise"
-    parent: GenericScalar!
-    "Deprecated. Use `groupName` instead"
-    projectName: String!
-  ): AddConsultPayload! @deprecated(reason: """This mutation
-    will be removed after 2022/01/13. Use `addGroupConsult` instead.""")
-
   "Authenticates an user from the mobile ASM app"
   addPushToken(
     "Expo login token to be added"
@@ -280,17 +257,6 @@ type Mutation {
     "Phone number of the stakeholder preceded by its call sign"
     phoneNumber: String
   ): AddStakeholderPayload!
-
-  "Adds the specified tags to the group"
-  addTags(
-    "Deprecated. Use `groupName` instead"
-    projectName: String
-    "Name of the group where the tags will be added"
-    groupName: String!
-    "Tags to add in list format with the tags enclosed in quotes"
-    tags: JSONString
-  ): SimpleGroupPayload! @deprecated(reason: """This mutation will be removed
-      after 2022/01/28. Use `addGroupTags` instead.""")
 
   "Adds the URL of the environment to be tested"
   addUrlRoot(

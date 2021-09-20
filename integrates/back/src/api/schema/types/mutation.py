@@ -195,11 +195,6 @@ MUTATION.set_field(
 
 # -------------------------Deprecated mutations--------------------------------
 MUTATION.set_field(
-    "addOrgFindingPolicy", add_organization_finding_policy.mutate
-)
-MUTATION.set_field("addProjectConsult", add_group_consult.mutate)
-MUTATION.set_field("addTags", add_group_tags.mutate)
-MUTATION.set_field(
     "confirmZeroRiskVuln", confirm_vulnerabilities_zero_risk.mutate
 )
 MUTATION.set_field("createEvent", add_event.mutate)
