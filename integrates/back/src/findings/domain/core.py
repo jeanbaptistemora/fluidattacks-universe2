@@ -1590,3 +1590,15 @@ async def get_oldest_open_vulnerability_report_date(
     if report_dates:
         open_date = datetime_utils.get_as_utc_iso_format(min(report_dates))
     return open_date
+
+
+async def get_oldest_vulnerability_report_date(
+    context: Any, finding_id: str
+) -> str:
+    date = ""
+    finding_vulns_loader: DataLoader = context.finding_vulns_nzr
+    vulns = await finding_vulns_loader.load(finding_id)
+    report_dates = vulns_utils.get_report_dates(vulns)
+    if report_dates:
+        date = datetime_utils.get_as_utc_iso_format(min(report_dates))
+    return date

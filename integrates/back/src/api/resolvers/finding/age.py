@@ -39,10 +39,10 @@ async def resolve_no_cache(
     **_kwargs: None,
 ) -> int:
     finding_id: str = cast(str, parent["id"])
-    age = cast(
-        int,
-        await findings_domain.get_finding_age(
+    get_oldest_vulnerability_report_date = (
+        await findings_domain.get_oldest_vulnerability_report_date(
             info.context.loaders, finding_id
-        ),
+        )
     )
+    age = findings_domain.get_report_days(get_oldest_vulnerability_report_date)
     return age
