@@ -16,7 +16,7 @@ from utils.string import (
 )
 
 
-def javascript_crypto_js_credentials(
+def crypto_js_credentials(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:
@@ -73,4 +73,3 @@ def javascript_crypto_js_credentials(
 
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F009
-QUERIES: graph_model.Queries = ((FINDING, javascript_crypto_js_credentials),)
