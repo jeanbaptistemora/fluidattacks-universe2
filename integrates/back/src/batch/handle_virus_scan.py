@@ -8,7 +8,6 @@ import logging
 import logging.config
 from newutils import (
     resources as resources_utils,
-    virus_scan,
 )
 from resources import (
     domain as resources_domain,
@@ -34,16 +33,11 @@ async def handle_virus_scan(*, item: BatchProcessing) -> None:
     )
     LOGGER.info(":".join([item.subject, message]), **NOEXTRA)
 
-    resource_file = await resources_utils.get_file(
-        item.entity, item.additional_info
+    handled_file = await resources_utils.get_file(
+        file_name, group_name, user_email
     )
 
-    with open(resource_file, "r") as file:
-        scanned_file_result = virus_scan.scan_file(
-            file, user_email, group_name
-        )
-
-    if scanned_file_result:
+    if handled_file:
         await resources_domain.update_group_files(
             file_name,
             group_name,

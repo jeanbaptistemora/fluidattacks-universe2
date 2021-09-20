@@ -24,16 +24,16 @@ LOGGER = logging.getLogger(__name__)
 
 
 def scan_file(
-    target_file: UploadFile, user_email: str, group_name: str
+    target_file: UploadFile, file_name: str, user_email: str, group_name: str
 ) -> bool:
     success = False
     if FI_ENVIRONMENT == "production":
         payload_data = {
             "group_name": group_name,
             "user_email": user_email,
-            "target_file_name": target_file.filename,
+            "target_file_name": file_name,
         }
-        file_object = target_file.file
+        file_object = target_file
         tmp_file = tempfile.NamedTemporaryFile()
         tmp_file.write(file_object.read())
         tmp_file.flush()
