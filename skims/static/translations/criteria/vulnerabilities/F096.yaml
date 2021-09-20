@@ -1,0 +1,18 @@
+F096.title:
+  en: >
+    Insecure deserialization
+  es: >
+    Deserialización insegura
+F096.description:
+  en: >
+    The system deserializes objects without first validating their content
+    nor casting them to a specific type.
+  es: >
+    Se deserializan objetos sin validar su contenido ni forzar su tipo.
+F096.recommendation:
+  en: >
+    Validate the incoming serialized objects and only deserialize then
+    if they meet expected properties.
+  es: >
+    Validar los objetos serializados entrantesy solo deserializarlos si cumplen
+    con las propiedades esperadas.

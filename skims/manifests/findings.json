@@ -311,6 +311,14 @@
       "title": "094. Insecure encryption algorithm - Cipher Block Chaining"
     }
   },
+  "F096": {
+    "EN": {
+      "title": "096. Insecure deserialization"
+    },
+    "ES": {
+      "title": "096. Insecure deserialization"
+    }
+  },
   "F103": {
     "EN": {
       "title": "103. Insufficient data authenticity validation - APK signing"

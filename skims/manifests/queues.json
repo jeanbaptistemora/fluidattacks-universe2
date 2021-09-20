@@ -57,6 +57,7 @@
   "skims_f014": {
     "availability": "ALWAYS",
     "findings": [
+      "F096",
       "F109",
       "F320",
       "F338",
