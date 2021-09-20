@@ -55,7 +55,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
       url: "",
     },
     default: {
-      label: "CVSSF",
+      label: "Days per Severity",
       title: translate.t("tagIndicator.meanRemediate"),
       tooltip: translate.t(
         "analytics.barChart.meanTimeToRemediate.tooltip.default"

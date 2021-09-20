@@ -114,6 +114,7 @@ async def get_data_one_organization(
 
 async def generate_all() -> None:  # pylint: disable=too-many-locals
     loaders: Dataloaders = get_new_context()
+    y_label: str = "Days per Severity"
     organizations: List[Tuple[str, Tuple[str, ...]]] = []
     portfolios: List[Tuple[str, Tuple[str, ...]]] = []
     groups: List[str] = list(
@@ -205,6 +206,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                     best_group_mttr,
                 ),
                 categories=GROUP_CATEGORIES,
+                y_label=y_label,
             ),
             entity="group",
             subject=group,
@@ -232,6 +234,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                     best_mttr,
                 ),
                 categories=ORGANIZATION_CATEGORIES,
+                y_label=y_label,
             ),
             entity="organization",
             subject=org_id,
@@ -258,6 +261,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                         best_portfolio_mttr,
                     ),
                     categories=PORTFOLIO_CATEGORIES,
+                    y_label=y_label,
                 ),
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",

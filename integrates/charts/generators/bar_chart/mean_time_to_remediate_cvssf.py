@@ -171,7 +171,7 @@ def format_data(data: Remediate) -> Dict[str, Any]:
                     bottom=0,
                 ),
                 label=dict(
-                    text="CVSSF",
+                    text="Days per Severity",
                     position="inner-top",
                 ),
             ),
