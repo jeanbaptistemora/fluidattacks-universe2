@@ -127,6 +127,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "assignment_expression",
@@ -166,6 +167,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             graph_model.GraphShardMetadataLanguage.GO,
             graph_model.GraphShardMetadataLanguage.JAVA,
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
             graph_model.GraphShardMetadataLanguage.CSHARP,
         },
         applicable_node_label_types={
@@ -178,6 +180,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             graph_model.GraphShardMetadataLanguage.GO,
             graph_model.GraphShardMetadataLanguage.JAVA,
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "unary_expression",
@@ -197,6 +200,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "while_statement",
@@ -231,6 +235,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             graph_model.GraphShardMetadataLanguage.GO,
             graph_model.GraphShardMetadataLanguage.JAVA,
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
             graph_model.GraphShardMetadataLanguage.CSHARP,
             graph_model.GraphShardMetadataLanguage.KOTLIN,
         },
@@ -254,6 +259,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "if_statement",
@@ -283,6 +289,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             graph_model.GraphShardMetadataLanguage.GO,
             graph_model.GraphShardMetadataLanguage.JAVA,
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "parenthesized_expression",
@@ -320,6 +327,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "catch_clause",
@@ -419,6 +427,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "variable_declaration",
@@ -428,6 +437,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "variable_declarator",
@@ -437,6 +447,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "lexical_declaration",
@@ -496,6 +507,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "function_declaration",
@@ -544,6 +556,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "call_expression",
@@ -589,6 +602,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "arrow_function",
@@ -626,6 +640,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "new_expression",
@@ -671,6 +686,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "ternary_expression",
@@ -683,6 +699,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
             graph_model.GraphShardMetadataLanguage.JAVA,
             graph_model.GraphShardMetadataLanguage.CSHARP,
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
             graph_model.GraphShardMetadataLanguage.KOTLIN,
         },
         applicable_node_label_types={
@@ -732,6 +749,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVA,
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
             graph_model.GraphShardMetadataLanguage.CSHARP,
         },
         applicable_node_label_types={
@@ -771,6 +789,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "await_expression",
@@ -780,6 +799,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "member_expression",
@@ -789,6 +809,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "formal_parameters",
@@ -798,6 +819,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "do_statement",
@@ -807,6 +829,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "template_string",
@@ -816,6 +839,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "object",
@@ -825,6 +849,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "for_in_statement",
@@ -834,6 +859,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "array",
@@ -843,6 +869,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "for_statement",
@@ -852,6 +879,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "switch_statement",
@@ -861,6 +889,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "switch_case",
@@ -870,6 +899,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "switch_default",
@@ -879,6 +909,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "subscript_expression",
@@ -888,6 +919,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
     Dispatcher(
         applicable_languages={
             graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+            graph_model.GraphShardMetadataLanguage.TSX,
         },
         applicable_node_label_types={
             "import_statement",
@@ -901,6 +933,7 @@ DISPATCHERS: Tuple[Dispatcher, ...] = (
                 graph_model.GraphShardMetadataLanguage.GO,
                 graph_model.GraphShardMetadataLanguage.JAVA,
                 graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+                graph_model.GraphShardMetadataLanguage.TSX,
             },
             applicable_node_label_types={applicable_node_label_type},
             syntax_reader=common_noop.reader,
