@@ -1,3 +1,6 @@
+from lib_root import (
+    yield_javascript_method_invocation,
+)
 from model import (
     core_model,
     graph_model,
@@ -5,13 +8,21 @@ from model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
+from sast_syntax_readers.utils_generic import (
+    get_dependencies,
+)
 from typing import (
     Set,
     Tuple,
 )
-from utils import (
-    graph as g,
+from utils.graph.transformation import (
+    build_js_member_expression_key,
 )
+
+
+def _could_be_boolean(key: str) -> bool:
+    prefixes = {"is", "has", "es"}
+    return any(key.startswith(prefix) for prefix in prefixes)
 
 
 def javascript_client_storage(
@@ -39,71 +50,42 @@ def javascript_client_storage(
     )
 
     def n_ids() -> graph_model.GraphShardNodes:
-        for shard in [
-            *graph_db.shards_by_language(
-                graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
-            ),
-            *graph_db.shards_by_language(
-                graph_model.GraphShardMetadataLanguage.TSX,
-            ),
-        ]:
-            graph = shard.graph
-            for call_expression in g.filter_nodes(
-                graph,
-                nodes=graph.nodes,
-                predicate=g.pred_has_labels(label_type="call_expression"),
-            ):
-                match = g.match_ast(
-                    graph,
-                    call_expression,
-                    "member_expression",
-                    "arguments",
-                )
-                if member_id := match["member_expression"]:
-                    match_identifier = g.match_ast(
-                        graph, member_id, "identifier", "property_identifier"
-                    )
-                else:
-                    continue
+        for (
+            shard,
+            syntax_steps,
+            invocation_step,
+            step_index,
+        ) in yield_javascript_method_invocation(graph_db):
+            method = invocation_step.method
+            if method not in {
+                "localStorage.setItem",
+                "localStorage.getItem",
+                "sessionStorage.setItem",
+                "sessionStorage.getItem",
+            }:
+                continue
 
-                if (
-                    (identifier_id := match_identifier["identifier"])
-                    and (
-                        property_id := match_identifier["property_identifier"]
-                    )
-                    and graph.nodes[identifier_id]["label_text"]
-                    in {
-                        "localStorage",
-                        "sessionStorage",
-                    }
-                    and graph.nodes[property_id]["label_text"]
-                    in {
-                        "setItem",
-                        "getItem",
-                    }
-                ):
-                    match_arguments = g.match_ast_group(
-                        graph,
-                        match["arguments"],
-                        "string",
-                        "identifier",
-                        "property_identifier",
-                        depth=-1,
-                    )
-                    arguments = [
-                        graph.nodes[argument_id]["label_text"].lower()
-                        for argument_id in [
-                            *match_arguments["string"],
-                            *match_arguments["identifier"],
-                            *match_arguments["property_identifier"],
-                        ]
-                    ]
-                    if any(
-                        all(smell in argument for smell in smells)
-                        for argument in arguments
-                        for smells in conditions
-                    ):
-                        yield shard, call_expression
+            dependencies = get_dependencies(step_index, syntax_steps)
+            store_key = dependencies[0]
+
+            key_str = ""
+            if store_key.type == "SyntaxStepLiteral":
+                key_str = store_key.value
+            elif store_key.type == "SyntaxStepMemberAccessExpression":
+                key_str = build_js_member_expression_key(
+                    shard.graph, store_key.meta.n_id
+                )
+            elif store_key.type == "SyntaxStepSymbolLookup":
+                key_str = store_key.symbol
+            key_str = key_str.lower()
+
+            if _could_be_boolean(key_str):
+                continue
+            if any(
+                all(smell in key_str for smell in smells)
+                for smells in conditions
+            ):
+                yield shard, invocation_step.meta.n_id
 
     return get_vulnerabilities_from_n_ids(
         cwe=("922",),

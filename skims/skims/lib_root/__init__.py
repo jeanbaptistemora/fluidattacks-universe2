@@ -84,9 +84,14 @@ def yield_javascript_method_invocation(
         int,
     ]
 ]:
-    for shard in graph_db.shards_by_language(
-        graph_model.GraphShardMetadataLanguage.JAVASCRIPT
-    ):
+    for shard in [
+        *graph_db.shards_by_language(
+            graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
+        ),
+        *graph_db.shards_by_language(
+            graph_model.GraphShardMetadataLanguage.TSX,
+        ),
+    ]:
         for syntax_steps in shard.syntax.values():
             for index, invocation_step in enumerate(syntax_steps):
                 if invocation_step.type != "SyntaxStepMethodInvocation":

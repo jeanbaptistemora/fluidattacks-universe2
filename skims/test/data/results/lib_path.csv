@@ -7194,15 +7194,7 @@ F085,lines,namespace/skims/test/data/lib_path/f085/react.jsx,6,922,skims,085. Se
   4 | localStorage.setItem('whatever', sessionID);
   5 | localStorage.setItem(token.jwt, '123');
 > 6 | localStorage.getItem(session_token);
-    ^ Col 0
-"
-F085,lines,namespace/skims/test/data/lib_path/f085/react.jsx,5,922,skims,085. Sensitive data stored in client-side storage,Sensitive information storage in skims/test/data/lib_path/f085/react.jsx,"
-  1 | localStorage.getItem('password');
-  2 | localStorage.getItem('non-sensitive');
-  3 | localStorage.getItem(non.sensitive);
-  4 | localStorage.setItem('whatever', sessionID);
-> 5 | localStorage.setItem(token.jwt, '123');
-  6 | localStorage.getItem(session_token);
+  7 | localStorage.getItem('is_authenticated');
     ^ Col 0
 "
 F085,lines,namespace/skims/test/data/lib_path/f085/react.jsx,4,922,skims,085. Sensitive data stored in client-side storage,Sensitive information storage in skims/test/data/lib_path/f085/react.jsx,"
@@ -7212,6 +7204,7 @@ F085,lines,namespace/skims/test/data/lib_path/f085/react.jsx,4,922,skims,085. Se
 > 4 | localStorage.setItem('whatever', sessionID);
   5 | localStorage.setItem(token.jwt, '123');
   6 | localStorage.getItem(session_token);
+  7 | localStorage.getItem('is_authenticated');
     ^ Col 0
 "
 F085,lines,namespace/skims/test/data/lib_path/f085/react.jsx,1,922,skims,085. Sensitive data stored in client-side storage,Sensitive information storage in skims/test/data/lib_path/f085/react.jsx,"
@@ -7221,6 +7214,7 @@ F085,lines,namespace/skims/test/data/lib_path/f085/react.jsx,1,922,skims,085. Se
   4 | localStorage.setItem('whatever', sessionID);
   5 | localStorage.setItem(token.jwt, '123');
   6 | localStorage.getItem(session_token);
+  7 | localStorage.getItem('is_authenticated');
     ^ Col 0
 "
 F011,lines,namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.0) [CVE-2018-3728],6,937,skims,011. Use of software with known vulnerabilities,Use of hoek at version 5.0.0 with CVE-2018-3728 in skims/test/data/lib_path/f011/package-lock.json,"
