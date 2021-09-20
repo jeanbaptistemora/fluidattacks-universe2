@@ -194,7 +194,6 @@ MUTATION.set_field(
 )
 
 # -------------------------Deprecated mutations--------------------------------
-MUTATION.set_field("deleteTags", remove_vulnerability_tags.mutate)
 MUTATION.set_field("downloadVulnFile", download_vulnerability_file.mutate)
 MUTATION.set_field("editGroup", update_group.mutate)
 MUTATION.set_field(
@@ -261,7 +260,6 @@ if FI_API_STATUS == "migration":
         verify_vulnerabilities_request_new.mutate,
     )
     # -----------------------Deprecated mutations------------------------------
-    MUTATION.set_field("deleteVulnerability", remove_vulnerability_new.mutate)
     MUTATION.set_field(
         "handleVulnsAcceptation", handle_vulnerabilities_acceptation_new.mutate
     )
@@ -332,7 +330,6 @@ else:
         "verifyVulnerabilitiesRequest", verify_vulnerabilities_request.mutate
     )
     # -----------------------Deprecated mutations------------------------------
-    MUTATION.set_field("deleteVulnerability", remove_vulnerability.mutate)
     MUTATION.set_field(
         "handleVulnsAcceptation", handle_vulnerabilities_acceptation.mutate
     )

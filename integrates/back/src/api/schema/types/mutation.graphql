@@ -304,29 +304,6 @@ type Mutation {
     reason: RootDeactivationReason!
   ): SimplePayload!
 
-  "Removes tags from vulnerabilities"
-  deleteTags(
-    "Identifier of the finding containing the vulnerabilities"
-    findingId: String!
-    """List of identifiers of the vulnerabilities where the tag should be
-    removed from"""
-    vulnerabilities: [String]!
-    "Tag to remove"
-    tag: String
-  ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2022/01/17. Use `removeTags` instead.""")
-
-  "Removes/deletes a vulnerability within a finding"
-  deleteVulnerability(
-    "Identifier of the vulnerability to remove"
-    id: String!
-    "Finding where the vulnerability is located"
-    findingId: String!
-    "Justification for the removal"
-    justification: RemoveVulnerabilityJustification!
-  ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2022/01/19. Use `removeVulnerability` instead.""")
-
   "Downloads an evidence file associated with an Event"
   downloadEventFile(
     "Identifier of the Event containing the evidence"
