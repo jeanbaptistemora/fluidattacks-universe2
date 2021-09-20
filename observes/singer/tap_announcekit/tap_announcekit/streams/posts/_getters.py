@@ -74,7 +74,7 @@ class PostsGetters:
     # pylint: disable=too-few-public-methods
     client: ApiClient
 
-    def getter(self) -> StreamGetter[PostId, Post]:
+    def stream_getter(self) -> StreamGetter[PostId, Post]:
         return StreamGetter(
             partial(_get_project, self.client),
             partial(_get_projs, self.client),
