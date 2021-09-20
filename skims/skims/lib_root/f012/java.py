@@ -50,7 +50,7 @@ def _has_like_injection(statement: str) -> bool:
     return False
 
 
-def java_jpa_like(
+def jpa_like(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:
@@ -104,4 +104,3 @@ def java_jpa_like(
 
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F012
-QUERIES: graph_model.Queries = ((FINDING, java_jpa_like),)
