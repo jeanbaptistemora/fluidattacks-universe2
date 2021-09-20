@@ -602,9 +602,6 @@
           "modified_availability_impact": {
             "N": "0"
           },
-          "finding_type": {
-            "S": "SECURITY"
-          },
           "test_type": {
             "S": "SOURCE_CODE"
           },

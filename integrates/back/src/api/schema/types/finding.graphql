@@ -98,8 +98,6 @@ type Finding {
   tracking: [GenericScalar]
   "Summary of the number of vulnerabilities in every treatment status"
   treatmentSummary: TreatmentSummary
-  "Finding type"
-  type: String
   "Is it verified i.e. with open and no remediated vulnerabilities?"
   verified: Boolean
   "Vulnerabilities associated with the Finding"

@@ -63,8 +63,6 @@ type Mutation {
     threat: String
     "Finding number and name"
     title: String!
-    "Draft finding type"
-    type: FindingType
     "User involvement needed for a successful attack"
     userInteraction: String
   ): SimplePayload!
@@ -351,8 +349,6 @@ type Mutation {
     threat: String
     "Finding number and name"
     title: String!
-    "Draft Finding type"
-    type: FindingType
   ): SimplePayload! @deprecated(reason: """This mutation will be removed
       after 2022/01/15. Use `addDraft` instead.""")
 
@@ -948,8 +944,6 @@ type Mutation {
     sorts: Sorts
     "Actor and scenery where the vulnerability can be exploited"
     threat: String!
-    "Draft Finding type"
-    findingType: String
   ): SimpleFindingPayload!
 
   "Updates an Event's evidence"

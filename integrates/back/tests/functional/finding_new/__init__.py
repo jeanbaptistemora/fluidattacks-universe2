@@ -84,7 +84,6 @@ async def get_result(
                     inProgress
                     new
                 }}
-                type
                 verified
                 vulnerabilities {{
                     id

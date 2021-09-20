@@ -157,7 +157,6 @@ ENUMS: Tuple[EnumType, ...] = (
         "FindingConsultType",
         {"CONSULT": "CONSULT", "OBSERVATION": "OBSERVATION"},
     ),
-    EnumType("FindingType", {"HYGIENE": "HYGIENE", "SECURITY": "SECURITY"}),
     EnumType(
         "Frequency",
         {

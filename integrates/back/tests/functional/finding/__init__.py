@@ -58,7 +58,6 @@ async def get_result(
                 affectedSystems
                 compromisedAttributes
                 compromisedRecords
-                type
                 tracking
                 observations{{
                     content

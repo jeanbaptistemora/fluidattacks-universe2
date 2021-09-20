@@ -147,7 +147,6 @@ async def test_format_data() -> None:
         "remediated",
         "clientProject",
         "compromisedAttrs",
-        "findingType",
         "historicState",
         "exploitable",
         "confidentialityRequirement",

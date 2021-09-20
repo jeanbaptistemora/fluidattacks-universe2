@@ -247,14 +247,6 @@ enum FindingConsultType {
   OBSERVATION
 }
 
-"Finding type enum definition"
-enum FindingType {
-  "Hygiene"
-  HYGIENE
-  "Security-related"
-  SECURITY
-}
-
 "Entity report frequency enum definition"
 enum Frequency {
   "Daily"

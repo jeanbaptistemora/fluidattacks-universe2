@@ -64,7 +64,6 @@ async def _batch_load_fn(
             severity_score=finding.get("severityCvss", 0.0),
             threat=finding.get("threat", ""),
             title=finding.get("finding", ""),
-            type=finding.get("findingType", ""),
             # Standardization field
             group_name=group_name,
             project_name=group_name,
