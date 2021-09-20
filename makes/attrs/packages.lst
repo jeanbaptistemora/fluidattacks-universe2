@@ -16,7 +16,6 @@ integrates.back.pypi.unit-tests
 integrates.back.security
 integrates.back.structure
 integrates.back.tools
-integrates.back.tools.asciidoctor
 integrates.back.tools.asciidoctor-pdf
 integrates.back.tools.concurrent-ruby
 integrates.back.tools.secure-spreadsheet
