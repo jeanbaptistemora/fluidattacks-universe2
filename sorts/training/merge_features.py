@@ -19,7 +19,7 @@ from training.redshift import (
 def backup_dataset(dataset_filename: str, backup_filename: str) -> None:
     """Makes a copy of current dataset before generating the new one"""
     S3_BUCKET.copy(
-        {"Bucket": "sorts", "Key": f"training/{dataset_filename}"},
+        {"Bucket": S3_BUCKET.name, "Key": f"training/{dataset_filename}"},
         f"training/{backup_filename}",
     )
 
