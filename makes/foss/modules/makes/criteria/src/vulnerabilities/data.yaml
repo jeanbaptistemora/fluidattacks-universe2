@@ -3495,22 +3495,17 @@
     description: >
       The system uses generic exceptions
       as a mechanism to handle unexpected events.
-      Throwing and catching generic exceptions
-      may cause affectations to both security and traceability because:
+      Throwing and catching generic exceptions:
 
       - Masks the original cause of the trouble,
       hindering the log review in the presence of a security incident
 
       - Defines a generic behaviour to all kinds of exceptions,
-      considering that some exceptions such as OutOfMemoryException
-      require a custom handling
-
-      - Catches more exceptions than the application
-      was originally designed and intended.
+      considering that some exceptions require a custom handling.
 
       - Catches harmful or insecure exceptions
       such as NullPointerException,
-      which may lead to unexpected behaviors or DoS attacks
+      which may lead to DoS attacks.
     impact: >
       - Hinder the identification of the event source cause.
 
@@ -3533,21 +3528,16 @@
     description: >
       El sistema utiliza excepciones genéricas
       como mecanismo para manejar eventos inesperados.
-      Arrojar y capturar excepciones genéricas
-      puede causar afectaciones a la seguridad y trazabilidad debido a que:
+      Arrojar y capturar excepciones genéricas:
 
       - Enmascara el origen del problema,
-      dificultando la revisión de los logs ante un inicidente de seguridad.
+      dificultando la revisión de los logs ante un incidente de seguridad.
 
       - Define un comportamiento genérico para todos los tipos de excepciones
-      considerando que algunas excepciones como OutOfMemoryException
-      requieren un manejo personalizado
+      considerando que algunas excepciones requieren un manejo personalizado.
 
-      - Captura más excepciones que las que la aplicación puede
-      y está diseñada originalmente para manejar.
-
-      - Captura excepciones inseguras o dañinas como NullPointerException,
-      la cual puede desencadenar en comportamientos inesperados o DoS.
+      - Captura excepciones inseguras o dañinas
+      como NullPointerException, la cual puede desencadenar en DoS.
 
     impact: >
       - Dificultar la identificación de la causa de los errores
