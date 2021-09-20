@@ -2929,7 +2929,7 @@ OKTA_DATA_RAW:
         - id: ENC[AES256_GCM,data:HTp6jnMKrZ6nIKs=,iv:iKZPFX012LTmUOR08d+I3dc7Po7r7nU2tgzmbLqADVQ=,tag:Nsu7JD6wk1RxeRque5b39A==,type:str]
           first_name: ENC[AES256_GCM,data:oplrXGk=,iv:nJ8PtaLX/MnOB0sRrKCzq/Gu+vZmfAjfzS2TTEes15s=,tag:4x1Dm9Z3IXRL+kXn3Cj1FQ==,type:str]
           last_name: ENC[AES256_GCM,data:yNc5yWcJRo1Y3g==,iv:0ZSIr4WOzlVHOZTBZBa312yfoNlE4Paq9aYkA+Gr/6g=,tag:uT13ur/plMXq4p43Bz24Fg==,type:str]
-          email: ENC[AES256_GCM,data:kK4b52uGnJfTAnh7u/l4v5gpKaSkZ2lTxsb3,iv:k4yGsuqNQok5uh/rRBktLIDLuoyoPD4JOWf3YuVXBGI=,tag:iCTinPTZvkMbTCdCr8rOaA==,type:str]
+          email: ENC[AES256_GCM,data:9FJooPfWJJkn42EFVo0o0g05PwzAHnFZ/GnKzQ==,iv:Obj6yGTj+LQLrjJcSJl8++0/r7pZHLKIMGqb0eDRWcA=,tag:OsA2jdqW3SJn0d1KOQ7b/g==,type:str]
           status: ENC[AES256_GCM,data:8t9GMj6G,iv:u5p4Rja7PmascXdOR1qnJK/ltrp8qle8nrUqc38f4a4=,tag:JEca012us6khyFPMFtIv3A==,type:str]
           admin_roles: []
           apps: []
@@ -3073,8 +3073,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2021-09-20T13:48:45Z"
-    mac: ENC[AES256_GCM,data:RRulzWiClDqSyRU8ols1awiRel+4D3FxD3VZ6y3e7+LtYiTmaDh2P7nLZ8qLHGnO8kgA0s0GnkGPy5SDVXoaaHq5GfVxQfhJpy3XYGdIExwwiB6U2MO5lYc6yXtNWkMqdopr06SgbSu95SHcL8TUdY2N7yyNC/CyctmBMgcfByY=,iv:ac2NSnUvSULKPBBcNvSF0wsR/jDXMXYX87vR4Xm76tU=,tag:yN7pKAZ0Ni/OCWS44rSORw==,type:str]
+    lastmodified: "2021-09-20T14:23:35Z"
+    mac: ENC[AES256_GCM,data:P2vTSJ+BmBVQIU4KviLHXiRkBWngDY2gCosLktIKky3E5Dn7qA/CqMLis1UKiuU9ooNjUPuM9sVow43+uqQ/AGvXXHqghRTckU0LVv2gQd/ZD3+g8Y0jaYaMyiH2hLi8SKwgju0A1Wo9S6wZrxtC2wo5bbtSncGhNoY6MfJbJsw=,iv:uJiw3dnu3qrq6DLgMdKCfw0ePdubDmOg4N6zbWfDIq0=,tag:0kr7VsJFCTbbUvU+5PlcaA==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.1
