@@ -22,6 +22,9 @@ from typing import (
     List,
     Set,
 )
+from utils.crypto import (
+    insecure_elliptic_curve,
+)
 import utils.graph as g
 from utils.languages.java import (
     is_cipher_vulnerable as java_cipher_vulnerable,
@@ -55,52 +58,6 @@ def _yield_insecure_pass(
 def security_yield_insecure_key(
     shard: GraphShard, type_name: str, parameters: List[Any]
 ) -> GraphShardNodes:
-    insecure_stds = {
-        "secp112r1",
-        "secp112r2",
-        "secp128r1",
-        "secp128r2",
-        "secp160k1",
-        "secp160r1",
-        "secp160r2",
-        "secp192k1",
-        "prime192v1",
-        "prime192v2",
-        "prime192v3",
-        "sect113r1",
-        "sect113r2",
-        "sect131r1",
-        "sect131r2",
-        "sect163k1",
-        "sect163r1",
-        "sect163r2",
-        "sect193r1",
-        "sect193r2",
-        "c2pnb163v1",
-        "c2pnb163v2",
-        "c2pnb163v3",
-        "c2pnb176v1",
-        "c2tnb191v1",
-        "c2tnb191v2",
-        "c2tnb191v3",
-        "c2pnb208w1",
-        "wap-wsg-idm-ecid-wtls1",
-        "wap-wsg-idm-ecid-wtls3",
-        "wap-wsg-idm-ecid-wtls4",
-        "wap-wsg-idm-ecid-wtls5",
-        "wap-wsg-idm-ecid-wtls6",
-        "wap-wsg-idm-ecid-wtls7",
-        "wap-wsg-idm-ecid-wtls8",
-        "wap-wsg-idm-ecid-wtls9",
-        "wap-wsg-idm-ecid-wtls10",
-        "wap-wsg-idm-ecid-wtls11",
-        "oakley-ec2n-3",
-        "oakley-ec2n-4",
-        "brainpoolp160r1",
-        "brainpoolp160t1",
-        "brainpoolp192r1",
-        "brainpoolp192t1",
-    }
     insecure_rsa_spec = complete_attrs_on_set(
         {"java.security.spec.RSAKeyGenParameterSpec"}
     )
@@ -118,7 +75,7 @@ def security_yield_insecure_key(
         param_id = parameters[0]
         if (
             param_text := shard.graph.nodes[param_id].get("label_text")
-        ) and param_text.replace('"', "") in insecure_stds:
+        ) and insecure_elliptic_curve(param_text.replace('"', "")):
             yield shard, param_id
 
 

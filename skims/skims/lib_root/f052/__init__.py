@@ -17,6 +17,7 @@ from lib_root.f052.java import (
 )
 from lib_root.f052.javascript import (
     insecure_cipher as javascript_insecure_cipher,
+    insecure_key as javascript_insecure_key,
 )
 from lib_root.f052.kotlin import (
     insecure_cipher as kotlin_insecure_cipher,
@@ -43,6 +44,7 @@ QUERIES: graph_model.Queries = (
     (FINDING, java_insecure_key),
     (FINDING, java_insecure_pass),
     (FINDING, javascript_insecure_cipher),
+    (FINDING, javascript_insecure_key),
     (FINDING, kotlin_insecure_cipher),
     (FINDING, kotlin_insecure_hash),
     (FINDING, kotlin_insecure_key),

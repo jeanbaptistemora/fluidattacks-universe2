@@ -1198,6 +1198,76 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test116.js,11,310 + 327,ski
   15 | export default router;
      ^ Col 0
 "
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test125.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in server/routes/testcases/test125.js,"
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test125"", function (req, res) {
+>  6 |   const bob = crypto.createECDH(""c2pnb163v2"");
+   7 |   const bobKey = bob.generateKeys();
+   8 |   res.send(bobKey.toString(""hex""));
+   9 | });
+  10 |
+  11 | export default router;
+     ^ Col 0
+"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test126.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in server/routes/testcases/test126.js,"
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test126"", function (req, res) {
+>  6 |   const bob = crypto.createECDH(""secp112r2"");
+   7 |   const bobKey = bob.generateKeys();
+   8 |   res.send(bobKey.toString(""hex""));
+   9 | });
+  10 |
+  11 | export default router;
+     ^ Col 0
+"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test127.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in server/routes/testcases/test127.js,"
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test127"", function (req, res) {
+>  6 |   const bob = crypto.createECDH(""c2pnb163v2"");
+   7 |   const bobKey = bob.generateKeys();
+   8 |   res.send(bobKey.toString(""hex""));
+   9 | });
+  10 |
+  11 | export default router;
+     ^ Col 0
+"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test128.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in server/routes/testcases/test128.js,"
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test128"", function (req, res) {
+>  6 |   const bob = crypto.createECDH(""sect193r1"");
+   7 |   const bobKey = bob.generateKeys();
+   8 |   res.send(bobKey.toString(""hex""));
+   9 | });
+  10 |
+  11 | export default router;
+     ^ Col 0
+"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test129.js,6,310 + 327,skims,052. Insecure encryption algorithm,Use of insecure parameters in server/routes/testcases/test129.js,"
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""/test129"", function (req, res) {
+>  6 |   const bob = crypto.createECDH(""c2pnb163v2"");
+   7 |   const bobKey = bob.generateKeys();
+   8 |   res.send(bobKey.toString(""hex""));
+   9 | });
+  10 |
+  11 | export default router;
+     ^ Col 0
+"
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test104.js,9,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
 ","
    1 | import { Router } from ""express"";
