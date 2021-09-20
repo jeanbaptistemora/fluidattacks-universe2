@@ -7,8 +7,8 @@ from custom_types import (
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
-    require_continuous,
     require_login,
+    require_service_white,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -28,7 +28,9 @@ from typing import (
 
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
-    require_login, enforce_group_level_auth_async, require_continuous
+    require_login,
+    enforce_group_level_auth_async,
+    require_service_white,
 )
 async def mutate(
     _parent: None, info: GraphQLResolveInfo, **kwargs: Any
