@@ -76,7 +76,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "cvss_version": "3.1",
                 "exploitability": 0.94,
                 "finding": "001. SQL injection - C Sharp SQL API",
-                "finding_type": "SECURITY",
                 "requirements": "REQ.0132. Passwords (phrase type) "
                 "must be at least 3 words long.",
                 "threat": "Updated threat",

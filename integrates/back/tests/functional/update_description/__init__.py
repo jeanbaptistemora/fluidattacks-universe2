@@ -22,7 +22,6 @@ async def get_result(  # pylint: disable=too-many-locals
     description: str = "I just have updated the description"
     recommendation: str = "Updated recommendation"
     threat: str = "Updated threat"
-    finding_type: str = "SECURITY"
     query: str = f"""
         mutation {{
             updateDescription(
@@ -34,7 +33,6 @@ async def get_result(  # pylint: disable=too-many-locals
                 recommendation: "{recommendation}",
                 recordsNumber: {records_number},
                 threat: "{threat}",
-                findingType: "{finding_type}"
             ) {{
                 success
             }}

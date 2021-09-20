@@ -20,7 +20,6 @@ async def get_result(
     requirements: str = "REQ.0001. Apply filters"
     threat: str = "Attacker"
     title: str = "001. SQL injection - C Sharp SQL API"
-    draft_type: str = "SECURITY"
     query: str = f"""
         mutation {{
             addDraft(
@@ -30,7 +29,6 @@ async def get_result(
                 requirements: "{requirements}",
                 threat: "{threat}",
                 title: "{title}",
-                type: {draft_type}
             ) {{
                 success
             }}

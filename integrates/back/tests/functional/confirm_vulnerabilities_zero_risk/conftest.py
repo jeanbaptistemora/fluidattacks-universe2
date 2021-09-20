@@ -44,7 +44,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "exploitability": 0.94,
                 "finding": "060. Insecure exceptions",
                 "cwe": "396",
-                "finding_type": "SECURITY",
                 "requirements": "R359. Avoid using generic exceptions.",
                 "threat": "Autenticated attacker from the Internet.",
                 "affected_systems": "test",

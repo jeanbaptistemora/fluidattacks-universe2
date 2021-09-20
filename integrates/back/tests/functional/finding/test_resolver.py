@@ -92,7 +92,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     affected_systems: str = "Server bWAPP"
     records: str = "Clave plana"
     records_number: int = 12
-    finding_type: str = "SECURITY"
     tracking: Dict[str, Any] = {
         "tracking": [
             {
@@ -193,7 +192,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["affectedSystems"] == affected_systems
     assert result["data"]["finding"]["compromisedAttributes"] == records
     assert result["data"]["finding"]["compromisedRecords"] == records_number
-    assert result["data"]["finding"]["type"] == finding_type
     assert result["data"]["finding"]["observations"] == []
     assert result["data"]["finding"]["consulting"] == []
     assert result["data"]["finding"]["tracking"] == tracking.get("tracking")
@@ -276,7 +274,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     affected_systems: str = "Server bWAPP"
     records: str = "Clave plana"
     records_number: int = 12
-    finding_type: str = "SECURITY"
     tracking: Dict[str, Any] = {
         "tracking": [
             {
@@ -375,7 +372,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["affectedSystems"] == affected_systems
     assert result["data"]["finding"]["compromisedAttributes"] == records
     assert result["data"]["finding"]["compromisedRecords"] == records_number
-    assert result["data"]["finding"]["type"] == finding_type
     assert result["data"]["finding"]["tracking"] == tracking.get("tracking")
     assert result["data"]["finding"]["where"] == where
     assert result["data"]["finding"]["treatmentSummary"] == treatment_summary

@@ -175,7 +175,6 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
           compromisedAttributes
           compromisedRecords
           remediated
-          type
           age
           isExploitable
           severityScore
@@ -252,7 +251,6 @@ async def test_finding() -> None:  # pylint: disable=too-many-statements
     assert "compromisedAttributes" in result["data"]["finding"]
     assert "compromisedRecords" in result["data"]["finding"]
     assert "remediated" in result["data"]["finding"]
-    assert "type" in result["data"]["finding"]
     assert "age" in result["data"]["finding"]
     assert "isExploitable" in result["data"]["finding"]
     assert "severityScore" in result["data"]["finding"]
@@ -495,7 +493,6 @@ async def test_update_description() -> None:
             $findingId: String!,
             $recommendation: String!,
             $threat: String!,
-            $type: String
         ){
             updateDescription(
             affectedSystems: $affectedSystems,
@@ -506,7 +503,6 @@ async def test_update_description() -> None:
             recommendation: $recommendation,
             recordsNumber: $compromisedRecords,
             threat: $threat,
-            findingType: $type
             ) {
             success
             }
@@ -521,7 +517,6 @@ async def test_update_description() -> None:
         "findingId": "422286126",
         "recommendation": "Updated recommendation",
         "threat": "Updated threat",
-        "type": "SECURITY",
     }
     data = {"query": query, "variables": variables}
     result = await _get_result(data)
@@ -648,7 +643,6 @@ async def test_create_draft() -> None:
             $requirements: String,
             $threat: String,
             $title: String!,
-            $type: FindingType
             ) {
             addDraft(
             description: $description,
@@ -657,7 +651,6 @@ async def test_create_draft() -> None:
             requirements: $requirements,
             threat: $threat,
             title: $title,
-            type: $type
             ) {
             success
             }
@@ -670,7 +663,6 @@ async def test_create_draft() -> None:
         "requirements": "REQ.0001. Apply filters",
         "threat": "Attacker",
         "title": "001. SQL injection - C Sharp SQL API",
-        "type": "SECURITY",
     }
     data = {"query": query, "variables": variables}
     result = await _get_result(data)
