@@ -194,9 +194,6 @@ MUTATION.set_field(
 )
 
 # -------------------------Deprecated mutations--------------------------------
-MUTATION.set_field(
-    "confirmZeroRiskVuln", confirm_vulnerabilities_zero_risk.mutate
-)
 MUTATION.set_field("createEvent", add_event.mutate)
 MUTATION.set_field("createGroup", add_group.mutate)
 MUTATION.set_field("createOrganization", add_organization.mutate)
@@ -271,7 +268,6 @@ if FI_API_STATUS == "migration":
         verify_vulnerabilities_request_new.mutate,
     )
     # -----------------------Deprecated mutations------------------------------
-    MUTATION.set_field("createDraft", add_draft_new.mutate)
     MUTATION.set_field("deleteFinding", remove_finding_new.mutate)
     MUTATION.set_field("deleteVulnerability", remove_vulnerability_new.mutate)
     MUTATION.set_field(
@@ -344,7 +340,6 @@ else:
         "verifyVulnerabilitiesRequest", verify_vulnerabilities_request.mutate
     )
     # -----------------------Deprecated mutations------------------------------
-    MUTATION.set_field("createDraft", add_draft.mutate)
     MUTATION.set_field("deleteFinding", remove_finding.mutate)
     MUTATION.set_field("deleteVulnerability", remove_vulnerability.mutate)
     MUTATION.set_field(

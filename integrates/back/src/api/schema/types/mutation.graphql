@@ -284,40 +284,6 @@ type Mutation {
     vulnerabilities: [String]!
   ): SimplePayload!
 
-  "Confirms the provided vulnerabilities as zero risk"
-  confirmZeroRiskVuln(
-    "Identifier of the Finding associated with the vulnerabilities"
-    findingId: String!
-    "Justification of the confirmed zero risks"
-    justification: String!
-    "Vulnerabilities to confirm"
-    vulnerabilities: [String]!
-  ): SimplePayload! @deprecated(reason: """This mutation will be removed
-      after 2022/01/26. Use `confirmVulnerabilitiesZeroRisk` instead.""")
-
-  "Adds a new draft Finding to the specified Group"
-  createDraft(
-    "Project or application that contains the vulnerability"
-    affectedSystems: String
-    "Attack vector description"
-    attackVectorDesc: String
-    "Brief explanation of the vulnerability and how it works"
-    description: String
-    "Name of the Group where the new draft will be in"
-    groupName: String
-    "Deprecated. Use `groupName` instead"
-    projectName: String
-    "Recommended course of action to close the vulnerabilities"
-    recommendation: String
-    "Rules that are broken and lead to the existence of the vulnerability"
-    requirements: String
-    "Actor and scenery where the vulnerability can be exploited"
-    threat: String
-    "Finding number and name"
-    title: String!
-  ): SimplePayload! @deprecated(reason: """This mutation will be removed
-      after 2022/01/15. Use `addDraft` instead.""")
-
   "Adds a new blocking Event to the specified Group"
   createEvent(
     "What the hacker did after the event happened"
