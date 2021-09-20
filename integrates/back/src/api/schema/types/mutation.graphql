@@ -285,15 +285,6 @@ type Mutation {
   ): SimplePayload!
 
   "Disables the specified Finding policy"
-  deactivateOrgFindingPolicy(
-    "ID of the policy"
-    findingPolicyId: ID!
-    "Name of the organization the finding policy is associated with"
-    organizationName: String!
-  ): SimplePayload!  @deprecated(reason: """This mutation will be removed
-    after 2022/01/23. Use `deactivateOrganizationFindingPolicy` instead.""")
-
-  "Disables the specified Finding policy"
   deactivateOrganizationFindingPolicy(
     "ID of the policy"
     findingPolicyId: ID!
@@ -312,15 +303,6 @@ type Mutation {
     "Reason for this change"
     reason: RootDeactivationReason!
   ): SimplePayload!
-
-  "Removes/deletes a Finding from a Group"
-  deleteFinding(
-    "Identifier of the Finding to be removed"
-    findingId: String!
-    "Justification of the removal"
-    justification: RemoveFindingJustification!
-  ): SimplePayload! @deprecated(reason: """This mutation will be removed
-    after 2022/01/16. Use `removeFinding` instead.""")
 
   "Removes tags from vulnerabilities"
   deleteTags(
