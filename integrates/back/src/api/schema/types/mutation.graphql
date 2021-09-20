@@ -284,58 +284,6 @@ type Mutation {
     vulnerabilities: [String]!
   ): SimplePayload!
 
-  "Adds a new blocking Event to the specified Group"
-  createEvent(
-    "What the hacker did after the event happened"
-    actionAfterBlocking: ActionsAfterBlocking!
-    "What the hacker was doing just before the event happened"
-    actionBeforeBlocking: ActionsBeforeBlocking!
-    "Where the event was present"
-    accessibility: [EventAccessibility]!
-    "Components involved or affected by the event, if applicable"
-    affectedComponents: [AffectedComponents]
-    "Amount of time the hacker was blocked by the event, if applicable"
-    blockingHours: String
-    "Where the hacker physically was when the event happened"
-    context: EventContext!
-    "Comment laying out or explaining the event"
-    detail: String!
-    "DateTime of the event in the format `yyyy-MM-ddThh:mm:ssZ`"
-    eventDate: DateTime!
-    "The kind of event that happened"
-    eventType: EventType!
-    "Evidence file of the event"
-    file: Upload
-    "Name of the Group where the new Event will be in"
-    groupName: String
-    "Evidence image of the event"
-    image: Upload
-    "Deprecated. Use `groupName` instead"
-    projectName: String
-  ): SimplePayload! @deprecated(reason: """This mutation will be removed
-      after 2022/01/16. Use `addEvent` instead.""")
-
-  "Adds a new group to the specified organization"
-  createGroup(
-    "Brief description to identify the group"
-    description: String!
-    "Name of the new group"
-    groupName: String!
-    "Enables the Machine plan within the new group"
-    hasMachine: Boolean
-    "Enables the Squad plan within the new group"
-    hasSquad: Boolean
-    "Language in which findings should be reported"
-    language: Language
-    "Organization to which the group will belong"
-    organization: String
-    "Enables either Black or White box type of hacking service"
-    service: ServiceType
-    "Enables either continuous or one-shot hacking within the group"
-    subscription: SubscriptionType
-  ): SimplePayload! @deprecated(reason: """This mutation will be removed
-      after 2022/01/15. Use `addGroup` instead.""")
-
   "Adds a new Organization"
   createOrganization(
     "Name of the new Organization. Must come from an Internal Names whitelist"
