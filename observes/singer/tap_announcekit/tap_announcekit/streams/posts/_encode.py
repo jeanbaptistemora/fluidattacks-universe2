@@ -43,16 +43,16 @@ def _to_json(obj: Post) -> JsonObj:
 _encoder = StreamsObjsEncoder.encoder()
 
 
-def _project_schema() -> JsonSchema:
+def _schema() -> JsonSchema:
     return _encoder.to_jschema(Post.__annotations__)
 
 
 @dataclass(frozen=True)
 class PostEncoder:
     @staticmethod
-    def to_json(project: Post) -> JsonObj:
-        return _to_json(project)
+    def to_json(post: Post) -> JsonObj:
+        return _to_json(post)
 
     @staticmethod
     def schema() -> JsonSchema:
-        return _project_schema()
+        return _schema()

@@ -22,7 +22,6 @@ from tap_announcekit.stream import (
     StreamGetter,
 )
 from tap_announcekit.streams.posts._objs import (
-    _Post,
     Post,
     PostFactory,
     PostId,
@@ -41,7 +40,7 @@ JsonStr = str
 def _select_fields(proj_id: str, post_id: str, query: Query) -> IO[None]:
     proj = query.raw.post(project_id=proj_id, post_id=post_id)
     # select fields
-    for attr, _ in _Post.__annotations__.items():
+    for attr, _ in Post.__annotations__.items():
         _attr = "id" if attr == "obj_id" else attr
         getattr(proj, _attr)()
     return IO(None)
