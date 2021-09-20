@@ -17868,3 +17868,43 @@
   metadata:
     en:
       details: __empty__
+"380":
+  en:
+    title: Inappropriate coding practices - Unnecessary imports
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  category: Abuse Functionality
+  es:
+    title: Inappropriate coding practices - Unnecessary imports
+    description: >
+      __empty__
+    impact: >
+      __empty__
+    recommendation: >
+      __empty__
+    threat: >
+      __empty__
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "X"
+      remediation_level: "X"
+      report_confidence: "X"
+  requirements: ["266"]
+  metadata:
+    en:
+      details: https://rules.sonarsource.com/javascript/RSPEC-1128
