@@ -74,8 +74,7 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
   const baseUrl: string =
     "https://gitlab.com/api/v4/projects/20741933/repository/files";
   const branchRef: string = "master";
-  const baseReqsUrl: string =
-    "https://docs.fluidattacks.com/criteria/requirements/";
+  const baseCriteriaUrl: string = "https://docs.fluidattacks.com/criteria/";
 
   const [reqsList, setReqsList] = useState<string[]>([]);
 
@@ -92,7 +91,9 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
     }
   }, [isDescriptionPristine, submitForm]);
 
-  const findingNumber = data?.finding.title.slice(0, criteriaIdSlice);
+  const findingNumber = data
+    ? data.finding.title.slice(0, criteriaIdSlice)
+    : "";
 
   function getRequirementsText(
     requirements: string[],
@@ -214,6 +215,10 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                     component={FormikTextArea}
                     currentValue={dataset.description}
                     id={"searchFindings.tabDescription.description.tooltip"}
+                    infoLink={`${baseCriteriaUrl}vulnerabilities/${findingNumber}`}
+                    infoLinkText={translate.t(
+                      "searchFindings.tabDescription.description.infoLinkText"
+                    )}
                     label={translate.t(
                       "searchFindings.tabDescription.description.text"
                     )}
@@ -251,13 +256,17 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                     </b>
                   </ControlLabel>
                   {reqsList.length === 0 ? (
-                    <p>{"Loading requirements..."}</p>
+                    <p>
+                      {translate.t(
+                        "searchFindings.tabDescription.requirements.loadingText"
+                      )}
+                    </p>
                   ) : (
                     <p className={"ws-pre-wrap"}>
                       {reqsList.map((req: string): ReactElement => {
                         return (
                           <a
-                            href={`${baseReqsUrl}${req.slice(
+                            href={`${baseCriteriaUrl}requirements/${req.slice(
                               0,
                               criteriaIdSlice
                             )}`}

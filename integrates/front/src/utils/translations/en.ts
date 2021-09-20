@@ -1261,6 +1261,7 @@ export const enTranslations: ResourceKey = {
       deleteAllVulns: "Delete all pending vulnerabilities",
       deleteTags: "Delete Tags",
       description: {
+        infoLinkText: "Learn more...",
         text: "Description",
         tooltip: "Brief explanation of the vulnerability and how it works",
       },
@@ -1323,6 +1324,7 @@ export const enTranslations: ResourceKey = {
           "Request a new reattack cycle when the vulnerability is solved",
       },
       requirements: {
+        loadingText: "Loading requirements...",
         text: "Requirements",
         tooltip:
           "Rules that are broken and lead to the existence of the vulnerability",
