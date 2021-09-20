@@ -194,8 +194,6 @@ MUTATION.set_field(
 )
 
 # -------------------------Deprecated mutations--------------------------------
-MUTATION.set_field("createOrganization", add_organization.mutate)
-MUTATION.set_field("createProject", add_group.mutate)
 MUTATION.set_field("deleteTags", remove_vulnerability_tags.mutate)
 MUTATION.set_field(
     "deactivateOrgFindingPolicy", deactivate_organization_finding_policy.mutate

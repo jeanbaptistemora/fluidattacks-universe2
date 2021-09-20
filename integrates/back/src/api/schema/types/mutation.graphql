@@ -284,36 +284,6 @@ type Mutation {
     vulnerabilities: [String]!
   ): SimplePayload!
 
-  "Adds a new Organization"
-  createOrganization(
-    "Name of the new Organization. Must come from an Internal Names whitelist"
-    name: String!
-  ): AddOrganizationPayload!
-    @deprecated(reason: """This mutation will be removed after 2022/01/16.
-    Use `addOrganization` instead.""")
-
-  "Adds a new Group to the specified Organization"
-  createProject(
-    "Brief description to identify the group"
-    description: String!
-    "Language in which findings should be reported"
-    language: Language
-    "Organization to which the group will belong"
-    organization: String
-    "Name of the new Group"
-    projectName: String!
-    "Enables either continuous or one-shot hacking within the group"
-    subscription: SubscriptionType
-    "Enables the Machine plan within the new group"
-    hasSkims: Boolean
-    "Enables the Squad plan within the new group"
-    hasDrills: Boolean
-    "Deprecated field"
-    hasForces: Boolean
-  ): SimplePayload!
-    @deprecated(reason: """This mutation will be removed
-    after 2022/01/15. Use `addGroup` instead.""")
-
   "Disables the specified Finding policy"
   deactivateOrgFindingPolicy(
     "ID of the policy"
