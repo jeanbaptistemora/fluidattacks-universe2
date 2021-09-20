@@ -116,7 +116,9 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
     loaders: Dataloaders = get_new_context()
     organizations: List[Tuple[str, Tuple[str, ...]]] = []
     portfolios: List[Tuple[str, Tuple[str, ...]]] = []
-    groups: List[str] = sorted(await get_alive_group_names(), reverse=True)
+    groups: List[str] = list(
+        sorted(await get_alive_group_names(), reverse=True)
+    )
 
     async for org_id, _, org_groups in (
         utils.iterate_organizations_and_groups()
@@ -124,10 +126,10 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
         organizations.append((org_id, org_groups))
 
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
-        for portfolio, groups in await utils.get_portfolios_groups(org_name):
-            portfolios.append((portfolio, tuple(groups)))
+        for portfolio, p_groups in await utils.get_portfolios_groups(org_name):
+            portfolios.append((portfolio, tuple(p_groups)))
 
-    all_groups_data = await collect(
+    all_groups_data: Tuple[Benchmarking, ...] = await collect(
         [
             get_data_one_group(
                 group=group,
@@ -138,7 +140,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
         workers=24,
     )
 
-    all_organizations_data = await collect(
+    all_organizations_data: Tuple[Benchmarking, ...] = await collect(
         [
             get_data_one_organization(
                 organization_id=organization[0],
@@ -150,7 +152,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
         workers=24,
     )
 
-    all_portfolios_data = await collect(
+    all_portfolios_data: Tuple[Benchmarking, ...] = await collect(
         [
             get_data_one_organization(
                 organization_id=portfolio[0],
