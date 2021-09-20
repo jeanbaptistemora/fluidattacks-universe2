@@ -1,6 +1,3 @@
-import _ from "lodash";
-import moment from "moment";
-
 import { pointStatusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import type {
   IFindingAttr,
@@ -18,14 +15,6 @@ const formatRemediated: (remediated: string, verified: boolean) => string = (
       ? "group.findings.remediated.True"
       : "group.findings.remediated.False"
   );
-
-const formatReport: (date: string) => number = (date: string): number => {
-  if (_.isEmpty(date)) {
-    return 0;
-  }
-
-  return moment().diff(moment(date), "days");
-};
 
 const formatState: (state: string) => JSX.Element = (
   state: string
@@ -68,8 +57,6 @@ const formatFindings: (dataset: IFindingAttr[]) => IFindingAttr[] = (
   findings.map(
     (finding: IFindingAttr): IFindingData => ({
       ...finding,
-      lastReport: formatReport(finding.lastVulnerabilityReportDate),
-      openAge: formatReport(finding.oldestOpenVulnerabilityReportDate),
       remediated: formatRemediated(finding.remediated, finding.verified),
       treatment: formatTreatmentSummary(
         finding.state,
@@ -80,7 +67,6 @@ const formatFindings: (dataset: IFindingAttr[]) => IFindingAttr[] = (
 
 export {
   formatFindings,
-  formatReport,
   formatState,
   formatTreatmentSummary,
   formatRemediated,

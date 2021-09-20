@@ -17,8 +17,7 @@ interface IFindingAttr {
   id: string;
   isExploitable: boolean;
   lastVulnerability: number;
-  lastVulnerabilityReportDate: string;
-  oldestOpenVulnerabilityReportDate: string;
+  openAge: number;
   openVulnerabilities: number;
   name: string;
   remediated: string;
@@ -36,10 +35,7 @@ interface IFindingData {
   description: string;
   id: string;
   isExploitable: boolean;
-  lastReport: number;
   lastVulnerability: number;
-  lastVulnerabilityReportDate: string;
-  oldestOpenVulnerabilityReportDate: string;
   openAge: number;
   openVulnerabilities: number;
   name: string;

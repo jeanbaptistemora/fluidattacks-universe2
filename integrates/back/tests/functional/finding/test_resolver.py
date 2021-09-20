@@ -55,8 +55,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     cvss_version: str = "3.1"
     state: str = "open"
     last_vuln: int = 1087
-    last_vuln_report_date: str = "2018-04-08T00:45:11+00:00"
-    oldest_open_vuln_report_date: str = "2018-04-08T00:45:11+00:00"
     remediated: bool = False
     age: int = 1087
     is_exploitable: bool = False
@@ -148,10 +146,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["cvssVersion"] == cvss_version
     assert result["data"]["finding"]["state"] == state
     assert result["data"]["finding"]["lastVulnerability"] == last_vuln
-    assert (
-        result["data"]["finding"]["lastVulnerabilityReportDate"]
-        == last_vuln_report_date
-    )
     assert result["data"]["finding"]["remediated"] == remediated
     assert result["data"]["finding"]["age"] == age
     assert result["data"]["finding"]["isExploitable"] == is_exploitable
@@ -201,10 +195,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["compromisedRecords"] == records_number
     assert result["data"]["finding"]["type"] == finding_type
     assert result["data"]["finding"]["observations"] == []
-    assert (
-        result["data"]["finding"]["oldestOpenVulnerabilityReportDate"]
-        == oldest_open_vuln_report_date
-    )
     assert result["data"]["finding"]["consulting"] == []
     assert result["data"]["finding"]["tracking"] == tracking.get("tracking")
     assert result["data"]["finding"]["where"] == where
@@ -258,8 +248,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     cvss_version: str = "3.1"
     state: str = "open"
     last_vuln: int = 1087
-    last_vuln_report_date: str = "2018-04-08T00:45:11+00:00"
-    oldest_open_vuln_report_date: str = "2018-04-08T00:45:11+00:00"
     remediated: bool = False
     age: int = 1087
     is_exploitable: bool = False
@@ -342,10 +330,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["cvssVersion"] == cvss_version
     assert result["data"]["finding"]["state"] == state
     assert result["data"]["finding"]["lastVulnerability"] == last_vuln
-    assert (
-        result["data"]["finding"]["lastVulnerabilityReportDate"]
-        == last_vuln_report_date
-    )
     assert result["data"]["finding"]["remediated"] == remediated
     assert result["data"]["finding"]["age"] == age
     assert result["data"]["finding"]["isExploitable"] == is_exploitable
@@ -391,10 +375,6 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert result["data"]["finding"]["affectedSystems"] == affected_systems
     assert result["data"]["finding"]["compromisedAttributes"] == records
     assert result["data"]["finding"]["compromisedRecords"] == records_number
-    assert (
-        result["data"]["finding"]["oldestOpenVulnerabilityReportDate"]
-        == oldest_open_vuln_report_date
-    )
     assert result["data"]["finding"]["type"] == finding_type
     assert result["data"]["finding"]["tracking"] == tracking.get("tracking")
     assert result["data"]["finding"]["where"] == where

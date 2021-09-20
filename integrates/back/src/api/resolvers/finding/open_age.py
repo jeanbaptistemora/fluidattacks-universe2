@@ -37,10 +37,10 @@ async def resolve_no_cache(
     parent: Dict[str, Finding], info: GraphQLResolveInfo, **_kwargs: None
 ) -> int:
     finding_id: str = cast(str, parent["id"])
-    open_age = cast(
-        int,
-        await findings_domain.get_finding_open_age(
+    open_vulnerability_report_date = (
+        await findings_domain.get_oldest_open_vulnerability_report_date(
             info.context.loaders, finding_id
-        ),
+        )
     )
+    open_age = findings_domain.get_report_days(open_vulnerability_report_date)
     return open_age

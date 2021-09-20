@@ -649,6 +649,15 @@ async def get_pending_verification_findings_new(
     )
 
 
+def get_report_days(report_date: str) -> int:
+    """Gets amount of days from a report date"""
+    days = 0
+    if report_date:
+        date = datetime.fromisoformat(report_date)
+        days = (datetime_utils.get_now() - date).days
+    return days
+
+
 async def get_report_date_new(loaders: Any, finding_id: str) -> Optional[str]:
     iso_report_date = ""
     finding_vulns_loader: DataLoader = loaders.finding_vulns_nzr

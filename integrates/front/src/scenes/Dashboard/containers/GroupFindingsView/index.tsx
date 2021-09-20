@@ -112,7 +112,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     "tableSet",
     {
       age: false,
-      lastReport: true,
+      lastVulnerability: true,
       locations: true,
       remediated: false,
       severityScore: true,
@@ -201,10 +201,10 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const tableHeaders: IHeaderConfig[] = [
     {
       align: "center",
-      dataField: "lastReport",
+      dataField: "lastVulnerability",
       header: "Last report",
       onSort: onSortState,
-      visible: checkedItems.lastReport,
+      visible: checkedItems.lastVulnerability,
     },
     {
       align: "center",
@@ -364,7 +364,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const filterLastReportFindings: IFindingAttr[] = filterLastNumber(
     findings,
     lastReportFilter,
-    "lastReport"
+    "lastVulnerability"
   );
 
   function onSeverityMinChange(

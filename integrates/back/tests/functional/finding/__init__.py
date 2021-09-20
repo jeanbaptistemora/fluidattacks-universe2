@@ -25,7 +25,6 @@ async def get_result(
                 cvssVersion
                 state
                 lastVulnerability
-                lastVulnerabilityReportDate
                 remediated
                 age
                 isExploitable
@@ -64,7 +63,6 @@ async def get_result(
                 observations{{
                     content
                 }}
-                oldestOpenVulnerabilityReportDate
                 vulnerabilities{{
                     id
                 }}

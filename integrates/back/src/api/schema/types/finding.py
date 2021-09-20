@@ -9,12 +9,10 @@ from api.resolvers.finding import (
     historic_state,
     inputs_vulnerabilities,
     last_vulnerability,
-    last_vulnerability_report_date,
     lines_vulnerabilities,
     machine_jobs,
     new_remediated,
     observations,
-    oldest_open_vulnerability_report_date,
     open_age,
     open_vulnerabilities,
     ports_vulnerabilities,
@@ -140,16 +138,9 @@ else:
     FINDING.set_field("historicState", historic_state.resolve)
     FINDING.set_field("inputsVulnerabilities", inputs_vulnerabilities.resolve)
     FINDING.set_field("lastVulnerability", last_vulnerability.resolve)
-    FINDING.set_field(
-        "lastVulnerabilityReportDate", last_vulnerability_report_date.resolve
-    )
     FINDING.set_field("linesVulnerabilities", lines_vulnerabilities.resolve)
     FINDING.set_field("machineJobs", machine_jobs.resolve)
     FINDING.set_field("observations", observations.resolve)
-    FINDING.set_field(
-        "oldestOpenVulnerabilityReportDate",
-        oldest_open_vulnerability_report_date.resolve,
-    )
     FINDING.set_field("openAge", open_age.resolve)
     FINDING.set_field("openVulnerabilities", open_vulnerabilities.resolve)
     FINDING.set_field("portsVulnerabilities", ports_vulnerabilities.resolve)

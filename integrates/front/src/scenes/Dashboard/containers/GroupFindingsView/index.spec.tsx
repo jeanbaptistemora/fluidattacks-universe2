@@ -19,10 +19,6 @@ import { GET_FINDINGS } from "scenes/Dashboard/containers/GroupFindingsView/quer
 import store from "store";
 import { authzPermissionsContext } from "utils/authz/config";
 
-const DEFAULT_DATE = 1571237918000;
-
-jest.spyOn(Date, "now").mockImplementation((): number => DEFAULT_DATE);
-
 describe("GroupFindingsView", (): void => {
   const apolloDataMock: readonly MockedResponse[] = [
     {
@@ -44,8 +40,6 @@ describe("GroupFindingsView", (): void => {
                 id: "438679960",
                 isExploitable: true,
                 lastVulnerability: 33,
-                lastVulnerabilityReportDate: "2019-09-13T14:58:38+00:00",
-                oldestOpenVulnerabilityReportDate: "2019-09-13T14:58:38+00:00",
                 openVulnerabilities: 6,
                 remediated: false,
                 severityScore: 2.9,
@@ -103,8 +97,6 @@ describe("GroupFindingsView", (): void => {
                 id: "438679960",
                 isExploitable: true,
                 lastVulnerability: 33,
-                lastVulnerabilityReportDate: "2019-09-13T14:58:38+00:00",
-                oldestOpenVulnerabilityReportDate: "2019-09-13T14:58:38+00:00",
                 openVulnerabilities: 6,
                 remediated: false,
                 severityScore: 2.9,
