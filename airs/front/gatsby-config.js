@@ -50,6 +50,16 @@ module.exports = {
     {
       resolve: `gatsby-transformer-remark`,
       options: {
+        plugins: [
+          {
+            resolve: `gatsby-remark-classes`,
+            options: {
+              classMap: {
+                link: "basic-link"
+              }
+            }
+          }
+        ],
         tableOfContents: {
           absolute: false,
           heading: null,
