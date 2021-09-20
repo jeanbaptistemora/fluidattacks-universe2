@@ -1025,6 +1025,33 @@ async def get_mean_remediate_cvssf_new(
     )
 
 
+async def get_mean_remediate_non_treated_cvssf_new(
+    loaders: Any,
+    group_name: str,
+    min_date: Optional[date] = None,
+) -> Decimal:
+    group_findings_loader = loaders.group_findings_new
+    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
+        group_name.lower()
+    )
+    group_findings_ids: List[str] = [finding.id for finding in group_findings]
+    finding_cvssf: Dict[str, Decimal] = {
+        finding.id: vulns_utils.get_cvssf(
+            findings_domain.get_severity_score_new(finding.severity)
+        )
+        for finding in group_findings
+    }
+    all_vulnerabilities = await loaders.finding_vulns.load_many_chained(
+        group_findings_ids
+    )
+    vulnerabilities = vulns_utils.filter_non_confirmed_zero_risk(
+        all_vulnerabilities
+    )
+    return vulns_utils.get_mean_remediate_vulnerabilities_cvssf(
+        vulnerabilities, finding_cvssf, min_date
+    )
+
+
 async def get_mean_remediate_severity_cvssf(
     loaders: Any,
     group_name: str,
@@ -1080,6 +1107,32 @@ async def get_mean_remediate_cvssf(
     )
     return vulns_utils.get_mean_remediate_vulnerabilities_cvssf(
         findings_vulns, finding_cvssf, min_date
+    )
+
+
+async def get_mean_remediate_non_treated_cvssf(
+    loaders: Any,
+    group_name: str,
+    min_date: Optional[date] = None,
+) -> Decimal:
+    group_findings = await loaders.group_findings.load(group_name.lower())
+    group_findings_ids = [finding["finding_id"] for finding in group_findings]
+    finding_cvssf: Dict[str, Decimal] = {
+        str(finding["finding_id"]): vulns_utils.get_cvssf(
+            Decimal(finding.get("cvss_temporal", "0.0")).quantize(
+                Decimal("0.1")
+            )
+        )
+        for finding in group_findings
+    }
+    all_vulnerabilities = await loaders.finding_vulns.load_many_chained(
+        group_findings_ids
+    )
+    vulnerabilities = vulns_utils.filter_non_confirmed_zero_risk(
+        all_vulnerabilities
+    )
+    return vulns_utils.get_mean_remediate_vulnerabilities_cvssf(
+        vulnerabilities, finding_cvssf, min_date
     )
 
 
