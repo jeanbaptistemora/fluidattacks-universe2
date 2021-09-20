@@ -431,7 +431,6 @@ async def do_create_draft(
                 $requirements: String
                 $threat: String
                 $title: String!
-                $type: FindingType
             ) {
                 addDraft(
                     affectedSystems: $affected_systems
@@ -442,7 +441,6 @@ async def do_create_draft(
                     requirements: $requirements
                     threat: $threat
                     title: $title
-                    type: $type
                 ) {
                     success
                 }
@@ -461,7 +459,6 @@ async def do_create_draft(
             ),
             threat=t(finding.value.threat),
             title=t(finding.value.title),
-            type=finding.value.type.value,
         ),
     )
 

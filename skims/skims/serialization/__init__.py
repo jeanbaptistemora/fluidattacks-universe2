@@ -94,7 +94,6 @@ def _side_effects() -> None:
         core_model.AvailabilityEnum,
         core_model.ExecutionQueue,
         core_model.FindingEnum,
-        core_model.FindingTypeEnum,
         core_model.Grammar,
         core_model.Platform,
         core_model.VulnerabilityKindEnum,

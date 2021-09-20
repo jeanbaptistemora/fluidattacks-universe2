@@ -142,11 +142,6 @@ class LocalesEnum(Enum):
     ES: str = "ES"
 
 
-class FindingTypeEnum(Enum):
-    HYGIENE: str = "HYGIENE"
-    SECURITY: str = "SECURITY"
-
-
 class FindingMetadata(NamedTuple):
     auto_approve: bool
     cwe: int
@@ -158,7 +153,6 @@ class FindingMetadata(NamedTuple):
     score: cvss3_model.Score
     threat: str
     title: str
-    type: FindingTypeEnum
 
     @classmethod
     def new(
@@ -182,7 +176,6 @@ class FindingMetadata(NamedTuple):
             score=score,
             threat=f"{code}.threat",
             title=f"criteria.vulns.{code[1:]}.title",
-            type=FindingTypeEnum.SECURITY,
         )
 
 
