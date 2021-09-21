@@ -1273,7 +1273,7 @@ class FindingEnum(Enum):
             confidentiality_impact=cvss3_model.ConfidentialityImpact.low,
             exploitability=cvss3_model.Exploitability.poc,
             integrity_impact=cvss3_model.IntegrityImpact.low,
-            privileges_required=cvss3_model.PrivilegesRequired.high,
+            privileges_required=cvss3_model.PrivilegesRequired.low,
             remediation_level=cvss3_model.RemediationLevel.unavailable,
             report_confidence=cvss3_model.ReportConfidence.confirmed,
             severity_scope=cvss3_model.SeverityScope.unchanged,

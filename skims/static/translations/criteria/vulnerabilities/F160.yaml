@@ -30,6 +30,6 @@ F160.recommendation:
     de permisos 0600.
 F160.threat:
   en: >
-    Anonymous attacker with local access.
+    Authenticated attacker from local network.
   es: >
-    Atacante anónimo con acceso local.
+    Atacante autenticado desde una red local.
