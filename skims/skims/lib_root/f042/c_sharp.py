@@ -45,7 +45,7 @@ def c_sharp_check_cookie_security(
     return count_checks
 
 
-def c_sharp_insecurely_generated_cookies(
+def insecurely_generated_cookies(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
 
@@ -96,6 +96,3 @@ def c_sharp_insecurely_generated_cookies(
 
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F042
-QUERIES: graph_model.Queries = (
-    (FINDING, c_sharp_insecurely_generated_cookies),
-)
