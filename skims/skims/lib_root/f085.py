@@ -5,6 +5,7 @@ from model import (
     core_model,
     graph_model,
 )
+import re
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
@@ -22,7 +23,11 @@ from utils.graph.transformation import (
 
 def _could_be_boolean(key: str) -> bool:
     prefixes = {"is", "has", "es"}
-    return any(key.startswith(prefix) for prefix in prefixes)
+    match = re.search("[a-z]", key, re.I)
+    if match:
+        _key = key[match.start() :]
+        return any(_key.startswith(prefix) for prefix in prefixes)
+    return False
 
 
 def javascript_client_storage(
