@@ -1,0 +1,26 @@
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import banner_group, go_to_button %}
+
+{% block layout %}
+<div class="container">
+  {% include 'layouts/components/logo_header.html' %}
+  {{ banner_group('File Uploaded') }}
+
+  <div class="main-content">
+    <p>Good news!</p>
+    <p>Your recently added file: <strong>"{{ file_name }}"</strong> has been uploaded successfully
+      to group {{ group }}.
+    </p>
+
+    <p>
+      Please confirm the uploaded file on the group <strong>"{{ group }}
+      - {{ group_description }}"</strong>, by clicking the button below.
+    </p>
+    <p>Regards,<br>
+      Fluid Attacks Team</p>
+    <br />
+  </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}

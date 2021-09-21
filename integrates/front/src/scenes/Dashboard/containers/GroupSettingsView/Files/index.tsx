@@ -228,7 +228,26 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
       });
 
       if (response.ok) {
-        const addFilesToDbResults = await addFilesToDb({
+        const resultData = await addFilesToDb({
+          onCompleted: (): void => {
+            const { addFilesToDb: mutationResults }: IAddFilesToDbResults =
+              resultData.data;
+
+            const { success } = mutationResults;
+            if (success) {
+              msgSuccess(
+                translate.t("searchFindings.tabResources.success"),
+                translate.t("searchFindings.tabUsers.titleSuccess")
+              );
+            } else {
+              msgError(translate.t("groupAlerts.errorTextsad"));
+              Logger.warning(
+                "An error occurred adding group files to the db",
+                response.json
+              );
+              enableButton();
+            }
+          },
           variables: {
             filesData: JSON.stringify([
               {
@@ -239,22 +258,6 @@ const Files: React.FC<IFilesProps> = (props: IFilesProps): JSX.Element => {
             groupName: props.groupName,
           },
         });
-
-        const dbAddResults: IAddFilesToDbResults = addFilesToDbResults.data;
-
-        if (dbAddResults.addFilesToDb.success) {
-          msgSuccess(
-            translate.t("searchFindings.tabResources.success"),
-            translate.t("searchFindings.tabUsers.titleSuccess")
-          );
-        } else {
-          msgError(translate.t("groupAlerts.errorTextsad"));
-          Logger.warning(
-            "An error occurred adding group files to the db",
-            response.json
-          );
-          enableButton();
-        }
       } else {
         msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning(

@@ -6,6 +6,9 @@ from batch.types import (
 )
 import logging
 import logging.config
+from mailer.resources import (
+    send_mail_handled_file,
+)
 from newutils import (
     resources as resources_utils,
 )
@@ -42,8 +45,18 @@ async def handle_virus_scan(*, item: BatchProcessing) -> None:
             file_name,
             group_name,
         )
+        await send_mail_handled_file(
+            file_name,
+            group_name,
+            uploaded=True,
+        )
     else:
         await resources_utils.remove_file(file_name)
+        await send_mail_handled_file(
+            file_name,
+            group_name,
+            uploaded=False,
+        )
 
     await delete_action(
         action_name=item.action_name,

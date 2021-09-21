@@ -1,0 +1,25 @@
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import banner_group, go_to_button %}
+
+{% block layout %}
+<div class="container">
+  {% include 'layouts/components/logo_header.html' %}
+  {{ banner_group('File Removed') }}
+
+  <div class="main-content">
+    <p>We found an issue!</p>
+    <p>Recently you tried to upload the file <strong>"{{ file_name }}"</strong>
+      to your group <strong>"{{ group }}"</strong> but this file got removed due to a virus on it.
+    </p>
+    <p>
+      Please validate the file and try to upload it again on the group <strong>"{{ group }}
+      - {{ group_description }}"</strong>, by clicking the button below.
+    </p>
+    <p>Regards,<br>
+      Fluid Attacks Team</p>
+    <br />
+  </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}

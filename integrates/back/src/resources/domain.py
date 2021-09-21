@@ -167,9 +167,6 @@ async def update_group_files(
     for current_file in files["files"]:
         if current_file["fileName"] == file_name:
             current_file["virusChecked"] = True
-        else:
-            # Group file doesn't exist
-            LOGGER.error("File doesn't exists", **NOEXTRA)
 
     group_files = cast(List[ResourceType], files.get("files", []))
     success = await groups_domain.update(group_name, {"files": group_files})
