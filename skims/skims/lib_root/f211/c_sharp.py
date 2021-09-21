@@ -23,7 +23,7 @@ from utils.graph.transformation import (
 )
 
 
-def csharp_vuln_regular_expression(
+def vuln_regular_expression(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:
@@ -96,4 +96,3 @@ def csharp_vuln_regular_expression(
 
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F211
-QUERIES: graph_model.Queries = ((FINDING, csharp_vuln_regular_expression),)
