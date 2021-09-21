@@ -25,7 +25,7 @@ from utils.string import (
 )
 
 
-def csharp_check_hashes_salt(
+def check_hashes_salt(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     directory_object = {
@@ -88,4 +88,3 @@ def csharp_check_hashes_salt(
 
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F320
-QUERIES: graph_model.Queries = ((FINDING, csharp_check_hashes_salt),)
