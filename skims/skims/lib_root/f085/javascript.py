@@ -30,7 +30,7 @@ def _could_be_boolean(key: str) -> bool:
     return False
 
 
-def javascript_client_storage(
+def client_storage(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     conditions: Tuple[Set[str], ...] = (
@@ -103,4 +103,3 @@ def javascript_client_storage(
 
 # Constants
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F085
-QUERIES: graph_model.Queries = ((FINDING, javascript_client_storage),)
