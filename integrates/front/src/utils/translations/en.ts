@@ -12,8 +12,8 @@ export const enTranslations: ResourceKey = {
       mttrBenchmarking: {
         title: "MTTR Benchmarking",
         tooltip: {
-          all: "All vulnerabilities",
-          nonTreated: "Non treated vulnerabilities",
+          all: "Days per Severity for all vulnerabilities",
+          nonTreated: "Days per Severity for non treated vulnerabilities",
         },
       },
       topVulnerabilities: {

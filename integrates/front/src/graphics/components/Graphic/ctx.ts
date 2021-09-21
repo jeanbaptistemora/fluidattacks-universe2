@@ -65,7 +65,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
     documentName: "meanTimeToRemediate",
     documentType: "barChart",
   },
-  mttrBenchmarking: {
+  mttrBenchmarkingCvssf: {
     alt: {
       label: "Non treated",
       title: translate.t("analytics.barChart.mttrBenchmarking.title"),
@@ -80,7 +80,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
       tooltip: translate.t("analytics.barChart.mttrBenchmarking.tooltip.all"),
       url: "#mean-time-to-remediate-all-vulnerabilities",
     },
-    documentName: "mttrBenchmarkingNonTreated",
+    documentName: "mttrBenchmarkingNonTreatedCvssf",
     documentType: "barChart",
   },
   riskOverTimeCvssf: {
