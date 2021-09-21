@@ -59,7 +59,7 @@ class JsonFactory:
     def build_json_list(cls, raw: Any) -> List[JsonObj]:
         if isinstance(raw, list):
             return [cls.from_any(item) for item in raw]
-        raise InvalidType(f"{type(raw)} expected list")
+        raise InvalidType(f"Expected List[Any]; got {type(raw)}")
 
     @classmethod
     def from_dict(cls, raw: Dict[str, Any]) -> JsonObj:

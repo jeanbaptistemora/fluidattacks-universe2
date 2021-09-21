@@ -46,7 +46,7 @@ class PrimitiveFactory:
     ) -> PrimitiveTVar:
         if isinstance(raw, prim_type):
             return raw
-        raise InvalidType(f"{type(raw)} expected a PrimitiveType")
+        raise InvalidType(f"Expected {prim_type}; got {type(raw)}")
 
     @staticmethod
     def to_opt_primitive(
@@ -54,4 +54,4 @@ class PrimitiveFactory:
     ) -> PrimitiveTVar:
         if isinstance(raw, prim_type):
             return raw
-        raise InvalidType(f"{type(raw)} expected a PrimitiveType | None")
+        raise InvalidType(f"Expected {prim_type}; got {type(raw)}")
