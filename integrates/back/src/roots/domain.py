@@ -737,3 +737,83 @@ async def get_last_status_update(
         ),
         historic_state[0].modified_date,
     )
+
+
+async def move_root(
+    loaders: Any,
+    user_email: str,
+    group_name: str,
+    root_id: str,
+    target_group: str,
+) -> None:
+    root: RootItem = await loaders.root.load((group_name, root_id))
+
+    if root.state.status != "ACTIVE" or target_group == root.group_name:
+        raise InvalidParameter()
+
+    target_group_roots: Tuple[RootItem, ...] = await loaders.group_roots.load(
+        target_group
+    )
+
+    if isinstance(root, GitRootItem):
+        if not validations.is_git_unique(
+            root.state.url, root.state.branch, target_group_roots
+        ):
+            raise RepeatedRoot()
+
+        await add_git_root(
+            loaders,
+            user_email,
+            ensure_org_uniqueness=False,
+            branch=root.state.branch,
+            environment=root.state.environment,
+            gitignore=root.state.gitignore,
+            group_name=target_group,
+            includes_health_check=root.state.includes_health_check,
+            nickname=root.state.nickname,
+            url=root.state.url,
+        )
+    elif isinstance(root, IPRootItem):
+        if not validations.is_ip_unique(
+            root.state.url, root.state.branch, target_group_roots
+        ):
+            raise RepeatedRoot()
+
+        await add_ip_root(
+            loaders,
+            user_email,
+            ensure_org_uniqueness=False,
+            address=root.state.address,
+            group_name=target_group,
+            nickname=root.state.nickname,
+            port=root.state.port,
+        )
+    else:
+        if not validations.is_url_unique(
+            root.state.host,
+            root.state.path,
+            root.state.port,
+            root.state.protocol,
+            target_group_roots,
+        ):
+            raise RepeatedRoot()
+
+        await add_url_root(
+            loaders,
+            user_email,
+            ensure_org_uniqueness=False,
+            group_name=target_group,
+            nickname=root.state.nickname,
+            url=(
+                f"{root.state.protocol}://{root.state.host}:{root.state.port}"
+                f"{root.state.path}"
+            ),
+        )
+
+    await deactivate_root(
+        group_name=group_name,
+        other=target_group,
+        reason="MOVED_TO_ANOTHER_GROUP",
+        root=root,
+        user_email=user_email,
+    )
