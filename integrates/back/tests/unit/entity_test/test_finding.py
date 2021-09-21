@@ -85,6 +85,7 @@ async def test_finding_age() -> None:
 
 
 @pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+@freeze_time("2020-12-01")
 async def test_finding_age_new() -> None:
     """Check for finding age."""
     query = """{
@@ -97,9 +98,9 @@ async def test_finding_age_new() -> None:
     data = {"query": query}
     result = await _get_result(data)
     assert "errors" not in result
-    assert result["data"]["finding"]["age"] == 626
-    assert result["data"]["finding"]["lastVulnerability"] == 626
-    assert result["data"]["finding"]["openAge"] == 626
+    assert result["data"]["finding"]["age"] == 332
+    assert result["data"]["finding"]["lastVulnerability"] == 332
+    assert result["data"]["finding"]["openAge"] == 332
 
 
 async def test_finding() -> None:  # pylint: disable=too-many-statements
