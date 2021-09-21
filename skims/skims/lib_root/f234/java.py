@@ -15,7 +15,7 @@ def java_method_invoc_to_str(graph: graph_model.Graph, method_inv: str) -> str:
     return ".".join([graph.nodes[i]["label_text"] for i in ids])
 
 
-def java_info_leak_stacktrace(
+def info_leak_stacktrace(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:
@@ -57,4 +57,3 @@ def java_info_leak_stacktrace(
 
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F234
-QUERIES: graph_model.Queries = ((FINDING, java_info_leak_stacktrace),)
