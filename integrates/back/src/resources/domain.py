@@ -129,6 +129,7 @@ async def add_file_to_db(
             {
                 "fileName": file_info.get("fileName", file_info["fileName"]),
                 "description": description,
+                "virusChecked": False,
                 "uploadDate": datetime_utils.get_as_str(
                     datetime_utils.get_now(), date_format="%Y-%m-%d %H:%M"
                 ),
@@ -153,5 +154,24 @@ async def add_file_to_db(
         success = await groups_domain.update(
             group_name, {"files": group_files}
         )
+
+    return success
+
+
+async def update_group_files(
+    file_name: str,
+    group_name: str,
+) -> bool:
+    success = False
+    files = await groups_domain.get_attributes(group_name, ["files"])
+    for current_file in files["files"]:
+        if current_file["fileName"] == file_name:
+            current_file["virusChecked"] = True
+        else:
+            # Group file doesn't exist
+            LOGGER.error("File doesn't exists", **NOEXTRA)
+
+    group_files = cast(List[ResourceType], files.get("files", []))
+    success = await groups_domain.update(group_name, {"files": group_files})
 
     return success

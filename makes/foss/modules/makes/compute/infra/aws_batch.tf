@@ -126,7 +126,7 @@ resource "aws_launch_template" "batch_instance" {
 locals {
   compute_environments_ec2 = {
     for name, instances in {
-      dedicated = 3
+      dedicated = 5
       } : name => {
       bid_percentage      = null
       instances           = instances

@@ -1,6 +1,9 @@
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
+from batch.dal import (
+    put_action,
+)
 from custom_types import (
     SimplePayload as SimplePayloadType,
 )
@@ -49,11 +52,19 @@ async def mutate(
     user_email = user_info["user_email"]
     group_name: str = get_key_or_fallback(parameters)
 
+    await put_action(
+        action_name="handle_virus_scan",
+        entity=files_data[0]["file_name"],
+        subject=user_email,
+        additional_info=group_name,
+        queue="dedicated_soon",
+    )
+
     success = await add_file_to_db(new_files_data, group_name, user_email)
 
     if success:
         msg = (
-            f'Security: Added file {parameters["files_data"]} '
+            f'Security: Added file {parameters["files_data"]}'
             f"to db in group {group_name} successfully"
         )
         logs_utils.cloudwatch_log(info.context, msg)

@@ -55,7 +55,7 @@ async def get_file(file_name: str, group_name: str, user_email: str) -> bool:
         await s3_ops.download_file(
             FI_AWS_S3_RESOURCES_BUCKET,
             file_path,
-            file_name,
+            f"{download_path}/{file_name}",
         )
 
         with open(f"{download_path}/{file_name}", "rb") as downloaded_file:
