@@ -6699,6 +6699,31 @@ F366,lines,namespace/skims/test/data/lib_root/f366/test.cs,10,749,skims,366. Ina
   19 | }
      ^ Col 0
 "
+F004,lines,namespace/skims/test/data/lib_path/f004/test.cs,16,78,skims,004. Remote command execution,"The system builds OS commands using inputs that can be manipulated externally, it does not correctly neutralize special elements that could modify the OS command.
+","
+   5 | {
+   6 |     public class RSPEC2076OSCommandInjectionNoncompliantController : Controller
+   7 |     {
+   8 |         public IActionResult Index()
+   9 |         {
+  10 |             return View();
+  11 |         }
+  12 |
+  13 |         public IActionResult Run(HttpRequest binary)
+  14 |         {
+  15 |             Process p = new Process();
+> 16 |             p.StartInfo.FileName = binary;
+  17 |             p.StartInfo.RedirectStandardOutput = true;
+  18 |             p.Start();
+  19 |             string output = p.StandardOutput.ReadToEnd();
+  20 |             p.Dispose();
+  21 |
+  22 |             return View();
+  23 |         }
+  24 |     }
+  25 | }
+     ^ Col 0
+"
 F008,lines,namespace/skims/test/data/lib_root/f008/test.cs,8,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data.
 ","
    1 | namespace Controllers

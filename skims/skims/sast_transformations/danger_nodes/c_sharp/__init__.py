@@ -191,6 +191,14 @@ def mark_sinks(
             "AddHeader",
         },
     )
+    mark_assignments_sink(
+        findings.F004,
+        graph,
+        syntax,
+        {
+            "FileName",
+        },
+    )
 
 
 def mark_metadata(
