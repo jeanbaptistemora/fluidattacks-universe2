@@ -623,9 +623,9 @@ class InvalidUserProvided(CustomBaseException):
     """Exception to control that users belong to Fluid Attacks before they're
     granted a restricted role"""
 
-    def __init__(self, role: str) -> None:
+    def __init__(self) -> None:
         """Constructor"""
-        msg = f"Only Fluid Attacks users can be {role}s"
+        msg = "This role can only be granted to Fluid Attacks users"
         super(InvalidUserProvided, self).__init__(f"Exception - {msg}")
 
 

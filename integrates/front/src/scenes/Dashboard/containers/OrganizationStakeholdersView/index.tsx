@@ -74,6 +74,9 @@ const handleMtError: (mtError: ApolloError) => void = (
       case "Exception - Email is not valid":
         msgError(translate.t("validations.email"));
         break;
+      case "Exception - This role can only be granted to Fluid Attacks users":
+        msgError(translate.t("validations.userIsNotFromFluidAttacks"));
+        break;
       case "Exception - Invalid field in form":
         msgError(translate.t("validations.invalidValueInField"));
         break;

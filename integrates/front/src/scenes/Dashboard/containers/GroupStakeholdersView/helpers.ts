@@ -11,6 +11,9 @@ const handleGrantError = (grantError: ApolloError): void => {
       case "Exception - Email is not valid":
         msgError(translate.t("validations.email"));
         break;
+      case "Exception - This role can only be granted to Fluid Attacks users":
+        msgError(translate.t("validations.userIsNotFromFluidAttacks"));
+        break;
       case "Exception - Invalid field in form":
         msgError(translate.t("validations.invalidValueInField"));
         break;
@@ -59,6 +62,9 @@ const handleEditError = (
         break;
       case "Exception - Invalid characters":
         msgError(translate.t("validations.invalidChar"));
+        break;
+      case "Exception - This role can only be granted to Fluid Attacks users":
+        msgError(translate.t("validations.userIsNotFromFluidAttacks"));
         break;
       case "Exception - Invalid phone number in form":
         msgError(translate.t("validations.invalidPhoneNumberInField"));

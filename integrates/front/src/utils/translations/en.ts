@@ -2429,6 +2429,8 @@ export const enTranslations: ResourceKey = {
     stakeholderHasGroupAccess:
       "The stakeholder has been granted access to the group previously",
     tags: "This field can only contain alphanumeric characters and dashes",
+    userIsNotFromFluidAttacks:
+      "This role can only be granted to Fluid Attacks users",
     validDate: "The date must be below six months",
     validDateToken: "The date must be below six months",
     validSessionDate: "The session has expired",

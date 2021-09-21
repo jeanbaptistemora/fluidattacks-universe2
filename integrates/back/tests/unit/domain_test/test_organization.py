@@ -65,7 +65,7 @@ async def test_add_system_owner_fail() -> None:
     except InvalidUserProvided as ex:
         assert (
             str(ex)
-            == "Exception - Only Fluid Attacks users can be system_owners"
+            == "Exception - This role can only be granted to Fluid Attacks users"
         )
 
     groups = await orgs_domain.get_groups(org_id)

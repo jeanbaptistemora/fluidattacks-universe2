@@ -70,4 +70,4 @@ def validate_role_fluid_reqs(email: str, role: str) -> bool:
         role in restricted_roles and email.endswith(FLUIDATTACKS_EMAIL_SUFFIX)
     ):
         return True
-    raise InvalidUserProvided(role)
+    raise InvalidUserProvided()
