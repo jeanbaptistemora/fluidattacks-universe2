@@ -37,42 +37,42 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         "findings_new": [
             {
                 "finding": Finding(
-                    id="475041513",
+                    id="3c475384-834c-47b0-ac71-a41a022e401c",
                     group_name="group1",
                     evidences=FindingEvidences(
                         evidence1=FindingEvidence(
                             description="evidence1",
-                            url="group1-475041513-evidence1",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence1",
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
                         evidence2=FindingEvidence(
                             description="evidence2",
-                            url="group1-475041513-evidence2",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence2",
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
                         evidence3=FindingEvidence(
                             description="evidence3",
-                            url="group1-475041513-evidence3",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence3",
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
                         evidence4=FindingEvidence(
                             description="evidence4",
-                            url="group1-475041513-evidence4",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence4",
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
                         evidence5=FindingEvidence(
                             description="evidence5",
-                            url="group1-475041513-evidence5",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence5",
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
                         exploitation=FindingEvidence(
                             description="exploitation",
-                            url="group1-475041513-exploitation",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-exploitation",
                             modified_date="2010-11-19T13:37:10+00:00",
                         ),
                         animation=FindingEvidence(
                             description="animation",
-                            url="group1-475041513-animation",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-animation",
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
                     ),
@@ -176,7 +176,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         ],
         "vulnerabilities": [
             {
-                "finding_id": "475041513",
+                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
                 "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce8",
                 "historic_state": [
                     {
@@ -198,7 +198,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "specific": "9999",
             },
             {
-                "finding_id": "475041513",
+                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
                 "UUID": "6401bc87-8633-4a4a-8d8e-7dae0ca57e6a",
                 "historic_state": [
                     {
@@ -224,7 +224,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "specific": "2321",
             },
             {
-                "finding_id": "475041513",
+                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
                 "UUID": "7771bc87-8633-4a4a-8d8e-7dae0ca57e7a",
                 "historic_state": [
                     {
@@ -256,7 +256,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         ],
         "comments": [
             {
-                "finding_id": "475041513",
+                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
                 "comment_id": "43455343453",
                 "comment_type": "observation",
                 "content": "This is a test observations",
@@ -267,7 +267,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "parent": 0,
             },
             {
-                "finding_id": "475041513",
+                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
                 "comment_id": "42343434",
                 "comment_type": "comment",
                 "content": "This is a test observations",

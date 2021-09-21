@@ -18,7 +18,7 @@ from typing import (
 )
 async def test_submit_draft(populate: bool, email: str) -> None:
     assert populate
-    finding_id: str = "475041513"
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     result: Dict[str, Any] = await get_result(
         user=email, finding_id=finding_id
     )
@@ -36,7 +36,7 @@ async def test_submit_draft(populate: bool, email: str) -> None:
 )
 async def test_submit_draft_fail_1(populate: bool, email: str) -> None:
     assert populate
-    finding_id: str = "475041513"
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     result: Dict[str, Any] = await get_result(
         user=email, finding_id=finding_id
     )
@@ -58,7 +58,7 @@ async def test_submit_draft_fail_1(populate: bool, email: str) -> None:
 )
 async def test_submit_draft_fail_2(populate: bool, email: str) -> None:
     assert populate
-    finding_id: str = "475041513"
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     result: Dict[str, Any] = await get_result(
         user=email, finding_id=finding_id
     )

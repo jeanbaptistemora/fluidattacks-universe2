@@ -36,7 +36,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         "findings_new": [
             {
                 "finding": Finding(
-                    id="475041513",
+                    id="3c475384-834c-47b0-ac71-a41a022e401c",
                     group_name="group1",
                     state=FindingState(
                         modified_by="test1@gmail.com",
@@ -82,12 +82,12 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     evidences=FindingEvidences(
                         evidence1=FindingEvidence(
                             description="evidence1",
-                            url="group1-475041513-evidence1",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence1",
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
                         records=FindingEvidence(
                             description="records",
-                            url="group1-475041513-records",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-records",
                             modified_date="2111-11-19T13:37:10+00:00",
                         ),
                     ),
@@ -143,7 +143,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         ],
         "vulnerabilities": [
             {
-                "finding_id": "475041513",
+                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
                 "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce10",
                 "historic_state": [
                     {
@@ -167,7 +167,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "specific": "9999",
             },
             {
-                "finding_id": "475041513",
+                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
                 "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce11",
                 "historic_state": [
                     {
@@ -191,7 +191,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "specific": "9999",
             },
             {
-                "finding_id": "475041513",
+                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
                 "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce12",
                 "historic_state": [
                     {
@@ -215,7 +215,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "specific": "9999",
             },
             {
-                "finding_id": "475041513",
+                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
                 "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce13",
                 "historic_state": [
                     {

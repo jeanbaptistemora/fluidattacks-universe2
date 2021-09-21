@@ -27,7 +27,7 @@ async def test_add_finding_consultant(populate: bool, email: str) -> None:
     result: Dict[str, Any] = await get_result(
         user=email,
         content="This is a observation test",
-        finding="475041513",
+        finding="3c475384-834c-47b0-ac71-a41a022e401c",
         mutation_type="CONSULT",
     )
     assert "errors" not in result
@@ -48,7 +48,7 @@ async def test_add_finding_consultant_fail(populate: bool, email: str) -> None:
     result: Dict[str, Any] = await get_result(
         user=email,
         content="This is a observation test",
-        finding="475041513",
+        finding="3c475384-834c-47b0-ac71-a41a022e401c",
         mutation_type="CONSULT",
     )
     assert "errors" in result

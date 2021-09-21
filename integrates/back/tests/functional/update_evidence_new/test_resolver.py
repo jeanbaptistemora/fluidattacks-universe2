@@ -20,7 +20,7 @@ from typing import (
 )
 async def test_update_evidence(populate: bool, email: str) -> None:
     assert populate
-    finding_id: str = "475041513"
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     result: Dict[str, Any] = await get_result(user=email, draft=finding_id)
     assert "errors" not in result
     assert "success" in result["data"]["updateEvidence"]
@@ -37,7 +37,7 @@ async def test_update_evidence(populate: bool, email: str) -> None:
 )
 async def test_update_evidence_fail(populate: bool, email: str) -> None:
     assert populate
-    finding_id: str = "475041513"
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     result: Dict[str, Any] = await get_result(user=email, draft=finding_id)
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"

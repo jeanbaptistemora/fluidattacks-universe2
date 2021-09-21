@@ -13,7 +13,7 @@ from typing import (
 @pytest.mark.parametrize(
     ["email", "finding_id"],
     [
-        ["admin@gmail.com", "475041513"],
+        ["admin@gmail.com", "3c475384-834c-47b0-ac71-a41a022e401c"],
         ["reviewer@gmail.com", "475041520"],
     ],
 )
@@ -34,8 +34,8 @@ async def test_approve_draft(
 @pytest.mark.parametrize(
     ["email", "finding_id"],
     [
-        ["hacker@gmail.com", "475041513"],
-        ["reattacker@gmail.com", "475041513"],
+        ["hacker@gmail.com", "3c475384-834c-47b0-ac71-a41a022e401c"],
+        ["reattacker@gmail.com", "3c475384-834c-47b0-ac71-a41a022e401c"],
         ["executive@gmail.com", "475041520"],
     ],
 )

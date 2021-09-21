@@ -34,7 +34,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         "findings_new": [
             {
                 "finding": Finding(
-                    id="475041513",
+                    id="3c475384-834c-47b0-ac71-a41a022e401c",
                     group_name="group1",
                     state=FindingState(
                         modified_by="test1@gmail.com",
@@ -187,7 +187,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         ],
         "vulnerabilities": [
             {
-                "finding_id": "475041513",
+                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
                 "UUID": "be09edb7-cd5c-47ed-bee4-97c645acdce8",
                 "historic_state": [
                     {

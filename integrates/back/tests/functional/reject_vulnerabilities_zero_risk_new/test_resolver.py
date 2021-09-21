@@ -21,7 +21,7 @@ async def test_reject_vulnerabilities_zero_risk(
     populate: bool, email: str, vuln_id: str
 ) -> None:
     assert populate
-    finding_id: str = "475041513"
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     result: Dict[str, Any] = await get_result(
         user=email, finding=finding_id, vulnerability=vuln_id
     )
@@ -47,7 +47,7 @@ async def test_request_zero_risk_vuln_fail(
     populate: bool, email: str, vuln_id: str
 ) -> None:
     assert populate
-    finding_id: str = "475041513"
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     result: Dict[str, Any] = await get_result(
         user=email, finding=finding_id, vulnerability=vuln_id
     )

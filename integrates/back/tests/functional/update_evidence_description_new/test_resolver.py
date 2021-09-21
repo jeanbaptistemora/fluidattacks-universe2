@@ -20,7 +20,7 @@ from typing import (
 )
 async def test_update_evidence_description(populate: bool, email: str) -> None:
     assert populate
-    finding_id: str = "475041513"
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     description: str = "this is a test description"
     evidence_name: str = "EVIDENCE1"
     result: Dict[str, Any] = await get_result(
@@ -50,7 +50,7 @@ async def test_update_evidence_description_fail(
     populate: bool, email: str
 ) -> None:
     assert populate
-    finding_id: str = "475041513"
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     description: str = "this is a test description"
     evidence_name: str = "EVIDENCE1"
     result: Dict[str, Any] = await get_result(

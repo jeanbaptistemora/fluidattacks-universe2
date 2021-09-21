@@ -23,7 +23,7 @@ from typing import (
 @freeze_time("2021-03-31")
 async def test_get_finding(populate: bool, email: str) -> None:
     assert populate
-    identifier: str = "475041513"
+    identifier: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     group_name: str = "group1"
     historic_state = [
         {
@@ -103,7 +103,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
     lines_vulnerabilities: List[Any] = []
     open_vuln: str = "6401bc87-8633-4a4a-8d8e-7dae0ca57e6a"
     closed_vuln: str = "be09edb7-cd5c-47ed-bee4-97c645acdce8"
-    finding_id: str = "475041513"
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     title: str = "001. SQL injection - C Sharp SQL API"
     description: str = "I just have updated the description"
     requirements: str = (
@@ -189,7 +189,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
     assert len(result["data"]["finding"]["evidence"]) == 7
     assert (
         result["data"]["finding"]["evidence"]["evidence2"]["url"]
-        == "group1-475041513-evidence2"
+        == "group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence2"
     )
     assert (
         f"group1-{finding_id}"
@@ -266,7 +266,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
 @freeze_time("2021-03-31")
 async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert populate
-    identifier: str = "475041513"
+    identifier: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     group_name: str = "group1"
     release_date: str = "2018-04-07 19:45:11"
     severity: Dict[str, float] = {
@@ -314,7 +314,7 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     lines_vulnerabilities: List[Any] = []
     open_vuln: str = "6401bc87-8633-4a4a-8d8e-7dae0ca57e6a"
     closed_vuln: str = "be09edb7-cd5c-47ed-bee4-97c645acdce8"
-    finding_id: str = "475041513"
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     title: str = "001. SQL injection - C Sharp SQL API"
     description: str = "I just have updated the description"
     requirements: str = (
@@ -399,7 +399,7 @@ async def test_get_finding_fail(populate: bool, email: str) -> None:
     assert len(result["data"]["finding"]["evidence"]) == 7
     assert (
         result["data"]["finding"]["evidence"]["evidence2"]["url"]
-        == "group1-475041513-evidence2"
+        == "group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence2"
     )
     assert (
         f"group1-{finding_id}"

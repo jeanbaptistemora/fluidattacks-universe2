@@ -116,12 +116,12 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     evidences=FindingEvidences(
                         evidence1=FindingEvidence(
                             description="evidence1",
-                            url="group1-475041513-evidence1",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence1",
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
                         animation=FindingEvidence(
                             description="animation",
-                            url="group1-475041513-evidence1",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence1",
                             modified_date="2020-11-19T13:50:10+00:00",
                         ),
                     ),
@@ -197,12 +197,12 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     evidences=FindingEvidences(
                         evidence1=FindingEvidence(
                             description="evidence1",
-                            url="group1-475041513-evidence1",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence1",
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
                         evidence2=FindingEvidence(
                             description="evidence2",
-                            url="group1-475041513-evidence1",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence1",
                             modified_date="2020-11-19T13:50:10+00:00",
                         ),
                     ),
@@ -285,7 +285,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     evidences=FindingEvidences(
                         evidence1=FindingEvidence(
                             description="evidence1",
-                            url="group1-475041513-evidence1",
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence1",
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
                     ),

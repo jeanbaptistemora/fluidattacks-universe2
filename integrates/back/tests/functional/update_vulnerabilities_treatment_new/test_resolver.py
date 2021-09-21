@@ -41,7 +41,7 @@ async def test_update_vulnerabilities_treatment(
     treatment: str,
 ) -> None:
     assert populate
-    finding_id: str = "475041513"
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     result: Dict[str, Any] = await get_result(
         user=email,
         finding=finding_id,
@@ -82,7 +82,7 @@ async def test_update_vulnerabilities_treatment_fail(
     treatment: str,
 ) -> None:
     assert populate
-    finding_id: str = "475041513"
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     result: Dict[str, Any] = await get_result(
         user=email,
         finding=finding_id,
