@@ -22,7 +22,7 @@ from utils.graph.transformation import (
 )
 
 
-def csharp_verify_decoder(
+def verify_decoder(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:
@@ -75,7 +75,7 @@ def csharp_verify_decoder(
     )
 
 
-def csharp_jwt_signed(
+def jwt_signed(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     object_name = {"JwtBuilder"}
@@ -112,7 +112,3 @@ def csharp_jwt_signed(
 
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F017
-QUERIES: graph_model.Queries = (
-    (FINDING, csharp_verify_decoder),
-    (FINDING, csharp_jwt_signed),
-)
