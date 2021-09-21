@@ -17,11 +17,11 @@ from training.redshift import (
 )
 
 
-def backup_dataset(dataset_filename: str, backup_filename: str) -> None:
+def copy_dataset(dataset_filename: str, dataset_copy_filename: str) -> None:
     """Makes a copy of current dataset before generating the new one"""
     S3_BUCKET.copy(
         {"Bucket": S3_BUCKET.name, "Key": f"training/{dataset_filename}"},
-        f"training/{backup_filename}",
+        f"training/{dataset_copy_filename}",
     )
 
 
@@ -38,7 +38,7 @@ def main() -> None:
         remote_merged_file: str = f"training/{merged_filename}"
 
         # Save current versions as prev one
-        backup_dataset(merged_filename, backup_filename)
+        copy_dataset(merged_filename, backup_filename)
 
         # Merge groups features
         merged_features: DataFrame = pd.DataFrame()
@@ -65,13 +65,8 @@ def main() -> None:
         n_rows = len(merged_features.index)
         if n_rows < DATASET_THRESHOLD * 1000:
             # Replace just generated dataset by its backup
-            S3_BUCKET.copy(
-                {
-                    "Bucket": S3_BUCKET.name,
-                    "Key": f"training/{backup_filename}",
-                },
-                f"training/{merged_filename}",
-            )
+            copy_dataset(backup_filename, merged_filename)
+
         redshift.insert("dataset", {"n_rows": n_rows})
         print(
             "[INFO]: Our current dataset has a total number of "
