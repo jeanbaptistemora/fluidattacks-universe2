@@ -1,6 +1,9 @@
 from db_model.findings.enums import (
     FindingSorts,
 )
+from db_model.findings.types import (
+    Finding31Severity,
+)
 from typing import (
     NamedTuple,
     Optional,
@@ -25,5 +28,6 @@ class FindingDraftToAdd(NamedTuple):
     hacker_email: str
     recommendation: str
     requirements: str
-    title: str
+    severity: Finding31Severity
     threat: str
+    title: str

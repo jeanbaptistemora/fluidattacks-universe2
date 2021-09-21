@@ -225,6 +225,7 @@ async def add_draft_new(
         ),
         recommendation=draft_info.recommendation,
         requirements=draft_info.requirements,
+        severity=draft_info.severity,
         title=draft_info.title,
         threat=draft_info.threat,
     )
