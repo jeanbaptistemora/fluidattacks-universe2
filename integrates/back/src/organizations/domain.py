@@ -185,6 +185,7 @@ async def add_group(organization_id: str, group: str) -> bool:
 
 
 async def add_user(organization_id: str, email: str, role: str) -> bool:
+    # Check for system owner granting requirements
     validate_role_fluid_reqs(email, role)
     success = await orgs_dal.add_user(
         organization_id, email

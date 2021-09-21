@@ -2,6 +2,9 @@ from aioextensions import (
     collect,
 )
 import authz
+from authz.validations import (
+    validate_role_fluid_reqs,
+)
 from custom_exceptions import (
     ExpiredToken,
     InvalidExpirationTime,
@@ -410,6 +413,7 @@ async def update_invited_stakeholder(
             group_name, email, role
         )
     ):
+        validate_role_fluid_reqs(email, role)
         new_invitation["phone_number"] = phone_number
         new_invitation["responsibility"] = responsibility
         new_invitation["role"] = role

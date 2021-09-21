@@ -1,6 +1,9 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from authz.validations import (
+    validate_role_fluid_reqs,
+)
 from custom_exceptions import (
     UserNotInOrganization,
 )
@@ -57,6 +60,8 @@ async def mutate(
     new_role: str = map_roles(str(parameters.get("role")).lower())
     new_phone_number: str = parameters.get("phone_number", "")
 
+    # Validate role requirements before changing anything
+    validate_role_fluid_reqs(user_email, new_role)
     if not await orgs_domain.has_user_access(organization_id, user_email):
         logs_utils.cloudwatch_log(
             info.context,

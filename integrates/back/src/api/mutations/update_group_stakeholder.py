@@ -2,6 +2,9 @@ from ariadne import (
     convert_kwargs_to_snake_case,
 )
 import authz
+from authz.validations import (
+    validate_role_fluid_reqs,
+)
 from custom_exceptions import (
     StakeholderNotFound,
 )
@@ -62,6 +65,8 @@ async def _update_stakeholder(
     group_access = await group_access_domain.get_user_access(
         modified_email, group_name
     )
+    # Validate role requirements before changing anything
+    validate_role_fluid_reqs(modified_email, modified_role)
     if group_access:
         invitation = cast(InvitationType, group_access.get("invitation"))
         if invitation and not invitation["is_used"]:
