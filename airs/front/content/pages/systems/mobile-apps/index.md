@@ -4,7 +4,7 @@ title: Mobile Applications
 description: Mobile applications are among the systems that we at Fluid Attacks help you evaluate to detect security vulnerabilities that you can subsequently remediate.
 keywords: Fluid Attacks, Mobile, Application, Continuous Hacking, Security, System, Ethical Hacking, Pentesting
 banner: bg-systems
-template: mdCompliance
+template: compliance
 ---
 
 <div class="paragraph fw3 f3 lh-2">

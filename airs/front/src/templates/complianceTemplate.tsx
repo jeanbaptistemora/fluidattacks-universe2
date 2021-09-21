@@ -25,7 +25,7 @@ import {
 } from "../styles/styledComponents";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
-const MdComplianceIndex: React.FC<IQueryData> = ({
+const ComplianceIndex: React.FC<IQueryData> = ({
   data,
   pageContext,
 }: IQueryData): JSX.Element => {
@@ -80,10 +80,10 @@ const MdComplianceIndex: React.FC<IQueryData> = ({
   );
 };
 
-export default MdComplianceIndex;
+export default ComplianceIndex;
 
 export const query: void = graphql`
-  query MdComplianceIndex($slug: String!) {
+  query ComplianceIndex($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       fields {

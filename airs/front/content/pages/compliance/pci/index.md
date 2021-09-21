@@ -5,7 +5,7 @@ category: compliance
 description: At Fluid Attacks, through comprehensive analysis, we can help you comply with a variety of security standards for information technology, including PCI.
 keywords: Fluid Attacks, PCI SSC, PCI DSS, Continuous Hacking, Security, Standards, Ethical Hacking, Pentesting
 banner: bg-compliance-internal
-template: mdCompliance
+template: compliance
 ---
 
 <div class="sect2 fw3 f3 lh-2">
