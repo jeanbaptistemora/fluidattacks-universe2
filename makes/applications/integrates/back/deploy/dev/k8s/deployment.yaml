@@ -84,13 +84,12 @@ spec:
             - secretRef:
                 name: integrates-${CI_COMMIT_REF_NAME}
         - name: cache
-          image: nixos/nix@sha256:d9bb3b85b846eb0b6c5204e0d76639dff72c7871fb68f5d4edcfbb727f8a5653
+          image: ghcr.io/fluidattacks/makes:21.10
           imagePullPolicy: Always
-          command: [sh]
+          command: [m]
           args:
-            - -c
-            - wget -O - fluidattacks.com/install/integrates-cache | sh /dev/stdin "${CI_COMMIT_SHA}" &&
-              integrates-cache
+            - gitlab:fluidattacks/product@${CI_COMMIT_REF_NAME}
+            - /legacy/integrates-cache
           resources:
             requests:
               cpu: 600m
@@ -98,6 +97,9 @@ spec:
             limits:
               cpu: 4000m
               memory: 3000Mi
+          env:
+            - name: K8S_COMPAT
+              value: sure, let's do it
           envFrom:
             - secretRef:
                 name: integrates-${CI_COMMIT_REF_NAME}

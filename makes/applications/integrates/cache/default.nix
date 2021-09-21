@@ -1,18 +1,17 @@
-{ nixpkgs
-, makeEntrypoint
+{ makes
+, nixpkgs
 , packages
-, path
 , ...
 }:
-makeEntrypoint {
+makes.makeScript {
   name = "integrates-cache";
   searchPaths = {
-    envPaths = [
+    bin = [
       nixpkgs.redis
       packages.makes.done
       packages.makes.kill-port
       packages.makes.wait
     ];
   };
-  template = path "/makes/applications/integrates/cache/entrypoint.sh";
+  entrypoint = ./entrypoint.sh;
 }
