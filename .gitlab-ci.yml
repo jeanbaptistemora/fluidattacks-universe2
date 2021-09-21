@@ -174,20 +174,6 @@ makes.test.instantiate:
     - nix-instantiate .
   stage: test-code
 
-makes.test.profiles:
-  <<: *makes
-  <<: *common_in_dev_branch
-  <<: *nix_get_pkgs
-  script:
-    - nix-env -i curl
-    - for profile in forces hacker melts reviews skims sorts;
-      do
-        bash <(curl -L "gitlab.com/fluidattacks/product/-/raw/${CI_COMMIT_REF_NAME}/makes/profiles/${profile}.sh") "${CI_COMMIT_REF_NAME}" &&
-        bash <(curl -L "fluidattacks.com/install/${profile}") ||
-        exit 1;
-      done
-  stage: test-code
-
 common_forces:
   <<: *common_in_master_branch
   stage: post-deploy

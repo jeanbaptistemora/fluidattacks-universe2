@@ -1,12 +1,11 @@
-{ makeEntrypoint
+{ makes
 , packages
-, path
 , ...
 }:
-makeEntrypoint {
+makes.makeScript {
   name = "melts";
   searchPaths = {
-    envSources = [ packages.melts.config-runtime ];
+    source = [ packages.melts.config-runtime ];
   };
-  template = path "/makes/applications/melts/entrypoint.sh";
+  entrypoint = ./entrypoint.sh;
 }
