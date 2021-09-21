@@ -17,6 +17,7 @@ const GET_FINDING_DESCRIPTION: DocumentNode = gql`
       id
       openVulnerabilities
       recommendation
+      releaseDate
       requirements
       sorts @include(if: $canRetrieveSorts)
       state
@@ -46,6 +47,7 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
     $recommendation: String!
     $sorts: Sorts!
     $threat: String!
+    $title: String!
   ) {
     updateDescription(
       affectedSystems: $affectedSystems
@@ -57,6 +59,7 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
       recordsNumber: $compromisedRecords
       sorts: $sorts
       threat: $threat
+      title: $title
     ) {
       success
     }

@@ -119,6 +119,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
   }
 
   const dataset: IFinding = data.finding;
+  const isDraft: boolean = _.isEmpty(data.finding.releaseDate);
 
   return (
     <React.StrictMode>
@@ -131,6 +132,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
         <DescriptionViewForm
           data={data}
           groupLanguage={groupData?.group.language}
+          isDraft={isDraft}
           isEditing={isEditing}
           setEditing={setEditing}
         />

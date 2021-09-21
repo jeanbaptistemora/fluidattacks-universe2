@@ -15,6 +15,7 @@ import type {
   IRequirementData,
   IVulnData,
 } from "scenes/Dashboard/containers/GroupDraftsView/types";
+import { validateNotEmpty } from "scenes/Dashboard/containers/GroupDraftsView/utils";
 import {
   Col100,
   Col45,
@@ -25,6 +26,7 @@ import {
 import { Can } from "utils/authz/Can";
 import {
   EditableField,
+  FormikAutocompleteText,
   FormikDropdown,
   FormikTextArea,
 } from "utils/forms/fields";
@@ -33,6 +35,8 @@ import {
   composeValidators,
   maxLength,
   required,
+  validDraftTitle,
+  validFindingTypology,
   validTextField,
 } from "utils/validations";
 
@@ -55,6 +59,7 @@ const maxRecommendationLength: ConfigurableValidator = maxLength(
 
 interface IDescriptionViewFormProps {
   data: IFindingDescriptionData | undefined;
+  isDraft: boolean;
   isEditing: boolean;
   groupLanguage: string | undefined;
   setEditing: React.Dispatch<React.SetStateAction<boolean>>;
@@ -62,6 +67,7 @@ interface IDescriptionViewFormProps {
 
 const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
   data,
+  isDraft,
   isEditing,
   groupLanguage,
   setEditing,
@@ -77,6 +83,7 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
   const baseCriteriaUrl: string = "https://docs.fluidattacks.com/criteria/";
 
   const [reqsList, setReqsList] = useState<string[]>([]);
+  const [titleSuggestions, setTitleSuggestions] = useState<string[]>([]);
 
   const toggleEdit: () => void = useCallback((): void => {
     if (!isDescriptionPristine) {
@@ -145,6 +152,12 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
         setReqsList(
           getRequirementsText(requirements, groupLanguage, requirementsData)
         );
+        const titlesList = Object.keys(vulnsData).map((key: string): string => {
+          return groupLanguage === "ES"
+            ? `${key}. ${validateNotEmpty(vulnsData[key].es.title)}`
+            : `${key}. ${validateNotEmpty(vulnsData[key].en.title)}`;
+        });
+        setTitleSuggestions(titlesList);
       }
     }
     void fetchData();
@@ -155,6 +168,9 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
   }
 
   const dataset: IFinding = data.finding;
+
+  const validateFindingTypology: ConfigurableValidator =
+    validFindingTypology(titleSuggestions);
 
   return (
     <Form id={"editDescription"}>
@@ -180,7 +196,7 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
             </Can>
           </Row>
           <Can do={"api_mutations_update_finding_description_mutate"}>
-            {isEditing ? (
+            {isEditing && isDraft ? (
               <Row>
                 <Col100>
                   <TooltipWrapper
@@ -197,7 +213,18 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                           )}
                         </b>
                       </ControlLabel>
-                      <p className={"ma0"}>{dataset.title}</p>
+                      <br />
+                      <Field
+                        component={FormikAutocompleteText}
+                        name={"title"}
+                        suggestions={_.sortBy(titleSuggestions)}
+                        type={"text"}
+                        validate={composeValidators([
+                          required,
+                          validDraftTitle,
+                          validateFindingTypology,
+                        ])}
+                      />
                     </FormGroup>
                   </TooltipWrapper>
                 </Col100>
