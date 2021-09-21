@@ -7,7 +7,7 @@ from sast.query import (
 )
 
 
-def csharp_conflicting_annotations(
+def conflicting_annotations(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> graph_model.GraphShardNodes:
@@ -37,4 +37,3 @@ def csharp_conflicting_annotations(
 
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F366
-QUERIES: graph_model.Queries = ((FINDING, csharp_conflicting_annotations),)
