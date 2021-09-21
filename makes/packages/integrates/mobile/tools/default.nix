@@ -1,13 +1,10 @@
-{ makeTemplate
+{ makes
 , packages
-, path
 , ...
 }:
-makeTemplate {
-  arguments = {
-    envMobileToolsBundler = packages.integrates.mobile.tools.bundler;
-    envMobileToolsFastlane = packages.integrates.mobile.tools.fastlane;
-  };
-  name = "integrates-mobile-tools";
-  template = path "/makes/packages/integrates/mobile/tools/template.sh";
+makes.makeSearchPaths {
+  source = [
+    packages.integrates.mobile.tools.bundler
+    packages.integrates.mobile.tools.fastlane
+  ];
 }
