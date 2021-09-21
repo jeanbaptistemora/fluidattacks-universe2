@@ -7,6 +7,7 @@ from .enforcer import (
 )
 from custom_exceptions import (
     InvalidCommentParent,
+    InvalidUserProvided,
     PermissionDenied,
     UnexpectedUserRole,
 )
@@ -59,3 +60,14 @@ async def validate_handle_comment_scope(
             raise PermissionDenied()
         if parent == "0":
             raise InvalidCommentParent()
+
+
+def validate_role_fluid_reqs(email: str, role: str) -> bool:
+    """Validates that new users belong to Fluid Attacks before granting them
+    a restricted role"""
+    restricted_roles = {"system_owner", "group_manager"}
+    if role not in restricted_roles or (
+        role in restricted_roles and email.endswith(FLUIDATTACKS_EMAIL_SUFFIX)
+    ):
+        return True
+    raise InvalidUserProvided(role)

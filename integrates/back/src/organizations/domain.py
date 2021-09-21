@@ -2,6 +2,9 @@ from aioextensions import (
     collect,
 )
 import authz
+from authz.validations import (
+    validate_role_fluid_reqs,
+)
 from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
@@ -182,6 +185,7 @@ async def add_group(organization_id: str, group: str) -> bool:
 
 
 async def add_user(organization_id: str, email: str, role: str) -> bool:
+    validate_role_fluid_reqs(email, role)
     success = await orgs_dal.add_user(
         organization_id, email
     ) and await authz.grant_organization_level_role(

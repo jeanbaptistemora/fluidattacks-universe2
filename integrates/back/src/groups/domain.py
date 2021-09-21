@@ -8,6 +8,9 @@ from aioextensions import (
     schedule,
 )
 import authz
+from authz.validations import (
+    validate_role_fluid_reqs,
+)
 import bugsnag
 from collections import (
     Counter,
@@ -1269,6 +1272,8 @@ async def invite_to_group(
             group_name, email, role
         )
     ):
+        # Extra validation here to satisfy the linter
+        validate_role_fluid_reqs(email, role)
         expiration_time = datetime_utils.get_as_epoch(
             datetime_utils.get_now_plus_delta(weeks=1)
         )

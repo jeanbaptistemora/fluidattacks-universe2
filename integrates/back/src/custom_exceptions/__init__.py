@@ -619,6 +619,16 @@ class InvalidTreatmentManager(CustomBaseException):
         super(InvalidTreatmentManager, self).__init__(msg)
 
 
+class InvalidUserProvided(CustomBaseException):
+    """Exception to control that users belong to Fluid Attacks before they're
+    granted a restricted role"""
+
+    def __init__(self, role: str) -> None:
+        """Constructor"""
+        msg = f"Only Fluid Attacks users can be {role}s"
+        super(InvalidUserProvided, self).__init__(f"Exception - {msg}")
+
+
 class InvalidVulnsNumber(CustomBaseException):
     """Exception to control number of vulnerabilities provided to upload."""
 

@@ -8,6 +8,7 @@ from custom_exceptions import (
     InvalidAcceptanceSeverityRange,
     InvalidNumberAcceptations,
     InvalidOrganization,
+    InvalidUserProvided,
     UserNotInOrganization,
 )
 from dataloaders import (
@@ -54,9 +55,30 @@ async def test_add_group() -> None:
 
 
 @pytest.mark.changes_db
-async def test_add_user() -> None:
+async def test_add_system_owner_fail() -> None:
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
     user = "org_testgroupmanager2@gmail.com"
+    assert not await orgs_domain.has_user_access(org_id, user)
+
+    try:
+        await orgs_domain.add_user(org_id, user, "system_owner")
+    except InvalidUserProvided as ex:
+        assert (
+            str(ex)
+            == "Exception - Only Fluid Attacks users can be system_owners"
+        )
+
+    groups = await orgs_domain.get_groups(org_id)
+    groups_users = await collect(
+        group_access_domain.get_group_users(group) for group in groups
+    )
+    assert all([user not in group_users for group_users in groups_users])
+
+
+@pytest.mark.changes_db
+async def test_add_system_owner_good() -> None:
+    org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+    user = "org_testgroupmanager2@fluidattacks.com"
     assert not await orgs_domain.has_user_access(org_id, user)
 
     await orgs_domain.add_user(org_id, user, "system_owner")
