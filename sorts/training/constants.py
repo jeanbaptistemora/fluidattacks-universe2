@@ -38,6 +38,9 @@ from typing import (
     Union,
 )
 
+# Threshold defining the minimum elements that our dataset must have (*1000)
+DATASET_THRESHOLD: int = 45
+
 # AWS-related
 S3_BUCKET_NAME: str = "sorts"
 S3_RESOURCE = boto3.resource("s3")
