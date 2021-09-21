@@ -7,7 +7,7 @@ from paginator.int_index import (
     PageOrAll,
     PageRange,
 )
-from paginator.pages import (
+from paginator.v2 import (
     AllPages,
     Limits,
 )

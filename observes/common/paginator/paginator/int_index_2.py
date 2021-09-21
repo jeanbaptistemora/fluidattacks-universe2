@@ -9,7 +9,7 @@ import asyncio
 from asyncio.events import (
     AbstractEventLoop,
 )
-from paginator.pages import (
+from paginator.v2._core import (
     DEFAULT_LIMITS,
     Limits,
     PageGetter,
@@ -20,7 +20,6 @@ from returns.maybe import (
 )
 from typing import (
     AsyncGenerator,
-    Callable,
     cast,
     Iterator,
     NamedTuple,

@@ -1,4 +1,4 @@
-from paginator.v2 import (
+from paginator.v2._core import (
     AllPages,
     DEFAULT_LIMITS,
     Limits,
@@ -8,9 +8,6 @@ from paginator.v2 import (
     PageOrAll,
     PageResult,
 )
-import warnings
-
-warnings.warn("use paginator.v2 instead", DeprecationWarning, stacklevel=2)
 
 __all__ = [
     "AllPages",
