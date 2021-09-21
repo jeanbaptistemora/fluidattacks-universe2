@@ -37,7 +37,6 @@ const Execution: React.FC<IExecution> = (
   const { loading, data } = useQuery(GET_FORCES_EXECUTION, {
     skip: isOld,
     variables: {
-      // eslint-disable-next-line camelcase -- API related
       executionId,
       groupName,
     },
