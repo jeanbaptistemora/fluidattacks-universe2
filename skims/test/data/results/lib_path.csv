@@ -6391,6 +6391,75 @@ F073,lines,namespace/skims/test/data/lib_root/f073/kotlin.kt,20,478,skims,073. C
   30 |             print(""Default case 2"")
      ^ Col 0
 "
+F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,11,502,skims,096. Insecure deserialization,"Insecure deserialization
+","
+   1 | ime.Serialization.Formatters.Binary;
+   2 | UI;
+   3 | lers
+   4 |
+   5 | Encrypt
+   6 |
+   7 | atic void Process(string secret)
+   8 |
+   9 | ac_false = false;
+  10 | ac_true = true;
+> 11 | yFormatter formatter_vuln1 = new BinaryFormatter();
+  12 | rmatter formatter_secure1 = new LosFormatter(true, secret);
+  13 | rmatter formatter_vuln2 = new LosFormatter(false, secret);
+  14 | rmatter formatter_secure2 = new LosFormatter(mac_true, secret);
+  15 | rmatter formatter_vuln3 = new LosFormatter(mac_false, secret);
+  16 |
+  17 |
+  18 |
+  19 |
+     ^ Col 17
+"
+F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,15,502,skims,096. Insecure deserialization,"Insecure deserialization
+","
+   1 | untime.Serialization.Formatters.Binary;
+   2 | eb.UI;
+   3 | rollers
+   4 |
+   5 | ss Encrypt
+   6 |
+   7 |  static void Process(string secret)
+   8 |
+   9 | r mac_false = false;
+  10 | r mac_true = true;
+  11 | naryFormatter formatter_vuln1 = new BinaryFormatter();
+  12 | sFormatter formatter_secure1 = new LosFormatter(true, secret);
+  13 | sFormatter formatter_vuln2 = new LosFormatter(false, secret);
+  14 | sFormatter formatter_secure2 = new LosFormatter(mac_true, secret);
+> 15 | sFormatter formatter_vuln3 = new LosFormatter(mac_false, secret);
+  16 |
+  17 |
+  18 |
+  19 |
+     ^ Col 14
+"
+F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,13,502,skims,096. Insecure deserialization,"Insecure deserialization
+","
+   1 | untime.Serialization.Formatters.Binary;
+   2 | eb.UI;
+   3 | rollers
+   4 |
+   5 | ss Encrypt
+   6 |
+   7 |  static void Process(string secret)
+   8 |
+   9 | r mac_false = false;
+  10 | r mac_true = true;
+  11 | naryFormatter formatter_vuln1 = new BinaryFormatter();
+  12 | sFormatter formatter_secure1 = new LosFormatter(true, secret);
+> 13 | sFormatter formatter_vuln2 = new LosFormatter(false, secret);
+  14 | sFormatter formatter_secure2 = new LosFormatter(mac_true, secret);
+  15 | sFormatter formatter_vuln3 = new LosFormatter(mac_false, secret);
+  16 |
+  17 |
+  18 |
+  19 |
+     ^ Col 14
+"
 F035,lines,namespace/skims/test/data/lib_root/f035/test_db.cs,12,521,skims,035. Weak credential policy,"The system credential policy is not compliant with security regulations.
 ","
    1 | namespace Controllers
