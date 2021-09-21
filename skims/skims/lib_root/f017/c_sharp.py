@@ -43,28 +43,35 @@ def verify_decoder(
                 if method == "decoder.Decode":
                     pred = g.pred(shard.graph, member)[0]
                     props = g.get_ast_childs(
-                        shard.graph, pred, depth=4, label_type="identifier"
+                        shard.graph, pred, depth=4, label_type="argument"
                     )
-                    if not verify_prop(shard.graph, props):
+                    if len(props) > 2 and verify_prop(shard.graph, props):
                         yield shard, member
 
     def verify_prop(
         graph: graph_model.GraphShard, props: Tuple[Any, ...]
     ) -> bool:
-        prop_value = False
-        for prop in props:
-            if graph.nodes[prop].get("label_text") == "verify":
-                arg = g.pred(
-                    graph,
-                    prop,
-                    depth=2,
-                )[1]
-                arg_value = g.get_ast_childs(
-                    graph, arg, label_type="boolean_literal"
-                )
-                if graph.nodes[arg_value[0]].get("label_text") == "true":
-                    prop_value = True
-        return prop_value
+        insecure = False
+        prop_value = g.match_ast(graph, props[2])["__0__"]
+        if graph.nodes[prop_value].get("label_text") == "false":
+            insecure = True
+        elif (
+            g.match_ast(graph, prop_value)
+            and graph.nodes[g.match_ast(graph, prop_value)["__0__"]].get(
+                "label_text"
+            )
+            == "verify"
+        ):
+            arg = g.pred(
+                graph,
+                prop_value,
+            )[0]
+            arg_value = g.get_ast_childs(
+                graph, arg, label_type="boolean_literal"
+            )
+            if graph.nodes[arg_value[0]].get("label_text") == "false":
+                insecure = True
+        return insecure
 
     return get_vulnerabilities_from_n_ids(
         cwe=("319",),

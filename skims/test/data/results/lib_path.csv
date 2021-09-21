@@ -5085,6 +5085,25 @@ F080,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_unencrypted_buckets.
   21 |   }
      ^ Col 0
 "
+F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,10,319,skims,017. Sensitive information sent insecurely,"Sensitive information sent insecurely
+","
+   1 | using System;
+   2 | class jwtbuild {
+   3 |
+   4 |    public static void Main() {
+   5 |
+   6 |       var insecure_decode = decoder.Decode(token, secret, verify: false);
+   7 |
+   8 |       var secure_decode = decoder.Decode(token, secret, verify: true);
+   9 |
+> 10 |       var insecure_decode2 = decoder.Decode(token, secret, false);
+  11 |
+  12 |       var secure_decode2 = decoder.Decode(token, secret, true);
+  13 |
+  14 |    }
+  15 | }
+     ^ Col 0
+"
 F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,6,319,skims,017. Sensitive information sent insecurely,"Sensitive information sent insecurely
 ","
    1 | using System;
@@ -5108,6 +5127,25 @@ F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,6,319,skims,017. Sens
   19 |       var json = JwtBuilder.Create()
   20 |          .WithAlgorithm(new HMACSHA256Algorithm())
   21 |          .WithSecret(secret)
+     ^ Col 0
+"
+F017,lines,namespace/skims/test/data/lib_root/f017/decoder_test.cs,6,319,skims,017. Sensitive information sent insecurely,"Sensitive information sent insecurely
+","
+   1 | using System;
+   2 | class jwtbuild {
+   3 |
+   4 |    public static void Main() {
+   5 |
+>  6 |       var insecure_decode = decoder.Decode(token, secret, verify: false);
+   7 |
+   8 |       var secure_decode = decoder.Decode(token, secret, verify: true);
+   9 |
+  10 |       var insecure_decode2 = decoder.Decode(token, secret, false);
+  11 |
+  12 |       var secure_decode2 = decoder.Decode(token, secret, true);
+  13 |
+  14 |    }
+  15 | }
      ^ Col 0
 "
 F017,lines,namespace/skims/test/data/lib_root/f017/test.cs,15,319,skims,017. Sensitive information sent insecurely,"Sensitive information sent insecurely
