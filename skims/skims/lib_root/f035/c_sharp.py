@@ -18,7 +18,7 @@ from typing import (
 
 
 # https://docs.microsoft.com/es-es/aspnet/core/security/authentication/identity-configuration
-def csharp_weak_credential_policy(
+def weak_credential_policy(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def find_vulns() -> Iterator[core_model.Vulnerabilities]:
@@ -67,4 +67,3 @@ def csharp_weak_credential_policy(
 
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F035
-QUERIES: graph_model.Queries = ((FINDING, csharp_weak_credential_policy),)
