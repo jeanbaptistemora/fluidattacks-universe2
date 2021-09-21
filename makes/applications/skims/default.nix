@@ -1,12 +1,11 @@
-{ makeEntrypoint
+{ makes
 , packages
-, path
 , ...
 }:
-makeEntrypoint {
+makes.makeScript {
   name = "skims";
+  entrypoint = ./entrypoint.sh;
   searchPaths = {
-    envSources = [ packages.skims.config-runtime ];
+    source = [ packages.skims.config-runtime ];
   };
-  template = path "/makes/applications/skims/entrypoint.sh";
 }
