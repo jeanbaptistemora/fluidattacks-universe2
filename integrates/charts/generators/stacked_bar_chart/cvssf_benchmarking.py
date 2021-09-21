@@ -221,6 +221,11 @@ def format_data(
                 "Open": RISK.more_agressive,
             },
             type="bar",
+            labels=dict(
+                format=dict(
+                    Closed=None,
+                ),
+            ),
             groups=[
                 [
                     "Closed",
@@ -268,6 +273,11 @@ def format_data(
             ),
         ),
         normalizedToolTip=True,
+        totalBar=[
+            organization.closed + organization.accepted + organization.open,
+            mean_cvssf.closed + mean_cvssf.accepted + mean_cvssf.open,
+            best_cvssf.closed + best_cvssf.accepted + best_cvssf.open,
+        ],
     )
 
 
