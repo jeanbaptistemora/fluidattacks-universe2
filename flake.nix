@@ -97,7 +97,6 @@
         ];
 
         # Makes utilities
-        buildRubyRequirement = importUtility "build-ruby-requirement";
         computeOnAws = importUtility "compute-on-aws";
         fetchurl = nixpkgs.fetchurl;
         fetchzip = nixpkgs.fetchzip;
