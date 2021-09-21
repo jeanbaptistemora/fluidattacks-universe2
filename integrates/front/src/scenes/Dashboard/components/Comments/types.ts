@@ -1,8 +1,7 @@
 interface ICommentStructure {
   content: string;
   created: string;
-  // eslint-disable-next-line camelcase -- It is possibly required for the API
-  created_by_current_user: boolean;
+  createdByCurrentUser: boolean;
   email: string;
   fullName: string;
   id: number;

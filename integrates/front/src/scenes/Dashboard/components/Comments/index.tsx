@@ -81,8 +81,7 @@ const Comments: React.FC<ICommentsProps> = (
         {
           content: editorText,
           created: getFormattedTime(),
-          // eslint-disable-next-line camelcase  -- Name required by the API
-          created_by_current_user: true,
+          createdByCurrentUser: true,
           email: userEmail,
           fullName: userName,
           id: 0,

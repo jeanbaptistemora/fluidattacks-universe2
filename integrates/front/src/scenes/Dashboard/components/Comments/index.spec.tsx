@@ -17,7 +17,7 @@ describe("Comments section", (): void => {
   const mockComment: ICommentStructure = {
     content: "Hello world",
     created: "2021/04/20 00:00:01",
-    created_by_current_user: true, // eslint-disable-line camelcase
+    createdByCurrentUser: true,
     email: "unittest@fluidattacks.com",
     fullName: "Test User",
     id: 1337260012345,

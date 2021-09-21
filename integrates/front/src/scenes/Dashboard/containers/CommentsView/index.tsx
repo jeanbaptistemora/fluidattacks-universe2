@@ -80,8 +80,7 @@ const CommentsView: React.FC = (): JSX.Element => {
           comments.map(
             (comment: ICommentStructure): ICommentStructure => ({
               ...comment,
-              // eslint-disable-next-line camelcase -- It is possibly required for the API
-              created_by_current_user: comment.email === userEmail,
+              createdByCurrentUser: comment.email === userEmail,
               id: Number(comment.id),
               parent: Number(comment.parent),
             })

@@ -70,8 +70,7 @@ const GroupConsultingView: React.FC = (): JSX.Element => {
           data.group.consulting.map(
             (consult: ICommentStructure): ICommentStructure => ({
               ...consult,
-              // eslint-disable-next-line camelcase -- It is possibly required for the API
-              created_by_current_user: consult.email === userEmail,
+              createdByCurrentUser: consult.email === userEmail,
               id: Number(consult.id),
               parent: Number(consult.parent),
             })
