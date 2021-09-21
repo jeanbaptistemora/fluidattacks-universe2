@@ -8,6 +8,10 @@ from paginator.v2._core import (
     PageOrAll,
     PageResult,
 )
+from paginator.v2._int_index import (
+    IntIndexGetter,
+    PageRange,
+)
 
 __all__ = [
     "AllPages",
@@ -18,4 +22,6 @@ __all__ = [
     "PageResult",
     "PageGetter",
     "PageGetterIO",
+    "PageRange",
+    "IntIndexGetter",
 ]
