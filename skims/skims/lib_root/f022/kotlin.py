@@ -8,7 +8,6 @@ from model.core_model import (
 from model.graph_model import (
     GraphDB,
     GraphShardNodes,
-    Queries,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
@@ -60,7 +59,7 @@ def _kotlin_yield_unencrypted_channels(graph_db: GraphDB) -> GraphShardNodes:
                     yield shard, param_id
 
 
-def kotlin_unencrypted_channel(graph_db: GraphDB) -> Vulnerabilities:
+def unencrypted_channel(graph_db: GraphDB) -> Vulnerabilities:
     return get_vulnerabilities_from_n_ids(
         cwe=("319"),
         desc_key="src.lib_path.f022.unencrypted_channel",
@@ -72,4 +71,3 @@ def kotlin_unencrypted_channel(graph_db: GraphDB) -> Vulnerabilities:
 
 # Constants
 FINDING: FindingEnum = FindingEnum.F022
-QUERIES: Queries = ((FINDING, kotlin_unencrypted_channel),)
