@@ -77,18 +77,20 @@ async def mutate(
 ) -> SimplePayload:
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
+    group_name: str = kwargs["group_name"].lower()
+    root_id: str = kwargs["id"]
+    target_group: str = kwargs["target_group"].lower()
 
     await _move_root(
         info.context.loaders,
         user_email,
-        kwargs["group_name"],
-        kwargs["id"],
-        kwargs["target_group"],
+        group_name,
+        root_id,
+        target_group,
     )
     logs_utils.cloudwatch_log(
         info.context,
-        f'Security: Moved a root from {kwargs["group_name"].lower()} to '
-        f'{kwargs["target_group"].lower()}',
+        f"Security: Moved a root from {group_name} to {target_group}",
     )
 
     return SimplePayload(success=True)

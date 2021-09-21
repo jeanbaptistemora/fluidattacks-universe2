@@ -1,6 +1,3 @@
-from aiodataloader import (
-    DataLoader,
-)
 import authz
 from custom_exceptions import (
     HasOpenVulns,
@@ -156,7 +153,12 @@ def _format_git_repo_url(raw_url: str) -> str:
     return unquote(url).rstrip(" /")
 
 
-async def add_git_root(loaders: Any, user_email: str, **kwargs: Any) -> None:
+async def add_git_root(
+    loaders: Any,
+    user_email: str,
+    ensure_org_uniqueness: bool = True,
+    **kwargs: Any,
+) -> None:
     group_name: str = kwargs["group_name"].lower()
     url: str = _format_git_repo_url(kwargs["url"])
     branch: str = kwargs["branch"].rstrip()
@@ -182,7 +184,7 @@ async def add_git_root(loaders: Any, user_email: str, **kwargs: Any) -> None:
         raise InvalidParameter()
 
     group = await loaders.group.load(group_name)
-    if not validations.is_git_unique(
+    if ensure_org_uniqueness and not validations.is_git_unique(
         url,
         branch,
         await get_org_roots(loaders=loaders, org_id=group["organization"]),
@@ -225,7 +227,12 @@ async def add_git_root(loaders: Any, user_email: str, **kwargs: Any) -> None:
         )
 
 
-async def add_ip_root(loaders: Any, user_email: str, **kwargs: Any) -> None:
+async def add_ip_root(
+    loaders: Any,
+    user_email: str,
+    ensure_org_uniqueness: bool = True,
+    **kwargs: Any,
+) -> None:
     group_name: str = kwargs["group_name"].lower()
     address: str = kwargs["address"]
     port = str(kwargs["port"])
@@ -238,7 +245,7 @@ async def add_ip_root(loaders: Any, user_email: str, **kwargs: Any) -> None:
 
     group = await loaders.group.load(group_name)
 
-    if not validations.is_ip_unique(
+    if ensure_org_uniqueness and not validations.is_ip_unique(
         address,
         port,
         await get_org_roots(loaders=loaders, org_id=group["organization"]),
@@ -269,7 +276,12 @@ async def add_ip_root(loaders: Any, user_email: str, **kwargs: Any) -> None:
     await roots_model.add(root=root)
 
 
-async def add_url_root(loaders: Any, user_email: str, **kwargs: Any) -> None:
+async def add_url_root(
+    loaders: Any,
+    user_email: str,
+    ensure_org_uniqueness: bool = True,
+    **kwargs: Any,
+) -> None:
     group_name: str = kwargs["group_name"].lower()
 
     try:
@@ -290,7 +302,7 @@ async def add_url_root(loaders: Any, user_email: str, **kwargs: Any) -> None:
     protocol: str = url_attributes.scheme.upper()
     group = await loaders.group.load(group_name)
 
-    if not validations.is_url_unique(
+    if ensure_org_uniqueness and not validations.is_url_unique(
         host,
         path,
         port,
@@ -346,8 +358,7 @@ async def update_git_environments(
     root_id: str,
     environment_urls: List[str],
 ) -> None:
-    root_loader: DataLoader = loaders.root
-    root: RootItem = await root_loader.load((group_name, root_id))
+    root: RootItem = await loaders.root.load((group_name, root_id))
 
     if not isinstance(root, GitRootItem):
         raise InvalidParameter()
@@ -499,8 +510,7 @@ async def activate_root(
     new_status = "ACTIVE"
 
     if root.state.status != new_status:
-        group_loader: DataLoader = loaders.group
-        group = await group_loader.load(group_name)
+        group = await loaders.group.load(group_name)
         org_roots = await get_org_roots(
             loaders=loaders, org_id=group["organization"]
         )
