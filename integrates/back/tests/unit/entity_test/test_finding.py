@@ -494,6 +494,7 @@ async def test_update_description() -> None:
             $findingId: String!,
             $recommendation: String!,
             $threat: String!,
+            $title: String!,
         ){
             updateDescription(
             affectedSystems: $affectedSystems,
@@ -504,6 +505,7 @@ async def test_update_description() -> None:
             recommendation: $recommendation,
             recordsNumber: $compromisedRecords,
             threat: $threat,
+            title: $title,
             ) {
             success
             }
@@ -518,6 +520,7 @@ async def test_update_description() -> None:
         "findingId": "422286126",
         "recommendation": "Updated recommendation",
         "threat": "Updated threat",
+        "title": "051. Weak passwords reversed",
     }
     data = {"query": query, "variables": variables}
     result = await _get_result(data)

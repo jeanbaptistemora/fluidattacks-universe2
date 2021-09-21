@@ -19,6 +19,7 @@ class FindingDescriptionToUpdate(NamedTuple):
     recommendation: Optional[str] = None
     sorts: Optional[FindingSorts] = None
     threat: Optional[str] = None
+    title: Optional[str] = None
 
 
 class FindingDraftToAdd(NamedTuple):

@@ -23,6 +23,7 @@ async def get_result(  # pylint: disable=too-many-locals
     recommendation: str = "edited recommendation"
     sorts: str = "YES"
     threat: str = "Updated threat"
+    title: str = "051. Weak passwords reversed"
     query: str = f"""
         mutation {{
             updateDescription(
@@ -35,6 +36,7 @@ async def get_result(  # pylint: disable=too-many-locals
                 recordsNumber: {records_number},
                 sorts: {sorts},
                 threat: "{threat}",
+                title: "{title}",
             ) {{
                 finding {{
                     affectedSystems

@@ -26,6 +26,7 @@ from contextlib import (
 from custom_exceptions import (
     FindingNotFound,
     InvalidCommentParent,
+    InvalidDraftTitle,
     NotVerificationRequested,
     PermissionDenied,
     UnavailabilityError,
@@ -1303,12 +1304,14 @@ async def update_description(
     validations.validate_fields(
         list(cast(Dict[str, str], updated_values.values()))
     )
+    updated_values["finding"] = updated_values.get("title")
     updated_values["vulnerability"] = updated_values.get("description")
     updated_values["effect_solution"] = updated_values.get("recommendation")
     updated_values["records_number"] = str(
         updated_values.get("records_number")
     )
     updated_values["id"] = finding_id
+    del updated_values["title"]
     del updated_values["description"]
     del updated_values["recommendation"]
     updated_values = {
@@ -1320,7 +1323,11 @@ async def update_description(
         for k in updated_values
     }
 
-    return await findings_dal.update(finding_id, updated_values)
+    if findings_utils.is_valid_finding_title(
+        str(updated_values.get("finding", ""))
+    ):
+        return await findings_dal.update(finding_id, updated_values)
+    raise InvalidDraftTitle()
 
 
 async def update_description_new(
@@ -1329,6 +1336,11 @@ async def update_description_new(
     validations.validate_fields(
         list(filter(None, description._asdict().values()))
     )
+    if (
+        description.title is not None
+        and not findings_utils.is_valid_finding_title(description.title)
+    ):
+        raise InvalidDraftTitle()
 
     finding_loader = loaders.finding_new
     finding: Finding = await finding_loader.load(finding_id)
@@ -1341,6 +1353,7 @@ async def update_description_new(
         recommendation=description.recommendation,
         sorts=description.sorts,
         threat=description.threat,
+        title=description.title,
     )
     await findings_model.update_medatada(
         group_name=finding.group_name,
