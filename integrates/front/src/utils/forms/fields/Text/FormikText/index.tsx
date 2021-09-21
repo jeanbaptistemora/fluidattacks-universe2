@@ -32,6 +32,7 @@ export const FormikText: React.FC<ITextProps> = (
   return (
     <React.Fragment>
       <StyledInput
+        autoComplete={"off"}
         disabled={disabled}
         id={id}
         max={max}

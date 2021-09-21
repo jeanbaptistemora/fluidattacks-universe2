@@ -6,7 +6,7 @@ export const enTranslations: ResourceKey = {
       meanTimeToRemediate: {
         tooltip: {
           alt: "Mean time to remediate",
-          default: "Mean time to remediate & CVSSF",
+          default: "Mean time to remediate & severity",
         },
       },
       mttrBenchmarking: {
@@ -19,7 +19,7 @@ export const enTranslations: ResourceKey = {
       topVulnerabilities: {
         title: "Top vulnerabilities",
         tooltip: {
-          cvssf: "CVSSF",
+          cvssf: "Severity",
           vulnerabilities: "Vulnerabilities",
         },
       },
@@ -119,7 +119,7 @@ export const enTranslations: ResourceKey = {
       distributionOverTimeCvssf: {
         title: "Distribution over time",
         tooltip: {
-          cvssf: "CVSSF",
+          cvssf: "Severity",
           vulnerabilities: "Vulnerabilities",
         },
       },
@@ -130,7 +130,7 @@ export const enTranslations: ResourceKey = {
         altTitle: "Vulnerabilities over time",
         title: "Severity over time",
         tooltip: {
-          cvssf: "CVSSF",
+          cvssf: "Severity",
           vulnerabilities: "Vulnerabilities",
         },
       },

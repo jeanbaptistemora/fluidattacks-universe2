@@ -33,7 +33,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
       url: "",
     },
     default: {
-      label: "Cvssf",
+      label: "Severity",
       title: translate.t(
         "analytics.stackedBarChart.distributionOverTimeCvssf.title"
       ),
@@ -93,7 +93,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
       url: "#vulnerabilities-over-time",
     },
     default: {
-      label: "Cvssf",
+      label: "Severity",
       title: translate.t("analytics.stackedBarChart.riskOverTime.title"),
       tooltip: translate.t(
         "analytics.stackedBarChart.riskOverTime.tooltip.cvssf"
@@ -113,7 +113,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
       url: "#top-vulnerabilities",
     },
     default: {
-      label: "Cvssf",
+      label: "Severity",
       title: translate.t("analytics.barChart.topVulnerabilities.title"),
       tooltip: translate.t(
         "analytics.barChart.topVulnerabilities.tooltip.cvssf"
