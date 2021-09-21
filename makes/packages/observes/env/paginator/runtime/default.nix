@@ -1,5 +1,6 @@
 { makes
 , makeTemplate
+, packages
 , path
 , ...
 }:
@@ -20,6 +21,7 @@ makeTemplate {
         name = "observes-env-paginator-runtime";
         sourcesYaml = ./pypi-sources.yaml;
       })
+      packages.observes.env.purity.runtime
     ];
   };
 }
