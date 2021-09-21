@@ -13,6 +13,7 @@ from sast_symbolic_evaluation.cases.method_invocation.java import (
     list_remove as java_list_remove,
 )
 from sast_symbolic_evaluation.cases.method_invocation.javascript import (
+    insecure_crypto_js,
     insecure_key as javascript_insecure_key,
     list_concat as javascript_list_concat,
     list_get as javascript_list_get,
@@ -505,6 +506,16 @@ BY_TYPE_HANDLER = complete_attrs_on_dict(
         "crypto": {
             "generateKeyPair": {
                 javascript_insecure_key,
+            }
+        },
+        "crypto-js.AES": {
+            "encrypt": {
+                insecure_crypto_js,
+            }
+        },
+        "crypto-js": {
+            "AES.encrypt": {
+                insecure_crypto_js,
             }
         },
     }

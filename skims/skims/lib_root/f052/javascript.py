@@ -37,6 +37,7 @@ from utils.languages.javascript import (
 )
 from utils.string import (
     build_attr_paths,
+    complete_attrs_on_set,
     split_on_first_dot,
     split_on_last_dot,
 )
@@ -81,6 +82,7 @@ def _test_native_cipher(
 
 
 def _test_crypto_js(
+    graph_db: GraphDB,
     shard: GraphShard,
     invocation_step: SyntaxStepMethodInvocation,
 ) -> Iterator[Vulnerability]:
@@ -92,16 +94,27 @@ def _test_crypto_js(
         chain.from_iterable(build_attr_paths(*method) for method in _methods)
     )
     _, method = split_on_first_dot(invocation_step.method)
-    if method not in methods:
-        return
-        yield  # pylint: disable=unreachable
-    yield get_vulnerabilities_from_n_ids(
-        cwe=("310", "327"),
-        desc_key=("src.lib_path.f052.insecure_cipher.description"),
-        desc_params=dict(lang="JavaScript"),
-        finding=FINDING,
-        graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
-    )
+    if method in methods:
+        yield get_vulnerabilities_from_n_ids(
+            cwe=("310", "327"),
+            desc_key=("src.lib_path.f052.insecure_cipher.description"),
+            desc_params=dict(lang="JavaScript"),
+            finding=FINDING,
+            graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
+        )
+    elif method in complete_attrs_on_set(
+        {
+            "crypto-js.AES.encrypt",
+        }
+    ):
+        append_label_input(shard.graph, "1", FINDING)
+        mark_methods_sink(
+            FINDING,
+            shard.graph,
+            shard.syntax,
+            {"encrypt"},
+        )
+        yield shard_n_id_query(graph_db, FINDING, shard, "1")
 
 
 def insecure_cipher(
@@ -121,7 +134,7 @@ def insecure_cipher(
                 index,
                 invocation_step,
             )
-            yield from _test_crypto_js(shard, invocation_step)
+            yield from _test_crypto_js(graph_db, shard, invocation_step)
 
     return tuple(chain.from_iterable(find_vulns()))
 

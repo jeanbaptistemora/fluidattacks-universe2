@@ -24,6 +24,7 @@ from typing import (
 )
 from utils.crypto import (
     insecure_elliptic_curve,
+    is_vulnerable_cipher,
 )
 from utils.string import (
     split_on_first_dot,
@@ -210,4 +211,32 @@ def insecure_key(args: EvaluatorArgs) -> None:
             curve_name.meta.value
             and insecure_elliptic_curve(curve_name.meta.value)
         )
+    return None
+
+
+@javascript_only
+def insecure_crypto_js(args: EvaluatorArgs) -> None:
+    arguments = args.dependencies
+    if len(arguments) < 3:
+        return None
+
+    *_, _options, _, _ = arguments
+    options = _options.meta.value
+    cipher_mode = None
+    cipher_padding = None
+    if (
+        isinstance(options, dict)
+        and (cipher_mode := options.get("mode"))
+        and cipher_mode.type == "SyntaxStepMemberAccessExpression"
+    ):
+        cipher_padding = options.get("padding")
+        args.syntax_step.meta.danger = is_vulnerable_cipher(
+            "aes",
+            cipher_mode.member,
+            cipher_padding.member
+            if cipher_padding
+            and cipher_padding.type == "SyntaxStepMemberAccessExpression"
+            else None,
+        )
+
     return None
