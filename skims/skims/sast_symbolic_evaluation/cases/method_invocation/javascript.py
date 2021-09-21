@@ -22,6 +22,9 @@ from typing import (
     Dict,
     Set,
 )
+from utils.crypto import (
+    insecure_elliptic_curve,
+)
 from utils.string import (
     split_on_first_dot,
 )
@@ -197,5 +200,14 @@ def insecure_key(args: EvaluatorArgs) -> None:
     ):
         args.syntax_step.meta.danger = (
             key_length.meta.value and key_length.meta.value < 2048
+        )
+    elif (
+        key_type.meta.value == "ec"
+        and isinstance(options, dict)
+        and (curve_name := options.get("namedCurve"))
+    ):
+        args.syntax_step.meta.danger = (
+            curve_name.meta.value
+            and insecure_elliptic_curve(curve_name.meta.value)
         )
     return None

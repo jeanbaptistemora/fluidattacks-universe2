@@ -1543,9 +1543,84 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test121.js,6,328,skims,052.
   21 |     (err, publicKey, privateKey) => {
      ^ Col 0
 "
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test133.js,6,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 | const { generateKeyPair } = require(""crypto"");
+   4 |
+   5 | router.get(""/test133"", function (req, res) {
+>  6 |   generateKeyPair(
+   7 |     ""ec"",
+   8 |     {
+   9 |       namedCurve: ""secp192k1"",
+  10 |       publicKeyEncoding: {
+  11 |         type: ""spki"",
+  12 |         format: ""pem"",
+  13 |       },
+  14 |       privateKeyEncoding: {
+  15 |         type: ""pkcs8"",
+  16 |         format: ""pem"",
+  17 |       },
+  18 |     },
+  19 |     (err, publicKey, privateKey) => {
+  20 |       if (err) console.log(""Error!"", err);
+  21 |       res.send(publicKey);
+     ^ Col 0
+"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test134.js,6,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 | const { generateKeyPair } = require(""crypto"");
+   4 |
+   5 | router.get(""/test134"", function (req, res) {
+>  6 |   generateKeyPair(
+   7 |     ""ec"",
+   8 |     {
+   9 |       namedCurve: ""secp192k1"",
+  10 |       publicKeyEncoding: {
+  11 |         type: ""spki"",
+  12 |         format: ""pem"",
+  13 |       },
+  14 |       privateKeyEncoding: {
+  15 |         type: ""pkcs8"",
+  16 |         format: ""pem"",
+  17 |       },
+  18 |     },
+  19 |     (err, publicKey, privateKey) => {
+  20 |       if (err) console.log(""Error!"", err);
+  21 |       res.send(publicKey);
+     ^ Col 0
+"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test132.js,17,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+","
+   3 | const { generateKeyPair } = require(""crypto"");
+   4 |
+   5 | router.get(""/test132"", function (req, res) {
+   6 |   let key_options = {
+   7 |     namedCurve: ""secp192k1"",
+   8 |     publicKeyEncoding: {
+   9 |       type: ""spki"",
+  10 |       format: ""pem"",
+  11 |     },
+  12 |     privateKeyEncoding: {
+  13 |       type: ""pkcs8"",
+  14 |       format: ""pem"",
+  15 |     },
+  16 |   };
+> 17 |   generateKeyPair(""ec"", key_options, (err, publicKey, privateKey) => {
+  18 |     if (err) console.log(""Error!"", err);
+  19 |     res.send(publicKey);
+  20 |   });
+  21 | });
+  22 |
+  23 | export default router;
+     ^ Col 0
+"
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test130.js,19,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
 ","
-   5 | router.get(""/test129"", function (req, res) {
+   5 | router.get(""/test130"", function (req, res) {
    6 |   let key_options = {
    7 |     modulusLength: 1024,
    8 |     publicKeyEncoding: {
@@ -1570,7 +1645,7 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test130.js,19,328,skims,052
 "
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test131.js,19,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
 ","
-   5 | router.get(""/test129"", function (req, res) {
+   5 | router.get(""/test131"", function (req, res) {
    6 |   let key_options = {
    7 |     modulusLength: 512,
    8 |     publicKeyEncoding: {
