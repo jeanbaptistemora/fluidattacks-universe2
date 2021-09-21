@@ -71,7 +71,7 @@ async def mutate(
             cvss_fields = {
                 key: Decimal(str(value))
                 for key, value in kwargs.items()
-                if key != "cvss_version"
+                if key not in {"cvss_version", "id"}
             }
         except InvalidOperation:
             raise InvalidCvssField()
