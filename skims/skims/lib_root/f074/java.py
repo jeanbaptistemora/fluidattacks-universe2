@@ -44,3 +44,6 @@ def commented_code(
         finding=core_model.FindingEnum.F074,
         graph_shard_nodes=n_ids(),
     )
+
+
+FINDING: core_model.FindingEnum = core_model.FindingEnum.F074

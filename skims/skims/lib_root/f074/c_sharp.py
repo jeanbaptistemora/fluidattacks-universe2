@@ -27,6 +27,7 @@ def commented_code(
             ):
                 code: str = shard.graph.nodes[comment_id]["label_text"]
 
+                # remove // or /*
                 if code.endswith("*/"):
                     code = code[2:-2]
                 else:
@@ -43,3 +44,6 @@ def commented_code(
         finding=core_model.FindingEnum.F074,
         graph_shard_nodes=n_ids(),
     )
+
+
+FINDING: core_model.FindingEnum = core_model.FindingEnum.F074
