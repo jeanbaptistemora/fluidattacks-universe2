@@ -137,7 +137,7 @@ locals {
   compute_environments_spot = {
     for name, instances in {
       observes = 3
-      spot     = 1
+      spot     = 3
       } : name => {
       bid_percentage      = 100
       instances           = instances
