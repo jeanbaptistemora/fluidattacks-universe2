@@ -16,6 +16,7 @@
               "/observes/common/singer_io"
               "/observes/common/utils_logger"
               "/observes/common/postgres_client"
+              "/observes/common/purity"
               "/observes/services/batch_stability"
               "/observes/services/job_last_success"
               "/observes/services/jobs_scheduler"
@@ -49,6 +50,10 @@
       observesCommonPostgresClient = {
         config = "/observes/common/postgres_client/postgres_client/setup.imports.cfg";
         src = "/observes/common/postgres_client";
+      };
+      observesCommonPurity = {
+        config = "/observes/common/purity/purity/setup.imports.cfg";
+        src = "/observes/common/purity";
       };
       observesCommonSingerIo = {
         config = "/observes/common/singer_io/singer_io/setup.imports.cfg";
@@ -131,6 +136,13 @@
         ];
         python = "3.8";
         src = "/observes/common/postgres_client/postgres_client";
+      };
+      observesCommonPurity = {
+        extraSources = [
+          inputs.product.observes-env-purity-runtime
+        ];
+        python = "3.8";
+        src = "/observes/common/purity/purity";
       };
       observesCommonPostgresClientTests = {
         extraSources = [
