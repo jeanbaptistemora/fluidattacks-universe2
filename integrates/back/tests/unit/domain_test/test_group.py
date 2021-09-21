@@ -447,6 +447,31 @@ async def test_get_mean_remediate_cvssf_new(
     assert mean_remediate_cvssf_new == expected_output
 
 
+@pytest.mark.skipif(not MIGRATION, reason="Finding migration")
+@freeze_time("2020-12-01")
+@pytest.mark.parametrize(
+    ("min_days", "expected_output"),
+    (
+        (0, Decimal("376.404")),
+        (30, Decimal("0")),
+        (90, Decimal("0")),
+    ),
+)
+async def test_get_mean_remediate_non_treated_cvssf_new(
+    min_days: int, expected_output: Decimal
+) -> None:
+    loaders = get_new_context()
+    group_name = "unittesting"
+    mttr_no_treated_cvssf_new = await get_mean_remediate_non_treated_cvssf_new(
+        loaders,
+        group_name,
+        (datetime.now() - timedelta(days=min_days)).date()
+        if min_days
+        else None,
+    )
+    assert mttr_no_treated_cvssf_new == expected_output
+
+
 @pytest.mark.skipif(MIGRATION, reason="Finding migration")
 @freeze_time("2020-12-01")
 @pytest.mark.parametrize(
