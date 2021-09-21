@@ -459,8 +459,8 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       onChangeSelect: onStatusChange,
       placeholder: "Status",
       selectOptions: {
-        Closed: "Closed",
-        Open: "Open",
+        closed: "Closed",
+        open: "Open",
       },
       tooltipId: "group.findings.filtersTooltips.status.id",
       tooltipMessage: "group.findings.filtersTooltips.status",
@@ -468,7 +468,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     },
     {
       defaultValue: "",
-      onChangeInput: onAgeChange,
       placeholder: "Severity (range)",
       rangeProps: {
         defaultValue: severityFilter,
