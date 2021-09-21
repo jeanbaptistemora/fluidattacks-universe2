@@ -9,6 +9,7 @@ from pandas import (
 )
 import tempfile
 from training.constants import (
+    DATASET_THRESHOLD,
     S3_BUCKET,
 )
 from training.redshift import (
@@ -62,6 +63,15 @@ def main() -> None:
         S3_BUCKET.upload_file(local_merged_file, remote_merged_file)
 
         n_rows = len(merged_features.index)
+        if n_rows < DATASET_THRESHOLD * 1000:
+            # Replace just generated dataset by its backup
+            S3_BUCKET.copy(
+                {
+                    "Bucket": S3_BUCKET.name,
+                    "Key": f"training/{backup_filename}",
+                },
+                f"training/{merged_filename}",
+            )
         redshift.insert("dataset", {"n_rows": n_rows})
         print(
             "[INFO]: Our current dataset has a total number of "
