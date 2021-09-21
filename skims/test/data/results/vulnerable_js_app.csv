@@ -1518,6 +1518,81 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test118.js,10,328,skims,052
   21 |   });
      ^ Col 0
 "
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test121.js,6,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 | const { generateKeyPair } = require(""crypto"");
+   4 |
+   5 | router.get(""/test121"", function (req, res) {
+>  6 |   generateKeyPair(
+   7 |     ""rsa"",
+   8 |     {
+   9 |       modulusLength: 1024,
+  10 |       publicKeyEncoding: {
+  11 |         type: ""pkcs1"",
+  12 |         format: ""pem"",
+  13 |       },
+  14 |       privateKeyEncoding: {
+  15 |         type: ""pkcs1"",
+  16 |         format: ""pem"",
+  17 |         //cipher: ""aes-256-cbc"", //Optional
+  18 |         //passphrase: """", //Optional
+  19 |       },
+  20 |     },
+  21 |     (err, publicKey, privateKey) => {
+     ^ Col 0
+"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test130.js,19,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+","
+   5 | router.get(""/test129"", function (req, res) {
+   6 |   let key_options = {
+   7 |     modulusLength: 1024,
+   8 |     publicKeyEncoding: {
+   9 |       type: ""pkcs1"",
+  10 |       format: ""pem"",
+  11 |     },
+  12 |     privateKeyEncoding: {
+  13 |       type: ""pkcs1"",
+  14 |       format: ""pem"",
+  15 |       //cipher: ""aes-256-cbc"", //Optional
+  16 |       //passphrase: """", //Optional
+  17 |     },
+  18 |   };
+> 19 |   generateKeyPair(""rsa"", key_options, (err, publicKey, privateKey) => {
+  20 |     if (err) console.log(""Error!"", err);
+  21 |     res.send(publicKey);
+  22 |   });
+  23 | });
+  24 |
+  25 | export default router;
+     ^ Col 0
+"
+F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test131.js,19,328,skims,052. Insecure encryption algorithm,"The application uses insecure encryption algorithms.
+","
+   5 | router.get(""/test129"", function (req, res) {
+   6 |   let key_options = {
+   7 |     modulusLength: 512,
+   8 |     publicKeyEncoding: {
+   9 |       type: ""pkcs1"",
+  10 |       format: ""pem"",
+  11 |     },
+  12 |     privateKeyEncoding: {
+  13 |       type: ""pkcs1"",
+  14 |       format: ""pem"",
+  15 |       //cipher: ""aes-256-cbc"", //Optional
+  16 |       //passphrase: """", //Optional
+  17 |     },
+  18 |   };
+> 19 |   generateKeyPair(""rsa"", key_options, (err, publicKey, privateKey) => {
+  20 |     if (err) console.log(""Error!"", err);
+  21 |     res.send(publicKey);
+  22 |   });
+  23 | });
+  24 |
+  25 | export default router;
+     ^ Col 0
+"
 F042,lines,VULNERABLE_JS_APP/server/routes/testcases/test097.js,6,614,skims,042. Insecurely generated cookies,"El sistema no establece los atributos de seguridad para las cookies sensibles, lo que podría hacer que se envíen en texto plano o sean visualizadas por usuarios no autorizados del lado del cliente.
 ","
    1 | import { Router } from ""express"";

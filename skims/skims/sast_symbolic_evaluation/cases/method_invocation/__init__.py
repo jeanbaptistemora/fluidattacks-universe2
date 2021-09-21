@@ -13,6 +13,7 @@ from sast_symbolic_evaluation.cases.method_invocation.java import (
     list_remove as java_list_remove,
 )
 from sast_symbolic_evaluation.cases.method_invocation.javascript import (
+    insecure_key as javascript_insecure_key,
     list_concat as javascript_list_concat,
     list_get as javascript_list_get,
     list_pop as javascript_list_pop,
@@ -501,6 +502,11 @@ BY_TYPE_HANDLER = complete_attrs_on_dict(
                 javascript_process_cookie,
             },
         },
+        "crypto": {
+            "generateKeyPair": {
+                javascript_insecure_key,
+            }
+        },
     }
 )
 
@@ -697,18 +703,17 @@ def attemp_by_type_handler(args: EvaluatorArgs, method: str) -> bool:
     method_var, method_path = split_on_first_dot(method)
 
     method_var_decl = lookup_var_dcl_by_name(args, method_var)
-    if (
-        method_var_decl
-        and method_var_decl.var_type_base
-        and (
-            handlers := BY_TYPE_HANDLER.get(
-                method_var_decl.var_type_base, {}
-            ).get(method_path)
-        )
-    ):
-        for handler in handlers:
-            handler(args)
-        return True
+    if method_var_decl and method_var_decl.var_type_base:
+        var_type = method_var_decl.var_type_base
+        if handlers := BY_TYPE_HANDLER.get(var_type, {}).get(method_path):
+            for handler in handlers:
+                handler(args)
+            return True
+        base_type, _function = split_on_last_dot(var_type)
+        if handlers := BY_TYPE_HANDLER.get(base_type, {}).get(_function):
+            for handler in handlers:
+                handler(args)
+            return True
 
     return False
 

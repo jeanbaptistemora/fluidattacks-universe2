@@ -181,3 +181,21 @@ def process_cookie(args: EvaluatorArgs) -> None:
             continue
         if _secure := _arg_value.get("secure"):
             args.syntax_step.meta.danger = _secure.meta.value is False
+
+
+@javascript_only
+def insecure_key(args: EvaluatorArgs) -> None:
+    arguments = args.dependencies
+    if len(arguments) < 2:
+        return None
+    *_, _options, key_type = arguments
+    options = _options.meta.value
+    if (
+        key_type.meta.value == "rsa"
+        and isinstance(options, dict)
+        and (key_length := options.get("modulusLength"))
+    ):
+        args.syntax_step.meta.danger = (
+            key_length.meta.value and key_length.meta.value < 2048
+        )
+    return None

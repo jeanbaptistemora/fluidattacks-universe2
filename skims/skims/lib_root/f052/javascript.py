@@ -135,23 +135,31 @@ def insecure_key(graph_db: GraphDB) -> Vulnerabilities:
             step_index,
         ) in yield_javascript_method_invocation(graph_db):
             _, method = split_on_last_dot(invocation_step.method)
-            if method not in {"createECDH"}:
-                continue
-            dependencies = get_dependencies(step_index, syntax_steps)
-            curve = dependencies[-1]
-            if (
-                # pylint: disable=used-before-assignment
-                curve.type == "SyntaxStepLiteral"
-                and (algorithm_value := curve.value)
-                and insecure_elliptic_curve(algorithm_value)
-            ):
-                yield get_vulnerabilities_from_n_ids(
-                    cwe=("310", "327"),
-                    desc_key="src.lib_path.f052.insecure_key.description",
-                    desc_params=dict(lang="JavaScript"),
-                    finding=FINDING,
-                    graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
+            if method in {"createECDH"}:
+                dependencies = get_dependencies(step_index, syntax_steps)
+                curve = dependencies[-1]
+                if (
+                    # pylint: disable=used-before-assignment
+                    curve.type == "SyntaxStepLiteral"
+                    and (algorithm_value := curve.value)
+                    and insecure_elliptic_curve(algorithm_value)
+                ):
+                    yield get_vulnerabilities_from_n_ids(
+                        cwe=("310", "327"),
+                        desc_key="src.lib_path.f052.insecure_key.description",
+                        desc_params=dict(lang="JavaScript"),
+                        finding=FINDING,
+                        graph_shard_nodes=[(shard, invocation_step.meta.n_id)],
+                    )
+            elif "generateKeyPair" in invocation_step.method:
+                append_label_input(shard.graph, "1", FINDING)
+                mark_methods_sink(
+                    FINDING,
+                    shard.graph,
+                    shard.syntax,
+                    {"generateKeyPair"},
                 )
+                yield shard_n_id_query(graph_db, FINDING, shard, "1")
 
     return tuple(chain.from_iterable(find_vulns()))
 
