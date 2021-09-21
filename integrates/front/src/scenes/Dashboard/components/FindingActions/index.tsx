@@ -15,6 +15,7 @@ interface IFindingActionsProps {
   isDraft: boolean;
   loading: boolean;
   onApprove: () => void;
+  onDelete: () => void;
   onReject: () => void;
   onSubmit: () => void;
 }
@@ -28,6 +29,7 @@ const findingActions: React.FC<IFindingActionsProps> = (
     isDraft,
     loading,
     onApprove,
+    onDelete,
     onReject,
     onSubmit,
   } = props;
@@ -105,6 +107,18 @@ const findingActions: React.FC<IFindingActionsProps> = (
                 );
               }}
             </ConfirmDialog>
+          </Can>
+          <Can do={"api_mutations_remove_finding_mutate"}>
+            <TooltipWrapper
+              displayClass={"dib"}
+              id={"searchFindings.delete.btn.tooltip"}
+              message={translate.t("searchFindings.delete.btn.tooltip")}
+            >
+              <Button onClick={onDelete}>
+                <FluidIcon icon={"delete"} />
+                &nbsp;{translate.t("searchFindings.delete.btn.text")}
+              </Button>
+            </TooltipWrapper>
           </Can>
         </React.Fragment>
       ) : undefined}
