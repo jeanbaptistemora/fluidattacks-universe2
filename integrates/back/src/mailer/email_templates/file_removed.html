@@ -1,5 +1,5 @@
 {% extends "layouts/common.html" %}
-{% from 'layouts/components/forms.html' import banner_group, go_to_button %}
+{% from 'layouts/components/forms.html' import banner_group %}
 
 {% block layout %}
 <div class="container">
@@ -12,8 +12,7 @@
       to your group <strong>"{{ group }}"</strong> but this file got removed due to a virus on it.
     </p>
     <p>
-      Please validate the file and try to upload it again on the group <strong>"{{ group }}
-      - {{ group_description }}"</strong>, by clicking the button below.
+      Please validate the file and try to upload it again on the group <strong>"{{ group }}"</strong>
     </p>
     <p>Regards,<br>
       Fluid Attacks Team</p>
