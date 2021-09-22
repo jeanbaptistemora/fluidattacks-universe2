@@ -1,11 +1,14 @@
 from .enums import (
     FindingCvssVersion,
+    FindingEvidenceName,
 )
 from .types import (
     Finding,
     Finding31Severity,
+    FindingEvidence,
 )
 from .utils import (
+    format_evidence_item,
     format_evidences_item,
     format_optional_state_item,
     format_optional_verification_item,
@@ -163,3 +166,27 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
     if finding.verification:
         items.append(historic_verification)
     await operations.batch_write_item(items=tuple(items), table=TABLE)
+
+
+async def add_evidence(
+    *,
+    group_name: str,
+    finding_id: str,
+    evidence_name: FindingEvidenceName,
+    evidence: FindingEvidence,
+) -> None:
+    key_structure = TABLE.primary_key
+    metadata_key = keys.build_key(
+        facet=TABLE.facets["finding_metadata"],
+        values={"group_name": group_name, "id": finding_id},
+    )
+    metadata_item = {
+        f"evidences.{evidence_name.value}": format_evidence_item(evidence)
+    }
+    condition_expression = Attr(key_structure.partition_key).exists()
+    await operations.update_item(
+        condition_expression=condition_expression,
+        item=metadata_item,
+        key=metadata_key,
+        table=TABLE,
+    )

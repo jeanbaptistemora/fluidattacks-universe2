@@ -8,6 +8,17 @@ class FindingCvssVersion(Enum):
     V20: str = "2.0"
 
 
+class FindingEvidenceName(Enum):
+    animation: str = "animation"
+    evidence1: str = "evidence1"
+    evidence2: str = "evidence2"
+    evidence3: str = "evidence3"
+    evidence4: str = "evidence4"
+    evidence5: str = "evidence5"
+    exploitation: str = "exploitation"
+    records: str = "records"
+
+
 class FindingSorts(Enum):
     NO: str = "NO"
     YES: str = "YES"

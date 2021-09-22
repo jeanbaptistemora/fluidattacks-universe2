@@ -6,6 +6,7 @@ from .enums import (
 )
 from .types import (
     Finding,
+    FindingEvidence,
     FindingEvidences,
     FindingState,
     FindingTreatmentSummary,
@@ -36,9 +37,17 @@ def filter_non_state_status_findings(
     )
 
 
+def format_evidence_item(evidence: FindingEvidence) -> Item:
+    return {
+        "description": evidence.description,
+        "modified_date": evidence.modified_date,
+        "url": evidence.url,
+    }
+
+
 def format_evidences_item(evidences: FindingEvidences) -> Item:
     return {
-        field: evidence._asdict()
+        field: format_evidence_item(evidence)
         for field, evidence in evidences._asdict().items()
         if evidence is not None
     }
