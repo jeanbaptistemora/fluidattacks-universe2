@@ -153,12 +153,9 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_vulnerability_new_hacker_resolve",
             "api_resolvers_vulnerability_new_historic_verification_resolve",
             "api_resolvers_vulnerability_new_historic_zero_risk_resolve",
-            "grant_group_level_role:analyst",
-            "grant_group_level_role:closer",
             "grant_group_level_role:customer",
             "grant_group_level_role:customeradmin",
             "grant_group_level_role:executive",
-            "grant_group_level_role:group_manager",
             "grant_group_level_role:hacker",
             "grant_group_level_role:reattacker",
             "grant_group_level_role:resourcer",
@@ -636,12 +633,9 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_vulnerability_analyst_resolve",
             "api_resolvers_vulnerability_hacker_resolve",
             "api_resolvers_vulnerability_historic_zero_risk_resolve",
-            "grant_group_level_role:analyst",
-            "grant_group_level_role:closer",
             "grant_group_level_role:customer",
             "grant_group_level_role:customeradmin",
             "grant_group_level_role:executive",
-            "grant_group_level_role:group_manager",
             "grant_group_level_role:hacker",
             "grant_group_level_role:reattacker",
             "grant_group_level_role:resourcer",
@@ -997,7 +991,6 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
     admin=dict(
         actions={
             *ORGANIZATION_LEVEL_ROLES["admin"]["actions"],
-            "grant_organization_level_role:group_manager",
             "grant_organization_level_role:system_owner",
         },
         tags={
@@ -1019,8 +1012,6 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
             *ORGANIZATION_LEVEL_ROLES["customeradmin"]["actions"],
             "api_mutations_add_group_mutate",
             "api_mutations_create_group_mutate",
-            "grant_organization_level_role:group_manager",
-            "grant_organization_level_role:system_owner",
         },
         tags={
             *ORGANIZATION_LEVEL_ROLES["customeradmin"]["tags"],
@@ -1031,7 +1022,6 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
             *ORGANIZATION_LEVEL_ROLES["system_owner"]["actions"],
             "api_mutations_add_group_mutate",
             "api_mutations_create_group_mutate",
-            "grant_organization_level_role:group_manager",
             "grant_organization_level_role:system_owner",
         },
         tags={
@@ -1064,7 +1054,6 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_query_groups_with_forces_resolve",
             "front_can_use_groups_searchbar",
             "grant_user_level_role:admin",
-            "grant_user_level_role:analyst",
             "grant_user_level_role:customer",
             "grant_user_level_role:hacker",
         },
