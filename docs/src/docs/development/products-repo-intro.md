@@ -65,3 +65,45 @@ and is divided across many products.
     $ m gitlab:fluidattacks/product@master /skims --help
     $ m gitlab:fluidattacks/product@master /sorts --help
     ```
+
+## Updating
+
+No actions are required from you.
+
+Updates are rolled out automatically to your machine
+with a delay of at most 1 day.
+But anyway,
+if you want to force an update right away,
+just run `$ rm -rf ~/.cache/makes`
+
+## Troubleshooting
+
+### General considerations
+
+1. A stable internet connection is required
+1. A stable DNS resolver is required. Please consider using:
+    - IPv4: `1.1.1.1`, `8.8.8.8`, `8.8.4.4`
+    - IPv6: `2001:4860:4860::8888`, `2001:4860:4860::8844`
+
+### Checklist
+
+If the installation failed while installing Nix (step 1):
+
+1. Checkout the
+    [Nix manual](https://nixos.org/manual/nix/stable/#chap-installation)
+    for more detailed installation instructions.
+1. If the problem persists,
+    please let us know at help@fluidattacks.com.
+
+If the installation failed while installing Makes (step 2):
+
+1. Please let us know at help@fluidattacks.com.
+
+If the installation failed while using `$ m gitlab:xxx /yyy` (step 3):
+
+1. Repeat step two (installing Makes) and try again.
+
+1. Refresh the cache: `$ rm -rf ~/.cache/makes` and try again.
+
+1. If the problem persists,
+    please let us know at help@fluidattacks.com.
