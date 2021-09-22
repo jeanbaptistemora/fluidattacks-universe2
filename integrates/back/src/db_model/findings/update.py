@@ -1,11 +1,13 @@
 from .enums import (
     FindingCvssVersion,
+    FindingEvidenceName,
     FindingStateStatus,
 )
 from .types import (
     Finding20Severity,
     Finding31Severity,
     FindingEvidences,
+    FindingEvidenceToUpdate,
     FindingMetadataToUpdate,
     FindingState,
     FindingTreatmentSummary,
@@ -46,6 +48,32 @@ from enum import (
 from typing import (
     Tuple,
 )
+
+
+async def update_evidence(
+    *,
+    group_name: str,
+    finding_id: str,
+    evidence_name: FindingEvidenceName,
+    evidence: FindingEvidenceToUpdate,
+) -> None:
+    key_structure = TABLE.primary_key
+    metadata_key = keys.build_key(
+        facet=TABLE.facets["finding_metadata"],
+        values={"group_name": group_name, "id": finding_id},
+    )
+    metadata_item = {
+        f"evidences.{evidence_name.value}.{key}": value
+        for key, value in evidence._asdict().items()
+        if value is not None
+    }
+    condition_expression = Attr(key_structure.partition_key).exists()
+    await operations.update_item(
+        condition_expression=condition_expression,
+        item=metadata_item,
+        key=metadata_key,
+        table=TABLE,
+    )
 
 
 async def update_historic_verification(  # pylint: disable=too-many-locals

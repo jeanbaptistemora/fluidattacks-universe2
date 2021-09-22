@@ -170,6 +170,12 @@ class Finding(NamedTuple):
     verification: Optional[FindingVerification] = None
 
 
+class FindingEvidenceToUpdate(NamedTuple):
+    description: Optional[str] = None
+    modified_date: Optional[str] = None
+    url: Optional[str] = None
+
+
 class FindingMetadataToUpdate(NamedTuple):
     affected_systems: Optional[str] = None
     attack_vector_description: Optional[str] = None

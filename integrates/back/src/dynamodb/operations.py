@@ -246,7 +246,7 @@ async def update_item(
         if value is not None
     )
     attrs_to_remove = ",".join(
-        f"#{_format_map_attrs(attr)}"
+        f"{_format_map_attrs(attr)}"
         for attr, value in item.items()
         if value is None
     )

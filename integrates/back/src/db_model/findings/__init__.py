@@ -3,6 +3,7 @@ from .create import (
     add_evidence,
 )
 from .update import (
+    update_evidence,
     update_historic_verification,
     update_medatada,
     update_state,
@@ -15,6 +16,7 @@ __all__ = [
     "add",
     "add_evidence",
     # update
+    "update_evidence",
     "update_historic_verification",
     "update_medatada",
     "update_state",
