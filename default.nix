@@ -23,5 +23,7 @@ let
       ))
     )
   );
+
+  m = import (import ./makes.lock.nix).makesSrc;
 in
-components
+components // { inherit m; }
