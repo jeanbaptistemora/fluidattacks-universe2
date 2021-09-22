@@ -11,7 +11,6 @@ makeEntrypoint {
       template = path "/makes/applications/makes/profiles/template.sh";
     })
     {
-      envAsserts = [ "asserts" ];
       envIntegratesBack = [
         "integrates-back"
         "integrates-back-probes-liveness"
@@ -20,12 +19,7 @@ makeEntrypoint {
       envIntegratesCache = [ "integrates-cache" ];
       envIntegratesDb = [ "integrates-db" ];
       envIntegratesStorage = [ "integrates-storage" ];
-      envForces = [ "forces" ];
-      envHacker = [ "melts" "sorts" "skims" ];
-      envMelts = [ "melts" ];
-      envReviews = [ "reviews" ];
       envSkims = [ "skims" ];
-      envSorts = [ "sorts" ];
     };
   name = "makes-profiles";
   template = path "/makes/applications/makes/profiles/entrypoint.sh";
