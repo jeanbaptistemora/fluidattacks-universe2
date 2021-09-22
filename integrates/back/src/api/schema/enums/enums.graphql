@@ -373,7 +373,7 @@ enum StakeholderRole {
     Use `REATTACKER` instead.""")
   "Customer"
   CUSTOMER
-  "Customer Administrator"
+  "User manager"
   CUSTOMERADMIN
   "Executive"
   EXECUTIVE

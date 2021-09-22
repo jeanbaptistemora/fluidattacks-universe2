@@ -546,6 +546,13 @@ async def add_group(  # pylint: disable=too-many-arguments,too-many-locals
                 # Admins are not granted access to the group
                 # they are omnipresent
                 if not is_user_admin:
+                    # Only Fluid staff can be system owners
+                    # Customers are granted the user manager role
+                    role: str = (
+                        "system_owner"
+                        if users_domain.is_fluid_staff(user_email)
+                        else "customeradmin"
+                    )
                     success = success and all(
                         await collect(
                             (
@@ -553,7 +560,7 @@ async def add_group(  # pylint: disable=too-many-arguments,too-many-locals
                                     user_email, group_name, True
                                 ),
                                 authz.grant_group_level_role(
-                                    user_email, group_name, "system_owner"
+                                    user_email, group_name, role
                                 ),
                             )
                         )
