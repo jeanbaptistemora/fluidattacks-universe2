@@ -2,8 +2,8 @@
 """
 This migration swaps all non-fuid staff system owners to user managers
 
-Execution Time:    2021-09-09 at 14:01:08 UTC-05
-Finalization Time: 2021-09-09 at 14:02:13 UTC-05
+Execution Time:    2021-09-22 at 18:02:01 UTC-5
+Finalization Time: 2021-09-22 at 18:02:10 UTC-5
 """
 
 from aioextensions import (
@@ -30,7 +30,7 @@ from users.domain import (
 )
 
 # Constants
-PROD: bool = False
+PROD: bool = True
 
 AUTHZ_TABLE: str = "fi_authz"
 
@@ -89,30 +89,22 @@ async def update(
     return success
 
 
-async def process_user(user: UserType, new_role: str) -> bool:
+async def process_user(user: Dict[str, str]) -> bool:
     success = False
     if PROD:
-        email = user["subject"]
-        grouping = user["object"]
         success = await update(
             user["subject"],
             user["object"],
             {
-                "role": f"{new_role}",
+                "role": "customeradmin",
             },
         )
-        print(f"Updated user {email} from {grouping}")
-        print(user)
     return success
 
 
-async def migrate_roles(
-    users: List[UserType], old_role: str, new_role: str
-) -> None:
-    success = all(
-        await collect(process_user(user, new_role) for user in users)
-    )
-    print(f"{old_role}s migrated: {success}")
+async def migrate_users(users: List[UserType]) -> None:
+    success = all(await collect(process_user(user) for user in users))
+    print(f"Non Fluid system owners migrated: {success}")
 
 
 async def main() -> None:
@@ -122,10 +114,10 @@ async def main() -> None:
         user
         for user in authz_users
         if user.get("role", "") == "system_owner"
-        and not is_fluid_staff(user.get("email"))
+        and not is_fluid_staff(user.get("subject", ""))
     ]
 
-    await migrate_roles(so_users[:3], "system_owner", "customeradmin")
+    await migrate_users(so_users)
 
 
 if __name__ == "__main__":
