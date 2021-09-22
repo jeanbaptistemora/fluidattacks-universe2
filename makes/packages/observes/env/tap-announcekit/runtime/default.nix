@@ -22,6 +22,7 @@ makeTemplate {
         sourcesYaml = ./pypi-sources.yaml;
       })
       packages.observes.env.paginator.runtime
+      packages.observes.env.purity.runtime
       packages.observes.env.singer-io.runtime
       packages.observes.env.utils-logger.runtime
     ];
